@@ -23,7 +23,7 @@
 }
 
 .main-content {
-  @apply pt-20;
+  @apply pt-14 md:pt-20;
 }
 
 .content-container {
@@ -380,6 +380,17 @@
 
 .mobile-button {
   @apply w-full rounded-none text-center py-4;
+}
+
+.mobile-get-started-button {
+  @apply px-8;
+  min-width: 120px;
+  width: auto;
+}
+
+.desktop-get-started-button {
+  @apply px-8;
+  min-width: 140px;
 }
 
 .mobile-menu-overlay {

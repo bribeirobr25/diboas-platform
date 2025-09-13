@@ -81,7 +81,7 @@ export default function MobileNav({
             <Button
               variant="gradient"
               size="xs"
-              className="px-4"
+              className="mobile-get-started-button"
             >
               {config.actions.primary.label}
             </Button>

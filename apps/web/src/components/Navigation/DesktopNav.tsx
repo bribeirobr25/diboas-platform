@@ -81,6 +81,7 @@ export default function DesktopNav({
               <Button
                 variant="gradient"
                 size="sm"
+                className="desktop-get-started-button"
               >
                 {config.actions.primary.label}
               </Button>
