@@ -24,16 +24,29 @@ import { TrustSection } from '@/components/sections/TrustSection';
  * Analytics: Tracks section visibility and interactions
  */
 
+// Placeholder components for unimplemented sections
+const PlaceholderSection = ({ sectionId, type }: { sectionId?: string; type: string }) => (
+  <div className="py-20 bg-neutral-50 text-center">
+    <div className="max-w-7xl mx-auto px-4">
+      <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+        {type.charAt(0).toUpperCase() + type.slice(1)} Section
+      </h2>
+      <p className="text-neutral-600">
+        This section is coming soon. Stay tuned for updates!
+      </p>
+    </div>
+  </div>
+);
+
 // Section component registry - Single Source of Truth
 const SECTION_COMPONENTS = {
   hero: HeroSection,
   features: FeaturesSection,
   trust: TrustSection,
-  // Additional sections to be added when implemented
-  // testimonials: TestimonialsSection,
-  // pricing: PricingSection,
-  // comparison: ComparisonSection,
-  // cta: CTASection,
+  testimonials: (props: any) => <PlaceholderSection {...props} type="testimonials" />,
+  pricing: (props: any) => <PlaceholderSection {...props} type="pricing" />,
+  comparison: (props: any) => <PlaceholderSection {...props} type="comparison" />,
+  cta: (props: any) => <PlaceholderSection {...props} type="cta" />,
 } as const;
 
 interface PageBuilderProps {
@@ -50,7 +63,7 @@ interface SectionWrapperProps {
 
 // Performance: Individual section wrapper with lazy loading
 function SectionWrapper({ section, index, locale }: SectionWrapperProps) {
-  const Component = SECTION_COMPONENTS[section.type];
+  const Component = SECTION_COMPONENTS[section.type] as any;
   
   if (!Component) {
     console.warn(`Unknown section type: ${section.type}`);
@@ -120,7 +133,7 @@ function SectionWrapper({ section, index, locale }: SectionWrapperProps) {
         >
           <Component
             {...section.sectionConfig}
-            content={section.sectionContent}
+            content={section.sectionContent as any}
             sectionId={section.id}
             locale={locale}
           />
@@ -138,7 +151,7 @@ function SectionWrapper({ section, index, locale }: SectionWrapperProps) {
     >
       <Component
         {...section.sectionConfig}
-        content={section.sectionContent}
+        content={section.sectionContent as any}
         sectionId={section.id}
         locale={locale}
       />

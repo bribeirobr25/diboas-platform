@@ -14,19 +14,20 @@ import { bankingPageConfig } from '@/lib/content/pages/banking';
  */
 
 interface BankingPageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { locale: string } 
+  params: Promise<{ locale: string }> 
 }): Promise<Metadata> {
-  const locale = params.locale as SupportedLocale;
+  const { locale } = await params;
+  const validLocale = locale as SupportedLocale;
   
-  if (!isValidLocale(locale)) {
+  if (!isValidLocale(validLocale)) {
     notFound();
   }
 
@@ -37,7 +38,7 @@ export async function generateMetadata({
     openGraph: {
       title: bankingPageConfig.metadata.openGraph?.title,
       description: bankingPageConfig.metadata.openGraph?.description,
-      url: `https://diboas.com/${locale}/banking`,
+      url: `https://diboas.com/${validLocale}/banking`,
       siteName: 'diBoaS',
       images: [
         {
@@ -47,7 +48,7 @@ export async function generateMetadata({
           alt: 'diBoaS Banking Services'
         }
       ],
-      locale: locale,
+      locale: validLocale,
       type: 'website',
     },
     twitter: {
@@ -57,7 +58,7 @@ export async function generateMetadata({
       images: [bankingPageConfig.metadata.twitter?.image || '/assets/social/banking-twitter.jpg'],
     },
     alternates: {
-      canonical: `https://diboas.com/${locale}/banking`,
+      canonical: `https://diboas.com/${validLocale}/banking`,
       languages: {
         'en': 'https://diboas.com/en/banking',
         'pt-BR': 'https://diboas.com/pt-BR/banking',
@@ -80,10 +81,11 @@ export async function generateStaticParams() {
   ];
 }
 
-export default function BankingPage({ params }: BankingPageProps) {
-  const locale = params.locale as SupportedLocale;
+export default async function BankingPage({ params }: BankingPageProps) {
+  const { locale } = await params;
+  const validLocale = locale as SupportedLocale;
   
-  if (!isValidLocale(locale)) {
+  if (!isValidLocale(validLocale)) {
     notFound();
   }
 
@@ -101,7 +103,7 @@ export default function BankingPage({ params }: BankingPageProps) {
       
       <PageBuilder 
         sections={bankingPageConfig.sections}
-        locale={locale}
+        locale={validLocale}
       />
     </>
   );

@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { LocaleProvider } from '@/components/LocaleProvider';
 import { Navigation } from '@/components/Navigation';
-import '../globals.css';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -41,7 +40,7 @@ export async function generateStaticParams() {
 // Use static generation for better performance
 export const dynamic = 'auto';
 
-export default async function RootLayout({ children, params }: RootLayoutProps) {
+export default async function LocaleLayout({ children, params }: RootLayoutProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
   
@@ -50,15 +49,11 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        <LocaleProvider initialLocale={locale}>
-          <Navigation />
-          <main className="pt-20">
-            {children}
-          </main>
-        </LocaleProvider>
-      </body>
-    </html>
+    <LocaleProvider initialLocale={locale}>
+      <Navigation />
+      <main className="pt-20">
+        {children}
+      </main>
+    </LocaleProvider>
   );
 }

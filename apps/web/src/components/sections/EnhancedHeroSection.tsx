@@ -5,6 +5,7 @@ import { Button } from '@diboas/ui';
 import { getMascotAsset, getLandingAsset } from '@/lib/assets';
 import { type HeroContent } from '@/lib/content/types';
 import Image from 'next/image';
+import Link from 'next/link';
 import { cn } from '@diboas/ui';
 
 /**
@@ -151,30 +152,26 @@ function HeroContent({
       {content.cta && (
         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
           {content.cta.primary && (
-            <Button 
-              variant="gradient"
-              size="xl"
-              className="animate-pulse-glow"
-              trackingEvent={content.cta.primary.trackingEvent}
-              utmSource={content.cta.primary.utmSource}
-              utmMedium={content.cta.primary.utmMedium}
-              utmCampaign={content.cta.primary.utmCampaign}
-              href={content.cta.primary.href}
-              aria-describedby={content.cta.primary.href.startsWith('#') ? undefined : 'external-link-desc'}
-            >
-              {content.cta.primary.text}
-            </Button>
+            <Link href={content.cta.primary.href} aria-describedby={content.cta.primary.href.startsWith('#') ? undefined : 'external-link-desc'} className="inline-block">
+              <Button 
+                variant="gradient"
+                size="xl"
+                className="animate-pulse-glow"
+              >
+                {content.cta.primary.text}
+              </Button>
+            </Link>
           )}
           
           {content.cta.secondary && (
-            <Button 
-              variant="outline"
-              size="xl"
-              trackingEvent={content.cta.secondary.trackingEvent}
-              href={content.cta.secondary.href}
-            >
-              {content.cta.secondary.text}
-            </Button>
+            <Link href={content.cta.secondary.href} className="inline-block">
+              <Button 
+                variant="outline"
+                size="xl"
+              >
+                {content.cta.secondary.text}
+              </Button>
+            </Link>
           )}
         </div>
       )}

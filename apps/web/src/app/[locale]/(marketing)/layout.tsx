@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { I18nProvider } from '@diboas/i18n';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { SkipLinks } from '@/components/accessibility/SkipLinks';
 import { LiveRegion } from '@/components/accessibility/LiveRegion';
@@ -18,21 +17,22 @@ import { Footer } from '@/components/layout/Footer';
 
 interface MarketingLayoutProps {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 // SEO: Generate metadata for marketing pages
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { locale: string } 
+  params: Promise<{ locale: string }> 
 }): Promise<Metadata> {
-  const locale = params.locale as SupportedLocale;
+  const { locale } = await params;
+  const validLocale = locale as SupportedLocale;
   
   // Security: Validate locale
-  if (!isValidLocale(locale)) {
+  if (!isValidLocale(validLocale)) {
     notFound();
   }
 
@@ -65,7 +65,7 @@ export async function generateMetadata({
     },
     // SEO: Language alternates
     alternates: {
-      canonical: `https://diboas.com/${locale}`,
+      canonical: `https://diboas.com/${validLocale}`,
       languages: {
         'en': 'https://diboas.com/en',
         'pt-BR': 'https://diboas.com/pt-BR', 
@@ -97,18 +97,18 @@ export default async function MarketingLayout({
   children, 
   params 
 }: MarketingLayoutProps) {
-  const locale = params.locale as SupportedLocale;
+  const { locale } = await params;
+  const validLocale = locale as SupportedLocale;
   
   // Security: Validate locale parameter
-  if (!isValidLocale(locale)) {
+  if (!isValidLocale(validLocale)) {
     notFound();
   }
 
-  // Load translations for the locale
-  const messages = await loadMessages(locale, 'marketing');
+  // TODO: Load translations for the locale when I18nProvider is available
 
   return (
-    <html lang={locale} dir="ltr" className="scroll-smooth">
+    <html lang={validLocale} dir="ltr" className="scroll-smooth">
       <head>
         {/* Performance: Critical CSS can be inlined here */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -122,30 +122,24 @@ export default async function MarketingLayout({
         {/* Accessibility: Skip navigation links */}
         <SkipLinks />
         
-        {/* i18n: Internationalization provider */}
-        <I18nProvider 
-          locale={locale}
-          messages={messages}
-          namespace="marketing"
-        >
-          {/* Accessibility: Live region for announcements */}
-          <LiveRegion />
+        {/* TODO: i18n: Internationalization provider when available */}
+        {/* Accessibility: Live region for announcements */}
+        <LiveRegion />
+        
+        {/* Marketing site structure */}
+        <div className="flex min-h-screen flex-col">
+          <Header />
           
-          {/* Marketing site structure */}
-          <div className="flex min-h-screen flex-col">
-            <Header currentLocale={locale} />
-            
-            <main 
-              id="main-content"
-              className="flex-1"
-              tabIndex={-1}
-            >
-              {children}
-            </main>
-            
-            <Footer currentLocale={locale} />
-          </div>
-        </I18nProvider>
+          <main 
+            id="main-content"
+            className="flex-1"
+            tabIndex={-1}
+          >
+            {children}
+          </main>
+          
+          <Footer />
+        </div>
         
         {/* Analytics: Google Analytics (conditional) */}
         {process.env.NODE_ENV === 'production' && (

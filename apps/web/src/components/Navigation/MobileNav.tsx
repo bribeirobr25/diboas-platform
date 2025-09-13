@@ -2,9 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
-import { Menu, X, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useEffect } from 'react';
+import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/ui';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -72,12 +73,17 @@ export default function MobileNav({
 
           <Link 
             href={config.actions.primary.href}
-            className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-2 rounded-lg font-medium text-xs hover:from-teal-600 hover:to-teal-700 transition-all"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackNavigationInteraction('get-started-mobile', 'click')}
+            className="inline-block"
           >
-            {config.actions.primary.label}
+            <Button
+              variant="gradient"
+              size="xs"
+            >
+              {config.actions.primary.label}
+            </Button>
           </Link>
 
           <button
@@ -85,7 +91,7 @@ export default function MobileNav({
             className="p-2"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <NavigationToggle isOpen={isOpen} />
           </button>
         </div>
       </nav>
@@ -94,12 +100,18 @@ export default function MobileNav({
       {isOpen && !activeSubmenu && (
         <Link
           href={config.actions.secondary.href}
-          className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-teal-500 to-teal-600 text-white text-center py-4 font-medium text-xs z-50 hover:from-teal-600 hover:to-teal-700 transition-all"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackNavigationInteraction('business-login-mobile', 'click')}
+          className="fixed bottom-0 left-0 right-0 z-50 block"
         >
-          {config.actions.secondary.label}
+          <Button
+            variant="gradient"
+            size="lg"
+            className="w-full rounded-none text-center py-4"
+          >
+            {config.actions.secondary.label}
+          </Button>
         </Link>
       )}
 
@@ -124,7 +136,7 @@ export default function MobileNav({
                   {config.mobileHighlights.map((item) => (
                     <Link
                       key={item.id}
-                      href={item.href}
+                      href={item.href || '#'}
                       className="bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px]"
                       onClick={() => {
                         trackNavigationInteraction(item.id, 'click');
@@ -158,7 +170,7 @@ export default function MobileNav({
                             <span className="text-2xl font-bold text-gray-900">
                               {item.label}
                             </span>
-                            <ChevronRight className="w-5 h-5 text-gray-400" />
+                            <ChevronRightIcon className="text-gray-400" />
                           </button>
                           {config.mainMenu.find(m => m.id === item.id)?.description && (
                             <p className="text-base text-gray-600 px-4 pb-2">
@@ -190,7 +202,7 @@ export default function MobileNav({
                         <span className="text-lg font-bold text-gray-900">
                           {item.label}
                         </span>
-                        <ChevronRight className="w-5 h-5 text-gray-400" />
+                        <ChevronRightIcon className="text-gray-400" />
                       </button>
                     </div>
                   );
@@ -209,7 +221,7 @@ export default function MobileNav({
                   onClick={goBack}
                   className="flex items-center space-x-2"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeftIcon />
                   <span className="font-medium">Back</span>
                 </button>
                 <button
@@ -217,7 +229,7 @@ export default function MobileNav({
                   className="p-2"
                   aria-label="Close menu"
                 >
-                  <X className="w-6 h-6" />
+                  <NavigationToggle isOpen={true} />
                 </button>
               </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FinancialCard, FinancialCardContent } from '@/components/ui';
+import { FinancialCard, FinancialCardContent, SectionHeader } from '@/components/ui';
 import { getLandingAsset } from '@/lib/assets';
 import Image from 'next/image';
 
@@ -57,14 +57,14 @@ export function TrustSection() {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
-            Your Security is <span className="text-primary-600">Our Priority</span>
-          </h2>
-          <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
-            Built with enterprise-grade security and zero-trust architecture to protect your financial future.
-          </p>
-        </div>
+        <SectionHeader
+          title="Your Security is Our Priority"
+          description="Built with enterprise-grade security and zero-trust architecture to protect your financial future."
+          size="xl"
+          alignment="center"
+          className="mb-16"
+          titleClassName="text-neutral-900"
+        />
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Visual */}
@@ -143,14 +143,13 @@ export function TrustSection() {
 
         {/* Security badges */}
         <div className="mt-16 pt-12 border-t border-neutral-200">
-          <div className="text-center mb-8">
-            <h3 className="text-xl font-semibold text-neutral-900 mb-4">
-              Certified & Compliant
-            </h3>
-            <p className="text-neutral-600">
-              We maintain the highest standards of security and compliance
-            </p>
-          </div>
+          <SectionHeader
+            title="Certified & Compliant"
+            description="We maintain the highest standards of security and compliance"
+            size="sm"
+            alignment="center"
+            className="mb-8"
+          />
           
           <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
             {/* Placeholder for security badges */}

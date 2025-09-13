@@ -4,6 +4,7 @@ import React from 'react';
 import { getLogoAsset, getMascotAsset } from '@/lib/assets';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@diboas/ui';
 
 export function Footer() {
   const footerSections = [
@@ -204,9 +205,9 @@ export function Footer() {
                 placeholder="Enter your email"
                 className="flex-1 bg-neutral-800 border border-neutral-700 rounded-l-xl px-4 py-3 text-white placeholder-neutral-400 focus:outline-none focus:border-primary-500"
               />
-              <button className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-r-xl font-medium transition-colors">
+              <Button variant="primary" className="rounded-r-xl rounded-l-none">
                 Subscribe
-              </button>
+              </Button>
             </div>
           </div>
         </div>

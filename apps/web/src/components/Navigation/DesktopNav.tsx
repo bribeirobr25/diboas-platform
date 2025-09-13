@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
-import { ChevronRight, Sparkles } from 'lucide-react';
+import { Container, FlexBetween, SparklesIcon, ChevronRightIcon } from '@/components/ui';
 
 interface DesktopNavProps {
   activeMenu: string | null;
@@ -28,8 +29,8 @@ export default function DesktopNav({
 
   return (
     <nav className="fixed top-0 w-full bg-white shadow-sm z-50" onMouseLeave={closeMenu}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <Container>
+        <FlexBetween className="h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image 
@@ -52,9 +53,9 @@ export default function DesktopNav({
                   trackNavigationInteraction(item.id, 'hover');
                 }}
               >
-                {item.icon && <Sparkles className="w-4 h-4" />}
+                {item.icon && <SparklesIcon />}
                 <span className="font-bold text-sm">{item.label}</span>
-                <ChevronRight className="w-3 h-3 rotate-90 transition-transform group-hover:rotate-[270deg]" />
+                <ChevronRightIcon size="xs" className="rotate-90 transition-transform group-hover:rotate-[270deg]" />
               </button>
             ))}
           </div>
@@ -72,16 +73,21 @@ export default function DesktopNav({
             </Link>
             <Link 
               href={config.actions.primary.href}
-              className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-6 py-2 rounded-xl font-semibold text-xs hover:from-teal-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackNavigationInteraction('get-started', 'click')}
+              className="inline-block"
             >
-              {config.actions.primary.label}
+              <Button
+                variant="gradient"
+                size="sm"
+              >
+                {config.actions.primary.label}
+              </Button>
             </Link>
           </div>
-        </div>
-      </div>
+        </FlexBetween>
+      </Container>
 
       {/* Mega Menu */}
       {activeMenu && activeMenuItem && (
@@ -95,7 +101,7 @@ export default function DesktopNav({
             className="w-full bg-white shadow-2xl border-t animate-slide-down-fade"
             style={{ height: '60vh' }}
           >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-full" style={{ marginLeft: '150px' }}>
+            <Container className="py-8 h-full" style={{ marginLeft: '150px' }}>
             <div className="grid grid-cols-12 gap-8 h-full">
               {/* Left: Banner */}
               <div className="col-span-4">
@@ -141,7 +147,7 @@ export default function DesktopNav({
                 </div>
               </div>
             </div>
-          </div>
+            </Container>
           </div>
         </div>
       )}

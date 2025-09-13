@@ -33,7 +33,7 @@ export interface PageMetadata {
 export interface CTAButton {
   text: string;
   href: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'gradient';
   trackingEvent?: string;
   utmSource?: string;
   utmMedium?: string;

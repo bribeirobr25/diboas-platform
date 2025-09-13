@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import Image from 'next/image';
+import { Button } from '@diboas/ui';
+import { Container, SectionWrapper, TwoColumnGrid, ThreeColumnGrid, SectionHeader } from '@/components/ui';
 
 // Use static generation for better performance  
 export const dynamic = 'auto';
@@ -23,24 +25,24 @@ export default async function HomePage({ params }: HomePageProps) {
     <div className="min-h-screen bg-gray-50">
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-50 to-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <SectionWrapper background="gradient">
+        <TwoColumnGrid>
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Financial Freedom <span className="text-teal-600">Made Simple</span>
-              </h1>
-              <p className="text-lg text-gray-600 mb-8 max-w-2xl">
-                Manage your banking, investing, and DeFi assets all in one place. 
-                The future of finance is here, powered by AI-driven insights.
-              </p>
+              <SectionHeader
+                title="Financial Freedom Made Simple"
+                description="Manage your banking, investing, and DeFi assets all in one place. The future of finance is here, powered by AI-driven insights."
+                size="xl"
+                alignment="left"
+                className="mb-8"
+                titleClassName="text-gray-900"
+              />
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-8 py-3 rounded-xl font-semibold text-lg hover:from-teal-600 hover:to-teal-700">
+                <Button variant="gradient" size="lg">
                   Get Started Free
-                </button>
-                <button className="border border-teal-500 text-teal-500 px-8 py-3 rounded-xl font-semibold text-lg hover:bg-teal-50">
+                </Button>
+                <Button variant="outline" size="lg">
                   Learn More
-                </button>
+                </Button>
               </div>
               <div className="mt-8 text-sm text-gray-500">
                 Trusted by 50,000+ users worldwide • ⭐⭐⭐⭐⭐ 4.9/5 rating
@@ -72,23 +74,21 @@ export default async function HomePage({ params }: HomePageProps) {
                 />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+        </TwoColumnGrid>
+      </SectionWrapper>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Your Complete <span className="text-teal-600">Financial Ecosystem</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Three powerful domains unified in one platform.
-            </p>
-          </div>
+      <SectionWrapper background="white">
+          <SectionHeader
+            title="Your Complete Financial Ecosystem"
+            description="Three powerful domains unified in one platform."
+            size="lg"
+            alignment="center"
+            className="mb-16"
+            titleClassName="text-gray-900"
+          />
           
-          <div className="grid lg:grid-cols-3 gap-8">
+          <ThreeColumnGrid>
             {[
               {
                 title: 'Smart Banking',
@@ -119,18 +119,16 @@ export default async function HomePage({ params }: HomePageProps) {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600 mb-6">{feature.description}</p>
-                <button className="text-teal-600 font-medium hover:text-teal-700">
+                <Button variant="link" className="p-0">
                   Learn More →
-                </button>
+                </Button>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
+          </ThreeColumnGrid>
+      </SectionWrapper>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionWrapper background="dark" spacing="md" className="text-white">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
               <Image 
@@ -150,8 +148,7 @@ export default async function HomePage({ params }: HomePageProps) {
               © 2025 diBoaS Platform. All rights reserved. | Current locale: <span className="text-teal-400">{locale}</span>
             </p>
           </div>
-        </div>
-      </footer>
+      </SectionWrapper>
     </div>
   );
 }

@@ -1,3 +1,11 @@
+/**
+ * Utility function to conditionally join class names
+ * Similar to clsx but lightweight
+ */
+export function cn(...classes: (string | undefined | null | boolean)[]): string {
+  return classes.filter(Boolean).join(' ');
+}
+
 export function formatCurrency(
   amount: number,
   currency: string = 'USD',
@@ -12,3 +20,6 @@ export function formatCurrency(
 export function formatPercentage(value: number, decimals: number = 2): string {
   return `${value.toFixed(decimals)}%`;
 }
+
+// Re-export color utilities
+export * from './utils/colors';

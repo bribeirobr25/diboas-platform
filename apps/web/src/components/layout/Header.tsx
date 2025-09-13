@@ -54,7 +54,7 @@ export function Header() {
                         <div className="space-y-4">
                           <h3 className="text-lg font-semibold text-neutral-900">Financial Domains</h3>
                           <div className="grid grid-cols-1 gap-3">
-                            <Link href="#banking" className="flex items-start space-x-3 p-3 rounded-lg hover:bg-primary-50 transition-colors">
+                            <Link href="#banking" className="flex items-start space-x-3 p-3 rounded-lg hover:bg-primary-50 h-auto justify-start transition-colors">
                               <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mt-1">
                                 <div className="w-4 h-4 bg-primary-500 rounded" />
                               </div>
@@ -63,7 +63,7 @@ export function Header() {
                                 <p className="text-sm text-neutral-600">Traditional banking services</p>
                               </div>
                             </Link>
-                            <Link href="#investing" className="flex items-start space-x-3 p-3 rounded-lg hover:bg-secondary-purple-50 transition-colors">
+                            <Link href="#investing" className="flex items-start space-x-3 p-3 rounded-lg hover:bg-secondary-purple-50 h-auto justify-start transition-colors">
                               <div className="w-8 h-8 bg-secondary-purple-100 rounded-lg flex items-center justify-center mt-1">
                                 <div className="w-4 h-4 bg-secondary-purple-500 rounded" />
                               </div>
@@ -72,7 +72,7 @@ export function Header() {
                                 <p className="text-sm text-neutral-600">Crypto & portfolio management</p>
                               </div>
                             </Link>
-                            <Link href="#defi" className="flex items-start space-x-3 p-3 rounded-lg hover:bg-secondary-coral-50 transition-colors">
+                            <Link href="#defi" className="flex items-start space-x-3 p-3 rounded-lg hover:bg-secondary-coral-50 h-auto justify-start transition-colors">
                               <div className="w-8 h-8 bg-secondary-coral-100 rounded-lg flex items-center justify-center mt-1">
                                 <div className="w-4 h-4 bg-secondary-coral-500 rounded" />
                               </div>
@@ -96,7 +96,7 @@ export function Header() {
             <Button variant="ghost" size="sm">
               Sign in
             </Button>
-            <Button variant="default" size="sm">
+            <Button variant="primary" size="sm">
               Sign up
             </Button>
           </div>
@@ -149,7 +149,7 @@ export function Header() {
               <Button variant="ghost" size="sm" className="w-full">
                 Sign in
               </Button>
-              <Button variant="default" size="sm" className="w-full">
+              <Button variant="primary" size="sm" className="w-full">
                 Sign up
               </Button>
             </div>
