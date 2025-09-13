@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
+import { generatePageMetadata, generateLocaleStaticParams } from '@/lib/metadata-factory';
 import { PageBuilder } from '@/lib/page-builder';
 import { homePageConfig } from '@/lib/content/pages/home';
 
@@ -19,7 +20,7 @@ interface HomePageProps {
   };
 }
 
-// SEO: Generate page-specific metadata
+// DRY Principle: Use centralized metadata generation
 export async function generateMetadata({ 
   params 
 }: { 
@@ -33,52 +34,17 @@ export async function generateMetadata({
 
   const pageConfig = homePageConfig[locale] || homePageConfig.en;
   
-  return {
+  return generatePageMetadata({
     title: pageConfig.metadata.title,
     description: pageConfig.metadata.description,
     keywords: pageConfig.metadata.keywords,
-    openGraph: {
-      title: pageConfig.metadata.openGraph?.title || pageConfig.metadata.title,
-      description: pageConfig.metadata.openGraph?.description || pageConfig.metadata.description,
-      url: `https://diboas.com/${locale}`,
-      siteName: 'diBoaS',
-      images: [
-        {
-          url: pageConfig.metadata.openGraph?.image || '/assets/social/home-og.jpg',
-          width: 1200,
-          height: 630,
-          alt: 'diBoaS - Financial Freedom Made Simple'
-        }
-      ],
-      locale: locale,
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: pageConfig.metadata.twitter?.title || pageConfig.metadata.title,
-      description: pageConfig.metadata.twitter?.description || pageConfig.metadata.description,
-      images: [pageConfig.metadata.twitter?.image || '/assets/social/home-twitter.jpg'],
-    },
-    alternates: {
-      canonical: `https://diboas.com/${locale}`,
-      languages: pageConfig.metadata.alternates
-    },
-    other: {
-      // Structured Data
-      'script:ld+json': JSON.stringify(pageConfig.metadata.jsonLd)
-    }
-  };
+    path: `/${locale}`,
+    image: pageConfig.metadata.openGraph?.image || '/api/og/home'
+  }, locale);
 }
 
-// Performance: Generate static params for supported locales
-export async function generateStaticParams() {
-  return [
-    { locale: 'en' },
-    { locale: 'pt-BR' },
-    { locale: 'es' },
-    { locale: 'de' }
-  ];
-}
+// DRY Principle: Use centralized static params generation
+export const generateStaticParams = generateLocaleStaticParams;
 
 export default function HomePage({ params }: HomePageProps) {
   const locale = params.locale as SupportedLocale;

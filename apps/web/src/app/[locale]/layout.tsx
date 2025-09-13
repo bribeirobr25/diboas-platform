@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@/lib/i18n-simple';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { LocaleProvider } from '@/components/LocaleProvider';
 import { Navigation } from '@/components/Navigation';
 import '../globals.css';

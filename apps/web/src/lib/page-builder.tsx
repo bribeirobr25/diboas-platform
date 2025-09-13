@@ -9,11 +9,11 @@ import { HeroSection } from '@/components/sections/EnhancedHeroSection';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { TrustSection } from '@/components/sections/TrustSection';
 
-// Lazy load additional sections
-const TestimonialsSection = lazy(() => import('@/components/sections/TestimonialsSection'));
-const PricingSection = lazy(() => import('@/components/sections/PricingSection'));
-const ComparisonSection = lazy(() => import('@/components/sections/ComparisonSection'));
-const CTASection = lazy(() => import('@/components/sections/CTASection'));
+// Additional sections can be added here when implemented
+// const TestimonialsSection = lazy(() => import('@/components/sections/TestimonialsSection'));
+// const PricingSection = lazy(() => import('@/components/sections/PricingSection'));
+// const ComparisonSection = lazy(() => import('@/components/sections/ComparisonSection'));
+// const CTASection = lazy(() => import('@/components/sections/CTASection'));
 
 /**
  * Page Builder Component
@@ -29,10 +29,11 @@ const SECTION_COMPONENTS = {
   hero: HeroSection,
   features: FeaturesSection,
   trust: TrustSection,
-  testimonials: TestimonialsSection,
-  pricing: PricingSection,
-  comparison: ComparisonSection,
-  cta: CTASection,
+  // Additional sections to be added when implemented
+  // testimonials: TestimonialsSection,
+  // pricing: PricingSection,
+  // comparison: ComparisonSection,
+  // cta: CTASection,
 } as const;
 
 interface PageBuilderProps {

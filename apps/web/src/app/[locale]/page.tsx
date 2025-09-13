@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@/lib/i18n-simple';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import Image from 'next/image';
 
 // Use static generation for better performance  

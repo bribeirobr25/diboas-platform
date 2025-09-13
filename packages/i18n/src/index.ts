@@ -1,11 +1,7 @@
 // @diboas/i18n - Internationalization Package
+// DRY Principle: Re-export everything from config for single import point
 
-export type SupportedLocale = 'en' | 'pt-BR' | 'es' | 'de';
+export * from './config';
 
-export const locales: SupportedLocale[] = ['en', 'pt-BR', 'es', 'de'];
-
-export const defaultLocale: SupportedLocale = 'en';
-
-export function isValidLocale(locale: string): locale is SupportedLocale {
-  return locales.includes(locale as SupportedLocale);
-}
+// Legacy exports for backward compatibility
+export { SUPPORTED_LOCALES as locales, DEFAULT_LOCALE as defaultLocale } from './config';

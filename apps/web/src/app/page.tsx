@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { DEFAULT_LOCALE } from '@/lib/i18n-simple';
+import { DEFAULT_LOCALE } from '@diboas/i18n';
 
 /**
  * Root Page - Redirect to Localized Route

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { PageBuilder } from '@/lib/page-builder';
 import { bankingPageConfig } from '@/lib/content/pages/banking';
 

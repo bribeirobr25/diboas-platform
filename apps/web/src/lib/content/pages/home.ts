@@ -1,5 +1,5 @@
 import { type PageConfig } from '../types';
-import { type SupportedLocale } from '@diboas/i18n/config';
+import { type SupportedLocale } from '@diboas/i18n';
 
 /**
  * Home Page Configuration

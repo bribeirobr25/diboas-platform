@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { FinancialCard, FinancialCardContent, FinancialCardDescription, FinancialCardHeader, FinancialCardTitle } from '@/components/ui';
+import { FinancialCard, FinancialCardContent, FinancialCardDescription, FinancialCardHeader, FinancialCardTitle, Container, SectionHeader } from '@/components/ui';
 import { getMascotAsset } from '@/lib/assets';
+import { COMMON_CONTENT } from '@/lib/constants/content';
 import Image from 'next/image';
 
 export function FeaturesSection() {
@@ -59,16 +60,14 @@ export function FeaturesSection() {
 
   return (
     <section id="features" className="py-20 bg-neutral-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
-            Your Complete <span className="text-primary-600">Financial Ecosystem</span>
-          </h2>
-          <p className="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
-            Three powerful domains unified in one platform, each powered by AI-driven mascots to guide your financial journey.
-          </p>
-        </div>
+      <Container>
+        {/* DRY Principle: Use centralized SectionHeader component */}
+        <SectionHeader
+          title="Your Complete Financial Ecosystem"
+          description="Three powerful domains unified in one platform, each powered by AI-driven mascots to guide your financial journey."
+          className="mb-16"
+          titleClassName="text-primary-600"
+        />
 
         {/* Features Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
@@ -155,16 +154,16 @@ export function FeaturesSection() {
           ))}
         </div>
         
-        {/* Bottom CTA */}
+        {/* Bottom CTA - DRY Principle: Use centralized content constants */}
         <div className="text-center mt-16">
           <p className="text-lg text-neutral-600 mb-6">
             Ready to experience the future of finance?
           </p>
           <button className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:from-primary-600 hover:to-primary-700 transition-all duration-200 shadow-lg hover:shadow-xl">
-            Get Started for Free
+            {COMMON_CONTENT.CTA_LABELS.GET_STARTED} for Free
           </button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

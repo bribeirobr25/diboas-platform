@@ -26,6 +26,12 @@ importers:
 
   apps/web:
     dependencies:
+      '@diboas/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
+      '@diboas/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@formatjs/intl-localematcher':
         specifier: ^0.4.2
         version: 0.4.2

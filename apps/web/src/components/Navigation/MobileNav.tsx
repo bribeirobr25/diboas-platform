@@ -203,7 +203,7 @@ export default function MobileNav({
               className="h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right" 
               data-submenu-scroll
             >
-              {/* Fixed Header with Back and Close buttons */}
+              {/* Sticky Header with Back and Close buttons */}
               <div className="sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50">
                 <button
                   onClick={goBack}
@@ -221,9 +221,9 @@ export default function MobileNav({
                 </button>
               </div>
 
-              {/* Fixed Banner */}
+              {/* Sticky Banner */}
               {activeMenuItem && (
-                <div className="fixed top-16 left-0 right-0 bg-teal-50 w-full z-30" style={{ height: '56vh' }}>
+                <div className="sticky bg-teal-50 w-full z-30" style={{ top: '65px', height: '56vh' }}>
                   <div className="h-full flex flex-col">
                     {activeMenuItem.banner && (
                       <div className="px-4 pt-4">
@@ -254,7 +254,7 @@ export default function MobileNav({
               )}
 
               {/* Scrollable Submenu Items */}
-              <div className="px-4 py-6 space-y-2 bg-white relative z-10" style={{ marginTop: '56vh' }}>
+              <div className="px-4 py-6 space-y-2 bg-white relative z-10">
                 {activeMenuItem?.subItems?.map((subItem) => (
                   <Link
                     key={subItem.id}

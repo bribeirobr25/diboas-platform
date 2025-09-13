@@ -2,8 +2,6 @@
 
 import { forwardRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { useButton } from '@react-aria/button';
-import { useFocusRing } from '@react-aria/focus';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
 
@@ -95,51 +93,32 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     loadingText = 'Loading...',
     disabled,
     onClick,
-    href,
     children,
     'aria-label': ariaLabel,
     'aria-describedby': ariaDescribedBy,
     ...props 
   }, ref) => {
-    // Accessibility: React Aria hooks for proper button behavior
-    const { buttonProps, isPressed } = useButton(
-      {
-        isDisabled: disabled || loading,
-        onPress: onClick,
-        'aria-label': loading ? loadingText : ariaLabel,
-        'aria-describedby': ariaDescribedBy,
-      },
-      ref
-    );
-    
-    // Accessibility: Focus ring management
-    const { focusProps, isFocusVisible } = useFocusRing();
 
     // Analytics: Track button interactions
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (trackingEvent && typeof window !== 'undefined') {
         // Product KPIs: Track user interactions
-        window.gtag?.('event', trackingEvent, {
-          event_category: 'Button',
-          event_label: ariaLabel || children?.toString(),
-          utm_source: utmSource,
-          utm_medium: utmMedium,
-          utm_campaign: utmCampaign,
-          ...trackingProps,
-        });
+        const gtag = (window as any).gtag;
+        if (gtag) {
+          gtag('event', trackingEvent, {
+            event_category: 'Button',
+            event_label: ariaLabel || children?.toString(),
+            utm_source: utmSource,
+            utm_medium: utmMedium,
+            utm_campaign: utmCampaign,
+            ...trackingProps,
+          });
+        }
       }
       
       onClick?.(e);
     };
 
-    // Security: Sanitize UTM parameters
-    const cleanUtmParams = () => {
-      const params = new URLSearchParams();
-      if (utmSource) params.append('utm_source', utmSource.replace(/[^\w-]/g, ''));
-      if (utmMedium) params.append('utm_medium', utmMedium.replace(/[^\w-]/g, ''));
-      if (utmCampaign) params.append('utm_campaign', utmCampaign.replace(/[^\w-]/g, ''));
-      return params.toString() ? `?${params.toString()}` : '';
-    };
 
     const Comp = asChild ? Slot : 'button';
 
@@ -147,19 +126,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           buttonVariants({ variant, size, trackable, className }),
-          // Accessibility: Enhanced focus indicators
-          isFocusVisible && 'ring-2 ring-primary-500 ring-offset-2',
-          isPressed && 'transform scale-95',
           loading && 'cursor-wait'
         )}
         ref={ref}
         disabled={disabled || loading}
         onClick={handleClick}
-        // Performance: Add UTM parameters to href if provided
-        href={href ? `${href}${cleanUtmParams()}` : undefined}
-        // Accessibility: Merge React Aria props
-        {...buttonProps}
-        {...focusProps}
+        aria-label={loading ? loadingText : ariaLabel}
+        aria-describedby={ariaDescribedBy}
         {...props}
       >
         {/* Loading state indicator */}
@@ -200,4 +173,3 @@ Button.displayName = 'Button';
 
 // Export variants for external usage
 export { buttonVariants };
-export type { ButtonProps };

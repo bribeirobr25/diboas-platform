@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { match } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, isValidLocale, getSafeLocale, type SupportedLocale } from '@/lib/i18n-simple';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, isValidLocale, getSafeLocale, type SupportedLocale } from '@diboas/i18n';
 
 /**
  * Simplified Middleware for Immediate Functionality

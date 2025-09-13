@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { I18nProvider } from '@diboas/i18n';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { SkipLinks } from '@/components/accessibility/SkipLinks';
 import { LiveRegion } from '@/components/accessibility/LiveRegion';
 import { Header } from '@/components/layout/Header';
