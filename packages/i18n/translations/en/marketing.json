@@ -1,0 +1,146 @@
+{
+  "hero": {
+    "title": "Financial Freedom Made Simple",
+    "subtitle": "Manage your banking, investing, and DeFi assets all in one place. The future of finance is here, powered by AI-driven insights.",
+    "cta": {
+      "primary": "Get Started Free",
+      "secondary": "Learn More"
+    },
+    "trustIndicators": {
+      "users": "Trusted by 50,000+ users worldwide",
+      "rating": "4.9/5 rating",
+      "security": "Bank-level security"
+    }
+  },
+  "domains": {
+    "banking": {
+      "name": "Banking",
+      "tagline": "Smart Banking Solutions",
+      "description": "Experience next-generation banking with zero fees, instant transfers, and AI-powered budgeting.",
+      "features": [
+        "Zero-fee transfers",
+        "Smart budgeting",
+        "Instant payments", 
+        "Multi-currency support"
+      ],
+      "cta": "Start Banking"
+    },
+    "investing": {
+      "name": "Investing", 
+      "tagline": "Invest with Confidence",
+      "description": "Access a wide range of cryptocurrencies and traditional assets with AI-powered portfolio management.",
+      "features": [
+        "AI portfolio optimization",
+        "Low-fee crypto trading",
+        "Real-time analytics",
+        "Risk assessment"
+      ],
+      "cta": "Start Investing"
+    },
+    "defi": {
+      "name": "DeFi",
+      "tagline": "Decentralized Finance",
+      "description": "Earn interest and access DeFi services directly through our platform with maximum security.",
+      "features": [
+        "Yield farming",
+        "Liquidity pools", 
+        "Staking rewards",
+        "DeFi integrations"
+      ],
+      "cta": "Explore DeFi"
+    }
+  },
+  "mascots": {
+    "acqua": {
+      "name": "Acqua",
+      "role": "Banking Guide",
+      "description": "Your friendly banking assistant, helping you manage everyday finances with ease."
+    },
+    "mystic": {
+      "name": "Mystic", 
+      "role": "Investment Advisor",
+      "description": "Your wise investment guide, providing AI-powered insights for smart financial decisions."
+    },
+    "coral": {
+      "name": "Coral",
+      "role": "DeFi Expert", 
+      "description": "Your DeFi specialist, navigating the world of decentralized finance safely."
+    }
+  },
+  "trust": {
+    "title": "Your Security is Our Priority",
+    "subtitle": "Built with enterprise-grade security and zero-trust architecture to protect your financial future.",
+    "features": [
+      {
+        "title": "Bank-Level Security",
+        "description": "Your funds are protected by the same security standards used by traditional banks."
+      },
+      {
+        "title": "Regulatory Compliance", 
+        "description": "Fully compliant with financial regulations and data protection standards."
+      },
+      {
+        "title": "Zero-Trust Architecture",
+        "description": "Advanced security protocols that verify every transaction and user action."
+      },
+      {
+        "title": "24/7 Monitoring",
+        "description": "Continuous monitoring and fraud detection to keep your assets safe."
+      }
+    ],
+    "stats": [
+      {
+        "number": "99.9%",
+        "label": "Uptime guarantee"
+      },
+      {
+        "number": "$500M+", 
+        "label": "Assets secured"
+      },
+      {
+        "number": "50K+",
+        "label": "Trusted users"
+      },
+      {
+        "number": "256-bit",
+        "label": "Encryption standard"
+      }
+    ],
+    "certifications": {
+      "title": "Certified & Compliant",
+      "description": "We maintain the highest standards of security and compliance",
+      "badges": [
+        "SOC 2 Compliant",
+        "ISO 27001",
+        "GDPR Compliant", 
+        "PCI DSS Level 1"
+      ]
+    }
+  },
+  "pages": {
+    "banking": {
+      "title": "Banking Services | diBoaS",
+      "description": "Modern banking solutions with zero fees, instant transfers, and smart budgeting features.",
+      "hero": {
+        "title": "Banking Made Simple",
+        "subtitle": "Experience next-generation banking with zero fees and instant everything."
+      }
+    },
+    "investing": {
+      "title": "Crypto Investing | diBoaS", 
+      "description": "Smart crypto investment platform with AI-powered portfolio management and low fees.",
+      "hero": {
+        "title": "Invest in Your Future",
+        "subtitle": "AI-powered investment strategies for the modern investor."
+      }
+    },
+    "defi": {
+      "title": "DeFi Strategies | diBoaS",
+      "description": "Access decentralized finance protocols with maximum security and optimal yields.",
+      "hero": {
+        "title": "DeFi Made Safe", 
+        "subtitle": "Explore decentralized finance with enterprise-grade security."
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "outputs": []
+    },
+    "type-check": {
+      "dependsOn": ["^type-check"],
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "outputs": ["coverage/**"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "lighthouse": {
+      "dependsOn": ["build"],
+      "outputs": ["lighthouse-reports/**"]
+    },
+    "pa11y": {
+      "dependsOn": ["build"],
+      "outputs": ["accessibility-reports/**"]
+    },
+    "analytics-report": {
+      "outputs": ["analytics-reports/**"]
+    }
+  }
+}

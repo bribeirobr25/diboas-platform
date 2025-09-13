@@ -1,0 +1,33 @@
+{
+  "name": "diboas-platform",
+  "version": "1.0.0",
+  "description": "diBoaS Platform - Unified Financial Services",
+  "private": true,
+  "packageManager": "pnpm@8.15.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:app": "turbo run dev --filter=app",
+    "dev:business": "turbo run dev --filter=business",
+    "performance:audit": "turbo run lighthouse",
+    "accessibility:audit": "turbo run pa11y",
+    "security:audit": "npm audit --audit-level moderate",
+    "analytics:report": "turbo run analytics-report"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.14",
+    "@types/node": "^20.5.0",
+    "typescript": "^5.2.2",
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

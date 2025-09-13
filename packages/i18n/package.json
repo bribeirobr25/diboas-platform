@@ -1,0 +1,35 @@
+{
+  "name": "@diboas/i18n",
+  "version": "0.1.0",
+  "description": "diBoaS Internationalization - Multi-language Support",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "translations"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "echo \"@diboas/i18n dev mode - watching for changes...\" && sleep infinity",
+    "lint": "eslint src --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "extract-messages": "node scripts/extract-messages.js",
+    "validate-translations": "node scripts/validate-translations.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-intl": "^6.4.7",
+    "@formatjs/intl-localematcher": "^0.4.2",
+    "negotiator": "^0.6.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "@types/negotiator": "^0.6.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "next": ">=13.0.0"
+  }
+}
