@@ -9,10 +9,10 @@ interface FlexBetweenProps {
 }
 
 const alignClasses = {
-  start: 'items-start',
-  center: 'items-center', 
-  end: 'items-end',
-  stretch: 'items-stretch'
+  start: 'flex-align-start',
+  center: 'flex-align-center', 
+  end: 'flex-align-end',
+  stretch: 'flex-align-stretch'
 };
 
 /**
@@ -33,7 +33,7 @@ export function FlexBetween({
   return (
     <Component
       className={cn(
-        'flex justify-between',
+        'flex-between',
         alignClasses[align],
         className
       )}

@@ -27,7 +27,7 @@ export function SkipLinks() {
         <Link 
           key={link.href}
           href={link.href}
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 transition-all focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 bg-primary-500 text-white px-3 py-2 rounded-lg text-sm font-medium"
+          className="skip-link"
         >
           {link.text}
         </Link>

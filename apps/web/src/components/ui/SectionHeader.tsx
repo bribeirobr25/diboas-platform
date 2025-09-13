@@ -22,35 +22,35 @@ interface SectionHeaderProps {
 
 const sizeClasses = {
   sm: {
-    title: 'text-2xl md:text-3xl',
-    subtitle: 'text-lg md:text-xl',
-    description: 'text-base',
-    spacing: 'space-y-3'
+    title: 'header-title-sm',
+    subtitle: 'header-subtitle-sm',
+    description: 'header-description-sm',
+    spacing: 'header-spacing-sm'
   },
   md: {
-    title: 'text-3xl md:text-4xl lg:text-5xl',
-    subtitle: 'text-xl md:text-2xl',
-    description: 'text-lg',
-    spacing: 'space-y-4'
+    title: 'header-title-md',
+    subtitle: 'header-subtitle-md',
+    description: 'header-description-md',
+    spacing: 'header-spacing-md'
   },
   lg: {
-    title: 'text-4xl md:text-5xl lg:text-6xl',
-    subtitle: 'text-xl md:text-2xl lg:text-3xl',
-    description: 'text-lg md:text-xl',
-    spacing: 'space-y-6'
+    title: 'header-title-lg',
+    subtitle: 'header-subtitle-lg',
+    description: 'header-description-lg',
+    spacing: 'header-spacing-lg'
   },
   xl: {
-    title: 'text-5xl md:text-6xl lg:text-7xl',
-    subtitle: 'text-2xl md:text-3xl lg:text-4xl',
-    description: 'text-xl md:text-2xl',
-    spacing: 'space-y-8'
+    title: 'header-title-xl',
+    subtitle: 'header-subtitle-xl',
+    description: 'header-description-xl',
+    spacing: 'header-spacing-xl'
   }
 } as const;
 
 const alignmentClasses = {
-  left: 'text-left',
-  center: 'text-center',
-  right: 'text-right'
+  left: 'header-align-left',
+  center: 'header-align-center',
+  right: 'header-align-right'
 } as const;
 
 export function SectionHeader({
@@ -73,7 +73,7 @@ export function SectionHeader({
       <h2
         id={id}
         className={cn(
-          'font-bold text-neutral-900 leading-tight tracking-tight',
+          'header-title-base',
           sizeConfig.title,
           titleClassName
         )}
@@ -83,7 +83,7 @@ export function SectionHeader({
       
       {subtitle && (
         <p className={cn(
-          'font-semibold text-primary-600',
+          'header-subtitle-base',
           sizeConfig.subtitle,
           subtitleClassName
         )}>
@@ -93,8 +93,8 @@ export function SectionHeader({
       
       {description && (
         <p className={cn(
-          'text-neutral-600 leading-relaxed',
-          alignment === 'center' ? 'max-w-3xl mx-auto' : 'max-w-3xl',
+          'header-description-base',
+          alignment === 'center' ? 'header-description-center' : 'header-description-left',
           sizeConfig.description,
           descriptionClassName
         )}>

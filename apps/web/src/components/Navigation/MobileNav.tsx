@@ -59,9 +59,9 @@ export default function MobileNav({
   return (
     <>
       {/* Mobile Header */}
-      <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
-        <div className="px-4 py-2 flex items-center justify-between h-14">
-          <Link href="/" className="flex items-center">
+      <nav className="mobile-nav-bar">
+        <div className="mobile-nav-content">
+          <Link href="/" className="mobile-brand">
             <Image 
               src="/assets/logos/logo-icon.avif"
               alt="diBoaS"
@@ -81,6 +81,7 @@ export default function MobileNav({
             <Button
               variant="gradient"
               size="xs"
+              className="px-4"
             >
               {config.actions.primary.label}
             </Button>
@@ -103,7 +104,7 @@ export default function MobileNav({
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackNavigationInteraction('business-login-mobile', 'click')}
-          className="fixed bottom-0 left-0 right-0 z-50 block"
+          className="mobile-actions"
         >
           <Button
             variant="gradient"
@@ -117,7 +118,7 @@ export default function MobileNav({
 
       {/* Mobile Menu */}
       <div 
-        className={`fixed inset-0 bg-white transition-transform ${activeSubmenu ? 'z-50' : 'z-40'}`}
+        className={`mobile-menu-overlay ${activeSubmenu ? 'z-50' : 'z-40'}`}
         style={{
           transform: isOpen ? 'translateY(0)' : 'translateY(-100%)',
           transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'

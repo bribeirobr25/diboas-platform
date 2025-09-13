@@ -28,11 +28,11 @@ export default function DesktopNav({
   const activeMenuItem = config.mainMenu.find(item => item.id === activeMenu);
 
   return (
-    <nav className="fixed top-0 w-full bg-white shadow-sm z-50" onMouseLeave={closeMenu}>
+    <nav className="navigation-bar" onMouseLeave={closeMenu}>
       <Container>
-        <FlexBetween className="h-20">
+        <FlexBetween className="navigation-content">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="brand-logo">
             <Image 
               src="/assets/logos/logo-icon.avif"
               alt="diBoaS"
@@ -43,11 +43,11 @@ export default function DesktopNav({
           </Link>
 
           {/* Main Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="menu-items">
             {config.mainMenu.map((item) => (
               <button
                 key={item.id}
-                className="flex items-center space-x-1 text-gray-600 hover:text-teal-600 transition-colors py-2 relative group"
+                className="menu-link group"
                 onMouseEnter={() => {
                   openMenu(item.id);
                   trackNavigationInteraction(item.id, 'hover');
@@ -61,10 +61,10 @@ export default function DesktopNav({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-8">
+          <div className="menu-items">
             <Link 
               href={config.actions.secondary.href}
-              className="text-gray-600 hover:text-teal-600 font-medium text-xs transition-colors"
+              className="menu-link"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackNavigationInteraction('business-login', 'click')}
@@ -97,12 +97,9 @@ export default function DesktopNav({
             top: '80px',
           }}
         >
-          <div 
-            className="w-full bg-white shadow-2xl border-t animate-slide-down-fade"
-            style={{ height: '60vh' }}
-          >
-            <Container className="py-8 h-full" style={{ marginLeft: '150px' }}>
-            <div className="grid grid-cols-12 gap-8 h-full">
+          <div className="dropdown-menu" style={{ height: '60vh' }}>
+            <Container className="dropdown-content h-full" style={{ marginLeft: '150px' }}>
+            <div className="dropdown-section grid-cols-12 gap-8 h-full">
               {/* Left: Banner */}
               <div className="col-span-4">
                 <div className="relative h-48 mb-4 rounded-2xl overflow-hidden">
@@ -114,30 +111,30 @@ export default function DesktopNav({
                     sizes="(max-width: 768px) 100vw, 384px"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="dropdown-title">
                   {activeMenuItem.label}
                 </h3>
-                <p className="text-gray-600">
+                <p className="dropdown-item-description">
                   {activeMenuItem.description}
                 </p>
               </div>
 
               {/* Right: Sub-menu items in columns */}
               <div className="col-span-8">
-                <div className="grid grid-cols-2 gap-x-5 gap-y-3">
+                <div className="dropdown-items grid-cols-2 gap-x-5 gap-y-3">
                   {activeMenuItem.subItems?.map((subItem) => (
                     <Link
                       key={subItem.id}
                       href={subItem.href}
-                      className="group block p-4 rounded-xl transition-colors"
+                      className="dropdown-item group"
                       onClick={() => trackNavigationInteraction(subItem.id, 'click')}
                     >
                       <div>
-                        <h4 className="font-semibold text-lg text-gray-900 group-hover:text-teal-600 transition-colors">
+                        <h4 className="dropdown-item-title">
                           {subItem.label}
                         </h4>
                         {subItem.description && (
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="dropdown-item-description mt-1">
                             {subItem.description}
                           </p>
                         )}

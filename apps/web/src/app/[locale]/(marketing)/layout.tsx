@@ -118,7 +118,7 @@ export default async function MarketingLayout({
         <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: blob: *.diboas.com; connect-src 'self' *.google-analytics.com *.doubleclick.net;" />
       </head>
       
-      <body className="font-sans antialiased bg-white text-neutral-900">
+      <body className="main-body-antialiased">
         {/* Accessibility: Skip navigation links */}
         <SkipLinks />
         
@@ -127,7 +127,7 @@ export default async function MarketingLayout({
         <LiveRegion />
         
         {/* Marketing site structure */}
-        <div className="flex min-h-screen flex-col">
+        <div className="main-page-container">
           <Header />
           
           <main 

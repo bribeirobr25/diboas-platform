@@ -1,0 +1,731 @@
+/**
+ * Semantic Component Classes - Intuitive Naming
+ * 
+ * Simple, clear class names that describe WHAT the component IS
+ * Easy to read and maintain - no technical jargon
+ */
+
+/* =================================================================== */
+/* BODY AND LAYOUT */
+/* =================================================================== */
+
+.main-body-antialiased {
+  @apply bg-white text-gray-900 antialiased;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.main-page-container {
+  @apply flex min-h-screen flex-col;
+}
+
+.main-page-wrapper {
+  @apply min-h-screen bg-gray-50;
+}
+
+.main-content {
+  @apply pt-20;
+}
+
+.content-container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+.container-sm {
+  @apply max-w-3xl;
+}
+
+.container-md {
+  @apply max-w-5xl;
+}
+
+.container-lg {
+  @apply max-w-7xl;
+}
+
+.container-xl {
+  @apply max-w-screen-2xl;
+}
+
+.container-full {
+  @apply max-w-none;
+}
+
+.container-no-padding {
+  @apply px-0;
+}
+
+/* =================================================================== */
+/* SECTIONS */
+/* =================================================================== */
+
+.section-white {
+  @apply bg-white;
+}
+
+.section-gray {
+  @apply bg-gray-50;
+}
+
+.section-gradient {
+  @apply bg-gradient-to-br from-teal-50 to-white;
+}
+
+.section-dark {
+  @apply bg-gray-900;
+}
+
+.section-spacing-sm {
+  @apply py-12;
+}
+
+.section-spacing-md {
+  @apply py-16;
+}
+
+.section-spacing-lg {
+  @apply py-20;
+}
+
+.section-spacing-xl {
+  @apply py-24;
+}
+
+/* =================================================================== */
+/* GRID LAYOUTS */
+/* =================================================================== */
+
+.grid-base {
+  @apply grid;
+}
+
+.grid-1-col {
+  @apply grid-cols-1;
+}
+
+.grid-2-col {
+  @apply grid-cols-1 lg:grid-cols-2;
+}
+
+.grid-3-col {
+  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.grid-4-col {
+  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+}
+
+.grid-6-col {
+  @apply grid-cols-1 md:grid-cols-3 lg:grid-cols-6;
+}
+
+.grid-gap-sm {
+  @apply gap-4;
+}
+
+.grid-gap-md {
+  @apply gap-6;
+}
+
+.grid-gap-lg {
+  @apply gap-8;
+}
+
+.grid-gap-xl {
+  @apply gap-12;
+}
+
+.grid-align-start {
+  @apply items-start;
+}
+
+.grid-align-center {
+  @apply items-center;
+}
+
+.grid-align-end {
+  @apply items-end;
+}
+
+.grid-align-stretch {
+  @apply items-stretch;
+}
+
+/* =================================================================== */
+/* FLEX UTILITIES */
+/* =================================================================== */
+
+.flex-between {
+  @apply flex justify-between;
+}
+
+.flex-align-start {
+  @apply items-start;
+}
+
+.flex-align-center {
+  @apply items-center;
+}
+
+.flex-align-end {
+  @apply items-end;
+}
+
+.flex-align-stretch {
+  @apply items-stretch;
+}
+
+/* =================================================================== */
+/* HEADERS */
+/* =================================================================== */
+
+.header-title-base {
+  @apply font-bold text-neutral-900 leading-tight tracking-tight;
+}
+
+.header-subtitle-base {
+  @apply font-semibold text-primary-600;
+}
+
+.header-description-base {
+  @apply text-neutral-600 leading-relaxed;
+}
+
+.header-description-center {
+  @apply max-w-3xl mx-auto;
+}
+
+.header-description-left {
+  @apply max-w-3xl;
+}
+
+.header-align-left {
+  @apply text-left;
+}
+
+.header-align-center {
+  @apply text-center;
+}
+
+.header-align-right {
+  @apply text-right;
+}
+
+.header-title-sm {
+  @apply text-2xl md:text-3xl;
+}
+
+.header-title-md {
+  @apply text-3xl md:text-4xl lg:text-5xl;
+}
+
+.header-title-lg {
+  @apply text-4xl md:text-5xl lg:text-6xl;
+}
+
+.header-title-xl {
+  @apply text-5xl md:text-6xl lg:text-7xl;
+}
+
+.header-subtitle-sm {
+  @apply text-lg md:text-xl;
+}
+
+.header-subtitle-md {
+  @apply text-xl md:text-2xl;
+}
+
+.header-subtitle-lg {
+  @apply text-xl md:text-2xl lg:text-3xl;
+}
+
+.header-subtitle-xl {
+  @apply text-2xl md:text-3xl lg:text-4xl;
+}
+
+.header-description-sm {
+  @apply text-base;
+}
+
+.header-description-md {
+  @apply text-lg;
+}
+
+.header-description-lg {
+  @apply text-lg md:text-xl;
+}
+
+.header-description-xl {
+  @apply text-xl md:text-2xl;
+}
+
+.header-spacing-sm {
+  @apply space-y-3;
+}
+
+.header-spacing-md {
+  @apply space-y-4;
+}
+
+.header-spacing-lg {
+  @apply space-y-6;
+}
+
+.header-spacing-xl {
+  @apply space-y-8;
+}
+
+/* =================================================================== */
+/* NAVIGATION */
+/* =================================================================== */
+
+.navigation-bar {
+  @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-neutral-200;
+}
+
+.navigation-content {
+  @apply flex items-center justify-between h-20;
+}
+
+.brand-logo {
+  @apply flex items-center space-x-2;
+}
+
+.brand-image {
+  @apply w-8 h-8;
+}
+
+.brand-text {
+  @apply text-xl font-bold text-neutral-900;
+}
+
+.menu-items {
+  @apply hidden md:flex items-center space-x-8;
+}
+
+.menu-item {
+  @apply relative;
+}
+
+.menu-link {
+  @apply text-neutral-600 hover:text-primary-600 transition-colors text-sm font-medium flex items-center space-x-1;
+}
+
+.menu-icon {
+  @apply w-4 h-4 group-hover:rotate-180 transition-transform;
+}
+
+.dropdown-menu {
+  @apply w-full bg-white shadow-2xl border-t animate-slide-down-fade;
+}
+
+.dropdown-content {
+  @apply py-8 h-full;
+}
+
+.dropdown-section {
+  @apply grid gap-8 h-full;
+}
+
+.dropdown-title {
+  @apply text-2xl font-bold text-gray-900 mb-2;
+}
+
+.dropdown-items {
+  @apply grid gap-x-5 gap-y-3;
+}
+
+.dropdown-item {
+  @apply block p-4 rounded-xl transition-colors;
+}
+
+.dropdown-item-icon {
+  @apply w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mt-1;
+}
+
+.dropdown-item-icon-shape {
+  @apply w-4 h-4 bg-primary-500 rounded;
+}
+
+.dropdown-item-title {
+  @apply font-semibold text-lg text-gray-900 group-hover:text-teal-600 transition-colors;
+}
+
+.dropdown-item-description {
+  @apply text-sm text-gray-600;
+}
+
+/* =================================================================== */
+/* MOBILE NAVIGATION */
+/* =================================================================== */
+
+.mobile-nav-bar {
+  @apply fixed top-0 w-full bg-white shadow-sm z-50;
+}
+
+.mobile-nav-content {
+  @apply px-4 py-2 flex items-center justify-between h-14;
+}
+
+.mobile-brand {
+  @apply flex items-center;
+}
+
+.mobile-actions {
+  @apply fixed bottom-0 left-0 right-0 z-50 block;
+}
+
+.mobile-button {
+  @apply w-full rounded-none text-center py-4;
+}
+
+.mobile-menu-overlay {
+  @apply fixed inset-0 bg-white transition-transform;
+}
+
+.mobile-menu-content {
+  @apply px-4 py-6;
+}
+
+.mobile-section-title {
+  @apply text-base font-semibold text-teal-600 tracking-wider mb-4;
+}
+
+.mobile-highlights-grid {
+  @apply grid grid-cols-3 gap-3;
+}
+
+.mobile-highlight-item {
+  @apply bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px];
+}
+
+.mobile-highlight-text {
+  @apply text-sm font-medium text-gray-900;
+}
+
+.mobile-menu-item {
+  @apply w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-menu-text {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.mobile-menu-description {
+  @apply text-base text-gray-600 px-4 pb-2;
+}
+
+.mobile-submenu-container {
+  @apply h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right;
+}
+
+.mobile-submenu-header {
+  @apply sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50;
+}
+
+.mobile-back-button {
+  @apply flex items-center space-x-2;
+}
+
+.mobile-submenu-banner {
+  @apply sticky bg-teal-50 w-full z-30;
+}
+
+.mobile-banner-content {
+  @apply h-full flex flex-col;
+}
+
+.mobile-banner-image {
+  @apply px-4 pt-4;
+}
+
+.mobile-banner-image-container {
+  @apply relative w-full max-w-md mx-auto aspect-[3/2] overflow-hidden rounded-2xl;
+}
+
+.mobile-banner-text {
+  @apply px-6 pt-4 pb-6;
+}
+
+.mobile-banner-title {
+  @apply text-2xl font-bold text-gray-900 mb-2;
+}
+
+.mobile-submenu-items {
+  @apply px-4 py-6 space-y-2 bg-white relative z-10;
+}
+
+.mobile-submenu-item {
+  @apply block p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-submenu-item-title {
+  @apply font-bold text-gray-900;
+}
+
+.mobile-submenu-item-description {
+  @apply text-sm text-gray-600 mt-1;
+}
+
+.mobile-additional-items {
+  @apply border-t pt-6 space-y-2;
+}
+
+/* =================================================================== */
+/* HERO SECTION */
+/* =================================================================== */
+
+.hero-content {
+  @apply text-center lg:text-left;
+}
+
+.hero-actions {
+  @apply flex flex-col sm:flex-row gap-4 justify-center lg:justify-start;
+}
+
+.hero-trust {
+  @apply mt-8 text-sm text-gray-500;
+}
+
+.hero-image {
+  @apply mx-auto shadow-2xl rounded-3xl;
+}
+
+/* =================================================================== */
+/* FEATURES SECTION */
+/* =================================================================== */
+
+.features-grid {
+  @apply grid lg:grid-cols-2 gap-16 items-center;
+}
+
+.features-content {
+  @apply relative max-w-lg mx-auto;
+}
+
+.feature-card {
+  @apply bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-lg transition-shadow;
+}
+
+.feature-title {
+  @apply text-xl font-bold text-gray-900 mb-3;
+}
+
+.feature-description {
+  @apply text-gray-600 mb-6;
+}
+
+/* =================================================================== */
+/* FOOTER */
+/* =================================================================== */
+
+.footer-brand {
+  @apply flex items-center justify-center space-x-2 mb-4;
+}
+
+.footer-copyright {
+  @apply text-gray-500 text-sm;
+}
+
+.footer-description {
+  @apply text-gray-400 mb-4;
+}
+
+.footer-highlight {
+  @apply text-teal-400;
+}
+
+/* =================================================================== */
+/* TRUST SECTION */
+/* =================================================================== */
+
+.trust-container {
+  @apply py-20 bg-white;
+}
+
+.trust-wrapper {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* =================================================================== */
+/* PLACEHOLDER AND LOADING SECTIONS */
+/* =================================================================== */
+
+.placeholder-section {
+  @apply py-20 bg-neutral-50 text-center;
+}
+
+.placeholder-wrapper {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+.placeholder-title {
+  @apply text-2xl font-bold text-neutral-900 mb-4;
+}
+
+.placeholder-description {
+  @apply text-neutral-600;
+}
+
+/* =================================================================== */
+/* LOADING AND ERRORS */
+/* =================================================================== */
+
+.loading-container {
+  @apply py-20 bg-neutral-50 text-center;
+}
+
+.loading-wrapper {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+.loading-title {
+  @apply text-2xl font-bold text-neutral-900 mb-4;
+}
+
+.loading-skeleton {
+  @apply animate-pulse bg-neutral-100 rounded-lg;
+}
+
+.loading-skeleton-container {
+  @apply container mx-auto px-4 py-12;
+}
+
+.loading-title-skeleton {
+  @apply h-8 bg-neutral-200 rounded w-1/2 mx-auto mb-4;
+}
+
+.loading-subtitle-skeleton {
+  @apply h-4 bg-neutral-200 rounded w-1/3 mx-auto mb-8;
+}
+
+.loading-grid-skeleton {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+}
+
+.loading-card-skeleton {
+  @apply h-48 bg-neutral-200 rounded-lg;
+}
+
+.loading-message {
+  @apply p-8 text-center;
+}
+
+.loading-message-text {
+  @apply text-2xl font-bold text-neutral-900 mb-2;
+}
+
+/* =================================================================== */
+/* ACCESSIBILITY */
+/* =================================================================== */
+
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 transition-all focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 bg-primary-500 text-white px-3 py-2 rounded-lg text-sm font-medium;
+}
+
+.accessibility-skip {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-500 text-white px-4 py-2 rounded-lg z-50;
+}
+
+/* =================================================================== */
+/* UI COMPONENTS */
+/* =================================================================== */
+
+.card-header {
+  @apply flex flex-col space-y-1.5;
+}
+
+.card-title {
+  @apply text-heading font-semibold leading-none tracking-tight text-neutral-900;
+}
+
+.card-description {
+  @apply text-body text-neutral-600;
+}
+
+.card-footer {
+  @apply flex items-center pt-4;
+}
+
+.button-spinner {
+  @apply animate-spin -ml-1 mr-2 h-4 w-4;
+}
+
+.icon-text {
+  @apply flex items-center space-x-1;
+}
+
+/* =================================================================== */
+/* BUTTON COMPONENTS */
+/* =================================================================== */
+
+.btn-base {
+  @apply inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 no-underline;
+}
+
+.btn-primary {
+  @apply bg-teal-500 text-white hover:bg-teal-600 shadow-md hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-neutral-100 text-neutral-900 hover:bg-neutral-200 border border-neutral-200;
+}
+
+.btn-outline {
+  @apply border border-teal-500 text-teal-500 bg-transparent hover:bg-teal-50;
+}
+
+.btn-ghost {
+  @apply text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900;
+}
+
+.btn-link {
+  @apply text-teal-500 underline-offset-4 hover:underline p-0;
+}
+
+.btn-gradient {
+  @apply bg-gradient-to-r from-teal-500 to-teal-600 text-white hover:from-teal-600 hover:to-teal-700 shadow-lg hover:shadow-xl;
+}
+
+.btn-destructive {
+  @apply bg-semantic-error text-white hover:bg-red-600;
+}
+
+.btn-xs {
+  @apply h-8 px-3 text-xs;
+}
+
+.btn-sm {
+  @apply h-9 px-4 text-xs;
+}
+
+.btn-default {
+  @apply h-10 px-4 py-2;
+}
+
+.btn-lg {
+  @apply h-12 px-8;
+}
+
+.btn-xl {
+  @apply h-14 px-10 text-base;
+}
+
+.btn-icon {
+  @apply h-10 w-10;
+}
+
+.btn-spinner {
+  @apply animate-spin -ml-1 mr-2 h-4 w-4;
+}
+
+.btn-content {
+  /* Default button content styling */
+}
+
+.btn-content-loading {
+  @apply opacity-70;
+}

@@ -142,7 +142,7 @@ export function TrustSection() {
         </div>
 
         {/* Security badges */}
-        <div className="mt-16 pt-12 border-t border-neutral-200">
+        <div className="compliance-section">
           <SectionHeader
             title="Certified & Compliant"
             description="We maintain the highest standards of security and compliance"
@@ -151,18 +151,18 @@ export function TrustSection() {
             className="mb-8"
           />
           
-          <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
+          <div className="compliance-badges">
             {/* Placeholder for security badges */}
-            <div className="bg-neutral-100 rounded-lg px-6 py-4 text-sm font-medium text-neutral-600">
+            <div className="compliance-badge">
               SOC 2 Compliant
             </div>
-            <div className="bg-neutral-100 rounded-lg px-6 py-4 text-sm font-medium text-neutral-600">
+            <div className="compliance-badge">
               ISO 27001
             </div>
-            <div className="bg-neutral-100 rounded-lg px-6 py-4 text-sm font-medium text-neutral-600">
+            <div className="compliance-badge">
               GDPR Compliant
             </div>
-            <div className="bg-neutral-100 rounded-lg px-6 py-4 text-sm font-medium text-neutral-600">
+            <div className="compliance-badge">
               PCI DSS Level 1
             </div>
           </div>

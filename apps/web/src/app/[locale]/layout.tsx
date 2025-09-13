@@ -51,7 +51,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
   return (
     <LocaleProvider initialLocale={locale}>
       <Navigation />
-      <main className="pt-20">
+      <main className="main-content">
         {children}
       </main>
     </LocaleProvider>

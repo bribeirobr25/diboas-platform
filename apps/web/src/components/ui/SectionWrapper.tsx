@@ -12,17 +12,17 @@ interface SectionWrapperProps {
 }
 
 const backgroundClasses = {
-  white: 'bg-white',
-  gray: 'bg-gray-50',
-  gradient: 'bg-gradient-to-br from-teal-50 to-white',
-  dark: 'bg-gray-900'
+  white: 'section-white',
+  gray: 'section-gray',
+  gradient: 'section-gradient',
+  dark: 'section-dark'
 };
 
 const spacingClasses = {
-  sm: 'py-12',
-  md: 'py-16', 
-  lg: 'py-20',
-  xl: 'py-24'
+  sm: 'section-spacing-sm',
+  md: 'section-spacing-md', 
+  lg: 'section-spacing-lg',
+  xl: 'section-spacing-xl'
 };
 
 /**

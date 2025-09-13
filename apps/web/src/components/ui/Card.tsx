@@ -46,7 +46,7 @@ const FinancialCardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5", className)}
+    className={cn("card-header", className)}
     {...props}
   />
 ));
@@ -57,7 +57,7 @@ const FinancialCardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn("text-heading font-semibold leading-none tracking-tight text-neutral-900", className)}
+    className={cn("card-title", className)}
     {...props}
   />
 ));
@@ -68,7 +68,7 @@ const FinancialCardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-body text-neutral-600", className)}
+    className={cn("card-description", className)}
     {...props}
   />
 ));
@@ -86,7 +86,7 @@ const FinancialCardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center pt-4", className)}
+    className={cn("card-footer", className)}
     {...props}
   />
 ));

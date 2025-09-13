@@ -13,11 +13,11 @@ interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const containerSizes = {
-  sm: 'max-w-3xl',
-  md: 'max-w-5xl', 
-  lg: 'max-w-7xl',
-  xl: 'max-w-screen-2xl',
-  full: 'max-w-none'
+  sm: 'container-sm',
+  md: 'container-md', 
+  lg: 'container-lg',
+  xl: 'container-xl',
+  full: 'container-full'
 } as const;
 
 export function Container({ 
@@ -30,9 +30,9 @@ export function Container({
   return (
     <div
       className={cn(
-        'mx-auto',
+        'content-container',
         containerSizes[size],
-        !noPadding && 'px-4 sm:px-6 lg:px-8',
+        noPadding && 'container-no-padding',
         className
       )}
       {...props}

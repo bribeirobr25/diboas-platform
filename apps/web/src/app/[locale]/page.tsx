@@ -22,12 +22,12 @@ export default async function HomePage({ params }: HomePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="main-page-wrapper">
 
       {/* Hero Section */}
       <SectionWrapper background="gradient">
         <TwoColumnGrid>
-            <div className="text-center lg:text-left">
+            <div className="hero-content">
               <SectionHeader
                 title="Financial Freedom Made Simple"
                 description="Manage your banking, investing, and DeFi assets all in one place. The future of finance is here, powered by AI-driven insights."
@@ -36,7 +36,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 className="mb-8"
                 titleClassName="text-gray-900"
               />
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="hero-actions">
                 <Button variant="gradient" size="lg">
                   Get Started Free
                 </Button>
@@ -44,7 +44,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   Learn More
                 </Button>
               </div>
-              <div className="mt-8 text-sm text-gray-500">
+              <div className="hero-trust">
                 Trusted by 50,000+ users worldwide • ⭐⭐⭐⭐⭐ 4.9/5 rating
               </div>
             </div>
@@ -69,7 +69,7 @@ export default async function HomePage({ params }: HomePageProps) {
                   alt="diBoaS App Preview" 
                   width={300} 
                   height={600}
-                  className="mx-auto shadow-2xl rounded-3xl"
+                  className="hero-image"
                   style={{ width: 'auto', height: 'auto' }}
                 />
               </div>
@@ -106,7 +106,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 icon: '/assets/icons/safe-money.avif'
               }
             ].map((feature, i) => (
-              <div key={i} className="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-lg transition-shadow">
+              <div key={i} className="feature-card">
                 <div className="mb-6">
                   <Image 
                     src={feature.icon} 
@@ -117,8 +117,8 @@ export default async function HomePage({ params }: HomePageProps) {
                     style={{ width: '64px', height: '64px', objectFit: 'contain' }}
                   />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 mb-6">{feature.description}</p>
+                <h3 className="feature-title">{feature.title}</h3>
+                <p className="feature-description">{feature.description}</p>
                 <Button variant="link" className="p-0">
                   Learn More →
                 </Button>
@@ -130,7 +130,7 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* Footer */}
       <SectionWrapper background="dark" spacing="md" className="text-white">
           <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-4">
+            <div className="footer-brand">
               <Image 
                 src="/assets/logos/logo-icon.avif" 
                 alt="diBoaS Logo" 
@@ -141,11 +141,11 @@ export default async function HomePage({ params }: HomePageProps) {
               />
               <span className="text-xl font-bold">diBoaS</span>
             </div>
-            <p className="text-gray-400 mb-4">
+            <p className="footer-description">
               The future of finance, unified in one platform.
             </p>
-            <p className="text-gray-500 text-sm">
-              © 2025 diBoaS Platform. All rights reserved. | Current locale: <span className="text-teal-400">{locale}</span>
+            <p className="footer-copyright">
+              © 2025 diBoaS Platform. All rights reserved. | Current locale: <span className="footer-highlight">{locale}</span>
             </p>
           </div>
       </SectionWrapper>

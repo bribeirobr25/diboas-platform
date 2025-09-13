@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@diboas/ui';
 import { getLogoAsset } from '@/lib/assets';
+import { Container } from '@/components/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,31 +18,31 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-neutral-200">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="navigation-bar">
+      <Container>
+        <div className="navigation-content">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="brand-logo">
             <Image
               src={getLogoAsset('icon')}
               alt="diBoaS"
               width={32}
               height={32}
-              className="w-8 h-8"
+              className="brand-image"
             />
-            <span className="text-xl font-bold text-neutral-900">diBoaS</span>
+            <span className="brand-text">diBoaS</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="menu-items">
             {navigationItems.map((item) => (
-              <div key={item.label} className="relative group">
+              <div key={item.label} className="menu-item group">
                 <Link
                   href={item.href}
-                  className="text-neutral-600 hover:text-primary-600 transition-colors text-sm font-medium flex items-center space-x-1"
+                  className="menu-link"
                 >
                   <span>{item.label}</span>
-                  <svg className="w-4 h-4 group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </Link>
@@ -155,7 +156,7 @@ export function Header() {
             </div>
           </div>
         )}
-      </nav>
+      </Container>
     </header>
   );
 }

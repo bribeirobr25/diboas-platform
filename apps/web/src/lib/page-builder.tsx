@@ -26,12 +26,12 @@ import { TrustSection } from '@/components/sections/TrustSection';
 
 // Placeholder components for unimplemented sections
 const PlaceholderSection = ({ sectionId, type }: { sectionId?: string; type: string }) => (
-  <div className="py-20 bg-neutral-50 text-center">
-    <div className="max-w-7xl mx-auto px-4">
-      <h2 className="text-2xl font-bold text-neutral-900 mb-4">
+  <div className="placeholder-section">
+    <div className="placeholder-wrapper">
+      <h2 className="placeholder-title">
         {type.charAt(0).toUpperCase() + type.slice(1)} Section
       </h2>
-      <p className="text-neutral-600">
+      <p className="placeholder-description">
         This section is coming soon. Stay tuned for updates!
       </p>
     </div>
@@ -168,15 +168,15 @@ function SectionSkeleton({ type, height }: { type: string; height: number }) {
       role="presentation"
       aria-label={`Loading ${type} section`}
     >
-      <div className="container mx-auto px-4 py-12">
+      <div className="skeleton-container">
         {/* Title skeleton */}
-        <div className="h-8 bg-neutral-200 rounded w-1/2 mx-auto mb-4" />
+        <div className="skeleton-title" />
         {/* Subtitle skeleton */}
-        <div className="h-4 bg-neutral-200 rounded w-1/3 mx-auto mb-8" />
+        <div className="skeleton-subtitle" />
         {/* Content skeleton */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="skeleton-grid">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-48 bg-neutral-200 rounded-lg" />
+            <div key={i} className="skeleton-item" />
           ))}
         </div>
       </div>
@@ -204,11 +204,11 @@ export function PageBuilder({ sections, locale = 'en', className }: PageBuilderP
   if (!Array.isArray(sections) || sections.length === 0) {
     console.error('PageBuilder: sections prop must be a non-empty array');
     return (
-      <div role="alert" className="p-8 text-center">
-        <h2 className="text-2xl font-bold text-neutral-900 mb-2">
+      <div role="alert" className="error-container">
+        <h2 className="error-title">
           Content Not Available
         </h2>
-        <p className="text-neutral-600">
+        <p className="error-message">
           This page is currently being updated. Please try again later.
         </p>
       </div>
@@ -232,7 +232,7 @@ export function PageBuilder({ sections, locale = 'en', className }: PageBuilderP
       {/* Accessibility: Skip to main content */}
       <a 
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-500 text-white px-4 py-2 rounded-lg z-50"
+        className="skip-link"
       >
         Skip to main content
       </a>
