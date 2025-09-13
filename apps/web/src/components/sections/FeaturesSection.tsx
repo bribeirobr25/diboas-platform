@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import { FinancialCard, FinancialCardContent, FinancialCardDescription, FinancialCardHeader, FinancialCardTitle } from '@/components/ui';
 import { getMascotAsset } from '@/lib/assets';
 import Image from 'next/image';
 
 export function FeaturesSection() {
-  const features = [
+  const benefitsList = [
     {
       id: 'banking',
       title: 'Smart Banking',
@@ -20,7 +20,7 @@ export function FeaturesSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
         </svg>
       ),
-      features: ['Zero-fee transfers', 'Smart budgeting', 'Instant payments', 'Multi-currency support'],
+      benefitHighlights: ['Zero-fee transfers', 'Smart budgeting', 'Instant payments', 'Multi-currency support'],
       cta: 'Start Banking'
     },
     {
@@ -36,7 +36,7 @@ export function FeaturesSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
         </svg>
       ),
-      features: ['AI portfolio optimization', 'Low-fee crypto trading', 'Real-time analytics', 'Risk assessment'],
+      benefitHighlights: ['AI portfolio optimization', 'Low-fee crypto trading', 'Real-time analytics', 'Risk assessment'],
       cta: 'Start Investing'
     },
     {
@@ -52,7 +52,7 @@ export function FeaturesSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
         </svg>
       ),
-      features: ['Yield farming', 'Liquidity pools', 'Staking rewards', 'DeFi integrations'],
+      benefitHighlights: ['Yield farming', 'Liquidity pools', 'Staking rewards', 'DeFi integrations'],
       cta: 'Explore DeFi'
     }
   ];
@@ -72,8 +72,8 @@ export function FeaturesSection() {
 
         {/* Features Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Card 
+          {benefitsList.map((feature, index) => (
+            <FinancialCard 
               key={feature.id}
               variant="elevated"
               className={`relative overflow-hidden group hover:shadow-xl transition-all duration-300 ${
@@ -89,7 +89,7 @@ export function FeaturesSection() {
                 'bg-gradient-to-br from-secondary-coral-500 to-secondary-coral-600'
               }`} />
               
-              <CardHeader className="relative pb-4">
+              <FinancialCardHeader className="relative pb-4">
                 <div className="flex items-start justify-between mb-4">
                   <div className={`p-3 rounded-2xl ${
                     feature.color === 'primary' ? 'bg-primary-100' :
@@ -111,24 +111,24 @@ export function FeaturesSection() {
                   </div>
                 </div>
                 
-                <CardTitle className="text-xl font-bold mb-2">{feature.title}</CardTitle>
-                <CardDescription className={`font-medium ${
+                <FinancialCardTitle className="text-xl font-bold mb-2">{feature.title}</FinancialCardTitle>
+                <FinancialCardDescription className={`font-medium ${
                   feature.color === 'primary' ? 'text-primary-600' :
                   feature.color === 'purple' ? 'text-secondary-purple-600' :
                   'text-secondary-coral-600'
                 }`}>
                   {feature.subtitle}
-                </CardDescription>
-              </CardHeader>
+                </FinancialCardDescription>
+              </FinancialCardHeader>
               
-              <CardContent className="relative space-y-6">
+              <FinancialCardContent className="relative space-y-6">
                 <p className="text-neutral-600 leading-relaxed">
                   {feature.description}
                 </p>
                 
-                {/* Features list */}
+                {/* Benefits list */}
                 <ul className="space-y-2">
-                  {feature.features.map((item) => (
+                  {feature.benefitHighlights.map((item) => (
                     <li key={item} className="flex items-center space-x-2 text-sm text-neutral-600">
                       <svg className={`w-4 h-4 ${
                         feature.color === 'primary' ? 'text-primary-500' :
@@ -150,8 +150,8 @@ export function FeaturesSection() {
                 }`}>
                   {feature.cta}
                 </button>
-              </CardContent>
-            </Card>
+              </FinancialCardContent>
+            </FinancialCard>
           ))}
         </div>
         

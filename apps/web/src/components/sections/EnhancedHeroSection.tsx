@@ -5,7 +5,7 @@ import { Button } from '@diboas/ui';
 import { getMascotAsset, getLandingAsset } from '@/lib/assets';
 import { type HeroContent } from '@/lib/content/types';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn } from '@diboas/ui';
 
 /**
  * Enhanced Hero Section Component

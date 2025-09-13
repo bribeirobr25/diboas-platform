@@ -15,7 +15,7 @@ interface MobileNavProps {
   openSubmenu: (submenuId: string) => void;
   closeMenu: () => void;
   goBack: () => void;
-  trackMenuClick: (menuId: string, action: string) => void;
+  trackNavigationInteraction: (menuId: string, action: string) => void;
   config: NavigationConfig;
   isMobile: boolean;
 }
@@ -29,12 +29,10 @@ export default function MobileNav({
   openSubmenu,
   closeMenu,
   goBack,
-  trackMenuClick,
+  trackNavigationInteraction,
   config,
   isMobile 
 }: MobileNavProps) {
-  if (!isMobile) return null;
-
   const activeMenuItem = config.mainMenu.find(item => item.id === activeSubmenu);
 
   // Scroll to top when submenu opens
@@ -51,6 +49,11 @@ export default function MobileNav({
       }, 50);
     }
   }, [activeSubmenu]);
+
+  // Don't render on non-mobile devices
+  if (!isMobile) {
+    return null;
+  }
 
   return (
     <>
@@ -69,10 +72,10 @@ export default function MobileNav({
 
           <Link 
             href={config.actions.primary.href}
-            className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:from-teal-600 hover:to-teal-700 transition-all"
+            className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-2 rounded-lg font-medium text-xs hover:from-teal-600 hover:to-teal-700 transition-all"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackMenuClick('get-started-mobile', 'click')}
+            onClick={() => trackNavigationInteraction('get-started-mobile', 'click')}
           >
             {config.actions.primary.label}
           </Link>
@@ -91,17 +94,23 @@ export default function MobileNav({
       {isOpen && !activeSubmenu && (
         <Link
           href={config.actions.secondary.href}
-          className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-teal-500 to-teal-600 text-white text-center py-4 font-medium text-sm z-50 hover:from-teal-600 hover:to-teal-700 transition-all"
+          className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-teal-500 to-teal-600 text-white text-center py-4 font-medium text-xs z-50 hover:from-teal-600 hover:to-teal-700 transition-all"
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackMenuClick('business-login-mobile', 'click')}
+          onClick={() => trackNavigationInteraction('business-login-mobile', 'click')}
         >
           {config.actions.secondary.label}
         </Link>
       )}
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-white transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} ${activeSubmenu ? 'z-50' : 'z-40'}`}>
+      <div 
+        className={`fixed inset-0 bg-white transition-transform ${activeSubmenu ? 'z-50' : 'z-40'}`}
+        style={{
+          transform: isOpen ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}
+      >
         <div className={`h-full overflow-y-auto ${!activeSubmenu ? 'pt-16 pb-20' : ''}`}>
           {!activeSubmenu ? (
             /* Main Mobile Menu */
@@ -118,7 +127,7 @@ export default function MobileNav({
                       href={item.href}
                       className="bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px]"
                       onClick={() => {
-                        trackMenuClick(item.id, 'click');
+                        trackNavigationInteraction(item.id, 'click');
                         toggleMenu();
                       }}
                     >
@@ -142,7 +151,7 @@ export default function MobileNav({
                           <button
                             onClick={() => {
                               openSubmenu(item.id);
-                              trackMenuClick(item.id, 'open');
+                              trackNavigationInteraction(item.id, 'open');
                             }}
                             className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors"
                           >
@@ -174,7 +183,7 @@ export default function MobileNav({
                       <button
                         onClick={() => {
                           openSubmenu(item.id);
-                          trackMenuClick(item.id, 'open');
+                          trackNavigationInteraction(item.id, 'open');
                         }}
                         className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors"
                       >
@@ -190,7 +199,10 @@ export default function MobileNav({
             </div>
           ) : (
             /* Submenu View */
-            <div className="h-full flex flex-col bg-white overflow-y-auto" data-submenu-scroll>
+            <div 
+              className="h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right" 
+              data-submenu-scroll
+            >
               {/* Fixed Header with Back and Close buttons */}
               <div className="sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50">
                 <button
@@ -249,7 +261,7 @@ export default function MobileNav({
                     href={subItem.href}
                     className="block p-4 rounded-xl hover:bg-gray-50 transition-colors"
                     onClick={() => {
-                      trackMenuClick(subItem.id, 'click');
+                      trackNavigationInteraction(subItem.id, 'click');
                       toggleMenu();
                     }}
                   >

@@ -1,6 +1,6 @@
 import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '@diboas/ui';
 
 const inputVariants = cva(
   "flex w-full rounded-xl border bg-neutral-50 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
@@ -28,7 +28,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
   VariantProps<typeof inputVariants> { }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const DiboasInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, variant, size, type, ...props }, ref) => {
     return (
       <input
@@ -41,6 +41,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+DiboasInput.displayName = "DiboasInput";
 
-export { Input, inputVariants };
+export { DiboasInput, inputVariants };

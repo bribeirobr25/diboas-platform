@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui';
+import { FinancialCard, FinancialCardContent } from '@/components/ui';
 import { getLandingAsset } from '@/lib/assets';
 import Image from 'next/image';
 
@@ -105,7 +105,7 @@ export function TrustSection() {
           <div className="space-y-8">
             <div className="grid gap-6">
               {trustFeatures.map((feature, index) => (
-                <Card key={index} variant="outlined" className="p-6 hover:shadow-md transition-shadow">
+                <FinancialCard key={index} variant="outlined" className="p-6 hover:shadow-md transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="p-3 bg-primary-100 rounded-2xl">
                       {feature.icon}
@@ -119,7 +119,7 @@ export function TrustSection() {
                       </p>
                     </div>
                   </div>
-                </Card>
+                </FinancialCard>
               ))}
             </div>
           </div>

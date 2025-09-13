@@ -3,21 +3,52 @@
  * 
  * IMPORTANT: This contains ONLY path definitions (strings), not actual files.
  * Physical files exist once in /public/assets/
+ * 
+ * SEMANTIC NAMING CONVENTION:
+ * 
+ * Icons: {domain}-{action}-{variant}.avif
+ * - financial-buy-action.avif (general financial purchases)
+ * - crypto-buy-interface.avif (crypto-specific purchase UI)
+ * - investment-buy-stocks.avif (stock investment purchases)
+ * - money-outflow-transaction.avif (transaction flows)
+ * - learn-advanced-course.avif (education content)
+ * - rewards-medal-bronze.avif (achievement levels)
+ * 
+ * Inspiration Assets: {platform}-{section}-{content}.png
+ * - desktop-menu-expanded.png (desktop navigation states)
+ * - mobile-account-hero.png (mobile page sections)
+ * - desktop-account-hero.png (desktop page sections)
+ * 
+ * Mascots: mascot-{type}-{expression}.avif
+ * - mascot-acqua-basic.avif (default state)
+ * - mascot-coral-celebrating.avif (emotional states)
+ * - mascot-mystic-flying.avif (action states)
+ * 
+ * Navigation: {page}-banner.avif
+ * - about-banner.avif (page-specific banners)
+ * - security-banner.avif (domain-specific content)
+ * 
+ * This convention ensures:
+ * - Self-documenting file names
+ * - Domain context preservation  
+ * - Easy asset discovery
+ * - Consistent organization
+ * - No ambiguous naming
  */
 
-export const ASSET_PATHS = {
+export const DIBOAS_ASSET_PATHS = {
   // Icons - Small UI elements, symbols, interface graphics
   icons: {
     card: '/assets/icons/card.avif',
     charGrowing: '/assets/icons/char-growing.avif',
     charGrowing2: '/assets/icons/char-growing2.avif',
     chartGrowing3: '/assets/icons/chart-growing3.avif',
-    buy: '/assets/icons/buy.avif',
-    buy2: '/assets/icons/buy2.avif',
-    buy3: '/assets/icons/buy3.avif',
+    financialBuyAction: '/assets/icons/financial-buy-action.avif',
+    cryptoBuyInterface: '/assets/icons/crypto-buy-interface.avif',
+    investmentBuyStocks: '/assets/icons/investment-buy-stocks.avif',
     investing: '/assets/icons/investing.avif',
     learn: '/assets/icons/learn.avif',
-    learn2: '/assets/icons/learn2.avif',
+    learnAdvancedCourse: '/assets/icons/learn-advanced-course.avif',
     learnCertificate: '/assets/icons/learn-certificate.avif',
     learnLamp: '/assets/icons/learn-lamp.avif',
     learnLaptop: '/assets/icons/learn-laptop.avif',
@@ -29,10 +60,10 @@ export const ASSET_PATHS = {
     moneyFlow2: '/assets/icons/money-flow2.avif',
     moneyOut: '/assets/icons/money-out.avif',
     moneyOut2: '/assets/icons/money-out2.avif',
-    moneOut2: '/assets/icons/mone-out2.avif',
+    moneyOutflowTransaction: '/assets/icons/money-outflow-transaction.avif',
     rewardsBox: '/assets/icons/rewards-box.avif',
     rewardsMedal: '/assets/icons/rewards-medal.avif',
-    rewardsMedal1: '/assets/icons/rewards-medal1.avif',
+    rewardsMedalBronze: '/assets/icons/rewards-medal-bronze.avif',
     rewardsTrophy: '/assets/icons/rewards-trophy.avif',
     rewardsTrophy2: '/assets/icons/rewards-trophy2.avif',
     safeMoney: '/assets/icons/safe-money.avif',
@@ -115,7 +146,7 @@ export const getMascotAsset = (
   mascot: 'acqua' | 'mystic' | 'coral',
   variant: 'basic' | 'simple' | 'cute' | 'hello' | 'flying' | 'flying2' | 'learn' | 'full' | 'celebrating' | 'smiling' = 'basic'
 ): string => {
-  return ASSET_PATHS.mascots[mascot]?.[variant as keyof typeof ASSET_PATHS.mascots[typeof mascot]] || ASSET_PATHS.mascots[mascot]?.basic || '';
+  return DIBOAS_ASSET_PATHS.mascots[mascot]?.[variant as keyof typeof DIBOAS_ASSET_PATHS.mascots[typeof mascot]] || DIBOAS_ASSET_PATHS.mascots[mascot]?.basic || '';
 };
 
 export const getLogoAsset = (
@@ -123,27 +154,27 @@ export const getLogoAsset = (
   variant?: 'wordmark' | 'icon'
 ): string => {
   if (type === 'b2b' && variant) {
-    return ASSET_PATHS.logos.b2b[variant] || '';
+    return DIBOAS_ASSET_PATHS.logos.b2b[variant] || '';
   }
-  return ASSET_PATHS.logos[type as 'primary' | 'icon'] || '';
+  return DIBOAS_ASSET_PATHS.logos[type as 'primary' | 'icon'] || '';
 };
 
-export const getIconAsset = (iconName: keyof typeof ASSET_PATHS.icons): string => {
-  return ASSET_PATHS.icons[iconName] || '';
+export const getIconAsset = (iconName: keyof typeof DIBOAS_ASSET_PATHS.icons): string => {
+  return DIBOAS_ASSET_PATHS.icons[iconName] || '';
 };
 
-export const getLandingAsset = (assetName: keyof typeof ASSET_PATHS.landing): string => {
-  return ASSET_PATHS.landing[assetName] || '';
+export const getLandingAsset = (assetName: keyof typeof DIBOAS_ASSET_PATHS.landing): string => {
+  return DIBOAS_ASSET_PATHS.landing[assetName] || '';
 };
 
 export const getNavigationAsset = (page: string): string => {
-  const key = `${page}Banner` as keyof typeof ASSET_PATHS.navigation;
-  return ASSET_PATHS.navigation[key] || '';
+  const key = `${page}Banner` as keyof typeof DIBOAS_ASSET_PATHS.navigation;
+  return DIBOAS_ASSET_PATHS.navigation[key] || '';
 };
 
 export const getSocialAsset = (
   category: 'real' | 'drawing',
   assetName: string
 ): string => {
-  return ASSET_PATHS.socials[category]?.[assetName as keyof typeof ASSET_PATHS.socials[typeof category]] || '';
+  return DIBOAS_ASSET_PATHS.socials[category]?.[assetName as keyof typeof DIBOAS_ASSET_PATHS.socials[typeof category]] || '';
 };

@@ -8,17 +8,17 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
-  const nav = useNavigation();
+  const navigationState = useNavigation();
   const pathname = usePathname();
   
   // Close navigation on route change
   useEffect(() => {
-    nav.closeMenu();
+    navigationState.closeMenu();
   }, [pathname]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (nav.isOpen && nav.isMobile) {
+    if (navigationState.isOpen && navigationState.isMobile) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -27,10 +27,10 @@ export default function Navigation() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [nav.isOpen, nav.isMobile]);
+  }, [navigationState.isOpen, navigationState.isMobile]);
 
   // Analytics tracking
-  const trackMenuClick = (menuId: string, action: string) => {
+  const trackNavigationInteraction = (menuId: string, action: string) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'navigation_interaction', {
         menu_id: menuId,
@@ -41,15 +41,15 @@ export default function Navigation() {
   };
 
   const navigationProps = {
-    ...nav,
+    ...navigationState,
     config: navigationConfig,
-    trackMenuClick
+    trackNavigationInteraction
   };
 
   return (
     <>
-      <DesktopNav {...navigationProps} />
-      <MobileNav {...navigationProps} />
+      <DesktopNav key="desktop-nav" {...navigationProps} />
+      <MobileNav key="mobile-nav" {...navigationProps} />
     </>
   );
 }

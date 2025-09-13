@@ -34,8 +34,15 @@ const nextConfig = {
     ];
   },
   
-  // Transpile any packages if needed
-  transpilePackages: [],
+  // Transpile workspace packages
+  transpilePackages: ['@diboas/ui', '@diboas/i18n'],
+  
+  // Webpack configuration for pnpm workspaces
+  webpack: (config) => {
+    // Handle pnpm's symlinked node_modules structure
+    config.resolve.symlinks = true;
+    return config;
+  },
   
   // Remove powered by header
   poweredByHeader: false,
