@@ -63,7 +63,7 @@ export default function DesktopNav({
           <div className="flex items-center space-x-8">
             <Link 
               href={config.actions.secondary.href}
-              className="text-gray-600 hover:text-teal-600 font-medium text-sm transition-colors"
+              className="text-gray-600 hover:text-teal-600 font-medium text-xs transition-colors"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackNavigationInteraction('business-login', 'click')}
@@ -72,7 +72,7 @@ export default function DesktopNav({
             </Link>
             <Link 
               href={config.actions.primary.href}
-              className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-6 py-2 rounded-xl font-semibold text-sm hover:from-teal-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg"
+              className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-6 py-2 rounded-xl font-semibold text-xs hover:from-teal-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackNavigationInteraction('get-started', 'click')}
@@ -86,10 +86,16 @@ export default function DesktopNav({
       {/* Mega Menu */}
       {activeMenu && activeMenuItem && (
         <div 
-          className="absolute top-20 left-0 w-full bg-white shadow-2xl border-t animate-fade-in"
-          style={{ height: '60vh' }}
+          className="absolute left-0 w-full overflow-hidden"
+          style={{ 
+            top: '80px',
+          }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-full" style={{ marginLeft: '150px' }}>
+          <div 
+            className="w-full bg-white shadow-2xl border-t animate-slide-down-fade"
+            style={{ height: '60vh' }}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-full" style={{ marginLeft: '150px' }}>
             <div className="grid grid-cols-12 gap-8 h-full">
               {/* Left: Banner */}
               <div className="col-span-4">
@@ -135,6 +141,7 @@ export default function DesktopNav({
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       )}

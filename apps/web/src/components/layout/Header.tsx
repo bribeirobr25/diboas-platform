@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui';
+import { Button } from '@diboas/ui';
 import { getLogoAsset } from '@/lib/assets';
 import Image from 'next/image';
 import Link from 'next/link';

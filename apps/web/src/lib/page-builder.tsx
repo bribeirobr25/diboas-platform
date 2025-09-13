@@ -1,10 +1,11 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { type PageSection } from './content/types';
+import { cn } from '@diboas/ui';
 
 // Lazy load section components for performance
-import { HeroSection } from '@/components/sections/HeroSection';
+import { HeroSection } from '@/components/sections/EnhancedHeroSection';
 import { FeaturesSection } from '@/components/sections/FeaturesSection';
 import { TrustSection } from '@/components/sections/TrustSection';
 

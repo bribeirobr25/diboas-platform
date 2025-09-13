@@ -48,8 +48,8 @@ export default function Navigation() {
 
   return (
     <>
-      <DesktopNav {...navigationProps} />
-      <MobileNav {...navigationProps} />
+      <DesktopNav key="desktop-nav" {...navigationProps} />
+      <MobileNav key="mobile-nav" {...navigationProps} />
     </>
   );
 }
