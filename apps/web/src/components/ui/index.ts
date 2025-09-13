@@ -1,3 +1,3 @@
-export { Button, type ButtonProps } from './Button';
-export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card';
-export { Input, type InputProps } from './Input';
+export { DiboasButton, type ButtonProps } from './Button';
+export { FinancialCard, FinancialCardHeader, FinancialCardTitle, FinancialCardDescription, FinancialCardContent, FinancialCardFooter } from './Card';
+export { DiboasInput, type InputProps } from './Input';

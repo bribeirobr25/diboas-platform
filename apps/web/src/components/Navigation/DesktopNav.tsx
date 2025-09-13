@@ -9,7 +9,7 @@ interface DesktopNavProps {
   activeMenu: string | null;
   openMenu: (menuId: string) => void;
   closeMenu: () => void;
-  trackMenuClick: (menuId: string, action: string) => void;
+  trackNavigationInteraction: (menuId: string, action: string) => void;
   config: NavigationConfig;
   isMobile: boolean;
 }
@@ -18,7 +18,7 @@ export default function DesktopNav({
   activeMenu, 
   openMenu, 
   closeMenu, 
-  trackMenuClick,
+  trackNavigationInteraction,
   config,
   isMobile 
 }: DesktopNavProps) {
@@ -49,7 +49,7 @@ export default function DesktopNav({
                 className="flex items-center space-x-1 text-gray-600 hover:text-teal-600 transition-colors py-2 relative group"
                 onMouseEnter={() => {
                   openMenu(item.id);
-                  trackMenuClick(item.id, 'hover');
+                  trackNavigationInteraction(item.id, 'hover');
                 }}
               >
                 {item.icon && <Sparkles className="w-4 h-4" />}
@@ -66,7 +66,7 @@ export default function DesktopNav({
               className="text-gray-600 hover:text-teal-600 font-medium text-sm transition-colors"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackMenuClick('business-login', 'click')}
+              onClick={() => trackNavigationInteraction('business-login', 'click')}
             >
               {config.actions.secondary.label}
             </Link>
@@ -75,7 +75,7 @@ export default function DesktopNav({
               className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-6 py-2 rounded-xl font-semibold text-sm hover:from-teal-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackMenuClick('get-started', 'click')}
+              onClick={() => trackNavigationInteraction('get-started', 'click')}
             >
               {config.actions.primary.label}
             </Link>
@@ -118,7 +118,7 @@ export default function DesktopNav({
                       key={subItem.id}
                       href={subItem.href}
                       className="group block p-4 rounded-xl transition-colors"
-                      onClick={() => trackMenuClick(subItem.id, 'click')}
+                      onClick={() => trackNavigationInteraction(subItem.id, 'click')}
                     >
                       <div>
                         <h4 className="font-semibold text-lg text-gray-900 group-hover:text-teal-600 transition-colors">

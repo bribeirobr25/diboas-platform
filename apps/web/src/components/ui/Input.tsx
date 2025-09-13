@@ -28,7 +28,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
   VariantProps<typeof inputVariants> { }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const DiboasInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, variant, size, type, ...props }, ref) => {
     return (
       <input
@@ -41,6 +41,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+DiboasInput.displayName = "DiboasInput";
 
-export { Input, inputVariants };
+export { DiboasInput, inputVariants };

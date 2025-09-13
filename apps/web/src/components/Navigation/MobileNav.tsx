@@ -15,7 +15,7 @@ interface MobileNavProps {
   openSubmenu: (submenuId: string) => void;
   closeMenu: () => void;
   goBack: () => void;
-  trackMenuClick: (menuId: string, action: string) => void;
+  trackNavigationInteraction: (menuId: string, action: string) => void;
   config: NavigationConfig;
   isMobile: boolean;
 }
@@ -29,7 +29,7 @@ export default function MobileNav({
   openSubmenu,
   closeMenu,
   goBack,
-  trackMenuClick,
+  trackNavigationInteraction,
   config,
   isMobile 
 }: MobileNavProps) {
@@ -72,7 +72,7 @@ export default function MobileNav({
             className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:from-teal-600 hover:to-teal-700 transition-all"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackMenuClick('get-started-mobile', 'click')}
+            onClick={() => trackNavigationInteraction('get-started-mobile', 'click')}
           >
             {config.actions.primary.label}
           </Link>
@@ -94,7 +94,7 @@ export default function MobileNav({
           className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-teal-500 to-teal-600 text-white text-center py-4 font-medium text-sm z-50 hover:from-teal-600 hover:to-teal-700 transition-all"
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackMenuClick('business-login-mobile', 'click')}
+          onClick={() => trackNavigationInteraction('business-login-mobile', 'click')}
         >
           {config.actions.secondary.label}
         </Link>
@@ -118,7 +118,7 @@ export default function MobileNav({
                       href={item.href}
                       className="bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px]"
                       onClick={() => {
-                        trackMenuClick(item.id, 'click');
+                        trackNavigationInteraction(item.id, 'click');
                         toggleMenu();
                       }}
                     >
@@ -142,7 +142,7 @@ export default function MobileNav({
                           <button
                             onClick={() => {
                               openSubmenu(item.id);
-                              trackMenuClick(item.id, 'open');
+                              trackNavigationInteraction(item.id, 'open');
                             }}
                             className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors"
                           >
@@ -174,7 +174,7 @@ export default function MobileNav({
                       <button
                         onClick={() => {
                           openSubmenu(item.id);
-                          trackMenuClick(item.id, 'open');
+                          trackNavigationInteraction(item.id, 'open');
                         }}
                         className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors"
                       >
@@ -249,7 +249,7 @@ export default function MobileNav({
                     href={subItem.href}
                     className="block p-4 rounded-xl hover:bg-gray-50 transition-colors"
                     onClick={() => {
-                      trackMenuClick(subItem.id, 'click');
+                      trackNavigationInteraction(subItem.id, 'click');
                       toggleMenu();
                     }}
                   >

@@ -49,11 +49,11 @@ export const bankingPageConfig: PageConfig = {
     {
       id: 'banking-hero',
       type: 'hero',
-      props: {
+      sectionConfig: {
         variant: 'split',
         background: 'gradient-banking'
       },
-      content: {
+      sectionContent: {
         title: 'Banking Made Simple',
         subtitle: 'Smart Banking Solutions',
         description: 'Experience next-generation banking with zero fees, instant transfers, and AI-powered budgeting that adapts to your lifestyle.',
@@ -91,11 +91,11 @@ export const bankingPageConfig: PageConfig = {
     {
       id: 'banking-features',
       type: 'features',
-      props: {
+      sectionConfig: {
         variant: 'grid',
         background: 'neutral'
       },
-      content: {
+      sectionContent: {
         title: 'Everything You Need in Modern Banking',
         subtitle: 'Powered by Acqua, your AI banking assistant',
         items: [
@@ -152,11 +152,11 @@ export const bankingPageConfig: PageConfig = {
     {
       id: 'banking-trust',
       type: 'trust',
-      props: {
+      sectionConfig: {
         variant: 'with-stats',
         background: 'white'
       },
-      content: {
+      sectionContent: {
         title: 'Your Money, Secured by Design',
         subtitle: 'Built with enterprise-grade security that banks trust',
         features: [
@@ -208,11 +208,11 @@ export const bankingPageConfig: PageConfig = {
     {
       id: 'banking-cta',
       type: 'cta',
-      props: {
+      sectionConfig: {
         variant: 'centered',
         background: 'gradient-primary'
       },
-      content: {
+      sectionContent: {
         title: 'Ready to Experience Better Banking?',
         subtitle: 'Join thousands who\'ve already made the switch',
         description: 'Open your account in minutes and start enjoying zero-fee banking with AI-powered insights.',

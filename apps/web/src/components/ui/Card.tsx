@@ -30,7 +30,7 @@ export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>,
   VariantProps<typeof cardVariants> { }
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(
+const FinancialCard = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant, padding, ...props }, ref) => (
     <div
       ref={ref}
@@ -40,7 +40,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
   )
 );
 
-const CardHeader = React.forwardRef<
+const FinancialCardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
@@ -51,7 +51,7 @@ const CardHeader = React.forwardRef<
   />
 ));
 
-const CardTitle = React.forwardRef<
+const FinancialCardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -62,7 +62,7 @@ const CardTitle = React.forwardRef<
   />
 ));
 
-const CardDescription = React.forwardRef<
+const FinancialCardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
@@ -73,14 +73,14 @@ const CardDescription = React.forwardRef<
   />
 ));
 
-const CardContent = React.forwardRef<
+const FinancialCardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("", className)} {...props} />
 ));
 
-const CardFooter = React.forwardRef<
+const FinancialCardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
@@ -91,11 +91,11 @@ const CardFooter = React.forwardRef<
   />
 ));
 
-Card.displayName = "Card";
-CardHeader.displayName = "CardHeader";
-CardTitle.displayName = "CardTitle";
-CardDescription.displayName = "CardDescription";
-CardContent.displayName = "CardContent";
-CardFooter.displayName = "CardFooter";
+FinancialCard.displayName = "FinancialCard";
+FinancialCardHeader.displayName = "FinancialCardHeader";
+FinancialCardTitle.displayName = "FinancialCardTitle";
+FinancialCardDescription.displayName = "FinancialCardDescription";
+FinancialCardContent.displayName = "FinancialCardContent";
+FinancialCardFooter.displayName = "FinancialCardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+export { FinancialCard, FinancialCardHeader, FinancialCardFooter, FinancialCardTitle, FinancialCardDescription, FinancialCardContent };

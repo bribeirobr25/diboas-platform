@@ -183,13 +183,13 @@ export interface CTAContent {
 export interface PageSection {
   id: string;
   type: 'hero' | 'features' | 'trust' | 'testimonials' | 'pricing' | 'comparison' | 'cta';
-  props?: {
+  sectionConfig?: {
     variant?: string;
     background?: string;
     className?: string;
     [key: string]: any;
   };
-  content: 
+  sectionContent: 
     | HeroContent 
     | FeaturesContent 
     | TrustContent 

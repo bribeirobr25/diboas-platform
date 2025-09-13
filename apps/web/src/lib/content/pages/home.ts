@@ -65,11 +65,11 @@ const baseHomeConfig: PageConfig = {
     {
       id: 'home-hero',
       type: 'hero',
-      props: {
+      sectionConfig: {
         variant: 'split',
         background: 'gradient'
       },
-      content: {
+      sectionContent: {
         title: 'Financial Freedom Made Simple',
         subtitle: 'The Future of Finance is Here',
         description: 'Manage your banking, investing, and DeFi assets all in one place. Powered by AI-driven insights and secured by enterprise-grade technology.',
@@ -107,11 +107,11 @@ const baseHomeConfig: PageConfig = {
     {
       id: 'home-features',
       type: 'features',
-      props: {
+      sectionConfig: {
         variant: 'grid',
         background: 'neutral'
       },
-      content: {
+      sectionContent: {
         title: 'Your Complete Financial Ecosystem',
         subtitle: 'Three powerful domains unified in one platform, each powered by AI-driven mascots to guide your financial journey.',
         items: [
@@ -171,11 +171,11 @@ const baseHomeConfig: PageConfig = {
     {
       id: 'home-trust',
       type: 'trust',
-      props: {
+      sectionConfig: {
         variant: 'with-stats',
         background: 'white'
       },
-      content: {
+      sectionContent: {
         title: 'Your Security is Our Priority',
         subtitle: 'Built with enterprise-grade security and zero-trust architecture to protect your financial future.',
         features: [
@@ -237,11 +237,11 @@ const baseHomeConfig: PageConfig = {
     {
       id: 'home-cta',
       type: 'cta',
-      props: {
+      sectionConfig: {
         variant: 'centered',
         background: 'gradient-primary'
       },
-      content: {
+      sectionContent: {
         title: 'Ready to Experience the Future of Finance?',
         subtitle: 'Join thousands who\'ve already made the switch',
         description: 'Get started in minutes and discover how AI-powered financial services can transform your financial life.',
@@ -315,8 +315,8 @@ export const homePageConfig: Record<SupportedLocale, PageConfig> = {
     // Content would be translated using i18n system
     sections: baseHomeConfig.sections.map(section => ({
       ...section,
-      content: {
-        ...section.content,
+      sectionContent: {
+        ...section.sectionContent,
         // Translation keys would be used here in real implementation
         // title: t('hero.title'), etc.
       }
