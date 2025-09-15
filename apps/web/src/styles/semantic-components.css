@@ -1,8 +1,8 @@
 /**
- * Semantic Component Classes - Intuitive Naming
+ * Semantic Component Classes - Navigation Only
  * 
- * Simple, clear class names that describe WHAT the component IS
- * Easy to read and maintain - no technical jargon
+ * Contains only classes actually used by Navigation components
+ * Cleaned up to remove all unused styles
  */
 
 /* =================================================================== */
@@ -12,10 +12,6 @@
 .main-body-antialiased {
   @apply bg-white text-gray-900 antialiased;
   font-family: 'Inter', system-ui, sans-serif;
-}
-
-.main-page-container {
-  @apply flex min-h-screen flex-col;
 }
 
 .main-page-wrapper {
@@ -28,10 +24,6 @@
 
 .content-container {
   @apply mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-.section-container {
-  @apply max-w-7xl mx-auto px-4;
 }
 
 .container-sm {
@@ -59,107 +51,11 @@
 }
 
 /* =================================================================== */
-/* SECTIONS */
-/* =================================================================== */
-
-.section-white {
-  @apply bg-white;
-}
-
-.section-gray {
-  @apply bg-gray-50;
-}
-
-.section-gradient {
-  @apply bg-gradient-to-br from-teal-50 to-white;
-}
-
-.section-dark {
-  @apply bg-gray-900;
-}
-
-.section-spacing-sm {
-  @apply py-12;
-}
-
-.section-spacing-md {
-  @apply py-16;
-}
-
-.section-spacing-lg {
-  @apply py-20;
-}
-
-.section-spacing-xl {
-  @apply py-24;
-}
-
-/* =================================================================== */
-/* GRID LAYOUTS */
-/* =================================================================== */
-
-.grid-base {
-  @apply grid;
-}
-
-.grid-1-col {
-  @apply grid-cols-1;
-}
-
-.grid-2-col {
-  @apply grid-cols-1 lg:grid-cols-2;
-}
-
-.grid-3-col {
-  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
-}
-
-.grid-4-col {
-  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
-}
-
-.grid-6-col {
-  @apply grid-cols-1 md:grid-cols-3 lg:grid-cols-6;
-}
-
-.grid-gap-sm {
-  @apply gap-4;
-}
-
-.grid-gap-md {
-  @apply gap-6;
-}
-
-.grid-gap-lg {
-  @apply gap-8;
-}
-
-.grid-gap-xl {
-  @apply gap-12;
-}
-
-.grid-align-start {
-  @apply items-start;
-}
-
-.grid-align-center {
-  @apply items-center;
-}
-
-.grid-align-end {
-  @apply items-end;
-}
-
-.grid-align-stretch {
-  @apply items-stretch;
-}
-
-/* =================================================================== */
-/* FLEX UTILITIES */
+/* FLEX LAYOUTS */
 /* =================================================================== */
 
 .flex-between {
-  @apply flex justify-between;
+  @apply flex items-center justify-between;
 }
 
 .flex-align-start {
@@ -178,112 +74,13 @@
   @apply items-stretch;
 }
 
-/* =================================================================== */
-/* HEADERS */
-/* =================================================================== */
-
-.header-title-base {
-  @apply font-bold text-neutral-900 leading-tight tracking-tight;
-}
-
-.header-subtitle-base {
-  @apply font-semibold text-primary-600;
-}
-
-.header-description-base {
-  @apply text-neutral-600 leading-relaxed;
-}
-
-.header-description-center {
-  @apply max-w-3xl mx-auto;
-}
-
-.header-description-left {
-  @apply max-w-3xl;
-}
-
-.header-align-left {
-  @apply text-left;
-}
-
-.header-align-center {
-  @apply text-center;
-}
-
-.header-align-right {
-  @apply text-right;
-}
-
-.header-title-sm {
-  @apply text-2xl md:text-3xl;
-}
-
-.header-title-md {
-  @apply text-3xl md:text-4xl lg:text-5xl;
-}
-
-.header-title-lg {
-  @apply text-4xl md:text-5xl lg:text-6xl;
-}
-
-.header-title-xl {
-  @apply text-5xl md:text-6xl lg:text-7xl;
-}
-
-.header-subtitle-sm {
-  @apply text-lg md:text-xl;
-}
-
-.header-subtitle-md {
-  @apply text-xl md:text-2xl;
-}
-
-.header-subtitle-lg {
-  @apply text-xl md:text-2xl lg:text-3xl;
-}
-
-.header-subtitle-xl {
-  @apply text-2xl md:text-3xl lg:text-4xl;
-}
-
-.header-description-sm {
-  @apply text-base;
-}
-
-.header-description-md {
-  @apply text-lg;
-}
-
-.header-description-lg {
-  @apply text-lg md:text-xl;
-}
-
-.header-description-xl {
-  @apply text-xl md:text-2xl;
-}
-
-.header-spacing-sm {
-  @apply space-y-3;
-}
-
-.header-spacing-md {
-  @apply space-y-4;
-}
-
-.header-spacing-lg {
-  @apply space-y-6;
-}
-
-.header-spacing-xl {
-  @apply space-y-8;
-}
 
 /* =================================================================== */
-/* NAVIGATION */
+/* DESKTOP NAVIGATION */
 /* =================================================================== */
 
 .navigation-bar {
-  @apply fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-neutral-200;
+  @apply fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50;
 }
 
 .navigation-content {
@@ -319,7 +116,7 @@
 }
 
 .dropdown-menu {
-  @apply w-full bg-white shadow-2xl border-t animate-slide-down-fade;
+  @apply w-full bg-white shadow-2xl border-t;
 }
 
 .dropdown-content {
@@ -331,7 +128,7 @@
 }
 
 .dropdown-title {
-  @apply text-2xl font-bold text-gray-900 mb-2;
+  @apply text-2xl font-bold text-gray-900 mb-3;
 }
 
 .dropdown-items {
@@ -488,150 +285,6 @@
 }
 
 /* =================================================================== */
-/* HERO SECTION */
-/* =================================================================== */
-
-.hero-content {
-  @apply text-center lg:text-left;
-}
-
-.hero-actions {
-  @apply flex flex-col sm:flex-row gap-4 justify-center lg:justify-start;
-}
-
-.hero-trust {
-  @apply mt-8 text-sm text-gray-500;
-}
-
-.hero-image {
-  @apply mx-auto shadow-2xl rounded-3xl;
-}
-
-/* =================================================================== */
-/* FEATURES SECTION */
-/* =================================================================== */
-
-.features-grid {
-  @apply grid lg:grid-cols-2 gap-16 items-center;
-}
-
-.features-content {
-  @apply relative max-w-lg mx-auto;
-}
-
-.feature-card {
-  @apply bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-lg transition-shadow;
-}
-
-.feature-title {
-  @apply text-xl font-bold text-gray-900 mb-3;
-}
-
-.feature-description {
-  @apply text-gray-600 mb-6;
-}
-
-/* =================================================================== */
-/* FOOTER */
-/* =================================================================== */
-
-.footer-brand {
-  @apply flex items-center justify-center space-x-2 mb-4;
-}
-
-.footer-copyright {
-  @apply text-gray-500 text-sm;
-}
-
-.footer-description {
-  @apply text-gray-400 mb-4;
-}
-
-.footer-highlight {
-  @apply text-teal-400;
-}
-
-/* =================================================================== */
-/* TRUST SECTION */
-/* =================================================================== */
-
-.trust-container {
-  @apply py-20 bg-white;
-}
-
-.trust-wrapper {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-/* =================================================================== */
-/* PLACEHOLDER AND LOADING SECTIONS */
-/* =================================================================== */
-
-.placeholder-section {
-  @apply py-20 bg-neutral-50 text-center;
-}
-
-.placeholder-wrapper {
-  @apply max-w-7xl mx-auto px-4;
-}
-
-.placeholder-title {
-  @apply text-2xl font-bold text-neutral-900 mb-4;
-}
-
-.placeholder-description {
-  @apply text-neutral-600;
-}
-
-/* =================================================================== */
-/* LOADING AND ERRORS */
-/* =================================================================== */
-
-.loading-container {
-  @apply py-20 bg-neutral-50 text-center;
-}
-
-.loading-wrapper {
-  @apply max-w-7xl mx-auto px-4;
-}
-
-.loading-title {
-  @apply text-2xl font-bold text-neutral-900 mb-4;
-}
-
-.loading-skeleton {
-  @apply animate-pulse bg-neutral-100 rounded-lg;
-}
-
-.loading-skeleton-container {
-  @apply container mx-auto px-4 py-12;
-}
-
-.loading-title-skeleton {
-  @apply h-8 bg-neutral-200 rounded w-1/2 mx-auto mb-4;
-}
-
-.loading-subtitle-skeleton {
-  @apply h-4 bg-neutral-200 rounded w-1/3 mx-auto mb-8;
-}
-
-.loading-grid-skeleton {
-  @apply grid grid-cols-1 md:grid-cols-3 gap-6;
-}
-
-.loading-card-skeleton {
-  @apply h-48 bg-neutral-200 rounded-lg;
-}
-
-.loading-message {
-  @apply p-8 text-center;
-}
-
-.loading-message-text {
-  @apply text-2xl font-bold text-neutral-900 mb-2;
-}
-
-/* =================================================================== */
 /* ACCESSIBILITY */
 /* =================================================================== */
 
@@ -652,11 +305,11 @@
 }
 
 .card-title {
-  @apply text-heading font-semibold leading-none tracking-tight text-neutral-900;
+  @apply text-lg font-semibold leading-none tracking-tight text-neutral-900;
 }
 
 .card-description {
-  @apply text-body text-neutral-600;
+  @apply text-base text-neutral-600;
 }
 
 .card-footer {

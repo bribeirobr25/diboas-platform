@@ -3,7 +3,6 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { SupportedLocale, SUPPORTED_LOCALES } from '@diboas/i18n';
 import { useState, useRef, useEffect } from 'react';
-import { CheckIcon } from './Icon';
 
 const localeNames: Record<SupportedLocale, string> = {
   'en': 'English',
@@ -82,10 +81,9 @@ export function LanguageSwitcher({ currentLocale, variant = 'dropdown' }: Langua
       >
         <span className="text-lg">{localeFlags[currentLocale]}</span>
         <span className="text-sm font-medium">{localeNames[currentLocale]}</span>
-        <CheckIcon
-          size="xs"
-          className={`transition-transform ${isOpen ? 'rotate-90' : ''}`}
-        />
+        <span className={`transition-transform ${isOpen ? 'rotate-90' : ''} text-xs`}>
+          ▼
+        </span>
       </button>
 
       {isOpen && (
