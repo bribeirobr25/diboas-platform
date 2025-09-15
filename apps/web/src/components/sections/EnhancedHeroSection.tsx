@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from '@diboas/ui';
-import { getMascotAsset, getLandingAsset } from '@/lib/assets';
+import { getMascotAsset } from '@/lib/assets';
 import { type HeroContent } from '@/lib/content/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -58,7 +58,7 @@ const BACKGROUND_STYLES = {
   'solid': 'bg-white'
 } as const;
 
-export function HeroSection({ 
+export function HeroSection({
   content,
   sectionId = 'hero',
   locale = 'en',
@@ -70,7 +70,7 @@ export function HeroSection({
   const backgroundStyle = BACKGROUND_STYLES[background];
 
   return (
-    <section 
+    <section
       className={cn(
         'relative overflow-hidden pt-20 pb-16 md:pt-32 md:pb-24',
         backgroundStyle,
@@ -80,12 +80,12 @@ export function HeroSection({
     >
       {/* Background Decorations */}
       <BackgroundDecorations background={background} />
-      
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={variantConfig.container}>
           {/* Content Column */}
           <div className={variantConfig.content}>
-            <HeroContent 
+            <HeroContent
               content={content}
               sectionId={sectionId}
               titleClassName={variantConfig.title}
@@ -93,10 +93,10 @@ export function HeroSection({
               locale={locale}
             />
           </div>
-          
+
           {/* Visual Column (for split layout) */}
           {variant === 'split' && (
-            <HeroVisual 
+            <HeroVisual
               content={content}
               sectionId={sectionId}
             />
@@ -108,12 +108,12 @@ export function HeroSection({
 }
 
 // File Decoupling: Separate hero content component
-function HeroContent({ 
-  content, 
-  sectionId, 
-  titleClassName, 
+function HeroContent({
+  content,
+  sectionId,
+  titleClassName,
   layout,
-  locale 
+  locale
 }: {
   content: HeroContent;
   sectionId: string;
@@ -125,7 +125,7 @@ function HeroContent({
     <>
       {/* Main Heading */}
       <div className="space-y-4">
-        <h1 
+        <h1
           id={`${sectionId}-title`}
           className={cn(
             'font-bold text-neutral-900 leading-tight tracking-tight',
@@ -134,13 +134,13 @@ function HeroContent({
         >
           {content.title}
         </h1>
-        
+
         {content.subtitle && (
           <p className="text-xl md:text-2xl font-semibold text-primary-600">
             {content.subtitle}
           </p>
         )}
-        
+
         {content.description && (
           <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
             {content.description}
@@ -153,7 +153,7 @@ function HeroContent({
         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
           {content.cta.primary && (
             <Link href={content.cta.primary.href} aria-describedby={content.cta.primary.href.startsWith('#') ? undefined : 'external-link-desc'} className="inline-block">
-              <Button 
+              <Button
                 variant="gradient"
                 size="xl"
                 className="animate-pulse-glow"
@@ -162,10 +162,10 @@ function HeroContent({
               </Button>
             </Link>
           )}
-          
+
           {content.cta.secondary && (
             <Link href={content.cta.secondary.href} className="inline-block">
-              <Button 
+              <Button
                 variant="outline"
                 size="xl"
               >
@@ -178,7 +178,7 @@ function HeroContent({
 
       {/* Trust Indicators */}
       {content.trustIndicators && (
-        <TrustIndicators 
+        <TrustIndicators
           indicators={content.trustIndicators}
           layout={layout}
         />
@@ -200,7 +200,7 @@ function HeroVisual({ content, sectionId }: { content: HeroContent; sectionId: s
       <div className="relative z-10 mx-auto max-w-sm lg:max-w-md">
         {/* Background decoration for visual */}
         <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full opacity-20 animate-bounce-gentle" />
-        
+
         {/* Main visual content */}
         {content.backgroundImage ? (
           <div className="relative bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl p-4 overflow-hidden">
@@ -217,7 +217,7 @@ function HeroVisual({ content, sectionId }: { content: HeroContent; sectionId: s
           <PhoneMockup sectionId={sectionId} />
         )}
       </div>
-      
+
       {/* Mascot */}
       {content.mascot && (
         <div className="absolute -bottom-4 -right-4 z-20">
@@ -240,11 +240,11 @@ function HeroVisual({ content, sectionId }: { content: HeroContent; sectionId: s
 }
 
 // Code Reusability: Trust indicators component
-function TrustIndicators({ 
-  indicators, 
-  layout 
-}: { 
-  indicators: NonNullable<HeroContent['trustIndicators']>; 
+function TrustIndicators({
+  indicators,
+  layout
+}: {
+  indicators: NonNullable<HeroContent['trustIndicators']>;
   layout: string;
 }) {
   return (
@@ -254,7 +254,7 @@ function TrustIndicators({
           {indicators.users}
         </p>
       )}
-      
+
       <div className={cn(
         'flex items-center space-x-1',
         layout === 'single' ? 'justify-center' : 'justify-center lg:justify-start'
@@ -263,10 +263,10 @@ function TrustIndicators({
         {indicators.rating && (
           <>
             {[...Array(5)].map((_, i) => (
-              <svg 
-                key={i} 
-                className="w-5 h-5 text-yellow-400" 
-                fill="currentColor" 
+              <svg
+                key={i}
+                className="w-5 h-5 text-yellow-400"
+                fill="currentColor"
                 viewBox="0 0 20 20"
                 aria-hidden="true"
               >
@@ -278,7 +278,7 @@ function TrustIndicators({
             </span>
           </>
         )}
-        
+
         {indicators.security && (
           <>
             <span className="text-neutral-300 mx-2" aria-hidden="true">•</span>
@@ -299,11 +299,11 @@ function BackgroundDecorations({ background }: { background: string }) {
       <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-transparent" />
       <div className="absolute top-20 right-0 w-96 h-96 bg-primary-200/30 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary-300/20 rounded-full blur-2xl" />
-      
+
       {background.includes('investing') && (
         <div className="absolute top-1/2 left-1/4 w-48 h-48 bg-secondary-purple-200/20 rounded-full blur-2xl" />
       )}
-      
+
       {background.includes('defi') && (
         <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-secondary-coral-200/20 rounded-full blur-2xl" />
       )}
@@ -320,7 +320,7 @@ function PhoneMockup({ sectionId }: { sectionId: string }) {
         <div className="bg-neutral-900 h-6 rounded-t-2xl flex items-center justify-center">
           <div className="w-16 h-1 bg-white rounded-full opacity-60" />
         </div>
-        
+
         {/* App content */}
         <div className="p-6 space-y-6">
           <div className="flex items-center justify-between">
@@ -329,17 +329,17 @@ function PhoneMockup({ sectionId }: { sectionId: string }) {
               <div className="w-4 h-4 bg-primary-500 rounded-full" />
             </div>
           </div>
-          
+
           <div className="text-center">
             <p className="text-sm text-neutral-500">Total Balance</p>
             <p className="text-3xl font-bold text-neutral-900">$12,480</p>
             <p className="text-sm text-semantic-success font-medium">+8.1% all time</p>
           </div>
-          
+
           <div className="h-24 bg-gradient-to-r from-primary-100 to-primary-200 rounded-xl flex items-end justify-center p-2">
             <div className="flex items-end space-x-1 h-full">
               {[60, 80, 40, 90, 70, 85, 95].map((height, i) => (
-                <div 
+                <div
                   key={i}
                   className="bg-primary-500 rounded-t-sm w-2"
                   style={{ height: `${height}%` }}
@@ -347,7 +347,7 @@ function PhoneMockup({ sectionId }: { sectionId: string }) {
               ))}
             </div>
           </div>
-          
+
           <div className="space-y-3">
             <p className="text-sm font-medium text-neutral-700">Recent Activity</p>
             <div className="space-y-2">

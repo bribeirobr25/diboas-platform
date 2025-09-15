@@ -1,91 +1,82 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'; // prevents rendering content for ANY UR security protection
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
-import { generatePageMetadata, generateLocaleStaticParams } from '@/lib/metadata-factory';
-import { PageBuilder } from '@/lib/page-builder';
-import { homePageConfig } from '@/lib/content/pages/home';
+import Image from 'next/image';
+import { Button } from '@diboas/ui';
+import { SectionWrapper, TwoColumnGrid, SectionHeader } from '@/components/UI';
 
-/**
- * Home Page - Marketing Landing Page
- * 
- * SEO: Optimized metadata and structured data
- * i18n: Locale-aware content and metadata
- * Performance: Static generation with ISR
- * Analytics: Page view tracking
- */
+// Use static generation for better performance  
+export const dynamic = 'auto';
 
 interface HomePageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
-// DRY Principle: Use centralized metadata generation
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { locale: string } 
-}): Promise<Metadata> {
-  const locale = params.locale as SupportedLocale;
-  
+export default async function HomePage({ params }: HomePageProps) {
+  const { locale: localeParam } = await params;
+  const locale = localeParam as SupportedLocale;
+
   if (!isValidLocale(locale)) {
     notFound();
-  }
-
-  const pageConfig = homePageConfig[locale] || homePageConfig.en;
-  
-  return generatePageMetadata({
-    title: pageConfig.metadata.title,
-    description: pageConfig.metadata.description,
-    keywords: pageConfig.metadata.keywords,
-    path: `/${locale}`,
-    image: pageConfig.metadata.openGraph?.image || '/api/og/home'
-  }, locale);
-}
-
-// DRY Principle: Use centralized static params generation
-export const generateStaticParams = generateLocaleStaticParams;
-
-export default function HomePage({ params }: HomePageProps) {
-  const locale = params.locale as SupportedLocale;
-  
-  // Security: Validate locale
-  if (!isValidLocale(locale)) {
-    notFound();
-  }
-
-  // Get page configuration for locale
-  const pageConfig = homePageConfig[locale] || homePageConfig.en;
-
-  // Analytics: Track page view (handled by layout/middleware)
-  // Performance: Page optimization settings from config
-  if (pageConfig.optimization?.criticalCSS) {
-    // Critical CSS would be injected here
   }
 
   return (
-    <>
-      {/* Performance: Preload critical assets */}
-      {pageConfig.optimization?.preloadAssets?.map((asset) => (
-        <link
-          key={asset}
-          rel="preload"
-          as="image"
-          href={asset}
-        />
-      ))}
-      
-      {/* Main page content */}
-      <PageBuilder 
-        sections={pageConfig.sections}
-        locale={locale}
-      />
-    </>
+    <div className="main-page-wrapper">
+
+      {/* Hero Section */}
+      <SectionWrapper background="gradient">
+        <TwoColumnGrid>
+          <div className="hero-content">
+            <SectionHeader
+              title="Financial Freedom Made Simple"
+              description="Manage your banking, investing, and DeFi assets all in one place. The future of finance is here, powered by AI-driven insights."
+              size="xl"
+              alignment="left"
+              className="mb-8"
+              titleClassName="text-gray-900"
+            />
+            <div className="hero-actions">
+              <Button variant="gradient" size="lg">
+                Get Started Free
+              </Button>
+              <Button variant="outline" size="lg">
+                Learn More
+              </Button>
+            </div>
+            <div className="hero-trust">
+              Trusted by 50,000+ users worldwide • ⭐⭐⭐⭐⭐ 4.9/5 rating
+            </div>
+          </div>
+
+          <div className="relative">
+            {/* Mascot */}
+            <div className="absolute -top-4 -right-4 z-10">
+              <Image
+                src="/assets/mascots/acqua/mascot-acqua-hello.avif"
+                alt="Acqua Mascot"
+                width={120}
+                height={120}
+                className="animate-bounce-gentle"
+                style={{ width: 'auto', height: 'auto' }}
+              />
+            </div>
+
+            {/* Phone Mockup */}
+            <div className="relative">
+              <Image
+                src="/assets/landing/phone-account.avif"
+                alt="diBoaS App Preview"
+                width={300}
+                height={600}
+                className="hero-image"
+                style={{ width: 'auto', height: 'auto' }}
+              />
+            </div>
+          </div>
+        </TwoColumnGrid>
+      </SectionWrapper>
+
+    </div>
   );
 }
-
-// Performance: Enable ISR (Incremental Static Regeneration)
-export const revalidate = 3600; // Revalidate every hour
-
-// Performance: Force static generation
-export const dynamic = 'force-static';

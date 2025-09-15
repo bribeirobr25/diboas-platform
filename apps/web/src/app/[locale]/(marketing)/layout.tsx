@@ -1,38 +1,21 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
-import { SkipLinks } from '@/components/accessibility/SkipLinks';
-import { LiveRegion } from '@/components/accessibility/LiveRegion';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { LocaleProvider } from '@/components/LocaleProvider';
+import { Navigation } from '@/components/Layout/Navigation';
 
-/**
- * Marketing Layout - Localized Pages
- * 
- * i18n: Locale-aware layout with proper validation
- * Accessibility: Skip links and live regions
- * SEO: Proper metadata and language attributes
- * Security: Locale validation and sanitization
- */
-
-interface MarketingLayoutProps {
+interface RootLayoutProps {
   children: React.ReactNode;
   params: Promise<{
     locale: string;
   }>;
 }
 
-// SEO: Generate metadata for marketing pages
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ locale: string }> 
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const validLocale = locale as SupportedLocale;
-  
-  // Security: Validate locale
-  if (!isValidLocale(validLocale)) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: localeParam } = await params;
+  const locale = localeParam as SupportedLocale;
+
+  if (!isValidLocale(locale)) {
     notFound();
   }
 
@@ -41,49 +24,10 @@ export async function generateMetadata({
       template: '%s | diBoaS',
       default: 'diBoaS - Financial Freedom Made Simple'
     },
-    description: 'Manage your banking, investing, and DeFi assets all in one secure platform. The future of finance is here.',
-    keywords: [
-      'digital banking',
-      'cryptocurrency investing', 
-      'DeFi platform',
-      'financial freedom',
-      'secure banking'
-    ],
-    authors: [{ name: 'diBoaS Team' }],
-    creator: 'diBoaS',
-    publisher: 'diBoaS',
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-    // SEO: Language alternates
-    alternates: {
-      canonical: `https://diboas.com/${validLocale}`,
-      languages: {
-        'en': 'https://diboas.com/en',
-        'pt-BR': 'https://diboas.com/pt-BR', 
-        'es': 'https://diboas.com/es',
-        'de': 'https://diboas.com/de',
-      }
-    },
-    // Performance: Preconnect to external domains
-    other: {
-      'link': [
-        '<https://fonts.googleapis.com>; rel=preconnect',
-        '<https://cdn.diboas.com>; rel=dns-prefetch'
-      ].join(', ')
-    }
+    description: 'Manage your banking, investing, and DeFi assets all in one secure platform.',
   };
 }
 
-// Performance: Static generation for supported locales
 export async function generateStaticParams() {
   return [
     { locale: 'en' },
@@ -93,104 +37,23 @@ export async function generateStaticParams() {
   ];
 }
 
-export default async function MarketingLayout({ 
-  children, 
-  params 
-}: MarketingLayoutProps) {
-  const { locale } = await params;
-  const validLocale = locale as SupportedLocale;
-  
-  // Security: Validate locale parameter
-  if (!isValidLocale(validLocale)) {
+// Use static generation for better performance
+export const dynamic = 'auto';
+
+export default async function LocaleLayout({ children, params }: RootLayoutProps) {
+  const { locale: localeParam } = await params;
+  const locale = localeParam as SupportedLocale;
+
+  if (!isValidLocale(locale)) {
     notFound();
   }
 
-  // TODO: Load translations for the locale when I18nProvider is available
-
   return (
-    <html lang={validLocale} dir="ltr" className="scroll-smooth">
-      <head>
-        {/* Performance: Critical CSS can be inlined here */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#14b8a6" />
-        
-        {/* Security: Content Security Policy */}
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: blob: *.diboas.com; connect-src 'self' *.google-analytics.com *.doubleclick.net;" />
-      </head>
-      
-      <body className="main-body-antialiased">
-        {/* Accessibility: Skip navigation links */}
-        <SkipLinks />
-        
-        {/* TODO: i18n: Internationalization provider when available */}
-        {/* Accessibility: Live region for announcements */}
-        <LiveRegion />
-        
-        {/* Marketing site structure */}
-        <div className="main-page-container">
-          <Header />
-          
-          <main 
-            id="main-content"
-            className="flex-1"
-            tabIndex={-1}
-          >
-            {children}
-          </main>
-          
-          <Footer />
-        </div>
-        
-        {/* Analytics: Google Analytics (conditional) */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                    page_title: document.title,
-                    page_location: window.location.href,
-                    language: '${locale}',
-                    custom_map: {
-                      dimension1: 'locale',
-                      dimension2: 'page_type'
-                    }
-                  });
-                `,
-              }}
-            />
-          </>
-        )}
-      </body>
-    </html>
+    <LocaleProvider initialLocale={locale}>
+      <Navigation />
+      <main className="main-content">
+        {children}
+      </main>
+    </LocaleProvider>
   );
-}
-
-// Performance: Load translations dynamically
-async function loadMessages(locale: SupportedLocale, namespace: string) {
-  try {
-    // Load common messages
-    const common = await import(`@diboas/i18n/translations/${locale}/common.json`);
-    
-    // Load namespace-specific messages
-    const namespaceMessages = await import(`@diboas/i18n/translations/${locale}/${namespace}.json`);
-    
-    return {
-      ...common.default,
-      ...namespaceMessages.default
-    };
-  } catch (error) {
-    console.error(`Failed to load messages for ${locale}/${namespace}:`, error);
-    
-    // Error Handling: Fallback to English
-    const fallback = await import(`@diboas/i18n/translations/en/${namespace}.json`);
-    return fallback.default;
-  }
 }

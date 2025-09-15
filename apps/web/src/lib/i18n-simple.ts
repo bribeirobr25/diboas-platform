@@ -4,10 +4,10 @@
  * This eliminates code duplication by using the single source of truth
  */
 
-export { 
+export {
   SUPPORTED_LOCALES,
   DEFAULT_LOCALE,
   type SupportedLocale,
   isValidLocale,
-  getSafeLocale 
+  getSafeLocale
 } from '@diboas/i18n';

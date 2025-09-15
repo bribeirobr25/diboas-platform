@@ -10,7 +10,7 @@ interface FlexBetweenProps {
 
 const alignClasses = {
   start: 'flex-align-start',
-  center: 'flex-align-center', 
+  center: 'flex-align-center',
   end: 'flex-align-end',
   stretch: 'flex-align-stretch'
 };

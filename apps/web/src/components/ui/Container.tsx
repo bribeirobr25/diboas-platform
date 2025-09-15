@@ -14,18 +14,18 @@ interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const containerSizes = {
   sm: 'container-sm',
-  md: 'container-md', 
+  md: 'container-md',
   lg: 'container-lg',
   xl: 'container-xl',
   full: 'container-full'
 } as const;
 
-export function Container({ 
-  className, 
-  size = 'lg', 
+export function Container({
+  className,
+  size = 'lg',
   noPadding = false,
-  children, 
-  ...props 
+  children,
+  ...props
 }: ContainerProps) {
   return (
     <div

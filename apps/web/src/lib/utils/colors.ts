@@ -16,7 +16,7 @@ export const colorVariants = {
   primary: {
     text: {
       50: 'text-primary-50',
-      100: 'text-primary-100', 
+      100: 'text-primary-100',
       500: 'text-primary-500',
       600: 'text-primary-600',
       700: 'text-primary-700',
@@ -25,7 +25,7 @@ export const colorVariants = {
     bg: {
       50: 'bg-primary-50',
       100: 'bg-primary-100',
-      500: 'bg-primary-500', 
+      500: 'bg-primary-500',
       600: 'bg-primary-600',
       700: 'bg-primary-700',
       900: 'bg-primary-900'
@@ -159,16 +159,16 @@ export function getColorClass(
   intensity?: ColorIntensity
 ): string {
   const colorSet = colorVariants[variant];
-  
+
   if (type === 'gradient') {
     return colorSet.gradient;
   }
-  
+
   const typeSet = colorSet[type as keyof typeof colorSet];
   if (typeof typeSet === 'object' && intensity) {
     return (typeSet as any)[intensity] || '';
   }
-  
+
   return '';
 }
 
@@ -177,7 +177,7 @@ export function getColorClass(
  */
 export function getFeatureColors(featureColor: string) {
   const variant = featureColor as ColorVariant;
-  
+
   return {
     text: getColorClass(variant, 'text', '600'),
     textLight: getColorClass(variant, 'text', '500'),
@@ -207,13 +207,13 @@ export const brandColors = {
   primary: getColorClass('primary', 'text', '600'),
   primaryLight: getColorClass('primary', 'text', '500'),
   primaryBg: getColorClass('primary', 'bg', '50'),
-  
+
   text: {
     primary: getColorClass('neutral', 'text', '900'),
     secondary: getColorClass('neutral', 'text', '600'),
     muted: getColorClass('neutral', 'text', '500')
   },
-  
+
   background: {
     primary: 'bg-white',
     secondary: getColorClass('neutral', 'bg', '50'),

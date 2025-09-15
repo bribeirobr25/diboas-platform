@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Foundation & Setup - global defaults, animations and css variables */
+
 /* Import semantic component classes */
 @import '../styles/semantic-components.css';
 
@@ -25,12 +27,14 @@
 }
 
 @layer utilities {
+
   /* Desktop mega menu slide down animation */
   @keyframes slide-down-fade {
     from {
       opacity: 0;
       transform: translateY(-100%);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -42,6 +46,7 @@
     from {
       transform: translateY(-100%);
     }
+
     to {
       transform: translateY(0);
     }
@@ -52,6 +57,7 @@
     from {
       transform: translateX(100%);
     }
+
     to {
       transform: translateX(0);
     }
@@ -72,9 +78,12 @@
 
   /* Gentle bounce for mascots */
   @keyframes bounce-gentle {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-10px);
     }
@@ -86,9 +95,12 @@
 
   /* Pulse glow for buttons */
   @keyframes pulse-glow {
-    0%, 100% {
+
+    0%,
+    100% {
       box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
     }
+
     50% {
       box-shadow: 0 0 20px 10px rgba(20, 184, 166, 0);
     }

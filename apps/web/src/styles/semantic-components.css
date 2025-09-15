@@ -367,7 +367,8 @@
 }
 
 .mobile-nav-content {
-  @apply px-4 py-2 flex items-center justify-between h-14;
+  @apply px-4 flex items-center justify-between;
+  height: 60px;
 }
 
 .mobile-brand {
@@ -434,7 +435,8 @@
 }
 
 .mobile-submenu-header {
-  @apply sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50;
+  @apply sticky top-0 flex items-center justify-between px-4 border-b bg-teal-50 z-50;
+  height: 60px;
 }
 
 .mobile-back-button {

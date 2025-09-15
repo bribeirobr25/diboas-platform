@@ -189,14 +189,14 @@ export interface PageSection {
     className?: string;
     [key: string]: any;
   };
-  sectionContent: 
-    | HeroContent 
-    | FeaturesContent 
-    | TrustContent 
-    | TestimonialsContent 
-    | PricingContent 
-    | ComparisonContent 
-    | CTAContent;
+  sectionContent:
+  | HeroContent
+  | FeaturesContent
+  | TrustContent
+  | TestimonialsContent
+  | PricingContent
+  | ComparisonContent
+  | CTAContent;
   // Performance: Lazy load below-fold sections
   lazyLoad?: boolean;
   // Analytics: Track section visibility
@@ -207,24 +207,24 @@ export interface PageSection {
 export interface PageConfig {
   // SEO: Page metadata
   metadata: PageMetadata;
-  
+
   // Content: Page sections
   sections: PageSection[];
-  
+
   // Analytics: Page-specific tracking
   analytics?: {
     category: string;
     trackPageView?: boolean;
     customEvents?: Record<string, any>;
   };
-  
+
   // Performance: Page optimization settings  
   optimization?: {
     preloadAssets?: string[];
     criticalCSS?: string;
     lazyLoadImages?: boolean;
   };
-  
+
   // Accessibility: Page-specific a11y settings
   accessibility?: {
     skipLinks?: boolean;
@@ -234,10 +234,10 @@ export interface PageConfig {
 }
 
 // Domain-specific page configurations
-export type MarketingPageKey = 
+export type MarketingPageKey =
   | 'home'
   | 'banking'
-  | 'investing' 
+  | 'investing'
   | 'defi'
   | 'credit'
   | 'about'

@@ -1,5 +1,7 @@
 'use client';
 
+// State management & orchestration - Central brain
+
 import { useNavigation } from '@/hooks/useNavigation';
 import { navigationConfig } from '@/config/navigation';
 import DesktopNav from './DesktopNav';
@@ -10,7 +12,7 @@ import { usePathname } from 'next/navigation';
 export default function Navigation() {
   const navigationState = useNavigation();
   const pathname = usePathname();
-  
+
   // Close navigation on route change
   useEffect(() => {
     navigationState.closeMenu();
@@ -23,7 +25,7 @@ export default function Navigation() {
     } else {
       document.body.style.overflow = '';
     }
-    
+
     return () => {
       document.body.style.overflow = '';
     };

@@ -20,7 +20,7 @@ const backgroundClasses = {
 
 const spacingClasses = {
   sm: 'section-spacing-sm',
-  md: 'section-spacing-md', 
+  md: 'section-spacing-md',
   lg: 'section-spacing-lg',
   xl: 'section-spacing-xl'
 };

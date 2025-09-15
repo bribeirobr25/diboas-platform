@@ -8,3 +8,4 @@ export { GridLayout, TwoColumnGrid, ThreeColumnGrid } from './GridLayout';
 export { FlexBetween } from './FlexBetween';
 export { Icon, IconContainer, CheckIcon, BankIcon, TrendingUpIcon, CurrencyIcon, StarIcon, ShieldIcon, StarRating } from './Icon';
 export { LucideIcon, MenuIcon, CloseIcon, ChevronRightIcon, ChevronLeftIcon, SparklesIcon, NavigationToggle } from './LucideIcon';
+export { LanguageSwitcher } from './LanguageSwitcher';

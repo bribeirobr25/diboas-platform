@@ -1,11 +1,13 @@
 'use client';
 
+// Mobile UI only
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
 import { useEffect } from 'react';
-import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/ui';
+import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/UI';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -21,18 +23,15 @@ interface MobileNavProps {
   isMobile: boolean;
 }
 
-export default function MobileNav({ 
+export default function MobileNav({
   isOpen,
-  activeMenu,
   activeSubmenu,
   toggleMenu,
-  openMenu,
   openSubmenu,
-  closeMenu,
   goBack,
   trackNavigationInteraction,
   config,
-  isMobile 
+  isMobile
 }: MobileNavProps) {
   const activeMenuItem = config.mainMenu.find(item => item.id === activeSubmenu);
 
@@ -62,7 +61,7 @@ export default function MobileNav({
       <nav className="mobile-nav-bar">
         <div className="mobile-nav-content">
           <Link href="/" className="mobile-brand">
-            <Image 
+            <Image
               src="/assets/logos/logo-icon.avif"
               alt="diBoaS"
               width={56}
@@ -71,7 +70,7 @@ export default function MobileNav({
             />
           </Link>
 
-          <Link 
+          <Link
             href={config.actions.primary.href}
             target="_blank"
             rel="noopener noreferrer"
@@ -97,7 +96,7 @@ export default function MobileNav({
         </div>
       </nav>
 
-      {/* Fixed Business Login Button - Only show when not in submenu */}
+      {/* Business Login Button - Only show when not in submenu */}
       {isOpen && !activeSubmenu && (
         <Link
           href={config.actions.secondary.href}
@@ -117,7 +116,7 @@ export default function MobileNav({
       )}
 
       {/* Mobile Menu */}
-      <div 
+      <div
         className={`mobile-menu-overlay ${activeSubmenu ? 'z-50' : 'z-40'}`}
         style={{
           transform: isOpen ? 'translateY(0)' : 'translateY(-100%)',
@@ -190,7 +189,7 @@ export default function MobileNav({
                 {['security', 'about'].map(id => {
                   const item = config.mainMenu.find(m => m.id === id);
                   if (!item) return null;
-                  
+
                   return (
                     <div key={item.id}>
                       <button
@@ -212,8 +211,8 @@ export default function MobileNav({
             </div>
           ) : (
             /* Submenu View */
-            <div 
-              className="h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right" 
+            <div
+              className="h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right"
               data-submenu-scroll
             >
               {/* Sticky Header with Back and Close buttons */}
@@ -241,7 +240,7 @@ export default function MobileNav({
                     {activeMenuItem.banner && (
                       <div className="px-4 pt-4">
                         <div className="relative w-full max-w-md mx-auto aspect-[3/2] overflow-hidden rounded-2xl">
-                          <Image 
+                          <Image
                             src={activeMenuItem.banner}
                             alt={activeMenuItem.label}
                             fill

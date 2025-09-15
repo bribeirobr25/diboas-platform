@@ -5,9 +5,9 @@ import { type PageSection } from './content/types';
 import { cn } from '@diboas/ui';
 
 // Lazy load section components for performance
-import { HeroSection } from '@/components/sections/EnhancedHeroSection';
-import { FeaturesSection } from '@/components/sections/FeaturesSection';
-import { TrustSection } from '@/components/sections/TrustSection';
+import { HeroSection } from '@/components/Sections/EnhancedHeroSection';
+import { FeaturesSection } from '@/components/Sections/FeaturesSection';
+import { TrustSection } from '@/components/Sections/TrustSection';
 
 // Additional sections can be added here when implemented
 // const TestimonialsSection = lazy(() => import('@/components/sections/TestimonialsSection'));
@@ -64,7 +64,7 @@ interface SectionWrapperProps {
 // Performance: Individual section wrapper with lazy loading
 function SectionWrapper({ section, index, locale }: SectionWrapperProps) {
   const Component = SECTION_COMPONENTS[section.type] as any;
-  
+
   if (!Component) {
     console.warn(`Unknown section type: ${section.type}`);
     return null;
@@ -123,9 +123,9 @@ function SectionWrapper({ section, index, locale }: SectionWrapperProps) {
         aria-labelledby={`section-${section.id}`}
         className="scroll-mt-16" // Accessibility: Scroll margin for skip links
       >
-        <Suspense 
+        <Suspense
           fallback={
-            <SectionSkeleton 
+            <SectionSkeleton
               type={section.type}
               height={getSectionHeight(section.type)}
             />
@@ -162,7 +162,7 @@ function SectionWrapper({ section, index, locale }: SectionWrapperProps) {
 // Performance: Section loading skeleton
 function SectionSkeleton({ type, height }: { type: string; height: number }) {
   return (
-    <div 
+    <div
       className="animate-pulse bg-neutral-100 rounded-lg"
       style={{ height }}
       role="presentation"
@@ -195,7 +195,7 @@ function getSectionHeight(sectionType: string): number {
     comparison: 600,
     cta: 400,
   };
-  
+
   return heights[sectionType as keyof typeof heights] || 500;
 }
 
@@ -230,7 +230,7 @@ export function PageBuilder({ sections, locale = 'en', className }: PageBuilderP
   return (
     <main className={cn('min-h-screen', className)}>
       {/* Accessibility: Skip to main content */}
-      <a 
+      <a
         href="#main-content"
         className="skip-link"
       >

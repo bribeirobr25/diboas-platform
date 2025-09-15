@@ -16,7 +16,7 @@ const baseHomeConfig: PageConfig = {
     keywords: [
       'digital banking',
       'cryptocurrency investing',
-      'DeFi platform', 
+      'DeFi platform',
       'financial freedom',
       'secure banking',
       'crypto trading',
@@ -294,7 +294,7 @@ const baseHomeConfig: PageConfig = {
 // Locale-specific configurations (extending base config)
 export const homePageConfig: Record<SupportedLocale, PageConfig> = {
   en: baseHomeConfig,
-  
+
   'pt-BR': {
     ...baseHomeConfig,
     metadata: {

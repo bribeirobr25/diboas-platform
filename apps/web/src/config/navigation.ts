@@ -88,13 +88,13 @@ export const navigationConfig: NavigationConfig = {
       ]
     }
   ],
-  
+
   mobileHighlights: [
     { id: 'benefits', label: 'diBoaS Benefits', href: '/benefits' },
     { id: 'learn', label: 'Learn Center', href: '/learn' },
     { id: 'rewards', label: 'Rewards', href: '/rewards' }
   ],
-  
+
   mobileSections: [
     {
       title: 'For You',
@@ -111,7 +111,7 @@ export const navigationConfig: NavigationConfig = {
       ]
     }
   ],
-  
+
   actions: {
     primary: {
       label: 'Get Started',

@@ -80,7 +80,7 @@ export function SectionHeader({
       >
         {title}
       </h2>
-      
+
       {subtitle && (
         <p className={cn(
           'header-subtitle-base',
@@ -90,7 +90,7 @@ export function SectionHeader({
           {subtitle}
         </p>
       )}
-      
+
       {description && (
         <p className={cn(
           'header-description-base',
