@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { LocaleProvider } from '@/components/LocaleProvider';
 import { Navigation } from '@/components/Layout/Navigation';
+import { PageErrorBoundary } from '@/components/ErrorBoundary';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -50,10 +51,12 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
 
   return (
     <LocaleProvider initialLocale={locale}>
-      <Navigation />
-      <main className="main-content">
-        {children}
-      </main>
+      <PageErrorBoundary>
+        <Navigation />
+        <main className="main-content">
+          {children}
+        </main>
+      </PageErrorBoundary>
     </LocaleProvider>
   );
 }

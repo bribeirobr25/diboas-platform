@@ -7,6 +7,9 @@ import Link from 'next/link';
 import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
 import { Container, FlexBetween, SparklesIcon, ChevronRightIcon } from '@/components/UI';
+import { ASSET_PATHS } from '@/config/assets';
+import { LAYOUT_CONSTANTS } from '@/config/design-system';
+import { BRAND_CONFIG } from '@/config/brand';
 
 interface DesktopNavProps {
   activeMenu: string | null;
@@ -36,8 +39,8 @@ export default function DesktopNav({
           {/* Logo */}
           <Link href="/" className="brand-logo">
             <Image
-              src="/assets/logos/logo-icon.avif"
-              alt="diBoaS"
+              src={ASSET_PATHS.LOGOS.ICON}
+              alt={BRAND_CONFIG.NAME}
               width={76}
               height={76}
               style={{ width: 'auto', height: 'auto', maxHeight: '76px' }}
@@ -56,17 +59,17 @@ export default function DesktopNav({
                 }}
               >
                 {item.icon && <SparklesIcon />}
-                <span className="font-bold text-sm">{item.label}</span>
-                <ChevronRightIcon size="xs" className="rotate-90 transition-transform group-hover:rotate-[270deg]" />
+                <span className="menu-link-text">{item.label}</span>
+                <ChevronRightIcon size="xs" className="menu-link-icon" />
               </button>
             ))}
           </div>
 
           {/* Action Buttons */}
-          <div className="menu-items">
+          <div className="action-buttons-container">
             <Link
               href={config.actions.secondary.href}
-              className="menu-link"
+              className="action-link"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackNavigationInteraction('business-login', 'click')}
@@ -78,7 +81,7 @@ export default function DesktopNav({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackNavigationInteraction('get-started', 'click')}
-              className="inline-block"
+              className="action-button-wrapper"
             >
               <Button
                 variant="gradient"
@@ -95,22 +98,22 @@ export default function DesktopNav({
       {/* Mega Menu */}
       {activeMenu && activeMenuItem && (
         <div
-          className="absolute left-0 w-full overflow-hidden"
+          className="dropdown-overlay"
           style={{
-            top: '80px',
+            top: LAYOUT_CONSTANTS.NAVIGATION.DESKTOP_HEIGHT,
           }}
         >
-          <div className="dropdown-menu" style={{ height: '60vh' }}>
-            <Container className="dropdown-content h-full" style={{ marginLeft: '150px' }}>
+          <div className="dropdown-menu" style={{ height: LAYOUT_CONSTANTS.NAVIGATION.DROPDOWN_HEIGHT }}>
+            <Container className="dropdown-content h-full" style={{ marginLeft: LAYOUT_CONSTANTS.SPACING.DROPDOWN_MARGIN_LEFT }}>
               <div className="dropdown-section grid-cols-12 gap-8 h-full">
                 {/* Left: Banner */}
-                <div className="col-span-4">
-                  <div className="relative h-48 mb-4 rounded-2xl overflow-hidden">
+                <div className="dropdown-banner-container">
+                  <div className="dropdown-banner-image">
                     <Image
                       src={activeMenuItem.banner || ''}
                       alt={activeMenuItem.label}
                       fill
-                      className="object-cover"
+                      className="dropdown-banner-image-content"
                       sizes="(max-width: 768px) 100vw, 384px"
                     />
                   </div>
@@ -123,13 +126,13 @@ export default function DesktopNav({
                 </div>
 
                 {/* Right: Sub-menu items in columns */}
-                <div className="col-span-8">
-                  <div className="dropdown-items grid-cols-2 gap-x-5 gap-y-3">
+                <div className="dropdown-items-container">
+                  <div className="dropdown-items-grid">
                     {activeMenuItem.subItems?.map((subItem) => (
                       <Link
                         key={subItem.id}
                         href={subItem.href}
-                        className="dropdown-item group"
+                        className="dropdown-item-content group"
                         onClick={() => trackNavigationInteraction(subItem.id, 'click')}
                       >
                         <div>
@@ -137,7 +140,7 @@ export default function DesktopNav({
                             {subItem.label}
                           </h4>
                           {subItem.description && (
-                            <p className="dropdown-item-description mt-1">
+                            <p className="dropdown-item-description-text">
                               {subItem.description}
                             </p>
                           )}

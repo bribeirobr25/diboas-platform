@@ -156,6 +156,62 @@
 }
 
 /* =================================================================== */
+/* DESKTOP NAVIGATION - SEMANTIC IMPROVEMENTS */
+/* =================================================================== */
+
+.menu-link-text {
+  @apply font-bold text-sm;
+}
+
+.menu-link-icon {
+  @apply rotate-90 transition-transform group-hover:rotate-[270deg];
+}
+
+.action-buttons-container {
+  @apply menu-items;
+}
+
+.action-link {
+  @apply menu-link;
+}
+
+.action-button-wrapper {
+  @apply inline-block;
+}
+
+.dropdown-overlay {
+  @apply absolute left-0 w-full overflow-hidden;
+}
+
+.dropdown-banner-container {
+  @apply col-span-4;
+}
+
+.dropdown-banner-image {
+  @apply relative h-48 mb-4 rounded-2xl overflow-hidden;
+}
+
+.dropdown-banner-image-content {
+  @apply object-cover;
+}
+
+.dropdown-items-container {
+  @apply col-span-8;
+}
+
+.dropdown-items-grid {
+  @apply dropdown-items grid-cols-2 gap-x-5 gap-y-3;
+}
+
+.dropdown-item-content {
+  @apply block p-4 rounded-xl transition-colors;
+}
+
+.dropdown-item-description-text {
+  @apply dropdown-item-description mt-1;
+}
+
+/* =================================================================== */
 /* MOBILE NAVIGATION */
 /* =================================================================== */
 
@@ -282,6 +338,226 @@
 
 .mobile-additional-items {
   @apply border-t pt-6 space-y-2;
+}
+
+/* =================================================================== */
+/* MOBILE NAVIGATION - SEMANTIC IMPROVEMENTS */
+/* =================================================================== */
+
+.mobile-toggle-button {
+  @apply p-2;
+}
+
+.mobile-menu-section {
+  @apply px-4 py-6;
+}
+
+.mobile-highlights-section {
+  @apply mb-8;
+}
+
+.mobile-section-header {
+  @apply text-base font-semibold text-teal-600 tracking-wider mb-4;
+}
+
+.mobile-quick-actions-grid {
+  @apply grid grid-cols-3 gap-3;
+}
+
+.mobile-quick-action-item {
+  @apply bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px];
+}
+
+.mobile-quick-action-text {
+  @apply text-sm font-medium text-gray-900;
+}
+
+.mobile-menu-sections {
+  @apply space-y-2;
+}
+
+.mobile-menu-section-container {
+  @apply mb-8;
+}
+
+.mobile-main-menu-button {
+  @apply w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-main-menu-text {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.mobile-main-menu-icon {
+  @apply text-gray-400;
+}
+
+.mobile-menu-description-text {
+  @apply text-base text-gray-600 px-4 pb-2;
+}
+
+.mobile-additional-menu-button {
+  @apply w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-additional-menu-text {
+  @apply text-lg font-bold text-gray-900;
+}
+
+.mobile-submenu-header-container {
+  @apply sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50;
+}
+
+.mobile-back-button-content {
+  @apply flex items-center space-x-2;
+}
+
+.mobile-back-button-text {
+  @apply font-medium;
+}
+
+.mobile-close-button {
+  @apply p-2;
+}
+
+.mobile-banner-wrapper {
+  @apply h-full flex flex-col;
+}
+
+.mobile-banner-image-wrapper {
+  @apply px-4 pt-4;
+}
+
+.mobile-banner-image-container-inner {
+  @apply relative w-full max-w-md mx-auto aspect-[3/2] overflow-hidden rounded-2xl;
+}
+
+.mobile-banner-image-content {
+  @apply object-contain;
+}
+
+.mobile-banner-text-container {
+  @apply px-6 pt-4 pb-6;
+}
+
+.mobile-banner-title-text {
+  @apply text-2xl font-bold text-gray-900 mb-2;
+}
+
+.mobile-banner-description-text {
+  @apply text-gray-600;
+}
+
+.mobile-submenu-content {
+  @apply px-4 py-6 space-y-2 bg-white relative z-10;
+}
+
+.mobile-submenu-link {
+  @apply block p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-submenu-link-title {
+  @apply font-bold text-gray-900;
+}
+
+.mobile-submenu-link-description {
+  @apply text-sm text-gray-600 mt-1;
+}
+
+/* =================================================================== */
+/* STATIC PAGE COMPONENTS */
+/* =================================================================== */
+
+.page-wrapper {
+  @apply main-page-wrapper;
+}
+
+.page-content-container {
+  @apply min-h-screen bg-white;
+}
+
+.page-content-center {
+  @apply container mx-auto px-4 py-8;
+}
+
+.page-content-text-center {
+  @apply text-center;
+}
+
+.page-title-construction {
+  @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.page-description-construction {
+  @apply text-gray-600;
+}
+
+/* =================================================================== */
+/* LANGUAGE SWITCHER COMPONENTS */
+/* =================================================================== */
+
+.language-switcher-inline-container {
+  @apply flex items-center gap-2;
+}
+
+.language-switcher-button-base {
+  @apply px-3 py-1 rounded-lg text-sm font-medium transition-colors;
+}
+
+.language-switcher-button-active {
+  @apply bg-primary-100 text-primary-700;
+}
+
+.language-switcher-button-inactive {
+  @apply text-gray-600 hover:bg-gray-100;
+}
+
+.language-switcher-dropdown-container {
+  @apply relative;
+}
+
+.language-switcher-trigger {
+  @apply flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors;
+}
+
+.language-switcher-flag {
+  @apply text-lg;
+}
+
+.language-switcher-label {
+  @apply text-sm font-medium;
+}
+
+.language-switcher-chevron {
+  @apply transition-transform text-xs;
+}
+
+.language-switcher-chevron-open {
+  @apply rotate-90;
+}
+
+.language-switcher-dropdown-menu {
+  @apply absolute right-0 mt-2 w-48 rounded-lg bg-white shadow-lg border border-gray-200 py-1 z-50;
+}
+
+.language-switcher-option {
+  @apply w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50 transition-colors;
+}
+
+.language-switcher-option-active {
+  @apply bg-primary-50;
+}
+
+.language-switcher-option-flag {
+  @apply text-lg;
+}
+
+.language-switcher-option-label {
+  @apply text-sm font-medium;
+}
+
+.language-switcher-checkmark {
+  @apply ml-auto text-primary-600;
 }
 
 /* =================================================================== */

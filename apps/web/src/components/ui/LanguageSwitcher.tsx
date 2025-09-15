@@ -53,14 +53,14 @@ export function LanguageSwitcher({ currentLocale, variant = 'dropdown' }: Langua
 
   if (variant === 'inline') {
     return (
-      <div className="flex items-center gap-2">
+      <div className="language-switcher-inline-container">
         {SUPPORTED_LOCALES.map((locale) => (
           <button
             key={locale}
             onClick={() => switchLocale(locale)}
-            className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${currentLocale === locale
-                ? 'bg-primary-100 text-primary-700'
-                : 'text-gray-600 hover:bg-gray-100'
+            className={`language-switcher-button-base ${currentLocale === locale
+                ? 'language-switcher-button-active'
+                : 'language-switcher-button-inactive'
               }`}
             aria-label={`Switch to ${localeNames[locale]}`}
           >
@@ -72,33 +72,33 @@ export function LanguageSwitcher({ currentLocale, variant = 'dropdown' }: Langua
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="language-switcher-dropdown-container" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+        className="language-switcher-trigger"
         aria-label="Change language"
         aria-expanded={isOpen}
       >
-        <span className="text-lg">{localeFlags[currentLocale]}</span>
-        <span className="text-sm font-medium">{localeNames[currentLocale]}</span>
-        <span className={`transition-transform ${isOpen ? 'rotate-90' : ''} text-xs`}>
+        <span className="language-switcher-flag">{localeFlags[currentLocale]}</span>
+        <span className="language-switcher-label">{localeNames[currentLocale]}</span>
+        <span className={`language-switcher-chevron ${isOpen ? 'language-switcher-chevron-open' : ''}`}>
           ▼
         </span>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-lg bg-white shadow-lg border border-gray-200 py-1 z-50">
+        <div className="language-switcher-dropdown-menu">
           {SUPPORTED_LOCALES.map((locale) => (
             <button
               key={locale}
               onClick={() => switchLocale(locale)}
-              className={`w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50 transition-colors ${currentLocale === locale ? 'bg-primary-50' : ''
+              className={`language-switcher-option ${currentLocale === locale ? 'language-switcher-option-active' : ''
                 }`}
             >
-              <span className="text-lg">{localeFlags[locale]}</span>
-              <span className="text-sm font-medium">{localeNames[locale]}</span>
+              <span className="language-switcher-option-flag">{localeFlags[locale]}</span>
+              <span className="language-switcher-option-label">{localeNames[locale]}</span>
               {currentLocale === locale && (
-                <span className="ml-auto text-primary-600">✓</span>
+                <span className="language-switcher-checkmark">✓</span>
               )}
             </button>
           ))}

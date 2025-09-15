@@ -8,6 +8,9 @@ import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
 import { useEffect } from 'react';
 import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/UI';
+import { ASSET_PATHS } from '@/config/assets';
+import { LAYOUT_CONSTANTS, ANIMATION_CONSTANTS } from '@/config/design-system';
+import { BRAND_CONFIG } from '@/config/brand';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -62,11 +65,11 @@ export default function MobileNav({
         <div className="mobile-nav-content">
           <Link href="/" className="mobile-brand">
             <Image
-              src="/assets/logos/logo-icon.avif"
-              alt="diBoaS"
+              src={ASSET_PATHS.LOGOS.ICON}
+              alt={BRAND_CONFIG.NAME}
               width={56}
               height={56}
-              style={{ width: 'auto', height: '56px' }}
+              style={{ width: 'auto', height: LAYOUT_CONSTANTS.NAVIGATION.MOBILE_NAV_HEIGHT }}
             />
           </Link>
 
@@ -88,7 +91,7 @@ export default function MobileNav({
 
           <button
             onClick={toggleMenu}
-            className="p-2"
+            className="mobile-toggle-button"
             aria-label="Toggle menu"
           >
             <NavigationToggle isOpen={isOpen} />
@@ -120,30 +123,30 @@ export default function MobileNav({
         className={`mobile-menu-overlay ${activeSubmenu ? 'z-50' : 'z-40'}`}
         style={{
           transform: isOpen ? 'translateY(0)' : 'translateY(-100%)',
-          transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+          transition: `transform ${ANIMATION_CONSTANTS.DURATION.SLOW} ${ANIMATION_CONSTANTS.EASING.EASE_OUT}`
         }}
       >
         <div className={`h-full overflow-y-auto ${!activeSubmenu ? 'pt-16 pb-20' : ''}`}>
           {!activeSubmenu ? (
             /* Main Mobile Menu */
-            <div className="px-4 py-6">
+            <div className="mobile-menu-section">
               {/* Highlights */}
-              <div className="mb-8">
-                <h3 className="text-base font-semibold text-teal-600 tracking-wider mb-4">
+              <div className="mobile-highlights-section">
+                <h3 className="mobile-section-header">
                   Quick Actions
                 </h3>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="mobile-quick-actions-grid">
                   {config.mobileHighlights.map((item) => (
                     <Link
                       key={item.id}
                       href={item.href || '#'}
-                      className="bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px]"
+                      className="mobile-quick-action-item"
                       onClick={() => {
                         trackNavigationInteraction(item.id, 'click');
                         toggleMenu();
                       }}
                     >
-                      <p className="text-sm font-medium text-gray-900">{item.label}</p>
+                      <p className="mobile-quick-action-text">{item.label}</p>
                     </Link>
                   ))}
                 </div>
@@ -151,11 +154,11 @@ export default function MobileNav({
 
               {/* Mobile Sections */}
               {config.mobileSections.map((section) => (
-                <div key={section.title} className="mb-8">
-                  <h3 className="text-base font-semibold text-teal-600 tracking-wider mb-4">
+                <div key={section.title} className="mobile-menu-section-container">
+                  <h3 className="mobile-section-header">
                     {section.title}
                   </h3>
-                  <div className="space-y-2">
+                  <div className="mobile-menu-sections">
                     {section.items.map((item) => {
                       const menuItem = config.mainMenu.find(m => m.id === item.id);
                       return (
@@ -165,15 +168,15 @@ export default function MobileNav({
                               openSubmenu(item.id);
                               trackNavigationInteraction(item.id, 'open');
                             }}
-                            className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors"
+                            className="mobile-main-menu-button"
                           >
-                            <span className="text-2xl font-bold text-gray-900">
+                            <span className="mobile-main-menu-text">
                               {item.label}
                             </span>
-                            <ChevronRightIcon className="text-gray-400" />
+                            <ChevronRightIcon className="mobile-main-menu-icon" />
                           </button>
                           {config.mainMenu.find(m => m.id === item.id)?.description && (
-                            <p className="text-base text-gray-600 px-4 pb-2">
+                            <p className="mobile-menu-description-text">
                               {config.mainMenu.find(m => m.id === item.id)?.description}
                             </p>
                           )}
@@ -197,12 +200,12 @@ export default function MobileNav({
                           openSubmenu(item.id);
                           trackNavigationInteraction(item.id, 'open');
                         }}
-                        className="w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors"
+                        className="mobile-additional-menu-button"
                       >
-                        <span className="text-lg font-bold text-gray-900">
+                        <span className="mobile-additional-menu-text">
                           {item.label}
                         </span>
-                        <ChevronRightIcon className="text-gray-400" />
+                        <ChevronRightIcon className="mobile-main-menu-icon" />
                       </button>
                     </div>
                   );
@@ -216,17 +219,17 @@ export default function MobileNav({
               data-submenu-scroll
             >
               {/* Sticky Header with Back and Close buttons */}
-              <div className="sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50">
+              <div className="mobile-submenu-header-container">
                 <button
                   onClick={goBack}
-                  className="flex items-center space-x-2"
+                  className="mobile-back-button-content"
                 >
                   <ChevronLeftIcon />
-                  <span className="font-medium">Back</span>
+                  <span className="mobile-back-button-text">Back</span>
                 </button>
                 <button
                   onClick={toggleMenu}
-                  className="p-2"
+                  className="mobile-close-button"
                   aria-label="Close menu"
                 >
                   <NavigationToggle isOpen={true} />
@@ -235,28 +238,28 @@ export default function MobileNav({
 
               {/* Sticky Banner */}
               {activeMenuItem && (
-                <div className="sticky bg-teal-50 w-full z-30" style={{ top: '65px', height: '56vh' }}>
-                  <div className="h-full flex flex-col">
+                <div className="sticky bg-teal-50 w-full z-30" style={{ top: `calc(${LAYOUT_CONSTANTS.NAVIGATION.MOBILE_NAV_HEIGHT} + 9px)`, height: LAYOUT_CONSTANTS.NAVIGATION.MOBILE_SUBMENU_HEIGHT }}>
+                  <div className="mobile-banner-wrapper">
                     {activeMenuItem.banner && (
-                      <div className="px-4 pt-4">
-                        <div className="relative w-full max-w-md mx-auto aspect-[3/2] overflow-hidden rounded-2xl">
+                      <div className="mobile-banner-image-wrapper">
+                        <div className="mobile-banner-image-container-inner">
                           <Image
                             src={activeMenuItem.banner}
                             alt={activeMenuItem.label}
                             fill
-                            className="object-contain"
+                            className="mobile-banner-image-content"
                             sizes="(max-width: 768px) 384px, 384px"
                             priority
                           />
                         </div>
                       </div>
                     )}
-                    <div className="px-6 pt-4 pb-6">
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    <div className="mobile-banner-text-container">
+                      <h2 className="mobile-banner-title-text">
                         {activeMenuItem.label}
                       </h2>
                       {activeMenuItem.description && (
-                        <p className="text-gray-600">
+                        <p className="mobile-banner-description-text">
                           {activeMenuItem.description}
                         </p>
                       )}
@@ -266,20 +269,20 @@ export default function MobileNav({
               )}
 
               {/* Scrollable Submenu Items */}
-              <div className="px-4 py-6 space-y-2 bg-white relative z-10">
+              <div className="mobile-submenu-content">
                 {activeMenuItem?.subItems?.map((subItem) => (
                   <Link
                     key={subItem.id}
                     href={subItem.href}
-                    className="block p-4 rounded-xl hover:bg-gray-50 transition-colors"
+                    className="mobile-submenu-link"
                     onClick={() => {
                       trackNavigationInteraction(subItem.id, 'click');
                       toggleMenu();
                     }}
                   >
-                    <h4 className="font-bold text-gray-900">{subItem.label}</h4>
+                    <h4 className="mobile-submenu-link-title">{subItem.label}</h4>
                     {subItem.description && (
-                      <p className="text-sm text-gray-600 mt-1">{subItem.description}</p>
+                      <p className="mobile-submenu-link-description">{subItem.description}</p>
                     )}
                   </Link>
                 ))}
