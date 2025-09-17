@@ -1,0 +1,812 @@
+/**
+ * Semantic Component Classes - Navigation Only
+ * 
+ * Contains only classes actually used by Navigation components
+ * Cleaned up to remove all unused styles
+ */
+
+/* =================================================================== */
+/* ACCESSIBILITY */
+/* =================================================================== */
+
+/* Skip Link - Visible on focus for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px 16px;
+  background-color: #3b82f6; /* blue-500 */
+  color: white;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+  font-weight: 500;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid #60a5fa; /* blue-400 */
+  outline-offset: 2px;
+}
+
+/* =================================================================== */
+/* KEYBOARD NAVIGATION & FOCUS STATES */
+/* =================================================================== */
+
+/* Global focus indicator for keyboard navigation */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid #3b82f6; /* blue-500 */
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Button focus states */
+button:focus-visible,
+.btn-base:focus-visible,
+.menu-link:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Link focus states */
+a:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip to specific elements focus */
+.menu-link:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Mobile menu button focus */
+.mobile-menu-button:focus-visible {
+  outline-offset: -2px;
+  border-radius: 8px;
+}
+
+/* =================================================================== */
+/* BODY AND LAYOUT */
+/* =================================================================== */
+
+.main-body-antialiased {
+  @apply bg-white text-gray-900 antialiased;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.main-page-wrapper {
+  @apply min-h-screen bg-gray-50;
+}
+
+.main-content {
+  @apply pt-14 md:pt-20;
+}
+
+.content-container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.container-sm {
+  @apply max-w-3xl;
+}
+
+.container-md {
+  @apply max-w-5xl;
+}
+
+.container-lg {
+  @apply max-w-7xl;
+}
+
+.container-xl {
+  @apply max-w-screen-2xl;
+}
+
+.container-full {
+  @apply max-w-none;
+}
+
+.container-no-padding {
+  @apply px-0;
+}
+
+/* =================================================================== */
+/* FLEX LAYOUTS */
+/* =================================================================== */
+
+.flex-between {
+  @apply flex items-center justify-between;
+}
+
+.flex-align-start {
+  @apply items-start;
+}
+
+.flex-align-center {
+  @apply items-center;
+}
+
+.flex-align-end {
+  @apply items-end;
+}
+
+.flex-align-stretch {
+  @apply items-stretch;
+}
+
+
+/* =================================================================== */
+/* DESKTOP NAVIGATION */
+/* =================================================================== */
+
+.navigation-bar {
+  @apply fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50;
+}
+
+.navigation-content {
+  @apply flex items-center justify-between h-20;
+}
+
+.brand-logo {
+  @apply flex items-center space-x-2;
+}
+
+.brand-image {
+  @apply w-8 h-8;
+}
+
+.brand-text {
+  @apply text-xl font-bold text-neutral-900;
+}
+
+.menu-items {
+  @apply hidden md:flex items-center space-x-8;
+}
+
+.menu-item {
+  @apply relative;
+}
+
+.menu-link {
+  @apply text-neutral-600 hover:text-primary-600 transition-colors text-sm font-medium flex items-center space-x-1;
+}
+
+.menu-icon {
+  @apply w-4 h-4 group-hover:rotate-180 transition-transform;
+}
+
+.dropdown-menu {
+  @apply w-full bg-white shadow-2xl border-t;
+}
+
+.dropdown-content {
+  @apply py-8 h-full;
+}
+
+.dropdown-section {
+  @apply grid gap-8 h-full;
+}
+
+.dropdown-title {
+  @apply text-2xl font-bold text-gray-900 mb-3;
+}
+
+.dropdown-items {
+  @apply grid gap-x-5 gap-y-3;
+}
+
+.dropdown-item {
+  @apply block p-4 rounded-xl transition-colors;
+}
+
+.dropdown-item-icon {
+  @apply w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mt-1;
+}
+
+.dropdown-item-icon-shape {
+  @apply w-4 h-4 bg-primary-500 rounded;
+}
+
+.dropdown-item-title {
+  @apply font-semibold text-lg text-gray-900 group-hover:text-teal-600 transition-colors;
+}
+
+.dropdown-item-description {
+  @apply text-sm text-gray-600;
+}
+
+/* =================================================================== */
+/* DESKTOP NAVIGATION - SEMANTIC IMPROVEMENTS */
+/* =================================================================== */
+
+.menu-link-text {
+  @apply font-bold text-sm;
+}
+
+.menu-link-icon {
+  @apply rotate-90 transition-transform group-hover:rotate-[270deg];
+}
+
+.action-buttons-container {
+  @apply menu-items;
+}
+
+.action-link {
+  @apply menu-link;
+}
+
+.action-button-wrapper {
+  @apply inline-block;
+}
+
+.dropdown-overlay {
+  @apply absolute left-0 w-full overflow-hidden;
+}
+
+.dropdown-banner-container {
+  @apply col-span-4;
+}
+
+.dropdown-banner-image {
+  @apply relative h-48 mb-4 rounded-2xl overflow-hidden;
+}
+
+.dropdown-banner-image-content {
+  @apply object-cover;
+}
+
+.dropdown-items-container {
+  @apply col-span-8;
+}
+
+.dropdown-items-grid {
+  @apply dropdown-items grid-cols-2 gap-x-5 gap-y-3;
+}
+
+.dropdown-item-content {
+  @apply block p-4 rounded-xl transition-colors;
+}
+
+.dropdown-item-description-text {
+  @apply dropdown-item-description mt-1;
+}
+
+/* =================================================================== */
+/* MOBILE NAVIGATION */
+/* =================================================================== */
+
+.mobile-nav-bar {
+  @apply fixed top-0 w-full bg-white shadow-sm z-50;
+}
+
+.mobile-nav-content {
+  @apply px-4 flex items-center justify-between;
+  height: 60px;
+}
+
+.mobile-brand {
+  @apply flex items-center;
+}
+
+.mobile-actions {
+  @apply fixed bottom-0 left-0 right-0 z-50 block;
+}
+
+.mobile-button {
+  @apply w-full rounded-none text-center py-4;
+}
+
+.mobile-get-started-button {
+  @apply px-8;
+  min-width: 120px;
+  width: auto;
+}
+
+.desktop-get-started-button {
+  @apply px-8;
+  min-width: 140px;
+}
+
+.mobile-menu-overlay {
+  @apply fixed inset-0 bg-white transition-transform;
+}
+
+.mobile-menu-content {
+  @apply px-4 py-6;
+}
+
+.mobile-section-title {
+  @apply text-base font-semibold text-teal-600 tracking-wider mb-4;
+}
+
+.mobile-highlights-grid {
+  @apply grid grid-cols-3 gap-3;
+}
+
+.mobile-highlight-item {
+  @apply bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px];
+}
+
+.mobile-highlight-text {
+  @apply text-sm font-medium text-gray-900;
+}
+
+.mobile-menu-item {
+  @apply w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-menu-text {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.mobile-menu-description {
+  @apply text-base text-gray-600 px-4 pb-2;
+}
+
+.mobile-submenu-container {
+  @apply h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right;
+}
+
+.mobile-submenu-header {
+  @apply sticky top-0 flex items-center justify-between px-4 border-b bg-teal-50 z-50;
+  height: 60px;
+}
+
+.mobile-back-button {
+  @apply flex items-center space-x-2;
+}
+
+.mobile-submenu-banner {
+  @apply sticky bg-teal-50 w-full z-30;
+}
+
+.mobile-banner-content {
+  @apply h-full flex flex-col;
+}
+
+.mobile-banner-image {
+  @apply px-4 pt-4;
+}
+
+.mobile-banner-image-container {
+  @apply relative w-full max-w-md mx-auto aspect-[3/2] overflow-hidden rounded-2xl;
+}
+
+.mobile-banner-text {
+  @apply px-6 pt-4 pb-6;
+}
+
+.mobile-banner-title {
+  @apply text-2xl font-bold text-gray-900 mb-2;
+}
+
+.mobile-submenu-items {
+  @apply px-4 py-6 space-y-2 bg-white relative z-10;
+}
+
+.mobile-submenu-item {
+  @apply block p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-submenu-item-title {
+  @apply font-bold text-gray-900;
+}
+
+.mobile-submenu-item-description {
+  @apply text-sm text-gray-600 mt-1;
+}
+
+.mobile-additional-items {
+  @apply border-t pt-6 space-y-2;
+}
+
+/* =================================================================== */
+/* MOBILE NAVIGATION - SEMANTIC IMPROVEMENTS */
+/* =================================================================== */
+
+.mobile-toggle-button {
+  @apply p-2;
+}
+
+.mobile-menu-section {
+  @apply px-4 py-6;
+}
+
+.mobile-highlights-section {
+  @apply mb-8;
+}
+
+.mobile-section-header {
+  @apply text-base font-semibold text-teal-600 tracking-wider mb-4;
+}
+
+.mobile-quick-actions-grid {
+  @apply grid grid-cols-3 gap-3;
+}
+
+.mobile-quick-action-item {
+  @apply bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px];
+}
+
+.mobile-quick-action-text {
+  @apply text-sm font-medium text-gray-900;
+}
+
+.mobile-menu-sections {
+  @apply space-y-2;
+}
+
+.mobile-menu-section-container {
+  @apply mb-8;
+}
+
+.mobile-main-menu-button {
+  @apply w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-main-menu-text {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.mobile-main-menu-icon {
+  @apply text-gray-400;
+}
+
+.mobile-menu-description-text {
+  @apply text-base text-gray-600 px-4 pb-2;
+}
+
+.mobile-additional-menu-button {
+  @apply w-full flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-additional-menu-text {
+  @apply text-lg font-bold text-gray-900;
+}
+
+.mobile-submenu-header-container {
+  @apply sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50;
+}
+
+.mobile-back-button-content {
+  @apply flex items-center space-x-2;
+}
+
+.mobile-back-button-text {
+  @apply font-medium;
+}
+
+.mobile-close-button {
+  @apply p-2;
+}
+
+.mobile-banner-wrapper {
+  @apply h-full flex flex-col;
+}
+
+.mobile-banner-image-wrapper {
+  @apply px-4 pt-4;
+}
+
+.mobile-banner-image-container-inner {
+  @apply relative w-full max-w-md mx-auto aspect-[3/2] overflow-hidden rounded-2xl;
+}
+
+.mobile-banner-image-content {
+  @apply object-contain;
+}
+
+.mobile-banner-text-container {
+  @apply px-6 pt-4 pb-6;
+}
+
+.mobile-banner-title-text {
+  @apply text-2xl font-bold text-gray-900 mb-2;
+}
+
+.mobile-banner-description-text {
+  @apply text-gray-600;
+}
+
+.mobile-submenu-content {
+  @apply px-4 py-6 space-y-2 bg-white relative z-10;
+}
+
+.mobile-submenu-link {
+  @apply block p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+.mobile-submenu-link-title {
+  @apply font-bold text-gray-900;
+}
+
+.mobile-submenu-link-description {
+  @apply text-sm text-gray-600 mt-1;
+}
+
+/* =================================================================== */
+/* STATIC PAGE COMPONENTS */
+/* =================================================================== */
+
+.page-wrapper {
+  @apply main-page-wrapper;
+}
+
+.page-content-container {
+  @apply min-h-screen bg-white;
+}
+
+.page-content-center {
+  @apply container mx-auto px-4 py-8;
+}
+
+.page-content-text-center {
+  @apply text-center;
+}
+
+.page-title-construction {
+  @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.page-description-construction {
+  @apply text-gray-600;
+}
+
+/* =================================================================== */
+/* LANGUAGE SWITCHER COMPONENTS */
+/* =================================================================== */
+
+.language-switcher-inline-container {
+  @apply flex items-center gap-2;
+}
+
+.language-switcher-button-base {
+  @apply px-3 py-1 rounded-lg text-sm font-medium transition-colors;
+}
+
+.language-switcher-button-active {
+  @apply bg-primary-100 text-primary-700;
+}
+
+.language-switcher-button-inactive {
+  @apply text-gray-600 hover:bg-gray-100;
+}
+
+.language-switcher-dropdown-container {
+  @apply relative;
+}
+
+.language-switcher-trigger {
+  @apply flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors;
+}
+
+.language-switcher-flag {
+  @apply text-lg;
+}
+
+.language-switcher-label {
+  @apply text-sm font-medium;
+}
+
+.language-switcher-chevron {
+  @apply transition-transform text-xs;
+}
+
+.language-switcher-chevron-open {
+  @apply rotate-90;
+}
+
+.language-switcher-dropdown-menu {
+  @apply absolute right-0 mt-2 w-48 rounded-lg bg-white shadow-lg border border-gray-200 py-1 z-50;
+}
+
+.language-switcher-option {
+  @apply w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50 transition-colors;
+}
+
+.language-switcher-option-active {
+  @apply bg-primary-50;
+}
+
+.language-switcher-option-flag {
+  @apply text-lg;
+}
+
+.language-switcher-option-label {
+  @apply text-sm font-medium;
+}
+
+.language-switcher-checkmark {
+  @apply ml-auto text-primary-600;
+}
+
+/* =================================================================== */
+/* ACCESSIBILITY */
+/* =================================================================== */
+
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 transition-all focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 bg-primary-500 text-white px-3 py-2 rounded-lg text-sm font-medium;
+}
+
+.accessibility-skip {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-500 text-white px-4 py-2 rounded-lg z-50;
+}
+
+/* =================================================================== */
+/* UI COMPONENTS */
+/* =================================================================== */
+
+.card-header {
+  @apply flex flex-col space-y-1.5;
+}
+
+.card-title {
+  @apply text-lg font-semibold leading-none tracking-tight text-neutral-900;
+}
+
+.card-description {
+  @apply text-base text-neutral-600;
+}
+
+.card-footer {
+  @apply flex items-center pt-4;
+}
+
+.button-spinner {
+  @apply animate-spin -ml-1 mr-2 h-4 w-4;
+}
+
+.icon-text {
+  @apply flex items-center space-x-1;
+}
+
+/* =================================================================== */
+/* BUTTON COMPONENTS */
+/* =================================================================== */
+
+.btn-base {
+  @apply inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 no-underline;
+}
+
+.btn-primary {
+  @apply bg-teal-500 text-white hover:bg-teal-600 shadow-md hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-neutral-100 text-neutral-900 hover:bg-neutral-200 border border-neutral-200;
+}
+
+.btn-outline {
+  @apply border border-teal-500 text-teal-500 bg-transparent hover:bg-teal-50;
+}
+
+.btn-ghost {
+  @apply text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900;
+}
+
+.btn-link {
+  @apply text-teal-500 underline-offset-4 hover:underline p-0;
+}
+
+.btn-gradient {
+  @apply bg-gradient-to-r from-teal-500 to-teal-600 text-white hover:from-teal-600 hover:to-teal-700 shadow-lg hover:shadow-xl;
+}
+
+.btn-destructive {
+  @apply bg-semantic-error text-white hover:bg-red-600;
+}
+
+.btn-xs {
+  @apply h-8 px-3 text-xs;
+}
+
+.btn-sm {
+  @apply h-9 px-4 text-xs;
+}
+
+.btn-default {
+  @apply h-10 px-4 py-2;
+}
+
+.btn-lg {
+  @apply h-12 px-8;
+}
+
+.btn-xl {
+  @apply h-14 px-10 text-base;
+}
+
+.btn-icon {
+  @apply h-10 w-10;
+}
+
+.btn-spinner {
+  @apply animate-spin -ml-1 mr-2 h-4 w-4;
+}
+
+.btn-content {
+  /* Default button content styling */
+}
+
+.btn-content-loading {
+  @apply opacity-70;
+}
+
+/* =================================================================== */
+/* HOMEPAGE SECTIONS */
+/* =================================================================== */
+
+/* Homepage Hero Section */
+.homepage-hero-section {
+  @apply min-h-[60vh] flex items-center justify-center;
+  background-color: #f9fafb; /* gray-50 */
+}
+
+.homepage-hero-content {
+  @apply container mx-auto px-4 py-16 text-center;
+}
+
+/* Homepage Features Section */
+.homepage-features-section {
+  @apply py-20;
+  background-color: white;
+}
+
+/* Homepage CTA Section */
+.homepage-cta-section {
+  @apply py-16;
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+/* Screen reader only - for SEO/Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* =================================================================== */
+/* ERROR PAGES */
+/* =================================================================== */
+
+/* 404 and Error Page Container */
+.error-page-container {
+  @apply min-h-screen flex items-center justify-center px-4 py-16;
+  background-color: #f9fafb; /* gray-50 */
+}
+
+.error-page-content {
+  @apply text-center max-w-md mx-auto;
+}
+
+.error-page-title {
+  @apply text-8xl font-bold mb-4;
+  color: #3b82f6; /* blue-500 */
+}
+
+.error-page-subtitle {
+  @apply text-3xl font-semibold mb-4;
+  color: #111827; /* gray-900 */
+}
+
+.error-page-description {
+  @apply text-lg mb-8;
+  color: #6b7280; /* gray-500 */
+}
+
+.error-page-actions {
+  @apply flex gap-4 justify-center;
+}

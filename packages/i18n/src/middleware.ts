@@ -168,24 +168,21 @@ function addSecurityHeaders(response: NextResponse, locale: SupportedLocale): Ne
   return response;
 }
 
-// Analytics: Track locale detection patterns
+// Analytics: Track locale detection patterns (server-side)
 function trackLocaleDetection(
   locale: SupportedLocale, 
   domain: string, 
   pathname: string
 ) {
-  // Product KPIs: Track locale usage patterns
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'locale_detected', {
-      event_category: 'i18n',
-      event_label: locale,
-      custom_map: {
-        domain,
-        pathname,
-        detection_method: 'middleware',
-      }
-    });
-  }
+  // Product KPIs: Server-side locale usage tracking
+  // Note: Client-side tracking should be handled in client components
+  console.log('Locale detected:', {
+    locale,
+    domain,
+    pathname,
+    detection_method: 'middleware',
+    timestamp: new Date().toISOString()
+  });
 }
 
 // Utility: Get domain namespace for cookie naming

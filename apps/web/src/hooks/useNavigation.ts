@@ -16,7 +16,7 @@ export function useNavigation() {
     const checkMobile = () => {
       setState(prev => ({ ...prev, isMobile: window.innerWidth < 768 }));
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -29,14 +29,14 @@ export function useNavigation() {
         setState(prev => ({ ...prev, isOpen: false, activeMenu: null, activeSubmenu: null }));
       }
     };
-    
+
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, []);
 
   const toggleMenu = useCallback(() => {
-    setState(prev => ({ 
-      ...prev, 
+    setState(prev => ({
+      ...prev,
       isOpen: !prev.isOpen,
       activeMenu: null,
       activeSubmenu: null
@@ -44,32 +44,32 @@ export function useNavigation() {
   }, []);
 
   const openMenu = useCallback((menuId: string) => {
-    setState(prev => ({ 
-      ...prev, 
+    setState(prev => ({
+      ...prev,
       activeMenu: menuId,
-      activeSubmenu: null 
+      activeSubmenu: null
     }));
   }, []);
 
   const closeMenu = useCallback(() => {
-    setState(prev => ({ 
-      ...prev, 
+    setState(prev => ({
+      ...prev,
       activeMenu: null,
-      activeSubmenu: null 
+      activeSubmenu: null
     }));
   }, []);
 
   const openSubmenu = useCallback((submenuId: string) => {
-    setState(prev => ({ 
-      ...prev, 
-      activeSubmenu: submenuId 
+    setState(prev => ({
+      ...prev,
+      activeSubmenu: submenuId
     }));
   }, []);
 
   const goBack = useCallback(() => {
-    setState(prev => ({ 
-      ...prev, 
-      activeSubmenu: null 
+    setState(prev => ({
+      ...prev,
+      activeSubmenu: null
     }));
   }, []);
 

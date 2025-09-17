@@ -1,7 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { match } from '@formatjs/intl-localematcher';
-import Negotiator from 'negotiator';
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, isValidLocale, getSafeLocale, type SupportedLocale } from '@/lib/i18n-simple';
+
+// Temporarily inline constants to fix middleware loading issue
+const SUPPORTED_LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
+const DEFAULT_LOCALE = 'en' as const;
+type SupportedLocale = typeof SUPPORTED_LOCALES[number];
+
+function isValidLocale(locale: string): locale is SupportedLocale {
+  return SUPPORTED_LOCALES.includes(locale as SupportedLocale);
+}
+
+function getSafeLocale(locale: string | null | undefined): SupportedLocale {
+  if (!locale) return DEFAULT_LOCALE;
+  const sanitizedLocale = locale.replace(/[^a-zA-Z-]/g, '').slice(0, 10);
+  return isValidLocale(sanitizedLocale) ? sanitizedLocale : DEFAULT_LOCALE;
+}
 
 /**
  * Simplified Middleware for Immediate Functionality
@@ -38,17 +50,19 @@ export async function middleware(request: NextRequest) {
   return addSecurityHeaders(response);
 }
 
-// Simple locale detection
+// Simple locale detection - simplified version without external dependencies
 function detectUserLocale(request: NextRequest): SupportedLocale {
   try {
-    const negotiator = new Negotiator({
-      headers: { 'accept-language': request.headers.get('accept-language') || '' }
-    });
+    const acceptLanguage = request.headers.get('accept-language') || '';
     
-    const languages = negotiator.languages();
-    const matchedLocale = match(languages, SUPPORTED_LOCALES, DEFAULT_LOCALE);
+    // Simple language detection without negotiator
+    for (const locale of SUPPORTED_LOCALES) {
+      if (acceptLanguage.includes(locale) || acceptLanguage.includes(locale.split('-')[0])) {
+        return locale;
+      }
+    }
     
-    return matchedLocale as SupportedLocale;
+    return DEFAULT_LOCALE;
   } catch {
     return DEFAULT_LOCALE;
   }

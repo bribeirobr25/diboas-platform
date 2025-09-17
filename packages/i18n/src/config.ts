@@ -144,7 +144,7 @@ export function detectLocaleFromPath(pathname: string): SupportedLocale | null {
 export function generateAlternateUrls(
   basePath: string, 
   domain: string,
-  locales: SupportedLocale[] = SUPPORTED_LOCALES
+  locales: SupportedLocale[] = [...SUPPORTED_LOCALES]
 ): Record<string, string> {
   const alternates: Record<string, string> = {};
   

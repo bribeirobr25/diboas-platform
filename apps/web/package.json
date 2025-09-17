@@ -7,9 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "analyze": "ANALYZE=true next build",
+    "analyze-server": "BUNDLE_ANALYZE=server next build",
+    "analyze-browser": "BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
+    "@diboas/i18n": "workspace:*",
+    "@diboas/ui": "workspace:*",
     "@formatjs/intl-localematcher": "^0.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -20,9 +25,11 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl": "^6.4.7",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.3",
     "@tailwindcss/typography": "^0.5.0",
     "@types/negotiator": "^0.6.1",
     "@types/node": "^20.5.0",

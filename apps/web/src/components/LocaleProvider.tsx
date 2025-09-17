@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { type SupportedLocale } from '@/lib/i18n-simple';
+import { type SupportedLocale } from '@diboas/i18n';
 
 interface LocaleContextType {
   locale: SupportedLocale;
@@ -17,7 +17,7 @@ interface LocaleProviderProps {
 
 export function LocaleProvider({ children, initialLocale }: LocaleProviderProps) {
   const [isHydrated, setIsHydrated] = useState(false);
-  
+
   useEffect(() => {
     setIsHydrated(true);
   }, []);
