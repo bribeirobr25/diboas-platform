@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
+import { BRAND_CONFIG } from '@/config/brand';
 import type { Metadata } from 'next';
 
 export const dynamic = 'auto';
@@ -44,12 +45,10 @@ export default async function HomePage({ params }: HomePageProps) {
     <>
       <StructuredData data={[organizationData, breadcrumbData]} />
       
-      <div className="main-page-wrapper">
-        {/* Blank page - Navigation is in the layout */}
-        <div className="min-h-screen bg-white">
-          {/* Empty content area */}
-        </div>
-      </div>
+      <main className="main-page-wrapper">
+        <h1 className="sr-only">{BRAND_CONFIG.FULL_NAME} - {BRAND_CONFIG.TAGLINE}</h1>
+        {/* Content will be developed later */}
+      </main>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { NavigationConfig } from '@/types/navigation';
 import { ASSET_PATHS } from '@/config/assets';
+import { APP_URL, BUSINESS_URL } from '@/config/environment';
 
 // Helper function to generate URLs that work in both dev and production
 const createUrl = (path: string): string => {
@@ -123,12 +124,12 @@ export const navigationConfig: NavigationConfig = {
   actions: {
     primary: {
       label: 'Get Started',
-      href: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001',
+      href: APP_URL,
       variant: 'primary'
     },
     secondary: {
       label: 'Business Login',
-      href: process.env.NEXT_PUBLIC_BUSINESS_URL || 'http://localhost:3002',
+      href: BUSINESS_URL,
       variant: 'secondary'
     }
   }

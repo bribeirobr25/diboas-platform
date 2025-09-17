@@ -1,9 +1,14 @@
 /**
  * DRY Principle: Centralized content constants
+ * Configuration Management: Dynamic content with fallback to configurable business metrics
  * 
  * Single source of truth for repeated content strings
  * across the application to ensure consistency
  */
+
+import { PLATFORM_STATS, getMetricValue } from '@/config/business-metrics';
+import { PLATFORM_RATINGS } from '@/config/ratings';
+import { BRAND_CONFIG } from '@/config/brand';
 
 export const COMMON_CONTENT = {
   // Call-to-Action Labels
@@ -20,10 +25,10 @@ export const COMMON_CONTENT = {
 
   // Brand Content
   BRAND: {
-    TAGLINE: 'Financial Freedom',
+    TAGLINE: BRAND_CONFIG.TAGLINE,
     MISSION: 'Your Gateway to Financial Freedom',
-    PLATFORM_NAME: 'diBoaS Platform',
-    COMPANY_NAME: 'diBoaS'
+    PLATFORM_NAME: BRAND_CONFIG.FULL_NAME,
+    COMPANY_NAME: BRAND_CONFIG.NAME
   },
 
   // Trust Indicators
@@ -37,15 +42,15 @@ export const COMMON_CONTENT = {
       'SSL Encrypted'
     ],
     USER_STATS: {
-      USERS_COUNT: '500,000+ users trust us',
-      TRANSACTIONS_PROCESSED: '$2B+ processed',
-      COUNTRIES_SERVED: 'Available in 50+ countries',
-      UPTIME: '99.9% uptime guarantee'
+      USERS_COUNT: `${getMetricValue(PLATFORM_STATS.users)} users trust us`,
+      TRANSACTIONS_PROCESSED: `${getMetricValue(PLATFORM_STATS.volumeProcessed)} processed`,
+      COUNTRIES_SERVED: `Available in ${getMetricValue(PLATFORM_STATS.countriesServed)} countries`,
+      UPTIME: `${getMetricValue(PLATFORM_STATS.uptimeGuarantee)} uptime guarantee`
     },
     RATINGS: {
-      APP_STORE: '4.8/5 stars on App Store',
-      GOOGLE_PLAY: '4.7/5 stars on Google Play',
-      TRUSTPILOT: '4.6/5 stars on Trustpilot'
+      APP_STORE: PLATFORM_RATINGS.APP_STORE.displayText,
+      GOOGLE_PLAY: PLATFORM_RATINGS.GOOGLE_PLAY.displayText,
+      TRUSTPILOT: PLATFORM_RATINGS.TRUSTPILOT.displayText
     }
   },
 
@@ -82,7 +87,7 @@ export const COMMON_CONTENT = {
     BANKING: 'Traditional banking made simple with modern technology and security',
     INVESTING: 'Smart investing tools for building long-term wealth',
     DEFI: 'Access decentralized finance opportunities with institutional-grade security',
-    PLATFORM: 'The all-in-one financial platform for banking, investing, and DeFi'
+    PLATFORM: `The all-in-one financial platform for banking, investing, and DeFi - ${BRAND_CONFIG.NAME}`
   },
 
   // Error Messages
@@ -119,7 +124,7 @@ export const COMMON_CONTENT = {
   FOOTER: {
     TAGLINE: 'Building the future of finance',
     NEWSLETTER_CTA: 'Stay updated with our latest news and features',
-    COPYRIGHT: '© 2024 diBoaS. All rights reserved.'
+    COPYRIGHT: `© 2024 ${BRAND_CONFIG.NAME}. All rights reserved.`
   }
 } as const;
 

@@ -5,6 +5,7 @@
 
 import { WebVitalsMetric } from './types';
 import { analyticsService } from './service';
+import { WEB_VITALS_THRESHOLDS, evaluatePerformance } from '@/config/performance-thresholds';
 
 /**
  * Initialize Web Vitals tracking
@@ -57,21 +58,21 @@ export function initializeWebVitals(): void {
 
 /**
  * Get rating for a performance metric value
- * Performance: Classify metrics according to Core Web Vitals thresholds
+ * Performance: Classify metrics according to centralized Core Web Vitals thresholds
  */
 export function getMetricRating(name: string, value: number): 'good' | 'needs-improvement' | 'poor' {
-  const thresholds: Record<string, { good: number; poor: number }> = {
-    FCP: { good: 1800, poor: 3000 },
-    LCP: { good: 2500, poor: 4000 },
-    CLS: { good: 0.1, poor: 0.25 },
-    TTFB: { good: 800, poor: 1800 },
-    INP: { good: 200, poor: 500 }
+  const thresholdMap: Record<string, keyof typeof WEB_VITALS_THRESHOLDS> = {
+    FCP: 'FCP',
+    LCP: 'LCP', 
+    CLS: 'CLS',
+    TTFB: 'TTFB',
+    INP: 'INP',
+    FID: 'FID'
   };
 
-  const threshold = thresholds[name];
-  if (!threshold) return 'good';
+  const thresholdKey = thresholdMap[name];
+  if (!thresholdKey) return 'good';
 
-  if (value <= threshold.good) return 'good';
-  if (value <= threshold.poor) return 'needs-improvement';
-  return 'poor';
+  const threshold = WEB_VITALS_THRESHOLDS[thresholdKey];
+  return evaluatePerformance(value, threshold);
 }

@@ -45,23 +45,23 @@ const buttonVariants = cva(
 // DRY Principle: Comprehensive button interface
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   // Accessibility: Required for screen readers
   'aria-label'?: string;
   'aria-describedby'?: string;
-  
+
   // Performance: Render as different element
   // asChild?: boolean;
-  
+
   // Analytics: Track user interactions
   trackingEvent?: string;
   trackingProps?: Record<string, any>;
-  
+
   // SEO: UTM parameters for marketing
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
-  
+
   // Loading state for async operations
   loading?: boolean;
   loadingText?: string;
@@ -78,10 +78,10 @@ export interface ButtonProps
  * - Analytics tracking
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ 
-    className, 
-    variant, 
-    size, 
+  ({
+    className,
+    variant,
+    size,
     trackable,
     // asChild = false,
     trackingEvent,
@@ -96,26 +96,33 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     children,
     'aria-label': ariaLabel,
     'aria-describedby': ariaDescribedBy,
-    ...props 
+    ...props
   }, ref) => {
 
-    // Analytics: Track button interactions
+    // Analytics: Track button interactions with error handling
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (trackingEvent && typeof window !== 'undefined') {
-        // Product KPIs: Track user interactions
-        const gtag = (window as any).gtag;
-        if (gtag) {
-          gtag('event', trackingEvent, {
-            event_category: 'Button',
-            event_label: ariaLabel || children?.toString(),
-            utm_source: utmSource,
-            utm_medium: utmMedium,
-            utm_campaign: utmCampaign,
-            ...trackingProps,
-          });
+        try {
+          // Product KPIs: Track user interactions
+          const gtag = (window as any).gtag;
+          if (gtag) {
+            gtag('event', trackingEvent, {
+              event_category: 'Button',
+              event_label: ariaLabel || children?.toString(),
+              utm_source: utmSource,
+              utm_medium: utmMedium,
+              utm_campaign: utmCampaign,
+              ...trackingProps,
+            });
+          }
+        } catch (error) {
+          // Analytics failures should not break button functionality
+          if (process.env.NODE_ENV === 'development') {
+            console.warn('Button analytics tracking failed:', error);
+          }
         }
       }
-      
+
       onClick?.(e);
     };
 
@@ -163,7 +170,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </svg>
         )}
-        
+
         {/* Button content */}
         <span className={loading ? 'btn-content-loading' : 'btn-content'}>
           {loading ? loadingText : children}

@@ -8,6 +8,7 @@ import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
 import { useEffect } from 'react';
 import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/UI';
+import { UI_CONSTANTS } from '@/config/ui-constants';
 import { ASSET_PATHS } from '@/config/assets';
 import { LAYOUT_CONSTANTS, ANIMATION_CONSTANTS } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
@@ -49,7 +50,7 @@ export default function MobileNav({
         if (submenuContainer) {
           submenuContainer.scrollTop = 0;
         }
-      }, 50);
+      }, UI_CONSTANTS.ANIMATION.MOBILE_NAV_CLOSE_DELAY);
     }
   }, [activeSubmenu]);
 
@@ -63,13 +64,14 @@ export default function MobileNav({
       {/* Mobile Header */}
       <nav className="mobile-nav-bar">
         <div className="mobile-nav-content">
-          <Link href="/" className="mobile-brand">
+          <Link href="/" className="mobile-brand" aria-label={`${BRAND_CONFIG.NAME} Home`}>
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt={BRAND_CONFIG.NAME}
               width={56}
               height={56}
               style={{ width: 'auto', height: LAYOUT_CONSTANTS.NAVIGATION.MOBILE_NAV_HEIGHT }}
+              priority
             />
           </Link>
 
@@ -92,7 +94,7 @@ export default function MobileNav({
           <button
             onClick={toggleMenu}
             className="mobile-toggle-button"
-            aria-label="Toggle menu"
+            aria-label={UI_CONSTANTS.TEXT.TOGGLE_MENU}
           >
             <NavigationToggle isOpen={isOpen} />
           </button>
@@ -169,11 +171,12 @@ export default function MobileNav({
                               trackNavigationInteraction(item.id, 'open');
                             }}
                             className="mobile-main-menu-button"
+                            aria-label={`Open ${item.label} menu`}
                           >
                             <span className="mobile-main-menu-text">
                               {item.label}
                             </span>
-                            <ChevronRightIcon className="mobile-main-menu-icon" />
+                            <ChevronRightIcon className="mobile-main-menu-icon" aria-hidden="true" />
                           </button>
                           {config.mainMenu.find(m => m.id === item.id)?.description && (
                             <p className="mobile-menu-description-text">
@@ -201,11 +204,12 @@ export default function MobileNav({
                           trackNavigationInteraction(item.id, 'open');
                         }}
                         className="mobile-additional-menu-button"
+                        aria-label={`Open ${item.label} menu`}
                       >
                         <span className="mobile-additional-menu-text">
                           {item.label}
                         </span>
-                        <ChevronRightIcon className="mobile-main-menu-icon" />
+                        <ChevronRightIcon className="mobile-main-menu-icon" aria-hidden="true" />
                       </button>
                     </div>
                   );
@@ -230,7 +234,7 @@ export default function MobileNav({
                 <button
                   onClick={toggleMenu}
                   className="mobile-close-button"
-                  aria-label="Close menu"
+                  aria-label={UI_CONSTANTS.TEXT.CLOSE_MENU}
                 >
                   <NavigationToggle isOpen={true} />
                 </button>

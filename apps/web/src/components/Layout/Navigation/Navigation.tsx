@@ -4,6 +4,7 @@
 
 import { useNavigation } from '@/hooks/useNavigation';
 import { navigationConfig } from '@/config/navigation';
+import { analyticsService } from '@/lib/analytics/error-resilient-service';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import { useEffect } from 'react';
@@ -31,15 +32,15 @@ export default function Navigation() {
     };
   }, [navigationState.isOpen, navigationState.isMobile]);
 
-  // Analytics tracking
-  const trackNavigationInteraction = (menuId: string, action: string) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'navigation_interaction', {
-        menu_id: menuId,
-        action: action,
-        path: pathname
-      });
-    }
+  // Analytics tracking with comprehensive error handling
+  const trackNavigationInteraction = async (menuId: string, action: string) => {
+    await analyticsService.trackEvent('navigation_interaction', {
+      menu_id: menuId,
+      action: action,
+      path: pathname,
+      timestamp: new Date().toISOString(),
+      user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown'
+    });
   };
 
   const navigationProps = {

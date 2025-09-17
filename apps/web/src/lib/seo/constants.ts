@@ -6,6 +6,7 @@
 
 import { BRAND_CONFIG } from '@/config/brand';
 import { ASSET_PATHS } from '@/config/assets';
+import { DATE_FORMATS, CURRENCY_CONFIG } from '@/config/formats';
 
 export const SEO_DEFAULTS = {
   // Site-wide defaults
@@ -266,7 +267,7 @@ export const PAGE_SEO_CONFIG = {
 // Structured data templates
 export const STRUCTURED_DATA_TEMPLATES = {
   breadcrumbSeparator: ' › ',
-  dateFormat: 'YYYY-MM-DD',
+  dateFormat: DATE_FORMATS.ISO,
   priceRange: '$$',
-  currencyCode: 'USD'
+  currencyCode: CURRENCY_CONFIG.DEFAULT
 } as const;

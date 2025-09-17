@@ -7,6 +7,7 @@
 
 import { type Metadata } from 'next';
 import { type SupportedLocale, SUPPORTED_LOCALES } from '@diboas/i18n';
+import { BRAND_CONFIG } from '@/config/brand';
 
 export interface PageMetadataConfig {
   title: string;
@@ -26,7 +27,7 @@ export function generatePageMetadata(
   const {
     title,
     description,
-    domain = 'diboas.com',
+    domain = process.env.NEXT_PUBLIC_SITE_DOMAIN || 'diboas.com',
     path = '/',
     image = '/api/og/default',
     keywords = [],
@@ -34,7 +35,7 @@ export function generatePageMetadata(
     alternateLanguages = true
   } = config;
 
-  const siteTitle = 'diBoaS Platform';
+  const siteTitle = BRAND_CONFIG.FULL_NAME;
   const fullTitle = `${title} | ${siteTitle}`;
   const canonicalUrl = `https://${domain}${path}`;
   const ogImageUrl = image.startsWith('/api/') ? `https://${domain}${image}` : image;

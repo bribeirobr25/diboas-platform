@@ -37,13 +37,14 @@ export default function DesktopNav({
       <Container>
         <FlexBetween className="navigation-content">
           {/* Logo */}
-          <Link href="/" className="brand-logo">
+          <Link href="/" className="brand-logo" aria-label={`${BRAND_CONFIG.NAME} Home`}>
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt={BRAND_CONFIG.NAME}
               width={76}
               height={76}
               style={{ width: 'auto', height: 'auto', maxHeight: '76px' }}
+              priority
             />
           </Link>
 
@@ -53,6 +54,9 @@ export default function DesktopNav({
               <button
                 key={item.id}
                 className="menu-link group"
+                aria-label={`${item.label} menu`}
+                aria-expanded={activeMenu === item.id}
+                aria-haspopup="true"
                 onMouseEnter={() => {
                   openMenu(item.id);
                   trackNavigationInteraction(item.id, 'hover');
@@ -60,7 +64,7 @@ export default function DesktopNav({
               >
                 {item.icon && <SparklesIcon />}
                 <span className="menu-link-text">{item.label}</span>
-                <ChevronRightIcon size="xs" className="menu-link-icon" />
+                <ChevronRightIcon size="xs" className="menu-link-icon" aria-hidden="true" />
               </button>
             ))}
           </div>
@@ -115,6 +119,7 @@ export default function DesktopNav({
                       fill
                       className="dropdown-banner-image-content"
                       sizes="(max-width: 768px) 100vw, 384px"
+                      priority
                     />
                   </div>
                   <h3 className="dropdown-title">

@@ -9,6 +9,7 @@ export const BRAND_CONFIG = {
   NAME: process.env.NEXT_PUBLIC_BRAND_NAME || 'diBoaS',
   FULL_NAME: process.env.NEXT_PUBLIC_BRAND_FULL_NAME || 'diBoaS Platform',
   TAGLINE: process.env.NEXT_PUBLIC_BRAND_TAGLINE || 'Financial Freedom Made Simple',
+  DESCRIPTION: process.env.NEXT_PUBLIC_BRAND_DESCRIPTION || 'Manage your banking, investing, and DeFi assets all in one secure platform.',
 
   // Company Information
   LEGAL_NAME: process.env.NEXT_PUBLIC_COMPANY_LEGAL_NAME || 'diBoaS',

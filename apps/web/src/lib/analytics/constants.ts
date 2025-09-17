@@ -4,6 +4,7 @@
  */
 
 import { AnalyticsConfig } from './types';
+import { WEB_VITALS_THRESHOLDS } from '@/config/performance-thresholds';
 
 export const ANALYTICS_DEFAULTS: AnalyticsConfig = {
   enabled: process.env.NODE_ENV === 'production',
@@ -15,10 +16,17 @@ export const ANALYTICS_DEFAULTS: AnalyticsConfig = {
   flushInterval: 30000 // 30 seconds
 };
 
-export const PERFORMANCE_THRESHOLDS = {
-  FCP: { good: 1800, poor: 3000 },
-  LCP: { good: 2500, poor: 4000 },
-  CLS: { good: 0.1, poor: 0.25 },
-  TTFB: { good: 800, poor: 1800 },
-  INP: { good: 200, poor: 500 }
+export const ANALYTICS_CONSTANTS = {
+  RETRY_DELAY: 5000, // 5 seconds
+  MAX_QUEUE_SIZE: 100,
+  MONITORING_TIMEOUT: 3000, // 3 seconds
+  
+  // Error handling timeouts
+  MAX_RETRY_DELAY: 10000, // 10 seconds
+  BASE_RETRY_DELAY: 1000, // 1 second
+  JITTER_MAX: 1000, // 1 second jitter
+  BACKOFF_MULTIPLIER: 2
 } as const;
+
+// Use centralized performance thresholds
+export const PERFORMANCE_THRESHOLDS = WEB_VITALS_THRESHOLDS;

@@ -3,7 +3,6 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { generateStaticPageMetadata } from '@/lib/seo';
 import { StaticPageTemplate } from '@/components/Pages/StaticPageTemplate';
 import type { Metadata } from 'next';
-
 export const dynamic = 'auto';
 
 interface PageProps {

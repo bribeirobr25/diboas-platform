@@ -5,6 +5,7 @@
  */
 
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import type { SupportedLocale } from '@diboas/i18n';
 import type { Metadata } from 'next';
@@ -73,5 +74,11 @@ export async function generatePageMetadata(
   pageKey: string,
   locale: SupportedLocale
 ): Promise<Metadata> {
-  return generateStaticPageMetadata(pageKey as any, locale);
+  // Ensure pageKey is valid by checking if it exists in the config
+  if (pageKey in PAGE_SEO_CONFIG) {
+    return generateStaticPageMetadata(pageKey as keyof typeof PAGE_SEO_CONFIG, locale);
+  }
+  // Fallback to home if pageKey is not found
+  console.warn(`Invalid pageKey: ${pageKey}, falling back to home`);
+  return generateStaticPageMetadata('home', locale);
 }

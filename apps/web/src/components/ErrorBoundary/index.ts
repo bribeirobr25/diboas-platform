@@ -4,3 +4,4 @@
  */
 
 export { PageErrorBoundary } from './PageErrorBoundary';
+export { NavigationErrorBoundary } from './NavigationErrorBoundary';

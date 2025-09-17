@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { LocaleProvider } from '@/components/LocaleProvider';
 import { Navigation } from '@/components/Layout/Navigation';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
+import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationErrorBoundary';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -12,22 +12,6 @@ interface RootLayoutProps {
   }>;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale: localeParam } = await params;
-  const locale = localeParam as SupportedLocale;
-
-  if (!isValidLocale(locale)) {
-    notFound();
-  }
-
-  return {
-    title: {
-      template: '%s | diBoaS',
-      default: 'diBoaS - Financial Freedom Made Simple'
-    },
-    description: 'Manage your banking, investing, and DeFi assets all in one secure platform.',
-  };
-}
 
 export async function generateStaticParams() {
   return [
@@ -52,8 +36,14 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
   return (
     <LocaleProvider initialLocale={locale}>
       <PageErrorBoundary>
-        <Navigation />
-        <main className="main-content">
+        {/* Skip Navigation Link for Accessibility */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <NavigationErrorBoundary maxRetries={3}>
+          <Navigation />
+        </NavigationErrorBoundary>
+        <main id="main-content" className="main-content">
           {children}
         </main>
       </PageErrorBoundary>

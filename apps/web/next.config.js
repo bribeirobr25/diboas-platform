@@ -8,7 +8,16 @@ const nextConfig = {
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['diboas.com', 'cdn.diboas.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'diboas.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.diboas.com',
+      },
+    ],
   },
   
   // Security headers
