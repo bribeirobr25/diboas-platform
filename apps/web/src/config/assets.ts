@@ -23,7 +23,8 @@ export const ASSET_PATHS = {
     ICON: `${ASSETS_BASE}/logos/logo-icon.avif`,
     FULL: `${ASSETS_BASE}/logos/logo-full.avif`,
     ICON_DARK: `${ASSETS_BASE}/logos/logo-icon-dark.avif`,
-    FULL_DARK: `${ASSETS_BASE}/logos/logo-full-dark.avif`
+    FULL_DARK: `${ASSETS_BASE}/logos/logo-full-dark.avif`,
+    WORDMARK: `${ASSETS_BASE}/logos/logo-wordmark.avif`
   },
   
   // SEO Assets

@@ -261,6 +261,16 @@ export const PAGE_SEO_CONFIG = {
     title: 'Legal & Compliance - Terms and Conditions',
     description: 'Read our terms of service, privacy policy, and compliance information.',
     keywords: ['legal', 'compliance', 'terms of service', 'privacy policy']
+  },
+  'legal/privacy': {
+    title: 'Privacy Policy - Data Protection and Privacy',
+    description: 'Learn how we protect your privacy and handle your personal data.',
+    keywords: ['privacy policy', 'data protection', 'privacy rights', 'data security']
+  },
+  'legal/cookies': {
+    title: 'Cookie Policy - Cookie Usage and Preferences',
+    description: 'Information about how we use cookies and how to manage your cookie preferences.',
+    keywords: ['cookie policy', 'cookies', 'tracking preferences', 'privacy settings']
   }
 } as const;
 
