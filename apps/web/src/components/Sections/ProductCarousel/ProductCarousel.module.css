@@ -1,0 +1,301 @@
+/**
+ * Product Carousel Styles
+ * 
+ * File Decoupling & Organization: Component-specific styles
+ * Semantic Naming Conventions: BEM-inspired class naming
+ * Performance Optimization: Modular CSS with minimal specificity
+ */
+
+/* Section Container */
+.section {
+  background-color: #fafafa;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 100px 0;
+  }
+}
+
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Heading */
+.heading {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #1a365d;
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: clamp(2.5rem, 5vw, 3rem);
+  }
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  text-align: center;
+  color: #4a5568;
+  margin-bottom: 3rem;
+  transition: opacity 300ms ease-in-out;
+  min-height: 2em;
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    font-size: 1.125rem;
+  }
+}
+
+/* Track Container */
+.track {
+  position: relative;
+  height: 520px;
+  margin-bottom: 2rem;
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .track {
+    height: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .track {
+    height: 520px;
+  }
+}
+
+/* Slides Container */
+.slides {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual Slide */
+.slide {
+  position: absolute;
+  width: 90%;
+  max-width: 360px;
+  height: 100%;
+  transition: all 800ms ease-in-out;
+  opacity: 0;
+  transform: scale(0.8) translateX(0);
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .slide {
+    width: 300px;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .slide {
+    width: 360px;
+    max-width: 360px;
+  }
+}
+
+/* Slide States */
+.slideActive {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  z-index: 3;
+}
+
+.slidePrev {
+  opacity: 0.75;
+  transform: scale(0.9) translateX(-80%);
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .slidePrev {
+    transform: scale(0.9) translateX(-110%);
+  }
+}
+
+.slideNext {
+  opacity: 0.75;
+  transform: scale(0.9) translateX(80%);
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .slideNext {
+    transform: scale(0.9) translateX(110%);
+  }
+}
+
+/* Card */
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.cardImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cardImage {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Gradient Overlay */
+.cardOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* CTA Button (Optional) */
+.cardCta {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.cardCtaText {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  color: #1a365d;
+  border-radius: 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Controls Container */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Dots Navigation */
+.dots {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #cbd5e0;
+  border: none;
+  cursor: pointer;
+  transition: all 300ms ease;
+  padding: 0;
+  outline-offset: 4px;
+}
+
+.dot:hover {
+  background-color: #a0aec0;
+}
+
+.dot:focus-visible {
+  outline: 2px solid #38b2ac;
+}
+
+.dotActive {
+  width: 18px;
+  border-radius: 5px;
+  background-color: #38b2ac;
+}
+
+/* Play/Pause Button */
+.playPauseButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  outline-offset: 4px;
+}
+
+.playPauseButton:hover:not(:disabled) {
+  background-color: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.playPauseButton:focus-visible {
+  outline: 2px solid #38b2ac;
+}
+
+.playPauseButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controlIcon {
+  width: 18px;
+  height: 18px;
+  color: #4a5568;
+}
+
+/* Mobile Touch States */
+@media (max-width: 767px) {
+  .slide {
+    cursor: grab;
+  }
+  
+  .slide:active {
+    cursor: grabbing;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .subtitle,
+  .dot,
+  .playPauseButton {
+    transition: none !important;
+  }
+}

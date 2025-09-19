@@ -292,8 +292,8 @@ export class SEOServiceImpl implements SEODomainService {
     // Security: Remove dangerous characters and normalize path
     return path
       .replace(/[<>:"\\|?*]/g, '') // Remove dangerous characters
-      .replace(/\\/\\/+/g, '/') // Replace multiple slashes with single
-      .replace(/\\/+$/, '') // Remove trailing slash
+      .replace(/\/\/+/g, '/') // Replace multiple slashes with single
+      .replace(/\/+$/, '') // Remove trailing slash
       || '/'; // Default to home if empty
   }
 

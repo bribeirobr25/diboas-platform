@@ -1,0 +1,344 @@
+/**
+ * Site Footer Styles
+ * 
+ * File Decoupling & Organization: Component-specific footer styles
+ * Semantic Naming Conventions: BEM-inspired class naming for footer components
+ * Performance Optimization: Modular CSS with minimal specificity
+ * Service Agnostic Abstraction: Decoupled from global styling dependencies
+ */
+
+/* Main Footer Container */
+.footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  margin-top: auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 24px;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 48px 24px 32px;
+  }
+}
+
+/* Mobile Logo Section */
+.mobileLogoSection {
+  display: block;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.mobileLogoSection .logoImage {
+  height: 32px;
+}
+
+@media (min-width: 768px) {
+  .mobileLogoSection {
+    display: none;
+  }
+}
+
+/* Content Grid Layout */
+.contentGrid {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .contentGrid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 200px repeat(auto-fit, minmax(180px, 1fr));
+    gap: 48px;
+  }
+}
+
+/* Desktop Logo Section */
+.desktopLogoSection {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktopLogoSection {
+    display: block;
+    grid-column: 1;
+  }
+}
+
+.logoImage {
+  width: auto;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.logoFallback {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Mobile Accordion Navigation */
+.mobileAccordion {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .mobileAccordion {
+    display: none;
+  }
+}
+
+.accordionButton {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  border-bottom: 1px solid #2a2a2a;
+  outline-offset: 4px;
+}
+
+.accordionButton:focus-visible {
+  outline: 2px solid #ffffff;
+}
+
+.accordionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.accordionIcon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.accordionButton:hover .accordionIcon {
+  opacity: 1;
+}
+
+.accordionContent {
+  padding-bottom: 16px;
+}
+
+.accordionLinksList {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accordionLink {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+  outline-offset: 4px;
+}
+
+.accordionLink:hover,
+.accordionLink:focus-visible {
+  opacity: 1;
+}
+
+.accordionLink:focus-visible {
+  outline: 2px solid #ffffff;
+}
+
+/* Desktop Column Navigation */
+.desktopColumn {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktopColumn {
+    display: block;
+  }
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.linksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+  outline-offset: 4px;
+}
+
+.link:hover,
+.link:focus-visible {
+  opacity: 1;
+}
+
+.link:focus-visible {
+  outline: 2px solid #ffffff;
+}
+
+/* Mobile Social Media Section */
+.mobileSocialSection {
+  display: block;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 1024px) {
+  .mobileSocialSection {
+    display: none;
+  }
+}
+
+/* Social Media Icons */
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .socialIcons {
+    justify-content: flex-end;
+  }
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  outline-offset: 4px;
+}
+
+.socialLink:hover,
+.socialLink:focus-visible {
+  opacity: 1;
+}
+
+.socialLink:focus-visible {
+  outline: 2px solid #ffffff;
+}
+
+.socialIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.socialFallback {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #333333;
+  border-radius: 50%;
+}
+
+/* Content Divider */
+.divider {
+  height: 1px;
+  background-color: #2a2a2a;
+  margin: 24px 0;
+}
+
+/* Bottom Section */
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .bottomSection {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.legalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+@media (min-width: 768px) {
+  .legalInfo {
+    flex-direction: row;
+    gap: 8px;
+  }
+}
+
+.brandName {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.copyright {
+  opacity: 0.75;
+  color: #ffffff;
+}
+
+/* Desktop Social Media Section */
+.desktopSocialSection {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktopSocialSection {
+    display: block;
+  }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .accordionIcon,
+  .link,
+  .accordionLink,
+  .socialLink {
+    transition: none;
+  }
+}

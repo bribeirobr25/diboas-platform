@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { LocaleProvider } from '@/components/LocaleProvider';
 import { Navigation } from '@/components/Layout/Navigation';
+import { SiteFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationErrorBoundary';
 
@@ -36,16 +37,19 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
   return (
     <LocaleProvider initialLocale={locale}>
       <PageErrorBoundary>
-        {/* Skip Navigation Link for Accessibility */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <NavigationErrorBoundary maxRetries={3}>
-          <Navigation />
-        </NavigationErrorBoundary>
-        <main id="main-content" className="main-content">
-          {children}
-        </main>
+        <div className="min-h-screen flex flex-col">
+          {/* Skip Navigation Link for Accessibility */}
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
+          <NavigationErrorBoundary maxRetries={3}>
+            <Navigation />
+          </NavigationErrorBoundary>
+          <main id="main-content" className="main-content flex-1">
+            {children}
+          </main>
+          <SiteFooter />
+        </div>
       </PageErrorBoundary>
     </LocaleProvider>
   );
