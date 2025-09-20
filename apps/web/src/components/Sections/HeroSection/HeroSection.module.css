@@ -8,191 +8,60 @@
 
 /* Section Container */
 .section {
-  background: linear-gradient(135deg, #f7fefc 0%, #e6fffa 50%, #f0fdfa 100%);
-  min-height: 100vh;
+  background: linear-gradient(135deg, #f7fefc 0%, #40c2aa 50%, #f0fdfa 100%);
+  min-height: 80vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
+  border-radius: 0 0 30px 30px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    border-radius: 0 0 20px 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    border-radius: 0 0 40px 40px;
+  }
 }
 
 /* Main Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   width: 100%;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+@media (min-width: 375px) {
+  .container {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 480px) {
+  .container {
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
 }
 
 @media (min-width: 1024px) {
   .container {
     flex-direction: row;
     align-items: center;
-    gap: 4rem;
+    gap: 2rem;
     padding: 4rem 2rem;
   }
-}
-
-/* Visual Content Container */
-.visualContent {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  height: 75vh;
-  max-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (min-width: 768px) {
-  .visualContent {
-    max-width: 380px;
-    height: 400px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .visualContent {
-    flex: 1;
-    max-width: 480px;
-    height: 500px;
-  }
-}
-
-/* Background Circle */
-.backgroundWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  height: 90%;
-  z-index: 1;
-}
-
-.backgroundCircle {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  opacity: 0.8;
-}
-
-.backgroundFallback {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
-  opacity: 0.6;
-}
-
-/* Phone Image */
-.phoneWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 65%;
-  height: 95%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.phoneImage {
-  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
-  width: auto;
-  height: 400px;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-@media (min-width: 768px) {
-  .phoneImage {
-    height: 450px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .phoneImage {
-    height: 480px;
-  }
-}
-
-.phoneFallback {
-  width: 200px;
-  height: 300px;
-  background: #ffffff;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
-}
-
-/* Mascot Image */
-.mascotWrapper {
-  position: absolute;
-  top: 50%;
-  right: -5%;
-  transform: translateY(-50%);
-  width: 35%;
-  height: 45%;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (min-width: 768px) {
-  .mascotWrapper {
-    right: -8%;
-    width: 40%;
-    height: 50%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .mascotWrapper {
-    right: -10%;
-    width: 38%;
-    height: 48%;
-  }
-}
-
-.mascotImage {
-  width: auto;
-  height: 180px;
-  max-width: 100%;
-  object-fit: contain;
-  transform: translateX(10px);
-}
-
-@media (min-width: 768px) {
-  .mascotImage {
-    height: 200px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .mascotImage {
-    height: 220px;
-  }
-}
-
-.mascotFallback {
-  width: 100px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
 }
 
 /* Text Content */
@@ -204,14 +73,14 @@
 
 @media (min-width: 1024px) {
   .textContent {
-    flex: 1;
+    flex: 0 0 60%;
     text-align: left;
-    max-width: 480px;
+    max-width: 680px;
   }
 }
 
 .title {
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -220,42 +89,26 @@
 
 @media (min-width: 1024px) {
   .title {
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
     margin-bottom: 1.5rem;
   }
 }
 
 .description {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #4a5568;
-  margin-bottom: 2rem;
   display: none;
-}
-
-@media (min-width: 768px) {
-  .description {
-    display: block;
-    font-size: 1.1rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .description {
-    font-size: 1.125rem;
-    margin-bottom: 2.5rem;
-  }
 }
 
 /* CTA Wrapper */
 .ctaWrapper {
   display: flex;
   justify-content: center;
+  margin-top: 1.5rem;
 }
 
 @media (min-width: 1024px) {
   .ctaWrapper {
     justify-content: flex-start;
+    margin-top: 2.5rem;
   }
 }
 
@@ -277,6 +130,189 @@
 .ctaButton:focus-visible {
   outline: 2px solid #319795;
   outline-offset: 4px;
+}
+
+/* Visual Content Container */
+.visualContent {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 60vh;
+  max-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 375px) {
+  .visualContent {
+    height: 65vh;
+    max-height: 450px;
+  }
+}
+
+@media (min-width: 480px) {
+  .visualContent {
+    height: 75vh;
+    max-height: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .visualContent {
+    max-width: 380px;
+    height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .visualContent {
+    flex: 0 0 40%;
+    max-width: 480px;
+    height: 500px;
+  }
+}
+
+/* Background Circle */
+.backgroundWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  z-index: 1;
+}
+
+.backgroundCircle {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.2;
+}
+
+.backgroundFallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+  opacity: 0.6;
+}
+
+/* Phone Image */
+.phoneWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phoneImage {
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .phoneImage {
+    height: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .phoneImage {
+    height: 100%;
+  }
+}
+
+.phoneFallback {
+  width: 200px;
+  height: 300px;
+  background: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
+}
+
+/* Mascot Image */
+.mascotWrapper {
+  position: absolute;
+  top: 70%;
+  right: 12%;
+  transform: translateY(-50%);
+  width: 30%;
+  height: 35%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 375px) {
+  .mascotWrapper {
+    top: 68%;
+    right: 10%;
+    width: 32%;
+    height: 38%;
+  }
+}
+
+@media (min-width: 768px) {
+  .mascotWrapper {
+    top: 75%;
+    right: 10%;
+    width: 35%;
+    height: 35%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mascotWrapper {
+    top: 70%;
+    right: 12%;
+    width: 30%;
+    height: 34%;
+  }
+}
+
+.mascotImage {
+  width: auto;
+  height: 120px;
+  max-width: 100%;
+  object-fit: contain;
+  transform: translateX(5px);
+  animation: hover 3s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .mascotImage {
+    height: 140px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mascotImage {
+    height: 160px;
+  }
+}
+
+.mascotFallback {
+  width: 100px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
 }
 
 /* Loading State */
@@ -307,10 +343,20 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes hover {
+  0%, 100% {
+    transform: translateX(5px) translateY(0);
+  }
+  50% {
+    transform: translateX(5px) translateY(-15px);
+  }
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .ctaButton,
-  .loadingSpinner {
+  .loadingSpinner,
+  .mascotImage {
     animation: none;
     transition: none;
   }
