@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, ProductCarousel, FeatureShowcase, AppFeaturesCarousel, OneFeature } from '@/components/Sections';
+import { HeroSectionFullBg } from '@/components/Sections/HeroSectionFullBg';
+import { ProductCarousel, FeatureShowcase, AppFeaturesCarousel, OneFeature } from '@/components/Sections';
 import { BRAND_CONFIG } from '@/config/brand';
 import type { Metadata } from 'next';
 
@@ -47,7 +48,10 @@ export default async function HomePage({ params }: HomePageProps) {
       <StructuredData data={[organizationData, breadcrumbData]} />
       
       <main className="main-page-wrapper">
-        <HeroSection />
+        <HeroSectionFullBg 
+          backgroundImage="/assets/socials/drawing/bg-diboas-abstract.avif"
+          enableAnalytics={true}
+        />
         <ProductCarousel />
         <FeatureShowcase />
         <AppFeaturesCarousel />
