@@ -1,50 +1,59 @@
 /**
- * Sections Barrel Export
+ * Unified Sections Barrel Export
  * 
- * File Decoupling & Organization: Centralized section component exports
- * Code Reusability: Easy imports for all reusable sections
+ * File Decoupling & Organization: Centralized section component exports with variant support
+ * Code Reusability & DRY: Easy imports for all unified reusable sections
+ * Domain-Driven Design: Single section domains with configurable variants
  */
 
 export { HeroSection } from './HeroSection';
 export { ProductCarousel } from './ProductCarousel';
 export { FeatureShowcase } from './FeatureShowcase';
 export { AppFeaturesCarousel } from './AppFeaturesCarousel';
-export { OneFeature } from './OneFeature';
+export { SecurityOneFeature } from './SecurityOneFeature';
 
-// Re-export types for convenience
+// Re-export unified types for convenience
 export type { 
   HeroConfig, 
+  HeroVariantConfig,
   HeroContent, 
-  HeroAssets, 
-  HeroSEO 
+  HeroVisualAssets,
+  HeroBackgroundAssets,
+  HeroSEO,
+  HeroVariant
 } from './HeroSection';
 
 export type {
-  CarouselConfig,
-  CarouselSlide,
-  CarouselSettings
+  ProductCarouselConfig,
+  ProductCarouselVariantConfig,
+  ProductCarouselContent,
+  ProductCarouselSlide,
+  ProductCarouselSettings,
+  ProductCarouselSEO,
+  ProductCarouselVariant
 } from './ProductCarousel';
 
 export type {
   FeatureShowcaseConfig,
+  FeatureShowcaseVariantConfig,
   FeatureShowcaseSlide,
   FeatureShowcaseContent,
   FeatureShowcaseAssets,
-  FeatureShowcaseSEO
+  FeatureShowcaseSEO,
+  FeatureShowcaseVariant
 } from './FeatureShowcase';
 
 export type {
   AppFeaturesCarouselConfig,
+  AppFeaturesCarouselVariantConfig,
   AppFeatureCard,
   AppFeatureContent,
   AppFeatureAssets,
-  AppFeatureSEO
+  AppFeatureSEO,
+  AppFeaturesCarouselVariant
 } from './AppFeaturesCarousel';
 
 export type {
-  OneFeatureConfig,
-  OneFeatureContent,
-  OneFeatureLink,
-  OneFeatureAssets,
-  OneFeatureSEO
-} from './OneFeature';
+  SecurityOneFeatureProps,
+  SecurityFeature
+} from './SecurityOneFeature';

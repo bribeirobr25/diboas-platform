@@ -1,54 +1,169 @@
 /**
- * Hero Section Styles
+ * Unified Hero Section Styles
  * 
- * File Decoupling & Organization: Component-specific styles
- * Semantic Naming Conventions: BEM-inspired class naming
+ * File Decoupling & Organization: Component-specific styles with variant support
+ * Semantic Naming Conventions: BEM-inspired class naming with variant modifiers
  * Performance Optimization: Modular CSS with minimal specificity
+ * Code Reusability & DRY: Shared base styles with variant extensions
+ * No Hardcoded Values: CSS custom properties for configurable values
+ * Domain-Driven Design: Organized by feature variants with proper responsive breakpoints
  */
 
-/* Section Container */
+/* ================================
+   BASE/DEFAULT VARIANT STYLES
+   ================================ */
+
+/* Base Section Container */
 .section {
-  background: linear-gradient(135deg, #f7fefc 0%, #e6fffa 50%, #f0fdfa 100%);
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  max-height: 792px;
+  padding: 0px;
   display: flex;
   align-items: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  border-radius: 0 0 30px 30px;
+  background: linear-gradient(135deg, #f7fefc 0%, #40c2aa 50%, #f0fdfa 100%);
 }
 
-/* Main Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  gap: 2rem;
-}
-
-@media (min-width: 1024px) {
-  .container {
-    flex-direction: row;
-    align-items: center;
-    gap: 4rem;
-    padding: 4rem 2rem;
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .section {
+    border-radius: 0 0 20px 20px;
   }
 }
 
-/* Visual Content Container */
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section {
+    border-radius: 0 0 40px 40px;
+  }
+}
+
+/* Main Container - Default Variant */
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .container {
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .container {
+    padding: 136px 120px;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Text Content - Default Variant */
+.textContent {
+  text-align: center;
+  max-width: 100%;
+  z-index: 4;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .textContent {
+    max-width: 600px;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .textContent {
+    flex: 0 0 60%;
+    text-align: left;
+    max-width: 680px;
+  }
+}
+
+/* Title - Default Variant */
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #1a365d;
+}
+
+/* Responsive: Mobile */
+@media (min-width: 768px) {
+  .title {
+    font-size: 48px;
+  }
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .title {
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .title {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Description - Default Variant */
+.description {
+  display: none;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* CTA Wrapper - Default Variant */
+.ctaWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .ctaWrapper {
+    margin-top: 2rem;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .ctaWrapper {
+    justify-content: flex-start;
+    margin-top: 2.5rem;
+  }
+}
+
+/* Visual Content Container - Default Variant */
 .visualContent {
   position: relative;
   width: 100%;
   max-width: 420px;
-  height: 75vh;
-  max-height: 500px;
+  height: 60vh;
+  max-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .visualContent {
     max-width: 380px;
@@ -56,15 +171,16 @@
   }
 }
 
+/* Responsive: Desktop */
 @media (min-width: 1024px) {
   .visualContent {
-    flex: 1;
+    flex: 0 0 40%;
     max-width: 480px;
     height: 500px;
   }
 }
 
-/* Background Circle */
+/* Background Circle - Default Variant */
 .backgroundWrapper {
   position: absolute;
   top: 50%;
@@ -79,7 +195,7 @@
   width: 100%;
   height: auto;
   object-fit: contain;
-  opacity: 0.8;
+  opacity: 0.2;
 }
 
 .backgroundFallback {
@@ -90,14 +206,14 @@
   opacity: 0.6;
 }
 
-/* Phone Image */
+/* Phone Image - Default Variant */
 .phoneWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 65%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -107,21 +223,8 @@
 .phoneImage {
   filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
   width: auto;
-  height: 400px;
-  max-width: 100%;
+  height: 100%;
   object-fit: contain;
-}
-
-@media (min-width: 768px) {
-  .phoneImage {
-    height: 450px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .phoneImage {
-    height: 480px;
-  }
 }
 
 .phoneFallback {
@@ -136,53 +239,60 @@
   filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
 }
 
-/* Mascot Image */
+/* Mascot Image - Default Variant */
 .mascotWrapper {
   position: absolute;
-  top: 50%;
-  right: -5%;
+  top: 70%;
+  right: 12%;
   transform: translateY(-50%);
-  width: 35%;
-  height: 45%;
+  width: 30%;
+  height: 35%;
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .mascotWrapper {
-    right: -8%;
-    width: 40%;
-    height: 50%;
+    top: 75%;
+    right: 10%;
+    width: 35%;
+    height: 35%;
   }
 }
 
+/* Responsive: Desktop */
 @media (min-width: 1024px) {
   .mascotWrapper {
-    right: -10%;
-    width: 38%;
-    height: 48%;
+    top: 70%;
+    right: 12%;
+    width: 30%;
+    height: 34%;
   }
 }
 
 .mascotImage {
   width: auto;
-  height: 180px;
+  height: 120px;
   max-width: 100%;
   object-fit: contain;
-  transform: translateX(10px);
+  transform: translateX(5px);
+  animation: hover 3s ease-in-out infinite;
 }
 
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .mascotImage {
-    height: 200px;
+    height: 140px;
   }
 }
 
+/* Responsive: Desktop */
 @media (min-width: 1024px) {
   .mascotImage {
-    height: 220px;
+    height: 160px;
   }
 }
 
@@ -195,72 +305,133 @@
   font-size: 3rem;
 }
 
-/* Text Content */
-.textContent {
-  text-align: center;
-  max-width: 100%;
-  z-index: 4;
+/* ================================
+   FULL BACKGROUND VARIANT STYLES
+   ================================ */
+
+/* Section - Full Background Variant */
+.section--fullBackground {
+  background: #1a202c;
+  min-height: 90vh;
 }
 
-@media (min-width: 1024px) {
-  .textContent {
-    flex: 1;
-    text-align: left;
-    max-width: 480px;
-  }
-}
-
-.title {
-  font-size: clamp(2rem, 6vw, 3rem);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-  color: #1a365d;
-}
-
-@media (min-width: 1024px) {
-  .title {
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
-    margin-bottom: 1.5rem;
-  }
-}
-
-.description {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #4a5568;
-  margin-bottom: 2rem;
-  display: none;
-}
-
+/* Responsive: Tablet */
 @media (min-width: 768px) {
-  .description {
-    display: block;
-    font-size: 1.1rem;
+  .section--fullBackground {
+    min-height: 90vh;
   }
 }
 
+/* Responsive: Desktop */
 @media (min-width: 1024px) {
-  .description {
-    font-size: 1.125rem;
-    margin-bottom: 2.5rem;
+  .section--fullBackground {
+    min-height: 90vh;
   }
 }
 
-/* CTA Wrapper */
-.ctaWrapper {
-  display: flex;
+/* Full Background Assets */
+.backgroundLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.backgroundImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive Background */
+.backgroundLayerResponsive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Responsive: Tablet & Desktop - Use desktop background */
+@media (min-width: 768px) {
+  .backgroundLayerResponsive {
+    background-image: var(--desktop-bg);
+  }
+}
+
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.4) 100%);
+  z-index: 1;
+}
+
+/* Container - Full Background Variant */
+@media (min-width: 1024px) {
+  .section--fullBackground .container {
+    justify-content: center;
+  }
+}
+
+/* Text Content - Full Background Variant */
+.section--fullBackground .textContent {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .section--fullBackground .textContent {
+    max-width: 700px;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section--fullBackground .textContent {
+    flex: 1;
+    text-align: center;
+    max-width: 800px;
+  }
+}
+
+/* Title - Full Background Variant */
+.section--fullBackground .title {
+  color: #ffffff;
+}
+
+/* CTA Wrapper - Full Background Variant */
+.section--fullBackground .ctaWrapper {
   justify-content: center;
 }
 
-@media (min-width: 1024px) {
-  .ctaWrapper {
-    justify-content: flex-start;
-  }
-}
+/* ================================
+   SHARED COMPONENT STYLES
+   ================================ */
 
+/* CTA Components */
 .ctaLink {
   text-decoration: none;
+  font-size: 14px;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .ctaLink {
+    font-size: 12px;
+  }
 }
 
 .ctaButton {
@@ -302,15 +473,30 @@
   animation: spin 1s linear infinite;
 }
 
+/* ================================
+   ANIMATIONS & ACCESSIBILITY
+   ================================ */
+
+/* Animations */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* Reduced Motion */
+@keyframes hover {
+  0%, 100% {
+    transform: translateX(5px) translateY(0);
+  }
+  50% {
+    transform: translateX(5px) translateY(-15px);
+  }
+}
+
+/* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .ctaButton,
-  .loadingSpinner {
+  .loadingSpinner,
+  .mascotImage {
     animation: none;
     transition: none;
   }

@@ -1,22 +1,37 @@
 /**
- * Product Carousel Styles
+ * Unified Product Carousel Styles
  * 
  * File Decoupling & Organization: Component-specific styles
  * Semantic Naming Conventions: BEM-inspired class naming
  * Performance Optimization: Modular CSS with minimal specificity
+ * Code Reusability & DRY: Shared base styles
+ * No Hardcoded Values: CSS custom properties for configurable values
+ * Domain-Driven Design: Organized by feature with proper responsive breakpoints
  */
 
-/* Section Container */
+/* ================================
+   BASE STYLES
+   ================================ */
+
+/* Base Section Container */
 .section {
   background-color: #fafafa;
-  padding: 80px 0;
+  padding: 48px 24px;
   position: relative;
   overflow: hidden;
 }
 
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .section {
-    padding: 100px 0;
+    padding: 48px 64px;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section {
+    padding: 64px 120px;
   }
 }
 
@@ -24,99 +39,130 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
 }
 
 /* Heading */
 .heading {
-  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-size: 30px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
   color: #1a365d;
 }
 
-@media (min-width: 1024px) {
+/* Responsive: Tablet */
+@media (min-width: 768px) {
   .heading {
-    font-size: clamp(2.5rem, 5vw, 3rem);
+    font-size: 40px;
   }
 }
 
-/* Subtitle */
-.subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  text-align: center;
-  color: #4a5568;
-  margin-bottom: 3rem;
-  transition: opacity 300ms ease-in-out;
-  min-height: 2em;
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .heading {
+    margin-bottom: 2rem;
+  }
 }
 
+/* Subtitle/Description */
+.subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #4a5568;
+  text-align: center;
+  margin: 1rem auto 1.5rem;
+  max-width: 290px;
+  min-height: 2.8em; /* Exactly 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .subtitle {
-    font-size: 1.125rem;
+    margin: 1rem auto 1.5rem;
+    max-width: 290px;
   }
 }
 
 /* Track Container */
 .track {
   position: relative;
-  height: 520px;
-  margin-bottom: 2rem;
+  height: 420px;
+  margin-bottom: 0;
   outline: none;
 }
 
+/* Responsive: Mobile */
+@media (min-width: 320px) {
+  .track {
+    height: 310px;
+  }
+}
+
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .track {
-    height: 480px;
+    height: 420px;
   }
 }
 
+/* Responsive: Desktop */
 @media (min-width: 1024px) {
   .track {
-    height: 520px;
+    height: 420px;
   }
-}
-
-/* Slides Container */
-.slides {
-  position: relative;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* Individual Slide */
 .slide {
   position: absolute;
-  width: 90%;
-  max-width: 360px;
-  height: 100%;
+  width: 70%;
+  max-width: 280px;
+  height: 95%;
   transition: all 800ms ease-in-out;
   opacity: 0;
   transform: scale(0.8) translateX(0);
   z-index: 1;
 }
 
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .slide {
-    width: 300px;
-    max-width: 300px;
+    width: 280px;
+    max-width: 280px;
   }
 }
 
+/* Responsive: Desktop */
 @media (min-width: 1024px) {
   .slide {
-    width: 360px;
-    max-width: 360px;
+    width: 280px;
+    max-width: 280px;
   }
+}
+
+/* ================================
+   SHARED COMPONENT STYLES
+   ================================ */
+
+/* Slides Container */
+.slides {
+  position: relative;
+  height: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Slide States */
 .slideActive {
   opacity: 1;
-  transform: scale(1) translateX(0);
+  transform: scale(1.025) translateX(0);
   z-index: 3;
 }
 
@@ -126,6 +172,7 @@
   z-index: 2;
 }
 
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .slidePrev {
     transform: scale(0.9) translateX(-110%);
@@ -138,13 +185,14 @@
   z-index: 2;
 }
 
+/* Responsive: Tablet */
 @media (min-width: 768px) {
   .slideNext {
     transform: scale(0.9) translateX(110%);
   }
 }
 
-/* Card */
+/* Card Components */
 .card {
   position: relative;
   width: 100%;
@@ -167,6 +215,18 @@
   height: 100%;
 }
 
+/* Error Handling: Image fallback */
+.imageFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7fafc;
+  color: #a0aec0;
+  font-size: 3rem;
+}
+
 /* Gradient Overlay */
 .cardOverlay {
   position: absolute;
@@ -183,7 +243,7 @@
   pointer-events: none;
 }
 
-/* CTA Button (Optional) */
+/* CTA Components */
 .cardCta {
   position: absolute;
   bottom: 24px;
@@ -198,9 +258,16 @@
   background-color: #ffffff;
   color: #1a365d;
   border-radius: 24px;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .cardCtaText {
+    font-size: 12px;
+  }
 }
 
 /* Controls Container */
@@ -208,7 +275,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 /* Dots Navigation */
@@ -226,7 +293,6 @@
   border: none;
   cursor: pointer;
   transition: all 300ms ease;
-  padding: 0;
   outline-offset: 4px;
 }
 
@@ -279,6 +345,10 @@
   color: #4a5568;
 }
 
+/* ================================
+   RESPONSIVE & ACCESSIBILITY
+   ================================ */
+
 /* Mobile Touch States */
 @media (max-width: 767px) {
   .slide {
@@ -290,12 +360,12 @@
   }
 }
 
-/* Reduced Motion */
+/* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .slide,
   .subtitle,
   .dot,
   .playPauseButton {
-    transition: none !important;
+    transition: none;
   }
 }

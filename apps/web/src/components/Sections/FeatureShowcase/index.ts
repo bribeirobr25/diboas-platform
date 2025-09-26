@@ -1,17 +1,20 @@
 /**
- * Feature Showcase Barrel Export
+ * Unified Feature Showcase Barrel Export
  * 
- * File Decoupling & Organization: Centralized feature showcase component exports
- * Code Reusability: Easy imports for feature showcase functionality
+ * File Decoupling & Organization: Clean component exports with variant support
+ * Code Reusability & DRY: Centralized feature showcase exports
+ * Domain-Driven Design: Single showcase domain with configurable variants
  */
 
 export { FeatureShowcase } from './FeatureShowcase';
-
-// Re-export types for convenience
+export type { FeatureShowcaseProps } from './FeatureShowcase';
 export type { 
-  FeatureShowcaseConfig,
-  FeatureShowcaseSlide,
-  FeatureShowcaseContent,
+  FeatureShowcaseConfig, 
+  FeatureShowcaseVariantConfig, 
+  FeatureShowcaseContent, 
+  FeatureShowcaseSlide, 
   FeatureShowcaseAssets,
-  FeatureShowcaseSEO
-} from '@/config/feature-showcase';
+  FeatureShowcaseSEO, 
+  FeatureShowcaseVariant 
+} from '@/config/featureShowcase';
+export { FEATURE_SHOWCASE_CONFIGS } from '@/config/featureShowcase';

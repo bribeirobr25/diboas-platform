@@ -57,11 +57,11 @@ export const CloseIcon = ({ size = 'lg', className, ...props }: Omit<LucideIconP
   <LucideIcon icon={X} size={size} className={className} {...props} />
 );
 
-export const ChevronRightIcon = ({ size = 'md', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
+export const ChevronRightIcon = ({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
   <LucideIcon icon={ChevronRight} size={size} className={className} {...props} />
 );
 
-export const ChevronLeftIcon = ({ size = 'md', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
+export const ChevronLeftIcon = ({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
   <LucideIcon icon={ChevronLeft} size={size} className={className} {...props} />
 );
 

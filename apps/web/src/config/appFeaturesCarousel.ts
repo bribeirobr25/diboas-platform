@@ -1,10 +1,13 @@
 /**
  * App Features Carousel Configuration
  * 
- * Domain-Driven Design: App features carousel domain configuration
+ * Domain-Driven Design: App features carousel domain configuration with variant support
  * Service Agnostic Abstraction: Decoupled carousel content from presentation
  * Configuration Management: Centralized app features content and asset paths
+ * No Hardcoded Values: All values configurable through interfaces
  */
+
+export type AppFeaturesCarouselVariant = 'default' | 'grid' | 'masonry';
 
 export interface AppFeatureContent {
   readonly title: string;
@@ -30,18 +33,35 @@ export interface AppFeatureCard {
   readonly seo: AppFeatureSEO;
 }
 
-export interface AppFeaturesCarouselConfig {
+export interface AppFeaturesCarouselSettings {
+  readonly autoRotateMs: number; // 0 = no auto-rotate
+  readonly pauseOnHover: boolean;
+  readonly enableTouch: boolean;
+  readonly enableAnalytics: boolean;
+  readonly transitionDuration: number; // milliseconds
+}
+
+export interface AppFeaturesCarouselVariantConfig {
+  readonly variant: AppFeaturesCarouselVariant;
   readonly sectionTitle: string;
   readonly cards: readonly AppFeatureCard[];
-  readonly settings: {
-    readonly autoRotateMs: number; // 0 = no auto-rotate
-    readonly pauseOnHover: boolean;
-    readonly enableTouch: boolean;
-    readonly enableAnalytics: boolean;
+  readonly settings: AppFeaturesCarouselSettings;
+  readonly analytics?: {
+    readonly trackingPrefix: string;
+    readonly enabled: boolean;
   };
 }
 
-// Configuration Management - Default app features carousel cards
+// Configuration Management - Default app features carousel settings
+export const DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS: AppFeaturesCarouselSettings = {
+  autoRotateMs: 5000, // 5 seconds
+  pauseOnHover: true,
+  enableTouch: true,
+  enableAnalytics: true,
+  transitionDuration: 300,
+} as const;
+
+// Default app features carousel cards
 export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'organize-money',
@@ -113,25 +133,56 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   }
 ] as const;
 
-// Default configuration for homepage
-export const DEFAULT_APP_FEATURES_CAROUSEL_CONFIG: AppFeaturesCarouselConfig = {
-  sectionTitle: 'An app for everything. And everything in the app',
-  cards: DEFAULT_APP_FEATURES_CARDS,
-  settings: {
-    autoRotateMs: 4000, // 4 seconds
-    pauseOnHover: true,
-    enableTouch: true,
-    enableAnalytics: true
+// Predefined app features carousel configurations
+export const APP_FEATURES_CAROUSEL_CONFIGS = {
+  default: {
+    variant: 'default' as const,
+    sectionTitle: 'An app for everything. And everything in the app',
+    cards: DEFAULT_APP_FEATURES_CARDS,
+    settings: DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
+    analytics: {
+      trackingPrefix: 'app_features_carousel_default',
+      enabled: true
+    }
+  },
+  grid: {
+    variant: 'grid' as const,
+    sectionTitle: 'Discover App Features',
+    cards: DEFAULT_APP_FEATURES_CARDS,
+    settings: {
+      ...DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
+      autoRotateMs: 0, // No auto-rotation in grid
+      transitionDuration: 200,
+    },
+    analytics: {
+      trackingPrefix: 'app_features_carousel_grid',
+      enabled: true
+    }
+  },
+  masonry: {
+    variant: 'masonry' as const,
+    sectionTitle: 'Explore Everything We Offer',
+    cards: DEFAULT_APP_FEATURES_CARDS,
+    settings: {
+      ...DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
+      autoRotateMs: 0, // No auto-rotation in masonry
+      transitionDuration: 400,
+    },
+    analytics: {
+      trackingPrefix: 'app_features_carousel_masonry',
+      enabled: true
+    }
   }
 } as const;
 
-// App features carousel content for different pages
+// Page-specific configurations
 export const PAGE_APP_FEATURES_CONFIGS = {
   // Homepage - Full app features showcase
-  HOME: DEFAULT_APP_FEATURES_CAROUSEL_CONFIG,
+  HOME: APP_FEATURES_CAROUSEL_CONFIGS.default,
   
   // Account page - Account-focused features
   ACCOUNT: {
+    variant: 'grid' as const,
     sectionTitle: 'Everything you need in your account',
     cards: [
       {
@@ -204,15 +255,21 @@ export const PAGE_APP_FEATURES_CONFIGS = {
       }
     ],
     settings: {
-      autoRotateMs: 5000,
+      autoRotateMs: 0,
       pauseOnHover: true,
       enableTouch: true,
-      enableAnalytics: true
+      enableAnalytics: true,
+      transitionDuration: 200,
+    },
+    analytics: {
+      trackingPrefix: 'app_features_carousel_account',
+      enabled: true
     }
-  } as AppFeaturesCarouselConfig,
+  } as AppFeaturesCarouselVariantConfig,
   
   // Business page - B2B features
   BUSINESS: {
+    variant: 'masonry' as const,
     sectionTitle: 'Business solutions for every need',
     cards: [
       {
@@ -285,10 +342,19 @@ export const PAGE_APP_FEATURES_CONFIGS = {
       }
     ],
     settings: {
-      autoRotateMs: 6000,
+      autoRotateMs: 0,
       pauseOnHover: true,
       enableTouch: true,
-      enableAnalytics: true
+      enableAnalytics: true,
+      transitionDuration: 400,
+    },
+    analytics: {
+      trackingPrefix: 'app_features_carousel_business',
+      enabled: true
     }
-  } as AppFeaturesCarouselConfig
+  } as AppFeaturesCarouselVariantConfig
 } as const;
+
+// Legacy compatibility
+export const DEFAULT_APP_FEATURES_CAROUSEL_CONFIG = APP_FEATURES_CAROUSEL_CONFIGS.default;
+export type AppFeaturesCarouselConfig = AppFeaturesCarouselVariantConfig;

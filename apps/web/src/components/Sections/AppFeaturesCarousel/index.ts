@@ -1,17 +1,20 @@
 /**
- * App Features Carousel Barrel Export
+ * Unified App Features Carousel Barrel Export
  * 
- * File Decoupling & Organization: Centralized app features carousel component exports
- * Code Reusability: Easy imports for app features carousel functionality
+ * File Decoupling & Organization: Clean component exports with variant support
+ * Code Reusability & DRY: Centralized app features carousel exports
+ * Domain-Driven Design: Single carousel domain with configurable variants
  */
 
 export { AppFeaturesCarousel } from './AppFeaturesCarousel';
-
-// Re-export types for convenience
+export type { AppFeaturesCarouselProps } from './AppFeaturesCarousel';
 export type { 
   AppFeaturesCarouselConfig,
+  AppFeaturesCarouselVariantConfig,
   AppFeatureCard,
   AppFeatureContent,
   AppFeatureAssets,
-  AppFeatureSEO
-} from '@/config/app-features-carousel';
+  AppFeatureSEO,
+  AppFeaturesCarouselVariant
+} from '@/config/appFeaturesCarousel';
+export { APP_FEATURES_CAROUSEL_CONFIGS } from '@/config/appFeaturesCarousel';
