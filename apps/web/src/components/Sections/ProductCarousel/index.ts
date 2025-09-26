@@ -1,13 +1,20 @@
 /**
- * Product Carousel Barrel Export
+ * Unified Product Carousel Barrel Export
  * 
- * File Decoupling & Organization: Clean component exports
- * Code Reusability: Centralized carousel exports
+ * File Decoupling & Organization: Clean component exports with variant support
+ * Code Reusability & DRY: Centralized product carousel exports
+ * Domain-Driven Design: Single carousel domain with configurable variants
  */
 
 export { ProductCarousel } from './ProductCarousel';
+export type { ProductCarouselProps } from './ProductCarousel';
 export type { 
-  CarouselConfig, 
-  CarouselSlide, 
-  CarouselSettings 
-} from '@/config/carousel';
+  ProductCarouselConfig, 
+  ProductCarouselVariantConfig, 
+  ProductCarouselContent, 
+  ProductCarouselSlide, 
+  ProductCarouselSettings,
+  ProductCarouselSEO, 
+  ProductCarouselVariant 
+} from '@/config/productCarousel';
+export { PRODUCT_CAROUSEL_CONFIGS } from '@/config/productCarousel';

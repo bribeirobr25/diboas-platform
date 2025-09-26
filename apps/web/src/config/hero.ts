@@ -4,7 +4,10 @@
  * Domain-Driven Design: Hero domain configuration with clear data structures
  * Service Agnostic Abstraction: Decoupled hero content from presentation
  * Configuration Management: Centralized hero content and asset paths
+ * No Hardcoded Values: All values configurable through interfaces
  */
+
+export type HeroVariant = 'default' | 'fullBackground';
 
 export interface HeroContent {
   readonly title: string;
@@ -14,50 +17,98 @@ export interface HeroContent {
   readonly ctaTarget?: '_blank' | '_self';
 }
 
-export interface HeroAssets {
+export interface HeroVisualAssets {
   readonly backgroundCircle: string;
   readonly phoneImage: string;
   readonly mascotImage: string;
 }
 
+export interface HeroBackgroundAssets {
+  readonly backgroundImage: string;
+  readonly backgroundImageMobile?: string;
+  readonly overlayOpacity?: number;
+}
+
 export interface HeroSEO {
   readonly titleTag: string;
   readonly imageAlt: {
-    readonly phone: string;
-    readonly mascot: string;
+    readonly phone?: string;
+    readonly mascot?: string;
     readonly background: string;
   };
 }
 
-export interface HeroConfig {
+export interface HeroVariantConfig {
+  readonly variant: HeroVariant;
   readonly content: HeroContent;
-  readonly assets: HeroAssets;
+  readonly visualAssets?: HeroVisualAssets;
+  readonly backgroundAssets?: HeroBackgroundAssets;
   readonly seo: HeroSEO;
+  readonly analytics?: {
+    readonly trackingPrefix: string;
+    readonly enabled: boolean;
+  };
 }
 
-// Configuration Management - Default hero assets
-export const DEFAULT_HERO_ASSETS: HeroAssets = {
+// Configuration Management - Default visual assets
+export const DEFAULT_VISUAL_ASSETS: HeroVisualAssets = {
   backgroundCircle: '/assets/landing/bg-circle-acqua.avif',
   phoneImage: '/assets/landing/phone-account.avif',
   mascotImage: '/assets/mascots/acqua/mascot-acqua-flying.avif',
 } as const;
 
-// Default configuration for homepage
-export const DEFAULT_HERO_CONFIG: HeroConfig = {
-  content: {
-    title: 'Your Complete Financial Ecosystem',
-    description: 'Manage your banking, investing, and DeFi assets all in one secure platform. Experience financial freedom with diBoaS.',
-    ctaText: 'Get Started',
-    ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    ctaTarget: '_blank'
+// Configuration Management - Default background assets
+export const DEFAULT_BACKGROUND_ASSETS: HeroBackgroundAssets = {
+  backgroundImage: '/assets/socials/drawing/bg-diboas-abstract-desktop.avif',
+  backgroundImageMobile: '/assets/socials/drawing/bg-diboas-abstract-mobile.avif',
+  overlayOpacity: 0.3,
+} as const;
+
+// Default content configuration
+export const DEFAULT_HERO_CONTENT: HeroContent = {
+  title: 'Your Complete Financial Ecosystem',
+  description: 'Manage your banking, investing, and DeFi assets all in one secure platform. Experience financial freedom with diBoaS.',
+  ctaText: 'Get Started',
+  ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
+  ctaTarget: '_blank'
+} as const;
+
+// Predefined hero configurations
+export const HERO_CONFIGS = {
+  default: {
+    variant: 'default' as const,
+    content: DEFAULT_HERO_CONTENT,
+    visualAssets: DEFAULT_VISUAL_ASSETS,
+    seo: {
+      titleTag: 'diBoaS - Complete Financial Ecosystem',
+      imageAlt: {
+        phone: 'diBoaS mobile application interface showing account dashboard',
+        mascot: 'Acqua, the diBoaS financial assistant mascot',
+        background: 'Decorative teal circle background'
+      }
+    },
+    analytics: {
+      trackingPrefix: 'hero_default',
+      enabled: true
+    }
   },
-  assets: DEFAULT_HERO_ASSETS,
-  seo: {
-    titleTag: 'diBoaS - Complete Financial Ecosystem',
-    imageAlt: {
-      phone: 'diBoaS mobile application interface showing account dashboard',
-      mascot: 'Acqua, the diBoaS financial assistant mascot',
-      background: 'Decorative teal circle background'
+  fullBackground: {
+    variant: 'fullBackground' as const,
+    content: DEFAULT_HERO_CONTENT,
+    backgroundAssets: DEFAULT_BACKGROUND_ASSETS,
+    seo: {
+      titleTag: 'diBoaS - Complete Financial Ecosystem',
+      imageAlt: {
+        background: 'Abstract diBoaS brand background illustration'
+      }
+    },
+    analytics: {
+      trackingPrefix: 'hero_fullbg',
+      enabled: true
     }
   }
 } as const;
+
+// Legacy compatibility
+export const DEFAULT_HERO_CONFIG = HERO_CONFIGS.default;
+export type HeroConfig = HeroVariantConfig;

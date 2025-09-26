@@ -1,9 +1,20 @@
 /**
- * Hero Section Barrel Export
+ * Unified Hero Section Barrel Export
  * 
- * File Decoupling & Organization: Clean component exports
- * Code Reusability: Centralized hero section exports
+ * File Decoupling & Organization: Clean component exports with variant support
+ * Code Reusability & DRY: Centralized hero section exports
+ * Domain-Driven Design: Single hero domain with configurable variants
  */
 
 export { HeroSection } from './HeroSection';
-export type { HeroConfig, HeroContent, HeroAssets, HeroSEO } from '@/config/hero';
+export type { HeroSectionProps } from './HeroSection';
+export type { 
+  HeroConfig, 
+  HeroVariantConfig, 
+  HeroContent, 
+  HeroVisualAssets, 
+  HeroBackgroundAssets, 
+  HeroSEO, 
+  HeroVariant 
+} from '@/config/hero';
+export { HERO_CONFIGS } from '@/config/hero';

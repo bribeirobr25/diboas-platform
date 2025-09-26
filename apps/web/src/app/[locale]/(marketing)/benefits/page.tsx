@@ -3,6 +3,7 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection } from '@/components/Sections';
+import { BenefitsCarousel } from '@/components/Sections/BenefitsCarousel';
 import type { Metadata } from 'next';
 export const dynamic = 'auto';
 
@@ -43,18 +44,23 @@ export default async function BenefitsPage({ params }: PageProps) {
       
       <main className="main-page-wrapper">
         <HeroSection 
+          variant="default"
           enableAnalytics={true}
+          priority={true}
         />
+        
+        {/* Benefits Carousel Section */}
+        <BenefitsCarousel enableAnalytics={true} />
         
         {/* Benefits content sections will be added here */}
         <div className="page-content-container">
           <div className="page-content-center">
             <div className="page-content-text-center">
               <h2 className="page-title-construction">
-                Benefits Content Coming Soon
+                More Benefits Details Coming Soon
               </h2>
               <p className="page-description-construction">
-                Detailed benefits information will be added here.
+                Additional benefits information will be added here.
               </p>
             </div>
           </div>
