@@ -7,6 +7,9 @@
 
 
 
+/* Import design system tokens */
+@import '../styles/design-tokens.css';
+
 /* Import semantic component classes */
 @import '../styles/semantic-components.css';
 

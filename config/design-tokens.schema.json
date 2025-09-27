@@ -1,0 +1,338 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://diboas.com/schemas/design-tokens.json",
+  "title": "diBoaS Design Tokens Schema",
+  "description": "JSON Schema for validating design tokens configuration following Domain-Driven Design principles",
+  "type": "object",
+  "required": ["version", "metadata", "typography", "spacing", "layout", "animation", "zIndex", "breakpoints"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference for validation"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version for design tokens"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["lastUpdated", "author", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "lastUpdated": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?Z$",
+          "description": "ISO 8601 timestamp of last update"
+        },
+        "author": {
+          "type": "string",
+          "description": "Author or team responsible for tokens"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of token purpose"
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "required": ["title", "body", "ui"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "object",
+          "required": ["hero", "section"],
+          "additionalProperties": false,
+          "properties": {
+            "hero": {
+              "$ref": "#/definitions/responsiveSize"
+            },
+            "section": {
+              "$ref": "#/definitions/responsiveSize"
+            }
+          }
+        },
+        "body": {
+          "type": "object",
+          "required": ["subtitle", "description"],
+          "additionalProperties": false,
+          "properties": {
+            "subtitle": {
+              "type": "integer",
+              "minimum": 8,
+              "maximum": 72,
+              "description": "Body subtitle font size in pixels"
+            },
+            "description": {
+              "type": "integer",
+              "minimum": 8,
+              "maximum": 72,
+              "description": "Body description font size in pixels"
+            }
+          }
+        },
+        "ui": {
+          "type": "object",
+          "required": ["link", "button"],
+          "additionalProperties": false,
+          "properties": {
+            "link": {
+              "type": "integer",
+              "minimum": 8,
+              "maximum": 72,
+              "description": "UI link font size in pixels"
+            },
+            "button": {
+              "type": "integer",
+              "minimum": 8,
+              "maximum": 72,
+              "description": "UI button font size in pixels"
+            }
+          }
+        }
+      }
+    },
+    "spacing": {
+      "type": "object",
+      "required": ["section", "container", "card"],
+      "additionalProperties": false,
+      "properties": {
+        "section": {
+          "type": "object",
+          "required": ["desktop", "tablet", "mobile"],
+          "additionalProperties": false,
+          "properties": {
+            "desktop": {
+              "$ref": "#/definitions/spacingAxis"
+            },
+            "tablet": {
+              "$ref": "#/definitions/spacingAxis"
+            },
+            "mobile": {
+              "$ref": "#/definitions/spacingAxis"
+            }
+          }
+        },
+        "container": {
+          "type": "object",
+          "required": ["padding"],
+          "additionalProperties": false,
+          "properties": {
+            "padding": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|%)$",
+              "description": "Container padding with CSS unit"
+            }
+          }
+        },
+        "card": {
+          "type": "object",
+          "required": ["padding"],
+          "additionalProperties": false,
+          "properties": {
+            "padding": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|%)$",
+              "description": "Card padding with CSS unit"
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "required": ["navigation", "spacing"],
+      "additionalProperties": false,
+      "properties": {
+        "navigation": {
+          "type": "object",
+          "required": ["desktopHeight", "mobileNavHeight", "dropdownHeight", "mobileSubmenuHeight"],
+          "additionalProperties": false,
+          "properties": {
+            "desktopHeight": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|vh)$",
+              "description": "Desktop navigation height"
+            },
+            "mobileNavHeight": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|vh)$",
+              "description": "Mobile navigation height"
+            },
+            "dropdownHeight": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|vh)$",
+              "description": "Dropdown menu height"
+            },
+            "mobileSubmenuHeight": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|vh)$",
+              "description": "Mobile submenu height"
+            }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "required": ["dropdownMarginLeft"],
+          "additionalProperties": false,
+          "properties": {
+            "dropdownMarginLeft": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|%)$",
+              "description": "Dropdown left margin"
+            }
+          }
+        }
+      }
+    },
+    "animation": {
+      "type": "object",
+      "required": ["duration", "easing"],
+      "additionalProperties": false,
+      "properties": {
+        "duration": {
+          "type": "object",
+          "required": ["fast", "normal", "slow"],
+          "additionalProperties": false,
+          "properties": {
+            "fast": {
+              "$ref": "#/definitions/animationDuration"
+            },
+            "normal": {
+              "$ref": "#/definitions/animationDuration"
+            },
+            "slow": {
+              "$ref": "#/definitions/animationDuration"
+            }
+          }
+        },
+        "easing": {
+          "type": "object",
+          "required": ["easeOut", "easeInOut", "bounce"],
+          "additionalProperties": false,
+          "properties": {
+            "easeOut": {
+              "$ref": "#/definitions/easingFunction"
+            },
+            "easeInOut": {
+              "$ref": "#/definitions/easingFunction"
+            },
+            "bounce": {
+              "$ref": "#/definitions/easingFunction"
+            }
+          }
+        }
+      }
+    },
+    "zIndex": {
+      "type": "object",
+      "required": ["dropdown", "mobileMenu", "modal", "toast"],
+      "additionalProperties": false,
+      "properties": {
+        "dropdown": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999,
+          "description": "Z-index for dropdown menus"
+        },
+        "mobileMenu": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999,
+          "description": "Z-index for mobile menu"
+        },
+        "modal": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999,
+          "description": "Z-index for modal overlays"
+        },
+        "toast": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999,
+          "description": "Z-index for toast notifications"
+        }
+      }
+    },
+    "breakpoints": {
+      "type": "object",
+      "required": ["sm", "md", "lg", "xl", "xxl"],
+      "additionalProperties": false,
+      "properties": {
+        "sm": {
+          "$ref": "#/definitions/breakpointValue"
+        },
+        "md": {
+          "$ref": "#/definitions/breakpointValue"
+        },
+        "lg": {
+          "$ref": "#/definitions/breakpointValue"
+        },
+        "xl": {
+          "$ref": "#/definitions/breakpointValue"
+        },
+        "xxl": {
+          "$ref": "#/definitions/breakpointValue"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "responsiveSize": {
+      "type": "object",
+      "required": ["desktop", "mobile"],
+      "additionalProperties": false,
+      "properties": {
+        "desktop": {
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 72,
+          "description": "Font size in pixels for desktop"
+        },
+        "mobile": {
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 72,
+          "description": "Font size in pixels for mobile"
+        }
+      }
+    },
+    "spacingAxis": {
+      "type": "object",
+      "required": ["y", "x"],
+      "additionalProperties": false,
+      "properties": {
+        "y": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200,
+          "description": "Vertical spacing in pixels"
+        },
+        "x": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 200,
+          "description": "Horizontal spacing in pixels"
+        }
+      }
+    },
+    "animationDuration": {
+      "type": "string",
+      "pattern": "^\\d+(\\.\\d+)?s$",
+      "description": "Animation duration in seconds (e.g., '0.3s')"
+    },
+    "easingFunction": {
+      "type": "string",
+      "pattern": "^cubic-bezier\\(\\d+(\\.\\d+)?,\\s*-?\\d+(\\.\\d+)?,\\s*\\d+(\\.\\d+)?,\\s*\\d+(\\.\\d+)?\\)$",
+      "description": "CSS cubic-bezier easing function"
+    },
+    "breakpointValue": {
+      "type": "string",
+      "pattern": "^\\d+px$",
+      "description": "Breakpoint value in pixels (e.g., '768px')"
+    }
+  }
+}

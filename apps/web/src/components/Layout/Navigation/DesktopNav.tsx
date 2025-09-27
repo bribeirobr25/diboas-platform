@@ -8,7 +8,7 @@ import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
 import { Container, FlexBetween, SparklesIcon, ChevronRightIcon } from '@/components/UI';
 import { ASSET_PATHS } from '@/config/assets';
-import { LAYOUT_CONSTANTS } from '@/config/design-system';
+import { DESIGN_SYSTEM } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
 
 interface DesktopNavProps {
@@ -104,11 +104,11 @@ export default function DesktopNav({
         <div
           className="dropdown-overlay"
           style={{
-            top: LAYOUT_CONSTANTS.NAVIGATION.DESKTOP_HEIGHT,
+            top: DESIGN_SYSTEM.LAYOUT.NAVIGATION.DESKTOP_HEIGHT,
           }}
         >
-          <div className="dropdown-menu" style={{ height: LAYOUT_CONSTANTS.NAVIGATION.DROPDOWN_HEIGHT }}>
-            <Container className="dropdown-content h-full" style={{ marginLeft: LAYOUT_CONSTANTS.SPACING.DROPDOWN_MARGIN_LEFT }}>
+          <div className="dropdown-menu" style={{ height: DESIGN_SYSTEM.LAYOUT.NAVIGATION.DROPDOWN_HEIGHT }}>
+            <Container className="dropdown-content h-full" style={{ marginLeft: DESIGN_SYSTEM.LAYOUT.SPACING.DROPDOWN_MARGIN_LEFT }}>
               <div className="dropdown-section grid-cols-12 gap-8 h-full">
                 {/* Left: Banner */}
                 <div className="dropdown-banner-container">

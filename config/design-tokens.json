@@ -1,0 +1,87 @@
+{
+  "$schema": "./design-tokens.schema.json",
+  "version": "1.0.0",
+  "metadata": {
+    "lastUpdated": "2025-09-26T14:55:00.000Z",
+    "author": "diBoaS Platform Team",
+    "description": "Centralized design tokens for diBoaS platform following Domain-Driven Design principles"
+  },
+  "typography": {
+    "title": {
+      "hero": {
+        "desktop": 48,
+        "mobile": 34
+      },
+      "section": {
+        "desktop": 40,
+        "mobile": 30
+      }
+    },
+    "body": {
+      "subtitle": 16,
+      "description": 16
+    },
+    "ui": {
+      "link": 14,
+      "button": 12
+    }
+  },
+  "spacing": {
+    "section": {
+      "desktop": {
+        "y": 64,
+        "x": 120
+      },
+      "tablet": {
+        "y": 48,
+        "x": 64
+      },
+      "mobile": {
+        "y": 48,
+        "x": 24
+      }
+    },
+    "container": {
+      "padding": "1rem"
+    },
+    "card": {
+      "padding": "1.5rem"
+    }
+  },
+  "layout": {
+    "navigation": {
+      "desktopHeight": "80px",
+      "mobileNavHeight": "60px",
+      "dropdownHeight": "60vh",
+      "mobileSubmenuHeight": "56vh"
+    },
+    "spacing": {
+      "dropdownMarginLeft": "150px"
+    }
+  },
+  "animation": {
+    "duration": {
+      "fast": "0.15s",
+      "normal": "0.3s",
+      "slow": "0.6s"
+    },
+    "easing": {
+      "easeOut": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "bounce": "cubic-bezier(0.68, -0.55, 0.265, 1.55)"
+    }
+  },
+  "zIndex": {
+    "dropdown": 40,
+    "mobileMenu": 50,
+    "modal": 60,
+    "toast": 70
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "xxl": "1536px"
+  }
+}
