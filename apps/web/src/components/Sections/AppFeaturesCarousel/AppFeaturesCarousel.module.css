@@ -15,7 +15,7 @@
 
 /* Base Section Container */
 .section {
-  padding: 48px 24px;
+  padding: var(--spacing-section-mobile-y) var(--spacing-section-mobile-x);
   overflow: hidden;
   background-color: #fafafa;
   width: 100%;
@@ -24,14 +24,14 @@
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .section {
-    padding: 48px 64px;
+    padding: var(--spacing-section-tablet-y) var(--spacing-section-tablet-x);
   }
 }
 
 /* Responsive: Desktop */
 @media (min-width: 1024px) {
   .section {
-    padding: 64px 120px;
+    padding: var(--spacing-section-desktop-y) var(--spacing-section-desktop-x);
   }
 }
 
@@ -55,7 +55,7 @@
 
 /* Section Title */
 .title {
-  font-size: 30px;
+  font-size: var(--font-title-section-mobile);
   font-weight: 700;
   line-height: 1.1;
   color: #1a1a1a;
@@ -66,7 +66,7 @@
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .title {
-    font-size: 40px;
+    font-size: var(--font-title-section-desktop);
   }
 }
 
@@ -249,7 +249,7 @@
   backdrop-filter: blur(8px);
   border-radius: 16px;
   padding: 8px 16px;
-  font-size: 12px;
+  font-size: var(--font-ui-button);
   font-weight: 600;
   color: #1a1a1a;
   text-align: center;
@@ -385,7 +385,7 @@
 
 /* Description Text */
 .description {
-  font-size: 16px;
+  font-size: var(--font-body-subtitle);
   font-weight: 700;
   line-height: 1.6;
   color: #4a5568;
@@ -420,7 +420,7 @@
   color: #8b5cf6;
   text-decoration: none;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-ui-link);
   transition: all 0.2s ease;
   outline-offset: 4px;
   align-self: flex-start; /* Left align the link within panel */
@@ -429,7 +429,7 @@
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .ctaLink {
-    font-size: 12px;
+    font-size: var(--font-ui-button);
   }
 }
 
@@ -513,7 +513,7 @@
   gap: 0.5rem;
   color: #38b2ac;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-ui-link);
   text-decoration: none;
   transition: color 200ms ease;
 }
@@ -521,7 +521,7 @@
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .gridCtaLink {
-    font-size: 12px;
+    font-size: var(--font-ui-button);
   }
 }
 

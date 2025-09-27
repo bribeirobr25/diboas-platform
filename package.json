@@ -11,6 +11,8 @@
     "test": "turbo run test",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
+    "validate:design-tokens": "node scripts/validate-design-tokens.js",
+    "generate:design-tokens": "node scripts/validate-design-tokens.js && node scripts/generate-design-tokens.js",
     "dev:web": "turbo run dev --filter=web",
     "dev:app": "turbo run dev --filter=app",
     "dev:business": "turbo run dev --filter=business",
@@ -20,11 +22,12 @@
     "analytics:report": "turbo run analytics-report"
   },
   "devDependencies": {
-    "turbo": "^1.10.14",
     "@types/node": "^20.5.0",
-    "typescript": "^5.2.2",
+    "ajv": "^8.17.1",
     "eslint": "^8.48.0",
-    "prettier": "^3.0.2"
+    "prettier": "^3.0.2",
+    "turbo": "^1.10.14",
+    "typescript": "^5.2.2"
   },
   "engines": {
     "node": ">=18.0.0",

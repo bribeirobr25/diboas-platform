@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/UI';
 import { UI_CONSTANTS } from '@/config/ui-constants';
 import { ASSET_PATHS } from '@/config/assets';
-import { LAYOUT_CONSTANTS, ANIMATION_CONSTANTS } from '@/config/design-system';
+import { DESIGN_SYSTEM } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
 
 interface MobileNavProps {
@@ -70,7 +70,7 @@ export default function MobileNav({
               alt={BRAND_CONFIG.NAME}
               width={56}
               height={56}
-              style={{ width: 'auto', height: LAYOUT_CONSTANTS.NAVIGATION.MOBILE_NAV_HEIGHT }}
+              style={{ width: 'auto', height: DESIGN_SYSTEM.LAYOUT.NAVIGATION.MOBILE_NAV_HEIGHT }}
               priority
             />
           </Link>
@@ -125,7 +125,7 @@ export default function MobileNav({
         className={`mobile-menu-overlay ${activeSubmenu ? 'z-50' : 'z-40'}`}
         style={{
           transform: isOpen ? 'translateY(0)' : 'translateY(-100%)',
-          transition: `transform ${ANIMATION_CONSTANTS.DURATION.SLOW} ${ANIMATION_CONSTANTS.EASING.EASE_OUT}`
+          transition: `transform ${DESIGN_SYSTEM.ANIMATION.DURATION.SLOW} ${DESIGN_SYSTEM.ANIMATION.EASING.EASE_OUT}`
         }}
       >
         <div className={`h-full overflow-y-auto ${!activeSubmenu ? 'pt-16 pb-20' : ''}`}>
@@ -242,7 +242,7 @@ export default function MobileNav({
 
               {/* Sticky Banner */}
               {activeMenuItem && (
-                <div className="sticky bg-teal-50 w-full z-30" style={{ top: `calc(${LAYOUT_CONSTANTS.NAVIGATION.MOBILE_NAV_HEIGHT} + 9px)`, height: LAYOUT_CONSTANTS.NAVIGATION.MOBILE_SUBMENU_HEIGHT }}>
+                <div className="sticky bg-teal-50 w-full z-30" style={{ top: `calc(${DESIGN_SYSTEM.LAYOUT.NAVIGATION.MOBILE_NAV_HEIGHT} + 9px)`, height: DESIGN_SYSTEM.LAYOUT.NAVIGATION.MOBILE_SUBMENU_HEIGHT }}>
                   <div className="mobile-banner-wrapper">
                     {activeMenuItem.banner && (
                       <div className="mobile-banner-image-wrapper">

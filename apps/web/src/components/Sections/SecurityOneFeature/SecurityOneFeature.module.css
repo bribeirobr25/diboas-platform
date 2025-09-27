@@ -141,7 +141,7 @@
 
 /* Main Title */
 .title {
-  font-size: 30px;
+  font-size: var(--font-title-section-mobile);
   font-weight: 700;
   line-height: 1.2;
   color: #1a1a1a;
@@ -150,16 +150,16 @@
   width: 100%;
 }
 
-/* Responsive: Tablet */
-@media (min-width: 768px) {
+/* Responsive: Desktop */
+@media (min-width: 769px) {
   .title {
-    font-size: 40px;
+    font-size: var(--font-title-section-desktop);
   }
 }
 
 /* Subtitle */
 .subtitle {
-  font-size: 16px;
+  font-size: var(--font-body-subtitle);
   font-weight: 700;
   line-height: 1.6;
   color: #4a5568;
@@ -266,18 +266,11 @@
 
 /* Feature Title */
 .featureTitle {
-  font-size: 14px;
+  font-size: var(--font-ui-link);
   font-weight: 600;
   line-height: 1.4;
   flex: 1;
   text-align: left;
-}
-
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .featureTitle {
-    font-size: 12px;
-  }
 }
 
 /* Feature Icon */
@@ -322,19 +315,12 @@
   color: #ffffff;
   text-decoration: none;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-ui-button);
   border-radius: 12px;
   transition: all 200ms ease;
   outline-offset: 4px;
   border: 2px solid #1a1a1a;
   min-width: 200px;
-}
-
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .ctaButton {
-    font-size: 12px;
-  }
 }
 
 .ctaButton:hover {

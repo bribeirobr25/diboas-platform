@@ -1,0 +1,97 @@
+/**
+ * Design System CSS Variables
+ * 
+ * Auto-generated from design-tokens.json
+ * Do not edit manually - changes will be overwritten
+ * 
+ * Version: 1.0.0
+ * Generated at: 2025-09-26T15:10:05.651Z
+ * Last updated: 2025-09-26T14:55:00.000Z
+ */
+
+:root {
+  /* Typography Scale */
+  --font-title-hero-desktop: 48px;
+  --font-title-hero-mobile: 34px;
+  --font-title-section-desktop: 40px;
+  --font-title-section-mobile: 30px;
+  --font-body-subtitle: 16px;
+  --font-body-description: 16px;
+  --font-ui-link: 14px;
+  --font-ui-button: 12px;
+
+  /* Spacing Scale */
+  --spacing-section-desktop-y: 64px;
+  --spacing-section-desktop-x: 120px;
+  --spacing-section-tablet-y: 48px;
+  --spacing-section-tablet-x: 64px;
+  --spacing-section-mobile-y: 48px;
+  --spacing-section-mobile-x: 24px;
+
+  /* Animation Tokens */
+  --animation-duration-fast: 0.15s;
+  --animation-duration-normal: 0.3s;
+  --animation-duration-slow: 0.6s;
+  --animation-easing-easeout: cubic-bezier(0.16, 1, 0.3, 1);
+  --animation-easing-easeinout: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Z-Index Hierarchy */
+  --z-index-dropdown: 40;
+  --z-index-mobileMenu: 50;
+  --z-index-modal: 60;
+  --z-index-toast: 70;
+}
+
+/* Typography Utilities */
+.typography-title-hero {
+  font-size: var(--font-title-hero-desktop);
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .typography-title-hero {
+    font-size: var(--font-title-hero-mobile);
+  }
+}
+.typography-title-section {
+  font-size: var(--font-title-section-desktop);
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .typography-title-section {
+    font-size: var(--font-title-section-mobile);
+  }
+}
+.typography-body-subtitle {
+  font-size: var(--font-body-subtitle);
+  font-weight: 700;
+}
+.typography-body-description {
+  font-size: var(--font-body-description);
+  font-weight: 700;
+}
+.typography-ui-link {
+  font-size: var(--font-ui-link);
+}
+.typography-ui-button {
+  font-size: var(--font-ui-button);
+}
+
+/* Section Spacing Utilities */
+.section-container {
+  padding: var(--spacing-section-mobile-y) var(--spacing-section-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding: var(--spacing-section-tablet-y) var(--spacing-section-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding: var(--spacing-section-desktop-y) var(--spacing-section-desktop-x);
+  }
+}

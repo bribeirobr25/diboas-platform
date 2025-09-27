@@ -94,17 +94,17 @@
 
 /* Title - Default Variant */
 .title {
-  font-size: 34px;
+  font-size: var(--font-title-hero-mobile);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
   color: #1a365d;
 }
 
-/* Responsive: Mobile */
+/* Responsive: Desktop */
 @media (min-width: 768px) {
   .title {
-    font-size: 48px;
+    font-size: var(--font-title-hero-desktop);
   }
 }
 
@@ -125,7 +125,7 @@
 /* Description - Default Variant */
 .description {
   display: none;
-  font-size: 16px;
+  font-size: var(--font-body-description);
   font-weight: 700;
 }
 
@@ -424,14 +424,7 @@
 /* CTA Components */
 .ctaLink {
   text-decoration: none;
-  font-size: 14px;
-}
-
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .ctaLink {
-    font-size: 12px;
-  }
+  font-size: var(--font-ui-link);
 }
 
 .ctaButton {
