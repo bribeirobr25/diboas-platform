@@ -21,6 +21,9 @@ import Link from 'next/link';
 import { ChevronRight, Play, Pause } from 'lucide-react';
 import { APP_FEATURES_CAROUSEL_CONFIGS, type AppFeaturesCarouselVariantConfig, type AppFeaturesCarouselVariant } from '@/config/appFeaturesCarousel';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { SafeInterval, SafeTimer, CleanupManager, MutexLock, StateMachine } from '@/lib/utils/RaceConditionPrevention';
+import { sectionEventBus, SectionEventType } from '@/lib/events/SectionEventBus';
+import { Logger } from '@/lib/monitoring/Logger';
 import styles from './AppFeaturesCarousel.module.css';
 
 export interface AppFeaturesCarouselProps {
@@ -96,6 +99,40 @@ export function AppFeaturesCarousel({
   
   const sectionRef = useRef<HTMLElement>(null);
   const cardsGridRef = useRef<HTMLDivElement>(null);
+  
+  // Race Condition Prevention: Safe timer and interval management
+  const autoRotateInterval = useRef<SafeInterval>(new SafeInterval('app-features-carousel-auto-rotate'));
+  const transitionTimer = useRef<SafeTimer>(new SafeTimer('app-features-carousel-transition'));
+  const cleanupManager = useRef<CleanupManager>(new CleanupManager('AppFeaturesCarousel'));
+  const navigationLock = useRef<MutexLock>(new MutexLock('app-features-navigation'));
+  
+  // State Machine for carousel states
+  const carouselState = useRef<StateMachine<'idle' | 'rotating' | 'transitioning' | 'paused'>>(
+    new StateMachine(
+      'idle',
+      {
+        idle: ['rotating', 'paused', 'transitioning'],
+        rotating: ['idle', 'paused', 'transitioning'],
+        transitioning: ['idle', 'rotating', 'paused'],
+        paused: ['idle', 'rotating']
+      },
+      'AppFeaturesCarousel',
+      (from, to) => {
+        Logger.debug('AppFeaturesCarousel state transition', { from, to, sectionId: config.variant });
+        
+        // Emit state change event
+        sectionEventBus.emit(SectionEventType.CAROUSEL_AUTO_PLAY_STARTED, {
+          sectionId: config.variant,
+          sectionType: 'appFeaturesCarousel',
+          timestamp: Date.now(),
+          slideIndex: activeIndex,
+          totalSlides: cards.length,
+          autoPlay: to === 'rotating',
+          userInitiated: false
+        });
+      }
+    )
+  );
 
   const { cards, settings, sectionTitle } = config;
   // Use hovered index if hovering and on desktop, otherwise use active index
@@ -107,6 +144,16 @@ export function AppFeaturesCarousel({
   // Handle client-side mounting to prevent hydration mismatch
   useEffect(() => {
     setIsMounted(true);
+    
+    // Register cleanup on mount
+    cleanupManager.current.addInterval(autoRotateInterval.current);
+    cleanupManager.current.addTimer(transitionTimer.current);
+    
+    // Cleanup on unmount
+    return () => {
+      Logger.debug('AppFeaturesCarousel unmounting', { sectionId: config.variant });
+      cleanupManager.current.destroy();
+    };
   }, []);
 
   // Performance: Track image loading completion
@@ -132,86 +179,169 @@ export function AppFeaturesCarousel({
   }, [cards.length]);
 
 
-  // Auto-rotation effect - simplified to prevent multiple intervals
+  // Auto-rotation effect with race condition prevention
   useEffect(() => {
     if (!isMounted) return; // Wait for client-side mounting
     
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
+    // Clear existing interval
+    autoRotateInterval.current.clear();
+    
     if (prefersReducedMotion || settings.autoRotateMs <= 0 || cards.length <= 1 || !isPlaying) {
+      carouselState.current.transitionTo('paused');
       return;
     }
     
     // Don't start if paused on hover and currently hovered
     if (settings.pauseOnHover && isHovered) {
+      carouselState.current.transitionTo('paused');
       return;
     }
     
-    
-    const interval = setInterval(() => {
-      // Start fade out transition
-      setIsDescriptionTransitioning(true);
+    // Start auto-rotation with race condition prevention
+    if (carouselState.current.canTransitionTo('rotating')) {
+      carouselState.current.transitionTo('rotating');
       
-      // Change active index after fade out completes
-      setTimeout(() => {
-        setActiveIndex(prev => (prev + 1) % cards.length);
-        
-        // Start fade in after a brief delay
-        setTimeout(() => {
-          setIsDescriptionTransitioning(false);
-        }, 50); // Brief delay to ensure the content has changed
-      }, 125); // Half of the 250ms transition duration
-    }, settings.autoRotateMs);
-    
-    return () => clearInterval(interval);
-  }, [isMounted, settings.autoRotateMs, settings.pauseOnHover, isHovered, cards.length, isPlaying]);
+      autoRotateInterval.current.set(() => {
+        // Use mutex lock to prevent concurrent transitions
+        navigationLock.current.withLock(async () => {
+          if (carouselState.current.state !== 'rotating') return;
+          
+          // Transition to transitioning state
+          if (!carouselState.current.canTransitionTo('transitioning')) return;
+          carouselState.current.transitionTo('transitioning');
+          
+          // Start fade out transition
+          setIsDescriptionTransitioning(true);
+          
+          // Change active index after fade out completes
+          transitionTimer.current.set(() => {
+            if (carouselState.current.state === 'transitioning') {
+              setActiveIndex(prev => {
+                const newIndex = (prev + 1) % cards.length;
+                
+                // Emit carousel slide change event
+                sectionEventBus.emit(SectionEventType.CAROUSEL_SLIDE_CHANGED, {
+                  sectionId: config.variant,
+                  sectionType: 'appFeaturesCarousel',
+                  timestamp: Date.now(),
+                  slideIndex: newIndex,
+                  totalSlides: cards.length,
+                  autoPlay: true,
+                  userInitiated: false
+                });
+                
+                return newIndex;
+              });
+              
+              // Start fade in after a brief delay
+              const fadeInTimer = new SafeTimer('app-features-fade-in');
+              cleanupManager.current.addTimer(fadeInTimer);
+              
+              fadeInTimer.set(() => {
+                setIsDescriptionTransitioning(false);
+                carouselState.current.transitionTo('rotating');
+              }, 50); // Brief delay to ensure the content has changed
+            }
+          }, 125); // Half of the 250ms transition duration
+        });
+      }, settings.autoRotateMs);
+    }
+  }, [isMounted, settings.autoRotateMs, settings.pauseOnHover, isHovered, cards.length, isPlaying, activeIndex, config.variant]);
 
-  // Navigation functions with analytics
+  // Navigation functions with analytics and race condition prevention
   const goToCard = useCallback(async (index: number) => {
     if (index === activeIndex || index < 0 || index >= cards.length) return;
     
-    
-    // Product KPIs & Analytics: Navigation tracking
-    if (enableAnalytics && config.analytics?.enabled) {
-      try {
-        await analyticsService.trackEvent(`${config.analytics.trackingPrefix}_navigation`, {
-          from_card: currentCard.id,
-          to_card: cards[index].id,
-          navigation_type: 'manual',
-          variant: config.variant,
-          page: window.location.pathname,
-          timestamp: new Date().toISOString()
+    // Use mutex lock to prevent concurrent navigation
+    const result = await navigationLock.current.withLock(async () => {
+      // Transition to transitioning state
+      if (!carouselState.current.canTransitionTo('transitioning')) {
+        Logger.warn('Cannot transition to transitioning state', { 
+          currentState: carouselState.current.state,
+          targetIndex: index 
         });
-      } catch (error) {
-        // Error Handling: Silent fail for analytics
-        console.warn('Failed to track app features carousel navigation:', error);
+        return;
       }
-    }
-    
-    // Start fade out transition for manual navigation
-    setIsDescriptionTransitioning(true);
-    
-    // Change active index after fade out completes
-    setTimeout(() => {
-      setActiveIndex(index);
       
-      // Start fade in after a brief delay
-      setTimeout(() => {
-        setIsDescriptionTransitioning(false);
-      }, 50);
-    }, 125);
-    
-    // Scroll mobile carousel into view
-    if (window.innerWidth < 768 && cardsGridRef.current) {
-      const cardElements = cardsGridRef.current.children;
-      const targetCard = cardElements[index] as HTMLElement;
-      if (targetCard) {
-        targetCard.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'nearest',
-          inline: 'center'
-        });
+      carouselState.current.transitionTo('transitioning');
+      
+      // Clear auto-rotation during manual navigation
+      autoRotateInterval.current.clear();
+      
+      // Product KPIs & Analytics: Navigation tracking
+      if (enableAnalytics && config.analytics?.enabled) {
+        try {
+          await analyticsService.trackEvent(`${config.analytics.trackingPrefix}_navigation`, {
+            from_card: currentCard.id,
+            to_card: cards[index].id,
+            navigation_type: 'manual',
+            variant: config.variant,
+            page: window.location.pathname,
+            timestamp: new Date().toISOString()
+          });
+        } catch (error) {
+          // Error Handling: Silent fail for analytics
+          Logger.warn('Failed to track app features carousel navigation', { error });
+        }
       }
+      
+      // Emit user interaction event
+      sectionEventBus.emit(SectionEventType.CAROUSEL_USER_INTERACTION, {
+        sectionId: config.variant,
+        sectionType: 'appFeaturesCarousel',
+        timestamp: Date.now(),
+        slideIndex: index,
+        totalSlides: cards.length,
+        autoPlay: false,
+        userInitiated: true
+      });
+      
+      // Start fade out transition for manual navigation
+      setIsDescriptionTransitioning(true);
+      
+      // Change active index after fade out completes
+      transitionTimer.current.set(() => {
+        setActiveIndex(index);
+        
+        // Emit slide change event
+        sectionEventBus.emit(SectionEventType.CAROUSEL_SLIDE_CHANGED, {
+          sectionId: config.variant,
+          sectionType: 'appFeaturesCarousel',
+          timestamp: Date.now(),
+          slideIndex: index,
+          totalSlides: cards.length,
+          autoPlay: false,
+          userInitiated: true
+        });
+        
+        // Start fade in after a brief delay
+        const fadeInTimer = new SafeTimer('manual-navigation-fade-in');
+        cleanupManager.current.addTimer(fadeInTimer);
+        
+        fadeInTimer.set(() => {
+          setIsDescriptionTransitioning(false);
+          carouselState.current.transitionTo('idle');
+        }, 50);
+      }, 125);
+      
+      // Scroll mobile carousel into view
+      if (window.innerWidth < 768 && cardsGridRef.current) {
+        const cardElements = cardsGridRef.current.children;
+        const targetCard = cardElements[index] as HTMLElement;
+        if (targetCard) {
+          targetCard.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest',
+            inline: 'center'
+          });
+        }
+      }
+    });
+    
+    if (result === null) {
+      Logger.warn('Navigation blocked by mutex lock', { targetIndex: index });
     }
   }, [activeIndex, cards, currentCard, enableAnalytics, config]);
 

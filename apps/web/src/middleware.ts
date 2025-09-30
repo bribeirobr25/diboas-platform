@@ -145,6 +145,6 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
 export const config = {
   matcher: [
     // Match all paths except static files and API routes
-    '/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|security.txt|sw.js|manifest.json|assets).*)',
+    '/((?!api|_next/static|_next/image|favicon\\..*|robots\\.txt|sitemap\\.xml|security\\.txt|sw\\.js|manifest\\.json|assets|.*\\.well-known).*)',
   ],
 };

@@ -41,6 +41,540 @@
   --z-index-mobileMenu: 50;
   --z-index-modal: 60;
   --z-index-toast: 70;
+
+  /* FeatureShowcase Design Tokens */
+  /* ================================
+     IMAGE SCALING & POSITIONING
+     ================================ */
+  /* Image Scale Configuration - Control all sizes from here */
+  --fs-primary-scale-mobile: 0.8;
+  --fs-primary-scale-tablet: 1;
+  --fs-primary-scale-desktop: 1;
+  
+  --fs-secondary-scale-mobile: 0.5;
+  --fs-secondary-scale-tablet: 0.6;
+  --fs-secondary-scale-desktop: 0.7;
+  
+  /* Image Base Dimensions */
+  --fs-image-base-width: 280px;
+  --fs-image-base-height: 360px;
+  
+  /* Container Heights */
+  --fs-container-height-mobile: 320px;
+  --fs-container-height-tablet: 420px;
+  --fs-container-height-desktop: 520px;
+  
+  /* Primary Image Positioning */
+  --fs-primary-position-x: -60%;
+  --fs-primary-position-y: -50%;
+  --fs-position-primary-top: 50%;
+  --fs-position-primary-left: 40%;
+  --fs-transform-primary-tablet-x: -65%;
+  --fs-transform-primary-desktop-x: -45%;
+  
+  /* Secondary Image Positioning */
+  --fs-secondary-position-top: 45%;
+  --fs-secondary-position-right: -20%;
+  --fs-secondary-opacity: 0.9;
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --fs-color-section-bg: #fafafa;
+  --fs-color-nav-button-bg: #ffffff;
+  --fs-color-nav-button-hover-bg: #f7fafc;
+  --fs-color-transparent: transparent;
+  
+  /* Text Colors */
+  --fs-color-title: #1a365d;
+  --fs-color-description: #4a5568;
+  --fs-color-button-text: white;
+  --fs-color-muted: #a0aec0;
+  
+  /* Border Colors */
+  --fs-color-border-primary: #e2e8f0;
+  --fs-color-border-hover: #cbd5e0;
+  --fs-color-accent: #38b2ac;
+  
+  /* Gradient Colors */
+  --fs-gradient-button: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Gaps & Spacing */
+  --fs-gap-xs: 12px;
+  --fs-gap-sm: 16px;
+  --fs-gap-md: 32px;
+  --fs-gap-lg: 64px;
+  --fs-gap-nav: 0.5rem;
+  --fs-gap-cta-mobile: 1rem;
+  --fs-gap-cta-tablet: 1.25rem;
+  --fs-gap-cta-desktop: 1.5rem;
+  
+  /* Padding & Margins */
+  --fs-padding-button: 12px 24px;
+  
+  /* Layout Dimensions */
+  --fs-max-width-container: 1200px;
+  --fs-max-width-visual-desktop: 496px;
+  --fs-max-width-visual-mobile: 400px;
+  --fs-max-width-visual-tablet: 450px;
+  
+  /* Component Sizes */
+  --fs-size-button: 40px;
+  --fs-size-dot: 8px;
+  --fs-size-dot-active: 12px;
+  --fs-size-icon: 18px;
+  --fs-min-width-cta: 140px;
+
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Font Weights */
+  --fs-font-weight-bold: 700;
+  --fs-font-weight-semibold: 600;
+  
+  /* Line Heights */
+  --fs-line-height-title: 1.2;
+  --fs-line-height-description: 1.6;
+  
+  /* Font Sizes */
+  --fs-font-size-fallback-icon: 3rem;
+
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --fs-border-radius-button: 24px;
+  --fs-border-radius-circle: 50%;
+  --fs-border-radius-dot-active: 4px;
+  
+  /* Border Widths */
+  --fs-border-width-button: 2px;
+  --fs-border-width-spinner: 3px;
+
+  /* ================================
+     DEPTH & LAYERING
+     ================================ */
+  /* Z-Index Hierarchy */
+  --fs-z-index-content: 2;
+  --fs-z-index-secondary: 1;
+  --fs-z-index-overlay: 10;
+  
+  /* Opacity Levels */
+  --fs-opacity-full: 1;
+  --fs-opacity-content-exit: 0.3;
+  --fs-opacity-images-exit: 0.5;
+
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --fs-transition-duration: 200ms;
+  --fs-transition-easing: ease-in-out;
+  --fs-transition-duration-fast: 200ms;
+  --fs-transition-easing-smooth: ease-in-out;
+  --fs-transition-easing-standard: ease;
+  
+  /* Animation Properties */
+  --fs-animation-duration-spinner: 1s;
+  --fs-animation-easing-linear: linear;
+  
+  /* Transform Values */
+  --fs-transform-center: translate(-50%, -50%);
+  --fs-transform-hover-lift: translateY(-2px);
+
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --fs-shadow-button-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values */
+  --fs-breakpoint-tablet: 768px;
+  --fs-breakpoint-desktop: 1024px;
+
+  /* ProductCarousel Design Tokens */
+  /* ================================
+     PC (PRODUCT CAROUSEL) DESIGN TOKENS
+     ================================ */
+  
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --pc-color-section-bg: #fafafa;
+  --pc-color-heading: #1a365d;
+  --pc-color-subtitle: #4a5568;
+  --pc-color-card-bg: #ffffff;
+  --pc-color-cta-bg: #ffffff;
+  --pc-color-cta-text: #1a365d;
+  
+  /* Navigation Controls */
+  --pc-color-dot-inactive: #cbd5e0;
+  --pc-color-dot-active: #38b2ac;
+  --pc-color-control-bg: #ffffff;
+  --pc-color-control-border: #e2e8f0;
+  --pc-color-control-border-hover: #cbd5e0;
+  --pc-color-control-icon: #4a5568;
+  --pc-color-accent: #38b2ac;
+  
+  /* Overlay Effects */
+  --pc-color-overlay-start: rgba(0, 0, 0, 0.7);
+  --pc-color-overlay-end: transparent;
+  --pc-gradient-overlay: linear-gradient(180deg, var(--pc-color-overlay-start) 0%, var(--pc-color-overlay-end) 100%);
+  
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Dimensions */
+  --pc-container-max-width: 1200px;
+  --pc-track-height-mobile: 310px;
+  --pc-track-height-tablet: 420px;
+  --pc-track-height-desktop: 420px;
+  
+  /* Slide Dimensions */
+  --pc-slide-width-mobile: 70%;
+  --pc-slide-max-width: 280px;
+  --pc-subtitle-max-width: 290px;
+  --pc-subtitle-min-height: 2.8em;
+  
+  /* Spacing */
+  --pc-heading-margin-mobile: 1rem;
+  --pc-heading-margin-desktop: 2rem;
+  --pc-subtitle-margin: 1rem auto 1.5rem;
+  --pc-controls-gap: 1rem;
+  
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Font Weights */
+  --pc-font-weight-bold: 700;
+  
+  /* Line Heights */
+  --pc-line-height-subtitle: 1.4;
+  --pc-webkit-line-clamp: 2;
+  
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --pc-card-border-radius: 24px;
+  --pc-dot-border-radius: 50%;
+  --pc-dot-active-border-radius: 5px;
+  --pc-control-border-radius: 50%;
+  
+  /* Border Widths */
+  --pc-control-border-width: 2px;
+  
+  /* ================================
+     DEPTH & LAYERING
+     ================================ */
+  /* Shadows */
+  --pc-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --pc-cta-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  /* Z-Index */
+  --pc-z-index-controls: 10;
+  --pc-z-index-overlay: 5;
+  --pc-z-index-content: 1;
+  
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --pc-transition-duration: 800ms;
+  --pc-transition-easing: ease-in-out;
+  --pc-control-transition-duration: 200ms;
+  --pc-control-transition-easing: ease;
+  
+  /* Transform Values */
+  --pc-transform-active-scale: scale(1.05);
+  --pc-transform-hover-lift: translateY(-2px);
+  
+  /* ================================
+     COMPONENT SIZES
+     ================================ */
+  /* Navigation Elements */
+  --pc-dot-size: 10px;
+  --pc-dot-active-width: 18px;
+  --pc-control-button-size: 40px;
+  --pc-control-icon-size: 18px;
+  
+  /* CTA Elements */
+  --pc-cta-padding: 12px 24px;
+  --pc-cta-font-size: 14px;
+  --pc-cta-font-weight: 600;
+  
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --pc-breakpoint-tablet: 768px;
+  --pc-breakpoint-desktop: 1024px;
+
+  /* HeroSection Design Tokens */
+  /* ================================
+     HS (HERO SECTION) DESIGN TOKENS
+     ================================ */
+  
+  /* ================================
+     LAYOUT & DIMENSIONS
+     ================================ */
+  /* Section Dimensions */
+  --hs-section-max-height: 792px;
+  --hs-section-padding-base: 0px;
+  --hs-section-border-radius: 30px;
+  
+  /* Content Container */
+  --hs-content-padding-mobile: 2rem 1.5rem;
+  --hs-content-padding-desktop: 136px 120px;
+  --hs-content-gap-mobile: 2rem;
+  --hs-content-gap-desktop: 2rem;
+  
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --hs-gradient-bg: linear-gradient(135deg, #f7fefc 0%, #40c2aa 50%, #f0fdfa 100%);
+  --hs-color-cta-bg: #ffffff;
+  --hs-color-stats-bg: #1a202c;
+  --hs-color-loading-bg: rgba(255, 255, 255, 0.8);
+  
+  /* Text Colors */
+  --hs-color-title: #1a365d;
+  --hs-color-stats-text: #ffffff;
+  --hs-color-stats-label: #ffffff;
+  
+  /* CTA Colors */
+  --hs-gradient-cta: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+  --hs-color-cta-focus: #319795;
+  
+  /* Overlay Colors */
+  --hs-gradient-overlay: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.4) 100%);
+  
+  /* ================================
+     SPACING & MARGINS
+     ================================ */
+  /* Title Spacing */
+  --hs-title-margin-bottom: 1rem;
+  --hs-subtitle-margin-bottom: 1.25rem;
+  --hs-description-margin-bottom: 1.5rem;
+  
+  /* CTA Spacing */
+  --hs-cta-margin-top-mobile: 1.5rem;
+  --hs-cta-margin-top-tablet: 2rem;
+  --hs-cta-margin-top-desktop: 2.5rem;
+  
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Drop Shadows */
+  --hs-shadow-image: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
+  --hs-shadow-cta-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+  
+  /* ================================
+     LOADING & SPINNER
+     ================================ */
+  /* Loading Spinner */
+  --hs-spinner-border-width: 3px;
+  --hs-spinner-border-color: #e2e8f0;
+  --hs-spinner-border-top-color: #38b2ac;
+  
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --hs-breakpoint-tablet: 768px;
+  --hs-breakpoint-desktop: 1024px;
+
+  /* OneFeature Design Tokens */
+  /* ================================
+     OF (ONE FEATURE) DESIGN TOKENS
+     ================================ */
+  
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --of-color-section-bg: #f8f9fa;
+  --of-color-container-bg: #ffffff;
+  --of-color-card-bg: #ffffff;
+  --of-color-cta-bg: #000000;
+  
+  /* Text Colors */
+  --of-color-title: #1a1a1a;
+  --of-color-subtitle: #4a5568;
+  --of-color-feature-title: #1a1a1a;
+  --of-color-feature-description: #6b7280;
+  --of-color-cta-text: #ffffff;
+  --of-color-icon: #6b7280;
+  
+  /* Gradient Colors */
+  --of-gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  
+  /* Border Colors */
+  --of-color-border-light: #e2e8f0;
+  --of-color-border-medium: #cbd5e0;
+  
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Spacing */
+  --of-container-margin-top: 96px;
+  --of-container-gap: 32px;
+  --of-container-gap-large: 40px;
+  
+  /* Feature Grid */
+  --of-features-gap: 32px;
+  --of-feature-padding: 20px;
+  --of-feature-padding-large: 24px;
+  
+  /* CTA Spacing */
+  --of-cta-padding: 16px 32px;
+  --of-cta-margin-top: 40px;
+  
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --of-border-radius-section: 30px;
+  --of-border-radius-card: 20px;
+  --of-border-radius-cta: 8px;
+  
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --of-shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --of-shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --of-shadow-cta: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+  --of-shadow-cta-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+  
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --of-transition-duration-fast: 300ms;
+  --of-transition-duration-normal: 600ms;
+  --of-transition-duration-slow: 800ms;
+  --of-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --of-transition-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Transform Values */
+  --of-transform-hover-lift: translateY(-4px);
+  --of-transform-scale-hover: scale(1.02);
+  
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --of-breakpoint-tablet: 768px;
+  --of-breakpoint-desktop: 1024px;
+
+  /* AppFeaturesCarousel Design Tokens */
+  /* ================================
+     AFC (APP FEATURES CAROUSEL) DESIGN TOKENS
+     ================================ */
+  
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --afc-color-section-bg: #fafafa;
+  --afc-color-container-bg: #ffffff;
+  --afc-color-card-bg: #ffffff;
+  --afc-color-overlay-start: rgba(0, 0, 0, 0.7);
+  --afc-color-overlay-end: transparent;
+  
+  /* Text Colors */
+  --afc-color-title: #1a365d;
+  --afc-color-description: #4a5568;
+  --afc-color-chip-text: #ffffff;
+  
+  /* Accent Colors */
+  --afc-color-accent: #8b5cf6;
+  --afc-color-accent-hover: #7c3aed;
+  
+  /* Navigation Colors */
+  --afc-color-dot-inactive: #cbd5e0;
+  --afc-color-dot-hover: #a0aec0;
+  --afc-color-dot-active: #8b5cf6;
+  --afc-color-control-bg: #ffffff;
+  --afc-color-control-hover-bg: #f7fafc;
+  --afc-color-border: #e2e8f0;
+  --afc-color-border-hover: #cbd5e0;
+  
+  /* Text & Link Colors */
+  --afc-color-text-primary: #1a365d;
+  --afc-color-link: #38b2ac;
+  --afc-color-link-hover: #319795;
+  --afc-color-indicator-default: #d1d5db;
+  --afc-color-indicator-active: #8b5cf6;
+  --afc-color-muted: #9ca3af;
+  --afc-color-bg-white: #ffffff;
+  
+  /* Spinner & Loading Colors */
+  --afc-color-spinner-border: #e5e7eb;
+  --afc-color-spinner-active: #8b5cf6;
+  
+  /* Gradient Fallbacks */
+  --afc-gradient-fallback: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Spacing */
+  --afc-container-gap: 19px; /* Reduced by 40% from 32px */
+  --afc-container-gap-desktop: 24px; /* Reduced by 40% from 40px */
+  
+  /* Grid Layout */
+  --afc-grid-gap: 16px;
+  --afc-grid-gap-large: 20px;
+  
+  /* Card Spacing */
+  --afc-card-padding: 20px;
+  --afc-card-gap: 12px;
+  
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --afc-border-radius-card: 20px;
+  --afc-border-radius-chip: 16px;
+  
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --afc-shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --afc-shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Gradient Overlays */
+  --afc-gradient-overlay: linear-gradient(to top, var(--afc-color-overlay-start) 0%, rgba(0, 0, 0, 0.4) 50%, var(--afc-color-overlay-end) 100%);
+  
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --afc-transition-duration: 250ms;
+  --afc-transition-easing: ease-in-out;
+  
+  /* Transform Values */
+  --afc-transform-scale-active: 1.025;
+  --afc-transform-scale-inactive: 0.9;
+  
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --afc-breakpoint-tablet: 768px;
+  --afc-breakpoint-desktop: 1024px;
 }
 
 /* Typography Utilities */

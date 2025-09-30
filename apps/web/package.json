@@ -10,7 +10,11 @@
     "type-check": "tsc --noEmit",
     "analyze": "ANALYZE=true next build",
     "analyze-server": "BUNDLE_ANALYZE=server next build",
-    "analyze-browser": "BUNDLE_ANALYZE=browser next build"
+    "analyze-browser": "BUNDLE_ANALYZE=browser next build",
+    "perf-test": "npm run build && npm run analyze",
+    "lighthouse": "lhci autorun",
+    "bundle-size": "npm run build && du -sh .next",
+    "optimize": "npm run perf-test && echo 'Check .next/performance-report.json for optimization suggestions'"
   },
   "dependencies": {
     "@diboas/i18n": "workspace:*",

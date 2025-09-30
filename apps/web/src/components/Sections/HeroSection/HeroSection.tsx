@@ -43,9 +43,9 @@ export interface HeroSectionProps {
   enableAnalytics?: boolean;
 
   /**
-   * Custom background override for fullBackground variant
+   * Custom section background color (replaces backgroundImage for better theming)
    */
-  backgroundImage?: string;
+  backgroundColor?: string;
 
   /**
    * Performance optimization: Priority loading for above-fold content
@@ -73,7 +73,7 @@ export function HeroSection({
   config: customConfig,
   className = '',
   enableAnalytics = true,
-  backgroundImage,
+  backgroundColor,
   priority = true
 }: HeroSectionProps) {
   // Domain-Driven Design: Merge default config with custom overrides
@@ -128,7 +128,7 @@ export function HeroSection({
 
   // Type Guards and Security: Determine final background images with validation
   const hasBackgroundAssets = 'backgroundAssets' in config;
-  const finalBackgroundImage = backgroundImage ||
+  const finalBackgroundImage = backgroundColor ||
     (isFullBackground && hasBackgroundAssets ? config.backgroundAssets?.backgroundImage : undefined);
   const finalBackgroundImageMobile = 
     (isFullBackground && hasBackgroundAssets ? config.backgroundAssets?.backgroundImageMobile : undefined) || finalBackgroundImage;
@@ -183,9 +183,12 @@ export function HeroSection({
     className
   ].filter(Boolean).join(' ');
 
+  const sectionStyle = backgroundColor ? { backgroundColor } : {};
+
   return (
     <section
       className={sectionClasses}
+      style={sectionStyle}
       aria-labelledby="hero-title"
     >
       {/* Full Background Variant: Responsive Background Image Layer */}

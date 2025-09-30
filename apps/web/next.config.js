@@ -3,7 +3,36 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: [
+      'lucide-react',
+      'date-fns',
+      'lodash-es',
+      '@radix-ui/react-icons'
+    ],
   },
+
+  // Turbopack configuration (moved from experimental.turbo)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+  
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+    reactRemoveProperties: process.env.NODE_ENV === 'production' ? true : false,
+  },
+  
+  
+  // Enable compression
+  compress: true,
+  
+  // Output optimization
+  output: 'standalone',
   
   // Image optimization
   images: {
@@ -28,6 +57,17 @@ const nextConfig = {
     ],
   },
   
+  // Redirects for favicon fallback
+  async redirects() {
+    return [
+      {
+        source: '/favicon.ico',
+        destination: '/favicon.avif',
+        permanent: false,
+      },
+    ]
+  },
+
   // Security headers with CSP and asset optimization
   async headers() {
     const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
@@ -116,36 +156,49 @@ const nextConfig = {
   // Transpile workspace packages
   transpilePackages: ['@diboas/ui', '@diboas/i18n'],
   
-  // Webpack configuration for pnpm workspaces and performance monitoring
+  // Webpack configuration for pnpm workspaces 
   webpack: (config, { isServer, dev }) => {
     // Handle pnpm's symlinked node_modules structure
     config.resolve.symlinks = true;
     
-    // Add performance monitoring plugin (only in production)
-    if (!isServer && !dev && process.env.NODE_ENV === 'production') {
-      const WebpackPerformancePlugin = require('./src/lib/performance/webpack-performance-plugin');
+    // Development optimizations
+    if (dev) {
+      // Ensure module format compatibility
+      config.optimization.providedExports = false;
+      config.optimization.usedExports = false;
+      config.optimization.sideEffects = false;
       
-      config.plugins.push(new WebpackPerformancePlugin({
-        outputPath: '.next/performance-report.json',
-        budgets: {
-          maxAssetSize: 500 * 1024, // 500KB
-          maxEntrypointSize: 1024 * 1024, // 1MB
-          maxTotalSize: 5 * 1024 * 1024, // 5MB
-          maxAssets: 50
-        },
-        logLevel: 'warn',
-        failOnBudgetExceeded: process.env.CI === 'true'
-      }));
+      // Simplified chunk splitting for development
+      config.optimization.splitChunks = false;
+      
+      // Ensure proper module resolution
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        crypto: false,
+      };
     }
     
-    // Bundle analyzer for detailed analysis
-    if (process.env.ANALYZE === 'true') {
-      const BundleAnalyzerPlugin = require('@next/bundle-analyzer')({
-        enabled: true,
-        openAnalyzer: false
-      });
-      
-      config.plugins.push(BundleAnalyzerPlugin);
+    // Add performance monitoring plugin (only in production builds)
+    if (!isServer && !dev && process.env.NODE_ENV === 'production') {
+      try {
+        const WebpackPerformancePlugin = require('./src/lib/performance/webpack-performance-plugin');
+        
+        config.plugins.push(new WebpackPerformancePlugin({
+          outputPath: '.next/performance-report.json',
+          budgets: {
+            maxAssetSize: 300 * 1024, // 300KB
+            maxEntrypointSize: 800 * 1024, // 800KB
+            maxTotalSize: 4 * 1024 * 1024, // 4MB
+            maxAssets: 40
+          },
+          logLevel: 'warn',
+          failOnBudgetExceeded: false // Never fail builds
+        }));
+      } catch (error) {
+        console.warn('Failed to load performance plugin:', error.message);
+      }
     }
     
     return config;

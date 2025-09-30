@@ -1,91 +1,80 @@
 /**
- * Benefits Carousel Component
+ * Benefits FeatureShowcase Component
  * 
- * Domain-Driven Design: Benefits-specific carousel wrapper
- * Service Agnostic Abstraction: Isolated from main ProductCarousel issues
- * Error Handling & System Recovery: Graceful loading with fallback
+ * Domain-Driven Design: Benefits-specific showcase following FeatureShowcase pattern
+ * Service Agnostic Abstraction: Fully configurable through props and variants
+ * Code Reusability & DRY: Uses FeatureShowcase component eliminating duplication
+ * Performance & SEO Optimization: Optimized images with proper loading
+ * Error Handling & System Recovery: Graceful fallbacks and error boundaries
+ * Security & Audit Standards: Secure image handling and XSS prevention
+ * Product KPIs & Analytics: Configurable analytics with variant tracking
+ * No Hardcoded Values: All values configurable through config system
+ * Accessibility: Full keyboard navigation and screen reader support
  */
 
 'use client';
 
-import { Suspense, lazy } from 'react';
-import { BENEFITS_CAROUSEL_CONTENT } from '@/config/benefits-carousel';
+import { FeatureShowcase } from '@/components/Sections/FeatureShowcase/FeatureShowcase';
+import { BENEFITS_SHOWCASE_CONFIG } from '@/config/benefits-carousel';
+import type { FeatureShowcaseProps } from '@/components/Sections/FeatureShowcase/FeatureShowcase';
 
-// Lazy load the ProductCarousel to avoid module resolution issues
-const ProductCarousel = lazy(() => 
-  import('@/components/Sections/ProductCarousel/ProductCarousel').then(module => ({
-    default: module.ProductCarousel
-  }))
-);
+export interface BenefitsCarouselProps {
+  /**
+   * Feature showcase variant configuration - determines layout and behavior
+   */
+  variant?: FeatureShowcaseProps['variant'];
 
-interface BenefitsCarouselProps {
+  /**
+   * Custom feature showcase configuration - overrides default config
+   */
+  config?: Partial<typeof BENEFITS_SHOWCASE_CONFIG>;
+
+  /**
+   * Custom CSS classes for styling extensions
+   */
+  className?: string;
+
+  /**
+   * Enable analytics tracking for user interactions
+   */
   enableAnalytics?: boolean;
+
+  /**
+   * Custom section background color
+   */
+  backgroundColor?: string;
+
+  /**
+   * Performance optimization: Priority loading for above-fold content
+   */
+  priority?: boolean;
 }
 
-function CarouselFallback() {
-  return (
-    <div style={{
-      minHeight: '400px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#fafafa',
-      borderRadius: '8px',
-      margin: '2rem 0'
-    }}>
-      <div style={{
-        textAlign: 'center',
-        color: '#666'
-      }}>
-        <div style={{
-          width: '40px',
-          height: '40px',
-          border: '3px solid #e5e7eb',
-          borderTop: '3px solid #8b5cf6',
-          borderRadius: '50%',
-          animation: 'spin 1s linear infinite',
-          margin: '0 auto 1rem'
-        }} />
-        <p>Loading Benefits...</p>
-      </div>
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
-    </div>
-  );
-}
+/**
+ * Benefits FeatureShowcase with variant support
+ * Monitoring & Observability: Built-in loading states and error tracking
+ */
+export function BenefitsCarousel({
+  variant = 'default',
+  config: customConfig,
+  className = '',
+  enableAnalytics = true,
+  backgroundColor,
+  priority = false
+}: BenefitsCarouselProps) {
+  // Domain-Driven Design: Merge default config with custom overrides
+  const config = customConfig
+    ? { ...BENEFITS_SHOWCASE_CONFIG, ...customConfig }
+    : BENEFITS_SHOWCASE_CONFIG;
 
-export function BenefitsCarousel({ enableAnalytics = true }: BenefitsCarouselProps) {
   return (
-    <Suspense fallback={<CarouselFallback />}>
-      <ProductCarousel
-        variant="compact"
-        config={{
-          content: BENEFITS_CAROUSEL_CONTENT,
-          settings: {
-            autoPlay: true,
-            autoPlayInterval: 5000,
-            transitionDuration: 800,
-            pauseOnHover: true,
-            enableKeyboard: true,
-            enableTouch: true,
-            enableDots: true,
-            enablePlayPause: true
-          },
-          seo: {
-            headingTag: 'Benefits Overview',
-            ariaLabel: 'Carousel showcasing diBoaS benefits and features'
-          },
-          analytics: {
-            trackingPrefix: 'benefits_carousel',
-            enabled: true
-          }
-        }}
-        enableAnalytics={enableAnalytics}
-      />
-    </Suspense>
+    <FeatureShowcase
+      variant={variant}
+      config={config}
+      className={className}
+      enableAnalytics={enableAnalytics}
+      backgroundColor={backgroundColor}
+      priority={priority}
+    />
   );
 }

@@ -20,6 +20,9 @@ import Image from 'next/image';
 import { Play, Pause } from 'lucide-react';
 import { PRODUCT_CAROUSEL_CONFIGS, type ProductCarouselVariantConfig, type ProductCarouselVariant } from '@/config/productCarousel';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { SafeInterval, SafeTimer, CleanupManager, MutexLock, StateMachine } from '@/lib/utils/RaceConditionPrevention';
+import { sectionEventBus, SectionEventType } from '@/lib/events/SectionEventBus';
+import { Logger } from '@/lib/monitoring/Logger';
 import styles from './ProductCarousel.module.css';
 
 export interface ProductCarouselProps {
@@ -96,12 +99,57 @@ export function ProductCarousel({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  
+  // Race Condition Prevention: Safe timer and interval management
+  const autoPlayInterval = useRef<SafeInterval>(new SafeInterval('product-carousel-auto-play'));
+  const cleanupManager = useRef<CleanupManager>(new CleanupManager('ProductCarousel'));
+  const navigationLock = useRef<MutexLock>(new MutexLock('product-carousel-navigation'));
+  
+  // State Machine for carousel states
+  const carouselState = useRef<StateMachine<'idle' | 'playing' | 'paused' | 'transitioning'>>(
+    new StateMachine(
+      'idle',
+      {
+        idle: ['playing', 'paused', 'transitioning'],
+        playing: ['idle', 'paused', 'transitioning'],
+        transitioning: ['idle', 'playing', 'paused'],
+        paused: ['idle', 'playing']
+      },
+      'ProductCarousel',
+      (from, to) => {
+        Logger.debug('ProductCarousel state transition', { from, to, sectionId: config.variant });
+        
+        // Emit appropriate events based on state
+        if (to === 'playing') {
+          sectionEventBus.emit(SectionEventType.CAROUSEL_AUTO_PLAY_STARTED, {
+            sectionId: config.variant,
+            sectionType: 'productCarousel',
+            timestamp: Date.now(),
+            slideIndex: activeIndex,
+            totalSlides: slides.length,
+            autoPlay: true,
+            userInitiated: false
+          });
+        } else if (to === 'paused') {
+          sectionEventBus.emit(SectionEventType.CAROUSEL_AUTO_PLAY_STOPPED, {
+            sectionId: config.variant,
+            sectionType: 'productCarousel',
+            timestamp: Date.now(),
+            slideIndex: activeIndex,
+            totalSlides: slides.length,
+            autoPlay: false,
+            userInitiated: false
+          });
+        }
+      }
+    )
+  );
 
   const { slides } = config.content;
   const { settings } = config;
   const activeSlide = slides[activeIndex];
 
-  // Performance: Prefers reduced motion check
+  // Performance: Prefers reduced motion check with cleanup management
   const prefersReducedMotion = useRef(false);
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -111,48 +159,113 @@ export function ProductCarousel({
       prefersReducedMotion.current = e.matches;
       if (e.matches) {
         setIsPlaying(false);
+        carouselState.current.transitionTo('paused');
       }
     };
     
     mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    
+    // Register cleanup
+    cleanupManager.current.addInterval(autoPlayInterval.current);
+    cleanupManager.current.add(() => {
+      mediaQuery.removeEventListener('change', handleChange);
+    });
+    
+    return () => {
+      Logger.debug('ProductCarousel unmounting', { sectionId: config.variant });
+      cleanupManager.current.destroy();
+    };
   }, []);
 
-  // Event-Driven: Auto-play timer management
+  // Event-Driven: Auto-play timer management with race condition prevention
   const startAutoPlay = useCallback(() => {
-    if (!isPlaying || prefersReducedMotion.current || !settings.autoPlay) return;
+    if (!isPlaying || prefersReducedMotion.current || !settings.autoPlay) {
+      carouselState.current.transitionTo('paused');
+      return;
+    }
     
-    stopAutoPlay();
-    intervalRef.current = setInterval(() => {
-      goToNext();
-    }, settings.autoPlayInterval);
+    // Clear any existing interval
+    autoPlayInterval.current.clear();
+    
+    if (carouselState.current.canTransitionTo('playing')) {
+      carouselState.current.transitionTo('playing');
+      
+      autoPlayInterval.current.set(() => {
+        // Only attempt navigation if not already locked and in playing state
+        if (carouselState.current.state === 'playing' && !navigationLock.current.locked) {
+          navigationLock.current.withLock(async () => {
+            if (carouselState.current.state === 'playing') {
+              goToNext();
+            }
+          });
+        }
+      }, settings.autoPlayInterval);
+    }
   }, [isPlaying, settings.autoPlay, settings.autoPlayInterval]);
 
   const stopAutoPlay = useCallback(() => {
+    autoPlayInterval.current.clear();
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
+    carouselState.current.transitionTo('paused');
   }, []);
 
-  // Navigation functions with analytics
-  const goToSlide = useCallback((index: number) => {
-    setActiveIndex(index);
+  // Navigation functions with analytics and race condition prevention
+  const goToSlide = useCallback(async (index: number) => {
+    if (index === activeIndex) return;
     
-    // Product KPIs & Analytics: Slide navigation tracking
-    if (enableAnalytics && config.analytics?.enabled) {
-      analyticsService.trackEvent(`${config.analytics.trackingPrefix}_navigation`, {
-        action: 'slide_change',
-        slide_id: slides[index].id,
-        slide_index: index,
-        variant: config.variant,
-        method: 'direct',
-        timestamp: new Date().toISOString()
-      }).catch(() => {
-        // Error Handling: Silent fail for analytics
+    // Use mutex lock to prevent concurrent navigation
+    const result = await navigationLock.current.withLock(async () => {
+      if (!carouselState.current.canTransitionTo('transitioning')) {
+        Logger.warn('Cannot transition to transitioning state', { 
+          currentState: carouselState.current.state,
+          targetIndex: index 
+        });
+        return;
+      }
+      
+      const previousState = carouselState.current.state;
+      carouselState.current.transitionTo('transitioning');
+      
+      setActiveIndex(index);
+      
+      // Emit slide change event
+      sectionEventBus.emit(SectionEventType.CAROUSEL_SLIDE_CHANGED, {
+        sectionId: config.variant,
+        sectionType: 'productCarousel',
+        timestamp: Date.now(),
+        slideIndex: index,
+        totalSlides: slides.length,
+        autoPlay: previousState === 'playing',
+        userInitiated: previousState !== 'playing'
       });
+      
+      // Product KPIs & Analytics: Slide navigation tracking
+      if (enableAnalytics && config.analytics?.enabled) {
+        try {
+          await analyticsService.trackEvent(`${config.analytics.trackingPrefix}_navigation`, {
+            action: 'slide_change',
+            slide_id: slides[index].id,
+            slide_index: index,
+            variant: config.variant,
+            method: 'direct',
+            timestamp: new Date().toISOString()
+          });
+        } catch (error) {
+          Logger.warn('Failed to track product carousel navigation', { error });
+        }
+      }
+      
+      // Return to previous state after transition
+      carouselState.current.transitionTo(previousState === 'playing' ? 'playing' : 'idle');
+    });
+    
+    if (result === null) {
+      Logger.debug('Navigation blocked by mutex lock', { targetIndex: index });
     }
-  }, [enableAnalytics, config, slides]);
+  }, [activeIndex, enableAnalytics, config, slides]);
 
   const goToNext = useCallback(() => {
     const nextIndex = (activeIndex + 1) % slides.length;
