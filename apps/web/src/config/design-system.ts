@@ -211,5 +211,4 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-// Export types for TypeScript consumers
-export type { DesignTokens, TypographyTokens, SpacingTokens, LayoutTokens, AnimationTokens, ZIndexTokens, BreakpointTokens };
+// Types are already exported above

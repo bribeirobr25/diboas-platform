@@ -480,6 +480,7 @@ function FeatureImage({
       sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"}
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
+      style={{ width: 'auto', height: 'auto' }}
     />
   );
 }

@@ -25,6 +25,14 @@ export const metadata: Metadata = {
     default: `${BRAND_CONFIG.NAME} - ${BRAND_CONFIG.TAGLINE}`
   },
   description: BRAND_CONFIG.DESCRIPTION,
+  icons: {
+    icon: [
+      { url: '/favicon.avif', type: 'image/avif' },
+      { url: '/favicon.svg', type: 'image/svg+xml' }
+    ],
+    shortcut: '/favicon.avif',
+    apple: '/assets/logos/logo-icon.avif',
+  },
 };
 
 export default function RootLayout({
@@ -40,7 +48,7 @@ export default function RootLayout({
       >
         <WebVitalsTracker 
           debug={process.env.NODE_ENV === 'development'} 
-          sampleRate={process.env.NODE_ENV === 'production' ? 0.1 : 1.0} 
+          sampleRate={process.env.NODE_ENV === 'production' ? 0.1 : 0.1} 
         />
         {children}
       </body>

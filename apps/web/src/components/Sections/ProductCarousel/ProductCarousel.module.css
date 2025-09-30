@@ -15,7 +15,7 @@
 
 /* Base Section Container */
 .section {
-  background-color: #fafafa;
+  background-color: var(--pc-color-section-bg);
   padding: var(--spacing-section-mobile-y) var(--spacing-section-mobile-x);
   position: relative;
   overflow: hidden;
@@ -37,17 +37,17 @@
 
 /* Main Container */
 .container {
-  max-width: 1200px;
+  max-width: var(--pc-container-max-width);
   margin: 0 auto;
 }
 
 /* Heading */
 .heading {
   font-size: var(--font-title-section-mobile);
-  font-weight: 700;
+  font-weight: var(--pc-font-weight-bold);
   text-align: center;
-  margin-bottom: 1rem;
-  color: #1a365d;
+  margin-bottom: var(--pc-heading-margin-mobile);
+  color: var(--pc-color-heading);
 }
 
 /* Responsive: Tablet */
@@ -60,22 +60,22 @@
 /* Responsive: Desktop */
 @media (min-width: 1024px) {
   .heading {
-    margin-bottom: 2rem;
+    margin-bottom: var(--pc-heading-margin-desktop);
   }
 }
 
 /* Subtitle/Description */
 .subtitle {
   font-size: var(--font-body-subtitle);
-  font-weight: 700;
-  line-height: 1.4;
-  color: #4a5568;
+  font-weight: var(--pc-font-weight-bold);
+  line-height: var(--pc-line-height-subtitle);
+  color: var(--pc-color-subtitle);
   text-align: center;
-  margin: 1rem auto 1.5rem;
-  max-width: 290px;
-  min-height: 2.8em; /* Exactly 2 lines */
+  margin: var(--pc-subtitle-margin);
+  max-width: var(--pc-subtitle-max-width);
+  min-height: var(--pc-subtitle-min-height); /* Exactly 2 lines */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: var(--pc-webkit-line-clamp);
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -84,15 +84,15 @@
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .subtitle {
-    margin: 1rem auto 1.5rem;
-    max-width: 290px;
+    margin: var(--pc-subtitle-margin);
+    max-width: var(--pc-subtitle-max-width);
   }
 }
 
 /* Track Container */
 .track {
   position: relative;
-  height: 420px;
+  height: var(--pc-track-height-desktop);
   margin-bottom: 0;
   outline: none;
 }
@@ -100,41 +100,41 @@
 /* Responsive: Mobile */
 @media (min-width: 320px) {
   .track {
-    height: 310px;
+    height: var(--pc-track-height-mobile);
   }
 }
 
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .track {
-    height: 420px;
+    height: var(--pc-track-height-tablet);
   }
 }
 
 /* Responsive: Desktop */
 @media (min-width: 1024px) {
   .track {
-    height: 420px;
+    height: var(--pc-track-height-desktop);
   }
 }
 
 /* Individual Slide */
 .slide {
   position: absolute;
-  width: 70%;
-  max-width: 280px;
+  width: var(--pc-slide-width-mobile);
+  max-width: var(--pc-slide-max-width);
   height: 95%;
-  transition: all 800ms ease-in-out;
+  transition: all var(--pc-transition-duration) var(--pc-transition-easing);
   opacity: 0;
   transform: scale(0.8) translateX(0);
-  z-index: 1;
+  z-index: var(--pc-z-index-content);
 }
 
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .slide {
-    width: 280px;
-    max-width: 280px;
+    width: var(--pc-slide-max-width);
+    max-width: var(--pc-slide-max-width);
   }
 }
 
@@ -197,10 +197,10 @@
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 24px;
+  border-radius: var(--pc-card-border-radius);
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  box-shadow: var(--pc-card-shadow);
+  background-color: var(--pc-color-card-bg);
 }
 
 .cardImageWrapper {
@@ -236,9 +236,9 @@
   height: 50%;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.7) 0%,
+    var(--pc-color-overlay-start) 0%,
     rgba(0, 0, 0, 0.4) 50%,
-    transparent 100%
+    var(--pc-color-overlay-end) 100%
   );
   pointer-events: none;
 }
@@ -254,13 +254,13 @@
 
 .cardCtaText {
   display: inline-block;
-  padding: 12px 24px;
-  background-color: #ffffff;
-  color: #1a365d;
-  border-radius: 24px;
+  padding: var(--pc-cta-padding);
+  background-color: var(--pc-color-cta-bg);
+  color: var(--pc-color-cta-text);
+  border-radius: var(--pc-card-border-radius);
   font-size: var(--font-ui-link);
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: var(--pc-cta-font-weight);
+  box-shadow: var(--pc-cta-shadow);
 }
 
 /* Responsive: Tablet */
@@ -275,7 +275,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: var(--pc-controls-gap);
 }
 
 /* Dots Navigation */
@@ -286,13 +286,13 @@
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #cbd5e0;
+  width: var(--pc-dot-size);
+  height: var(--pc-dot-size);
+  border-radius: var(--pc-dot-border-radius);
+  background-color: var(--pc-color-dot-inactive);
   border: none;
   cursor: pointer;
-  transition: all 300ms ease;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
   outline-offset: 4px;
 }
 
@@ -301,37 +301,37 @@
 }
 
 .dot:focus-visible {
-  outline: 2px solid #38b2ac;
+  outline: 2px solid var(--pc-color-accent);
 }
 
 .dotActive {
-  width: 18px;
-  border-radius: 5px;
-  background-color: #38b2ac;
+  width: var(--pc-dot-active-width);
+  border-radius: var(--pc-dot-active-border-radius);
+  background-color: var(--pc-color-dot-active);
 }
 
 /* Play/Pause Button */
 .playPauseButton {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  border: 2px solid #e2e8f0;
+  width: var(--pc-control-button-size);
+  height: var(--pc-control-button-size);
+  border-radius: var(--pc-control-border-radius);
+  background-color: var(--pc-color-control-bg);
+  border: var(--pc-control-border-width) solid var(--pc-color-control-border);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 200ms ease;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
   outline-offset: 4px;
 }
 
 .playPauseButton:hover:not(:disabled) {
   background-color: #f7fafc;
-  border-color: #cbd5e0;
+  border-color: var(--pc-color-control-border-hover);
 }
 
 .playPauseButton:focus-visible {
-  outline: 2px solid #38b2ac;
+  outline: 2px solid var(--pc-color-accent);
 }
 
 .playPauseButton:disabled {
@@ -340,9 +340,9 @@
 }
 
 .controlIcon {
-  width: 18px;
-  height: 18px;
-  color: #4a5568;
+  width: var(--pc-control-icon-size);
+  height: var(--pc-control-icon-size);
+  color: var(--pc-color-control-icon);
 }
 
 /* ================================
