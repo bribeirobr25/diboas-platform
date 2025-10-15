@@ -6,8 +6,8 @@
  * Domain-Driven Design: Single hero domain with configurable variants
  */
 
-export { HeroSection } from './HeroSection';
-export type { HeroSectionProps } from './HeroSection';
+export { HeroSection } from './HeroSectionFactory';
+export type { HeroSectionProps } from './HeroSectionFactory';
 export type { 
   HeroConfig, 
   HeroVariantConfig, 

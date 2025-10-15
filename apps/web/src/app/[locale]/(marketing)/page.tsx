@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection } from '@/components/Sections';
-import { ProductCarousel, FeatureShowcase, AppFeaturesCarousel, SecurityOneFeature } from '@/components/Sections';
+import { ProductCarousel, FeatureShowcase, AppFeaturesCarousel, OneFeature } from '@/components/Sections';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { BRAND_CONFIG } from '@/config/brand';
 import type { Metadata } from 'next';
 
@@ -48,15 +49,54 @@ export default async function HomePage({ params }: HomePageProps) {
       <StructuredData data={[organizationData, breadcrumbData]} />
       
       <main className="main-page-wrapper">
-        <HeroSection 
-          variant="fullBackground"
-          enableAnalytics={true}
-          priority={true}
-        />
-        <ProductCarousel />
-        <FeatureShowcase />
-        <AppFeaturesCarousel />
-        <SecurityOneFeature />
+        <SectionErrorBoundary
+          sectionId="hero-section-home"
+          sectionType="HeroSection"
+          enableReporting={true}
+          context={{ page: 'home', variant: 'fullBackground' }}
+        >
+          <HeroSection 
+            variant="fullBackground"
+            enableAnalytics={true}
+            priority={true}
+          />
+        </SectionErrorBoundary>
+
+        <SectionErrorBoundary
+          sectionId="product-carousel-home"
+          sectionType="ProductCarousel"
+          enableReporting={true}
+          context={{ page: 'home' }}
+        >
+          <ProductCarousel />
+        </SectionErrorBoundary>
+
+        <SectionErrorBoundary
+          sectionId="feature-showcase-home"
+          sectionType="FeatureShowcase"
+          enableReporting={true}
+          context={{ page: 'home' }}
+        >
+          <FeatureShowcase />
+        </SectionErrorBoundary>
+
+        <SectionErrorBoundary
+          sectionId="app-features-carousel-home"
+          sectionType="AppFeaturesCarousel"
+          enableReporting={true}
+          context={{ page: 'home' }}
+        >
+          <AppFeaturesCarousel />
+        </SectionErrorBoundary>
+
+        <SectionErrorBoundary
+          sectionId="one-feature-home"
+          sectionType="OneFeature"
+          enableReporting={true}
+          context={{ page: 'home' }}
+        >
+          <OneFeature />
+        </SectionErrorBoundary>
         {/* Additional content sections will be developed later */}
       </main>
     </>

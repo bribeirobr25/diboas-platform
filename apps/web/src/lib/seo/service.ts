@@ -7,7 +7,7 @@
 import { Metadata } from 'next';
 import { SEO_DEFAULTS } from './constants';
 import { PageSEOConfig, SEOService, BreadcrumbList, WebPage } from './types';
-import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n';
+import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 
 class SEOServiceImpl implements SEOService {
   /**

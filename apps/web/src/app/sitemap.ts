@@ -5,7 +5,7 @@
  */
 
 import { MetadataRoute } from 'next';
-import { SUPPORTED_LOCALES } from '@diboas/i18n';
+import { SUPPORTED_LOCALES } from '@diboas/i18n/server';
 import { navigationConfig } from '@/config/navigation';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 

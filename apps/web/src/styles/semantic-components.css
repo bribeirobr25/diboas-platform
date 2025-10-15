@@ -20,7 +20,7 @@
   text-decoration: none;
   border-radius: 0 0 4px 0;
   z-index: 100;
-  font-weight: 500;
+  font-weight: var(--font-weight-normal);
   transition: top 0.2s ease;
 }
 
@@ -78,7 +78,7 @@ a:focus-visible {
 
 .main-body-antialiased {
   @apply bg-white text-gray-900 antialiased;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-family-primary);
 }
 
 .main-page-wrapper {
@@ -222,7 +222,7 @@ a:focus-visible {
 
 .dropdown-item-description {
   @apply text-gray-600;
-  font-size: var(--font-body-subtitle); /* Desktop submenu description */
+  font-size: var(--font-size-ui-link); /* Desktop submenu description */
 }
 
 /* =================================================================== */
@@ -231,7 +231,7 @@ a:focus-visible {
 
 .menu-link-text {
   @apply font-bold;
-  font-size: var(--font-ui-link); /* Desktop main menu options */
+  font-size: var(--font-size-ui-link); /* Desktop main menu options */
 }
 
 .menu-link-icon {
@@ -244,7 +244,7 @@ a:focus-visible {
 
 .action-link {
   @apply text-neutral-600 hover:text-primary-600 transition-colors font-medium flex items-center space-x-1;
-  font-size: var(--font-ui-button); /* Desktop action buttons text */
+  font-size: var(--font-size-ui-button); /* Desktop action buttons text */
 }
 
 .action-button-wrapper {
@@ -281,7 +281,7 @@ a:focus-visible {
 
 .dropdown-item-description-text {
   @apply text-gray-600 mt-1;
-  font-size: var(--font-body-subtitle); /* Desktop submenu description */
+  font-size: var(--font-size-ui-link); /* Desktop submenu description */
 }
 
 /* =================================================================== */
@@ -318,7 +318,7 @@ a:focus-visible {
 .desktop-get-started-button {
   @apply px-8;
   min-width: 140px;
-  font-size: var(--font-ui-button); /* Desktop action button text */
+  font-size: var(--font-size-ui-button); /* Desktop action button text */
 }
 
 .mobile-menu-overlay {
@@ -331,8 +331,8 @@ a:focus-visible {
 
 .mobile-section-title {
   @apply text-teal-600 tracking-wider mb-4;
-  font-size: var(--font-ui-link);
-  font-weight: bold;
+  font-size: var(--font-size-ui-link);
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-highlights-grid {
@@ -354,13 +354,13 @@ a:focus-visible {
 .mobile-menu-text {
   @apply text-gray-900;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-menu-description {
   @apply text-gray-600 px-4 pb-2;
-  font-size: var(--font-ui-link);
-  font-weight: bold;
+  font-size: var(--font-size-ui-link);
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-submenu-container {
@@ -438,8 +438,8 @@ a:focus-visible {
 
 .mobile-section-header {
   @apply text-teal-600 tracking-wider mb-4;
-  font-size: var(--font-ui-link);
-  font-weight: bold;
+  font-size: var(--font-size-ui-link);
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-quick-actions-grid {
@@ -452,8 +452,8 @@ a:focus-visible {
 
 .mobile-quick-action-text {
   @apply text-gray-900;
-  font-size: var(--font-ui-button);
-  font-weight: bold;
+  font-size: var(--font-size-ui-button);
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-menu-sections {
@@ -471,7 +471,7 @@ a:focus-visible {
 .mobile-main-menu-text {
   @apply text-gray-900;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-main-menu-icon {
@@ -480,8 +480,8 @@ a:focus-visible {
 
 .mobile-menu-description-text {
   @apply text-gray-600 px-4 pb-2;
-  font-size: var(--font-ui-link);
-  font-weight: bold;
+  font-size: var(--font-size-ui-link);
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-additional-menu-button {
@@ -491,7 +491,7 @@ a:focus-visible {
 .mobile-additional-menu-text {
   @apply text-gray-900;
   font-size: var(--font-body-subtitle);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .mobile-submenu-header-container {
@@ -731,22 +731,27 @@ a:focus-visible {
 
 .btn-xs {
   @apply h-8 px-3 text-xs;
+  min-width: var(--fs-min-width-cta);
 }
 
 .btn-sm {
   @apply h-9 px-4 text-xs;
+  min-width: var(--fs-min-width-cta);
 }
 
 .btn-default {
   @apply h-10 px-4 py-2;
+  min-width: var(--fs-min-width-cta);
 }
 
 .btn-lg {
   @apply h-12 px-8;
+  min-width: var(--fs-min-width-cta);
 }
 
 .btn-xl {
   @apply h-14 px-10 text-base;
+  min-width: var(--fs-min-width-cta);
 }
 
 .btn-icon {
@@ -763,7 +768,7 @@ a:focus-visible {
 
 .btn-content {
   /* Default button content styling */
-  font-size: var(--font-ui-button);
+  font-size: var(--font-size-ui-button);
 }
 
 .btn-content-loading {

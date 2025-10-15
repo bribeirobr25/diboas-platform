@@ -6,7 +6,7 @@
  */
 
 import { type Metadata } from 'next';
-import { type SupportedLocale, SUPPORTED_LOCALES } from '@diboas/i18n';
+import { type SupportedLocale, SUPPORTED_LOCALES } from '@diboas/i18n/server';
 import { BRAND_CONFIG } from '@/config/brand';
 
 export interface PageMetadataConfig {

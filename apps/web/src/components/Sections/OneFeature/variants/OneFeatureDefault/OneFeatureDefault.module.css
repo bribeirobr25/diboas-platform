@@ -1,0 +1,436 @@
+/**
+ * SecurityOneFeature Section Styles
+ * 
+ * File Decoupling & Organization: Component-specific security showcase styles
+ * Semantic Naming Conventions: BEM-inspired class naming with section patterns
+ * Performance Optimization: GPU-friendly animations with transform and opacity
+ * Code Reusability & DRY: Consistent with other section component patterns
+ * No Hardcoded Values: CSS custom properties for configurable values
+ * Domain-Driven Design: Security-focused styling with accessibility compliance
+ */
+
+/* ================================
+   BASE SECTION STYLES
+   ================================ */
+
+/* Base Section Container - matching other sections */
+.section {
+  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
+  background-color: var(--of-color-section-bg);
+  width: var(--section-width-full);
+  height: var(--section-height-carousel);
+  position: relative;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .section {
+    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+  }
+}
+
+/* Main Container */
+.container {
+  max-width: var(--dimension-1200);
+  background-color: var(--of-color-container-bg);
+  margin: var(--of-container-margin-top) 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--of-container-gap);
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  border-radius: var(--of-border-radius-section);
+  padding: var(--padding-panel-mobile);
+  position: relative;
+}
+
+/* Responsive: Tablet */
+@media (min-width: var(--breakpoint-tablet)) {
+  .container {
+    padding: var(--padding-panel-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .container {
+    padding: var(--padding-panel-desktop);
+    gap: var(--of-container-gap-large);
+  }
+}
+
+/* ================================
+   HERO IMAGE STYLES
+   ================================ */
+
+/* Hero Image Wrapper - positioned absolutely */
+.heroImageWrapper {
+  position: absolute;
+  top: 0; /* Position from top of section */
+  left: var(--percent-50);
+  transform: translateX(-50%);
+  z-index: 10;
+  width: var(--dimension-200);
+  height: auto;
+  max-width: var(--dimension-250);
+}
+
+/* Responsive: Tablet */
+@media (min-width: var(--breakpoint-tablet)) {
+  .heroImageWrapper {
+    width: 216px;
+    height: auto;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .heroImageWrapper {
+    width: var(--dimension-250);
+    height: auto;
+  }
+}
+
+/* Hero Image Container */
+.heroImageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Hero Image */
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all var(--of-transition-duration-normal) var(--of-transition-easing);
+  filter: drop-shadow(0 10px var(--spacing-3xl) rgba(0, 0, 0, var(--opacity-10)));
+}
+
+.heroImageLoaded {
+  animation: floatIn var(--of-transition-duration-slow) var(--of-transition-easing);
+}
+
+/* Image fallback for error states */
+.imageFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-title-desktop);
+  color: var(--of-color-icon);
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border-radius: var(--radius-4xl);
+}
+
+/* ================================
+   CONTENT STYLES
+   ================================ */
+
+/* Content Container - REMOVED (content now directly in container) */
+
+/* Main Title */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--of-color-title);
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-title-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-title-desktop);
+  }
+}
+
+/* Subtitle */
+.subtitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-description-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-description);
+  color: var(--of-color-subtitle);
+  margin: 0;
+  max-width: var(--dimension-600);
+  text-align: center;
+  width: 100%;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .subtitle {
+    font-size: var(--font-size-description-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .subtitle {
+    font-size: var(--font-size-description-desktop);
+    max-width: var(--dimension-700);
+  }
+}
+
+/* ================================
+   FEATURES GRID STYLES
+   ================================ */
+
+/* Features Grid */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 column on mobile and 768px */
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: var(--dimension-400);
+  margin-top: var(--spacing-sm);
+}
+
+/* Responsive: Desktop - 4 columns in one line */
+@media (min-width: var(--breakpoint-tablet)) {
+  .featuresGrid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 100%;
+    gap: 24px;
+  }
+}
+
+/* Feature Card */
+.featureCard {
+  background: var(--of-color-card-bg);
+  border-radius: var(--radius-2xl);
+  padding: var(--padding-card-mobile);
+  box-shadow: var(--of-shadow-card);
+  transition: all var(--of-transition-duration-fast) var(--of-transition-easing);
+  border: 1px solid transparent;
+  opacity: var(--opacity-0);
+  transform: translateY(var(--spacing-xl));
+}
+
+.featureCardAnimated {
+  animation: slideIn var(--of-transition-duration-normal) var(--of-transition-easing) forwards;
+}
+
+/* Primary Feature Card */
+.featureCardPrimary {
+  background: var(--of-gradient-primary);
+  color: var(--of-color-cta-text);
+  box-shadow: 
+    0 var(--spacing-xs) var(--spacing-md) rgba(139, 92, 246, var(--opacity-20)),
+    0 2px 6px rgba(139, 92, 246, var(--opacity-10));
+}
+
+.featureCardPrimary:hover {
+  transform: var(--of-transform-hover-lift);
+  box-shadow: 
+    0 var(--spacing-sm) var(--spacing-xl) rgba(139, 92, 246, var(--opacity-25)),
+    0 var(--spacing-xs) var(--spacing-md) rgba(139, 92, 246, var(--opacity-15));
+}
+
+/* Secondary Feature Card */
+.featureCardSecondary {
+  border-color: var(--of-color-border-light);
+}
+
+.featureCardSecondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--of-shadow-card-hover);
+  border-color: var(--of-color-border-medium);
+}
+
+/* Feature Link */
+.featureLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  outline-offset: var(--spacing-xs);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  margin: var(--spacing-xs-negative);
+}
+
+.featureLink:focus-visible {
+  outline: 2px solid currentColor;
+}
+
+/* Feature Title */
+.featureTitle {
+  font-size: var(--font-size-text-mobile);
+  font-weight: 600;
+  line-height: var(--line-height-normal);
+  flex: 1;
+  text-align: left;
+}
+
+/* Feature Icon */
+.featureIcon {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.featureIconPrimary {
+  color: rgba(255, 255, 255, var(--opacity-90));
+}
+
+.featureIconSecondary {
+  color: var(--of-color-feature-description);
+}
+
+.featureLink:hover .featureIcon {
+  transform: translateX(2px);
+}
+
+/* ================================
+   CTA STYLES
+   ================================ */
+
+/* CTA Wrapper - consistent with other sections */
+.ctaWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+}
+
+/* ================================
+   ANIMATIONS
+   ================================ */
+
+@keyframes floatIn {
+  0% {
+    opacity: var(--opacity-0);
+    transform: translateY(var(--spacing-3xl)) var(--transform-scale-95);
+  }
+  60% {
+    opacity: var(--opacity-100);
+    transform: translateY(-5px) var(--transform-scale-102);
+  }
+  100% {
+    opacity: var(--opacity-100);
+    transform: translateY(0) var(--transform-scale-100);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: var(--opacity-0);
+    transform: translateY(var(--spacing-xl));
+  }
+  100% {
+    opacity: var(--opacity-100);
+    transform: translateY(0);
+  }
+}
+
+/* Floating animation for hero image (optional enhancement) */
+.heroImage.heroImageLoaded {
+  animation: floatIn var(--of-transition-duration-slow) ease-out, float 6s ease-in-out 1s infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ================================
+   ACCESSIBILITY & PERFORMANCE
+   ================================ */
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .heroImage,
+  .heroImageLoaded,
+  .featureCard,
+  .featureCardAnimated,
+  .featureIcon {
+    animation: none;
+    transition: none;
+  }
+
+  .featureCardPrimary:hover,
+  .featureCardSecondary:hover,
+  .featureLink:hover .featureIcon {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .section {
+    background-color: var(--color-white);
+  }
+
+  .featureCard {
+    border: 2px solid var(--color-black);
+  }
+
+  .featureCardPrimary {
+    background: var(--of-color-cta-bg);
+    border-color: #000000;
+  }
+
+  .featureCardSecondary {
+    background: var(--color-white);
+    border-color: #000000;
+  }
+
+  .title {
+    color: var(--color-black);
+  }
+
+  .subtitle {
+    color: var(--color-black);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .section {
+    background: transparent;
+    padding: 16px 0;
+  }
+
+  .heroImageContainer {
+    display: none;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .featureCard {
+    box-shadow: none;
+    border: 1px solid var(--color-black);
+  }
+}

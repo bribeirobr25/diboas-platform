@@ -6,8 +6,8 @@
  * Domain-Driven Design: Single showcase domain with configurable variants
  */
 
-export { FeatureShowcase } from './FeatureShowcase';
-export type { FeatureShowcaseProps } from './FeatureShowcase';
+export { FeatureShowcase } from './FeatureShowcaseFactory';
+export type { FeatureShowcaseProps } from './FeatureShowcaseFactory';
 export type { 
   FeatureShowcaseConfig, 
   FeatureShowcaseVariantConfig, 

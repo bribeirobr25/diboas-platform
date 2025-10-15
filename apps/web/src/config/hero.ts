@@ -65,10 +65,11 @@ export const DEFAULT_BACKGROUND_ASSETS: HeroBackgroundAssets = {
 } as const;
 
 // Default content configuration
+// Note: These are translation keys that will be resolved at runtime
 export const DEFAULT_HERO_CONTENT: HeroContent = {
-  title: 'Your Complete Financial Ecosystem',
-  description: 'Manage your banking, investing, and DeFi assets all in one secure platform. Experience financial freedom with diBoaS.',
-  ctaText: 'Get Started',
+  title: 'marketing.pages.home.hero.title',
+  description: 'marketing.pages.home.hero.description',
+  ctaText: 'common.buttons.getStarted',
   ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
   ctaTarget: '_blank'
 } as const;

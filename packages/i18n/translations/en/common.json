@@ -9,7 +9,95 @@
     "signup": "Get Started",
     "dashboard": "Dashboard",
     "settings": "Settings",
-    "help": "Help"
+    "help": "Help",
+    "diboas": {
+      "label": "diBoaS",
+      "description": "Complete financial ecosystem with banking, investing, and DeFi in one platform",
+      "subItems": {
+        "know": "Know diBoaS",
+        "account": "diBoaS Account",
+        "banking": "Banking",
+        "investing": "Investing",
+        "crypto": "Crypto",
+        "strategies": "Strategies (DeFi)",
+        "credit": "Credit"
+      }
+    },
+    "learn": {
+      "label": "Learn Center",
+      "description": "Master your finances with expert guides and educational content",
+      "subItems": {
+        "center": "The Learn Center",
+        "basics": "Financial Basics",
+        "management": "Money Management",
+        "investing": "Investment Guide",
+        "crypto": "Crypto A-Z",
+        "defi": "DeFi Explained",
+        "special": "Special Content"
+      }
+    },
+    "business": {
+      "label": "diBoaS Business",
+      "description": "Complete financial solutions for modern businesses",
+      "subItems": {
+        "know": "Know diBoaS Business",
+        "account": "Business Account",
+        "bank": "Business Bank",
+        "payments": "Payments",
+        "treasury": "Treasury",
+        "yield": "Cash Flow Yield",
+        "credit": "P2P Credit"
+      }
+    },
+    "rewards": {
+      "label": "Rewards",
+      "description": "Earn rewards and learn with AI-powered mascot guides",
+      "subItems": {
+        "program": "diBoaS Rewards",
+        "mascots": "AI Mascot Guides",
+        "referral": "Referral",
+        "points": "Earn Points",
+        "badges": "Badges & Leaderboard",
+        "campaigns": "Campaigns",
+        "token": "Token & Airdrop"
+      }
+    },
+    "security": {
+      "label": "Security",
+      "description": "Your security is our top priority",
+      "subItems": {
+        "protection": "diBoaS Protection",
+        "audits": "Audit & Reports",
+        "safe": "Stay Safe",
+        "faq": "FAQ"
+      }
+    },
+    "aboutMenu": {
+      "label": "About",
+      "description": "Learn more about diBoaS and our mission",
+      "subItems": {
+        "about": "More About diBoaS",
+        "careers": "Join our Team",
+        "documentation": "Documentation",
+        "investors": "Investors",
+        "compliance": "Compliance"
+      }
+    },
+    "mobile": {
+      "highlights": {
+        "benefits": "diBoaS Benefits",
+        "learn": "Learn Center",
+        "rewards": "Rewards"
+      },
+      "sections": {
+        "forYou": "For You",
+        "forBusiness": "For Business"
+      }
+    },
+    "actions": {
+      "primary": "Get Started",
+      "secondary": "Business Login"
+    }
   },
   "buttons": {
     "getStarted": "Get Started",
@@ -52,6 +140,15 @@
     "toggleLanguage": "Change language",
     "currentLanguage": "Current language: English"
   },
+  "languageSwitcher": {
+    "label": "Language",
+    "languages": {
+      "en": "English",
+      "pt-BR": "Português",
+      "es": "Español",
+      "de": "Deutsch"
+    }
+  },
   "seo": {
     "defaultTitle": "diBoaS - Financial Freedom Made Simple",
     "defaultDescription": "Manage your banking, investing, and DeFi assets all in one secure platform. The future of finance is here.",
@@ -65,18 +162,67 @@
       "investment platform"
     ]
   },
-  "footer": {
-    "company": "Company",
-    "product": "Product",
-    "resources": "Resources",
-    "legal": "Legal",
-    "newsletter": {
-      "title": "Stay updated with diBoaS",
-      "description": "Get the latest news, updates, and insights delivered to your inbox.",
-      "placeholder": "Enter your email",
-      "subscribe": "Subscribe"
+  "errors": {
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "Sorry, we couldn't find the page you're looking for.",
+      "action": "Go back home"
     },
-    "copyright": "© 2025 diBoaS Platform. All rights reserved.",
-    "systemStatus": "All systems operational"
+    "serverError": {
+      "title": "Something Went Wrong",
+      "description": "We're experiencing technical difficulties. Please try again later.",
+      "action": "Try again"
+    },
+    "boundary": {
+      "title": "Oops! Something Went Wrong",
+      "description": "An unexpected error occurred. Our team has been notified.",
+      "action": "Refresh page"
+    },
+    "offline": {
+      "title": "No Internet Connection",
+      "description": "Please check your connection and try again.",
+      "action": "Retry"
+    }
+  },
+  "footer": {
+    "sections": {
+      "transparency": {
+        "title": "Transparency",
+        "links": {
+          "privacy": "Privacy",
+          "security": "Security",
+          "terms": "Terms"
+        }
+      },
+      "explore": {
+        "title": "Explore",
+        "links": {
+          "about": "About",
+          "documentation": "Documentation",
+          "careers": "Careers",
+          "investors": "Investors"
+        }
+      },
+      "help": {
+        "title": "Help",
+        "links": {
+          "faq": "FAQ"
+        }
+      },
+      "legal": {
+        "title": "Legal",
+        "links": {
+          "cookies": "Cookies"
+        }
+      }
+    },
+    "social": {
+      "instagram": "Instagram",
+      "twitter": "X (Twitter)",
+      "youtube": "YouTube",
+      "linkedin": "LinkedIn"
+    },
+    "copyright": "© 2024 diBoaS. All rights reserved.",
+    "brandName": "diBoaS"
   }
 }

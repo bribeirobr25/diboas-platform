@@ -4,7 +4,7 @@
  * DDD: Domain-driven content modeling
  */
 
-import type { SupportedLocale } from '@diboas/i18n';
+import type { SupportedLocale } from '@diboas/i18n/server';
 
 export interface ContentMetadata {
   id: string;

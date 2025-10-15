@@ -13,6 +13,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useIntl } from 'react-intl';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { FOOTER_CONFIG, type FooterConfig, type FooterSection } from '@/config/footer';
 import { ASSET_PATHS } from '@/config/assets';
 import { BRAND_CONFIG } from '@/config/brand';
@@ -46,6 +48,7 @@ interface SocialIconProps {
 }
 
 export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
+  const intl = useIntl();
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
 
   const toggleSection = (title: string) => {
@@ -63,7 +66,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
   return (
     <footer aria-label="Site footer" className={styles.footer}>
       <div className={styles.container}>
-        
+
         {/* Mobile Logo */}
         <div className={styles.mobileLogoSection}>
           <Image
@@ -77,7 +80,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
 
         {/* Desktop Grid / Mobile Accordions */}
         <div className={styles.contentGrid}>
-          
+
           {/* Desktop Logo Column */}
           <div className={styles.desktopLogoSection}>
             <Image
@@ -92,7 +95,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
           {/* Footer Sections */}
           {config.sections.map((section) => (
             <div key={section.title}>
-              
+
               {/* Mobile Accordion */}
               <div className={styles.mobileAccordion}>
                 <AccordionSection
@@ -105,7 +108,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
               {/* Desktop Column */}
               <div className={styles.desktopColumn}>
                 <h3 className={styles.sectionTitle}>
-                  {section.title}
+                  {intl.formatMessage({ id: section.title })}
                 </h3>
                 <ul className={styles.linksList}>
                   {section.links.map((link) => (
@@ -117,11 +120,11 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
                           rel="noopener noreferrer"
                           className={styles.link}
                         >
-                          {link.label}
+                          {intl.formatMessage({ id: link.label })}
                         </a>
                       ) : (
                         <Link href={link.href} className={styles.link}>
-                          {link.label}
+                          {intl.formatMessage({ id: link.label })}
                         </Link>
                       )}
                     </li>
@@ -139,7 +142,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
               <SocialIcon
                 key={social.id}
                 iconName={social.icon}
-                label={social.label}
+                label={intl.formatMessage({ id: social.label })}
                 href={social.href}
               />
             ))}
@@ -153,13 +156,18 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
         <div className={styles.bottomSection}>
           <div className={styles.legalInfo}>
             <span className={styles.brandName}>
-              {config.legal.brandName}
+              {intl.formatMessage({ id: config.legal.brandName })}
             </span>
             <span className={styles.copyright}>
-              {config.legal.copyrightText}
+              {intl.formatMessage({ id: config.legal.copyrightText })}
             </span>
           </div>
-          
+
+          {/* Language Switcher */}
+          <div className={styles.footerLanguageSwitcher}>
+            <LanguageSwitcher variant="dropdown" size="sm" theme="dark" />
+          </div>
+
           {/* Desktop Social Links */}
           <div className={styles.desktopSocialSection}>
             <div className={styles.socialIcons}>
@@ -167,7 +175,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
                 <SocialIcon
                   key={social.id}
                   iconName={social.icon}
-                  label={social.label}
+                  label={intl.formatMessage({ id: social.label })}
                   href={social.href}
                 />
               ))}
@@ -181,16 +189,19 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
 
 // Accordion Section Component
 function AccordionSection({ section, isOpen, onToggle }: AccordionSectionProps) {
+  const intl = useIntl();
+  const sectionId = section.title.replace(/\./g, '-');
+
   return (
     <>
       <button
         onClick={onToggle}
         className={styles.accordionButton}
         aria-expanded={isOpen}
-        aria-controls={`footer-section-${section.title.toLowerCase().replace(/\s+/g, '-')}`}
+        aria-controls={`footer-section-${sectionId}`}
       >
         <span className={styles.accordionTitle}>
-          {section.title}
+          {intl.formatMessage({ id: section.title })}
         </span>
         {isOpen ? (
           <ChevronUp className={styles.accordionIcon} aria-hidden="true" />
@@ -198,10 +209,10 @@ function AccordionSection({ section, isOpen, onToggle }: AccordionSectionProps) 
           <ChevronDown className={styles.accordionIcon} aria-hidden="true" />
         )}
       </button>
-      
+
       {isOpen && (
         <div
-          id={`footer-section-${section.title.toLowerCase().replace(/\s+/g, '-')}`}
+          id={`footer-section-${sectionId}`}
           className={styles.accordionContent}
         >
           <ul className={styles.accordionLinksList}>
@@ -214,11 +225,11 @@ function AccordionSection({ section, isOpen, onToggle }: AccordionSectionProps) 
                     rel="noopener noreferrer"
                     className={styles.accordionLink}
                   >
-                    {link.label}
+                    {intl.formatMessage({ id: link.label })}
                   </a>
                 ) : (
                   <Link href={link.href} className={styles.accordionLink}>
-                    {link.label}
+                    {intl.formatMessage({ id: link.label })}
                   </Link>
                 )}
               </li>

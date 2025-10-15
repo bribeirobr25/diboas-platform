@@ -7,9 +7,11 @@ import Link from 'next/link';
 import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
 import { Container, FlexBetween, SparklesIcon, ChevronRightIcon } from '@/components/UI';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ASSET_PATHS } from '@/config/assets';
 import { DESIGN_SYSTEM } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
+import { useIntl } from 'react-intl';
 
 interface DesktopNavProps {
   activeMenu: string | null;
@@ -30,6 +32,7 @@ export default function DesktopNav({
 }: DesktopNavProps) {
   if (isMobile) return null;
 
+  const intl = useIntl();
   const activeMenuItem = config.mainMenu.find(item => item.id === activeMenu);
 
   return (
@@ -54,7 +57,7 @@ export default function DesktopNav({
               <button
                 key={item.id}
                 className="menu-link group"
-                aria-label={`${item.label} menu`}
+                aria-label={`${intl.formatMessage({ id: item.label })} menu`}
                 aria-expanded={activeMenu === item.id}
                 aria-haspopup="true"
                 onMouseEnter={() => {
@@ -63,7 +66,7 @@ export default function DesktopNav({
                 }}
               >
                 {item.icon && <SparklesIcon />}
-                <span className="menu-link-text">{item.label}</span>
+                <span className="menu-link-text">{intl.formatMessage({ id: item.label })}</span>
                 <ChevronRightIcon size="xs" className="menu-link-icon" aria-hidden="true" />
               </button>
             ))}
@@ -71,6 +74,9 @@ export default function DesktopNav({
 
           {/* Action Buttons */}
           <div className="action-buttons-container">
+            {/* Language Switcher */}
+            <LanguageSwitcher variant="dropdown" size="sm" />
+
             <Link
               href={config.actions.secondary.href}
               className="action-link"
@@ -78,7 +84,7 @@ export default function DesktopNav({
               rel="noopener noreferrer"
               onClick={() => trackNavigationInteraction('business-login', 'click')}
             >
-              {config.actions.secondary.label}
+              {intl.formatMessage({ id: config.actions.secondary.label })}
             </Link>
             <Link
               href={config.actions.primary.href}
@@ -92,7 +98,7 @@ export default function DesktopNav({
                 size="sm"
                 className="desktop-get-started-button"
               >
-                {config.actions.primary.label}
+                {intl.formatMessage({ id: config.actions.primary.label })}
               </Button>
             </Link>
           </div>
@@ -115,7 +121,7 @@ export default function DesktopNav({
                   <div className="dropdown-banner-image">
                     <Image
                       src={activeMenuItem.banner || ''}
-                      alt={activeMenuItem.label}
+                      alt={intl.formatMessage({ id: activeMenuItem.label })}
                       fill
                       className="dropdown-banner-image-content"
                       sizes="(max-width: 768px) 100vw, 384px"
@@ -123,10 +129,10 @@ export default function DesktopNav({
                     />
                   </div>
                   <h3 className="dropdown-title">
-                    {activeMenuItem.label}
+                    {intl.formatMessage({ id: activeMenuItem.label })}
                   </h3>
                   <p className="dropdown-item-description">
-                    {activeMenuItem.description}
+                    {intl.formatMessage({ id: activeMenuItem.description })}
                   </p>
                 </div>
 
@@ -142,11 +148,11 @@ export default function DesktopNav({
                       >
                         <div>
                           <h4 className="dropdown-item-title">
-                            {subItem.label}
+                            {intl.formatMessage({ id: subItem.label })}
                           </h4>
                           {subItem.description && (
                             <p className="dropdown-item-description-text">
-                              {subItem.description}
+                              {intl.formatMessage({ id: subItem.description })}
                             </p>
                           )}
                         </div>

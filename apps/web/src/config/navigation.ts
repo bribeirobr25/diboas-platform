@@ -13,122 +13,122 @@ export const navigationConfig: NavigationConfig = {
   mainMenu: [
     {
       id: 'diboas',
-      label: 'diBoaS',
+      label: 'common.navigation.diboas.label',
       banner: ASSET_PATHS.NAVIGATION.DIBOAS_BANNER,
-      description: 'Complete financial ecosystem with banking, investing, and DeFi in one platform',
+      description: 'common.navigation.diboas.description',
       subItems: [
-        { id: 'know-diboas', label: 'Know diBoaS', href: createUrl('/benefits') },
-        { id: 'account', label: 'diBoaS Account', href: createUrl('/account') },
-        { id: 'banking', label: 'Banking', href: createUrl('/banking-services') },
-        { id: 'investing', label: 'Investing', href: createUrl('/investing') },
-        { id: 'crypto', label: 'Crypto', href: createUrl('/cryptocurrency') },
-        { id: 'strategies', label: 'Strategies (DeFi)', href: createUrl('/defi-strategies') },
-        { id: 'credit', label: 'Credit', href: createUrl('/credit') }
+        { id: 'know-diboas', label: 'common.navigation.diboas.subItems.know', href: createUrl('/benefits') },
+        { id: 'account', label: 'common.navigation.diboas.subItems.account', href: createUrl('/account') },
+        { id: 'banking', label: 'common.navigation.diboas.subItems.banking', href: createUrl('/banking-services') },
+        { id: 'investing', label: 'common.navigation.diboas.subItems.investing', href: createUrl('/investing') },
+        { id: 'crypto', label: 'common.navigation.diboas.subItems.crypto', href: createUrl('/cryptocurrency') },
+        { id: 'strategies', label: 'common.navigation.diboas.subItems.strategies', href: createUrl('/defi-strategies') },
+        { id: 'credit', label: 'common.navigation.diboas.subItems.credit', href: createUrl('/credit') }
       ]
     },
     {
       id: 'learn',
-      label: 'Learn Center',
+      label: 'common.navigation.learn.label',
       banner: ASSET_PATHS.NAVIGATION.LEARN_BANNER,
-      description: 'Master your finances with expert guides and educational content',
+      description: 'common.navigation.learn.description',
       subItems: [
-        { id: 'learn-center', label: 'The Learn Center', href: createUrl('/learn/benefits') },
-        { id: 'financial-basics', label: 'Financial Basics', href: createUrl('/learn/financial-basics') },
-        { id: 'money-management', label: 'Money Management', href: createUrl('/learn/money-management') },
-        { id: 'investment-guide', label: 'Investment Guide', href: createUrl('/learn/investment-guide') },
-        { id: 'crypto-az', label: 'Crypto A-Z', href: createUrl('/learn/cryptocurrency-guide') },
-        { id: 'defi-explained', label: 'DeFi Explained', href: createUrl('/learn/defi-explained') },
-        { id: 'special-content', label: 'Special Content', href: createUrl('/learn/special-content') }
+        { id: 'learn-center', label: 'common.navigation.learn.subItems.center', href: createUrl('/learn/benefits') },
+        { id: 'financial-basics', label: 'common.navigation.learn.subItems.basics', href: createUrl('/learn/financial-basics') },
+        { id: 'money-management', label: 'common.navigation.learn.subItems.management', href: createUrl('/learn/money-management') },
+        { id: 'investment-guide', label: 'common.navigation.learn.subItems.investing', href: createUrl('/learn/investment-guide') },
+        { id: 'crypto-az', label: 'common.navigation.learn.subItems.crypto', href: createUrl('/learn/cryptocurrency-guide') },
+        { id: 'defi-explained', label: 'common.navigation.learn.subItems.defi', href: createUrl('/learn/defi-explained') },
+        { id: 'special-content', label: 'common.navigation.learn.subItems.special', href: createUrl('/learn/special-content') }
       ]
     },
     {
       id: 'business',
-      label: 'diBoaS Business',
+      label: 'common.navigation.business.label',
       banner: ASSET_PATHS.NAVIGATION.BUSINESS_BANNER,
-      description: 'Complete financial solutions for modern businesses',
+      description: 'common.navigation.business.description',
       subItems: [
-        { id: 'know-business', label: 'Know diBoaS Business', href: createUrl('/business/benefits') },
-        { id: 'business-account', label: 'Business Account', href: createUrl('/business/account') },
-        { id: 'business-bank', label: 'Business Bank', href: createUrl('/business/banking') },
-        { id: 'payments', label: 'Payments', href: createUrl('/business/payments') },
-        { id: 'treasury', label: 'Treasury', href: createUrl('/business/treasury') },
-        { id: 'cash-flow-yield', label: 'Cash Flow Yield', href: createUrl('/business/yield-strategies') },
-        { id: 'p2p-credit', label: 'P2P Credit', href: createUrl('/business/credit-solutions') }
+        { id: 'know-business', label: 'common.navigation.business.subItems.know', href: createUrl('/business/benefits') },
+        { id: 'business-account', label: 'common.navigation.business.subItems.account', href: createUrl('/business/account') },
+        { id: 'business-bank', label: 'common.navigation.business.subItems.bank', href: createUrl('/business/banking') },
+        { id: 'payments', label: 'common.navigation.business.subItems.payments', href: createUrl('/business/payments') },
+        { id: 'treasury', label: 'common.navigation.business.subItems.treasury', href: createUrl('/business/treasury') },
+        { id: 'cash-flow-yield', label: 'common.navigation.business.subItems.yield', href: createUrl('/business/yield-strategies') },
+        { id: 'p2p-credit', label: 'common.navigation.business.subItems.credit', href: createUrl('/business/credit-solutions') }
       ]
     },
     {
       id: 'rewards',
-      label: 'Rewards',
+      label: 'common.navigation.rewards.label',
       banner: ASSET_PATHS.NAVIGATION.REWARDS_BANNER,
-      description: 'Earn rewards and learn with AI-powered mascot guides',
+      description: 'common.navigation.rewards.description',
       subItems: [
-        { id: 'diboas-rewards', label: 'diBoaS Rewards', href: createUrl('/rewards/benefits') },
-        { id: 'ai-mascot', label: 'AI Mascot Guides', href: createUrl('/rewards/ai-guides') },
-        { id: 'referral', label: 'Referral', href: createUrl('/rewards/referral-program') },
-        { id: 'earn-points', label: 'Earn Points', href: createUrl('/rewards/points-system') },
-        { id: 'badges-leaderboard', label: 'Badges & Learderboard', href: createUrl('/rewards/badges-leaderboard') },
-        { id: 'campaigns', label: 'Campaigns', href: createUrl('/rewards/campaigns') },
-        { id: 'token-airdrop', label: 'Token & Airdrop', href: createUrl('/rewards/token-airdrop') }
+        { id: 'diboas-rewards', label: 'common.navigation.rewards.subItems.program', href: createUrl('/rewards/benefits') },
+        { id: 'ai-mascot', label: 'common.navigation.rewards.subItems.mascots', href: createUrl('/rewards/ai-guides') },
+        { id: 'referral', label: 'common.navigation.rewards.subItems.referral', href: createUrl('/rewards/referral-program') },
+        { id: 'earn-points', label: 'common.navigation.rewards.subItems.points', href: createUrl('/rewards/points-system') },
+        { id: 'badges-leaderboard', label: 'common.navigation.rewards.subItems.badges', href: createUrl('/rewards/badges-leaderboard') },
+        { id: 'campaigns', label: 'common.navigation.rewards.subItems.campaigns', href: createUrl('/rewards/campaigns') },
+        { id: 'token-airdrop', label: 'common.navigation.rewards.subItems.token', href: createUrl('/rewards/token-airdrop') }
       ]
     },
     {
       id: 'security',
-      label: 'Security',
+      label: 'common.navigation.security.label',
       banner: ASSET_PATHS.NAVIGATION.SECURITY_BANNER,
-      description: 'Your security is our top priority',
+      description: 'common.navigation.security.description',
       subItems: [
-        { id: 'protection', label: 'diBoaS Protection', href: createUrl('/security/benefits') },
-        { id: 'audit-reports', label: 'Audit & Reports', href: createUrl('/security/audit-reports') },
-        { id: 'stay-safe', label: 'Stay Safe', href: createUrl('/security/safety-guide') },
-        { id: 'faq', label: 'FAQ', href: createUrl('/help/faq') }
+        { id: 'protection', label: 'common.navigation.security.subItems.protection', href: createUrl('/security/benefits') },
+        { id: 'audit-reports', label: 'common.navigation.security.subItems.audits', href: createUrl('/security/audit-reports') },
+        { id: 'stay-safe', label: 'common.navigation.security.subItems.safe', href: createUrl('/security/safety-guide') },
+        { id: 'faq', label: 'common.navigation.security.subItems.faq', href: createUrl('/help/faq') }
       ]
     },
     {
       id: 'about',
-      label: 'About',
+      label: 'common.navigation.aboutMenu.label',
       banner: ASSET_PATHS.NAVIGATION.ABOUT_BANNER,
-      description: 'Learn more about diBoaS and our mission',
+      description: 'common.navigation.aboutMenu.description',
       subItems: [
-        { id: 'about-diboas', label: 'More About diBoaS', href: createUrl('/about') },
-        { id: 'careers', label: 'Join our Team', href: createUrl('/careers') },
-        { id: 'documentation', label: 'Documentation', href: createUrl('/docs') },
-        { id: 'investors', label: 'Investors', href: createUrl('/investors') },
-        { id: 'compliance', label: 'Compliance', href: createUrl('/legal/terms') }
+        { id: 'about-diboas', label: 'common.navigation.aboutMenu.subItems.about', href: createUrl('/about') },
+        { id: 'careers', label: 'common.navigation.aboutMenu.subItems.careers', href: createUrl('/careers') },
+        { id: 'documentation', label: 'common.navigation.aboutMenu.subItems.documentation', href: createUrl('/docs') },
+        { id: 'investors', label: 'common.navigation.aboutMenu.subItems.investors', href: createUrl('/investors') },
+        { id: 'compliance', label: 'common.navigation.aboutMenu.subItems.compliance', href: createUrl('/legal/terms') }
       ]
     }
   ],
 
   mobileHighlights: [
-    { id: 'benefits', label: 'diBoaS Benefits', href: createUrl('/benefits') },
-    { id: 'learn', label: 'Learn Center', href: createUrl('/learn/benefits') },
-    { id: 'rewards', label: 'Rewards', href: createUrl('/rewards/benefits') }
+    { id: 'benefits', label: 'common.navigation.mobile.highlights.benefits', href: createUrl('/benefits') },
+    { id: 'learn', label: 'common.navigation.mobile.highlights.learn', href: createUrl('/learn/benefits') },
+    { id: 'rewards', label: 'common.navigation.mobile.highlights.rewards', href: createUrl('/rewards/benefits') }
   ],
 
   mobileSections: [
     {
-      title: 'For You',
+      title: 'common.navigation.mobile.sections.forYou',
       items: [
-        { id: 'diboas', label: 'diBoaS', href: createUrl('/benefits') },
-        { id: 'learn', label: 'Learn Center', href: createUrl('/learn/benefits') },
-        { id: 'rewards', label: 'Rewards', href: createUrl('/rewards/benefits') }
+        { id: 'diboas', label: 'common.navigation.diboas.label', href: createUrl('/benefits') },
+        { id: 'learn', label: 'common.navigation.learn.label', href: createUrl('/learn/benefits') },
+        { id: 'rewards', label: 'common.navigation.rewards.label', href: createUrl('/rewards/benefits') }
       ]
     },
     {
-      title: 'For Business',
+      title: 'common.navigation.mobile.sections.forBusiness',
       items: [
-        { id: 'business', label: 'diBoaS Business', href: createUrl('/business/benefits') }
+        { id: 'business', label: 'common.navigation.business.label', href: createUrl('/business/benefits') }
       ]
     }
   ],
 
   actions: {
     primary: {
-      label: 'Get Started',
+      label: 'common.navigation.actions.primary',
       href: APP_URL,
       variant: 'primary'
     },
     secondary: {
-      label: 'Business Login',
+      label: 'common.navigation.actions.secondary',
       href: BUSINESS_URL,
       variant: 'secondary'
     }

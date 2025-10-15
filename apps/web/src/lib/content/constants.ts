@@ -4,7 +4,7 @@
  */
 
 import { ContentConfig } from './types';
-import type { SupportedLocale } from '@diboas/i18n';
+import type { SupportedLocale } from '@diboas/i18n/server';
 
 export const CONTENT_DEFAULTS: ContentConfig = {
   defaultLocale: 'en' as SupportedLocale,

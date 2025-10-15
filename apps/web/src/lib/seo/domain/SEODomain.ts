@@ -6,7 +6,7 @@
  * Error Handling: Resilient SEO generation with fallbacks
  */
 
-import { SupportedLocale } from '@diboas/i18n';
+import { SupportedLocale } from '@diboas/i18n/server';
 
 // Domain Entities
 export interface SEOPage {

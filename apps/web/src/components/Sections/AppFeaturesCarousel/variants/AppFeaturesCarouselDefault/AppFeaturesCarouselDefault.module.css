@@ -1,0 +1,615 @@
+/**
+ * AppFeaturesCarouselDefault Variant Styles
+ * 
+ * File Decoupling: Isolated styles for default app features carousel variant
+ * Design Tokens: Uses centralized design system tokens
+ * Performance: Optimized for interactive carousel animations
+ * No Hardcoded Values: All values from design tokens
+ */
+
+/* ================================
+   APP FEATURES CAROUSEL DEFAULT VARIANT
+   ================================ */
+
+/* Section Container */
+.section {
+  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
+  background-color: var(--afc-color-section-bg);
+  width: var(--section-width-full);
+  height: var(--section-height-carousel);
+  overflow: hidden;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .section {
+    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+  }
+}
+
+/* Main Container */
+.container {
+  max-width: var(--dimension-1200);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--afc-container-gap);
+  width: var(--percent-100);
+  overflow: hidden;
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .container {
+    gap: var(--afc-container-gap-desktop);
+  }
+}
+
+/* ================================
+   TITLE STYLES
+   ================================ */
+
+/* Section Title */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--afc-color-title);
+  text-align: center;
+  margin: 0;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-title-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-title-desktop);
+    text-align: left;
+  }
+}
+
+/* ================================
+   CARDS GRID STYLES
+   ================================ */
+
+/* Cards Grid - Documentation Compliant Layout */
+.cardsGrid {
+  position: relative;
+  padding: 0 8px;
+}
+
+/* Mobile (<768px): 1.2-1.4 cards horizontal snap carousel */
+@media (max-width: 767px) {
+  .cardsGrid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: var(--spacing-md);
+    padding: 0 24px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .cardsGrid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .cardWrapper {
+    flex: 0 0 75%;
+    scroll-snap-align: center;
+    max-width: 280px;
+  }
+}
+
+/* Tablet (768-1023px): 3 columns with snap-scroll */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cardsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .cardWrapper {
+    scroll-snap-align: start;
+  }
+}
+
+/* Desktop (≥1024px): 4 columns grid layout */
+@media (min-width: 1024px) {
+  .cardsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-items: center;
+  }
+}
+
+/* Large Desktop: Increase gap */
+@media (min-width: 1200px) {
+  .cardsGrid {
+    gap: 32px;
+  }
+}
+
+/* ================================
+   CARD STYLES
+   ================================ */
+
+/* Card Wrapper */
+.cardWrapper {
+  position: relative;
+  width: var(--percent-100);
+  scroll-snap-align: center;
+  cursor: pointer;
+  transition: transform var(--transition-slow) ease-in-out, width var(--transition-slow) ease-in-out;
+  outline-offset: var(--spacing-xs);
+}
+
+.cardWrapper:focus-visible {
+  outline: var(--radius-sm) solid var(--afc-color-accent);
+}
+
+/* Card Image Container */
+.card {
+  position: relative;
+  width: var(--percent-100);
+  height: var(--percent-100);
+  border-radius: var(--afc-border-radius-card);
+  overflow: hidden;
+  background-color: var(--afc-color-card-bg);
+  transition: all var(--afc-transition-duration) var(--afc-transition-easing);
+  box-shadow: var(--shadow-md);
+}
+
+/* Responsive: Mobile */
+@media (max-width: 767px) {
+  .card {
+    height: auto;
+  }
+}
+
+/* Responsive: Tablet */
+@media (min-width: var(--breakpoint-tablet)) and (max-width: 1023px) {
+  .card {
+    height: auto;
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .card {
+    height: auto;
+  }
+}
+
+/* Responsive: Large Desktop */
+@media (min-width: var(--dimension-1200)) {
+  .card {
+    height: auto;
+  }
+}
+
+/* Card Image */
+.cardImage {
+  width: var(--percent-100);
+  height: var(--percent-100);
+  object-fit: cover;
+  transition: 
+    filter var(--transition-slow) ease-in-out,
+    transform var(--transition-slow) ease-in-out;
+}
+
+/* Card Overlay */
+.cardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, var(--opacity-45));
+  transition: opacity var(--transition-slow) ease-in-out;
+  pointer-events: none;
+}
+
+/* Chip Badge */
+.chipBadge {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  left: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 2;
+  background: rgba(255, 255, 255, var(--opacity-95));
+  backdrop-filter: blur(var(--spacing-sm));
+  border-radius: var(--afc-border-radius-chip);
+  padding: var(--padding-card-mobile);
+  font-size: var(--font-size-text-desktop);
+  font-weight: var(--font-weight-semibold);
+  color: var(--afc-color-title);
+  text-align: center;
+  box-shadow: 0 var(--spacing-xs) var(--spacing-md) rgba(0, 0, 0, var(--opacity-15));
+  transition: opacity var(--transition-slow) ease-in-out;
+  opacity: var(--opacity-0);
+}
+
+/* Responsive: Tablet */
+@media (min-width: var(--breakpoint-tablet)) {
+  .chipBadge {
+    bottom: var(--spacing-xl);
+    left: var(--spacing-xl);
+    right: var(--spacing-xl);
+    padding: var(--padding-card-tablet);
+    font-size: var(--font-size-text-tablet);
+  }
+}
+
+/* Gradient overlay for chip legibility */
+.gradientOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, var(--opacity-60)) 0%,
+    rgba(0, 0, 0, var(--opacity-30)) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transition: opacity var(--transition-slow) ease-in-out;
+}
+
+/* ================================
+   CARD STATES
+   ================================ */
+
+/* Active Card */
+.cardWrapper.active .card {
+  transform: var(--transform-scale-104);
+  box-shadow: 
+    0 var(--spacing-md) 25px rgba(0, 0, 0, var(--opacity-15)),
+    0 var(--spacing-xs) var(--spacing-md) rgba(139, 92, 246, var(--opacity-10));
+}
+
+.cardWrapper.active .cardImage {
+  filter: saturate(1.1) brightness(1.05);
+}
+
+.cardWrapper.active .cardOverlay {
+  opacity: var(--opacity-0);
+}
+
+.cardWrapper.active .chipBadge {
+  background: rgba(255, 255, 255, var(--opacity-98));
+  box-shadow: 0 6px var(--spacing-xl) rgba(0, 0, 0, var(--opacity-20));
+  opacity: var(--opacity-100);
+}
+
+/* Inactive Card */
+.cardWrapper:not(.active) .card {
+  transform: var(--transform-scale-98);
+}
+
+.cardWrapper:not(.active) .cardImage {
+  filter: saturate(var(--opacity-70)) brightness(var(--opacity-80));
+}
+
+.cardWrapper:not(.active) .cardOverlay {
+  opacity: var(--opacity-100);
+}
+
+.cardWrapper:not(.active) .chipBadge {
+  opacity: var(--opacity-0);
+}
+
+.cardWrapper:not(.active):hover .card {
+  transform: var(--transform-scale-100);
+  box-shadow: 0 var(--spacing-sm) var(--spacing-xl) rgba(0, 0, 0, var(--opacity-12));
+}
+
+.cardWrapper:not(.active):hover .cardOverlay {
+  opacity: var(--opacity-70);
+}
+
+/* ================================
+   DESCRIPTION PANEL STYLES
+   ================================ */
+
+/* Description Panel */
+.descriptionPanel {
+  position: relative;
+  width: var(--percent-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--afc-grid-gap);
+  padding: 0;
+  transition: all var(--afc-transition-duration) var(--afc-transition-easing);
+  opacity: var(--opacity-100);
+}
+
+/* Responsive: Mobile (including 768px) */
+@media (max-width: var(--breakpoint-tablet)) {
+  .descriptionPanel {
+    align-items: flex-start; /* Left align content on mobile */
+    padding: 0;
+    max-width: var(--dimension-300);
+    margin: 0 auto;
+  }
+}
+
+/* Responsive: 768px specific - match larger image width */
+@media (width: var(--breakpoint-tablet)) {
+  .descriptionPanel {
+    max-width: var(--dimension-390); /* Match 30% larger image */
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .descriptionPanel {
+    width: var(--dimension-280); /* Match active image width */
+    align-items: flex-start; /* Left align content within panel */
+    padding: 0;
+    transform: translateX(var(--panel-offset, 0));
+    margin: 0 auto; /* Center the panel itself */
+  }
+}
+
+/* Description Text */
+.description {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-description-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-description);
+  color: var(--afc-color-description);
+  text-align: center;
+  max-width: 520px;
+  margin: 0;
+  transition: opacity var(--afc-transition-duration) var(--afc-transition-easing);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .description {
+    font-size: var(--font-size-description-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .description {
+    font-size: var(--font-size-description-desktop);
+  }
+}
+
+/* Responsive: Mobile (including 768px) */
+@media (max-width: 767px) {
+  .description {
+    text-align: left; /* Left align on mobile */
+    max-width: var(--percent-100);
+  }
+}
+
+/* Responsive: Desktop Layout */
+@media (min-width: 1024px) {
+  .description {
+    text-align: left; /* Left align within the 280px panel */
+    max-width: 260px; /* Slightly narrower than panel for padding */
+    width: var(--percent-100);
+  }
+}
+
+/* ================================
+   CTA STYLES
+   ================================ */
+
+/* CTA Wrapper */
+.ctaWrapper {
+  display: flex;
+  align-self: flex-start;
+}
+
+/* CTA Link */
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--afc-color-accent);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-text-mobile);
+  transition: all var(--transition-fast) ease;
+  outline-offset: var(--spacing-xs);
+  align-self: flex-start; /* Left align the link within panel */
+}
+
+/* Responsive: Tablet */
+@media (min-width: var(--breakpoint-tablet)) {
+  .ctaLink {
+    font-size: var(--font-size-text-desktop);
+  }
+}
+
+.ctaLink:hover {
+  color: var(--afc-color-accent-hover);
+  transform: translateX(var(--spacing-xs));
+}
+
+.ctaLink:focus-visible {
+  outline: var(--radius-sm) solid var(--afc-color-accent);
+}
+
+.ctaIcon {
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  transition: transform var(--transition-fast) ease;
+}
+
+.ctaLink:hover .ctaIcon {
+  transform: translateX(var(--radius-sm));
+}
+
+/* ================================
+   MOBILE CONTROLS STYLES
+   ================================ */
+
+/* Controls (mobile only) */
+.mobileControls {
+  display: none;
+}
+
+@media (max-width: var(--breakpoint-tablet)) {
+  .mobileControls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-6xl);
+    margin-top: var(--spacing-2xl);
+    padding: 0;
+    width: var(--percent-100);
+  }
+}
+
+/* Explicitly hide on desktop */
+@media (min-width: 769px) {
+  .mobileControls {
+    display: none !important;
+  }
+}
+
+/* Dots Navigation */
+.mobileDots {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.mobileDot {
+  width: var(--spacing-md);
+  height: var(--spacing-md);
+  border-radius: var(--radius-full);
+  background-color: var(--afc-color-dot-inactive);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal) ease;
+  outline-offset: var(--spacing-xs);
+}
+
+.mobileDot:hover {
+  background-color: var(--afc-color-dot-hover);
+}
+
+.mobileDot:focus-visible {
+  outline: var(--radius-sm) solid var(--afc-color-accent);
+}
+
+.mobileDotActive {
+  width: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  background-color: var(--afc-color-dot-active);
+}
+
+/* Play/Pause Button */
+.mobilePlayPauseButton {
+  width: var(--spacing-4xl);
+  height: var(--spacing-4xl);
+  border-radius: var(--radius-full);
+  background-color: var(--afc-color-control-bg);
+  border: var(--radius-sm) solid var(--afc-color-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast) ease;
+  outline-offset: var(--spacing-xs);
+}
+
+.mobilePlayPauseButton:hover {
+  background-color: var(--afc-color-control-hover-bg);
+  border-color: var(--afc-color-border-hover);
+}
+
+.mobilePlayPauseButton:focus-visible {
+  outline: var(--radius-sm) solid var(--afc-color-accent);
+}
+
+.mobileControlIcon {
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  color: var(--afc-color-text-primary);
+}
+
+/* ================================
+   ANIMATIONS & ACCESSIBILITY
+   ================================ */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .cardWrapper,
+  .card,
+  .cardImage,
+  .cardOverlay,
+  .chipBadge,
+  .gradientOverlay,
+  .descriptionPanel,
+  .description,
+  .ctaLink,
+  .ctaIcon {
+    animation: none;
+    transition: none;
+  }
+  
+  .cardWrapper.active .card,
+  .cardWrapper:not(.active) .card,
+  .cardWrapper:not(.active):hover .card {
+    transform: none;
+  }
+  
+  .ctaLink:hover,
+  .ctaLink:hover .ctaIcon {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .card {
+    border: var(--radius-sm) solid var(--color-black);
+  }
+  
+  .cardWrapper.active .card {
+    border-color: var(--afc-color-accent);
+    border-width: 3px;
+  }
+  
+  .chipBadge {
+    background: var(--color-white);
+    border: 1px solid var(--color-black);
+    color: var(--color-black);
+  }
+  
+  .ctaLink {
+    text-decoration: underline;
+  }
+}

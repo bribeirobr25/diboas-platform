@@ -7,7 +7,7 @@
  * No Hardcoded Values: All values configurable through interfaces
  */
 
-export type FeatureShowcaseVariant = 'default' | 'minimal' | 'fullscreen';
+export type FeatureShowcaseVariant = 'default' | 'benefits';
 
 export interface FeatureShowcaseContent {
   readonly title: string;
@@ -19,14 +19,10 @@ export interface FeatureShowcaseContent {
 
 export interface FeatureShowcaseAssets {
   readonly primaryImage: string;
-  readonly secondaryImage: string;
 }
 
 export interface FeatureShowcaseSEO {
-  readonly imageAlt: {
-    readonly primary: string;
-    readonly secondary: string;
-  };
+  readonly imageAlt: string;
 }
 
 export interface FeatureShowcaseSlide {
@@ -34,7 +30,6 @@ export interface FeatureShowcaseSlide {
   readonly content: FeatureShowcaseContent;
   readonly assets: FeatureShowcaseAssets;
   readonly seo: FeatureShowcaseSEO;
-  readonly showSecondaryImage?: boolean;
 }
 
 export interface FeatureShowcaseSettings {
@@ -93,66 +88,54 @@ export const DEFAULT_FEATURE_SHOWCASE_SETTINGS: FeatureShowcaseSettings = {
 } as const;
 
 // Default feature showcase slides
+// Note: Titles, descriptions, and CTA text are translation keys that will be resolved at runtime
 export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = [
   {
-    id: 'overview',
+    id: 'activity-and-rewards',
     content: {
-      title: 'Track Activities & Earn Rewards',
-      description: 'Monitor your financial activities and earn rewards all in one place. Get a complete view of your financial health with exclusive benefits.',
-      ctaText: 'Get Started',
+      title: 'marketing.featureShowcase.overview.title',
+      description: 'marketing.featureShowcase.overview.description',
+      ctaText: 'common.buttons.getStarted',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/socials/drawing/phone-activities.avif',
-      secondaryImage: '/assets/socials/drawing/phone-rewards.avif'
+      primaryImage: '/assets/socials/drawing/phone-activity-and-rewards.avif'
     },
     seo: {
-      imageAlt: {
-        primary: 'diBoaS mobile app showing activities overview interface',
-        secondary: 'diBoaS mobile app showing rewards overview interface'
-      }
-    },
-    showSecondaryImage: true
+      imageAlt: 'diBoaS mobile app showing activities and rewards overview interface'
+    }
   },
   {
     id: 'activities',
     content: {
-      title: 'Track Your Financial Activities',
-      description: 'Monitor all your financial activities in one place. From spending insights to investment tracking, get a complete view of your financial health.',
-      ctaText: 'Explore Activities',
+      title: 'marketing.featureShowcase.activities.title',
+      description: 'marketing.featureShowcase.activities.description',
+      ctaText: 'common.buttons.getStarted',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/socials/drawing/phone-activities.avif',
-      secondaryImage: '/assets/socials/drawing/phone-activities.avif'
+      primaryImage: '/assets/socials/drawing/phone-activities.avif'
     },
     seo: {
-      imageAlt: {
-        primary: 'diBoaS mobile app showing financial activities tracking interface',
-        secondary: 'diBoaS mobile app showing financial activities tracking interface'
-      }
+      imageAlt: 'diBoaS mobile app showing financial activities tracking interface'
     }
   },
   {
     id: 'rewards',
     content: {
-      title: 'Earn Rewards & Benefits',
-      description: 'Get rewarded for your financial activities. Earn points, unlock benefits, and access exclusive features as you grow your financial portfolio.',
-      ctaText: 'Discover Rewards',
+      title: 'marketing.featureShowcase.rewards.title',
+      description: 'marketing.featureShowcase.rewards.description',
+      ctaText: 'common.buttons.getStarted',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/socials/drawing/phone-rewards.avif',
-      secondaryImage: '/assets/socials/drawing/phone-rewards.avif'
+      primaryImage: '/assets/socials/drawing/phone-rewards.avif'
     },
     seo: {
-      imageAlt: {
-        primary: 'diBoaS mobile app showing rewards and loyalty program interface',
-        secondary: 'diBoaS mobile app showing rewards and loyalty program interface'
-      }
+      imageAlt: 'diBoaS mobile app showing rewards and loyalty program interface'
     }
   }
 ] as const;
@@ -172,35 +155,17 @@ export const FEATURE_SHOWCASE_CONFIGS = {
       }
     }
   },
-  minimal: {
-    variant: 'minimal' as const,
-    slides: DEFAULT_FEATURE_SHOWCASE_SLIDES,
-    settings: {
-      ...DEFAULT_FEATURE_SHOWCASE_SETTINGS,
-      showNavigation: false,
-      showDots: false,
-      transitionDuration: 200,
-    },
-    analytics: {
-      trackingPrefix: 'feature_showcase_minimal',
-      enabled: true,
-      eventSuffixes: {
-        navigation: '_navigation',
-        ctaClick: '_cta_click'
-      }
-    }
-  },
-  fullscreen: {
-    variant: 'fullscreen' as const,
+  benefits: {
+    variant: 'benefits' as const,
     slides: DEFAULT_FEATURE_SHOWCASE_SLIDES,
     settings: {
       ...DEFAULT_FEATURE_SHOWCASE_SETTINGS,
       showNavigation: true,
       showDots: true,
-      transitionDuration: 250,
+      transitionDuration: 500,
     },
     analytics: {
-      trackingPrefix: 'feature_showcase_fullscreen',
+      trackingPrefix: 'feature_showcase_benefits',
       enabled: true,
       eventSuffixes: {
         navigation: '_navigation',
@@ -217,7 +182,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
   
   // Learn page - Educational content
   LEARN: {
-    variant: 'minimal' as const,
+    variant: 'default' as const,
     slides: [
       {
         id: 'learn-courses',
@@ -229,14 +194,10 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           ctaTarget: '_self'
         },
         assets: {
-          primaryImage: '/assets/socials/drawing/phone-activities.avif',
-          secondaryImage: '/assets/socials/drawing/phone-rewards.avif'
+          primaryImage: '/assets/socials/drawing/phone-activities.avif'
         },
         seo: {
-          imageAlt: {
-            primary: 'diBoaS learning platform showing educational courses interface',
-            secondary: 'diBoaS mobile app showing progress tracking interface'
-          }
+          imageAlt: 'diBoaS learning platform showing educational courses interface'
         }
       }
     ],
@@ -258,7 +219,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
   
   // Business page - B2B features
   BUSINESS: {
-    variant: 'fullscreen' as const,
+    variant: 'default' as const,
     slides: [
       {
         id: 'business-solutions',
@@ -270,14 +231,10 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           ctaTarget: '_self'
         },
         assets: {
-          primaryImage: '/assets/socials/drawing/phone-activities.avif',
-          secondaryImage: '/assets/socials/drawing/phone-rewards.avif'
+          primaryImage: '/assets/socials/drawing/phone-activities.avif'
         },
         seo: {
-          imageAlt: {
-            primary: 'diBoaS business platform showing enterprise financial tools',
-            secondary: 'diBoaS business dashboard showing analytics and reporting'
-          }
+          imageAlt: 'diBoaS business platform showing enterprise financial tools'
         }
       }
     ],

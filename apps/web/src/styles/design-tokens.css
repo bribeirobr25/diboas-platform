@@ -10,23 +10,155 @@
  */
 
 :root {
-  /* Typography Scale */
-  --font-title-hero-desktop: 48px;
-  --font-title-hero-mobile: 34px;
-  --font-title-section-desktop: 40px;
-  --font-title-section-mobile: 30px;
-  --font-body-subtitle: 16px;
-  --font-body-description: 16px;
-  --font-ui-link: 14px;
-  --font-ui-button: 12px;
+  /* ================================
+     TYPOGRAPHY DESIGN SYSTEM
+     ================================ */
+  
+  /* Font Family - Single source of truth */
+  --font-family-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  
+  /* Typography Scale - Desktop */
+  --font-size-title-desktop: 50px;
+  --font-size-subtitle-desktop: 30px;
+  --font-size-description-desktop: 20px;
+  --font-size-text-desktop: 18px;
+  
+  /* Typography Scale - Tablet */
+  --font-size-title-tablet: 40px;
+  --font-size-subtitle-tablet: 26px;
+  --font-size-description-tablet: 18px;
+  --font-size-text-tablet: 16px;
+  
+  /* Typography Scale - Mobile */
+  --font-size-title-mobile: 32px;
+  --font-size-subtitle-mobile: 22px;
+  --font-size-description-mobile: 16px;
+  --font-size-text-mobile: 14px;
+  
+  /* UI Elements (keep existing values with token approach) */
+  --font-size-ui-link: 14px;
+  --font-size-ui-button: 12px;
+  
+  /* Line Heights */
+  --line-height-title: 1.2;
+  --line-height-subtitle: 1.3;
+  --line-height-description: 1.5;
+  --line-height-text: 1.6;
 
-  /* Spacing Scale */
-  --spacing-section-desktop-y: 64px;
-  --spacing-section-desktop-x: 120px;
-  --spacing-section-tablet-y: 48px;
-  --spacing-section-tablet-x: 64px;
-  --spacing-section-mobile-y: 48px;
-  --spacing-section-mobile-x: 24px;
+  /* ================================
+     PADDING DESIGN SYSTEM
+     ================================ */
+  
+  /* Section Padding - Standard (all sections except Hero & Navigation) */
+  --padding-section-desktop-y: 64px;
+  --padding-section-desktop-x: 120px;
+  --padding-section-tablet-y: 48px;
+  --padding-section-tablet-x: 64px;
+  --padding-section-mobile-y: 48px;
+  --padding-section-mobile-x: 24px;
+  
+  /* Hero & Navigation Padding - No padding */
+  --padding-hero-nav-desktop-y: 0;
+  --padding-hero-nav-desktop-x: 0;
+  --padding-hero-nav-tablet-y: 0;
+  --padding-hero-nav-tablet-x: 0;
+  --padding-hero-nav-mobile-y: 0;
+  --padding-hero-nav-mobile-x: 0;
+  
+  /* Component Internal Padding - Buttons, Cards, Panels */
+  --padding-button-y: 12px;
+  --padding-button-x: 24px;
+  --padding-card-mobile: 16px;
+  --padding-card-tablet: 20px;
+  --padding-card-desktop: 24px;
+  --padding-panel-mobile: 0px;
+  --padding-panel-tablet: 0px;
+  --padding-panel-desktop: 0px;
+  
+  /* ================================
+     SECTION DIMENSIONS
+     ================================ */
+  
+  /* Section Heights - Fixed heights for all section components */
+  --section-height-hero: 632px;
+  --section-height-carousel: 832px;
+  --section-height-carousel-mobile: 762px; /* 832px - 70px for mobile */
+  --section-height-feature: 632px;
+  
+  /* Section Widths - All sections are full width */
+  --section-width-full: 100%;
+  
+  /* ================================
+     PRODUCT CAROUSEL DIMENSIONS
+     ================================ */
+  
+  /* Product Carousel - Image Sizes */
+  /* Desktop & Tablet Active Image */
+  --pc-image-active-width-desktop: 310px;
+  --pc-image-active-height-desktop: 467px;
+  
+  /* Desktop & Tablet Inactive Images */
+  --pc-image-inactive-width-desktop: 258px;
+  --pc-image-inactive-height-desktop: 389px;
+  
+  /* Mobile Active Image */
+  --pc-image-active-width-mobile: 240px;
+  --pc-image-active-height-mobile: 359px;
+  
+  /* Mobile Inactive Images */
+  --pc-image-inactive-width-mobile: 202px;
+  --pc-image-inactive-height-mobile: 303px;
+  
+  /* Product Carousel - Visibility Percentages */
+  --pc-inactive-visibility-desktop: 90%;
+  --pc-inactive-visibility-tablet: 40%;
+  --pc-inactive-visibility-mobile: 10%;
+  
+  /* Product Carousel - Animation */
+  --pc-rotation-interval: 5s;
+  --pc-rotation-interval-ms: 5000;
+  --pc-transition-duration: 0.6s;
+  --pc-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Product Carousel - Z-Index */
+  --pc-z-index-inactive: 1;
+  --pc-z-index-active: 3;
+  
+  /* Product Carousel - Positioning */
+  --pc-position-center: 50%;
+  --pc-transform-center: translate(-50%, -50%);
+  
+  /* Product Carousel - Vertical Positioning */
+  --pc-vertical-offset-active: -50%;
+  --pc-vertical-offset-inactive-mobile: -50%;
+  --pc-vertical-offset-inactive-tablet: -50%;
+  --pc-vertical-offset-inactive-desktop: -50%; /* Keep centered vertically */
+  
+  /* Product Carousel - Top Position for Inactive Cards */
+  --pc-inactive-top-desktop: 50%; /* Position inactive cards higher */
+  
+  /* Product Carousel - Layout */
+  --pc-margin-auto: 0 auto;
+  --pc-width-full: 100%;
+  --pc-aspect-ratio: 3/4;
+  
+  /* Product Carousel - Card Offsets (pre-calculated) */
+  /* Desktop offsets */
+  --pc-left-card-offset-desktop: -380px;
+  --pc-right-card-offset-desktop: 120px;
+  
+  /* Tablet offsets */
+  --pc-left-card-offset-tablet: -300px;
+  --pc-right-card-offset-tablet: 36px;
+  
+  /* Mobile offsets */
+  --pc-left-card-offset-mobile: -190px;
+  --pc-right-card-offset-mobile: -13px;
+  
 
   /* Animation Tokens */
   --animation-duration-fast: 0.15s;
@@ -47,34 +179,54 @@
      IMAGE SCALING & POSITIONING
      ================================ */
   /* Image Scale Configuration - Control all sizes from here */
-  --fs-primary-scale-mobile: 0.8;
-  --fs-primary-scale-tablet: 1;
-  --fs-primary-scale-desktop: 1;
+  --fs-primary-scale-mobile: 0.7;
+  --fs-primary-scale-tablet: 0.8;
+  --fs-primary-scale-desktop: 0.8;
   
-  --fs-secondary-scale-mobile: 0.5;
-  --fs-secondary-scale-tablet: 0.6;
-  --fs-secondary-scale-desktop: 0.7;
+  --fs-secondary-scale-mobile: 0.7;
+  --fs-secondary-scale-tablet: 0.8;
+  --fs-secondary-scale-desktop: 0.8;
   
   /* Image Base Dimensions */
   --fs-image-base-width: 280px;
   --fs-image-base-height: 360px;
   
+  /* Calculated Image Sizes - Primary */
+  --fs-primary-image-width-mobile: 235px; /* 196px * 1.2 (20% bigger) */
+  --fs-primary-image-height-mobile: 302px; /* 252px * 1.2 (20% bigger) */
+  --fs-primary-image-width-tablet: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-primary-image-height-tablet: 346px; /* 288px * 1.2 (20% bigger) */
+  --fs-primary-image-width-desktop: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-primary-image-height-desktop: 346px; /* 288px * 1.2 (20% bigger) */
+  
+  /* Calculated Image Sizes - Secondary */
+  --fs-secondary-image-width-mobile: 235px; /* 196px * 1.2 (20% bigger) */
+  --fs-secondary-image-height-mobile: 302px; /* 252px * 1.2 (20% bigger) */
+  --fs-secondary-image-width-tablet: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-secondary-image-height-tablet: 346px; /* 288px * 1.2 (20% bigger) */
+  --fs-secondary-image-width-desktop: 269px; /* 224px * 1.2 (20% bigger) */
+  --fs-secondary-image-height-desktop: 346px; /* 288px * 1.2 (20% bigger) */
+  
   /* Container Heights */
-  --fs-container-height-mobile: 320px;
-  --fs-container-height-tablet: 420px;
-  --fs-container-height-desktop: 520px;
+  --fs-container-height-mobile: 300px;
+  --fs-container-height-tablet: 360px;
+  --fs-container-height-desktop: 420px;
   
   /* Primary Image Positioning */
-  --fs-primary-position-x: -60%;
+  --fs-primary-position-x: -70%;
   --fs-primary-position-y: -50%;
   --fs-position-primary-top: 50%;
-  --fs-position-primary-left: 40%;
-  --fs-transform-primary-tablet-x: -65%;
-  --fs-transform-primary-desktop-x: -45%;
+  --fs-position-primary-left: 35%;
+  --fs-transform-primary-tablet-x: -50%;
+  --fs-transform-primary-desktop-x: -55%;
   
   /* Secondary Image Positioning */
-  --fs-secondary-position-top: 45%;
-  --fs-secondary-position-right: -20%;
+  --fs-secondary-position-x: 20%;
+  --fs-secondary-position-y: 5%;
+  --fs-secondary-position-top: 5%;
+  --fs-secondary-position-right: -7%;
+  --fs-transform-secondary-tablet-x: -10%;
+  --fs-transform-secondary-desktop-x: -20%;
   --fs-secondary-opacity: 0.9;
 
   /* ================================
@@ -86,11 +238,87 @@
   --fs-color-nav-button-hover-bg: #f7fafc;
   --fs-color-transparent: transparent;
   
+  /* Surface Colors - Neutral Backgrounds */
+  --surface-50: #fafafa;
+  
   /* Text Colors */
   --fs-color-title: #1a365d;
   --fs-color-description: #4a5568;
   --fs-color-button-text: white;
   --fs-color-muted: #a0aec0;
+
+  /* ================================
+     VISUAL PANEL STYLING
+     ================================ */
+  /* Panel Container */
+  --fs-panel-bg: #ffffff;
+  --fs-panel-border-radius: 32px;
+  --fs-panel-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  
+  /* Image Rotations */
+  --fs-primary-image-rotation: 10deg;
+  --fs-secondary-image-rotation: -8deg;
+  
+  /* Image Transforms and Z-Index */
+  --fs-primary-image-translate-y: 12px;
+  --fs-primary-image-scale-min: 0.88;
+  --fs-primary-image-scale-max: 0.92;
+  --fs-primary-image-scale: 0.9; /* Mid-range default */
+  --fs-secondary-image-scale: 1.0;
+  --fs-primary-image-z-index: 1;
+  --fs-secondary-image-z-index: 2;
+
+  /* ================================
+     LAYOUT & CONTAINER TOKENS
+     ================================ */
+  /* Container Specifications */
+  --fs-container-max-width: 1200px;
+  
+  /* Grid Layout */
+  --fs-grid-gap-desktop: 48px;
+  --fs-text-column-ratio: 1fr;
+  --fs-visual-column-ratio: 1.2fr;
+  
+  /* ================================
+     TYPOGRAPHY SPECIFICATIONS
+     ================================ */
+  /* Title Typography */
+  --fs-title-desktop-min: 48px;
+  --fs-title-desktop-max: 56px;
+  --fs-title-mobile-min: 32px;
+  --fs-title-mobile-max: 36px;
+  --fs-title-line-height-tight: 1.1;
+  
+  /* Description Typography */
+  --fs-description-font-size-desktop: 18px;
+  --fs-description-font-size-mobile: 16px;
+  --fs-description-max-width: 520px;
+  --fs-description-line-height: 1.5;
+  
+  /* CTA Typography */
+  --fs-cta-border-radius-pill: 22px;
+  
+  /* Navigation Buttons */
+  --fs-nav-button-size: 40px;
+  --fs-nav-button-style: ghost;
+  
+  /* ================================
+     ANIMATION & TRANSITION TOKENS
+     ================================ */
+  /* Transition Durations */
+  --fs-text-transition-duration: 250ms;
+  --fs-visual-transition-duration: 350ms;
+  --fs-cross-fade-duration: 200ms;
+  --fs-slide-duration: 300ms;
+  
+  /* Animation Easings */
+  --fs-easing-text: cubic-bezier(0.4, 0, 0.2, 1);
+  --fs-easing-visual: cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Transform Properties */
+  --fs-translate-distance: 16px;
+  --fs-fade-opacity-start: 0;
+  --fs-fade-opacity-end: 1;
   
   /* Border Colors */
   --fs-color-border-primary: #e2e8f0;
@@ -113,14 +341,14 @@
   --fs-gap-cta-tablet: 1.25rem;
   --fs-gap-cta-desktop: 1.5rem;
   
-  /* Padding & Margins */
-  --fs-padding-button: 12px 24px;
   
   /* Layout Dimensions */
   --fs-max-width-container: 1200px;
   --fs-max-width-visual-desktop: 496px;
   --fs-max-width-visual-mobile: 400px;
   --fs-max-width-visual-tablet: 450px;
+  --fs-image-container-width: 1.0;
+  --fs-image-container-width-percent: 100%;
   
   /* Component Sizes */
   --fs-size-button: 40px;
@@ -140,8 +368,6 @@
   --fs-line-height-title: 1.2;
   --fs-line-height-description: 1.6;
   
-  /* Font Sizes */
-  --fs-font-size-fallback-icon: 3rem;
 
   /* ================================
      BORDERS & SHAPES
@@ -150,6 +376,8 @@
   --fs-border-radius-button: 24px;
   --fs-border-radius-circle: 50%;
   --fs-border-radius-dot-active: 4px;
+  --fs-border-radius-image-primary: 24px;
+  --fs-border-radius-image-secondary: 20px;
   
   /* Border Widths */
   --fs-border-width-button: 2px;
@@ -191,6 +419,8 @@
      ================================ */
   /* Box Shadows */
   --fs-shadow-button-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+  --fs-shadow-image-primary: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --fs-shadow-image-secondary: 0 6px 24px rgba(0, 0, 0, 0.08);
 
   /* ================================
      RESPONSIVE BREAKPOINTS
@@ -208,12 +438,12 @@
      COLORS & THEMING
      ================================ */
   /* Background Colors */
-  --pc-color-section-bg: #fafafa;
+  --pc-color-section-bg: var(--surface-50, #fafafa);
   --pc-color-heading: #1a365d;
   --pc-color-subtitle: #4a5568;
   --pc-color-card-bg: #ffffff;
-  --pc-color-cta-bg: #ffffff;
-  --pc-color-cta-text: #1a365d;
+  --pc-color-cta-bg: #9b9290;
+  --pc-color-cta-text: #fefefe;
   
   /* Navigation Controls */
   --pc-color-dot-inactive: #cbd5e0;
@@ -226,19 +456,31 @@
   
   /* Overlay Effects */
   --pc-color-overlay-start: rgba(0, 0, 0, 0.7);
+  --pc-color-overlay-mid: rgba(0, 0, 0, 0.4);
   --pc-color-overlay-end: transparent;
-  --pc-gradient-overlay: linear-gradient(180deg, var(--pc-color-overlay-start) 0%, var(--pc-color-overlay-end) 100%);
+  --pc-gradient-overlay: linear-gradient(180deg, var(--pc-color-overlay-end) 0%, var(--pc-color-overlay-mid) 60%, var(--pc-color-overlay-start) 100%);
   
   /* ================================
      SPACING & LAYOUT
      ================================ */
   /* Container Dimensions */
   --pc-container-max-width: 1200px;
-  --pc-track-height-mobile: 310px;
+  --pc-track-height-mobile: 400px;
   --pc-track-height-tablet: 420px;
-  --pc-track-height-desktop: 420px;
+  --pc-track-height-desktop: 520px;
   
-  /* Slide Dimensions */
+  /* 3-Card Layout Dimensions */
+  --pc-card-width-desktop: 360px;
+  --pc-card-height-desktop: 480px;
+  --pc-card-width-tablet: 306px;  /* 15% smaller */
+  --pc-card-height-tablet: 408px;  /* 15% smaller */
+  --pc-card-width-mobile: 280px;
+  --pc-card-height-mobile: 373px;  /* Maintains 3:4 ratio */
+  
+  /* Card Spacing & Peek */
+  --pc-card-peek: 20px;
+  
+  /* Legacy Slide Dimensions (backward compatibility) */
   --pc-slide-width-mobile: 70%;
   --pc-slide-max-width: 280px;
   --pc-subtitle-max-width: 290px;
@@ -294,8 +536,51 @@
   --pc-control-transition-easing: ease;
   
   /* Transform Values */
-  --pc-transform-active-scale: scale(1.05);
+  /* 3-Card Layout Transforms & Opacity */
+  --pc-transform-active-scale: var(--transform-scale-110);
+  --pc-transform-side-scale: var(--transform-scale-90);
+  --pc-transform-side-translate-left: translateX(var(--spacing-xl-negative));
+  --pc-transform-side-translate-right: translateX(var(--spacing-xl));
+  --pc-opacity-active: var(--opacity-100);
+  --pc-opacity-side: var(--opacity-75);
+  --pc-opacity-mobile-side: var(--opacity-60);
+  
+  /* Touch & Swipe Interaction */
+  --pc-swipe-threshold: var(--spacing-4xl); /* 40px */
+  --pc-swipe-velocity-threshold: 0.3; /* px/ms */
+  
+  /* Image Responsive Sizes */
+  --pc-image-size-mobile: 280px;
+  --pc-image-size-tablet: 306px;  
+  --pc-image-size-desktop: 360px;
+  
+  /* Image Sizes String for Next.js Image component */
+  --pc-image-sizes: (max-width: 768px) 280px, (max-width: 1024px) 306px, 360px;
+  
+  /* Z-index Values */
+  --pc-z-index-active-card: 3;
+  --pc-z-index-side-card: 2;
+  --pc-z-index-hidden-card: 1;
+  
+  /* Transform Values */
+  --pc-subtitle-transform-in: translateY(var(--spacing-sm));
+  --pc-subtitle-transform-out: translateY(0);
+  
+  /* Mobile Layout */
+  --pc-mobile-container-padding: var(--spacing-lg); /* 16px */
+  --pc-mobile-card-max-width: 360px;
+  --pc-card-max-width-mobile: 400px;
+  
+  /* 3-Card Layout Positioning */
+  --pc-card-active-left: 50%;
+  --pc-card-active-top: 50%;
+  --pc-card-side-desktop-offset: 15%;
+  --pc-card-side-mobile-offset: 5%;
   --pc-transform-hover-lift: translateY(-2px);
+  
+  /* Subtitle Animation */
+  --pc-subtitle-transition-duration: 300ms;
+  --pc-subtitle-transition-easing: ease-in-out;
   
   /* ================================
      COMPONENT SIZES
@@ -307,8 +592,6 @@
   --pc-control-icon-size: 18px;
   
   /* CTA Elements */
-  --pc-cta-padding: 12px 24px;
-  --pc-cta-font-size: 14px;
   --pc-cta-font-weight: 600;
   
   /* ================================
@@ -327,7 +610,6 @@
      LAYOUT & DIMENSIONS
      ================================ */
   /* Section Dimensions */
-  --hs-section-max-height: 792px;
   --hs-section-padding-base: 0px;
   --hs-section-border-radius: 30px;
   
@@ -393,6 +675,49 @@
   --hs-breakpoint-tablet: 768px;
   --hs-breakpoint-desktop: 1024px;
 
+  /* ================================
+     VISUAL ASSET DIMENSIONS (Documentation Compliance)
+     ================================ */
+  /* Mobile Viewport Height */
+  --hs-mobile-visual-height: 75vh;
+  
+  /* Background Circle Dimensions */
+  --hs-circle-width-mobile: 100%;
+  --hs-circle-height-mobile: 75vh; /* Mobile: 75% viewport height as per documentation */
+  --hs-circle-width-tablet: 75%; /* Tablet: 75% of mobile size */
+  --hs-circle-height-tablet: 56.25vh; /* Tablet: 75% of mobile height */
+  --hs-circle-width-desktop: 400px;
+  --hs-circle-height-desktop: 400px;
+  
+  /* Phone Image Dimensions */
+  --hs-phone-width-mobile: 110%; /* Mobile: slightly larger than circle (100%) */
+  --hs-phone-height-mobile: 420px;
+  --hs-phone-width-tablet: 82.5%; /* Tablet: 75% of mobile (110% * 0.75) */
+  --hs-phone-height-tablet: 315px; /* Tablet: 75% of mobile (420px * 0.75) */
+  --hs-phone-width-desktop: 460px;
+  --hs-phone-height-desktop: 480px;
+  
+  /* Mascot Dimensions */
+  --hs-mascot-width-mobile: 120px;
+  --hs-mascot-height-mobile: 180px;
+  --hs-mascot-width-tablet: 90px; /* Tablet: 75% of mobile (120px * 0.75) */
+  --hs-mascot-height-tablet: 135px; /* Tablet: 75% of mobile (180px * 0.75) */
+  --hs-mascot-width-desktop: 160px;
+  --hs-mascot-height-desktop: 240px;
+  
+  /* ================================
+     LAYOUT CONFIGURATION
+     ================================ */
+  /* Visual Scaling for Tablet */
+  --hs-tablet-visual-scale: 0.75;
+  
+  /* Calculated Visual Heights */
+  --hs-visual-content-height-tablet: 56.25vh; /* 75vh * 0.75 */
+  
+  /* Mascot Positioning */
+  --hs-mascot-offset-right: 15%;
+  --hs-mascot-offset-top: 50%;
+
   /* OneFeature Design Tokens */
   /* ================================
      OF (ONE FEATURE) DESIGN TOKENS
@@ -432,11 +757,9 @@
   
   /* Feature Grid */
   --of-features-gap: 32px;
-  --of-feature-padding: 20px;
   --of-feature-padding-large: 24px;
   
   /* CTA Spacing */
-  --of-cta-padding: 16px 32px;
   --of-cta-margin-top: 40px;
   
   /* ================================
@@ -562,12 +885,12 @@
      ANIMATIONS & INTERACTIONS
      ================================ */
   /* Transition Properties */
-  --afc-transition-duration: 250ms;
+  --afc-transition-duration: 300ms;
   --afc-transition-easing: ease-in-out;
   
   /* Transform Values */
-  --afc-transform-scale-active: 1.025;
-  --afc-transform-scale-inactive: 0.9;
+  --afc-transform-scale-active: 1.04;
+  --afc-transform-scale-inactive: 0.98;
   
   /* ================================
      RESPONSIVE BREAKPOINTS
@@ -575,6 +898,599 @@
   /* Breakpoint Values (inherited from global) */
   --afc-breakpoint-tablet: 768px;
   --afc-breakpoint-desktop: 1024px;
+
+  /* FeatureShowcaseBenefits Design Tokens */
+  /* ================================
+     FSB (FEATURE SHOWCASE BENEFITS) DESIGN TOKENS
+     ================================ */
+  
+  /* Benefits-Specific Image Sizing */
+  --fsb-image-container-width: 0.8;
+  --fsb-image-container-width-percent: 80%;
+  
+  /* Benefits-Specific Border Radius */
+  --fsb-border-radius-image: 24px;
+  
+  /* Benefits-Specific Shadows */
+  --fsb-shadow-image: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  /* ================================
+     COMMON DIMENSION TOKENS
+     ================================ */
+  /* Common Fixed Dimensions */
+  --dimension-100: 100px;
+  --dimension-150: 150px;
+  --dimension-200: 200px;
+  --dimension-250: 250px;
+  --dimension-300: 300px;
+  --dimension-350: 350px;
+  --dimension-400: 400px;
+  --dimension-450: 450px;
+  --dimension-480: 480px;
+  --dimension-500: 500px;
+  --dimension-550: 550px;
+  --dimension-600: 600px;
+  --dimension-700: 700px;
+  --dimension-800: 800px;
+  --dimension-900: 900px;
+  --dimension-1000: 1000px;
+  --dimension-1200: 1200px;
+  --dimension-130: 130px;
+  --dimension-280: 280px;
+  --dimension-390: 390px;
+
+  /* Common Spacing Values */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  
+  /* Negative Spacing Values */
+  --spacing-xs-negative: -4px;
+  --spacing-md-negative: -12px;
+  --spacing-xl-negative: -20px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 40px;
+  --spacing-5xl: 48px;
+  --spacing-6xl: 64px;
+  --spacing-7xl: 80px;
+  --spacing-8xl: 96px;
+
+  /* Common Percentage Values */
+  --percent-10: 10%;
+  --percent-15: 15%;
+  --percent-20: 20%;
+  --percent-25: 25%;
+  --percent-30: 30%;
+  --percent-33: 33.333%;
+  --percent-40: 40%;
+  --percent-50: 50%;
+  --percent-60: 60%;
+  --percent-66: 66.666%;
+  --percent-70: 70%;
+  --percent-75: 75%;
+  --percent-80: 80%;
+  --percent-85: 85%;
+  --percent-90: 90%;
+  --percent-95: 95%;
+  --percent-100: 100%;
+
+  /* Common Opacity Values */
+  --opacity-0: 0;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-80: 0.8;
+  --opacity-85: 0.85;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+  --opacity-12: 0.12;
+  --opacity-15: 0.15;
+  --opacity-45: 0.45;
+  --opacity-98: 0.98;
+
+  /* Common Transform Values */
+  --transform-scale-90: scale(0.9);
+  --transform-scale-95: scale(0.95);
+  --transform-scale-98: scale(0.98);
+  --transform-scale-100: scale(1);
+  --transform-scale-102: scale(1.02);
+  --transform-scale-105: scale(1.05);
+  --transform-scale-110: scale(1.1);
+  --transform-scale-104: scale(1.04);
+  --transform-rotate-90: rotate(90deg);
+  --transform-rotate-180: rotate(180deg);
+  --transform-rotate-270: rotate(270deg);
+
+  /* Common Breakpoint Values */
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1280px;
+  --breakpoint-ultra: 1440px;
+
+  /* Common Border Radius Values */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+  --radius-4xl: 24px;
+  --radius-5xl: 28px;
+  --radius-6xl: 32px;
+  --radius-full: 50%;
+
+  /* Common Line Height Values */
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.5;
+  --line-height-loose: 1.6;
+
+  /* Common Font Weight Values */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* Common Font Size Values */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-size-5xl: 48px;
+  --font-size-6xl: 60px;
+
+  /* Common Color Values */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Common Shadow Values */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Common Transition Values */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+  --transition-transform: transform 300ms ease-in-out;
+  --transition-opacity: opacity 300ms ease-in-out;
+  --transition-colors: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+
+  /* ================================
+     THEME SYSTEM - SEMANTIC COLORS
+     ================================ */
+  
+  /* Light Theme (Default) */
+  --theme-bg-primary: var(--color-white);
+  --theme-bg-secondary: var(--color-gray-50);
+  --theme-bg-tertiary: var(--color-gray-100);
+  --theme-bg-accent: var(--color-gray-200);
+  
+  --theme-text-primary: var(--color-gray-900);
+  --theme-text-secondary: var(--color-gray-700);
+  --theme-text-tertiary: var(--color-gray-600);
+  --theme-text-muted: var(--color-gray-500);
+  --theme-text-inverse: var(--color-white);
+  
+  --theme-border-primary: var(--color-gray-200);
+  --theme-border-secondary: var(--color-gray-300);
+  --theme-border-accent: var(--color-gray-400);
+  
+  --theme-surface-elevated: var(--color-white);
+  --theme-surface-overlay: rgba(0, 0, 0, 0.5);
+  --theme-surface-disabled: var(--color-gray-100);
+  
+  /* Interactive States */
+  --theme-interactive-primary: #38b2ac;
+  --theme-interactive-primary-hover: #319795;
+  --theme-interactive-primary-active: #2c7a7b;
+  --theme-interactive-secondary: var(--color-gray-600);
+  --theme-interactive-secondary-hover: var(--color-gray-700);
+  
+  /* Status Colors */
+  --theme-status-success: #10b981;
+  --theme-status-warning: #f59e0b;
+  --theme-status-error: #ef4444;
+  --theme-status-info: #3b82f6;
+  
+  /* Focus and Selection */
+  --theme-focus-ring: var(--theme-interactive-primary);
+  --theme-selection-bg: rgba(56, 178, 172, 0.1);
+  --theme-selection-text: var(--theme-text-primary);
+
+  /* ================================
+     HERO SECTION DESIGN TOKENS
+     ================================ */
+  /* Mobile Viewport Height */
+  --hs-mobile-visual-height: 75vh;
+  
+  /* Background Circle Dimensions */
+  --hs-circle-width-mobile: 100%;
+  --hs-circle-height-mobile: 75vh;
+  --hs-circle-width-tablet: 75%;
+  --hs-circle-height-tablet: calc(75vh * 0.75);
+  --hs-circle-width-desktop: 400px;
+  --hs-circle-height-desktop: 400px;
+  
+  /* Phone Image Dimensions */
+  --hs-phone-width-mobile: 110%;
+  --hs-phone-height-mobile: 420px;
+  --hs-phone-width-tablet: 82.5%;
+  --hs-phone-height-tablet: 315px;
+  --hs-phone-width-desktop: 460px;
+  --hs-phone-height-desktop: 480px;
+  
+  /* Mascot Image Dimensions */
+  --hs-mascot-width-mobile: 120px;
+  --hs-mascot-height-mobile: 120px;
+  --hs-mascot-width-tablet: 140px;
+  --hs-mascot-height-tablet: 140px;
+  --hs-mascot-width-desktop: 160px;
+  --hs-mascot-height-desktop: 160px;
+  
+  /* Mascot Positioning */
+  --hs-mascot-offset-top: 50%;
+  --hs-mascot-offset-right: -20px;
+  
+  /* Content Spacing */
+  --hs-content-gap-mobile: 24px;
+  --hs-content-gap-desktop: 48px;
+  --hs-content-padding-mobile: 48px 24px;
+  --hs-content-padding-desktop: 64px 120px;
+  
+  /* Section Configuration */
+  --hs-section-max-height: none;
+  --hs-section-border-radius: 0px;
+  
+  /* Typography Spacing */
+  --hs-title-margin-bottom: 16px;
+  --hs-description-margin-bottom: 24px;
+  --hs-cta-margin-top-mobile: 24px;
+  --hs-cta-margin-top-tablet: 32px;
+  --hs-cta-margin-top-desktop: 32px;
+  
+  /* Visual Scaling */
+  --hs-tablet-visual-scale: 0.75;
+  
+  /* Colors */
+  --hs-color-title: #1a365d;
+  --hs-color-loading-bg: rgba(255, 255, 255, 0.9);
+  --hs-color-cta-focus: #3b82f6;
+  
+  /* Gradients */
+  --hs-gradient-bg: linear-gradient(135deg, #f7fefc 0%, #40c2aa 50%, #f0fdfa 100%);
+  --hs-gradient-cta: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+  
+  /* Shadows */
+  --hs-shadow-image: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1));
+  --hs-shadow-cta-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+  
+  /* Spinner */
+  --hs-spinner-border-width: 3px;
+  --hs-spinner-border-color: #e5e7eb;
+  --hs-spinner-border-top-color: #38b2ac;
+
+  /* Common Dimensions */
+  --dimension-450: 450px;
+  --dimension-480: 480px;
+  --dimension-500: 500px;
+  
+  /* Common Percentages */
+  --percent-50: 50%;
+  --percent-100: 100%;
+  
+  /* Common Opacities */
+  --opacity-30: 0.3;
+  
+  /* Common Spacing */
+  --spacing-xs: 4px;
+  --spacing-md: 16px;
+  --spacing-4xl: 64px;
+  
+  /* Common Radius */
+  --radius-3xl: 24px;
+  
+  /* Common Shadows */
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Common Transforms */
+  --transform-scale-102: scale(1.02);
+}
+
+/* ================================
+   DARK THEME OVERRIDES
+   ================================ */
+
+[data-theme="dark"] {
+  /* Dark Theme Background Colors */
+  --theme-bg-primary: var(--color-gray-900);
+  --theme-bg-secondary: var(--color-gray-800);
+  --theme-bg-tertiary: var(--color-gray-700);
+  --theme-bg-accent: var(--color-gray-600);
+  
+  /* Dark Theme Text Colors */
+  --theme-text-primary: var(--color-gray-100);
+  --theme-text-secondary: var(--color-gray-300);
+  --theme-text-tertiary: var(--color-gray-400);
+  --theme-text-muted: var(--color-gray-500);
+  --theme-text-inverse: var(--color-gray-900);
+  
+  /* Dark Theme Border Colors */
+  --theme-border-primary: var(--color-gray-700);
+  --theme-border-secondary: var(--color-gray-600);
+  --theme-border-accent: var(--color-gray-500);
+  
+  /* Dark Theme Surfaces */
+  --theme-surface-elevated: var(--color-gray-800);
+  --theme-surface-overlay: rgba(0, 0, 0, 0.8);
+  --theme-surface-disabled: var(--color-gray-800);
+  
+  /* Dark Theme Interactive States */
+  --theme-interactive-primary: #4fd1c7;
+  --theme-interactive-primary-hover: #38b2ac;
+  --theme-interactive-primary-active: #319795;
+  --theme-interactive-secondary: var(--color-gray-400);
+  --theme-interactive-secondary-hover: var(--color-gray-300);
+  
+  /* Dark Theme Status Colors */
+  --theme-status-success: #34d399;
+  --theme-status-warning: #fbbf24;
+  --theme-status-error: #f87171;
+  --theme-status-info: #60a5fa;
+  
+  /* Dark Theme Focus and Selection */
+  --theme-focus-ring: var(--theme-interactive-primary);
+  --theme-selection-bg: rgba(79, 209, 199, 0.2);
+  --theme-selection-text: var(--theme-text-primary);
+}
+
+/* ================================
+   HIGH CONTRAST THEME
+   ================================ */
+
+[data-theme="high-contrast"] {
+  /* High Contrast Colors */
+  --theme-bg-primary: var(--color-white);
+  --theme-bg-secondary: var(--color-white);
+  --theme-bg-tertiary: var(--color-white);
+  --theme-bg-accent: var(--color-white);
+  
+  --theme-text-primary: var(--color-black);
+  --theme-text-secondary: var(--color-black);
+  --theme-text-tertiary: var(--color-black);
+  --theme-text-muted: var(--color-black);
+  --theme-text-inverse: var(--color-white);
+  
+  --theme-border-primary: var(--color-black);
+  --theme-border-secondary: var(--color-black);
+  --theme-border-accent: var(--color-black);
+  
+  --theme-surface-elevated: var(--color-white);
+  --theme-surface-overlay: rgba(0, 0, 0, 0.9);
+  --theme-surface-disabled: var(--color-gray-300);
+  
+  --theme-interactive-primary: var(--color-black);
+  --theme-interactive-primary-hover: var(--color-black);
+  --theme-interactive-primary-active: var(--color-black);
+  --theme-interactive-secondary: var(--color-black);
+  --theme-interactive-secondary-hover: var(--color-black);
+  
+  --theme-status-success: var(--color-black);
+  --theme-status-warning: var(--color-black);
+  --theme-status-error: var(--color-black);
+  --theme-status-info: var(--color-black);
+  
+  --theme-focus-ring: var(--color-black);
+  --theme-selection-bg: var(--color-gray-300);
+  --theme-selection-text: var(--color-black);
+}
+
+/* ================================
+   DARK HIGH CONTRAST THEME
+   ================================ */
+
+[data-theme="dark-high-contrast"] {
+  /* Dark High Contrast Colors */
+  --theme-bg-primary: var(--color-black);
+  --theme-bg-secondary: var(--color-black);
+  --theme-bg-tertiary: var(--color-black);
+  --theme-bg-accent: var(--color-black);
+  
+  --theme-text-primary: var(--color-white);
+  --theme-text-secondary: var(--color-white);
+  --theme-text-tertiary: var(--color-white);
+  --theme-text-muted: var(--color-white);
+  --theme-text-inverse: var(--color-black);
+  
+  --theme-border-primary: var(--color-white);
+  --theme-border-secondary: var(--color-white);
+  --theme-border-accent: var(--color-white);
+  
+  --theme-surface-elevated: var(--color-black);
+  --theme-surface-overlay: rgba(255, 255, 255, 0.9);
+  --theme-surface-disabled: var(--color-gray-700);
+  
+  --theme-interactive-primary: var(--color-white);
+  --theme-interactive-primary-hover: var(--color-white);
+  --theme-interactive-primary-active: var(--color-white);
+  --theme-interactive-secondary: var(--color-white);
+  --theme-interactive-secondary-hover: var(--color-white);
+  
+  --theme-status-success: var(--color-white);
+  --theme-status-warning: var(--color-white);
+  --theme-status-error: var(--color-white);
+  --theme-status-info: var(--color-white);
+  
+  --theme-focus-ring: var(--color-white);
+  --theme-selection-bg: var(--color-gray-700);
+  --theme-selection-text: var(--color-white);
+}
+
+/* ================================
+   THEME TRANSITION ANIMATIONS
+   ================================ */
+
+/* Smooth theme transitions */
+:root {
+  transition: var(--transition-colors);
+}
+
+/* Elements that should transition smoothly between themes */
+* {
+  transition: 
+    background-color var(--transition-normal),
+    color var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+/* Disable transitions for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  * {
+    transition: none !important;
+  }
+}
+
+/* Manual transition disable */
+.no-transitions,
+.no-transitions * {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* ================================
+   ACCESSIBILITY OVERRIDES
+   ================================ */
+
+/* System preference dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Apply dark theme when no explicit theme is set */
+    --theme-bg-primary: var(--color-gray-900);
+    --theme-bg-secondary: var(--color-gray-800);
+    --theme-bg-tertiary: var(--color-gray-700);
+    --theme-bg-accent: var(--color-gray-600);
+    
+    --theme-text-primary: var(--color-gray-100);
+    --theme-text-secondary: var(--color-gray-300);
+    --theme-text-tertiary: var(--color-gray-400);
+    --theme-text-muted: var(--color-gray-500);
+    --theme-text-inverse: var(--color-gray-900);
+    
+    --theme-border-primary: var(--color-gray-700);
+    --theme-border-secondary: var(--color-gray-600);
+    --theme-border-accent: var(--color-gray-500);
+    
+    --theme-surface-elevated: var(--color-gray-800);
+    --theme-surface-overlay: rgba(0, 0, 0, 0.8);
+    --theme-surface-disabled: var(--color-gray-800);
+    
+    --theme-interactive-primary: #4fd1c7;
+    --theme-interactive-primary-hover: #38b2ac;
+    --theme-interactive-primary-active: #319795;
+    --theme-interactive-secondary: var(--color-gray-400);
+    --theme-interactive-secondary-hover: var(--color-gray-300);
+    
+    --theme-status-success: #34d399;
+    --theme-status-warning: #fbbf24;
+    --theme-status-error: #f87171;
+    --theme-status-info: #60a5fa;
+    
+    --theme-focus-ring: var(--theme-interactive-primary);
+    --theme-selection-bg: rgba(79, 209, 199, 0.2);
+    --theme-selection-text: var(--theme-text-primary);
+  }
+}
+
+/* System preference high contrast */
+@media (prefers-contrast: high) {
+  :root:not([data-theme]) {
+    /* Apply high contrast theme when no explicit theme is set */
+    --theme-border-primary: var(--color-black);
+    --theme-border-secondary: var(--color-black);
+    --theme-border-accent: var(--color-black);
+    
+    --theme-text-primary: var(--color-black);
+    --theme-text-secondary: var(--color-black);
+    
+    --theme-interactive-primary: var(--color-black);
+    --theme-interactive-primary-hover: var(--color-black);
+    --theme-interactive-primary-active: var(--color-black);
+    
+    --theme-focus-ring: var(--color-black);
+  }
+}
+
+/* Combined dark + high contrast system preference */
+@media (prefers-color-scheme: dark) and (prefers-contrast: high) {
+  :root:not([data-theme]) {
+    /* Apply dark high contrast theme */
+    --theme-bg-primary: var(--color-black);
+    --theme-bg-secondary: var(--color-black);
+    --theme-bg-tertiary: var(--color-black);
+    --theme-bg-accent: var(--color-black);
+    
+    --theme-text-primary: var(--color-white);
+    --theme-text-secondary: var(--color-white);
+    --theme-text-tertiary: var(--color-white);
+    --theme-text-muted: var(--color-white);
+    --theme-text-inverse: var(--color-black);
+    
+    --theme-border-primary: var(--color-white);
+    --theme-border-secondary: var(--color-white);
+    --theme-border-accent: var(--color-white);
+    
+    --theme-surface-elevated: var(--color-black);
+    --theme-surface-overlay: rgba(255, 255, 255, 0.9);
+    --theme-surface-disabled: var(--color-gray-700);
+    
+    --theme-interactive-primary: var(--color-white);
+    --theme-interactive-primary-hover: var(--color-white);
+    --theme-interactive-primary-active: var(--color-white);
+    --theme-interactive-secondary: var(--color-white);
+    --theme-interactive-secondary-hover: var(--color-white);
+    
+    --theme-status-success: var(--color-white);
+    --theme-status-warning: var(--color-white);
+    --theme-status-error: var(--color-white);
+    --theme-status-info: var(--color-white);
+    
+    --theme-focus-ring: var(--color-white);
+    --theme-selection-bg: var(--color-gray-700);
+    --theme-selection-text: var(--color-white);
+  }
 }
 
 /* Typography Utilities */
@@ -606,14 +1522,46 @@
   font-size: var(--font-body-description);
   font-weight: 700;
 }
-.typography-ui-link {
-  font-size: var(--font-ui-link);
-}
-.typography-ui-button {
-  font-size: var(--font-ui-button);
+
+/* ================================
+   SECTION PADDING UTILITIES
+   ================================ */
+
+/* Standard Section Padding (all sections except Hero & Navigation) */
+.section-padding {
+  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
 }
 
-/* Section Spacing Utilities */
+@media (min-width: 768px) {
+  .section-padding {
+    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+  }
+}
+
+/* Hero & Navigation Section Padding (no padding) */
+.section-padding-hero-nav {
+  padding: var(--padding-hero-nav-mobile-y) var(--padding-hero-nav-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .section-padding-hero-nav {
+    padding: var(--padding-hero-nav-tablet-y) var(--padding-hero-nav-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding-hero-nav {
+    padding: var(--padding-hero-nav-desktop-y) var(--padding-hero-nav-desktop-x);
+  }
+}
+
+/* Legacy Section Container (for backwards compatibility) */
 .section-container {
   padding: var(--spacing-section-mobile-y) var(--spacing-section-mobile-x);
 }
@@ -629,3 +1577,76 @@
     padding: var(--spacing-section-desktop-y) var(--spacing-section-desktop-x);
   }
 }
+
+/* ================================
+   TYPOGRAPHY UTILITY CLASSES
+   ================================ */
+
+/* Base Typography Classes */
+.typography-title {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  font-size: var(--font-size-title-mobile);
+}
+
+.typography-subtitle {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-subtitle);
+  font-size: var(--font-size-subtitle-mobile);
+}
+
+.typography-description {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-description);
+  font-size: var(--font-size-description-mobile);
+}
+
+.typography-text {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-text);
+  font-size: var(--font-size-text-mobile);
+}
+
+
+/* Responsive Typography - Tablet */
+@media (min-width: 768px) {
+  .typography-title {
+    font-size: var(--font-size-title-tablet);
+  }
+
+  .typography-subtitle {
+    font-size: var(--font-size-subtitle-tablet);
+  }
+
+  .typography-description {
+    font-size: var(--font-size-description-tablet);
+  }
+
+  .typography-text {
+    font-size: var(--font-size-text-tablet);
+  }
+}
+
+/* Responsive Typography - Desktop */
+@media (min-width: 1024px) {
+  .typography-title {
+    font-size: var(--font-size-title-desktop);
+  }
+
+  .typography-subtitle {
+    font-size: var(--font-size-subtitle-desktop);
+  }
+
+  .typography-description {
+    font-size: var(--font-size-description-desktop);
+  }
+
+  .typography-text {
+    font-size: var(--font-size-text-desktop);
+  }
+}
+
