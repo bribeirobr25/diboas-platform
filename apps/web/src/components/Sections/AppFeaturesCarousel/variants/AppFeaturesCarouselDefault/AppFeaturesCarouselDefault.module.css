@@ -16,7 +16,7 @@
   padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
   background-color: var(--afc-color-section-bg);
   width: var(--section-width-full);
-  height: var(--section-height-carousel);
+  height: var(--section-height-app-features-carousel-mobile);
   overflow: hidden;
 }
 
@@ -24,6 +24,7 @@
 @media (min-width: 768px) {
   .section {
     padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+    height: var(--section-height-app-features-carousel-tablet);
   }
 }
 
@@ -31,6 +32,7 @@
 @media (min-width: 1024px) {
   .section {
     padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+    height: var(--section-height-app-features-carousel);
   }
 }
 
@@ -86,68 +88,32 @@
    CARDS GRID STYLES
    ================================ */
 
-/* Cards Grid - Documentation Compliant Layout */
+/* Cards Grid - Single active image on Mobile/Tablet, Fixed width layout on Desktop */
 .cardsGrid {
   position: relative;
-  padding: 0 8px;
+  width: var(--percent-100);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
 }
 
-/* Mobile (<768px): 1.2-1.4 cards horizontal snap carousel */
-@media (max-width: 767px) {
+/* Mobile & Tablet: Show only active image */
+@media (max-width: 1023px) {
   .cardsGrid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: var(--spacing-md);
-    padding: 0 24px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  .cardsGrid::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .cardWrapper {
-    flex: 0 0 75%;
-    scroll-snap-align: center;
-    max-width: 280px;
+    height: auto;
+    min-height: var(--dimension-400);
+    justify-content: center;
   }
 }
 
-/* Tablet (768-1023px): 3 columns with snap-scroll */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .cardsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-xl);
-    max-width: 900px;
-    margin: 0 auto;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-  }
-  
-  .cardWrapper {
-    scroll-snap-align: start;
-  }
-}
-
-/* Desktop (≥1024px): 4 columns grid layout */
+/* Desktop: Fixed width layout - Active (416px) + 3 Inactive (195px each) + gaps (20px each) */
 @media (min-width: 1024px) {
   .cardsGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-items: center;
-  }
-}
-
-/* Large Desktop: Increase gap */
-@media (min-width: 1200px) {
-  .cardsGrid {
-    gap: 32px;
+    height: auto; /* Allow height to accommodate description */
+    align-items: flex-start; /* Align items to top */
+    justify-content: center; /* Center cards horizontally */
+    gap: var(--afc-image-gap-desktop); /* 20px between images */
   }
 }
 
@@ -157,16 +123,90 @@
 
 /* Card Wrapper */
 .cardWrapper {
-  position: relative;
-  width: var(--percent-100);
-  scroll-snap-align: center;
-  cursor: pointer;
-  transition: transform var(--transition-slow) ease-in-out, width var(--transition-slow) ease-in-out;
-  outline-offset: var(--spacing-xs);
+  transition: all var(--afc-transition-duration) var(--afc-transition-easing);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.cardWrapper:focus-visible {
+/* Card Click Area */
+.cardClickArea {
+  cursor: pointer;
+  outline-offset: var(--spacing-xs);
+  width: var(--percent-100);
+}
+
+.cardClickArea:focus-visible {
   outline: var(--radius-sm) solid var(--afc-color-accent);
+}
+
+/* Mobile: Only show active card with 90% width and 3:4 aspect ratio, hide others */
+@media (max-width: 767px) {
+  .cardWrapper {
+    width: var(--afc-image-width-mobile); /* 90% */
+    max-width: none; /* Remove max-width constraint */
+    position: relative;
+    opacity: var(--opacity-0);
+    pointer-events: none;
+    display: none;
+  }
+
+  .cardWrapper.active {
+    opacity: var(--opacity-100);
+    pointer-events: auto;
+    display: flex;
+    position: relative;
+  }
+
+  /* Card maintains 3:4 aspect ratio on mobile */
+  .cardWrapper .card {
+    aspect-ratio: var(--afc-image-aspect-ratio-mobile); /* 3 / 4 */
+    height: auto; /* Let aspect-ratio determine height */
+  }
+}
+
+/* Tablet: Only show active card with 490px width, hide others */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cardWrapper {
+    width: var(--afc-image-width-tablet); /* 490px */
+    position: relative;
+    opacity: var(--opacity-0);
+    pointer-events: none;
+    display: none;
+  }
+
+  .cardWrapper.active {
+    opacity: var(--opacity-100);
+    pointer-events: auto;
+    display: flex;
+    position: relative;
+  }
+
+  /* Card maintains 500px height on tablet */
+  .cardWrapper .card {
+    height: var(--afc-image-height-tablet); /* 500px */
+  }
+}
+
+/* Desktop: Fixed widths - Active (300px), Inactive (140px) */
+@media (min-width: 1024px) {
+  .cardWrapper {
+    width: var(--afc-image-inactive-width-desktop); /* 140px */
+    opacity: var(--opacity-60);
+    position: relative;
+  }
+
+  .cardWrapper.active {
+    width: var(--afc-image-active-width-desktop); /* 300px */
+    opacity: var(--opacity-100);
+    z-index: var(--afc-z-index-active);
+  }
+
+  /* Ensure card image container maintains 500px height */
+  .cardWrapper .card {
+    height: var(--afc-image-inactive-height-desktop); /* 500px */
+  }
 }
 
 /* Card Image Container */
@@ -179,220 +219,127 @@
   background-color: var(--afc-color-card-bg);
   transition: all var(--afc-transition-duration) var(--afc-transition-easing);
   box-shadow: var(--shadow-md);
-}
-
-/* Responsive: Mobile */
-@media (max-width: 767px) {
-  .card {
-    height: auto;
-  }
-}
-
-/* Responsive: Tablet */
-@media (min-width: var(--breakpoint-tablet)) and (max-width: 1023px) {
-  .card {
-    height: auto;
-  }
-}
-
-/* Responsive: Desktop */
-@media (min-width: var(--breakpoint-desktop)) {
-  .card {
-    height: auto;
-  }
-}
-
-/* Responsive: Large Desktop */
-@media (min-width: var(--dimension-1200)) {
-  .card {
-    height: auto;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Card Image */
 .cardImage {
-  width: var(--percent-100);
+  width: auto;
   height: var(--percent-100);
   object-fit: cover;
-  transition: 
+  transition:
     filter var(--transition-slow) ease-in-out,
     transform var(--transition-slow) ease-in-out;
 }
 
-/* Card Overlay */
-.cardOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, var(--opacity-45));
-  transition: opacity var(--transition-slow) ease-in-out;
-  pointer-events: none;
-}
-
-/* Chip Badge */
-.chipBadge {
-  position: absolute;
-  bottom: var(--spacing-lg);
-  left: var(--spacing-lg);
-  right: var(--spacing-lg);
-  z-index: 2;
-  background: rgba(255, 255, 255, var(--opacity-95));
-  backdrop-filter: blur(var(--spacing-sm));
-  border-radius: var(--afc-border-radius-chip);
-  padding: var(--padding-card-mobile);
-  font-size: var(--font-size-text-desktop);
-  font-weight: var(--font-weight-semibold);
-  color: var(--afc-color-title);
-  text-align: center;
-  box-shadow: 0 var(--spacing-xs) var(--spacing-md) rgba(0, 0, 0, var(--opacity-15));
-  transition: opacity var(--transition-slow) ease-in-out;
-  opacity: var(--opacity-0);
-}
-
-/* Responsive: Tablet */
-@media (min-width: var(--breakpoint-tablet)) {
-  .chipBadge {
-    bottom: var(--spacing-xl);
-    left: var(--spacing-xl);
-    right: var(--spacing-xl);
-    padding: var(--padding-card-tablet);
-    font-size: var(--font-size-text-tablet);
+/* Mobile: Image fills container with proper aspect ratio */
+@media (max-width: 767px) {
+  .cardImage {
+    width: var(--percent-100);
+    height: var(--percent-100);
+    object-fit: cover;
   }
 }
 
-/* Gradient overlay for chip legibility */
-.gradientOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: auto;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, var(--opacity-60)) 0%,
-    rgba(0, 0, 0, var(--opacity-30)) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-  transition: opacity var(--transition-slow) ease-in-out;
+/* Tablet: Image maintains 500px height, width auto (cropped if exceeds container) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cardImage {
+    height: var(--afc-image-height-tablet); /* 500px */
+    width: auto;
+    min-width: var(--percent-100);
+  }
+}
+
+/* Desktop: Image maintains 500px height, width auto (cropped if exceeds container) */
+@media (min-width: 1024px) {
+  .cardImage {
+    height: var(--afc-image-active-height-desktop); /* 500px */
+    width: auto;
+    min-width: var(--percent-100);
+  }
 }
 
 /* ================================
    CARD STATES
    ================================ */
 
-/* Active Card */
+/* Active Card Enhancement */
 .cardWrapper.active .card {
-  transform: var(--transform-scale-104);
-  box-shadow: 
-    0 var(--spacing-md) 25px rgba(0, 0, 0, var(--opacity-15)),
-    0 var(--spacing-xs) var(--spacing-md) rgba(139, 92, 246, var(--opacity-10));
+  box-shadow: var(--shadow-lg);
 }
 
-.cardWrapper.active .cardImage {
-  filter: saturate(1.1) brightness(1.05);
-}
-
-.cardWrapper.active .cardOverlay {
-  opacity: var(--opacity-0);
-}
-
-.cardWrapper.active .chipBadge {
-  background: rgba(255, 255, 255, var(--opacity-98));
-  box-shadow: 0 6px var(--spacing-xl) rgba(0, 0, 0, var(--opacity-20));
-  opacity: var(--opacity-100);
-}
-
-/* Inactive Card */
-.cardWrapper:not(.active) .card {
-  transform: var(--transform-scale-98);
-}
-
-.cardWrapper:not(.active) .cardImage {
-  filter: saturate(var(--opacity-70)) brightness(var(--opacity-80));
-}
-
-.cardWrapper:not(.active) .cardOverlay {
-  opacity: var(--opacity-100);
-}
-
-.cardWrapper:not(.active) .chipBadge {
-  opacity: var(--opacity-0);
-}
-
-.cardWrapper:not(.active):hover .card {
-  transform: var(--transform-scale-100);
-  box-shadow: 0 var(--spacing-sm) var(--spacing-xl) rgba(0, 0, 0, var(--opacity-12));
-}
-
-.cardWrapper:not(.active):hover .cardOverlay {
-  opacity: var(--opacity-70);
+/* Inactive Cards Hover */
+.cardWrapper:not(.active):hover {
+  opacity: var(--opacity-80);
 }
 
 /* ================================
-   DESCRIPTION PANEL STYLES
+   CARD DESCRIPTION STYLES
    ================================ */
 
-/* Description Panel */
-.descriptionPanel {
+/* Card Description - Below each card, visible only when active */
+.cardDescription {
   position: relative;
   width: var(--percent-100);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--afc-grid-gap);
-  padding: 0;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-lg);
   transition: all var(--afc-transition-duration) var(--afc-transition-easing);
-  opacity: var(--opacity-100);
 }
 
-/* Responsive: Mobile (including 768px) */
-@media (max-width: var(--breakpoint-tablet)) {
-  .descriptionPanel {
-    align-items: flex-start; /* Left align content on mobile */
-    padding: 0;
-    max-width: var(--dimension-300);
-    margin: 0 auto;
+/* Responsive: Mobile - Match image width (90%), align left */
+@media (max-width: 767px) {
+  .cardDescription {
+    max-width: var(--afc-description-width-mobile); /* 90% */
+    width: var(--percent-100);
+    align-items: flex-start; /* Align items to left */
   }
 }
 
-/* Responsive: 768px specific - match larger image width */
-@media (width: var(--breakpoint-tablet)) {
-  .descriptionPanel {
-    max-width: var(--dimension-390); /* Match 30% larger image */
+/* Responsive: Tablet - Constrain to 490px width below card, align left */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cardDescription {
+    max-width: var(--afc-description-width-tablet); /* 490px */
+    align-items: flex-start; /* Align items to left */
   }
 }
 
-/* Responsive: Desktop */
-@media (min-width: var(--breakpoint-desktop)) {
-  .descriptionPanel {
-    width: var(--dimension-280); /* Match active image width */
-    align-items: flex-start; /* Left align content within panel */
-    padding: 0;
-    transform: translateX(var(--panel-offset, 0));
-    margin: 0 auto; /* Center the panel itself */
+/* Responsive: Desktop - Constrain to 416px width below active card, align left */
+@media (min-width: 1024px) {
+  .cardDescription {
+    max-width: var(--afc-description-width-desktop); /* 416px */
+    align-items: flex-start; /* Align items to left */
   }
 }
 
-/* Description Text */
+/* Description Text - Using design tokens */
 .description {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-description-mobile);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-description);
   color: var(--afc-color-description);
   text-align: center;
-  max-width: 520px;
   margin: 0;
   transition: opacity var(--afc-transition-duration) var(--afc-transition-easing);
 }
 
+/* Responsive: Mobile - Left align text */
+@media (max-width: 767px) {
+  .description {
+    text-align: left; /* Align text to left on mobile */
+  }
+}
+
 /* Responsive: Tablet */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .description {
     font-size: var(--font-size-description-tablet);
+    text-align: left; /* Align text to left on tablet */
   }
 }
 
@@ -400,23 +347,7 @@
 @media (min-width: 1024px) {
   .description {
     font-size: var(--font-size-description-desktop);
-  }
-}
-
-/* Responsive: Mobile (including 768px) */
-@media (max-width: 767px) {
-  .description {
-    text-align: left; /* Left align on mobile */
-    max-width: var(--percent-100);
-  }
-}
-
-/* Responsive: Desktop Layout */
-@media (min-width: 1024px) {
-  .description {
-    text-align: left; /* Left align within the 280px panel */
-    max-width: 260px; /* Slightly narrower than panel for padding */
-    width: var(--percent-100);
+    text-align: left; /* Align text to left on desktop */
   }
 }
 
@@ -427,28 +358,42 @@
 /* CTA Wrapper */
 .ctaWrapper {
   display: flex;
-  align-self: flex-start;
+  justify-content: center;
+  width: var(--percent-100);
 }
 
-/* CTA Link */
+/* Responsive: Mobile - Align CTA to left */
+@media (max-width: 767px) {
+  .ctaWrapper {
+    justify-content: flex-start; /* Align CTA to left on mobile */
+  }
+}
+
+/* Responsive: Tablet - Align CTA to left */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ctaWrapper {
+    justify-content: flex-start; /* Align CTA to left on tablet */
+  }
+}
+
+/* Responsive: Desktop - Align CTA to left */
+@media (min-width: 1024px) {
+  .ctaWrapper {
+    justify-content: flex-start; /* Align CTA to left on desktop */
+  }
+}
+
+/* CTA Link - Using CTA button font styles */
 .ctaLink {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-sm);
   color: var(--afc-color-accent);
   text-decoration: none;
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-text-mobile);
+  font-weight: 600; /* CTA button font weight */
+  font-size: var(--font-size-text-desktop); /* CTA button font size */
   transition: all var(--transition-fast) ease;
   outline-offset: var(--spacing-xs);
-  align-self: flex-start; /* Left align the link within panel */
-}
-
-/* Responsive: Tablet */
-@media (min-width: var(--breakpoint-tablet)) {
-  .ctaLink {
-    font-size: var(--font-size-text-desktop);
-  }
 }
 
 .ctaLink:hover {
@@ -471,93 +416,88 @@
 }
 
 /* ================================
-   MOBILE CONTROLS STYLES
+   CONTROLS STYLES (Matching ProductCarousel)
    ================================ */
 
-/* Controls (mobile only) */
-.mobileControls {
-  display: none;
-}
-
-@media (max-width: var(--breakpoint-tablet)) {
-  .mobileControls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-6xl);
-    margin-top: var(--spacing-2xl);
-    padding: 0;
-    width: var(--percent-100);
-  }
-}
-
-/* Explicitly hide on desktop */
-@media (min-width: 769px) {
-  .mobileControls {
-    display: none !important;
-  }
-}
-
-/* Dots Navigation */
-.mobileDots {
+/* Controls Container */
+.controls {
   display: flex;
-  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  gap: var(--pc-controls-gap);
+  margin-top: var(--spacing-2xl);
+}
+
+/* Dots Container */
+.dots {
+  display: flex;
+  gap: var(--spacing-sm);
   align-items: center;
 }
 
-.mobileDot {
-  width: var(--spacing-md);
-  height: var(--spacing-md);
-  border-radius: var(--radius-full);
-  background-color: var(--afc-color-dot-inactive);
+/* Dot */
+.dot {
+  width: var(--pc-dot-size);
+  height: var(--pc-dot-size);
+  border-radius: var(--pc-dot-border-radius);
+  background-color: var(--pc-color-dot-inactive);
   border: none;
   cursor: pointer;
-  transition: all var(--transition-normal) ease;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
   outline-offset: var(--spacing-xs);
 }
 
-.mobileDot:hover {
-  background-color: var(--afc-color-dot-hover);
+.dot:hover {
+  background-color: var(--pc-color-accent);
+  opacity: var(--opacity-70);
 }
 
-.mobileDot:focus-visible {
-  outline: var(--radius-sm) solid var(--afc-color-accent);
+.dot:focus-visible {
+  outline: var(--spacing-sm) solid var(--pc-color-accent);
 }
 
-.mobileDotActive {
-  width: var(--spacing-lg);
-  border-radius: var(--radius-md);
-  background-color: var(--afc-color-dot-active);
+.dot:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-50);
+}
+
+/* Active Dot */
+.dotActive {
+  width: var(--pc-dot-active-width);
+  border-radius: var(--pc-dot-active-border-radius);
+  background-color: var(--pc-color-dot-active);
 }
 
 /* Play/Pause Button */
-.mobilePlayPauseButton {
-  width: var(--spacing-4xl);
-  height: var(--spacing-4xl);
-  border-radius: var(--radius-full);
-  background-color: var(--afc-color-control-bg);
-  border: var(--radius-sm) solid var(--afc-color-border);
+.playPauseButton {
+  width: var(--pc-control-button-size);
+  height: var(--pc-control-button-size);
+  border-radius: var(--pc-control-border-radius);
+  background-color: var(--pc-color-control-bg);
+  border: var(--pc-control-border-width) solid var(--pc-color-control-border);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast) ease;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
   outline-offset: var(--spacing-xs);
 }
 
-.mobilePlayPauseButton:hover {
-  background-color: var(--afc-color-control-hover-bg);
-  border-color: var(--afc-color-border-hover);
+.playPauseButton:hover {
+  background-color: var(--pc-color-control-bg);
+  border-color: var(--pc-color-control-border-hover);
+  transform: var(--pc-transform-hover-lift);
 }
 
-.mobilePlayPauseButton:focus-visible {
-  outline: var(--radius-sm) solid var(--afc-color-accent);
+.playPauseButton:focus-visible {
+  outline: var(--spacing-sm) solid var(--pc-color-accent);
 }
 
-.mobileControlIcon {
-  width: var(--spacing-lg);
-  height: var(--spacing-lg);
-  color: var(--afc-color-text-primary);
+/* Control Icon */
+.controlIcon {
+  width: var(--pc-control-icon-size);
+  height: var(--pc-control-icon-size);
+  color: var(--pc-color-control-icon);
 }
 
 /* ================================
@@ -569,25 +509,19 @@
   .cardWrapper,
   .card,
   .cardImage,
-  .cardOverlay,
-  .chipBadge,
-  .gradientOverlay,
-  .descriptionPanel,
+  .cardDescription,
   .description,
   .ctaLink,
-  .ctaIcon {
+  .ctaIcon,
+  .dot,
+  .playPauseButton {
     animation: none;
     transition: none;
   }
-  
-  .cardWrapper.active .card,
-  .cardWrapper:not(.active) .card,
-  .cardWrapper:not(.active):hover .card {
-    transform: none;
-  }
-  
+
   .ctaLink:hover,
-  .ctaLink:hover .ctaIcon {
+  .ctaLink:hover .ctaIcon,
+  .playPauseButton:hover {
     transform: none;
   }
 }
@@ -597,19 +531,23 @@
   .card {
     border: var(--radius-sm) solid var(--color-black);
   }
-  
+
   .cardWrapper.active .card {
     border-color: var(--afc-color-accent);
     border-width: 3px;
   }
-  
-  .chipBadge {
-    background: var(--color-white);
-    border: 1px solid var(--color-black);
-    color: var(--color-black);
-  }
-  
+
   .ctaLink {
     text-decoration: underline;
+  }
+
+  .playPauseButton {
+    border-width: var(--spacing-sm);
+    border-color: var(--color-black);
+  }
+
+  .title,
+  .description {
+    color: var(--color-black);
   }
 }

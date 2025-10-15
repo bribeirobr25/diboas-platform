@@ -200,7 +200,7 @@
 .description {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-description-mobile);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-description);
   color: var(--fs-color-description);
   margin: 0;

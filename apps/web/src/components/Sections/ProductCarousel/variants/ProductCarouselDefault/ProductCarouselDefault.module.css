@@ -16,7 +16,7 @@
   padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
   background-color: var(--pc-color-section-bg);
   width: var(--section-width-full);
-  height: var(--section-height-carousel-mobile);
+  height: var(--section-height-product-carousel-mobile);
   overflow: hidden;
 }
 
@@ -24,7 +24,7 @@
 @media (min-width: 768px) {
   .section {
     padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
-    height: var(--section-height-carousel);
+    height: var(--section-height-product-carousel);
   }
 }
 
@@ -98,7 +98,7 @@
 .subtitle {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-description-mobile);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-description);
   color: var(--pc-color-subtitle);
   max-width: var(--pc-subtitle-max-width);

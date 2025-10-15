@@ -20,24 +20,24 @@
   /* Font Weights */
   --font-weight-normal: 400;
   --font-weight-bold: 700;
-  
+
   /* Typography Scale - Desktop */
-  --font-size-title-desktop: 50px;
+  --font-size-title-desktop: 42px;
   --font-size-subtitle-desktop: 30px;
-  --font-size-description-desktop: 20px;
-  --font-size-text-desktop: 18px;
-  
+  --font-size-description-desktop: 18px;
+  --font-size-text-desktop: 14px;
+
   /* Typography Scale - Tablet */
-  --font-size-title-tablet: 40px;
-  --font-size-subtitle-tablet: 26px;
-  --font-size-description-tablet: 18px;
-  --font-size-text-tablet: 16px;
-  
+  --font-size-title-tablet: 34px;
+  --font-size-subtitle-tablet: 22px;
+  --font-size-description-tablet: 16px;
+  --font-size-text-tablet: 12px;
+
   /* Typography Scale - Mobile */
-  --font-size-title-mobile: 32px;
-  --font-size-subtitle-mobile: 22px;
-  --font-size-description-mobile: 16px;
-  --font-size-text-mobile: 14px;
+  --font-size-title-mobile: 26px;
+  --font-size-subtitle-mobile: 20px;
+  --font-size-description-mobile: 14px
+  --font-size-text-mobile: 12px;
   
   /* UI Elements (keep existing values with token approach) */
   --font-size-ui-link: 14px;
@@ -85,9 +85,26 @@
   
   /* Section Heights - Fixed heights for all section components */
   --section-height-hero: 632px;
-  --section-height-carousel: 832px;
-  --section-height-carousel-mobile: 762px; /* 832px - 70px for mobile */
-  --section-height-feature: 632px;
+
+  /* AppFeaturesCarousel Heights (-90px from original 980px) */
+  --section-height-app-features-carousel: 890px; /* Desktop: 980px - 90px */
+  --section-height-app-features-carousel-tablet: 836px; /* Tablet: proportional ratio */
+  --section-height-app-features-carousel-mobile: 744px; /* Mobile: proportional ratio */
+
+  /* ProductCarousel Heights (-110px from original 980px) */
+  --section-height-product-carousel: 870px; /* Desktop/Tablet: 980px - 110px */
+  --section-height-product-carousel-mobile: 728px; /* Mobile: proportional ratio */
+
+  /* OneFeature Heights (-200px from original 980px) */
+  --section-height-one-feature: 780px; /* All viewports: 980px - 200px */
+
+  /* FeatureShowcase Heights (-50px from original 632px) */
+  --section-height-feature: 582px; /* All viewports: 632px - 50px */
+
+  /* Legacy carousel heights (deprecated - use section-specific tokens above) */
+  --section-height-carousel: 890px; /* Default to AppFeaturesCarousel height */
+  --section-height-carousel-tablet: 836px;
+  --section-height-carousel-mobile: 744px;
   
   /* Section Widths - All sections are full width */
   --section-width-full: 100%;
@@ -804,7 +821,42 @@
   /* ================================
      AFC (APP FEATURES CAROUSEL) DESIGN TOKENS
      ================================ */
-  
+
+  /* ================================
+     IMAGE DIMENSIONS (Desktop & Tablet Fixed Width Layout)
+     ================================ */
+  /* Active Image - Desktop */
+  --afc-image-active-width-desktop: var(--dimension-416); /* 416px */
+  --afc-image-active-height-desktop: var(--dimension-500); /* 500px */
+
+  /* Inactive Image - Desktop */
+  --afc-image-inactive-width-desktop: var(--dimension-195); /* 195px */
+  --afc-image-inactive-height-desktop: var(--dimension-500); /* 500px */
+
+  /* Active Image - Tablet (single image at a time) */
+  --afc-image-width-tablet: var(--dimension-490); /* 490px */
+  --afc-image-height-tablet: var(--dimension-500); /* 500px */
+
+  /* Active Image - Mobile (single image at a time, 3:4 aspect ratio) */
+  --afc-image-width-mobile: var(--percent-90); /* 90% of screen width */
+  --afc-image-aspect-ratio-mobile: 3 / 4; /* 3:4 aspect ratio */
+
+  /* Image Gap - Desktop */
+  --afc-image-gap-desktop: var(--spacing-xl); /* 20px */
+
+  /* Description Width - Desktop (matches active image width) */
+  --afc-description-width-desktop: var(--dimension-416); /* 416px */
+
+  /* Description Width - Tablet (matches tablet image width) */
+  --afc-description-width-tablet: var(--dimension-490); /* 490px */
+
+  /* Description Width - Mobile (matches mobile image width) */
+  --afc-description-width-mobile: var(--percent-90); /* 90% of screen width */
+
+  /* Z-Index Values */
+  --afc-z-index-active: 3;
+  --afc-z-index-inactive: 1;
+
   /* ================================
      COLORS & THEMING
      ================================ */
@@ -919,14 +971,21 @@
      ================================ */
   /* Common Fixed Dimensions */
   --dimension-100: 100px;
+  --dimension-130: 130px;
+  --dimension-140: 140px;
   --dimension-150: 150px;
+  --dimension-195: 195px;
   --dimension-200: 200px;
   --dimension-250: 250px;
+  --dimension-280: 280px;
   --dimension-300: 300px;
   --dimension-350: 350px;
+  --dimension-390: 390px;
   --dimension-400: 400px;
+  --dimension-416: 416px;
   --dimension-450: 450px;
   --dimension-480: 480px;
+  --dimension-490: 490px;
   --dimension-500: 500px;
   --dimension-550: 550px;
   --dimension-600: 600px;
@@ -935,9 +994,6 @@
   --dimension-900: 900px;
   --dimension-1000: 1000px;
   --dimension-1200: 1200px;
-  --dimension-130: 130px;
-  --dimension-280: 280px;
-  --dimension-390: 390px;
 
   /* Common Spacing Values */
   --spacing-xs: 4px;
@@ -1592,14 +1648,14 @@
 
 .typography-subtitle {
   font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-subtitle);
   font-size: var(--font-size-subtitle-mobile);
 }
 
 .typography-description {
   font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-description);
   font-size: var(--font-size-description-mobile);
 }

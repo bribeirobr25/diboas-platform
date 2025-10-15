@@ -176,27 +176,28 @@ export function OneFeatureDefault({
 
         {/* CTA Button */}
         <div className={styles.ctaWrapper}>
-          <Button
-            variant="gradient"
-            size="lg"
-            asChild={config.content.cta.target === '_blank'}
-            onClick={handleCTAClick}
-          >
-            {config.content.cta.target === '_blank' ? (
-              <a
-                href={config.content.cta.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${config.content.cta.text} - Abre em nova aba`}
-              >
+          {config.content.cta.target === '_blank' ? (
+            <a
+              href={config.content.cta.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${config.content.cta.text} - Abre em nova aba`}
+              onClick={handleCTAClick}
+            >
+              <Button variant="gradient" size="lg">
                 {config.content.cta.text}
-              </a>
-            ) : (
-              <Link href={config.content.cta.href}>
+              </Button>
+            </a>
+          ) : (
+            <Link
+              href={config.content.cta.href}
+              onClick={handleCTAClick}
+            >
+              <Button variant="gradient" size="lg">
                 {config.content.cta.text}
-              </Link>
-            )}
-          </Button>
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </section>
