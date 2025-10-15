@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata } from '@/lib/seo';
 import { StaticPageTemplate } from '@/components/Pages/StaticPageTemplate';
 import type { Metadata } from 'next';

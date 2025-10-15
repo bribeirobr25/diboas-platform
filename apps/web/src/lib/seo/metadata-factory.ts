@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 import { seoService } from './service';
 import { PageSEOConfig } from './types';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from './constants';
-import type { SupportedLocale } from '@diboas/i18n';
+import type { SupportedLocale } from '@diboas/i18n/server';
 
 export class MetadataFactory {
   /**

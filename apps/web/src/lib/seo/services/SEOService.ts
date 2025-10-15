@@ -7,7 +7,7 @@
  * Security Standards: Safe URL generation and validation
  */
 
-import { SupportedLocale } from '@diboas/i18n';
+import { SupportedLocale } from '@diboas/i18n/server';
 import { BRAND_CONFIG } from '@/config/brand';
 import { ENV_CONFIG } from '@/config/environment';
 import { 

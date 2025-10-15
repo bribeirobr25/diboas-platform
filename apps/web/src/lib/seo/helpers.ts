@@ -5,7 +5,7 @@
 
 import { MetadataFactory } from './metadata-factory';
 import { PAGE_SEO_CONFIG } from './constants';
-import type { SupportedLocale } from '@diboas/i18n';
+import type { SupportedLocale } from '@diboas/i18n/server';
 import type { Metadata } from 'next';
 
 /**

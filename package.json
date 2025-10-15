@@ -24,9 +24,9 @@
   "devDependencies": {
     "@types/node": "^20.5.0",
     "ajv": "^8.17.1",
-    "eslint": "^8.48.0",
+    "eslint": "^9.0.0",
     "prettier": "^3.0.2",
-    "turbo": "^1.10.14",
+    "turbo": "^2.5.8",
     "typescript": "^5.2.2"
   },
   "engines": {

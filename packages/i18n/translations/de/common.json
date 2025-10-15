@@ -1,0 +1,228 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "features": "Funktionen",
+    "pricing": "Preise",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "signup": "Loslegen",
+    "dashboard": "Dashboard",
+    "settings": "Einstellungen",
+    "help": "Hilfe",
+    "diboas": {
+      "label": "diBoaS",
+      "description": "Komplettes Finanz-Ökosystem mit Banking, Investieren und DeFi auf einer Plattform",
+      "subItems": {
+        "know": "diBoaS Kennenlernen",
+        "account": "diBoaS Konto",
+        "banking": "Banking",
+        "investing": "Investieren",
+        "crypto": "Krypto",
+        "strategies": "Strategien (DeFi)",
+        "credit": "Kredit"
+      }
+    },
+    "learn": {
+      "label": "Lern-Center",
+      "description": "Meistern Sie Ihre Finanzen mit Experten-Leitfäden und Bildungsinhalten",
+      "subItems": {
+        "center": "Das Lern-Center",
+        "basics": "Finanz-Grundlagen",
+        "management": "Geldverwaltung",
+        "investing": "Investitionsleitfaden",
+        "crypto": "Krypto A-Z",
+        "defi": "DeFi Erklärt",
+        "special": "Spezielle Inhalte"
+      }
+    },
+    "business": {
+      "label": "diBoaS Business",
+      "description": "Komplette Finanzlösungen für moderne Unternehmen",
+      "subItems": {
+        "know": "diBoaS Business Kennenlernen",
+        "account": "Geschäftskonto",
+        "bank": "Geschäftsbank",
+        "payments": "Zahlungen",
+        "treasury": "Treasury",
+        "yield": "Cashflow-Rendite",
+        "credit": "P2P-Kredit"
+      }
+    },
+    "rewards": {
+      "label": "Belohnungen",
+      "description": "Verdienen Sie Belohnungen und lernen Sie mit KI-gestützten Maskottchen-Guides",
+      "subItems": {
+        "program": "diBoaS Rewards",
+        "mascots": "KI-Maskottchen-Guides",
+        "referral": "Empfehlung",
+        "points": "Punkte Verdienen",
+        "badges": "Abzeichen & Bestenliste",
+        "campaigns": "Kampagnen",
+        "token": "Token & Airdrop"
+      }
+    },
+    "security": {
+      "label": "Sicherheit",
+      "description": "Ihre Sicherheit ist unsere oberste Priorität",
+      "subItems": {
+        "protection": "diBoaS Schutz",
+        "audits": "Audit & Berichte",
+        "safe": "Sicher Bleiben",
+        "faq": "FAQ"
+      }
+    },
+    "aboutMenu": {
+      "label": "Über",
+      "description": "Erfahren Sie mehr über diBoaS und unsere Mission",
+      "subItems": {
+        "about": "Mehr Über diBoaS",
+        "careers": "Unserem Team Beitreten",
+        "documentation": "Dokumentation",
+        "investors": "Investoren",
+        "compliance": "Compliance"
+      }
+    },
+    "mobile": {
+      "highlights": {
+        "benefits": "diBoaS Benefits",
+        "learn": "Lern-Center",
+        "rewards": "Belohnungen"
+      },
+      "sections": {
+        "forYou": "Für Sie",
+        "forBusiness": "Für Unternehmen"
+      }
+    },
+    "actions": {
+      "primary": "Loslegen",
+      "secondary": "Business-Login"
+    }
+  },
+  "buttons": {
+    "getStarted": "Loslegen",
+    "learnMore": "Mehr Erfahren",
+    "signUp": "Registrieren",
+    "signIn": "Anmelden",
+    "signOut": "Abmelden",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "submit": "Absenden",
+    "loading": "Laden...",
+    "tryAgain": "Erneut Versuchen"
+  },
+  "common": {
+    "and": "und",
+    "or": "oder",
+    "yes": "Ja",
+    "no": "Nein",
+    "ok": "OK",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "warning": "Warnung",
+    "info": "Information"
+  },
+  "forms": {
+    "required": "Dieses Feld ist erforderlich",
+    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "password": "Das Passwort muss mindestens 8 Zeichen lang sein",
+    "confirmPassword": "Die Passwörter stimmen nicht überein",
+    "terms": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen",
+    "privacy": "Bitte akzeptieren Sie die Datenschutzerklärung"
+  },
+  "accessibility": {
+    "skipToMain": "Zum Hauptinhalt springen",
+    "skipToNav": "Zur Navigation springen",
+    "openMenu": "Navigationsmenü öffnen",
+    "closeMenu": "Navigationsmenü schließen",
+    "toggleLanguage": "Sprache wechseln",
+    "currentLanguage": "Aktuelle Sprache: Deutsch"
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "languages": {
+      "en": "English",
+      "pt-BR": "Português",
+      "es": "Español",
+      "de": "Deutsch"
+    }
+  },
+  "seo": {
+    "defaultTitle": "diBoaS - Finanzielle Freiheit Leicht Gemacht",
+    "defaultDescription": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets auf einer sicheren Plattform. Die Zukunft der Finanzen ist hier.",
+    "keywords": [
+      "digitales Banking",
+      "Kryptowährungsinvestition",
+      "DeFi-Plattform",
+      "finanzielle Freiheit",
+      "sicheres Banking",
+      "Krypto-Handel",
+      "Investitionsplattform"
+    ]
+  },
+  "errors": {
+    "notFound": {
+      "title": "Seite Nicht Gefunden",
+      "description": "Entschuldigung, wir konnten die gesuchte Seite nicht finden.",
+      "action": "Zurück zur Startseite"
+    },
+    "serverError": {
+      "title": "Etwas Ist Schiefgelaufen",
+      "description": "Wir haben technische Schwierigkeiten. Bitte versuchen Sie es später erneut.",
+      "action": "Erneut versuchen"
+    },
+    "boundary": {
+      "title": "Hoppla! Etwas Ist Schiefgelaufen",
+      "description": "Ein unerwarteter Fehler ist aufgetreten. Unser Team wurde benachrichtigt.",
+      "action": "Seite aktualisieren"
+    },
+    "offline": {
+      "title": "Keine Internetverbindung",
+      "description": "Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      "action": "Erneut versuchen"
+    }
+  },
+  "footer": {
+    "sections": {
+      "transparency": {
+        "title": "Transparenz",
+        "links": {
+          "privacy": "Datenschutz",
+          "security": "Sicherheit",
+          "terms": "Nutzungsbedingungen"
+        }
+      },
+      "explore": {
+        "title": "Entdecken",
+        "links": {
+          "about": "Über uns",
+          "documentation": "Dokumentation",
+          "careers": "Karriere",
+          "investors": "Investoren"
+        }
+      },
+      "help": {
+        "title": "Hilfe",
+        "links": {
+          "faq": "Häufig gestellte Fragen"
+        }
+      },
+      "legal": {
+        "title": "Rechtliches",
+        "links": {
+          "cookies": "Cookies"
+        }
+      }
+    },
+    "social": {
+      "instagram": "Instagram",
+      "twitter": "X (Twitter)",
+      "youtube": "YouTube",
+      "linkedin": "LinkedIn"
+    },
+    "copyright": "© 2024 diBoaS. Alle Rechte vorbehalten.",
+    "brandName": "diBoaS"
+  }
+}

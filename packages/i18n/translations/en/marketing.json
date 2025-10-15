@@ -117,7 +117,105 @@
       ]
     }
   },
+  "productCarousel": {
+    "heading": "OneFi - One App for Everything",
+    "slides": {
+      "benefits": {
+        "title": "diBoaS Benefits",
+        "subtitle": "Take control of your Financial life"
+      },
+      "rewards": {
+        "title": "diBoaS Rewards",
+        "subtitle": "Share what is good and grow with your friends"
+      },
+      "business": {
+        "title": "diBoaS Business",
+        "subtitle": "Make your business cash flow generate passive income"
+      }
+    }
+  },
+  "featureShowcase": {
+    "overview": {
+      "title": "Track Activities & Earn Rewards",
+      "description": "Monitor your financial activities and earn rewards all in one place. Get a complete view of your financial health with exclusive benefits."
+    },
+    "activities": {
+      "title": "Track Your Financial Activities",
+      "description": "Monitor all your financial activities in one place. From spending insights to investment tracking, get a complete view of your financial health."
+    },
+    "rewards": {
+      "title": "Earn Rewards & Benefits",
+      "description": "Get rewarded for your financial activities. Earn points, unlock benefits, and access exclusive features as you grow your financial portfolio."
+    }
+  },
+  "appFeatures": {
+    "sectionTitle": "An app for everything. And everything in the app",
+    "organizeMoney": {
+      "title": "Organize Your Money",
+      "description": "Track expenses, set budgets, and achieve your financial goals with intelligent tools",
+      "ctaText": "Start Organizing",
+      "chipLabel": "Smart Budget"
+    },
+    "instantPayments": {
+      "title": "Instant Payments",
+      "description": "Send and receive money instantly with zero fees and maximum security",
+      "ctaText": "Send Money",
+      "chipLabel": "Zero Fees"
+    },
+    "securePurchases": {
+      "title": "Secure Purchases",
+      "description": "Shop online and in-store with bank-level security and fraud protection",
+      "ctaText": "Shop Safely",
+      "chipLabel": "Protected"
+    },
+    "financialGoals": {
+      "title": "Financial Goals",
+      "description": "Set and achieve your financial goals with AI-powered guidance and insights",
+      "ctaText": "Set Goals",
+      "chipLabel": "AI Powered"
+    }
+  },
+  "benefits": {
+    "exclusiveRewards": {
+      "title": "Exclusive Rewards",
+      "description": "Earn points and unlock exclusive benefits with every transaction",
+      "ctaText": "Learn More"
+    },
+    "financialFreedom": {
+      "title": "Financial Freedom",
+      "description": "Take control of your finances with our comprehensive suite of tools",
+      "ctaText": "Get Started"
+    },
+    "smartInvesting": {
+      "title": "Smart Investing",
+      "description": "Invest in crypto and traditional assets with AI-powered insights"
+    },
+    "secureBanking": {
+      "title": "Secure Banking",
+      "description": "Bank-level security and regulatory compliance to protect your assets",
+      "ctaText": "Learn About Security"
+    }
+  },
+  "oneFeature": {
+    "title": "Your Security First",
+    "subtitle": "Discover our tools and channels to keep your account safe and protected",
+    "ctaText": "Discover Our Solutions",
+    "features": {
+      "fraudReport": "Report Fraud",
+      "reports": "Report Channel",
+      "protection": "Protection Center",
+      "support": "Support Channels"
+    }
+  },
   "pages": {
+    "home": {
+      "title": "diBoaS - Complete Financial Ecosystem",
+      "description": "Manage your banking, investing, and DeFi assets all in one secure platform.",
+      "hero": {
+        "title": "Your Complete Financial Ecosystem",
+        "description": "Manage your banking, investing, and DeFi assets all in one secure platform. Experience financial freedom with diBoaS."
+      }
+    },
     "banking": {
       "title": "Banking Services | diBoaS",
       "description": "Modern banking solutions with zero fees, instant transfers, and smart budgeting features.",
@@ -127,7 +225,7 @@
       }
     },
     "investing": {
-      "title": "Crypto Investing | diBoaS", 
+      "title": "Crypto Investing | diBoaS",
       "description": "Smart crypto investment platform with AI-powered portfolio management and low fees.",
       "hero": {
         "title": "Invest in Your Future",
@@ -138,7 +236,7 @@
       "title": "DeFi Strategies | diBoaS",
       "description": "Access decentralized finance protocols with maximum security and optimal yields.",
       "hero": {
-        "title": "DeFi Made Safe", 
+        "title": "DeFi Made Safe",
         "subtitle": "Explore decentralized finance with enterprise-grade security."
       }
     }

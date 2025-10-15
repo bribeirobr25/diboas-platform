@@ -7,7 +7,7 @@
  * No Hardcoded Values: All values configurable through interfaces
  */
 
-export type AppFeaturesCarouselVariant = 'default' | 'grid' | 'masonry';
+export type AppFeaturesCarouselVariant = 'default';
 
 export interface AppFeatureContent {
   readonly title: string;
@@ -54,7 +54,7 @@ export interface AppFeaturesCarouselVariantConfig {
 
 // Configuration Management - Default app features carousel settings
 export const DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS: AppFeaturesCarouselSettings = {
-  autoRotateMs: 5000, // 5 seconds
+  autoRotateMs: 4000, // 4 seconds per documentation
   pauseOnHover: true,
   enableTouch: true,
   enableAnalytics: true,
@@ -62,16 +62,17 @@ export const DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS: AppFeaturesCarouselSettings
 } as const;
 
 // Default app features carousel cards
+// Note: Titles, descriptions, CTA text, and chip labels are translation keys that will be resolved at runtime
 export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'organize-money',
     content: {
-      title: 'Organize Your Money',
-      description: 'Keep your money organized and aligned with your goals.',
-      ctaText: 'Learn about diBoaS',
+      title: 'marketing.appFeatures.organizeMoney.title',
+      description: 'marketing.appFeatures.organizeMoney.description',
+      ctaText: 'marketing.appFeatures.organizeMoney.ctaText',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank',
-      chipLabel: 'Descubra Casamentos'
+      chipLabel: 'marketing.appFeatures.organizeMoney.chipLabel'
     },
     assets: {
       image: '/assets/socials/real/zen-br.avif'
@@ -83,12 +84,12 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'instant-payments',
     content: {
-      title: 'Instant Payments',
-      description: 'Pay and receive with speed and convenience anytime, anywhere.',
-      ctaText: 'Learn about diBoaS',
+      title: 'marketing.appFeatures.instantPayments.title',
+      description: 'marketing.appFeatures.instantPayments.description',
+      ctaText: 'marketing.appFeatures.instantPayments.ctaText',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank',
-      chipLabel: 'Pix realizado'
+      chipLabel: 'marketing.appFeatures.instantPayments.chipLabel'
     },
     assets: {
       image: '/assets/socials/real/chilling.avif'
@@ -100,12 +101,12 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'secure-purchases',
     content: {
-      title: 'Secure Purchases',
-      description: 'Shop with debit or credit safely and receive real-time notifications in the app.',
-      ctaText: 'Learn about diBoaS',
+      title: 'marketing.appFeatures.securePurchases.title',
+      description: 'marketing.appFeatures.securePurchases.description',
+      ctaText: 'marketing.appFeatures.securePurchases.ctaText',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank',
-      chipLabel: 'Compra no débito'
+      chipLabel: 'marketing.appFeatures.securePurchases.chipLabel'
     },
     assets: {
       image: '/assets/socials/real/walking.avif'
@@ -117,12 +118,12 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'financial-goals',
     content: {
-      title: 'Achieve Financial Goals',
-      description: 'Get financial help to resolve an emergency or fulfill a dream.',
-      ctaText: 'Learn about our loans',
+      title: 'marketing.appFeatures.financialGoals.title',
+      description: 'marketing.appFeatures.financialGoals.description',
+      ctaText: 'marketing.appFeatures.financialGoals.ctaText',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank',
-      chipLabel: 'Empréstimo efetuado'
+      chipLabel: 'marketing.appFeatures.financialGoals.chipLabel'
     },
     assets: {
       image: '/assets/socials/real/trip.avif'
@@ -134,42 +135,15 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
 ] as const;
 
 // Predefined app features carousel configurations
+// Note: Section title is a translation key that will be resolved at runtime
 export const APP_FEATURES_CAROUSEL_CONFIGS = {
   default: {
     variant: 'default' as const,
-    sectionTitle: 'An app for everything. And everything in the app',
+    sectionTitle: 'marketing.appFeatures.sectionTitle',
     cards: DEFAULT_APP_FEATURES_CARDS,
     settings: DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
     analytics: {
       trackingPrefix: 'app_features_carousel_default',
-      enabled: true
-    }
-  },
-  grid: {
-    variant: 'grid' as const,
-    sectionTitle: 'Discover App Features',
-    cards: DEFAULT_APP_FEATURES_CARDS,
-    settings: {
-      ...DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
-      autoRotateMs: 0, // No auto-rotation in grid
-      transitionDuration: 200,
-    },
-    analytics: {
-      trackingPrefix: 'app_features_carousel_grid',
-      enabled: true
-    }
-  },
-  masonry: {
-    variant: 'masonry' as const,
-    sectionTitle: 'Explore Everything We Offer',
-    cards: DEFAULT_APP_FEATURES_CARDS,
-    settings: {
-      ...DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
-      autoRotateMs: 0, // No auto-rotation in masonry
-      transitionDuration: 400,
-    },
-    analytics: {
-      trackingPrefix: 'app_features_carousel_masonry',
       enabled: true
     }
   }
@@ -178,181 +152,7 @@ export const APP_FEATURES_CAROUSEL_CONFIGS = {
 // Page-specific configurations
 export const PAGE_APP_FEATURES_CONFIGS = {
   // Homepage - Full app features showcase
-  HOME: APP_FEATURES_CAROUSEL_CONFIGS.default,
-  
-  // Account page - Account-focused features
-  ACCOUNT: {
-    variant: 'grid' as const,
-    sectionTitle: 'Everything you need in your account',
-    cards: [
-      {
-        id: 'account-management',
-        content: {
-          title: 'Complete Account Management',
-          description: 'Manage all your accounts, transactions, and financial data in one place.',
-          ctaText: 'Open Account',
-          ctaHref: '/account',
-          ctaTarget: '_self',
-          chipLabel: 'Conta Digital'
-        },
-        assets: {
-          image: '/assets/socials/real/zen-br.avif'
-        },
-        seo: {
-          imageAlt: 'Person managing digital banking account with ease'
-        }
-      },
-      {
-        id: 'real-time-notifications',
-        content: {
-          title: 'Real-time Notifications',
-          description: 'Stay updated with instant notifications for all your financial activities.',
-          ctaText: 'Enable Notifications',
-          ctaHref: '/account',
-          ctaTarget: '_self',
-          chipLabel: 'Notificações'
-        },
-        assets: {
-          image: '/assets/socials/real/chilling.avif'
-        },
-        seo: {
-          imageAlt: 'Person receiving real-time banking notifications'
-        }
-      },
-      {
-        id: 'secure-transactions',
-        content: {
-          title: 'Secure Transactions',
-          description: 'All transactions are protected with bank-level security and encryption.',
-          ctaText: 'Learn More',
-          ctaHref: '/security',
-          ctaTarget: '_self',
-          chipLabel: 'Segurança'
-        },
-        assets: {
-          image: '/assets/socials/real/walking.avif'
-        },
-        seo: {
-          imageAlt: 'Secure banking transactions with advanced protection'
-        }
-      },
-      {
-        id: 'financial-insights',
-        content: {
-          title: 'Financial Insights',
-          description: 'Get personalized insights and recommendations to improve your financial health.',
-          ctaText: 'View Insights',
-          ctaHref: '/account',
-          ctaTarget: '_self',
-          chipLabel: 'Insights'
-        },
-        assets: {
-          image: '/assets/socials/real/trip.avif'
-        },
-        seo: {
-          imageAlt: 'Person analyzing financial insights and planning future goals'
-        }
-      }
-    ],
-    settings: {
-      autoRotateMs: 0,
-      pauseOnHover: true,
-      enableTouch: true,
-      enableAnalytics: true,
-      transitionDuration: 200,
-    },
-    analytics: {
-      trackingPrefix: 'app_features_carousel_account',
-      enabled: true
-    }
-  } as AppFeaturesCarouselVariantConfig,
-  
-  // Business page - B2B features
-  BUSINESS: {
-    variant: 'masonry' as const,
-    sectionTitle: 'Business solutions for every need',
-    cards: [
-      {
-        id: 'business-banking',
-        content: {
-          title: 'Complete Business Banking',
-          description: 'Comprehensive banking solutions designed for businesses of all sizes.',
-          ctaText: 'Explore Business',
-          ctaHref: '/business',
-          ctaTarget: '_self',
-          chipLabel: 'Business Banking'
-        },
-        assets: {
-          image: '/assets/socials/real/zen-br.avif'
-        },
-        seo: {
-          imageAlt: 'Business professional managing corporate banking solutions'
-        }
-      },
-      {
-        id: 'payroll-management',
-        content: {
-          title: 'Streamlined Payroll',
-          description: 'Automate payroll processing with integrated HR and accounting tools.',
-          ctaText: 'Learn More',
-          ctaHref: '/business/payments',
-          ctaTarget: '_self',
-          chipLabel: 'Payroll'
-        },
-        assets: {
-          image: '/assets/socials/real/chilling.avif'
-        },
-        seo: {
-          imageAlt: 'HR professional processing payroll with automated tools'
-        }
-      },
-      {
-        id: 'treasury-management',
-        content: {
-          title: 'Treasury Management',
-          description: 'Optimize cash flow and manage corporate finances with advanced tools.',
-          ctaText: 'Discover Treasury',
-          ctaHref: '/business/treasury',
-          ctaTarget: '_self',
-          chipLabel: 'Treasury'
-        },
-        assets: {
-          image: '/assets/socials/real/walking.avif'
-        },
-        seo: {
-          imageAlt: 'Financial manager optimizing corporate treasury operations'
-        }
-      },
-      {
-        id: 'business-analytics',
-        content: {
-          title: 'Business Analytics',
-          description: 'Make informed decisions with comprehensive business intelligence and reporting.',
-          ctaText: 'View Analytics',
-          ctaHref: '/business/analytics',
-          ctaTarget: '_self',
-          chipLabel: 'Analytics'
-        },
-        assets: {
-          image: '/assets/socials/real/trip.avif'
-        },
-        seo: {
-          imageAlt: 'Business analyst reviewing comprehensive financial reports and metrics'
-        }
-      }
-    ],
-    settings: {
-      autoRotateMs: 0,
-      pauseOnHover: true,
-      enableTouch: true,
-      enableAnalytics: true,
-      transitionDuration: 400,
-    },
-    analytics: {
-      trackingPrefix: 'app_features_carousel_business',
-      enabled: true
-    }
-  } as AppFeaturesCarouselVariantConfig
+  HOME: APP_FEATURES_CAROUSEL_CONFIGS.default
 } as const;
 
 // Legacy compatibility

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-import { SupportedLocale, SUPPORTED_LOCALES } from '@diboas/i18n';
+import { SupportedLocale, SUPPORTED_LOCALES } from '@diboas/i18n/server';
 import { useState, useRef, useEffect } from 'react';
 
 const localeNames: Record<SupportedLocale, string> = {

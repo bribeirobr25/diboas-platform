@@ -322,6 +322,18 @@
   color: #ffffff;
 }
 
+/* Language Switcher in Footer */
+.footerLanguageSwitcher {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .footerLanguageSwitcher {
+    justify-content: flex-start;
+  }
+}
+
 /* Desktop Social Media Section */
 .desktopSocialSection {
   display: none;

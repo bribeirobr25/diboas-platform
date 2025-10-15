@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n';
+import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection } from '@/components/Sections';
-import { BenefitsCarousel } from '@/components/Sections/BenefitsCarousel';
+import { HeroSection, FeatureShowcase } from '@/components/Sections';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { BENEFITS_SHOWCASE_CONFIG } from '@/config/benefitsCarousel';
 import type { Metadata } from 'next';
 export const dynamic = 'auto';
 
@@ -43,14 +44,32 @@ export default async function BenefitsPage({ params }: PageProps) {
       <StructuredData data={[serviceData, breadcrumbData]} />
       
       <main className="main-page-wrapper">
-        <HeroSection 
-          variant="default"
-          enableAnalytics={true}
-          priority={true}
-        />
+        <SectionErrorBoundary
+          sectionId="hero-section-benefits"
+          sectionType="HeroSection"
+          enableReporting={true}
+          context={{ page: 'benefits', variant: 'default' }}
+        >
+          <HeroSection 
+            variant="default"
+            enableAnalytics={true}
+            priority={true}
+          />
+        </SectionErrorBoundary>
         
-        {/* Benefits Carousel Section */}
-        <BenefitsCarousel enableAnalytics={true} />
+        {/* Benefits Showcase Section */}
+        <SectionErrorBoundary
+          sectionId="feature-showcase-benefits"
+          sectionType="FeatureShowcase"
+          enableReporting={true}
+          context={{ page: 'benefits', variant: 'benefits' }}
+        >
+          <FeatureShowcase 
+            variant="benefits"
+            config={BENEFITS_SHOWCASE_CONFIG}
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
         
         {/* Benefits content sections will be added here */}
         <div className="page-content-container">

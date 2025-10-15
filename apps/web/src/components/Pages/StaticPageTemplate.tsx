@@ -7,7 +7,7 @@
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import type { SupportedLocale } from '@diboas/i18n';
+import type { SupportedLocale } from '@diboas/i18n/server';
 import type { Metadata } from 'next';
 
 interface StaticPageTemplateProps {

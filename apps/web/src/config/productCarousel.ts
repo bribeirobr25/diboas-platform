@@ -7,7 +7,7 @@
  * No Hardcoded Values: All values configurable through interfaces
  */
 
-export type ProductCarouselVariant = 'default' | 'compact' | 'fullWidth';
+export type ProductCarouselVariant = 'default';
 
 export interface ProductCarouselSlide {
   readonly id: string;
@@ -63,34 +63,39 @@ export const DEFAULT_PRODUCT_CAROUSEL_SETTINGS: ProductCarouselSettings = {
   enablePlayPause: true,
 } as const;
 
-// Default carousel slides
+// Default carousel slides (matches documentation specifications)
+// Note: Titles and subtitles are translation keys that will be resolved at runtime
 export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
   {
     id: 'benefits',
-    title: 'diBoaS Benefits',
-    subtitle: 'Take control of your Financial life',
+    title: 'marketing.productCarousel.slides.benefits.title',
+    subtitle: 'marketing.productCarousel.slides.benefits.subtitle',
     image: '/assets/socials/real/couple.avif',
-    imageAlt: 'Dancing couple enjoying financial freedom',
+    imageAlt: 'Couple',
+    ctaText: 'common.buttons.learnMore',
   },
   {
     id: 'rewards',
-    title: 'diBoaS Rewards', 
-    subtitle: 'Share what is good and grow with your friends',
+    title: 'marketing.productCarousel.slides.rewards.title',
+    subtitle: 'marketing.productCarousel.slides.rewards.subtitle',
     image: '/assets/socials/real/group.avif',
-    imageAlt: 'Friends celebrating together',
+    imageAlt: 'friends',
+    ctaText: 'common.buttons.learnMore',
   },
   {
     id: 'business',
-    title: 'diBoaS Business',
-    subtitle: 'Make your business cash flow generate passive income',
+    title: 'marketing.productCarousel.slides.business.title',
+    subtitle: 'marketing.productCarousel.slides.business.subtitle',
     image: '/assets/socials/real/share.avif',
-    imageAlt: 'Business group collaborating',
+    imageAlt: 'Business group',
+    ctaText: 'common.buttons.getStarted',
   }
 ] as const;
 
 // Default content configuration
+// Note: Heading is a translation key that will be resolved at runtime
 export const DEFAULT_PRODUCT_CAROUSEL_CONTENT: ProductCarouselContent = {
-  heading: 'OneFi - One App for Everything',
+  heading: 'marketing.productCarousel.heading',
   slides: DEFAULT_PRODUCT_CAROUSEL_SLIDES,
 } as const;
 
@@ -106,40 +111,6 @@ export const PRODUCT_CAROUSEL_CONFIGS = {
     },
     analytics: {
       trackingPrefix: 'product_carousel_default',
-      enabled: true
-    }
-  },
-  compact: {
-    variant: 'compact' as const,
-    content: DEFAULT_PRODUCT_CAROUSEL_CONTENT,
-    settings: {
-      ...DEFAULT_PRODUCT_CAROUSEL_SETTINGS,
-      autoPlayInterval: 2500,
-      transitionDuration: 600,
-    },
-    seo: {
-      headingTag: 'OneFi - Financial Solutions',
-      ariaLabel: 'Compact product carousel'
-    },
-    analytics: {
-      trackingPrefix: 'product_carousel_compact',
-      enabled: true
-    }
-  },
-  fullWidth: {
-    variant: 'fullWidth' as const,
-    content: DEFAULT_PRODUCT_CAROUSEL_CONTENT,
-    settings: {
-      ...DEFAULT_PRODUCT_CAROUSEL_SETTINGS,
-      autoPlayInterval: 4000,
-      transitionDuration: 1000,
-    },
-    seo: {
-      headingTag: 'OneFi - Complete Financial Ecosystem',
-      ariaLabel: 'Full-width product carousel'
-    },
-    analytics: {
-      trackingPrefix: 'product_carousel_fullwidth',
       enabled: true
     }
   }

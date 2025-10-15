@@ -7,7 +7,7 @@
  * Error Handling: Resilient conversion tracking with retry
  */
 
-import { SupportedLocale } from '@diboas/i18n';
+import { SupportedLocale } from '@diboas/i18n/server';
 
 // Domain Entities
 export interface ConversionEvent {

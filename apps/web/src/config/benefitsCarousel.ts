@@ -1,0 +1,123 @@
+/**
+ * Benefits Page FeatureShowcase Configuration
+ * 
+ * Domain-Driven Design: Benefits-specific showcase configuration
+ * Service Agnostic Abstraction: Decoupled configuration following FeatureShowcase pattern
+ * No Hardcoded Values: Configurable through interfaces
+ */
+
+import type { FeatureShowcaseSlide, FeatureShowcaseVariantConfig } from './featureShowcase';
+
+// Benefits-specific showcase slides
+// Note: Titles, descriptions, and CTA text are translation keys that will be resolved at runtime
+export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
+  {
+    id: 'exclusive-rewards',
+    content: {
+      title: 'marketing.benefits.exclusiveRewards.title',
+      description: 'marketing.benefits.exclusiveRewards.description',
+      ctaText: 'marketing.benefits.exclusiveRewards.ctaText',
+      ctaHref: '/rewards',
+      ctaTarget: '_self'
+    },
+    assets: {
+      primaryImage: '/assets/socials/real/rewards-with-icon.avif',
+      secondaryImage: '/assets/socials/real/rewards-with-icon.avif'
+    },
+    seo: {
+      imageAlt: {
+        primary: 'Visual representation of rewards and benefits',
+        secondary: 'Rewards secondary image'
+      }
+    },
+    showSecondaryImage: false
+  },
+  {
+    id: 'financial-freedom',
+    content: {
+      title: 'marketing.benefits.financialFreedom.title',
+      description: 'marketing.benefits.financialFreedom.description',
+      ctaText: 'marketing.benefits.financialFreedom.ctaText',
+      ctaHref: '/account',
+      ctaTarget: '_self'
+    },
+    assets: {
+      primaryImage: '/assets/socials/real/couple.avif',
+      secondaryImage: '/assets/socials/real/couple.avif'
+    },
+    seo: {
+      imageAlt: {
+        primary: 'Couple enjoying financial freedom',
+        secondary: 'Financial freedom secondary image'
+      }
+    },
+    showSecondaryImage: false
+  },
+  {
+    id: 'smart-investing',
+    content: {
+      title: 'marketing.benefits.smartInvesting.title',
+      description: 'marketing.benefits.smartInvesting.description',
+      ctaText: 'common.buttons.learnMore',
+      ctaHref: '/investing',
+      ctaTarget: '_self'
+    },
+    assets: {
+      primaryImage: '/assets/socials/real/investing-with-icon.avif',
+      secondaryImage: '/assets/socials/real/investing-with-icon.avif'
+    },
+    seo: {
+      imageAlt: {
+        primary: 'Investment growth visualization',
+        secondary: 'Investment secondary image'
+      }
+    },
+    showSecondaryImage: false
+  },
+  {
+    id: 'secure-banking',
+    content: {
+      title: 'marketing.benefits.secureBanking.title',
+      description: 'marketing.benefits.secureBanking.description',
+      ctaText: 'marketing.benefits.secureBanking.ctaText',
+      ctaHref: '/security',
+      ctaTarget: '_self'
+    },
+    assets: {
+      primaryImage: '/assets/socials/real/secure-with-icon.avif',
+      secondaryImage: '/assets/socials/real/secure-with-icon.avif'
+    },
+    seo: {
+      imageAlt: {
+        primary: 'Security shield illustration',
+        secondary: 'Security secondary image'
+      }
+    },
+    showSecondaryImage: false
+  }
+] as const;
+
+// Benefits showcase configuration
+export const BENEFITS_SHOWCASE_CONFIG: FeatureShowcaseVariantConfig = {
+  variant: 'benefits',
+  slides: BENEFITS_SHOWCASE_SLIDES,
+  settings: {
+    showNavigation: true,
+    showDots: true,
+    enableAnalytics: true,
+    transitionDuration: 500,
+    performance: {
+      preloadSlideCount: 2,
+      imageLoadingTimeout: 3000,
+      navigationThrottleMs: 150
+    }
+  },
+  analytics: {
+    enabled: true,
+    trackingPrefix: 'feature_showcase_benefits',
+    eventSuffixes: {
+      navigation: 'navigation_used',
+      ctaClick: 'cta_clicked'
+    }
+  }
+} as const;

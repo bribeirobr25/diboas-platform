@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { type SupportedLocale } from '@diboas/i18n';
+import { type SupportedLocale } from '@diboas/i18n/server';
 
 interface LocaleContextType {
   locale: SupportedLocale;

@@ -1,0 +1,508 @@
+/**
+ * ProductCarouselDefault Variant Styles
+ * 
+ * File Decoupling: Isolated styles for default carousel variant
+ * Design Tokens: Uses centralized design system tokens
+ * Performance: Optimized for smooth carousel animations
+ * No Hardcoded Values: All values from design tokens
+ */
+
+/* ================================
+   PRODUCT CAROUSEL DEFAULT VARIANT
+   ================================ */
+
+/* Section Container */
+.section {
+  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
+  background-color: var(--pc-color-section-bg);
+  width: var(--section-width-full);
+  height: var(--section-height-carousel-mobile);
+  overflow: hidden;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .section {
+    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+    height: var(--section-height-carousel);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+  }
+}
+
+/* Main Container */
+.container {
+  max-width: var(--pc-container-max-width);
+  margin: 0 auto;
+  padding-inline: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-heading-margin-mobile);
+  width: 100%;
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .container {
+    gap: var(--pc-heading-margin-desktop);
+  }
+}
+
+/* ================================
+   HEADER STYLES
+   ================================ */
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: var(--pc-heading-margin-mobile);
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .header {
+    margin-bottom: var(--pc-heading-margin-desktop);
+  }
+}
+
+/* Title */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--pc-color-heading);
+  margin-bottom: var(--pc-subtitle-margin);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-title-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-title-desktop);
+  }
+}
+
+/* Dynamic Subtitle with Cross-fade Animation */
+.subtitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-description-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-description);
+  color: var(--pc-color-subtitle);
+  max-width: var(--pc-subtitle-max-width);
+  min-height: var(--pc-subtitle-min-height);
+  margin: var(--pc-subtitle-margin);
+  display: -webkit-box;
+  -webkit-line-clamp: var(--pc-webkit-line-clamp);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  animation: subtitleFadeIn var(--pc-subtitle-transition-duration) var(--pc-subtitle-transition-easing);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .subtitle {
+    font-size: var(--font-size-description-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .subtitle {
+    font-size: var(--font-size-description-desktop);
+  }
+}
+
+/* Subtitle Cross-fade Animation */
+@keyframes subtitleFadeIn {
+  0% {
+    opacity: var(--opacity-0);
+    transform: var(--pc-subtitle-transform-in);
+  }
+  100% {
+    opacity: var(--opacity-100);
+    transform: var(--pc-subtitle-transform-out);
+  }
+}
+
+/* ================================
+   3-CARD CAROUSEL LAYOUT
+   ================================ */
+
+/* Carousel Track Container */
+.carouselTrack {
+  position: relative;
+  width: var(--pc-width-full);
+  height: var(--pc-image-active-height-mobile);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: var(--pc-margin-auto);
+}
+
+/* Responsive: Desktop & Tablet */
+@media (min-width: 768px) {
+  .carouselTrack {
+    height: var(--pc-image-active-height-desktop);
+  }
+}
+
+/* Carousel Container */
+.carouselContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pc-width-full);
+  height: 100%;
+}
+
+/* Individual Card */
+.card {
+  position: absolute;
+  transition: all var(--pc-transition-duration) var(--pc-transition-timing);
+  cursor: pointer;
+  will-change: transform, width, height, z-index;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================================
+   CARD STATES - MOBILE
+   ================================ */
+
+/* Active Card - Mobile */
+.cardActive {
+  width: var(--pc-image-active-width-mobile);
+  height: var(--pc-image-active-height-mobile);
+  z-index: var(--pc-z-index-active);
+  left: var(--pc-position-center);
+  top: var(--pc-position-center);
+  transform: var(--pc-transform-center);
+  cursor: default;
+}
+
+/* Inactive Cards - Mobile */
+.cardLeft,
+.cardRight {
+  width: var(--pc-image-inactive-width-mobile);
+  height: var(--pc-image-inactive-height-mobile);
+  z-index: var(--pc-z-index-inactive);
+  top: var(--pc-position-center);
+}
+
+/* Left Card - Mobile (10% visible) */
+.cardLeft {
+  left: var(--pc-position-center);
+  transform: translateX(var(--pc-left-card-offset-mobile)) translateY(var(--pc-vertical-offset-inactive-mobile));
+}
+
+/* Right Card - Mobile (10% visible) */
+.cardRight {
+  left: var(--pc-position-center);
+  transform: translateX(var(--pc-right-card-offset-mobile)) translateY(var(--pc-vertical-offset-inactive-mobile));
+}
+
+/* ================================
+   CARD STATES - TABLET
+   ================================ */
+
+@media (min-width: 768px) {
+  /* Active Card - Tablet */
+  .cardActive {
+    width: var(--pc-image-active-width-desktop);
+    height: var(--pc-image-active-height-desktop);
+  }
+  
+  /* Inactive Cards - Tablet */
+  .cardLeft,
+  .cardRight {
+    width: var(--pc-image-inactive-width-desktop);
+    height: var(--pc-image-inactive-height-desktop);
+  }
+  
+  /* Left Card - Tablet (40% visible) */
+  .cardLeft {
+    transform: translateX(var(--pc-left-card-offset-tablet)) translateY(var(--pc-vertical-offset-inactive-tablet));
+  }
+  
+  /* Right Card - Tablet (40% visible) */
+  .cardRight {
+    transform: translateX(var(--pc-right-card-offset-tablet)) translateY(var(--pc-vertical-offset-inactive-tablet));
+  }
+}
+
+/* ================================
+   CARD STATES - DESKTOP
+   ================================ */
+
+@media (min-width: 1024px) {
+  /* Inactive Cards - Desktop */
+  .cardLeft,
+  .cardRight {
+    top: var(--pc-inactive-top-desktop);
+  }
+  
+  /* Left Card - Desktop (90% visible) */
+  .cardLeft {
+    transform: translateX(var(--pc-left-card-offset-desktop)) translateY(var(--pc-vertical-offset-inactive-desktop));
+  }
+  
+  /* Right Card - Desktop (90% visible) */
+  .cardRight {
+    transform: translateX(var(--pc-right-card-offset-desktop)) translateY(var(--pc-vertical-offset-inactive-desktop));
+  }
+}
+
+/* Card Content */
+.cardContent {
+  width: var(--pc-width-full);
+  height: var(--pc-width-full);
+  position: relative;
+  border-radius: var(--pc-card-border-radius);
+  overflow: hidden;
+  background-color: var(--pc-color-card-bg);
+  box-shadow: var(--pc-card-shadow);
+}
+
+/* ================================
+   IMAGE STYLES
+   ================================ */
+
+/* Image Wrapper */
+.imageWrapper {
+  position: relative;
+  width: var(--pc-width-full);
+  height: var(--pc-width-full);
+  overflow: hidden;
+  aspect-ratio: var(--pc-aspect-ratio);
+}
+
+/* Card Image */
+.cardImage {
+  width: var(--pc-width-full);
+  height: var(--pc-width-full);
+  object-fit: cover;
+  transition: transform var(--pc-transition-duration) var(--pc-transition-timing);
+}
+
+/* Card Overlay with Bottom Gradient */
+.cardOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--pc-gradient-overlay);
+  padding: var(--padding-button-y) var(--padding-button-x);
+  z-index: var(--pc-z-index-overlay);
+}
+
+/* Card Info */
+.cardInfo {
+  color: white;
+  text-align: center;
+}
+
+/* Card Title */
+.cardTitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-text-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-text);
+  margin: 0 0 var(--spacing-sm) 0;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .cardTitle {
+    font-size: var(--font-size-text-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .cardTitle {
+    font-size: var(--font-size-text-desktop);
+  }
+}
+
+/* Optional Pill CTA */
+.cardCTA {
+  display: inline-block;
+  background-color: var(--pc-color-cta-bg);
+  color: var(--pc-color-cta-text);
+  padding: var(--padding-button-y) var(--padding-button-x);
+  border-radius: var(--radius-3xl); /* Pill shape */
+  font-size: var(--font-size-ui-button);
+  font-weight: var(--pc-cta-font-weight);
+  text-align: center;
+  box-shadow: var(--pc-cta-shadow);
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
+  cursor: default; /* Non-functional as specified */
+}
+
+/* ================================
+   CONTROLS STYLES
+   ================================ */
+
+/* Controls Container */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pc-controls-gap);
+  margin-top: var(--pc-heading-margin-mobile);
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .controls {
+    margin-top: var(--pc-heading-margin-desktop);
+  }
+}
+
+/* Dots Container */
+.dots {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+/* Dot */
+.dot {
+  width: var(--pc-dot-size);
+  height: var(--pc-dot-size);
+  border-radius: var(--pc-dot-border-radius);
+  background-color: var(--pc-color-dot-inactive);
+  border: none;
+  cursor: pointer;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
+  outline-offset: var(--spacing-xs);
+}
+
+.dot:hover {
+  background-color: var(--pc-color-accent);
+  opacity: var(--opacity-70);
+}
+
+.dot:focus-visible {
+  outline: var(--spacing-sm) solid var(--pc-color-accent);
+}
+
+.dot:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-50);
+}
+
+/* Active Dot */
+.dotActive {
+  width: var(--pc-dot-active-width);
+  border-radius: var(--pc-dot-active-border-radius);
+  background-color: var(--pc-color-dot-active);
+}
+
+/* Play/Pause Button */
+.playPauseButton {
+  width: var(--pc-control-button-size);
+  height: var(--pc-control-button-size);
+  border-radius: var(--pc-control-border-radius);
+  background-color: var(--pc-color-control-bg);
+  border: var(--pc-control-border-width) solid var(--pc-color-control-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
+  outline-offset: var(--spacing-xs);
+}
+
+.playPauseButton:hover {
+  background-color: var(--pc-color-control-bg);
+  border-color: var(--pc-color-control-border-hover);
+  transform: var(--pc-transform-hover-lift);
+}
+
+.playPauseButton:focus-visible {
+  outline: var(--spacing-sm) solid var(--pc-color-accent);
+}
+
+/* Control Icon */
+.controlIcon {
+  width: var(--pc-control-icon-size);
+  height: var(--pc-control-icon-size);
+  color: var(--pc-color-control-icon);
+}
+
+/* ================================
+   ANIMATIONS & ACCESSIBILITY
+   ================================ */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cardContent,
+  .cardImage,
+  .cardOverlay,
+  .subtitle,
+  .dot,
+  .playPauseButton {
+    transition: none;
+    animation: none;
+  }
+  
+  .playPauseButton:hover {
+    transform: none;
+  }
+  
+  /* Instant state changes for reduced motion */
+  .subtitle {
+    animation: none;
+  }
+  
+  @keyframes subtitleFadeIn {
+    0%, 100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .cardContent {
+    border: var(--spacing-sm) solid var(--color-black);
+  }
+  
+  .playPauseButton {
+    border-width: var(--spacing-sm);
+    border-color: var(--color-black);
+  }
+  
+  .title {
+    color: var(--color-black);
+  }
+  
+  .subtitle {
+    color: var(--color-gray-700);
+  }
+  
+  .cardTitle {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  }
+}

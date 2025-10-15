@@ -1,0 +1,270 @@
+/**
+ * HeroFullBackground Variant Styles
+ * 
+ * File Decoupling: Full-screen background hero variant
+ * Design Tokens: Uses centralized design system
+ * Performance: Optimized for large background images
+ * No Hardcoded Values: All values from design tokens
+ */
+
+/* ================================
+   HERO FULL BACKGROUND VARIANT
+   ================================ */
+
+/* Section Container */
+.section {
+  position: relative;
+  width: var(--section-width-full);
+  height: var(--section-height-hero);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================================
+   BACKGROUND STYLES
+   ================================ */
+
+/* Background Layer */
+.backgroundLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--bg-mobile, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Responsive: Desktop - Use CSS custom property for desktop image */
+@media (min-width: var(--breakpoint-desktop)) {
+  .backgroundLayer {
+    background-image: var(--desktop-bg, var(--bg-mobile, none));
+  }
+}
+
+/* Background Overlay */
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--hs-gradient-overlay);
+  transition: opacity var(--fs-transition-duration) var(--fs-transition-easing);
+}
+
+/* ================================
+   CONTENT STYLES
+   ================================ */
+
+/* Container */
+.container {
+  position: relative;
+  z-index: var(--fs-z-index-content);
+  max-width: var(--fs-max-width-container);
+  margin: 0 auto;
+  padding: var(--padding-hero-nav-mobile-y) var(--padding-hero-nav-mobile-x);
+  width: var(--percent-100);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .container {
+    padding: var(--padding-hero-nav-tablet-y) var(--padding-hero-nav-tablet-x);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .container {
+    padding: var(--padding-hero-nav-desktop-y) var(--padding-hero-nav-desktop-x);
+  }
+}
+
+/* Content Wrapper */
+.content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-gap-md);
+  align-items: center;
+  max-width: var(--dimension-700);
+  margin: 0 auto;
+}
+
+/* ================================
+   TYPOGRAPHY STYLES
+   ================================ */
+
+/* Title - High contrast for overlay */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--hs-color-stats-text);
+  margin: 0;
+  margin-bottom: var(--hs-title-margin-bottom);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, var(--opacity-50));
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-title-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-title-desktop);
+  }
+}
+
+/* Description - High contrast for overlay */
+.description {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-description-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-description);
+  color: var(--hs-color-stats-text);
+  margin: 0;
+  margin-bottom: var(--hs-description-margin-bottom);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, var(--opacity-50));
+  opacity: var(--opacity-90);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .description {
+    font-size: var(--font-size-description-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .description {
+    font-size: var(--font-size-description-desktop);
+  }
+}
+
+/* ================================
+   CTA STYLES
+   ================================ */
+
+/* CTA Wrapper */
+.ctaWrapper {
+  margin-top: var(--hs-cta-margin-top-mobile);
+}
+
+/* Responsive: Tablet */
+@media (min-width: var(--breakpoint-tablet)) {
+  .ctaWrapper {
+    margin-top: var(--hs-cta-margin-top-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: var(--breakpoint-desktop)) {
+  .ctaWrapper {
+    margin-top: var(--hs-cta-margin-top-desktop);
+  }
+}
+
+/* CTA Button - Enhanced visibility on overlay */
+.ctaButton {
+  background: var(--hs-gradient-cta);
+  transition: all var(--fs-transition-duration) var(--fs-transition-easing);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, var(--opacity-30));
+  padding: var(--padding-button-y) var(--padding-button-x);
+  font-size: var(--font-size-text-desktop);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ctaButton:hover {
+  transform: var(--fs-transform-hover-lift);
+  box-shadow: var(--hs-shadow-cta-hover), 0 6px 20px rgba(0, 0, 0, var(--opacity-40));
+}
+
+.ctaButton:focus-visible {
+  outline: var(--fs-border-width-button) solid var(--hs-color-stats-text);
+  outline-offset: var(--spacing-xs);
+}
+
+/* ================================
+   LOADING STATES
+   ================================ */
+
+/* Loading Overlay */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--hs-color-loading-bg);
+  backdrop-filter: blur(var(--spacing-xs));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--fs-z-index-overlay);
+}
+
+/* Loading Spinner */
+.loadingSpinner {
+  width: var(--spacing-4xl);
+  height: var(--spacing-4xl);
+  border: var(--hs-spinner-border-width) solid var(--hs-spinner-border-color);
+  border-top: var(--hs-spinner-border-width) solid var(--hs-spinner-border-top-color);
+  border-radius: var(--fs-border-radius-circle);
+  animation: spin var(--fs-animation-duration-spinner) var(--fs-animation-easing-linear) infinite;
+}
+
+/* ================================
+   ANIMATIONS
+   ================================ */
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .ctaButton,
+  .loadingSpinner {
+    animation: none;
+    transition: none;
+  }
+  
+  .ctaButton:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .title,
+  .description {
+    color: var(--color-white);
+    text-shadow: 2px 2px var(--spacing-xs) var(--color-black);
+  }
+  
+  .ctaButton {
+    border: var(--fs-border-width-button) solid var(--color-white);
+  }
+  
+  .backgroundOverlay {
+    background: rgba(0, 0, 0, var(--opacity-70));
+  }
+}

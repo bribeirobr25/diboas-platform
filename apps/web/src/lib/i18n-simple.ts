@@ -10,4 +10,4 @@ export {
   type SupportedLocale,
   isValidLocale,
   getSafeLocale
-} from '@diboas/i18n';
+} from '@diboas/i18n/server';

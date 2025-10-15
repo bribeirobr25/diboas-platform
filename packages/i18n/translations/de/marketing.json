@@ -1,0 +1,244 @@
+{
+  "hero": {
+    "title": "Finanzielle Freiheit Leicht Gemacht",
+    "subtitle": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets an einem Ort. Die Zukunft der Finanzen ist hier, angetrieben von KI-basierten Einblicken.",
+    "cta": {
+      "primary": "Kostenlos Starten",
+      "secondary": "Mehr Erfahren"
+    },
+    "trustIndicators": {
+      "users": "Vertraut von über 50.000 Benutzern weltweit",
+      "rating": "4,9/5 Bewertung",
+      "security": "Sicherheit auf Bankniveau"
+    }
+  },
+  "domains": {
+    "banking": {
+      "name": "Banking",
+      "tagline": "Intelligente Banking-Lösungen",
+      "description": "Erleben Sie Banking der nächsten Generation mit null Gebühren, Sofortüberweisungen und KI-gesteuerter Budgetierung.",
+      "features": [
+        "Gebührenfreie Überweisungen",
+        "Intelligente Budgetierung",
+        "Sofortzahlungen",
+        "Multi-Währungsunterstützung"
+      ],
+      "cta": "Banking Starten"
+    },
+    "investing": {
+      "name": "Investieren",
+      "tagline": "Mit Vertrauen Investieren",
+      "description": "Zugriff auf eine breite Palette von Kryptowährungen und traditionellen Vermögenswerten mit KI-gestütztem Portfolio-Management.",
+      "features": [
+        "KI-Portfolio-Optimierung",
+        "Krypto-Handel mit niedrigen Gebühren",
+        "Echtzeit-Analysen",
+        "Risikobewertung"
+      ],
+      "cta": "Investieren Starten"
+    },
+    "defi": {
+      "name": "DeFi",
+      "tagline": "Dezentralisierte Finanzen",
+      "description": "Verdienen Sie Zinsen und greifen Sie direkt über unsere Plattform auf DeFi-Dienste zu mit maximaler Sicherheit.",
+      "features": [
+        "Yield Farming",
+        "Liquiditätspools",
+        "Staking-Belohnungen",
+        "DeFi-Integrationen"
+      ],
+      "cta": "DeFi Erkunden"
+    }
+  },
+  "mascots": {
+    "acqua": {
+      "name": "Acqua",
+      "role": "Banking-Guide",
+      "description": "Ihr freundlicher Banking-Assistent, der Ihnen hilft, Ihre täglichen Finanzen mit Leichtigkeit zu verwalten."
+    },
+    "mystic": {
+      "name": "Mystic",
+      "role": "Anlageberater",
+      "description": "Ihr weiser Anlageführer, der KI-gestützte Einblicke für intelligente finanzielle Entscheidungen bietet."
+    },
+    "coral": {
+      "name": "Coral",
+      "role": "DeFi-Experte",
+      "description": "Ihr DeFi-Spezialist, der die Welt der dezentralisierten Finanzen sicher navigiert."
+    }
+  },
+  "trust": {
+    "title": "Ihre Sicherheit ist Unsere Priorität",
+    "subtitle": "Gebaut mit Sicherheit auf Unternehmensniveau und Zero-Trust-Architektur zum Schutz Ihrer finanziellen Zukunft.",
+    "features": [
+      {
+        "title": "Sicherheit auf Bankniveau",
+        "description": "Ihre Gelder sind durch die gleichen Sicherheitsstandards geschützt, die von traditionellen Banken verwendet werden."
+      },
+      {
+        "title": "Regulatorische Konformität",
+        "description": "Vollständig konform mit Finanzvorschriften und Datenschutzstandards."
+      },
+      {
+        "title": "Zero-Trust-Architektur",
+        "description": "Erweiterte Sicherheitsprotokolle, die jede Transaktion und Benutzeraktion verifizieren."
+      },
+      {
+        "title": "24/7-Überwachung",
+        "description": "Kontinuierliche Überwachung und Betrugserkennung, um Ihre Vermögenswerte sicher zu halten."
+      }
+    ],
+    "stats": [
+      {
+        "number": "99,9%",
+        "label": "Verfügbarkeitsgarantie"
+      },
+      {
+        "number": "+500M $",
+        "label": "Gesicherte Vermögenswerte"
+      },
+      {
+        "number": "+50K",
+        "label": "Vertrauenswürdige Benutzer"
+      },
+      {
+        "number": "256-Bit",
+        "label": "Verschlüsselungsstandard"
+      }
+    ],
+    "certifications": {
+      "title": "Zertifiziert und Konform",
+      "description": "Wir halten die höchsten Standards für Sicherheit und Compliance ein",
+      "badges": [
+        "SOC 2-konform",
+        "ISO 27001",
+        "DSGVO-konform",
+        "PCI DSS Level 1"
+      ]
+    }
+  },
+  "productCarousel": {
+    "heading": "OneFi - Eine App für Alles",
+    "slides": {
+      "benefits": {
+        "title": "diBoaS Benefits",
+        "subtitle": "Übernehmen Sie die Kontrolle über Ihr Finanzleben"
+      },
+      "rewards": {
+        "title": "diBoaS Rewards",
+        "subtitle": "Teilen Sie, was gut ist, und wachsen Sie mit Ihren Freunden"
+      },
+      "business": {
+        "title": "diBoaS Business",
+        "subtitle": "Lassen Sie Ihren Geschäfts-Cashflow passives Einkommen generieren"
+      }
+    }
+  },
+  "featureShowcase": {
+    "overview": {
+      "title": "Aktivitäten Verfolgen & Belohnungen Verdienen",
+      "description": "Überwachen Sie Ihre Finanzaktivitäten und verdienen Sie Belohnungen an einem Ort. Erhalten Sie einen vollständigen Überblick über Ihre finanzielle Gesundheit mit exklusiven Vorteilen."
+    },
+    "activities": {
+      "title": "Verfolgen Sie Ihre Finanzaktivitäten",
+      "description": "Überwachen Sie alle Ihre Finanzaktivitäten an einem Ort. Von Ausgabeneinblicken bis hin zur Investitionsverfolgung erhalten Sie einen vollständigen Überblick über Ihre finanzielle Gesundheit."
+    },
+    "rewards": {
+      "title": "Belohnungen & Vorteile Verdienen",
+      "description": "Werden Sie für Ihre Finanzaktivitäten belohnt. Verdienen Sie Punkte, schalten Sie Vorteile frei und erhalten Sie Zugang zu exklusiven Funktionen, während Sie Ihr Finanzportfolio ausbauen."
+    }
+  },
+  "appFeatures": {
+    "sectionTitle": "Eine App für alles. Und alles in der App",
+    "organizeMoney": {
+      "title": "Organisieren Sie Ihr Geld",
+      "description": "Verfolgen Sie Ausgaben, legen Sie Budgets fest und erreichen Sie Ihre finanziellen Ziele mit intelligenten Tools",
+      "ctaText": "Jetzt Organisieren",
+      "chipLabel": "Intelligentes Budget"
+    },
+    "instantPayments": {
+      "title": "Sofortzahlungen",
+      "description": "Senden und empfangen Sie Geld sofort mit null Gebühren und maximaler Sicherheit",
+      "ctaText": "Geld Senden",
+      "chipLabel": "Null Gebühren"
+    },
+    "securePurchases": {
+      "title": "Sichere Einkäufe",
+      "description": "Kaufen Sie online und im Geschäft mit Sicherheit auf Bankniveau und Betrugsschutz",
+      "ctaText": "Sicher Einkaufen",
+      "chipLabel": "Geschützt"
+    },
+    "financialGoals": {
+      "title": "Finanzielle Ziele",
+      "description": "Setzen und erreichen Sie Ihre finanziellen Ziele mit KI-gestützter Anleitung und Einblicken",
+      "ctaText": "Ziele Setzen",
+      "chipLabel": "KI-Gestützt"
+    }
+  },
+  "benefits": {
+    "exclusiveRewards": {
+      "title": "Exklusive Belohnungen",
+      "description": "Verdienen Sie Punkte und schalten Sie exklusive Vorteile mit jeder Transaktion frei",
+      "ctaText": "Mehr Erfahren"
+    },
+    "financialFreedom": {
+      "title": "Finanzielle Freiheit",
+      "description": "Übernehmen Sie die Kontrolle über Ihre Finanzen mit unserem umfassenden Toolset",
+      "ctaText": "Jetzt Starten"
+    },
+    "smartInvesting": {
+      "title": "Intelligentes Investieren",
+      "description": "Investieren Sie in Krypto und traditionelle Vermögenswerte mit KI-gestützten Einblicken"
+    },
+    "secureBanking": {
+      "title": "Sicheres Banking",
+      "description": "Sicherheit auf Bankniveau und regulatorische Konformität zum Schutz Ihrer Vermögenswerte",
+      "ctaText": "Mehr Über Sicherheit"
+    }
+  },
+  "oneFeature": {
+    "title": "Ihre Sicherheit Zuerst",
+    "subtitle": "Entdecken Sie unsere Tools und Kanäle, um Ihr Konto sicher und geschützt zu halten",
+    "ctaText": "Entdecken Sie Unsere Lösungen",
+    "features": {
+      "fraudReport": "Betrug Melden",
+      "reports": "Meldekanal",
+      "protection": "Schutzzentrum",
+      "support": "Support-Kanäle"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "diBoaS - Komplettes Finanz-Ökosystem",
+      "description": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets auf einer sicheren Plattform.",
+      "hero": {
+        "title": "Ihr Komplettes Finanz-Ökosystem",
+        "description": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets auf einer sicheren Plattform. Erleben Sie finanzielle Freiheit mit diBoaS."
+      }
+    },
+    "banking": {
+      "title": "Banking-Dienstleistungen | diBoaS",
+      "description": "Moderne Banking-Lösungen mit null Gebühren, Sofortüberweisungen und intelligenten Budgetierungsfunktionen.",
+      "hero": {
+        "title": "Banking Leicht Gemacht",
+        "subtitle": "Erleben Sie Banking der nächsten Generation mit null Gebühren und allem sofort."
+      }
+    },
+    "investing": {
+      "title": "Krypto-Investition | diBoaS",
+      "description": "Intelligente Krypto-Investitionsplattform mit KI-gestütztem Portfolio-Management und niedrigen Gebühren.",
+      "hero": {
+        "title": "Investieren Sie in Ihre Zukunft",
+        "subtitle": "KI-gestützte Anlagestrategien für den modernen Anleger."
+      }
+    },
+    "defi": {
+      "title": "DeFi-Strategien | diBoaS",
+      "description": "Zugriff auf dezentralisierte Finanzprotokolle mit maximaler Sicherheit und optimalen Erträgen.",
+      "hero": {
+        "title": "DeFi Sicher Gemacht",
+        "subtitle": "Erkunden Sie dezentralisierte Finanzen mit Sicherheit auf Unternehmensniveau."
+      }
+    }
+  }
+}

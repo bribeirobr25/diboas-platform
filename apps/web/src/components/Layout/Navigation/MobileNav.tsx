@@ -8,10 +8,12 @@ import { Button } from '@diboas/ui';
 import { NavigationConfig } from '@/types/navigation';
 import { useEffect } from 'react';
 import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/UI';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { UI_CONSTANTS } from '@/config/ui-constants';
 import { ASSET_PATHS } from '@/config/assets';
 import { DESIGN_SYSTEM } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
+import { useIntl } from 'react-intl';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -37,6 +39,7 @@ export default function MobileNav({
   config,
   isMobile
 }: MobileNavProps) {
+  const intl = useIntl();
   const activeMenuItem = config.mainMenu.find(item => item.id === activeSubmenu);
 
   // Scroll to top when submenu opens
@@ -87,7 +90,7 @@ export default function MobileNav({
               size="xs"
               className="mobile-get-started-button"
             >
-              {config.actions.primary.label}
+              {intl.formatMessage({ id: config.actions.primary.label })}
             </Button>
           </Link>
 
@@ -115,7 +118,7 @@ export default function MobileNav({
             size="lg"
             className="w-full rounded-none text-center py-4"
           >
-            {config.actions.secondary.label}
+            {intl.formatMessage({ id: config.actions.secondary.label })}
           </Button>
         </Link>
       )}
@@ -148,17 +151,25 @@ export default function MobileNav({
                         toggleMenu();
                       }}
                     >
-                      <p className="mobile-quick-action-text">{item.label}</p>
+                      <p className="mobile-quick-action-text">{intl.formatMessage({ id: item.label })}</p>
                     </Link>
                   ))}
                 </div>
+              </div>
+
+              {/* Language Switcher */}
+              <div className="px-6 py-4 border-t border-gray-200">
+                <h3 className="mobile-section-header mb-3">
+                  {intl.formatMessage({ id: 'common.languageSwitcher.label' })}
+                </h3>
+                <LanguageSwitcher variant="inline" size="sm" />
               </div>
 
               {/* Mobile Sections */}
               {config.mobileSections.map((section) => (
                 <div key={section.title} className="mobile-menu-section-container">
                   <h3 className="mobile-section-header">
-                    {section.title}
+                    {intl.formatMessage({ id: section.title })}
                   </h3>
                   <div className="mobile-menu-sections">
                     {section.items.map((item) => {
@@ -171,16 +182,16 @@ export default function MobileNav({
                               trackNavigationInteraction(item.id, 'open');
                             }}
                             className="mobile-main-menu-button"
-                            aria-label={`Open ${item.label} menu`}
+                            aria-label={`Open ${intl.formatMessage({ id: item.label })} menu`}
                           >
                             <span className="mobile-main-menu-text">
-                              {item.label}
+                              {intl.formatMessage({ id: item.label })}
                             </span>
                             <ChevronRightIcon className="mobile-main-menu-icon" aria-hidden="true" />
                           </button>
                           {config.mainMenu.find(m => m.id === item.id)?.description && (
                             <p className="mobile-menu-description-text">
-                              {config.mainMenu.find(m => m.id === item.id)?.description}
+                              {intl.formatMessage({ id: config.mainMenu.find(m => m.id === item.id)?.description || '' })}
                             </p>
                           )}
                         </div>
@@ -204,10 +215,10 @@ export default function MobileNav({
                           trackNavigationInteraction(item.id, 'open');
                         }}
                         className="mobile-additional-menu-button"
-                        aria-label={`Open ${item.label} menu`}
+                        aria-label={`Open ${intl.formatMessage({ id: item.label })} menu`}
                       >
                         <span className="mobile-additional-menu-text">
-                          {item.label}
+                          {intl.formatMessage({ id: item.label })}
                         </span>
                         <ChevronRightIcon className="mobile-main-menu-icon" aria-hidden="true" />
                       </button>
@@ -249,7 +260,7 @@ export default function MobileNav({
                         <div className="mobile-banner-image-container-inner">
                           <Image
                             src={activeMenuItem.banner}
-                            alt={activeMenuItem.label}
+                            alt={intl.formatMessage({ id: activeMenuItem.label })}
                             fill
                             className="mobile-banner-image-content"
                             sizes="(max-width: 768px) 384px, 384px"
@@ -260,11 +271,11 @@ export default function MobileNav({
                     )}
                     <div className="mobile-banner-text-container">
                       <h2 className="mobile-banner-title-text">
-                        {activeMenuItem.label}
+                        {intl.formatMessage({ id: activeMenuItem.label })}
                       </h2>
                       {activeMenuItem.description && (
                         <p className="mobile-banner-description-text">
-                          {activeMenuItem.description}
+                          {intl.formatMessage({ id: activeMenuItem.description })}
                         </p>
                       )}
                     </div>
@@ -284,9 +295,9 @@ export default function MobileNav({
                       toggleMenu();
                     }}
                   >
-                    <h4 className="mobile-submenu-link-title">{subItem.label}</h4>
+                    <h4 className="mobile-submenu-link-title">{intl.formatMessage({ id: subItem.label })}</h4>
                     {subItem.description && (
-                      <p className="mobile-submenu-link-description">{subItem.description}</p>
+                      <p className="mobile-submenu-link-description">{intl.formatMessage({ id: subItem.description })}</p>
                     )}
                   </Link>
                 ))}

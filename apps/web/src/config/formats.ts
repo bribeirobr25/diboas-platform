@@ -5,7 +5,7 @@
  * Single Source of Truth: All date, currency, and number formats
  */
 
-import { SupportedLocale } from '@diboas/i18n';
+import { SupportedLocale } from '@diboas/i18n/server';
 
 /**
  * Date format patterns

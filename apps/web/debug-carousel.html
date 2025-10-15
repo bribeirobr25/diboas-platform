@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Carousel Components</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Carousel Components Debug</h1>
+    
+    <div class="debug-section">
+        <h2>Test ProductCarousel Configuration</h2>
+        <p>Open the browser console and navigate to the homepage to check for:</p>
+        <ul>
+            <li>Console warnings about missing slides</li>
+            <li>Component rendering with empty state</li>
+            <li>Configuration validation errors</li>
+        </ul>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Test AppFeaturesCarousel Configuration</h2>
+        <p>Check for:</p>
+        <ul>
+            <li>Console warnings about missing cards</li>
+            <li>Component rendering with empty state</li>
+            <li>Configuration validation errors</li>
+        </ul>
+    </div>
+    
+    <script>
+        // This is a debug file to help track down the carousel issues
+        console.log('Debug file loaded. Please navigate to http://localhost:3000 and check for carousel issues.');
+        
+        // Instructions for manual testing
+        console.log(`
+Manual testing steps:
+1. Navigate to http://localhost:3000
+2. Open browser DevTools
+3. Look for any console warnings or errors related to carousels
+4. Check if the carousel components are rendering with content
+5. Verify that slides/cards are being displayed
+        `);
+    </script>
+</body>
+</html>

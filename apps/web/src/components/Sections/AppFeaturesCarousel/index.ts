@@ -6,8 +6,8 @@
  * Domain-Driven Design: Single carousel domain with configurable variants
  */
 
-export { AppFeaturesCarousel } from './AppFeaturesCarousel';
-export type { AppFeaturesCarouselProps } from './AppFeaturesCarousel';
+export { AppFeaturesCarousel } from './AppFeaturesCarouselFactory';
+export type { AppFeaturesCarouselProps } from './AppFeaturesCarouselFactory';
 export type { 
   AppFeaturesCarouselConfig,
   AppFeaturesCarouselVariantConfig,

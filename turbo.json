@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "tasks": {
     "generate:design-tokens": {
       "outputs": ["apps/web/src/styles/design-tokens.css"]
     },

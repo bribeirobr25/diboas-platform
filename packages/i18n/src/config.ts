@@ -22,6 +22,7 @@ export interface LocaleConfig {
   currency: string;
   dateFormat: string;
   numberFormat: Intl.NumberFormatOptions;
+  flag: string; // Unicode flag emoji for visual representation
 }
 
 // File Decoupling: Locale metadata separated from logic
@@ -39,6 +40,7 @@ export const LOCALE_CONFIG: Record<SupportedLocale, LocaleConfig> = {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     },
+    flag: '🇺🇸',
   },
   'pt-BR': {
     code: 'pt-BR',
@@ -53,6 +55,7 @@ export const LOCALE_CONFIG: Record<SupportedLocale, LocaleConfig> = {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     },
+    flag: '🇧🇷',
   },
   es: {
     code: 'es',
@@ -67,6 +70,7 @@ export const LOCALE_CONFIG: Record<SupportedLocale, LocaleConfig> = {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     },
+    flag: '🇪🇸',
   },
   de: {
     code: 'de',
@@ -81,6 +85,7 @@ export const LOCALE_CONFIG: Record<SupportedLocale, LocaleConfig> = {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     },
+    flag: '🇩🇪',
   },
 };
 

@@ -1,0 +1,414 @@
+/**
+ * FeatureShowcaseDefault Variant Styles
+ * 
+ * File Decoupling: Isolated styles for default showcase variant
+ * Design Tokens: Uses centralized design system tokens
+ * Performance: Optimized for interactive showcase components
+ * No Hardcoded Values: All values from design tokens
+ */
+
+/* ================================
+   FEATURE SHOWCASE DEFAULT VARIANT
+   ================================ */
+
+/* Section Container - Documentation Specifications */
+.section {
+  padding: var(--spacing-3xl) var(--padding-section-mobile-x);
+  background-color: var(--fs-color-section-bg);
+  width: var(--section-width-full);
+  min-height: auto;
+  position: relative;
+  overflow: visible;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .section {
+    padding: var(--spacing-3xl) var(--padding-section-tablet-x);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--spacing-3xl) var(--padding-section-desktop-x);
+  }
+}
+
+/* Main Container - Documentation Max-Width 1200px */
+.container {
+  max-width: var(--fs-container-max-width);
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+/* ================================
+   NAVIGATION STYLES
+   ================================ */
+
+/* Navigation Controls - Below CTA */
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: var(--fs-gap-sm);
+  margin-top: var(--fs-gap-sm);
+  width: 100%;
+}
+
+/* Desktop: Align arrows to the left */
+@media (min-width: 1024px) {
+  .navigation {
+    justify-content: flex-start;
+  }
+}
+
+/* Navigation Buttons - Documentation Ghost Style 40px */
+.navButton {
+  width: var(--fs-nav-button-size);
+  height: var(--fs-nav-button-size);
+  border-radius: var(--fs-border-radius-circle);
+  background-color: var(--fs-color-transparent);
+  border: var(--fs-border-width-button) solid var(--fs-color-border-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--fs-text-transition-duration) var(--fs-easing-text);
+  outline-offset: var(--spacing-xs);
+}
+
+.navButton:hover {
+  background-color: var(--fs-color-nav-button-hover-bg);
+  border-color: var(--fs-color-border-hover);
+  transform: var(--fs-transform-hover-lift);
+  box-shadow: var(--fs-shadow-button-hover);
+}
+
+.navButton:focus-visible {
+  outline: var(--fs-border-width-button) solid var(--fs-color-accent);
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Navigation Icons */
+.navIcon {
+  width: var(--fs-size-icon);
+  height: var(--fs-size-icon);
+  color: var(--fs-color-description);
+}
+
+/* ================================
+   CONTENT STYLES
+   ================================ */
+
+/* Content Container - Mobile First: Stacked Layout */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-gap-md);
+  align-items: center;
+  width: 100%;
+}
+
+/* Responsive: Desktop - 2 Column Grid (text 1fr, visuals 1.2fr) */
+@media (min-width: 1024px) {
+  .content {
+    display: grid;
+    grid-template-columns: var(--fs-text-column-ratio) var(--fs-visual-column-ratio);
+    gap: var(--fs-grid-gap-desktop);
+    align-items: start;
+  }
+}
+
+/* ================================
+   TEXT COLUMN (LEFT - Desktop: 1fr)
+   ================================ */
+
+/* Text Column Container */
+.textColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-gap-sm);
+  width: 100%;
+  text-align: center;
+  order: 1;
+}
+
+/* Desktop: Text column first in grid, left-aligned */
+@media (min-width: 1024px) {
+  .textColumn {
+    text-align: left;
+    order: 1;
+  }
+}
+
+/* Title - Responsive for all screen sizes */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--fs-color-title);
+  margin: 0;
+  width: 100%;
+}
+
+/* Responsive Title */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-title-desktop);
+  }
+}
+
+/* Mobile/Tablet Visual Content - Shows after title */
+.mobileVisualContent {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--fs-gap-sm) 0;
+}
+
+/* Hide mobile visual content on desktop */
+@media (min-width: 1024px) {
+  .mobileVisualContent {
+    display: none;
+  }
+}
+
+/* ================================
+   VISUAL COLUMN (RIGHT - Desktop: 1.2fr)
+   ================================ */
+
+/* Visual Column Container - Hidden on mobile/tablet */
+.visualColumn {
+  position: relative;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+}
+
+/* Desktop: Show visual column in grid */
+@media (min-width: 1024px) {
+  .visualColumn {
+    display: flex;
+    order: 2;
+  }
+}
+
+/* Description - Documentation Specifications */
+.description {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-description-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-description);
+  color: var(--fs-color-description);
+  margin: 0 auto;
+  max-width: var(--fs-description-max-width);
+  text-align: center;
+}
+
+/* Responsive Description Font Sizes */
+@media (min-width: 768px) {
+  .description {
+    font-size: var(--font-size-description-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .description {
+    font-size: var(--font-size-description-desktop);
+    text-align: left;
+    margin: 0;
+  }
+}
+
+/* CTA Wrapper */
+.ctaWrapper {
+  margin-top: var(--fs-gap-cta-mobile);
+  width: 100%;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .ctaWrapper {
+    margin-top: var(--fs-gap-cta-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .ctaWrapper {
+    margin-top: var(--fs-gap-cta-desktop);
+    width: auto;
+  }
+}
+
+/* ================================
+   VISUAL CONTENT STYLES
+   ================================ */
+
+/* Text Content Transitions */
+.textColumn {
+  transition: opacity var(--fs-text-transition-duration) var(--fs-easing-text),
+              transform var(--fs-cross-fade-duration) var(--fs-easing-text);
+}
+
+/* Visual Panel - Transparent background */
+.visualPanel {
+  background-color: transparent;
+  border-radius: var(--fs-panel-border-radius);
+  padding: var(--padding-panel-mobile);
+  box-shadow: none;
+  width: 100%;
+  max-width: var(--fs-max-width-visual-mobile);
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image Container - Single centered image */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  min-height: var(--fs-container-height-mobile);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+/* Visual Panel Responsive Styles */
+@media (min-width: 768px) {
+  .visualPanel {
+    max-width: var(--fs-max-width-visual-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .visualPanel {
+    max-width: var(--fs-max-width-visual-desktop);
+    padding: var(--padding-panel-desktop);
+  }
+}
+
+/* Single Image - Fills entire container */
+.image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: var(--fs-image-base-height); /* Mobile: 360px */
+  object-fit: contain;
+  background-color: transparent;
+  transition: opacity var(--fs-visual-transition-duration) var(--fs-easing-visual),
+              transform var(--fs-visual-transition-duration) var(--fs-easing-visual);
+}
+
+/* Responsive: Tablet - Max height 420px */
+@media (min-width: 768px) {
+  .image {
+    max-height: var(--fs-container-height-desktop);
+    width: auto;
+  }
+}
+
+/* Responsive: Desktop - Fixed height 500px for consistent sizing across all slides */
+@media (min-width: 1024px) {
+  .image {
+    height: var(--dimension-500);
+    width: auto;
+    max-height: none;
+    object-fit: cover;
+  }
+}
+
+/* ================================
+   DOTS NAVIGATION
+   ================================ */
+
+/* Dots Container */
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: var(--fs-gap-nav);
+  margin-top: var(--fs-gap-md);
+}
+
+/* Dot */
+.dot {
+  width: var(--fs-size-dot);
+  height: var(--fs-size-dot);
+  border-radius: var(--fs-border-radius-circle);
+  background-color: var(--fs-color-muted);
+  border: none;
+  cursor: pointer;
+  transition: all var(--fs-transition-duration-fast) var(--fs-transition-easing);
+  outline-offset: var(--spacing-xs);
+}
+
+.dot:hover {
+  background-color: var(--fs-color-description);
+}
+
+.dot:focus-visible {
+  outline: var(--fs-border-width-button) solid var(--fs-color-accent);
+}
+
+.dot:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Active Dot */
+.dotActive {
+  width: var(--fs-size-dot-active);
+  border-radius: var(--fs-border-radius-dot-active);
+  background-color: var(--fs-color-accent);
+}
+
+/* ================================
+   ANIMATIONS & ACCESSIBILITY
+   ================================ */
+
+/* Reduced Motion - Documentation: Instant Swap */
+@media (prefers-reduced-motion: reduce) {
+  .navButton,
+  .image,
+  .textContent,
+  .visualContent,
+  .dot {
+    transition: none;
+  }
+
+  .navButton:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .navButton {
+    border-width: var(--fs-border-width-button);
+    border-color: var(--color-black);
+  }
+
+  .title {
+    color: var(--color-black);
+  }
+
+  .description {
+    color: var(--color-gray-700);
+  }
+}

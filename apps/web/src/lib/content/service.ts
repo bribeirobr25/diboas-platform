@@ -6,7 +6,7 @@
 
 import { ContentService, PageContent, ContentSection, ContentConfig } from './types';
 import { CONTENT_DEFAULTS } from './constants';
-import type { SupportedLocale } from '@diboas/i18n';
+import type { SupportedLocale } from '@diboas/i18n/server';
 
 class ContentServiceImpl implements ContentService {
   private config: ContentConfig;
