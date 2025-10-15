@@ -56,40 +56,7 @@ export function AppFeaturesCarouselDefault({
     }, 'AppFeaturesCarousel')
   );
 
-  // Auto-rotation logic with race condition prevention
-  useEffect(() => {
-    if (!isAutoPlaying || cards.length <= 1) return;
-
-    const startAutoRotation = async () => {
-      const acquired = await mutexRef.current.acquire();
-      if (!acquired) return;
-
-      try {
-        intervalRef.current = new SafeInterval('AppFeaturesCarousel');
-        intervalRef.current.set(() => {
-          if (carouselState.current.canTransitionTo('transitionToing')) {
-            goToNext();
-          }
-        }, autoRotateMs);
-
-        cleanupManagerRef.current.add(() => {
-          intervalRef.current?.clear();
-        });
-
-        carouselState.current.transitionTo('playing');
-      } finally {
-        mutexRef.current.release();
-      }
-    };
-
-    startAutoRotation();
-
-    return () => {
-      intervalRef.current?.clear();
-    };
-  }, [isAutoPlaying, cards.length, autoRotateMs, carouselState]);
-
-  // Navigation handlers
+  // Navigation handlers - Defined before auto-rotation to avoid reference errors
   const goToSlide = useCallback(async (index: number) => {
     if (index < 0 || index >= cards.length) return;
     
@@ -137,6 +104,39 @@ export function AppFeaturesCarouselDefault({
     goToSlide(prevIndex);
     onNavigate?.('prev');
   }, [currentSlideIndex, cards.length, goToSlide, onNavigate]);
+
+  // Auto-rotation logic with race condition prevention
+  useEffect(() => {
+    if (!isAutoPlaying || cards.length <= 1) return;
+
+    const startAutoRotation = async () => {
+      const acquired = await mutexRef.current.acquire();
+      if (!acquired) return;
+
+      try {
+        intervalRef.current = new SafeInterval('AppFeaturesCarousel');
+        intervalRef.current.set(() => {
+          if (carouselState.current.canTransitionTo('transitionToing')) {
+            goToNext();
+          }
+        }, autoRotateMs);
+
+        cleanupManagerRef.current.add(() => {
+          intervalRef.current?.clear();
+        });
+
+        carouselState.current.transitionTo('playing');
+      } finally {
+        mutexRef.current.release();
+      }
+    };
+
+    startAutoRotation();
+
+    return () => {
+      intervalRef.current?.clear();
+    };
+  }, [isAutoPlaying, cards.length, autoRotateMs, goToNext]);
 
   // Play/pause controls
   const togglePlayPause = useCallback(() => {
@@ -192,41 +192,6 @@ export function AppFeaturesCarouselDefault({
     }
   }, [pauseOnHover, wasAutoPlayingBeforeHover]);
 
-  // Dynamic description panel alignment calculation
-  const [panelOffset, setPanelOffset] = useState(0);
-  
-  const calculatePanelOffset = useCallback(() => {
-    // Only apply dynamic positioning on desktop (≥1024px)
-    if (typeof window === 'undefined' || window.innerWidth < 1024) {
-      setPanelOffset(0);
-      return;
-    }
-    
-    // Calculate offset based on active card position in 4-column grid
-    const containerWidth = 1200; // Max container width
-    const cardWidth = containerWidth / 4; // Each card takes 1/4 of container
-    const gap = 32; // Desktop gap between cards
-    
-    // Calculate position of active card center
-    const cardCenterOffset = (currentSlideIndex * (cardWidth + gap)) + (cardWidth / 2);
-    
-    // Center the description panel under the active card
-    const containerCenter = containerWidth / 2;
-    const offset = cardCenterOffset - containerCenter;
-    
-    setPanelOffset(offset);
-  }, [currentSlideIndex]);
-  
-  // Update panel position when active slide changes
-  useEffect(() => {
-    calculatePanelOffset();
-    
-    // Recalculate on window resize
-    const handleResize = () => calculatePanelOffset();
-    window.addEventListener('resize', handleResize);
-    
-    return () => window.removeEventListener('resize', handleResize);
-  }, [calculatePanelOffset]);
 
   // CTA click handler
   const handleCTAClick = useCallback((slideId: string, ctaHref: string) => {
@@ -258,8 +223,8 @@ export function AppFeaturesCarouselDefault({
           {config.sectionTitle || 'App Features'}
         </h2>
 
-        {/* Cards Grid */}
-        <div 
+        {/* Cards Grid with Descriptions */}
+        <div
           className={styles.cardsGrid}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -268,82 +233,77 @@ export function AppFeaturesCarouselDefault({
             <div
               key={card.id}
               className={`${styles.cardWrapper} ${index === currentSlideIndex ? styles.active : ''}`}
-              onClick={() => goToSlide(index)}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-              tabIndex={0}
-              role="button"
-              aria-label={`View ${card.content.title} feature`}
             >
-              <div className={styles.card}>
-                <Image
-                  src={card.assets.image}
-                  alt={card.seo.imageAlt}
-                  width={280}
-                  height={500}
-                  priority={priority && index === 0}
-                  className={styles.cardImage}
-                  onLoad={() => handleImageLoad(card.id)}
-                  sizes="(max-width: 768px) 80vw, (max-width: 1024px) 45vw, 280px"
-                />
-                
-                <div className={styles.cardOverlay} />
-                
-                <div className={styles.chipBadge}>
-                  {card.content.title}
+              <div
+                onClick={() => goToSlide(index)}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                tabIndex={0}
+                role="button"
+                aria-label={`View ${card.content.title} feature`}
+                className={styles.cardClickArea}
+              >
+                <div className={styles.card}>
+                  <Image
+                    src={card.assets.image}
+                    alt={card.seo.imageAlt}
+                    width={index === currentSlideIndex ? 416 : 195}
+                    height={500}
+                    priority={priority && index === 0}
+                    className={styles.cardImage}
+                    onLoad={() => handleImageLoad(card.id)}
+                    sizes="(max-width: 767px) 90vw, (max-width: 1023px) 490px, (min-width: 1024px) 416px"
+                  />
                 </div>
-                
-                <div className={styles.gradientOverlay} />
               </div>
+
+              {/* Description below each card - visible only when active */}
+              {index === currentSlideIndex && (
+                <div className={styles.cardDescription}>
+                  <p className={styles.description}>
+                    {card.content.description}
+                  </p>
+
+                  {card.content.ctaText && card.content.ctaHref && (
+                    <div className={styles.ctaWrapper}>
+                      {card.content.ctaTarget === '_blank' ? (
+                        <a
+                          href={card.content.ctaHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.ctaLink}
+                          onClick={() => handleCTAClick(card.id, card.content.ctaHref)}
+                        >
+                          {card.content.ctaText}
+                          <ChevronRight className={styles.ctaIcon} />
+                        </a>
+                      ) : (
+                        <Link
+                          href={card.content.ctaHref}
+                          className={styles.ctaLink}
+                          onClick={() => handleCTAClick(card.id, card.content.ctaHref)}
+                        >
+                          {card.content.ctaText}
+                          <ChevronRight className={styles.ctaIcon} />
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Description Panel */}
-        <div 
-          className={styles.descriptionPanel}
-          style={{ transform: `translateX(${panelOffset}px)` }}
-        >
-          <h3 className={styles.description}>
-            {currentCard.content.description}
-          </h3>
-          
-          {currentCard.content.ctaText && currentCard.content.ctaHref && (
-            <div className={styles.ctaWrapper}>
-              {currentCard.content.ctaTarget === '_blank' ? (
-                <a
-                  href={currentCard.content.ctaHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.ctaLink}
-                  onClick={() => handleCTAClick(currentCard.id, currentCard.content.ctaHref)}
-                >
-                  {currentCard.content.ctaText}
-                  <ChevronRight className={styles.ctaIcon} />
-                </a>
-              ) : (
-                <Link
-                  href={currentCard.content.ctaHref}
-                  className={styles.ctaLink}
-                  onClick={() => handleCTAClick(currentCard.id, currentCard.content.ctaHref)}
-                >
-                  {currentCard.content.ctaText}
-                  <ChevronRight className={styles.ctaIcon} />
-                </Link>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Mobile Controls */}
-        <div className={styles.mobileControls}>
-          <div className={styles.mobileDots}>
+        {/* Controls - Matching ProductCarousel */}
+        <div className={styles.controls}>
+          <div className={styles.dots}>
             {cards.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`${styles.mobileDot} ${index === currentSlideIndex ? styles.mobileDotActive : ''}`}
-                aria-label={`Go to card ${index + 1}`}
+                className={`${styles.dot} ${index === currentSlideIndex ? styles.dotActive : ''}`}
+                aria-label={`Go to slide ${index + 1}`}
                 disabled={isTransitioning}
               />
             ))}
@@ -352,13 +312,13 @@ export function AppFeaturesCarouselDefault({
           {cards.length > 1 && (
             <button
               onClick={togglePlayPause}
-              className={styles.mobilePlayPauseButton}
+              className={styles.playPauseButton}
               aria-label={isAutoPlaying ? 'Pause carousel' : 'Play carousel'}
             >
               {isAutoPlaying ? (
-                <Pause className={styles.mobileControlIcon} />
+                <Pause className={styles.controlIcon} />
               ) : (
-                <Play className={styles.mobileControlIcon} />
+                <Play className={styles.controlIcon} />
               )}
             </button>
           )}

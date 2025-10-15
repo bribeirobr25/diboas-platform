@@ -18,7 +18,7 @@
   padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
   background-color: var(--of-color-section-bg);
   width: var(--section-width-full);
-  height: var(--section-height-carousel);
+  height: var(--section-height-one-feature);
   position: relative;
 }
 
@@ -170,7 +170,7 @@
 .subtitle {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-description-mobile);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-description);
   color: var(--of-color-subtitle);
   margin: 0;

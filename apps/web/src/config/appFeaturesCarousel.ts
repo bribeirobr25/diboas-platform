@@ -54,7 +54,7 @@ export interface AppFeaturesCarouselVariantConfig {
 
 // Configuration Management - Default app features carousel settings
 export const DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS: AppFeaturesCarouselSettings = {
-  autoRotateMs: 4000, // 4 seconds per documentation
+  autoRotateMs: 7000, // 7 seconds per configuration
   pauseOnHover: true,
   enableTouch: true,
   enableAnalytics: true,
