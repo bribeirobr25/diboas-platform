@@ -1,10 +1,12 @@
 /**
  * Footer Configuration
- * 
+ *
  * Domain-Driven Design: Footer domain configuration
  * Service Agnostic Abstraction: Decoupled footer data structure
  * Configuration Management: Centralized footer content and links
  */
+
+import { APP_URL, BUSINESS_URL, LEARN_URL } from './environment';
 
 export interface FooterSection {
   readonly title: string;
@@ -16,6 +18,7 @@ export interface FooterLink {
   readonly label: string;
   readonly href: string;
   readonly external?: boolean;
+  readonly dynamic?: boolean; // For environment-based URLs
 }
 
 export interface SocialLink {
@@ -38,6 +41,14 @@ export interface FooterConfig {
 // All text values are translation keys that will be resolved by react-intl
 export const FOOTER_CONFIG: FooterConfig = {
   sections: [
+    {
+      title: 'common.footer.sections.platforms.title',
+      links: [
+        { id: 'diboasApp', label: 'common.footer.sections.platforms.links.diboasApp', href: APP_URL, external: true, dynamic: true },
+        { id: 'businessApp', label: 'common.footer.sections.platforms.links.businessApp', href: BUSINESS_URL, external: true, dynamic: true },
+        { id: 'learnCenter', label: 'common.footer.sections.platforms.links.learnCenter', href: LEARN_URL, external: true, dynamic: true },
+      ]
+    },
     {
       title: 'common.footer.sections.transparency.title',
       links: [
