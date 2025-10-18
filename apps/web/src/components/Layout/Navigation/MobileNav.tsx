@@ -158,7 +158,7 @@ export default function MobileNav({
               </div>
 
               {/* Language Switcher */}
-              <div className="px-6 py-4 border-t border-gray-200">
+              <div className="px-6 py-4 border-t border-white">
                 <h3 className="mobile-section-header mb-3">
                   {intl.formatMessage({ id: 'common.languageSwitcher.label' })}
                 </h3>
@@ -202,7 +202,7 @@ export default function MobileNav({
               ))}
 
               {/* Additional Menu Items */}
-              <div className="border-t pt-6 space-y-2">
+              <div className="border-t border-white pt-6 space-y-2">
                 {['security', 'about'].map(id => {
                   const item = config.mainMenu.find(m => m.id === id);
                   if (!item) return null;
@@ -230,7 +230,7 @@ export default function MobileNav({
           ) : (
             /* Submenu View */
             <div
-              className="h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right"
+              className="mobile-submenu-container"
               data-submenu-scroll
             >
               {/* Sticky Header with Back and Close buttons */}
@@ -253,7 +253,7 @@ export default function MobileNav({
 
               {/* Sticky Banner */}
               {activeMenuItem && (
-                <div className="sticky bg-teal-50 w-full z-30" style={{ top: `calc(${DESIGN_SYSTEM.LAYOUT.NAVIGATION.MOBILE_NAV_HEIGHT} + 9px)`, height: DESIGN_SYSTEM.LAYOUT.NAVIGATION.MOBILE_SUBMENU_HEIGHT }}>
+                <div className="mobile-submenu-banner-container sticky bg-primary-100 w-full z-30" style={{ top: `calc(${DESIGN_SYSTEM.LAYOUT.NAVIGATION.MOBILE_NAV_HEIGHT} + 9px)` }}>
                   <div className="mobile-banner-wrapper">
                     {activeMenuItem.banner && (
                       <div className="mobile-banner-image-wrapper">

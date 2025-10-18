@@ -81,36 +81,37 @@ export function OneFeatureDefault({
       aria-labelledby="security-title"
       role={config.seo.region}
     >
-      {/* Hero Image - 3D Safe - positioned 50% above container */}
-      <div className={styles.heroImageWrapper}>
-        <div className={styles.heroImageContainer}>
-          {!imageError ? (
-            <Image
-              src={config.assets.heroImage}
-              alt={config.assets.heroImageAlt}
-              width={250}
-              height={250}
-              priority={priority && config.settings.imageLoadPriority}
-              className={`${styles.heroImage} ${
-                imageLoaded && config.settings.enableAnimations ? styles.heroImageLoaded : ''
-              }`}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              sizes="(max-width: 768px) 200px, 250px"
-            />
-          ) : (
-            <div className={styles.imageFallback} aria-hidden="true">
-              🔒
-            </div>
-          )}
+      <div className={styles.outerContainer}>
+        {/* Hero Image - 3D Safe - positioned to float half outside container */}
+        <div className={styles.heroImageWrapper}>
+          <div className={styles.heroImageContainer}>
+            {!imageError ? (
+              <Image
+                src={config.assets.heroImage}
+                alt={config.assets.heroImageAlt}
+                width={250}
+                height={250}
+                priority={priority && config.settings.imageLoadPriority}
+                className={`${styles.heroImage} ${
+                  imageLoaded && config.settings.enableAnimations ? styles.heroImageLoaded : ''
+                }`}
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                sizes="(max-width: 768px) 250px, 250px"
+              />
+            ) : (
+              <div className={styles.imageFallback} aria-hidden="true">
+                🔒
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      <div className={styles.container}>
-        {/* Main Title */}
-        <h2 id="security-title" className={styles.title}>
-          {config.content.title}
-        </h2>
+        <div className={styles.container}>
+          {/* Main Title */}
+          <h2 id="security-title" className={styles.title}>
+            {config.content.title}
+          </h2>
 
         {/* Subtitle */}
         <p className={styles.subtitle}>
@@ -199,6 +200,7 @@ export function OneFeatureDefault({
             </Link>
           )}
         </div>
+      </div>
       </div>
     </section>
   );

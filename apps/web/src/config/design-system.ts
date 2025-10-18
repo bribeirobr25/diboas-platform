@@ -104,7 +104,10 @@ function loadDesignTokens(): DesignTokens {
           desktopHeight: '80px',
           mobileNavHeight: '60px',
           dropdownHeight: '60vh',
-          mobileSubmenuHeight: '56vh'
+          mobileSubmenuHeight: {
+            mobile: '65vh',
+            tablet: '42vh'
+          }
         },
         spacing: {
           dropdownMarginLeft: '150px'
@@ -150,7 +153,15 @@ export const LAYOUT = {
     DESKTOP_HEIGHT: tokens.layout.navigation.desktopHeight,
     MOBILE_NAV_HEIGHT: tokens.layout.navigation.mobileNavHeight,
     DROPDOWN_HEIGHT: tokens.layout.navigation.dropdownHeight,
-    MOBILE_SUBMENU_HEIGHT: tokens.layout.navigation.mobileSubmenuHeight
+    MOBILE_SUBMENU_HEIGHT: typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
+      ? tokens.layout.navigation.mobileSubmenuHeight
+      : tokens.layout.navigation.mobileSubmenuHeight.mobile, // Default to mobile for backward compatibility
+    MOBILE_SUBMENU_HEIGHT_MOBILE: typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
+      ? tokens.layout.navigation.mobileSubmenuHeight
+      : tokens.layout.navigation.mobileSubmenuHeight.mobile,
+    MOBILE_SUBMENU_HEIGHT_TABLET: typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
+      ? tokens.layout.navigation.mobileSubmenuHeight
+      : tokens.layout.navigation.mobileSubmenuHeight.tablet
   },
   SPACING: {
     DROPDOWN_MARGIN_LEFT: tokens.layout.spacing.dropdownMarginLeft

@@ -186,6 +186,14 @@
   },
   "footer": {
     "sections": {
+      "platforms": {
+        "title": "Platforms",
+        "links": {
+          "diboasApp": "diBoaS App",
+          "businessApp": "Business App",
+          "learnCenter": "Learn Center"
+        }
+      },
       "transparency": {
         "title": "Transparency",
         "links": {

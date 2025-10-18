@@ -53,7 +53,10 @@
       "desktopHeight": "80px",
       "mobileNavHeight": "60px",
       "dropdownHeight": "60vh",
-      "mobileSubmenuHeight": "56vh"
+      "mobileSubmenuHeight": {
+        "mobile": "65vh",
+        "tablet": "42vh"
+      }
     },
     "spacing": {
       "dropdownMarginLeft": "150px"
