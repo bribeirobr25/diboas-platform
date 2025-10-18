@@ -312,12 +312,12 @@
   width: 100%;
   outline-offset: var(--spacing-xs);
   border-radius: var(--radius-lg);
-  padding: 4px;
+  padding: var(--spacing-xs);
   margin: var(--spacing-xs-negative);
 }
 
 .featureLink:focus-visible {
-  outline: 2px solid currentColor;
+  outline: var(--radius-sm) solid currentColor;
 }
 
 /* Responsive: Desktop - Reposition icon to bottom right */
@@ -337,23 +337,23 @@
 /* Feature Title */
 .featureTitle {
   font-size: var(--font-size-sm); /* 14px on mobile */
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-normal);
   flex: 1;
   text-align: left;
 }
 
-/* Responsive: Tablet - 20px font size */
+/* Responsive: Tablet - 18px font size */
 @media (min-width: 768px) {
   .featureTitle {
-    font-size: var(--font-size-xl); /* 20px on tablet */
+    font-size: var(--font-size-lg); /* 18px on tablet */
   }
 }
 
-/* Responsive: Desktop - 20px font size */
+/* Responsive: Desktop - 18px font size */
 @media (min-width: 1024px) {
   .featureTitle {
-    font-size: var(--font-size-xl); /* 20px on desktop */
+    font-size: var(--font-size-lg); /* 18px on desktop */
   }
 }
 

@@ -18,7 +18,6 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { FOOTER_CONFIG, type FooterConfig, type FooterSection } from '@/config/footer';
 import { ASSET_PATHS } from '@/config/assets';
 import { BRAND_CONFIG } from '@/config/brand';
-import { APP_URL, BUSINESS_URL, LEARN_URL } from '@/config/environment';
 import styles from './SiteFooter.module.css';
 
 // Dynamic icon imports for better performance
@@ -71,108 +70,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
         {/* Desktop Grid / Mobile Accordions */}
         <div className={styles.contentGrid}>
 
-          {/* Platforms Section */}
-          <div className={styles.footerSection}>
-            {/* Mobile Accordion */}
-            <div className={styles.mobileAccordion}>
-              <button
-                onClick={() => toggleSection('platforms')}
-                className={styles.accordionButton}
-                aria-expanded={openSections.has('platforms')}
-                aria-controls="footer-section-platforms"
-              >
-                <span className={styles.accordionTitle}>
-                  {intl.formatMessage({ id: 'common.footer.sections.platforms.title' })}
-                </span>
-                {openSections.has('platforms') ? (
-                  <ChevronUp className={styles.accordionIcon} aria-hidden="true" />
-                ) : (
-                  <ChevronDown className={styles.accordionIcon} aria-hidden="true" />
-                )}
-              </button>
-
-              {openSections.has('platforms') && (
-                <div
-                  id="footer-section-platforms"
-                  className={styles.accordionContent}
-                >
-                  <ul className={styles.accordionLinksList}>
-                    <li>
-                      <a
-                        href={APP_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.accordionLink}
-                      >
-                        {intl.formatMessage({ id: 'common.footer.sections.platforms.links.diboasApp' })}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href={BUSINESS_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.accordionLink}
-                      >
-                        {intl.formatMessage({ id: 'common.footer.sections.platforms.links.businessApp' })}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href={LEARN_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.accordionLink}
-                      >
-                        {intl.formatMessage({ id: 'common.footer.sections.platforms.links.learnCenter' })}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            {/* Desktop Column */}
-            <div className={styles.desktopColumn}>
-              <h3 className={styles.sectionTitle}>
-                {intl.formatMessage({ id: 'common.footer.sections.platforms.title' })}
-              </h3>
-              <ul className={styles.linksList}>
-                <li>
-                  <a
-                    href={APP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.link}
-                  >
-                    {intl.formatMessage({ id: 'common.footer.sections.platforms.links.diboasApp' })}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={BUSINESS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.link}
-                  >
-                    {intl.formatMessage({ id: 'common.footer.sections.platforms.links.businessApp' })}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={LEARN_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.link}
-                  >
-                    {intl.formatMessage({ id: 'common.footer.sections.platforms.links.learnCenter' })}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Footer Sections */}
+          {/* All Footer Sections (including Platforms) */}
           {config.sections.map((section) => (
             <div key={section.title} className={styles.footerSection}>
 

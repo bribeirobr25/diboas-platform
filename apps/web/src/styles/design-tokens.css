@@ -22,19 +22,19 @@
   --font-weight-bold: 700;
 
   /* Typography Scale - Desktop */
-  --font-size-title-desktop: 42px;
+  --font-size-title-desktop: 48px;
   --font-size-subtitle-desktop: 30px;
   --font-size-description-desktop: 18px;
   --font-size-text-desktop: 14px;
 
   /* Typography Scale - Tablet */
-  --font-size-title-tablet: 34px;
+  --font-size-title-tablet: 39px;
   --font-size-subtitle-tablet: 22px;
   --font-size-description-tablet: 16px;
   --font-size-text-tablet: 12px;
 
   /* Typography Scale - Mobile */
-  --font-size-title-mobile: 26px;
+  --font-size-title-mobile: 30px;
   --font-size-subtitle-mobile: 20px;
   --font-size-description-mobile: 14px;
   --font-size-text-mobile: 12px;
@@ -991,10 +991,14 @@
      COMMON DIMENSION TOKENS
      ================================ */
   /* Common Fixed Dimensions */
+  --dimension-56: 56px;
   --dimension-100: 100px;
   --dimension-106: 106px;
+  --dimension-120: 120px;
   --dimension-125: 125px;
   --dimension-130: 130px;
+  --dimension-136: 136px;
+  --dimension-368: 368px;
   --dimension-140: 140px;
   --dimension-150: 150px;
   --dimension-172: 172px;
@@ -1033,6 +1037,7 @@
   --spacing-xl: 20px;
   --spacing-2xl: 24px;
   --spacing-3xl: 32px;
+  --spacing-35: 35px;
   --spacing-4xl: 40px;
   --spacing-5xl: 48px;
   --spacing-6xl: 64px;

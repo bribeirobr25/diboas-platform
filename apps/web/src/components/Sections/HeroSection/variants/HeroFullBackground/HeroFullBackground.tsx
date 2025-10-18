@@ -14,17 +14,29 @@ import { Button } from '@diboas/ui';
 import type { HeroVariantProps } from '../types';
 import styles from './HeroFullBackground.module.css';
 
-export function HeroFullBackground({ 
-  config, 
-  className = '', 
+export function HeroFullBackground({
+  config,
+  className = '',
   backgroundColor,
-  onCTAClick 
+  onCTAClick
 }: HeroVariantProps) {
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const handleCTAClick = useCallback(() => {
     onCTAClick?.();
   }, [onCTAClick]);
+
+  // Responsive: Detect desktop viewport
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
   // Performance: Preload background images
   useEffect(() => {
@@ -85,26 +97,39 @@ export function HeroFullBackground({
 
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1 id="hero-title" className={styles.title}>
-            {config.content.title}
-          </h1>
+          {/* Left Column: Title and CTA */}
+          <div className={styles.leftColumn}>
+            <h1 id="hero-title" className={styles.title}>
+              {config.content.title}
+            </h1>
 
-          {config.content.description && (
-            <p className={styles.description}>
-              {config.content.description}
-            </p>
-          )}
-
-          <div className={styles.ctaWrapper}>
-            <Button
-              variant="gradient"
-              size="lg"
-              className={styles.ctaButton}
-              onClick={handleCTAClick}
-            >
-              {config.content.ctaText}
-            </Button>
+            <div className={styles.ctaWrapper}>
+              <Button
+                variant="gradient"
+                className={styles.ctaButton}
+                onClick={handleCTAClick}
+                style={isDesktop ? {
+                  width: 'var(--dimension-368)',
+                  height: 'var(--dimension-56)',
+                  padding: '0 var(--padding-button-x)',
+                } : {
+                  width: 'var(--percent-80)',
+                  height: 'auto',
+                }}
+              >
+                {config.content.ctaText}
+              </Button>
+            </div>
           </div>
+
+          {/* Right Column: Description (Desktop Only) */}
+          {config.content.description && (
+            <div className={styles.rightColumn}>
+              <p className={styles.description}>
+                {config.content.description}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 

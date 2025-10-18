@@ -59,8 +59,8 @@ export const DEFAULT_VISUAL_ASSETS: HeroVisualAssets = {
 
 // Configuration Management - Default background assets
 export const DEFAULT_BACKGROUND_ASSETS: HeroBackgroundAssets = {
-  backgroundImage: '/assets/socials/drawing/bg-diboas-abstract-desktop.avif',
-  backgroundImageMobile: '/assets/socials/drawing/bg-diboas-abstract-mobile.avif',
+  backgroundImage: '/assets/socials/real/diboas-banner.avif',
+  backgroundImageMobile: '/assets/socials/real/diboas-banner.avif',
   overlayOpacity: 0.3,
 } as const;
 
