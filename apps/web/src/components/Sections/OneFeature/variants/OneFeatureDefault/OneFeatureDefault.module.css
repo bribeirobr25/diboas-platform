@@ -15,10 +15,13 @@
 
 /* Base Section Container - matching other sections */
 .section {
-  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
+  padding-top: var(--spacing-md); /* 12px top padding on mobile */
+  padding-bottom: var(--spacing-md); /* 12px bottom padding on mobile */
+  padding-left: var(--padding-section-mobile-x);
+  padding-right: var(--padding-section-mobile-x);
   background-color: var(--of-color-section-bg);
-  width: var(--section-width-full);
-  height: var(--section-height-one-feature);
+  width: var(--percent-100);
+  min-height: auto; /* Let content determine height */
   position: relative;
 }
 
@@ -32,23 +35,41 @@
 /* Responsive: Desktop */
 @media (min-width: 1024px) {
   .section {
-    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+    padding-top: var(--spacing-3xl); /* 32px top padding on desktop */
+    padding-bottom: var(--spacing-3xl); /* 32px bottom padding on desktop */
+    padding-left: var(--padding-section-desktop-x);
+    padding-right: var(--padding-section-desktop-x);
   }
 }
 
-/* Main Container */
+/* Outer Container - wraps heroImageWrapper and container */
+.outerContainer {
+  width: var(--percent-100);
+  height: var(--percent-100);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Main Container - Overlaps hero image by 125px (half of 250px) */
 .container {
   max-width: var(--dimension-1200);
   background-color: var(--of-color-container-bg);
-  margin: var(--of-container-margin-top) 0px 0px;
+  margin-top: calc(-1 * var(--dimension-125)); /* Negative margin to start at middle of hero image */
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
   display: flex;
   flex-direction: column;
   gap: var(--of-container-gap);
-  width: 100%;
+  width: var(--percent-100);
   align-items: center;
   text-align: center;
   border-radius: var(--of-border-radius-section);
   padding: var(--padding-panel-mobile);
+  padding-top: calc(var(--dimension-125) + var(--spacing-2xl)); /* Extra top padding to account for image overlap + spacing */
+  padding-bottom: var(--spacing-4xl); /* 40px bottom breathing space on mobile */
   position: relative;
 }
 
@@ -56,6 +77,8 @@
 @media (min-width: var(--breakpoint-tablet)) {
   .container {
     padding: var(--padding-panel-tablet);
+    padding-top: calc(var(--dimension-125) + var(--spacing-2xl)); /* Maintain top padding */
+    padding-bottom: var(--spacing-5xl); /* 48px bottom breathing space */
   }
 }
 
@@ -63,6 +86,8 @@
 @media (min-width: var(--breakpoint-desktop)) {
   .container {
     padding: var(--padding-panel-desktop);
+    padding-top: calc(var(--dimension-125) + var(--spacing-2xl)); /* Maintain top padding */
+    padding-bottom: var(--spacing-6xl); /* 64px bottom breathing space */
     gap: var(--of-container-gap-large);
   }
 }
@@ -71,23 +96,22 @@
    HERO IMAGE STYLES
    ================================ */
 
-/* Hero Image Wrapper - positioned absolutely */
+/* Hero Image Wrapper - positioned to float half outside white container */
 .heroImageWrapper {
-  position: absolute;
-  top: 0; /* Position from top of section */
-  left: var(--percent-50);
-  transform: translateX(-50%);
-  z-index: 10;
-  width: var(--dimension-200);
-  height: auto;
+  position: relative;
+  width: var(--dimension-250);
+  height: var(--dimension-250);
   max-width: var(--dimension-250);
+  margin: 0 auto; /* Center horizontally */
+  flex-shrink: 0; /* Prevent shrinking */
+  z-index: 10; /* Float above container */
 }
 
 /* Responsive: Tablet */
 @media (min-width: var(--breakpoint-tablet)) {
   .heroImageWrapper {
-    width: 216px;
-    height: auto;
+    width: var(--dimension-250);
+    height: var(--dimension-250);
   }
 }
 
@@ -95,7 +119,7 @@
 @media (min-width: var(--breakpoint-desktop)) {
   .heroImageWrapper {
     width: var(--dimension-250);
-    height: auto;
+    height: var(--dimension-250);
   }
 }
 
@@ -201,19 +225,33 @@
 /* Features Grid */
 .featuresGrid {
   display: grid;
-  grid-template-columns: 1fr; /* 1 column on mobile and 768px */
+  grid-template-columns: 1fr; /* 1 column on mobile */
   gap: var(--spacing-lg);
   width: 100%;
   max-width: var(--dimension-400);
   margin-top: var(--spacing-sm);
+  padding-left: var(--spacing-xl); /* 20px left space */
+  padding-right: var(--spacing-xl); /* 20px right space */
 }
 
-/* Responsive: Desktop - 4 columns in one line */
-@media (min-width: var(--breakpoint-tablet)) {
+/* Responsive: Tablet - Keep 1 column with left/right spacing */
+@media (min-width: 768px) {
   .featuresGrid {
-    grid-template-columns: repeat(4, 1fr);
+    max-width: var(--dimension-400); /* Keep max-width on tablet */
+    padding-left: var(--spacing-xl); /* 20px left space */
+    padding-right: var(--spacing-xl); /* 20px right space */
+  }
+}
+
+/* Responsive: Desktop - 4 columns in one row */
+@media (min-width: 1024px) {
+  .featuresGrid {
+    grid-template-columns: repeat(4, var(--dimension-195)); /* 4 columns of 195px each */
     max-width: 100%;
-    gap: 24px;
+    gap: var(--spacing-xl); /* 20px gap between cards */
+    justify-content: center; /* Center the grid */
+    padding-left: var(--spacing-xl); /* 20px left space */
+    padding-right: var(--spacing-xl); /* 20px right space */
   }
 }
 
@@ -229,24 +267,28 @@
   transform: translateY(var(--spacing-xl));
 }
 
+/* Responsive: Desktop - Fixed dimensions */
+@media (min-width: 1024px) {
+  .featureCard {
+    width: var(--dimension-195); /* 195px width */
+    height: var(--dimension-172); /* 172px height */
+  }
+}
+
 .featureCardAnimated {
   animation: slideIn var(--of-transition-duration-normal) var(--of-transition-easing) forwards;
 }
 
 /* Primary Feature Card */
 .featureCardPrimary {
-  background: var(--of-gradient-primary);
-  color: var(--of-color-cta-text);
-  box-shadow: 
-    0 var(--spacing-xs) var(--spacing-md) rgba(139, 92, 246, var(--opacity-20)),
-    0 2px 6px rgba(139, 92, 246, var(--opacity-10));
+  background: var(--of-color-card-bg);
+  color: var(--of-color-feature-title);
+  box-shadow: var(--of-shadow-card);
 }
 
 .featureCardPrimary:hover {
-  transform: var(--of-transform-hover-lift);
-  box-shadow: 
-    0 var(--spacing-sm) var(--spacing-xl) rgba(139, 92, 246, var(--opacity-25)),
-    0 var(--spacing-xs) var(--spacing-md) rgba(139, 92, 246, var(--opacity-15));
+  transform: translateY(-2px);
+  box-shadow: var(--of-shadow-card-hover);
 }
 
 /* Secondary Feature Card */
@@ -278,13 +320,41 @@
   outline: 2px solid currentColor;
 }
 
+/* Responsive: Desktop - Reposition icon to bottom right */
+@media (min-width: 1024px) {
+  .featureLink {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--spacing-md); /* 12px padding inside card */
+    margin: 0;
+  }
+}
+
 /* Feature Title */
 .featureTitle {
-  font-size: var(--font-size-text-mobile);
+  font-size: var(--font-size-sm); /* 14px on mobile */
   font-weight: 600;
   line-height: var(--line-height-normal);
   flex: 1;
   text-align: left;
+}
+
+/* Responsive: Tablet - 20px font size */
+@media (min-width: 768px) {
+  .featureTitle {
+    font-size: var(--font-size-xl); /* 20px on tablet */
+  }
+}
+
+/* Responsive: Desktop - 20px font size */
+@media (min-width: 1024px) {
+  .featureTitle {
+    font-size: var(--font-size-xl); /* 20px on desktop */
+  }
 }
 
 /* Feature Icon */
@@ -295,8 +365,17 @@
   transition: transform var(--transition-fast);
 }
 
+/* Responsive: Desktop - Position icon at bottom right */
+@media (min-width: 1024px) {
+  .featureIcon {
+    position: absolute;
+    bottom: var(--spacing-md); /* 12px from bottom */
+    right: var(--spacing-md); /* 12px from right */
+  }
+}
+
 .featureIconPrimary {
-  color: rgba(255, 255, 255, var(--opacity-90));
+  color: var(--of-color-feature-description);
 }
 
 .featureIconSecondary {

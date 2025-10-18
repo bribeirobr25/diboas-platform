@@ -14,20 +14,20 @@
   position: absolute;
   top: -40px;
   left: 0;
-  padding: 8px 16px;
-  background-color: #3b82f6; /* blue-500 */
-  color: white;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--theme-status-info);
+  color: var(--color-white);
   text-decoration: none;
-  border-radius: 0 0 4px 0;
+  border-radius: 0 0 var(--radius-md) 0;
   z-index: 100;
   font-weight: var(--font-weight-normal);
-  transition: top 0.2s ease;
+  transition: top var(--transition-fast);
 }
 
 .skip-link:focus {
   top: 0;
-  outline: 2px solid #60a5fa; /* blue-400 */
-  outline-offset: 2px;
+  outline: var(--radius-sm) solid var(--theme-status-info);
+  outline-offset: var(--radius-sm);
 }
 
 /* =================================================================== */
@@ -40,36 +40,36 @@
 }
 
 *:focus-visible {
-  outline: 2px solid #3b82f6; /* blue-500 */
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: var(--radius-sm) solid var(--theme-status-info);
+  outline-offset: var(--radius-sm);
+  border-radius: var(--radius-md);
 }
 
 /* Button focus states */
 button:focus-visible,
 .btn-base:focus-visible,
 .menu-link:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  outline: var(--radius-sm) solid var(--theme-status-info);
+  outline-offset: var(--radius-sm);
+  box-shadow: 0 0 0 var(--spacing-xs) rgba(59, 130, 246, var(--opacity-10));
 }
 
 /* Link focus states */
 a:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: var(--radius-sm) solid var(--theme-status-info);
+  outline-offset: var(--radius-sm);
+  border-radius: var(--radius-sm);
 }
 
 /* Skip to specific elements focus */
 .menu-link:focus-visible {
-  outline-offset: -2px;
+  outline-offset: calc(var(--radius-sm) * -1);
 }
 
 /* Mobile menu button focus */
 .mobile-menu-button:focus-visible {
-  outline-offset: -2px;
-  border-radius: 8px;
+  outline-offset: calc(var(--radius-sm) * -1);
+  border-radius: var(--radius-lg);
 }
 
 /* =================================================================== */
@@ -183,7 +183,8 @@ a:focus-visible {
 }
 
 .dropdown-menu {
-  @apply w-full bg-white shadow-2xl border-t;
+  @apply w-full bg-white shadow-2xl;
+  border-top: 1px solid var(--color-white); /* Using design token for white border */
 }
 
 .dropdown-content {
@@ -196,7 +197,7 @@ a:focus-visible {
 
 .dropdown-title {
   @apply font-bold text-gray-900 mb-3;
-  font-size: 26px; /* Desktop submenu title */
+  font-size: var(--font-size-title-mobile); /* Desktop submenu title */
 }
 
 .dropdown-items {
@@ -217,12 +218,12 @@ a:focus-visible {
 
 .dropdown-item-title {
   @apply font-semibold text-gray-900 group-hover:text-teal-600 transition-colors;
-  font-size: 18px; /* Desktop submenu items */
+  font-size: var(--font-size-description-desktop); /* Desktop submenu items */
 }
 
 .dropdown-item-description {
-  @apply text-gray-600;
-  font-size: var(--font-size-ui-link); /* Desktop submenu description */
+  color: var(--color-black);
+  font-size: var(--font-size-ui-link);
 }
 
 /* =================================================================== */
@@ -294,7 +295,7 @@ a:focus-visible {
 
 .mobile-nav-content {
   @apply px-4 flex items-center justify-between;
-  height: 60px;
+  height: var(--dimension-60);
 }
 
 .mobile-brand {
@@ -311,18 +312,19 @@ a:focus-visible {
 
 .mobile-get-started-button {
   @apply px-8;
-  min-width: 120px;
+  min-width: var(--dimension-130);
   width: auto;
 }
 
 .desktop-get-started-button {
   @apply px-8;
-  min-width: 140px;
+  min-width: var(--fs-min-width-cta);
   font-size: var(--font-size-ui-button); /* Desktop action button text */
 }
 
 .mobile-menu-overlay {
-  @apply fixed inset-0 bg-white transition-transform;
+  @apply fixed inset-0 transition-transform;
+  background-color: var(--color-gray-100); /* Gray background (#f3f4f6) using design token */
 }
 
 .mobile-menu-content {
@@ -353,7 +355,7 @@ a:focus-visible {
 
 .mobile-menu-text {
   @apply text-gray-900;
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
 }
 
@@ -364,12 +366,13 @@ a:focus-visible {
 }
 
 .mobile-submenu-container {
-  @apply h-full flex flex-col bg-white overflow-y-auto animate-slide-from-right;
+  @apply h-full flex flex-col overflow-y-auto animate-slide-from-right;
+  background-color: var(--color-gray-100); /* Gray-green-ish background (#f3f4f6) */
 }
 
 .mobile-submenu-header {
   @apply sticky top-0 flex items-center justify-between px-4 border-b bg-teal-50 z-50;
-  height: 60px;
+  height: var(--dimension-60);
 }
 
 .mobile-back-button {
@@ -378,6 +381,9 @@ a:focus-visible {
 
 .mobile-submenu-banner {
   @apply sticky bg-teal-50 w-full z-30;
+  /* Ensure banner stays at top when scrolling, content flows below */
+  position: sticky;
+  top: calc(var(--dimension-60) + 9px); /* Mobile nav height + offset */
 }
 
 .mobile-banner-content {
@@ -393,7 +399,7 @@ a:focus-visible {
 }
 
 .mobile-banner-text {
-  @apply px-6 pt-4 pb-6;
+  @apply px-6 pt-4 pb-4;
 }
 
 .mobile-banner-title {
@@ -417,7 +423,7 @@ a:focus-visible {
 }
 
 .mobile-additional-items {
-  @apply border-t pt-6 space-y-2;
+  @apply border-t border-white pt-6 space-y-2;
 }
 
 /* =================================================================== */
@@ -430,29 +436,43 @@ a:focus-visible {
 
 .mobile-menu-section {
   @apply px-4 py-6;
+  background-color: var(--color-gray-100); /* Gray-green-ish background (#f3f4f6) */
 }
 
 .mobile-highlights-section {
   @apply mb-8;
+  justify-content: center;
+  /* padding-left: var(--spacing-2xl); */
 }
 
 .mobile-section-header {
   @apply text-teal-600 tracking-wider mb-4;
-  font-size: var(--font-size-ui-link);
+  font-size: var(--font-size-md); /* 16px */
   font-weight: var(--font-weight-bold);
 }
 
 .mobile-quick-actions-grid {
   @apply grid grid-cols-3 gap-3;
+  justify-content: center; /* Center grid items horizontally using design token principle */
+  /* padding-left: var(-spacing-3xl);
+  padding-right: var(-spacing-3xl);  */
 }
 
 .mobile-quick-action-item {
-  @apply bg-gray-50 rounded-xl p-4 text-center flex items-center justify-center min-h-[83px];
+  @apply bg-white rounded-xl p-4 flex items-end justify-start min-h-[106px]; /* White background, bottom-left alignment */
+}
+
+/* Tablet viewport: 768px - 1023px - Max dimensions for quick action items */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-quick-action-item {
+    max-width: var(--dimension-195);
+    max-height: var(--dimension-106);
+  }
 }
 
 .mobile-quick-action-text {
   @apply text-gray-900;
-  font-size: var(--font-size-ui-button);
+  font-size: var(--font-size-sm); /* 14px */
   font-weight: var(--font-weight-bold);
 }
 
@@ -461,7 +481,13 @@ a:focus-visible {
 }
 
 .mobile-menu-section-container {
-  @apply mb-8;
+  @apply mb-8 border-t border-white pt-6; /* Add horizontal line above */
+}
+
+/* Remove border from first section container */
+.mobile-menu-section-container:first-child {
+  border-top: none;
+  padding-top: 0;
 }
 
 .mobile-main-menu-button {
@@ -470,7 +496,7 @@ a:focus-visible {
 
 .mobile-main-menu-text {
   @apply text-gray-900;
-  font-size: 20px;
+  font-size: var(--font-size-subtitle-tablet); /* 22px */
   font-weight: var(--font-weight-bold);
 }
 
@@ -479,9 +505,9 @@ a:focus-visible {
 }
 
 .mobile-menu-description-text {
-  @apply text-gray-600 px-4 pb-2;
-  font-size: var(--font-size-ui-link);
-  font-weight: var(--font-weight-bold);
+  @apply text-black px-4 pb-2;
+  font-size: var(--font-size-md); /* 16px */
+  font-weight: var(--font-weight-normal);
 }
 
 .mobile-additional-menu-button {
@@ -490,12 +516,14 @@ a:focus-visible {
 
 .mobile-additional-menu-text {
   @apply text-gray-900;
-  font-size: var(--font-body-subtitle);
+  font-size: var(--font-size-subtitle-mobile);
   font-weight: var(--font-weight-bold);
 }
 
 .mobile-submenu-header-container {
-  @apply sticky top-0 flex items-center justify-between px-4 py-4 border-b bg-teal-50 z-50;
+  @apply sticky top-0 flex items-center justify-between px-4 py-4 bg-primary-100 z-50;
+  /* Remove border-b to eliminate thin line between header and image */
+  border-bottom: none;
 }
 
 .mobile-back-button-content {
@@ -510,42 +538,175 @@ a:focus-visible {
   @apply p-2;
 }
 
+/* Sticky banner parent container - Add class to JSX */
+.mobile-submenu-banner-container {
+  /* Bottom rounded corners for the bg-primary-100 container */
+  border-bottom-left-radius: var(--radius-6xl);
+  border-bottom-right-radius: var(--radius-6xl);
+
+  /* Responsive height: Mobile uses 65vh, Tablet uses 42vh */
+  height: 65vh; /* Mobile default */
+}
+
+/* Tablet viewport: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-submenu-banner-container {
+    height: 42vh;
+  }
+}
+
 .mobile-banner-wrapper {
-  @apply h-full flex flex-col;
+  /* CHANGE 1: Must fill parent's 56vh height completely and fit all contents */
+  height: var(--percent-100);
+  min-height: var(--percent-100);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* CHANGE 2: Transparent background to show parent's bg-primary-100 */
+  background-color: transparent;
+}
+
+/* Tablet: Side-by-side layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-banner-wrapper {
+    flex-direction: row;
+    align-items: stretch;  /* Make both children have equal height */
+    gap: var(--spacing-lg);
+    padding-bottom: var(--spacing-xl);  /* Add 20px breathing space at bottom */
+    height: auto;  /* Allow natural sizing instead of forcing 100% of parent */
+    min-height: auto;  /* Remove minimum height constraint */
+  }
 }
 
 .mobile-banner-image-wrapper {
   @apply px-4 pt-4;
+  flex-shrink: var(--opacity-0);
+  width: var(--percent-100);
+}
+
+/* Tablet: Image on right, 50% width, 30px from right border */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-banner-image-wrapper {
+    width: var(--percent-50);
+    order: 2;
+    padding-top: var(--spacing-lg);    /* 16px top padding - aligns with text */
+    padding-bottom: var(--spacing-lg); /* 16px bottom padding */
+    padding-right: var(--spacing-3xl); /* 32px from right border (closest to 30px) */
+    padding-left: var(--opacity-0);    /* Remove left padding for alignment */
+    align-self: flex-start;  /* Don't stretch, only take height of content (image) */
+  }
 }
 
 .mobile-banner-image-container-inner {
-  @apply relative w-full max-w-md mx-auto aspect-[3/2] overflow-hidden rounded-2xl;
+  @apply relative max-w-md mx-auto;
+  /* Reduce width by 10px (5px on each side) using calc */
+  width: calc(100% - var(--spacing-md));
+  /* Image with 4 rounded corners using design token - ensure overflow hidden for clipping */
+  border-radius: var(--radius-4xl);
+  overflow: hidden;
+  /* Option 4: Responsive image heights using design tokens */
+  /* Base: Small mobile (320px-374px) */
+  height: var(--mobile-banner-image-height-small);
+}
+
+/* Medium mobile (375px-424px) */
+@media (min-width: 375px) {
+  .mobile-banner-image-container-inner {
+    height: var(--mobile-banner-image-height-medium);
+    border-radius: var(--radius-4xl);
+    overflow: hidden;
+  }
+}
+
+/* Large mobile (425px and above, up to tablet) */
+@media (min-width: 425px) and (max-width: 767px) {
+  .mobile-banner-image-container-inner {
+    height: var(--mobile-banner-image-height-large);
+    border-radius: var(--radius-4xl);
+    overflow: hidden;
+  }
+}
+
+/* Tablet (768px to desktop breakpoint) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-banner-image-container-inner {
+    height: var(--mobile-banner-image-height-tablet);
+    border-radius: var(--radius-4xl);
+    overflow: hidden;
+  }
 }
 
 .mobile-banner-image-content {
-  @apply object-contain;
+  @apply object-cover;
 }
 
 .mobile-banner-text-container {
-  @apply px-6 pt-4 pb-6;
+  @apply px-6 pt-4;
+  /* Fill remaining vertical space within banner */
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: var(--opacity-0);
+  padding-bottom: var(--spacing-2xl);
+}
+
+/* Tablet: Text on left, 50% width, aligned to top */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-banner-text-container {
+    width: var(--percent-50);
+    order: 1;
+    padding-top: var(--spacing-lg);   /* Match image wrapper top padding (16px) */
+    padding-bottom: var(--spacing-lg);
+    padding-left: calc(var(--spacing-lg) + var(--spacing-xl)); /* 16px + 20px = 36px */
+    padding-right: var(--spacing-lg);  /* Add right padding for breathing space */
+    justify-content: flex-start; /* Align to top instead of center */
+    align-self: flex-start;  /* Don't stretch, only take height of content */
+  }
 }
 
 .mobile-banner-title-text {
   @apply font-bold text-gray-900 mb-2;
-  font-size: 22px;
+  font-size: var(--font-size-subtitle-tablet);
 }
 
 .mobile-banner-description-text {
-  @apply text-gray-600 font-bold;
+  @apply text-black font-bold;
   font-size: var(--font-body-subtitle);
 }
 
 .mobile-submenu-content {
-  @apply px-4 py-6 space-y-2 bg-white relative z-10;
+  @apply px-4 py-6 space-y-2;
+  /* CHANGE 3: Content starts only after mobile-banner-wrapper ends */
+  margin-top: var(--opacity-0);
+  position: relative;
+  clear: both;
+  /* Gray-green-ish background matching mobile-menu-section */
+  background-color: var(--color-gray-100); /* Gray-green-ish background (#f3f4f6) */
+}
+
+/* Tablet: 2-column grid layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-submenu-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    padding-left: calc(var(--spacing-lg) + var(--spacing-xl));  /* 16px + 20px = 36px */
+    padding-right: calc(var(--spacing-lg) + var(--spacing-xl)); /* 16px + 20px = 36px */
+    /* Remove space-y when using grid */
+  }
 }
 
 .mobile-submenu-link {
   @apply block p-4 rounded-xl hover:bg-gray-50 transition-colors;
+}
+
+/* Tablet: Adjust padding for submenu links */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mobile-submenu-link {
+    padding-top: var(--spacing-sm);    /* 8px top padding */
+    padding-bottom: var(--spacing-sm); /* 8px bottom padding */
+  }
 }
 
 .mobile-submenu-link-title {
@@ -782,7 +943,7 @@ a:focus-visible {
 /* Homepage Hero Section */
 .homepage-hero-section {
   @apply min-h-[60vh] flex items-center justify-center;
-  background-color: #f9fafb; /* gray-50 */
+  background-color: var(--color-gray-50);
 }
 
 .homepage-hero-content {
@@ -792,13 +953,13 @@ a:focus-visible {
 /* Homepage Features Section */
 .homepage-features-section {
   @apply py-20;
-  background-color: white;
+  background-color: var(--color-white);
 }
 
 /* Homepage CTA Section */
 .homepage-cta-section {
   @apply py-16;
-  background-color: #f3f4f6; /* gray-100 */
+  background-color: var(--color-gray-100);
 }
 
 /* Screen reader only - for SEO/Accessibility */
@@ -821,7 +982,7 @@ a:focus-visible {
 /* 404 and Error Page Container */
 .error-page-container {
   @apply min-h-screen flex items-center justify-center px-4 py-16;
-  background-color: #f9fafb; /* gray-50 */
+  background-color: var(--color-gray-50);
 }
 
 .error-page-content {
@@ -830,17 +991,17 @@ a:focus-visible {
 
 .error-page-title {
   @apply text-8xl font-bold mb-4;
-  color: #3b82f6; /* blue-500 */
+  color: var(--theme-status-info);
 }
 
 .error-page-subtitle {
   @apply text-3xl font-semibold mb-4;
-  color: #111827; /* gray-900 */
+  color: var(--color-gray-900);
 }
 
 .error-page-description {
   @apply text-lg mb-8;
-  color: #6b7280; /* gray-500 */
+  color: var(--color-gray-500);
 }
 
 .error-page-actions {

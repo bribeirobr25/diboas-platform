@@ -9,6 +9,7 @@ interface EnvironmentConfig {
   // Application URLs
   readonly APP_URL: string;
   readonly BUSINESS_URL: string;
+  readonly LEARN_URL: string;
   readonly CDN_URL: string;
   readonly MONITORING_ENDPOINT: string;
   
@@ -95,28 +96,31 @@ function getEnvNumber(
 /**
  * Get default URLs based on environment
  */
-function getDefaultUrls(): { app: string; business: string } {
+function getDefaultUrls(): { app: string; business: string; learn: string } {
   const nodeEnv = process.env.NODE_ENV || 'development';
-  
+
   if (nodeEnv === 'production') {
     return {
       app: 'https://app.diboas.com',
-      business: 'https://business.diboas.com'
+      business: 'https://business.diboas.com',
+      learn: 'https://learn.diboas.com'
     };
   }
-  
+
   // Check for staging environment variable since NODE_ENV might not include it
   if (process.env.APP_ENV === 'staging') {
     return {
       app: 'https://app-staging.diboas.com',
-      business: 'https://business-staging.diboas.com'
+      business: 'https://business-staging.diboas.com',
+      learn: 'https://learn-staging.diboas.com'
     };
   }
-  
+
   // Development defaults
   return {
     app: 'http://localhost:3001',
-    business: 'http://localhost:3002'
+    business: 'http://localhost:3002',
+    learn: 'http://localhost:3003'
   };
 }
 
@@ -131,6 +135,7 @@ function createEnvironmentConfig(): EnvironmentConfig {
     // Application URLs
     APP_URL: getEnvVar('NEXT_PUBLIC_APP_URL', defaultUrls.app),
     BUSINESS_URL: getEnvVar('NEXT_PUBLIC_BUSINESS_URL', defaultUrls.business),
+    LEARN_URL: getEnvVar('NEXT_PUBLIC_LEARN_URL', defaultUrls.learn),
     CDN_URL: getEnvVar('NEXT_PUBLIC_CDN_URL', ''),
     MONITORING_ENDPOINT: getEnvVar('NEXT_PUBLIC_MONITORING_ENDPOINT', ''),
     
@@ -173,6 +178,7 @@ export const ENV_CONFIG = createEnvironmentConfig();
 export const {
   APP_URL,
   BUSINESS_URL,
+  LEARN_URL,
   CDN_URL,
   MONITORING_ENDPOINT,
   NODE_ENV,

@@ -11,6 +11,15 @@ export default {
   ],
   theme: {
     extend: {
+      // Breakpoints aligned with design-tokens.css
+      // Mobile: < 768px, Tablet: 768px-1023px, Desktop: >= 1024px
+      screens: {
+        'sm': '640px',
+        'md': '1024px',  // Changed from 768px to 1024px to match --breakpoint-desktop
+        'lg': '1280px',  // Maps to --breakpoint-wide
+        'xl': '1440px',  // Maps to --breakpoint-ultra
+        '2xl': '1536px',
+      },
       colors: {
         primary: diBoasColors.primary,
         secondary: diBoasColors.secondary,
@@ -51,6 +60,7 @@ export default {
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out forwards',
         'slide-up': 'slideUp 0.6s ease-out forwards',
+        'slide-from-right': 'slideFromRight 0.3s ease-out forwards',
         'bounce-gentle': 'bounceGentle 2s ease-in-out infinite',
         'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
       },
@@ -62,6 +72,10 @@ export default {
         slideUp: {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideFromRight: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
         },
         bounceGentle: {
           '0%, 100%': { transform: 'translateY(0)' },

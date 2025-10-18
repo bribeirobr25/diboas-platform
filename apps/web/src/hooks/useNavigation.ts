@@ -11,10 +11,11 @@ export function useNavigation() {
     isMobile: false
   });
 
-  // Check if mobile
+  // Check if mobile (includes tablet)
+  // Breakpoint matches --breakpoint-desktop: 1024px from design-tokens.css
   useEffect(() => {
     const checkMobile = () => {
-      setState(prev => ({ ...prev, isMobile: window.innerWidth < 768 }));
+      setState(prev => ({ ...prev, isMobile: window.innerWidth < 1024 }));
     };
 
     checkMobile();

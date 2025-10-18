@@ -18,6 +18,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { FOOTER_CONFIG, type FooterConfig, type FooterSection } from '@/config/footer';
 import { ASSET_PATHS } from '@/config/assets';
 import { BRAND_CONFIG } from '@/config/brand';
+import { APP_URL, BUSINESS_URL, LEARN_URL } from '@/config/environment';
 import styles from './SiteFooter.module.css';
 
 // Dynamic icon imports for better performance
@@ -67,34 +68,113 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
     <footer aria-label="Site footer" className={styles.footer}>
       <div className={styles.container}>
 
-        {/* Mobile Logo */}
-        <div className={styles.mobileLogoSection}>
-          <Image
-            src={ASSET_PATHS.LOGOS.WORDMARK}
-            alt={BRAND_CONFIG.NAME}
-            width={120}
-            height={32}
-            className={styles.logoImage}
-          />
-        </div>
-
         {/* Desktop Grid / Mobile Accordions */}
         <div className={styles.contentGrid}>
 
-          {/* Desktop Logo Column */}
-          <div className={styles.desktopLogoSection}>
-            <Image
-              src={ASSET_PATHS.LOGOS.WORDMARK}
-              alt={BRAND_CONFIG.NAME}
-              width={160}
-              height={42}
-              className={styles.logoImage}
-            />
+          {/* Platforms Section */}
+          <div className={styles.footerSection}>
+            {/* Mobile Accordion */}
+            <div className={styles.mobileAccordion}>
+              <button
+                onClick={() => toggleSection('platforms')}
+                className={styles.accordionButton}
+                aria-expanded={openSections.has('platforms')}
+                aria-controls="footer-section-platforms"
+              >
+                <span className={styles.accordionTitle}>
+                  {intl.formatMessage({ id: 'common.footer.sections.platforms.title' })}
+                </span>
+                {openSections.has('platforms') ? (
+                  <ChevronUp className={styles.accordionIcon} aria-hidden="true" />
+                ) : (
+                  <ChevronDown className={styles.accordionIcon} aria-hidden="true" />
+                )}
+              </button>
+
+              {openSections.has('platforms') && (
+                <div
+                  id="footer-section-platforms"
+                  className={styles.accordionContent}
+                >
+                  <ul className={styles.accordionLinksList}>
+                    <li>
+                      <a
+                        href={APP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.accordionLink}
+                      >
+                        {intl.formatMessage({ id: 'common.footer.sections.platforms.links.diboasApp' })}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href={BUSINESS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.accordionLink}
+                      >
+                        {intl.formatMessage({ id: 'common.footer.sections.platforms.links.businessApp' })}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href={LEARN_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.accordionLink}
+                      >
+                        {intl.formatMessage({ id: 'common.footer.sections.platforms.links.learnCenter' })}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Desktop Column */}
+            <div className={styles.desktopColumn}>
+              <h3 className={styles.sectionTitle}>
+                {intl.formatMessage({ id: 'common.footer.sections.platforms.title' })}
+              </h3>
+              <ul className={styles.linksList}>
+                <li>
+                  <a
+                    href={APP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                  >
+                    {intl.formatMessage({ id: 'common.footer.sections.platforms.links.diboasApp' })}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={BUSINESS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                  >
+                    {intl.formatMessage({ id: 'common.footer.sections.platforms.links.businessApp' })}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={LEARN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                  >
+                    {intl.formatMessage({ id: 'common.footer.sections.platforms.links.learnCenter' })}
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Footer Sections */}
           {config.sections.map((section) => (
-            <div key={section.title}>
+            <div key={section.title} className={styles.footerSection}>
 
               {/* Mobile Accordion */}
               <div className={styles.mobileAccordion}>
