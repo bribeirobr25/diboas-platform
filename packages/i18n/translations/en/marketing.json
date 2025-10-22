@@ -240,5 +240,56 @@
         "subtitle": "Explore decentralized finance with enterprise-grade security."
       }
     }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Find answers to common questions about diBoaS, your AI-powered guides, security, and fees.",
+    "ctaText": "View All FAQs",
+    "items": {
+      "q1": {
+        "question": "Do I need to know about cryptocurrency to use diBoaS?",
+        "answer": "Not at all! Aqua is specifically designed for complete beginners. Your guides provide comprehensive education and AI guidance to help you learn as you invest, starting with the simplest possible experience."
+      },
+      "q2": {
+        "question": "What's the minimum amount I can start with?",
+        "answer": "You can start with as little as $10. Aqua believes everyone should have access to wealth-building tools and will guide you through your first small steps."
+      },
+      "q3": {
+        "question": "How long does it take to set up an account?",
+        "answer": "Most users meet Aqua and complete setup in under 5 minutes, including account creation and first deposit."
+      },
+      "q4": {
+        "question": "How do the guides actually work?",
+        "answer": "diBoaS' guides are AI-powered assistants that analyze your behavior, knowledge, and comfort level to reveal platform features at the optimal time. They literally evolve and change as you become more sophisticated."
+      },
+      "q5": {
+        "question": "Will I always see all four guides?",
+        "answer": "No! You start with Aqua only. Mystic, and Coral appear progressively as you're ready for more advanced features. This prevents overwhelm while preserving sophistication."
+      },
+      "q6": {
+        "question": "Can I control which guides appear?",
+        "answer": "Your guides appear based on your natural progression, but you can always dial back complexity if needed. The system is designed to never force features on you before you're ready."
+      },
+      "q7": {
+        "question": "Is diBoaS safe to use?",
+        "answer": "Yes. We use the same security standards as major banks, with non-custodial wallets ensuring you always own your assets, military-grade encryption, and full regulatory compliance across multiple jurisdictions."
+      },
+      "q8": {
+        "question": "What happens if diBoaS shuts down?",
+        "answer": "You always maintain control of your assets. Even if diBoaS ceased operations, you would retain full access to your funds. Your guides help you understand this ownership model."
+      },
+      "q9": {
+        "question": "Can diBoaS or the guides access my money?",
+        "answer": "No! Our design ensures only you have access to your funds. Guides provide recommendations and education but never control your money."
+      },
+      "q10": {
+        "question": "How much does it cost to use diBoaS?",
+        "answer": "Our fees are simple and transparent: 0.09% for Start/Stop Strategy and 0.9% for Transfer/Withdraw. No hidden fees, ever. Your guides will always show you exact costs before any transaction."
+      },
+      "q11": {
+        "question": "Are there any subscription fees?",
+        "answer": "Basic guide features are free. Advanced AI features unlock based on your activity level and guide progression, with optional premium subscriptions for power users."
+      }
+    }
   }
 }

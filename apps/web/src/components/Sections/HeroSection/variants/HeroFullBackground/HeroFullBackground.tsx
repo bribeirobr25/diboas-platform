@@ -21,22 +21,10 @@ export function HeroFullBackground({
   onCTAClick
 }: HeroVariantProps) {
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
 
   const handleCTAClick = useCallback(() => {
     onCTAClick?.();
   }, [onCTAClick]);
-
-  // Responsive: Detect desktop viewport
-  useEffect(() => {
-    const checkDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-
-    checkDesktop();
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
-  }, []);
 
   // Performance: Preload background images
   useEffect(() => {
@@ -108,14 +96,6 @@ export function HeroFullBackground({
                 variant="gradient"
                 className={styles.ctaButton}
                 onClick={handleCTAClick}
-                style={isDesktop ? {
-                  width: 'var(--dimension-368)',
-                  height: 'var(--dimension-56)',
-                  padding: '0 var(--padding-button-x)',
-                } : {
-                  width: 'var(--percent-80)',
-                  height: 'auto',
-                }}
               >
                 {config.content.ctaText}
               </Button>

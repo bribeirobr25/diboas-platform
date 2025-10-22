@@ -185,7 +185,7 @@ export function OneFeatureDefault({
               aria-label={`${config.content.cta.text} - Abre em nova aba`}
               onClick={handleCTAClick}
             >
-              <Button variant="gradient" size="lg">
+              <Button variant="gradient" className={styles.ctaButton}>
                 {config.content.cta.text}
               </Button>
             </a>
@@ -194,7 +194,7 @@ export function OneFeatureDefault({
               href={config.content.cta.href}
               onClick={handleCTAClick}
             >
-              <Button variant="gradient" size="lg">
+              <Button variant="gradient" className={styles.ctaButton}>
                 {config.content.cta.text}
               </Button>
             </Link>

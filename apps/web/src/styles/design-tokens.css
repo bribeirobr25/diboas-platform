@@ -78,6 +78,122 @@
   --padding-panel-mobile: 0px;
   --padding-panel-tablet: 0px;
   --padding-panel-desktop: 0px;
+
+  /* ================================
+     UNIFIED SECTION CTA BUTTON DESIGN TOKENS
+     ================================
+
+     These tokens are for ALL section CTA buttons (e.g., HeroSection,
+     FAQAccordion, FeatureShowcase, etc.). Use these for prominent
+     call-to-action buttons within marketing sections.
+
+     Reference Implementation: FAQAccordion.module.css (lines 95-170)
+     ================================ */
+
+  /* CTA Button Dimensions */
+  --cta-min-width-desktop: 261px;
+  --cta-min-width-tablet: 261px;
+  --cta-min-width-mobile: 70%;
+  --cta-min-height-desktop: 56px;
+  --cta-min-height-tablet: 56px;
+  --cta-min-height-mobile: 48px;
+
+  /* CTA Button Spacing */
+  --cta-padding-desktop: 16px 32px;
+  --cta-padding-tablet: 16px 32px;
+  --cta-padding-mobile: 12px 24px;
+
+  /* CTA Button Colors */
+  --cta-bg-primary: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+  --cta-bg-secondary: #ffffff;
+  --cta-color-primary: #ffffff;
+  --cta-color-secondary: #1a365d;
+  --cta-bg-hover: #319795;
+  --cta-focus-color: #38b2ac;
+
+  /* CTA Button Typography */
+  --cta-font-size-desktop: 16px;
+  --cta-font-size-tablet: 16px;
+  --cta-font-size-mobile: 14px;
+  --cta-font-weight: 600;
+  --cta-line-height: 1.5;
+
+  /* CTA Button Borders & Shapes */
+  --cta-border-radius: 50px;
+  --cta-border-width: 2px;
+
+  /* CTA Button Effects */
+  --cta-shadow-default: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --cta-shadow-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
+  --cta-shadow-focus: 0 0 0 3px rgba(56, 178, 172, 0.2);
+
+  /* CTA Button Transitions */
+  --cta-transition-duration: 300ms;
+  --cta-transition-easing: ease-in-out;
+  --cta-transform-hover: translateY(-2px);
+  --cta-transform-active: translateY(0);
+
+  /* CTA Button States */
+  --cta-opacity-disabled: 0.5;
+  --cta-cursor-disabled: not-allowed;
+
+  /* ================================
+     NAVIGATION CTA BUTTON DESIGN TOKENS
+     ================================
+
+     These tokens are ONLY for Navigation bar CTA buttons. These are
+     more compact than section CTAs to fit in the navigation bar.
+
+     Used in: DesktopNav, MobileNav components
+     Implementation: semantic-components.css (.desktop-get-started-button, .mobile-get-started-button)
+     ================================ */
+
+  /* Navigation CTA Dimensions - Compact for navigation bar */
+  --nav-cta-min-width-desktop: 140px;
+  --nav-cta-min-width-tablet: 140px;
+  --nav-cta-min-width-mobile: 130px;
+  --nav-cta-min-height-desktop: 40px;
+  --nav-cta-min-height-tablet: 40px;
+  --nav-cta-min-height-mobile: 36px;
+
+  /* Navigation CTA Spacing */
+  --nav-cta-padding-desktop: 10px 32px;
+  --nav-cta-padding-tablet: 10px 32px;
+  --nav-cta-padding-mobile: 8px 24px;
+
+  /* Navigation CTA Typography - Smaller for compact navigation */
+  --nav-cta-font-size-desktop: 12px;
+  --nav-cta-font-size-tablet: 12px;
+  --nav-cta-font-size-mobile: 11px;
+  --nav-cta-font-weight: 600;
+  --nav-cta-line-height: 1.5;
+
+  /* Navigation CTA Colors (same as section CTAs) */
+  --nav-cta-bg-primary: var(--cta-bg-primary);
+  --nav-cta-bg-secondary: var(--cta-bg-secondary);
+  --nav-cta-color-primary: var(--cta-color-primary);
+  --nav-cta-color-secondary: var(--cta-color-secondary);
+  --nav-cta-bg-hover: var(--cta-bg-hover);
+  --nav-cta-focus-color: var(--cta-focus-color);
+
+  /* Navigation CTA Borders & Shapes */
+  --nav-cta-border-radius: 50px;
+  --nav-cta-border-width: 2px;
+
+  /* Navigation CTA Effects */
+  --nav-cta-shadow-default: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --nav-cta-shadow-hover: 0 4px 12px rgba(56, 178, 172, 0.2);
+  --nav-cta-shadow-focus: 0 0 0 3px rgba(56, 178, 172, 0.15);
+
+  /* Navigation CTA Transitions (same as section CTAs) */
+  --nav-cta-transition-duration: var(--cta-transition-duration);
+  --nav-cta-transition-easing: var(--cta-transition-easing);
+  --nav-cta-transform-hover: var(--cta-transform-hover);
+  --nav-cta-transform-active: var(--cta-transform-active);
+
+  /* Navigation CTA States (same as section CTAs) */
+  --nav-cta-opacity-disabled: var(--cta-opacity-disabled);
+  --nav-cta-cursor-disabled: var(--cta-cursor-disabled);
   
   /* ================================
      SECTION DIMENSIONS
@@ -312,9 +428,6 @@
   --fs-description-max-width: 520px;
   --fs-description-line-height: 1.5;
   
-  /* CTA Typography */
-  --fs-cta-border-radius-pill: 22px;
-  
   /* Navigation Buttons */
   --fs-nav-button-size: 40px;
   --fs-nav-button-style: ghost;
@@ -372,7 +485,6 @@
   --fs-size-dot: 8px;
   --fs-size-dot-active: 12px;
   --fs-size-icon: 18px;
-  --fs-min-width-cta: 140px;
 
   /* ================================
      TYPOGRAPHY
@@ -536,7 +648,6 @@
      ================================ */
   /* Shadows */
   --pc-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --pc-cta-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   
   /* Z-Index */
   --pc-z-index-controls: 10;
@@ -607,9 +718,6 @@
   --pc-dot-active-width: 18px;
   --pc-control-button-size: 40px;
   --pc-control-icon-size: 18px;
-  
-  /* CTA Elements */
-  --pc-cta-font-weight: 600;
   
   /* ================================
      RESPONSIVE BREAKPOINTS
@@ -776,7 +884,7 @@
   --of-features-gap: 32px;
   --of-feature-padding-large: 24px;
   
-  /* CTA Spacing */
+  /* CTA Spacing - Component-specific spacing (not button styling) */
   --of-cta-margin-top: 40px;
   
   /* ================================
@@ -996,7 +1104,6 @@
   --dimension-106: 106px;
   --dimension-120: 120px;
   --dimension-125: 125px;
-  --dimension-130: 130px;
   --dimension-136: 136px;
   --dimension-368: 368px;
   --dimension-140: 140px;
@@ -1326,6 +1433,75 @@
   
   /* Common Transforms */
   --transform-scale-102: scale(1.02);
+
+  /* ================================
+     FAQ ACCORDION DESIGN TOKENS
+     ================================ */
+
+  /* Container & Layout */
+  --faq-container-max-width: 1400px;
+  --faq-container-padding-mobile: 48px 24px;
+  --faq-container-padding-tablet: 48px 64px;
+  --faq-container-padding-desktop: 64px 120px;
+  --faq-bg-color: #f8f9fa;
+
+  /* Grid Layout */
+  --faq-grid-columns-mobile: 1fr;
+  --faq-grid-columns-desktop: 40fr 60fr;
+  --faq-grid-gap-mobile: 32px;
+  --faq-grid-gap-desktop: 48px;
+
+  /* Element Order (for mobile/tablet single column) */
+  --faq-order-heading: 1;
+  --faq-order-description: 2;
+  --faq-order-accordion: 3;
+  --faq-order-cta: 4;
+
+  /* Left Panel (Intro) */
+  --faq-intro-heading-size-mobile: 36px;
+  --faq-intro-heading-size-desktop: 48px;
+  --faq-intro-heading-color: var(--color-gray-900);
+  --faq-intro-heading-weight: var(--font-weight-bold);
+  --faq-intro-heading-line-height: 1.2;
+  --faq-intro-heading-margin-bottom: 24px;
+
+  --faq-intro-description-size: 18px;
+  --faq-intro-description-color: var(--color-gray-600);
+  --faq-intro-description-line-height: 1.6;
+  --faq-intro-description-max-width: 400px;
+  --faq-intro-description-margin-bottom: 32px;
+
+  /* Accordion Items */
+  --faq-accordion-gap: 16px;
+  --faq-item-bg: var(--color-white);
+  --faq-item-border-radius: 16px;
+  --faq-item-padding: 24px;
+  --faq-item-shadow: var(--shadow-sm);
+  --faq-item-border-expanded: 2px solid var(--theme-interactive-primary);
+  --faq-item-hover-bg: #f7fafc;
+
+  /* Question Typography */
+  --faq-question-size: 18px;
+  --faq-question-weight: var(--font-weight-semibold);
+  --faq-question-color: var(--color-gray-900);
+  --faq-question-line-height: 1.4;
+
+  /* Answer Typography */
+  --faq-answer-size: 16px;
+  --faq-answer-weight: var(--font-weight-normal);
+  --faq-answer-color: var(--color-gray-600);
+  --faq-answer-line-height: 1.6;
+  --faq-answer-padding-top: 20px;
+
+  /* Icons */
+  --faq-icon-size: 24px;
+  --faq-icon-color: var(--color-gray-900);
+
+  /* Animations */
+  --faq-transition-duration: 400ms;
+  --faq-transition-easing: ease-in-out;
+  --faq-icon-rotation-duration: 300ms;
+  --faq-content-fade-duration: 200ms;
 }
 
 /* ================================

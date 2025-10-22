@@ -240,5 +240,56 @@
         "subtitle": "Explore finanças descentralizadas com segurança de nível empresarial."
       }
     }
+  },
+  "faq": {
+    "title": "Perguntas Frequentes",
+    "description": "Encontre respostas para perguntas comuns sobre diBoaS, seus guias impulsionados por IA, segurança e taxas.",
+    "ctaText": "Ver Todas as Perguntas",
+    "items": {
+      "q1": {
+        "question": "Preciso saber sobre criptomoedas para usar o diBoaS?",
+        "answer": "De jeito nenhum! Aqua é especificamente projetado para iniciantes completos. Seus guias fornecem educação abrangente e orientação de IA para ajudá-lo a aprender enquanto investe, começando com a experiência mais simples possível."
+      },
+      "q2": {
+        "question": "Qual é o valor mínimo com que posso começar?",
+        "answer": "Você pode começar com apenas $10. Aqua acredita que todos devem ter acesso a ferramentas de criação de riqueza e irá guiá-lo através de seus primeiros pequenos passos."
+      },
+      "q3": {
+        "question": "Quanto tempo leva para configurar uma conta?",
+        "answer": "A maioria dos usuários conhece Aqua e conclui a configuração em menos de 5 minutos, incluindo criação de conta e primeiro depósito."
+      },
+      "q4": {
+        "question": "Como os guias realmente funcionam?",
+        "answer": "Os guias do diBoaS são assistentes impulsionados por IA que analisam seu comportamento, conhecimento e nível de conforto para revelar recursos da plataforma no momento ideal. Eles literalmente evoluem e mudam à medida que você se torna mais sofisticado."
+      },
+      "q5": {
+        "question": "Sempre verei todos os quatro guias?",
+        "answer": "Não! Você começa apenas com Aqua. Mystic e Coral aparecem progressivamente conforme você está pronto para recursos mais avançados. Isso evita sobrecarga enquanto preserva a sofisticação."
+      },
+      "q6": {
+        "question": "Posso controlar quais guias aparecem?",
+        "answer": "Seus guias aparecem com base em sua progressão natural, mas você sempre pode reduzir a complexidade se necessário. O sistema foi projetado para nunca forçar recursos em você antes que esteja pronto."
+      },
+      "q7": {
+        "question": "O diBoaS é seguro para usar?",
+        "answer": "Sim. Usamos os mesmos padrões de segurança dos principais bancos, com carteiras não custodiais garantindo que você sempre possua seus ativos, criptografia de nível militar e total conformidade regulatória em várias jurisdições."
+      },
+      "q8": {
+        "question": "O que acontece se o diBoaS fechar?",
+        "answer": "Você sempre mantém o controle de seus ativos. Mesmo se o diBoaS cessasse as operações, você manteria acesso total aos seus fundos. Seus guias ajudam você a entender este modelo de propriedade."
+      },
+      "q9": {
+        "question": "O diBoaS ou os guias podem acessar meu dinheiro?",
+        "answer": "Não! Nosso design garante que apenas você tenha acesso aos seus fundos. Os guias fornecem recomendações e educação, mas nunca controlam seu dinheiro."
+      },
+      "q10": {
+        "question": "Quanto custa usar o diBoaS?",
+        "answer": "Nossas taxas são simples e transparentes: 0,09% para Estratégia Iniciar/Parar e 0,9% para Transferir/Sacar. Sem taxas ocultas, nunca. Seus guias sempre mostrarão os custos exatos antes de qualquer transação."
+      },
+      "q11": {
+        "question": "Há taxas de assinatura?",
+        "answer": "Os recursos básicos do guia são gratuitos. Recursos avançados de IA desbloqueiam com base em seu nível de atividade e progressão do guia, com assinaturas premium opcionais para usuários avançados."
+      }
+    }
   }
 }

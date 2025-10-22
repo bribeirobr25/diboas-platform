@@ -310,16 +310,42 @@ a:focus-visible {
   @apply w-full rounded-none text-center py-4;
 }
 
-.mobile-get-started-button {
-  @apply px-8;
-  min-width: var(--dimension-130);
-  width: auto;
-}
+/* ================================
+   NAVIGATION CTA BUTTONS
+   ================================
+
+   IMPORTANT: These classes override @diboas/ui Button size variants.
+   The !important flags are necessary because:
+   1. Button component applies .btn-sm or .btn-xs classes
+   2. Those classes use Tailwind @apply directive (h-9, px-4, etc.)
+   3. Tailwind utilities have same specificity as custom classes
+   4. !important ensures design token values take precedence
+
+   This allows Navigation CTAs to have custom dimensions while
+   still using the shared Button component from @diboas/ui.
+   ================================ */
 
 .desktop-get-started-button {
-  @apply px-8;
-  min-width: var(--fs-min-width-cta);
-  font-size: var(--font-size-ui-button); /* Desktop action button text */
+  min-width: var(--nav-cta-min-width-desktop) !important;
+  min-height: var(--nav-cta-min-height-desktop) !important;
+  height: var(--nav-cta-min-height-desktop) !important;
+  padding: var(--nav-cta-padding-desktop) !important;
+  font-size: var(--nav-cta-font-size-desktop) !important;
+  font-weight: var(--nav-cta-font-weight) !important;
+  line-height: var(--nav-cta-line-height) !important;
+  border-radius: var(--nav-cta-border-radius) !important;
+}
+
+.mobile-get-started-button {
+  min-width: var(--nav-cta-min-width-mobile) !important;
+  min-height: var(--nav-cta-min-height-mobile) !important;
+  height: var(--nav-cta-min-height-mobile) !important;
+  padding: var(--nav-cta-padding-mobile) !important;
+  font-size: var(--nav-cta-font-size-mobile) !important;
+  font-weight: var(--nav-cta-font-weight) !important;
+  line-height: var(--nav-cta-line-height) !important;
+  border-radius: var(--nav-cta-border-radius) !important;
+  width: auto !important;
 }
 
 .mobile-menu-overlay {
@@ -890,29 +916,35 @@ a:focus-visible {
   @apply bg-semantic-error text-white hover:bg-red-600;
 }
 
+/* ================================
+   BUTTON SIZE VARIANTS
+   ================================
+
+   IMPORTANT: These are generic size classes from @diboas/ui Button component.
+   They should NOT define min-width - that's controlled by context-specific
+   classes like .desktop-get-started-button or component-specific CSS modules.
+
+   Removed deprecated --fs-min-width-cta references (token no longer exists).
+   ================================ */
+
 .btn-xs {
   @apply h-8 px-3 text-xs;
-  min-width: var(--fs-min-width-cta);
 }
 
 .btn-sm {
   @apply h-9 px-4 text-xs;
-  min-width: var(--fs-min-width-cta);
 }
 
 .btn-default {
   @apply h-10 px-4 py-2;
-  min-width: var(--fs-min-width-cta);
 }
 
 .btn-lg {
   @apply h-12 px-8;
-  min-width: var(--fs-min-width-cta);
 }
 
 .btn-xl {
   @apply h-14 px-10 text-base;
-  min-width: var(--fs-min-width-cta);
 }
 
 .btn-icon {

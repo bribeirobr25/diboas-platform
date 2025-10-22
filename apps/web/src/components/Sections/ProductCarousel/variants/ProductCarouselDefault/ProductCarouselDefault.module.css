@@ -342,7 +342,22 @@
   }
 }
 
-/* Optional Pill CTA */
+/* ================================
+   DECORATIVE PILL CTA (Non-functional)
+   ================================
+
+   IMPORTANT: This is a decorative overlay badge on product images,
+   NOT a functional CTA button. It serves as a visual indicator only.
+
+   This element:
+   - Does NOT use unified CTA design tokens (intentional)
+   - Is purely decorative (cursor: default)
+   - Has custom styling for image overlay context
+   - Should NOT be changed to match unified CTA buttons
+
+   If you need a functional CTA in this section, add it separately
+   using the unified CTA design tokens pattern from FAQAccordion.
+   ================================ */
 .cardCTA {
   display: inline-block;
   background-color: var(--pc-color-cta-bg);
@@ -354,7 +369,7 @@
   text-align: center;
   box-shadow: var(--pc-cta-shadow);
   transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
-  cursor: default; /* Non-functional as specified */
+  cursor: default; /* Non-functional - decorative only */
 }
 
 /* ================================
