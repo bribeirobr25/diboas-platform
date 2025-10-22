@@ -240,5 +240,56 @@
         "subtitle": "Erkunden Sie dezentralisierte Finanzen mit Sicherheit auf Unternehmensniveau."
       }
     }
+  },
+  "faq": {
+    "title": "Häufig Gestellte Fragen",
+    "description": "Finden Sie Antworten auf häufige Fragen zu diBoaS, Ihren KI-gestützten Guides, Sicherheit und Gebühren.",
+    "ctaText": "Alle FAQs Ansehen",
+    "items": {
+      "q1": {
+        "question": "Muss ich über Kryptowährungen Bescheid wissen, um diBoaS zu verwenden?",
+        "answer": "Überhaupt nicht! Aqua ist speziell für absolute Anfänger konzipiert. Ihre Guides bieten umfassende Schulung und KI-Anleitung, um Ihnen beim Lernen während des Investierens zu helfen, beginnend mit der einfachstmöglichen Erfahrung."
+      },
+      "q2": {
+        "question": "Mit welchem Mindestbetrag kann ich beginnen?",
+        "answer": "Sie können mit nur $10 beginnen. Aqua glaubt, dass jeder Zugang zu Vermögensaufbau-Tools haben sollte und wird Sie durch Ihre ersten kleinen Schritte führen."
+      },
+      "q3": {
+        "question": "Wie lange dauert die Einrichtung eines Kontos?",
+        "answer": "Die meisten Benutzer lernen Aqua kennen und schließen die Einrichtung in weniger als 5 Minuten ab, einschließlich Kontoerstellung und erster Einzahlung."
+      },
+      "q4": {
+        "question": "Wie funktionieren die Guides eigentlich?",
+        "answer": "Die Guides von diBoaS sind KI-gestützte Assistenten, die Ihr Verhalten, Wissen und Komfortniveau analysieren, um Plattformfunktionen zum optimalen Zeitpunkt freizuschalten. Sie entwickeln sich buchstäblich weiter und ändern sich, wenn Sie versierter werden."
+      },
+      "q5": {
+        "question": "Werde ich immer alle vier Guides sehen?",
+        "answer": "Nein! Sie beginnen nur mit Aqua. Mystic und Coral erscheinen schrittweise, wenn Sie für fortgeschrittenere Funktionen bereit sind. Dies verhindert Überforderung bei gleichzeitiger Beibehaltung der Raffinesse."
+      },
+      "q6": {
+        "question": "Kann ich steuern, welche Guides erscheinen?",
+        "answer": "Ihre Guides erscheinen basierend auf Ihrer natürlichen Entwicklung, aber Sie können die Komplexität bei Bedarf jederzeit reduzieren. Das System ist so konzipiert, dass es Ihnen niemals Funktionen aufzwingt, bevor Sie bereit sind."
+      },
+      "q7": {
+        "question": "Ist die Verwendung von diBoaS sicher?",
+        "answer": "Ja. Wir verwenden dieselben Sicherheitsstandards wie große Banken, mit nicht-verwahrten Wallets, die sicherstellen, dass Sie Ihre Vermögenswerte immer besitzen, militärischer Verschlüsselung und voller regulatorischer Compliance in mehreren Jurisdiktionen."
+      },
+      "q8": {
+        "question": "Was passiert, wenn diBoaS geschlossen wird?",
+        "answer": "Sie behalten immer die Kontrolle über Ihre Vermögenswerte. Selbst wenn diBoaS den Betrieb einstellen würde, behielten Sie vollen Zugang zu Ihren Geldern. Ihre Guides helfen Ihnen, dieses Eigentumsmodell zu verstehen."
+      },
+      "q9": {
+        "question": "Können diBoaS oder die Guides auf mein Geld zugreifen?",
+        "answer": "Nein! Unser Design stellt sicher, dass nur Sie Zugang zu Ihren Geldern haben. Guides geben Empfehlungen und Schulungen, kontrollieren aber niemals Ihr Geld."
+      },
+      "q10": {
+        "question": "Wie viel kostet die Nutzung von diBoaS?",
+        "answer": "Unsere Gebühren sind einfach und transparent: 0,09% für Start/Stopp-Strategie und 0,9% für Überweisungen/Abhebungen. Niemals versteckte Gebühren. Ihre Guides zeigen immer die genauen Kosten vor jeder Transaktion an."
+      },
+      "q11": {
+        "question": "Gibt es Abonnementgebühren?",
+        "answer": "Die grundlegenden Guide-Funktionen sind kostenlos. Erweiterte KI-Funktionen werden basierend auf Ihrem Aktivitätsniveau und Guide-Fortschritt freigeschaltet, mit optionalen Premium-Abonnements für Power-User."
+      }
+    }
   }
 }

@@ -15,6 +15,7 @@ export { FeatureShowcase } from './FeatureShowcase';
 export { AppFeaturesCarousel } from './AppFeaturesCarousel';
 
 export { OneFeature } from './OneFeature';
+export { FAQAccordion } from './FAQAccordion';
 
 
 // Re-export unified types for convenience
@@ -62,3 +63,7 @@ export type {
   OneFeatureProps,
   FeatureItem
 } from './OneFeature';
+
+export type {
+  FAQAccordionProps
+} from './FAQAccordion';

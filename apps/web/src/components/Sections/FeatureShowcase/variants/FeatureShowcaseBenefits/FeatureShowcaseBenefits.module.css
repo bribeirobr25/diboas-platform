@@ -239,30 +239,75 @@
   }
 }
 
-/* CTA Button */
+/* CTA Button - UNIFIED DESIGN TOKENS */
 .ctaButton {
+  /* Dimensions - Mobile */
+  min-width: var(--cta-min-width-mobile);
+  min-height: var(--cta-min-height-mobile);
+  padding: var(--cta-padding-mobile);
+
+  /* Visual Styling */
+  border-radius: var(--cta-border-radius);
+  background: var(--cta-bg-primary);
+  color: var(--cta-color-primary);
+  border: none;
+  box-shadow: var(--cta-shadow-default);
+
+  /* Typography */
+  font-size: var(--cta-font-size-mobile);
+  font-weight: var(--cta-font-weight);
+  line-height: var(--cta-line-height);
+
+  /* Layout */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-button-y) var(--padding-button-x);
-  background: var(--fs-gradient-button);
-  color: var(--fs-color-button-text);
   text-decoration: none;
-  border-radius: var(--fs-border-radius-button);
-  font-weight: var(--fs-font-weight-semibold);
-  font-size: var(--font-size-text-desktop);
-  transition: all var(--fs-transition-duration) var(--fs-transition-easing);
-  min-width: var(--fs-min-width-cta);
-  outline-offset: var(--spacing-xs);
+  cursor: pointer;
+
+  /* Animation */
+  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
+              box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .ctaButton {
+    min-width: var(--cta-min-width-tablet);
+    min-height: var(--cta-min-height-tablet);
+    padding: var(--cta-padding-tablet);
+    font-size: var(--cta-font-size-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .ctaButton {
+    min-width: var(--cta-min-width-desktop);
+    min-height: var(--cta-min-height-desktop);
+    padding: var(--cta-padding-desktop);
+    font-size: var(--cta-font-size-desktop);
+  }
 }
 
 .ctaButton:hover {
-  transform: var(--fs-transform-hover-lift);
-  box-shadow: var(--fs-shadow-button-hover);
+  transform: var(--cta-transform-hover);
+  box-shadow: var(--cta-shadow-hover);
 }
 
 .ctaButton:focus-visible {
-  outline: var(--fs-border-width-button) solid var(--fs-color-accent);
+  outline: 2px solid var(--cta-focus-color);
+  outline-offset: 2px;
+  box-shadow: var(--cta-shadow-focus);
+}
+
+.ctaButton:active {
+  transform: var(--cta-transform-active);
+}
+
+.ctaButton:disabled {
+  opacity: var(--cta-opacity-disabled);
+  cursor: var(--cta-cursor-disabled);
 }
 
 /* ================================

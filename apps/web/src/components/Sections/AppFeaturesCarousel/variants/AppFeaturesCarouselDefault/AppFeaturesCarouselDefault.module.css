@@ -383,17 +383,35 @@
   }
 }
 
-/* CTA Link - Using CTA button font styles */
+/* CTA Link - Using unified CTA typography tokens for consistency */
 .ctaLink {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-sm);
   color: var(--afc-color-accent);
   text-decoration: none;
-  font-weight: 600; /* CTA button font weight */
-  font-size: var(--font-size-text-desktop); /* CTA button font size */
+
+  /* Unified CTA Typography Tokens */
+  font-weight: var(--cta-font-weight);
+  font-size: var(--cta-font-size-mobile);
+  line-height: var(--cta-line-height);
+
   transition: all var(--transition-fast) ease;
   outline-offset: var(--spacing-xs);
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .ctaLink {
+    font-size: var(--cta-font-size-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .ctaLink {
+    font-size: var(--cta-font-size-desktop);
+  }
 }
 
 .ctaLink:hover {

@@ -194,7 +194,7 @@ export function FeatureShowcaseDefault({
                     rel="noopener noreferrer"
                     onClick={() => handleCTAClick(currentSlide.id, currentSlide.content.ctaHref)}
                   >
-                    <Button variant="gradient" size="sm">
+                    <Button variant="gradient" className={styles.ctaButton}>
                       {currentSlide.content.ctaText}
                     </Button>
                   </a>
@@ -203,7 +203,7 @@ export function FeatureShowcaseDefault({
                     href={currentSlide.content.ctaHref}
                     onClick={() => handleCTAClick(currentSlide.id, currentSlide.content.ctaHref)}
                   >
-                    <Button variant="gradient" size="sm">
+                    <Button variant="gradient" className={styles.ctaButton}>
                       {currentSlide.content.ctaText}
                     </Button>
                   </Link>
