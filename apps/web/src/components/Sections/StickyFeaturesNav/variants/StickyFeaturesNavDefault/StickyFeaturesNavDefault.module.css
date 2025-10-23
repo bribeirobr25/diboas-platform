@@ -1,0 +1,355 @@
+/**
+ * StickyFeaturesNavDefault Variant Styles
+ *
+ * File Decoupling: Isolated styles for card-based layout
+ * Design Tokens: Uses centralized design system tokens
+ * Performance: Optimized for card-based components
+ * No Hardcoded Values: All values from design tokens
+ */
+
+/* ================================
+   SECTION CONTAINER
+   ================================ */
+
+/* 1) Section - Mobile first, Desktop padding: 32px top/bottom, 132px left/right */
+.section {
+  background-color: var(--sfn-bg-section);
+  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+/* ================================
+   MAIN CONTAINER (White box with rounded corners)
+   ================================ */
+
+/* 2) Container - Mobile first: 100% width, Desktop: 872px width, white background, rounded corners, 2 rows with 20px gap */
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background-color: var(--sfn-container-bg);
+  border-radius: var(--sfn-container-border-radius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  overflow: visible;
+}
+
+/* ================================
+   TITLE CONTAINER (Row 1)
+   ================================ */
+
+/* 3) Title Container - Mobile first: auto height, Desktop: 100% width, 60px height, centered text */
+.titleContainer {
+  width: var(--sfn-title-container-width);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) 0;
+  margin: 0;
+}
+
+.mainTitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--sfn-title-size-mobile);
+  font-weight: var(--sfn-title-weight);
+  color: var(--sfn-color-title);
+  margin: 0;
+  text-align: center;
+}
+
+/* ================================
+   CONTENT CONTAINER (Row 2)
+   ================================ */
+
+/* 4) Content Container - 100% width and height, contains cards */
+.contentContainer {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================================
+   CARD LAYOUT
+   ================================ */
+
+/* 5) Card - Mobile first: auto height, Desktop: Padding: 32px (top/left/right), 72px (bottom), overlapping by 118px, height: 356px, 2 rows with 20px gap */
+.card {
+  width: var(--sfn-card-width);
+  height: auto;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-4xl);
+  background-color: var(--sfn-bg-card);
+  border-top: var(--sfn-card-border-width) solid var(--sfn-color-border-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  position: relative;
+}
+
+/* Overlap effect: All cards except the first should have negative top margin */
+.card:not(:first-child) {
+  margin-top: calc(-1 * var(--spacing-4xl)); /* Negative margin to create overlap on mobile */
+}
+
+/* Remove margin from last card */
+.card:last-child {
+  margin-bottom: 0;
+}
+
+/* ================================
+   CARD HEADING (Card Row 1)
+   ================================ */
+
+/* 6) Card Heading - Mobile first: smaller font, Desktop: no padding, margin-bottom: 24px, left-aligned */
+.cardHeading {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--sfn-card-heading-weight);
+  color: var(--sfn-color-card-heading);
+  margin: 0 0 var(--spacing-md) 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* ================================
+   CARD CONTENT (Card Row 2) - 2 COLUMNS
+   ================================ */
+
+/* 7) Card Content - Mobile first: 1 column, Desktop: height: 190px, 2 columns (equal width), 20px gap */
+.cardContent {
+  height: auto;
+  width: 100%;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+/* ================================
+   LEFT COLUMN: IMAGE
+   ================================ */
+
+/* 8) Image Card Content - Mobile first: min-height, Desktop: 100% width and height */
+.imageCardContent {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sfn-image-border-radius);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--sfn-image-hover-duration) var(--sfn-image-hover-easing);
+  will-change: transform;
+}
+
+.card:hover .image {
+  transform: scale(var(--sfn-image-hover-scale));
+}
+
+/* ================================
+   RIGHT COLUMN: TEXT CONTENT
+   ================================ */
+
+/* 9) Text Card Content - 100% width and height, top-left aligned */
+.textCardContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0;
+}
+
+.cardDescription {
+  font-family: var(--font-family-primary);
+  font-size: var(--sfn-card-description-size-mobile);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--sfn-card-description-line-height);
+  color: var(--sfn-color-card-description);
+  margin: 0 0 var(--spacing-md) 0;
+  text-align: left;
+}
+
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--cta-font-size-mobile);
+  font-weight: var(--cta-font-weight);
+  color: var(--sfn-color-accent-primary);
+  text-decoration: none;
+  transition: all var(--cta-transition-duration) var(--cta-transition-easing);
+}
+
+.ctaLink:hover {
+  text-decoration: underline;
+  color: var(--cta-bg-hover);
+}
+
+.ctaLink:focus {
+  outline: 3px solid var(--cta-focus-color);
+  outline-offset: 4px;
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none !important;
+  }
+
+  .card:hover .image {
+    transform: none !important;
+  }
+
+  .ctaLink {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid currentColor;
+  }
+
+  .cardHeading,
+  .cardDescription {
+    color: var(--color-black);
+  }
+}
+
+/* ================================
+   RESPONSIVE: TABLET & DESKTOP
+   ================================ */
+
+/* Tablet Styles (768px - 1023px) */
+@media (min-width: 768px) {
+  .section {
+    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+  }
+
+  .container {
+    width: 90%;
+    max-width: 90%;
+    padding: var(--spacing-xl);
+    gap: var(--spacing-xl);
+  }
+
+  .mainTitle {
+    font-size: var(--font-size-4xl);
+  }
+
+  .card {
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-5xl);
+    gap: var(--spacing-lg);
+  }
+
+  /* Tablet overlap: negative margin */
+  .card:not(:first-child) {
+    margin-top: calc(-1 * var(--spacing-5xl));
+  }
+
+  .cardHeading {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .cardContent {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    height: auto;
+  }
+
+  .imageCardContent {
+    min-height: 250px;
+  }
+
+  .cardDescription {
+    font-size: var(--font-size-description-tablet);
+  }
+
+  .ctaLink {
+    font-size: var(--cta-font-size-tablet);
+  }
+}
+
+/* Desktop Styles (1024px+) */
+@media (min-width: 1024px) {
+  .section {
+    padding: var(--sfn-section-padding-desktop-y) var(--sfn-section-padding-desktop-x);
+  }
+
+  .container {
+    width: var(--sfn-container-width);
+    max-width: var(--sfn-container-width);
+    padding: 0;
+    gap: var(--sfn-container-row-gap);
+  }
+
+  .titleContainer {
+    height: var(--sfn-title-container-height);
+    padding: 0;
+  }
+
+  .mainTitle {
+    font-size: var(--sfn-title-size-desktop);
+  }
+
+  .card {
+    height: var(--sfn-card-height);
+    padding: var(--sfn-card-padding-top) var(--sfn-card-padding-x) var(--sfn-card-padding-bottom);
+    margin-bottom: var(--sfn-card-margin-bottom);
+    gap: var(--sfn-card-row-gap);
+  }
+
+  /* Desktop overlap: 118px negative margin to create overlap effect */
+  .card:not(:first-child) {
+    margin-top: calc(-1 * var(--sfn-card-margin-bottom)); /* -118px */
+  }
+
+  .cardHeading {
+    font-size: var(--sfn-card-heading-size);
+    margin-bottom: var(--sfn-card-heading-margin-bottom);
+  }
+
+  .cardContent {
+    height: var(--sfn-card-content-height);
+    gap: var(--sfn-card-content-column-gap);
+  }
+
+  .imageCardContent {
+    min-height: auto;
+  }
+
+  .cardDescription {
+    font-size: var(--sfn-card-description-size-desktop);
+  }
+
+  .ctaLink {
+    font-size: var(--cta-font-size-desktop);
+  }
+}

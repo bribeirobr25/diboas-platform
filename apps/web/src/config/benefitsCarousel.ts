@@ -21,16 +21,11 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/rewards-with-icon.avif',
-      secondaryImage: '/assets/socials/real/rewards-with-icon.avif'
+      primaryImage: '/assets/socials/real/rewards-with-icon.avif'
     },
     seo: {
-      imageAlt: {
-        primary: 'Visual representation of rewards and benefits',
-        secondary: 'Rewards secondary image'
-      }
-    },
-    showSecondaryImage: false
+      imageAlt: 'Visual representation of rewards and benefits'
+    }
   },
   {
     id: 'financial-freedom',
@@ -42,16 +37,11 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/couple.avif',
-      secondaryImage: '/assets/socials/real/couple.avif'
+      primaryImage: '/assets/socials/real/couple.avif'
     },
     seo: {
-      imageAlt: {
-        primary: 'Couple enjoying financial freedom',
-        secondary: 'Financial freedom secondary image'
-      }
-    },
-    showSecondaryImage: false
+      imageAlt: 'Couple enjoying financial freedom'
+    }
   },
   {
     id: 'smart-investing',
@@ -63,16 +53,11 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/investing-with-icon.avif',
-      secondaryImage: '/assets/socials/real/investing-with-icon.avif'
+      primaryImage: '/assets/socials/real/investing-with-icon.avif'
     },
     seo: {
-      imageAlt: {
-        primary: 'Investment growth visualization',
-        secondary: 'Investment secondary image'
-      }
-    },
-    showSecondaryImage: false
+      imageAlt: 'Investment growth visualization'
+    }
   },
   {
     id: 'secure-banking',
@@ -84,16 +69,11 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/secure-with-icon.avif',
-      secondaryImage: '/assets/socials/real/secure-with-icon.avif'
+      primaryImage: '/assets/socials/real/secure-with-icon.avif'
     },
     seo: {
-      imageAlt: {
-        primary: 'Security shield illustration',
-        secondary: 'Security secondary image'
-      }
-    },
-    showSecondaryImage: false
+      imageAlt: 'Security shield illustration'
+    }
   }
 ] as const;
 

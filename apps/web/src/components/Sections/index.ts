@@ -16,6 +16,7 @@ export { AppFeaturesCarousel } from './AppFeaturesCarousel';
 
 export { OneFeature } from './OneFeature';
 export { FAQAccordion } from './FAQAccordion';
+export { StickyFeaturesNav } from './StickyFeaturesNav';
 
 
 // Re-export unified types for convenience
@@ -67,3 +68,11 @@ export type {
 export type {
   FAQAccordionProps
 } from './FAQAccordion';
+
+export type {
+  StickyFeaturesNavVariantConfig,
+  FeatureCategory,
+  FeatureItem as StickyFeatureItem,
+  StickyFeaturesNavSettings,
+  StickyFeaturesNavVariant
+} from './StickyFeaturesNav';

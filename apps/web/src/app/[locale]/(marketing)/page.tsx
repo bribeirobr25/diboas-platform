@@ -3,7 +3,7 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection } from '@/components/Sections';
-import { ProductCarousel, FeatureShowcase, AppFeaturesCarousel, OneFeature, FAQAccordion } from '@/components/Sections';
+import { ProductCarousel, FeatureShowcase, AppFeaturesCarousel, OneFeature, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { BRAND_CONFIG } from '@/config/brand';
 import { DEFAULT_FAQ_ACCORDION_CONFIG } from '@/config/faqAccordion';
@@ -97,6 +97,15 @@ export default async function HomePage({ params }: HomePageProps) {
           context={{ page: 'home' }}
         >
           <OneFeature />
+        </SectionErrorBoundary>
+
+        <SectionErrorBoundary
+          sectionId="sticky-features-nav-home"
+          sectionType="StickyFeaturesNav"
+          enableReporting={true}
+          context={{ page: 'home' }}
+        >
+          <StickyFeaturesNav />
         </SectionErrorBoundary>
 
         <SectionErrorBoundary
