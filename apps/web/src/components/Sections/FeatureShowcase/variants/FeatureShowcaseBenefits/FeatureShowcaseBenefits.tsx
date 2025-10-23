@@ -154,7 +154,7 @@ export function FeatureShowcaseBenefits({
               <div className={styles.primaryImageWrapper}>
                 <Image
                   src={currentSlide.assets.primaryImage}
-                  alt={currentSlide.seo.imageAlt.primary}
+                  alt={currentSlide.seo.imageAlt}
                   width={400}
                   height={300}
                   priority={priority}

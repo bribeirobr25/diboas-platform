@@ -1502,6 +1502,75 @@
   --faq-transition-easing: ease-in-out;
   --faq-icon-rotation-duration: 300ms;
   --faq-content-fade-duration: 200ms;
+
+  /* ================================
+     STICKY FEATURES NAV DESIGN TOKENS
+     Card-Based Layout (No Sticky Navigation)
+     ================================ */
+
+  /* SFN Colors */
+  --sfn-bg-section: #fafafa;
+  --sfn-bg-container: #ffffff;
+  --sfn-bg-card: #ffffff;
+  --sfn-color-title: #1a365d;
+  --sfn-color-card-heading: #1a365d;
+  --sfn-color-card-description: #4a5568;
+  --sfn-color-border-light: #e2e8f0;
+  --sfn-color-accent-primary: #38b2ac;
+
+  /* SFN Section Layout - Desktop Only */
+  --sfn-section-padding-desktop-y: 32px;
+  --sfn-section-padding-desktop-x: 132px;
+
+  /* SFN Container - Fixed width inside section */
+  --sfn-container-width: 872px;
+  --sfn-container-bg: #ffffff;
+  --sfn-container-border-radius: 16px;
+  --sfn-container-row-gap: 20px;
+
+  /* SFN Title Container */
+  --sfn-title-container-height: 60px;
+  --sfn-title-container-width: 100%;
+
+  /* SFN Card Layout */
+  --sfn-card-padding-top: 32px;
+  --sfn-card-padding-x: 32px;
+  --sfn-card-padding-bottom: 72px;
+  --sfn-card-margin-bottom: 118px;
+  --sfn-card-width: 100%;
+  --sfn-card-height: 356px;
+  --sfn-card-row-gap: 20px;
+
+  /* SFN Card Heading */
+  --sfn-card-heading-margin-bottom: 24px;
+
+  /* SFN Card Content (2 columns: image left, text right) */
+  --sfn-card-content-height: 190px;
+  --sfn-card-content-column-gap: 20px;
+
+  /* SFN Typography */
+  --sfn-title-size-mobile: 36px;
+  --sfn-title-size-desktop: 48px;
+  --sfn-title-weight: 700;
+  --sfn-card-heading-size: 24px;
+  --sfn-card-heading-weight: 700;
+  --sfn-card-description-size-mobile: 16px;
+  --sfn-card-description-size-desktop: 18px;
+  --sfn-card-description-line-height: 1.6;
+
+  /* SFN Borders & Shadows */
+  --sfn-card-border-radius: 16px;
+  --sfn-card-border-width: 1px;
+  --sfn-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* SFN Image */
+  --sfn-image-aspect-ratio: 16 / 10;
+  --sfn-image-border-radius: 12px;
+
+  /* SFN Image Transitions */
+  --sfn-image-hover-scale: 1.05;
+  --sfn-image-hover-duration: 400ms;
+  --sfn-image-hover-easing: ease;
 }
 
 /* ================================
