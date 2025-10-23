@@ -21,16 +21,14 @@
 }
 
 /* ================================
-   MAIN CONTAINER (White box with rounded corners)
+   MAIN CONTAINER
    ================================ */
 
-/* 2) Container - Mobile first: 100% width, Desktop: 872px width, white background, rounded corners, 2 rows with 20px gap */
+/* 2) Container - Mobile first: 100% width, Desktop: 872px width, 2 rows with 20px gap */
 .container {
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
-  background-color: var(--sfn-container-bg);
-  border-radius: var(--sfn-container-border-radius);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
@@ -66,7 +64,7 @@
    CONTENT CONTAINER (Row 2)
    ================================ */
 
-/* 4) Content Container - 100% width and height, contains cards */
+/* 4) Content Container - 100% width and height, contains cards, white background with rounded corners */
 .contentContainer {
   width: 100%;
   height: auto;
@@ -74,6 +72,8 @@
   margin: 0;
   display: flex;
   flex-direction: column;
+  background-color: var(--sfn-container-bg);
+  border-radius: var(--sfn-container-border-radius);
 }
 
 /* ================================
@@ -82,21 +82,22 @@
 
 /* 5) Card - Mobile first: auto height, Desktop: Padding: 32px (top/left/right), 72px (bottom), overlapping by 118px, height: 356px, 2 rows with 20px gap */
 .card {
+  --sfn-card-heading-computed-height: var(--sfn-card-heading-height-mobile); /* Default to mobile */
+  --card-index: 0; /* Default, will be overridden by inline style */
+  --card-z-index: 0; /* Default, will be overridden by inline style */
+
   width: var(--sfn-card-width);
   height: auto;
   padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-4xl);
   background-color: var(--sfn-bg-card);
   border-top: var(--sfn-card-border-width) solid var(--sfn-color-border-light);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  position: relative;
-}
-
-/* Overlap effect: All cards except the first should have negative top margin */
-.card:not(:first-child) {
-  margin-top: calc(-1 * var(--spacing-4xl)); /* Negative margin to create overlap on mobile */
+  position: sticky;
+  top: calc(var(--sfn-sticky-top-mobile) + (var(--sfn-card-heading-height-mobile) * var(--card-index)));
+  z-index: calc(var(--sfn-card-z-index-base) + var(--card-z-index));
+  margin-bottom: var(--spacing-lg);
 }
 
 /* Remove margin from last card */
@@ -156,6 +157,7 @@
 
 .image {
   object-fit: cover;
+  border-radius: var(--sfn-image-border-radius);
   transition: transform var(--sfn-image-hover-duration) var(--sfn-image-hover-easing);
   will-change: transform;
 }
@@ -263,14 +265,12 @@
   }
 
   .card {
-    padding: var(--spacing-xl);
-    margin-bottom: var(--spacing-5xl);
-    gap: var(--spacing-lg);
-  }
+    --sfn-card-heading-computed-height: var(--sfn-card-heading-height-tablet);
 
-  /* Tablet overlap: negative margin */
-  .card:not(:first-child) {
-    margin-top: calc(-1 * var(--spacing-5xl));
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    gap: var(--spacing-lg);
+    top: calc(var(--sfn-sticky-top-tablet) + (var(--sfn-card-heading-height-tablet) * var(--card-index)));
   }
 
   .cardHeading {
@@ -279,7 +279,7 @@
   }
 
   .cardContent {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr; /* Keep single column for tablet - stacked layout */
     gap: var(--spacing-lg);
     height: auto;
   }
@@ -320,15 +320,13 @@
   }
 
   .card {
+    --sfn-card-heading-computed-height: var(--sfn-card-heading-height-desktop);
+
     height: var(--sfn-card-height);
     padding: var(--sfn-card-padding-top) var(--sfn-card-padding-x) var(--sfn-card-padding-bottom);
-    margin-bottom: var(--sfn-card-margin-bottom);
+    margin-bottom: var(--spacing-xl);
     gap: var(--sfn-card-row-gap);
-  }
-
-  /* Desktop overlap: 118px negative margin to create overlap effect */
-  .card:not(:first-child) {
-    margin-top: calc(-1 * var(--sfn-card-margin-bottom)); /* -118px */
+    top: calc(var(--sfn-sticky-top-desktop) + (var(--sfn-card-heading-height-desktop) * var(--card-index)));
   }
 
   .cardHeading {
@@ -339,9 +337,12 @@
   .cardContent {
     height: var(--sfn-card-content-height);
     gap: var(--sfn-card-content-column-gap);
+    grid-template-columns: 1fr 1fr; /* Desktop: 2 columns (image left, text right) */
   }
 
   .imageCardContent {
+    width: var(--sfn-image-width-desktop);
+    height: var(--sfn-image-height-desktop);
     min-height: auto;
   }
 
