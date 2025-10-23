@@ -5,11 +5,12 @@
  * Design System Compliance: Uses only design tokens
  * Performance Optimization: Optimized image loading
  * Accessibility: ARIA attributes, semantic HTML
+ * Scroll Behavior: Cards stack on scroll with z-index layering
  */
 
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './StickyFeaturesNavDefault.module.css';
@@ -23,6 +24,14 @@ export function StickyFeaturesNavDefault({
   onCTAClick,
 }: StickyFeaturesNavVariantProps) {
   const { mainTitle, categories, analytics } = config;
+
+  // Flatten all items from categories - memoized to prevent infinite re-renders
+  const allItems = useMemo(
+    () => categories.flatMap((category) =>
+      category.items.map((item) => ({ ...item, categoryId: category.id }))
+    ),
+    [categories]
+  );
 
   // Handle CTA click
   const handleCTAClick = useCallback(
@@ -51,10 +60,18 @@ export function StickyFeaturesNavDefault({
 
         {/* Content Container - Row 2 */}
         <div className={styles.contentContainer}>
-          {/* Map through all categories and their items */}
-          {categories.map((category) =>
-            category.items.map((item) => (
-              <article key={item.id} className={styles.card}>
+          {/* Map through all items */}
+          {allItems.map((item, index) => {
+            return (
+              <article
+                key={item.id}
+                className={styles.card}
+                style={{
+                  // @ts-ignore - CSS custom properties
+                  '--card-index': index,
+                  '--card-z-index': index,
+                }}
+              >
                 {/* Card Heading - Row 1 */}
                 <h3 className={styles.cardHeading}>{item.heading}</h3>
 
@@ -80,7 +97,7 @@ export function StickyFeaturesNavDefault({
                     <Link
                       href={item.ctaLink}
                       target={item.ctaTarget}
-                      onClick={handleCTAClick(category.id, item.id, item.ctaLink)}
+                      onClick={handleCTAClick(item.categoryId, item.id, item.ctaLink)}
                       className={styles.ctaLink}
                       aria-label={`${item.ctaText} about ${item.heading}`}
                     >
@@ -89,8 +106,8 @@ export function StickyFeaturesNavDefault({
                   </div>
                 </div>
               </article>
-            ))
-          )}
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1525,7 +1525,7 @@
   /* SFN Container - Fixed width inside section */
   --sfn-container-width: 872px;
   --sfn-container-bg: #ffffff;
-  --sfn-container-border-radius: 16px;
+  --sfn-container-border-radius: 30px;
   --sfn-container-row-gap: 20px;
 
   /* SFN Title Container */
@@ -1566,11 +1566,32 @@
   /* SFN Image */
   --sfn-image-aspect-ratio: 16 / 10;
   --sfn-image-border-radius: 12px;
+  --sfn-image-width-desktop: 486px;
+  --sfn-image-height-desktop: 243px;
 
   /* SFN Image Transitions */
   --sfn-image-hover-scale: 1.05;
   --sfn-image-hover-duration: 400ms;
   --sfn-image-hover-easing: ease;
+
+  /* SFN Scroll Condensing Animation */
+  --sfn-condense-transition-duration: 0ms; /* Instant for scroll-based animation */
+  --sfn-condense-transition-easing: linear; /* Smooth linear for scroll tracking */
+
+  /* SFN Card Heading Heights (for condensation calculation) */
+  --sfn-card-heading-height-mobile: 80px; /* Approximate: font-size + margin + padding */
+  --sfn-card-heading-height-tablet: 90px;
+  --sfn-card-heading-height-desktop: 100px; /* Based on font-size 24px + margins */
+
+  /* SFN Sticky Positioning */
+  --sfn-sticky-top-mobile: 60px; /* Stick 60px from top of viewport */
+  --sfn-sticky-top-tablet: 80px; /* Stick 80px from top of viewport */
+  --sfn-sticky-top-desktop: 80px; /* Stick 80px from top of viewport */
+
+  /* SFN Card Z-Index for Stacking */
+  --sfn-card-z-index-base: 1;
+  --sfn-card-z-index-condensed: 10; /* Higher z-index when condensed */
+  --sfn-card-z-index-increment: 1; /* Each card above gets +1 z-index */
 }
 
 /* ================================
