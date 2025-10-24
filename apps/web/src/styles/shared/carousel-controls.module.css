@@ -1,0 +1,187 @@
+/**
+ * Carousel Controls Shared Styles
+ *
+ * File Decoupling: Reusable carousel control styles
+ * Design Tokens: Uses centralized design system tokens (--pc- prefix)
+ * Code Reusability & DRY: Eliminates duplicated control styles across 4 carousel components
+ * No Hardcoded Values: All values from design tokens
+ *
+ * Used by: ProductCarousel, AppFeaturesCarousel, FeatureShowcase (2 variants)
+ */
+
+/* ================================
+   CONTROLS CONTAINER
+   ================================ */
+
+/**
+ * Main controls container
+ * Centers dots and play/pause button with proper spacing
+ */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pc-controls-gap);
+  margin-top: var(--spacing-2xl);
+}
+
+/* Responsive: Desktop - Increased top margin */
+@media (min-width: var(--breakpoint-desktop)) {
+  .controls {
+    margin-top: var(--pc-heading-margin-desktop);
+  }
+}
+
+/* ================================
+   DOTS NAVIGATION
+   ================================ */
+
+/**
+ * Dots container
+ * Groups navigation dots with consistent spacing
+ */
+.dots {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+/**
+ * Individual dot
+ * Inactive state with rounded appearance
+ */
+.dot {
+  width: var(--pc-dot-size);
+  height: var(--pc-dot-size);
+  border-radius: var(--pc-dot-border-radius);
+  background-color: var(--pc-color-dot-inactive);
+  border: none;
+  cursor: pointer;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
+  outline-offset: var(--spacing-xs);
+}
+
+/**
+ * Dot hover state
+ * Provides visual feedback with accent color
+ */
+.dot:hover {
+  background-color: var(--pc-color-accent);
+  opacity: var(--opacity-70);
+}
+
+/**
+ * Dot focus state
+ * Accessibility: Visible focus indicator
+ */
+.dot:focus-visible {
+  outline: var(--spacing-sm) solid var(--pc-color-accent);
+}
+
+/**
+ * Dot disabled state
+ * Prevents interaction during transitions
+ */
+.dot:disabled {
+  cursor: not-allowed;
+  opacity: var(--opacity-50);
+}
+
+/**
+ * Active dot
+ * Visually distinct to indicate current slide
+ */
+.dotActive {
+  width: var(--pc-dot-active-width);
+  border-radius: var(--pc-dot-active-border-radius);
+  background-color: var(--pc-color-dot-active);
+}
+
+/* ================================
+   PLAY/PAUSE BUTTON
+   ================================ */
+
+/**
+ * Play/Pause control button
+ * Toggles auto-rotation state
+ */
+.playPauseButton {
+  width: var(--pc-control-button-size);
+  height: var(--pc-control-button-size);
+  border-radius: var(--pc-control-border-radius);
+  background-color: var(--pc-color-control-bg);
+  border: var(--pc-control-border-width) solid var(--pc-color-control-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
+  outline-offset: var(--spacing-xs);
+}
+
+/**
+ * Play/Pause button hover state
+ * Provides visual feedback with border change and lift effect
+ */
+.playPauseButton:hover {
+  background-color: var(--pc-color-control-bg);
+  border-color: var(--pc-color-control-border-hover);
+  transform: var(--pc-transform-hover-lift);
+}
+
+/**
+ * Play/Pause button focus state
+ * Accessibility: Visible focus indicator
+ */
+.playPauseButton:focus-visible {
+  outline: var(--spacing-sm) solid var(--pc-color-accent);
+}
+
+/**
+ * Control icon (Play/Pause icon)
+ * Sizes and colors the Lucide icon
+ */
+.controlIcon {
+  width: var(--pc-control-icon-size);
+  height: var(--pc-control-icon-size);
+  color: var(--pc-color-control-icon);
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+/**
+ * Reduced motion support
+ * Removes transitions and animations for users who prefer reduced motion
+ */
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .playPauseButton {
+    animation: none;
+    transition: none;
+  }
+
+  .playPauseButton:hover {
+    transform: none;
+  }
+}
+
+/**
+ * High contrast mode support
+ * Enhances visibility for users who prefer high contrast
+ */
+@media (prefers-contrast: high) {
+  .playPauseButton {
+    border-width: var(--spacing-sm);
+    border-color: var(--color-black);
+  }
+
+  .dot {
+    border: 2px solid currentColor;
+  }
+
+  .dotActive {
+    border-width: 3px;
+  }
+}

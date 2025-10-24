@@ -9,14 +9,17 @@
 
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight, Play, Pause } from 'lucide-react';
-import { SafeInterval, SafeTimer, CleanupManager, MutexLock, StateMachine } from '@/lib/utils/RaceConditionPrevention';
+import { useCarousel } from '@/hooks/useCarousel';
+import { useImageLoading } from '@/hooks/useImageLoading';
+import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { Logger } from '@/lib/monitoring/Logger';
 import type { AppFeaturesCarouselVariantProps } from '../types';
 import styles from './AppFeaturesCarouselDefault.module.css';
+import carouselControls from '@/styles/shared/carousel-controls.module.css';
 
 export function AppFeaturesCarouselDefault({ 
   config, 
@@ -30,181 +33,76 @@ export function AppFeaturesCarouselDefault({
   onCTAClick,
   onPlayPause
 }: AppFeaturesCarouselVariantProps) {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
-  const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
-  const [touchStart, setTouchStart] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cleanupManagerRef = useRef(new CleanupManager('AppFeaturesCarousel'));
-  const mutexRef = useRef(new MutexLock('AppFeaturesCarousel'));
-  const intervalRef = useRef<SafeInterval | null>(null);
-  const timerRef = useRef<SafeTimer | null>(null);
-
   const cards = config.cards || [];
-  const currentCard = cards[currentSlideIndex];
   const autoRotateMs = config.settings?.autoRotateMs || 4000;
 
-  // State machine for carousel states
-  const carouselState = useRef(
-    new StateMachine('idle', {
-      idle: ['playing', 'paused'],
-      playing: ['paused', 'transitionToing'],
-      paused: ['playing'],
-      transitionToing: ['playing', 'paused', 'idle']
-    }, 'AppFeaturesCarousel')
-  );
+  // Custom slide change handler with logging
+  const handleSlideChange = useCallback((index: number) => {
+    // Call parent callback
+    onSlideChange?.(index);
 
-  // Navigation handlers - Defined before auto-rotation to avoid reference errors
-  const goToSlide = useCallback(async (index: number) => {
-    if (index < 0 || index >= cards.length) return;
-    
-    const acquired = await mutexRef.current.acquire();
-    if (!acquired) return;
-
-    try {
-      setIsTransitioning(true);
-      carouselState.current.transitionTo('transitionToing');
-
-      setCurrentSlideIndex(index);
-      onSlideChange?.(index);
-
-      // Log section event for analytics
-      Logger.info('App features carousel card changed', { 
-        section: 'AppFeaturesCarousel',
-        slideIndex: index, 
-        slideId: cards[index]?.id 
-      });
-
-      Logger.debug('App features carousel card change', { 
-        slideIndex: index, 
-        slideId: cards[index]?.id 
-      });
-
-      timerRef.current = new SafeTimer('AppFeaturesCarousel');
-      timerRef.current.set(() => {
-        setIsTransitioning(false);
-        carouselState.current.transitionTo(isAutoPlaying ? 'playing' : 'paused');
-      }, 500);
-
-    } finally {
-      mutexRef.current.release();
-    }
-  }, [cards, onSlideChange, isAutoPlaying]);
-
-  const goToNext = useCallback(() => {
-    const nextIndex = (currentSlideIndex + 1) % cards.length;
-    goToSlide(nextIndex);
-    onNavigate?.('next');
-  }, [currentSlideIndex, cards.length, goToSlide, onNavigate]);
-
-  const goToPrev = useCallback(() => {
-    const prevIndex = currentSlideIndex === 0 ? cards.length - 1 : currentSlideIndex - 1;
-    goToSlide(prevIndex);
-    onNavigate?.('prev');
-  }, [currentSlideIndex, cards.length, goToSlide, onNavigate]);
-
-  // Auto-rotation logic with race condition prevention
-  useEffect(() => {
-    if (!isAutoPlaying || cards.length <= 1) return;
-
-    const startAutoRotation = async () => {
-      const acquired = await mutexRef.current.acquire();
-      if (!acquired) return;
-
-      try {
-        intervalRef.current = new SafeInterval('AppFeaturesCarousel');
-        intervalRef.current.set(() => {
-          if (carouselState.current.canTransitionTo('transitionToing')) {
-            goToNext();
-          }
-        }, autoRotateMs);
-
-        cleanupManagerRef.current.add(() => {
-          intervalRef.current?.clear();
-        });
-
-        carouselState.current.transitionTo('playing');
-      } finally {
-        mutexRef.current.release();
-      }
-    };
-
-    startAutoRotation();
-
-    return () => {
-      intervalRef.current?.clear();
-    };
-  }, [isAutoPlaying, cards.length, autoRotateMs, goToNext]);
-
-  // Play/pause controls
-  const togglePlayPause = useCallback(() => {
-    setIsAutoPlaying(prev => {
-      const newValue = !prev;
-      onPlayPause?.(newValue);
-      return newValue;
+    // Log section event for analytics
+    Logger.info('App features carousel card changed', {
+      section: 'AppFeaturesCarousel',
+      slideIndex: index,
+      slideId: cards[index]?.id
     });
-  }, [onPlayPause]);
 
-  // Image loading handler
-  const handleImageLoad = useCallback((slideId: string) => {
-    setImagesLoaded(prev => ({ ...prev, [slideId]: true }));
-  }, []);
+    Logger.debug('App features carousel card change', {
+      slideIndex: index,
+      slideId: cards[index]?.id
+    });
+  }, [cards, onSlideChange]);
 
-  // Touch handlers
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientX);
-  }, []);
+  // Shared carousel hook
+  const {
+    currentSlideIndex,
+    isTransitioning,
+    isAutoPlaying,
+    goToSlide,
+    goToNext,
+    goToPrev,
+    handleMouseEnter,
+    handleMouseLeave,
+    togglePlayPause
+  } = useCarousel({
+    totalSlides: cards.length,
+    autoPlay,
+    autoPlayInterval: autoRotateMs,
+    transitionDuration: 500,
+    pauseOnHover: config.settings?.pauseOnHover ?? true,
+    enableKeyboard: false, // AppFeaturesCarousel doesn't use keyboard nav
+    componentName: 'AppFeaturesCarousel',
+    onSlideChange: handleSlideChange,
+    onNavigate,
+    onPlayPause
+  });
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!touchStart) return;
-    
-    const touchEnd = e.changedTouches[0].clientX;
-    const diff = touchStart - touchEnd;
-    
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        goToNext();
-      } else {
-        goToPrev();
-      }
-    }
-    
-    setTouchStart(0);
-  }, [touchStart, goToNext, goToPrev]);
+  // Shared image loading hook
+  const {
+    handleImageLoad
+  } = useImageLoading({
+    totalImages: cards.length
+  });
 
-  // Hover pause functionality - Documentation requirement
-  const [wasAutoPlayingBeforeHover, setWasAutoPlayingBeforeHover] = useState(false);
-  const pauseOnHover = config.settings?.pauseOnHover ?? true;
-  
-  const handleMouseEnter = useCallback(() => {
-    if (pauseOnHover && isAutoPlaying) {
-      setWasAutoPlayingBeforeHover(true);
-      setIsAutoPlaying(false);
-    }
-  }, [pauseOnHover, isAutoPlaying]);
+  // Shared swipe gesture hook
+  const {
+    handleTouchStart,
+    handleTouchEnd
+  } = useSwipeGesture({
+    onSwipeLeft: goToNext,
+    onSwipeRight: goToPrev,
+    threshold: 50,
+    velocityThreshold: 0.3,
+    enabled: true
+  });
 
-  const handleMouseLeave = useCallback(() => {
-    if (pauseOnHover && wasAutoPlayingBeforeHover) {
-      setIsAutoPlaying(true);
-      setWasAutoPlayingBeforeHover(false);
-    }
-  }, [pauseOnHover, wasAutoPlayingBeforeHover]);
-
+  const currentCard = cards[currentSlideIndex];
 
   // CTA click handler
   const handleCTAClick = useCallback((slideId: string, ctaHref: string) => {
     onCTAClick?.(slideId, ctaHref);
   }, [onCTAClick]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    const cleanup = cleanupManagerRef.current;
-    return () => {
-      cleanup.destroy();
-    };
-  }, []);
 
   if (!currentCard) return null;
 
@@ -295,14 +193,14 @@ export function AppFeaturesCarouselDefault({
           ))}
         </div>
 
-        {/* Controls - Matching ProductCarousel */}
-        <div className={styles.controls}>
-          <div className={styles.dots}>
+        {/* Controls - Using shared carousel controls styles */}
+        <div className={carouselControls.controls}>
+          <div className={carouselControls.dots}>
             {cards.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`${styles.dot} ${index === currentSlideIndex ? styles.dotActive : ''}`}
+                className={`${carouselControls.dot} ${index === currentSlideIndex ? carouselControls.dotActive : ''}`}
                 aria-label={`Go to slide ${index + 1}`}
                 disabled={isTransitioning}
               />
@@ -312,13 +210,13 @@ export function AppFeaturesCarouselDefault({
           {cards.length > 1 && (
             <button
               onClick={togglePlayPause}
-              className={styles.playPauseButton}
+              className={carouselControls.playPauseButton}
               aria-label={isAutoPlaying ? 'Pause carousel' : 'Play carousel'}
             >
               {isAutoPlaying ? (
-                <Pause className={styles.controlIcon} />
+                <Pause className={carouselControls.controlIcon} />
               ) : (
-                <Play className={styles.controlIcon} />
+                <Play className={carouselControls.controlIcon} />
               )}
             </button>
           )}

@@ -9,10 +9,13 @@
 
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCarousel } from '@/hooks/useCarousel';
+import { useImageLoading } from '@/hooks/useImageLoading';
+import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
 import type { FeatureShowcaseVariantProps } from '../types';
 import styles from './FeatureShowcaseBenefits.module.css';
@@ -27,80 +30,51 @@ export function FeatureShowcaseBenefits({
   onSlideChange,
   onCTAClick
 }: FeatureShowcaseVariantProps) {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
-  const [touchStart, setTouchStart] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const slides = config.slides || [];
-  const currentSlide = slides[currentSlideIndex];
 
-  // Navigation handlers
-  const goToSlide = useCallback((index: number) => {
-    if (index < 0 || index >= slides.length || isTransitioning) return;
-    
-    setIsTransitioning(true);
-    setCurrentSlideIndex(index);
-    onSlideChange?.(index);
-    
-    setTimeout(() => setIsTransitioning(false), config.settings?.transitionDuration || 500);
-  }, [slides.length, isTransitioning, config.settings?.transitionDuration, onSlideChange]);
+  // Shared carousel hook (manual navigation only - no auto-play)
+  const {
+    currentSlideIndex,
+    isTransitioning,
+    goToSlide,
+    goToNext,
+    goToPrev
+  } = useCarousel({
+    totalSlides: slides.length,
+    autoPlay: false, // Manual navigation only
+    transitionDuration: config.settings?.transitionDuration || 500,
+    pauseOnHover: false, // Not applicable for manual carousel
+    enableKeyboard: true,
+    componentName: 'FeatureShowcaseBenefits',
+    onSlideChange,
+    onNavigate
+  });
 
-  const goToNext = useCallback(() => {
-    const nextIndex = (currentSlideIndex + 1) % slides.length;
-    goToSlide(nextIndex);
-    onNavigate?.('next');
-  }, [currentSlideIndex, slides.length, goToSlide, onNavigate]);
+  // Shared image loading hook
+  const {
+    handleImageLoad: handleImageLoadBase
+  } = useImageLoading({
+    totalImages: slides.length
+  });
 
-  const goToPrev = useCallback(() => {
-    const prevIndex = currentSlideIndex === 0 ? slides.length - 1 : currentSlideIndex - 1;
-    goToSlide(prevIndex);
-    onNavigate?.('prev');
-  }, [currentSlideIndex, slides.length, goToSlide, onNavigate]);
-
-  // Image loading handler
+  // Wrapper for handleImageLoad to support imageType parameter (kept for backward compatibility)
   const handleImageLoad = useCallback((slideId: string, imageType: 'primary') => {
-    setImagesLoaded(prev => ({ ...prev, [`${slideId}-${imageType}`]: true }));
-  }, []);
+    handleImageLoadBase(`${slideId}-${imageType}`);
+  }, [handleImageLoadBase]);
 
-  // Touch handlers
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientX);
-  }, []);
+  // Shared swipe gesture hook
+  const {
+    handleTouchStart,
+    handleTouchEnd
+  } = useSwipeGesture({
+    onSwipeLeft: goToNext,
+    onSwipeRight: goToPrev,
+    threshold: 50,
+    velocityThreshold: 0.3,
+    enabled: true
+  });
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!touchStart) return;
-    
-    const touchEnd = e.changedTouches[0].clientX;
-    const diff = touchStart - touchEnd;
-    
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        goToNext();
-      } else {
-        goToPrev();
-      }
-    }
-    
-    setTouchStart(0);
-  }, [touchStart, goToNext, goToPrev]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        goToPrev();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        goToNext();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [goToPrev, goToNext]);
+  const currentSlide = slides[currentSlideIndex];
 
   // CTA Click handler
   const handleCTAClick = useCallback(async (slideId: string, ctaHref: string) => {
@@ -134,8 +108,7 @@ export function FeatureShowcaseBenefits({
       <div className={styles.container}>
 
         {/* Content Container */}
-        <div 
-          ref={containerRef}
+        <div
           className={styles.content}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}

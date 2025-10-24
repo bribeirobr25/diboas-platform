@@ -1,0 +1,104 @@
+/**
+ * SectionContainer Styles
+ *
+ * Unified section wrapper styles with responsive padding and container max-widths
+ * Eliminates ~300 lines of repeated boilerplate across section components
+ * Design Tokens: Uses centralized padding and container width tokens
+ */
+
+/* ================================
+   SECTION WRAPPER - BASE STYLES
+   ================================ */
+
+.section {
+  width: 100%;
+  position: relative;
+}
+
+/* ================================
+   SECTION PADDING VARIANTS
+   ================================ */
+
+/* Standard Section Padding (all sections except Hero & Navigation) */
+.sectionStandard {
+  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .sectionStandard {
+    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectionStandard {
+    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+  }
+}
+
+/* Hero & Navigation Section Padding (no padding - full bleed) */
+.sectionHeroNav {
+  padding: var(--padding-hero-nav-mobile-y) var(--padding-hero-nav-mobile-x);
+}
+
+@media (min-width: 768px) {
+  .sectionHeroNav {
+    padding: var(--padding-hero-nav-tablet-y) var(--padding-hero-nav-tablet-x);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectionHeroNav {
+    padding: var(--padding-hero-nav-desktop-y) var(--padding-hero-nav-desktop-x);
+  }
+}
+
+/* No Padding Variant */
+.sectionNone {
+  padding: 0;
+}
+
+/* ================================
+   CONTAINER - BASE STYLES
+   ================================ */
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+/* ================================
+   CONTAINER WIDTH VARIANTS
+   ================================ */
+
+/* Standard Width (1200px) - Most common */
+.containerStandard {
+  max-width: var(--container-max-width-standard);
+}
+
+/* Wide Width (1400px) - For content-heavy sections */
+.containerWide {
+  max-width: var(--container-max-width-wide);
+}
+
+/* Narrow Width (872px) - For focused content */
+.containerNarrow {
+  max-width: var(--container-max-width-narrow);
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+/* Ensure smooth scrolling for anchor links */
+.section {
+  scroll-margin-top: 80px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .section {
+    border: 1px solid transparent; /* Ensures container boundaries are visible */
+  }
+}
