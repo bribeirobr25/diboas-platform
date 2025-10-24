@@ -5,30 +5,18 @@
  * Design Tokens: Uses centralized design system tokens
  * Performance: Optimized for card-based components
  * No Hardcoded Values: All values from design tokens
+ *
+ * Note: Section wrapper, padding, and container max-width (872px narrow variant) are now handled by SectionContainer component.
+ * This file contains component-specific styles (sticky cards, layout, animations, etc.)
  */
-
-/* ================================
-   SECTION CONTAINER
-   ================================ */
-
-/* 1) Section - Mobile first, Desktop padding: 32px top/bottom, 132px left/right */
-.section {
-  background-color: var(--sfn-bg-section);
-  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
-  width: 100%;
-  position: relative;
-  overflow: visible;
-}
 
 /* ================================
    MAIN CONTAINER
    ================================ */
 
-/* 2) Container - Mobile first: 100% width, Desktop: 872px width, 2 rows with 20px gap */
+/* Container - Component-specific layout */
 .container {
-  max-width: 100%;
   width: 100%;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
@@ -249,13 +237,8 @@
 
 /* Tablet Styles (768px - 1023px) */
 @media (min-width: 768px) {
-  .section {
-    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
-  }
-
   .container {
     width: 90%;
-    max-width: 90%;
     padding: var(--spacing-xl);
     gap: var(--spacing-xl);
   }
@@ -299,13 +282,8 @@
 
 /* Desktop Styles (1024px+) */
 @media (min-width: 1024px) {
-  .section {
-    padding: var(--sfn-section-padding-desktop-y) var(--sfn-section-padding-desktop-x);
-  }
-
   .container {
-    width: var(--sfn-container-width);
-    max-width: var(--sfn-container-width);
+    width: 100%;
     padding: 0;
     gap: var(--sfn-container-row-gap);
   }

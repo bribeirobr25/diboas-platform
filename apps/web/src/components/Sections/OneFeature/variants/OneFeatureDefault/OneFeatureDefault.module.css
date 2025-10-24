@@ -1,46 +1,20 @@
 /**
  * SecurityOneFeature Section Styles
- * 
+ *
  * File Decoupling & Organization: Component-specific security showcase styles
  * Semantic Naming Conventions: BEM-inspired class naming with section patterns
  * Performance Optimization: GPU-friendly animations with transform and opacity
  * Code Reusability & DRY: Consistent with other section component patterns
  * No Hardcoded Values: CSS custom properties for configurable values
  * Domain-Driven Design: Security-focused styling with accessibility compliance
+ *
+ * Note: Section wrapper, padding, and container max-width are now handled by SectionContainer component.
+ * This file only contains component-specific styles (hero image, feature cards, animations, etc.)
  */
 
 /* ================================
-   BASE SECTION STYLES
+   COMPONENT-SPECIFIC LAYOUT
    ================================ */
-
-/* Base Section Container - matching other sections */
-.section {
-  padding-top: var(--spacing-md); /* 12px top padding on mobile */
-  padding-bottom: var(--spacing-md); /* 12px bottom padding on mobile */
-  padding-left: var(--padding-section-mobile-x);
-  padding-right: var(--padding-section-mobile-x);
-  background-color: var(--of-color-section-bg);
-  width: var(--percent-100);
-  min-height: auto; /* Let content determine height */
-  position: relative;
-}
-
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .section {
-    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
-  }
-}
-
-/* Responsive: Desktop */
-@media (min-width: 1024px) {
-  .section {
-    padding-top: var(--spacing-3xl); /* 32px top padding on desktop */
-    padding-bottom: var(--spacing-3xl); /* 32px bottom padding on desktop */
-    padding-left: var(--padding-section-desktop-x);
-    padding-right: var(--padding-section-desktop-x);
-  }
-}
 
 /* Outer Container - wraps heroImageWrapper and container */
 .outerContainer {
@@ -54,7 +28,6 @@
 
 /* Main Container - Overlaps hero image by 125px (half of 250px) */
 .container {
-  max-width: var(--dimension-1200);
   background-color: var(--of-color-container-bg);
   margin-top: calc(-1 * var(--dimension-125)); /* Negative margin to start at middle of hero image */
   margin-left: 0;
@@ -541,10 +514,6 @@
 
 /* High Contrast Mode */
 @media (prefers-contrast: high) {
-  .section {
-    background-color: var(--color-white);
-  }
-
   .featureCard {
     border: 2px solid var(--color-black);
   }
@@ -570,11 +539,6 @@
 
 /* Print Styles */
 @media print {
-  .section {
-    background: transparent;
-    padding: 16px 0;
-  }
-
   .heroImageContainer {
     display: none;
   }

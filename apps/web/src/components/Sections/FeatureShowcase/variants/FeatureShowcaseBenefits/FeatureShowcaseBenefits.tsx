@@ -13,6 +13,7 @@ import { useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
@@ -97,13 +98,13 @@ export function FeatureShowcaseBenefits({
 
   if (!currentSlide) return null;
 
-  const sectionStyle = backgroundColor ? { backgroundColor } : {};
-
   return (
-    <section 
-      className={`${styles.section} ${className}`}
-      style={sectionStyle}
-      aria-labelledby="showcase-title"
+    <SectionContainer
+      variant="standard"
+      padding="standard"
+      backgroundColor={backgroundColor}
+      className={className}
+      ariaLabelledBy="showcase-title"
     >
       <div className={styles.container}>
 
@@ -214,6 +215,6 @@ export function FeatureShowcaseBenefits({
           </div>
         )}
       </div>
-    </section>
+    </SectionContainer>
   );
 }

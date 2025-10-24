@@ -13,6 +13,7 @@
 import React, { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
 import styles from './StickyFeaturesNavDefault.module.css';
 import type { StickyFeaturesNavVariantProps } from '../types';
 
@@ -47,10 +48,12 @@ export function StickyFeaturesNavDefault({
   );
 
   return (
-    <section
-      className={`${styles.section} ${className}`}
-      style={backgroundColor ? { backgroundColor } : undefined}
-      aria-label="Feature categories"
+    <SectionContainer
+      variant="narrow"
+      padding="standard"
+      backgroundColor={backgroundColor}
+      className={className}
+      ariaLabel="Feature categories"
     >
       <div className={styles.container}>
         {/* Title Container - Row 1 */}
@@ -110,6 +113,6 @@ export function StickyFeaturesNavDefault({
           })}
         </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }
