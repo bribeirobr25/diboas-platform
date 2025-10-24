@@ -68,7 +68,7 @@ export function HeroFullBackground({
     <section className={`${styles.section} ${className}`} aria-labelledby="hero-title">
       {/* Background Layer */}
       {hasBackgroundAssets && backgroundImage && (
-        <div 
+        <div
           className={styles.backgroundLayer}
           style={{
             backgroundImage: `url(${backgroundImageMobile})`,

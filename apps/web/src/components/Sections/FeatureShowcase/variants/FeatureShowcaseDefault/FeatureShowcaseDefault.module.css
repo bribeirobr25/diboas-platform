@@ -1,44 +1,21 @@
 /**
  * FeatureShowcaseDefault Variant Styles
- * 
+ *
  * File Decoupling: Isolated styles for default showcase variant
  * Design Tokens: Uses centralized design system tokens
  * Performance: Optimized for interactive showcase components
  * No Hardcoded Values: All values from design tokens
+ *
+ * Note: Section wrapper, padding, and container max-width are now handled by SectionContainer component.
+ * This file only contains component-specific styles (layout, navigation, animations, etc.)
  */
 
 /* ================================
    FEATURE SHOWCASE DEFAULT VARIANT
    ================================ */
 
-/* Section Container - Documentation Specifications */
-.section {
-  padding: var(--spacing-3xl) var(--padding-section-mobile-x);
-  background-color: var(--fs-color-section-bg);
-  width: var(--section-width-full);
-  min-height: auto;
-  position: relative;
-  overflow: visible;
-}
-
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .section {
-    padding: var(--spacing-3xl) var(--padding-section-tablet-x);
-  }
-}
-
-/* Responsive: Desktop */
-@media (min-width: 1024px) {
-  .section {
-    padding: var(--spacing-3xl) var(--padding-section-desktop-x);
-  }
-}
-
-/* Main Container - Documentation Max-Width 1200px */
+/* Main Container - Component-specific layout */
 .container {
-  max-width: var(--fs-container-max-width);
-  margin: 0 auto;
   position: relative;
   width: 100%;
 }

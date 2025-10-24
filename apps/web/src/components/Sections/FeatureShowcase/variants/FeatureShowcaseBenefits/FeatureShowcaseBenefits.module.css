@@ -1,44 +1,21 @@
 /**
  * FeatureShowcaseBenefits Variant Styles
- * 
+ *
  * File Decoupling: Isolated styles for benefits showcase variant
  * Design Tokens: Uses centralized design system tokens
  * Benefits-Specific: Rounded borders, 80% image sizing, centered layout
  * No Hardcoded Values: All values from design tokens
+ *
+ * Note: Section wrapper, padding, and container max-width are now handled by SectionContainer component.
+ * This file only contains component-specific styles (layout, navigation, animations, etc.)
  */
 
 /* ================================
    FEATURE SHOWCASE BENEFITS VARIANT
    ================================ */
 
-/* Section Container */
-.section {
-  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
-  background-color: var(--fs-color-section-bg);
-  width: var(--section-width-full);
-  height: var(--section-height-feature);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .section {
-    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
-  }
-}
-
-/* Responsive: Desktop */
-@media (min-width: 1024px) {
-  .section {
-    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
-  }
-}
-
-/* Main Container */
+/* Main Container - Component-specific layout */
 .container {
-  max-width: var(--fs-max-width-container);
-  margin: 0 auto;
   position: relative;
   width: 100%;
 }

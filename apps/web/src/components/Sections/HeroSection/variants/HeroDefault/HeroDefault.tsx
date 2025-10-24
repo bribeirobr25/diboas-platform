@@ -13,7 +13,7 @@ import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@diboas/ui';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
-import type { HeroVariantProps } from '../types';
+import type { HeroVariantProps} from '../types';
 import styles from './HeroDefault.module.css';
 
 interface HeroImageProps {

@@ -1,20 +1,23 @@
 /**
  * HeroDefault Variant Styles
- * 
+ *
  * File Decoupling: Isolated styles for default variant only
  * Design Tokens: Uses centralized design system tokens
  * Performance Optimization: Variant-specific CSS for better bundle splitting
  * No Hardcoded Values: All values from design tokens
  * Documentation Compliance: Fully implements BuildingReusableComponent-HeroSection.md specifications
- * 
+ *
+ * Note: Hero sections have unique layout requirements (full-width gradient, specific height,
+ * absolutely positioned visuals) and maintain their own section/container structure instead of using SectionContainer.
+ *
  * Layout Implementation:
  * - Mobile: Visuals above text, 75vh height, description hidden
  * - Tablet: Same as mobile but with description visible, 75% visual scaling
  * - Desktop: 2-column layout (text left, visuals right)
- * 
+ *
  * Asset Specifications:
  * - Circle: 100% width mobile, 380-420px desktop
- * - Phone: Larger than circle mobile, 440-480px desktop  
+ * - Phone: Larger than circle mobile, 440-480px desktop
  * - Mascot: Right side of phone, middle-aligned, visually touching
  */
 

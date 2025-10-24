@@ -14,6 +14,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@diboas/ui';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { Logger } from '@/lib/monitoring/Logger';
 import type { OneFeatureVariantProps } from '../types';
 import styles from './OneFeatureDefault.module.css';
@@ -71,14 +72,13 @@ export function OneFeatureDefault({
     }
   }, [onCTAClick, config.content.cta.href, enableAnalytics, config.analytics?.enabled, config.variant]);
 
-  const sectionStyle = backgroundColor ? { backgroundColor } : {};
-  const sectionClasses = [styles.section, className].filter(Boolean).join(' ');
-
   return (
-    <section
-      className={sectionClasses}
-      style={sectionStyle}
-      aria-labelledby="security-title"
+    <SectionContainer
+      variant="standard"
+      padding="standard"
+      backgroundColor={backgroundColor}
+      className={className}
+      ariaLabelledBy="security-title"
       role={config.seo.region}
     >
       <div className={styles.outerContainer}>
@@ -202,6 +202,6 @@ export function OneFeatureDefault({
         </div>
       </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

@@ -1,45 +1,21 @@
 /**
  * AppFeaturesCarouselDefault Variant Styles
- * 
+ *
  * File Decoupling: Isolated styles for default app features carousel variant
  * Design Tokens: Uses centralized design system tokens
  * Performance: Optimized for interactive carousel animations
  * No Hardcoded Values: All values from design tokens
+ *
+ * Note: Section wrapper, padding, and container max-width are now handled by SectionContainer component.
+ * This file only contains component-specific styles (carousel layout, cards, animations, etc.)
  */
 
 /* ================================
    APP FEATURES CAROUSEL DEFAULT VARIANT
    ================================ */
 
-/* Section Container */
-.section {
-  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
-  background-color: var(--afc-color-section-bg);
-  width: var(--section-width-full);
-  height: var(--section-height-app-features-carousel-mobile);
-  overflow: hidden;
-}
-
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .section {
-    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
-    height: var(--section-height-app-features-carousel-tablet);
-  }
-}
-
-/* Responsive: Desktop */
-@media (min-width: 1024px) {
-  .section {
-    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
-    height: var(--section-height-app-features-carousel);
-  }
-}
-
-/* Main Container */
+/* Main Container - Component-specific layout */
 .container {
-  max-width: var(--dimension-1200);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: var(--afc-container-gap);
