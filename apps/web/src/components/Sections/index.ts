@@ -1,6 +1,6 @@
 /**
  * Unified Sections Barrel Export with Dynamic Loading
- * 
+ *
  * File Decoupling & Organization: Centralized section component exports with variant support
  * Code Reusability & DRY: Easy imports for all unified reusable sections
  * Domain-Driven Design: Single section domains with configurable variants
@@ -15,8 +15,11 @@ export { FeatureShowcase } from './FeatureShowcase';
 export { AppFeaturesCarousel } from './AppFeaturesCarousel';
 
 export { OneFeature } from './OneFeature';
-export { FAQAccordion } from './FAQAccordion';
+export { FAQAccordion } from './FAQAccordion/FAQAccordionFactory';
 export { StickyFeaturesNav } from './StickyFeaturesNav';
+
+// Unified Section Container Component
+export { SectionContainer } from './SectionContainer';
 
 
 // Re-export unified types for convenience
@@ -66,8 +69,18 @@ export type {
 } from './OneFeature';
 
 export type {
-  FAQAccordionProps
-} from './FAQAccordion';
+  FAQAccordionVariantProps
+} from './FAQAccordion/FAQAccordionFactory';
+
+export type {
+  FAQAccordionConfig,
+  FAQAccordionVariantConfig,
+  FAQAccordionContent,
+  FAQItem,
+  FAQAccordionSettings,
+  FAQAccordionSEO,
+  FAQAccordionVariant
+} from '@/config/faqAccordion';
 
 export type {
   StickyFeaturesNavVariantConfig,
@@ -76,3 +89,10 @@ export type {
   StickyFeaturesNavSettings,
   StickyFeaturesNavVariant
 } from './StickyFeaturesNav';
+
+export type {
+  SectionContainerProps,
+  ContainerVariant,
+  PaddingVariant,
+  SectionElement
+} from './SectionContainer';

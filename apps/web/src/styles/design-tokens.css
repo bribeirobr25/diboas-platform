@@ -224,7 +224,18 @@
   
   /* Section Widths - All sections are full width */
   --section-width-full: 100%;
-  
+
+  /* Container Max-Width System - Semantic Tokens */
+  --container-max-width-standard: 1200px;  /* Most common - ProductCarousel, AppFeaturesCarousel, HeroSection, FeatureShowcase */
+  --container-max-width-wide: 1400px;      /* Wide layout - FAQAccordion */
+  --container-max-width-narrow: 872px;     /* Narrow layout - StickyFeaturesNav */
+
+  /* Section Background System - Semantic Tokens */
+  --section-bg-neutral: #fafafa;           /* Primary neutral section background - FeatureShowcase, ProductCarousel, AppFeaturesCarousel, StickyFeaturesNav */
+  --section-bg-neutral-alt: #f8f9fa;       /* Alternative neutral section background - OneFeature, FAQAccordion */
+  --section-bg-white: #ffffff;             /* White backgrounds for cards/containers/panels */
+  --section-bg-hover: #f7fafc;             /* Hover state backgrounds for interactive elements */
+
   /* ================================
      PRODUCT CAROUSEL DIMENSIONS
      ================================ */
@@ -366,9 +377,9 @@
      COLORS & THEMING
      ================================ */
   /* Background Colors */
-  --fs-color-section-bg: #fafafa;
-  --fs-color-nav-button-bg: #ffffff;
-  --fs-color-nav-button-hover-bg: #f7fafc;
+  --fs-color-section-bg: var(--section-bg-neutral);
+  --fs-color-nav-button-bg: var(--section-bg-white);
+  --fs-color-nav-button-hover-bg: var(--section-bg-hover);
   --fs-color-transparent: transparent;
   
   /* Surface Colors - Neutral Backgrounds */
@@ -384,7 +395,7 @@
      VISUAL PANEL STYLING
      ================================ */
   /* Panel Container */
-  --fs-panel-bg: #ffffff;
+  --fs-panel-bg: var(--section-bg-white);
   --fs-panel-border-radius: 32px;
   --fs-panel-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   
@@ -405,7 +416,7 @@
      LAYOUT & CONTAINER TOKENS
      ================================ */
   /* Container Specifications */
-  --fs-container-max-width: 1200px;
+  --fs-container-max-width: var(--container-max-width-standard);
   
   /* Grid Layout */
   --fs-grid-gap-desktop: 48px;
@@ -471,9 +482,9 @@
   --fs-gap-cta-tablet: 1.25rem;
   --fs-gap-cta-desktop: 1.5rem;
   
-  
+
   /* Layout Dimensions */
-  --fs-max-width-container: 1200px;
+  --fs-max-width-container: var(--container-max-width-standard);
   --fs-max-width-visual-desktop: 496px;
   --fs-max-width-visual-mobile: 400px;
   --fs-max-width-visual-tablet: 450px;
@@ -567,17 +578,17 @@
      COLORS & THEMING
      ================================ */
   /* Background Colors */
-  --pc-color-section-bg: var(--surface-50, #fafafa);
+  --pc-color-section-bg: var(--section-bg-neutral);
   --pc-color-heading: #1a365d;
   --pc-color-subtitle: #4a5568;
-  --pc-color-card-bg: #ffffff;
+  --pc-color-card-bg: var(--section-bg-white);
   --pc-color-cta-bg: #9b9290;
   --pc-color-cta-text: #fefefe;
   
   /* Navigation Controls */
   --pc-color-dot-inactive: #cbd5e0;
   --pc-color-dot-active: #38b2ac;
-  --pc-color-control-bg: #ffffff;
+  --pc-color-control-bg: var(--section-bg-white);
   --pc-color-control-border: #e2e8f0;
   --pc-color-control-border-hover: #cbd5e0;
   --pc-color-control-icon: #4a5568;
@@ -593,7 +604,7 @@
      SPACING & LAYOUT
      ================================ */
   /* Container Dimensions */
-  --pc-container-max-width: 1200px;
+  --pc-container-max-width: var(--container-max-width-standard);
   --pc-track-height-mobile: 400px;
   --pc-track-height-tablet: 420px;
   --pc-track-height-desktop: 520px;
@@ -852,8 +863,8 @@
      COLORS & THEMING
      ================================ */
   /* Background Colors */
-  --of-color-section-bg: #f8f9fa;
-  --of-color-container-bg: #ffffff;
+  --of-color-section-bg: var(--section-bg-neutral-alt);
+  --of-color-container-bg: var(--section-bg-white);
   --of-color-card-bg: #f4f4f4;
   --of-color-cta-bg: #000000;
   
@@ -969,9 +980,9 @@
      COLORS & THEMING
      ================================ */
   /* Background Colors */
-  --afc-color-section-bg: #fafafa;
-  --afc-color-container-bg: #ffffff;
-  --afc-color-card-bg: #ffffff;
+  --afc-color-section-bg: var(--section-bg-neutral);
+  --afc-color-container-bg: var(--section-bg-white);
+  --afc-color-card-bg: var(--section-bg-white);
   --afc-color-overlay-start: rgba(0, 0, 0, 0.7);
   --afc-color-overlay-end: transparent;
   
@@ -988,8 +999,8 @@
   --afc-color-dot-inactive: #cbd5e0;
   --afc-color-dot-hover: #a0aec0;
   --afc-color-dot-active: #8b5cf6;
-  --afc-color-control-bg: #ffffff;
-  --afc-color-control-hover-bg: #f7fafc;
+  --afc-color-control-bg: var(--section-bg-white);
+  --afc-color-control-hover-bg: var(--section-bg-hover);
   --afc-color-border: #e2e8f0;
   --afc-color-border-hover: #cbd5e0;
   
@@ -1000,7 +1011,7 @@
   --afc-color-indicator-default: #d1d5db;
   --afc-color-indicator-active: #8b5cf6;
   --afc-color-muted: #9ca3af;
-  --afc-color-bg-white: #ffffff;
+  --afc-color-bg-white: var(--section-bg-white);
   
   /* Spinner & Loading Colors */
   --afc-color-spinner-border: #e5e7eb;
@@ -1439,11 +1450,8 @@
      ================================ */
 
   /* Container & Layout */
-  --faq-container-max-width: 1400px;
-  --faq-container-padding-mobile: 48px 24px;
-  --faq-container-padding-tablet: 48px 64px;
-  --faq-container-padding-desktop: 64px 120px;
-  --faq-bg-color: #f8f9fa;
+  --faq-container-max-width: var(--container-max-width-wide);
+  --faq-bg-color: var(--section-bg-neutral-alt);
 
   /* Grid Layout */
   --faq-grid-columns-mobile: 1fr;
@@ -1473,12 +1481,12 @@
 
   /* Accordion Items */
   --faq-accordion-gap: 16px;
-  --faq-item-bg: var(--color-white);
+  --faq-item-bg: var(--section-bg-white);
   --faq-item-border-radius: 16px;
   --faq-item-padding: 24px;
   --faq-item-shadow: var(--shadow-sm);
   --faq-item-border-expanded: 2px solid var(--theme-interactive-primary);
-  --faq-item-hover-bg: #f7fafc;
+  --faq-item-hover-bg: var(--section-bg-hover);
 
   /* Question Typography */
   --faq-question-size: 18px;
@@ -1509,9 +1517,9 @@
      ================================ */
 
   /* SFN Colors */
-  --sfn-bg-section: #fafafa;
-  --sfn-bg-container: #ffffff;
-  --sfn-bg-card: #ffffff;
+  --sfn-bg-section: var(--section-bg-neutral);
+  --sfn-bg-container: var(--section-bg-white);
+  --sfn-bg-card: var(--section-bg-white);
   --sfn-color-title: #1a365d;
   --sfn-color-card-heading: #1a365d;
   --sfn-color-card-description: #4a5568;
@@ -1523,8 +1531,8 @@
   --sfn-section-padding-desktop-x: 132px;
 
   /* SFN Container - Fixed width inside section */
-  --sfn-container-width: 872px;
-  --sfn-container-bg: #ffffff;
+  --sfn-container-width: var(--container-max-width-narrow);
+  --sfn-container-bg: var(--section-bg-white);
   --sfn-container-border-radius: 30px;
   --sfn-container-row-gap: 20px;
 
@@ -2015,4 +2023,3 @@
     font-size: var(--font-size-text-desktop);
   }
 }
-

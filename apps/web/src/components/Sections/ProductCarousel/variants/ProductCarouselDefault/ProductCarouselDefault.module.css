@@ -1,44 +1,35 @@
 /**
  * ProductCarouselDefault Variant Styles
- * 
+ *
  * File Decoupling: Isolated styles for default carousel variant
  * Design Tokens: Uses centralized design system tokens
  * Performance: Optimized for smooth carousel animations
  * No Hardcoded Values: All values from design tokens
+ *
+ * Note: Section wrapper, padding, and container max-width are now handled by SectionContainer component.
+ * This file only contains component-specific styles (carousel wrapper, layout, animations, etc.)
  */
 
 /* ================================
    PRODUCT CAROUSEL DEFAULT VARIANT
    ================================ */
 
-/* Section Container */
-.section {
-  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
-  background-color: var(--pc-color-section-bg);
-  width: var(--section-width-full);
+/* Carousel Wrapper - Component-specific height and overflow */
+.carouselWrapper {
+  width: 100%;
   height: var(--section-height-product-carousel-mobile);
   overflow: hidden;
 }
 
 /* Responsive: Tablet */
 @media (min-width: 768px) {
-  .section {
-    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
+  .carouselWrapper {
     height: var(--section-height-product-carousel);
-  }
-}
-
-/* Responsive: Desktop */
-@media (min-width: 1024px) {
-  .section {
-    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
   }
 }
 
 /* Main Container */
 .container {
-  max-width: var(--pc-container-max-width);
-  margin: 0 auto;
   padding-inline: 0;
   display: flex;
   flex-direction: column;

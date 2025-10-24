@@ -6,37 +6,16 @@
  * Performance: Optimized animations with GPU acceleration
  * No Hardcoded Values: All values from design tokens
  * Accessibility: Full keyboard navigation and screen reader support
+ *
+ * Note: Section wrapper and container max-width are now handled by SectionContainer component.
+ * This file only contains component-specific styles (grid layout, panels, accordion items, etc.)
  */
 
 /* ================================
-   SECTION CONTAINER
-   ================================ */
-
-.section {
-  width: 100%;
-  background-color: var(--faq-bg-color);
-  padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
-}
-
-@media (min-width: 768px) {
-  .section {
-    padding: var(--padding-section-tablet-y) var(--padding-section-tablet-x);
-  }
-}
-
-@media (min-width: 1024px) {
-  .section {
-    padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
-  }
-}
-
-/* ================================
-   CONTAINER & GRID LAYOUT
+   CONTAINER GRID LAYOUT
    ================================ */
 
 .container {
-  max-width: var(--faq-container-max-width);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: var(--faq-grid-gap-mobile);
