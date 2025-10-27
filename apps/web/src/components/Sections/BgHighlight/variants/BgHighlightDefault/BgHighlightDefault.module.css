@@ -1,0 +1,224 @@
+/**
+ * BgHighlightDefault Variant Styles
+ *
+ * File Decoupling: Isolated styles for default variant only
+ * Design Tokens: Uses centralized design system tokens
+ * Performance Optimization: Variant-specific CSS for better bundle splitting
+ * No Hardcoded Values: All values from design tokens
+ *
+ * Layout Implementation:
+ * - Full-width background image section
+ * - Content positioned at bottom-left with gradient overlay
+ * - Responsive heights for mobile, tablet, and desktop
+ */
+
+/* ================================
+   SECTION STYLES
+   ================================ */
+
+/* Section Container - Full width with fixed height */
+.section {
+  width: var(--bg-section-width);
+  height: var(--bg-section-height-mobile);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Responsive: Tablet (breakpoint: var(--bg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .section {
+    height: var(--bg-section-height-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--bg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .section {
+    height: var(--bg-section-height-desktop);
+  }
+}
+
+/* ================================
+   BACKGROUND LAYER
+   ================================ */
+
+/* Background Image Container */
+.backgroundLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--percent-100);
+  height: var(--percent-100);
+  z-index: 0;
+}
+
+/* Background Image */
+.backgroundImage {
+  width: var(--percent-100);
+  height: var(--percent-100);
+}
+
+/* Gradient Overlay for Text Readability */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--percent-100);
+  height: var(--percent-100);
+  background: var(--bg-overlay-gradient);
+  z-index: 1;
+}
+
+/* ================================
+   CONTENT LAYER
+   ================================ */
+
+/* Content Container - Positioned at bottom-left */
+.contentContainer {
+  position: relative;
+  z-index: 2;
+  width: var(--percent-100);
+  height: var(--bg-content-height);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* Content Wrapper with Padding */
+.content {
+  max-width: var(--bg-content-max-width);
+  padding-top: var(--bg-content-padding-top-mobile);
+  padding-bottom: var(--bg-content-padding-bottom);
+  padding-left: var(--bg-content-padding-left-mobile);
+  padding-right: var(--bg-content-padding-right);
+  display: flex;
+  flex-direction: column;
+  gap: var(--bg-content-gap);
+}
+
+/* Responsive: Tablet (breakpoint: var(--bg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .content {
+    padding-top: var(--bg-content-padding-top-tablet);
+    padding-left: var(--bg-content-padding-left-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--bg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .content {
+    padding-top: var(--bg-content-padding-top-desktop);
+    padding-left: var(--bg-content-padding-left-desktop);
+  }
+}
+
+/* ================================
+   TYPOGRAPHY
+   ================================ */
+
+/* Title */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--bg-title-font-size-mobile);
+  font-weight: var(--bg-title-font-weight);
+  line-height: var(--bg-title-line-height);
+  color: var(--bg-color-title);
+  margin: 0;
+}
+
+/* Responsive: Tablet (breakpoint: var(--bg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--bg-title-font-size-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--bg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--bg-title-font-size-desktop);
+  }
+}
+
+/* Description */
+.description {
+  font-family: var(--font-family-primary);
+  font-size: var(--bg-description-font-size-mobile);
+  font-weight: var(--bg-description-font-weight);
+  line-height: var(--bg-description-line-height);
+  color: var(--bg-color-description);
+  margin: 0;
+}
+
+/* Responsive: Tablet (breakpoint: var(--bg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .description {
+    font-size: var(--bg-description-font-size-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--bg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .description {
+    font-size: var(--bg-description-font-size-desktop);
+  }
+}
+
+/* ================================
+   LOADING & ERROR STATES
+   ================================ */
+
+/* Loading Indicator (hidden by default, shown during image load) */
+.loadingIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--percent-100);
+  height: var(--percent-100);
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Error Indicator (shown when image fails to load) */
+.errorIndicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: var(--spacing-md);
+  background-color: rgba(255, 0, 0, 0.8);
+  color: var(--section-bg-white);
+  border-radius: var(--border-radius-md);
+  z-index: 3;
+  font-size: var(--font-size-sm);
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+/* Focus Styles */
+.section:focus-visible {
+  outline: var(--outline-width) solid var(--theme-focus-ring);
+  outline-offset: var(--outline-offset);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .title,
+  .description {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+  }
+
+  .overlay {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .backgroundImage {
+    animation: none;
+  }
+}

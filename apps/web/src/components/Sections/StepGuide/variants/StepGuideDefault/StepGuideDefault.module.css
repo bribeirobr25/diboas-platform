@@ -1,0 +1,270 @@
+/**
+ * StepGuideDefault Variant Styles
+ *
+ * File Decoupling: Isolated styles for default variant only
+ * Design Tokens: Uses centralized design system tokens
+ * Performance Optimization: Variant-specific CSS for better bundle splitting
+ * No Hardcoded Values: All values from design tokens
+ *
+ * Layout Implementation:
+ * - Container with standard section padding
+ * - Centered title
+ * - White rounded background for steps
+ * - Numbered step rows with left-aligned numbers and text
+ */
+
+/* ================================
+   SECTION STYLES
+   ================================ */
+
+/* Section Container */
+.section {
+  width: var(--sg-container-width);
+  min-height: var(--sg-container-min-height);
+}
+
+/* ================================
+   CONTAINER & LAYOUT
+   ================================ */
+
+/* Main Container - Uses standard container pattern */
+.container {
+  padding: var(--sg-container-padding-mobile-y) var(--sg-container-padding-mobile-x);
+  width: var(--percent-100);
+}
+
+/* Responsive: Tablet (breakpoint: var(--sg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .container {
+    padding: var(--sg-container-padding-tablet-y) var(--sg-container-padding-tablet-x);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--sg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .container {
+    padding: var(--sg-container-padding-desktop-y) var(--sg-container-padding-desktop-x);
+  }
+}
+
+/* ================================
+   CONTENT STYLES
+   ================================ */
+
+/* Content Container */
+.content {
+  width: var(--sg-content-width);
+  max-width: var(--sg-content-max-width);
+  margin: 0 auto;
+  padding-left: var(--sg-content-padding-left-mobile);
+  padding-right: var(--sg-content-padding-right-mobile);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsive: Tablet (breakpoint: var(--sg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .content {
+    padding-left: var(--sg-content-padding-left-tablet);
+    padding-right: var(--sg-content-padding-right-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--sg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .content {
+    padding-left: var(--sg-content-padding-left-desktop);
+    padding-right: var(--sg-content-padding-right-desktop);
+  }
+}
+
+/* ================================
+   TITLE STYLES
+   ================================ */
+
+/* Section Title */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--sg-title-font-size-mobile);
+  font-weight: var(--sg-title-font-weight);
+  line-height: var(--sg-title-line-height);
+  color: var(--sg-title-color);
+  margin: 0;
+  margin-bottom: var(--sg-title-margin-bottom-mobile);
+  text-align: center;
+  width: var(--percent-100);
+}
+
+/* Responsive: Tablet (breakpoint: var(--sg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--sg-title-font-size-tablet);
+    margin-bottom: var(--sg-title-margin-bottom-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--sg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--sg-title-font-size-desktop);
+    margin-bottom: var(--sg-title-margin-bottom-desktop);
+  }
+}
+
+/* ================================
+   STEPS CONTAINER STYLES
+   ================================ */
+
+/* Steps Container - White rounded background */
+.stepsContainer {
+  width: var(--sg-steps-container-width);
+  background-color: var(--sg-steps-container-bg);
+  border-radius: var(--sg-steps-container-border-radius);
+  padding: var(--sg-steps-container-padding-mobile-y) var(--sg-steps-container-padding-mobile-x);
+  box-shadow: var(--sg-steps-container-shadow);
+}
+
+/* Responsive: Tablet (breakpoint: var(--sg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .stepsContainer {
+    padding: var(--sg-steps-container-padding-tablet-y) var(--sg-steps-container-padding-tablet-x);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--sg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .stepsContainer {
+    padding: var(--sg-steps-container-padding-desktop-y) var(--sg-steps-container-padding-desktop-x);
+  }
+}
+
+/* ================================
+   STEPS LIST STYLES
+   ================================ */
+
+/* Ordered List - Reset default styles */
+.stepsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--percent-100);
+}
+
+/* ================================
+   STEP ROW STYLES
+   ================================ */
+
+/* Step Row Container */
+.stepRow {
+  width: var(--sg-step-row-width);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sg-step-row-gap-mobile);
+  margin-bottom: var(--sg-step-row-margin-bottom-mobile);
+}
+
+/* Remove margin from last step */
+.stepRow:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive: Tablet (breakpoint: var(--sg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .stepRow {
+    gap: var(--sg-step-row-gap-tablet);
+    margin-bottom: var(--sg-step-row-margin-bottom-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--sg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .stepRow {
+    gap: var(--sg-step-row-gap-desktop);
+    margin-bottom: var(--sg-step-row-margin-bottom-desktop);
+  }
+}
+
+/* ================================
+   STEP NUMBER STYLES
+   ================================ */
+
+/* Step Number */
+.stepNumber {
+  font-family: var(--font-family-primary);
+  font-size: var(--sg-step-number-font-size-mobile);
+  font-weight: var(--sg-step-number-font-weight);
+  line-height: var(--sg-step-number-line-height);
+  color: var(--sg-step-number-color);
+  min-width: var(--sg-step-number-min-width);
+  flex-shrink: 0;
+  text-align: left;
+}
+
+/* Responsive: Tablet (breakpoint: var(--sg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .stepNumber {
+    font-size: var(--sg-step-number-font-size-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--sg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .stepNumber {
+    font-size: var(--sg-step-number-font-size-desktop);
+  }
+}
+
+/* ================================
+   STEP TEXT STYLES
+   ================================ */
+
+/* Step Text */
+.stepText {
+  font-family: var(--font-family-primary);
+  font-size: var(--sg-step-text-font-size-mobile);
+  font-weight: var(--sg-step-text-font-weight);
+  line-height: var(--sg-step-text-line-height);
+  color: var(--sg-step-text-color);
+  flex: 1;
+}
+
+/* Responsive: Tablet (breakpoint: var(--sg-breakpoint-tablet)) */
+@media (min-width: 768px) {
+  .stepText {
+    font-size: var(--sg-step-text-font-size-tablet);
+  }
+}
+
+/* Responsive: Desktop (breakpoint: var(--sg-breakpoint-desktop)) */
+@media (min-width: 1024px) {
+  .stepText {
+    font-size: var(--sg-step-text-font-size-desktop);
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+/* Focus Styles */
+.section:focus-visible {
+  outline: var(--outline-width) solid var(--theme-focus-ring);
+  outline-offset: var(--outline-offset);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .stepsContainer {
+    border: 2px solid var(--color-black);
+  }
+
+  .title,
+  .stepNumber,
+  .stepText {
+    color: var(--color-black);
+  }
+}
