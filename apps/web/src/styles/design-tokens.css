@@ -1600,6 +1600,309 @@
   --sfn-card-z-index-base: 1;
   --sfn-card-z-index-condensed: 10; /* Higher z-index when condensed */
   --sfn-card-z-index-increment: 1; /* Each card above gets +1 z-index */
+
+  /* ================================
+     BC (BENEFITS CARDS) DESIGN TOKENS
+     ================================ */
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Background Colors */
+  --bc-color-section-bg: #f5f3ff;              /* Very light purple background */
+  --bc-color-card-bg: var(--section-bg-white);  /* White card backgrounds */
+
+  /* Text Colors */
+  --bc-color-title: #1a365d;                    /* Main title color */
+  --bc-color-card-title: #1a1a1a;               /* Card title color */
+  --bc-color-card-description: #4a5568;         /* Card description color */
+
+  /* Icon Colors */
+  --bc-color-icon-bg: transparent;              /* Icon background (transparent for minimal style) */
+
+  /* ================================
+     SPACING & LAYOUT
+     ================================ */
+  /* Container Specifications */
+  --bc-container-max-width: var(--container-max-width-standard);
+
+  /* Grid Layout - Desktop (staggered 3 + 2 cards layout) */
+  --bc-grid-columns-mobile: 1fr;                          /* 1 column on mobile */
+  --bc-grid-columns-tablet: 1fr;                          /* 1 column on tablet */
+  --bc-grid-columns-desktop: repeat(6, 1fr);              /* 6 columns for staggered layout on desktop */
+  --bc-grid-gap-desktop: 32px;                            /* Gap between cards on desktop */
+  --bc-grid-gap-tablet: 24px;                             /* Gap between cards on tablet */
+  --bc-grid-gap-mobile: 20px;                             /* Gap between cards on mobile */
+
+  /* Grid Column Spans - Desktop Staggered Layout */
+  --bc-card-1-column-span: 1 / 3;                         /* Card 1: Columns 1-2 */
+  --bc-card-2-column-span: 3 / 5;                         /* Card 2: Columns 3-4 */
+  --bc-card-3-column-span: 5 / 7;                         /* Card 3: Columns 5-6 */
+  --bc-card-4-column-span: 2 / 4;                         /* Card 4: Columns 2-3 (offset between 1 & 2) */
+  --bc-card-5-column-span: 4 / 6;                         /* Card 5: Columns 4-5 (offset between 2 & 3) */
+
+  /* Section Spacing */
+  --bc-section-title-margin-bottom: 48px;       /* Space below section title */
+  --bc-description-max-width: 600px;            /* Max width for section description */
+
+  /* Card Spacing */
+  --bc-card-padding-desktop: 32px;              /* Card internal padding - desktop */
+  --bc-card-padding-tablet: 28px;               /* Card internal padding - tablet */
+  --bc-card-padding-mobile: 24px;               /* Card internal padding - mobile */
+  --bc-card-content-gap: 16px;                  /* Gap between icon, title, and description */
+
+  /* Icon Dimensions */
+  --bc-icon-size-desktop: 64px;                 /* Icon size - desktop */
+  --bc-icon-size-tablet: 56px;                  /* Icon size - tablet */
+  --bc-icon-size-mobile: 48px;                  /* Icon size - mobile */
+  --bc-icon-padding: 0;                         /* Icon background padding (0 for full fill) */
+
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Section Title Typography */
+  --bc-title-font-size-desktop: var(--font-size-title-desktop);
+  --bc-title-font-size-tablet: var(--font-size-title-tablet);
+  --bc-title-font-size-mobile: var(--font-size-title-mobile);
+  --bc-title-font-weight: var(--font-weight-bold);
+  --bc-title-line-height: var(--line-height-title);
+
+  /* Card Title Typography */
+  --bc-card-title-font-size-desktop: 20px;
+  --bc-card-title-font-size-tablet: 18px;
+  --bc-card-title-font-size-mobile: 18px;
+  --bc-card-title-font-weight: var(--font-weight-bold);
+  --bc-card-title-line-height: 1.3;
+
+  /* Card Description Typography */
+  --bc-card-description-font-size-desktop: 16px;
+  --bc-card-description-font-size-tablet: 15px;
+  --bc-card-description-font-size-mobile: 14px;
+  --bc-card-description-font-weight: var(--font-weight-normal);
+  --bc-card-description-line-height: 1.6;
+
+  /* ================================
+     BORDERS & SHAPES
+     ================================ */
+  /* Border Radius */
+  --bc-card-border-radius: 16px;
+  --bc-icon-border-radius: 12px;
+
+  /* Border Widths */
+  --bc-border-width: 2px;                                     /* Standard border width */
+  --bc-outline-width: 2px;                                    /* Focus outline width */
+  --bc-outline-offset: 2px;                                   /* Focus outline offset */
+
+  /* ================================
+     EFFECTS & SHADOWS
+     ================================ */
+  /* Box Shadows */
+  --bc-card-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --bc-card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  /* ================================
+     ANIMATIONS & INTERACTIONS
+     ================================ */
+  /* Transition Properties */
+  --bc-transition-duration: 300ms;
+  --bc-transition-easing: ease-in-out;
+
+  /* Transform Values */
+  --bc-transform-hover: translateY(-4px);
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values (inherited from global) */
+  --bc-breakpoint-tablet: 768px;
+  --bc-breakpoint-desktop: 1024px;
+
+  /* ================================
+     BGHIGHLIGHT SECTION (BG)
+     Background highlight section with full-width image and bottom-left content
+     ================================ */
+
+  /* ================================
+     SECTION DIMENSIONS
+     ================================ */
+  /* Section Height */
+  --bg-section-height-desktop: 700px;           /* Section height - desktop */
+  --bg-section-height-tablet: 500px;            /* Section height - tablet */
+  --bg-section-height-mobile: 400px;            /* Section height - mobile */
+
+  /* Section Width */
+  --bg-section-width: var(--percent-100);       /* Full width section */
+
+  /* ================================
+     CONTENT CONTAINER
+     ================================ */
+  /* Content Container Dimensions */
+  --bg-content-max-width: 640px;                /* Content container max width */
+  --bg-content-height: var(--percent-100);      /* Content container height */
+
+  /* Content Padding */
+  --bg-content-padding-top-desktop: 450px;      /* Top padding - desktop */
+  --bg-content-padding-top-tablet: 300px;       /* Top padding - tablet */
+  --bg-content-padding-top-mobile: 200px;       /* Top padding - mobile */
+  --bg-content-padding-bottom: 40px;            /* Bottom padding - all sizes */
+  --bg-content-padding-left-desktop: 120px;     /* Left padding - desktop */
+  --bg-content-padding-left-tablet: 64px;       /* Left padding - tablet */
+  --bg-content-padding-left-mobile: 24px;       /* Left padding - mobile */
+  --bg-content-padding-right: 0;                /* Right padding - no padding */
+
+  /* Content Internal Spacing */
+  --bg-content-gap: var(--spacing-md);          /* Gap between title and description */
+
+  /* ================================
+     TYPOGRAPHY
+     ================================ */
+  /* Title Typography */
+  --bg-title-font-size-desktop: var(--font-size-title-desktop);
+  --bg-title-font-size-tablet: var(--font-size-title-tablet);
+  --bg-title-font-size-mobile: var(--font-size-title-mobile);
+  --bg-title-font-weight: var(--font-weight-bold);
+  --bg-title-line-height: var(--line-height-title);
+
+  /* Description Typography */
+  --bg-description-font-size-desktop: var(--font-size-description-desktop);
+  --bg-description-font-size-tablet: var(--font-size-description-tablet);
+  --bg-description-font-size-mobile: var(--font-size-description-mobile);
+  --bg-description-font-weight: var(--font-weight-normal);
+  --bg-description-line-height: var(--line-height-description);
+
+  /* ================================
+     COLORS & THEMING
+     ================================ */
+  /* Text Colors */
+  --bg-color-title: var(--section-bg-white);            /* Title color - white */
+  --bg-color-description: var(--section-bg-white);      /* Description color - white */
+
+  /* Background Overlay */
+  --bg-overlay-gradient: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );                                                     /* Gradient overlay for text readability */
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values */
+  --bg-breakpoint-tablet: 768px;
+  --bg-breakpoint-desktop: 1024px;
+
+  /* ================================
+     STEPGUIDE SECTION (SG)
+     Step-by-step guide section with numbered instructions
+     ================================ */
+
+  /* ================================
+     CONTAINER DIMENSIONS
+     ================================ */
+  /* Container Dimensions */
+  --sg-container-width: var(--percent-100);         /* Full width container */
+  --sg-container-min-height: 300px;                 /* Minimum container height */
+
+  /* Container Padding */
+  --sg-container-padding-desktop-y: var(--padding-section-desktop-y);
+  --sg-container-padding-desktop-x: var(--padding-section-desktop-x);
+  --sg-container-padding-tablet-y: var(--padding-section-tablet-y);
+  --sg-container-padding-tablet-x: var(--padding-section-tablet-x);
+  --sg-container-padding-mobile-y: var(--padding-section-mobile-y);
+  --sg-container-padding-mobile-x: var(--padding-section-mobile-x);
+
+  /* ================================
+     CONTENT DIMENSIONS
+     ================================ */
+  /* Content Container */
+  --sg-content-width: var(--percent-100);           /* Full width of container */
+  --sg-content-max-width: 1200px;                   /* Maximum content width */
+
+  /* Content Padding */
+  --sg-content-padding-left-desktop: 120px;         /* Left padding - desktop */
+  --sg-content-padding-right-desktop: 120px;        /* Right padding - desktop */
+  --sg-content-padding-left-tablet: 0;              /* Left padding - tablet (no padding) */
+  --sg-content-padding-right-tablet: 0;             /* Right padding - tablet (no padding) */
+  --sg-content-padding-left-mobile: 0;              /* Left padding - mobile (no padding) */
+  --sg-content-padding-right-mobile: 0;             /* Right padding - mobile (no padding) */
+
+  /* ================================
+     TITLE STYLES
+     ================================ */
+  /* Title Spacing */
+  --sg-title-margin-bottom-desktop: 48px;           /* Title bottom margin - desktop */
+  --sg-title-margin-bottom-tablet: 40px;            /* Title bottom margin - tablet */
+  --sg-title-margin-bottom-mobile: 32px;            /* Title bottom margin - mobile */
+
+  /* Title Typography */
+  --sg-title-font-size-desktop: var(--font-size-title-desktop);
+  --sg-title-font-size-tablet: var(--font-size-title-tablet);
+  --sg-title-font-size-mobile: var(--font-size-title-mobile);
+  --sg-title-font-weight: var(--font-weight-bold);
+  --sg-title-line-height: var(--line-height-title);
+  --sg-title-color: var(--color-text-primary);
+
+  /* ================================
+     STEPS CONTAINER STYLES
+     ================================ */
+  /* Steps Container Dimensions */
+  --sg-steps-container-width: var(--percent-100);   /* Full width */
+  --sg-steps-container-bg: var(--section-bg-white); /* White background */
+  --sg-steps-container-border-radius: 16px;         /* Rounded corners */
+
+  /* Steps Container Padding */
+  --sg-steps-container-padding-desktop-y: 64px;     /* Top/bottom padding - desktop */
+  --sg-steps-container-padding-desktop-x: 64px;     /* Left/right padding - desktop */
+  --sg-steps-container-padding-tablet-y: 48px;      /* Top/bottom padding - tablet */
+  --sg-steps-container-padding-tablet-x: 48px;      /* Left/right padding - tablet */
+  --sg-steps-container-padding-mobile-y: 32px;      /* Top/bottom padding - mobile */
+  --sg-steps-container-padding-mobile-x: 24px;      /* Left/right padding - mobile */
+
+  /* Steps Container Shadow */
+  --sg-steps-container-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* ================================
+     STEP ROW STYLES
+     ================================ */
+  /* Step Row Dimensions */
+  --sg-step-row-width: 90%;                         /* 90% of steps container width */
+  --sg-step-row-gap-desktop: 24px;                  /* Gap between number and text - desktop */
+  --sg-step-row-gap-tablet: 20px;                   /* Gap between number and text - tablet */
+  --sg-step-row-gap-mobile: 16px;                   /* Gap between number and text - mobile */
+  --sg-step-row-margin-bottom-desktop: 24px;        /* Margin between steps - desktop */
+  --sg-step-row-margin-bottom-tablet: 20px;         /* Margin between steps - tablet */
+  --sg-step-row-margin-bottom-mobile: 16px;         /* Margin between steps - mobile */
+
+  /* ================================
+     STEP NUMBER STYLES
+     ================================ */
+  /* Step Number Typography */
+  --sg-step-number-font-size-desktop: 24px;         /* Number font size - desktop */
+  --sg-step-number-font-size-tablet: 22px;          /* Number font size - tablet */
+  --sg-step-number-font-size-mobile: 20px;          /* Number font size - mobile */
+  --sg-step-number-font-weight: var(--font-weight-bold);
+  --sg-step-number-line-height: 1.4;
+  --sg-step-number-color: var(--color-primary);     /* Primary color for numbers */
+  --sg-step-number-min-width: 48px;                 /* Minimum width for alignment */
+
+  /* ================================
+     STEP TEXT STYLES
+     ================================ */
+  /* Step Text Typography */
+  --sg-step-text-font-size-desktop: var(--font-size-body-desktop);
+  --sg-step-text-font-size-tablet: var(--font-size-body-tablet);
+  --sg-step-text-font-size-mobile: var(--font-size-body-mobile);
+  --sg-step-text-font-weight: var(--font-weight-normal);
+  --sg-step-text-line-height: var(--line-height-body);
+  --sg-step-text-color: var(--color-text-primary);
+
+  /* ================================
+     RESPONSIVE BREAKPOINTS
+     ================================ */
+  /* Breakpoint Values */
+  --sg-breakpoint-tablet: 768px;
+  --sg-breakpoint-desktop: 1024px;
 }
 
 /* ================================
