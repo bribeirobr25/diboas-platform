@@ -1,11 +1,14 @@
 /**
  * App Features Carousel Configuration
- * 
+ *
  * Domain-Driven Design: App features carousel domain configuration with variant support
  * Service Agnostic Abstraction: Decoupled carousel content from presentation
  * Configuration Management: Centralized app features content and asset paths
  * No Hardcoded Values: All values configurable through interfaces
+ * DRY Principles: Uses centralized ROUTES configuration for all links
  */
+
+import { ROUTES } from './routes';
 
 export type AppFeaturesCarouselVariant = 'default';
 
@@ -63,6 +66,7 @@ export const DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS: AppFeaturesCarouselSettings
 
 // Default app features carousel cards
 // Note: Titles, descriptions, CTA text, and chip labels are translation keys that will be resolved at runtime
+// DRY Principles: All links use centralized ROUTES configuration
 export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'organize-money',
@@ -70,8 +74,8 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.appFeatures.organizeMoney.title',
       description: 'marketing.appFeatures.organizeMoney.description',
       ctaText: 'marketing.appFeatures.organizeMoney.ctaText',
-      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-      ctaTarget: '_blank',
+      ctaHref: ROUTES.BENEFITS,
+      ctaTarget: '_self',
       chipLabel: 'marketing.appFeatures.organizeMoney.chipLabel'
     },
     assets: {
@@ -87,8 +91,8 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.appFeatures.instantPayments.title',
       description: 'marketing.appFeatures.instantPayments.description',
       ctaText: 'marketing.appFeatures.instantPayments.ctaText',
-      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-      ctaTarget: '_blank',
+      ctaHref: ROUTES.LEARN.BENEFITS,
+      ctaTarget: '_self',
       chipLabel: 'marketing.appFeatures.instantPayments.chipLabel'
     },
     assets: {
@@ -104,8 +108,8 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.appFeatures.securePurchases.title',
       description: 'marketing.appFeatures.securePurchases.description',
       ctaText: 'marketing.appFeatures.securePurchases.ctaText',
-      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-      ctaTarget: '_blank',
+      ctaHref: ROUTES.INVESTING,
+      ctaTarget: '_self',
       chipLabel: 'marketing.appFeatures.securePurchases.chipLabel'
     },
     assets: {
@@ -121,8 +125,8 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.appFeatures.financialGoals.title',
       description: 'marketing.appFeatures.financialGoals.description',
       ctaText: 'marketing.appFeatures.financialGoals.ctaText',
-      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-      ctaTarget: '_blank',
+      ctaHref: ROUTES.BUSINESS.YIELD_STRATEGIES,
+      ctaTarget: '_self',
       chipLabel: 'marketing.appFeatures.financialGoals.chipLabel'
     },
     assets: {

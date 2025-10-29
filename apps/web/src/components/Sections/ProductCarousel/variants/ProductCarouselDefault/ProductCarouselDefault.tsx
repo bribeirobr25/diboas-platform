@@ -14,6 +14,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Play, Pause } from 'lucide-react';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
@@ -230,11 +231,24 @@ export function ProductCarouselDefault({
                             {slide.title}
                           </h3>
                           
-                          {/* Optional Pill CTA (non-functional) */}
-                          {slide.ctaText && (
-                            <div className={styles.cardCTA}>
+                          {/* Functional CTA Link */}
+                          {slide.ctaText && slide.ctaHref && (
+                            <Link
+                              href={slide.ctaHref}
+                              className={styles.cardCTA}
+                              target={slide.ctaHref.startsWith('http') ? '_blank' : '_self'}
+                              rel={slide.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onCTAClick?.(slide.id, slide.ctaHref);
+                                Logger.info('Product carousel CTA clicked', {
+                                  slideId: slide.id,
+                                  ctaHref: slide.ctaHref
+                                });
+                              }}
+                            >
                               {slide.ctaText}
-                            </div>
+                            </Link>
                           )}
                         </div>
                       </div>

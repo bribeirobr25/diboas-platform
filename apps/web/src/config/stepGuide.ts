@@ -5,6 +5,8 @@
  * Service Agnostic Abstraction: Decoupled content from presentation
  * Configuration Management: Centralized StepGuide content and settings
  * No Hardcoded Values: All values configurable through interfaces
+ *
+ * Note: Title and step texts are translation keys that will be resolved at runtime
  */
 
 import type { StepGuideConfig } from '@/components/Sections/StepGuide/types';
@@ -18,32 +20,37 @@ import type { StepGuideConfig } from '@/components/Sections/StepGuide/types';
 export const DEFAULT_STEP_GUIDE_CONFIG: StepGuideConfig = {
   /** Content configuration */
   content: {
-    title: 'Getting Started with diBoaS',
+    title: 'marketing.stepGuide.title',
     steps: [
       {
         id: 'step-1',
         number: '01',
-        text: 'Open your Account'
+        text: 'marketing.stepGuide.steps.step1'
       },
       {
         id: 'step-2',
         number: '02',
-        text: 'Click on Banking'
+        text: 'marketing.stepGuide.steps.step2'
       },
       {
         id: 'step-3',
         number: '03',
-        text: 'Verify your identity'
+        text: 'marketing.stepGuide.steps.step3'
       },
       {
         id: 'step-4',
         number: '04',
-        text: 'Complete your profile information'
+        text: 'marketing.stepGuide.steps.step4'
       },
       {
         id: 'step-5',
         number: '05',
-        text: 'Start managing your finances'
+        text: 'marketing.stepGuide.steps.step5'
+      },
+      {
+        id: 'step-6',
+        number: '06',
+        text: 'marketing.stepGuide.steps.step6'
       }
     ]
   },

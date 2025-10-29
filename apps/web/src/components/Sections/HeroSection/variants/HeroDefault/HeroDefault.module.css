@@ -25,12 +25,14 @@
    HERO DEFAULT VARIANT STYLES
    ================================ */
 
-/* Section Container */
+/* Section Container - Dynamic height with bottom rounded corners */
 .section {
   padding: var(--padding-hero-nav-mobile-y) var(--padding-hero-nav-mobile-x);
   width: var(--section-width-full);
-  height: var(--section-height-hero);
-  border-radius: var(--hs-section-border-radius);
+  min-height: var(--section-min-height-hero-mobile);
+  padding-bottom: var(--section-hero-bottom-padding);
+  border-bottom-left-radius: var(--hs-section-border-radius-bottom-left);
+  border-bottom-right-radius: var(--hs-section-border-radius-bottom-right);
   background: var(--hs-gradient-bg);
   position: relative;
   overflow: hidden;
@@ -40,6 +42,7 @@
 @media (min-width: 768px) {
   .section {
     padding: var(--padding-hero-nav-tablet-y) var(--padding-hero-nav-tablet-x);
+    min-height: var(--section-min-height-hero-tablet);
   }
 }
 
@@ -47,6 +50,7 @@
 @media (min-width: 1024px) {
   .section {
     padding: var(--padding-hero-nav-desktop-y) var(--padding-hero-nav-desktop-x);
+    min-height: var(--section-min-height-hero-desktop);
   }
 }
 

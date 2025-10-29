@@ -16,10 +16,10 @@
    SECTION STYLES
    ================================ */
 
-/* Section Container - Full width with fixed height */
+/* Section Container - Full width with min-height, adjusts to content */
 .section {
   width: var(--bg-section-width);
-  height: var(--bg-section-height-mobile);
+  min-height: var(--bg-section-height-mobile);
   position: relative;
   overflow: hidden;
 }
@@ -27,14 +27,14 @@
 /* Responsive: Tablet (breakpoint: var(--bg-breakpoint-tablet)) */
 @media (min-width: 768px) {
   .section {
-    height: var(--bg-section-height-tablet);
+    min-height: var(--bg-section-height-tablet);
   }
 }
 
 /* Responsive: Desktop (breakpoint: var(--bg-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .section {
-    height: var(--bg-section-height-desktop);
+    min-height: var(--bg-section-height-desktop);
   }
 }
 
@@ -73,12 +73,11 @@
    CONTENT LAYER
    ================================ */
 
-/* Content Container - Positioned at bottom-left */
+/* Content Container - Adjusts to content size */
 .contentContainer {
   position: relative;
   z-index: 2;
   width: var(--percent-100);
-  height: var(--bg-content-height);
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;

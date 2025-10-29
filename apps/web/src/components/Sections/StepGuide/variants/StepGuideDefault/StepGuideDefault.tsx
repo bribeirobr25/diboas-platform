@@ -11,6 +11,7 @@
  */
 
 import { useEffect } from 'react';
+import { useTranslation } from '@diboas/i18n/client';
 import type { StepGuideVariantProps, Step } from '../../types';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import styles from './StepGuideDefault.module.css';
@@ -18,14 +19,14 @@ import styles from './StepGuideDefault.module.css';
 /**
  * Individual Step Row Component
  */
-function StepRow({ step }: { step: Step }) {
+function StepRow({ step, intl }: { step: Step; intl: ReturnType<typeof useTranslation> }) {
   return (
     <li className={styles.stepRow}>
       <span className={styles.stepNumber} aria-hidden="true">
         {step.number}
       </span>
       <span className={styles.stepText}>
-        {step.text}
+        {intl.formatMessage({ id: step.text })}
       </span>
     </li>
   );
@@ -52,6 +53,8 @@ export function StepGuideDefault({
   className = '',
   enableAnalytics = true
 }: StepGuideVariantProps) {
+  const intl = useTranslation();
+
   // Performance monitoring
   const { recordSectionRenderTime } = usePerformanceMonitoring();
 
@@ -87,7 +90,7 @@ export function StepGuideDefault({
         <div className={styles.content}>
           {/* Section Title */}
           <HeadingTag className={styles.title}>
-            {content.title}
+            {intl.formatMessage({ id: content.title })}
           </HeadingTag>
 
           {/* Steps Container */}
@@ -95,7 +98,7 @@ export function StepGuideDefault({
             {/* Ordered list for semantic HTML and accessibility */}
             <ol className={styles.stepsList}>
               {content.steps.map((step) => (
-                <StepRow key={step.id} step={step} />
+                <StepRow key={step.id} step={step} intl={intl} />
               ))}
             </ol>
           </div>

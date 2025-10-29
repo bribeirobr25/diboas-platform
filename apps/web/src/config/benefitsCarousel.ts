@@ -1,15 +1,18 @@
 /**
  * Benefits Page FeatureShowcase Configuration
- * 
+ *
  * Domain-Driven Design: Benefits-specific showcase configuration
  * Service Agnostic Abstraction: Decoupled configuration following FeatureShowcase pattern
  * No Hardcoded Values: Configurable through interfaces
+ * DRY Principles: Uses centralized ROUTES configuration for all links
  */
 
 import type { FeatureShowcaseSlide, FeatureShowcaseVariantConfig } from './featureShowcase';
+import { ROUTES } from './routes';
 
 // Benefits-specific showcase slides
 // Note: Titles, descriptions, and CTA text are translation keys that will be resolved at runtime
+// DRY Principles: All links use centralized ROUTES configuration
 export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'exclusive-rewards',
@@ -17,7 +20,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       title: 'marketing.benefits.exclusiveRewards.title',
       description: 'marketing.benefits.exclusiveRewards.description',
       ctaText: 'marketing.benefits.exclusiveRewards.ctaText',
-      ctaHref: '/rewards',
+      ctaHref: ROUTES.REWARDS.BENEFITS,
       ctaTarget: '_self'
     },
     assets: {
@@ -33,7 +36,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       title: 'marketing.benefits.financialFreedom.title',
       description: 'marketing.benefits.financialFreedom.description',
       ctaText: 'marketing.benefits.financialFreedom.ctaText',
-      ctaHref: '/account',
+      ctaHref: ROUTES.ACCOUNT,
       ctaTarget: '_self'
     },
     assets: {
@@ -49,7 +52,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       title: 'marketing.benefits.smartInvesting.title',
       description: 'marketing.benefits.smartInvesting.description',
       ctaText: 'common.buttons.learnMore',
-      ctaHref: '/investing',
+      ctaHref: ROUTES.INVESTING,
       ctaTarget: '_self'
     },
     assets: {
@@ -65,7 +68,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       title: 'marketing.benefits.secureBanking.title',
       description: 'marketing.benefits.secureBanking.description',
       ctaText: 'marketing.benefits.secureBanking.ctaText',
-      ctaHref: '/security',
+      ctaHref: ROUTES.SECURITY.BENEFITS,
       ctaTarget: '_self'
     },
     assets: {

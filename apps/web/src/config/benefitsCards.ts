@@ -5,6 +5,8 @@
  * Service Agnostic Abstraction: Decoupled benefit content from presentation
  * Configuration Management: Centralized benefit cards content and settings
  * No Hardcoded Values: All values configurable through interfaces
+ *
+ * Note: Title, description, and card content are translation keys that will be resolved at runtime
  */
 
 import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards/types';
@@ -19,8 +21,8 @@ import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards/ty
 export const DEFAULT_BENEFITS_CARDS_CONFIG: BenefitsCardsConfig = {
   /** Section configuration */
   section: {
-    title: 'Why Choose Diboas',
-    description: 'Experience the benefits of modern financial management with our comprehensive platform.',
+    title: 'marketing.benefitsCards.title',
+    description: 'marketing.benefitsCards.description',
     backgroundColor: 'light-purple'
   },
 
@@ -29,37 +31,37 @@ export const DEFAULT_BENEFITS_CARDS_CONFIG: BenefitsCardsConfig = {
     {
       id: 'money-flow',
       icon: '/assets/icons/money-flow.avif',
-      iconAlt: 'Money flow icon representing seamless transaction management',
-      title: 'Seamless Money Flow',
-      description: 'Track and manage your transactions effortlessly with real-time updates and intelligent categorization.'
+      iconAlt: 'marketing.benefitsCards.cards.moneyFlow.iconAlt',
+      title: 'marketing.benefitsCards.cards.moneyFlow.title',
+      description: 'marketing.benefitsCards.cards.moneyFlow.description'
     },
     {
       id: 'investing',
       icon: '/assets/icons/investing.avif',
-      iconAlt: 'Investing icon representing smart investment opportunities',
-      title: 'Smart Investing',
-      description: 'Grow your wealth with data-driven investment recommendations and portfolio management tools.'
+      iconAlt: 'marketing.benefitsCards.cards.investing.iconAlt',
+      title: 'marketing.benefitsCards.cards.investing.title',
+      description: 'marketing.benefitsCards.cards.investing.description'
     },
     {
       id: 'money-circle',
       icon: '/assets/icons/money-circle.avif',
-      iconAlt: 'Money circle icon representing circular economy and financial sustainability',
-      title: 'Financial Sustainability',
-      description: 'Build a sustainable financial future with tools designed for long-term financial health and stability.'
+      iconAlt: 'marketing.benefitsCards.cards.moneyCircle.iconAlt',
+      title: 'marketing.benefitsCards.cards.moneyCircle.title',
+      description: 'marketing.benefitsCards.cards.moneyCircle.description'
     },
     {
       id: 'learn',
       icon: '/assets/icons/learn.avif',
-      iconAlt: 'Learn icon representing financial education and knowledge',
-      title: 'Financial Education',
-      description: 'Access comprehensive resources and personalized insights to improve your financial literacy.'
+      iconAlt: 'marketing.benefitsCards.cards.learn.iconAlt',
+      title: 'marketing.benefitsCards.cards.learn.title',
+      description: 'marketing.benefitsCards.cards.learn.description'
     },
     {
       id: 'rewards-medal',
       icon: '/assets/icons/rewards-medal.avif',
-      iconAlt: 'Rewards medal icon representing benefits and achievements',
-      title: 'Exclusive Rewards',
-      description: 'Earn rewards and unlock exclusive benefits as you achieve your financial goals and milestones.'
+      iconAlt: 'marketing.benefitsCards.cards.rewards.iconAlt',
+      title: 'marketing.benefitsCards.cards.rewards.title',
+      description: 'marketing.benefitsCards.cards.rewards.description'
     }
   ],
 

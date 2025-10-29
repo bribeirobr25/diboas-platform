@@ -5,7 +5,10 @@
  * Service Agnostic Abstraction: Decoupled navigation content from presentation
  * Configuration Management: Centralized sticky features content and asset paths
  * No Hardcoded Values: All values configurable through interfaces
+ * DRY Principles: Uses centralized ROUTES configuration for all links
  */
+
+import { ROUTES } from './routes';
 
 export type StickyFeaturesNavVariant = 'default';
 
@@ -58,68 +61,69 @@ export const DEFAULT_STICKY_FEATURES_NAV_SETTINGS: StickyFeaturesNavSettings = {
   enableAnalytics: true,
 } as const;
 
-// Default feature categories with exact content from documentation
+// Default feature categories - Note: All text content uses translation keys
+// DRY Principles: All links use centralized ROUTES configuration
 export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
   {
     id: 'banking',
-    name: 'Banking',
+    name: 'marketing.stickyFeaturesNav.categories.banking.name',
     items: [
       {
         id: 'banking-realtime-borderless',
         image: '/assets/socials/real/family-trip.avif',
         imageAlt: 'Family enjoying a trip together representing real-time borderless banking',
-        heading: 'Banking - Real Time & Borderlesss',
-        description: 'A jornada financeira dos jovens começa aqui. Peça uma conta para seus filhos menores de idade.',
-        ctaText: 'More Info',
-        ctaLink: '#',
+        heading: 'marketing.stickyFeaturesNav.banking.heading',
+        description: 'marketing.stickyFeaturesNav.banking.description',
+        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        ctaLink: ROUTES.BENEFITS,
         ctaTarget: '_self',
       },
     ],
   },
   {
     id: 'investing',
-    name: 'Investing',
+    name: 'marketing.stickyFeaturesNav.categories.investing.name',
     items: [
       {
         id: 'investing-prepare-future',
         image: '/assets/socials/real/music.avif',
         imageAlt: 'Person enjoying music while planning their financial future',
-        heading: 'Investing - Prepare yourself now and enjoy your Future',
-        description: 'Quem escolhe o Nu turbina o rendimento para até 120% do CDI.',
-        ctaText: 'More Info',
-        ctaLink: '#',
+        heading: 'marketing.stickyFeaturesNav.investing.heading',
+        description: 'marketing.stickyFeaturesNav.investing.description',
+        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        ctaLink: ROUTES.INVESTING,
         ctaTarget: '_self',
       },
     ],
   },
   {
     id: 'strategies',
-    name: 'Strategies',
+    name: 'marketing.stickyFeaturesNav.categories.strategies.name',
     items: [
       {
         id: 'strategies-relax-grow',
         image: '/assets/socials/real/nature.avif',
         imageAlt: 'Person relaxing in nature while their investments grow',
-        heading: 'Strategies - Relax while your Money Grow',
-        description: 'Tenha mais praticidade no dia a dia: use seu Cartão Nubank Mastercard direto no celular com Google Pay, Apple Pay ou Samsung Pay.',
-        ctaText: 'More Info',
-        ctaLink: '#',
+        heading: 'marketing.stickyFeaturesNav.strategies.heading',
+        description: 'marketing.stickyFeaturesNav.strategies.description',
+        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        ctaLink: ROUTES.DEFI_STRATEGIES,
         ctaTarget: '_self',
       },
     ],
   },
   {
     id: 'business',
-    name: 'Business',
+    name: 'marketing.stickyFeaturesNav.categories.business.name',
     items: [
       {
         id: 'business-day-to-day',
         image: '/assets/socials/real/money-with-icon.avif',
         imageAlt: 'Business professional managing day-to-day financial tasks',
-        heading: 'Business - Helping you with your day-to-day tasks',
-        description: 'Faça e receba transferências instantâneas, pague contas e compre a qualquer hora pelo app.',
-        ctaText: 'More Info',
-        ctaLink: '#',
+        heading: 'marketing.stickyFeaturesNav.business.heading',
+        description: 'marketing.stickyFeaturesNav.business.description',
+        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        ctaLink: ROUTES.BUSINESS.BENEFITS,
         ctaTarget: '_self',
       },
     ],
@@ -130,7 +134,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
 export const STICKY_FEATURES_NAV_CONFIGS = {
   default: {
     variant: 'default' as const,
-    mainTitle: 'More For You',
+    mainTitle: 'marketing.stickyFeaturesNav.mainTitle',
     categories: DEFAULT_FEATURE_CATEGORIES,
     settings: DEFAULT_STICKY_FEATURES_NAV_SETTINGS,
     analytics: {

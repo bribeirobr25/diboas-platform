@@ -5,7 +5,10 @@
  * Service Agnostic Abstraction: Decoupled FAQ content from presentation
  * Configuration Management: Centralized FAQ content and settings
  * No Hardcoded Values: All values configurable through interfaces
+ * DRY Principles: Uses centralized ROUTES configuration for all links
  */
+
+import { ROUTES } from './routes';
 
 export type FAQAccordionVariant = 'default';
 
@@ -126,11 +129,12 @@ export const DEFAULT_FAQ_ITEMS: FAQItem[] = [
 
 // Default content configuration
 // Note: Title, description, and CTA text are translation keys that will be resolved at runtime
+// DRY Principles: All links use centralized ROUTES configuration
 export const DEFAULT_FAQ_ACCORDION_CONTENT: FAQAccordionContent = {
   title: 'marketing.faq.title',
   description: 'marketing.faq.description',
   ctaText: 'marketing.faq.ctaText',
-  ctaHref: '/faq',
+  ctaHref: ROUTES.HELP.FAQ,
   ctaTarget: '_self',
   items: DEFAULT_FAQ_ITEMS
 } as const;
