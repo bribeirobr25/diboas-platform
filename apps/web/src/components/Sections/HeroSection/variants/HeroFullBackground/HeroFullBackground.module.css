@@ -11,15 +11,32 @@
    HERO FULL BACKGROUND VARIANT
    ================================ */
 
-/* Section Container */
+/* Section Container - Dynamic height with bottom rounded corners */
 .section {
   position: relative;
   width: var(--section-width-full);
-  height: var(--section-height-hero);
+  min-height: var(--section-min-height-hero-mobile);
+  padding-bottom: var(--section-hero-bottom-padding);
+  border-bottom-left-radius: var(--hs-section-border-radius-bottom-left);
+  border-bottom-right-radius: var(--hs-section-border-radius-bottom-right);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .section {
+    min-height: var(--section-min-height-hero-tablet);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .section {
+    min-height: var(--section-min-height-hero-desktop);
+  }
 }
 
 /* ================================
@@ -37,6 +54,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border-bottom-left-radius: var(--hs-section-border-radius-bottom-left);
+  border-bottom-right-radius: var(--hs-section-border-radius-bottom-right);
   z-index: 1;
 }
 
@@ -86,17 +105,14 @@
   }
 }
 
-/* Content Wrapper */
+/* Content Wrapper - Changed to relative positioning for auto-height */
 .content {
-  position: absolute;
-  top: var(--percent-50);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding-top: 0;
+  position: relative;
+  width: 100%;
+  padding-top: var(--spacing-5xl);
   padding-left: var(--spacing-3xl);
   padding-right: var(--spacing-3xl);
-  padding-bottom: var(--dimension-136);
+  padding-bottom: var(--spacing-5xl);
   display: flex;
   flex-direction: column;
   gap: var(--fs-gap-md);
@@ -130,11 +146,21 @@
   flex-direction: column;
   gap: var(--spacing-xl);
   width: var(--percent-100);
+  padding-top: var(--hs-left-column-offset-mobile);
 }
 
+/* Responsive: Tablet */
+@media (min-width: 768px) {
+  .leftColumn {
+    padding-top: var(--hs-left-column-offset-tablet);
+  }
+}
+
+/* Responsive: Desktop */
 @media (min-width: 1024px) {
   .leftColumn {
     width: var(--percent-60);
+    padding-top: var(--hs-left-column-offset-desktop);
   }
 }
 

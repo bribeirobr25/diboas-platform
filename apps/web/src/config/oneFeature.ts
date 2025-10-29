@@ -1,11 +1,14 @@
 /**
  * One Feature Configuration
- * 
+ *
  * Domain-Driven Design: Single feature showcase domain configuration with variant support
  * Service Agnostic Abstraction: Decoupled feature content from presentation
  * Configuration Management: Centralized feature content and settings
  * No Hardcoded Values: All values configurable through interfaces
+ * DRY Principles: Uses centralized ROUTES configuration for all links
  */
+
+import { ROUTES } from './routes';
 
 export type OneFeatureVariant = 'default';
 
@@ -58,43 +61,45 @@ export interface OneFeatureVariantConfig {
 
 // Default features
 // Note: Feature titles are translation keys that will be resolved at runtime
+// DRY Principles: All links use centralized ROUTES configuration
 export const DEFAULT_FEATURES: FeatureItem[] = [
   {
     id: 'me-roubaram',
     title: 'marketing.oneFeature.features.fraudReport',
     isPrimary: true,
-    href: '/security/fraud-report',
+    href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   },
   {
     id: 'canal-denuncias',
     title: 'marketing.oneFeature.features.reports',
-    href: '/security/reports',
+    href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   },
   {
     id: 'central-protecao',
     title: 'marketing.oneFeature.features.protection',
-    href: '/security/protection',
+    href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   },
   {
     id: 'canais-atendimento',
     title: 'marketing.oneFeature.features.support',
-    href: '/security/support',
+    href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   }
 ];
 
 // Default content configuration
 // Note: Title, subtitle, and CTA text are translation keys that will be resolved at runtime
+// DRY Principles: All links use centralized ROUTES configuration
 export const DEFAULT_ONE_FEATURE_CONTENT: OneFeatureContent = {
   title: 'marketing.oneFeature.title',
   subtitle: 'marketing.oneFeature.subtitle',
   features: DEFAULT_FEATURES,
   cta: {
     text: 'marketing.oneFeature.ctaText',
-    href: '/security',
+    href: ROUTES.SECURITY.BENEFITS,
     target: '_self'
   }
 } as const;

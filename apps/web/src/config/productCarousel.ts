@@ -1,11 +1,15 @@
 /**
  * Product Carousel Configuration
- * 
+ *
  * Domain-Driven Design: Product carousel domain configuration with variant support
  * Service Agnostic Abstraction: Decoupled carousel content from presentation
  * Configuration Management: Centralized carousel content and settings
  * No Hardcoded Values: All values configurable through interfaces
+ * DRY Principles: Uses centralized ROUTES configuration for all links
  */
+
+import { APP_URL } from '@/config/environment';
+import { ROUTES } from './routes';
 
 export type ProductCarouselVariant = 'default';
 
@@ -65,6 +69,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SETTINGS: ProductCarouselSettings = {
 
 // Default carousel slides (matches documentation specifications)
 // Note: Titles and subtitles are translation keys that will be resolved at runtime
+// DRY Principles: All links use centralized ROUTES configuration
 export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
   {
     id: 'benefits',
@@ -72,7 +77,8 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     subtitle: 'marketing.productCarousel.slides.benefits.subtitle',
     image: '/assets/socials/real/couple.avif',
     imageAlt: 'Couple',
-    ctaText: 'common.buttons.learnMore',
+    ctaText: 'common.buttons.getStarted',
+    ctaHref: APP_URL
   },
   {
     id: 'rewards',
@@ -81,6 +87,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     image: '/assets/socials/real/group.avif',
     imageAlt: 'friends',
     ctaText: 'common.buttons.learnMore',
+    ctaHref: ROUTES.INVESTING
   },
   {
     id: 'business',
@@ -88,7 +95,8 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     subtitle: 'marketing.productCarousel.slides.business.subtitle',
     image: '/assets/socials/real/share.avif',
     imageAlt: 'Business group',
-    ctaText: 'common.buttons.getStarted',
+    ctaText: 'common.buttons.learnMore',
+    ctaHref: ROUTES.BUSINESS.BENEFITS
   }
 ] as const;
 

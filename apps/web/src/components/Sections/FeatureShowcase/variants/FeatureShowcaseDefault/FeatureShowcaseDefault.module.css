@@ -195,6 +195,7 @@
   margin: 0 auto;
   max-width: var(--fs-description-max-width);
   text-align: center;
+  white-space: pre-line; /* Preserve line breaks from \n characters */
 }
 
 /* Responsive Description Font Sizes */

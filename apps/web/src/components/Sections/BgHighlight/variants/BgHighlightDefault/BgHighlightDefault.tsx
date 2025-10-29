@@ -13,6 +13,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useTranslation } from '@diboas/i18n/client';
 import type { BgHighlightVariantProps } from '../../types';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import styles from './BgHighlightDefault.module.css';
@@ -41,6 +42,8 @@ export function BgHighlightDefault({
   enableAnalytics = true,
   priority = false
 }: BgHighlightVariantProps) {
+  const intl = useTranslation();
+
   // Performance monitoring
   const { recordSectionRenderTime } = usePerformanceMonitoring();
 
@@ -81,10 +84,9 @@ export function BgHighlightDefault({
       <div className={styles.backgroundLayer}>
         <Image
           src={backgroundImage.src}
-          alt={backgroundImage.alt}
+          alt={intl.formatMessage({ id: backgroundImage.alt })}
           fill
           priority={priority}
-          quality={90}
           className={styles.backgroundImage}
           onLoad={handleImageLoad}
           onError={handleImageError}
@@ -103,12 +105,12 @@ export function BgHighlightDefault({
         <div className={styles.content}>
           {/* Title */}
           <HeadingTag className={styles.title}>
-            {content.title}
+            {intl.formatMessage({ id: content.title })}
           </HeadingTag>
 
           {/* Description */}
           <p className={styles.description}>
-            {content.description}
+            {intl.formatMessage({ id: content.description })}
           </p>
         </div>
       </div>

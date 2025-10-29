@@ -13,6 +13,7 @@
 import React, { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import styles from './StickyFeaturesNavDefault.module.css';
 import type { StickyFeaturesNavVariantProps } from '../types';
@@ -24,6 +25,7 @@ export function StickyFeaturesNavDefault({
   backgroundColor,
   onCTAClick,
 }: StickyFeaturesNavVariantProps) {
+  const intl = useTranslation();
   const { mainTitle, categories, analytics } = config;
 
   // Flatten all items from categories - memoized to prevent infinite re-renders
@@ -58,7 +60,7 @@ export function StickyFeaturesNavDefault({
       <div className={styles.container}>
         {/* Title Container - Row 1 */}
         <div className={styles.titleContainer}>
-          <h2 className={styles.mainTitle}>{mainTitle}</h2>
+          <h2 className={styles.mainTitle}>{intl.formatMessage({ id: mainTitle })}</h2>
         </div>
 
         {/* Content Container - Row 2 */}
@@ -76,7 +78,7 @@ export function StickyFeaturesNavDefault({
                 }}
               >
                 {/* Card Heading - Row 1 */}
-                <h3 className={styles.cardHeading}>{item.heading}</h3>
+                <h3 className={styles.cardHeading}>{intl.formatMessage({ id: item.heading })}</h3>
 
                 {/* Card Content - Row 2 (2 columns: image left, text right) */}
                 <div className={styles.cardContent}>
@@ -96,15 +98,15 @@ export function StickyFeaturesNavDefault({
 
                   {/* Right Column: Text Content */}
                   <div className={styles.textCardContent}>
-                    <p className={styles.cardDescription}>{item.description}</p>
+                    <p className={styles.cardDescription}>{intl.formatMessage({ id: item.description })}</p>
                     <Link
                       href={item.ctaLink}
                       target={item.ctaTarget}
                       onClick={handleCTAClick(item.categoryId, item.id, item.ctaLink)}
                       className={styles.ctaLink}
-                      aria-label={`${item.ctaText} about ${item.heading}`}
+                      aria-label={`${intl.formatMessage({ id: item.ctaText })} about ${intl.formatMessage({ id: item.heading })}`}
                     >
-                      {item.ctaText} &gt;
+                      {intl.formatMessage({ id: item.ctaText })} &gt;
                     </Link>
                   </div>
                 </div>

@@ -11,6 +11,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
+import { useTranslation } from '@diboas/i18n/client';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { BenefitsCardsVariantProps, BenefitCard } from '../../types';
 import styles from './BenefitsCardsDefault.module.css';
@@ -20,6 +21,7 @@ interface BenefitCardItemProps {
   priority?: boolean;
   onLoad?: () => void;
   onError?: (cardId: string) => void;
+  intl: ReturnType<typeof useTranslation>;
 }
 
 /**
@@ -29,7 +31,8 @@ function BenefitCardItem({
   card,
   priority = false,
   onLoad,
-  onError
+  onError,
+  intl
 }: BenefitCardItemProps) {
   const [imageError, setImageError] = useState(false);
 
@@ -49,7 +52,7 @@ function BenefitCardItem({
         {!imageError ? (
           <Image
             src={card.icon}
-            alt={card.iconAlt}
+            alt={intl.formatMessage({ id: card.iconAlt })}
             width={64}
             height={64}
             priority={priority}
@@ -68,10 +71,10 @@ function BenefitCardItem({
       {/* Content */}
       <div className={styles.cardContent}>
         <h3 className={styles.cardTitle}>
-          {card.title}
+          {intl.formatMessage({ id: card.title })}
         </h3>
         <p className={styles.cardDescription}>
-          {card.description}
+          {intl.formatMessage({ id: card.description })}
         </p>
       </div>
     </article>
@@ -87,6 +90,7 @@ export function BenefitsCardsDefault({
   enableAnalytics = true,
   priority = false
 }: BenefitsCardsVariantProps) {
+  const intl = useTranslation();
   const { recordSectionRenderTime } = usePerformanceMonitoring();
   const [imageLoadingState, setImageLoadingState] = useState({
     loaded: 0,
@@ -144,11 +148,11 @@ export function BenefitsCardsDefault({
         {config.section?.title && (
           <header className={styles.header}>
             <HeadingTag id="benefits-title" className={styles.title}>
-              {config.section.title}
+              {intl.formatMessage({ id: config.section.title })}
             </HeadingTag>
             {config.section.description && (
               <p className={styles.description}>
-                {config.section.description}
+                {intl.formatMessage({ id: config.section.description })}
               </p>
             )}
           </header>
@@ -163,6 +167,7 @@ export function BenefitsCardsDefault({
               priority={priority && index < 3} // Prioritize first 3 cards (top row on desktop)
               onLoad={handleImageLoad}
               onError={handleImageError}
+              intl={intl}
             />
           ))}
         </div>

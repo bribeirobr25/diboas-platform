@@ -1,11 +1,14 @@
 /**
  * Feature Showcase Configuration
- * 
+ *
  * Domain-Driven Design: Feature showcase domain configuration with variant support
  * Service Agnostic Abstraction: Decoupled showcase content from presentation
  * Configuration Management: Centralized feature showcase content and asset paths
  * No Hardcoded Values: All values configurable through interfaces
+ * DRY Principles: Uses centralized ROUTES configuration for all links
  */
+
+import { ROUTES } from './routes';
 
 export type FeatureShowcaseVariant = 'default' | 'benefits';
 
@@ -190,7 +193,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           title: 'Learn Financial Strategies',
           description: 'Access comprehensive courses on personal finance, investing, and DeFi strategies. Build your knowledge with expert-curated content.',
           ctaText: 'Start Learning',
-          ctaHref: '/learn',
+          ctaHref: ROUTES.LEARN.BENEFITS,
           ctaTarget: '_self'
         },
         assets: {
@@ -227,7 +230,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           title: 'Enterprise Financial Solutions',
           description: 'Streamline your business financial operations with our comprehensive suite of tools. From payroll to treasury management.',
           ctaText: 'Explore Business',
-          ctaHref: '/business',
+          ctaHref: ROUTES.BUSINESS.BENEFITS,
           ctaTarget: '_self'
         },
         assets: {

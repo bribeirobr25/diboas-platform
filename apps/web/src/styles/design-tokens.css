@@ -198,18 +198,27 @@
   /* ================================
      SECTION DIMENSIONS
      ================================ */
-  
+
   /* Section Heights - Fixed heights for all section components */
-  --section-height-hero: 632px;
+  /* Hero Section - Dynamic min-height with responsive adjustments */
+  --section-min-height-hero-desktop: 632px;  /* Desktop: minimum 632px, dynamic based on content */
+  --section-min-height-hero-tablet: 550px;   /* Tablet: proportional scaling */
+  --section-min-height-hero-mobile: 480px;   /* Mobile: proportional scaling */
+  --section-hero-bottom-padding: 20px;       /* Additional bottom padding for dynamic height calculation */
+
+  /* Hero Section - Left Column Top Spacing (to show more background) */
+  --hs-left-column-offset-desktop: 300px;   /* Desktop: push content 100px down */
+  --hs-left-column-offset-tablet: 300px;    /* Tablet: push content 100px down */
+  --hs-left-column-offset-mobile: 300px;     /* Mobile: push content 60px down */
 
   /* AppFeaturesCarousel Heights (-90px from original 980px) */
   --section-height-app-features-carousel: 890px; /* Desktop: 980px - 90px */
   --section-height-app-features-carousel-tablet: 836px; /* Tablet: proportional ratio */
   --section-height-app-features-carousel-mobile: 744px; /* Mobile: proportional ratio */
 
-  /* ProductCarousel Heights (-110px from original 980px) */
-  --section-height-product-carousel: 870px; /* Desktop/Tablet: 980px - 110px */
-  --section-height-product-carousel-mobile: 728px; /* Mobile: proportional ratio */
+  /* ProductCarousel Heights - Auto-fit to content */
+  --section-height-product-carousel: auto; /* Desktop/Tablet: Auto-height based on content */
+  --section-height-product-carousel-mobile: auto; /* Mobile: Auto-height based on content */
 
   /* OneFeature Heights (-200px from original 980px) */
   --section-height-one-feature: 780px; /* All viewports: 980px - 200px */
@@ -637,11 +646,14 @@
      ================================ */
   /* Font Weights */
   --pc-font-weight-bold: 700;
-  
+
   /* Line Heights */
   --pc-line-height-subtitle: 1.4;
   --pc-webkit-line-clamp: 2;
-  
+
+  /* Text Alignment */
+  --pc-subtitle-text-align: left;
+
   /* ================================
      BORDERS & SHAPES
      ================================ */
@@ -747,7 +759,8 @@
      ================================ */
   /* Section Dimensions */
   --hs-section-padding-base: 0px;
-  --hs-section-border-radius: 30px;
+  --hs-section-border-radius-bottom-left: 30px;   /* Bottom left corner radius */
+  --hs-section-border-radius-bottom-right: 30px;  /* Bottom right corner radius */
   
   /* Content Container */
   --hs-content-padding-mobile: 2rem 1.5rem;
@@ -1380,7 +1393,8 @@
   
   /* Section Configuration */
   --hs-section-max-height: none;
-  --hs-section-border-radius: 0px;
+  --hs-section-border-radius-bottom-left: 0px;   /* Mobile: No bottom left corner radius */
+  --hs-section-border-radius-bottom-right: 0px;  /* Mobile: No bottom right corner radius */
   
   /* Typography Spacing */
   --hs-title-margin-bottom: 16px;
@@ -1873,6 +1887,10 @@
   --sg-step-row-margin-bottom-desktop: 24px;        /* Margin between steps - desktop */
   --sg-step-row-margin-bottom-tablet: 20px;         /* Margin between steps - tablet */
   --sg-step-row-margin-bottom-mobile: 16px;         /* Margin between steps - mobile */
+
+  /* Step Row Border */
+  --sg-step-row-border-top-width: 1px;              /* Border width */
+  --sg-step-row-border-top-color: #e2e8f0;          /* Subtle border color */
 
   /* ================================
      STEP NUMBER STYLES

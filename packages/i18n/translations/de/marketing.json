@@ -118,61 +118,61 @@
     }
   },
   "productCarousel": {
-    "heading": "OneFi - Eine App für Alles",
+    "heading": "Eine App für alles",
     "slides": {
       "benefits": {
-        "title": "diBoaS Benefits",
-        "subtitle": "Übernehmen Sie die Kontrolle über Ihr Finanzleben"
+        "title": "Ohne Umstände",
+        "subtitle": "Echtzeit-Überweisungen, keine Limits, überall auf der Welt.\nEinfach. Schnell. Sicher.\nEröffne dein Konto."
       },
       "rewards": {
-        "title": "diBoaS Rewards",
-        "subtitle": "Teilen Sie, was gut ist, und wachsen Sie mit Ihren Freunden"
+        "title": "Dein Geld Arbeitet für Dich",
+        "subtitle": "Aktien, Anleihen, deine erste Krypto.\nDeine erste Investition.\nDein erster Schritt zum Wachstum.\nStarte mit nur 10 €."
       },
       "business": {
-        "title": "diBoaS Business",
-        "subtitle": "Lassen Sie Ihren Geschäfts-Cashflow passives Einkommen generieren"
+        "title": "Auch für Dein Unternehmen",
+        "subtitle": "Cashflow liegt brach? Lass es arbeiten.\nNull Bürokratie, automatische Rendite.\ndiBoaS Business."
       }
     }
   },
   "featureShowcase": {
     "overview": {
-      "title": "Aktivitäten Verfolgen & Belohnungen Verdienen",
-      "description": "Überwachen Sie Ihre Finanzaktivitäten und verdienen Sie Belohnungen an einem Ort. Erhalten Sie einen vollständigen Überblick über Ihre finanzielle Gesundheit mit exklusiven Vorteilen."
+      "title": "Alles an Einem Ort",
+      "description": "Überweisungen, Krypto, Aktien, Anlagestrategien und DeFi.\nAlles auf einem Bildschirm. In Echtzeit aktualisiert.\n\nSchluss mit 5 verschiedenen Apps."
     },
     "activities": {
-      "title": "Verfolgen Sie Ihre Finanzaktivitäten",
-      "description": "Überwachen Sie alle Ihre Finanzaktivitäten an einem Ort. Von Ausgabeneinblicken bis hin zur Investitionsverfolgung erhalten Sie einen vollständigen Überblick über Ihre finanzielle Gesundheit."
+      "title": "Sicher und Einfach",
+      "description": "\"Ich möchte 5.000 € für eine Reise sparen\"\n\"Ich brauche einen Notgroschen\"\n\"Ich möchte monatlich 100 € investieren\"\n\nKeine Komplikationen. So einfach ist diBoaS."
     },
     "rewards": {
-      "title": "Belohnungen & Vorteile Verdienen",
-      "description": "Werden Sie für Ihre Finanzaktivitäten belohnt. Verdienen Sie Punkte, schalten Sie Vorteile frei und erhalten Sie Zugang zu exklusiven Funktionen, während Sie Ihr Finanzportfolio ausbauen."
+      "title": "Verdiene Mehr",
+      "description": "✓ Cashback und Punktesystem\n✓ Frühzeitiger Zugang zu neuen Features\n✓ Bonus-Renditen bei Strategien\n\nJe mehr du nutzt, desto mehr verdienst du."
     }
   },
   "appFeatures": {
-    "sectionTitle": "Eine App für alles. Und alles in der App",
+    "sectionTitle": "Alles, was du brauchst, ist hier.",
     "organizeMoney": {
-      "title": "Organisieren Sie Ihr Geld",
-      "description": "Verfolgen Sie Ausgaben, legen Sie Budgets fest und erreichen Sie Ihre finanziellen Ziele mit intelligenten Tools",
-      "ctaText": "Jetzt Organisieren",
-      "chipLabel": "Intelligentes Budget"
+      "title": "Dein Geld, Deine Kontrolle",
+      "description": "Behalte die volle Kontrolle über dein Geld.\nKeine Limits, keine Einmischung.\nNur du kontrollierst es.",
+      "ctaText": "Mehr erfahren",
+      "chipLabel": "Totale Kontrolle"
     },
     "instantPayments": {
-      "title": "Sofortzahlungen",
-      "description": "Senden und empfangen Sie Geld sofort mit null Gebühren und maximaler Sicherheit",
-      "ctaText": "Geld Senden",
-      "chipLabel": "Null Gebühren"
+      "title": "Lerne Alles Ohne Verwirrung",
+      "description": "Verstehe, wie Geld funktioniert.\nWie du deine Finanzen organisierst.\nDie beste Art zu investieren.",
+      "ctaText": "Mehr erfahren",
+      "chipLabel": "Bildung"
     },
     "securePurchases": {
-      "title": "Sichere Einkäufe",
-      "description": "Kaufen Sie online und im Geschäft mit Sicherheit auf Bankniveau und Betrugsschutz",
-      "ctaText": "Sicher Einkaufen",
-      "chipLabel": "Geschützt"
+      "title": "Vervielfache Dein Einkommen",
+      "description": "Kaufe Vermögenswerte, die im Laufe der Zeit an Wert gewinnen.\nTätige Investitionen, die dein Geld vermehren.\nZugang zu Strategien mit überdurchschnittlichen Renditen.",
+      "ctaText": "Mehr erfahren",
+      "chipLabel": "Wachstum"
     },
     "financialGoals": {
-      "title": "Finanzielle Ziele",
-      "description": "Setzen und erreichen Sie Ihre finanziellen Ziele mit KI-gestützter Anleitung und Einblicken",
-      "ctaText": "Ziele Setzen",
-      "chipLabel": "KI-Gestützt"
+      "title": "Dein Unternehmen Verdient Mehr",
+      "description": "Investitionen mit Cashflow.\nKreditlinie direkt mit anderen Unternehmen (P2P).\nNull Bürokratie mit hoher Sicherheit.",
+      "ctaText": "Mehr erfahren",
+      "chipLabel": "Business"
     }
   },
   "benefits": {
@@ -197,14 +197,14 @@
     }
   },
   "oneFeature": {
-    "title": "Ihre Sicherheit Zuerst",
-    "subtitle": "Entdecken Sie unsere Tools und Kanäle, um Ihr Konto sicher und geschützt zu halten",
+    "title": "Sicherheit hat immer Priorität.",
+    "subtitle": "Wir sind für dich da, um dir vollständige Unterstützung zu bieten und die Sicherheit deines Geldes zu gewährleisten. 24 Stunden am Tag, 7 Tage die Woche.",
     "ctaText": "Entdecken Sie Unsere Lösungen",
     "features": {
-      "fraudReport": "Betrug Melden",
-      "reports": "Meldekanal",
+      "fraudReport": "Erhöhe deine Sicherheit",
+      "reports": "Etwas stimmt nicht? Handle schnell",
       "protection": "Schutzzentrum",
-      "support": "Support-Kanäle"
+      "support": "24/7 Support"
     }
   },
   "pages": {
@@ -212,8 +212,8 @@
       "title": "diBoaS - Komplettes Finanz-Ökosystem",
       "description": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets auf einer sicheren Plattform.",
       "hero": {
-        "title": "Ihr Komplettes Finanz-Ökosystem",
-        "description": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets auf einer sicheren Plattform. Erleben Sie finanzielle Freiheit mit diBoaS."
+        "title": "Mehr als 5,4 Milliarden Menschen verdienen sicheren, einfachen Zugang zu finanziellem Wachstum.\n\nDu bist eine davon.",
+        "description": ""
       }
     },
     "banking": {
@@ -242,54 +242,147 @@
     }
   },
   "faq": {
-    "title": "Häufig Gestellte Fragen",
-    "description": "Finden Sie Antworten auf häufige Fragen zu diBoaS, Ihren KI-gestützten Guides, Sicherheit und Gebühren.",
-    "ctaText": "Alle FAQs Ansehen",
+    "title": "Häufig gestellte Fragen",
+    "description": "Finde Antworten auf deine wichtigsten Fragen. Wenn du hier nichts findest, antwortet unser Chat in wenigen Minuten.",
+    "ctaText": "Alle Fragen ansehen",
     "items": {
       "q1": {
-        "question": "Muss ich über Kryptowährungen Bescheid wissen, um diBoaS zu verwenden?",
-        "answer": "Überhaupt nicht! Aqua ist speziell für absolute Anfänger konzipiert. Ihre Guides bieten umfassende Schulung und KI-Anleitung, um Ihnen beim Lernen während des Investierens zu helfen, beginnend mit der einfachstmöglichen Erfahrung."
+        "question": "Muss ich mich mit Krypto auskennen, um diBoaS zu nutzen?",
+        "answer": "Überhaupt nicht! Die meisten unserer Nutzer hatten noch nie zuvor investiert.\n\nAqua wurde speziell für absolute Anfänger entwickelt. Es erklärt jeden Begriff, jeden Schritt, jede Entscheidung.\n\nEs ist, als hättest du einen geduldigen Freund, der dir alles beibringt."
       },
       "q2": {
-        "question": "Mit welchem Mindestbetrag kann ich beginnen?",
-        "answer": "Sie können mit nur $10 beginnen. Aqua glaubt, dass jeder Zugang zu Vermögensaufbau-Tools haben sollte und wird Sie durch Ihre ersten kleinen Schritte führen."
+        "question": "Wie viel brauche ich zum Start?",
+        "answer": "10 € reichen aus.\n\nErnsthaft. Zehn Euro.\n\nDie Idee ist, dass du klein anfängst, Vertrauen aufbaust und dann erhöhst, wenn du dich wohlfühlst."
       },
       "q3": {
-        "question": "Wie lange dauert die Einrichtung eines Kontos?",
-        "answer": "Die meisten Benutzer lernen Aqua kennen und schließen die Einrichtung in weniger als 5 Minuten ab, einschließlich Kontoerstellung und erster Einzahlung."
+        "question": "Wie lange dauert es, ein Konto zu eröffnen?",
+        "answer": "Weniger als 5 Minuten.\n\nDu brauchst:\n- Personalausweis / Steuer-ID\n- Handy mit Kamera (für Selfie-Verifizierung)\n- Eine gültige E-Mail\n\nDas war's. Kein Papierkram, keine Bürokratie."
       },
       "q4": {
-        "question": "Wie funktionieren die Guides eigentlich?",
-        "answer": "Die Guides von diBoaS sind KI-gestützte Assistenten, die Ihr Verhalten, Wissen und Komfortniveau analysieren, um Plattformfunktionen zum optimalen Zeitpunkt freizuschalten. Sie entwickeln sich buchstäblich weiter und ändern sich, wenn Sie versierter werden."
+        "question": "Wie funktionieren diese Guides?",
+        "answer": "Sie sind KI-Assistenten, die beobachten, wie du die App nutzt und neue Funktionen freischalten, wenn du bereit bist.\n\nEchtes Beispiel:\n\nWoche 1: Du siehst nur Aqua. Du tätigst deine erste 10 €-Investition.\n\nWoche 3: Du hast 5 kleine Investitionen getätigt und erkundest die App.\nMystic erscheint: \"Möchtest du mehr über Aktien und ETFs erfahren?\"\n\nMonat 3: Du hast ein diversifiziertes Portfolio. Coral schlägt vor: \"Ich sehe, du verstehst Risiko. Möchtest du hochrentables DeFi erkunden?\"\n\nDu siehst nie alles auf einmal. Nur das, was du gerade brauchst."
       },
       "q5": {
-        "question": "Werde ich immer alle vier Guides sehen?",
-        "answer": "Nein! Sie beginnen nur mit Aqua. Mystic und Coral erscheinen schrittweise, wenn Sie für fortgeschrittenere Funktionen bereit sind. Dies verhindert Überforderung bei gleichzeitiger Beibehaltung der Raffinesse."
+        "question": "Sehe ich immer alle Guides?",
+        "answer": "Nein! Du startest nur mit Aqua.\n\nMystic und Coral erscheinen schrittweise, wenn du bereit bist für fortgeschrittenere Funktionen.\n\nDas verhindert Überforderung und bewahrt gleichzeitig die Tiefe."
       },
       "q6": {
-        "question": "Kann ich steuern, welche Guides erscheinen?",
-        "answer": "Ihre Guides erscheinen basierend auf Ihrer natürlichen Entwicklung, aber Sie können die Komplexität bei Bedarf jederzeit reduzieren. Das System ist so konzipiert, dass es Ihnen niemals Funktionen aufzwingt, bevor Sie bereit sind."
+        "question": "Kann ich \"zurückgehen\", wenn etwas zu kompliziert wird?",
+        "answer": "Immer.\n\nEs gibt einen \"Vereinfachen\"-Button auf jedem Bildschirm. Wenn du etwas aktiviert hast und es verwirrend findest, deaktiviere es einfach.\n\nKeine Strafen, keine Fragen."
       },
       "q7": {
-        "question": "Ist die Verwendung von diBoaS sicher?",
-        "answer": "Ja. Wir verwenden dieselben Sicherheitsstandards wie große Banken, mit nicht-verwahrten Wallets, die sicherstellen, dass Sie Ihre Vermögenswerte immer besitzen, militärischer Verschlüsselung und voller regulatorischer Compliance in mehreren Jurisdiktionen."
+        "question": "Sind die Guides verpflichtend?",
+        "answer": "Nein. Du kannst die App ohne sie nutzen.\n\nAber 94% unserer Nutzer bevorzugen es, die Guides aktiv zu halten, weil sie wirklich helfen, sich nicht zu verirren."
       },
       "q8": {
-        "question": "Was passiert, wenn diBoaS geschlossen wird?",
-        "answer": "Sie behalten immer die Kontrolle über Ihre Vermögenswerte. Selbst wenn diBoaS den Betrieb einstellen würde, behielten Sie vollen Zugang zu Ihren Geldern. Ihre Guides helfen Ihnen, dieses Eigentumsmodell zu verstehen."
+        "question": "Ist mein Geld bei diBoaS sicher?",
+        "answer": "Ja. Gleiche Sicherheitsstandards wie große Banken.\n\n- Non-custodial Wallets (du besitzt deine Vermögenswerte)\n- Verschlüsselung auf Militärniveau\n- Konformität mit BaFin, MiCA (Europa) und Bundesbank-Vorschriften\n- Geprüft von unabhängigen Sicherheitsfirmen\n\n2024 hatten wir NULL Fälle von Geldverlust durch Sicherheitslücken."
       },
       "q9": {
-        "question": "Können diBoaS oder die Guides auf mein Geld zugreifen?",
-        "answer": "Nein! Unser Design stellt sicher, dass nur Sie Zugang zu Ihren Geldern haben. Guides geben Empfehlungen und Schulungen, kontrollieren aber niemals Ihr Geld."
+        "question": "Was passiert, wenn diBoaS eines Tages schließt?",
+        "answer": "Du verlierst nichts.\n\nDeine Kryptos bleiben in Wallets, die DU kontrollierst.\nDeine traditionellen Investments werden von regulierten Institutionen verwahrt.\n\nSelbst wenn wir verschwinden würden, hättest du vollen Zugang zu deinem Geld."
       },
       "q10": {
-        "question": "Wie viel kostet die Nutzung von diBoaS?",
-        "answer": "Unsere Gebühren sind einfach und transparent: 0,09% für Start/Stopp-Strategie und 0,9% für Überweisungen/Abhebungen. Niemals versteckte Gebühren. Ihre Guides zeigen immer die genauen Kosten vor jeder Transaktion an."
+        "question": "Kann diBoaS mein Geld anfassen?",
+        "answer": "Nein. Technisch unmöglich.\n\nDie Guides geben Ratschläge und Empfehlungen. Aber jede Transaktion erfordert DEIN Passwort, DEINE Biometrie, DEINE Bestätigung.\n\nWir haben keine Möglichkeit, auch nur einen Cent ohne deine Erlaubnis zu bewegen."
       },
       "q11": {
-        "question": "Gibt es Abonnementgebühren?",
-        "answer": "Die grundlegenden Guide-Funktionen sind kostenlos. Erweiterte KI-Funktionen werden basierend auf Ihrem Aktivitätsniveau und Guide-Fortschritt freigeschaltet, mit optionalen Premium-Abonnements für Power-User."
+        "question": "Wie viel kostet die Nutzung von diBoaS?",
+        "answer": "Transparente Gebühren:\n\n┌────────────────────┬─────────────┬─────────────────┐\n│ Vorgang            │ Du zahlst   │ Andere verlangen│\n├────────────────────┼─────────────┼─────────────────┤\n│ Konto eröffnen     │ 0 €         │ 0 € - 50 €      │\n│ Konto führen       │ 0 €/Monat   │ 15 € - 50 €/Mon │\n│ 100 € investieren  │ 0,09 €      │ 2 € - 10 €      │\n│ 100 € überweisen   │ 0,90 €      │ 3 € - 5 €       │\n│ Echtzeitüberweisung│ 0 €         │ Variiert        │\n│ innerhalb diBoaS   │             │                 │\n└────────────────────┴─────────────┴─────────────────┘\n\nKeine Tricks. Kein Kleingedrucktes.\n\nWir zeigen dir immer die exakten Kosten, bevor du etwas bestätigst."
+      },
+      "q12": {
+        "question": "Gibt es ein Pflichtabonnement?",
+        "answer": "Nein.\n\nDie Basisfunktionen sind für immer kostenlos.\n\nErweiterte Funktionen (wie ultra-personalisierte KI oder professionelle Analysen) können optionale Pläne für 12,90 €/Monat haben.\n\nAber du kannst es problemlos nutzen, ohne etwas zu bezahlen."
+      },
+      "q13": {
+        "question": "Wie verdient ihr dann Geld?",
+        "answer": "Totale Transparenz:\n\n1. Kleine Transaktionsgebühr (diese 0,09% und 0,9%)\n\n2. Content-Ersteller, die unsere Plattform nutzen, zahlen 0,9%\n   (viel weniger als YouTubes 10%)\n\n3. Optionale Abonnements für erweiterte Funktionen\n\nWir verdienen, wenn du es nutzt. Nicht, wenn du nur das Konto offen hältst."
       }
+    }
+  },
+  "benefitsCards": {
+    "title": "Warum diBoaS wählen?",
+    "description": "Weil wir echte Probleme lösen.",
+    "cards": {
+      "moneyFlow": {
+        "title": "Schluss mit App-Jonglage",
+        "description": "Alles auf diBoaS.\n\nDu sparst Zeit, verlierst keine Passwörter und siehst dein gesamtes Vermögen auf einem Bildschirm.",
+        "iconAlt": "Geldfluss-Symbol, das nahtloses Transaktionsmanagement repräsentiert"
+      },
+      "investing": {
+        "title": "Du Hast die Kontrolle",
+        "description": "Du hast die volle Kontrolle über dein Geld.\n\nOb Investitionen, Überweisungen oder Strategien. Du entscheidest wie viel und wann.",
+        "iconAlt": "Investitions-Symbol, das intelligente Investitionsmöglichkeiten repräsentiert"
+      },
+      "moneyCircle": {
+        "title": "Dein Geld Arbeitet Immer",
+        "description": "Ob du Aktien, Krypto oder andere Vermögenswerte kaufst.\nOder exklusive Strategien nutzt.\n\nDein Geld wächst immer.",
+        "iconAlt": "Geldkreis-Symbol, das Kreislaufwirtschaft und finanzielle Nachhaltigkeit repräsentiert"
+      },
+      "learn": {
+        "title": "Investieren Hört auf, Beängstigend zu Sein",
+        "description": "Unsere Nutzer hatten noch nie zuvor investiert, bevor sie diBoaS nutzten.\n\nUnser Lernzentrum erklärt buchstäblich jeden Begriff.\nJede Entscheidung. Jedes Risiko.",
+        "iconAlt": "Lern-Symbol, das Finanzbildung und Wissen repräsentiert"
+      },
+      "rewards": {
+        "title": "Nutze Mehr, Verdiene Mehr",
+        "description": "Punktesystem, Empfehlungsboni, Punkte für erreichte Ziele, VIP-Zugang zu unseren Kursen und vieles mehr.",
+        "iconAlt": "Belohnungsmedaillen-Symbol, das Vorteile und Erfolge repräsentiert"
+      }
+    }
+  },
+  "bgHighlight": {
+    "title": "Ich bin diBoaS. Schön, dich kennenzulernen.",
+    "description": "Einzahlungen, Abhebungen, Überweisungen.\nAlles kostenlos, alles schnell.\n\nDeutschland, international, Krypto, Aktien, Gold... egal.\n\nDeine Investitionen an einem Ort.\nDeine Finanzbildungsschule.\nDeine Belohnungen immer aktiv.\nDeine Sicherheit garantiert.",
+    "imageAlt": "Natürliche Landschaft, die Wachstum und finanzielle Nachhaltigkeit mit diBoaS repräsentiert"
+  },
+  "stepGuide": {
+    "title": "So startest du (dauert weniger als 5 Minuten)",
+    "steps": {
+      "step1": "Besuche unsere App → app.diboas.com",
+      "step2": "Erstelle dein Konto → E-Mail oder verbinde dein Gmail/X",
+      "step3": "Lerne Aqua kennen → Dein persönlicher Guide begrüßt dich und erklärt die Grundlagen",
+      "step4": "Beginne zu Lernen → Nutze unser Lernzentrum",
+      "step5": "Zahle 10 € ein → Überweisung, Echtzeitüberweisung, Kreditkarte...",
+      "step6": "Wähle deinen ersten Schritt → Eine Überweisung tätigen\nODER → Deine erste Investition tätigen\nAqua zeigt dir die einfachsten Optionen, Du wählst eine aus\n\nFertig! Du bist dabei!"
+    }
+  },
+  "stickyFeaturesNav": {
+    "mainTitle": "Entdecke mehr über diBoaS",
+    "ctaText": "Mehr erfahren",
+    "categories": {
+      "banking": {
+        "name": "Banking"
+      },
+      "investing": {
+        "name": "Investieren"
+      },
+      "strategies": {
+        "name": "Strategien"
+      },
+      "business": {
+        "name": "Business"
+      }
+    },
+    "banking": {
+      "heading": "Dein Geld Ohne Umstände",
+      "description": "Einzahlen, senden, überweisen und abheben – einfach und nahtlos.\n\nNutze dein Konto (Echtzeitüberweisung), Kreditkarte, PayPal, Apple oder Google Pay und vieles mehr.\n\nAlles an einem Ort.",
+      "ctaText": "Optionen ansehen"
+    },
+    "investing": {
+      "heading": "Echtes Investieren mit Echter Autonomie",
+      "description": "Aktien, Anleihen, Krypto, ETFs, Gold und tokenisierte Immobilien.\nDeine Investition unter deiner vollständigen Kontrolle.\n\nStarte mit 10 € und sieh dein Geld wachsen.\nMit der Freiheit, jederzeit zu kaufen oder zu verkaufen.",
+      "ctaText": "Optionen ansehen"
+    },
+    "strategies": {
+      "heading": "Strategien, die Funktionieren",
+      "description": "\"Notgroschen aufbauen\"\n→ 6 Monate Ausgaben, die stetig wachsen\n\n\"Entspannter Ruhestand\"\n→ Automatisierte monatliche Investition, ausgewogenes Portfolio\n\n\"Hohe Rendite, kontrolliertes Risiko\"\n→ Fortgeschrittenes DeFi mit kalkuliertem Risiko",
+      "ctaText": "Strategien erkunden"
+    },
+    "business": {
+      "heading": "Dein Unternehmen, Mehr Möglichkeiten",
+      "description": "Ob du Kapital brauchst, deinen Cashflow arbeiten lassen oder einen Kredit für Wachstum benötigst.\n\nExklusive Möglichkeiten warten auf dein Unternehmen.\nHohe Renditen bei niedrigem Risiko, null Bürokratie und das Beste: unter deiner vollständigen Kontrolle.",
+      "ctaText": "Mehr erfahren"
     }
   }
 }

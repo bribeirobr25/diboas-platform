@@ -5,6 +5,8 @@
  * Service Agnostic Abstraction: Decoupled content from presentation
  * Configuration Management: Centralized BgHighlight content and settings
  * No Hardcoded Values: All values configurable through interfaces
+ *
+ * Note: Title, description, and alt text are translation keys that will be resolved at runtime
  */
 
 import type { BgHighlightConfig } from '@/components/Sections/BgHighlight/types';
@@ -18,14 +20,14 @@ import type { BgHighlightConfig } from '@/components/Sections/BgHighlight/types'
 export const DEFAULT_BG_HIGHLIGHT_CONFIG: BgHighlightConfig = {
   /** Background image configuration */
   backgroundImage: {
-    src: '/assets/socials/real/nature.avif',
-    alt: 'Natural landscape representing growth and financial sustainability with diBoaS'
+    src: '/assets/socials/real/diboas-banner.avif',
+    alt: 'marketing.bgHighlight.imageAlt'
   },
 
   /** Content configuration */
   content: {
-    title: "I'm diBoaS",
-    description: "I have complete banking in real time and with nor borders, a place to learn about money, investing and strategy, a secure place to invest and grow my money and a lot of Rewards and other benefits"
+    title: 'marketing.bgHighlight.title',
+    description: 'marketing.bgHighlight.description'
   },
 
   /** SEO and accessibility metadata */

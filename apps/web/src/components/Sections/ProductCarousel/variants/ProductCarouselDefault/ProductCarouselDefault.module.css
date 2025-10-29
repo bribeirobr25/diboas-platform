@@ -14,7 +14,7 @@
    PRODUCT CAROUSEL DEFAULT VARIANT
    ================================ */
 
-/* Carousel Wrapper - Component-specific height and overflow */
+/* Carousel Wrapper - Component-specific auto-height to fit content exactly */
 .carouselWrapper {
   width: 100%;
   height: var(--section-height-product-carousel-mobile);
@@ -93,12 +93,9 @@
   line-height: var(--line-height-description);
   color: var(--pc-color-subtitle);
   max-width: var(--pc-subtitle-max-width);
-  min-height: var(--pc-subtitle-min-height);
   margin: var(--pc-subtitle-margin);
-  display: -webkit-box;
-  -webkit-line-clamp: var(--pc-webkit-line-clamp);
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  white-space: pre-line;
+  text-align: var(--pc-subtitle-text-align);
   animation: subtitleFadeIn var(--pc-subtitle-transition-duration) var(--pc-subtitle-transition-easing);
 }
 
@@ -334,20 +331,16 @@
 }
 
 /* ================================
-   DECORATIVE PILL CTA (Non-functional)
+   FUNCTIONAL PILL CTA
    ================================
 
-   IMPORTANT: This is a decorative overlay badge on product images,
-   NOT a functional CTA button. It serves as a visual indicator only.
+   This is a functional CTA link overlay on product images.
 
    This element:
-   - Does NOT use unified CTA design tokens (intentional)
-   - Is purely decorative (cursor: default)
-   - Has custom styling for image overlay context
-   - Should NOT be changed to match unified CTA buttons
-
-   If you need a functional CTA in this section, add it separately
-   using the unified CTA design tokens pattern from FAQAccordion.
+   - Uses custom styling for image overlay context
+   - Has custom design tokens specific to carousel CTAs
+   - Is clickable and navigates to configured destinations
+   - Maintains pill shape and overlay styling
    ================================ */
 .cardCTA {
   display: inline-block;
@@ -360,7 +353,18 @@
   text-align: center;
   box-shadow: var(--pc-cta-shadow);
   transition: all var(--pc-control-transition-duration) var(--pc-control-transition-easing);
-  cursor: default; /* Non-functional - decorative only */
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cardCTA:hover {
+  transform: var(--pc-transform-hover-lift);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cardCTA:focus-visible {
+  outline: var(--spacing-sm) solid var(--pc-color-accent);
+  outline-offset: var(--spacing-xs);
 }
 
 /* ================================

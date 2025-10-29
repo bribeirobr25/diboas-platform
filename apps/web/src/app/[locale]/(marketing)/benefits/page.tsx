@@ -5,6 +5,7 @@ import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, FeatureShowcase } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { BENEFITS_SHOWCASE_CONFIG } from '@/config/benefitsCarousel';
+import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
 export const dynamic = 'auto';
 
@@ -36,7 +37,7 @@ export default async function BenefitsPage({ params }: PageProps) {
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Benefits', url: '/benefits' }
+    { name: 'Benefits', url: ROUTES.BENEFITS }
   ], locale);
 
   return (
