@@ -34,8 +34,7 @@ const STATIC_PAGES = [
   // Main pages
   { path: '/', priority: 1.0, changeFreq: 'daily' as const },
   { path: '/about', priority: 0.8, changeFreq: 'monthly' as const },
-  { path: '/contact', priority: 0.7, changeFreq: 'monthly' as const },
-  
+
   // Banking section
   { path: '/banking-services', priority: 0.9, changeFreq: 'weekly' as const },
   { path: '/account', priority: 0.8, changeFreq: 'weekly' as const },
@@ -53,6 +52,7 @@ const STATIC_PAGES = [
   { path: '/learn/defi-explained', priority: 0.7, changeFreq: 'weekly' as const },
   { path: '/learn/money-management', priority: 0.7, changeFreq: 'monthly' as const },
   { path: '/learn/benefits', priority: 0.6, changeFreq: 'monthly' as const },
+  { path: '/learn/special-content', priority: 0.6, changeFreq: 'monthly' as const },
   
   // Business section
   { path: '/business/account', priority: 0.8, changeFreq: 'weekly' as const },
@@ -81,8 +81,11 @@ const STATIC_PAGES = [
   { path: '/benefits', priority: 0.6, changeFreq: 'monthly' as const },
   { path: '/careers', priority: 0.6, changeFreq: 'weekly' as const },
   { path: '/investors', priority: 0.6, changeFreq: 'monthly' as const },
+  { path: '/docs', priority: 0.7, changeFreq: 'weekly' as const },
   { path: '/help/faq', priority: 0.5, changeFreq: 'monthly' as const },
   { path: '/legal/terms', priority: 0.4, changeFreq: 'yearly' as const },
+  { path: '/legal/privacy', priority: 0.4, changeFreq: 'yearly' as const },
+  { path: '/legal/cookies', priority: 0.4, changeFreq: 'yearly' as const },
 ] as const;
 
 export class SEOServiceImpl implements SEODomainService {

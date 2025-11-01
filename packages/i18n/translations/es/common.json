@@ -10,6 +10,8 @@
     "dashboard": "Panel",
     "settings": "Configuración",
     "help": "Ayuda",
+    "quickActions": "Acciones Rápidas",
+    "back": "Atrás",
     "diboas": {
       "label": "diBoaS",
       "description": "Ecosistema financiero completo con banca, inversiones y DeFi en una sola plataforma",

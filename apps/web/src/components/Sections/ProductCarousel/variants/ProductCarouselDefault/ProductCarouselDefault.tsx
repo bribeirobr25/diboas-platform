@@ -240,7 +240,7 @@ export function ProductCarouselDefault({
                               rel={slide.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
                               onClick={(e) => {
                                 e.stopPropagation();
-                                onCTAClick?.(slide.id, slide.ctaHref);
+                                onCTAClick?.(slide.id, slide.ctaHref!);
                                 Logger.info('Product carousel CTA clicked', {
                                   slideId: slide.id,
                                   ctaHref: slide.ctaHref

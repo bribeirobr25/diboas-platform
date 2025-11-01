@@ -5,6 +5,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@diboas/ui';
+import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { NavigationConfig } from '@/types/navigation';
 import { useEffect } from 'react';
 import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/UI';
@@ -86,8 +87,9 @@ export default function MobileNav({
             className="inline-block"
           >
             <Button
-              variant="gradient"
+              variant={DEFAULT_CTA_PROPS.variant}
               size="xs"
+              trackable={DEFAULT_CTA_PROPS.trackable}
               className="mobile-get-started-button"
             >
               {intl.formatMessage({ id: config.actions.primary.label })}
@@ -114,8 +116,9 @@ export default function MobileNav({
           className="mobile-actions"
         >
           <Button
-            variant="gradient"
-            size="lg"
+            variant={DEFAULT_CTA_PROPS.variant}
+            size={DEFAULT_CTA_PROPS.size}
+            trackable={DEFAULT_CTA_PROPS.trackable}
             className="w-full rounded-none text-center py-4"
           >
             {intl.formatMessage({ id: config.actions.secondary.label })}
@@ -138,7 +141,7 @@ export default function MobileNav({
               {/* Highlights */}
               <div className="mobile-highlights-section">
                 <h3 className="mobile-section-header">
-                  Quick Actions
+                  {intl.formatMessage({ id: 'common.navigation.quickActions' })}
                 </h3>
                 <div className="mobile-quick-actions-grid">
                   {config.mobileHighlights.map((item) => (
@@ -240,7 +243,7 @@ export default function MobileNav({
                   className="mobile-back-button-content"
                 >
                   <ChevronLeftIcon />
-                  <span className="mobile-back-button-text">Back</span>
+                  <span className="mobile-back-button-text">{intl.formatMessage({ id: 'common.navigation.back' })}</span>
                 </button>
                 <button
                   onClick={toggleMenu}

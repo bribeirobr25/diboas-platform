@@ -1,19 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Temporarily inline constants to fix middleware loading issue
-const SUPPORTED_LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
-const DEFAULT_LOCALE = 'en' as const;
-type SupportedLocale = typeof SUPPORTED_LOCALES[number];
-
-function isValidLocale(locale: string): locale is SupportedLocale {
-  return SUPPORTED_LOCALES.includes(locale as SupportedLocale);
-}
-
-function getSafeLocale(locale: string | null | undefined): SupportedLocale {
-  if (!locale) return DEFAULT_LOCALE;
-  const sanitizedLocale = locale.replace(/[^a-zA-Z-]/g, '').slice(0, 10);
-  return isValidLocale(sanitizedLocale) ? sanitizedLocale : DEFAULT_LOCALE;
-}
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, isValidLocale, getSafeLocale, type SupportedLocale } from '@diboas/i18n/server';
 
 /**
  * Simplified Middleware for Immediate Functionality

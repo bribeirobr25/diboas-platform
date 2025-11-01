@@ -146,6 +146,7 @@ images/
 *.bak
 dumps/
 backups/
+.backups/
 
 # API keys and tokens
 api-keys.json

@@ -10,6 +10,8 @@
     "dashboard": "Dashboard",
     "settings": "Settings",
     "help": "Help",
+    "quickActions": "Quick Actions",
+    "back": "Back",
     "diboas": {
       "label": "diBoaS",
       "description": "Complete financial ecosystem with banking, investing, and DeFi in one platform",

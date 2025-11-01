@@ -53,8 +53,17 @@ export function BgHighlightDefault({
 
   // Record render time on mount
   useEffect(() => {
-    const sectionId = config.analytics?.sectionId || 'bg-highlight-default';
-    recordSectionRenderTime(sectionId);
+    const renderStart = performance.now();
+
+    const recordRenderTime = () => {
+      const renderEnd = performance.now();
+      const sectionId = config.analytics?.sectionId || 'bg-highlight-default';
+      recordSectionRenderTime(sectionId, renderEnd - renderStart);
+    };
+
+    const timeoutId = setTimeout(recordRenderTime, 0);
+
+    return () => clearTimeout(timeoutId);
   }, [config.analytics?.sectionId, recordSectionRenderTime]);
 
   // Destructure config
