@@ -14,6 +14,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@diboas/ui';
+import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
@@ -165,7 +166,12 @@ export function FeatureShowcaseDefault({
                     rel="noopener noreferrer"
                     onClick={() => handleCTAClick(currentSlide.id, currentSlide.content.ctaHref)}
                   >
-                    <Button variant="gradient" className={styles.ctaButton}>
+                    <Button
+                      variant={DEFAULT_CTA_PROPS.variant}
+                      size={DEFAULT_CTA_PROPS.size}
+                      trackable={DEFAULT_CTA_PROPS.trackable}
+                      className={styles.ctaButton}
+                    >
                       {currentSlide.content.ctaText}
                     </Button>
                   </a>
@@ -174,7 +180,12 @@ export function FeatureShowcaseDefault({
                     href={currentSlide.content.ctaHref}
                     onClick={() => handleCTAClick(currentSlide.id, currentSlide.content.ctaHref)}
                   >
-                    <Button variant="gradient" className={styles.ctaButton}>
+                    <Button
+                      variant={DEFAULT_CTA_PROPS.variant}
+                      size={DEFAULT_CTA_PROPS.size}
+                      trackable={DEFAULT_CTA_PROPS.trackable}
+                      className={styles.ctaButton}
+                    >
                       {currentSlide.content.ctaText}
                     </Button>
                   </Link>

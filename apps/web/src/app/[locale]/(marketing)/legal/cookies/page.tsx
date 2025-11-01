@@ -2,27 +2,29 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { BRAND_CONFIG } from '@/config/brand';
+import { HeroSection } from '@/components/Sections';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
+import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
 
+
+import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
+import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 export const dynamic = 'auto';
 
-interface CookiesPageProps {
+interface PageProps {
   params: Promise<{
     locale: string;
   }>;
 }
 
-/**
- * Generate metadata for the cookies page
- * SEO Optimization: Dynamic metadata generation with i18n support
- */
-export async function generateMetadata({ params }: CookiesPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   return generateStaticPageMetadata('legal/cookies', locale as SupportedLocale);
 }
 
-export default async function CookiesPage({ params }: CookiesPageProps) {
+export default async function LegalCookiesPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -30,26 +32,52 @@ export default async function CookiesPage({ params }: CookiesPageProps) {
     notFound();
   }
 
-  // Generate structured data for the cookies page
-  const webPageData = MetadataFactory.generateServiceStructuredData({
-    name: 'Cookie Policy',
-    description: 'Cookie policy and usage information for diBoaS platform',
+  const serviceData = MetadataFactory.generateServiceStructuredData({
+    name: 'diBoaS Cookie Policy',
+    description: 'Cookies explained simply',
     category: 'Legal'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Legal', url: '/legal' },
-    { name: 'Cookie Policy', url: '/legal/cookies' }
+    { name: 'Cookie Policy', url: ROUTES.LEGAL.COOKIES }
   ], locale);
+
+  const heroVariant = getVariantForPageConfig('legal-cookies');
 
   return (
     <>
-      <StructuredData data={[webPageData, breadcrumbData]} />
-      
+      <StructuredData data={[serviceData, breadcrumbData]} />
+
       <main className="main-page-wrapper">
-        <h1 className="sr-only">Cookie Policy - {BRAND_CONFIG.FULL_NAME}</h1>
-        {/* Content will be developed later */}
+        <SectionErrorBoundary
+          sectionId="hero-section-legal-cookies"
+          sectionType="HeroSection"
+          enableReporting={true}
+          context={{ page: 'legal-cookies', variant: heroVariant }}
+        >
+          <HeroSection
+            variant={heroVariant}
+            config={HERO_PAGE_CONFIGS['legal-cookies']}
+            enableAnalytics={true}
+            priority={true}
+          />
+        </SectionErrorBoundary>
+
+        
+        {/* Benefits Cards Section */}
+        <SectionErrorBoundary
+          sectionId="benefits-cards-legal-cookies"
+          sectionType="BenefitsCards"
+          enableReporting={true}
+          context={{ page: 'legal-cookies' }}
+        >
+          <BenefitsCardsSection
+            config={getBenefitsCardsConfig('legal-cookies')!}
+            variant="default"
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
       </main>
     </>
   );

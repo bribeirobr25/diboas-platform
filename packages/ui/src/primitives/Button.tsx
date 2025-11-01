@@ -64,7 +64,7 @@ export interface ButtonProps
 
   // Loading state for async operations
   loading?: boolean;
-  loadingText?: string;
+  loadingText?: string; // Must be provided by consumer for i18n support
 }
 
 /**
@@ -90,7 +90,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     utmMedium,
     utmCampaign,
     loading = false,
-    loadingText = 'Loading...',
+    loadingText,
     disabled,
     onClick,
     children,
@@ -142,7 +142,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || loading}
         onClick={clickHandler}
-        aria-label={loading ? loadingText : ariaLabel}
+        aria-label={loading && loadingText ? loadingText : ariaLabel}
         aria-describedby={ariaDescribedBy}
         {...props}
       >
@@ -173,7 +173,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
         {/* Button content */}
         <span className={loading ? 'btn-content-loading' : 'btn-content'}>
-          {loading ? loadingText : children}
+          {loading && loadingText ? loadingText : children}
         </span>
       </Comp>
     );

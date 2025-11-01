@@ -5,6 +5,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@diboas/ui';
+import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { NavigationConfig } from '@/types/navigation';
 import { Container, FlexBetween, SparklesIcon, ChevronRightIcon } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
@@ -94,8 +95,9 @@ export default function DesktopNav({
               className="action-button-wrapper"
             >
               <Button
-                variant="gradient"
+                variant={DEFAULT_CTA_PROPS.variant}
                 size="sm"
+                trackable={DEFAULT_CTA_PROPS.trackable}
                 className="desktop-get-started-button"
               >
                 {intl.formatMessage({ id: config.actions.primary.label })}

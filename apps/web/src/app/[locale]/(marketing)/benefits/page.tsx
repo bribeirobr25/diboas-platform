@@ -3,10 +3,14 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, FeatureShowcase } from '@/components/Sections';
+import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { BENEFITS_SHOWCASE_CONFIG } from '@/config/benefitsCarousel';
+import { HERO_PAGE_CONFIGS } from '@/config/hero-pages';
+import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
+
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -43,21 +47,22 @@ export default async function BenefitsPage({ params }: PageProps) {
   return (
     <>
       <StructuredData data={[serviceData, breadcrumbData]} />
-      
+
       <main className="main-page-wrapper">
         <SectionErrorBoundary
           sectionId="hero-section-benefits"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'benefits', variant: 'default' }}
+          context={{ page: 'benefits', variant: 'fullBackground' }}
         >
-          <HeroSection 
-            variant="default"
+          <HeroSection
+            variant="fullBackground"
+            config={HERO_PAGE_CONFIGS.benefits}
             enableAnalytics={true}
             priority={true}
           />
         </SectionErrorBoundary>
-        
+
         {/* Benefits Showcase Section */}
         <SectionErrorBoundary
           sectionId="feature-showcase-benefits"
@@ -65,26 +70,26 @@ export default async function BenefitsPage({ params }: PageProps) {
           enableReporting={true}
           context={{ page: 'benefits', variant: 'benefits' }}
         >
-          <FeatureShowcase 
+          <FeatureShowcase
             variant="benefits"
             config={BENEFITS_SHOWCASE_CONFIG}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
-        
-        {/* Benefits content sections will be added here */}
-        <div className="page-content-container">
-          <div className="page-content-center">
-            <div className="page-content-text-center">
-              <h2 className="page-title-construction">
-                More Benefits Details Coming Soon
-              </h2>
-              <p className="page-description-construction">
-                Additional benefits information will be added here.
-              </p>
-            </div>
-          </div>
-        </div>
+
+        {/* Benefits Cards Section */}
+        <SectionErrorBoundary
+          sectionId="benefits-cards-benefits"
+          sectionType="BenefitsCards"
+          enableReporting={true}
+          context={{ page: 'benefits' }}
+        >
+          <BenefitsCardsSection
+            config={getBenefitsCardsConfig('benefits')!}
+            variant="default"
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
       </main>
     </>
   );

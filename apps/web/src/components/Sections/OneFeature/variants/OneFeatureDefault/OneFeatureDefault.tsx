@@ -14,6 +14,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '@diboas/ui';
+import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { Logger } from '@/lib/monitoring/Logger';
 import type { OneFeatureVariantProps } from '../types';
@@ -185,7 +186,12 @@ export function OneFeatureDefault({
               aria-label={`${config.content.cta.text} - Abre em nova aba`}
               onClick={handleCTAClick}
             >
-              <Button variant="gradient" className={styles.ctaButton}>
+              <Button
+                variant={DEFAULT_CTA_PROPS.variant}
+                size={DEFAULT_CTA_PROPS.size}
+                trackable={DEFAULT_CTA_PROPS.trackable}
+                className={styles.ctaButton}
+              >
                 {config.content.cta.text}
               </Button>
             </a>
@@ -194,7 +200,12 @@ export function OneFeatureDefault({
               href={config.content.cta.href}
               onClick={handleCTAClick}
             >
-              <Button variant="gradient" className={styles.ctaButton}>
+              <Button
+                variant={DEFAULT_CTA_PROPS.variant}
+                size={DEFAULT_CTA_PROPS.size}
+                trackable={DEFAULT_CTA_PROPS.trackable}
+                className={styles.ctaButton}
+              >
                 {config.content.cta.text}
               </Button>
             </Link>

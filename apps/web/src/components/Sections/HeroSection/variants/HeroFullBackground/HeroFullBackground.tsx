@@ -11,6 +11,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@diboas/ui';
+import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import type { HeroVariantProps } from '../types';
 import styles from './HeroFullBackground.module.css';
 
@@ -93,7 +94,9 @@ export function HeroFullBackground({
 
             <div className={styles.ctaWrapper}>
               <Button
-                variant="gradient"
+                variant={DEFAULT_CTA_PROPS.variant}
+                size={DEFAULT_CTA_PROPS.size}
+                trackable={DEFAULT_CTA_PROPS.trackable}
                 className={styles.ctaButton}
                 onClick={handleCTAClick}
               >

@@ -146,6 +146,16 @@
     "rewards": {
       "title": "Gana Más",
       "description": "✓ Cashback y sistema de Puntos\n✓ Acceso anticipado a nuevas funciones\n✓ Rendimiento extra en estrategias\n\nCuanto más lo usas, más ganas."
+    },
+    "learn": {
+      "title": "Aprende Estrategias Financieras",
+      "description": "Accede a cursos completos sobre finanzas personales, inversiones y estrategias DeFi. Construye tu conocimiento con contenido curado por expertos.",
+      "ctaText": "Empezar a Aprender"
+    },
+    "business": {
+      "title": "Soluciones Financieras Empresariales",
+      "description": "Optimiza las operaciones financieras de tu negocio con nuestro completo conjunto de herramientas. Desde nómina hasta gestión de tesorería.",
+      "ctaText": "Explorar Negocios"
     }
   },
   "appFeatures": {
@@ -224,20 +234,1417 @@
         "subtitle": "Experimenta la próxima generación de servicios bancarios con cero comisiones y todo instantáneo."
       }
     },
-    "investing": {
-      "title": "Inversión en Criptomonedas | diBoaS",
-      "description": "Plataforma inteligente de inversión en criptomonedas con gestión de cartera impulsada por IA y comisiones bajas.",
-      "hero": {
-        "title": "Invierte en Tu Futuro",
-        "subtitle": "Estrategias de inversión impulsadas por IA para el inversor moderno."
-      }
-    },
     "defi": {
       "title": "Estrategias DeFi | diBoaS",
       "description": "Accede a protocolos de finanzas descentralizadas con máxima seguridad y rendimientos óptimos.",
       "hero": {
         "title": "DeFi Seguro",
         "subtitle": "Explora finanzas descentralizadas con seguridad de nivel empresarial."
+      }
+    },
+    "benefits": {
+      "title": "Beneficios | diBoaS",
+      "description": "Descubre todos los beneficios y recompensas exclusivas disponibles en la plataforma diBoaS.",
+      "hero": {
+        "title": "Tu dinero, todo en un solo lugar. Empieza simple, crece poderoso, avanza a tu ritmo. Fácil para comenzar, ilimitado cuando estés listo.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "¿Por qué elegir diBoas?",
+        "description": "Porque resolvemos problemas reales.",
+        "cards": {
+          "noMoreAppJuggling": {
+            "iconAlt": "App consolidation icon",
+            "title": "Adiós al Caos de Apps",
+            "description": "Todo en diBoas.\nAhorras tiempo, no pierdes contraseñas y ves todo tu patrimonio \nen una sola pantalla."
+          },
+          "youDecide": {
+            "iconAlt": "User control icon",
+            "title": "Tú Decides",
+            "description": "Control total sobre tu dinero.\nYa sean inversiones, transferencias o estrategias. \nTú defines cuánto y cuándo."
+          },
+          "moneyNeverSleeps": {
+            "iconAlt": "Money working icon",
+            "title": "Tu Dinero Nunca Duerme",
+            "description": "Compra acciones, crypto u otros activos.\nO usa nuestras estrategias exclusivas.\nTu dinero siempre está trabajando para ti."
+          },
+          "investingBecomesEasy": {
+            "iconAlt": "Learning icon",
+            "title": "Invertir Deja de Ser Complicado",
+            "description": "La mayoría de nuestros usuarios nunca había invertido antes de diBoas.\nNuestro Centro de Aprendizaje explica cada término.\nCada decisión. Cada riesgo."
+          },
+          "moreYouUse": {
+            "iconAlt": "Rewards icon",
+            "title": "Cuanto Más Usas, Más Ganas",
+            "description": "Sistema de puntos, bonos por referidos, \nrecompensas por metas, acceso VIP a cursos\ny mucho más."
+          },
+          "oneFiPlatform": {
+            "iconAlt": "OneFi platform icon",
+            "title": "OneFi: Primera Plataforma del Mundo",
+            "description": "Banking + Inversiones + Crypto + Estrategias + DeFi.\nTodo integrado. Todo simple. \nFácil para principiantes, potente para expertos."
+          }
+        }
+      }
+    },
+    "account": {
+      "title": "Cuenta diBoaS | diBoaS",
+      "description": "Una cuenta gratis que rinde 100% del CDI y te pone en control de tu dinero.",
+      "hero": {
+        "title": "Una cuenta gratis que rinde 100% del CDI y te pone en control de tu dinero. Así de simple.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Una cuenta que trabaja para ti",
+        "description": "Gratis, con rendimiento, sin complicaciones.",
+        "cards": {
+          "freeAndTransparent": {
+            "iconAlt": "Free banking icon",
+            "title": "Gratis y Transparente",
+            "description": "Cero comisiones mensuales, cero costos de mantenimiento.\nTransferencias ilimitadas sin costo.\nLo que ves es lo que obtienes."
+          },
+          "earningWhileYouSleep": {
+            "iconAlt": "Earning icon",
+            "title": "Gana Mientras Duermes",
+            "description": "100% del CDI diario, automáticamente.\nTu dinero crece incluso cuando no estás mirando.\nHasta 30% más que cuentas de ahorro."
+          },
+          "openInMinutes": {
+            "iconAlt": "Quick setup icon",
+            "title": "Abre en Minutos",
+            "description": "No necesitas ir a una sucursal.\nSin papeleos que imprimir.\nDescarga la app, regístrate, listo."
+          },
+          "aquaGuidesYou": {
+            "iconAlt": "AI guide icon",
+            "title": "Aqua Te Guía",
+            "description": "Nuestra mascota amigable explica cada función.\nNunca te sentirás perdido.\nDesde el primer depósito hasta la primera inversión."
+          }
+        }
+      }
+    },
+    "bankingServices": {
+      "title": "Banking | diBoaS",
+      "description": "Tu dinero sin fronteras. Deposita, envía y recibe en tiempo real.",
+      "hero": {
+        "title": "Tu dinero sin fronteras. Deposita, envía y recibe en tiempo real, todo desde tu app.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Banking sin fronteras, sin complicaciones",
+        "description": "Tu dinero se mueve libremente por el mundo.",
+        "cards": {
+          "instantTransfersPix": {
+            "iconAlt": "Instant transfer icon",
+            "title": "Transferencias Instantáneas y Pix",
+            "description": "Envía y recibe dinero en segundos.\n24/7, incluso en días festivos.\nTiempo real, siempre."
+          },
+          "borderlessMoney": {
+            "iconAlt": "International money icon",
+            "title": "Borderless: Dinero Sin Límites",
+            "description": "Envía dinero a cualquier país.\nComisiones transparentes, tipos de cambio justos.\nMucho más barato que bancos tradicionales."
+          },
+          "realTimeNotifications": {
+            "iconAlt": "Notification icon",
+            "title": "Notificaciones en Tiempo Real",
+            "description": "Cada transacción genera alertas instantáneas.\nSiempre sabes qué está pasando.\nSeguridad que sientes."
+          },
+          "transparentHistory": {
+            "iconAlt": "History icon",
+            "title": "Historial Transparente",
+            "description": "Ve todas tus transacciones claramente.\nFiltra por fecha, tipo o monto.\nExporta cuando quieras."
+          }
+        }
+      }
+    },
+    "investing": {
+      "title": "Inversiones | diBoaS",
+      "description": "Invertir no tiene que ser complicado ni caro. Empieza con solo $10.",
+      "hero": {
+        "title": "Invertir no tiene que ser complicado ni caro. Empieza con solo $10 y mira crecer tu dinero.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Invertir no es solo para ricos",
+        "description": "Empieza con $10 y crece a tu ritmo.",
+        "cards": {
+          "startWithWhatYouHave": {
+            "iconAlt": "Start small icon",
+            "title": "Empieza Con Lo Que Tienes",
+            "description": "Solo $10 para comenzar.\nSin mínimos ridículos.\nDemocratización real."
+          },
+          "stocksBondsGoldMore": {
+            "iconAlt": "Asset diversity icon",
+            "title": "Acciones, Bonos, Oro y Más",
+            "description": "Portafolio completo en un solo lugar.\nDiversifica sin múltiples apps.\nUn clic por inversión."
+          },
+          "mysticAppearsWhenReady": {
+            "iconAlt": "Mystic guide icon",
+            "title": "Mystic Aparece Cuando Estás Listo",
+            "description": "Nuestra mascota sabia te ayuda a expandir.\nElla sabe cuándo dominas lo básico.\nY te muestra el siguiente paso."
+          },
+          "builtInEducation": {
+            "iconAlt": "Education icon",
+            "title": "Educación Integrada",
+            "description": "Cada activo viene con explicación.\nAprende qué estás comprando.\nDecisiones informadas, no apuestas."
+          },
+          "feesThatDontRobYou": {
+            "iconAlt": "Low fees icon",
+            "title": "Comisiones Que No Te Roban",
+            "description": "Solo 0.09% por transacción.\nHasta 16x más barato que plataformas tradicionales.\nTransparencia total."
+          }
+        }
+      }
+    },
+    "cryptocurrency": {
+      "title": "Criptomonedas | diBoaS",
+      "description": "Crypto ya no es solo para expertos. Invierte de forma simple y segura.",
+      "hero": {
+        "title": "Crypto ya no es solo para expertos. Con 1-Click, inviertes en activos digitales de forma simple y segura.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Crypto simplificado",
+        "description": "Compra Bitcoin sin ser un genio tecnológico.",
+        "cards": {
+          "oneClickDone": {
+            "iconAlt": "One click icon",
+            "title": "1-Clic, Listo",
+            "description": "Compra Bitcoin, Ethereum y otros con un toque.\nSin necesidad de entender wallets complejas.\nTan simple como comprar cualquier otra cosa."
+          },
+          "militaryGradeCustody": {
+            "iconAlt": "Security icon",
+            "title": "Custodia de Nivel Militar",
+            "description": "Tus criptos protegidas con seguridad militar.\nTú las controlas, nosotros las guardamos.\nAuditoría independiente disponible."
+          },
+          "integratedWithEverything": {
+            "iconAlt": "Integration icon",
+            "title": "Integrado Con Todo",
+            "description": "Ve crypto junto a tus otras inversiones.\nPortafolio unificado.\nEntiende tu patrimonio total de verdad."
+          },
+          "learnBeforeYouInvest": {
+            "iconAlt": "Learn first icon",
+            "title": "Aprende Antes de Invertir",
+            "description": "Centro de Educación explica cada moneda.\nRiesgos, beneficios, tecnología.\nConocimiento antes que dinero."
+          }
+        }
+      }
+    },
+    "defiStrategies": {
+      "title": "Estrategias DeFi | diBoaS",
+      "description": "Estrategias de inversión profesionales diseñadas para ti.",
+      "hero": {
+        "title": "Estrategias de inversión profesionales diseñadas para ti. Elige tu frecuencia y deja que tu dinero trabaje.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "DeFi hecho para humanos",
+        "description": "Altos rendimientos sin necesitar un doctorado en blockchain.",
+        "cards": {
+          "strategiesCuratedByExperts": {
+            "iconAlt": "Expert curation icon",
+            "title": "Estrategias Curadas Por Expertos",
+            "description": "Equipo profesional selecciona las mejores oportunidades.\nTú solo eliges y activas.\n¿Complejidad? Nosotros la manejamos."
+          },
+          "yieldsBanksDontOffer": {
+            "iconAlt": "High yield icon",
+            "title": "Rendimientos Que Bancos No Ofrecen",
+            "description": "Acceso a rendimientos globales vía DeFi.\nRetornos muy superiores a lo tradicional.\nRiesgo transparente, recompensas claras."
+          },
+          "coralGuidesAdvancedJourney": {
+            "iconAlt": "Coral guide icon",
+            "title": "Coral Guía Tu Viaje Avanzado",
+            "description": "Cuando estás listo, Coral aparece.\nTe ayuda con estrategias sofisticadas.\nBalance automático de riesgo."
+          },
+          "enterExitAnytime": {
+            "iconAlt": "Liquidity icon",
+            "title": "Entra y Sale Cuando Quieras",
+            "description": "Sin bloqueos ridículos.\nTú controlas cuándo empezar y parar.\nLiquidez cuando la necesitas."
+          },
+          "defiEducationIncluded": {
+            "iconAlt": "DeFi education icon",
+            "title": "Educación DeFi Incluida",
+            "description": "Entiende staking, liquidity pools, yield farming.\nSin jerga técnica, con ejemplos prácticos.\nConocimiento = Control."
+          }
+        }
+      }
+    },
+    "credit": {
+      "title": "Crédito | diBoaS",
+      "description": "Crédito justo, transparente y bajo tu control.",
+      "hero": {
+        "title": "Crédito justo, transparente y bajo tu control. Sin sorpresas, sin letra chica.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Crédito justo y transparente",
+        "description": "Sin letra chica, sin trucos.",
+        "cards": {
+          "ratesThatMakeSense": {
+            "iconAlt": "Fair rates icon",
+            "title": "Tasas Que Tienen Sentido",
+            "description": "Ves la tasa antes de aceptar.\nSin sorpresas en tu cuenta.\nCrédito responsable, no predatorio."
+          },
+          "smartApproval": {
+            "iconAlt": "AI approval icon",
+            "title": "Aprobación Inteligente",
+            "description": "IA analiza tu perfil de forma justa.\nRespuesta en minutos.\nSin burocracia innecesaria."
+          },
+          "payYourWay": {
+            "iconAlt": "Flexible payment icon",
+            "title": "Paga Como Quieras",
+            "description": "Flexibilidad en las cuotas.\nPagos que se ajustan a tu presupuesto.\nTú eliges el plazo."
+          },
+          "p2pBusinessCredit": {
+            "iconAlt": "P2P credit icon",
+            "title": "Crédito P2P Empresarial",
+            "description": "Empresas prestan directamente a empresas.\nTasas más justas para todos.\nMenos intermediarios, más eficiencia."
+          }
+        }
+      }
+    },
+    "learnBenefits": {
+      "title": "Centro de Aprendizaje | diBoaS",
+      "description": "Aprende a tu ritmo, crece en tu tiempo.",
+      "hero": {
+        "title": "Aprende a tu ritmo, crece en tu tiempo. Educación financiera para todos.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Educación que empodera",
+        "description": "Conocimiento financiero para todos, gratis.",
+        "cards": {
+          "fromZeroToAdvanced": {
+            "iconAlt": "Learning path icon",
+            "title": "De Cero a Avanzado",
+            "description": "Cursos estructurados por nivel.\nCrece a tu propio ritmo.\nSin presión, sin juicios."
+          },
+          "curatedUpToDateContent": {
+            "iconAlt": "Quality content icon",
+            "title": "Contenido Curado y Actualizado",
+            "description": "Expertos y creadores verificados.\nInformación confiable, no fake news financieras.\nActualizado con condiciones reales del mercado."
+          },
+          "learnByDoing": {
+            "iconAlt": "Hands-on learning icon",
+            "title": "Aprende Haciendo",
+            "description": "Teoría + práctica integradas.\n¿Aprendes sobre inversión? Prueba con $10.\nConocimiento que se vuelve acción."
+          },
+          "earnWhileYouLearn": {
+            "iconAlt": "Learning rewards icon",
+            "title": "Gana Mientras Aprendes",
+            "description": "Puntos por completar cursos.\nInsignias por lograr metas.\nEducación recompensada."
+          }
+        }
+      }
+    },
+    "learnFinancialBasics": {
+      "title": "Fundamentos Financieros | diBoaS",
+      "description": "Los fundamentos que nadie te enseñó. Construye una base financiera sólida.",
+      "hero": {
+        "title": "Los fundamentos que nadie te enseñó. Empieza aquí y construye una base financiera sólida.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Los fundamentos que nadie te enseñó",
+        "description": "Conceptos esenciales, lenguaje simple.",
+        "cards": {
+          "personalBudgetingSimple": {
+            "iconAlt": "Budgeting icon",
+            "title": "Presupuesto Personal Simplificado",
+            "description": "Aprende a controlar ingresos y gastos.\nHerramientas prácticas incluidas.\nLa autonomía financiera empieza aquí."
+          },
+          "interestFriendOrFoe": {
+            "iconAlt": "Interest icon",
+            "title": "Intereses: ¿Amigo o Enemigo?",
+            "description": "Entiende cómo funcionan los intereses de verdad.\nCuándo trabajan a tu favor.\nCuándo trabajan en tu contra."
+          },
+          "buildEmergencyFund": {
+            "iconAlt": "Emergency fund icon",
+            "title": "Construye Tu Fondo de Emergencia",
+            "description": "Por qué lo necesitas.\nCuánto ahorrar.\nDónde guardar ese dinero."
+          },
+          "debtHowToGetOut": {
+            "iconAlt": "Debt freedom icon",
+            "title": "Deudas: Cómo Salir de Ellas",
+            "description": "Estrategias para pagar deudas.\nPriorización inteligente.\nEl reinicio financiero es posible."
+          }
+        }
+      }
+    },
+    "learnMoneyManagement": {
+      "title": "Gestión Financiera | diBoaS",
+      "description": "Organiza, controla y multiplica tu dinero como un profesional.",
+      "hero": {
+        "title": "Organiza, controla y multiplica. Aprende a manejar tu dinero como un profesional.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Administra como un profesional",
+        "description": "Técnicas avanzadas explicadas de forma simple.",
+        "cards": {
+          "financialPlanning360": {
+            "iconAlt": "Planning icon",
+            "title": "Planificación Financiera 360°",
+            "description": "Vista completa: corto, mediano y largo plazo.\nMetas claras, pasos concretos.\nDel sueño al plan real."
+          },
+          "taxOptimization": {
+            "iconAlt": "Tax savings icon",
+            "title": "Optimización de Impuestos",
+            "description": "Paga lo justo, nada más.\nEstrategias legales de ahorro.\nTu dinero trabajando más inteligente."
+          },
+          "multipleIncomeStreams": {
+            "iconAlt": "Multiple income icon",
+            "title": "Múltiples Fuentes de Ingreso",
+            "description": "Diversifica dónde ganas dinero.\nNo dependas solo del salario.\nSeguridad financiera real."
+          },
+          "behaviorAndMoney": {
+            "iconAlt": "Psychology icon",
+            "title": "Comportamiento y Dinero",
+            "description": "Psicología detrás de decisiones financieras.\nIdentifica tus disparadores.\nCambia hábitos, cambia resultados."
+          }
+        }
+      }
+    },
+    "learnInvestmentGuide": {
+      "title": "Guía de Inversiones | diBoaS",
+      "description": "Tu guía completa para invertir con confianza.",
+      "hero": {
+        "title": "Tu guía completa para invertir con confianza. Desde lo básico hasta lo avanzado, todo en un lugar.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Guía completa para invertir con confianza",
+        "description": "Desde lo básico hasta lo avanzado, todo explicado.",
+        "cards": {
+          "investmentTypesExplained": {
+            "iconAlt": "Investment types icon",
+            "title": "Tipos de Inversión Explicados",
+            "description": "Acciones, bonos, fondos, crypto, inmuebles.\nQué es cada uno, cómo funcionan.\nRiesgos y retornos de cada tipo."
+          },
+          "smartDiversification": {
+            "iconAlt": "Diversification icon",
+            "title": "Diversificación Inteligente",
+            "description": "Por qué no poner todo en una canasta.\nCómo balancear tu portafolio.\nProtección y crecimiento juntos."
+          },
+          "assetAnalysis": {
+            "iconAlt": "Analysis icon",
+            "title": "Análisis de Activos",
+            "description": "Cómo evaluar si algo vale la pena.\nFundamentos vs especulación.\nDecisiones basadas en datos."
+          },
+          "longTermStrategies": {
+            "iconAlt": "Long-term icon",
+            "title": "Estrategias de Largo Plazo",
+            "description": "Buy and hold, promedio del costo.\nPoder del interés compuesto.\nPaciencia que construye riqueza."
+          },
+          "riskManagement": {
+            "iconAlt": "Risk management icon",
+            "title": "Gestión de Riesgo",
+            "description": "¿Cuánto puedes permitirte perder?\nStop loss, hedging, seguros.\nProtege lo que has construido."
+          }
+        }
+      }
+    },
+    "learnCryptocurrencyGuide": {
+      "title": "Crypto de A a Z | diBoaS",
+      "description": "De A a Z sobre criptomonedas. Descubre el mundo digital sin complicaciones.",
+      "hero": {
+        "title": "De A a Z sobre criptomonedas. Descubre el mundo digital sin complicaciones.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Crypto de la A a la Z",
+        "description": "Descubre el mundo digital sin confusión.",
+        "cards": {
+          "blockchainExplainedForHumans": {
+            "iconAlt": "Blockchain icon",
+            "title": "Blockchain Explicado Para Humanos",
+            "description": "Qué es, cómo funciona, por qué importa.\nSin jerga tecnológica imposible.\nEntiende la tecnología de verdad."
+          },
+          "bitcoinMajorCryptocurrencies": {
+            "iconAlt": "Bitcoin icon",
+            "title": "Bitcoin y Principales Criptomonedas",
+            "description": "Historia, tecnología, casos de uso.\nDiferencias entre Bitcoin, Ethereum y otras.\nCuál es cuál y por qué."
+          },
+          "walletsAndSecurity": {
+            "iconAlt": "Wallet security icon",
+            "title": "Wallets y Seguridad",
+            "description": "Hot wallets, cold wallets, custodia.\nCómo proteger tus activos digitales.\nSeguridad sin paranoia."
+          },
+          "volatilityHowToHandle": {
+            "iconAlt": "Volatility icon",
+            "title": "Volatilidad y Cómo Manejarla",
+            "description": "Por qué crypto sube y baja tanto.\nEstrategias para no entrar en pánico.\nPerspectiva a largo plazo."
+          }
+        }
+      }
+    },
+    "learnDefiExplained": {
+      "title": "DeFi Explicado | diBoaS",
+      "description": "DeFi explicado simple. Entiende las finanzas descentralizadas.",
+      "hero": {
+        "title": "DeFi explicado simple. Entiende las finanzas descentralizadas y aprovecha sus oportunidades.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "DeFi desmitificado",
+        "description": "Finanzas descentralizadas para todos.",
+        "cards": {
+          "whatIsDefiAnyway": {
+            "iconAlt": "DeFi concept icon",
+            "title": "¿Qué es DeFi Realmente?",
+            "description": "Finanzas sin intermediarios tradicionales.\nCómo funciona en la práctica.\nVentajas y desafíos claros."
+          },
+          "stakingYieldFarmingLiquidityPools": {
+            "iconAlt": "DeFi mechanisms icon",
+            "title": "Staking, Yield Farming y Liquidity Pools",
+            "description": "Conceptos principales desglosados.\nCómo ganas con cada uno.\nRiesgos específicos de cada estrategia."
+          },
+          "smartContractsUnveiled": {
+            "iconAlt": "Smart contract icon",
+            "title": "Smart Contracts Revelados",
+            "description": "Contratos que se ejecutan solos.\nCómo garantizan confianza.\nLimitaciones que necesitas conocer."
+          },
+          "opportunitiesAndTraps": {
+            "iconAlt": "Opportunity and risk icon",
+            "title": "Oportunidades y Trampas",
+            "description": "Los altos rendimientos tienen contrapartidas.\nCómo identificar proyectos serios.\nSeñales de alerta para evitar."
+          }
+        }
+      }
+    },
+    "learnSpecialContent": {
+      "title": "Contenido Especial | diBoaS",
+      "description": "Contenido exclusivo para quienes quieren ir más allá.",
+      "hero": {
+        "title": "Contenido exclusivo para quienes quieren ir más allá. Aprende de quienes lo están haciendo realidad.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Contenido exclusivo para quienes quieren más",
+        "description": "Aprende de quienes lo están haciendo realidad.",
+        "cards": {
+          "expertInterviews": {
+            "iconAlt": "Interview icon",
+            "title": "Entrevistas Con Expertos",
+            "description": "Inversionistas, traders, emprendedores exitosos.\nExperiencias reales, lecciones prácticas.\nAprende de quienes han estado ahí."
+          },
+          "realUseCases": {
+            "iconAlt": "Use case icon",
+            "title": "Casos de Uso Reales",
+            "description": "Historias de usuarios de diBoas.\nDesde principiante hasta inversionista sofisticado.\nInspiración alcanzable."
+          },
+          "marketAnalysis": {
+            "iconAlt": "Market analysis icon",
+            "title": "Análisis de Mercado",
+            "description": "Tendencias, oportunidades, alertas.\nContexto para tus decisiones.\nVistas macro y micro."
+          },
+          "webinarsLiveSessions": {
+            "iconAlt": "Webinar icon",
+            "title": "Webinars y Sesiones en Vivo",
+            "description": "Sesiones en vivo con expertos.\nObtén respuestas en tiempo real.\nComunidad aprendiendo junta."
+          }
+        }
+      }
+    },
+    "businessBenefits": {
+      "title": "diBoaS Business | diBoaS",
+      "description": "Tu empresa merece finanzas tan simples como eficientes.",
+      "hero": {
+        "title": "Tu empresa merece finanzas tan simples como eficientes. Conoce diBoas Business.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Tu empresa merece lo mejor",
+        "description": "Finanzas empresariales simplificadas.",
+        "cards": {
+          "everythingIntegratedForBusiness": {
+            "iconAlt": "Integration icon",
+            "title": "Todo Integrado Para Tu Negocio",
+            "description": "Cuenta, pagos, inversiones, crédito.\nGestión financiera completa.\nEnfócate en lo que importa: crecer."
+          },
+          "noBankingBureaucracy": {
+            "iconAlt": "No bureaucracy icon",
+            "title": "Sin Burocracia Bancaria",
+            "description": "Apertura 100% digital.\nSin filas, sin papeleos.\nOperando en horas."
+          },
+          "yourCapitalAlwaysEarning": {
+            "iconAlt": "Earning capital icon",
+            "title": "Tu Capital Siempre Genera",
+            "description": "¿Flujo de caja sin usar? Nunca más.\nRendimientos automáticos mientras operas.\nTesorería inteligente."
+          },
+          "totalControlVisibility": {
+            "iconAlt": "Dashboard icon",
+            "title": "Control Total y Visibilidad",
+            "description": "Dashboard completo de salud financiera.\nReportes automatizados.\nDecisiones basadas en datos reales."
+          }
+        }
+      }
+    },
+    "businessAccount": {
+      "title": "Cuenta Empresarial | diBoaS",
+      "description": "Una cuenta empresarial gratuita que genera rendimiento.",
+      "hero": {
+        "title": "Una cuenta empresarial gratuita que genera rendimiento. Tu negocio crece mientras trabajas.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Cuenta empresarial que tiene sentido",
+        "description": "Gratis, con rendimiento, sin complicaciones.",
+        "cards": {
+          "zeroMonthlyFees": {
+            "iconAlt": "Free account icon",
+            "title": "Cero Comisiones Mensuales",
+            "description": "Sin cargos de mantenimiento.\nTu dinero se queda contigo.\nAhorros desde el primer día."
+          },
+          "earns100CDI": {
+            "iconAlt": "High yield icon",
+            "title": "Genera 100% del CDI",
+            "description": "Saldo generando automáticamente.\nSin necesidad de invertir manualmente.\n¿Capital sin usar? No existe aquí."
+          },
+          "multiUserManagement": {
+            "iconAlt": "Team management icon",
+            "title": "Gestión Multi-Usuario",
+            "description": "Agrega tu equipo con permisos específicos.\nControl de acceso granular.\nSeguridad y autonomía juntas."
+          },
+          "accountingIntegration": {
+            "iconAlt": "Accounting icon",
+            "title": "Integración Contable",
+            "description": "Exporta datos para tu contador.\nReportes listos para cumplimiento.\nMenos dolores de cabeza, más eficiencia."
+          }
+        }
+      }
+    },
+    "businessBanking": {
+      "title": "Banking Empresarial | diBoaS",
+      "description": "Banking empresarial completo en tu app.",
+      "hero": {
+        "title": "Banking empresarial completo en tu app. Paga, recibe y gestiona todo en un solo lugar.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Banking empresarial completo",
+        "description": "Todo lo que tu negocio necesita en la app.",
+        "cards": {
+          "unlimitedBusinessPix": {
+            "iconAlt": "Instant payments icon",
+            "title": "Pix Empresarial Ilimitado",
+            "description": "Envía y recibe sin límites absurdos.\nPagos instantáneos.\nFlujo de caja que no se congela."
+          },
+          "boletosAndCollections": {
+            "iconAlt": "Billing icon",
+            "title": "Boletas y Cobranzas",
+            "description": "Emite, envía y rastrea boletas.\nGestión completa de cuentas por cobrar.\nNotificaciones de pago en tiempo real."
+          },
+          "internationalTransfers": {
+            "iconAlt": "Global transfer icon",
+            "title": "Transferencias Internacionales",
+            "description": "Paga proveedores en el extranjero.\nRecibe de clientes globales.\nTarifas mucho más bajas que bancos tradicionales."
+          },
+          "corporateCards": {
+            "iconAlt": "Corporate card icon",
+            "title": "Tarjetas Corporativas",
+            "description": "Tarjetas físicas y virtuales para el equipo.\nControl de límites por usuario.\nCategorización automática de gastos."
+          }
+        }
+      }
+    },
+    "businessPayments": {
+      "title": "Pagos Empresariales | diBoaS",
+      "description": "Cobranzas simples, pagos rápidos.",
+      "hero": {
+        "title": "Cobranzas simples, pagos rápidos. Acepta pagos en segundos.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Cobros simples, recepción rápida",
+        "description": "Acepta pagos en segundos.",
+        "cards": {
+          "paymentLinks": {
+            "iconAlt": "Payment link icon",
+            "title": "Links de Pago",
+            "description": "Crea y comparte links de cobro.\nCliente paga en pocos clics.\nSin datáfono, sin complicaciones."
+          },
+          "dynamicQRCodes": {
+            "iconAlt": "QR code icon",
+            "title": "Códigos QR Dinámicos",
+            "description": "Genera códigos QR para cada venta.\nCliente escanea y paga al instante.\nConfirmación inmediata."
+          },
+          "automatedRecurring": {
+            "iconAlt": "Recurring payment icon",
+            "title": "Recurrente Automatizado",
+            "description": "Configura cobros mensuales automáticos.\nSuscripciones gestionadas por el sistema.\nPrevisibilidad de ingresos."
+          },
+          "paymentSplitting": {
+            "iconAlt": "Split payment icon",
+            "title": "División de Pagos",
+            "description": "Divide ingresos automáticamente.\nIdeal para marketplaces y alianzas.\nTransparencia para todas las partes."
+          }
+        }
+      }
+    },
+    "businessTreasury": {
+      "title": "Tesorería | diBoaS",
+      "description": "Gestión de tesorería inteligente.",
+      "hero": {
+        "title": "Gestión de tesorería inteligente. Tu capital trabajando 24/7 para tu negocio.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Gestión de tesorería inteligente",
+        "description": "Tu capital trabajando 24/7.",
+        "cards": {
+          "automaticInvestment": {
+            "iconAlt": "Auto investment icon",
+            "title": "Inversión Automática",
+            "description": "Dinero sin usar va a inversiones seguras.\nAuto-rescate cuando lo necesitas.\nCero esfuerzo, máximo rendimiento."
+          },
+          "personalizedStrategies": {
+            "iconAlt": "Strategy icon",
+            "title": "Estrategias Personalizadas",
+            "description": "Perfil de riesgo de tu empresa.\nLiquidez necesaria considerada.\nOptimización a medida."
+          },
+          "cashFlowProjection": {
+            "iconAlt": "Projection icon",
+            "title": "Proyección de Flujo de Caja",
+            "description": "IA predice entradas y salidas.\nAlertas de posibles brechas.\nPlanifica con anticipación."
+          },
+          "multiAccountConsolidation": {
+            "iconAlt": "Consolidation icon",
+            "title": "Consolidación Multi-Cuenta",
+            "description": "Ve todo en un dashboard.\nCuentas en diferentes bancos.\nVista holística de tesorería."
+          }
+        }
+      }
+    },
+    "businessYieldStrategies": {
+      "title": "Rendimiento de Flujo de Caja | diBoaS",
+      "description": "Rendimiento sobre tu flujo de caja.",
+      "hero": {
+        "title": "Rendimiento sobre tu flujo de caja. Convierte capital inactivo en ingresos adicionales.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Rendimientos sobre tu flujo de caja",
+        "description": "Capital sin usar se vuelve ingreso adicional.",
+        "cards": {
+          "aboveMarketYields": {
+            "iconAlt": "High yield icon",
+            "title": "Rendimientos Sobre el Mercado",
+            "description": "Acceso a estrategias DeFi empresariales.\nRetornos que bancos no ofrecen.\nCon la seguridad que necesitas."
+          },
+          "guaranteedLiquidity": {
+            "iconAlt": "Liquidity icon",
+            "title": "Liquidez Garantizada",
+            "description": "Retiros cuando quieras.\nNo bloquea capital operativo.\nFlexibilidad para oportunidades."
+          },
+          "managedRisk": {
+            "iconAlt": "Risk management icon",
+            "title": "Riesgo Gestionado",
+            "description": "Exposición calculada y diversificada.\nReportes de riesgo transparentes.\nTú decides cuánto exponer."
+          },
+          "balanceSheetImpact": {
+            "iconAlt": "Financial impact icon",
+            "title": "Impacto en Balance",
+            "description": "Ingresos financieros adicionales.\nMejora indicadores de la empresa.\nMayor competitividad."
+          }
+        }
+      }
+    },
+    "businessCreditSolutions": {
+      "title": "Crédito P2P | diBoaS",
+      "description": "Crédito directo entre empresas.",
+      "hero": {
+        "title": "Crédito directo entre empresas. Tasas justas, procesos rápidos, sin burocracia bancaria.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Crédito directo entre empresas",
+        "description": "Sin intermediarios bancarios tradicionales.",
+        "cards": {
+          "fairerRates": {
+            "iconAlt": "Fair rate icon",
+            "title": "Tasas Más Justas",
+            "description": "Sin márgenes bancarios abusivos.\nEmpresas prestan directo a empresas.\nTodos ganan."
+          },
+          "quickApproval": {
+            "iconAlt": "Fast approval icon",
+            "title": "Aprobación Rápida",
+            "description": "IA analiza riesgo con criterios justos.\nRespuesta en horas, no semanas.\nBurocracia mínima."
+          },
+          "opportunityToInvestToo": {
+            "iconAlt": "Investment opportunity icon",
+            "title": "Oportunidad de Invertir También",
+            "description": "Tu empresa puede prestar capital sin usar.\nRetornos atractivos y controlados.\nMarketplace de crédito B2B."
+          },
+          "totalTransparency": {
+            "iconAlt": "Transparency icon",
+            "title": "Transparencia Total",
+            "description": "Ve quién está prestando.\nEntiende la estructura de intereses.\nContratos claros y accesibles."
+          }
+        }
+      }
+    },
+    "rewardsBenefits": {
+      "title": "diBoaS Rewards | diBoaS",
+      "description": "Recompensas que realmente importan.",
+      "hero": {
+        "title": "Recompensas que realmente importan. Aprende, crece y sé reconocido por cada logro.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Recompensas que realmente importan",
+        "description": "Cuanto más creces, más ganas.",
+        "cards": {
+          "unifiedPointsSystem": {
+            "iconAlt": "Points system icon",
+            "title": "Sistema de Puntos Unificado",
+            "description": "Cada acción suma puntos.\nInvertir, aprender, referir, participar.\nLos puntos se vuelven beneficios reales."
+          },
+          "achievementBadges": {
+            "iconAlt": "Badge icon",
+            "title": "Insignias de Logros",
+            "description": "Muestra tus logros financieros.\nPrimera inversión, meta alcanzada, curso completado.\nGamificación que educa."
+          },
+          "communityLeaderboard": {
+            "iconAlt": "Leaderboard icon",
+            "title": "Tabla de Posiciones Comunitaria",
+            "description": "Ve dónde estás.\nCompetencia sana.\nInspiración de quienes están creciendo."
+          },
+          "exclusiveBenefits": {
+            "iconAlt": "VIP benefits icon",
+            "title": "Beneficios Exclusivos",
+            "description": "Acceso anticipado a funciones.\nCursos VIP gratis.\nEventos con expertos."
+          },
+          "realCashback": {
+            "iconAlt": "Cashback icon",
+            "title": "Cashback Real",
+            "description": "Dinero de vuelta en transacciones.\nNo son puntos que expiran.\nEs dinero que vuelve a ti."
+          }
+        }
+      }
+    },
+    "rewardsAiGuides": {
+      "title": "Guías IA | diBoaS",
+      "description": "Conoce a tus guías personales.",
+      "hero": {
+        "title": "Conoce a tus guías personales. Aqua, Mystic y Coral evolucionan contigo, del principiante al experto.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Tus guías personales en el viaje",
+        "description": "Aqua, Mystic y Coral evolucionan contigo.",
+        "cards": {
+          "aquaYourBeginnerFriend": {
+            "iconAlt": "Aqua mascot icon",
+            "title": "Aqua: Tu Amiga Principiante",
+            "description": "Guía tus primeros pasos.\nExplica cada término, cada acción.\nPaciencia infinita, conocimiento práctico."
+          },
+          "mysticTheWiseAdvisor": {
+            "iconAlt": "Mystic mascot icon",
+            "title": "Mystic: La Consejera Sabia",
+            "description": "Aparece cuando dominas lo básico.\nTe presenta inversiones más sofisticadas.\nEstrategias de crecimiento real."
+          },
+          "coralTheYieldExpert": {
+            "iconAlt": "Coral mascot icon",
+            "title": "Coral: La Experta en Rendimientos",
+            "description": "Desbloqueada para usuarios avanzados.\nEstrategias DeFi, balance de riesgo.\nMaximización de retornos."
+          },
+          "behavioralIntelligence": {
+            "iconAlt": "AI intelligence icon",
+            "title": "Inteligencia Conductual",
+            "description": "Las mascotas perciben tu progreso real.\nNo fuerzan complejidad prematura.\nEvolución a tu ritmo."
+          }
+        }
+      }
+    },
+    "rewardsReferralProgram": {
+      "title": "Programa de Referidos | diBoaS",
+      "description": "Comparte conocimiento, gana recompensas.",
+      "hero": {
+        "title": "Comparte conocimiento, gana recompensas. Crece junto con quienes refieres.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Comparte conocimiento, gana recompensas",
+        "description": "Crece junto a quienes refieres.",
+        "cards": {
+          "bonusForYouAndFriend": {
+            "iconAlt": "Referral bonus icon",
+            "title": "Bono Para Ti y Tu Amigo",
+            "description": "Ambos ganan cuando tu referido se registra.\nRecompensa justa para ambos lados.\nCrecimiento compartido."
+          },
+          "unlimitedReferrals": {
+            "iconAlt": "Unlimited referrals icon",
+            "title": "Referencias Ilimitadas",
+            "description": "Refiere a tantas personas como quieras.\nCada una cuenta.\nEscalabilidad real."
+          },
+          "transparentTracking": {
+            "iconAlt": "Tracking icon",
+            "title": "Seguimiento Transparente",
+            "description": "Ve quién se registró por tu link.\nRastrea tus ganancias.\nDashboard completo de referidos."
+          },
+          "progressiveBonuses": {
+            "iconAlt": "Progressive rewards icon",
+            "title": "Bonos Progresivos",
+            "description": "Cuanto más refieres, más ganas.\nNiveles de recompensa crecientes.\nIncentivo para evangelizar."
+          }
+        }
+      }
+    },
+    "rewardsPointsSystem": {
+      "title": "Sistema de Puntos | diBoaS",
+      "description": "Cada acción suma puntos. Cada punto significa crecimiento.",
+      "hero": {
+        "title": "Cada acción suma puntos. Cada punto significa crecimiento. Acumula y desbloquea beneficios.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Cada acción suma puntos",
+        "description": "Acumula y desbloquea beneficios.",
+        "cards": {
+          "earnByInvesting": {
+            "iconAlt": "Investment points icon",
+            "title": "Gana Invirtiendo",
+            "description": "Puntos por cada transacción.\nCuanto más inviertes, más acumulas.\nIncentivo para hacer crecer tu patrimonio."
+          },
+          "earnByLearning": {
+            "iconAlt": "Learning points icon",
+            "title": "Gana Aprendiendo",
+            "description": "Completa cursos, gana puntos.\nMira contenido, sé recompensado.\nEducación financiera valorada."
+          },
+          "earnByEngaging": {
+            "iconAlt": "Engagement points icon",
+            "title": "Gana Participando",
+            "description": "Participa en la comunidad.\nAyuda a otros usuarios.\nContribución reconocida."
+          },
+          "redeemForBenefits": {
+            "iconAlt": "Redeem points icon",
+            "title": "Canjea Por Beneficios",
+            "description": "Usa puntos para descontar comisiones.\nAccede a cursos premium.\nMarketplace de recompensas."
+          }
+        }
+      }
+    },
+    "rewardsBadgesLeaderboard": {
+      "title": "Badges & Ranking | diBoaS",
+      "description": "Gana badges y sube en el ranking.",
+      "hero": {
+        "title": "Gana badges, sube en el ranking y muestra tus logros financieros a la comunidad.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Logra, muestra, inspira",
+        "description": "Tus logros financieros visibles.",
+        "cards": {
+          "milestoneBadges": {
+            "iconAlt": "Milestone badge icon",
+            "title": "Insignias de Hitos",
+            "description": "Primera inversión, $1K invertidos, 10 cursos completados.\nCada logro tiene una insignia.\nTu progreso visible."
+          },
+          "weeklyLeaderboard": {
+            "iconAlt": "Leaderboard icon",
+            "title": "Tabla Semanal",
+            "description": "Ranking de puntos de la semana.\nCompetencia sana.\nMotivación extra."
+          },
+          "optionalPublicProfile": {
+            "iconAlt": "Public profile icon",
+            "title": "Perfil Público Opcional",
+            "description": "Muestra tus insignias si quieres.\nInspira a otros usuarios.\nComunidad de crecimiento."
+          },
+          "specialBadges": {
+            "iconAlt": "Special badge icon",
+            "title": "Insignias Especiales",
+            "description": "Early adopter, top referidor, educador.\nReconocimiento único.\nEstatus en la comunidad."
+          }
+        }
+      }
+    },
+    "rewardsCampaigns": {
+      "title": "Campañas | diBoaS",
+      "description": "Desafíos que enseñan, recompensas que motivan.",
+      "hero": {
+        "title": "Desafíos que enseñan, recompensas que motivan. Participa y acelera tu crecimiento.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Desafíos que enseñan y recompensan",
+        "description": "Participa y acelera tu crecimiento.",
+        "cards": {
+          "monthlyChallenges": {
+            "iconAlt": "Challenge icon",
+            "title": "Desafíos Mensuales",
+            "description": "Metas específicas cada mes.\nInvierte X, aprende Y, refiere Z.\nRecompensas extra por completar."
+          },
+          "brandPartnerships": {
+            "iconAlt": "Partnership icon",
+            "title": "Alianzas Con Marcas",
+            "description": "Campañas con empresas asociadas.\nOfertas exclusivas para usuarios diBoas.\nValor más allá de la plataforma."
+          },
+          "seasonalEvents": {
+            "iconAlt": "Event icon",
+            "title": "Eventos de Temporada",
+            "description": "Black Friday, Año Nuevo, fechas especiales.\nBonos multiplicados.\nDiversión y beneficios juntos."
+          },
+          "educationalCampaigns": {
+            "iconAlt": "Educational campaign icon",
+            "title": "Campañas Educativas",
+            "description": "Aprende temas específicos, gana recompensas.\nIncentivo para educación enfocada.\nConocimiento que paga de vuelta."
+          }
+        }
+      }
+    },
+    "rewardsTokenAirdrop": {
+      "title": "Token & Airdrop | diBoaS",
+      "description": "Sé un early adopter.",
+      "hero": {
+        "title": "Sé un early adopter. Gana tokens exclusivos y forma parte de la revolución OneFi.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Sé un early adopter",
+        "description": "Gana tokens exclusivos de la plataforma.",
+        "cards": {
+          "governanceToken": {
+            "iconAlt": "Governance token icon",
+            "title": "Token de Gobernanza",
+            "description": "Voz en las decisiones de la plataforma.\nMás comprometido, más tokens.\nComunidad que realmente gobierna."
+          },
+          "airdropsForActiveUsers": {
+            "iconAlt": "Airdrop icon",
+            "title": "Airdrops Para Usuarios Activos",
+            "description": "Distribución de tokens para usuarios y contribuyentes.\nRecompensa proporcional al compromiso.\nEarly adopters valorados."
+          },
+          "realUtility": {
+            "iconAlt": "Token utility icon",
+            "title": "Utilidad Real",
+            "description": "Usa tokens para descontar comisiones.\nAccede a funciones premium.\nNo es especulación, es valor de uso."
+          },
+          "transparentRoadmap": {
+            "iconAlt": "Roadmap icon",
+            "title": "Hoja de Ruta Transparente",
+            "description": "Distribución planeada y comunicada.\nSin sorpresas, sin manipulación.\nTokenomics responsable."
+          }
+        }
+      }
+    },
+    "securityBenefits": {
+      "title": "diBoaS Protection | diBoaS",
+      "description": "Tu dinero protegido con seguridad de nivel militar.",
+      "hero": {
+        "title": "Tu dinero protegido con seguridad de nivel militar. Tú mantienes el control, nosotros garantizamos la protección.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Seguridad de nivel militar",
+        "description": "Tu dinero protegido, siempre.",
+        "cards": {
+          "endToEndEncryption": {
+            "iconAlt": "Encryption icon",
+            "title": "Encriptación de Extremo a Extremo",
+            "description": "Tus datos protegidos en todo su recorrido.\nTecnología usada por bancos globales.\nSeguridad que no ves, pero sientes."
+          },
+          "multiFactorAuthentication": {
+            "iconAlt": "MFA icon",
+            "title": "Autenticación Multi-Factor",
+            "description": "Biometría, códigos, dispositivos confiables.\nMúltiples capas de protección.\nAcceso solo para quienes deben tenerlo."
+          },
+          "monitoring247": {
+            "iconAlt": "Monitoring icon",
+            "title": "Monitoreo 24/7",
+            "description": "IA detecta actividad sospechosa.\nAlertas instantáneas para ti.\nRespuesta rápida a amenazas."
+          },
+          "segregatedCustody": {
+            "iconAlt": "Custody icon",
+            "title": "Custodia Segregada",
+            "description": "Tus activos separados de los de la empresa.\nProtección incluso en escenarios improbables.\nTranquilidad regulatoria."
+          },
+          "assetInsurance": {
+            "iconAlt": "Insurance icon",
+            "title": "Seguro de Activos",
+            "description": "Cobertura contra eventos extremos.\nAlianza con aseguradoras confiables.\nProtección adicional que importa."
+          }
+        }
+      }
+    },
+    "securityAuditReports": {
+      "title": "Auditorías & Informes | diBoaS",
+      "description": "Transparencia total.",
+      "hero": {
+        "title": "Transparencia total. Auditorías independientes e informes públicos sobre nuestra seguridad.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Transparencia total",
+        "description": "Auditorías independientes y públicas.",
+        "cards": {
+          "quarterlyAudits": {
+            "iconAlt": "Audit icon",
+            "title": "Auditorías Trimestrales",
+            "description": "Empresas independientes verifican todo.\nReportes públicos y accesibles.\nConfianza basada en hechos."
+          },
+          "proofOfReserves": {
+            "iconAlt": "Proof of reserves icon",
+            "title": "Proof of Reserves",
+            "description": "Demostración de que los activos existen.\nSin reserva fraccionaria oculta.\nSolvencia verificable."
+          },
+          "regulatoryCompliance": {
+            "iconAlt": "Compliance icon",
+            "title": "Cumplimiento Regulatorio",
+            "description": "Certificaciones de todas las jurisdicciones.\nMiCA (UE), BSA (EE.UU.), Banco Central (BR).\nLegal en todos lados."
+          },
+          "bugBountyProgram": {
+            "iconAlt": "Bug bounty icon",
+            "title": "Programa Bug Bounty",
+            "description": "Hackers éticos prueban nuestra seguridad.\nRecompensas por encontrar fallas.\nSeguridad colaborativa."
+          }
+        }
+      }
+    },
+    "securitySafetyGuide": {
+      "title": "Guía de Seguridad | diBoaS",
+      "description": "Aprende a protegerte.",
+      "hero": {
+        "title": "Aprende a protegerte. Tips prácticos y herramientas para mantener tus finanzas seguras.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Aprende a protegerte",
+        "description": "Consejos prácticos de seguridad financiera.",
+        "cards": {
+          "recognizeCommonScams": {
+            "iconAlt": "Scam awareness icon",
+            "title": "Reconoce Estafas Comunes",
+            "description": "Phishing, apps falsas, ingeniería social.\nCómo identificarlas y evitarlas.\nConocimiento que protege."
+          },
+          "passwordManagement": {
+            "iconAlt": "Password icon",
+            "title": "Gestión de Contraseñas",
+            "description": "Crea contraseñas fuertes.\nUsa gestores confiables.\nNunca reutilices contraseñas."
+          },
+          "twoFactorVerification": {
+            "iconAlt": "2FA icon",
+            "title": "Verificación en Dos Pasos",
+            "description": "Cómo configurar 2FA.\nPor qué es esencial.\nProtección que toma 2 minutos."
+          },
+          "whatNeverToShare": {
+            "iconAlt": "Privacy icon",
+            "title": "Qué Nunca Compartir",
+            "description": "Contraseñas, códigos, claves privadas.\ndiBoas nunca pide esta información.\nReglas de seguridad claras."
+          }
+        }
+      }
+    },
+    "helpFaq": {
+      "title": "FAQ | diBoaS",
+      "description": "Tus dudas, nuestras respuestas.",
+      "hero": {
+        "title": "Tus dudas, nuestras respuestas. Encuentra ayuda rápida para cualquier pregunta.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Tus dudas, nuestras respuestas",
+        "description": "Ayuda rápida cuando la necesitas.",
+        "cards": {
+          "completeKnowledgeBase": {
+            "iconAlt": "Knowledge base icon",
+            "title": "Base de Conocimiento Completa",
+            "description": "Cientos de artículos organizados.\nBúsqueda inteligente por palabras clave.\nRespuestas que encuentras tú mismo."
+          },
+          "chatSupport": {
+            "iconAlt": "Chat icon",
+            "title": "Soporte Por Chat",
+            "description": "Equipo real responde rápido.\nNo son bots frustrantes.\nHumanos ayudando humanos."
+          },
+          "videoTutorials": {
+            "iconAlt": "Video icon",
+            "title": "Tutoriales en Video",
+            "description": "Aprende viendo cómo se hace.\nPaso a paso visual.\nMás fácil que leer."
+          },
+          "communityHelpsCommunity": {
+            "iconAlt": "Community icon",
+            "title": "Comunidad Ayuda a Comunidad",
+            "description": "Foro de usuarios.\nPreguntas respondidas por quienes han estado ahí.\nExperiencia colectiva."
+          }
+        }
+      }
+    },
+    "about": {
+      "title": "Acerca de | diBoaS",
+      "description": "La primera plataforma OneFi del mundo.",
+      "hero": {
+        "title": "La primera plataforma OneFi del mundo. Banking, Investing, Crypto, Strategies y DeFi, todo en un solo lugar. Para todos.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Primera plataforma OneFi del mundo",
+        "description": "Nuestra historia, misión y valores.",
+        "cards": {
+          "visionDemocratizeFinance": {
+            "iconAlt": "Vision icon",
+            "title": "Visión: Democratizar Finanzas",
+            "description": "5.4 mil millones usan finanzas tradicionales.\nSolo 560 millones han tocado crypto.\nEstamos uniendo estos mundos para todos."
+          },
+          "missionSimplifyComplexity": {
+            "iconAlt": "Mission icon",
+            "title": "Misión: Simplificar Complejidad",
+            "description": "Tecnología sofisticada, experiencia simple.\nDesde principiante hasta experto, todos bienvenidos.\nDivulgación progresiva que funciona."
+          },
+          "valuesTransparencyEducation": {
+            "iconAlt": "Values icon",
+            "title": "Valores: Transparencia y Educación",
+            "description": "Sin letra chica.\nSin comisiones ocultas.\nConocimiento como derecho, no privilegio."
+          },
+          "globalTeamLocalImpact": {
+            "iconAlt": "Global team icon",
+            "title": "Equipo Global, Impacto Local",
+            "description": "Expertos en fintech, crypto y UX.\nExperiencia en 3 continentes.\nConstruyendo para el mundo."
+          }
+        }
+      }
+    },
+    "careers": {
+      "title": "Carreras | diBoaS",
+      "description": "Construye el futuro de las finanzas con nosotros.",
+      "hero": {
+        "title": "Construye el futuro de las finanzas con nosotros. Únete al equipo que está democratizando el acceso.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Construye el futuro de las finanzas",
+        "description": "Únete al equipo que está cambiando el juego.",
+        "cards": {
+          "innovationCulture": {
+            "iconAlt": "Innovation icon",
+            "title": "Cultura de Innovación",
+            "description": "Ideas valoradas, no jerarquía.\nExperimentación alentada.\nAprende haciendo, falla rápido."
+          },
+          "realImpact": {
+            "iconAlt": "Impact icon",
+            "title": "Impacto Real",
+            "description": "Tu trabajo democratiza acceso.\nMillones de personas se benefician.\nPropósito más allá del salario."
+          },
+          "acceleratedGrowth": {
+            "iconAlt": "Growth icon",
+            "title": "Crecimiento Acelerado",
+            "description": "Startup en fase de expansión.\nResponsabilidades crecientes.\nCarrera que escala con la empresa."
+          },
+          "competitiveBenefits": {
+            "iconAlt": "Benefits icon",
+            "title": "Beneficios Competitivos",
+            "description": "Equity ownership, trabajo remoto flexible.\nPresupuesto de aprendizaje.\nEquipo que valora el equilibrio."
+          }
+        }
+      }
+    },
+    "docs": {
+      "title": "Documentación | diBoaS",
+      "description": "Documentación técnica completa.",
+      "hero": {
+        "title": "Documentación técnica completa. Para developers, por developers. Intégrate al ecosistema OneFi.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Documentación técnica completa",
+        "description": "Para desarrolladores, por desarrolladores.",
+        "cards": {
+          "completeRESTfulAPIs": {
+            "iconAlt": "API icon",
+            "title": "APIs RESTful Completas",
+            "description": "Endpoints para todas las funcionalidades.\nDocumentación clara con ejemplos.\nSDKs en múltiples lenguajes."
+          },
+          "webhooksAndEvents": {
+            "iconAlt": "Webhook icon",
+            "title": "Webhooks y Eventos",
+            "description": "Integración en tiempo real.\nNotificaciones de transacciones.\nArquitectura orientada a eventos."
+          },
+          "testingSandbox": {
+            "iconAlt": "Sandbox icon",
+            "title": "Sandbox Para Pruebas",
+            "description": "Ambiente completo de dev.\nDatos de prueba ilimitados.\nDesarrolla sin riesgos."
+          },
+          "developerCommunity": {
+            "iconAlt": "Developer community icon",
+            "title": "Comunidad de Devs",
+            "description": "Foro técnico activo.\nEjemplos de código open source.\nSoporte que entiende código."
+          }
+        }
+      }
+    },
+    "investors": {
+      "title": "Inversores | diBoaS",
+      "description": "Una oportunidad de $400 mil millones.",
+      "hero": {
+        "title": "Una oportunidad de $400 mil millones. 89,6% del mercado global aún sin explorar. Metodología validada por 118,6 millones de usuarios.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Oportunidad de $400 mil millones",
+        "description": "89.6% del mercado aún sin explotar.",
+        "cards": {
+          "massiveMarketGap": {
+            "iconAlt": "Market gap icon",
+            "title": "Brecha de Mercado Masiva",
+            "description": "5.4B usuarios TradFi vs 560M crypto.\n99% de usuarios crypto nunca usaron DeFi.\nPrimeros en unir estos mundos."
+          },
+          "validatedMethodology": {
+            "iconAlt": "Validation icon",
+            "title": "Metodología Validada",
+            "description": "Nubank: 118.6M usuarios, $3.2B ingresos trimestrales.\nMismo enfoque conductual.\nProbado que funciona."
+          },
+          "firstMoverAdvantage": {
+            "iconAlt": "First mover icon",
+            "title": "Ventaja del Pionero",
+            "description": "Ningún competidor global tiene OneFi.\nCoinbase se enfoca en institucional.\nNeobancos carecen de crypto."
+          },
+          "growthProjection": {
+            "iconAlt": "Growth projection icon",
+            "title": "Proyección de Crecimiento",
+            "description": "15M usuarios en 5 años.\n$750M ingresos anuales Año 5.\nLTV:CAC de 15:1."
+          },
+          "regulatoryCompliantInvestors": {
+            "iconAlt": "Regulatory icon",
+            "title": "Cumplimiento Regulatorio",
+            "description": "MiCA (UE), BSA (EE.UU.), Banco Central (BR).\nLegal desde el día 1.\nSin riesgo regulatorio."
+          }
+        }
+      }
+    },
+    "legalTerms": {
+      "title": "Términos de Servicio | diBoaS",
+      "description": "Reglas claras, compromisos serios.",
+      "hero": {
+        "title": "Reglas claras, compromisos serios. Conoce nuestros términos y políticas sin letra chica.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Reglas claras, compromisos serios",
+        "description": "Términos sin letra chica.",
+        "cards": {
+          "humanizedTermsOfUse": {
+            "iconAlt": "Clear terms icon",
+            "title": "Términos de Uso Humanizados",
+            "description": "Lenguaje claro, no jerga legal.\nEntiendes lo que aceptas.\nTransparencia como estándar."
+          },
+          "multiJurisdictionCompliance": {
+            "iconAlt": "Global compliance icon",
+            "title": "Cumplimiento Multi-Jurisdiccional",
+            "description": "Seguimos leyes donde operamos.\nActualizaciones según evolucionan regulaciones.\nCumplimiento proactivo, no reactivo."
+          },
+          "consumerProtection": {
+            "iconAlt": "Consumer protection icon",
+            "title": "Protección del Consumidor",
+            "description": "Tus derechos siempre respetados.\nProceso de quejas claro.\nResolución justa de disputas."
+          },
+          "regularExternalAudit": {
+            "iconAlt": "External audit icon",
+            "title": "Auditoría Externa Regular",
+            "description": "Verificación independiente de cumplimiento.\nReportes públicos trimestrales.\nResponsabilidad que importa."
+          }
+        }
+      }
+    },
+    "legalPrivacy": {
+      "title": "Privacidad | diBoaS",
+      "description": "Tus datos son tuyos.",
+      "hero": {
+        "title": "Tus datos son tuyos. Conoce exactamente cómo protegemos y usamos tu información.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Tus datos son tuyos",
+        "description": "Sabe exactamente cómo los protegemos y usamos.",
+        "cards": {
+          "gdprLGPDCompliant": {
+            "iconAlt": "GDPR compliance icon",
+            "title": "Cumplimiento GDPR / LGPD",
+            "description": "Seguimos las leyes de privacidad más estrictas.\nTus datos, tus reglas.\nControl total sobre información."
+          },
+          "dataMinimization": {
+            "iconAlt": "Data minimization icon",
+            "title": "Minimización de Datos",
+            "description": "Recopilamos solo lo necesario.\nNo vendemos tu información.\nTu perfil no es el producto."
+          },
+          "endToEndEncryptionPrivacy": {
+            "iconAlt": "Encryption icon",
+            "title": "Encriptación de Extremo a Extremo",
+            "description": "Datos protegidos en reposo y en tránsito.\nNi siquiera nosotros accedemos sin autorización.\nPrivacidad técnica, no solo promesas."
+          },
+          "userRights": {
+            "iconAlt": "User rights icon",
+            "title": "Derechos del Usuario",
+            "description": "Accede, exporta, elimina tus datos.\nHerramientas de autoservicio en la app.\nEjercer derechos es fácil."
+          }
+        }
+      }
+    },
+    "legalCookies": {
+      "title": "Cookies | diBoaS",
+      "description": "Cookies explicadas de forma simple.",
+      "hero": {
+        "title": "Cookies explicadas de forma simple. Entiende cómo mejoramos tu experiencia en el sitio.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Cookies explicadas de forma simple",
+        "description": "Cómo mejoramos tu experiencia.",
+        "cards": {
+          "whatCookiesAre": {
+            "iconAlt": "Cookie icon",
+            "title": "Qué Son las Cookies",
+            "description": "Archivos pequeños que recuerdan tus preferencias.\nHacen que el sitio funcione mejor para ti.\nTecnología común, no misterio."
+          },
+          "typesWeUse": {
+            "iconAlt": "Cookie types icon",
+            "title": "Tipos Que Usamos",
+            "description": "Esenciales (sitio funciona), preferencias (idioma, tema).\nAnalytics (mejorar experiencia).\nCada tipo claramente explicado."
+          },
+          "youAreInControl": {
+            "iconAlt": "Control icon",
+            "title": "Tú Tienes el Control",
+            "description": "Acepta solo lo que quieras.\nCambia preferencias en cualquier momento.\nSin cookies obligatorias no esenciales."
+          },
+          "noInvasiveTracking": {
+            "iconAlt": "No tracking icon",
+            "title": "Sin Rastreo Invasivo",
+            "description": "No vendemos datos de navegación.\nSin rastreo entre sitios.\nPrivacidad respetada."
+          }
+        }
       }
     }
   },

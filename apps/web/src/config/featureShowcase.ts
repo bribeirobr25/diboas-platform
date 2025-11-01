@@ -190,9 +190,9 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
       {
         id: 'learn-courses',
         content: {
-          title: 'Learn Financial Strategies',
-          description: 'Access comprehensive courses on personal finance, investing, and DeFi strategies. Build your knowledge with expert-curated content.',
-          ctaText: 'Start Learning',
+          title: 'marketing.featureShowcase.learn.title',
+          description: 'marketing.featureShowcase.learn.description',
+          ctaText: 'marketing.featureShowcase.learn.ctaText',
           ctaHref: ROUTES.LEARN.BENEFITS,
           ctaTarget: '_self'
         },
@@ -227,9 +227,9 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
       {
         id: 'business-solutions',
         content: {
-          title: 'Enterprise Financial Solutions',
-          description: 'Streamline your business financial operations with our comprehensive suite of tools. From payroll to treasury management.',
-          ctaText: 'Explore Business',
+          title: 'marketing.featureShowcase.business.title',
+          description: 'marketing.featureShowcase.business.description',
+          ctaText: 'marketing.featureShowcase.business.ctaText',
           ctaHref: ROUTES.BUSINESS.BENEFITS,
           ctaTarget: '_self'
         },
