@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, FeatureShowcase, StickyFeaturesNav } from '@/components/Sections';
+import { HeroSection, FeatureShowcase, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { BENEFITS_SHOWCASE_CONFIG } from '@/config/benefitsCarousel';
@@ -11,6 +11,7 @@ import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { ROUTES } from '@/config/routes';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
+import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
 import type { Metadata } from 'next';
 
 export const dynamic = 'auto';
@@ -106,6 +107,21 @@ export default async function BenefitsPage({ params }: PageProps) {
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
+      
+        {/* FAQ Accordion Section */}
+        <SectionErrorBoundary
+          sectionId="faq-accordion-benefits"
+          sectionType="FAQAccordion"
+          enableReporting={true}
+          context={{ page: 'benefits' }}
+        >
+          <FAQAccordion
+            variant="default"
+            config={FAQ_ACCORDION_PAGE_CONFIGS.benefits!}
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
       </main>
     </>
   );

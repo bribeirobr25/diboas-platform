@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, StickyFeaturesNav } from '@/components/Sections';
+import { HeroSection, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
 import { FeatureShowcase } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
@@ -14,6 +14,7 @@ import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
+import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -110,6 +111,21 @@ export default async function FinancialBasicsPage({ params }: PageProps) {
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
+      
+        {/* FAQ Accordion Section */}
+        <SectionErrorBoundary
+          sectionId="faq-accordion-learnFinancialBasics"
+          sectionType="FAQAccordion"
+          enableReporting={true}
+          context={{ page: 'learnFinancialBasics' }}
+        >
+          <FAQAccordion
+            variant="default"
+            config={FAQ_ACCORDION_PAGE_CONFIGS.learnFinancialBasics!}
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
       </main>
     </>
   );
