@@ -285,6 +285,37 @@
             "description": "Banking + Inversiones + Crypto + Estrategias + DeFi.\nTodo integrado. Todo simple. \nFácil para principiantes, potente para expertos."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "¿Por qué elegir diBoaS?",
+        "subtitle": "Porque resolvemos problemas reales.",
+        "cards": {
+          "stopJugglingApps": {
+            "title": "Olvídate del Caos de Apps",
+            "description": "Todo en diBoaS.\nAhorras tiempo, nunca pierdes contraseñas y ves \ntodo tu portafolio en una sola pantalla.",
+            "imageAlt": "Olvídate del Caos de Apps illustration"
+          },
+          "youReInCharge": {
+            "title": "Tú Tienes el Control",
+            "description": "Tienes control total sobre tu dinero.\nYa sean inversiones, transferencias o estrategias.\nTú decides cuánto y cuándo.",
+            "imageAlt": "Tú Tienes el Control illustration"
+          },
+          "yourMoneyAlwaysWorks": {
+            "title": "Tu Dinero Siempre Trabaja",
+            "description": "Ya sea comprando Acciones, Crypto u otros activos.\nO usando estrategias exclusivas.\nTu dinero siempre está creciendo.",
+            "imageAlt": "Tu Dinero Siempre Trabaja illustration"
+          },
+          "investingStopsBeingScary": {
+            "title": "Invertir Deja de Dar Miedo",
+            "description": "Nuestros usuarios nunca habían invertido antes de diBoaS.\nNuestro Centro de Aprendizaje explica literalmente cada término.\nCada decisión. Cada riesgo.",
+            "imageAlt": "Invertir Deja de Dar Miedo illustration"
+          },
+          "useMoreEarnMore": {
+            "title": "Usa Más, Gana Más",
+            "description": "Sistema de Puntos, Bonos por Referidos,\nPuntos por Metas Logradas, Acceso VIP a nuestros Cursos,\ny mucho más.",
+            "imageAlt": "Usa Más, Gana Más illustration"
+          }
+        }
       }
     },
     "account": {
@@ -320,6 +351,32 @@
             "description": "Nuestra mascota amigable explica cada función.\nNunca te sentirás perdido.\nDesde el primer depósito hasta la primera inversión."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Tu cuenta. Tus reglas.",
+        "subtitle": "Todo lo que necesitas, nada de lo que no quieres.",
+        "cards": {
+          "earnsWhileYouSleep": {
+            "title": "Rinde Mientras Duermes",
+            "description": "Tu saldo rinde 100% del CDI automáticamente.\nSin necesidad de mover el dinero a otro lado.\nAsí de simple.",
+            "imageAlt": "Rinde Mientras Duermes illustration"
+          },
+          "actuallyFree": {
+            "title": "Gratis de Verdad",
+            "description": "Sin comisiones de mantenimiento. Sin letra chica.\nTransferencias gratis y Pix ilimitado.\nCero sorpresas.",
+            "imageAlt": "Gratis de Verdad illustration"
+          },
+          "yourMoneyAtTheRightSpeed": {
+            "title": "Tu Dinero a la Velocidad Correcta",
+            "description": "Deposita, envía y recibe en tiempo real.\nSin fronteras, sin trámites.\nTodo desde la app.",
+            "imageAlt": "Tu Dinero a la Velocidad Correcta illustration"
+          },
+          "securityYouControl": {
+            "title": "Seguridad Que Tú Controlas",
+            "description": "Bloqueos instantáneos, alertas en tiempo real\ny tú siempre al mando.\nTu dinero, tus reglas de protección.",
+            "imageAlt": "Seguridad Que Tú Controlas illustration"
+          }
+        }
       }
     },
     "bankingServices": {
@@ -353,6 +410,32 @@
             "iconAlt": "History icon",
             "title": "Historial Transparente",
             "description": "Ve todas tus transacciones claramente.\nFiltra por fecha, tipo o monto.\nExporta cuando quieras."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Banking sin complicaciones.",
+        "subtitle": "Todo lo que necesitas hacer con tu dinero, bien hecho.",
+        "cards": {
+          "borderlessTransfers": {
+            "title": "Transferencias Sin Fronteras",
+            "description": "Envía y recibe dinero en cualquier parte del mundo.\nTiempo real, tarifas transparentes.\nSin sorpresas en el camino.",
+            "imageAlt": "Transferencias Sin Fronteras illustration"
+          },
+          "oneClickPayments": {
+            "title": "Pagos en 1-Click",
+            "description": "Pix, facturas, pagos recurrentes.\nConfigura una vez, paga cuando necesites.\nRápido y seguro.",
+            "imageAlt": "Pagos en 1-Click illustration"
+          },
+          "historyThatMakesSense": {
+            "title": "Historial Que Tiene Sentido",
+            "description": "Ve cada transacción con claridad.\nFiltra, busca y exporta cuando quieras.\nTus finanzas organizadas como nunca.",
+            "imageAlt": "Historial Que Tiene Sentido illustration"
+          },
+          "realTimeControl": {
+            "title": "Control en Tiempo Real",
+            "description": "Notificaciones instantáneas de cada transacción.\nSiempre sabes qué está pasando\ncon tu dinero.",
+            "imageAlt": "Control en Tiempo Real illustration"
           }
         }
       }
@@ -395,6 +478,32 @@
             "description": "Solo 0.09% por transacción.\nHasta 16x más barato que plataformas tradicionales.\nTransparencia total."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Invertir sin misterios.",
+        "subtitle": "Comienza con $10 y ve tu dinero crecer.",
+        "cards": {
+          "startSmall": {
+            "title": "Empieza Chico",
+            "description": "Solo $10 para empezar.\nNo necesitas ser rico para invertir.\nEmpieza hoy, crece mañana.",
+            "imageAlt": "Empieza Chico illustration"
+          },
+          "diversifyInOneClick": {
+            "title": "Diversifica en 1-Click",
+            "description": "Acciones, Oro, Crypto, Bienes Raíces y más.\nTodo en la misma app, con la misma facilidad.\nTu portafolio completo en un solo lugar.",
+            "imageAlt": "Diversifica en 1-Click illustration"
+          },
+          "learnByInvesting": {
+            "title": "Aprende Invirtiendo",
+            "description": "Guías IA explican cada paso.\nDe lo básico a lo avanzado, a tu ritmo.\nNadie nace sabiendo. Pero todos aprenden.",
+            "imageAlt": "Aprende Invirtiendo illustration"
+          },
+          "feesThatMakeSense": {
+            "title": "Tarifas Que Tienen Sentido",
+            "description": "0.09% de tarifa para compra/venta.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
+            "imageAlt": "Tarifas Que Tienen Sentido illustration"
+          }
+        }
       }
     },
     "cryptocurrency": {
@@ -428,6 +537,32 @@
             "iconAlt": "Learn first icon",
             "title": "Aprende Antes de Invertir",
             "description": "Centro de Educación explica cada moneda.\nRiesgos, beneficios, tecnología.\nConocimiento antes que dinero."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Crypto para gente normal.",
+        "subtitle": "Sin tecnicismos. Solo oportunidades reales.",
+        "cards": {
+          "oneClickToGetIn": {
+            "title": "1-Click Para Entrar",
+            "description": "Compra Bitcoin, Ethereum y más con un click.\nSin necesidad de entender blockchain.\nNuestras guías explican todo.",
+            "imageAlt": "1-Click Para Entrar illustration"
+          },
+          "securityYouUnderstand": {
+            "title": "Seguridad Que Entiendes",
+            "description": "Wallets no-custodiales. Tú eres el dueño.\nEncriptación militar. Auditorías independientes.\nTu crypto, tu custodia.",
+            "imageAlt": "Seguridad Que Entiendes illustration"
+          },
+          "fromZeroToAdvanced": {
+            "title": "De Cero a Avanzado",
+            "description": "Empieza con Aqua comprando tu primer Bitcoin.\nEvoluciona a estrategias avanzadas con Coral.\nTodo a tu propio ritmo.",
+            "imageAlt": "De Cero a Avanzado illustration"
+          },
+          "cryptoTraditionalComplete": {
+            "title": "Crypto + Tradicional = Completo",
+            "description": "Ve tus inversiones tradicionales y crypto\nlado a lado. Una vista única de tu patrimonio.\nFinalmente, todo junto.",
+            "imageAlt": "Crypto + Tradicional = Completo illustration"
           }
         }
       }
@@ -470,6 +605,32 @@
             "description": "Entiende staking, liquidity pools, yield farming.\nSin jerga técnica, con ejemplos prácticos.\nConocimiento = Control."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Estrategias profesionales para todos.",
+        "subtitle": "DeFi complicado se vuelve simple. Altos rendimientos accesibles.",
+        "cards": {
+          "yieldsWorthYourTime": {
+            "title": "Rendimientos Que Valen la Pena",
+            "description": "Gana hasta 3x más que inversiones tradicionales.\nDeFi simplificado por diBoaS.\nRendimientos reales, accesibles para todos.",
+            "imageAlt": "Rendimientos Que Valen la Pena illustration"
+          },
+          "readyMadeStrategies": {
+            "title": "Estrategias Ya Listas",
+            "description": "Fondo de Emergencia, Crecimiento Balanceado,\nAlto Rendimiento. Elige, activa, listo.\nSin configuración compleja.",
+            "imageAlt": "Estrategias Ya Listas illustration"
+          },
+          "riskUnderControl": {
+            "title": "Riesgo Bajo Control",
+            "description": "Coral explica cada riesgo claramente.\nTú eliges el equilibrio entre seguridad y retorno.\nSiempre decisiones informadas.",
+            "imageAlt": "Riesgo Bajo Control illustration"
+          },
+          "stopWheneverYouWant": {
+            "title": "Para Cuando Quieras",
+            "description": "Iniciar/Parar en segundos.\nTu dinero vuelve a ti en tiempo real.\nSin bloqueos, sin penalizaciones.",
+            "imageAlt": "Para Cuando Quieras illustration"
+          }
+        }
       }
     },
     "credit": {
@@ -503,6 +664,32 @@
             "iconAlt": "P2P credit icon",
             "title": "Crédito P2P Empresarial",
             "description": "Empresas prestan directamente a empresas.\nTasas más justas para todos.\nMenos intermediarios, más eficiencia."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Crédito sin juegos.",
+        "subtitle": "Tasas claras, procesos simples, tú en control.",
+        "cards": {
+          "totalTransparency": {
+            "title": "Transparencia Total",
+            "description": "Tasa fija desde el primer día.\nSin sorpresas, sin letra chica.\nSabes exactamente lo que vas a pagar.",
+            "imageAlt": "Transparencia Total illustration"
+          },
+          "fairApproval": {
+            "title": "Aprobación Justa",
+            "description": "Análisis basado en tu comportamiento financiero.\nNo solo en tu pasado.\nTodos merecen una oportunidad.",
+            "imageAlt": "Aprobación Justa illustration"
+          },
+          "youDecideHowMuch": {
+            "title": "Tú Decides Cuánto",
+            "description": "Elige el monto, plazo y forma de pago.\nFlexibilidad para tu realidad.\nCrédito a tu manera.",
+            "imageAlt": "Tú Decides Cuánto illustration"
+          },
+          "payWhenYouCan": {
+            "title": "Paga Cuando Puedas",
+            "description": "Anticipa cuotas sin multa.\nRenegocia si lo necesitas.\nEstamos de tu lado.",
+            "imageAlt": "Paga Cuando Puedas illustration"
           }
         }
       }
@@ -540,6 +727,32 @@
             "description": "Puntos por completar cursos.\nInsignias por lograr metas.\nEducación recompensada."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Aprende a crecer.",
+        "subtitle": "Educación financiera que funciona, a tu ritmo.",
+        "cards": {
+          "fromBasicsToAdvanced": {
+            "title": "De Básico a Avanzado",
+            "description": "¿Empezando desde cero? Perfecto.\n¿Ya inviertes? Aún mejor.\nContenido para cada nivel.",
+            "imageAlt": "De Básico a Avanzado illustration"
+          },
+          "learnByDoing": {
+            "title": "Aprende Haciendo",
+            "description": "Teoría + Práctica juntas.\nAprende el concepto, aplícalo de inmediato.\nConocimiento que se queda.",
+            "imageAlt": "Aprende Haciendo illustration"
+          },
+          "communityThatTeaches": {
+            "title": "Comunidad Que Enseña",
+            "description": "Aprende de quienes ya lo hicieron.\nComparte lo que aprendiste.\nCrecemos juntos.",
+            "imageAlt": "Comunidad Que Enseña illustration"
+          },
+          "guidesThatEvolveWithYou": {
+            "title": "Guías Que Evolucionan Contigo",
+            "description": "Aqua para principiantes. Mystic para inversores.\nCoral para estrategas.\nCada guía aparece cuando estás listo.",
+            "imageAlt": "Guías Que Evolucionan Contigo illustration"
+          }
+        }
       }
     },
     "learnFinancialBasics": {
@@ -575,6 +788,27 @@
             "description": "Estrategias para pagar deudas.\nPriorización inteligente.\nEl reinicio financiero es posible."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Los fundamentos que faltaron.",
+        "subtitle": "Construye la base que nadie te mostró.",
+        "cards": {
+          "understandYourMoney": {
+            "title": "Entiende Tu Dinero",
+            "description": "Presupuesto, ahorro, gastos conscientes.\nLos pilares de una vida financiera sana.\nEmpieza por la base.",
+            "imageAlt": "Entiende Tu Dinero illustration"
+          },
+          "jargonBecomesClarity": {
+            "title": "La Jerga Se Vuelve Claridad",
+            "description": "CDI, inflación, interés compuesto.\nExplicamos cada término en español claro.\nSin tecnicismos.",
+            "imageAlt": "La Jerga Se Vuelve Claridad illustration"
+          },
+          "habitsThatTransform": {
+            "title": "Hábitos Que Transforman",
+            "description": "Pequeños cambios, grandes resultados.\nAprende los hábitos de quienes prosperan.\nCambia hoy, cosecha siempre.",
+            "imageAlt": "Hábitos Que Transforman illustration"
+          }
+        }
       }
     },
     "learnMoneyManagement": {
@@ -608,6 +842,27 @@
             "iconAlt": "Psychology icon",
             "title": "Comportamiento y Dinero",
             "description": "Psicología detrás de decisiones financieras.\nIdentifica tus disparadores.\nCambia hábitos, cambia resultados."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Gestiona como un profesional.",
+        "subtitle": "Herramientas y conocimiento para dominar tus finanzas.",
+        "cards": {
+          "planYourFuture": {
+            "title": "Planea Tu Futuro",
+            "description": "Metas claras, planes realistas.\nDel fondo de emergencia al retiro.\nCada objetivo tiene un camino.",
+            "imageAlt": "Planea Tu Futuro illustration"
+          },
+          "controlYourSpending": {
+            "title": "Controla Tus Gastos",
+            "description": "Ve a dónde va tu dinero.\nIdentifica fugas, corrige el rumbo.\nConocimiento es ahorro.",
+            "imageAlt": "Controla Tus Gastos illustration"
+          },
+          "increaseYourIncome": {
+            "title": "Aumenta Tus Ingresos",
+            "description": "Estrategias para ganar más.\nIngresos extra, negocios paralelos, inversiones.\nMúltiples fuentes, múltiples oportunidades.",
+            "imageAlt": "Aumenta Tus Ingresos illustration"
           }
         }
       }
@@ -650,6 +905,32 @@
             "description": "¿Cuánto puedes permitirte perder?\nStop loss, hedging, seguros.\nProtege lo que has construido."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Invertir es más simple de lo que parece.",
+        "subtitle": "De la primera inversión al portafolio diversificado.",
+        "cards": {
+          "typesOfInvestments": {
+            "title": "Tipos de Inversión",
+            "description": "Acciones, bonos, crypto, bienes raíces, oro.\nEntiende cada opción, riesgos y retornos.\nElige con conocimiento.",
+            "imageAlt": "Tipos de Inversión illustration"
+          },
+          "buildYourPortfolio": {
+            "title": "Construye Tu Portafolio",
+            "description": "Diversificación inteligente.\nBalancea riesgo y retorno.\nTu perfil, tu portafolio.",
+            "imageAlt": "Construye Tu Portafolio illustration"
+          },
+          "strategiesThatWork": {
+            "title": "Estrategias Que Funcionan",
+            "description": "Largo plazo, Dollar Cost Average, rebalanceo.\nTácticas probadas por millones de inversores.\nSigue lo que funciona.",
+            "imageAlt": "Estrategias Que Funcionan illustration"
+          },
+          "mistakesToAvoid": {
+            "title": "Errores a Evitar",
+            "description": "Aprende de quienes ya fallaron.\nPánico, FOMO, falta de paciencia.\nEvita trampas comunes.",
+            "imageAlt": "Errores a Evitar illustration"
+          }
+        }
       }
     },
     "learnCryptocurrencyGuide": {
@@ -683,6 +964,32 @@
             "iconAlt": "Volatility icon",
             "title": "Volatilidad y Cómo Manejarla",
             "description": "Por qué crypto sube y baja tanto.\nEstrategias para no entrar en pánico.\nPerspectiva a largo plazo."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Crypto sin rodeos.",
+        "subtitle": "De la A a la Z, todo lo que necesitas saber.",
+        "cards": {
+          "whatIsBlockchain": {
+            "title": "Qué Es Blockchain",
+            "description": "La tecnología detrás de crypto.\nExplicada sin tecnicismos.\nEntiende de verdad.",
+            "imageAlt": "Qué Es Blockchain illustration"
+          },
+          "bitcoinEthereumAndBeyond": {
+            "title": "Bitcoin, Ethereum y Más Allá",
+            "description": "Principales criptomonedas explicadas.\nQué son, qué hacen, por qué importan.\nConoce cada una.",
+            "imageAlt": "Bitcoin, Ethereum y Más Allá illustration"
+          },
+          "walletsAndSecurity": {
+            "title": "Wallets y Seguridad",
+            "description": "Hot wallets, cold wallets, custodial vs no-custodial.\nProtege tus activos correctamente.\nSeguridad primero.",
+            "imageAlt": "Wallets y Seguridad illustration"
+          },
+          "howToBuyAndSell": {
+            "title": "Cómo Comprar y Vender",
+            "description": "Paso a paso práctico.\nDel primer Bitcoin al trading avanzado.\nDe cero a experto.",
+            "imageAlt": "Cómo Comprar y Vender illustration"
           }
         }
       }
@@ -720,6 +1027,32 @@
             "description": "Los altos rendimientos tienen contrapartidas.\nCómo identificar proyectos serios.\nSeñales de alerta para evitar."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "DeFi sin complicaciones.",
+        "subtitle": "Finanzas descentralizadas explicadas para humanos.",
+        "cards": {
+          "whatIsDefi": {
+            "title": "Qué Es DeFi",
+            "description": "Finanzas sin intermediarios.\nCómo funciona, por qué importa.\nLa revolución financiera explicada.",
+            "imageAlt": "Qué Es DeFi illustration"
+          },
+          "stakingAndYielding": {
+            "title": "Staking y Yielding",
+            "description": "Gana ingresos pasivos con crypto.\nCómo funciona, cuáles son los riesgos.\nRendimientos inteligentes.",
+            "imageAlt": "Staking y Yielding illustration"
+          },
+          "liquidityPools": {
+            "title": "Pools de Liquidez",
+            "description": "Conviértete en el banco.\nProvee liquidez, gana comisiones.\nDeFi en la práctica.",
+            "imageAlt": "Pools de Liquidez illustration"
+          },
+          "risksAndRewards": {
+            "title": "Riesgos y Recompensas",
+            "description": "Pérdida impermanente, riesgo de smart contract.\nEntiende cada peligro claramente.\nSiempre decisiones informadas.",
+            "imageAlt": "Riesgos y Recompensas illustration"
+          }
+        }
       }
     },
     "learnSpecialContent": {
@@ -753,6 +1086,32 @@
             "iconAlt": "Webinar icon",
             "title": "Webinars y Sesiones en Vivo",
             "description": "Sesiones en vivo con expertos.\nObtén respuestas en tiempo real.\nComunidad aprendiendo junta."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Contenido exclusivo para quienes quieren más.",
+        "subtitle": "Insights de expertos, historias de éxito, tendencias del mercado.",
+        "cards": {
+          "expertTalks": {
+            "title": "Charlas de Expertos",
+            "description": "Conversaciones con inversores exitosos.\nEstrategias reales, resultados reales.\nAprende de los mejores.",
+            "imageAlt": "Charlas de Expertos illustration"
+          },
+          "successStories": {
+            "title": "Historias de Éxito",
+            "description": "Trayectorias de usuarios diBoaS.\nCómo empezaron, a dónde llegaron.\nInspiración real.",
+            "imageAlt": "Historias de Éxito illustration"
+          },
+          "marketTrends": {
+            "title": "Tendencias del Mercado",
+            "description": "Qué está moviendo el mercado.\nAnálisis semanales, oportunidades emergentes.\nMantente adelante.",
+            "imageAlt": "Tendencias del Mercado illustration"
+          },
+          "webinarsAndWorkshops": {
+            "title": "Webinars y Talleres",
+            "description": "Clases en vivo con especialistas.\nHaz preguntas, profundiza conocimiento.\nEducación en tiempo real.",
+            "imageAlt": "Webinars y Talleres illustration"
           }
         }
       }
@@ -790,6 +1149,32 @@
             "description": "Dashboard completo de salud financiera.\nReportes automatizados.\nDecisiones basadas en datos reales."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Tu negocio merece más.",
+        "subtitle": "Soluciones financieras que crecen con tu empresa.",
+        "cards": {
+          "completeBusinessBanking": {
+            "title": "Banking Empresarial Completo",
+            "description": "Cuenta, pagos, cobranzas.\nTodo integrado, todo simple.\nTu negocio, menos burocracia.",
+            "imageAlt": "Banking Empresarial Completo illustration"
+          },
+          "capitalWorkingTwentyFourSeven": {
+            "title": "Capital Trabajando 24/7",
+            "description": "Tesorería inteligente con rendimiento.\nTu capital parado ahora genera ingresos.\nCada peso cuenta.",
+            "imageAlt": "Capital Trabajando 24/7 illustration"
+          },
+          "creditToGrow": {
+            "title": "Crédito Para Crecer",
+            "description": "Crédito P2P entre empresas.\nTasas justas, procesos rápidos.\nCrecimiento sin cadenas bancarias.",
+            "imageAlt": "Crédito Para Crecer illustration"
+          },
+          "simplifiedManagement": {
+            "title": "Gestión Simplificada",
+            "description": "Flujo de caja, pagos, inversiones.\nTodo visible en un dashboard.\nEnfócate en lo importante: crecer.",
+            "imageAlt": "Gestión Simplificada illustration"
+          }
+        }
       }
     },
     "businessAccount": {
@@ -823,6 +1208,32 @@
             "iconAlt": "Accounting icon",
             "title": "Integración Contable",
             "description": "Exporta datos para tu contador.\nReportes listos para cumplimiento.\nMenos dolores de cabeza, más eficiencia."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "La cuenta que tu negocio necesita.",
+        "subtitle": "Gratis, completa y rinde mientras trabajas.",
+        "cards": {
+          "zeroMonthlyFees": {
+            "title": "Cero Comisiones Mensuales",
+            "description": "Sin comisión de mantenimiento.\nSin letra chica.\nTu empresa ahorra desde el día uno.",
+            "imageAlt": "Cero Comisiones Mensuales illustration"
+          },
+          "earnsAutomatically": {
+            "title": "Rinde Automáticamente",
+            "description": "100% del CDI sobre tu saldo.\nNo necesitas hacer nada.\nTu capital siempre trabajando.",
+            "imageAlt": "Rinde Automáticamente illustration"
+          },
+          "multipleUsers": {
+            "title": "Múltiples Usuarios",
+            "description": "Agrega tu equipo con permisos personalizados.\nCada uno ve lo que necesita.\nControl total, delegación inteligente.",
+            "imageAlt": "Múltiples Usuarios illustration"
+          },
+          "accountingIntegration": {
+            "title": "Integración Contable",
+            "description": "Exportación automática a tu contador.\nOFX, CSV, PDF.\nMenos trabajo manual, más precisión.",
+            "imageAlt": "Integración Contable illustration"
           }
         }
       }
@@ -860,6 +1271,32 @@
             "description": "Tarjetas físicas y virtuales para el equipo.\nControl de límites por usuario.\nCategorización automática de gastos."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Banking empresarial sin dolores de cabeza.",
+        "subtitle": "Todo lo que tu empresa necesita para mover, pagar y recibir.",
+        "cards": {
+          "bulkPayments": {
+            "title": "Pagos Masivos",
+            "description": "Paga proveedores, empleados, todos de una vez.\nSube planilla y listo.\nEficiencia a escala.",
+            "imageAlt": "Pagos Masivos illustration"
+          },
+          "simplifiedReceivables": {
+            "title": "Cobranzas Simplificadas",
+            "description": "Facturas, Pix, transferencias internacionales.\nTodas las formas de recibir en un lugar.\nDinero llegando más rápido.",
+            "imageAlt": "Cobranzas Simplificadas illustration"
+          },
+          "corporateCard": {
+            "title": "Tarjeta Corporativa",
+            "description": "Tarjetas para tu equipo.\nLímites individuales, control centralizado.\nGastos visibles en tiempo real.",
+            "imageAlt": "Tarjeta Corporativa illustration"
+          },
+          "automaticReconciliation": {
+            "title": "Conciliación Automática",
+            "description": "Pagos y cobros conciliados automáticamente.\nMenos error, menos trabajo manual.\nMás tiempo para crecer.",
+            "imageAlt": "Conciliación Automática illustration"
+          }
+        }
       }
     },
     "businessPayments": {
@@ -893,6 +1330,32 @@
             "iconAlt": "Split payment icon",
             "title": "División de Pagos",
             "description": "Divide ingresos automáticamente.\nIdeal para marketplaces y alianzas.\nTransparencia para todas las partes."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Cobra sin complicaciones.",
+        "subtitle": "De facturas a links de pago, cobra más rápido.",
+        "cards": {
+          "paymentLinks": {
+            "title": "Links de Pago",
+            "description": "Crea, envía, recibe.\nSin necesidad de sitio web o tienda.\nVende en cualquier lugar.",
+            "imageAlt": "Links de Pago illustration"
+          },
+          "smartBills": {
+            "title": "Facturas Inteligentes",
+            "description": "Generación automática, notificaciones de pago.\nRecordatorios antes del vencimiento.\nMenos morosidad.",
+            "imageAlt": "Facturas Inteligentes illustration"
+          },
+          "recurringMadeEasy": {
+            "title": "Recurrencia Sin Dolor",
+            "description": "Configura una vez, cobra cada mes.\nSuscripciones y membresías en automático.\nPrevisibilidad financiera.",
+            "imageAlt": "Recurrencia Sin Dolor illustration"
+          },
+          "paymentSplit": {
+            "title": "División de Pagos",
+            "description": "Divide cobros automáticamente.\nMarketplaces, alianzas, comisiones.\nCada uno recibe su parte a tiempo.",
+            "imageAlt": "División de Pagos illustration"
           }
         }
       }
@@ -930,6 +1393,32 @@
             "description": "Ve todo en un dashboard.\nCuentas en diferentes bancos.\nVista holística de tesorería."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Tesorería que trabaja por ti.",
+        "subtitle": "Tu capital siempre rinde, siempre disponible.",
+        "cards": {
+          "overnightReturns": {
+            "title": "Rendimientos Overnight",
+            "description": "Dinero parado rinde 100% del CDI.\nLiquidez diaria, sin trabar capital.\nTesorería optimizada automáticamente.",
+            "imageAlt": "Rendimientos Overnight illustration"
+          },
+          "corporateInvestments": {
+            "title": "Inversiones Corporativas",
+            "description": "Opciones de inversión para capital a largo plazo.\nAcciones, bonos, crypto empresarial.\nDiversifica activos de la empresa.",
+            "imageAlt": "Inversiones Corporativas illustration"
+          },
+          "cashFlowForecast": {
+            "title": "Previsión de Flujo",
+            "description": "IA predice entradas y salidas.\nAnticipa necesidades de caja.\nPlaneación que funciona.",
+            "imageAlt": "Previsión de Flujo illustration"
+          },
+          "executiveReports": {
+            "title": "Reportes Ejecutivos",
+            "description": "Dashboard con todas las métricas importantes.\nRendimiento, aplicaciones, disponible.\nVista completa de tesorería.",
+            "imageAlt": "Reportes Ejecutivos illustration"
+          }
+        }
       }
     },
     "businessYieldStrategies": {
@@ -965,6 +1454,27 @@
             "description": "Ingresos financieros adicionales.\nMejora indicadores de la empresa.\nMayor competitividad."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Convierte flujo de caja en ingresos.",
+        "subtitle": "Estrategias que hacen contar cada peso.",
+        "cards": {
+          "yieldOnReceivables": {
+            "title": "Rendimiento Sobre Cuentas por Cobrar",
+            "description": "Gana rendimiento mientras esperas pagos.\nCuentas por cobrar generando ingresos.\nMonetiza el tiempo de espera.",
+            "imageAlt": "Rendimiento Sobre Cuentas por Cobrar illustration"
+          },
+          "corporateDefiStrategies": {
+            "title": "Estrategias DeFi Corporativas",
+            "description": "Altos rendimientos con parte de tu caja.\nRiesgo controlado, retorno superior.\nDeFi para empresas.",
+            "imageAlt": "Estrategias DeFi Corporativas illustration"
+          },
+          "currencyProtection": {
+            "title": "Protección Cambiaria",
+            "description": "Cobertura automática para operaciones internacionales.\nProtege márgenes contra volatilidad.\nPrevisibilidad cambiaria.",
+            "imageAlt": "Protección Cambiaria illustration"
+          }
+        }
       }
     },
     "businessCreditSolutions": {
@@ -998,6 +1508,32 @@
             "iconAlt": "Transparency icon",
             "title": "Transparencia Total",
             "description": "Ve quién está prestando.\nEntiende la estructura de intereses.\nContratos claros y accesibles."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Crédito directo entre empresas.",
+        "subtitle": "Sin banco en el medio. Más rápido, más justo.",
+        "cards": {
+          "lowerRates": {
+            "title": "Tasas Más Bajas",
+            "description": "Sin intermediación bancaria tradicional.\nEmpresas prestan a empresas.\nTodos ahorran.",
+            "imageAlt": "Tasas Más Bajas illustration"
+          },
+          "fastApproval": {
+            "title": "Aprobación Rápida",
+            "description": "Análisis basado en flujo de caja real.\nRespuesta en horas, no en semanas.\nCrédito a la velocidad de tu negocio.",
+            "imageAlt": "Aprobación Rápida illustration"
+          },
+          "flexibleTerms": {
+            "title": "Términos Flexibles",
+            "description": "Negocia directo con quien presta.\nPlazo, monto, garantías.\nAcuerdo que tiene sentido para ambos.",
+            "imageAlt": "Términos Flexibles illustration"
+          },
+          "diversifySources": {
+            "title": "Diversifica Fuentes",
+            "description": "Menos dependencia bancaria.\nMúltiples fuentes de crédito.\nResiliencia financiera.",
+            "imageAlt": "Diversifica Fuentes illustration"
           }
         }
       }
@@ -1040,6 +1576,32 @@
             "description": "Dinero de vuelta en transacciones.\nNo son puntos que expiran.\nEs dinero que vuelve a ti."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Recompensas que importan.",
+        "subtitle": "Mientras más usas, más ganas.",
+        "cards": {
+          "pointsForEverything": {
+            "title": "Puntos Por Todo",
+            "description": "Invierte, aprende, refiere, participa.\nCada acción vale puntos.\nCada punto vale recompensas.",
+            "imageAlt": "Puntos Por Todo illustration"
+          },
+          "realCashback": {
+            "title": "Cashback Real",
+            "description": "Recibe de vuelta parte de tus transacciones.\nDinero en cuenta, no puntos que expiran.\nRecompensas que valen la pena.",
+            "imageAlt": "Cashback Real illustration"
+          },
+          "vipAccess": {
+            "title": "Acceso VIP",
+            "description": "Cursos exclusivos, eventos especiales.\nContenido premium para top users.\nMás usas, más accedes.",
+            "imageAlt": "Acceso VIP illustration"
+          },
+          "gamificationThatTeaches": {
+            "title": "Gamificación Que Enseña",
+            "description": "Desafíos, badges, rankings.\nAprende mientras compites.\nEducación financiera divertida.",
+            "imageAlt": "Gamificación Que Enseña illustration"
+          }
+        }
       }
     },
     "rewardsAiGuides": {
@@ -1073,6 +1635,32 @@
             "iconAlt": "AI intelligence icon",
             "title": "Inteligencia Conductual",
             "description": "Las mascotas perciben tu progreso real.\nNo fuerzan complejidad prematura.\nEvolución a tu ritmo."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Tus guías personales.",
+        "subtitle": "Evolucionan contigo, de cero a avanzado.",
+        "cards": {
+          "aquaYourFirstStep": {
+            "title": "Aqua: Tu Primer Paso",
+            "description": "El amigo que te guía al principio.\nExplica todo, sin prisa.\nEmpezar se volvió fácil.",
+            "imageAlt": "Aqua: Tu Primer Paso illustration"
+          },
+          "mysticSmartGrowth": {
+            "title": "Mystic: Crecimiento Inteligente",
+            "description": "Aparece cuando estás listo para más.\nEstrategias, diversificación, planeación.\nTu asesor personal.",
+            "imageAlt": "Mystic: Crecimiento Inteligente illustration"
+          },
+          "coralHighYields": {
+            "title": "Coral: Altos Rendimientos",
+            "description": "El cazador de oportunidades avanzadas.\nDeFi, rendimientos altos, estrategias complejas.\nPara cuando dominas el juego.",
+            "imageAlt": "Coral: Altos Rendimientos illustration"
+          },
+          "aiThatKnowsYou": {
+            "title": "IA Que Te Conoce",
+            "description": "Aprende de tu comportamiento.\nRecomendaciones personalizadas.\nGuías que realmente te entienden.",
+            "imageAlt": "IA Que Te Conoce illustration"
           }
         }
       }
@@ -1110,6 +1698,32 @@
             "description": "Cuanto más refieres, más ganas.\nNiveles de recompensa crecientes.\nIncentivo para evangelizar."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Comparte y gana.",
+        "subtitle": "Amigos crecen juntos, todos ganan.",
+        "cards": {
+          "bonusForBoth": {
+            "title": "Bono Para Ambos",
+            "description": "Tú ganas, tu amigo gana.\nMientras más refieres, más acumulas.\nCrecimiento compartido.",
+            "imageAlt": "Bono Para Ambos illustration"
+          },
+          "lifetimeCommission": {
+            "title": "Comisión Vitalicia",
+            "description": "Gana parte de las tarifas de tus referidos.\nPara siempre, no solo al inicio.\nIngreso pasivo real.",
+            "imageAlt": "Comisión Vitalicia illustration"
+          },
+          "referralTiers": {
+            "title": "Niveles de Referido",
+            "description": "Bronce, Plata, Oro, Platino.\nMás refieres, mejor comisión.\nConsistencia recompensada.",
+            "imageAlt": "Niveles de Referido illustration"
+          },
+          "completeDashboard": {
+            "title": "Dashboard Completo",
+            "description": "Ve todos tus referidos y ganancias.\nSigue performance en tiempo real.\nTransparencia total.",
+            "imageAlt": "Dashboard Completo illustration"
+          }
+        }
       }
     },
     "rewardsPointsSystem": {
@@ -1143,6 +1757,32 @@
             "iconAlt": "Redeem points icon",
             "title": "Canjea Por Beneficios",
             "description": "Usa puntos para descontar comisiones.\nAccede a cursos premium.\nMarketplace de recompensas."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Cada acción vale puntos.",
+        "subtitle": "Usa más, gana más, crece más.",
+        "cards": {
+          "pointsForInvesting": {
+            "title": "Puntos Por Invertir",
+            "description": "Compra activos, gana puntos.\nUsa estrategias, gana más.\nTu crecimiento recompensado.",
+            "imageAlt": "Puntos Por Invertir illustration"
+          },
+          "pointsForLearning": {
+            "title": "Puntos Por Aprender",
+            "description": "Completa cursos, gana puntos.\nParticipa en webinars, gana más.\nConocimiento recompensado.",
+            "imageAlt": "Puntos Por Aprender illustration"
+          },
+          "pointsForEngaging": {
+            "title": "Puntos Por Participar",
+            "description": "Ayuda a la comunidad, gana puntos.\nCrea contenido, gana aún más.\nContribución valorada.",
+            "imageAlt": "Puntos Por Participar illustration"
+          },
+          "redeemForBenefits": {
+            "title": "Canjea Por Beneficios",
+            "description": "Cashback, cursos premium, acceso VIP.\nTus puntos se vuelven ventajas reales.\nSistema que vale la pena.",
+            "imageAlt": "Canjea Por Beneficios illustration"
           }
         }
       }
@@ -1180,6 +1820,32 @@
             "description": "Early adopter, top referidor, educador.\nReconocimiento único.\nEstatus en la comunidad."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Muestra tus logros.",
+        "subtitle": "Badges que importan, rankings que inspiran.",
+        "cards": {
+          "achievementBadges": {
+            "title": "Badges de Logros",
+            "description": "Primera inversión, portafolio diversificado.\nCada hito tiene su badge.\nCelebra cada victoria.",
+            "imageAlt": "Badges de Logros illustration"
+          },
+          "weeklyRankings": {
+            "title": "Rankings Semanales",
+            "description": "Ve quién está creciendo más.\nInspírate, compite, aprende.\nGamificación que motiva.",
+            "imageAlt": "Rankings Semanales illustration"
+          },
+          "verifiedProfile": {
+            "title": "Perfil Verificado",
+            "description": "Demuestra experiencia y confiabilidad.\nBadges de experto en cada categoría.\nCredibilidad visible.",
+            "imageAlt": "Perfil Verificado illustration"
+          },
+          "positionRewards": {
+            "title": "Recompensas Por Posición",
+            "description": "Top 10 semanal recibe bono especial.\nCompetencia sana, premios reales.\nDestácate y gana.",
+            "imageAlt": "Recompensas Por Posición illustration"
+          }
+        }
       }
     },
     "rewardsCampaigns": {
@@ -1215,6 +1881,32 @@
             "description": "Aprende temas específicos, gana recompensas.\nIncentivo para educación enfocada.\nConocimiento que paga de vuelta."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Desafíos que enseñan.",
+        "subtitle": "Participa, aprende, gana recompensas.",
+        "cards": {
+          "monthlyChallenges": {
+            "title": "Desafíos Mensuales",
+            "description": "Metas diferentes cada mes.\nInvierte X, aprende Y, gana Z.\nSiempre algo nuevo que lograr.",
+            "imageAlt": "Desafíos Mensuales illustration"
+          },
+          "themedCampaigns": {
+            "title": "Campañas Temáticas",
+            "description": "Mes del Crypto, Semana DeFi, Especial Acciones.\nAprende enfocado, gana enfocado.\nEducación dirigida.",
+            "imageAlt": "Campañas Temáticas illustration"
+          },
+          "exclusivePartnerships": {
+            "title": "Alianzas Exclusivas",
+            "description": "Marcas aliadas con descuentos.\nCampañas conjuntas con bono extra.\nMás valor para ti.",
+            "imageAlt": "Alianzas Exclusivas illustration"
+          },
+          "earlyAdopterRewards": {
+            "title": "Recompensas Early Adopter",
+            "description": "Mientras antes entres, más ganas.\nPioneros tienen ventajas exclusivas.\nRecompensado por creer primero.",
+            "imageAlt": "Recompensas Early Adopter illustration"
+          }
+        }
       }
     },
     "rewardsTokenAirdrop": {
@@ -1248,6 +1940,32 @@
             "iconAlt": "Roadmap icon",
             "title": "Hoja de Ruta Transparente",
             "description": "Distribución planeada y comunicada.\nSin sorpresas, sin manipulación.\nTokenomics responsable."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Sé parte de la revolución.",
+        "subtitle": "Token diBoaS: recompensado por construir juntos.",
+        "cards": {
+          "airdropForEarlyUsers": {
+            "title": "Airdrop Para Early Users",
+            "description": "Usa la plataforma, gana tokens.\nMientras antes empieces, más tokens.\nRecompensado por creer primero.",
+            "imageAlt": "Airdrop Para Early Users illustration"
+          },
+          "realGovernance": {
+            "title": "Gobernanza Real",
+            "description": "Tokens dan voz en decisiones de la plataforma.\nVota en features, cambios, direcciones.\nLos usuarios deciden el futuro.",
+            "imageAlt": "Gobernanza Real illustration"
+          },
+          "tokenStaking": {
+            "title": "Staking de Tokens",
+            "description": "Haz stake y gana rendimiento adicional.\nMás ventajas en tarifas y beneficios.\nMantener recompensado.",
+            "imageAlt": "Staking de Tokens illustration"
+          },
+          "appreciationTogether": {
+            "title": "Apreciación Conjunta",
+            "description": "Mientras más crece la plataforma, más vale.\nNo eres solo usuario, eres stakeholder.\nCrecemos juntos de verdad.",
+            "imageAlt": "Apreciación Conjunta illustration"
           }
         }
       }
@@ -1290,6 +2008,32 @@
             "description": "Cobertura contra eventos extremos.\nAlianza con aseguradoras confiables.\nProtección adicional que importa."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Seguridad sin concesiones.",
+        "subtitle": "Protección militar, tu control, transparencia total.",
+        "cards": {
+          "militaryGradeEncryption": {
+            "title": "Encriptación Militar",
+            "description": "La misma tecnología que protege gobiernos.\nTus datos y activos totalmente seguros.\nNada menos que lo mejor.",
+            "imageAlt": "Encriptación Militar illustration"
+          },
+          "youReTheOwner": {
+            "title": "Tú Eres el Dueño",
+            "description": "Wallets no-custodiales.\nSolo tú tienes acceso a tus activos.\nNunca tocamos tu dinero.",
+            "imageAlt": "Tú Eres el Dueño illustration"
+          },
+          "multiJurisdictionCompliant": {
+            "title": "Multi-Jurisdicción Cumplida",
+            "description": "Regulación USA, UE, Brasil.\nAuditorías independientes constantes.\nEl cumplimiento no es opcional.",
+            "imageAlt": "Multi-Jurisdicción Cumplida illustration"
+          },
+          "twentyFourSevenSupport": {
+            "title": "Soporte 24/7",
+            "description": "Equipo de seguridad siempre disponible.\nRespuesta inmediata a cualquier incidente.\nNunca estás solo.",
+            "imageAlt": "Soporte 24/7 illustration"
+          }
+        }
       }
     },
     "securityAuditReports": {
@@ -1323,6 +2067,32 @@
             "iconAlt": "Bug bounty icon",
             "title": "Programa Bug Bounty",
             "description": "Hackers éticos prueban nuestra seguridad.\nRecompensas por encontrar fallas.\nSeguridad colaborativa."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Transparencia como política.",
+        "subtitle": "Todos los reportes, todas las auditorías, públicos.",
+        "cards": {
+          "independentAudits": {
+            "title": "Auditorías Independientes",
+            "description": "Empresas externas verifican todo.\nSmart contracts, infraestructura, procesos.\nConfianza verificable.",
+            "imageAlt": "Auditorías Independientes illustration"
+          },
+          "publicReports": {
+            "title": "Reportes Públicos",
+            "description": "Todas las auditorías disponibles para consulta.\nTransparencia total sobre seguridad.\nNada oculto.",
+            "imageAlt": "Reportes Públicos illustration"
+          },
+          "bugBountyProgram": {
+            "title": "Programa Bug Bounty",
+            "description": "Recompensamos a quienes encuentran vulnerabilidades.\nLa comunidad nos ayuda a ser más seguros.\nSeguridad colaborativa.",
+            "imageAlt": "Programa Bug Bounty illustration"
+          },
+          "complianceReports": {
+            "title": "Reportes de Cumplimiento",
+            "description": "Reportes regulatorios actualizados.\nSOC 2, ISO 27001, MiCA.\nCertificaciones que prueban.",
+            "imageAlt": "Reportes de Cumplimiento illustration"
           }
         }
       }
@@ -1360,6 +2130,32 @@
             "description": "Contraseñas, códigos, claves privadas.\ndiBoas nunca pide esta información.\nReglas de seguridad claras."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Aprende a protegerte.",
+        "subtitle": "Herramientas y conocimiento para tu seguridad.",
+        "cards": {
+          "antiScamGuide": {
+            "title": "Guía Anti-Estafas",
+            "description": "Reconoce intentos de phishing.\nEvita estafas comunes.\nEl conocimiento es tu primera defensa.",
+            "imageAlt": "Guía Anti-Estafas illustration"
+          },
+          "mandatoryTwoFa": {
+            "title": "2FA Obligatorio",
+            "description": "Autenticación de dos factores en todo.\nCapa extra de seguridad siempre.\nProtección reforzada.",
+            "imageAlt": "2FA Obligatorio illustration"
+          },
+          "smartAlerts": {
+            "title": "Alertas Inteligentes",
+            "description": "Notificación de cualquier actividad sospechosa.\nBloqueo automático si es necesario.\nIA protegiéndote 24/7.",
+            "imageAlt": "Alertas Inteligentes illustration"
+          },
+          "safeMode": {
+            "title": "Modo Seguro",
+            "description": "Restricciones extra en redes públicas.\nProtección aumentada en ambientes de riesgo.\nSeguridad adaptativa.",
+            "imageAlt": "Modo Seguro illustration"
+          }
+        }
       }
     },
     "helpFaq": {
@@ -1393,6 +2189,32 @@
             "iconAlt": "Community icon",
             "title": "Comunidad Ayuda a Comunidad",
             "description": "Foro de usuarios.\nPreguntas respondidas por quienes han estado ahí.\nExperiencia colectiva."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Tus preguntas respondidas.",
+        "subtitle": "Respuestas rápidas a todo lo que necesitas saber.",
+        "cards": {
+          "completeKnowledgeBase": {
+            "title": "Base de Conocimiento Completa",
+            "description": "Cientos de artículos sobre cada funcionalidad.\nBúsqueda inteligente encuentra lo que necesitas.\nAuto-servicio que funciona.",
+            "imageAlt": "Base de Conocimiento Completa illustration"
+          },
+          "videoTutorials": {
+            "title": "Video Tutoriales",
+            "description": "Aprende viendo.\nPaso a paso visual de cada proceso.\nPara quienes prefieren mirar.",
+            "imageAlt": "Video Tutoriales illustration"
+          },
+          "twentyFourSevenChat": {
+            "title": "Chat 24/7",
+            "description": "IA responde instantáneamente.\nHumanos disponibles cuando se necesita.\nSoporte siempre presente.",
+            "imageAlt": "Chat 24/7 illustration"
+          },
+          "communityHelps": {
+            "title": "La Comunidad Ayuda",
+            "description": "Foro donde usuarios se ayudan entre sí.\nPreguntas respondidas por la comunidad.\nConocimiento compartido.",
+            "imageAlt": "La Comunidad Ayuda illustration"
           }
         }
       }
@@ -1430,6 +2252,32 @@
             "description": "Expertos en fintech, crypto y UX.\nExperiencia en 3 continentes.\nConstruyendo para el mundo."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Quiénes somos y por qué existimos.",
+        "subtitle": "La primera plataforma OneFi del mundo tiene una misión clara.",
+        "cards": {
+          "ourMission": {
+            "title": "Nuestra Misión",
+            "description": "Democratizar acceso a crecimiento financiero.\nSimplificar lo complejo.\nEmpoderar a gente común a prosperar.",
+            "imageAlt": "Nuestra Misión illustration"
+          },
+          "howItStarted": {
+            "title": "Cómo Empezó",
+            "description": "Frustración con fragmentación.\nVisión de unificar todo.\nDe la idea a la realidad OneFi.",
+            "imageAlt": "Cómo Empezó illustration"
+          },
+          "globalTeam": {
+            "title": "Equipo Global",
+            "description": "Experiencia en fintech, crypto, IA.\nEquipos distribuidos por 3 continentes.\nDiversidad que enriquece.",
+            "imageAlt": "Equipo Global illustration"
+          },
+          "guidingValues": {
+            "title": "Valores Que Guían",
+            "description": "Simplicidad, transparencia, educación.\nUsuario siempre en primer lugar.\nCrecimiento para todos.",
+            "imageAlt": "Valores Que Guían illustration"
+          }
+        }
       }
     },
     "careers": {
@@ -1465,6 +2313,32 @@
             "description": "Equity ownership, trabajo remoto flexible.\nPresupuesto de aprendizaje.\nEquipo que valora el equilibrio."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Construye el futuro de las finanzas con nosotros.",
+        "subtitle": "Únete al equipo que está redefiniendo OneFi.",
+        "cards": {
+          "realImpact": {
+            "title": "Impacto Real",
+            "description": "Tu trabajo cambia vidas financieras.\nMillones de personas impactadas.\nPropósito que motiva.",
+            "imageAlt": "Impacto Real illustration"
+          },
+          "firstClassTeam": {
+            "title": "Equipo de Primera",
+            "description": "Trabaja con los mejores de la industria.\nAprende mientras construyes.\nCrecimiento acelerado.",
+            "imageAlt": "Equipo de Primera illustration"
+          },
+          "innovationCulture": {
+            "title": "Cultura de Innovación",
+            "description": "Tus ideas son escuchadas.\nLa experimentación es alentada.\nLos fracasos son aprendizajes.",
+            "imageAlt": "Cultura de Innovación illustration"
+          },
+          "uniqueBenefits": {
+            "title": "Beneficios Únicos",
+            "description": "Equity, trabajo remoto, educación continua.\nAcceso anticipado a features.\nCrecemos todos juntos.",
+            "imageAlt": "Beneficios Únicos illustration"
+          }
+        }
       }
     },
     "docs": {
@@ -1498,6 +2372,32 @@
             "iconAlt": "Developer community icon",
             "title": "Comunidad de Devs",
             "description": "Foro técnico activo.\nEjemplos de código open source.\nSoporte que entiende código."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Documentación para desarrolladores.",
+        "subtitle": "APIs, integraciones, todo lo que necesitas para construir con diBoaS.",
+        "cards": {
+          "restfulApis": {
+            "title": "APIs RESTful",
+            "description": "Endpoints completos y documentados.\nEjemplos en múltiples lenguajes.\nIntegración en minutos.",
+            "imageAlt": "APIs RESTful illustration"
+          },
+          "officialSdks": {
+            "title": "SDKs Oficiales",
+            "description": "JavaScript, Python, Go y más.\nAbstracciones que simplifican.\nMenos código, más resultados.",
+            "imageAlt": "SDKs Oficiales illustration"
+          },
+          "webhooks": {
+            "title": "Webhooks",
+            "description": "Recibe eventos en tiempo real.\nTransacciones, cambios de estado, todo.\nSistema reactivo.",
+            "imageAlt": "Webhooks illustration"
+          },
+          "sandboxEnvironment": {
+            "title": "Ambiente Sandbox",
+            "description": "Prueba sin riesgo.\nAmbiente completo de desarrollo.\nValidación antes de producción.",
+            "imageAlt": "Ambiente Sandbox illustration"
           }
         }
       }
@@ -1540,6 +2440,32 @@
             "description": "MiCA (UE), BSA (EE.UU.), Banco Central (BR).\nLegal desde el día 1.\nSin riesgo regulatorio."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Invirtiendo en el futuro de las finanzas.",
+        "subtitle": "Relación con inversionistas transparente y completa.",
+        "cards": {
+          "quarterlyReports": {
+            "title": "Reportes Trimestrales",
+            "description": "Métricas de crecimiento completas.\nTransparencia sobre cada número.\nRendición de cuentas real.",
+            "imageAlt": "Reportes Trimestrales illustration"
+          },
+          "executivePresentations": {
+            "title": "Presentaciones Ejecutivas",
+            "description": "Estrategia, roadmap, visión a largo plazo.\nAcceso directo al liderazgo.\nComunicación clara.",
+            "imageAlt": "Presentaciones Ejecutivas illustration"
+          },
+          "eventsCalendar": {
+            "title": "Calendario de Eventos",
+            "description": "Calls trimestrales, juntas, roadshows.\nParticipa en discusiones estratégicas.\nVoz activa.",
+            "imageAlt": "Calendario de Eventos illustration"
+          },
+          "corporateGovernance": {
+            "title": "Gobierno Corporativo",
+            "description": "Junta independiente, comités activos.\nCumplimiento riguroso.\nEstructura sólida.",
+            "imageAlt": "Gobierno Corporativo illustration"
+          }
+        }
       }
     },
     "legalTerms": {
@@ -1573,6 +2499,32 @@
             "iconAlt": "External audit icon",
             "title": "Auditoría Externa Regular",
             "description": "Verificación independiente de cumplimiento.\nReportes públicos trimestrales.\nResponsabilidad que importa."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Legalidad en todos los sentidos.",
+        "subtitle": "Términos claros, cumplimiento riguroso, protección total.",
+        "cards": {
+          "termsOfUse": {
+            "title": "Términos de Uso",
+            "description": "Lenguaje claro, sin legalés.\nEntiende exactamente tus derechos.\nTransparencia legal.",
+            "imageAlt": "Términos de Uso illustration"
+          },
+          "multiJurisdiction": {
+            "title": "Multi-Jurisdicción",
+            "description": "Cumple en USA, UE, Brasil, más.\nOperación legal en todos lados.\nExpansión sin barreras.",
+            "imageAlt": "Multi-Jurisdicción illustration"
+          },
+          "rigorousKycAml": {
+            "title": "KYC/AML Riguroso",
+            "description": "Verificación robusta de identidad.\nPrevención de lavado de dinero.\nPlataforma limpia.",
+            "imageAlt": "KYC/AML Riguroso illustration"
+          },
+          "disputeResolution": {
+            "title": "Resolución de Disputas",
+            "description": "Procesos claros para conflictos.\nMediación antes de litigio.\nJusticia accesible.",
+            "imageAlt": "Resolución de Disputas illustration"
           }
         }
       }
@@ -1610,6 +2562,32 @@
             "description": "Accede, exporta, elimina tus datos.\nHerramientas de autoservicio en la app.\nEjercer derechos es fácil."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Tu privacidad es sagrada.",
+        "subtitle": "GDPR, LGPD, CCPA - cumplimiento en todo.",
+        "cards": {
+          "yourDataIsYours": {
+            "title": "Tus Datos Son Tuyos",
+            "description": "Tú controlas qué compartimos.\nNunca vendemos información.\nPrivacidad primero.",
+            "imageAlt": "Tus Datos Son Tuyos illustration"
+          },
+          "endToEndEncryption": {
+            "title": "Encriptación End-to-End",
+            "description": "Datos encriptados en tránsito y reposo.\nNi nosotros vemos todo.\nSeguridad máxima.",
+            "imageAlt": "Encriptación End-to-End illustration"
+          },
+          "rightToBeForgotten": {
+            "title": "Derecho al Olvido",
+            "description": "Borra tu cuenta, borramos todo.\nCumple GDPR y LGPD.\nSalida limpia garantizada.",
+            "imageAlt": "Derecho al Olvido illustration"
+          },
+          "dataTransparency": {
+            "title": "Transparencia de Datos",
+            "description": "Ve exactamente qué tenemos sobre ti.\nExporta todo cuando quieras.\nControl total.",
+            "imageAlt": "Transparencia de Datos illustration"
+          }
+        }
       }
     },
     "legalCookies": {
@@ -1643,6 +2621,27 @@
             "iconAlt": "No tracking icon",
             "title": "Sin Rastreo Invasivo",
             "description": "No vendemos datos de navegación.\nSin rastreo entre sitios.\nPrivacidad respetada."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Cookies explicadas claramente.",
+        "subtitle": "Qué usamos, por qué usamos, cómo controlar.",
+        "cards": {
+          "essentialVsOptional": {
+            "title": "Esenciales vs Opcionales",
+            "description": "Qué es necesario vs qué mejora experiencia.\nElige qué quieres aceptar.\nControl en tus manos.",
+            "imageAlt": "Esenciales vs Opcionales illustration"
+          },
+          "noIntrusiveTracking": {
+            "title": "Sin Rastreo Intrusivo",
+            "description": "No vendemos datos a terceros.\nCookies solo para funcionalidad.\nPrivacidad respetada.",
+            "imageAlt": "Sin Rastreo Intrusivo illustration"
+          },
+          "manageYourPreferences": {
+            "title": "Gestiona Tus Preferencias",
+            "description": "Cambia consentimiento en cualquier momento.\nDashboard claro de preferencias.\nFlexibilidad total.",
+            "imageAlt": "Gestiona Tus Preferencias illustration"
           }
         }
       }

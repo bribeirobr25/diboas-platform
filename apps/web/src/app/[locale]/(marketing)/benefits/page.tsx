@@ -2,13 +2,14 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, FeatureShowcase } from '@/components/Sections';
+import { HeroSection, FeatureShowcase, StickyFeaturesNav } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { BENEFITS_SHOWCASE_CONFIG } from '@/config/benefitsCarousel';
 import { HERO_PAGE_CONFIGS } from '@/config/hero-pages';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { ROUTES } from '@/config/routes';
+import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import type { Metadata } from 'next';
 
 export const dynamic = 'auto';
@@ -87,6 +88,20 @@ export default async function BenefitsPage({ params }: PageProps) {
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('benefits')!}
             variant="default"
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
+        {/* Sticky Features Navigation Section */}
+        <SectionErrorBoundary
+          sectionId="sticky-features-nav-benefits"
+          sectionType="StickyFeaturesNav"
+          enableReporting={true}
+          context={{ page: 'benefits' }}
+        >
+          <StickyFeaturesNav
+            variant="default"
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.benefits}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
