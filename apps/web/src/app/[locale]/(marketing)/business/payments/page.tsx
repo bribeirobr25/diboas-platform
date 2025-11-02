@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection } from '@/components/Sections';
+import { HeroSection, StickyFeaturesNav } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { ROUTES } from '@/config/routes';
@@ -11,6 +11,7 @@ import type { Metadata } from 'next';
 
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
+import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -75,6 +76,20 @@ export default async function BusinessPaymentsPage({ params }: PageProps) {
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('business-payments')!}
             variant="default"
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
+        {/* Sticky Features Navigation Section */}
+        <SectionErrorBoundary
+          sectionId="sticky-features-nav-businessPayments"
+          sectionType="StickyFeaturesNav"
+          enableReporting={true}
+          context={{ page: 'businessPayments' }}
+        >
+          <StickyFeaturesNav
+            variant="default"
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessPayments}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

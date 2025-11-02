@@ -2,12 +2,13 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection } from '@/components/Sections';
+import { HeroSection, StickyFeaturesNav } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { ROUTES } from '@/config/routes';
+import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import type { Metadata } from 'next';
 
 export const dynamic = 'auto';
@@ -74,6 +75,20 @@ export default async function AccountPage({ params }: PageProps) {
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('account')!}
             variant="default"
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
+        {/* Sticky Features Navigation Section */}
+        <SectionErrorBoundary
+          sectionId="sticky-features-nav-account"
+          sectionType="StickyFeaturesNav"
+          enableReporting={true}
+          context={{ page: 'account' }}
+        >
+          <StickyFeaturesNav
+            variant="default"
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.account}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

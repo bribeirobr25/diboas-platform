@@ -285,6 +285,37 @@
             "description": "Banking + Investing + Crypto + Strategies + DeFi.\nAll integrated. All simple. \nBeginner-friendly, expert-powerful."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Why choose diBoaS?",
+        "subtitle": "Because we solve real problems.",
+        "cards": {
+          "stopJugglingApps": {
+            "title": "Stop Juggling Apps",
+            "description": "Everything on diBoaS.\nYou save time, never lose passwords, and see your entire portfolio \non one screen.",
+            "imageAlt": "Stop Juggling Apps illustration"
+          },
+          "youReInCharge": {
+            "title": "You're in Charge",
+            "description": "You have total control over your money.\nWhether investments, transfers, or strategies. \nYou decide how much and when.",
+            "imageAlt": "You're in Charge illustration"
+          },
+          "yourMoneyAlwaysWorks": {
+            "title": "Your Money Always Works",
+            "description": "Whether buying Stocks, Crypto, or other assets.\nOr using exclusive strategies.\nYour money is always growing.",
+            "imageAlt": "Your Money Always Works illustration"
+          },
+          "investingStopsBeingScary": {
+            "title": "Investing Stops Being Scary",
+            "description": "Our users had never invested before diBoaS.\nOur Learning Center literally explains every term.\nEvery decision. Every risk.",
+            "imageAlt": "Investing Stops Being Scary illustration"
+          },
+          "useMoreEarnMore": {
+            "title": "Use More, Earn More",
+            "description": "Points System, Referral Bonuses, \nPoints for Achieved Goals, VIP Access to our Courses, \nand much more.",
+            "imageAlt": "Use More, Earn More illustration"
+          }
+        }
       }
     },
     "account": {
@@ -320,6 +351,32 @@
             "description": "Our friendly mascot explains every feature.\nYou'll never feel lost.\nFrom first deposit to first investment."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Your account. Your rules.",
+        "subtitle": "Everything you need, nothing you don't.",
+        "cards": {
+          "earnsWhileYouSleep": {
+            "title": "Earns While You Sleep",
+            "description": "Your balance earns 100% of CDI automatically.\nNo need to move money anywhere else.\nThat simple.",
+            "imageAlt": "Earns While You Sleep illustration"
+          },
+          "actuallyFree": {
+            "title": "Actually Free",
+            "description": "No maintenance fees. No fine print.\nFree transfers and unlimited Pix.\nZero surprises.",
+            "imageAlt": "Actually Free illustration"
+          },
+          "yourMoneyAtTheRightSpeed": {
+            "title": "Your Money at the Right Speed",
+            "description": "Deposit, send, and receive in real time.\nNo borders, no red tape.\nAll from the app.",
+            "imageAlt": "Your Money at the Right Speed illustration"
+          },
+          "securityYouControl": {
+            "title": "Security You Control",
+            "description": "Instant locks, real-time alerts,\nand you always in command.\nYour money, your protection rules.",
+            "imageAlt": "Security You Control illustration"
+          }
+        }
       }
     },
     "bankingServices": {
@@ -353,6 +410,32 @@
             "iconAlt": "History icon",
             "title": "Transparent History",
             "description": "See all your transactions clearly.\nFilter by date, type, or amount.\nExport whenever you need."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Banking without the headache.",
+        "subtitle": "Everything you need to do with your money, done right.",
+        "cards": {
+          "borderlessTransfers": {
+            "title": "Borderless Transfers",
+            "description": "Send and receive money anywhere in the world.\nReal-time, transparent fees.\nNo surprises along the way.",
+            "imageAlt": "Borderless Transfers illustration"
+          },
+          "oneClickPayments": {
+            "title": "1-Click Payments",
+            "description": "Pix, bills, recurring payments.\nSet it up once, pay whenever you need.\nFast and secure.",
+            "imageAlt": "1-Click Payments illustration"
+          },
+          "historyThatMakesSense": {
+            "title": "History That Makes Sense",
+            "description": "See every transaction clearly.\nFilter, search, and export whenever you want.\nYour finances organized like never before.",
+            "imageAlt": "History That Makes Sense illustration"
+          },
+          "realTimeControl": {
+            "title": "Real-Time Control",
+            "description": "Instant notifications for every transaction.\nYou always know what's happening\nwith your money.",
+            "imageAlt": "Real-Time Control illustration"
           }
         }
       }
@@ -395,6 +478,32 @@
             "description": "Just 0.09% per transaction.\nUp to 16x cheaper than traditional platforms.\nTotal transparency."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Investing without the mystery.",
+        "subtitle": "Start with $10 and watch your money grow.",
+        "cards": {
+          "startSmall": {
+            "title": "Start Small",
+            "description": "Just $10 to get started.\nYou don't need to be rich to invest.\nStart today, grow tomorrow.",
+            "imageAlt": "Start Small illustration"
+          },
+          "diversifyInOneClick": {
+            "title": "Diversify in 1-Click",
+            "description": "Stocks, Gold, Crypto, Real Estate, and more.\nAll in the same app, with the same ease.\nYour complete portfolio in one place.",
+            "imageAlt": "Diversify in 1-Click illustration"
+          },
+          "learnByInvesting": {
+            "title": "Learn by Investing",
+            "description": "AI guides explain every step.\nFrom basics to advanced, at your pace.\nNobody's born knowing. But everyone learns.",
+            "imageAlt": "Learn by Investing illustration"
+          },
+          "feesThatMakeSense": {
+            "title": "Fees That Make Sense",
+            "description": "0.09% fee for buying/selling.\nNo surprises, no hidden charges.\nAlways transparent.",
+            "imageAlt": "Fees That Make Sense illustration"
+          }
+        }
       }
     },
     "cryptocurrency": {
@@ -428,6 +537,32 @@
             "iconAlt": "Learn first icon",
             "title": "Learn Before You Invest",
             "description": "Education Center explains each coin.\nRisks, benefits, technology.\nKnowledge before money."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Crypto for regular people.",
+        "subtitle": "No jargon. Just real opportunities.",
+        "cards": {
+          "oneClickToGetIn": {
+            "title": "1-Click to Get In",
+            "description": "Buy Bitcoin, Ethereum, and more with one click.\nNo need to understand blockchain.\nOur guides explain everything.",
+            "imageAlt": "1-Click to Get In illustration"
+          },
+          "securityYouUnderstand": {
+            "title": "Security You Understand",
+            "description": "Non-custodial wallets. You own it.\nMilitary-grade encryption. Independent audits.\nYour crypto, your custody.",
+            "imageAlt": "Security You Understand illustration"
+          },
+          "fromZeroToAdvanced": {
+            "title": "From Zero to Advanced",
+            "description": "Start with Aqua buying your first Bitcoin.\nEvolve to advanced strategies with Coral.\nAll at your own pace.",
+            "imageAlt": "From Zero to Advanced illustration"
+          },
+          "cryptoTraditionalComplete": {
+            "title": "Crypto + Traditional = Complete",
+            "description": "See your traditional and crypto investments\nside by side. One unique view of your wealth.\nFinally, all together.",
+            "imageAlt": "Crypto + Traditional = Complete illustration"
           }
         }
       }
@@ -470,6 +605,32 @@
             "description": "Understand staking, liquidity pools, yield farming.\nNo jargon, with practical examples.\nKnowledge = Control."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Professional strategies for everyone.",
+        "subtitle": "Complicated DeFi made simple. High yields made accessible.",
+        "cards": {
+          "yieldsWorthYourTime": {
+            "title": "Yields Worth Your Time",
+            "description": "Earn up to 3x more than traditional investments.\nDeFi simplified by diBoaS.\nReal yields, accessible to all.",
+            "imageAlt": "Yields Worth Your Time illustration"
+          },
+          "readyMadeStrategies": {
+            "title": "Ready-Made Strategies",
+            "description": "Emergency Fund, Balanced Growth,\nHigh Yield. Choose, activate, done.\nNo complex setup.",
+            "imageAlt": "Ready-Made Strategies illustration"
+          },
+          "riskUnderControl": {
+            "title": "Risk Under Control",
+            "description": "Coral explains every risk clearly.\nYou choose the balance between safety and returns.\nAlways informed decisions.",
+            "imageAlt": "Risk Under Control illustration"
+          },
+          "stopWheneverYouWant": {
+            "title": "Stop Whenever You Want",
+            "description": "Start/Stop in seconds.\nYour money comes back to you in real-time.\nNo locks, no penalties.",
+            "imageAlt": "Stop Whenever You Want illustration"
+          }
+        }
       }
     },
     "credit": {
@@ -503,6 +664,32 @@
             "iconAlt": "P2P credit icon",
             "title": "P2P Business Credit",
             "description": "Companies lend directly to companies.\nFairer rates for everyone.\nFewer middlemen, more efficiency."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Credit without games.",
+        "subtitle": "Clear rates, simple processes, you in control.",
+        "cards": {
+          "totalTransparency": {
+            "title": "Total Transparency",
+            "description": "Fixed rate from day one.\nNo surprises, no fine print.\nYou know exactly what you'll pay.",
+            "imageAlt": "Total Transparency illustration"
+          },
+          "fairApproval": {
+            "title": "Fair Approval",
+            "description": "Analysis based on your financial behavior.\nNot just your past.\nEveryone deserves a chance.",
+            "imageAlt": "Fair Approval illustration"
+          },
+          "youDecideHowMuch": {
+            "title": "You Decide How Much",
+            "description": "Choose the amount, term, and payment method.\nFlexibility for your reality.\nCredit your way.",
+            "imageAlt": "You Decide How Much illustration"
+          },
+          "payWhenYouCan": {
+            "title": "Pay When You Can",
+            "description": "Prepay installments without penalty.\nRenegotiate if needed.\nWe're on your side.",
+            "imageAlt": "Pay When You Can illustration"
           }
         }
       }
@@ -540,6 +727,32 @@
             "description": "Points for completing courses.\nBadges for hitting milestones.\nEducation rewarded."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Learn to grow.",
+        "subtitle": "Financial education that works, at your pace.",
+        "cards": {
+          "fromBasicsToAdvanced": {
+            "title": "From Basics to Advanced",
+            "description": "Starting from zero? Perfect.\nAlready investing? Even better.\nContent for every level.",
+            "imageAlt": "From Basics to Advanced illustration"
+          },
+          "learnByDoing": {
+            "title": "Learn by Doing",
+            "description": "Theory + Practice together.\nLearn the concept, apply it right away.\nKnowledge that sticks.",
+            "imageAlt": "Learn by Doing illustration"
+          },
+          "communityThatTeaches": {
+            "title": "Community That Teaches",
+            "description": "Learn from those who've done it.\nShare what you've learned.\nWe grow together.",
+            "imageAlt": "Community That Teaches illustration"
+          },
+          "guidesThatEvolveWithYou": {
+            "title": "Guides That Evolve With You",
+            "description": "Aqua for beginners. Mystic for investors.\nCoral for strategists.\nEach guide appears when you're ready.",
+            "imageAlt": "Guides That Evolve With You illustration"
+          }
+        }
       }
     },
     "learnFinancialBasics": {
@@ -575,6 +788,27 @@
             "description": "Strategies to pay off debt.\nSmart prioritization.\nFinancial fresh start is possible."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "The fundamentals you were never taught.",
+        "subtitle": "Build the foundation nobody showed you.",
+        "cards": {
+          "understandYourMoney": {
+            "title": "Understand Your Money",
+            "description": "Budgeting, saving, conscious spending.\nThe pillars of healthy financial life.\nStart with the foundation.",
+            "imageAlt": "Understand Your Money illustration"
+          },
+          "jargonBecomesClarity": {
+            "title": "Jargon Becomes Clarity",
+            "description": "CDI, inflation, compound interest.\nWe explain each term in plain English.\nNo technobabble.",
+            "imageAlt": "Jargon Becomes Clarity illustration"
+          },
+          "habitsThatTransform": {
+            "title": "Habits That Transform",
+            "description": "Small changes, big results.\nLearn the habits of those who prosper.\nChange today, harvest forever.",
+            "imageAlt": "Habits That Transform illustration"
+          }
+        }
       }
     },
     "learnMoneyManagement": {
@@ -608,6 +842,27 @@
             "iconAlt": "Psychology icon",
             "title": "Behavior and Money",
             "description": "Psychology behind financial decisions.\nIdentify your triggers.\nChange habits, change results."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Manage like a pro.",
+        "subtitle": "Tools and knowledge to master your finances.",
+        "cards": {
+          "planYourFuture": {
+            "title": "Plan Your Future",
+            "description": "Clear goals, realistic plans.\nFrom emergency fund to retirement.\nEvery goal has a path.",
+            "imageAlt": "Plan Your Future illustration"
+          },
+          "controlYourSpending": {
+            "title": "Control Your Spending",
+            "description": "See where your money goes.\nIdentify leaks, correct course.\nKnowledge is savings.",
+            "imageAlt": "Control Your Spending illustration"
+          },
+          "increaseYourIncome": {
+            "title": "Increase Your Income",
+            "description": "Strategies to earn more.\nSide income, hustles, investments.\nMultiple streams, multiple opportunities.",
+            "imageAlt": "Increase Your Income illustration"
           }
         }
       }
@@ -650,6 +905,32 @@
             "description": "How much can you afford to lose?\nStop loss, hedging, insurance.\nProtect what you've built."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Investing is simpler than it seems.",
+        "subtitle": "From first investment to diversified portfolio.",
+        "cards": {
+          "typesOfInvestments": {
+            "title": "Types of Investments",
+            "description": "Stocks, bonds, crypto, real estate, gold.\nUnderstand each option, risks and returns.\nChoose with knowledge.",
+            "imageAlt": "Types of Investments illustration"
+          },
+          "buildYourPortfolio": {
+            "title": "Build Your Portfolio",
+            "description": "Smart diversification.\nBalance risk and return.\nYour profile, your portfolio.",
+            "imageAlt": "Build Your Portfolio illustration"
+          },
+          "strategiesThatWork": {
+            "title": "Strategies That Work",
+            "description": "Long-term, Dollar Cost Average, rebalancing.\nTactics tested by millions of investors.\nFollow what works.",
+            "imageAlt": "Strategies That Work illustration"
+          },
+          "mistakesToAvoid": {
+            "title": "Mistakes to Avoid",
+            "description": "Learn from those who already failed.\nPanic, FOMO, lack of patience.\nAvoid common traps.",
+            "imageAlt": "Mistakes to Avoid illustration"
+          }
+        }
       }
     },
     "learnCryptocurrencyGuide": {
@@ -683,6 +964,32 @@
             "iconAlt": "Volatility icon",
             "title": "Volatility and How to Handle It",
             "description": "Why crypto goes up and down so much.\nStrategies to avoid panic.\nLong-term perspective."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Crypto without the fluff.",
+        "subtitle": "From A to Z, everything you need to know.",
+        "cards": {
+          "whatIsBlockchain": {
+            "title": "What Is Blockchain",
+            "description": "The technology behind crypto.\nExplained without technobabble.\nUnderstand for real.",
+            "imageAlt": "What Is Blockchain illustration"
+          },
+          "bitcoinEthereumAndBeyond": {
+            "title": "Bitcoin, Ethereum, and Beyond",
+            "description": "Major cryptocurrencies explained.\nWhat they are, what they do, why they matter.\nKnow each one.",
+            "imageAlt": "Bitcoin, Ethereum, and Beyond illustration"
+          },
+          "walletsAndSecurity": {
+            "title": "Wallets and Security",
+            "description": "Hot wallets, cold wallets, custodial vs non-custodial.\nProtect your assets correctly.\nSecurity first.",
+            "imageAlt": "Wallets and Security illustration"
+          },
+          "howToBuyAndSell": {
+            "title": "How to Buy and Sell",
+            "description": "Practical step-by-step.\nFrom first Bitcoin to advanced trading.\nFrom zero to expert.",
+            "imageAlt": "How to Buy and Sell illustration"
           }
         }
       }
@@ -720,6 +1027,32 @@
             "description": "High yields have trade-offs.\nHow to identify serious projects.\nRed flags to avoid."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "DeFi uncomplicated.",
+        "subtitle": "Decentralized finance explained for humans.",
+        "cards": {
+          "whatIsDefi": {
+            "title": "What Is DeFi",
+            "description": "Finance without intermediaries.\nHow it works, why it matters.\nThe financial revolution explained.",
+            "imageAlt": "What Is DeFi illustration"
+          },
+          "stakingAndYielding": {
+            "title": "Staking and Yielding",
+            "description": "Earn passive income with crypto.\nHow it works, what the risks are.\nSmart returns.",
+            "imageAlt": "Staking and Yielding illustration"
+          },
+          "liquidityPools": {
+            "title": "Liquidity Pools",
+            "description": "Become the bank.\nProvide liquidity, earn fees.\nDeFi in practice.",
+            "imageAlt": "Liquidity Pools illustration"
+          },
+          "risksAndRewards": {
+            "title": "Risks and Rewards",
+            "description": "Impermanent loss, smart contract risk.\nUnderstand each danger clearly.\nAlways informed decisions.",
+            "imageAlt": "Risks and Rewards illustration"
+          }
+        }
       }
     },
     "learnSpecialContent": {
@@ -753,6 +1086,32 @@
             "iconAlt": "Webinar icon",
             "title": "Webinars and Live Sessions",
             "description": "Live sessions with experts.\nGet answers in real-time.\nCommunity learning together."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Exclusive content for those who want more.",
+        "subtitle": "Expert insights, success stories, market trends.",
+        "cards": {
+          "expertTalks": {
+            "title": "Expert Talks",
+            "description": "Conversations with successful investors.\nReal strategies, real results.\nLearn from the best.",
+            "imageAlt": "Expert Talks illustration"
+          },
+          "successStories": {
+            "title": "Success Stories",
+            "description": "diBoaS user journeys.\nHow they started, where they got.\nReal inspiration.",
+            "imageAlt": "Success Stories illustration"
+          },
+          "marketTrends": {
+            "title": "Market Trends",
+            "description": "What's moving the market.\nWeekly analysis, emerging opportunities.\nStay ahead.",
+            "imageAlt": "Market Trends illustration"
+          },
+          "webinarsAndWorkshops": {
+            "title": "Webinars and Workshops",
+            "description": "Live classes with experts.\nAsk questions, deepen knowledge.\nReal-time education.",
+            "imageAlt": "Webinars and Workshops illustration"
           }
         }
       }
@@ -790,6 +1149,32 @@
             "description": "Complete financial health dashboard.\nAutomated reports.\nDecisions based on real data."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Your business deserves better.",
+        "subtitle": "Financial solutions that grow with your company.",
+        "cards": {
+          "completeBusinessBanking": {
+            "title": "Complete Business Banking",
+            "description": "Account, payments, collections.\nAll integrated, all simple.\nYour business, less bureaucracy.",
+            "imageAlt": "Complete Business Banking illustration"
+          },
+          "capitalWorkingTwentyFourSeven": {
+            "title": "Capital Working 24/7",
+            "description": "Smart treasury with returns.\nYour idle capital now generates revenue.\nEvery dollar counts.",
+            "imageAlt": "Capital Working 24/7 illustration"
+          },
+          "creditToGrow": {
+            "title": "Credit to Grow",
+            "description": "P2P credit between businesses.\nFair rates, fast processes.\nGrowth without bank chains.",
+            "imageAlt": "Credit to Grow illustration"
+          },
+          "simplifiedManagement": {
+            "title": "Simplified Management",
+            "description": "Cash flow, payments, investments.\nAll visible in one dashboard.\nFocus on what matters: growth.",
+            "imageAlt": "Simplified Management illustration"
+          }
+        }
       }
     },
     "businessAccount": {
@@ -823,6 +1208,32 @@
             "iconAlt": "Accounting icon",
             "title": "Accounting Integration",
             "description": "Export data for your accountant.\nReports ready for compliance.\nLess headache, more efficiency."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "The account your business needs.",
+        "subtitle": "Free, complete, and earning while you work.",
+        "cards": {
+          "zeroMonthlyFees": {
+            "title": "Zero Monthly Fees",
+            "description": "No maintenance fee.\nNo fine print.\nYour company saves from day one.",
+            "imageAlt": "Zero Monthly Fees illustration"
+          },
+          "earnsAutomatically": {
+            "title": "Earns Automatically",
+            "description": "100% of CDI on your balance.\nYou don't need to do anything.\nYour capital always working.",
+            "imageAlt": "Earns Automatically illustration"
+          },
+          "multipleUsers": {
+            "title": "Multiple Users",
+            "description": "Add your team with custom permissions.\nEveryone sees what they need.\nTotal control, smart delegation.",
+            "imageAlt": "Multiple Users illustration"
+          },
+          "accountingIntegration": {
+            "title": "Accounting Integration",
+            "description": "Automatic export to your accountant.\nOFX, CSV, PDF.\nLess manual work, more accuracy.",
+            "imageAlt": "Accounting Integration illustration"
           }
         }
       }
@@ -860,6 +1271,32 @@
             "description": "Physical and virtual cards for team.\nPer-user limit control.\nAutomatic expense categorization."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Business banking without headaches.",
+        "subtitle": "Everything your company needs to move, pay, and receive.",
+        "cards": {
+          "bulkPayments": {
+            "title": "Bulk Payments",
+            "description": "Pay suppliers, employees, all at once.\nUpload spreadsheet and done.\nEfficiency at scale.",
+            "imageAlt": "Bulk Payments illustration"
+          },
+          "simplifiedReceivables": {
+            "title": "Simplified Receivables",
+            "description": "Bills, Pix, international transfers.\nAll ways to receive in one place.\nMoney coming faster.",
+            "imageAlt": "Simplified Receivables illustration"
+          },
+          "corporateCard": {
+            "title": "Corporate Card",
+            "description": "Cards for your team.\nIndividual limits, centralized control.\nSpending visible in real-time.",
+            "imageAlt": "Corporate Card illustration"
+          },
+          "automaticReconciliation": {
+            "title": "Automatic Reconciliation",
+            "description": "Payments and receipts reconciled automatically.\nLess error, less manual work.\nMore time to grow.",
+            "imageAlt": "Automatic Reconciliation illustration"
+          }
+        }
       }
     },
     "businessPayments": {
@@ -893,6 +1330,32 @@
             "iconAlt": "Split payment icon",
             "title": "Payment Splitting",
             "description": "Divide receipts automatically.\nIdeal for marketplaces and partnerships.\nTransparency for all parties."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Collect without complication.",
+        "subtitle": "From bills to payment links, get paid faster.",
+        "cards": {
+          "paymentLinks": {
+            "title": "Payment Links",
+            "description": "Create, send, receive.\nNo need for website or store.\nSell anywhere.",
+            "imageAlt": "Payment Links illustration"
+          },
+          "smartBills": {
+            "title": "Smart Bills",
+            "description": "Automatic generation, payment notifications.\nReminders before due date.\nLess default.",
+            "imageAlt": "Smart Bills illustration"
+          },
+          "recurringMadeEasy": {
+            "title": "Recurring Made Easy",
+            "description": "Set once, charge every month.\nSubscriptions and memberships on autopilot.\nFinancial predictability.",
+            "imageAlt": "Recurring Made Easy illustration"
+          },
+          "paymentSplit": {
+            "title": "Payment Split",
+            "description": "Divide receipts automatically.\nMarketplaces, partnerships, commissions.\nEveryone gets their share on time.",
+            "imageAlt": "Payment Split illustration"
           }
         }
       }
@@ -930,6 +1393,32 @@
             "description": "See everything in one dashboard.\nAccounts at different banks.\nHolistic treasury view."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Treasury that works for you.",
+        "subtitle": "Your capital always earning, always available.",
+        "cards": {
+          "overnightReturns": {
+            "title": "Overnight Returns",
+            "description": "Idle money earns 100% of CDI.\nDaily liquidity, no capital lock.\nTreasury optimized automatically.",
+            "imageAlt": "Overnight Returns illustration"
+          },
+          "corporateInvestments": {
+            "title": "Corporate Investments",
+            "description": "Investment options for long-term capital.\nStocks, bonds, corporate crypto.\nDiversify company assets.",
+            "imageAlt": "Corporate Investments illustration"
+          },
+          "cashFlowForecast": {
+            "title": "Cash Flow Forecast",
+            "description": "AI predicts inflows and outflows.\nAnticipate cash needs.\nPlanning that works.",
+            "imageAlt": "Cash Flow Forecast illustration"
+          },
+          "executiveReports": {
+            "title": "Executive Reports",
+            "description": "Dashboard with all important metrics.\nReturns, applications, available.\nComplete treasury view.",
+            "imageAlt": "Executive Reports illustration"
+          }
+        }
       }
     },
     "businessYieldStrategies": {
@@ -965,6 +1454,27 @@
             "description": "Additional financial revenue.\nImproves company indicators.\nIncreased competitiveness."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Turn cash flow into revenue.",
+        "subtitle": "Strategies that make every dollar count.",
+        "cards": {
+          "yieldOnReceivables": {
+            "title": "Yield on Receivables",
+            "description": "Earn returns while waiting for payments.\nTerm receivables generating revenue.\nMonetize waiting time.",
+            "imageAlt": "Yield on Receivables illustration"
+          },
+          "corporateDefiStrategies": {
+            "title": "Corporate DeFi Strategies",
+            "description": "High yields with part of your cash.\nControlled risk, superior returns.\nDeFi for businesses.",
+            "imageAlt": "Corporate DeFi Strategies illustration"
+          },
+          "currencyProtection": {
+            "title": "Currency Protection",
+            "description": "Automatic hedge for international operations.\nProtect margins against volatility.\nCurrency predictability.",
+            "imageAlt": "Currency Protection illustration"
+          }
+        }
       }
     },
     "businessCreditSolutions": {
@@ -998,6 +1508,32 @@
             "iconAlt": "Transparency icon",
             "title": "Total Transparency",
             "description": "See who's lending.\nUnderstand the interest structure.\nClear and accessible contracts."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Direct credit between businesses.",
+        "subtitle": "No bank in the middle. Faster, fairer.",
+        "cards": {
+          "lowerRates": {
+            "title": "Lower Rates",
+            "description": "No traditional bank intermediation.\nCompanies lend to companies.\nEveryone saves.",
+            "imageAlt": "Lower Rates illustration"
+          },
+          "fastApproval": {
+            "title": "Fast Approval",
+            "description": "Analysis based on real cash flow.\nResponse in hours, not weeks.\nCredit at your business speed.",
+            "imageAlt": "Fast Approval illustration"
+          },
+          "flexibleTerms": {
+            "title": "Flexible Terms",
+            "description": "Negotiate directly with lender.\nTerm, amount, guarantees.\nAgreement that makes sense for both.",
+            "imageAlt": "Flexible Terms illustration"
+          },
+          "diversifySources": {
+            "title": "Diversify Sources",
+            "description": "Less bank dependency.\nMultiple credit sources.\nFinancial resilience.",
+            "imageAlt": "Diversify Sources illustration"
           }
         }
       }
@@ -1040,6 +1576,32 @@
             "description": "Money back on transactions.\nNot points that expire.\nIt's money returning to you."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Rewards that matter.",
+        "subtitle": "The more you use, the more you earn.",
+        "cards": {
+          "pointsForEverything": {
+            "title": "Points for Everything",
+            "description": "Invest, learn, refer, participate.\nEvery action earns points.\nEvery point earns rewards.",
+            "imageAlt": "Points for Everything illustration"
+          },
+          "realCashback": {
+            "title": "Real Cashback",
+            "description": "Get back part of your transactions.\nMoney in account, not expiring points.\nRewards worth it.",
+            "imageAlt": "Real Cashback illustration"
+          },
+          "vipAccess": {
+            "title": "VIP Access",
+            "description": "Exclusive courses, special events.\nPremium content for top users.\nMore you use, more you access.",
+            "imageAlt": "VIP Access illustration"
+          },
+          "gamificationThatTeaches": {
+            "title": "Gamification That Teaches",
+            "description": "Challenges, badges, rankings.\nLearn while you compete.\nFun financial education.",
+            "imageAlt": "Gamification That Teaches illustration"
+          }
+        }
       }
     },
     "rewardsAiGuides": {
@@ -1073,6 +1635,32 @@
             "iconAlt": "AI intelligence icon",
             "title": "Behavioral Intelligence",
             "description": "Mascots perceive your real progress.\nDon't force premature complexity.\nEvolution at your pace."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Your personal guides.",
+        "subtitle": "Evolve with you, from zero to advanced.",
+        "cards": {
+          "aquaYourFirstStep": {
+            "title": "Aqua: Your First Step",
+            "description": "The friend who guides you at the start.\nExplains everything, no rush.\nGetting started became easy.",
+            "imageAlt": "Aqua: Your First Step illustration"
+          },
+          "mysticSmartGrowth": {
+            "title": "Mystic: Smart Growth",
+            "description": "Appears when you're ready for more.\nStrategies, diversification, planning.\nYour personal advisor.",
+            "imageAlt": "Mystic: Smart Growth illustration"
+          },
+          "coralHighYields": {
+            "title": "Coral: High Yields",
+            "description": "The advanced opportunity hunter.\nDeFi, high yields, complex strategies.\nFor when you master the game.",
+            "imageAlt": "Coral: High Yields illustration"
+          },
+          "aiThatKnowsYou": {
+            "title": "AI That Knows You",
+            "description": "Learns from your behavior.\nPersonalized recommendations.\nGuides that truly understand you.",
+            "imageAlt": "AI That Knows You illustration"
           }
         }
       }
@@ -1110,6 +1698,32 @@
             "description": "The more you refer, the more you earn.\nIncreasing reward tiers.\nIncentive to evangelize."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Share and earn.",
+        "subtitle": "Friends grow together, everyone wins.",
+        "cards": {
+          "bonusForBoth": {
+            "title": "Bonus for Both",
+            "description": "You earn, your friend earns.\nThe more you refer, the more you accumulate.\nShared growth.",
+            "imageAlt": "Bonus for Both illustration"
+          },
+          "lifetimeCommission": {
+            "title": "Lifetime Commission",
+            "description": "Earn part of referral fees.\nForever, not just at start.\nReal passive income.",
+            "imageAlt": "Lifetime Commission illustration"
+          },
+          "referralTiers": {
+            "title": "Referral Tiers",
+            "description": "Bronze, Silver, Gold, Platinum.\nMore referrals, better commission.\nRewarded consistency.",
+            "imageAlt": "Referral Tiers illustration"
+          },
+          "completeDashboard": {
+            "title": "Complete Dashboard",
+            "description": "See all your referrals and earnings.\nTrack performance in real-time.\nTotal transparency.",
+            "imageAlt": "Complete Dashboard illustration"
+          }
+        }
       }
     },
     "rewardsPointsSystem": {
@@ -1143,6 +1757,32 @@
             "iconAlt": "Redeem points icon",
             "title": "Redeem For Benefits",
             "description": "Use points to discount fees.\nAccess premium courses.\nRewards marketplace."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Every action earns points.",
+        "subtitle": "Use more, earn more, grow more.",
+        "cards": {
+          "pointsForInvesting": {
+            "title": "Points for Investing",
+            "description": "Buy assets, earn points.\nUse strategies, earn more.\nYour growth rewarded.",
+            "imageAlt": "Points for Investing illustration"
+          },
+          "pointsForLearning": {
+            "title": "Points for Learning",
+            "description": "Complete courses, earn points.\nJoin webinars, earn more.\nKnowledge rewarded.",
+            "imageAlt": "Points for Learning illustration"
+          },
+          "pointsForEngaging": {
+            "title": "Points for Engaging",
+            "description": "Help community, earn points.\nCreate content, earn even more.\nContribution valued.",
+            "imageAlt": "Points for Engaging illustration"
+          },
+          "redeemForBenefits": {
+            "title": "Redeem for Benefits",
+            "description": "Cashback, premium courses, VIP access.\nYour points become real advantages.\nSystem worth it.",
+            "imageAlt": "Redeem for Benefits illustration"
           }
         }
       }
@@ -1180,6 +1820,32 @@
             "description": "Early adopter, top referrer, educator.\nUnique recognition.\nCommunity status."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Show your achievements.",
+        "subtitle": "Badges that matter, rankings that inspire.",
+        "cards": {
+          "achievementBadges": {
+            "title": "Achievement Badges",
+            "description": "First investment, diversified portfolio.\nEvery milestone has its badge.\nCelebrate every victory.",
+            "imageAlt": "Achievement Badges illustration"
+          },
+          "weeklyRankings": {
+            "title": "Weekly Rankings",
+            "description": "See who's growing most.\nGet inspired, compete, learn.\nGamification that motivates.",
+            "imageAlt": "Weekly Rankings illustration"
+          },
+          "verifiedProfile": {
+            "title": "Verified Profile",
+            "description": "Demonstrate expertise and reliability.\nExpert badges in each category.\nVisible credibility.",
+            "imageAlt": "Verified Profile illustration"
+          },
+          "positionRewards": {
+            "title": "Position Rewards",
+            "description": "Weekly top 10 gets special bonus.\nHealthy competition, real prizes.\nStand out and earn.",
+            "imageAlt": "Position Rewards illustration"
+          }
+        }
       }
     },
     "rewardsCampaigns": {
@@ -1215,6 +1881,32 @@
             "description": "Learn specific topics, earn rewards.\nIncentive for focused education.\nKnowledge that pays back."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Challenges that teach.",
+        "subtitle": "Participate, learn, earn rewards.",
+        "cards": {
+          "monthlyChallenges": {
+            "title": "Monthly Challenges",
+            "description": "Different goals every month.\nInvest X, learn Y, earn Z.\nAlways something new to achieve.",
+            "imageAlt": "Monthly Challenges illustration"
+          },
+          "themedCampaigns": {
+            "title": "Themed Campaigns",
+            "description": "Crypto Month, DeFi Week, Stocks Special.\nLearn focused, earn focused.\nDirected education.",
+            "imageAlt": "Themed Campaigns illustration"
+          },
+          "exclusivePartnerships": {
+            "title": "Exclusive Partnerships",
+            "description": "Partner brands with discounts.\nJoint campaigns with extra bonus.\nMore value for you.",
+            "imageAlt": "Exclusive Partnerships illustration"
+          },
+          "earlyAdopterRewards": {
+            "title": "Early Adopter Rewards",
+            "description": "Earlier you join, more you earn.\nPioneers get exclusive advantages.\nRewarded for believing first.",
+            "imageAlt": "Early Adopter Rewards illustration"
+          }
+        }
       }
     },
     "rewardsTokenAirdrop": {
@@ -1248,6 +1940,32 @@
             "iconAlt": "Roadmap icon",
             "title": "Transparent Roadmap",
             "description": "Planned and communicated distribution.\nNo surprises, no manipulation.\nResponsible tokenomics."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Be part of the revolution.",
+        "subtitle": "diBoaS Token: rewarded for building together.",
+        "cards": {
+          "airdropForEarlyUsers": {
+            "title": "Airdrop for Early Users",
+            "description": "Use the platform, earn tokens.\nEarlier you start, more tokens.\nRewarded for believing first.",
+            "imageAlt": "Airdrop for Early Users illustration"
+          },
+          "realGovernance": {
+            "title": "Real Governance",
+            "description": "Tokens give voice in platform decisions.\nVote on features, changes, directions.\nUsers decide the future.",
+            "imageAlt": "Real Governance illustration"
+          },
+          "tokenStaking": {
+            "title": "Token Staking",
+            "description": "Stake and earn additional returns.\nMore advantages in fees and benefits.\nHolding rewarded.",
+            "imageAlt": "Token Staking illustration"
+          },
+          "appreciationTogether": {
+            "title": "Appreciation Together",
+            "description": "More the platform grows, more it's worth.\nYou're not just a user, you're a stakeholder.\nWe really grow together.",
+            "imageAlt": "Appreciation Together illustration"
           }
         }
       }
@@ -1290,6 +2008,32 @@
             "description": "Coverage against extreme events.\nPartnership with trusted insurers.\nAdditional protection that matters."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Security without compromise.",
+        "subtitle": "Military protection, your control, total transparency.",
+        "cards": {
+          "militaryGradeEncryption": {
+            "title": "Military-Grade Encryption",
+            "description": "Same technology that protects governments.\nYour data and assets totally secure.\nNothing less than the best.",
+            "imageAlt": "Military-Grade Encryption illustration"
+          },
+          "youReTheOwner": {
+            "title": "You're the Owner",
+            "description": "Non-custodial wallets.\nOnly you have access to your assets.\nWe never touch your money.",
+            "imageAlt": "You're the Owner illustration"
+          },
+          "multiJurisdictionCompliant": {
+            "title": "Multi-Jurisdiction Compliant",
+            "description": "US, EU, Brazil regulation.\nConstant independent audits.\nCompliance isn't optional.",
+            "imageAlt": "Multi-Jurisdiction Compliant illustration"
+          },
+          "twentyFourSevenSupport": {
+            "title": "24/7 Support",
+            "description": "Security team always available.\nImmediate response to any incident.\nYou're never alone.",
+            "imageAlt": "24/7 Support illustration"
+          }
+        }
       }
     },
     "securityAuditReports": {
@@ -1323,6 +2067,32 @@
             "iconAlt": "Bug bounty icon",
             "title": "Bug Bounty Program",
             "description": "Ethical hackers test our security.\nRewards for finding flaws.\nCollaborative security."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Transparency as policy.",
+        "subtitle": "All reports, all audits, public.",
+        "cards": {
+          "independentAudits": {
+            "title": "Independent Audits",
+            "description": "External companies verify everything.\nSmart contracts, infrastructure, processes.\nVerifiable trust.",
+            "imageAlt": "Independent Audits illustration"
+          },
+          "publicReports": {
+            "title": "Public Reports",
+            "description": "All audits available for review.\nTotal transparency about security.\nNothing hidden.",
+            "imageAlt": "Public Reports illustration"
+          },
+          "bugBountyProgram": {
+            "title": "Bug Bounty Program",
+            "description": "We reward those who find vulnerabilities.\nCommunity helps us be more secure.\nCollaborative security.",
+            "imageAlt": "Bug Bounty Program illustration"
+          },
+          "complianceReports": {
+            "title": "Compliance Reports",
+            "description": "Updated regulatory reports.\nSOC 2, ISO 27001, MiCA.\nCertifications that prove.",
+            "imageAlt": "Compliance Reports illustration"
           }
         }
       }
@@ -1360,6 +2130,32 @@
             "description": "Passwords, codes, private keys.\ndiBoas never asks for this information.\nClear security rules."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Learn to protect yourself.",
+        "subtitle": "Tools and knowledge for your security.",
+        "cards": {
+          "antiScamGuide": {
+            "title": "Anti-Scam Guide",
+            "description": "Recognize phishing attempts.\nAvoid common scams.\nKnowledge is your first defense.",
+            "imageAlt": "Anti-Scam Guide illustration"
+          },
+          "mandatoryTwoFa": {
+            "title": "Mandatory 2FA",
+            "description": "Two-factor authentication on everything.\nExtra security layer always.\nReinforced protection.",
+            "imageAlt": "Mandatory 2FA illustration"
+          },
+          "smartAlerts": {
+            "title": "Smart Alerts",
+            "description": "Notification of any suspicious activity.\nAutomatic lock if necessary.\nAI protecting you 24/7.",
+            "imageAlt": "Smart Alerts illustration"
+          },
+          "safeMode": {
+            "title": "Safe Mode",
+            "description": "Extra restrictions on public networks.\nIncreased protection in risky environments.\nAdaptive security.",
+            "imageAlt": "Safe Mode illustration"
+          }
+        }
       }
     },
     "helpFaq": {
@@ -1393,6 +2189,32 @@
             "iconAlt": "Community icon",
             "title": "Community Helps Community",
             "description": "User forum.\nQuestions answered by those who've been there.\nCollective experience."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Your questions answered.",
+        "subtitle": "Quick answers to everything you need to know.",
+        "cards": {
+          "completeKnowledgeBase": {
+            "title": "Complete Knowledge Base",
+            "description": "Hundreds of articles about every feature.\nSmart search finds what you need.\nSelf-service that works.",
+            "imageAlt": "Complete Knowledge Base illustration"
+          },
+          "videoTutorials": {
+            "title": "Video Tutorials",
+            "description": "Learn by watching.\nVisual step-by-step of each process.\nFor those who prefer to watch.",
+            "imageAlt": "Video Tutorials illustration"
+          },
+          "twentyFourSevenChat": {
+            "title": "24/7 Chat",
+            "description": "AI responds instantly.\nHumans available when needed.\nSupport always present.",
+            "imageAlt": "24/7 Chat illustration"
+          },
+          "communityHelps": {
+            "title": "Community Helps",
+            "description": "Forum where users help each other.\nQuestions answered by community.\nShared knowledge.",
+            "imageAlt": "Community Helps illustration"
           }
         }
       }
@@ -1430,6 +2252,32 @@
             "description": "Experts in fintech, crypto, and UX.\nExperience across 3 continents.\nBuilding for the world."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Who we are and why we exist.",
+        "subtitle": "The world's first OneFi platform has a clear mission.",
+        "cards": {
+          "ourMission": {
+            "title": "Our Mission",
+            "description": "Democratize access to financial growth.\nSimplify the complex.\nEmpower regular people to prosper.",
+            "imageAlt": "Our Mission illustration"
+          },
+          "howItStarted": {
+            "title": "How It Started",
+            "description": "Frustration with fragmentation.\nVision to unify everything.\nFrom idea to OneFi reality.",
+            "imageAlt": "How It Started illustration"
+          },
+          "globalTeam": {
+            "title": "Global Team",
+            "description": "Expertise in fintech, crypto, AI.\nTeams distributed across 3 continents.\nDiversity that enriches.",
+            "imageAlt": "Global Team illustration"
+          },
+          "guidingValues": {
+            "title": "Guiding Values",
+            "description": "Simplicity, transparency, education.\nUser always comes first.\nGrowth for everyone.",
+            "imageAlt": "Guiding Values illustration"
+          }
+        }
       }
     },
     "careers": {
@@ -1465,6 +2313,32 @@
             "description": "Equity ownership, flexible remote work.\nLearning budget.\nTeam that values balance."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Build the future of finance with us.",
+        "subtitle": "Join the team redefining OneFi.",
+        "cards": {
+          "realImpact": {
+            "title": "Real Impact",
+            "description": "Your work changes financial lives.\nMillions of people impacted.\nPurpose that motivates.",
+            "imageAlt": "Real Impact illustration"
+          },
+          "firstClassTeam": {
+            "title": "First-Class Team",
+            "description": "Work with industry's best.\nLearn while building.\nAccelerated growth.",
+            "imageAlt": "First-Class Team illustration"
+          },
+          "innovationCulture": {
+            "title": "Innovation Culture",
+            "description": "Your ideas are heard.\nExperimentation is encouraged.\nFailures are learnings.",
+            "imageAlt": "Innovation Culture illustration"
+          },
+          "uniqueBenefits": {
+            "title": "Unique Benefits",
+            "description": "Equity, remote work, continuous education.\nEarly access to features.\nWe all grow together.",
+            "imageAlt": "Unique Benefits illustration"
+          }
+        }
       }
     },
     "docs": {
@@ -1498,6 +2372,32 @@
             "iconAlt": "Developer community icon",
             "title": "Developer Community",
             "description": "Active technical forum.\nOpen source code samples.\nSupport that understands code."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Documentation for developers.",
+        "subtitle": "APIs, integrations, everything you need to build with diBoaS.",
+        "cards": {
+          "restfulApis": {
+            "title": "RESTful APIs",
+            "description": "Complete and documented endpoints.\nExamples in multiple languages.\nIntegration in minutes.",
+            "imageAlt": "RESTful APIs illustration"
+          },
+          "officialSdks": {
+            "title": "Official SDKs",
+            "description": "JavaScript, Python, Go, and more.\nAbstractions that simplify.\nLess code, more results.",
+            "imageAlt": "Official SDKs illustration"
+          },
+          "webhooks": {
+            "title": "Webhooks",
+            "description": "Receive events in real-time.\nTransactions, state changes, everything.\nReactive system.",
+            "imageAlt": "Webhooks illustration"
+          },
+          "sandboxEnvironment": {
+            "title": "Sandbox Environment",
+            "description": "Test without risk.\nComplete development environment.\nValidation before production.",
+            "imageAlt": "Sandbox Environment illustration"
           }
         }
       }
@@ -1540,6 +2440,32 @@
             "description": "MiCA (EU), BSA (US), Central Bank (BR).\nLegal from day 1.\nNo regulatory risk."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Investing in the future of finance.",
+        "subtitle": "Transparent and complete investor relations.",
+        "cards": {
+          "quarterlyReports": {
+            "title": "Quarterly Reports",
+            "description": "Complete growth metrics.\nTransparency about every number.\nReal accountability.",
+            "imageAlt": "Quarterly Reports illustration"
+          },
+          "executivePresentations": {
+            "title": "Executive Presentations",
+            "description": "Strategy, roadmap, long-term vision.\nDirect access to leadership.\nClear communication.",
+            "imageAlt": "Executive Presentations illustration"
+          },
+          "eventsCalendar": {
+            "title": "Events Calendar",
+            "description": "Quarterly calls, AGMs, roadshows.\nParticipate in strategic discussions.\nActive voice.",
+            "imageAlt": "Events Calendar illustration"
+          },
+          "corporateGovernance": {
+            "title": "Corporate Governance",
+            "description": "Independent board, active committees.\nRigorous compliance.\nSolid structure.",
+            "imageAlt": "Corporate Governance illustration"
+          }
+        }
       }
     },
     "legalTerms": {
@@ -1573,6 +2499,32 @@
             "iconAlt": "External audit icon",
             "title": "Regular External Audit",
             "description": "Independent compliance verification.\nQuarterly public reports.\nAccountability that matters."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Legality in every sense.",
+        "subtitle": "Clear terms, rigorous compliance, total protection.",
+        "cards": {
+          "termsOfUse": {
+            "title": "Terms of Use",
+            "description": "Clear language, no legalese.\nUnderstand exactly your rights.\nLegal transparency.",
+            "imageAlt": "Terms of Use illustration"
+          },
+          "multiJurisdiction": {
+            "title": "Multi-Jurisdiction",
+            "description": "Compliant in US, EU, Brazil, more.\nLegal operation everywhere.\nExpansion without barriers.",
+            "imageAlt": "Multi-Jurisdiction illustration"
+          },
+          "rigorousKycAml": {
+            "title": "Rigorous KYC/AML",
+            "description": "Robust identity verification.\nMoney laundering prevention.\nClean platform.",
+            "imageAlt": "Rigorous KYC/AML illustration"
+          },
+          "disputeResolution": {
+            "title": "Dispute Resolution",
+            "description": "Clear processes for conflicts.\nMediation before litigation.\nAccessible justice.",
+            "imageAlt": "Dispute Resolution illustration"
           }
         }
       }
@@ -1610,6 +2562,32 @@
             "description": "Access, export, delete your data.\nSelf-service tools in app.\nExercising rights is easy."
           }
         }
+      },
+      "stickyFeaturesNav": {
+        "title": "Your privacy is sacred.",
+        "subtitle": "GDPR, LGPD, CCPA - compliant in everything.",
+        "cards": {
+          "yourDataIsYours": {
+            "title": "Your Data Is Yours",
+            "description": "You control what we share.\nWe never sell information.\nPrivacy first.",
+            "imageAlt": "Your Data Is Yours illustration"
+          },
+          "endToEndEncryption": {
+            "title": "End-to-End Encryption",
+            "description": "Data encrypted in transit and at rest.\nEven we don't see everything.\nMaximum security.",
+            "imageAlt": "End-to-End Encryption illustration"
+          },
+          "rightToBeForgotten": {
+            "title": "Right to Be Forgotten",
+            "description": "Delete your account, we delete everything.\nGDPR and LGPD compliant.\nClean exit guaranteed.",
+            "imageAlt": "Right to Be Forgotten illustration"
+          },
+          "dataTransparency": {
+            "title": "Data Transparency",
+            "description": "See exactly what we have about you.\nExport everything whenever you want.\nTotal control.",
+            "imageAlt": "Data Transparency illustration"
+          }
+        }
       }
     },
     "legalCookies": {
@@ -1643,6 +2621,27 @@
             "iconAlt": "No tracking icon",
             "title": "No Invasive Tracking",
             "description": "Don't sell browsing data.\nNo cross-site tracking.\nPrivacy respected."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Cookies explained clearly.",
+        "subtitle": "What we use, why we use, how to control.",
+        "cards": {
+          "essentialVsOptional": {
+            "title": "Essential vs Optional",
+            "description": "What's necessary vs what improves experience.\nChoose what you want to accept.\nControl in your hands.",
+            "imageAlt": "Essential vs Optional illustration"
+          },
+          "noIntrusiveTracking": {
+            "title": "No Intrusive Tracking",
+            "description": "We don't sell data to third parties.\nCookies only for functionality.\nPrivacy respected.",
+            "imageAlt": "No Intrusive Tracking illustration"
+          },
+          "manageYourPreferences": {
+            "title": "Manage Your Preferences",
+            "description": "Change consent anytime.\nClear preferences dashboard.\nTotal flexibility.",
+            "imageAlt": "Manage Your Preferences illustration"
           }
         }
       }
