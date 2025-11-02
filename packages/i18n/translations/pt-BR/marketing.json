@@ -316,6 +316,28 @@
             "imageAlt": "Use Mais, Ganhe Mais illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Tudo em Um Só Lugar",
+            "description": "Banking, Investimentos, Crypto, Estratégias e DeFi.\nTudo numa tela só. Atualizado em tempo real.\nChega de ficar pulando entre 5 apps diferentes.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Tudo em Um Só Lugar illustration"
+          },
+          "simplicity": {
+            "title": "Seguro e Simples",
+            "description": "\"Quero guardar R$ 5 mil pra viajar\"\n\"Preciso de uma reserva de emergência\"\n\"Quero investir R$ 100 por mês\"\nSem complicação. O diBoaS deixa assim tão fácil.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Seguro e Simples illustration"
+          },
+          "rewards": {
+            "title": "Ganhe Mais",
+            "description": "✓ Sistema de Cashback e Pontos\n✓ Acesso antecipado a novidades\n✓ Rendimentos extras em estratégias\nQuanto mais você usa, mais você ganha.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Ganhe Mais illustration"
+          }
+        }
       }
     },
     "account": {
@@ -377,6 +399,28 @@
             "imageAlt": "Segurança Que Você Controla illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Seu Dinheiro, Seu Controle",
+            "description": "Conta gratuita com rendimento de 100% do CDI.\nSem tarifas escondidas, sem surpresas.\nSeu dinheiro rende enquanto você dorme.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Seu Dinheiro, Seu Controle illustration"
+          },
+          "simplicity": {
+            "title": "Abre em Minutos",
+            "description": "✓ Sem saldo mínimo obrigatório\n✓ Transferências ilimitadas e gratuitas\n✓ Notificações em tempo real\nBanking sem burocracia. Finalmente.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Abre em Minutos illustration"
+          },
+          "rewards": {
+            "title": "Ganhe Guardando",
+            "description": "Rendimento diário automático no seu saldo.\nAté 30% a mais que a poupança tradicional.\nMesma segurança, retorno melhor.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Ganhe Guardando illustration"
+          }
+        }
       }
     },
     "bankingServices": {
@@ -436,6 +480,28 @@
             "title": "Controle em Tempo Real",
             "description": "Notificações instantâneas de cada movimentação.\nVocê sempre sabe o que está acontecendo\ncom seu dinheiro.",
             "imageAlt": "Controle em Tempo Real illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Banking Sem Fronteiras",
+            "description": "Envie e receba dinheiro no mundo todo.\nSem barreiras, sem espera.\nSeu dinheiro na velocidade da luz.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Banking Sem Fronteiras illustration"
+          },
+          "simplicity": {
+            "title": "Tudo na Hora",
+            "description": "✓ Transferências instantâneas via Pix\n✓ TED internacional em segundos\n✓ Pague contas com um toque\nBanking não precisa ser complicado.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Tudo na Hora illustration"
+          },
+          "rewards": {
+            "title": "Taxas Transparentes",
+            "description": "Só 0,9% em transferências externas.\nTodo o resto? De graça.\nSem taxas escondidas. Nunca.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Taxas Transparentes illustration"
           }
         }
       }
@@ -504,6 +570,28 @@
             "imageAlt": "Taxas Que Fazem Sentido illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Invista Como um Pro",
+            "description": "Ações, titles, ETFs e crypto.\nTudo num portfólio só.\nSeu painel completo de investimentos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Invista Como um Pro illustration"
+          },
+          "simplicity": {
+            "title": "Comece Com R$ 10",
+            "description": "Sem barreiras de investimento mínimo.\n✓ Tutoriais guiados pra iniciantes\n✓ Diversificação com um clique\n✓ Recomendações inteligentes do Mystic\nInvestir ficou acessível pra todo mundo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Comece Com R$ 10 illustration"
+          },
+          "rewards": {
+            "title": "Menores Taxas do Mercado",
+            "description": "Só 0,09% de taxa de negociação.\nIsso é de 5 a 16 vezes mais barato que a concorrência.\nMais dinheiro fica no seu bolso.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Menores Taxas do Mercado illustration"
+          }
+        }
       }
     },
     "cryptocurrency": {
@@ -563,6 +651,28 @@
             "title": "Crypto + Tradicional = Completo",
             "description": "Veja seus investimentos tradicionais e crypto\nlado a lado. Uma visão única do seu patrimônio.\nFinalmente tudo junto.",
             "imageAlt": "Crypto + Tradicional = Completo illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Crypto Sem Complicação",
+            "description": "Compre, venda e guarde ativos digitais.\nSem jargão técnico. Sem confusão.\nInvestimento em crypto simplificado.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Crypto Sem Complicação illustration"
+          },
+          "simplicity": {
+            "title": "Crypto em 1 Clique",
+            "description": "Bitcoin, Ethereum e mais de 50 moedas.\n✓ Compras instantâneas\n✓ Custódia segura\n✓ Preços em tempo real\nAqua te guia em cada passo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Crypto em 1 Clique illustration"
+          },
+          "rewards": {
+            "title": "Segurança Nível Militar",
+            "description": "Criptografia bancária pros seus ativos digitais.\nArmazenamento frio e proteção multi-assinatura.\nSuas criptos, seu controle.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Segurança Nível Militar illustration"
           }
         }
       }
@@ -631,6 +741,28 @@
             "imageAlt": "Pare Quando Quiser illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Estratégias Profissionais Simplificadas",
+            "description": "Reserva de emergência, viagens, aposentadoria.\nEstratégias DeFi prontas pra cada objetivo.\nConfigure e veja crescer.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Estratégias Profissionais Simplificadas illustration"
+          },
+          "simplicity": {
+            "title": "Só Conta Seu Objetivo",
+            "description": "\"Juntar R$ 5 mil pra férias\"\n\"Montar reserva de 6 meses\"\nCoral monta a estratégia perfeita.\nNão precisa de MBA em finanças.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Só Conta Seu Objetivo illustration"
+          },
+          "rewards": {
+            "title": "Mais Rendimento, Menos Risco",
+            "description": "✓ Protocolos DeFi diversificados\n✓ Rebalanceamento automático\n✓ Rendimentos extras pra usuários ativos\nInvestimento inteligente no piloto automático.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Mais Rendimento, Menos Risco illustration"
+          }
+        }
       }
     },
     "credit": {
@@ -690,6 +822,28 @@
             "title": "Pague Quando Puder",
             "description": "Antecipe parcelas sem multa.\nRenegocie se precisar.\nEstamos do seu lado.",
             "imageAlt": "Pague Quando Puder illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Crédito Justo Pra Todo Mundo",
+            "description": "Taxas transparentes, prazos flexíveis.\nSem taxas escondidas, sem armadilhas em letras miúdas.\nCrédito que te respeita.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Crédito Justo Pra Todo Mundo illustration"
+          },
+          "simplicity": {
+            "title": "Saiba Antes de Pedir",
+            "description": "✓ Ofertas pré-aprovadas no app\n✓ Cronograma de pagamento claro\n✓ Mude as condições quando quiser\nVocê sempre no controle.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Saiba Antes de Pedir illustration"
+          },
+          "rewards": {
+            "title": "Construa Seu Score",
+            "description": "Uso responsável ganha recompensas.\nTaxas melhores conforme você constrói histórico.\nCrédito que trabalha a seu favor, não contra.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Construa Seu Score illustration"
           }
         }
       }
@@ -753,6 +907,28 @@
             "imageAlt": "Guias Que Evoluem Com Você illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Aprenda no Seu Ritmo",
+            "description": "Banking, investimentos, crypto e DeFi.\nTodos os cursos em um só lugar.\nDe iniciante a expert.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Aprenda no Seu Ritmo illustration"
+          },
+          "simplicity": {
+            "title": "Guiado por Mentores IA",
+            "description": "✓ Aqua pra iniciantes\n✓ Mystic pra investidores\n✓ Coral pra estratégias avançadas\nAprenda com orientação personalizada.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Guiado por Mentores IA illustration"
+          },
+          "rewards": {
+            "title": "Ganhe Enquanto Aprende",
+            "description": "Complete cursos, ganhe pontos.\nDesbloqueie badges e benefícios exclusivos.\nEducação que te paga de volta.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Ganhe Enquanto Aprende illustration"
+          }
+        }
       }
     },
     "learnFinancialBasics": {
@@ -809,6 +985,28 @@
             "imageAlt": "Hábitos Que Transformam illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "A Base Que Você Precisa",
+            "description": "Orçamento, poupança e metas.\nTudo que deviam ter ensinado na escola.\nComece sua jornada financeira aqui.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "A Base Que Você Precisa illustration"
+          },
+          "simplicity": {
+            "title": "Não Precisa Saber Nada Antes",
+            "description": "✓ Aulas interativas\n✓ Exemplos do mundo real\n✓ Pratique com seu próprio dinheiro\nAprenda fazendo, não só lendo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Não Precisa Saber Nada Antes illustration"
+          },
+          "rewards": {
+            "title": "Acompanhe Seu Progresso",
+            "description": "Marcos visuais mostram seu crescimento.\nComemore cada conquista.\nConfiança financeira, uma aula de cada vez.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Acompanhe Seu Progresso illustration"
+          }
+        }
       }
     },
     "learnMoneyManagement": {
@@ -863,6 +1061,28 @@
             "title": "Aumente Sua Renda",
             "description": "Estratégias para ganhar mais.\nRenda extra, side hustles, investimentos.\nMúltiplas fontes, múltiplas oportunidades.",
             "imageAlt": "Aumente Sua Renda illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Domine Seu Fluxo de Caixa",
+            "description": "Controle de entradas, gastos e economias inteligentes.\nTodas as ferramentas pra gerenciar como um pro.\nAssuma o controle da sua vida financeira.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Domine Seu Fluxo de Caixa illustration"
+          },
+          "simplicity": {
+            "title": "Insights Automatizados",
+            "description": "✓ Análise de gastos\n✓ Recomendações de orçamento\n✓ Oportunidades de economia\nSua IA encontra formas de otimizar.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Insights Automatizados illustration"
+          },
+          "rewards": {
+            "title": "Alcance Metas Mais Rápido",
+            "description": "Defina objetivos, receba lembretes, celebre vitórias.\nAlertas inteligentes te mantêm no caminho.\nGestão de dinheiro que funciona de verdade.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Alcance Metas Mais Rápido illustration"
           }
         }
       }
@@ -931,6 +1151,28 @@
             "imageAlt": "Erros Para Evitar illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Educação Completa em Investimentos",
+            "description": "Ações, titles, fundos e alternativos.\nAprenda estratégias tradicionais e modernas.\nTudo que você precisa pra construir patrimônio.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Educação Completa em Investimentos illustration"
+          },
+          "simplicity": {
+            "title": "Da Teoria à Prática",
+            "description": "✓ Vídeo-aulas passo a passo\n✓ Exercícios de montagem de portfólio\n✓ Fundamentos de gestão de risco\nAplique o que aprender imediatamente.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Da Teoria à Prática illustration"
+          },
+          "rewards": {
+            "title": "Desbloqueie Recursos Avançados",
+            "description": "Complete cursos pra acessar ferramentas pro.\nAnálises e insights avançados.\nEducação abre portas.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Desbloqueie Recursos Avançados illustration"
+          }
+        }
       }
     },
     "learnCryptocurrencyGuide": {
@@ -990,6 +1232,28 @@
             "title": "Como Comprar e Vender",
             "description": "Passo a passo prático.\nDo primeiro Bitcoin ao trading avançado.\nDo zero ao expert.",
             "imageAlt": "Como Comprar e Vender illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Desmistifique Ativos Digitais",
+            "description": "Blockchain, carteiras, trading, segurança.\nConhecimento crypto de A a Z.\nDe iniciante completo a investidor confiante.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Desmistifique Ativos Digitais illustration"
+          },
+          "simplicity": {
+            "title": "Não Precisa Saber Programar",
+            "description": "✓ Explicações em português claro\n✓ Guias visuais e animações\n✓ Ambientes seguros pra praticar\nAprenda crypto sem confusão.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Não Precisa Saber Programar illustration"
+          },
+          "rewards": {
+            "title": "Ganhe Crypto Enquanto Aprende",
+            "description": "Recompensas dos quizzes em criptomoeda real.\nMonte seu primeiro portfólio estudando.\nConhecimento que literalmente paga.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Ganhe Crypto Enquanto Aprende illustration"
           }
         }
       }
@@ -1053,6 +1317,28 @@
             "imageAlt": "Riscos e Recompensas illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Finanças Descentralizadas Simplificadas",
+            "description": "Empréstimos, staking, yield farming explicados.\nEntenda DeFi sem a complexidade.\nO futuro das finanças, acessível pra todos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Finanças Descentralizadas Simplificadas illustration"
+          },
+          "simplicity": {
+            "title": "Coral Te Guia",
+            "description": "✓ Análises de risco e retorno\n✓ Comparações de protocolos\n✓ Passo a passo das estratégias\nConceitos avançados ficam digeríveis.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Coral Te Guia illustration"
+          },
+          "rewards": {
+            "title": "Evolua Pra Estratégias Avançadas",
+            "description": "Desbloqueie ferramentas DeFi profissionais.\nAcesse oportunidades curadas.\nTransforme conhecimento em ação.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Evolua Pra Estratégias Avançadas illustration"
+          }
+        }
       }
     },
     "learnSpecialContent": {
@@ -1112,6 +1398,28 @@
             "title": "Webinars e Workshops",
             "description": "Aulas ao vivo com especialistas.\nTire dúvidas, aprofunde conhecimento.\nEducação em tempo real.",
             "imageAlt": "Webinars e Workshops illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Conteúdo Exclusivo Insider",
+            "description": "Webinars, entrevistas com experts, análises de mercado.\nConteúdo premium pra quem quer aprender mais.\nFique na frente da curva.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Conteúdo Exclusivo Insider illustration"
+          },
+          "simplicity": {
+            "title": "Curado Só Pra Você",
+            "description": "✓ Recomendações personalizadas\n✓ Insights semanais do mercado\n✓ Histórias de sucesso da comunidade\nConteúdo que combina com sua jornada.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Curado Só Pra Você illustration"
+          },
+          "rewards": {
+            "title": "Benefícios de Acesso Antecipado",
+            "description": "Novos recursos primeiro pra quem estuda.\nEventos e encontros exclusivos.\nVantagens premium pra alunos dedicados.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Benefícios de Acesso Antecipado illustration"
           }
         }
       }
@@ -1175,6 +1483,28 @@
             "imageAlt": "Gestão Simplificada illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Banking Empresarial Reimaginado",
+            "description": "Contas, pagamentos, tesouraria e crédito.\nTudo que seu negócio precisa.\nTudo numa plataforma poderosa.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Banking Empresarial Reimaginado illustration"
+          },
+          "simplicity": {
+            "title": "Abre em 10 Minutos",
+            "description": "✓ Sem ir em agências\n✓ Conta empresarial gratuita\n✓ Aprovações instantâneas\nToque seu negócio, não seu banco.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Abre em 10 Minutos illustration"
+          },
+          "rewards": {
+            "title": "Economize Milhares em Taxas",
+            "description": "Sem tarifas mensais de manutenção.\nTransferências e pagamentos gratuitos.\nMais capital pro crescimento, menos pros bancos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Economize Milhares em Taxas illustration"
+          }
+        }
       }
     },
     "businessAccount": {
@@ -1234,6 +1564,28 @@
             "title": "Integração Contábil",
             "description": "Exportação automática para seu contador.\nOFX, CSV, PDF.\nMenos trabalho manual, mais precisão.",
             "imageAlt": "Integração Contábil illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Conta Que Trabalha Por Você",
+            "description": "Conta corrente gratuita com rendimento automático.\nSeu caixa empresarial cresce todos os dias.\nBanking que ajuda de verdade seu resultado.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Conta Que Trabalha Por Você illustration"
+          },
+          "simplicity": {
+            "title": "Gerencie Tudo no Celular",
+            "description": "✓ Saldo atualizado em tempo real\n✓ Notificações instantâneas de transações\n✓ Aprovações com um toque\nToque suas finanças de qualquer lugar.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Gerencie Tudo no Celular illustration"
+          },
+          "rewards": {
+            "title": "Ganhe Enquanto Opera",
+            "description": "Rendimento de 100% do CDI no seu saldo.\nSem períodos de carência ou mínimos.\nSeu capital de giro trabalha mais.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Ganhe Enquanto Opera illustration"
           }
         }
       }
@@ -1297,6 +1649,28 @@
             "imageAlt": "Conciliação Automática illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Suite Completa de Banking",
+            "description": "Depósitos, transferências, pagamentos, folha.\nTudo que você precisa pra operar.\nBanking tradicional, velocidade moderna.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Suite Completa de Banking illustration"
+          },
+          "simplicity": {
+            "title": "Automação de Pagamentos",
+            "description": "✓ Pagamentos agendados\n✓ Cobranças recorrentes\n✓ Transferências em lote\nConfigure uma vez, esqueça.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Automação de Pagamentos illustration"
+          },
+          "rewards": {
+            "title": "Transações Ilimitadas Gratuitas",
+            "description": "Sem taxa por transação.\nTransferências e pagamentos ilimitados.\nEscale sem se preocupar com custos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Transações Ilimitadas Gratuitas illustration"
+          }
+        }
       }
     },
     "businessPayments": {
@@ -1356,6 +1730,28 @@
             "title": "Split de Pagamentos",
             "description": "Divida recebimentos automaticamente.\nMarketplaces, parcerias, comissões.\nCada um recebe seu quinhão na hora.",
             "imageAlt": "Split de Pagamentos illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Aceite Qualquer Forma de Pagamento",
+            "description": "Cartões, Pix, boleto, crypto.\nTodos os tipos num painel só.\nNunca perca uma venda de novo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Aceite Qualquer Forma de Pagamento illustration"
+          },
+          "simplicity": {
+            "title": "Receba na Hora",
+            "description": "✓ Depósitos no mesmo dia\n✓ Conciliação automática\n✓ Relatórios em tempo real\nDinheiro na sua conta, não em trânsito.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Receba na Hora illustration"
+          },
+          "rewards": {
+            "title": "Menores Taxas de Processamento",
+            "description": "Preços transparentes, sem custos ocultos.\nFique com mais de cada venda.\nDescontos por volume conforme você cresce.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Menores Taxas de Processamento illustration"
           }
         }
       }
@@ -1419,6 +1815,28 @@
             "imageAlt": "Relatórios Executivos illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Otimize Seu Caixa",
+            "description": "Gestão automatizada de tesouraria.\nSobras de caixa rendem automaticamente.\nGestão inteligente de dinheiro pra empresas.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Otimize Seu Caixa illustration"
+          },
+          "simplicity": {
+            "title": "Defina Suas Regras",
+            "description": "✓ Define caixa operacional mínimo\n✓ Investe excedentes automaticamente\n✓ Liquidez instantânea quando precisar\nTesouraria no piloto automático.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Defina Suas Regras illustration"
+          },
+          "rewards": {
+            "title": "Maximize Retornos",
+            "description": "Acesso a múltiplas estratégias de rendimento.\nOpções diversificadas e baixo risco.\nSeu caixa trabalha 24/7 pelo seu negócio.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Maximize Retornos illustration"
+          }
+        }
       }
     },
     "businessYieldStrategies": {
@@ -1473,6 +1891,28 @@
             "title": "Proteção Cambial",
             "description": "Hedge automático para operações internacionais.\nProteja margens contra volatilidade.\nPrevisibilidade cambial.",
             "imageAlt": "Proteção Cambial illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Transforme Caixa Parado em Receita",
+            "description": "Rendimento automático em fundos operacionais.\nSem gestão manual necessária.\nReceita adicional enquanto você foca no negócio.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Transforme Caixa Parado em Receita illustration"
+          },
+          "simplicity": {
+            "title": "Acesso Flexível",
+            "description": "✓ Saque quando quiser sem multas\n✓ Ajuste estratégias conforme precisar\n✓ Relatórios claros de ganhos diários\nLiquidez encontra rentabilidade.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Acesso Flexível illustration"
+          },
+          "rewards": {
+            "title": "Superior à Poupança",
+            "description": "Taxas melhores que contas empresariais tradicionais.\nDiversificado em protocolos seguros.\nRetornos otimizados com risco gerenciado.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Superior à Poupança illustration"
           }
         }
       }
@@ -1534,6 +1974,28 @@
             "title": "Diversifique Fontes",
             "description": "Menos dependência bancária.\nMúltiplas fontes de crédito.\nResiliência financeira.",
             "imageAlt": "Diversifique Fontes illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Empréstimos Empresariais Sem Bancos",
+            "description": "Empréstimos peer-to-peer diretos.\nTaxas justas, aprovações rápidas.\nCrédito feito pro crescimento.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Empréstimos Empresariais Sem Bancos illustration"
+          },
+          "simplicity": {
+            "title": "Solicite em Minutos",
+            "description": "✓ Decisões de pré-aprovação instantâneas\n✓ Prazos de pagamento flexíveis\n✓ Sem taxas escondidas ou multas\nFinanciamento na velocidade do negócio.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Solicite em Minutos illustration"
+          },
+          "rewards": {
+            "title": "Construa Crédito Empresarial",
+            "description": "Uso responsável melhora condições.\nAcesso a valores maiores com o tempo.\nCrédito que cresce com seu negócio.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Construa Crédito Empresarial illustration"
           }
         }
       }
@@ -1602,6 +2064,28 @@
             "imageAlt": "Gamificação Que Ensina illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Recompensas Que Valem a Pena",
+            "description": "Pontos, cashback, badges e tokens.\nCada ação é reconhecida.\nFinanças gamificadas que pagam pra jogar.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Recompensas Que Valem a Pena illustration"
+          },
+          "simplicity": {
+            "title": "Acompanhamento Automático",
+            "description": "✓ Ganhe pontos aprendendo\n✓ Cashback nas transações\n✓ Bônus por indicações\nSem formulários, sem burocracia. Só recompensas.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Acompanhamento Automático illustration"
+          },
+          "rewards": {
+            "title": "Resgate Como Quiser",
+            "description": "Dinheiro, crypto, gift cards ou reinvista.\nSuas recompensas, sua escolha.\nValor que você realmente usa.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Resgate Como Quiser illustration"
+          }
+        }
       }
     },
     "rewardsAiGuides": {
@@ -1661,6 +2145,28 @@
             "title": "IA Que Te Conhece",
             "description": "Aprende com seu comportamento.\nRecomendações personalizadas.\nGuias que realmente entendem você.",
             "imageAlt": "IA Que Te Conhece illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Conheça Seus Companheiros Financeiros",
+            "description": "Aqua, Mystic e Coral.\nTrês guias IA pra cada etapa.\nEles evoluem conforme você evolui.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Conheça Seus Companheiros Financeiros illustration"
+          },
+          "simplicity": {
+            "title": "Orientação Personalizada",
+            "description": "✓ Aqua pra iniciantes\n✓ Mystic pra investidores\n✓ Coral pra DeFi avançado\nA ajuda certa na hora certa.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Orientação Personalizada illustration"
+          },
+          "rewards": {
+            "title": "Evoluam Juntos",
+            "description": "Desbloqueie novas habilidades dos mascotes.\nDesbloqueie recursos avançados conforme progride.\nSua jornada, personalizada.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Evoluam Juntos illustration"
           }
         }
       }
@@ -1724,6 +2230,28 @@
             "imageAlt": "Dashboard Completo illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Compartilhe a Riqueza",
+            "description": "Indique amigos, ganhe recompensas.\nEles economizam em taxas, você ganha bônus.\nCrescer juntos beneficia todo mundo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Compartilhe a Riqueza illustration"
+          },
+          "simplicity": {
+            "title": "Convites em Um Clique",
+            "description": "✓ Compartilhe seu link pessoal\n✓ Acompanhe quem entrou\n✓ Créditos de recompensa automáticos\nConvide de onde estiver, quando quiser.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Convites em Um Clique illustration"
+          },
+          "rewards": {
+            "title": "Potencial Ilimitado de Ganhos",
+            "description": "Sem limite em recompensas de indicação.\nBônus em níveis pros melhores indicadores.\nConstrua sua rede, construa sua riqueza.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Potencial Ilimitado de Ganhos illustration"
+          }
+        }
       }
     },
     "rewardsPointsSystem": {
@@ -1783,6 +2311,28 @@
             "title": "Troque Por Benefícios",
             "description": "Cashback, cursos premium, acesso VIP.\nSeus pontos viram vantagens reais.\nSistema que vale a pena.",
             "imageAlt": "Troque Por Benefícios illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Cada Ação Conta",
+            "description": "Transações, aprendizado, investimentos.\nTudo que você faz gera pontos.\nUsuários engajados ganham mais.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Cada Ação Conta illustration"
+          },
+          "simplicity": {
+            "title": "Sistema de Pontos Transparente",
+            "description": "✓ Regras claras de ganho\n✓ Saldo de pontos em tempo real\n✓ Múltiplas opções de resgate\nSem letras miúdas confusas.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Sistema de Pontos Transparente illustration"
+          },
+          "rewards": {
+            "title": "Pontos Nunca Expiram",
+            "description": "Acumule no seu ritmo.\nGuarde pra resgates grandes.\nSeus pontos, sua linha do tempo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Pontos Nunca Expiram illustration"
           }
         }
       }
@@ -1846,6 +2396,28 @@
             "imageAlt": "Recompensas Por Posição illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Mostre Seu Sucesso",
+            "description": "Ganhe badges por conquistas.\nSuba no ranking da comunidade.\nReconhecimento pelo seu crescimento financeiro.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Mostre Seu Sucesso illustration"
+          },
+          "simplicity": {
+            "title": "Celebração de Marcos",
+            "description": "✓ Badge do primeiro investimento\n✓ Conquistas de sequência de economia\n✓ Prêmios de conclusão de cursos\nCada passo comemorado.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Celebração de Marcos illustration"
+          },
+          "rewards": {
+            "title": "Vantagens Exclusivas Pra Líderes",
+            "description": "Top performers ganham benefícios especiais.\nAcesso antecipado a recursos e bônus.\nCompetição que beneficia todo mundo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Vantagens Exclusivas Pra Líderes illustration"
+          }
+        }
       }
     },
     "rewardsCampaigns": {
@@ -1907,6 +2479,28 @@
             "imageAlt": "Early Adopter Rewards illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Desafios Que Pagam",
+            "description": "Campanhas mensais com grandes recompensas.\nDesafios de aprendizado, metas de poupança, contests de trading.\nEngaje e ganhe simultaneamente.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Desafios Que Pagam illustration"
+          },
+          "simplicity": {
+            "title": "Entre Com Um Toque",
+            "description": "✓ Objetivos claros das campanhas\n✓ Acompanhamento de progresso\n✓ Distribuição automática de recompensas\nParticipe sem esforço.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Entre Com Um Toque illustration"
+          },
+          "rewards": {
+            "title": "Bônus Por Tempo Limitado",
+            "description": "Multiplicadores especiais durante campanhas.\nPrêmios exclusivos pra participantes.\nMais engajamento, mais recompensas.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Bônus Por Tempo Limitado illustration"
+          }
+        }
       }
     },
     "rewardsTokenAirdrop": {
@@ -1966,6 +2560,28 @@
             "title": "Valorização Junto",
             "description": "Quanto mais a plataforma cresce, mais vale.\nVocê não é só usuário, é stakeholder.\nCrescemos juntos de verdade.",
             "imageAlt": "Valorização Junto illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Seja Dono da Plataforma",
+            "description": "Token diBoaS pra usuários ativos.\nGovernança e recompensas da plataforma.\nEarly adopters ganham maiores airdrops.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Seja Dono da Plataforma illustration"
+          },
+          "simplicity": {
+            "title": "Distribuição Automática de Tokens",
+            "description": "✓ Sem precisar reivindicar manualmente\n✓ Tokens baseados em atividade\n✓ Cronograma claro de distribuição\nRecompensado por acreditar cedo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Distribuição Automática de Tokens illustration"
+          },
+          "rewards": {
+            "title": "Cresça Com a Plataforma",
+            "description": "Valor do token ligado ao sucesso da plataforma.\nOportunidades adicionais de rendimento.\nPropriedade comunitária, prosperidade compartilhada.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Cresça Com a Plataforma illustration"
           }
         }
       }
@@ -2034,6 +2650,28 @@
             "imageAlt": "Suporte 24/7 illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Segurança em Primeiro Lugar, Sempre",
+            "description": "Criptografia e monitoramento bancários.\nProteção em múltiplas camadas pros seus ativos.\nSeu dinheiro, seguro nível fortaleza.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Segurança em Primeiro Lugar, Sempre illustration"
+          },
+          "simplicity": {
+            "title": "Protegido Sem Complicação",
+            "description": "✓ Autenticação biométrica\n✓ Detecção de fraude em tempo real\n✓ Congelamento instantâneo de conta\nSegurança que não atrapalha.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Protegido Sem Complicação illustration"
+          },
+          "rewards": {
+            "title": "Você Sempre no Comando",
+            "description": "Personalize preferências de segurança.\nAlertas em tempo real pra tudo.\nNenhuma transação sem você saber.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Você Sempre no Comando illustration"
+          }
+        }
       }
     },
     "securityAuditReports": {
@@ -2093,6 +2731,28 @@
             "title": "Compliance Reports",
             "description": "Relatórios regulatórios atualizados.\nSOC 2, ISO 27001, MiCA.\nCertificações que provam.",
             "imageAlt": "Compliance Reports illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Transparência Que Você Confia",
+            "description": "Auditorias independentes de segurança.\nRelatórios públicos, sem segredos.\nPrestação de contas no nosso DNA.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Transparência Que Você Confia illustration"
+          },
+          "simplicity": {
+            "title": "Acesse Todos os Relatórios",
+            "description": "✓ Auditorias de segurança regulares\n✓ Divulgações de saúde financeira\n✓ Certificações de compliance\nTudo público, nada escondido.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Acesse Todos os Relatórios illustration"
+          },
+          "rewards": {
+            "title": "Excelência em Segurança Certificada",
+            "description": "Certificações ISO 27001 e SOC 2.\nPadrões de segurança líderes da indústria.\nSua confiança, nossa maior prioridade.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Excelência em Segurança Certificada illustration"
           }
         }
       }
@@ -2156,6 +2816,28 @@
             "imageAlt": "Modo Seguro illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Conhecimento É Proteção",
+            "description": "Dicas de segurança, alertas de golpes, melhores práticas.\nCapacite-se contra ameaças.\nUsuários educados são usuários seguros.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Conhecimento É Proteção illustration"
+          },
+          "simplicity": {
+            "title": "Hábitos Simples de Segurança",
+            "description": "✓ Melhores práticas de senha\n✓ Guias de reconhecimento de phishing\n✓ Checklists de segurança de dispositivos\nPassos fáceis, proteção poderosa.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Hábitos Simples de Segurança illustration"
+          },
+          "rewards": {
+            "title": "Suporte de Segurança 24/7",
+            "description": "Ajuda instantânea quando precisar.\nTime dedicado de segurança.\nPaz de espírito, o tempo todo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Suporte de Segurança 24/7 illustration"
+          }
+        }
       }
     },
     "helpFaq": {
@@ -2215,6 +2897,28 @@
             "title": "Comunidade Ajuda",
             "description": "Fórum onde usuários se ajudam.\nPerguntas respondidas pela comunidade.\nConhecimento compartilhado.",
             "imageAlt": "Comunidade Ajuda illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Perguntas? Temos Respostas",
+            "description": "Ajuda completa pra cada funcionalidade.\nBanking, investimentos, crypto, DeFi.\nSoluções na ponta dos dedos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Perguntas? Temos Respostas illustration"
+          },
+          "simplicity": {
+            "title": "Encontre Ajuda na Hora",
+            "description": "✓ Base de conhecimento pesquisável\n✓ Tutoriais em vídeo\n✓ Guias passo a passo\nResolva em segundos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Encontre Ajuda na Hora illustration"
+          },
+          "rewards": {
+            "title": "Respostas da Comunidade",
+            "description": "Aprenda com experiências de outros usuários.\nVote nas soluções úteis.\nBase de conhecimento crescendo pra todo mundo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Respostas da Comunidade illustration"
           }
         }
       }
@@ -2278,6 +2982,28 @@
             "imageAlt": "Valores Que Guiam illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "A Revolução OneFi",
+            "description": "Primeira plataforma unindo tradicional e DeFi.\nDerrubando barreiras financeiras.\nAcessível, transparente, empoderadora.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "A Revolução OneFi illustration"
+          },
+          "simplicity": {
+            "title": "Feito Pra Todo Mundo",
+            "description": "✓ Oportunidade de US$ 400 bilhões\n✓ 89,6% dos usuários mal atendidos\n✓ Validado por 118,6M de usuários Nubank\nMetodologia comprovada, tecnologia moderna.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Feito Pra Todo Mundo illustration"
+          },
+          "rewards": {
+            "title": "Entre Pro Movimento",
+            "description": "Faça parte da democratização financeira.\nEarly adopters moldam o futuro.\nJuntos, estamos mudando as finanças.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Entre Pro Movimento illustration"
+          }
+        }
       }
     },
     "careers": {
@@ -2339,6 +3065,28 @@
             "imageAlt": "Benefícios Únicos illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Construa o Futuro",
+            "description": "Entre num time com propósito.\nTrabalhe em fintech de ponta.\nMolde como milhões gerenciam dinheiro.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Construa o Futuro illustration"
+          },
+          "simplicity": {
+            "title": "Cultura de Inovação",
+            "description": "✓ Trabalho remoto primeiro\n✓ Equity pra todos do time\n✓ Foco em aprendizado e crescimento\nOnde talento encontra oportunidade.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Cultura de Inovação illustration"
+          },
+          "rewards": {
+            "title": "Benefícios Competitivos",
+            "description": "Remuneração e equity de primeira.\nSuporte a saúde, bem-estar e desenvolvimento.\nInvista na gente, investimos em você.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Benefícios Competitivos illustration"
+          }
+        }
       }
     },
     "docs": {
@@ -2398,6 +3146,28 @@
             "title": "Sandbox Environment",
             "description": "Teste sem risco.\nAmbiente completo para desenvolvimento.\nValidação antes de produção.",
             "imageAlt": "Sandbox Environment illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Documentação Completa de API",
+            "description": "APIs REST pra integração com a plataforma.\nBanking, investimentos, crypto, estratégias.\nConstrua na infraestrutura OneFi.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Documentação Completa de API illustration"
+          },
+          "simplicity": {
+            "title": "Amigável Pro Dev",
+            "description": "✓ Exemplos claros de código\n✓ Explorer interativo de API\n✓ Ambiente sandbox\nDo conceito à produção rapidamente.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Amigável Pro Dev illustration"
+          },
+          "rewards": {
+            "title": "Programa de Parceiros",
+            "description": "Compartilhamento de receita em integrações.\nOportunidades de co-marketing.\nCresça seu negócio com o nosso.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Programa de Parceiros illustration"
           }
         }
       }
@@ -2466,6 +3236,28 @@
             "imageAlt": "Governança Corporativa illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Oportunidade de US$ 400 Bilhões",
+            "description": "Mercados convergentes de fintech, crypto e DeFi.\nCrescimento composto anual de 16-25%.\nPotencial de mercado massivo inexplorado.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Oportunidade de US$ 400 Bilhões illustration"
+          },
+          "simplicity": {
+            "title": "Modelo de Negócio Validado",
+            "description": "✓ Metodologia Nubank comprovada em escala\n✓ Vantagem de custo 5-16x em taxas\n✓ Múltiplos fluxos de receita\nRisco de execução minimizado por validação.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Modelo de Negócio Validado illustration"
+          },
+          "rewards": {
+            "title": "Retornos de Investimento",
+            "description": "Caminho pra US$ 750M de receita no Ano 5.\nRetornos de 40-60x no caso base.\nFirst-mover em plataforma OneFi unificada.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Retornos de Investimento illustration"
+          }
+        }
       }
     },
     "legalTerms": {
@@ -2525,6 +3317,28 @@
             "title": "Resolução de Disputas",
             "description": "Processos claros para conflitos.\nMediação antes de litígio.\nJustiça acessível.",
             "imageAlt": "Resolução de Disputas illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Excelência Regulatória",
+            "description": "MiCA compliant na UE, BSA nos EUA.\nOperações multi-jurisdição prontas.\nClareza legal desde o dia um.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Excelência Regulatória illustration"
+          },
+          "simplicity": {
+            "title": "Termos Que Você Entende",
+            "description": "✓ Políticas em linguagem simples\n✓ Sem cláusulas escondidas\n✓ Direitos claros do usuário\nTransparência em tudo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Termos Que Você Entende illustration"
+          },
+          "rewards": {
+            "title": "Seus Direitos Protegidos",
+            "description": "Políticas e procedimentos que priorizam o usuário.\nResolução clara de disputas.\nTratamento justo garantido.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Seus Direitos Protegidos illustration"
           }
         }
       }
@@ -2588,6 +3402,28 @@
             "imageAlt": "Transparência de Dados illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Seus Dados, Seu Controle",
+            "description": "GDPR e LGPD compliant.\nTransparência total no uso de dados.\nPrivacidade como direito fundamental.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Seus Dados, Seu Controle illustration"
+          },
+          "simplicity": {
+            "title": "Controles Simples de Privacidade",
+            "description": "✓ Baixe seus dados quando quiser\n✓ Delete conta com um clique\n✓ Preferências granulares de compartilhamento\nSuas informações, suas decisões.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Controles Simples de Privacidade illustration"
+          },
+          "rewards": {
+            "title": "Nunca Vendidos ou Compartilhados",
+            "description": "Nunca vendemos seus dados pessoais.\nSem acesso de marketing de terceiros.\nSua confiança é nosso modelo de negócio.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Nunca Vendidos ou Compartilhados illustration"
+          }
+        }
       }
     },
     "legalCookies": {
@@ -2642,6 +3478,28 @@
             "title": "Gerencie Suas Preferências",
             "description": "Mude consentimento a qualquer momento.\nDashboard claro de preferências.\nFlexibilidade total.",
             "imageAlt": "Gerencie Suas Preferências illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Cookies Explicados de Forma Simples",
+            "description": "Como usamos cookies e por quê.\nRastreamento essencial vs opcional.\nTransparência total sobre dados do site.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Cookies Explicados de Forma Simples illustration"
+          },
+          "simplicity": {
+            "title": "Controle Suas Preferências",
+            "description": "✓ Aceite só cookies essenciais\n✓ Personalize opções de rastreamento\n✓ Mude configurações quando quiser\nNavegue nos seus termos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Controle Suas Preferências illustration"
+          },
+          "rewards": {
+            "title": "Melhor Experiência",
+            "description": "Cookies nos ajudam a melhorar sua visita.\nPersonalizado sem ser invasivo.\nExperiência suave, troca justa.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Melhor Experiência illustration"
           }
         }
       }
