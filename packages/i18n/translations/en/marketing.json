@@ -316,6 +316,28 @@
             "imageAlt": "Use More, Earn More illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Everything in One Place",
+            "description": "Banking, Investing, Crypto, Strategies and DeFi.\nAll on one screen. Updated in real time.\nStop juggling 5 different apps.",
+            "ctaText": "Get Started",
+            "imageAlt": "Everything in One Place illustration"
+          },
+          "simplicity": {
+            "title": "Secure and Simple",
+            "description": "\"I want to save $5,000 for a trip\"\n\"I need an emergency fund\"\n\"I want to invest $100 a month\"\nNo complications. diBoaS makes it that simple.",
+            "ctaText": "Get Started",
+            "imageAlt": "Secure and Simple illustration"
+          },
+          "rewards": {
+            "title": "Earn More",
+            "description": "✓ Cashback and Points system\n✓ Early access to new features\n✓ Bonus yields on strategies\nThe more you use it, the more you earn.",
+            "ctaText": "Get Started",
+            "imageAlt": "Earn More illustration"
+          }
+        }
       }
     },
     "account": {
@@ -377,6 +399,28 @@
             "imageAlt": "Security You Control illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Your Money, Your Control",
+            "description": "Free account with 100% CDI yield.\nNo hidden fees, no surprises.\nYour money grows while you sleep.",
+            "ctaText": "Get Started",
+            "imageAlt": "Your Money, Your Control illustration"
+          },
+          "simplicity": {
+            "title": "Open in Minutes",
+            "description": "✓ No minimum balance required\n✓ Free unlimited transfers\n✓ Real-time notifications\nBanking without bureaucracy. Finally.",
+            "ctaText": "Get Started",
+            "imageAlt": "Open in Minutes illustration"
+          },
+          "rewards": {
+            "title": "Earn While You Save",
+            "description": "Automatic daily yield on your balance.\nUp to 30% more than traditional savings.\nSame security, better returns.",
+            "ctaText": "Get Started",
+            "imageAlt": "Earn While You Save illustration"
+          }
+        }
       }
     },
     "bankingServices": {
@@ -436,6 +480,28 @@
             "title": "Real-Time Control",
             "description": "Instant notifications for every transaction.\nYou always know what's happening\nwith your money.",
             "imageAlt": "Real-Time Control illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Borderless Banking",
+            "description": "Send and receive money globally.\nNo borders, no waiting.\nYour money moves at the speed of light.",
+            "ctaText": "Get Started",
+            "imageAlt": "Borderless Banking illustration"
+          },
+          "simplicity": {
+            "title": "Instant Everything",
+            "description": "✓ Real-time transfers via Pix\n✓ International wire in seconds\n✓ Pay bills with one tap\nBanking shouldn't be complicated.",
+            "ctaText": "Get Started",
+            "imageAlt": "Instant Everything illustration"
+          },
+          "rewards": {
+            "title": "Transparent Fees",
+            "description": "Only 0.9% for external transfers.\nEverything else? Free.\nNo hidden charges. Ever.",
+            "ctaText": "Get Started",
+            "imageAlt": "Transparent Fees illustration"
           }
         }
       }
@@ -504,6 +570,28 @@
             "imageAlt": "Fees That Make Sense illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Invest Like a Pro",
+            "description": "Stocks, bonds, ETFs, and crypto.\nAll in one portfolio view.\nYour complete investment dashboard.",
+            "ctaText": "Get Started",
+            "imageAlt": "Invest Like a Pro illustration"
+          },
+          "simplicity": {
+            "title": "Start With $10",
+            "description": "No minimum investment barriers.\n✓ Guided tutorials for beginners\n✓ One-click diversification\n✓ Smart recommendations by Mystic\nInvesting made accessible to everyone.",
+            "ctaText": "Get Started",
+            "imageAlt": "Start With $10 illustration"
+          },
+          "rewards": {
+            "title": "Lowest Fees in the Market",
+            "description": "Only 0.09% trading fees.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
+            "ctaText": "Get Started",
+            "imageAlt": "Lowest Fees in the Market illustration"
+          }
+        }
       }
     },
     "cryptocurrency": {
@@ -563,6 +651,28 @@
             "title": "Crypto + Traditional = Complete",
             "description": "See your traditional and crypto investments\nside by side. One unique view of your wealth.\nFinally, all together.",
             "imageAlt": "Crypto + Traditional = Complete illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Crypto Without Complexity",
+            "description": "Buy, sell, and store digital assets.\nNo technical jargon. No confusion.\nJust simple crypto investing.",
+            "ctaText": "Get Started",
+            "imageAlt": "Crypto Without Complexity illustration"
+          },
+          "simplicity": {
+            "title": "1-Click Crypto",
+            "description": "Bitcoin, Ethereum, and 50+ coins.\n✓ Instant purchases\n✓ Secure custody\n✓ Real-time prices\nAqua guides you every step.",
+            "ctaText": "Get Started",
+            "imageAlt": "1-Click Crypto illustration"
+          },
+          "rewards": {
+            "title": "Military-Grade Security",
+            "description": "Bank-level encryption for your digital assets.\nCold storage and multi-signature protection.\nYour crypto, your control.",
+            "ctaText": "Get Started",
+            "imageAlt": "Military-Grade Security illustration"
           }
         }
       }
@@ -631,6 +741,28 @@
             "imageAlt": "Stop Whenever You Want illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Professional Strategies Made Simple",
+            "description": "Emergency funds, travel goals, retirement.\nPre-built DeFi strategies for every need.\nSet it and watch it grow.",
+            "ctaText": "Get Started",
+            "imageAlt": "Professional Strategies Made Simple illustration"
+          },
+          "simplicity": {
+            "title": "Just Tell Us Your Goal",
+            "description": "\"Save $5,000 for a vacation\"\n\"Build a 6-month emergency fund\"\nCoral designs the perfect strategy.\nNo financial degree required.",
+            "ctaText": "Get Started",
+            "imageAlt": "Just Tell Us Your Goal illustration"
+          },
+          "rewards": {
+            "title": "Higher Yields, Lower Risk",
+            "description": "✓ Diversified DeFi protocols\n✓ Automated rebalancing\n✓ Bonus yields for active users\nSmart investing on autopilot.",
+            "ctaText": "Get Started",
+            "imageAlt": "Higher Yields, Lower Risk illustration"
+          }
+        }
       }
     },
     "credit": {
@@ -690,6 +822,28 @@
             "title": "Pay When You Can",
             "description": "Prepay installments without penalty.\nRenegotiate if needed.\nWe're on your side.",
             "imageAlt": "Pay When You Can illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Fair Credit for Everyone",
+            "description": "Transparent rates, flexible terms.\nNo hidden fees, no fine print traps.\nCredit that respects you.",
+            "ctaText": "Get Started",
+            "imageAlt": "Fair Credit for Everyone illustration"
+          },
+          "simplicity": {
+            "title": "Know Before You Borrow",
+            "description": "✓ Pre-approved offers in the app\n✓ Clear payment schedules\n✓ Change terms anytime\nYou're always in control.",
+            "ctaText": "Get Started",
+            "imageAlt": "Know Before You Borrow illustration"
+          },
+          "rewards": {
+            "title": "Build Your Credit Score",
+            "description": "Responsible borrowing earns rewards.\nLower rates as you build history.\nCredit that works with you, not against you.",
+            "ctaText": "Get Started",
+            "imageAlt": "Build Your Credit Score illustration"
           }
         }
       }
@@ -753,6 +907,28 @@
             "imageAlt": "Guides That Evolve With You illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Learn at Your Own Pace",
+            "description": "Banking, investing, crypto, and DeFi.\nAll courses in one place.\nFrom beginner to expert.",
+            "ctaText": "Get Started",
+            "imageAlt": "Learn at Your Own Pace illustration"
+          },
+          "simplicity": {
+            "title": "Guided by AI Mentors",
+            "description": "✓ Aqua for beginners\n✓ Mystic for investors\n✓ Coral for advanced strategies\nLearn with personalized guidance.",
+            "ctaText": "Get Started",
+            "imageAlt": "Guided by AI Mentors illustration"
+          },
+          "rewards": {
+            "title": "Earn While You Learn",
+            "description": "Complete courses, earn points.\nUnlock badges and exclusive benefits.\nEducation that pays you back.",
+            "ctaText": "Get Started",
+            "imageAlt": "Earn While You Learn illustration"
+          }
+        }
       }
     },
     "learnFinancialBasics": {
@@ -809,6 +985,28 @@
             "imageAlt": "Habits That Transform illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "The Foundation You Need",
+            "description": "Budgeting, saving, and goal setting.\nEverything you should have learned in school.\nStart your financial journey here.",
+            "ctaText": "Get Started",
+            "imageAlt": "The Foundation You Need illustration"
+          },
+          "simplicity": {
+            "title": "No Prerequisites Required",
+            "description": "✓ Interactive lessons\n✓ Real-world examples\n✓ Practice with your own money\nLearn by doing, not just reading.",
+            "ctaText": "Get Started",
+            "imageAlt": "No Prerequisites Required illustration"
+          },
+          "rewards": {
+            "title": "Track Your Progress",
+            "description": "Visual milestones show your growth.\nCelebrate every achievement.\nFinancial confidence, one lesson at a time.",
+            "ctaText": "Get Started",
+            "imageAlt": "Track Your Progress illustration"
+          }
+        }
       }
     },
     "learnMoneyManagement": {
@@ -863,6 +1061,28 @@
             "title": "Increase Your Income",
             "description": "Strategies to earn more.\nSide income, hustles, investments.\nMultiple streams, multiple opportunities.",
             "imageAlt": "Increase Your Income illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Master Your Cash Flow",
+            "description": "Income tracking, expense control, smart saving.\nAll the tools to manage money like a pro.\nTake control of your financial life.",
+            "ctaText": "Get Started",
+            "imageAlt": "Master Your Cash Flow illustration"
+          },
+          "simplicity": {
+            "title": "Automated Insights",
+            "description": "✓ Spending analysis\n✓ Budget recommendations\n✓ Savings opportunities\nYour AI assistant finds ways to optimize.",
+            "ctaText": "Get Started",
+            "imageAlt": "Automated Insights illustration"
+          },
+          "rewards": {
+            "title": "Reach Goals Faster",
+            "description": "Set targets, get reminders, celebrate wins.\nSmart alerts keep you on track.\nMoney management that actually works.",
+            "ctaText": "Get Started",
+            "imageAlt": "Reach Goals Faster illustration"
           }
         }
       }
@@ -931,6 +1151,28 @@
             "imageAlt": "Mistakes to Avoid illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Complete Investment Education",
+            "description": "Stocks, bonds, funds, and alternatives.\nLearn traditional and modern strategies.\nEverything you need to build wealth.",
+            "ctaText": "Get Started",
+            "imageAlt": "Complete Investment Education illustration"
+          },
+          "simplicity": {
+            "title": "From Theory to Practice",
+            "description": "✓ Step-by-step video lessons\n✓ Portfolio building exercises\n✓ Risk management fundamentals\nApply what you learn immediately.",
+            "ctaText": "Get Started",
+            "imageAlt": "From Theory to Practice illustration"
+          },
+          "rewards": {
+            "title": "Unlock Advanced Features",
+            "description": "Complete courses to access pro tools.\nAdvanced analytics and insights.\nEducation opens doors.",
+            "ctaText": "Get Started",
+            "imageAlt": "Unlock Advanced Features illustration"
+          }
+        }
       }
     },
     "learnCryptocurrencyGuide": {
@@ -990,6 +1232,28 @@
             "title": "How to Buy and Sell",
             "description": "Practical step-by-step.\nFrom first Bitcoin to advanced trading.\nFrom zero to expert.",
             "imageAlt": "How to Buy and Sell illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Demystify Digital Assets",
+            "description": "Blockchain, wallets, trading, security.\nA to Z crypto knowledge.\nFrom complete beginner to confident investor.",
+            "ctaText": "Get Started",
+            "imageAlt": "Demystify Digital Assets illustration"
+          },
+          "simplicity": {
+            "title": "No Technical Background Needed",
+            "description": "✓ Plain English explanations\n✓ Visual guides and animations\n✓ Safe practice environments\nLearn crypto without the confusion.",
+            "ctaText": "Get Started",
+            "imageAlt": "No Technical Background Needed illustration"
+          },
+          "rewards": {
+            "title": "Earn Crypto As You Learn",
+            "description": "Quiz rewards in actual cryptocurrency.\nBuild your first portfolio while studying.\nKnowledge that literally pays.",
+            "ctaText": "Get Started",
+            "imageAlt": "Earn Crypto As You Learn illustration"
           }
         }
       }
@@ -1053,6 +1317,28 @@
             "imageAlt": "Risks and Rewards illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Decentralized Finance Simplified",
+            "description": "Lending, staking, yield farming explained.\nUnderstand DeFi without the complexity.\nThe future of finance, accessible to all.",
+            "ctaText": "Get Started",
+            "imageAlt": "Decentralized Finance Simplified illustration"
+          },
+          "simplicity": {
+            "title": "Coral Guides You Through",
+            "description": "✓ Risk-reward breakdowns\n✓ Protocol comparisons\n✓ Strategy walkthroughs\nAdvanced concepts made digestible.",
+            "ctaText": "Get Started",
+            "imageAlt": "Coral Guides You Through illustration"
+          },
+          "rewards": {
+            "title": "Graduate to Advanced Strategies",
+            "description": "Unlock professional DeFi tools.\nAccess curated opportunities.\nTurn knowledge into action.",
+            "ctaText": "Get Started",
+            "imageAlt": "Graduate to Advanced Strategies illustration"
+          }
+        }
       }
     },
     "learnSpecialContent": {
@@ -1112,6 +1398,28 @@
             "title": "Webinars and Workshops",
             "description": "Live classes with experts.\nAsk questions, deepen knowledge.\nReal-time education.",
             "imageAlt": "Webinars and Workshops illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Exclusive Insider Content",
+            "description": "Webinars, expert interviews, market analysis.\nPremium content for committed learners.\nStay ahead of the curve.",
+            "ctaText": "Get Started",
+            "imageAlt": "Exclusive Insider Content illustration"
+          },
+          "simplicity": {
+            "title": "Curated Just for You",
+            "description": "✓ Personalized recommendations\n✓ Weekly market insights\n✓ Community success stories\nContent that matches your journey.",
+            "ctaText": "Get Started",
+            "imageAlt": "Curated Just for You illustration"
+          },
+          "rewards": {
+            "title": "Early Access Benefits",
+            "description": "New features first for active learners.\nExclusive events and meetups.\nPremium perks for dedicated students.",
+            "ctaText": "Get Started",
+            "imageAlt": "Early Access Benefits illustration"
           }
         }
       }
@@ -1175,6 +1483,28 @@
             "imageAlt": "Simplified Management illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Business Banking Reimagined",
+            "description": "Accounts, payments, treasury, and credit.\nEverything your business needs.\nAll in one powerful platform.",
+            "ctaText": "Get Started",
+            "imageAlt": "Business Banking Reimagined illustration"
+          },
+          "simplicity": {
+            "title": "Open in 10 Minutes",
+            "description": "✓ No visit to branches\n✓ Free business account\n✓ Instant approvals\nRun your business, not your bank.",
+            "ctaText": "Get Started",
+            "imageAlt": "Open in 10 Minutes illustration"
+          },
+          "rewards": {
+            "title": "Save Thousands in Fees",
+            "description": "No monthly maintenance charges.\nFree transfers and payments.\nMore capital for growth, less for banks.",
+            "ctaText": "Get Started",
+            "imageAlt": "Save Thousands in Fees illustration"
+          }
+        }
       }
     },
     "businessAccount": {
@@ -1234,6 +1564,28 @@
             "title": "Accounting Integration",
             "description": "Automatic export to your accountant.\nOFX, CSV, PDF.\nLess manual work, more accuracy.",
             "imageAlt": "Accounting Integration illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Account That Works for You",
+            "description": "Free checking with automatic yield.\nYour business cash grows daily.\nBanking that actually helps your bottom line.",
+            "ctaText": "Get Started",
+            "imageAlt": "Account That Works for You illustration"
+          },
+          "simplicity": {
+            "title": "Manage Everything Mobile",
+            "description": "✓ Real-time balance updates\n✓ Instant transaction notifications\n✓ One-tap approvals\nRun your finances from anywhere.",
+            "ctaText": "Get Started",
+            "imageAlt": "Manage Everything Mobile illustration"
+          },
+          "rewards": {
+            "title": "Earn While You Operate",
+            "description": "100% CDI yield on your balance.\nNo lock-up periods or minimums.\nYour working capital works harder.",
+            "ctaText": "Get Started",
+            "imageAlt": "Earn While You Operate illustration"
           }
         }
       }
@@ -1297,6 +1649,28 @@
             "imageAlt": "Automatic Reconciliation illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Complete Banking Suite",
+            "description": "Deposits, transfers, bill pay, payroll.\nEverything you need to operate.\nTraditional banking, modern speed.",
+            "ctaText": "Get Started",
+            "imageAlt": "Complete Banking Suite illustration"
+          },
+          "simplicity": {
+            "title": "Payment Automation",
+            "description": "✓ Scheduled payments\n✓ Recurring invoices\n✓ Batch transfers\nSet it once, forget about it.",
+            "ctaText": "Get Started",
+            "imageAlt": "Payment Automation illustration"
+          },
+          "rewards": {
+            "title": "Free Unlimited Transactions",
+            "description": "No per-transaction fees.\nUnlimited transfers and payments.\nScale without worrying about costs.",
+            "ctaText": "Get Started",
+            "imageAlt": "Free Unlimited Transactions illustration"
+          }
+        }
       }
     },
     "businessPayments": {
@@ -1356,6 +1730,28 @@
             "title": "Payment Split",
             "description": "Divide receipts automatically.\nMarketplaces, partnerships, commissions.\nEveryone gets their share on time.",
             "imageAlt": "Payment Split illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Accept Every Payment Method",
+            "description": "Cards, Pix, boleto, crypto.\nAll payment types in one dashboard.\nNever miss a sale again.",
+            "ctaText": "Get Started",
+            "imageAlt": "Accept Every Payment Method illustration"
+          },
+          "simplicity": {
+            "title": "Instant Settlement",
+            "description": "✓ Same-day deposits\n✓ Automatic reconciliation\n✓ Real-time reporting\nMoney in your account, not in transit.",
+            "ctaText": "Get Started",
+            "imageAlt": "Instant Settlement illustration"
+          },
+          "rewards": {
+            "title": "Lowest Processing Fees",
+            "description": "Transparent pricing, no hidden costs.\nKeep more of every sale.\nVolume discounts as you grow.",
+            "ctaText": "Get Started",
+            "imageAlt": "Lowest Processing Fees illustration"
           }
         }
       }
@@ -1419,6 +1815,28 @@
             "imageAlt": "Executive Reports illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Optimize Your Cash",
+            "description": "Automated treasury management.\nSurplus cash earns yield automatically.\nSmart money management for businesses.",
+            "ctaText": "Get Started",
+            "imageAlt": "Optimize Your Cash illustration"
+          },
+          "simplicity": {
+            "title": "Set Your Rules",
+            "description": "✓ Define minimum operating cash\n✓ Auto-invest excess funds\n✓ Instant liquidity when needed\nTreasury management on autopilot.",
+            "ctaText": "Get Started",
+            "imageAlt": "Set Your Rules illustration"
+          },
+          "rewards": {
+            "title": "Maximize Returns",
+            "description": "Access to multiple yield strategies.\nDiversified, low-risk options.\nYour cash works 24/7 for your business.",
+            "ctaText": "Get Started",
+            "imageAlt": "Maximize Returns illustration"
+          }
+        }
       }
     },
     "businessYieldStrategies": {
@@ -1473,6 +1891,28 @@
             "title": "Currency Protection",
             "description": "Automatic hedge for international operations.\nProtect margins against volatility.\nCurrency predictability.",
             "imageAlt": "Currency Protection illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Turn Idle Cash into Revenue",
+            "description": "Automated yield on operational funds.\nNo manual management required.\nAdditional income while you focus on business.",
+            "ctaText": "Get Started",
+            "imageAlt": "Turn Idle Cash into Revenue illustration"
+          },
+          "simplicity": {
+            "title": "Flexible Access",
+            "description": "✓ Withdraw anytime without penalties\n✓ Adjust strategies as needs change\n✓ Clear daily earnings reports\nLiquidity meets profitability.",
+            "ctaText": "Get Started",
+            "imageAlt": "Flexible Access illustration"
+          },
+          "rewards": {
+            "title": "Superior to Savings",
+            "description": "Better rates than business savings accounts.\nDiversified across safe protocols.\nRisk-managed, optimized returns.",
+            "ctaText": "Get Started",
+            "imageAlt": "Superior to Savings illustration"
           }
         }
       }
@@ -1534,6 +1974,28 @@
             "title": "Diversify Sources",
             "description": "Less bank dependency.\nMultiple credit sources.\nFinancial resilience.",
             "imageAlt": "Diversify Sources illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Business Loans Without Banks",
+            "description": "Direct peer-to-peer lending.\nFair rates, fast approvals.\nCredit designed for growth.",
+            "ctaText": "Get Started",
+            "imageAlt": "Business Loans Without Banks illustration"
+          },
+          "simplicity": {
+            "title": "Apply in Minutes",
+            "description": "✓ Instant pre-approval decisions\n✓ Flexible repayment terms\n✓ No hidden fees or penalties\nFunding at the speed of business.",
+            "ctaText": "Get Started",
+            "imageAlt": "Apply in Minutes illustration"
+          },
+          "rewards": {
+            "title": "Build Business Credit",
+            "description": "Responsible borrowing improves terms.\nAccess to larger amounts over time.\nCredit that grows with your business.",
+            "ctaText": "Get Started",
+            "imageAlt": "Build Business Credit illustration"
           }
         }
       }
@@ -1602,6 +2064,28 @@
             "imageAlt": "Gamification That Teaches illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Rewards That Matter",
+            "description": "Points, cashback, badges, and tokens.\nEvery action earns recognition.\nGamified finance that pays to play.",
+            "ctaText": "Get Started",
+            "imageAlt": "Rewards That Matter illustration"
+          },
+          "simplicity": {
+            "title": "Automatic Tracking",
+            "description": "✓ Earn points for learning\n✓ Cashback on transactions\n✓ Bonuses for referrals\nNo forms, no hassle. Just rewards.",
+            "ctaText": "Get Started",
+            "imageAlt": "Automatic Tracking illustration"
+          },
+          "rewards": {
+            "title": "Redeem How You Want",
+            "description": "Cash, crypto, gift cards, or reinvest.\nYour rewards, your choice.\nValue that you actually use.",
+            "ctaText": "Get Started",
+            "imageAlt": "Redeem How You Want illustration"
+          }
+        }
       }
     },
     "rewardsAiGuides": {
@@ -1661,6 +2145,28 @@
             "title": "AI That Knows You",
             "description": "Learns from your behavior.\nPersonalized recommendations.\nGuides that truly understand you.",
             "imageAlt": "AI That Knows You illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Meet Your Financial Companions",
+            "description": "Aqua, Mystic, and Coral.\nThree AI guides for every stage.\nThey grow as you grow.",
+            "ctaText": "Get Started",
+            "imageAlt": "Meet Your Financial Companions illustration"
+          },
+          "simplicity": {
+            "title": "Personalized Guidance",
+            "description": "✓ Aqua for beginners\n✓ Mystic for investors\n✓ Coral for advanced DeFi\nThe right help at the right time.",
+            "ctaText": "Get Started",
+            "imageAlt": "Personalized Guidance illustration"
+          },
+          "rewards": {
+            "title": "Evolve Together",
+            "description": "Unlock new mascot abilities.\nUnlock advanced features as you progress.\nYour journey, personalized.",
+            "ctaText": "Get Started",
+            "imageAlt": "Evolve Together illustration"
           }
         }
       }
@@ -1724,6 +2230,28 @@
             "imageAlt": "Complete Dashboard illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Share the Wealth",
+            "description": "Invite friends, earn rewards.\nThey save on fees, you earn bonuses.\nGrowing together benefits everyone.",
+            "ctaText": "Get Started",
+            "imageAlt": "Share the Wealth illustration"
+          },
+          "simplicity": {
+            "title": "One-Click Invites",
+            "description": "✓ Share your personal link\n✓ Track who joins\n✓ Automatic reward credits\nInvite from anywhere, anytime.",
+            "ctaText": "Get Started",
+            "imageAlt": "One-Click Invites illustration"
+          },
+          "rewards": {
+            "title": "Unlimited Earning Potential",
+            "description": "No cap on referral rewards.\nTiered bonuses for top referrers.\nBuild your network, build your wealth.",
+            "ctaText": "Get Started",
+            "imageAlt": "Unlimited Earning Potential illustration"
+          }
+        }
       }
     },
     "rewardsPointsSystem": {
@@ -1783,6 +2311,28 @@
             "title": "Redeem for Benefits",
             "description": "Cashback, premium courses, VIP access.\nYour points become real advantages.\nSystem worth it.",
             "imageAlt": "Redeem for Benefits illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Every Action Counts",
+            "description": "Transactions, learning, investments.\nEverything you do earns points.\nEngaged users earn more.",
+            "ctaText": "Get Started",
+            "imageAlt": "Every Action Counts illustration"
+          },
+          "simplicity": {
+            "title": "Transparent Point System",
+            "description": "✓ Clear earning rules\n✓ Real-time point balance\n✓ Multiple redemption options\nNo confusing fine print.",
+            "ctaText": "Get Started",
+            "imageAlt": "Transparent Point System illustration"
+          },
+          "rewards": {
+            "title": "Points Never Expire",
+            "description": "Accumulate at your pace.\nSave for big redemptions.\nYour points, your timeline.",
+            "ctaText": "Get Started",
+            "imageAlt": "Points Never Expire illustration"
           }
         }
       }
@@ -1846,6 +2396,28 @@
             "imageAlt": "Position Rewards illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Showcase Your Success",
+            "description": "Earn badges for achievements.\nClimb the community leaderboard.\nRecognition for your financial growth.",
+            "ctaText": "Get Started",
+            "imageAlt": "Showcase Your Success illustration"
+          },
+          "simplicity": {
+            "title": "Milestone Celebrations",
+            "description": "✓ First investment badge\n✓ Savings streak achievements\n✓ Learning completion awards\nEvery step forward celebrated.",
+            "ctaText": "Get Started",
+            "imageAlt": "Milestone Celebrations illustration"
+          },
+          "rewards": {
+            "title": "Exclusive Perks for Leaders",
+            "description": "Top performers get special benefits.\nEarly feature access and bonuses.\nCompetition that benefits everyone.",
+            "ctaText": "Get Started",
+            "imageAlt": "Exclusive Perks for Leaders illustration"
+          }
+        }
       }
     },
     "rewardsCampaigns": {
@@ -1907,6 +2479,28 @@
             "imageAlt": "Early Adopter Rewards illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Challenges That Pay",
+            "description": "Monthly campaigns with big rewards.\nLearning challenges, savings goals, trading contests.\nEngage and earn simultaneously.",
+            "ctaText": "Get Started",
+            "imageAlt": "Challenges That Pay illustration"
+          },
+          "simplicity": {
+            "title": "Join With One Tap",
+            "description": "✓ Clear campaign goals\n✓ Progress tracking\n✓ Automatic reward distribution\nParticipate effortlessly.",
+            "ctaText": "Get Started",
+            "imageAlt": "Join With One Tap illustration"
+          },
+          "rewards": {
+            "title": "Limited-Time Bonuses",
+            "description": "Special multipliers during campaigns.\nExclusive prizes for participants.\nMore engagement, more rewards.",
+            "ctaText": "Get Started",
+            "imageAlt": "Limited-Time Bonuses illustration"
+          }
+        }
       }
     },
     "rewardsTokenAirdrop": {
@@ -1966,6 +2560,28 @@
             "title": "Appreciation Together",
             "description": "More the platform grows, more it's worth.\nYou're not just a user, you're a stakeholder.\nWe really grow together.",
             "imageAlt": "Appreciation Together illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Own Part of the Platform",
+            "description": "diBoaS token for active users.\nPlatform governance and rewards.\nEarly adopters get largest airdrops.",
+            "ctaText": "Get Started",
+            "imageAlt": "Own Part of the Platform illustration"
+          },
+          "simplicity": {
+            "title": "Automatic Token Distribution",
+            "description": "✓ No manual claiming needed\n✓ Tokens based on activity\n✓ Clear distribution schedule\nRewarded for being an early believer.",
+            "ctaText": "Get Started",
+            "imageAlt": "Automatic Token Distribution illustration"
+          },
+          "rewards": {
+            "title": "Grow With the Platform",
+            "description": "Token value tied to platform success.\nAdditional yield opportunities.\nCommunity ownership, shared prosperity.",
+            "ctaText": "Get Started",
+            "imageAlt": "Grow With the Platform illustration"
           }
         }
       }
@@ -2034,6 +2650,28 @@
             "imageAlt": "24/7 Support illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Security First, Always",
+            "description": "Bank-grade encryption and monitoring.\nMulti-layer protection for your assets.\nYour money, fortress-level secure.",
+            "ctaText": "Get Started",
+            "imageAlt": "Security First, Always illustration"
+          },
+          "simplicity": {
+            "title": "Protected Without Complexity",
+            "description": "✓ Biometric authentication\n✓ Real-time fraud detection\n✓ Instant account freezing\nSecurity that doesn't get in your way.",
+            "ctaText": "Get Started",
+            "imageAlt": "Protected Without Complexity illustration"
+          },
+          "rewards": {
+            "title": "You're Always in Control",
+            "description": "Customize security preferences.\nReal-time alerts for everything.\nNo transaction without your knowledge.",
+            "ctaText": "Get Started",
+            "imageAlt": "You're Always in Control illustration"
+          }
+        }
       }
     },
     "securityAuditReports": {
@@ -2093,6 +2731,28 @@
             "title": "Compliance Reports",
             "description": "Updated regulatory reports.\nSOC 2, ISO 27001, MiCA.\nCertifications that prove.",
             "imageAlt": "Compliance Reports illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Transparency You Can Trust",
+            "description": "Independent security audits.\nPublic reports, no secrets.\nAccountability built into our DNA.",
+            "ctaText": "Get Started",
+            "imageAlt": "Transparency You Can Trust illustration"
+          },
+          "simplicity": {
+            "title": "Access All Reports",
+            "description": "✓ Regular security audits\n✓ Financial health disclosures\n✓ Compliance certifications\nEverything public, nothing hidden.",
+            "ctaText": "Get Started",
+            "imageAlt": "Access All Reports illustration"
+          },
+          "rewards": {
+            "title": "Certified Security Excellence",
+            "description": "ISO 27001 and SOC 2 compliant.\nIndustry-leading security standards.\nYour trust, our highest priority.",
+            "ctaText": "Get Started",
+            "imageAlt": "Certified Security Excellence illustration"
           }
         }
       }
@@ -2156,6 +2816,28 @@
             "imageAlt": "Safe Mode illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Knowledge Is Protection",
+            "description": "Security tips, scam alerts, best practices.\nEmpower yourself against threats.\nEducated users are secure users.",
+            "ctaText": "Get Started",
+            "imageAlt": "Knowledge Is Protection illustration"
+          },
+          "simplicity": {
+            "title": "Simple Security Habits",
+            "description": "✓ Password best practices\n✓ Phishing recognition guides\n✓ Device security checklists\nEasy steps, powerful protection.",
+            "ctaText": "Get Started",
+            "imageAlt": "Simple Security Habits illustration"
+          },
+          "rewards": {
+            "title": "24/7 Security Support",
+            "description": "Instant help when you need it.\nDedicated security team.\nPeace of mind, around the clock.",
+            "ctaText": "Get Started",
+            "imageAlt": "24/7 Security Support illustration"
+          }
+        }
       }
     },
     "helpFaq": {
@@ -2215,6 +2897,28 @@
             "title": "Community Helps",
             "description": "Forum where users help each other.\nQuestions answered by community.\nShared knowledge.",
             "imageAlt": "Community Helps illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Questions? We've Got Answers",
+            "description": "Comprehensive help for every feature.\nBanking, investing, crypto, DeFi.\nSolutions at your fingertips.",
+            "ctaText": "Get Started",
+            "imageAlt": "Questions? We've Got Answers illustration"
+          },
+          "simplicity": {
+            "title": "Find Help Instantly",
+            "description": "✓ Searchable knowledge base\n✓ Video tutorials\n✓ Step-by-step guides\nGet unstuck in seconds.",
+            "ctaText": "Get Started",
+            "imageAlt": "Find Help Instantly illustration"
+          },
+          "rewards": {
+            "title": "Community-Powered Answers",
+            "description": "Learn from other users' experiences.\nVote on helpful solutions.\nGrowing knowledge base for everyone.",
+            "ctaText": "Get Started",
+            "imageAlt": "Community-Powered Answers illustration"
           }
         }
       }
@@ -2278,6 +2982,28 @@
             "imageAlt": "Guiding Values illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "The OneFi Revolution",
+            "description": "First platform combining traditional and DeFi.\nBreaking down financial barriers.\nAccessible, transparent, empowering.",
+            "ctaText": "Get Started",
+            "imageAlt": "The OneFi Revolution illustration"
+          },
+          "simplicity": {
+            "title": "Built for Everyone",
+            "description": "✓ $400 billion market opportunity\n✓ 89.6% of users underserved\n✓ Validated by 118.6M Nubank users\nProven methodology, modern technology.",
+            "ctaText": "Get Started",
+            "imageAlt": "Built for Everyone illustration"
+          },
+          "rewards": {
+            "title": "Join the Movement",
+            "description": "Be part of financial democratization.\nEarly adopters shape the future.\nTogether, we're changing finance.",
+            "ctaText": "Get Started",
+            "imageAlt": "Join the Movement illustration"
+          }
+        }
       }
     },
     "careers": {
@@ -2339,6 +3065,28 @@
             "imageAlt": "Unique Benefits illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Build the Future",
+            "description": "Join a mission-driven team.\nWork on cutting-edge fintech.\nShape how millions manage money.",
+            "ctaText": "Get Started",
+            "imageAlt": "Build the Future illustration"
+          },
+          "simplicity": {
+            "title": "Culture of Innovation",
+            "description": "✓ Remote-first workplace\n✓ Equity for all team members\n✓ Learning and growth focus\nWhere talent meets opportunity.",
+            "ctaText": "Get Started",
+            "imageAlt": "Culture of Innovation illustration"
+          },
+          "rewards": {
+            "title": "Competitive Benefits",
+            "description": "Top-tier compensation and equity.\nHealth, wellness, and development support.\nInvest in us, we invest in you.",
+            "ctaText": "Get Started",
+            "imageAlt": "Competitive Benefits illustration"
+          }
+        }
       }
     },
     "docs": {
@@ -2398,6 +3146,28 @@
             "title": "Sandbox Environment",
             "description": "Test without risk.\nComplete development environment.\nValidation before production.",
             "imageAlt": "Sandbox Environment illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Complete API Documentation",
+            "description": "REST APIs for platform integration.\nBanking, investing, crypto, strategies.\nBuild on the OneFi infrastructure.",
+            "ctaText": "Get Started",
+            "imageAlt": "Complete API Documentation illustration"
+          },
+          "simplicity": {
+            "title": "Developer-Friendly",
+            "description": "✓ Clear code examples\n✓ Interactive API explorer\n✓ Sandbox environment\nFrom concept to production quickly.",
+            "ctaText": "Get Started",
+            "imageAlt": "Developer-Friendly illustration"
+          },
+          "rewards": {
+            "title": "Partner Program",
+            "description": "Revenue sharing for integrations.\nCo-marketing opportunities.\nGrow your business with ours.",
+            "ctaText": "Get Started",
+            "imageAlt": "Partner Program illustration"
           }
         }
       }
@@ -2466,6 +3236,28 @@
             "imageAlt": "Corporate Governance illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "$400 Billion Opportunity",
+            "description": "Converging fintech, crypto, and DeFi markets.\n16-25% compound annual growth.\nMassive untapped market potential.",
+            "ctaText": "Get Started",
+            "imageAlt": "$400 Billion Opportunity illustration"
+          },
+          "simplicity": {
+            "title": "Validated Business Model",
+            "description": "✓ Nubank methodology proven at scale\n✓ 5-16x cost advantage on fees\n✓ Multiple revenue streams\nExecution risk minimized through validation.",
+            "ctaText": "Get Started",
+            "imageAlt": "Validated Business Model illustration"
+          },
+          "rewards": {
+            "title": "Investment Returns",
+            "description": "Path to $750M revenue by Year 5.\n40-60x base case returns.\nFirst-mover in unified OneFi platform.",
+            "ctaText": "Get Started",
+            "imageAlt": "Investment Returns illustration"
+          }
+        }
       }
     },
     "legalTerms": {
@@ -2525,6 +3317,28 @@
             "title": "Dispute Resolution",
             "description": "Clear processes for conflicts.\nMediation before litigation.\nAccessible justice.",
             "imageAlt": "Dispute Resolution illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Regulatory Excellence",
+            "description": "MiCA compliant in EU, BSA in US.\nMulti-jurisdiction operations ready.\nLegal clarity from day one.",
+            "ctaText": "Get Started",
+            "imageAlt": "Regulatory Excellence illustration"
+          },
+          "simplicity": {
+            "title": "Terms You Can Understand",
+            "description": "✓ Plain language policies\n✓ No hidden clauses\n✓ Clear user rights\nTransparency in everything.",
+            "ctaText": "Get Started",
+            "imageAlt": "Terms You Can Understand illustration"
+          },
+          "rewards": {
+            "title": "Your Rights Protected",
+            "description": "User-first policies and procedures.\nClear dispute resolution.\nFair treatment guaranteed.",
+            "ctaText": "Get Started",
+            "imageAlt": "Your Rights Protected illustration"
           }
         }
       }
@@ -2588,6 +3402,28 @@
             "imageAlt": "Data Transparency illustration"
           }
         }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Your Data, Your Control",
+            "description": "GDPR and LGPD compliant.\nComplete transparency on data use.\nPrivacy as a fundamental right.",
+            "ctaText": "Get Started",
+            "imageAlt": "Your Data, Your Control illustration"
+          },
+          "simplicity": {
+            "title": "Simple Privacy Controls",
+            "description": "✓ Download your data anytime\n✓ Delete account with one click\n✓ Granular sharing preferences\nYour information, your decisions.",
+            "ctaText": "Get Started",
+            "imageAlt": "Simple Privacy Controls illustration"
+          },
+          "rewards": {
+            "title": "Never Sold or Shared",
+            "description": "We never sell your personal data.\nNo third-party marketing access.\nYour trust is our business model.",
+            "ctaText": "Get Started",
+            "imageAlt": "Never Sold or Shared illustration"
+          }
+        }
       }
     },
     "legalCookies": {
@@ -2642,6 +3478,28 @@
             "title": "Manage Your Preferences",
             "description": "Change consent anytime.\nClear preferences dashboard.\nTotal flexibility.",
             "imageAlt": "Manage Your Preferences illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Cookies Explained Simply",
+            "description": "How we use cookies and why.\nEssential vs optional tracking.\nComplete transparency on website data.",
+            "ctaText": "Get Started",
+            "imageAlt": "Cookies Explained Simply illustration"
+          },
+          "simplicity": {
+            "title": "Control Your Preferences",
+            "description": "✓ Accept only essential cookies\n✓ Customize tracking options\n✓ Change settings anytime\nBrowse on your terms.",
+            "ctaText": "Get Started",
+            "imageAlt": "Control Your Preferences illustration"
+          },
+          "rewards": {
+            "title": "Better Experience",
+            "description": "Cookies help us improve your visit.\nPersonalized without being invasive.\nSmooth experience, fair exchange.",
+            "ctaText": "Get Started",
+            "imageAlt": "Better Experience illustration"
           }
         }
       }

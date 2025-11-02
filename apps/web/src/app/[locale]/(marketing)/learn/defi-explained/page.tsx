@@ -3,6 +3,7 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, StickyFeaturesNav } from '@/components/Sections';
+import { FeatureShowcase } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { ROUTES } from '@/config/routes';
@@ -12,6 +13,7 @@ import type { Metadata } from 'next';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
+import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -65,6 +67,21 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
           />
         </SectionErrorBoundary>
 
+        {/* Feature Showcase Section */}
+        <SectionErrorBoundary
+          sectionId="feature-showcase-learnDefiExplained"
+          sectionType="FeatureShowcase"
+          enableReporting={true}
+          context={{ page: 'learnDefiExplained' }}
+        >
+          <FeatureShowcase
+            variant="default"
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnDefiExplained}
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
+
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
@@ -74,7 +91,7 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
           context={{ page: 'defi-explained' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('defi-explained')!}
+            config={getBenefitsCardsConfig('learn-defi-explained')!}
             variant="default"
             enableAnalytics={true}
           />

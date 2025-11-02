@@ -10,6 +10,7 @@ import { HERO_PAGE_CONFIGS } from '@/config/hero-pages';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { ROUTES } from '@/config/routes';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
+import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import type { Metadata } from 'next';
 
 export const dynamic = 'auto';
