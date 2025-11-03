@@ -20,7 +20,7 @@ import type { BgHighlightConfig } from '@/components/Sections/BgHighlight/types'
 export const DEFAULT_BG_HIGHLIGHT_CONFIG: BgHighlightConfig = {
   /** Background image configuration */
   backgroundImage: {
-    src: '/assets/socials/real/diboas-banner.avif',
+    src: '/assets/navigation/diboas-banner.avif',
     alt: 'marketing.bgHighlight.imageAlt'
   },
 

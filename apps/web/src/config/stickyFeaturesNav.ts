@@ -70,7 +70,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'banking-realtime-borderless',
-        image: '/assets/socials/real/family-trip.avif',
+        image: '/assets/socials/real/life_family_bike.avif',
         imageAlt: 'Family enjoying a trip together representing real-time borderless banking',
         heading: 'marketing.stickyFeaturesNav.banking.heading',
         description: 'marketing.stickyFeaturesNav.banking.description',
@@ -86,7 +86,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'investing-prepare-future',
-        image: '/assets/socials/real/music.avif',
+        image: '/assets/socials/real/life_music.avif',
         imageAlt: 'Person enjoying music while planning their financial future',
         heading: 'marketing.stickyFeaturesNav.investing.heading',
         description: 'marketing.stickyFeaturesNav.investing.description',
@@ -102,7 +102,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'strategies-relax-grow',
-        image: '/assets/socials/real/nature.avif',
+        image: '/assets/socials/real/life_nature.avif',
         imageAlt: 'Person relaxing in nature while their investments grow',
         heading: 'marketing.stickyFeaturesNav.strategies.heading',
         description: 'marketing.stickyFeaturesNav.strategies.description',
@@ -118,7 +118,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'business-day-to-day',
-        image: '/assets/socials/real/money-with-icon.avif',
+        image: '/assets/socials/real/business_payment.avif',
         imageAlt: 'Business professional managing day-to-day financial tasks',
         heading: 'marketing.stickyFeaturesNav.business.heading',
         description: 'marketing.stickyFeaturesNav.business.description',
