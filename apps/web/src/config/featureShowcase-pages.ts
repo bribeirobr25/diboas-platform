@@ -15,16 +15,88 @@ import { DEFAULT_FEATURE_SHOWCASE_SETTINGS } from './featureShowcase';
 import { ROUTES } from './routes';
 
 /**
- * Phone mockup images pool for slides
- * Cycled through pages for visual variety
+ * Themed image pools for semantic matching (1:1 and 2:3 images)
+ * Each theme contains 3 images for the 3 slides per page
  */
-const PHONE_IMAGES = [
-  '/assets/socials/drawing/phone-activity-and-rewards.avif',
-  '/assets/socials/drawing/phone-activities.avif',
-  '/assets/socials/drawing/phone-rewards.avif',
-  '/assets/socials/drawing/phone-crypto-defi.avif',
-  '/assets/socials/drawing/phone-strategy-defi.avif',
-] as const;
+const IMAGE_THEMES = {
+  account: [
+    '/assets/socials/real/account_woman.avif',
+    '/assets/socials/real/account_man.avif',
+    '/assets/socials/real/business_balance.avif'
+  ],
+  banking: [
+    '/assets/socials/real/business_sending.avif',
+    '/assets/socials/real/business_payment_card.avif',
+    '/assets/socials/real/transfer.avif'
+  ],
+  investing: [
+    '/assets/socials/real/investing_woman.avif',
+    '/assets/socials/real/investing_man.avif',
+    '/assets/socials/real/investment_man_tattoo.avif'
+  ],
+  crypto: [
+    '/assets/socials/real/business_strategy.avif',
+    '/assets/socials/real/strategy.avif',
+    '/assets/socials/real/strategy_man_office.avif'
+  ],
+  business: [
+    '/assets/socials/real/business_account_man.avif',
+    '/assets/socials/real/business_account_woman.avif',
+    '/assets/socials/real/business_investing.avif'
+  ],
+  businessAccount: [
+    '/assets/socials/real/business_aqua.avif',
+    '/assets/socials/real/business_account_man.avif',
+    '/assets/socials/real/business_balance.avif'
+  ],
+  businessPayments: [
+    '/assets/socials/real/business_p2p.avif',
+    '/assets/socials/real/business_sending.avif',
+    '/assets/socials/real/business_payment_card.avif'
+  ],
+  learn: [
+    '/assets/socials/real/learn_man.avif',
+    '/assets/socials/real/learn_woman2.avif',
+    '/assets/socials/real/learn_woman3.avif'
+  ],
+  learnAlt: [
+    '/assets/socials/real/learn_man2.avif',
+    '/assets/socials/real/learn_man3.avif',
+    '/assets/socials/real/learn_man.avif'
+  ],
+  rewards: [
+    '/assets/socials/real/rewards_woman.avif',
+    '/assets/socials/real/rewards_man.avif',
+    '/assets/socials/real/refferral.avif'
+  ],
+  lifestyle: [
+    '/assets/socials/real/life_happy_jumping.avif',
+    '/assets/socials/real/life_fun.avif',
+    '/assets/socials/real/life_sharing.avif'
+  ],
+  family: [
+    '/assets/socials/real/life_family_home.avif',
+    '/assets/socials/real/life_family_picnic.avif',
+    '/assets/socials/real/life_couple.avif'
+  ],
+  travel: [
+    '/assets/socials/real/life_travel_woman.avif',
+    '/assets/socials/real/life_travel_beach.avif',
+    '/assets/socials/real/life_travel_brazil.avif'
+  ],
+  investors: [
+    '/assets/socials/real/investors_man.avif',
+    '/assets/socials/real/investor_woman.avif',
+    '/assets/socials/real/investors_woman2.avif'
+  ],
+  community: [
+    '/assets/socials/real/life_group.avif',
+    '/assets/socials/real/life_join.avif',
+    '/assets/socials/real/life_walking.avif'
+  ]
+} as const;
+
+type ImageTheme = keyof typeof IMAGE_THEMES;
 
 /**
  * Slide keys - consistent across all pages
@@ -32,13 +104,15 @@ const PHONE_IMAGES = [
 const SLIDE_KEYS = ['unification', 'simplicity', 'rewards'] as const;
 
 /**
- * Helper function to create feature showcase slides
+ * Helper function to create feature showcase slides with themed images
  */
 function createSlides(
   pageKey: string,
   ctaLink: string,
-  imageStartIndex: number = 0
+  theme: ImageTheme
 ): readonly FeatureShowcaseSlide[] {
+  const themeImages = IMAGE_THEMES[theme];
+
   return SLIDE_KEYS.map((slideKey, index) => ({
     id: `${pageKey}-${slideKey}`,
     content: {
@@ -49,7 +123,7 @@ function createSlides(
       ctaTarget: '_blank' as const
     },
     assets: {
-      primaryImage: PHONE_IMAGES[(imageStartIndex + index) % PHONE_IMAGES.length]
+      primaryImage: themeImages[index]
     },
     seo: {
       imageAlt: `marketing.pages.${pageKey}.featureShowcase.slides.${slideKey}.imageAlt`
@@ -58,16 +132,16 @@ function createSlides(
 }
 
 /**
- * Helper function to create page configuration
+ * Helper function to create page configuration with semantic theme
  * Returns Partial config following Hero/BenefitsCards pattern
  */
 function createPageConfig(
   pageKey: string,
   ctaLink: string,
-  imageStartIndex: number = 0
+  theme: ImageTheme
 ): Partial<FeatureShowcaseVariantConfig> {
   return {
-    slides: createSlides(pageKey, ctaLink, imageStartIndex),
+    slides: createSlides(pageKey, ctaLink, theme),
     settings: DEFAULT_FEATURE_SHOWCASE_SETTINGS,
     analytics: {
       trackingPrefix: `feature_showcase_${pageKey}`,
@@ -89,234 +163,234 @@ export const FEATURE_SHOWCASE_PAGE_CONFIGS: Record<string, Partial<FeatureShowca
   'benefits': createPageConfig(
     'benefits',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    0
+    'lifestyle'
   ),
 
   'account': createPageConfig(
     'account',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    1
+    'account'
   ),
 
   'bankingServices': createPageConfig(
     'bankingServices',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    2
+    'banking'
   ),
 
   'investing': createPageConfig(
     'investing',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    3
+    'investing'
   ),
 
   'cryptocurrency': createPageConfig(
     'cryptocurrency',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    4
+    'crypto'
   ),
 
   'defiStrategies': createPageConfig(
     'defiStrategies',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    0
+    'crypto'
   ),
 
   'credit': createPageConfig(
     'credit',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    1
+    'banking'
   ),
 
   'learnBenefits': createPageConfig(
     'learnBenefits',
     ROUTES.LEARN.BENEFITS,
-    2
+    'learn'
   ),
 
   'learnFinancialBasics': createPageConfig(
     'learnFinancialBasics',
     ROUTES.LEARN.FINANCIAL_BASICS,
-    3
+    'learn'
   ),
 
   'learnMoneyManagement': createPageConfig(
     'learnMoneyManagement',
     ROUTES.LEARN.MONEY_MANAGEMENT,
-    4
+    'learnAlt'
   ),
 
   'learnInvestmentGuide': createPageConfig(
     'learnInvestmentGuide',
     ROUTES.LEARN.INVESTMENT_GUIDE,
-    0
+    'learnAlt'
   ),
 
   'learnCryptocurrencyGuide': createPageConfig(
     'learnCryptocurrencyGuide',
     ROUTES.LEARN.CRYPTOCURRENCY_GUIDE,
-    1
+    'learn'
   ),
 
   'learnDefiExplained': createPageConfig(
     'learnDefiExplained',
     ROUTES.LEARN.DEFI_EXPLAINED,
-    2
+    'learnAlt'
   ),
 
   'learnSpecialContent': createPageConfig(
     'learnSpecialContent',
     ROUTES.LEARN.SPECIAL_CONTENT,
-    3
+    'learn'
   ),
 
   'businessBenefits': createPageConfig(
     'businessBenefits',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
-    4
+    'business'
   ),
 
   'businessAccount': createPageConfig(
     'businessAccount',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
-    0
+    'businessAccount'
   ),
 
   'businessBanking': createPageConfig(
     'businessBanking',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
-    1
+    'business'
   ),
 
   'businessPayments': createPageConfig(
     'businessPayments',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
-    2
+    'businessPayments'
   ),
 
   'businessTreasury': createPageConfig(
     'businessTreasury',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
-    3
+    'business'
   ),
 
   'businessYieldStrategies': createPageConfig(
     'businessYieldStrategies',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
-    4
+    'business'
   ),
 
   'businessCreditSolutions': createPageConfig(
     'businessCreditSolutions',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
-    0
+    'businessPayments'
   ),
 
   'rewardsBenefits': createPageConfig(
     'rewardsBenefits',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    1
+    'rewards'
   ),
 
   'rewardsAiGuides': createPageConfig(
     'rewardsAiGuides',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    2
+    'rewards'
   ),
 
   'rewardsReferralProgram': createPageConfig(
     'rewardsReferralProgram',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    3
+    'rewards'
   ),
 
   'rewardsPointsSystem': createPageConfig(
     'rewardsPointsSystem',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    4
+    'rewards'
   ),
 
   'rewardsBadgesLeaderboard': createPageConfig(
     'rewardsBadgesLeaderboard',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    0
+    'rewards'
   ),
 
   'rewardsCampaigns': createPageConfig(
     'rewardsCampaigns',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    1
+    'lifestyle'
   ),
 
   'rewardsTokenAirdrop': createPageConfig(
     'rewardsTokenAirdrop',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    2
+    'crypto'
   ),
 
   'securityBenefits': createPageConfig(
     'securityBenefits',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-    3
+    'business'
   ),
 
   'securityAuditReports': createPageConfig(
     'securityAuditReports',
     ROUTES.SECURITY.AUDIT_REPORTS,
-    4
+    'business'
   ),
 
   'securitySafetyGuide': createPageConfig(
     'securitySafetyGuide',
     ROUTES.SECURITY.SAFETY_GUIDE,
-    0
+    'learn'
   ),
 
   'helpFaq': createPageConfig(
     'helpFaq',
     ROUTES.HELP.FAQ,
-    1
+    'learn'
   ),
 
   'about': createPageConfig(
     'about',
     ROUTES.ABOUT,
-    2
+    'community'
   ),
 
   'careers': createPageConfig(
     'careers',
     ROUTES.CAREERS,
-    3
+    'community'
   ),
 
   'docs': createPageConfig(
     'docs',
     ROUTES.DOCS,
-    4
+    'learn'
   ),
 
   'investors': createPageConfig(
     'investors',
     ROUTES.INVESTORS,
-    0
+    'investors'
   ),
 
   'legalTerms': createPageConfig(
     'legalTerms',
     ROUTES.LEGAL.TERMS,
-    1
+    'business'
   ),
 
   'legalPrivacy': createPageConfig(
     'legalPrivacy',
     ROUTES.LEGAL.PRIVACY,
-    2
+    'business'
   ),
 
   'legalCookies': createPageConfig(
     'legalCookies',
     ROUTES.LEGAL.COOKIES,
-    3
+    'business'
   )
 } as const;

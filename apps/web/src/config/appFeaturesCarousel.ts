@@ -79,7 +79,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.organizeMoney.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/zen-br.avif'
+      image: '/assets/socials/real/life_vision.avif'
     },
     seo: {
       imageAlt: 'Person in peaceful meditation pose representing organized financial life'
@@ -96,7 +96,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.instantPayments.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/chilling.avif'
+      image: '/assets/socials/real/life_chill_man.avif'
     },
     seo: {
       imageAlt: 'Person relaxing while using mobile payment features'
@@ -113,7 +113,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.securePurchases.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/walking.avif'
+      image: '/assets/socials/real/life_walking.avif'
     },
     seo: {
       imageAlt: 'Person confidently making secure purchases with mobile banking'
@@ -130,7 +130,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.financialGoals.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/trip.avif'
+      image: '/assets/socials/real/life_travel.avif'
     },
     seo: {
       imageAlt: 'Person planning and achieving travel dreams with financial planning tools'

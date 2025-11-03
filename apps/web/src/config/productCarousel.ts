@@ -75,7 +75,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     id: 'benefits',
     title: 'marketing.productCarousel.slides.benefits.title',
     subtitle: 'marketing.productCarousel.slides.benefits.subtitle',
-    image: '/assets/socials/real/couple.avif',
+    image: '/assets/socials/real/life_couple.avif',
     imageAlt: 'Couple',
     ctaText: 'common.buttons.getStarted',
     ctaHref: APP_URL
@@ -84,7 +84,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     id: 'rewards',
     title: 'marketing.productCarousel.slides.rewards.title',
     subtitle: 'marketing.productCarousel.slides.rewards.subtitle',
-    image: '/assets/socials/real/group.avif',
+    image: '/assets/socials/real/life_group.avif',
     imageAlt: 'friends',
     ctaText: 'common.buttons.learnMore',
     ctaHref: ROUTES.INVESTING

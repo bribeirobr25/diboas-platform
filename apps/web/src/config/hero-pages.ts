@@ -31,8 +31,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/family-trip.avif',
-      backgroundImageMobile: '/assets/socials/real/family-trip.avif',
+      backgroundImage: '/assets/socials/real/rewards_group.avif',
+      backgroundImageMobile: '/assets/socials/real/rewards_group.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -55,8 +55,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/balance-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/balance-with-icon.avif',
+      backgroundImage: '/assets/socials/real/account_balance.avif',
+      backgroundImageMobile: '/assets/socials/real/account_balance.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -79,8 +79,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/banking-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/banking-with-icon.avif',
+      backgroundImage: '/assets/socials/real/business_payment.avif',
+      backgroundImageMobile: '/assets/socials/real/business_payment.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -103,8 +103,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/investing-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/investing-with-icon.avif',
+      backgroundImage: '/assets/socials/real/investor_market.avif',
+      backgroundImageMobile: '/assets/socials/real/investor_market.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -127,8 +127,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/crypto-half.avif',
-      backgroundImageMobile: '/assets/socials/real/crypto-half.avif',
+      backgroundImage: '/assets/socials/real/crypto.avif',
+      backgroundImageMobile: '/assets/socials/real/crypto.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -151,8 +151,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/strategy-with-text.avif',
-      backgroundImageMobile: '/assets/socials/real/strategy-with-text.avif',
+      backgroundImage: '/assets/socials/real/defi.avif',
+      backgroundImageMobile: '/assets/socials/real/defi.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -175,8 +175,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/money-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/money-with-icon.avif',
+      backgroundImage: '/assets/socials/real/business_deal.avif',
+      backgroundImageMobile: '/assets/socials/real/business_deal.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -203,8 +203,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/learn-banner.avif',
-      backgroundImageMobile: '/assets/socials/real/learn-banner.avif',
+      backgroundImage: '/assets/socials/real/learn_guides.avif',
+      backgroundImageMobile: '/assets/socials/real/learn_guides.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -363,8 +363,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/business-half.avif',
-      backgroundImageMobile: '/assets/socials/real/business-half.avif',
+      backgroundImage: '/assets/socials/real/life_group_office.avif',
+      backgroundImageMobile: '/assets/socials/real/life_group_office.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -387,8 +387,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/growth-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/growth-with-icon.avif',
+      backgroundImage: '/assets/socials/real/business_account.avif',
+      backgroundImageMobile: '/assets/socials/real/business_account.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -411,8 +411,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/operations-half.avif',
-      backgroundImageMobile: '/assets/socials/real/operations-half.avif',
+      backgroundImage: '/assets/socials/real/business_cashflow.avif',
+      backgroundImageMobile: '/assets/socials/real/business_cashflow.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -435,8 +435,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/payment-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/payment-with-icon.avif',
+      backgroundImage: '/assets/socials/real/business_payment.avif',
+      backgroundImageMobile: '/assets/socials/real/business_payment.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -459,8 +459,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/portfolio-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/portfolio-with-icon.avif',
+      backgroundImage: '/assets/socials/real/business_charts.avif',
+      backgroundImageMobile: '/assets/socials/real/business_charts.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -483,8 +483,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/growth-with-icon2.avif',
-      backgroundImageMobile: '/assets/socials/real/growth-with-icon2.avif',
+      backgroundImage: '/assets/socials/real/business_charts.avif',
+      backgroundImageMobile: '/assets/socials/real/business_charts.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -507,8 +507,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/money-with-icon2.avif',
-      backgroundImageMobile: '/assets/socials/real/money-with-icon2.avif',
+      backgroundImage: '/assets/socials/real/business_owner.avif',
+      backgroundImageMobile: '/assets/socials/real/business_owner.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -535,8 +535,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/rewards-banner.avif',
-      backgroundImageMobile: '/assets/socials/real/rewards-banner.avif',
+      backgroundImage: '/assets/socials/real/rewards_group.avif',
+      backgroundImageMobile: '/assets/socials/real/rewards_group.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -559,8 +559,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/friends.avif',
-      backgroundImageMobile: '/assets/socials/real/friends.avif',
+      backgroundImage: '/assets/socials/real/ai_guides.avif',
+      backgroundImageMobile: '/assets/socials/real/ai_guides.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -583,8 +583,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/sharing.avif',
-      backgroundImageMobile: '/assets/socials/real/sharing.avif',
+      backgroundImage: '/assets/socials/real/refer_friend.avif',
+      backgroundImageMobile: '/assets/socials/real/refer_friend.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -607,8 +607,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/rewards-with-icon.avif',
-      backgroundImageMobile: '/assets/socials/real/rewards-with-icon.avif',
+      backgroundImage: '/assets/socials/real/business_charts.avif',
+      backgroundImageMobile: '/assets/socials/real/business_charts.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -631,8 +631,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/rewards-half.avif',
-      backgroundImageMobile: '/assets/socials/real/rewards-half.avif',
+      backgroundImage: '/assets/socials/real/life_highfive.avif',
+      backgroundImageMobile: '/assets/socials/real/life_highfive.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -655,8 +655,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/group.avif',
-      backgroundImageMobile: '/assets/socials/real/group.avif',
+      backgroundImage: '/assets/socials/real/coffee_shop.avif',
+      backgroundImageMobile: '/assets/socials/real/coffee_shop.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -679,8 +679,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/growth-with-icon3.avif',
-      backgroundImageMobile: '/assets/socials/real/growth-with-icon3.avif',
+      backgroundImage: '/assets/socials/real/crypto.avif',
+      backgroundImageMobile: '/assets/socials/real/crypto.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -707,8 +707,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/security-half.avif',
-      backgroundImageMobile: '/assets/socials/real/security-half.avif',
+      backgroundImage: '/assets/socials/real/security_modern.avif',
+      backgroundImageMobile: '/assets/socials/real/security_modern.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -801,8 +801,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/diboas-banner.avif',
-      backgroundImageMobile: '/assets/socials/real/diboas-banner.avif',
+      backgroundImage: '/assets/socials/real/life_group_office.avif',
+      backgroundImageMobile: '/assets/socials/real/life_group_office.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -825,8 +825,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/group.avif',
-      backgroundImageMobile: '/assets/socials/real/group.avif',
+      backgroundImage: '/assets/socials/real/office_group2.avif',
+      backgroundImageMobile: '/assets/socials/real/office_group2.avif',
       overlayOpacity: 0.4
     },
     seo: {
@@ -871,8 +871,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       ctaTarget: '_blank'
     },
     backgroundAssets: {
-      backgroundImage: '/assets/socials/real/growth-with-icon3.avif',
-      backgroundImageMobile: '/assets/socials/real/growth-with-icon3.avif',
+      backgroundImage: '/assets/socials/real/crypto.avif',
+      backgroundImageMobile: '/assets/socials/real/crypto.avif',
       overlayOpacity: 0.4
     },
     seo: {

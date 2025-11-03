@@ -52,15 +52,15 @@ export interface HeroVariantConfig {
 
 // Configuration Management - Default visual assets
 export const DEFAULT_VISUAL_ASSETS: HeroVisualAssets = {
-  backgroundCircle: '/assets/landing/bg-circle-acqua.avif',
-  phoneImage: '/assets/landing/phone-account.avif',
-  mascotImage: '/assets/mascots/acqua/mascot-acqua-flying.avif',
+  backgroundCircle: '/assets/mascots/acqua-basic.avif',
+  phoneImage: '/assets/socials/drawing/phone-activities.avif',
+  mascotImage: '/assets/mascots/mascot-acqua-flying.avif',
 } as const;
 
 // Configuration Management - Default background assets
 export const DEFAULT_BACKGROUND_ASSETS: HeroBackgroundAssets = {
-  backgroundImage: '/assets/socials/real/nature.avif',
-  backgroundImageMobile: '/assets/socials/real/nature.avif',
+  backgroundImage: '/assets/socials/real/life_nature.avif',
+  backgroundImageMobile: '/assets/socials/real/life_nature.avif',
   overlayOpacity: 0.3,
 } as const;
 

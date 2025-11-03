@@ -24,7 +24,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/rewards-with-icon.avif'
+      primaryImage: '/assets/socials/real/rewards-icon.avif'
     },
     seo: {
       imageAlt: 'Visual representation of rewards and benefits'
@@ -40,7 +40,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/couple.avif'
+      primaryImage: '/assets/socials/real/life_couple.avif'
     },
     seo: {
       imageAlt: 'Couple enjoying financial freedom'
@@ -56,7 +56,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/investing-with-icon.avif'
+      primaryImage: '/assets/socials/real/investing_woman.avif'
     },
     seo: {
       imageAlt: 'Investment growth visualization'
@@ -72,7 +72,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/secure-with-icon.avif'
+      primaryImage: '/assets/socials/real/security_modern.avif'
     },
     seo: {
       imageAlt: 'Security shield illustration'

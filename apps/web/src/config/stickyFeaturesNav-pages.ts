@@ -19,26 +19,26 @@ import { ROUTES } from './routes';
  * Assigned sequentially to provide visual variety
  */
 const LANDSCAPE_IMAGES = [
-  '/assets/socials/real/family-trip.avif',
-  '/assets/socials/real/music.avif',
-  '/assets/socials/real/nature.avif',
-  '/assets/socials/real/chilling.avif',
-  '/assets/socials/real/couple.avif',
-  '/assets/socials/real/friends.avif',
-  '/assets/socials/real/group.avif',
-  '/assets/socials/real/happy.avif',
-  '/assets/socials/real/family-picnic.avif',
-  '/assets/socials/real/having-fun.avif',
-  '/assets/socials/real/balance-with-icon.avif',
-  '/assets/socials/real/banking-with-icon.avif',
-  '/assets/socials/real/investing-with-icon.avif',
-  '/assets/socials/real/growth-with-icon.avif',
-  '/assets/socials/real/money-with-icon.avif',
-  '/assets/socials/real/rewards-with-icon.avif',
-  '/assets/socials/real/security-half.avif',
-  '/assets/socials/real/learn-banner.avif',
-  '/assets/socials/real/business-half.avif',
-  '/assets/socials/real/diboas-banner.avif'
+  '/assets/socials/real/rewards_group.avif',
+  '/assets/socials/real/business_payment.avif',
+  '/assets/socials/real/investor_market.avif',
+  '/assets/socials/real/learn_guides.avif',
+  '/assets/socials/real/life_group_office.avif',
+  '/assets/socials/real/refer_friend.avif',
+  '/assets/socials/real/life_family_bike.avif',
+  '/assets/socials/real/business_charts.avif',
+  '/assets/socials/real/account_balance.avif',
+  '/assets/socials/real/crypto.avif',
+  '/assets/socials/real/defi.avif',
+  '/assets/socials/real/business_account.avif',
+  '/assets/socials/real/coffee_shop.avif',
+  '/assets/socials/real/rewards_happy.avif',
+  '/assets/socials/real/business_cashflow.avif',
+  '/assets/socials/real/life_travel.avif',
+  '/assets/socials/real/life_group_mystic.avif',
+  '/assets/socials/real/security_modern.avif',
+  '/assets/socials/real/ai_guides.avif',
+  '/assets/socials/real/learn_masterclass.avif'
 ] as const;
 
 /**

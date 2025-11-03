@@ -27,7 +27,7 @@ import type { BgHighlightConfig } from '../types';
 export const bgHighlightConfig: BgHighlightConfig = {
   /** Background image configuration */
   backgroundImage: {
-    src: '/assets/socials/real/nature.avif',
+    src: '/assets/socials/real/life_nature.avif',
     alt: 'Natural landscape representing growth and financial sustainability'
   },
 
