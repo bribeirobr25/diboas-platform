@@ -54,8 +54,9 @@ export interface FAQAccordionVariantConfig {
 
 // Default FAQ items
 // Note: Questions and answers are translation keys that will be resolved at runtime
+// Maximum 5 questions for landing page as per project requirements
 export const DEFAULT_FAQ_ITEMS: FAQItem[] = [
-  // Getting Started
+  // Getting Started (most important questions)
   {
     id: 'faq-1',
     question: 'marketing.faq.items.q1.question',
@@ -81,48 +82,11 @@ export const DEFAULT_FAQ_ITEMS: FAQItem[] = [
     answer: 'marketing.faq.items.q4.answer',
     category: 'guides'
   },
-  {
-    id: 'faq-5',
-    question: 'marketing.faq.items.q5.question',
-    answer: 'marketing.faq.items.q5.answer',
-    category: 'guides'
-  },
-  {
-    id: 'faq-6',
-    question: 'marketing.faq.items.q6.question',
-    answer: 'marketing.faq.items.q6.answer',
-    category: 'guides'
-  },
-  // Security & Safety
-  {
-    id: 'faq-7',
-    question: 'marketing.faq.items.q7.question',
-    answer: 'marketing.faq.items.q7.answer',
-    category: 'security'
-  },
-  {
-    id: 'faq-8',
-    question: 'marketing.faq.items.q8.question',
-    answer: 'marketing.faq.items.q8.answer',
-    category: 'security'
-  },
-  {
-    id: 'faq-9',
-    question: 'marketing.faq.items.q9.question',
-    answer: 'marketing.faq.items.q9.answer',
-    category: 'security'
-  },
   // Fees & Costs
   {
     id: 'faq-10',
     question: 'marketing.faq.items.q10.question',
     answer: 'marketing.faq.items.q10.answer',
-    category: 'fees'
-  },
-  {
-    id: 'faq-11',
-    question: 'marketing.faq.items.q11.question',
-    answer: 'marketing.faq.items.q11.answer',
     category: 'fees'
   }
 ];
