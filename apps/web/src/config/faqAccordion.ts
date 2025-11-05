@@ -6,11 +6,18 @@
  * Configuration Management: Centralized FAQ content and settings
  * No Hardcoded Values: All values configurable through interfaces
  * DRY Principles: Uses centralized ROUTES configuration for all links
+ * Registry Pattern: Single source of truth for all FAQ content
  */
 
 import { ROUTES } from './routes';
 
 export type FAQAccordionVariant = 'default';
+
+/**
+ * Question ID type for registry references
+ * Registry contains q1 through q120
+ */
+export type FAQQuestionId = `q${number}`;
 
 export interface FAQItem {
   readonly id: string;
@@ -19,13 +26,21 @@ export interface FAQItem {
   readonly category: 'getting-started' | 'guides' | 'security' | 'fees';
 }
 
+/**
+ * FAQ Accordion Content - supports two modes:
+ * 1. Registry mode (recommended): Uses questionIds to reference central registry
+ * 2. Legacy mode: Uses items array directly (for backwards compatibility)
+ */
 export interface FAQAccordionContent {
   readonly title: string;
   readonly description: string;
   readonly ctaText: string;
   readonly ctaHref: string;
   readonly ctaTarget?: '_blank' | '_self';
-  readonly items: readonly FAQItem[];
+  // Registry mode: Reference question IDs from centralized registry
+  readonly questionIds?: readonly FAQQuestionId[];
+  // Legacy mode: Direct FAQ items (backwards compatibility for landing page)
+  readonly items?: readonly FAQItem[];
 }
 
 export interface FAQAccordionSettings {

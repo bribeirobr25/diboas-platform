@@ -60,30 +60,13 @@ export type FAQAccordionPageKey =
   | 'legalCookies';
 
 /**
- * Create FAQ items for a specific page
- * All questions use translation keys from marketing.pages.{pageKey}.faqAccordion
- */
-function createFAQItems(pageKey: string, questionCount: number = 4): readonly FAQItem[] {
-  const items: FAQItem[] = [];
-
-  for (let i = 1; i <= questionCount; i++) {
-    const qKey = `q${i}`;
-    items.push({
-      id: `${pageKey}-faq-${qKey}`,
-      question: `marketing.pages.${pageKey}.faqAccordion.questions.${qKey}.question`,
-      answer: `marketing.pages.${pageKey}.faqAccordion.questions.${qKey}.answer`,
-      category: 'getting-started' as const
-    });
-  }
-
-  return items;
-}
-
-/**
- * Create page-specific FAQ configuration
+ * Create page-specific FAQ configuration using registry pattern
  * Returns full FAQAccordionVariantConfig with all required fields
+ *
+ * Now uses questionIds to reference centralized FAQ registry instead of duplicating content
+ * The translation key marketing.pages.{pageKey}.faqAccordion.questionIds contains the array of IDs
  */
-function createPageConfig(pageKey: string, questionCount: number = 4): FAQAccordionVariantConfig {
+function createPageConfig(pageKey: string, _questionCount?: number): FAQAccordionVariantConfig {
   return {
     variant: 'default' as const,
     content: {
@@ -92,7 +75,9 @@ function createPageConfig(pageKey: string, questionCount: number = 4): FAQAccord
       ctaText: `marketing.pages.${pageKey}.faqAccordion.ctaText`,
       ctaHref: ROUTES.HELP.FAQ,
       ctaTarget: '_self' as const,
-      items: createFAQItems(pageKey, questionCount)
+      // Use questionIds to reference centralized registry
+      // The component will resolve these IDs from marketing.faq.registry at runtime
+      questionIds: `marketing.pages.${pageKey}.faqAccordion.questionIds` as any
     },
     settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
     seo: {

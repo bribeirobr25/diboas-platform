@@ -31,6 +31,74 @@ export function FAQAccordionDefault({
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
+  // Resolve FAQ items from either registry (new mode) or direct items (legacy mode)
+  const resolvedItems = (() => {
+    // Registry mode: questionIds references centralized FAQ registry
+    if (config.content.questionIds) {
+      const questionIdsKey = config.content.questionIds as any as string;
+
+      // If it's a translation key string, we need to access the raw array value
+      if (typeof questionIdsKey === 'string' && questionIdsKey.startsWith('marketing.')) {
+        // The messages object is FLATTENED with dot-notation keys
+        // e.g., messages["marketing.pages.benefits.faqAccordion.questionIds"]
+        // NOT a nested structure like messages.marketing.pages.benefits...
+
+        let questionIds: string[] = [];
+        try {
+          // @ts-ignore - accessing internal messages structure
+          const messages = intl.messages;
+
+          // The flattenMessages function flattens arrays into individual keys with numeric indices
+          // e.g., ["q1", "q2", "q3"] becomes:
+          // "marketing.pages.helpFaq.faqAccordion.questionIds.0" = "q1"
+          // "marketing.pages.helpFaq.faqAccordion.questionIds.1" = "q2"
+          // "marketing.pages.helpFaq.faqAccordion.questionIds.2" = "q3"
+
+          // Reconstruct the array by looking for keys with numeric indices
+          const baseKey = questionIdsKey;
+          let index = 0;
+          const reconstructedArray: string[] = [];
+
+          while (true) {
+            const indexedKey = `${baseKey}.${index}`;
+            const value = messages[indexedKey];
+
+            if (value === undefined) {
+              break; // No more elements
+            }
+
+            reconstructedArray.push(value);
+            index++;
+          }
+
+          questionIds = reconstructedArray;
+        } catch (error) {
+          console.error('Error accessing questionIds:', error);
+          questionIds = [];
+        }
+
+        // Resolve each question ID from the registry
+        return questionIds.map((qId: string) => ({
+          id: qId,
+          question: `marketing.faq.registry.${qId}.question`,
+          answer: `marketing.faq.registry.${qId}.answer`,
+          category: 'getting-started' as const
+        }));
+      }
+
+      // Direct questionIds array (shouldn't happen with current setup)
+      return config.content.questionIds.map(qId => ({
+        id: qId,
+        question: `marketing.faq.registry.${qId}.question`,
+        answer: `marketing.faq.registry.${qId}.answer`,
+        category: 'getting-started' as const
+      }));
+    }
+
+    // Legacy mode: direct items array (for landing page backwards compatibility)
+    return config.content.items || [];
+  })();
+
   const handleToggle = useCallback((id: string) => {
     if (!config.settings.enableAnimations) {
       setExpandedId(prev => {
@@ -143,7 +211,7 @@ export function FAQAccordionDefault({
 
         {/* Right Panel: Accordion Items */}
         <div className={styles.accordionPanel} role="region" aria-label="FAQ items">
-          {config.content.items.map((item, index) => {
+          {resolvedItems.map((item, index) => {
             const isExpanded = expandedId === item.id;
             const contentId = `faq-content-${item.id}`;
 
