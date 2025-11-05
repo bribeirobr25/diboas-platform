@@ -76,7 +76,6 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
           context={{ page: 'businessBenefits' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessBenefits}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('business-benefits')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
           context={{ page: 'businessBenefits' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessBenefits}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
           context={{ page: 'businessBenefits' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.businessBenefits!}
             enableAnalytics={true}
           />

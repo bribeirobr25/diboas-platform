@@ -76,7 +76,6 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
           context={{ page: 'securityBenefits' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.securityBenefits}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('security-benefits')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
           context={{ page: 'securityBenefits' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securityBenefits}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
           context={{ page: 'securityBenefits' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.securityBenefits!}
             enableAnalytics={true}
           />

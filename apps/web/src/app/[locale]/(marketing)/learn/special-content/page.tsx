@@ -76,7 +76,6 @@ export default async function SpecialContentPage({ params }: PageProps) {
           context={{ page: 'learnSpecialContent' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnSpecialContent}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function SpecialContentPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('learn-special-content')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function SpecialContentPage({ params }: PageProps) {
           context={{ page: 'learnSpecialContent' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnSpecialContent}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function SpecialContentPage({ params }: PageProps) {
           context={{ page: 'learnSpecialContent' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.learnSpecialContent!}
             enableAnalytics={true}
           />

@@ -54,7 +54,6 @@ export type FAQAccordionPageKey =
   | 'helpFaq'
   | 'about'
   | 'careers'
-  | 'docs'
   | 'investors'
   | 'legalTerms'
   | 'legalPrivacy'
@@ -82,10 +81,11 @@ function createFAQItems(pageKey: string, questionCount: number = 4): readonly FA
 
 /**
  * Create page-specific FAQ configuration
- * Uses Partial to allow flexible configuration
+ * Returns full FAQAccordionVariantConfig with all required fields
  */
-function createPageConfig(pageKey: string, questionCount: number = 4): Partial<FAQAccordionVariantConfig> {
+function createPageConfig(pageKey: string, questionCount: number = 4): FAQAccordionVariantConfig {
   return {
+    variant: 'default' as const,
     content: {
       title: `marketing.pages.${pageKey}.faqAccordion.sectionTitle`,
       description: `marketing.pages.${pageKey}.faqAccordion.subtitle`,
@@ -110,7 +110,7 @@ function createPageConfig(pageKey: string, questionCount: number = 4): Partial<F
  * FAQ Accordion configurations for all pages
  * Each page has 3-4 questions tailored to its content
  */
-export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, Partial<FAQAccordionVariantConfig>> = {
+export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordionVariantConfig> = {
   // Main Menu
   benefits: createPageConfig('benefits', 4),
   account: createPageConfig('account', 4),
@@ -156,7 +156,6 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, Partial<FAQ
   helpFaq: createPageConfig('helpFaq', 4),
   about: createPageConfig('about', 3),
   careers: createPageConfig('careers', 3),
-  docs: createPageConfig('docs', 3),
   investors: createPageConfig('investors', 3),
 
   // Footer
@@ -169,7 +168,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, Partial<FAQ
  * Helper function to get FAQ accordion config for a specific page
  * Returns undefined if page key doesn't exist (defensive programming)
  */
-export function getFAQAccordionConfig(pageKey: string): Partial<FAQAccordionVariantConfig> | undefined {
+export function getFAQAccordionConfig(pageKey: string): FAQAccordionVariantConfig | undefined {
   return FAQ_ACCORDION_PAGE_CONFIGS[pageKey as FAQAccordionPageKey];
 }
 

@@ -1,136 +1,18 @@
 {
-  "hero": {
-    "title": "Financial Freedom Made Simple",
-    "subtitle": "Manage your banking, investing, and DeFi assets all in one place. The future of finance is here, powered by AI-driven insights.",
-    "cta": {
-      "primary": "Get Started Free",
-      "secondary": "Learn More"
-    },
-    "trustIndicators": {
-      "users": "Trusted by 50,000+ users worldwide",
-      "rating": "4.9/5 rating",
-      "security": "Bank-level security"
-    }
-  },
-  "domains": {
-    "banking": {
-      "name": "Banking",
-      "tagline": "Smart Banking Solutions",
-      "description": "Experience next-generation banking with zero fees, instant transfers, and AI-powered budgeting.",
-      "features": [
-        "Zero-fee transfers",
-        "Smart budgeting",
-        "Instant payments",
-        "Multi-currency support"
-      ],
-      "cta": "Start Banking"
-    },
-    "investing": {
-      "name": "Investing",
-      "tagline": "Invest with Confidence",
-      "description": "Access a wide range of cryptocurrencies and traditional assets with AI-powered portfolio management.",
-      "features": [
-        "AI portfolio optimization",
-        "Low-fee crypto trading",
-        "Real-time analytics",
-        "Risk assessment"
-      ],
-      "cta": "Start Investing"
-    },
-    "defi": {
-      "name": "DeFi",
-      "tagline": "Decentralized Finance",
-      "description": "Earn interest and access DeFi services directly through our platform with maximum security.",
-      "features": [
-        "Yield farming",
-        "Liquidity pools",
-        "Staking rewards",
-        "DeFi integrations"
-      ],
-      "cta": "Explore DeFi"
-    }
-  },
-  "mascots": {
-    "acqua": {
-      "name": "Acqua",
-      "role": "Banking Guide",
-      "description": "Your friendly banking assistant, helping you manage everyday finances with ease."
-    },
-    "mystic": {
-      "name": "Mystic",
-      "role": "Investment Advisor",
-      "description": "Your wise investment guide, providing AI-powered insights for smart financial decisions."
-    },
-    "coral": {
-      "name": "Coral",
-      "role": "DeFi Expert",
-      "description": "Your DeFi specialist, navigating the world of decentralized finance safely."
-    }
-  },
-  "trust": {
-    "title": "Your Security is Our Priority",
-    "subtitle": "Built with enterprise-grade security and zero-trust architecture to protect your financial future.",
-    "features": [
-      {
-        "title": "Bank-Level Security",
-        "description": "Your funds are protected by the same security standards used by traditional banks."
-      },
-      {
-        "title": "Regulatory Compliance",
-        "description": "Fully compliant with financial regulations and data protection standards."
-      },
-      {
-        "title": "Zero-Trust Architecture",
-        "description": "Advanced security protocols that verify every transaction and user action."
-      },
-      {
-        "title": "24/7 Monitoring",
-        "description": "Continuous monitoring and fraud detection to keep your assets safe."
-      }
-    ],
-    "stats": [
-      {
-        "number": "99.9%",
-        "label": "Uptime guarantee"
-      },
-      {
-        "number": "$500M+",
-        "label": "Assets secured"
-      },
-      {
-        "number": "50K+",
-        "label": "Trusted users"
-      },
-      {
-        "number": "256-bit",
-        "label": "Encryption standard"
-      }
-    ],
-    "certifications": {
-      "title": "Certified & Compliant",
-      "description": "We maintain the highest standards of security and compliance",
-      "badges": [
-        "SOC 2 Compliant",
-        "ISO 27001",
-        "GDPR Compliant",
-        "PCI DSS Level 1"
-      ]
-    }
-  },
   "productCarousel": {
     "heading": "Everything in one app",
     "slides": {
       "benefits": {
         "title": "No Hassles",
-        "subtitle": "Real-time transfers, no limits, anywhere in the world.\nEasy. Fast. Secure.\nOpen your account."
+        "subtitle": "Real-time transfers, no limits, anywhere in the world.\nEasy. Fast. Secure."
       },
       "rewards": {
         "title": "Put Your Money to Work",
-        "subtitle": "Stocks, bonds, your first crypto.\nYour first investment.\nYour first step toward growth.\nStart with just $10."
+        "subtitle": "Stocks, bonds, your first crypto.\nYour first investment.\nYour first step toward growth."
       },
       "business": {
         "title": "For Your Business Too",
-        "subtitle": "Cash sitting idle? Put it to work.\nZero red tape, automatic returns.\ndiBoaS Business."
+        "subtitle": "Cash sitting idle? Put it to work.\nZero red tape, automatic returns."
       }
     }
   },
@@ -162,7 +44,7 @@
     "sectionTitle": "Everything you need is right here.",
     "organizeMoney": {
       "title": "Your Money, Your Control",
-      "description": "Take complete control of your money.\nNo limits, no interference.\nOnly control it.",
+      "description": "Take complete control of your money.\nNo limits, no interference.\nOnly you control it",
       "ctaText": "Learn More",
       "chipLabel": "Total Control"
     },
@@ -222,24 +104,8 @@
       "title": "diBoaS - Complete Financial Ecosystem",
       "description": "Manage your banking, investing, and DeFi assets all in one secure platform.",
       "hero": {
-        "title": "More than 5.4 billion people deserve safe, simple access to financial growth.\n\nYou're one of them.",
+        "title": "More than 5.4 billion people deserve safe, simple access to financial growth.\n\ndiBoaS is making this possible",
         "description": ""
-      }
-    },
-    "banking": {
-      "title": "Banking Services | diBoaS",
-      "description": "Modern banking solutions with zero fees, instant transfers, and smart budgeting features.",
-      "hero": {
-        "title": "Banking Made Simple",
-        "subtitle": "Experience next-generation banking with zero fees and instant everything."
-      }
-    },
-    "defi": {
-      "title": "DeFi Strategies | diBoaS",
-      "description": "Access decentralized finance protocols with maximum security and optimal yields.",
-      "hero": {
-        "title": "DeFi Made Safe",
-        "subtitle": "Explore decentralized finance with enterprise-grade security."
       }
     },
     "benefits": {
@@ -3754,108 +3620,6 @@
           "q3": {
             "question": "What's the hiring process?",
             "answer": "Transparent and respectful of your time.\n\nStage 1: Application (you)\n- Resume + letter explaining WHY diBoaS\n- We don't want template, we want truth\n- Response in 3 business days\n\nStage 2: Cultural Fit (30 min)\n- Informal chat with Talent\n- Understand motivations and values\n- Clear doubts about company\n\nStage 3: Technical Assessment (you)\n- Take-home challenge (4-6 hours)\n- Real problem we face\n- You choose when to do it\n\nStage 4: Technical Deep Dive (60 min)\n- Review your solution\n- Pair programming\n- Trade-offs discussion\n\nStage 5: Founder Chat (30 min)\n- Know company vision\n- Align expectations\n- Final decision\n\nTotal: ~2 weeks from application to offer.\n\nRejected? Detailed feedback always."
-          }
-        },
-        "ctaText": "See All Questions"
-      }
-    },
-    "docs": {
-      "title": "Documentation | diBoaS",
-      "description": "Complete technical documentation.",
-      "hero": {
-        "title": "Complete technical documentation. For developers, by developers. Integrate into the OneFi ecosystem.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Complete technical documentation",
-        "description": "For developers, by developers.",
-        "cards": {
-          "completeRESTfulAPIs": {
-            "iconAlt": "API icon",
-            "title": "Complete RESTful APIs",
-            "description": "Endpoints for all functionalities.\nClear documentation with examples.\nSDKs in multiple languages."
-          },
-          "webhooksAndEvents": {
-            "iconAlt": "Webhook icon",
-            "title": "Webhooks and Events",
-            "description": "Real-time integration.\nTransaction notifications.\nEvent-driven architecture."
-          },
-          "testingSandbox": {
-            "iconAlt": "Sandbox icon",
-            "title": "Testing Sandbox",
-            "description": "Complete dev environment.\nUnlimited test data.\nDevelop risk-free."
-          },
-          "developerCommunity": {
-            "iconAlt": "Developer community icon",
-            "title": "Developer Community",
-            "description": "Active technical forum.\nOpen source code samples.\nSupport that understands code."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Documentation for developers.",
-        "subtitle": "APIs, integrations, everything you need to build with diBoaS.",
-        "cards": {
-          "restfulApis": {
-            "title": "RESTful APIs",
-            "description": "Complete and documented endpoints.\nExamples in multiple languages.\nIntegration in minutes.",
-            "imageAlt": "RESTful APIs illustration"
-          },
-          "officialSdks": {
-            "title": "Official SDKs",
-            "description": "JavaScript, Python, Go, and more.\nAbstractions that simplify.\nLess code, more results.",
-            "imageAlt": "Official SDKs illustration"
-          },
-          "webhooks": {
-            "title": "Webhooks",
-            "description": "Receive events in real-time.\nTransactions, state changes, everything.\nReactive system.",
-            "imageAlt": "Webhooks illustration"
-          },
-          "sandboxEnvironment": {
-            "title": "Sandbox Environment",
-            "description": "Test without risk.\nComplete development environment.\nValidation before production.",
-            "imageAlt": "Sandbox Environment illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Complete API Documentation",
-            "description": "REST APIs for platform integration.\nBanking, investing, crypto, strategies.\nBuild on the OneFi infrastructure.",
-            "ctaText": "Get Started",
-            "imageAlt": "Complete API Documentation illustration"
-          },
-          "simplicity": {
-            "title": "Developer-Friendly",
-            "description": "✓ Clear code examples\n✓ Interactive API explorer\n✓ Sandbox environment\nFrom concept to production quickly.",
-            "ctaText": "Get Started",
-            "imageAlt": "Developer-Friendly illustration"
-          },
-          "rewards": {
-            "title": "Partner Program",
-            "description": "Revenue sharing for integrations.\nCo-marketing opportunities.\nGrow your business with ours.",
-            "ctaText": "Get Started",
-            "imageAlt": "Partner Program illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "questions": {
-          "q1": {
-            "question": "Who is technical documentation for?",
-            "answer": "Developers who want to integrate with diBoaS.\n\nUse cases:\n\nBuild on diBoaS:\n- Apps using our API\n- Integrations with existing systems\n- Complementary services\n\nContribute to diBoaS:\n- Create custom DeFi strategies\n- Develop trading bots\n- Plugins and extensions\n\nLearn from diBoaS:\n- Reference architecture\n- Security best practices\n- Technical case studies\n\nNot for end users.\n(Those use the app, not the API)"
-          },
-          "q2": {
-            "question": "Is the API free?",
-            "answer": "Yes! With generous rate limits.\n\nFree Tier:\n- 10,000 requests/day\n- All basic endpoints\n- Webhooks included\n- Community forum support\n\nBusiness Tier ($99/month):\n- 1,000,000 requests/day\n- Advanced endpoints\n- Priority webhooks\n- Slack support\n\nEnterprise (custom):\n- Custom rate limits\n- Guaranteed SLA\n- Dedicated support\n- Architecture reviews\n\nAPI Fees (beyond plan):\nOnly normal fees (0.09%, 0.9%)\nwhen your integrations make transactions.\n\nStarting is always free."
-          },
-          "q3": {
-            "question": "How long does integration take?",
-            "answer": "Depends on complexity:\n\nBasic Integration (1-2 days):\n- Auth (OAuth 2.0)\n- Read balances\n- List transactions\n→ Perfect for simple dashboard\n\nIntermediate Integration (1 week):\n- Create transactions\n- Webhooks for events\n- Basic investments\n→ For financial management apps\n\nAdvanced Integration (2-4 weeks):\n- Custom DeFi strategies\n- Automated trading\n- Multi-user management\n→ For complex platforms\n\nWe have ready SDKs:\n- JavaScript/TypeScript\n- Python\n- Go\n- Ruby\n\n+ Code examples for all cases.\n\nMost integrate basics in 1 day."
           }
         },
         "ctaText": "See All Questions"

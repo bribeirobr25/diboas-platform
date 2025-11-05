@@ -76,7 +76,6 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
           context={{ page: 'cryptocurrency' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.cryptocurrency}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('cryptocurrency')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
           context={{ page: 'cryptocurrency' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.cryptocurrency}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
           context={{ page: 'cryptocurrency' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.cryptocurrency!}
             enableAnalytics={true}
           />

@@ -76,7 +76,6 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
           context={{ page: 'defiStrategies' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.defiStrategies}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('defi-strategies')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
           context={{ page: 'defiStrategies' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.defiStrategies}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
           context={{ page: 'defiStrategies' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.defiStrategies!}
             enableAnalytics={true}
           />

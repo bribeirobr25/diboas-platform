@@ -1,11 +1,14 @@
 /**
  * Hero Section Configuration
- * 
+ *
  * Domain-Driven Design: Hero domain configuration with clear data structures
  * Service Agnostic Abstraction: Decoupled hero content from presentation
  * Configuration Management: Centralized hero content and asset paths
  * No Hardcoded Values: All values configurable through interfaces
+ * DRY Principles: Uses centralized asset helpers for type-safe paths
  */
+
+import { getSocialRealAsset, getMascotAsset, getPhoneActivitiesAsset } from './assets';
 
 export type HeroVariant = 'default' | 'fullBackground';
 
@@ -51,16 +54,18 @@ export interface HeroVariantConfig {
 }
 
 // Configuration Management - Default visual assets
+// No Hardcoded Values: Uses helper functions for type-safe asset paths
 export const DEFAULT_VISUAL_ASSETS: HeroVisualAssets = {
-  backgroundCircle: '/assets/mascots/acqua-basic.avif',
-  phoneImage: '/assets/socials/drawing/phone-activities.avif',
-  mascotImage: '/assets/mascots/mascot-acqua-flying.avif',
+  backgroundCircle: getMascotAsset('ACQUA_BASIC'),
+  phoneImage: getPhoneActivitiesAsset(),
+  mascotImage: getMascotAsset('MASCOT_ACQUA_FLYING'),
 } as const;
 
 // Configuration Management - Default background assets
+// No Hardcoded Values: Uses getSocialRealAsset() helper for type-safe asset paths
 export const DEFAULT_BACKGROUND_ASSETS: HeroBackgroundAssets = {
-  backgroundImage: '/assets/socials/real/life_nature.avif',
-  backgroundImageMobile: '/assets/socials/real/life_nature.avif',
+  backgroundImage: getSocialRealAsset('LIFE_NATURE'),
+  backgroundImageMobile: getSocialRealAsset('LIFE_NATURE'),
   overlayOpacity: 0.3,
 } as const;
 

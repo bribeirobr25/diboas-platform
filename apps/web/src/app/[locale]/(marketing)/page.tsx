@@ -131,7 +131,6 @@ export default async function HomePage({ params }: HomePageProps) {
         >
           <BenefitsCardsSection
             config={DEFAULT_BENEFITS_CARDS_CONFIG}
-            variant="default"
             enableAnalytics={true}
             priority={false}
           />
@@ -145,7 +144,6 @@ export default async function HomePage({ params }: HomePageProps) {
         >
           <BgHighlightSection
             config={DEFAULT_BG_HIGHLIGHT_CONFIG}
-            variant="default"
             enableAnalytics={true}
             priority={false}
           />
@@ -159,7 +157,6 @@ export default async function HomePage({ params }: HomePageProps) {
         >
           <StepGuideSection
             config={DEFAULT_STEP_GUIDE_CONFIG}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

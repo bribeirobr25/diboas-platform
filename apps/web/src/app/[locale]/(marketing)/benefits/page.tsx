@@ -89,7 +89,6 @@ export default async function BenefitsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('benefits')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -102,7 +101,6 @@ export default async function BenefitsPage({ params }: PageProps) {
           context={{ page: 'benefits' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.benefits}
             enableAnalytics={true}
           />
@@ -116,7 +114,6 @@ export default async function BenefitsPage({ params }: PageProps) {
           context={{ page: 'benefits' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.benefits!}
             enableAnalytics={true}
           />

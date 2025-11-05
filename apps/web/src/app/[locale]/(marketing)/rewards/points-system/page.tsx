@@ -76,7 +76,6 @@ export default async function PointsSystemPage({ params }: PageProps) {
           context={{ page: 'rewardsPointsSystem' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.rewardsPointsSystem}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function PointsSystemPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('rewards-points-system')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function PointsSystemPage({ params }: PageProps) {
           context={{ page: 'rewardsPointsSystem' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.rewardsPointsSystem}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function PointsSystemPage({ params }: PageProps) {
           context={{ page: 'rewardsPointsSystem' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.rewardsPointsSystem!}
             enableAnalytics={true}
           />

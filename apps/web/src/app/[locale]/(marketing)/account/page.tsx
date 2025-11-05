@@ -76,7 +76,6 @@ export default async function AccountPage({ params }: PageProps) {
           context={{ page: 'account' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.account}
             enableAnalytics={true}
           />
@@ -92,7 +91,6 @@ export default async function AccountPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('account')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +103,6 @@ export default async function AccountPage({ params }: PageProps) {
           context={{ page: 'account' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.account}
             enableAnalytics={true}
           />
@@ -119,7 +116,6 @@ export default async function AccountPage({ params }: PageProps) {
           context={{ page: 'account' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.account!}
             enableAnalytics={true}
           />

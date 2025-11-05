@@ -76,7 +76,6 @@ export default async function CreditPage({ params }: PageProps) {
           context={{ page: 'credit' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.credit}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function CreditPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('credit')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function CreditPage({ params }: PageProps) {
           context={{ page: 'credit' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.credit}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function CreditPage({ params }: PageProps) {
           context={{ page: 'credit' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.credit!}
             enableAnalytics={true}
           />

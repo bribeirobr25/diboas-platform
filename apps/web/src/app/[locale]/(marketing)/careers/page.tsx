@@ -76,7 +76,6 @@ export default async function CareersPage({ params }: PageProps) {
           context={{ page: 'careers' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.careers}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function CareersPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('careers')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function CareersPage({ params }: PageProps) {
           context={{ page: 'careers' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.careers}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function CareersPage({ params }: PageProps) {
           context={{ page: 'careers' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.careers!}
             enableAnalytics={true}
           />

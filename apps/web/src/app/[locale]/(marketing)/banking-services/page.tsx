@@ -76,7 +76,6 @@ export default async function BankingServicesPage({ params }: PageProps) {
           context={{ page: 'bankingServices' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.bankingServices}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function BankingServicesPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('banking-services')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function BankingServicesPage({ params }: PageProps) {
           context={{ page: 'bankingServices' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.bankingServices}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function BankingServicesPage({ params }: PageProps) {
           context={{ page: 'bankingServices' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.bankingServices!}
             enableAnalytics={true}
           />

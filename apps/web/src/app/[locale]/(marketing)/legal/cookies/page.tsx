@@ -76,7 +76,6 @@ export default async function LegalCookiesPage({ params }: PageProps) {
           context={{ page: 'legalCookies' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.legalCookies}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function LegalCookiesPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('legal-cookies')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function LegalCookiesPage({ params }: PageProps) {
           context={{ page: 'legalCookies' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.legalCookies}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function LegalCookiesPage({ params }: PageProps) {
           context={{ page: 'legalCookies' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.legalCookies!}
             enableAnalytics={true}
           />

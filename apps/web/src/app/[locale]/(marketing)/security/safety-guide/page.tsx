@@ -76,7 +76,6 @@ export default async function SecuritySafetyGuidePage({ params }: PageProps) {
           context={{ page: 'securitySafetyGuide' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.securitySafetyGuide}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function SecuritySafetyGuidePage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('security-safety-guide')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function SecuritySafetyGuidePage({ params }: PageProps) {
           context={{ page: 'securitySafetyGuide' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securitySafetyGuide}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function SecuritySafetyGuidePage({ params }: PageProps) {
           context={{ page: 'securitySafetyGuide' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.securitySafetyGuide!}
             enableAnalytics={true}
           />

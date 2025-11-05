@@ -10,6 +10,7 @@
 
 import { APP_URL } from '@/config/environment';
 import { ROUTES } from './routes';
+import { getSocialRealAsset } from './assets';
 
 export type ProductCarouselVariant = 'default';
 
@@ -70,12 +71,13 @@ export const DEFAULT_PRODUCT_CAROUSEL_SETTINGS: ProductCarouselSettings = {
 // Default carousel slides (matches documentation specifications)
 // Note: Titles and subtitles are translation keys that will be resolved at runtime
 // DRY Principles: All links use centralized ROUTES configuration
+// No Hardcoded Values: Uses getSocialRealAsset() helper for type-safe asset paths
 export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
   {
     id: 'benefits',
     title: 'marketing.productCarousel.slides.benefits.title',
     subtitle: 'marketing.productCarousel.slides.benefits.subtitle',
-    image: '/assets/socials/real/life_couple.avif',
+    image: getSocialRealAsset('INVESTMENT_MAN_TATTOO'),
     imageAlt: 'Couple',
     ctaText: 'common.buttons.getStarted',
     ctaHref: APP_URL
@@ -84,7 +86,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     id: 'rewards',
     title: 'marketing.productCarousel.slides.rewards.title',
     subtitle: 'marketing.productCarousel.slides.rewards.subtitle',
-    image: '/assets/socials/real/life_group.avif',
+    image: getSocialRealAsset('LOGIN_WOMAN'),
     imageAlt: 'friends',
     ctaText: 'common.buttons.learnMore',
     ctaHref: ROUTES.INVESTING
@@ -93,7 +95,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     id: 'business',
     title: 'marketing.productCarousel.slides.business.title',
     subtitle: 'marketing.productCarousel.slides.business.subtitle',
-    image: '/assets/socials/real/share.avif',
+    image: getSocialRealAsset('BUSINESS_PAYMENT_CARD'),
     imageAlt: 'Business group',
     ctaText: 'common.buttons.learnMore',
     ctaHref: ROUTES.BUSINESS.BENEFITS

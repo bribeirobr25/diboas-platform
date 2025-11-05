@@ -9,6 +9,7 @@
  */
 
 import { ROUTES } from './routes';
+import { getSocialRealAsset } from './assets';
 
 export type AppFeaturesCarouselVariant = 'default';
 
@@ -67,6 +68,7 @@ export const DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS: AppFeaturesCarouselSettings
 // Default app features carousel cards
 // Note: Titles, descriptions, CTA text, and chip labels are translation keys that will be resolved at runtime
 // DRY Principles: All links use centralized ROUTES configuration
+// No Hardcoded Values: Uses getSocialRealAsset() helper for type-safe asset paths
 export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'organize-money',
@@ -79,7 +81,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.organizeMoney.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/life_vision.avif'
+      image: getSocialRealAsset('LIFE_VISION')
     },
     seo: {
       imageAlt: 'Person in peaceful meditation pose representing organized financial life'
@@ -96,7 +98,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.instantPayments.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/life_chill_man.avif'
+      image: getSocialRealAsset('LIFE_CHILL_MAN')
     },
     seo: {
       imageAlt: 'Person relaxing while using mobile payment features'
@@ -113,7 +115,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.securePurchases.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/life_walking.avif'
+      image: getSocialRealAsset('LIFE_WALKING')
     },
     seo: {
       imageAlt: 'Person confidently making secure purchases with mobile banking'
@@ -130,7 +132,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       chipLabel: 'marketing.appFeatures.financialGoals.chipLabel'
     },
     assets: {
-      image: '/assets/socials/real/life_travel.avif'
+      image: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN')
     },
     seo: {
       imageAlt: 'Person planning and achieving travel dreams with financial planning tools'

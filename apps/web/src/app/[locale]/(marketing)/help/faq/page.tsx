@@ -76,7 +76,6 @@ export default async function HelpFaqPage({ params }: PageProps) {
           context={{ page: 'helpFaq' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.helpFaq}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function HelpFaqPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('help-faq')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function HelpFaqPage({ params }: PageProps) {
           context={{ page: 'helpFaq' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.helpFaq}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function HelpFaqPage({ params }: PageProps) {
           context={{ page: 'helpFaq' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.helpFaq!}
             enableAnalytics={true}
           />

@@ -1,15 +1,6 @@
 {
   "navigation": {
-    "home": "Startseite",
-    "features": "Funktionen",
-    "pricing": "Preise",
     "about": "Über uns",
-    "contact": "Kontakt",
-    "login": "Anmelden",
-    "signup": "Loslegen",
-    "dashboard": "Dashboard",
-    "settings": "Einstellungen",
-    "help": "Hilfe",
     "quickActions": "Schnellaktionen",
     "back": "Zurück",
     "diboas": {
@@ -103,29 +94,9 @@
   },
   "buttons": {
     "getStarted": "Loslegen",
-    "learnMore": "Mehr Erfahren",
-    "signUp": "Registrieren",
-    "signIn": "Anmelden",
-    "signOut": "Abmelden",
-    "save": "Speichern",
-    "cancel": "Abbrechen",
-    "delete": "Löschen",
-    "edit": "Bearbeiten",
-    "submit": "Absenden",
-    "loading": "Laden...",
-    "tryAgain": "Erneut Versuchen"
+    "learnMore": "Mehr Erfahren"
   },
-  "common": {
-    "and": "und",
-    "or": "oder",
-    "yes": "Ja",
-    "no": "Nein",
-    "ok": "OK",
-    "error": "Fehler",
-    "success": "Erfolg",
-    "warning": "Warnung",
-    "info": "Information"
-  },
+  "common": {},
   "forms": {
     "required": "Dieses Feld ist erforderlich",
     "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
@@ -150,19 +121,6 @@
       "es": "Español",
       "de": "Deutsch"
     }
-  },
-  "seo": {
-    "defaultTitle": "diBoaS - Finanzielle Freiheit Leicht Gemacht",
-    "defaultDescription": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets auf einer sicheren Plattform. Die Zukunft der Finanzen ist hier.",
-    "keywords": [
-      "digitales Banking",
-      "Kryptowährungsinvestition",
-      "DeFi-Plattform",
-      "finanzielle Freiheit",
-      "sicheres Banking",
-      "Krypto-Handel",
-      "Investitionsplattform"
-    ]
   },
   "errors": {
     "notFound": {

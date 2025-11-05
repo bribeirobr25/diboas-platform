@@ -9,6 +9,7 @@
  */
 
 import { ROUTES } from './routes';
+import { getSocialRealAsset } from './assets';
 
 export type StickyFeaturesNavVariant = 'default';
 
@@ -63,6 +64,7 @@ export const DEFAULT_STICKY_FEATURES_NAV_SETTINGS: StickyFeaturesNavSettings = {
 
 // Default feature categories - Note: All text content uses translation keys
 // DRY Principles: All links use centralized ROUTES configuration
+// No Hardcoded Values: Uses getSocialRealAsset() helper for type-safe asset paths
 export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
   {
     id: 'banking',
@@ -70,7 +72,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'banking-realtime-borderless',
-        image: '/assets/socials/real/life_family_bike.avif',
+        image: getSocialRealAsset('ACCOUNT_BALANCE'),
         imageAlt: 'Family enjoying a trip together representing real-time borderless banking',
         heading: 'marketing.stickyFeaturesNav.banking.heading',
         description: 'marketing.stickyFeaturesNav.banking.description',
@@ -86,7 +88,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'investing-prepare-future',
-        image: '/assets/socials/real/life_music.avif',
+        image: getSocialRealAsset('LIFE_COLORFUL'),
         imageAlt: 'Person enjoying music while planning their financial future',
         heading: 'marketing.stickyFeaturesNav.investing.heading',
         description: 'marketing.stickyFeaturesNav.investing.description',
@@ -102,7 +104,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'strategies-relax-grow',
-        image: '/assets/socials/real/life_nature.avif',
+        image: getSocialRealAsset('LIFE_HIGHFIVE'),
         imageAlt: 'Person relaxing in nature while their investments grow',
         heading: 'marketing.stickyFeaturesNav.strategies.heading',
         description: 'marketing.stickyFeaturesNav.strategies.description',
@@ -118,7 +120,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
     items: [
       {
         id: 'business-day-to-day',
-        image: '/assets/socials/real/business_payment.avif',
+        image: getSocialRealAsset('BUSINESS_PAYMENT'),
         imageAlt: 'Business professional managing day-to-day financial tasks',
         heading: 'marketing.stickyFeaturesNav.business.heading',
         description: 'marketing.stickyFeaturesNav.business.description',

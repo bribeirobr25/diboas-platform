@@ -76,7 +76,6 @@ export default async function RewardsReferralProgramPage({ params }: PageProps) 
           context={{ page: 'rewardsReferralProgram' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.rewardsReferralProgram}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function RewardsReferralProgramPage({ params }: PageProps) 
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('rewards-referral-program')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function RewardsReferralProgramPage({ params }: PageProps) 
           context={{ page: 'rewardsReferralProgram' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.rewardsReferralProgram}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function RewardsReferralProgramPage({ params }: PageProps) 
           context={{ page: 'rewardsReferralProgram' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.rewardsReferralProgram!}
             enableAnalytics={true}
           />
