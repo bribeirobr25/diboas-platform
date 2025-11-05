@@ -112,12 +112,12 @@ function createPageConfig(pageKey: string, questionCount: number = 4): FAQAccord
  */
 export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordionVariantConfig> = {
   // Main Menu
-  benefits: createPageConfig('benefits', 4),
-  account: createPageConfig('account', 4),
+  benefits: createPageConfig('benefits', 3),
+  account: createPageConfig('account', 3),
   bankingServices: createPageConfig('bankingServices', 3),
-  investing: createPageConfig('investing', 4),
-  cryptocurrency: createPageConfig('cryptocurrency', 4),
-  defiStrategies: createPageConfig('defiStrategies', 4),
+  investing: createPageConfig('investing', 3),
+  cryptocurrency: createPageConfig('cryptocurrency', 3),
+  defiStrategies: createPageConfig('defiStrategies', 3),
   credit: createPageConfig('credit', 3),
 
   // The Learn Center
@@ -153,7 +153,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordio
   securitySafetyGuide: createPageConfig('securitySafetyGuide', 3),
 
   // More About diBoaS
-  helpFaq: createPageConfig('helpFaq', 4),
+  helpFaq: createPageConfig('helpFaq', 120),
   about: createPageConfig('about', 3),
   careers: createPageConfig('careers', 3),
   investors: createPageConfig('investors', 3),
