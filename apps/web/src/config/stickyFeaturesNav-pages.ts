@@ -13,32 +13,33 @@
 import type { FeatureItem, StickyFeaturesNavVariantConfig } from './stickyFeaturesNav';
 import { DEFAULT_STICKY_FEATURES_NAV_SETTINGS } from './stickyFeaturesNav';
 import { ROUTES } from './routes';
+import { getSocialRealAsset } from './assets';
 
 /**
  * Landscape images pool for card backgrounds
  * Assigned sequentially to provide visual variety
  */
 const LANDSCAPE_IMAGES = [
-  '/assets/socials/real/rewards_group.avif',
-  '/assets/socials/real/business_payment.avif',
-  '/assets/socials/real/investor_market.avif',
-  '/assets/socials/real/learn_guides.avif',
-  '/assets/socials/real/life_group_office.avif',
-  '/assets/socials/real/refer_friend.avif',
-  '/assets/socials/real/life_family_bike.avif',
-  '/assets/socials/real/business_charts.avif',
-  '/assets/socials/real/account_balance.avif',
-  '/assets/socials/real/crypto.avif',
-  '/assets/socials/real/defi.avif',
-  '/assets/socials/real/business_account.avif',
-  '/assets/socials/real/coffee_shop.avif',
-  '/assets/socials/real/rewards_happy.avif',
-  '/assets/socials/real/business_cashflow.avif',
-  '/assets/socials/real/life_travel.avif',
-  '/assets/socials/real/life_group_mystic.avif',
-  '/assets/socials/real/security_modern.avif',
-  '/assets/socials/real/ai_guides.avif',
-  '/assets/socials/real/learn_masterclass.avif'
+  getSocialRealAsset('REWARDS_GROUP'),
+  getSocialRealAsset('BUSINESS_PAYMENT'),
+  getSocialRealAsset('INVESTOR_MARKET'),
+  getSocialRealAsset('LEARN_GUIDES'),
+  getSocialRealAsset('LIFE_GROUP_OFFICE'),
+  getSocialRealAsset('REFER_FRIEND'),
+  getSocialRealAsset('LIFE_FAMILY_BIKE'),
+  getSocialRealAsset('BUSINESS_CHARTS'),
+  getSocialRealAsset('ACCOUNT_BALANCE'),
+  getSocialRealAsset('CRYPTO'),
+  getSocialRealAsset('DEFI'),
+  getSocialRealAsset('BUSINESS_ACCOUNT'),
+  getSocialRealAsset('COFFEE_SHOP'),
+  getSocialRealAsset('REWARDS_HAPPY'),
+  getSocialRealAsset('BUSINESS_CASHFLOW'),
+  getSocialRealAsset('LIFE_TRAVEL'),
+  getSocialRealAsset('LIFE_GROUP_MYSTIC'),
+  getSocialRealAsset('SECURITY_MODERN'),
+  getSocialRealAsset('AI_GUIDES'),
+  getSocialRealAsset('LEARN_MASTERCLASS')
 ] as const;
 
 /**

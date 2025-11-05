@@ -9,10 +9,12 @@
 
 import type { FeatureShowcaseSlide, FeatureShowcaseVariantConfig } from './featureShowcase';
 import { ROUTES } from './routes';
+import { getSocialRealAsset } from './assets';
 
 // Benefits-specific showcase slides
 // Note: Titles, descriptions, and CTA text are translation keys that will be resolved at runtime
 // DRY Principles: All links use centralized ROUTES configuration
+// No Hardcoded Values: Uses getSocialRealAsset() helper for type-safe asset paths
 export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'exclusive-rewards',
@@ -24,7 +26,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/rewards-icon.avif'
+      primaryImage: getSocialRealAsset('REWARDS_ICON')
     },
     seo: {
       imageAlt: 'Visual representation of rewards and benefits'
@@ -40,7 +42,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/life_couple.avif'
+      primaryImage: getSocialRealAsset('LIFE_COUPLE')
     },
     seo: {
       imageAlt: 'Couple enjoying financial freedom'
@@ -56,7 +58,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/investing_woman.avif'
+      primaryImage: getSocialRealAsset('INVESTING_WOMAN')
     },
     seo: {
       imageAlt: 'Investment growth visualization'
@@ -72,7 +74,7 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
       ctaTarget: '_self'
     },
     assets: {
-      primaryImage: '/assets/socials/real/security_modern.avif'
+      primaryImage: getSocialRealAsset('SECURITY_MODERN')
     },
     seo: {
       imageAlt: 'Security shield illustration'

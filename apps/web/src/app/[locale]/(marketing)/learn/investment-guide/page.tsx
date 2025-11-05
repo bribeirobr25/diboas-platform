@@ -76,7 +76,6 @@ export default async function InvestmentGuidePage({ params }: PageProps) {
           context={{ page: 'learnInvestmentGuide' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnInvestmentGuide}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function InvestmentGuidePage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('learn-investment-guide')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function InvestmentGuidePage({ params }: PageProps) {
           context={{ page: 'learnInvestmentGuide' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnInvestmentGuide}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function InvestmentGuidePage({ params }: PageProps) {
           context={{ page: 'learnInvestmentGuide' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.learnInvestmentGuide!}
             enableAnalytics={true}
           />

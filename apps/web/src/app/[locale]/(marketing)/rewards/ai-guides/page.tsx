@@ -76,7 +76,6 @@ export default async function RewardsAiGuidesPage({ params }: PageProps) {
           context={{ page: 'rewardsAiGuides' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.rewardsAiGuides}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function RewardsAiGuidesPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('rewards-ai-guides')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function RewardsAiGuidesPage({ params }: PageProps) {
           context={{ page: 'rewardsAiGuides' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.rewardsAiGuides}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function RewardsAiGuidesPage({ params }: PageProps) {
           context={{ page: 'rewardsAiGuides' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.rewardsAiGuides!}
             enableAnalytics={true}
           />

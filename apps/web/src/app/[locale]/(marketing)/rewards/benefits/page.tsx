@@ -76,7 +76,6 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
           context={{ page: 'rewardsBenefits' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.rewardsBenefits}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('rewards-benefits')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
           context={{ page: 'rewardsBenefits' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.rewardsBenefits}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
           context={{ page: 'rewardsBenefits' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.rewardsBenefits!}
             enableAnalytics={true}
           />

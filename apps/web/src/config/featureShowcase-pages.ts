@@ -13,6 +13,7 @@
 import type { FeatureShowcaseSlide, FeatureShowcaseVariantConfig } from './featureShowcase';
 import { DEFAULT_FEATURE_SHOWCASE_SETTINGS } from './featureShowcase';
 import { ROUTES } from './routes';
+import { getSocialRealAsset } from './assets';
 
 /**
  * Themed image pools for semantic matching (1:1 and 2:3 images)
@@ -20,79 +21,79 @@ import { ROUTES } from './routes';
  */
 const IMAGE_THEMES = {
   account: [
-    '/assets/socials/real/account_woman.avif',
-    '/assets/socials/real/account_man.avif',
-    '/assets/socials/real/business_balance.avif'
+    getSocialRealAsset('ACCOUNT_WOMAN'),
+    getSocialRealAsset('ACCOUNT_MAN'),
+    getSocialRealAsset('BUSINESS_BALANCE')
   ],
   banking: [
-    '/assets/socials/real/business_sending.avif',
-    '/assets/socials/real/business_payment_card.avif',
-    '/assets/socials/real/transfer.avif'
+    getSocialRealAsset('BUSINESS_SENDING'),
+    getSocialRealAsset('BUSINESS_PAYMENT_CARD'),
+    getSocialRealAsset('TRANSFER')
   ],
   investing: [
-    '/assets/socials/real/investing_woman.avif',
-    '/assets/socials/real/investing_man.avif',
-    '/assets/socials/real/investment_man_tattoo.avif'
+    getSocialRealAsset('INVESTING_WOMAN'),
+    getSocialRealAsset('INVESTING_MAN'),
+    getSocialRealAsset('INVESTMENT_MAN_TATTOO')
   ],
   crypto: [
-    '/assets/socials/real/business_strategy.avif',
-    '/assets/socials/real/strategy.avif',
-    '/assets/socials/real/strategy_man_office.avif'
+    getSocialRealAsset('BUSINESS_STRATEGY'),
+    getSocialRealAsset('STRATEGY'),
+    getSocialRealAsset('STRATEGY_MAN_OFFICE')
   ],
   business: [
-    '/assets/socials/real/business_account_man.avif',
-    '/assets/socials/real/business_account_woman.avif',
-    '/assets/socials/real/business_investing.avif'
+    getSocialRealAsset('BUSINESS_ACCOUNT_MAN'),
+    getSocialRealAsset('BUSINESS_ACCOUNT_WOMAN'),
+    getSocialRealAsset('BUSINESS_INVESTING')
   ],
   businessAccount: [
-    '/assets/socials/real/business_aqua.avif',
-    '/assets/socials/real/business_account_man.avif',
-    '/assets/socials/real/business_balance.avif'
+    getSocialRealAsset('BUSINESS_AQUA'),
+    getSocialRealAsset('BUSINESS_ACCOUNT_MAN'),
+    getSocialRealAsset('BUSINESS_BALANCE')
   ],
   businessPayments: [
-    '/assets/socials/real/business_p2p.avif',
-    '/assets/socials/real/business_sending.avif',
-    '/assets/socials/real/business_payment_card.avif'
+    getSocialRealAsset('BUSINESS_P2P'),
+    getSocialRealAsset('BUSINESS_SENDING'),
+    getSocialRealAsset('BUSINESS_PAYMENT_CARD')
   ],
   learn: [
-    '/assets/socials/real/learn_man.avif',
-    '/assets/socials/real/learn_woman2.avif',
-    '/assets/socials/real/learn_woman3.avif'
+    getSocialRealAsset('LEARN_MAN'),
+    getSocialRealAsset('LEARN_WOMAN2'),
+    getSocialRealAsset('LEARN_WOMAN3')
   ],
   learnAlt: [
-    '/assets/socials/real/learn_man2.avif',
-    '/assets/socials/real/learn_man3.avif',
-    '/assets/socials/real/learn_man.avif'
+    getSocialRealAsset('LEARN_MAN2'),
+    getSocialRealAsset('LEARN_MAN3'),
+    getSocialRealAsset('LEARN_MAN')
   ],
   rewards: [
-    '/assets/socials/real/rewards_woman.avif',
-    '/assets/socials/real/rewards_man.avif',
-    '/assets/socials/real/refferral.avif'
+    getSocialRealAsset('REWARDS_WOMAN'),
+    getSocialRealAsset('REWARDS_MAN'),
+    getSocialRealAsset('REFFERRAL')
   ],
   lifestyle: [
-    '/assets/socials/real/life_happy_jumping.avif',
-    '/assets/socials/real/life_fun.avif',
-    '/assets/socials/real/life_sharing.avif'
+    getSocialRealAsset('LIFE_HAPPY_JUMPING'),
+    getSocialRealAsset('LIFE_FUN'),
+    getSocialRealAsset('LIFE_SHARING')
   ],
   family: [
-    '/assets/socials/real/life_family_home.avif',
-    '/assets/socials/real/life_family_picnic.avif',
-    '/assets/socials/real/life_couple.avif'
+    getSocialRealAsset('LIFE_FAMILY_HOME'),
+    getSocialRealAsset('LIFE_FAMILY_PICNIC'),
+    getSocialRealAsset('LIFE_COUPLE')
   ],
   travel: [
-    '/assets/socials/real/life_travel_woman.avif',
-    '/assets/socials/real/life_travel_beach.avif',
-    '/assets/socials/real/life_travel_brazil.avif'
+    getSocialRealAsset('LIFE_TRAVEL_WOMAN'),
+    getSocialRealAsset('LIFE_TRAVEL_BEACH'),
+    getSocialRealAsset('LIFE_TRAVEL_BRAZIL')
   ],
   investors: [
-    '/assets/socials/real/investors_man.avif',
-    '/assets/socials/real/investor_woman.avif',
-    '/assets/socials/real/investors_woman2.avif'
+    getSocialRealAsset('INVESTORS_MAN'),
+    getSocialRealAsset('INVESTOR_WOMAN'),
+    getSocialRealAsset('INVESTORS_WOMAN2')
   ],
   community: [
-    '/assets/socials/real/life_group.avif',
-    '/assets/socials/real/life_join.avif',
-    '/assets/socials/real/life_walking.avif'
+    getSocialRealAsset('LIFE_GROUP'),
+    getSocialRealAsset('LIFE_JOIN'),
+    getSocialRealAsset('LIFE_WALKING')
   ]
 } as const;
 

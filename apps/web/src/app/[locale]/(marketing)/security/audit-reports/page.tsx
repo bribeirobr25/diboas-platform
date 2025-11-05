@@ -76,7 +76,6 @@ export default async function SecurityAuditReportsPage({ params }: PageProps) {
           context={{ page: 'securityAuditReports' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.securityAuditReports}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function SecurityAuditReportsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('security-audit-reports')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function SecurityAuditReportsPage({ params }: PageProps) {
           context={{ page: 'securityAuditReports' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securityAuditReports}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function SecurityAuditReportsPage({ params }: PageProps) {
           context={{ page: 'securityAuditReports' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.securityAuditReports!}
             enableAnalytics={true}
           />

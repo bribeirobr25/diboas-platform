@@ -76,7 +76,6 @@ export default async function InvestorsPage({ params }: PageProps) {
           context={{ page: 'investors' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.investors}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function InvestorsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('investors')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function InvestorsPage({ params }: PageProps) {
           context={{ page: 'investors' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.investors}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function InvestorsPage({ params }: PageProps) {
           context={{ page: 'investors' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.investors!}
             enableAnalytics={true}
           />

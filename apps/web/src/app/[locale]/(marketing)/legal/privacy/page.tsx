@@ -76,7 +76,6 @@ export default async function LegalPrivacyPage({ params }: PageProps) {
           context={{ page: 'legalPrivacy' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.legalPrivacy}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function LegalPrivacyPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('legal-privacy')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function LegalPrivacyPage({ params }: PageProps) {
           context={{ page: 'legalPrivacy' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.legalPrivacy}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function LegalPrivacyPage({ params }: PageProps) {
           context={{ page: 'legalPrivacy' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.legalPrivacy!}
             enableAnalytics={true}
           />

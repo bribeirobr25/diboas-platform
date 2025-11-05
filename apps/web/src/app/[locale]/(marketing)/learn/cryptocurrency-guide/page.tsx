@@ -76,7 +76,6 @@ export default async function CryptocurrencyGuidePage({ params }: PageProps) {
           context={{ page: 'learnCryptocurrencyGuide' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnCryptocurrencyGuide}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function CryptocurrencyGuidePage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('learn-cryptocurrency-guide')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function CryptocurrencyGuidePage({ params }: PageProps) {
           context={{ page: 'learnCryptocurrencyGuide' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnCryptocurrencyGuide}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function CryptocurrencyGuidePage({ params }: PageProps) {
           context={{ page: 'learnCryptocurrencyGuide' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.learnCryptocurrencyGuide!}
             enableAnalytics={true}
           />

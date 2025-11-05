@@ -76,7 +76,6 @@ export default async function FinancialBasicsPage({ params }: PageProps) {
           context={{ page: 'learnFinancialBasics' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnFinancialBasics}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function FinancialBasicsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('learn-financial-basics')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function FinancialBasicsPage({ params }: PageProps) {
           context={{ page: 'learnFinancialBasics' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnFinancialBasics}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function FinancialBasicsPage({ params }: PageProps) {
           context={{ page: 'learnFinancialBasics' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.learnFinancialBasics!}
             enableAnalytics={true}
           />

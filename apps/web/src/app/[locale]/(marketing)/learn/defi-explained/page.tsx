@@ -76,7 +76,6 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
           context={{ page: 'learnDefiExplained' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnDefiExplained}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('learn-defi-explained')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
           context={{ page: 'learnDefiExplained' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnDefiExplained}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
           context={{ page: 'learnDefiExplained' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.learnDefiExplained!}
             enableAnalytics={true}
           />

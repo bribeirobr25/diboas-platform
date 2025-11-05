@@ -76,7 +76,6 @@ export default async function LegalTermsPage({ params }: PageProps) {
           context={{ page: 'legalTerms' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.legalTerms}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function LegalTermsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('legal-terms')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function LegalTermsPage({ params }: PageProps) {
           context={{ page: 'legalTerms' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.legalTerms}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function LegalTermsPage({ params }: PageProps) {
           context={{ page: 'legalTerms' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.legalTerms!}
             enableAnalytics={true}
           />

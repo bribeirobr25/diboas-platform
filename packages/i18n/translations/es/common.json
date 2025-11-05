@@ -1,15 +1,6 @@
 {
   "navigation": {
-    "home": "Inicio",
-    "features": "Características",
-    "pricing": "Precios",
     "about": "Acerca de",
-    "contact": "Contacto",
-    "login": "Iniciar Sesión",
-    "signup": "Comenzar",
-    "dashboard": "Panel",
-    "settings": "Configuración",
-    "help": "Ayuda",
     "quickActions": "Acciones Rápidas",
     "back": "Atrás",
     "diboas": {
@@ -103,29 +94,9 @@
   },
   "buttons": {
     "getStarted": "Comenzar",
-    "learnMore": "Saber Más",
-    "signUp": "Registrarse",
-    "signIn": "Iniciar Sesión",
-    "signOut": "Cerrar Sesión",
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "delete": "Eliminar",
-    "edit": "Editar",
-    "submit": "Enviar",
-    "loading": "Cargando...",
-    "tryAgain": "Intentar de Nuevo"
+    "learnMore": "Saber Más"
   },
-  "common": {
-    "and": "y",
-    "or": "o",
-    "yes": "Sí",
-    "no": "No",
-    "ok": "OK",
-    "error": "Error",
-    "success": "Éxito",
-    "warning": "Advertencia",
-    "info": "Información"
-  },
+  "common": {},
   "forms": {
     "required": "Este campo es obligatorio",
     "email": "Por favor, introduce una dirección de correo electrónico válida",
@@ -150,19 +121,6 @@
       "es": "Español",
       "de": "Deutsch"
     }
-  },
-  "seo": {
-    "defaultTitle": "diBoaS - Libertad Financiera Simplificada",
-    "defaultDescription": "Gestiona tus activos bancarios, inversiones y DeFi en una sola plataforma segura. El futuro de las finanzas está aquí.",
-    "keywords": [
-      "banca digital",
-      "inversión en criptomonedas",
-      "plataforma DeFi",
-      "libertad financiera",
-      "banca segura",
-      "comercio de criptomonedas",
-      "plataforma de inversión"
-    ]
   },
   "errors": {
     "notFound": {

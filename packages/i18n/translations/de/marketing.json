@@ -1,136 +1,18 @@
 {
-  "hero": {
-    "title": "Finanzielle Freiheit Leicht Gemacht",
-    "subtitle": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets an einem Ort. Die Zukunft der Finanzen ist hier, angetrieben von KI-basierten Einblicken.",
-    "cta": {
-      "primary": "Kostenlos Starten",
-      "secondary": "Mehr Erfahren"
-    },
-    "trustIndicators": {
-      "users": "Vertraut von über 50.000 Benutzern weltweit",
-      "rating": "4,9/5 Bewertung",
-      "security": "Sicherheit auf Bankniveau"
-    }
-  },
-  "domains": {
-    "banking": {
-      "name": "Banking",
-      "tagline": "Intelligente Banking-Lösungen",
-      "description": "Erleben Sie Banking der nächsten Generation mit null Gebühren, Sofortüberweisungen und KI-gesteuerter Budgetierung.",
-      "features": [
-        "Gebührenfreie Überweisungen",
-        "Intelligente Budgetierung",
-        "Sofortzahlungen",
-        "Multi-Währungsunterstützung"
-      ],
-      "cta": "Banking Starten"
-    },
-    "investing": {
-      "name": "Investieren",
-      "tagline": "Mit Vertrauen Investieren",
-      "description": "Zugriff auf eine breite Palette von Kryptowährungen und traditionellen Vermögenswerten mit KI-gestütztem Portfolio-Management.",
-      "features": [
-        "KI-Portfolio-Optimierung",
-        "Krypto-Handel mit niedrigen Gebühren",
-        "Echtzeit-Analysen",
-        "Risikobewertung"
-      ],
-      "cta": "Investieren Starten"
-    },
-    "defi": {
-      "name": "DeFi",
-      "tagline": "Dezentralisierte Finanzen",
-      "description": "Verdienen Sie Zinsen und greifen Sie direkt über unsere Plattform auf DeFi-Dienste zu mit maximaler Sicherheit.",
-      "features": [
-        "Yield Farming",
-        "Liquiditätspools",
-        "Staking-Belohnungen",
-        "DeFi-Integrationen"
-      ],
-      "cta": "DeFi Erkunden"
-    }
-  },
-  "mascots": {
-    "acqua": {
-      "name": "Acqua",
-      "role": "Banking-Guide",
-      "description": "Ihr freundlicher Banking-Assistent, der Ihnen hilft, Ihre täglichen Finanzen mit Leichtigkeit zu verwalten."
-    },
-    "mystic": {
-      "name": "Mystic",
-      "role": "Anlageberater",
-      "description": "Ihr weiser Anlageführer, der KI-gestützte Einblicke für intelligente finanzielle Entscheidungen bietet."
-    },
-    "coral": {
-      "name": "Coral",
-      "role": "DeFi-Experte",
-      "description": "Ihr DeFi-Spezialist, der die Welt der dezentralisierten Finanzen sicher navigiert."
-    }
-  },
-  "trust": {
-    "title": "Ihre Sicherheit ist Unsere Priorität",
-    "subtitle": "Gebaut mit Sicherheit auf Unternehmensniveau und Zero-Trust-Architektur zum Schutz Ihrer finanziellen Zukunft.",
-    "features": [
-      {
-        "title": "Sicherheit auf Bankniveau",
-        "description": "Ihre Gelder sind durch die gleichen Sicherheitsstandards geschützt, die von traditionellen Banken verwendet werden."
-      },
-      {
-        "title": "Regulatorische Konformität",
-        "description": "Vollständig konform mit Finanzvorschriften und Datenschutzstandards."
-      },
-      {
-        "title": "Zero-Trust-Architektur",
-        "description": "Erweiterte Sicherheitsprotokolle, die jede Transaktion und Benutzeraktion verifizieren."
-      },
-      {
-        "title": "24/7-Überwachung",
-        "description": "Kontinuierliche Überwachung und Betrugserkennung, um Ihre Vermögenswerte sicher zu halten."
-      }
-    ],
-    "stats": [
-      {
-        "number": "99,9%",
-        "label": "Verfügbarkeitsgarantie"
-      },
-      {
-        "number": "+500M $",
-        "label": "Gesicherte Vermögenswerte"
-      },
-      {
-        "number": "+50K",
-        "label": "Vertrauenswürdige Benutzer"
-      },
-      {
-        "number": "256-Bit",
-        "label": "Verschlüsselungsstandard"
-      }
-    ],
-    "certifications": {
-      "title": "Zertifiziert und Konform",
-      "description": "Wir halten die höchsten Standards für Sicherheit und Compliance ein",
-      "badges": [
-        "SOC 2-konform",
-        "ISO 27001",
-        "DSGVO-konform",
-        "PCI DSS Level 1"
-      ]
-    }
-  },
   "productCarousel": {
     "heading": "Eine App für alles",
     "slides": {
       "benefits": {
         "title": "Ohne Umstände",
-        "subtitle": "Echtzeit-Überweisungen, keine Limits, überall auf der Welt.\nEinfach. Schnell. Sicher.\nEröffne dein Konto."
+        "subtitle": "Echtzeit-Überweisungen, keine Limits, überall auf der Welt.\nEinfach. Schnell. Sicher."
       },
       "rewards": {
         "title": "Dein Geld Arbeitet für Dich",
-        "subtitle": "Aktien, Anleihen, deine erste Krypto.\nDeine erste Investition.\nDein erster Schritt zum Wachstum.\nStarte mit nur 10 €."
+        "subtitle": "Aktien, Anleihen, deine erste Krypto.\nDeine erste Investition.\nDein erster Schritt zum Wachstum."
       },
       "business": {
         "title": "Auch für Dein Unternehmen",
-        "subtitle": "Cashflow liegt brach? Lass es arbeiten.\nNull Bürokratie, automatische Rendite.\ndiBoaS Business."
+        "subtitle": "Cashflow liegt brach? Lass es arbeiten.\nNull Bürokratie, automatische Rendite."
       }
     }
   },
@@ -222,24 +104,8 @@
       "title": "diBoaS - Komplettes Finanz-Ökosystem",
       "description": "Verwalten Sie Ihre Bank-, Investitions- und DeFi-Assets auf einer sicheren Plattform.",
       "hero": {
-        "title": "Mehr als 5,4 Milliarden Menschen verdienen sicheren, einfachen Zugang zu finanziellem Wachstum.\n\nDu bist eine davon.",
+        "title": "Mehr als 5,4 Milliarden Menschen verdienen sicheren, einfachen Zugang zu finanziellem Wachstum.\n\ndiBoaS macht dies möglich",
         "description": ""
-      }
-    },
-    "banking": {
-      "title": "Banking-Dienstleistungen | diBoaS",
-      "description": "Moderne Banking-Lösungen mit null Gebühren, Sofortüberweisungen und intelligenten Budgetierungsfunktionen.",
-      "hero": {
-        "title": "Banking Leicht Gemacht",
-        "subtitle": "Erleben Sie Banking der nächsten Generation mit null Gebühren und allem sofort."
-      }
-    },
-    "defi": {
-      "title": "DeFi-Strategien | diBoaS",
-      "description": "Zugriff auf dezentralisierte Finanzprotokolle mit maximaler Sicherheit und optimalen Erträgen.",
-      "hero": {
-        "title": "DeFi Sicher Gemacht",
-        "subtitle": "Erkunden Sie dezentralisierte Finanzen mit Sicherheit auf Unternehmensniveau."
       }
     },
     "benefits": {
@@ -3754,108 +3620,6 @@
           "q3": {
             "question": "Wie ist der Einstellungsprozess?",
             "answer": "Transparent und respektvoll deiner Zeit.\n\nPhase 1: Bewerbung (du)\n- CV + Brief, der erklärt WARUM diBoaS\n- Wir wollen keine Vorlage, wir wollen Wahrheit\n- Antwort in 3 Werktagen\n\nPhase 2: Cultural Fit (30 Min)\n- Informelles Gespräch mit Talent\n- Motivationen und Werte verstehen\n- Zweifel über Unternehmen klären\n\nPhase 3: Technical Assessment (du)\n- Take-Home-Challenge (4-6 Stunden)\n- Echtes Problem, dem wir begegnen\n- Du wählst wann du es machst\n\nPhase 4: Technical Deep Dive (60 Min)\n- Deine Lösung reviewen\n- Pair Programming\n- Trade-Offs diskutieren\n\nPhase 5: Founder-Chat (30 Min)\n- Unternehmensvision kennenlernen\n- Erwartungen abstimmen\n- Finale Entscheidung\n\nGesamt: ~2 Wochen von Bewerbung bis Angebot.\n\nAbgelehnt? Immer detailliertes Feedback."
-          }
-        },
-        "ctaText": "Alle Fragen ansehen"
-      }
-    },
-    "docs": {
-      "title": "Dokumentation | diBoaS",
-      "description": "Vollständige technische Dokumentation.",
-      "hero": {
-        "title": "Vollständige technische Dokumentation. Für Entwickler, von Entwicklern. Integriere dich ins OneFi Ökosystem.",
-        "description": "",
-        "cta": "Jetzt starten"
-      },
-      "benefitsCards": {
-        "title": "Komplette technische Dokumentation",
-        "description": "Für Entwickler, von Entwicklern.",
-        "cards": {
-          "completeRESTfulAPIs": {
-            "iconAlt": "API icon",
-            "title": "Vollständige RESTful-APIs",
-            "description": "Endpoints für alle Funktionalitäten.\nKlare Dokumentation mit Beispielen.\nSDKs in mehreren Sprachen."
-          },
-          "webhooksAndEvents": {
-            "iconAlt": "Webhook icon",
-            "title": "Webhooks und Events",
-            "description": "Echtzeit-Integration.\nTransaktionsbenachrichtigungen.\nEvent-getriebene Architektur."
-          },
-          "testingSandbox": {
-            "iconAlt": "Sandbox icon",
-            "title": "Test-Sandbox",
-            "description": "Komplette Dev-Umgebung.\nUnbegrenzte Testdaten.\nEntwickle risikofrei."
-          },
-          "developerCommunity": {
-            "iconAlt": "Developer community icon",
-            "title": "Entwickler-Community",
-            "description": "Aktives technisches Forum.\nOpen-Source-Code-Beispiele.\nSupport, der Code versteht."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Dokumentation für Entwickler.",
-        "subtitle": "APIs, Integrationen, alles was Sie brauchen um mit diBoaS zu bauen.",
-        "cards": {
-          "restfulApis": {
-            "title": "RESTful APIs",
-            "description": "Vollständige und dokumentierte Endpoints.\nBeispiele in mehreren Sprachen.\nIntegration in Minuten.",
-            "imageAlt": "RESTful APIs illustration"
-          },
-          "officialSdks": {
-            "title": "Offizielle SDKs",
-            "description": "JavaScript, Python, Go und mehr.\nAbstraktionen die vereinfachen.\nWeniger Code, mehr Ergebnisse.",
-            "imageAlt": "Offizielle SDKs illustration"
-          },
-          "webhooks": {
-            "title": "Webhooks",
-            "description": "Events in Echtzeit empfangen.\nTransaktionen, Zustandsänderungen, alles.\nReaktives System.",
-            "imageAlt": "Webhooks illustration"
-          },
-          "sandboxEnvironment": {
-            "title": "Sandbox-Umgebung",
-            "description": "Ohne Risiko testen.\nKomplette Entwicklungsumgebung.\nValidierung vor Produktion.",
-            "imageAlt": "Sandbox-Umgebung illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Vollständige API-Dokumentation",
-            "description": "REST-APIs für Plattformintegration.\nBanking, Investitionen, Krypto, Strategien.\nBauen Sie auf OneFi-Infrastruktur auf.",
-            "ctaText": "Jetzt starten",
-            "imageAlt": "Vollständige API-Dokumentation illustration"
-          },
-          "simplicity": {
-            "title": "Entwicklerfreundlich",
-            "description": "✓ Klare Code-Beispiele\n✓ Interaktiver API-Explorer\n✓ Sandbox-Umgebung\nVom Konzept zur Produktion schnell.",
-            "ctaText": "Jetzt starten",
-            "imageAlt": "Entwicklerfreundlich illustration"
-          },
-          "rewards": {
-            "title": "Partnerprogramm",
-            "description": "Umsatzbeteiligung für Integrationen.\nCo-Marketing-Möglichkeiten.\nWachsen Sie Ihr Geschäft mit unserem.",
-            "ctaText": "Jetzt starten",
-            "imageAlt": "Partnerprogramm illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Häufig gestellte Fragen",
-        "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
-        "questions": {
-          "q1": {
-            "question": "Für wen ist die technische Dokumentation?",
-            "answer": "Entwickler, die mit diBoaS integrieren wollen.\n\nAnwendungsfälle:\n\nAuf diBoaS bauen:\n- Apps, die unsere API nutzen\n- Integrationen mit bestehenden Systemen\n- Ergänzende Services\n\nZu diBoaS beitragen:\n- Individuelle DeFi-Strategien erstellen\n- Trading-Bots entwickeln\n- Plugins und Erweiterungen\n\nVon diBoaS lernen:\n- Referenz-Architektur\n- Sicherheits-Best-Practices\n- Technische Case Studies\n\nNicht für Endnutzer.\n(Die nutzen die App, nicht die API)"
-          },
-          "q2": {
-            "question": "Ist die API kostenlos?",
-            "answer": "Ja! Mit großzügigen Rate Limits.\n\nFree Tier:\n- 10.000 Requests/Tag\n- Alle Basis-Endpoints\n- Webhooks inklusive\n- Community-Forum-Support\n\nBusiness Tier (99€/Monat):\n- 1.000.000 Requests/Tag\n- Erweiterte Endpoints\n- Prioritäts-Webhooks\n- Slack-Support\n\nEnterprise (individuell):\n- Custom Rate Limits\n- Garantiertes SLA\n- Dedizierter Support\n- Architektur-Reviews\n\nAPI-Gebühren (über Plan hinaus):\nNur normale Gebühren (0,09%, 0,9%)\nwenn deine Integrationen Transaktionen tätigen.\n\nAnfangen ist immer kostenlos."
-          },
-          "q3": {
-            "question": "Wie lange dauert die Integration?",
-            "answer": "Abhängig von Komplexität:\n\nBasis-Integration (1-2 Tage):\n- Auth (OAuth 2.0)\n- Guthaben lesen\n- Transaktionen auflisten\n→ Perfekt für einfaches Dashboard\n\nFortgeschrittene Integration (1 Woche):\n- Transaktionen erstellen\n- Webhooks für Events\n- Basis-Investments\n→ Für Finanzverwaltungs-Apps\n\nErweiterte Integration (2-4 Wochen):\n- Individuelle DeFi-Strategien\n- Automatisiertes Trading\n- Multi-User-Management\n→ Für komplexe Plattformen\n\nWir haben fertige SDKs:\n- JavaScript/TypeScript\n- Python\n- Go\n- Ruby\n\n+ Code-Beispiele für alle Fälle.\n\nDie meisten integrieren Basics in 1 Tag."
           }
         },
         "ctaText": "Alle Fragen ansehen"

@@ -76,7 +76,6 @@ export default async function BusinessTreasuryPage({ params }: PageProps) {
           context={{ page: 'businessTreasury' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessTreasury}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function BusinessTreasuryPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('business-treasury')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function BusinessTreasuryPage({ params }: PageProps) {
           context={{ page: 'businessTreasury' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessTreasury}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function BusinessTreasuryPage({ params }: PageProps) {
           context={{ page: 'businessTreasury' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.businessTreasury!}
             enableAnalytics={true}
           />

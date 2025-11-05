@@ -76,7 +76,6 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
           context={{ page: 'businessYieldStrategies' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessYieldStrategies}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('business-yield-strategies')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
           context={{ page: 'businessYieldStrategies' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessYieldStrategies}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
           context={{ page: 'businessYieldStrategies' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.businessYieldStrategies!}
             enableAnalytics={true}
           />

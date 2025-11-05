@@ -76,7 +76,6 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
           context={{ page: 'learnBenefits' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnBenefits}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('learn-benefits')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
           context={{ page: 'learnBenefits' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnBenefits}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
           context={{ page: 'learnBenefits' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.learnBenefits!}
             enableAnalytics={true}
           />

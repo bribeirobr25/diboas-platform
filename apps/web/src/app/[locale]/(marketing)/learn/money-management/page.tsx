@@ -76,7 +76,6 @@ export default async function MoneyManagementPage({ params }: PageProps) {
           context={{ page: 'learnMoneyManagement' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnMoneyManagement}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function MoneyManagementPage({ params }: PageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('learn-money-management')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function MoneyManagementPage({ params }: PageProps) {
           context={{ page: 'learnMoneyManagement' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnMoneyManagement}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function MoneyManagementPage({ params }: PageProps) {
           context={{ page: 'learnMoneyManagement' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.learnMoneyManagement!}
             enableAnalytics={true}
           />

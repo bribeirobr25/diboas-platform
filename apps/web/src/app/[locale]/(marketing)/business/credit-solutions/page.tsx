@@ -76,7 +76,6 @@ export default async function BusinessCreditSolutionsPage({ params }: PageProps)
           context={{ page: 'businessCreditSolutions' }}
         >
           <FeatureShowcase
-            variant="default"
             config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessCreditSolutions}
             enableAnalytics={true}
           />
@@ -93,7 +92,6 @@ export default async function BusinessCreditSolutionsPage({ params }: PageProps)
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('business-credit-solutions')!}
-            variant="default"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -106,7 +104,6 @@ export default async function BusinessCreditSolutionsPage({ params }: PageProps)
           context={{ page: 'businessCreditSolutions' }}
         >
           <StickyFeaturesNav
-            variant="default"
             config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessCreditSolutions}
             enableAnalytics={true}
           />
@@ -120,7 +117,6 @@ export default async function BusinessCreditSolutionsPage({ params }: PageProps)
           context={{ page: 'businessCreditSolutions' }}
         >
           <FAQAccordion
-            variant="default"
             config={FAQ_ACCORDION_PAGE_CONFIGS.businessCreditSolutions!}
             enableAnalytics={true}
           />
