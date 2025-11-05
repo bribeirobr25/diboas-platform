@@ -142,33 +142,154 @@
   }
 }
 
-/* Responsive: Desktop - Staggered 3+2 Layout (breakpoint: var(--bc-breakpoint-desktop)) */
+/* Responsive: Desktop - Adaptive Layout based on card count (breakpoint: var(--bc-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .cardsGrid {
     grid-template-columns: var(--bc-grid-columns-desktop);
     gap: var(--bc-grid-gap-desktop);
   }
 
-  /* Top row - 3 cards spanning 2 columns each */
-  .card:nth-child(1) {
-    grid-column: var(--bc-card-1-column-span);
+  /* ================================
+     2 CARDS: 1 row, 2 cards centered
+     Each card spans 2 columns with 1-column gaps on sides
+     ================================ */
+  .card:first-child:nth-last-child(2),
+  .card:first-child:nth-last-child(2) ~ .card {
+    grid-column: auto / span 2;
   }
 
-  .card:nth-child(2) {
-    grid-column: var(--bc-card-2-column-span);
+  .card:first-child:nth-last-child(2):nth-child(1) {
+    grid-column: 2 / 4; /* Columns 2-3, leaving 1 column gap on left */
   }
 
-  .card:nth-child(3) {
-    grid-column: var(--bc-card-3-column-span);
+  .card:first-child:nth-last-child(2) ~ .card:nth-child(2) {
+    grid-column: 4 / 6; /* Columns 4-5, leaving 1 column gap on right */
   }
 
-  /* Bottom row - 2 cards offset to sit between top cards */
-  .card:nth-child(4) {
-    grid-column: var(--bc-card-4-column-span);
+  /* ================================
+     3 CARDS: 1 row, 3 cards evenly distributed
+     Each card spans 2 columns
+     ================================ */
+  .card:first-child:nth-last-child(3),
+  .card:first-child:nth-last-child(3) ~ .card {
+    grid-column: auto / span 2;
   }
 
-  .card:nth-child(5) {
-    grid-column: var(--bc-card-5-column-span);
+  .card:first-child:nth-last-child(3):nth-child(1) {
+    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
+  }
+
+  .card:first-child:nth-last-child(3) ~ .card:nth-child(2) {
+    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
+  }
+
+  .card:first-child:nth-last-child(3) ~ .card:nth-child(3) {
+    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
+  }
+
+  /* ================================
+     4 CARDS: 2 rows, 2 cards per row
+     Row 1: cards 1-2 (same as 2-card layout)
+     Row 2: cards 3-4 (same as 2-card layout)
+     ================================ */
+  .card:first-child:nth-last-child(4),
+  .card:first-child:nth-last-child(4) ~ .card {
+    grid-column: auto / span 2;
+  }
+
+  /* Row 1 */
+  .card:first-child:nth-last-child(4):nth-child(1) {
+    grid-column: 2 / 4;
+  }
+
+  .card:first-child:nth-last-child(4) ~ .card:nth-child(2) {
+    grid-column: 4 / 6;
+  }
+
+  /* Row 2 */
+  .card:first-child:nth-last-child(4) ~ .card:nth-child(3) {
+    grid-column: 2 / 4;
+  }
+
+  .card:first-child:nth-last-child(4) ~ .card:nth-child(4) {
+    grid-column: 4 / 6;
+  }
+
+  /* ================================
+     5 CARDS: Staggered 3+2 layout (original design)
+     Row 1: 3 cards
+     Row 2: 2 cards offset
+     ================================ */
+  .card:first-child:nth-last-child(5),
+  .card:first-child:nth-last-child(5) ~ .card {
+    grid-column: auto / span 2;
+  }
+
+  /* Top row - 3 cards */
+  .card:first-child:nth-last-child(5):nth-child(1) {
+    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
+  }
+
+  .card:first-child:nth-last-child(5) ~ .card:nth-child(2) {
+    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
+  }
+
+  .card:first-child:nth-last-child(5) ~ .card:nth-child(3) {
+    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
+  }
+
+  /* Bottom row - 2 cards offset */
+  .card:first-child:nth-last-child(5) ~ .card:nth-child(4) {
+    grid-column: var(--bc-card-4-column-span); /* 2 / 4 */
+  }
+
+  .card:first-child:nth-last-child(5) ~ .card:nth-child(5) {
+    grid-column: var(--bc-card-5-column-span); /* 4 / 6 */
+  }
+
+  /* ================================
+     6 CARDS: 2 rows, 3 cards per row
+     Row 1: cards 1-3 (same as 3-card layout)
+     Row 2: cards 4-6 (same as 3-card layout)
+     ================================ */
+  .card:first-child:nth-last-child(6),
+  .card:first-child:nth-last-child(6) ~ .card {
+    grid-column: auto / span 2;
+  }
+
+  /* Row 1 */
+  .card:first-child:nth-last-child(6):nth-child(1) {
+    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
+  }
+
+  .card:first-child:nth-last-child(6) ~ .card:nth-child(2) {
+    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
+  }
+
+  .card:first-child:nth-last-child(6) ~ .card:nth-child(3) {
+    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
+  }
+
+  /* Row 2 */
+  .card:first-child:nth-last-child(6) ~ .card:nth-child(4) {
+    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
+  }
+
+  .card:first-child:nth-last-child(6) ~ .card:nth-child(5) {
+    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
+  }
+
+  .card:first-child:nth-last-child(6) ~ .card:nth-child(6) {
+    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
+  }
+
+  /* ================================
+     7+ CARDS: Fallback to continuous 3-column layout
+     All cards span 2 columns, wrapping naturally
+     ================================ */
+  .card:first-child:nth-last-child(n + 7),
+  .card:first-child:nth-last-child(n + 7) ~ .card {
+    grid-column: auto / span 2;
   }
 }
 

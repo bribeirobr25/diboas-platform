@@ -56,7 +56,7 @@
 .contentContainer {
   width: 100%;
   height: auto;
-  padding: 0;
+  padding: 0 0 var(--spacing-2xl) 0; /* Mobile: 24px bottom padding to extend white background below last card */
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -243,6 +243,10 @@
     gap: var(--spacing-xl);
   }
 
+  .contentContainer {
+    padding-bottom: var(--spacing-3xl); /* Tablet: 32px bottom padding */
+  }
+
   .mainTitle {
     font-size: var(--font-size-4xl);
   }
@@ -286,6 +290,10 @@
     width: 100%;
     padding: 0;
     gap: var(--sfn-container-row-gap);
+  }
+
+  .contentContainer {
+    padding-bottom: var(--spacing-3xl); /* Desktop: 32px bottom padding (~30px requested) */
   }
 
   .titleContainer {
