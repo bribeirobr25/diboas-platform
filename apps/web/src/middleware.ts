@@ -19,9 +19,16 @@ export async function middleware(request: NextRequest) {
   // Check if locale is already in URL
   const segments = pathname.split('/');
   const potentialLocale = segments[1];
-  
+
   if (isValidLocale(potentialLocale)) {
     const response = NextResponse.next();
+    // Persist locale in cookie for future requests
+    response.cookies.set('NEXT_LOCALE', potentialLocale, {
+      path: '/',
+      maxAge: 31536000, // 1 year
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production'
+    });
     return addSecurityHeaders(response);
   }
 
@@ -32,22 +39,39 @@ export async function middleware(request: NextRequest) {
   // Redirect to locale-prefixed URL
   const redirectUrl = new URL(`/${safeLocale}${pathname}${search}`, request.url);
   const response = NextResponse.redirect(redirectUrl);
-  
+
+  // Persist detected locale in cookie
+  response.cookies.set('NEXT_LOCALE', safeLocale, {
+    path: '/',
+    maxAge: 31536000, // 1 year
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production'
+  });
+
   return addSecurityHeaders(response);
 }
 
-// Simple locale detection - simplified version without external dependencies
+// Locale detection with cookie persistence priority
+// Priority: 1. Cookie preference, 2. Accept-Language header, 3. Default
 function detectUserLocale(request: NextRequest): SupportedLocale {
   try {
+    // Priority 1: Check cookie for user's explicit choice
+    const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
+    if (cookieLocale && isValidLocale(cookieLocale)) {
+      return cookieLocale as SupportedLocale;
+    }
+
+    // Priority 2: Check Accept-Language header
     const acceptLanguage = request.headers.get('accept-language') || '';
-    
+
     // Simple language detection without negotiator
     for (const locale of SUPPORTED_LOCALES) {
       if (acceptLanguage.includes(locale) || acceptLanguage.includes(locale.split('-')[0])) {
         return locale;
       }
     }
-    
+
+    // Priority 3: Fall back to default
     return DEFAULT_LOCALE;
   } catch {
     return DEFAULT_LOCALE;
