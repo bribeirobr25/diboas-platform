@@ -88,6 +88,9 @@ export function LanguageSwitcher({
   }, [isOpen]);
 
   const switchLocale = (newLocale: SupportedLocale) => {
+    // Persist locale preference in cookie
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`;
+
     // Remove current locale from pathname and add new locale
     const segments = pathname.split('/').filter(Boolean);
 

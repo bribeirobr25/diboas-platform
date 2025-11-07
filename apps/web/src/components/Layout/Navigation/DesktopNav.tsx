@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { NavigationConfig } from '@/types/navigation';
-import { Container, FlexBetween, SparklesIcon, ChevronRightIcon } from '@/components/UI';
+import { Container, FlexBetween, SparklesIcon, ChevronRightIcon, LocaleLink } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ASSET_PATHS } from '@/config/assets';
 import { DESIGN_SYSTEM } from '@/config/design-system';
@@ -41,7 +41,7 @@ export default function DesktopNav({
       <Container>
         <FlexBetween className="navigation-content">
           {/* Logo */}
-          <Link href="/" className="brand-logo" aria-label={`${BRAND_CONFIG.NAME} Home`}>
+          <LocaleLink href="/" className="brand-logo" aria-label={`${BRAND_CONFIG.NAME} Home`}>
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt={BRAND_CONFIG.NAME}
@@ -50,7 +50,7 @@ export default function DesktopNav({
               style={{ width: 'auto', height: 'auto', maxHeight: '76px' }}
               priority
             />
-          </Link>
+          </LocaleLink>
 
           {/* Main Menu */}
           <div className="menu-items">
@@ -142,7 +142,7 @@ export default function DesktopNav({
                 <div className="dropdown-items-container">
                   <div className="dropdown-items-grid">
                     {activeMenuItem.subItems?.map((subItem) => (
-                      <Link
+                      <LocaleLink
                         key={subItem.id}
                         href={subItem.href}
                         className="dropdown-item-content group"
@@ -158,7 +158,7 @@ export default function DesktopNav({
                             </p>
                           )}
                         </div>
-                      </Link>
+                      </LocaleLink>
                     ))}
                   </div>
                 </div>

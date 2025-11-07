@@ -8,7 +8,7 @@ import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { NavigationConfig } from '@/types/navigation';
 import { useEffect } from 'react';
-import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon } from '@/components/UI';
+import { NavigationToggle, ChevronRightIcon, ChevronLeftIcon, LocaleLink } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { UI_CONSTANTS } from '@/config/ui-constants';
 import { ASSET_PATHS } from '@/config/assets';
@@ -68,7 +68,7 @@ export default function MobileNav({
       {/* Mobile Header */}
       <nav className="mobile-nav-bar">
         <div className="mobile-nav-content">
-          <Link href="/" className="mobile-brand" aria-label={`${BRAND_CONFIG.NAME} Home`}>
+          <LocaleLink href="/" className="mobile-brand" aria-label={`${BRAND_CONFIG.NAME} Home`}>
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt={BRAND_CONFIG.NAME}
@@ -77,7 +77,7 @@ export default function MobileNav({
               style={{ width: 'auto', height: DESIGN_SYSTEM.LAYOUT.NAVIGATION.MOBILE_NAV_HEIGHT }}
               priority
             />
-          </Link>
+          </LocaleLink>
 
           <Link
             href={config.actions.primary.href}
@@ -145,7 +145,7 @@ export default function MobileNav({
                 </h3>
                 <div className="mobile-quick-actions-grid">
                   {config.mobileHighlights.map((item) => (
-                    <Link
+                    <LocaleLink
                       key={item.id}
                       href={item.href || '#'}
                       className="mobile-quick-action-item"
@@ -155,7 +155,7 @@ export default function MobileNav({
                       }}
                     >
                       <p className="mobile-quick-action-text">{intl.formatMessage({ id: item.label })}</p>
-                    </Link>
+                    </LocaleLink>
                   ))}
                 </div>
               </div>
@@ -289,7 +289,7 @@ export default function MobileNav({
               {/* Scrollable Submenu Items */}
               <div className="mobile-submenu-content">
                 {activeMenuItem?.subItems?.map((subItem) => (
-                  <Link
+                  <LocaleLink
                     key={subItem.id}
                     href={subItem.href}
                     className="mobile-submenu-link"
@@ -302,7 +302,7 @@ export default function MobileNav({
                     {subItem.description && (
                       <p className="mobile-submenu-link-description">{intl.formatMessage({ id: subItem.description })}</p>
                     )}
-                  </Link>
+                  </LocaleLink>
                 ))}
               </div>
             </div>
