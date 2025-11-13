@@ -75,8 +75,8 @@ export const DEFAULT_PRODUCT_CAROUSEL_SETTINGS: ProductCarouselSettings = {
 export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
   {
     id: 'benefits',
-    title: 'marketing.productCarousel.slides.benefits.title',
-    subtitle: 'marketing.productCarousel.slides.benefits.subtitle',
+    title: 'marketing.pages.home.productCarousel.slides.benefits.title',
+    subtitle: 'marketing.pages.home.productCarousel.slides.benefits.subtitle',
     image: getSocialRealAsset('INVESTMENT_MAN_TATTOO'),
     imageAlt: 'Couple',
     ctaText: 'common.buttons.getStarted',
@@ -84,8 +84,8 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
   },
   {
     id: 'rewards',
-    title: 'marketing.productCarousel.slides.rewards.title',
-    subtitle: 'marketing.productCarousel.slides.rewards.subtitle',
+    title: 'marketing.pages.home.productCarousel.slides.rewards.title',
+    subtitle: 'marketing.pages.home.productCarousel.slides.rewards.subtitle',
     image: getSocialRealAsset('LOGIN_WOMAN'),
     imageAlt: 'friends',
     ctaText: 'common.buttons.learnMore',
@@ -93,8 +93,8 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
   },
   {
     id: 'business',
-    title: 'marketing.productCarousel.slides.business.title',
-    subtitle: 'marketing.productCarousel.slides.business.subtitle',
+    title: 'marketing.pages.home.productCarousel.slides.business.title',
+    subtitle: 'marketing.pages.home.productCarousel.slides.business.subtitle',
     image: getSocialRealAsset('BUSINESS_PAYMENT_CARD'),
     imageAlt: 'Business group',
     ctaText: 'common.buttons.learnMore',
@@ -105,7 +105,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
 // Default content configuration
 // Note: Heading is a translation key that will be resolved at runtime
 export const DEFAULT_PRODUCT_CAROUSEL_CONTENT: ProductCarouselContent = {
-  heading: 'marketing.productCarousel.heading',
+  heading: 'marketing.pages.home.productCarousel.heading',
   slides: DEFAULT_PRODUCT_CAROUSEL_SLIDES,
 } as const;
 

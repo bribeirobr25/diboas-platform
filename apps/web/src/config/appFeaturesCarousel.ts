@@ -73,12 +73,12 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'organize-money',
     content: {
-      title: 'marketing.appFeatures.organizeMoney.title',
-      description: 'marketing.appFeatures.organizeMoney.description',
-      ctaText: 'marketing.appFeatures.organizeMoney.ctaText',
+      title: 'marketing.pages.home.appFeatures.organizeMoney.title',
+      description: 'marketing.pages.home.appFeatures.organizeMoney.description',
+      ctaText: 'marketing.pages.home.appFeatures.organizeMoney.ctaText',
       ctaHref: ROUTES.BENEFITS,
       ctaTarget: '_self',
-      chipLabel: 'marketing.appFeatures.organizeMoney.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.organizeMoney.chipLabel'
     },
     assets: {
       image: getSocialRealAsset('LIFE_VISION')
@@ -90,12 +90,12 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'instant-payments',
     content: {
-      title: 'marketing.appFeatures.instantPayments.title',
-      description: 'marketing.appFeatures.instantPayments.description',
-      ctaText: 'marketing.appFeatures.instantPayments.ctaText',
+      title: 'marketing.pages.home.appFeatures.instantPayments.title',
+      description: 'marketing.pages.home.appFeatures.instantPayments.description',
+      ctaText: 'marketing.pages.home.appFeatures.instantPayments.ctaText',
       ctaHref: ROUTES.LEARN.BENEFITS,
       ctaTarget: '_self',
-      chipLabel: 'marketing.appFeatures.instantPayments.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.instantPayments.chipLabel'
     },
     assets: {
       image: getSocialRealAsset('LIFE_CHILL_MAN')
@@ -107,12 +107,12 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'secure-purchases',
     content: {
-      title: 'marketing.appFeatures.securePurchases.title',
-      description: 'marketing.appFeatures.securePurchases.description',
-      ctaText: 'marketing.appFeatures.securePurchases.ctaText',
+      title: 'marketing.pages.home.appFeatures.securePurchases.title',
+      description: 'marketing.pages.home.appFeatures.securePurchases.description',
+      ctaText: 'marketing.pages.home.appFeatures.securePurchases.ctaText',
       ctaHref: ROUTES.INVESTING,
       ctaTarget: '_self',
-      chipLabel: 'marketing.appFeatures.securePurchases.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.securePurchases.chipLabel'
     },
     assets: {
       image: getSocialRealAsset('LIFE_WALKING')
@@ -124,12 +124,12 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
   {
     id: 'financial-goals',
     content: {
-      title: 'marketing.appFeatures.financialGoals.title',
-      description: 'marketing.appFeatures.financialGoals.description',
-      ctaText: 'marketing.appFeatures.financialGoals.ctaText',
+      title: 'marketing.pages.home.appFeatures.financialGoals.title',
+      description: 'marketing.pages.home.appFeatures.financialGoals.description',
+      ctaText: 'marketing.pages.home.appFeatures.financialGoals.ctaText',
       ctaHref: ROUTES.BUSINESS.YIELD_STRATEGIES,
       ctaTarget: '_self',
-      chipLabel: 'marketing.appFeatures.financialGoals.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.financialGoals.chipLabel'
     },
     assets: {
       image: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN')
@@ -145,7 +145,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
 export const APP_FEATURES_CAROUSEL_CONFIGS = {
   default: {
     variant: 'default' as const,
-    sectionTitle: 'marketing.appFeatures.sectionTitle',
+    sectionTitle: 'marketing.pages.home.appFeatures.sectionTitle',
     cards: DEFAULT_APP_FEATURES_CARDS,
     settings: DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
     analytics: {

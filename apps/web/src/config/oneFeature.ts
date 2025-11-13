@@ -65,26 +65,26 @@ export interface OneFeatureVariantConfig {
 export const DEFAULT_FEATURES: FeatureItem[] = [
   {
     id: 'me-roubaram',
-    title: 'marketing.oneFeature.features.fraudReport',
+    title: 'marketing.pages.home.oneFeature.features.fraudReport',
     isPrimary: true,
     href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   },
   {
     id: 'canal-denuncias',
-    title: 'marketing.oneFeature.features.reports',
+    title: 'marketing.pages.home.oneFeature.features.reports',
     href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   },
   {
     id: 'central-protecao',
-    title: 'marketing.oneFeature.features.protection',
+    title: 'marketing.pages.home.oneFeature.features.protection',
     href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   },
   {
     id: 'canais-atendimento',
-    title: 'marketing.oneFeature.features.support',
+    title: 'marketing.pages.home.oneFeature.features.support',
     href: ROUTES.SECURITY.SAFETY_GUIDE,
     target: '_self'
   }
@@ -94,11 +94,11 @@ export const DEFAULT_FEATURES: FeatureItem[] = [
 // Note: Title, subtitle, and CTA text are translation keys that will be resolved at runtime
 // DRY Principles: All links use centralized ROUTES configuration
 export const DEFAULT_ONE_FEATURE_CONTENT: OneFeatureContent = {
-  title: 'marketing.oneFeature.title',
-  subtitle: 'marketing.oneFeature.subtitle',
+  title: 'marketing.pages.home.oneFeature.title',
+  subtitle: 'marketing.pages.home.oneFeature.subtitle',
   features: DEFAULT_FEATURES,
   cta: {
-    text: 'marketing.oneFeature.ctaText',
+    text: 'marketing.pages.home.oneFeature.ctaText',
     href: ROUTES.SECURITY.BENEFITS,
     target: '_self'
   }

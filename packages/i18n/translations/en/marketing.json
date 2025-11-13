@@ -1,104 +1,4 @@
 {
-  "productCarousel": {
-    "heading": "Everything in one app",
-    "slides": {
-      "benefits": {
-        "title": "No Hassles",
-        "subtitle": "Real-time transfers, no limits, anywhere in the world.\nEasy. Fast. Secure."
-      },
-      "rewards": {
-        "title": "Put Your Money to Work",
-        "subtitle": "Stocks, bonds, your first crypto.\nYour first investment.\nYour first step toward growth."
-      },
-      "business": {
-        "title": "For Your Business Too",
-        "subtitle": "Cash sitting idle? Put it to work.\nZero red tape, automatic returns."
-      }
-    }
-  },
-  "featureShowcase": {
-    "overview": {
-      "title": "Everything in One Place",
-      "description": "Transfers, crypto, stocks, investment strategies, and DeFi.\nAll on one screen. Updated in real time.\n\nStop juggling 5 different apps."
-    },
-    "activities": {
-      "title": "Secure and Simple",
-      "description": "\"I want to save $5,000 for a trip\"\n\"I need an emergency fund\"\n\"I want to invest $100 a month\"\n\nNo complications. diBoaS makes it that simple."
-    },
-    "rewards": {
-      "title": "Earn More",
-      "description": "✓ Cashback and Points system\n✓ Early access to new features\n✓ Bonus yields on strategies\n\nThe more you use it, the more you earn."
-    },
-    "learn": {
-      "title": "Learn Financial Strategies",
-      "description": "Access comprehensive courses on personal finance, investing, and DeFi strategies. Build your knowledge with expert-curated content.",
-      "ctaText": "Start Learning"
-    },
-    "business": {
-      "title": "Enterprise Financial Solutions",
-      "description": "Streamline your business financial operations with our comprehensive suite of tools. From payroll to treasury management.",
-      "ctaText": "Explore Business"
-    }
-  },
-  "appFeatures": {
-    "sectionTitle": "Everything you need is right here.",
-    "organizeMoney": {
-      "title": "Your Money, Your Control",
-      "description": "Take complete control of your money.\nNo limits, no interference.\nOnly you control it",
-      "ctaText": "Learn More",
-      "chipLabel": "Total Control"
-    },
-    "instantPayments": {
-      "title": "Learn Everything Without the Confusion",
-      "description": "Understand how money works.\nHow to organize your finances.\nThe best way to invest.",
-      "ctaText": "Learn More",
-      "chipLabel": "Education"
-    },
-    "securePurchases": {
-      "title": "Multiply Your Income",
-      "description": "Buy assets that appreciate over time.\nMake investments that multiply your money.\nAccess strategies with above-average returns.",
-      "ctaText": "Learn More",
-      "chipLabel": "Growth"
-    },
-    "financialGoals": {
-      "title": "Your Business Deserves More",
-      "description": "Investments using cash flow.\nCredit Line directly with other businesses (P2P).\nZero bureaucracy with high security.",
-      "ctaText": "Learn More",
-      "chipLabel": "Business"
-    }
-  },
-  "benefits": {
-    "exclusiveRewards": {
-      "title": "Exclusive Rewards",
-      "description": "Earn points and unlock exclusive benefits with every transaction",
-      "ctaText": "Learn More"
-    },
-    "financialFreedom": {
-      "title": "Financial Freedom",
-      "description": "Take control of your finances with our comprehensive suite of tools",
-      "ctaText": "Get Started"
-    },
-    "smartInvesting": {
-      "title": "Smart Investing",
-      "description": "Invest in crypto and traditional assets with AI-powered insights"
-    },
-    "secureBanking": {
-      "title": "Secure Banking",
-      "description": "Bank-level security and regulatory compliance to protect your assets",
-      "ctaText": "Learn About Security"
-    }
-  },
-  "oneFeature": {
-    "title": "Security is always our priority.",
-    "subtitle": "We're here to give you complete support and help ensure your money stays protected. 24 hours a day, 7 days a week.",
-    "ctaText": "Discover Our Solutions",
-    "features": {
-      "fraudReport": "Boost Your Security",
-      "reports": "Something wrong? Act fast",
-      "protection": "Protection Center",
-      "support": "24/7 Support"
-    }
-  },
   "pages": {
     "home": {
       "title": "diBoaS - Complete Financial Ecosystem",
@@ -106,6 +6,179 @@
       "hero": {
         "title": "More than 5.4 billion people deserve safe, simple access to financial growth.\n\ndiBoaS is making this possible",
         "description": ""
+      },
+      "productCarousel": {
+        "heading": "Everything in one app",
+        "slides": {
+          "benefits": {
+            "title": "No Hassles",
+            "subtitle": "Real-time transfers, no limits, anywhere in the world.\nEasy. Fast. Secure."
+          },
+          "rewards": {
+            "title": "Put Your Money to Work",
+            "subtitle": "Stocks, bonds, your first crypto.\nYour first investment.\nYour first step toward growth."
+          },
+          "business": {
+            "title": "For Your Business Too",
+            "subtitle": "Cash sitting idle? Put it to work.\nZero red tape, automatic returns."
+          }
+        }
+      },
+      "featureShowcase": {
+        "overview": {
+          "title": "Everything in One Place",
+          "description": "Transfers, crypto, stocks, investment strategies, and DeFi.\nAll on one screen. Updated in real time.\n\nStop juggling 5 different apps."
+        },
+        "activities": {
+          "title": "Secure and Simple",
+          "description": "\"I want to save $5,000 for a trip\"\n\"I need an emergency fund\"\n\"I want to invest $100 a month\"\n\nNo complications. diBoaS makes it that simple."
+        },
+        "rewards": {
+          "title": "Earn More",
+          "description": "✓ Cashback and Points system\n✓ Early access to new features\n✓ Bonus yields on strategies\n\nThe more you use it, the more you earn."
+        },
+        "learn": {
+          "title": "Learn Financial Strategies",
+          "description": "Access comprehensive courses on personal finance, investing, and DeFi strategies. Build your knowledge with expert-curated content.",
+          "ctaText": "Start Learning"
+        },
+        "business": {
+          "title": "Enterprise Financial Solutions",
+          "description": "Streamline your business financial operations with our comprehensive suite of tools. From payroll to treasury management.",
+          "ctaText": "Explore Business"
+        }
+      },
+      "appFeatures": {
+        "sectionTitle": "Everything you need is right here.",
+        "organizeMoney": {
+          "title": "Your Money, Your Control",
+          "description": "Take complete control of your money.\nNo limits, no interference.\nOnly you control it",
+          "ctaText": "Learn More",
+          "chipLabel": "Total Control"
+        },
+        "instantPayments": {
+          "title": "Learn Everything Without the Confusion",
+          "description": "Understand how money works.\nHow to organize your finances.\nThe best way to invest.",
+          "ctaText": "Learn More",
+          "chipLabel": "Education"
+        },
+        "securePurchases": {
+          "title": "Multiply Your Income",
+          "description": "Buy assets that appreciate over time.\nMake investments that multiply your money.\nAccess strategies with above-average returns.",
+          "ctaText": "Learn More",
+          "chipLabel": "Growth"
+        },
+        "financialGoals": {
+          "title": "Your Business Deserves More",
+          "description": "Investments using cash flow.\nCredit Line directly with other businesses (P2P).\nZero bureaucracy with high security.",
+          "ctaText": "Learn More",
+          "chipLabel": "Business"
+        }
+      },
+      "oneFeature": {
+        "title": "Security is always our priority.",
+        "subtitle": "We're here to give you complete support and help ensure your money stays protected. 24 hours a day, 7 days a week.",
+        "ctaText": "Discover Our Solutions",
+        "features": {
+          "fraudReport": "Boost Your Security",
+          "reports": "Something wrong? Act fast",
+          "protection": "Protection Center",
+          "support": "24/7 Support"
+        }
+      },
+      "stickyFeaturesNav": {
+        "mainTitle": "Discover more about diBoaS",
+        "ctaText": "Learn More",
+        "categories": {
+          "banking": {
+            "name": "Banking"
+          },
+          "investing": {
+            "name": "Investing"
+          },
+          "strategies": {
+            "name": "Strategies"
+          },
+          "business": {
+            "name": "Business"
+          }
+        },
+        "banking": {
+          "heading": "Your Money Without the Hassle",
+          "description": "Deposit, send, transfer, and withdraw easily and seamlessly.\n\nUse your account (instant transfers), Credit Card, PayPal, Apple or Google Pay, and much more.\n\nAll in one place.",
+          "ctaText": "See options"
+        },
+        "investing": {
+          "heading": "Real Investing with Real Autonomy",
+          "description": "Stocks, Bonds, Crypto, ETFs, Gold, and tokenized Real Estate.\nYour investment under your complete control.\n\nStart with $10 and watch your money grow.\nWith the freedom to buy or sell whenever you want.",
+          "ctaText": "See options"
+        },
+        "strategies": {
+          "heading": "Strategies That Work",
+          "description": "\"Build an emergency fund\"\n→ 6 months of expenses growing steadily\n\n\"Comfortable retirement\"\n→ Automated monthly investment, balanced portfolio\n\n\"High yield, controlled risk\"\n→ Advanced DeFi with calculated risk",
+          "ctaText": "Explore Strategies"
+        },
+        "business": {
+          "heading": "Your Business, More Opportunities",
+          "description": "Whether you need capital, want your cash flow to earn returns, or need credit to scale up.\n\nExclusive opportunities await your business.\nHigh returns with low risk, zero red tape, and best of all: under your complete control.",
+          "ctaText": "Learn More"
+        }
+      },
+      "faqAccordion": {
+        "questionIds": [
+          "q1",
+          "q2",
+          "q3",
+          "q4",
+          "q10"
+        ]
+      },
+      "benefitsCards": {
+        "title": "Why choose diBoaS?",
+        "description": "Because we solve real problems.",
+        "cards": {
+          "moneyFlow": {
+            "title": "Stop Juggling Apps",
+            "description": "Everything on diBoaS.\n\nYou save time, never lose passwords, and see your entire portfolio on one screen.",
+            "iconAlt": "Money flow icon representing seamless transaction management"
+          },
+          "investing": {
+            "title": "You're in Charge",
+            "description": "You have total control over your money.\n\nWhether investments, transfers, or strategies. You decide how much and when.",
+            "iconAlt": "Investing icon representing smart investment opportunities"
+          },
+          "moneyCircle": {
+            "title": "Your Money Always Works",
+            "description": "Whether buying Stocks, Crypto, or other assets.\nOr using exclusive strategies.\n\nYour money is always growing.",
+            "iconAlt": "Money circle icon representing circular economy and financial sustainability"
+          },
+          "learn": {
+            "title": "Investing Stops Being Scary",
+            "description": "Our users had never invested before diBoaS.\n\nOur Learning Center literally explains every term.\nEvery decision. Every risk.",
+            "iconAlt": "Learn icon representing financial education and knowledge"
+          },
+          "rewards": {
+            "title": "Use More, Earn More",
+            "description": "Points System, Referral Bonuses, Points for Achieved Goals, VIP Access to our Courses, and much more.",
+            "iconAlt": "Rewards medal icon representing benefits and achievements"
+          }
+        }
+      },
+      "bgHighlight": {
+        "title": "I'm diBoaS. Nice to meet you.",
+        "description": "Deposits, Withdrawals, Transfers.\nAll free, all fast.\n\nUSA, international, crypto, stocks, gold... doesn't matter.\n\nYour investments in one place.\nYour financial education school.\nYour rewards always active.\nYour security guaranteed.",
+        "imageAlt": "Natural landscape representing growth and financial sustainability with diBoaS"
+      },
+      "stepGuide": {
+        "title": "How to start (takes less than 5 minutes)",
+        "steps": {
+          "step1": "Visit our app → app.diboas.com",
+          "step2": "Create your account → Email or connect your Gmail/X",
+          "step3": "Meet Aqua → Your personal guide welcomes you and explains the basics",
+          "step4": "Start Learning → Use our Learning Center",
+          "step5": "Deposit $10 → Wire, instant transfer, Credit Card...",
+          "step6": "Choose your first step → Make a transfer\nOR → Make your first investment\nAqua shows the simplest options, You choose one\n\nDone! You're in!"
+        }
       }
     },
     "benefits": {
@@ -214,6 +287,27 @@
           "q2",
           "q3"
         ]
+      },
+      "carousel": {
+        "exclusiveRewards": {
+          "title": "Exclusive Rewards",
+          "description": "Earn points and unlock exclusive benefits with every transaction",
+          "ctaText": "Learn More"
+        },
+        "financialFreedom": {
+          "title": "Financial Freedom",
+          "description": "Take control of your finances with our comprehensive suite of tools",
+          "ctaText": "Get Started"
+        },
+        "smartInvesting": {
+          "title": "Smart Investing",
+          "description": "Invest in crypto and traditional assets with AI-powered insights"
+        },
+        "secureBanking": {
+          "title": "Secure Banking",
+          "description": "Bank-level security and regulatory compliance to protect your assets",
+          "ctaText": "Learn About Security"
+        }
       }
     },
     "account": {
@@ -4326,90 +4420,5 @@
       }
     },
     "landingPageQuestionIds": []
-  },
-  "benefitsCards": {
-    "title": "Why choose diBoaS?",
-    "description": "Because we solve real problems.",
-    "cards": {
-      "moneyFlow": {
-        "title": "Stop Juggling Apps",
-        "description": "Everything on diBoaS.\n\nYou save time, never lose passwords, and see your entire portfolio on one screen.",
-        "iconAlt": "Money flow icon representing seamless transaction management"
-      },
-      "investing": {
-        "title": "You're in Charge",
-        "description": "You have total control over your money.\n\nWhether investments, transfers, or strategies. You decide how much and when.",
-        "iconAlt": "Investing icon representing smart investment opportunities"
-      },
-      "moneyCircle": {
-        "title": "Your Money Always Works",
-        "description": "Whether buying Stocks, Crypto, or other assets.\nOr using exclusive strategies.\n\nYour money is always growing.",
-        "iconAlt": "Money circle icon representing circular economy and financial sustainability"
-      },
-      "learn": {
-        "title": "Investing Stops Being Scary",
-        "description": "Our users had never invested before diBoaS.\n\nOur Learning Center literally explains every term.\nEvery decision. Every risk.",
-        "iconAlt": "Learn icon representing financial education and knowledge"
-      },
-      "rewards": {
-        "title": "Use More, Earn More",
-        "description": "Points System, Referral Bonuses, Points for Achieved Goals, VIP Access to our Courses, and much more.",
-        "iconAlt": "Rewards medal icon representing benefits and achievements"
-      }
-    }
-  },
-  "bgHighlight": {
-    "title": "I'm diBoaS. Nice to meet you.",
-    "description": "Deposits, Withdrawals, Transfers.\nAll free, all fast.\n\nUSA, international, crypto, stocks, gold... doesn't matter.\n\nYour investments in one place.\nYour financial education school.\nYour rewards always active.\nYour security guaranteed.",
-    "imageAlt": "Natural landscape representing growth and financial sustainability with diBoaS"
-  },
-  "stepGuide": {
-    "title": "How to start (takes less than 5 minutes)",
-    "steps": {
-      "step1": "Visit our app → app.diboas.com",
-      "step2": "Create your account → Email or connect your Gmail/X",
-      "step3": "Meet Aqua → Your personal guide welcomes you and explains the basics",
-      "step4": "Start Learning → Use our Learning Center",
-      "step5": "Deposit $10 → Wire, instant transfer, Credit Card...",
-      "step6": "Choose your first step → Make a transfer\nOR → Make your first investment\nAqua shows the simplest options, You choose one\n\nDone! You're in!"
-    }
-  },
-  "stickyFeaturesNav": {
-    "mainTitle": "Discover more about diBoaS",
-    "ctaText": "Learn More",
-    "categories": {
-      "banking": {
-        "name": "Banking"
-      },
-      "investing": {
-        "name": "Investing"
-      },
-      "strategies": {
-        "name": "Strategies"
-      },
-      "business": {
-        "name": "Business"
-      }
-    },
-    "banking": {
-      "heading": "Your Money Without the Hassle",
-      "description": "Deposit, send, transfer, and withdraw easily and seamlessly.\n\nUse your account (instant transfers), Credit Card, PayPal, Apple or Google Pay, and much more.\n\nAll in one place.",
-      "ctaText": "See options"
-    },
-    "investing": {
-      "heading": "Real Investing with Real Autonomy",
-      "description": "Stocks, Bonds, Crypto, ETFs, Gold, and tokenized Real Estate.\nYour investment under your complete control.\n\nStart with $10 and watch your money grow.\nWith the freedom to buy or sell whenever you want.",
-      "ctaText": "See options"
-    },
-    "strategies": {
-      "heading": "Strategies That Work",
-      "description": "\"Build an emergency fund\"\n→ 6 months of expenses growing steadily\n\n\"Comfortable retirement\"\n→ Automated monthly investment, balanced portfolio\n\n\"High yield, controlled risk\"\n→ Advanced DeFi with calculated risk",
-      "ctaText": "Explore Strategies"
-    },
-    "business": {
-      "heading": "Your Business, More Opportunities",
-      "description": "Whether you need capital, want your cash flow to earn returns, or need credit to scale up.\n\nExclusive opportunities await your business.\nHigh returns with low risk, zero red tape, and best of all: under your complete control.",
-      "ctaText": "Learn More"
-    }
   }
 }

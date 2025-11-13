@@ -19,9 +19,9 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'exclusive-rewards',
     content: {
-      title: 'marketing.benefits.exclusiveRewards.title',
-      description: 'marketing.benefits.exclusiveRewards.description',
-      ctaText: 'marketing.benefits.exclusiveRewards.ctaText',
+      title: 'marketing.pages.benefits.carousel.exclusiveRewards.title',
+      description: 'marketing.pages.benefits.carousel.exclusiveRewards.description',
+      ctaText: 'marketing.pages.benefits.carousel.exclusiveRewards.ctaText',
       ctaHref: ROUTES.REWARDS.BENEFITS,
       ctaTarget: '_self'
     },
@@ -35,9 +35,9 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'financial-freedom',
     content: {
-      title: 'marketing.benefits.financialFreedom.title',
-      description: 'marketing.benefits.financialFreedom.description',
-      ctaText: 'marketing.benefits.financialFreedom.ctaText',
+      title: 'marketing.pages.benefits.carousel.financialFreedom.title',
+      description: 'marketing.pages.benefits.carousel.financialFreedom.description',
+      ctaText: 'marketing.pages.benefits.carousel.financialFreedom.ctaText',
       ctaHref: ROUTES.ACCOUNT,
       ctaTarget: '_self'
     },
@@ -51,8 +51,8 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'smart-investing',
     content: {
-      title: 'marketing.benefits.smartInvesting.title',
-      description: 'marketing.benefits.smartInvesting.description',
+      title: 'marketing.pages.benefits.carousel.smartInvesting.title',
+      description: 'marketing.pages.benefits.carousel.smartInvesting.description',
       ctaText: 'common.buttons.learnMore',
       ctaHref: ROUTES.INVESTING,
       ctaTarget: '_self'
@@ -67,9 +67,9 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'secure-banking',
     content: {
-      title: 'marketing.benefits.secureBanking.title',
-      description: 'marketing.benefits.secureBanking.description',
-      ctaText: 'marketing.benefits.secureBanking.ctaText',
+      title: 'marketing.pages.benefits.carousel.secureBanking.title',
+      description: 'marketing.pages.benefits.carousel.secureBanking.description',
+      ctaText: 'marketing.pages.benefits.carousel.secureBanking.ctaText',
       ctaHref: ROUTES.SECURITY.BENEFITS,
       ctaTarget: '_self'
     },

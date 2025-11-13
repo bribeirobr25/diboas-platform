@@ -68,15 +68,15 @@ export const DEFAULT_STICKY_FEATURES_NAV_SETTINGS: StickyFeaturesNavSettings = {
 export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
   {
     id: 'banking',
-    name: 'marketing.stickyFeaturesNav.categories.banking.name',
+    name: 'marketing.pages.home.stickyFeaturesNav.categories.banking.name',
     items: [
       {
         id: 'banking-realtime-borderless',
         image: getSocialRealAsset('ACCOUNT_BALANCE'),
         imageAlt: 'Family enjoying a trip together representing real-time borderless banking',
-        heading: 'marketing.stickyFeaturesNav.banking.heading',
-        description: 'marketing.stickyFeaturesNav.banking.description',
-        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        heading: 'marketing.pages.home.stickyFeaturesNav.banking.heading',
+        description: 'marketing.pages.home.stickyFeaturesNav.banking.description',
+        ctaText: 'marketing.pages.home.stickyFeaturesNav.ctaText',
         ctaLink: ROUTES.BENEFITS,
         ctaTarget: '_self',
       },
@@ -84,15 +84,15 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
   },
   {
     id: 'investing',
-    name: 'marketing.stickyFeaturesNav.categories.investing.name',
+    name: 'marketing.pages.home.stickyFeaturesNav.categories.investing.name',
     items: [
       {
         id: 'investing-prepare-future',
         image: getSocialRealAsset('LIFE_COLORFUL'),
         imageAlt: 'Person enjoying music while planning their financial future',
-        heading: 'marketing.stickyFeaturesNav.investing.heading',
-        description: 'marketing.stickyFeaturesNav.investing.description',
-        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        heading: 'marketing.pages.home.stickyFeaturesNav.investing.heading',
+        description: 'marketing.pages.home.stickyFeaturesNav.investing.description',
+        ctaText: 'marketing.pages.home.stickyFeaturesNav.ctaText',
         ctaLink: ROUTES.INVESTING,
         ctaTarget: '_self',
       },
@@ -100,15 +100,15 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
   },
   {
     id: 'strategies',
-    name: 'marketing.stickyFeaturesNav.categories.strategies.name',
+    name: 'marketing.pages.home.stickyFeaturesNav.categories.strategies.name',
     items: [
       {
         id: 'strategies-relax-grow',
         image: getSocialRealAsset('LIFE_HIGHFIVE'),
         imageAlt: 'Person relaxing in nature while their investments grow',
-        heading: 'marketing.stickyFeaturesNav.strategies.heading',
-        description: 'marketing.stickyFeaturesNav.strategies.description',
-        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        heading: 'marketing.pages.home.stickyFeaturesNav.strategies.heading',
+        description: 'marketing.pages.home.stickyFeaturesNav.strategies.description',
+        ctaText: 'marketing.pages.home.stickyFeaturesNav.ctaText',
         ctaLink: ROUTES.DEFI_STRATEGIES,
         ctaTarget: '_self',
       },
@@ -116,15 +116,15 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
   },
   {
     id: 'business',
-    name: 'marketing.stickyFeaturesNav.categories.business.name',
+    name: 'marketing.pages.home.stickyFeaturesNav.categories.business.name',
     items: [
       {
         id: 'business-day-to-day',
         image: getSocialRealAsset('BUSINESS_PAYMENT'),
         imageAlt: 'Business professional managing day-to-day financial tasks',
-        heading: 'marketing.stickyFeaturesNav.business.heading',
-        description: 'marketing.stickyFeaturesNav.business.description',
-        ctaText: 'marketing.stickyFeaturesNav.ctaText',
+        heading: 'marketing.pages.home.stickyFeaturesNav.business.heading',
+        description: 'marketing.pages.home.stickyFeaturesNav.business.description',
+        ctaText: 'marketing.pages.home.stickyFeaturesNav.ctaText',
         ctaLink: ROUTES.BUSINESS.BENEFITS,
         ctaTarget: '_self',
       },
@@ -136,7 +136,7 @@ export const DEFAULT_FEATURE_CATEGORIES: readonly FeatureCategory[] = [
 export const STICKY_FEATURES_NAV_CONFIGS = {
   default: {
     variant: 'default' as const,
-    mainTitle: 'marketing.stickyFeaturesNav.mainTitle',
+    mainTitle: 'marketing.pages.home.stickyFeaturesNav.mainTitle',
     categories: DEFAULT_FEATURE_CATEGORIES,
     settings: DEFAULT_STICKY_FEATURES_NAV_SETTINGS,
     analytics: {

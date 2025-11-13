@@ -23,13 +23,13 @@ export const DEFAULT_BG_HIGHLIGHT_CONFIG: BgHighlightConfig = {
   /** Background image configuration */
   backgroundImage: {
     src: getNavigationAsset('DIBOAS_BANNER'),
-    alt: 'marketing.bgHighlight.imageAlt'
+    alt: 'marketing.pages.home.bgHighlight.imageAlt'
   },
 
   /** Content configuration */
   content: {
-    title: 'marketing.bgHighlight.title',
-    description: 'marketing.bgHighlight.description'
+    title: 'marketing.pages.home.bgHighlight.title',
+    description: 'marketing.pages.home.bgHighlight.description'
   },
 
   /** SEO and accessibility metadata */

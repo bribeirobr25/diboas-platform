@@ -96,8 +96,8 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
   {
     id: 'activity-and-rewards',
     content: {
-      title: 'marketing.featureShowcase.overview.title',
-      description: 'marketing.featureShowcase.overview.description',
+      title: 'marketing.pages.home.featureShowcase.overview.title',
+      description: 'marketing.pages.home.featureShowcase.overview.description',
       ctaText: 'common.buttons.getStarted',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
@@ -112,8 +112,8 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
   {
     id: 'activities',
     content: {
-      title: 'marketing.featureShowcase.activities.title',
-      description: 'marketing.featureShowcase.activities.description',
+      title: 'marketing.pages.home.featureShowcase.activities.title',
+      description: 'marketing.pages.home.featureShowcase.activities.description',
       ctaText: 'common.buttons.getStarted',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
@@ -128,8 +128,8 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
   {
     id: 'rewards',
     content: {
-      title: 'marketing.featureShowcase.rewards.title',
-      description: 'marketing.featureShowcase.rewards.description',
+      title: 'marketing.pages.home.featureShowcase.rewards.title',
+      description: 'marketing.pages.home.featureShowcase.rewards.description',
       ctaText: 'common.buttons.getStarted',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
@@ -190,9 +190,9 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
       {
         id: 'learn-courses',
         content: {
-          title: 'marketing.featureShowcase.learn.title',
-          description: 'marketing.featureShowcase.learn.description',
-          ctaText: 'marketing.featureShowcase.learn.ctaText',
+          title: 'marketing.pages.home.featureShowcase.learn.title',
+          description: 'marketing.pages.home.featureShowcase.learn.description',
+          ctaText: 'marketing.pages.home.featureShowcase.learn.ctaText',
           ctaHref: ROUTES.LEARN.BENEFITS,
           ctaTarget: '_self'
         },
@@ -227,9 +227,9 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
       {
         id: 'business-solutions',
         content: {
-          title: 'marketing.featureShowcase.business.title',
-          description: 'marketing.featureShowcase.business.description',
-          ctaText: 'marketing.featureShowcase.business.ctaText',
+          title: 'marketing.pages.home.featureShowcase.business.title',
+          description: 'marketing.pages.home.featureShowcase.business.description',
+          ctaText: 'marketing.pages.home.featureShowcase.business.ctaText',
           ctaHref: ROUTES.BUSINESS.BENEFITS,
           ctaTarget: '_self'
         },
