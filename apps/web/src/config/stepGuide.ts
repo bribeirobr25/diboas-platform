@@ -20,37 +20,37 @@ import type { StepGuideConfig } from '@/components/Sections/StepGuide/types';
 export const DEFAULT_STEP_GUIDE_CONFIG: StepGuideConfig = {
   /** Content configuration */
   content: {
-    title: 'marketing.stepGuide.title',
+    title: 'marketing.pages.home.stepGuide.title',
     steps: [
       {
         id: 'step-1',
         number: '01',
-        text: 'marketing.stepGuide.steps.step1'
+        text: 'marketing.pages.home.stepGuide.steps.step1'
       },
       {
         id: 'step-2',
         number: '02',
-        text: 'marketing.stepGuide.steps.step2'
+        text: 'marketing.pages.home.stepGuide.steps.step2'
       },
       {
         id: 'step-3',
         number: '03',
-        text: 'marketing.stepGuide.steps.step3'
+        text: 'marketing.pages.home.stepGuide.steps.step3'
       },
       {
         id: 'step-4',
         number: '04',
-        text: 'marketing.stepGuide.steps.step4'
+        text: 'marketing.pages.home.stepGuide.steps.step4'
       },
       {
         id: 'step-5',
         number: '05',
-        text: 'marketing.stepGuide.steps.step5'
+        text: 'marketing.pages.home.stepGuide.steps.step5'
       },
       {
         id: 'step-6',
         number: '06',
-        text: 'marketing.stepGuide.steps.step6'
+        text: 'marketing.pages.home.stepGuide.steps.step6'
       }
     ]
   },

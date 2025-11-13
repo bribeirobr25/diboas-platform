@@ -21,8 +21,8 @@ import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards/ty
 export const DEFAULT_BENEFITS_CARDS_CONFIG: BenefitsCardsConfig = {
   /** Section configuration */
   section: {
-    title: 'marketing.benefitsCards.title',
-    description: 'marketing.benefitsCards.description',
+    title: 'marketing.pages.home.benefitsCards.title',
+    description: 'marketing.pages.home.benefitsCards.description',
     backgroundColor: 'light-purple'
   },
 
@@ -31,37 +31,37 @@ export const DEFAULT_BENEFITS_CARDS_CONFIG: BenefitsCardsConfig = {
     {
       id: 'money-flow',
       icon: '/assets/icons/money-flow.avif',
-      iconAlt: 'marketing.benefitsCards.cards.moneyFlow.iconAlt',
-      title: 'marketing.benefitsCards.cards.moneyFlow.title',
-      description: 'marketing.benefitsCards.cards.moneyFlow.description'
+      iconAlt: 'marketing.pages.home.benefitsCards.cards.moneyFlow.iconAlt',
+      title: 'marketing.pages.home.benefitsCards.cards.moneyFlow.title',
+      description: 'marketing.pages.home.benefitsCards.cards.moneyFlow.description'
     },
     {
       id: 'investing',
       icon: '/assets/icons/investing.avif',
-      iconAlt: 'marketing.benefitsCards.cards.investing.iconAlt',
-      title: 'marketing.benefitsCards.cards.investing.title',
-      description: 'marketing.benefitsCards.cards.investing.description'
+      iconAlt: 'marketing.pages.home.benefitsCards.cards.investing.iconAlt',
+      title: 'marketing.pages.home.benefitsCards.cards.investing.title',
+      description: 'marketing.pages.home.benefitsCards.cards.investing.description'
     },
     {
       id: 'money-circle',
       icon: '/assets/icons/money-circle.avif',
-      iconAlt: 'marketing.benefitsCards.cards.moneyCircle.iconAlt',
-      title: 'marketing.benefitsCards.cards.moneyCircle.title',
-      description: 'marketing.benefitsCards.cards.moneyCircle.description'
+      iconAlt: 'marketing.pages.home.benefitsCards.cards.moneyCircle.iconAlt',
+      title: 'marketing.pages.home.benefitsCards.cards.moneyCircle.title',
+      description: 'marketing.pages.home.benefitsCards.cards.moneyCircle.description'
     },
     {
       id: 'learn',
       icon: '/assets/icons/learn.avif',
-      iconAlt: 'marketing.benefitsCards.cards.learn.iconAlt',
-      title: 'marketing.benefitsCards.cards.learn.title',
-      description: 'marketing.benefitsCards.cards.learn.description'
+      iconAlt: 'marketing.pages.home.benefitsCards.cards.learn.iconAlt',
+      title: 'marketing.pages.home.benefitsCards.cards.learn.title',
+      description: 'marketing.pages.home.benefitsCards.cards.learn.description'
     },
     {
       id: 'rewards-medal',
       icon: '/assets/icons/rewards-medal.avif',
-      iconAlt: 'marketing.benefitsCards.cards.rewards.iconAlt',
-      title: 'marketing.benefitsCards.cards.rewards.title',
-      description: 'marketing.benefitsCards.cards.rewards.description'
+      iconAlt: 'marketing.pages.home.benefitsCards.cards.rewards.iconAlt',
+      title: 'marketing.pages.home.benefitsCards.cards.rewards.title',
+      description: 'marketing.pages.home.benefitsCards.cards.rewards.description'
     }
   ],
 
