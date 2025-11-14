@@ -67,7 +67,10 @@ export function FAQAccordionDefault({
               break; // No more elements
             }
 
-            reconstructedArray.push(value);
+            // Type guard: only push string values
+            if (typeof value === 'string') {
+              reconstructedArray.push(value);
+            }
             index++;
           }
 
