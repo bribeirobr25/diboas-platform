@@ -130,7 +130,7 @@ export const STICKY_FEATURES_NAV_PAGE_CONFIGS: Record<string, Partial<StickyFeat
     17
   ),
 
-  'defiStrategies': createPageConfig(
+  'personalDefiStrategies': createPageConfig(
     'personalDefiStrategies',
     ['yieldsWorthYourTime', 'readyMadeStrategies', 'riskUnderControl', 'stopWheneverYouWant'] as const,
     ROUTES.PERSONAL.DEFI_STRATEGIES,
