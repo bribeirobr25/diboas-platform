@@ -1,0 +1,93 @@
+{
+  "title": "Learn Center | diBoaS",
+  "description": "Learn at your pace, grow on your timeline.",
+  "hero": {
+    "title": "Learn at your pace, grow on your timeline. Financial education for everyone.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Education that empowers",
+    "description": "Financial knowledge for everyone, free.",
+    "cards": {
+      "fromZeroToAdvanced": {
+        "iconAlt": "Learning path icon",
+        "title": "From Zero to Advanced",
+        "description": "Courses structured by level.\nGrow at your own pace.\nNo pressure, no judgment."
+      },
+      "curatedUpToDateContent": {
+        "iconAlt": "Quality content icon",
+        "title": "Curated and Up-to-Date Content",
+        "description": "Verified experts and content creators.\nReliable info, not financial fake news.\nUpdated with real market conditions."
+      },
+      "learnByDoing": {
+        "iconAlt": "Hands-on learning icon",
+        "title": "Learn By Doing",
+        "description": "Theory + practice integrated.\nLearning about investing? Test with $10.\nKnowledge that turns into action."
+      },
+      "earnWhileYouLearn": {
+        "iconAlt": "Learning rewards icon",
+        "title": "Earn While You Learn",
+        "description": "Points for completing courses.\nBadges for hitting milestones.\nEducation rewarded."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Learn to grow.",
+    "subtitle": "Financial education that works, at your pace.",
+    "cards": {
+      "fromBasicsToAdvanced": {
+        "title": "From Basics to Advanced",
+        "description": "Starting from zero? Perfect.\nAlready investing? Even better.\nContent for every level.",
+        "imageAlt": "From Basics to Advanced illustration"
+      },
+      "learnByDoing": {
+        "title": "Learn by Doing",
+        "description": "Theory + Practice together.\nLearn the concept, apply it right away.\nKnowledge that sticks.",
+        "imageAlt": "Learn by Doing illustration"
+      },
+      "communityThatTeaches": {
+        "title": "Community That Teaches",
+        "description": "Learn from those who've done it.\nShare what you've learned.\nWe grow together.",
+        "imageAlt": "Community That Teaches illustration"
+      },
+      "guidesThatEvolveWithYou": {
+        "title": "Guides That Evolve With You",
+        "description": "Aqua for beginners. Mystic for investors.\nCoral for strategists.\nEach guide appears when you're ready.",
+        "imageAlt": "Guides That Evolve With You illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Learn at Your Own Pace",
+        "description": "Banking, investing, crypto, and DeFi.\nAll courses in one place.\nFrom beginner to expert.",
+        "ctaText": "Get Started",
+        "imageAlt": "Learn at Your Own Pace illustration"
+      },
+      "simplicity": {
+        "title": "Guided by AI Mentors",
+        "description": "✓ Aqua for beginners\n✓ Mystic for investors\n✓ Coral for advanced strategies\nLearn with personalized guidance.",
+        "ctaText": "Get Started",
+        "imageAlt": "Guided by AI Mentors illustration"
+      },
+      "rewards": {
+        "title": "Earn While You Learn",
+        "description": "Complete courses, earn points.\nUnlock badges and exclusive benefits.\nEducation that pays you back.",
+        "ctaText": "Get Started",
+        "imageAlt": "Earn While You Learn illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q40",
+      "q41",
+      "q42"
+    ]
+  }
+}

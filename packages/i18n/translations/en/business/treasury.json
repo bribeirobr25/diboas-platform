@@ -1,0 +1,93 @@
+{
+  "title": "Treasury | diBoaS",
+  "description": "Smart treasury management.",
+  "hero": {
+    "title": "Smart treasury management. Your capital working 24/7 for your business.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Intelligent treasury management",
+    "description": "Your capital working 24/7.",
+    "cards": {
+      "automaticInvestment": {
+        "iconAlt": "Auto investment icon",
+        "title": "Automatic Investment",
+        "description": "Idle money goes into safe investments.\nAuto-redeems when you need it.\nZero effort, maximum returns."
+      },
+      "personalizedStrategies": {
+        "iconAlt": "Strategy icon",
+        "title": "Personalized Strategies",
+        "description": "Your company's risk profile.\nNecessary liquidity considered.\nTailored optimization."
+      },
+      "cashFlowProjection": {
+        "iconAlt": "Projection icon",
+        "title": "Cash Flow Projection",
+        "description": "AI predicts inflows and outflows.\nAlerts for potential gaps.\nPlan ahead."
+      },
+      "multiAccountConsolidation": {
+        "iconAlt": "Consolidation icon",
+        "title": "Multi-Account Consolidation",
+        "description": "See everything in one dashboard.\nAccounts at different banks.\nHolistic treasury view."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Treasury that works for you.",
+    "subtitle": "Your capital always earning, always available.",
+    "cards": {
+      "overnightReturns": {
+        "title": "Overnight Returns",
+        "description": "Idle money earns 100% of CDI.\nDaily liquidity, no capital lock.\nTreasury optimized automatically.",
+        "imageAlt": "Overnight Returns illustration"
+      },
+      "corporateInvestments": {
+        "title": "Corporate Investments",
+        "description": "Investment options for long-term capital.\nStocks, bonds, corporate crypto.\nDiversify company assets.",
+        "imageAlt": "Corporate Investments illustration"
+      },
+      "cashFlowForecast": {
+        "title": "Cash Flow Forecast",
+        "description": "AI predicts inflows and outflows.\nAnticipate cash needs.\nPlanning that works.",
+        "imageAlt": "Cash Flow Forecast illustration"
+      },
+      "executiveReports": {
+        "title": "Executive Reports",
+        "description": "Dashboard with all important metrics.\nReturns, applications, available.\nComplete treasury view.",
+        "imageAlt": "Executive Reports illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Optimize Your Cash",
+        "description": "Automated treasury management.\nSurplus cash earns yield automatically.\nSmart money management for businesses.",
+        "ctaText": "Get Started",
+        "imageAlt": "Optimize Your Cash illustration"
+      },
+      "simplicity": {
+        "title": "Set Your Rules",
+        "description": "✓ Define minimum operating cash\n✓ Auto-invest excess funds\n✓ Instant liquidity when needed\nTreasury management on autopilot.",
+        "ctaText": "Get Started",
+        "imageAlt": "Set Your Rules illustration"
+      },
+      "rewards": {
+        "title": "Maximize Returns",
+        "description": "Access to multiple yield strategies.\nDiversified, low-risk options.\nYour cash works 24/7 for your business.",
+        "ctaText": "Get Started",
+        "imageAlt": "Maximize Returns illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q64",
+      "q65",
+      "q66"
+    ]
+  }
+}

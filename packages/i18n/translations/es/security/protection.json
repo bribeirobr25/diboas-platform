@@ -1,0 +1,98 @@
+{
+  "title": "diBoaS Protection | diBoaS",
+  "description": "Tu dinero protegido con seguridad de nivel militar.",
+  "hero": {
+    "title": "Tu dinero protegido con seguridad de nivel militar. Tú mantienes el control, nosotros garantizamos la protección.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Seguridad de nivel militar",
+    "description": "Tu dinero protegido, siempre.",
+    "cards": {
+      "endToEndEncryption": {
+        "iconAlt": "Encryption icon",
+        "title": "Encriptación de Extremo a Extremo",
+        "description": "Tus datos protegidos en todo su recorrido.\nTecnología usada por bancos globales.\nSeguridad que no ves, pero sientes."
+      },
+      "multiFactorAuthentication": {
+        "iconAlt": "MFA icon",
+        "title": "Autenticación Multi-Factor",
+        "description": "Biometría, códigos, dispositivos confiables.\nMúltiples capas de protección.\nAcceso solo para quienes deben tenerlo."
+      },
+      "monitoring247": {
+        "iconAlt": "Monitoring icon",
+        "title": "Monitoreo 24/7",
+        "description": "IA detecta actividad sospechosa.\nAlertas instantáneas para ti.\nRespuesta rápida a amenazas."
+      },
+      "segregatedCustody": {
+        "iconAlt": "Custody icon",
+        "title": "Custodia Segregada",
+        "description": "Tus activos separados de los de la empresa.\nProtección incluso en escenarios improbables.\nTranquilidad regulatoria."
+      },
+      "assetInsurance": {
+        "iconAlt": "Insurance icon",
+        "title": "Seguro de Activos",
+        "description": "Cobertura contra eventos extremos.\nAlianza con aseguradoras confiables.\nProtección adicional que importa."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Seguridad sin concesiones.",
+    "subtitle": "Protección militar, tu control, transparencia total.",
+    "cards": {
+      "militaryGradeEncryption": {
+        "title": "Encriptación Militar",
+        "description": "La misma tecnología que protege gobiernos.\nTus datos y activos totalmente seguros.\nNada menos que lo mejor.",
+        "imageAlt": "Encriptación Militar illustration"
+      },
+      "youReTheOwner": {
+        "title": "Tú Eres el Dueño",
+        "description": "Wallets no-custodiales.\nSolo tú tienes acceso a tus activos.\nNunca tocamos tu dinero.",
+        "imageAlt": "Tú Eres el Dueño illustration"
+      },
+      "multiJurisdictionCompliant": {
+        "title": "Multi-Jurisdicción Cumplida",
+        "description": "Regulación USA, UE, Brasil.\nAuditorías independientes constantes.\nEl cumplimiento no es opcional.",
+        "imageAlt": "Multi-Jurisdicción Cumplida illustration"
+      },
+      "twentyFourSevenSupport": {
+        "title": "Soporte 24/7",
+        "description": "Equipo de seguridad siempre disponible.\nRespuesta inmediata a cualquier incidente.\nNunca estás solo.",
+        "imageAlt": "Soporte 24/7 illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Seguridad Primero, Siempre",
+        "description": "Encriptación y monitoreo de nivel bancario.\nProtección multicapa para tus activos.\nTu dinero, seguridad de fortaleza.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Seguridad Primero, Siempre illustration"
+      },
+      "simplicity": {
+        "title": "Protegido Sin Complejidad",
+        "description": "✓ Autenticación biométrica\n✓ Detección de fraude en tiempo real\n✓ Congelación instantánea de cuenta\nSeguridad que no estorba.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Protegido Sin Complejidad illustration"
+      },
+      "rewards": {
+        "title": "Tú Siempre en Control",
+        "description": "Personaliza preferencias de seguridad.\nAlertas en tiempo real para todo.\nNinguna transacción sin tu conocimiento.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Tú Siempre en Control illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q94",
+      "q95",
+      "q96"
+    ]
+  }
+}

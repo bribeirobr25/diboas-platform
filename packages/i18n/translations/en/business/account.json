@@ -1,0 +1,93 @@
+{
+  "title": "Business Account | diBoaS",
+  "description": "A free business account that earns.",
+  "hero": {
+    "title": "A free business account that earns. Your business grows while you work.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Business account that makes sense",
+    "description": "Free, high-yield, no complications.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "iconAlt": "Free account icon",
+        "title": "Zero Monthly Fees",
+        "description": "No maintenance charges.\nYour money stays with you.\nSavings from day one."
+      },
+      "earns100CDI": {
+        "iconAlt": "High yield icon",
+        "title": "Earns 100% CDI",
+        "description": "Balance earning automatically.\nNo manual investing needed.\nIdle capital? Doesn't exist here."
+      },
+      "multiUserManagement": {
+        "iconAlt": "Team management icon",
+        "title": "Multi-User Management",
+        "description": "Add your team with specific permissions.\nGranular access control.\nSecurity and autonomy together."
+      },
+      "accountingIntegration": {
+        "iconAlt": "Accounting icon",
+        "title": "Accounting Integration",
+        "description": "Export data for your accountant.\nReports ready for compliance.\nLess headache, more efficiency."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "The account your business needs.",
+    "subtitle": "Free, complete, and earning while you work.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "title": "Zero Monthly Fees",
+        "description": "No maintenance fee.\nNo fine print.\nYour company saves from day one.",
+        "imageAlt": "Zero Monthly Fees illustration"
+      },
+      "earnsAutomatically": {
+        "title": "Earns Automatically",
+        "description": "100% of CDI on your balance.\nYou don't need to do anything.\nYour capital always working.",
+        "imageAlt": "Earns Automatically illustration"
+      },
+      "multipleUsers": {
+        "title": "Multiple Users",
+        "description": "Add your team with custom permissions.\nEveryone sees what they need.\nTotal control, smart delegation.",
+        "imageAlt": "Multiple Users illustration"
+      },
+      "accountingIntegration": {
+        "title": "Accounting Integration",
+        "description": "Automatic export to your accountant.\nOFX, CSV, PDF.\nLess manual work, more accuracy.",
+        "imageAlt": "Accounting Integration illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Account That Works for You",
+        "description": "Free checking with automatic yield.\nYour business cash grows daily.\nBanking that actually helps your bottom line.",
+        "ctaText": "Get Started",
+        "imageAlt": "Account That Works for You illustration"
+      },
+      "simplicity": {
+        "title": "Manage Everything Mobile",
+        "description": "✓ Real-time balance updates\n✓ Instant transaction notifications\n✓ One-tap approvals\nRun your finances from anywhere.",
+        "ctaText": "Get Started",
+        "imageAlt": "Manage Everything Mobile illustration"
+      },
+      "rewards": {
+        "title": "Earn While You Operate",
+        "description": "100% CDI yield on your balance.\nNo lock-up periods or minimums.\nYour working capital works harder.",
+        "ctaText": "Get Started",
+        "imageAlt": "Earn While You Operate illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q55",
+      "q56",
+      "q57"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Datenschutz | diBoaS",
+  "description": "Deine Daten gehören dir.",
+  "hero": {
+    "title": "Deine Daten gehören dir. Erfahre genau, wie wir deine Informationen schützen und verwenden.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Deine Daten gehören dir",
+    "description": "Wisse genau, wie wir sie schützen und nutzen.",
+    "cards": {
+      "gdprLGPDCompliant": {
+        "iconAlt": "GDPR compliance icon",
+        "title": "DSGVO / LGPD konform",
+        "description": "Befolge die strengsten Datenschutzgesetze.\nDeine Daten, deine Regeln.\nVolle Kontrolle über Informationen."
+      },
+      "dataMinimization": {
+        "iconAlt": "Data minimization icon",
+        "title": "Datenminimierung",
+        "description": "Sammle nur das Notwendige.\nWir verkaufen deine Informationen nicht.\nDein Profil ist nicht das Produkt."
+      },
+      "endToEndEncryptionPrivacy": {
+        "iconAlt": "Encryption icon",
+        "title": "Ende-zu-Ende-Verschlüsselung",
+        "description": "Daten geschützt im Ruhezustand und unterwegs.\nNicht einmal wir greifen ohne Autorisierung zu.\nTechnische Privatsphäre, nicht nur Versprechen."
+      },
+      "userRights": {
+        "iconAlt": "User rights icon",
+        "title": "Nutzerrechte",
+        "description": "Greife zu, exportiere, lösche deine Daten.\nSelf-Service-Tools in der App.\nRechte ausüben ist einfach."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Ihre Privatsphäre ist heilig.",
+    "subtitle": "DSGVO, LGPD, CCPA - konform in allem.",
+    "cards": {
+      "yourDataIsYours": {
+        "title": "Ihre Daten gehören Ihnen",
+        "description": "Sie kontrollieren was wir teilen.\nWir verkaufen nie Informationen.\nDatenschutz zuerst.",
+        "imageAlt": "Ihre Daten gehören Ihnen illustration"
+      },
+      "endToEndEncryption": {
+        "title": "Ende-zu-Ende Verschlüsselung",
+        "description": "Daten verschlüsselt unterwegs und im Ruhezustand.\nSelbst wir sehen nicht alles.\nMaximale Sicherheit.",
+        "imageAlt": "Ende-zu-Ende Verschlüsselung illustration"
+      },
+      "rightToBeForgotten": {
+        "title": "Recht auf Vergessenwerden",
+        "description": "Löschen Sie Ihr Konto, wir löschen alles.\nDSGVO und LGPD konform.\nSauberer Ausstieg garantiert.",
+        "imageAlt": "Recht auf Vergessenwerden illustration"
+      },
+      "dataTransparency": {
+        "title": "Daten-Transparenz",
+        "description": "Sehen Sie genau was wir über Sie haben.\nAlles exportieren wann Sie wollen.\nTotale Kontrolle.",
+        "imageAlt": "Daten-Transparenz illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Ihre Daten, Ihre Kontrolle",
+        "description": "GDPR- und LGPD-konform.\nVollständige Transparenz über Datennutzung.\nDatenschutz als Grundrecht.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Ihre Daten, Ihre Kontrolle illustration"
+      },
+      "simplicity": {
+        "title": "Einfache Datenschutzkontrollen",
+        "description": "✓ Daten jederzeit herunterladen\n✓ Konto mit einem Klick löschen\n✓ Granulare Freigabepräferenzen\nIhre Informationen, Ihre Entscheidungen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Einfache Datenschutzkontrollen illustration"
+      },
+      "rewards": {
+        "title": "Niemals verkauft oder geteilt",
+        "description": "Wir verkaufen niemals Ihre persönlichen Daten.\nKein Zugriff für Drittanbieter-Marketing.\nIhr Vertrauen ist unser Geschäftsmodell.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Niemals verkauft oder geteilt illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q115",
+      "q116",
+      "q117"
+    ]
+  }
+}

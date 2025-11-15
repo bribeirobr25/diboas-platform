@@ -1,0 +1,93 @@
+{
+  "title": "Token & Airdrop | diBoaS",
+  "description": "Seja um early adopter.",
+  "hero": {
+    "title": "Seja um early adopter. Ganhe tokens exclusivos e faça parte da revolução OneFi.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Seja um early adopter",
+    "description": "Ganhe tokens exclusivos da plataforma.",
+    "cards": {
+      "governanceToken": {
+        "iconAlt": "Governance token icon",
+        "title": "Token de Governança",
+        "description": "Voz nas decisões da plataforma.\nQuanto mais engajado, mais tokens.\nComunidade que governa de verdade."
+      },
+      "airdropsForActiveUsers": {
+        "iconAlt": "Airdrop icon",
+        "title": "Airdrops Para Usuários Ativos",
+        "description": "Distribua tokens para quem usa e contribui.\nRecompensa proporcional ao engajamento.\nEarly adopters valorizados."
+      },
+      "realUtility": {
+        "iconAlt": "Token utility icon",
+        "title": "Utilidade Real",
+        "description": "Use tokens para descontar taxas.\nAcesse features premium.\nNão é especulação, é valor de uso."
+      },
+      "transparentRoadmap": {
+        "iconAlt": "Roadmap icon",
+        "title": "Roadmap Transparente",
+        "description": "Distribuição planejada e comunicada.\nSem surpresas, sem manipulação.\nTokenomics responsável."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Seja parte da revolução.",
+    "subtitle": "Token diBoaS: recompensa por construir junto.",
+    "cards": {
+      "airdropForEarlyUsers": {
+        "title": "Airdrop Para Early Users",
+        "description": "Use a plataforma, ganhe tokens.\nQuanto mais cedo, mais tokens.\nRecompensa por acreditar primeiro.",
+        "imageAlt": "Airdrop Para Early Users illustration"
+      },
+      "realGovernance": {
+        "title": "Governança Real",
+        "description": "Tokens dão voz nas decisões da plataforma.\nVote em features, mudanças, direções.\nUsuários decidem o futuro.",
+        "imageAlt": "Governança Real illustration"
+      },
+      "tokenStaking": {
+        "title": "Staking de Tokens",
+        "description": "Stake e ganhe rendimento adicional.\nMais vantagens em taxas e benefícios.\nHolding recompensado.",
+        "imageAlt": "Staking de Tokens illustration"
+      },
+      "appreciationTogether": {
+        "title": "Valorização Junto",
+        "description": "Quanto mais a plataforma cresce, mais vale.\nVocê não é só usuário, é stakeholder.\nCrescemos juntos de verdade.",
+        "imageAlt": "Valorização Junto illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Seja Dono da Plataforma",
+        "description": "Token diBoaS pra usuários ativos.\nGovernança e recompensas da plataforma.\nEarly adopters ganham maiores airdrops.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Seja Dono da Plataforma illustration"
+      },
+      "simplicity": {
+        "title": "Distribuição Automática de Tokens",
+        "description": "✓ Sem precisar reivindicar manualmente\n✓ Tokens baseados em atividade\n✓ Cronograma claro de distribuição\nRecompensado por acreditar cedo.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Distribuição Automática de Tokens illustration"
+      },
+      "rewards": {
+        "title": "Cresça Com a Plataforma",
+        "description": "Valor do token ligado ao sucesso da plataforma.\nOportunidades adicionais de rendimento.\nPropriedade comunitária, prosperidade compartilhada.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Cresça Com a Plataforma illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q91",
+      "q92",
+      "q93"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Sicherheitsguide | diBoaS",
+  "description": "Lerne dich zu schützen.",
+  "hero": {
+    "title": "Lerne dich zu schützen. Praktische Tipps und Tools, um deine Finanzen sicher zu halten.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Lerne dich zu schützen",
+    "description": "Praktische Tipps für finanzielle Sicherheit.",
+    "cards": {
+      "recognizeCommonScams": {
+        "iconAlt": "Scam awareness icon",
+        "title": "Erkenne häufige Betrugsmaschen",
+        "description": "Phishing, Fake-Apps, Social Engineering.\nWie man sie identifiziert und vermeidet.\nWissen, das schützt."
+      },
+      "passwordManagement": {
+        "iconAlt": "Password icon",
+        "title": "Passwort-Management",
+        "description": "Erstelle starke Passwörter.\nNutze vertrauenswürdige Manager.\nVerwende nie Passwörter mehrfach."
+      },
+      "twoFactorVerification": {
+        "iconAlt": "2FA icon",
+        "title": "Zwei-Faktor-Verifizierung",
+        "description": "Wie man 2FA einrichtet.\nWarum es essentiell ist.\nSchutz, der 2 Minuten dauert."
+      },
+      "whatNeverToShare": {
+        "iconAlt": "Privacy icon",
+        "title": "Was niemals teilen",
+        "description": "Passwörter, Codes, private Schlüssel.\ndiBoas fragt niemals nach diesen Informationen.\nKlare Sicherheitsregeln."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Lernen Sie sich zu schützen.",
+    "subtitle": "Werkzeuge und Wissen für Ihre Sicherheit.",
+    "cards": {
+      "antiScamGuide": {
+        "title": "Anti-Betrugs-Leitfaden",
+        "description": "Erkennen Sie Phishing-Versuche.\nVermeiden Sie häufige Betrügereien.\nWissen ist Ihre erste Verteidigung.",
+        "imageAlt": "Anti-Betrugs-Leitfaden illustration"
+      },
+      "mandatoryTwoFa": {
+        "title": "Pflicht-2FA",
+        "description": "Zwei-Faktor-Authentifizierung bei allem.\nExtra Sicherheitsschicht immer.\nVerstärkter Schutz.",
+        "imageAlt": "Pflicht-2FA illustration"
+      },
+      "smartAlerts": {
+        "title": "Intelligente Warnungen",
+        "description": "Benachrichtigung bei verdächtiger Aktivität.\nAutomatische Sperre wenn nötig.\nKI schützt Sie 24/7.",
+        "imageAlt": "Intelligente Warnungen illustration"
+      },
+      "safeMode": {
+        "title": "Sicherer Modus",
+        "description": "Extra Einschränkungen in öffentlichen Netzwerken.\nErhöhter Schutz in riskanten Umgebungen.\nAdaptive Sicherheit.",
+        "imageAlt": "Sicherer Modus illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Wissen ist Schutz",
+        "description": "Sicherheitstipps, Betrugsalarme, Best Practices.\nErmächtigen Sie sich gegen Bedrohungen.\nGebildete Nutzer sind sichere Nutzer.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Wissen ist Schutz illustration"
+      },
+      "simplicity": {
+        "title": "Einfache Sicherheitsgewohnheiten",
+        "description": "✓ Passwort-Best-Practices\n✓ Phishing-Erkennungsleitfäden\n✓ Gerätesicherheits-Checklisten\nEinfache Schritte, starker Schutz.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Einfache Sicherheitsgewohnheiten illustration"
+      },
+      "rewards": {
+        "title": "24/7 Sicherheits-Support",
+        "description": "Sofortige Hilfe, wenn Sie sie brauchen.\nDediziertes Sicherheitsteam.\nSeelenfrieden, rund um die Uhr.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "24/7 Sicherheits-Support illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q100",
+      "q101",
+      "q102"
+    ]
+  }
+}

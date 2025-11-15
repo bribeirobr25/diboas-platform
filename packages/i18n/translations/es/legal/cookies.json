@@ -1,0 +1,88 @@
+{
+  "title": "Cookies | diBoaS",
+  "description": "Cookies explicadas de forma simple.",
+  "hero": {
+    "title": "Cookies explicadas de forma simple. Entiende cómo mejoramos tu experiencia en el sitio.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Cookies explicadas de forma simple",
+    "description": "Cómo mejoramos tu experiencia.",
+    "cards": {
+      "whatCookiesAre": {
+        "iconAlt": "Cookie icon",
+        "title": "Qué Son las Cookies",
+        "description": "Archivos pequeños que recuerdan tus preferencias.\nHacen que el sitio funcione mejor para ti.\nTecnología común, no misterio."
+      },
+      "typesWeUse": {
+        "iconAlt": "Cookie types icon",
+        "title": "Tipos Que Usamos",
+        "description": "Esenciales (sitio funciona), preferencias (idioma, tema).\nAnalytics (mejorar experiencia).\nCada tipo claramente explicado."
+      },
+      "youAreInControl": {
+        "iconAlt": "Control icon",
+        "title": "Tú Tienes el Control",
+        "description": "Acepta solo lo que quieras.\nCambia preferencias en cualquier momento.\nSin cookies obligatorias no esenciales."
+      },
+      "noInvasiveTracking": {
+        "iconAlt": "No tracking icon",
+        "title": "Sin Rastreo Invasivo",
+        "description": "No vendemos datos de navegación.\nSin rastreo entre sitios.\nPrivacidad respetada."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Cookies explicadas claramente.",
+    "subtitle": "Qué usamos, por qué usamos, cómo controlar.",
+    "cards": {
+      "essentialVsOptional": {
+        "title": "Esenciales vs Opcionales",
+        "description": "Qué es necesario vs qué mejora experiencia.\nElige qué quieres aceptar.\nControl en tus manos.",
+        "imageAlt": "Esenciales vs Opcionales illustration"
+      },
+      "noIntrusiveTracking": {
+        "title": "Sin Rastreo Intrusivo",
+        "description": "No vendemos datos a terceros.\nCookies solo para funcionalidad.\nPrivacidad respetada.",
+        "imageAlt": "Sin Rastreo Intrusivo illustration"
+      },
+      "manageYourPreferences": {
+        "title": "Gestiona Tus Preferencias",
+        "description": "Cambia consentimiento en cualquier momento.\nDashboard claro de preferencias.\nFlexibilidad total.",
+        "imageAlt": "Gestiona Tus Preferencias illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Cookies Explicadas de Forma Simple",
+        "description": "Cómo usamos las cookies y por qué.\nSeguimiento esencial vs opcional.\nTransparencia total sobre datos del sitio.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Cookies Explicadas de Forma Simple illustration"
+      },
+      "simplicity": {
+        "title": "Controla Tus Preferencias",
+        "description": "✓ Acepta solo cookies esenciales\n✓ Personaliza opciones de seguimiento\n✓ Cambia configuración cuando quieras\nNavega en tus términos.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Controla Tus Preferencias illustration"
+      },
+      "rewards": {
+        "title": "Mejor Experiencia",
+        "description": "Las cookies nos ayudan a mejorar tu visita.\nPersonalizado sin ser invasivo.\nExperiencia fluida, intercambio justo.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Mejor Experiencia illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q118",
+      "q119",
+      "q120"
+    ]
+  }
+}

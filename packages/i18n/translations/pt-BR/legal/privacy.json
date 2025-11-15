@@ -1,0 +1,93 @@
+{
+  "title": "Privacidade | diBoaS",
+  "description": "Seus dados são seus.",
+  "hero": {
+    "title": "Seus dados são seus. Saiba exatamente como protegemos e usamos suas informações.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Seus dados são seus",
+    "description": "Saiba exatamente como protegemos e usamos.",
+    "cards": {
+      "gdprLGPDCompliant": {
+        "iconAlt": "GDPR compliance icon",
+        "title": "LGPD / GDPR Compliant",
+        "description": "Seguimos as leis de privacidade mais rígidas.\nSeus dados, suas regras.\nControle total sobre informações."
+      },
+      "dataMinimization": {
+        "iconAlt": "Data minimization icon",
+        "title": "Minimização de Dados",
+        "description": "Coletamos só o necessário.\nNão vendemos suas informações.\nSeu perfil não é produto."
+      },
+      "endToEndEncryptionPrivacy": {
+        "iconAlt": "Encryption icon",
+        "title": "Criptografia de Ponta a Ponta",
+        "description": "Dados protegidos em repouso e em trânsito.\nNem nós acessamos sem autorização.\nPrivacidade técnica, não só promessa."
+      },
+      "userRights": {
+        "iconAlt": "User rights icon",
+        "title": "Direitos do Usuário",
+        "description": "Acesse, exporte, delete seus dados.\nFerramentas self-service no app.\nExercer direitos é fácil."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Sua privacidade é sagrada.",
+    "subtitle": "GDPR, LGPD, CCPA - compliant em tudo.",
+    "cards": {
+      "yourDataIsYours": {
+        "title": "Seus Dados São Seus",
+        "description": "Você controla o que compartilhamos.\nNunca vendemos informações.\nPrivacidade primeiro.",
+        "imageAlt": "Seus Dados São Seus illustration"
+      },
+      "endToEndEncryption": {
+        "title": "Criptografia End-to-End",
+        "description": "Dados criptografados em trânsito e repouso.\nMesmo nós não vemos tudo.\nSegurança máxima.",
+        "imageAlt": "Criptografia End-to-End illustration"
+      },
+      "rightToBeForgotten": {
+        "title": "Direito ao Esquecimento",
+        "description": "Delete sua conta, deletamos tudo.\nGDPR e LGPD compliant.\nSaída limpa garantida.",
+        "imageAlt": "Direito ao Esquecimento illustration"
+      },
+      "dataTransparency": {
+        "title": "Transparência de Dados",
+        "description": "Veja exatamente o que temos sobre você.\nExporte tudo quando quiser.\nControle total.",
+        "imageAlt": "Transparência de Dados illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Seus Dados, Seu Controle",
+        "description": "GDPR e LGPD compliant.\nTransparência total no uso de dados.\nPrivacidade como direito fundamental.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Seus Dados, Seu Controle illustration"
+      },
+      "simplicity": {
+        "title": "Controles Simples de Privacidade",
+        "description": "✓ Baixe seus dados quando quiser\n✓ Delete conta com um clique\n✓ Preferências granulares de compartilhamento\nSuas informações, suas decisões.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Controles Simples de Privacidade illustration"
+      },
+      "rewards": {
+        "title": "Nunca Vendidos ou Compartilhados",
+        "description": "Nunca vendemos seus dados pessoais.\nSem acesso de marketing de terceiros.\nSua confiança é nosso modelo de negócio.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Nunca Vendidos ou Compartilhados illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q115",
+      "q116",
+      "q117"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Sistema de Puntos | diBoaS",
+  "description": "Cada acción suma puntos. Cada punto significa crecimiento.",
+  "hero": {
+    "title": "Cada acción suma puntos. Cada punto significa crecimiento. Acumula y desbloquea beneficios.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Cada acción suma puntos",
+    "description": "Acumula y desbloquea beneficios.",
+    "cards": {
+      "earnByInvesting": {
+        "iconAlt": "Investment points icon",
+        "title": "Gana Invirtiendo",
+        "description": "Puntos por cada transacción.\nCuanto más inviertes, más acumulas.\nIncentivo para hacer crecer tu patrimonio."
+      },
+      "earnByLearning": {
+        "iconAlt": "Learning points icon",
+        "title": "Gana Aprendiendo",
+        "description": "Completa cursos, gana puntos.\nMira contenido, sé recompensado.\nEducación financiera valorada."
+      },
+      "earnByEngaging": {
+        "iconAlt": "Engagement points icon",
+        "title": "Gana Participando",
+        "description": "Participa en la comunidad.\nAyuda a otros usuarios.\nContribución reconocida."
+      },
+      "redeemForBenefits": {
+        "iconAlt": "Redeem points icon",
+        "title": "Canjea Por Beneficios",
+        "description": "Usa puntos para descontar comisiones.\nAccede a cursos premium.\nMarketplace de recompensas."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Cada acción vale puntos.",
+    "subtitle": "Usa más, gana más, crece más.",
+    "cards": {
+      "pointsForInvesting": {
+        "title": "Puntos Por Invertir",
+        "description": "Compra activos, gana puntos.\nUsa estrategias, gana más.\nTu crecimiento recompensado.",
+        "imageAlt": "Puntos Por Invertir illustration"
+      },
+      "pointsForLearning": {
+        "title": "Puntos Por Aprender",
+        "description": "Completa cursos, gana puntos.\nParticipa en webinars, gana más.\nConocimiento recompensado.",
+        "imageAlt": "Puntos Por Aprender illustration"
+      },
+      "pointsForEngaging": {
+        "title": "Puntos Por Participar",
+        "description": "Ayuda a la comunidad, gana puntos.\nCrea contenido, gana aún más.\nContribución valorada.",
+        "imageAlt": "Puntos Por Participar illustration"
+      },
+      "redeemForBenefits": {
+        "title": "Canjea Por Beneficios",
+        "description": "Cashback, cursos premium, acceso VIP.\nTus puntos se vuelven ventajas reales.\nSistema que vale la pena.",
+        "imageAlt": "Canjea Por Beneficios illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Cada Acción Cuenta",
+        "description": "Transacciones, aprendizaje, inversiones.\nTodo lo que haces genera puntos.\nUsuarios comprometidos ganan más.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Cada Acción Cuenta illustration"
+      },
+      "simplicity": {
+        "title": "Sistema de Puntos Transparente",
+        "description": "✓ Reglas claras de ganancia\n✓ Saldo de puntos en tiempo real\n✓ Múltiples opciones de canje\nSin letra pequeña confusa.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Sistema de Puntos Transparente illustration"
+      },
+      "rewards": {
+        "title": "Los Puntos Nunca Expiran",
+        "description": "Acumula a tu ritmo.\nAhorra para canjes grandes.\nTus puntos, tu cronograma.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Los Puntos Nunca Expiran illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q82",
+      "q83",
+      "q84"
+    ]
+  }
+}

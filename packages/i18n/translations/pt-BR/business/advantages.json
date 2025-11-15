@@ -1,0 +1,93 @@
+{
+  "title": "diBoaS Business | diBoaS",
+  "description": "Sua empresa merece finanças tão simples quanto eficientes.",
+  "hero": {
+    "title": "Sua empresa merece finanças tão simples quanto eficientes. Conheça o diBoas Business.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Sua empresa merece o melhor",
+    "description": "Finanças empresariais descomplicadas.",
+    "cards": {
+      "everythingIntegratedForBusiness": {
+        "iconAlt": "Integration icon",
+        "title": "Tudo Integrado Para Seu Negócio",
+        "description": "Conta, pagamentos, investimentos, crédito.\nGestão financeira completa.\nFoco no que importa: crescer."
+      },
+      "noBankingBureaucracy": {
+        "iconAlt": "No bureaucracy icon",
+        "title": "Sem Burocracia Bancária",
+        "description": "Abertura 100% digital.\nSem filas, sem papelada.\nComece a operar em horas."
+      },
+      "yourCapitalAlwaysEarning": {
+        "iconAlt": "Earning capital icon",
+        "title": "Seu Capital Rendendo Sempre",
+        "description": "Fluxo de caixa parado? Nunca mais.\nRendimento automático enquanto você opera.\nTesouraria inteligente."
+      },
+      "totalControlVisibility": {
+        "iconAlt": "Dashboard icon",
+        "title": "Controle Total e Visibilidade",
+        "description": "Dashboard completo da saúde financeira.\nRelatórios automáticos.\nDecisões baseadas em dados reais."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Seu negócio merece mais.",
+    "subtitle": "Soluções financeiras que crescem com sua empresa.",
+    "cards": {
+      "completeBusinessBanking": {
+        "title": "Banking Empresarial Completo",
+        "description": "Conta, pagamentos, cobranças.\nTudo integrado, tudo simples.\nSeu negócio, menos burocracia.",
+        "imageAlt": "Banking Empresarial Completo illustration"
+      },
+      "capitalWorkingTwentyFourSeven": {
+        "title": "Capital Trabalhando 24/7",
+        "description": "Tesouraria inteligente com rendimento.\nSeu capital parado agora gera receita.\nCada real conta.",
+        "imageAlt": "Capital Trabalhando 24/7 illustration"
+      },
+      "creditToGrow": {
+        "title": "Crédito Para Crescer",
+        "description": "P2P credit entre empresas.\nTaxas justas, processos rápidos.\nCrescimento sem amarras bancárias.",
+        "imageAlt": "Crédito Para Crescer illustration"
+      },
+      "simplifiedManagement": {
+        "title": "Gestão Simplificada",
+        "description": "Fluxo de caixa, pagamentos, investimentos.\nTudo visível em um dashboard.\nFoque no que importa: crescer.",
+        "imageAlt": "Gestão Simplificada illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Banking Empresarial Reimaginado",
+        "description": "Contas, pagamentos, tesouraria e crédito.\nTudo que seu negócio precisa.\nTudo numa plataforma poderosa.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Banking Empresarial Reimaginado illustration"
+      },
+      "simplicity": {
+        "title": "Abre em 10 Minutos",
+        "description": "✓ Sem ir em agências\n✓ Conta empresarial gratuita\n✓ Aprovações instantâneas\nToque seu negócio, não seu banco.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Abre em 10 Minutos illustration"
+      },
+      "rewards": {
+        "title": "Economize Milhares em Taxas",
+        "description": "Sem tarifas mensais de manutenção.\nTransferências e pagamentos gratuitos.\nMais capital pro crescimento, menos pros bancos.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Economize Milhares em Taxas illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q52",
+      "q53",
+      "q54"
+    ]
+  }
+}

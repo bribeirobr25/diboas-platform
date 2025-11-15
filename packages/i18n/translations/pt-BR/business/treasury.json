@@ -1,0 +1,93 @@
+{
+  "title": "Tesouraria | diBoaS",
+  "description": "Gestão de tesouraria inteligente.",
+  "hero": {
+    "title": "Gestão de tesouraria inteligente. Seu capital trabalhando 24/7 para o seu negócio.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Gestão de tesouraria inteligente",
+    "description": "Seu capital trabalhando 24/7.",
+    "cards": {
+      "automaticInvestment": {
+        "iconAlt": "Auto investment icon",
+        "title": "Aplicação Automática",
+        "description": "Dinheiro parado entra em investimentos seguros.\nResgata automático quando você precisa.\nZero esforço, máximo rendimento."
+      },
+      "personalizedStrategies": {
+        "iconAlt": "Strategy icon",
+        "title": "Estratégias Personalizadas",
+        "description": "Perfil de risco da sua empresa.\nLiquidez necessária considerada.\nOtimização sob medida."
+      },
+      "cashFlowProjection": {
+        "iconAlt": "Projection icon",
+        "title": "Projeção de Fluxo de Caixa",
+        "description": "IA prevê entradas e saídas.\nAlertas de possíveis gaps.\nPlaneje com antecedência."
+      },
+      "multiAccountConsolidation": {
+        "iconAlt": "Consolidation icon",
+        "title": "Consolidação Multi-Contas",
+        "description": "Veja tudo em um dashboard.\nContas em diferentes bancos.\nVisão holística da tesouraria."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Tesouraria que trabalha por você.",
+    "subtitle": "Seu capital sempre rendendo, sempre disponível.",
+    "cards": {
+      "overnightReturns": {
+        "title": "Rendimento Overnight",
+        "description": "Dinheiro parado rende 100% do CDI.\nLiquidez diária, sem travar capital.\nTesouraria otimizada automaticamente.",
+        "imageAlt": "Rendimento Overnight illustration"
+      },
+      "corporateInvestments": {
+        "title": "Investimentos Corporativos",
+        "description": "Opções de investimento para capital de longo prazo.\nAções, títulos, crypto empresarial.\nDiversifique o patrimônio da empresa.",
+        "imageAlt": "Investimentos Corporativos illustration"
+      },
+      "cashFlowForecast": {
+        "title": "Previsão de Fluxo",
+        "description": "IA prevê entradas e saídas.\nAntecipe necessidades de caixa.\nPlanejamento que funciona.",
+        "imageAlt": "Previsão de Fluxo illustration"
+      },
+      "executiveReports": {
+        "title": "Relatórios Executivos",
+        "description": "Dashboard com todas as métricas importantes.\nRendimento, aplicações, disponível.\nVisão completa da tesouraria.",
+        "imageAlt": "Relatórios Executivos illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Otimize Seu Caixa",
+        "description": "Gestão automatizada de tesouraria.\nSobras de caixa rendem automaticamente.\nGestão inteligente de dinheiro pra empresas.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Otimize Seu Caixa illustration"
+      },
+      "simplicity": {
+        "title": "Defina Suas Regras",
+        "description": "✓ Define caixa operacional mínimo\n✓ Investe excedentes automaticamente\n✓ Liquidez instantânea quando precisar\nTesouraria no piloto automático.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Defina Suas Regras illustration"
+      },
+      "rewards": {
+        "title": "Maximize Retornos",
+        "description": "Acesso a múltiplas estratégias de rendimento.\nOpções diversificadas e baixo risco.\nSeu caixa trabalha 24/7 pelo seu negócio.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Maximize Retornos illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q64",
+      "q65",
+      "q66"
+    ]
+  }
+}

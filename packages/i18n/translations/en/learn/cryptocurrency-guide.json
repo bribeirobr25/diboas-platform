@@ -1,0 +1,93 @@
+{
+  "title": "Crypto A-Z | diBoaS",
+  "description": "A to Z on cryptocurrency. Unlock the digital world without the complexity.",
+  "hero": {
+    "title": "A to Z on cryptocurrency. Unlock the digital world without the complexity.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Crypto from A to Z",
+    "description": "Uncover the digital world without confusion.",
+    "cards": {
+      "blockchainExplainedForHumans": {
+        "iconAlt": "Blockchain icon",
+        "title": "Blockchain Explained for Humans",
+        "description": "What it is, how it works, why it matters.\nNo impossible tech jargon.\nUnderstand the technology for real."
+      },
+      "bitcoinMajorCryptocurrencies": {
+        "iconAlt": "Bitcoin icon",
+        "title": "Bitcoin and Major Cryptocurrencies",
+        "description": "History, technology, use cases.\nDifferences between Bitcoin, Ethereum, and others.\nWhich is which and why."
+      },
+      "walletsAndSecurity": {
+        "iconAlt": "Wallet security icon",
+        "title": "Wallets and Security",
+        "description": "Hot wallets, cold wallets, custody.\nHow to protect your digital assets.\nSecurity without paranoia."
+      },
+      "volatilityHowToHandle": {
+        "iconAlt": "Volatility icon",
+        "title": "Volatility and How to Handle It",
+        "description": "Why crypto goes up and down so much.\nStrategies to avoid panic.\nLong-term perspective."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Crypto without the fluff.",
+    "subtitle": "From A to Z, everything you need to know.",
+    "cards": {
+      "whatIsBlockchain": {
+        "title": "What Is Blockchain",
+        "description": "The technology behind crypto.\nExplained without technobabble.\nUnderstand for real.",
+        "imageAlt": "What Is Blockchain illustration"
+      },
+      "bitcoinEthereumAndBeyond": {
+        "title": "Bitcoin, Ethereum, and Beyond",
+        "description": "Major cryptocurrencies explained.\nWhat they are, what they do, why they matter.\nKnow each one.",
+        "imageAlt": "Bitcoin, Ethereum, and Beyond illustration"
+      },
+      "walletsAndSecurity": {
+        "title": "Wallets and Security",
+        "description": "Hot wallets, cold wallets, custodial vs non-custodial.\nProtect your assets correctly.\nSecurity first.",
+        "imageAlt": "Wallets and Security illustration"
+      },
+      "howToBuyAndSell": {
+        "title": "How to Buy and Sell",
+        "description": "Practical step-by-step.\nFrom first Bitcoin to advanced trading.\nFrom zero to expert.",
+        "imageAlt": "How to Buy and Sell illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Demystify Digital Assets",
+        "description": "Blockchain, wallets, trading, security.\nA to Z crypto knowledge.\nFrom complete beginner to confident investor.",
+        "ctaText": "Get Started",
+        "imageAlt": "Demystify Digital Assets illustration"
+      },
+      "simplicity": {
+        "title": "No Technical Background Needed",
+        "description": "✓ Plain English explanations\n✓ Visual guides and animations\n✓ Safe practice environments\nLearn crypto without the confusion.",
+        "ctaText": "Get Started",
+        "imageAlt": "No Technical Background Needed illustration"
+      },
+      "rewards": {
+        "title": "Earn Crypto As You Learn",
+        "description": "Quiz rewards in actual cryptocurrency.\nBuild your first portfolio while studying.\nKnowledge that literally pays.",
+        "ctaText": "Get Started",
+        "imageAlt": "Earn Crypto As You Learn illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q27",
+      "q28",
+      "q29"
+    ]
+  }
+}

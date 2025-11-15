@@ -1,0 +1,210 @@
+{
+  "title": "FAQ | diBoaS",
+  "description": "Your questions, our answers.",
+  "hero": {
+    "title": "Your questions, our answers. Find quick help for any issue.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Your questions, our answers",
+    "description": "Quick help when you need it.",
+    "cards": {
+      "completeKnowledgeBase": {
+        "iconAlt": "Knowledge base icon",
+        "title": "Complete Knowledge Base",
+        "description": "Hundreds of organized articles.\nSmart keyword search.\nAnswers you can find yourself."
+      },
+      "chatSupport": {
+        "iconAlt": "Chat icon",
+        "title": "Chat Support",
+        "description": "Real team responding quickly.\nNot frustrating bots.\nHumans helping humans."
+      },
+      "videoTutorials": {
+        "iconAlt": "Video icon",
+        "title": "Video Tutorials",
+        "description": "Learn by watching how.\nStep-by-step visual.\nEasier than reading."
+      },
+      "communityHelpsCommunity": {
+        "iconAlt": "Community icon",
+        "title": "Community Helps Community",
+        "description": "User forum.\nQuestions answered by those who've been there.\nCollective experience."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Your questions answered.",
+    "subtitle": "Quick answers to everything you need to know.",
+    "cards": {
+      "completeKnowledgeBase": {
+        "title": "Complete Knowledge Base",
+        "description": "Hundreds of articles about every feature.\nSmart search finds what you need.\nSelf-service that works.",
+        "imageAlt": "Complete Knowledge Base illustration"
+      },
+      "videoTutorials": {
+        "title": "Video Tutorials",
+        "description": "Learn by watching.\nVisual step-by-step of each process.\nFor those who prefer to watch.",
+        "imageAlt": "Video Tutorials illustration"
+      },
+      "twentyFourSevenChat": {
+        "title": "24/7 Chat",
+        "description": "AI responds instantly.\nHumans available when needed.\nSupport always present.",
+        "imageAlt": "24/7 Chat illustration"
+      },
+      "communityHelps": {
+        "title": "Community Helps",
+        "description": "Forum where users help each other.\nQuestions answered by community.\nShared knowledge.",
+        "imageAlt": "Community Helps illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Questions? We've Got Answers",
+        "description": "Comprehensive help for every feature.\nBanking, investing, crypto, DeFi.\nSolutions at your fingertips.",
+        "ctaText": "Get Started",
+        "imageAlt": "Questions? We've Got Answers illustration"
+      },
+      "simplicity": {
+        "title": "Find Help Instantly",
+        "description": "✓ Searchable knowledge base\n✓ Video tutorials\n✓ Step-by-step guides\nGet unstuck in seconds.",
+        "ctaText": "Get Started",
+        "imageAlt": "Find Help Instantly illustration"
+      },
+      "rewards": {
+        "title": "Community-Powered Answers",
+        "description": "Learn from other users' experiences.\nVote on helpful solutions.\nGrowing knowledge base for everyone.",
+        "ctaText": "Get Started",
+        "imageAlt": "Community-Powered Answers illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to all your questions about diBoaS.\nCan't find what you're looking for? Our chat responds in minutes.",
+    "ctaText": "Contact Support",
+    "questionIds": [
+      "q1",
+      "q2",
+      "q3",
+      "q4",
+      "q5",
+      "q6",
+      "q7",
+      "q8",
+      "q9",
+      "q10",
+      "q11",
+      "q12",
+      "q13",
+      "q14",
+      "q15",
+      "q16",
+      "q17",
+      "q18",
+      "q19",
+      "q20",
+      "q21",
+      "q22",
+      "q23",
+      "q24",
+      "q25",
+      "q26",
+      "q27",
+      "q28",
+      "q29",
+      "q30",
+      "q31",
+      "q32",
+      "q33",
+      "q34",
+      "q35",
+      "q36",
+      "q37",
+      "q38",
+      "q39",
+      "q40",
+      "q41",
+      "q42",
+      "q43",
+      "q44",
+      "q45",
+      "q46",
+      "q47",
+      "q48",
+      "q49",
+      "q50",
+      "q51",
+      "q52",
+      "q53",
+      "q54",
+      "q55",
+      "q56",
+      "q57",
+      "q58",
+      "q59",
+      "q60",
+      "q61",
+      "q62",
+      "q63",
+      "q64",
+      "q65",
+      "q66",
+      "q67",
+      "q68",
+      "q69",
+      "q70",
+      "q71",
+      "q72",
+      "q73",
+      "q74",
+      "q75",
+      "q76",
+      "q77",
+      "q78",
+      "q79",
+      "q80",
+      "q81",
+      "q82",
+      "q83",
+      "q84",
+      "q85",
+      "q86",
+      "q87",
+      "q88",
+      "q89",
+      "q90",
+      "q91",
+      "q92",
+      "q93",
+      "q94",
+      "q95",
+      "q96",
+      "q97",
+      "q98",
+      "q99",
+      "q100",
+      "q101",
+      "q102",
+      "q103",
+      "q104",
+      "q105",
+      "q106",
+      "q107",
+      "q108",
+      "q109",
+      "q110",
+      "q111",
+      "q112",
+      "q113",
+      "q114",
+      "q115",
+      "q116",
+      "q117",
+      "q118",
+      "q119",
+      "q120"
+    ]
+  }
+}

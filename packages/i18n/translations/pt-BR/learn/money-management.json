@@ -1,0 +1,88 @@
+{
+  "title": "Gestão Financeira | diBoaS",
+  "description": "Organize, controle e multiplique seu dinheiro como um profissional.",
+  "hero": {
+    "title": "Organize, controle e multiplique. Aprenda a gerenciar seu dinheiro como um profissional.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Gerencie como um profissional",
+    "description": "Técnicas avançadas explicadas de forma simples.",
+    "cards": {
+      "financialPlanning360": {
+        "iconAlt": "Planning icon",
+        "title": "Planejamento Financeiro 360°",
+        "description": "Visão completa: curto, médio e longo prazo.\nMetas claras, passos concretos.\nDo sonho ao plano real."
+      },
+      "taxOptimization": {
+        "iconAlt": "Tax savings icon",
+        "title": "Otimização de Impostos",
+        "description": "Pague o justo, nada a mais.\nEstratégias legais de economia.\nSeu dinheiro trabalhando melhor."
+      },
+      "multipleIncomeStreams": {
+        "iconAlt": "Multiple income icon",
+        "title": "Múltiplas Fontes de Renda",
+        "description": "Diversifique onde ganha dinheiro.\nNão dependa só do salário.\nSegurança financeira real."
+      },
+      "behaviorAndMoney": {
+        "iconAlt": "Psychology icon",
+        "title": "Comportamento e Dinheiro",
+        "description": "Psicologia por trás das decisões financeiras.\nIdentifique seus gatilhos.\nMude hábitos, mude resultados."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Gerencie como um profissional.",
+    "subtitle": "Ferramentas e conhecimento para dominar suas finanças.",
+    "cards": {
+      "planYourFuture": {
+        "title": "Planeje Seu Futuro",
+        "description": "Metas claras, planos realistas.\nDo fundo de emergência à aposentadoria.\nCada objetivo tem um caminho.",
+        "imageAlt": "Planeje Seu Futuro illustration"
+      },
+      "controlYourSpending": {
+        "title": "Controle Seus Gastos",
+        "description": "Veja para onde seu dinheiro vai.\nIdentifique vazamentos, corrija rotas.\nConhecimento é economia.",
+        "imageAlt": "Controle Seus Gastos illustration"
+      },
+      "increaseYourIncome": {
+        "title": "Aumente Sua Renda",
+        "description": "Estratégias para ganhar mais.\nRenda extra, side hustles, investimentos.\nMúltiplas fontes, múltiplas oportunidades.",
+        "imageAlt": "Aumente Sua Renda illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Domine Seu Fluxo de Caixa",
+        "description": "Controle de entradas, gastos e economias inteligentes.\nTodas as ferramentas pra gerenciar como um pro.\nAssuma o controle da sua vida financeira.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Domine Seu Fluxo de Caixa illustration"
+      },
+      "simplicity": {
+        "title": "Insights Automatizados",
+        "description": "✓ Análise de gastos\n✓ Recomendações de orçamento\n✓ Oportunidades de economia\nSua IA encontra formas de otimizar.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Insights Automatizados illustration"
+      },
+      "rewards": {
+        "title": "Alcance Metas Mais Rápido",
+        "description": "Defina objetivos, receba lembretes, celebre vitórias.\nAlertas inteligentes te mantêm no caminho.\nGestão de dinheiro que funciona de verdade.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Alcance Metas Mais Rápido illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q46",
+      "q47",
+      "q48"
+    ]
+  }
+}

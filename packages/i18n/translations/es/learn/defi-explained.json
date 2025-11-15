@@ -1,0 +1,93 @@
+{
+  "title": "DeFi Explicado | diBoaS",
+  "description": "DeFi explicado simple. Entiende las finanzas descentralizadas.",
+  "hero": {
+    "title": "DeFi explicado simple. Entiende las finanzas descentralizadas y aprovecha sus oportunidades.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "DeFi desmitificado",
+    "description": "Finanzas descentralizadas para todos.",
+    "cards": {
+      "whatIsDefiAnyway": {
+        "iconAlt": "DeFi concept icon",
+        "title": "¿Qué es DeFi Realmente?",
+        "description": "Finanzas sin intermediarios tradicionales.\nCómo funciona en la práctica.\nVentajas y desafíos claros."
+      },
+      "stakingYieldFarmingLiquidityPools": {
+        "iconAlt": "DeFi mechanisms icon",
+        "title": "Staking, Yield Farming y Liquidity Pools",
+        "description": "Conceptos principales desglosados.\nCómo ganas con cada uno.\nRiesgos específicos de cada estrategia."
+      },
+      "smartContractsUnveiled": {
+        "iconAlt": "Smart contract icon",
+        "title": "Smart Contracts Revelados",
+        "description": "Contratos que se ejecutan solos.\nCómo garantizan confianza.\nLimitaciones que necesitas conocer."
+      },
+      "opportunitiesAndTraps": {
+        "iconAlt": "Opportunity and risk icon",
+        "title": "Oportunidades y Trampas",
+        "description": "Los altos rendimientos tienen contrapartidas.\nCómo identificar proyectos serios.\nSeñales de alerta para evitar."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "DeFi sin complicaciones.",
+    "subtitle": "Finanzas descentralizadas explicadas para humanos.",
+    "cards": {
+      "whatIsDefi": {
+        "title": "Qué Es DeFi",
+        "description": "Finanzas sin intermediarios.\nCómo funciona, por qué importa.\nLa revolución financiera explicada.",
+        "imageAlt": "Qué Es DeFi illustration"
+      },
+      "stakingAndYielding": {
+        "title": "Staking y Yielding",
+        "description": "Gana ingresos pasivos con crypto.\nCómo funciona, cuáles son los riesgos.\nRendimientos inteligentes.",
+        "imageAlt": "Staking y Yielding illustration"
+      },
+      "liquidityPools": {
+        "title": "Pools de Liquidez",
+        "description": "Conviértete en el banco.\nProvee liquidez, gana comisiones.\nDeFi en la práctica.",
+        "imageAlt": "Pools de Liquidez illustration"
+      },
+      "risksAndRewards": {
+        "title": "Riesgos y Recompensas",
+        "description": "Pérdida impermanente, riesgo de smart contract.\nEntiende cada peligro claramente.\nSiempre decisiones informadas.",
+        "imageAlt": "Riesgos y Recompensas illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Finanzas Descentralizadas Simplificadas",
+        "description": "Préstamos, staking, yield farming explicados.\nEntiende DeFi sin la complejidad.\nEl futuro de las finanzas, accesible para todos.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Finanzas Descentralizadas Simplificadas illustration"
+      },
+      "simplicity": {
+        "title": "Coral Te Guía",
+        "description": "✓ Análisis de riesgo y retorno\n✓ Comparaciones de protocolos\n✓ Paso a paso de estrategias\nConceptos avanzados hechos digeribles.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Coral Te Guía illustration"
+      },
+      "rewards": {
+        "title": "Evoluciona a Estrategias Avanzadas",
+        "description": "Desbloquea herramientas DeFi profesionales.\nAccede a oportunidades curadas.\nTransforma conocimiento en acción.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Evoluciona a Estrategias Avanzadas illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q34",
+      "q35",
+      "q36"
+    ]
+  }
+}

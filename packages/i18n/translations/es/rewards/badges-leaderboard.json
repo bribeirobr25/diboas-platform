@@ -1,0 +1,93 @@
+{
+  "title": "Badges & Ranking | diBoaS",
+  "description": "Gana badges y sube en el ranking.",
+  "hero": {
+    "title": "Gana badges, sube en el ranking y muestra tus logros financieros a la comunidad.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Logra, muestra, inspira",
+    "description": "Tus logros financieros visibles.",
+    "cards": {
+      "milestoneBadges": {
+        "iconAlt": "Milestone badge icon",
+        "title": "Insignias de Hitos",
+        "description": "Primera inversión, $1K invertidos, 10 cursos completados.\nCada logro tiene una insignia.\nTu progreso visible."
+      },
+      "weeklyLeaderboard": {
+        "iconAlt": "Leaderboard icon",
+        "title": "Tabla Semanal",
+        "description": "Ranking de puntos de la semana.\nCompetencia sana.\nMotivación extra."
+      },
+      "optionalPublicProfile": {
+        "iconAlt": "Public profile icon",
+        "title": "Perfil Público Opcional",
+        "description": "Muestra tus insignias si quieres.\nInspira a otros usuarios.\nComunidad de crecimiento."
+      },
+      "specialBadges": {
+        "iconAlt": "Special badge icon",
+        "title": "Insignias Especiales",
+        "description": "Early adopter, top referidor, educador.\nReconocimiento único.\nEstatus en la comunidad."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Muestra tus logros.",
+    "subtitle": "Badges que importan, rankings que inspiran.",
+    "cards": {
+      "achievementBadges": {
+        "title": "Badges de Logros",
+        "description": "Primera inversión, portafolio diversificado.\nCada hito tiene su badge.\nCelebra cada victoria.",
+        "imageAlt": "Badges de Logros illustration"
+      },
+      "weeklyRankings": {
+        "title": "Rankings Semanales",
+        "description": "Ve quién está creciendo más.\nInspírate, compite, aprende.\nGamificación que motiva.",
+        "imageAlt": "Rankings Semanales illustration"
+      },
+      "verifiedProfile": {
+        "title": "Perfil Verificado",
+        "description": "Demuestra experiencia y confiabilidad.\nBadges de experto en cada categoría.\nCredibilidad visible.",
+        "imageAlt": "Perfil Verificado illustration"
+      },
+      "positionRewards": {
+        "title": "Recompensas Por Posición",
+        "description": "Top 10 semanal recibe bono especial.\nCompetencia sana, premios reales.\nDestácate y gana.",
+        "imageAlt": "Recompensas Por Posición illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Muestra Tu Éxito",
+        "description": "Gana insignias por logros.\nSube en el ranking de la comunidad.\nReconocimiento por tu crecimiento financiero.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Muestra Tu Éxito illustration"
+      },
+      "simplicity": {
+        "title": "Celebración de Hitos",
+        "description": "✓ Insignia de primera inversión\n✓ Logros de racha de ahorro\n✓ Premios de finalización de cursos\nCada paso celebrado.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Celebración de Hitos illustration"
+      },
+      "rewards": {
+        "title": "Ventajas Exclusivas Para Líderes",
+        "description": "Los mejores obtienen beneficios especiales.\nAcceso anticipado a funciones y bonos.\nCompetencia que beneficia a todos.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Ventajas Exclusivas Para Líderes illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q85",
+      "q86",
+      "q87"
+    ]
+  }
+}

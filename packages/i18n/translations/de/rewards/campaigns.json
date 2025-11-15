@@ -1,0 +1,93 @@
+{
+  "title": "Kampagnen | diBoaS",
+  "description": "Challenges, die lehren, Belohnungen, die motivieren.",
+  "hero": {
+    "title": "Challenges, die lehren, Belohnungen, die motivieren. Mach mit und beschleunige dein Wachstum.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Herausforderungen, die lehren und belohnen",
+    "description": "Nimm teil und beschleunige dein Wachstum.",
+    "cards": {
+      "monthlyChallenges": {
+        "iconAlt": "Challenge icon",
+        "title": "Monatliche Challenges",
+        "description": "Spezifische Ziele jeden Monat.\nInvestiere X, lerne Y, empfehle Z.\nExtra-Belohnungen für das Abschließen."
+      },
+      "brandPartnerships": {
+        "iconAlt": "Partnership icon",
+        "title": "Markenpartnerschaften",
+        "description": "Kampagnen mit Partnerunternehmen.\nExklusive Angebote für diBoas-Nutzer.\nWert jenseits der Plattform."
+      },
+      "seasonalEvents": {
+        "iconAlt": "Event icon",
+        "title": "Saisonale Events",
+        "description": "Black Friday, Neujahr, besondere Daten.\nVervielfachte Boni.\nSpaß und Vorteile zusammen."
+      },
+      "educationalCampaigns": {
+        "iconAlt": "Educational campaign icon",
+        "title": "Bildungskampagnen",
+        "description": "Lerne spezifische Themen, verdiene Belohnungen.\nAnreiz für fokussierte Bildung.\nWissen, das sich auszahlt."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Herausforderungen die lehren.",
+    "subtitle": "Teilnehmen, lernen, Belohnungen verdienen.",
+    "cards": {
+      "monthlyChallenges": {
+        "title": "Monatliche Herausforderungen",
+        "description": "Jeden Monat verschiedene Ziele.\nX investieren, Y lernen, Z verdienen.\nImmer etwas Neues zu erreichen.",
+        "imageAlt": "Monatliche Herausforderungen illustration"
+      },
+      "themedCampaigns": {
+        "title": "Themen-Kampagnen",
+        "description": "Krypto-Monat, DeFi-Woche, Aktien-Spezial.\nFokussiert lernen, fokussiert verdienen.\nGezielte Bildung.",
+        "imageAlt": "Themen-Kampagnen illustration"
+      },
+      "exclusivePartnerships": {
+        "title": "Exklusive Partnerschaften",
+        "description": "Partner-Marken mit Rabatten.\nGemeinsame Kampagnen mit Extra-Bonus.\nMehr Wert für Sie.",
+        "imageAlt": "Exklusive Partnerschaften illustration"
+      },
+      "earlyAdopterRewards": {
+        "title": "Early Adopter Belohnungen",
+        "description": "Je früher Sie einsteigen, desto mehr verdienen Sie.\nPioniere bekommen exklusive Vorteile.\nBelohnt fürs erste Vertrauen.",
+        "imageAlt": "Early Adopter Belohnungen illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Herausforderungen, die sich auszahlen",
+        "description": "Monatliche Kampagnen mit großen Prämien.\nLern-Challenges, Sparziele, Trading-Wettbewerbe.\nEngagieren und gleichzeitig verdienen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Herausforderungen, die sich auszahlen illustration"
+      },
+      "simplicity": {
+        "title": "Teilnahme mit einem Fingertipp",
+        "description": "✓ Klare Kampagnenziele\n✓ Fortschritts-Tracking\n✓ Automatische Prämienverteilung\nMühelos teilnehmen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Teilnahme mit einem Fingertipp illustration"
+      },
+      "rewards": {
+        "title": "Zeitlich begrenzte Boni",
+        "description": "Spezielle Multiplikatoren während Kampagnen.\nExklusive Preise für Teilnehmer.\nMehr Engagement, mehr Prämien.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Zeitlich begrenzte Boni illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q88",
+      "q89",
+      "q90"
+    ]
+  }
+}

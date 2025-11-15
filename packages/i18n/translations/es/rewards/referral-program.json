@@ -1,0 +1,93 @@
+{
+  "title": "Programa de Referidos | diBoaS",
+  "description": "Comparte conocimiento, gana recompensas.",
+  "hero": {
+    "title": "Comparte conocimiento, gana recompensas. Crece junto con quienes refieres.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Comparte conocimiento, gana recompensas",
+    "description": "Crece junto a quienes refieres.",
+    "cards": {
+      "bonusForYouAndFriend": {
+        "iconAlt": "Referral bonus icon",
+        "title": "Bono Para Ti y Tu Amigo",
+        "description": "Ambos ganan cuando tu referido se registra.\nRecompensa justa para ambos lados.\nCrecimiento compartido."
+      },
+      "unlimitedReferrals": {
+        "iconAlt": "Unlimited referrals icon",
+        "title": "Referencias Ilimitadas",
+        "description": "Refiere a tantas personas como quieras.\nCada una cuenta.\nEscalabilidad real."
+      },
+      "transparentTracking": {
+        "iconAlt": "Tracking icon",
+        "title": "Seguimiento Transparente",
+        "description": "Ve quién se registró por tu link.\nRastrea tus ganancias.\nDashboard completo de referidos."
+      },
+      "progressiveBonuses": {
+        "iconAlt": "Progressive rewards icon",
+        "title": "Bonos Progresivos",
+        "description": "Cuanto más refieres, más ganas.\nNiveles de recompensa crecientes.\nIncentivo para evangelizar."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Comparte y gana.",
+    "subtitle": "Amigos crecen juntos, todos ganan.",
+    "cards": {
+      "bonusForBoth": {
+        "title": "Bono Para Ambos",
+        "description": "Tú ganas, tu amigo gana.\nMientras más refieres, más acumulas.\nCrecimiento compartido.",
+        "imageAlt": "Bono Para Ambos illustration"
+      },
+      "lifetimeCommission": {
+        "title": "Comisión Vitalicia",
+        "description": "Gana parte de las tarifas de tus referidos.\nPara siempre, no solo al inicio.\nIngreso pasivo real.",
+        "imageAlt": "Comisión Vitalicia illustration"
+      },
+      "referralTiers": {
+        "title": "Niveles de Referido",
+        "description": "Bronce, Plata, Oro, Platino.\nMás refieres, mejor comisión.\nConsistencia recompensada.",
+        "imageAlt": "Niveles de Referido illustration"
+      },
+      "completeDashboard": {
+        "title": "Dashboard Completo",
+        "description": "Ve todos tus referidos y ganancias.\nSigue performance en tiempo real.\nTransparencia total.",
+        "imageAlt": "Dashboard Completo illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Comparte la Riqueza",
+        "description": "Invita amigos, gana recompensas.\nEllos ahorran en comisiones, tú ganas bonos.\nCrecer juntos beneficia a todos.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Comparte la Riqueza illustration"
+      },
+      "simplicity": {
+        "title": "Invitaciones Con Un Clic",
+        "description": "✓ Comparte tu enlace personal\n✓ Rastrea quién se une\n✓ Créditos de recompensa automáticos\nInvita desde cualquier lugar, en cualquier momento.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Invitaciones Con Un Clic illustration"
+      },
+      "rewards": {
+        "title": "Potencial Ilimitado de Ganancias",
+        "description": "Sin límite en recompensas por referidos.\nBonos escalonados para mejores referidores.\nConstruye tu red, construye tu riqueza.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Potencial Ilimitado de Ganancias illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q79",
+      "q80",
+      "q81"
+    ]
+  }
+}

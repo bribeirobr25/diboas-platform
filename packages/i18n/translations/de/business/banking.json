@@ -1,0 +1,93 @@
+{
+  "title": "Business Banking | diBoaS",
+  "description": "Komplettes Business Banking in deiner App.",
+  "hero": {
+    "title": "Komplettes Business Banking in deiner App. Bezahle, empfange und verwalte alles an einem Ort.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Komplettes Business-Banking",
+    "description": "Alles, was dein Unternehmen braucht, in der App.",
+    "cards": {
+      "unlimitedBusinessPix": {
+        "iconAlt": "Instant payments icon",
+        "title": "Unbegrenztes Business-Pix",
+        "description": "Senden und empfangen ohne absurde Limits.\nSofortzahlungen.\nCashflow, der nicht einfriert."
+      },
+      "boletosAndCollections": {
+        "iconAlt": "Billing icon",
+        "title": "Rechnungen und Inkasso",
+        "description": "Rechnungen ausstellen, senden und verfolgen.\nKomplettes Forderungsmanagement.\nEchtzeit-Zahlungsbenachrichtigungen."
+      },
+      "internationalTransfers": {
+        "iconAlt": "Global transfer icon",
+        "title": "Internationale Überweisungen",
+        "description": "Zahle Lieferanten im Ausland.\nEmpfange von globalen Kunden.\nViel niedrigere Gebühren als traditionelle Banken."
+      },
+      "corporateCards": {
+        "iconAlt": "Corporate card icon",
+        "title": "Firmenkarten",
+        "description": "Physische und virtuelle Karten für das Team.\nPro-Nutzer-Limitkontrolle.\nAutomatische Ausgabenkategorisierung."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Business Banking ohne Kopfschmerzen.",
+    "subtitle": "Alles was Ihr Unternehmen braucht um zu bewegen, zahlen und empfangen.",
+    "cards": {
+      "bulkPayments": {
+        "title": "Massen-Zahlungen",
+        "description": "Lieferanten, Mitarbeiter, alle auf einmal bezahlen.\nTabelle hochladen und fertig.\nEffizienz im großen Maßstab.",
+        "imageAlt": "Massen-Zahlungen illustration"
+      },
+      "simplifiedReceivables": {
+        "title": "Vereinfachter Zahlungseingang",
+        "description": "Rechnungen, Pix, internationale Überweisungen.\nAlle Empfangswege an einem Ort.\nGeld kommt schneller an.",
+        "imageAlt": "Vereinfachter Zahlungseingang illustration"
+      },
+      "corporateCard": {
+        "title": "Firmenkarte",
+        "description": "Karten für Ihr Team.\nIndividuelle Limits, zentralisierte Kontrolle.\nAusgaben in Echtzeit sichtbar.",
+        "imageAlt": "Firmenkarte illustration"
+      },
+      "automaticReconciliation": {
+        "title": "Automatische Abstimmung",
+        "description": "Zahlungen und Eingänge automatisch abgestimmt.\nWeniger Fehler, weniger manuelle Arbeit.\nMehr Zeit zum Wachsen.",
+        "imageAlt": "Automatische Abstimmung illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Komplette Banking-Suite",
+        "description": "Einzahlungen, Überweisungen, Rechnungszahlung, Lohn.\nAlles, was Sie für den Betrieb benötigen.\nTraditionelles Banking, moderne Geschwindigkeit.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Komplette Banking-Suite illustration"
+      },
+      "simplicity": {
+        "title": "Zahlungsautomatisierung",
+        "description": "✓ Geplante Zahlungen\n✓ Wiederkehrende Rechnungen\n✓ Sammelüberweisungen\nEinmal einrichten, dann vergessen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Zahlungsautomatisierung illustration"
+      },
+      "rewards": {
+        "title": "Unbegrenzte kostenlose Transaktionen",
+        "description": "Keine Gebühren pro Transaktion.\nUnbegrenzte Überweisungen und Zahlungen.\nSkalieren Sie ohne Kostenbedenken.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Unbegrenzte kostenlose Transaktionen illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q58",
+      "q59",
+      "q60"
+    ]
+  }
+}

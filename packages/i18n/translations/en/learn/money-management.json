@@ -1,0 +1,88 @@
+{
+  "title": "Money Management | diBoaS",
+  "description": "Organize, control, and multiply your money like a pro.",
+  "hero": {
+    "title": "Organize, control, and multiply. Learn to manage your money like a pro.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Manage like a pro",
+    "description": "Advanced techniques explained simply.",
+    "cards": {
+      "financialPlanning360": {
+        "iconAlt": "Planning icon",
+        "title": "360° Financial Planning",
+        "description": "Complete view: short, medium, and long term.\nClear goals, concrete steps.\nFrom dream to real plan."
+      },
+      "taxOptimization": {
+        "iconAlt": "Tax savings icon",
+        "title": "Tax Optimization",
+        "description": "Pay what's fair, nothing more.\nLegal savings strategies.\nYour money working smarter."
+      },
+      "multipleIncomeStreams": {
+        "iconAlt": "Multiple income icon",
+        "title": "Multiple Income Streams",
+        "description": "Diversify where you earn money.\nDon't depend only on salary.\nReal financial security."
+      },
+      "behaviorAndMoney": {
+        "iconAlt": "Psychology icon",
+        "title": "Behavior and Money",
+        "description": "Psychology behind financial decisions.\nIdentify your triggers.\nChange habits, change results."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Manage like a pro.",
+    "subtitle": "Tools and knowledge to master your finances.",
+    "cards": {
+      "planYourFuture": {
+        "title": "Plan Your Future",
+        "description": "Clear goals, realistic plans.\nFrom emergency fund to retirement.\nEvery goal has a path.",
+        "imageAlt": "Plan Your Future illustration"
+      },
+      "controlYourSpending": {
+        "title": "Control Your Spending",
+        "description": "See where your money goes.\nIdentify leaks, correct course.\nKnowledge is savings.",
+        "imageAlt": "Control Your Spending illustration"
+      },
+      "increaseYourIncome": {
+        "title": "Increase Your Income",
+        "description": "Strategies to earn more.\nSide income, hustles, investments.\nMultiple streams, multiple opportunities.",
+        "imageAlt": "Increase Your Income illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Master Your Cash Flow",
+        "description": "Income tracking, expense control, smart saving.\nAll the tools to manage money like a pro.\nTake control of your financial life.",
+        "ctaText": "Get Started",
+        "imageAlt": "Master Your Cash Flow illustration"
+      },
+      "simplicity": {
+        "title": "Automated Insights",
+        "description": "✓ Spending analysis\n✓ Budget recommendations\n✓ Savings opportunities\nYour AI assistant finds ways to optimize.",
+        "ctaText": "Get Started",
+        "imageAlt": "Automated Insights illustration"
+      },
+      "rewards": {
+        "title": "Reach Goals Faster",
+        "description": "Set targets, get reminders, celebrate wins.\nSmart alerts keep you on track.\nMoney management that actually works.",
+        "ctaText": "Get Started",
+        "imageAlt": "Reach Goals Faster illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q46",
+      "q47",
+      "q48"
+    ]
+  }
+}

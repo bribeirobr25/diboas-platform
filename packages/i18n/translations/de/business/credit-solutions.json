@@ -1,0 +1,93 @@
+{
+  "title": "P2P Kredit | diBoaS",
+  "description": "Direktkredite zwischen Unternehmen.",
+  "hero": {
+    "title": "Direktkredite zwischen Unternehmen. Faire Konditionen, schnelle Prozesse, keine Bankbürokratie.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Direkter Business-zu-Business-Kredit",
+    "description": "Keine traditionellen Banking-Mittelsmänner.",
+    "cards": {
+      "fairerRates": {
+        "iconAlt": "Fair rate icon",
+        "title": "Fairere Konditionen",
+        "description": "Keine missbräuchlichen Bankenmargen.\nUnternehmen leihen direkt an Unternehmen.\nAlle gewinnen."
+      },
+      "quickApproval": {
+        "iconAlt": "Fast approval icon",
+        "title": "Schnelle Genehmigung",
+        "description": "KI analysiert Risiko mit fairen Kriterien.\nAntwort in Stunden, nicht Wochen.\nMinimale Bürokratie."
+      },
+      "opportunityToInvestToo": {
+        "iconAlt": "Investment opportunity icon",
+        "title": "Chance auch zu investieren",
+        "description": "Dein Unternehmen kann ungenutztes Kapital verleihen.\nAttraktive und kontrollierte Renditen.\nB2B-Kredit-Marktplatz."
+      },
+      "totalTransparency": {
+        "iconAlt": "Transparency icon",
+        "title": "Totale Transparenz",
+        "description": "Sieh, wer verleiht.\nVerstehe die Zinsstruktur.\nKlare und zugängliche Verträge."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Direktkredit zwischen Unternehmen.",
+    "subtitle": "Keine Bank dazwischen. Schneller, fairer.",
+    "cards": {
+      "lowerRates": {
+        "title": "Niedrigere Zinsen",
+        "description": "Keine traditionelle Bankvermittlung.\nUnternehmen leihen an Unternehmen.\nAlle sparen.",
+        "imageAlt": "Niedrigere Zinsen illustration"
+      },
+      "fastApproval": {
+        "title": "Schnelle Bewilligung",
+        "description": "Analyse basierend auf echtem Cashflow.\nAntwort in Stunden, nicht Wochen.\nKredit im Tempo Ihres Business.",
+        "imageAlt": "Schnelle Bewilligung illustration"
+      },
+      "flexibleTerms": {
+        "title": "Flexible Konditionen",
+        "description": "Direkt mit Kreditgeber verhandeln.\nLaufzeit, Betrag, Sicherheiten.\nVereinbarung die für beide Sinn macht.",
+        "imageAlt": "Flexible Konditionen illustration"
+      },
+      "diversifySources": {
+        "title": "Quellen diversifizieren",
+        "description": "Weniger Bankabhängigkeit.\nMehrere Kreditquellen.\nFinanzielle Resilienz.",
+        "imageAlt": "Quellen diversifizieren illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Unternehmenskredite ohne Banken",
+        "description": "Direkte Peer-to-Peer-Kreditvergabe.\nFaire Zinsen, schnelle Genehmigungen.\nKredit für Wachstum gemacht.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Unternehmenskredite ohne Banken illustration"
+      },
+      "simplicity": {
+        "title": "Beantragen Sie in Minuten",
+        "description": "✓ Sofortige Vorabgenehmigungsentscheidungen\n✓ Flexible Rückzahlungsbedingungen\n✓ Keine versteckten Gebühren oder Strafen\nFinanzierung in Geschäftsgeschwindigkeit.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Beantragen Sie in Minuten illustration"
+      },
+      "rewards": {
+        "title": "Bauen Sie Unternehmenskredit auf",
+        "description": "Verantwortungsvolle Kreditnutzung verbessert Konditionen.\nZugang zu höheren Beträgen im Laufe der Zeit.\nKredit, der mit Ihrem Geschäft wächst.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Bauen Sie Unternehmenskredit auf illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q70",
+      "q71",
+      "q72"
+    ]
+  }
+}

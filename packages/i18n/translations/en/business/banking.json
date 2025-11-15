@@ -1,0 +1,93 @@
+{
+  "title": "Business Banking | diBoaS",
+  "description": "Complete business banking in your app.",
+  "hero": {
+    "title": "Complete business banking in your app. Pay, receive, and manage everything in one place.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Complete business banking",
+    "description": "Everything your business needs in the app.",
+    "cards": {
+      "unlimitedBusinessPix": {
+        "iconAlt": "Instant payments icon",
+        "title": "Unlimited Business Pix",
+        "description": "Send and receive without absurd limits.\nInstant payments.\nCash flow that doesn't freeze."
+      },
+      "boletosAndCollections": {
+        "iconAlt": "Billing icon",
+        "title": "Boletos and Collections",
+        "description": "Issue, send, and track boletos.\nComplete receivables management.\nReal-time payment notifications."
+      },
+      "internationalTransfers": {
+        "iconAlt": "Global transfer icon",
+        "title": "International Transfers",
+        "description": "Pay overseas suppliers.\nReceive from global clients.\nMuch lower rates than traditional banks."
+      },
+      "corporateCards": {
+        "iconAlt": "Corporate card icon",
+        "title": "Corporate Cards",
+        "description": "Physical and virtual cards for team.\nPer-user limit control.\nAutomatic expense categorization."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Business banking without headaches.",
+    "subtitle": "Everything your company needs to move, pay, and receive.",
+    "cards": {
+      "bulkPayments": {
+        "title": "Bulk Payments",
+        "description": "Pay suppliers, employees, all at once.\nUpload spreadsheet and done.\nEfficiency at scale.",
+        "imageAlt": "Bulk Payments illustration"
+      },
+      "simplifiedReceivables": {
+        "title": "Simplified Receivables",
+        "description": "Bills, Pix, international transfers.\nAll ways to receive in one place.\nMoney coming faster.",
+        "imageAlt": "Simplified Receivables illustration"
+      },
+      "corporateCard": {
+        "title": "Corporate Card",
+        "description": "Cards for your team.\nIndividual limits, centralized control.\nSpending visible in real-time.",
+        "imageAlt": "Corporate Card illustration"
+      },
+      "automaticReconciliation": {
+        "title": "Automatic Reconciliation",
+        "description": "Payments and receipts reconciled automatically.\nLess error, less manual work.\nMore time to grow.",
+        "imageAlt": "Automatic Reconciliation illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Complete Banking Suite",
+        "description": "Deposits, transfers, bill pay, payroll.\nEverything you need to operate.\nTraditional banking, modern speed.",
+        "ctaText": "Get Started",
+        "imageAlt": "Complete Banking Suite illustration"
+      },
+      "simplicity": {
+        "title": "Payment Automation",
+        "description": "✓ Scheduled payments\n✓ Recurring invoices\n✓ Batch transfers\nSet it once, forget about it.",
+        "ctaText": "Get Started",
+        "imageAlt": "Payment Automation illustration"
+      },
+      "rewards": {
+        "title": "Free Unlimited Transactions",
+        "description": "No per-transaction fees.\nUnlimited transfers and payments.\nScale without worrying about costs.",
+        "ctaText": "Get Started",
+        "imageAlt": "Free Unlimited Transactions illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q58",
+      "q59",
+      "q60"
+    ]
+  }
+}

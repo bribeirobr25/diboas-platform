@@ -1,0 +1,93 @@
+{
+  "title": "Auditorías & Informes | diBoaS",
+  "description": "Transparencia total.",
+  "hero": {
+    "title": "Transparencia total. Auditorías independientes e informes públicos sobre nuestra seguridad.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Transparencia total",
+    "description": "Auditorías independientes y públicas.",
+    "cards": {
+      "quarterlyAudits": {
+        "iconAlt": "Audit icon",
+        "title": "Auditorías Trimestrales",
+        "description": "Empresas independientes verifican todo.\nReportes públicos y accesibles.\nConfianza basada en hechos."
+      },
+      "proofOfReserves": {
+        "iconAlt": "Proof of reserves icon",
+        "title": "Proof of Reserves",
+        "description": "Demostración de que los activos existen.\nSin reserva fraccionaria oculta.\nSolvencia verificable."
+      },
+      "regulatoryCompliance": {
+        "iconAlt": "Compliance icon",
+        "title": "Cumplimiento Regulatorio",
+        "description": "Certificaciones de todas las jurisdicciones.\nMiCA (UE), BSA (EE.UU.), Banco Central (BR).\nLegal en todos lados."
+      },
+      "bugBountyProgram": {
+        "iconAlt": "Bug bounty icon",
+        "title": "Programa Bug Bounty",
+        "description": "Hackers éticos prueban nuestra seguridad.\nRecompensas por encontrar fallas.\nSeguridad colaborativa."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Transparencia como política.",
+    "subtitle": "Todos los reportes, todas las auditorías, públicos.",
+    "cards": {
+      "independentAudits": {
+        "title": "Auditorías Independientes",
+        "description": "Empresas externas verifican todo.\nSmart contracts, infraestructura, procesos.\nConfianza verificable.",
+        "imageAlt": "Auditorías Independientes illustration"
+      },
+      "publicReports": {
+        "title": "Reportes Públicos",
+        "description": "Todas las auditorías disponibles para consulta.\nTransparencia total sobre seguridad.\nNada oculto.",
+        "imageAlt": "Reportes Públicos illustration"
+      },
+      "bugBountyProgram": {
+        "title": "Programa Bug Bounty",
+        "description": "Recompensamos a quienes encuentran vulnerabilidades.\nLa comunidad nos ayuda a ser más seguros.\nSeguridad colaborativa.",
+        "imageAlt": "Programa Bug Bounty illustration"
+      },
+      "complianceReports": {
+        "title": "Reportes de Cumplimiento",
+        "description": "Reportes regulatorios actualizados.\nSOC 2, ISO 27001, MiCA.\nCertificaciones que prueban.",
+        "imageAlt": "Reportes de Cumplimiento illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Transparencia En La Que Confías",
+        "description": "Auditorías de seguridad independientes.\nReportes públicos, sin secretos.\nRendición de cuentas en nuestro ADN.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Transparencia En La Que Confías illustration"
+      },
+      "simplicity": {
+        "title": "Accede a Todos los Reportes",
+        "description": "✓ Auditorías de seguridad regulares\n✓ Divulgaciones de salud financiera\n✓ Certificaciones de cumplimiento\nTodo público, nada oculto.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Accede a Todos los Reportes illustration"
+      },
+      "rewards": {
+        "title": "Excelencia en Seguridad Certificada",
+        "description": "Cumplimiento ISO 27001 y SOC 2.\nEstándares de seguridad líderes en la industria.\nTu confianza, nuestra máxima prioridad.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Excelencia en Seguridad Certificada illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q97",
+      "q98",
+      "q99"
+    ]
+  }
+}

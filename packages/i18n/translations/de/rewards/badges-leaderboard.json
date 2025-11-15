@@ -1,0 +1,93 @@
+{
+  "title": "Badges & Ranking | diBoaS",
+  "description": "Verdiene Badges und klettere im Ranking.",
+  "hero": {
+    "title": "Verdiene Badges, klettere im Ranking und zeige deine finanziellen Erfolge der Community.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Erreiche, zeige, inspiriere",
+    "description": "Deine finanziellen Erfolge sichtbar.",
+    "cards": {
+      "milestoneBadges": {
+        "iconAlt": "Milestone badge icon",
+        "title": "Meilenstein-Badges",
+        "description": "Erstes Investment, $1K investiert, 10 Kurse abgeschlossen.\nJeder Erfolg hat ein Badge.\nDein Fortschritt sichtbar."
+      },
+      "weeklyLeaderboard": {
+        "iconAlt": "Leaderboard icon",
+        "title": "Wöchentliche Bestenliste",
+        "description": "Punkte-Ranking der Woche.\nGesunder Wettbewerb.\nZusätzliche Motivation."
+      },
+      "optionalPublicProfile": {
+        "iconAlt": "Public profile icon",
+        "title": "Optionales öffentliches Profil",
+        "description": "Zeige deine Badges, wenn du willst.\nInspiriere andere Nutzer.\nWachstums-Community."
+      },
+      "specialBadges": {
+        "iconAlt": "Special badge icon",
+        "title": "Spezielle Badges",
+        "description": "Early Adopter, Top-Empfehler, Educator.\nEinzigartige Anerkennung.\nCommunity-Status."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Zeigen Sie Ihre Erfolge.",
+    "subtitle": "Badges die zählen, Rankings die inspirieren.",
+    "cards": {
+      "achievementBadges": {
+        "title": "Erfolgs-Badges",
+        "description": "Erstes Investment, diversifiziertes Portfolio.\nJeder Meilenstein hat sein Badge.\nFeiern Sie jeden Sieg.",
+        "imageAlt": "Erfolgs-Badges illustration"
+      },
+      "weeklyRankings": {
+        "title": "Wöchentliche Rankings",
+        "description": "Sehen Sie wer am meisten wächst.\nLassen Sie sich inspirieren, konkurrieren Sie, lernen Sie.\nGamification die motiviert.",
+        "imageAlt": "Wöchentliche Rankings illustration"
+      },
+      "verifiedProfile": {
+        "title": "Verifiziertes Profil",
+        "description": "Zeigen Sie Expertise und Zuverlässigkeit.\nExperten-Badges in jeder Kategorie.\nSichtbare Glaubwürdigkeit.",
+        "imageAlt": "Verifiziertes Profil illustration"
+      },
+      "positionRewards": {
+        "title": "Positions-Belohnungen",
+        "description": "Wöchentliche Top 10 bekommt Spezialbonus.\nGesunder Wettbewerb, echte Preise.\nHeben Sie sich ab und verdienen Sie.",
+        "imageAlt": "Positions-Belohnungen illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Zeigen Sie Ihren Erfolg",
+        "description": "Verdienen Sie Abzeichen für Erfolge.\nSteigen Sie in der Community-Rangliste auf.\nAnerkennung für Ihr finanzielles Wachstum.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Zeigen Sie Ihren Erfolg illustration"
+      },
+      "simplicity": {
+        "title": "Meilenstein-Feiern",
+        "description": "✓ Abzeichen für erste Investition\n✓ Erfolge für Sparserien\n✓ Lernabschluss-Auszeichnungen\nJeder Schritt wird gefeiert.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Meilenstein-Feiern illustration"
+      },
+      "rewards": {
+        "title": "Exklusive Vorteile für Führende",
+        "description": "Top-Performer erhalten besondere Vorteile.\nFrühzugang zu Funktionen und Boni.\nWettbewerb, der allen nützt.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Exklusive Vorteile für Führende illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q85",
+      "q86",
+      "q87"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Banking Empresarial | diBoaS",
+  "description": "Banking empresarial completo no app.",
+  "hero": {
+    "title": "Banking empresarial completo no app. Pague, receba e gerencie tudo em um só lugar.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Banking empresarial completo",
+    "description": "Tudo que seu negócio precisa no app.",
+    "cards": {
+      "unlimitedBusinessPix": {
+        "iconAlt": "Instant payments icon",
+        "title": "Pix Empresarial Ilimitado",
+        "description": "Envie e receba sem limites absurdos.\nPagamentos instantâneos.\nFluxo de caixa que não trava."
+      },
+      "boletosAndCollections": {
+        "iconAlt": "Billing icon",
+        "title": "Boletos e Cobranças",
+        "description": "Emita, envie e acompanhe boletos.\nGestão completa de recebíveis.\nNotificações de pagamento em tempo real."
+      },
+      "internationalTransfers": {
+        "iconAlt": "Global transfer icon",
+        "title": "Transferências Internacionais",
+        "description": "Pague fornecedores no exterior.\nReceba de clientes globais.\nTaxas muito menores que bancos tradicionais."
+      },
+      "corporateCards": {
+        "iconAlt": "Corporate card icon",
+        "title": "Cartões Corporativos",
+        "description": "Cartões físicos e virtuais para equipe.\nControle de limites por usuário.\nCategorização automática de despesas."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Banking empresarial sem dor de cabeça.",
+    "subtitle": "Tudo que sua empresa precisa mover, pagar e receber.",
+    "cards": {
+      "bulkPayments": {
+        "title": "Pagamentos em Massa",
+        "description": "Pague fornecedores, funcionários, todos de uma vez.\nUpload de planilha e pronto.\nEficiência em escala.",
+        "imageAlt": "Pagamentos em Massa illustration"
+      },
+      "simplifiedReceivables": {
+        "title": "Recebimentos Simplificados",
+        "description": "Boletos, Pix, transferências internacionais.\nTodas as formas de receber em um só lugar.\nDinheiro chegando mais rápido.",
+        "imageAlt": "Recebimentos Simplificados illustration"
+      },
+      "corporateCard": {
+        "title": "Cartão Corporativo",
+        "description": "Cartões para sua equipe.\nLimites individuais, controle centralizado.\nGastos visíveis em tempo real.",
+        "imageAlt": "Cartão Corporativo illustration"
+      },
+      "automaticReconciliation": {
+        "title": "Conciliação Automática",
+        "description": "Pagamentos e recebimentos conciliados automaticamente.\nMenos erro, menos trabalho manual.\nMais tempo para crescer.",
+        "imageAlt": "Conciliação Automática illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Suite Completa de Banking",
+        "description": "Depósitos, transferências, pagamentos, folha.\nTudo que você precisa pra operar.\nBanking tradicional, velocidade moderna.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Suite Completa de Banking illustration"
+      },
+      "simplicity": {
+        "title": "Automação de Pagamentos",
+        "description": "✓ Pagamentos agendados\n✓ Cobranças recorrentes\n✓ Transferências em lote\nConfigure uma vez, esqueça.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Automação de Pagamentos illustration"
+      },
+      "rewards": {
+        "title": "Transações Ilimitadas Gratuitas",
+        "description": "Sem taxa por transação.\nTransferências e pagamentos ilimitados.\nEscale sem se preocupar com custos.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Transações Ilimitadas Gratuitas illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q58",
+      "q59",
+      "q60"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Empfehlungsprogramm | diBoaS",
+  "description": "Teile Wissen, verdiene Belohnungen.",
+  "hero": {
+    "title": "Teile Wissen, verdiene Belohnungen. Wachse gemeinsam mit denen, die du empfiehlst.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Teile Wissen, verdiene Belohnungen",
+    "description": "Wachse mit denen, die du empfiehlst.",
+    "cards": {
+      "bonusForYouAndFriend": {
+        "iconAlt": "Referral bonus icon",
+        "title": "Bonus für dich und deinen Freund",
+        "description": "Beide verdienen, wenn sich deine Empfehlung anmeldet.\nFaire Belohnung für beide Seiten.\nGemeinsames Wachstum."
+      },
+      "unlimitedReferrals": {
+        "iconAlt": "Unlimited referrals icon",
+        "title": "Unbegrenzte Empfehlungen",
+        "description": "Empfehle so viele Leute, wie du willst.\nJede zählt.\nEchte Skalierbarkeit."
+      },
+      "transparentTracking": {
+        "iconAlt": "Tracking icon",
+        "title": "Transparentes Tracking",
+        "description": "Sieh, wer sich über deinen Link angemeldet hat.\nVerfolge deine Einnahmen.\nKomplettes Empfehlungs-Dashboard."
+      },
+      "progressiveBonuses": {
+        "iconAlt": "Progressive rewards icon",
+        "title": "Progressive Boni",
+        "description": "Je mehr du empfiehlst, desto mehr verdienst du.\nSteigende Belohnungsstufen.\nAnreiz zum Evangelisieren."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Teilen und verdienen.",
+    "subtitle": "Freunde wachsen zusammen, alle gewinnen.",
+    "cards": {
+      "bonusForBoth": {
+        "title": "Bonus für beide",
+        "description": "Sie verdienen, Ihr Freund verdient.\nJe mehr Sie empfehlen, desto mehr sammeln Sie.\nGemeinsames Wachstum.",
+        "imageAlt": "Bonus für beide illustration"
+      },
+      "lifetimeCommission": {
+        "title": "Lebenslange Provision",
+        "description": "Verdienen Sie Teil der Gebühren Ihrer Empfehlungen.\nFür immer, nicht nur am Anfang.\nEchtes passives Einkommen.",
+        "imageAlt": "Lebenslange Provision illustration"
+      },
+      "referralTiers": {
+        "title": "Empfehlungs-Stufen",
+        "description": "Bronze, Silber, Gold, Platin.\nMehr Empfehlungen, bessere Provision.\nBelohnte Beständigkeit.",
+        "imageAlt": "Empfehlungs-Stufen illustration"
+      },
+      "completeDashboard": {
+        "title": "Komplettes Dashboard",
+        "description": "Sehen Sie alle Ihre Empfehlungen und Verdienste.\nPerformance in Echtzeit verfolgen.\nTotale Transparenz.",
+        "imageAlt": "Komplettes Dashboard illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Teilen Sie den Wohlstand",
+        "description": "Laden Sie Freunde ein, verdienen Sie Prämien.\nSie sparen bei Gebühren, Sie erhalten Boni.\nGemeinsam wachsen kommt allen zugute.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Teilen Sie den Wohlstand illustration"
+      },
+      "simplicity": {
+        "title": "Einladungen mit einem Klick",
+        "description": "✓ Teilen Sie Ihren persönlichen Link\n✓ Verfolgen Sie, wer beitritt\n✓ Automatische Prämiengutschriften\nLaden Sie von überall und jederzeit ein.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Einladungen mit einem Klick illustration"
+      },
+      "rewards": {
+        "title": "Unbegrenztes Verdienstpotenzial",
+        "description": "Keine Obergrenze für Empfehlungsprämien.\nGestaffelte Boni für Top-Empfehler.\nBauen Sie Ihr Netzwerk auf, bauen Sie Ihren Wohlstand auf.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Unbegrenztes Verdienstpotenzial illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q79",
+      "q80",
+      "q81"
+    ]
+  }
+}

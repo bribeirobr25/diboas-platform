@@ -1,0 +1,93 @@
+{
+  "title": "Banking Empresarial | diBoaS",
+  "description": "Banking empresarial completo en tu app.",
+  "hero": {
+    "title": "Banking empresarial completo en tu app. Paga, recibe y gestiona todo en un solo lugar.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Banking empresarial completo",
+    "description": "Todo lo que tu negocio necesita en la app.",
+    "cards": {
+      "unlimitedBusinessPix": {
+        "iconAlt": "Instant payments icon",
+        "title": "Pix Empresarial Ilimitado",
+        "description": "Envía y recibe sin límites absurdos.\nPagos instantáneos.\nFlujo de caja que no se congela."
+      },
+      "boletosAndCollections": {
+        "iconAlt": "Billing icon",
+        "title": "Boletas y Cobranzas",
+        "description": "Emite, envía y rastrea boletas.\nGestión completa de cuentas por cobrar.\nNotificaciones de pago en tiempo real."
+      },
+      "internationalTransfers": {
+        "iconAlt": "Global transfer icon",
+        "title": "Transferencias Internacionales",
+        "description": "Paga proveedores en el extranjero.\nRecibe de clientes globales.\nTarifas mucho más bajas que bancos tradicionales."
+      },
+      "corporateCards": {
+        "iconAlt": "Corporate card icon",
+        "title": "Tarjetas Corporativas",
+        "description": "Tarjetas físicas y virtuales para el equipo.\nControl de límites por usuario.\nCategorización automática de gastos."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Banking empresarial sin dolores de cabeza.",
+    "subtitle": "Todo lo que tu empresa necesita para mover, pagar y recibir.",
+    "cards": {
+      "bulkPayments": {
+        "title": "Pagos Masivos",
+        "description": "Paga proveedores, empleados, todos de una vez.\nSube planilla y listo.\nEficiencia a escala.",
+        "imageAlt": "Pagos Masivos illustration"
+      },
+      "simplifiedReceivables": {
+        "title": "Cobranzas Simplificadas",
+        "description": "Facturas, Pix, transferencias internacionales.\nTodas las formas de recibir en un lugar.\nDinero llegando más rápido.",
+        "imageAlt": "Cobranzas Simplificadas illustration"
+      },
+      "corporateCard": {
+        "title": "Tarjeta Corporativa",
+        "description": "Tarjetas para tu equipo.\nLímites individuales, control centralizado.\nGastos visibles en tiempo real.",
+        "imageAlt": "Tarjeta Corporativa illustration"
+      },
+      "automaticReconciliation": {
+        "title": "Conciliación Automática",
+        "description": "Pagos y cobros conciliados automáticamente.\nMenos error, menos trabajo manual.\nMás tiempo para crecer.",
+        "imageAlt": "Conciliación Automática illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Suite Completa de Banking",
+        "description": "Depósitos, transferencias, pago de facturas, nómina.\nTodo lo que necesitas para operar.\nBanking tradicional, velocidad moderna.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Suite Completa de Banking illustration"
+      },
+      "simplicity": {
+        "title": "Automatización de Pagos",
+        "description": "✓ Pagos programados\n✓ Facturas recurrentes\n✓ Transferencias en lote\nConfigura una vez, olvídate.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Automatización de Pagos illustration"
+      },
+      "rewards": {
+        "title": "Transacciones Ilimitadas Gratis",
+        "description": "Sin comisión por transacción.\nTransferencias y pagos ilimitados.\nEscala sin preocuparte por costos.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Transacciones Ilimitadas Gratis illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q58",
+      "q59",
+      "q60"
+    ]
+  }
+}

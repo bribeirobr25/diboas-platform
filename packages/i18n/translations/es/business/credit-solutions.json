@@ -1,0 +1,93 @@
+{
+  "title": "Crédito P2P | diBoaS",
+  "description": "Crédito directo entre empresas.",
+  "hero": {
+    "title": "Crédito directo entre empresas. Tasas justas, procesos rápidos, sin burocracia bancaria.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Crédito directo entre empresas",
+    "description": "Sin intermediarios bancarios tradicionales.",
+    "cards": {
+      "fairerRates": {
+        "iconAlt": "Fair rate icon",
+        "title": "Tasas Más Justas",
+        "description": "Sin márgenes bancarios abusivos.\nEmpresas prestan directo a empresas.\nTodos ganan."
+      },
+      "quickApproval": {
+        "iconAlt": "Fast approval icon",
+        "title": "Aprobación Rápida",
+        "description": "IA analiza riesgo con criterios justos.\nRespuesta en horas, no semanas.\nBurocracia mínima."
+      },
+      "opportunityToInvestToo": {
+        "iconAlt": "Investment opportunity icon",
+        "title": "Oportunidad de Invertir También",
+        "description": "Tu empresa puede prestar capital sin usar.\nRetornos atractivos y controlados.\nMarketplace de crédito B2B."
+      },
+      "totalTransparency": {
+        "iconAlt": "Transparency icon",
+        "title": "Transparencia Total",
+        "description": "Ve quién está prestando.\nEntiende la estructura de intereses.\nContratos claros y accesibles."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Crédito directo entre empresas.",
+    "subtitle": "Sin banco en el medio. Más rápido, más justo.",
+    "cards": {
+      "lowerRates": {
+        "title": "Tasas Más Bajas",
+        "description": "Sin intermediación bancaria tradicional.\nEmpresas prestan a empresas.\nTodos ahorran.",
+        "imageAlt": "Tasas Más Bajas illustration"
+      },
+      "fastApproval": {
+        "title": "Aprobación Rápida",
+        "description": "Análisis basado en flujo de caja real.\nRespuesta en horas, no en semanas.\nCrédito a la velocidad de tu negocio.",
+        "imageAlt": "Aprobación Rápida illustration"
+      },
+      "flexibleTerms": {
+        "title": "Términos Flexibles",
+        "description": "Negocia directo con quien presta.\nPlazo, monto, garantías.\nAcuerdo que tiene sentido para ambos.",
+        "imageAlt": "Términos Flexibles illustration"
+      },
+      "diversifySources": {
+        "title": "Diversifica Fuentes",
+        "description": "Menos dependencia bancaria.\nMúltiples fuentes de crédito.\nResiliencia financiera.",
+        "imageAlt": "Diversifica Fuentes illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Préstamos Empresariales Sin Bancos",
+        "description": "Préstamos peer-to-peer directos.\nTasas justas, aprobaciones rápidas.\nCrédito diseñado para crecimiento.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Préstamos Empresariales Sin Bancos illustration"
+      },
+      "simplicity": {
+        "title": "Solicita en Minutos",
+        "description": "✓ Decisiones de preaprobación instantáneas\n✓ Plazos de pago flexibles\n✓ Sin comisiones ocultas o penalizaciones\nFinanciamiento a la velocidad del negocio.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Solicita en Minutos illustration"
+      },
+      "rewards": {
+        "title": "Construye Crédito Empresarial",
+        "description": "El uso responsable mejora condiciones.\nAcceso a montos mayores con el tiempo.\nCrédito que crece con tu negocio.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Construye Crédito Empresarial illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q70",
+      "q71",
+      "q72"
+    ]
+  }
+}

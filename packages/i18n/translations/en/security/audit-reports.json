@@ -1,0 +1,93 @@
+{
+  "title": "Audit & Reports | diBoaS",
+  "description": "Complete transparency.",
+  "hero": {
+    "title": "Complete transparency. Independent audits and public reports on our security.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Total transparency",
+    "description": "Independent and public audits.",
+    "cards": {
+      "quarterlyAudits": {
+        "iconAlt": "Audit icon",
+        "title": "Quarterly Audits",
+        "description": "Independent firms verify everything.\nPublic and accessible reports.\nTrust based on facts."
+      },
+      "proofOfReserves": {
+        "iconAlt": "Proof of reserves icon",
+        "title": "Proof of Reserves",
+        "description": "Demonstration that assets exist.\nNo hidden fractional reserve.\nVerifiable solvency."
+      },
+      "regulatoryCompliance": {
+        "iconAlt": "Compliance icon",
+        "title": "Regulatory Compliance",
+        "description": "Certifications from all jurisdictions.\nMiCA (EU), BSA (US), Central Bank (BR).\nLegal everywhere."
+      },
+      "bugBountyProgram": {
+        "iconAlt": "Bug bounty icon",
+        "title": "Bug Bounty Program",
+        "description": "Ethical hackers test our security.\nRewards for finding flaws.\nCollaborative security."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Transparency as policy.",
+    "subtitle": "All reports, all audits, public.",
+    "cards": {
+      "independentAudits": {
+        "title": "Independent Audits",
+        "description": "External companies verify everything.\nSmart contracts, infrastructure, processes.\nVerifiable trust.",
+        "imageAlt": "Independent Audits illustration"
+      },
+      "publicReports": {
+        "title": "Public Reports",
+        "description": "All audits available for review.\nTotal transparency about security.\nNothing hidden.",
+        "imageAlt": "Public Reports illustration"
+      },
+      "bugBountyProgram": {
+        "title": "Bug Bounty Program",
+        "description": "We reward those who find vulnerabilities.\nCommunity helps us be more secure.\nCollaborative security.",
+        "imageAlt": "Bug Bounty Program illustration"
+      },
+      "complianceReports": {
+        "title": "Compliance Reports",
+        "description": "Updated regulatory reports.\nSOC 2, ISO 27001, MiCA.\nCertifications that prove.",
+        "imageAlt": "Compliance Reports illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Transparency You Can Trust",
+        "description": "Independent security audits.\nPublic reports, no secrets.\nAccountability built into our DNA.",
+        "ctaText": "Get Started",
+        "imageAlt": "Transparency You Can Trust illustration"
+      },
+      "simplicity": {
+        "title": "Access All Reports",
+        "description": "✓ Regular security audits\n✓ Financial health disclosures\n✓ Compliance certifications\nEverything public, nothing hidden.",
+        "ctaText": "Get Started",
+        "imageAlt": "Access All Reports illustration"
+      },
+      "rewards": {
+        "title": "Certified Security Excellence",
+        "description": "ISO 27001 and SOC 2 compliant.\nIndustry-leading security standards.\nYour trust, our highest priority.",
+        "ctaText": "Get Started",
+        "imageAlt": "Certified Security Excellence illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q97",
+      "q98",
+      "q99"
+    ]
+  }
+}

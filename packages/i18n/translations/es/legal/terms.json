@@ -1,0 +1,93 @@
+{
+  "title": "Términos de Servicio | diBoaS",
+  "description": "Reglas claras, compromisos serios.",
+  "hero": {
+    "title": "Reglas claras, compromisos serios. Conoce nuestros términos y políticas sin letra chica.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Reglas claras, compromisos serios",
+    "description": "Términos sin letra chica.",
+    "cards": {
+      "humanizedTermsOfUse": {
+        "iconAlt": "Clear terms icon",
+        "title": "Términos de Uso Humanizados",
+        "description": "Lenguaje claro, no jerga legal.\nEntiendes lo que aceptas.\nTransparencia como estándar."
+      },
+      "multiJurisdictionCompliance": {
+        "iconAlt": "Global compliance icon",
+        "title": "Cumplimiento Multi-Jurisdiccional",
+        "description": "Seguimos leyes donde operamos.\nActualizaciones según evolucionan regulaciones.\nCumplimiento proactivo, no reactivo."
+      },
+      "consumerProtection": {
+        "iconAlt": "Consumer protection icon",
+        "title": "Protección del Consumidor",
+        "description": "Tus derechos siempre respetados.\nProceso de quejas claro.\nResolución justa de disputas."
+      },
+      "regularExternalAudit": {
+        "iconAlt": "External audit icon",
+        "title": "Auditoría Externa Regular",
+        "description": "Verificación independiente de cumplimiento.\nReportes públicos trimestrales.\nResponsabilidad que importa."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Legalidad en todos los sentidos.",
+    "subtitle": "Términos claros, cumplimiento riguroso, protección total.",
+    "cards": {
+      "termsOfUse": {
+        "title": "Términos de Uso",
+        "description": "Lenguaje claro, sin legalés.\nEntiende exactamente tus derechos.\nTransparencia legal.",
+        "imageAlt": "Términos de Uso illustration"
+      },
+      "multiJurisdiction": {
+        "title": "Multi-Jurisdicción",
+        "description": "Cumple en USA, UE, Brasil, más.\nOperación legal en todos lados.\nExpansión sin barreras.",
+        "imageAlt": "Multi-Jurisdicción illustration"
+      },
+      "rigorousKycAml": {
+        "title": "KYC/AML Riguroso",
+        "description": "Verificación robusta de identidad.\nPrevención de lavado de dinero.\nPlataforma limpia.",
+        "imageAlt": "KYC/AML Riguroso illustration"
+      },
+      "disputeResolution": {
+        "title": "Resolución de Disputas",
+        "description": "Procesos claros para conflictos.\nMediación antes de litigio.\nJusticia accesible.",
+        "imageAlt": "Resolución de Disputas illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Excelencia Regulatoria",
+        "description": "Cumplimiento MiCA en UE, BSA en EE.UU.\nOperaciones multijurisdicción listas.\nClaridad legal desde el día uno.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Excelencia Regulatoria illustration"
+      },
+      "simplicity": {
+        "title": "Términos Que Entiendes",
+        "description": "✓ Políticas en lenguaje claro\n✓ Sin cláusulas ocultas\n✓ Derechos claros del usuario\nTransparencia en todo.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Términos Que Entiendes illustration"
+      },
+      "rewards": {
+        "title": "Tus Derechos Protegidos",
+        "description": "Políticas y procedimientos centrados en el usuario.\nResolución clara de disputas.\nTrato justo garantizado.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Tus Derechos Protegidos illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q112",
+      "q113",
+      "q114"
+    ]
+  }
+}
