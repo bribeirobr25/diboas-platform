@@ -41,7 +41,7 @@ export default async function HelpTroubleshootingPage({ params }: PageProps) {
     { name: 'Troubleshooting', url: ROUTES.HELP.TROUBLESHOOTING }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('helpTroubleshooting');
+  const heroVariant = getVariantForPageConfig('help-troubleshooting');
 
   return (
     <>

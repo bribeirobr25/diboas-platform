@@ -41,7 +41,7 @@ export default async function HelpContactPage({ params }: PageProps) {
     { name: 'Contact', url: ROUTES.HELP.CONTACT }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('helpContact');
+  const heroVariant = getVariantForPageConfig('help-contact');
 
   return (
     <>

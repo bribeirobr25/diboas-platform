@@ -3887,6 +3887,30 @@
           ]
         }
       }
+    },
+    "helpContact": {
+      "hero": {
+        "title": "Póngase en Contacto",
+        "cta": "Contactar Soporte"
+      }
+    },
+    "helpGettingStarted": {
+      "hero": {
+        "title": "Comience Su Viaje",
+        "cta": "Comenzar Ahora"
+      }
+    },
+    "helpSupport": {
+      "hero": {
+        "title": "Soporte 24/7",
+        "cta": "Obtener Ayuda"
+      }
+    },
+    "helpTroubleshooting": {
+      "hero": {
+        "title": "Solucione Problemas Rápidamente",
+        "cta": "Encontrar Soluciones"
+      }
     }
   },
   "faq": {

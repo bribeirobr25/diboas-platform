@@ -41,7 +41,7 @@ export default async function HelpGettingStartedPage({ params }: PageProps) {
     { name: 'Getting Started', url: ROUTES.HELP.GETTING_STARTED }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('helpGettingStarted');
+  const heroVariant = getVariantForPageConfig('help-getting-started');
 
   return (
     <>

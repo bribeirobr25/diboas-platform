@@ -790,6 +790,94 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
     }
   },
 
+  'help-contact': {
+    content: {
+      title: 'marketing.pages.helpContact.hero.title',
+      ctaText: 'marketing.pages.helpContact.hero.cta',
+      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
+      ctaTarget: '_blank'
+    },
+    visualAssets: DEFAULT_VISUAL_ASSETS,
+    seo: {
+      titleTag: 'Contact Us - diBoaS Support',
+      imageAlt: {
+        phone: 'diBoaS mobile application showing contact options',
+        mascot: 'Acqua mascot ready to help',
+        background: 'Contact and support illustration'
+      }
+    },
+    analytics: {
+      trackingPrefix: 'hero_contact',
+      enabled: true
+    }
+  },
+
+  'help-getting-started': {
+    content: {
+      title: 'marketing.pages.helpGettingStarted.hero.title',
+      ctaText: 'marketing.pages.helpGettingStarted.hero.cta',
+      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
+      ctaTarget: '_blank'
+    },
+    visualAssets: DEFAULT_VISUAL_ASSETS,
+    seo: {
+      titleTag: 'Getting Started - diBoaS Guide',
+      imageAlt: {
+        phone: 'diBoaS mobile application showing getting started guide',
+        mascot: 'Acqua mascot guiding new users',
+        background: 'Getting started tutorial illustration'
+      }
+    },
+    analytics: {
+      trackingPrefix: 'hero_getting_started',
+      enabled: true
+    }
+  },
+
+  'help-support': {
+    content: {
+      title: 'marketing.pages.helpSupport.hero.title',
+      ctaText: 'marketing.pages.helpSupport.hero.cta',
+      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
+      ctaTarget: '_blank'
+    },
+    visualAssets: DEFAULT_VISUAL_ASSETS,
+    seo: {
+      titleTag: 'Support Center - diBoaS Help',
+      imageAlt: {
+        phone: 'diBoaS mobile application showing support center',
+        mascot: 'Acqua mascot providing support',
+        background: 'Support and help illustration'
+      }
+    },
+    analytics: {
+      trackingPrefix: 'hero_support',
+      enabled: true
+    }
+  },
+
+  'help-troubleshooting': {
+    content: {
+      title: 'marketing.pages.helpTroubleshooting.hero.title',
+      ctaText: 'marketing.pages.helpTroubleshooting.hero.cta',
+      ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
+      ctaTarget: '_blank'
+    },
+    visualAssets: DEFAULT_VISUAL_ASSETS,
+    seo: {
+      titleTag: 'Troubleshooting - diBoaS Solutions',
+      imageAlt: {
+        phone: 'diBoaS mobile application showing troubleshooting guide',
+        mascot: 'Acqua mascot solving problems',
+        background: 'Troubleshooting and solutions illustration'
+      }
+    },
+    analytics: {
+      trackingPrefix: 'hero_troubleshooting',
+      enabled: true
+    }
+  },
+
   // ============================================================================
   // MORE ABOUT DIBOAS SECTION
   // ============================================================================
