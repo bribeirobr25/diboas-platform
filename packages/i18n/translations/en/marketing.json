@@ -181,796 +181,6 @@
         }
       }
     },
-    "benefits": {
-      "title": "Benefits | diBoaS",
-      "description": "Discover all exclusive benefits and rewards available on the diBoaS platform.",
-      "hero": {
-        "title": "Your money, all in one place. Start simple, grow powerful, move at your own pace. Easy to begin, limitless when you're ready.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Why choose diBoas?",
-        "description": "Because we solve real problems.",
-        "cards": {
-          "noMoreAppJuggling": {
-            "iconAlt": "App consolidation icon",
-            "title": "No More App Juggling",
-            "description": "Everything's in diBoas.\nSave time, never lose passwords, and see your entire wealth \non one screen."
-          },
-          "youDecide": {
-            "iconAlt": "User control icon",
-            "title": "You're In Control",
-            "description": "Total control over your money.\nWhether it's investments, transfers, or strategies. \nYou decide how much and when."
-          },
-          "moneyNeverSleeps": {
-            "iconAlt": "Money working icon",
-            "title": "Your Money Never Sleeps",
-            "description": "Buy stocks, crypto, or other assets.\nOr use our exclusive strategies.\nYour money's always working for you."
-          },
-          "investingBecomesEasy": {
-            "iconAlt": "Learning icon",
-            "title": "Investing Becomes Easy",
-            "description": "Most of our users had never invested before diBoas.\nOur Learning Center explains every term.\nEvery decision. Every risk."
-          },
-          "moreYouUse": {
-            "iconAlt": "Rewards icon",
-            "title": "The More You Use, The More You Earn",
-            "description": "Points system, referral bonuses, \nmilestone rewards, VIP course access,\nand so much more."
-          },
-          "oneFiPlatform": {
-            "iconAlt": "OneFi platform icon",
-            "title": "OneFi: World's First Platform",
-            "description": "Banking + Investing + Crypto + Strategies + DeFi.\nAll integrated. All simple. \nBeginner-friendly, expert-powerful."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Why choose diBoaS?",
-        "subtitle": "Because we solve real problems.",
-        "cards": {
-          "stopJugglingApps": {
-            "title": "Stop Juggling Apps",
-            "description": "Everything on diBoaS.\nYou save time, never lose passwords, and see your entire portfolio \non one screen.",
-            "imageAlt": "Stop Juggling Apps illustration"
-          },
-          "youReInCharge": {
-            "title": "You're in Charge",
-            "description": "You have total control over your money.\nWhether investments, transfers, or strategies. \nYou decide how much and when.",
-            "imageAlt": "You're in Charge illustration"
-          },
-          "yourMoneyAlwaysWorks": {
-            "title": "Your Money Always Works",
-            "description": "Whether buying Stocks, Crypto, or other assets.\nOr using exclusive strategies.\nYour money is always growing.",
-            "imageAlt": "Your Money Always Works illustration"
-          },
-          "investingStopsBeingScary": {
-            "title": "Investing Stops Being Scary",
-            "description": "Our users had never invested before diBoaS.\nOur Learning Center literally explains every term.\nEvery decision. Every risk.",
-            "imageAlt": "Investing Stops Being Scary illustration"
-          },
-          "useMoreEarnMore": {
-            "title": "Use More, Earn More",
-            "description": "Points System, Referral Bonuses, \nPoints for Achieved Goals, VIP Access to our Courses, \nand much more.",
-            "imageAlt": "Use More, Earn More illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Everything in One Place",
-            "description": "Banking, Investing, Crypto, Strategies and DeFi.\nAll on one screen. Updated in real time.\nStop juggling 5 different apps.",
-            "ctaText": "Get Started",
-            "imageAlt": "Everything in One Place illustration"
-          },
-          "simplicity": {
-            "title": "Secure and Simple",
-            "description": "\"I want to save $5,000 for a trip\"\n\"I need an emergency fund\"\n\"I want to invest $100 a month\"\nNo complications. diBoaS makes it that simple.",
-            "ctaText": "Get Started",
-            "imageAlt": "Secure and Simple illustration"
-          },
-          "rewards": {
-            "title": "Earn More",
-            "description": "✓ Cashback and Points system\n✓ Early access to new features\n✓ Bonus yields on strategies\nThe more you use it, the more you earn.",
-            "ctaText": "Get Started",
-            "imageAlt": "Earn More illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q1",
-          "q2",
-          "q3"
-        ]
-      },
-      "carousel": {
-        "exclusiveRewards": {
-          "title": "Exclusive Rewards",
-          "description": "Earn points and unlock exclusive benefits with every transaction",
-          "ctaText": "Learn More"
-        },
-        "financialFreedom": {
-          "title": "Financial Freedom",
-          "description": "Take control of your finances with our comprehensive suite of tools",
-          "ctaText": "Get Started"
-        },
-        "smartInvesting": {
-          "title": "Smart Investing",
-          "description": "Invest in crypto and traditional assets with AI-powered insights"
-        },
-        "secureBanking": {
-          "title": "Secure Banking",
-          "description": "Bank-level security and regulatory compliance to protect your assets",
-          "ctaText": "Learn About Security"
-        }
-      }
-    },
-    "account": {
-      "title": "diBoaS Account | diBoaS",
-      "description": "A free account that earns 100% CDI and puts you in control of your money.",
-      "hero": {
-        "title": "A free account that earns 100% CDI and puts you in control of your money. Plain and simple.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "An account that works for you",
-        "description": "Free, high-yield, zero hassle.",
-        "cards": {
-          "freeAndTransparent": {
-            "iconAlt": "Free banking icon",
-            "title": "Free and Transparent",
-            "description": "Zero monthly fees, zero maintenance charges.\nUnlimited free transfers.\nWhat you see is what you get."
-          },
-          "earningWhileYouSleep": {
-            "iconAlt": "Earning icon",
-            "title": "Earning While You Sleep",
-            "description": "100% CDI daily, automatically.\nYour money grows even when you're not looking.\nUp to 30% more than savings accounts."
-          },
-          "openInMinutes": {
-            "iconAlt": "Quick setup icon",
-            "title": "Open in Minutes",
-            "description": "No branch visits required.\nNo paperwork to print.\nDownload the app, sign up, done."
-          },
-          "aquaGuidesYou": {
-            "iconAlt": "AI guide icon",
-            "title": "Aqua Guides You",
-            "description": "Our friendly mascot explains every feature.\nYou'll never feel lost.\nFrom first deposit to first investment."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Your account. Your rules.",
-        "subtitle": "Everything you need, nothing you don't.",
-        "cards": {
-          "earnsWhileYouSleep": {
-            "title": "Earns While You Sleep",
-            "description": "Your balance earns 100% of CDI automatically.\nNo need to move money anywhere else.\nThat simple.",
-            "imageAlt": "Earns While You Sleep illustration"
-          },
-          "actuallyFree": {
-            "title": "Actually Free",
-            "description": "No maintenance fees. No fine print.\nFree transfers and unlimited Pix.\nZero surprises.",
-            "imageAlt": "Actually Free illustration"
-          },
-          "yourMoneyAtTheRightSpeed": {
-            "title": "Your Money at the Right Speed",
-            "description": "Deposit, send, and receive in real time.\nNo borders, no red tape.\nAll from the app.",
-            "imageAlt": "Your Money at the Right Speed illustration"
-          },
-          "securityYouControl": {
-            "title": "Security You Control",
-            "description": "Instant locks, real-time alerts,\nand you always in command.\nYour money, your protection rules.",
-            "imageAlt": "Security You Control illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Your Money, Your Control",
-            "description": "Free account with 100% CDI yield.\nNo hidden fees, no surprises.\nYour money grows while you sleep.",
-            "ctaText": "Get Started",
-            "imageAlt": "Your Money, Your Control illustration"
-          },
-          "simplicity": {
-            "title": "Open in Minutes",
-            "description": "✓ No minimum balance required\n✓ Free unlimited transfers\n✓ Real-time notifications\nBanking without bureaucracy. Finally.",
-            "ctaText": "Get Started",
-            "imageAlt": "Open in Minutes illustration"
-          },
-          "rewards": {
-            "title": "Earn While You Save",
-            "description": "Automatic daily yield on your balance.\nUp to 30% more than traditional savings.\nSame security, better returns.",
-            "ctaText": "Get Started",
-            "imageAlt": "Earn While You Save illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q5",
-          "q6",
-          "q7"
-        ]
-      }
-    },
-    "bankingServices": {
-      "title": "Banking | diBoaS",
-      "description": "Your money without borders. Deposit, send, and receive in real-time.",
-      "hero": {
-        "title": "Your money without borders. Deposit, send, and receive in real-time, all from your app.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Banking without borders, without complications",
-        "description": "Your money moves freely worldwide.",
-        "cards": {
-          "instantTransfersPix": {
-            "iconAlt": "Instant transfer icon",
-            "title": "Instant Transfers & Pix",
-            "description": "Send and receive money in seconds.\n24/7, including holidays.\nReal-time, every time."
-          },
-          "borderlessMoney": {
-            "iconAlt": "International money icon",
-            "title": "Borderless: Money Without Limits",
-            "description": "Send money to any country.\nTransparent fees, fair exchange rates.\nWay cheaper than traditional banks."
-          },
-          "realTimeNotifications": {
-            "iconAlt": "Notification icon",
-            "title": "Real-Time Notifications",
-            "description": "Every transaction triggers instant alerts.\nYou always know what's happening.\nSecurity you can feel."
-          },
-          "transparentHistory": {
-            "iconAlt": "History icon",
-            "title": "Transparent History",
-            "description": "See all your transactions clearly.\nFilter by date, type, or amount.\nExport whenever you need."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Banking without the headache.",
-        "subtitle": "Everything you need to do with your money, done right.",
-        "cards": {
-          "borderlessTransfers": {
-            "title": "Borderless Transfers",
-            "description": "Send and receive money anywhere in the world.\nReal-time, transparent fees.\nNo surprises along the way.",
-            "imageAlt": "Borderless Transfers illustration"
-          },
-          "oneClickPayments": {
-            "title": "1-Click Payments",
-            "description": "Pix, bills, recurring payments.\nSet it up once, pay whenever you need.\nFast and secure.",
-            "imageAlt": "1-Click Payments illustration"
-          },
-          "historyThatMakesSense": {
-            "title": "History That Makes Sense",
-            "description": "See every transaction clearly.\nFilter, search, and export whenever you want.\nYour finances organized like never before.",
-            "imageAlt": "History That Makes Sense illustration"
-          },
-          "realTimeControl": {
-            "title": "Real-Time Control",
-            "description": "Instant notifications for every transaction.\nYou always know what's happening\nwith your money.",
-            "imageAlt": "Real-Time Control illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Borderless Banking",
-            "description": "Send and receive money globally.\nNo borders, no waiting.\nYour money moves at the speed of light.",
-            "ctaText": "Get Started",
-            "imageAlt": "Borderless Banking illustration"
-          },
-          "simplicity": {
-            "title": "Instant Everything",
-            "description": "✓ Real-time transfers via Pix\n✓ International wire in seconds\n✓ Pay bills with one tap\nBanking shouldn't be complicated.",
-            "ctaText": "Get Started",
-            "imageAlt": "Instant Everything illustration"
-          },
-          "rewards": {
-            "title": "Transparent Fees",
-            "description": "Only 0.9% for external transfers.\nEverything else? Free.\nNo hidden charges. Ever.",
-            "ctaText": "Get Started",
-            "imageAlt": "Transparent Fees illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q9",
-          "q10",
-          "q11"
-        ]
-      }
-    },
-    "investing": {
-      "title": "Investing | diBoaS",
-      "description": "Investing doesn't have to be complicated or expensive. Start with just $10.",
-      "hero": {
-        "title": "Investing doesn't have to be complicated or expensive. Start with just $10 and watch your money grow.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Investing isn't just for the wealthy",
-        "description": "Start with $10 and grow at your own pace.",
-        "cards": {
-          "startWithWhatYouHave": {
-            "iconAlt": "Start small icon",
-            "title": "Start With What You Have",
-            "description": "Just $10 to begin.\nNo ridiculous minimums.\nTrue democratization."
-          },
-          "stocksBondsGoldMore": {
-            "iconAlt": "Asset diversity icon",
-            "title": "Stocks, Bonds, Gold & More",
-            "description": "Complete portfolio in one place.\nDiversify without multiple apps.\nOne click per investment."
-          },
-          "mysticAppearsWhenReady": {
-            "iconAlt": "Mystic guide icon",
-            "title": "Mystic Appears When You're Ready",
-            "description": "Our wise mascot helps you expand.\nShe knows when you've mastered the basics.\nAnd shows you the next step."
-          },
-          "builtInEducation": {
-            "iconAlt": "Education icon",
-            "title": "Built-In Education",
-            "description": "Every asset comes with an explanation.\nLearn what you're buying.\nInformed decisions, not gambles."
-          },
-          "feesThatDontRobYou": {
-            "iconAlt": "Low fees icon",
-            "title": "Fees That Don't Rob You",
-            "description": "Just 0.09% per transaction.\nUp to 16x cheaper than traditional platforms.\nTotal transparency."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Investing without the mystery.",
-        "subtitle": "Start with $10 and watch your money grow.",
-        "cards": {
-          "startSmall": {
-            "title": "Start Small",
-            "description": "Just $10 to get started.\nYou don't need to be rich to invest.\nStart today, grow tomorrow.",
-            "imageAlt": "Start Small illustration"
-          },
-          "diversifyInOneClick": {
-            "title": "Diversify in 1-Click",
-            "description": "Stocks, Gold, Crypto, Real Estate, and more.\nAll in the same app, with the same ease.\nYour complete portfolio in one place.",
-            "imageAlt": "Diversify in 1-Click illustration"
-          },
-          "learnByInvesting": {
-            "title": "Learn by Investing",
-            "description": "AI guides explain every step.\nFrom basics to advanced, at your pace.\nNobody's born knowing. But everyone learns.",
-            "imageAlt": "Learn by Investing illustration"
-          },
-          "feesThatMakeSense": {
-            "title": "Fees That Make Sense",
-            "description": "0.09% fee for buying/selling.\nNo surprises, no hidden charges.\nAlways transparent.",
-            "imageAlt": "Fees That Make Sense illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Invest Like a Pro",
-            "description": "Stocks, bonds, ETFs, and crypto.\nAll in one portfolio view.\nYour complete investment dashboard.",
-            "ctaText": "Get Started",
-            "imageAlt": "Invest Like a Pro illustration"
-          },
-          "simplicity": {
-            "title": "Start With $10",
-            "description": "No minimum investment barriers.\n✓ Guided tutorials for beginners\n✓ One-click diversification\n✓ Smart recommendations by Mystic\nInvesting made accessible to everyone.",
-            "ctaText": "Get Started",
-            "imageAlt": "Start With $10 illustration"
-          },
-          "rewards": {
-            "title": "Lowest Fees in the Market",
-            "description": "Only 0.09% trading fees.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
-            "ctaText": "Get Started",
-            "imageAlt": "Lowest Fees in the Market illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q16",
-          "q17",
-          "q18"
-        ]
-      }
-    },
-    "cryptocurrency": {
-      "title": "Cryptocurrency | diBoaS",
-      "description": "Crypto isn't just for experts anymore. Invest simply and securely.",
-      "hero": {
-        "title": "Crypto isn't just for experts anymore. With 1-Click, you invest in digital assets simply and securely.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Crypto made simple",
-        "description": "Buy Bitcoin without being a tech genius.",
-        "cards": {
-          "oneClickDone": {
-            "iconAlt": "One click icon",
-            "title": "1-Click, Done",
-            "description": "Buy Bitcoin, Ethereum, and others with one tap.\nNo need to understand complex wallets.\nAs simple as buying anything else."
-          },
-          "militaryGradeCustody": {
-            "iconAlt": "Security icon",
-            "title": "Military-Grade Custody",
-            "description": "Your crypto protected with military-grade security.\nYou control it, we safeguard it.\nIndependent audit available."
-          },
-          "integratedWithEverything": {
-            "iconAlt": "Integration icon",
-            "title": "Integrated With Everything",
-            "description": "See crypto alongside your other investments.\nUnified portfolio.\nUnderstand your total wealth, truly."
-          },
-          "learnBeforeYouInvest": {
-            "iconAlt": "Learn first icon",
-            "title": "Learn Before You Invest",
-            "description": "Education Center explains each coin.\nRisks, benefits, technology.\nKnowledge before money."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Crypto for regular people.",
-        "subtitle": "No jargon. Just real opportunities.",
-        "cards": {
-          "oneClickToGetIn": {
-            "title": "1-Click to Get In",
-            "description": "Buy Bitcoin, Ethereum, and more with one click.\nNo need to understand blockchain.\nOur guides explain everything.",
-            "imageAlt": "1-Click to Get In illustration"
-          },
-          "securityYouUnderstand": {
-            "title": "Security You Understand",
-            "description": "Non-custodial wallets. You own it.\nMilitary-grade encryption. Independent audits.\nYour crypto, your custody.",
-            "imageAlt": "Security You Understand illustration"
-          },
-          "fromZeroToAdvanced": {
-            "title": "From Zero to Advanced",
-            "description": "Start with Aqua buying your first Bitcoin.\nEvolve to advanced strategies with Coral.\nAll at your own pace.",
-            "imageAlt": "From Zero to Advanced illustration"
-          },
-          "cryptoTraditionalComplete": {
-            "title": "Crypto + Traditional = Complete",
-            "description": "See your traditional and crypto investments\nside by side. One unique view of your wealth.\nFinally, all together.",
-            "imageAlt": "Crypto + Traditional = Complete illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Crypto Without Complexity",
-            "description": "Buy, sell, and store digital assets.\nNo technical jargon. No confusion.\nJust simple crypto investing.",
-            "ctaText": "Get Started",
-            "imageAlt": "Crypto Without Complexity illustration"
-          },
-          "simplicity": {
-            "title": "1-Click Crypto",
-            "description": "Bitcoin, Ethereum, and 50+ coins.\n✓ Instant purchases\n✓ Secure custody\n✓ Real-time prices\nAqua guides you every step.",
-            "ctaText": "Get Started",
-            "imageAlt": "1-Click Crypto illustration"
-          },
-          "rewards": {
-            "title": "Military-Grade Security",
-            "description": "Bank-level encryption for your digital assets.\nCold storage and multi-signature protection.\nYour crypto, your control.",
-            "ctaText": "Get Started",
-            "imageAlt": "Military-Grade Security illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q23",
-          "q24",
-          "q25"
-        ]
-      }
-    },
-    "defiStrategies": {
-      "title": "DeFi Strategies | diBoaS",
-      "description": "Professional investment strategies designed for you.",
-      "hero": {
-        "title": "Professional investment strategies designed for you. Choose your pace and let your money work for itself.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "DeFi built for humans",
-        "description": "High yields without needing a PhD in blockchain.",
-        "cards": {
-          "strategiesCuratedByExperts": {
-            "iconAlt": "Expert curation icon",
-            "title": "Strategies Curated By Experts",
-            "description": "Professional team selects the best opportunities.\nYou just choose and activate.\nComplexity? We handle it."
-          },
-          "yieldsBanksDontOffer": {
-            "iconAlt": "High yield icon",
-            "title": "Yields Banks Don't Offer",
-            "description": "Access to global returns via DeFi.\nReturns far superior to traditional.\nTransparent risk, clear rewards."
-          },
-          "coralGuidesAdvancedJourney": {
-            "iconAlt": "Coral guide icon",
-            "title": "Coral Guides Your Advanced Journey",
-            "description": "When you're ready, Coral appears.\nShe helps with sophisticated strategies.\nAutomatic risk balancing."
-          },
-          "enterExitAnytime": {
-            "iconAlt": "Liquidity icon",
-            "title": "Enter and Exit Anytime",
-            "description": "No ridiculous lock-ups.\nYou control when to start and stop.\nLiquidity when you need it."
-          },
-          "defiEducationIncluded": {
-            "iconAlt": "DeFi education icon",
-            "title": "DeFi Education Included",
-            "description": "Understand staking, liquidity pools, yield farming.\nNo jargon, with practical examples.\nKnowledge = Control."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Professional strategies for everyone.",
-        "subtitle": "Complicated DeFi made simple. High yields made accessible.",
-        "cards": {
-          "yieldsWorthYourTime": {
-            "title": "Yields Worth Your Time",
-            "description": "Earn up to 3x more than traditional investments.\nDeFi simplified by diBoaS.\nReal yields, accessible to all.",
-            "imageAlt": "Yields Worth Your Time illustration"
-          },
-          "readyMadeStrategies": {
-            "title": "Ready-Made Strategies",
-            "description": "Emergency Fund, Balanced Growth,\nHigh Yield. Choose, activate, done.\nNo complex setup.",
-            "imageAlt": "Ready-Made Strategies illustration"
-          },
-          "riskUnderControl": {
-            "title": "Risk Under Control",
-            "description": "Coral explains every risk clearly.\nYou choose the balance between safety and returns.\nAlways informed decisions.",
-            "imageAlt": "Risk Under Control illustration"
-          },
-          "stopWheneverYouWant": {
-            "title": "Stop Whenever You Want",
-            "description": "Start/Stop in seconds.\nYour money comes back to you in real-time.\nNo locks, no penalties.",
-            "imageAlt": "Stop Whenever You Want illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Professional Strategies Made Simple",
-            "description": "Emergency funds, travel goals, retirement.\nPre-built DeFi strategies for every need.\nSet it and watch it grow.",
-            "ctaText": "Get Started",
-            "imageAlt": "Professional Strategies Made Simple illustration"
-          },
-          "simplicity": {
-            "title": "Just Tell Us Your Goal",
-            "description": "\"Save $5,000 for a vacation\"\n\"Build a 6-month emergency fund\"\nCoral designs the perfect strategy.\nNo financial degree required.",
-            "ctaText": "Get Started",
-            "imageAlt": "Just Tell Us Your Goal illustration"
-          },
-          "rewards": {
-            "title": "Higher Yields, Lower Risk",
-            "description": "✓ Diversified DeFi protocols\n✓ Automated rebalancing\n✓ Bonus yields for active users\nSmart investing on autopilot.",
-            "ctaText": "Get Started",
-            "imageAlt": "Higher Yields, Lower Risk illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q30",
-          "q31",
-          "q32"
-        ]
-      }
-    },
-    "credit": {
-      "title": "Credit | diBoaS",
-      "description": "Credit that's fair, transparent, and under your control.",
-      "hero": {
-        "title": "Credit that's fair, transparent, and under your control. No surprises, no fine print.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Fair and transparent credit",
-        "description": "No fine print, no tricks.",
-        "cards": {
-          "ratesThatMakeSense": {
-            "iconAlt": "Fair rates icon",
-            "title": "Rates That Make Sense",
-            "description": "You see the rate before accepting.\nNo surprises on your bill.\nResponsible credit, not predatory."
-          },
-          "smartApproval": {
-            "iconAlt": "AI approval icon",
-            "title": "Smart Approval",
-            "description": "AI analyzes your profile fairly.\nAnswer in minutes.\nNo unnecessary bureaucracy."
-          },
-          "payYourWay": {
-            "iconAlt": "Flexible payment icon",
-            "title": "Pay Your Way",
-            "description": "Flexibility in installments.\nPayments that fit your budget.\nYou choose the term."
-          },
-          "p2pBusinessCredit": {
-            "iconAlt": "P2P credit icon",
-            "title": "P2P Business Credit",
-            "description": "Companies lend directly to companies.\nFairer rates for everyone.\nFewer middlemen, more efficiency."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Credit without games.",
-        "subtitle": "Clear rates, simple processes, you in control.",
-        "cards": {
-          "totalTransparency": {
-            "title": "Total Transparency",
-            "description": "Fixed rate from day one.\nNo surprises, no fine print.\nYou know exactly what you'll pay.",
-            "imageAlt": "Total Transparency illustration"
-          },
-          "fairApproval": {
-            "title": "Fair Approval",
-            "description": "Analysis based on your financial behavior.\nNot just your past.\nEveryone deserves a chance.",
-            "imageAlt": "Fair Approval illustration"
-          },
-          "youDecideHowMuch": {
-            "title": "You Decide How Much",
-            "description": "Choose the amount, term, and payment method.\nFlexibility for your reality.\nCredit your way.",
-            "imageAlt": "You Decide How Much illustration"
-          },
-          "payWhenYouCan": {
-            "title": "Pay When You Can",
-            "description": "Prepay installments without penalty.\nRenegotiate if needed.\nWe're on your side.",
-            "imageAlt": "Pay When You Can illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Fair Credit for Everyone",
-            "description": "Transparent rates, flexible terms.\nNo hidden fees, no fine print traps.\nCredit that respects you.",
-            "ctaText": "Get Started",
-            "imageAlt": "Fair Credit for Everyone illustration"
-          },
-          "simplicity": {
-            "title": "Know Before You Borrow",
-            "description": "✓ Pre-approved offers in the app\n✓ Clear payment schedules\n✓ Change terms anytime\nYou're always in control.",
-            "ctaText": "Get Started",
-            "imageAlt": "Know Before You Borrow illustration"
-          },
-          "rewards": {
-            "title": "Build Your Credit Score",
-            "description": "Responsible borrowing earns rewards.\nLower rates as you build history.\nCredit that works with you, not against you.",
-            "ctaText": "Get Started",
-            "imageAlt": "Build Your Credit Score illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q37",
-          "q38",
-          "q39"
-        ]
-      }
-    },
-    "learnBenefits": {
-      "title": "Learn Center | diBoaS",
-      "description": "Learn at your pace, grow on your timeline.",
-      "hero": {
-        "title": "Learn at your pace, grow on your timeline. Financial education for everyone.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Education that empowers",
-        "description": "Financial knowledge for everyone, free.",
-        "cards": {
-          "fromZeroToAdvanced": {
-            "iconAlt": "Learning path icon",
-            "title": "From Zero to Advanced",
-            "description": "Courses structured by level.\nGrow at your own pace.\nNo pressure, no judgment."
-          },
-          "curatedUpToDateContent": {
-            "iconAlt": "Quality content icon",
-            "title": "Curated and Up-to-Date Content",
-            "description": "Verified experts and content creators.\nReliable info, not financial fake news.\nUpdated with real market conditions."
-          },
-          "learnByDoing": {
-            "iconAlt": "Hands-on learning icon",
-            "title": "Learn By Doing",
-            "description": "Theory + practice integrated.\nLearning about investing? Test with $10.\nKnowledge that turns into action."
-          },
-          "earnWhileYouLearn": {
-            "iconAlt": "Learning rewards icon",
-            "title": "Earn While You Learn",
-            "description": "Points for completing courses.\nBadges for hitting milestones.\nEducation rewarded."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Learn to grow.",
-        "subtitle": "Financial education that works, at your pace.",
-        "cards": {
-          "fromBasicsToAdvanced": {
-            "title": "From Basics to Advanced",
-            "description": "Starting from zero? Perfect.\nAlready investing? Even better.\nContent for every level.",
-            "imageAlt": "From Basics to Advanced illustration"
-          },
-          "learnByDoing": {
-            "title": "Learn by Doing",
-            "description": "Theory + Practice together.\nLearn the concept, apply it right away.\nKnowledge that sticks.",
-            "imageAlt": "Learn by Doing illustration"
-          },
-          "communityThatTeaches": {
-            "title": "Community That Teaches",
-            "description": "Learn from those who've done it.\nShare what you've learned.\nWe grow together.",
-            "imageAlt": "Community That Teaches illustration"
-          },
-          "guidesThatEvolveWithYou": {
-            "title": "Guides That Evolve With You",
-            "description": "Aqua for beginners. Mystic for investors.\nCoral for strategists.\nEach guide appears when you're ready.",
-            "imageAlt": "Guides That Evolve With You illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Learn at Your Own Pace",
-            "description": "Banking, investing, crypto, and DeFi.\nAll courses in one place.\nFrom beginner to expert.",
-            "ctaText": "Get Started",
-            "imageAlt": "Learn at Your Own Pace illustration"
-          },
-          "simplicity": {
-            "title": "Guided by AI Mentors",
-            "description": "✓ Aqua for beginners\n✓ Mystic for investors\n✓ Coral for advanced strategies\nLearn with personalized guidance.",
-            "ctaText": "Get Started",
-            "imageAlt": "Guided by AI Mentors illustration"
-          },
-          "rewards": {
-            "title": "Earn While You Learn",
-            "description": "Complete courses, earn points.\nUnlock badges and exclusive benefits.\nEducation that pays you back.",
-            "ctaText": "Get Started",
-            "imageAlt": "Earn While You Learn illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q40",
-          "q41",
-          "q42"
-        ]
-      }
-    },
     "learnFinancialBasics": {
       "title": "Financial Basics | diBoaS",
       "description": "The fundamentals no one taught you. Build a solid financial foundation.",
@@ -1524,99 +734,6 @@
         ]
       }
     },
-    "businessBenefits": {
-      "title": "diBoaS Business | diBoaS",
-      "description": "Your business deserves finances as simple as they are powerful.",
-      "hero": {
-        "title": "Your business deserves finances as simple as they are powerful. Meet diBoas Business.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Your business deserves the best",
-        "description": "Business finance made simple.",
-        "cards": {
-          "everythingIntegratedForBusiness": {
-            "iconAlt": "Integration icon",
-            "title": "Everything Integrated For Your Business",
-            "description": "Account, payments, investments, credit.\nComplete financial management.\nFocus on what matters: growing."
-          },
-          "noBankingBureaucracy": {
-            "iconAlt": "No bureaucracy icon",
-            "title": "No Banking Bureaucracy",
-            "description": "100% digital onboarding.\nNo lines, no paperwork.\nStart operating in hours."
-          },
-          "yourCapitalAlwaysEarning": {
-            "iconAlt": "Earning capital icon",
-            "title": "Your Capital Always Earning",
-            "description": "Idle cash flow? Never again.\nAutomatic returns while you operate.\nIntelligent treasury."
-          },
-          "totalControlVisibility": {
-            "iconAlt": "Dashboard icon",
-            "title": "Total Control and Visibility",
-            "description": "Complete financial health dashboard.\nAutomated reports.\nDecisions based on real data."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Your business deserves better.",
-        "subtitle": "Financial solutions that grow with your company.",
-        "cards": {
-          "completeBusinessBanking": {
-            "title": "Complete Business Banking",
-            "description": "Account, payments, collections.\nAll integrated, all simple.\nYour business, less bureaucracy.",
-            "imageAlt": "Complete Business Banking illustration"
-          },
-          "capitalWorkingTwentyFourSeven": {
-            "title": "Capital Working 24/7",
-            "description": "Smart treasury with returns.\nYour idle capital now generates revenue.\nEvery dollar counts.",
-            "imageAlt": "Capital Working 24/7 illustration"
-          },
-          "creditToGrow": {
-            "title": "Credit to Grow",
-            "description": "P2P credit between businesses.\nFair rates, fast processes.\nGrowth without bank chains.",
-            "imageAlt": "Credit to Grow illustration"
-          },
-          "simplifiedManagement": {
-            "title": "Simplified Management",
-            "description": "Cash flow, payments, investments.\nAll visible in one dashboard.\nFocus on what matters: growth.",
-            "imageAlt": "Simplified Management illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Business Banking Reimagined",
-            "description": "Accounts, payments, treasury, and credit.\nEverything your business needs.\nAll in one powerful platform.",
-            "ctaText": "Get Started",
-            "imageAlt": "Business Banking Reimagined illustration"
-          },
-          "simplicity": {
-            "title": "Open in 10 Minutes",
-            "description": "✓ No visit to branches\n✓ Free business account\n✓ Instant approvals\nRun your business, not your bank.",
-            "ctaText": "Get Started",
-            "imageAlt": "Open in 10 Minutes illustration"
-          },
-          "rewards": {
-            "title": "Save Thousands in Fees",
-            "description": "No monthly maintenance charges.\nFree transfers and payments.\nMore capital for growth, less for banks.",
-            "ctaText": "Get Started",
-            "imageAlt": "Save Thousands in Fees illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q52",
-          "q53",
-          "q54"
-        ]
-      }
-    },
     "businessAccount": {
       "title": "Business Account | diBoaS",
       "description": "A free business account that earns.",
@@ -2167,104 +1284,6 @@
           "q70",
           "q71",
           "q72"
-        ]
-      }
-    },
-    "rewardsBenefits": {
-      "title": "diBoaS Rewards | diBoaS",
-      "description": "Rewards that actually matter.",
-      "hero": {
-        "title": "Rewards that actually matter. Learn, grow, and get recognized for every milestone.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Rewards that actually matter",
-        "description": "The more you grow, the more you earn.",
-        "cards": {
-          "unifiedPointsSystem": {
-            "iconAlt": "Points system icon",
-            "title": "Unified Points System",
-            "description": "Every action earns points.\nInvest, learn, refer, engage.\nPoints become real benefits."
-          },
-          "achievementBadges": {
-            "iconAlt": "Badge icon",
-            "title": "Achievement Badges",
-            "description": "Show your financial accomplishments.\nFirst investment, goal reached, course completed.\nGamification that educates."
-          },
-          "communityLeaderboard": {
-            "iconAlt": "Leaderboard icon",
-            "title": "Community Leaderboard",
-            "description": "See where you stand.\nHealthy competition.\nInspiration from those who are growing."
-          },
-          "exclusiveBenefits": {
-            "iconAlt": "VIP benefits icon",
-            "title": "Exclusive Benefits",
-            "description": "Early access to features.\nFree VIP courses.\nEvents with experts."
-          },
-          "realCashback": {
-            "iconAlt": "Cashback icon",
-            "title": "Real Cashback",
-            "description": "Money back on transactions.\nNot points that expire.\nIt's money returning to you."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Rewards that matter.",
-        "subtitle": "The more you use, the more you earn.",
-        "cards": {
-          "pointsForEverything": {
-            "title": "Points for Everything",
-            "description": "Invest, learn, refer, participate.\nEvery action earns points.\nEvery point earns rewards.",
-            "imageAlt": "Points for Everything illustration"
-          },
-          "realCashback": {
-            "title": "Real Cashback",
-            "description": "Get back part of your transactions.\nMoney in account, not expiring points.\nRewards worth it.",
-            "imageAlt": "Real Cashback illustration"
-          },
-          "vipAccess": {
-            "title": "VIP Access",
-            "description": "Exclusive courses, special events.\nPremium content for top users.\nMore you use, more you access.",
-            "imageAlt": "VIP Access illustration"
-          },
-          "gamificationThatTeaches": {
-            "title": "Gamification That Teaches",
-            "description": "Challenges, badges, rankings.\nLearn while you compete.\nFun financial education.",
-            "imageAlt": "Gamification That Teaches illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Rewards That Matter",
-            "description": "Points, cashback, badges, and tokens.\nEvery action earns recognition.\nGamified finance that pays to play.",
-            "ctaText": "Get Started",
-            "imageAlt": "Rewards That Matter illustration"
-          },
-          "simplicity": {
-            "title": "Automatic Tracking",
-            "description": "✓ Earn points for learning\n✓ Cashback on transactions\n✓ Bonuses for referrals\nNo forms, no hassle. Just rewards.",
-            "ctaText": "Get Started",
-            "imageAlt": "Automatic Tracking illustration"
-          },
-          "rewards": {
-            "title": "Redeem How You Want",
-            "description": "Cash, crypto, gift cards, or reinvest.\nYour rewards, your choice.\nValue that you actually use.",
-            "ctaText": "Get Started",
-            "imageAlt": "Redeem How You Want illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q73",
-          "q74",
-          "q75"
         ]
       }
     },
@@ -2823,104 +1842,6 @@
           "q91",
           "q92",
           "q93"
-        ]
-      }
-    },
-    "securityBenefits": {
-      "title": "diBoaS Protection | diBoaS",
-      "description": "Your money protected with military-grade security.",
-      "hero": {
-        "title": "Your money protected with military-grade security. You stay in control, we ensure the protection.",
-        "description": "",
-        "cta": "Get Started"
-      },
-      "benefitsCards": {
-        "title": "Military-grade security",
-        "description": "Your money protected, always.",
-        "cards": {
-          "endToEndEncryption": {
-            "iconAlt": "Encryption icon",
-            "title": "End-to-End Encryption",
-            "description": "Your data protected throughout its journey.\nTechnology used by global banks.\nSecurity you don't see, but feel."
-          },
-          "multiFactorAuthentication": {
-            "iconAlt": "MFA icon",
-            "title": "Multi-Factor Authentication",
-            "description": "Biometrics, codes, trusted devices.\nMultiple protection layers.\nAccess only for those who should have it."
-          },
-          "monitoring247": {
-            "iconAlt": "Monitoring icon",
-            "title": "24/7 Monitoring",
-            "description": "AI detects suspicious activity.\nInstant alerts for you.\nQuick response to threats."
-          },
-          "segregatedCustody": {
-            "iconAlt": "Custody icon",
-            "title": "Segregated Custody",
-            "description": "Your assets separate from company's.\nProtection even in unlikely scenarios.\nRegulatory peace of mind."
-          },
-          "assetInsurance": {
-            "iconAlt": "Insurance icon",
-            "title": "Asset Insurance",
-            "description": "Coverage against extreme events.\nPartnership with trusted insurers.\nAdditional protection that matters."
-          }
-        }
-      },
-      "stickyFeaturesNav": {
-        "title": "Security without compromise.",
-        "subtitle": "Military protection, your control, total transparency.",
-        "cards": {
-          "militaryGradeEncryption": {
-            "title": "Military-Grade Encryption",
-            "description": "Same technology that protects governments.\nYour data and assets totally secure.\nNothing less than the best.",
-            "imageAlt": "Military-Grade Encryption illustration"
-          },
-          "youReTheOwner": {
-            "title": "You're the Owner",
-            "description": "Non-custodial wallets.\nOnly you have access to your assets.\nWe never touch your money.",
-            "imageAlt": "You're the Owner illustration"
-          },
-          "multiJurisdictionCompliant": {
-            "title": "Multi-Jurisdiction Compliant",
-            "description": "US, EU, Brazil regulation.\nConstant independent audits.\nCompliance isn't optional.",
-            "imageAlt": "Multi-Jurisdiction Compliant illustration"
-          },
-          "twentyFourSevenSupport": {
-            "title": "24/7 Support",
-            "description": "Security team always available.\nImmediate response to any incident.\nYou're never alone.",
-            "imageAlt": "24/7 Support illustration"
-          }
-        }
-      },
-      "featureShowcase": {
-        "slides": {
-          "unification": {
-            "title": "Security First, Always",
-            "description": "Bank-grade encryption and monitoring.\nMulti-layer protection for your assets.\nYour money, fortress-level secure.",
-            "ctaText": "Get Started",
-            "imageAlt": "Security First, Always illustration"
-          },
-          "simplicity": {
-            "title": "Protected Without Complexity",
-            "description": "✓ Biometric authentication\n✓ Real-time fraud detection\n✓ Instant account freezing\nSecurity that doesn't get in your way.",
-            "ctaText": "Get Started",
-            "imageAlt": "Protected Without Complexity illustration"
-          },
-          "rewards": {
-            "title": "You're Always in Control",
-            "description": "Customize security preferences.\nReal-time alerts for everything.\nNo transaction without your knowledge.",
-            "ctaText": "Get Started",
-            "imageAlt": "You're Always in Control illustration"
-          }
-        }
-      },
-      "faqAccordion": {
-        "sectionTitle": "Frequently Asked Questions",
-        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-        "ctaText": "See All Questions",
-        "questionIds": [
-          "q94",
-          "q95",
-          "q96"
         ]
       }
     },
@@ -3876,6 +2797,1119 @@
           "q119",
           "q120"
         ]
+      }
+    },
+    "why-diboas": {
+      "title": "Benefits | diBoaS",
+      "description": "Discover all exclusive benefits and rewards available on the diBoaS platform.",
+      "hero": {
+        "title": "Your money, all in one place. Start simple, grow powerful, move at your own pace. Easy to begin, limitless when you're ready.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "Why choose diBoas?",
+        "description": "Because we solve real problems.",
+        "cards": {
+          "noMoreAppJuggling": {
+            "iconAlt": "App consolidation icon",
+            "title": "No More App Juggling",
+            "description": "Everything's in diBoas.\nSave time, never lose passwords, and see your entire wealth \non one screen."
+          },
+          "youDecide": {
+            "iconAlt": "User control icon",
+            "title": "You're In Control",
+            "description": "Total control over your money.\nWhether it's investments, transfers, or strategies. \nYou decide how much and when."
+          },
+          "moneyNeverSleeps": {
+            "iconAlt": "Money working icon",
+            "title": "Your Money Never Sleeps",
+            "description": "Buy stocks, crypto, or other assets.\nOr use our exclusive strategies.\nYour money's always working for you."
+          },
+          "investingBecomesEasy": {
+            "iconAlt": "Learning icon",
+            "title": "Investing Becomes Easy",
+            "description": "Most of our users had never invested before diBoas.\nOur Learning Center explains every term.\nEvery decision. Every risk."
+          },
+          "moreYouUse": {
+            "iconAlt": "Rewards icon",
+            "title": "The More You Use, The More You Earn",
+            "description": "Points system, referral bonuses, \nmilestone rewards, VIP course access,\nand so much more."
+          },
+          "oneFiPlatform": {
+            "iconAlt": "OneFi platform icon",
+            "title": "OneFi: World's First Platform",
+            "description": "Banking + Investing + Crypto + Strategies + DeFi.\nAll integrated. All simple. \nBeginner-friendly, expert-powerful."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Why choose diBoaS?",
+        "subtitle": "Because we solve real problems.",
+        "cards": {
+          "stopJugglingApps": {
+            "title": "Stop Juggling Apps",
+            "description": "Everything on diBoaS.\nYou save time, never lose passwords, and see your entire portfolio \non one screen.",
+            "imageAlt": "Stop Juggling Apps illustration"
+          },
+          "youReInCharge": {
+            "title": "You're in Charge",
+            "description": "You have total control over your money.\nWhether investments, transfers, or strategies. \nYou decide how much and when.",
+            "imageAlt": "You're in Charge illustration"
+          },
+          "yourMoneyAlwaysWorks": {
+            "title": "Your Money Always Works",
+            "description": "Whether buying Stocks, Crypto, or other assets.\nOr using exclusive strategies.\nYour money is always growing.",
+            "imageAlt": "Your Money Always Works illustration"
+          },
+          "investingStopsBeingScary": {
+            "title": "Investing Stops Being Scary",
+            "description": "Our users had never invested before diBoaS.\nOur Learning Center literally explains every term.\nEvery decision. Every risk.",
+            "imageAlt": "Investing Stops Being Scary illustration"
+          },
+          "useMoreEarnMore": {
+            "title": "Use More, Earn More",
+            "description": "Points System, Referral Bonuses, \nPoints for Achieved Goals, VIP Access to our Courses, \nand much more.",
+            "imageAlt": "Use More, Earn More illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Everything in One Place",
+            "description": "Banking, Investing, Crypto, Strategies and DeFi.\nAll on one screen. Updated in real time.\nStop juggling 5 different apps.",
+            "ctaText": "Get Started",
+            "imageAlt": "Everything in One Place illustration"
+          },
+          "simplicity": {
+            "title": "Secure and Simple",
+            "description": "\"I want to save $5,000 for a trip\"\n\"I need an emergency fund\"\n\"I want to invest $100 a month\"\nNo complications. diBoaS makes it that simple.",
+            "ctaText": "Get Started",
+            "imageAlt": "Secure and Simple illustration"
+          },
+          "rewards": {
+            "title": "Earn More",
+            "description": "✓ Cashback and Points system\n✓ Early access to new features\n✓ Bonus yields on strategies\nThe more you use it, the more you earn.",
+            "ctaText": "Get Started",
+            "imageAlt": "Earn More illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q1",
+          "q2",
+          "q3"
+        ]
+      },
+      "carousel": {
+        "exclusiveRewards": {
+          "title": "Exclusive Rewards",
+          "description": "Earn points and unlock exclusive benefits with every transaction",
+          "ctaText": "Learn More"
+        },
+        "financialFreedom": {
+          "title": "Financial Freedom",
+          "description": "Take control of your finances with our comprehensive suite of tools",
+          "ctaText": "Get Started"
+        },
+        "smartInvesting": {
+          "title": "Smart Investing",
+          "description": "Invest in crypto and traditional assets with AI-powered insights"
+        },
+        "secureBanking": {
+          "title": "Secure Banking",
+          "description": "Bank-level security and regulatory compliance to protect your assets",
+          "ctaText": "Learn About Security"
+        }
+      }
+    },
+    "personal": {
+      "account": {
+        "title": "diBoaS Account | diBoaS",
+        "description": "A free account that earns 100% CDI and puts you in control of your money.",
+        "hero": {
+          "title": "A free account that earns 100% CDI and puts you in control of your money. Plain and simple.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "An account that works for you",
+          "description": "Free, high-yield, zero hassle.",
+          "cards": {
+            "freeAndTransparent": {
+              "iconAlt": "Free banking icon",
+              "title": "Free and Transparent",
+              "description": "Zero monthly fees, zero maintenance charges.\nUnlimited free transfers.\nWhat you see is what you get."
+            },
+            "earningWhileYouSleep": {
+              "iconAlt": "Earning icon",
+              "title": "Earning While You Sleep",
+              "description": "100% CDI daily, automatically.\nYour money grows even when you're not looking.\nUp to 30% more than savings accounts."
+            },
+            "openInMinutes": {
+              "iconAlt": "Quick setup icon",
+              "title": "Open in Minutes",
+              "description": "No branch visits required.\nNo paperwork to print.\nDownload the app, sign up, done."
+            },
+            "aquaGuidesYou": {
+              "iconAlt": "AI guide icon",
+              "title": "Aqua Guides You",
+              "description": "Our friendly mascot explains every feature.\nYou'll never feel lost.\nFrom first deposit to first investment."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Your account. Your rules.",
+          "subtitle": "Everything you need, nothing you don't.",
+          "cards": {
+            "earnsWhileYouSleep": {
+              "title": "Earns While You Sleep",
+              "description": "Your balance earns 100% of CDI automatically.\nNo need to move money anywhere else.\nThat simple.",
+              "imageAlt": "Earns While You Sleep illustration"
+            },
+            "actuallyFree": {
+              "title": "Actually Free",
+              "description": "No maintenance fees. No fine print.\nFree transfers and unlimited Pix.\nZero surprises.",
+              "imageAlt": "Actually Free illustration"
+            },
+            "yourMoneyAtTheRightSpeed": {
+              "title": "Your Money at the Right Speed",
+              "description": "Deposit, send, and receive in real time.\nNo borders, no red tape.\nAll from the app.",
+              "imageAlt": "Your Money at the Right Speed illustration"
+            },
+            "securityYouControl": {
+              "title": "Security You Control",
+              "description": "Instant locks, real-time alerts,\nand you always in command.\nYour money, your protection rules.",
+              "imageAlt": "Security You Control illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Your Money, Your Control",
+              "description": "Free account with 100% CDI yield.\nNo hidden fees, no surprises.\nYour money grows while you sleep.",
+              "ctaText": "Get Started",
+              "imageAlt": "Your Money, Your Control illustration"
+            },
+            "simplicity": {
+              "title": "Open in Minutes",
+              "description": "✓ No minimum balance required\n✓ Free unlimited transfers\n✓ Real-time notifications\nBanking without bureaucracy. Finally.",
+              "ctaText": "Get Started",
+              "imageAlt": "Open in Minutes illustration"
+            },
+            "rewards": {
+              "title": "Earn While You Save",
+              "description": "Automatic daily yield on your balance.\nUp to 30% more than traditional savings.\nSame security, better returns.",
+              "ctaText": "Get Started",
+              "imageAlt": "Earn While You Save illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q5",
+            "q6",
+            "q7"
+          ]
+        }
+      },
+      "banking": {
+        "title": "Banking | diBoaS",
+        "description": "Your money without borders. Deposit, send, and receive in real-time.",
+        "hero": {
+          "title": "Your money without borders. Deposit, send, and receive in real-time, all from your app.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Banking without borders, without complications",
+          "description": "Your money moves freely worldwide.",
+          "cards": {
+            "instantTransfersPix": {
+              "iconAlt": "Instant transfer icon",
+              "title": "Instant Transfers & Pix",
+              "description": "Send and receive money in seconds.\n24/7, including holidays.\nReal-time, every time."
+            },
+            "borderlessMoney": {
+              "iconAlt": "International money icon",
+              "title": "Borderless: Money Without Limits",
+              "description": "Send money to any country.\nTransparent fees, fair exchange rates.\nWay cheaper than traditional banks."
+            },
+            "realTimeNotifications": {
+              "iconAlt": "Notification icon",
+              "title": "Real-Time Notifications",
+              "description": "Every transaction triggers instant alerts.\nYou always know what's happening.\nSecurity you can feel."
+            },
+            "transparentHistory": {
+              "iconAlt": "History icon",
+              "title": "Transparent History",
+              "description": "See all your transactions clearly.\nFilter by date, type, or amount.\nExport whenever you need."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Banking without the headache.",
+          "subtitle": "Everything you need to do with your money, done right.",
+          "cards": {
+            "borderlessTransfers": {
+              "title": "Borderless Transfers",
+              "description": "Send and receive money anywhere in the world.\nReal-time, transparent fees.\nNo surprises along the way.",
+              "imageAlt": "Borderless Transfers illustration"
+            },
+            "oneClickPayments": {
+              "title": "1-Click Payments",
+              "description": "Pix, bills, recurring payments.\nSet it up once, pay whenever you need.\nFast and secure.",
+              "imageAlt": "1-Click Payments illustration"
+            },
+            "historyThatMakesSense": {
+              "title": "History That Makes Sense",
+              "description": "See every transaction clearly.\nFilter, search, and export whenever you want.\nYour finances organized like never before.",
+              "imageAlt": "History That Makes Sense illustration"
+            },
+            "realTimeControl": {
+              "title": "Real-Time Control",
+              "description": "Instant notifications for every transaction.\nYou always know what's happening\nwith your money.",
+              "imageAlt": "Real-Time Control illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Borderless Banking",
+              "description": "Send and receive money globally.\nNo borders, no waiting.\nYour money moves at the speed of light.",
+              "ctaText": "Get Started",
+              "imageAlt": "Borderless Banking illustration"
+            },
+            "simplicity": {
+              "title": "Instant Everything",
+              "description": "✓ Real-time transfers via Pix\n✓ International wire in seconds\n✓ Pay bills with one tap\nBanking shouldn't be complicated.",
+              "ctaText": "Get Started",
+              "imageAlt": "Instant Everything illustration"
+            },
+            "rewards": {
+              "title": "Transparent Fees",
+              "description": "Only 0.9% for external transfers.\nEverything else? Free.\nNo hidden charges. Ever.",
+              "ctaText": "Get Started",
+              "imageAlt": "Transparent Fees illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q9",
+            "q10",
+            "q11"
+          ]
+        }
+      },
+      "investing": {
+        "title": "Investing | diBoaS",
+        "description": "Investing doesn't have to be complicated or expensive. Start with just $10.",
+        "hero": {
+          "title": "Investing doesn't have to be complicated or expensive. Start with just $10 and watch your money grow.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Investing isn't just for the wealthy",
+          "description": "Start with $10 and grow at your own pace.",
+          "cards": {
+            "startWithWhatYouHave": {
+              "iconAlt": "Start small icon",
+              "title": "Start With What You Have",
+              "description": "Just $10 to begin.\nNo ridiculous minimums.\nTrue democratization."
+            },
+            "stocksBondsGoldMore": {
+              "iconAlt": "Asset diversity icon",
+              "title": "Stocks, Bonds, Gold & More",
+              "description": "Complete portfolio in one place.\nDiversify without multiple apps.\nOne click per investment."
+            },
+            "mysticAppearsWhenReady": {
+              "iconAlt": "Mystic guide icon",
+              "title": "Mystic Appears When You're Ready",
+              "description": "Our wise mascot helps you expand.\nShe knows when you've mastered the basics.\nAnd shows you the next step."
+            },
+            "builtInEducation": {
+              "iconAlt": "Education icon",
+              "title": "Built-In Education",
+              "description": "Every asset comes with an explanation.\nLearn what you're buying.\nInformed decisions, not gambles."
+            },
+            "feesThatDontRobYou": {
+              "iconAlt": "Low fees icon",
+              "title": "Fees That Don't Rob You",
+              "description": "Just 0.09% per transaction.\nUp to 16x cheaper than traditional platforms.\nTotal transparency."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Investing without the mystery.",
+          "subtitle": "Start with $10 and watch your money grow.",
+          "cards": {
+            "startSmall": {
+              "title": "Start Small",
+              "description": "Just $10 to get started.\nYou don't need to be rich to invest.\nStart today, grow tomorrow.",
+              "imageAlt": "Start Small illustration"
+            },
+            "diversifyInOneClick": {
+              "title": "Diversify in 1-Click",
+              "description": "Stocks, Gold, Crypto, Real Estate, and more.\nAll in the same app, with the same ease.\nYour complete portfolio in one place.",
+              "imageAlt": "Diversify in 1-Click illustration"
+            },
+            "learnByInvesting": {
+              "title": "Learn by Investing",
+              "description": "AI guides explain every step.\nFrom basics to advanced, at your pace.\nNobody's born knowing. But everyone learns.",
+              "imageAlt": "Learn by Investing illustration"
+            },
+            "feesThatMakeSense": {
+              "title": "Fees That Make Sense",
+              "description": "0.09% fee for buying/selling.\nNo surprises, no hidden charges.\nAlways transparent.",
+              "imageAlt": "Fees That Make Sense illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Invest Like a Pro",
+              "description": "Stocks, bonds, ETFs, and crypto.\nAll in one portfolio view.\nYour complete investment dashboard.",
+              "ctaText": "Get Started",
+              "imageAlt": "Invest Like a Pro illustration"
+            },
+            "simplicity": {
+              "title": "Start With $10",
+              "description": "No minimum investment barriers.\n✓ Guided tutorials for beginners\n✓ One-click diversification\n✓ Smart recommendations by Mystic\nInvesting made accessible to everyone.",
+              "ctaText": "Get Started",
+              "imageAlt": "Start With $10 illustration"
+            },
+            "rewards": {
+              "title": "Lowest Fees in the Market",
+              "description": "Only 0.09% trading fees.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
+              "ctaText": "Get Started",
+              "imageAlt": "Lowest Fees in the Market illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q16",
+            "q17",
+            "q18"
+          ]
+        }
+      },
+      "cryptocurrency": {
+        "title": "Cryptocurrency | diBoaS",
+        "description": "Crypto isn't just for experts anymore. Invest simply and securely.",
+        "hero": {
+          "title": "Crypto isn't just for experts anymore. With 1-Click, you invest in digital assets simply and securely.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Crypto made simple",
+          "description": "Buy Bitcoin without being a tech genius.",
+          "cards": {
+            "oneClickDone": {
+              "iconAlt": "One click icon",
+              "title": "1-Click, Done",
+              "description": "Buy Bitcoin, Ethereum, and others with one tap.\nNo need to understand complex wallets.\nAs simple as buying anything else."
+            },
+            "militaryGradeCustody": {
+              "iconAlt": "Security icon",
+              "title": "Military-Grade Custody",
+              "description": "Your crypto protected with military-grade security.\nYou control it, we safeguard it.\nIndependent audit available."
+            },
+            "integratedWithEverything": {
+              "iconAlt": "Integration icon",
+              "title": "Integrated With Everything",
+              "description": "See crypto alongside your other investments.\nUnified portfolio.\nUnderstand your total wealth, truly."
+            },
+            "learnBeforeYouInvest": {
+              "iconAlt": "Learn first icon",
+              "title": "Learn Before You Invest",
+              "description": "Education Center explains each coin.\nRisks, benefits, technology.\nKnowledge before money."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Crypto for regular people.",
+          "subtitle": "No jargon. Just real opportunities.",
+          "cards": {
+            "oneClickToGetIn": {
+              "title": "1-Click to Get In",
+              "description": "Buy Bitcoin, Ethereum, and more with one click.\nNo need to understand blockchain.\nOur guides explain everything.",
+              "imageAlt": "1-Click to Get In illustration"
+            },
+            "securityYouUnderstand": {
+              "title": "Security You Understand",
+              "description": "Non-custodial wallets. You own it.\nMilitary-grade encryption. Independent audits.\nYour crypto, your custody.",
+              "imageAlt": "Security You Understand illustration"
+            },
+            "fromZeroToAdvanced": {
+              "title": "From Zero to Advanced",
+              "description": "Start with Aqua buying your first Bitcoin.\nEvolve to advanced strategies with Coral.\nAll at your own pace.",
+              "imageAlt": "From Zero to Advanced illustration"
+            },
+            "cryptoTraditionalComplete": {
+              "title": "Crypto + Traditional = Complete",
+              "description": "See your traditional and crypto investments\nside by side. One unique view of your wealth.\nFinally, all together.",
+              "imageAlt": "Crypto + Traditional = Complete illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Crypto Without Complexity",
+              "description": "Buy, sell, and store digital assets.\nNo technical jargon. No confusion.\nJust simple crypto investing.",
+              "ctaText": "Get Started",
+              "imageAlt": "Crypto Without Complexity illustration"
+            },
+            "simplicity": {
+              "title": "1-Click Crypto",
+              "description": "Bitcoin, Ethereum, and 50+ coins.\n✓ Instant purchases\n✓ Secure custody\n✓ Real-time prices\nAqua guides you every step.",
+              "ctaText": "Get Started",
+              "imageAlt": "1-Click Crypto illustration"
+            },
+            "rewards": {
+              "title": "Military-Grade Security",
+              "description": "Bank-level encryption for your digital assets.\nCold storage and multi-signature protection.\nYour crypto, your control.",
+              "ctaText": "Get Started",
+              "imageAlt": "Military-Grade Security illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q23",
+            "q24",
+            "q25"
+          ]
+        }
+      },
+      "defiStrategies": {
+        "title": "DeFi Strategies | diBoaS",
+        "description": "Professional investment strategies designed for you.",
+        "hero": {
+          "title": "Professional investment strategies designed for you. Choose your pace and let your money work for itself.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "DeFi built for humans",
+          "description": "High yields without needing a PhD in blockchain.",
+          "cards": {
+            "strategiesCuratedByExperts": {
+              "iconAlt": "Expert curation icon",
+              "title": "Strategies Curated By Experts",
+              "description": "Professional team selects the best opportunities.\nYou just choose and activate.\nComplexity? We handle it."
+            },
+            "yieldsBanksDontOffer": {
+              "iconAlt": "High yield icon",
+              "title": "Yields Banks Don't Offer",
+              "description": "Access to global returns via DeFi.\nReturns far superior to traditional.\nTransparent risk, clear rewards."
+            },
+            "coralGuidesAdvancedJourney": {
+              "iconAlt": "Coral guide icon",
+              "title": "Coral Guides Your Advanced Journey",
+              "description": "When you're ready, Coral appears.\nShe helps with sophisticated strategies.\nAutomatic risk balancing."
+            },
+            "enterExitAnytime": {
+              "iconAlt": "Liquidity icon",
+              "title": "Enter and Exit Anytime",
+              "description": "No ridiculous lock-ups.\nYou control when to start and stop.\nLiquidity when you need it."
+            },
+            "defiEducationIncluded": {
+              "iconAlt": "DeFi education icon",
+              "title": "DeFi Education Included",
+              "description": "Understand staking, liquidity pools, yield farming.\nNo jargon, with practical examples.\nKnowledge = Control."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Professional strategies for everyone.",
+          "subtitle": "Complicated DeFi made simple. High yields made accessible.",
+          "cards": {
+            "yieldsWorthYourTime": {
+              "title": "Yields Worth Your Time",
+              "description": "Earn up to 3x more than traditional investments.\nDeFi simplified by diBoaS.\nReal yields, accessible to all.",
+              "imageAlt": "Yields Worth Your Time illustration"
+            },
+            "readyMadeStrategies": {
+              "title": "Ready-Made Strategies",
+              "description": "Emergency Fund, Balanced Growth,\nHigh Yield. Choose, activate, done.\nNo complex setup.",
+              "imageAlt": "Ready-Made Strategies illustration"
+            },
+            "riskUnderControl": {
+              "title": "Risk Under Control",
+              "description": "Coral explains every risk clearly.\nYou choose the balance between safety and returns.\nAlways informed decisions.",
+              "imageAlt": "Risk Under Control illustration"
+            },
+            "stopWheneverYouWant": {
+              "title": "Stop Whenever You Want",
+              "description": "Start/Stop in seconds.\nYour money comes back to you in real-time.\nNo locks, no penalties.",
+              "imageAlt": "Stop Whenever You Want illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Professional Strategies Made Simple",
+              "description": "Emergency funds, travel goals, retirement.\nPre-built DeFi strategies for every need.\nSet it and watch it grow.",
+              "ctaText": "Get Started",
+              "imageAlt": "Professional Strategies Made Simple illustration"
+            },
+            "simplicity": {
+              "title": "Just Tell Us Your Goal",
+              "description": "\"Save $5,000 for a vacation\"\n\"Build a 6-month emergency fund\"\nCoral designs the perfect strategy.\nNo financial degree required.",
+              "ctaText": "Get Started",
+              "imageAlt": "Just Tell Us Your Goal illustration"
+            },
+            "rewards": {
+              "title": "Higher Yields, Lower Risk",
+              "description": "✓ Diversified DeFi protocols\n✓ Automated rebalancing\n✓ Bonus yields for active users\nSmart investing on autopilot.",
+              "ctaText": "Get Started",
+              "imageAlt": "Higher Yields, Lower Risk illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q30",
+            "q31",
+            "q32"
+          ]
+        }
+      },
+      "credit": {
+        "title": "Credit | diBoaS",
+        "description": "Credit that's fair, transparent, and under your control.",
+        "hero": {
+          "title": "Credit that's fair, transparent, and under your control. No surprises, no fine print.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Fair and transparent credit",
+          "description": "No fine print, no tricks.",
+          "cards": {
+            "ratesThatMakeSense": {
+              "iconAlt": "Fair rates icon",
+              "title": "Rates That Make Sense",
+              "description": "You see the rate before accepting.\nNo surprises on your bill.\nResponsible credit, not predatory."
+            },
+            "smartApproval": {
+              "iconAlt": "AI approval icon",
+              "title": "Smart Approval",
+              "description": "AI analyzes your profile fairly.\nAnswer in minutes.\nNo unnecessary bureaucracy."
+            },
+            "payYourWay": {
+              "iconAlt": "Flexible payment icon",
+              "title": "Pay Your Way",
+              "description": "Flexibility in installments.\nPayments that fit your budget.\nYou choose the term."
+            },
+            "p2pBusinessCredit": {
+              "iconAlt": "P2P credit icon",
+              "title": "P2P Business Credit",
+              "description": "Companies lend directly to companies.\nFairer rates for everyone.\nFewer middlemen, more efficiency."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Credit without games.",
+          "subtitle": "Clear rates, simple processes, you in control.",
+          "cards": {
+            "totalTransparency": {
+              "title": "Total Transparency",
+              "description": "Fixed rate from day one.\nNo surprises, no fine print.\nYou know exactly what you'll pay.",
+              "imageAlt": "Total Transparency illustration"
+            },
+            "fairApproval": {
+              "title": "Fair Approval",
+              "description": "Analysis based on your financial behavior.\nNot just your past.\nEveryone deserves a chance.",
+              "imageAlt": "Fair Approval illustration"
+            },
+            "youDecideHowMuch": {
+              "title": "You Decide How Much",
+              "description": "Choose the amount, term, and payment method.\nFlexibility for your reality.\nCredit your way.",
+              "imageAlt": "You Decide How Much illustration"
+            },
+            "payWhenYouCan": {
+              "title": "Pay When You Can",
+              "description": "Prepay installments without penalty.\nRenegotiate if needed.\nWe're on your side.",
+              "imageAlt": "Pay When You Can illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Fair Credit for Everyone",
+              "description": "Transparent rates, flexible terms.\nNo hidden fees, no fine print traps.\nCredit that respects you.",
+              "ctaText": "Get Started",
+              "imageAlt": "Fair Credit for Everyone illustration"
+            },
+            "simplicity": {
+              "title": "Know Before You Borrow",
+              "description": "✓ Pre-approved offers in the app\n✓ Clear payment schedules\n✓ Change terms anytime\nYou're always in control.",
+              "ctaText": "Get Started",
+              "imageAlt": "Know Before You Borrow illustration"
+            },
+            "rewards": {
+              "title": "Build Your Credit Score",
+              "description": "Responsible borrowing earns rewards.\nLower rates as you build history.\nCredit that works with you, not against you.",
+              "ctaText": "Get Started",
+              "imageAlt": "Build Your Credit Score illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q37",
+            "q38",
+            "q39"
+          ]
+        }
+      }
+    },
+    "learn": {
+      "overview": {
+        "title": "Learn Center | diBoaS",
+        "description": "Learn at your pace, grow on your timeline.",
+        "hero": {
+          "title": "Learn at your pace, grow on your timeline. Financial education for everyone.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Education that empowers",
+          "description": "Financial knowledge for everyone, free.",
+          "cards": {
+            "fromZeroToAdvanced": {
+              "iconAlt": "Learning path icon",
+              "title": "From Zero to Advanced",
+              "description": "Courses structured by level.\nGrow at your own pace.\nNo pressure, no judgment."
+            },
+            "curatedUpToDateContent": {
+              "iconAlt": "Quality content icon",
+              "title": "Curated and Up-to-Date Content",
+              "description": "Verified experts and content creators.\nReliable info, not financial fake news.\nUpdated with real market conditions."
+            },
+            "learnByDoing": {
+              "iconAlt": "Hands-on learning icon",
+              "title": "Learn By Doing",
+              "description": "Theory + practice integrated.\nLearning about investing? Test with $10.\nKnowledge that turns into action."
+            },
+            "earnWhileYouLearn": {
+              "iconAlt": "Learning rewards icon",
+              "title": "Earn While You Learn",
+              "description": "Points for completing courses.\nBadges for hitting milestones.\nEducation rewarded."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Learn to grow.",
+          "subtitle": "Financial education that works, at your pace.",
+          "cards": {
+            "fromBasicsToAdvanced": {
+              "title": "From Basics to Advanced",
+              "description": "Starting from zero? Perfect.\nAlready investing? Even better.\nContent for every level.",
+              "imageAlt": "From Basics to Advanced illustration"
+            },
+            "learnByDoing": {
+              "title": "Learn by Doing",
+              "description": "Theory + Practice together.\nLearn the concept, apply it right away.\nKnowledge that sticks.",
+              "imageAlt": "Learn by Doing illustration"
+            },
+            "communityThatTeaches": {
+              "title": "Community That Teaches",
+              "description": "Learn from those who've done it.\nShare what you've learned.\nWe grow together.",
+              "imageAlt": "Community That Teaches illustration"
+            },
+            "guidesThatEvolveWithYou": {
+              "title": "Guides That Evolve With You",
+              "description": "Aqua for beginners. Mystic for investors.\nCoral for strategists.\nEach guide appears when you're ready.",
+              "imageAlt": "Guides That Evolve With You illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Learn at Your Own Pace",
+              "description": "Banking, investing, crypto, and DeFi.\nAll courses in one place.\nFrom beginner to expert.",
+              "ctaText": "Get Started",
+              "imageAlt": "Learn at Your Own Pace illustration"
+            },
+            "simplicity": {
+              "title": "Guided by AI Mentors",
+              "description": "✓ Aqua for beginners\n✓ Mystic for investors\n✓ Coral for advanced strategies\nLearn with personalized guidance.",
+              "ctaText": "Get Started",
+              "imageAlt": "Guided by AI Mentors illustration"
+            },
+            "rewards": {
+              "title": "Earn While You Learn",
+              "description": "Complete courses, earn points.\nUnlock badges and exclusive benefits.\nEducation that pays you back.",
+              "ctaText": "Get Started",
+              "imageAlt": "Earn While You Learn illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q40",
+            "q41",
+            "q42"
+          ]
+        }
+      }
+    },
+    "business": {
+      "advantages": {
+        "title": "diBoaS Business | diBoaS",
+        "description": "Your business deserves finances as simple as they are powerful.",
+        "hero": {
+          "title": "Your business deserves finances as simple as they are powerful. Meet diBoas Business.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Your business deserves the best",
+          "description": "Business finance made simple.",
+          "cards": {
+            "everythingIntegratedForBusiness": {
+              "iconAlt": "Integration icon",
+              "title": "Everything Integrated For Your Business",
+              "description": "Account, payments, investments, credit.\nComplete financial management.\nFocus on what matters: growing."
+            },
+            "noBankingBureaucracy": {
+              "iconAlt": "No bureaucracy icon",
+              "title": "No Banking Bureaucracy",
+              "description": "100% digital onboarding.\nNo lines, no paperwork.\nStart operating in hours."
+            },
+            "yourCapitalAlwaysEarning": {
+              "iconAlt": "Earning capital icon",
+              "title": "Your Capital Always Earning",
+              "description": "Idle cash flow? Never again.\nAutomatic returns while you operate.\nIntelligent treasury."
+            },
+            "totalControlVisibility": {
+              "iconAlt": "Dashboard icon",
+              "title": "Total Control and Visibility",
+              "description": "Complete financial health dashboard.\nAutomated reports.\nDecisions based on real data."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Your business deserves better.",
+          "subtitle": "Financial solutions that grow with your company.",
+          "cards": {
+            "completeBusinessBanking": {
+              "title": "Complete Business Banking",
+              "description": "Account, payments, collections.\nAll integrated, all simple.\nYour business, less bureaucracy.",
+              "imageAlt": "Complete Business Banking illustration"
+            },
+            "capitalWorkingTwentyFourSeven": {
+              "title": "Capital Working 24/7",
+              "description": "Smart treasury with returns.\nYour idle capital now generates revenue.\nEvery dollar counts.",
+              "imageAlt": "Capital Working 24/7 illustration"
+            },
+            "creditToGrow": {
+              "title": "Credit to Grow",
+              "description": "P2P credit between businesses.\nFair rates, fast processes.\nGrowth without bank chains.",
+              "imageAlt": "Credit to Grow illustration"
+            },
+            "simplifiedManagement": {
+              "title": "Simplified Management",
+              "description": "Cash flow, payments, investments.\nAll visible in one dashboard.\nFocus on what matters: growth.",
+              "imageAlt": "Simplified Management illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Business Banking Reimagined",
+              "description": "Accounts, payments, treasury, and credit.\nEverything your business needs.\nAll in one powerful platform.",
+              "ctaText": "Get Started",
+              "imageAlt": "Business Banking Reimagined illustration"
+            },
+            "simplicity": {
+              "title": "Open in 10 Minutes",
+              "description": "✓ No visit to branches\n✓ Free business account\n✓ Instant approvals\nRun your business, not your bank.",
+              "ctaText": "Get Started",
+              "imageAlt": "Open in 10 Minutes illustration"
+            },
+            "rewards": {
+              "title": "Save Thousands in Fees",
+              "description": "No monthly maintenance charges.\nFree transfers and payments.\nMore capital for growth, less for banks.",
+              "ctaText": "Get Started",
+              "imageAlt": "Save Thousands in Fees illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q52",
+            "q53",
+            "q54"
+          ]
+        }
+      }
+    },
+    "rewards": {
+      "overview": {
+        "title": "diBoaS Rewards | diBoaS",
+        "description": "Rewards that actually matter.",
+        "hero": {
+          "title": "Rewards that actually matter. Learn, grow, and get recognized for every milestone.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Rewards that actually matter",
+          "description": "The more you grow, the more you earn.",
+          "cards": {
+            "unifiedPointsSystem": {
+              "iconAlt": "Points system icon",
+              "title": "Unified Points System",
+              "description": "Every action earns points.\nInvest, learn, refer, engage.\nPoints become real benefits."
+            },
+            "achievementBadges": {
+              "iconAlt": "Badge icon",
+              "title": "Achievement Badges",
+              "description": "Show your financial accomplishments.\nFirst investment, goal reached, course completed.\nGamification that educates."
+            },
+            "communityLeaderboard": {
+              "iconAlt": "Leaderboard icon",
+              "title": "Community Leaderboard",
+              "description": "See where you stand.\nHealthy competition.\nInspiration from those who are growing."
+            },
+            "exclusiveBenefits": {
+              "iconAlt": "VIP benefits icon",
+              "title": "Exclusive Benefits",
+              "description": "Early access to features.\nFree VIP courses.\nEvents with experts."
+            },
+            "realCashback": {
+              "iconAlt": "Cashback icon",
+              "title": "Real Cashback",
+              "description": "Money back on transactions.\nNot points that expire.\nIt's money returning to you."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Rewards that matter.",
+          "subtitle": "The more you use, the more you earn.",
+          "cards": {
+            "pointsForEverything": {
+              "title": "Points for Everything",
+              "description": "Invest, learn, refer, participate.\nEvery action earns points.\nEvery point earns rewards.",
+              "imageAlt": "Points for Everything illustration"
+            },
+            "realCashback": {
+              "title": "Real Cashback",
+              "description": "Get back part of your transactions.\nMoney in account, not expiring points.\nRewards worth it.",
+              "imageAlt": "Real Cashback illustration"
+            },
+            "vipAccess": {
+              "title": "VIP Access",
+              "description": "Exclusive courses, special events.\nPremium content for top users.\nMore you use, more you access.",
+              "imageAlt": "VIP Access illustration"
+            },
+            "gamificationThatTeaches": {
+              "title": "Gamification That Teaches",
+              "description": "Challenges, badges, rankings.\nLearn while you compete.\nFun financial education.",
+              "imageAlt": "Gamification That Teaches illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Rewards That Matter",
+              "description": "Points, cashback, badges, and tokens.\nEvery action earns recognition.\nGamified finance that pays to play.",
+              "ctaText": "Get Started",
+              "imageAlt": "Rewards That Matter illustration"
+            },
+            "simplicity": {
+              "title": "Automatic Tracking",
+              "description": "✓ Earn points for learning\n✓ Cashback on transactions\n✓ Bonuses for referrals\nNo forms, no hassle. Just rewards.",
+              "ctaText": "Get Started",
+              "imageAlt": "Automatic Tracking illustration"
+            },
+            "rewards": {
+              "title": "Redeem How You Want",
+              "description": "Cash, crypto, gift cards, or reinvest.\nYour rewards, your choice.\nValue that you actually use.",
+              "ctaText": "Get Started",
+              "imageAlt": "Redeem How You Want illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q73",
+            "q74",
+            "q75"
+          ]
+        }
+      }
+    },
+    "security": {
+      "protection": {
+        "title": "diBoaS Protection | diBoaS",
+        "description": "Your money protected with military-grade security.",
+        "hero": {
+          "title": "Your money protected with military-grade security. You stay in control, we ensure the protection.",
+          "description": "",
+          "cta": "Get Started"
+        },
+        "benefitsCards": {
+          "title": "Military-grade security",
+          "description": "Your money protected, always.",
+          "cards": {
+            "endToEndEncryption": {
+              "iconAlt": "Encryption icon",
+              "title": "End-to-End Encryption",
+              "description": "Your data protected throughout its journey.\nTechnology used by global banks.\nSecurity you don't see, but feel."
+            },
+            "multiFactorAuthentication": {
+              "iconAlt": "MFA icon",
+              "title": "Multi-Factor Authentication",
+              "description": "Biometrics, codes, trusted devices.\nMultiple protection layers.\nAccess only for those who should have it."
+            },
+            "monitoring247": {
+              "iconAlt": "Monitoring icon",
+              "title": "24/7 Monitoring",
+              "description": "AI detects suspicious activity.\nInstant alerts for you.\nQuick response to threats."
+            },
+            "segregatedCustody": {
+              "iconAlt": "Custody icon",
+              "title": "Segregated Custody",
+              "description": "Your assets separate from company's.\nProtection even in unlikely scenarios.\nRegulatory peace of mind."
+            },
+            "assetInsurance": {
+              "iconAlt": "Insurance icon",
+              "title": "Asset Insurance",
+              "description": "Coverage against extreme events.\nPartnership with trusted insurers.\nAdditional protection that matters."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Security without compromise.",
+          "subtitle": "Military protection, your control, total transparency.",
+          "cards": {
+            "militaryGradeEncryption": {
+              "title": "Military-Grade Encryption",
+              "description": "Same technology that protects governments.\nYour data and assets totally secure.\nNothing less than the best.",
+              "imageAlt": "Military-Grade Encryption illustration"
+            },
+            "youReTheOwner": {
+              "title": "You're the Owner",
+              "description": "Non-custodial wallets.\nOnly you have access to your assets.\nWe never touch your money.",
+              "imageAlt": "You're the Owner illustration"
+            },
+            "multiJurisdictionCompliant": {
+              "title": "Multi-Jurisdiction Compliant",
+              "description": "US, EU, Brazil regulation.\nConstant independent audits.\nCompliance isn't optional.",
+              "imageAlt": "Multi-Jurisdiction Compliant illustration"
+            },
+            "twentyFourSevenSupport": {
+              "title": "24/7 Support",
+              "description": "Security team always available.\nImmediate response to any incident.\nYou're never alone.",
+              "imageAlt": "24/7 Support illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Security First, Always",
+              "description": "Bank-grade encryption and monitoring.\nMulti-layer protection for your assets.\nYour money, fortress-level secure.",
+              "ctaText": "Get Started",
+              "imageAlt": "Security First, Always illustration"
+            },
+            "simplicity": {
+              "title": "Protected Without Complexity",
+              "description": "✓ Biometric authentication\n✓ Real-time fraud detection\n✓ Instant account freezing\nSecurity that doesn't get in your way.",
+              "ctaText": "Get Started",
+              "imageAlt": "Protected Without Complexity illustration"
+            },
+            "rewards": {
+              "title": "You're Always in Control",
+              "description": "Customize security preferences.\nReal-time alerts for everything.\nNo transaction without your knowledge.",
+              "ctaText": "Get Started",
+              "imageAlt": "You're Always in Control illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Frequently Asked Questions",
+          "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+          "ctaText": "See All Questions",
+          "questionIds": [
+            "q94",
+            "q95",
+            "q96"
+          ]
+        }
+      }
+    },
+    "helpContact": {
+      "hero": {
+        "title": "Get in Touch",
+        "cta": "Contact Support"
+      }
+    },
+    "helpGettingStarted": {
+      "hero": {
+        "title": "Start Your Journey",
+        "cta": "Begin Now"
+      }
+    },
+    "helpSupport": {
+      "hero": {
+        "title": "24/7 Support",
+        "cta": "Get Help"
+      }
+    },
+    "helpTroubleshooting": {
+      "hero": {
+        "title": "Fix Issues Fast",
+        "cta": "Find Solutions"
       }
     }
   },

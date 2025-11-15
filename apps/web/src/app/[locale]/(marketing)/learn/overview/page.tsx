@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('credit', locale as SupportedLocale);
+  return generateStaticPageMetadata('learn/overview', locale as SupportedLocale);
 }
 
-export default async function CreditPage({ params }: PageProps) {
+export default async function LearnBenefitsPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function CreditPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Credit',
-    description: 'Fair and transparent credit solutions',
-    category: 'Credit Services'
+    name: 'diBoaS Learn Center',
+    description: 'Financial education for everyone',
+    category: 'Educational Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Credit', url: ROUTES.CREDIT }
+    { name: 'Learn', url: '/learn' },
+    { name: 'Overview', url: ROUTES.LEARN.OVERVIEW }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('credit');
+  const heroVariant = getVariantForPageConfig('learn-overview');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function CreditPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-credit"
+          sectionId="hero-section-learn-benefits"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'credit', variant: heroVariant }}
+          context={{ page: 'learn-benefits', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.credit}
+            config={HERO_PAGE_CONFIGS['learn-overview']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function CreditPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-credit"
+          sectionId="feature-showcase-learnBenefits"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'credit' }}
+          context={{ page: 'learnBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.credit}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnOverview}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function CreditPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-credit"
+          sectionId="benefits-cards-learn-benefits"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'credit' }}
+          context={{ page: 'learn-benefits' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('credit')!}
+            config={getBenefitsCardsConfig('learn-overview')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-credit"
+          sectionId="sticky-features-nav-learnBenefits"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'credit' }}
+          context={{ page: 'learnBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.credit}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnOverview}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-credit"
+          sectionId="faq-accordion-learnBenefits"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'credit' }}
+          context={{ page: 'learnBenefits' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.credit!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.learnOverview!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

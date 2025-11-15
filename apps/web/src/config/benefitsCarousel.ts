@@ -19,10 +19,10 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'exclusive-rewards',
     content: {
-      title: 'marketing.pages.benefits.carousel.exclusiveRewards.title',
-      description: 'marketing.pages.benefits.carousel.exclusiveRewards.description',
-      ctaText: 'marketing.pages.benefits.carousel.exclusiveRewards.ctaText',
-      ctaHref: ROUTES.REWARDS.BENEFITS,
+      title: 'marketing.pages.why-diboas.carousel.exclusiveRewards.title',
+      description: 'marketing.pages.why-diboas.carousel.exclusiveRewards.description',
+      ctaText: 'marketing.pages.why-diboas.carousel.exclusiveRewards.ctaText',
+      ctaHref: ROUTES.REWARDS.OVERVIEW,
       ctaTarget: '_self'
     },
     assets: {
@@ -35,10 +35,10 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'financial-freedom',
     content: {
-      title: 'marketing.pages.benefits.carousel.financialFreedom.title',
-      description: 'marketing.pages.benefits.carousel.financialFreedom.description',
-      ctaText: 'marketing.pages.benefits.carousel.financialFreedom.ctaText',
-      ctaHref: ROUTES.ACCOUNT,
+      title: 'marketing.pages.why-diboas.carousel.financialFreedom.title',
+      description: 'marketing.pages.why-diboas.carousel.financialFreedom.description',
+      ctaText: 'marketing.pages.why-diboas.carousel.financialFreedom.ctaText',
+      ctaHref: ROUTES.PERSONAL.ACCOUNT,
       ctaTarget: '_self'
     },
     assets: {
@@ -51,10 +51,10 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'smart-investing',
     content: {
-      title: 'marketing.pages.benefits.carousel.smartInvesting.title',
-      description: 'marketing.pages.benefits.carousel.smartInvesting.description',
+      title: 'marketing.pages.why-diboas.carousel.smartInvesting.title',
+      description: 'marketing.pages.why-diboas.carousel.smartInvesting.description',
       ctaText: 'common.buttons.learnMore',
-      ctaHref: ROUTES.INVESTING,
+      ctaHref: ROUTES.PERSONAL.INVESTING,
       ctaTarget: '_self'
     },
     assets: {
@@ -67,10 +67,10 @@ export const BENEFITS_SHOWCASE_SLIDES: FeatureShowcaseSlide[] = [
   {
     id: 'secure-banking',
     content: {
-      title: 'marketing.pages.benefits.carousel.secureBanking.title',
-      description: 'marketing.pages.benefits.carousel.secureBanking.description',
-      ctaText: 'marketing.pages.benefits.carousel.secureBanking.ctaText',
-      ctaHref: ROUTES.SECURITY.BENEFITS,
+      title: 'marketing.pages.why-diboas.carousel.secureBanking.title',
+      description: 'marketing.pages.why-diboas.carousel.secureBanking.description',
+      ctaText: 'marketing.pages.why-diboas.carousel.secureBanking.ctaText',
+      ctaHref: ROUTES.SECURITY.PROTECTION,
       ctaTarget: '_self'
     },
     assets: {

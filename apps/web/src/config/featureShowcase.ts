@@ -193,7 +193,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           title: 'marketing.pages.home.featureShowcase.learn.title',
           description: 'marketing.pages.home.featureShowcase.learn.description',
           ctaText: 'marketing.pages.home.featureShowcase.learn.ctaText',
-          ctaHref: ROUTES.LEARN.BENEFITS,
+          ctaHref: ROUTES.LEARN.OVERVIEW,
           ctaTarget: '_self'
         },
         assets: {
@@ -230,7 +230,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           title: 'marketing.pages.home.featureShowcase.business.title',
           description: 'marketing.pages.home.featureShowcase.business.description',
           ctaText: 'marketing.pages.home.featureShowcase.business.ctaText',
-          ctaHref: ROUTES.BUSINESS.BENEFITS,
+          ctaHref: ROUTES.BUSINESS.ADVANTAGES,
           ctaTarget: '_self'
         },
         assets: {

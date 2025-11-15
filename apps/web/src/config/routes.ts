@@ -13,19 +13,21 @@
 export const ROUTES = {
   // Home & Core
   HOME: '/',
-  BENEFITS: '/benefits',
-  ACCOUNT: '/account',
+  WHY_DIBOAS: '/why-diboas',
 
-  // Banking & Finance
-  BANKING_SERVICES: '/banking-services',
-  INVESTING: '/investing',
-  CRYPTOCURRENCY: '/cryptocurrency',
-  DEFI_STRATEGIES: '/defi-strategies',
-  CREDIT: '/credit',
+  // Personal Products
+  PERSONAL: {
+    ACCOUNT: '/personal/account',
+    BANKING: '/personal/banking',
+    CREDIT: '/personal/credit',
+    CRYPTOCURRENCY: '/personal/cryptocurrency',
+    DEFI_STRATEGIES: '/personal/defi-strategies',
+    INVESTING: '/personal/investing',
+  },
 
   // Learning Center
   LEARN: {
-    BENEFITS: '/learn/benefits',
+    OVERVIEW: '/learn/overview',
     FINANCIAL_BASICS: '/learn/financial-basics',
     MONEY_MANAGEMENT: '/learn/money-management',
     INVESTMENT_GUIDE: '/learn/investment-guide',
@@ -36,7 +38,7 @@ export const ROUTES = {
 
   // Business Solutions
   BUSINESS: {
-    BENEFITS: '/business/benefits',
+    ADVANTAGES: '/business/advantages',
     ACCOUNT: '/business/account',
     BANKING: '/business/banking',
     PAYMENTS: '/business/payments',
@@ -47,7 +49,7 @@ export const ROUTES = {
 
   // Rewards & Programs
   REWARDS: {
-    BENEFITS: '/rewards/benefits',
+    OVERVIEW: '/rewards/overview',
     AI_GUIDES: '/rewards/ai-guides',
     REFERRAL_PROGRAM: '/rewards/referral-program',
     POINTS_SYSTEM: '/rewards/points-system',
@@ -58,13 +60,17 @@ export const ROUTES = {
 
   // Security & Support
   SECURITY: {
-    BENEFITS: '/security/benefits',
+    PROTECTION: '/security/protection',
     AUDIT_REPORTS: '/security/audit-reports',
     SAFETY_GUIDE: '/security/safety-guide',
   },
 
   HELP: {
     FAQ: '/help/faq',
+    CONTACT: '/help/contact',
+    GETTING_STARTED: '/help/getting-started',
+    TROUBLESHOOTING: '/help/troubleshooting',
+    SUPPORT: '/help/support',
   },
 
   // About & Legal

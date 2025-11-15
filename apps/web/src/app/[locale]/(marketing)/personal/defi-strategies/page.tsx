@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('investing', locale as SupportedLocale);
+  return generateStaticPageMetadata('personal/defi-strategies', locale as SupportedLocale);
 }
 
-export default async function InvestingPage({ params }: PageProps) {
+export default async function DeFiStrategiesPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function InvestingPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Investing',
-    description: 'Start investing with just $10',
-    category: 'Investment Services'
+    name: 'diBoaS DeFi Strategies',
+    description: 'Professional investment strategies for DeFi',
+    category: 'DeFi Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Investing', url: ROUTES.INVESTING }
+    { name: 'Personal', url: '/personal' },
+    { name: 'DeFi Strategies', url: ROUTES.PERSONAL.DEFI_STRATEGIES }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('investing');
+  const heroVariant = getVariantForPageConfig('personal-defi-strategies');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function InvestingPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-investing"
+          sectionId="hero-section-defi-strategies"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'investing', variant: heroVariant }}
+          context={{ page: 'defi-strategies', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.investing}
+            config={HERO_PAGE_CONFIGS['personal-defi-strategies']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function InvestingPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-investing"
+          sectionId="feature-showcase-defiStrategies"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'investing' }}
+          context={{ page: 'defiStrategies' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.investing}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalDefiStrategies}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function InvestingPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-investing"
+          sectionId="benefits-cards-defi-strategies"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'investing' }}
+          context={{ page: 'defi-strategies' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('investing')!}
+            config={getBenefitsCardsConfig('personal-defi-strategies')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-investing"
+          sectionId="sticky-features-nav-defiStrategies"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'investing' }}
+          context={{ page: 'defiStrategies' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.investing}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalDefiStrategies}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-investing"
+          sectionId="faq-accordion-defiStrategies"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'investing' }}
+          context={{ page: 'defiStrategies' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.investing!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.personalDefiStrategies!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

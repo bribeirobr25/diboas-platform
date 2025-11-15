@@ -99,7 +99,7 @@ export const DEFAULT_ONE_FEATURE_CONTENT: OneFeatureContent = {
   features: DEFAULT_FEATURES,
   cta: {
     text: 'marketing.pages.home.oneFeature.ctaText',
-    href: ROUTES.SECURITY.BENEFITS,
+    href: ROUTES.SECURITY.PROTECTION,
     target: '_self'
   }
 } as const;

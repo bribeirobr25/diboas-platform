@@ -4,16 +4,17 @@ import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
 import { FeatureShowcase } from '@/components/Sections';
-import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
-import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { ROUTES } from '@/config/routes';
+import type { Metadata } from 'next';
+
+
+import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
+import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
-import type { Metadata } from 'next';
-
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -24,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('account', locale as SupportedLocale);
+  return generateStaticPageMetadata('personal/banking', locale as SupportedLocale);
 }
 
-export default async function AccountPage({ params }: PageProps) {
+export default async function BankingServicesPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -35,19 +36,19 @@ export default async function AccountPage({ params }: PageProps) {
     notFound();
   }
 
-  // Generate structured data for the account page
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Account',
-    description: 'Free account that earns 100% CDI and puts you in control of your money',
+    name: 'diBoaS Banking Services',
+    description: 'Modern banking services without borders',
     category: 'Financial Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Account', url: ROUTES.ACCOUNT }
+    { name: 'Personal', url: '/personal' },
+    { name: 'Banking', url: ROUTES.PERSONAL.BANKING }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('account');
+  const heroVariant = getVariantForPageConfig('personal-banking');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function AccountPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-account"
+          sectionId="hero-section-banking-services"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'account', variant: heroVariant }}
+          context={{ page: 'banking-services', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.account}
+            config={HERO_PAGE_CONFIGS['personal-banking']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,53 +71,54 @@ export default async function AccountPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-account"
+          sectionId="feature-showcase-bankingServices"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'account' }}
+          context={{ page: 'bankingServices' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.account}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalBanking}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
 
+        
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-account"
+          sectionId="benefits-cards-banking-services"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'account' }}
+          context={{ page: 'banking-services' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('account')!}
+            config={getBenefitsCardsConfig('personal-banking')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-account"
+          sectionId="sticky-features-nav-bankingServices"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'account' }}
+          context={{ page: 'bankingServices' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.account}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalBanking}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-account"
+          sectionId="faq-accordion-bankingServices"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'account' }}
+          context={{ page: 'bankingServices' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.account!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.personalBanking!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

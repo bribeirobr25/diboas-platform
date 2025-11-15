@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('security/benefits', locale as SupportedLocale);
+  return generateStaticPageMetadata('personal/investing', locale as SupportedLocale);
 }
 
-export default async function SecurityBenefitsPage({ params }: PageProps) {
+export default async function InvestingPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Protection',
-    description: 'Military-grade security',
-    category: 'Security Services'
+    name: 'diBoaS Investing',
+    description: 'Start investing with just $10',
+    category: 'Investment Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Security Benefits', url: ROUTES.SECURITY.BENEFITS }
+    { name: 'Personal', url: '/personal' },
+    { name: 'Investing', url: ROUTES.PERSONAL.INVESTING }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('security-benefits');
+  const heroVariant = getVariantForPageConfig('personal-investing');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-security-benefits"
+          sectionId="hero-section-investing"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'security-benefits', variant: heroVariant }}
+          context={{ page: 'investing', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['security-benefits']}
+            config={HERO_PAGE_CONFIGS['personal-investing']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-securityBenefits"
+          sectionId="feature-showcase-investing"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'securityBenefits' }}
+          context={{ page: 'investing' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.securityBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalInvesting}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-security-benefits"
+          sectionId="benefits-cards-investing"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'security-benefits' }}
+          context={{ page: 'investing' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('security-benefits')!}
+            config={getBenefitsCardsConfig('personal-investing')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-securityBenefits"
+          sectionId="sticky-features-nav-investing"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'securityBenefits' }}
+          context={{ page: 'investing' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securityBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalInvesting}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-securityBenefits"
+          sectionId="faq-accordion-investing"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'securityBenefits' }}
+          context={{ page: 'investing' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.securityBenefits!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.personalInvesting!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

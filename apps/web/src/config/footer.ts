@@ -49,14 +49,14 @@ export const FOOTER_CONFIG: FooterConfig = {
       links: [
         { id: 'diboasApp', label: 'common.footer.sections.platforms.links.diboasApp', href: APP_URL, external: true, dynamic: true },
         { id: 'businessApp', label: 'common.footer.sections.platforms.links.businessApp', href: BUSINESS_URL, external: true, dynamic: true },
-        { id: 'learnCenter', label: 'common.footer.sections.platforms.links.learnCenter', href: ROUTES.LEARN.BENEFITS },
+        { id: 'learnCenter', label: 'common.footer.sections.platforms.links.learnCenter', href: ROUTES.LEARN.OVERVIEW },
       ]
     },
     {
       title: 'common.footer.sections.transparency.title',
       links: [
         { id: 'privacy', label: 'common.footer.sections.transparency.links.privacy', href: ROUTES.LEGAL.PRIVACY },
-        { id: 'security', label: 'common.footer.sections.transparency.links.security', href: ROUTES.SECURITY.BENEFITS },
+        { id: 'security', label: 'common.footer.sections.transparency.links.security', href: ROUTES.SECURITY.PROTECTION },
         { id: 'terms', label: 'common.footer.sections.transparency.links.terms', href: ROUTES.LEGAL.TERMS },
       ]
     },
@@ -73,6 +73,10 @@ export const FOOTER_CONFIG: FooterConfig = {
       title: 'common.footer.sections.help.title',
       links: [
         { id: 'faq', label: 'common.footer.sections.help.links.faq', href: ROUTES.HELP.FAQ },
+        { id: 'contact', label: 'common.footer.sections.help.links.contact', href: ROUTES.HELP.CONTACT },
+        { id: 'gettingStarted', label: 'common.footer.sections.help.links.gettingStarted', href: ROUTES.HELP.GETTING_STARTED },
+        { id: 'support', label: 'common.footer.sections.help.links.support', href: ROUTES.HELP.SUPPORT },
+        { id: 'troubleshooting', label: 'common.footer.sections.help.links.troubleshooting', href: ROUTES.HELP.TROUBLESHOOTING },
       ]
     },
     {
