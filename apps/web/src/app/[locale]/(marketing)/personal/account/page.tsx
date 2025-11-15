@@ -48,7 +48,7 @@ export default async function AccountPage({ params }: PageProps) {
     { name: 'Account', url: ROUTES.PERSONAL.ACCOUNT }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('account');
+  const heroVariant = getVariantForPageConfig('personal-account');
 
   return (
     <>
@@ -63,7 +63,7 @@ export default async function AccountPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.account}
+            config={HERO_PAGE_CONFIGS['personal-account']}
             enableAnalytics={true}
             priority={true}
           />
@@ -77,7 +77,7 @@ export default async function AccountPage({ params }: PageProps) {
           context={{ page: 'account' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.account}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalAccount}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -91,7 +91,7 @@ export default async function AccountPage({ params }: PageProps) {
           context={{ page: 'account' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('account')!}
+            config={getBenefitsCardsConfig('personal-account')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -104,7 +104,7 @@ export default async function AccountPage({ params }: PageProps) {
           context={{ page: 'account' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.account}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalAccount}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

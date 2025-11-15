@@ -48,7 +48,7 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
     { name: 'DeFi Strategies', url: ROUTES.PERSONAL.DEFI_STRATEGIES }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('defi-strategies');
+  const heroVariant = getVariantForPageConfig('personal-defi-strategies');
 
   return (
     <>
@@ -92,7 +92,7 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
           context={{ page: 'defi-strategies' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('defi-strategies')!}
+            config={getBenefitsCardsConfig('personal-defi-strategies')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

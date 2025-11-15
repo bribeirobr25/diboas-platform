@@ -48,7 +48,7 @@ export default async function CreditPage({ params }: PageProps) {
     { name: 'Credit', url: ROUTES.PERSONAL.CREDIT }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('credit');
+  const heroVariant = getVariantForPageConfig('personal-credit');
 
   return (
     <>
@@ -63,7 +63,7 @@ export default async function CreditPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.credit}
+            config={HERO_PAGE_CONFIGS['personal-credit']}
             enableAnalytics={true}
             priority={true}
           />
@@ -77,7 +77,7 @@ export default async function CreditPage({ params }: PageProps) {
           context={{ page: 'credit' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.credit}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalCredit}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -92,7 +92,7 @@ export default async function CreditPage({ params }: PageProps) {
           context={{ page: 'credit' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('credit')!}
+            config={getBenefitsCardsConfig('personal-credit')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function CreditPage({ params }: PageProps) {
           context={{ page: 'credit' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.credit}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalCredit}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

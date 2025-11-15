@@ -92,7 +92,7 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
           context={{ page: 'rewards-benefits' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('rewards-benefits')!}
+            config={getBenefitsCardsConfig('rewards-overview')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

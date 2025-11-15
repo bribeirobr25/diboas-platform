@@ -110,7 +110,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 3. BANKINGSERVICES - diboas.com/banking-services */
-  'banking-services': {
+  'personal-banking': {
     section: {
       title: 'marketing.pages.personal.banking.benefitsCards.title',
       description: 'marketing.pages.personal.banking.benefitsCards.description',
@@ -159,52 +159,52 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   /** 4. BENEFITS - diboas.com/benefits */
   'why-diboas': {
     section: {
-      title: 'marketing.pages['why-diboas'].benefitsCards.title',
-      description: 'marketing.pages['why-diboas'].benefitsCards.description',
+      title: 'marketing.pages.why-diboas.benefitsCards.title',
+      description: 'marketing.pages.why-diboas.benefitsCards.description',
       backgroundColor: 'light-purple'
     },
     cards: [
       {
         id: 'no-more-app-juggling',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages['why-diboas'].benefitsCards.cards.noMoreAppJuggling.iconAlt',
-        title: 'marketing.pages['why-diboas'].benefitsCards.cards.noMoreAppJuggling.title',
-        description: 'marketing.pages['why-diboas'].benefitsCards.cards.noMoreAppJuggling.description'
+        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.noMoreAppJuggling.iconAlt',
+        title: 'marketing.pages.why-diboas.benefitsCards.cards.noMoreAppJuggling.title',
+        description: 'marketing.pages.why-diboas.benefitsCards.cards.noMoreAppJuggling.description'
       },
       {
         id: 'you-decide',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages['why-diboas'].benefitsCards.cards.youDecide.iconAlt',
-        title: 'marketing.pages['why-diboas'].benefitsCards.cards.youDecide.title',
-        description: 'marketing.pages['why-diboas'].benefitsCards.cards.youDecide.description'
+        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.youDecide.iconAlt',
+        title: 'marketing.pages.why-diboas.benefitsCards.cards.youDecide.title',
+        description: 'marketing.pages.why-diboas.benefitsCards.cards.youDecide.description'
       },
       {
         id: 'money-never-sleeps',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages['why-diboas'].benefitsCards.cards.moneyNeverSleeps.iconAlt',
-        title: 'marketing.pages['why-diboas'].benefitsCards.cards.moneyNeverSleeps.title',
-        description: 'marketing.pages['why-diboas'].benefitsCards.cards.moneyNeverSleeps.description'
+        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.moneyNeverSleeps.iconAlt',
+        title: 'marketing.pages.why-diboas.benefitsCards.cards.moneyNeverSleeps.title',
+        description: 'marketing.pages.why-diboas.benefitsCards.cards.moneyNeverSleeps.description'
       },
       {
         id: 'investing-becomes-easy',
         icon: '/assets/icons/investing.avif',
-        iconAlt: 'marketing.pages['why-diboas'].benefitsCards.cards.investingBecomesEasy.iconAlt',
-        title: 'marketing.pages['why-diboas'].benefitsCards.cards.investingBecomesEasy.title',
-        description: 'marketing.pages['why-diboas'].benefitsCards.cards.investingBecomesEasy.description'
+        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.investingBecomesEasy.iconAlt',
+        title: 'marketing.pages.why-diboas.benefitsCards.cards.investingBecomesEasy.title',
+        description: 'marketing.pages.why-diboas.benefitsCards.cards.investingBecomesEasy.description'
       },
       {
         id: 'more-you-use',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages['why-diboas'].benefitsCards.cards.moreYouUse.iconAlt',
-        title: 'marketing.pages['why-diboas'].benefitsCards.cards.moreYouUse.title',
-        description: 'marketing.pages['why-diboas'].benefitsCards.cards.moreYouUse.description'
+        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.moreYouUse.iconAlt',
+        title: 'marketing.pages.why-diboas.benefitsCards.cards.moreYouUse.title',
+        description: 'marketing.pages.why-diboas.benefitsCards.cards.moreYouUse.description'
       },
       {
         id: 'one-fi-platform',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages['why-diboas'].benefitsCards.cards.oneFiPlatform.iconAlt',
-        title: 'marketing.pages['why-diboas'].benefitsCards.cards.oneFiPlatform.title',
-        description: 'marketing.pages['why-diboas'].benefitsCards.cards.oneFiPlatform.description'
+        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.oneFiPlatform.iconAlt',
+        title: 'marketing.pages.why-diboas.benefitsCards.cards.oneFiPlatform.title',
+        description: 'marketing.pages.why-diboas.benefitsCards.cards.oneFiPlatform.description'
       }
     ],
     seo: {

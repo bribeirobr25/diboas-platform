@@ -48,7 +48,7 @@ export default async function InvestingPage({ params }: PageProps) {
     { name: 'Investing', url: ROUTES.PERSONAL.INVESTING }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('investing');
+  const heroVariant = getVariantForPageConfig('personal-investing');
 
   return (
     <>
@@ -63,7 +63,7 @@ export default async function InvestingPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.investing}
+            config={HERO_PAGE_CONFIGS['personal-investing']}
             enableAnalytics={true}
             priority={true}
           />
@@ -77,7 +77,7 @@ export default async function InvestingPage({ params }: PageProps) {
           context={{ page: 'investing' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.investing}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalInvesting}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -92,7 +92,7 @@ export default async function InvestingPage({ params }: PageProps) {
           context={{ page: 'investing' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('investing')!}
+            config={getBenefitsCardsConfig('personal-investing')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function InvestingPage({ params }: PageProps) {
           context={{ page: 'investing' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.investing}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalInvesting}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

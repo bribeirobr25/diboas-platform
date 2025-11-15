@@ -92,7 +92,7 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
           context={{ page: 'security-benefits' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('security-benefits')!}
+            config={getBenefitsCardsConfig('security-protection')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

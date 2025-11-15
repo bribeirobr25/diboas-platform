@@ -48,7 +48,7 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
     { name: 'Cryptocurrency', url: ROUTES.PERSONAL.CRYPTOCURRENCY }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('cryptocurrency');
+  const heroVariant = getVariantForPageConfig('personal-cryptocurrency');
 
   return (
     <>
@@ -63,7 +63,7 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.cryptocurrency}
+            config={HERO_PAGE_CONFIGS['personal-cryptocurrency']}
             enableAnalytics={true}
             priority={true}
           />
@@ -77,7 +77,7 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
           context={{ page: 'cryptocurrency' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.cryptocurrency}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalCryptocurrency}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -92,7 +92,7 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
           context={{ page: 'cryptocurrency' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('cryptocurrency')!}
+            config={getBenefitsCardsConfig('personal-cryptocurrency')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
           context={{ page: 'cryptocurrency' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.cryptocurrency}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalCryptocurrency}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
