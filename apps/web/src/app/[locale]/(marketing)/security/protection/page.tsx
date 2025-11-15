@@ -48,7 +48,7 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
     { name: 'Protection', url: ROUTES.SECURITY.PROTECTION }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('security-benefits');
+  const heroVariant = getVariantForPageConfig('security-protection');
 
   return (
     <>
@@ -77,7 +77,7 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
           context={{ page: 'securityBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.securityBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.securityProtection}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
           context={{ page: 'securityBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securityBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securityProtection}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

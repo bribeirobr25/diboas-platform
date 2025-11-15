@@ -77,7 +77,7 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
           context={{ page: 'defiStrategies' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.defiStrategies}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalDefiStrategies}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
           context={{ page: 'defiStrategies' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.defiStrategies}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalDefiStrategies}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

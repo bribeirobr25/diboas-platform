@@ -48,7 +48,7 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
     { name: 'Overview', url: ROUTES.LEARN.OVERVIEW }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('learn-benefits');
+  const heroVariant = getVariantForPageConfig('learn-overview');
 
   return (
     <>
@@ -77,7 +77,7 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
           context={{ page: 'learnBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnOverview}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
           context={{ page: 'learnBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnOverview}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

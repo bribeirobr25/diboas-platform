@@ -48,7 +48,7 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
     { name: 'Advantages', url: ROUTES.BUSINESS.ADVANTAGES }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('business-benefits');
+  const heroVariant = getVariantForPageConfig('business-advantages');
 
   return (
     <>
@@ -77,7 +77,7 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
           context={{ page: 'businessBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessAdvantages}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
           context={{ page: 'businessBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessAdvantages}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

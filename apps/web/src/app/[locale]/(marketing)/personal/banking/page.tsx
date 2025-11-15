@@ -48,7 +48,7 @@ export default async function BankingServicesPage({ params }: PageProps) {
     { name: 'Banking', url: ROUTES.PERSONAL.BANKING }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('banking-services');
+  const heroVariant = getVariantForPageConfig('personal-banking');
 
   return (
     <>
@@ -77,7 +77,7 @@ export default async function BankingServicesPage({ params }: PageProps) {
           context={{ page: 'bankingServices' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalBankingServices}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.personalBanking}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function BankingServicesPage({ params }: PageProps) {
           context={{ page: 'bankingServices' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalBankingServices}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.personalBanking}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

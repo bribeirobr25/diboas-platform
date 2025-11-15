@@ -48,7 +48,7 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
     { name: 'Overview', url: ROUTES.REWARDS.OVERVIEW }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('rewards-benefits');
+  const heroVariant = getVariantForPageConfig('rewards-overview');
 
   return (
     <>
@@ -77,7 +77,7 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
           context={{ page: 'rewardsBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.rewardsBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.rewardsOverview}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -105,7 +105,7 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
           context={{ page: 'rewardsBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.rewardsBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.rewardsOverview}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
