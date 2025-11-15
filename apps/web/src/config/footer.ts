@@ -73,6 +73,10 @@ export const FOOTER_CONFIG: FooterConfig = {
       title: 'common.footer.sections.help.title',
       links: [
         { id: 'faq', label: 'common.footer.sections.help.links.faq', href: ROUTES.HELP.FAQ },
+        { id: 'contact', label: 'common.footer.sections.help.links.contact', href: ROUTES.HELP.CONTACT },
+        { id: 'gettingStarted', label: 'common.footer.sections.help.links.gettingStarted', href: ROUTES.HELP.GETTING_STARTED },
+        { id: 'support', label: 'common.footer.sections.help.links.support', href: ROUTES.HELP.SUPPORT },
+        { id: 'troubleshooting', label: 'common.footer.sections.help.links.troubleshooting', href: ROUTES.HELP.TROUBLESHOOTING },
       ]
     },
     {

@@ -174,7 +174,11 @@
       "help": {
         "title": "Ajuda",
         "links": {
-          "faq": "Perguntas Frequentes"
+          "faq": "Perguntas Frequentes",
+          "contact": "Contato",
+          "gettingStarted": "Começar",
+          "support": "Suporte",
+          "troubleshooting": "Solução de Problemas"
         }
       },
       "legal": {
