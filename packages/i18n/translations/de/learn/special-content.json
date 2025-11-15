@@ -1,0 +1,93 @@
+{
+  "title": "Spezieller Content | diBoaS",
+  "description": "Exklusiver Content für alle, die weiter gehen wollen.",
+  "hero": {
+    "title": "Exklusiver Content für alle, die weiter gehen wollen. Lerne von denen, die es umsetzen.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Exklusiver Inhalt für die, die mehr wollen",
+    "description": "Lerne von denen, die es umsetzen.",
+    "cards": {
+      "expertInterviews": {
+        "iconAlt": "Interview icon",
+        "title": "Experten-Interviews",
+        "description": "Investoren, Trader, erfolgreiche Unternehmer.\nEchte Erfahrungen, praktische Lektionen.\nLerne von denen, die dort waren."
+      },
+      "realUseCases": {
+        "iconAlt": "Use case icon",
+        "title": "Echte Anwendungsfälle",
+        "description": "Geschichten von diBoas-Nutzern.\nVom Anfänger zum erfahrenen Investor.\nInspiration, die erreichbar ist."
+      },
+      "marketAnalysis": {
+        "iconAlt": "Market analysis icon",
+        "title": "Marktanalysen",
+        "description": "Trends, Chancen, Warnungen.\nKontext für deine Entscheidungen.\nMakro- und Mikro-Ansichten."
+      },
+      "webinarsLiveSessions": {
+        "iconAlt": "Webinar icon",
+        "title": "Webinare und Live-Sessions",
+        "description": "Live-Sessions mit Experten.\nAntworten in Echtzeit erhalten.\nCommunity lernt zusammen."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Exklusive Inhalte für die die mehr wollen.",
+    "subtitle": "Experten-Einblicke, Erfolgsgeschichten, Markttrends.",
+    "cards": {
+      "expertTalks": {
+        "title": "Experten-Gespräche",
+        "description": "Unterhaltungen mit erfolgreichen Investoren.\nEchte Strategien, echte Ergebnisse.\nVon den Besten lernen.",
+        "imageAlt": "Experten-Gespräche illustration"
+      },
+      "successStories": {
+        "title": "Erfolgsgeschichten",
+        "description": "Reisen von diBoaS-Nutzern.\nWie sie anfingen, wo sie ankamen.\nEchte Inspiration.",
+        "imageAlt": "Erfolgsgeschichten illustration"
+      },
+      "marketTrends": {
+        "title": "Markttrends",
+        "description": "Was den Markt bewegt.\nWöchentliche Analysen, aufkommende Chancen.\nBleiben Sie vorne.",
+        "imageAlt": "Markttrends illustration"
+      },
+      "webinarsAndWorkshops": {
+        "title": "Webinare und Workshops",
+        "description": "Live-Kurse mit Experten.\nFragen stellen, Wissen vertiefen.\nBildung in Echtzeit.",
+        "imageAlt": "Webinare und Workshops illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Exklusive Insider-Inhalte",
+        "description": "Webinare, Experteninterviews, Marktanalysen.\nPremium-Inhalte für engagierte Lerner.\nBleiben Sie der Kurve voraus.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Exklusive Insider-Inhalte illustration"
+      },
+      "simplicity": {
+        "title": "Speziell für Sie kuratiert",
+        "description": "✓ Personalisierte Empfehlungen\n✓ Wöchentliche Markt-Insights\n✓ Community-Erfolgsgeschichten\nInhalte, die zu Ihrer Reise passen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Speziell für Sie kuratiert illustration"
+      },
+      "rewards": {
+        "title": "Frühzugangs-Vorteile",
+        "description": "Neue Funktionen zuerst für aktive Lerner.\nExklusive Events und Treffen.\nPremium-Vorteile für engagierte Studenten.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Frühzugangs-Vorteile illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q49",
+      "q50",
+      "q51"
+    ]
+  }
+}

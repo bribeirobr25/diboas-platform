@@ -1,0 +1,93 @@
+{
+  "title": "DeFi Erklärt | diBoaS",
+  "description": "DeFi einfach erklärt. Verstehe dezentralisierte Finanzen.",
+  "hero": {
+    "title": "DeFi einfach erklärt. Verstehe dezentralisierte Finanzen und nutze ihre Chancen.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "DeFi entmystifiziert",
+    "description": "Dezentrale Finanzen für alle.",
+    "cards": {
+      "whatIsDefiAnyway": {
+        "iconAlt": "DeFi concept icon",
+        "title": "Was ist DeFi überhaupt?",
+        "description": "Finanzen ohne traditionelle Mittelsmänner.\nWie es in der Praxis funktioniert.\nKlare Vorteile und Herausforderungen."
+      },
+      "stakingYieldFarmingLiquidityPools": {
+        "iconAlt": "DeFi mechanisms icon",
+        "title": "Staking, Yield Farming & Liquidity Pools",
+        "description": "Hauptkonzepte aufgeschlüsselt.\nWie du mit jedem verdienst.\nSpezifische Risiken jeder Strategie."
+      },
+      "smartContractsUnveiled": {
+        "iconAlt": "Smart contract icon",
+        "title": "Smart Contracts enthüllt",
+        "description": "Verträge, die sich selbst ausführen.\nWie sie Vertrauen garantieren.\nEinschränkungen, die du kennen musst."
+      },
+      "opportunitiesAndTraps": {
+        "iconAlt": "Opportunity and risk icon",
+        "title": "Chancen und Fallen",
+        "description": "Hohe Erträge haben Gegenleistungen.\nWie man seriöse Projekte identifiziert.\nWarnsignale zu vermeiden."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "DeFi entwirrt.",
+    "subtitle": "Dezentrale Finanzen für Menschen erklärt.",
+    "cards": {
+      "whatIsDefi": {
+        "title": "Was ist DeFi",
+        "description": "Finanzen ohne Vermittler.\nWie es funktioniert, warum es wichtig ist.\nDie Finanzrevolution erklärt.",
+        "imageAlt": "Was ist DeFi illustration"
+      },
+      "stakingAndYielding": {
+        "title": "Staking und Yielding",
+        "description": "Passives Einkommen mit Krypto verdienen.\nWie es funktioniert, welche Risiken bestehen.\nIntelligente Renditen.",
+        "imageAlt": "Staking und Yielding illustration"
+      },
+      "liquidityPools": {
+        "title": "Liquiditätspools",
+        "description": "Werden Sie die Bank.\nLiquidität bereitstellen, Gebühren verdienen.\nDeFi in der Praxis.",
+        "imageAlt": "Liquiditätspools illustration"
+      },
+      "risksAndRewards": {
+        "title": "Risiken und Chancen",
+        "description": "Impermanent Loss, Smart Contract Risiko.\nVerstehen Sie jede Gefahr klar.\nImmer informierte Entscheidungen.",
+        "imageAlt": "Risiken und Chancen illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Dezentralisierte Finanzen vereinfacht",
+        "description": "Lending, Staking, Yield Farming erklärt.\nVerstehen Sie DeFi ohne Komplexität.\nDie Zukunft der Finanzen, für alle zugänglich.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Dezentralisierte Finanzen vereinfacht illustration"
+      },
+      "simplicity": {
+        "title": "Coral führt Sie durch",
+        "description": "✓ Risiko-Rendite-Aufschlüsselungen\n✓ Protokollvergleiche\n✓ Strategie-Durchläufe\nFortgeschrittene Konzepte verdaulich gemacht.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Coral führt Sie durch illustration"
+      },
+      "rewards": {
+        "title": "Aufstieg zu erweiterten Strategien",
+        "description": "Schalten Sie professionelle DeFi-Tools frei.\nZugang zu kuratierten Gelegenheiten.\nVerwandeln Sie Wissen in Handlung.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Aufstieg zu erweiterten Strategien illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q34",
+      "q35",
+      "q36"
+    ]
+  }
+}

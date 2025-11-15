@@ -1,0 +1,181 @@
+{
+  "title": "diBoaS - Ecossistema Financeiro Completo",
+  "description": "Gerencie seus ativos bancários, investimentos e DeFi em uma única plataforma segura.",
+  "hero": {
+    "title": "Mais de 5,4 bilhões de pessoas merecem acesso seguro e descomplicado ao crescimento financeiro.\n\ndiBoaS está tornando isso possível",
+    "description": ""
+  },
+  "productCarousel": {
+    "heading": "Tudo em um app",
+    "slides": {
+      "benefits": {
+        "title": "Sem Complicações",
+        "subtitle": "Transferências em tempo real, sem limites e para qualquer lugar.\nFácil. Rápido. Seguro."
+      },
+      "rewards": {
+        "title": "Seu Dinheiro Trabalhando por Você",
+        "subtitle": "Ações, títulos, sua primeira crypto.\nSeu primeiro investimento.\nSeu primeiro passo para crescer."
+      },
+      "business": {
+        "title": "Para Seu Negócio Também",
+        "subtitle": "Fluxo de caixa parado? Coloque pra render.\nZero burocracia, rendimento automático."
+      }
+    }
+  },
+  "featureShowcase": {
+    "overview": {
+      "title": "Tudo em Um Lugar",
+      "description": "Transferências, crypto, ações, estratégias de investimento e DeFi.\nTudo em uma tela. Atualizado em tempo real.\n\nChega de abrir 5 apps diferentes."
+    },
+    "activities": {
+      "title": "Seguro e Simples",
+      "description": "\"Quero juntar R$ 5.000 para uma viagem\"\n\"Preciso de um fundo de emergência\"\n\"Quero investir R$ 100 por mês\"\n\nNada de complicações. diBoaS é simples assim."
+    },
+    "rewards": {
+      "title": "Ganhe Mais",
+      "description": "✓ Cashback e sistema de Pontos\n✓ Acesso antecipado a novos recursos\n✓ Rendimento bônus em estratégias\n\nQuanto mais você usa, mais você ganha."
+    },
+    "learn": {
+      "title": "Aprenda Estratégias Financeiras",
+      "description": "Acesse cursos abrangentes sobre finanças pessoais, investimentos e estratégias DeFi. Construa seu conhecimento com conteúdo curado por especialistas.",
+      "ctaText": "Começar a Aprender"
+    },
+    "business": {
+      "title": "Soluções Financeiras Empresariais",
+      "description": "Simplifique as operações financeiras do seu negócio com nosso conjunto completo de ferramentas. Da folha de pagamento à gestão de tesouraria.",
+      "ctaText": "Explorar Negócios"
+    }
+  },
+  "appFeatures": {
+    "sectionTitle": "Tudo que você precisa está aqui.",
+    "organizeMoney": {
+      "title": "Seu Dinheiro, Seu Controle",
+      "description": "Tenha total controle sobre seu dinheiro.\nSem limites, sem interferências.\nSó você controla.",
+      "ctaText": "Entenda Mais",
+      "chipLabel": "Controle Total"
+    },
+    "instantPayments": {
+      "title": "Aprenda Tudo que Precisa Sem Complicação",
+      "description": "Entenda como o dinheiro funciona.\nComo organizar suas finanças.\nA melhor forma de investir.",
+      "ctaText": "Saiba Mais",
+      "chipLabel": "Educação"
+    },
+    "securePurchases": {
+      "title": "Multiplique sua Renda",
+      "description": "Compre ativos que valorizam ao longo do tempo.\nFaça investimentos que multiplicam seu dinheiro.\nAcesse estratégias com retornos acima da média.",
+      "ctaText": "Saiba Mais",
+      "chipLabel": "Crescimento"
+    },
+    "financialGoals": {
+      "title": "Sua Empresa Merece Mais",
+      "description": "Investimentos usando fluxo de caixa.\nLinha de Crédito direto com outras empresas (P2P).\nZero burocracia com alta segurança.",
+      "ctaText": "Saiba Mais",
+      "chipLabel": "Business"
+    }
+  },
+  "oneFeature": {
+    "title": "Segurança é prioridade. Sempre.",
+    "subtitle": "Estamos aqui para te dar suporte completo e te ajudar a garantir a proteção do seu dinheiro. 24 horas por dia, 7 dias por semana.",
+    "ctaText": "Descubra Nossas Soluções",
+    "features": {
+      "fraudReport": "Aumente sua Segurança",
+      "reports": "Algo errado? Aja rápido",
+      "protection": "Central de Proteção",
+      "support": "Atendimento 24/7"
+    }
+  },
+  "stickyFeaturesNav": {
+    "mainTitle": "Descubra mais sobre diBoaS",
+    "ctaText": "Saiba Mais",
+    "categories": {
+      "banking": {
+        "name": "Bancário"
+      },
+      "investing": {
+        "name": "Investir"
+      },
+      "strategies": {
+        "name": "Estratégias"
+      },
+      "business": {
+        "name": "Empresas"
+      }
+    },
+    "banking": {
+      "heading": "Seu Dinheiro Sem Complicação",
+      "description": "Depositar, enviar, transferir e sacar de forma fácil e conectada.\n\nUse sua conta (PIX), Cartão de Crédito, PayPal, Apple ou Google Pay e muito mais.\n\nTudo em um só lugar.",
+      "ctaText": "Ver opções"
+    },
+    "investing": {
+      "heading": "Invista de Verdade e com Autonomia",
+      "description": "Ações, Títulos, Crypto, ETFs, Ouro e Imóveis tokenizados.\nSeu investimento sob seu total controle.\n\nVocê começa com R$ 10 e vê seu dinheiro crescer.\nCom a liberdade de comprar ou vender a hora que quiser.",
+      "ctaText": "Ver opções"
+    },
+    "strategies": {
+      "heading": "Estratégias que Funcionam",
+      "description": "\"Construir reserva de emergência\"\n→ 6 meses de despesas se multiplicando de forma estável\n\n\"Aposentadoria tranquila\"\n→ Investimento mensal automatizado, portfolio balanceado\n\n\"Alta rentabilidade controlada\"\n→ DeFi avançado com risco calculado",
+      "ctaText": "Explorar Estratégias"
+    },
+    "business": {
+      "heading": "Sua Empresa, Muitas Oportunidades",
+      "description": "Seja para conseguir capital, fazer o fluxo de caixa render ou até mesmo aquele crédito para ajudar a alavancar.\n\nOportunidades exclusivas para sua empresa estão aguardando.\nAlto rendimento com baixo risco, zero burocracia e o melhor de tudo: sob seu total controle.",
+      "ctaText": "Entenda"
+    }
+  },
+  "faqAccordion": {
+    "questionIds": [
+      "q1",
+      "q2",
+      "q3",
+      "q4",
+      "q10"
+    ]
+  },
+  "benefitsCards": {
+    "title": "Por que escolher o diBoaS?",
+    "description": "Porque a gente resolve problemas reais.",
+    "cards": {
+      "moneyFlow": {
+        "title": "Chega de Apps Separados",
+        "description": "Tudo no diBoaS.\n\nVocê economiza tempo, não perde senha, e vê todo seu patrimônio numa tela só.",
+        "iconAlt": "Ícone representando unificação de apps"
+      },
+      "investing": {
+        "title": "Você Manda",
+        "description": "Você tem total controle sobre seu dinheiro.\n\nSeja investimentos, transferências, estratégias. Você define quanto e quando faz.",
+        "iconAlt": "Ícone representando controle do usuário"
+      },
+      "moneyCircle": {
+        "title": "Seu Dinheiro Trabalha Sempre",
+        "description": "Seja comprando Ações, Crypto ou outros ativos.\nOu utilizando as estratégias exclusivas.\n\nO dinheiro está sempre se multiplicando.",
+        "iconAlt": "Ícone representando dinheiro trabalhando"
+      },
+      "learn": {
+        "title": "Investir Deixa de Ser Assustador",
+        "description": "Nossos usuários nunca tinham investido antes do diBoaS.\n\nNosso Centro de Estudos explica literalmente cada termo. Cada decisão. Cada risco.",
+        "iconAlt": "Ícone representando educação financeira"
+      },
+      "rewards": {
+        "title": "Quanto Mais Usa, Mais Ganha",
+        "description": "Sistema de Pontos, Bônus por Indicar Amigos, Pontos por Metas Alcançadas, Acesso VIP em nossos Cursos e muito mais.",
+        "iconAlt": "Ícone representando recompensas"
+      }
+    }
+  },
+  "bgHighlight": {
+    "title": "Eu sou diBoaS. Nice to meet you.",
+    "description": "Depósitos, Saques, Transferências.\nTudo grátis, tudo rápido.\n\nBrasil, exterior, crypto, ações, ouro... não importa.\n\nSeus investimentos em um lugar só.\nSua escola de educação financeira.\nSuas recompensas sempre ativas.\nSua segurança garantida.",
+    "imageAlt": "Paisagem natural representando crescimento e sustentabilidade financeira com diBoaS"
+  },
+  "stepGuide": {
+    "title": "Como começar (leva menos de 5 minutos)",
+    "steps": {
+      "step1": "Acesse nosso app → app.diboas.com",
+      "step2": "Crie sua conta → Email ou conecte seu Gmail/X",
+      "step3": "Conheça Aqua → Seu guia pessoal te dá as boas-vindas e explica o básico",
+      "step4": "Comece a Aprender → Use nosso Centro de Estudos",
+      "step5": "Deposite R$ 10 → Pix, TED, Cartão de Crédito...",
+      "step6": "Escolha seu primeiro passo → Fazer uma transferência\nOU → Fazer seu primeiro investimento\nAqua mostra as opções mais simples, Você escolhe uma\n\nPronto! Você começou!"
+    }
+  }
+}

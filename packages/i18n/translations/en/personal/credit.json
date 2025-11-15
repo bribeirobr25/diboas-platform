@@ -1,0 +1,93 @@
+{
+  "title": "Credit | diBoaS",
+  "description": "Credit that's fair, transparent, and under your control.",
+  "hero": {
+    "title": "Credit that's fair, transparent, and under your control. No surprises, no fine print.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Fair and transparent credit",
+    "description": "No fine print, no tricks.",
+    "cards": {
+      "ratesThatMakeSense": {
+        "iconAlt": "Fair rates icon",
+        "title": "Rates That Make Sense",
+        "description": "You see the rate before accepting.\nNo surprises on your bill.\nResponsible credit, not predatory."
+      },
+      "smartApproval": {
+        "iconAlt": "AI approval icon",
+        "title": "Smart Approval",
+        "description": "AI analyzes your profile fairly.\nAnswer in minutes.\nNo unnecessary bureaucracy."
+      },
+      "payYourWay": {
+        "iconAlt": "Flexible payment icon",
+        "title": "Pay Your Way",
+        "description": "Flexibility in installments.\nPayments that fit your budget.\nYou choose the term."
+      },
+      "p2pBusinessCredit": {
+        "iconAlt": "P2P credit icon",
+        "title": "P2P Business Credit",
+        "description": "Companies lend directly to companies.\nFairer rates for everyone.\nFewer middlemen, more efficiency."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Credit without games.",
+    "subtitle": "Clear rates, simple processes, you in control.",
+    "cards": {
+      "totalTransparency": {
+        "title": "Total Transparency",
+        "description": "Fixed rate from day one.\nNo surprises, no fine print.\nYou know exactly what you'll pay.",
+        "imageAlt": "Total Transparency illustration"
+      },
+      "fairApproval": {
+        "title": "Fair Approval",
+        "description": "Analysis based on your financial behavior.\nNot just your past.\nEveryone deserves a chance.",
+        "imageAlt": "Fair Approval illustration"
+      },
+      "youDecideHowMuch": {
+        "title": "You Decide How Much",
+        "description": "Choose the amount, term, and payment method.\nFlexibility for your reality.\nCredit your way.",
+        "imageAlt": "You Decide How Much illustration"
+      },
+      "payWhenYouCan": {
+        "title": "Pay When You Can",
+        "description": "Prepay installments without penalty.\nRenegotiate if needed.\nWe're on your side.",
+        "imageAlt": "Pay When You Can illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Fair Credit for Everyone",
+        "description": "Transparent rates, flexible terms.\nNo hidden fees, no fine print traps.\nCredit that respects you.",
+        "ctaText": "Get Started",
+        "imageAlt": "Fair Credit for Everyone illustration"
+      },
+      "simplicity": {
+        "title": "Know Before You Borrow",
+        "description": "✓ Pre-approved offers in the app\n✓ Clear payment schedules\n✓ Change terms anytime\nYou're always in control.",
+        "ctaText": "Get Started",
+        "imageAlt": "Know Before You Borrow illustration"
+      },
+      "rewards": {
+        "title": "Build Your Credit Score",
+        "description": "Responsible borrowing earns rewards.\nLower rates as you build history.\nCredit that works with you, not against you.",
+        "ctaText": "Get Started",
+        "imageAlt": "Build Your Credit Score illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q37",
+      "q38",
+      "q39"
+    ]
+  }
+}

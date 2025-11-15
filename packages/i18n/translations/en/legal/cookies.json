@@ -1,0 +1,88 @@
+{
+  "title": "Cookies | diBoaS",
+  "description": "Cookies explained simply.",
+  "hero": {
+    "title": "Cookies explained simply. Understand how we improve your site experience.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Cookies explained simply",
+    "description": "How we improve your experience.",
+    "cards": {
+      "whatCookiesAre": {
+        "iconAlt": "Cookie icon",
+        "title": "What Cookies Are",
+        "description": "Small files that remember your preferences.\nMake the site work better for you.\nCommon technology, not mystery."
+      },
+      "typesWeUse": {
+        "iconAlt": "Cookie types icon",
+        "title": "Types We Use",
+        "description": "Essential (site functions), preferences (language, theme).\nAnalytics (improve experience).\nEach type clearly explained."
+      },
+      "youAreInControl": {
+        "iconAlt": "Control icon",
+        "title": "You're In Control",
+        "description": "Accept only what you want.\nChange preferences anytime.\nNo mandatory non-essential cookies."
+      },
+      "noInvasiveTracking": {
+        "iconAlt": "No tracking icon",
+        "title": "No Invasive Tracking",
+        "description": "Don't sell browsing data.\nNo cross-site tracking.\nPrivacy respected."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Cookies explained clearly.",
+    "subtitle": "What we use, why we use, how to control.",
+    "cards": {
+      "essentialVsOptional": {
+        "title": "Essential vs Optional",
+        "description": "What's necessary vs what improves experience.\nChoose what you want to accept.\nControl in your hands.",
+        "imageAlt": "Essential vs Optional illustration"
+      },
+      "noIntrusiveTracking": {
+        "title": "No Intrusive Tracking",
+        "description": "We don't sell data to third parties.\nCookies only for functionality.\nPrivacy respected.",
+        "imageAlt": "No Intrusive Tracking illustration"
+      },
+      "manageYourPreferences": {
+        "title": "Manage Your Preferences",
+        "description": "Change consent anytime.\nClear preferences dashboard.\nTotal flexibility.",
+        "imageAlt": "Manage Your Preferences illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Cookies Explained Simply",
+        "description": "How we use cookies and why.\nEssential vs optional tracking.\nComplete transparency on website data.",
+        "ctaText": "Get Started",
+        "imageAlt": "Cookies Explained Simply illustration"
+      },
+      "simplicity": {
+        "title": "Control Your Preferences",
+        "description": "✓ Accept only essential cookies\n✓ Customize tracking options\n✓ Change settings anytime\nBrowse on your terms.",
+        "ctaText": "Get Started",
+        "imageAlt": "Control Your Preferences illustration"
+      },
+      "rewards": {
+        "title": "Better Experience",
+        "description": "Cookies help us improve your visit.\nPersonalized without being invasive.\nSmooth experience, fair exchange.",
+        "ctaText": "Get Started",
+        "imageAlt": "Better Experience illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q118",
+      "q119",
+      "q120"
+    ]
+  }
+}

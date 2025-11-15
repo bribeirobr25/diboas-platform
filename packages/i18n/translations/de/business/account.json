@@ -1,0 +1,93 @@
+{
+  "title": "Geschäftskonto | diBoaS",
+  "description": "Ein kostenloses Geschäftskonto, das Rendite bringt.",
+  "hero": {
+    "title": "Ein kostenloses Geschäftskonto, das Rendite bringt. Dein Business wächst, während du arbeitest.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Geschäftskonto, das Sinn macht",
+    "description": "Kostenlos, ertragreich, ohne Komplikationen.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "iconAlt": "Free account icon",
+        "title": "Null monatliche Gebühren",
+        "description": "Keine Verwaltungskosten.\nDein Geld bleibt bei dir.\nEinsparungen vom ersten Tag an."
+      },
+      "earns100CDI": {
+        "iconAlt": "High yield icon",
+        "title": "Verdient 100% CDI",
+        "description": "Saldo verdient automatisch.\nKein manuelles Investieren nötig.\nUngenutztes Kapital? Gibt's hier nicht."
+      },
+      "multiUserManagement": {
+        "iconAlt": "Team management icon",
+        "title": "Multi-User-Verwaltung",
+        "description": "Füge dein Team mit spezifischen Berechtigungen hinzu.\nGranulare Zugriffskontrolle.\nSicherheit und Autonomie zusammen."
+      },
+      "accountingIntegration": {
+        "iconAlt": "Accounting icon",
+        "title": "Buchhaltungsintegration",
+        "description": "Exportiere Daten für deinen Buchhalter.\nBerichte bereit für Compliance.\nWeniger Kopfschmerzen, mehr Effizienz."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Das Konto das Ihr Unternehmen braucht.",
+    "subtitle": "Kostenlos, komplett und verzinst während Sie arbeiten.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "title": "Null monatliche Gebühren",
+        "description": "Keine Kontoführungsgebühr.\nKein Kleingedrucktes.\nIhr Unternehmen spart ab Tag eins.",
+        "imageAlt": "Null monatliche Gebühren illustration"
+      },
+      "earnsAutomatically": {
+        "title": "Automatische Verzinsung",
+        "description": "100% des CDI auf Ihr Guthaben.\nSie müssen nichts tun.\nIhr Kapital arbeitet immer.",
+        "imageAlt": "Automatische Verzinsung illustration"
+      },
+      "multipleUsers": {
+        "title": "Mehrere Nutzer",
+        "description": "Fügen Sie Ihr Team mit individuellen Berechtigungen hinzu.\nJeder sieht was er braucht.\nTotale Kontrolle, intelligente Delegation.",
+        "imageAlt": "Mehrere Nutzer illustration"
+      },
+      "accountingIntegration": {
+        "title": "Buchhaltungs-Integration",
+        "description": "Automatischer Export zu Ihrem Steuerberater.\nOFX, CSV, PDF.\nWeniger manuelle Arbeit, mehr Genauigkeit.",
+        "imageAlt": "Buchhaltungs-Integration illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Ein Konto, das für Sie arbeitet",
+        "description": "Kostenloses Girokonto mit automatischer Rendite.\nIhr Unternehmenskapital wächst täglich.\nBanking, das Ihr Geschäftsergebnis verbessert.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Ein Konto, das für Sie arbeitet illustration"
+      },
+      "simplicity": {
+        "title": "Alles mobil verwalten",
+        "description": "✓ Echtzeit-Saldo-Updates\n✓ Sofortige Transaktionsbenachrichtigungen\n✓ Genehmigungen mit einem Fingertipp\nFühren Sie Ihre Finanzen von überall aus.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Alles mobil verwalten illustration"
+      },
+      "rewards": {
+        "title": "Verdienen im Betrieb",
+        "description": "100% CDI-Rendite auf Ihr Guthaben.\nKeine Sperrfristen oder Mindestbeträge.\nIhr Betriebskapital arbeitet härter.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Verdienen im Betrieb illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q55",
+      "q56",
+      "q57"
+    ]
+  }
+}

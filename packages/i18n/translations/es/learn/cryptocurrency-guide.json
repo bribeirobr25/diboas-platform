@@ -1,0 +1,93 @@
+{
+  "title": "Crypto de A a Z | diBoaS",
+  "description": "De A a Z sobre criptomonedas. Descubre el mundo digital sin complicaciones.",
+  "hero": {
+    "title": "De A a Z sobre criptomonedas. Descubre el mundo digital sin complicaciones.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Crypto de la A a la Z",
+    "description": "Descubre el mundo digital sin confusión.",
+    "cards": {
+      "blockchainExplainedForHumans": {
+        "iconAlt": "Blockchain icon",
+        "title": "Blockchain Explicado Para Humanos",
+        "description": "Qué es, cómo funciona, por qué importa.\nSin jerga tecnológica imposible.\nEntiende la tecnología de verdad."
+      },
+      "bitcoinMajorCryptocurrencies": {
+        "iconAlt": "Bitcoin icon",
+        "title": "Bitcoin y Principales Criptomonedas",
+        "description": "Historia, tecnología, casos de uso.\nDiferencias entre Bitcoin, Ethereum y otras.\nCuál es cuál y por qué."
+      },
+      "walletsAndSecurity": {
+        "iconAlt": "Wallet security icon",
+        "title": "Wallets y Seguridad",
+        "description": "Hot wallets, cold wallets, custodia.\nCómo proteger tus activos digitales.\nSeguridad sin paranoia."
+      },
+      "volatilityHowToHandle": {
+        "iconAlt": "Volatility icon",
+        "title": "Volatilidad y Cómo Manejarla",
+        "description": "Por qué crypto sube y baja tanto.\nEstrategias para no entrar en pánico.\nPerspectiva a largo plazo."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Crypto sin rodeos.",
+    "subtitle": "De la A a la Z, todo lo que necesitas saber.",
+    "cards": {
+      "whatIsBlockchain": {
+        "title": "Qué Es Blockchain",
+        "description": "La tecnología detrás de crypto.\nExplicada sin tecnicismos.\nEntiende de verdad.",
+        "imageAlt": "Qué Es Blockchain illustration"
+      },
+      "bitcoinEthereumAndBeyond": {
+        "title": "Bitcoin, Ethereum y Más Allá",
+        "description": "Principales criptomonedas explicadas.\nQué son, qué hacen, por qué importan.\nConoce cada una.",
+        "imageAlt": "Bitcoin, Ethereum y Más Allá illustration"
+      },
+      "walletsAndSecurity": {
+        "title": "Wallets y Seguridad",
+        "description": "Hot wallets, cold wallets, custodial vs no-custodial.\nProtege tus activos correctamente.\nSeguridad primero.",
+        "imageAlt": "Wallets y Seguridad illustration"
+      },
+      "howToBuyAndSell": {
+        "title": "Cómo Comprar y Vender",
+        "description": "Paso a paso práctico.\nDel primer Bitcoin al trading avanzado.\nDe cero a experto.",
+        "imageAlt": "Cómo Comprar y Vender illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Desmitifica los Activos Digitales",
+        "description": "Blockchain, wallets, trading, seguridad.\nConocimiento crypto de la A a la Z.\nDe principiante completo a inversor confiado.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Desmitifica los Activos Digitales illustration"
+      },
+      "simplicity": {
+        "title": "No Necesitas Experiencia Técnica",
+        "description": "✓ Explicaciones en español claro\n✓ Guías visuales y animaciones\n✓ Ambientes seguros para practicar\nAprende crypto sin confusión.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "No Necesitas Experiencia Técnica illustration"
+      },
+      "rewards": {
+        "title": "Gana Crypto Mientras Aprendes",
+        "description": "Recompensas de quizzes en criptomoneda real.\nConstruye tu primer portafolio estudiando.\nConocimiento que literalmente paga.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Gana Crypto Mientras Aprendes illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q27",
+      "q28",
+      "q29"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "KI Guides | diBoaS",
+  "description": "Triff deine persönlichen Guides.",
+  "hero": {
+    "title": "Triff deine persönlichen Guides. Aqua, Mystic und Coral entwickeln sich mit dir, vom Anfänger zum Experten.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Deine persönlichen Begleiter auf der Reise",
+    "description": "Aqua, Mystic und Coral entwickeln sich mit dir.",
+    "cards": {
+      "aquaYourBeginnerFriend": {
+        "iconAlt": "Aqua mascot icon",
+        "title": "Aqua: Dein Anfänger-Freund",
+        "description": "Begleitet deine ersten Schritte.\nErklärt jeden Begriff, jede Handlung.\nUnendliche Geduld, praktisches Wissen."
+      },
+      "mysticTheWiseAdvisor": {
+        "iconAlt": "Mystic mascot icon",
+        "title": "Mystic: Der weise Berater",
+        "description": "Erscheint, wenn du die Basics beherrschst.\nStellt anspruchsvollere Investments vor.\nEchte Wachstumsstrategien."
+      },
+      "coralTheYieldExpert": {
+        "iconAlt": "Coral mascot icon",
+        "title": "Coral: Die Ertrags-Expertin",
+        "description": "Freigeschaltet für fortgeschrittene Nutzer.\nDeFi-Strategien, Risiko-Balancing.\nRendite-Maximierung."
+      },
+      "behavioralIntelligence": {
+        "iconAlt": "AI intelligence icon",
+        "title": "Verhaltens-Intelligenz",
+        "description": "Maskottchen erkennen deinen echten Fortschritt.\nErzwingen keine vorzeitige Komplexität.\nEvolution in deinem Tempo."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Ihre persönlichen Guides.",
+    "subtitle": "Entwickeln sich mit Ihnen, von Null bis Fortgeschritten.",
+    "cards": {
+      "aquaYourFirstStep": {
+        "title": "Aqua: Ihr erster Schritt",
+        "description": "Der Freund der Sie am Anfang führt.\nErklärt alles, keine Eile.\nAnfangen wurde einfach.",
+        "imageAlt": "Aqua: Ihr erster Schritt illustration"
+      },
+      "mysticSmartGrowth": {
+        "title": "Mystic: Intelligentes Wachstum",
+        "description": "Erscheint wenn Sie bereit für mehr sind.\nStrategien, Diversifikation, Planung.\nIhr persönlicher Berater.",
+        "imageAlt": "Mystic: Intelligentes Wachstum illustration"
+      },
+      "coralHighYields": {
+        "title": "Coral: Hohe Renditen",
+        "description": "Der Jäger fortgeschrittener Chancen.\nDeFi, hohe Renditen, komplexe Strategien.\nFür wenn Sie das Spiel beherrschen.",
+        "imageAlt": "Coral: Hohe Renditen illustration"
+      },
+      "aiThatKnowsYou": {
+        "title": "KI die Sie kennt",
+        "description": "Lernt von Ihrem Verhalten.\nPersonalisierte Empfehlungen.\nGuides die Sie wirklich verstehen.",
+        "imageAlt": "KI die Sie kennt illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Treffen Sie Ihre Finanzbegleiter",
+        "description": "Aqua, Mystic und Coral.\nDrei KI-Guides für jede Phase.\nSie wachsen, während Sie wachsen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Treffen Sie Ihre Finanzbegleiter illustration"
+      },
+      "simplicity": {
+        "title": "Personalisierte Anleitung",
+        "description": "✓ Aqua für Anfänger\n✓ Mystic für Investoren\n✓ Coral für fortgeschrittenes DeFi\nDie richtige Hilfe zur richtigen Zeit.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Personalisierte Anleitung illustration"
+      },
+      "rewards": {
+        "title": "Gemeinsam entwickeln",
+        "description": "Schalten Sie neue Maskottchen-Fähigkeiten frei.\nErweiterte Funktionen beim Fortschritt freischalten.\nIhre Reise, personalisiert.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Gemeinsam entwickeln illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q76",
+      "q77",
+      "q78"
+    ]
+  }
+}

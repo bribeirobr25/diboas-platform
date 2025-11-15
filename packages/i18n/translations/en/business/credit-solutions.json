@@ -1,0 +1,93 @@
+{
+  "title": "P2P Credit | diBoaS",
+  "description": "Direct business-to-business credit.",
+  "hero": {
+    "title": "Direct business-to-business credit. Fair rates, fast processes, no banking red tape.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Direct business-to-business credit",
+    "description": "No traditional banking middlemen.",
+    "cards": {
+      "fairerRates": {
+        "iconAlt": "Fair rate icon",
+        "title": "Fairer Rates",
+        "description": "No abusive banking margins.\nCompanies lend directly to companies.\nEveryone wins."
+      },
+      "quickApproval": {
+        "iconAlt": "Fast approval icon",
+        "title": "Quick Approval",
+        "description": "AI analyzes risk with fair criteria.\nAnswer in hours, not weeks.\nMinimal bureaucracy."
+      },
+      "opportunityToInvestToo": {
+        "iconAlt": "Investment opportunity icon",
+        "title": "Opportunity to Invest Too",
+        "description": "Your company can lend idle capital.\nAttractive and controlled returns.\nB2B credit marketplace."
+      },
+      "totalTransparency": {
+        "iconAlt": "Transparency icon",
+        "title": "Total Transparency",
+        "description": "See who's lending.\nUnderstand the interest structure.\nClear and accessible contracts."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Direct credit between businesses.",
+    "subtitle": "No bank in the middle. Faster, fairer.",
+    "cards": {
+      "lowerRates": {
+        "title": "Lower Rates",
+        "description": "No traditional bank intermediation.\nCompanies lend to companies.\nEveryone saves.",
+        "imageAlt": "Lower Rates illustration"
+      },
+      "fastApproval": {
+        "title": "Fast Approval",
+        "description": "Analysis based on real cash flow.\nResponse in hours, not weeks.\nCredit at your business speed.",
+        "imageAlt": "Fast Approval illustration"
+      },
+      "flexibleTerms": {
+        "title": "Flexible Terms",
+        "description": "Negotiate directly with lender.\nTerm, amount, guarantees.\nAgreement that makes sense for both.",
+        "imageAlt": "Flexible Terms illustration"
+      },
+      "diversifySources": {
+        "title": "Diversify Sources",
+        "description": "Less bank dependency.\nMultiple credit sources.\nFinancial resilience.",
+        "imageAlt": "Diversify Sources illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Business Loans Without Banks",
+        "description": "Direct peer-to-peer lending.\nFair rates, fast approvals.\nCredit designed for growth.",
+        "ctaText": "Get Started",
+        "imageAlt": "Business Loans Without Banks illustration"
+      },
+      "simplicity": {
+        "title": "Apply in Minutes",
+        "description": "✓ Instant pre-approval decisions\n✓ Flexible repayment terms\n✓ No hidden fees or penalties\nFunding at the speed of business.",
+        "ctaText": "Get Started",
+        "imageAlt": "Apply in Minutes illustration"
+      },
+      "rewards": {
+        "title": "Build Business Credit",
+        "description": "Responsible borrowing improves terms.\nAccess to larger amounts over time.\nCredit that grows with your business.",
+        "ctaText": "Get Started",
+        "imageAlt": "Build Business Credit illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q70",
+      "q71",
+      "q72"
+    ]
+  }
+}

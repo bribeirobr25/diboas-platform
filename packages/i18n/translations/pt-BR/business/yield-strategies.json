@@ -1,0 +1,88 @@
+{
+  "title": "Rendimento de Fluxo de Caixa | diBoaS",
+  "description": "Rendimento sobre seu fluxo de caixa.",
+  "hero": {
+    "title": "Rendimento sobre seu fluxo de caixa. Transforme capital parado em receita adicional.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Rendimento sobre seu fluxo de caixa",
+    "description": "Capital parado vira receita adicional.",
+    "cards": {
+      "aboveMarketYields": {
+        "iconAlt": "High yield icon",
+        "title": "Yields Superiores ao Mercado",
+        "description": "Acesso a estratégias DeFi empresariais.\nRetornos que bancos não oferecem.\nCom a segurança que você precisa."
+      },
+      "guaranteedLiquidity": {
+        "iconAlt": "Liquidity icon",
+        "title": "Liquidez Garantida",
+        "description": "Resgates quando você precisar.\nNão trava capital operacional.\nFlexibilidade para oportunidades."
+      },
+      "managedRisk": {
+        "iconAlt": "Risk management icon",
+        "title": "Risco Gerenciado",
+        "description": "Exposição calculada e diversificada.\nRelatórios de risco transparentes.\nVocê decide quanto expor."
+      },
+      "balanceSheetImpact": {
+        "iconAlt": "Financial impact icon",
+        "title": "Impacto No Balanço",
+        "description": "Receita financeira adicional.\nMelhora indicadores da empresa.\nCompetitividade aumentada."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Transforme fluxo de caixa em receita.",
+    "subtitle": "Estratégias que fazem cada real contar.",
+    "cards": {
+      "yieldOnReceivables": {
+        "title": "Yield Sobre Recebíveis",
+        "description": "Ganhe rendimento enquanto espera pagamentos.\nRecebíveis a prazo gerando receita.\nMonetize o tempo de espera.",
+        "imageAlt": "Yield Sobre Recebíveis illustration"
+      },
+      "corporateDefiStrategies": {
+        "title": "Estratégias DeFi Corporativas",
+        "description": "Altos rendimentos com parte do seu caixa.\nRisco controlado, retorno superior.\nDeFi para empresas.",
+        "imageAlt": "Estratégias DeFi Corporativas illustration"
+      },
+      "currencyProtection": {
+        "title": "Proteção Cambial",
+        "description": "Hedge automático para operações internacionais.\nProteja margens contra volatilidade.\nPrevisibilidade cambial.",
+        "imageAlt": "Proteção Cambial illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Transforme Caixa Parado em Receita",
+        "description": "Rendimento automático em fundos operacionais.\nSem gestão manual necessária.\nReceita adicional enquanto você foca no negócio.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Transforme Caixa Parado em Receita illustration"
+      },
+      "simplicity": {
+        "title": "Acesso Flexível",
+        "description": "✓ Saque quando quiser sem multas\n✓ Ajuste estratégias conforme precisar\n✓ Relatórios claros de ganhos diários\nLiquidez encontra rentabilidade.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Acesso Flexível illustration"
+      },
+      "rewards": {
+        "title": "Superior à Poupança",
+        "description": "Taxas melhores que contas empresariais tradicionais.\nDiversificado em protocolos seguros.\nRetornos otimizados com risco gerenciado.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Superior à Poupança illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q67",
+      "q68",
+      "q69"
+    ]
+  }
+}

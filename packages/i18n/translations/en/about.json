@@ -1,0 +1,93 @@
+{
+  "title": "About | diBoaS",
+  "description": "The world's first OneFi platform.",
+  "hero": {
+    "title": "The world's first OneFi platform. Banking, Investing, Crypto, Strategies, and DeFi, all in one place. For everyone.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "World's first OneFi platform",
+    "description": "Our story, mission, and values.",
+    "cards": {
+      "visionDemocratizeFinance": {
+        "iconAlt": "Vision icon",
+        "title": "Vision: Democratize Finance",
+        "description": "5.4 billion use traditional finance.\nOnly 560 million have touched crypto.\nWe're uniting these worlds for everyone."
+      },
+      "missionSimplifyComplexity": {
+        "iconAlt": "Mission icon",
+        "title": "Mission: Simplify Complexity",
+        "description": "Sophisticated technology, simple experience.\nFrom beginner to expert, all welcome.\nProgressive disclosure that works."
+      },
+      "valuesTransparencyEducation": {
+        "iconAlt": "Values icon",
+        "title": "Values: Transparency and Education",
+        "description": "No fine print.\nNo hidden fees.\nKnowledge as a right, not privilege."
+      },
+      "globalTeamLocalImpact": {
+        "iconAlt": "Global team icon",
+        "title": "Global Team, Local Impact",
+        "description": "Experts in fintech, crypto, and UX.\nExperience across 3 continents.\nBuilding for the world."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Who we are and why we exist.",
+    "subtitle": "The world's first OneFi platform has a clear mission.",
+    "cards": {
+      "ourMission": {
+        "title": "Our Mission",
+        "description": "Democratize access to financial growth.\nSimplify the complex.\nEmpower regular people to prosper.",
+        "imageAlt": "Our Mission illustration"
+      },
+      "howItStarted": {
+        "title": "How It Started",
+        "description": "Frustration with fragmentation.\nVision to unify everything.\nFrom idea to OneFi reality.",
+        "imageAlt": "How It Started illustration"
+      },
+      "globalTeam": {
+        "title": "Global Team",
+        "description": "Expertise in fintech, crypto, AI.\nTeams distributed across 3 continents.\nDiversity that enriches.",
+        "imageAlt": "Global Team illustration"
+      },
+      "guidingValues": {
+        "title": "Guiding Values",
+        "description": "Simplicity, transparency, education.\nUser always comes first.\nGrowth for everyone.",
+        "imageAlt": "Guiding Values illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "The OneFi Revolution",
+        "description": "First platform combining traditional and DeFi.\nBreaking down financial barriers.\nAccessible, transparent, empowering.",
+        "ctaText": "Get Started",
+        "imageAlt": "The OneFi Revolution illustration"
+      },
+      "simplicity": {
+        "title": "Built for Everyone",
+        "description": "✓ $400 billion market opportunity\n✓ 89.6% of users underserved\n✓ Validated by 118.6M Nubank users\nProven methodology, modern technology.",
+        "ctaText": "Get Started",
+        "imageAlt": "Built for Everyone illustration"
+      },
+      "rewards": {
+        "title": "Join the Movement",
+        "description": "Be part of financial democratization.\nEarly adopters shape the future.\nTogether, we're changing finance.",
+        "ctaText": "Get Started",
+        "imageAlt": "Join the Movement illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q103",
+      "q104",
+      "q105"
+    ]
+  }
+}

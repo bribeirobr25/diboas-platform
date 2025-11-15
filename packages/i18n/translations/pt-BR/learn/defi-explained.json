@@ -1,0 +1,93 @@
+{
+  "title": "DeFi Explicado | diBoaS",
+  "description": "DeFi descomplicado. Entenda as finanças descentralizadas.",
+  "hero": {
+    "title": "DeFi descomplicado. Entenda as finanças descentralizadas e aproveite suas oportunidades.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "DeFi descomplicado",
+    "description": "Finanças descentralizadas para todos.",
+    "cards": {
+      "whatIsDefiAnyway": {
+        "iconAlt": "DeFi concept icon",
+        "title": "O Que é DeFi Afinal?",
+        "description": "Finanças sem intermediários tradicionais.\nComo funciona na prática.\nVantagens e desafios claros."
+      },
+      "stakingYieldFarmingLiquidityPools": {
+        "iconAlt": "DeFi mechanisms icon",
+        "title": "Staking, Yield Farming e Liquidity Pools",
+        "description": "Conceitos principais destrinchados.\nComo você ganha com cada um.\nRiscos específicos de cada estratégia."
+      },
+      "smartContractsUnveiled": {
+        "iconAlt": "Smart contract icon",
+        "title": "Smart Contracts Desvendados",
+        "description": "Contratos que executam sozinhos.\nComo eles garantem confiança.\nLimitações que você precisa conhecer."
+      },
+      "opportunitiesAndTraps": {
+        "iconAlt": "Opportunity and risk icon",
+        "title": "Oportunidades e Armadilhas",
+        "description": "Yields altos têm contrapartida.\nComo identificar projetos sérios.\nRed flags para evitar."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "DeFi descomplicado.",
+    "subtitle": "Finanças descentralizadas explicadas para humanos.",
+    "cards": {
+      "whatIsDefi": {
+        "title": "O Que É DeFi",
+        "description": "Finanças sem intermediários.\nComo funciona, por que importa.\nA revolução financeira explicada.",
+        "imageAlt": "O Que É DeFi illustration"
+      },
+      "stakingAndYielding": {
+        "title": "Staking e Yielding",
+        "description": "Ganhe renda passiva com crypto.\nComo funciona, quais riscos.\nRendimento inteligente.",
+        "imageAlt": "Staking e Yielding illustration"
+      },
+      "liquidityPools": {
+        "title": "Pools de Liquidez",
+        "description": "Seja o banco.\nForneça liquidez, ganhe taxas.\nDeFi na prática.",
+        "imageAlt": "Pools de Liquidez illustration"
+      },
+      "risksAndRewards": {
+        "title": "Riscos e Recompensas",
+        "description": "Impermanent loss, smart contract risk.\nEntenda cada perigo claramente.\nDecisão informada sempre.",
+        "imageAlt": "Riscos e Recompensas illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Finanças Descentralizadas Simplificadas",
+        "description": "Empréstimos, staking, yield farming explicados.\nEntenda DeFi sem a complexidade.\nO futuro das finanças, acessível pra todos.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Finanças Descentralizadas Simplificadas illustration"
+      },
+      "simplicity": {
+        "title": "Coral Te Guia",
+        "description": "✓ Análises de risco e retorno\n✓ Comparações de protocolos\n✓ Passo a passo das estratégias\nConceitos avançados ficam digeríveis.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Coral Te Guia illustration"
+      },
+      "rewards": {
+        "title": "Evolua Pra Estratégias Avançadas",
+        "description": "Desbloqueie ferramentas DeFi profissionais.\nAcesse oportunidades curadas.\nTransforme conhecimento em ação.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Evolua Pra Estratégias Avançadas illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q34",
+      "q35",
+      "q36"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "diBoaS Account | diBoaS",
+  "description": "A free account that earns 100% CDI and puts you in control of your money.",
+  "hero": {
+    "title": "A free account that earns 100% CDI and puts you in control of your money. Plain and simple.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "An account that works for you",
+    "description": "Free, high-yield, zero hassle.",
+    "cards": {
+      "freeAndTransparent": {
+        "iconAlt": "Free banking icon",
+        "title": "Free and Transparent",
+        "description": "Zero monthly fees, zero maintenance charges.\nUnlimited free transfers.\nWhat you see is what you get."
+      },
+      "earningWhileYouSleep": {
+        "iconAlt": "Earning icon",
+        "title": "Earning While You Sleep",
+        "description": "100% CDI daily, automatically.\nYour money grows even when you're not looking.\nUp to 30% more than savings accounts."
+      },
+      "openInMinutes": {
+        "iconAlt": "Quick setup icon",
+        "title": "Open in Minutes",
+        "description": "No branch visits required.\nNo paperwork to print.\nDownload the app, sign up, done."
+      },
+      "aquaGuidesYou": {
+        "iconAlt": "AI guide icon",
+        "title": "Aqua Guides You",
+        "description": "Our friendly mascot explains every feature.\nYou'll never feel lost.\nFrom first deposit to first investment."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Your account. Your rules.",
+    "subtitle": "Everything you need, nothing you don't.",
+    "cards": {
+      "earnsWhileYouSleep": {
+        "title": "Earns While You Sleep",
+        "description": "Your balance earns 100% of CDI automatically.\nNo need to move money anywhere else.\nThat simple.",
+        "imageAlt": "Earns While You Sleep illustration"
+      },
+      "actuallyFree": {
+        "title": "Actually Free",
+        "description": "No maintenance fees. No fine print.\nFree transfers and unlimited Pix.\nZero surprises.",
+        "imageAlt": "Actually Free illustration"
+      },
+      "yourMoneyAtTheRightSpeed": {
+        "title": "Your Money at the Right Speed",
+        "description": "Deposit, send, and receive in real time.\nNo borders, no red tape.\nAll from the app.",
+        "imageAlt": "Your Money at the Right Speed illustration"
+      },
+      "securityYouControl": {
+        "title": "Security You Control",
+        "description": "Instant locks, real-time alerts,\nand you always in command.\nYour money, your protection rules.",
+        "imageAlt": "Security You Control illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Your Money, Your Control",
+        "description": "Free account with 100% CDI yield.\nNo hidden fees, no surprises.\nYour money grows while you sleep.",
+        "ctaText": "Get Started",
+        "imageAlt": "Your Money, Your Control illustration"
+      },
+      "simplicity": {
+        "title": "Open in Minutes",
+        "description": "✓ No minimum balance required\n✓ Free unlimited transfers\n✓ Real-time notifications\nBanking without bureaucracy. Finally.",
+        "ctaText": "Get Started",
+        "imageAlt": "Open in Minutes illustration"
+      },
+      "rewards": {
+        "title": "Earn While You Save",
+        "description": "Automatic daily yield on your balance.\nUp to 30% more than traditional savings.\nSame security, better returns.",
+        "ctaText": "Get Started",
+        "imageAlt": "Earn While You Save illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q5",
+      "q6",
+      "q7"
+    ]
+  }
+}

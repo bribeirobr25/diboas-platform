@@ -1,0 +1,93 @@
+{
+  "title": "Criptomoedas | diBoaS",
+  "description": "Crypto não é mais só para experts. Invista de forma simples e segura.",
+  "hero": {
+    "title": "Crypto não é mais só para experts. Com 1-Click, você investe em ativos digitais de forma simples e segura.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Crypto descomplicado",
+    "description": "Compre Bitcoin sem precisar ser nerd.",
+    "cards": {
+      "oneClickDone": {
+        "iconAlt": "One click icon",
+        "title": "1-Click, Pronto",
+        "description": "Compre Bitcoin, Ethereum e outros com um toque.\nSem precisar entender carteiras complexas.\nSimples como comprar qualquer outra coisa."
+      },
+      "militaryGradeCustody": {
+        "iconAlt": "Security icon",
+        "title": "Custódia Segura",
+        "description": "Seus cryptos protegidos com segurança militar.\nVocê controla, nós guardamos.\nAuditoria independente disponível."
+      },
+      "integratedWithEverything": {
+        "iconAlt": "Integration icon",
+        "title": "Integrado Com Tudo",
+        "description": "Veja crypto junto com seus outros investimentos.\nPortfólio unificado.\nEntenda seu patrimônio total de verdade."
+      },
+      "learnBeforeYouInvest": {
+        "iconAlt": "Learn first icon",
+        "title": "Aprenda Antes de Investir",
+        "description": "Centro de Educação explica cada moeda.\nRiscos, benefícios, tecnologia.\nConhecimento antes do dinheiro."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Crypto para pessoas normais.",
+    "subtitle": "Sem tecniquês. Só oportunidades reais.",
+    "cards": {
+      "oneClickToGetIn": {
+        "title": "1-Click Para Entrar",
+        "description": "Compre Bitcoin, Ethereum e mais com um clique.\nSem precisar entender blockchain.\nNossos guias explicam tudo.",
+        "imageAlt": "1-Click Para Entrar illustration"
+      },
+      "securityYouUnderstand": {
+        "title": "Segurança Que Você Entende",
+        "description": "Carteiras não-custodiais. Você é o dono.\nCriptografia militar. Auditoria independente.\nSeu crypto, sua custódia.",
+        "imageAlt": "Segurança Que Você Entende illustration"
+      },
+      "fromZeroToAdvanced": {
+        "title": "Do Zero ao Avançado",
+        "description": "Comece com Aqua comprando seu primeiro Bitcoin.\nEvolua para estratégias avançadas com Coral.\nTudo no seu tempo.",
+        "imageAlt": "Do Zero ao Avançado illustration"
+      },
+      "cryptoTraditionalComplete": {
+        "title": "Crypto + Tradicional = Completo",
+        "description": "Veja seus investimentos tradicionais e crypto\nlado a lado. Uma visão única do seu patrimônio.\nFinalmente tudo junto.",
+        "imageAlt": "Crypto + Tradicional = Completo illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Crypto Sem Complicação",
+        "description": "Compre, venda e guarde ativos digitais.\nSem jargão técnico. Sem confusão.\nInvestimento em crypto simplificado.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Crypto Sem Complicação illustration"
+      },
+      "simplicity": {
+        "title": "Crypto em 1 Clique",
+        "description": "Bitcoin, Ethereum e mais de 50 moedas.\n✓ Compras instantâneas\n✓ Custódia segura\n✓ Preços em tempo real\nAqua te guia em cada passo.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Crypto em 1 Clique illustration"
+      },
+      "rewards": {
+        "title": "Segurança Nível Militar",
+        "description": "Criptografia bancária pros seus ativos digitais.\nArmazenamento frio e proteção multi-assinatura.\nSuas criptos, seu controle.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Segurança Nível Militar illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q23",
+      "q24",
+      "q25"
+    ]
+  }
+}

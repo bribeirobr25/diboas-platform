@@ -1,0 +1,98 @@
+{
+  "title": "Investors | diBoaS",
+  "description": "A $400 billion opportunity.",
+  "hero": {
+    "title": "A $400 billion opportunity. 89.6% of the global market still untapped. Methodology validated by 118.6 million users.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "$400 billion opportunity",
+    "description": "89.6% of market still untapped.",
+    "cards": {
+      "massiveMarketGap": {
+        "iconAlt": "Market gap icon",
+        "title": "Massive Market Gap",
+        "description": "5.4B TradFi users vs 560M crypto.\n99% of crypto users never used DeFi.\nFirst to unite these worlds."
+      },
+      "validatedMethodology": {
+        "iconAlt": "Validation icon",
+        "title": "Validated Methodology",
+        "description": "Nubank: 118.6M users, $3.2B quarterly revenue.\nSame behavioral approach.\nProven it works."
+      },
+      "firstMoverAdvantage": {
+        "iconAlt": "First mover icon",
+        "title": "First-Mover Advantage",
+        "description": "No global competitor has OneFi.\nCoinbase focuses on institutional.\nNeobanks lack crypto."
+      },
+      "growthProjection": {
+        "iconAlt": "Growth projection icon",
+        "title": "Growth Projection",
+        "description": "15M users in 5 years.\n$750M annual revenue Year 5.\nLTV:CAC of 15:1."
+      },
+      "regulatoryCompliantInvestors": {
+        "iconAlt": "Regulatory icon",
+        "title": "Regulatory Compliant",
+        "description": "MiCA (EU), BSA (US), Central Bank (BR).\nLegal from day 1.\nNo regulatory risk."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Investing in the future of finance.",
+    "subtitle": "Transparent and complete investor relations.",
+    "cards": {
+      "quarterlyReports": {
+        "title": "Quarterly Reports",
+        "description": "Complete growth metrics.\nTransparency about every number.\nReal accountability.",
+        "imageAlt": "Quarterly Reports illustration"
+      },
+      "executivePresentations": {
+        "title": "Executive Presentations",
+        "description": "Strategy, roadmap, long-term vision.\nDirect access to leadership.\nClear communication.",
+        "imageAlt": "Executive Presentations illustration"
+      },
+      "eventsCalendar": {
+        "title": "Events Calendar",
+        "description": "Quarterly calls, AGMs, roadshows.\nParticipate in strategic discussions.\nActive voice.",
+        "imageAlt": "Events Calendar illustration"
+      },
+      "corporateGovernance": {
+        "title": "Corporate Governance",
+        "description": "Independent board, active committees.\nRigorous compliance.\nSolid structure.",
+        "imageAlt": "Corporate Governance illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "$400 Billion Opportunity",
+        "description": "Converging fintech, crypto, and DeFi markets.\n16-25% compound annual growth.\nMassive untapped market potential.",
+        "ctaText": "Get Started",
+        "imageAlt": "$400 Billion Opportunity illustration"
+      },
+      "simplicity": {
+        "title": "Validated Business Model",
+        "description": "✓ Nubank methodology proven at scale\n✓ 5-16x cost advantage on fees\n✓ Multiple revenue streams\nExecution risk minimized through validation.",
+        "ctaText": "Get Started",
+        "imageAlt": "Validated Business Model illustration"
+      },
+      "rewards": {
+        "title": "Investment Returns",
+        "description": "Path to $750M revenue by Year 5.\n40-60x base case returns.\nFirst-mover in unified OneFi platform.",
+        "ctaText": "Get Started",
+        "imageAlt": "Investment Returns illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q109",
+      "q110",
+      "q111"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Crédito | diBoaS",
+  "description": "Crédito justo, transparente y bajo tu control.",
+  "hero": {
+    "title": "Crédito justo, transparente y bajo tu control. Sin sorpresas, sin letra chica.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Crédito justo y transparente",
+    "description": "Sin letra chica, sin trucos.",
+    "cards": {
+      "ratesThatMakeSense": {
+        "iconAlt": "Fair rates icon",
+        "title": "Tasas Que Tienen Sentido",
+        "description": "Ves la tasa antes de aceptar.\nSin sorpresas en tu cuenta.\nCrédito responsable, no predatorio."
+      },
+      "smartApproval": {
+        "iconAlt": "AI approval icon",
+        "title": "Aprobación Inteligente",
+        "description": "IA analiza tu perfil de forma justa.\nRespuesta en minutos.\nSin burocracia innecesaria."
+      },
+      "payYourWay": {
+        "iconAlt": "Flexible payment icon",
+        "title": "Paga Como Quieras",
+        "description": "Flexibilidad en las cuotas.\nPagos que se ajustan a tu presupuesto.\nTú eliges el plazo."
+      },
+      "p2pBusinessCredit": {
+        "iconAlt": "P2P credit icon",
+        "title": "Crédito P2P Empresarial",
+        "description": "Empresas prestan directamente a empresas.\nTasas más justas para todos.\nMenos intermediarios, más eficiencia."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Crédito sin juegos.",
+    "subtitle": "Tasas claras, procesos simples, tú en control.",
+    "cards": {
+      "totalTransparency": {
+        "title": "Transparencia Total",
+        "description": "Tasa fija desde el primer día.\nSin sorpresas, sin letra chica.\nSabes exactamente lo que vas a pagar.",
+        "imageAlt": "Transparencia Total illustration"
+      },
+      "fairApproval": {
+        "title": "Aprobación Justa",
+        "description": "Análisis basado en tu comportamiento financiero.\nNo solo en tu pasado.\nTodos merecen una oportunidad.",
+        "imageAlt": "Aprobación Justa illustration"
+      },
+      "youDecideHowMuch": {
+        "title": "Tú Decides Cuánto",
+        "description": "Elige el monto, plazo y forma de pago.\nFlexibilidad para tu realidad.\nCrédito a tu manera.",
+        "imageAlt": "Tú Decides Cuánto illustration"
+      },
+      "payWhenYouCan": {
+        "title": "Paga Cuando Puedas",
+        "description": "Anticipa cuotas sin multa.\nRenegocia si lo necesitas.\nEstamos de tu lado.",
+        "imageAlt": "Paga Cuando Puedas illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Crédito Justo Para Todos",
+        "description": "Tasas transparentes, plazos flexibles.\nSin comisiones ocultas, sin trampas en letra pequeña.\nCrédito que te respeta.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Crédito Justo Para Todos illustration"
+      },
+      "simplicity": {
+        "title": "Conoce Antes de Pedir",
+        "description": "✓ Ofertas preaprobadas en la app\n✓ Cronogramas de pago claros\n✓ Cambia las condiciones cuando quieras\nTú siempre en control.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Conoce Antes de Pedir illustration"
+      },
+      "rewards": {
+        "title": "Construye Tu Historial",
+        "description": "El uso responsable gana recompensas.\nMejores tasas mientras construyes tu historial.\nCrédito que trabaja a tu favor, no en tu contra.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Construye Tu Historial illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q37",
+      "q38",
+      "q39"
+    ]
+  }
+}

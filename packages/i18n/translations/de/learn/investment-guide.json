@@ -1,0 +1,98 @@
+{
+  "title": "Investmentguide | diBoaS",
+  "description": "Dein kompletter Guide zum selbstbewussten Investieren.",
+  "hero": {
+    "title": "Dein kompletter Guide zum selbstbewussten Investieren. Von den Basics bis zu fortgeschrittenen Strategien.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Kompletter Leitfaden für sicheres Investieren",
+    "description": "Von Basics bis Fortgeschritten, alles erklärt.",
+    "cards": {
+      "investmentTypesExplained": {
+        "iconAlt": "Investment types icon",
+        "title": "Investmenttypen erklärt",
+        "description": "Aktien, Anleihen, Fonds, Krypto, Immobilien.\nWas jeder ist, wie sie funktionieren.\nRisiken und Renditen für jeden Typ."
+      },
+      "smartDiversification": {
+        "iconAlt": "Diversification icon",
+        "title": "Intelligente Diversifikation",
+        "description": "Warum nicht alles in einen Korb legen.\nWie du dein Portfolio ausbalancierst.\nSchutz und Wachstum zusammen."
+      },
+      "assetAnalysis": {
+        "iconAlt": "Analysis icon",
+        "title": "Asset-Analyse",
+        "description": "Wie du bewertest, ob etwas lohnenswert ist.\nFundamentals vs Spekulation.\nDatenbasierte Entscheidungen."
+      },
+      "longTermStrategies": {
+        "iconAlt": "Long-term icon",
+        "title": "Langfristige Strategien",
+        "description": "Buy and hold, Dollar-Cost-Averaging.\nKraft des Zinseszinses.\nGeduld, die Wohlstand schafft."
+      },
+      "riskManagement": {
+        "iconAlt": "Risk management icon",
+        "title": "Risikomanagement",
+        "description": "Wie viel kannst du dir leisten zu verlieren?\nStop-Loss, Hedging, Versicherungen.\nSchütze, was du aufgebaut hast."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Investieren ist einfacher als es scheint.",
+    "subtitle": "Vom ersten Investment zum diversifizierten Portfolio.",
+    "cards": {
+      "typesOfInvestments": {
+        "title": "Investment-Arten",
+        "description": "Aktien, Anleihen, Krypto, Immobilien, Gold.\nVerstehen Sie jede Option, Risiken und Renditen.\nEntscheiden Sie mit Wissen.",
+        "imageAlt": "Investment-Arten illustration"
+      },
+      "buildYourPortfolio": {
+        "title": "Bauen Sie Ihr Portfolio",
+        "description": "Intelligente Diversifikation.\nBalancieren Sie Risiko und Rendite.\nIhr Profil, Ihr Portfolio.",
+        "imageAlt": "Bauen Sie Ihr Portfolio illustration"
+      },
+      "strategiesThatWork": {
+        "title": "Strategien die funktionieren",
+        "description": "Langfristig, Dollar Cost Average, Rebalancing.\nTaktiken getestet von Millionen Investoren.\nFolgen Sie dem was funktioniert.",
+        "imageAlt": "Strategien die funktionieren illustration"
+      },
+      "mistakesToAvoid": {
+        "title": "Fehler vermeiden",
+        "description": "Lernen Sie von denen die bereits scheiterten.\nPanik, FOMO, Ungeduld.\nVermeiden Sie häufige Fallen.",
+        "imageAlt": "Fehler vermeiden illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Komplette Investment-Ausbildung",
+        "description": "Aktien, Anleihen, Fonds und Alternativen.\nLernen Sie traditionelle und moderne Strategien.\nAlles zum Vermögensaufbau.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Komplette Investment-Ausbildung illustration"
+      },
+      "simplicity": {
+        "title": "Von der Theorie zur Praxis",
+        "description": "✓ Schritt-für-Schritt-Videolektionen\n✓ Portfolio-Aufbau-Übungen\n✓ Risikomanagement-Grundlagen\nWenden Sie das Gelernte sofort an.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Von der Theorie zur Praxis illustration"
+      },
+      "rewards": {
+        "title": "Schalten Sie erweiterte Funktionen frei",
+        "description": "Schließen Sie Kurse ab für Profi-Tools.\nErweiterte Analysen und Insights.\nBildung öffnet Türen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Schalten Sie erweiterte Funktionen frei illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q20",
+      "q21",
+      "q22"
+    ]
+  }
+}

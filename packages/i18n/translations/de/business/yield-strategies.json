@@ -1,0 +1,88 @@
+{
+  "title": "Cashflow Rendite | diBoaS",
+  "description": "Rendite auf deinen Cashflow.",
+  "hero": {
+    "title": "Rendite auf deinen Cashflow. Verwandle ungenutztes Kapital in zusätzliche Einnahmen.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Renditen auf deinen Cashflow",
+    "description": "Ungenutztes Kapital wird zusätzliche Einnahme.",
+    "cards": {
+      "aboveMarketYields": {
+        "iconAlt": "High yield icon",
+        "title": "Über-Markt-Erträge",
+        "description": "Zugang zu Business-DeFi-Strategien.\nRenditen, die Banken nicht bieten.\nMit der Sicherheit, die du brauchst."
+      },
+      "guaranteedLiquidity": {
+        "iconAlt": "Liquidity icon",
+        "title": "Garantierte Liquidität",
+        "description": "Abhebungen, wann immer du willst.\nSperrt kein operatives Kapital.\nFlexibilität für Chancen."
+      },
+      "managedRisk": {
+        "iconAlt": "Risk management icon",
+        "title": "Gemanagtes Risiko",
+        "description": "Kalkulierte und diversifizierte Exposition.\nTransparente Risikoberichte.\nDu entscheidest, wie viel zu exponieren."
+      },
+      "balanceSheetImpact": {
+        "iconAlt": "Financial impact icon",
+        "title": "Bilanzauswirkung",
+        "description": "Zusätzliche Finanzeinnahmen.\nVerbessert Unternehmenskennzahlen.\nErhöhte Wettbewerbsfähigkeit."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Verwandeln Sie Cashflow in Einnahmen.",
+    "subtitle": "Strategien die jeden Euro zählen lassen.",
+    "cards": {
+      "yieldOnReceivables": {
+        "title": "Rendite auf Forderungen",
+        "description": "Verdienen Sie während Sie auf Zahlungen warten.\nForderungen generieren Einnahmen.\nWartezeit monetarisieren.",
+        "imageAlt": "Rendite auf Forderungen illustration"
+      },
+      "corporateDefiStrategies": {
+        "title": "Unternehmens-DeFi-Strategien",
+        "description": "Hohe Renditen mit Teil Ihres Kapitals.\nKontrolliertes Risiko, überlegene Renditen.\nDeFi für Unternehmen.",
+        "imageAlt": "Unternehmens-DeFi-Strategien illustration"
+      },
+      "currencyProtection": {
+        "title": "Währungsabsicherung",
+        "description": "Automatisches Hedging für internationale Geschäfte.\nMargen gegen Volatilität schützen.\nWährungsplanbarkeit.",
+        "imageAlt": "Währungsabsicherung illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Verwandeln Sie ungenutztes Cash in Umsatz",
+        "description": "Automatisierte Rendite auf Betriebsmittel.\nKein manuelles Management erforderlich.\nZusätzliches Einkommen, während Sie sich aufs Geschäft konzentrieren.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Verwandeln Sie ungenutztes Cash in Umsatz illustration"
+      },
+      "simplicity": {
+        "title": "Flexibler Zugriff",
+        "description": "✓ Jederzeit abheben ohne Strafen\n✓ Strategien nach Bedarf anpassen\n✓ Klare tägliche Ertragsberichte\nLiquidität trifft Rentabilität.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Flexibler Zugriff illustration"
+      },
+      "rewards": {
+        "title": "Besser als Sparkonten",
+        "description": "Bessere Zinsen als Unternehmens-Sparkonten.\nDiversifiziert über sichere Protokolle.\nRisikoverwaltete, optimierte Erträge.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Besser als Sparkonten illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q67",
+      "q68",
+      "q69"
+    ]
+  }
+}

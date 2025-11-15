@@ -1,0 +1,93 @@
+{
+  "title": "Privacy | diBoaS",
+  "description": "Your data is yours.",
+  "hero": {
+    "title": "Your data is yours. Know exactly how we protect and use your information.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Your data is yours",
+    "description": "Know exactly how we protect and use it.",
+    "cards": {
+      "gdprLGPDCompliant": {
+        "iconAlt": "GDPR compliance icon",
+        "title": "GDPR / LGPD Compliant",
+        "description": "Follow strictest privacy laws.\nYour data, your rules.\nTotal control over information."
+      },
+      "dataMinimization": {
+        "iconAlt": "Data minimization icon",
+        "title": "Data Minimization",
+        "description": "Collect only what's necessary.\nWe don't sell your information.\nYour profile isn't the product."
+      },
+      "endToEndEncryptionPrivacy": {
+        "iconAlt": "Encryption icon",
+        "title": "End-to-End Encryption",
+        "description": "Data protected at rest and in transit.\nNot even we access without authorization.\nTechnical privacy, not just promises."
+      },
+      "userRights": {
+        "iconAlt": "User rights icon",
+        "title": "User Rights",
+        "description": "Access, export, delete your data.\nSelf-service tools in app.\nExercising rights is easy."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Your privacy is sacred.",
+    "subtitle": "GDPR, LGPD, CCPA - compliant in everything.",
+    "cards": {
+      "yourDataIsYours": {
+        "title": "Your Data Is Yours",
+        "description": "You control what we share.\nWe never sell information.\nPrivacy first.",
+        "imageAlt": "Your Data Is Yours illustration"
+      },
+      "endToEndEncryption": {
+        "title": "End-to-End Encryption",
+        "description": "Data encrypted in transit and at rest.\nEven we don't see everything.\nMaximum security.",
+        "imageAlt": "End-to-End Encryption illustration"
+      },
+      "rightToBeForgotten": {
+        "title": "Right to Be Forgotten",
+        "description": "Delete your account, we delete everything.\nGDPR and LGPD compliant.\nClean exit guaranteed.",
+        "imageAlt": "Right to Be Forgotten illustration"
+      },
+      "dataTransparency": {
+        "title": "Data Transparency",
+        "description": "See exactly what we have about you.\nExport everything whenever you want.\nTotal control.",
+        "imageAlt": "Data Transparency illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Your Data, Your Control",
+        "description": "GDPR and LGPD compliant.\nComplete transparency on data use.\nPrivacy as a fundamental right.",
+        "ctaText": "Get Started",
+        "imageAlt": "Your Data, Your Control illustration"
+      },
+      "simplicity": {
+        "title": "Simple Privacy Controls",
+        "description": "✓ Download your data anytime\n✓ Delete account with one click\n✓ Granular sharing preferences\nYour information, your decisions.",
+        "ctaText": "Get Started",
+        "imageAlt": "Simple Privacy Controls illustration"
+      },
+      "rewards": {
+        "title": "Never Sold or Shared",
+        "description": "We never sell your personal data.\nNo third-party marketing access.\nYour trust is our business model.",
+        "ctaText": "Get Started",
+        "imageAlt": "Never Sold or Shared illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q115",
+      "q116",
+      "q117"
+    ]
+  }
+}

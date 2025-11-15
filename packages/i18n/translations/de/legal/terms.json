@@ -1,0 +1,93 @@
+{
+  "title": "Nutzungsbedingungen | diBoaS",
+  "description": "Klare Regeln, ernsthafte Verpflichtungen.",
+  "hero": {
+    "title": "Klare Regeln, ernsthafte Verpflichtungen. Kenne unsere Bedingungen und Richtlinien ohne Kleingedrucktes.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Klare Regeln, ernsthafte Verpflichtungen",
+    "description": "Bedingungen ohne Kleingedrucktes.",
+    "cards": {
+      "humanizedTermsOfUse": {
+        "iconAlt": "Clear terms icon",
+        "title": "Humanisierte Nutzungsbedingungen",
+        "description": "Klare Sprache, kein Juristendeutsch.\nDu verstehst, was du akzeptierst.\nTransparenz als Standard."
+      },
+      "multiJurisdictionCompliance": {
+        "iconAlt": "Global compliance icon",
+        "title": "Multi-Jurisdiktions-Compliance",
+        "description": "Befolge Gesetze dort, wo wir operieren.\nUpdates, wenn sich Regulierungen entwickeln.\nProaktive, nicht reaktive Compliance."
+      },
+      "consumerProtection": {
+        "iconAlt": "Consumer protection icon",
+        "title": "Verbraucherschutz",
+        "description": "Deine Rechte immer respektiert.\nKlarer Beschwerdeprozess.\nFaire Streitbeilegung."
+      },
+      "regularExternalAudit": {
+        "iconAlt": "External audit icon",
+        "title": "Regelmäßiges externes Audit",
+        "description": "Unabhängige Compliance-Überprüfung.\nVierteljährliche öffentliche Berichte.\nRechenschaftspflicht, die zählt."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Legalität in jeder Hinsicht.",
+    "subtitle": "Klare Bedingungen, rigorose Compliance, totaler Schutz.",
+    "cards": {
+      "termsOfUse": {
+        "title": "Nutzungsbedingungen",
+        "description": "Klare Sprache, kein Juristendeutsch.\nVerstehen Sie genau Ihre Rechte.\nRechtliche Transparenz.",
+        "imageAlt": "Nutzungsbedingungen illustration"
+      },
+      "multiJurisdiction": {
+        "title": "Multi-Jurisdiktion",
+        "description": "Konform in USA, EU, Brasilien, mehr.\nLegaler Betrieb überall.\nExpansion ohne Barrieren.",
+        "imageAlt": "Multi-Jurisdiktion illustration"
+      },
+      "rigorousKycAml": {
+        "title": "Rigoroses KYC/AML",
+        "description": "Robuste Identitätsprüfung.\nGeldwäscheprävention.\nSaubere Plattform.",
+        "imageAlt": "Rigoroses KYC/AML illustration"
+      },
+      "disputeResolution": {
+        "title": "Streitbeilegung",
+        "description": "Klare Prozesse für Konflikte.\nMediation vor Rechtsstreit.\nZugängliche Gerechtigkeit.",
+        "imageAlt": "Streitbeilegung illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Regulatorische Exzellenz",
+        "description": "MiCA-konform in der EU, BSA in den USA.\nMulti-Jurisdiktions-Betrieb bereit.\nRechtliche Klarheit von Tag eins.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Regulatorische Exzellenz illustration"
+      },
+      "simplicity": {
+        "title": "Bedingungen, die Sie verstehen",
+        "description": "✓ Richtlinien in klarer Sprache\n✓ Keine versteckten Klauseln\n✓ Klare Nutzerrechte\nTransparenz in allem.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Bedingungen, die Sie verstehen illustration"
+      },
+      "rewards": {
+        "title": "Ihre Rechte geschützt",
+        "description": "Nutzerorientierte Richtlinien und Verfahren.\nKlare Streitbeilegung.\nFaire Behandlung garantiert.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Ihre Rechte geschützt illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q112",
+      "q113",
+      "q114"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "diBoaS Business | diBoaS",
+  "description": "Your business deserves finances as simple as they are powerful.",
+  "hero": {
+    "title": "Your business deserves finances as simple as they are powerful. Meet diBoas Business.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Your business deserves the best",
+    "description": "Business finance made simple.",
+    "cards": {
+      "everythingIntegratedForBusiness": {
+        "iconAlt": "Integration icon",
+        "title": "Everything Integrated For Your Business",
+        "description": "Account, payments, investments, credit.\nComplete financial management.\nFocus on what matters: growing."
+      },
+      "noBankingBureaucracy": {
+        "iconAlt": "No bureaucracy icon",
+        "title": "No Banking Bureaucracy",
+        "description": "100% digital onboarding.\nNo lines, no paperwork.\nStart operating in hours."
+      },
+      "yourCapitalAlwaysEarning": {
+        "iconAlt": "Earning capital icon",
+        "title": "Your Capital Always Earning",
+        "description": "Idle cash flow? Never again.\nAutomatic returns while you operate.\nIntelligent treasury."
+      },
+      "totalControlVisibility": {
+        "iconAlt": "Dashboard icon",
+        "title": "Total Control and Visibility",
+        "description": "Complete financial health dashboard.\nAutomated reports.\nDecisions based on real data."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Your business deserves better.",
+    "subtitle": "Financial solutions that grow with your company.",
+    "cards": {
+      "completeBusinessBanking": {
+        "title": "Complete Business Banking",
+        "description": "Account, payments, collections.\nAll integrated, all simple.\nYour business, less bureaucracy.",
+        "imageAlt": "Complete Business Banking illustration"
+      },
+      "capitalWorkingTwentyFourSeven": {
+        "title": "Capital Working 24/7",
+        "description": "Smart treasury with returns.\nYour idle capital now generates revenue.\nEvery dollar counts.",
+        "imageAlt": "Capital Working 24/7 illustration"
+      },
+      "creditToGrow": {
+        "title": "Credit to Grow",
+        "description": "P2P credit between businesses.\nFair rates, fast processes.\nGrowth without bank chains.",
+        "imageAlt": "Credit to Grow illustration"
+      },
+      "simplifiedManagement": {
+        "title": "Simplified Management",
+        "description": "Cash flow, payments, investments.\nAll visible in one dashboard.\nFocus on what matters: growth.",
+        "imageAlt": "Simplified Management illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Business Banking Reimagined",
+        "description": "Accounts, payments, treasury, and credit.\nEverything your business needs.\nAll in one powerful platform.",
+        "ctaText": "Get Started",
+        "imageAlt": "Business Banking Reimagined illustration"
+      },
+      "simplicity": {
+        "title": "Open in 10 Minutes",
+        "description": "✓ No visit to branches\n✓ Free business account\n✓ Instant approvals\nRun your business, not your bank.",
+        "ctaText": "Get Started",
+        "imageAlt": "Open in 10 Minutes illustration"
+      },
+      "rewards": {
+        "title": "Save Thousands in Fees",
+        "description": "No monthly maintenance charges.\nFree transfers and payments.\nMore capital for growth, less for banks.",
+        "ctaText": "Get Started",
+        "imageAlt": "Save Thousands in Fees illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q52",
+      "q53",
+      "q54"
+    ]
+  }
+}

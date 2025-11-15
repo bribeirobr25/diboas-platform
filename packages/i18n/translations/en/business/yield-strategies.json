@@ -1,0 +1,88 @@
+{
+  "title": "Cash Flow Yield | diBoaS",
+  "description": "Yield on your cash flow.",
+  "hero": {
+    "title": "Yield on your cash flow. Turn idle capital into additional revenue.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Returns on your cash flow",
+    "description": "Idle capital becomes additional revenue.",
+    "cards": {
+      "aboveMarketYields": {
+        "iconAlt": "High yield icon",
+        "title": "Above-Market Yields",
+        "description": "Access to business DeFi strategies.\nReturns banks don't offer.\nWith the security you need."
+      },
+      "guaranteedLiquidity": {
+        "iconAlt": "Liquidity icon",
+        "title": "Guaranteed Liquidity",
+        "description": "Withdrawals whenever you need.\nDoesn't lock operational capital.\nFlexibility for opportunities."
+      },
+      "managedRisk": {
+        "iconAlt": "Risk management icon",
+        "title": "Managed Risk",
+        "description": "Calculated and diversified exposure.\nTransparent risk reports.\nYou decide how much to expose."
+      },
+      "balanceSheetImpact": {
+        "iconAlt": "Financial impact icon",
+        "title": "Balance Sheet Impact",
+        "description": "Additional financial revenue.\nImproves company indicators.\nIncreased competitiveness."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Turn cash flow into revenue.",
+    "subtitle": "Strategies that make every dollar count.",
+    "cards": {
+      "yieldOnReceivables": {
+        "title": "Yield on Receivables",
+        "description": "Earn returns while waiting for payments.\nTerm receivables generating revenue.\nMonetize waiting time.",
+        "imageAlt": "Yield on Receivables illustration"
+      },
+      "corporateDefiStrategies": {
+        "title": "Corporate DeFi Strategies",
+        "description": "High yields with part of your cash.\nControlled risk, superior returns.\nDeFi for businesses.",
+        "imageAlt": "Corporate DeFi Strategies illustration"
+      },
+      "currencyProtection": {
+        "title": "Currency Protection",
+        "description": "Automatic hedge for international operations.\nProtect margins against volatility.\nCurrency predictability.",
+        "imageAlt": "Currency Protection illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Turn Idle Cash into Revenue",
+        "description": "Automated yield on operational funds.\nNo manual management required.\nAdditional income while you focus on business.",
+        "ctaText": "Get Started",
+        "imageAlt": "Turn Idle Cash into Revenue illustration"
+      },
+      "simplicity": {
+        "title": "Flexible Access",
+        "description": "✓ Withdraw anytime without penalties\n✓ Adjust strategies as needs change\n✓ Clear daily earnings reports\nLiquidity meets profitability.",
+        "ctaText": "Get Started",
+        "imageAlt": "Flexible Access illustration"
+      },
+      "rewards": {
+        "title": "Superior to Savings",
+        "description": "Better rates than business savings accounts.\nDiversified across safe protocols.\nRisk-managed, optimized returns.",
+        "ctaText": "Get Started",
+        "imageAlt": "Superior to Savings illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q67",
+      "q68",
+      "q69"
+    ]
+  }
+}

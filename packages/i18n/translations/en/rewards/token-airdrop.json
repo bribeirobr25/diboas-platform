@@ -1,0 +1,93 @@
+{
+  "title": "Token & Airdrop | diBoaS",
+  "description": "Be an early adopter.",
+  "hero": {
+    "title": "Be an early adopter. Earn exclusive tokens and join the OneFi revolution.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Be an early adopter",
+    "description": "Earn exclusive platform tokens.",
+    "cards": {
+      "governanceToken": {
+        "iconAlt": "Governance token icon",
+        "title": "Governance Token",
+        "description": "Voice in platform decisions.\nMore engaged, more tokens.\nCommunity that truly governs."
+      },
+      "airdropsForActiveUsers": {
+        "iconAlt": "Airdrop icon",
+        "title": "Airdrops For Active Users",
+        "description": "Token distribution for users and contributors.\nReward proportional to engagement.\nEarly adopters valued."
+      },
+      "realUtility": {
+        "iconAlt": "Token utility icon",
+        "title": "Real Utility",
+        "description": "Use tokens to discount fees.\nAccess premium features.\nNot speculation, it's use value."
+      },
+      "transparentRoadmap": {
+        "iconAlt": "Roadmap icon",
+        "title": "Transparent Roadmap",
+        "description": "Planned and communicated distribution.\nNo surprises, no manipulation.\nResponsible tokenomics."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Be part of the revolution.",
+    "subtitle": "diBoaS Token: rewarded for building together.",
+    "cards": {
+      "airdropForEarlyUsers": {
+        "title": "Airdrop for Early Users",
+        "description": "Use the platform, earn tokens.\nEarlier you start, more tokens.\nRewarded for believing first.",
+        "imageAlt": "Airdrop for Early Users illustration"
+      },
+      "realGovernance": {
+        "title": "Real Governance",
+        "description": "Tokens give voice in platform decisions.\nVote on features, changes, directions.\nUsers decide the future.",
+        "imageAlt": "Real Governance illustration"
+      },
+      "tokenStaking": {
+        "title": "Token Staking",
+        "description": "Stake and earn additional returns.\nMore advantages in fees and benefits.\nHolding rewarded.",
+        "imageAlt": "Token Staking illustration"
+      },
+      "appreciationTogether": {
+        "title": "Appreciation Together",
+        "description": "More the platform grows, more it's worth.\nYou're not just a user, you're a stakeholder.\nWe really grow together.",
+        "imageAlt": "Appreciation Together illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Own Part of the Platform",
+        "description": "diBoaS token for active users.\nPlatform governance and rewards.\nEarly adopters get largest airdrops.",
+        "ctaText": "Get Started",
+        "imageAlt": "Own Part of the Platform illustration"
+      },
+      "simplicity": {
+        "title": "Automatic Token Distribution",
+        "description": "✓ No manual claiming needed\n✓ Tokens based on activity\n✓ Clear distribution schedule\nRewarded for being an early believer.",
+        "ctaText": "Get Started",
+        "imageAlt": "Automatic Token Distribution illustration"
+      },
+      "rewards": {
+        "title": "Grow With the Platform",
+        "description": "Token value tied to platform success.\nAdditional yield opportunities.\nCommunity ownership, shared prosperity.",
+        "ctaText": "Get Started",
+        "imageAlt": "Grow With the Platform illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q91",
+      "q92",
+      "q93"
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Finanzielle Grundlagen | diBoaS",
+  "description": "Die Grundlagen, die dir niemand beigebracht hat. Baue ein solides finanzielles Fundament.",
+  "hero": {
+    "title": "Die Grundlagen, die dir niemand beigebracht hat. Beginne hier und baue ein solides finanzielles Fundament.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Die Grundlagen, die dir niemand beigebracht hat",
+    "description": "Wesentliche Konzepte, einfache Sprache.",
+    "cards": {
+      "personalBudgetingSimple": {
+        "iconAlt": "Budgeting icon",
+        "title": "Persönliche Budgetierung einfach gemacht",
+        "description": "Lerne Einnahmen und Ausgaben zu kontrollieren.\nPraktische Tools inklusive.\nFinanzielle Autonomie beginnt hier."
+      },
+      "interestFriendOrFoe": {
+        "iconAlt": "Interest icon",
+        "title": "Zinsen: Freund oder Feind?",
+        "description": "Verstehe, wie Zinsen wirklich funktionieren.\nWann sie für dich arbeiten.\nWann sie gegen dich arbeiten."
+      },
+      "buildEmergencyFund": {
+        "iconAlt": "Emergency fund icon",
+        "title": "Baue deinen Notfallfonds auf",
+        "description": "Warum du einen brauchst.\nWie viel du sparen solltest.\nWo du dieses Geld aufbewahren solltest."
+      },
+      "debtHowToGetOut": {
+        "iconAlt": "Debt freedom icon",
+        "title": "Schulden: Wie du rauskommst",
+        "description": "Strategien zum Schuldenabbau.\nIntelligente Priorisierung.\nFinanzieller Neustart ist möglich."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Die Grundlagen die fehlten.",
+    "subtitle": "Bauen Sie das Fundament das Ihnen niemand gezeigt hat.",
+    "cards": {
+      "understandYourMoney": {
+        "title": "Verstehen Sie Ihr Geld",
+        "description": "Budget, Sparen, bewusste Ausgaben.\nDie Säulen eines gesunden Finanzlebens.\nBeginnen Sie mit dem Fundament.",
+        "imageAlt": "Verstehen Sie Ihr Geld illustration"
+      },
+      "jargonBecomesClarity": {
+        "title": "Fachjargon wird Klarheit",
+        "description": "CDI, Inflation, Zinseszins.\nWir erklären jeden Begriff in klarem Deutsch.\nKein Fachchinesisch.",
+        "imageAlt": "Fachjargon wird Klarheit illustration"
+      },
+      "habitsThatTransform": {
+        "title": "Gewohnheiten die transformieren",
+        "description": "Kleine Änderungen, große Ergebnisse.\nLernen Sie die Gewohnheiten erfolgreicher Menschen.\nHeute ändern, für immer ernten.",
+        "imageAlt": "Gewohnheiten die transformieren illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Das Fundament, das Sie brauchen",
+        "description": "Budgetierung, Sparen und Zielsetzung.\nAlles, was sie in der Schule hätten lernen sollen.\nBeginnen Sie hier Ihre Finanzreise.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Das Fundament, das Sie brauchen illustration"
+      },
+      "simplicity": {
+        "title": "Keine Vorkenntnisse erforderlich",
+        "description": "✓ Interaktive Lektionen\n✓ Beispiele aus der Praxis\n✓ Üben mit Ihrem eigenen Geld\nLernen durch Handeln, nicht nur Lesen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Keine Vorkenntnisse erforderlich illustration"
+      },
+      "rewards": {
+        "title": "Verfolgen Sie Ihren Fortschritt",
+        "description": "Visuelle Meilensteine zeigen Ihr Wachstum.\nFeiern Sie jeden Erfolg.\nFinanzielle Sicherheit, eine Lektion nach der anderen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Verfolgen Sie Ihren Fortschritt illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q43",
+      "q44",
+      "q45"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Conta Empresarial | diBoaS",
+  "description": "Conta empresarial gratuita com rendimento.",
+  "hero": {
+    "title": "Conta empresarial gratuita com rendimento. Seu negócio cresce enquanto você trabalha.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Conta empresarial que faz sentido",
+    "description": "Gratuita, com rendimento e sem complicação.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "iconAlt": "Free account icon",
+        "title": "Zero Mensalidade",
+        "description": "Sem taxas de manutenção.\nSeu dinheiro fica com você.\nEconomia desde o primeiro dia."
+      },
+      "earns100CDI": {
+        "iconAlt": "High yield icon",
+        "title": "Rende 100% do CDI",
+        "description": "Saldo rendendo automaticamente.\nNão precisa aplicar manualmente.\nCapital parado? Não existe aqui."
+      },
+      "multiUserManagement": {
+        "iconAlt": "Team management icon",
+        "title": "Gestão Multi-Usuário",
+        "description": "Adicione sua equipe com permissões específicas.\nControle de acessos granular.\nSegurança e autonomia juntas."
+      },
+      "accountingIntegration": {
+        "iconAlt": "Accounting icon",
+        "title": "Integração Contábil",
+        "description": "Exporte dados para seu contador.\nRelatórios prontos para compliance.\nMenos dor de cabeça, mais eficiência."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "A conta que seu negócio precisa.",
+    "subtitle": "Gratuita, completa e que rende enquanto você trabalha.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "title": "Zero Tarifas Mensais",
+        "description": "Sem taxa de manutenção.\nSem letras miúdas.\nSua empresa economiza desde o dia um.",
+        "imageAlt": "Zero Tarifas Mensais illustration"
+      },
+      "earnsAutomatically": {
+        "title": "Rende Automaticamente",
+        "description": "100% do CDI sobre seu saldo.\nNão precisa fazer nada.\nSeu capital sempre trabalhando.",
+        "imageAlt": "Rende Automaticamente illustration"
+      },
+      "multipleUsers": {
+        "title": "Múltiplos Usuários",
+        "description": "Adicione sua equipe com permissões customizadas.\nCada um vê o que precisa.\nControle total, delegação inteligente.",
+        "imageAlt": "Múltiplos Usuários illustration"
+      },
+      "accountingIntegration": {
+        "title": "Integração Contábil",
+        "description": "Exportação automática para seu contador.\nOFX, CSV, PDF.\nMenos trabalho manual, mais precisão.",
+        "imageAlt": "Integração Contábil illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Conta Que Trabalha Por Você",
+        "description": "Conta corrente gratuita com rendimento automático.\nSeu caixa empresarial cresce todos os dias.\nBanking que ajuda de verdade seu resultado.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Conta Que Trabalha Por Você illustration"
+      },
+      "simplicity": {
+        "title": "Gerencie Tudo no Celular",
+        "description": "✓ Saldo atualizado em tempo real\n✓ Notificações instantâneas de transações\n✓ Aprovações com um toque\nToque suas finanças de qualquer lugar.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Gerencie Tudo no Celular illustration"
+      },
+      "rewards": {
+        "title": "Ganhe Enquanto Opera",
+        "description": "Rendimento de 100% do CDI no seu saldo.\nSem períodos de carência ou mínimos.\nSeu capital de giro trabalha mais.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Ganhe Enquanto Opera illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q55",
+      "q56",
+      "q57"
+    ]
+  }
+}

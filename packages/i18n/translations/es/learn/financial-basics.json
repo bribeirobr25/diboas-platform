@@ -1,0 +1,88 @@
+{
+  "title": "Fundamentos Financieros | diBoaS",
+  "description": "Los fundamentos que nadie te enseñó. Construye una base financiera sólida.",
+  "hero": {
+    "title": "Los fundamentos que nadie te enseñó. Empieza aquí y construye una base financiera sólida.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Los fundamentos que nadie te enseñó",
+    "description": "Conceptos esenciales, lenguaje simple.",
+    "cards": {
+      "personalBudgetingSimple": {
+        "iconAlt": "Budgeting icon",
+        "title": "Presupuesto Personal Simplificado",
+        "description": "Aprende a controlar ingresos y gastos.\nHerramientas prácticas incluidas.\nLa autonomía financiera empieza aquí."
+      },
+      "interestFriendOrFoe": {
+        "iconAlt": "Interest icon",
+        "title": "Intereses: ¿Amigo o Enemigo?",
+        "description": "Entiende cómo funcionan los intereses de verdad.\nCuándo trabajan a tu favor.\nCuándo trabajan en tu contra."
+      },
+      "buildEmergencyFund": {
+        "iconAlt": "Emergency fund icon",
+        "title": "Construye Tu Fondo de Emergencia",
+        "description": "Por qué lo necesitas.\nCuánto ahorrar.\nDónde guardar ese dinero."
+      },
+      "debtHowToGetOut": {
+        "iconAlt": "Debt freedom icon",
+        "title": "Deudas: Cómo Salir de Ellas",
+        "description": "Estrategias para pagar deudas.\nPriorización inteligente.\nEl reinicio financiero es posible."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Los fundamentos que faltaron.",
+    "subtitle": "Construye la base que nadie te mostró.",
+    "cards": {
+      "understandYourMoney": {
+        "title": "Entiende Tu Dinero",
+        "description": "Presupuesto, ahorro, gastos conscientes.\nLos pilares de una vida financiera sana.\nEmpieza por la base.",
+        "imageAlt": "Entiende Tu Dinero illustration"
+      },
+      "jargonBecomesClarity": {
+        "title": "La Jerga Se Vuelve Claridad",
+        "description": "CDI, inflación, interés compuesto.\nExplicamos cada término en español claro.\nSin tecnicismos.",
+        "imageAlt": "La Jerga Se Vuelve Claridad illustration"
+      },
+      "habitsThatTransform": {
+        "title": "Hábitos Que Transforman",
+        "description": "Pequeños cambios, grandes resultados.\nAprende los hábitos de quienes prosperan.\nCambia hoy, cosecha siempre.",
+        "imageAlt": "Hábitos Que Transforman illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "La Base Que Necesitas",
+        "description": "Presupuesto, ahorro y metas.\nTodo lo que debieron enseñarte en la escuela.\nComienza tu viaje financiero aquí.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "La Base Que Necesitas illustration"
+      },
+      "simplicity": {
+        "title": "No Necesitas Saber Nada Antes",
+        "description": "✓ Lecciones interactivas\n✓ Ejemplos del mundo real\n✓ Practica con tu propio dinero\nAprende haciendo, no solo leyendo.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "No Necesitas Saber Nada Antes illustration"
+      },
+      "rewards": {
+        "title": "Sigue Tu Progreso",
+        "description": "Hitos visuales muestran tu crecimiento.\nCelebra cada logro.\nConfianza financiera, una lección a la vez.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Sigue Tu Progreso illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q43",
+      "q44",
+      "q45"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Crypto von A bis Z | diBoaS",
+  "description": "Von A bis Z über Kryptowährungen. Entdecke die digitale Welt ohne Komplexität.",
+  "hero": {
+    "title": "Von A bis Z über Kryptowährungen. Entdecke die digitale Welt ohne Komplexität.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Krypto von A bis Z",
+    "description": "Entdecke die digitale Welt ohne Verwirrung.",
+    "cards": {
+      "blockchainExplainedForHumans": {
+        "iconAlt": "Blockchain icon",
+        "title": "Blockchain für Menschen erklärt",
+        "description": "Was es ist, wie es funktioniert, warum es wichtig ist.\nKein unmöglicher Tech-Jargon.\nVerstehe die Technologie wirklich."
+      },
+      "bitcoinMajorCryptocurrencies": {
+        "iconAlt": "Bitcoin icon",
+        "title": "Bitcoin und große Kryptowährungen",
+        "description": "Geschichte, Technologie, Anwendungsfälle.\nUnterschiede zwischen Bitcoin, Ethereum und anderen.\nWas ist was und warum."
+      },
+      "walletsAndSecurity": {
+        "iconAlt": "Wallet security icon",
+        "title": "Wallets und Sicherheit",
+        "description": "Hot Wallets, Cold Wallets, Verwahrung.\nWie du deine digitalen Assets schützt.\nSicherheit ohne Paranoia."
+      },
+      "volatilityHowToHandle": {
+        "iconAlt": "Volatility icon",
+        "title": "Volatilität und wie man damit umgeht",
+        "description": "Warum Krypto so stark schwankt.\nStrategien, um nicht in Panik zu geraten.\nLangfristige Perspektive."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Krypto ohne Schnörkel.",
+    "subtitle": "Von A bis Z, alles was Sie wissen müssen.",
+    "cards": {
+      "whatIsBlockchain": {
+        "title": "Was ist Blockchain",
+        "description": "Die Technologie hinter Krypto.\nErklärt ohne Fachchinesisch.\nWirklich verstehen.",
+        "imageAlt": "Was ist Blockchain illustration"
+      },
+      "bitcoinEthereumAndBeyond": {
+        "title": "Bitcoin, Ethereum und darüber hinaus",
+        "description": "Wichtige Kryptowährungen erklärt.\nWas sie sind, was sie tun, warum sie wichtig sind.\nKennen Sie jede einzelne.",
+        "imageAlt": "Bitcoin, Ethereum und darüber hinaus illustration"
+      },
+      "walletsAndSecurity": {
+        "title": "Wallets und Sicherheit",
+        "description": "Hot Wallets, Cold Wallets, Custodial vs Non-Custodial.\nSchützen Sie Ihre Assets richtig.\nSicherheit zuerst.",
+        "imageAlt": "Wallets und Sicherheit illustration"
+      },
+      "howToBuyAndSell": {
+        "title": "Wie man kauft und verkauft",
+        "description": "Praktische Schritt-für-Schritt-Anleitung.\nVom ersten Bitcoin bis zum fortgeschrittenen Trading.\nVon Null zum Experten.",
+        "imageAlt": "Wie man kauft und verkauft illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Entmystifizieren Sie digitale Assets",
+        "description": "Blockchain, Wallets, Trading, Sicherheit.\nKrypto-Wissen von A bis Z.\nVom kompletten Anfänger zum selbstbewussten Investor.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Entmystifizieren Sie digitale Assets illustration"
+      },
+      "simplicity": {
+        "title": "Kein technischer Hintergrund nötig",
+        "description": "✓ Erklärungen in klarem Deutsch\n✓ Visuelle Guides und Animationen\n✓ Sichere Übungsumgebungen\nLernen Sie Krypto ohne Verwirrung.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Kein technischer Hintergrund nötig illustration"
+      },
+      "rewards": {
+        "title": "Verdienen Sie Krypto beim Lernen",
+        "description": "Quiz-Belohnungen in echter Kryptowährung.\nBauen Sie Ihr erstes Portfolio beim Lernen auf.\nWissen, das buchstäblich zahlt.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Verdienen Sie Krypto beim Lernen illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q27",
+      "q28",
+      "q29"
+    ]
+  }
+}

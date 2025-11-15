@@ -1,0 +1,93 @@
+{
+  "title": "Campaigns | diBoaS",
+  "description": "Challenges that teach, rewards that motivate.",
+  "hero": {
+    "title": "Challenges that teach, rewards that motivate. Join in and accelerate your growth.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Challenges that teach and reward",
+    "description": "Participate and accelerate your growth.",
+    "cards": {
+      "monthlyChallenges": {
+        "iconAlt": "Challenge icon",
+        "title": "Monthly Challenges",
+        "description": "Specific goals each month.\nInvest X, learn Y, refer Z.\nExtra rewards for completing."
+      },
+      "brandPartnerships": {
+        "iconAlt": "Partnership icon",
+        "title": "Brand Partnerships",
+        "description": "Campaigns with partner companies.\nExclusive offers for diBoas users.\nValue beyond the platform."
+      },
+      "seasonalEvents": {
+        "iconAlt": "Event icon",
+        "title": "Seasonal Events",
+        "description": "Black Friday, New Year, special dates.\nMultiplied bonuses.\nFun and benefits together."
+      },
+      "educationalCampaigns": {
+        "iconAlt": "Educational campaign icon",
+        "title": "Educational Campaigns",
+        "description": "Learn specific topics, earn rewards.\nIncentive for focused education.\nKnowledge that pays back."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Challenges that teach.",
+    "subtitle": "Participate, learn, earn rewards.",
+    "cards": {
+      "monthlyChallenges": {
+        "title": "Monthly Challenges",
+        "description": "Different goals every month.\nInvest X, learn Y, earn Z.\nAlways something new to achieve.",
+        "imageAlt": "Monthly Challenges illustration"
+      },
+      "themedCampaigns": {
+        "title": "Themed Campaigns",
+        "description": "Crypto Month, DeFi Week, Stocks Special.\nLearn focused, earn focused.\nDirected education.",
+        "imageAlt": "Themed Campaigns illustration"
+      },
+      "exclusivePartnerships": {
+        "title": "Exclusive Partnerships",
+        "description": "Partner brands with discounts.\nJoint campaigns with extra bonus.\nMore value for you.",
+        "imageAlt": "Exclusive Partnerships illustration"
+      },
+      "earlyAdopterRewards": {
+        "title": "Early Adopter Rewards",
+        "description": "Earlier you join, more you earn.\nPioneers get exclusive advantages.\nRewarded for believing first.",
+        "imageAlt": "Early Adopter Rewards illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Challenges That Pay",
+        "description": "Monthly campaigns with big rewards.\nLearning challenges, savings goals, trading contests.\nEngage and earn simultaneously.",
+        "ctaText": "Get Started",
+        "imageAlt": "Challenges That Pay illustration"
+      },
+      "simplicity": {
+        "title": "Join With One Tap",
+        "description": "✓ Clear campaign goals\n✓ Progress tracking\n✓ Automatic reward distribution\nParticipate effortlessly.",
+        "ctaText": "Get Started",
+        "imageAlt": "Join With One Tap illustration"
+      },
+      "rewards": {
+        "title": "Limited-Time Bonuses",
+        "description": "Special multipliers during campaigns.\nExclusive prizes for participants.\nMore engagement, more rewards.",
+        "ctaText": "Get Started",
+        "imageAlt": "Limited-Time Bonuses illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q88",
+      "q89",
+      "q90"
+    ]
+  }
+}

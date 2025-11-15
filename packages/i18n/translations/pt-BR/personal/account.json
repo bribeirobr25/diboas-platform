@@ -1,0 +1,93 @@
+{
+  "title": "Conta diBoaS | diBoaS",
+  "description": "Conta grátis que rende 100% do CDI e coloca você no controle do seu dinheiro.",
+  "hero": {
+    "title": "Sua conta grátis que rende 100% do CDI e te coloca no controle do seu dinheiro. Simples assim.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Conta que resolve, não complica",
+    "description": "Gratuita, com rendimento e sem burocracia.",
+    "cards": {
+      "freeAndTransparent": {
+        "iconAlt": "Ícone de banking grátis",
+        "title": "Grátis e Sem Surpresas",
+        "description": "Zero mensalidade, zero tarifa de manutenção.\nTransferências ilimitadas sem custo.\nO que você vê é o que você tem."
+      },
+      "earningWhileYouSleep": {
+        "iconAlt": "Ícone de rendimento",
+        "title": "Rende Enquanto Você Dorme",
+        "description": "100% do CDI todo dia, automaticamente.\nSeu dinheiro cresce mesmo quando você não está olhando.\nAté 30% mais que a poupança."
+      },
+      "openInMinutes": {
+        "iconAlt": "Ícone de abertura rápida",
+        "title": "Abertura em Minutos",
+        "description": "Não precisa ir a agência.\nNão precisa imprimir nada.\nBaixa o app, faz o cadastro e pronto."
+      },
+      "aquaGuidesYou": {
+        "iconAlt": "Ícone de guia IA",
+        "title": "Aqua Te Guia",
+        "description": "Nossa mascote amiga explica cada função.\nVocê nunca fica perdido.\nDo primeiro depósito ao primeiro investimento."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Sua conta. Suas regras.",
+    "subtitle": "Tudo que você precisa, nada que você não quer.",
+    "cards": {
+      "earnsWhileYouSleep": {
+        "title": "Rende Enquanto Você Dorme",
+        "description": "Seu saldo rende 100% do CDI automaticamente.\nSem precisar mover o dinheiro para outro lugar.\nSimples assim.",
+        "imageAlt": "Rende Enquanto Você Dorme illustration"
+      },
+      "actuallyFree": {
+        "title": "Grátis de Verdade",
+        "description": "Sem tarifa de manutenção. Sem letras miúdas.\nTransferências grátis e Pix ilimitado.\nZero surpresas.",
+        "imageAlt": "Grátis de Verdade illustration"
+      },
+      "yourMoneyAtTheRightSpeed": {
+        "title": "Seu Dinheiro na Velocidade Certa",
+        "description": "Deposite, envie e receba em tempo real.\nSem fronteiras, sem burocracia.\nTudo pelo app.",
+        "imageAlt": "Seu Dinheiro na Velocidade Certa illustration"
+      },
+      "securityYouControl": {
+        "title": "Segurança Que Você Controla",
+        "description": "Bloqueios instantâneos, alertas em tempo real\ne você sempre no comando.\nSeu dinheiro, suas regras de proteção.",
+        "imageAlt": "Segurança Que Você Controla illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Seu Dinheiro, Seu Controle",
+        "description": "Conta gratuita com rendimento de 100% do CDI.\nSem tarifas escondidas, sem surpresas.\nSeu dinheiro rende enquanto você dorme.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Seu Dinheiro, Seu Controle illustration"
+      },
+      "simplicity": {
+        "title": "Abre em Minutos",
+        "description": "✓ Sem saldo mínimo obrigatório\n✓ Transferências ilimitadas e gratuitas\n✓ Notificações em tempo real\nBanking sem burocracia. Finalmente.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Abre em Minutos illustration"
+      },
+      "rewards": {
+        "title": "Ganhe Guardando",
+        "description": "Rendimento diário automático no seu saldo.\nAté 30% a mais que a poupança tradicional.\nMesma segurança, retorno melhor.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Ganhe Guardando illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q5",
+      "q6",
+      "q7"
+    ]
+  }
+}

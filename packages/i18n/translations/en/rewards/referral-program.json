@@ -1,0 +1,93 @@
+{
+  "title": "Referral Program | diBoaS",
+  "description": "Share knowledge, earn rewards.",
+  "hero": {
+    "title": "Share knowledge, earn rewards. Grow together with those you refer.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Share knowledge, earn rewards",
+    "description": "Grow alongside those you refer.",
+    "cards": {
+      "bonusForYouAndFriend": {
+        "iconAlt": "Referral bonus icon",
+        "title": "Bonus For You and Your Friend",
+        "description": "Both earn when your referral signs up.\nFair reward for both sides.\nShared growth."
+      },
+      "unlimitedReferrals": {
+        "iconAlt": "Unlimited referrals icon",
+        "title": "Unlimited Referrals",
+        "description": "Refer as many people as you want.\nEach one counts.\nReal scalability."
+      },
+      "transparentTracking": {
+        "iconAlt": "Tracking icon",
+        "title": "Transparent Tracking",
+        "description": "See who signed up through your link.\nTrack your earnings.\nComplete referrals dashboard."
+      },
+      "progressiveBonuses": {
+        "iconAlt": "Progressive rewards icon",
+        "title": "Progressive Bonuses",
+        "description": "The more you refer, the more you earn.\nIncreasing reward tiers.\nIncentive to evangelize."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Share and earn.",
+    "subtitle": "Friends grow together, everyone wins.",
+    "cards": {
+      "bonusForBoth": {
+        "title": "Bonus for Both",
+        "description": "You earn, your friend earns.\nThe more you refer, the more you accumulate.\nShared growth.",
+        "imageAlt": "Bonus for Both illustration"
+      },
+      "lifetimeCommission": {
+        "title": "Lifetime Commission",
+        "description": "Earn part of referral fees.\nForever, not just at start.\nReal passive income.",
+        "imageAlt": "Lifetime Commission illustration"
+      },
+      "referralTiers": {
+        "title": "Referral Tiers",
+        "description": "Bronze, Silver, Gold, Platinum.\nMore referrals, better commission.\nRewarded consistency.",
+        "imageAlt": "Referral Tiers illustration"
+      },
+      "completeDashboard": {
+        "title": "Complete Dashboard",
+        "description": "See all your referrals and earnings.\nTrack performance in real-time.\nTotal transparency.",
+        "imageAlt": "Complete Dashboard illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Share the Wealth",
+        "description": "Invite friends, earn rewards.\nThey save on fees, you earn bonuses.\nGrowing together benefits everyone.",
+        "ctaText": "Get Started",
+        "imageAlt": "Share the Wealth illustration"
+      },
+      "simplicity": {
+        "title": "One-Click Invites",
+        "description": "✓ Share your personal link\n✓ Track who joins\n✓ Automatic reward credits\nInvite from anywhere, anytime.",
+        "ctaText": "Get Started",
+        "imageAlt": "One-Click Invites illustration"
+      },
+      "rewards": {
+        "title": "Unlimited Earning Potential",
+        "description": "No cap on referral rewards.\nTiered bonuses for top referrers.\nBuild your network, build your wealth.",
+        "ctaText": "Get Started",
+        "imageAlt": "Unlimited Earning Potential illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q79",
+      "q80",
+      "q81"
+    ]
+  }
+}

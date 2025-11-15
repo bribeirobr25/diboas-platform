@@ -9,12 +9,20 @@ import type { SupportedLocale } from './config';
 
 /**
  * Load translation messages for a specific locale and namespace
+ * Supports hierarchical namespaces like 'personal/account', 'home', 'common'
+ *
+ * @param locale - The locale to load messages for
+ * @param namespace - The namespace path (e.g., 'common', 'home', 'personal/account')
+ * @returns Promise resolving to the translation messages object
  */
 export async function loadMessages(
   locale: SupportedLocale,
-  namespace: 'common' | 'marketing' = 'common'
+  namespace: string = 'common'
 ): Promise<Record<string, any>> {
   try {
+    // Support both flat and hierarchical namespace paths
+    // 'common' → ../translations/en/common.json
+    // 'personal/account' → ../translations/en/personal/account.json
     const messages = await import(`../translations/${locale}/${namespace}.json`);
     return messages.default || messages;
   } catch (error) {
@@ -37,10 +45,23 @@ export async function loadMessages(
 
 /**
  * Load multiple namespaces for a locale
+ * Supports hierarchical namespace paths
+ *
+ * @param locale - The locale to load messages for
+ * @param namespaces - Array of namespace paths to load (e.g., ['common', 'home', 'personal/account'])
+ * @returns Promise resolving to merged translation messages object
+ *
+ * @example
+ * // Load common + home page
+ * await loadAllMessages('en', ['common', 'home'])
+ *
+ * @example
+ * // Load common + personal account page
+ * await loadAllMessages('en', ['common', 'personal/account'])
  */
 export async function loadAllMessages(
   locale: SupportedLocale,
-  namespaces: ('common' | 'marketing')[] = ['common', 'marketing']
+  namespaces: string[] = ['common', 'marketing']
 ): Promise<Record<string, any>> {
   const messagesArray = await Promise.all(
     namespaces.map(namespace => loadMessages(locale, namespace))

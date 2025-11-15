@@ -1,0 +1,93 @@
+{
+  "title": "Cuenta Empresarial | diBoaS",
+  "description": "Una cuenta empresarial gratuita que genera rendimiento.",
+  "hero": {
+    "title": "Una cuenta empresarial gratuita que genera rendimiento. Tu negocio crece mientras trabajas.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Cuenta empresarial que tiene sentido",
+    "description": "Gratis, con rendimiento, sin complicaciones.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "iconAlt": "Free account icon",
+        "title": "Cero Comisiones Mensuales",
+        "description": "Sin cargos de mantenimiento.\nTu dinero se queda contigo.\nAhorros desde el primer día."
+      },
+      "earns100CDI": {
+        "iconAlt": "High yield icon",
+        "title": "Genera 100% del CDI",
+        "description": "Saldo generando automáticamente.\nSin necesidad de invertir manualmente.\n¿Capital sin usar? No existe aquí."
+      },
+      "multiUserManagement": {
+        "iconAlt": "Team management icon",
+        "title": "Gestión Multi-Usuario",
+        "description": "Agrega tu equipo con permisos específicos.\nControl de acceso granular.\nSeguridad y autonomía juntas."
+      },
+      "accountingIntegration": {
+        "iconAlt": "Accounting icon",
+        "title": "Integración Contable",
+        "description": "Exporta datos para tu contador.\nReportes listos para cumplimiento.\nMenos dolores de cabeza, más eficiencia."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "La cuenta que tu negocio necesita.",
+    "subtitle": "Gratis, completa y rinde mientras trabajas.",
+    "cards": {
+      "zeroMonthlyFees": {
+        "title": "Cero Comisiones Mensuales",
+        "description": "Sin comisión de mantenimiento.\nSin letra chica.\nTu empresa ahorra desde el día uno.",
+        "imageAlt": "Cero Comisiones Mensuales illustration"
+      },
+      "earnsAutomatically": {
+        "title": "Rinde Automáticamente",
+        "description": "100% del CDI sobre tu saldo.\nNo necesitas hacer nada.\nTu capital siempre trabajando.",
+        "imageAlt": "Rinde Automáticamente illustration"
+      },
+      "multipleUsers": {
+        "title": "Múltiples Usuarios",
+        "description": "Agrega tu equipo con permisos personalizados.\nCada uno ve lo que necesita.\nControl total, delegación inteligente.",
+        "imageAlt": "Múltiples Usuarios illustration"
+      },
+      "accountingIntegration": {
+        "title": "Integración Contable",
+        "description": "Exportación automática a tu contador.\nOFX, CSV, PDF.\nMenos trabajo manual, más precisión.",
+        "imageAlt": "Integración Contable illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Cuenta Que Trabaja Para Ti",
+        "description": "Cuenta corriente gratuita con rendimiento automático.\nTu efectivo empresarial crece cada día.\nBanking que mejora tu resultado final.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Cuenta Que Trabaja Para Ti illustration"
+      },
+      "simplicity": {
+        "title": "Gestiona Todo Desde el Móvil",
+        "description": "✓ Actualizaciones de saldo en tiempo real\n✓ Notificaciones instantáneas de transacciones\n✓ Aprobaciones con un toque\nManeja tus finanzas desde cualquier lugar.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Gestiona Todo Desde el Móvil illustration"
+      },
+      "rewards": {
+        "title": "Gana Mientras Operas",
+        "description": "Rendimiento del 100% CDI en tu saldo.\nSin períodos de bloqueo o mínimos.\nTu capital de trabajo trabaja más duro.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Gana Mientras Operas illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q55",
+      "q56",
+      "q57"
+    ]
+  }
+}

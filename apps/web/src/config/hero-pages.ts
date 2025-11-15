@@ -26,8 +26,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'why-diboas': {
     content: {
-      title: 'marketing.pages.why-diboas.hero.title',
-      ctaText: 'marketing.pages.why-diboas.hero.cta',
+      title: 'marketing.pages.whyDiboas.hero.title',
+      ctaText: 'marketing.pages.whyDiboas.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -50,8 +50,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'personal-account': {
     content: {
-      title: 'marketing.pages.personal.account.hero.title',
-      ctaText: 'marketing.pages.personal.account.hero.cta',
+      title: 'marketing.pages.personalAccount.hero.title',
+      ctaText: 'marketing.pages.personalAccount.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -74,8 +74,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'personal-banking': {
     content: {
-      title: 'marketing.pages.personal.banking.hero.title',
-      ctaText: 'marketing.pages.personal.banking.hero.cta',
+      title: 'marketing.pages.personalBanking.hero.title',
+      ctaText: 'marketing.pages.personalBanking.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -98,8 +98,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'personal-investing': {
     content: {
-      title: 'marketing.pages.personal.investing.hero.title',
-      ctaText: 'marketing.pages.personal.investing.hero.cta',
+      title: 'marketing.pages.personalInvesting.hero.title',
+      ctaText: 'marketing.pages.personalInvesting.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -122,8 +122,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'personal-cryptocurrency': {
     content: {
-      title: 'marketing.pages.personal.cryptocurrency.hero.title',
-      ctaText: 'marketing.pages.personal.cryptocurrency.hero.cta',
+      title: 'marketing.pages.personalCryptocurrency.hero.title',
+      ctaText: 'marketing.pages.personalCryptocurrency.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -146,8 +146,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'personal-defi-strategies': {
     content: {
-      title: 'marketing.pages.personal.defiStrategies.hero.title',
-      ctaText: 'marketing.pages.personal.defiStrategies.hero.cta',
+      title: 'marketing.pages.personalDefiStrategies.hero.title',
+      ctaText: 'marketing.pages.personalDefiStrategies.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -170,8 +170,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'personal-credit': {
     content: {
-      title: 'marketing.pages.personal.credit.hero.title',
-      ctaText: 'marketing.pages.personal.credit.hero.cta',
+      title: 'marketing.pages.personalCredit.hero.title',
+      ctaText: 'marketing.pages.personalCredit.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -198,8 +198,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'learn-overview': {
     content: {
-      title: 'marketing.pages.learn.overview.hero.title',
-      ctaText: 'marketing.pages.learn.overview.hero.cta',
+      title: 'marketing.pages.learnOverview.hero.title',
+      ctaText: 'marketing.pages.learnOverview.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -358,8 +358,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'business-advantages': {
     content: {
-      title: 'marketing.pages.business.advantages.hero.title',
-      ctaText: 'marketing.pages.business.advantages.hero.cta',
+      title: 'marketing.pages.businessAdvantages.hero.title',
+      ctaText: 'marketing.pages.businessAdvantages.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -530,8 +530,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'rewards-overview': {
     content: {
-      title: 'marketing.pages.rewards.overview.hero.title',
-      ctaText: 'marketing.pages.rewards.overview.hero.cta',
+      title: 'marketing.pages.rewardsOverview.hero.title',
+      ctaText: 'marketing.pages.rewardsOverview.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -702,8 +702,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'security-protection': {
     content: {
-      title: 'marketing.pages.security.protection.hero.title',
-      ctaText: 'marketing.pages.security.protection.hero.cta',
+      title: 'marketing.pages.securityProtection.hero.title',
+      ctaText: 'marketing.pages.securityProtection.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },

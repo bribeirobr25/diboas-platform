@@ -1,0 +1,93 @@
+{
+  "title": "Safety Guide | diBoaS",
+  "description": "Learn to protect yourself.",
+  "hero": {
+    "title": "Learn to protect yourself. Practical tips and tools to keep your finances secure.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Learn to protect yourself",
+    "description": "Practical financial security tips.",
+    "cards": {
+      "recognizeCommonScams": {
+        "iconAlt": "Scam awareness icon",
+        "title": "Recognize Common Scams",
+        "description": "Phishing, fake apps, social engineering.\nHow to identify and avoid.\nKnowledge that protects."
+      },
+      "passwordManagement": {
+        "iconAlt": "Password icon",
+        "title": "Password Management",
+        "description": "Create strong passwords.\nUse trusted managers.\nNever reuse passwords."
+      },
+      "twoFactorVerification": {
+        "iconAlt": "2FA icon",
+        "title": "Two-Factor Verification",
+        "description": "How to set up 2FA.\nWhy it's essential.\nProtection that takes 2 minutes."
+      },
+      "whatNeverToShare": {
+        "iconAlt": "Privacy icon",
+        "title": "What Never to Share",
+        "description": "Passwords, codes, private keys.\ndiBoas never asks for this information.\nClear security rules."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Learn to protect yourself.",
+    "subtitle": "Tools and knowledge for your security.",
+    "cards": {
+      "antiScamGuide": {
+        "title": "Anti-Scam Guide",
+        "description": "Recognize phishing attempts.\nAvoid common scams.\nKnowledge is your first defense.",
+        "imageAlt": "Anti-Scam Guide illustration"
+      },
+      "mandatoryTwoFa": {
+        "title": "Mandatory 2FA",
+        "description": "Two-factor authentication on everything.\nExtra security layer always.\nReinforced protection.",
+        "imageAlt": "Mandatory 2FA illustration"
+      },
+      "smartAlerts": {
+        "title": "Smart Alerts",
+        "description": "Notification of any suspicious activity.\nAutomatic lock if necessary.\nAI protecting you 24/7.",
+        "imageAlt": "Smart Alerts illustration"
+      },
+      "safeMode": {
+        "title": "Safe Mode",
+        "description": "Extra restrictions on public networks.\nIncreased protection in risky environments.\nAdaptive security.",
+        "imageAlt": "Safe Mode illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Knowledge Is Protection",
+        "description": "Security tips, scam alerts, best practices.\nEmpower yourself against threats.\nEducated users are secure users.",
+        "ctaText": "Get Started",
+        "imageAlt": "Knowledge Is Protection illustration"
+      },
+      "simplicity": {
+        "title": "Simple Security Habits",
+        "description": "✓ Password best practices\n✓ Phishing recognition guides\n✓ Device security checklists\nEasy steps, powerful protection.",
+        "ctaText": "Get Started",
+        "imageAlt": "Simple Security Habits illustration"
+      },
+      "rewards": {
+        "title": "24/7 Security Support",
+        "description": "Instant help when you need it.\nDedicated security team.\nPeace of mind, around the clock.",
+        "ctaText": "Get Started",
+        "imageAlt": "24/7 Security Support illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q100",
+      "q101",
+      "q102"
+    ]
+  }
+}

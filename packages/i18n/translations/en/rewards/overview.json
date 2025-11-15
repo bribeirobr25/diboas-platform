@@ -1,0 +1,98 @@
+{
+  "title": "diBoaS Rewards | diBoaS",
+  "description": "Rewards that actually matter.",
+  "hero": {
+    "title": "Rewards that actually matter. Learn, grow, and get recognized for every milestone.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Rewards that actually matter",
+    "description": "The more you grow, the more you earn.",
+    "cards": {
+      "unifiedPointsSystem": {
+        "iconAlt": "Points system icon",
+        "title": "Unified Points System",
+        "description": "Every action earns points.\nInvest, learn, refer, engage.\nPoints become real benefits."
+      },
+      "achievementBadges": {
+        "iconAlt": "Badge icon",
+        "title": "Achievement Badges",
+        "description": "Show your financial accomplishments.\nFirst investment, goal reached, course completed.\nGamification that educates."
+      },
+      "communityLeaderboard": {
+        "iconAlt": "Leaderboard icon",
+        "title": "Community Leaderboard",
+        "description": "See where you stand.\nHealthy competition.\nInspiration from those who are growing."
+      },
+      "exclusiveBenefits": {
+        "iconAlt": "VIP benefits icon",
+        "title": "Exclusive Benefits",
+        "description": "Early access to features.\nFree VIP courses.\nEvents with experts."
+      },
+      "realCashback": {
+        "iconAlt": "Cashback icon",
+        "title": "Real Cashback",
+        "description": "Money back on transactions.\nNot points that expire.\nIt's money returning to you."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Rewards that matter.",
+    "subtitle": "The more you use, the more you earn.",
+    "cards": {
+      "pointsForEverything": {
+        "title": "Points for Everything",
+        "description": "Invest, learn, refer, participate.\nEvery action earns points.\nEvery point earns rewards.",
+        "imageAlt": "Points for Everything illustration"
+      },
+      "realCashback": {
+        "title": "Real Cashback",
+        "description": "Get back part of your transactions.\nMoney in account, not expiring points.\nRewards worth it.",
+        "imageAlt": "Real Cashback illustration"
+      },
+      "vipAccess": {
+        "title": "VIP Access",
+        "description": "Exclusive courses, special events.\nPremium content for top users.\nMore you use, more you access.",
+        "imageAlt": "VIP Access illustration"
+      },
+      "gamificationThatTeaches": {
+        "title": "Gamification That Teaches",
+        "description": "Challenges, badges, rankings.\nLearn while you compete.\nFun financial education.",
+        "imageAlt": "Gamification That Teaches illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Rewards That Matter",
+        "description": "Points, cashback, badges, and tokens.\nEvery action earns recognition.\nGamified finance that pays to play.",
+        "ctaText": "Get Started",
+        "imageAlt": "Rewards That Matter illustration"
+      },
+      "simplicity": {
+        "title": "Automatic Tracking",
+        "description": "✓ Earn points for learning\n✓ Cashback on transactions\n✓ Bonuses for referrals\nNo forms, no hassle. Just rewards.",
+        "ctaText": "Get Started",
+        "imageAlt": "Automatic Tracking illustration"
+      },
+      "rewards": {
+        "title": "Redeem How You Want",
+        "description": "Cash, crypto, gift cards, or reinvest.\nYour rewards, your choice.\nValue that you actually use.",
+        "ctaText": "Get Started",
+        "imageAlt": "Redeem How You Want illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q73",
+      "q74",
+      "q75"
+    ]
+  }
+}

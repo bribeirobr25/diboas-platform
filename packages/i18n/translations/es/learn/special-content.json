@@ -1,0 +1,93 @@
+{
+  "title": "Contenido Especial | diBoaS",
+  "description": "Contenido exclusivo para quienes quieren ir más allá.",
+  "hero": {
+    "title": "Contenido exclusivo para quienes quieren ir más allá. Aprende de quienes lo están haciendo realidad.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Contenido exclusivo para quienes quieren más",
+    "description": "Aprende de quienes lo están haciendo realidad.",
+    "cards": {
+      "expertInterviews": {
+        "iconAlt": "Interview icon",
+        "title": "Entrevistas Con Expertos",
+        "description": "Inversionistas, traders, emprendedores exitosos.\nExperiencias reales, lecciones prácticas.\nAprende de quienes han estado ahí."
+      },
+      "realUseCases": {
+        "iconAlt": "Use case icon",
+        "title": "Casos de Uso Reales",
+        "description": "Historias de usuarios de diBoas.\nDesde principiante hasta inversionista sofisticado.\nInspiración alcanzable."
+      },
+      "marketAnalysis": {
+        "iconAlt": "Market analysis icon",
+        "title": "Análisis de Mercado",
+        "description": "Tendencias, oportunidades, alertas.\nContexto para tus decisiones.\nVistas macro y micro."
+      },
+      "webinarsLiveSessions": {
+        "iconAlt": "Webinar icon",
+        "title": "Webinars y Sesiones en Vivo",
+        "description": "Sesiones en vivo con expertos.\nObtén respuestas en tiempo real.\nComunidad aprendiendo junta."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Contenido exclusivo para quienes quieren más.",
+    "subtitle": "Insights de expertos, historias de éxito, tendencias del mercado.",
+    "cards": {
+      "expertTalks": {
+        "title": "Charlas de Expertos",
+        "description": "Conversaciones con inversores exitosos.\nEstrategias reales, resultados reales.\nAprende de los mejores.",
+        "imageAlt": "Charlas de Expertos illustration"
+      },
+      "successStories": {
+        "title": "Historias de Éxito",
+        "description": "Trayectorias de usuarios diBoaS.\nCómo empezaron, a dónde llegaron.\nInspiración real.",
+        "imageAlt": "Historias de Éxito illustration"
+      },
+      "marketTrends": {
+        "title": "Tendencias del Mercado",
+        "description": "Qué está moviendo el mercado.\nAnálisis semanales, oportunidades emergentes.\nMantente adelante.",
+        "imageAlt": "Tendencias del Mercado illustration"
+      },
+      "webinarsAndWorkshops": {
+        "title": "Webinars y Talleres",
+        "description": "Clases en vivo con especialistas.\nHaz preguntas, profundiza conocimiento.\nEducación en tiempo real.",
+        "imageAlt": "Webinars y Talleres illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Contenido Exclusivo Insider",
+        "description": "Webinars, entrevistas con expertos, análisis de mercado.\nContenido premium para estudiantes comprometidos.\nMantente adelante de la curva.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Contenido Exclusivo Insider illustration"
+      },
+      "simplicity": {
+        "title": "Curado Solo Para Ti",
+        "description": "✓ Recomendaciones personalizadas\n✓ Insights semanales del mercado\n✓ Historias de éxito de la comunidad\nContenido que coincide con tu viaje.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Curado Solo Para Ti illustration"
+      },
+      "rewards": {
+        "title": "Beneficios de Acceso Anticipado",
+        "description": "Nuevas funciones primero para estudiantes activos.\nEventos y encuentros exclusivos.\nVentajas premium para estudiantes dedicados.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Beneficios de Acceso Anticipado illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q49",
+      "q50",
+      "q51"
+    ]
+  }
+}

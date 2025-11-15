@@ -1,0 +1,98 @@
+{
+  "title": "Estrategias DeFi | diBoaS",
+  "description": "Estrategias de inversión profesionales diseñadas para ti.",
+  "hero": {
+    "title": "Estrategias de inversión profesionales diseñadas para ti. Elige tu frecuencia y deja que tu dinero trabaje.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "DeFi hecho para humanos",
+    "description": "Altos rendimientos sin necesitar un doctorado en blockchain.",
+    "cards": {
+      "strategiesCuratedByExperts": {
+        "iconAlt": "Expert curation icon",
+        "title": "Estrategias Curadas Por Expertos",
+        "description": "Equipo profesional selecciona las mejores oportunidades.\nTú solo eliges y activas.\n¿Complejidad? Nosotros la manejamos."
+      },
+      "yieldsBanksDontOffer": {
+        "iconAlt": "High yield icon",
+        "title": "Rendimientos Que Bancos No Ofrecen",
+        "description": "Acceso a rendimientos globales vía DeFi.\nRetornos muy superiores a lo tradicional.\nRiesgo transparente, recompensas claras."
+      },
+      "coralGuidesAdvancedJourney": {
+        "iconAlt": "Coral guide icon",
+        "title": "Coral Guía Tu Viaje Avanzado",
+        "description": "Cuando estás listo, Coral aparece.\nTe ayuda con estrategias sofisticadas.\nBalance automático de riesgo."
+      },
+      "enterExitAnytime": {
+        "iconAlt": "Liquidity icon",
+        "title": "Entra y Sale Cuando Quieras",
+        "description": "Sin bloqueos ridículos.\nTú controlas cuándo empezar y parar.\nLiquidez cuando la necesitas."
+      },
+      "defiEducationIncluded": {
+        "iconAlt": "DeFi education icon",
+        "title": "Educación DeFi Incluida",
+        "description": "Entiende staking, liquidity pools, yield farming.\nSin jerga técnica, con ejemplos prácticos.\nConocimiento = Control."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Estrategias profesionales para todos.",
+    "subtitle": "DeFi complicado se vuelve simple. Altos rendimientos accesibles.",
+    "cards": {
+      "yieldsWorthYourTime": {
+        "title": "Rendimientos Que Valen la Pena",
+        "description": "Gana hasta 3x más que inversiones tradicionales.\nDeFi simplificado por diBoaS.\nRendimientos reales, accesibles para todos.",
+        "imageAlt": "Rendimientos Que Valen la Pena illustration"
+      },
+      "readyMadeStrategies": {
+        "title": "Estrategias Ya Listas",
+        "description": "Fondo de Emergencia, Crecimiento Balanceado,\nAlto Rendimiento. Elige, activa, listo.\nSin configuración compleja.",
+        "imageAlt": "Estrategias Ya Listas illustration"
+      },
+      "riskUnderControl": {
+        "title": "Riesgo Bajo Control",
+        "description": "Coral explica cada riesgo claramente.\nTú eliges el equilibrio entre seguridad y retorno.\nSiempre decisiones informadas.",
+        "imageAlt": "Riesgo Bajo Control illustration"
+      },
+      "stopWheneverYouWant": {
+        "title": "Para Cuando Quieras",
+        "description": "Iniciar/Parar en segundos.\nTu dinero vuelve a ti en tiempo real.\nSin bloqueos, sin penalizaciones.",
+        "imageAlt": "Para Cuando Quieras illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Estrategias Profesionales Simplificadas",
+        "description": "Fondo de emergencia, viajes, jubilación.\nEstrategias DeFi listas para cada objetivo.\nConfigura y mira crecer.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Estrategias Profesionales Simplificadas illustration"
+      },
+      "simplicity": {
+        "title": "Solo Dinos Tu Objetivo",
+        "description": "\"Ahorrar $5,000 para vacaciones\"\n\"Crear fondo de emergencia de 6 meses\"\nCoral diseña la estrategia perfecta.\nNo necesitas un MBA en finanzas.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Solo Dinos Tu Objetivo illustration"
+      },
+      "rewards": {
+        "title": "Mayor Rendimiento, Menor Riesgo",
+        "description": "✓ Protocolos DeFi diversificados\n✓ Rebalanceo automático\n✓ Rendimientos extra para usuarios activos\nInversión inteligente en piloto automático.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Mayor Rendimiento, Menor Riesgo illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q30",
+      "q31",
+      "q32"
+    ]
+  }
+}

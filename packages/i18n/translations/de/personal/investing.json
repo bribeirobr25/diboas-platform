@@ -1,0 +1,98 @@
+{
+  "title": "Investieren | diBoaS",
+  "description": "Investieren muss nicht kompliziert oder teuer sein. Starte mit nur $10.",
+  "hero": {
+    "title": "Investieren muss nicht kompliziert oder teuer sein. Starte mit nur $10 und sieh dein Geld wachsen.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Investieren ist nicht nur für Reiche",
+    "description": "Starte mit $10 und wachse in deinem Tempo.",
+    "cards": {
+      "startWithWhatYouHave": {
+        "iconAlt": "Start small icon",
+        "title": "Starte mit dem, was du hast",
+        "description": "Nur $10 zum Anfangen.\nKeine lächerlichen Mindestbeträge.\nEchte Demokratisierung."
+      },
+      "stocksBondsGoldMore": {
+        "iconAlt": "Asset diversity icon",
+        "title": "Aktien, Anleihen, Gold & mehr",
+        "description": "Komplettes Portfolio an einem Ort.\nDiversifizieren ohne mehrere Apps.\nEin Klick pro Investment."
+      },
+      "mysticAppearsWhenReady": {
+        "iconAlt": "Mystic guide icon",
+        "title": "Mystic erscheint, wenn du bereit bist",
+        "description": "Unser weises Maskottchen hilft dir zu expandieren.\nSie weiß, wann du die Basics beherrschst.\nUnd zeigt dir den nächsten Schritt."
+      },
+      "builtInEducation": {
+        "iconAlt": "Education icon",
+        "title": "Integrierte Bildung",
+        "description": "Jeder Asset kommt mit Erklärung.\nLerne, was du kaufst.\nInformierte Entscheidungen, keine Wetten."
+      },
+      "feesThatDontRobYou": {
+        "iconAlt": "Low fees icon",
+        "title": "Gebühren, die dich nicht ausrauben",
+        "description": "Nur 0,09% pro Transaktion.\nBis zu 16x günstiger als traditionelle Plattformen.\nTotale Transparenz."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Investieren ohne Geheimnisse.",
+    "subtitle": "Starten Sie mit $10 und sehen Sie Ihr Geld wachsen.",
+    "cards": {
+      "startSmall": {
+        "title": "Klein anfangen",
+        "description": "Nur $10 zum Einstieg.\nSie müssen nicht reich sein um zu investieren.\nHeute starten, morgen wachsen.",
+        "imageAlt": "Klein anfangen illustration"
+      },
+      "diversifyInOneClick": {
+        "title": "Diversifikation per 1-Klick",
+        "description": "Aktien, Gold, Krypto, Immobilien und mehr.\nAlles in derselben App, mit derselben Leichtigkeit.\nIhr komplettes Portfolio an einem Ort.",
+        "imageAlt": "Diversifikation per 1-Klick illustration"
+      },
+      "learnByInvesting": {
+        "title": "Lernen durch Investieren",
+        "description": "KI-Guides erklären jeden Schritt.\nVom Grundwissen bis Fortgeschritten, in Ihrem Tempo.\nNiemand wird als Experte geboren. Aber jeder lernt.",
+        "imageAlt": "Lernen durch Investieren illustration"
+      },
+      "feesThatMakeSense": {
+        "title": "Gebühren die Sinn machen",
+        "description": "0,09% Gebühr für Kauf/Verkauf.\nKeine Überraschungen, keine versteckten Kosten.\nImmer transparent.",
+        "imageAlt": "Gebühren die Sinn machen illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Investieren wie ein Profi",
+        "description": "Aktien, Anleihen, ETFs und Krypto.\nAlles in einer Portfolio-Ansicht.\nIhr komplettes Investment-Dashboard.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Investieren wie ein Profi illustration"
+      },
+      "simplicity": {
+        "title": "Starten Sie mit 10 €",
+        "description": "Keine Mindestanlagebarrieren.\n✓ Geführte Tutorials für Einsteiger\n✓ Diversifikation mit einem Klick\n✓ Intelligente Empfehlungen von Mystic\nInvestieren für jeden zugänglich gemacht.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Starten Sie mit 10 € illustration"
+      },
+      "rewards": {
+        "title": "Niedrigste Gebühren am Markt",
+        "description": "Nur 0,09% Handelsgebühren.\nDas ist 5 bis 16 Mal günstiger als die Konkurrenz.\nMehr Geld bleibt in Ihrer Tasche.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Niedrigste Gebühren am Markt illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q16",
+      "q17",
+      "q18"
+    ]
+  }
+}

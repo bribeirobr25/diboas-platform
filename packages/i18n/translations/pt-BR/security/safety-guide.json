@@ -1,0 +1,93 @@
+{
+  "title": "Guia de Segurança | diBoaS",
+  "description": "Aprenda a se proteger.",
+  "hero": {
+    "title": "Aprenda a se proteger. Dicas práticas e ferramentas para manter suas finanças seguras.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Aprenda a se proteger",
+    "description": "Dicas práticas de segurança financeira.",
+    "cards": {
+      "recognizeCommonScams": {
+        "iconAlt": "Scam awareness icon",
+        "title": "Reconheça Golpes Comuns",
+        "description": "Phishing, fake apps, engenharia social.\nComo identificar e evitar.\nConhecimento que protege."
+      },
+      "passwordManagement": {
+        "iconAlt": "Password icon",
+        "title": "Gerenciamento de Senhas",
+        "description": "Crie senhas fortes.\nUse gerenciadores confiáveis.\nNunca repita senhas."
+      },
+      "twoFactorVerification": {
+        "iconAlt": "2FA icon",
+        "title": "Verificação em Duas Etapas",
+        "description": "Como configurar 2FA.\nPor que é essencial.\nProteção que demora 2 minutos."
+      },
+      "whatNeverToShare": {
+        "iconAlt": "Privacy icon",
+        "title": "O Que Nunca Compartilhar",
+        "description": "Senha, códigos, chaves privadas.\ndiBoaS nunca pede essas informações.\nRegras claras de segurança."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Aprenda a se proteger.",
+    "subtitle": "Ferramentas e conhecimento para sua segurança.",
+    "cards": {
+      "antiScamGuide": {
+        "title": "Guia Anti-Golpes",
+        "description": "Reconheça tentativas de phishing.\nEvite scams comuns.\nConhecimento é sua primeira defesa.",
+        "imageAlt": "Guia Anti-Golpes illustration"
+      },
+      "mandatoryTwoFa": {
+        "title": "2FA Obrigatório",
+        "description": "Autenticação de dois fatores em tudo.\nCamada extra de segurança sempre.\nProteção reforçada.",
+        "imageAlt": "2FA Obrigatório illustration"
+      },
+      "smartAlerts": {
+        "title": "Alertas Inteligentes",
+        "description": "Notificação de qualquer atividade suspeita.\nBloqueio automático se necessário.\nIA protegendo você 24/7.",
+        "imageAlt": "Alertas Inteligentes illustration"
+      },
+      "safeMode": {
+        "title": "Modo Seguro",
+        "description": "Restrições extras quando em redes públicas.\nProteção aumentada em ambientes de risco.\nSegurança adaptativa.",
+        "imageAlt": "Modo Seguro illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Conhecimento É Proteção",
+        "description": "Dicas de segurança, alertas de golpes, melhores práticas.\nCapacite-se contra ameaças.\nUsuários educados são usuários seguros.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Conhecimento É Proteção illustration"
+      },
+      "simplicity": {
+        "title": "Hábitos Simples de Segurança",
+        "description": "✓ Melhores práticas de senha\n✓ Guias de reconhecimento de phishing\n✓ Checklists de segurança de dispositivos\nPassos fáceis, proteção poderosa.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Hábitos Simples de Segurança illustration"
+      },
+      "rewards": {
+        "title": "Suporte de Segurança 24/7",
+        "description": "Ajuda instantânea quando precisar.\nTime dedicado de segurança.\nPaz de espírito, o tempo todo.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Suporte de Segurança 24/7 illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q100",
+      "q101",
+      "q102"
+    ]
+  }
+}

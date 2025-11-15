@@ -1,0 +1,93 @@
+{
+  "title": "Business Payments | diBoaS",
+  "description": "Simple billing, fast receiving.",
+  "hero": {
+    "title": "Simple billing, fast receiving. Accept payments in seconds.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Simple billing, fast receiving",
+    "description": "Accept payments in seconds.",
+    "cards": {
+      "paymentLinks": {
+        "iconAlt": "Payment link icon",
+        "title": "Payment Links",
+        "description": "Create and share billing links.\nClient pays in a few clicks.\nNo card reader, no hassle."
+      },
+      "dynamicQRCodes": {
+        "iconAlt": "QR code icon",
+        "title": "Dynamic QR Codes",
+        "description": "Generate QR codes for each sale.\nClient scans and pays instantly.\nImmediate confirmation."
+      },
+      "automatedRecurring": {
+        "iconAlt": "Recurring payment icon",
+        "title": "Automated Recurring",
+        "description": "Set up automatic monthly charges.\nSubscriptions managed by system.\nRevenue predictability."
+      },
+      "paymentSplitting": {
+        "iconAlt": "Split payment icon",
+        "title": "Payment Splitting",
+        "description": "Divide receipts automatically.\nIdeal for marketplaces and partnerships.\nTransparency for all parties."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Collect without complication.",
+    "subtitle": "From bills to payment links, get paid faster.",
+    "cards": {
+      "paymentLinks": {
+        "title": "Payment Links",
+        "description": "Create, send, receive.\nNo need for website or store.\nSell anywhere.",
+        "imageAlt": "Payment Links illustration"
+      },
+      "smartBills": {
+        "title": "Smart Bills",
+        "description": "Automatic generation, payment notifications.\nReminders before due date.\nLess default.",
+        "imageAlt": "Smart Bills illustration"
+      },
+      "recurringMadeEasy": {
+        "title": "Recurring Made Easy",
+        "description": "Set once, charge every month.\nSubscriptions and memberships on autopilot.\nFinancial predictability.",
+        "imageAlt": "Recurring Made Easy illustration"
+      },
+      "paymentSplit": {
+        "title": "Payment Split",
+        "description": "Divide receipts automatically.\nMarketplaces, partnerships, commissions.\nEveryone gets their share on time.",
+        "imageAlt": "Payment Split illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Accept Every Payment Method",
+        "description": "Cards, Pix, boleto, crypto.\nAll payment types in one dashboard.\nNever miss a sale again.",
+        "ctaText": "Get Started",
+        "imageAlt": "Accept Every Payment Method illustration"
+      },
+      "simplicity": {
+        "title": "Instant Settlement",
+        "description": "✓ Same-day deposits\n✓ Automatic reconciliation\n✓ Real-time reporting\nMoney in your account, not in transit.",
+        "ctaText": "Get Started",
+        "imageAlt": "Instant Settlement illustration"
+      },
+      "rewards": {
+        "title": "Lowest Processing Fees",
+        "description": "Transparent pricing, no hidden costs.\nKeep more of every sale.\nVolume discounts as you grow.",
+        "ctaText": "Get Started",
+        "imageAlt": "Lowest Processing Fees illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q61",
+      "q62",
+      "q63"
+    ]
+  }
+}

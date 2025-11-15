@@ -1,0 +1,88 @@
+{
+  "title": "Geldverwaltung | diBoaS",
+  "description": "Organisieren, kontrollieren und vermehren wie ein Profi.",
+  "hero": {
+    "title": "Organisieren, kontrollieren und vermehren. Lerne dein Geld zu verwalten wie ein Profi.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Verwalten wie ein Profi",
+    "description": "Fortgeschrittene Techniken einfach erklärt.",
+    "cards": {
+      "financialPlanning360": {
+        "iconAlt": "Planning icon",
+        "title": "360° Finanzplanung",
+        "description": "Komplette Sicht: kurz-, mittel- und langfristig.\nKlare Ziele, konkrete Schritte.\nVom Traum zum echten Plan."
+      },
+      "taxOptimization": {
+        "iconAlt": "Tax savings icon",
+        "title": "Steueroptimierung",
+        "description": "Zahle, was fair ist, nichts mehr.\nLegale Sparstrategien.\nDein Geld arbeitet intelligenter."
+      },
+      "multipleIncomeStreams": {
+        "iconAlt": "Multiple income icon",
+        "title": "Multiple Einkommensströme",
+        "description": "Diversifiziere, wo du Geld verdienst.\nNicht nur vom Gehalt abhängig.\nEchte finanzielle Sicherheit."
+      },
+      "behaviorAndMoney": {
+        "iconAlt": "Psychology icon",
+        "title": "Verhalten und Geld",
+        "description": "Psychologie hinter finanziellen Entscheidungen.\nIdentifiziere deine Trigger.\nÄndere Gewohnheiten, ändere Ergebnisse."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Verwalten wie ein Profi.",
+    "subtitle": "Werkzeuge und Wissen um Ihre Finanzen zu meistern.",
+    "cards": {
+      "planYourFuture": {
+        "title": "Planen Sie Ihre Zukunft",
+        "description": "Klare Ziele, realistische Pläne.\nVom Notfallfonds bis zur Rente.\nJedes Ziel hat einen Weg.",
+        "imageAlt": "Planen Sie Ihre Zukunft illustration"
+      },
+      "controlYourSpending": {
+        "title": "Kontrollieren Sie Ihre Ausgaben",
+        "description": "Sehen Sie wohin Ihr Geld fließt.\nIdentifizieren Sie Lecks, korrigieren Sie den Kurs.\nWissen ist Sparen.",
+        "imageAlt": "Kontrollieren Sie Ihre Ausgaben illustration"
+      },
+      "increaseYourIncome": {
+        "title": "Erhöhen Sie Ihr Einkommen",
+        "description": "Strategien um mehr zu verdienen.\nNebeneinkommen, Side Hustles, Investments.\nMehrere Quellen, mehrere Chancen.",
+        "imageAlt": "Erhöhen Sie Ihr Einkommen illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Meistern Sie Ihren Cashflow",
+        "description": "Einkommensverfolgung, Ausgabenkontrolle, intelligentes Sparen.\nAlle Tools für professionelles Geldmanagement.\nÜbernehmen Sie die Kontrolle über Ihr Finanzleben.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Meistern Sie Ihren Cashflow illustration"
+      },
+      "simplicity": {
+        "title": "Automatisierte Insights",
+        "description": "✓ Ausgabenanalyse\n✓ Budgetempfehlungen\n✓ Sparmöglichkeiten\nIhr KI-Assistent findet Optimierungswege.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Automatisierte Insights illustration"
+      },
+      "rewards": {
+        "title": "Erreichen Sie Ziele schneller",
+        "description": "Setzen Sie Ziele, erhalten Sie Erinnerungen, feiern Sie Erfolge.\nIntelligente Benachrichtigungen halten Sie auf Kurs.\nGeldmanagement, das wirklich funktioniert.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Erreichen Sie Ziele schneller illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q46",
+      "q47",
+      "q48"
+    ]
+  }
+}

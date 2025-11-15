@@ -1,0 +1,98 @@
+{
+  "title": "Investimentos | diBoaS",
+  "description": "Investir não precisa ser complicado nem caro. Comece com apenas $10.",
+  "hero": {
+    "title": "Investir não precisa ser complicado nem caro. Comece com apenas $10 e veja seu dinheiro crescer.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Investir não é mais só pra rico",
+    "description": "Comece com $10 e cresça no seu ritmo.",
+    "cards": {
+      "startWithWhatYouHave": {
+        "iconAlt": "Start small icon",
+        "title": "Comece Com o Que Você Tem",
+        "description": "Apenas $10 para começar.\nSem mínimos absurdos.\nDemocratização de verdade."
+      },
+      "stocksBondsGoldMore": {
+        "iconAlt": "Asset diversity icon",
+        "title": "Ações, Bonds, Gold e Mais",
+        "description": "Portfólio completo em um só lugar.\nDiversifique sem precisar de vários apps.\nUm clique para cada investimento."
+      },
+      "mysticAppearsWhenReady": {
+        "iconAlt": "Mystic guide icon",
+        "title": "Mystic Aparece Quando Você Está Pronto",
+        "description": "Nossa mascote sábia te ajuda a expandir.\nEla percebe quando você dominou o básico.\nE te mostra o próximo passo."
+      },
+      "builtInEducation": {
+        "iconAlt": "Education icon",
+        "title": "Educação Integrada",
+        "description": "Cada ativo vem com explicação.\nAprenda o que está comprando.\nDecisões informadas, não apostas."
+      },
+      "feesThatDontRobYou": {
+        "iconAlt": "Low fees icon",
+        "title": "Taxas Que Não Te Roubam",
+        "description": "Apenas 0.09% por transação.\nAté 16x mais barato que plataformas tradicionais.\nTransparência absoluta."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Investir sem mistério.",
+    "subtitle": "Comece com $10 e veja seu dinheiro crescer.",
+    "cards": {
+      "startSmall": {
+        "title": "Comece Com Pouco",
+        "description": "Apenas $10 para começar.\nNão precisa ser rico para investir.\nComece hoje, cresça amanhã.",
+        "imageAlt": "Comece Com Pouco illustration"
+      },
+      "diversifyInOneClick": {
+        "title": "Diversifique em 1-Click",
+        "description": "Ações, Ouro, Crypto, Imóveis e mais.\nTudo no mesmo app, com a mesma facilidade.\nSeu portfólio completo em um lugar só.",
+        "imageAlt": "Diversifique em 1-Click illustration"
+      },
+      "learnByInvesting": {
+        "title": "Aprenda Investindo",
+        "description": "Guias IA que explicam cada passo.\nDo básico ao avançado, no seu ritmo.\nNinguém nasce sabendo. Mas todo mundo aprende.",
+        "imageAlt": "Aprenda Investindo illustration"
+      },
+      "feesThatMakeSense": {
+        "title": "Taxas Que Fazem Sentido",
+        "description": "0.09% de taxa para compra/venda.\nSem surpresas, sem taxas escondidas.\nTransparência sempre.",
+        "imageAlt": "Taxas Que Fazem Sentido illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Invista Como um Pro",
+        "description": "Ações, titles, ETFs e crypto.\nTudo num portfólio só.\nSeu painel completo de investimentos.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Invista Como um Pro illustration"
+      },
+      "simplicity": {
+        "title": "Comece Com R$ 10",
+        "description": "Sem barreiras de investimento mínimo.\n✓ Tutoriais guiados pra iniciantes\n✓ Diversificação com um clique\n✓ Recomendações inteligentes do Mystic\nInvestir ficou acessível pra todo mundo.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Comece Com R$ 10 illustration"
+      },
+      "rewards": {
+        "title": "Menores Taxas do Mercado",
+        "description": "Só 0,09% de taxa de negociação.\nIsso é de 5 a 16 vezes mais barato que a concorrência.\nMais dinheiro fica no seu bolso.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Menores Taxas do Mercado illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q16",
+      "q17",
+      "q18"
+    ]
+  }
+}

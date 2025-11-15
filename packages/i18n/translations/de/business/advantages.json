@@ -1,0 +1,93 @@
+{
+  "title": "diBoaS Business | diBoaS",
+  "description": "Dein Unternehmen verdient Finanzen, die so einfach wie effizient sind.",
+  "hero": {
+    "title": "Dein Unternehmen verdient Finanzen, die so einfach wie effizient sind. Entdecke diBoas Business.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Dein Unternehmen verdient das Beste",
+    "description": "Business-Finanzen einfach gemacht.",
+    "cards": {
+      "everythingIntegratedForBusiness": {
+        "iconAlt": "Integration icon",
+        "title": "Alles integriert für dein Business",
+        "description": "Konto, Zahlungen, Investments, Kredit.\nKomplettes Finanzmanagement.\nFokus auf das Wichtige: Wachsen."
+      },
+      "noBankingBureaucracy": {
+        "iconAlt": "No bureaucracy icon",
+        "title": "Keine Banking-Bürokratie",
+        "description": "100% digitales Onboarding.\nKeine Warteschlangen, kein Papierkram.\nIn Stunden einsatzbereit."
+      },
+      "yourCapitalAlwaysEarning": {
+        "iconAlt": "Earning capital icon",
+        "title": "Dein Kapital verdient immer",
+        "description": "Ungenutzter Cashflow? Nie wieder.\nAutomatische Renditen während du arbeitest.\nIntelligente Treasury."
+      },
+      "totalControlVisibility": {
+        "iconAlt": "Dashboard icon",
+        "title": "Volle Kontrolle und Sichtbarkeit",
+        "description": "Komplettes Dashboard der Finanzgesundheit.\nAutomatisierte Berichte.\nEntscheidungen basierend auf echten Daten."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Ihr Unternehmen verdient mehr.",
+    "subtitle": "Finanzlösungen die mit Ihrem Unternehmen wachsen.",
+    "cards": {
+      "completeBusinessBanking": {
+        "title": "Komplettes Business Banking",
+        "description": "Konto, Zahlungen, Inkasso.\nAlles integriert, alles einfach.\nIhr Business, weniger Bürokratie.",
+        "imageAlt": "Komplettes Business Banking illustration"
+      },
+      "capitalWorkingTwentyFourSeven": {
+        "title": "Kapital arbeitet 24/7",
+        "description": "Intelligente Treasury mit Renditen.\nIhr ruhendes Kapital generiert jetzt Einnahmen.\nJeder Euro zählt.",
+        "imageAlt": "Kapital arbeitet 24/7 illustration"
+      },
+      "creditToGrow": {
+        "title": "Kredit zum Wachsen",
+        "description": "P2P-Kredit zwischen Unternehmen.\nFaire Zinsen, schnelle Prozesse.\nWachstum ohne Bankketten.",
+        "imageAlt": "Kredit zum Wachsen illustration"
+      },
+      "simplifiedManagement": {
+        "title": "Vereinfachtes Management",
+        "description": "Cashflow, Zahlungen, Investments.\nAlles sichtbar in einem Dashboard.\nFokus auf das Wichtige: Wachstum.",
+        "imageAlt": "Vereinfachtes Management illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Unternehmensbanking neu gedacht",
+        "description": "Konten, Zahlungen, Treasury und Kredit.\nAlles, was Ihr Unternehmen braucht.\nAlles auf einer leistungsstarken Plattform.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Unternehmensbanking neu gedacht illustration"
+      },
+      "simplicity": {
+        "title": "In 10 Minuten eröffnet",
+        "description": "✓ Kein Filialbesuch nötig\n✓ Kostenloses Geschäftskonto\n✓ Sofortige Genehmigungen\nFühren Sie Ihr Geschäft, nicht Ihre Bank.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "In 10 Minuten eröffnet illustration"
+      },
+      "rewards": {
+        "title": "Sparen Sie Tausende an Gebühren",
+        "description": "Keine monatlichen Kontoführungsgebühren.\nKostenlose Überweisungen und Zahlungen.\nMehr Kapital für Wachstum, weniger für Banken.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Sparen Sie Tausende an Gebühren illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q52",
+      "q53",
+      "q54"
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "title": "diBoaS Protection | diBoaS",
+  "description": "Your money protected with military-grade security.",
+  "hero": {
+    "title": "Your money protected with military-grade security. You stay in control, we ensure the protection.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Military-grade security",
+    "description": "Your money protected, always.",
+    "cards": {
+      "endToEndEncryption": {
+        "iconAlt": "Encryption icon",
+        "title": "End-to-End Encryption",
+        "description": "Your data protected throughout its journey.\nTechnology used by global banks.\nSecurity you don't see, but feel."
+      },
+      "multiFactorAuthentication": {
+        "iconAlt": "MFA icon",
+        "title": "Multi-Factor Authentication",
+        "description": "Biometrics, codes, trusted devices.\nMultiple protection layers.\nAccess only for those who should have it."
+      },
+      "monitoring247": {
+        "iconAlt": "Monitoring icon",
+        "title": "24/7 Monitoring",
+        "description": "AI detects suspicious activity.\nInstant alerts for you.\nQuick response to threats."
+      },
+      "segregatedCustody": {
+        "iconAlt": "Custody icon",
+        "title": "Segregated Custody",
+        "description": "Your assets separate from company's.\nProtection even in unlikely scenarios.\nRegulatory peace of mind."
+      },
+      "assetInsurance": {
+        "iconAlt": "Insurance icon",
+        "title": "Asset Insurance",
+        "description": "Coverage against extreme events.\nPartnership with trusted insurers.\nAdditional protection that matters."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Security without compromise.",
+    "subtitle": "Military protection, your control, total transparency.",
+    "cards": {
+      "militaryGradeEncryption": {
+        "title": "Military-Grade Encryption",
+        "description": "Same technology that protects governments.\nYour data and assets totally secure.\nNothing less than the best.",
+        "imageAlt": "Military-Grade Encryption illustration"
+      },
+      "youReTheOwner": {
+        "title": "You're the Owner",
+        "description": "Non-custodial wallets.\nOnly you have access to your assets.\nWe never touch your money.",
+        "imageAlt": "You're the Owner illustration"
+      },
+      "multiJurisdictionCompliant": {
+        "title": "Multi-Jurisdiction Compliant",
+        "description": "US, EU, Brazil regulation.\nConstant independent audits.\nCompliance isn't optional.",
+        "imageAlt": "Multi-Jurisdiction Compliant illustration"
+      },
+      "twentyFourSevenSupport": {
+        "title": "24/7 Support",
+        "description": "Security team always available.\nImmediate response to any incident.\nYou're never alone.",
+        "imageAlt": "24/7 Support illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Security First, Always",
+        "description": "Bank-grade encryption and monitoring.\nMulti-layer protection for your assets.\nYour money, fortress-level secure.",
+        "ctaText": "Get Started",
+        "imageAlt": "Security First, Always illustration"
+      },
+      "simplicity": {
+        "title": "Protected Without Complexity",
+        "description": "✓ Biometric authentication\n✓ Real-time fraud detection\n✓ Instant account freezing\nSecurity that doesn't get in your way.",
+        "ctaText": "Get Started",
+        "imageAlt": "Protected Without Complexity illustration"
+      },
+      "rewards": {
+        "title": "You're Always in Control",
+        "description": "Customize security preferences.\nReal-time alerts for everything.\nNo transaction without your knowledge.",
+        "ctaText": "Get Started",
+        "imageAlt": "You're Always in Control illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q94",
+      "q95",
+      "q96"
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Financial Basics | diBoaS",
+  "description": "The fundamentals no one taught you. Build a solid financial foundation.",
+  "hero": {
+    "title": "The fundamentals no one taught you. Start here and build a solid financial foundation.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "The fundamentals nobody taught you",
+    "description": "Essential concepts, simple language.",
+    "cards": {
+      "personalBudgetingSimple": {
+        "iconAlt": "Budgeting icon",
+        "title": "Personal Budgeting Made Simple",
+        "description": "Learn to control income and expenses.\nPractical tools included.\nFinancial autonomy starts here."
+      },
+      "interestFriendOrFoe": {
+        "iconAlt": "Interest icon",
+        "title": "Interest: Friend Or Foe?",
+        "description": "Understand how interest really works.\nWhen it works for you.\nWhen it works against you."
+      },
+      "buildEmergencyFund": {
+        "iconAlt": "Emergency fund icon",
+        "title": "Build Your Emergency Fund",
+        "description": "Why you need one.\nHow much to save.\nWhere to keep this money."
+      },
+      "debtHowToGetOut": {
+        "iconAlt": "Debt freedom icon",
+        "title": "Debt: How to Get Out",
+        "description": "Strategies to pay off debt.\nSmart prioritization.\nFinancial fresh start is possible."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "The fundamentals you were never taught.",
+    "subtitle": "Build the foundation nobody showed you.",
+    "cards": {
+      "understandYourMoney": {
+        "title": "Understand Your Money",
+        "description": "Budgeting, saving, conscious spending.\nThe pillars of healthy financial life.\nStart with the foundation.",
+        "imageAlt": "Understand Your Money illustration"
+      },
+      "jargonBecomesClarity": {
+        "title": "Jargon Becomes Clarity",
+        "description": "CDI, inflation, compound interest.\nWe explain each term in plain English.\nNo technobabble.",
+        "imageAlt": "Jargon Becomes Clarity illustration"
+      },
+      "habitsThatTransform": {
+        "title": "Habits That Transform",
+        "description": "Small changes, big results.\nLearn the habits of those who prosper.\nChange today, harvest forever.",
+        "imageAlt": "Habits That Transform illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "The Foundation You Need",
+        "description": "Budgeting, saving, and goal setting.\nEverything you should have learned in school.\nStart your financial journey here.",
+        "ctaText": "Get Started",
+        "imageAlt": "The Foundation You Need illustration"
+      },
+      "simplicity": {
+        "title": "No Prerequisites Required",
+        "description": "✓ Interactive lessons\n✓ Real-world examples\n✓ Practice with your own money\nLearn by doing, not just reading.",
+        "ctaText": "Get Started",
+        "imageAlt": "No Prerequisites Required illustration"
+      },
+      "rewards": {
+        "title": "Track Your Progress",
+        "description": "Visual milestones show your growth.\nCelebrate every achievement.\nFinancial confidence, one lesson at a time.",
+        "ctaText": "Get Started",
+        "imageAlt": "Track Your Progress illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q43",
+      "q44",
+      "q45"
+    ]
+  }
+}

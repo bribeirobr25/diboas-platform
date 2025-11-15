@@ -1,0 +1,93 @@
+{
+  "title": "Badges & Leaderboard | diBoaS",
+  "description": "Earn badges and climb the ranks.",
+  "hero": {
+    "title": "Earn badges, climb the ranks, and showcase your financial wins to the community.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Achieve, display, inspire",
+    "description": "Your financial achievements visible.",
+    "cards": {
+      "milestoneBadges": {
+        "iconAlt": "Milestone badge icon",
+        "title": "Milestone Badges",
+        "description": "First investment, $1K invested, 10 courses completed.\nEach achievement has a badge.\nYour progress visible."
+      },
+      "weeklyLeaderboard": {
+        "iconAlt": "Leaderboard icon",
+        "title": "Weekly Leaderboard",
+        "description": "Week's points ranking.\nHealthy competition.\nExtra motivation."
+      },
+      "optionalPublicProfile": {
+        "iconAlt": "Public profile icon",
+        "title": "Optional Public Profile",
+        "description": "Show your badges if you want.\nInspire other users.\nGrowth community."
+      },
+      "specialBadges": {
+        "iconAlt": "Special badge icon",
+        "title": "Special Badges",
+        "description": "Early adopter, top referrer, educator.\nUnique recognition.\nCommunity status."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Show your achievements.",
+    "subtitle": "Badges that matter, rankings that inspire.",
+    "cards": {
+      "achievementBadges": {
+        "title": "Achievement Badges",
+        "description": "First investment, diversified portfolio.\nEvery milestone has its badge.\nCelebrate every victory.",
+        "imageAlt": "Achievement Badges illustration"
+      },
+      "weeklyRankings": {
+        "title": "Weekly Rankings",
+        "description": "See who's growing most.\nGet inspired, compete, learn.\nGamification that motivates.",
+        "imageAlt": "Weekly Rankings illustration"
+      },
+      "verifiedProfile": {
+        "title": "Verified Profile",
+        "description": "Demonstrate expertise and reliability.\nExpert badges in each category.\nVisible credibility.",
+        "imageAlt": "Verified Profile illustration"
+      },
+      "positionRewards": {
+        "title": "Position Rewards",
+        "description": "Weekly top 10 gets special bonus.\nHealthy competition, real prizes.\nStand out and earn.",
+        "imageAlt": "Position Rewards illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Showcase Your Success",
+        "description": "Earn badges for achievements.\nClimb the community leaderboard.\nRecognition for your financial growth.",
+        "ctaText": "Get Started",
+        "imageAlt": "Showcase Your Success illustration"
+      },
+      "simplicity": {
+        "title": "Milestone Celebrations",
+        "description": "✓ First investment badge\n✓ Savings streak achievements\n✓ Learning completion awards\nEvery step forward celebrated.",
+        "ctaText": "Get Started",
+        "imageAlt": "Milestone Celebrations illustration"
+      },
+      "rewards": {
+        "title": "Exclusive Perks for Leaders",
+        "description": "Top performers get special benefits.\nEarly feature access and bonuses.\nCompetition that benefits everyone.",
+        "ctaText": "Get Started",
+        "imageAlt": "Exclusive Perks for Leaders illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q85",
+      "q86",
+      "q87"
+    ]
+  }
+}

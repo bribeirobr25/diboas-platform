@@ -1,0 +1,98 @@
+{
+  "title": "DeFi Strategien | diBoaS",
+  "description": "Professionelle Anlagestrategien, maßgeschneidert für dich.",
+  "hero": {
+    "title": "Professionelle Anlagestrategien, maßgeschneidert für dich. Wähle dein Tempo und lass dein Geld für dich arbeiten.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "DeFi für Menschen gemacht",
+    "description": "Hohe Erträge ohne Blockchain-Doktortitel.",
+    "cards": {
+      "strategiesCuratedByExperts": {
+        "iconAlt": "Expert curation icon",
+        "title": "Von Experten kuratierte Strategien",
+        "description": "Professionelles Team wählt die besten Chancen aus.\nDu wählst nur aus und aktivierst.\nKomplexität? Das übernehmen wir."
+      },
+      "yieldsBanksDontOffer": {
+        "iconAlt": "High yield icon",
+        "title": "Erträge, die Banken nicht bieten",
+        "description": "Zugang zu globalen Renditen via DeFi.\nRenditen weit über dem Traditionellen.\nTransparentes Risiko, klare Belohnungen."
+      },
+      "coralGuidesAdvancedJourney": {
+        "iconAlt": "Coral guide icon",
+        "title": "Coral führt deine fortgeschrittene Reise",
+        "description": "Wenn du bereit bist, erscheint Coral.\nSie hilft mit anspruchsvollen Strategien.\nAutomatisches Risiko-Balancing."
+      },
+      "enterExitAnytime": {
+        "iconAlt": "Liquidity icon",
+        "title": "Jederzeit ein- und aussteigen",
+        "description": "Keine lächerlichen Sperrfristen.\nDu kontrollierst Start und Stopp.\nLiquidität, wenn du sie brauchst."
+      },
+      "defiEducationIncluded": {
+        "iconAlt": "DeFi education icon",
+        "title": "DeFi-Bildung inklusive",
+        "description": "Verstehe Staking, Liquidity Pools, Yield Farming.\nKein Fachjargon, mit praktischen Beispielen.\nWissen = Kontrolle."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Professionelle Strategien für alle.",
+    "subtitle": "Kompliziertes DeFi wird einfach. Hohe Renditen zugänglich.",
+    "cards": {
+      "yieldsWorthYourTime": {
+        "title": "Renditen die sich lohnen",
+        "description": "Verdienen Sie bis zu 3x mehr als bei traditionellen Investments.\nDeFi vereinfacht durch diBoaS.\nEchte Renditen, für alle zugänglich.",
+        "imageAlt": "Renditen die sich lohnen illustration"
+      },
+      "readyMadeStrategies": {
+        "title": "Fertige Strategien",
+        "description": "Notfallfonds, Ausgewogenes Wachstum,\nHohe Rendite. Auswählen, aktivieren, fertig.\nKeine komplexe Einrichtung.",
+        "imageAlt": "Fertige Strategien illustration"
+      },
+      "riskUnderControl": {
+        "title": "Risiko unter Kontrolle",
+        "description": "Coral erklärt jedes Risiko klar.\nSie wählen die Balance zwischen Sicherheit und Rendite.\nImmer informierte Entscheidungen.",
+        "imageAlt": "Risiko unter Kontrolle illustration"
+      },
+      "stopWheneverYouWant": {
+        "title": "Jederzeit stoppen",
+        "description": "Start/Stop in Sekunden.\nIhr Geld kommt in Echtzeit zurück.\nKeine Sperrfristen, keine Strafen.",
+        "imageAlt": "Jederzeit stoppen illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Professionelle Strategien vereinfacht",
+        "description": "Notfallfonds, Reiseziele, Altersvorsorge.\nVorgefertigte DeFi-Strategien für jedes Ziel.\nEinrichten und wachsen sehen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Professionelle Strategien vereinfacht illustration"
+      },
+      "simplicity": {
+        "title": "Nennen Sie uns Ihr Ziel",
+        "description": "\"5.000 € für den Urlaub sparen\"\n\"6-Monats-Notfallfonds aufbauen\"\nCoral entwirft die perfekte Strategie.\nKein Finanz-MBA erforderlich.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Nennen Sie uns Ihr Ziel illustration"
+      },
+      "rewards": {
+        "title": "Höhere Renditen, geringeres Risiko",
+        "description": "✓ Diversifizierte DeFi-Protokolle\n✓ Automatisches Rebalancing\n✓ Bonus-Renditen für aktive Nutzer\nIntelligentes Investieren auf Autopilot.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Höhere Renditen, geringeres Risiko illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q30",
+      "q31",
+      "q32"
+    ]
+  }
+}

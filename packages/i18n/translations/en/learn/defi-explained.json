@@ -1,0 +1,93 @@
+{
+  "title": "DeFi Explained | diBoaS",
+  "description": "DeFi made simple. Understand decentralized finance.",
+  "hero": {
+    "title": "DeFi made simple. Understand decentralized finance and seize its opportunities.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "DeFi demystified",
+    "description": "Decentralized finance for everyone.",
+    "cards": {
+      "whatIsDefiAnyway": {
+        "iconAlt": "DeFi concept icon",
+        "title": "What Is DeFi Anyway?",
+        "description": "Finance without traditional middlemen.\nHow it works in practice.\nClear advantages and challenges."
+      },
+      "stakingYieldFarmingLiquidityPools": {
+        "iconAlt": "DeFi mechanisms icon",
+        "title": "Staking, Yield Farming & Liquidity Pools",
+        "description": "Main concepts broken down.\nHow you earn with each.\nSpecific risks of each strategy."
+      },
+      "smartContractsUnveiled": {
+        "iconAlt": "Smart contract icon",
+        "title": "Smart Contracts Unveiled",
+        "description": "Contracts that execute themselves.\nHow they guarantee trust.\nLimitations you need to know."
+      },
+      "opportunitiesAndTraps": {
+        "iconAlt": "Opportunity and risk icon",
+        "title": "Opportunities and Traps",
+        "description": "High yields have trade-offs.\nHow to identify serious projects.\nRed flags to avoid."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "DeFi uncomplicated.",
+    "subtitle": "Decentralized finance explained for humans.",
+    "cards": {
+      "whatIsDefi": {
+        "title": "What Is DeFi",
+        "description": "Finance without intermediaries.\nHow it works, why it matters.\nThe financial revolution explained.",
+        "imageAlt": "What Is DeFi illustration"
+      },
+      "stakingAndYielding": {
+        "title": "Staking and Yielding",
+        "description": "Earn passive income with crypto.\nHow it works, what the risks are.\nSmart returns.",
+        "imageAlt": "Staking and Yielding illustration"
+      },
+      "liquidityPools": {
+        "title": "Liquidity Pools",
+        "description": "Become the bank.\nProvide liquidity, earn fees.\nDeFi in practice.",
+        "imageAlt": "Liquidity Pools illustration"
+      },
+      "risksAndRewards": {
+        "title": "Risks and Rewards",
+        "description": "Impermanent loss, smart contract risk.\nUnderstand each danger clearly.\nAlways informed decisions.",
+        "imageAlt": "Risks and Rewards illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Decentralized Finance Simplified",
+        "description": "Lending, staking, yield farming explained.\nUnderstand DeFi without the complexity.\nThe future of finance, accessible to all.",
+        "ctaText": "Get Started",
+        "imageAlt": "Decentralized Finance Simplified illustration"
+      },
+      "simplicity": {
+        "title": "Coral Guides You Through",
+        "description": "✓ Risk-reward breakdowns\n✓ Protocol comparisons\n✓ Strategy walkthroughs\nAdvanced concepts made digestible.",
+        "ctaText": "Get Started",
+        "imageAlt": "Coral Guides You Through illustration"
+      },
+      "rewards": {
+        "title": "Graduate to Advanced Strategies",
+        "description": "Unlock professional DeFi tools.\nAccess curated opportunities.\nTurn knowledge into action.",
+        "ctaText": "Get Started",
+        "imageAlt": "Graduate to Advanced Strategies illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q34",
+      "q35",
+      "q36"
+    ]
+  }
+}

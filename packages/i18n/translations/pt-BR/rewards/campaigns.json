@@ -1,0 +1,93 @@
+{
+  "title": "Campanhas | diBoaS",
+  "description": "Desafios que ensinam, recompensas que motivam.",
+  "hero": {
+    "title": "Desafios que ensinam, recompensas que motivam. Participe e acelere seu crescimento.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Desafios que ensinam e recompensam",
+    "description": "Participe e acelere seu crescimento.",
+    "cards": {
+      "monthlyChallenges": {
+        "iconAlt": "Challenge icon",
+        "title": "Desafios Mensais",
+        "description": "Metas específicas cada mês.\nInvista X, aprenda Y, indique Z.\nRecompensas extras por completar."
+      },
+      "brandPartnerships": {
+        "iconAlt": "Partnership icon",
+        "title": "Parcerias Com Marcas",
+        "description": "Campanhas com empresas parceiras.\nOfertas exclusivas para usuários diBoaS.\nValor além da plataforma."
+      },
+      "seasonalEvents": {
+        "iconAlt": "Event icon",
+        "title": "Eventos Sazonais",
+        "description": "Black Friday, Ano Novo, datas especiais.\nBônus multiplicados.\nDiversão e benefício juntos."
+      },
+      "educationalCampaigns": {
+        "iconAlt": "Educational campaign icon",
+        "title": "Campanhas Educativas",
+        "description": "Aprenda tema específico, ganhe recompensas.\nIncentivo para educação focada.\nConhecimento que paga de volta."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Desafios que ensinam.",
+    "subtitle": "Participe, aprenda, ganhe recompensas.",
+    "cards": {
+      "monthlyChallenges": {
+        "title": "Desafios Mensais",
+        "description": "Metas diferentes todo mês.\nInvista X, aprenda Y, ganhe Z.\nSempre algo novo para conquistar.",
+        "imageAlt": "Desafios Mensais illustration"
+      },
+      "themedCampaigns": {
+        "title": "Campanhas Temáticas",
+        "description": "Mês do Crypto, Semana DeFi, Especial Ações.\nAprenda focado, ganhe focado.\nEducação direcionada.",
+        "imageAlt": "Campanhas Temáticas illustration"
+      },
+      "exclusivePartnerships": {
+        "title": "Parcerias Exclusivas",
+        "description": "Marcas parceiras com descontos.\nCampanhas conjuntas com bônus extra.\nMais valor para você.",
+        "imageAlt": "Parcerias Exclusivas illustration"
+      },
+      "earlyAdopterRewards": {
+        "title": "Early Adopter Rewards",
+        "description": "Quanto antes entrar, mais ganhar.\nPioneiros têm vantagens exclusivas.\nRecompensa por acreditar primeiro.",
+        "imageAlt": "Early Adopter Rewards illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Desafios Que Pagam",
+        "description": "Campanhas mensais com grandes recompensas.\nDesafios de aprendizado, metas de poupança, contests de trading.\nEngaje e ganhe simultaneamente.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Desafios Que Pagam illustration"
+      },
+      "simplicity": {
+        "title": "Entre Com Um Toque",
+        "description": "✓ Objetivos claros das campanhas\n✓ Acompanhamento de progresso\n✓ Distribuição automática de recompensas\nParticipe sem esforço.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Entre Com Um Toque illustration"
+      },
+      "rewards": {
+        "title": "Bônus Por Tempo Limitado",
+        "description": "Multiplicadores especiais durante campanhas.\nPrêmios exclusivos pra participantes.\nMais engajamento, mais recompensas.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Bônus Por Tempo Limitado illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q88",
+      "q89",
+      "q90"
+    ]
+  }
+}

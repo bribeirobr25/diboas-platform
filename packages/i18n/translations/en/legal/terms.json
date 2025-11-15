@@ -1,0 +1,93 @@
+{
+  "title": "Terms of Service | diBoaS",
+  "description": "Clear rules, serious commitments.",
+  "hero": {
+    "title": "Clear rules, serious commitments. Know our terms and policies without the fine print.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Clear rules, serious commitments",
+    "description": "Terms without fine print.",
+    "cards": {
+      "humanizedTermsOfUse": {
+        "iconAlt": "Clear terms icon",
+        "title": "Humanized Terms of Use",
+        "description": "Plain language, not legalese.\nYou understand what you're accepting.\nTransparency as standard."
+      },
+      "multiJurisdictionCompliance": {
+        "iconAlt": "Global compliance icon",
+        "title": "Multi-Jurisdiction Compliance",
+        "description": "Follow laws where we operate.\nUpdates as regulations evolve.\nProactive, not reactive compliance."
+      },
+      "consumerProtection": {
+        "iconAlt": "Consumer protection icon",
+        "title": "Consumer Protection",
+        "description": "Your rights always respected.\nClear complaint process.\nFair dispute resolution."
+      },
+      "regularExternalAudit": {
+        "iconAlt": "External audit icon",
+        "title": "Regular External Audit",
+        "description": "Independent compliance verification.\nQuarterly public reports.\nAccountability that matters."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Legality in every sense.",
+    "subtitle": "Clear terms, rigorous compliance, total protection.",
+    "cards": {
+      "termsOfUse": {
+        "title": "Terms of Use",
+        "description": "Clear language, no legalese.\nUnderstand exactly your rights.\nLegal transparency.",
+        "imageAlt": "Terms of Use illustration"
+      },
+      "multiJurisdiction": {
+        "title": "Multi-Jurisdiction",
+        "description": "Compliant in US, EU, Brazil, more.\nLegal operation everywhere.\nExpansion without barriers.",
+        "imageAlt": "Multi-Jurisdiction illustration"
+      },
+      "rigorousKycAml": {
+        "title": "Rigorous KYC/AML",
+        "description": "Robust identity verification.\nMoney laundering prevention.\nClean platform.",
+        "imageAlt": "Rigorous KYC/AML illustration"
+      },
+      "disputeResolution": {
+        "title": "Dispute Resolution",
+        "description": "Clear processes for conflicts.\nMediation before litigation.\nAccessible justice.",
+        "imageAlt": "Dispute Resolution illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Regulatory Excellence",
+        "description": "MiCA compliant in EU, BSA in US.\nMulti-jurisdiction operations ready.\nLegal clarity from day one.",
+        "ctaText": "Get Started",
+        "imageAlt": "Regulatory Excellence illustration"
+      },
+      "simplicity": {
+        "title": "Terms You Can Understand",
+        "description": "✓ Plain language policies\n✓ No hidden clauses\n✓ Clear user rights\nTransparency in everything.",
+        "ctaText": "Get Started",
+        "imageAlt": "Terms You Can Understand illustration"
+      },
+      "rewards": {
+        "title": "Your Rights Protected",
+        "description": "User-first policies and procedures.\nClear dispute resolution.\nFair treatment guaranteed.",
+        "ctaText": "Get Started",
+        "imageAlt": "Your Rights Protected illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q112",
+      "q113",
+      "q114"
+    ]
+  }
+}

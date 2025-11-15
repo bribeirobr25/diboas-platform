@@ -13,6 +13,8 @@ import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pag
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
 import type { Metadata } from 'next';
+import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 
 export const dynamic = 'auto';
 
@@ -35,6 +37,9 @@ export default async function AccountPage({ params }: PageProps) {
     notFound();
   }
 
+  // Load page-specific namespaces (personal/account + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['personal/account', 'home', 'faq']);
+
   // Generate structured data for the account page
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Account',
@@ -51,6 +56,7 @@ export default async function AccountPage({ params }: PageProps) {
   const heroVariant = getVariantForPageConfig('personal-account');
 
   return (
+    <PageI18nProvider pageMessages={pageMessages}>
     <>
       <StructuredData data={[serviceData, breadcrumbData]} />
 
@@ -124,5 +130,6 @@ export default async function AccountPage({ params }: PageProps) {
 
       </main>
     </>
+    </PageI18nProvider>
   );
 }

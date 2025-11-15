@@ -1,0 +1,93 @@
+{
+  "title": "Pagos Empresariales | diBoaS",
+  "description": "Cobranzas simples, pagos rápidos.",
+  "hero": {
+    "title": "Cobranzas simples, pagos rápidos. Acepta pagos en segundos.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Cobros simples, recepción rápida",
+    "description": "Acepta pagos en segundos.",
+    "cards": {
+      "paymentLinks": {
+        "iconAlt": "Payment link icon",
+        "title": "Links de Pago",
+        "description": "Crea y comparte links de cobro.\nCliente paga en pocos clics.\nSin datáfono, sin complicaciones."
+      },
+      "dynamicQRCodes": {
+        "iconAlt": "QR code icon",
+        "title": "Códigos QR Dinámicos",
+        "description": "Genera códigos QR para cada venta.\nCliente escanea y paga al instante.\nConfirmación inmediata."
+      },
+      "automatedRecurring": {
+        "iconAlt": "Recurring payment icon",
+        "title": "Recurrente Automatizado",
+        "description": "Configura cobros mensuales automáticos.\nSuscripciones gestionadas por el sistema.\nPrevisibilidad de ingresos."
+      },
+      "paymentSplitting": {
+        "iconAlt": "Split payment icon",
+        "title": "División de Pagos",
+        "description": "Divide ingresos automáticamente.\nIdeal para marketplaces y alianzas.\nTransparencia para todas las partes."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Cobra sin complicaciones.",
+    "subtitle": "De facturas a links de pago, cobra más rápido.",
+    "cards": {
+      "paymentLinks": {
+        "title": "Links de Pago",
+        "description": "Crea, envía, recibe.\nSin necesidad de sitio web o tienda.\nVende en cualquier lugar.",
+        "imageAlt": "Links de Pago illustration"
+      },
+      "smartBills": {
+        "title": "Facturas Inteligentes",
+        "description": "Generación automática, notificaciones de pago.\nRecordatorios antes del vencimiento.\nMenos morosidad.",
+        "imageAlt": "Facturas Inteligentes illustration"
+      },
+      "recurringMadeEasy": {
+        "title": "Recurrencia Sin Dolor",
+        "description": "Configura una vez, cobra cada mes.\nSuscripciones y membresías en automático.\nPrevisibilidad financiera.",
+        "imageAlt": "Recurrencia Sin Dolor illustration"
+      },
+      "paymentSplit": {
+        "title": "División de Pagos",
+        "description": "Divide cobros automáticamente.\nMarketplaces, alianzas, comisiones.\nCada uno recibe su parte a tiempo.",
+        "imageAlt": "División de Pagos illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Acepta Cualquier Forma de Pago",
+        "description": "Tarjetas, Pix, facturas, crypto.\nTodos los tipos en un solo panel.\nNunca pierdas una venta de nuevo.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Acepta Cualquier Forma de Pago illustration"
+      },
+      "simplicity": {
+        "title": "Liquidación Instantánea",
+        "description": "✓ Depósitos el mismo día\n✓ Reconciliación automática\n✓ Reportes en tiempo real\nDinero en tu cuenta, no en tránsito.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Liquidación Instantánea illustration"
+      },
+      "rewards": {
+        "title": "Comisiones de Procesamiento Más Bajas",
+        "description": "Precios transparentes, sin costos ocultos.\nQuédate con más de cada venta.\nDescuentos por volumen al crecer.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Comisiones de Procesamiento Más Bajas illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q61",
+      "q62",
+      "q63"
+    ]
+  }
+}

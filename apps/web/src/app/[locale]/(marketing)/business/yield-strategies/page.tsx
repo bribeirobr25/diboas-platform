@@ -15,6 +15,8 @@ import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
+import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -36,6 +38,9 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
     notFound();
   }
 
+  // Load page-specific namespaces (business/yield-strategies + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['business/yield-strategies', 'home', 'faq']);
+
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Cash Flow Yield',
     description: 'Turn idle capital into revenue',
@@ -50,6 +55,7 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
   const heroVariant = getVariantForPageConfig('business-yield-strategies');
 
   return (
+    <PageI18nProvider pageMessages={pageMessages}>
     <>
       <StructuredData data={[serviceData, breadcrumbData]} />
 
@@ -124,5 +130,6 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
 
       </main>
     </>
+    </PageI18nProvider>
   );
 }

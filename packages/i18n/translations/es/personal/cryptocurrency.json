@@ -1,0 +1,93 @@
+{
+  "title": "Criptomonedas | diBoaS",
+  "description": "Crypto ya no es solo para expertos. Invierte de forma simple y segura.",
+  "hero": {
+    "title": "Crypto ya no es solo para expertos. Con 1-Click, inviertes en activos digitales de forma simple y segura.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Crypto simplificado",
+    "description": "Compra Bitcoin sin ser un genio tecnológico.",
+    "cards": {
+      "oneClickDone": {
+        "iconAlt": "One click icon",
+        "title": "1-Clic, Listo",
+        "description": "Compra Bitcoin, Ethereum y otros con un toque.\nSin necesidad de entender wallets complejas.\nTan simple como comprar cualquier otra cosa."
+      },
+      "militaryGradeCustody": {
+        "iconAlt": "Security icon",
+        "title": "Custodia de Nivel Militar",
+        "description": "Tus criptos protegidas con seguridad militar.\nTú las controlas, nosotros las guardamos.\nAuditoría independiente disponible."
+      },
+      "integratedWithEverything": {
+        "iconAlt": "Integration icon",
+        "title": "Integrado Con Todo",
+        "description": "Ve crypto junto a tus otras inversiones.\nPortafolio unificado.\nEntiende tu patrimonio total de verdad."
+      },
+      "learnBeforeYouInvest": {
+        "iconAlt": "Learn first icon",
+        "title": "Aprende Antes de Invertir",
+        "description": "Centro de Educación explica cada moneda.\nRiesgos, beneficios, tecnología.\nConocimiento antes que dinero."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Crypto para gente normal.",
+    "subtitle": "Sin tecnicismos. Solo oportunidades reales.",
+    "cards": {
+      "oneClickToGetIn": {
+        "title": "1-Click Para Entrar",
+        "description": "Compra Bitcoin, Ethereum y más con un click.\nSin necesidad de entender blockchain.\nNuestras guías explican todo.",
+        "imageAlt": "1-Click Para Entrar illustration"
+      },
+      "securityYouUnderstand": {
+        "title": "Seguridad Que Entiendes",
+        "description": "Wallets no-custodiales. Tú eres el dueño.\nEncriptación militar. Auditorías independientes.\nTu crypto, tu custodia.",
+        "imageAlt": "Seguridad Que Entiendes illustration"
+      },
+      "fromZeroToAdvanced": {
+        "title": "De Cero a Avanzado",
+        "description": "Empieza con Aqua comprando tu primer Bitcoin.\nEvoluciona a estrategias avanzadas con Coral.\nTodo a tu propio ritmo.",
+        "imageAlt": "De Cero a Avanzado illustration"
+      },
+      "cryptoTraditionalComplete": {
+        "title": "Crypto + Tradicional = Completo",
+        "description": "Ve tus inversiones tradicionales y crypto\nlado a lado. Una vista única de tu patrimonio.\nFinalmente, todo junto.",
+        "imageAlt": "Crypto + Tradicional = Completo illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Crypto Sin Complicaciones",
+        "description": "Compra, vende y guarda activos digitales.\nSin jerga técnica. Sin confusión.\nInversión en crypto simplificada.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Crypto Sin Complicaciones illustration"
+      },
+      "simplicity": {
+        "title": "Crypto en 1 Clic",
+        "description": "Bitcoin, Ethereum y más de 50 monedas.\n✓ Compras instantáneas\n✓ Custodia segura\n✓ Precios en tiempo real\nAqua te guía en cada paso.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Crypto en 1 Clic illustration"
+      },
+      "rewards": {
+        "title": "Seguridad de Nivel Militar",
+        "description": "Encriptación bancaria para tus activos digitales.\nAlmacenamiento en frío y protección multifirma.\nTus cryptos, tu control.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Seguridad de Nivel Militar illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q23",
+      "q24",
+      "q25"
+    ]
+  }
+}

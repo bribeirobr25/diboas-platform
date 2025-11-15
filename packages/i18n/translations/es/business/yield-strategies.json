@@ -1,0 +1,88 @@
+{
+  "title": "Rendimiento de Flujo de Caja | diBoaS",
+  "description": "Rendimiento sobre tu flujo de caja.",
+  "hero": {
+    "title": "Rendimiento sobre tu flujo de caja. Convierte capital inactivo en ingresos adicionales.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Rendimientos sobre tu flujo de caja",
+    "description": "Capital sin usar se vuelve ingreso adicional.",
+    "cards": {
+      "aboveMarketYields": {
+        "iconAlt": "High yield icon",
+        "title": "Rendimientos Sobre el Mercado",
+        "description": "Acceso a estrategias DeFi empresariales.\nRetornos que bancos no ofrecen.\nCon la seguridad que necesitas."
+      },
+      "guaranteedLiquidity": {
+        "iconAlt": "Liquidity icon",
+        "title": "Liquidez Garantizada",
+        "description": "Retiros cuando quieras.\nNo bloquea capital operativo.\nFlexibilidad para oportunidades."
+      },
+      "managedRisk": {
+        "iconAlt": "Risk management icon",
+        "title": "Riesgo Gestionado",
+        "description": "Exposición calculada y diversificada.\nReportes de riesgo transparentes.\nTú decides cuánto exponer."
+      },
+      "balanceSheetImpact": {
+        "iconAlt": "Financial impact icon",
+        "title": "Impacto en Balance",
+        "description": "Ingresos financieros adicionales.\nMejora indicadores de la empresa.\nMayor competitividad."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Convierte flujo de caja en ingresos.",
+    "subtitle": "Estrategias que hacen contar cada peso.",
+    "cards": {
+      "yieldOnReceivables": {
+        "title": "Rendimiento Sobre Cuentas por Cobrar",
+        "description": "Gana rendimiento mientras esperas pagos.\nCuentas por cobrar generando ingresos.\nMonetiza el tiempo de espera.",
+        "imageAlt": "Rendimiento Sobre Cuentas por Cobrar illustration"
+      },
+      "corporateDefiStrategies": {
+        "title": "Estrategias DeFi Corporativas",
+        "description": "Altos rendimientos con parte de tu caja.\nRiesgo controlado, retorno superior.\nDeFi para empresas.",
+        "imageAlt": "Estrategias DeFi Corporativas illustration"
+      },
+      "currencyProtection": {
+        "title": "Protección Cambiaria",
+        "description": "Cobertura automática para operaciones internacionales.\nProtege márgenes contra volatilidad.\nPrevisibilidad cambiaria.",
+        "imageAlt": "Protección Cambiaria illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Convierte Efectivo Inactivo en Ingresos",
+        "description": "Rendimiento automatizado en fondos operativos.\nSin gestión manual requerida.\nIngresos adicionales mientras te enfocas en el negocio.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Convierte Efectivo Inactivo en Ingresos illustration"
+      },
+      "simplicity": {
+        "title": "Acceso Flexible",
+        "description": "✓ Retira cuando quieras sin penalizaciones\n✓ Ajusta estrategias según cambien necesidades\n✓ Reportes claros de ganancias diarias\nLa liquidez se encuentra con la rentabilidad.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Acceso Flexible illustration"
+      },
+      "rewards": {
+        "title": "Superior al Ahorro",
+        "description": "Mejores tasas que cuentas de ahorro empresariales.\nDiversificado en protocolos seguros.\nRetornos optimizados con riesgo gestionado.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Superior al Ahorro illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q67",
+      "q68",
+      "q69"
+    ]
+  }
+}

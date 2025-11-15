@@ -1,0 +1,98 @@
+{
+  "title": "Inversores | diBoaS",
+  "description": "Una oportunidad de $400 mil millones.",
+  "hero": {
+    "title": "Una oportunidad de $400 mil millones. 89,6% del mercado global aún sin explorar. Metodología validada por 118,6 millones de usuarios.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Oportunidad de $400 mil millones",
+    "description": "89.6% del mercado aún sin explotar.",
+    "cards": {
+      "massiveMarketGap": {
+        "iconAlt": "Market gap icon",
+        "title": "Brecha de Mercado Masiva",
+        "description": "5.4B usuarios TradFi vs 560M crypto.\n99% de usuarios crypto nunca usaron DeFi.\nPrimeros en unir estos mundos."
+      },
+      "validatedMethodology": {
+        "iconAlt": "Validation icon",
+        "title": "Metodología Validada",
+        "description": "Nubank: 118.6M usuarios, $3.2B ingresos trimestrales.\nMismo enfoque conductual.\nProbado que funciona."
+      },
+      "firstMoverAdvantage": {
+        "iconAlt": "First mover icon",
+        "title": "Ventaja del Pionero",
+        "description": "Ningún competidor global tiene OneFi.\nCoinbase se enfoca en institucional.\nNeobancos carecen de crypto."
+      },
+      "growthProjection": {
+        "iconAlt": "Growth projection icon",
+        "title": "Proyección de Crecimiento",
+        "description": "15M usuarios en 5 años.\n$750M ingresos anuales Año 5.\nLTV:CAC de 15:1."
+      },
+      "regulatoryCompliantInvestors": {
+        "iconAlt": "Regulatory icon",
+        "title": "Cumplimiento Regulatorio",
+        "description": "MiCA (UE), BSA (EE.UU.), Banco Central (BR).\nLegal desde el día 1.\nSin riesgo regulatorio."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Invirtiendo en el futuro de las finanzas.",
+    "subtitle": "Relación con inversionistas transparente y completa.",
+    "cards": {
+      "quarterlyReports": {
+        "title": "Reportes Trimestrales",
+        "description": "Métricas de crecimiento completas.\nTransparencia sobre cada número.\nRendición de cuentas real.",
+        "imageAlt": "Reportes Trimestrales illustration"
+      },
+      "executivePresentations": {
+        "title": "Presentaciones Ejecutivas",
+        "description": "Estrategia, roadmap, visión a largo plazo.\nAcceso directo al liderazgo.\nComunicación clara.",
+        "imageAlt": "Presentaciones Ejecutivas illustration"
+      },
+      "eventsCalendar": {
+        "title": "Calendario de Eventos",
+        "description": "Calls trimestrales, juntas, roadshows.\nParticipa en discusiones estratégicas.\nVoz activa.",
+        "imageAlt": "Calendario de Eventos illustration"
+      },
+      "corporateGovernance": {
+        "title": "Gobierno Corporativo",
+        "description": "Junta independiente, comités activos.\nCumplimiento riguroso.\nEstructura sólida.",
+        "imageAlt": "Gobierno Corporativo illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Oportunidad de $400 Mil Millones",
+        "description": "Mercados convergentes de fintech, crypto y DeFi.\nCrecimiento compuesto anual del 16-25%.\nPotencial de mercado masivo sin explotar.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Oportunidad de $400 Mil Millones illustration"
+      },
+      "simplicity": {
+        "title": "Modelo de Negocio Validado",
+        "description": "✓ Metodología Nubank probada a escala\n✓ Ventaja de costos 5-16x en comisiones\n✓ Múltiples flujos de ingresos\nRiesgo de ejecución minimizado por validación.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Modelo de Negocio Validado illustration"
+      },
+      "rewards": {
+        "title": "Retornos de Inversión",
+        "description": "Camino a $750M de ingresos para el Año 5.\nRetornos de 40-60x en caso base.\nFirst-mover en plataforma OneFi unificada.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Retornos de Inversión illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q109",
+      "q110",
+      "q111"
+    ]
+  }
+}

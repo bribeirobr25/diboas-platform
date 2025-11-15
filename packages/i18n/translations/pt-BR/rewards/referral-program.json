@@ -1,0 +1,93 @@
+{
+  "title": "Programa de Indicação | diBoaS",
+  "description": "Compartilhe conhecimento, ganhe recompensas.",
+  "hero": {
+    "title": "Compartilhe conhecimento, ganhe recompensas. Cresça junto com quem você indica.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Compartilhe conhecimento, ganhe recompensas",
+    "description": "Cresça junto com quem você indica.",
+    "cards": {
+      "bonusForYouAndFriend": {
+        "iconAlt": "Referral bonus icon",
+        "title": "Bônus Para Você e Seu Amigo",
+        "description": "Ambos ganham quando seu indicado se cadastra.\nRecompensa justa para os dois lados.\nCrescimento compartilhado."
+      },
+      "unlimitedReferrals": {
+        "iconAlt": "Unlimited referrals icon",
+        "title": "Sem Limite de Indicações",
+        "description": "Indique quantas pessoas quiser.\nCada uma conta.\nEscalabilidade real."
+      },
+      "transparentTracking": {
+        "iconAlt": "Tracking icon",
+        "title": "Tracking Transparente",
+        "description": "Veja quem se cadastrou pelo seu link.\nAcompanhe seus ganhos.\nDashboard completo de referrals."
+      },
+      "progressiveBonuses": {
+        "iconAlt": "Progressive rewards icon",
+        "title": "Bônus Progressivos",
+        "description": "Quanto mais indica, mais ganha.\nTiers de recompensa crescentes.\nIncentivo para evangelizar."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Compartilhe e ganhe.",
+    "subtitle": "Amigos crescem juntos, todos ganham.",
+    "cards": {
+      "bonusForBoth": {
+        "title": "Bônus Para Ambos",
+        "description": "Você ganha, seu amigo ganha.\nQuanto mais indicar, mais acumula.\nCrescimento compartilhado.",
+        "imageAlt": "Bônus Para Ambos illustration"
+      },
+      "lifetimeCommission": {
+        "title": "Comissão Vitalícia",
+        "description": "Ganhe parte das taxas de quem você indicar.\nPara sempre, não só no início.\nRenda passiva real.",
+        "imageAlt": "Comissão Vitalícia illustration"
+      },
+      "referralTiers": {
+        "title": "Níveis de Indicação",
+        "description": "Bronze, Prata, Ouro, Platina.\nQuanto mais indica, melhor a comissão.\nRecompensa por consistência.",
+        "imageAlt": "Níveis de Indicação illustration"
+      },
+      "completeDashboard": {
+        "title": "Dashboard Completo",
+        "description": "Veja todas suas indicações e ganhos.\nAcompanhe performance em tempo real.\nTransparência total.",
+        "imageAlt": "Dashboard Completo illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Compartilhe a Riqueza",
+        "description": "Indique amigos, ganhe recompensas.\nEles economizam em taxas, você ganha bônus.\nCrescer juntos beneficia todo mundo.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Compartilhe a Riqueza illustration"
+      },
+      "simplicity": {
+        "title": "Convites em Um Clique",
+        "description": "✓ Compartilhe seu link pessoal\n✓ Acompanhe quem entrou\n✓ Créditos de recompensa automáticos\nConvide de onde estiver, quando quiser.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Convites em Um Clique illustration"
+      },
+      "rewards": {
+        "title": "Potencial Ilimitado de Ganhos",
+        "description": "Sem limite em recompensas de indicação.\nBônus em níveis pros melhores indicadores.\nConstrua sua rede, construa sua riqueza.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Potencial Ilimitado de Ganhos illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q79",
+      "q80",
+      "q81"
+    ]
+  }
+}

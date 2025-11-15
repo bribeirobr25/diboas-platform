@@ -1,0 +1,98 @@
+{
+  "title": "diBoaS Rewards | diBoaS",
+  "description": "Recompensas que fazem sentido.",
+  "hero": {
+    "title": "Recompensas que fazem sentido. Aprenda, cresça e seja reconhecido por cada conquista.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Recompensas que fazem sentido",
+    "description": "Quanto mais você cresce, mais você ganha.",
+    "cards": {
+      "unifiedPointsSystem": {
+        "iconAlt": "Points system icon",
+        "title": "Sistema de Pontos Unificado",
+        "description": "Cada ação vale pontos.\nInvestir, aprender, indicar, engajar.\nPontos viram benefícios reais."
+      },
+      "achievementBadges": {
+        "iconAlt": "Badge icon",
+        "title": "Badges de Conquista",
+        "description": "Mostre suas realizações financeiras.\nPrimeiro investimento, meta atingida, curso completo.\nGamificação que educa."
+      },
+      "communityLeaderboard": {
+        "iconAlt": "Leaderboard icon",
+        "title": "Leaderboard Comunitário",
+        "description": "Veja onde você está.\nCompetição saudável.\nInspiração em quem está crescendo."
+      },
+      "exclusiveBenefits": {
+        "iconAlt": "VIP benefits icon",
+        "title": "Benefícios Exclusivos",
+        "description": "Acesso antecipado a features.\nCursos VIP gratuitos.\nEventos com especialistas."
+      },
+      "realCashback": {
+        "iconAlt": "Cashback icon",
+        "title": "Cashback Real",
+        "description": "Dinheiro de volta em transações.\nNão é ponto que expira.\nÉ dinheiro que volta pra você."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Recompensas que importam.",
+    "subtitle": "Quanto mais você usa, mais você ganha.",
+    "cards": {
+      "pointsForEverything": {
+        "title": "Pontos Por Tudo",
+        "description": "Invista, aprenda, indique, participe.\nCada ação vale pontos.\nCada ponto vale recompensas.",
+        "imageAlt": "Pontos Por Tudo illustration"
+      },
+      "realCashback": {
+        "title": "Cashback Real",
+        "description": "Ganhe de volta parte das suas transações.\nDinheiro na conta, não pontos que expiram.\nRecompensa que vale a pena.",
+        "imageAlt": "Cashback Real illustration"
+      },
+      "vipAccess": {
+        "title": "Acesso VIP",
+        "description": "Cursos exclusivos, eventos especiais.\nConteúdo premium para top users.\nMais você usa, mais você acessa.",
+        "imageAlt": "Acesso VIP illustration"
+      },
+      "gamificationThatTeaches": {
+        "title": "Gamificação Que Ensina",
+        "description": "Desafios, badges, rankings.\nAprenda enquanto compete.\nEducação financeira divertida.",
+        "imageAlt": "Gamificação Que Ensina illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Recompensas Que Valem a Pena",
+        "description": "Pontos, cashback, badges e tokens.\nCada ação é reconhecida.\nFinanças gamificadas que pagam pra jogar.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Recompensas Que Valem a Pena illustration"
+      },
+      "simplicity": {
+        "title": "Acompanhamento Automático",
+        "description": "✓ Ganhe pontos aprendendo\n✓ Cashback nas transações\n✓ Bônus por indicações\nSem formulários, sem burocracia. Só recompensas.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Acompanhamento Automático illustration"
+      },
+      "rewards": {
+        "title": "Resgate Como Quiser",
+        "description": "Dinheiro, crypto, gift cards ou reinvista.\nSuas recompensas, sua escolha.\nValor que você realmente usa.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Resgate Como Quiser illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q73",
+      "q74",
+      "q75"
+    ]
+  }
+}

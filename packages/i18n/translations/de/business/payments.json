@@ -1,0 +1,93 @@
+{
+  "title": "Geschäftszahlungen | diBoaS",
+  "description": "Einfache Rechnungsstellung, schnelle Zahlungen.",
+  "hero": {
+    "title": "Einfache Rechnungsstellung, schnelle Zahlungen. Akzeptiere Zahlungen in Sekunden.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Einfache Abrechnung, schneller Empfang",
+    "description": "Zahlungen in Sekunden akzeptieren.",
+    "cards": {
+      "paymentLinks": {
+        "iconAlt": "Payment link icon",
+        "title": "Zahlungslinks",
+        "description": "Erstelle und teile Abrechnungslinks.\nKunde zahlt mit wenigen Klicks.\nKein Kartenlesegerät, kein Ärger."
+      },
+      "dynamicQRCodes": {
+        "iconAlt": "QR code icon",
+        "title": "Dynamische QR-Codes",
+        "description": "Generiere QR-Codes für jeden Verkauf.\nKunde scannt und zahlt sofort.\nSofortige Bestätigung."
+      },
+      "automatedRecurring": {
+        "iconAlt": "Recurring payment icon",
+        "title": "Automatisierte Wiederkehrende",
+        "description": "Richte automatische monatliche Gebühren ein.\nAbos vom System verwaltet.\nUmsatzvorhersehbarkeit."
+      },
+      "paymentSplitting": {
+        "iconAlt": "Split payment icon",
+        "title": "Zahlungsaufteilung",
+        "description": "Teile Einnahmen automatisch auf.\nIdeal für Marktplätze und Partnerschaften.\nTransparenz für alle Parteien."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Inkasso ohne Komplikationen.",
+    "subtitle": "Von Rechnungen bis Zahlungslinks, schneller kassieren.",
+    "cards": {
+      "paymentLinks": {
+        "title": "Zahlungslinks",
+        "description": "Erstellen, senden, empfangen.\nOhne Website oder Online-Shop nötig.\nÜberall verkaufen.",
+        "imageAlt": "Zahlungslinks illustration"
+      },
+      "smartBills": {
+        "title": "Intelligente Rechnungen",
+        "description": "Automatische Generierung, Zahlungsbenachrichtigungen.\nErinnerungen vor Fälligkeit.\nWeniger Zahlungsausfälle.",
+        "imageAlt": "Intelligente Rechnungen illustration"
+      },
+      "recurringMadeEasy": {
+        "title": "Abonnements leicht gemacht",
+        "description": "Einmal einrichten, jeden Monat abbuchen.\nAbos und Mitgliedschaften im Autopilot.\nFinanzielle Planbarkeit.",
+        "imageAlt": "Abonnements leicht gemacht illustration"
+      },
+      "paymentSplit": {
+        "title": "Zahlungsaufteilung",
+        "description": "Eingänge automatisch aufteilen.\nMarktplätze, Partnerschaften, Provisionen.\nJeder bekommt seinen Anteil pünktlich.",
+        "imageAlt": "Zahlungsaufteilung illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Akzeptieren Sie jede Zahlungsmethode",
+        "description": "Karten, Pix, Rechnung, Krypto.\nAlle Zahlungsarten in einem Dashboard.\nVerpassen Sie nie wieder einen Verkauf.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Akzeptieren Sie jede Zahlungsmethode illustration"
+      },
+      "simplicity": {
+        "title": "Sofortige Abwicklung",
+        "description": "✓ Einzahlungen am selben Tag\n✓ Automatische Abstimmung\n✓ Echtzeit-Berichterstattung\nGeld auf Ihrem Konto, nicht unterwegs.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Sofortige Abwicklung illustration"
+      },
+      "rewards": {
+        "title": "Niedrigste Bearbeitungsgebühren",
+        "description": "Transparente Preisgestaltung, keine versteckten Kosten.\nBehalten Sie mehr von jedem Verkauf.\nVolumenrabatte bei Wachstum.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Niedrigste Bearbeitungsgebühren illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q61",
+      "q62",
+      "q63"
+    ]
+  }
+}

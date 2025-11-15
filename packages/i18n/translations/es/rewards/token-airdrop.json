@@ -1,0 +1,93 @@
+{
+  "title": "Token & Airdrop | diBoaS",
+  "description": "Sé un early adopter.",
+  "hero": {
+    "title": "Sé un early adopter. Gana tokens exclusivos y forma parte de la revolución OneFi.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Sé un early adopter",
+    "description": "Gana tokens exclusivos de la plataforma.",
+    "cards": {
+      "governanceToken": {
+        "iconAlt": "Governance token icon",
+        "title": "Token de Gobernanza",
+        "description": "Voz en las decisiones de la plataforma.\nMás comprometido, más tokens.\nComunidad que realmente gobierna."
+      },
+      "airdropsForActiveUsers": {
+        "iconAlt": "Airdrop icon",
+        "title": "Airdrops Para Usuarios Activos",
+        "description": "Distribución de tokens para usuarios y contribuyentes.\nRecompensa proporcional al compromiso.\nEarly adopters valorados."
+      },
+      "realUtility": {
+        "iconAlt": "Token utility icon",
+        "title": "Utilidad Real",
+        "description": "Usa tokens para descontar comisiones.\nAccede a funciones premium.\nNo es especulación, es valor de uso."
+      },
+      "transparentRoadmap": {
+        "iconAlt": "Roadmap icon",
+        "title": "Hoja de Ruta Transparente",
+        "description": "Distribución planeada y comunicada.\nSin sorpresas, sin manipulación.\nTokenomics responsable."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Sé parte de la revolución.",
+    "subtitle": "Token diBoaS: recompensado por construir juntos.",
+    "cards": {
+      "airdropForEarlyUsers": {
+        "title": "Airdrop Para Early Users",
+        "description": "Usa la plataforma, gana tokens.\nMientras antes empieces, más tokens.\nRecompensado por creer primero.",
+        "imageAlt": "Airdrop Para Early Users illustration"
+      },
+      "realGovernance": {
+        "title": "Gobernanza Real",
+        "description": "Tokens dan voz en decisiones de la plataforma.\nVota en features, cambios, direcciones.\nLos usuarios deciden el futuro.",
+        "imageAlt": "Gobernanza Real illustration"
+      },
+      "tokenStaking": {
+        "title": "Staking de Tokens",
+        "description": "Haz stake y gana rendimiento adicional.\nMás ventajas en tarifas y beneficios.\nMantener recompensado.",
+        "imageAlt": "Staking de Tokens illustration"
+      },
+      "appreciationTogether": {
+        "title": "Apreciación Conjunta",
+        "description": "Mientras más crece la plataforma, más vale.\nNo eres solo usuario, eres stakeholder.\nCrecemos juntos de verdad.",
+        "imageAlt": "Apreciación Conjunta illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Posee Parte de la Plataforma",
+        "description": "Token diBoaS para usuarios activos.\nGobernanza y recompensas de la plataforma.\nLos primeros usuarios obtienen los mayores airdrops.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Posee Parte de la Plataforma illustration"
+      },
+      "simplicity": {
+        "title": "Distribución Automática de Tokens",
+        "description": "✓ Sin necesidad de reclamar manualmente\n✓ Tokens basados en actividad\n✓ Cronograma claro de distribución\nRecompensado por creer temprano.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Distribución Automática de Tokens illustration"
+      },
+      "rewards": {
+        "title": "Crece Con la Plataforma",
+        "description": "Valor del token vinculado al éxito de la plataforma.\nOportunidades adicionales de rendimiento.\nPropiedad comunitaria, prosperidad compartida.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Crece Con la Plataforma illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q91",
+      "q92",
+      "q93"
+    ]
+  }
+}

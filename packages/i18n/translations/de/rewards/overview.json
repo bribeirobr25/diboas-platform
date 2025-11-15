@@ -1,0 +1,98 @@
+{
+  "title": "diBoaS Rewards | diBoaS",
+  "description": "Belohnungen, die wirklich zählen.",
+  "hero": {
+    "title": "Belohnungen, die wirklich zählen. Lerne, wachse und werde anerkannt für jeden Meilenstein.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Belohnungen, die wirklich zählen",
+    "description": "Je mehr du wächst, desto mehr verdienst du.",
+    "cards": {
+      "unifiedPointsSystem": {
+        "iconAlt": "Points system icon",
+        "title": "Einheitliches Punktesystem",
+        "description": "Jede Aktion bringt Punkte.\nInvestieren, lernen, empfehlen, engagieren.\nPunkte werden zu echten Vorteilen."
+      },
+      "achievementBadges": {
+        "iconAlt": "Badge icon",
+        "title": "Erfolgs-Badges",
+        "description": "Zeige deine finanziellen Leistungen.\nErstes Investment, Ziel erreicht, Kurs abgeschlossen.\nGamification, die bildet."
+      },
+      "communityLeaderboard": {
+        "iconAlt": "Leaderboard icon",
+        "title": "Community-Bestenliste",
+        "description": "Sieh, wo du stehst.\nGesunder Wettbewerb.\nInspiration von denen, die wachsen."
+      },
+      "exclusiveBenefits": {
+        "iconAlt": "VIP benefits icon",
+        "title": "Exklusive Vorteile",
+        "description": "Früher Zugang zu Features.\nKostenlose VIP-Kurse.\nEvents mit Experten."
+      },
+      "realCashback": {
+        "iconAlt": "Cashback icon",
+        "title": "Echtes Cashback",
+        "description": "Geld zurück bei Transaktionen.\nKeine Punkte, die verfallen.\nEs ist Geld, das zu dir zurückkommt."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Belohnungen die zählen.",
+    "subtitle": "Je mehr Sie nutzen, desto mehr verdienen Sie.",
+    "cards": {
+      "pointsForEverything": {
+        "title": "Punkte für alles",
+        "description": "Investieren, lernen, empfehlen, teilnehmen.\nJede Aktion bringt Punkte.\nJeder Punkt bringt Belohnungen.",
+        "imageAlt": "Punkte für alles illustration"
+      },
+      "realCashback": {
+        "title": "Echtes Cashback",
+        "description": "Bekommen Sie Teil Ihrer Transaktionen zurück.\nGeld auf dem Konto, keine ablaufenden Punkte.\nBelohnungen die sich lohnen.",
+        "imageAlt": "Echtes Cashback illustration"
+      },
+      "vipAccess": {
+        "title": "VIP-Zugang",
+        "description": "Exklusive Kurse, besondere Events.\nPremium-Inhalte für Top-Nutzer.\nMehr nutzen, mehr Zugang.",
+        "imageAlt": "VIP-Zugang illustration"
+      },
+      "gamificationThatTeaches": {
+        "title": "Gamification die lehrt",
+        "description": "Herausforderungen, Badges, Rankings.\nLernen während Sie konkurrieren.\nSpaßige Finanzbildung.",
+        "imageAlt": "Gamification die lehrt illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Prämien, die zählen",
+        "description": "Punkte, Cashback, Abzeichen und Token.\nJede Aktion wird belohnt.\nGamifizierte Finanzen, die sich auszahlen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Prämien, die zählen illustration"
+      },
+      "simplicity": {
+        "title": "Automatisches Tracking",
+        "description": "✓ Punkte fürs Lernen\n✓ Cashback bei Transaktionen\n✓ Boni für Empfehlungen\nKeine Formulare, kein Aufwand. Nur Prämien.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Automatisches Tracking illustration"
+      },
+      "rewards": {
+        "title": "Einlösen wie Sie möchten",
+        "description": "Bargeld, Krypto, Gutscheine oder reinvestieren.\nIhre Prämien, Ihre Wahl.\nWert, den Sie tatsächlich nutzen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Einlösen wie Sie möchten illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q73",
+      "q74",
+      "q75"
+    ]
+  }
+}

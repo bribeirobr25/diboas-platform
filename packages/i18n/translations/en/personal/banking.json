@@ -1,0 +1,93 @@
+{
+  "title": "Banking | diBoaS",
+  "description": "Your money without borders. Deposit, send, and receive in real-time.",
+  "hero": {
+    "title": "Your money without borders. Deposit, send, and receive in real-time, all from your app.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Banking without borders, without complications",
+    "description": "Your money moves freely worldwide.",
+    "cards": {
+      "instantTransfersPix": {
+        "iconAlt": "Instant transfer icon",
+        "title": "Instant Transfers & Pix",
+        "description": "Send and receive money in seconds.\n24/7, including holidays.\nReal-time, every time."
+      },
+      "borderlessMoney": {
+        "iconAlt": "International money icon",
+        "title": "Borderless: Money Without Limits",
+        "description": "Send money to any country.\nTransparent fees, fair exchange rates.\nWay cheaper than traditional banks."
+      },
+      "realTimeNotifications": {
+        "iconAlt": "Notification icon",
+        "title": "Real-Time Notifications",
+        "description": "Every transaction triggers instant alerts.\nYou always know what's happening.\nSecurity you can feel."
+      },
+      "transparentHistory": {
+        "iconAlt": "History icon",
+        "title": "Transparent History",
+        "description": "See all your transactions clearly.\nFilter by date, type, or amount.\nExport whenever you need."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Banking without the headache.",
+    "subtitle": "Everything you need to do with your money, done right.",
+    "cards": {
+      "borderlessTransfers": {
+        "title": "Borderless Transfers",
+        "description": "Send and receive money anywhere in the world.\nReal-time, transparent fees.\nNo surprises along the way.",
+        "imageAlt": "Borderless Transfers illustration"
+      },
+      "oneClickPayments": {
+        "title": "1-Click Payments",
+        "description": "Pix, bills, recurring payments.\nSet it up once, pay whenever you need.\nFast and secure.",
+        "imageAlt": "1-Click Payments illustration"
+      },
+      "historyThatMakesSense": {
+        "title": "History That Makes Sense",
+        "description": "See every transaction clearly.\nFilter, search, and export whenever you want.\nYour finances organized like never before.",
+        "imageAlt": "History That Makes Sense illustration"
+      },
+      "realTimeControl": {
+        "title": "Real-Time Control",
+        "description": "Instant notifications for every transaction.\nYou always know what's happening\nwith your money.",
+        "imageAlt": "Real-Time Control illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Borderless Banking",
+        "description": "Send and receive money globally.\nNo borders, no waiting.\nYour money moves at the speed of light.",
+        "ctaText": "Get Started",
+        "imageAlt": "Borderless Banking illustration"
+      },
+      "simplicity": {
+        "title": "Instant Everything",
+        "description": "✓ Real-time transfers via Pix\n✓ International wire in seconds\n✓ Pay bills with one tap\nBanking shouldn't be complicated.",
+        "ctaText": "Get Started",
+        "imageAlt": "Instant Everything illustration"
+      },
+      "rewards": {
+        "title": "Transparent Fees",
+        "description": "Only 0.9% for external transfers.\nEverything else? Free.\nNo hidden charges. Ever.",
+        "ctaText": "Get Started",
+        "imageAlt": "Transparent Fees illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q9",
+      "q10",
+      "q11"
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "title": "DeFi Strategies | diBoaS",
+  "description": "Professional investment strategies designed for you.",
+  "hero": {
+    "title": "Professional investment strategies designed for you. Choose your pace and let your money work for itself.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "DeFi built for humans",
+    "description": "High yields without needing a PhD in blockchain.",
+    "cards": {
+      "strategiesCuratedByExperts": {
+        "iconAlt": "Expert curation icon",
+        "title": "Strategies Curated By Experts",
+        "description": "Professional team selects the best opportunities.\nYou just choose and activate.\nComplexity? We handle it."
+      },
+      "yieldsBanksDontOffer": {
+        "iconAlt": "High yield icon",
+        "title": "Yields Banks Don't Offer",
+        "description": "Access to global returns via DeFi.\nReturns far superior to traditional.\nTransparent risk, clear rewards."
+      },
+      "coralGuidesAdvancedJourney": {
+        "iconAlt": "Coral guide icon",
+        "title": "Coral Guides Your Advanced Journey",
+        "description": "When you're ready, Coral appears.\nShe helps with sophisticated strategies.\nAutomatic risk balancing."
+      },
+      "enterExitAnytime": {
+        "iconAlt": "Liquidity icon",
+        "title": "Enter and Exit Anytime",
+        "description": "No ridiculous lock-ups.\nYou control when to start and stop.\nLiquidity when you need it."
+      },
+      "defiEducationIncluded": {
+        "iconAlt": "DeFi education icon",
+        "title": "DeFi Education Included",
+        "description": "Understand staking, liquidity pools, yield farming.\nNo jargon, with practical examples.\nKnowledge = Control."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Professional strategies for everyone.",
+    "subtitle": "Complicated DeFi made simple. High yields made accessible.",
+    "cards": {
+      "yieldsWorthYourTime": {
+        "title": "Yields Worth Your Time",
+        "description": "Earn up to 3x more than traditional investments.\nDeFi simplified by diBoaS.\nReal yields, accessible to all.",
+        "imageAlt": "Yields Worth Your Time illustration"
+      },
+      "readyMadeStrategies": {
+        "title": "Ready-Made Strategies",
+        "description": "Emergency Fund, Balanced Growth,\nHigh Yield. Choose, activate, done.\nNo complex setup.",
+        "imageAlt": "Ready-Made Strategies illustration"
+      },
+      "riskUnderControl": {
+        "title": "Risk Under Control",
+        "description": "Coral explains every risk clearly.\nYou choose the balance between safety and returns.\nAlways informed decisions.",
+        "imageAlt": "Risk Under Control illustration"
+      },
+      "stopWheneverYouWant": {
+        "title": "Stop Whenever You Want",
+        "description": "Start/Stop in seconds.\nYour money comes back to you in real-time.\nNo locks, no penalties.",
+        "imageAlt": "Stop Whenever You Want illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Professional Strategies Made Simple",
+        "description": "Emergency funds, travel goals, retirement.\nPre-built DeFi strategies for every need.\nSet it and watch it grow.",
+        "ctaText": "Get Started",
+        "imageAlt": "Professional Strategies Made Simple illustration"
+      },
+      "simplicity": {
+        "title": "Just Tell Us Your Goal",
+        "description": "\"Save $5,000 for a vacation\"\n\"Build a 6-month emergency fund\"\nCoral designs the perfect strategy.\nNo financial degree required.",
+        "ctaText": "Get Started",
+        "imageAlt": "Just Tell Us Your Goal illustration"
+      },
+      "rewards": {
+        "title": "Higher Yields, Lower Risk",
+        "description": "✓ Diversified DeFi protocols\n✓ Automated rebalancing\n✓ Bonus yields for active users\nSmart investing on autopilot.",
+        "ctaText": "Get Started",
+        "imageAlt": "Higher Yields, Lower Risk illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q30",
+      "q31",
+      "q32"
+    ]
+  }
+}

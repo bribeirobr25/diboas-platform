@@ -1,0 +1,93 @@
+{
+  "title": "Guías IA | diBoaS",
+  "description": "Conoce a tus guías personales.",
+  "hero": {
+    "title": "Conoce a tus guías personales. Aqua, Mystic y Coral evolucionan contigo, del principiante al experto.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Tus guías personales en el viaje",
+    "description": "Aqua, Mystic y Coral evolucionan contigo.",
+    "cards": {
+      "aquaYourBeginnerFriend": {
+        "iconAlt": "Aqua mascot icon",
+        "title": "Aqua: Tu Amiga Principiante",
+        "description": "Guía tus primeros pasos.\nExplica cada término, cada acción.\nPaciencia infinita, conocimiento práctico."
+      },
+      "mysticTheWiseAdvisor": {
+        "iconAlt": "Mystic mascot icon",
+        "title": "Mystic: La Consejera Sabia",
+        "description": "Aparece cuando dominas lo básico.\nTe presenta inversiones más sofisticadas.\nEstrategias de crecimiento real."
+      },
+      "coralTheYieldExpert": {
+        "iconAlt": "Coral mascot icon",
+        "title": "Coral: La Experta en Rendimientos",
+        "description": "Desbloqueada para usuarios avanzados.\nEstrategias DeFi, balance de riesgo.\nMaximización de retornos."
+      },
+      "behavioralIntelligence": {
+        "iconAlt": "AI intelligence icon",
+        "title": "Inteligencia Conductual",
+        "description": "Las mascotas perciben tu progreso real.\nNo fuerzan complejidad prematura.\nEvolución a tu ritmo."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Tus guías personales.",
+    "subtitle": "Evolucionan contigo, de cero a avanzado.",
+    "cards": {
+      "aquaYourFirstStep": {
+        "title": "Aqua: Tu Primer Paso",
+        "description": "El amigo que te guía al principio.\nExplica todo, sin prisa.\nEmpezar se volvió fácil.",
+        "imageAlt": "Aqua: Tu Primer Paso illustration"
+      },
+      "mysticSmartGrowth": {
+        "title": "Mystic: Crecimiento Inteligente",
+        "description": "Aparece cuando estás listo para más.\nEstrategias, diversificación, planeación.\nTu asesor personal.",
+        "imageAlt": "Mystic: Crecimiento Inteligente illustration"
+      },
+      "coralHighYields": {
+        "title": "Coral: Altos Rendimientos",
+        "description": "El cazador de oportunidades avanzadas.\nDeFi, rendimientos altos, estrategias complejas.\nPara cuando dominas el juego.",
+        "imageAlt": "Coral: Altos Rendimientos illustration"
+      },
+      "aiThatKnowsYou": {
+        "title": "IA Que Te Conoce",
+        "description": "Aprende de tu comportamiento.\nRecomendaciones personalizadas.\nGuías que realmente te entienden.",
+        "imageAlt": "IA Que Te Conoce illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Conoce a Tus Compañeros Financieros",
+        "description": "Aqua, Mystic y Coral.\nTres guías IA para cada etapa.\nCrecen mientras tú creces.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Conoce a Tus Compañeros Financieros illustration"
+      },
+      "simplicity": {
+        "title": "Orientación Personalizada",
+        "description": "✓ Aqua para principiantes\n✓ Mystic para inversores\n✓ Coral para DeFi avanzado\nLa ayuda correcta en el momento correcto.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Orientación Personalizada illustration"
+      },
+      "rewards": {
+        "title": "Evolucionen Juntos",
+        "description": "Desbloquea nuevas habilidades de mascotas.\nDesbloquea funciones avanzadas mientras progresas.\nTu viaje, personalizado.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Evolucionen Juntos illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q76",
+      "q77",
+      "q78"
+    ]
+  }
+}

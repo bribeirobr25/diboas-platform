@@ -1,0 +1,98 @@
+{
+  "title": "Investment Guide | diBoaS",
+  "description": "Your complete guide to investing with confidence.",
+  "hero": {
+    "title": "Your complete guide to investing with confidence. From basics to advanced, all explained.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Complete guide to investing confidently",
+    "description": "From basics to advanced, all explained.",
+    "cards": {
+      "investmentTypesExplained": {
+        "iconAlt": "Investment types icon",
+        "title": "Investment Types Explained",
+        "description": "Stocks, bonds, funds, crypto, real estate.\nWhat each is, how they work.\nRisks and returns for each type."
+      },
+      "smartDiversification": {
+        "iconAlt": "Diversification icon",
+        "title": "Smart Diversification",
+        "description": "Why not to put everything in one basket.\nHow to balance your portfolio.\nProtection and growth together."
+      },
+      "assetAnalysis": {
+        "iconAlt": "Analysis icon",
+        "title": "Asset Analysis",
+        "description": "How to evaluate if something's worth it.\nFundamentals vs speculation.\nData-driven decisions."
+      },
+      "longTermStrategies": {
+        "iconAlt": "Long-term icon",
+        "title": "Long-Term Strategies",
+        "description": "Buy and hold, dollar cost averaging.\nPower of compound interest.\nPatience that builds wealth."
+      },
+      "riskManagement": {
+        "iconAlt": "Risk management icon",
+        "title": "Risk Management",
+        "description": "How much can you afford to lose?\nStop loss, hedging, insurance.\nProtect what you've built."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Investing is simpler than it seems.",
+    "subtitle": "From first investment to diversified portfolio.",
+    "cards": {
+      "typesOfInvestments": {
+        "title": "Types of Investments",
+        "description": "Stocks, bonds, crypto, real estate, gold.\nUnderstand each option, risks and returns.\nChoose with knowledge.",
+        "imageAlt": "Types of Investments illustration"
+      },
+      "buildYourPortfolio": {
+        "title": "Build Your Portfolio",
+        "description": "Smart diversification.\nBalance risk and return.\nYour profile, your portfolio.",
+        "imageAlt": "Build Your Portfolio illustration"
+      },
+      "strategiesThatWork": {
+        "title": "Strategies That Work",
+        "description": "Long-term, Dollar Cost Average, rebalancing.\nTactics tested by millions of investors.\nFollow what works.",
+        "imageAlt": "Strategies That Work illustration"
+      },
+      "mistakesToAvoid": {
+        "title": "Mistakes to Avoid",
+        "description": "Learn from those who already failed.\nPanic, FOMO, lack of patience.\nAvoid common traps.",
+        "imageAlt": "Mistakes to Avoid illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Complete Investment Education",
+        "description": "Stocks, bonds, funds, and alternatives.\nLearn traditional and modern strategies.\nEverything you need to build wealth.",
+        "ctaText": "Get Started",
+        "imageAlt": "Complete Investment Education illustration"
+      },
+      "simplicity": {
+        "title": "From Theory to Practice",
+        "description": "✓ Step-by-step video lessons\n✓ Portfolio building exercises\n✓ Risk management fundamentals\nApply what you learn immediately.",
+        "ctaText": "Get Started",
+        "imageAlt": "From Theory to Practice illustration"
+      },
+      "rewards": {
+        "title": "Unlock Advanced Features",
+        "description": "Complete courses to access pro tools.\nAdvanced analytics and insights.\nEducation opens doors.",
+        "ctaText": "Get Started",
+        "imageAlt": "Unlock Advanced Features illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q20",
+      "q21",
+      "q22"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Careers | diBoaS",
+  "description": "Build the future of finance with us.",
+  "hero": {
+    "title": "Build the future of finance with us. Join the team democratizing access.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Build the future of finance",
+    "description": "Join the team changing the game.",
+    "cards": {
+      "innovationCulture": {
+        "iconAlt": "Innovation icon",
+        "title": "Innovation Culture",
+        "description": "Ideas valued, not hierarchy.\nExperimentation encouraged.\nLearn by doing, fail fast."
+      },
+      "realImpact": {
+        "iconAlt": "Impact icon",
+        "title": "Real Impact",
+        "description": "Your work democratizes access.\nMillions of people benefit.\nPurpose beyond the paycheck."
+      },
+      "acceleratedGrowth": {
+        "iconAlt": "Growth icon",
+        "title": "Accelerated Growth",
+        "description": "Startup in expansion phase.\nGrowing responsibilities.\nCareer that scales with company."
+      },
+      "competitiveBenefits": {
+        "iconAlt": "Benefits icon",
+        "title": "Competitive Benefits",
+        "description": "Equity ownership, flexible remote work.\nLearning budget.\nTeam that values balance."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Build the future of finance with us.",
+    "subtitle": "Join the team redefining OneFi.",
+    "cards": {
+      "realImpact": {
+        "title": "Real Impact",
+        "description": "Your work changes financial lives.\nMillions of people impacted.\nPurpose that motivates.",
+        "imageAlt": "Real Impact illustration"
+      },
+      "firstClassTeam": {
+        "title": "First-Class Team",
+        "description": "Work with industry's best.\nLearn while building.\nAccelerated growth.",
+        "imageAlt": "First-Class Team illustration"
+      },
+      "innovationCulture": {
+        "title": "Innovation Culture",
+        "description": "Your ideas are heard.\nExperimentation is encouraged.\nFailures are learnings.",
+        "imageAlt": "Innovation Culture illustration"
+      },
+      "uniqueBenefits": {
+        "title": "Unique Benefits",
+        "description": "Equity, remote work, continuous education.\nEarly access to features.\nWe all grow together.",
+        "imageAlt": "Unique Benefits illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Build the Future",
+        "description": "Join a mission-driven team.\nWork on cutting-edge fintech.\nShape how millions manage money.",
+        "ctaText": "Get Started",
+        "imageAlt": "Build the Future illustration"
+      },
+      "simplicity": {
+        "title": "Culture of Innovation",
+        "description": "✓ Remote-first workplace\n✓ Equity for all team members\n✓ Learning and growth focus\nWhere talent meets opportunity.",
+        "ctaText": "Get Started",
+        "imageAlt": "Culture of Innovation illustration"
+      },
+      "rewards": {
+        "title": "Competitive Benefits",
+        "description": "Top-tier compensation and equity.\nHealth, wellness, and development support.\nInvest in us, we invest in you.",
+        "ctaText": "Get Started",
+        "imageAlt": "Competitive Benefits illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q106",
+      "q107",
+      "q108"
+    ]
+  }
+}

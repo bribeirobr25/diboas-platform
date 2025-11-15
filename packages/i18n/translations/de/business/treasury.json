@@ -1,0 +1,93 @@
+{
+  "title": "Treasury | diBoaS",
+  "description": "Intelligentes Treasury Management.",
+  "hero": {
+    "title": "Intelligentes Treasury Management. Dein Kapital arbeitet 24/7 für dein Geschäft.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Intelligentes Treasury-Management",
+    "description": "Dein Kapital arbeitet 24/7.",
+    "cards": {
+      "automaticInvestment": {
+        "iconAlt": "Auto investment icon",
+        "title": "Automatisches Investment",
+        "description": "Ungenutztes Geld geht in sichere Investments.\nAuto-Rückkauf, wenn du es brauchst.\nNull Aufwand, maximale Renditen."
+      },
+      "personalizedStrategies": {
+        "iconAlt": "Strategy icon",
+        "title": "Personalisierte Strategien",
+        "description": "Das Risikoprofil deines Unternehmens.\nNotwendige Liquidität berücksichtigt.\nMaßgeschneiderte Optimierung."
+      },
+      "cashFlowProjection": {
+        "iconAlt": "Projection icon",
+        "title": "Cashflow-Prognose",
+        "description": "KI prognostiziert Ein- und Ausflüsse.\nWarnungen für potenzielle Lücken.\nPlane im Voraus."
+      },
+      "multiAccountConsolidation": {
+        "iconAlt": "Consolidation icon",
+        "title": "Multi-Konto-Konsolidierung",
+        "description": "Sieh alles in einem Dashboard.\nKonten bei verschiedenen Banken.\nGanzheitliche Treasury-Ansicht."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Treasury die für Sie arbeitet.",
+    "subtitle": "Ihr Kapital verdient immer, ist immer verfügbar.",
+    "cards": {
+      "overnightReturns": {
+        "title": "Overnight-Renditen",
+        "description": "Ruhendes Geld verdient 100% des CDI.\nTägliche Liquidität, kein Kapital gebunden.\nTreasury automatisch optimiert.",
+        "imageAlt": "Overnight-Renditen illustration"
+      },
+      "corporateInvestments": {
+        "title": "Unternehmens-Investments",
+        "description": "Investment-Optionen für langfristiges Kapital.\nAktien, Anleihen, Unternehmens-Krypto.\nFirmenvermögen diversifizieren.",
+        "imageAlt": "Unternehmens-Investments illustration"
+      },
+      "cashFlowForecast": {
+        "title": "Cashflow-Prognose",
+        "description": "KI prognostiziert Zu- und Abflüsse.\nLiquiditätsbedarf antizipieren.\nPlanung die funktioniert.",
+        "imageAlt": "Cashflow-Prognose illustration"
+      },
+      "executiveReports": {
+        "title": "Executive Reports",
+        "description": "Dashboard mit allen wichtigen Kennzahlen.\nRenditen, Anlagen, Verfügbar.\nKomplette Treasury-Übersicht.",
+        "imageAlt": "Executive Reports illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Optimieren Sie Ihre Liquidität",
+        "description": "Automatisiertes Treasury-Management.\nÜberschüssige Liquidität bringt automatisch Rendite.\nIntelligentes Cash-Management für Unternehmen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Optimieren Sie Ihre Liquidität illustration"
+      },
+      "simplicity": {
+        "title": "Legen Sie Ihre Regeln fest",
+        "description": "✓ Definieren Sie minimale Betriebsliquidität\n✓ Investieren Sie Überschüsse automatisch\n✓ Sofortige Liquidität bei Bedarf\nTreasury-Management auf Autopilot.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Legen Sie Ihre Regeln fest illustration"
+      },
+      "rewards": {
+        "title": "Maximale Erträge",
+        "description": "Zugang zu mehreren Rendite-Strategien.\nDiversifizierte, risikoarme Optionen.\nIhr Cash arbeitet 24/7 für Ihr Geschäft.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Maximale Erträge illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q64",
+      "q65",
+      "q66"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Points System | diBoaS",
+  "description": "Every action earns points. Every point unlocks growth.",
+  "hero": {
+    "title": "Every action earns points. Every point unlocks growth. Collect and unlock benefits.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Every action earns points",
+    "description": "Accumulate and unlock benefits.",
+    "cards": {
+      "earnByInvesting": {
+        "iconAlt": "Investment points icon",
+        "title": "Earn By Investing",
+        "description": "Points for each transaction.\nThe more you invest, the more you accumulate.\nIncentive to grow your wealth."
+      },
+      "earnByLearning": {
+        "iconAlt": "Learning points icon",
+        "title": "Earn By Learning",
+        "description": "Complete courses, earn points.\nWatch content, get rewarded.\nFinancial education valued."
+      },
+      "earnByEngaging": {
+        "iconAlt": "Engagement points icon",
+        "title": "Earn By Engaging",
+        "description": "Participate in the community.\nHelp other users.\nContribution recognized."
+      },
+      "redeemForBenefits": {
+        "iconAlt": "Redeem points icon",
+        "title": "Redeem For Benefits",
+        "description": "Use points to discount fees.\nAccess premium courses.\nRewards marketplace."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Every action earns points.",
+    "subtitle": "Use more, earn more, grow more.",
+    "cards": {
+      "pointsForInvesting": {
+        "title": "Points for Investing",
+        "description": "Buy assets, earn points.\nUse strategies, earn more.\nYour growth rewarded.",
+        "imageAlt": "Points for Investing illustration"
+      },
+      "pointsForLearning": {
+        "title": "Points for Learning",
+        "description": "Complete courses, earn points.\nJoin webinars, earn more.\nKnowledge rewarded.",
+        "imageAlt": "Points for Learning illustration"
+      },
+      "pointsForEngaging": {
+        "title": "Points for Engaging",
+        "description": "Help community, earn points.\nCreate content, earn even more.\nContribution valued.",
+        "imageAlt": "Points for Engaging illustration"
+      },
+      "redeemForBenefits": {
+        "title": "Redeem for Benefits",
+        "description": "Cashback, premium courses, VIP access.\nYour points become real advantages.\nSystem worth it.",
+        "imageAlt": "Redeem for Benefits illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Every Action Counts",
+        "description": "Transactions, learning, investments.\nEverything you do earns points.\nEngaged users earn more.",
+        "ctaText": "Get Started",
+        "imageAlt": "Every Action Counts illustration"
+      },
+      "simplicity": {
+        "title": "Transparent Point System",
+        "description": "✓ Clear earning rules\n✓ Real-time point balance\n✓ Multiple redemption options\nNo confusing fine print.",
+        "ctaText": "Get Started",
+        "imageAlt": "Transparent Point System illustration"
+      },
+      "rewards": {
+        "title": "Points Never Expire",
+        "description": "Accumulate at your pace.\nSave for big redemptions.\nYour points, your timeline.",
+        "ctaText": "Get Started",
+        "imageAlt": "Points Never Expire illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q82",
+      "q83",
+      "q84"
+    ]
+  }
+}

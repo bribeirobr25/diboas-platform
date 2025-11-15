@@ -1,0 +1,98 @@
+{
+  "title": "Guía de Inversiones | diBoaS",
+  "description": "Tu guía completa para invertir con confianza.",
+  "hero": {
+    "title": "Tu guía completa para invertir con confianza. Desde lo básico hasta lo avanzado, todo en un lugar.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Guía completa para invertir con confianza",
+    "description": "Desde lo básico hasta lo avanzado, todo explicado.",
+    "cards": {
+      "investmentTypesExplained": {
+        "iconAlt": "Investment types icon",
+        "title": "Tipos de Inversión Explicados",
+        "description": "Acciones, bonos, fondos, crypto, inmuebles.\nQué es cada uno, cómo funcionan.\nRiesgos y retornos de cada tipo."
+      },
+      "smartDiversification": {
+        "iconAlt": "Diversification icon",
+        "title": "Diversificación Inteligente",
+        "description": "Por qué no poner todo en una canasta.\nCómo balancear tu portafolio.\nProtección y crecimiento juntos."
+      },
+      "assetAnalysis": {
+        "iconAlt": "Analysis icon",
+        "title": "Análisis de Activos",
+        "description": "Cómo evaluar si algo vale la pena.\nFundamentos vs especulación.\nDecisiones basadas en datos."
+      },
+      "longTermStrategies": {
+        "iconAlt": "Long-term icon",
+        "title": "Estrategias de Largo Plazo",
+        "description": "Buy and hold, promedio del costo.\nPoder del interés compuesto.\nPaciencia que construye riqueza."
+      },
+      "riskManagement": {
+        "iconAlt": "Risk management icon",
+        "title": "Gestión de Riesgo",
+        "description": "¿Cuánto puedes permitirte perder?\nStop loss, hedging, seguros.\nProtege lo que has construido."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Invertir es más simple de lo que parece.",
+    "subtitle": "De la primera inversión al portafolio diversificado.",
+    "cards": {
+      "typesOfInvestments": {
+        "title": "Tipos de Inversión",
+        "description": "Acciones, bonos, crypto, bienes raíces, oro.\nEntiende cada opción, riesgos y retornos.\nElige con conocimiento.",
+        "imageAlt": "Tipos de Inversión illustration"
+      },
+      "buildYourPortfolio": {
+        "title": "Construye Tu Portafolio",
+        "description": "Diversificación inteligente.\nBalancea riesgo y retorno.\nTu perfil, tu portafolio.",
+        "imageAlt": "Construye Tu Portafolio illustration"
+      },
+      "strategiesThatWork": {
+        "title": "Estrategias Que Funcionan",
+        "description": "Largo plazo, Dollar Cost Average, rebalanceo.\nTácticas probadas por millones de inversores.\nSigue lo que funciona.",
+        "imageAlt": "Estrategias Que Funcionan illustration"
+      },
+      "mistakesToAvoid": {
+        "title": "Errores a Evitar",
+        "description": "Aprende de quienes ya fallaron.\nPánico, FOMO, falta de paciencia.\nEvita trampas comunes.",
+        "imageAlt": "Errores a Evitar illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Educación Completa en Inversiones",
+        "description": "Acciones, bonos, fondos y alternativos.\nAprende estrategias tradicionales y modernas.\nTodo lo que necesitas para construir patrimonio.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Educación Completa en Inversiones illustration"
+      },
+      "simplicity": {
+        "title": "De la Teoría a la Práctica",
+        "description": "✓ Video-lecciones paso a paso\n✓ Ejercicios de construcción de portafolio\n✓ Fundamentos de gestión de riesgo\nAplica lo aprendido inmediatamente.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "De la Teoría a la Práctica illustration"
+      },
+      "rewards": {
+        "title": "Desbloquea Funciones Avanzadas",
+        "description": "Completa cursos para acceder a herramientas pro.\nAnálisis e insights avanzados.\nLa educación abre puertas.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Desbloquea Funciones Avanzadas illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q20",
+      "q21",
+      "q22"
+    ]
+  }
+}
