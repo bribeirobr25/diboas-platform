@@ -37,8 +37,8 @@ export default async function BenefitsPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['why-diboas']);
+  // Load page-specific namespaces (why-diboas + shared components: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['why-diboas', 'home', 'faq']);
 
   // Generate structured data for the benefits page
   const serviceData = MetadataFactory.generateServiceStructuredData({
