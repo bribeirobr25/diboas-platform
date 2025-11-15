@@ -26,8 +26,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'why-diboas': {
     content: {
-      title: 'marketing.pages.why-diboas.hero.title',
-      ctaText: 'marketing.pages.why-diboas.hero.cta',
+      title: 'marketing.pages.whyDiboas.hero.title',
+      ctaText: 'marketing.pages.whyDiboas.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -198,8 +198,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'learn-overview': {
     content: {
-      title: 'marketing.pages.learn.overview.hero.title',
-      ctaText: 'marketing.pages.learn.overview.hero.cta',
+      title: 'marketing.pages.learnOverview.hero.title',
+      ctaText: 'marketing.pages.learnOverview.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -358,8 +358,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'business-advantages': {
     content: {
-      title: 'marketing.pages.business.advantages.hero.title',
-      ctaText: 'marketing.pages.business.advantages.hero.cta',
+      title: 'marketing.pages.businessAdvantages.hero.title',
+      ctaText: 'marketing.pages.businessAdvantages.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -530,8 +530,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'rewards-overview': {
     content: {
-      title: 'marketing.pages.rewards.overview.hero.title',
-      ctaText: 'marketing.pages.rewards.overview.hero.cta',
+      title: 'marketing.pages.rewardsOverview.hero.title',
+      ctaText: 'marketing.pages.rewardsOverview.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -702,8 +702,8 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
 
   'security-protection': {
     content: {
-      title: 'marketing.pages.security.protection.hero.title',
-      ctaText: 'marketing.pages.security.protection.hero.cta',
+      title: 'marketing.pages.securityProtection.hero.title',
+      ctaText: 'marketing.pages.securityProtection.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },

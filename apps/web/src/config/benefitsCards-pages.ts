@@ -159,52 +159,52 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   /** 4. BENEFITS - diboas.com/benefits */
   'why-diboas': {
     section: {
-      title: 'marketing.pages.why-diboas.benefitsCards.title',
-      description: 'marketing.pages.why-diboas.benefitsCards.description',
+      title: 'marketing.pages.whyDiboas.benefitsCards.title',
+      description: 'marketing.pages.whyDiboas.benefitsCards.description',
       backgroundColor: 'light-purple'
     },
     cards: [
       {
         id: 'no-more-app-juggling',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.noMoreAppJuggling.iconAlt',
-        title: 'marketing.pages.why-diboas.benefitsCards.cards.noMoreAppJuggling.title',
-        description: 'marketing.pages.why-diboas.benefitsCards.cards.noMoreAppJuggling.description'
+        iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.noMoreAppJuggling.iconAlt',
+        title: 'marketing.pages.whyDiboas.benefitsCards.cards.noMoreAppJuggling.title',
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.noMoreAppJuggling.description'
       },
       {
         id: 'you-decide',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.youDecide.iconAlt',
-        title: 'marketing.pages.why-diboas.benefitsCards.cards.youDecide.title',
-        description: 'marketing.pages.why-diboas.benefitsCards.cards.youDecide.description'
+        iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.youDecide.iconAlt',
+        title: 'marketing.pages.whyDiboas.benefitsCards.cards.youDecide.title',
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.youDecide.description'
       },
       {
         id: 'money-never-sleeps',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.moneyNeverSleeps.iconAlt',
-        title: 'marketing.pages.why-diboas.benefitsCards.cards.moneyNeverSleeps.title',
-        description: 'marketing.pages.why-diboas.benefitsCards.cards.moneyNeverSleeps.description'
+        iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.moneyNeverSleeps.iconAlt',
+        title: 'marketing.pages.whyDiboas.benefitsCards.cards.moneyNeverSleeps.title',
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.moneyNeverSleeps.description'
       },
       {
         id: 'investing-becomes-easy',
         icon: '/assets/icons/investing.avif',
-        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.investingBecomesEasy.iconAlt',
-        title: 'marketing.pages.why-diboas.benefitsCards.cards.investingBecomesEasy.title',
-        description: 'marketing.pages.why-diboas.benefitsCards.cards.investingBecomesEasy.description'
+        iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.investingBecomesEasy.iconAlt',
+        title: 'marketing.pages.whyDiboas.benefitsCards.cards.investingBecomesEasy.title',
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.investingBecomesEasy.description'
       },
       {
         id: 'more-you-use',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.moreYouUse.iconAlt',
-        title: 'marketing.pages.why-diboas.benefitsCards.cards.moreYouUse.title',
-        description: 'marketing.pages.why-diboas.benefitsCards.cards.moreYouUse.description'
+        iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.moreYouUse.iconAlt',
+        title: 'marketing.pages.whyDiboas.benefitsCards.cards.moreYouUse.title',
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.moreYouUse.description'
       },
       {
         id: 'one-fi-platform',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.why-diboas.benefitsCards.cards.oneFiPlatform.iconAlt',
-        title: 'marketing.pages.why-diboas.benefitsCards.cards.oneFiPlatform.title',
-        description: 'marketing.pages.why-diboas.benefitsCards.cards.oneFiPlatform.description'
+        iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.oneFiPlatform.iconAlt',
+        title: 'marketing.pages.whyDiboas.benefitsCards.cards.oneFiPlatform.title',
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.oneFiPlatform.description'
       }
     ],
     seo: {
@@ -314,38 +314,38 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   /** 7. BUSINESSBENEFITS - diboas.com/business-benefits */
   'business-advantages': {
     section: {
-      title: 'marketing.pages.business.advantages.benefitsCards.title',
-      description: 'marketing.pages.business.advantages.benefitsCards.description',
+      title: 'marketing.pages.businessAdvantages.benefitsCards.title',
+      description: 'marketing.pages.businessAdvantages.benefitsCards.description',
       backgroundColor: 'light-purple'
     },
     cards: [
       {
         id: 'everything-integrated-for-business',
         icon: '/assets/icons/money-circle.avif',
-        iconAlt: 'marketing.pages.business.advantages.benefitsCards.cards.everythingIntegratedForBusiness.iconAlt',
-        title: 'marketing.pages.business.advantages.benefitsCards.cards.everythingIntegratedForBusiness.title',
-        description: 'marketing.pages.business.advantages.benefitsCards.cards.everythingIntegratedForBusiness.description'
+        iconAlt: 'marketing.pages.businessAdvantages.benefitsCards.cards.everythingIntegratedForBusiness.iconAlt',
+        title: 'marketing.pages.businessAdvantages.benefitsCards.cards.everythingIntegratedForBusiness.title',
+        description: 'marketing.pages.businessAdvantages.benefitsCards.cards.everythingIntegratedForBusiness.description'
       },
       {
         id: 'no-banking-bureaucracy',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.business.advantages.benefitsCards.cards.noBankingBureaucracy.iconAlt',
-        title: 'marketing.pages.business.advantages.benefitsCards.cards.noBankingBureaucracy.title',
-        description: 'marketing.pages.business.advantages.benefitsCards.cards.noBankingBureaucracy.description'
+        iconAlt: 'marketing.pages.businessAdvantages.benefitsCards.cards.noBankingBureaucracy.iconAlt',
+        title: 'marketing.pages.businessAdvantages.benefitsCards.cards.noBankingBureaucracy.title',
+        description: 'marketing.pages.businessAdvantages.benefitsCards.cards.noBankingBureaucracy.description'
       },
       {
         id: 'your-capital-always-earning',
         icon: '/assets/icons/rewards-medal.avif',
-        iconAlt: 'marketing.pages.business.advantages.benefitsCards.cards.yourCapitalAlwaysEarning.iconAlt',
-        title: 'marketing.pages.business.advantages.benefitsCards.cards.yourCapitalAlwaysEarning.title',
-        description: 'marketing.pages.business.advantages.benefitsCards.cards.yourCapitalAlwaysEarning.description'
+        iconAlt: 'marketing.pages.businessAdvantages.benefitsCards.cards.yourCapitalAlwaysEarning.iconAlt',
+        title: 'marketing.pages.businessAdvantages.benefitsCards.cards.yourCapitalAlwaysEarning.title',
+        description: 'marketing.pages.businessAdvantages.benefitsCards.cards.yourCapitalAlwaysEarning.description'
       },
       {
         id: 'total-control-visibility',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.business.advantages.benefitsCards.cards.totalControlVisibility.iconAlt',
-        title: 'marketing.pages.business.advantages.benefitsCards.cards.totalControlVisibility.title',
-        description: 'marketing.pages.business.advantages.benefitsCards.cards.totalControlVisibility.description'
+        iconAlt: 'marketing.pages.businessAdvantages.benefitsCards.cards.totalControlVisibility.iconAlt',
+        title: 'marketing.pages.businessAdvantages.benefitsCards.cards.totalControlVisibility.title',
+        description: 'marketing.pages.businessAdvantages.benefitsCards.cards.totalControlVisibility.description'
       }
     ],
     seo: {
@@ -946,38 +946,38 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   /** 20. LEARNBENEFITS - diboas.com/learn-benefits */
   'learn-overview': {
     section: {
-      title: 'marketing.pages.learn.overview.benefitsCards.title',
-      description: 'marketing.pages.learn.overview.benefitsCards.description',
+      title: 'marketing.pages.learnOverview.benefitsCards.title',
+      description: 'marketing.pages.learnOverview.benefitsCards.description',
       backgroundColor: 'light-purple'
     },
     cards: [
       {
         id: 'from-zero-to-advanced',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.learn.overview.benefitsCards.cards.fromZeroToAdvanced.iconAlt',
-        title: 'marketing.pages.learn.overview.benefitsCards.cards.fromZeroToAdvanced.title',
-        description: 'marketing.pages.learn.overview.benefitsCards.cards.fromZeroToAdvanced.description'
+        iconAlt: 'marketing.pages.learnOverview.benefitsCards.cards.fromZeroToAdvanced.iconAlt',
+        title: 'marketing.pages.learnOverview.benefitsCards.cards.fromZeroToAdvanced.title',
+        description: 'marketing.pages.learnOverview.benefitsCards.cards.fromZeroToAdvanced.description'
       },
       {
         id: 'curated-up-to-date-content',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.learn.overview.benefitsCards.cards.curatedUpToDateContent.iconAlt',
-        title: 'marketing.pages.learn.overview.benefitsCards.cards.curatedUpToDateContent.title',
-        description: 'marketing.pages.learn.overview.benefitsCards.cards.curatedUpToDateContent.description'
+        iconAlt: 'marketing.pages.learnOverview.benefitsCards.cards.curatedUpToDateContent.iconAlt',
+        title: 'marketing.pages.learnOverview.benefitsCards.cards.curatedUpToDateContent.title',
+        description: 'marketing.pages.learnOverview.benefitsCards.cards.curatedUpToDateContent.description'
       },
       {
         id: 'learn-by-doing',
         icon: '/assets/icons/learn.avif',
-        iconAlt: 'marketing.pages.learn.overview.benefitsCards.cards.learnByDoing.iconAlt',
-        title: 'marketing.pages.learn.overview.benefitsCards.cards.learnByDoing.title',
-        description: 'marketing.pages.learn.overview.benefitsCards.cards.learnByDoing.description'
+        iconAlt: 'marketing.pages.learnOverview.benefitsCards.cards.learnByDoing.iconAlt',
+        title: 'marketing.pages.learnOverview.benefitsCards.cards.learnByDoing.title',
+        description: 'marketing.pages.learnOverview.benefitsCards.cards.learnByDoing.description'
       },
       {
         id: 'earn-while-you-learn',
         icon: '/assets/icons/learn.avif',
-        iconAlt: 'marketing.pages.learn.overview.benefitsCards.cards.earnWhileYouLearn.iconAlt',
-        title: 'marketing.pages.learn.overview.benefitsCards.cards.earnWhileYouLearn.title',
-        description: 'marketing.pages.learn.overview.benefitsCards.cards.earnWhileYouLearn.description'
+        iconAlt: 'marketing.pages.learnOverview.benefitsCards.cards.earnWhileYouLearn.iconAlt',
+        title: 'marketing.pages.learnOverview.benefitsCards.cards.earnWhileYouLearn.title',
+        description: 'marketing.pages.learnOverview.benefitsCards.cards.earnWhileYouLearn.description'
       }
     ],
     seo: {
@@ -1517,45 +1517,45 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   /** 32. REWARDSBENEFITS - diboas.com/rewards-benefits */
   'rewards-overview': {
     section: {
-      title: 'marketing.pages.rewards.overview.benefitsCards.title',
-      description: 'marketing.pages.rewards.overview.benefitsCards.description',
+      title: 'marketing.pages.rewardsOverview.benefitsCards.title',
+      description: 'marketing.pages.rewardsOverview.benefitsCards.description',
       backgroundColor: 'light-purple'
     },
     cards: [
       {
         id: 'unified-points-system',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.rewards.overview.benefitsCards.cards.unifiedPointsSystem.iconAlt',
-        title: 'marketing.pages.rewards.overview.benefitsCards.cards.unifiedPointsSystem.title',
-        description: 'marketing.pages.rewards.overview.benefitsCards.cards.unifiedPointsSystem.description'
+        iconAlt: 'marketing.pages.rewardsOverview.benefitsCards.cards.unifiedPointsSystem.iconAlt',
+        title: 'marketing.pages.rewardsOverview.benefitsCards.cards.unifiedPointsSystem.title',
+        description: 'marketing.pages.rewardsOverview.benefitsCards.cards.unifiedPointsSystem.description'
       },
       {
         id: 'achievement-badges',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.rewards.overview.benefitsCards.cards.achievementBadges.iconAlt',
-        title: 'marketing.pages.rewards.overview.benefitsCards.cards.achievementBadges.title',
-        description: 'marketing.pages.rewards.overview.benefitsCards.cards.achievementBadges.description'
+        iconAlt: 'marketing.pages.rewardsOverview.benefitsCards.cards.achievementBadges.iconAlt',
+        title: 'marketing.pages.rewardsOverview.benefitsCards.cards.achievementBadges.title',
+        description: 'marketing.pages.rewardsOverview.benefitsCards.cards.achievementBadges.description'
       },
       {
         id: 'community-leaderboard',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.rewards.overview.benefitsCards.cards.communityLeaderboard.iconAlt',
-        title: 'marketing.pages.rewards.overview.benefitsCards.cards.communityLeaderboard.title',
-        description: 'marketing.pages.rewards.overview.benefitsCards.cards.communityLeaderboard.description'
+        iconAlt: 'marketing.pages.rewardsOverview.benefitsCards.cards.communityLeaderboard.iconAlt',
+        title: 'marketing.pages.rewardsOverview.benefitsCards.cards.communityLeaderboard.title',
+        description: 'marketing.pages.rewardsOverview.benefitsCards.cards.communityLeaderboard.description'
       },
       {
         id: 'exclusive-benefits',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.rewards.overview.benefitsCards.cards.exclusiveBenefits.iconAlt',
-        title: 'marketing.pages.rewards.overview.benefitsCards.cards.exclusiveBenefits.title',
-        description: 'marketing.pages.rewards.overview.benefitsCards.cards.exclusiveBenefits.description'
+        iconAlt: 'marketing.pages.rewardsOverview.benefitsCards.cards.exclusiveBenefits.iconAlt',
+        title: 'marketing.pages.rewardsOverview.benefitsCards.cards.exclusiveBenefits.title',
+        description: 'marketing.pages.rewardsOverview.benefitsCards.cards.exclusiveBenefits.description'
       },
       {
         id: 'real-cashback',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.rewards.overview.benefitsCards.cards.realCashback.iconAlt',
-        title: 'marketing.pages.rewards.overview.benefitsCards.cards.realCashback.title',
-        description: 'marketing.pages.rewards.overview.benefitsCards.cards.realCashback.description'
+        iconAlt: 'marketing.pages.rewardsOverview.benefitsCards.cards.realCashback.iconAlt',
+        title: 'marketing.pages.rewardsOverview.benefitsCards.cards.realCashback.title',
+        description: 'marketing.pages.rewardsOverview.benefitsCards.cards.realCashback.description'
       }
     ],
     seo: {
@@ -1806,45 +1806,45 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   /** 38. SECURITYBENEFITS - diboas.com/security-benefits */
   'security-protection': {
     section: {
-      title: 'marketing.pages.security.protection.benefitsCards.title',
-      description: 'marketing.pages.security.protection.benefitsCards.description',
+      title: 'marketing.pages.securityProtection.benefitsCards.title',
+      description: 'marketing.pages.securityProtection.benefitsCards.description',
       backgroundColor: 'light-purple'
     },
     cards: [
       {
         id: 'end-to-end-encryption',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.security.protection.benefitsCards.cards.endToEndEncryption.iconAlt',
-        title: 'marketing.pages.security.protection.benefitsCards.cards.endToEndEncryption.title',
-        description: 'marketing.pages.security.protection.benefitsCards.cards.endToEndEncryption.description'
+        iconAlt: 'marketing.pages.securityProtection.benefitsCards.cards.endToEndEncryption.iconAlt',
+        title: 'marketing.pages.securityProtection.benefitsCards.cards.endToEndEncryption.title',
+        description: 'marketing.pages.securityProtection.benefitsCards.cards.endToEndEncryption.description'
       },
       {
         id: 'multi-factor-authentication',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.security.protection.benefitsCards.cards.multiFactorAuthentication.iconAlt',
-        title: 'marketing.pages.security.protection.benefitsCards.cards.multiFactorAuthentication.title',
-        description: 'marketing.pages.security.protection.benefitsCards.cards.multiFactorAuthentication.description'
+        iconAlt: 'marketing.pages.securityProtection.benefitsCards.cards.multiFactorAuthentication.iconAlt',
+        title: 'marketing.pages.securityProtection.benefitsCards.cards.multiFactorAuthentication.title',
+        description: 'marketing.pages.securityProtection.benefitsCards.cards.multiFactorAuthentication.description'
       },
       {
         id: 'monitoring247',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.security.protection.benefitsCards.cards.monitoring247.iconAlt',
-        title: 'marketing.pages.security.protection.benefitsCards.cards.monitoring247.title',
-        description: 'marketing.pages.security.protection.benefitsCards.cards.monitoring247.description'
+        iconAlt: 'marketing.pages.securityProtection.benefitsCards.cards.monitoring247.iconAlt',
+        title: 'marketing.pages.securityProtection.benefitsCards.cards.monitoring247.title',
+        description: 'marketing.pages.securityProtection.benefitsCards.cards.monitoring247.description'
       },
       {
         id: 'segregated-custody',
         icon: '/assets/icons/safe-money.avif',
-        iconAlt: 'marketing.pages.security.protection.benefitsCards.cards.segregatedCustody.iconAlt',
-        title: 'marketing.pages.security.protection.benefitsCards.cards.segregatedCustody.title',
-        description: 'marketing.pages.security.protection.benefitsCards.cards.segregatedCustody.description'
+        iconAlt: 'marketing.pages.securityProtection.benefitsCards.cards.segregatedCustody.iconAlt',
+        title: 'marketing.pages.securityProtection.benefitsCards.cards.segregatedCustody.title',
+        description: 'marketing.pages.securityProtection.benefitsCards.cards.segregatedCustody.description'
       },
       {
         id: 'asset-insurance',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.security.protection.benefitsCards.cards.assetInsurance.iconAlt',
-        title: 'marketing.pages.security.protection.benefitsCards.cards.assetInsurance.title',
-        description: 'marketing.pages.security.protection.benefitsCards.cards.assetInsurance.description'
+        iconAlt: 'marketing.pages.securityProtection.benefitsCards.cards.assetInsurance.iconAlt',
+        title: 'marketing.pages.securityProtection.benefitsCards.cards.assetInsurance.title',
+        description: 'marketing.pages.securityProtection.benefitsCards.cards.assetInsurance.description'
       }
     ],
     seo: {
