@@ -162,49 +162,49 @@ function createPageConfig(
  */
 export const FEATURE_SHOWCASE_PAGE_CONFIGS: Record<string, Partial<FeatureShowcaseVariantConfig>> = {
   'whyDiboas': createPageConfig(
-    'why-diboas',
+    'whyDiboas',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'lifestyle'
   ),
 
   'personalAccount': createPageConfig(
-    'personal.account',
+    'personalAccount',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'account'
   ),
 
   'personalBanking': createPageConfig(
-    'personal.banking',
+    'personalBanking',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'banking'
   ),
 
   'personalInvesting': createPageConfig(
-    'personal.investing',
+    'personalInvesting',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'investing'
   ),
 
   'personalCryptocurrency': createPageConfig(
-    'personal.cryptocurrency',
+    'personalCryptocurrency',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'crypto'
   ),
 
   'personalDefiStrategies': createPageConfig(
-    'personal.defiStrategies',
+    'personalDefiStrategies',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'crypto'
   ),
 
   'personalCredit': createPageConfig(
-    'personal.credit',
+    'personalCredit',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'banking'
   ),
 
   'learnOverview': createPageConfig(
-    'learn.overview',
+    'learnOverview',
     ROUTES.LEARN.OVERVIEW,
     'learn'
   ),
@@ -246,7 +246,7 @@ export const FEATURE_SHOWCASE_PAGE_CONFIGS: Record<string, Partial<FeatureShowca
   ),
 
   'businessAdvantages': createPageConfig(
-    'business.advantages',
+    'businessAdvantages',
     process.env.NEXT_PUBLIC_BUSINESS_URL || 'https://business.diboas.com',
     'business'
   ),
@@ -288,7 +288,7 @@ export const FEATURE_SHOWCASE_PAGE_CONFIGS: Record<string, Partial<FeatureShowca
   ),
 
   'rewardsOverview': createPageConfig(
-    'rewards.overview',
+    'rewardsOverview',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'rewards'
   ),
@@ -330,7 +330,7 @@ export const FEATURE_SHOWCASE_PAGE_CONFIGS: Record<string, Partial<FeatureShowca
   ),
 
   'securityProtection': createPageConfig(
-    'security.protection',
+    'securityProtection',
     process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
     'business'
   ),
