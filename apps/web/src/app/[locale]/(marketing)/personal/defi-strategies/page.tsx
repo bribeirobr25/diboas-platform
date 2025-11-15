@@ -63,7 +63,7 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['defi-strategies']}
+            config={HERO_PAGE_CONFIGS['personal-defi-strategies']}
             enableAnalytics={true}
             priority={true}
           />

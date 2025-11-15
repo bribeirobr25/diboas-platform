@@ -63,7 +63,7 @@ export default async function BankingServicesPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['banking-services']}
+            config={HERO_PAGE_CONFIGS['personal-banking']}
             enableAnalytics={true}
             priority={true}
           />

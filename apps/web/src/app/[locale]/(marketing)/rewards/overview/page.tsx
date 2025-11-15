@@ -63,7 +63,7 @@ export default async function RewardsBenefitsPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['rewards-benefits']}
+            config={HERO_PAGE_CONFIGS['rewards-overview']}
             enableAnalytics={true}
             priority={true}
           />

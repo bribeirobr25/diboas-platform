@@ -63,7 +63,7 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['security-benefits']}
+            config={HERO_PAGE_CONFIGS['security-protection']}
             enableAnalytics={true}
             priority={true}
           />

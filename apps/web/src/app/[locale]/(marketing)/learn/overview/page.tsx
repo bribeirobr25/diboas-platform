@@ -63,7 +63,7 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['learn-benefits']}
+            config={HERO_PAGE_CONFIGS['learn-overview']}
             enableAnalytics={true}
             priority={true}
           />

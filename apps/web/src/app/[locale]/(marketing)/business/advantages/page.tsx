@@ -63,7 +63,7 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['business-benefits']}
+            config={HERO_PAGE_CONFIGS['business-advantages']}
             enableAnalytics={true}
             priority={true}
           />
