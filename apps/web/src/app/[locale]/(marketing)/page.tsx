@@ -42,8 +42,8 @@ export default async function HomePage({ params }: HomePageProps) {
     notFound();
   }
 
-  // Load page-specific namespace (only home page translations)
-  const pageMessages = await loadPageNamespaces(locale, ['home']);
+  // Load page-specific namespaces (home + shared FAQ)
+  const pageMessages = await loadPageNamespaces(locale, ['home', 'faq']);
 
   // Generate structured data for the home page
   const organizationData = MetadataFactory.generateServiceStructuredData({
