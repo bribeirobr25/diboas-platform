@@ -38,8 +38,8 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['learn/overview']);
+  // Load page-specific namespaces (learn/overview + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['learn/overview', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Learn Center',

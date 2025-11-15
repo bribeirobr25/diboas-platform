@@ -38,8 +38,8 @@ export default async function RewardsAiGuidesPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['rewards/ai-guides']);
+  // Load page-specific namespaces (rewards/ai-guides + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['rewards/ai-guides', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS AI Guides',

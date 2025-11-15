@@ -38,8 +38,8 @@ export default async function TokenAirdropPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['rewards/token-airdrop']);
+  // Load page-specific namespaces (rewards/token-airdrop + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['rewards/token-airdrop', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Token & Airdrop',

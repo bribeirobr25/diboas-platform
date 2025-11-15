@@ -38,8 +38,8 @@ export default async function LegalCookiesPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['legal/cookies']);
+  // Load page-specific namespaces (legal/cookies + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['legal/cookies', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Cookie Policy',

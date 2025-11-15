@@ -38,8 +38,8 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['learn/defi-explained']);
+  // Load page-specific namespaces (learn/defi-explained + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['learn/defi-explained', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'DeFi Explained',

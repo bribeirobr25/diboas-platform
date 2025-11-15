@@ -38,8 +38,8 @@ export default async function FinancialBasicsPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['learn/financial-basics']);
+  // Load page-specific namespaces (learn/financial-basics + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['learn/financial-basics', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'Financial Basics',

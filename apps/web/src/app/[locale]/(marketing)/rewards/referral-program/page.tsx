@@ -38,8 +38,8 @@ export default async function RewardsReferralProgramPage({ params }: PageProps) 
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['rewards/referral-program']);
+  // Load page-specific namespaces (rewards/referral-program + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['rewards/referral-program', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Referral Program',

@@ -38,8 +38,8 @@ export default async function SecuritySafetyGuidePage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['security/safety-guide']);
+  // Load page-specific namespaces (security/safety-guide + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['security/safety-guide', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Safety Guide',

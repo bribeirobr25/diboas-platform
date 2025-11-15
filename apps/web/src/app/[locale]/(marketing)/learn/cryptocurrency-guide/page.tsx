@@ -38,8 +38,8 @@ export default async function CryptocurrencyGuidePage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['learn/cryptocurrency-guide']);
+  // Load page-specific namespaces (learn/cryptocurrency-guide + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['learn/cryptocurrency-guide', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'Cryptocurrency Guide',

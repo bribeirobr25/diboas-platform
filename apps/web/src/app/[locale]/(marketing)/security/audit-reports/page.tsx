@@ -38,8 +38,8 @@ export default async function SecurityAuditReportsPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['security/audit-reports']);
+  // Load page-specific namespaces (security/audit-reports + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['security/audit-reports', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Audit & Reports',

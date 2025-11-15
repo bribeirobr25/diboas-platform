@@ -38,8 +38,8 @@ export default async function BusinessYieldStrategiesPage({ params }: PageProps)
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['business/yield-strategies']);
+  // Load page-specific namespaces (business/yield-strategies + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['business/yield-strategies', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Cash Flow Yield',

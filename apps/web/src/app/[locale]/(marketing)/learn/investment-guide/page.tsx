@@ -38,8 +38,8 @@ export default async function InvestmentGuidePage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['learn/investment-guide']);
+  // Load page-specific namespaces (learn/investment-guide + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['learn/investment-guide', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'Investment Guide',

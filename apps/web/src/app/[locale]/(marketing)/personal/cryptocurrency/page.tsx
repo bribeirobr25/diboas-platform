@@ -38,8 +38,8 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['personal/cryptocurrency']);
+  // Load page-specific namespaces (personal/cryptocurrency + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['personal/cryptocurrency', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Cryptocurrency',

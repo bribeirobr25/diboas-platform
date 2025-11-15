@@ -38,8 +38,8 @@ export default async function BadgesLeaderboardPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['rewards/badges-leaderboard']);
+  // Load page-specific namespaces (rewards/badges-leaderboard + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['rewards/badges-leaderboard', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Badges & Leaderboard',

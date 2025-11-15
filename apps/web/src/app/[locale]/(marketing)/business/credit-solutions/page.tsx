@@ -38,8 +38,8 @@ export default async function BusinessCreditSolutionsPage({ params }: PageProps)
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['business/credit-solutions']);
+  // Load page-specific namespaces (business/credit-solutions + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['business/credit-solutions', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS P2P Credit',

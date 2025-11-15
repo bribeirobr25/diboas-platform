@@ -38,8 +38,8 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['personal/defi-strategies']);
+  // Load page-specific namespaces (personal/defi-strategies + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['personal/defi-strategies', 'home', 'faq']);
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS DeFi Strategies',

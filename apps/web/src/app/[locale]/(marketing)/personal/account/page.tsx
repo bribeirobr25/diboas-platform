@@ -37,8 +37,8 @@ export default async function AccountPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespace
-  const pageMessages = await loadPageNamespaces(locale, ['personal/account']);
+  // Load page-specific namespaces (personal/account + shared: home for StickyFeaturesNav, faq for FAQAccordion)
+  const pageMessages = await loadPageNamespaces(locale, ['personal/account', 'home', 'faq']);
 
   // Generate structured data for the account page
   const serviceData = MetadataFactory.generateServiceStructuredData({
