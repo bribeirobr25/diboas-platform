@@ -13,6 +13,8 @@ import { DEFAULT_FAQ_ACCORDION_CONFIG } from '@/config/faqAccordion';
 import { DEFAULT_BENEFITS_CARDS_CONFIG } from '@/config/benefitsCards';
 import { DEFAULT_BG_HIGHLIGHT_CONFIG } from '@/config/bgHighlight';
 import { DEFAULT_STEP_GUIDE_CONFIG } from '@/config/stepGuide';
+import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import type { Metadata } from 'next';
 
 export const dynamic = 'auto';
@@ -40,6 +42,9 @@ export default async function HomePage({ params }: HomePageProps) {
     notFound();
   }
 
+  // Load page-specific namespace (only home page translations)
+  const pageMessages = await loadPageNamespaces(locale, ['home']);
+
   // Generate structured data for the home page
   const organizationData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Financial Platform',
@@ -52,7 +57,7 @@ export default async function HomePage({ params }: HomePageProps) {
   ], locale);
 
   return (
-    <>
+    <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[organizationData, breadcrumbData]} />
       
       <main className="main-page-wrapper">
@@ -162,6 +167,6 @@ export default async function HomePage({ params }: HomePageProps) {
         </SectionErrorBoundary>
         {/* Additional content sections will be developed later */}
       </main>
-    </>
+    </PageI18nProvider>
   );
 }

@@ -35,18 +35,13 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
     notFound();
   }
 
-  // Load and flatten translation messages on the server
+  // Load only common namespace (navigation, footer, buttons)
+  // Page-specific namespaces are loaded at the page level for optimal performance
   // This converts nested JSON structure to flat keys that react-intl expects
   // Example: { navigation: { diboas: { label: "diBoaS" } } }
   // becomes: { "common.navigation.diboas.label": "diBoaS" }
-  const namespaces = ['common', 'marketing'] as const;
-  const allMessages: Record<string, string> = {};
-
-  for (const namespace of namespaces) {
-    const namespaceMessages = await loadMessages(locale, namespace);
-    const flattened = flattenMessages(namespaceMessages, namespace);
-    Object.assign(allMessages, flattened);
-  }
+  const commonMessages = await loadMessages(locale, 'common');
+  const allMessages = flattenMessages(commonMessages, 'common');
 
   return (
     <LocaleProvider initialLocale={locale}>
