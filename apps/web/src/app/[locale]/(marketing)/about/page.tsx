@@ -15,6 +15,8 @@ import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
+import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -36,6 +38,9 @@ export default async function AboutPage({ params }: PageProps) {
     notFound();
   }
 
+  // Load page-specific namespace
+  const pageMessages = await loadPageNamespaces(locale, ['about']);
+
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'About diBoaS',
     description: "The world's first OneFi platform",
@@ -50,6 +55,7 @@ export default async function AboutPage({ params }: PageProps) {
   const heroVariant = getVariantForPageConfig('about');
 
   return (
+    <PageI18nProvider pageMessages={pageMessages}>
     <>
       <StructuredData data={[serviceData, breadcrumbData]} />
 
@@ -124,5 +130,6 @@ export default async function AboutPage({ params }: PageProps) {
 
       </main>
     </>
+    </PageI18nProvider>
   );
 }

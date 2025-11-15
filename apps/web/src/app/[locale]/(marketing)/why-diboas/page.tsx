@@ -13,6 +13,8 @@ import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pag
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
 import type { Metadata } from 'next';
+import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 
 export const dynamic = 'auto';
 
@@ -35,6 +37,9 @@ export default async function BenefitsPage({ params }: PageProps) {
     notFound();
   }
 
+  // Load page-specific namespace
+  const pageMessages = await loadPageNamespaces(locale, ['why-diboas']);
+
   // Generate structured data for the benefits page
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Benefits & Rewards',
@@ -48,6 +53,7 @@ export default async function BenefitsPage({ params }: PageProps) {
   ], locale);
 
   return (
+    <PageI18nProvider pageMessages={pageMessages}>
     <>
       <StructuredData data={[serviceData, breadcrumbData]} />
 
@@ -121,5 +127,6 @@ export default async function BenefitsPage({ params }: PageProps) {
 
       </main>
     </>
+    </PageI18nProvider>
   );
 }

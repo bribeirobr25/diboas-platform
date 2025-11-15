@@ -7,6 +7,8 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
+import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 
 export const dynamic = 'auto';
 
@@ -29,6 +31,9 @@ export default async function HelpContactPage({ params }: PageProps) {
     notFound();
   }
 
+  // Load page-specific namespace
+  const pageMessages = await loadPageNamespaces(locale, ['help/contact']);
+
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Contact Support',
     description: 'Get in touch with diBoaS support team',
@@ -44,6 +49,7 @@ export default async function HelpContactPage({ params }: PageProps) {
   const heroVariant = getVariantForPageConfig('help-contact');
 
   return (
+    <PageI18nProvider pageMessages={pageMessages}>
     <>
       <StructuredData data={[serviceData, breadcrumbData]} />
 
@@ -63,5 +69,6 @@ export default async function HelpContactPage({ params }: PageProps) {
         </SectionErrorBoundary>
       </main>
     </>
+    </PageI18nProvider>
   );
 }
