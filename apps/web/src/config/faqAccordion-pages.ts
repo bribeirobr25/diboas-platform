@@ -20,7 +20,7 @@ import {
  * Page key type for type safety
  */
 export type FAQAccordionPageKey =
-  | 'why-diboas'
+  | 'whyDiboas'
   | 'personalAccount'
   | 'personalBanking'
   | 'personalInvesting'
@@ -97,7 +97,7 @@ function createPageConfig(pageKey: string, _questionCount?: number): FAQAccordio
  */
 export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordionVariantConfig> = {
   // Main Menu
-  'why-diboas': createPageConfig('whyDiboas', 3),
+  whyDiboas: createPageConfig('whyDiboas', 3),
   personalAccount: createPageConfig('personalAccount', 3),
   personalBanking: createPageConfig('personalBanking', 3),
   personalInvesting: createPageConfig('personalInvesting', 3),

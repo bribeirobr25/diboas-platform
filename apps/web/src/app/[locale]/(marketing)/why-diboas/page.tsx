@@ -107,7 +107,7 @@ export default async function BenefitsPage({ params }: PageProps) {
           context={{ page: 'benefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS['why-diboas']}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.whyDiboas}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -120,7 +120,7 @@ export default async function BenefitsPage({ params }: PageProps) {
           context={{ page: 'benefits' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS['why-diboas']!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.whyDiboas!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
