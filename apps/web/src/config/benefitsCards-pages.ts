@@ -690,45 +690,45 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   /** 15. DEFISTRATEGIES - diboas.com/defi-strategies */
   'personal-defi-strategies': {
     section: {
-      title: 'marketing.pages.personal.defi-strategies.benefitsCards.title',
-      description: 'marketing.pages.personal.defi-strategies.benefitsCards.description',
+      title: 'marketing.pages.personal.defiStrategies.benefitsCards.title',
+      description: 'marketing.pages.personal.defiStrategies.benefitsCards.description',
       backgroundColor: 'light-purple'
     },
     cards: [
       {
         id: 'strategies-curated-by-experts',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.strategiesCuratedByExperts.iconAlt',
-        title: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.strategiesCuratedByExperts.title',
-        description: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.strategiesCuratedByExperts.description'
+        iconAlt: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.strategiesCuratedByExperts.iconAlt',
+        title: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.strategiesCuratedByExperts.title',
+        description: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.strategiesCuratedByExperts.description'
       },
       {
         id: 'yields-banks-dont-offer',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.yieldsBanksDontOffer.iconAlt',
-        title: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.yieldsBanksDontOffer.title',
-        description: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.yieldsBanksDontOffer.description'
+        iconAlt: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.yieldsBanksDontOffer.iconAlt',
+        title: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.yieldsBanksDontOffer.title',
+        description: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.yieldsBanksDontOffer.description'
       },
       {
         id: 'coral-guides-advanced-journey',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.coralGuidesAdvancedJourney.iconAlt',
-        title: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.coralGuidesAdvancedJourney.title',
-        description: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.coralGuidesAdvancedJourney.description'
+        iconAlt: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.coralGuidesAdvancedJourney.iconAlt',
+        title: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.coralGuidesAdvancedJourney.title',
+        description: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.coralGuidesAdvancedJourney.description'
       },
       {
         id: 'enter-exit-anytime',
         icon: '/assets/icons/money-flow.avif',
-        iconAlt: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.enterExitAnytime.iconAlt',
-        title: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.enterExitAnytime.title',
-        description: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.enterExitAnytime.description'
+        iconAlt: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.enterExitAnytime.iconAlt',
+        title: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.enterExitAnytime.title',
+        description: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.enterExitAnytime.description'
       },
       {
         id: 'defi-education-included',
         icon: '/assets/icons/learn.avif',
-        iconAlt: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.defiEducationIncluded.iconAlt',
-        title: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.defiEducationIncluded.title',
-        description: 'marketing.pages.personal.defi-strategies.benefitsCards.cards.defiEducationIncluded.description'
+        iconAlt: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.defiEducationIncluded.iconAlt',
+        title: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.defiEducationIncluded.title',
+        description: 'marketing.pages.personal.defiStrategies.benefitsCards.cards.defiEducationIncluded.description'
       }
     ],
     seo: {
