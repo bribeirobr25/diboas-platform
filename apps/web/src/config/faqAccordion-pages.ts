@@ -98,15 +98,15 @@ function createPageConfig(pageKey: string, _questionCount?: number): FAQAccordio
 export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordionVariantConfig> = {
   // Main Menu
   'why-diboas': createPageConfig('why-diboas', 3),
-  personalAccount: createPageConfig('personalAccount', 3),
-  personalBanking: createPageConfig('personalBanking', 3),
-  personalInvesting: createPageConfig('personalInvesting', 3),
-  personalCryptocurrency: createPageConfig('personalCryptocurrency', 3),
-  personalDefiStrategies: createPageConfig('personalDefiStrategies', 3),
-  personalCredit: createPageConfig('personalCredit', 3),
+  personalAccount: createPageConfig('personal.account', 3),
+  personalBanking: createPageConfig('personal.banking', 3),
+  personalInvesting: createPageConfig('personal.investing', 3),
+  personalCryptocurrency: createPageConfig('personal.cryptocurrency', 3),
+  personalDefiStrategies: createPageConfig('personal.defiStrategies', 3),
+  personalCredit: createPageConfig('personal.credit', 3),
 
   // The Learn Center
-  learnOverview: createPageConfig('learnOverview', 3),
+  learnOverview: createPageConfig('learn.overview', 3),
   learnFinancialBasics: createPageConfig('learnFinancialBasics', 3),
   learnMoneyManagement: createPageConfig('learnMoneyManagement', 3),
   learnInvestmentGuide: createPageConfig('learnInvestmentGuide', 3),
@@ -115,7 +115,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordio
   learnSpecialContent: createPageConfig('learnSpecialContent', 3),
 
   // diBoaS Business
-  businessAdvantages: createPageConfig('businessAdvantages', 3),
+  businessAdvantages: createPageConfig('business.advantages', 3),
   businessAccount: createPageConfig('businessAccount', 3),
   businessBanking: createPageConfig('businessBanking', 3),
   businessPayments: createPageConfig('businessPayments', 3),
@@ -124,7 +124,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordio
   businessCreditSolutions: createPageConfig('businessCreditSolutions', 3),
 
   // diBoaS Rewards
-  rewardsOverview: createPageConfig('rewardsOverview', 3),
+  rewardsOverview: createPageConfig('rewards.overview', 3),
   rewardsAiGuides: createPageConfig('rewardsAiGuides', 3),
   rewardsReferralProgram: createPageConfig('rewardsReferralProgram', 3),
   rewardsPointsSystem: createPageConfig('rewardsPointsSystem', 3),
@@ -133,7 +133,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordio
   rewardsTokenAirdrop: createPageConfig('rewardsTokenAirdrop', 3),
 
   // diBoaS Protection
-  securityProtection: createPageConfig('securityProtection', 3),
+  securityProtection: createPageConfig('security.protection', 3),
   securityAuditReports: createPageConfig('securityAuditReports', 3),
   securitySafetyGuide: createPageConfig('securitySafetyGuide', 3),
 
