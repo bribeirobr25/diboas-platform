@@ -56,7 +56,7 @@ export default async function HelpGettingStartedPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.helpGettingStarted}
+            config={HERO_PAGE_CONFIGS['help-getting-started']}
             enableAnalytics={true}
             priority={true}
           />

@@ -56,7 +56,7 @@ export default async function HelpSupportPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.helpSupport}
+            config={HERO_PAGE_CONFIGS['help-support']}
             enableAnalytics={true}
             priority={true}
           />

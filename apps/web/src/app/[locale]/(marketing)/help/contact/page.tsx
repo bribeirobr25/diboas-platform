@@ -56,7 +56,7 @@ export default async function HelpContactPage({ params }: PageProps) {
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.helpContact}
+            config={HERO_PAGE_CONFIGS['help-contact']}
             enableAnalytics={true}
             priority={true}
           />
