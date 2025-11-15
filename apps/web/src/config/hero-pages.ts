@@ -24,10 +24,10 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
   // KNOW DIBOAS SECTION
   // ============================================================================
 
-  'benefits': {
+  'why-diboas': {
     content: {
-      title: 'marketing.pages.benefits.hero.title',
-      ctaText: 'marketing.pages.benefits.hero.cta',
+      title: 'marketing.pages.why-diboas.hero.title',
+      ctaText: 'marketing.pages.why-diboas.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -37,21 +37,21 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Benefits - Your Complete Financial Journey',
+      titleTag: 'Why diBoaS - Your Complete Financial Journey',
       imageAlt: {
         background: 'Family enjoying trip representing financial freedom and benefits'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_benefits',
+      trackingPrefix: 'hero_why_diboas',
       enabled: true
     }
   },
 
-  'account': {
+  'personal-account': {
     content: {
-      title: 'marketing.pages.account.hero.title',
-      ctaText: 'marketing.pages.account.hero.cta',
+      title: 'marketing.pages.personal.account.hero.title',
+      ctaText: 'marketing.pages.personal.account.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -61,21 +61,21 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Account - Free Account with 100% CDI',
+      titleTag: 'diBoaS Personal Account - Free Account with 100% CDI',
       imageAlt: {
         background: 'Financial balance and account management'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_account',
+      trackingPrefix: 'hero_personal_account',
       enabled: true
     }
   },
 
-  'banking-services': {
+  'personal-banking': {
     content: {
-      title: 'marketing.pages.bankingServices.hero.title',
-      ctaText: 'marketing.pages.bankingServices.hero.cta',
+      title: 'marketing.pages.personal.banking.hero.title',
+      ctaText: 'marketing.pages.personal.banking.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -85,21 +85,21 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Banking - Money Without Borders',
+      titleTag: 'diBoaS Personal Banking - Money Without Borders',
       imageAlt: {
         background: 'Global banking services illustration'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_banking',
+      trackingPrefix: 'hero_personal_banking',
       enabled: true
     }
   },
 
-  'investing': {
+  'personal-investing': {
     content: {
-      title: 'marketing.pages.investing.hero.title',
-      ctaText: 'marketing.pages.investing.hero.cta',
+      title: 'marketing.pages.personal.investing.hero.title',
+      ctaText: 'marketing.pages.personal.investing.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -109,21 +109,21 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Investing - Start with Just $10',
+      titleTag: 'diBoaS Personal Investing - Start with Just $10',
       imageAlt: {
         background: 'Investment growth and opportunities'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_investing',
+      trackingPrefix: 'hero_personal_investing',
       enabled: true
     }
   },
 
-  'cryptocurrency': {
+  'personal-cryptocurrency': {
     content: {
-      title: 'marketing.pages.cryptocurrency.hero.title',
-      ctaText: 'marketing.pages.cryptocurrency.hero.cta',
+      title: 'marketing.pages.personal.cryptocurrency.hero.title',
+      ctaText: 'marketing.pages.personal.cryptocurrency.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -133,21 +133,21 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Crypto - Digital Assets Made Simple',
+      titleTag: 'diBoaS Personal Crypto - Digital Assets Made Simple',
       imageAlt: {
         background: 'Cryptocurrency and digital assets'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_crypto',
+      trackingPrefix: 'hero_personal_crypto',
       enabled: true
     }
   },
 
-  'defi-strategies': {
+  'personal-defi-strategies': {
     content: {
-      title: 'marketing.pages.defiStrategies.hero.title',
-      ctaText: 'marketing.pages.defiStrategies.hero.cta',
+      title: 'marketing.pages.personal.defiStrategies.hero.title',
+      ctaText: 'marketing.pages.personal.defiStrategies.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -157,21 +157,21 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS DeFi Strategies - Professional Investment Strategies',
+      titleTag: 'diBoaS Personal DeFi - Professional Investment Strategies',
       imageAlt: {
         background: 'DeFi investment strategies illustration'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_defi',
+      trackingPrefix: 'hero_personal_defi',
       enabled: true
     }
   },
 
-  'credit': {
+  'personal-credit': {
     content: {
-      title: 'marketing.pages.credit.hero.title',
-      ctaText: 'marketing.pages.credit.hero.cta',
+      title: 'marketing.pages.personal.credit.hero.title',
+      ctaText: 'marketing.pages.personal.credit.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -181,13 +181,13 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Credit - Fair and Transparent Credit',
+      titleTag: 'diBoaS Personal Credit - Fair and Transparent Credit',
       imageAlt: {
         background: 'Fair credit services illustration'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_credit',
+      trackingPrefix: 'hero_personal_credit',
       enabled: true
     }
   },
@@ -196,10 +196,10 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
   // THE LEARN CENTER SECTION
   // ============================================================================
 
-  'learn-benefits': {
+  'learn-overview': {
     content: {
-      title: 'marketing.pages.learnBenefits.hero.title',
-      ctaText: 'marketing.pages.learnBenefits.hero.cta',
+      title: 'marketing.pages.learn.overview.hero.title',
+      ctaText: 'marketing.pages.learn.overview.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -215,7 +215,7 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       }
     },
     analytics: {
-      trackingPrefix: 'hero_learn',
+      trackingPrefix: 'hero_learn_overview',
       enabled: true
     }
   },
@@ -356,10 +356,10 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
   // KNOW DIBOAS BUSINESS SECTION
   // ============================================================================
 
-  'business-benefits': {
+  'business-advantages': {
     content: {
-      title: 'marketing.pages.businessBenefits.hero.title',
-      ctaText: 'marketing.pages.businessBenefits.hero.cta',
+      title: 'marketing.pages.business.advantages.hero.title',
+      ctaText: 'marketing.pages.business.advantages.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -369,13 +369,13 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Business - Simple and Efficient Business Finances',
+      titleTag: 'diBoaS Business Advantages - Simple and Efficient Business Finances',
       imageAlt: {
         background: 'Business finance illustration'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_business',
+      trackingPrefix: 'hero_business_advantages',
       enabled: true
     }
   },
@@ -528,10 +528,10 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
   // DIBOAS REWARDS SECTION
   // ============================================================================
 
-  'rewards-benefits': {
+  'rewards-overview': {
     content: {
-      title: 'marketing.pages.rewardsBenefits.hero.title',
-      ctaText: 'marketing.pages.rewardsBenefits.hero.cta',
+      title: 'marketing.pages.rewards.overview.hero.title',
+      ctaText: 'marketing.pages.rewards.overview.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -541,13 +541,13 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       overlayOpacity: 0.4
     },
     seo: {
-      titleTag: 'diBoaS Rewards - Rewards That Actually Matter',
+      titleTag: 'diBoaS Rewards Overview - Rewards That Actually Matter',
       imageAlt: {
         background: 'Rewards and recognition illustration'
       }
     },
     analytics: {
-      trackingPrefix: 'hero_rewards',
+      trackingPrefix: 'hero_rewards_overview',
       enabled: true
     }
   },
@@ -700,10 +700,10 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
   // DIBOAS PROTECTION SECTION
   // ============================================================================
 
-  'security-benefits': {
+  'security-protection': {
     content: {
-      title: 'marketing.pages.securityBenefits.hero.title',
-      ctaText: 'marketing.pages.securityBenefits.hero.cta',
+      title: 'marketing.pages.security.protection.hero.title',
+      ctaText: 'marketing.pages.security.protection.hero.cta',
       ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
       ctaTarget: '_blank'
     },
@@ -719,7 +719,7 @@ export const HERO_PAGE_CONFIGS: Record<string, Partial<HeroVariantConfig>> = {
       }
     },
     analytics: {
-      trackingPrefix: 'hero_security',
+      trackingPrefix: 'hero_security_protection',
       enabled: true
     }
   },

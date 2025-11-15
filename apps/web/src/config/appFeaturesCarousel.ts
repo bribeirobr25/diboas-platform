@@ -76,7 +76,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.pages.home.appFeatures.organizeMoney.title',
       description: 'marketing.pages.home.appFeatures.organizeMoney.description',
       ctaText: 'marketing.pages.home.appFeatures.organizeMoney.ctaText',
-      ctaHref: ROUTES.BENEFITS,
+      ctaHref: ROUTES.WHY_DIBOAS,
       ctaTarget: '_self',
       chipLabel: 'marketing.pages.home.appFeatures.organizeMoney.chipLabel'
     },
@@ -93,7 +93,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.pages.home.appFeatures.instantPayments.title',
       description: 'marketing.pages.home.appFeatures.instantPayments.description',
       ctaText: 'marketing.pages.home.appFeatures.instantPayments.ctaText',
-      ctaHref: ROUTES.LEARN.BENEFITS,
+      ctaHref: ROUTES.LEARN.OVERVIEW,
       ctaTarget: '_self',
       chipLabel: 'marketing.pages.home.appFeatures.instantPayments.chipLabel'
     },
@@ -110,7 +110,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.pages.home.appFeatures.securePurchases.title',
       description: 'marketing.pages.home.appFeatures.securePurchases.description',
       ctaText: 'marketing.pages.home.appFeatures.securePurchases.ctaText',
-      ctaHref: ROUTES.INVESTING,
+      ctaHref: ROUTES.PERSONAL.INVESTING,
       ctaTarget: '_self',
       chipLabel: 'marketing.pages.home.appFeatures.securePurchases.chipLabel'
     },

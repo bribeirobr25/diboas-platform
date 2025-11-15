@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('learn/benefits', locale as SupportedLocale);
+  return generateStaticPageMetadata('rewards/overview', locale as SupportedLocale);
 }
 
-export default async function LearnBenefitsPage({ params }: PageProps) {
+export default async function RewardsBenefitsPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Learn Center',
-    description: 'Financial education for everyone',
-    category: 'Educational Services'
+    name: 'diBoaS Rewards',
+    description: 'Rewards that actually matter',
+    category: 'Rewards Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Learn Benefits', url: ROUTES.LEARN.BENEFITS }
+    { name: 'Rewards', url: '/rewards' },
+    { name: 'Overview', url: ROUTES.REWARDS.OVERVIEW }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('learn-benefits');
+  const heroVariant = getVariantForPageConfig('rewards-benefits');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-learn-benefits"
+          sectionId="hero-section-rewards-benefits"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'learn-benefits', variant: heroVariant }}
+          context={{ page: 'rewards-benefits', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['learn-benefits']}
+            config={HERO_PAGE_CONFIGS['rewards-benefits']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-learnBenefits"
+          sectionId="feature-showcase-rewardsBenefits"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'learnBenefits' }}
+          context={{ page: 'rewardsBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.learnBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.rewardsBenefits}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function LearnBenefitsPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-learn-benefits"
+          sectionId="benefits-cards-rewards-benefits"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'learn-benefits' }}
+          context={{ page: 'rewards-benefits' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('learn-benefits')!}
+            config={getBenefitsCardsConfig('rewards-benefits')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-learnBenefits"
+          sectionId="sticky-features-nav-rewardsBenefits"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'learnBenefits' }}
+          context={{ page: 'rewardsBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.learnBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.rewardsBenefits}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-learnBenefits"
+          sectionId="faq-accordion-rewardsBenefits"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'learnBenefits' }}
+          context={{ page: 'rewardsBenefits' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.learnBenefits!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.rewardsOverview!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

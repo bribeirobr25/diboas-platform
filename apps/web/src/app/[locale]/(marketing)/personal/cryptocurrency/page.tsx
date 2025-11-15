@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('banking-services', locale as SupportedLocale);
+  return generateStaticPageMetadata('personal/cryptocurrency', locale as SupportedLocale);
 }
 
-export default async function BankingServicesPage({ params }: PageProps) {
+export default async function CryptocurrencyPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function BankingServicesPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Banking Services',
-    description: 'Modern banking services without borders',
-    category: 'Financial Services'
+    name: 'diBoaS Cryptocurrency',
+    description: 'Digital assets made simple',
+    category: 'Cryptocurrency Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Banking Services', url: ROUTES.BANKING_SERVICES }
+    { name: 'Personal', url: '/personal' },
+    { name: 'Cryptocurrency', url: ROUTES.PERSONAL.CRYPTOCURRENCY }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('banking-services');
+  const heroVariant = getVariantForPageConfig('cryptocurrency');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function BankingServicesPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-banking-services"
+          sectionId="hero-section-cryptocurrency"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'banking-services', variant: heroVariant }}
+          context={{ page: 'cryptocurrency', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['banking-services']}
+            config={HERO_PAGE_CONFIGS.cryptocurrency}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function BankingServicesPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-bankingServices"
+          sectionId="feature-showcase-cryptocurrency"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'bankingServices' }}
+          context={{ page: 'cryptocurrency' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.bankingServices}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.cryptocurrency}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function BankingServicesPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-banking-services"
+          sectionId="benefits-cards-cryptocurrency"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'banking-services' }}
+          context={{ page: 'cryptocurrency' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('banking-services')!}
+            config={getBenefitsCardsConfig('cryptocurrency')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-bankingServices"
+          sectionId="sticky-features-nav-cryptocurrency"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'bankingServices' }}
+          context={{ page: 'cryptocurrency' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.bankingServices}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.cryptocurrency}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-bankingServices"
+          sectionId="faq-accordion-cryptocurrency"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'bankingServices' }}
+          context={{ page: 'cryptocurrency' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.bankingServices!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.personalCryptocurrency!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

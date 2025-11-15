@@ -72,46 +72,48 @@ export const PAGE_SEO_CONFIG = {
     keywords: ['digital banking', 'crypto platform', 'DeFi services']
   },
   // Main Pages
-  benefits: {
-    title: 'Benefits - Why Choose diBoaS',
+  'why-diboas': {
+    title: 'Why Choose diBoaS - Complete Financial Freedom',
     description: 'Discover the advantages of managing your finances with diBoaS. Zero fees, instant transfers, and AI-powered insights.',
-    keywords: ['banking benefits', 'financial advantages', 'zero fees']
+    keywords: ['why diboas', 'financial advantages', 'zero fees', 'complete financial solution']
   },
-  account: {
-    title: 'diBoaS Account - Your Financial Hub',
-    description: 'Open your diBoaS account and access banking, investing, and DeFi services in one platform.',
-    keywords: ['digital account', 'financial account', 'online banking account']
+
+  // Personal Products
+  'personal/account': {
+    title: 'Personal Account - Your Financial Hub',
+    description: 'Open your diBoaS personal account and access banking, investing, and DeFi services in one platform.',
+    keywords: ['personal account', 'digital account', 'financial account', 'online banking account']
   },
-  'banking-services': {
-    title: 'Banking Services - Modern Banking Solutions',
-    description: 'Experience next-generation banking with zero fees, instant transfers, and smart budgeting tools.',
-    keywords: ['digital banking', 'online banking', 'smart banking']
+  'personal/banking': {
+    title: 'Personal Banking - Modern Banking Solutions',
+    description: 'Experience next-generation personal banking with zero fees, instant transfers, and smart budgeting tools.',
+    keywords: ['personal banking', 'digital banking', 'online banking', 'smart banking']
   },
-  investing: {
-    title: 'Investment Platform - Smart Crypto Investing',
+  'personal/investing': {
+    title: 'Personal Investing - Smart Crypto Investing',
     description: 'Access cryptocurrencies and traditional assets with AI-powered portfolio management.',
-    keywords: ['crypto investing', 'investment platform', 'portfolio management']
+    keywords: ['personal investing', 'investment platform', 'portfolio management']
   },
-  cryptocurrency: {
-    title: 'Cryptocurrency Trading - Secure Crypto Platform',
+  'personal/cryptocurrency': {
+    title: 'Personal Crypto - Secure Crypto Platform',
     description: 'Trade cryptocurrencies with advanced security, low fees, and institutional-grade infrastructure.',
-    keywords: ['cryptocurrency', 'crypto trading', 'bitcoin', 'ethereum']
+    keywords: ['personal cryptocurrency', 'crypto trading', 'bitcoin', 'ethereum']
   },
-  'defi-strategies': {
-    title: 'DeFi Strategies - Decentralized Finance',
+  'personal/defi-strategies': {
+    title: 'Personal DeFi - Decentralized Finance',
     description: 'Earn yields and access DeFi protocols with enterprise-grade security and expert strategies.',
-    keywords: ['DeFi', 'yield farming', 'decentralized finance', 'liquidity mining']
+    keywords: ['personal defi', 'yield farming', 'decentralized finance', 'liquidity mining']
   },
-  credit: {
-    title: 'Credit Solutions - Smart Lending Platform',
-    description: 'Access credit and lending solutions with competitive rates and flexible terms.',
-    keywords: ['credit', 'lending', 'loans', 'financing']
+  'personal/credit': {
+    title: 'Personal Credit - Smart Lending Solutions',
+    description: 'Access personal credit and lending solutions with competitive rates and flexible terms.',
+    keywords: ['personal credit', 'personal loans', 'lending', 'financing']
   },
   // Learn Center
-  'learn/benefits': {
+  'learn/overview': {
     title: 'Learn Center - Financial Education Hub',
     description: 'Comprehensive financial education resources to master banking, investing, and DeFi.',
-    keywords: ['financial education', 'learn finance', 'money management']
+    keywords: ['financial education', 'learn finance', 'money management', 'learning center']
   },
   'learn/financial-basics': {
     title: 'Financial Basics - Foundation Course',
@@ -144,10 +146,10 @@ export const PAGE_SEO_CONFIG = {
     keywords: ['financial insights', 'market analysis', 'expert content']
   },
   // Business Pages
-  'business/benefits': {
-    title: 'Business Benefits - Enterprise Financial Solutions',
+  'business/advantages': {
+    title: 'Business Advantages - Enterprise Financial Solutions',
     description: 'Discover how diBoaS empowers businesses with comprehensive financial services and tools.',
-    keywords: ['business banking', 'enterprise finance', 'business solutions']
+    keywords: ['business advantages', 'enterprise finance', 'business solutions']
   },
   'business/account': {
     title: 'Business Account - Corporate Banking',
@@ -180,10 +182,10 @@ export const PAGE_SEO_CONFIG = {
     keywords: ['business credit', 'P2P lending', 'business financing']
   },
   // Rewards Pages
-  'rewards/benefits': {
-    title: 'diBoaS Rewards - Loyalty Program Benefits',
+  'rewards/overview': {
+    title: 'diBoaS Rewards - Loyalty Program Overview',
     description: 'Earn rewards for every transaction and unlock exclusive benefits with diBoaS Rewards.',
-    keywords: ['rewards program', 'loyalty benefits', 'cashback rewards']
+    keywords: ['rewards overview', 'loyalty program', 'cashback rewards']
   },
   'rewards/ai-guides': {
     title: 'AI Mascot Guides - Personalized Financial Assistant',
@@ -216,10 +218,10 @@ export const PAGE_SEO_CONFIG = {
     keywords: ['token airdrop', 'crypto rewards', 'cryptocurrency earnings']
   },
   // Security Pages
-  'security/benefits': {
+  'security/protection': {
     title: 'diBoaS Protection - Security Benefits',
     description: 'Learn about our comprehensive security measures and protection benefits.',
-    keywords: ['financial security', 'protection benefits', 'secure banking']
+    keywords: ['financial protection', 'security benefits', 'secure banking']
   },
   'security/audit-reports': {
     title: 'Audit & Reports - Security Transparency',
@@ -236,6 +238,26 @@ export const PAGE_SEO_CONFIG = {
     title: 'FAQ - Frequently Asked Questions',
     description: 'Find answers to common questions about diBoaS services and features.',
     keywords: ['FAQ', 'help', 'support', 'questions']
+  },
+  'help/contact': {
+    title: 'Contact Us - Get in Touch',
+    description: 'Contact diBoaS support team for assistance with your account and services.',
+    keywords: ['contact', 'support', 'help', 'customer service']
+  },
+  'help/getting-started': {
+    title: 'Getting Started - Quick Start Guide',
+    description: 'Get started with diBoaS in minutes. Learn how to open an account and start managing your finances.',
+    keywords: ['getting started', 'quick start', 'onboarding', 'tutorial']
+  },
+  'help/troubleshooting': {
+    title: 'Troubleshooting - Common Issues',
+    description: 'Find solutions to common issues and problems with your diBoaS account.',
+    keywords: ['troubleshooting', 'problems', 'issues', 'solutions']
+  },
+  'help/support': {
+    title: 'Support - Customer Support Center',
+    description: 'Access diBoaS customer support resources and contact options.',
+    keywords: ['support', 'customer service', 'help desk', 'assistance']
   },
   about: {
     title: 'About diBoaS - Our Mission and Vision',

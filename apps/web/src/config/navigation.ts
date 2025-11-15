@@ -18,13 +18,13 @@ export const navigationConfig: NavigationConfig = {
       banner: ASSET_PATHS.NAVIGATION.DIBOAS_BANNER,
       description: 'common.navigation.diboas.description',
       subItems: [
-        { id: 'know-diboas', label: 'common.navigation.diboas.subItems.know', href: createUrl(ROUTES.BENEFITS) },
-        { id: 'account', label: 'common.navigation.diboas.subItems.account', href: createUrl(ROUTES.ACCOUNT) },
-        { id: 'banking', label: 'common.navigation.diboas.subItems.banking', href: createUrl(ROUTES.BANKING_SERVICES) },
-        { id: 'investing', label: 'common.navigation.diboas.subItems.investing', href: createUrl(ROUTES.INVESTING) },
-        { id: 'crypto', label: 'common.navigation.diboas.subItems.crypto', href: createUrl(ROUTES.CRYPTOCURRENCY) },
-        { id: 'strategies', label: 'common.navigation.diboas.subItems.strategies', href: createUrl(ROUTES.DEFI_STRATEGIES) },
-        { id: 'credit', label: 'common.navigation.diboas.subItems.credit', href: createUrl(ROUTES.CREDIT) }
+        { id: 'know-diboas', label: 'common.navigation.diboas.subItems.know', href: createUrl(ROUTES.WHY_DIBOAS) },
+        { id: 'account', label: 'common.navigation.diboas.subItems.account', href: createUrl(ROUTES.PERSONAL.ACCOUNT) },
+        { id: 'banking', label: 'common.navigation.diboas.subItems.banking', href: createUrl(ROUTES.PERSONAL.BANKING) },
+        { id: 'investing', label: 'common.navigation.diboas.subItems.investing', href: createUrl(ROUTES.PERSONAL.INVESTING) },
+        { id: 'crypto', label: 'common.navigation.diboas.subItems.crypto', href: createUrl(ROUTES.PERSONAL.CRYPTOCURRENCY) },
+        { id: 'strategies', label: 'common.navigation.diboas.subItems.strategies', href: createUrl(ROUTES.PERSONAL.DEFI_STRATEGIES) },
+        { id: 'credit', label: 'common.navigation.diboas.subItems.credit', href: createUrl(ROUTES.PERSONAL.CREDIT) }
       ]
     },
     {
@@ -33,7 +33,7 @@ export const navigationConfig: NavigationConfig = {
       banner: ASSET_PATHS.NAVIGATION.LEARN_BANNER,
       description: 'common.navigation.learn.description',
       subItems: [
-        { id: 'learn-center', label: 'common.navigation.learn.subItems.center', href: createUrl(ROUTES.LEARN.BENEFITS) },
+        { id: 'learn-center', label: 'common.navigation.learn.subItems.center', href: createUrl(ROUTES.LEARN.OVERVIEW) },
         { id: 'financial-basics', label: 'common.navigation.learn.subItems.basics', href: createUrl(ROUTES.LEARN.FINANCIAL_BASICS) },
         { id: 'money-management', label: 'common.navigation.learn.subItems.management', href: createUrl(ROUTES.LEARN.MONEY_MANAGEMENT) },
         { id: 'investment-guide', label: 'common.navigation.learn.subItems.investing', href: createUrl(ROUTES.LEARN.INVESTMENT_GUIDE) },
@@ -48,7 +48,7 @@ export const navigationConfig: NavigationConfig = {
       banner: ASSET_PATHS.NAVIGATION.BUSINESS_BANNER,
       description: 'common.navigation.business.description',
       subItems: [
-        { id: 'know-business', label: 'common.navigation.business.subItems.know', href: createUrl(ROUTES.BUSINESS.BENEFITS) },
+        { id: 'know-business', label: 'common.navigation.business.subItems.know', href: createUrl(ROUTES.BUSINESS.ADVANTAGES) },
         { id: 'business-account', label: 'common.navigation.business.subItems.account', href: createUrl(ROUTES.BUSINESS.ACCOUNT) },
         { id: 'business-bank', label: 'common.navigation.business.subItems.bank', href: createUrl(ROUTES.BUSINESS.BANKING) },
         { id: 'payments', label: 'common.navigation.business.subItems.payments', href: createUrl(ROUTES.BUSINESS.PAYMENTS) },
@@ -63,7 +63,7 @@ export const navigationConfig: NavigationConfig = {
       banner: ASSET_PATHS.NAVIGATION.REWARDS_BANNER,
       description: 'common.navigation.rewards.description',
       subItems: [
-        { id: 'diboas-rewards', label: 'common.navigation.rewards.subItems.program', href: createUrl(ROUTES.REWARDS.BENEFITS) },
+        { id: 'diboas-rewards', label: 'common.navigation.rewards.subItems.program', href: createUrl(ROUTES.REWARDS.OVERVIEW) },
         { id: 'ai-mascot', label: 'common.navigation.rewards.subItems.mascots', href: createUrl(ROUTES.REWARDS.AI_GUIDES) },
         { id: 'referral', label: 'common.navigation.rewards.subItems.referral', href: createUrl(ROUTES.REWARDS.REFERRAL_PROGRAM) },
         { id: 'earn-points', label: 'common.navigation.rewards.subItems.points', href: createUrl(ROUTES.REWARDS.POINTS_SYSTEM) },
@@ -78,7 +78,7 @@ export const navigationConfig: NavigationConfig = {
       banner: ASSET_PATHS.NAVIGATION.SECURITY_BANNER,
       description: 'common.navigation.security.description',
       subItems: [
-        { id: 'protection', label: 'common.navigation.security.subItems.protection', href: createUrl(ROUTES.SECURITY.BENEFITS) },
+        { id: 'protection', label: 'common.navigation.security.subItems.protection', href: createUrl(ROUTES.SECURITY.PROTECTION) },
         { id: 'audit-reports', label: 'common.navigation.security.subItems.audits', href: createUrl(ROUTES.SECURITY.AUDIT_REPORTS) },
         { id: 'stay-safe', label: 'common.navigation.security.subItems.safe', href: createUrl(ROUTES.SECURITY.SAFETY_GUIDE) },
         { id: 'faq', label: 'common.navigation.security.subItems.faq', href: createUrl(ROUTES.HELP.FAQ) }
@@ -100,24 +100,24 @@ export const navigationConfig: NavigationConfig = {
   ],
 
   mobileHighlights: [
-    { id: 'benefits', label: 'common.navigation.mobile.highlights.benefits', href: createUrl(ROUTES.BENEFITS) },
-    { id: 'learn', label: 'common.navigation.mobile.highlights.learn', href: createUrl(ROUTES.LEARN.BENEFITS) },
-    { id: 'rewards', label: 'common.navigation.mobile.highlights.rewards', href: createUrl(ROUTES.REWARDS.BENEFITS) }
+    { id: 'benefits', label: 'common.navigation.mobile.highlights.benefits', href: createUrl(ROUTES.WHY_DIBOAS) },
+    { id: 'learn', label: 'common.navigation.mobile.highlights.learn', href: createUrl(ROUTES.LEARN.OVERVIEW) },
+    { id: 'rewards', label: 'common.navigation.mobile.highlights.rewards', href: createUrl(ROUTES.REWARDS.OVERVIEW) }
   ],
 
   mobileSections: [
     {
       title: 'common.navigation.mobile.sections.forYou',
       items: [
-        { id: 'diboas', label: 'common.navigation.diboas.label', href: createUrl(ROUTES.BENEFITS) },
-        { id: 'learn', label: 'common.navigation.learn.label', href: createUrl(ROUTES.LEARN.BENEFITS) },
-        { id: 'rewards', label: 'common.navigation.rewards.label', href: createUrl(ROUTES.REWARDS.BENEFITS) }
+        { id: 'diboas', label: 'common.navigation.diboas.label', href: createUrl(ROUTES.WHY_DIBOAS) },
+        { id: 'learn', label: 'common.navigation.learn.label', href: createUrl(ROUTES.LEARN.OVERVIEW) },
+        { id: 'rewards', label: 'common.navigation.rewards.label', href: createUrl(ROUTES.REWARDS.OVERVIEW) }
       ]
     },
     {
       title: 'common.navigation.mobile.sections.forBusiness',
       items: [
-        { id: 'business', label: 'common.navigation.business.label', href: createUrl(ROUTES.BUSINESS.BENEFITS) }
+        { id: 'business', label: 'common.navigation.business.label', href: createUrl(ROUTES.BUSINESS.ADVANTAGES) }
       ]
     }
   ],

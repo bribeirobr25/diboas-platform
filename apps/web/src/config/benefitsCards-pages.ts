@@ -63,7 +63,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 2. ACCOUNT - diboas.com/account */
-  'account': {
+  'personal-account': {
     section: {
       title: 'marketing.pages.account.benefitsCards.title',
       description: 'marketing.pages.account.benefitsCards.description',
@@ -157,7 +157,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 4. BENEFITS - diboas.com/benefits */
-  'benefits': {
+  'why-diboas': {
     section: {
       title: 'marketing.pages.benefits.benefitsCards.title',
       description: 'marketing.pages.benefits.benefitsCards.description',
@@ -312,7 +312,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 7. BUSINESSBENEFITS - diboas.com/business-benefits */
-  'business-benefits': {
+  'business-advantages': {
     section: {
       title: 'marketing.pages.businessBenefits.benefitsCards.title',
       description: 'marketing.pages.businessBenefits.benefitsCards.description',
@@ -594,7 +594,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 13. CREDIT - diboas.com/credit */
-  'credit': {
+  'personal-credit': {
     section: {
       title: 'marketing.pages.credit.benefitsCards.title',
       description: 'marketing.pages.credit.benefitsCards.description',
@@ -641,7 +641,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 14. CRYPTOCURRENCY - diboas.com/cryptocurrency */
-  'cryptocurrency': {
+  'personal-cryptocurrency': {
     section: {
       title: 'marketing.pages.cryptocurrency.benefitsCards.title',
       description: 'marketing.pages.cryptocurrency.benefitsCards.description',
@@ -688,7 +688,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 15. DEFISTRATEGIES - diboas.com/defi-strategies */
-  'defi-strategies': {
+  'personal-defi-strategies': {
     section: {
       title: 'marketing.pages.defiStrategies.benefitsCards.title',
       description: 'marketing.pages.defiStrategies.benefitsCards.description',
@@ -836,7 +836,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 18. INVESTING - diboas.com/investing */
-  'investing': {
+  'personal-investing': {
     section: {
       title: 'marketing.pages.investing.benefitsCards.title',
       description: 'marketing.pages.investing.benefitsCards.description',
@@ -944,7 +944,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 20. LEARNBENEFITS - diboas.com/learn-benefits */
-  'learn-benefits': {
+  'learn-overview': {
     section: {
       title: 'marketing.pages.learnBenefits.benefitsCards.title',
       description: 'marketing.pages.learnBenefits.benefitsCards.description',
@@ -1515,7 +1515,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 32. REWARDSBENEFITS - diboas.com/rewards-benefits */
-  'rewards-benefits': {
+  'rewards-overview': {
     section: {
       title: 'marketing.pages.rewardsBenefits.benefitsCards.title',
       description: 'marketing.pages.rewardsBenefits.benefitsCards.description',
@@ -1804,7 +1804,7 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
   },
 
   /** 38. SECURITYBENEFITS - diboas.com/security-benefits */
-  'security-benefits': {
+  'security-protection': {
     section: {
       title: 'marketing.pages.securityBenefits.benefitsCards.title',
       description: 'marketing.pages.securityBenefits.benefitsCards.description',

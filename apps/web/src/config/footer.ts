@@ -49,14 +49,14 @@ export const FOOTER_CONFIG: FooterConfig = {
       links: [
         { id: 'diboasApp', label: 'common.footer.sections.platforms.links.diboasApp', href: APP_URL, external: true, dynamic: true },
         { id: 'businessApp', label: 'common.footer.sections.platforms.links.businessApp', href: BUSINESS_URL, external: true, dynamic: true },
-        { id: 'learnCenter', label: 'common.footer.sections.platforms.links.learnCenter', href: ROUTES.LEARN.BENEFITS },
+        { id: 'learnCenter', label: 'common.footer.sections.platforms.links.learnCenter', href: ROUTES.LEARN.OVERVIEW },
       ]
     },
     {
       title: 'common.footer.sections.transparency.title',
       links: [
         { id: 'privacy', label: 'common.footer.sections.transparency.links.privacy', href: ROUTES.LEGAL.PRIVACY },
-        { id: 'security', label: 'common.footer.sections.transparency.links.security', href: ROUTES.SECURITY.BENEFITS },
+        { id: 'security', label: 'common.footer.sections.transparency.links.security', href: ROUTES.SECURITY.PROTECTION },
         { id: 'terms', label: 'common.footer.sections.transparency.links.terms', href: ROUTES.LEGAL.TERMS },
       ]
     },

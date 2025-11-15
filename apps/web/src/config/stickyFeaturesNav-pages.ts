@@ -95,59 +95,59 @@ function createPageConfig(
  * Following Hero pattern: Partial configs that merge with Factory defaults
  */
 export const STICKY_FEATURES_NAV_PAGE_CONFIGS: Record<string, Partial<StickyFeaturesNavVariantConfig>> = {
-  'benefits': createPageConfig(
+  'whyDiboas': createPageConfig(
     'benefits',
     ['stopJugglingApps', 'youReInCharge', 'yourMoneyAlwaysWorks', 'investingStopsBeingScary', 'useMoreEarnMore'] as const,
-    ROUTES.BENEFITS,
+    ROUTES.WHY_DIBOAS,
     0
   ),
 
-  'account': createPageConfig(
+  'personalAccount': createPageConfig(
     'account',
     ['earnsWhileYouSleep', 'actuallyFree', 'yourMoneyAtTheRightSpeed', 'securityYouControl'] as const,
-    ROUTES.ACCOUNT,
+    ROUTES.PERSONAL.ACCOUNT,
     5
   ),
 
-  'bankingServices': createPageConfig(
+  'personalBanking': createPageConfig(
     'bankingServices',
     ['borderlessTransfers', 'oneClickPayments', 'historyThatMakesSense', 'realTimeControl'] as const,
-    ROUTES.BANKING_SERVICES,
+    ROUTES.PERSONAL.BANKING,
     9
   ),
 
-  'investing': createPageConfig(
+  'personalInvesting': createPageConfig(
     'investing',
     ['startSmall', 'diversifyInOneClick', 'learnByInvesting', 'feesThatMakeSense'] as const,
-    ROUTES.INVESTING,
+    ROUTES.PERSONAL.INVESTING,
     13
   ),
 
-  'cryptocurrency': createPageConfig(
+  'personalCryptocurrency': createPageConfig(
     'cryptocurrency',
     ['oneClickToGetIn', 'securityYouUnderstand', 'fromZeroToAdvanced', 'cryptoTraditionalComplete'] as const,
-    ROUTES.CRYPTOCURRENCY,
+    ROUTES.PERSONAL.CRYPTOCURRENCY,
     17
   ),
 
   'defiStrategies': createPageConfig(
     'defiStrategies',
     ['yieldsWorthYourTime', 'readyMadeStrategies', 'riskUnderControl', 'stopWheneverYouWant'] as const,
-    ROUTES.DEFI_STRATEGIES,
+    ROUTES.PERSONAL.DEFI_STRATEGIES,
     1
   ),
 
-  'credit': createPageConfig(
+  'personalCredit': createPageConfig(
     'credit',
     ['totalTransparency', 'fairApproval', 'youDecideHowMuch', 'payWhenYouCan'] as const,
-    ROUTES.CREDIT,
+    ROUTES.PERSONAL.CREDIT,
     5
   ),
 
-  'learnBenefits': createPageConfig(
+  'learnOverview': createPageConfig(
     'learnBenefits',
     ['fromBasicsToAdvanced', 'learnByDoing', 'communityThatTeaches', 'guidesThatEvolveWithYou'] as const,
-    ROUTES.LEARN.BENEFITS,
+    ROUTES.LEARN.OVERVIEW,
     9
   ),
 
@@ -193,10 +193,10 @@ export const STICKY_FEATURES_NAV_PAGE_CONFIGS: Record<string, Partial<StickyFeat
     11
   ),
 
-  'businessBenefits': createPageConfig(
+  'businessAdvantages': createPageConfig(
     'businessBenefits',
     ['completeBusinessBanking', 'capitalWorkingTwentyFourSeven', 'creditToGrow', 'simplifiedManagement'] as const,
-    ROUTES.BUSINESS.BENEFITS,
+    ROUTES.BUSINESS.ADVANTAGES,
     15
   ),
 
@@ -242,10 +242,10 @@ export const STICKY_FEATURES_NAV_PAGE_CONFIGS: Record<string, Partial<StickyFeat
     18
   ),
 
-  'rewardsBenefits': createPageConfig(
+  'rewardsOverview': createPageConfig(
     'rewardsBenefits',
     ['pointsForEverything', 'realCashback', 'vipAccess', 'gamificationThatTeaches'] as const,
-    ROUTES.REWARDS.BENEFITS,
+    ROUTES.REWARDS.OVERVIEW,
     2
   ),
 
@@ -291,10 +291,10 @@ export const STICKY_FEATURES_NAV_PAGE_CONFIGS: Record<string, Partial<StickyFeat
     6
   ),
 
-  'securityBenefits': createPageConfig(
+  'securityProtection': createPageConfig(
     'securityBenefits',
     ['militaryGradeEncryption', 'youReTheOwner', 'multiJurisdictionCompliant', 'twentyFourSevenSupport'] as const,
-    ROUTES.SECURITY.BENEFITS,
+    ROUTES.SECURITY.PROTECTION,
     10
   ),
 

@@ -89,7 +89,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     image: getSocialRealAsset('LOGIN_WOMAN'),
     imageAlt: 'friends',
     ctaText: 'common.buttons.learnMore',
-    ctaHref: ROUTES.INVESTING
+    ctaHref: ROUTES.PERSONAL.INVESTING
   },
   {
     id: 'business',
@@ -98,7 +98,7 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     image: getSocialRealAsset('BUSINESS_PAYMENT_CARD'),
     imageAlt: 'Business group',
     ctaText: 'common.buttons.learnMore',
-    ctaHref: ROUTES.BUSINESS.BENEFITS
+    ctaHref: ROUTES.BUSINESS.ADVANTAGES
   }
 ] as const;
 

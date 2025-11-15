@@ -20,35 +20,35 @@ import {
  * Page key type for type safety
  */
 export type FAQAccordionPageKey =
-  | 'benefits'
-  | 'account'
-  | 'bankingServices'
-  | 'investing'
-  | 'cryptocurrency'
-  | 'defiStrategies'
-  | 'credit'
-  | 'learnBenefits'
+  | 'why-diboas'
+  | 'personalAccount'
+  | 'personalBanking'
+  | 'personalInvesting'
+  | 'personalCryptocurrency'
+  | 'personalDefiStrategies'
+  | 'personalCredit'
+  | 'learnOverview'
   | 'learnFinancialBasics'
   | 'learnMoneyManagement'
   | 'learnInvestmentGuide'
   | 'learnCryptocurrencyGuide'
   | 'learnDefiExplained'
   | 'learnSpecialContent'
-  | 'businessBenefits'
+  | 'businessAdvantages'
   | 'businessAccount'
   | 'businessBanking'
   | 'businessPayments'
   | 'businessTreasury'
   | 'businessYieldStrategies'
   | 'businessCreditSolutions'
-  | 'rewardsBenefits'
+  | 'rewardsOverview'
   | 'rewardsAiGuides'
   | 'rewardsReferralProgram'
   | 'rewardsPointsSystem'
   | 'rewardsBadgesLeaderboard'
   | 'rewardsCampaigns'
   | 'rewardsTokenAirdrop'
-  | 'securityBenefits'
+  | 'securityProtection'
   | 'securityAuditReports'
   | 'securitySafetyGuide'
   | 'helpFaq'
@@ -97,16 +97,16 @@ function createPageConfig(pageKey: string, _questionCount?: number): FAQAccordio
  */
 export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordionVariantConfig> = {
   // Main Menu
-  benefits: createPageConfig('benefits', 3),
-  account: createPageConfig('account', 3),
-  bankingServices: createPageConfig('bankingServices', 3),
-  investing: createPageConfig('investing', 3),
-  cryptocurrency: createPageConfig('cryptocurrency', 3),
-  defiStrategies: createPageConfig('defiStrategies', 3),
-  credit: createPageConfig('credit', 3),
+  'why-diboas': createPageConfig('why-diboas', 3),
+  personalAccount: createPageConfig('personalAccount', 3),
+  personalBanking: createPageConfig('personalBanking', 3),
+  personalInvesting: createPageConfig('personalInvesting', 3),
+  personalCryptocurrency: createPageConfig('personalCryptocurrency', 3),
+  personalDefiStrategies: createPageConfig('personalDefiStrategies', 3),
+  personalCredit: createPageConfig('personalCredit', 3),
 
   // The Learn Center
-  learnBenefits: createPageConfig('learnBenefits', 3),
+  learnOverview: createPageConfig('learnOverview', 3),
   learnFinancialBasics: createPageConfig('learnFinancialBasics', 3),
   learnMoneyManagement: createPageConfig('learnMoneyManagement', 3),
   learnInvestmentGuide: createPageConfig('learnInvestmentGuide', 3),
@@ -115,7 +115,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordio
   learnSpecialContent: createPageConfig('learnSpecialContent', 3),
 
   // diBoaS Business
-  businessBenefits: createPageConfig('businessBenefits', 3),
+  businessAdvantages: createPageConfig('businessAdvantages', 3),
   businessAccount: createPageConfig('businessAccount', 3),
   businessBanking: createPageConfig('businessBanking', 3),
   businessPayments: createPageConfig('businessPayments', 3),
@@ -124,7 +124,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordio
   businessCreditSolutions: createPageConfig('businessCreditSolutions', 3),
 
   // diBoaS Rewards
-  rewardsBenefits: createPageConfig('rewardsBenefits', 3),
+  rewardsOverview: createPageConfig('rewardsOverview', 3),
   rewardsAiGuides: createPageConfig('rewardsAiGuides', 3),
   rewardsReferralProgram: createPageConfig('rewardsReferralProgram', 3),
   rewardsPointsSystem: createPageConfig('rewardsPointsSystem', 3),
@@ -133,7 +133,7 @@ export const FAQ_ACCORDION_PAGE_CONFIGS: Record<FAQAccordionPageKey, FAQAccordio
   rewardsTokenAirdrop: createPageConfig('rewardsTokenAirdrop', 3),
 
   // diBoaS Protection
-  securityBenefits: createPageConfig('securityBenefits', 3),
+  securityProtection: createPageConfig('securityProtection', 3),
   securityAuditReports: createPageConfig('securityAuditReports', 3),
   securitySafetyGuide: createPageConfig('securitySafetyGuide', 3),
 

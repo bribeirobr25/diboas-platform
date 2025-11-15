@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('cryptocurrency', locale as SupportedLocale);
+  return generateStaticPageMetadata('personal/credit', locale as SupportedLocale);
 }
 
-export default async function CryptocurrencyPage({ params }: PageProps) {
+export default async function CreditPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Cryptocurrency',
-    description: 'Digital assets made simple',
-    category: 'Cryptocurrency Services'
+    name: 'diBoaS Credit',
+    description: 'Fair and transparent credit solutions',
+    category: 'Credit Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Cryptocurrency', url: ROUTES.CRYPTOCURRENCY }
+    { name: 'Personal', url: '/personal' },
+    { name: 'Credit', url: ROUTES.PERSONAL.CREDIT }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('cryptocurrency');
+  const heroVariant = getVariantForPageConfig('credit');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-cryptocurrency"
+          sectionId="hero-section-credit"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'cryptocurrency', variant: heroVariant }}
+          context={{ page: 'credit', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.cryptocurrency}
+            config={HERO_PAGE_CONFIGS.credit}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-cryptocurrency"
+          sectionId="feature-showcase-credit"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'cryptocurrency' }}
+          context={{ page: 'credit' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.cryptocurrency}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.credit}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function CryptocurrencyPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-cryptocurrency"
+          sectionId="benefits-cards-credit"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'cryptocurrency' }}
+          context={{ page: 'credit' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('cryptocurrency')!}
+            config={getBenefitsCardsConfig('credit')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-cryptocurrency"
+          sectionId="sticky-features-nav-credit"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'cryptocurrency' }}
+          context={{ page: 'credit' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.cryptocurrency}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.credit}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-cryptocurrency"
+          sectionId="faq-accordion-credit"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'cryptocurrency' }}
+          context={{ page: 'credit' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.cryptocurrency!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.personalCredit!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

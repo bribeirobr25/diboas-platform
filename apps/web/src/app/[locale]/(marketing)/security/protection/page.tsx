@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('defi-strategies', locale as SupportedLocale);
+  return generateStaticPageMetadata('security/protection', locale as SupportedLocale);
 }
 
-export default async function DeFiStrategiesPage({ params }: PageProps) {
+export default async function SecurityBenefitsPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS DeFi Strategies',
-    description: 'Professional investment strategies for DeFi',
-    category: 'DeFi Services'
+    name: 'diBoaS Protection',
+    description: 'Military-grade security',
+    category: 'Security Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'DeFi Strategies', url: ROUTES.DEFI_STRATEGIES }
+    { name: 'Security', url: '/security' },
+    { name: 'Protection', url: ROUTES.SECURITY.PROTECTION }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('defi-strategies');
+  const heroVariant = getVariantForPageConfig('security-benefits');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-defi-strategies"
+          sectionId="hero-section-security-benefits"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'defi-strategies', variant: heroVariant }}
+          context={{ page: 'security-benefits', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['defi-strategies']}
+            config={HERO_PAGE_CONFIGS['security-benefits']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-defiStrategies"
+          sectionId="feature-showcase-securityBenefits"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'defiStrategies' }}
+          context={{ page: 'securityBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.defiStrategies}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.securityBenefits}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function DeFiStrategiesPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-defi-strategies"
+          sectionId="benefits-cards-security-benefits"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'defi-strategies' }}
+          context={{ page: 'security-benefits' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('defi-strategies')!}
+            config={getBenefitsCardsConfig('security-benefits')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-defiStrategies"
+          sectionId="sticky-features-nav-securityBenefits"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'defiStrategies' }}
+          context={{ page: 'securityBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.defiStrategies}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securityBenefits}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-defiStrategies"
+          sectionId="faq-accordion-securityBenefits"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'defiStrategies' }}
+          context={{ page: 'securityBenefits' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.defiStrategies!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.securityProtection!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

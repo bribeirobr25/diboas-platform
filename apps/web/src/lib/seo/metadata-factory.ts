@@ -207,6 +207,14 @@ export class MetadataFactory {
    * Code Reusability: Automatic structured data selection
    */
   static generateCategoryStructuredData(pageKey: string, pageConfig: any) {
+    if (pageKey.startsWith('personal/')) {
+      return this.generateServiceStructuredData({
+        name: pageConfig.title,
+        description: pageConfig.description,
+        category: 'Personal Financial Services'
+      });
+    }
+
     if (pageKey.startsWith('learn/')) {
       return this.generateEducationalStructuredData({
         name: pageConfig.title,

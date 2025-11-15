@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('security/benefits', locale as SupportedLocale);
+  return generateStaticPageMetadata('business/advantages', locale as SupportedLocale);
 }
 
-export default async function SecurityBenefitsPage({ params }: PageProps) {
+export default async function BusinessBenefitsPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Protection',
-    description: 'Military-grade security',
-    category: 'Security Services'
+    name: 'diBoaS Business Benefits',
+    description: 'Simple and efficient business finances',
+    category: 'Business Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Security Benefits', url: ROUTES.SECURITY.BENEFITS }
+    { name: 'Business', url: '/business' },
+    { name: 'Advantages', url: ROUTES.BUSINESS.ADVANTAGES }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('security-benefits');
+  const heroVariant = getVariantForPageConfig('business-benefits');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-security-benefits"
+          sectionId="hero-section-business-benefits"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'security-benefits', variant: heroVariant }}
+          context={{ page: 'business-benefits', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['security-benefits']}
+            config={HERO_PAGE_CONFIGS['business-benefits']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-securityBenefits"
+          sectionId="feature-showcase-businessBenefits"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'securityBenefits' }}
+          context={{ page: 'businessBenefits' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.securityBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessBenefits}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function SecurityBenefitsPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-security-benefits"
+          sectionId="benefits-cards-business-benefits"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'security-benefits' }}
+          context={{ page: 'business-benefits' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('security-benefits')!}
+            config={getBenefitsCardsConfig('business-benefits')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-securityBenefits"
+          sectionId="sticky-features-nav-businessBenefits"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'securityBenefits' }}
+          context={{ page: 'businessBenefits' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.securityBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessBenefits}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-securityBenefits"
+          sectionId="faq-accordion-businessBenefits"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'securityBenefits' }}
+          context={{ page: 'businessBenefits' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.securityBenefits!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.businessAdvantages!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

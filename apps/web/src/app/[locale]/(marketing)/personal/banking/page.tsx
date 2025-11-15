@@ -25,10 +25,10 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('business/benefits', locale as SupportedLocale);
+  return generateStaticPageMetadata('personal/banking', locale as SupportedLocale);
 }
 
-export default async function BusinessBenefitsPage({ params }: PageProps) {
+export default async function BankingServicesPage({ params }: PageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -37,17 +37,18 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
   }
 
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Business Benefits',
-    description: 'Simple and efficient business finances',
-    category: 'Business Services'
+    name: 'diBoaS Banking Services',
+    description: 'Modern banking services without borders',
+    category: 'Financial Services'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'Business Benefits', url: ROUTES.BUSINESS.BENEFITS }
+    { name: 'Personal', url: '/personal' },
+    { name: 'Banking', url: ROUTES.PERSONAL.BANKING }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('business-benefits');
+  const heroVariant = getVariantForPageConfig('banking-services');
 
   return (
     <>
@@ -55,14 +56,14 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary
-          sectionId="hero-section-business-benefits"
+          sectionId="hero-section-banking-services"
           sectionType="HeroSection"
           enableReporting={true}
-          context={{ page: 'business-benefits', variant: heroVariant }}
+          context={{ page: 'banking-services', variant: heroVariant }}
         >
           <HeroSection
             variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['business-benefits']}
+            config={HERO_PAGE_CONFIGS['banking-services']}
             enableAnalytics={true}
             priority={true}
           />
@@ -70,13 +71,13 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
 
         {/* Feature Showcase Section */}
         <SectionErrorBoundary
-          sectionId="feature-showcase-businessBenefits"
+          sectionId="feature-showcase-bankingServices"
           sectionType="FeatureShowcase"
           enableReporting={true}
-          context={{ page: 'businessBenefits' }}
+          context={{ page: 'bankingServices' }}
         >
           <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.businessBenefits}
+            config={FEATURE_SHOWCASE_PAGE_CONFIGS.bankingServices}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
@@ -85,39 +86,39 @@ export default async function BusinessBenefitsPage({ params }: PageProps) {
         
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
-          sectionId="benefits-cards-business-benefits"
+          sectionId="benefits-cards-banking-services"
           sectionType="BenefitsCards"
           enableReporting={true}
-          context={{ page: 'business-benefits' }}
+          context={{ page: 'banking-services' }}
         >
           <BenefitsCardsSection
-            config={getBenefitsCardsConfig('business-benefits')!}
+            config={getBenefitsCardsConfig('banking-services')!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
 
         {/* Sticky Features Navigation Section */}
         <SectionErrorBoundary
-          sectionId="sticky-features-nav-businessBenefits"
+          sectionId="sticky-features-nav-bankingServices"
           sectionType="StickyFeaturesNav"
           enableReporting={true}
-          context={{ page: 'businessBenefits' }}
+          context={{ page: 'bankingServices' }}
         >
           <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.businessBenefits}
+            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.bankingServices}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
       
         {/* FAQ Accordion Section */}
         <SectionErrorBoundary
-          sectionId="faq-accordion-businessBenefits"
+          sectionId="faq-accordion-bankingServices"
           sectionType="FAQAccordion"
           enableReporting={true}
-          context={{ page: 'businessBenefits' }}
+          context={{ page: 'bankingServices' }}
         >
           <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.businessBenefits!}
+            config={FAQ_ACCORDION_PAGE_CONFIGS.personalBanking!}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
