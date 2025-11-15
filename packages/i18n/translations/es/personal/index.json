@@ -1,0 +1,570 @@
+{
+  "account": {
+    "title": "Cuenta diBoaS | diBoaS",
+    "description": "Una cuenta gratis que rinde 100% del CDI y te pone en control de tu dinero.",
+    "hero": {
+      "title": "Una cuenta gratis que rinde 100% del CDI y te pone en control de tu dinero. Así de simple.",
+      "description": "",
+      "cta": "Empezar ahora"
+    },
+    "benefitsCards": {
+      "title": "Una cuenta que trabaja para ti",
+      "description": "Gratis, con rendimiento, sin complicaciones.",
+      "cards": {
+        "freeAndTransparent": {
+          "iconAlt": "Free banking icon",
+          "title": "Gratis y Transparente",
+          "description": "Cero comisiones mensuales, cero costos de mantenimiento.\nTransferencias ilimitadas sin costo.\nLo que ves es lo que obtienes."
+        },
+        "earningWhileYouSleep": {
+          "iconAlt": "Earning icon",
+          "title": "Gana Mientras Duermes",
+          "description": "100% del CDI diario, automáticamente.\nTu dinero crece incluso cuando no estás mirando.\nHasta 30% más que cuentas de ahorro."
+        },
+        "openInMinutes": {
+          "iconAlt": "Quick setup icon",
+          "title": "Abre en Minutos",
+          "description": "No necesitas ir a una sucursal.\nSin papeleos que imprimir.\nDescarga la app, regístrate, listo."
+        },
+        "aquaGuidesYou": {
+          "iconAlt": "AI guide icon",
+          "title": "Aqua Te Guía",
+          "description": "Nuestra mascota amigable explica cada función.\nNunca te sentirás perdido.\nDesde el primer depósito hasta la primera inversión."
+        }
+      }
+    },
+    "stickyFeaturesNav": {
+      "title": "Tu cuenta. Tus reglas.",
+      "subtitle": "Todo lo que necesitas, nada de lo que no quieres.",
+      "cards": {
+        "earnsWhileYouSleep": {
+          "title": "Rinde Mientras Duermes",
+          "description": "Tu saldo rinde 100% del CDI automáticamente.\nSin necesidad de mover el dinero a otro lado.\nAsí de simple.",
+          "imageAlt": "Rinde Mientras Duermes illustration"
+        },
+        "actuallyFree": {
+          "title": "Gratis de Verdad",
+          "description": "Sin comisiones de mantenimiento. Sin letra chica.\nTransferencias gratis y Pix ilimitado.\nCero sorpresas.",
+          "imageAlt": "Gratis de Verdad illustration"
+        },
+        "yourMoneyAtTheRightSpeed": {
+          "title": "Tu Dinero a la Velocidad Correcta",
+          "description": "Deposita, envía y recibe en tiempo real.\nSin fronteras, sin trámites.\nTodo desde la app.",
+          "imageAlt": "Tu Dinero a la Velocidad Correcta illustration"
+        },
+        "securityYouControl": {
+          "title": "Seguridad Que Tú Controlas",
+          "description": "Bloqueos instantáneos, alertas en tiempo real\ny tú siempre al mando.\nTu dinero, tus reglas de protección.",
+          "imageAlt": "Seguridad Que Tú Controlas illustration"
+        }
+      }
+    },
+    "featureShowcase": {
+      "slides": {
+        "unification": {
+          "title": "Tu Dinero, Tu Control",
+          "description": "Cuenta gratuita con rendimiento del 100% CDI.\nSin comisiones ocultas, sin sorpresas.\nTu dinero crece mientras duermes.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Tu Dinero, Tu Control illustration"
+        },
+        "simplicity": {
+          "title": "Ábrete en Minutos",
+          "description": "✓ Sin saldo mínimo requerido\n✓ Transferencias ilimitadas gratis\n✓ Notificaciones en tiempo real\nBanking sin burocracia. Por fin.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Ábrete en Minutos illustration"
+        },
+        "rewards": {
+          "title": "Gana Mientras Ahorras",
+          "description": "Rendimiento diario automático en tu saldo.\nHasta 30% más que el ahorro tradicional.\nMisma seguridad, mejor retorno.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Gana Mientras Ahorras illustration"
+        }
+      }
+    },
+    "faqAccordion": {
+      "sectionTitle": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+      "ctaText": "Ver Todas las Preguntas",
+      "questionIds": [
+        "q5",
+        "q6",
+        "q7"
+      ]
+    }
+  },
+  "banking": {
+    "title": "Banking | diBoaS",
+    "description": "Tu dinero sin fronteras. Deposita, envía y recibe en tiempo real.",
+    "hero": {
+      "title": "Tu dinero sin fronteras. Deposita, envía y recibe en tiempo real, todo desde tu app.",
+      "description": "",
+      "cta": "Empezar ahora"
+    },
+    "benefitsCards": {
+      "title": "Banking sin fronteras, sin complicaciones",
+      "description": "Tu dinero se mueve libremente por el mundo.",
+      "cards": {
+        "instantTransfersPix": {
+          "iconAlt": "Instant transfer icon",
+          "title": "Transferencias Instantáneas y Pix",
+          "description": "Envía y recibe dinero en segundos.\n24/7, incluso en días festivos.\nTiempo real, siempre."
+        },
+        "borderlessMoney": {
+          "iconAlt": "International money icon",
+          "title": "Borderless: Dinero Sin Límites",
+          "description": "Envía dinero a cualquier país.\nComisiones transparentes, tipos de cambio justos.\nMucho más barato que bancos tradicionales."
+        },
+        "realTimeNotifications": {
+          "iconAlt": "Notification icon",
+          "title": "Notificaciones en Tiempo Real",
+          "description": "Cada transacción genera alertas instantáneas.\nSiempre sabes qué está pasando.\nSeguridad que sientes."
+        },
+        "transparentHistory": {
+          "iconAlt": "History icon",
+          "title": "Historial Transparente",
+          "description": "Ve todas tus transacciones claramente.\nFiltra por fecha, tipo o monto.\nExporta cuando quieras."
+        }
+      }
+    },
+    "stickyFeaturesNav": {
+      "title": "Banking sin complicaciones.",
+      "subtitle": "Todo lo que necesitas hacer con tu dinero, bien hecho.",
+      "cards": {
+        "borderlessTransfers": {
+          "title": "Transferencias Sin Fronteras",
+          "description": "Envía y recibe dinero en cualquier parte del mundo.\nTiempo real, tarifas transparentes.\nSin sorpresas en el camino.",
+          "imageAlt": "Transferencias Sin Fronteras illustration"
+        },
+        "oneClickPayments": {
+          "title": "Pagos en 1-Click",
+          "description": "Pix, facturas, pagos recurrentes.\nConfigura una vez, paga cuando necesites.\nRápido y seguro.",
+          "imageAlt": "Pagos en 1-Click illustration"
+        },
+        "historyThatMakesSense": {
+          "title": "Historial Que Tiene Sentido",
+          "description": "Ve cada transacción con claridad.\nFiltra, busca y exporta cuando quieras.\nTus finanzas organizadas como nunca.",
+          "imageAlt": "Historial Que Tiene Sentido illustration"
+        },
+        "realTimeControl": {
+          "title": "Control en Tiempo Real",
+          "description": "Notificaciones instantáneas de cada transacción.\nSiempre sabes qué está pasando\ncon tu dinero.",
+          "imageAlt": "Control en Tiempo Real illustration"
+        }
+      }
+    },
+    "featureShowcase": {
+      "slides": {
+        "unification": {
+          "title": "Banking Sin Fronteras",
+          "description": "Envía y recibe dinero en todo el mundo.\nSin límites, sin esperas.\nTu dinero se mueve a la velocidad de la luz.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Banking Sin Fronteras illustration"
+        },
+        "simplicity": {
+          "title": "Todo al Instante",
+          "description": "✓ Transferencias instantáneas vía Pix\n✓ Envíos internacionales en segundos\n✓ Paga facturas con un toque\nBanking no tiene que ser complicado.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Todo al Instante illustration"
+        },
+        "rewards": {
+          "title": "Comisiones Transparentes",
+          "description": "Solo 0.9% en transferencias externas.\n¿Todo lo demás? Gratis.\nSin comisiones ocultas. Nunca.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Comisiones Transparentes illustration"
+        }
+      }
+    },
+    "faqAccordion": {
+      "sectionTitle": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+      "ctaText": "Ver Todas las Preguntas",
+      "questionIds": [
+        "q9",
+        "q10",
+        "q11"
+      ]
+    }
+  },
+  "investing": {
+    "title": "Inversiones | diBoaS",
+    "description": "Invertir no tiene que ser complicado ni caro. Empieza con solo $10.",
+    "hero": {
+      "title": "Invertir no tiene que ser complicado ni caro. Empieza con solo $10 y mira crecer tu dinero.",
+      "description": "",
+      "cta": "Empezar ahora"
+    },
+    "benefitsCards": {
+      "title": "Invertir no es solo para ricos",
+      "description": "Empieza con $10 y crece a tu ritmo.",
+      "cards": {
+        "startWithWhatYouHave": {
+          "iconAlt": "Start small icon",
+          "title": "Empieza Con Lo Que Tienes",
+          "description": "Solo $10 para comenzar.\nSin mínimos ridículos.\nDemocratización real."
+        },
+        "stocksBondsGoldMore": {
+          "iconAlt": "Asset diversity icon",
+          "title": "Acciones, Bonos, Oro y Más",
+          "description": "Portafolio completo en un solo lugar.\nDiversifica sin múltiples apps.\nUn clic por inversión."
+        },
+        "mysticAppearsWhenReady": {
+          "iconAlt": "Mystic guide icon",
+          "title": "Mystic Aparece Cuando Estás Listo",
+          "description": "Nuestra mascota sabia te ayuda a expandir.\nElla sabe cuándo dominas lo básico.\nY te muestra el siguiente paso."
+        },
+        "builtInEducation": {
+          "iconAlt": "Education icon",
+          "title": "Educación Integrada",
+          "description": "Cada activo viene con explicación.\nAprende qué estás comprando.\nDecisiones informadas, no apuestas."
+        },
+        "feesThatDontRobYou": {
+          "iconAlt": "Low fees icon",
+          "title": "Comisiones Que No Te Roban",
+          "description": "Solo 0.09% por transacción.\nHasta 16x más barato que plataformas tradicionales.\nTransparencia total."
+        }
+      }
+    },
+    "stickyFeaturesNav": {
+      "title": "Invertir sin misterios.",
+      "subtitle": "Comienza con $10 y ve tu dinero crecer.",
+      "cards": {
+        "startSmall": {
+          "title": "Empieza Chico",
+          "description": "Solo $10 para empezar.\nNo necesitas ser rico para invertir.\nEmpieza hoy, crece mañana.",
+          "imageAlt": "Empieza Chico illustration"
+        },
+        "diversifyInOneClick": {
+          "title": "Diversifica en 1-Click",
+          "description": "Acciones, Oro, Crypto, Bienes Raíces y más.\nTodo en la misma app, con la misma facilidad.\nTu portafolio completo en un solo lugar.",
+          "imageAlt": "Diversifica en 1-Click illustration"
+        },
+        "learnByInvesting": {
+          "title": "Aprende Invirtiendo",
+          "description": "Guías IA explican cada paso.\nDe lo básico a lo avanzado, a tu ritmo.\nNadie nace sabiendo. Pero todos aprenden.",
+          "imageAlt": "Aprende Invirtiendo illustration"
+        },
+        "feesThatMakeSense": {
+          "title": "Tarifas Que Tienen Sentido",
+          "description": "0.09% de tarifa para compra/venta.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
+          "imageAlt": "Tarifas Que Tienen Sentido illustration"
+        }
+      }
+    },
+    "featureShowcase": {
+      "slides": {
+        "unification": {
+          "title": "Invierte Como un Pro",
+          "description": "Acciones, bonos, ETFs y crypto.\nTodo en una vista de portafolio.\nTu panel completo de inversiones.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Invierte Como un Pro illustration"
+        },
+        "simplicity": {
+          "title": "Comienza Con $10",
+          "description": "Sin barreras de inversión mínima.\n✓ Tutoriales guiados para principiantes\n✓ Diversificación con un clic\n✓ Recomendaciones inteligentes de Mystic\nInvertir accesible para todos.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Comienza Con $10 illustration"
+        },
+        "rewards": {
+          "title": "Las Comisiones Más Bajas del Mercado",
+          "description": "Solo 0.09% de comisión por operación.\nEso es de 5 a 16 veces más barato que la competencia.\nMás dinero se queda en tu bolsillo.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Las Comisiones Más Bajas del Mercado illustration"
+        }
+      }
+    },
+    "faqAccordion": {
+      "sectionTitle": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+      "ctaText": "Ver Todas las Preguntas",
+      "questionIds": [
+        "q16",
+        "q17",
+        "q18"
+      ]
+    }
+  },
+  "cryptocurrency": {
+    "title": "Criptomonedas | diBoaS",
+    "description": "Crypto ya no es solo para expertos. Invierte de forma simple y segura.",
+    "hero": {
+      "title": "Crypto ya no es solo para expertos. Con 1-Click, inviertes en activos digitales de forma simple y segura.",
+      "description": "",
+      "cta": "Empezar ahora"
+    },
+    "benefitsCards": {
+      "title": "Crypto simplificado",
+      "description": "Compra Bitcoin sin ser un genio tecnológico.",
+      "cards": {
+        "oneClickDone": {
+          "iconAlt": "One click icon",
+          "title": "1-Clic, Listo",
+          "description": "Compra Bitcoin, Ethereum y otros con un toque.\nSin necesidad de entender wallets complejas.\nTan simple como comprar cualquier otra cosa."
+        },
+        "militaryGradeCustody": {
+          "iconAlt": "Security icon",
+          "title": "Custodia de Nivel Militar",
+          "description": "Tus criptos protegidas con seguridad militar.\nTú las controlas, nosotros las guardamos.\nAuditoría independiente disponible."
+        },
+        "integratedWithEverything": {
+          "iconAlt": "Integration icon",
+          "title": "Integrado Con Todo",
+          "description": "Ve crypto junto a tus otras inversiones.\nPortafolio unificado.\nEntiende tu patrimonio total de verdad."
+        },
+        "learnBeforeYouInvest": {
+          "iconAlt": "Learn first icon",
+          "title": "Aprende Antes de Invertir",
+          "description": "Centro de Educación explica cada moneda.\nRiesgos, beneficios, tecnología.\nConocimiento antes que dinero."
+        }
+      }
+    },
+    "stickyFeaturesNav": {
+      "title": "Crypto para gente normal.",
+      "subtitle": "Sin tecnicismos. Solo oportunidades reales.",
+      "cards": {
+        "oneClickToGetIn": {
+          "title": "1-Click Para Entrar",
+          "description": "Compra Bitcoin, Ethereum y más con un click.\nSin necesidad de entender blockchain.\nNuestras guías explican todo.",
+          "imageAlt": "1-Click Para Entrar illustration"
+        },
+        "securityYouUnderstand": {
+          "title": "Seguridad Que Entiendes",
+          "description": "Wallets no-custodiales. Tú eres el dueño.\nEncriptación militar. Auditorías independientes.\nTu crypto, tu custodia.",
+          "imageAlt": "Seguridad Que Entiendes illustration"
+        },
+        "fromZeroToAdvanced": {
+          "title": "De Cero a Avanzado",
+          "description": "Empieza con Aqua comprando tu primer Bitcoin.\nEvoluciona a estrategias avanzadas con Coral.\nTodo a tu propio ritmo.",
+          "imageAlt": "De Cero a Avanzado illustration"
+        },
+        "cryptoTraditionalComplete": {
+          "title": "Crypto + Tradicional = Completo",
+          "description": "Ve tus inversiones tradicionales y crypto\nlado a lado. Una vista única de tu patrimonio.\nFinalmente, todo junto.",
+          "imageAlt": "Crypto + Tradicional = Completo illustration"
+        }
+      }
+    },
+    "featureShowcase": {
+      "slides": {
+        "unification": {
+          "title": "Crypto Sin Complicaciones",
+          "description": "Compra, vende y guarda activos digitales.\nSin jerga técnica. Sin confusión.\nInversión en crypto simplificada.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Crypto Sin Complicaciones illustration"
+        },
+        "simplicity": {
+          "title": "Crypto en 1 Clic",
+          "description": "Bitcoin, Ethereum y más de 50 monedas.\n✓ Compras instantáneas\n✓ Custodia segura\n✓ Precios en tiempo real\nAqua te guía en cada paso.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Crypto en 1 Clic illustration"
+        },
+        "rewards": {
+          "title": "Seguridad de Nivel Militar",
+          "description": "Encriptación bancaria para tus activos digitales.\nAlmacenamiento en frío y protección multifirma.\nTus cryptos, tu control.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Seguridad de Nivel Militar illustration"
+        }
+      }
+    },
+    "faqAccordion": {
+      "sectionTitle": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+      "ctaText": "Ver Todas las Preguntas",
+      "questionIds": [
+        "q23",
+        "q24",
+        "q25"
+      ]
+    }
+  },
+  "defiStrategies": {
+    "title": "Estrategias DeFi | diBoaS",
+    "description": "Estrategias de inversión profesionales diseñadas para ti.",
+    "hero": {
+      "title": "Estrategias de inversión profesionales diseñadas para ti. Elige tu frecuencia y deja que tu dinero trabaje.",
+      "description": "",
+      "cta": "Empezar ahora"
+    },
+    "benefitsCards": {
+      "title": "DeFi hecho para humanos",
+      "description": "Altos rendimientos sin necesitar un doctorado en blockchain.",
+      "cards": {
+        "strategiesCuratedByExperts": {
+          "iconAlt": "Expert curation icon",
+          "title": "Estrategias Curadas Por Expertos",
+          "description": "Equipo profesional selecciona las mejores oportunidades.\nTú solo eliges y activas.\n¿Complejidad? Nosotros la manejamos."
+        },
+        "yieldsBanksDontOffer": {
+          "iconAlt": "High yield icon",
+          "title": "Rendimientos Que Bancos No Ofrecen",
+          "description": "Acceso a rendimientos globales vía DeFi.\nRetornos muy superiores a lo tradicional.\nRiesgo transparente, recompensas claras."
+        },
+        "coralGuidesAdvancedJourney": {
+          "iconAlt": "Coral guide icon",
+          "title": "Coral Guía Tu Viaje Avanzado",
+          "description": "Cuando estás listo, Coral aparece.\nTe ayuda con estrategias sofisticadas.\nBalance automático de riesgo."
+        },
+        "enterExitAnytime": {
+          "iconAlt": "Liquidity icon",
+          "title": "Entra y Sale Cuando Quieras",
+          "description": "Sin bloqueos ridículos.\nTú controlas cuándo empezar y parar.\nLiquidez cuando la necesitas."
+        },
+        "defiEducationIncluded": {
+          "iconAlt": "DeFi education icon",
+          "title": "Educación DeFi Incluida",
+          "description": "Entiende staking, liquidity pools, yield farming.\nSin jerga técnica, con ejemplos prácticos.\nConocimiento = Control."
+        }
+      }
+    },
+    "stickyFeaturesNav": {
+      "title": "Estrategias profesionales para todos.",
+      "subtitle": "DeFi complicado se vuelve simple. Altos rendimientos accesibles.",
+      "cards": {
+        "yieldsWorthYourTime": {
+          "title": "Rendimientos Que Valen la Pena",
+          "description": "Gana hasta 3x más que inversiones tradicionales.\nDeFi simplificado por diBoaS.\nRendimientos reales, accesibles para todos.",
+          "imageAlt": "Rendimientos Que Valen la Pena illustration"
+        },
+        "readyMadeStrategies": {
+          "title": "Estrategias Ya Listas",
+          "description": "Fondo de Emergencia, Crecimiento Balanceado,\nAlto Rendimiento. Elige, activa, listo.\nSin configuración compleja.",
+          "imageAlt": "Estrategias Ya Listas illustration"
+        },
+        "riskUnderControl": {
+          "title": "Riesgo Bajo Control",
+          "description": "Coral explica cada riesgo claramente.\nTú eliges el equilibrio entre seguridad y retorno.\nSiempre decisiones informadas.",
+          "imageAlt": "Riesgo Bajo Control illustration"
+        },
+        "stopWheneverYouWant": {
+          "title": "Para Cuando Quieras",
+          "description": "Iniciar/Parar en segundos.\nTu dinero vuelve a ti en tiempo real.\nSin bloqueos, sin penalizaciones.",
+          "imageAlt": "Para Cuando Quieras illustration"
+        }
+      }
+    },
+    "featureShowcase": {
+      "slides": {
+        "unification": {
+          "title": "Estrategias Profesionales Simplificadas",
+          "description": "Fondo de emergencia, viajes, jubilación.\nEstrategias DeFi listas para cada objetivo.\nConfigura y mira crecer.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Estrategias Profesionales Simplificadas illustration"
+        },
+        "simplicity": {
+          "title": "Solo Dinos Tu Objetivo",
+          "description": "\"Ahorrar $5,000 para vacaciones\"\n\"Crear fondo de emergencia de 6 meses\"\nCoral diseña la estrategia perfecta.\nNo necesitas un MBA en finanzas.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Solo Dinos Tu Objetivo illustration"
+        },
+        "rewards": {
+          "title": "Mayor Rendimiento, Menor Riesgo",
+          "description": "✓ Protocolos DeFi diversificados\n✓ Rebalanceo automático\n✓ Rendimientos extra para usuarios activos\nInversión inteligente en piloto automático.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Mayor Rendimiento, Menor Riesgo illustration"
+        }
+      }
+    },
+    "faqAccordion": {
+      "sectionTitle": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+      "ctaText": "Ver Todas las Preguntas",
+      "questionIds": [
+        "q30",
+        "q31",
+        "q32"
+      ]
+    }
+  },
+  "credit": {
+    "title": "Crédito | diBoaS",
+    "description": "Crédito justo, transparente y bajo tu control.",
+    "hero": {
+      "title": "Crédito justo, transparente y bajo tu control. Sin sorpresas, sin letra chica.",
+      "description": "",
+      "cta": "Empezar ahora"
+    },
+    "benefitsCards": {
+      "title": "Crédito justo y transparente",
+      "description": "Sin letra chica, sin trucos.",
+      "cards": {
+        "ratesThatMakeSense": {
+          "iconAlt": "Fair rates icon",
+          "title": "Tasas Que Tienen Sentido",
+          "description": "Ves la tasa antes de aceptar.\nSin sorpresas en tu cuenta.\nCrédito responsable, no predatorio."
+        },
+        "smartApproval": {
+          "iconAlt": "AI approval icon",
+          "title": "Aprobación Inteligente",
+          "description": "IA analiza tu perfil de forma justa.\nRespuesta en minutos.\nSin burocracia innecesaria."
+        },
+        "payYourWay": {
+          "iconAlt": "Flexible payment icon",
+          "title": "Paga Como Quieras",
+          "description": "Flexibilidad en las cuotas.\nPagos que se ajustan a tu presupuesto.\nTú eliges el plazo."
+        },
+        "p2pBusinessCredit": {
+          "iconAlt": "P2P credit icon",
+          "title": "Crédito P2P Empresarial",
+          "description": "Empresas prestan directamente a empresas.\nTasas más justas para todos.\nMenos intermediarios, más eficiencia."
+        }
+      }
+    },
+    "stickyFeaturesNav": {
+      "title": "Crédito sin juegos.",
+      "subtitle": "Tasas claras, procesos simples, tú en control.",
+      "cards": {
+        "totalTransparency": {
+          "title": "Transparencia Total",
+          "description": "Tasa fija desde el primer día.\nSin sorpresas, sin letra chica.\nSabes exactamente lo que vas a pagar.",
+          "imageAlt": "Transparencia Total illustration"
+        },
+        "fairApproval": {
+          "title": "Aprobación Justa",
+          "description": "Análisis basado en tu comportamiento financiero.\nNo solo en tu pasado.\nTodos merecen una oportunidad.",
+          "imageAlt": "Aprobación Justa illustration"
+        },
+        "youDecideHowMuch": {
+          "title": "Tú Decides Cuánto",
+          "description": "Elige el monto, plazo y forma de pago.\nFlexibilidad para tu realidad.\nCrédito a tu manera.",
+          "imageAlt": "Tú Decides Cuánto illustration"
+        },
+        "payWhenYouCan": {
+          "title": "Paga Cuando Puedas",
+          "description": "Anticipa cuotas sin multa.\nRenegocia si lo necesitas.\nEstamos de tu lado.",
+          "imageAlt": "Paga Cuando Puedas illustration"
+        }
+      }
+    },
+    "featureShowcase": {
+      "slides": {
+        "unification": {
+          "title": "Crédito Justo Para Todos",
+          "description": "Tasas transparentes, plazos flexibles.\nSin comisiones ocultas, sin trampas en letra pequeña.\nCrédito que te respeta.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Crédito Justo Para Todos illustration"
+        },
+        "simplicity": {
+          "title": "Conoce Antes de Pedir",
+          "description": "✓ Ofertas preaprobadas en la app\n✓ Cronogramas de pago claros\n✓ Cambia las condiciones cuando quieras\nTú siempre en control.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Conoce Antes de Pedir illustration"
+        },
+        "rewards": {
+          "title": "Construye Tu Historial",
+          "description": "El uso responsable gana recompensas.\nMejores tasas mientras construyes tu historial.\nCrédito que trabaja a tu favor, no en tu contra.",
+          "ctaText": "Comenzar Ahora",
+          "imageAlt": "Construye Tu Historial illustration"
+        }
+      }
+    },
+    "faqAccordion": {
+      "sectionTitle": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+      "ctaText": "Ver Todas las Preguntas",
+      "questionIds": [
+        "q37",
+        "q38",
+        "q39"
+      ]
+    }
+  }
+}

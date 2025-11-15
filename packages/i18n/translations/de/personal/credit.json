@@ -1,0 +1,93 @@
+{
+  "title": "Kredit | diBoaS",
+  "description": "Kredite, die fair und transparent sind und unter deiner Kontrolle bleiben.",
+  "hero": {
+    "title": "Kredite, die fair und transparent sind und unter deiner Kontrolle bleiben. Keine Überraschungen, kein Kleingedrucktes.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Fairer und transparenter Kredit",
+    "description": "Kein Kleingedrucktes, keine Tricks.",
+    "cards": {
+      "ratesThatMakeSense": {
+        "iconAlt": "Fair rates icon",
+        "title": "Zinssätze, die Sinn machen",
+        "description": "Du siehst den Zinssatz vor der Annahme.\nKeine Überraschungen auf deiner Rechnung.\nVerantwortungsvoller Kredit, nicht räuberisch."
+      },
+      "smartApproval": {
+        "iconAlt": "AI approval icon",
+        "title": "Intelligente Genehmigung",
+        "description": "KI analysiert dein Profil fair.\nAntwort in Minuten.\nKeine unnötige Bürokratie."
+      },
+      "payYourWay": {
+        "iconAlt": "Flexible payment icon",
+        "title": "Zahle auf deine Art",
+        "description": "Flexibilität bei Ratenzahlungen.\nZahlungen, die in dein Budget passen.\nDu wählst die Laufzeit."
+      },
+      "p2pBusinessCredit": {
+        "iconAlt": "P2P credit icon",
+        "title": "P2P Business-Kredit",
+        "description": "Unternehmen leihen direkt an Unternehmen.\nFairere Konditionen für alle.\nWeniger Mittelsmänner, mehr Effizienz."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Kredit ohne Spielchen.",
+    "subtitle": "Klare Zinsen, einfache Prozesse, Sie haben die Kontrolle.",
+    "cards": {
+      "totalTransparency": {
+        "title": "Totale Transparenz",
+        "description": "Fester Zinssatz ab Tag eins.\nKeine Überraschungen, kein Kleingedrucktes.\nSie wissen genau, was Sie zahlen werden.",
+        "imageAlt": "Totale Transparenz illustration"
+      },
+      "fairApproval": {
+        "title": "Faire Bewertung",
+        "description": "Analyse basierend auf Ihrem Finanzverhalten.\nNicht nur auf Ihrer Vergangenheit.\nJeder verdient eine Chance.",
+        "imageAlt": "Faire Bewertung illustration"
+      },
+      "youDecideHowMuch": {
+        "title": "Sie entscheiden wie viel",
+        "description": "Wählen Sie Betrag, Laufzeit und Zahlungsmethode.\nFlexibilität für Ihre Realität.\nKredit nach Ihren Vorstellungen.",
+        "imageAlt": "Sie entscheiden wie viel illustration"
+      },
+      "payWhenYouCan": {
+        "title": "Zahlen Sie wann Sie können",
+        "description": "Raten vorzeitig ohne Strafe bezahlen.\nBei Bedarf neu verhandeln.\nWir sind auf Ihrer Seite.",
+        "imageAlt": "Zahlen Sie wann Sie können illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Faire Kredite für alle",
+        "description": "Transparente Zinsen, flexible Laufzeiten.\nKeine versteckten Gebühren, keine Kleingedruckte-Fallen.\nKredit, der Sie respektiert.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Faire Kredite für alle illustration"
+      },
+      "simplicity": {
+        "title": "Wissen Sie, bevor Sie leihen",
+        "description": "✓ Vorabgenehmigte Angebote in der App\n✓ Klare Rückzahlungspläne\n✓ Konditionen jederzeit änderbar\nSie haben immer die Kontrolle.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Wissen Sie, bevor Sie leihen illustration"
+      },
+      "rewards": {
+        "title": "Bauen Sie Ihre Bonität auf",
+        "description": "Verantwortungsvolle Kreditnutzung bringt Prämien.\nBessere Konditionen beim Aufbau Ihrer Historie.\nKredit, der für Sie arbeitet, nicht gegen Sie.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Bauen Sie Ihre Bonität auf illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q37",
+      "q38",
+      "q39"
+    ]
+  }
+}

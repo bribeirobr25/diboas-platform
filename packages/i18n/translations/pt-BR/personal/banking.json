@@ -1,0 +1,93 @@
+{
+  "title": "Banking | diBoaS",
+  "description": "Seu dinheiro sem fronteiras. Deposite, envie e receba em tempo real.",
+  "hero": {
+    "title": "Seu dinheiro sem fronteiras. Deposite, envie e receba em tempo real, tudo pelo app.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "Banking sem fronteiras, sem complicação",
+    "description": "Seu dinheiro circula livre pelo mundo.",
+    "cards": {
+      "instantTransfersPix": {
+        "iconAlt": "Instant transfer icon",
+        "title": "Pix e Transferências Instantâneas",
+        "description": "Envie e receba dinheiro em segundos.\n24 horas por dia, 7 dias por semana.\nInclusive nos feriados."
+      },
+      "borderlessMoney": {
+        "iconAlt": "International money icon",
+        "title": "Borderless: Dinheiro Sem Fronteiras",
+        "description": "Envie dinheiro para qualquer país.\nTaxas transparentes, câmbio justo.\nMuito mais barato que bancos tradicionais."
+      },
+      "realTimeNotifications": {
+        "iconAlt": "Notification icon",
+        "title": "Notificação em Tempo Real",
+        "description": "Cada transação gera um aviso na hora.\nVocê sempre sabe o que está acontecendo.\nSegurança que você sente."
+      },
+      "transparentHistory": {
+        "iconAlt": "History icon",
+        "title": "Histórico Transparente",
+        "description": "Veja todas suas transações claramente.\nFiltre por data, tipo ou valor.\nExporte quando precisar."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Banking sem complicação.",
+    "subtitle": "Tudo que você precisa fazer com seu dinheiro, feito certo.",
+    "cards": {
+      "borderlessTransfers": {
+        "title": "Transferências Sem Fronteiras",
+        "description": "Envie e receba dinheiro em qualquer lugar do mundo.\nTempo real, taxas transparentes.\nSem surpresas no caminho.",
+        "imageAlt": "Transferências Sem Fronteiras illustration"
+      },
+      "oneClickPayments": {
+        "title": "Pagamentos em 1-Click",
+        "description": "Pix, boletos, contas recorrentes.\nConfigure uma vez, pague sempre que precisar.\nRápido e seguro.",
+        "imageAlt": "Pagamentos em 1-Click illustration"
+      },
+      "historyThatMakesSense": {
+        "title": "Histórico Que Faz Sentido",
+        "description": "Veja cada transação com clareza.\nFiltre, pesquise e exporte quando quiser.\nSuas finanças organizadas como nunca.",
+        "imageAlt": "Histórico Que Faz Sentido illustration"
+      },
+      "realTimeControl": {
+        "title": "Controle em Tempo Real",
+        "description": "Notificações instantâneas de cada movimentação.\nVocê sempre sabe o que está acontecendo\ncom seu dinheiro.",
+        "imageAlt": "Controle em Tempo Real illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Banking Sem Fronteiras",
+        "description": "Envie e receba dinheiro no mundo todo.\nSem barreiras, sem espera.\nSeu dinheiro na velocidade da luz.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Banking Sem Fronteiras illustration"
+      },
+      "simplicity": {
+        "title": "Tudo na Hora",
+        "description": "✓ Transferências instantâneas via Pix\n✓ TED internacional em segundos\n✓ Pague contas com um toque\nBanking não precisa ser complicado.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Tudo na Hora illustration"
+      },
+      "rewards": {
+        "title": "Taxas Transparentes",
+        "description": "Só 0,9% em transferências externas.\nTodo o resto? De graça.\nSem taxas escondidas. Nunca.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Taxas Transparentes illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q9",
+      "q10",
+      "q11"
+    ]
+  }
+}

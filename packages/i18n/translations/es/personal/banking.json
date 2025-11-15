@@ -1,0 +1,93 @@
+{
+  "title": "Banking | diBoaS",
+  "description": "Tu dinero sin fronteras. Deposita, envía y recibe en tiempo real.",
+  "hero": {
+    "title": "Tu dinero sin fronteras. Deposita, envía y recibe en tiempo real, todo desde tu app.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Banking sin fronteras, sin complicaciones",
+    "description": "Tu dinero se mueve libremente por el mundo.",
+    "cards": {
+      "instantTransfersPix": {
+        "iconAlt": "Instant transfer icon",
+        "title": "Transferencias Instantáneas y Pix",
+        "description": "Envía y recibe dinero en segundos.\n24/7, incluso en días festivos.\nTiempo real, siempre."
+      },
+      "borderlessMoney": {
+        "iconAlt": "International money icon",
+        "title": "Borderless: Dinero Sin Límites",
+        "description": "Envía dinero a cualquier país.\nComisiones transparentes, tipos de cambio justos.\nMucho más barato que bancos tradicionales."
+      },
+      "realTimeNotifications": {
+        "iconAlt": "Notification icon",
+        "title": "Notificaciones en Tiempo Real",
+        "description": "Cada transacción genera alertas instantáneas.\nSiempre sabes qué está pasando.\nSeguridad que sientes."
+      },
+      "transparentHistory": {
+        "iconAlt": "History icon",
+        "title": "Historial Transparente",
+        "description": "Ve todas tus transacciones claramente.\nFiltra por fecha, tipo o monto.\nExporta cuando quieras."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Banking sin complicaciones.",
+    "subtitle": "Todo lo que necesitas hacer con tu dinero, bien hecho.",
+    "cards": {
+      "borderlessTransfers": {
+        "title": "Transferencias Sin Fronteras",
+        "description": "Envía y recibe dinero en cualquier parte del mundo.\nTiempo real, tarifas transparentes.\nSin sorpresas en el camino.",
+        "imageAlt": "Transferencias Sin Fronteras illustration"
+      },
+      "oneClickPayments": {
+        "title": "Pagos en 1-Click",
+        "description": "Pix, facturas, pagos recurrentes.\nConfigura una vez, paga cuando necesites.\nRápido y seguro.",
+        "imageAlt": "Pagos en 1-Click illustration"
+      },
+      "historyThatMakesSense": {
+        "title": "Historial Que Tiene Sentido",
+        "description": "Ve cada transacción con claridad.\nFiltra, busca y exporta cuando quieras.\nTus finanzas organizadas como nunca.",
+        "imageAlt": "Historial Que Tiene Sentido illustration"
+      },
+      "realTimeControl": {
+        "title": "Control en Tiempo Real",
+        "description": "Notificaciones instantáneas de cada transacción.\nSiempre sabes qué está pasando\ncon tu dinero.",
+        "imageAlt": "Control en Tiempo Real illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Banking Sin Fronteras",
+        "description": "Envía y recibe dinero en todo el mundo.\nSin límites, sin esperas.\nTu dinero se mueve a la velocidad de la luz.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Banking Sin Fronteras illustration"
+      },
+      "simplicity": {
+        "title": "Todo al Instante",
+        "description": "✓ Transferencias instantáneas vía Pix\n✓ Envíos internacionales en segundos\n✓ Paga facturas con un toque\nBanking no tiene que ser complicado.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Todo al Instante illustration"
+      },
+      "rewards": {
+        "title": "Comisiones Transparentes",
+        "description": "Solo 0.9% en transferencias externas.\n¿Todo lo demás? Gratis.\nSin comisiones ocultas. Nunca.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Comisiones Transparentes illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q9",
+      "q10",
+      "q11"
+    ]
+  }
+}

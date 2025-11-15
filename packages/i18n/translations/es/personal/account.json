@@ -1,0 +1,93 @@
+{
+  "title": "Cuenta diBoaS | diBoaS",
+  "description": "Una cuenta gratis que rinde 100% del CDI y te pone en control de tu dinero.",
+  "hero": {
+    "title": "Una cuenta gratis que rinde 100% del CDI y te pone en control de tu dinero. Así de simple.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Una cuenta que trabaja para ti",
+    "description": "Gratis, con rendimiento, sin complicaciones.",
+    "cards": {
+      "freeAndTransparent": {
+        "iconAlt": "Free banking icon",
+        "title": "Gratis y Transparente",
+        "description": "Cero comisiones mensuales, cero costos de mantenimiento.\nTransferencias ilimitadas sin costo.\nLo que ves es lo que obtienes."
+      },
+      "earningWhileYouSleep": {
+        "iconAlt": "Earning icon",
+        "title": "Gana Mientras Duermes",
+        "description": "100% del CDI diario, automáticamente.\nTu dinero crece incluso cuando no estás mirando.\nHasta 30% más que cuentas de ahorro."
+      },
+      "openInMinutes": {
+        "iconAlt": "Quick setup icon",
+        "title": "Abre en Minutos",
+        "description": "No necesitas ir a una sucursal.\nSin papeleos que imprimir.\nDescarga la app, regístrate, listo."
+      },
+      "aquaGuidesYou": {
+        "iconAlt": "AI guide icon",
+        "title": "Aqua Te Guía",
+        "description": "Nuestra mascota amigable explica cada función.\nNunca te sentirás perdido.\nDesde el primer depósito hasta la primera inversión."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Tu cuenta. Tus reglas.",
+    "subtitle": "Todo lo que necesitas, nada de lo que no quieres.",
+    "cards": {
+      "earnsWhileYouSleep": {
+        "title": "Rinde Mientras Duermes",
+        "description": "Tu saldo rinde 100% del CDI automáticamente.\nSin necesidad de mover el dinero a otro lado.\nAsí de simple.",
+        "imageAlt": "Rinde Mientras Duermes illustration"
+      },
+      "actuallyFree": {
+        "title": "Gratis de Verdad",
+        "description": "Sin comisiones de mantenimiento. Sin letra chica.\nTransferencias gratis y Pix ilimitado.\nCero sorpresas.",
+        "imageAlt": "Gratis de Verdad illustration"
+      },
+      "yourMoneyAtTheRightSpeed": {
+        "title": "Tu Dinero a la Velocidad Correcta",
+        "description": "Deposita, envía y recibe en tiempo real.\nSin fronteras, sin trámites.\nTodo desde la app.",
+        "imageAlt": "Tu Dinero a la Velocidad Correcta illustration"
+      },
+      "securityYouControl": {
+        "title": "Seguridad Que Tú Controlas",
+        "description": "Bloqueos instantáneos, alertas en tiempo real\ny tú siempre al mando.\nTu dinero, tus reglas de protección.",
+        "imageAlt": "Seguridad Que Tú Controlas illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Tu Dinero, Tu Control",
+        "description": "Cuenta gratuita con rendimiento del 100% CDI.\nSin comisiones ocultas, sin sorpresas.\nTu dinero crece mientras duermes.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Tu Dinero, Tu Control illustration"
+      },
+      "simplicity": {
+        "title": "Ábrete en Minutos",
+        "description": "✓ Sin saldo mínimo requerido\n✓ Transferencias ilimitadas gratis\n✓ Notificaciones en tiempo real\nBanking sin burocracia. Por fin.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Ábrete en Minutos illustration"
+      },
+      "rewards": {
+        "title": "Gana Mientras Ahorras",
+        "description": "Rendimiento diario automático en tu saldo.\nHasta 30% más que el ahorro tradicional.\nMisma seguridad, mejor retorno.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Gana Mientras Ahorras illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q5",
+      "q6",
+      "q7"
+    ]
+  }
+}

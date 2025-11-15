@@ -1,0 +1,93 @@
+{
+  "title": "Cryptocurrency | diBoaS",
+  "description": "Crypto isn't just for experts anymore. Invest simply and securely.",
+  "hero": {
+    "title": "Crypto isn't just for experts anymore. With 1-Click, you invest in digital assets simply and securely.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Crypto made simple",
+    "description": "Buy Bitcoin without being a tech genius.",
+    "cards": {
+      "oneClickDone": {
+        "iconAlt": "One click icon",
+        "title": "1-Click, Done",
+        "description": "Buy Bitcoin, Ethereum, and others with one tap.\nNo need to understand complex wallets.\nAs simple as buying anything else."
+      },
+      "militaryGradeCustody": {
+        "iconAlt": "Security icon",
+        "title": "Military-Grade Custody",
+        "description": "Your crypto protected with military-grade security.\nYou control it, we safeguard it.\nIndependent audit available."
+      },
+      "integratedWithEverything": {
+        "iconAlt": "Integration icon",
+        "title": "Integrated With Everything",
+        "description": "See crypto alongside your other investments.\nUnified portfolio.\nUnderstand your total wealth, truly."
+      },
+      "learnBeforeYouInvest": {
+        "iconAlt": "Learn first icon",
+        "title": "Learn Before You Invest",
+        "description": "Education Center explains each coin.\nRisks, benefits, technology.\nKnowledge before money."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Crypto for regular people.",
+    "subtitle": "No jargon. Just real opportunities.",
+    "cards": {
+      "oneClickToGetIn": {
+        "title": "1-Click to Get In",
+        "description": "Buy Bitcoin, Ethereum, and more with one click.\nNo need to understand blockchain.\nOur guides explain everything.",
+        "imageAlt": "1-Click to Get In illustration"
+      },
+      "securityYouUnderstand": {
+        "title": "Security You Understand",
+        "description": "Non-custodial wallets. You own it.\nMilitary-grade encryption. Independent audits.\nYour crypto, your custody.",
+        "imageAlt": "Security You Understand illustration"
+      },
+      "fromZeroToAdvanced": {
+        "title": "From Zero to Advanced",
+        "description": "Start with Aqua buying your first Bitcoin.\nEvolve to advanced strategies with Coral.\nAll at your own pace.",
+        "imageAlt": "From Zero to Advanced illustration"
+      },
+      "cryptoTraditionalComplete": {
+        "title": "Crypto + Traditional = Complete",
+        "description": "See your traditional and crypto investments\nside by side. One unique view of your wealth.\nFinally, all together.",
+        "imageAlt": "Crypto + Traditional = Complete illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Crypto Without Complexity",
+        "description": "Buy, sell, and store digital assets.\nNo technical jargon. No confusion.\nJust simple crypto investing.",
+        "ctaText": "Get Started",
+        "imageAlt": "Crypto Without Complexity illustration"
+      },
+      "simplicity": {
+        "title": "1-Click Crypto",
+        "description": "Bitcoin, Ethereum, and 50+ coins.\n✓ Instant purchases\n✓ Secure custody\n✓ Real-time prices\nAqua guides you every step.",
+        "ctaText": "Get Started",
+        "imageAlt": "1-Click Crypto illustration"
+      },
+      "rewards": {
+        "title": "Military-Grade Security",
+        "description": "Bank-level encryption for your digital assets.\nCold storage and multi-signature protection.\nYour crypto, your control.",
+        "ctaText": "Get Started",
+        "imageAlt": "Military-Grade Security illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q23",
+      "q24",
+      "q25"
+    ]
+  }
+}

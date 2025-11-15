@@ -1,0 +1,98 @@
+{
+  "title": "Investing | diBoaS",
+  "description": "Investing doesn't have to be complicated or expensive. Start with just $10.",
+  "hero": {
+    "title": "Investing doesn't have to be complicated or expensive. Start with just $10 and watch your money grow.",
+    "description": "",
+    "cta": "Get Started"
+  },
+  "benefitsCards": {
+    "title": "Investing isn't just for the wealthy",
+    "description": "Start with $10 and grow at your own pace.",
+    "cards": {
+      "startWithWhatYouHave": {
+        "iconAlt": "Start small icon",
+        "title": "Start With What You Have",
+        "description": "Just $10 to begin.\nNo ridiculous minimums.\nTrue democratization."
+      },
+      "stocksBondsGoldMore": {
+        "iconAlt": "Asset diversity icon",
+        "title": "Stocks, Bonds, Gold & More",
+        "description": "Complete portfolio in one place.\nDiversify without multiple apps.\nOne click per investment."
+      },
+      "mysticAppearsWhenReady": {
+        "iconAlt": "Mystic guide icon",
+        "title": "Mystic Appears When You're Ready",
+        "description": "Our wise mascot helps you expand.\nShe knows when you've mastered the basics.\nAnd shows you the next step."
+      },
+      "builtInEducation": {
+        "iconAlt": "Education icon",
+        "title": "Built-In Education",
+        "description": "Every asset comes with an explanation.\nLearn what you're buying.\nInformed decisions, not gambles."
+      },
+      "feesThatDontRobYou": {
+        "iconAlt": "Low fees icon",
+        "title": "Fees That Don't Rob You",
+        "description": "Just 0.09% per transaction.\nUp to 16x cheaper than traditional platforms.\nTotal transparency."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Investing without the mystery.",
+    "subtitle": "Start with $10 and watch your money grow.",
+    "cards": {
+      "startSmall": {
+        "title": "Start Small",
+        "description": "Just $10 to get started.\nYou don't need to be rich to invest.\nStart today, grow tomorrow.",
+        "imageAlt": "Start Small illustration"
+      },
+      "diversifyInOneClick": {
+        "title": "Diversify in 1-Click",
+        "description": "Stocks, Gold, Crypto, Real Estate, and more.\nAll in the same app, with the same ease.\nYour complete portfolio in one place.",
+        "imageAlt": "Diversify in 1-Click illustration"
+      },
+      "learnByInvesting": {
+        "title": "Learn by Investing",
+        "description": "AI guides explain every step.\nFrom basics to advanced, at your pace.\nNobody's born knowing. But everyone learns.",
+        "imageAlt": "Learn by Investing illustration"
+      },
+      "feesThatMakeSense": {
+        "title": "Fees That Make Sense",
+        "description": "0.09% fee for buying/selling.\nNo surprises, no hidden charges.\nAlways transparent.",
+        "imageAlt": "Fees That Make Sense illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Invest Like a Pro",
+        "description": "Stocks, bonds, ETFs, and crypto.\nAll in one portfolio view.\nYour complete investment dashboard.",
+        "ctaText": "Get Started",
+        "imageAlt": "Invest Like a Pro illustration"
+      },
+      "simplicity": {
+        "title": "Start With $10",
+        "description": "No minimum investment barriers.\n✓ Guided tutorials for beginners\n✓ One-click diversification\n✓ Smart recommendations by Mystic\nInvesting made accessible to everyone.",
+        "ctaText": "Get Started",
+        "imageAlt": "Start With $10 illustration"
+      },
+      "rewards": {
+        "title": "Lowest Fees in the Market",
+        "description": "Only 0.09% trading fees.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
+        "ctaText": "Get Started",
+        "imageAlt": "Lowest Fees in the Market illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Frequently Asked Questions",
+    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+    "ctaText": "See All Questions",
+    "questionIds": [
+      "q16",
+      "q17",
+      "q18"
+    ]
+  }
+}

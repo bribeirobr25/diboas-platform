@@ -1,0 +1,93 @@
+{
+  "title": "Sobre | diBoaS",
+  "description": "A primeira plataforma OneFi do mundo.",
+  "hero": {
+    "title": "A primeira plataforma OneFi do mundo. Banking, Investing, Crypto, Strategies e DeFi, tudo em um só lugar. Para todos.",
+    "description": "",
+    "cta": "Começar Agora"
+  },
+  "benefitsCards": {
+    "title": "A primeira plataforma OneFi do mundo",
+    "description": "Nossa história, missão e valores.",
+    "cards": {
+      "visionDemocratizeFinance": {
+        "iconAlt": "Vision icon",
+        "title": "Visão: Democratizar Finanças",
+        "description": "5.4 bilhões usam finanças tradicionais.\nApenas 560 milhões tocaram em crypto.\nVamos unir esses dois mundos para todos."
+      },
+      "missionSimplifyComplexity": {
+        "iconAlt": "Mission icon",
+        "title": "Missão: Simplificar Complexidade",
+        "description": "Tecnologia sofisticada, experiência simples.\nDo iniciante ao expert, todos bem-vindos.\nProgressive disclosure que funciona."
+      },
+      "valuesTransparencyEducation": {
+        "iconAlt": "Values icon",
+        "title": "Valores: Transparência e Educação",
+        "description": "Sem letras miúdas.\nSem taxas escondidas.\nConhecimento como direito, não privilégio."
+      },
+      "globalTeamLocalImpact": {
+        "iconAlt": "Global team icon",
+        "title": "Time Global, Impacto Local",
+        "description": "Especialistas em fintech, crypto e UX.\nExperiência em 3 continentes.\nConstruindo para o mundo."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Quem somos e por que existimos.",
+    "subtitle": "A primeira plataforma OneFi do mundo tem uma missão clara.",
+    "cards": {
+      "ourMission": {
+        "title": "Nossa Missão",
+        "description": "Democratizar acesso a crescimento financeiro.\nSimplificar o complexo.\nCapacitar pessoas comuns a prosperarem.",
+        "imageAlt": "Nossa Missão illustration"
+      },
+      "howItStarted": {
+        "title": "Como Começou",
+        "description": "Frustração com fragmentação.\nVisão de unificar tudo.\nDa ideia à realidade OneFi.",
+        "imageAlt": "Como Começou illustration"
+      },
+      "globalTeam": {
+        "title": "Time Global",
+        "description": "Expertise em fintech, crypto, IA.\nTimes distribuídos por 3 continentes.\nDiversidade que enriquece.",
+        "imageAlt": "Time Global illustration"
+      },
+      "guidingValues": {
+        "title": "Valores Que Guiam",
+        "description": "Simplicidade, transparência, educação.\nUsuário sempre em primeiro lugar.\nCrescimento para todos.",
+        "imageAlt": "Valores Que Guiam illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "A Revolução OneFi",
+        "description": "Primeira plataforma unindo tradicional e DeFi.\nDerrubando barreiras financeiras.\nAcessível, transparente, empoderadora.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "A Revolução OneFi illustration"
+      },
+      "simplicity": {
+        "title": "Feito Pra Todo Mundo",
+        "description": "✓ Oportunidade de US$ 400 bilhões\n✓ 89,6% dos usuários mal atendidos\n✓ Validado por 118,6M de usuários Nubank\nMetodologia comprovada, tecnologia moderna.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Feito Pra Todo Mundo illustration"
+      },
+      "rewards": {
+        "title": "Entre Pro Movimento",
+        "description": "Faça parte da democratização financeira.\nEarly adopters moldam o futuro.\nJuntos, estamos mudando as finanças.",
+        "ctaText": "Começar Agora",
+        "imageAlt": "Entre Pro Movimento illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Perguntas Frequentes",
+    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+    "ctaText": "Ver Todas as Perguntas",
+    "questionIds": [
+      "q103",
+      "q104",
+      "q105"
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "title": "Beneficios | diBoaS",
+  "description": "Descubre todos los beneficios y recompensas exclusivas disponibles en la plataforma diBoaS.",
+  "hero": {
+    "title": "Tu dinero, todo en un solo lugar. Empieza simple, crece poderoso, avanza a tu ritmo. Fácil para comenzar, ilimitado cuando estés listo.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "¿Por qué elegir diBoas?",
+    "description": "Porque resolvemos problemas reales.",
+    "cards": {
+      "noMoreAppJuggling": {
+        "iconAlt": "App consolidation icon",
+        "title": "Adiós al Caos de Apps",
+        "description": "Todo en diBoas.\nAhorras tiempo, no pierdes contraseñas y ves todo tu patrimonio \nen una sola pantalla."
+      },
+      "youDecide": {
+        "iconAlt": "User control icon",
+        "title": "Tú Decides",
+        "description": "Control total sobre tu dinero.\nYa sean inversiones, transferencias o estrategias. \nTú defines cuánto y cuándo."
+      },
+      "moneyNeverSleeps": {
+        "iconAlt": "Money working icon",
+        "title": "Tu Dinero Nunca Duerme",
+        "description": "Compra acciones, crypto u otros activos.\nO usa nuestras estrategias exclusivas.\nTu dinero siempre está trabajando para ti."
+      },
+      "investingBecomesEasy": {
+        "iconAlt": "Learning icon",
+        "title": "Invertir Deja de Ser Complicado",
+        "description": "La mayoría de nuestros usuarios nunca había invertido antes de diBoas.\nNuestro Centro de Aprendizaje explica cada término.\nCada decisión. Cada riesgo."
+      },
+      "moreYouUse": {
+        "iconAlt": "Rewards icon",
+        "title": "Cuanto Más Usas, Más Ganas",
+        "description": "Sistema de puntos, bonos por referidos, \nrecompensas por metas, acceso VIP a cursos\ny mucho más."
+      },
+      "oneFiPlatform": {
+        "iconAlt": "OneFi platform icon",
+        "title": "OneFi: Primera Plataforma del Mundo",
+        "description": "Banking + Inversiones + Crypto + Estrategias + DeFi.\nTodo integrado. Todo simple. \nFácil para principiantes, potente para expertos."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "¿Por qué elegir diBoaS?",
+    "subtitle": "Porque resolvemos problemas reales.",
+    "cards": {
+      "stopJugglingApps": {
+        "title": "Olvídate del Caos de Apps",
+        "description": "Todo en diBoaS.\nAhorras tiempo, nunca pierdes contraseñas y ves \ntodo tu portafolio en una sola pantalla.",
+        "imageAlt": "Olvídate del Caos de Apps illustration"
+      },
+      "youReInCharge": {
+        "title": "Tú Tienes el Control",
+        "description": "Tienes control total sobre tu dinero.\nYa sean inversiones, transferencias o estrategias.\nTú decides cuánto y cuándo.",
+        "imageAlt": "Tú Tienes el Control illustration"
+      },
+      "yourMoneyAlwaysWorks": {
+        "title": "Tu Dinero Siempre Trabaja",
+        "description": "Ya sea comprando Acciones, Crypto u otros activos.\nO usando estrategias exclusivas.\nTu dinero siempre está creciendo.",
+        "imageAlt": "Tu Dinero Siempre Trabaja illustration"
+      },
+      "investingStopsBeingScary": {
+        "title": "Invertir Deja de Dar Miedo",
+        "description": "Nuestros usuarios nunca habían invertido antes de diBoaS.\nNuestro Centro de Aprendizaje explica literalmente cada término.\nCada decisión. Cada riesgo.",
+        "imageAlt": "Invertir Deja de Dar Miedo illustration"
+      },
+      "useMoreEarnMore": {
+        "title": "Usa Más, Gana Más",
+        "description": "Sistema de Puntos, Bonos por Referidos,\nPuntos por Metas Logradas, Acceso VIP a nuestros Cursos,\ny mucho más.",
+        "imageAlt": "Usa Más, Gana Más illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Todo en un Solo Lugar",
+        "description": "Banking, Inversiones, Crypto, Estrategias y DeFi.\nTodo en una sola pantalla. Actualizado en tiempo real.\nOlvídate de hacer malabares con 5 apps diferentes.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Todo en un Solo Lugar illustration"
+      },
+      "simplicity": {
+        "title": "Seguro y Simple",
+        "description": "\"Quiero ahorrar $5,000 para un viaje\"\n\"Necesito un fondo de emergencia\"\n\"Quiero invertir $100 al mes\"\nSin complicaciones. diBoaS lo hace así de fácil.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Seguro y Simple illustration"
+      },
+      "rewards": {
+        "title": "Gana Más",
+        "description": "✓ Sistema de Cashback y Puntos\n✓ Acceso anticipado a nuevas funciones\n✓ Rendimientos extra en estrategias\nCuanto más lo usas, más ganas.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Gana Más illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q1",
+      "q2",
+      "q3"
+    ]
+  },
+  "carousel": {
+    "exclusiveRewards": {
+      "title": "Recompensas Exclusivas",
+      "description": "Gana puntos y desbloquea beneficios exclusivos con cada transacción",
+      "ctaText": "Saber Más"
+    },
+    "financialFreedom": {
+      "title": "Libertad Financiera",
+      "description": "Toma el control de tus finanzas con nuestro conjunto completo de herramientas",
+      "ctaText": "Comenzar"
+    },
+    "smartInvesting": {
+      "title": "Inversión Inteligente",
+      "description": "Invierte en criptomonedas y activos tradicionales con insights impulsados por IA"
+    },
+    "secureBanking": {
+      "title": "Banca Segura",
+      "description": "Seguridad de nivel bancario y cumplimiento regulatorio para proteger tus activos",
+      "ctaText": "Aprender Sobre Seguridad"
+    }
+  }
+}

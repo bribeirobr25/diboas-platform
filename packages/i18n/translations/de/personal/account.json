@@ -1,0 +1,93 @@
+{
+  "title": "diBoaS Konto | diBoaS",
+  "description": "Ein kostenloses Konto, das 100% CDI verdient und dir die Kontrolle über dein Geld gibt.",
+  "hero": {
+    "title": "Ein kostenloses Konto, das 100% CDI verdient und dir die Kontrolle über dein Geld gibt. Ganz einfach.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Ein Konto, das für dich arbeitet",
+    "description": "Kostenlos, ertragreich, ohne Aufwand.",
+    "cards": {
+      "freeAndTransparent": {
+        "iconAlt": "Free banking icon",
+        "title": "Kostenlos und transparent",
+        "description": "Null Kontoführungsgebühren, null Verwaltungskosten.\nUnbegrenzt kostenlose Überweisungen.\nWas du siehst, ist was du bekommst."
+      },
+      "earningWhileYouSleep": {
+        "iconAlt": "Earning icon",
+        "title": "Verdienen im Schlaf",
+        "description": "Täglich 100% CDI, automatisch.\nDein Geld wächst, auch wenn du nicht hinsiehst.\nBis zu 30% mehr als Sparbücher."
+      },
+      "openInMinutes": {
+        "iconAlt": "Quick setup icon",
+        "title": "In Minuten eröffnet",
+        "description": "Kein Filialbesuch nötig.\nKein Papierkram zum Ausdrucken.\nApp runterladen, anmelden, fertig."
+      },
+      "aquaGuidesYou": {
+        "iconAlt": "AI guide icon",
+        "title": "Aqua begleitet dich",
+        "description": "Unser freundliches Maskottchen erklärt jede Funktion.\nDu fühlst dich nie verloren.\nVon der ersten Einzahlung bis zum ersten Investment."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Ihr Konto. Ihre Regeln.",
+    "subtitle": "Alles was Sie brauchen, nichts was Sie nicht wollen.",
+    "cards": {
+      "earnsWhileYouSleep": {
+        "title": "Verzinsung im Schlaf",
+        "description": "Ihr Guthaben wird automatisch mit 100% des CDI verzinst.\nKeine Aktion erforderlich.\nSo einfach ist das.",
+        "imageAlt": "Verzinsung im Schlaf illustration"
+      },
+      "actuallyFree": {
+        "title": "Wirklich kostenlos",
+        "description": "Keine Kontoführungsgebühren. Kein Kleingedrucktes.\nKostenlose Überweisungen und unbegrenzte Pix.\nNull Überraschungen.",
+        "imageAlt": "Wirklich kostenlos illustration"
+      },
+      "yourMoneyAtTheRightSpeed": {
+        "title": "Ihr Geld in Echtzeit",
+        "description": "Einzahlen, senden und empfangen in Echtzeit.\nKeine Grenzen, keine Bürokratie.\nAlles über die App.",
+        "imageAlt": "Ihr Geld in Echtzeit illustration"
+      },
+      "securityYouControl": {
+        "title": "Sicherheit nach Ihren Regeln",
+        "description": "Sofortige Sperrungen, Echtzeitwarnungen\nund Sie immer am Steuer.\nIhr Geld, Ihre Schutzregeln.",
+        "imageAlt": "Sicherheit nach Ihren Regeln illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Ihr Geld, Ihre Kontrolle",
+        "description": "Kostenloses Konto mit 100% CDI-Rendite.\nKeine versteckten Gebühren, keine Überraschungen.\nIhr Geld wächst, während Sie schlafen.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Ihr Geld, Ihre Kontrolle illustration"
+      },
+      "simplicity": {
+        "title": "In Minuten eröffnet",
+        "description": "✓ Kein Mindestguthaben erforderlich\n✓ Unbegrenzte kostenlose Überweisungen\n✓ Benachrichtigungen in Echtzeit\nBanking ohne Bürokratie. Endlich.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "In Minuten eröffnet illustration"
+      },
+      "rewards": {
+        "title": "Verdienen beim Sparen",
+        "description": "Automatische tägliche Rendite auf Ihr Guthaben.\nBis zu 30% mehr als traditionelle Sparkonten.\nGleiche Sicherheit, bessere Erträge.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Verdienen beim Sparen illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q5",
+      "q6",
+      "q7"
+    ]
+  }
+}

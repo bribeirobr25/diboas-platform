@@ -1,0 +1,93 @@
+{
+  "title": "Carreras | diBoaS",
+  "description": "Construye el futuro de las finanzas con nosotros.",
+  "hero": {
+    "title": "Construye el futuro de las finanzas con nosotros. Únete al equipo que está democratizando el acceso.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Construye el futuro de las finanzas",
+    "description": "Únete al equipo que está cambiando el juego.",
+    "cards": {
+      "innovationCulture": {
+        "iconAlt": "Innovation icon",
+        "title": "Cultura de Innovación",
+        "description": "Ideas valoradas, no jerarquía.\nExperimentación alentada.\nAprende haciendo, falla rápido."
+      },
+      "realImpact": {
+        "iconAlt": "Impact icon",
+        "title": "Impacto Real",
+        "description": "Tu trabajo democratiza acceso.\nMillones de personas se benefician.\nPropósito más allá del salario."
+      },
+      "acceleratedGrowth": {
+        "iconAlt": "Growth icon",
+        "title": "Crecimiento Acelerado",
+        "description": "Startup en fase de expansión.\nResponsabilidades crecientes.\nCarrera que escala con la empresa."
+      },
+      "competitiveBenefits": {
+        "iconAlt": "Benefits icon",
+        "title": "Beneficios Competitivos",
+        "description": "Equity ownership, trabajo remoto flexible.\nPresupuesto de aprendizaje.\nEquipo que valora el equilibrio."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Construye el futuro de las finanzas con nosotros.",
+    "subtitle": "Únete al equipo que está redefiniendo OneFi.",
+    "cards": {
+      "realImpact": {
+        "title": "Impacto Real",
+        "description": "Tu trabajo cambia vidas financieras.\nMillones de personas impactadas.\nPropósito que motiva.",
+        "imageAlt": "Impacto Real illustration"
+      },
+      "firstClassTeam": {
+        "title": "Equipo de Primera",
+        "description": "Trabaja con los mejores de la industria.\nAprende mientras construyes.\nCrecimiento acelerado.",
+        "imageAlt": "Equipo de Primera illustration"
+      },
+      "innovationCulture": {
+        "title": "Cultura de Innovación",
+        "description": "Tus ideas son escuchadas.\nLa experimentación es alentada.\nLos fracasos son aprendizajes.",
+        "imageAlt": "Cultura de Innovación illustration"
+      },
+      "uniqueBenefits": {
+        "title": "Beneficios Únicos",
+        "description": "Equity, trabajo remoto, educación continua.\nAcceso anticipado a features.\nCrecemos todos juntos.",
+        "imageAlt": "Beneficios Únicos illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Construye el Futuro",
+        "description": "Únete a un equipo con propósito.\nTrabaja en fintech de vanguardia.\nMoldea cómo millones gestionan dinero.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Construye el Futuro illustration"
+      },
+      "simplicity": {
+        "title": "Cultura de Innovación",
+        "description": "✓ Trabajo remoto primero\n✓ Equity para todos los miembros del equipo\n✓ Enfoque en aprendizaje y crecimiento\nDonde el talento encuentra oportunidad.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Cultura de Innovación illustration"
+      },
+      "rewards": {
+        "title": "Beneficios Competitivos",
+        "description": "Compensación y equity de primer nivel.\nApoyo en salud, bienestar y desarrollo.\nInvierte en nosotros, invertimos en ti.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Beneficios Competitivos illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q106",
+      "q107",
+      "q108"
+    ]
+  }
+}

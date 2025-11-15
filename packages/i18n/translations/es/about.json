@@ -1,0 +1,93 @@
+{
+  "title": "Acerca de | diBoaS",
+  "description": "La primera plataforma OneFi del mundo.",
+  "hero": {
+    "title": "La primera plataforma OneFi del mundo. Banking, Investing, Crypto, Strategies y DeFi, todo en un solo lugar. Para todos.",
+    "description": "",
+    "cta": "Empezar ahora"
+  },
+  "benefitsCards": {
+    "title": "Primera plataforma OneFi del mundo",
+    "description": "Nuestra historia, misión y valores.",
+    "cards": {
+      "visionDemocratizeFinance": {
+        "iconAlt": "Vision icon",
+        "title": "Visión: Democratizar Finanzas",
+        "description": "5.4 mil millones usan finanzas tradicionales.\nSolo 560 millones han tocado crypto.\nEstamos uniendo estos mundos para todos."
+      },
+      "missionSimplifyComplexity": {
+        "iconAlt": "Mission icon",
+        "title": "Misión: Simplificar Complejidad",
+        "description": "Tecnología sofisticada, experiencia simple.\nDesde principiante hasta experto, todos bienvenidos.\nDivulgación progresiva que funciona."
+      },
+      "valuesTransparencyEducation": {
+        "iconAlt": "Values icon",
+        "title": "Valores: Transparencia y Educación",
+        "description": "Sin letra chica.\nSin comisiones ocultas.\nConocimiento como derecho, no privilegio."
+      },
+      "globalTeamLocalImpact": {
+        "iconAlt": "Global team icon",
+        "title": "Equipo Global, Impacto Local",
+        "description": "Expertos en fintech, crypto y UX.\nExperiencia en 3 continentes.\nConstruyendo para el mundo."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Quiénes somos y por qué existimos.",
+    "subtitle": "La primera plataforma OneFi del mundo tiene una misión clara.",
+    "cards": {
+      "ourMission": {
+        "title": "Nuestra Misión",
+        "description": "Democratizar acceso a crecimiento financiero.\nSimplificar lo complejo.\nEmpoderar a gente común a prosperar.",
+        "imageAlt": "Nuestra Misión illustration"
+      },
+      "howItStarted": {
+        "title": "Cómo Empezó",
+        "description": "Frustración con fragmentación.\nVisión de unificar todo.\nDe la idea a la realidad OneFi.",
+        "imageAlt": "Cómo Empezó illustration"
+      },
+      "globalTeam": {
+        "title": "Equipo Global",
+        "description": "Experiencia en fintech, crypto, IA.\nEquipos distribuidos por 3 continentes.\nDiversidad que enriquece.",
+        "imageAlt": "Equipo Global illustration"
+      },
+      "guidingValues": {
+        "title": "Valores Que Guían",
+        "description": "Simplicidad, transparencia, educación.\nUsuario siempre en primer lugar.\nCrecimiento para todos.",
+        "imageAlt": "Valores Que Guían illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "La Revolución OneFi",
+        "description": "Primera plataforma uniendo tradicional y DeFi.\nDerribando barreras financieras.\nAccesible, transparente, empoderadora.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "La Revolución OneFi illustration"
+      },
+      "simplicity": {
+        "title": "Hecho Para Todos",
+        "description": "✓ Oportunidad de $400 mil millones\n✓ 89.6% de usuarios desatendidos\n✓ Validado por 118.6M usuarios de Nubank\nMetodología probada, tecnología moderna.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Hecho Para Todos illustration"
+      },
+      "rewards": {
+        "title": "Únete al Movimiento",
+        "description": "Sé parte de la democratización financiera.\nLos primeros usuarios dan forma al futuro.\nJuntos, estamos cambiando las finanzas.",
+        "ctaText": "Comenzar Ahora",
+        "imageAlt": "Únete al Movimiento illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Preguntas Frecuentes",
+    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+    "ctaText": "Ver Todas las Preguntas",
+    "questionIds": [
+      "q103",
+      "q104",
+      "q105"
+    ]
+  }
+}

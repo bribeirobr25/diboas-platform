@@ -1,0 +1,542 @@
+{
+  "title": "Perguntas Frequentes",
+  "description": "Encontre respostas para suas principais dúvidas. Se não encontrar aqui, nosso chat responde em minutos.",
+  "ctaText": "Ver Todas as Perguntas",
+  "items": {
+    "q1": {
+      "question": "Preciso saber sobre crypto para usar o diBoaS?",
+      "answer": "Não! A maioria dos nossos usuários nunca tinha investido antes.\n\nAqua foi feito exatamente pra quem está começando do zero. Ele explica cada termo, cada passo, cada decisão.\n\nÉ como ter um amigo paciente te ensinando."
+    },
+    "q2": {
+      "question": "Quanto preciso para começar?",
+      "answer": "R$ 10 é o suficiente.\n\nSério. Dez reais.\n\nA ideia é você começar pequeno, ganhar confiança, e aí aumentar quando se sentir confortável."
+    },
+    "q3": {
+      "question": "Quanto tempo leva pra abrir a conta?",
+      "answer": "Menos de 5 minutos.\n\nVocê vai precisar de:\n- CPF\n- Celular com câmera (pra selfie)\n- Um email válido\n\nPronto. Sem papelada, sem burocracia."
+    },
+    "q4": {
+      "question": "Como funcionam esses guias?",
+      "answer": "São assistentes com inteligência artificial que observam como você usa o app e vão revelando novos recursos quando você está pronto.\n\nExemplo prático:\n\nSemana 1: Você só vê Aqua. Faz seu primeiro investimento de R$ 10.\n\nSemana 3: Você já fez 5 investimentos pequenos e está explorando o app.\nMystic aparece: \"Quer conhecer ações e ETFs?\"\n\nMês 3: Você tem um portfolio diversificado. \nCoral sugere: \"Vejo que você entende de risco. Quer explorar DeFi de alto rendimento?\"\n\nVocê nunca vê tudo de uma vez. Só o que você precisa agora."
+    },
+    "q5": {
+      "question": "Sempre verei todos os guias?",
+      "answer": "Não! Você começa apenas com Aqua.\n\nMystic e Coral aparecem progressivamente conforme você está pronto para recursos mais avançados.\n\nIsso evita sobrecarga enquanto preserva a sofisticação."
+    },
+    "q6": {
+      "question": "Posso \"voltar atrás\" se algo ficar complicado?",
+      "answer": "Sempre.\n\nTem um botão \"Simplificar\" em qualquer tela. Se você ativou algo e achou confuso, é só desativar.\n\nSem penalidades, sem perguntas."
+    },
+    "q7": {
+      "question": "Os guias são obrigatórios?",
+      "answer": "Não. Você pode usar o app sem eles.\n\nMas 94% dos nossos usuários preferem ter os guias ativos porque eles realmente ajudam a não se perder."
+    },
+    "q8": {
+      "question": "Meu dinheiro está seguro no diBoaS?",
+      "answer": "Sim. Mesmos padrões de segurança dos maiores bancos.\n\n- Carteiras não-custodiais (você é dono dos seus ativos)\n- Criptografia de nível militar\n- Conformidade com regulações do Banco Central, MiCA (Europa), BSA (EUA)\n- Auditado por empresas independentes de segurança\n\nEm 2024, tivemos ZERO casos de perda de dinheiro por falhas de segurança."
+    },
+    "q9": {
+      "question": "E se o diBoaS fechar um dia?",
+      "answer": "Você não perde nada.\n\nSuas cryptos ficam em carteiras que VOCÊ controla.\nSeus investimentos tradicionais ficam custodiados por instituições reguladas.\n\nMesmo que a gente desapareça, você tem acesso total aos seus fundos."
+    },
+    "q10": {
+      "question": "O diBoaS pode mexer no meu dinheiro?",
+      "answer": "Não. Impossível tecnicamente.\n\nOs guias dão conselhos e recomendações. Mas toda transação precisa da SUA senha, da SUA biometria, da SUA confirmação.\n\nA gente não tem como mover um centavo sem você autorizar."
+    },
+    "q11": {
+      "question": "Quanto custa usar o diBoaS?",
+      "answer": "Taxas transparentes:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operação           │ Você paga   │ Outros cobram  │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir conta        │ R$ 0        │ R$ 0 - R$ 50   │\n│ Manter conta       │ R$ 0/mês    │ R$ 15-R$ 50/mês│\n│ Investir R$ 100    │ R$ 0,09     │ R$ 2 - R$ 10   │\n│ Transferir R$ 100  │ R$ 0,90     │ R$ 3 - R$ 5    │\n│ Pix dentro diBoaS  │ R$ 0        │ Varia          │\n└────────────────────┴─────────────┴────────────────┘\n\nSem pegadinhas. Sem letras miúdas.\n\nSempre mostramos o custo exato antes de você confirmar qualquer coisa."
+    },
+    "q12": {
+      "question": "Tem assinatura obrigatória?",
+      "answer": "Não.\n\nOs recursos básicos são de graça pra sempre.\n\nRecursos avançados (tipo IA ultra personalizada ou análises profissionais) podem ter planos opcionais de R$ 12,90/mês.\n\nMas você usa tranquilo sem pagar nada."
+    },
+    "q13": {
+      "question": "Como vocês ganham dinheiro então?",
+      "answer": "Transparência total:\n\n1. Pequena taxa nas transações (aqueles 0,09% e 0,9%)\n\n2. Criadores de conteúdo que usam nossa plataforma pagam 0,9%\n   (muito menos que os 10% do YouTube)\n\n3. Assinaturas opcionais para recursos avançados\n\nA gente ganha quando você usa. Não quando você só mantém a conta aberta."
+    }
+  },
+  "registry": {
+    "q1": {
+      "question": "O que é o diBoaS exatamente?",
+      "answer": "A primeira plataforma OneFi do mundo.\n\nBanking, Investing, Crypto, Strategies e DeFi em um só app.\nSem precisar gerenciar 5 aplicativos diferentes.\n\nÉ como se você juntasse seu banco, sua corretora, sua exchange \ne seus investimentos avançados em uma única conta."
+    },
+    "q2": {
+      "question": "Preciso entender de finanças para usar?",
+      "answer": "De jeito nenhum.\n\nNa verdade, 87% dos nossos usuários nunca tinham investido antes.\n\nA Aqua foi construída especificamente para iniciantes completos.\nEla explica cada termo, cada passo, cada decisão.\n\nÉ como ter um amigo paciente te ensinando."
+    },
+    "q3": {
+      "question": "Quanto custa para usar o diBoaS?",
+      "answer": "Transparência total:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operação           │ Você paga   │ Outros cobram  │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir conta        │ $0          │ $0 - $50       │\n│ Manter conta       │ $0/mês      │ $15-$50/mês    │\n│ Investir $100      │ $0.09       │ $2 - $10       │\n│ Transferir $100    │ $0.90       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nSem taxas mensais. Sem mínimos obrigatórios."
+    },
+    "q4": {
+      "question": "Como começar com apenas $10?",
+      "answer": "Simples:\n\n1. Abra sua conta (menos de 5 minutos)\n2. Deposite $10\n3. A Aqua te mostra exatamente onde investir\n\nSério. Dez dólares são suficientes.\n\nA ideia é você começar pequeno, ganhar confiança,\ne aí aumentar quando se sentir confortável."
+    },
+    "q5": {
+      "question": "A conta diBoaS é conta corrente ou poupança?",
+      "answer": "Na verdade, nenhuma das duas: é uma conta de pagamento.\n\nIsso significa que você pode fazer pagamentos e transferências \nusando o saldo disponível, mais receber de clientes.\n\nQuando transferir de outro banco, pode selecionar qualquer opção:\n- Conta Corrente\n- Conta Poupança  \n- Conta de Pagamento\n\nTodas funcionam para depositar no diBoaS."
+    },
+    "q6": {
+      "question": "Meu dinheiro rende quanto parado na conta?",
+      "answer": "100% do CDI.\n\nAutomaticamente. Sem precisar fazer nada.\n\nExemplo prático:\n- CDI em 10,65% ao ano\n- Você deixa $1.000 na conta\n- Rende aproximadamente $106,50 por ano\n\nSem taxas. Sem truques. Seu dinheiro trabalha enquanto decide o que fazer."
+    },
+    "q7": {
+      "question": "Quanto tempo demora para abrir a conta?",
+      "answer": "Menos de 5 minutos.\n\nVocê vai precisar de:\n- CPF ou Tax ID\n- Celular com câmera (para selfie de verificação)\n- Email válido\n\nSó isso. Zero papelada, zero burocracia.\n\nA maioria das pessoas termina enquanto espera o café ficar pronto."
+    },
+    "q8": {
+      "question": "Posso ter conta PJ e conta pessoal?",
+      "answer": "Sim! São contas completamente separadas.\n\nConta pessoal: para sua vida financeira\nConta Business: para sua empresa\n\nVocê acessa ambas pelo mesmo app, mas cada uma tem \nseu próprio saldo, extratos e funcionalidades.\n\nPerfeito para quem é MEI ou freelancer."
+    },
+    "q9": {
+      "question": "Posso fazer Pix internacional?",
+      "answer": "Sim! E em tempo real.\n\nO diBoaS permite transferências instantâneas para:\n- Qualquer banco no Brasil (Pix)\n- Contas nos EUA, Europa e América Latina\n- Outras contas diBoaS (sempre grátis e instantâneo)\n\nTaxas transparentes mostradas antes de confirmar.\nSem surpresas na conversão de moeda."
+    },
+    "q10": {
+      "question": "Tem limite para transferências?",
+      "answer": "Você controla seus próprios limites.\n\nLimites padrão de segurança:\n- Pix: $1.000/transação, $5.000/dia\n- TED/Internacional: $10.000/dia\n\nMas você pode:\n- Aumentar esses valores no app\n- Criar limites personalizados\n- Ativar \"Modo Rua\" que zera limites quando estiver fora de casa\n\nSegurança sem atrapalhar sua vida."
+    },
+    "q11": {
+      "question": "Quanto custa fazer transferências?",
+      "answer": "Transparência total:\n\n┌──────────────────────┬─────────────┐\n│ Tipo de Transferência│ Taxa diBoaS │\n├──────────────────────┼─────────────┤\n│ Entre contas diBoaS  │ $0          │\n│ Pix                  │ $0          │\n│ TED nacional         │ $0          │\n│ Internacional        │ $0.90       │\n└──────────────────────┴─────────────┘\n\nTaxas de câmbio sempre mostradas antes de confirmar.\nZero taxas escondidas ou surpresas."
+    },
+    "q12": {
+      "question": "A conta diBoaS é conta corrente ou poupança?",
+      "answer": "Na verdade, nenhuma das duas: é uma conta de pagamento.\n\nIsso significa que você pode fazer pagamentos e transferências \nusando o saldo disponível, mais receber de clientes.\n\nQuando transferir de outro banco, pode selecionar qualquer opção:\n- Conta Corrente\n- Conta Poupança  \n- Conta de Pagamento\n\nTodas funcionam para depositar no diBoaS."
+    },
+    "q13": {
+      "question": "Meu dinheiro rende quanto parado na conta?",
+      "answer": "100% do CDI.\n\nAutomaticamente. Sem precisar fazer nada.\n\nExemplo prático:\n- CDI em 10,65% ao ano\n- Você deixa $1.000 na conta\n- Rende aproximadamente $106,50 por ano\n\nSem taxas. Sem truques. Seu dinheiro trabalha enquanto decide o que fazer."
+    },
+    "q14": {
+      "question": "Quanto tempo demora para abrir a conta?",
+      "answer": "Menos de 5 minutos.\n\nVocê vai precisar de:\n- CPF ou Tax ID\n- Celular com câmera (para selfie de verificação)\n- Email válido\n\nSó isso. Zero papelada, zero burocracia.\n\nA maioria das pessoas termina enquanto espera o café ficar pronto."
+    },
+    "q15": {
+      "question": "Posso ter conta PJ e conta pessoal?",
+      "answer": "Sim! São contas completamente separadas.\n\nConta pessoal: para sua vida financeira\nConta Business: para sua empresa\n\nVocê acessa ambas pelo mesmo app, mas cada uma tem \nseu próprio saldo, extratos e funcionalidades.\n\nPerfeito para quem é MEI ou freelancer."
+    },
+    "q16": {
+      "question": "Qual o valor mínimo para investir?",
+      "answer": "$10.\n\nDez dólares. Sério.\n\nOutros bancos exigem $1.000 ou mais para começar.\nO diBoaS democratiza: você começa com quanto quiser.\n\nExemplo real:\n- Mês 1: Investe $10, aprende como funciona\n- Mês 2: Confiante, adiciona $50\n- Mês 3: Aumenta para $200\n\nSem pressão. Sem mínimos obrigatórios."
+    },
+    "q17": {
+      "question": "Quais investimentos estão disponíveis?",
+      "answer": "Tudo que você precisa:\n\nInvestimentos Tradicionais:\n- Ações (Apple, Google, Tesla, Petrobras...)\n- ETFs (fundos diversificados)\n- Bonds (títulos de renda fixa)\n- Fundos de Índice\n\nTudo no mesmo app, tudo começando com $10.\n\nA Aqua recomenda baseado no seu perfil e objetivos."
+    },
+    "q18": {
+      "question": "Posso perder dinheiro investindo?",
+      "answer": "Sim, investimentos têm risco.\n\nMas o diBoaS te ajuda a minimizar:\n\n1. Diversificação: Nunca coloque tudo em um lugar\n2. Educação: A Aqua explica cada risco antes de investir\n3. Progressão: Começamos com investimentos mais seguros\n4. Transparência: Você sempre sabe exatamente o risco de cada ativo\n\nRegra de ouro: só invista dinheiro que você não vai precisar \nnos próximos meses."
+    },
+    "q19": {
+      "question": "Como funcionam as taxas de investimento?",
+      "answer": "0.09% por operação de compra/venda.\n\nExemplo prático:\n- Você investe $100\n- Taxa diBoaS: $0.09\n- Investimento real: $99.91\n\nCompare:\n- diBoaS: $0.09\n- Bancos tradicionais: $2 a $10\n- Corretoras: $5 a $15\n\nSomos 22x mais baratos que a média do mercado."
+    },
+    "q20": {
+      "question": "Qual a diferença entre investir e especular?",
+      "answer": "Investir = Plantar uma árvore\nEspecular = Apostar no cassino\n\nInvestir:\n- Horizonte de anos\n- Baseado em análise\n- Risco calculado\n- Objetivo: construir riqueza\n\nEspecular:\n- Horizonte de dias/horas\n- Baseado em \"feelings\"\n- Risco alto\n- Objetivo: ficar rico rápido\n\nO Investment Guide te ensina a investir de verdade.\nNão tem atalhos mágicos, mas funciona."
+    },
+    "q21": {
+      "question": "Quanto preciso investir por mês?",
+      "answer": "A regra dos 20%:\n\nIdealmente:\n- 20% da sua renda para investimentos\n- 50% para gastos essenciais\n- 30% para estilo de vida\n\nRealidade:\n- Começar com 5% já é vitória\n- Aumentar 1% a cada trimestre\n- Chegar em 20% em 1-2 anos\n\nExemplo prático:\nRenda de $2.000/mês\n→ Começar com $100/mês (5%)\n→ Após 1 ano: $200/mês (10%)\n→ Após 2 anos: $400/mês (20%)"
+    },
+    "q22": {
+      "question": "Ações ou fundos? Como escolher?",
+      "answer": "Depende do seu estilo:\n\nAções individuais:\n✓ Maior controle\n✓ Potencial de ganhos maiores\n✗ Requer mais estudo\n✗ Risco maior\n\nFundos/ETFs:\n✓ Diversificação automática\n✓ Gerenciamento profissional\n✓ Perfeito para iniciantes\n✗ Taxas de administração\n\nRecomendação Aqua para iniciantes:\n80% em fundos/ETFs + 20% em ações que você conhece."
+    },
+    "q23": {
+      "question": "Preciso entender de crypto para começar?",
+      "answer": "De jeito nenhum!\n\nA maioria dos nossos usuários nunca tinha comprado crypto antes.\n\nA Aqua te guia passo a passo:\n1. Explica o que é Bitcoin, Ethereum, etc\n2. Mostra quanto você pode começar ($10 é suficiente)\n3. Sugere uma primeira compra segura\n4. Acompanha você em cada etapa\n\nÉ como ter um amigo especialista te ensinando."
+    },
+    "q24": {
+      "question": "Meu crypto está seguro no diBoaS?",
+      "answer": "Sim. Segurança de nível militar.\n\nComo protegemos:\n- Carteiras não-custodiais (VOCÊ controla seus ativos)\n- Encriptação de grau militar\n- Autenticação biométrica obrigatória\n- Auditorias independentes trimestrais\n\nSe o diBoaS sumir amanhã, você não perde nada.\nSeu crypto está em carteiras que SÓ você controla."
+    },
+    "q25": {
+      "question": "Quais cryptos posso comprar?",
+      "answer": "Começamos com os mais estabelecidos:\n\nTier 1 (Aqua recomenda para iniciantes):\n- Bitcoin (BTC)\n- Ethereum (ETH)\n- USD Coin (USDC - stablecoin)\n\nTier 2 (Mystic desbloqueia depois):\n- Solana, Cardano, Polkadot...\n- Total de 29+ ativos selecionados\n\nCoral (para avançados):\n- DeFi tokens\n- Yield farming opportunities\n\nTodos começando com $10."
+    },
+    "q26": {
+      "question": "Quanto custa comprar crypto?",
+      "answer": "0.09% de taxa diBoaS + taxas de rede.\n\nExemplo real comprando $100 de Bitcoin:\n- Taxa diBoaS: $0.09\n- Taxa de rede blockchain: ~$1.50\n- Total recebido: ~$98.41\n\nCompare com outras exchanges:\n- Coinbase: 1.49% = $1.49 (16x mais caro)\n- Binance: 0.50% = $0.50 (5x mais caro)\n- diBoaS: 0.09% = $0.09\n\nMostramos tudo antes de você confirmar."
+    },
+    "q27": {
+      "question": "Bitcoin é pirâmide/golpe?",
+      "answer": "Não. Mas existem muitos golpes USANDO Bitcoin.\n\nBitcoin é:\n- Tecnologia legítima (15 anos operando)\n- Adotado por governos e empresas\n- Transparente (todo código é público)\n\nGolpes USAM Bitcoin:\n- Promessas de retorno garantido\n- Esquemas de \"duplicar Bitcoin\"\n- Influencers vendendo cursos suspeitos\n\nCrypto A-Z te ensina a diferenciar:\nO que é real vs. o que é golpe."
+    },
+    "q28": {
+      "question": "Já perdi o timing de comprar Bitcoin?",
+      "answer": "Pergunta errada!\n\nNinguém sabe se Bitcoin vai subir ou cair amanhã.\n\nPergunta certa:\n\"Crypto faz sentido no meu portfólio de longo prazo?\"\n\nEstratégia smart:\n- Começar pequeno ($10-50)\n- Comprar regularmente (todo mês)\n- Pensar em anos, não dias\n- Nunca mais de 5-10% do seu patrimônio total\n\nDollar-cost averaging > tentar adivinhar o timing."
+    },
+    "q29": {
+      "question": "Qual crypto comprar primeiro?",
+      "answer": "Para 99% das pessoas:\n\n1º compra: Bitcoin (BTC)\n- Mais estabelecido\n- Mais seguro\n- Mais líquido\n\n2º compra: Ethereum (ETH)\n- Segunda maior\n- Tecnologia sólida\n- Caso de uso além de \"moeda\"\n\n3º compra: Stablecoin (USDC)\n- Para guardar valor sem volatilidade\n- Para aproveitar oportunidades rápido\n\nSó depois de dominar esses 3, explorar outros.\nCrypto A-Z explica cada um em detalhes."
+    },
+    "q30": {
+      "question": "O que são essas \"estratégias\"?",
+      "answer": "Pense nelas como \"cofrinhos inteligentes\" que fazem seu dinheiro crescer.\n\nExemplo prático:\n\nEstratégia \"Emergency Fund\":\n- Você coloca $500\n- O diBoaS investe automaticamente em protocolos DeFi seguros\n- Rende ~8-12% ao ano\n- Você pode sacar quando quiser\n\nÉ investimento profissional, mas simplificado para qualquer pessoa usar."
+    },
+    "q31": {
+      "question": "Preciso entender de DeFi?",
+      "answer": "Não! Essa é a mágica.\n\nDeFi (Finanças Descentralizadas) é complexo:\n- Protocolos, pools, yields, farms...\n- 99% das pessoas não entendem\n\nO diBoaS simplifica:\n- Você escolhe \"Quero guardar para emergências\"\n- Nós cuidamos de toda a complexidade técnica\n- Você só vê: \"Rendendo 10.5% ao ano\"\n\nA Coral explica o que está acontecendo, mas você não \nprecisa entender para usar."
+    },
+    "q32": {
+      "question": "Quanto rende cada estratégia?",
+      "answer": "Varia, mas sempre mostramos em tempo real:\n\nEstratégias Conservadoras (Mystic recomenda):\n- Emergency Fund: 8-12% ao ano\n- Stable Growth: 10-15% ao ano\n\nEstratégias Moderadas (Coral desbloqueia):\n- Balanced Yield: 15-25% ao ano\n- Growth Portfolio: 20-35% ao ano\n\nEstratégias Agressivas (só para avançados):\n- High Yield: 35-80% ao ano (mais risco)\n\nTaxas: 0.09% ao iniciar + 0.09% ao encerrar estratégia."
+    },
+    "q33": {
+      "question": "Posso perder dinheiro nessas estratégias?",
+      "answer": "Sim, todo investimento tem risco.\n\nMas minimizamos de várias formas:\n\n1. Progressão gradual: Começamos só com estratégias seguras\n2. Diversificação automática: Seu dinheiro vai para múltiplos protocolos\n3. Monitoring 24/7: Detectamos problemas antes de você\n4. Fundo de seguro: Cobertura para casos extremos\n\nRegra: Estratégias agressivas só aparecem quando você \ndemonstra conhecimento suficiente.\n\nA Coral não te deixa fazer besteira."
+    },
+    "q34": {
+      "question": "O que é DeFi afinal?",
+      "answer": "DeFi = Decentralized Finance (Finanças Descentralizadas)\n\nEm português simples:\nFazer coisas de banco (emprestar, investir, ganhar juros)\nsem precisar de bancos.\n\nExemplo prático:\n\nBanco tradicional:\n- Você deposita $1.000\n- Banco paga 2% ao ano\n- Banco empresta seu dinheiro a 15% ao ano\n- Banco fica com a diferença\n\nDeFi:\n- Você empresta direto para quem precisa\n- Ganha 8-15% ao ano\n- Protocolo cobra 0.09%\n- Você fica com o resto\n\nDeFi Explained decodifica tudo isso."
+    },
+    "q35": {
+      "question": "DeFi é seguro?",
+      "answer": "Mais seguro que parece, menos seguro que deveria.\n\nVerdades sobre segurança DeFi:\n\n✓ Protocolos principais auditados constantemente\n✓ Smart contracts são transparentes (código aberto)\n✓ Sem intermediários = menos pontos de falha\n\n✗ Protocolos novos podem ter bugs\n✗ Hacks acontecem (mas estão diminuindo)\n✗ Precisa entender o que está fazendo\n\nComo o diBoaS protege você:\n- Só usa protocolos auditados e estabelecidos\n- Diversifica automaticamente\n- Monitora riscos 24/7\n- Fundo de seguro para casos extremos"
+    },
+    "q36": {
+      "question": "Preciso ser programador para usar DeFi?",
+      "answer": "Não! É exatamente pra isso que o diBoaS existe.\n\nDeFi direto (sem diBoaS):\n- Configurar carteiras\n- Entender gas fees\n- Interagir com smart contracts\n- Monitorar múltiplos protocolos\n→ Complexidade: Expert\n\nDeFi pelo diBoaS:\n- Escolher \"Quero rendimento de 10%\"\n- Apertar \"Começar\"\n- Acompanhar pelo app\n→ Complexidade: Iniciante\n\nDeFi Explained te ensina o que acontece por trás,\nmas você não precisa mexer em código."
+    },
+    "q37": {
+      "question": "Como funciona o crédito no diBoaS?",
+      "answer": "Crédito justo, transparente e sob seu controle.\n\nTipos disponíveis:\n\n1. Crédito Pessoal: Sem garantia, aprovação rápida\n2. Crédito Garantido: Usando seus investimentos como garantia \n   (juros MUITO menores)\n3. Linha de Crédito: Limite pré-aprovado, use quando precisar\n\nTudo no app, sem precisar ir a agências ou ligar para call center."
+    },
+    "q38": {
+      "question": "Quanto de juros vocês cobram?",
+      "answer": "Depende do tipo de crédito e do seu perfil:\n\nCrédito Garantido (mais barato):\n- Com crypto/investimentos como garantia\n- 0.5% a 2% ao mês\n- Você mantém os rendimentos dos investimentos\n\nCrédito Pessoal:\n- Sem garantia necessária\n- 2% a 6% ao mês\n- Aprovação mais rápida\n\nSempre mostramos o CET (Custo Efetivo Total) antes de você aprovar.\nSem letras miúdas."
+    },
+    "q39": {
+      "question": "Como aumentar meu limite de crédito?",
+      "answer": "O limite evolui naturalmente com você:\n\nFatores que aumentam seu limite:\n- Histórico de pagamentos em dia\n- Tempo como cliente\n- Volume de investimentos na plataforma\n- Uso responsável do crédito\n\nDica Pro: \nCrédito com garantia pode ser 5x maior que crédito pessoal.\n\nExemplo: $1.000 em crypto = até $5.000 de limite garantido."
+    },
+    "q40": {
+      "question": "O Learn Center é obrigatório?",
+      "answer": "Não! Mas 94% dos usuários adoram.\n\nPensa assim:\n- Você PODE usar o app sem aprender nada\n- Mas quem usa o Learn Center ganha 3x mais confiança\n- E toma decisões financeiras muito melhores\n\nÉ como ter uma universidade de finanças no bolso.\nGratuita. No seu ritmo. Sem provas."
+    },
+    "q41": {
+      "question": "Quanto tempo leva para completar?",
+      "answer": "Você controla o ritmo:\n\nModo Rápido:\n- 5 minutos por dia\n- Completa em 2-3 meses\n- Aprende o essencial\n\nModo Profundo:\n- 20 minutos por dia  \n- Completa em 3-4 semanas\n- Vira praticamente um expert\n\nNão tem pressa. Não tem prazo.\nO conteúdo fica lá esperando você."
+    },
+    "q42": {
+      "question": "Tem certificado?",
+      "answer": "Sim! E vale de verdade.\n\nAo completar cada módulo, você ganha:\n- Badge no seu perfil\n- Pontos diBoaS\n- Certificado digital compartilhável\n\nMas o melhor prêmio é outro:\nConfiança para tomar decisões financeiras que mudam sua vida."
+    },
+    "q43": {
+      "question": "Por onde começo se nunca estudei finanças?",
+      "answer": "Bem aqui!\n\nFinancial Basics foi criado para quem nunca viu isso na vida:\n\nMódulo 1: Orçamento (como saber pra onde vai seu dinheiro)\nMódulo 2: Emergências (como se proteger)\nMódulo 3: Dívidas (como sair delas)\nMódulo 4: Poupar (como começar com $1)\n\nCada módulo tem:\n- Vídeos de 3-5 minutos\n- Exemplos da vida real\n- Exercícios práticos\n\nTotal: 2h de conteúdo que vale anos de aprendizado."
+    },
+    "q44": {
+      "question": "Isso funciona no meu país?",
+      "answer": "Sim! Os princípios são universais.\n\nAdaptamos os exemplos para:\n- Brasil (R$, CDI, Tesouro Direto)\n- EUA ($, S&P 500, 401k)\n- Europa (€, EURIBOR, fundos locais)\n- América Latina (moedas locais, inflação)\n\nA matemática financeira não muda.\nSó adaptamos os exemplos para sua realidade."
+    },
+    "q45": {
+      "question": "Quanto isso vai me custar?",
+      "answer": "$0. Zero. Nada.\n\nFinancial Basics é completamente gratuito.\n\nPor quê?\n\nPorque acreditamos que educação financeira não deveria ser \num privilégio de quem pode pagar cursos de $1.000.\n\nDemocratização começa com conhecimento acessível a todos."
+    },
+    "q46": {
+      "question": "Por que preciso gerenciar meu dinheiro?",
+      "answer": "Porque não é sobre quanto você ganha, é sobre quanto você guarda.\n\nEstatística real:\n- 78% das pessoas que ganham bem acabam o mês no zero\n- 15% das pessoas que ganham menos conseguem investir todo mês\n\nA diferença? Gestão.\n\nMoney Management te ensina:\n- Como rastrear para onde vai cada centavo\n- Como criar orçamento que funciona\n- Como automatizar decisões financeiras"
+    },
+    "q47": {
+      "question": "Quanto tempo isso toma do meu dia?",
+      "answer": "Setup inicial: 30 minutos\nManutenção: 5 minutos por semana\n\nCom o diBoaS:\n\nSemana 1: Configurar categorias e metas (30 min)\nDepois: Revisar relatórios automáticos (5 min/semana)\n\nO app faz o trabalho pesado.\nVocê só toma decisões."
+    },
+    "q48": {
+      "question": "Tenho dívidas. Devo poupar ou pagar primeiro?",
+      "answer": "Depende dos juros:\n\nDívida com juros >10% ao mês:\n→ Pague primeiro. Urgente.\n\nDívida com juros 5-10% ao mês:\n→ 80% para dívida, 20% para fundo de emergência\n\nDívida com juros <5% ao mês:\n→ Pode equilibrar melhor entre pagar e investir\n\nMoney Management tem uma calculadora que mostra \nexatamente o que fazer no SEU caso específico."
+    },
+    "q49": {
+      "question": "O que é Special Content?",
+      "answer": "Conteúdo exclusivo criado por experts da comunidade.\n\nTipos de conteúdo:\n\nMaster Classes:\n- Webinars ao vivo com especialistas\n- Q&A em tempo real\n- Certificados ao completar\n\nCase Studies:\n- Histórias reais de usuários\n- Estratégias que funcionaram\n- Erros para evitar\n\nDeep Dives:\n- Análises profundas de temas específicos\n- Para quem quer ir além do básico\n- Atualizado constantemente\n\nAlguns gratuitos, alguns premium ($12.90/mês)."
+    },
+    "q50": {
+      "question": "Vale a pena pagar pelo Special Content?",
+      "answer": "Depende de onde você está:\n\nGratuito é suficiente se:\n- Você está começando\n- Quer aprender o básico\n- Não tem pressa\n\nPremium vale se:\n- Você já domina o básico\n- Quer acelerar o aprendizado\n- Busca estratégias avançadas\n- Gosta de comunidade ativa\n\nTeste gratuito de 30 dias disponível.\nCancele quando quiser, sem pegadinhas."
+    },
+    "q51": {
+      "question": "Como o Special Content é criado?",
+      "answer": "Por usuários avançados que viraram creators.\n\nO processo:\n\n1. Usuário domina um tema (investimentos, crypto, DeFi)\n2. Cria conteúdo educativo de qualidade\n3. diBoaS revisa e valida\n4. Publica no Special Content\n5. Ganha 70% da receita (diBoaS fica com 30%)\n\nÉ crowdsourced wisdom.\n\nOs melhores professores são pessoas que estavam \nonde você está há 1-2 anos atrás."
+    },
+    "q52": {
+      "question": "diBoaS Business é só para grandes empresas?",
+      "answer": "Não! Foi feito especialmente para pequenos negócios.\n\nPerfeito para:\n- MEI\n- Freelancers\n- Startups\n- Pequenas empresas (até 50 funcionários)\n\nSe você tem CNPJ, pode abrir conta Business.\nMesmo que seja PJ individual."
+    },
+    "q53": {
+      "question": "Preciso ter conta pessoal para abrir Business?",
+      "answer": "Não é obrigatório, mas recomendamos.\n\nCom ambas:\n✓ Separação clara: pessoal vs. empresa\n✓ Acesso no mesmo app\n✓ Transferências gratuitas entre contas\n✓ Visão completa das finanças\n\nMas você pode ter só Business se preferir.\nTotal flexibilidade."
+    },
+    "q54": {
+      "question": "Quanto custa manter conta Business?",
+      "answer": "Zero de mensalidade.\n\nTaxas Business:\n\n┌────────────────────┬─────────────┐\n│ Operação           │ Taxa        │\n├────────────────────┼─────────────┤\n│ Manutenção mensal  │ $0          │\n│ Pix/Transferências │ $0          │\n│ Cobranças (boleto) │ $0.90/boleto│\n│ Investir saldo     │ 0.09%       │\n└────────────────────┴─────────────┘\n\nSeu dinheiro parado rende 100% do CDI automaticamente."
+    },
+    "q55": {
+      "question": "Quanto tempo demora para aprovar conta Business?",
+      "answer": "Geralmente 24-48 horas.\n\nO que verificamos:\n- CNPJ regular na Receita\n- Sócios com CPF válido\n- Documentos da empresa\n\nCasos especiais (mais complexos):\n- Empresas com múltiplos sócios\n- Atividades regulamentadas\n- Empresas muito novas (< 6 meses)\n\nPodem levar até 5 dias úteis.\n\nVocê acompanha tudo pelo app em tempo real."
+    },
+    "q56": {
+      "question": "Posso ter mais de um administrador na conta?",
+      "answer": "Sim! Controle total de permissões.\n\nTipos de acesso:\n\nAdmin Completo:\n- Transferir dinheiro\n- Fazer investimentos\n- Adicionar/remover usuários\n\nAdmin Limitado:\n- Ver extratos\n- Fazer Pix até limite definido\n- Não pode investir\n\nApenas Visualização:\n- Ver saldos e extratos\n- Sem permissão para movimentar\n\nPerfeito para contador, sócios, ou funcionários de confiança."
+    },
+    "q57": {
+      "question": "Minha empresa pode ter crédito?",
+      "answer": "Sim, vários tipos:\n\nCrédito Garantido:\n- Usando seus investimentos\n- Juros 0.5-3% ao mês\n- Aprovação instantânea\n\nCapital de Giro:\n- Sem garantia\n- Aprovação baseada em histórico\n- Juros 3-8% ao mês\n\nAntecipação de Recebíveis:\n- Baseado em vendas futuras\n- Liberação em 24h\n- Taxas personalizadas\n\nLimite evolui conforme seu uso responsável."
+    },
+    "q58": {
+      "question": "Posso receber de clientes internacionais?",
+      "answer": "Sim! E sem complicação.\n\nReceber do exterior:\n\nVia SWIFT:\n- Qualquer país\n- 2-5 dias úteis\n- Taxa: $0.90 + câmbio transparente\n\nVia Crypto:\n- Instantâneo\n- Converte para sua moeda local\n- Ideal para freelancers globais\n\nO cliente paga em $, €, £ ou ¥\nVocê recebe em R$ ou na moeda que preferir."
+    },
+    "q59": {
+      "question": "Como funciona o cartão Business?",
+      "answer": "Cartão corporativo sem burocracia:\n\nUm cartão principal (dono)\n+ até 10 cartões adicionais (funcionários)\n\nControle por cartão:\n- Limite individual\n- Categorias permitidas\n- Horários de uso\n- Bloqueio instantâneo\n\nNotificações em tempo real de cada compra.\nVocê sempre sabe onde o dinheiro está indo."
+    },
+    "q60": {
+      "question": "Posso integrar com meu sistema contábil?",
+      "answer": "Sim! Integrações diretas com:\n\n- QuickBooks\n- Xero  \n- Conta Azul\n- Omie\n- ERPs customizados via API\n\nFuncionalidades:\n- Exportar extratos automáticos\n- Sincronizar cobranças\n- Categorização de despesas\n- Relatórios fiscais\n\nSeu contador vai amar você."
+    },
+    "q61": {
+      "question": "Como recebo pagamentos dos meus clientes?",
+      "answer": "Múltiplas formas, todas integradas:\n\nPix:\n- Grátis para receber\n- QR code instantâneo\n- Confirmação em tempo real\n\nBoleto:\n- $0.90 por boleto emitido\n- Vencimento personalizável\n- Notificação automática ao cliente\n\nLink de Pagamento:\n- Cria link único\n- Cliente paga com cartão ou Pix\n- Taxa 1.99% apenas se pago\n\nTudo cai na sua conta Business automaticamente."
+    },
+    "q62": {
+      "question": "Vocês têm maquininha de cartão?",
+      "answer": "Ainda não, mas temos algo melhor:\n\nPagamento por Link:\n- Sem hardware necessário\n- Cliente paga pelo celular\n- Aceita todos os cartões\n- Taxa: 1.99% (bem menor que maquininhas)\n\nPara quem vende online:\n- Integração com site/app\n- Checkout personalizado\n- Parcelamento automático\n\nMaquininha física está no roadmap 2025."
+    },
+    "q63": {
+      "question": "Posso parcelar vendas para o cliente?",
+      "answer": "Sim! Você recebe à vista, cliente paga parcelado.\n\nComo funciona:\n\nCliente escolhe: 2x, 3x, até 12x\nVocê recebe: 100% em 24h (menos taxa)\nTaxa: 1.99% + 0.5% por parcela\n\nExemplo venda de $1.000:\n- Cliente paga: 10x de $100\n- Você recebe: $940 em 24h\n- Taxa total: $60 (6%)\n\nVendas parceladas convertem 3x mais que à vista."
+    },
+    "q64": {
+      "question": "Por que investir dinheiro da empresa?",
+      "answer": "Porque dinheiro parado é dinheiro perdendo valor.\n\nCenário real:\n\nCaixa tradicional:\n- $10.000 parados no banco\n- Rende: 0.5% ao mês = $50\n- Inflação: 0.8% ao mês\n- Perda real: -$30/mês\n\nTreasury diBoaS:\n- $10.000 no Treasury\n- Rende: 1.2% ao mês = $120\n- Inflação: 0.8% ao mês\n- Ganho real: +$40/mês\n\nDiferença anual: $840 vs. -$360\n\nLiquidez diária. Sem risco."
+    },
+    "q65": {
+      "question": "Posso tirar o dinheiro a qualquer momento?",
+      "answer": "Sim! Liquidez imediata.\n\nTipos de investimento Business:\n\nLiquidez D+0 (mesma hora):\n- Fundos DI\n- Rende 100% do CDI\n- Perfeito para emergências\n\nLiquidez D+1 (próximo dia útil):\n- CDBs curtos\n- Rende 110-120% do CDI\n- Para fluxo de caixa\n\nReserva Estratégica D+30:\n- Rendimentos maiores\n- Para expansões planejadas\n\nVocê decide o mix baseado nas suas necessidades."
+    },
+    "q66": {
+      "question": "Quanto rende em média?",
+      "answer": "Depende do tipo:\n\nConservative Treasury (liquidez imediata):\n- 100-110% do CDI\n- Exemplo: CDI 10% → você ganha 10-11% ao ano\n- Zero risco\n\nModerate Treasury (D+1):\n- 110-130% do CDI  \n- Exemplo: CDI 10% → você ganha 11-13% ao ano\n- Risco muito baixo\n\nStrategic Treasury (D+30):\n- 130-150% do CDI\n- Exemplo: CDI 10% → você ganha 13-15% ao ano\n- Risco baixo\n\nTaxa diBoaS: 0.09% ao aplicar."
+    },
+    "q67": {
+      "question": "O que é Cash Flow Yield?",
+      "answer": "Fazer seu fluxo de caixa trabalhar por você.\n\nProblema comum:\n\nSegunda: Entra $5.000 de vendas\nSexta: Paga $4.000 de fornecedor\n\nDinheiro fica parado 4 dias = $0 de retorno\n\nCom Cash Flow Yield:\n\nSegunda: Entra $5.000 → investe automaticamente\nSexta: Resgata $5.000 + rendimento de 4 dias\n\n4 dias rendendo = ~$8 extra (com CDI 10% ao ano)\n\nParece pouco? Em 1 ano: ~$2.400 que você deixaria na mesa."
+    },
+    "q68": {
+      "question": "É seguro para meu capital de giro?",
+      "answer": "Sim! Foi desenhado exatamente para isso.\n\nSegurança em 3 camadas:\n\n1. Apenas fundos ultra-líquidos (resgata em horas)\n2. Apenas instituições AAA (máxima segurança)\n3. Garantia FGC até R$ 250.000 por instituição\n\nPensa assim:\nNão é \"investimento de risco\"\nÉ \"poupança turbinada\" para empresas\n\nSeu dinheiro está disponível quando precisar.\nSó rende enquanto espera ser usado."
+    },
+    "q69": {
+      "question": "Como configurar o automático?",
+      "answer": "5 minutos de setup, funciona para sempre:\n\nPasso 1: Definir regras\n- \"Manter sempre $2.000 em conta\"\n- \"Investir tudo acima disso\"\n\nPasso 2: Escolher fundo\n- Conservative (D+0)\n- Moderate (D+1)\n\nPasso 3: Ativar\n\nPronto! O sistema:\n- Investe excedentes automaticamente\n- Resgata quando precisar\n- Notifica movimentações grandes\n\nVocê foca no negócio, não em ficar movimentando dinheiro."
+    },
+    "q70": {
+      "question": "O que é P2P Credit?",
+      "answer": "Peer-to-Peer Credit = Empréstimos entre empresas.\n\nSem bancos no meio.\n\nComo funciona:\n\nEmpresa A: Precisa de $10.000 por 3 meses\nEmpresa B: Tem $10.000 parados rendendo pouco\n\ndiBoaS conecta:\n- Empresa A pega emprestado a 2% ao mês\n- Empresa B empresta ganhando 1.8% ao mês\n- diBoaS fica com 0.2% ao mês\n\nTodo mundo ganha:\n- A: Juros menores que banco (5-8%)\n- B: Rendimento maior que poupança\n- diBoaS: Taxa mínima"
+    },
+    "q71": {
+      "question": "E se a empresa não pagar?",
+      "answer": "Múltiplas camadas de proteção:\n\nAntes de aprovar:\n- Score de crédito robusto\n- Histórico financeiro analisado\n- Garantias quando necessário\n\nDurante o empréstimo:\n- Monitoramento contínuo\n- Cobranças automáticas\n- Suporte de recuperação\n\nSe inadimplência ocorrer:\n- Fundo de garantia cobre até 80%\n- Processo de recuperação profissional\n- Diversificação automática (seu dinheiro vai para várias empresas)\n\nTaxa de inadimplência histórica: 1.8%"
+    },
+    "q72": {
+      "question": "Quanto posso emprestar/pegar emprestado?",
+      "answer": "Limites crescem com histórico:\n\nComo emprestador (investidor):\n- Mínimo: $1.000\n- Máximo: Sem limite\n- Recomendação: Não mais de 10% do patrimônio\n\nComo tomador (empresa):\n- Início: $5.000 - $50.000\n- Com histórico: até $500.000\n- Juros: 1.5-5% ao mês (baseado em score)\n\nTaxas bem menores que bancos tradicionais:\n- Banco: 5-10% ao mês\n- P2P diBoaS: 1.5-5% ao mês\n\nEconomia real: 50-70% em juros."
+    },
+    "q73": {
+      "question": "Como funciona o programa de recompensas?",
+      "answer": "Quanto mais você usa, mais você ganha.\n\nGanhe pontos por:\n- Fazer transações (1 ponto = $1)\n- Completar desafios educacionais\n- Indicar amigos\n- Manter investimentos\n\nUse pontos para:\n- Descontos em taxas\n- Acesso a features premium\n- Participar de airdrops\n- Trocar por crypto/cash\n\nExemplo real:\nInvestir $100/mês + indicar 2 amigos = 500 pontos/mês\n= $5 em benefícios"
+    },
+    "q74": {
+      "question": "Os pontos expiram?",
+      "answer": "Não! Seus pontos nunca expiram.\n\nDiferente de milhas aéreas ou pontos de cartão.\n\nSeus pontos diBoaS:\n✓ Ficam na sua conta para sempre\n✓ Acumulam mês a mês\n✓ Podem ser usados quando quiser\n✓ Transferíveis para outros usuários\n\nA única exceção:\nPontos de campanhas temporárias podem ter validade específica.\n(Sempre avisamos claramente)"
+    },
+    "q75": {
+      "question": "Vale a pena participar?",
+      "answer": "Se você já usa o diBoaS, é automático!\n\nNão precisa fazer nada extra.\nOs pontos acumulam naturalmente.\n\nCaso real usuário médio (1 ano):\n\nInvestimentos regulares: 5.000 pontos\nIndicações (3 amigos): 1.500 pontos  \nDesafios educacionais: 800 pontos\nTotal: 7.300 pontos = ~$73 em benefícios\n\nSem esforço adicional.\nSó usando a plataforma normalmente."
+    },
+    "q76": {
+      "question": "As guias observam tudo que faço?",
+      "answer": "Sim, mas só dentro do app. E é para te ajudar.\n\nO que elas veem:\n✓ Suas transações diBoaS\n✓ Seu progresso educacional\n✓ Padrões de investimento\n✓ Perguntas que faz\n\nO que NÃO veem:\n✗ Outras apps no seu celular\n✗ Suas mensagens/fotos\n✗ Navegação na web\n✗ Localização\n\nPensa nelas como personal trainers financeiros:\nPrecisam ver seus exercícios para dar dicas melhores."
+    },
+    "q77": {
+      "question": "Posso desligar as guias?",
+      "answer": "Sim! Controle total.\n\nVocê pode:\n- Desativar todas\n- Escolher só Aqua\n- Silenciar temporariamente\n- Voltar quando quiser\n\nMas estatística real:\n94% dos usuários mantém ativadas porque realmente ajudam.\n\nÉ tipo GPS:\nVocê PODE dirigir sem GPS.\nMas chega mais rápido com ele."
+    },
+    "q78": {
+      "question": "Como elas decidem quando mostrar recursos novos?",
+      "answer": "Behavioral Intelligence = elas te observam e aprendem.\n\nSinais que monitoram:\n\nPara desbloquear Mystic:\n- Fez 5+ transações\n- Saldo médio crescendo\n- Explorou o Learn Center\n- 2+ semanas de uso\n\nPara desbloquear Coral:\n- Portfolio diversificado\n- Completou Investment Guide\n- Demonstra entendimento de risco\n- 1+ mês com Mystic\n\nNunca é apenas \"tempo\".\nÉ sobre demonstrar entendimento.\n\nProteção contra você mesmo fazer algo perigoso cedo demais."
+    },
+    "q79": {
+      "question": "Quanto ganho por indicação?",
+      "answer": "Recompensa para ambos:\n\nVocê ganha:\n- $10 quando amigo faz primeira transação\n- 0.05% de tudo que ele transacionar (1º ano)\n- Pontos bônus a cada 5 indicações\n\nSeu amigo ganha:\n- $10 de bônus ao abrir conta\n- 50% desconto em taxas (primeiros 3 meses)\n- Acesso a recursos exclusivos\n\nExemplo real:\nIndica 10 amigos ativos\n= $100 inicial + ~$50/mês em comissões\n= ~$700 no primeiro ano"
+    },
+    "q80": {
+      "question": "Tem limite de indicações?",
+      "answer": "Zero limites!\n\nVocê pode indicar:\n- Quantas pessoas quiser\n- Receber recompensas de todas\n- Acumular indefinidamente\n\nTop referrers ganham:\n- Acesso VIP a novos recursos\n- Suporte prioritário\n- Convites para eventos exclusivos\n\nUsuário campeão atual:\n237 indicações = ~$4.500 em recompensas\n(e ainda ganha comissões recorrentes)"
+    },
+    "q81": {
+      "question": "Como compartilhar meu link?",
+      "answer": "Múltiplas formas super fáceis:\n\nPelo app:\n1. Tela Rewards\n2. Botão \"Indicar Amigos\"  \n3. Escolher como compartilhar:\n   - WhatsApp\n   - Email\n   - Copiar link\n   - QR Code\n\nSeu link único:\ndiboas.com/ref/SEUCODIGO\n\nDica Pro:\nExplique o que você gosta no diBoaS.\nIndicações pessoais convertem 5x mais que links soltos."
+    },
+    "q82": {
+      "question": "Como ganhar pontos mais rápido?",
+      "answer": "Estratégia multi-canal:\n\n1. Transações Regulares (Base)\n- 1 ponto por $1 transacionado\n- Investir $100/mês = 100 pontos\n\n2. Multiplicadores (Boost)\n- Streak 30 dias = 1.5x\n- Portfolio diversificado = 2x\n- Completar Learn Center = 2.5x\n\n3. Missões (Bonus)\n- Primeira compra crypto: 100 pontos\n- Indicar amigo: 500 pontos\n- Completar desafio mensal: 200 pontos\n\nUsuário típico: 300 pontos/mês\nPower user: 2.000+ pontos/mês"
+    },
+    "q83": {
+      "question": "Onde ver meus pontos?",
+      "answer": "Tudo transparente no app:\n\nDashboard de Pontos:\n- Saldo atual\n- Histórico detalhado\n- Próximos milestones\n- Ranking (opcional)\n\nProjeções:\n- Estimativa mensal\n- Até próximo nível\n- Recompensas disponíveis\n\nNotificações:\nVocê recebe alerta quando:\n- Ganha pontos grandes\n- Atinge novo nível\n- Pontos prestes a expirar (campanhas)"
+    },
+    "q84": {
+      "question": "O que fazer com pontos acumulados?",
+      "answer": "Várias opções de uso:\n\nBenefícios Práticos:\n- 1.000 pontos = $10 desconto em taxas\n- 5.000 pontos = 1 mês Premium grátis\n- 10.000 pontos = Upgrade para VIP\n\nConversões:\n- Trocar por crypto (taxa preferencial)\n- Converter em cashback\n- Doar para causas sociais\n\nAssets Exclusivos:\n- NFTs comemorativos\n- Acesso early a recursos\n- Participação em airdrops\n\nA maioria usa para: reduzir taxas ou acumular para airdrops."
+    },
+    "q85": {
+      "question": "Como ganhar badges?",
+      "answer": "Badges celebram conquistas reais:\n\nBeginner Badges:\n🌱 First Investment - Primeiro investimento\n🎯 Goal Setter - Primeira meta criada\n📚 Learner - Completou Financial Basics\n\nIntermediate Badges:\n💎 Diversifier - 5+ tipos de ativos\n🔥 Streak Master - 30 dias investindo\n🤝 Connector - 5+ indicações\n\nExpert Badges:\n🏆 DeFi Explorer - Usou 3+ estratégias\n👑 Whale - $10k+ investidos\n🎓 Professor - Criou conteúdo educativo\n\nCada badge = pontos bônus + status na comunidade."
+    },
+    "q86": {
+      "question": "O leaderboard é competitivo ou colaborativo?",
+      "answer": "Ambos! Você escolhe.\n\nModo Competitivo (opcional):\n- Ranking público\n- Compare com amigos\n- Desafios semanais\n- Prêmios para top 10\n\nModo Privado (padrão):\n- Apenas você vê seu ranking\n- Sem pressão social\n- Foco em evolução pessoal\n\nFilosofia diBoaS:\nFinanças não são competição contra outros.\nSão colaboração com você mesmo do futuro.\n\nO leaderboard é ferramenta de motivação, não de comparação."
+    },
+    "q87": {
+      "question": "Posso perder badges?",
+      "answer": "Depende do tipo:\n\nBadges Permanentes (nunca perde):\n- First Investment\n- Learning milestones\n- Historical achievements\n\nBadges de Status (pode perder):\n- Top 100 (se cair do ranking)\n- Streak Master (se quebrar sequência)\n- Community Leader (se inativo 90 dias)\n\nMas a maioria é permanente!\n\nFilosofia:\nCelebrar progresso, não punir interrupções.\nVida acontece. Badges refletem jornada, não perfeição."
+    },
+    "q88": {
+      "question": "O que são Campaigns?",
+      "answer": "Desafios temporários com recompensas especiais.\n\nExemplos de Campaigns:\n\n\"Crypto January\":\n- Faça primeira compra de crypto\n- Ganhe: 500 pontos + $5 em BTC\n- Duração: Todo janeiro\n\n\"Learning Sprint\":\n- Complete 3 módulos Learn Center\n- Ganhe: Badge exclusivo + Premium 1 mês\n- Duração: 2 semanas\n\n\"Refer & Earn 2X\":\n- Indique amigos com bônus dobrado\n- Ganhe: $20 por indicação (normal é $10)\n- Duração: 30 dias\n\nNova campaign toda semana!"
+    },
+    "q89": {
+      "question": "Como participar?",
+      "answer": "Automático! Zero inscrição necessária.\n\nQuando nova Campaign lança:\n1. Notificação no app\n2. Banner na tela inicial\n3. Objetivos claramente listados\n\nVocê participa só usando o app normalmente.\n\nExemplo:\nCampaign \"Diversify\":\n- Objetivo: Investir em 3 categorias diferentes\n- Você: Compra crypto, ações e DeFi\n- Resultado: Automático ganha recompensa\n\nSem formulários. Sem complicação."
+    },
+    "q90": {
+      "question": "Posso perder recompensas de Campaign?",
+      "answer": "Só se não cumprir no prazo.\n\nMas fazemos de tudo para você conseguir:\n\nLembretes:\n- 7 dias antes do fim\n- 3 dias antes do fim\n- Último dia\n\nProgresso visível:\n- Barra de progresso em tempo real\n- Quanto falta para completar\n- Dicas para acelerar\n\nExtensões:\nSe muita gente pedir, às vezes estendemos prazo.\n\nPro tip: Ative notificações de Campaigns para não perder nenhuma!"
+    },
+    "q91": {
+      "question": "O que é o token diBoaS?",
+      "answer": "$BOAS = Token de governança e utility.\n\nUtilidades do $BOAS:\n\nGovernança:\n- Votar em decisões da plataforma\n- Propor novos recursos\n- Influenciar roadmap\n\nBenefícios:\n- Descontos em taxas (até 50%)\n- Acesso a recursos exclusivos\n- Participação em lucros (staking)\n\nValor:\n- Limitado a 1 bilhão de tokens\n- 40% para early adopters via airdrops\n- 30% para team e desenvolvimento\n- 30% para liquidez e ecossistema\n\nNão é obrigatório ter. Mas early adopters serão recompensados."
+    },
+    "q92": {
+      "question": "Como participar do airdrop?",
+      "answer": "Quanto mais cedo, mais tokens você ganha.\n\nCritérios de distribuição:\n\nPontos principais:\n- Tempo como usuário\n- Volume transacionado\n- Pontos acumulados\n- Contribuições à comunidade\n\nSnapshot trimestral:\nA cada 3 meses calculamos sua elegibilidade.\n\nExemplo distribuição:\n\nUsuário desde Beta (você):\n- 2.000 $BOAS (valor estimado: $200-2.000)\n\nUsuário após 6 meses:\n- 500 $BOAS (valor estimado: $50-500)\n\nUsuário após 1 ano:\n- 100 $BOAS (valor estimado: $10-100)\n\nQuanto antes entrar, mais tokens recebe."
+    },
+    "q93": {
+      "question": "Quando o token vai \"valer dinheiro\"?",
+      "answer": "Transparência total: não sabemos exatamente.\n\nPlano atual (sujeito a mudanças):\n\nQ1 2025: Airdrop #1 para early adopters\nQ2 2025: Token trading interno (entre usuários)\nQ3 2025: Listagem em exchanges descentralizadas\nQ4 2025: Listagem em exchanges centralizadas (se demanda justificar)\n\nMas atenção:\n❗ Não garantimos que token terá valor\n❗ Pode valer $0\n❗ Não invista esperando ficar rico\n\nFoque em usar o diBoaS pelos benefícios reais.\nO token é bônus, não promessa.\n\nFilosofia: Under-promise, over-deliver."
+    },
+    "q94": {
+      "question": "Meu dinheiro está realmente seguro?",
+      "answer": "Sim. Múltiplas camadas de proteção.\n\nSegurança Técnica:\n- Encriptação militar (AES-256)\n- Autenticação biométrica obrigatória\n- Carteiras não-custodiais (você controla)\n- Cold storage para 95% dos ativos\n\nSegurança Regulatória:\n- Compliance com SEC, MiCA, Banco Central\n- Auditorias trimestrais independentes\n- Seguros contra hacks\n- Fundo de reserva para emergências\n\nHistórico:\n2024: ZERO casos de perda por falha de segurança\n2023: ZERO casos de perda por falha de segurança\n\nSeu dinheiro está mais seguro aqui que no colchão."
+    },
+    "q95": {
+      "question": "E se o diBoaS falir ou fechar?",
+      "answer": "Você não perde nada. Garantido.\n\nArquitetura à prova de falência:\n\nCrypto:\n- Carteiras não-custodiais\n- VOCÊ tem as chaves privadas\n- Funciona independente do diBoaS\n\nInvestimentos tradicionais:\n- Custodiados por instituições reguladas\n- Não fazem parte do balanço diBoaS\n- Protegidos por FGC/FDIC\n\nDinheiro em conta:\n- Segregado dos ativos da empresa\n- Instituição parceira regulada\n- Seguros até $250k\n\nMesmo se diBoaS desaparecer amanhã:\nVocê tem acesso TOTAL aos seus ativos."
+    },
+    "q96": {
+      "question": "Como reportar algo suspeito?",
+      "answer": "Múltiplos canais, resposta rápida:\n\nChat in-app (24/7):\n- Suporte imediato\n- Bloqueio preventivo de conta\n- Investigação em tempo real\n\nEmail urgente:\nsecurity@diboas.com\n- Resposta em até 1 hora\n- Para casos complexos\n\nTelefone (emergências):\n+1-XXX-XXX-XXXX (EUA)\n0800-XXX-XXXX (Brasil)\n\nQue tipo de coisa reportar:\n- Login de local desconhecido\n- Transação que você não fez\n- Phishing suspeito\n- Atividade estranha na conta\n\nFalso positivo é melhor que brecha de segurança.\nReporte qualquer dúvida. Levamos tudo a sério."
+    },
+    "q97": {
+      "question": "Quem audita o diBoaS?",
+      "answer": "Auditores independentes de alto nível:\n\nSecurity Audits:\n- Trail of Bits (smart contracts)\n- Kudelski Security (infraestrutura)\n- Trimestral + ad-hoc quando lançamos recursos\n\nFinancial Audits:\n- Ernst & Young (EY)\n- Anual + revisões trimestrais\n\nCode Audits:\n- OpenZeppelin (protocolos DeFi)\n- Contínuo via GitHub Security\n\nRegulatórios:\n- Revisões por SEC, MiCA authorities\n- Compliance verificado independentemente\n\nTodos os reports públicos nesta página.\nTransparência total."
+    },
+    "q98": {
+      "question": "Posso ver os relatórios completos?",
+      "answer": "Sim! Transparência radical.\n\nDisponível publicamente:\n\nReports de Segurança:\n- Vulnerabilidades encontradas\n- Como foram corrigidas\n- Prevenções implementadas\n- Score geral (0-100)\n\nReports Financeiros:\n- Balanços auditados\n- Reservas de segurança\n- Solvência demonstrada\n- Proof of Reserves (crypto)\n\nUpdates em tempo real:\n- Status page: status.diboas.com\n- Incident reports públicos\n- Post-mortem de problemas\n\nNada é escondido.\nSe algo der errado, você saberá primeiro."
+    },
+    "q99": {
+      "question": "O que é Proof of Reserves?",
+      "answer": "Prova criptográfica que temos os ativos que dizemos ter.\n\nComo funciona:\n\n1. Você verifica seu saldo: 1 BTC\n2. diBoaS publica hash criptográfico\n3. Auditores verificam carteiras on-chain\n4. Confirmam: diBoaS tem 100%+ dos ativos dos clientes\n\nAtualizado:\n- Diariamente para crypto\n- Mensalmente para tradicional\n\nPor que importa:\nExchanges já faliram porque não tinham os ativos.\nFTX, Mt.Gox, etc.\n\nCom Proof of Reserves, isso é matematicamente impossível.\nVocê não precisa confiar. Você pode verificar."
+    },
+    "q100": {
+      "question": "Como identificar golpes comuns?",
+      "answer": "Red flags que SEMPRE indicam golpe:\n\n❌ Garantia de retorno fixo\n\"Ganhe 10% ao dia garantido\"\n→ Nada garante retorno em investimento\n\n❌ Urgência artificial\n\"Oferta expira em 1 hora!\"\n→ Golpistas criam urgência para você errar\n\n❌ Pedir senha/chaves privadas\n\"Envie sua seed phrase para suporte\"\n→ NUNCA compartilhe isso com NINGUÉM\n\n❌ Promessa de \"dinheiro grátis\"\n\"Envie 1 BTC, receba 2 BTC de volta\"\n→ Clássico golpe de duplicação\n\n❌ diBoaS te contatando fora do app\n→ Não ligamos pedindo dados\n→ Não enviamos DMs no Instagram\n→ Apenas canais oficiais\n\nStay Safe tem lista completa + quiz interativo."
+    },
+    "q101": {
+      "question": "Como proteger minha conta melhor?",
+      "answer": "Checklist de segurança essencial:\n\nBásico (faça agora):\n✓ Senha forte (12+ caracteres)\n✓ Biometria ativada\n✓ Email de recuperação atualizado\n✓ 2FA ativado (autenticação dois fatores)\n\nIntermediário:\n✓ Dispositivos autorizados revisados\n✓ Notificações de login ativas\n✓ Lista de contatos confiáveis configurada\n✓ Limites de transação customizados\n\nAvançado:\n✓ \"Modo Rua\" configurado\n✓ Carteiras hardware para grandes valores\n✓ Senha diferente para cada serviço\n✓ Revisão mensal de segurança\n\nCada nível adiciona camada de proteção.\nNão precisa fazer tudo de uma vez."
+    },
+    "q102": {
+      "question": "O que fazer se fui hackeado?",
+      "answer": "Protocolo de emergência:\n\nPasso 1 (Imediato - faça JÁ):\n1. Abrir app diBoaS\n2. Ir em Settings > Security\n3. \"Bloquear Conta Temporariamente\"\n→ Isso congela tudo instantaneamente\n\nPasso 2 (Próximos 5 min):\n1. Trocar senha do email\n2. Trocar senha do diBoaS (se conseguir)\n3. Revogar dispositivos desconhecidos\n\nPasso 3 (Próximos 15 min):\n1. Contatar suporte (chat in-app ou emergency line)\n2. Reportar transações fraudulentas\n3. Iniciar processo de recuperação\n\nGarantias:\n- Transações não-autorizadas são reembolsadas\n- Time de segurança investiga\n- Prevenção de futuros acessos\n\nImportante: Rapidez é crucial.\nQuanto antes agir, menos dano é feito."
+    },
+    "q103": {
+      "question": "Quem está por trás do diBoaS?",
+      "answer": "Time com experiência pesada em fintech e crypto.\n\nFounders:\n- Ex-executivos de Nubank, Coinbase, Stripe\n- Background em segurança e compliance\n- Veteranos de startups B2B e B2C\n\nInvestidores:\n- VCs especializados em fintech\n- Angels com exits em crypto\n- Family offices com visão de longo prazo\n\nAdvisors:\n- Reguladores anteriores do SEC e Banco Central\n- Líderes de segurança de bancos tier 1\n- Educadores financeiros reconhecidos\n\nNão somos 3 garotos numa garagem.\nSomos profissionais sérios construindo algo de impacto."
+    },
+    "q104": {
+      "question": "Qual a missão do diBoaS?",
+      "answer": "Democratizar acesso a serviços financeiros de qualidade.\n\nO problema que resolvemos:\n\nHoje:\n- Banking: Um app\n- Investing: Outro app\n- Crypto: Mais outro app\n- DeFi: Complexo demais para 99%\n→ Resultado: 89.6% do mundo não consegue usar tudo\n\ndiBoaS:\n- Tudo em um lugar\n- Interface progressiva (começa simples)\n- Educação integrada\n- Taxas justas ($10 mínimo, não $1.000)\n→ Meta: Fazer OneFi acessível a TODOS\n\nSucesso = Quando sua avó conseguir usar DeFi."
+    },
+    "q105": {
+      "question": "Como diBoaS ganha dinheiro?",
+      "answer": "Modelo sustentável e transparente:\n\nReceita Principal (80%):\n- Taxas de transação (0.09% e 0.9%)\n- Volume alto, margem baixa\n- Escala com crescimento da base\n\nReceita Secundária (15%):\n- Subscriptions Premium ($12.90/mês)\n- Features avançadas opcionais\n- ~5% dos usuários pagam\n\nCreator Economy (5%):\n- Comissão de conteúdo educativo (0.9%)\n- Marketplace de estratégias\n- Win-win: creators ganham, nós ganhamos\n\nNÃO ganhamos com:\n✗ Vender seus dados\n✗ Taxas escondidas\n✗ Payment for order flow\n✗ Front-running suas trades\n\nNosso sucesso = seu sucesso.\nAlinhamento total de incentivos."
+    },
+    "q106": {
+      "question": "Como é trabalhar no diBoaS?",
+      "answer": "Cultura de ownership e impacto.\n\nO que oferecemos:\n\nCompensação:\n- Salário competitivo (top 10% do mercado)\n- Equity significativo (todos são donos)\n- Bônus baseado em impacto real\n\nFlexibilidade:\n- Remote-first (escritório opcional)\n- Horários flexíveis\n- Viagens de team building trimestrais\n\nCrescimento:\n- Budget de $2k/ano para aprendizado\n- Mentoria com founders\n- Progressão rápida baseada em mérito\n\nMissão:\n- Democratizar finanças para bilhões\n- Resolver problema real\n- Legado duradouro\n\nNão é para todo mundo. É intenso.\nMas se você quer impacto máximo: é aqui."
+    },
+    "q107": {
+      "question": "Que tipo de pessoas vocês buscam?",
+      "answer": "Builders obcecados por excelência.\n\nCaracterísticas que valorizamos:\n\nTechnical Excellence:\n- Código limpo, arquitetura sólida\n- Obsessão por performance\n- Security-first mindset\n\nUser Empathy:\n- Entende dor dos usuários\n- Design thinking natural\n- Simplicidade como princípio\n\nOwnership Mentality:\n- \"Isso é meu\" mindset\n- Termina o que começa\n- Proativo, não reativo\n\nLearning Velocity:\n- Aprende rápido\n- Adapta mais rápido ainda\n- Não tem ego para perguntar\n\nNão importa tanto:\n- Diploma (temos gente sem faculdade)\n- Anos de experiência (temos desde júnior até senior)\n- Onde você mora (somos remote-first)\n\nImporta muito:\nQuão obcecado você é com o problema que resolvemos."
+    },
+    "q108": {
+      "question": "Como é o processo de contratação?",
+      "answer": "Transparente e respeitoso do seu tempo.\n\nStage 1: Application (você)\n- CV + carta explicando POR QUE diBoaS\n- Não queremos template, queremos verdade\n- Resposta em 3 dias úteis\n\nStage 2: Cultural Fit (30 min)\n- Conversa informal com Talent\n- Entender motivações e valores\n- Tirar dúvidas sobre a empresa\n\nStage 3: Technical Assessment (você)\n- Take-home challenge (4-6 horas)\n- Problema real que enfrentamos\n- Você escolhe quando fazer\n\nStage 4: Technical Deep Dive (60 min)\n- Revisar sua solução\n- Pair programming\n- Discussão de trade-offs\n\nStage 5: Founder Chat (30 min)\n- Conhecer visão da empresa\n- Alinhar expectativas\n- Decisão final\n\nTotal: ~2 semanas do application à oferta.\n\nRejeitamos? Feedback detalhado sempre."
+    },
+    "q109": {
+      "question": "Por que investir no diBoaS?",
+      "answer": "Oportunidade de $400 bilhões + timing perfeito.\n\nO mercado:\n- 89.6% dos usuários fintech globais não usam crypto/DeFi\n- TAM: 5.4 bilhões de pessoas\n- Apenas 10.4% têm acesso hoje\n→ Mercado massivo e virgem\n\nNossa vantagem:\n- Metodologia validada por Nubank (118.6M usuários)\n- Progressive disclosure comprovada funcionando\n- Taxas 16x mais baratas que incumbentes\n- First-mover em OneFi verdadeiro\n\nTração:\n[Métricas atuais - confidenciais até falar com investor]\n\nTiming:\n- Regulação cripto clara (MiCA, etc)\n- Mainstream appetite crescendo\n- Competidores focados em segmentos errados\n\nÉ convergência de banking + investing + crypto + DeFi.\nMercado de trilhões sendo formado AGORA."
+    },
+    "q110": {
+      "question": "Qual o status do fundraising?",
+      "answer": "[Atualização em tempo real]\n\nRodada Atual: Seed\nTarget: $4.5M\nValuation: $20M pre-money\nLead Investor: [TBD]\n\nUso do capital:\n- 25% Produto (perfeitar Aqua + Mystic)\n- 20% Regulatory (MiCA, BSA, compliance)\n- 40% Growth (provar unit economics)\n- 15% Team (core engineering + compliance)\n\nMilestones 12 meses:\n- 100k usuários\n- $12M revenue\n- EBITDA breakeven path claro\n\nPróxima rodada (Series A):\n- 18-24 meses\n- $20-30M raise\n- $100M+ valuation target\n\nTiming:\nOpen para investidores estratégicos NOW."
+    },
+    "q111": {
+      "question": "Como posso investir?",
+      "answer": "Processo para investidores sérios:\n\nStep 1: Expressar interesse\ninvestors@diboas.com\n- Breve intro (quem você é, ticket size)\n- Por que diBoaS te interessa\n\nStep 2: NDA + Data Room\n- Acesso a métricas detalhadas\n- Financial projections\n- Market research completo\n\nStep 3: Meeting com founders\n- Deep dive na visão\n- Q&A técnico e estratégico\n- Chemistry check\n\nStep 4: Term Sheet\n- Negociação de termos\n- Due diligence mútua\n- Alinhamento de expectativas\n\nStep 5: Close\n- Documentação legal\n- Wire transfer\n- Welcome ao cap table!\n\nTicket mínimo: $100k\nTicket típico: $250k - $1M\nInvestidores estratégicos: Custom\n\nQueremos parceiros, não apenas cheques."
+    },
+    "q112": {
+      "question": "Como o diBoaS é regulado?",
+      "answer": "Multi-jurisdição, compliance from day one.\n\nEstados Unidos:\n- FinCEN (Federal)\n- Money Transmitter Licenses (Estado por Estado)\n- SEC registration para produtos de investimento\n\nEuropa:\n- MiCA compliant\n- GDPR adherent\n- Individual country licenses onde necessário\n\nBrasil:\n- Banco Central do Brasil autorizado\n- Lei 14.478 (Marco Legal Crypto)\n- CVM para produtos de investimento\n\nIsso importa porque:\nMuitos competidores operam em \"zona cinzenta\"\ndiBoaS escolhe fazer certo desde o começo\n= Menos risco para você como usuário"
+    },
+    "q113": {
+      "question": "O que são esses Termos de Uso?",
+      "answer": "Contrato legal entre você e diBoaS.\n\nEscrito em linguagem humana (não juridiquês).\n\nPrincipais pontos:\n\nSeus direitos:\n- Propriedade de seus ativos\n- Privacidade de seus dados\n- Cancelar quando quiser\n- Portabilidade completa\n\nSuas responsabilidades:\n- Manter credenciais seguras\n- Usar para fins legítimos\n- Pagar taxas aplicáveis\n- Reportar problemas\n\nNossos compromissos:\n- Proteger seus ativos\n- Transparência total\n- Suporte responsivo\n- Melhoria contínua\n\nRecomendamos ler, mas é longo (32 páginas).\nTL;DR disponível em formato de bullet points."
+    },
+    "q114": {
+      "question": "Posso usar diBoaS do meu país?",
+      "answer": "Verificar disponibilidade por região:\n\nTotalmente disponível:\n🇺🇸 Estados Unidos (50 estados)\n🇧🇷 Brasil\n🇪🇺 União Europeia (27 países)\n🇬🇧 Reino Unido\n🇨🇦 Canadá\n🇦🇺 Austrália\n\nParcialmente disponível:\n🌎 América Latina (sem DeFi)\n🌏 Sudeste Asiático (sem DeFi)\n\nNão disponível ainda:\n🇨🇳 China\n🇷🇺 Rússia\n[Países sob sanções internacionais]\n\nRoadmap 2025:\nExpandir para mais 40 países.\n\nSe seu país não está na lista:\nJunte-se à waitlist, avisamos quando lançar."
+    },
+    "q115": {
+      "question": "Que dados vocês coletam?",
+      "answer": "Apenas o necessário. Zero venda de dados.\n\nDados obrigatórios:\n- Identidade (CPF, nome, data nascimento)\n- Contato (email, telefone)\n- Endereço (compliance regulatório)\n- Documentos (foto ID, selfie)\n\nDados de uso:\n- Transações (histórico financeiro)\n- Navegação no app (melhorar UX)\n- Device info (segurança)\n- Localização (apenas durante uso, se permitir)\n\nDados que NÃO coletamos:\n✗ Histórico de navegação fora do app\n✗ Contatos do seu telefone\n✗ Mensagens/fotos\n✗ Atividade em outros apps\n\nTudo criptografado em repouso e em trânsito."
+    },
+    "q116": {
+      "question": "Vocês vendem meus dados?",
+      "answer": "NÃO. Nunca. Zero chance.\n\nNosso modelo de negócio é baseado em taxas de serviço.\nNão precisamos vender dados.\n\nComo usamos seus dados:\n\nInternamente:\n- Melhorar produtos\n- Prevenir fraudes\n- Personalizar experiência\n- Compliance regulatório\n\nCom terceiros (apenas essencial):\n- Processadores de pagamento\n- KYC/AML providers\n- Auditores (sob NDA)\n- Autoridades regulatórias (quando legalmente obrigado)\n\nParceiros publicitários: ZERO\nData brokers: ZERO\n\"Anonymized analytics platforms\": ZERO\n\nSua privacidade não está à venda."
+    },
+    "q117": {
+      "question": "Como deletar meus dados?",
+      "answer": "Direito garantido por GDPR/LGPD.\n\nProcesso:\n\n1. In-app:\n   Settings > Privacy > Delete Account\n   \n2. Request via email:\n   privacy@diboas.com\n   Subject: \"Account Deletion Request\"\n\nO que acontece:\n\nImediato (24h):\n- Conta desativada\n- Acesso bloqueado\n- Dados pessoais marcados para deleção\n\n30 dias:\n- Período de reversão (se mudar de ideia)\n- Dados ainda recuperáveis\n\nApós 30 dias:\n- Deleção permanente\n- Irrecuperável\n- Apenas dados de compliance mantidos (regulatório)\n\nDados mantidos por compliance:\n- Transações (7 anos - lei)\n- KYC documents (5 anos - regulação)\n- Relatórios enviados a autoridades\n\nTudo mais: DELETADO permanentemente."
+    },
+    "q118": {
+      "question": "Por que vocês usam cookies?",
+      "answer": "Para fazer o site funcionar e melhorar experiência.\n\nTipos de cookies:\n\nEssenciais (não tem como desativar):\n- Manter você logado\n- Lembrar configurações\n- Segurança anti-fraude\n→ Sem esses, o site não funciona\n\nFuncionais (pode desativar):\n- Lembrar preferências\n- Idioma escolhido\n- Tema dark/light\n\nAnalytics (pode desativar):\n- Páginas mais visitadas\n- Onde usuários travam\n- Performance do site\n\nMarketing (pode desativar):\n- Rastrear origem (Google ads, etc)\n- Retargeting (mostrar anúncios)\n\nVocê controla tudo no Cookie Consent banner."
+    },
+    "q119": {
+      "question": "Cookies rastreiam tudo que faço?",
+      "answer": "Não. Apenas interações com diBoaS.\n\nO que cookies PODEM ver:\n✓ Páginas do diBoaS que você visita\n✓ Quanto tempo fica em cada página\n✓ Botões que clica no nosso site\n✓ De onde veio (Google search, link direto, etc)\n\nO que cookies NÃO veem:\n✗ Outros sites que você navega\n✗ Seu email ou mensagens\n✗ Conteúdo em outros apps\n✗ Localização precisa (apenas cidade/região)\n\nThird-party cookies (Google, Facebook):\nUsamos APENAS se você permitir no consent banner.\n\nFacilmente desativável:\nSettings > Privacy > Cookie Preferences"
+    },
+    "q120": {
+      "question": "Como deletar cookies do diBoaS?",
+      "answer": "Múltiplas formas:\n\nMétodo 1: Configurações do site\n1. Abrir diboas.com\n2. Footer > Cookie Preferences\n3. \"Delete All Cookies\"\n4. Confirmar\n\nMétodo 2: Browser\n- Chrome: Settings > Privacy > Clear browsing data\n- Firefox: Preferences > Privacy > Clear Data  \n- Safari: Preferences > Privacy > Manage Website Data\n\nMétodo 3: Extensões browser\n- uBlock Origin\n- Privacy Badger\n- Ghostery\n\nConsequências de deletar cookies:\n- Vai deslogar do site\n- Perde preferências salvas\n- Precisa reaceitar cookie consent\n\nCookies voltam quando visitar site novamente\n(a menos que configure para bloquear)\n\nAlternativa: Modo Incognito/Private browsing\nCookies não persistem após fechar aba."
+    }
+  },
+  "landingPageQuestionIds": []
+}

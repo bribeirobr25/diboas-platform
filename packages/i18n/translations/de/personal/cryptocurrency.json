@@ -1,0 +1,93 @@
+{
+  "title": "Kryptowährungen | diBoaS",
+  "description": "Krypto ist nicht nur für Experten. Investiere einfach und sicher.",
+  "hero": {
+    "title": "Krypto ist nicht nur für Experten. Mit 1-Click investierst du in digitale Assets, einfach und sicher.",
+    "description": "",
+    "cta": "Jetzt starten"
+  },
+  "benefitsCards": {
+    "title": "Krypto leicht gemacht",
+    "description": "Bitcoin kaufen ohne Tech-Genie zu sein.",
+    "cards": {
+      "oneClickDone": {
+        "iconAlt": "One click icon",
+        "title": "1-Klick, fertig",
+        "description": "Bitcoin, Ethereum und andere mit einem Tipp kaufen.\nKeine komplexen Wallets verstehen müssen.\nSo einfach wie alles andere kaufen."
+      },
+      "militaryGradeCustody": {
+        "iconAlt": "Security icon",
+        "title": "Militärische Verwahrung",
+        "description": "Deine Kryptos mit militärischer Sicherheit geschützt.\nDu kontrollierst sie, wir bewahren sie auf.\nUnabhängige Prüfung verfügbar."
+      },
+      "integratedWithEverything": {
+        "iconAlt": "Integration icon",
+        "title": "Mit allem integriert",
+        "description": "Sieh Krypto neben deinen anderen Investments.\nEinheitliches Portfolio.\nVerstehe dein Gesamtvermögen wirklich."
+      },
+      "learnBeforeYouInvest": {
+        "iconAlt": "Learn first icon",
+        "title": "Lernen vor dem Investieren",
+        "description": "Bildungszentrum erklärt jede Münze.\nRisiken, Vorteile, Technologie.\nWissen vor Geld."
+      }
+    }
+  },
+  "stickyFeaturesNav": {
+    "title": "Krypto für normale Menschen.",
+    "subtitle": "Kein Fachchinesisch. Nur echte Chancen.",
+    "cards": {
+      "oneClickToGetIn": {
+        "title": "1-Klick Einstieg",
+        "description": "Bitcoin, Ethereum und mehr mit einem Klick kaufen.\nKeine Blockchain-Kenntnisse nötig.\nUnsere Guides erklären alles.",
+        "imageAlt": "1-Klick Einstieg illustration"
+      },
+      "securityYouUnderstand": {
+        "title": "Sicherheit die Sie verstehen",
+        "description": "Non-Custodial Wallets. Sie sind der Eigentümer.\nMilitärische Verschlüsselung. Unabhängige Audits.\nIhr Krypto, Ihre Verwahrung.",
+        "imageAlt": "Sicherheit die Sie verstehen illustration"
+      },
+      "fromZeroToAdvanced": {
+        "title": "Von Null bis Fortgeschritten",
+        "description": "Starten Sie mit Aqua beim ersten Bitcoin-Kauf.\nEntwickeln Sie sich zu fortgeschrittenen Strategien mit Coral.\nAlles in Ihrem eigenen Tempo.",
+        "imageAlt": "Von Null bis Fortgeschritten illustration"
+      },
+      "cryptoTraditionalComplete": {
+        "title": "Krypto + Traditionell = Komplett",
+        "description": "Sehen Sie traditionelle und Krypto-Investments\nnebeneinander. Eine einzigartige Vermögensübersicht.\nEndlich alles zusammen.",
+        "imageAlt": "Krypto + Traditionell = Komplett illustration"
+      }
+    }
+  },
+  "featureShowcase": {
+    "slides": {
+      "unification": {
+        "title": "Krypto ohne Komplexität",
+        "description": "Kaufen, verkaufen und verwahren Sie digitale Assets.\nKein Fachjargon. Keine Verwirrung.\nEinfaches Krypto-Investment.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Krypto ohne Komplexität illustration"
+      },
+      "simplicity": {
+        "title": "Krypto mit 1 Klick",
+        "description": "Bitcoin, Ethereum und über 50 Coins.\n✓ Sofortkäufe\n✓ Sichere Verwahrung\n✓ Echtzeitpreise\nAqua führt Sie durch jeden Schritt.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Krypto mit 1 Klick illustration"
+      },
+      "rewards": {
+        "title": "Militärische Sicherheit",
+        "description": "Banken-Standard-Verschlüsselung für Ihre digitalen Assets.\nCold Storage und Multi-Signatur-Schutz.\nIhre Kryptos, Ihre Kontrolle.",
+        "ctaText": "Jetzt starten",
+        "imageAlt": "Militärische Sicherheit illustration"
+      }
+    }
+  },
+  "faqAccordion": {
+    "sectionTitle": "Häufig gestellte Fragen",
+    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+    "ctaText": "Alle Fragen ansehen",
+    "questionIds": [
+      "q23",
+      "q24",
+      "q25"
+    ]
+  }
+}
