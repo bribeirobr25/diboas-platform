@@ -6,6 +6,19 @@
 import { loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
 
 /**
+ * Convert kebab-case path to flattened camelCase
+ * Flattens directory structure and converts kebab-case to camelCase
+ * @example 'personal/defi-strategies' -> 'personalDefiStrategies'
+ * @example 'business/credit-solutions' -> 'businessCreditSolutions'
+ * @example 'defi-strategies' -> 'defiStrategies'
+ */
+function pathToCamel(str: string): string {
+  // Remove slashes and hyphens, capitalize the letter after each
+  return str
+    .replace(/[-\/](.)/g, (_, letter) => letter.toUpperCase());  // -a or /a -> A
+}
+
+/**
  * Load and flatten multiple namespaces for a page
  *
  * @param locale - The locale to load
@@ -25,15 +38,14 @@ export async function loadPageNamespaces(
   for (const namespace of namespaces) {
     const namespaceMessages = await loadMessages(locale, namespace);
 
-    // Determine prefix based on namespace path
+    // Determine prefix based on namespace path, converting kebab-case to camelCase
     // 'home' -> 'marketing.pages.home'
-    // 'personal/account' -> 'marketing.pages.personal.account'
+    // 'personal/defi-strategies' -> 'marketing.pages.personal.defiStrategies'
+    // 'business/credit-solutions' -> 'marketing.pages.business.creditSolutions'
     // 'faq' -> 'marketing.faq'
-    const prefix = namespace.includes('/')
-      ? `marketing.pages.${namespace.replace('/', '.')}`
-      : namespace === 'faq'
-        ? 'marketing.faq'
-        : `marketing.pages.${namespace}`;
+    const prefix = namespace === 'faq'
+      ? 'marketing.faq'
+      : `marketing.pages.${pathToCamel(namespace)}`;
 
     const flattened = flattenMessages(namespaceMessages, prefix);
     Object.assign(allMessages, flattened);
