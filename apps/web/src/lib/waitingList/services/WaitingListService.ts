@@ -36,6 +36,11 @@ import {
   isStorageAvailable,
   truncateString,
 } from '../helpers';
+import {
+  errorReportingService,
+  ErrorSeverity,
+  ErrorCategory,
+} from '@/lib/errors/ErrorReportingService';
 
 // LocalStorage Repository Implementation
 class LocalStorageRepository implements WaitingListRepository {
@@ -47,7 +52,20 @@ class LocalStorageRepository implements WaitingListRepository {
 
   async save(submission: WaitingListSubmission): Promise<SubmissionResult> {
     if (!isStorageAvailable()) {
-      throw new WaitingListStorageError('LocalStorage is not available');
+      const storageError = new WaitingListStorageError('LocalStorage is not available');
+      // P12: Report storage unavailable error
+      errorReportingService.reportError(storageError, {
+        severity: ErrorSeverity.HIGH,
+        category: ErrorCategory.USER_INTERACTION,
+        context: {
+          customData: {
+            operation: 'waiting_list_save',
+            submissionId: submission.id,
+          },
+        },
+        tags: ['waiting-list', 'storage', 'unavailable'],
+      });
+      throw storageError;
     }
 
     try {
@@ -56,9 +74,23 @@ class LocalStorageRepository implements WaitingListRepository {
       localStorage.setItem(this.storageKey, JSON.stringify(existing));
       return { success: true, id: submission.id };
     } catch (error) {
-      throw new WaitingListStorageError(
+      const storageError = new WaitingListStorageError(
         `Failed to save submission: ${error instanceof Error ? error.message : 'Unknown error'}`
       );
+      // P12: Report storage save error
+      errorReportingService.reportError(storageError, {
+        severity: ErrorSeverity.HIGH,
+        category: ErrorCategory.USER_INTERACTION,
+        context: {
+          customData: {
+            operation: 'waiting_list_save',
+            submissionId: submission.id,
+            originalError: error instanceof Error ? error.message : String(error),
+          },
+        },
+        tags: ['waiting-list', 'storage', 'save-failed'],
+      });
+      throw storageError;
     }
   }
 
@@ -102,46 +134,71 @@ export class WaitingListService implements WaitingListDomainService {
   }
 
   async submitToWaitingList(input: SubmissionInput): Promise<SubmissionResult> {
-    // 1. Validate input
-    const validationResult = this.validateInput(input);
-    if (!validationResult.isValid) {
-      throw new WaitingListValidationError('Validation failed', validationResult.errors);
+    try {
+      // 1. Validate input
+      const validationResult = this.validateInput(input);
+      if (!validationResult.isValid) {
+        throw new WaitingListValidationError('Validation failed', validationResult.errors);
+      }
+
+      // 2. Sanitize input
+      const sanitizedInput = this.sanitizeInput(input);
+
+      // 3. Check for duplicates
+      const exists = await this.checkEmailExists(sanitizedInput.email);
+      if (exists) {
+        throw new WaitingListDuplicateError(sanitizedInput.email);
+      }
+
+      // 4. Create consent record (GDPR/LGPD/CCPA compliance)
+      const consentRecord: ConsentRecord = {
+        gdprAccepted: sanitizedInput.gdprAccepted,
+        timestamp: createConsentTimestamp(),
+        consentVersion: this.config.consentVersion,
+        privacyPolicyVersion: this.config.privacyPolicyVersion,
+        consentText: this.getConsentText(sanitizedInput.locale),
+      };
+
+      // 5. Create submission entity
+      const submission: WaitingListSubmission = {
+        id: generateSubmissionId(),
+        email: sanitizedInput.email.toLowerCase().trim(),
+        name: sanitizedInput.name ? truncateString(sanitizedInput.name.trim(), this.config.maxNameLength) : undefined,
+        xAccount: sanitizedInput.xAccount ? normalizeXAccount(sanitizedInput.xAccount) : undefined,
+        consent: consentRecord,
+        locale: sanitizedInput.locale,
+        submittedAt: new Date(),
+        source: 'marketing_site',
+      };
+
+      // 6. Persist submission
+      const result = await this.repository.save(submission);
+
+      return result;
+    } catch (error) {
+      // P12: Report unexpected errors (not validation or duplicate errors)
+      if (
+        !(error instanceof WaitingListValidationError) &&
+        !(error instanceof WaitingListDuplicateError) &&
+        !(error instanceof WaitingListStorageError)
+      ) {
+        const unexpectedError = error instanceof Error ? error : new Error(String(error));
+        errorReportingService.reportError(unexpectedError, {
+          severity: ErrorSeverity.CRITICAL,
+          category: ErrorCategory.USER_INTERACTION,
+          context: {
+            customData: {
+              operation: 'waiting_list_submission',
+              locale: input.locale,
+              hasName: !!input.name,
+              hasXAccount: !!input.xAccount,
+            },
+          },
+          tags: ['waiting-list', 'submission', 'unexpected-error'],
+        });
+      }
+      throw error;
     }
-
-    // 2. Sanitize input
-    const sanitizedInput = this.sanitizeInput(input);
-
-    // 3. Check for duplicates
-    const exists = await this.checkEmailExists(sanitizedInput.email);
-    if (exists) {
-      throw new WaitingListDuplicateError(sanitizedInput.email);
-    }
-
-    // 4. Create consent record (GDPR/LGPD/CCPA compliance)
-    const consentRecord: ConsentRecord = {
-      gdprAccepted: sanitizedInput.gdprAccepted,
-      timestamp: createConsentTimestamp(),
-      consentVersion: this.config.consentVersion,
-      privacyPolicyVersion: this.config.privacyPolicyVersion,
-      consentText: this.getConsentText(sanitizedInput.locale),
-    };
-
-    // 5. Create submission entity
-    const submission: WaitingListSubmission = {
-      id: generateSubmissionId(),
-      email: sanitizedInput.email.toLowerCase().trim(),
-      name: sanitizedInput.name ? truncateString(sanitizedInput.name.trim(), this.config.maxNameLength) : undefined,
-      xAccount: sanitizedInput.xAccount ? normalizeXAccount(sanitizedInput.xAccount) : undefined,
-      consent: consentRecord,
-      locale: sanitizedInput.locale,
-      submittedAt: new Date(),
-      source: 'marketing_site',
-    };
-
-    // 6. Persist submission
-    const result = await this.repository.save(submission);
-
-    return result;
   }
 
   async checkEmailExists(email: string): Promise<boolean> {

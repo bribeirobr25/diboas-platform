@@ -13,6 +13,7 @@ import { createPortal } from 'react-dom';
 import { ENV_CONFIG } from '@/config/environment';
 import { WaitingListContextValue } from '@/lib/waitingList/types';
 import { WaitingListModal } from './WaitingListModal';
+import { analyticsService } from '@/lib/analytics';
 
 const WaitingListContext = createContext<WaitingListContextValue | null>(null);
 
@@ -31,10 +32,25 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
 
   const openModal = useCallback(() => {
     setIsOpen(true);
+    // P10: Track modal open event
+    analyticsService.track({
+      name: 'waiting_list_modal_opened',
+      parameters: {
+        source: 'app_link_intercept',
+        timestamp: Date.now(),
+      },
+    });
   }, []);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
+    // P10: Track modal close event
+    analyticsService.track({
+      name: 'waiting_list_modal_closed',
+      parameters: {
+        timestamp: Date.now(),
+      },
+    });
   }, []);
 
   // Global click interceptor for app.diboas.com / localhost:3001 links

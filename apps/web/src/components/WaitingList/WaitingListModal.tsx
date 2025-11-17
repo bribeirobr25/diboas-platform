@@ -22,6 +22,7 @@ import {
   SubmissionInput,
 } from '@/lib/waitingList/types';
 import { WAITING_LIST_CONFIG } from '@/lib/waitingList/constants';
+import { analyticsService } from '@/lib/analytics';
 import styles from './WaitingListModal.module.css';
 
 interface WaitingListModalProps {
@@ -98,6 +99,17 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
     setErrors({});
     setIsLoading(true);
 
+    // P10: Track form submission attempt
+    analyticsService.track({
+      name: 'waiting_list_form_submitted',
+      parameters: {
+        hasName: !!formData.name,
+        hasXAccount: !!formData.xAccount,
+        locale: locale,
+        timestamp: Date.now(),
+      },
+    });
+
     try {
       const input: SubmissionInput = {
         email: formData.email,
@@ -111,8 +123,20 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
 
       setSubmittedEmail(formData.email);
       setIsSuccess(true);
+
+      // P10: Track successful signup
+      analyticsService.track({
+        name: 'waiting_list_signup_success',
+        parameters: {
+          locale: locale,
+          timestamp: Date.now(),
+        },
+      });
     } catch (error) {
+      // P10: Track signup error
+      let errorType = 'unknown';
       if (error instanceof WaitingListValidationError) {
+        errorType = 'validation';
         const fieldErrors: WaitingListFormErrors = {};
         error.validationErrors.forEach((validationError) => {
           const field = validationError.field as keyof WaitingListFormErrors;
@@ -122,14 +146,24 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
         });
         setErrors(fieldErrors);
       } else if (error instanceof WaitingListDuplicateError) {
+        errorType = 'duplicate';
         setErrors({
           email: t('errors.duplicateEmail'),
         });
       } else {
+        errorType = 'submission_failed';
         setErrors({
           general: t('errors.submissionFailed'),
         });
       }
+
+      analyticsService.track({
+        name: 'waiting_list_signup_error',
+        parameters: {
+          errorType,
+          timestamp: Date.now(),
+        },
+      });
     } finally {
       setIsLoading(false);
     }
@@ -229,31 +263,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                   </div>
                 )}
 
-                {/* Name field (optional) */}
-                <div className={styles.formGroup}>
-                  <label htmlFor="name" className={styles.label}>
-                    {t('form.name.label')}
-                    <span className={styles.optional}>{t('form.optional')}</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder={t('form.name.placeholder')}
-                    className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
-                    maxLength={WAITING_LIST_CONFIG.maxNameLength}
-                    autoComplete="name"
-                  />
-                  {errors.name && (
-                    <span className={styles.errorMessage} role="alert">
-                      {errors.name}
-                    </span>
-                  )}
-                </div>
-
-                {/* Email field (required) */}
+                {/* Email field (required) - First because it's the only mandatory field */}
                 <div className={styles.formGroup}>
                   <label htmlFor="email" className={styles.label}>
                     {t('form.email.label')}
@@ -274,6 +284,30 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                   {errors.email && (
                     <span className={styles.errorMessage} role="alert">
                       {errors.email}
+                    </span>
+                  )}
+                </div>
+
+                {/* Name field (optional) */}
+                <div className={styles.formGroup}>
+                  <label htmlFor="name" className={styles.label}>
+                    {t('form.name.label')}
+                    <span className={styles.optional}>{t('form.optional')}</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder={t('form.name.placeholder')}
+                    className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
+                    maxLength={WAITING_LIST_CONFIG.maxNameLength}
+                    autoComplete="name"
+                  />
+                  {errors.name && (
+                    <span className={styles.errorMessage} role="alert">
+                      {errors.name}
                     </span>
                   )}
                 </div>
@@ -333,7 +367,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                 <button
                   type="submit"
                   className={styles.submitButton}
-                  disabled={isLoading}
+                  disabled={isLoading || !formData.gdprAccepted}
                 >
                   {isLoading ? (
                     <span className={styles.loadingSpinner} />
