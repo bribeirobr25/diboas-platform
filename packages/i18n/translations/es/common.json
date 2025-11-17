@@ -196,5 +196,47 @@
     },
     "copyright": "© 2024 diBoaS. Todos los derechos reservados.",
     "brandName": "diBoaS"
+  },
+  "waitingList": {
+    "title": "Únete a la Lista de Espera",
+    "subtitle": "Sé el primero en experimentar el futuro de las finanzas. Regístrate ahora para obtener acceso anticipado a diBoaS.",
+    "imageAlt": "Vista previa de la Plataforma diBoaS",
+    "close": "Cerrar",
+    "form": {
+      "name": {
+        "label": "Nombre",
+        "placeholder": "Ingresa tu nombre"
+      },
+      "email": {
+        "label": "Correo electrónico",
+        "placeholder": "Ingresa tu dirección de correo electrónico"
+      },
+      "xAccount": {
+        "label": "Cuenta de X (Twitter)",
+        "placeholder": "@usuario"
+      },
+      "optional": "(opcional)",
+      "consent": {
+        "text": "Acepto recibir comunicaciones de diBoaS y estoy de acuerdo con la",
+        "privacyPolicy": "Política de Privacidad"
+      },
+      "submit": "Unirse a la Lista de Espera"
+    },
+    "success": {
+      "title": "¡Estás en la lista!",
+      "message": "Gracias por unirte a nuestra lista de espera. Te mantendremos informado sobre nuestro lanzamiento y te enviaremos información de acceso anticipado.",
+      "emailSent": "Confirmación enviada a {email}",
+      "close": "Cerrar"
+    },
+    "errors": {
+      "invalidEmail": "Por favor, ingresa una dirección de correo electrónico válida",
+      "invalidName": "Por favor, ingresa un nombre válido",
+      "invalidXAccount": "Por favor, ingresa una cuenta de X válida (ej: @usuario)",
+      "consentRequired": "Debes aceptar recibir comunicaciones",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "duplicateEmail": "Este correo electrónico ya está en nuestra lista de espera",
+      "submissionFailed": "Algo salió mal. Por favor, inténtalo de nuevo.",
+      "storageError": "No se pudo guardar tu información. Por favor, inténtalo de nuevo."
+    }
   }
 }

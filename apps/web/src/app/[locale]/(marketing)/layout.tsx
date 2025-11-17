@@ -6,6 +6,7 @@ import { Navigation } from '@/components/Layout/Navigation';
 import { SiteFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationErrorBoundary';
+import { WaitingListProvider } from '@/components/WaitingList';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -47,19 +48,21 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
     <LocaleProvider initialLocale={locale}>
       <I18nProvider locale={locale} messages={allMessages}>
         <PageErrorBoundary>
-          <div className="min-h-screen flex flex-col">
-            {/* Skip Navigation Link for Accessibility */}
-            <a href="#main-content" className="skip-link">
-              Skip to main content
-            </a>
-            <NavigationErrorBoundary maxRetries={3}>
-              <Navigation />
-            </NavigationErrorBoundary>
-            <main id="main-content" className="main-content flex-1">
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
+          <WaitingListProvider>
+            <div className="min-h-screen flex flex-col">
+              {/* Skip Navigation Link for Accessibility */}
+              <a href="#main-content" className="skip-link">
+                Skip to main content
+              </a>
+              <NavigationErrorBoundary maxRetries={3}>
+                <Navigation />
+              </NavigationErrorBoundary>
+              <main id="main-content" className="main-content flex-1">
+                {children}
+              </main>
+              <SiteFooter />
+            </div>
+          </WaitingListProvider>
         </PageErrorBoundary>
       </I18nProvider>
     </LocaleProvider>

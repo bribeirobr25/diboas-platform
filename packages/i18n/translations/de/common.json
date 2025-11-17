@@ -196,5 +196,47 @@
     },
     "copyright": "© 2024 diBoaS. Alle Rechte vorbehalten.",
     "brandName": "diBoaS"
+  },
+  "waitingList": {
+    "title": "Auf die Warteliste setzen",
+    "subtitle": "Seien Sie der Erste, der die Zukunft der Finanzen erlebt. Melden Sie sich jetzt an, um frühzeitigen Zugang zu diBoaS zu erhalten.",
+    "imageAlt": "diBoaS Plattform Vorschau",
+    "close": "Schließen",
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Geben Sie Ihren Namen ein"
+      },
+      "email": {
+        "label": "E-Mail",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+      },
+      "xAccount": {
+        "label": "X (Twitter) Konto",
+        "placeholder": "@benutzername"
+      },
+      "optional": "(optional)",
+      "consent": {
+        "text": "Ich akzeptiere Mitteilungen von diBoaS zu erhalten und stimme der",
+        "privacyPolicy": "Datenschutzerklärung"
+      },
+      "submit": "Auf Warteliste setzen"
+    },
+    "success": {
+      "title": "Sie sind auf der Liste!",
+      "message": "Vielen Dank, dass Sie sich auf unsere Warteliste gesetzt haben. Wir halten Sie über unseren Start auf dem Laufenden und senden Ihnen Informationen zum frühzeitigen Zugang.",
+      "emailSent": "Bestätigung gesendet an {email}",
+      "close": "Schließen"
+    },
+    "errors": {
+      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "invalidName": "Bitte geben Sie einen gültigen Namen ein",
+      "invalidXAccount": "Bitte geben Sie ein gültiges X-Konto ein (z.B. @benutzername)",
+      "consentRequired": "Sie müssen dem Empfang von Mitteilungen zustimmen",
+      "emailRequired": "E-Mail ist erforderlich",
+      "duplicateEmail": "Diese E-Mail-Adresse ist bereits auf unserer Warteliste",
+      "submissionFailed": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "storageError": "Ihre Informationen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
+    }
   }
 }
