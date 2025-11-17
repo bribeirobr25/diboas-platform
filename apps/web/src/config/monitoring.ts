@@ -227,6 +227,9 @@ export function initializeMonitoringServices(): void {
   }
 
   // Initialize DataDog if configured (only if package is available)
+  // NOTE: Commented out to avoid build errors. DataDog is not in current infrastructure plan.
+  // Uncomment and install @datadog/browser-rum when needed.
+  /*
   if (DATADOG_CONFIG.apiKey) {
     // @ts-ignore - Optional package
     import('@datadog/browser-rum').then(({ datadogRum }) => {
@@ -245,8 +248,12 @@ export function initializeMonitoringServices(): void {
       console.warn('DataDog package not available. Install @datadog/browser-rum to enable RUM.');
     });
   }
+  */
 
   // Initialize LogRocket if configured (only if package is available)
+  // NOTE: Commented out to avoid build errors. LogRocket is not in current infrastructure plan.
+  // Uncomment and install logrocket when needed.
+  /*
   if (LOGROCKET_CONFIG.appId) {
     // @ts-ignore - Optional package
     import('logrocket').then((LogRocket) => {
@@ -255,6 +262,7 @@ export function initializeMonitoringServices(): void {
       console.warn('LogRocket package not available. Install logrocket to enable session recording.');
     });
   }
+  */
 
   console.info('Monitoring services initialized', {
     errorReporting: MONITORING_CONFIG.errorReporting.enabled,

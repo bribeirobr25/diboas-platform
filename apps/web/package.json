@@ -22,6 +22,7 @@
     "@diboas/i18n": "workspace:*",
     "@diboas/ui": "workspace:*",
     "@formatjs/intl-localematcher": "^0.4.2",
+    "@sentry/nextjs": "^10.25.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "critters": "^0.0.25",
