@@ -196,5 +196,47 @@
     },
     "copyright": "© 2024 diBoaS. All rights reserved.",
     "brandName": "diBoaS"
+  },
+  "waitingList": {
+    "title": "Join the Waiting List",
+    "subtitle": "Be the first to experience the future of finance. Sign up now to get early access to diBoaS.",
+    "imageAlt": "diBoaS Platform Preview",
+    "close": "Close",
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email address"
+      },
+      "xAccount": {
+        "label": "X (Twitter) Account",
+        "placeholder": "@username"
+      },
+      "optional": "(optional)",
+      "consent": {
+        "text": "I accept to receive communications from diBoaS and agree with the",
+        "privacyPolicy": "Privacy Policy"
+      },
+      "submit": "Join Waiting List"
+    },
+    "success": {
+      "title": "You're on the list!",
+      "message": "Thank you for joining our waiting list. We'll keep you updated on our launch and send you early access information.",
+      "emailSent": "Confirmation sent to {email}",
+      "close": "Close"
+    },
+    "errors": {
+      "invalidEmail": "Please enter a valid email address",
+      "invalidName": "Please enter a valid name",
+      "invalidXAccount": "Please enter a valid X account (e.g., @username)",
+      "consentRequired": "You must accept to receive communications",
+      "emailRequired": "Email is required",
+      "duplicateEmail": "This email is already on our waiting list",
+      "submissionFailed": "Something went wrong. Please try again.",
+      "storageError": "Unable to save your information. Please try again."
+    }
   }
 }
