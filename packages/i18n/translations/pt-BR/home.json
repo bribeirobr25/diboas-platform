@@ -2,38 +2,38 @@
   "title": "diBoaS - Ecossistema Financeiro Completo",
   "description": "Gerencie seus ativos bancários, investimentos e DeFi em uma única plataforma segura.",
   "hero": {
-    "title": "Mais de 5,4 bilhões de pessoas merecem acesso seguro e descomplicado ao crescimento financeiro.\n\ndiBoaS está tornando isso possível",
+    "title": "Mais de 5,4 bilhões de pessoas merecem acesso fácil e seguro ao crescimento financeiro. Você é uma delas!",
     "description": ""
   },
   "productCarousel": {
-    "heading": "Tudo em um app",
+    "heading": "Por que diBoaS?",
     "slides": {
       "benefits": {
-        "title": "Sem Complicações",
-        "subtitle": "Transferências em tempo real, sem limites e para qualquer lugar.\nFácil. Rápido. Seguro."
+        "title": "Rápido e Sem Limites",
+        "subtitle": "Envie qualquer quantia, a qualquer hora, para qualquer lugar. Em tempo real."
       },
       "rewards": {
-        "title": "Seu Dinheiro Trabalhando por Você",
-        "subtitle": "Ações, títulos, sua primeira crypto.\nSeu primeiro investimento.\nSeu primeiro passo para crescer."
+        "title": "Simples e Seguro",
+        "subtitle": "Dinheiro, investimentos, crypto e estratégias. Tudo em um só lugar, sem complicação."
       },
       "business": {
-        "title": "Para Seu Negócio Também",
-        "subtitle": "Fluxo de caixa parado? Coloque pra render.\nZero burocracia, rendimento automático."
+        "title": "Pague Menos, Ganhe Mais",
+        "subtitle": "Depósitos e investimentos grátis. Taxas até 16x menores. Mais dinheiro no seu bolso."
       }
     }
   },
   "featureShowcase": {
     "overview": {
-      "title": "Tudo em Um Lugar",
-      "description": "Transferências, crypto, ações, estratégias de investimento e DeFi.\nTudo em uma tela. Atualizado em tempo real.\n\nChega de abrir 5 apps diferentes."
+      "title": "Estratégias Simples, Resultados Reais",
+      "description": "\"Quero criar um salário extra (meu 13º)\"\n\"Preciso de um fundo de emergência de 6 meses\"\n\"Quero investir R$100 por mês\""
     },
     "activities": {
-      "title": "Seguro e Simples",
-      "description": "\"Quero juntar R$ 5.000 para uma viagem\"\n\"Preciso de um fundo de emergência\"\n\"Quero investir R$ 100 por mês\"\n\nNada de complicações. diBoaS é simples assim."
+      "title": "Aprenda Mais, Ganhe Muito Mais",
+      "description": "Aprenda tudo sobre finanças pessoais. Do básico ao avançado: investimentos, crypto e estratégias exclusivas. Conhecimento que multiplica."
     },
     "rewards": {
-      "title": "Ganhe Mais",
-      "description": "✓ Cashback e sistema de Pontos\n✓ Acesso antecipado a novos recursos\n✓ Rendimento bônus em estratégias\n\nQuanto mais você usa, mais você ganha."
+      "title": "O Que Te Espera",
+      "description": "Seu dinheiro trabalhando por você. Conheça o Aqua, seu guia pessoal que te ajuda em cada passo. Comece hoje a multiplicar."
     },
     "learn": {
       "title": "Aprenda Estratégias Financeiras",
@@ -74,14 +74,14 @@
     }
   },
   "oneFeature": {
-    "title": "Segurança é prioridade. Sempre.",
-    "subtitle": "Estamos aqui para te dar suporte completo e te ajudar a garantir a proteção do seu dinheiro. 24 horas por dia, 7 dias por semana.",
+    "title": "Seu dinheiro protegido. Sempre.",
+    "subtitle": "Criptografia de nível bancário. Suporte 24/7. Você no controle total.",
     "ctaText": "Descubra Nossas Soluções",
     "features": {
-      "fraudReport": "Aumente sua Segurança",
-      "reports": "Algo errado? Aja rápido",
-      "protection": "Central de Proteção",
-      "support": "Atendimento 24/7"
+      "fraudReport": "Proteção avançada",
+      "reports": "Alertas em tempo real",
+      "protection": "Suporte quando precisar",
+      "support": "Você decide os limites"
     }
   },
   "stickyFeaturesNav": {
@@ -163,19 +163,19 @@
     }
   },
   "bgHighlight": {
-    "title": "Eu sou diBoaS. Nice to meet you.",
-    "description": "Depósitos, Saques, Transferências.\nTudo grátis, tudo rápido.\n\nBrasil, exterior, crypto, ações, ouro... não importa.\n\nSeus investimentos em um lugar só.\nSua escola de educação financeira.\nSuas recompensas sempre ativas.\nSua segurança garantida.",
+    "title": "Prazer, somos o diBoaS.",
+    "description": "Uma plataforma. Todas as suas finanças.\nTransferências, investimentos, crypto, estratégias. Tudo em um só lugar. Tudo sob seu controle.\nSimples para começar. Poderoso quando você estiver pronto.",
+    "secondaryLink": "Para empresas →",
     "imageAlt": "Paisagem natural representando crescimento e sustentabilidade financeira com diBoaS"
   },
   "stepGuide": {
-    "title": "Como começar (leva menos de 5 minutos)",
+    "title": "Comece em menos de 5 minutos",
+    "ctaText": "Começar Agora",
     "steps": {
-      "step1": "Acesse nosso app → app.diboas.com",
-      "step2": "Crie sua conta → Email ou conecte seu Gmail/X",
-      "step3": "Conheça Aqua → Seu guia pessoal te dá as boas-vindas e explica o básico",
-      "step4": "Comece a Aprender → Use nosso Centro de Estudos",
-      "step5": "Deposite R$ 10 → Pix, TED, Cartão de Crédito...",
-      "step6": "Escolha seu primeiro passo → Fazer uma transferência\nOU → Fazer seu primeiro investimento\nAqua mostra as opções mais simples, Você escolhe uma\n\nPronto! Você começou!"
+      "step1": "Crie sua conta com Email ou conecte Google/X",
+      "step2": "Conheça o Aqua. Seu guia pessoal te recebe e explica o básico",
+      "step3": "Deposite R$10 com Pix, cartão ou transferência",
+      "step4": "Escolha seu primeiro investimento."
     }
   }
 }

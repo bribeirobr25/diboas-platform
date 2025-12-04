@@ -41,16 +41,6 @@ export const DEFAULT_STEP_GUIDE_CONFIG: StepGuideConfig = {
         id: 'step-4',
         number: '04',
         text: 'marketing.pages.home.stepGuide.steps.step4'
-      },
-      {
-        id: 'step-5',
-        number: '05',
-        text: 'marketing.pages.home.stepGuide.steps.step5'
-      },
-      {
-        id: 'step-6',
-        number: '06',
-        text: 'marketing.pages.home.stepGuide.steps.step6'
       }
     ]
   },

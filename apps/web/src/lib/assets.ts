@@ -133,10 +133,10 @@ export const DIBOAS_ASSET_PATHS = {
       happy: '/assets/socials/real/happy.avif'
     },
     drawing: {
-      balanceCard: '/assets/socials/drawing/balance-card.avif',
-      architecture: '/assets/socials/drawing/banner-architecture.avif',
+      balanceCard: '/assets/socials/drawing/phone-balance-breakdown.avif',
+      architecture: '/assets/socials/drawing/phone-dashboard.avif',
       mascots: '/assets/socials/drawing/banner-mascots-hello-black-white.avif',
-      security: '/assets/socials/drawing/banner-security.avif'
+      security: '/assets/socials/drawing/safe.avif'
     }
   }
 } as const;

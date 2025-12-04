@@ -234,7 +234,7 @@ export const BusinessSecurity: Story = createSecurityStory('expanded', {
     },
   },
   assets: {
-    heroImage: '/assets/socials/drawing/security-banner.avif',
+    heroImage: '/assets/socials/drawing/safe.avif',
     heroImageAlt: 'Enterprise security solutions illustration',
   },
   analytics: {
