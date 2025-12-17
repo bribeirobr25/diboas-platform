@@ -104,12 +104,12 @@
   --cta-padding-mobile: 12px 24px;
 
   /* CTA Button Colors */
-  --cta-bg-primary: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+  --cta-bg-primary: #0f766e;
   --cta-bg-secondary: #ffffff;
   --cta-color-primary: #ffffff;
   --cta-color-secondary: #1a365d;
-  --cta-bg-hover: #319795;
-  --cta-focus-color: #38b2ac;
+  --cta-bg-hover: #115e59;
+  --cta-focus-color: #0d9488;
 
   /* CTA Button Typography */
   --cta-font-size-desktop: 16px;
@@ -591,21 +591,21 @@
   --pc-color-heading: #1a365d;
   --pc-color-subtitle: #4a5568;
   --pc-color-card-bg: var(--section-bg-white);
-  --pc-color-cta-bg: #9b9290;
-  --pc-color-cta-text: #fefefe;
+  --pc-color-cta-bg: #0f766e;
+  --pc-color-cta-text: #ffffff;
   
   /* Navigation Controls */
   --pc-color-dot-inactive: #cbd5e0;
-  --pc-color-dot-active: #38b2ac;
+  --pc-color-dot-active: #0d9488;
   --pc-color-control-bg: var(--section-bg-white);
   --pc-color-control-border: #e2e8f0;
   --pc-color-control-border-hover: #cbd5e0;
   --pc-color-control-icon: #4a5568;
-  --pc-color-accent: #38b2ac;
+  --pc-color-accent: #0d9488;
   
   /* Overlay Effects */
-  --pc-color-overlay-start: rgba(0, 0, 0, 0.7);
-  --pc-color-overlay-mid: rgba(0, 0, 0, 0.4);
+  --pc-color-overlay-start: rgba(0, 0, 0, 0.95);
+  --pc-color-overlay-mid: rgba(0, 0, 0, 0.92);
   --pc-color-overlay-end: transparent;
   --pc-gradient-overlay: linear-gradient(180deg, var(--pc-color-overlay-end) 0%, var(--pc-color-overlay-mid) 60%, var(--pc-color-overlay-start) 100%);
   
@@ -783,11 +783,11 @@
   --hs-color-stats-label: #ffffff;
   
   /* CTA Colors */
-  --hs-gradient-cta: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+  --hs-gradient-cta: linear-gradient(135deg, #0d9488 0%, #0a7c74 100%);
   --hs-color-cta-focus: #319795;
   
   /* Overlay Colors */
-  --hs-gradient-overlay: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.4) 100%);
+  --hs-gradient-overlay: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.92) 50%, rgba(0, 0, 0, 0.95) 100%);
   
   /* ================================
      SPACING & MARGINS
@@ -1005,8 +1005,8 @@
   --afc-color-chip-text: #ffffff;
   
   /* Accent Colors */
-  --afc-color-accent: #8b5cf6;
-  --afc-color-accent-hover: #7c3aed;
+  --afc-color-accent: #0f766e;
+  --afc-color-accent-hover: #115e59;
   
   /* Navigation Colors */
   --afc-color-dot-inactive: #cbd5e0;
@@ -1334,8 +1334,8 @@
   --theme-surface-disabled: var(--color-gray-100);
   
   /* Interactive States */
-  --theme-interactive-primary: #38b2ac;
-  --theme-interactive-primary-hover: #319795;
+  --theme-interactive-primary: #0d9488;
+  --theme-interactive-primary-hover: #0a7c74;
   --theme-interactive-primary-active: #2c7a7b;
   --theme-interactive-secondary: var(--color-gray-600);
   --theme-interactive-secondary-hover: var(--color-gray-700);
@@ -1413,7 +1413,7 @@
   
   /* Gradients */
   --hs-gradient-bg: linear-gradient(135deg, #f7fefc 0%, #40c2aa 50%, #f0fdfa 100%);
-  --hs-gradient-cta: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+  --hs-gradient-cta: linear-gradient(135deg, #0d9488 0%, #0a7c74 100%);
   
   /* Shadows */
   --hs-shadow-image: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1));
@@ -1538,7 +1538,7 @@
   --sfn-color-card-heading: #1a365d;
   --sfn-color-card-description: #4a5568;
   --sfn-color-border-light: #e2e8f0;
-  --sfn-color-accent-primary: #38b2ac;
+  --sfn-color-accent-primary: #115e59;
 
   /* SFN Section Layout - Desktop Only */
   --sfn-section-padding-desktop-y: 32px;
@@ -1794,9 +1794,9 @@
   /* Background Overlay */
   --bg-overlay-gradient: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.1) 100%
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.09) 50%,
+    rgba(0, 0, 0, 0.09) 100%
   );                                                     /* Gradient overlay for text readability */
 
   /* ================================

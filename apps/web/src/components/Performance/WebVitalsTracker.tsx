@@ -1,17 +1,19 @@
 /**
  * Web Vitals Tracker Component
- * 
+ *
  * Performance Optimization: Real-time Core Web Vitals monitoring
  * Error Handling: Resilient performance tracking
  * Monitoring & Observability: Performance insights and alerts
+ * GDPR Compliance: Only tracks with user consent
  */
 
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { performanceService } from '@/lib/performance/services/PerformanceService';
 import { WebVitalMetric } from '@/lib/performance/domain/PerformanceDomain';
+import { hasAnalyticsConsent } from '@/components/CookieConsent';
 
 interface WebVitalsTrackerProps {
   /**
@@ -29,8 +31,41 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
   const pathname = usePathname();
   const isTracking = useRef(false);
   const trackedMetrics = useRef(new Set<string>());
+  const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
+    // GDPR Compliance: Check for consent
+    const checkConsent = () => {
+      const consent = hasAnalyticsConsent();
+      setHasConsent(consent);
+
+      if (debug) {
+        console.log('WebVitals: Consent status:', consent ? 'granted' : 'denied');
+      }
+    };
+
+    // Check initial consent
+    checkConsent();
+
+    // Listen for consent changes
+    const handleConsentChange = () => {
+      checkConsent();
+    };
+
+    window.addEventListener('cookie-consent-changed', handleConsentChange);
+
+    return () => {
+      window.removeEventListener('cookie-consent-changed', handleConsentChange);
+    };
+  }, [debug]);
+
+  useEffect(() => {
+    // GDPR Compliance: Don't track without consent
+    if (!hasConsent) {
+      if (debug) console.log('WebVitals: Tracking disabled - no consent');
+      return;
+    }
+
     // Performance: Only track if within sample rate
     if (Math.random() > sampleRate) {
       if (debug) console.log('WebVitals: Skipped due to sample rate');
@@ -142,7 +177,7 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
       isTracking.current = false;
       trackedMetrics.current.clear();
     };
-  }, [pathname, debug, sampleRate]);
+  }, [pathname, debug, sampleRate, hasConsent]);
 
   // This component doesn't render anything
   return null;

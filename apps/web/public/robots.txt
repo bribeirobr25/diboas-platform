@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: Googlebot
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: Bingbot
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+Sitemap: https://diboas.com/sitemap.xml

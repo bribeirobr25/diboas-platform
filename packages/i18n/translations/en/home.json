@@ -51,25 +51,25 @@
     "organizeMoney": {
       "title": "Your Money, Your Control",
       "description": "Take complete control of your money.\nNo limits, no interference.\nOnly you control it",
-      "ctaText": "Learn More",
+      "ctaText": "Discover Why diBoaS",
       "chipLabel": "Total Control"
     },
     "instantPayments": {
       "title": "Learn Everything Without the Confusion",
       "description": "Understand how money works.\nHow to organize your finances.\nThe best way to invest.",
-      "ctaText": "Learn More",
+      "ctaText": "Start Learning Now",
       "chipLabel": "Education"
     },
     "securePurchases": {
       "title": "Multiply Your Income",
       "description": "Buy assets that appreciate over time.\nMake investments that multiply your money.\nAccess strategies with above-average returns.",
-      "ctaText": "Learn More",
+      "ctaText": "Explore Investment Options",
       "chipLabel": "Growth"
     },
     "financialGoals": {
       "title": "Your Business Deserves More",
       "description": "Investments using cash flow.\nCredit Line directly with other businesses (P2P).\nZero bureaucracy with high security.",
-      "ctaText": "Learn More",
+      "ctaText": "Explore Business Solutions",
       "chipLabel": "Business"
     }
   },
@@ -86,7 +86,7 @@
   },
   "stickyFeaturesNav": {
     "mainTitle": "Discover more about diBoaS",
-    "ctaText": "Learn More",
+    "ctaText": "Explore All Features",
     "categories": {
       "banking": {
         "name": "Banking"
@@ -119,7 +119,7 @@
     "business": {
       "heading": "Your Business, More Opportunities",
       "description": "Whether you need capital, want your cash flow to earn returns, or need credit to scale up.\n\nExclusive opportunities await your business.\nHigh returns with low risk, zero red tape, and best of all: under your complete control.",
-      "ctaText": "Learn More"
+      "ctaText": "View Business Benefits"
     }
   },
   "faqAccordion": {

@@ -18,7 +18,7 @@
     "dev:business": "turbo run dev --filter=business",
     "performance:audit": "turbo run lighthouse",
     "accessibility:audit": "turbo run pa11y",
-    "security:audit": "npm audit --audit-level moderate",
+    "security:audit": "pnpm audit --audit-level moderate",
     "analytics:report": "turbo run analytics-report"
   },
   "devDependencies": {
@@ -26,11 +26,20 @@
     "ajv": "^8.17.1",
     "eslint": "^9.0.0",
     "prettier": "^3.0.2",
-    "turbo": "^2.5.8",
+    "turbo": "^2.6.3",
     "typescript": "^5.2.2"
   },
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "^0.25.0",
+      "js-yaml": "^4.1.1",
+      "glob": "^10.5.0",
+      "next@<15.5.7": "^15.5.7",
+      "tmp@<=0.2.3": ">=0.2.4"
+    }
   }
 }

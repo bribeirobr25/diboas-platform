@@ -126,7 +126,7 @@ export const ONE_FEATURE_CONFIGS = {
     settings: DEFAULT_ONE_FEATURE_SETTINGS,
     seo: {
       ariaLabel: 'Security features section',
-      region: 'security'
+      region: 'region'
     },
     analytics: {
       trackingPrefix: 'one_feature_default',
