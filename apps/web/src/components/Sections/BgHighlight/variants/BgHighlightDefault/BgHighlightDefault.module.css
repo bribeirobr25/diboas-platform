@@ -123,6 +123,8 @@
   line-height: var(--bg-title-line-height);
   color: var(--bg-color-title);
   margin: 0;
+  /* Add text shadow for better contrast on background images */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.6);
 }
 
 /* Responsive: Tablet (breakpoint: var(--bg-breakpoint-tablet)) */
@@ -147,6 +149,8 @@
   line-height: var(--bg-description-line-height);
   color: var(--bg-color-description);
   margin: 0;
+  /* Add text shadow for better contrast on background images */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8), 0 3px 12px rgba(0, 0, 0, 0.6);
 }
 
 /* Responsive: Tablet (breakpoint: var(--bg-breakpoint-tablet)) */

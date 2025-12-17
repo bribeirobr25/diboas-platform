@@ -1,17 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Foundation & Setup - global defaults, animations and css variables */
-
-
-
-
 /* Import design system tokens */
 @import '../styles/design-tokens.css';
 
 /* Import semantic component classes */
 @import '../styles/semantic-components.css';
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Foundation & Setup - global defaults, animations and css variables */
 
 @layer base {
   :root {

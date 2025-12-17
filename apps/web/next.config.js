@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Temporarily disable ESLint during build to fix configuration
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   // Performance optimizations
   experimental: {
     optimizeCss: true,
@@ -27,9 +23,6 @@ const nextConfig = {
       '@diboas/ui',
       '@diboas/i18n'
     ],
-    
-    // Enable static optimization
-    forceSwcTransforms: true,
   },
   
   // Compiler optimizations
@@ -84,9 +77,10 @@ const nextConfig = {
     const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
     
     // CSP configuration inline to avoid module loading issues
-    const csp = environment === 'production' 
-      ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com"
-      : "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://nextjs.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com http://localhost:* https://localhost:*; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com";
+    // GDPR Compliant: Google Fonts removed - using next/font/google for self-hosted fonts
+    const csp = environment === 'production'
+      ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com; font-src 'self' data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com"
+      : "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://nextjs.org; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com http://localhost:* https://localhost:*; font-src 'self' data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com";
     
     // Asset optimization headers
     const maxAge = environment === 'production' ? 31536000 : 3600;
@@ -335,7 +329,10 @@ const nextConfig = {
     
     return config;
   },
-  
+
+  // Turbopack configuration for Next.js 16
+  turbopack: {},
+
   // Remove powered by header
   poweredByHeader: false,
 };

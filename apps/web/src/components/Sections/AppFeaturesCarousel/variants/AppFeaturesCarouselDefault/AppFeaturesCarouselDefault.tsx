@@ -113,12 +113,12 @@ export function AppFeaturesCarouselDefault({
       padding="standard"
       backgroundColor={backgroundColor}
       className={className}
-      ariaLabelledBy="carousel-title"
+      ariaLabelledBy="app-features-carousel-title"
     >
       <div className={styles.container}>
-        
+
         {/* Section Title */}
-        <h2 id="carousel-title" className={styles.title}>
+        <h2 id="app-features-carousel-title" className={styles.title}>
           {config.sectionTitle || 'App Features'}
         </h2>
 

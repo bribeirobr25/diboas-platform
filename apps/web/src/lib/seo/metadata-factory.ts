@@ -178,27 +178,54 @@ export class MetadataFactory {
 
   /**
    * Generate FAQ structured data
-   * SEO: FAQ page markup
+   * SEO: FAQ page markup with dynamic questions
+   * @param customFAQs - Optional array of custom FAQ items
    */
-  static generateFAQStructuredData() {
+  static generateFAQStructuredData(customFAQs?: Array<{ question: string; answer: string }>) {
+    const defaultFAQs = [
+      {
+        question: 'What is diBoaS?',
+        answer: 'diBoaS is a comprehensive financial platform that combines banking, investing, and DeFi services in one secure ecosystem.'
+      },
+      {
+        question: 'Is diBoaS secure?',
+        answer: 'Yes, diBoaS employs enterprise-grade security measures including encryption, multi-factor authentication, and regular security audits.'
+      },
+      {
+        question: 'How do I get started with diBoaS?',
+        answer: 'Getting started is simple: download the OneFi app, create your account with email verification, complete identity verification, and start exploring our banking, investing, and DeFi features.'
+      },
+      {
+        question: 'What services does diBoaS offer?',
+        answer: 'diBoaS offers personal and business banking, investment opportunities, cryptocurrency trading, DeFi services, payment processing, and financial management tools all in one platform.'
+      },
+      {
+        question: 'Is diBoaS available in my country?',
+        answer: 'diBoaS is expanding globally. Check our website or app for current availability in your region, with support for multiple languages including English, Portuguese, Spanish, and German.'
+      },
+      {
+        question: 'How can I contact diBoaS support?',
+        answer: 'Our support team is available 24/7 through in-app chat, email, phone, and our comprehensive help center with guides and FAQs.'
+      },
+      {
+        question: 'What are the fees for using diBoaS?',
+        answer: 'diBoaS offers transparent pricing with no hidden fees. Many basic services are free, while premium features have clear, competitive pricing. Check our pricing page for detailed information.'
+      }
+    ];
+
+    const faqs = customFAQs || defaultFAQs;
+
     return {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [{
+      mainEntity: faqs.map(faq => ({
         '@type': 'Question',
-        name: 'What is diBoaS?',
+        name: faq.question,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'diBoaS is a comprehensive financial platform that combines banking, investing, and DeFi services in one secure ecosystem.'
+          text: faq.answer
         }
-      }, {
-        '@type': 'Question',
-        name: 'Is diBoaS secure?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, diBoaS employs enterprise-grade security measures including encryption, multi-factor authentication, and regular security audits.'
-        }
-      }]
+      }))
     };
   }
 

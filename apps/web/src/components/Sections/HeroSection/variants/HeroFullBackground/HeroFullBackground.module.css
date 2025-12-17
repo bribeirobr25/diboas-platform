@@ -191,7 +191,8 @@
   color: var(--hs-color-stats-text);
   margin: 0;
   margin-bottom: var(--hs-title-margin-bottom);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, var(--opacity-50));
+  /* Stronger text shadow for better contrast on background images */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.6);
   text-align: left;
 }
 

@@ -65,10 +65,13 @@ class SEOServiceImpl implements SEOService {
       // Alternates for i18n SEO
       alternates: {
         canonical: canonicalUrl,
-        languages: languages.reduce((acc, { lang, url }) => {
-          acc[lang] = url;
-          return acc;
-        }, {} as Record<string, string>)
+        languages: {
+          ...languages.reduce((acc, { lang, url }) => {
+            acc[lang] = url;
+            return acc;
+          }, {} as Record<string, string>),
+          'x-default': canonicalUrl
+        }
       },
 
       // Other metadata

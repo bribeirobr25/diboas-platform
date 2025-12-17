@@ -166,7 +166,7 @@ export function ProductCarouselDefault({
         
         {/* Header with Fixed Title and Dynamic Subtitle */}
         <div className={styles.header}>
-          <h2 id="carousel-title" className={styles.title}>
+          <h2 id="product-carousel-title" className={styles.title}>
             {config.content?.heading || 'OneFi - One App for Everything'}
           </h2>
           
@@ -206,6 +206,7 @@ export function ProductCarouselDefault({
                   role="group"
                   aria-label={`Slide ${index + 1} of ${slides.length}: ${slide.title}`}
                   aria-hidden={!isActive}
+                  inert={!isActive ? true : undefined}
                   onClick={() => !isActive && goToSlide(index)}
                 >
                   <div className={styles.cardContent}>
@@ -238,6 +239,7 @@ export function ProductCarouselDefault({
                               className={styles.cardCTA}
                               target={slide.ctaHref.startsWith('http') ? '_blank' : '_self'}
                               rel={slide.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              tabIndex={isActive ? 0 : -1}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 onCTAClick?.(slide.id, slide.ctaHref!);

@@ -1,0 +1,29 @@
+{
+  "defaults": {
+    "timeout": 10000,
+    "standard": "WCAG2AA",
+    "runners": [
+      "axe"
+    ],
+    "chromeLaunchConfig": {
+      "args": [
+        "--no-sandbox",
+        "--disable-setuid-sandbox"
+      ]
+    }
+  },
+  "urls": [
+    {
+      "url": "http://localhost:3000/en",
+      "screenCapture": "./pa11y-screenshots/home.png"
+    },
+    {
+      "url": "http://localhost:3000/en/about",
+      "screenCapture": "./pa11y-screenshots/about.png"
+    },
+    {
+      "url": "http://localhost:3000/en/personal/banking",
+      "screenCapture": "./pa11y-screenshots/personal-banking.png"
+    }
+  ]
+}

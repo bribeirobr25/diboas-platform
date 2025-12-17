@@ -155,7 +155,11 @@ a:focus-visible {
 }
 
 .brand-logo {
-  @apply flex items-center space-x-2;
+  @apply flex items-center space-x-2 rounded-full overflow-hidden;
+}
+
+.brand-logo img {
+  @apply rounded-full;
 }
 
 .brand-image {
@@ -299,7 +303,11 @@ a:focus-visible {
 }
 
 .mobile-brand {
-  @apply flex items-center;
+  @apply flex items-center rounded-full overflow-hidden;
+}
+
+.mobile-brand img {
+  @apply rounded-full;
 }
 
 .mobile-actions {
@@ -889,7 +897,7 @@ a:focus-visible {
 }
 
 .btn-primary {
-  @apply bg-teal-500 text-white hover:bg-teal-600 shadow-md hover:shadow-lg;
+  @apply bg-teal-600 text-white hover:bg-teal-700 shadow-md hover:shadow-lg;
 }
 
 .btn-secondary {
@@ -897,7 +905,7 @@ a:focus-visible {
 }
 
 .btn-outline {
-  @apply border border-teal-500 text-teal-500 bg-transparent hover:bg-teal-50;
+  @apply border border-teal-700 text-teal-700 bg-transparent hover:bg-teal-50;
 }
 
 .btn-ghost {
@@ -905,11 +913,11 @@ a:focus-visible {
 }
 
 .btn-link {
-  @apply text-teal-500 underline-offset-4 hover:underline p-0;
+  @apply text-teal-700 underline-offset-4 hover:underline p-0;
 }
 
 .btn-gradient {
-  @apply bg-gradient-to-r from-teal-500 to-teal-600 text-white hover:from-teal-600 hover:to-teal-700 shadow-lg hover:shadow-xl;
+  @apply bg-teal-700 text-white hover:bg-teal-800 shadow-lg hover:shadow-xl;
 }
 
 .btn-destructive {
@@ -962,6 +970,10 @@ a:focus-visible {
 .btn-content {
   /* Default button content styling */
   font-size: var(--font-size-ui-button);
+  /* Ensure text has enough contrast on any background */
+  font-weight: 600;
+  /* Add subtle text shadow for better readability on gradient/image backgrounds */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .btn-content-loading {

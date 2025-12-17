@@ -182,7 +182,7 @@ export const ASSET_PATHS = {
       WOMAN_MYSTIC: `${ASSETS_BASE}/socials/real/woman_mystic.avif`
     },
     DRAWING: {
-      PHONE_ACTIVITIES: `${ASSETS_BASE}/socials/drawing/phone-activities.avif`
+      PHONE_ACTIVITIES: `${ASSETS_BASE}/socials/drawing/phone-dashboard.avif`
     }
   },
 

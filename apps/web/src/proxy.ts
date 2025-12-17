@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, isValidLocale, getSafeLocale, type SupportedLocale } from '@diboas/i18n/server';
 
 /**
- * Simplified Middleware for Immediate Functionality
- * 
+ * Simplified Proxy for Immediate Functionality
+ *
  * i18n: Basic locale detection and routing
  * Security: Essential security headers
  */
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname, search, origin } = request.nextUrl;
   
   // Security: Basic request validation

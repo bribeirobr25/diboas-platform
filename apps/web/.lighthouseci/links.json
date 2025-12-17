@@ -1,0 +1,5 @@
+{
+  "http://localhost:3000/en": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1765069900348-22501.report.html",
+  "http://localhost:3000/en/about": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1765069901490-76965.report.html",
+  "http://localhost:3000/en/personal/banking": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1765069902696-38437.report.html"
+}
