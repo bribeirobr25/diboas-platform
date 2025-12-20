@@ -24,6 +24,10 @@ export interface BgHighlightContent {
   title: string;
   /** Description text */
   description: string;
+  /** CTA button text (optional) */
+  ctaText?: string;
+  /** CTA button href (optional) */
+  ctaHref?: string;
 }
 
 /**

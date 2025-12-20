@@ -1,0 +1,201 @@
+{
+  "hero": {
+    "headline": "Your startup's treasury is earning 0%.",
+    "subheadline": "That's a choice. Here's a better one.",
+    "valueProp": "diBoaS Treasury: 6-8% yield on operating cash.\nSame-day liquidity. No lock-up. EU-regulated.",
+    "cta": "Book a 15-min conversation",
+    "socialProof": {
+      "quote": "We moved €200K of idle cash. Now it works for us.",
+      "author": "Founder, Series A startup"
+    },
+    "trustBadges": {
+      "mica": "MiCA-compliant",
+      "nonCustodial": "Non-custodial",
+      "audited": "Audited protocols"
+    }
+  },
+  "problem": {
+    "header": "The startup treasury problem",
+    "body": "You raised €2M. You'll spend it over 18 months.\nThat means €1M+ sits idle at any given time.\n\n**Your bank pays:** 0.5% = €5,000/year\n**diBoaS pays:** 7% = €70,000/year\n\nThat's **€65,000 in potential runway** you're leaving on the table.\n\nSame money. Same liquidity. 14x more return.",
+    "cta": "Calculate your potential"
+  },
+  "calculator": {
+    "header": "What could your treasury earn?",
+    "fields": {
+      "cashOnHand": "How much cash on hand?",
+      "currentRate": "Current interest rate?",
+      "projectedYield": "Projected annual yield at 7%",
+      "currentInterest": "Your current annual interest",
+      "additionalRunway": "Additional runway"
+    },
+    "defaults": {
+      "cashOnHand": "500000",
+      "currentRate": "0.5"
+    },
+    "perYear": "/year",
+    "cta": "See these numbers in action — book a call"
+  },
+  "howItWorks": {
+    "header": "How diBoaS Treasury works",
+    "steps": {
+      "connect": {
+        "title": "Connect",
+        "description": "Link your business bank account. 2-minute setup."
+      },
+      "allocate": {
+        "title": "Allocate",
+        "description": "Choose how much idle cash to deploy. Set your liquidity threshold (e.g., \"always keep €50K available\")."
+      },
+      "earn": {
+        "title": "Earn",
+        "description": "Your allocated cash earns 6-8% APY through battle-tested DeFi protocols (Aave, Compound)."
+      },
+      "withdraw": {
+        "title": "Withdraw",
+        "description": "Need cash for payroll? One click. Same-day settlement. No lock-ups. No penalties."
+      }
+    },
+    "footerNote": "Monthly statements compatible with your accountant."
+  },
+  "trust": {
+    "header": "Built for compliance-conscious teams",
+    "points": {
+      "euRegulated": {
+        "title": "EU-Regulated",
+        "description": "Operating under MiCA framework with pending CASP authorization in Lithuania."
+      },
+      "nonCustodial": {
+        "title": "Non-Custodial",
+        "description": "Your funds remain in your control. We never hold your money."
+      },
+      "audited": {
+        "title": "Audited Protocols",
+        "description": "We only use protocols with $10B+ TVL and multiple security audits."
+      },
+      "transparent": {
+        "title": "Transparent Reporting",
+        "description": "Monthly statements. Real-time dashboard. Full audit trail for your finance team."
+      },
+      "boardReady": {
+        "title": "Board-Ready Documentation",
+        "description": "We'll help you explain this to your board and investors."
+      }
+    }
+  },
+  "useCases": {
+    "header": "Who uses diBoaS Treasury?",
+    "cases": {
+      "postFundraise": {
+        "title": "Post-Fundraise",
+        "description": "Just closed a round? Put that capital to work while you're hiring and scaling.",
+        "quote": "We had €3M sitting in a bank account earning nothing for 6 months. That was €100K in missed yield."
+      },
+      "betweenRounds": {
+        "title": "Between Rounds",
+        "description": "Bridge runway between funding rounds by earning on your reserves.",
+        "quote": "The extra €40K/year is basically a free junior hire."
+      },
+      "operatingReserves": {
+        "title": "Operating Reserves",
+        "description": "Keep payroll covered while excess cash earns yield.",
+        "quote": "We set a €100K floor. Everything above earns 7%. Simple."
+      }
+    }
+  },
+  "socialProof": {
+    "header": "Trusted by forward-thinking founders",
+    "testimonials": {
+      "first": {
+        "quote": "We were skeptical at first. But the math was obvious. €70K extra runway per year, with same liquidity. Our board actually thanked us.",
+        "author": "CFO, Series A SaaS Company"
+      },
+      "second": {
+        "quote": "I wish we'd done this from day one. We left €30K on the table in our first year.",
+        "author": "Founder, Seed-stage startup"
+      }
+    },
+    "metrics": {
+      "treasury": {
+        "label": "Combined treasury under management",
+        "value": "€2.5M"
+      },
+      "yield": {
+        "label": "Average client yield",
+        "value": "7.2% APY"
+      },
+      "onboarding": {
+        "label": "Average time to onboard",
+        "value": "48 hours"
+      }
+    }
+  },
+  "faq": {
+    "header": "Founder FAQs",
+    "description": "Common questions from startup founders about treasury management.",
+    "ctaText": "Book a call",
+    "items": {
+      "investors": {
+        "question": "What will my investors think?",
+        "answer": "Most sophisticated investors expect treasury optimization. Earning 7% vs 0.5% extends runway. We provide board-ready materials to help you communicate this clearly."
+      },
+      "compliance": {
+        "question": "What about compliance and audits?",
+        "answer": "We provide full documentation compatible with standard accounting practices. Your accountant will receive monthly statements with all the detail they need."
+      },
+      "liquidity": {
+        "question": "What if I need cash for payroll or unexpected costs?",
+        "answer": "Same-day withdrawals. No lock-ups. Set a liquidity threshold and we'll never deploy below that amount. You're always covered."
+      },
+      "risk": {
+        "question": "What's the risk?",
+        "answer": "DeFi protocols carry smart contract risk. We mitigate this by using only battle-tested protocols with $10B+ TVL and multiple audits. No investment is risk-free — we're transparent about that."
+      },
+      "revenue": {
+        "question": "How do you make money?",
+        "answer": "We take a 0.12% fee on yield earned. If you earn nothing, we earn nothing. Our incentives are aligned."
+      },
+      "minimum": {
+        "question": "What's the minimum?",
+        "answer": "We work with startups managing €50K+ in operating cash. Below that, the yield may not justify the setup time."
+      },
+      "onboarding": {
+        "question": "How long does onboarding take?",
+        "answer": "Most companies are fully onboarded within 48 hours. Setup itself takes about 15 minutes."
+      }
+    }
+  },
+  "process": {
+    "header": "Getting started is simple",
+    "steps": {
+      "book": {
+        "title": "Book a call",
+        "description": "15 minutes. No pitch. Just an honest conversation about whether this makes sense for you."
+      },
+      "review": {
+        "title": "Review the numbers",
+        "description": "We'll show you exactly what your treasury could earn based on your cash position."
+      },
+      "decide": {
+        "title": "Make a decision",
+        "description": "If it makes sense, we'll help you set up. If it doesn't, no hard feelings."
+      },
+      "goLive": {
+        "title": "Go live",
+        "description": "Onboarding takes 48 hours. You'll see yield accruing from day one."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Let's talk about your treasury",
+    "body": "15 minutes. No pitch. Just an honest conversation about whether this makes sense for you.",
+    "cta": "Book a conversation with Bar",
+    "alternativeContact": "Or email: bar@diboas.com",
+    "testimonial": {
+      "quote": "I expected a sales pitch. Instead I got a thoughtful conversation about my actual situation. Refreshing.",
+      "author": "Series A founder"
+    }
+  },
+  "disclaimer": {
+    "text": "Projected yields are illustrative based on current DeFi market rates. Rates are variable and not guaranteed. Past performance does not indicate future results. Smart contract risk exists with all DeFi protocols. Only allocate funds you can afford to have at risk. diBoaS does not provide investment advice."
+  }
+}

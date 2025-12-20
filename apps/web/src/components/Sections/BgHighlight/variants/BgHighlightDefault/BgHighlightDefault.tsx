@@ -13,9 +13,11 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { Button } from '@diboas/ui';
 import { useTranslation } from '@diboas/i18n/client';
 import type { BgHighlightVariantProps } from '../../types';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
+import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import styles from './BgHighlightDefault.module.css';
 
 /**
@@ -121,6 +123,23 @@ export function BgHighlightDefault({
           <p className={styles.description}>
             {intl.formatMessage({ id: content.description })}
           </p>
+
+          {/* CTA Button */}
+          {content.ctaText && content.ctaHref && (
+            <div className={styles.ctaWrapper}>
+              <Button
+                variant={DEFAULT_CTA_PROPS.variant}
+                size={DEFAULT_CTA_PROPS.size}
+                trackable={DEFAULT_CTA_PROPS.trackable}
+                className={styles.ctaButton}
+                onClick={() => {
+                  window.location.href = content.ctaHref!;
+                }}
+              >
+                {intl.formatMessage({ id: content.ctaText })}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 

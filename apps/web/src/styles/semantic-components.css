@@ -1051,3 +1051,19 @@ a:focus-visible {
 .error-page-actions {
   @apply flex gap-4 justify-center;
 }
+
+/* =================================================================== */
+/* MINIMAL NAVIGATION (Landing Pages) */
+/* =================================================================== */
+
+.minimal-navigation-bar {
+  @apply fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50;
+}
+
+.minimal-navigation-content {
+  @apply flex items-center justify-between h-20;
+}
+
+.minimal-nav-actions {
+  @apply flex items-center;
+}

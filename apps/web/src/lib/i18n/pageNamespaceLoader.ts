@@ -43,9 +43,17 @@ export async function loadPageNamespaces(
     // 'personal/defi-strategies' -> 'marketing.pages.personal.defiStrategies'
     // 'business/credit-solutions' -> 'marketing.pages.business.creditSolutions'
     // 'faq' -> 'marketing.faq'
-    const prefix = namespace === 'faq'
-      ? 'marketing.faq'
-      : `marketing.pages.${pathToCamel(namespace)}`;
+    // 'landing-b2c' -> 'landing-b2c' (landing pages use their own prefix)
+    // 'landing-b2b' -> 'landing-b2b' (landing pages use their own prefix)
+    let prefix: string;
+    if (namespace === 'faq') {
+      prefix = 'marketing.faq';
+    } else if (namespace.startsWith('landing-')) {
+      // Landing pages use their namespace name as prefix directly
+      prefix = namespace;
+    } else {
+      prefix = `marketing.pages.${pathToCamel(namespace)}`;
+    }
 
     const flattened = flattenMessages(namespaceMessages, prefix);
     Object.assign(allMessages, flattened);

@@ -90,7 +90,8 @@
     "actions": {
       "primary": "Comenzar",
       "secondary": "Inicio de Sesión Empresarial"
-    }
+    },
+    "joinWaitlist": "Unirse a la Lista"
   },
   "buttons": {
     "getStarted": "Empezar Ahora",
@@ -196,6 +197,16 @@
     },
     "copyright": "© 2024 diBoaS. Todos los derechos reservados.",
     "brandName": "diBoaS"
+  },
+  "cookieConsent": {
+    "ariaLabel": "Consentimiento de cookies",
+    "message": "Usamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al hacer clic en \"Aceptar\", consientes el uso de cookies de análisis.",
+    "cookiePolicy": "Política de Cookies",
+    "privacyPolicy": "Política de Privacidad",
+    "decline": "Rechazar",
+    "accept": "Aceptar",
+    "declineAriaLabel": "Rechazar cookies",
+    "acceptAriaLabel": "Aceptar cookies"
   },
   "waitingList": {
     "title": "Únete a la Lista de Espera",

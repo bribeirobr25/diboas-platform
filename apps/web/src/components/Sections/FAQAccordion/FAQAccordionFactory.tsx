@@ -14,6 +14,7 @@
 
 import { memo } from 'react';
 import { Logger } from '@/lib/monitoring/Logger';
+import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { FAQAccordionVariantProps, FAQAccordionVariantMap } from './variants/types';
 import { FAQAccordionDefault } from './variants/FAQAccordionDefault/FAQAccordionDefault';
 
@@ -41,8 +42,11 @@ const VARIANT_MAP: FAQAccordionVariantMap = {
  * ```
  */
 export const FAQAccordion = memo(function FAQAccordion(props: FAQAccordionVariantProps) {
-  const { config } = props;
+  const { config, ...restProps } = props;
   const variant = config.variant || 'default';
+
+  // Internationalization: Translate config using translation keys
+  const translatedConfig = useConfigTranslation(config);
 
   // Get the variant component from the registry
   const VariantComponent = VARIANT_MAP[variant];
@@ -56,7 +60,7 @@ export const FAQAccordion = memo(function FAQAccordion(props: FAQAccordionVarian
     });
 
     // Fallback to default variant
-    return <FAQAccordionDefault {...props} />;
+    return <FAQAccordionDefault config={translatedConfig} {...restProps} />;
   }
 
   // Log variant selection for debugging
@@ -65,8 +69,8 @@ export const FAQAccordion = memo(function FAQAccordion(props: FAQAccordionVarian
     section: 'FAQAccordion'
   });
 
-  // Render the selected variant
-  return <VariantComponent {...props} />;
+  // Render the selected variant with translated config
+  return <VariantComponent config={translatedConfig} {...restProps} />;
 });
 
 /**

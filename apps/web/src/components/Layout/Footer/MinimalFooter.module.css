@@ -1,0 +1,158 @@
+/**
+ * Minimal Footer Styles
+ *
+ * Simplified footer styles for landing pages
+ * Shows only bottom section with legal info, language switcher, and social links
+ */
+
+/* Main Footer Container */
+.footer {
+  background-color: var(--footer-bg-color);
+  color: var(--footer-text-color);
+  margin-top: auto;
+}
+
+.container {
+  max-width: var(--dimension-1200);
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-2xl);
+}
+
+/* Disclaimer Section */
+.disclaimer {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.disclaimerText {
+  font-size: var(--font-size-xs);
+  color: var(--footer-text-color);
+  opacity: var(--opacity-60);
+  line-height: var(--line-height-relaxed);
+  font-style: italic;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Content Divider */
+.divider {
+  height: 1px;
+  background-color: var(--footer-border-color);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Bottom Section */
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .bottomSection {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.legalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+}
+
+@media (min-width: 768px) {
+  .legalInfo {
+    flex-direction: row;
+    gap: var(--spacing-sm);
+  }
+}
+
+.brandName {
+  font-weight: var(--font-weight-semibold);
+  color: var(--footer-text-color);
+}
+
+.copyright {
+  opacity: var(--opacity-75);
+  color: var(--footer-text-color);
+}
+
+/* Language Switcher in Footer */
+.footerLanguageSwitcher {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .footerLanguageSwitcher {
+    justify-content: flex-start;
+  }
+}
+
+/* Social Media Section */
+.socialSection {
+  display: block;
+}
+
+/* Social Media Icons */
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .socialIcons {
+    justify-content: flex-end;
+  }
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-3xl);
+  height: var(--spacing-3xl);
+  color: var(--footer-text-color);
+  opacity: var(--opacity-70);
+  transition: opacity var(--footer-transition);
+  outline-offset: var(--spacing-xs);
+}
+
+.socialLink:hover,
+.socialLink:focus-visible {
+  opacity: var(--opacity-100);
+}
+
+.socialLink:focus-visible {
+  outline: var(--radius-sm) solid var(--color-white);
+}
+
+.socialIcon {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+}
+
+.socialFallback {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--footer-icon-bg);
+  border-radius: var(--radius-full);
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .socialLink {
+    transition: none;
+  }
+}

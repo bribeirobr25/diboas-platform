@@ -62,8 +62,16 @@ export function useConfigTranslation<T extends Record<string, any>>(
 
     // Handle strings - check if it's a translation key
     if (typeof value === 'string') {
-      // Translation keys start with 'common.' or 'marketing.'
-      if (value.startsWith('common.') || value.startsWith('marketing.')) {
+      // Translation keys have format 'namespace.key.path' (must have dots after prefix)
+      // Valid: 'landing-b2c.demo.header', 'common.buttons.submit'
+      // Invalid: 'landing-b2c' (just a category/identifier, not a translation key)
+      const isTranslationKey = (
+        (value.startsWith('common.') && value.indexOf('.', 7) > 0) ||
+        (value.startsWith('marketing.') && value.indexOf('.', 10) > 0) ||
+        (value.startsWith('landing-') && value.indexOf('.', value.indexOf('-') + 1) > 0)
+      );
+
+      if (isTranslationKey) {
         return intl.formatMessage({ id: value, defaultMessage: value });
       }
 
@@ -154,7 +162,14 @@ export function withTranslations<T extends Record<string, any>>(
     }
 
     if (typeof value === 'string') {
-      if (value.startsWith('common.') || value.startsWith('marketing.')) {
+      // Translation keys have format 'namespace.key.path' (must have dots after prefix)
+      const isTranslationKey = (
+        (value.startsWith('common.') && value.indexOf('.', 7) > 0) ||
+        (value.startsWith('marketing.') && value.indexOf('.', 10) > 0) ||
+        (value.startsWith('landing-') && value.indexOf('.', value.indexOf('-') + 1) > 0)
+      );
+
+      if (isTranslationKey) {
         return intl.formatMessage({ id: value, defaultMessage: value });
       }
     }

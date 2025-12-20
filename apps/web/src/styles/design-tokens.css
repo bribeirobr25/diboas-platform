@@ -765,6 +765,7 @@
   /* Content Container */
   --hs-content-padding-mobile: 2rem 1.5rem;
   --hs-content-padding-desktop: 136px 120px;
+  --hs-content-padding-top: 276px;              /* Hero content top offset */
   --hs-content-gap-mobile: 2rem;
   --hs-content-gap-desktop: 2rem;
   

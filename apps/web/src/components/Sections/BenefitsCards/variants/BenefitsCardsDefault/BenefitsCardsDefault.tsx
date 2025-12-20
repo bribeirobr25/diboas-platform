@@ -11,7 +11,6 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { useTranslation } from '@diboas/i18n/client';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { BenefitsCardsVariantProps, BenefitCard } from '../../types';
 import styles from './BenefitsCardsDefault.module.css';
@@ -21,18 +20,17 @@ interface BenefitCardItemProps {
   priority?: boolean;
   onLoad?: () => void;
   onError?: (cardId: string) => void;
-  intl: ReturnType<typeof useTranslation>;
 }
 
 /**
  * Individual Benefit Card Component
+ * Note: Config values are pre-translated by the factory using useConfigTranslation
  */
 function BenefitCardItem({
   card,
   priority = false,
   onLoad,
-  onError,
-  intl
+  onError
 }: BenefitCardItemProps) {
   const [imageError, setImageError] = useState(false);
 
@@ -52,7 +50,7 @@ function BenefitCardItem({
         {!imageError ? (
           <Image
             src={card.icon}
-            alt={intl.formatMessage({ id: card.iconAlt })}
+            alt={card.iconAlt || 'Benefit icon'}
             width={64}
             height={64}
             priority={priority}
@@ -68,14 +66,16 @@ function BenefitCardItem({
         )}
       </div>
 
-      {/* Content */}
+      {/* Content - values are already translated */}
       <div className={styles.cardContent}>
         <h3 className={styles.cardTitle}>
-          {intl.formatMessage({ id: card.title })}
+          {card.title}
         </h3>
-        <p className={styles.cardDescription}>
-          {intl.formatMessage({ id: card.description })}
-        </p>
+        {card.description && (
+          <p className={styles.cardDescription}>
+            {card.description}
+          </p>
+        )}
       </div>
     </article>
   );
@@ -83,6 +83,7 @@ function BenefitCardItem({
 
 /**
  * BenefitsCardsDefault Variant Component
+ * Note: Config values are pre-translated by the factory using useConfigTranslation
  */
 export function BenefitsCardsDefault({
   config,
@@ -90,7 +91,6 @@ export function BenefitsCardsDefault({
   enableAnalytics = true,
   priority = false
 }: BenefitsCardsVariantProps) {
-  const intl = useTranslation();
   const { recordSectionRenderTime } = usePerformanceMonitoring();
   const [imageLoadingState, setImageLoadingState] = useState({
     loaded: 0,
@@ -144,15 +144,15 @@ export function BenefitsCardsDefault({
       aria-label={config.seo?.ariaLabel || 'Benefits section'}
     >
       <div className={styles.container}>
-        {/* Section Header */}
+        {/* Section Header - values are already translated */}
         {config.section?.title && (
           <header className={styles.header}>
             <HeadingTag id="benefits-title" className={styles.title}>
-              {intl.formatMessage({ id: config.section.title })}
+              {config.section.title}
             </HeadingTag>
             {config.section.description && (
               <p className={styles.description}>
-                {intl.formatMessage({ id: config.section.description })}
+                {config.section.description}
               </p>
             )}
           </header>
@@ -167,7 +167,6 @@ export function BenefitsCardsDefault({
               priority={priority && index < 3} // Prioritize first 3 cards (top row on desktop)
               onLoad={handleImageLoad}
               onError={handleImageError}
-              intl={intl}
             />
           ))}
         </div>

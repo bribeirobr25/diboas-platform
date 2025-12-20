@@ -1,0 +1,201 @@
+{
+  "hero": {
+    "headline": "Ihre Startup-Treasury verdient 0%.",
+    "subheadline": "Das ist eine Wahl. Hier ist eine bessere.",
+    "valueProp": "diBoaS Treasury: 6-8% Rendite auf Betriebskapital.\nGleichtägige Liquidität. Keine Sperrfrist. EU-reguliert.",
+    "cta": "15-Minuten-Gespräch buchen",
+    "socialProof": {
+      "quote": "Wir haben €200K ungenutztes Kapital umgeschichtet. Jetzt arbeitet es für uns.",
+      "author": "Gründer, Series A Startup"
+    },
+    "trustBadges": {
+      "mica": "MiCA-konform",
+      "nonCustodial": "Non-Custodial",
+      "audited": "Geprüfte Protokolle"
+    }
+  },
+  "problem": {
+    "header": "Das Startup-Treasury-Problem",
+    "body": "Sie haben €2M eingeworben. Sie werden es über 18 Monate ausgeben.\nDas bedeutet, €1M+ liegt zu jedem Zeitpunkt ungenutzt.\n\n**Ihre Bank zahlt:** 0,5% = €5.000/Jahr\n**diBoaS zahlt:** 7% = €70.000/Jahr\n\nDas sind **€65.000 potenzielle Runway**, die Sie verschenken.\n\nGleiches Geld. Gleiche Liquidität. 14x mehr Rendite.",
+    "cta": "Berechnen Sie Ihr Potenzial"
+  },
+  "calculator": {
+    "header": "Was könnte Ihre Treasury verdienen?",
+    "fields": {
+      "cashOnHand": "Wie viel Bargeld haben Sie?",
+      "currentRate": "Aktueller Zinssatz?",
+      "projectedYield": "Prognostizierte Jahresrendite bei 7%",
+      "currentInterest": "Ihre aktuellen Jahreszinsen",
+      "additionalRunway": "Zusätzliche Runway"
+    },
+    "defaults": {
+      "cashOnHand": "500000",
+      "currentRate": "0.5"
+    },
+    "perYear": "/Jahr",
+    "cta": "Sehen Sie diese Zahlen in Aktion — Gespräch buchen"
+  },
+  "howItWorks": {
+    "header": "So funktioniert diBoaS Treasury",
+    "steps": {
+      "connect": {
+        "title": "Verbinden",
+        "description": "Verknüpfen Sie Ihr Geschäftskonto. 2-Minuten-Setup."
+      },
+      "allocate": {
+        "title": "Zuweisen",
+        "description": "Wählen Sie, wie viel ungenutztes Kapital eingesetzt werden soll. Legen Sie Ihre Liquiditätsschwelle fest (z.B. \"immer €50K verfügbar halten\")."
+      },
+      "earn": {
+        "title": "Verdienen",
+        "description": "Ihr zugewiesenes Kapital verdient 6-8% APY durch bewährte DeFi-Protokolle (Aave, Compound)."
+      },
+      "withdraw": {
+        "title": "Abheben",
+        "description": "Brauchen Sie Bargeld für Gehälter? Ein Klick. Gleichtägige Abwicklung. Keine Sperrfristen. Keine Strafen."
+      }
+    },
+    "footerNote": "Monatliche Abrechnungen kompatibel mit Ihrem Steuerberater."
+  },
+  "trust": {
+    "header": "Entwickelt für compliance-bewusste Teams",
+    "points": {
+      "euRegulated": {
+        "title": "EU-reguliert",
+        "description": "Operiert unter dem MiCA-Rahmenwerk mit ausstehender CASP-Autorisierung in Litauen."
+      },
+      "nonCustodial": {
+        "title": "Non-Custodial",
+        "description": "Ihre Mittel bleiben unter Ihrer Kontrolle. Wir halten niemals Ihr Geld."
+      },
+      "audited": {
+        "title": "Geprüfte Protokolle",
+        "description": "Wir verwenden nur Protokolle mit $10B+ TVL und mehreren Sicherheitsaudits."
+      },
+      "transparent": {
+        "title": "Transparente Berichterstattung",
+        "description": "Monatliche Abrechnungen. Echtzeit-Dashboard. Vollständiger Prüfpfad für Ihr Finanzteam."
+      },
+      "boardReady": {
+        "title": "Board-Ready Dokumentation",
+        "description": "Wir helfen Ihnen, dies Ihrem Board und Investoren zu erklären."
+      }
+    }
+  },
+  "useCases": {
+    "header": "Wer nutzt diBoaS Treasury?",
+    "cases": {
+      "postFundraise": {
+        "title": "Nach dem Fundraising",
+        "description": "Gerade eine Runde abgeschlossen? Setzen Sie das Kapital ein, während Sie einstellen und skalieren.",
+        "quote": "Wir hatten €3M auf einem Bankkonto, das 6 Monate nichts verdiente. Das waren €100K verpasste Rendite."
+      },
+      "betweenRounds": {
+        "title": "Zwischen den Runden",
+        "description": "Überbrücken Sie die Runway zwischen Finanzierungsrunden durch Verdienen auf Ihren Reserven.",
+        "quote": "Die zusätzlichen €40K/Jahr sind praktisch ein kostenloser Junior-Mitarbeiter."
+      },
+      "operatingReserves": {
+        "title": "Betriebsreserven",
+        "description": "Halten Sie Gehälter gedeckt, während überschüssiges Bargeld Rendite verdient.",
+        "quote": "Wir haben eine €100K-Untergrenze gesetzt. Alles darüber verdient 7%. Einfach."
+      }
+    }
+  },
+  "socialProof": {
+    "header": "Vertraut von zukunftsorientierten Gründern",
+    "testimonials": {
+      "first": {
+        "quote": "Wir waren anfangs skeptisch. Aber die Mathematik war offensichtlich. €70K extra Runway pro Jahr, mit gleicher Liquidität. Unser Board hat uns tatsächlich gedankt.",
+        "author": "CFO, Series A SaaS-Unternehmen"
+      },
+      "second": {
+        "quote": "Ich wünschte, wir hätten das von Tag eins gemacht. Wir haben €30K in unserem ersten Jahr verschenkt.",
+        "author": "Gründer, Seed-Stage Startup"
+      }
+    },
+    "metrics": {
+      "treasury": {
+        "label": "Kombinierte Treasury unter Verwaltung",
+        "value": "€2,5M"
+      },
+      "yield": {
+        "label": "Durchschnittliche Kundenrendite",
+        "value": "7,2% APY"
+      },
+      "onboarding": {
+        "label": "Durchschnittliche Onboarding-Zeit",
+        "value": "48 Stunden"
+      }
+    }
+  },
+  "faq": {
+    "header": "Gründer-FAQs",
+    "description": "Häufige Fragen von Startup-Gründern zum Treasury-Management.",
+    "ctaText": "Gespräch buchen",
+    "items": {
+      "investors": {
+        "question": "Was werden meine Investoren denken?",
+        "answer": "Die meisten erfahrenen Investoren erwarten Treasury-Optimierung. 7% vs. 0,5% verdienen verlängert die Runway. Wir stellen Board-Ready-Materialien bereit, um dies klar zu kommunizieren."
+      },
+      "compliance": {
+        "question": "Was ist mit Compliance und Audits?",
+        "answer": "Wir bieten vollständige Dokumentation, die mit Standard-Buchhaltungspraktiken kompatibel ist. Ihr Steuerberater erhält monatliche Abrechnungen mit allen benötigten Details."
+      },
+      "liquidity": {
+        "question": "Was ist, wenn ich Bargeld für Gehälter oder unerwartete Kosten brauche?",
+        "answer": "Gleichtägige Abhebungen. Keine Sperrfristen. Legen Sie eine Liquiditätsschwelle fest und wir werden niemals darunter einsetzen. Sie sind immer abgedeckt."
+      },
+      "risk": {
+        "question": "Was ist das Risiko?",
+        "answer": "DeFi-Protokolle tragen Smart-Contract-Risiko. Wir minimieren dies, indem wir nur bewährte Protokolle mit $10B+ TVL und mehreren Audits verwenden. Keine Investition ist risikofrei — wir sind transparent darüber."
+      },
+      "revenue": {
+        "question": "Wie verdienen Sie Geld?",
+        "answer": "Wir nehmen eine 0,12% Gebühr auf verdiente Rendite. Wenn Sie nichts verdienen, verdienen wir nichts. Unsere Anreize sind ausgerichtet."
+      },
+      "minimum": {
+        "question": "Was ist das Minimum?",
+        "answer": "Wir arbeiten mit Startups, die €50K+ an Betriebskapital verwalten. Darunter rechtfertigt die Rendite möglicherweise nicht die Setup-Zeit."
+      },
+      "onboarding": {
+        "question": "Wie lange dauert das Onboarding?",
+        "answer": "Die meisten Unternehmen sind innerhalb von 48 Stunden vollständig ongeboardet. Das Setup selbst dauert etwa 15 Minuten."
+      }
+    }
+  },
+  "process": {
+    "header": "Der Einstieg ist einfach",
+    "steps": {
+      "book": {
+        "title": "Gespräch buchen",
+        "description": "15 Minuten. Kein Pitch. Nur ein ehrliches Gespräch darüber, ob das für Sie sinnvoll ist."
+      },
+      "review": {
+        "title": "Zahlen prüfen",
+        "description": "Wir zeigen Ihnen genau, was Ihre Treasury basierend auf Ihrer Bargeldposition verdienen könnte."
+      },
+      "decide": {
+        "title": "Entscheidung treffen",
+        "description": "Wenn es Sinn macht, helfen wir beim Setup. Wenn nicht, kein Problem."
+      },
+      "goLive": {
+        "title": "Live gehen",
+        "description": "Onboarding dauert 48 Stunden. Sie sehen die Rendite ab dem ersten Tag."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Lassen Sie uns über Ihre Treasury sprechen",
+    "body": "15 Minuten. Kein Pitch. Nur ein ehrliches Gespräch darüber, ob das für Sie sinnvoll ist.",
+    "cta": "Gespräch mit Bar buchen",
+    "alternativeContact": "Oder per E-Mail: bar@diboas.com",
+    "testimonial": {
+      "quote": "Ich erwartete einen Sales-Pitch. Stattdessen bekam ich ein durchdachtes Gespräch über meine tatsächliche Situation. Erfrischend.",
+      "author": "Series A Gründer"
+    }
+  },
+  "disclaimer": {
+    "text": "Prognostizierte Renditen sind illustrativ basierend auf aktuellen DeFi-Marktraten. Raten sind variabel und nicht garantiert. Vergangene Performance ist kein Indikator für zukünftige Ergebnisse. Smart-Contract-Risiko existiert bei allen DeFi-Protokollen. Weisen Sie nur Mittel zu, die Sie riskieren können. diBoaS bietet keine Anlageberatung."
+  }
+}

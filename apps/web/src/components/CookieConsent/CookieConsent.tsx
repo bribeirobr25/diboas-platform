@@ -9,9 +9,11 @@
  * - Provides accept/decline options
  * - Accessible with keyboard navigation
  * - Customizable styling using design tokens
+ * - Internationalized with react-intl
  */
 
 import { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import styles from './CookieConsent.module.css';
 
 const CONSENT_KEY = 'diboas-cookie-consent';
@@ -24,6 +26,7 @@ export interface CookieConsentValue {
 }
 
 export function CookieConsent() {
+  const intl = useIntl();
   const [showBanner, setShowBanner] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -100,21 +103,21 @@ export function CookieConsent() {
       className={`${styles.banner} ${isVisible ? styles.visible : ''}`}
       role="dialog"
       aria-live="polite"
-      aria-label="Cookie consent"
+      aria-label={intl.formatMessage({ id: 'common.cookieConsent.ariaLabel' })}
       aria-describedby="cookie-consent-description"
     >
       <div className={styles.container}>
         <div className={styles.content}>
           <p id="cookie-consent-description" className={styles.text}>
-            We use cookies to improve your experience and analyze site usage.
-            By clicking "Accept", you consent to our use of analytics cookies.
+            {intl.formatMessage({ id: 'common.cookieConsent.message' })}
+            {' '}
             <a
               href="/legal/cookies/"
               className={styles.link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Cookie Policy
+              {intl.formatMessage({ id: 'common.cookieConsent.cookiePolicy' })}
             </a>
             {' · '}
             <a
@@ -123,7 +126,7 @@ export function CookieConsent() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Privacy Policy
+              {intl.formatMessage({ id: 'common.cookieConsent.privacyPolicy' })}
             </a>
           </p>
         </div>
@@ -132,16 +135,16 @@ export function CookieConsent() {
           <button
             onClick={handleDecline}
             className={`${styles.button} ${styles.buttonDecline}`}
-            aria-label="Decline cookies"
+            aria-label={intl.formatMessage({ id: 'common.cookieConsent.declineAriaLabel' })}
           >
-            Decline
+            {intl.formatMessage({ id: 'common.cookieConsent.decline' })}
           </button>
           <button
             onClick={handleAccept}
             className={`${styles.button} ${styles.buttonAccept}`}
-            aria-label="Accept cookies"
+            aria-label={intl.formatMessage({ id: 'common.cookieConsent.acceptAriaLabel' })}
           >
-            Accept
+            {intl.formatMessage({ id: 'common.cookieConsent.accept' })}
           </button>
         </div>
       </div>

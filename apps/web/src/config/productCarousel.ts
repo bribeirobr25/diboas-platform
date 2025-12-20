@@ -10,7 +10,7 @@
 
 import { APP_URL } from '@/config/environment';
 import { ROUTES } from './routes';
-import { getSocialRealAsset } from './assets';
+import { getSocialDrawingAsset } from './assets';
 
 export type ProductCarouselVariant = 'default';
 
@@ -71,14 +71,14 @@ export const DEFAULT_PRODUCT_CAROUSEL_SETTINGS: ProductCarouselSettings = {
 // Default carousel slides (matches documentation specifications)
 // Note: Titles and subtitles are translation keys that will be resolved at runtime
 // DRY Principles: All links use centralized ROUTES configuration
-// No Hardcoded Values: Uses getSocialRealAsset() helper for type-safe asset paths
+// No Hardcoded Values: Uses getSocialDrawingAsset() helper for type-safe asset paths
 export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
   {
     id: 'benefits',
     title: 'marketing.pages.home.productCarousel.slides.benefits.title',
     subtitle: 'marketing.pages.home.productCarousel.slides.benefits.subtitle',
-    image: getSocialRealAsset('INVESTMENT_MAN_TATTOO'),
-    imageAlt: 'Couple',
+    image: getSocialDrawingAsset('PHONE_DEPOSIT'),
+    imageAlt: 'Phone showing deposit screen',
     ctaText: 'common.buttons.getStarted',
     ctaHref: APP_URL
   },
@@ -86,8 +86,8 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     id: 'rewards',
     title: 'marketing.pages.home.productCarousel.slides.rewards.title',
     subtitle: 'marketing.pages.home.productCarousel.slides.rewards.subtitle',
-    image: getSocialRealAsset('LOGIN_WOMAN'),
-    imageAlt: 'friends',
+    image: getSocialDrawingAsset('PHONE_GROW'),
+    imageAlt: 'Phone showing growing balance',
     ctaText: 'common.buttons.learnMore',
     ctaHref: ROUTES.PERSONAL.INVESTING
   },
@@ -95,8 +95,8 @@ export const DEFAULT_PRODUCT_CAROUSEL_SLIDES: ProductCarouselSlide[] = [
     id: 'business',
     title: 'marketing.pages.home.productCarousel.slides.business.title',
     subtitle: 'marketing.pages.home.productCarousel.slides.business.subtitle',
-    image: getSocialRealAsset('BUSINESS_PAYMENT_CARD'),
-    imageAlt: 'Business group',
+    image: getSocialDrawingAsset('PHONE_WITHDRAW'),
+    imageAlt: 'Phone showing withdraw screen',
     ctaText: 'common.buttons.learnMore',
     ctaHref: ROUTES.BUSINESS.ADVANTAGES
   }

@@ -12,12 +12,15 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef, KeyboardEvent } from 'react';
-import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import type { FAQAccordionVariantProps } from '../types';
 import styles from './FAQAccordionDefault.module.css';
 
+/**
+ * Note: Config values are pre-translated by the factory using useConfigTranslation.
+ * For landing pages, items are provided directly in config and are already translated.
+ */
 export function FAQAccordionDefault({
   config,
   className = '',
@@ -27,80 +30,12 @@ export function FAQAccordionDefault({
   onCollapse,
   onCTAClick
 }: FAQAccordionVariantProps) {
-  const intl = useTranslation();
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
-  // Resolve FAQ items from either registry (new mode) or direct items (legacy mode)
-  const resolvedItems = (() => {
-    // Registry mode: questionIds references centralized FAQ registry
-    if (config.content.questionIds) {
-      const questionIdsKey = config.content.questionIds as any as string;
-
-      // If it's a translation key string, we need to access the raw array value
-      if (typeof questionIdsKey === 'string' && questionIdsKey.startsWith('marketing.')) {
-        // The messages object is FLATTENED with dot-notation keys
-        // e.g., messages["marketing.pages.benefits.faqAccordion.questionIds"]
-        // NOT a nested structure like messages.marketing.pages.benefits...
-
-        let questionIds: string[] = [];
-        try {
-          // @ts-ignore - accessing internal messages structure
-          const messages = intl.messages;
-
-          // The flattenMessages function flattens arrays into individual keys with numeric indices
-          // e.g., ["q1", "q2", "q3"] becomes:
-          // "marketing.pages.helpFaq.faqAccordion.questionIds.0" = "q1"
-          // "marketing.pages.helpFaq.faqAccordion.questionIds.1" = "q2"
-          // "marketing.pages.helpFaq.faqAccordion.questionIds.2" = "q3"
-
-          // Reconstruct the array by looking for keys with numeric indices
-          const baseKey = questionIdsKey;
-          let index = 0;
-          const reconstructedArray: string[] = [];
-
-          while (true) {
-            const indexedKey = `${baseKey}.${index}`;
-            const value = messages[indexedKey];
-
-            if (value === undefined) {
-              break; // No more elements
-            }
-
-            // Type guard: only push string values
-            if (typeof value === 'string') {
-              reconstructedArray.push(value);
-            }
-            index++;
-          }
-
-          questionIds = reconstructedArray;
-        } catch (error) {
-          console.error('Error accessing questionIds:', error);
-          questionIds = [];
-        }
-
-        // Resolve each question ID from the registry
-        return questionIds.map((qId: string) => ({
-          id: qId,
-          question: `marketing.faq.registry.${qId}.question`,
-          answer: `marketing.faq.registry.${qId}.answer`,
-          category: 'getting-started' as const
-        }));
-      }
-
-      // Direct questionIds array (shouldn't happen with current setup)
-      return config.content.questionIds.map(qId => ({
-        id: qId,
-        question: `marketing.faq.registry.${qId}.question`,
-        answer: `marketing.faq.registry.${qId}.answer`,
-        category: 'getting-started' as const
-      }));
-    }
-
-    // Legacy mode: direct items array (for landing page backwards compatibility)
-    return config.content.items || [];
-  })();
+  // Get FAQ items from direct items array (landing pages use this mode)
+  // Config is pre-translated by useConfigTranslation in the factory
+  const resolvedItems = config.content.items || [];
 
   const handleToggle = useCallback((id: string) => {
     if (!config.settings.enableAnimations) {
@@ -202,13 +137,13 @@ export function FAQAccordionDefault({
       ariaLabelledBy="faq-heading"
       ariaLabel={config.seo.ariaLabel}
     >
-      {/* Left Panel: Intro Content */}
+      {/* Left Panel: Intro Content - values are pre-translated */}
         <div className={styles.introPanel}>
           <h2 id="faq-heading" className={styles.heading}>
-            {intl.formatMessage({ id: config.content.title })}
+            {config.content.title}
           </h2>
           <p className={styles.description}>
-            {intl.formatMessage({ id: config.content.description })}
+            {config.content.description}
           </p>
         </div>
 
@@ -236,10 +171,10 @@ export function FAQAccordionDefault({
                   onKeyDown={(e) => handleKeyDown(e, item.id, index)}
                   aria-expanded={isExpanded}
                   aria-controls={contentId}
-                  aria-label={intl.formatMessage({ id: item.question })}
+                  aria-label={item.question}
                 >
                   <h3 className={styles.question}>
-                    {intl.formatMessage({ id: item.question })}
+                    {item.question}
                   </h3>
                   <svg
                     className={`${styles.icon} ${isExpanded ? styles.iconExpanded : ''}`}
@@ -267,7 +202,7 @@ export function FAQAccordionDefault({
                   hidden={!isExpanded}
                 >
                   <p className={styles.answer}>
-                    {intl.formatMessage({ id: item.answer })}
+                    {item.answer}
                   </p>
                 </div>
               </div>
@@ -280,10 +215,10 @@ export function FAQAccordionDefault({
           href={config.content.ctaHref}
           target={config.content.ctaTarget}
           className={styles.ctaButton}
-          aria-label={intl.formatMessage({ id: config.content.ctaText })}
+          aria-label={config.content.ctaText}
           onClick={handleCTAClick}
         >
-          {intl.formatMessage({ id: config.content.ctaText })}
+          {config.content.ctaText}
         </Link>
     </SectionContainer>
   );

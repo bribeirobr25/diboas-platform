@@ -86,33 +86,27 @@ export function HeroFullBackground({
 
       <div className={styles.container}>
         <div className={styles.content}>
-          {/* Left Column: Title and CTA */}
-          <div className={styles.leftColumn}>
-            <h1 id="hero-title" className={styles.title}>
-              {config.content.title}
-            </h1>
+          <h1 id="hero-title" className={styles.title}>
+            {config.content.title}
+          </h1>
 
-            <div className={styles.ctaWrapper}>
-              <Button
-                variant={DEFAULT_CTA_PROPS.variant}
-                size={DEFAULT_CTA_PROPS.size}
-                trackable={DEFAULT_CTA_PROPS.trackable}
-                className={styles.ctaButton}
-                onClick={handleCTAClick}
-              >
-                {config.content.ctaText}
-              </Button>
-            </div>
-          </div>
-
-          {/* Right Column: Description (Desktop Only) */}
           {config.content.description && (
-            <div className={styles.rightColumn}>
-              <p className={styles.description}>
-                {config.content.description}
-              </p>
-            </div>
+            <p className={styles.description}>
+              {config.content.description}
+            </p>
           )}
+
+          <div className={styles.ctaWrapper}>
+            <Button
+              variant={DEFAULT_CTA_PROPS.variant}
+              size={DEFAULT_CTA_PROPS.size}
+              trackable={DEFAULT_CTA_PROPS.trackable}
+              className={styles.ctaButton}
+              onClick={handleCTAClick}
+            >
+              {config.content.ctaText}
+            </Button>
+          </div>
         </div>
       </div>
 

@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
-import { CookieConsent } from '@/components/CookieConsent';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -83,7 +82,6 @@ export default function RootLayout({
           sampleRate={process.env.NODE_ENV === 'production' ? 0.1 : 0.1}
         />
         {children}
-        <CookieConsent />
       </body>
     </html>
   );

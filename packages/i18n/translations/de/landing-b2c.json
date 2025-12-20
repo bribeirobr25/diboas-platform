@@ -1,0 +1,153 @@
+{
+  "hero": {
+    "headline": "Ihre Ersparnisse verdienen mehr. Sicher und reguliert.",
+    "subheadline": "diBoaS verwandelt Ihr ungenutztes Geld in echtes Wachstum - ab nur 5 \u20ac.",
+    "cta": "Sehen Sie, wie Ihr Geld wachsen k\u00f6nnte",
+    "trust": "Ihr Geld bleibt Ihres. Jederzeit abheben.",
+    "socialProof": "Schlie\u00dfen Sie sich {count} Menschen auf der Warteliste an",
+    "regulatoryBadge": "MiCA-konform | EU-reguliert"
+  },
+  "problem": {
+    "header": "Das passiert gerade mit Ihrem Geld",
+    "body": "Ihre Bank zahlt Ihnen 0,5% Zinsen.\nDie Inflation liegt bei 4%.\n\nDas bedeutet: Ihre 1.000 \u20ac Ersparnisse?\nN\u00e4chstes Jahr nur noch 965 \u20ac wert. Sie verlieren 35 \u20ac - einfach so.\n\nDie Banken verdienen Milliarden mit Ihrem Geld.\nSie bekommen Kr\u00fcmel.",
+    "cta": "Es gibt einen besseren Weg"
+  },
+  "howItWorks": {
+    "header": "So funktioniert diBoaS - 3 einfache Schritte",
+    "step1": {
+      "title": "Einzahlen",
+      "description": "Schon ab 5 \u20ac. Dauert nur 2 Minuten."
+    },
+    "step2": {
+      "title": "Rendite verdienen",
+      "description": "Ihr Geld verdient automatisch 6-10%."
+    },
+    "step3": {
+      "title": "Jederzeit abheben",
+      "description": "Brauchen Sie es zur\u00fcck? Ein Klick. Noch am selben Tag. Keine Sperrfristen."
+    },
+    "securityNote": "Ihre Einlagen werden durch gepr\u00fcfte DeFi-Protokolle gesichert. Vollst\u00e4ndige Transparenz.",
+    "cta": "In der Demo ausprobieren"
+  },
+  "trustSecurity": {
+    "header": "Sicherheit, der Sie vertrauen k\u00f6nnen",
+    "points": {
+      "euRegulated": {
+        "title": "EU-Reguliert",
+        "description": "Betrieb unter MiCA-Rahmenwerk"
+      },
+      "nonCustodial": {
+        "title": "Non-Custodial",
+        "description": "Wir halten nie Ihr Geld"
+      },
+      "auditedProtocols": {
+        "title": "Gepr\u00fcfte Protokolle",
+        "description": "Nur battle-tested Protokolle mit Milliarden TVL"
+      },
+      "transparentReporting": {
+        "title": "Transparente Berichterstattung",
+        "description": "Monatliche Ausz\u00fcge f\u00fcr Ihre Unterlagen"
+      }
+    }
+  },
+  "socialProof": {
+    "header": "Werden Sie Teil der Bewegung",
+    "stats": {
+      "waitlist": "{count} Menschen warten bereits",
+      "countries": "Menschen aus {count} L\u00e4ndern"
+    }
+  },
+  "demo": {
+    "header": "Sehen Sie es in Aktion - testen Sie die Demo",
+    "subtext": "Keine Anmeldung erforderlich. Dauert 60 Sekunden.",
+    "pain": {
+      "header": "Ihre Ersparnisse heute",
+      "pixHeader": "Sie haben einen PIX erhalten",
+      "subtext": "Zinsen dieses Jahr: {interest}",
+      "hook": "Das reicht nicht mal für einen Kaffee. Den Rest behält Ihre Bank.",
+      "cta": "Was wäre wenn...?"
+    },
+    "hope": {
+      "header": "Was wäre, wenn Ihr Geld wachsen würde?",
+      "projectionLabel": "In 1 Jahr bei 8% APY:",
+      "comparison": "Das sind {projected} statt {current}.",
+      "impact": "Gleiches Geld. Klügerer Ort. 16x mehr Wachstum.",
+      "cta": "Zeigen Sie mir wie"
+    },
+    "action": {
+      "header": "Es beginnt mit einer Einzahlung",
+      "prompt": "Wie viel möchten Sie wachsen lassen?",
+      "reassurance1": "Wählen Sie einen beliebigen Betrag. Fangen Sie klein an.",
+      "reassurance2": "Kein Mindestbetrag. Keine Bewertung.",
+      "cta": "Einzahlen"
+    },
+    "reward": {
+      "header": "Ihr Geld wächst!",
+      "delight": "Sie haben gerade {earned} verdient, während Sie das lesen.",
+      "vision": "Stellen Sie sich vor, was passiert, während Sie schlafen.",
+      "sharePrompt": "Ziemlich cool, oder?",
+      "shareCta": "Mit Freunden teilen",
+      "continueCta": "Weiter"
+    },
+    "invitation": {
+      "header": "Das war eine Demo. Stellen Sie sich die Realität vor.",
+      "subheader": "Echtes Geld. Echtes Wachstum. Echte Kontrolle.",
+      "callToAction": "Wir starten bald. Sichern Sie sich frühen Zugang.",
+      "emailPlaceholder": "E-Mail eingeben",
+      "submitButton": "Meinen Platz auf der Warteliste sichern",
+      "trustPoint1": "Kein Spam, niemals",
+      "trustPoint2": "Früher Zugang beim Start",
+      "trustPoint3": "Freunde einladen = Warteschlange überspringen"
+    },
+    "success": {
+      "header": "Sie sind dabei!",
+      "positionLabel": "Sie sind #{position} auf der Warteliste",
+      "incentiveHeader": "Möchten Sie vorspringen?",
+      "incentiveMechanic": "Jeder Freund, der beitritt = Sie rücken 10 Plätze vor.",
+      "linkBoxLabel": "Kopieren Sie Ihren Einladungslink",
+      "shareLabel": "Oder direkt teilen:",
+      "copyLink": "Link kopieren",
+      "prewrittenMessage": "Gerade bei diBoaS angemeldet — endlich eine Möglichkeit, meine Ersparnisse wachsen zu lassen. 8% statt 0,5% bei meiner Bank. Schau mal"
+    }
+  },
+  "faq": {
+    "header": "H\u00e4ufige Fragen",
+    "description": "Antworten auf die h\u00e4ufigsten Fragen zu diBoaS.",
+    "ctaText": "Zur Warteliste",
+    "items": {
+      "safety": {
+        "question": "Ist mein Geld sicher?",
+        "answer": "Ihre Mittel werden in Ihrer eigenen Non-Custodial Wallet gehalten. Wir ber\u00fchren Ihr Geld nie - wir zeigen Ihnen nur, wo Sie es anlegen k\u00f6nnen. Die von uns verwendeten Protokolle (Aave, Compound) haben Milliarden von Dollar gesichert."
+      },
+      "risks": {
+        "question": "Welche Risiken gibt es?",
+        "answer": "DeFi-Renditen sind keine Bankeinlagen. Smart-Contract-Risiken existieren. Wir verwenden nur bew\u00e4hrte Protokolle, aber keine Anlage ist risikofrei. Investieren Sie nie mehr, als Sie sich leisten k\u00f6nnen zu verlieren."
+      },
+      "regulation": {
+        "question": "Wie sieht es mit der Regulierung aus?",
+        "answer": "Wir operieren unter dem MiCA-Rahmenwerk der EU mit anh\u00e4ngiger CASP-Autorisierung. Volle Compliance-Dokumentation verf\u00fcgbar."
+      },
+      "withdraw": {
+        "question": "Kann ich jederzeit abheben?",
+        "answer": "Ja. Keine Sperrfristen. Ihr Geld ist immer zug\u00e4nglich. Auszahlungen werden in der Regel am selben Tag abgeschlossen."
+      },
+      "revenue": {
+        "question": "Wie verdient diBoaS Geld?",
+        "answer": "Wir nehmen eine kleine Gebühr (0,12%) auf Ihre Erträge. Wenn Sie nichts verdienen, verdienen wir nichts."
+      },
+      "crypto": {
+        "question": "Muss ich Krypto verstehen?",
+        "answer": "Nein. Wir übernehmen die gesamte Komplexität. Sie sehen nur, wie Ihr Geld wächst. Keine Wallets, keine Seed-Phrasen, keine verwirrenden Charts."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Bereit, Ihr Geld arbeiten zu lassen?",
+    "body": "Schlie\u00dfen Sie sich Tausenden an, die es satt haben zuzusehen, wie ihre Ersparnisse an Wert verlieren.\n\nDer fr\u00fche Zugang \u00f6ffnet bald. Sichern Sie sich Ihren Platz.",
+    "button": "Zur Warteliste - kostenlos",
+    "footer": "Sie sind #{position} in der Warteschlange f\u00fcr fr\u00fchen Zugang"
+  },
+  "disclaimer": {
+    "text": "Dargestellte Renditen sind illustrativ und basieren auf aktuellen DeFi-Marktraten. Renditen sind variabel und nicht garantiert. Vergangene Performance ist kein Indikator f\u00fcr zuk\u00fcnftige Ergebnisse. Ihr Kapital ist gef\u00e4hrdet. Beginnen Sie mit einem Betrag, den Sie nicht vermissen werden."
+  }
+}

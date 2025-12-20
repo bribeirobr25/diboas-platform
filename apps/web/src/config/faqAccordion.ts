@@ -23,7 +23,7 @@ export interface FAQItem {
   readonly id: string;
   readonly question: string;
   readonly answer: string;
-  readonly category: 'getting-started' | 'guides' | 'security' | 'fees';
+  readonly category: 'getting-started' | 'guides' | 'security' | 'fees' | 'general' | 'compliance' | 'operations';
 }
 
 /**

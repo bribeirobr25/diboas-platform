@@ -90,7 +90,8 @@
     "actions": {
       "primary": "Loslegen",
       "secondary": "Business-Login"
-    }
+    },
+    "joinWaitlist": "Zur Warteliste"
   },
   "buttons": {
     "getStarted": "Jetzt starten",
@@ -196,6 +197,16 @@
     },
     "copyright": "© 2024 diBoaS. Alle Rechte vorbehalten.",
     "brandName": "diBoaS"
+  },
+  "cookieConsent": {
+    "ariaLabel": "Cookie-Zustimmung",
+    "message": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern und die Nutzung der Website zu analysieren. Durch Klicken auf \"Akzeptieren\" stimmen Sie der Verwendung von Analyse-Cookies zu.",
+    "cookiePolicy": "Cookie-Richtlinie",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "decline": "Ablehnen",
+    "accept": "Akzeptieren",
+    "declineAriaLabel": "Cookies ablehnen",
+    "acceptAriaLabel": "Cookies akzeptieren"
   },
   "waitingList": {
     "title": "Auf die Warteliste setzen",

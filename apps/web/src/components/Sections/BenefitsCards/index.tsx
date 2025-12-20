@@ -7,7 +7,11 @@
  * Code Reusability: Single entry point for all BenefitsCards variants
  */
 
+'use client';
+
+import { useMemo } from 'react';
 import { BenefitsCardsDefault } from './variants/BenefitsCardsDefault/BenefitsCardsDefault';
+import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { BenefitsCardsConfig, BenefitsCardsVariant } from './types';
 
 /**
@@ -58,6 +62,9 @@ export function BenefitsCardsSection({
   enableAnalytics = true,
   priority = false
 }: BenefitsCardsSectionProps) {
+  // Internationalization: Translate config using translation keys
+  const translatedConfig = useConfigTranslation(config);
+
   // Variant factory: Map variant names to components
   const variantComponents = {
     default: BenefitsCardsDefault
@@ -73,7 +80,7 @@ export function BenefitsCardsSection({
     );
     return (
       <BenefitsCardsDefault
-        config={config}
+        config={translatedConfig}
         className={className}
         enableAnalytics={enableAnalytics}
         priority={priority}
@@ -84,7 +91,7 @@ export function BenefitsCardsSection({
   // Render the selected variant
   return (
     <VariantComponent
-      config={config}
+      config={translatedConfig}
       className={className}
       enableAnalytics={enableAnalytics}
       priority={priority}

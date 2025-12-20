@@ -182,7 +182,10 @@ export const ASSET_PATHS = {
       WOMAN_MYSTIC: `${ASSETS_BASE}/socials/real/woman_mystic.avif`
     },
     DRAWING: {
-      PHONE_ACTIVITIES: `${ASSETS_BASE}/socials/drawing/phone-dashboard.avif`
+      PHONE_ACTIVITIES: `${ASSETS_BASE}/socials/drawing/phone-dashboard.avif`,
+      PHONE_DEPOSIT: `${ASSETS_BASE}/socials/drawing/phone-deposit.avif`,
+      PHONE_GROW: `${ASSETS_BASE}/socials/drawing/phone-growing.avif`,
+      PHONE_WITHDRAW: `${ASSETS_BASE}/socials/drawing/phone-withdraw.avif`
     }
   },
 
@@ -429,6 +432,7 @@ export function getAssetOptimizationConfig(): AssetOptimizationConfig {
 
 // Type-safe keys for asset categories
 export type SocialRealAssetKey = keyof typeof ASSET_PATHS.SOCIALS.REAL;
+export type SocialDrawingAssetKey = keyof typeof ASSET_PATHS.SOCIALS.DRAWING;
 export type NavigationAssetKey = keyof typeof ASSET_PATHS.NAVIGATION;
 export type LogoAssetKey = keyof typeof ASSET_PATHS.LOGOS;
 export type MascotAssetKey = keyof typeof ASSET_PATHS.MASCOTS;
@@ -441,6 +445,16 @@ export type MascotAssetKey = keyof typeof ASSET_PATHS.MASCOTS;
  */
 export function getSocialRealAsset(key: SocialRealAssetKey): string {
   return ASSET_PATHS.SOCIALS.REAL[key];
+}
+
+/**
+ * Get Social Drawing Asset Path
+ * Type-safe helper to access socials/drawing images (phone mockups)
+ * @param key - The asset key from ASSET_PATHS.SOCIALS.DRAWING
+ * @returns The full asset path
+ */
+export function getSocialDrawingAsset(key: SocialDrawingAssetKey): string {
+  return ASSET_PATHS.SOCIALS.DRAWING[key];
 }
 
 /**
@@ -480,4 +494,31 @@ export function getMascotAsset(key: MascotAssetKey): string {
  */
 export function getPhoneActivitiesAsset(): string {
   return ASSET_PATHS.SOCIALS.DRAWING.PHONE_ACTIVITIES;
+}
+
+/**
+ * Get Phone Deposit Asset Path
+ * Helper to access phone deposit screen
+ * @returns The phone deposit drawing path
+ */
+export function getPhoneDepositAsset(): string {
+  return ASSET_PATHS.SOCIALS.DRAWING.PHONE_DEPOSIT;
+}
+
+/**
+ * Get Phone Grow Asset Path
+ * Helper to access phone growth screen
+ * @returns The phone grow drawing path
+ */
+export function getPhoneGrowAsset(): string {
+  return ASSET_PATHS.SOCIALS.DRAWING.PHONE_GROW;
+}
+
+/**
+ * Get Phone Withdraw Asset Path
+ * Helper to access phone withdraw/transaction screen
+ * @returns The phone withdraw drawing path
+ */
+export function getPhoneWithdrawAsset(): string {
+  return ASSET_PATHS.SOCIALS.DRAWING.PHONE_WITHDRAW;
 }

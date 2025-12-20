@@ -1,0 +1,201 @@
+{
+  "hero": {
+    "headline": "La tesorería de tu startup está ganando 0%.",
+    "subheadline": "Eso es una elección. Aquí hay una mejor.",
+    "valueProp": "diBoaS Treasury: 6-8% de rendimiento sobre efectivo operativo.\nLiquidez en el mismo día. Sin bloqueos. Regulado en la UE.",
+    "cta": "Reservar conversación de 15 min",
+    "socialProof": {
+      "quote": "Movimos €200K de efectivo inactivo. Ahora trabaja para nosotros.",
+      "author": "Fundador, startup Series A"
+    },
+    "trustBadges": {
+      "mica": "Compatible con MiCA",
+      "nonCustodial": "Non-custodial",
+      "audited": "Protocolos auditados"
+    }
+  },
+  "problem": {
+    "header": "El problema de tesorería de startups",
+    "body": "Levantaste €2M. Lo gastarás en 18 meses.\nEso significa que €1M+ está inactivo en cualquier momento.\n\n**Tu banco paga:** 0,5% = €5.000/año\n**diBoaS paga:** 7% = €70.000/año\n\nEso son **€65.000 en runway potencial** que estás dejando sobre la mesa.\n\nMismo dinero. Misma liquidez. 14x más retorno.",
+    "cta": "Calcula tu potencial"
+  },
+  "calculator": {
+    "header": "¿Cuánto podría ganar tu tesorería?",
+    "fields": {
+      "cashOnHand": "¿Cuánto efectivo tienes?",
+      "currentRate": "¿Tasa de interés actual?",
+      "projectedYield": "Rendimiento anual proyectado al 7%",
+      "currentInterest": "Tu interés anual actual",
+      "additionalRunway": "Runway adicional"
+    },
+    "defaults": {
+      "cashOnHand": "500000",
+      "currentRate": "0.5"
+    },
+    "perYear": "/año",
+    "cta": "Ve estos números en acción — reservar llamada"
+  },
+  "howItWorks": {
+    "header": "Cómo funciona diBoaS Treasury",
+    "steps": {
+      "connect": {
+        "title": "Conectar",
+        "description": "Vincula tu cuenta bancaria empresarial. Configuración de 2 minutos."
+      },
+      "allocate": {
+        "title": "Asignar",
+        "description": "Elige cuánto efectivo inactivo desplegar. Establece tu umbral de liquidez (ej: \"siempre mantener €50K disponibles\")."
+      },
+      "earn": {
+        "title": "Ganar",
+        "description": "Tu efectivo asignado gana 6-8% APY a través de protocolos DeFi probados (Aave, Compound)."
+      },
+      "withdraw": {
+        "title": "Retirar",
+        "description": "¿Necesitas efectivo para nómina? Un clic. Liquidación el mismo día. Sin bloqueos. Sin penalizaciones."
+      }
+    },
+    "footerNote": "Estados mensuales compatibles con tu contador."
+  },
+  "trust": {
+    "header": "Diseñado para equipos conscientes del compliance",
+    "points": {
+      "euRegulated": {
+        "title": "Regulado en la UE",
+        "description": "Operando bajo el marco MiCA con autorización CASP pendiente en Lituania."
+      },
+      "nonCustodial": {
+        "title": "Non-Custodial",
+        "description": "Tus fondos permanecen bajo tu control. Nunca guardamos tu dinero."
+      },
+      "audited": {
+        "title": "Protocolos Auditados",
+        "description": "Solo usamos protocolos con $10B+ TVL y múltiples auditorías de seguridad."
+      },
+      "transparent": {
+        "title": "Reportes Transparentes",
+        "description": "Estados mensuales. Dashboard en tiempo real. Registro de auditoría completo para tu equipo financiero."
+      },
+      "boardReady": {
+        "title": "Documentación Lista para el Board",
+        "description": "Te ayudaremos a explicar esto a tu board e inversores."
+      }
+    }
+  },
+  "useCases": {
+    "header": "¿Quién usa diBoaS Treasury?",
+    "cases": {
+      "postFundraise": {
+        "title": "Post-Levantamiento",
+        "description": "¿Acabas de cerrar una ronda? Pon ese capital a trabajar mientras contratas y escalas.",
+        "quote": "Teníamos €3M en una cuenta bancaria sin ganar nada por 6 meses. Fueron €100K de rendimiento perdido."
+      },
+      "betweenRounds": {
+        "title": "Entre Rondas",
+        "description": "Extiende runway entre rondas de financiación ganando sobre tus reservas.",
+        "quote": "Los €40K/año extras son básicamente una contratación junior gratis."
+      },
+      "operatingReserves": {
+        "title": "Reservas Operativas",
+        "description": "Mantén la nómina cubierta mientras el efectivo excedente gana rendimiento.",
+        "quote": "Establecimos un piso de €100K. Todo lo de arriba gana 7%. Simple."
+      }
+    }
+  },
+  "socialProof": {
+    "header": "Confiado por fundadores visionarios",
+    "testimonials": {
+      "first": {
+        "quote": "Éramos escépticos al principio. Pero la matemática era obvia. €70K de runway extra por año, con misma liquidez. Nuestro board nos agradeció.",
+        "author": "CFO, Empresa SaaS Series A"
+      },
+      "second": {
+        "quote": "Ojalá hubiéramos hecho esto desde el día uno. Dejamos €30K sobre la mesa en nuestro primer año.",
+        "author": "Fundador, startup Seed"
+      }
+    },
+    "metrics": {
+      "treasury": {
+        "label": "Tesorería combinada bajo gestión",
+        "value": "€2,5M"
+      },
+      "yield": {
+        "label": "Rendimiento promedio del cliente",
+        "value": "7,2% APY"
+      },
+      "onboarding": {
+        "label": "Tiempo promedio de onboarding",
+        "value": "48 horas"
+      }
+    }
+  },
+  "faq": {
+    "header": "FAQs para Fundadores",
+    "description": "Preguntas comunes de fundadores de startups sobre gestión de tesorería.",
+    "ctaText": "Reservar llamada",
+    "items": {
+      "investors": {
+        "question": "¿Qué pensarán mis inversores?",
+        "answer": "La mayoría de los inversores sofisticados esperan optimización de tesorería. Ganar 7% vs 0,5% extiende runway. Proporcionamos materiales listos para el board para comunicar esto claramente."
+      },
+      "compliance": {
+        "question": "¿Qué hay del compliance y auditorías?",
+        "answer": "Proporcionamos documentación completa compatible con prácticas contables estándar. Tu contador recibirá estados mensuales con todos los detalles necesarios."
+      },
+      "liquidity": {
+        "question": "¿Qué pasa si necesito efectivo para nómina o costos inesperados?",
+        "answer": "Retiros el mismo día. Sin bloqueos. Establece un umbral de liquidez y nunca desplegaremos por debajo de esa cantidad. Siempre estás cubierto."
+      },
+      "risk": {
+        "question": "¿Cuál es el riesgo?",
+        "answer": "Los protocolos DeFi tienen riesgo de smart contract. Mitigamos esto usando solo protocolos probados con $10B+ TVL y múltiples auditorías. Ninguna inversión es libre de riesgo — somos transparentes al respecto."
+      },
+      "revenue": {
+        "question": "¿Cómo ganan dinero?",
+        "answer": "Cobramos una comisión del 0,12% sobre el rendimiento ganado. Si no ganas nada, no ganamos nada. Nuestros incentivos están alineados."
+      },
+      "minimum": {
+        "question": "¿Cuál es el mínimo?",
+        "answer": "Trabajamos con startups que gestionan €50K+ en efectivo operativo. Por debajo de eso, el rendimiento puede no justificar el tiempo de configuración."
+      },
+      "onboarding": {
+        "question": "¿Cuánto tiempo toma el onboarding?",
+        "answer": "La mayoría de las empresas están completamente integradas en 48 horas. La configuración en sí toma unos 15 minutos."
+      }
+    }
+  },
+  "process": {
+    "header": "Empezar es simple",
+    "steps": {
+      "book": {
+        "title": "Reservar llamada",
+        "description": "15 minutos. Sin pitch. Solo una conversación honesta sobre si esto tiene sentido para ti."
+      },
+      "review": {
+        "title": "Revisar los números",
+        "description": "Te mostraremos exactamente cuánto podría ganar tu tesorería basado en tu posición de efectivo."
+      },
+      "decide": {
+        "title": "Tomar una decisión",
+        "description": "Si tiene sentido, te ayudamos a configurar. Si no, sin resentimientos."
+      },
+      "goLive": {
+        "title": "Ir en vivo",
+        "description": "El onboarding toma 48 horas. Verás rendimiento acumulándose desde el día uno."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Hablemos de tu tesorería",
+    "body": "15 minutos. Sin pitch. Solo una conversación honesta sobre si esto tiene sentido para ti.",
+    "cta": "Reservar conversación con Bar",
+    "alternativeContact": "O email: bar@diboas.com",
+    "testimonial": {
+      "quote": "Esperaba un pitch de ventas. En cambio, tuve una conversación reflexiva sobre mi situación real. Refrescante.",
+      "author": "Fundador Series A"
+    }
+  },
+  "disclaimer": {
+    "text": "Los rendimientos proyectados son ilustrativos basados en tasas actuales del mercado DeFi. Las tasas son variables y no están garantizadas. El rendimiento pasado no indica resultados futuros. El riesgo de smart contract existe en todos los protocolos DeFi. Solo asigna fondos que puedas arriesgar. diBoaS no proporciona asesoramiento de inversión."
+  }
+}
