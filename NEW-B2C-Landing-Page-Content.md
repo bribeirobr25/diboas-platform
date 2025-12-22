@@ -48,14 +48,14 @@
 > Your money stays yours. Withdraw anytime.
 
 **Social Proof:**
-> ⭐ Join [X] people who said "enough" to a system that wasn't built for them
+> Join [X] people who said "enough" to a system that wasn't built for them
 
 ---
 
 ### SECTION 1: THE PROBLEM
 
 **Header:**
-> 💸 Here's what the banks never told you
+> Here's what the banks never told you
 
 **Body Copy:**
 > Your bank pays you 0.5% interest.
@@ -77,7 +77,7 @@
 ### SECTION 2: HOW IT WORKS
 
 **Header:**
-> How diBoaS works — 3 simple steps
+> How diBoaS works in 3 simple steps
 
 **Step 1:**
 > **Add €**
@@ -85,7 +85,7 @@
 
 **Step 2:**
 > **Earn Yield**
-> Your money earns 6-10% automatically — the same rates banks keep for themselves.
+> Your money earns 6-10% automatically! The same rates banks keep for themselves.
 
 **Step 3:**
 > **Withdraw Anytime**
@@ -102,11 +102,9 @@
 > This is personal
 
 **Body Copy:**
-> I grew up poor in Rio de Janeiro. I worked since I was 9 — mowing lawns, cleaning pools, selling snacks at football games.
+> I grew up poor in Rio de Janeiro. I worked since I was 9. Mowing lawns, cleaning pools, selling snacks at football games.
 >
-> My grandmother taught me to save half of everything. She did the same her whole life.
->
-> She died with nothing.
+> My grandmother taught me to save half of everything. She did the same her whole life. Yet, she couldn't build wealth.
 >
 > Three years ago, I decided to understand why. What I learned made me angry: the system is designed to keep ordinary people out. Banks take your money, earn returns, and give you almost nothing back.
 >
@@ -115,7 +113,7 @@
 > We believe the financial system is designed to keep ordinary people poor. We're building the alternative.
 
 **Signature:**
-> — Bar, Founder
+> Bar, Founder
 
 ---
 
@@ -125,19 +123,19 @@
 > Join the movement
 
 **Stats:**
-> 🚀 [X] people have said "enough" — join them on the waitlist
-> 📍 People from [X] countries are waiting
+> [X] people have said "enough"! Join them on the waitlist
+> People from [X] countries are waiting
 
 **Testimonial Placeholder:**
 > "Finally, something that makes sense for people like me who aren't finance experts. This feels like it was built for us."
-> — Early waitlist member
+> Early waitlist member
 
 ---
 
 ### SECTION 5: DEMO EMBED
 
 **Header:**
-> See it in action — try the demo
+> See it in action. Try the demo
 
 **Subtext:**
 > No signup required. Takes 60 seconds. See what the banks have been keeping from you.
@@ -152,7 +150,7 @@
 > What you need to know
 
 **Q: Is my money safe?**
-> Here's what most people don't know: When you put money in a bank, it's not really "yours" anymore — legally, it becomes the bank's. They lend it out, invest it, and give you 0.5% for the privilege.
+> Here's what most people don't know: When you put money in a bank, it's not really "yours" anymore. Legally, it becomes the bank's. They lend it out, invest it, and give you 0.5% for the privilege.
 >
 > With diBoaS, your funds stay in your own non-custodial wallet. We can't touch your money. We just show you where to put it so it works harder for you.
 >
@@ -193,7 +191,7 @@
 > Join [X] people who said "enough" to a system that wasn't built for them.
 
 **CTA Button:**
-> Join the movement — it's free →
+> Join the movement! It's free →
 
 **Footer:**
 > ⏰ You're #[X] in line for early access
@@ -242,14 +240,14 @@
 ### SECTION 1: THE PROBLEM
 
 **Header:**
-> 💸 Das ist, was die Banken Ihnen nie erzählt haben
+> Das ist, was die Banken Ihnen nie erzählt haben
 
 **Body Copy:**
 > Ihre Bank zahlt Ihnen 0,5% Zinsen.
 > Sie verleihen Ihr Geld und verdienen 7%.
 >
 > Das bedeutet: Ihre 1.000 € Ersparnisse?
-> Nächstes Jahr nach Inflation nur noch 965 € wert. Sie verlieren 35 € — einfach so.
+> Nächstes Jahr nach Inflation nur noch 965 € wert. Sie verlieren 35 €, einfach so.
 >
 > Die Banken verdienen Milliarden mit Ihrem Geld.
 > Sie bekommen Krümel.
@@ -264,7 +262,7 @@
 ### SECTION 2: HOW IT WORKS
 
 **Header:**
-> So funktioniert diBoaS — 3 einfache Schritte
+> So funktioniert diBoaS mit 3 einfache Schritte
 
 **Step 1:**
 > **Einzahlen**
@@ -272,7 +270,7 @@
 
 **Step 2:**
 > **Rendite verdienen**
-> Ihr Geld verdient automatisch 6-10% — die gleichen Raten, die Banken für sich behalten.
+> Ihr Geld verdient automatisch 6-10%! Die gleichen Raten, die Banken für sich behalten.
 
 **Step 3:**
 > **Jederzeit abheben**
@@ -289,7 +287,7 @@
 > Das ist persönlich
 
 **Body Copy:**
-> Ich bin arm in Rio de Janeiro aufgewachsen. Ich habe seit meinem 9. Lebensjahr gearbeitet — Rasen gemäht, Pools gereinigt, Snacks bei Fußballspielen verkauft.
+> Ich bin arm in Rio de Janeiro aufgewachsen. Ich habe seit meinem 9. Lebensjahr gearbeitet. Rasen gemäht, Pools gereinigt, Snacks bei Fußballspielen verkauft.
 >
 > Meine Großmutter hat mir beigebracht, die Hälfte von allem zu sparen. Das hat sie ihr ganzes Leben lang getan.
 >
@@ -300,7 +298,7 @@
 > **diBoaS ist die Antwort, die ich mir für meine Großmutter gewünscht hätte.**
 
 **Signature:**
-> — Bar, Gründer
+> Bar, Gründer
 
 ---
 
@@ -310,8 +308,8 @@
 > Werden Sie Teil der Bewegung
 
 **Stats:**
-> 🚀 [X] Menschen haben "genug" gesagt — schließen Sie sich ihnen an
-> 📍 Menschen aus [X] Ländern warten bereits
+> [X] Menschen haben "genug" gesagt! Schließen Sie sich ihnen an
+> Menschen aus [X] Ländern warten bereits
 
 ---
 
@@ -321,7 +319,7 @@
 > Was Sie wissen müssen
 
 **Q: Ist mein Geld sicher?**
-> Was die meisten nicht wissen: Wenn Sie Geld auf eine Bank legen, gehört es rechtlich nicht mehr Ihnen — es wird zum Eigentum der Bank.
+> Was die meisten nicht wissen: Wenn Sie Geld auf eine Bank legen, gehört es rechtlich nicht mehr Ihnen. Es wird zum Eigentum der Bank.
 >
 > Bei diBoaS bleiben Ihre Mittel in Ihrer eigenen Non-Custodial-Wallet. Wir können Ihr Geld nicht anfassen. Wir zeigen Ihnen nur, wo Sie es anlegen können.
 >
@@ -351,7 +349,7 @@
 > Ihr Geld. Ihre Zukunft. Ihre Regeln.
 
 **CTA Button:**
-> Der Bewegung beitreten — kostenlos →
+> Der Bewegung beitreten! Kostenlos →
 
 ---
 
@@ -394,7 +392,7 @@
 ### SECTION 1: THE PROBLEM
 
 **Header:**
-> 💸 Isso é o que os bancos nunca te contaram
+> Isso é o que os bancos nunca te contaram
 
 **Body Copy:**
 > Seu banco te paga 0,5% de juros.
@@ -416,7 +414,7 @@
 ### SECTION 2: HOW IT WORKS
 
 **Header:**
-> Como o diBoaS funciona — 3 passos simples
+> Como o diBoaS funciona em 3 passos simples
 
 **Step 1:**
 > **Deposita**
@@ -424,7 +422,7 @@
 
 **Step 2:**
 > **Ganha Rendimento**
-> Seu dinheiro rende 6-10% automaticamente — as mesmas taxas que os bancos guardam pra eles.
+> Seu dinheiro rende 6-10% automaticamente! As mesmas taxas que os bancos guardam pra eles.
 
 **Step 3:**
 > **Saca Quando Quiser**
@@ -441,7 +439,7 @@
 > Isso é pessoal
 
 **Body Copy:**
-> Eu cresci pobre no Rio de Janeiro. Trabalho desde os 9 anos — cortando grama, limpando piscina, vendendo lanche em jogo de futebol.
+> Eu cresci pobre no Rio de Janeiro. Trabalho desde os 9 anos. Cortando grama, limpando piscina, vendendo lanche em jogo de futebol.
 >
 > Minha avó me ensinou a guardar metade de tudo. Ela fez isso a vida toda.
 >
@@ -454,7 +452,7 @@
 > A gente acredita que o sistema financeiro foi feito pra manter gente comum pobre. A gente tá construindo a alternativa.
 
 **Signature:**
-> — Bar, Fundador
+> Bar, Fundador
 
 ---
 
@@ -464,12 +462,12 @@
 > Entra pro movimento
 
 **Stats:**
-> 🚀 [X] pessoas já disseram "chega" — entra com a gente
-> 📍 Gente de [X] países esperando
+> [X] pessoas já disseram "chega"! Entra com a gente
+> Gente de [X] países esperando
 
 **Testimonial Placeholder:**
 > "Finalmente algo que faz sentido pra quem não é especialista em finanças. Parece que foi feito pra gente."
-> — Membro da lista de espera
+> Membro da lista de espera
 
 ---
 
@@ -479,7 +477,7 @@
 > O que você precisa saber
 
 **Q: Meu dinheiro tá seguro?**
-> O que a maioria não sabe: quando você coloca dinheiro no banco, legalmente não é mais seu — vira propriedade do banco. Eles emprestam, investem, e te dão 0,5% pelo privilégio.
+> O que a maioria não sabe: quando você coloca dinheiro no banco, legalmente não é mais seu. Vira propriedade do banco. Eles emprestam, investem, e te dão 0,5% pelo privilégio.
 >
 > No diBoaS, seu dinheiro fica na sua própria carteira não-custodial. A gente não pode tocar no seu dinheiro. A gente só mostra onde colocar pra render mais.
 
@@ -510,7 +508,7 @@
 > Seu dinheiro. Seu futuro. Suas regras.
 
 **CTA Button:**
-> Entra pro movimento — é grátis →
+> Entra pro movimento! É grátis →
 
 **Highlight:**
 > Comece com o que não vai fazer falta. Até R$5. O importante é começar.
@@ -556,7 +554,7 @@
 ### SECTION 1: THE PROBLEM
 
 **Header:**
-> 💸 Esto es lo que los bancos nunca te dijeron
+> Esto es lo que los bancos nunca te dijeron
 
 **Body Copy:**
 > Tu banco te paga 0,5% de interés.
@@ -578,7 +576,7 @@
 ### SECTION 2: HOW IT WORKS
 
 **Header:**
-> Cómo funciona diBoaS — 3 pasos simples
+> Cómo funciona diBoaS en 3 pasos simples
 
 **Step 1:**
 > **Deposita**
@@ -586,7 +584,7 @@
 
 **Step 2:**
 > **Gana Rendimiento**
-> Tu dinero gana 6-10% automáticamente — las mismas tasas que los bancos guardan para ellos.
+> Tu dinero gana 6-10% automáticamente! Las mismas tasas que los bancos guardan para ellos.
 
 **Step 3:**
 > **Retira Cuando Quieras**
@@ -600,7 +598,7 @@
 > Esto es personal
 
 **Body Copy:**
-> Crecí pobre en Río de Janeiro. Trabajo desde los 9 años — cortando césped, limpiando piscinas, vendiendo snacks en partidos de fútbol.
+> Crecí pobre en Río de Janeiro. Trabajo desde los 9 años. Cortando césped, limpiando piscinas, vendiendo snacks en partidos de fútbol.
 >
 > Mi abuela me enseñó a ahorrar la mitad de todo. Ella hizo lo mismo toda su vida.
 >
@@ -611,7 +609,7 @@
 > **diBoaS es la respuesta que desearía que mi abuela hubiera tenido.**
 
 **Signature:**
-> — Bar, Fundador
+> Bar, Fundador
 
 ---
 
@@ -621,8 +619,8 @@
 > Únete al movimiento
 
 **Stats:**
-> 🚀 [X] personas han dicho "basta" — únete a ellas
-> 📍 Gente de [X] países esperando
+> [X] personas han dicho "basta"! Únete a ellas
+> Gente de [X] países esperando
 
 ---
 
@@ -632,7 +630,7 @@
 > Lo que necesitas saber
 
 **Q: ¿Mi dinero está seguro?**
-> Lo que la mayoría no sabe: cuando pones dinero en un banco, legalmente ya no es "tuyo" — se convierte en propiedad del banco.
+> Lo que la mayoría no sabe: cuando pones dinero en un banco, legalmente ya no es "tuyo". Se convierte en propiedad del banco.
 >
 > Con diBoaS, tus fondos permanecen en tu propia billetera no custodial. No podemos tocar tu dinero. Solo te mostramos dónde ponerlo para que trabaje más duro.
 
@@ -660,7 +658,7 @@
 > Tu dinero. Tu futuro. Tus reglas.
 
 **CTA Button:**
-> Únete al movimiento — es gratis →
+> Únete al movimiento! Es gratis →
 
 **Highlight:**
 > Empieza con lo que no vayas a extrañar. Incluso €5. Lo importante es empezar.
@@ -789,7 +787,7 @@ disclaimer.text
 
 ## CTAs to Test
 
-- A: "Join the movement — it's free"
+- A: "Join the movement! It's free"
 - B: "See how your money could grow"
 - C: "Join [X] people who said enough"
 

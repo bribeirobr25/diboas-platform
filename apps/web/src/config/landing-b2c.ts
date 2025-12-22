@@ -135,8 +135,44 @@ export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
 };
 
 /**
+ * Why We Built This Section Configuration (FeatureShowcase)
+ * Maps to: Section 3 - Origin Story
+ */
+export const B2C_ORIGIN_STORY_CONFIG: FeatureShowcaseVariantConfig = {
+  variant: 'default',
+  slides: [
+    {
+      id: 'origin-story',
+      content: {
+        title: 'landing-b2c.whyWeBuiltThis.header',
+        description: 'landing-b2c.whyWeBuiltThis.story',
+        ctaText: 'landing-b2c.whyWeBuiltThis.signature',
+        ctaHref: '#waitlist',
+        ctaTarget: '_self'
+      },
+      assets: {
+        primaryImage: getSocialRealAsset('LIFE_FAMILY_BIKE')
+      },
+      seo: {
+        imageAlt: 'Founder story - Building for ordinary people'
+      }
+    }
+  ],
+  settings: {
+    showNavigation: false,
+    showDots: false,
+    enableAnalytics: true,
+    transitionDuration: 250
+  },
+  analytics: {
+    trackingPrefix: 'origin_story_b2c_landing',
+    enabled: true
+  }
+};
+
+/**
  * Social Proof Section Configuration (BenefitsCards)
- * Maps to: Section 3 - Social Proof
+ * Maps to: Section 4 - Social Proof
  */
 export const B2C_SOCIAL_PROOF_CONFIG: BenefitsCardsConfig = {
   section: {

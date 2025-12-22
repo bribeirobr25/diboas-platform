@@ -1,74 +1,81 @@
 {
   "hero": {
-    "headline": "E se seu PIX pudesse multiplicar?",
-    "subheadline": "Recebeu um PIX? Fa\u00e7a ele crescer. Comece com apenas R$5.",
-    "cta": "Veja seu dinheiro crescer",
-    "trust": "Seu dinheiro \u00e9 seu. Saque quando quiser.",
-    "socialProof": "Junte-se a {count} pessoas na lista de espera"
+    "headlineLine1": "Minha avó guardava metade de tudo que ganhava.",
+    "headlineLine2": "Mesmo assim, nunca conseguiu construir riqueza.",
+    "headline": "Minha avó guardava metade de tudo que ganhava. Mesmo assim, nunca conseguiu construir riqueza.",
+    "subheadline": "Isso é o que os bancos nunca contaram pra ela.",
+    "valueProp": "diBoaS dá às pessoas comuns as mesmas vantagens financeiras que os ricos sempre tiveram.",
+    "cta": "Veja como seu dinheiro pode crescer →",
+    "trust": "Seu dinheiro continua seu. Saque quando quiser.",
+    "socialProof": "Junte-se a {count} pessoas que disseram \"chega\" pro sistema que não foi feito pra gente"
   },
   "problem": {
-    "header": "Voc\u00ea sabia disso?",
-    "body": "Seu banco paga 0,5% ao ano.\nA infla\u00e7\u00e3o est\u00e1 em 4%.\n\nIsso significa que seus R$1.000 guardados?\nValer\u00e3o R$965 no ano que vem. Voc\u00ea perde R$35 sem fazer nada.\n\nOs bancos ganham bilh\u00f5es com seu dinheiro.\nVoc\u00ea recebe migalhas.",
-    "cta": "Existe um jeito melhor"
+    "header": "💸 Isso é o que os bancos nunca te contaram",
+    "body": "Seu banco te paga 0,5% de juros.\nEles emprestam seu dinheiro e ganham 7%.\n\nIsso significa que suas economias de R$1.000?\nValem R$965 no ano que vem depois da inflação. Você está perdendo R$35 sem fazer nada.\n\nOs bancos ganham bilhões com o seu dinheiro.\nVocê recebe migalhas.",
+    "grandmotherLine": "Minha avó aprendeu isso do jeito difícil. Você não precisa.",
+    "cta": "Tem um jeito melhor →"
   },
   "howItWorks": {
-    "header": "Como o diBoaS funciona - 3 passos simples",
+    "header": "Como o diBoaS funciona — 3 passos simples",
     "step1": {
-      "title": "Deposite via PIX",
-      "description": "A partir de R$5. Leva 2 minutos."
+      "title": "Deposita",
+      "description": "A partir de R$5. Leva 2 minutos. Via PIX."
     },
     "step2": {
-      "title": "Veja crescer",
-      "description": "Seu dinheiro rende 6-10% ao ano, automaticamente."
+      "title": "Ganha Rendimento",
+      "description": "Seu dinheiro rende 6-10% automaticamente — as mesmas taxas que os bancos guardam pra eles."
     },
     "step3": {
-      "title": "Saque quando quiser",
-      "description": "Precisa do dinheiro? Um clique. No mesmo dia. Sem car\u00eancia."
+      "title": "Saca Quando Quiser",
+      "description": "Precisa do dinheiro? Um toque. No mesmo dia. Sem carência. Sem multa."
     },
-    "highlight": "At\u00e9 R$5 vira R$5,40 em um ano. N\u00e3o \u00e9 sobre o valor. \u00c9 sobre o h\u00e1bito.",
-    "cta": "Experimente na demo"
+    "footerNote": "💚 Depósitos e saques via PIX. Simples assim.",
+    "cta": "Testa no nosso demo →"
   },
-  "pixNative": {
-    "header": "Funciona com PIX",
-    "body": "Voc\u00ea j\u00e1 usa PIX todo dia. Agora seu PIX pode render.\n\nRecebeu pagamento? Fa\u00e7a crescer.\nRecebeu presente? Fa\u00e7a crescer.\nSobrou um trocado? Fa\u00e7a crescer."
+  "whyWeBuiltThis": {
+    "header": "Isso é pessoal",
+    "story": "Eu cresci pobre no Rio de Janeiro. Trabalho desde os 9 anos — cortando grama, limpando piscina, vendendo lanche em jogo de futebol.\n\nMinha avó me ensinou a guardar metade de tudo. Ela fez isso a vida toda.\n\nEla morreu sem nada.\n\nTrês anos atrás, eu decidi entender por quê. O que eu aprendi me deixou com raiva: o sistema é feito pra deixar gente comum de fora. Os bancos pegam seu dinheiro, ganham rendimento, e devolvem quase nada.",
+    "mission": "diBoaS é a resposta que eu queria que minha avó tivesse.",
+    "belief": "A gente acredita que o sistema financeiro foi feito pra manter gente comum pobre. A gente tá construindo a alternativa.",
+    "signature": "— Bar, Fundador"
   },
   "socialProof": {
-    "header": "Fa\u00e7a parte do movimento",
+    "header": "Entra pro movimento",
     "stats": {
-      "waitlist": "{count} pessoas j\u00e1 est\u00e3o esperando",
-      "countries": "Brasileiros de todos os estados"
+      "waitlist": "🚀 {count} pessoas já disseram \"chega\" — entra com a gente",
+      "countries": "📍 Gente de {count} países esperando"
     },
     "testimonial": {
-      "quote": "Finalmente algo que faz sentido pra quem n\u00e3o \u00e9 expert em finan\u00e7as.",
+      "quote": "Finalmente algo que faz sentido pra quem não é especialista em finanças. Parece que foi feito pra gente.",
       "author": "Membro da lista de espera"
     }
   },
   "demo": {
-    "header": "Veja funcionando - teste a demo",
-    "subtext": "Sem cadastro. Leva 60 segundos.",
+    "header": "Veja na prática — teste o demo",
+    "subtext": "Não precisa cadastrar. Leva 60 segundos. Veja o que os bancos escondem de você.",
     "pain": {
       "header": "Suas economias hoje",
       "pixHeader": "Você recebeu um PIX",
-      "subtext": "Rendimento este ano: {interest}",
-      "hook": "Esse dinheiro vai ficar parado na sua conta. Ou... pode começar a crescer.",
-      "cta": "Fazer esse PIX crescer"
+      "subtext": "Juros ganhos esse ano: {interest}",
+      "hook": "Isso não dá nem um café. O banco fica com o resto.",
+      "cta": "E se...?"
     },
     "hope": {
-      "header": "E se esse PIX pudesse multiplicar?",
-      "projectionLabel": "Em 1 ano com 8% ao ano:",
-      "comparison": "São {projected} ao invés de {current} do banco.",
-      "impact": "Mesmo dinheiro. Lugar mais inteligente. 16x mais rendimento.",
+      "header": "E se esse dinheiro crescesse?",
+      "projectionLabel": "Em 1 ano a 8% ao ano:",
+      "comparison": "Isso é {projected} em vez de {current}.",
+      "impact": "Mesmo dinheiro. Lugar mais inteligente. 16x mais crescimento.",
       "cta": "Me mostra como"
     },
     "action": {
       "header": "Começa com um depósito",
       "prompt": "Quanto você quer fazer crescer?",
-      "reassurance1": "Escolha qualquer valor. Comece pequeno.",
+      "reassurance1": "Escolhe qualquer valor. Começa pequeno.",
       "reassurance2": "Sem mínimo. Sem julgamento.",
       "cta": "Depositar"
     },
     "reward": {
-      "header": "Seu dinheiro está crescendo!",
+      "header": "Seu dinheiro tá crescendo!",
       "delight": "Você acabou de ganhar {earned} enquanto lia isso.",
       "vision": "Imagina o que acontece enquanto você dorme.",
       "sharePrompt": "Bem legal, né?",
@@ -76,64 +83,70 @@
       "continueCta": "Continuar"
     },
     "invitation": {
-      "header": "Isso foi uma demo. Imagina de verdade.",
-      "subheader": "Dinheiro de verdade. Crescimento de verdade. Controle de verdade.",
-      "callToAction": "Vamos lançar em breve. Garanta seu acesso antecipado.",
+      "header": "Isso foi um demo. Imagina o negócio real.",
+      "subheader": "Dinheiro real. Crescimento real. Controle real.",
+      "callToAction": "A gente vai lançar em breve. Garante acesso antecipado.",
       "emailPlaceholder": "Digite seu email",
-      "submitButton": "Garantir meu lugar na fila",
+      "submitButton": "Garantir meu lugar na lista",
       "trustPoint1": "Sem spam, nunca",
       "trustPoint2": "Acesso antecipado no lançamento",
-      "trustPoint3": "Convide amigos = pule a fila"
+      "trustPoint3": "Convida amigos = passa na frente"
     },
     "success": {
-      "header": "Você está dentro!",
+      "header": "Você tá dentro!",
       "positionLabel": "Você é o #{position} na lista de espera",
-      "incentiveHeader": "Quer pular a fila?",
-      "incentiveMechanic": "Cada amigo que entrar = você sobe 10 posições.",
-      "linkBoxLabel": "Copie seu link de convite",
-      "shareLabel": "Ou compartilhe diretamente:",
+      "incentiveHeader": "Quer passar na frente?",
+      "incentiveMechanic": "Cada amigo que entra = você sobe 10 posições.",
+      "linkBoxLabel": "Copia seu link de convite",
+      "shareLabel": "Ou compartilha direto:",
       "copyLink": "Copiar Link",
-      "prewrittenMessage": "Acabei de entrar na lista do diBoaS — finalmente um jeito de fazer meu dinheiro render de verdade. 8% ao ano vs 0,5% do banco. Dá uma olhada"
+      "prewrittenMessage": "Acabei de entrar pro diBoaS — finalmente um jeito de fazer minhas economias crescerem de verdade. 8% contra 0,5% do banco. Dá uma olhada"
     }
   },
   "faq": {
-    "header": "Perguntas frequentes",
-    "description": "Respostas para as perguntas mais comuns sobre o diBoaS.",
+    "header": "O que você precisa saber",
+    "description": "Respostas pras dúvidas mais comuns sobre o diBoaS.",
     "ctaText": "Entrar na lista de espera",
     "items": {
       "safety": {
-        "question": "Meu dinheiro est\u00e1 seguro?",
-        "answer": "Seus fundos ficam na sua pr\u00f3pria carteira n\u00e3o-custodial. Nunca tocamos no seu dinheiro - apenas mostramos onde colocar. Os protocolos que usamos (Aave, Compound) j\u00e1 protegeram bilh\u00f5es de d\u00f3lares."
+        "question": "Meu dinheiro tá seguro?",
+        "answer": "O que a maioria não sabe: quando você coloca dinheiro no banco, legalmente não é mais seu — vira propriedade do banco. Eles emprestam, investem, e te dão 0,5% pelo privilégio.\n\nNo diBoaS, seu dinheiro fica na sua própria carteira não-custodial. A gente não pode tocar no seu dinheiro. A gente só mostra onde colocar pra render mais.\n\nOs protocolos que a gente usa (Aave, Compound) já protegeram bilhões de dólares e são testados há anos."
       },
       "risks": {
-        "question": "Quais s\u00e3o os riscos?",
-        "answer": "Rendimentos DeFi n\u00e3o s\u00e3o dep\u00f3sitos banc\u00e1rios. Existe risco de smart contract. Usamos apenas protocolos testados, mas nenhum investimento \u00e9 livre de risco. Nunca invista mais do que pode perder."
-      },
-      "withdraw": {
-        "question": "Posso sacar quando quiser?",
-        "answer": "Sim. Sem car\u00eancia. Seu dinheiro est\u00e1 sempre acess\u00edvel. Saques geralmente s\u00e3o processados no mesmo dia."
+        "question": "Quais são os riscos?",
+        "answer": "Vamos ser honestos: rendimentos DeFi não são depósitos bancários. Existe risco de smart contract. A gente só usa protocolos testados com mais de $10 bilhões em ativos, mas nenhum investimento é sem risco.\n\nPor isso a gente diz: comece com o que não vai fazer falta. Até R$5 já dá pra começar."
       },
       "revenue": {
-        "question": "Como voc\u00eas ganham dinheiro?",
-        "answer": "Cobramos uma pequena taxa (0,12%) sobre seus rendimentos. Se voc\u00ea n\u00e3o ganha, n\u00e3o ganhamos."
-      },
-      "crypto": {
-        "question": "Preciso entender de cripto?",
-        "answer": "N\u00e3o. Cuidamos de toda a complexidade. Voc\u00ea s\u00f3 v\u00ea seu dinheiro crescendo. Sem carteiras complicadas, sem seed phrases, sem gr\u00e1ficos confusos."
+        "question": "Como vocês ganham dinheiro?",
+        "answer": "Cobramos uma pequena taxa (0,12%) quando você ganha. Se você não ganha, a gente não ganha.\n\nNosso sucesso depende do seu sucesso. É assim que deve ser."
       },
       "pix": {
         "question": "Funciona com PIX?",
-        "answer": "Sim! Dep\u00f3sitos e saques via PIX. Simples assim."
+        "answer": "Sim! Depósitos e saques via PIX. Simples assim."
+      },
+      "withdraw": {
+        "question": "Posso sacar quando quiser?",
+        "answer": "Sim. Sem carência. Sem multa. Seu dinheiro tá sempre acessível. Saques geralmente caem no mesmo dia.\n\nÉ seu dinheiro. A gente acredita que você sempre deve ter acesso."
+      },
+      "crypto": {
+        "question": "Preciso entender de cripto?",
+        "answer": "Não. A gente cuida de toda a complexidade. Você só vê seu dinheiro crescendo. Sem carteiras complicadas, sem seed phrases, sem gráficos confusos.\n\nPensa assim: você não precisa saber como funciona o motor de um carro pra dirigir. Só precisa saber que ele te leva onde você quer ir."
+      },
+      "regulation": {
+        "question": "É regulamentado?",
+        "answer": "Sim. Operamos sob o framework MiCA da UE com autorização CASP planejada. Usamos apenas protocolos com mais de $10 bilhões em valor total e múltiplas auditorias de segurança.\n\nRigor alemão com finanças justas."
       }
     }
   },
   "finalCta": {
-    "header": "Pronto pra fazer seu dinheiro trabalhar?",
-    "body": "Junte-se a milhares de pessoas que cansaram de ver suas economias perderem valor.\n\nO acesso antecipado abre em breve. Garanta seu lugar.",
-    "button": "Entrar na lista de espera - \u00e9 gr\u00e1tis",
-    "highlight": "Comece com o que n\u00e3o vai fazer falta. At\u00e9 R$5. O importante \u00e9 come\u00e7ar."
+    "header": "Pra todo mundo que guardou e mesmo assim ficou sem nada",
+    "body": "A gente tá construindo algo diferente.\n\nSeu dinheiro. Seu futuro. Suas regras.\n\nJunte-se a {count} pessoas que disseram \"chega\" pro sistema que não foi feito pra gente.",
+    "anthem": "Seu dinheiro. Seu futuro. Suas regras.",
+    "button": "Entra pro movimento — é grátis →",
+    "footer": "⏰ Você é o #{position} na fila pro acesso antecipado",
+    "highlight": "Comece com o que não vai fazer falta. Até R$5. O importante é começar."
   },
   "disclaimer": {
-    "text": "Os rendimentos mostrados s\u00e3o ilustrativos, baseados nas taxas atuais do mercado DeFi. Os rendimentos s\u00e3o vari\u00e1veis e n\u00e3o garantidos. Desempenho passado n\u00e3o indica resultados futuros. Seu capital est\u00e1 em risco. Comece com um valor que n\u00e3o far\u00e1 falta."
+    "text": "Os rendimentos mostrados são ilustrativos, baseados nas taxas atuais do mercado DeFi. Os rendimentos são variáveis e não garantidos. Desempenho passado não indica resultados futuros. Seu capital está em risco. Comece com um valor que não fará falta."
   }
 }

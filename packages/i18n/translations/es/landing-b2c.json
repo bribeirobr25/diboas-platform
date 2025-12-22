@@ -1,51 +1,58 @@
 {
   "hero": {
-    "headline": "Tu dinero puede crecer. Empieza con \u20ac5.",
-    "subheadline": "diBoaS convierte tu dinero inactivo en crecimiento real - desde solo \u20ac5.",
-    "cta": "Mira c\u00f3mo puede crecer tu dinero",
+    "headlineLine1": "Mi abuela ahorraba la mitad de todo lo que ganaba.",
+    "headlineLine2": "Aún así, nunca pudo construir riqueza.",
+    "headline": "Mi abuela ahorraba la mitad de todo lo que ganaba. Aún así, nunca pudo construir riqueza.",
+    "subheadline": "Esto es lo que los bancos nunca le dijeron.",
+    "valueProp": "diBoaS da a la gente común las mismas ventajas financieras que los ricos siempre han tenido.",
+    "cta": "Mira cómo puede crecer tu dinero →",
     "trust": "Tu dinero sigue siendo tuyo. Retira cuando quieras.",
-    "socialProof": "\u00danete a {count} personas en la lista de espera"
+    "socialProof": "Únete a {count} personas que dijeron \"basta\" a un sistema que no fue hecho para ellos"
   },
   "problem": {
-    "header": "Esto es lo que est\u00e1 pasando ahora mismo",
-    "body": "Tu banco te paga 0,5% de inter\u00e9s.\nLa inflaci\u00f3n est\u00e1 en 4%.\n\nEso significa que tus \u20ac1.000 ahorrados?\nValdr\u00e1n \u20ac965 el pr\u00f3ximo a\u00f1o. Est\u00e1s perdiendo \u20ac35 sin hacer nada.\n\nLos bancos ganan miles de millones con tu dinero.\nT\u00fa recibes migajas.",
-    "cta": "Hay una forma mejor"
+    "header": "💸 Esto es lo que los bancos nunca te dijeron",
+    "body": "Tu banco te paga 0,5% de interés.\nEllos prestan tu dinero y ganan 7%.\n\nEso significa que tus €1.000 ahorrados?\nValdrán €965 el próximo año después de la inflación. Estás perdiendo €35 sin hacer nada.\n\nLos bancos ganan miles de millones con tu dinero.\nTú recibes migajas.",
+    "grandmotherLine": "Mi abuela aprendió esto de la manera difícil. Tú no tienes que hacerlo.",
+    "cta": "Hay una forma mejor →"
   },
   "howItWorks": {
-    "header": "C\u00f3mo funciona diBoaS - 3 pasos simples",
+    "header": "Cómo funciona diBoaS — 3 pasos simples",
     "step1": {
       "title": "Deposita",
-      "description": "Desde tan solo \u20ac5. Toma 2 minutos."
+      "description": "Desde tan solo €5. Toma 2 minutos."
     },
     "step2": {
-      "title": "Gana rendimiento",
-      "description": "Tu dinero gana 6-10% autom\u00e1ticamente."
+      "title": "Gana Rendimiento",
+      "description": "Tu dinero gana 6-10% automáticamente — las mismas tasas que los bancos guardan para ellos."
     },
     "step3": {
-      "title": "Retira cuando quieras",
-      "description": "\u00bfLo necesitas? Un clic. El mismo d\u00eda. Sin bloqueos."
+      "title": "Retira Cuando Quieras",
+      "description": "¿Lo necesitas? Un toque. El mismo día. Sin bloqueos. Sin penalizaciones."
     },
-    "highlight": "Incluso \u20ac5 se convierten en \u20ac5,40 en un a\u00f1o. No se trata de la cantidad. Se trata del h\u00e1bito.",
-    "cta": "Pru\u00e9balo en la demo"
+    "footerNote": "Estados de cuenta mensuales compatibles con tu contador.",
+    "cta": "Pruébalo en nuestra demo →"
   },
-  "accessibility": {
-    "header": "Hecho para todos",
-    "body": "No necesitas ser rico para hacer crecer tu dinero.\nNo necesitas ser experto en finanzas.\nSolo necesitas empezar.\n\nIncluso \u20ac5 es un comienzo. Lo importante es el primer paso."
+  "whyWeBuiltThis": {
+    "header": "Esto es personal",
+    "story": "Crecí pobre en Río de Janeiro. Trabajo desde los 9 años — cortando césped, limpiando piscinas, vendiendo snacks en partidos de fútbol.\n\nMi abuela me enseñó a ahorrar la mitad de todo. Ella hizo lo mismo toda su vida.\n\nMurió sin nada.\n\nHace tres años, decidí entender por qué. Lo que aprendí me hizo enojar: el sistema está diseñado para mantener a la gente común afuera. Los bancos toman tu dinero, ganan rendimientos, y te devuelven casi nada.",
+    "mission": "diBoaS es la respuesta que desearía que mi abuela hubiera tenido.",
+    "belief": "Creemos que el sistema financiero está diseñado para mantener a la gente común pobre. Estamos construyendo la alternativa.",
+    "signature": "— Bar, Fundador"
   },
   "socialProof": {
-    "header": "\u00danete al movimiento",
+    "header": "Únete al movimiento",
     "stats": {
-      "waitlist": "{count} personas ya est\u00e1n esperando",
-      "countries": "Personas de {count} pa\u00edses"
+      "waitlist": "🚀 {count} personas han dicho \"basta\" — únete a ellas",
+      "countries": "📍 Gente de {count} países esperando"
     },
     "testimonial": {
-      "quote": "Por fin algo que tiene sentido para gente como yo que no somos expertos en finanzas.",
+      "quote": "Por fin algo que tiene sentido para gente como yo que no somos expertos en finanzas. Parece que fue hecho para nosotros.",
       "author": "Miembro de la lista de espera"
     }
   },
   "demo": {
-    "header": "Míralo en acción - prueba la demo",
-    "subtext": "Sin registro. Toma 60 segundos.",
+    "header": "Míralo en acción — prueba la demo",
+    "subtext": "Sin registro. Toma 60 segundos. Mira lo que los bancos te han estado ocultando.",
     "pain": {
       "header": "Tus ahorros hoy",
       "pixHeader": "Recibiste un PIX",
@@ -97,39 +104,49 @@
     }
   },
   "faq": {
-    "header": "Preguntas frecuentes",
-    "description": "Respuestas a las preguntas m\u00e1s comunes sobre diBoaS.",
+    "header": "Lo que necesitas saber",
+    "description": "Respuestas a las preguntas más comunes sobre diBoaS.",
     "ctaText": "Unirse a la lista de espera",
     "items": {
       "safety": {
-        "question": "\u00bfMi dinero est\u00e1 seguro?",
-        "answer": "Tus fondos se mantienen en tu propia wallet no-custodial. Nunca tocamos tu dinero - solo te mostramos d\u00f3nde ponerlo. Los protocolos que usamos (Aave, Compound) han asegurado miles de millones de d\u00f3lares."
+        "question": "¿Mi dinero está seguro?",
+        "answer": "Lo que la mayoría no sabe: cuando pones dinero en un banco, legalmente ya no es \"tuyo\" — se convierte en propiedad del banco. Lo prestan, lo invierten, y te dan 0,5% por el privilegio.\n\nCon diBoaS, tus fondos permanecen en tu propia billetera no custodial. No podemos tocar tu dinero. Solo te mostramos dónde ponerlo para que trabaje más duro.\n\nLos protocolos que usamos (Aave, Compound) han asegurado miles de millones de dólares y han sido probados durante años."
       },
       "risks": {
-        "question": "\u00bfCu\u00e1les son los riesgos?",
-        "answer": "Los rendimientos DeFi no son dep\u00f3sitos bancarios. Existe riesgo de smart contract. Solo usamos protocolos probados, pero ninguna inversi\u00f3n est\u00e1 libre de riesgo. Nunca inviertas m\u00e1s de lo que puedas permitirte perder."
+        "question": "¿Cuáles son los riesgos?",
+        "answer": "Seamos honestos: los rendimientos DeFi no son depósitos bancarios. Existe riesgo de contratos inteligentes. Solo usamos protocolos probados con más de $10B en activos, pero ninguna inversión está libre de riesgo.\n\nPor eso decimos: empieza con lo que no vayas a extrañar. Incluso €5 es suficiente para comenzar."
       },
       "withdraw": {
-        "question": "\u00bfPuedo retirar cuando quiera?",
-        "answer": "S\u00ed. Sin bloqueos. Tu dinero siempre est\u00e1 accesible. Los retiros generalmente se completan el mismo d\u00eda."
+        "question": "¿Puedo retirar cuando quiera?",
+        "answer": "Sí. Sin bloqueos. Sin penalizaciones. Tu dinero siempre está accesible. Los retiros generalmente se completan el mismo día.\n\nEste es tu dinero. Creemos que siempre deberías tener acceso a él."
       },
       "revenue": {
-        "question": "\u00bfC\u00f3mo ganan dinero ustedes?",
-        "answer": "Cobramos una peque\u00f1a comisi\u00f3n (0,12%) cuando t\u00fa ganas. Si no ganas, nosotros no ganamos. Estamos alineados."
+        "question": "¿Cómo ganan dinero ustedes?",
+        "answer": "Cobramos una pequeña comisión (0,12%) cuando tú ganas. Si no ganas, nosotros no ganamos.\n\nNuestro éxito depende de tu éxito. Así es como debe ser."
       },
       "crypto": {
-        "question": "\u00bfNecesito entender de cripto?",
-        "answer": "No. Nosotros manejamos toda la complejidad. T\u00fa solo ves tu dinero crecer. Sin wallets, sin seed phrases, sin gr\u00e1ficos confusos."
+        "question": "¿Necesito entender de cripto?",
+        "answer": "No. Nosotros manejamos toda la complejidad. Tú solo ves tu dinero crecer. Sin billeteras, sin seed phrases, sin gráficos confusos.\n\nPiénsalo así: no necesitas saber cómo funciona el motor de un auto para conducir. Solo necesitas saber que te lleva a donde quieres ir."
+      },
+      "regulation": {
+        "question": "¿Está regulado?",
+        "answer": "Sí. Operamos bajo el marco MiCA de la UE con autorización CASP planificada. Solo usamos protocolos con más de $10 mil millones en valor total y múltiples auditorías de seguridad.\n\nRigor alemán con finanzas justas."
+      },
+      "pix": {
+        "question": "¿Funciona con PIX?",
+        "answer": "¡Sí! Depósitos y retiros vía PIX. Así de simple."
       }
     }
   },
   "finalCta": {
-    "header": "\u00bfListo para poner tu dinero a trabajar?",
-    "body": "\u00danete a miles de personas que est\u00e1n cansadas de ver c\u00f3mo sus ahorros pierden valor.\n\nEl acceso anticipado abre pronto. Reserva tu lugar.",
-    "button": "\u00danete a la lista de espera - es gratis",
-    "highlight": "Empieza con lo que no vayas a extra\u00f1ar. Incluso \u20ac5. Lo importante es empezar."
+    "header": "Para todos los que ahorraron y aún así no tenían nada",
+    "body": "Estamos construyendo algo diferente.\n\nTu dinero. Tu futuro. Tus reglas.\n\nÚnete a {count} personas que dijeron \"basta\" a un sistema que no fue hecho para ellos.",
+    "anthem": "Tu dinero. Tu futuro. Tus reglas.",
+    "button": "Únete al movimiento — es gratis →",
+    "footer": "⏰ Eres el #{position} en la fila para acceso anticipado",
+    "highlight": "Empieza con lo que no vayas a extrañar. Incluso €5. Lo importante es empezar."
   },
   "disclaimer": {
-    "text": "Los rendimientos mostrados son ilustrativos basados en las tasas actuales del mercado DeFi. Los rendimientos son variables y no est\u00e1n garantizados. El rendimiento pasado no indica resultados futuros. Tu capital est\u00e1 en riesgo. Empieza con lo que no vayas a extra\u00f1ar."
+    "text": "Los rendimientos mostrados son ilustrativos basados en las tasas actuales del mercado DeFi. Los rendimientos son variables y no están garantizados. El rendimiento pasado no indica resultados futuros. Tu capital está en riesgo. Empieza con lo que no vayas a extrañar."
   }
 }

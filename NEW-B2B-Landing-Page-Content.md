@@ -26,7 +26,7 @@
 > Your startup's treasury is earning 0%.
 
 **Uncomfortable Truth Line:**
-> Your bank is earning 7% — with your money.
+> Your bank is earning 7% with your money.
 
 **Impact Statement:**
 > That €65,000 difference? That's your runway.
@@ -39,11 +39,11 @@
 > Book a 15-min conversation
 
 **Social Proof Quote:**
-> "We moved €200K of idle cash. Now it works for us — not the bank."
-> — Founder, Series A startup
+> "We moved €200K of idle cash. Now it works for us, not the bank."
+> Founder, Series A startup
 
 **Trust Badges:**
-> 🛡️ MiCA-compliant | 🔒 Non-custodial | ✓ Audited protocols | 📊 Board-ready reporting
+> MiCA-compliant | Non-custodial | Audited protocols | Board-ready reporting
 
 ---
 
@@ -59,8 +59,8 @@
 > Here's what your bank doesn't tell you:
 >
 > **Your bank pays:** 0.5% = €5,000/year
-> **Your bank earns:** 7% = €70,000/year — with YOUR money
-> **diBoaS pays:** 7% = €70,000/year — to YOU
+> **Your bank earns:** 7% = €70,000/year with YOUR money
+> **diBoaS pays:** 7% = €70,000/year to YOU
 >
 > That's **€65,000 in potential runway** your bank is keeping.
 >
@@ -77,16 +77,16 @@
 > This isn't just about yields. It's about fairness.
 
 **Body Copy:**
-> The same system that kept my grandmother poor — a woman who saved half of everything she earned and still died with nothing — is the same system keeping your startup's cash idle.
+> The same system that kept my grandmother poor, a woman who saved half of everything she earned and still did not make it. Is the same system keeping your startup's cash idle.
 >
 > Banks take your money, earn returns, and give you almost nothing back. They've done this for generations. They do it to families. They do it to founders.
 >
 > **We believe founders deserve what banks keep for themselves.**
 >
-> diBoaS Treasury exists because the playing field should be level — whether you're a grandmother in Rio de Janeiro or a founder in Berlin.
+> diBoaS Treasury exists because the playing field should be level. Whether you're a grandmother in Rio de Janeiro or a founder in Berlin.
 
 **Signature:**
-> — Bar, Founder
+> Bar, Founder
 
 ---
 
@@ -110,7 +110,7 @@
 > Your bank is keeping €32,500 that could be yours. Every year.
 
 **Calculator CTA:**
-> See these numbers in action — book a call →
+> See these numbers in action. Book a call →
 
 ---
 
@@ -126,7 +126,7 @@
 > Choose how much idle cash to deploy. Set your liquidity threshold (e.g., "always keep €50K available"). We'll never deploy below that.
 
 **Step 3: EARN**
-> Your allocated cash earns 6-8% APY through battle-tested DeFi protocols (Aave, Compound). The same rates banks earn — now yours.
+> Your allocated cash earns 6-8% APY through battle-tested DeFi protocols (Aave, Compound). The same rates banks earn. Now yours.
 
 **Step 4: WITHDRAW**
 > Need cash for payroll? One click. Same-day settlement. No lock-ups. No penalties. No questions.
@@ -180,7 +180,7 @@
 > ✗ Not comfortable with any smart contract risk
 
 **Honest Note:**
-> We're not for everyone. If you need absolute certainty, a bank savings account — even at 0.5% — might be right for you. But if you're comfortable with calculated risk and want your money working as hard as you do, let's talk.
+> We're not for everyone. If you need absolute certainty, a bank savings account, even at 0.5%, might be right for you. But if you're comfortable with calculated risk and want your money working as hard as you do, let's talk.
 
 ---
 
@@ -200,7 +200,7 @@
 **Q: What's the risk?**
 > DeFi protocols carry smart contract risk. We mitigate this by using only battle-tested protocols with $10B+ TVL and multiple audits.
 >
-> No investment is risk-free — we're transparent about that. But the protocols we use have secured billions for years. The question is whether the potential 14x improvement in yield is worth the calculated risk.
+> No investment is risk-free. We're transparent about that. But the protocols we use have secured billions for years. The question is whether the potential 14x improvement in yield is worth the calculated risk.
 
 **Q: Will my CFO understand this?**
 > Yes. We provide professional monthly statements, real-time dashboards, and board-ready reporting. No crypto jargon. Just clear numbers your finance team can work with.
@@ -209,7 +209,7 @@
 > We take a 0.12% fee on yield earned. If you earn nothing, we earn nothing. Our incentives are aligned with yours.
 
 **Q: What's the minimum?**
-> We work with startups managing €50K+ in operating cash. Below that, the yield may not justify the setup time — we'll be honest about that.
+> We work with startups managing €50K+ in operating cash. Below that, the yield may not justify the setup time. We'll be honest about that.
 
 **Q: How long does onboarding take?**
 > Most companies are fully onboarded within 48 hours. Setup itself takes about 15 minutes.
@@ -230,7 +230,7 @@
 
 **Step 2:**
 > **Review the numbers**
-> We'll show you exactly what your treasury could earn based on your cash position — and be honest about the risks.
+> We'll show you exactly what your treasury could earn based on your cash position and be honest about the risks.
 
 **Step 3:**
 > **Make a decision**
@@ -258,8 +258,8 @@
 > Or email: bar@diboas.com
 
 **Testimonial:**
-> "I expected a sales pitch. Instead I got a thoughtful conversation about my actual situation. Bar told me this wasn't right for us yet — and explained why. That honesty made me trust them more. Six months later, we moved €300K."
-> — Series A founder
+> "I expected a sales pitch. Instead I got a thoughtful conversation about my actual situation. Bar told me this wasn't right for us yet and explained why. That honesty made me trust them more. Six months later, we moved €300K."
+> Series A founder
 
 ---
 
@@ -269,7 +269,7 @@
 > Why we do this
 
 **Body:**
-> The financial system is designed to keep ordinary people — and ordinary companies — from building wealth. Banks take your money, earn returns, and give you crumbs.
+> The financial system is designed to keep ordinary people and ordinary companies from building wealth. Banks take your money, earn returns, and give you crumbs.
 >
 > We're building the alternative.
 >
@@ -295,7 +295,7 @@
 > Die Treasury Ihres Startups verdient 0%.
 
 **Uncomfortable Truth:**
-> Ihre Bank verdient 7% — mit Ihrem Geld.
+> Ihre Bank verdient 7% mit Ihrem Geld.
 
 **Impact Statement:**
 > Diese €65.000 Differenz? Das ist Ihre Runway.
@@ -322,7 +322,7 @@
 > O caixa da sua startup está rendendo 0%.
 
 **Uncomfortable Truth:**
-> Seu banco está ganhando 7% — com o SEU dinheiro.
+> Seu banco está ganhando 7% com o SEU dinheiro.
 
 **Impact Statement:**
 > Essa diferença de R$65.000? É a sua runway.
@@ -338,7 +338,7 @@
 - Note about future BCB authorization plans
 
 **Why We Built This (PT-BR):**
-> O mesmo sistema que manteve minha avó pobre — uma mulher que guardou metade de tudo que ganhou e ainda assim morreu sem nada — é o mesmo sistema que mantém o caixa da sua startup parado. A gente acredita que fundadores merecem o que os bancos guardam pra eles.
+> O mesmo sistema que manteve minha avó pobre uma mulher que guardou metade de tudo que ganhou e ainda assim nāo conseguiu construir riqueza, é o mesmo sistema que mantém o caixa da sua startup parado. A gente acredita que fundadores merecem o que os bancos guardam pra eles.
 
 **Brazil-Specific FAQ:**
 > **Q: Funciona com PIX?**
@@ -352,7 +352,7 @@
 > La tesorería de tu startup está ganando 0%.
 
 **Uncomfortable Truth:**
-> Tu banco está ganando 7% — con TU dinero.
+> Tu banco está ganando 7% con TU dinero.
 
 **Impact Statement:**
 > Esa diferencia de €65.000? Es tu runway.
@@ -362,7 +362,7 @@
 > Liquidez en el mismo día. Sin bloqueos. Regulado en la UE.
 
 **Why We Built This (ES):**
-> El mismo sistema que mantuvo pobre a mi abuela — una mujer que ahorraba la mitad de todo lo que ganaba y aún así murió sin nada — es el mismo sistema que mantiene el efectivo de tu startup inactivo. Creemos que los fundadores merecen lo que los bancos guardan para sí mismos.
+> El mismo sistema que mantuvo pobre a mi abuela, una mujer que ahorraba la mitad de todo lo que ganaba y aún así murió sin nada. Es el mismo sistema que mantiene el efectivo de tu startup inactivo. Creemos que los fundadores merecen lo que los bancos guardan para sí mismos.
 
 ---
 
@@ -423,7 +423,7 @@
 > diBoaS Treasury | Your Bank Earns 7% With Your Money. You Should Too.
 
 ## Meta Description
-> Your startup's treasury is earning 0%. Your bank is earning 7% — with your money. diBoaS Treasury gives founders 6-8% yield on operating cash with same-day liquidity. EU-regulated. Non-custodial.
+> Your startup's treasury is earning 0%. Your bank is earning 7%, with your money. diBoaS Treasury gives founders 6-8% yield on operating cash with same-day liquidity. EU-regulated. Non-custodial.
 
 ## Open Graph
 
