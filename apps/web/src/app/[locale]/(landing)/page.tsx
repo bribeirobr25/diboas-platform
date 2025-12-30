@@ -14,6 +14,7 @@ import {
   B2C_HERO_CONFIG,
   B2C_PROBLEM_CONFIG,
   B2C_HOW_IT_WORKS_CONFIG,
+  B2C_ORIGIN_STORY_CONFIG,
   B2C_SOCIAL_PROOF_CONFIG,
   B2C_DEMO_CONFIG,
   B2C_FAQ_CONFIG,
@@ -123,6 +124,22 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           <div id="how-it-works">
             <ProductCarouselFactory
               config={B2C_HOW_IT_WORKS_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Why We Built This - Origin Story Section */}
+        <SectionErrorBoundary
+          sectionId="origin-story-section-b2c"
+          sectionType="FeatureShowcase"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="our-story">
+            <FeatureShowcase
+              variant="default"
+              config={B2C_ORIGIN_STORY_CONFIG}
               enableAnalytics={true}
             />
           </div>

@@ -21,7 +21,7 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
   variant: 'fullBackground',
   content: {
     title: 'landing-b2b.hero.headline',
-    description: 'landing-b2b.hero.subheadline',
+    description: 'landing-b2b.hero.valueProp',
     ctaText: 'landing-b2b.hero.cta',
     ctaHref: '#final-cta',
     ctaTarget: '_self'
@@ -344,16 +344,10 @@ export const B2B_SOCIAL_PROOF_CONFIG: BenefitsCardsConfig = {
  */
 export const B2B_FAQ_ITEMS: FAQItem[] = [
   {
-    id: 'investors',
-    question: 'landing-b2b.faq.items.investors.question',
-    answer: 'landing-b2b.faq.items.investors.answer',
+    id: 'catch',
+    question: 'landing-b2b.faq.items.catch.question',
+    answer: 'landing-b2b.faq.items.catch.answer',
     category: 'general'
-  },
-  {
-    id: 'compliance',
-    question: 'landing-b2b.faq.items.compliance.question',
-    answer: 'landing-b2b.faq.items.compliance.answer',
-    category: 'compliance'
   },
   {
     id: 'liquidity',
@@ -366,6 +360,12 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
     question: 'landing-b2b.faq.items.risk.question',
     answer: 'landing-b2b.faq.items.risk.answer',
     category: 'security'
+  },
+  {
+    id: 'cfo',
+    question: 'landing-b2b.faq.items.cfo.question',
+    answer: 'landing-b2b.faq.items.cfo.answer',
+    category: 'general'
   },
   {
     id: 'revenue',
@@ -384,6 +384,24 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
     question: 'landing-b2b.faq.items.onboarding.question',
     answer: 'landing-b2b.faq.items.onboarding.answer',
     category: 'getting-started'
+  },
+  {
+    id: 'regulated',
+    question: 'landing-b2b.faq.items.regulated.question',
+    answer: 'landing-b2b.faq.items.regulated.answer',
+    category: 'compliance'
+  },
+  {
+    id: 'investors',
+    question: 'landing-b2b.faq.items.investors.question',
+    answer: 'landing-b2b.faq.items.investors.answer',
+    category: 'general'
+  },
+  {
+    id: 'compliance',
+    question: 'landing-b2b.faq.items.compliance.question',
+    answer: 'landing-b2b.faq.items.compliance.answer',
+    category: 'compliance'
   }
 ];
 
@@ -535,6 +553,114 @@ export const B2B_FINAL_CTA_CONFIG: FeatureShowcaseVariantConfig = {
   },
   analytics: {
     trackingPrefix: 'final_cta_b2b',
+    enabled: true
+  }
+};
+
+/**
+ * Why We Built This Section Configuration (FeatureShowcase)
+ * Maps to: Section 2 - Why We Built This (Mission Story)
+ */
+export const B2B_WHY_WE_BUILT_THIS_CONFIG: FeatureShowcaseVariantConfig = {
+  variant: 'default',
+  slides: [
+    {
+      id: 'why-we-built-this',
+      content: {
+        title: 'landing-b2b.whyWeBuiltThis.header',
+        description: 'landing-b2b.whyWeBuiltThis.story',
+        ctaText: '',
+        ctaHref: '#',
+        ctaTarget: '_self'
+      },
+      assets: {
+        primaryImage: getSocialRealAsset('BUSINESS_OWNER')
+      },
+      seo: {
+        imageAlt: 'diBoaS founder story'
+      }
+    }
+  ],
+  settings: {
+    showNavigation: false,
+    showDots: false,
+    enableAnalytics: true,
+    transitionDuration: 250
+  },
+  analytics: {
+    trackingPrefix: 'why_we_built_this_b2b',
+    enabled: true
+  }
+};
+
+/**
+ * Who Is This For Section Configuration (BenefitsCards)
+ * Maps to: Section 6 - Who Is This For (Good Fit / Not a Fit)
+ */
+export const B2B_WHO_IS_THIS_FOR_CONFIG: BenefitsCardsConfig = {
+  section: {
+    title: 'landing-b2b.whoIsThisFor.header',
+    description: 'landing-b2b.whoIsThisFor.honestNote',
+    backgroundColor: 'light-purple'
+  },
+  cards: [
+    {
+      id: 'good-fit-1',
+      icon: '/assets/icons/money-circle.avif',
+      title: 'landing-b2b.whoIsThisFor.goodFit.title',
+      description: 'landing-b2b.whoIsThisFor.goodFit.description',
+      iconAlt: 'Good fit checkmark'
+    },
+    {
+      id: 'not-a-fit-1',
+      icon: '/assets/icons/safe-money.avif',
+      title: 'landing-b2b.whoIsThisFor.notAFit.title',
+      description: 'landing-b2b.whoIsThisFor.notAFit.description',
+      iconAlt: 'Not a fit icon'
+    }
+  ],
+  seo: {
+    headingLevel: 'h2',
+    ariaLabel: 'Who is diBoaS Treasury right for'
+  },
+  analytics: {
+    sectionId: 'who-is-this-for-b2b',
+    category: 'landing-b2b'
+  }
+};
+
+/**
+ * Mission Footer Section Configuration (FeatureShowcase)
+ * Maps to: Section 10 - Mission Footer
+ */
+export const B2B_MISSION_FOOTER_CONFIG: FeatureShowcaseVariantConfig = {
+  variant: 'default',
+  slides: [
+    {
+      id: 'mission-footer',
+      content: {
+        title: 'landing-b2b.missionFooter.header',
+        description: 'landing-b2b.missionFooter.body',
+        ctaText: '',
+        ctaHref: '#',
+        ctaTarget: '_self'
+      },
+      assets: {
+        primaryImage: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN')
+      },
+      seo: {
+        imageAlt: 'diBoaS mission'
+      }
+    }
+  ],
+  settings: {
+    showNavigation: false,
+    showDots: false,
+    enableAnalytics: true,
+    transitionDuration: 250
+  },
+  analytics: {
+    trackingPrefix: 'mission_footer_b2b',
     enabled: true
   }
 };

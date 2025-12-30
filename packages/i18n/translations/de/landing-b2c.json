@@ -1,65 +1,78 @@
 {
   "hero": {
-    "headline": "Ihre Ersparnisse verdienen mehr. Sicher und reguliert.",
-    "subheadline": "diBoaS verwandelt Ihr ungenutztes Geld in echtes Wachstum - ab nur 5 \u20ac.",
-    "cta": "Sehen Sie, wie Ihr Geld wachsen k\u00f6nnte",
-    "trust": "Ihr Geld bleibt Ihres. Jederzeit abheben.",
-    "socialProof": "Schlie\u00dfen Sie sich {count} Menschen auf der Warteliste an",
-    "regulatoryBadge": "MiCA-konform | EU-reguliert"
+    "headlineLine1": "Meine Großmutter hat die Hälfte von allem gespart, was sie verdient hat.",
+    "headlineLine2": "Es hat trotzdem nicht gereicht.",
+    "headline": "Meine Großmutter hat die Hälfte von allem gespart, was sie verdient hat. Es hat trotzdem nicht gereicht.",
+    "subheadline": "Ich habe herausgefunden warum. Jetzt ändere ich das.",
+    "valueProp": "diBoaS gibt gewöhnlichen Menschen die gleichen finanziellen Vorteile, die die Wohlhabenden schon immer hatten.",
+    "cta": "Das habe ich herausgefunden →",
+    "trust": "Ihr Geld bleibt Ihres. Jederzeit verfügbar.",
+    "socialProof": "{count} Menschen haben \"genug\" gesagt — zu einem System, das nicht für sie gemacht wurde",
+    "regulatoryBadge": "MiCA-konform | EU-reguliert | Geprüfte Protokolle"
   },
   "problem": {
-    "header": "Das passiert gerade mit Ihrem Geld",
-    "body": "Ihre Bank zahlt Ihnen 0,5% Zinsen.\nDie Inflation liegt bei 4%.\n\nDas bedeutet: Ihre 1.000 \u20ac Ersparnisse?\nN\u00e4chstes Jahr nur noch 965 \u20ac wert. Sie verlieren 35 \u20ac - einfach so.\n\nDie Banken verdienen Milliarden mit Ihrem Geld.\nSie bekommen Kr\u00fcmel.",
-    "cta": "Es gibt einen besseren Weg"
+    "header": "💡 Die Wahrheit über Ihre Ersparnisse",
+    "body": "Das System ist nicht kaputt. Es funktioniert genau so, wie es entworfen wurde. Nur nicht für Sie.\n\nMeine Oma hat alles versucht. Hart arbeiten. Nur das Nötigste kaufen. Versuchen zu sparen. Trotzdem hat es nicht funktioniert.\n\nKommt Ihnen bekannt vor? Das hat ihr niemand gesagt:\n\nIhre Bank zahlte ihr 0,5% Zinsen — und verdiente 7% mit ihrem Geld.\n\nDie 1.000€, die sie gespart hat? Die Bank machte 70€ damit und gab ihr 5€.\n\nDie anderen 65€? Die gehörten eigentlich ihr.\n\n**Meine Großmutter hat das auf die harte Tour gelernt. Sie müssen das nicht.**",
+    "grandmotherLine": "Meine Großmutter hat das auf die harte Tour gelernt. Sie müssen das nicht.",
+    "cta": "Es gibt einen besseren Weg →"
   },
   "howItWorks": {
-    "header": "So funktioniert diBoaS - 3 einfache Schritte",
+    "header": "So funktioniert diBoaS",
     "step1": {
       "title": "Einzahlen",
-      "description": "Schon ab 5 \u20ac. Dauert nur 2 Minuten."
+      "description": "Ab 5 €. Dauert 2 Minuten."
     },
     "step2": {
-      "title": "Rendite verdienen",
-      "description": "Ihr Geld verdient automatisch 6-10%."
+      "title": "Verdienen, was Ihres ist",
+      "description": "Ihr Geld verdient 6-10% — dieselben Raten, die Banken verdienen. Jetzt gehen sie an Sie."
     },
     "step3": {
       "title": "Jederzeit abheben",
-      "description": "Brauchen Sie es zur\u00fcck? Ein Klick. Noch am selben Tag. Keine Sperrfristen."
+      "description": "Ein Klick. Noch am selben Tag. Keine Sperrfristen."
     },
-    "securityNote": "Ihre Einlagen werden durch gepr\u00fcfte DeFi-Protokolle gesichert. Vollst\u00e4ndige Transparenz.",
-    "cta": "In der Demo ausprobieren"
+    "footerNote": "Das ist alles. Kein Fachjargon. Keine Komplexität. Nur Ihr Geld, das wirklich für Sie arbeitet.",
+    "cta": "In der Demo ausprobieren →"
   },
-  "trustSecurity": {
-    "header": "Sicherheit, der Sie vertrauen k\u00f6nnen",
-    "points": {
-      "euRegulated": {
-        "title": "EU-Reguliert",
-        "description": "Betrieb unter MiCA-Rahmenwerk"
-      },
-      "nonCustodial": {
-        "title": "Non-Custodial",
-        "description": "Wir halten nie Ihr Geld"
-      },
-      "auditedProtocols": {
-        "title": "Gepr\u00fcfte Protokolle",
-        "description": "Nur battle-tested Protokolle mit Milliarden TVL"
-      },
-      "transparentReporting": {
-        "title": "Transparente Berichterstattung",
-        "description": "Monatliche Ausz\u00fcge f\u00fcr Ihre Unterlagen"
-      }
+  "security": {
+    "header": "Sicherheit und Regulierung",
+    "euRegulated": {
+      "title": "EU-reguliert",
+      "description": "Wir arbeiten unter dem MiCA-Rahmenwerk mit CASP-Zulassung."
+    },
+    "audited": {
+      "title": "Geprüfte Protokolle",
+      "description": "Nur Protokolle mit $10B+ Vermögen und mehrfachen Sicherheitsprüfungen."
+    },
+    "nonCustodial": {
+      "title": "Non-Custodial",
+      "description": "Wir halten Ihr Geld nie. Es bleibt in Ihrer eigenen Wallet."
+    },
+    "transparent": {
+      "title": "Transparente Berichte",
+      "description": "Monatliche Abrechnungen, kompatibel mit Ihrem Steuerberater."
     }
+  },
+  "whyWeBuiltThis": {
+    "header": "Warum ich das baue",
+    "story": "Ich komme aus Rio de Janeiro. Ich arbeite seit meinem 9. Lebensjahr — ich weiß, was es bedeutet, jeden Cent zu verdienen.\n\nMeine Großmutter hat mir beigebracht, die Hälfte von allem zu sparen. Sie hat es ihr ganzes Leben so gemacht. Diszipliniert. Geduldig. Alles richtig gemacht.\n\nEs hat trotzdem nicht gereicht.\n\nVor drei Jahren wollte ich verstehen, warum. Was ich gelernt habe, hat mich wütend gemacht: Das System ist so gebaut, dass normale Menschen draußen bleiben. Banken nehmen Ihr Geld, erwirtschaften Rendite und geben fast nichts zurück.\n\nWir bauen die Alternative.",
+    "mission": "diBoaS ist das, was ich mir für sie gewünscht hätte.",
+    "belief": "Wir glauben, dass das Finanzsystem darauf ausgelegt ist, gewöhnliche Menschen draußen zu halten. Wir bauen die Alternative.",
+    "signature": "— Bar, Gründer"
   },
   "socialProof": {
     "header": "Werden Sie Teil der Bewegung",
     "stats": {
-      "waitlist": "{count} Menschen warten bereits",
-      "countries": "Menschen aus {count} L\u00e4ndern"
+      "waitlist": "{count} Menschen haben \"genug\" gesagt — treten Sie der Warteliste bei",
+      "countries": "Menschen aus {countries} Ländern warten"
+    },
+    "testimonial": {
+      "quote": "Endlich etwas, das für Leute wie mich Sinn macht, die keine Finanzexperten sind. Es fühlt sich an, als wäre es für uns gemacht.",
+      "author": "Frühes Wartelisten-Mitglied"
     }
   },
   "demo": {
-    "header": "Sehen Sie es in Aktion - testen Sie die Demo",
-    "subtext": "Keine Anmeldung erforderlich. Dauert 60 Sekunden.",
+    "header": "Sehen Sie selbst. Testen Sie die Demo!",
+    "subtext": "60 Sekunden. Keine Anmeldung. Sie werden es verstehen.",
     "pain": {
       "header": "Ihre Ersparnisse heute",
       "pixHeader": "Sie haben einen PIX erhalten",
@@ -111,43 +124,52 @@
     }
   },
   "faq": {
-    "header": "H\u00e4ufige Fragen",
-    "description": "Antworten auf die h\u00e4ufigsten Fragen zu diBoaS.",
+    "header": "Wissenswertes",
+    "description": "Antworten auf die häufigsten Fragen zu diBoaS.",
     "ctaText": "Zur Warteliste",
     "items": {
       "safety": {
-        "question": "Ist mein Geld sicher?",
-        "answer": "Ihre Mittel werden in Ihrer eigenen Non-Custodial Wallet gehalten. Wir ber\u00fchren Ihr Geld nie - wir zeigen Ihnen nur, wo Sie es anlegen k\u00f6nnen. Die von uns verwendeten Protokolle (Aave, Compound) haben Milliarden von Dollar gesichert."
+        "question": "Wie sicher ist das?",
+        "answer": "Eine wichtige Frage. Hier ist, was Sie wissen sollten:\n\nBankeinlagen sind bis 100.000€ versichert — das bedeutet, der Staat zahlt, wenn die Bank scheitert. Die Bank selbst nimmt ständig Risiken mit Ihrem Geld.\n\nDeFi hat andere Risiken. Smart Contracts sind Code — Code kann Fehler haben.\n\nSo denken wir darüber: Wir nutzen nur Protokolle mit $10B+ gesichertem Vermögen und mehrfachen unabhängigen Prüfungen. Null Risiko? Nein. Kalkuliertes Risiko mit transparenter Struktur? Ja.\n\nFangen Sie klein an. Beobachten Sie, wie es funktioniert. Entscheiden Sie dann."
       },
       "risks": {
         "question": "Welche Risiken gibt es?",
-        "answer": "DeFi-Renditen sind keine Bankeinlagen. Smart-Contract-Risiken existieren. Wir verwenden nur bew\u00e4hrte Protokolle, aber keine Anlage ist risikofrei. Investieren Sie nie mehr, als Sie sich leisten k\u00f6nnen zu verlieren."
+        "answer": "Lassen Sie uns ehrlich über Risiken sprechen, denn das ist wichtig:\n\nIhre Bankeinlagen fühlen sich sicher an, weil sie bis 100.000€ versichert sind. Aber das bedeutet: Die Regierung verspricht, Sie zu bezahlen, wenn die Bank scheitert. Die Bank selbst geht ständig Risiken mit Ihrem Geld ein.\n\nDeFi hat andere Risiken. Smart Contracts sind Code — und Code kann Fehler haben. Protokolle können ausgenutzt werden.\n\nSo denken wir darüber: Wir nutzen nur Protokolle, die $10B+ jahrelang ohne größere Vorfälle gesichert haben. Null Risiko? Nein. Transparenter als das, was Banken mit Ihrem Geld machen? Ja.\n\nBeginnen Sie mit dem, was Sie nicht vermissen werden. Auch nur 5€. Lernen Sie, wie es funktioniert. Dann entscheiden Sie, ob es das Richtige für Sie ist."
       },
       "regulation": {
-        "question": "Wie sieht es mit der Regulierung aus?",
-        "answer": "Wir operieren unter dem MiCA-Rahmenwerk der EU mit anh\u00e4ngiger CASP-Autorisierung. Volle Compliance-Dokumentation verf\u00fcgbar."
+        "question": "Wie sind Sie reguliert?",
+        "answer": "Wir arbeiten unter dem EU MiCA-Rahmenwerk mit anhängiger CASP-Zulassung in Litauen.\n\nWas bedeutet das praktisch? Aufsicht. Berichtspflichten. Verantwortlichkeit.\n\nWir bauen für Compliance von Tag eins — nicht als Nachgedanke."
       },
       "withdraw": {
         "question": "Kann ich jederzeit abheben?",
-        "answer": "Ja. Keine Sperrfristen. Ihr Geld ist immer zug\u00e4nglich. Auszahlungen werden in der Regel am selben Tag abgeschlossen."
+        "answer": "Ja — und hier ist, warum das wichtig ist:\n\nDie meisten Investitionen mit höheren Renditen sperren Ihr Geld. Festgeld, Anleihen, sogar manche Sparkonten haben Strafen für vorzeitige Abhebung. Der Kompromiss ist: höhere Renditen, weniger Zugang.\n\nWir haben diBoaS anders gebaut. Auszahlungen am selben Tag. Keine Sperrfristen. Keine Strafen.\n\nWarum? Weil wir glauben, dass Ihr Geld für Sie zugänglich sein sollte. Immer. Wenn Sie es morgen für einen Notfall brauchen, ist es da."
       },
       "revenue": {
-        "question": "Wie verdient diBoaS Geld?",
-        "answer": "Wir nehmen eine kleine Gebühr (0,12%) auf Ihre Erträge. Wenn Sie nichts verdienen, verdienen wir nichts."
+        "question": "Wie verdienen Sie Geld?",
+        "answer": "Transparenz ist wichtig, also hier ist genau, wie es funktioniert:\n\nWir nehmen eine kleine Gebühr (0,12%), wenn Sie verdienen. Wenn Sie 10€ im Monat verdienen, behalten wir etwa 1,2 Cent.\n\nWenn Sie nichts verdienen, verdienen wir nichts.\n\nDas ist beabsichtigt. Es bedeutet, dass wir nur erfolgreich sind, wenn Sie erfolgreich sind. Unsere Anreize sind mit Ihren abgestimmt — nicht gegen Sie, wie bei traditionellen Banken, deren Gewinn oft aus Ihrer Inaktivität kommt."
       },
       "crypto": {
         "question": "Muss ich Krypto verstehen?",
-        "answer": "Nein. Wir übernehmen die gesamte Komplexität. Sie sehen nur, wie Ihr Geld wächst. Keine Wallets, keine Seed-Phrasen, keine verwirrenden Charts."
+        "answer": "Nein — und hier ist warum:\n\nUnter der Haube nutzt diBoaS DeFi-Protokolle. Das klingt technisch, aber Sie müssen nicht verstehen, wie es funktioniert, genauso wenig wie Sie verstehen müssen, wie Visa Ihre Kartenzahlung verarbeitet.\n\nSie werden keine Blockchain-Adressen oder Seed-Phrasen sehen. Sie sehen Ihren Kontostand. Ihre Erträge. Einen Abheben-Button.\n\nWir kümmern uns um die Komplexität. Sie bekommen die Ergebnisse.\n\nDas gesagt, wenn Sie *lernen wollen*, wie es funktioniert, haben wir auch Ressourcen dafür. Bildung ist Teil dessen, was wir tun."
+      },
+      "trust": {
+        "question": "Warum sollte ich Ihnen vertrauen?",
+        "answer": "Faire Frage. So denke ich über Vertrauen:\n\nSie sollten uns nicht vertrauen, weil wir Sie darum bitten. Sie sollten uns vertrauen, weil Sie überprüfen können, was wir tun.\n\nIhre Mittel sind in Ihrer eigenen Wallet — Sie können jederzeit nachsehen. Die Protokolle, die wir nutzen, sind öffentlich — Sie können genau sehen, wohin Ihr Geld geht. Wir bauen unter EU-Regulierung (MiCA) — es gibt Verantwortlichkeit.\n\nFangen Sie klein an. Beobachten Sie, wie es funktioniert. Vertrauen baut sich von dort auf."
+      },
+      "pix": {
+        "question": "Funktioniert es mit PIX?",
+        "answer": "Ja! Ein- und Auszahlungen über PIX. So einfach ist das."
       }
     }
   },
   "finalCta": {
-    "header": "Bereit, Ihr Geld arbeiten zu lassen?",
-    "body": "Schlie\u00dfen Sie sich Tausenden an, die es satt haben zuzusehen, wie ihre Ersparnisse an Wert verlieren.\n\nDer fr\u00fche Zugang \u00f6ffnet bald. Sichern Sie sich Ihren Platz.",
-    "button": "Zur Warteliste - kostenlos",
-    "footer": "Sie sind #{position} in der Warteschlange f\u00fcr fr\u00fchen Zugang"
+    "header": "Bereit?",
+    "body": "Jetzt wissen Sie, was meine Oma nie erfahren hat.\n\nWir bauen etwas anderes.\n\nIhr Geld. Ihre Zukunft. Ihre Regeln.",
+    "anthem": "Ihr Geld. Ihre Zukunft. Ihre Regeln.",
+    "button": "Auf die Warteliste — kostenlos →",
+    "footer": "Sie sind #{position} in der Warteschlange für frühen Zugang"
   },
   "disclaimer": {
-    "text": "Dargestellte Renditen sind illustrativ und basieren auf aktuellen DeFi-Marktraten. Renditen sind variabel und nicht garantiert. Vergangene Performance ist kein Indikator f\u00fcr zuk\u00fcnftige Ergebnisse. Ihr Kapital ist gef\u00e4hrdet. Beginnen Sie mit einem Betrag, den Sie nicht vermissen werden."
+    "text": "Die gezeigten Renditen sind illustrativ und basieren auf aktuellen DeFi-Marktraten. Renditen sind variabel und nicht garantiert. Vergangene Leistung ist kein Indikator für zukünftige Ergebnisse. Ihr Kapital ist gefährdet. Beginnen Sie mit einem Betrag, den Sie nicht vermissen werden."
   }
 }
