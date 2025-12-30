@@ -1,58 +1,58 @@
 {
   "hero": {
     "headlineLine1": "Mi abuela ahorraba la mitad de todo lo que ganaba.",
-    "headlineLine2": "Aún así, nunca pudo construir riqueza.",
-    "headline": "Mi abuela ahorraba la mitad de todo lo que ganaba. Aún así, nunca pudo construir riqueza.",
-    "subheadline": "Esto es lo que los bancos nunca le dijeron.",
+    "headlineLine2": "Aun así, no fue suficiente.",
+    "headline": "Mi abuela ahorraba la mitad de todo lo que ganaba. Aun así, no fue suficiente.",
+    "subheadline": "Descubrí por qué. Ahora lo estoy cambiando.",
     "valueProp": "diBoaS da a la gente común las mismas ventajas financieras que los ricos siempre han tenido.",
-    "cta": "Mira cómo puede crecer tu dinero →",
+    "cta": "Esto es lo que descubrí →",
     "trust": "Tu dinero sigue siendo tuyo. Retira cuando quieras.",
-    "socialProof": "Únete a {count} personas que dijeron \"basta\" a un sistema que no fue hecho para ellos"
+    "socialProof": "{count} personas dijeron \"basta\" a un sistema que no fue hecho para ellos"
   },
   "problem": {
-    "header": "💸 Esto es lo que los bancos nunca te dijeron",
-    "body": "Tu banco te paga 0,5% de interés.\nEllos prestan tu dinero y ganan 7%.\n\nEso significa que tus €1.000 ahorrados?\nValdrán €965 el próximo año después de la inflación. Estás perdiendo €35 sin hacer nada.\n\nLos bancos ganan miles de millones con tu dinero.\nTú recibes migajas.",
-    "grandmotherLine": "Mi abuela aprendió esto de la manera difícil. Tú no tienes que hacerlo.",
-    "cta": "Hay una forma mejor →"
+    "header": "💡 La verdad sobre tus ahorros",
+    "body": "El sistema no está roto. Funciona exactamente como fue diseñado. Solo que no fue diseñado para ti.\n\nMi abuela lo intentó todo. Trabajar duro. Comprar solo lo básico. Tratar de ahorrar. Y aun así no alcanzaba.\n\n¿Te suena familiar? Esto es lo que nadie le dijo:\n\nSu banco le pagaba 0.5% de interés — mientras ganaba 7% con su dinero.\n\n¿Esos €1,000 que ahorró? El banco ganó €70 y le dio €5.\n\n¿Los otros €65? Eran suyos.\n\n**Mi abuela lo aprendió de la manera difícil. Tú no tienes que hacerlo.**",
+    "grandmotherLine": "Mi abuela lo aprendió de la manera difícil. Tú no tienes que hacerlo.",
+    "cta": "Hay una mejor manera →"
   },
   "howItWorks": {
-    "header": "Cómo funciona diBoaS — 3 pasos simples",
+    "header": "Cómo funciona diBoaS",
     "step1": {
       "title": "Deposita",
-      "description": "Desde tan solo €5. Toma 2 minutos."
+      "description": "Empieza con tan solo €5. Toma 2 minutos."
     },
     "step2": {
-      "title": "Gana Rendimiento",
-      "description": "Tu dinero gana 6-10% automáticamente — las mismas tasas que los bancos guardan para ellos."
+      "title": "Gana lo que es tuyo",
+      "description": "Tu dinero gana 6-10% — las mismas tasas que ganan los bancos. Ahora van para ti."
     },
     "step3": {
-      "title": "Retira Cuando Quieras",
+      "title": "Retira cuando quieras",
       "description": "¿Lo necesitas? Un toque. El mismo día. Sin bloqueos. Sin penalizaciones."
     },
-    "footerNote": "Estados de cuenta mensuales compatibles con tu contador.",
-    "cta": "Pruébalo en nuestra demo →"
+    "footerNote": "Eso es todo. Sin jerga. Sin complejidad. Tu dinero trabajando para ti de verdad.",
+    "cta": "Prueba la demo →"
   },
   "whyWeBuiltThis": {
-    "header": "Esto es personal",
-    "story": "Crecí pobre en Río de Janeiro. Trabajo desde los 9 años — cortando césped, limpiando piscinas, vendiendo snacks en partidos de fútbol.\n\nMi abuela me enseñó a ahorrar la mitad de todo. Ella hizo lo mismo toda su vida.\n\nMurió sin nada.\n\nHace tres años, decidí entender por qué. Lo que aprendí me hizo enojar: el sistema está diseñado para mantener a la gente común afuera. Los bancos toman tu dinero, ganan rendimientos, y te devuelven casi nada.",
-    "mission": "diBoaS es la respuesta que desearía que mi abuela hubiera tenido.",
-    "belief": "Creemos que el sistema financiero está diseñado para mantener a la gente común pobre. Estamos construyendo la alternativa.",
+    "header": "Por qué estoy construyendo esto",
+    "story": "Soy de Río de Janeiro. Trabajo desde los 9 años — sé lo que significa ganar cada centavo.\n\nMi abuela me enseñó a guardar la mitad de todo. Ella hizo lo mismo toda su vida. Disciplinada. Paciente. Hizo todo bien.\n\nAun así, no fue suficiente.\n\nHace tres años, quise entender por qué. Lo que aprendí me dio rabia: el sistema está diseñado para dejar afuera a la gente común. Los bancos toman tu dinero, generan rendimientos, y devuelven casi nada.\n\nEstamos construyendo la alternativa.",
+    "mission": "diBoaS es lo que hubiera querido que existiera para ella.",
+    "belief": "Creemos que el sistema financiero está diseñado para mantener a la gente común afuera. Estamos construyendo la alternativa.",
     "signature": "— Bar, Fundador"
   },
   "socialProof": {
     "header": "Únete al movimiento",
     "stats": {
-      "waitlist": "🚀 {count} personas han dicho \"basta\" — únete a ellas",
-      "countries": "📍 Gente de {count} países esperando"
+      "waitlist": "{count} personas dijeron \"basta\" — únete a la lista de espera",
+      "countries": "Gente de {countries} países esperando"
     },
     "testimonial": {
-      "quote": "Por fin algo que tiene sentido para gente como yo que no somos expertos en finanzas. Parece que fue hecho para nosotros.",
+      "quote": "Por fin algo que tiene sentido para quienes no somos expertos en finanzas. Siento que fue hecho para nosotros.",
       "author": "Miembro de la lista de espera"
     }
   },
   "demo": {
-    "header": "Míralo en acción — prueba la demo",
-    "subtext": "Sin registro. Toma 60 segundos. Mira lo que los bancos te han estado ocultando.",
+    "header": "Míralo tú mismo. ¡Prueba la demo!",
+    "subtext": "60 segundos. Sin registro. Lo vas a entender.",
     "pain": {
       "header": "Tus ahorros hoy",
       "pixHeader": "Recibiste un PIX",
@@ -104,33 +104,37 @@
     }
   },
   "faq": {
-    "header": "Lo que necesitas saber",
+    "header": "Cosas que vale la pena saber",
     "description": "Respuestas a las preguntas más comunes sobre diBoaS.",
     "ctaText": "Unirse a la lista de espera",
     "items": {
       "safety": {
-        "question": "¿Mi dinero está seguro?",
-        "answer": "Lo que la mayoría no sabe: cuando pones dinero en un banco, legalmente ya no es \"tuyo\" — se convierte en propiedad del banco. Lo prestan, lo invierten, y te dan 0,5% por el privilegio.\n\nCon diBoaS, tus fondos permanecen en tu propia billetera no custodial. No podemos tocar tu dinero. Solo te mostramos dónde ponerlo para que trabaje más duro.\n\nLos protocolos que usamos (Aave, Compound) han asegurado miles de millones de dólares y han sido probados durante años."
+        "question": "¿Es seguro?",
+        "answer": "Déjame explicarte algo que poca gente sabe:\n\nCuando pones dinero en el banco, técnicamente ya no es \"tuyo\". Legalmente es del banco — ellos solo te deben esa cantidad. Por eso pueden prestarlo e invertirlo.\n\nCon diBoaS funciona diferente. Tu dinero se queda en tu propia billetera. No lo tocamos. Solo te mostramos dónde ponerlo para que trabaje más.\n\nLos protocolos que usamos (Aave, Compound) han asegurado miles de millones durante años. ¿Es lo mismo que un depósito bancario? No. ¿Es el salvaje oeste? Tampoco. Está en el medio — y ahora sabes lo suficiente para decidir."
       },
       "risks": {
-        "question": "¿Cuáles son los riesgos?",
-        "answer": "Seamos honestos: los rendimientos DeFi no son depósitos bancarios. Existe riesgo de contratos inteligentes. Solo usamos protocolos probados con más de $10B en activos, pero ninguna inversión está libre de riesgo.\n\nPor eso decimos: empieza con lo que no vayas a extrañar. Incluso €5 es suficiente para comenzar."
+        "question": "¿Cuál es el riesgo?",
+        "answer": "Hablemos de riesgo honestamente, porque es importante:\n\nTus depósitos bancarios parecen seguros porque están asegurados hasta €100K. Pero eso significa que el gobierno promete pagarte si el banco falla. El banco está tomando riesgos con tu dinero todo el tiempo.\n\nDeFi tiene riesgos diferentes. Los smart contracts son código — y el código puede tener errores.\n\nAsí lo pensamos: solo usamos protocolos que han asegurado $10B+ durante años sin incidentes mayores. ¿Riesgo cero? No. ¿Más transparente que lo que hacen los bancos con tu dinero? Sí.\n\nEmpieza con lo que no vayas a extrañar. Incluso €5. Aprende cómo funciona. Luego decides."
       },
       "withdraw": {
         "question": "¿Puedo retirar cuando quiera?",
-        "answer": "Sí. Sin bloqueos. Sin penalizaciones. Tu dinero siempre está accesible. Los retiros generalmente se completan el mismo día.\n\nEste es tu dinero. Creemos que siempre deberías tener acceso a él."
+        "answer": "Sí — y déjame explicarte por qué eso importa:\n\nLa mayoría de las inversiones que pagan más bloquean tu dinero. Depósitos a plazo, bonos — si retiras antes, hay penalizaciones.\n\nConstruimos diBoaS diferente. Retiros el mismo día. Sin bloqueos. Sin penalizaciones.\n\n¿Por qué? Porque creemos que tu dinero debe estar accesible para ti. Siempre."
       },
       "revenue": {
         "question": "¿Cómo ganan dinero ustedes?",
-        "answer": "Cobramos una pequeña comisión (0,12%) cuando tú ganas. Si no ganas, nosotros no ganamos.\n\nNuestro éxito depende de tu éxito. Así es como debe ser."
+        "answer": "La transparencia importa, así que aquí está exactamente cómo funciona:\n\nCobramos una pequeña comisión (0,12%) cuando ganas. Si ganas €10 en un mes, nos quedamos con aproximadamente 1,2 céntimos.\n\nSi no ganas nada, nosotros no ganamos nada.\n\nEsto es intencional. Significa que solo tenemos éxito cuando tú tienes éxito. Nuestros incentivos están alineados con los tuyos — no en tu contra, como los bancos tradicionales cuya ganancia a menudo viene de tu inactividad."
       },
       "crypto": {
         "question": "¿Necesito entender de cripto?",
-        "answer": "No. Nosotros manejamos toda la complejidad. Tú solo ves tu dinero crecer. Sin billeteras, sin seed phrases, sin gráficos confusos.\n\nPiénsalo así: no necesitas saber cómo funciona el motor de un auto para conducir. Solo necesitas saber que te lleva a donde quieres ir."
+        "answer": "No — y aquí está por qué:\n\nBajo el capó, diBoaS usa protocolos DeFi. Suena técnico, pero no necesitas entender cómo funciona, igual que no necesitas entender cómo Visa procesa el pago de tu tarjeta.\n\nNo verás direcciones de blockchain o seed phrases. Verás tu saldo. Tus ganancias. Un botón de retiro.\n\nNosotros manejamos la complejidad. Tú obtienes los resultados.\n\nDicho esto, si *quieres* aprender cómo funciona, también tenemos recursos para eso. La educación es parte de lo que hacemos."
+      },
+      "trust": {
+        "question": "¿Por qué debería confiar en ustedes?",
+        "answer": "Pregunta justa. Así es como pienso sobre la confianza:\n\nNo deberías confiar en nosotros porque te lo pedimos. Deberías confiar en nosotros porque puedes verificar lo que hacemos.\n\nTus fondos están en tu propia billetera — puedes verificar en cualquier momento. Los protocolos que usamos son públicos — puedes ver exactamente a dónde va tu dinero. Estamos construyendo bajo regulación de la UE (MiCA) — hay responsabilidad.\n\nEmpieza pequeño. Mira cómo funciona. La confianza se construye desde ahí."
       },
       "regulation": {
         "question": "¿Está regulado?",
-        "answer": "Sí. Operamos bajo el marco MiCA de la UE con autorización CASP planificada. Solo usamos protocolos con más de $10 mil millones en valor total y múltiples auditorías de seguridad.\n\nRigor alemán con finanzas justas."
+        "answer": "Sí. Operamos bajo el marco MiCA de la UE con autorización CASP planificada. Solo usamos protocolos con más de $10 mil millones en valor total y múltiples auditorías de seguridad.\n\nEstamos construyendo para cumplimiento desde el día uno."
       },
       "pix": {
         "question": "¿Funciona con PIX?",
@@ -139,12 +143,12 @@
     }
   },
   "finalCta": {
-    "header": "Para todos los que ahorraron y aún así no tenían nada",
-    "body": "Estamos construyendo algo diferente.\n\nTu dinero. Tu futuro. Tus reglas.\n\nÚnete a {count} personas que dijeron \"basta\" a un sistema que no fue hecho para ellos.",
+    "header": "¿Listo?",
+    "body": "Ahora sabes lo que mi abuela nunca supo.\n\nEstamos construyendo algo diferente.\n\nTu dinero. Tu futuro. Tus reglas.",
     "anthem": "Tu dinero. Tu futuro. Tus reglas.",
-    "button": "Únete al movimiento — es gratis →",
-    "footer": "⏰ Eres el #{position} en la fila para acceso anticipado",
-    "highlight": "Empieza con lo que no vayas a extrañar. Incluso €5. Lo importante es empezar."
+    "button": "Únete a la lista — es gratis →",
+    "footer": "Eres el #{position} en la fila para acceso anticipado",
+    "highlight": "Empieza con lo que no vayas a extrañar. Incluso €5."
   },
   "disclaimer": {
     "text": "Los rendimientos mostrados son ilustrativos basados en las tasas actuales del mercado DeFi. Los rendimientos son variables y no están garantizados. El rendimiento pasado no indica resultados futuros. Tu capital está en riesgo. Empieza con lo que no vayas a extrañar."

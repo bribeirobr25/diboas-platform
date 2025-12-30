@@ -1,49 +1,49 @@
 {
   "hero": {
     "headlineLine1": "My grandmother saved half of everything she earned.",
-    "headlineLine2": "She still couldn't build wealth.",
-    "headline": "My grandmother saved half of everything she earned. She still couldn't build wealth.",
-    "subheadline": "Here's what the banks never told her.",
+    "headlineLine2": "It still wasn't enough.",
+    "headline": "My grandmother saved half of everything she earned. It still wasn't enough.",
+    "subheadline": "I found out why. Now I'm fixing it.",
     "valueProp": "diBoaS gives ordinary people the same financial advantages the wealthy have always had.",
-    "cta": "See how your money could grow →",
+    "cta": "Here's what I found →",
     "trust": "Your money stays yours. Withdraw anytime.",
     "socialProof": "Join {count} people who said \"enough\" to a system that wasn't built for them"
   },
   "problem": {
-    "header": "Here's what the banks never told you",
-    "body": "Your bank pays you 0.5% interest.\nThey lend your money out and earn 7%.\n\nThat means your €1,000 savings?\nWorth €965 next year after inflation. You're losing €35 by doing nothing.\n\nThe banks make billions with your money.\nThey give you crumbs.",
+    "header": "💡 The truth about your savings",
+    "body": "The system isn't broken. It's working exactly as designed. Just not for you.\n\nMy grandma tried everything. Work hard. Buy only the basics. Try to save. It still doesn't work.\n\nSounds familiar? Here's what no one told her:\n\nHer bank paid her 0.5% interest while earning 7% — with her money.\n\nThat €1,000 she saved? The bank made €70 with it and gave her €5.\n\nThe other €65? That was supposed to be hers.\n\n**My grandmother learned this the hard way. You don't have to.**",
     "grandmotherLine": "My grandmother learned this the hard way. You don't have to.",
     "cta": "There's a better way →"
   },
   "howItWorks": {
-    "header": "How diBoaS works in 3 simple steps",
+    "header": "How diBoaS works",
     "step1": {
-      "title": "Add €",
-      "description": "Deposit as little as €5. Takes 2 minutes."
+      "title": "Add money",
+      "description": "Start with as little as €5. Takes 2 minutes."
     },
     "step2": {
-      "title": "Earn Yield",
-      "description": "Your money earns 6-10% automatically! The same rates banks keep for themselves."
+      "title": "Earn what's yours",
+      "description": "Your money earns 6-10% — the same rates banks make. Now it goes to you."
     },
     "step3": {
-      "title": "Withdraw Anytime",
+      "title": "Withdraw anytime",
       "description": "Need it back? One tap. Same day. No lock-ups. No penalties."
     },
-    "footerNote": "Monthly statements compatible with your accountant.",
+    "footerNote": "That's it. No jargon. No complexity. Just your money, actually working for you.",
     "cta": "Try it in our demo →"
   },
   "whyWeBuiltThis": {
-    "header": "This is personal",
-    "story": "I grew up poor in Rio de Janeiro. I worked since I was 9. Mowing lawns, cleaning pools, selling snacks at football games.\n\nMy grandmother taught me to save half of everything. She did the same her whole life.\n\nShe died with nothing.\n\nThree years ago, I decided to understand why. What I learned made me angry: the system is designed to keep ordinary people out. Banks take your money, earn returns, and give you almost nothing back.",
-    "mission": "diBoaS is the answer I wish my grandmother had.",
-    "belief": "We believe the financial system is designed to keep ordinary people poor. We're building the alternative.",
-    "signature": "Bar, Founder"
+    "header": "Why I'm building this",
+    "story": "I'm from Rio de Janeiro. I've been working since I was 9 — I know what it means to earn every centavo.\n\nMy grandmother taught me to save half of everything. She did the same her whole life. Disciplined. Patient. Did everything right.\n\nIt still wasn't enough.\n\nThree years ago, I decided to understand why. What I learned made me angry: the system is designed to keep ordinary people out. Banks take your money, earn returns, and share almost nothing back.\n\nWe're building the alternative.",
+    "mission": "diBoaS is what I wish had existed for her.",
+    "belief": "We believe the financial system is designed to keep ordinary people out. We're building the alternative.",
+    "signature": "— Bar, Founder"
   },
   "socialProof": {
     "header": "Join the movement",
     "stats": {
-      "waitlist": "{count} people have said \"enough\"! Join them on the waitlist",
-      "countries": "People from {count} countries are waiting"
+      "waitlist": "{count} people have said \"enough\" — join them on the waitlist",
+      "countries": "People from {countries} countries are waiting"
     },
     "testimonial": {
       "quote": "Finally, something that makes sense for people like me who aren't finance experts. This feels like it was built for us.",
@@ -51,8 +51,8 @@
     }
   },
   "demo": {
-    "header": "See it in action. Try the demo",
-    "subtext": "No signup required. Takes 60 seconds. See what the banks have been keeping from you.",
+    "header": "See it for yourself. Try the demo!",
+    "subtext": "60 seconds. No signup. You'll get it.",
     "pain": {
       "header": "Your savings today",
       "pixHeader": "You received a PIX",
@@ -104,29 +104,33 @@
     }
   },
   "faq": {
-    "header": "What you need to know",
+    "header": "Things worth knowing",
     "description": "Get answers to the most common questions about diBoaS.",
     "ctaText": "Join the waitlist",
     "items": {
       "safety": {
         "question": "Is my money safe?",
-        "answer": "Here's what most people don't know: When you put money in a bank, it's not really \"yours\" anymore. Legally, it becomes the bank's. They lend it out, invest it, and give you 0.5% for the privilege.\n\nWith diBoaS, your funds stay in your own non-custodial wallet. We can't touch your money. We just show you where to put it so it works harder for you.\n\nThe protocols we use (Aave, Compound) have secured billions of dollars and been battle-tested for years."
+        "answer": "Here's something interesting most people don't know:\n\nWhen you put money in a bank, it's not technically \"yours\" anymore. Legally, it becomes the bank's money — they just owe you that amount back. That's how they can lend it out and invest it.\n\nWith diBoaS, it works differently. Your funds stay in your own wallet. We can't touch them. We just show you where to put them so they work harder.\n\nThe protocols we use (Aave, Compound) have secured billions of dollars for years. Are they the same as bank deposits? No. Are they the Wild West? Also no. They're somewhere in between — and now you know enough to decide for yourself."
       },
       "risks": {
         "question": "What are the risks?",
-        "answer": "Let's be honest: DeFi yields are not bank deposits. Smart contract risk exists. We only use battle-tested protocols with $10B+ in assets, but no investment is risk-free.\n\nThat's why we say: Start with what you won't miss. Even €5 is enough to begin."
+        "answer": "Let's talk about risk honestly, because this is important:\n\nYour bank deposits feel safe because they're insured up to €100K. But here's what that means: the government promises to pay you back if the bank fails. The bank itself is taking risks with your money all the time.\n\nDeFi has different risks. Smart contracts are code — and code can have bugs. Protocols can be exploited.\n\nHere's how we think about it: we only use protocols that have secured $10B+ for years without major incidents. Is that zero risk? No. Is it more transparent than what banks do with your money? Yes.\n\nStart with what you won't miss. Even €5. Learn how it works. Then decide if it's right for you."
       },
       "withdraw": {
         "question": "Can I withdraw anytime?",
-        "answer": "Yes. No lock-ups. No penalties. Your money is always accessible. Withdrawals typically complete same day.\n\nThis is your money. We believe you should always have access to it."
+        "answer": "Yes — and here's why that matters:\n\nMost investments that pay higher returns lock your money up. CDs, bonds, even some savings accounts have penalties for early withdrawal. The trade-off is: higher returns, less access.\n\nWe built diBoaS differently. Same-day withdrawals. No lock-ups. No penalties.\n\nWhy? Because we believe your money should be accessible to you. Always. If you need it for an emergency tomorrow, it's there."
       },
       "revenue": {
         "question": "How do you make money?",
-        "answer": "We take a small fee (0.12%) when you earn. If you don't earn, we don't earn.\n\nOur success depends on your success. That's how it should be."
+        "answer": "Transparency matters, so here's exactly how it works:\n\nWe take a small fee (0.12%) when you earn. If you earn €10 in a month, we keep about 1.2 cents.\n\nIf you earn nothing, we earn nothing.\n\nThis is intentional. It means we only succeed when you succeed. Our incentives are aligned with yours — not against you, like traditional banks whose profit often comes from your inactivity."
       },
       "crypto": {
         "question": "Do I need to understand crypto?",
-        "answer": "No. We handle all the complexity. You just see your money growing. No wallets, no seed phrases, no confusing charts.\n\nThink of it like this: You don't need to know how a car engine works to drive. You just need to know it gets you where you're going."
+        "answer": "No — and here's why:\n\nUnder the hood, diBoaS uses DeFi protocols. That sounds technical, but you don't need to understand how it works any more than you need to understand how Visa processes your card payment.\n\nYou won't see blockchain addresses or seed phrases. You'll see your balance. Your earnings. A withdraw button.\n\nWe handle the complexity. You get the results.\n\nThat said, if you *want* to learn how it works, we have resources for that too. Education is part of what we do."
+      },
+      "trust": {
+        "question": "Why should I trust you?",
+        "answer": "Fair question. Here's how I think about trust:\n\nYou shouldn't trust us because we ask you to. You should trust us because you can verify what we do.\n\nYour funds are in your own wallet — you can check anytime. The protocols we use are public — you can see exactly where your money goes. We're building under EU regulation (MiCA) — there's accountability.\n\nStart small. Watch how it works. Trust builds from there."
       },
       "regulation": {
         "question": "Is this regulated?",
@@ -139,13 +143,13 @@
     }
   },
   "finalCta": {
-    "header": "For everyone who saved and still had nothing",
-    "body": "We're building something different.\n\nYour money. Your future. Your rules.\n\nJoin {count} people who said \"enough\" to a system that wasn't built for them.",
+    "header": "Ready?",
+    "body": "Now you know what my grandma never did.\n\nWe're building something different.\n\nYour money. Your future. Your rules.",
     "anthem": "Your money. Your future. Your rules.",
-    "button": "Join the movement! It's free →",
+    "button": "Join the waitlist — it's free →",
     "footer": "You're #{position} in line for early access"
   },
   "disclaimer": {
-    "text": "Projected yields shown are illustrative based on current DeFi market rates. Rates are variable and not guaranteed. Past performance does not indicate future results. Your capital is at risk. Start with what you won't miss."
+    "text": "Yields shown are illustrative based on current DeFi market rates. Rates are variable and not guaranteed. Past performance does not indicate future results. Your capital is at risk. Start with what you won't miss."
   }
 }
