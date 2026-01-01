@@ -1,0 +1,149 @@
+{
+  "version": "1.0",
+  "generated_at": "2025-12-30T16:22:02.460458",
+  "data_sources": {
+    "apy_data": {
+      "source": "DeFiLlama",
+      "period": "2022-05-01 to 2025-12-31",
+      "last_updated": "2025-12-30"
+    },
+    "price_data": {
+      "source": "Yahoo Finance",
+      "period": "2022-05-01 to 2025-12-31"
+    },
+    "battle_test": {
+      "source": "diBoaS Analytics",
+      "period": "1,334 days (May 2022 - Dec 2025)",
+      "methodology": "Historical backtesting with DCA",
+      "events_captured": [
+        "Terra/Luna collapse",
+        "FTX crash",
+        "USDC depeg"
+      ]
+    },
+    "monte_carlo": {
+      "source": "diBoaS Analytics",
+      "methodology": "Regime-switching simulation with fat tails",
+      "simulations": 5000,
+      "horizon": "48 months"
+    }
+  },
+  "paths": {
+    "safety": {
+      "path_id": "safety",
+      "label": "Safety First",
+      "description": "Stable yield, no crypto exposure",
+      "color": "#2563EB",
+      "risk_level": "Minimal",
+      "avg_apy": 0.9,
+      "max_drawdown": 0.0,
+      "probability_of_loss": 0.5,
+      "projections": {
+        "1_week": {
+          "period": "1_week",
+          "multiplier": 1.0002,
+          "bank_multiplier": 1.0001
+        },
+        "1_month": {
+          "period": "1_month",
+          "multiplier": 1.0007,
+          "bank_multiplier": 1.0004
+        },
+        "1_year": {
+          "period": "1_year",
+          "multiplier": 1.0086,
+          "bank_multiplier": 1.005
+        },
+        "5_years": {
+          "period": "5_years",
+          "multiplier": 1.0438,
+          "bank_multiplier": 1.0253
+        }
+      },
+      "warning": null
+    },
+    "balance": {
+      "path_id": "balance",
+      "label": "Balanced Growth",
+      "description": "Moderate crypto exposure (30-40%)",
+      "color": "#7C3AED",
+      "risk_level": "Low-Medium",
+      "avg_apy": 23.2,
+      "max_drawdown": 37.2,
+      "probability_of_loss": 39.9,
+      "projections": {
+        "1_week": {
+          "period": "1_week",
+          "multiplier": 1.004,
+          "bank_multiplier": 1.0001
+        },
+        "1_month": {
+          "period": "1_month",
+          "multiplier": 1.0173,
+          "bank_multiplier": 1.0004
+        },
+        "1_year": {
+          "period": "1_year",
+          "multiplier": 1.2321,
+          "bank_multiplier": 1.005
+        },
+        "5_years": {
+          "period": "5_years",
+          "multiplier": 2.8398,
+          "bank_multiplier": 1.0253
+        }
+      },
+      "warning": null
+    },
+    "growth": {
+      "path_id": "growth",
+      "label": "Maximum Growth",
+      "description": "High crypto exposure (70-85%)",
+      "color": "#DC2626",
+      "risk_level": "High",
+      "avg_apy": 64.2,
+      "max_drawdown": 70.2,
+      "probability_of_loss": 55.7,
+      "projections": {
+        "1_week": {
+          "period": "1_week",
+          "multiplier": 1.0096,
+          "bank_multiplier": 1.0001
+        },
+        "1_month": {
+          "period": "1_month",
+          "multiplier": 1.0416,
+          "bank_multiplier": 1.0004
+        },
+        "1_year": {
+          "period": "1_year",
+          "multiplier": 1.6422,
+          "bank_multiplier": 1.005
+        },
+        "5_years": {
+          "period": "5_years",
+          "multiplier": 11.9447,
+          "bank_multiplier": 1.0253
+        }
+      },
+      "warning": "High volatility - up to 70% drawdown observed in historical testing"
+    }
+  },
+  "bank_comparison": {
+    "apy": 0.5,
+    "source": "ECB Statistics",
+    "date": "December 2024",
+    "note": "Average EU savings account rate. Rates may vary."
+  },
+  "disclaimers": {
+    "simulation": "This is a simulation based on historical data from May 2022 to December 2025. Past performance does not guarantee future returns.",
+    "risk": "Capital is at risk. Actual results may differ significantly.",
+    "not_advice": "This is for educational purposes only and does not constitute investment advice.",
+    "card_watermark": "SIMULATION - Based on historical data. Not a guarantee. diboas.com",
+    "bank_comparison": "Bank comparison based on average EU savings account rate of 0.5% APY. Source: ECB Statistics, December 2024. Rates may vary."
+  },
+  "regional_disclaimers": {
+    "pt-BR": "SIMULACAO EDUCACIONAL - Este recurso utiliza dados historicos apenas para fins ilustrativos. Nao constitui oferta de investimento, promessa de retorno ou aconselhamento financeiro. Resultados reais podem diferir significativamente.",
+    "en-US": "EDUCATIONAL SIMULATION - This feature uses historical data for illustrative purposes only. It does not constitute an offer of investment, promise of returns, or financial advice. Actual results may differ significantly."
+  }
+}

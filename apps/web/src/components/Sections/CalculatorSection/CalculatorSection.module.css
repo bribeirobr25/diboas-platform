@@ -1,0 +1,14 @@
+/**
+ * Calculator Section Styles
+ */
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.calculator {
+  width: 100%;
+  max-width: 48rem; /* 768px */
+}

@@ -1,0 +1,134 @@
+/**
+ * Referral Link Styles
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 8px);
+  width: 100%;
+}
+
+.label {
+  font-size: var(--font-size-small, 14px);
+  color: var(--text-secondary, #64748b);
+  font-weight: 500;
+}
+
+.linkBox {
+  display: flex;
+  gap: var(--spacing-xs, 4px);
+  background: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border-default, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-xs, 4px);
+  overflow: hidden;
+}
+
+.input {
+  flex: 1;
+  padding: var(--spacing-sm, 8px) var(--spacing-md, 12px);
+  font-size: var(--font-size-small, 14px);
+  font-family: var(--font-mono, monospace);
+  color: var(--text-primary, #0f172a);
+  background: transparent;
+  border: none;
+  outline: none;
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+
+.input:focus {
+  background: var(--bg-secondary, #f8fafc);
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 4px);
+  padding: var(--spacing-sm, 8px) var(--spacing-md, 12px);
+  font-size: var(--font-size-small, 14px);
+  font-weight: 500;
+  color: var(--text-primary, #0f172a);
+  background: var(--bg-secondary, #f8fafc);
+  border: none;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background: var(--bg-tertiary, #e2e8f0);
+}
+
+.copyButton.copied {
+  background: var(--color-teal-500, #14b8a6);
+  color: var(--text-inverse, #ffffff);
+}
+
+/* Share buttons */
+.shareButtons {
+  display: flex;
+  gap: var(--spacing-sm, 8px);
+  margin-top: var(--spacing-sm, 8px);
+  justify-content: center;
+}
+
+.shareButton {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  color: white;
+}
+
+.shareButton:hover {
+  transform: scale(1.05);
+}
+
+.shareButton:active {
+  transform: scale(0.95);
+}
+
+.shareButton.whatsapp {
+  background: #25D366;
+}
+
+.shareButton.twitter {
+  background: #000000;
+}
+
+.shareButton.linkedin {
+  background: #0A66C2;
+}
+
+/* Compact mode */
+.compact .linkBox {
+  padding: var(--spacing-xs, 2px);
+}
+
+.compact .input {
+  padding: var(--spacing-xs, 6px) var(--spacing-sm, 8px);
+  font-size: var(--font-size-xs, 12px);
+}
+
+.compact .copyButton {
+  padding: var(--spacing-xs, 6px) var(--spacing-sm, 8px);
+  font-size: var(--font-size-xs, 12px);
+}
+
+.compact .copyButton span {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .compact .copyButton span {
+    display: inline;
+  }
+}

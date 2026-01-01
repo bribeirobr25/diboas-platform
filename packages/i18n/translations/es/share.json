@@ -1,0 +1,78 @@
+{
+  "headline": "Comparte tu sueño",
+  "subhead": "Muestra a otros lo que es posible",
+  "modal": {
+    "title": "Compartir",
+    "close": "Cerrar",
+    "shareVia": "Compartir vía",
+    "copyLink": "Copiar enlace",
+    "copied": "¡Copiado!",
+    "download": "Descargar imagen",
+    "generating": "Creando tu tarjeta...",
+    "noPreview": "Sin vista previa disponible"
+  },
+  "platform": {
+    "instagram": "Instagram",
+    "twitter": "X / Twitter",
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "telegram": "Telegram",
+    "download": "Descargar imagen",
+    "copy": "Copiar enlace",
+    "copyLink": "Copiar enlace",
+    "native": "Compartir..."
+  },
+  "toast": {
+    "linkCopied": "¡Enlace copiado!",
+    "downloadStarted": "Descargando...",
+    "downloadComplete": "¡Imagen guardada!",
+    "shareSuccess": "¡Compartido!",
+    "shareFailed": "No se pudo compartir. Intenta descargar la imagen.",
+    "shareCancelled": "Compartir cancelado"
+  },
+  "instagramInstructions": "¡Imagen guardada! Abre Instagram y comparte desde tu galería.",
+  "card": {
+    "cta": "Mira lo que el tuyo podría hacer →",
+    "generating": "Creando tu tarjeta...",
+    "ready": "¡Tu tarjeta está lista!"
+  },
+  "referral": {
+    "intro": "Tu enlace personal:",
+    "benefit": "Cada registro = {spots} posiciones arriba",
+    "copied": "¡Enlace copiado!"
+  },
+  "dreamMode": {
+    "twitter": "En Modo Sueño, podría crecer {start} -> {end} en {timeframe}. ¿Mi banco? Solo {bank}. #WhileISlept diboas.com",
+    "whatsapp": "Mira esto — en Modo Sueño, vi en qué podrían convertirse mis {start}: {end} en {timeframe}. Mi banco me daría {bank}. Mira lo que podría hacer el tuyo: diboas.com #WhileISlept",
+    "linkedin": "Acabo de explorar en qué podrían convertirse mis ahorros con diferentes estrategias. La brecha entre la banca tradicional (0.5%) y lo que realmente es posible es reveladora. Pruébalo tú mismo: diboas.com #WhileISlept"
+  },
+  "waitlistPosition": {
+    "twitter": "Soy el #{position} en la lista de espera de @diBoaS. Los bancos ganan 7% con nuestros ahorros. Nos pagan 0.5%. ¿Esa brecha? Siempre estuvo ahí. #WhileISlept",
+    "whatsapp": "Acabo de unirme a la lista de espera de diBoaS (#{position}). ¿Sabías que los bancos ganan 7% con nuestros ahorros pero solo nos pagan 0.5%? Échale un vistazo: {referralUrl}"
+  },
+  "dreamCard": {
+    "watermark": "PROYECCIÓN",
+    "headline": "EN MODO SUEÑO, PODRÍA CRECER",
+    "timeframePrefix": "en",
+    "bankComparison": "Mi banco me habría dado:",
+    "cta": "¿Listo para dejar de soñar?",
+    "url": "diboas.com",
+    "disclaimer": "Basado en datos históricos. Rendimiento pasado ≠ resultados futuros.",
+    "hashtag": "#WhileISlept"
+  },
+  "waitlistCard": {
+    "headline": "SOY EL #{position} EN LA LISTA DE DIBOAS",
+    "bodyLine1": "Los bancos ganan 7% con nuestros ahorros.",
+    "bodyLine2": "Nos pagan 0.5%.",
+    "bodyLine3": "¿Esa brecha? Siempre estuvo ahí.",
+    "ctaIntro": "Únete conmigo:",
+    "hashtag": "#WhileISlept"
+  },
+  "timeframes": {
+    "1week": "1 semana",
+    "1month": "1 mes",
+    "1year": "1 año",
+    "5years": "5 años"
+  }
+}

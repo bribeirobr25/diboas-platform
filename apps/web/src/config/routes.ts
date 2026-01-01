@@ -15,6 +15,15 @@ export const ROUTES = {
   HOME: '/',
   WHY_DIBOAS: '/why-diboas',
 
+  // Interactive Features
+  DREAM_MODE: '/dream-mode',
+  CALCULATOR: '/#calculator',
+  STRATEGIES: '/strategies',
+  FUTURE_YOU: '/future-you',
+
+  // Landing Page Links
+  BUSINESS_LANDING: '/business',
+
   // Personal Products
   PERSONAL: {
     ACCOUNT: '/personal/account',

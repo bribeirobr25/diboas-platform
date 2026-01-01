@@ -3,12 +3,15 @@
 /**
  * Minimal Navigation Component
  *
- * A simplified navigation variant for landing pages that displays only:
+ * A simplified navigation variant for landing pages that displays:
  * - Logo (linked to home)
+ * - Landing page links (For Business, Strategies, Future You)
  * - Language switcher
  * - CTA button (opens waiting list modal)
  *
  * Used for B2C/B2B landing pages where full navigation is not needed.
+ *
+ * @see docs/handoffs/cmo/FINAL-B2C-Landing-Page-v4.md - Navigation Structure spec
  */
 
 import Image from 'next/image';
@@ -20,6 +23,29 @@ import { useWaitingListModal } from '@/components/WaitingList';
 import { ASSET_PATHS } from '@/config/assets';
 import { BRAND_CONFIG } from '@/config/brand';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
+import { ROUTES } from '@/config/routes';
+
+/**
+ * Landing page navigation links configuration
+ * Following the spec: For Business | Strategies | Future You
+ */
+const LANDING_NAV_LINKS = [
+  {
+    id: 'for-business',
+    labelKey: 'common.navigation.landing.forBusiness',
+    href: ROUTES.BUSINESS_LANDING,
+  },
+  {
+    id: 'strategies',
+    labelKey: 'common.navigation.landing.strategies',
+    href: ROUTES.STRATEGIES,
+  },
+  {
+    id: 'future-you',
+    labelKey: 'common.navigation.landing.futureYou',
+    href: ROUTES.FUTURE_YOU,
+  },
+] as const;
 
 export default function MinimalNavigation() {
   const intl = useIntl();
@@ -41,6 +67,19 @@ export default function MinimalNavigation() {
             />
           </LocaleLink>
 
+          {/* Landing Page Navigation Links */}
+          <div className="minimal-nav-links">
+            {LANDING_NAV_LINKS.map((link) => (
+              <LocaleLink
+                key={link.id}
+                href={link.href}
+                className="minimal-nav-link"
+              >
+                {intl.formatMessage({ id: link.labelKey })}
+              </LocaleLink>
+            ))}
+          </div>
+
           {/* Actions: Language Switcher + CTA */}
           <div className="minimal-nav-actions">
             <LanguageSwitcher variant="dropdown" size="sm" />
@@ -51,7 +90,7 @@ export default function MinimalNavigation() {
               onClick={openModal}
               className="minimal-nav-cta"
             >
-              {intl.formatMessage({ id: 'common.navigation.joinWaitlist' })}
+              {intl.formatMessage({ id: 'common.navigation.landing.joinWaitlist' })}
             </Button>
           </div>
         </FlexBetween>

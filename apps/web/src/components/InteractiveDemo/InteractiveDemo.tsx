@@ -20,6 +20,8 @@ import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import { useWaitingListModal } from '@/components/WaitingList';
 import type { InteractiveDemoProps, DemoScreen, DemoState, DemoAnalyticsEvent } from './types';
+import { useWaitlistStatus } from './hooks/useWaitlistStatus';
+import { Screen5CTA } from './Screen5CTA';
 import styles from './InteractiveDemo.module.css';
 
 // Amount options (in EUR, will be converted for BRL)
@@ -40,6 +42,9 @@ export function InteractiveDemo({
 }: InteractiveDemoProps) {
   const intl = useTranslation();
   const { openModal } = useWaitingListModal();
+
+  // Check if user is on waitlist
+  const { isOnWaitlist, saveStatus } = useWaitlistStatus();
 
   // Demo state
   const [state, setState] = useState<DemoState>({
@@ -162,27 +167,49 @@ export function InteractiveDemo({
     setState(prev => ({ ...prev, isSubmitting: true }));
 
     try {
-      // Simulate API call - in production, this would call the waitlist API
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Call the actual waitlist API
+      const response = await fetch('/api/waitlist/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: state.email,
+          locale,
+          gdprAccepted: true,
+          source: 'interactive_demo',
+        }),
+      });
 
-      // Generate mock position and referral code
-      const position = Math.floor(Math.random() * 2000) + 1000;
-      const code = `DI${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+      const data = await response.json();
 
-      setState(prev => ({
-        ...prev,
-        isSubmitting: false,
-        waitlistPosition: position,
-        referralCode: code
-      }));
+      if (data.success || data.errorCode === 'ALREADY_REGISTERED') {
+        const position = data.position;
+        const code = data.referralCode;
 
-      trackEvent('demo_signup_complete', { position });
-      goToScreen('success');
-      onComplete?.();
+        setState(prev => ({
+          ...prev,
+          isSubmitting: false,
+          waitlistPosition: position,
+          referralCode: code
+        }));
+
+        // Save to localStorage for persistent status
+        saveStatus({
+          email: state.email,
+          position,
+          referralCode: code,
+        });
+
+        trackEvent('demo_signup_complete', { position });
+        goToScreen('success');
+        onComplete?.();
+      } else {
+        throw new Error(data.error || 'Signup failed');
+      }
     } catch (error) {
+      console.error('[InteractiveDemo] Signup error:', error);
       setState(prev => ({ ...prev, isSubmitting: false }));
     }
-  }, [state.email, state.isSubmitting, goToScreen, trackEvent, onComplete]);
+  }, [state.email, state.isSubmitting, locale, goToScreen, trackEvent, onComplete, saveStatus]);
 
   // Handle share
   const handleShare = useCallback((platform: string) => {
@@ -430,33 +457,63 @@ export function InteractiveDemo({
             <p className={styles.callToAction}>
               {intl.formatMessage({ id: 'landing-b2c.demo.invitation.callToAction' })}
             </p>
-            <form onSubmit={handleSubmit} className={styles.signupForm}>
-              <input
-                type="email"
-                className={styles.emailInput}
-                placeholder={intl.formatMessage({ id: 'landing-b2c.demo.invitation.emailPlaceholder' })}
-                value={state.email}
-                onChange={handleEmailChange}
-                onFocus={handleEmailFocus}
-                required
+
+            {/* Conditional CTA based on user waitlist status */}
+            {isOnWaitlist ? (
+              <Screen5CTA
+                isOnWaitlist={true}
+                onJoinWaitlist={() => {
+                  trackEvent('demo_waitlist_click');
+                  openModal();
+                }}
+                onTryDreamMode={() => {
+                  trackEvent('demo_dream_mode_click');
+                  // Navigate to Dream Mode
+                  window.location.hash = 'dream-mode';
+                }}
+                onExplore={() => {
+                  trackEvent('demo_explore_click');
+                  // Navigate to features/learn section
+                  const featuresSection = document.getElementById('features');
+                  if (featuresSection) {
+                    featuresSection.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.location.href = `/${locale}/learn/overview`;
+                  }
+                }}
               />
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                className={`${styles.ctaButton} ${styles.submitButton}`}
-                disabled={state.isSubmitting}
-                loading={state.isSubmitting}
-                aria-label={intl.formatMessage({ id: 'landing-b2c.demo.invitation.submitButton' })}
-              >
-                {intl.formatMessage({ id: 'landing-b2c.demo.invitation.submitButton' })}
-              </Button>
-            </form>
-            <ul className={styles.trustPoints}>
-              <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint1' })}</li>
-              <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint2' })}</li>
-              <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint3' })}</li>
-            </ul>
+            ) : (
+              <>
+                <form onSubmit={handleSubmit} className={styles.signupForm}>
+                  <input
+                    type="email"
+                    className={styles.emailInput}
+                    placeholder={intl.formatMessage({ id: 'landing-b2c.demo.invitation.emailPlaceholder' })}
+                    value={state.email}
+                    onChange={handleEmailChange}
+                    onFocus={handleEmailFocus}
+                    required
+                  />
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    className={`${styles.ctaButton} ${styles.submitButton}`}
+                    disabled={state.isSubmitting}
+                    loading={state.isSubmitting}
+                    aria-label={intl.formatMessage({ id: 'landing-b2c.demo.invitation.submitButton' })}
+                    onClick={() => trackEvent('demo_waitlist_click')}
+                  >
+                    {intl.formatMessage({ id: 'landing-b2c.demo.invitation.submitButton' })}
+                  </Button>
+                </form>
+                <ul className={styles.trustPoints}>
+                  <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint1' })}</li>
+                  <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint2' })}</li>
+                  <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint3' })}</li>
+                </ul>
+              </>
+            )}
           </div>
         )}
 
@@ -504,6 +561,43 @@ export function InteractiveDemo({
               </button>
               <button type="button" className={styles.socialButton} onClick={() => handleShare('copy')} aria-label="Copy referral link">
                 {intl.formatMessage({ id: 'landing-b2c.demo.success.copyLink' })}
+              </button>
+            </div>
+
+            {/* Dream Mode CTA - for users who completed waitlist signup */}
+            <div className={styles.dreamModeSection}>
+              <h3 className={styles.dreamModeHeader}>
+                {intl.formatMessage({ id: 'landing-b2c.demo.success.dreamModeHeader' })}
+              </h3>
+              <Button
+                variant="secondary"
+                size="lg"
+                className={styles.dreamModeButton}
+                onClick={() => {
+                  trackEvent('demo_dream_mode_click');
+                  // Navigate to Dream Mode page
+                  window.location.href = `/${locale}/dream-mode`;
+                }}
+              >
+                {intl.formatMessage({ id: 'landing-b2c.demo.success.dreamModeCta' })}
+              </Button>
+            </div>
+
+            {/* Calculator suggestion - EP3 */}
+            <div className={styles.calculatorSuggestion}>
+              <button
+                type="button"
+                className={styles.calculatorLink}
+                onClick={() => {
+                  trackEvent('demo_calculator_click');
+                  // Scroll to calculator section
+                  const calculatorSection = document.getElementById('calculator');
+                  if (calculatorSection) {
+                    calculatorSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                {intl.formatMessage({ id: 'landing-b2c.demo.success.calculatorSuggestion' })}
               </button>
             </div>
           </div>

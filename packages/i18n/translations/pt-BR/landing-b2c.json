@@ -1,60 +1,93 @@
 {
   "hero": {
-    "headlineLine1": "Minha avó guardou metade de tudo que ganhou na vida.",
-    "headlineLine2": "Mesmo assim, não foi suficiente.",
-    "headline": "Minha avó guardou metade de tudo que ganhou na vida. Mesmo assim, não foi suficiente.",
-    "subheadline": "Eu descobri por quê. Agora eu tô mudando isso.",
-    "valueProp": "diBoaS dá às pessoas comuns as mesmas vantagens financeiras que os ricos sempre tiveram.",
-    "cta": "Olha o que eu descobri →",
-    "trust": "Seu dinheiro continua seu. Saca quando quiser.",
-    "socialProof": "{count} pessoas já disseram \"chega\" pra um sistema que não foi feito pra gente",
-    "pixBadge": "Funciona com PIX"
+    "headlineLine1": "O sistema não está quebrado.",
+    "headlineLine2": "Ele funciona exatamente como foi projetado.",
+    "headlineLine3": "Só que não foi projetado pra você.",
+    "headline": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não foi projetado pra você.",
+    "subheadline": "Seu banco investe seu dinheiro. Cobra taxas. Oferece quase nada em troca. Limita seus saques. Aí ganha bilhões e te dá migalhas.",
+    "cta": "Olha como eu descobri isso →",
+    "trust": "Seu dinheiro continua seu. Saque quando quiser.",
+    "socialProof": "Junte-se a {count} pessoas que disseram \"basta\""
   },
-  "problem": {
-    "header": "💡 A verdade sobre a sua poupança",
-    "body": "O sistema não tá quebrado. Ele funciona exatamente como foi feito. Só que não foi feito pra você.\n\nMinha avó tentou de tudo. Trabalhar duro. Comprar só o básico. Tentar guardar. E mesmo assim não dava.\n\nConhece essa história? Olha o que ninguém contou pra ela:\n\nO banco pagava 0,5% de juros pra ela — e ganhava 7% com o dinheiro dela.\n\nAqueles R$1.000 que ela guardou? O banco fez R$70 com eles e devolveu R$5.\n\nOs outros R$65? Eram dela.\n\n**Minha avó aprendeu isso do jeito difícil. Você não precisa.**",
-    "grandmotherLine": "Minha avó aprendeu isso do jeito difícil. Você não precisa.",
-    "cta": "Tem um jeito melhor →"
+  "origin": {
+    "header": "Por causa da minha avó",
+    "body": "Minha avó me ensinou a guardar dinheiro. Ela dizia pra eu tentar guardar metade de tudo que eu ganhasse. Ela tentou isso a vida inteira.\n\nTrabalhar duro. Comprar só o básico. Tentar guardar.\n\nMesmo assim não deu certo.\n\nConhece essa história?\n\nOlha o que ninguém contou pra ela: O banco pagava 0,5% de juros enquanto ganhava 7% com o dinheiro dela.\n\nPensa comigo. Aqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.\n\nO mesmo banco tá fazendo isso com todos nós.\n\nÉ por isso que eu tô construindo o diBoaS.",
+    "soundsFamiliar": "Conhece essa história?",
+    "bankFact": "Olha o que ninguém contou pra ela: O banco pagava 0,5% de juros enquanto ganhava 7% com o dinheiro dela.",
+    "thinkAboutIt": "Pensa comigo. Aqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.",
+    "sameBank": "O mesmo banco tá fazendo isso com todos nós.",
+    "whyBuilding": "É por isso que eu tô construindo o diBoaS.",
+    "signature": "— Bar, Fundador",
+    "cta": "Olha como funciona →"
   },
   "howItWorks": {
     "header": "Como o diBoaS funciona",
     "step1": {
-      "title": "Deposita",
-      "description": "Começa com R$5. Via PIX. Dois minutos."
+      "title": "Coloca o dinheiro",
+      "description": "Começa com só R$5. Leva 2 minutos."
     },
     "step2": {
       "title": "Ganha o que é seu",
-      "description": "Seu dinheiro rende 6-10% — a mesma taxa que o banco ganha. Agora vai pra você."
+      "description": "Seu dinheiro rende 6-10% ao ano. As mesmas taxas que os bancos ganham. Agora vai pra você."
     },
     "step3": {
       "title": "Saca quando quiser",
-      "description": "Precisou? Um toque. No mesmo dia. Sem carência. Sem multa."
+      "description": "Precisa do dinheiro? Um toque. No mesmo dia. Sem carência. Sem multa."
     },
-    "footerNote": "É isso. Sem pegadinha. Sem letra miúda. Seu dinheiro trabalhando pra você de verdade.",
-    "pixNote": "Depósito e saque via PIX. Simples assim.",
-    "cta": "Testa a demo →"
+    "footerNote": "É isso. Sem papo difícil. Sem complicação. Só seu dinheiro trabalhando de verdade pra você.",
+    "cta": "Mas não é só isso →"
   },
-  "whyWeBuiltThis": {
-    "header": "Por que eu tô construindo isso",
-    "story": "Sou do Rio de Janeiro. Trabalho desde os 9 anos — sei o que é ganhar cada centavo.\n\nMinha avó me ensinou a guardar metade de tudo. Ela fez isso a vida inteira. Disciplinada. Paciente. Fez tudo certo.\n\nMesmo assim, não foi suficiente.\n\nTrês anos atrás, eu quis entender por quê. O que eu aprendi me deu raiva: o sistema foi feito pra deixar gente comum de fora. Bancos pegam seu dinheiro, fazem rendimento, e devolvem quase nada.\n\nA gente tá construindo a alternativa.",
-    "mission": "diBoaS é o que eu queria que tivesse existido pra ela.",
-    "belief": "A gente acredita que o sistema financeiro foi feito pra manter gente comum de fora. A gente tá construindo a alternativa.",
-    "signature": "— Bar, Fundador"
-  },
-  "socialProof": {
-    "header": "Entra no movimento",
-    "stats": {
-      "waitlist": "{count} pessoas já disseram \"chega\" — entra na fila com elas",
-      "countries": "Gente de {countries} países esperando"
+  "futureYouCalculator": {
+    "header": "No que seu dinheiro poderia se transformar?",
+    "subheader": "Veja seu futuro. Sem precisar de conta.",
+    "sliderLabel": "Valor mensal que você poderia guardar",
+    "sliderMin": "R$5",
+    "sliderMax": "R$500",
+    "timeButtons": {
+      "5years": "5 anos",
+      "10years": "10 anos",
+      "15years": "15 anos",
+      "20years": "20 anos"
     },
-    "testimonial": {
-      "quote": "Finalmente algo que faz sentido pra quem não é especialista em finanças. Parece que foi feito pra gente mesmo.",
-      "author": "Membro da lista de espera"
-    }
+    "results": {
+      "intro": "Em {years} anos, seus R${amount}/mês poderiam virar:",
+      "withDiboas": "Com estratégias diBoaS",
+      "withBank": "Com seu banco (0,5% da poupança)",
+      "difference": "Isso é R${difference} a mais com o mesmo valor mensal."
+    },
+    "disclaimer": "⚠️ SIMULAÇÃO — Baseado em dados históricos. Resultados passados não garantem retornos futuros.",
+    "cta": "Entrar na lista de espera pra fazer isso virar realidade →"
+  },
+  "features": {
+    "header": "Mais que poupança. Tudo que seu dinheiro precisa.",
+    "intro": "O diBoaS não é só rendimento. É dar controle da sua vida financeira inteira, sem as taxas, demoras e fronteiras que os bancos impõem.",
+    "earn": {
+      "headline": "Ganha o que os bancos ganham",
+      "body": "Seu dinheiro trabalha 24 horas em protocolos confiáveis. As mesmas taxas que os bancos conseguem. Agora vão pra você. 6-10% ao ano em stablecoins. Saca quando quiser.",
+      "stat": "Baseado em análise histórica de 4 anos. Resultados variam por estratégia. Detalhes na página Estratégias."
+    },
+    "send": {
+      "headline": "Manda dinheiro. Na hora. Pra qualquer lugar. Sem taxa.",
+      "body": "Transfere pra qualquer pessoa no mundo em segundos, não dias. Sem taxa de TED. Sem spread no câmbio. Sem horário bancário. Só manda.",
+      "stat": "R$0 de taxa. Tempo real. 24/7/365."
+    },
+    "invest": {
+      "headline": "Compra ativos sem fronteira",
+      "body": "Acesso a investimentos globais sem barreiras. Ações, cripto, ativos tokenizados, tudo num lugar só. Sem mínimo. Sem exclusão.",
+      "stat": "Começa com R$5. Seja dono de um pedaço de qualquer coisa."
+    },
+    "goals": {
+      "headline": "Guarda pro que importa",
+      "body": "Define uma meta. Escolhe um prazo. A gente encontra a estratégia certa. Acompanha seu progresso. Ajusta quando a vida muda. Seu dinheiro cresce pro seu futuro.",
+      "stat": "10 estratégias pra diferentes níveis de risco."
+    },
+    "strategiesLink": "Conhece todas →",
+    "cta": "Conhecer todas as estratégias →"
   },
   "demo": {
-    "header": "Veja você mesmo. Testa a demo!",
+    "header": "Veja você mesmo",
     "subtext": "60 segundos. Sem cadastro. Você vai entender.",
+    "postDemoCta": "Pronto pra começar? Entra na lista de espera →",
     "pain": {
       "header": "Suas economias hoje",
       "pixHeader": "Você recebeu um PIX",
@@ -85,14 +118,21 @@
       "continueCta": "Continuar"
     },
     "invitation": {
-      "header": "Isso foi um demo. Imagina o negócio real.",
-      "subheader": "Dinheiro real. Crescimento real. Controle real.",
-      "callToAction": "A gente vai lançar em breve. Garante acesso antecipado.",
+      "header": "O APRENDIZADO É REAL.",
+      "subheader": "A diferença entre o que os bancos ganham e o que te pagam? Sempre esteve lá.",
+      "callToAction": "Agora você sabe o que minha avó nunca soube.",
       "emailPlaceholder": "Digite seu email",
       "submitButton": "Garantir meu lugar na lista",
       "trustPoint1": "Sem spam, nunca",
       "trustPoint2": "Acesso antecipado no lançamento",
       "trustPoint3": "Convida amigos = passa na frente"
+    },
+    "screen5": {
+      "ctaAnonymous": "Entrar na lista de espera",
+      "ctaLoggedIn": "Experimentar o Modo Sonho",
+      "divider": "ou",
+      "ctaSecondary": "Explorar o que vem por aí",
+      "dreamModeHelper": "Modo Sonho: Veja o que diferentes abordagens poderiam fazer com seu dinheiro — usando dados históricos reais."
     },
     "success": {
       "header": "Você tá dentro!",
@@ -102,57 +142,90 @@
       "linkBoxLabel": "Copia seu link de convite",
       "shareLabel": "Ou compartilha direto:",
       "copyLink": "Copiar Link",
-      "prewrittenMessage": "Acabei de entrar pro diBoaS — finalmente um jeito de fazer minhas economias crescerem de verdade. 8% contra 0,5% do banco. Dá uma olhada"
+      "prewrittenMessage": "Acabei de entrar pro diBoaS — finalmente um jeito de fazer minhas economias crescerem de verdade. 8% contra 0,5% do banco. Dá uma olhada",
+      "dreamModeHeader": "Quer sonhar maior?",
+      "dreamModeCta": "Experimentar Modo Sonho",
+      "calculatorSuggestion": "Experimente também nossa Calculadora do Futuro"
+    }
+  },
+  "socialProof": {
+    "header": "Faz parte do movimento",
+    "stats": {
+      "waitlist": "{count} pessoas já disseram \"basta\" — entra na lista com elas",
+      "countries": "Gente de {countries} países tá esperando"
+    },
+    "testimonial": {
+      "quote": "Finalmente algo que faz sentido pra gente como eu, que não é expert em finanças. Parece que foi feito pra nós.",
+      "author": "Membro inicial da lista de espera"
     }
   },
   "faq": {
-    "header": "Boas perguntas",
+    "header": "Coisas que vale saber",
     "description": "Respostas pras dúvidas mais comuns sobre o diBoaS.",
     "ctaText": "Entrar na lista de espera",
     "items": {
       "safety": {
-        "question": "É seguro?",
-        "answer": "Deixa eu te explicar uma coisa que pouca gente sabe:\n\nQuando você coloca dinheiro no banco, tecnicamente não é mais \"seu\". Vira do banco — eles só te devem aquele valor. Por isso que eles podem emprestar e investir.\n\nNo diBoaS funciona diferente. Seu dinheiro fica na sua própria carteira. A gente não encosta nele. Só mostra onde colocar pra render mais.\n\nOs protocolos que a gente usa (Aave, Compound) têm bilhões de dólares há anos. É a mesma coisa que conta no banco? Não. É o faroeste? Também não. Tá no meio — e agora você sabe o suficiente pra decidir."
+        "question": "Meu dinheiro tá seguro?",
+        "answer": "Uma coisa que pouca gente sabe:\n\nQuando você coloca dinheiro no banco, tecnicamente não é mais \"seu\". Legalmente vira do banco. Eles só te devem aquele valor. É assim que conseguem emprestar e investir.\n\nNo diBoaS é diferente. Seu dinheiro fica na sua própria carteira. A gente não consegue mexer nele. Só mostra onde colocar pra render mais.\n\nOs protocolos que a gente usa (Aave, Compound) guardam bilhões de dólares há anos. É igual conta em banco? Não. É terra de ninguém? Também não. Tá no meio, e agora você sabe o suficiente pra decidir."
       },
       "risks": {
         "question": "Qual o risco?",
-        "answer": "Vamos falar de risco de verdade, porque isso é importante:\n\nSeu dinheiro no banco parece seguro porque tem o FGC — o governo cobre até R$250 mil se o banco quebrar. Mas o banco tá tomando risco com seu dinheiro o tempo todo.\n\nDeFi tem riscos diferentes. Smart contracts são código — e código pode ter bug. Protocolos podem ser hackeados.\n\nComo a gente pensa nisso: só usamos protocolos com mais de $10 bilhões há anos sem incidente grave. Risco zero? Não. Mais transparente do que o banco faz com seu dinheiro? Com certeza.\n\nComeça com o que não vai fazer falta. Até R$5. Aprende como funciona. Depois decide se é pra você."
+        "answer": "Vamos falar de risco de verdade:\n\nSeu dinheiro no banco parece seguro porque tem o FGC, que cobre até R$250 mil se o banco quebrar. Mas o banco tá tomando risco com seu dinheiro o tempo todo. Só não te conta.\n\nDeFi tem riscos diferentes. Smart contracts são código, e código pode ter bug. Protocolos podem ser explorados.\n\nA gente só usa protocolos com mais de $10 bilhões há anos sem incidente grave. Risco zero? Não. Mais transparente do que o banco faz? Com certeza.\n\nComeça com o que não vai fazer falta. Até R$5. Aprende como funciona. Depois decide."
       },
       "withdraw": {
         "question": "Posso sacar quando quiser?",
-        "answer": "Pode — e deixa eu te explicar por que isso importa:\n\nA maioria dos investimentos que pagam mais trava seu dinheiro. CDB, LCI, LCA — se você tirar antes, perde rendimento ou paga multa.\n\nA gente construiu o diBoaS diferente. Saque no mesmo dia. Sem carência. Sem multa.\n\nPor quê? Porque a gente acredita que seu dinheiro tem que estar disponível pra você. Sempre. Se precisar amanhã pra uma emergência, tá lá."
+        "answer": "Pode, e isso é importante:\n\nMuitas opções de \"alto rendimento\" travam seu dinheiro. CDB com carência. Tesouro Direto com prazo. Staking travado.\n\nNo diBoaS, seu dinheiro continua líquido. Pede o saque, recebe no mesmo dia. Sem espera. Sem multa. Sem pergunta.\n\nPorque é seu dinheiro. Você não deveria precisar de permissão pra usar."
       },
       "revenue": {
         "question": "Como vocês ganham dinheiro?",
-        "answer": "Transparência importa, então olha como funciona:\n\nA gente cobra uma taxa pequena (0,12%) quando você ganha. Se você ganhar R$10 no mês, a gente fica com mais ou menos 1 centavo.\n\nSe você não ganha nada, a gente não ganha nada.\n\nIsso é de propósito. Significa que a gente só tem sucesso quando você tem. Nosso incentivo tá alinhado com o seu — não contra você, como os bancos que lucram com sua inércia."
+        "answer": "A gente cobra 0,9% quando você saca. Se você sacar R$100, a gente fica com 90 centavos.\n\nSe você não sacar, a gente não ganha nada.\n\nA gente só ganha quando você ganha."
+      },
+      "trust": {
+        "question": "Por que eu deveria confiar em vocês?",
+        "answer": "Você não deveria confiar porque a gente pede. Deveria confiar porque você pode verificar.\n\nSeu dinheiro tá na sua carteira. Você confere quando quiser. Os protocolos são públicos. Dá pra ver exatamente onde tá. A gente tá construindo dentro da regulação europeia (MiCA). Tem responsabilização.\n\nComeça pequeno. Vê como funciona. Confiança se constrói."
+      },
+      "strategies": {
+        "question": "Quais estratégias de investimento vocês oferecem?",
+        "answer": "A gente oferece 10 estratégias pra diferentes objetivos e níveis de risco, de reserva de emergência até construção de patrimônio de longo prazo.\n\nCada estratégia foi feita pra um propósito específico: proteger seu colchão de segurança, guardar pra metas de curto prazo, ou crescer patrimônio ao longo de décadas.",
+        "link": "Conhecer todas as estratégias"
       },
       "crypto": {
         "question": "Preciso entender de cripto?",
-        "answer": "Não — e olha por quê:\n\nPor baixo dos panos, o diBoaS usa protocolos DeFi. Parece técnico, mas você não precisa entender como funciona do mesmo jeito que não precisa entender como o PIX processa seu pagamento.\n\nVocê não vai ver endereço de blockchain ou seed phrase. Vai ver seu saldo. Seu rendimento. Um botão de saque.\n\nA gente cuida da complexidade. Você fica com o resultado.\n\nAgora, se você *quiser* aprender como funciona, a gente tem conteúdo pra isso também. Educação faz parte do que a gente faz."
-      },
-      "trust": {
-        "question": "Por que devo confiar em vocês?",
-        "answer": "Pergunta justa. Olha como eu penso sobre confiança:\n\nVocê não deveria confiar na gente porque a gente pede. Você deveria confiar porque pode verificar o que a gente faz.\n\nSeu dinheiro tá na sua própria carteira — você pode checar a qualquer momento. Os protocolos que a gente usa são públicos — você pode ver exatamente pra onde seu dinheiro vai. A gente tá construindo sob regulamentação da UE (MiCA) — tem responsabilidade.\n\nComeça pequeno. Vê como funciona. A confiança vem daí."
-      },
-      "regulation": {
-        "question": "É regulamentado?",
-        "answer": "Sim. Operamos sob o framework MiCA da UE com autorização CASP planejada. Usamos apenas protocolos com mais de $10 bilhões em valor total e múltiplas auditorias de segurança.\n\nTá sendo construído pra compliance desde o dia um."
-      },
-      "pix": {
-        "question": "Funciona com PIX?",
-        "answer": "Sim! Depósitos e saques via PIX. Simples assim."
+        "answer": "Não. Você não precisa entender de blockchain, carteiras ou DeFi pra usar o diBoaS.\n\nA gente cuida de toda a complexidade técnica. Você só vê seu saldo crescendo.\n\nPensa assim: é como usar email sem entender como protocolos de internet funcionam. A tecnologia tá lá, mas você não precisa ver."
       }
     }
   },
   "finalCta": {
     "header": "Bora?",
-    "body": "Agora você sabe o que minha avó nunca soube.\n\nA gente tá construindo algo diferente.\n\nSeu dinheiro. Seu futuro. Suas regras.",
+    "body": "Agora você sabe o que minha avó nunca soube.\n\nO sistema foi feito assim. Mas você não precisa aceitar.\n\nA gente tá construindo algo diferente.\n\nSeu dinheiro. Seu futuro. Suas regras.",
     "anthem": "Seu dinheiro. Seu futuro. Suas regras.",
-    "button": "Entrar na fila — é grátis →",
-    "footer": "Você é o #{position} na fila pro acesso antecipado",
-    "highlight": "Começa com o que não vai fazer falta. Até R$5."
+    "button": "Entrar na lista de espera — é grátis →",
+    "footer": "⏰ Você é o #{position} na fila pro acesso antecipado"
   },
-  "disclaimer": {
-    "text": "Os rendimentos mostrados são ilustrativos, baseados nas taxas atuais do mercado DeFi. Os rendimentos são variáveis e não garantidos. Desempenho passado não indica resultados futuros. Seu capital está em risco. Comece com o que não vai fazer falta."
+  "footer": {
+    "riskDisclaimer": "O diBoaS oferece acesso a protocolos de finanças descentralizadas. Retornos não são garantidos. Resultados passados não indicam resultados futuros. DeFi envolve risco de smart contract, risco de mercado e risco de liquidez. Use apenas valores que você pode arriscar. O diBoaS não é um banco e depósitos não são segurados.",
+    "bcbDisclaimer": "⚠️ AVISO IMPORTANTE: O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil.",
+    "regulatoryNote": "O diBoaS opera sob o framework MiCA da União Europeia. Autorização CASP pendente.",
+    "links": {
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Uso",
+      "risk": "Aviso de Riscos"
+    }
+  },
+  "problem": {
+    "header": "O sistema não tá quebrado. Ele funciona exatamente como foi projetado.",
+    "body": "Seu banco investe seu dinheiro. Cobra taxas. Te oferece quase nada em troca. Limita seus saques. Depois, ganha bilhões e te dá migalhas.\n\nAqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.",
+    "cta": "Olha o que eu descobri →"
+  },
+  "whyWeBuiltThis": {
+    "header": "Por causa da minha avó",
+    "story": "Minha avó me ensinou a guardar dinheiro. Ela dizia pra eu tentar guardar metade de tudo que eu ganhasse. Ela fez isso a vida inteira.\n\nTrabalhar duro. Comprar só o básico. Tentar guardar.\n\nMesmo assim não deu certo.\n\nConhece essa história?\n\nOlha o que ninguém contou pra ela: O banco pagava 0,5% de juros enquanto ganhava 7% — com o dinheiro dela.\n\nPensa nisso. Aqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.\n\nO mesmo banco tá fazendo isso com todos nós.\n\nÉ por isso que eu tô construindo o diBoaS.",
+    "signature": "— Bar, Fundador"
+  },
+  "seo": {
+    "title": "diBoaS | O Sistema Não Foi Feito Pra Você. A Gente Tá Mudando Isso.",
+    "description": "Seu banco investe seu dinheiro, ganha bilhões e te dá migalhas. Ganhe 6-10%, mande dinheiro na hora de graça, invista globalmente a partir de R$5. Seu dinheiro. Suas regras.",
+    "ogTitle": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não foi projetado pra você.",
+    "ogDescription": "Por causa da minha avó, eu aprendi o que os bancos não contam pra gente. Eles ganham 7% com nosso dinheiro e nos dão 0,5%. É por isso que eu tô construindo o diBoaS."
   }
 }

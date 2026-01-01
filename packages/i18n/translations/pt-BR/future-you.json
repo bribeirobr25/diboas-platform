@@ -1,0 +1,143 @@
+{
+  "seo": {
+    "title": "Calculador Você do Futuro | diBoaS",
+    "description": "Veja no que seu dinheiro poderia se transformar. Valores pequenos. Esforço consistente. O tempo faz o resto."
+  },
+  "hero": {
+    "headline": "Conheça seu eu do futuro",
+    "subheadline": "Valores pequenos. Esforço consistente. O tempo faz o resto.",
+    "subheadline2": "Veja no que seu dinheiro poderia se transformar se trabalhasse tão duro quanto você.",
+    "context": "Isso não é uma promessa. É uma projeção baseada em dados históricos. Mas mostra o que é possível quando a matemática finalmente tá do seu lado."
+  },
+  "calculator": {
+    "header": "No que seu dinheiro poderia se transformar?",
+    "instructions": "Arrasta pra definir seu valor mensal. Escolhe o prazo. Vê a matemática funcionar.",
+    "monthlyAmount": {
+      "label": "Valor mensal que você poderia guardar",
+      "helper": "Começa com o que for confortável. Até {currency}20/mês faz diferença ao longo do tempo."
+    },
+    "timeframe": {
+      "label": "Quanto tempo você tá pensando?",
+      "helper": "Quanto maior o prazo, mais poderoso fica o crescimento.",
+      "options": {
+        "5years": "5 anos",
+        "10years": "10 anos",
+        "15years": "15 anos",
+        "20years": "20 anos"
+      }
+    },
+    "results": {
+      "header": "Em {years} anos, seus {currency}{amount}/mês poderiam virar:",
+      "withDiboas": "Com diBoaS",
+      "withBank": "Com seu banco",
+      "futureValue": "Valor Final",
+      "deposited": "Você depositou",
+      "earned": "Você ganhou",
+      "difference": "Isso é {currency}{amount} a mais com o mesmo esforço mensal.",
+      "differenceNote": "Mesmo sacrifício. Resultado diferente. É isso que acontece quando seu dinheiro trabalha de verdade pra você."
+    },
+    "watermark": "PROJEÇÃO",
+    "disclaimer": "Baseado em performance histórica (8% ao ano para diBoaS usando nossa estratégia mais conservadora, 0,5% para poupança típica). Isso é uma projeção, não uma garantia. Resultados reais variam de acordo com a estratégia escolhida e condições de mercado.",
+    "cta": "Entrar na lista pra fazer isso virar realidade →",
+    "secondaryCta": "Quer potencial maior?",
+    "strategiesLink": "Conhece todas as 10 estratégias"
+  },
+  "mathExplained": {
+    "header": "Por que a diferença é tão grande",
+    "intro": "Não é mágica. É matemática. Olha o que tá acontecendo de verdade:",
+    "bankGap": {
+      "headline": "Seu banco ganha mais do que te paga",
+      "body": "Bancos pegam seus depósitos e colocam pra trabalhar — emprestando, investindo, ganhando retornos de verdade. Mas eles só dividem uma fração minúscula com você.",
+      "body2": "Um banco típico ganha cerca de 7% com seu dinheiro. Te paga 0,5%. Essa diferença de 6,5%? É o modelo de negócio inteiro deles.",
+      "body3": "Com o diBoaS, você acessa os mesmos tipos de retornos que eles. A lacuna vai pra você."
+    },
+    "compound": {
+      "headline": "Seus ganhos começam a ganhar também",
+      "body": "Quando você ganha rendimentos, e esses rendimentos ganham mais rendimentos, o crescimento acelera com o tempo. A 0,5%, isso quase não importa. A 8%, transforma tudo.",
+      "example": {
+        "title": "{currency}100/mês por 20 anos:",
+        "deposited": "Total depositado: {currency}24.000",
+        "bankEarnings": "Rendimento no banco: {currency}1.185 (isso é 5% do que você colocou)",
+        "diboasEarnings": "Rendimento no diBoaS: {currency}34.902 (isso é 145% do que você colocou)",
+        "conclusion": "A diferença não é 16x a taxa. É 29x o rendimento. É isso que acontece quando rendimentos se multiplicam."
+      }
+    },
+    "time": {
+      "headline": "Quanto mais você demora pra começar, mais custa",
+      "body": "Começar 5 anos antes com {currency}100/mês significa dezenas de milhares a mais no final. Cada ano que você atrasa custa crescimento futuro que você nunca vai recuperar.",
+      "takeaway": "O melhor momento pra começar foi anos atrás. O segundo melhor é agora."
+    }
+  },
+  "strategyConnection": {
+    "header": "Os 8% não são aleatórios",
+    "body": "Essa projeção usa nossa estratégia mais conservadora, chamada Safe Harbor. Ela usa só sistemas estáveis sem exposição a oscilações de preço. No nosso teste de 4 anos, ela nunca perdeu dinheiro.",
+    "body2": "Se você topa alguns altos e baixos, outras estratégias entregaram retornos maiores:",
+    "table": {
+      "strategy": "Estratégia",
+      "returns": "O que pode acontecer",
+      "exposure": "Exposição a oscilação de preço",
+      "safeHarbor": {
+        "name": "Safe Harbor",
+        "returns": "6-10% ao ano",
+        "exposure": "Nenhuma"
+      },
+      "balancedBuilder": {
+        "name": "Balanced Builder",
+        "returns": "10-16% ao ano",
+        "exposure": "40%"
+      },
+      "wealthAccelerator": {
+        "name": "Wealth Accelerator",
+        "returns": "Variável (pode ser negativo ou 50%+)",
+        "exposure": "70%"
+      }
+    },
+    "note": "Potencial de retorno maior vem com caminhos mais turbulentos. Esse calculador usa Safe Harbor porque é o que a gente recomendaria pra alguém começando.",
+    "cta": "Conhecer todas as 10 estratégias"
+  },
+  "faq": {
+    "header": "Perguntas sobre o calculador",
+    "items": {
+      "realistic": {
+        "question": "8% é realista?",
+        "answer": "Os 8% estão no meio da faixa esperada da nossa estratégia Safe Harbor (6-10% ao ano). A gente testou essa estratégia em 4 anos de dados reais do mercado, incluindo o crash de 2022 e várias quedas menores.\n\nÉ garantido pro futuro? Não. Pode ser maior ou menor? Pode. Mas é baseado em dados reais, não em pensamento positivo.\n\nA gente usa 8% em vez de 10% pra ser conservador. A gente prefere que você seja surpreendido positivamente do que decepcionado."
+      },
+      "bankRate": {
+        "question": "Por que vocês usam 0,5% pra poupança?",
+        "answer": "Esse é o rendimento médio da poupança no Brasil. Alguns bancos pagam mais em CDBs promocionais (talvez 1-2%), a maioria paga poupança mesmo ou menos. A gente usa a média porque é o que a maioria das pessoas realmente recebe.\n\nSe seu banco paga mais, ótimo! Mas mesmo a 2%, a lacuna entre o que você tá ganhando e o que é possível ainda é enorme."
+      },
+      "inflation": {
+        "question": "E a inflação?",
+        "answer": "Esse calculador mostra os números reais, não ajustados pela inflação.\n\nPor que isso importa:\n- A 0,5%, você quase certamente tá perdendo poder de compra todo ano. A inflação come mais do que você ganha.\n- A 8%, você provavelmente tá batendo a inflação e construindo patrimônio real.\n\nO impacto exato depende da inflação futura, que ninguém consegue prever. Mas ganhar 8% te coloca numa posição muito mais forte do que ganhar 0,5%."
+      },
+      "minimum": {
+        "question": "Dá pra começar mesmo com {currency}5/mês?",
+        "answer": "Dá. O diBoaS não tem mínimo além de {currency}5.\n\nA gente acredita que todo mundo deveria ter acesso a rendimentos de verdade, não só quem tem milhares pra investir.\n\n{currency}5/mês por 20 anos a 8% = ~{currency}2.945\nIsso é ~{currency}1.745 de rendimento em {currency}1.200 depositados.\n\nPouco? Talvez. Mas é {currency}1.745 a mais do que você teria sem fazer nada."
+      },
+      "inconsistent": {
+        "question": "E se eu não conseguir guardar o mesmo valor todo mês?",
+        "answer": "A vida acontece. Você pode ajustar a qualquer hora.\n\nEsse calculador assume valores mensais consistentes porque é o jeito mais fácil de projetar. Mas o diBoaS não exige consistência.\n\nAlguns meses você guarda {currency}200. Alguns meses {currency}20. Alguns meses {currency}0. A matemática continua funcionando — só diferente. O que importa é que você comece."
+      },
+      "whichStrategy": {
+        "question": "Qual estratégia eu deveria usar?",
+        "answer": "O calculador usa Safe Harbor como base porque é:\n- Nossa estratégia mais conservadora\n- Usa só sistemas estáveis (sem exposição a oscilações de preço)\n- Nunca perdeu dinheiro no nosso teste de 4 anos\n\nSe você topa quedas ocasionais e tem um prazo maior, estratégias com potencial de crescimento podem combinar mais com você."
+      },
+      "bankDifference": {
+        "question": "Qual a diferença pra minha poupança no banco?",
+        "answer": "Três diferenças principais:\n\n1. Rendimentos: Poupança paga tipicamente 0,5% ou menos. Nossa estratégia mais conservadora mira 6-10%.\n\n2. Pra onde seu dinheiro vai: Bancos emprestam seu dinheiro e ficam com a maioria dos retornos. No diBoaS, seu dinheiro vai pra sistemas que te pagam diretamente.\n\n3. Controle: Depósitos no banco viram dinheiro do banco (legalmente, eles só te devem). No diBoaS, seu dinheiro fica na sua própria carteira. A gente não consegue mexer nele.\n\nO trade-off? Depósitos bancários são segurados até {currency}250.000 pelo FGC. Depósitos no diBoaS não são segurados, embora os sistemas que a gente usa tenham guardado bilhões com segurança por anos."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Pronto pra construir seu futuro?",
+    "body": "Você viu a matemática. Sabe o que é possível.",
+    "body2": "A única pergunta que sobra: quando você começa?",
+    "cta": "Entrar na lista — é grátis →",
+    "secondary": "Cada mês que você espera é crescimento que você tá perdendo.",
+    "position": "⏰ Você é o #{position} pra acesso antecipado"
+  },
+  "footer": {
+    "disclaimer": "Este calculador fornece apenas projeções. A taxa de 8% é baseada na faixa de performance esperada da estratégia Safe Harbor e não é garantida. A taxa de 0,5% é baseada no rendimento médio da poupança brasileira. Resultados reais variam de acordo com a estratégia escolhida, condições de mercado e momento dos depósitos. Resultados passados não garantem resultados futuros. Seu dinheiro é colocado em sistemas automatizados que carregam risco técnico, risco de mercado e risco de liquidez. O diBoaS não é um banco e seus fundos não são segurados. Isto não é conselho financeiro.",
+    "bcbDisclaimer": "O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil."
+  }
+}

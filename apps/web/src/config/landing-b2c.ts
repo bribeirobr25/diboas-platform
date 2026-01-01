@@ -135,6 +135,56 @@ export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
 };
 
 /**
+ * Feature Showcase Section Configuration (BenefitsCards)
+ * Maps to: Section 5 - Feature Showcase (EARN, SEND, INVEST, GOALS)
+ */
+export const B2C_FEATURES_CONFIG: BenefitsCardsConfig = {
+  section: {
+    title: 'landing-b2c.features.header',
+    description: 'landing-b2c.features.intro',
+    backgroundColor: 'light-purple'
+  },
+  cards: [
+    {
+      id: 'feature-earn',
+      icon: '/assets/icons/chart-growing.avif',
+      title: 'landing-b2c.features.earn.headline',
+      description: 'landing-b2c.features.earn.body',
+      iconAlt: 'Earnings growth chart'
+    },
+    {
+      id: 'feature-send',
+      icon: '/assets/icons/rewards-medal.avif',
+      title: 'landing-b2c.features.send.headline',
+      description: 'landing-b2c.features.send.body',
+      iconAlt: 'Send money instantly'
+    },
+    {
+      id: 'feature-invest',
+      icon: '/assets/icons/chart-growing.avif',
+      title: 'landing-b2c.features.invest.headline',
+      description: 'landing-b2c.features.invest.body',
+      iconAlt: 'Global investments'
+    },
+    {
+      id: 'feature-goals',
+      icon: '/assets/icons/rewards-medal.avif',
+      title: 'landing-b2c.features.goals.headline',
+      description: 'landing-b2c.features.goals.body',
+      iconAlt: 'Savings goals'
+    }
+  ],
+  seo: {
+    headingLevel: 'h2',
+    ariaLabel: 'diBoaS features overview'
+  },
+  analytics: {
+    sectionId: 'features-b2c',
+    category: 'landing-b2c'
+  }
+};
+
+/**
  * Why We Built This Section Configuration (FeatureShowcase)
  * Maps to: Section 3 - Origin Story
  */
@@ -257,9 +307,15 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     category: 'fees'
   },
   {
-    id: 'crypto',
-    question: 'landing-b2c.faq.items.crypto.question',
-    answer: 'landing-b2c.faq.items.crypto.answer',
+    id: 'trust',
+    question: 'landing-b2c.faq.items.trust.question',
+    answer: 'landing-b2c.faq.items.trust.answer',
+    category: 'security'
+  },
+  {
+    id: 'strategies',
+    question: 'landing-b2c.faq.items.strategies.question',
+    answer: 'landing-b2c.faq.items.strategies.answer',
     category: 'getting-started'
   }
 ];
@@ -322,4 +378,4 @@ export const B2C_FINAL_CTA_CONFIG: BgHighlightConfig = {
 /**
  * Risk Disclaimer Configuration
  */
-export const B2C_DISCLAIMER_KEY = 'landing-b2c.disclaimer.text';
+export const B2C_DISCLAIMER_KEY = 'landing-b2c.footer.riskDisclaimer';

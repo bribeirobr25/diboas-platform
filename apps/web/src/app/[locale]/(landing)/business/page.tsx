@@ -4,7 +4,6 @@ import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
-import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { TreasuryCalculator } from '@/components/Sections/TreasuryCalculator';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -12,18 +11,16 @@ import { PageI18nProvider } from '@/components/PageI18nProvider';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2B_HERO_CONFIG,
-  B2B_PROBLEM_CONFIG,
-  B2B_WHY_WE_BUILT_THIS_CONFIG,
+  B2B_THE_MATH_CONFIG,
+  B2B_ORIGIN_STORY_CONFIG,
   B2B_CALCULATOR_CONFIG,
   B2B_HOW_IT_WORKS_CONFIG,
+  B2B_FEATURES_CONFIG,
   B2B_TRUST_CONFIG,
-  B2B_WHO_IS_THIS_FOR_CONFIG,
-  B2B_USE_CASES_CONFIG,
-  B2B_SOCIAL_PROOF_CONFIG,
+  B2B_FIT_ASSESSMENT_CONFIG,
   B2B_FAQ_CONFIG,
-  B2B_PROCESS_CONFIG,
-  B2B_FINAL_CTA_CONFIG,
-  B2B_MISSION_FOOTER_CONFIG
+  B2B_SOCIAL_PROOF_CONFIG,
+  B2B_FINAL_CTA_CONFIG
 } from '@/config/landing-b2b';
 import type { Metadata } from 'next';
 
@@ -54,20 +51,18 @@ export async function generateMetadata({ params }: B2BLandingPageProps): Promise
 /**
  * B2B Landing Page - Treasury Management for Startups
  *
- * Comprehensive landing page for business audience featuring:
- * 1. Hero with headline and CTA
- * 2. Problem section explaining treasury inefficiency
- * 3. Why We Built This (mission story)
- * 4. Interactive yield calculator
- * 5. How it works (4 steps)
- * 6. Trust & compliance badges
- * 7. Who Is This For (good fit / not a fit)
- * 8. Use cases
- * 9. Social proof & metrics
- * 10. FAQ
- * 11. Getting started process
- * 12. Final CTA
- * 13. Mission Footer
+ * Landing page for business audience featuring:
+ * - Section 1: Hero with headline and CTA
+ * - Section 2: The Math (comparison table)
+ * - Section 3: Origin Story (Grandmother story)
+ * - Section 4: Interactive Calculator
+ * - Section 5: How It Works (4 steps)
+ * - Section 6: More Than Yield (4 features)
+ * - Section 7: Trust & Compliance
+ * - Section 8: Is This Right For You (Fit Assessment)
+ * - Section 9: FAQ
+ * - Section 10: Social Proof
+ * - Section 11: Final CTA
  */
 export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
   const { locale: localeParam } = await params;
@@ -97,7 +92,7 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
       <StructuredData data={[organizationData, breadcrumbData]} />
 
       <main className="main-page-wrapper">
-        {/* Hero Section */}
+        {/* Section 1: Hero */}
         <SectionErrorBoundary
           sectionId="hero-section-b2b"
           sectionType="HeroSection"
@@ -112,48 +107,54 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
           />
         </SectionErrorBoundary>
 
-        {/* Section 1: The Problem */}
+        {/* Section 2: The Math */}
         <SectionErrorBoundary
-          sectionId="problem-section-b2b"
+          sectionId="the-math-section-b2b"
           sectionType="FeatureShowcase"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <FeatureShowcase
-            variant="default"
-            config={B2B_PROBLEM_CONFIG}
-            enableAnalytics={true}
-          />
+          <div id="the-math">
+            <FeatureShowcase
+              variant="default"
+              config={B2B_THE_MATH_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
-        {/* Section 2: Why We Built This */}
+        {/* Section 3: Origin Story (Grandmother) */}
         <SectionErrorBoundary
-          sectionId="why-we-built-this-b2b"
+          sectionId="origin-story-section-b2b"
           sectionType="FeatureShowcase"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <FeatureShowcase
-            variant="default"
-            config={B2B_WHY_WE_BUILT_THIS_CONFIG}
-            enableAnalytics={true}
-          />
+          <div id="origin-story">
+            <FeatureShowcase
+              variant="default"
+              config={B2B_ORIGIN_STORY_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
-        {/* Section 3: Interactive Calculator */}
+        {/* Section 4: Interactive Calculator */}
         <SectionErrorBoundary
           sectionId="calculator-section-b2b"
           sectionType="TreasuryCalculator"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <TreasuryCalculator
-            config={B2B_CALCULATOR_CONFIG}
-            enableAnalytics={true}
-          />
+          <div id="calculator">
+            <TreasuryCalculator
+              config={B2B_CALCULATOR_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
-        {/* Section 3: How It Works */}
+        {/* Section 5: How It Works */}
         <SectionErrorBoundary
           sectionId="how-it-works-section-b2b"
           sectionType="AppFeaturesCarousel"
@@ -168,64 +169,55 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 5: Trust & Compliance */}
+        {/* Section 6: More Than Yield (Features) */}
+        <SectionErrorBoundary
+          sectionId="features-section-b2b"
+          sectionType="BenefitsCards"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <div id="features">
+            <BenefitsCardsSection
+              config={B2B_FEATURES_CONFIG}
+              variant="default"
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 7: Trust & Compliance */}
         <SectionErrorBoundary
           sectionId="trust-section-b2b"
           sectionType="BenefitsCards"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <BenefitsCardsSection
-            config={B2B_TRUST_CONFIG}
-            variant="default"
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-        {/* Section 6: Who Is This For */}
-        <SectionErrorBoundary
-          sectionId="who-is-this-for-b2b"
-          sectionType="BenefitsCards"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <BenefitsCardsSection
-            config={B2B_WHO_IS_THIS_FOR_CONFIG}
-            variant="default"
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-        {/* Section 7: Use Cases */}
-        <SectionErrorBoundary
-          sectionId="use-cases-section-b2b"
-          sectionType="ProductCarousel"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div id="use-cases">
-            <ProductCarouselFactory
-              config={B2B_USE_CASES_CONFIG}
+          <div id="trust">
+            <BenefitsCardsSection
+              config={B2B_TRUST_CONFIG}
+              variant="default"
               enableAnalytics={true}
             />
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 6: Social Proof */}
+        {/* Section 8: Is This Right For You (Fit Assessment) */}
         <SectionErrorBoundary
-          sectionId="social-proof-section-b2b"
+          sectionId="fit-assessment-section-b2b"
           sectionType="BenefitsCards"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <BenefitsCardsSection
-            config={B2B_SOCIAL_PROOF_CONFIG}
-            variant="default"
-            enableAnalytics={true}
-          />
+          <div id="fit-assessment">
+            <BenefitsCardsSection
+              config={B2B_FIT_ASSESSMENT_CONFIG}
+              variant="default"
+              enableAnalytics={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: FAQ */}
+        {/* Section 9: FAQ */}
         <SectionErrorBoundary
           sectionId="faq-section-b2b"
           sectionType="FAQAccordion"
@@ -235,22 +227,23 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
           <FAQAccordion config={B2B_FAQ_CONFIG} />
         </SectionErrorBoundary>
 
-        {/* Section 8: The Process */}
+        {/* Section 10: Social Proof */}
         <SectionErrorBoundary
-          sectionId="process-section-b2b"
-          sectionType="AppFeaturesCarousel"
+          sectionId="social-proof-section-b2b"
+          sectionType="BenefitsCards"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <div id="process">
-            <AppFeaturesCarousel
-              config={B2B_PROCESS_CONFIG}
+          <div id="social-proof">
+            <BenefitsCardsSection
+              config={B2B_SOCIAL_PROOF_CONFIG}
+              variant="default"
               enableAnalytics={true}
             />
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 12: Final CTA */}
+        {/* Section 11: Final CTA */}
         <SectionErrorBoundary
           sectionId="final-cta-b2b"
           sectionType="FeatureShowcase"
@@ -264,20 +257,6 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
               enableAnalytics={true}
             />
           </div>
-        </SectionErrorBoundary>
-
-        {/* Section 13: Mission Footer */}
-        <SectionErrorBoundary
-          sectionId="mission-footer-b2b"
-          sectionType="FeatureShowcase"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <FeatureShowcase
-            variant="default"
-            config={B2B_MISSION_FOOTER_CONFIG}
-            enableAnalytics={true}
-          />
         </SectionErrorBoundary>
       </main>
     </PageI18nProvider>

@@ -51,6 +51,9 @@ export async function loadPageNamespaces(
     } else if (namespace.startsWith('landing-')) {
       // Landing pages use their namespace name as prefix directly
       prefix = namespace;
+    } else if (namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode') {
+      // Feature namespaces use their namespace name as prefix directly
+      prefix = namespace;
     } else {
       prefix = `marketing.pages.${pathToCamel(namespace)}`;
     }

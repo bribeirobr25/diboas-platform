@@ -1067,3 +1067,20 @@ a:focus-visible {
 .minimal-nav-actions {
   @apply flex items-center;
 }
+
+/* Landing Page Navigation Links */
+.minimal-nav-links {
+  @apply hidden md:flex items-center gap-1;
+}
+
+.minimal-nav-link {
+  @apply px-4 py-2 text-sm font-medium text-slate-600 hover:text-teal-600 rounded-lg transition-colors;
+}
+
+.minimal-nav-link:hover {
+  @apply bg-slate-50;
+}
+
+.minimal-nav-cta {
+  @apply ml-4;
+}

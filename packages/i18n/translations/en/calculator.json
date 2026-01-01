@@ -1,0 +1,26 @@
+{
+  "headline": "What could €20/month become?",
+  "subhead": "See your future — no account needed",
+  "sliderLabel": "Monthly amount you could set aside",
+  "initialAmount": "Starting amount",
+  "monthlyContribution": "Monthly contribution",
+  "timeframe": {
+    "1week": "1 Week",
+    "1month": "1 Month",
+    "1year": "1 Year",
+    "5years": "5 years",
+    "10years": "10 years",
+    "15years": "15 years",
+    "20years": "20 years"
+  },
+  "resultHeadline": "In {years} years, your €{amount}/month could become:",
+  "defiYield": "With diBoaS",
+  "bankRate": "With your bank (0.5% savings)",
+  "difference": "That's €{difference} more — from the same monthly amount.",
+  "opportunityCost": "That's money you're leaving on the table",
+  "ecbSource": "Bank comparison based on average EU savings account rate of 0.5% APY. Source: ECB Statistics, December 2024.",
+  "disclaimer": "PROJECTION — Based on historical data. Past performance does not guarantee future results.",
+  "share": "Share",
+  "cta": "Join the waitlist to make this real",
+  "ctaSecondary": "Want to see more? Try Dream Mode →"
+}

@@ -3,6 +3,12 @@
     "about": "Über uns",
     "quickActions": "Schnellaktionen",
     "back": "Zurück",
+    "landing": {
+      "forBusiness": "Für Unternehmen",
+      "strategies": "Strategien",
+      "futureYou": "Ihre Zukunft",
+      "joinWaitlist": "Auf die Warteliste"
+    },
     "diboas": {
       "label": "diBoaS",
       "description": "Komplettes Finanz-Ökosystem mit Banking, Investieren und DeFi auf einer Plattform",
@@ -91,7 +97,13 @@
       "primary": "Loslegen",
       "secondary": "Business-Login"
     },
-    "joinWaitlist": "Zur Warteliste"
+    "joinWaitlist": "Zur Warteliste",
+    "tools": {
+      "calculator": "Rechner",
+      "calculatorDescription": "Sehen Sie Ihr Geld wachsen",
+      "dreamMode": "Dream Mode",
+      "dreamModeDescription": "Visualisieren Sie Ihre Zukunft"
+    }
   },
   "buttons": {
     "getStarted": "Jetzt starten",
@@ -248,6 +260,28 @@
       "duplicateEmail": "Diese E-Mail-Adresse ist bereits auf unserer Warteliste",
       "submissionFailed": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
       "storageError": "Ihre Informationen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut."
+    },
+    "position": {
+      "label": "Ihre Position",
+      "spotsGained": "{spots} Plätze gewonnen!",
+      "referrals": "Empfehlungen",
+      "spotsPerReferral": "Plätze/Empfehlung",
+      "yourCode": "Ihr Code:"
     }
+  },
+  "share": {
+    "generating": "Karte wird generiert...",
+    "retry": "Erneut versuchen",
+    "noCard": "Keine Karte verfügbar",
+    "cardAlt": "Teilbare Kartenvorschau",
+    "simulationBadge": "SIMULATION",
+    "shareVia": "Teilen über:",
+    "download": "Herunterladen"
+  },
+  "bookCall": {
+    "loading": "Kalender wird geladen...",
+    "notConfigured": "Buchungskalender nicht konfiguriert",
+    "contactUs": "Kontaktieren Sie uns direkt um einen Termin zu vereinbaren",
+    "error": "Buchungskalender konnte nicht geladen werden"
   }
 }

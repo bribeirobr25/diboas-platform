@@ -1,0 +1,167 @@
+/**
+ * WaitlistPosition Component Styles
+ */
+
+/* Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: var(--color-surface, #f8fafc);
+  border-radius: 12px;
+}
+
+/* Size Variants */
+.size-sm {
+  padding: 12px;
+  gap: 12px;
+}
+
+.size-sm .positionNumber {
+  font-size: 1.5rem;
+}
+
+.size-lg {
+  padding: 28px;
+  gap: 20px;
+}
+
+.size-lg .positionNumber {
+  font-size: 3rem;
+}
+
+/* Position Section */
+.positionSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.positionLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.positionNumber {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary, #14b8a6);
+  line-height: 1.2;
+}
+
+/* Improvement Indicator */
+.improvement {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 20px;
+}
+
+.improvementArrow {
+  animation: bounce-up 1s ease-in-out infinite;
+}
+
+@keyframes bounce-up {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Referral Section */
+.referralSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border, #e2e8f0);
+}
+
+/* Referral Stats */
+.referralStats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.statValue {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1e293b);
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary, #64748b);
+}
+
+.statDivider {
+  width: 1px;
+  height: 32px;
+  background: var(--color-border, #e2e8f0);
+}
+
+/* Referral Code Display */
+.referralCode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.codeLabel {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #64748b);
+}
+
+.code {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  color: var(--color-primary, #14b8a6);
+  background: var(--color-surface-elevated, #f1f5f9);
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .positionNumber {
+    font-size: 2rem;
+  }
+
+  .referralStats {
+    gap: 12px;
+  }
+
+  .statValue {
+    font-size: 1.125rem;
+  }
+}

@@ -5,20 +5,20 @@ import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
-import { BgHighlightSection } from '@/components/Sections/BgHighlight';
 import { DemoEmbedSection } from '@/components/Sections/DemoEmbed';
+import { CalculatorSection } from '@/components/Sections/CalculatorSection';
+import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { PageI18nProvider } from '@/components/PageI18nProvider';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2C_HERO_CONFIG,
-  B2C_PROBLEM_CONFIG,
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_ORIGIN_STORY_CONFIG,
+  B2C_FEATURES_CONFIG,
   B2C_SOCIAL_PROOF_CONFIG,
   B2C_DEMO_CONFIG,
-  B2C_FAQ_CONFIG,
-  B2C_FINAL_CTA_CONFIG
+  B2C_FAQ_CONFIG
 } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 
@@ -49,14 +49,16 @@ export async function generateMetadata({ params }: B2CLandingPageProps): Promise
 /**
  * B2C Landing Page
  *
- * Simplified landing page for consumer audience featuring:
- * - Hero with headline and CTA
- * - Problem section explaining the issue with traditional savings
- * - How it works (3 steps)
- * - Social proof
- * - Interactive demo
- * - FAQ
- * - Final CTA
+ * Landing page for consumer audience featuring:
+ * - Section 1: Hero with headline and CTA
+ * - Section 2: Origin Story (Grandmother story)
+ * - Section 3: How It Works (3 steps)
+ * - Section 4: Future You Calculator
+ * - Section 5: Feature Showcase (EARN, SEND, INVEST, GOALS)
+ * - Section 6: Interactive Demo
+ * - Section 7: Social Proof
+ * - Section 8: FAQ
+ * - Section 9: Final CTA / Waitlist
  */
 export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
   const { locale: localeParam } = await params;
@@ -66,8 +68,8 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c']);
+  // Load page-specific namespaces (including calculator and waitlist for new sections)
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c', 'calculator', 'waitlist', 'share', 'dreamMode']);
 
   // Generate structured data
   const organizationData = MetadataFactory.generateServiceStructuredData({
@@ -85,7 +87,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
       <StructuredData data={[organizationData, breadcrumbData]} />
 
       <main className="main-page-wrapper">
-        {/* Hero Section */}
+        {/* Section 1: Hero */}
         <SectionErrorBoundary
           sectionId="hero-section-b2c"
           sectionType="HeroSection"
@@ -100,36 +102,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           />
         </SectionErrorBoundary>
 
-        {/* Problem Section (The Problem) */}
-        <SectionErrorBoundary
-          sectionId="problem-section-b2c"
-          sectionType="FeatureShowcase"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <FeatureShowcase
-            variant="default"
-            config={B2C_PROBLEM_CONFIG}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-        {/* How It Works Section */}
-        <SectionErrorBoundary
-          sectionId="how-it-works-section-b2c"
-          sectionType="ProductCarousel"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="how-it-works">
-            <ProductCarouselFactory
-              config={B2C_HOW_IT_WORKS_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Why We Built This - Origin Story Section */}
+        {/* Section 2: Origin Story (Grandmother) */}
         <SectionErrorBoundary
           sectionId="origin-story-section-b2c"
           sectionType="FeatureShowcase"
@@ -145,21 +118,50 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Social Proof Section */}
+        {/* Section 3: How It Works */}
         <SectionErrorBoundary
-          sectionId="social-proof-section-b2c"
+          sectionId="how-it-works-section-b2c"
+          sectionType="ProductCarousel"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="how-it-works">
+            <ProductCarouselFactory
+              config={B2C_HOW_IT_WORKS_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 4: Future You Calculator */}
+        <SectionErrorBoundary
+          sectionId="calculator-section-b2c"
+          sectionType="CalculatorSection"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="calculator">
+            <CalculatorSection enableAnalytics={true} />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 5: Feature Showcase (EARN, SEND, INVEST, GOALS) */}
+        <SectionErrorBoundary
+          sectionId="features-section-b2c"
           sectionType="BenefitsCards"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <BenefitsCardsSection
-            config={B2C_SOCIAL_PROOF_CONFIG}
-            variant="default"
-            enableAnalytics={true}
-          />
+          <div id="features">
+            <BenefitsCardsSection
+              config={B2C_FEATURES_CONFIG}
+              variant="default"
+              enableAnalytics={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
-        {/* Demo Section */}
+        {/* Section 6: Demo */}
         <SectionErrorBoundary
           sectionId="demo-section-b2c"
           sectionType="DemoEmbed"
@@ -174,7 +176,21 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* FAQ Section */}
+        {/* Section 7: Social Proof */}
+        <SectionErrorBoundary
+          sectionId="social-proof-section-b2c"
+          sectionType="BenefitsCards"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <BenefitsCardsSection
+            config={B2C_SOCIAL_PROOF_CONFIG}
+            variant="default"
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
+        {/* Section 8: FAQ */}
         <SectionErrorBoundary
           sectionId="faq-section-b2c"
           sectionType="FAQAccordion"
@@ -184,19 +200,15 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           <FAQAccordion config={B2C_FAQ_CONFIG} />
         </SectionErrorBoundary>
 
-        {/* Final CTA Section */}
+        {/* Section 9: Final CTA / Waitlist */}
         <SectionErrorBoundary
-          sectionId="final-cta-b2c"
-          sectionType="BgHighlight"
+          sectionId="waitlist-section-b2c"
+          sectionType="WaitlistSection"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
           <div id="waitlist">
-            <BgHighlightSection
-              config={B2C_FINAL_CTA_CONFIG}
-              enableAnalytics={true}
-              priority={false}
-            />
+            <WaitlistSection enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
       </main>

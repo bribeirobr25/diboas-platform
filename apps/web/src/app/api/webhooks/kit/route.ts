@@ -1,0 +1,259 @@
+/**
+ * Kit.com (ConvertKit) Webhook Handler
+ *
+ * Handles webhook events from Kit.com for:
+ * - Subscriber creation (subscriber.created)
+ * - Subscriber updates (subscriber.updated)
+ * - Form submissions (form.subscribe)
+ * - Tag additions (subscriber.tag_added)
+ *
+ * Security: Validates webhook signature using HMAC-SHA256
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
+import {
+  getByEmail,
+  updateEntry,
+  updateKitSubscriberId,
+  addTags,
+} from '@/lib/waitingList/store';
+
+/**
+ * Kit.com Webhook Event Types
+ */
+type KitWebhookEvent =
+  | 'subscriber.created'
+  | 'subscriber.updated'
+  | 'subscriber.unsubscribed'
+  | 'form.subscribe'
+  | 'subscriber.tag_added'
+  | 'subscriber.tag_removed';
+
+/**
+ * Kit.com Subscriber Data (from webhook payload)
+ */
+interface KitSubscriberData {
+  id: number;
+  email_address: string;
+  first_name?: string;
+  state: 'active' | 'inactive' | 'cancelled' | 'complained' | 'bounced';
+  created_at: string;
+  fields?: Record<string, string | number | boolean>;
+}
+
+/**
+ * Kit.com Webhook Payload
+ */
+interface KitWebhookPayload {
+  event: KitWebhookEvent;
+  subscriber: KitSubscriberData;
+  tag?: {
+    id: number;
+    name: string;
+  };
+  form?: {
+    id: number;
+    name: string;
+  };
+}
+
+/**
+ * Response type
+ */
+interface WebhookResponse {
+  success: boolean;
+  message?: string;
+  error?: string;
+}
+
+/**
+ * Verify Kit.com webhook signature
+ */
+function verifySignature(payload: string, signature: string, secret: string): boolean {
+  const hmac = crypto.createHmac('sha256', secret);
+  hmac.update(payload);
+  const expectedSignature = hmac.digest('hex');
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expectedSignature)
+  );
+}
+
+/**
+ * POST /api/webhooks/kit
+ * Handle Kit.com webhook events
+ */
+export async function POST(request: NextRequest): Promise<NextResponse<WebhookResponse>> {
+  try {
+    // Get webhook secret from environment
+    const webhookSecret = process.env.KIT_WEBHOOK_SECRET;
+
+    if (!webhookSecret) {
+      console.warn('[Kit Webhook] KIT_WEBHOOK_SECRET not configured');
+      // In development, allow webhooks without signature verification
+      if (process.env.NODE_ENV === 'production') {
+        return NextResponse.json(
+          { success: false, error: 'Webhook secret not configured' },
+          { status: 500 }
+        );
+      }
+    }
+
+    // Get raw body for signature verification
+    const rawBody = await request.text();
+    const signature = request.headers.get('x-kit-signature') || request.headers.get('x-convertkit-signature');
+
+    // Verify signature in production
+    if (webhookSecret && signature) {
+      if (!verifySignature(rawBody, signature, webhookSecret)) {
+        console.error('[Kit Webhook] Invalid signature');
+        return NextResponse.json(
+          { success: false, error: 'Invalid signature' },
+          { status: 401 }
+        );
+      }
+    }
+
+    // Parse payload
+    const payload: KitWebhookPayload = JSON.parse(rawBody);
+
+    console.log(`[Kit Webhook] Received event: ${payload.event}`);
+
+    // Process based on event type
+    switch (payload.event) {
+      case 'subscriber.created':
+      case 'form.subscribe':
+        await handleSubscriberCreated(payload);
+        break;
+
+      case 'subscriber.updated':
+        await handleSubscriberUpdated(payload);
+        break;
+
+      case 'subscriber.tag_added':
+        await handleTagAdded(payload);
+        break;
+
+      case 'subscriber.unsubscribed':
+        await handleUnsubscribed(payload);
+        break;
+
+      case 'subscriber.tag_removed':
+        // Log but don't remove tags from our store
+        console.log(`[Kit Webhook] Tag removed: ${payload.tag?.name} from ${payload.subscriber.email_address}`);
+        break;
+
+      default:
+        console.log(`[Kit Webhook] Unhandled event: ${payload.event}`);
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Processed ${payload.event}`,
+    });
+  } catch (error) {
+    console.error('[Kit Webhook] Error:', error);
+    return NextResponse.json(
+      { success: false, error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * Handle new subscriber creation
+ */
+async function handleSubscriberCreated(payload: KitWebhookPayload): Promise<void> {
+  const { subscriber } = payload;
+  const email = subscriber.email_address.toLowerCase();
+
+  // Check if user exists in our store
+  const existingEntry = getByEmail(email);
+
+  if (existingEntry) {
+    // Update with Kit subscriber ID
+    updateKitSubscriberId(email, String(subscriber.id));
+    console.log(`[Kit Webhook] Updated subscriber ID for ${email}: ${subscriber.id}`);
+  } else {
+    // User signed up directly on Kit.com (not through our form)
+    console.log(`[Kit Webhook] New subscriber from Kit.com: ${email}`);
+    // We don't create entries for external signups - they need to go through our waitlist
+  }
+}
+
+/**
+ * Handle subscriber updates
+ */
+async function handleSubscriberUpdated(payload: KitWebhookPayload): Promise<void> {
+  const { subscriber } = payload;
+  const email = subscriber.email_address.toLowerCase();
+
+  const existingEntry = getByEmail(email);
+
+  if (existingEntry) {
+    // Sync custom fields from Kit.com if available
+    if (subscriber.fields) {
+      const updates: Record<string, unknown> = {};
+
+      // Map Kit.com custom fields to our fields
+      if (subscriber.fields.waitlist_position) {
+        updates.position = Number(subscriber.fields.waitlist_position);
+      }
+      if (subscriber.fields.referral_count) {
+        updates.referralCount = Number(subscriber.fields.referral_count);
+      }
+
+      if (Object.keys(updates).length > 0) {
+        updateEntry(email, updates as any);
+        console.log(`[Kit Webhook] Updated fields for ${email}:`, updates);
+      }
+    }
+  }
+}
+
+/**
+ * Handle tag additions
+ */
+async function handleTagAdded(payload: KitWebhookPayload): Promise<void> {
+  const { subscriber, tag } = payload;
+
+  if (!tag) return;
+
+  const email = subscriber.email_address.toLowerCase();
+  const existingEntry = getByEmail(email);
+
+  if (existingEntry) {
+    addTags(email, [tag.name]);
+    console.log(`[Kit Webhook] Added tag "${tag.name}" to ${email}`);
+  }
+}
+
+/**
+ * Handle unsubscribe events
+ */
+async function handleUnsubscribed(payload: KitWebhookPayload): Promise<void> {
+  const { subscriber } = payload;
+  const email = subscriber.email_address.toLowerCase();
+
+  const existingEntry = getByEmail(email);
+
+  if (existingEntry) {
+    // Add "unsubscribed" tag but don't remove from waitlist
+    // They may still want early access, just no emails
+    addTags(email, ['unsubscribed']);
+    console.log(`[Kit Webhook] Marked ${email} as unsubscribed`);
+  }
+}
+
+/**
+ * GET /api/webhooks/kit
+ * Health check / verification endpoint
+ */
+export async function GET(): Promise<NextResponse> {
+  return NextResponse.json({
+    status: 'ok',
+    endpoint: 'Kit.com Webhook Handler',
+    configured: !!process.env.KIT_WEBHOOK_SECRET,
+  });
+}

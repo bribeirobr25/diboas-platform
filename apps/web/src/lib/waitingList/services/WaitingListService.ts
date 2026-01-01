@@ -19,6 +19,7 @@ import {
   WaitingListDuplicateError,
   WaitingListStorageError,
   WaitingListRepository,
+  WaitlistPosition,
 } from '../domain/WaitingListDomain';
 import {
   WAITING_LIST_CONFIG,
@@ -102,6 +103,27 @@ class LocalStorageRepository implements WaitingListRepository {
   async exists(email: string): Promise<boolean> {
     const submission = await this.findByEmail(email);
     return submission !== null;
+  }
+
+  // Position and referral methods - not fully supported in LocalStorage
+  // These are handled by the in-memory store in API routes for pre-launch
+  async getPosition(_email: string): Promise<WaitlistPosition | null> {
+    // LocalStorage doesn't track positions - use API routes instead
+    return null;
+  }
+
+  async findByReferralCode(_code: string): Promise<WaitingListSubmission | null> {
+    // LocalStorage doesn't track referral codes - use API routes instead
+    return null;
+  }
+
+  async updatePosition(_email: string, _newPosition: number): Promise<void> {
+    // LocalStorage doesn't track positions - use API routes instead
+  }
+
+  async incrementReferralCount(_email: string): Promise<number> {
+    // LocalStorage doesn't track referral counts - use API routes instead
+    return 0;
   }
 
   private getAll(): WaitingListSubmission[] {

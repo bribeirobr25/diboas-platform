@@ -1,0 +1,59 @@
+{
+  "sectionTitle": "Lista de espera",
+  "headline": "Sé el primero en saber",
+  "subheadline": "Únete a la lista de espera y obtén acceso anticipado al lanzamiento.",
+  "form": {
+    "emailPlaceholder": "Tu correo electrónico",
+    "cta": "Unirse a la lista",
+    "submitting": "Uniéndose...",
+    "privacyNote": "Solo te enviaremos emails sobre diBoaS. Cancela cuando quieras."
+  },
+  "error": {
+    "generic": "Algo salió mal. Intenta de nuevo.",
+    "invalidEmail": "Por favor ingresa un correo válido.",
+    "alreadyRegistered": "¡Ya estás en la lista!",
+    "network": "Error de conexión. Verifica tu internet e intenta de nuevo."
+  },
+  "confirmation": {
+    "headline": "¡Estás dentro!",
+    "subhead": "Bienvenido al futuro de tus finanzas.",
+    "positionIntro": "Tu posición:",
+    "positionFormat": "#{position}",
+    "shareIntro": "¿Quieres subir en la fila?",
+    "shareBenefit": "Comparte tu enlace — cada registro te sube {spots} posiciones",
+    "shareExplanation": "Entre más pronto lancemos, más pronto esto se vuelve realidad.",
+    "referralLinkLabel": "Tu enlace personal:",
+    "copy": "Copiar enlace",
+    "copied": "¡Copiado!",
+    "dreamModeCta": "Probar el Modo Sueño",
+    "exploreCta": "Explorar lo que viene"
+  },
+  "referral": {
+    "movedUp": "¡Subiste {spots} posiciones!",
+    "newPosition": "Nueva posición: #{position}",
+    "thanks": "Gracias por correr la voz.",
+    "notificationTitle": "¡Alguien usó tu enlace!",
+    "notificationBody": "Acabas de subir {spots} posiciones a #{position}"
+  },
+  "returningUser": {
+    "welcomeBack": "¡Bienvenido de vuelta!",
+    "currentPosition": "Estás en la posición #{position} de la lista",
+    "referralCount": "Has referido a {count} personas",
+    "keepSharing": "¡Sigue compartiendo para subir!"
+  },
+  "card": {
+    "headline": "SOY EL #{position} EN LA LISTA DE DIBOAS",
+    "bodyLine1": "Los bancos ganan 7% con nuestros ahorros.",
+    "bodyLine2": "Nos pagan 0.5%.",
+    "bodyLine3": "¿Esa brecha? Siempre estuvo ahí.",
+    "ctaIntro": "Únete conmigo:",
+    "hashtag": "#WhileISlept"
+  },
+  "email": {
+    "welcome": "Bienvenido a diBoaS — Eres el #{position} 🎉",
+    "email1Subject": "Por qué tu banco no está trabajando para ti",
+    "email2Subject": "Cómo tu dinero podría realmente trabajar para ti",
+    "email3Subject": "Conoce a Aqua, Mystic y Coral — tus guías financieros",
+    "email4Subject": "Qué viene — y por qué estás temprano"
+  }
+}

@@ -51,7 +51,8 @@ export const SectionContainer = memo(function SectionContainer({
   role,
   as: Element = 'section',
   style,
-  'data-testid': testId
+  'data-testid': testId,
+  id
 }: SectionContainerProps) {
   // Map padding variant to CSS class
   const paddingClass = {
@@ -81,6 +82,7 @@ export const SectionContainer = memo(function SectionContainer({
 
   return (
     <Element
+      id={id}
       className={sectionClasses}
       style={Object.keys(sectionStyle).length > 0 ? sectionStyle : undefined}
       aria-label={ariaLabel}

@@ -1,84 +1,94 @@
 {
   "hero": {
-    "headline": "Ihre Bank verdient 7% mit Ihrer Treasury.\nSie zahlen Ihnen 0%.",
-    "revelation": "Ihre Bank verdient 7% mit Ihrem Geld.\nSie zahlen Ihnen 0%.",
-    "uncomfortableTruth": "Ihre Bank verdient 7% mit Ihrem Geld. Sie zahlen Ihnen 0%.",
-    "impact": "Bei 500.000€ sind das 35.000€/Jahr, die auf dem Tisch liegen.",
-    "valueProp": "diBoaS Treasury: 6-8% Rendite auf Betriebskapital.\nGleichtägige Liquidität. Keine Sperrfrist. EU-reguliert.",
-    "cta": "Schauen wir uns Ihre Zahlen an →",
-    "socialProof": {
-      "quote": "Bar hat mir die Mathematik erklärt. Sobald man es sieht, ist es offensichtlich.",
-      "author": "Gründer, Series A Startup"
-    },
+    "headlineLine1": "Ihre Bank investiert Ihre Treasury.",
+    "headlineLine2": "Verdient Millionen.",
+    "headlineLine3": "Gibt Ihnen nichts.",
+    "headline": "Ihre Bank investiert Ihre Treasury. Verdient Millionen. Gibt Ihnen nichts.",
+    "subheadline": "Bei €500K sind das €35.000/Jahr, die auf dem Tisch liegen. Während sie Ihnen Gebühren für das Privileg berechnen.",
+    "valueProp": "diBoaS Treasury: Bessere Renditen. Sofortige Zahlungen. Keine Gebühren. Liquidität am selben Tag. EU-reguliert.",
+    "cta": "Hier ist, was ich herausgefunden habe →",
     "trustBadges": {
-      "mica": "MiCA-konform",
-      "nonCustodial": "Non-Custodial",
-      "audited": "Geprüfte Protokolle",
-      "boardReady": "Board-Ready Berichterstattung"
+      "mica": {
+        "label": "EU-reguliert (MiCA)",
+        "tooltip": "Operiert unter dem MiCA-Rahmenwerk der EU für Krypto-Assets"
+      },
+      "nonCustodial": {
+        "label": "Ihre Mittel, Ihre Wallet",
+        "tooltip": "Wir halten niemals Ihr Geld — es bleibt in Ihrer eigenen Wallet"
+      },
+      "audited": {
+        "label": "Unabhängig geprüft",
+        "tooltip": "Alle Systeme von unabhängigen Sicherheitsfirmen verifiziert"
+      },
+      "boardReady": {
+        "label": "Vorstandstaugliche Berichte",
+        "tooltip": "Monatliche Abrechnungen, die Ihr CFO tatsächlich versteht"
+      }
     }
   },
-  "problem": {
-    "header": "💡 Die Rechnung, die Ihnen niemand zeigt",
-    "body": "Sie haben €2M eingeworben. Sie werden es über 18 Monate ausgeben.\nDas bedeutet, €1M+ liegt jederzeit auf Ihrem Konto.\n\nHier ist, was mit diesem Geld passiert:",
-    "tableHeader": {
-      "col1": "",
-      "col2": "Ihre Bank",
-      "col3": "Mit diBoaS"
-    },
-    "tableRows": {
-      "balance": {
-        "label": "Ihr Saldo",
-        "bank": "€1.000.000",
-        "diboas": "€1.000.000"
+  "theMath": {
+    "header": "Die Rechnung, die Ihnen niemand zeigt",
+    "intro": "Sie haben €2M aufgenommen. Sie werden es über 18 Monate ausgeben. Das bedeutet, €1M+ liegt jederzeit auf Ihrem Konto.\n\nFolgendes passiert mit diesem Geld:",
+    "table": {
+      "headers": {
+        "metric": "",
+        "bank": "Ihre Bank",
+        "diboas": "Mit diBoaS"
       },
-      "theyEarn": {
-        "label": "Was sie damit verdienen",
-        "bank": "€70.000/Jahr",
-        "diboas": "—"
-      },
-      "youEarn": {
-        "label": "Was Sie verdienen",
-        "bank": "€5.000/Jahr",
-        "diboas": "€70.000/Jahr"
-      },
-      "difference": {
-        "label": "Der Unterschied",
-        "bank": "Sie behalten €65.000",
-        "diboas": "Sie behalten €65.000"
+      "rows": {
+        "balance": {
+          "label": "Ihr Guthaben",
+          "bank": "€1.000.000",
+          "diboas": "€1.000.000"
+        },
+        "theyEarn": {
+          "label": "Was sie damit verdienen",
+          "bank": "€70.000/Jahr",
+          "diboas": "—"
+        },
+        "youEarn": {
+          "label": "Was Sie verdienen",
+          "bank": "€5.000/Jahr",
+          "diboas": "€70.000/Jahr"
+        },
+        "difference": {
+          "label": "Die Differenz",
+          "bank": "Sie behalten €65.000",
+          "diboas": "Sie behalten €65.000"
+        }
       }
     },
-    "bankPays": "Ihre Bank zahlt: 0,5% = €5.000/Jahr",
-    "bankEarns": "Ihre Bank verdient: 7% = €70.000/Jahr mit IHREM Geld",
-    "diboasPays": "diBoaS zahlt: 7% = €70.000/Jahr an SIE",
-    "runway": "Das sind €65.000 an potenzieller Runway.",
-    "insight": "Banken machen nichts falsch. Sie tun genau das, wofür sie gemacht sind — mit Ihrem Geld Geld verdienen.\n\n**Die Frage ist: Wollen Sie diese 65.000€, oder ist es okay, wenn sie bei der Bank bleiben?**",
+    "insight": "Diese €65.000 sind Runway. Das ist eine zusätzliche Einstellung. Das sind sechs weitere Monate, um Product-Market-Fit zu finden.",
+    "question": "Wollen Sie das Geld, oder ist es in Ordnung, wenn die Bank es behält?",
     "cta": "Berechnen Sie Ihre Zahlen →"
   },
-  "whyWeBuiltThis": {
-    "header": "Dieselbe Lücke, anderer Maßstab",
-    "story": "Meine Großmutter hat die Hälfte von allem gespart, was sie verdient hat. Ihr ganzes Leben lang. Es hat trotzdem nicht gereicht.\n\nIch habe drei Jahre gebraucht, um zu verstehen warum. Die Antwort war einfach: die Lücke zwischen dem, was Banken verdienen, und dem, was sie zahlen. Sie sparte 1.000€, die Bank machte 70€, gab ihr 5€. Die anderen 65€ hätten ihr gehören sollen.\n\n**Dasselbe passiert gerade mit der Treasury Ihres Startups.**\n\nSie haben Kapital aufgenommen. Es liegt auf einem Geschäftskonto und verdient nichts. Ihre Bank setzt es ein — für sich selbst.\n\nMeine Großmutter konnte nicht auf bessere Raten zugreifen. Sie können es.\n\nDeshalb baue ich diBoaS.",
-    "mission": "diBoaS ist das, was ich mir für sie gewünscht hätte. Für Gründer kann es jetzt existieren.",
-    "belief": "diBoaS Treasury existiert, weil das Spielfeld ausgeglichen sein sollte. Ob Sie eine Großmutter in Rio de Janeiro oder ein Gründer in Berlin sind.",
+  "origin": {
+    "header": "Wegen meiner Großmutter",
+    "body": "Meine Großmutter hat mir beigebracht zu sparen. Sie sagte, ich solle versuchen, die Hälfte von allem zu sparen, was ich verdiene. Das hat sie selbst gemacht. Ihr ganzes Leben lang.\n\nSie hat alles versucht. Hart arbeiten. Nur das Nötigste kaufen. Versuchen zu sparen.\n\nEs hat trotzdem nicht funktioniert.\n\nKlingt bekannt?\n\nDas hat ihr niemand gesagt: Ihre Bank zahlte ihr 0,5% Zinsen, während sie 7% verdiente — mit ihrem Geld.\n\nDieselbe Bank macht das mit uns allen. Einschließlich Ihres Startups.\n\nDiese €1.000, die sie gespart hat? Die Bank hat €70 damit verdient und ihr €5 zurückgegeben. Die anderen €65? Die sollten ihr gehören.\n\nDasselbe passiert gerade mit Ihrer Treasury.\n\nMeine Großmutter konnte keine besseren Zinsen bekommen. Das System war nicht für Menschen wie sie gebaut.\n\nAber Gründer? Sie haben Optionen. Sie müssen nur wissen, dass sie existieren.\n\nDeshalb baue ich diBoaS.",
+    "treasuryImpact": "Dasselbe passiert gerade mit Ihrer Treasury.",
+    "founderOptions": "Aber Gründer? Sie haben Optionen. Sie müssen nur wissen, dass sie existieren.",
+    "whyBuilding": "Deshalb baue ich diBoaS.",
     "signature": "— Bar, Gründer"
   },
   "calculator": {
     "header": "Schauen wir uns Ihre Zahlen an",
     "fields": {
-      "cashOnHand": "Bargeld vorhanden",
+      "cashOnHand": "Verfügbares Kapital",
       "currentRate": "Aktueller Zinssatz",
-      "bankEarns": "Was Ihre Bank mit Ihrem Geld verdient",
+      "bankEarns": "Was Ihre Bank damit verdient",
       "bankPays": "Was Ihre Bank Ihnen zahlt",
       "diboasPays": "Was diBoaS Ihnen zahlen würde",
-      "projectedYield": "diBoaS prognostizierte Rendite (7%)",
-      "currentInterest": "Ihre aktuelle Verzinsung",
-      "additionalRunway": "Der Unterschied"
+      "difference": "Die Differenz",
+      "projectedYield": "Was diBoaS Ihnen zahlen würde",
+      "currentInterest": "Was Ihre Bank Ihnen zahlt",
+      "additionalRunway": "Die Differenz"
     },
     "defaults": {
       "cashOnHand": "500000",
       "currentRate": "0.5"
     },
     "perYear": "/Jahr",
-    "insight": "Diese 32.500€ sind Runway. Es ist eine zusätzliche Einstellung. Es sind sechs weitere Monate, um Product-Market-Fit zu finden.\n\nEs gehört Ihnen, wenn Sie es wollen.",
+    "insight": "Diese €32.500 sind Runway. Das ist echtes Geld — nicht theoretisch.\n\nIhres, wenn Sie es wollen.",
     "cta": "Lassen Sie uns darüber sprechen →"
   },
   "howItWorks": {
@@ -86,202 +96,170 @@
     "steps": {
       "connect": {
         "title": "Verbinden",
-        "description": "Verknüpfen Sie Ihr Geschäftskonto. 2-Minuten-Setup. Keine technische Integration."
+        "description": "Verknüpfen Sie Ihr Geschäftskonto. 2-Minuten-Setup. Keine technische Integration nötig."
       },
-      "allocate": {
-        "title": "Schwelle festlegen",
-        "description": "Wählen Sie Ihre Liquiditätsuntergrenze (z.B. \"immer €50K verfügbar halten\"). Wir werden niemals darunter einsetzen. Sie werden nie knapp."
+      "setFloor": {
+        "title": "Minimum festlegen",
+        "description": "Teilen Sie uns Ihre Liquiditätsschwelle mit — ‚immer €50K verfügbar halten.' Wir setzen nur das ein, was darüber liegt. Sie werden nie überrascht."
       },
       "earn": {
         "title": "Verdienen",
-        "description": "Bargeld über Ihrer Schwelle verdient 6-8% APY durch bewährte DeFi-Protokolle. Die gleichen Raten, die Banken verdienen — jetzt Ihre."
+        "description": "Bargeld über Ihrer Schwelle verdient 6-8% Jahresrendite durch bewährte institutionelle Systeme. Dieselben Renditen, die Banken verdienen — jetzt Ihre."
       },
       "withdraw": {
         "title": "Abheben",
-        "description": "Brauchen Sie Bargeld? Ein Klick. Gleichtägige Abwicklung. Keine Sperrfristen. Keine Strafen. Keine Fragen."
+        "description": "Bargeld brauchen? Ein Klick. Abwicklung am selben Tag. Keine Sperrfristen. Keine Strafen. Keine Fragen."
       }
     },
-    "footerNote": "Monatliche Abrechnungen für Ihren Steuerberater. Board-Ready Berichterstattung inklusive. Kein Krypto-Jargon."
+    "footer": "Monatliche Abrechnungen. Vorstandstaugliche Berichte. Klare Sprache — kein Fachjargon."
   },
-  "trust": {
-    "header": "Für Teams, die die Details brauchen",
-    "points": {
-      "euRegulated": {
-        "title": "EU-reguliert",
-        "description": "Wir operieren unter dem MiCA-Rahmenwerk mit ausstehender CASP-Autorisierung.\n\nWas das bedeutet: Regulatorische Aufsicht, Berichtspflichten, Verantwortlichkeit. Wir bauen von Tag eins auf Compliance."
-      },
-      "nonCustodial": {
-        "title": "Non-Custodial",
-        "description": "Hier ist eine wichtige Unterscheidung: Wir halten niemals Ihre Mittel.\n\nIhr Geld bleibt in Ihrer eigenen Wallet. Wir stellen die Oberfläche bereit, um es einzusetzen. Selbst wenn diBoaS morgen verschwinden würde, wären Ihre Mittel weiterhin zugänglich."
-      },
-      "audited": {
-        "title": "Geprüfte Protokolle",
-        "description": "Wir verwenden nur Protokolle mit $10B+ an gesicherten Vermögenswerten und mehreren unabhängigen Sicherheitsaudits.\n\nSind diese das Gleiche wie Bankeinlagen? Nein. Sind sie kampferprobte Infrastruktur? Ja. Die gleichen Protokolle, die Institutionen nutzen."
-      },
-      "transparent": {
-        "title": "Transparente Berichterstattung",
-        "description": "Monatliche Abrechnungen. Echtzeit-Dashboard. Vollständiger Prüfpfad.\n\nIhr CFO wird es verstehen. Ihr Board wird es schätzen."
-      },
-      "boardReady": {
-        "title": "Board-Ready",
-        "description": "Professionelle Berichterstattung, die Ihr CFO und Board verstehen werden. Kein Krypto-Jargon."
+  "features": {
+    "header": "Mehr als Rendite. Alles, was Ihre Treasury braucht.",
+    "intro": "Rendite ist die Schlagzeile. Aber das hier könnte für Ihr Unternehmen noch wichtiger sein.",
+    "instantPayments": {
+      "headline": "Zahlen Sie jeden. Sofort. Keine Gebühren.",
+      "body": "Zahlen Sie Freelancer in Argentinien? Einen Lieferanten in Deutschland? Einen Auftragnehmer in Singapur?\n\nTraditionelle Überweisungen: €25-50 pro Transaktion. 2-5 Werktage. Wechselkursaufschlag.\n\nMit diBoaS: €0 Gebühren. In Sekunden abgewickelt. Echter Wechselkurs.",
+      "example": {
+        "before": "€500 Überweisung an Auftragnehmer = €475 erhalten (nach Gebühren + Spread)",
+        "after": "€500 gesendet = €500 erhalten"
+      }
+    },
+    "receivePayments": {
+      "headline": "Schneller bezahlt werden. Mehr behalten.",
+      "body": "Ihre Kunden können Sie sofort bezahlen — von überall auf der Welt. Kein Zahlungsanbieter, der 2,9% + €0,30 nimmt. Kein Warten von 3-5 Tagen auf die Abwicklung.",
+      "example": {
+        "before": "€10.000 Rechnung → €9.700 nach Stripe-Gebühren → verfügbar in 3 Tagen",
+        "after": "€10.000 Rechnung → €10.000 erhalten → sofort verfügbar"
+      }
+    },
+    "cashflowOptimization": {
+      "headline": "Ihr Geld arbeitet 24/7. Auch an Wochenenden und Feiertagen.",
+      "body": "Die meisten Geschäftskonten zahlen über Nacht nichts. Ihre €500K liegen einfach... da.\n\nMit diBoaS verdient ungenutztes Kapital kontinuierlich Rendite. Jede Stunde. Jeden Tag. Auch an Wochenenden und Feiertagen.",
+      "example": {
+        "label": "€500K overnight für 30 Tage:",
+        "bank": "€0-20",
+        "diboas": "~€2.500"
+      }
+    },
+    "overnightSweep": {
+      "headline": "Automatische Übernacht-Optimierung",
+      "body": "Am Ende des Geschäftstages bewegt sich Ihr Bargeld automatisch in renditebringende Systeme. Zu Geschäftsbeginn ist es wieder liquide.\n\nSie legen das Minimum fest. Wir erledigen den Rest.",
+      "schedule": {
+        "evening": "18 Uhr: Bargeld über Schwelle → Ertragssysteme",
+        "morning": "9 Uhr: Volle Liquidität wiederhergestellt",
+        "you": "Sie: Tun nichts"
       }
     }
   },
-  "whoIsThisFor": {
-    "header": "Ist das das Richtige für Sie?",
+  "trust": {
+    "header": "Für Teams, die Details brauchen",
+    "euRegulated": {
+      "title": "EU-Reguliert",
+      "description": "Wir arbeiten unter dem MiCA-Rahmenwerk der EU mit ausstehender Genehmigung.",
+      "translation": "Übersetzung: Regulatorische Aufsicht, Berichtspflichten, Rechenschaftspflicht."
+    },
+    "nonCustodial": {
+      "title": "Ihre Mittel, Ihre Wallet",
+      "description": "Wir halten niemals Ihre Gelder. Ihr Geld bleibt in Ihrer eigenen Wallet.",
+      "details": "Selbst wenn diBoaS morgen verschwinden würde, gehören Ihre Mittel immer noch Ihnen. Das unterscheidet uns von traditionellen Finanzen — wir können Ihr Geld buchstäblich nicht ohne Ihre Zustimmung bewegen."
+    },
+    "audited": {
+      "title": "Unabhängig Geprüft",
+      "description": "Wir nutzen nur Systeme, die:",
+      "points": [
+        "€10 Mrd.+ jahrelang ohne größere Vorfälle gesichert haben",
+        "Mehrfache unabhängige Sicherheitsprüfungen haben",
+        "Transparente Operationen, die Sie selbst überprüfen können"
+      ],
+      "note": "Dieselbe Infrastruktur, die Institutionen nutzen."
+    },
+    "reporting": {
+      "title": "Transparente Berichterstattung",
+      "description": "Monatliche Abrechnungen. Echtzeit-Dashboard. Vollständige Prüfspur.",
+      "note": "Ihr CFO wird es verstehen. Ihr Vorstand wird es schätzen."
+    }
+  },
+  "fitAssessment": {
+    "header": "Ehrliche Eignungsprüfung",
     "goodFit": {
       "title": "Gute Passung",
-      "description": "€50K+ an Betriebskapital. 12-24 Monate Runway, die Sie nach und nach ausgeben. Finanzteam, das professionelle Berichterstattung möchte. Komfortabel mit kalkuliertem Risiko für bessere Renditen.",
       "items": [
-        "€50K+ an Betriebskapital",
-        "12-24 Monate Runway, die Sie nach und nach ausgeben",
-        "Finanzteam, das professionelle Berichterstattung möchte",
-        "Komfortabel mit kalkuliertem Risiko für bessere Renditen"
+        "€50K+ in Betriebskapital",
+        "12-24 Monate Runway, den Sie über die Zeit ausgeben",
+        "Team, das echte Berichterstattung will",
+        "Interesse an schnelleren, günstigeren Zahlungen",
+        "Bereit für kalkuliertes Risiko für bessere Renditen"
       ]
     },
     "notAFit": {
       "title": "Keine Passung",
-      "description": "Benötigen 100% des Bargelds jederzeit sofort verfügbar. Null Risikotoleranz (DeFi-Renditen beinhalten Smart-Contract-Risiko). Suchen nach garantierten Renditen (Raten sind variabel).",
       "items": [
-        "Benötigen 100% des Bargelds jederzeit sofort verfügbar",
-        "Null Risikotoleranz (DeFi-Renditen beinhalten Smart-Contract-Risiko)",
-        "Suchen nach garantierten Renditen (Raten sind variabel)"
+        "Brauchen 100% des Kapitals jederzeit sofort verfügbar",
+        "Null Risikotoleranz (auch für ungenutztes Kapital)",
+        "Suchen garantierte Renditen"
       ]
     },
-    "honestNote": "Ich sage Ihnen lieber, dass das nicht das Richtige für Sie ist, als Sie zu etwas zu überreden, das nicht passt. Wenn Sie Gewissheit brauchen, könnte ein Bankkonto — selbst bei 0,5% — die richtige Wahl sein.\n\nAber wenn Sie mit kalkuliertem Risiko für 14-fach bessere Renditen komfortabel sind, lassen Sie uns reden."
+    "honestNote": "Ich sage Ihnen lieber, dass das nicht das Richtige für Sie ist, als Sie von etwas zu überzeugen, das nicht passt.\n\nWenn Sie Sicherheit über alles brauchen, ist ein Bankkonto — selbst bei 0,5% — vielleicht die richtige Wahl.\n\nAber wenn Sie mit kalkuliertem Risiko für 14x bessere Renditen einverstanden sind UND sofortige globale Zahlungen wollen? Lassen Sie uns sprechen."
   },
-  "useCases": {
-    "header": "Wer nutzt diBoaS Treasury?",
-    "cases": {
-      "postFundraise": {
-        "title": "Nach dem Fundraising",
-        "description": "Gerade eine Runde abgeschlossen? Setzen Sie das Kapital ein, während Sie einstellen und skalieren.",
-        "quote": "Wir hatten €3M auf einem Bankkonto, das 6 Monate nichts verdiente. Das waren €100K verpasste Rendite."
+  "faq": {
+    "header": "Wissenswertes",
+    "description": "Antworten auf häufige Fragen zur Treasury-Verwaltung mit diBoaS.",
+    "ctaText": "Gespräch vereinbaren",
+    "items": {
+      "catch": {
+        "question": "Was ist der Haken?",
+        "answer": "So verdienen wir Geld:\n\n0,9% Gebühr, wenn Sie Erträge abheben. Wenn Sie €10.000 verdienen, behalten wir €90. Wenn Sie nichts verdienen, verdienen wir nichts.\n\nDas ist alles. Keine versteckten Gebühren. Keine Mindestguthaben.\n\nDer Haken bei Ihrer aktuellen Einrichtung? Ihre Bank verdient 7% mit Ihrem Geld und zahlt Ihnen 0,5%. Diese €65.000 Differenz bei €1M? Das ist ihr gesamtes Geschäftsmodell.\n\nJetzt haben Sie die Rechnung gesehen."
       },
-      "betweenRounds": {
-        "title": "Zwischen den Runden",
-        "description": "Überbrücken Sie die Runway zwischen Finanzierungsrunden durch Verdienen auf Ihren Reserven.",
-        "quote": "Die zusätzlichen €40K/Jahr sind praktisch ein kostenloser Junior-Mitarbeiter."
+      "liquidity": {
+        "question": "Ist es wirklich liquide?",
+        "answer": "Lassen Sie mich präzise sein:\n\nAbhebung am selben Tag. Anfrage vor 14 Uhr MEZ, Mittel am Ende des Tages auf Ihrem Konto.\n\nKeine Sperrfristen. Ihr Geld ist nicht gebunden.\n\nSie legen das Minimum fest. ‚Immer €50K liquide halten' — wir setzen nur ein, was darüber liegt.\n\nDie meisten Treasury-Tools lassen Sie wählen: Rendite ODER Liquidität. Wir geben Ihnen beides."
       },
-      "operatingReserves": {
-        "title": "Betriebsreserven",
-        "description": "Halten Sie Gehälter gedeckt, während überschüssiges Bargeld Rendite verdient.",
-        "quote": "Wir haben eine €100K-Untergrenze gesetzt. Alles darüber verdient 7%. Einfach."
+      "risk": {
+        "question": "Was ist das tatsächliche Risiko?",
+        "answer": "Lassen Sie uns ehrlich darüber sein:\n\nRisiko automatisierter Systeme: Die Systeme, in die Ihr Geld geht, basieren auf Code. Code kann Schwachstellen haben.\n\nWie wir das mindern:\n- Nur Systeme mit €10 Mrd.+ Gesamtwert gesichert\n- Mehrere unabhängige Sicherheitsprüfungen\n- Jahre von Track Record durch Marktereignisse\n- Ihr Geld verteilt auf mehrere unabhängige Systeme\n\nNull Risiko? Nein. Nichts ist es — einschließlich Ihrer Bank.\n\nDie eigentliche Frage: Lohnt sich 14x bessere Rendite für ein anderes Risikoprofil?\n\nFür manche Gründer ja. Für andere nein. Beides ist valide."
+      },
+      "payments": {
+        "question": "Wie funktionieren Sofortzahlungen?",
+        "answer": "Traditionelle Überweisungen gehen über Korrespondenzbanken. Ihre Bank → deren Bank → vielleicht eine weitere Bank → Empfängerbank. Jeder Schritt braucht Zeit und kostet Gebühren.\n\nMit diBoaS gehen Zahlungen direkt. Ihre Wallet → deren Wallet. Fertig.\n\nErgebnis: Ihr Freelancer in Buenos Aires wird in seiner Landeswährung bezahlt, am selben Tag, zum echten Wechselkurs, für €0 an Gebühren."
+      },
+      "compliance": {
+        "question": "Was ist mit Compliance?",
+        "answer": "Wir haben diBoaS für echte Unternehmen mit echten Compliance-Anforderungen gebaut:\n\n- Monatliche Abrechnungen für Ihre Buchhaltungssoftware formatiert\n- Transaktionshistorie mit vollständiger Prüfspur\n- Steuerdokumentation zum Jahresende\n- Vorstandstaugliche Berichte, die Ihr CFO tatsächlich versteht\n\nWir wissen, dass Sie irgendwann geprüft werden. Wir sorgen dafür, dass Sie bereit sind."
+      },
+      "whereMoneyGoes": {
+        "question": "Wohin geht mein Geld eigentlich?",
+        "answer": "Ihr Geld wird in bewährte renditebringende Systeme platziert. Diese sind:\n\n- Etabliert: Seit 3+ Jahren in Betrieb\n- Bewährt: Haben mehrere Markteinbrüche überstanden\n- Transparent: Sie können jederzeit genau sehen, wo Ihre Mittel sind\n- Unabhängig geprüft: Sicherheit von Dritten verifiziert\n\nSobald Sie Kunde sind, sehen Sie die vollständigen Details zu jedem System — Namen, Track Records und warum wir sie gewählt haben.\n\nWir sind gerne transparent mit Kunden. Wir veröffentlichen nur nicht unsere genaue Strategie für Wettbewerber."
+      },
+      "whyCantTouch": {
+        "question": "Warum können Sie mein Geld nicht anfassen?",
+        "answer": "Das ist eigentlich der ganze Punkt, wie wir gebaut sind.\n\nTraditionelle Finanzen: Sie zahlen Geld ein → es wird zum Geld der Bank → sie schulden Ihnen einen Saldo.\n\ndiBoaS: Ihr Geld bleibt in Ihrer eigenen Wallet. Wir stellen die Software bereit, die Ihnen hilft, es in Ertragssysteme einzusetzen. Aber wir haben niemals Zugriff, es selbst zu bewegen.\n\nWarum das wichtig ist:\n- Wenn diBoaS bankrott geht, ist Ihr Geld immer noch Ihres\n- Niemand bei diBoaS kann Ihre Mittel stehlen\n- Jede Transaktion erfordert Ihre Genehmigung\n\nEs ist ein grundlegend anderes Modell. Mehr Kontrolle für Sie, weniger Risiko von uns."
       }
     }
   },
   "socialProof": {
-    "header": "Vertraut von zukunftsorientierten Gründern",
-    "testimonials": {
-      "first": {
-        "quote": "Wir waren anfangs skeptisch. Aber die Mathematik war offensichtlich. €70K extra Runway pro Jahr, mit gleicher Liquidität. Unser Board hat uns tatsächlich gedankt.",
-        "author": "CFO, Series A SaaS-Unternehmen"
-      },
-      "second": {
-        "quote": "Ich wünschte, wir hätten das von Tag eins gemacht. Wir haben €30K in unserem ersten Jahr verschenkt.",
-        "author": "Gründer, Seed-Stage Startup"
-      }
-    },
-    "metrics": {
-      "treasury": {
-        "label": "Kombinierte Treasury unter Verwaltung",
-        "value": "€2,5M"
-      },
-      "yield": {
-        "label": "Durchschnittliche Kundenrendite",
-        "value": "7,2% APY"
-      },
-      "onboarding": {
-        "label": "Durchschnittliche Onboarding-Zeit",
-        "value": "48 Stunden"
-      }
-    }
-  },
-  "faq": {
-    "header": "Gute Fragen",
-    "description": "Häufige Fragen von Startup-Gründern zum Treasury-Management.",
-    "ctaText": "Gespräch buchen",
-    "items": {
-      "catch": {
-        "question": "Was ist der Haken?",
-        "answer": "Faire Frage. So verdienen wir Geld:\n\nWir nehmen eine 0,12% Gebühr auf verdiente Rendite. Wenn Sie €10.000 verdienen, behalten wir €12.\n\nWenn Sie nichts verdienen, verdienen wir nichts.\n\nWarum diese Struktur? Sie richtet unsere Anreize mit Ihren aus. Wir haben nur Erfolg, wenn Sie Erfolg haben.\n\nDer Haken bei Ihrer aktuellen Bank? Sie verdienen 7% mit Ihrem Geld und zahlen Ihnen 0,5%. Diese Spanne ist ihr Geschäftsmodell."
-      },
-      "liquidity": {
-        "question": "Wie liquide ist das wirklich?",
-        "answer": "Gleichtägige Abhebungen. Keine Sperrfristen. Keine Strafen.\n\nSo funktioniert es: Sie legen eine Liquiditätsschwelle fest — sagen wir, \"immer €50K verfügbar halten.\" Wir setzen nur Bargeld über dieser Schwelle ein.\n\nBrauchen Sie morgen €100K für Gehälter? Ein Klick. Es ist da.\n\nWir haben es so gebaut, weil Treasury-Management keine neuen Probleme schaffen sollte. Sie sollten jederzeit auf Ihr Geld zugreifen können."
-      },
-      "risk": {
-        "question": "Was ist das Risiko?",
-        "answer": "Lassen Sie uns spezifisch über Risiko sprechen, denn das ist wichtig:\n\nSmart-Contract-Risiko: DeFi-Protokolle sind Code. Code kann Fehler haben oder ausgenutzt werden. Das ist real.\n\nWie wir es minimieren: Wir nutzen nur Protokolle mit $10B+ an Vermögenswerten, mehreren unabhängigen Audits und Jahren an Erfolgsbilanz ohne größere Vorfälle.\n\nIst es null Risiko? Nein. Nichts ist das.\n\nIst es riskanter als Ihre Bank? Anders. Banken haben Einlagensicherung bis €100K. DeFi hat Transparenz und non-custodiale Kontrolle.\n\nDie Frage ist, ob 14-fach bessere Rendite das andere Risikoprofil rechtfertigt. Für manche Gründer ja. Für andere nein. Jetzt haben Sie die Informationen, um zu entscheiden."
-      },
-      "cfo": {
-        "question": "Wird mein CFO/Board das verstehen?",
-        "answer": "Ja — wir haben speziell dafür gebaut.\n\nMonatliche Abrechnungen im Standard-Buchhaltungsformat. Echtzeit-Dashboard mit klaren Kennzahlen. Board-Ready Berichterstattung ohne Krypto-Jargon.\n\nIhr CFO wird sehen: Einlagen, Renditen, Gebühren, Abhebungen. Die gleichen Kategorien, die sie gewohnt sind.\n\nWenn sie tiefer einsteigen wollen, stellen wir Protokolldokumentation und Auditberichte bereit. Aber sie müssen nicht."
-      },
-      "revenue": {
-        "question": "Wie verdienen Sie Geld?",
-        "answer": "0,12% Gebühr auf verdiente Rendite. Das ist alles.\n\nWenn Ihre Treasury €35.000/Jahr verdient, verdienen wir €42.\n\nWenn Sie nichts verdienen, verdienen wir nichts.\n\nKeine versteckten Gebühren. Keine Mindestguthaben. Keine Sperrfrist-Strafen."
-      },
-      "minimum": {
-        "question": "Was ist das Minimum?",
-        "answer": "€50K an Betriebskapital.\n\nDarunter rechtfertigt die Rendite möglicherweise nicht die Setup-Zeit — wir sind ehrlich darüber. Wenn Sie noch früher sind, behalten Sie uns im Kopf für später."
-      },
-      "onboarding": {
-        "question": "Wie lange dauert das Onboarding?",
-        "answer": "Die meisten Unternehmen sind innerhalb von 48 Stunden vollständig ongeboardet. Das Setup selbst dauert etwa 15 Minuten."
-      },
-      "regulated": {
-        "question": "Ist das legal/reguliert?",
-        "answer": "Ja. Wir operieren unter dem MiCA-Rahmenwerk der EU mit ausstehender CASP-Autorisierung in Litauen. Wir bauen von Tag eins auf Compliance."
-      },
-      "investors": {
-        "question": "Was werden meine Investoren denken?",
-        "answer": "Die meisten erfahrenen Investoren erwarten Treasury-Optimierung. 7% vs. 0,5% verdienen verlängert die Runway. Wir stellen Board-Ready-Materialien bereit, um dies klar zu kommunizieren."
-      },
-      "compliance": {
-        "question": "Wie funktioniert Compliance?",
-        "answer": "Wir operieren unter dem MiCA-Rahmenwerk der EU mit ausstehender CASP-Autorisierung in Litauen.\n\nFür Buchhaltungszwecke kann Rendite als Anlageerträge kategorisiert werden. Wir stellen monatliche Abrechnungen bereit, die mit Standard-Buchhaltungspraktiken kompatibel sind.\n\nFür steuerliche und regulatorische Fragen, die spezifisch für Ihre Jurisdiktion sind, konsultieren Sie Ihre Berater — aber wir geben ihnen alles, was sie brauchen."
-      }
-    }
-  },
-  "process": {
-    "header": "So starten Sie",
-    "steps": {
-      "book": {
-        "title": "Ein Gespräch führen",
-        "description": "15 Minuten. Wir schauen uns Ihre spezifischen Zahlen gemeinsam an. Wenn es für Sie keinen Sinn macht, sage ich es Ihnen."
-      },
-      "review": {
-        "title": "Mit Ihrem Team besprechen",
-        "description": "Ich sende Materialien für Ihren Co-Founder, CFO oder Board. Kein Druck."
-      },
-      "decide": {
-        "title": "Entscheiden",
-        "description": "Wenn es Sinn macht, helfen wir beim Setup. Wenn nicht, kein Problem. Ich möchte lieber, dass Sie die richtige Entscheidung treffen."
-      },
-      "goLive": {
-        "title": "Live gehen",
-        "description": "Onboarding dauert 48 Stunden. Sie sehen die Rendite ab dem ersten Tag."
-      }
-    }
+    "header": "Frühe Anwender",
+    "preLaunch": "Wir starten Anfang 2026. Treten Sie der Warteliste bei, um zu den ersten Startups mit Zugang zu institutionellem Treasury-Management zu gehören."
   },
   "finalCta": {
-    "header": "Wollen wir die Zahlen gemeinsam anschauen?",
-    "body": "15 Minuten. Ihre spezifische Situation. Wenn es Sinn macht, gut. Wenn nicht, verstehen Sie zumindest die Rechnung.",
-    "cta": "Gespräch mit Bar buchen",
-    "alternativeContact": "Oder per E-Mail: bar@diboas.com",
-    "testimonial": {
-      "quote": "Ich erwartete einen Sales-Pitch. Bar hat mir nur die Mathematik erklärt und gesagt 'hier ist, was ich tun würde, aber es ist Ihre Entscheidung.' Diese Ehrlichkeit hat mich ihm vertrauen lassen.",
-      "author": "Series A Gründer"
+    "header": "Möchten Sie die Zahlen gemeinsam ansehen?",
+    "body": "15 Minuten. Ihre spezifische Situation.\n\nWenn es Sinn macht, großartig. Wenn nicht, hören Sie zumindest auf, aus Versehen €65.000 auf dem Tisch zu lassen.",
+    "cta": "Gespräch mit Bar vereinbaren",
+    "alternative": "Oder E-Mail: bar@diboas.com",
+    "footer": "Kein Pitch Deck. Kein Verkaufsdruck. Nur Mathematik."
+  },
+  "footer": {
+    "riskDisclaimer": "diBoaS bietet Zugang zu renditebringenden Systemen. Renditen sind variabel und nicht garantiert. Vergangene Wertentwicklung ist kein Indikator für zukünftige Ergebnisse. Automatisierte Systeme beinhalten Risiken. Setzen Sie nur Mittel ein, die Ihrer Risikotoleranz entsprechen. diBoaS ist keine Bank und Einlagen sind nicht versichert.",
+    "regulatoryNote": "diBoaS operiert unter dem EU-MiCA-Rahmenwerk. CASP-Autorisierung ausstehend.",
+    "links": {
+      "privacy": "Datenschutz",
+      "terms": "Nutzungsbedingungen",
+      "risk": "Risikohinweis"
     }
   },
-  "missionFooter": {
-    "header": "Warum mir das wichtig ist",
-    "body": "Meine Großmutter hat alles richtig gemacht. Die Hälfte von allem gespart. Geduldig. Diszipliniert.\n\nEs hat trotzdem nicht gereicht. Die Differenz zwischen dem, was Banken verdienen und dem, was sie zahlen, hat sie daran gehindert, Vermögen aufzubauen.\n\nFür Familien wie meine war diese Differenz unsichtbar. Für Gründer muss sie das nicht sein.\n\nJetzt wissen Sie Bescheid.",
-    "anthem": "Ihr Geld. Ihre Zukunft. Ihre Regeln."
-  },
-  "disclaimer": {
-    "text": "Renditen sind illustrativ basierend auf aktuellen DeFi-Marktraten. Raten sind variabel und nicht garantiert. Vergangene Performance ist kein Indikator für zukünftige Ergebnisse. Smart-Contract-Risiko existiert bei DeFi-Protokollen. Weisen Sie nur Mittel zu, die Ihrer Risikotoleranz entsprechen. diBoaS bietet keine Anlageberatung."
+  "seo": {
+    "title": "diBoaS Treasury | Hören Sie auf, €65.000 auf dem Tisch liegen zu lassen",
+    "description": "Ihre Bank investiert Ihre Treasury, verdient Millionen und gibt Ihnen nichts. diBoaS: 6-8% Rendite, sofortige globale Zahlungen, keine Gebühren. Schauen wir uns Ihre Zahlen an.",
+    "ogTitle": "Ihre Bank investiert Ihre Treasury. Verdient Millionen. Gibt Ihnen nichts.",
+    "ogDescription": "Wegen meiner Großmutter habe ich gelernt, was Banken uns nicht sagen. Dasselbe, was ihr passiert ist, passiert der Treasury Ihres Startups. Deshalb baue ich diBoaS."
   }
 }

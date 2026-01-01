@@ -1,0 +1,78 @@
+{
+  "headline": "Share your dream",
+  "subhead": "Show others what's possible",
+  "modal": {
+    "title": "Share",
+    "close": "Close",
+    "shareVia": "Share via",
+    "copyLink": "Copy link",
+    "copied": "Copied!",
+    "download": "Download image",
+    "generating": "Creating your card...",
+    "noPreview": "No preview available"
+  },
+  "platform": {
+    "instagram": "Instagram",
+    "twitter": "X / Twitter",
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "telegram": "Telegram",
+    "download": "Download image",
+    "copy": "Copy link",
+    "copyLink": "Copy link",
+    "native": "Share..."
+  },
+  "toast": {
+    "linkCopied": "Link copied!",
+    "downloadStarted": "Downloading...",
+    "downloadComplete": "Image saved!",
+    "shareSuccess": "Shared!",
+    "shareFailed": "Couldn't share. Try downloading instead.",
+    "shareCancelled": "Share cancelled"
+  },
+  "instagramInstructions": "Image saved! Open Instagram and share from your gallery.",
+  "card": {
+    "cta": "See what yours could do →",
+    "generating": "Creating your card...",
+    "ready": "Your card is ready!"
+  },
+  "referral": {
+    "intro": "Your personal link:",
+    "benefit": "Each signup = {spots} spots up",
+    "copied": "Link copied to clipboard!"
+  },
+  "dreamMode": {
+    "twitter": "In Dream Mode, I could grow {start} -> {end} in {timeframe}. My bank? Only {bank}. #WhileISlept diboas.com",
+    "whatsapp": "Check this out — in Dream Mode, I saw what my {start} could become: {end} in {timeframe}. My bank would give me {bank}. See what yours could do: diboas.com #WhileISlept",
+    "linkedin": "I just explored what my savings could become with different strategies. The gap between traditional banking (0.5%) and what's actually possible is eye-opening. Try it yourself: diboas.com #WhileISlept #FinancialLiteracy"
+  },
+  "waitlistPosition": {
+    "twitter": "I'm #{position} on the @diBoaS waitlist. Banks earn 7% with our savings. They pay us 0.5%. That gap? It's been there the whole time. #WhileISlept",
+    "whatsapp": "I just joined the diBoaS waitlist (#{position}). Did you know banks earn 7% with our savings but only pay us 0.5%? Check it out: {referralUrl}"
+  },
+  "dreamCard": {
+    "watermark": "PROJECTION",
+    "headline": "IN DREAM MODE, I COULD GROW",
+    "timeframePrefix": "in",
+    "bankComparison": "My bank would have given me:",
+    "cta": "Ready to stop dreaming?",
+    "url": "diboas.com",
+    "disclaimer": "Based on historical data. Past performance ≠ future results.",
+    "hashtag": "#WhileISlept"
+  },
+  "waitlistCard": {
+    "headline": "I'M #{position} ON THE DIBOAS WAITLIST",
+    "bodyLine1": "Banks earn 7% with our savings.",
+    "bodyLine2": "They pay us 0.5%.",
+    "bodyLine3": "That gap? It's been there the whole time.",
+    "ctaIntro": "Join me:",
+    "hashtag": "#WhileISlept"
+  },
+  "timeframes": {
+    "1week": "1 week",
+    "1month": "1 month",
+    "1year": "1 year",
+    "5years": "5 years"
+  }
+}

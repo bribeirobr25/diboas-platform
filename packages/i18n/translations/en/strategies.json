@@ -1,0 +1,284 @@
+{
+  "seo": {
+    "title": "Investment Strategies | diBoaS",
+    "description": "10 strategies. Different goals. Different timelines. Different risk levels. Find the strategy that fits your life."
+  },
+  "hero": {
+    "headline": "Find the strategy that fits your life",
+    "subheadline": "10 strategies. Different goals. Different timelines. Different risk levels.",
+    "subheadline2": "No strategy is \"best.\" The best one is the one that matches where you are and where you're going.",
+    "trustLine": "All strategies use solid systems that have secured billions for years. We tested them across 4 years of real market data — bull and bear markets, crashes and recoveries, and everything in between."
+  },
+  "matrix": {
+    "header": "Choose your path",
+    "instructions": "Pick your goal on the left. Then decide: stable returns only, or open to growth potential?",
+    "columns": {
+      "goal": "Your Goal",
+      "stable": "Stable Returns",
+      "growth": "Growth Potential"
+    },
+    "rows": {
+      "emergency": {
+        "goal": "Emergency Fund",
+        "stable": "Safe Harbor",
+        "growth": "Stable Growth"
+      },
+      "shortTerm": {
+        "goal": "Short-Term (< 2 years)",
+        "stable": "Goal Keeper",
+        "growth": "Steady Progress"
+      },
+      "mediumTerm": {
+        "goal": "Medium-Term (2-5 years)",
+        "stable": "Patient Builder",
+        "growth": "Balanced Builder"
+      },
+      "longTerm": {
+        "goal": "Long-Term (5-10 years)",
+        "stable": "Steady Compounder",
+        "growth": "Wealth Accelerator"
+      },
+      "wealthBuilding": {
+        "goal": "Wealth Building (10+ years)",
+        "stable": "Yield Maximizer",
+        "growth": "Full Throttle"
+      }
+    },
+    "note": "Not sure? Start with Safe Harbor. It's designed for people who want to learn how this works before committing more. You can always switch later."
+  },
+  "strategies": {
+    "safeHarbor": {
+      "name": "Safe Harbor",
+      "badge": "Stable Returns | Emergency Fund",
+      "tagline": "Your safety net that actually grows",
+      "description": "This is where you keep money you might need tomorrow. It needs to be there when you need it. No surprises.",
+      "description2": "Safe Harbor uses only stable digital dollars. No exposure to digital asset prices. Your $1,000 stays close to $1,000 while earning returns.",
+      "allocation": "50% System A + 30% System B + 20% System C",
+      "allocationNote": "Your money is distributed across multiple independent systems to reduce risk.",
+      "stats": {
+        "lossChance": "Less than 1%",
+        "typicalReturn": "6-10% per year",
+        "bumpiness": "Very smooth. Your balance stayed stable throughout our 4-year test."
+      },
+      "bestFor": "People building their first emergency fund. Anyone who wants to learn how this works without price swings.",
+      "riskLevel": "Minimal — Your balance stays stable. The only risk is technical issues with the underlying systems, which have operated safely for years."
+    },
+    "stableGrowth": {
+      "name": "Stable Growth",
+      "badge": "Growth Potential (30%) | Emergency Fund",
+      "tagline": "Emergency fund with upside potential",
+      "description": "Same purpose as Safe Harbor, but with 30% exposure to digital asset growth. You're accepting some price movement for higher potential returns.",
+      "description2": "This works for people who already have a stable emergency fund and want their second layer to work harder.",
+      "allocation": "70% System A + 30% System D",
+      "stats": {
+        "lossChance": "Around 5%",
+        "typicalReturn": "7-12% per year",
+        "bumpiness": "Some waves. At worst, your balance temporarily dropped 8% before recovering."
+      },
+      "bestFor": "People comfortable with some price movement who want their safety net to capture growth potential.",
+      "riskLevel": "Low — 30% of your balance will move with digital asset prices.",
+      "note": "Not for your primary emergency fund. Build Safe Harbor first."
+    },
+    "goalKeeper": {
+      "name": "Goal Keeper",
+      "badge": "Stable Returns | Short-Term",
+      "tagline": "Protecting your near-term dreams",
+      "description": "Saving for something in the next 2 years? A trip, a wedding, a car? This keeps every euro working toward your deadline without risking it.",
+      "allocation": "60% System A + 25% System B + 15% System C",
+      "stats": {
+        "lossChance": "Less than 1%",
+        "typicalReturn": "6-9% per year",
+        "bumpiness": "Very smooth."
+      },
+      "bestFor": "Anyone with a specific goal and timeline under 2 years.",
+      "riskLevel": "Minimal — Designed for capital preservation with steady returns."
+    },
+    "steadyProgress": {
+      "name": "Steady Progress",
+      "badge": "Growth Potential (35%) | Short-Term",
+      "tagline": "Short-term goals with growth potential",
+      "description": "You have a goal in the next 2 years, but you're okay with some price movement if it means higher returns.",
+      "allocation": "65% System A + 35% System D",
+      "stats": {
+        "lossChance": "Around 7%",
+        "typicalReturn": "7-11% per year",
+        "bumpiness": "Moderate waves. At worst, your balance temporarily dropped 11% before recovering."
+      },
+      "bestFor": "People saving for a goal who can handle seeing their balance dip temporarily.",
+      "riskLevel": "Low-Medium — Your balance will move with digital asset prices."
+    },
+    "patientBuilder": {
+      "name": "Patient Builder",
+      "badge": "Stable Returns | Medium-Term",
+      "tagline": "Steady growth for the patient investor",
+      "description": "You're thinking 2-5 years out. Maybe a down payment, maybe starting a business.",
+      "allocation": "50% System A + 30% System B + 20% System C",
+      "stats": {
+        "lossChance": "Less than 1%",
+        "typicalReturn": "5-8% per year",
+        "bumpiness": "Very smooth."
+      },
+      "bestFor": "Medium-term savers who prioritize predictability over maximum returns.",
+      "riskLevel": "Minimal — Same stable profile, optimized for longer holding."
+    },
+    "balancedBuilder": {
+      "name": "Balanced Builder",
+      "badge": "Growth Potential (40%) | Medium-Term",
+      "tagline": "The best of both worlds",
+      "description": "Most of your money stays safe. Some captures digital asset growth. This is our most popular strategy for people with 3-5 year horizons.",
+      "allocation": "60% System A + 25% System D + 15% System E",
+      "stats": {
+        "lossChance": "Around 12%",
+        "typicalReturn": "10-16% per year",
+        "bumpiness": "Moderate waves. At worst, your balance temporarily dropped 13% before recovering."
+      },
+      "bestFor": "People who understand that prices go up AND down, and can hold through temporary dips.",
+      "riskLevel": "Medium — 40% growth exposure means meaningful swings in both directions."
+    },
+    "steadyCompounder": {
+      "name": "Steady Compounder",
+      "badge": "Stable Returns | Long-Term",
+      "tagline": "Let time do the heavy lifting",
+      "description": "You're playing the long game. 5-10 years. You don't need to take big risks because you have time on your side.",
+      "allocation": "55% System A + 30% System B + 15% System C",
+      "stats": {
+        "lossChance": "Less than 1%",
+        "typicalReturn": "6-10% per year",
+        "bumpiness": "Very smooth."
+      },
+      "bestFor": "Long-term savers who want peace of mind over maximum returns.",
+      "riskLevel": "Minimal — Slow and steady wins the race."
+    },
+    "wealthAccelerator": {
+      "name": "Wealth Accelerator",
+      "badge": "Growth Potential (70%) | Long-Term",
+      "tagline": "For believers who've done the research",
+      "description": "This is not for everyone. 70% growth exposure means your portfolio will move significantly with digital asset prices.",
+      "allocation": "30% System A + 35% System D + 35% System E",
+      "stats": {
+        "lossChance": "Around 24%",
+        "typicalReturn": "Highly variable — could be negative or exceed 50%",
+        "bumpiness": "Big swings. At worst, your balance dropped 47% before recovering."
+      },
+      "bestFor": "Long-term believers who can stomach extreme volatility for potentially higher returns.",
+      "riskLevel": "High — Significant chance of meaningful losses in shorter timeframes.",
+      "warning": "Your outcomes could range from -60% to +200%+. Only for users who can tolerate significant losses."
+    },
+    "yieldMaximizer": {
+      "name": "Yield Maximizer",
+      "badge": "Stable Returns | Wealth Building",
+      "tagline": "Maximum returns, minimum volatility",
+      "description": "You want the highest stable returns over 10+ years without exposure to digital asset prices.",
+      "allocation": "45% System A + 35% System B + 20% System C",
+      "stats": {
+        "lossChance": "Less than 1%",
+        "typicalReturn": "7-11% per year",
+        "bumpiness": "Very smooth."
+      },
+      "bestFor": "Conservative long-term wealth builders who want strong returns without price swings.",
+      "riskLevel": "Minimal — Our highest-yielding stable strategy."
+    },
+    "fullThrottle": {
+      "name": "Full Throttle",
+      "badge": "Growth Potential (85%) | Wealth Building",
+      "tagline": "Maximum risk. Maximum potential.",
+      "description": "This is our most aggressive strategy. 85% growth exposure. Designed for a small portion of your portfolio that you're willing to lose entirely.",
+      "allocation": "15% System A + 30% System D + 35% System E + 20% System F",
+      "stats": {
+        "lossChance": "Around 27%",
+        "typicalReturn": "Extremely variable — from large losses to extraordinary gains",
+        "bumpiness": "Roller coaster. At worst, your balance dropped 66% before recovering."
+      },
+      "requirements": {
+        "accountAge": "6+ months",
+        "minBalance": "1,000",
+        "maxAllocation": "20% of your total portfolio",
+        "waitingPeriod": "24-hour waiting period before activation",
+        "riskAck": "Risk acknowledgment required"
+      },
+      "bestFor": "Experienced investors with high risk tolerance allocating a small portion of their portfolio.",
+      "riskLevel": "Very High — Near-total loss possible. Only use what you can afford to lose completely.",
+      "warning": "This isn't safe. It's for those who understand that. You could lose 78% or gain extraordinarily. Never put money here that you need."
+    }
+  },
+  "statsLabels": {
+    "lossChance": "Chance of losing money",
+    "typicalReturn": "Typical annual return",
+    "bumpiness": "How bumpy is the ride?",
+    "riskLevel": "Risk level"
+  },
+  "allStrategiesHeader": "All 10 Strategies",
+  "growthBadge": "Growth",
+  "howToChoose": {
+    "header": "Not sure where to start?",
+    "intro": "Here's a simple framework:",
+    "question1": {
+      "title": "What's this money for?",
+      "options": {
+        "emergency": "Emergency fund → Safe Harbor or Stable Growth",
+        "shortTerm": "Something in the next 2 years → Goal Keeper or Steady Progress",
+        "mediumTerm": "Something in 2-5 years → Patient Builder or Balanced Builder",
+        "longTerm": "Long-term wealth → Steady Compounder, Wealth Accelerator, Yield Maximizer, or Full Throttle"
+      }
+    },
+    "question2": {
+      "title": "How do you feel about price swings?",
+      "options": {
+        "none": "\"I don't want any\" → Stick to the Stable Returns column",
+        "understand": "\"I understand them and can wait out dips\" → Consider the Growth Potential column",
+        "unsure": "\"I'm not sure\" → Start stable. Learn. You can always add growth exposure later."
+      }
+    },
+    "question3": {
+      "title": "What would you do if your balance dropped 20%?",
+      "options": {
+        "panic": "\"I'd panic and withdraw\" → Stable Returns strategies only",
+        "wait": "\"I'd wait for it to recover\" → Low-medium growth strategies",
+        "addMore": "\"I'd add more money\" → You might be ready for higher growth exposure"
+      }
+    },
+    "goldenRule": "When in doubt, start conservative. You can always move up the risk spectrum. You can't undo losses from strategies you weren't ready for."
+  },
+  "faq": {
+    "header": "Questions about strategies",
+    "items": {
+      "switch": {
+        "question": "Can I switch strategies?",
+        "answer": "Yes, anytime. No penalties. No questions asked.\n\nHere's something to keep in mind though: if you switch during a market dip, you might lock in a temporary loss.\n\nThe best time to switch is when your GOALS change, not when the market moves."
+      },
+      "multiple": {
+        "question": "Can I use multiple strategies at once?",
+        "answer": "Absolutely. Many people do.\n\nThink of it like having different accounts for different purposes:\n- Emergency fund in Safe Harbor\n- Vacation savings in Goal Keeper\n- Long-term wealth in Balanced Builder"
+      },
+      "rebalancing": {
+        "question": "How does rebalancing work?",
+        "answer": "When market movements push your allocation off target (more than 10% drift), we'll notify you.\n\nYou'll see exactly what changed and why. Then you decide: approve the rebalance, or leave it as is.\n\nWe never move your money without your approval."
+      },
+      "guaranteed": {
+        "question": "Are these returns guaranteed?",
+        "answer": "No. And anyone who guarantees returns is lying to you.\n\nWhat we can tell you:\n- We tested every strategy across 4 years of real market data\n- The numbers we show are based on what actually happened and thousands of simulations\n\nStart with what you can afford to learn with."
+      },
+      "systemProblem": {
+        "question": "What if one of the systems has a problem?",
+        "answer": "This is a real risk. Automated systems are built on code, and code can have vulnerabilities.\n\nWe reduce this risk by:\n- Only using systems that have secured $10B+ for years\n- Spreading your money across multiple independent systems\n- Monitoring for unusual activity 24/7"
+      },
+      "fullThrottleReqs": {
+        "question": "Why are there extra requirements for Full Throttle?",
+        "answer": "Because we want to protect you from yourself.\n\nFull Throttle can lose most of its value. The requirements aren't there to exclude you. They're there to make sure you've thought it through."
+      },
+      "whatSystems": {
+        "question": "What systems do you actually use?",
+        "answer": "We partner with established systems that have operated for years without major security incidents, secured billions of dollars, and been audited by independent security firms.\n\nOnce you join and log in, you'll see the full details of each system."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Ready to pick your path?",
+    "body": "Join the waitlist. When we launch, you'll be among the first to put your strategy to work.",
+    "cta": "Join the waitlist — it's free →",
+    "position": "⏰ You're #{position} in line for early access"
+  },
+  "footer": {
+    "disclaimer": "All performance data is based on historical analysis (May 2022 - December 2025) and thousands of simulations. Past performance does not guarantee future results. Your money is placed in automated systems that carry technical risk, market risk, and liquidity risk. Growth strategies involve additional price volatility risk. Only use money you can afford to lose. diBoaS is not a bank and your funds are not insured."
+  }
+}

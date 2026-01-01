@@ -1,0 +1,142 @@
+{
+  "seo": {
+    "title": "Zukunfts-Du Rechner | diBoaS",
+    "description": "Sehen Sie, was aus Ihrem Geld werden könnte. Kleine Beträge. Konsequenter Einsatz. Die Zeit erledigt den Rest."
+  },
+  "hero": {
+    "headline": "Treffen Sie Ihr zukünftiges Ich",
+    "subheadline": "Kleine Beträge. Konsequenter Einsatz. Die Zeit erledigt den Rest.",
+    "subheadline2": "Sehen Sie, was aus Ihrem Geld werden könnte, wenn es so hart arbeitet wie Sie.",
+    "context": "Das ist kein Versprechen. Es ist eine Projektion basierend auf historischen Daten. Aber sie zeigt Ihnen, was möglich ist, wenn die Mathematik endlich auf Ihrer Seite ist."
+  },
+  "calculator": {
+    "header": "Was könnte aus Ihrem Geld werden?",
+    "instructions": "Schieben Sie den Regler, um Ihren monatlichen Betrag festzulegen. Wählen Sie Ihren Zeitrahmen. Beobachten Sie die Mathematik.",
+    "monthlyAmount": {
+      "label": "Monatlicher Betrag, den Sie zurücklegen könnten",
+      "helper": "Beginnen Sie mit dem, was bequem ist. Selbst {currency}20/Monat summiert sich über die Zeit."
+    },
+    "timeframe": {
+      "label": "Wie lange denken Sie?",
+      "helper": "Je länger Ihr Zeitrahmen, desto kraftvoller wird das Wachstum.",
+      "options": {
+        "5years": "5 Jahre",
+        "10years": "10 Jahre",
+        "15years": "15 Jahre",
+        "20years": "20 Jahre"
+      }
+    },
+    "results": {
+      "header": "In {years} Jahren könnten Ihre {currency}{amount}/Monat werden:",
+      "withDiboas": "Mit diBoaS",
+      "withBank": "Mit Ihrer Bank",
+      "futureValue": "Endwert",
+      "deposited": "Sie haben eingezahlt",
+      "earned": "Sie haben verdient",
+      "difference": "Das sind {currency}{amount} mehr bei gleichem monatlichem Einsatz.",
+      "differenceNote": "Gleicher Verzicht. Unterschiedliches Ergebnis. Das passiert, wenn Ihr Geld tatsächlich für Sie arbeitet."
+    },
+    "watermark": "PROJEKTION",
+    "disclaimer": "Basierend auf historischer Performance (8% jährlich für diBoaS mit unserer konservativsten Strategie, 0,5% für typische Banksparzinsen). Dies ist eine Projektion, keine Garantie. Tatsächliche Ergebnisse variieren je nach gewählter Strategie und Marktbedingungen.",
+    "cta": "Auf die Warteliste, um dies Realität werden zu lassen →",
+    "secondaryCta": "Möchten Sie höheres Potenzial?",
+    "strategiesLink": "Alle 10 Strategien entdecken"
+  },
+  "mathExplained": {
+    "header": "Warum der Unterschied so groß ist",
+    "intro": "Es ist keine Magie. Es ist Mathematik. Hier ist, was tatsächlich passiert:",
+    "bankGap": {
+      "headline": "Ihre Bank verdient mehr als sie Ihnen zahlt",
+      "body": "Banken nehmen Ihre Einlagen und setzen sie ein — verleihen, investieren, echte Renditen erzielen. Aber sie teilen nur einen winzigen Bruchteil mit Ihnen.",
+      "body2": "Eine typische Bank verdient etwa 7% mit Ihrem Geld. Sie zahlen Ihnen 0,5%. Diese 6,5% Differenz? Das ist ihr gesamtes Geschäftsmodell.",
+      "body3": "Mit diBoaS erhalten Sie Zugang zu den gleichen Arten von Renditen. Die Lücke geht stattdessen an Sie."
+    },
+    "compound": {
+      "headline": "Ihre Erträge beginnen auch zu verdienen",
+      "body": "Wenn Sie Renditen erzielen und diese Renditen weitere Renditen erwirtschaften, beschleunigt sich das Wachstum im Laufe der Zeit. Bei 0,5% macht das kaum einen Unterschied. Bei 8% verändert es alles.",
+      "example": {
+        "title": "{currency}100/Monat für 20 Jahre:",
+        "deposited": "Gesamteinzahlung: {currency}24.000",
+        "bankEarnings": "Bankerträge: {currency}1.185 (das sind 5% Ihrer Einzahlung)",
+        "diboasEarnings": "diBoaS-Erträge: {currency}34.902 (das sind 145% Ihrer Einzahlung)",
+        "conclusion": "Der Unterschied ist nicht 16x der Zinssatz. Es sind 29x die Erträge. Das passiert, wenn Renditen sich vermehren."
+      }
+    },
+    "time": {
+      "headline": "Je länger Sie mit dem Start warten, desto mehr kostet es Sie",
+      "body": "5 Jahre früher mit {currency}100/Monat zu beginnen bedeutet Zehntausende mehr am Ende. Jedes Jahr Verzögerung kostet Sie zukünftiges Wachstum, das Sie nie zurückbekommen werden.",
+      "takeaway": "Der beste Zeitpunkt zum Starten war vor Jahren. Der zweitbeste ist jetzt."
+    }
+  },
+  "strategyConnection": {
+    "header": "Die 8% sind nicht zufällig",
+    "body": "Diese Projektion verwendet unsere konservativste Strategie namens Safe Harbor. Sie nutzt nur stabile Systeme ohne Exposition gegenüber Preisschwankungen. In unserem 4-Jahres-Test hat sie nie Geld verloren.",
+    "body2": "Wenn Sie mit einigen Auf und Abs vertraut sind, haben andere Strategien höhere Renditen geliefert:",
+    "table": {
+      "strategy": "Strategie",
+      "returns": "Was passieren könnte",
+      "exposure": "Preisschwankungsexposition",
+      "safeHarbor": {
+        "name": "Safe Harbor",
+        "returns": "6-10% pro Jahr",
+        "exposure": "Keine"
+      },
+      "balancedBuilder": {
+        "name": "Balanced Builder",
+        "returns": "10-16% pro Jahr",
+        "exposure": "40%"
+      },
+      "wealthAccelerator": {
+        "name": "Wealth Accelerator",
+        "returns": "Variabel (könnte negativ oder 50%+ sein)",
+        "exposure": "70%"
+      }
+    },
+    "note": "Höheres Renditepotenzial kommt mit unruhigeren Fahrten. Dieser Rechner verwendet Safe Harbor, weil es das ist, was wir jemandem empfehlen würden, der gerade anfängt.",
+    "cta": "Alle 10 Strategien entdecken"
+  },
+  "faq": {
+    "header": "Fragen zum Rechner",
+    "items": {
+      "realistic": {
+        "question": "Sind 8% realistisch?",
+        "answer": "Die 8% liegen in der Mitte des erwarteten Bereichs unserer Safe-Harbor-Strategie (6-10% pro Jahr). Wir haben diese Strategie über 4 Jahre echter Marktdaten getestet, einschließlich des Crashs von 2022 und mehrerer kleinerer Einbrüche.\n\nIst es für die Zukunft garantiert? Nein. Könnte es höher oder niedriger sein? Ja. Aber es basiert auf echten Daten, nicht auf Wunschdenken.\n\nWir verwenden 8% statt 10%, um konservativ zu sein. Wir möchten lieber, dass Sie angenehm überrascht sind als enttäuscht."
+      },
+      "bankRate": {
+        "question": "Warum verwenden Sie 0,5% für Banken?",
+        "answer": "Das ist der durchschnittliche Sparzins in der EU. Einige Banken zahlen während Werbeaktionen mehr (vielleicht 1-2%), die meisten zahlen weniger oder gar nichts. Wir verwenden den Durchschnitt, weil das ist, was die meisten Menschen tatsächlich bekommen.\n\nWenn Ihre Bank mehr zahlt, großartig! Aber selbst bei 2% ist die Lücke zwischen dem, was Sie verdienen, und dem, was möglich ist, immer noch enorm."
+      },
+      "inflation": {
+        "question": "Was ist mit Inflation?",
+        "answer": "Dieser Rechner zeigt die tatsächlichen Zahlen, nicht inflationsbereinigt.\n\nHier ist, warum das wichtig ist:\n- Bei 0,5% verlieren Sie fast sicher jedes Jahr an Kaufkraft. Die Inflation frisst mehr, als Sie verdienen.\n- Bei 8% schlagen Sie wahrscheinlich die Inflation und bauen echtes Vermögen auf.\n\nDie genaue Auswirkung hängt von der zukünftigen Inflation ab, die niemand vorhersagen kann. Aber 8% zu verdienen bringt Sie in eine viel stärkere Position als 0,5% zu verdienen."
+      },
+      "minimum": {
+        "question": "Kann ich wirklich mit {currency}5/Monat anfangen?",
+        "answer": "Ja. diBoaS hat kein Minimum über {currency}5 hinaus.\n\nWir glauben, dass jeder Zugang zu echten Renditen haben sollte, nicht nur Menschen mit Tausenden zum Investieren.\n\n{currency}5/Monat für 20 Jahre bei 8% = ~{currency}2.945\nDas sind ~{currency}1.745 an Erträgen auf {currency}1.200 eingezahlt.\n\nWenig? Vielleicht. Aber es sind {currency}1.745 mehr als Sie hätten, wenn Sie nichts tun."
+      },
+      "inconsistent": {
+        "question": "Was ist, wenn ich nicht jeden Monat den gleichen Betrag sparen kann?",
+        "answer": "Das Leben passiert. Sie können jederzeit anpassen.\n\nDieser Rechner nimmt konsistente monatliche Beträge an, weil das der einfachste Weg zur Projektion ist. Aber diBoaS erfordert keine Konsistenz.\n\nManche Monate sparen Sie {currency}200. Manche Monate {currency}20. Manche Monate {currency}0. Die Mathematik funktioniert trotzdem — nur anders. Was zählt, ist, dass Sie anfangen."
+      },
+      "whichStrategy": {
+        "question": "Welche Strategie sollte ich tatsächlich verwenden?",
+        "answer": "Der Rechner verwendet Safe Harbor als Basis, weil es:\n- Unsere konservativste Strategie ist\n- Nur stabile Systeme verwendet (keine Preisschwankungsexposition)\n- In unserem 4-Jahres-Test nie Geld verloren hat\n\nWenn Sie mit gelegentlichen Einbrüchen vertraut sind und einen längeren Zeitrahmen haben, könnten Strategien mit Wachstumspotenzial besser zu Ihnen passen."
+      },
+      "bankDifference": {
+        "question": "Was ist der Unterschied zu meinem Banksparkonto?",
+        "answer": "Drei Hauptunterschiede:\n\n1. Renditen: Banken zahlen typischerweise 0,5% oder weniger. Unsere konservativste Strategie zielt auf 6-10%.\n\n2. Wohin Ihr Geld geht: Banken verleihen Ihr Geld und behalten die meisten Renditen. Bei diBoaS geht Ihr Geld in Systeme, die Sie direkt bezahlen.\n\n3. Kontrolle: Bankeinlagen werden rechtlich zum Geld der Bank (sie schulden Ihnen nur den Betrag). Bei diBoaS bleibt Ihr Geld in Ihrer eigenen Wallet. Wir können es nicht anfassen.\n\nDer Kompromiss? Bankeinlagen sind bis {currency}100.000 versichert. diBoaS-Einlagen sind nicht versichert, obwohl die Systeme, die wir verwenden, seit Jahren Milliarden sicher gesichert haben."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Bereit, Ihre Zukunft aufzubauen?",
+    "body": "Sie haben die Mathematik gesehen. Sie wissen, was möglich ist.",
+    "body2": "Die einzige Frage, die bleibt: Wann fangen Sie an?",
+    "cta": "Auf die Warteliste — kostenlos →",
+    "secondary": "Jeden Monat, den Sie warten, ist Wachstum, das Sie verpassen.",
+    "position": "⏰ Sie sind #{position} für frühen Zugang"
+  },
+  "footer": {
+    "disclaimer": "Dieser Rechner bietet nur Projektionen. Die 8%-Rate basiert auf dem erwarteten Performancebereich der Safe-Harbor-Strategie und ist nicht garantiert. Die 0,5%-Bankrate basiert auf EZB-Durchschnittssparzinsen. Tatsächliche Ergebnisse variieren je nach gewählter Strategie, Marktbedingungen und Zeitpunkt der Einzahlungen. Vergangene Wertentwicklung garantiert keine zukünftigen Ergebnisse. Ihr Geld wird in automatisierte Systeme platziert, die technisches Risiko, Marktrisiko und Liquiditätsrisiko tragen. diBoaS ist keine Bank und Ihre Mittel sind nicht versichert. Dies ist keine Finanzberatung."
+  }
+}

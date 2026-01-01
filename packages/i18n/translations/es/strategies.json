@@ -1,0 +1,276 @@
+{
+  "seo": {
+    "title": "Estrategias de Inversión | diBoaS",
+    "description": "10 estrategias. Diferentes objetivos. Diferentes plazos. Diferentes niveles de riesgo. Encuentra la estrategia que se adapta a tu vida."
+  },
+  "hero": {
+    "headline": "Encuentra la estrategia que se adapta a tu vida",
+    "subheadline": "10 estrategias. Diferentes objetivos. Diferentes plazos. Diferentes niveles de riesgo.",
+    "subheadline2": "Ninguna estrategia es \"la mejor.\" La mejor es la que coincide con dónde estás y hacia dónde vas.",
+    "trustLine": "Todas las estrategias usan sistemas sólidos que han asegurado miles de millones durante años. Las probamos en 4 años de datos reales del mercado — mercados alcistas y bajistas, caídas y recuperaciones, y todo lo demás."
+  },
+  "matrix": {
+    "header": "Elige tu camino",
+    "instructions": "Elige tu objetivo a la izquierda. Luego decide: ¿solo rendimientos estables, o abierto a potencial de crecimiento?",
+    "columns": {
+      "goal": "Tu Objetivo",
+      "stable": "Rendimientos Estables",
+      "growth": "Potencial de Crecimiento"
+    },
+    "rows": {
+      "emergency": { "goal": "Fondo de Emergencia", "stable": "Safe Harbor", "growth": "Stable Growth" },
+      "shortTerm": { "goal": "Corto Plazo (< 2 años)", "stable": "Goal Keeper", "growth": "Steady Progress" },
+      "mediumTerm": { "goal": "Mediano Plazo (2-5 años)", "stable": "Patient Builder", "growth": "Balanced Builder" },
+      "longTerm": { "goal": "Largo Plazo (5-10 años)", "stable": "Steady Compounder", "growth": "Wealth Accelerator" },
+      "wealthBuilding": { "goal": "Construcción de Riqueza (10+ años)", "stable": "Yield Maximizer", "growth": "Full Throttle" }
+    },
+    "note": "¿No estás seguro? Empieza con Safe Harbor. Está diseñada para personas que quieren entender cómo funciona esto antes de comprometer más. Siempre puedes cambiar después."
+  },
+  "strategies": {
+    "safeHarbor": {
+      "name": "Safe Harbor",
+      "badge": "Rendimientos Estables | Fondo de Emergencia",
+      "tagline": "Tu red de seguridad que realmente crece",
+      "description": "Aquí guardas dinero que podrías necesitar mañana. Tiene que estar ahí cuando lo necesites. Sin sorpresas.",
+      "description2": "Safe Harbor usa solo dólares digitales estables. Sin exposición a precios de activos digitales. Tus €1.000 se mantienen cerca de €1.000 mientras generan rendimientos.",
+      "allocation": "50% Sistema A + 30% Sistema B + 20% Sistema C",
+      "allocationNote": "Tu dinero se distribuye en múltiples sistemas independientes para reducir el riesgo. Cada sistema ha asegurado miles de millones de dólares durante años.",
+      "stats": {
+        "lossChance": "Menos del 1%",
+        "typicalReturn": "6-10% por año",
+        "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
+      },
+      "bestFor": "Personas construyendo su primer fondo de emergencia. Cualquiera que quiera entender cómo funciona esto sin oscilaciones de precio.",
+      "riskLevel": "Mínimo — Tu saldo se mantiene estable. El único riesgo son problemas técnicos con los sistemas subyacentes, que han operado de forma segura durante años."
+    },
+    "stableGrowth": {
+      "name": "Stable Growth",
+      "badge": "Potencial de Crecimiento (30%) | Fondo de Emergencia",
+      "tagline": "Fondo de emergencia con potencial alcista",
+      "description": "Mismo propósito que Safe Harbor, pero con 30% de exposición al crecimiento de activos digitales. Estás aceptando algo de movimiento de precios por rendimientos potencialmente mayores.",
+      "description2": "Esto funciona para personas que ya tienen un fondo de emergencia estable y quieren que su segunda capa trabaje más duro.",
+      "allocation": "70% Sistema A + 30% Sistema D",
+      "allocationNote": "La mayor parte de tu dinero permanece en dólares digitales estables. Una porción más pequeña participa en el crecimiento de activos digitales.",
+      "stats": {
+        "lossChance": "Alrededor del 5%",
+        "typicalReturn": "7-12% por año",
+        "bumpiness": "Algunas olas. En el peor momento, tu saldo cayó temporalmente 8% antes de recuperarse."
+      },
+      "bestFor": "Personas cómodas con algo de movimiento de precios que quieren que su red de seguridad capture potencial de crecimiento.",
+      "riskLevel": "Bajo — 30% de tu saldo se moverá con los precios de activos digitales. Espera caídas ocasionales.",
+      "note": "No es para tu fondo de emergencia principal. Construye Safe Harbor primero."
+    },
+    "goalKeeper": {
+      "name": "Goal Keeper",
+      "badge": "Rendimientos Estables | Corto Plazo",
+      "tagline": "Protegiendo tus sueños a corto plazo",
+      "description": "¿Ahorrando para algo en los próximos 2 años? ¿Un viaje, una boda, un carro? Esto mantiene cada euro trabajando hacia tu fecha límite sin arriesgarlo.",
+      "description2": "Sin exposición a precios de activos digitales. Crecimiento predecible.",
+      "allocation": "60% Sistema A + 25% Sistema B + 15% Sistema C",
+      "allocationNote": "Tu dinero se distribuye en sistemas probados enfocados en estabilidad.",
+      "stats": {
+        "lossChance": "Menos del 1%",
+        "typicalReturn": "6-9% por año",
+        "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
+      },
+      "bestFor": "Cualquiera con un objetivo específico y plazo menor a 2 años.",
+      "riskLevel": "Mínimo — Diseñado para preservación de capital con rendimientos estables."
+    },
+    "steadyProgress": {
+      "name": "Steady Progress",
+      "badge": "Potencial de Crecimiento (35%) | Corto Plazo",
+      "tagline": "Objetivos a corto plazo con potencial de crecimiento",
+      "description": "Tienes un objetivo en los próximos 2 años, pero estás de acuerdo con algo de movimiento de precios si significa mayores rendimientos. 35% de exposición a crecimiento te da potencial alcista mientras la mayor parte de tu dinero permanece estable.",
+      "allocation": "65% Sistema A + 35% Sistema D",
+      "allocationNote": "La mayoría permanece estable. Una porción participa en el crecimiento de activos digitales.",
+      "stats": {
+        "lossChance": "Alrededor del 7%",
+        "typicalReturn": "7-11% por año",
+        "bumpiness": "Olas moderadas. En el peor momento, tu saldo cayó temporalmente 11% antes de recuperarse."
+      },
+      "bestFor": "Personas ahorrando para un objetivo que pueden manejar ver su saldo caer temporalmente.",
+      "riskLevel": "Bajo-Medio — Tu saldo se moverá con los precios de activos digitales. Algunos meses serán negativos."
+    },
+    "patientBuilder": {
+      "name": "Patient Builder",
+      "badge": "Rendimientos Estables | Mediano Plazo",
+      "tagline": "Crecimiento estable para el inversor paciente",
+      "description": "Estás pensando a 2-5 años. Tal vez un enganche, tal vez empezar un negocio. Quieres crecimiento consistente sin ver precios saltando.",
+      "allocation": "50% Sistema A + 30% Sistema B + 20% Sistema C",
+      "allocationNote": "Distribuido en sistemas estables para rendimientos consistentes.",
+      "stats": {
+        "lossChance": "Menos del 1%",
+        "typicalReturn": "5-8% por año",
+        "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
+      },
+      "bestFor": "Ahorradores de mediano plazo que priorizan la previsibilidad sobre los rendimientos máximos.",
+      "riskLevel": "Mínimo — Mismo perfil estable, optimizado para mantener más tiempo."
+    },
+    "balancedBuilder": {
+      "name": "Balanced Builder",
+      "badge": "Potencial de Crecimiento (40%) | Mediano Plazo",
+      "tagline": "Lo mejor de ambos mundos",
+      "description": "La mayor parte de tu dinero permanece segura. Una parte captura el crecimiento de activos digitales. Esta es nuestra estrategia más popular para personas con horizontes de 3-5 años que quieren crecimiento sin ir todo adentro.",
+      "allocation": "60% Sistema A + 25% Sistema D + 15% Sistema E",
+      "allocationNote": "Una mezcla equilibrada de estabilidad y potencial de crecimiento.",
+      "stats": {
+        "lossChance": "Alrededor del 12%",
+        "typicalReturn": "10-16% por año",
+        "bumpiness": "Olas moderadas. En el peor momento, tu saldo cayó temporalmente 13% antes de recuperarse."
+      },
+      "bestFor": "Personas que entienden que los precios suben Y bajan, y pueden mantener durante caídas temporales.",
+      "riskLevel": "Medio — 40% de exposición a crecimiento significa oscilaciones significativas en ambas direcciones."
+    },
+    "steadyCompounder": {
+      "name": "Steady Compounder",
+      "badge": "Rendimientos Estables | Largo Plazo",
+      "tagline": "Deja que el tiempo haga el trabajo pesado",
+      "description": "Estás jugando el juego largo. 5-10 años. No necesitas tomar grandes riesgos porque tienes el tiempo de tu lado. Rendimientos consistentes del 6-10% durante una década son poderosos.",
+      "allocation": "55% Sistema A + 30% Sistema B + 15% Sistema C",
+      "allocationNote": "Optimizado para composición a largo plazo con volatilidad mínima.",
+      "stats": {
+        "lossChance": "Menos del 1%",
+        "typicalReturn": "6-10% por año",
+        "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
+      },
+      "bestFor": "Ahorradores a largo plazo que quieren tranquilidad sobre rendimientos máximos.",
+      "riskLevel": "Mínimo — Lento y constante gana la carrera."
+    },
+    "wealthAccelerator": {
+      "name": "Wealth Accelerator",
+      "badge": "Potencial de Crecimiento (70%) | Largo Plazo",
+      "tagline": "Para creyentes que han hecho su investigación",
+      "description": "Esto no es para todos. 70% de exposición a crecimiento significa que tu portafolio se moverá significativamente con los precios de activos digitales. Pero en horizontes largos, los activos digitales históricamente han entregado rendimientos fuertes.",
+      "description2": "Necesitas poder ver tu saldo caer 40%+ y no entrar en pánico.",
+      "allocation": "30% Sistema A + 35% Sistema D + 35% Sistema E",
+      "allocationNote": "Muy inclinado hacia el potencial de crecimiento.",
+      "stats": {
+        "lossChance": "Alrededor del 24%",
+        "typicalReturn": "Muy variable — podría ser negativo o superar 50%",
+        "bumpiness": "Grandes oscilaciones. En el peor momento, tu saldo cayó 47% antes de recuperarse. Necesitas estar cómodo viendo tu saldo temporalmente reducirse a la mitad."
+      },
+      "bestFor": "Creyentes a largo plazo que pueden soportar volatilidad extrema por rendimientos potencialmente mayores.",
+      "riskLevel": "Alto — Probabilidad significativa de pérdidas significativas en plazos cortos. Solo para dinero que no necesitarás por 5+ años.",
+      "warning": "Tus resultados podrían ir de -60% a +200%+. Solo para usuarios que pueden tolerar pérdidas significativas."
+    },
+    "yieldMaximizer": {
+      "name": "Yield Maximizer",
+      "badge": "Rendimientos Estables | Construcción de Riqueza",
+      "tagline": "Rendimientos máximos, volatilidad mínima",
+      "description": "Quieres los mayores rendimientos estables durante 10+ años sin exposición a precios de activos digitales. Esto optimiza para rendimientos a través de los sistemas más seguros.",
+      "allocation": "45% Sistema A + 35% Sistema B + 20% Sistema C",
+      "allocationNote": "Nuestra configuración de mayor rendimiento solo con estables.",
+      "stats": {
+        "lossChance": "Menos del 1%",
+        "typicalReturn": "7-11% por año",
+        "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
+      },
+      "bestFor": "Constructores de riqueza conservadores a largo plazo que quieren rendimientos fuertes sin oscilaciones de precio.",
+      "riskLevel": "Mínimo — Nuestra estrategia estable de mayor rendimiento."
+    },
+    "fullThrottle": {
+      "name": "Full Throttle",
+      "badge": "Potencial de Crecimiento (85%) | Construcción de Riqueza",
+      "tagline": "Riesgo máximo. Potencial máximo.",
+      "description": "Esta es nuestra estrategia más agresiva. 85% de exposición a crecimiento. Diseñada para una pequeña porción de tu portafolio que estás dispuesto a perder completamente.",
+      "description2": "¿El lado positivo? En escenarios raros, los rendimientos han superado el 1.000%. ¿El lado negativo? 27% de probabilidad de pérdida. Tu saldo cayó 66% en su peor momento en nuestra prueba.",
+      "allocation": "15% Sistema A + 30% Sistema D + 35% Sistema E + 20% Sistema F",
+      "allocationNote": "Máxima exposición a crecimiento con mínimo buffer de estabilidad.",
+      "stats": {
+        "lossChance": "Alrededor del 27%",
+        "typicalReturn": "Extremadamente variable — desde grandes pérdidas hasta ganancias extraordinarias",
+        "bumpiness": "Montaña rusa. En el peor momento, tu saldo cayó 66% antes de recuperarse. Solo para quienes pueden soportar pérdidas temporales casi totales."
+      },
+      "requirements": {
+        "accountAge": "6+ meses",
+        "minBalance": "€1.000",
+        "maxAllocation": "20% de tu portafolio total",
+        "waitingPeriod": "Período de espera de 24 horas antes de la activación",
+        "riskAck": "Confirmación de riesgo requerida"
+      },
+      "bestFor": "Inversores experimentados con alta tolerancia al riesgo asignando una pequeña porción de su portafolio.",
+      "riskLevel": "Muy Alto — Pérdida casi total posible. Solo usa lo que puedas permitirte perder completamente.",
+      "warning": "Esto no es seguro. Es para quienes entienden eso. Podrías perder 78% o ganar extraordinariamente. Nunca pongas aquí dinero que necesitas."
+    }
+  },
+  "statsLabels": {
+    "lossChance": "Probabilidad de perder dinero",
+    "typicalReturn": "Rendimiento anual típico",
+    "bumpiness": "¿Qué tan turbulento es el camino?",
+    "riskLevel": "Nivel de riesgo"
+  },
+  "allStrategiesHeader": "Las 10 Estrategias",
+  "growthBadge": "Crecimiento",
+  "howToChoose": {
+    "header": "¿No sabes por dónde empezar?",
+    "intro": "Aquí hay un marco simple:",
+    "question1": {
+      "title": "¿Para qué es este dinero?",
+      "options": {
+        "emergency": "Fondo de emergencia → Safe Harbor o Stable Growth",
+        "shortTerm": "Algo en los próximos 2 años → Goal Keeper o Steady Progress",
+        "mediumTerm": "Algo en 2-5 años → Patient Builder o Balanced Builder",
+        "longTerm": "Riqueza a largo plazo → Steady Compounder, Wealth Accelerator, Yield Maximizer o Full Throttle"
+      }
+    },
+    "question2": {
+      "title": "¿Cómo te sientes con las oscilaciones de precio?",
+      "options": {
+        "none": "\"No quiero ninguna\" → Quédate en la columna de Rendimientos Estables",
+        "understand": "\"Las entiendo y puedo esperar las caídas\" → Considera la columna de Potencial de Crecimiento",
+        "unsure": "\"No estoy seguro\" → Empieza estable. Aprende. Siempre puedes agregar exposición a crecimiento después."
+      }
+    },
+    "question3": {
+      "title": "¿Qué harías si tu saldo cayera 20%?",
+      "options": {
+        "panic": "\"Entraría en pánico y retiraría\" → Solo estrategias de Rendimientos Estables",
+        "wait": "\"Esperaría a que se recupere\" → Estrategias de crecimiento bajo-medio",
+        "addMore": "\"Agregaría más dinero\" → Podrías estar listo para mayor exposición a crecimiento"
+      }
+    },
+    "goldenRule": "En caso de duda, empieza conservador. Siempre puedes subir en el espectro de riesgo. No puedes deshacer pérdidas de estrategias para las que no estabas listo."
+  },
+  "faq": {
+    "header": "Preguntas sobre estrategias",
+    "items": {
+      "switch": {
+        "question": "¿Puedo cambiar de estrategia?",
+        "answer": "Sí, en cualquier momento. Sin penalidades. Sin preguntas.\n\nPero ten en cuenta: si cambias durante una caída del mercado, podrías fijar una pérdida temporal. Es como vender tu casa durante una recesión — recibes menos de lo que vale.\n\nEl mejor momento para cambiar es cuando tus OBJETIVOS cambian, no cuando el mercado se mueve. Si pasaste de \"ahorrar para un carro\" a \"ahorrar para la jubilación,\" esa es una buena razón. Si estás cambiando porque los precios cayeron la semana pasada, generalmente es la decisión equivocada."
+      },
+      "multiple": {
+        "question": "¿Puedo usar múltiples estrategias a la vez?",
+        "answer": "Absolutamente. Mucha gente lo hace.\n\nPiénsalo como tener diferentes cuentas para diferentes propósitos:\n- Fondo de emergencia en Safe Harbor\n- Ahorros para vacaciones en Goal Keeper\n- Riqueza a largo plazo en Balanced Builder\n\nEstás construyendo tu propio portafolio de estrategias. Cada una sirve una parte diferente de tu vida financiera."
+      },
+      "rebalancing": {
+        "question": "¿Cómo funciona el rebalanceo?",
+        "answer": "Cuando los movimientos del mercado empujan tu asignación fuera del objetivo (más del 10% de desviación), te notificamos.\n\nVerás exactamente qué cambió y por qué. Luego decides: aprobar el rebalanceo, o dejarlo como está.\n\nNunca movemos tu dinero sin tu aprobación. Tus fondos, tu control. Siempre.\n\n¿Por qué importa esto? Algunas plataformas mueven tu dinero automáticamente. Nosotros no. No podemos. Tu dinero permanece en tu propia billetera, y solo tú puedes autorizar cambios."
+      },
+      "guaranteed": {
+        "question": "¿Estos rendimientos están garantizados?",
+        "answer": "No. Y cualquiera que garantice rendimientos te está mintiendo.\n\nLo que podemos decirte:\n- Probamos cada estrategia en 4 años de datos reales del mercado\n- Esto incluyó el crash de 2022, varias caídas menores y períodos de recuperación\n- Los números que mostramos se basan en lo que realmente pasó y miles de simulaciones de lo que podría pasar\n\n¿El futuro será exactamente como el pasado? No. ¿Los rendimientos podrían ser mayores o menores? Sí. Pero nuestras proyecciones se basan en datos reales, no en ilusiones.\n\nEmpieza con lo que puedas permitirte aprender."
+      },
+      "systemProblem": {
+        "question": "¿Qué pasa si uno de los sistemas tiene un problema?",
+        "answer": "Este es un riesgo real. Los sistemas automatizados están construidos en código, y el código puede tener vulnerabilidades.\n\nReducimos este riesgo:\n- Usando solo sistemas que han asegurado $10B+ durante años sin incidentes graves\n- Distribuyendo tu dinero en múltiples sistemas independientes\n- Monitoreando actividad inusual 24/7\n- Nunca poniendo todos los huevos en una canasta\n\n¿El riesgo es cero? No. ¿Es transparente? Sí. Siempre sabes exactamente dónde está tu dinero."
+      },
+      "fullThrottleReqs": {
+        "question": "¿Por qué hay requisitos extra para Full Throttle?",
+        "answer": "Porque queremos protegerte de ti mismo.\n\nFull Throttle puede perder la mayor parte de su valor. Hemos visto personas tomar decisiones impulsivas con estrategias agresivas y arrepentirse profundamente.\n\nLos requisitos (6 meses de historial, €1.000 mínimo, 24 horas de espera) no están para excluirte. Están para asegurarte de que lo has pensado bien.\n\nSi realmente estás listo, estos requisitos no te detendrán. Si no estás listo, podrían salvarte de una lección dolorosa."
+      },
+      "whatSystems": {
+        "question": "¿Qué sistemas usan realmente?",
+        "answer": "Trabajamos con sistemas establecidos que:\n- Han operado durante años sin incidentes de seguridad graves\n- Han asegurado miles de millones de dólares\n- Han sido auditados por firmas de seguridad independientes\n- Tienen operaciones transparentes que puedes verificar tú mismo\n\nUna vez que te unas e inicies sesión, verás los detalles completos de cada sistema, incluyendo sus nombres, historial y por qué los elegimos.\n\n¿Por qué no mostramos esto públicamente? Porque la combinación específica de sistemas y asignaciones es parte de lo que hace único a diBoaS. Estamos encantados de ser completamente transparentes con nuestros usuarios — solo no con competidores."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "¿Listo para elegir tu camino?",
+    "body": "Únete a la lista de espera. Cuando lancemos, serás de los primeros en poner tu estrategia a trabajar.",
+    "cta": "Únete a la lista — es gratis →",
+    "position": "⏰ Eres el #{position} para acceso anticipado"
+  },
+  "footer": {
+    "disclaimer": "Todos los datos de rendimiento se basan en análisis histórico (Mayo 2022 - Diciembre 2025) y miles de simulaciones. El rendimiento pasado no garantiza resultados futuros. Tu dinero se coloca en sistemas automatizados que conllevan riesgo técnico, riesgo de mercado y riesgo de liquidez. Las estrategias de crecimiento implican riesgo adicional de volatilidad de precios. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados."
+  }
+}
