@@ -1,0 +1,59 @@
+{
+  "sectionTitle": "Join the waitlist",
+  "headline": "Be the first to know",
+  "subheadline": "Join the waitlist and get early access when we launch.",
+  "form": {
+    "emailPlaceholder": "Your email address",
+    "cta": "Join the waitlist",
+    "submitting": "Joining...",
+    "privacyNote": "We'll only email you about diBoaS. Unsubscribe anytime."
+  },
+  "error": {
+    "generic": "Something went wrong. Please try again.",
+    "invalidEmail": "Please enter a valid email address.",
+    "alreadyRegistered": "You're already on the waitlist!",
+    "network": "Connection error. Please check your internet and try again."
+  },
+  "confirmation": {
+    "headline": "You're in!",
+    "subhead": "Welcome to the future of your finances.",
+    "positionIntro": "Your position:",
+    "positionFormat": "#{position}",
+    "shareIntro": "Want to move up?",
+    "shareBenefit": "Share your link — each signup moves you up {spots} spots",
+    "shareExplanation": "The sooner we launch, the sooner this becomes real.",
+    "referralLinkLabel": "Your personal link:",
+    "copy": "Copy link",
+    "copied": "Copied!",
+    "dreamModeCta": "Try Dream Mode while you wait",
+    "exploreCta": "Explore what's coming"
+  },
+  "referral": {
+    "movedUp": "You moved up {spots} spots!",
+    "newPosition": "New position: #{position}",
+    "thanks": "Thanks for spreading the word.",
+    "notificationTitle": "Someone used your link!",
+    "notificationBody": "You just moved up {spots} spots to #{position}"
+  },
+  "returningUser": {
+    "welcomeBack": "Welcome back!",
+    "currentPosition": "You're currently #{position} on the waitlist",
+    "referralCount": "You've referred {count} people",
+    "keepSharing": "Keep sharing to move up!"
+  },
+  "card": {
+    "headline": "I'M #{position} ON THE DIBOAS WAITLIST",
+    "bodyLine1": "Banks earn 7% with our savings.",
+    "bodyLine2": "They pay us 0.5%.",
+    "bodyLine3": "That gap? It's been there the whole time.",
+    "ctaIntro": "Join me:",
+    "hashtag": "#WhileISlept"
+  },
+  "email": {
+    "welcome": "Welcome to diBoaS — You're #{position} 🎉",
+    "email1Subject": "Why your bank isn't working for you",
+    "email2Subject": "How your money could actually work for you",
+    "email3Subject": "Meet Aqua, Mystic & Coral — your financial guides",
+    "email4Subject": "What's next — and why you're early"
+  }
+}

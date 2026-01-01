@@ -1,0 +1,276 @@
+{
+  "seo": {
+    "title": "Anlagestrategien | diBoaS",
+    "description": "10 Strategien. Verschiedene Ziele. Verschiedene Zeithorizonte. Verschiedene Risikostufen. Finden Sie die Strategie, die zu Ihrem Leben passt."
+  },
+  "hero": {
+    "headline": "Finden Sie die Strategie, die zu Ihrem Leben passt",
+    "subheadline": "10 Strategien. Verschiedene Ziele. Verschiedene Zeithorizonte. Verschiedene Risikostufen.",
+    "subheadline2": "Keine Strategie ist \"die beste.\" Die beste ist die, die zu Ihrer aktuellen Situation und Ihren Zielen passt.",
+    "trustLine": "Alle Strategien nutzen solide Systeme, die seit Jahren Milliarden gesichert haben. Wir haben sie über 4 Jahre echter Marktdaten getestet — Bullen- und Bärenmärkte, Crashs und Erholungen, und alles dazwischen."
+  },
+  "matrix": {
+    "header": "Wählen Sie Ihren Weg",
+    "instructions": "Wählen Sie links Ihr Ziel. Dann entscheiden Sie: Nur stabile Renditen, oder offen für Wachstumspotenzial?",
+    "columns": {
+      "goal": "Ihr Ziel",
+      "stable": "Stabile Renditen",
+      "growth": "Wachstumspotenzial"
+    },
+    "rows": {
+      "emergency": { "goal": "Notgroschen", "stable": "Safe Harbor", "growth": "Stable Growth" },
+      "shortTerm": { "goal": "Kurzfristig (< 2 Jahre)", "stable": "Goal Keeper", "growth": "Steady Progress" },
+      "mediumTerm": { "goal": "Mittelfristig (2-5 Jahre)", "stable": "Patient Builder", "growth": "Balanced Builder" },
+      "longTerm": { "goal": "Langfristig (5-10 Jahre)", "stable": "Steady Compounder", "growth": "Wealth Accelerator" },
+      "wealthBuilding": { "goal": "Vermögensaufbau (10+ Jahre)", "stable": "Yield Maximizer", "growth": "Full Throttle" }
+    },
+    "note": "Nicht sicher? Beginnen Sie mit Safe Harbor. Diese Strategie ist für Menschen konzipiert, die erst verstehen möchten, wie das funktioniert. Sie können jederzeit wechseln."
+  },
+  "strategies": {
+    "safeHarbor": {
+      "name": "Safe Harbor",
+      "badge": "Stabile Renditen | Notgroschen",
+      "tagline": "Ihr Sicherheitsnetz, das tatsächlich wächst",
+      "description": "Hier bewahren Sie Geld auf, das Sie möglicherweise morgen brauchen. Es muss da sein, wenn Sie es brauchen. Keine Überraschungen.",
+      "description2": "Safe Harbor nutzt ausschließlich stabile digitale Dollars. Keine Exposition gegenüber digitalen Vermögenswertpreisen. Ihre €1.000 bleiben nahe €1.000, während sie Rendite erwirtschaften.",
+      "allocation": "50% System A + 30% System B + 20% System C",
+      "allocationNote": "Ihr Geld wird auf mehrere unabhängige Systeme verteilt, um das Risiko zu reduzieren. Jedes System hat jahrelang Milliarden von Dollar gesichert.",
+      "stats": {
+        "lossChance": "Weniger als 1%",
+        "typicalReturn": "6-10% pro Jahr",
+        "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
+      },
+      "bestFor": "Menschen, die ihren ersten Notgroschen aufbauen. Alle, die verstehen möchten, wie das funktioniert, ohne Preisschwankungen.",
+      "riskLevel": "Minimal — Ihr Guthaben bleibt stabil. Das einzige Risiko sind technische Probleme mit den zugrunde liegenden Systemen, die seit Jahren sicher funktionieren."
+    },
+    "stableGrowth": {
+      "name": "Stable Growth",
+      "badge": "Wachstumspotenzial (30%) | Notgroschen",
+      "tagline": "Notgroschen mit Aufwärtspotenzial",
+      "description": "Gleicher Zweck wie Safe Harbor, aber mit 30% Exposition gegenüber digitalem Vermögenswachstum. Sie akzeptieren einige Preisbewegungen für höhere potenzielle Renditen.",
+      "description2": "Dies funktioniert für Menschen, die bereits einen stabilen Notgroschen haben und möchten, dass ihre zweite Ebene härter arbeitet.",
+      "allocation": "70% System A + 30% System D",
+      "allocationNote": "Der größte Teil Ihres Geldes bleibt in stabilen digitalen Dollars. Ein kleinerer Teil nimmt am digitalen Vermögenswachstum teil.",
+      "stats": {
+        "lossChance": "Etwa 5%",
+        "typicalReturn": "7-12% pro Jahr",
+        "bumpiness": "Einige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 8%, bevor es sich erholte."
+      },
+      "bestFor": "Menschen, die mit einigen Preisbewegungen vertraut sind und möchten, dass ihr Sicherheitsnetz Wachstumspotenzial erfasst.",
+      "riskLevel": "Niedrig — 30% Ihres Guthabens bewegen sich mit digitalen Vermögenswertpreisen. Erwarten Sie gelegentliche Einbrüche.",
+      "note": "Nicht für Ihren primären Notgroschen. Bauen Sie zuerst Safe Harbor auf."
+    },
+    "goalKeeper": {
+      "name": "Goal Keeper",
+      "badge": "Stabile Renditen | Kurzfristig",
+      "tagline": "Schützt Ihre kurzfristigen Träume",
+      "description": "Sparen Sie für etwas in den nächsten 2 Jahren? Eine Reise, eine Hochzeit, ein Auto? Dies hält jeden Euro für Ihre Frist am Arbeiten, ohne ihn zu riskieren.",
+      "description2": "Keine Exposition gegenüber digitalen Vermögenswertpreisen. Vorhersehbares Wachstum.",
+      "allocation": "60% System A + 25% System B + 15% System C",
+      "allocationNote": "Ihr Geld ist auf bewährte Systeme verteilt, die auf Stabilität ausgerichtet sind.",
+      "stats": {
+        "lossChance": "Weniger als 1%",
+        "typicalReturn": "6-9% pro Jahr",
+        "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
+      },
+      "bestFor": "Alle mit einem bestimmten Ziel und Zeitrahmen unter 2 Jahren.",
+      "riskLevel": "Minimal — Konzipiert für Kapitalerhalt mit stetigen Renditen."
+    },
+    "steadyProgress": {
+      "name": "Steady Progress",
+      "badge": "Wachstumspotenzial (35%) | Kurzfristig",
+      "tagline": "Kurzfristige Ziele mit Wachstumspotenzial",
+      "description": "Sie haben ein Ziel in den nächsten 2 Jahren, aber Sie sind einverstanden mit einigen Preisbewegungen, wenn es höhere Renditen bedeutet. 35% Wachstumsexposition gibt Ihnen Aufwärtspotenzial, während der größte Teil Ihres Geldes stabil bleibt.",
+      "allocation": "65% System A + 35% System D",
+      "allocationNote": "Der Großteil bleibt stabil. Ein Teil nimmt am digitalen Vermögenswachstum teil.",
+      "stats": {
+        "lossChance": "Etwa 7%",
+        "typicalReturn": "7-11% pro Jahr",
+        "bumpiness": "Mäßige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 11%, bevor es sich erholte."
+      },
+      "bestFor": "Menschen, die für ein Ziel sparen und es verkraften können, ihr Guthaben vorübergehend sinken zu sehen.",
+      "riskLevel": "Niedrig-Mittel — Ihr Guthaben bewegt sich mit digitalen Vermögenswertpreisen. Einige Monate werden im Minus sein."
+    },
+    "patientBuilder": {
+      "name": "Patient Builder",
+      "badge": "Stabile Renditen | Mittelfristig",
+      "tagline": "Stetiges Wachstum für den geduldigen Anleger",
+      "description": "Sie denken 2-5 Jahre voraus. Vielleicht eine Anzahlung, vielleicht eine Unternehmensgründung. Sie wollen beständiges Wachstum, ohne Preise springen zu sehen.",
+      "allocation": "50% System A + 30% System B + 20% System C",
+      "allocationNote": "Verteilt auf stabile Systeme für konsistente Renditen.",
+      "stats": {
+        "lossChance": "Weniger als 1%",
+        "typicalReturn": "5-8% pro Jahr",
+        "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
+      },
+      "bestFor": "Mittelfristige Sparer, die Vorhersehbarkeit über maximale Renditen stellen.",
+      "riskLevel": "Minimal — Gleiches stabiles Profil, optimiert für längeres Halten."
+    },
+    "balancedBuilder": {
+      "name": "Balanced Builder",
+      "badge": "Wachstumspotenzial (40%) | Mittelfristig",
+      "tagline": "Das Beste aus beiden Welten",
+      "description": "Der größte Teil Ihres Geldes bleibt sicher. Ein Teil erfasst das Wachstum digitaler Vermögenswerte. Dies ist unsere beliebteste Strategie für Menschen mit 3-5-Jahres-Horizonten, die Wachstum ohne vollständige Exposition wollen.",
+      "allocation": "60% System A + 25% System D + 15% System E",
+      "allocationNote": "Eine ausgewogene Mischung aus Stabilität und Wachstumspotenzial.",
+      "stats": {
+        "lossChance": "Etwa 12%",
+        "typicalReturn": "10-16% pro Jahr",
+        "bumpiness": "Mäßige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 13%, bevor es sich erholte."
+      },
+      "bestFor": "Menschen, die verstehen, dass Preise steigen UND fallen, und die durch vorübergehende Einbrüche halten können.",
+      "riskLevel": "Mittel — 40% Wachstumsexposition bedeutet merkliche Schwankungen in beide Richtungen."
+    },
+    "steadyCompounder": {
+      "name": "Steady Compounder",
+      "badge": "Stabile Renditen | Langfristig",
+      "tagline": "Lassen Sie die Zeit die schwere Arbeit machen",
+      "description": "Sie spielen das lange Spiel. 5-10 Jahre. Sie müssen keine großen Risiken eingehen, weil Sie die Zeit auf Ihrer Seite haben. Konsistente Renditen von 6-10% über ein Jahrzehnt sind kraftvoll.",
+      "allocation": "55% System A + 30% System B + 15% System C",
+      "allocationNote": "Optimiert für langfristiges Compounding mit minimaler Volatilität.",
+      "stats": {
+        "lossChance": "Weniger als 1%",
+        "typicalReturn": "6-10% pro Jahr",
+        "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
+      },
+      "bestFor": "Langfristige Sparer, die Seelenfrieden über maximale Renditen wollen.",
+      "riskLevel": "Minimal — Langsam und stetig gewinnt das Rennen."
+    },
+    "wealthAccelerator": {
+      "name": "Wealth Accelerator",
+      "badge": "Wachstumspotenzial (70%) | Langfristig",
+      "tagline": "Für Gläubige, die ihre Recherche gemacht haben",
+      "description": "Das ist nicht für jeden. 70% Wachstumsexposition bedeutet, dass Ihr Portfolio sich erheblich mit digitalen Vermögenswertpreisen bewegen wird. Aber über lange Zeithorizonte haben digitale Vermögenswerte historisch starke Renditen geliefert.",
+      "description2": "Sie müssen in der Lage sein, zuzusehen, wie Ihr Guthaben um 40%+ fällt, und nicht in Panik zu geraten.",
+      "allocation": "30% System A + 35% System D + 35% System E",
+      "allocationNote": "Stark in Richtung Wachstumspotenzial geneigt.",
+      "stats": {
+        "lossChance": "Etwa 24%",
+        "typicalReturn": "Sehr variabel — könnte negativ sein oder 50% übersteigen",
+        "bumpiness": "Große Schwankungen. Im schlimmsten Fall fiel Ihr Guthaben um 47%, bevor es sich erholte. Sie müssen damit vertraut sein, zuzusehen, wie sich Ihr Guthaben vorübergehend halbiert."
+      },
+      "bestFor": "Langfristige Gläubige, die extreme Volatilität für potenziell höhere Renditen verkraften können.",
+      "riskLevel": "Hoch — Signifikante Chance auf bedeutende Verluste in kürzeren Zeiträumen. Nur für Geld, das Sie 5+ Jahre nicht brauchen werden.",
+      "warning": "Ihre Ergebnisse könnten von -60% bis +200%+ reichen. Nur für Nutzer, die erhebliche Verluste tolerieren können."
+    },
+    "yieldMaximizer": {
+      "name": "Yield Maximizer",
+      "badge": "Stabile Renditen | Vermögensaufbau",
+      "tagline": "Maximale Renditen, minimale Volatilität",
+      "description": "Sie wollen die höchsten stabilen Renditen über 10+ Jahre ohne Exposition gegenüber digitalen Vermögenswertpreisen. Dies optimiert für Renditen über die sichersten Systeme.",
+      "allocation": "45% System A + 35% System B + 20% System C",
+      "allocationNote": "Unsere renditestärkste Nur-Stabil-Konfiguration.",
+      "stats": {
+        "lossChance": "Weniger als 1%",
+        "typicalReturn": "7-11% pro Jahr",
+        "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
+      },
+      "bestFor": "Konservative langfristige Vermögensaufbauer, die starke Renditen ohne Preisschwankungen wollen.",
+      "riskLevel": "Minimal — Unsere renditestärkste stabile Strategie."
+    },
+    "fullThrottle": {
+      "name": "Full Throttle",
+      "badge": "Wachstumspotenzial (85%) | Vermögensaufbau",
+      "tagline": "Maximales Risiko. Maximales Potenzial.",
+      "description": "Dies ist unsere aggressivste Strategie. 85% Wachstumsexposition. Konzipiert für einen kleinen Teil Ihres Portfolios, den Sie bereit sind, vollständig zu verlieren.",
+      "description2": "Die Oberseite? In seltenen Szenarien haben Renditen 1.000% überschritten. Die Unterseite? 27% Verlustwahrscheinlichkeit. Ihr Guthaben fiel im schlimmsten Moment unseres Tests um 66%.",
+      "allocation": "15% System A + 30% System D + 35% System E + 20% System F",
+      "allocationNote": "Maximale Wachstumsexposition mit minimalem Stabilitätspuffer.",
+      "stats": {
+        "lossChance": "Etwa 27%",
+        "typicalReturn": "Extrem variabel — von großen Verlusten bis zu außergewöhnlichen Gewinnen",
+        "bumpiness": "Achterbahn. Im schlimmsten Fall fiel Ihr Guthaben um 66%, bevor es sich erholte. Nur für diejenigen, die fast vollständige vorübergehende Verluste verkraften können."
+      },
+      "requirements": {
+        "accountAge": "6+ Monate",
+        "minBalance": "€1.000",
+        "maxAllocation": "20% Ihres Gesamtportfolios",
+        "waitingPeriod": "24-Stunden-Wartezeit vor Aktivierung",
+        "riskAck": "Risikobestätigung erforderlich"
+      },
+      "bestFor": "Erfahrene Investoren mit hoher Risikotoleranz, die einen kleinen Teil ihres Portfolios allokieren.",
+      "riskLevel": "Sehr Hoch — Fast-Totalverlust möglich. Nur verwenden, was Sie sich leisten können, vollständig zu verlieren.",
+      "warning": "Das ist nicht sicher. Es ist für diejenigen, die das verstehen. Sie könnten 78% verlieren oder außergewöhnlich gewinnen. Verwenden Sie niemals Geld hier, das Sie brauchen."
+    }
+  },
+  "statsLabels": {
+    "lossChance": "Verlustwahrscheinlichkeit",
+    "typicalReturn": "Typische Jahresrendite",
+    "bumpiness": "Wie unruhig ist die Fahrt?",
+    "riskLevel": "Risikoniveau"
+  },
+  "allStrategiesHeader": "Alle 10 Strategien",
+  "growthBadge": "Wachstum",
+  "howToChoose": {
+    "header": "Nicht sicher, wo Sie anfangen sollen?",
+    "intro": "Hier ist ein einfacher Rahmen:",
+    "question1": {
+      "title": "Wofür ist dieses Geld?",
+      "options": {
+        "emergency": "Notgroschen → Safe Harbor oder Stable Growth",
+        "shortTerm": "Etwas in den nächsten 2 Jahren → Goal Keeper oder Steady Progress",
+        "mediumTerm": "Etwas in 2-5 Jahren → Patient Builder oder Balanced Builder",
+        "longTerm": "Langfristiger Vermögensaufbau → Steady Compounder, Wealth Accelerator, Yield Maximizer oder Full Throttle"
+      }
+    },
+    "question2": {
+      "title": "Wie fühlen Sie sich bei Preisschwankungen?",
+      "options": {
+        "none": "\"Ich will keine\" → Bleiben Sie bei der Spalte Stabile Renditen",
+        "understand": "\"Ich verstehe sie und kann Einbrüche aussitzen\" → Erwägen Sie die Spalte Wachstumspotenzial",
+        "unsure": "\"Ich bin mir nicht sicher\" → Beginnen Sie stabil. Lernen Sie. Sie können später immer Wachstumsexposition hinzufügen."
+      }
+    },
+    "question3": {
+      "title": "Was würden Sie tun, wenn Ihr Guthaben um 20% fällt?",
+      "options": {
+        "panic": "\"Ich würde in Panik geraten und abheben\" → Nur Strategien mit stabilen Renditen",
+        "wait": "\"Ich würde warten, bis es sich erholt\" → Strategien mit niedrigem bis mittlerem Wachstum",
+        "addMore": "\"Ich würde mehr Geld hinzufügen\" → Sie könnten bereit sein für höhere Wachstumsexposition"
+      }
+    },
+    "goldenRule": "Im Zweifelsfall beginnen Sie konservativ. Sie können immer das Risikospektrum hinaufgehen. Sie können Verluste aus Strategien, für die Sie nicht bereit waren, nicht rückgängig machen."
+  },
+  "faq": {
+    "header": "Fragen zu Strategien",
+    "items": {
+      "switch": {
+        "question": "Kann ich die Strategie wechseln?",
+        "answer": "Ja, jederzeit. Keine Strafen. Keine Fragen.\n\nBedenken Sie jedoch: Wenn Sie während eines Markteinbruchs wechseln, könnten Sie einen vorübergehenden Verlust festschreiben. Es ist wie ein Hausverkauf während einer Rezession — Sie bekommen weniger als es wert ist.\n\nDer beste Zeitpunkt zum Wechseln ist, wenn sich Ihre ZIELE ändern, nicht wenn sich der Markt bewegt. Wenn Sie von \"Sparen für ein Auto\" zu \"Sparen für die Rente\" gewechselt sind, ist das ein guter Grund. Wenn Sie wechseln, weil die Preise letzte Woche gefallen sind, ist das meist die falsche Entscheidung."
+      },
+      "multiple": {
+        "question": "Kann ich mehrere Strategien gleichzeitig nutzen?",
+        "answer": "Absolut. Viele Menschen tun das.\n\nStellen Sie es sich vor wie verschiedene Konten für verschiedene Zwecke:\n- Notgroschen in Safe Harbor\n- Urlaubsersparnisse in Goal Keeper\n- Langfristiger Vermögensaufbau in Balanced Builder\n\nSie bauen Ihr eigenes Portfolio aus Strategien auf. Jede dient einem anderen Teil Ihres finanziellen Lebens."
+      },
+      "rebalancing": {
+        "question": "Wie funktioniert die Neugewichtung?",
+        "answer": "Wenn Marktbewegungen Ihre Allokation vom Ziel abdriften lassen (mehr als 10% Abweichung), benachrichtigen wir Sie.\n\nSie sehen genau, was sich geändert hat und warum. Dann entscheiden Sie: Neugewichtung genehmigen oder so lassen, wie es ist.\n\nWir bewegen Ihr Geld niemals ohne Ihre Genehmigung. Ihre Mittel, Ihre Kontrolle. Immer.\n\nWarum ist das wichtig? Einige Plattformen bewegen Ihr Geld automatisch. Wir nicht. Wir können es nicht. Ihr Geld bleibt in Ihrer eigenen Wallet, und nur Sie können Änderungen autorisieren."
+      },
+      "guaranteed": {
+        "question": "Sind diese Renditen garantiert?",
+        "answer": "Nein. Und jeder, der Renditen garantiert, lügt Sie an.\n\nWas wir Ihnen sagen können:\n- Wir haben jede Strategie über 4 Jahre echter Marktdaten getestet\n- Dies umfasste den Crash von 2022, mehrere kleinere Crashs und Erholungsphasen\n- Die Zahlen, die wir zeigen, basieren auf dem, was tatsächlich passiert ist, und tausenden Simulationen dessen, was passieren könnte\n\nWird die Zukunft genau wie die Vergangenheit aussehen? Nein. Könnten die Renditen höher oder niedriger sein? Ja. Aber unsere Projektionen basieren auf echten Daten, nicht auf Wunschdenken.\n\nBeginnen Sie mit dem, was Sie sich leisten können zu lernen."
+      },
+      "systemProblem": {
+        "question": "Was ist, wenn eines der Systeme ein Problem hat?",
+        "answer": "Das ist ein echtes Risiko. Automatisierte Systeme basieren auf Code, und Code kann Schwachstellen haben.\n\nWir reduzieren dieses Risiko durch:\n- Nur Systeme nutzen, die seit Jahren $10B+ gesichert haben, ohne größere Vorfälle\n- Ihr Geld auf mehrere unabhängige Systeme verteilen\n- 24/7 auf ungewöhnliche Aktivitäten überwachen\n- Niemals alle Eier in einen Korb legen\n\nIst das Risiko null? Nein. Ist es transparent? Ja. Sie wissen immer genau, wo Ihr Geld ist."
+      },
+      "fullThrottleReqs": {
+        "question": "Warum gibt es zusätzliche Anforderungen für Full Throttle?",
+        "answer": "Weil wir Sie vor sich selbst schützen wollen.\n\nFull Throttle kann den größten Teil seines Wertes verlieren. Wir haben gesehen, wie Menschen impulsive Entscheidungen mit aggressiven Strategien getroffen und sie tief bereut haben.\n\nDie Anforderungen (6 Monate Kontohistorie, €1.000 Minimum, 24-Stunden-Wartezeit) sind nicht da, um Sie auszuschließen. Sie sind da, um sicherzustellen, dass Sie es durchdacht haben.\n\nWenn Sie wirklich bereit sind, werden Sie diese Anforderungen nicht aufhalten. Wenn Sie nicht bereit sind, könnten sie Sie vor einer schmerzhaften Lektion bewahren."
+      },
+      "whatSystems": {
+        "question": "Welche Systeme nutzen Sie tatsächlich?",
+        "answer": "Wir arbeiten mit etablierten Systemen zusammen, die:\n- Seit Jahren ohne größere Sicherheitsvorfälle operieren\n- Milliarden von Dollar gesichert haben\n- Von unabhängigen Sicherheitsfirmen geprüft wurden\n- Transparente Operationen haben, die Sie selbst überprüfen können\n\nSobald Sie beitreten und sich einloggen, sehen Sie die vollständigen Details jedes Systems, einschließlich ihrer Namen, Erfolgsbilanz und warum wir sie gewählt haben.\n\nWarum zeigen wir das nicht öffentlich? Weil die spezifische Kombination von Systemen und Allokationen Teil dessen ist, was diBoaS einzigartig macht. Wir sind gerne vollständig transparent mit unseren Nutzern — nur nicht mit Wettbewerbern."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Bereit, Ihren Weg zu wählen?",
+    "body": "Tragen Sie sich auf die Warteliste ein. Bei der Einführung gehören Sie zu den Ersten, die Ihre Strategie in Aktion setzen können.",
+    "cta": "Auf die Warteliste — kostenlos →",
+    "position": "⏰ Sie sind #{position} für frühen Zugang"
+  },
+  "footer": {
+    "disclaimer": "Alle Performancedaten basieren auf historischer Analyse (Mai 2022 - Dezember 2025) und tausenden Simulationen. Vergangene Wertentwicklung garantiert keine zukünftigen Ergebnisse. Ihr Geld wird in automatisierte Systeme platziert, die technisches Risiko, Marktrisiko und Liquiditätsrisiko tragen. Wachstumsstrategien beinhalten zusätzliches Preisvolatilitätsrisiko. Verwenden Sie nur Geld, das Sie sich leisten können zu verlieren. diBoaS ist keine Bank und Ihre Mittel sind nicht versichert."
+  }
+}

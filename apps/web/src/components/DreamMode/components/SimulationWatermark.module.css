@@ -1,0 +1,45 @@
+/**
+ * Simulation Watermark Styles
+ *
+ * CLO-required amber watermark for Dream Mode
+ */
+
+.watermark {
+  position: fixed;
+  top: var(--spacing-lg, 24px);
+  right: var(--spacing-lg, 24px);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 4px);
+  padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-md, 8px);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.icon {
+  font-size: var(--font-size-small, 14px);
+  line-height: 1;
+}
+
+.text {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 600;
+  color: rgba(245, 158, 11, 0.9);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .watermark {
+    top: var(--spacing-md, 16px);
+    right: var(--spacing-md, 16px);
+  }
+
+  .text {
+    font-size: 10px;
+  }
+}

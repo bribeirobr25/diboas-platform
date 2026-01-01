@@ -44,26 +44,26 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
 } as const;
 
 /**
- * Problem Section Configuration (FeatureShowcase)
- * Maps to: Section 1 - The Problem
+ * The Math Section Configuration (FeatureShowcase)
+ * Maps to: Section 2 - The Math (comparison table)
  */
-export const B2B_PROBLEM_CONFIG: FeatureShowcaseVariantConfig = {
+export const B2B_THE_MATH_CONFIG: FeatureShowcaseVariantConfig = {
   variant: 'default',
   slides: [
     {
-      id: 'treasury-problem',
+      id: 'the-math',
       content: {
-        title: 'landing-b2b.problem.header',
-        description: 'landing-b2b.problem.body',
-        ctaText: 'landing-b2b.problem.cta',
+        title: 'landing-b2b.theMath.header',
+        description: 'landing-b2b.theMath.intro',
+        ctaText: 'landing-b2b.theMath.cta',
         ctaHref: '#calculator',
         ctaTarget: '_self'
       },
       assets: {
-        primaryImage: getSocialRealAsset('BUSINESS_BALANCE')
+        primaryImage: getSocialRealAsset('BUSINESS_CHARTS')
       },
       seo: {
-        imageAlt: 'Business treasury cash flow analysis'
+        imageAlt: 'Business treasury comparison analysis'
       }
     }
   ],
@@ -74,7 +74,7 @@ export const B2B_PROBLEM_CONFIG: FeatureShowcaseVariantConfig = {
     transitionDuration: 250
   },
   analytics: {
-    trackingPrefix: 'problem_b2b_landing',
+    trackingPrefix: 'the_math_b2b_landing',
     enabled: true
   }
 };
@@ -126,10 +126,10 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       }
     },
     {
-      id: 'step-allocate',
+      id: 'step-set-floor',
       content: {
-        title: 'landing-b2b.howItWorks.steps.allocate.title',
-        description: 'landing-b2b.howItWorks.steps.allocate.description',
+        title: 'landing-b2b.howItWorks.steps.setFloor.title',
+        description: 'landing-b2b.howItWorks.steps.setFloor.description',
         ctaText: '',
         ctaHref: '#',
         ctaTarget: '_self'
@@ -138,7 +138,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: getSocialRealAsset('BUSINESS_BALANCE')
       },
       seo: {
-        imageAlt: 'Allocate treasury funds'
+        imageAlt: 'Set liquidity threshold'
       }
     },
     {
@@ -188,8 +188,58 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
 };
 
 /**
+ * More Than Yield Section Configuration (BenefitsCards)
+ * Maps to: Section 6 - More Than Yield (4 features)
+ */
+export const B2B_FEATURES_CONFIG: BenefitsCardsConfig = {
+  section: {
+    title: 'landing-b2b.features.header',
+    description: 'landing-b2b.features.intro',
+    backgroundColor: 'light-purple'
+  },
+  cards: [
+    {
+      id: 'feature-instant-payments',
+      icon: '/assets/icons/money-flow.avif',
+      title: 'landing-b2b.features.instantPayments.headline',
+      description: 'landing-b2b.features.instantPayments.body',
+      iconAlt: 'Instant payments icon'
+    },
+    {
+      id: 'feature-receive-payments',
+      icon: '/assets/icons/money-circle.avif',
+      title: 'landing-b2b.features.receivePayments.headline',
+      description: 'landing-b2b.features.receivePayments.body',
+      iconAlt: 'Receive payments icon'
+    },
+    {
+      id: 'feature-cashflow',
+      icon: '/assets/icons/chart-growing.avif',
+      title: 'landing-b2b.features.cashflowOptimization.headline',
+      description: 'landing-b2b.features.cashflowOptimization.body',
+      iconAlt: 'Cashflow optimization icon'
+    },
+    {
+      id: 'feature-overnight-sweep',
+      icon: '/assets/icons/safe-money.avif',
+      title: 'landing-b2b.features.overnightSweep.headline',
+      description: 'landing-b2b.features.overnightSweep.body',
+      iconAlt: 'Overnight sweep icon'
+    }
+  ],
+  seo: {
+    headingLevel: 'h2',
+    ariaLabel: 'Treasury features beyond yield'
+  },
+  analytics: {
+    sectionId: 'features-b2b',
+    category: 'landing-b2b'
+  }
+};
+
+/**
  * Trust & Compliance Section Configuration (BenefitsCards)
- * Maps to: Section 4 - Trust and Compliance (5 trust points)
+ * Maps to: Section 7 - Trust and Compliance
  */
 export const B2B_TRUST_CONFIG: BenefitsCardsConfig = {
   section: {
@@ -201,37 +251,30 @@ export const B2B_TRUST_CONFIG: BenefitsCardsConfig = {
     {
       id: 'eu-regulated',
       icon: '/assets/icons/safe-money.avif',
-      title: 'landing-b2b.trust.points.euRegulated.title',
-      description: 'landing-b2b.trust.points.euRegulated.description',
+      title: 'landing-b2b.trust.euRegulated.title',
+      description: 'landing-b2b.trust.euRegulated.description',
       iconAlt: 'EU regulated icon'
     },
     {
       id: 'non-custodial',
       icon: '/assets/icons/money-circle.avif',
-      title: 'landing-b2b.trust.points.nonCustodial.title',
-      description: 'landing-b2b.trust.points.nonCustodial.description',
+      title: 'landing-b2b.trust.nonCustodial.title',
+      description: 'landing-b2b.trust.nonCustodial.description',
       iconAlt: 'Non-custodial icon'
     },
     {
       id: 'audited',
       icon: '/assets/icons/learn-certificate.avif',
-      title: 'landing-b2b.trust.points.audited.title',
-      description: 'landing-b2b.trust.points.audited.description',
+      title: 'landing-b2b.trust.audited.title',
+      description: 'landing-b2b.trust.audited.description',
       iconAlt: 'Audited protocols icon'
     },
     {
-      id: 'transparent',
+      id: 'reporting',
       icon: '/assets/icons/chart-growing.avif',
-      title: 'landing-b2b.trust.points.transparent.title',
-      description: 'landing-b2b.trust.points.transparent.description',
+      title: 'landing-b2b.trust.reporting.title',
+      description: 'landing-b2b.trust.reporting.description',
       iconAlt: 'Transparent reporting icon'
-    },
-    {
-      id: 'board-ready',
-      icon: '/assets/icons/learn-read.avif',
-      title: 'landing-b2b.trust.points.boardReady.title',
-      description: 'landing-b2b.trust.points.boardReady.description',
-      iconAlt: 'Board-ready documentation icon'
     }
   ],
   seo: {
@@ -298,40 +341,18 @@ export const B2B_USE_CASES_CONFIG: ProductCarouselVariantConfig = {
 
 /**
  * Social Proof Section Configuration (BenefitsCards)
- * Maps to: Section 6 - Social Proof (metrics)
+ * Maps to: Section 10 - Social Proof (pre-launch)
  */
 export const B2B_SOCIAL_PROOF_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2b.socialProof.header',
-    description: '',
+    description: 'landing-b2b.socialProof.preLaunch',
     backgroundColor: 'white'
   },
-  cards: [
-    {
-      id: 'treasury-managed',
-      icon: '/assets/icons/money-flow.avif',
-      title: 'landing-b2b.socialProof.metrics.treasury.value',
-      description: 'landing-b2b.socialProof.metrics.treasury.label',
-      iconAlt: 'Treasury icon'
-    },
-    {
-      id: 'avg-yield',
-      icon: '/assets/icons/chart-growing.avif',
-      title: 'landing-b2b.socialProof.metrics.yield.value',
-      description: 'landing-b2b.socialProof.metrics.yield.label',
-      iconAlt: 'Yield icon'
-    },
-    {
-      id: 'onboarding-time',
-      icon: '/assets/icons/rewards-trophy.avif',
-      title: 'landing-b2b.socialProof.metrics.onboarding.value',
-      description: 'landing-b2b.socialProof.metrics.onboarding.label',
-      iconAlt: 'Onboarding icon'
-    }
-  ],
+  cards: [],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Social proof and metrics'
+    ariaLabel: 'Early adopters'
   },
   analytics: {
     sectionId: 'social-proof-b2b',
@@ -362,46 +383,28 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
     category: 'security'
   },
   {
-    id: 'cfo',
-    question: 'landing-b2b.faq.items.cfo.question',
-    answer: 'landing-b2b.faq.items.cfo.answer',
-    category: 'general'
-  },
-  {
-    id: 'revenue',
-    question: 'landing-b2b.faq.items.revenue.question',
-    answer: 'landing-b2b.faq.items.revenue.answer',
-    category: 'fees'
-  },
-  {
-    id: 'minimum',
-    question: 'landing-b2b.faq.items.minimum.question',
-    answer: 'landing-b2b.faq.items.minimum.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'onboarding',
-    question: 'landing-b2b.faq.items.onboarding.question',
-    answer: 'landing-b2b.faq.items.onboarding.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'regulated',
-    question: 'landing-b2b.faq.items.regulated.question',
-    answer: 'landing-b2b.faq.items.regulated.answer',
-    category: 'compliance'
-  },
-  {
-    id: 'investors',
-    question: 'landing-b2b.faq.items.investors.question',
-    answer: 'landing-b2b.faq.items.investors.answer',
-    category: 'general'
+    id: 'payments',
+    question: 'landing-b2b.faq.items.payments.question',
+    answer: 'landing-b2b.faq.items.payments.answer',
+    category: 'operations'
   },
   {
     id: 'compliance',
     question: 'landing-b2b.faq.items.compliance.question',
     answer: 'landing-b2b.faq.items.compliance.answer',
     category: 'compliance'
+  },
+  {
+    id: 'whereMoneyGoes',
+    question: 'landing-b2b.faq.items.whereMoneyGoes.question',
+    answer: 'landing-b2b.faq.items.whereMoneyGoes.answer',
+    category: 'security'
+  },
+  {
+    id: 'whyCantTouch',
+    question: 'landing-b2b.faq.items.whyCantTouch.question',
+    answer: 'landing-b2b.faq.items.whyCantTouch.answer',
+    category: 'security'
   }
 ];
 
@@ -558,19 +561,19 @@ export const B2B_FINAL_CTA_CONFIG: FeatureShowcaseVariantConfig = {
 };
 
 /**
- * Why We Built This Section Configuration (FeatureShowcase)
- * Maps to: Section 2 - Why We Built This (Mission Story)
+ * Origin Story Section Configuration (FeatureShowcase)
+ * Maps to: Section 3 - Why I'm Building This (Grandmother Story)
  */
-export const B2B_WHY_WE_BUILT_THIS_CONFIG: FeatureShowcaseVariantConfig = {
+export const B2B_ORIGIN_STORY_CONFIG: FeatureShowcaseVariantConfig = {
   variant: 'default',
   slides: [
     {
-      id: 'why-we-built-this',
+      id: 'origin-story',
       content: {
-        title: 'landing-b2b.whyWeBuiltThis.header',
-        description: 'landing-b2b.whyWeBuiltThis.story',
-        ctaText: '',
-        ctaHref: '#',
+        title: 'landing-b2b.origin.header',
+        description: 'landing-b2b.origin.body',
+        ctaText: 'landing-b2b.origin.signature',
+        ctaHref: '#calculator',
         ctaTarget: '_self'
       },
       assets: {
@@ -588,43 +591,43 @@ export const B2B_WHY_WE_BUILT_THIS_CONFIG: FeatureShowcaseVariantConfig = {
     transitionDuration: 250
   },
   analytics: {
-    trackingPrefix: 'why_we_built_this_b2b',
+    trackingPrefix: 'origin_story_b2b',
     enabled: true
   }
 };
 
 /**
- * Who Is This For Section Configuration (BenefitsCards)
- * Maps to: Section 6 - Who Is This For (Good Fit / Not a Fit)
+ * Fit Assessment Section Configuration (BenefitsCards)
+ * Maps to: Section 8 - Is This Right For You (Good Fit / Not a Fit)
  */
-export const B2B_WHO_IS_THIS_FOR_CONFIG: BenefitsCardsConfig = {
+export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
   section: {
-    title: 'landing-b2b.whoIsThisFor.header',
-    description: 'landing-b2b.whoIsThisFor.honestNote',
+    title: 'landing-b2b.fitAssessment.header',
+    description: 'landing-b2b.fitAssessment.honestNote',
     backgroundColor: 'light-purple'
   },
   cards: [
     {
-      id: 'good-fit-1',
-      icon: '/assets/icons/money-circle.avif',
-      title: 'landing-b2b.whoIsThisFor.goodFit.title',
-      description: 'landing-b2b.whoIsThisFor.goodFit.description',
+      id: 'good-fit',
+      icon: '/assets/icons/rewards-trophy.avif',
+      title: 'landing-b2b.fitAssessment.goodFit.title',
+      description: '',
       iconAlt: 'Good fit checkmark'
     },
     {
-      id: 'not-a-fit-1',
+      id: 'not-a-fit',
       icon: '/assets/icons/safe-money.avif',
-      title: 'landing-b2b.whoIsThisFor.notAFit.title',
-      description: 'landing-b2b.whoIsThisFor.notAFit.description',
+      title: 'landing-b2b.fitAssessment.notAFit.title',
+      description: '',
       iconAlt: 'Not a fit icon'
     }
   ],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Who is diBoaS Treasury right for'
+    ariaLabel: 'Is diBoaS Treasury right for you'
   },
   analytics: {
-    sectionId: 'who-is-this-for-b2b',
+    sectionId: 'fit-assessment-b2b',
     category: 'landing-b2b'
   }
 };

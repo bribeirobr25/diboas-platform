@@ -1,0 +1,142 @@
+{
+  "seo": {
+    "title": "Calculadora Tu Futuro | diBoaS",
+    "description": "Mira en qué podría convertirse tu dinero. Cantidades pequeñas. Esfuerzo constante. El tiempo hace el resto."
+  },
+  "hero": {
+    "headline": "Conoce tu yo del futuro",
+    "subheadline": "Cantidades pequeñas. Esfuerzo constante. El tiempo hace el resto.",
+    "subheadline2": "Mira en qué podría convertirse tu dinero si trabajara tan duro como tú.",
+    "context": "Esto no es una promesa. Es una proyección basada en datos históricos. Pero te muestra lo que es posible cuando las matemáticas finalmente están de tu lado."
+  },
+  "calculator": {
+    "header": "¿En qué podría convertirse tu dinero?",
+    "instructions": "Desliza para establecer tu cantidad mensual. Elige tu plazo. Observa cómo funcionan las matemáticas.",
+    "monthlyAmount": {
+      "label": "Cantidad mensual que podrías apartar",
+      "helper": "Empieza con lo que te resulte cómodo. Incluso {currency}20/mes suma con el tiempo."
+    },
+    "timeframe": {
+      "label": "¿Cuánto tiempo estás pensando?",
+      "helper": "Cuanto más largo sea tu plazo, más poderoso se vuelve el crecimiento.",
+      "options": {
+        "5years": "5 años",
+        "10years": "10 años",
+        "15years": "15 años",
+        "20years": "20 años"
+      }
+    },
+    "results": {
+      "header": "En {years} años, tus {currency}{amount}/mes podrían convertirse en:",
+      "withDiboas": "Con diBoaS",
+      "withBank": "Con tu banco",
+      "futureValue": "Valor Final",
+      "deposited": "Depositaste",
+      "earned": "Ganaste",
+      "difference": "Eso es {currency}{amount} más con el mismo esfuerzo mensual.",
+      "differenceNote": "Mismo sacrificio. Resultado diferente. Eso pasa cuando tu dinero realmente trabaja para ti."
+    },
+    "watermark": "PROYECCIÓN",
+    "disclaimer": "Basado en rendimiento histórico (8% anual para diBoaS usando nuestra estrategia más conservadora, 0,5% para ahorro bancario típico). Esto es una proyección, no una garantía. Los resultados reales varían según la estrategia elegida y las condiciones del mercado.",
+    "cta": "Únete a la lista de espera para hacer esto realidad →",
+    "secondaryCta": "¿Quieres mayor potencial?",
+    "strategiesLink": "Explora las 10 estrategias"
+  },
+  "mathExplained": {
+    "header": "Por qué la diferencia es tan grande",
+    "intro": "No es magia. Son matemáticas. Esto es lo que realmente está pasando:",
+    "bankGap": {
+      "headline": "Tu banco gana más de lo que te paga",
+      "body": "Los bancos toman tus depósitos y los ponen a trabajar — prestando, invirtiendo, obteniendo rendimientos reales. Pero solo comparten una fracción diminuta contigo.",
+      "body2": "Un banco típico gana alrededor del 7% con tu dinero. Te paga 0,5%. ¿Esa diferencia del 6,5%? Es todo su modelo de negocio.",
+      "body3": "Con diBoaS, accedes a los mismos tipos de rendimientos que ellos. La brecha va para ti."
+    },
+    "compound": {
+      "headline": "Tus ganancias empiezan a ganar también",
+      "body": "Cuando obtienes rendimientos, y esos rendimientos obtienen más rendimientos, el crecimiento se acelera con el tiempo. Al 0,5%, esto apenas importa. Al 8%, lo transforma todo.",
+      "example": {
+        "title": "{currency}100/mes durante 20 años:",
+        "deposited": "Total depositado: {currency}24.000",
+        "bankEarnings": "Ganancias en banco: {currency}1.185 (eso es 5% de lo que pusiste)",
+        "diboasEarnings": "Ganancias en diBoaS: {currency}34.902 (eso es 145% de lo que pusiste)",
+        "conclusion": "La diferencia no es 16x la tasa. Son 29x las ganancias. Eso pasa cuando los rendimientos se multiplican."
+      }
+    },
+    "time": {
+      "headline": "Cuanto más esperes para empezar, más te costará",
+      "body": "Empezar 5 años antes con {currency}100/mes significa decenas de miles más al final. Cada año que retrasas te cuesta crecimiento futuro que nunca recuperarás.",
+      "takeaway": "El mejor momento para empezar fue hace años. El segundo mejor es ahora."
+    }
+  },
+  "strategyConnection": {
+    "header": "El 8% no es aleatorio",
+    "body": "Esta proyección usa nuestra estrategia más conservadora, llamada Safe Harbor. Usa solo sistemas estables sin exposición a oscilaciones de precio. En nuestra prueba de 4 años, nunca perdió dinero.",
+    "body2": "Si te sientes cómodo con algunos altibajos, otras estrategias han entregado rendimientos más altos:",
+    "table": {
+      "strategy": "Estrategia",
+      "returns": "Lo que podría pasar",
+      "exposure": "Exposición a oscilación de precio",
+      "safeHarbor": {
+        "name": "Safe Harbor",
+        "returns": "6-10% por año",
+        "exposure": "Ninguna"
+      },
+      "balancedBuilder": {
+        "name": "Balanced Builder",
+        "returns": "10-16% por año",
+        "exposure": "40%"
+      },
+      "wealthAccelerator": {
+        "name": "Wealth Accelerator",
+        "returns": "Variable (podría ser negativo o 50%+)",
+        "exposure": "70%"
+      }
+    },
+    "note": "Mayor potencial de rendimiento viene con caminos más turbulentos. Esta calculadora usa Safe Harbor porque es lo que recomendaríamos a alguien que está empezando.",
+    "cta": "Explorar las 10 estrategias"
+  },
+  "faq": {
+    "header": "Preguntas sobre la calculadora",
+    "items": {
+      "realistic": {
+        "question": "¿Es realista el 8%?",
+        "answer": "El 8% está en el medio del rango esperado de nuestra estrategia Safe Harbor (6-10% por año). Probamos esta estrategia en 4 años de datos reales del mercado, incluyendo el crash de 2022 y varias caídas menores.\n\n¿Está garantizado para el futuro? No. ¿Podría ser mayor o menor? Sí. Pero está basado en datos reales, no en ilusiones.\n\nUsamos 8% en lugar de 10% para ser conservadores. Preferimos que te sorprendas gratamente a que te decepciones."
+      },
+      "bankRate": {
+        "question": "¿Por qué usan 0,5% para bancos?",
+        "answer": "Esa es la tasa promedio de ahorro en la UE. Algunos bancos pagan más durante períodos promocionales (quizás 1-2%), la mayoría paga menos o nada. Usamos el promedio porque es lo que la mayoría de la gente realmente recibe.\n\nSi tu banco paga más, ¡genial! Pero incluso al 2%, la brecha entre lo que estás ganando y lo que es posible sigue siendo enorme."
+      },
+      "inflation": {
+        "question": "¿Y la inflación?",
+        "answer": "Esta calculadora muestra los números reales, no ajustados por inflación.\n\nPor qué importa esto:\n- Al 0,5%, casi seguramente estás perdiendo poder adquisitivo cada año. La inflación come más de lo que ganas.\n- Al 8%, probablemente estás superando la inflación y construyendo riqueza real.\n\nEl impacto exacto depende de la inflación futura, que nadie puede predecir. Pero ganar 8% te pone en una posición mucho más fuerte que ganar 0,5%."
+      },
+      "minimum": {
+        "question": "¿Puedo empezar realmente con {currency}5/mes?",
+        "answer": "Sí. diBoaS no tiene mínimo más allá de {currency}5.\n\nCreemos que todos deberían tener acceso a rendimientos reales, no solo personas con miles para invertir.\n\n{currency}5/mes durante 20 años al 8% = ~{currency}2.945\nEso es ~{currency}1.745 en ganancias sobre {currency}1.200 depositados.\n\n¿Poco? Quizás. Pero son {currency}1.745 más de lo que tendrías sin hacer nada."
+      },
+      "inconsistent": {
+        "question": "¿Qué pasa si no puedo ahorrar la misma cantidad cada mes?",
+        "answer": "La vida pasa. Puedes ajustar en cualquier momento.\n\nEsta calculadora asume cantidades mensuales consistentes porque es la manera más fácil de proyectar. Pero diBoaS no requiere consistencia.\n\nAlgunos meses ahorras {currency}200. Algunos meses {currency}20. Algunos meses {currency}0. Las matemáticas siguen funcionando — solo diferente. Lo que importa es que empieces."
+      },
+      "whichStrategy": {
+        "question": "¿Qué estrategia debería usar realmente?",
+        "answer": "La calculadora usa Safe Harbor como base porque es:\n- Nuestra estrategia más conservadora\n- Usa solo sistemas estables (sin exposición a oscilaciones de precio)\n- Nunca perdió dinero en nuestra prueba de 4 años\n\nSi te sientes cómodo con caídas ocasionales y tienes un plazo más largo, las estrategias con potencial de crecimiento podrían adaptarse mejor a ti."
+      },
+      "bankDifference": {
+        "question": "¿Cuál es la diferencia con mi cuenta de ahorro del banco?",
+        "answer": "Tres diferencias principales:\n\n1. Rendimientos: Los bancos típicamente pagan 0,5% o menos. Nuestra estrategia más conservadora apunta a 6-10%.\n\n2. Adónde va tu dinero: Los bancos prestan tu dinero y se quedan con la mayoría de los rendimientos. Con diBoaS, tu dinero va a sistemas que te pagan directamente.\n\n3. Control: Los depósitos bancarios se convierten legalmente en dinero del banco (solo te deben el monto). Con diBoaS, tu dinero permanece en tu propia billetera. No podemos tocarlo.\n\n¿El trade-off? Los depósitos bancarios están asegurados hasta {currency}100.000. Los depósitos en diBoaS no están asegurados, aunque los sistemas que usamos han asegurado miles de millones de forma segura durante años."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "¿Listo para construir tu futuro?",
+    "body": "Has visto las matemáticas. Sabes lo que es posible.",
+    "body2": "La única pregunta que queda: ¿cuándo empiezas?",
+    "cta": "Únete a la lista de espera — es gratis →",
+    "secondary": "Cada mes que esperas es crecimiento que estás perdiendo.",
+    "position": "⏰ Eres el #{position} para acceso anticipado"
+  },
+  "footer": {
+    "disclaimer": "Esta calculadora proporciona solo proyecciones. La tasa del 8% se basa en el rango de rendimiento esperado de la estrategia Safe Harbor y no está garantizada. La tasa bancaria del 0,5% se basa en las tasas de ahorro promedio del BCE. Los resultados reales varían según la estrategia elegida, las condiciones del mercado y el momento de los depósitos. El rendimiento pasado no garantiza resultados futuros. Tu dinero se coloca en sistemas automatizados que conllevan riesgo técnico, riesgo de mercado y riesgo de liquidez. diBoaS no es un banco y tus fondos no están asegurados. Esto no es asesoramiento financiero."
+  }
+}

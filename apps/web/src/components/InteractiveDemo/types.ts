@@ -98,7 +98,41 @@ export type DemoAnalyticsEvent =
   | 'demo_screen_5'
   | 'demo_signup_start'
   | 'demo_signup_complete'
+  | 'demo_dream_mode_click'
+  | 'demo_explore_click'
+  | 'demo_waitlist_click'
+  | 'demo_calculator_click'
   | 'demo_exit';
+
+/**
+ * User waitlist status for conditional rendering
+ */
+export interface WaitlistUserStatus {
+  /** Whether the user is on the waitlist */
+  isOnWaitlist: boolean;
+  /** User's email (if on waitlist) */
+  email?: string;
+  /** User's position (if on waitlist) */
+  position?: number;
+  /** User's referral code (if on waitlist) */
+  referralCode?: string;
+}
+
+/**
+ * Screen5CTA component props
+ */
+export interface Screen5CTAProps {
+  /** Whether the user is on the waitlist */
+  isOnWaitlist: boolean;
+  /** Callback when anonymous user clicks join waitlist */
+  onJoinWaitlist: () => void;
+  /** Callback when logged-in user clicks try dream mode */
+  onTryDreamMode: () => void;
+  /** Callback when logged-in user clicks explore */
+  onExplore: () => void;
+  /** Optional class name */
+  className?: string;
+}
 
 /**
  * InteractiveDemo Props

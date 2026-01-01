@@ -729,6 +729,70 @@
 }
 
 /* ================================
+   DREAM MODE CTA SECTION
+   ================================ */
+
+.dreamModeSection {
+  width: var(--percent-100);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.08) 0%, rgba(45, 212, 191, 0.08) 100%);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  text-align: center;
+}
+
+.dreamModeHeader {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-description-mobile);
+  font-weight: var(--font-weight-semibold);
+  color: var(--cta-bg-hover);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.dreamModeButton {
+  width: var(--percent-100);
+  background: transparent;
+  border: 2px solid var(--cta-bg-primary);
+  color: var(--cta-bg-primary);
+}
+
+.dreamModeButton:hover {
+  background: var(--cta-bg-primary);
+  color: var(--section-bg-white);
+  border-color: var(--cta-bg-primary);
+}
+
+/* ================================
+   CALCULATOR SUGGESTION (EP3)
+   ================================ */
+
+.calculatorSuggestion {
+  width: var(--percent-100);
+  text-align: center;
+  margin-top: var(--spacing-md);
+}
+
+.calculatorLink {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-description-mobile);
+  color: var(--pc-color-description);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  text-decoration: underline;
+  text-decoration-color: rgba(100, 116, 139, 0.3);
+  text-underline-offset: 4px;
+  transition: color var(--transition-base), text-decoration-color var(--transition-base);
+}
+
+.calculatorLink:hover {
+  color: var(--cta-bg-primary);
+  text-decoration-color: var(--cta-bg-primary);
+}
+
+/* ================================
    DARK MODE SUPPORT (Future)
    ================================ */
 

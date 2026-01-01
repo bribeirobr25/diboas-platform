@@ -3,6 +3,12 @@
     "about": "About",
     "quickActions": "Quick Actions",
     "back": "Back",
+    "landing": {
+      "forBusiness": "For Business",
+      "strategies": "Strategies",
+      "futureYou": "Future You",
+      "joinWaitlist": "Join Waitlist"
+    },
     "diboas": {
       "label": "diBoaS",
       "description": "Complete financial ecosystem with banking, investing, and DeFi in one platform",
@@ -91,7 +97,13 @@
       "primary": "Get Started",
       "secondary": "Business Login"
     },
-    "joinWaitlist": "Join Waitlist"
+    "joinWaitlist": "Join Waitlist",
+    "tools": {
+      "calculator": "Calculator",
+      "calculatorDescription": "See your money grow",
+      "dreamMode": "Dream Mode",
+      "dreamModeDescription": "Visualize your future"
+    }
   },
   "buttons": {
     "getStarted": "Get Started",
@@ -248,6 +260,28 @@
       "duplicateEmail": "This email is already on our waiting list",
       "submissionFailed": "Something went wrong. Please try again.",
       "storageError": "Unable to save your information. Please try again."
+    },
+    "position": {
+      "label": "Your Position",
+      "spotsGained": "{spots} spots gained!",
+      "referrals": "Referrals",
+      "spotsPerReferral": "Spots/Referral",
+      "yourCode": "Your Code:"
     }
+  },
+  "share": {
+    "generating": "Generating card...",
+    "retry": "Try Again",
+    "noCard": "No card available",
+    "cardAlt": "Shareable card preview",
+    "simulationBadge": "SIMULATION",
+    "shareVia": "Share via:",
+    "download": "Download"
+  },
+  "bookCall": {
+    "loading": "Loading calendar...",
+    "notConfigured": "Booking calendar not configured",
+    "contactUs": "Contact us directly to schedule a call",
+    "error": "Unable to load booking calendar"
   }
 }

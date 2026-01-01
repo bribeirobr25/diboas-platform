@@ -63,7 +63,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
               <main id="main-content" className="main-content flex-1">
                 {children}
               </main>
-              <MinimalFooter disclaimerKey="landing-b2c.disclaimer.text" />
+              <MinimalFooter disclaimerKey="landing-b2c.footer.riskDisclaimer" />
               <CookieConsent />
             </div>
           </WaitingListProvider>

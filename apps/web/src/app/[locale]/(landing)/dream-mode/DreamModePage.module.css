@@ -1,0 +1,127 @@
+/**
+ * Dream Mode Page Styles
+ *
+ * Styles for the Dream Mode page including:
+ * - Loading state
+ * - Access gate for non-waitlist users
+ * - Dream Mode container
+ */
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(20, 184, 166, 0.2);
+  border-top-color: #14b8a6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Gate for non-waitlist users */
+.gateContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 24px;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+.gateCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  padding: 48px 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.gateIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 24px;
+  color: #14b8a6;
+  background: rgba(20, 184, 166, 0.1);
+  border-radius: 50%;
+}
+
+.gateTitle {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.gateDescription {
+  margin: 0 0 32px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.gateCta {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.gateBack {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.gateBack:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Dream Mode Container */
+.dreamModeContainer {
+  min-height: 80vh;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+.dreamMode {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .gateCard {
+    padding: 32px 24px;
+  }
+
+  .gateTitle {
+    font-size: 20px;
+  }
+
+  .gateDescription {
+    font-size: 14px;
+  }
+}

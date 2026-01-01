@@ -3,6 +3,12 @@
     "about": "Sobre",
     "quickActions": "Ações Rápidas",
     "back": "Voltar",
+    "landing": {
+      "forBusiness": "Para Empresas",
+      "strategies": "Estratégias",
+      "futureYou": "Seu Futuro",
+      "joinWaitlist": "Entrar na Lista"
+    },
     "diboas": {
       "label": "diBoaS",
       "description": "Ecossistema financeiro completo com banco, investimentos e DeFi em uma plataforma",
@@ -91,7 +97,13 @@
       "primary": "Começar",
       "secondary": "Login Business"
     },
-    "joinWaitlist": "Entrar na Lista"
+    "joinWaitlist": "Entrar na Lista",
+    "tools": {
+      "calculator": "Calculadora",
+      "calculatorDescription": "Veja seu dinheiro crescer",
+      "dreamMode": "Modo Sonho",
+      "dreamModeDescription": "Visualize seu futuro"
+    }
   },
   "buttons": {
     "getStarted": "Começar Agora",
@@ -248,6 +260,28 @@
       "duplicateEmail": "Este e-mail já está em nossa lista de espera",
       "submissionFailed": "Algo deu errado. Por favor, tente novamente.",
       "storageError": "Não foi possível salvar suas informações. Por favor, tente novamente."
+    },
+    "position": {
+      "label": "Sua Posição",
+      "spotsGained": "{spots} posições ganhas!",
+      "referrals": "Indicações",
+      "spotsPerReferral": "Posições/Indicação",
+      "yourCode": "Seu Código:"
     }
+  },
+  "share": {
+    "generating": "Gerando cartão...",
+    "retry": "Tentar Novamente",
+    "noCard": "Nenhum cartão disponível",
+    "cardAlt": "Pré-visualização do cartão compartilhável",
+    "simulationBadge": "SIMULAÇÃO",
+    "shareVia": "Compartilhar via:",
+    "download": "Baixar"
+  },
+  "bookCall": {
+    "loading": "Carregando calendário...",
+    "notConfigured": "Calendário de agendamento não configurado",
+    "contactUs": "Entre em contato diretamente para agendar uma ligação",
+    "error": "Não foi possível carregar o calendário"
   }
 }

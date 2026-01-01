@@ -1,0 +1,59 @@
+{
+  "sectionTitle": "Auf die Warteliste setzen",
+  "headline": "Seien Sie unter den Ersten",
+  "subheadline": "Melden Sie sich an und erhalten Sie frühen Zugang zum Start.",
+  "form": {
+    "emailPlaceholder": "Ihre E-Mail-Adresse",
+    "cta": "Auf die Warteliste",
+    "submitting": "Wird hinzugefügt...",
+    "privacyNote": "Wir senden Ihnen nur E-Mails über diBoaS. Jederzeit abmeldbar."
+  },
+  "error": {
+    "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "alreadyRegistered": "Sie sind bereits auf der Warteliste!",
+    "network": "Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung."
+  },
+  "confirmation": {
+    "headline": "Sie sind dabei!",
+    "subhead": "Willkommen in der Zukunft Ihrer Finanzen.",
+    "positionIntro": "Ihre Position:",
+    "positionFormat": "#{position}",
+    "shareIntro": "Möchten Sie nach vorne rücken?",
+    "shareBenefit": "Teilen Sie Ihren Link — jede Anmeldung bringt Sie {spots} Plätze nach vorne",
+    "shareExplanation": "Je früher wir starten, desto eher wird das Realität.",
+    "referralLinkLabel": "Ihr persönlicher Link:",
+    "copy": "Link kopieren",
+    "copied": "Kopiert!",
+    "dreamModeCta": "Dream Mode ausprobieren",
+    "exploreCta": "Entdecken Sie, was kommt"
+  },
+  "referral": {
+    "movedUp": "Sie sind {spots} Plätze vorgerückt!",
+    "newPosition": "Neue Position: #{position}",
+    "thanks": "Danke fürs Weitersagen.",
+    "notificationTitle": "Jemand hat Ihren Link verwendet!",
+    "notificationBody": "Sie sind gerade {spots} Plätze auf #{position} vorgerückt"
+  },
+  "returningUser": {
+    "welcomeBack": "Willkommen zurück!",
+    "currentPosition": "Sie sind aktuell #{position} auf der Warteliste",
+    "referralCount": "Sie haben {count} Personen empfohlen",
+    "keepSharing": "Teilen Sie weiter, um nach vorne zu rücken!"
+  },
+  "card": {
+    "headline": "ICH BIN #{position} AUF DER DIBOAS-WARTELISTE",
+    "bodyLine1": "Banken verdienen 7% mit unseren Ersparnissen.",
+    "bodyLine2": "Sie zahlen uns 0,5%.",
+    "bodyLine3": "Diese Lücke? Die war schon immer da.",
+    "ctaIntro": "Machen Sie mit:",
+    "hashtag": "#WhileISlept"
+  },
+  "email": {
+    "welcome": "Willkommen bei diBoaS — Sie sind #{position} 🎉",
+    "email1Subject": "Warum Ihre Bank nicht für Sie arbeitet",
+    "email2Subject": "Wie Ihr Geld tatsächlich für Sie arbeiten könnte",
+    "email3Subject": "Lernen Sie Aqua, Mystic & Coral kennen — Ihre Finanzbegleiter",
+    "email4Subject": "Was kommt — und warum Sie früh dran sind"
+  }
+}

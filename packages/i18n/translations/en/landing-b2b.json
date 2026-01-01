@@ -1,64 +1,73 @@
 {
   "hero": {
-    "headline": "Your bank is making 7% with your treasury.\nThey're paying you 0%.",
-    "revelation": "Your bank is earning 7% with your cash.\nThey're paying you 0%.",
-    "uncomfortableTruth": "Your bank is earning 7% with your cash. They're paying you 0%.",
-    "impact": "On €500K, that's €35,000/year sitting on the table.",
-    "valueProp": "diBoaS Treasury: 6-8% yield on operating cash.\nSame-day liquidity. No lock-up. EU-regulated.",
-    "cta": "Let's look at your numbers →",
-    "socialProof": {
-      "quote": "Bar walked me through the math. Once you see it, it's obvious.",
-      "author": "Founder, Series A startup"
-    },
+    "headlineLine1": "Your bank invests your treasury.",
+    "headlineLine2": "Earns millions.",
+    "headlineLine3": "Gives you nothing.",
+    "headline": "Your bank invests your treasury. Earns millions. Gives you nothing.",
+    "subheadline": "On €500K, that's €35,000/year sitting on the table. While they charge you fees for the privilege.",
+    "valueProp": "diBoaS Treasury: Better returns. Instant payments. Zero fees. Same-day liquidity. EU-regulated.",
+    "cta": "Here's what I found out →",
     "trustBadges": {
-      "mica": "MiCA-compliant",
-      "nonCustodial": "Non-custodial",
-      "audited": "Audited protocols",
-      "boardReady": "Board-ready reporting"
+      "mica": {
+        "label": "EU-regulated (MiCA)",
+        "tooltip": "Operating under the EU's Markets in Crypto-Assets framework"
+      },
+      "nonCustodial": {
+        "label": "Your funds, your wallet",
+        "tooltip": "We never hold your money — it stays in your own wallet"
+      },
+      "audited": {
+        "label": "Independently audited",
+        "tooltip": "All systems verified by third-party security firms"
+      },
+      "boardReady": {
+        "label": "Board-ready reporting",
+        "tooltip": "Monthly statements your CFO will actually understand"
+      }
     }
   },
-  "problem": {
-    "header": "💡 The math nobody shows you",
-    "body": "You raised €2M. You'll spend it over 18 months.\nThat means €1M+ sits in your account at any given time.\n\nHere's what's happening with that money:",
-    "tableHeader": {
-      "col1": "",
-      "col2": "Your Bank",
-      "col3": "With diBoaS"
-    },
-    "tableRows": {
-      "balance": {
-        "label": "Your balance",
-        "bank": "€1,000,000",
-        "diboas": "€1,000,000"
+  "theMath": {
+    "header": "The math nobody shows you",
+    "intro": "You raised €2M. You'll spend it over 18 months. That means €1M+ sits in your account at any given time.\n\nHere's what's happening with that money:",
+    "table": {
+      "headers": {
+        "metric": "",
+        "bank": "Your Bank",
+        "diboas": "With diBoaS"
       },
-      "theyEarn": {
-        "label": "What they earn with it",
-        "bank": "€70,000/year",
-        "diboas": "—"
-      },
-      "youEarn": {
-        "label": "What you earn",
-        "bank": "€5,000/year",
-        "diboas": "€70,000/year"
-      },
-      "difference": {
-        "label": "The difference",
-        "bank": "They keep €65,000",
-        "diboas": "You keep €65,000"
+      "rows": {
+        "balance": {
+          "label": "Your balance",
+          "bank": "€1,000,000",
+          "diboas": "€1,000,000"
+        },
+        "theyEarn": {
+          "label": "What they earn with it",
+          "bank": "€70,000/year",
+          "diboas": "—"
+        },
+        "youEarn": {
+          "label": "What you earn",
+          "bank": "€5,000/year",
+          "diboas": "€70,000/year"
+        },
+        "difference": {
+          "label": "The difference",
+          "bank": "They keep €65,000",
+          "diboas": "You keep €65,000"
+        }
       }
     },
-    "bankPays": "Your bank pays: 0.5% = €5,000/year",
-    "bankEarns": "Your bank earns: 7% = €70,000/year with YOUR money",
-    "diboasPays": "diBoaS pays: 7% = €70,000/year to YOU",
-    "runway": "That's €65,000 in potential runway.",
-    "insight": "Banks aren't doing anything wrong. They're doing exactly what they're designed to do — make money with your money.\n\n**The question is: do you want that €65,000, or are you okay with them keeping it?**",
+    "insight": "That €65,000 is runway. It's an extra hire. It's six more months to find product-market fit.",
+    "question": "Do you want it, or are you okay with them keeping it?",
     "cta": "Calculate your numbers →"
   },
-  "whyWeBuiltThis": {
-    "header": "The same gap, different scale",
-    "story": "My grandmother saved half of everything she earned. Her whole life. It still wasn't enough.\n\nI spent three years understanding why. The answer was simple: the gap between what banks earn and what they pay. She saved €1,000, they made €70, gave her €5. The other €65 was supposed to be hers.\n\n**The same thing is happening to your startup right now.**\n\nYou raised capital. It's sitting in a business account earning nothing. Your bank is putting it to work — for themselves.\n\nMy grandmother couldn't access better rates. You can.\n\nThat's why I'm building diBoaS.",
-    "mission": "diBoaS is what I wish had existed for her. For founders, it can exist now.",
-    "belief": "diBoaS Treasury exists because the playing field should be level. Whether you're a grandmother in Rio de Janeiro or a founder in Berlin.",
+  "origin": {
+    "header": "Because of my grandmother",
+    "body": "My grandmother taught me to save. She said I should try to save half of everything I earn. She did that herself. Her whole life.\n\nShe tried everything. Work hard. Buy only the basics. Try to save.\n\nIt still didn't work.\n\nSounds familiar?\n\nHere's what no one told her: Her bank paid her 0.5% interest while earning 7% — with her money.\n\nThe same bank is doing that with all of us. Including your startup.\n\nThat €1,000 she saved? The bank made €70 with it and gave her €5 back. The other €65? That was supposed to be hers.\n\nThe same thing is happening to your treasury right now.\n\nMy grandmother couldn't access better rates. The system wasn't built for people like her.\n\nBut founders? You have options. You just need to know they exist.\n\nThat's why I'm building diBoaS.",
+    "treasuryImpact": "The same thing is happening to your treasury right now.",
+    "founderOptions": "But founders? You have options. You just need to know they exist.",
+    "whyBuilding": "That's why I'm building diBoaS.",
     "signature": "— Bar, Founder"
   },
   "calculator": {
@@ -66,11 +75,12 @@
     "fields": {
       "cashOnHand": "Cash on hand",
       "currentRate": "Current interest rate",
-      "bankEarns": "What your bank earns with your money",
+      "bankEarns": "What your bank earns with it",
       "bankPays": "What your bank pays you",
       "diboasPays": "What diBoaS would pay you",
-      "projectedYield": "diBoaS projected yield (7%)",
-      "currentInterest": "Your current interest",
+      "difference": "The difference",
+      "projectedYield": "What diBoaS would pay you",
+      "currentInterest": "What your bank pays you",
       "additionalRunway": "The difference"
     },
     "defaults": {
@@ -78,7 +88,7 @@
       "currentRate": "0.5"
     },
     "perYear": "/year",
-    "insight": "That €32,500 is runway. It's an extra hire. It's six more months to find product-market fit.\n\nIt's yours if you want it.",
+    "insight": "That €32,500 is runway. That's real money — not theoretical.\n\nYours if you want it.",
     "cta": "Let's talk about this →"
   },
   "howItWorks": {
@@ -86,202 +96,170 @@
     "steps": {
       "connect": {
         "title": "Connect",
-        "description": "Link your business bank account. 2-minute setup. No technical integration."
+        "description": "Link your business account. 2-minute setup. No technical integration needed."
       },
-      "allocate": {
-        "title": "Set your threshold",
-        "description": "Choose your liquidity floor (e.g., \"always keep €50K available\"). We'll never deploy below that. You're never caught short."
+      "setFloor": {
+        "title": "Set your floor",
+        "description": "Tell us your liquidity threshold — \"always keep €50K available.\" We only deploy above that. You're never caught short."
       },
       "earn": {
         "title": "Earn",
-        "description": "Cash above your threshold earns 6-8% APY through battle-tested DeFi protocols. Same rates banks earn — now yours."
+        "description": "Cash above your threshold earns 6-8% annual return through proven institutional systems. Same rates banks earn — now yours."
       },
       "withdraw": {
         "title": "Withdraw",
         "description": "Need cash? One click. Same-day settlement. No lock-ups. No penalties. No questions."
       }
     },
-    "footerNote": "Monthly statements for your accountant. Board-ready reporting included. No crypto jargon."
+    "footer": "Monthly statements. Board-ready reporting. Plain language — no jargon."
   },
-  "trust": {
-    "header": "For teams that need the details",
-    "points": {
-      "euRegulated": {
-        "title": "EU-Regulated",
-        "description": "We operate under the MiCA framework with pending CASP authorization.\n\nWhat that means: regulatory oversight, reporting requirements, accountability. We're building for compliance from day one."
-      },
-      "nonCustodial": {
-        "title": "Non-Custodial",
-        "description": "Here's an important distinction: we never hold your funds.\n\nYour money stays in your own wallet. We provide the interface to deploy it. Even if diBoaS disappeared tomorrow, your funds are still accessible."
-      },
-      "audited": {
-        "title": "Audited Protocols",
-        "description": "We only use protocols with $10B+ in secured assets and multiple independent security audits.\n\nAre these the same as bank deposits? No. Are they battle-tested infrastructure? Yes. The same protocols that institutions use."
-      },
-      "transparent": {
-        "title": "Transparent Reporting",
-        "description": "Monthly statements. Real-time dashboard. Full audit trail.\n\nYour CFO will understand it. Your board will appreciate it."
-      },
-      "boardReady": {
-        "title": "Board-Ready",
-        "description": "Professional reporting that your CFO and board will understand. No crypto jargon."
+  "features": {
+    "header": "More than yield. Everything your treasury needs.",
+    "intro": "Yield is the headline. But these might matter even more to your business.",
+    "instantPayments": {
+      "headline": "Pay anyone. Instantly. Zero fees.",
+      "body": "Paying contractors in Argentina? A vendor in Germany? A freelancer in Singapore?\n\nTraditional wires: €25-50 per transaction. 2-5 business days. Exchange rate markup.\n\nWith diBoaS: €0 fees. Settled in seconds. Real exchange rate.",
+      "example": {
+        "before": "€500 wire to contractor = €475 received (after fees + spread)",
+        "after": "€500 sent = €500 received"
+      }
+    },
+    "receivePayments": {
+      "headline": "Get paid faster. Keep more.",
+      "body": "Your customers can pay you instantly — from anywhere in the world. No payment processor taking 2.9% + €0.30. No waiting 3-5 days for settlement.",
+      "example": {
+        "before": "€10,000 invoice → €9,700 after Stripe fees → available in 3 days",
+        "after": "€10,000 invoice → €10,000 received → available immediately"
+      }
+    },
+    "cashflowOptimization": {
+      "headline": "Your cash works 24/7. Even when you don't.",
+      "body": "Most business accounts pay nothing overnight. Your €500K just... sits there.\n\nWith diBoaS, idle cash earns returns continuously. Every hour. Every day. Including weekends and holidays.",
+      "example": {
+        "label": "€500K overnight for 30 days:",
+        "bank": "€0-20",
+        "diboas": "~€2,500"
+      }
+    },
+    "overnightSweep": {
+      "headline": "Automatic overnight optimization",
+      "body": "End of business day, your cash automatically moves to yield-generating systems. Start of business day, it's back and liquid.\n\nYou set the floor. We handle the rest.",
+      "schedule": {
+        "evening": "6 PM: Cash above threshold → earning systems",
+        "morning": "9 AM: Full liquidity restored",
+        "you": "You: Do nothing"
       }
     }
   },
-  "whoIsThisFor": {
-    "header": "Is this right for you?",
+  "trust": {
+    "header": "For teams that need the details",
+    "euRegulated": {
+      "title": "EU-Regulated",
+      "description": "We operate under the EU's MiCA framework with pending authorization.",
+      "translation": "Translation: regulatory oversight, reporting requirements, accountability."
+    },
+    "nonCustodial": {
+      "title": "Your Funds, Your Wallet",
+      "description": "We never hold your funds. Your money stays in your own wallet.",
+      "details": "Even if diBoaS disappeared tomorrow, your funds are still yours. This is different from traditional finance — we literally cannot touch your money without your approval."
+    },
+    "audited": {
+      "title": "Independently Audited",
+      "description": "We only use systems that have:",
+      "points": [
+        "Secured €10B+ for years without major incidents",
+        "Multiple independent security audits",
+        "Transparent operations you can verify"
+      ],
+      "note": "Same infrastructure institutions use."
+    },
+    "reporting": {
+      "title": "Transparent Reporting",
+      "description": "Monthly statements. Real-time dashboard. Full audit trail.",
+      "note": "Your CFO will get it. Your board will appreciate it."
+    }
+  },
+  "fitAssessment": {
+    "header": "Honest fit assessment",
     "goodFit": {
       "title": "Good Fit",
-      "description": "€50K+ in operating cash. 12-24 month runway you're spending down over time. Finance team that wants professional reporting. Comfortable with calculated risk for better returns.",
       "items": [
         "€50K+ in operating cash",
         "12-24 month runway you're spending down over time",
-        "Finance team that wants professional reporting",
+        "Team that wants real reporting",
+        "Interested in faster, cheaper payments",
         "Comfortable with calculated risk for better returns"
       ]
     },
     "notAFit": {
       "title": "Not a Fit",
-      "description": "Need 100% of cash immediately accessible at all times. Zero risk tolerance (DeFi yields involve smart contract risk). Looking for guaranteed returns (rates are variable).",
       "items": [
         "Need 100% of cash immediately accessible at all times",
-        "Zero risk tolerance (DeFi yields involve smart contract risk)",
-        "Looking for guaranteed returns (rates are variable)"
+        "Zero risk tolerance (even for idle cash)",
+        "Looking for guaranteed returns"
       ]
     },
-    "honestNote": "I'd rather tell you this isn't right for you than convince you to do something that doesn't fit. If you need certainty, a bank account — even at 0.5% — might be the right choice.\n\nBut if you're comfortable with calculated risk for 14x better returns, let's talk."
+    "honestNote": "I'd rather tell you this isn't right for you than convince you to do something that doesn't fit.\n\nIf you need certainty above all else, a bank account — even at 0.5% — might be the right choice.\n\nBut if you're comfortable with calculated risk for 14x better returns AND want instant global payments? Let's talk."
   },
-  "useCases": {
-    "header": "Who uses diBoaS Treasury?",
-    "cases": {
-      "postFundraise": {
-        "title": "Post-Fundraise",
-        "description": "Just closed a round? Put that capital to work while you're hiring and scaling.",
-        "quote": "We had €3M sitting in a bank account earning nothing for 6 months. That was €100K in missed yield."
+  "faq": {
+    "header": "Things worth knowing",
+    "description": "Get answers to common questions about treasury management with diBoaS.",
+    "ctaText": "Schedule a conversation",
+    "items": {
+      "catch": {
+        "question": "What's the catch?",
+        "answer": "Here's how we make money:\n\n0.9% fee when you withdraw returns. If you earn €10,000, we keep €90. If you earn nothing, we earn nothing.\n\nThat's it. No hidden fees. No minimum balances.\n\nThe \"catch\" in your current setup? Your bank earns 7% with your money and pays you 0.5%. That €65,000 difference on €1M? That's their entire business model.\n\nNow you've seen the math."
       },
-      "betweenRounds": {
-        "title": "Between Rounds",
-        "description": "Bridge runway between funding rounds by earning on your reserves.",
-        "quote": "The extra €40K/year is basically a free junior hire."
+      "liquidity": {
+        "question": "Is it really liquid?",
+        "answer": "Let me be specific:\n\nSame-day withdrawal. Request before 2 PM CET, funds in your account end of day.\n\nNo lock-ups. Your money isn't committed.\n\nYou set the floor. \"Always keep €50K liquid\" — we only deploy what's above that.\n\nMost treasury tools make you choose: yield OR liquidity. We give you both."
       },
-      "operatingReserves": {
-        "title": "Operating Reserves",
-        "description": "Keep payroll covered while excess cash earns yield.",
-        "quote": "We set a €100K floor. Everything above earns 7%. Simple."
+      "risk": {
+        "question": "What's the actual risk?",
+        "answer": "Let's be honest about this:\n\nAutomated system risk: The systems your money goes into are built on code. Code can have vulnerabilities.\n\nHow we mitigate:\n- Only systems with €10B+ in total value secured\n- Multiple independent security audits\n- Years of track record through market events\n- Your money spread across multiple independent systems\n\nZero risk? No. Nothing is — including your bank.\n\nThe real question: Is 14x better returns worth a different risk profile?\n\nFor some founders, yes. For others, no. Both are valid."
+      },
+      "payments": {
+        "question": "How do instant payments work?",
+        "answer": "Traditional wire transfers go through correspondent banks. Your bank → their bank → maybe another bank → recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, payments go direct. Your wallet → their wallet. Done.\n\nResult: Your freelancer in Buenos Aires gets paid in their local currency, same day, at the real exchange rate, for €0 in fees."
+      },
+      "compliance": {
+        "question": "What about compliance?",
+        "answer": "We built diBoaS for real businesses with real compliance needs:\n\n- Monthly statements formatted for your accounting software\n- Transaction history with full audit trail\n- Tax documentation at year-end\n- Board-ready reports your CFO will actually understand\n\nWe know you're going to get audited eventually. We make sure you're ready."
+      },
+      "whereMoneyGoes": {
+        "question": "Where does my money actually go?",
+        "answer": "Your money is placed into proven yield-generating systems. These are:\n\n- Established: Operating for 3+ years\n- Battle-tested: Survived multiple market crashes\n- Transparent: You can see exactly where your funds are at any time\n- Independently audited: Security verified by third parties\n\nOnce you're a customer, you'll see the full details of each system — names, track records, and why we chose them.\n\nWe're happy to be transparent with customers. We just don't publish our exact strategy for competitors."
+      },
+      "whyCantTouch": {
+        "question": "Why can't you touch my money?",
+        "answer": "This is actually the whole point of how we're built.\n\nTraditional finance: You deposit money → it becomes the bank's money → they owe you a balance.\n\ndiBoaS: Your money stays in your own wallet. We provide the software that helps you deploy it to earning systems. But we never have access to move it ourselves.\n\nWhy this matters:\n- If diBoaS goes bankrupt, your money is still yours\n- No one at diBoaS can steal your funds\n- Every transaction requires your approval\n\nIt's a fundamentally different model. More control for you, less risk from us."
       }
     }
   },
   "socialProof": {
-    "header": "Trusted by forward-thinking founders",
-    "testimonials": {
-      "first": {
-        "quote": "We were skeptical at first. But the math was obvious. €70K extra runway per year, with same liquidity. Our board actually thanked us.",
-        "author": "CFO, Series A SaaS Company"
-      },
-      "second": {
-        "quote": "I wish we'd done this from day one. We left €30K on the table in our first year.",
-        "author": "Founder, Seed-stage startup"
-      }
-    },
-    "metrics": {
-      "treasury": {
-        "label": "Combined treasury under management",
-        "value": "€2.5M"
-      },
-      "yield": {
-        "label": "Average client yield",
-        "value": "7.2% APY"
-      },
-      "onboarding": {
-        "label": "Average time to onboard",
-        "value": "48 hours"
-      }
-    }
-  },
-  "faq": {
-    "header": "Good questions",
-    "description": "Common questions from startup founders about treasury management.",
-    "ctaText": "Book a call",
-    "items": {
-      "catch": {
-        "question": "What's the catch?",
-        "answer": "Fair question. Here's how we make money:\n\nWe take a 0.12% fee on yield earned. If you earn €10,000, we keep €12.\n\nIf you earn nothing, we earn nothing.\n\nWhy structure it this way? It aligns our incentives with yours. We only succeed when you succeed.\n\nThe catch with your current bank? They're earning 7% on your money and paying you 0.5%. That spread is their business model."
-      },
-      "liquidity": {
-        "question": "How liquid is this really?",
-        "answer": "Same-day withdrawals. No lock-ups. No penalties.\n\nHere's how it works: you set a liquidity threshold — say, \"always keep €50K available.\" We only deploy cash above that threshold.\n\nNeed €100K for payroll tomorrow? One click. It's there.\n\nWe built it this way because treasury management shouldn't create new problems. You should be able to access your money when you need it."
-      },
-      "risk": {
-        "question": "What's the risk?",
-        "answer": "Let's be specific about risk, because this matters:\n\nSmart contract risk: DeFi protocols are code. Code can have bugs or be exploited. This is real.\n\nHow we mitigate it: We only use protocols with $10B+ in assets, multiple independent audits, and years of track record without major incidents.\n\nIs it zero risk? No. Nothing is.\n\nIs it riskier than your bank? Different. Banks have deposit insurance up to €100K. DeFi has transparency and non-custodial control.\n\nThe question is whether 14x better yield justifies the different risk profile. For some founders, yes. For others, no. Now you have the information to decide."
-      },
-      "cfo": {
-        "question": "Will my CFO/board understand this?",
-        "answer": "Yes — we built for this specifically.\n\nMonthly statements in standard accounting format. Real-time dashboard with clear metrics. Board-ready reporting without crypto jargon.\n\nYour CFO will see: deposits, yields, fees, withdrawals. Same categories they're used to.\n\nIf they want to dig deeper, we provide protocol documentation and audit reports. But they don't have to."
-      },
-      "revenue": {
-        "question": "How do you make money?",
-        "answer": "0.12% fee on yield earned. That's it.\n\nIf your treasury earns €35,000/year, we earn €42.\n\nIf you earn nothing, we earn nothing.\n\nNo hidden fees. No minimum balances. No lock-up penalties."
-      },
-      "minimum": {
-        "question": "What's the minimum?",
-        "answer": "€50K in operating cash.\n\nBelow that, the yield may not justify the setup time — we'll be honest about that. If you're earlier stage, keep us in mind for when you've raised more."
-      },
-      "onboarding": {
-        "question": "How long does onboarding take?",
-        "answer": "Most companies are fully onboarded within 48 hours. Setup itself takes about 15 minutes."
-      },
-      "regulated": {
-        "question": "Is this legal/regulated?",
-        "answer": "Yes. We operate under the EU's MiCA framework with pending CASP authorization in Lithuania. We're building for compliance from day one."
-      },
-      "investors": {
-        "question": "What will my investors think?",
-        "answer": "Most sophisticated investors expect treasury optimization. Earning 7% vs 0.5% extends runway. We provide board-ready materials to help you communicate this clearly."
-      },
-      "compliance": {
-        "question": "How does compliance work?",
-        "answer": "We operate under the EU's MiCA framework with pending CASP authorization in Lithuania.\n\nFor accounting purposes, yield can be categorized as investment income. We provide monthly statements compatible with standard accounting practices.\n\nFor tax and regulatory questions specific to your jurisdiction, consult your advisors — but we'll give them everything they need."
-      }
-    }
-  },
-  "process": {
-    "header": "How to get started",
-    "steps": {
-      "book": {
-        "title": "Have a conversation",
-        "description": "15 minutes. We'll look at your specific numbers together. If it doesn't make sense for you, I'll tell you."
-      },
-      "review": {
-        "title": "Review with your team",
-        "description": "I'll send materials for your co-founder, CFO, or board. No pressure."
-      },
-      "decide": {
-        "title": "Decide",
-        "description": "If it makes sense, we'll help you set up. If it doesn't, no hard feelings. I'd rather you make the right choice."
-      },
-      "goLive": {
-        "title": "Go live",
-        "description": "Onboarding takes 48 hours. You'll see yield accruing from day one."
-      }
-    }
+    "header": "Early adopters",
+    "preLaunch": "We're launching in early 2026. Join the waitlist to be among the first startups to access institutional-grade treasury management."
   },
   "finalCta": {
     "header": "Want to look at the numbers together?",
-    "body": "15 minutes. Your specific situation. If it makes sense, great. If not, at least you'll understand the math.",
-    "cta": "Book a conversation with Bar",
-    "alternativeContact": "Or email: bar@diboas.com",
-    "testimonial": {
-      "quote": "I expected a sales pitch. Bar just walked me through the math and said 'here's what I'd do, but it's your call.' That honesty made me trust him.",
-      "author": "Series A founder"
+    "body": "15 minutes. Your specific situation.\n\nIf it makes sense, great. If not, at least you stop leaving €65,000 on the table by accident.",
+    "cta": "Schedule a conversation with Bar",
+    "alternative": "Or email: bar@diboas.com",
+    "footer": "No pitch deck. No sales pressure. Just math."
+  },
+  "footer": {
+    "riskDisclaimer": "diBoaS provides access to yield-generating systems. Returns are variable and not guaranteed. Past performance does not indicate future results. Automated systems involve risk. Only allocate funds appropriate for your risk tolerance. diBoaS is not a bank and funds are not insured.",
+    "regulatoryNote": "diBoaS operates under the EU MiCA framework. CASP authorization pending.",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "risk": "Risk Disclosure"
     }
   },
-  "missionFooter": {
-    "header": "Why this matters to me",
-    "body": "My grandmother did everything right. Saved half of everything. Patient. Disciplined.\n\nIt still wasn't enough. The gap between what banks earn and what they pay kept her from building wealth.\n\nFor families like mine, that gap was invisible. For founders, it doesn't have to be.\n\nNow you know.",
-    "anthem": "Your money. Your future. Your rules."
-  },
-  "disclaimer": {
-    "text": "Yields are illustrative based on current DeFi market rates. Rates are variable and not guaranteed. Past performance does not indicate future results. Smart contract risk exists with DeFi protocols. Only allocate funds appropriate for your risk tolerance. diBoaS does not provide investment advice."
+  "seo": {
+    "title": "diBoaS Treasury | Stop Leaving €65,000 on the Table",
+    "description": "Your bank invests your treasury, earns millions, and gives you nothing. diBoaS: 6-8% returns, instant global payments, zero fees. Let's look at your numbers.",
+    "ogTitle": "Your bank invests your treasury. Earns millions. Gives you nothing.",
+    "ogDescription": "Because of my grandmother, I learned what banks don't tell us. The same thing happening to her is happening to your startup's treasury. That's why I'm building diBoaS."
   }
 }

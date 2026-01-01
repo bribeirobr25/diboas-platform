@@ -1,0 +1,142 @@
+{
+  "seo": {
+    "title": "Future You Calculator | diBoaS",
+    "description": "See what your money could become. Small amounts. Consistent effort. Time does the rest."
+  },
+  "hero": {
+    "headline": "Meet your future self",
+    "subheadline": "Small amounts. Consistent effort. Time does the rest.",
+    "subheadline2": "See what your money could become if it worked as hard as you do.",
+    "context": "This isn't a promise. It's a projection based on historical data. But it shows you what's possible when the math is finally on your side."
+  },
+  "calculator": {
+    "header": "What could your money become?",
+    "instructions": "Slide to set your monthly amount. Pick your timeframe. Watch the math work.",
+    "monthlyAmount": {
+      "label": "Monthly amount you could set aside",
+      "helper": "Start with what's comfortable. Even {currency}20/month adds up over time."
+    },
+    "timeframe": {
+      "label": "How long are you thinking?",
+      "helper": "The longer your timeframe, the more powerful the growth becomes.",
+      "options": {
+        "5years": "5 years",
+        "10years": "10 years",
+        "15years": "15 years",
+        "20years": "20 years"
+      }
+    },
+    "results": {
+      "header": "In {years} years, your {currency}{amount}/month could become:",
+      "withDiboas": "With diBoaS",
+      "withBank": "With Your Bank",
+      "futureValue": "Future Value",
+      "deposited": "You Deposited",
+      "earned": "You Earned",
+      "difference": "That's {currency}{amount} more from the same monthly effort.",
+      "differenceNote": "Same sacrifice. Different outcome. That's what happens when your money actually works for you."
+    },
+    "watermark": "PROJECTION",
+    "disclaimer": "Based on historical performance (8% annual for diBoaS using our most conservative strategy, 0.5% for typical bank savings). This is a projection, not a guarantee. Actual results will vary based on the strategy you choose and market conditions.",
+    "cta": "Join the waitlist to make this real →",
+    "secondaryCta": "Want higher potential returns?",
+    "strategiesLink": "Explore all 10 strategies"
+  },
+  "mathExplained": {
+    "header": "Why the difference is so big",
+    "intro": "It's not magic. It's math. Here's what's actually happening:",
+    "bankGap": {
+      "headline": "Your bank earns more than they pay you",
+      "body": "Banks take your deposits and put them to work — lending, investing, earning real returns. But they only share a tiny fraction with you.",
+      "body2": "A typical bank earns around 7% with your money. They pay you 0.5%. That 6.5% difference? That's their entire business model.",
+      "body3": "With diBoaS, you access the same kinds of returns they do. The gap goes to you instead."
+    },
+    "compound": {
+      "headline": "Your earnings start earning too",
+      "body": "When you earn returns, and those returns earn more returns, growth accelerates over time. At 0.5%, this barely matters. At 8%, it transforms everything.",
+      "example": {
+        "title": "{currency}100/month for 20 years:",
+        "deposited": "Total deposited: {currency}24,000",
+        "bankEarnings": "Bank earnings: {currency}1,185 (that's 5% of what you put in)",
+        "diboasEarnings": "diBoaS earnings: {currency}34,902 (that's 145% of what you put in)",
+        "conclusion": "The difference isn't 16x the rate. It's 29x the earnings. That's what happens when returns compound."
+      }
+    },
+    "time": {
+      "headline": "The longer you wait to start, the more it costs you",
+      "body": "Starting 5 years earlier with {currency}100/month means tens of thousands more at the end. Every year you delay costs you future growth you'll never get back.",
+      "takeaway": "The best time to start was years ago. The second best time is now."
+    }
+  },
+  "strategyConnection": {
+    "header": "The 8% isn't random",
+    "body": "This projection uses our most conservative strategy, called Safe Harbor. It uses only stable systems with no exposure to price swings. In our 4-year test, it never lost money.",
+    "body2": "If you're comfortable with some ups and downs, other strategies have delivered higher returns:",
+    "table": {
+      "strategy": "Strategy",
+      "returns": "What could happen",
+      "exposure": "Price swing exposure",
+      "safeHarbor": {
+        "name": "Safe Harbor",
+        "returns": "6-10% per year",
+        "exposure": "None"
+      },
+      "balancedBuilder": {
+        "name": "Balanced Builder",
+        "returns": "10-16% per year",
+        "exposure": "40%"
+      },
+      "wealthAccelerator": {
+        "name": "Wealth Accelerator",
+        "returns": "Variable (could be negative or 50%+)",
+        "exposure": "70%"
+      }
+    },
+    "note": "Higher potential returns come with bumpier rides. This calculator uses Safe Harbor because it's what we'd recommend for someone just starting out.",
+    "cta": "Explore all 10 strategies"
+  },
+  "faq": {
+    "header": "Questions about the calculator",
+    "items": {
+      "realistic": {
+        "question": "Is 8% realistic?",
+        "answer": "The 8% is in the middle of our Safe Harbor strategy's expected range (6-10% per year). We tested this strategy across 4 years of real market data, including the 2022 crash and multiple smaller drops.\n\nIs it guaranteed going forward? No. Could it be higher or lower? Yes. But it's grounded in real data, not wishful thinking.\n\nWe use 8% instead of 10% to be conservative. We'd rather you be pleasantly surprised than disappointed."
+      },
+      "bankRate": {
+        "question": "Why do you use 0.5% for banks?",
+        "answer": "That's the average savings account rate in the EU. Some banks pay more during promotional periods (maybe 1-2%), most pay less or even nothing. We use the average because that's what most people actually get.\n\nIf your bank pays more, great! But even at 2%, the gap between what you're earning and what's possible is still enormous."
+      },
+      "inflation": {
+        "question": "What about inflation?",
+        "answer": "This calculator shows the actual numbers, not adjusted for inflation.\n\nHere's why that matters:\n- At 0.5%, you're almost certainly losing purchasing power every year. Inflation eats more than you earn.\n- At 8%, you're likely beating inflation and building real wealth.\n\nThe exact impact depends on future inflation, which nobody can predict. But earning 8% puts you in a much stronger position than earning 0.5%."
+      },
+      "minimum": {
+        "question": "Can I really start with {currency}5/month?",
+        "answer": "Yes. diBoaS has no minimum beyond {currency}5.\n\nWe believe everyone should have access to real returns, not just people with thousands to invest.\n\n{currency}5/month for 20 years at 8% = ~{currency}2,945\nThat's ~{currency}1,745 in earnings on {currency}1,200 deposited.\n\nSmall? Maybe. But it's {currency}1,745 more than you'd have doing nothing."
+      },
+      "inconsistent": {
+        "question": "What if I can't save the same amount every month?",
+        "answer": "Life happens. You can adjust anytime.\n\nThis calculator assumes consistent monthly amounts because that's the easiest way to project. But diBoaS doesn't require consistency.\n\nSome months you save {currency}200. Some months {currency}20. Some months {currency}0. The math still works — just differently. What matters is that you start."
+      },
+      "whichStrategy": {
+        "question": "Which strategy should I actually use?",
+        "answer": "The calculator uses Safe Harbor as a baseline because it's:\n- Our most conservative strategy\n- Uses only stable systems (no price swing exposure)\n- Never lost money in our 4-year test\n\nIf you're comfortable with occasional dips and have a longer timeframe, strategies with growth potential might suit you better."
+      },
+      "bankDifference": {
+        "question": "How is this different from my bank's savings account?",
+        "answer": "Three main differences:\n\n1. Returns: Banks typically pay 0.5% or less. Our most conservative strategy targets 6-10%.\n\n2. Where your money goes: Banks lend your money out and keep most of the returns. With diBoaS, your money goes into systems that pay you directly.\n\n3. Control: Bank deposits become the bank's money (legally, they just owe you). With diBoaS, your money stays in your own wallet. We can't touch it.\n\nThe tradeoff? Bank deposits are insured up to {currency}100,000. diBoaS deposits are not insured, though the systems we use have secured billions safely for years."
+      }
+    }
+  },
+  "finalCta": {
+    "header": "Ready to build your future?",
+    "body": "You've seen the math. You know what's possible.",
+    "body2": "The only question left: when do you start?",
+    "cta": "Join the waitlist — it's free →",
+    "secondary": "Every month you wait is growth you're missing.",
+    "position": "⏰ You're #{position} in line for early access"
+  },
+  "footer": {
+    "disclaimer": "This calculator provides projections only. The 8% rate is based on Safe Harbor strategy's expected performance range and is not guaranteed. The 0.5% bank rate is based on ECB average savings rates. Actual results will vary based on the strategy you choose, market conditions, and timing of deposits. Past performance does not guarantee future results. Your money is placed in automated systems that carry technical risk, market risk, and liquidity risk. diBoaS is not a bank and your funds are not insured. This is not financial advice."
+  }
+}

@@ -19,6 +19,36 @@ export interface WaitingListSubmission {
   readonly locale: SupportedLocale;
   readonly submittedAt: Date;
   readonly source: SubmissionSource;
+  // Kit.com integration fields
+  readonly kitSubscriberId?: string;
+  readonly position?: number;
+  readonly referralCode?: string;
+  readonly referredBy?: string;
+  readonly referralCount?: number;
+}
+
+// Waitlist Position tracking
+export interface WaitlistPosition {
+  readonly position: number;
+  readonly referralCode: string;
+  readonly referralCount: number;
+  readonly referralUrl: string;
+}
+
+// Referral tracking
+export interface ReferralInfo {
+  readonly referralCode: string;
+  readonly referredBy?: string;
+  readonly spotsPerReferral: number;
+}
+
+// Kit.com subscriber response
+export interface KitSubscriber {
+  readonly id: number;
+  readonly email: string;
+  readonly firstName?: string;
+  readonly fields?: Record<string, string | number | boolean>;
+  readonly createdAt: string;
 }
 
 export type SubmissionSource = 'marketing_site' | 'app_intercept';
@@ -45,6 +75,15 @@ export interface SubmissionResult {
   readonly id?: string;
   readonly error?: string;
   readonly isDuplicate?: boolean;
+  // Extended fields for Kit.com integration
+  readonly position?: number;
+  readonly referralCode?: string;
+  readonly referralUrl?: string;
+}
+
+// Extended submission input with referral tracking
+export interface ExtendedSubmissionInput extends SubmissionInput {
+  readonly referredBy?: string;
 }
 
 export interface ValidationResult {
@@ -78,7 +117,11 @@ export type WaitingListEventType =
   | 'submission-failed'
   | 'email-validated'
   | 'consent-recorded'
-  | 'duplicate-detected';
+  | 'duplicate-detected'
+  | 'position-assigned'
+  | 'referral-created'
+  | 'referral-used'
+  | 'position-updated';
 
 // Domain Errors
 export class WaitingListDomainError extends Error {
@@ -134,4 +177,18 @@ export interface WaitingListRepository {
   save(submission: WaitingListSubmission): Promise<SubmissionResult>;
   findByEmail(email: string): Promise<WaitingListSubmission | null>;
   exists(email: string): Promise<boolean>;
+  // Extended methods for position and referral tracking
+  getPosition(email: string): Promise<WaitlistPosition | null>;
+  findByReferralCode(referralCode: string): Promise<WaitingListSubmission | null>;
+  updatePosition(email: string, newPosition: number): Promise<void>;
+  incrementReferralCount(email: string): Promise<number>;
+}
+
+// Kit.com API Service Interface (Service Agnostic Abstraction)
+export interface KitApiService {
+  createSubscriber(email: string, fields?: Record<string, string | number | boolean>): Promise<KitSubscriber>;
+  getSubscriber(subscriberId: number): Promise<KitSubscriber | null>;
+  getSubscriberByEmail(email: string): Promise<KitSubscriber | null>;
+  addToForm(subscriberId: number, formId: string): Promise<void>;
+  updateSubscriberFields(subscriberId: number, fields: Record<string, string | number | boolean>): Promise<void>;
 }

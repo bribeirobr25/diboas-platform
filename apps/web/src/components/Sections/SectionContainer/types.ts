@@ -88,4 +88,9 @@ export interface SectionContainerProps {
    * Test ID for testing purposes
    */
   'data-testid'?: string;
+
+  /**
+   * HTML id attribute for scroll anchoring and deep linking
+   */
+  id?: string;
 }

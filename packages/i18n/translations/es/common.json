@@ -3,6 +3,12 @@
     "about": "Acerca de",
     "quickActions": "Acciones Rápidas",
     "back": "Atrás",
+    "landing": {
+      "forBusiness": "Para Empresas",
+      "strategies": "Estrategias",
+      "futureYou": "Tu Futuro",
+      "joinWaitlist": "Unirse a la Lista"
+    },
     "diboas": {
       "label": "diBoaS",
       "description": "Ecosistema financiero completo con banca, inversiones y DeFi en una sola plataforma",
@@ -91,7 +97,13 @@
       "primary": "Comenzar",
       "secondary": "Inicio de Sesión Empresarial"
     },
-    "joinWaitlist": "Unirse a la Lista"
+    "joinWaitlist": "Unirse a la Lista",
+    "tools": {
+      "calculator": "Calculadora",
+      "calculatorDescription": "Mira tu dinero crecer",
+      "dreamMode": "Modo Sueño",
+      "dreamModeDescription": "Visualiza tu futuro"
+    }
   },
   "buttons": {
     "getStarted": "Empezar Ahora",
@@ -248,6 +260,28 @@
       "duplicateEmail": "Este correo electrónico ya está en nuestra lista de espera",
       "submissionFailed": "Algo salió mal. Por favor, inténtalo de nuevo.",
       "storageError": "No se pudo guardar tu información. Por favor, inténtalo de nuevo."
+    },
+    "position": {
+      "label": "Tu Posición",
+      "spotsGained": "¡{spots} lugares ganados!",
+      "referrals": "Referidos",
+      "spotsPerReferral": "Lugares/Referido",
+      "yourCode": "Tu Código:"
     }
+  },
+  "share": {
+    "generating": "Generando tarjeta...",
+    "retry": "Intentar de nuevo",
+    "noCard": "No hay tarjeta disponible",
+    "cardAlt": "Vista previa de la tarjeta compartible",
+    "simulationBadge": "SIMULACIÓN",
+    "shareVia": "Compartir vía:",
+    "download": "Descargar"
+  },
+  "bookCall": {
+    "loading": "Cargando calendario...",
+    "notConfigured": "Calendario de reservas no configurado",
+    "contactUs": "Contáctanos directamente para programar una llamada",
+    "error": "No se pudo cargar el calendario"
   }
 }

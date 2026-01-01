@@ -1,0 +1,141 @@
+{
+  "disclaimer": {
+    "headline": "Before you dream...",
+    "body": "This is an educational projection using historical market data. The numbers shown are based on past performance and do not guarantee future results. No real money is involved.",
+    "bullets": {
+      "no_money": "No real money is involved",
+      "not_advice": "This is not financial advice",
+      "past_performance": "Past performance ≠ future results"
+    },
+    "checkbox": "I understand this is for educational purposes only",
+    "cta": "Enter Dream Mode",
+    "enhanced": {
+      "us": "IMPORTANT: This projection is for educational purposes only. It does not constitute an offer of securities, financial advice, or a recommendation to buy or sell any asset. Actual returns may vary significantly. Past performance does not guarantee future results.",
+      "brazil": "PROJEÇÃO EDUCACIONAL - Este recurso utiliza dados históricos apenas para fins ilustrativos. Não constitui oferta de investimento, promessa de retorno ou aconselhamento financeiro. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil (BCB)."
+    },
+    "card": "PROJECTION — Based on historical data. Not a guarantee. diboas.com"
+  },
+  "watermark": "PROJECTION",
+  "paths": {
+    "headline": "How do you feel about risk?",
+    "subhead": "There's no wrong answer — just different paths.",
+    "safety": {
+      "name": "Safety First",
+      "tagline": "I can't afford to lose this",
+      "description": "Steady returns. Your money stays stable. Sleep easy.",
+      "risk": "Minimal risk"
+    },
+    "balance": {
+      "name": "Balanced Growth",
+      "tagline": "Some risk for more reward",
+      "description": "A mix of stability and growth potential. The middle path.",
+      "risk": "Moderate risk"
+    },
+    "growth": {
+      "name": "Maximum Growth",
+      "tagline": "I want my money to work hard",
+      "description": "Higher potential, but expect bigger ups and downs.",
+      "risk": "Higher risk"
+    }
+  },
+  "welcome": {
+    "headline": "Want to see what your money could do?",
+    "subhead": "No real money. No commitment. Just possibilities.",
+    "feature1": "See how different approaches compare",
+    "feature2": "Watch your money grow over time",
+    "feature3": "Share your projection with friends",
+    "cta": "Let's explore",
+    "skip": "Maybe later",
+    "disclaimer": "This is a projection. Past performance does not guarantee future results."
+  },
+  "input": {
+    "headline": "How much would you start with?",
+    "subhead": "Remember: this is just a projection",
+    "initialAmount": "Starting amount",
+    "monthlyContribution": "Monthly contribution",
+    "helper": "Drag to set your starting amount",
+    "back": "Back",
+    "continue": "Show me what happens"
+  },
+  "timeframe": {
+    "headline": "How far into the future?",
+    "subhead": "Choose how long you want to see your money grow",
+    "option": {
+      "1week": "1 Week",
+      "1month": "1 Month",
+      "1year": "1 Year",
+      "5years": "5 Years"
+    },
+    "back": "Back",
+    "startSimulation": "Show me what happens"
+  },
+  "simulation": {
+    "watermark": "PROJECTION",
+    "growing": "Your money is growing...",
+    "timeframe": {
+      "1week": "1 Week",
+      "1month": "1 Month",
+      "1year": "1 Year",
+      "5years": "5 Years"
+    }
+  },
+  "results": {
+    "watermark": "PROJECTION",
+    "headline": "Your €{amount} could become...",
+    "subhead": "Your potential growth in {timeframe}",
+    "withDiboas": "With diBoaS",
+    "traditionalBank": "Your bank would give you:",
+    "differenceLabel": "That's {difference} MORE with diBoaS",
+    "differenceNote": "Same money. Different place. Big difference.",
+    "timeframe": {
+      "1week": "1 week",
+      "1month": "1 month",
+      "1year": "1 year",
+      "5years": "5 years"
+    },
+    "bank_source": "Based on 0.5% average savings rate. Source: ECB Statistics.",
+    "back": "Try another path",
+    "shareResults": "Share my dream"
+  },
+  "postDream": {
+    "headline": "You're #{position} on the waitlist",
+    "subhead": "The sooner we launch, the sooner this becomes real.",
+    "ctaShare": "Share to move up",
+    "ctaExplore": "Explore more"
+  },
+  "share": {
+    "headline": "Nice dream!",
+    "subhead": "Share your potential growth with friends",
+    "yourGrowth": "Your potential balance",
+    "in": {
+      "1week": "in 1 week",
+      "1month": "in 1 month",
+      "1year": "in 1 year",
+      "5years": "in 5 years"
+    },
+    "shareYourDream": "Share my dream",
+    "shareText": "In Dream Mode, I could grow €{start} → €{end} in {timeframe}. My bank? Only €{bank}. #WhileISlept diboas.com",
+    "joinWaitlist": "Join the Waitlist",
+    "tryAgain": "Try Different Numbers",
+    "disclaimer": "Projection based on historical data. Past performance does not guarantee future results."
+  },
+  "card": {
+    "watermark": "PROJECTION",
+    "mainText": "In Dream Mode, I could grow",
+    "bankComparison": "My bank would have given me:",
+    "cta": "Ready to stop dreaming?",
+    "url": "diboas.com",
+    "disclaimer": "Based on historical data. Past performance ≠ future results.",
+    "hashtag": "#WhileISlept"
+  },
+  "gate": {
+    "title": "Dream Mode is for Waitlist Members",
+    "description": "Join our waitlist to unlock Dream Mode and see what your money could become. It only takes 30 seconds.",
+    "cta": "Join the Waitlist",
+    "back": "Back to Home"
+  },
+  "navigation": {
+    "label": "Dream Mode",
+    "description": "See what your money could become"
+  }
+}

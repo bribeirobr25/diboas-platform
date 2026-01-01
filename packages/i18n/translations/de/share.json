@@ -1,0 +1,78 @@
+{
+  "headline": "Teilen Sie Ihren Traum",
+  "subhead": "Zeigen Sie anderen, was möglich ist",
+  "modal": {
+    "title": "Teilen",
+    "close": "Schließen",
+    "shareVia": "Teilen über",
+    "copyLink": "Link kopieren",
+    "copied": "Kopiert!",
+    "download": "Bild herunterladen",
+    "generating": "Ihre Karte wird erstellt...",
+    "noPreview": "Keine Vorschau verfügbar"
+  },
+  "platform": {
+    "instagram": "Instagram",
+    "twitter": "X / Twitter",
+    "whatsapp": "WhatsApp",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "telegram": "Telegram",
+    "download": "Bild herunterladen",
+    "copy": "Link kopieren",
+    "copyLink": "Link kopieren",
+    "native": "Teilen..."
+  },
+  "toast": {
+    "linkCopied": "Link kopiert!",
+    "downloadStarted": "Wird heruntergeladen...",
+    "downloadComplete": "Bild gespeichert!",
+    "shareSuccess": "Geteilt!",
+    "shareFailed": "Teilen nicht möglich. Versuchen Sie den Download.",
+    "shareCancelled": "Teilen abgebrochen"
+  },
+  "instagramInstructions": "Bild gespeichert! Öffnen Sie Instagram und teilen Sie aus Ihrer Galerie.",
+  "card": {
+    "cta": "Sehen Sie, was Ihres erreichen könnte →",
+    "generating": "Ihre Karte wird erstellt...",
+    "ready": "Ihre Karte ist fertig!"
+  },
+  "referral": {
+    "intro": "Ihr persönlicher Link:",
+    "benefit": "Jede Anmeldung = {spots} Plätze nach vorne",
+    "copied": "Link in die Zwischenablage kopiert!"
+  },
+  "dreamMode": {
+    "twitter": "Im Dream Mode könnte ich {start} -> {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. #WhileISlept diboas.com",
+    "whatsapp": "Schau dir das an — im Dream Mode habe ich gesehen, was aus meinen {start} werden könnte: {end} in {timeframe}. Meine Bank würde mir {bank} geben. Schau, was deines erreichen könnte: diboas.com #WhileISlept",
+    "linkedin": "Ich habe gerade erkundet, was aus meinen Ersparnissen mit verschiedenen Strategien werden könnte. Die Lücke zwischen traditionellem Banking (0,5%) und dem, was tatsächlich möglich ist, ist erstaunlich. Probieren Sie es selbst: diboas.com #WhileISlept"
+  },
+  "waitlistPosition": {
+    "twitter": "Ich bin #{position} auf der @diBoaS-Warteliste. Banken verdienen 7% mit unseren Ersparnissen. Sie zahlen uns 0,5%. Diese Lücke? Die war schon immer da. #WhileISlept",
+    "whatsapp": "Ich bin gerade der diBoaS-Warteliste beigetreten (#{position}). Wussten Sie, dass Banken 7% mit unseren Ersparnissen verdienen, uns aber nur 0,5% zahlen? Schauen Sie es sich an: {referralUrl}"
+  },
+  "dreamCard": {
+    "watermark": "PROJEKTION",
+    "headline": "IM DREAM MODE KÖNNTE ICH WACHSEN",
+    "timeframePrefix": "in",
+    "bankComparison": "Meine Bank hätte mir gegeben:",
+    "cta": "Bereit, aufzuhören zu träumen?",
+    "url": "diboas.com",
+    "disclaimer": "Basierend auf historischen Daten. Vergangene Performance ≠ zukünftige Ergebnisse.",
+    "hashtag": "#WhileISlept"
+  },
+  "waitlistCard": {
+    "headline": "ICH BIN #{position} AUF DER DIBOAS-WARTELISTE",
+    "bodyLine1": "Banken verdienen 7% mit unseren Ersparnissen.",
+    "bodyLine2": "Sie zahlen uns 0,5%.",
+    "bodyLine3": "Diese Lücke? Die war schon immer da.",
+    "ctaIntro": "Machen Sie mit:",
+    "hashtag": "#WhileISlept"
+  },
+  "timeframes": {
+    "1week": "1 Woche",
+    "1month": "1 Monat",
+    "1year": "1 Jahr",
+    "5years": "5 Jahren"
+  }
+}

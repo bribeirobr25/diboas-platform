@@ -1,0 +1,141 @@
+{
+  "disclaimer": {
+    "headline": "Bevor Sie träumen...",
+    "body": "Dies ist eine Bildungsprojektion mit historischen Marktdaten. Die gezeigten Zahlen basieren auf vergangener Performance und garantieren keine zukünftigen Ergebnisse. Es ist kein echtes Geld beteiligt.",
+    "bullets": {
+      "no_money": "Kein echtes Geld beteiligt",
+      "not_advice": "Dies ist keine Finanzberatung",
+      "past_performance": "Vergangene Performance ≠ zukünftige Ergebnisse"
+    },
+    "checkbox": "Ich verstehe, dass dies nur zu Bildungszwecken dient",
+    "cta": "Dream Mode starten",
+    "enhanced": {
+      "us": "WICHTIG: Diese Projektion dient nur zu Bildungszwecken. Sie stellt kein Angebot von Wertpapieren, keine Finanzberatung oder Empfehlung zum Kauf oder Verkauf dar. Tatsächliche Ergebnisse können erheblich abweichen. Vergangene Performance garantiert keine zukünftigen Ergebnisse.",
+      "brazil": "PROJEÇÃO EDUCACIONAL - Este recurso utiliza dados históricos apenas para fins ilustrativos. Não constitui oferta de investimento, promessa de retorno ou aconselhamento financeiro. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil (BCB)."
+    },
+    "card": "PROJEKTION — Basierend auf historischen Daten. Keine Garantie. diboas.com"
+  },
+  "watermark": "PROJEKTION",
+  "paths": {
+    "headline": "Wie stehen Sie zu Risiko?",
+    "subhead": "Es gibt keine falsche Antwort — nur verschiedene Wege.",
+    "safety": {
+      "name": "Sicherheit zuerst",
+      "tagline": "Das darf ich nicht verlieren",
+      "description": "Stabile Renditen. Ihr Geld bleibt stabil. Ruhig schlafen.",
+      "risk": "Minimales Risiko"
+    },
+    "balance": {
+      "name": "Ausgewogenes Wachstum",
+      "tagline": "Etwas Risiko für mehr Ertrag",
+      "description": "Eine Mischung aus Stabilität und Wachstumspotenzial. Der Mittelweg.",
+      "risk": "Moderates Risiko"
+    },
+    "growth": {
+      "name": "Maximales Wachstum",
+      "tagline": "Mein Geld soll hart arbeiten",
+      "description": "Höheres Potenzial, aber erwarten Sie größere Schwankungen.",
+      "risk": "Höheres Risiko"
+    }
+  },
+  "welcome": {
+    "headline": "Möchten Sie sehen, was Ihr Geld erreichen könnte?",
+    "subhead": "Kein echtes Geld. Keine Verpflichtung. Nur Möglichkeiten.",
+    "feature1": "Sehen Sie, wie verschiedene Ansätze abschneiden",
+    "feature2": "Beobachten Sie Ihr Geld über Zeit wachsen",
+    "feature3": "Teilen Sie Ihre Projektion mit Freunden",
+    "cta": "Los geht's",
+    "skip": "Vielleicht später",
+    "disclaimer": "Dies ist eine Projektion. Vergangene Ergebnisse garantieren keine zukünftigen Ergebnisse."
+  },
+  "input": {
+    "headline": "Mit wie viel würden Sie starten?",
+    "subhead": "Denken Sie daran: Dies ist nur eine Projektion",
+    "initialAmount": "Startbetrag",
+    "monthlyContribution": "Monatliche Einzahlung",
+    "helper": "Ziehen Sie, um Ihren Startbetrag festzulegen",
+    "back": "Zurück",
+    "continue": "Zeig mir, was passiert"
+  },
+  "timeframe": {
+    "headline": "Wie weit in die Zukunft?",
+    "subhead": "Wählen Sie, wie lange Sie Ihr Geld wachsen sehen möchten",
+    "option": {
+      "1week": "1 Woche",
+      "1month": "1 Monat",
+      "1year": "1 Jahr",
+      "5years": "5 Jahre"
+    },
+    "back": "Zurück",
+    "startSimulation": "Zeig mir, was passiert"
+  },
+  "simulation": {
+    "watermark": "PROJEKTION",
+    "growing": "Ihr Geld wächst...",
+    "timeframe": {
+      "1week": "1 Woche",
+      "1month": "1 Monat",
+      "1year": "1 Jahr",
+      "5years": "5 Jahre"
+    }
+  },
+  "results": {
+    "watermark": "PROJEKTION",
+    "headline": "Ihre €{amount} könnten werden...",
+    "subhead": "Ihr potenzielles Wachstum in {timeframe}",
+    "withDiboas": "Mit diBoaS",
+    "traditionalBank": "Ihre Bank würde Ihnen geben:",
+    "differenceLabel": "Das sind {difference} MEHR mit diBoaS",
+    "differenceNote": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
+    "timeframe": {
+      "1week": "1 Woche",
+      "1month": "1 Monat",
+      "1year": "1 Jahr",
+      "5years": "5 Jahren"
+    },
+    "bank_source": "Basierend auf 0,5% durchschnittlichem Sparzins. Quelle: EZB-Statistik.",
+    "back": "Anderen Weg probieren",
+    "shareResults": "Meinen Traum teilen"
+  },
+  "postDream": {
+    "headline": "Sie sind #{position} auf der Warteliste",
+    "subhead": "Je früher wir starten, desto eher wird das Realität.",
+    "ctaShare": "Teilen und aufsteigen",
+    "ctaExplore": "Mehr entdecken"
+  },
+  "share": {
+    "headline": "Schöner Traum!",
+    "subhead": "Teilen Sie Ihr potenzielles Wachstum mit Freunden",
+    "yourGrowth": "Ihr potenzieller Kontostand",
+    "in": {
+      "1week": "in 1 Woche",
+      "1month": "in 1 Monat",
+      "1year": "in 1 Jahr",
+      "5years": "in 5 Jahren"
+    },
+    "shareYourDream": "Meinen Traum teilen",
+    "shareText": "Im Dream Mode könnte ich €{start} → €{end} in {timeframe} wachsen lassen. Meine Bank? Nur €{bank}. #WhileISlept diboas.com",
+    "joinWaitlist": "Auf die Warteliste",
+    "tryAgain": "Andere Zahlen probieren",
+    "disclaimer": "Projektion basierend auf historischen Daten. Vergangene Performance garantiert keine zukünftigen Ergebnisse."
+  },
+  "card": {
+    "watermark": "PROJEKTION",
+    "mainText": "Im Dream Mode könnte ich wachsen",
+    "bankComparison": "Meine Bank hätte mir gegeben:",
+    "cta": "Bereit, aufzuhören zu träumen?",
+    "url": "diboas.com",
+    "disclaimer": "Basierend auf historischen Daten. Vergangene Performance ≠ zukünftige Ergebnisse.",
+    "hashtag": "#WhileISlept"
+  },
+  "gate": {
+    "title": "Dream Mode ist für Wartelisten-Mitglieder",
+    "description": "Treten Sie unserer Warteliste bei, um den Dream Mode freizuschalten und zu sehen, was aus Ihrem Geld werden könnte. Es dauert nur 30 Sekunden.",
+    "cta": "Auf die Warteliste",
+    "back": "Zurück zur Startseite"
+  },
+  "navigation": {
+    "label": "Dream Mode",
+    "description": "Sehen Sie, was aus Ihrem Geld werden könnte"
+  }
+}

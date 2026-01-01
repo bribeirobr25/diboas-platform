@@ -1,64 +1,73 @@
 {
   "hero": {
-    "headline": "Tu banco está ganando 7% con la tesorería de tu startup.\nTe paga 0%.",
-    "revelation": "Tu banco está ganando 7% con tu dinero.\nTe paga 0%.",
-    "uncomfortableTruth": "Tu banco está ganando 7% con tu dinero. Te paga 0%.",
-    "impact": "Con €500K, son €35,000 al año sobre la mesa.",
-    "valueProp": "diBoaS Treasury: 6-8% de rendimiento sobre efectivo operativo.\nLiquidez en el mismo día. Sin bloqueos. Regulado en la UE.",
-    "cta": "Veamos tus números →",
-    "socialProof": {
-      "quote": "Bar me explicó la matemática. Cuando lo ves, es obvio.",
-      "author": "Fundador, startup Series A"
-    },
+    "headlineLine1": "Tu banco invierte la tesorería de tu startup.",
+    "headlineLine2": "Gana millones.",
+    "headlineLine3": "No te da nada.",
+    "headline": "Tu banco invierte la tesorería de tu startup. Gana millones. No te da nada.",
+    "subheadline": "Con €500K, son €35,000/año sobre la mesa. Mientras te cobran comisiones por el privilegio.",
+    "valueProp": "diBoaS Treasury: Mejores rendimientos. Pagos instantáneos. Cero comisiones. Liquidez el mismo día. Regulado en la UE.",
+    "cta": "Mira lo que descubrí →",
     "trustBadges": {
-      "mica": "Compatible con MiCA",
-      "nonCustodial": "Non-custodial",
-      "audited": "Protocolos auditados",
-      "boardReady": "Reportes listos para el board"
+      "mica": {
+        "label": "Regulado en UE (MiCA)",
+        "tooltip": "Operando bajo el marco de Markets in Crypto-Assets de la UE"
+      },
+      "nonCustodial": {
+        "label": "Tus fondos, tu billetera",
+        "tooltip": "Nunca guardamos tu dinero — permanece en tu propia billetera"
+      },
+      "audited": {
+        "label": "Auditado independientemente",
+        "tooltip": "Todos los sistemas verificados por firmas de seguridad externas"
+      },
+      "boardReady": {
+        "label": "Reportes listos para el board",
+        "tooltip": "Estados mensuales que tu CFO realmente entenderá"
+      }
     }
   },
-  "problem": {
-    "header": "💡 La cuenta que nadie te muestra",
-    "body": "Levantaste €2M. Lo gastarás en 18 meses.\nEso significa que €1M+ está en tu cuenta en cualquier momento.\n\nEsto es lo que está pasando con ese dinero:",
-    "tableHeader": {
-      "col1": "",
-      "col2": "Tu Banco",
-      "col3": "Con diBoaS"
-    },
-    "tableRows": {
-      "balance": {
-        "label": "Tu saldo",
-        "bank": "€1.000.000",
-        "diboas": "€1.000.000"
+  "theMath": {
+    "header": "La cuenta que nadie te muestra",
+    "intro": "Levantaste €2M. Lo gastarás en 18 meses. Eso significa que €1M+ está en tu cuenta en cualquier momento.\n\nEsto es lo que está pasando con ese dinero:",
+    "table": {
+      "headers": {
+        "metric": "",
+        "bank": "Tu Banco",
+        "diboas": "Con diBoaS"
       },
-      "theyEarn": {
-        "label": "Lo que ellos ganan con eso",
-        "bank": "€70.000/año",
-        "diboas": "—"
-      },
-      "youEarn": {
-        "label": "Lo que tú ganas",
-        "bank": "€5.000/año",
-        "diboas": "€70.000/año"
-      },
-      "difference": {
-        "label": "La diferencia",
-        "bank": "Ellos se quedan €65.000",
-        "diboas": "Tú te quedas €65.000"
+      "rows": {
+        "balance": {
+          "label": "Tu saldo",
+          "bank": "€1.000.000",
+          "diboas": "€1.000.000"
+        },
+        "theyEarn": {
+          "label": "Lo que ganan",
+          "bank": "€70.000/año",
+          "diboas": "—"
+        },
+        "youEarn": {
+          "label": "Lo que ganas tú",
+          "bank": "€5.000/año",
+          "diboas": "€70.000/año"
+        },
+        "difference": {
+          "label": "La diferencia",
+          "bank": "Ellos se quedan €65.000",
+          "diboas": "Tú te quedas €65.000"
+        }
       }
     },
-    "bankPays": "Tu banco paga: 0,5% = €5.000/año",
-    "bankEarns": "Tu banco gana: 7% = €70.000/año con TU dinero",
-    "diboasPays": "diBoaS paga: 7% = €70.000/año para TI",
-    "runway": "Son €65.000 en runway potencial.",
-    "insight": "Los bancos no están haciendo nada malo. Están haciendo exactamente lo que fueron diseñados para hacer — ganar dinero con tu dinero.\n\n**La pregunta es: ¿quieres esos €65,000, o estás bien con que el banco se los quede?**",
+    "insight": "Esos €65.000 son runway. Es una contratación extra. Son seis meses más para encontrar product-market fit.",
+    "question": "¿Quieres ese dinero, o estás bien con que el banco se lo quede?",
     "cta": "Calcula tus números →"
   },
-  "whyWeBuiltThis": {
-    "header": "La misma brecha, diferente escala",
-    "story": "Mi abuela guardó la mitad de todo lo que ganó. Toda su vida. Aun así no fue suficiente.\n\nPasé tres años entendiendo por qué. La respuesta era simple: la brecha entre lo que los bancos ganan y lo que pagan. Ella ahorró €1,000, ellos ganaron €70, le dieron €5. Los otros €65 eran suyos.\n\n**Lo mismo está pasando con la tesorería de tu startup ahora mismo.**\n\nLevantaste capital. Está en una cuenta empresarial sin ganar nada. Tu banco lo está poniendo a trabajar — para ellos.\n\nMi abuela no podía acceder a mejores tasas. Tú sí puedes.\n\nPor eso estoy construyendo diBoaS.",
-    "mission": "diBoaS es lo que hubiera deseado que existiera para ella. Para fundadores, puede existir ahora.",
-    "belief": "diBoaS Treasury existe porque el campo de juego debería estar nivelado. Ya seas una abuela en Río de Janeiro o un fundador en Berlín.",
+  "origin": {
+    "header": "Por mi abuela",
+    "body": "Mi abuela me enseñó a ahorrar. Me dijo que intentara guardar la mitad de todo lo que ganara. Ella hizo eso toda su vida.\n\nLo intentó todo. Trabajar duro. Comprar solo lo básico. Tratar de ahorrar.\n\nAun así, no funcionó.\n\n¿Te suena familiar?\n\nEsto es lo que nadie le dijo: Su banco le pagaba 0,5% de interés mientras ganaba 7% con su dinero.\n\nEl mismo banco está haciendo eso con todos nosotros. Incluyendo tu startup.\n\n¿Esos €1,000 que ella ahorró? El banco ganó €70 con ellos y le devolvió €5. ¿Los otros €65? Eran suyos.\n\nLo mismo está pasando con tu tesorería ahora mismo.\n\nMi abuela no podía acceder a mejores tasas. El sistema no fue construido para personas como ella.\n\n¿Pero los fundadores? Ustedes tienen opciones. Solo necesitan saber que existen.\n\nPor eso estoy construyendo diBoaS.",
+    "treasuryImpact": "Lo mismo está pasando con tu tesorería ahora mismo.",
+    "founderOptions": "¿Pero los fundadores? Ustedes tienen opciones. Solo necesitan saber que existen.",
+    "whyBuilding": "Por eso estoy construyendo diBoaS.",
     "signature": "— Bar, Fundador"
   },
   "calculator": {
@@ -69,8 +78,9 @@
       "bankEarns": "Lo que tu banco gana con tu dinero",
       "bankPays": "Lo que tu banco te paga",
       "diboasPays": "Lo que diBoaS te pagaría",
-      "projectedYield": "Rendimiento proyectado diBoaS (7%)",
-      "currentInterest": "Tu interés actual",
+      "difference": "La diferencia",
+      "projectedYield": "Lo que diBoaS te pagaría",
+      "currentInterest": "Lo que tu banco te paga",
       "additionalRunway": "La diferencia"
     },
     "defaults": {
@@ -78,7 +88,7 @@
       "currentRate": "0.5"
     },
     "perYear": "/año",
-    "insight": "Esos €32,500 son runway. Es una contratación extra. Son seis meses más para encontrar product-market fit.\n\nEs tuyo si lo quieres.",
+    "insight": "Esos €32.500 son runway. Es dinero real — no teórico.\n\nTuyo si lo quieres.",
     "cta": "Hablemos de esto →"
   },
   "howItWorks": {
@@ -86,202 +96,170 @@
     "steps": {
       "connect": {
         "title": "Conectar",
-        "description": "Vincula tu cuenta bancaria empresarial. Configuración de 2 minutos. Sin integración técnica."
+        "description": "Vincula tu cuenta empresarial. Configuración de 2 minutos. Sin integración técnica necesaria."
       },
-      "allocate": {
-        "title": "Establecer umbral",
-        "description": "Elige tu piso de liquidez (ej: \"siempre mantener €50K disponibles\"). Nunca desplegamos por debajo de eso. Nunca te quedas corto."
+      "setFloor": {
+        "title": "Establece tu piso",
+        "description": "Dinos tu umbral de liquidez — \"siempre mantener €50K disponibles.\" Solo desplegamos por encima de eso. Nunca te quedas corto."
       },
       "earn": {
         "title": "Ganar",
-        "description": "El efectivo sobre tu umbral gana 6-8% APY a través de protocolos DeFi probados. Las mismas tasas que los bancos ganan — ahora tuyas."
+        "description": "El efectivo sobre tu umbral gana 6-8% de retorno anual a través de sistemas institucionales probados. Las mismas tasas que ganan los bancos — ahora tuyas."
       },
       "withdraw": {
         "title": "Retirar",
         "description": "¿Necesitas efectivo? Un clic. Liquidación el mismo día. Sin bloqueos. Sin penalizaciones. Sin preguntas."
       }
     },
-    "footerNote": "Estados mensuales para tu contador. Reportes listos para el board incluidos. Sin jerga cripto."
+    "footer": "Estados mensuales. Reportes listos para el board. Lenguaje claro — sin jerga."
   },
-  "trust": {
-    "header": "Para equipos que necesitan los detalles",
-    "points": {
-      "euRegulated": {
-        "title": "Regulado en la UE",
-        "description": "Operamos bajo el marco MiCA con autorización CASP pendiente.\n\nLo que significa: supervisión regulatoria, requisitos de reporte, responsabilidad. Estamos construyendo para compliance desde el día uno."
-      },
-      "nonCustodial": {
-        "title": "Non-Custodial",
-        "description": "Una distinción importante: nunca guardamos tus fondos.\n\nTu dinero permanece en tu propia wallet. Solo proporcionamos la interfaz para desplegarlo. Incluso si diBoaS desapareciera mañana, tus fondos siguen accesibles."
-      },
-      "audited": {
-        "title": "Protocolos Auditados",
-        "description": "Solo usamos protocolos con $10B+ en activos asegurados y múltiples auditorías de seguridad independientes.\n\n¿Son lo mismo que depósitos bancarios? No. ¿Son infraestructura probada en batalla? Sí. Los mismos protocolos que usan las instituciones."
-      },
-      "transparent": {
-        "title": "Reportes Transparentes",
-        "description": "Estados mensuales. Dashboard en tiempo real. Registro de auditoría completo.\n\nTu CFO lo entenderá. Tu board lo apreciará."
-      },
-      "boardReady": {
-        "title": "Listo para el Board",
-        "description": "Reportes profesionales que tu CFO y board entenderán. Sin jerga cripto."
+  "features": {
+    "header": "Más que rendimiento. Todo lo que tu tesorería necesita.",
+    "intro": "El rendimiento es el titular. Pero esto puede importar aún más para tu negocio.",
+    "instantPayments": {
+      "headline": "Paga a cualquiera. Al instante. Sin comisiones.",
+      "body": "¿Pagando a contratistas en Argentina? ¿Un proveedor en Alemania? ¿Un freelancer en Singapur?\n\nTransferencias tradicionales: €25-50 por transacción. 2-5 días hábiles. Margen en tipo de cambio.\n\nCon diBoaS: €0 comisiones. Liquidado en segundos. Tipo de cambio real.",
+      "example": {
+        "before": "Transferencia de €500 a contratista = €475 recibidos (después de comisiones + spread)",
+        "after": "€500 enviados = €500 recibidos"
+      }
+    },
+    "receivePayments": {
+      "headline": "Cobra más rápido. Quédate con más.",
+      "body": "Tus clientes pueden pagarte al instante — desde cualquier lugar del mundo. Sin procesador de pagos llevándose 2,9% + €0,30. Sin esperar 3-5 días para liquidación.",
+      "example": {
+        "before": "Factura de €10.000 → €9.700 después de comisiones de Stripe → disponible en 3 días",
+        "after": "Factura de €10.000 → €10.000 recibidos → disponible inmediatamente"
+      }
+    },
+    "cashflowOptimization": {
+      "headline": "Tu efectivo trabaja 24/7. Incluso cuando tú no.",
+      "body": "La mayoría de las cuentas empresariales no pagan nada durante la noche. Tus €500K simplemente... están ahí.\n\nCon diBoaS, el efectivo inactivo gana rendimientos continuamente. Cada hora. Cada día. Incluyendo fines de semana y festivos.",
+      "example": {
+        "label": "€500K durante la noche por 30 días:",
+        "bank": "€0-20",
+        "diboas": "~€2.500"
+      }
+    },
+    "overnightSweep": {
+      "headline": "Optimización nocturna automática",
+      "body": "Al final del día hábil, tu efectivo se mueve automáticamente a sistemas de generación de rendimiento. Al inicio del día hábil, está de vuelta y líquido.\n\nTú estableces el piso. Nosotros manejamos el resto.",
+      "schedule": {
+        "evening": "6 PM: Efectivo sobre umbral → sistemas de rendimiento",
+        "morning": "9 AM: Liquidez total restaurada",
+        "you": "Tú: No haces nada"
       }
     }
   },
-  "whoIsThisFor": {
-    "header": "¿Es esto correcto para ti?",
+  "trust": {
+    "header": "Para equipos que necesitan los detalles",
+    "euRegulated": {
+      "title": "Regulado en la UE",
+      "description": "Operamos bajo el marco MiCA de la UE con autorización pendiente.",
+      "translation": "Traducción: supervisión regulatoria, requisitos de reporte, responsabilidad."
+    },
+    "nonCustodial": {
+      "title": "Tu Dinero, Tu Wallet",
+      "description": "Nunca guardamos tus fondos. Tu dinero permanece en tu propia wallet.",
+      "details": "Incluso si diBoaS desapareciera mañana, tus fondos siguen siendo tuyos. Esto es diferente de las finanzas tradicionales — literalmente no podemos tocar tu dinero sin tu aprobación."
+    },
+    "audited": {
+      "title": "Auditado Independientemente",
+      "description": "Solo usamos sistemas que tienen:",
+      "points": [
+        "Asegurado €10B+ durante años sin incidentes graves",
+        "Múltiples auditorías de seguridad independientes",
+        "Operaciones transparentes que puedes verificar"
+      ],
+      "note": "La misma infraestructura que usan las instituciones."
+    },
+    "reporting": {
+      "title": "Reportes Transparentes",
+      "description": "Estados mensuales. Dashboard en tiempo real. Registro de auditoría completo.",
+      "note": "Tu CFO lo entenderá. Tu board lo apreciará."
+    }
+  },
+  "fitAssessment": {
+    "header": "Evaluación honesta de fit",
     "goodFit": {
-      "title": "Buena Opción",
-      "description": "€50K+ en efectivo operativo. 12-24 meses de runway que vas gastando poco a poco. Equipo financiero que quiere reportes profesionales. Cómodo con riesgo calculado para mejores retornos.",
+      "title": "Buen Fit",
       "items": [
         "€50K+ en efectivo operativo",
         "12-24 meses de runway que vas gastando poco a poco",
-        "Equipo financiero que quiere reportes profesionales",
+        "Equipo que quiere reportes reales",
+        "Interesado en pagos más rápidos y baratos",
         "Cómodo con riesgo calculado para mejores retornos"
       ]
     },
     "notAFit": {
-      "title": "No es Ideal",
-      "description": "Necesitas 100% del efectivo disponible inmediatamente todo el tiempo. Cero tolerancia al riesgo (los rendimientos DeFi implican riesgo de smart contract). Buscas retornos garantizados (las tasas son variables).",
+      "title": "No es un Fit",
       "items": [
-        "Necesitas 100% del efectivo disponible inmediatamente todo el tiempo",
-        "Cero tolerancia al riesgo (los rendimientos DeFi implican riesgo de smart contract)",
-        "Buscas retornos garantizados (las tasas son variables)"
+        "Necesitas 100% del efectivo inmediatamente accesible todo el tiempo",
+        "Cero tolerancia al riesgo (incluso para efectivo inactivo)",
+        "Buscas retornos garantizados"
       ]
     },
-    "honestNote": "Prefiero decirte que esto no es correcto para ti que convencerte de hacer algo que no encaja. Si necesitas certeza, una cuenta bancaria — incluso al 0,5% — puede ser la opción correcta.\n\nPero si estás cómodo con riesgo calculado para 14x mejores retornos, hablemos."
+    "honestNote": "Prefiero decirte que esto no es correcto para ti que convencerte de hacer algo que no encaja.\n\nSi necesitas certeza por encima de todo, una cuenta bancaria — incluso al 0,5% — puede ser la opción correcta.\n\nPero si estás cómodo con riesgo calculado para 14x mejores retornos Y quieres pagos globales instantáneos? Hablemos."
   },
-  "useCases": {
-    "header": "¿Quién usa diBoaS Treasury?",
-    "cases": {
-      "postFundraise": {
-        "title": "Post-Levantamiento",
-        "description": "¿Acabas de cerrar una ronda? Pon ese capital a trabajar mientras contratas y escalas.",
-        "quote": "Teníamos €3M en una cuenta bancaria sin ganar nada por 6 meses. Fueron €100K de rendimiento perdido."
+  "faq": {
+    "header": "Cosas que vale la pena saber",
+    "description": "Respuestas a preguntas comunes sobre gestión de tesorería con diBoaS.",
+    "ctaText": "Agendar una conversación",
+    "items": {
+      "catch": {
+        "question": "¿Cuál es la trampa?",
+        "answer": "Así es como ganamos dinero:\n\nComisión del 0,9% cuando retiras rendimientos. Si ganas €10.000, nos quedamos con €90. Si no ganas nada, no ganamos nada.\n\nEso es todo. Sin comisiones ocultas. Sin saldos mínimos.\n\nLa \"trampa\" en tu configuración actual? Tu banco gana 7% con tu dinero y te paga 0,5%. Esa diferencia de €65.000 sobre €1M? Ese es todo su modelo de negocio.\n\nAhora has visto la cuenta."
       },
-      "betweenRounds": {
-        "title": "Entre Rondas",
-        "description": "Extiende runway entre rondas de financiación ganando sobre tus reservas.",
-        "quote": "Los €40K/año extras son básicamente una contratación junior gratis."
+      "liquidity": {
+        "question": "¿Qué tan líquido es realmente?",
+        "answer": "Déjame ser específico:\n\nRetiro el mismo día. Solicita antes de las 2 PM CET, fondos en tu cuenta al final del día.\n\nSin bloqueos. Tu dinero no está comprometido.\n\nTú estableces el piso. \"Siempre mantener €50K líquidos\" — solo desplegamos lo que está por encima de eso.\n\nLa mayoría de las herramientas de tesorería te hacen elegir: rendimiento O liquidez. Nosotros te damos ambos."
       },
-      "operatingReserves": {
-        "title": "Reservas Operativas",
-        "description": "Mantén la nómina cubierta mientras el efectivo excedente gana rendimiento.",
-        "quote": "Establecimos un piso de €100K. Todo lo de arriba gana 7%. Simple."
+      "risk": {
+        "question": "¿Cuál es el riesgo real?",
+        "answer": "Seamos honestos sobre esto:\n\nRiesgo de sistemas automatizados: Los sistemas donde va tu dinero están construidos con código. El código puede tener vulnerabilidades.\n\nCómo lo mitigamos:\n- Solo sistemas con €10B+ en valor total asegurado\n- Múltiples auditorías de seguridad independientes\n- Años de historial a través de eventos de mercado\n- Tu dinero distribuido en múltiples sistemas independientes\n\n¿Riesgo cero? No. Nada lo es — incluyendo tu banco.\n\nLa pregunta real: ¿Valen 14x mejores retornos un perfil de riesgo diferente?\n\nPara algunos fundadores, sí. Para otros, no. Ambos son válidos."
+      },
+      "payments": {
+        "question": "¿Cómo funcionan los pagos instantáneos?",
+        "answer": "Las transferencias tradicionales pasan por bancos corresponsales. Tu banco → su banco → tal vez otro banco → banco del destinatario. Cada paso toma tiempo y cobra comisiones.\n\nCon diBoaS, los pagos van directos. Tu wallet → su wallet. Listo.\n\nResultado: Tu freelancer en Buenos Aires cobra en su moneda local, el mismo día, al tipo de cambio real, por €0 en comisiones."
+      },
+      "compliance": {
+        "question": "¿Y el compliance?",
+        "answer": "Construimos diBoaS para negocios reales con necesidades reales de compliance:\n\n- Estados mensuales formateados para tu software de contabilidad\n- Historial de transacciones con registro de auditoría completo\n- Documentación fiscal al final del año\n- Reportes listos para el board que tu CFO realmente entenderá\n\nSabemos que eventualmente te van a auditar. Nos aseguramos de que estés listo."
+      },
+      "whereMoneyGoes": {
+        "question": "¿A dónde va realmente mi dinero?",
+        "answer": "Tu dinero se coloca en sistemas probados de generación de rendimiento. Estos son:\n\n- Establecidos: Operando por 3+ años\n- Probados en batalla: Sobrevivieron múltiples crashes de mercado\n- Transparentes: Puedes ver exactamente dónde están tus fondos en cualquier momento\n- Auditados independientemente: Seguridad verificada por terceros\n\nUna vez que seas cliente, verás todos los detalles de cada sistema — nombres, historiales y por qué los elegimos.\n\nEstamos felices de ser transparentes con los clientes. Simplemente no publicamos nuestra estrategia exacta para los competidores."
+      },
+      "whyCantTouch": {
+        "question": "¿Por qué no pueden tocar mi dinero?",
+        "answer": "Este es en realidad todo el punto de cómo estamos construidos.\n\nFinanzas tradicionales: Depositas dinero → se convierte en dinero del banco → te deben un saldo.\n\ndiBoaS: Tu dinero permanece en tu propia wallet. Proporcionamos el software que te ayuda a desplegarlo en sistemas de rendimiento. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nPor qué esto importa:\n- Si diBoaS quiebra, tu dinero sigue siendo tuyo\n- Nadie en diBoaS puede robar tus fondos\n- Cada transacción requiere tu aprobación\n\nEs un modelo fundamentalmente diferente. Más control para ti, menos riesgo de nosotros."
       }
     }
   },
   "socialProof": {
-    "header": "Confiado por fundadores visionarios",
-    "testimonials": {
-      "first": {
-        "quote": "Éramos escépticos al principio. Pero la matemática era obvia. €70K de runway extra por año, con misma liquidez. Nuestro board nos agradeció.",
-        "author": "CFO, Empresa SaaS Series A"
-      },
-      "second": {
-        "quote": "Ojalá hubiéramos hecho esto desde el día uno. Dejamos €30K sobre la mesa en nuestro primer año.",
-        "author": "Fundador, startup Seed"
-      }
-    },
-    "metrics": {
-      "treasury": {
-        "label": "Tesorería combinada bajo gestión",
-        "value": "€2,5M"
-      },
-      "yield": {
-        "label": "Rendimiento promedio del cliente",
-        "value": "7,2% APY"
-      },
-      "onboarding": {
-        "label": "Tiempo promedio de onboarding",
-        "value": "48 horas"
-      }
-    }
-  },
-  "faq": {
-    "header": "Buenas preguntas",
-    "description": "Preguntas comunes de fundadores de startups sobre gestión de tesorería.",
-    "ctaText": "Reservar llamada",
-    "items": {
-      "catch": {
-        "question": "¿Cuál es la trampa?",
-        "answer": "Pregunta justa. Así es como ganamos dinero:\n\nCobramos una comisión del 0,12% sobre el rendimiento. Si ganas €10.000, nos quedamos con €12.\n\nSi no ganas nada, no ganamos nada.\n\n¿Por qué esta estructura? Alinea nuestros incentivos con los tuyos. Solo tenemos éxito cuando tú tienes éxito.\n\n¿La trampa con tu banco actual? Están ganando 7% con tu dinero y te pagan 0,5%. Ese margen es su modelo de negocio."
-      },
-      "liquidity": {
-        "question": "¿Qué tan líquido es esto realmente?",
-        "answer": "Retiros el mismo día. Sin bloqueos. Sin penalizaciones.\n\nAsí funciona: estableces un umbral de liquidez — digamos, \"siempre mantener €50K disponibles.\" Solo desplegamos efectivo sobre ese umbral.\n\n¿Necesitas €100K para nómina mañana? Un clic. Está ahí.\n\nLo construimos así porque la gestión de tesorería no debería crear nuevos problemas. Deberías poder acceder a tu dinero cuando lo necesitas."
-      },
-      "risk": {
-        "question": "¿Cuál es el riesgo?",
-        "answer": "Seamos específicos sobre el riesgo, porque esto importa:\n\nRiesgo de smart contract: Los protocolos DeFi son código. El código puede tener bugs o ser explotado. Esto es real.\n\nCómo lo mitigamos: Solo usamos protocolos con $10B+ en activos, múltiples auditorías independientes, y años de historial sin incidentes graves.\n\n¿Es riesgo cero? No. Nada lo es.\n\n¿Es más riesgoso que tu banco? Diferente. Los bancos tienen seguro de depósitos hasta €100K. DeFi tiene transparencia y control non-custodial.\n\nLa pregunta es si 14x mejor rendimiento justifica el perfil de riesgo diferente. Para algunos fundadores, sí. Para otros, no. Ahora tienes la información para decidir."
-      },
-      "cfo": {
-        "question": "¿Mi CFO/board entenderá esto?",
-        "answer": "Sí — construimos específicamente para esto.\n\nEstados mensuales en formato contable estándar. Dashboard en tiempo real con métricas claras. Reportes listos para el board sin jerga cripto.\n\nTu CFO verá: depósitos, rendimientos, comisiones, retiros. Las mismas categorías a las que está acostumbrado.\n\nSi quieren profundizar, proporcionamos documentación de protocolos e informes de auditoría. Pero no tienen que hacerlo."
-      },
-      "revenue": {
-        "question": "¿Cómo ganan dinero ustedes?",
-        "answer": "Comisión del 0,12% sobre rendimiento. Eso es todo.\n\nSi tu tesorería gana €35.000/año, nosotros ganamos €42.\n\nSi no ganas nada, no ganamos nada.\n\nSin comisiones ocultas. Sin saldos mínimos. Sin penalidades de bloqueo."
-      },
-      "minimum": {
-        "question": "¿Cuál es el mínimo?",
-        "answer": "€50K en efectivo operativo.\n\nPor debajo de eso, el rendimiento puede no justificar el tiempo de configuración — somos honestos sobre eso. Si estás en etapa más temprana, tenednos en mente para cuando hayas levantado más."
-      },
-      "onboarding": {
-        "question": "¿Cuánto tiempo toma el onboarding?",
-        "answer": "La mayoría de las empresas están completamente integradas en 48 horas. La configuración en sí toma unos 15 minutos."
-      },
-      "regulated": {
-        "question": "¿Es legal/regulado?",
-        "answer": "Sí. Operamos bajo el marco MiCA de la UE con autorización CASP pendiente en Lituania. Estamos construyendo para compliance desde el día uno."
-      },
-      "investors": {
-        "question": "¿Qué pensarán mis inversores?",
-        "answer": "La mayoría de los inversores sofisticados esperan optimización de tesorería. Ganar 7% vs 0,5% extiende runway. Proporcionamos materiales listos para el board para comunicar esto claramente."
-      },
-      "compliance": {
-        "question": "¿Cómo funciona el compliance?",
-        "answer": "Operamos bajo el marco MiCA de la UE con autorización CASP pendiente en Lituania.\n\nPara fines contables, el rendimiento puede categorizarse como ingreso de inversión. Proporcionamos estados mensuales compatibles con prácticas contables estándar.\n\nPara preguntas fiscales y regulatorias específicas de tu jurisdicción, consulta a tus asesores — pero les daremos todo lo que necesitan."
-      }
-    }
-  },
-  "process": {
-    "header": "Cómo empezar",
-    "steps": {
-      "book": {
-        "title": "Tener una conversación",
-        "description": "15 minutos. Veremos tus números específicos juntos. Si no tiene sentido para ti, te lo diré."
-      },
-      "review": {
-        "title": "Revisar con tu equipo",
-        "description": "Te enviaré materiales para tu co-fundador, CFO o board. Sin presión."
-      },
-      "decide": {
-        "title": "Decidir",
-        "description": "Si tiene sentido, te ayudamos a configurar. Si no, sin resentimientos. Prefiero que tomes la decisión correcta."
-      },
-      "goLive": {
-        "title": "Ir en vivo",
-        "description": "El onboarding toma 48 horas. Verás rendimiento acumulándose desde el día uno."
-      }
-    }
+    "header": "Adoptadores tempranos",
+    "preLaunch": "Lanzamos a principios de 2026. Únete a la lista de espera para ser una de las primeras startups en acceder a gestión de tesorería de grado institucional."
   },
   "finalCta": {
     "header": "¿Quieres ver los números juntos?",
-    "body": "15 minutos. Tu situación específica. Si tiene sentido, genial. Si no, al menos entenderás la cuenta.",
-    "cta": "Reservar conversación con Bar",
-    "alternativeContact": "O email: bar@diboas.com",
-    "testimonial": {
-      "quote": "Esperaba un pitch de ventas. Bar solo me explicó la matemática y dijo 'esto es lo que yo haría, pero la decisión es tuya.' Esa honestidad me hizo confiar en él.",
-      "author": "Fundador Series A"
+    "body": "15 minutos. Tu situación específica.\n\nSi tiene sentido, genial. Si no, al menos dejas de dejar €65.000 sobre la mesa por accidente.",
+    "cta": "Agendar una conversación con Bar",
+    "alternative": "O email: bar@diboas.com",
+    "footer": "Sin pitch deck. Sin presión de ventas. Solo matemáticas."
+  },
+  "footer": {
+    "riskDisclaimer": "diBoaS proporciona acceso a sistemas de generación de rendimiento. Los retornos son variables y no están garantizados. El rendimiento pasado no indica resultados futuros. Los sistemas automatizados implican riesgo. Solo asigna fondos apropiados para tu tolerancia al riesgo. diBoaS no es un banco y los fondos no están asegurados.",
+    "regulatoryNote": "diBoaS opera bajo el marco MiCA de la UE. Autorización CASP pendiente.",
+    "links": {
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "risk": "Aviso de Riesgos"
     }
   },
-  "missionFooter": {
-    "header": "Por qué esto me importa",
-    "body": "Mi abuela hizo todo bien. Ahorró la mitad de todo. Paciente. Disciplinada.\n\nAun así, no fue suficiente. La diferencia entre lo que ganan los bancos y lo que pagan le impidió construir riqueza.\n\nPara familias como la mía, esa diferencia era invisible. Para fundadores, no tiene que serlo.\n\nAhora lo sabes.",
-    "anthem": "Tu dinero. Tu futuro. Tus reglas."
-  },
-  "disclaimer": {
-    "text": "Los rendimientos son ilustrativos basados en tasas actuales del mercado DeFi. Las tasas son variables y no están garantizadas. El rendimiento pasado no indica resultados futuros. El riesgo de smart contract existe en protocolos DeFi. Solo asigna fondos apropiados para tu tolerancia al riesgo. diBoaS no proporciona asesoramiento de inversión."
+  "seo": {
+    "title": "diBoaS Treasury | Deja de Dejar €65.000 Sobre la Mesa",
+    "description": "Tu banco invierte tu tesorería, gana millones y no te da nada. diBoaS: 6-8% de retornos, pagos globales instantáneos, cero comisiones. Veamos tus números.",
+    "ogTitle": "Tu banco invierte la tesorería de tu startup. Gana millones. No te da nada.",
+    "ogDescription": "Por mi abuela, aprendí lo que los bancos no nos dicen. Lo mismo que le pasaba a ella está pasando con la tesorería de tu startup. Por eso estoy construyendo diBoaS."
   }
 }

@@ -1,0 +1,62 @@
+{
+  "sectionTitle": "Lista de espera",
+  "headline": "Seja o primeiro a saber",
+  "subheadline": "Entre na lista de espera e tenha acesso antecipado ao lançamento.",
+  "form": {
+    "emailPlaceholder": "Seu email",
+    "cta": "Entrar na lista",
+    "submitting": "Entrando...",
+    "privacyNote": "A gente só manda email sobre o diBoaS. Cancela quando quiser."
+  },
+  "error": {
+    "generic": "Algo deu errado. Tenta de novo.",
+    "invalidEmail": "Coloca um email válido.",
+    "alreadyRegistered": "Você já tá na lista!",
+    "network": "Erro de conexão. Verifica sua internet e tenta de novo."
+  },
+  "confirmation": {
+    "headline": "Você tá dentro!",
+    "subhead": "Bem-vindo ao futuro das suas finanças.",
+    "positionIntro": "Sua posição:",
+    "positionFormat": "#{position}",
+    "shareIntro": "Quer subir na fila?",
+    "shareBenefit": "Compartilha seu link — cada cadastro te sobe {spots} posições",
+    "shareExplanation": "Quanto antes a gente lançar, antes isso vira realidade.",
+    "referralLinkLabel": "Seu link pessoal:",
+    "copy": "Copiar link",
+    "copied": "Copiado!",
+    "dreamModeCta": "Experimentar o Modo Sonho",
+    "exploreCta": "Explorar o que vem por aí"
+  },
+  "referral": {
+    "movedUp": "Você subiu {spots} posições!",
+    "newPosition": "Nova posição: #{position}",
+    "thanks": "Valeu por divulgar.",
+    "notificationTitle": "Alguém usou seu link!",
+    "notificationBody": "Você acabou de subir {spots} posições pra #{position}"
+  },
+  "returningUser": {
+    "welcomeBack": "Bem-vindo de volta!",
+    "currentPosition": "Você tá na posição #{position} da lista",
+    "referralCount": "Você indicou {count} pessoas",
+    "keepSharing": "Continua compartilhando pra subir!"
+  },
+  "card": {
+    "headline": "EU SOU O #{position} NA LISTA DO DIBOAS",
+    "bodyLine1": "Bancos ganham 7% com nossas economias.",
+    "bodyLine2": "Nos pagam 0,5%.",
+    "bodyLine3": "Essa diferença? Sempre esteve lá.",
+    "ctaIntro": "Entra comigo:",
+    "hashtag": "#WhileISlept"
+  },
+  "email": {
+    "welcome": "Bem-vindo ao diBoaS — Você é o #{position} 🎉",
+    "email1Subject": "Por que seu banco não tá trabalhando pra você",
+    "email2Subject": "Como seu dinheiro poderia trabalhar de verdade pra você",
+    "email3Subject": "Conheça Aqua, Mystic & Coral — seus guias financeiros",
+    "email4Subject": "O que vem por aí — e por que você tá na frente"
+  },
+  "legal": {
+    "bcbDisclaimer": "O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil."
+  }
+}
