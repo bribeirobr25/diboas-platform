@@ -13,6 +13,7 @@ import { ShareButtons } from '@/components/Share';
 import { CardRenderer, type SharePlatform, type DreamCardData, getShareUrl } from '@/lib/share';
 import { formatCurrency, getCurrencyLocale } from '@/lib/calculator';
 import { analyticsService } from '@/lib/analytics';
+import { SuccessCheckIcon } from '@/components/Icons';
 import styles from './screens.module.css';
 
 interface ShareScreenProps {
@@ -142,7 +143,7 @@ export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
       <div className={styles.content}>
         {/* Celebration header */}
         <div className={styles.celebrationHeader}>
-          <span className={styles.celebrationEmoji}>🎉</span>
+          <SuccessCheckIcon size={48} className={styles.successIcon} />
           <h2 className={styles.headline}>{t('headline')}</h2>
           <p className={styles.subhead}>{t('subhead')}</p>
         </div>

@@ -48,7 +48,6 @@ export function WaitlistConfirmation({
   const intl = useIntl();
   const { locale } = useLocale();
   const [animatedPosition, setAnimatedPosition] = useState(position + 100);
-  const [showConfetti, setShowConfetti] = useState(true);
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {
@@ -77,14 +76,6 @@ export function WaitlistConfirmation({
     return () => clearInterval(timer);
   }, [position]);
 
-  // Hide confetti after animation
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowConfetti(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleDreamModeClick = () => {
     analyticsService.track({
       name: 'waitlist_dream_mode_click',
@@ -99,15 +90,6 @@ export function WaitlistConfirmation({
 
   return (
     <div className={`${styles.container} ${className}`}>
-      {/* Confetti animation */}
-      {showConfetti && (
-        <div className={styles.confetti} aria-hidden="true">
-          <span className={styles.confettiPiece}>🎉</span>
-          <span className={styles.confettiPiece}>✨</span>
-          <span className={styles.confettiPiece}>🎊</span>
-        </div>
-      )}
-
       {/* Success header */}
       <div className={styles.header}>
         <div className={styles.successIcon}>

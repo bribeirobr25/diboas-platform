@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
 import { useRegionalDisclaimer } from '../hooks/useRegionalDisclaimer';
+import { AlertTriangleIcon } from '@/components/Icons';
 import styles from './screens.module.css';
 
 export function DisclaimerScreen() {
@@ -32,7 +33,7 @@ export function DisclaimerScreen() {
       <div className={styles.disclaimerCard}>
         {/* Warning icon and headline */}
         <div className={styles.disclaimerHeader}>
-          <span className={styles.disclaimerIcon} role="img" aria-label={intl.formatMessage({ id: 'common.accessibility.warning' })}>⚠️</span>
+          <AlertTriangleIcon size={32} className={styles.disclaimerIcon} aria-label={intl.formatMessage({ id: 'common.accessibility.warning' })} />
           <h2 className={styles.disclaimerHeadline}>{t('headline')}</h2>
         </div>
 

@@ -9,6 +9,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { TimeframeIcon, type TimeframeIconType } from '@/components/Icons';
 import type { DreamInput } from '../types';
 import styles from './screens.module.css';
 
@@ -16,15 +17,15 @@ type TimeframeOption = DreamInput['timeframe'];
 
 interface TimeframeData {
   id: TimeframeOption;
-  icon: string;
+  iconType: TimeframeIconType;
   multiplier: string;
 }
 
 const TIMEFRAMES: TimeframeData[] = [
-  { id: '1week', icon: '⚡', multiplier: '7 days' },
-  { id: '1month', icon: '📅', multiplier: '30 days' },
-  { id: '1year', icon: '🎯', multiplier: '365 days' },
-  { id: '5years', icon: '🚀', multiplier: '1,825 days' },
+  { id: '1week', iconType: 'lightning', multiplier: '7 days' },
+  { id: '1month', iconType: 'calendar', multiplier: '30 days' },
+  { id: '1year', iconType: 'target', multiplier: '365 days' },
+  { id: '5years', iconType: 'rocket', multiplier: '1,825 days' },
 ];
 
 export function TimeframeScreen() {
@@ -63,7 +64,7 @@ export function TimeframeScreen() {
               onClick={() => handleSelect(tf.id)}
               className={`${styles.optionCard} ${state.input.timeframe === tf.id ? styles.selected : ''}`}
             >
-              <span className={styles.optionIcon}>{tf.icon}</span>
+              <span className={styles.optionIcon}><TimeframeIcon type={tf.iconType} size={24} /></span>
               <span className={styles.optionLabel}>{t(`option.${tf.id}`)}</span>
               <span className={styles.optionMeta}>{tf.multiplier}</span>
             </button>
