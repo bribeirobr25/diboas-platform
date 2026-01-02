@@ -126,11 +126,11 @@ export const DIBOAS_ASSET_PATHS = {
 
   socials: {
     real: {
-      couple: '/assets/socials/real/couple.avif',
-      family: '/assets/socials/real/family-bike.avif',
-      friends: '/assets/socials/real/friends.avif',
-      growth: '/assets/socials/real/growth-with-icon.avif',
-      happy: '/assets/socials/real/happy.avif'
+      couple: '/assets/socials/real/life_couple.avif',
+      family: '/assets/socials/real/life_bike.avif',
+      friends: '/assets/socials/real/life_friends.avif',
+      growth: '/assets/socials/real/life_happy_jumping.avif',
+      happy: '/assets/socials/real/rewards_happy.avif'
     },
     drawing: {
       balanceCard: '/assets/socials/drawing/phone-balance-breakdown.avif',

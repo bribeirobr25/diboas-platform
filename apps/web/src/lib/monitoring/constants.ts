@@ -18,5 +18,6 @@ export const MONITORING_DEFAULTS: MonitoringConfig = {
   maxErrors: ANALYTICS_CONSTANTS.MAX_QUEUE_SIZE,
   flushInterval: 60000, // 1 minute
   endpoint: MONITORING_ENDPOINT,
-  apiKey: process.env.NEXT_PUBLIC_MONITORING_API_KEY
+  // API key should only be used server-side, not exposed to client
+  apiKey: process.env.MONITORING_API_KEY
 };

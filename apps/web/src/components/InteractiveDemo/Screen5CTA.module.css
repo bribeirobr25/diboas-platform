@@ -62,7 +62,7 @@
   padding: 8px 16px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--color-primary, #14b8a6);
+  color: var(--text-primary-accessible, #0f766e);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -72,7 +72,7 @@
 }
 
 .secondaryCta:hover {
-  color: var(--color-primary-dark, #0d9488);
+  color: var(--cta-bg-hover, #115e59);
   text-decoration-thickness: 2px;
 }
 

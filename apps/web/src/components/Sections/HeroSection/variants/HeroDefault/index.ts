@@ -1,0 +1,1 @@
+export { HeroDefault } from './HeroDefault';

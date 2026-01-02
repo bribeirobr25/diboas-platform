@@ -32,12 +32,12 @@ export function DisclaimerScreen() {
       <div className={styles.disclaimerCard}>
         {/* Warning icon and headline */}
         <div className={styles.disclaimerHeader}>
-          <span className={styles.disclaimerIcon}>⚠️</span>
+          <span className={styles.disclaimerIcon} role="img" aria-label={intl.formatMessage({ id: 'common.accessibility.warning' })}>⚠️</span>
           <h2 className={styles.disclaimerHeadline}>{t('headline')}</h2>
         </div>
 
         {/* Disclaimer text box */}
-        <div className={styles.disclaimerBody}>
+        <div id="disclaimer-content" className={styles.disclaimerBody}>
           <p className={styles.disclaimerText}>{disclaimerText}</p>
 
           {/* Bullet points */}
@@ -56,13 +56,15 @@ export function DisclaimerScreen() {
         </div>
 
         {/* Checkbox */}
-        <label className={styles.disclaimerCheckbox}>
+        <label htmlFor="disclaimer-checkbox" className={styles.disclaimerCheckbox}>
           <input
+            id="disclaimer-checkbox"
             type="checkbox"
             checked={isChecked}
             onChange={(e) => setIsChecked(e.target.checked)}
             className={styles.checkbox}
             data-testid="disclaimer-checkbox"
+            aria-describedby="disclaimer-content"
           />
           <span className={styles.checkboxLabel}>{t('checkbox')}</span>
         </label>

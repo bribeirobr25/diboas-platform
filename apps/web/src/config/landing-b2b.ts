@@ -113,10 +113,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'step-connect',
       content: {
         title: 'landing-b2b.howItWorks.steps.connect.title',
-        description: 'landing-b2b.howItWorks.steps.connect.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.howItWorks.steps.connect.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_PAYMENT')
@@ -129,10 +126,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'step-set-floor',
       content: {
         title: 'landing-b2b.howItWorks.steps.setFloor.title',
-        description: 'landing-b2b.howItWorks.steps.setFloor.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.howItWorks.steps.setFloor.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_BALANCE')
@@ -145,10 +139,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'step-earn',
       content: {
         title: 'landing-b2b.howItWorks.steps.earn.title',
-        description: 'landing-b2b.howItWorks.steps.earn.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.howItWorks.steps.earn.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_INVESTING')
@@ -161,10 +152,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'step-withdraw',
       content: {
         title: 'landing-b2b.howItWorks.steps.withdraw.title',
-        description: 'landing-b2b.howItWorks.steps.withdraw.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.howItWorks.steps.withdraw.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_SENDING')
@@ -450,10 +438,7 @@ export const B2B_PROCESS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'process-book',
       content: {
         title: 'landing-b2b.process.steps.book.title',
-        description: 'landing-b2b.process.steps.book.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.process.steps.book.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_DEAL')
@@ -466,10 +451,7 @@ export const B2B_PROCESS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'process-review',
       content: {
         title: 'landing-b2b.process.steps.review.title',
-        description: 'landing-b2b.process.steps.review.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.process.steps.review.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_PAYMENT')
@@ -482,10 +464,7 @@ export const B2B_PROCESS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'process-decide',
       content: {
         title: 'landing-b2b.process.steps.decide.title',
-        description: 'landing-b2b.process.steps.decide.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.process.steps.decide.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_DEAL')
@@ -498,10 +477,7 @@ export const B2B_PROCESS_CONFIG: AppFeaturesCarouselVariantConfig = {
       id: 'process-golive',
       content: {
         title: 'landing-b2b.process.steps.goLive.title',
-        description: 'landing-b2b.process.steps.goLive.description',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
+        description: 'landing-b2b.process.steps.goLive.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_INVESTING')

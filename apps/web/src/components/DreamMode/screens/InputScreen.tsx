@@ -57,19 +57,22 @@ export function InputScreen() {
 
         {/* Initial amount input */}
         <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>{t('initialAmount')}</label>
+          <label htmlFor="initialAmount" className={styles.inputLabel}>{t('initialAmount')}</label>
           <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol}>{getCurrencySymbol()}</span>
+            <span className={styles.currencySymbol} aria-hidden="true">{getCurrencySymbol()}</span>
             <input
+              id="initialAmount"
               type="number"
               value={state.input.initialAmount}
               onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
               className={styles.input}
               min={CALCULATOR_CONFIG.minInitialAmount}
               max={CALCULATOR_CONFIG.maxInitialAmount}
+              aria-describedby="initialAmountSlider"
             />
           </div>
           <input
+            id="initialAmountSlider"
             type="range"
             value={state.input.initialAmount}
             onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
@@ -77,24 +80,28 @@ export function InputScreen() {
             min={CALCULATOR_CONFIG.minInitialAmount}
             max={50000}
             step={100}
+            aria-label={t('initialAmount')}
           />
         </div>
 
         {/* Monthly contribution input */}
         <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>{t('monthlyContribution')}</label>
+          <label htmlFor="monthlyContribution" className={styles.inputLabel}>{t('monthlyContribution')}</label>
           <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol}>{getCurrencySymbol()}</span>
+            <span className={styles.currencySymbol} aria-hidden="true">{getCurrencySymbol()}</span>
             <input
+              id="monthlyContribution"
               type="number"
               value={state.input.monthlyContribution}
               onChange={(e) => handleMonthlyChange(Number(e.target.value))}
               className={styles.input}
               min={CALCULATOR_CONFIG.minMonthlyContribution}
               max={CALCULATOR_CONFIG.maxMonthlyContribution}
+              aria-describedby="monthlyContributionSlider"
             />
           </div>
           <input
+            id="monthlyContributionSlider"
             type="range"
             value={state.input.monthlyContribution}
             onChange={(e) => handleMonthlyChange(Number(e.target.value))}
@@ -102,6 +109,7 @@ export function InputScreen() {
             min={0}
             max={2000}
             step={25}
+            aria-label={t('monthlyContribution')}
           />
         </div>
 

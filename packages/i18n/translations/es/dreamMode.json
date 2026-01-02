@@ -11,7 +11,7 @@
     "cta": "Entrar al Modo Sueño",
     "enhanced": {
       "us": "IMPORTANTE: Esta proyección es solo para fines educativos. No constituye una oferta de valores, asesoramiento financiero o recomendación de compra o venta. Los resultados reales pueden variar significativamente. El rendimiento pasado no garantiza resultados futuros.",
-      "brazil": "PROJEÇÃO EDUCACIONAL - Este recurso utiliza dados históricos apenas para fins ilustrativos. Não constitui oferta de investimento, promessa de retorno ou aconselhamento financeiro. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil (BCB)."
+      "brazil": "PROYECCIÓN EDUCATIVA - Esta función utiliza datos históricos solo con fines ilustrativos. No constituye una oferta de inversión, promesa de rendimiento o asesoramiento financiero. diBoaS NO es una institución financiera autorizada por el Banco Central de Brasil (BCB)."
     },
     "card": "PROYECCIÓN — Basado en datos históricos. Sin garantía. diboas.com"
   },
@@ -19,6 +19,7 @@
   "paths": {
     "headline": "¿Cómo te sientes respecto al riesgo?",
     "subhead": "No hay respuesta incorrecta — solo caminos diferentes.",
+    "warningLabel": "Riesgo mayor",
     "safety": {
       "name": "Seguridad Primero",
       "tagline": "No puedo perder esto",

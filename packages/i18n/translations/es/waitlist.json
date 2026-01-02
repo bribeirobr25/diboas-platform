@@ -4,6 +4,7 @@
   "subheadline": "Únete a la lista de espera y obtén acceso anticipado al lanzamiento.",
   "form": {
     "emailPlaceholder": "Tu correo electrónico",
+    "emailLabel": "Dirección de correo electrónico",
     "cta": "Unirse a la lista",
     "submitting": "Uniéndose...",
     "privacyNote": "Solo te enviaremos emails sobre diBoaS. Cancela cuando quieras."

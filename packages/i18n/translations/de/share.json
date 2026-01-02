@@ -49,7 +49,9 @@
   },
   "waitlistPosition": {
     "twitter": "Ich bin #{position} auf der @diBoaS-Warteliste. Banken verdienen 7% mit unseren Ersparnissen. Sie zahlen uns 0,5%. Diese Lücke? Die war schon immer da. #WhileISlept",
-    "whatsapp": "Ich bin gerade der diBoaS-Warteliste beigetreten (#{position}). Wussten Sie, dass Banken 7% mit unseren Ersparnissen verdienen, uns aber nur 0,5% zahlen? Schauen Sie es sich an: {referralUrl}"
+    "whatsapp": "Ich bin gerade der diBoaS-Warteliste beigetreten (#{position}). Wussten Sie, dass Banken 7% mit unseren Ersparnissen verdienen, uns aber nur 0,5% zahlen? Schauen Sie es sich an: {referralUrl}",
+    "facebook": "Ich bin #{position} auf der diBoaS-Warteliste. Banken verdienen 7% mit unseren Ersparnissen, zahlen uns aber nur 0,5%. Zeit, das zu ändern. {referralUrl}",
+    "linkedin": "Gerade der diBoaS-Warteliste auf Position #{position} beigetreten. Die Lücke zwischen dem, was Banken mit unserem Geld verdienen (7%) und dem, was sie uns zahlen (0,5%), ist bemerkenswert. Ich erkunde, wie DeFi das ändern kann. {referralUrl} #Finanzinnovation #DeFi"
   },
   "dreamCard": {
     "watermark": "PROJEKTION",

@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--overlay-backdrop);
   backdrop-filter: blur(4px);
   animation: fadeIn 0.3s ease-out;
 }
@@ -58,17 +58,17 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg-light);
   border: none;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--color-white, #ffffff);
+  box-shadow: var(--shadow-md);
   transform: scale(1.05);
 }
 
@@ -178,7 +178,7 @@
 .input:focus {
   outline: none;
   border-color: var(--color-primary, #10b981);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  box-shadow: 0 0 0 3px var(--success-focus-ring);
 }
 
 .inputError {
@@ -186,7 +186,7 @@
 }
 
 .inputError:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 0 3px var(--error-focus-ring);
 }
 
 .errorMessage {
@@ -201,8 +201,8 @@
   margin-bottom: 1rem;
   font-size: 0.875rem;
   color: var(--color-error, #ef4444);
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background-color: var(--error-overlay-subtle);
+  border: 1px solid var(--error-border-subtle);
   border-radius: 0.5rem;
 }
 
@@ -290,8 +290,8 @@
 .loadingSpinner {
   width: 20px;
   height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
+  border: 2px solid var(--glass-border-light);
+  border-top-color: var(--color-white, #ffffff);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

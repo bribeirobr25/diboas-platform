@@ -7,7 +7,7 @@
  * Flow: disclaimer → welcome → pathSelect → input → timeframe → simulation → results → share
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { DreamModeProvider, useDreamMode } from './DreamModeProvider';
 import {
   DisclaimerScreen,
@@ -42,6 +42,7 @@ interface DreamModeProps {
  */
 function DreamModeContent({ onJoinWaitlist, onClose }: { onJoinWaitlist?: () => void; onClose?: () => void }) {
   const { state } = useDreamMode();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Track screen views
   useEffect(() => {
@@ -49,6 +50,50 @@ function DreamModeContent({ onJoinWaitlist, onClose }: { onJoinWaitlist?: () => 
       name: 'dream_mode_screen_view',
       parameters: { screen: state.screen },
     });
+  }, [state.screen]);
+
+  // Focus trap implementation for WCAG 2.2 compliance
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Escape' && onClose) {
+      onClose();
+      return;
+    }
+
+    if (e.key !== 'Tab') return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const focusableElements = container.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (focusableElements.length === 0) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (e.shiftKey && document.activeElement === firstElement) {
+      e.preventDefault();
+      lastElement.focus();
+    } else if (!e.shiftKey && document.activeElement === lastElement) {
+      e.preventDefault();
+      firstElement.focus();
+    }
+  }, [onClose]);
+
+  // Focus first element on mount
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const focusableElements = container.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (focusableElements.length > 0) {
+      focusableElements[0].focus();
+    }
   }, [state.screen]);
 
   const renderScreen = () => {
@@ -75,7 +120,14 @@ function DreamModeContent({ onJoinWaitlist, onClose }: { onJoinWaitlist?: () => 
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      ref={containerRef}
+      className={styles.container}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Dream Mode Calculator"
+      onKeyDown={handleKeyDown}
+    >
       {/* CLO-required simulation watermark - shows after disclaimer accepted */}
       {state.disclaimerAccepted && <SimulationWatermark />}
 

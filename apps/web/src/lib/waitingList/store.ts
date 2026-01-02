@@ -12,6 +12,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { encrypt, decrypt, isEncryptionEnabled } from '@/lib/security/encryption';
 
 /**
  * WaitlistEntry type - Full spec-compliant model
@@ -95,13 +96,17 @@ function initializeStore(): void {
       const data = fs.readFileSync(STORAGE_PATH, 'utf-8');
       const parsed: StoreData = JSON.parse(data);
 
-      // Restore entries
+      // Restore entries (decrypt PII if encrypted)
       for (const entry of parsed.entries) {
-        store.set(entry.email, {
+        const decryptedEntry: WaitlistEntry = {
           ...entry,
+          email: decrypt(entry.email) || entry.email,
+          name: entry.name ? (decrypt(entry.name) || entry.name) : undefined,
           createdAt: new Date(entry.createdAt),
           updatedAt: new Date(entry.updatedAt),
-        });
+        };
+        // Use decrypted email as key for lookups
+        store.set(decryptedEntry.email, decryptedEntry);
       }
 
       // Restore counters
@@ -118,13 +123,16 @@ function initializeStore(): void {
 }
 
 /**
- * Persist store to file
+ * Persist store to file (encrypts PII fields)
  */
 function persistStore(): void {
   try {
     const data: StoreData = {
       entries: Array.from(store.values()).map((entry) => ({
         ...entry,
+        // Encrypt PII for storage
+        email: encrypt(entry.email) || entry.email,
+        name: entry.name ? (encrypt(entry.name) || entry.name) : undefined,
         createdAt: entry.createdAt.toISOString(),
         updatedAt: entry.updatedAt.toISOString(),
       })) as StoreData['entries'],
@@ -359,4 +367,25 @@ export function reloadFromFile(): void {
   store.clear();
   isInitialized = false;
   initializeStore();
+}
+
+/**
+ * Delete entry by email (GDPR right to deletion)
+ *
+ * @param email - Email of entry to delete
+ * @returns true if deleted, false if not found
+ */
+export function deleteByEmail(email: string): boolean {
+  initializeStore();
+
+  const key = email.toLowerCase().trim();
+
+  if (!store.has(key)) {
+    return false;
+  }
+
+  store.delete(key);
+  persistStore();
+  console.log(`[Waitlist] Entry deleted for GDPR request`);
+  return true;
 }

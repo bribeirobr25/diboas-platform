@@ -5,7 +5,8 @@
  * GDPR Compliance: Implements cookie consent for analytics and tracking
  *
  * Features:
- * - Stores consent in localStorage
+ * - Stores consent via HttpOnly cookie API (secure, XSS-protected)
+ * - Falls back to localStorage for SSR hydration
  * - Provides accept/decline options
  * - Accessible with keyboard navigation
  * - Customizable styling using design tokens
@@ -19,6 +20,39 @@ import styles from './CookieConsent.module.css';
 const CONSENT_KEY = 'diboas-cookie-consent';
 const CONSENT_VERSION = '1.0';
 
+/**
+ * Sync consent to HttpOnly cookie via API
+ * This provides XSS protection as the cookie cannot be read by JavaScript
+ */
+async function syncConsentToApi(analytics: boolean): Promise<boolean> {
+  try {
+    const response = await fetch('/api/consent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ analytics }),
+    });
+    return response.ok;
+  } catch (error) {
+    console.warn('[CookieConsent] Failed to sync consent to API:', error);
+    return false;
+  }
+}
+
+/**
+ * Check consent from HttpOnly cookie API
+ */
+async function checkConsentFromApi(): Promise<{ analytics: boolean; version: string } | null> {
+  try {
+    const response = await fetch('/api/consent');
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    return data.consent || null;
+  } catch {
+    return null;
+  }
+}
+
 export interface CookieConsentValue {
   analytics: boolean;
   version: string;
@@ -31,40 +65,62 @@ export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if consent has already been given
-    const stored = localStorage.getItem(CONSENT_KEY);
+    async function checkConsent() {
+      // First check localStorage for immediate hydration
+      const stored = localStorage.getItem(CONSENT_KEY);
 
-    if (!stored) {
-      // Delay showing banner for better UX
-      setTimeout(() => {
-        setShowBanner(true);
-        setTimeout(() => setIsVisible(true), 100); // Trigger slide-up animation
-      }, 1500);
-    } else {
-      // Validate stored consent version
-      try {
-        const consent = JSON.parse(stored) as CookieConsentValue;
-        if (consent.version !== CONSENT_VERSION) {
-          // Version mismatch - request new consent
+      if (!stored) {
+        // No localStorage, check HttpOnly cookie via API
+        const apiConsent = await checkConsentFromApi();
+
+        if (apiConsent) {
+          // Sync API consent to localStorage for future hydration
+          const localConsent: CookieConsentValue = {
+            analytics: apiConsent.analytics,
+            version: apiConsent.version,
+            timestamp: Date.now(),
+          };
+          localStorage.setItem(CONSENT_KEY, JSON.stringify(localConsent));
+          return; // Consent exists, don't show banner
+        }
+
+        // No consent anywhere - show banner
+        setTimeout(() => {
+          setShowBanner(true);
+          setTimeout(() => setIsVisible(true), 100);
+        }, 1500);
+      } else {
+        // Validate stored consent version
+        try {
+          const consent = JSON.parse(stored) as CookieConsentValue;
+          if (consent.version !== CONSENT_VERSION) {
+            // Version mismatch - request new consent
+            setShowBanner(true);
+            setTimeout(() => setIsVisible(true), 100);
+          }
+        } catch {
+          // Invalid stored data - request new consent
           setShowBanner(true);
           setTimeout(() => setIsVisible(true), 100);
         }
-      } catch {
-        // Invalid stored data - request new consent
-        setShowBanner(true);
-        setTimeout(() => setIsVisible(true), 100);
       }
     }
+
+    checkConsent();
   }, []);
 
-  const handleAccept = () => {
+  const handleAccept = async () => {
     const consent: CookieConsentValue = {
       analytics: true,
       version: CONSENT_VERSION,
       timestamp: Date.now()
     };
 
+    // Store in localStorage for immediate use
     localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
+
+    // Sync to HttpOnly cookie via API (async, don't block UI)
+    syncConsentToApi(true);
 
     // Dispatch event for WebVitalsTracker to start tracking
     window.dispatchEvent(new CustomEvent('cookie-consent-changed', {
@@ -74,14 +130,18 @@ export function CookieConsent() {
     closeBanner();
   };
 
-  const handleDecline = () => {
+  const handleDecline = async () => {
     const consent: CookieConsentValue = {
       analytics: false,
       version: CONSENT_VERSION,
       timestamp: Date.now()
     };
 
+    // Store in localStorage for immediate use
     localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
+
+    // Sync to HttpOnly cookie via API (async, don't block UI)
+    syncConsentToApi(false);
 
     // Dispatch event for WebVitalsTracker to stop tracking
     window.dispatchEvent(new CustomEvent('cookie-consent-changed', {

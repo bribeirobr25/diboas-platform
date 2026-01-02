@@ -264,6 +264,11 @@
       }
     }
   },
+  "futureYouConnection": {
+    "header": "Sehen Sie, wie es wachsen könnte",
+    "body": "Strategie gewählt? Nutzen Sie den Zukunfts-Du Rechner, um zu sehen, wie sich Ihre Investition im Laufe der Zeit entwickeln könnte.",
+    "cta": "Zum Rechner"
+  },
   "finalCta": {
     "header": "Bereit, Ihren Weg zu wählen?",
     "body": "Tragen Sie sich auf die Warteliste ein. Bei der Einführung gehören Sie zu den Ersten, die Ihre Strategie in Aktion setzen können.",

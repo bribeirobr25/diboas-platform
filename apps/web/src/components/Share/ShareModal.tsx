@@ -10,7 +10,7 @@
  * - Download option
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useLocale } from '@/components/LocaleProvider';
 import { ShareButtons } from './ShareButtons';
@@ -67,19 +67,20 @@ export function ShareModal({
 
   const t = (key: string) => intl.formatMessage({ id: `share.${key}` });
 
-  // Initialize share manager with analytics
-  const shareManager = new ShareManager(
-    locale as CardLocale,
-    (data) => {
-      analyticsService.track({
-        name: SHARE_EVENTS.SHARE_COMPLETED,
-        parameters: {
-          platform: data.platform,
-          cardType: data.cardType,
-          locale: data.locale,
-        },
-      });
-    }
+  // Memoize share manager to prevent recreation on every render
+  const shareManager = useMemo(
+    () =>
+      new ShareManager(locale as CardLocale, (data) => {
+        analyticsService.track({
+          name: SHARE_EVENTS.SHARE_COMPLETED,
+          parameters: {
+            platform: data.platform,
+            cardType: data.cardType,
+            locale: data.locale,
+          },
+        });
+      }),
+    [locale]
   );
 
   // Render card when modal opens

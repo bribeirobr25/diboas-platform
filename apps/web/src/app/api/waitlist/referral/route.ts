@@ -4,6 +4,10 @@
  * Dedicated endpoint for referral operations:
  * - GET: Lookup referral code details
  * - POST: Process a referral (credit referrer)
+ *
+ * Security:
+ * - Rate limiting on all endpoints
+ * - Input validation
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -17,6 +21,13 @@ import {
   getByEmail,
   processReferral,
 } from '@/lib/waitingList/store';
+import {
+  checkRateLimit,
+  getClientIP,
+  createRateLimitHeaders,
+  RateLimitPresets,
+  csrfProtection,
+} from '@/lib/security';
 
 /**
  * Response types
@@ -44,6 +55,21 @@ interface ProcessReferralResponse {
  * Lookup referral code details (for validation before signup)
  */
 export async function GET(request: NextRequest): Promise<NextResponse<ReferralLookupResponse>> {
+  // Rate limiting
+  const clientIP = getClientIP(request);
+  const rateLimitResult = await checkRateLimit(
+    `referral-lookup:${clientIP}`,
+    RateLimitPresets.lenient.limit,
+    RateLimitPresets.lenient.windowMs
+  );
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests. Please try again later.' },
+      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+    );
+  }
+
   try {
     const searchParams = request.nextUrl.searchParams;
     const code = searchParams.get('code');
@@ -97,6 +123,27 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
  * Body: { referralCode: string, referredEmail: string }
  */
 export async function POST(request: NextRequest): Promise<NextResponse<ProcessReferralResponse>> {
+  // CSRF protection
+  const csrfError = csrfProtection(request);
+  if (csrfError) {
+    return csrfError as NextResponse<ProcessReferralResponse>;
+  }
+
+  // Rate limiting
+  const clientIP = getClientIP(request);
+  const rateLimitResult = await checkRateLimit(
+    `referral-process:${clientIP}`,
+    RateLimitPresets.standard.limit,
+    RateLimitPresets.standard.windowMs
+  );
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests. Please try again later.' },
+      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+    );
+  }
+
   try {
     const body = await request.json();
     const { referralCode, referredEmail } = body;

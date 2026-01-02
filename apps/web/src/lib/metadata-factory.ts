@@ -1,6 +1,22 @@
 /**
+ * @deprecated This file is deprecated. Use the comprehensive metadata factory instead:
+ *
+ * ```typescript
+ * import { MetadataFactory, generateStaticPageMetadata, generateLocaleStaticParams } from '@/lib/seo';
+ * ```
+ *
+ * The comprehensive factory at /lib/seo/metadata-factory.ts provides:
+ * - Integration with PAGE_SEO_CONFIG for static pages
+ * - Structured data generation (JSON-LD)
+ * - Breadcrumbs, FAQ, Service, and Educational schema support
+ * - Better locale-aware URL generation
+ *
+ * This file will be removed in a future release.
+ *
+ * ---
+ *
  * DRY Principle: Centralized metadata generation factory
- * 
+ *
  * Eliminates duplicate generateMetadata() functions across pages
  * and provides consistent SEO metadata patterns
  */
@@ -20,6 +36,9 @@ export interface PageMetadataConfig {
   alternateLanguages?: boolean;
 }
 
+/**
+ * @deprecated Use `generateStaticPageMetadata` or `generateDynamicPageMetadata` from '@/lib/seo' instead.
+ */
 export function generatePageMetadata(
   config: PageMetadataConfig,
   locale: SupportedLocale = 'en'
@@ -95,6 +114,8 @@ export function generatePageMetadata(
 }
 
 /**
+ * @deprecated Use `generateLocaleStaticParams` from '@/lib/seo' instead.
+ *
  * Generate static params for Next.js locale-based routing
  * DRY Principle: Single source for generateStaticParams across pages
  */

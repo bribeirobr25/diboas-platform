@@ -11,7 +11,7 @@
     "cta": "Dream Mode starten",
     "enhanced": {
       "us": "WICHTIG: Diese Projektion dient nur zu Bildungszwecken. Sie stellt kein Angebot von Wertpapieren, keine Finanzberatung oder Empfehlung zum Kauf oder Verkauf dar. Tatsächliche Ergebnisse können erheblich abweichen. Vergangene Performance garantiert keine zukünftigen Ergebnisse.",
-      "brazil": "PROJEÇÃO EDUCACIONAL - Este recurso utiliza dados históricos apenas para fins ilustrativos. Não constitui oferta de investimento, promessa de retorno ou aconselhamento financeiro. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil (BCB)."
+      "brazil": "BILDUNGSPROJEKTION - Diese Funktion verwendet historische Daten nur zu Illustrationszwecken. Sie stellt kein Anlageangebot, keine Renditeversprechen oder Finanzberatung dar. diBoaS ist KEINE von der Zentralbank Brasiliens (BCB) autorisierte Finanzinstitution."
     },
     "card": "PROJEKTION — Basierend auf historischen Daten. Keine Garantie. diboas.com"
   },
@@ -19,6 +19,7 @@
   "paths": {
     "headline": "Wie stehen Sie zu Risiko?",
     "subhead": "Es gibt keine falsche Antwort — nur verschiedene Wege.",
+    "warningLabel": "Höheres Risiko",
     "safety": {
       "name": "Sicherheit zuerst",
       "tagline": "Das darf ich nicht verlieren",

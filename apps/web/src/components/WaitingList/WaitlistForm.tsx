@@ -200,6 +200,7 @@ export function WaitlistForm({
           value={formState.email}
           onChange={handleInputChange}
           placeholder={t('form.emailPlaceholder')}
+          aria-label={t('form.emailLabel')}
           className={`${styles.input} ${error ? styles.inputError : ''}`}
           required
           autoComplete="email"

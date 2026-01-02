@@ -37,14 +37,47 @@ interface B2BLandingPageProps {
  */
 export async function generateMetadata({ params }: B2BLandingPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
   return {
     title: 'diBoaS Treasury | Earn 6-8% on Startup Operating Cash',
     description: 'Put your startup\'s idle treasury to work. Earn 6-8% yield on operating cash with same-day liquidity. EU-regulated. Non-custodial. Book a 15-min conversation.',
+    keywords: ['treasury management', 'startup finance', 'yield', 'operating cash', 'DeFi', 'B2B fintech'],
+    alternates: {
+      canonical: `${baseUrl}/${locale}/business`,
+      languages: {
+        'en': `${baseUrl}/en/business`,
+        'de': `${baseUrl}/de/business`,
+        'es': `${baseUrl}/es/business`,
+        'pt-BR': `${baseUrl}/pt-BR/business`,
+        'x-default': `${baseUrl}/en/business`,
+      },
+    },
     openGraph: {
       title: 'Your startup\'s treasury is earning 0%. Let\'s fix that.',
       description: 'diBoaS Treasury: 6-8% yield on operating cash. Same-day liquidity. No lock-ups. EU-regulated.',
-      type: 'website'
-    }
+      type: 'website',
+      locale: locale,
+      url: `${baseUrl}/${locale}/business`,
+      siteName: 'diBoaS',
+      images: [
+        {
+          url: `${baseUrl}/api/og/b2b`,
+          width: 1200,
+          height: 630,
+          alt: 'diBoaS Treasury - Make Your Startup Cash Work Harder',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Your startup\'s treasury is earning 0%. Let\'s fix that.',
+      description: 'diBoaS Treasury: 6-8% yield on operating cash. Same-day liquidity. No lock-ups.',
+      images: [`${baseUrl}/api/og/b2b`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 

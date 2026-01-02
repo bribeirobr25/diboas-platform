@@ -1,6 +1,7 @@
 'use client';
 
 import { useIntl } from 'react-intl';
+import Link from 'next/link';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 
@@ -307,7 +308,35 @@ export function StrategiesPageContent() {
         </section>
       </SectionErrorBoundary>
 
-      {/* Section 5: Final CTA / Waitlist */}
+      {/* Section 5: Future You Connection */}
+      <SectionErrorBoundary
+        sectionId="future-you-connection-section"
+        sectionType="FeatureShowcase"
+        enableReporting={true}
+        context={{ page: 'strategies' }}
+      >
+        <section className="py-16 md:py-24 bg-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+              {t('futureYouConnection.header')}
+            </h2>
+            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+              {t('futureYouConnection.body')}
+            </p>
+            <Link
+              href="/future-you"
+              className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            >
+              {t('futureYouConnection.cta')}
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </section>
+      </SectionErrorBoundary>
+
+      {/* Section 6: Final CTA / Waitlist */}
       <SectionErrorBoundary
         sectionId="waitlist-section-strategies"
         sectionType="WaitlistSection"

@@ -49,7 +49,9 @@
   },
   "waitlistPosition": {
     "twitter": "I'm #{position} on the @diBoaS waitlist. Banks earn 7% with our savings. They pay us 0.5%. That gap? It's been there the whole time. #WhileISlept",
-    "whatsapp": "I just joined the diBoaS waitlist (#{position}). Did you know banks earn 7% with our savings but only pay us 0.5%? Check it out: {referralUrl}"
+    "whatsapp": "I just joined the diBoaS waitlist (#{position}). Did you know banks earn 7% with our savings but only pay us 0.5%? Check it out: {referralUrl}",
+    "facebook": "I'm #{position} on the diBoaS waitlist. Banks earn 7% with our savings but only pay us 0.5%. Time to change that. {referralUrl}",
+    "linkedin": "Just joined the diBoaS waitlist at position #{position}. The gap between what banks earn with our money (7%) and what they pay us (0.5%) is remarkable. Exploring how DeFi can change this. {referralUrl} #FinancialInnovation #DeFi"
   },
   "dreamCard": {
     "watermark": "PROJECTION",

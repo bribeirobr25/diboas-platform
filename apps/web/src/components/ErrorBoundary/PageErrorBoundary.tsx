@@ -4,16 +4,38 @@
  * Page Error Boundary
  * Error Handling: Catches React errors and displays fallback UI
  * User Experience: Prevents app crashes with graceful error handling
+ * i18n: Accepts translations as props with fallback defaults
  */
 
 import React, { Component, ReactNode } from 'react';
 import { Button } from '@diboas/ui';
 import { monitoringService } from '@/lib/monitoring';
 
+/**
+ * Translation strings for the error boundary
+ * Defaults provided for resilience when i18n is unavailable
+ */
+interface ErrorBoundaryTranslations {
+  title: string;
+  message: string;
+  tryAgain: string;
+  refreshPage: string;
+  devDetails: string;
+}
+
+const DEFAULT_TRANSLATIONS: ErrorBoundaryTranslations = {
+  title: 'Something went wrong',
+  message: 'We encountered an unexpected error. Please try refreshing the page or contact support if the problem persists.',
+  tryAgain: 'Try Again',
+  refreshPage: 'Refresh Page',
+  devDetails: 'Error Details (Development)',
+};
+
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+  translations?: Partial<ErrorBoundaryTranslations>;
 }
 
 interface State {
@@ -55,6 +77,9 @@ export class PageErrorBoundary extends Component<Props, State> {
         return this.props.fallback;
       }
 
+      // Merge translations with defaults
+      const t = { ...DEFAULT_TRANSLATIONS, ...this.props.translations };
+
       // Default error UI
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -66,10 +91,10 @@ export class PageErrorBoundary extends Component<Props, State> {
                 </svg>
               </div>
               <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                Something went wrong
+                {t.title}
               </h2>
               <p className="text-gray-600 mb-6">
-                We encountered an unexpected error. Please try refreshing the page or contact support if the problem persists.
+                {t.message}
               </p>
             </div>
 
@@ -80,7 +105,7 @@ export class PageErrorBoundary extends Component<Props, State> {
                 size="sm"
                 className="w-full"
               >
-                Try Again
+                {t.tryAgain}
               </Button>
 
               <Button
@@ -89,14 +114,14 @@ export class PageErrorBoundary extends Component<Props, State> {
                 size="sm"
                 className="w-full"
               >
-                Refresh Page
+                {t.refreshPage}
               </Button>
             </div>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mt-4 text-left">
                 <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
-                  Error Details (Development)
+                  {t.devDetails}
                 </summary>
                 <pre className="mt-2 text-xs bg-gray-100 p-2 rounded overflow-auto">
                   {this.state.error.stack}

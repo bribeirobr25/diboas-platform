@@ -29,3 +29,11 @@ export async function generateDynamicPageMetadata(
 ): Promise<Metadata> {
   return MetadataFactory.generateDynamicPageMetadata(title, description, path, locale);
 }
+
+/**
+ * Generate static params for Next.js locale-based routing
+ * DRY Principle: Single source for generateStaticParams across pages
+ */
+export function generateLocaleStaticParams() {
+  return MetadataFactory.generateLocaleStaticParams();
+}

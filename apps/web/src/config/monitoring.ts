@@ -59,8 +59,9 @@ export interface MonitoringConfig {
 export const MONITORING_CONFIG: MonitoringConfig = {
   errorReporting: {
     enabled: process.env.NEXT_PUBLIC_ENABLE_ERROR_REPORTING === 'true',
-    endpoint: process.env.NEXT_PUBLIC_ERROR_REPORTING_ENDPOINT,
-    apiKey: process.env.NEXT_PUBLIC_ERROR_REPORTING_API_KEY,
+    endpoint: process.env.ERROR_REPORTING_ENDPOINT,
+    // API key is server-only - never expose to client
+    apiKey: process.env.ERROR_REPORTING_API_KEY,
     sampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
     environment: process.env.NODE_ENV || 'development',
     release: process.env.NEXT_PUBLIC_APP_VERSION,
@@ -81,8 +82,9 @@ export const MONITORING_CONFIG: MonitoringConfig = {
   },
   performance: {
     enabled: process.env.NEXT_PUBLIC_ENABLE_PERFORMANCE_MONITORING === 'true',
-    endpoint: process.env.NEXT_PUBLIC_PERFORMANCE_MONITORING_ENDPOINT,
-    apiKey: process.env.NEXT_PUBLIC_PERFORMANCE_MONITORING_API_KEY,
+    endpoint: process.env.PERFORMANCE_MONITORING_ENDPOINT,
+    // API key is server-only - never expose to client
+    apiKey: process.env.PERFORMANCE_MONITORING_API_KEY,
     sampleRate: process.env.NODE_ENV === 'production' ? 0.05 : 1.0, // 5% sampling in production
     budgets: {
       renderTime: { warning: 100, error: 300 }, // milliseconds
@@ -97,17 +99,18 @@ export const MONITORING_CONFIG: MonitoringConfig = {
     enableRemote: process.env.NODE_ENV === 'production'
   },
   alerts: {
-    enabled: process.env.NEXT_PUBLIC_PERFORMANCE_BUDGET_ALERTS === 'true',
+    enabled: process.env.PERFORMANCE_BUDGET_ALERTS === 'true',
     channels: {
-      slack: process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL ? {
-        webhookUrl: process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL,
-        channel: process.env.NEXT_PUBLIC_SLACK_CHANNEL || '#alerts',
+      // Webhook URLs are sensitive - server-only
+      slack: process.env.SLACK_WEBHOOK_URL ? {
+        webhookUrl: process.env.SLACK_WEBHOOK_URL,
+        channel: process.env.SLACK_CHANNEL || '#alerts',
         enablePerformanceAlerts: true,
         enableErrorAlerts: true
       } : undefined,
-      email: process.env.NEXT_PUBLIC_ALERT_EMAIL_ENDPOINT ? {
-        endpoint: process.env.NEXT_PUBLIC_ALERT_EMAIL_ENDPOINT,
-        recipients: (process.env.NEXT_PUBLIC_ALERT_EMAIL_RECIPIENTS || '').split(','),
+      email: process.env.ALERT_EMAIL_ENDPOINT ? {
+        endpoint: process.env.ALERT_EMAIL_ENDPOINT,
+        recipients: (process.env.ALERT_EMAIL_RECIPIENTS || '').split(','),
         enablePerformanceAlerts: true,
         enableErrorAlerts: true
       } : undefined
@@ -139,11 +142,13 @@ export const SENTRY_CONFIG = {
 
 /**
  * DataDog Configuration (if using DataDog)
+ * Note: API keys are server-only for security
  */
 export const DATADOG_CONFIG = {
-  apiKey: process.env.NEXT_PUBLIC_DATADOG_API_KEY,
-  appKey: process.env.NEXT_PUBLIC_DATADOG_APP_KEY,
-  site: process.env.NEXT_PUBLIC_DATADOG_SITE || 'datadoghq.com',
+  // API keys are sensitive - server-only
+  apiKey: process.env.DATADOG_API_KEY,
+  appKey: process.env.DATADOG_APP_KEY,
+  site: process.env.DATADOG_SITE || 'datadoghq.com',
   env: process.env.NODE_ENV,
   version: process.env.NEXT_PUBLIC_APP_VERSION,
   service: 'diboas-web',
@@ -155,11 +160,13 @@ export const DATADOG_CONFIG = {
 
 /**
  * New Relic Configuration (if using New Relic)
+ * Note: License keys are server-only for security
  */
 export const NEW_RELIC_CONFIG = {
-  licenseKey: process.env.NEXT_PUBLIC_NEW_RELIC_LICENSE_KEY,
-  appId: process.env.NEXT_PUBLIC_NEW_RELIC_APP_ID,
-  accountId: process.env.NEXT_PUBLIC_NEW_RELIC_ACCOUNT_ID,
+  // License key is sensitive - server-only
+  licenseKey: process.env.NEW_RELIC_LICENSE_KEY,
+  appId: process.env.NEW_RELIC_APP_ID,
+  accountId: process.env.NEW_RELIC_ACCOUNT_ID,
   applicationName: 'diBoaS Web Platform',
   environment: process.env.NODE_ENV,
   version: process.env.NEXT_PUBLIC_APP_VERSION

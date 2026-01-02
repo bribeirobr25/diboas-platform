@@ -171,7 +171,7 @@ export function AppFeaturesCarouselDefault({
                           target="_blank"
                           rel="noopener noreferrer"
                           className={styles.ctaLink}
-                          onClick={() => handleCTAClick(card.id, card.content.ctaHref)}
+                          onClick={() => handleCTAClick(card.id, card.content.ctaHref!)}
                         >
                           {card.content.ctaText}
                           <ChevronRight className={styles.ctaIcon} />
@@ -180,7 +180,7 @@ export function AppFeaturesCarouselDefault({
                         <Link
                           href={card.content.ctaHref}
                           className={styles.ctaLink}
-                          onClick={() => handleCTAClick(card.id, card.content.ctaHref)}
+                          onClick={() => handleCTAClick(card.id, card.content.ctaHref!)}
                         >
                           {card.content.ctaText}
                           <ChevronRight className={styles.ctaIcon} />

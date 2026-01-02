@@ -129,8 +129,8 @@
 
 .variant-outline {
   background: transparent;
-  color: var(--color-primary, #14b8a6);
-  border: 2px solid var(--color-primary, #14b8a6);
+  color: var(--text-primary-accessible, #0f766e);
+  border: 2px solid var(--text-primary-accessible, #0f766e);
 }
 
 .variant-outline:hover:not(:disabled) {

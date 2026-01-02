@@ -11,7 +11,7 @@
     "cta": "Enter Dream Mode",
     "enhanced": {
       "us": "IMPORTANT: This projection is for educational purposes only. It does not constitute an offer of securities, financial advice, or a recommendation to buy or sell any asset. Actual returns may vary significantly. Past performance does not guarantee future results.",
-      "brazil": "PROJEÇÃO EDUCACIONAL - Este recurso utiliza dados históricos apenas para fins ilustrativos. Não constitui oferta de investimento, promessa de retorno ou aconselhamento financeiro. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil (BCB)."
+      "brazil": "EDUCATIONAL PROJECTION - This feature uses historical data for illustrative purposes only. It does not constitute an investment offer, return promise, or financial advice. diBoaS is NOT a financial institution authorized by the Central Bank of Brazil (BCB)."
     },
     "card": "PROJECTION — Based on historical data. Not a guarantee. diboas.com"
   },
@@ -19,6 +19,7 @@
   "paths": {
     "headline": "How do you feel about risk?",
     "subhead": "There's no wrong answer — just different paths.",
+    "warningLabel": "Higher risk",
     "safety": {
       "name": "Safety First",
       "tagline": "I can't afford to lose this",

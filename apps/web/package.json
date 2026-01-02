@@ -24,6 +24,8 @@
     "@diboas/ui": "workspace:*",
     "@formatjs/intl-localematcher": "^0.4.2",
     "@sentry/nextjs": "^10.29.0",
+    "@upstash/ratelimit": "^2.0.7",
+    "@upstash/redis": "^1.36.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "critters": "^0.0.25",

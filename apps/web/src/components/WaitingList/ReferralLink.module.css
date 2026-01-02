@@ -42,6 +42,10 @@
   background: var(--bg-secondary, #f8fafc);
 }
 
+.input:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-teal-500, #14b8a6);
+}
+
 .copyButton {
   display: flex;
   align-items: center;
@@ -60,6 +64,11 @@
 
 .copyButton:hover {
   background: var(--bg-tertiary, #e2e8f0);
+}
+
+.copyButton:focus-visible {
+  outline: 2px solid var(--color-teal-500, #14b8a6);
+  outline-offset: 2px;
 }
 
 .copyButton.copied {
@@ -96,16 +105,21 @@
   transform: scale(0.95);
 }
 
+.shareButton:focus-visible {
+  outline: 2px solid var(--color-teal-500, #14b8a6);
+  outline-offset: 2px;
+}
+
 .shareButton.whatsapp {
-  background: #25D366;
+  background: var(--social-whatsapp, #25D366);
 }
 
 .shareButton.twitter {
-  background: #000000;
+  background: var(--social-twitter, #000000);
 }
 
 .shareButton.linkedin {
-  background: #0A66C2;
+  background: var(--social-linkedin, #0A66C2);
 }
 
 /* Compact mode */

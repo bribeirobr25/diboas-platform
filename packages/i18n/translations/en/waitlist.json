@@ -4,6 +4,7 @@
   "subheadline": "Join the waitlist and get early access when we launch.",
   "form": {
     "emailPlaceholder": "Your email address",
+    "emailLabel": "Email address",
     "cta": "Join the waitlist",
     "submitting": "Joining...",
     "privacyNote": "We'll only email you about diBoaS. Unsubscribe anytime."

@@ -4,6 +4,7 @@
   "subheadline": "Melden Sie sich an und erhalten Sie frühen Zugang zum Start.",
   "form": {
     "emailPlaceholder": "Ihre E-Mail-Adresse",
+    "emailLabel": "E-Mail-Adresse",
     "cta": "Auf die Warteliste",
     "submitting": "Wird hinzugefügt...",
     "privacyNote": "Wir senden Ihnen nur E-Mails über diBoaS. Jederzeit abmeldbar."

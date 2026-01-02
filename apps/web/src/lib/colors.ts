@@ -1,5 +1,24 @@
 // diBoaS Brand Colors - Extracted from design-system.md
 export const diBoasColors = {
+  // Brand Identity Colors
+  brand: {
+    logo: '#02c3cf',      // Exact logo color
+    primary: '#14b8a6',   // Primary brand color
+    primaryDark: '#0d9488' // Darker variant
+  },
+
+  // Social Platform Colors (for share buttons)
+  social: {
+    whatsapp: '#25D366',
+    twitter: '#000000',
+    instagram: '#E4405F',
+    linkedin: '#0A66C2',
+    facebook: '#1877F2',
+    telegram: '#0088cc',
+    copy: '#64748b',
+    download: '#0d9488'
+  },
+
   // Primary Brand Color (Turquoise/Aqua)
   primary: {
     50: '#f0fdfa',   // Very light aqua

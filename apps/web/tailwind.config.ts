@@ -25,9 +25,11 @@ export default {
         secondary: diBoasColors.secondary,
         neutral: diBoasColors.neutral,
         semantic: diBoasColors.semantic,
+        brand: diBoasColors.brand,
+        social: diBoasColors.social,
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        'logo-aqua': '#02c3cf', // Exact logo color
+        'logo-aqua': diBoasColors.brand.logo, // Reference from design tokens
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

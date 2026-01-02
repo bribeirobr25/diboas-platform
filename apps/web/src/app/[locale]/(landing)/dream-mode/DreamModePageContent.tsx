@@ -18,6 +18,7 @@ import { DreamMode } from '@/components/DreamMode';
 import { useWaitingListModal } from '@/components/WaitingList';
 import { analyticsService } from '@/lib/analytics';
 import { POSITION_STORAGE_KEYS } from '@/lib/waitingList/constants';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from './DreamModePage.module.css';
 
 interface DreamModePageContentProps {
@@ -137,12 +138,19 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
   // User is on waitlist - render Dream Mode
   return (
     <div className={styles.dreamModeContainer}>
-      <DreamMode
-        onComplete={handleComplete}
-        onJoinWaitlist={openModal}
-        onClose={handleClose}
-        className={styles.dreamMode}
-      />
+      <SectionErrorBoundary
+        sectionId="dream-mode-experience"
+        sectionType="DreamMode"
+        enableReporting={true}
+        context={{ page: 'dream-mode', locale }}
+      >
+        <DreamMode
+          onComplete={handleComplete}
+          onJoinWaitlist={openModal}
+          onClose={handleClose}
+          className={styles.dreamMode}
+        />
+      </SectionErrorBoundary>
     </div>
   );
 }
