@@ -271,12 +271,11 @@ async function handleUnsubscribed(payload: KitWebhookPayload): Promise<void> {
 
 /**
  * GET /api/webhooks/kit
- * Health check / verification endpoint
+ * Health check endpoint (does not reveal configuration status)
  */
 export async function GET(): Promise<NextResponse> {
   return NextResponse.json({
     status: 'ok',
     endpoint: 'Kit.com Webhook Handler',
-    configured: !!process.env.KIT_WEBHOOK_SECRET,
   });
 }

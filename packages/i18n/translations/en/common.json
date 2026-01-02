@@ -252,7 +252,9 @@
     "notConfigured": "Booking calendar not configured",
     "loading": "Loading calendar...",
     "contactUs": "Contact us directly to schedule a call",
-    "error": "Unable to load booking calendar"
+    "error": "Unable to load booking calendar",
+    "loadError": "Unable to load booking calendar",
+    "contactDirectly": "Contact us directly to schedule a call"
   },
   "waitingList": {
     "title": "Join the Waiting List",

@@ -34,9 +34,18 @@ export function validateOrigin(request: NextRequest): { valid: boolean; error?: 
 
   // Check Origin header first
   if (origin) {
-    const isAllowed = ALLOWED_ORIGINS.some(allowed =>
-      origin === allowed || origin.startsWith(allowed)
-    );
+    const isAllowed = ALLOWED_ORIGINS.some(allowed => {
+      try {
+        // Use URL origin comparison to prevent subdomain spoofing
+        // e.g., https://diboas.com.attacker.com should NOT match https://diboas.com
+        const originUrl = new URL(origin);
+        const allowedUrl = new URL(allowed);
+        return originUrl.origin === allowedUrl.origin;
+      } catch {
+        // Fallback to exact match for malformed URLs
+        return origin === allowed;
+      }
+    });
 
     if (isAllowed) {
       return { valid: true };
@@ -52,11 +61,17 @@ export function validateOrigin(request: NextRequest): { valid: boolean; error?: 
   if (referer) {
     try {
       const refererUrl = new URL(referer);
-      const refererOrigin = `${refererUrl.protocol}//${refererUrl.host}`;
+      const refererOrigin = refererUrl.origin;
 
-      const isAllowed = ALLOWED_ORIGINS.some(allowed =>
-        refererOrigin === allowed || refererOrigin.startsWith(allowed)
-      );
+      const isAllowed = ALLOWED_ORIGINS.some(allowed => {
+        try {
+          // Use URL origin comparison to prevent subdomain spoofing
+          const allowedUrl = new URL(allowed);
+          return refererOrigin === allowedUrl.origin;
+        } catch {
+          return refererOrigin === allowed;
+        }
+      });
 
       if (isAllowed) {
         return { valid: true };
