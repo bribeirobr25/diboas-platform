@@ -9,6 +9,7 @@
 
 import React from 'react';
 import { useIntl } from 'react-intl';
+import { AlertTriangleIcon } from '@/components/Icons';
 import styles from './SimulationWatermark.module.css';
 
 interface SimulationWatermarkProps {
@@ -23,7 +24,7 @@ export function SimulationWatermark({ className = '' }: SimulationWatermarkProps
 
   return (
     <div className={`${styles.watermark} ${className}`} aria-label="Simulation mode indicator">
-      <span className={styles.icon}>⚠️</span>
+      <AlertTriangleIcon size={16} className={styles.icon} />
       <span className={styles.text}>{watermarkText}</span>
     </div>
   );

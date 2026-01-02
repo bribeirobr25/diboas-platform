@@ -35,13 +35,18 @@ export interface PathProjection {
 }
 
 /**
+ * Icon type identifiers for paths
+ */
+export type PathIconType = 'shield' | 'balance' | 'rocket';
+
+/**
  * Configuration for a single investment path
  */
 export interface PathConfig {
   /** Path identifier */
   id: DreamPath;
-  /** Display icon emoji */
-  icon: string;
+  /** Icon type identifier (maps to professional SVG icon) */
+  icon: PathIconType;
   /** Average annual percentage yield */
   avgApy: number;
   /** Maximum drawdown percentage (historical) */

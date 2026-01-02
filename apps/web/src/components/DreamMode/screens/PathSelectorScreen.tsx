@@ -11,6 +11,7 @@ import React, { useCallback, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
 import { PATH_CONFIGS, type DreamPath } from '@/lib/dream-mode';
+import { PathIcon, AlertTriangleIcon, type PathIconType } from '@/components/Icons';
 import styles from './screens.module.css';
 
 const PATH_ORDER: DreamPath[] = ['safety', 'balance', 'growth'];
@@ -90,7 +91,7 @@ export function PathSelectorScreen() {
                 aria-label={`${pathName}: ${intl.formatMessage({ id: `dreamMode.paths.${pathId}.description` })}`}
                 tabIndex={isSelected || (!selectedPath && index === 0) ? 0 : -1}
               >
-                <span className={styles.pathIcon} aria-hidden="true">{config.icon}</span>
+                <span className={styles.pathIcon} aria-hidden="true"><PathIcon type={pathId as PathIconType} size={28} /></span>
                 <h3 className={styles.pathName}>
                   {pathName}
                 </h3>
@@ -102,7 +103,7 @@ export function PathSelectorScreen() {
                     {intl.formatMessage({ id: `dreamMode.paths.${pathId}.risk` })}
                   </span>
                   {config.warning && (
-                    <span className={styles.pathWarning} aria-label={intl.formatMessage({ id: 'dreamMode.paths.warningLabel' }, { defaultMessage: 'Higher risk' })}>⚠️</span>
+                    <span className={styles.pathWarning} aria-label={intl.formatMessage({ id: 'dreamMode.paths.warningLabel' }, { defaultMessage: 'Higher risk' })}><AlertTriangleIcon size={16} /></span>
                   )}
                 </div>
               </button>

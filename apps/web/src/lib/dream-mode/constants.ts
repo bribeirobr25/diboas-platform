@@ -35,11 +35,12 @@ export const TIMEFRAME_DAYS: Record<DreamTimeframe, number> = {
 
 /**
  * Path icon configuration
+ * Uses icon type identifiers that map to professional SVG icons
  */
-export const PATH_ICONS: Record<DreamPath, string> = {
-  safety: '🛡️',
-  balance: '⚖️',
-  growth: '🚀',
+export const PATH_ICONS: Record<DreamPath, 'shield' | 'balance' | 'rocket'> = {
+  safety: 'shield',
+  balance: 'balance',
+  growth: 'rocket',
 } as const;
 
 /**
@@ -59,7 +60,7 @@ export const PATH_COLORS: Record<DreamPath, { primary: string; secondary: string
 export const PATH_CONFIGS: Record<DreamPath, PathConfig> = {
   safety: {
     id: 'safety',
-    icon: '🛡️',
+    icon: 'shield',
     avgApy: 0.9,
     maxDrawdown: 0.0,
     probabilityOfLoss: 0.5,
@@ -73,7 +74,7 @@ export const PATH_CONFIGS: Record<DreamPath, PathConfig> = {
   },
   balance: {
     id: 'balance',
-    icon: '⚖️',
+    icon: 'balance',
     avgApy: 23.2,
     maxDrawdown: 37.2,
     probabilityOfLoss: 39.9,
@@ -87,7 +88,7 @@ export const PATH_CONFIGS: Record<DreamPath, PathConfig> = {
   },
   growth: {
     id: 'growth',
-    icon: '🚀',
+    icon: 'rocket',
     avgApy: 64.2,
     maxDrawdown: 70.2,
     probabilityOfLoss: 55.7,

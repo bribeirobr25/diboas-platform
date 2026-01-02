@@ -83,16 +83,10 @@
   justify-content: center;
   background: linear-gradient(135deg, var(--color-teal-500, #14b8a6), var(--color-teal-400, #2dd4bf));
   border-radius: 50%;
-  animation: float 3s ease-in-out infinite;
 }
 
 .dreamIcon {
   color: white;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
 }
 
 /* Feature list */
@@ -308,7 +302,10 @@
 }
 
 .optionIcon {
-  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-teal-400, #2dd4bf);
 }
 
 .optionLabel {
@@ -568,14 +565,10 @@
   gap: var(--spacing-md, 16px);
 }
 
-.celebrationEmoji {
-  font-size: 64px;
-  animation: bounce 1s ease infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.successIcon {
+  width: 48px;
+  height: 48px;
+  color: var(--color-teal-400, #2dd4bf);
 }
 
 .summaryCard {
@@ -715,8 +708,9 @@
 }
 
 .disclaimerIcon {
-  font-size: 48px;
-  line-height: 1;
+  width: 32px;
+  height: 32px;
+  color: var(--color-amber-500, #f59e0b);
 }
 
 .disclaimerHeadline {
@@ -867,8 +861,9 @@
 }
 
 .pathIcon {
-  font-size: 40px;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
+  color: var(--color-teal-400, #2dd4bf);
   margin-bottom: var(--spacing-xs, 4px);
 }
 
@@ -901,7 +896,9 @@
 }
 
 .pathWarning {
-  font-size: var(--font-size-small, 14px);
+  display: flex;
+  align-items: center;
+  color: var(--color-amber-500, #f59e0b);
 }
 
 /* Bank source citation (CLO required) */
