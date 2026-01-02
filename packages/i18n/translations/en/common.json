@@ -124,7 +124,19 @@
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu",
     "toggleLanguage": "Change language",
-    "currentLanguage": "Current language: English"
+    "currentLanguage": "Current language: English",
+    "warning": "Warning",
+    "selectAmount": "Select deposit amount",
+    "shareOptions": "Share options",
+    "shareOnTwitter": "Share on Twitter",
+    "shareOnWhatsapp": "Share on WhatsApp",
+    "shareOnLinkedin": "Share on LinkedIn",
+    "copyReferralLink": "Copy referral link",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "changeLanguage": "Change language",
+    "switchTo": "Switch to {language}",
+    "emailLabel": "Email address"
   },
   "languageSwitcher": {
     "label": "Language",
@@ -155,6 +167,22 @@
       "title": "No Internet Connection",
       "description": "Please check your connection and try again.",
       "action": "Retry"
+    },
+    "page": {
+      "title": "Something went wrong",
+      "message": "We encountered an unexpected error. Please try refreshing the page or contact support if the problem persists.",
+      "tryAgain": "Try Again",
+      "refreshPage": "Refresh Page",
+      "devDetails": "Error Details (Development)"
+    },
+    "section": {
+      "title": "Something went wrong",
+      "message": "We're sorry, but this section couldn't load properly.",
+      "canRetry": "You can try reloading it below.",
+      "tryAgain": "Try Again",
+      "reloadPage": "Reload Page",
+      "devDetails": "Error Details (Development Only)",
+      "persistHelp": "If this problem persists, please try refreshing the page or contact support."
     }
   },
   "footer": {
@@ -220,6 +248,12 @@
     "declineAriaLabel": "Decline cookies",
     "acceptAriaLabel": "Accept cookies"
   },
+  "bookCall": {
+    "notConfigured": "Booking calendar not configured",
+    "loading": "Loading calendar...",
+    "contactUs": "Contact us directly to schedule a call",
+    "error": "Unable to load booking calendar"
+  },
   "waitingList": {
     "title": "Join the Waiting List",
     "subtitle": "Be the first to experience the future of finance. Sign up now to get early access to diBoaS.",
@@ -278,10 +312,9 @@
     "shareVia": "Share via:",
     "download": "Download"
   },
-  "bookCall": {
-    "loading": "Loading calendar...",
-    "notConfigured": "Booking calendar not configured",
-    "contactUs": "Contact us directly to schedule a call",
-    "error": "Unable to load booking calendar"
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "Sorry, we couldn't find the page you're looking for.",
+    "goHome": "Go to Homepage"
   }
 }

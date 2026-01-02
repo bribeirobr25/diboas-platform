@@ -13,6 +13,7 @@ import { useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
@@ -21,9 +22,9 @@ import { analyticsService } from '@/lib/analytics/error-resilient-service';
 import type { FeatureShowcaseVariantProps } from '../types';
 import styles from './FeatureShowcaseBenefits.module.css';
 
-export function FeatureShowcaseBenefits({ 
-  config, 
-  className = '', 
+export function FeatureShowcaseBenefits({
+  config,
+  className = '',
   enableAnalytics = true,
   priority = true,
   backgroundColor,
@@ -31,6 +32,7 @@ export function FeatureShowcaseBenefits({
   onSlideChange,
   onCTAClick
 }: FeatureShowcaseVariantProps) {
+  const intl = useTranslation();
   const slides = config.slides || [];
 
   // Shared carousel hook (manual navigation only - no auto-play)
@@ -181,16 +183,16 @@ export function FeatureShowcaseBenefits({
                 <button
                   onClick={goToPrev}
                   className={styles.navButton}
-                  aria-label="Previous slide"
+                  aria-label={intl.formatMessage({ id: 'common.accessibility.previousSlide' })}
                   disabled={isTransitioning}
                 >
                   <ChevronLeft className={styles.navIcon} />
                 </button>
-                
+
                 <button
                   onClick={goToNext}
                   className={styles.navButton}
-                  aria-label="Next slide"
+                  aria-label={intl.formatMessage({ id: 'common.accessibility.nextSlide' })}
                   disabled={isTransitioning}
                 >
                   <ChevronRight className={styles.navIcon} />

@@ -7,7 +7,9 @@
  * - Form submissions (form.subscribe)
  * - Tag additions (subscriber.tag_added)
  *
- * Security: Validates webhook signature using HMAC-SHA256
+ * Security:
+ * - Validates webhook signature using HMAC-SHA256
+ * - Rate limiting to prevent abuse
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -18,6 +20,12 @@ import {
   updateKitSubscriberId,
   addTags,
 } from '@/lib/waitingList/store';
+import {
+  checkRateLimit,
+  getClientIP,
+  createRateLimitHeaders,
+  RateLimitPresets,
+} from '@/lib/security';
 
 /**
  * Kit.com Webhook Event Types
@@ -85,6 +93,21 @@ function verifySignature(payload: string, signature: string, secret: string): bo
  * Handle Kit.com webhook events
  */
 export async function POST(request: NextRequest): Promise<NextResponse<WebhookResponse>> {
+  // Rate limiting for webhook endpoint
+  const clientIP = getClientIP(request);
+  const rateLimitResult = await checkRateLimit(
+    `webhook-kit:${clientIP}`,
+    RateLimitPresets.standard.limit,
+    RateLimitPresets.standard.windowMs
+  );
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests' },
+      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+    );
+  }
+
   try {
     // Get webhook secret from environment
     const webhookSecret = process.env.KIT_WEBHOOK_SECRET;

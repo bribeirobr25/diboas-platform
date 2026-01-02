@@ -17,6 +17,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useIntl } from 'react-intl';
 import type { CalEmbedProps, BookingData } from './types';
 import styles from './BookCall.module.css';
 
@@ -41,6 +42,7 @@ export function CalEmbed({
   onBookingComplete,
   onLoad,
 }: CalEmbedProps) {
+  const intl = useIntl();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +52,7 @@ export function CalEmbed({
 
   useEffect(() => {
     if (!calLink) {
-      setError('Cal.com link not configured');
+      setError(intl.formatMessage({ id: 'bookCall.notConfigured' }));
       return;
     }
 
@@ -137,7 +139,7 @@ export function CalEmbed({
   if (error) {
     return (
       <div className={`${styles.embedContainer} ${styles.embedError} ${className || ''}`}>
-        <p>Unable to load booking calendar</p>
+        <p>{intl.formatMessage({ id: 'bookCall.loadError' })}</p>
         <p className={styles.errorDetail}>{error}</p>
       </div>
     );
@@ -147,8 +149,8 @@ export function CalEmbed({
   if (!calLink) {
     return (
       <div className={`${styles.embedContainer} ${styles.embedPlaceholder} ${className || ''}`}>
-        <p>Booking calendar not configured</p>
-        <p className={styles.placeholderNote}>Contact us directly to schedule a call</p>
+        <p>{intl.formatMessage({ id: 'bookCall.notConfigured' })}</p>
+        <p className={styles.placeholderNote}>{intl.formatMessage({ id: 'bookCall.contactDirectly' })}</p>
       </div>
     );
   }
@@ -158,7 +160,7 @@ export function CalEmbed({
       {!isLoaded && (
         <div className={styles.embedLoading}>
           <div className={styles.loadingSpinner} />
-          <p>Loading calendar...</p>
+          <p>{intl.formatMessage({ id: 'bookCall.loading' })}</p>
         </div>
       )}
       <div

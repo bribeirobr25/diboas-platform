@@ -149,15 +149,20 @@ const PLATFORM_ICONS: Record<SharePlatform, React.FC> = {
   download: DownloadIcon,
 };
 
+/**
+ * Platform colors using CSS design tokens
+ * These reference the CSS variables defined in design-tokens.css
+ * for centralized color management
+ */
 const PLATFORM_COLORS: Record<SharePlatform, string> = {
-  whatsapp: '#25D366',
-  twitter: '#000000',
-  instagram: '#E4405F',
-  linkedin: '#0A66C2',
-  facebook: '#1877F2',
-  telegram: '#0088cc',
-  copy: '#64748b',
-  download: '#0d9488',
+  whatsapp: 'var(--social-whatsapp, #25D366)',
+  twitter: 'var(--social-twitter, #000000)',
+  instagram: 'var(--social-instagram, #E4405F)',
+  linkedin: 'var(--social-linkedin, #0A66C2)',
+  facebook: 'var(--social-facebook, #1877F2)',
+  telegram: 'var(--social-telegram, #0088cc)',
+  copy: 'var(--social-copy, #64748b)',
+  download: 'var(--social-download, #0d9488)',
 };
 
 export function ShareButtons({

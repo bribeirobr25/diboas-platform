@@ -12,8 +12,8 @@
   align-items: center;
   gap: var(--spacing-xs, 4px);
   padding: var(--spacing-xs, 4px) var(--spacing-sm, 8px);
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: var(--amber-overlay-subtle);
+  border: 1px solid var(--amber-overlay-medium);
   border-radius: var(--radius-md, 8px);
   z-index: 100;
   pointer-events: none;
@@ -27,7 +27,7 @@
 .text {
   font-size: var(--font-size-xs, 12px);
   font-weight: 600;
-  color: rgba(245, 158, 11, 0.9);
+  color: var(--amber-text-bright);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }

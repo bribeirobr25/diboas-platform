@@ -2,9 +2,29 @@
  * Share Library - Constants
  *
  * Configuration for card generation, platform sharing, and CLO compliance
+ *
+ * NOTE: Canvas rendering cannot access CSS variables, so colors are defined here.
+ * These values MUST match the corresponding design tokens in design-tokens.css:
+ * - --card-bank-comparison: #ef4444
+ * - --card-watermark-amber: rgba(245, 158, 11, 0.8)
+ * - --card-highlight-amber: #f59e0b
+ * - --card-overlay-dark: rgba(0, 0, 0, 0.5)
  */
 
 import type { CardConfig, PlatformConfig, RegionalDisclaimer, CardLocale } from './types';
+
+/**
+ * Centralized color tokens for canvas rendering
+ * Mirrors design-tokens.css values for consistency
+ */
+export const CANVAS_COLORS = {
+  // Semantic colors (match design tokens)
+  bankComparison: '#ef4444',      // --card-bank-comparison
+  watermarkAmber: 'rgba(245, 158, 11, 0.8)', // --card-watermark-amber
+  highlightAmber: '#f59e0b',      // --card-highlight-amber
+  overlayDark: 'rgba(0, 0, 0, 0.5)', // --card-overlay-dark
+  errorRed: '#ef4444',            // --error-text-primary equivalent
+} as const;
 
 /**
  * Default card dimensions (Instagram story format)

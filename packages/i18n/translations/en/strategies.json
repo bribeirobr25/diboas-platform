@@ -272,6 +272,11 @@
       }
     }
   },
+  "futureYouConnection": {
+    "header": "See how it could grow",
+    "body": "Picked your strategy? Use the Future You Calculator to see what your investment could become over time.",
+    "cta": "Try the Calculator"
+  },
   "finalCta": {
     "header": "Ready to pick your path?",
     "body": "Join the waitlist. When we launch, you'll be among the first to put your strategy to work.",

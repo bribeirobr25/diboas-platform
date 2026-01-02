@@ -14,6 +14,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@diboas/ui';
+import { useTranslation } from '@diboas/i18n/client';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
@@ -24,9 +25,9 @@ import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { FeatureShowcaseVariantProps } from '../types';
 import styles from './FeatureShowcaseDefault.module.css';
 
-export function FeatureShowcaseDefault({ 
-  config, 
-  className = '', 
+export function FeatureShowcaseDefault({
+  config,
+  className = '',
   enableAnalytics = true,
   priority = true,
   backgroundColor,
@@ -34,6 +35,7 @@ export function FeatureShowcaseDefault({
   onSlideChange,
   onCTAClick
 }: FeatureShowcaseVariantProps) {
+  const intl = useTranslation();
   const { recordSectionRenderTime } = usePerformanceMonitoring();
 
   // Performance monitoring (unique to FeatureShowcase)
@@ -199,16 +201,16 @@ export function FeatureShowcaseDefault({
                 <button
                   onClick={goToPrev}
                   className={styles.navButton}
-                  aria-label="Previous slide"
+                  aria-label={intl.formatMessage({ id: 'common.accessibility.previousSlide' })}
                   disabled={isTransitioning}
                 >
                   <ChevronLeft className={styles.navIcon} />
                 </button>
-                
+
                 <button
                   onClick={goToNext}
                   className={styles.navButton}
-                  aria-label="Next slide"
+                  aria-label={intl.formatMessage({ id: 'common.accessibility.nextSlide' })}
                   disabled={isTransitioning}
                 >
                   <ChevronRight className={styles.navIcon} />

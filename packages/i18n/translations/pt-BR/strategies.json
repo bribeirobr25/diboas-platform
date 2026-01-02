@@ -264,6 +264,11 @@
       }
     }
   },
+  "futureYouConnection": {
+    "header": "Veja como pode crescer",
+    "body": "Escolheu sua estratégia? Use a Calculadora Você do Futuro pra ver no que seu investimento pode se transformar com o tempo.",
+    "cta": "Ir pra Calculadora"
+  },
   "finalCta": {
     "header": "Pronto pra escolher seu caminho?",
     "body": "Entra na lista de espera. Quando a gente lançar, você vai ser dos primeiros a colocar sua estratégia pra trabalhar.",

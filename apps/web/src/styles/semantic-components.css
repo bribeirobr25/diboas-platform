@@ -973,7 +973,7 @@ a:focus-visible {
   /* Ensure text has enough contrast on any background */
   font-weight: 600;
   /* Add subtle text shadow for better readability on gradient/image backgrounds */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 3px var(--shadow-black-intense, rgba(0, 0, 0, 0.3));
 }
 
 .btn-content-loading {

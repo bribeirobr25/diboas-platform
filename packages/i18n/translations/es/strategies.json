@@ -264,6 +264,11 @@
       }
     }
   },
+  "futureYouConnection": {
+    "header": "Mira cómo podría crecer",
+    "body": "¿Elegiste tu estrategia? Usa la Calculadora Tu Futuro para ver en qué podría convertirse tu inversión con el tiempo.",
+    "cta": "Ir a la Calculadora"
+  },
   "finalCta": {
     "header": "¿Listo para elegir tu camino?",
     "body": "Únete a la lista de espera. Cuando lancemos, serás de los primeros en poner tu estrategia a trabajar.",

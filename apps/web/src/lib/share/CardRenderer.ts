@@ -33,6 +33,7 @@ import {
   DREAM_BANK_COMPARISON_LABEL,
   CARD_URL,
   BCB_DISCLAIMER,
+  CANVAS_COLORS,
 } from './constants';
 
 /**
@@ -126,7 +127,7 @@ function drawWatermark(
   const pillY = padding;
 
   // Draw pill background
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+  ctx.fillStyle = CANVAS_COLORS.overlayDark;
   ctx.beginPath();
   ctx.roundRect(pillX, pillY, pillWidth, pillHeight, 6);
   ctx.fill();
@@ -280,7 +281,7 @@ function renderDreamCard(
 
     // Bank amount (red for emphasis)
     const bankFormatted = formatCurrency(data.bankBalance, data.currency, data.locale);
-    ctx.fillStyle = '#ef4444';
+    ctx.fillStyle = CANVAS_COLORS.bankComparison;
     ctx.font = `bold 32px ${CARD_FONTS.body.family}`;
     ctx.fillText(bankFormatted, width / 2, height * 0.49);
   }
@@ -333,12 +334,12 @@ function renderWaitlistCard(
   ctx.textBaseline = 'middle';
 
   // Line 1: "Banks earn 7% with our savings."
-  ctx.fillStyle = '#f59e0b'; // Amber for emphasis
+  ctx.fillStyle = CANVAS_COLORS.highlightAmber;
   ctx.font = `bold 20px ${CARD_FONTS.body.family}`;
   ctx.fillText(bankGap.line1, width / 2, height * 0.14);
 
   // Line 2: "They pay us 0.5%."
-  ctx.fillStyle = '#ef4444'; // Red for contrast
+  ctx.fillStyle = CANVAS_COLORS.bankComparison;
   ctx.font = `bold 20px ${CARD_FONTS.body.family}`;
   ctx.fillText(bankGap.line2, width / 2, height * 0.18);
 
@@ -524,6 +525,9 @@ export class CardRenderer {
         throw new Error(`Unknown card type: ${(cardData as CardData).type}`);
     }
 
+    // Get the data URL before blob conversion (synchronous operation)
+    const dataUrl = canvas.toDataURL('image/png');
+
     // Convert to blob
     const blob = await new Promise<Blob>((resolve, reject) => {
       canvas.toBlob((b) => {
@@ -532,8 +536,15 @@ export class CardRenderer {
       }, 'image/png');
     });
 
+    // Clean up canvas resources
+    // Clear the canvas content
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Reset canvas dimensions to release memory
+    canvas.width = 0;
+    canvas.height = 0;
+
     return {
-      dataUrl: canvas.toDataURL('image/png'),
+      dataUrl,
       blob,
       width: this.config.width,
       height: this.config.height,

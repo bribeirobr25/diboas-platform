@@ -9,4 +9,4 @@ export { seoService } from './service';
 export { MetadataFactory } from './metadata-factory';
 
 // Convenience exports for common use cases
-export { generateStaticPageMetadata, generateDynamicPageMetadata } from './helpers';
+export { generateStaticPageMetadata, generateDynamicPageMetadata, generateLocaleStaticParams } from './helpers';

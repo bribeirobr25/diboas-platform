@@ -20,36 +20,41 @@ interface SectionErrorBoundaryProps {
    * Section identifier for error tracking
    */
   sectionId: string;
-  
+
   /**
    * Section type for categorizing errors
    */
   sectionType: string;
-  
+
   /**
    * Children components to protect
    */
   children: ReactNode;
-  
+
   /**
    * Custom fallback UI component
    */
   fallback?: React.ComponentType<SectionErrorFallbackProps>;
-  
+
   /**
    * Enable error reporting to external services
    */
   enableReporting?: boolean;
-  
+
   /**
    * Recovery attempt function
    */
   onRetry?: () => void;
-  
+
   /**
    * Additional context for error reporting
    */
   context?: Record<string, unknown>;
+
+  /**
+   * i18n translations for error messages
+   */
+  translations?: Partial<SectionErrorTranslations>;
 }
 
 interface SectionErrorBoundaryState {
@@ -60,6 +65,30 @@ interface SectionErrorBoundaryState {
   retryCount: number;
 }
 
+/**
+ * Translation strings for the section error boundary
+ * Defaults provided for resilience when i18n is unavailable
+ */
+export interface SectionErrorTranslations {
+  title: string;
+  message: string;
+  canRetry: string;
+  tryAgain: string;
+  reloadPage: string;
+  devDetails: string;
+  persistHelp: string;
+}
+
+const DEFAULT_SECTION_TRANSLATIONS: SectionErrorTranslations = {
+  title: 'Something went wrong',
+  message: "We're sorry, but this section couldn't load properly.",
+  canRetry: 'You can try reloading it below.',
+  tryAgain: 'Try Again',
+  reloadPage: 'Reload Page',
+  devDetails: 'Error Details (Development Only)',
+  persistHelp: 'If this problem persists, please try refreshing the page or contact support.',
+};
+
 export interface SectionErrorFallbackProps {
   sectionId: string;
   sectionType: string;
@@ -69,6 +98,7 @@ export interface SectionErrorFallbackProps {
   onRetry?: () => void;
   retryCount: number;
   maxRetries: number;
+  translations?: Partial<SectionErrorTranslations>;
 }
 
 /**
@@ -328,7 +358,7 @@ export class SectionErrorBoundary extends Component<
 
   render() {
     const { hasError, error, errorInfo, errorId, retryCount } = this.state;
-    const { children, fallback: CustomFallback, sectionId, sectionType } = this.props;
+    const { children, fallback: CustomFallback, sectionId, sectionType, translations } = this.props;
 
     if (hasError && error && errorInfo && errorId) {
       // Use custom fallback component if provided
@@ -343,6 +373,7 @@ export class SectionErrorBoundary extends Component<
             onRetry={this.handleManualRetry}
             retryCount={retryCount}
             maxRetries={SectionErrorBoundary.MAX_RETRY_COUNT}
+            translations={translations}
           />
         );
       }
@@ -358,6 +389,7 @@ export class SectionErrorBoundary extends Component<
           onRetry={this.handleManualRetry}
           retryCount={retryCount}
           maxRetries={SectionErrorBoundary.MAX_RETRY_COUNT}
+          translations={translations}
         />
       );
     }
@@ -370,6 +402,7 @@ export class SectionErrorBoundary extends Component<
  * Default Error Fallback Component
  * User Experience: Clean, accessible error UI
  * Security: No sensitive information exposed
+ * i18n: Accepts translations with fallback defaults
  */
 function DefaultSectionErrorFallback({
   sectionId,
@@ -378,19 +411,23 @@ function DefaultSectionErrorFallback({
   errorId,
   onRetry,
   retryCount,
-  maxRetries
+  maxRetries,
+  translations
 }: SectionErrorFallbackProps) {
   const canRetry = retryCount < maxRetries;
   const isDevelopment = process.env.NODE_ENV === 'development';
 
+  // Merge translations with defaults
+  const t = { ...DEFAULT_SECTION_TRANSLATIONS, ...translations };
+
   return (
-    <section 
+    <section
       className="section-error-fallback"
       style={{
         padding: '2rem',
         textAlign: 'center',
-        backgroundColor: '#fef2f2',
-        border: '1px solid #fecaca',
+        backgroundColor: 'var(--error-bg-light, #fef2f2)',
+        border: '1px solid var(--error-border-light, #fecaca)',
         borderRadius: '0.5rem',
         margin: '1rem 0'
       }}
@@ -398,39 +435,39 @@ function DefaultSectionErrorFallback({
       aria-labelledby={`error-title-${errorId}`}
     >
       <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h2 
+        <h2
           id={`error-title-${errorId}`}
           style={{
-            color: '#dc2626',
+            color: 'var(--error-text-primary, #dc2626)',
             fontSize: '1.25rem',
             fontWeight: 'bold',
             marginBottom: '1rem'
           }}
         >
-          ⚠️ Something went wrong
+          ⚠️ {t.title}
         </h2>
-        
+
         <p style={{
-          color: '#374151',
+          color: 'var(--error-text-secondary, #374151)',
           marginBottom: '1.5rem',
           lineHeight: '1.5'
         }}>
-          We're sorry, but this section couldn't load properly. 
-          {canRetry && " You can try reloading it below."}
+          {t.message}
+          {canRetry && ` ${t.canRetry}`}
         </p>
 
         {/* Development-only error details */}
         {isDevelopment && (
           <details style={{
-            backgroundColor: '#f9fafb',
-            border: '1px solid #d1d5db',
+            backgroundColor: 'var(--error-bg-code, #f9fafb)',
+            border: '1px solid var(--error-border-code, #d1d5db)',
             borderRadius: '0.25rem',
             padding: '1rem',
             marginBottom: '1.5rem',
             textAlign: 'left'
           }}>
             <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>
-              Error Details (Development Only)
+              {t.devDetails}
             </summary>
             <pre style={{
               fontSize: '0.75rem',
@@ -458,7 +495,7 @@ function DefaultSectionErrorFallback({
             <button
               onClick={onRetry}
               style={{
-                backgroundColor: '#3b82f6',
+                backgroundColor: 'var(--error-button-primary, #3b82f6)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '0.375rem',
@@ -469,20 +506,20 @@ function DefaultSectionErrorFallback({
                 transition: 'background-color 0.2s'
               }}
               onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = '#2563eb';
+                e.currentTarget.style.backgroundColor = 'var(--error-button-primary-hover, #2563eb)';
               }}
               onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = '#3b82f6';
+                e.currentTarget.style.backgroundColor = 'var(--error-button-primary, #3b82f6)';
               }}
             >
-              🔄 Try Again
+              🔄 {t.tryAgain}
             </button>
           )}
-          
+
           <button
             onClick={() => window.location.reload()}
             style={{
-              backgroundColor: '#6b7280',
+              backgroundColor: 'var(--error-button-secondary, #6b7280)',
               color: 'white',
               border: 'none',
               borderRadius: '0.375rem',
@@ -493,23 +530,23 @@ function DefaultSectionErrorFallback({
               transition: 'background-color 0.2s'
             }}
             onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = '#4b5563';
+              e.currentTarget.style.backgroundColor = 'var(--error-button-secondary-hover, #4b5563)';
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = '#6b7280';
+              e.currentTarget.style.backgroundColor = 'var(--error-button-secondary, #6b7280)';
             }}
           >
-            🔄 Reload Page
+            🔄 {t.reloadPage}
           </button>
         </div>
 
         {/* Help text */}
         <p style={{
           fontSize: '0.75rem',
-          color: '#6b7280',
+          color: 'var(--error-button-secondary, #6b7280)',
           marginTop: '1.5rem'
         }}>
-          If this problem persists, please try refreshing the page or contact support.
+          {t.persistHelp}
         </p>
       </div>
     </section>

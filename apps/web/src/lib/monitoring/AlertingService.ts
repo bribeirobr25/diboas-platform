@@ -400,6 +400,13 @@ export class AlertingService {
 
   /**
    * Generate email HTML content
+   *
+   * NOTE: Email clients don't support CSS variables, so colors are hardcoded here.
+   * These values match the design tokens in design-tokens.css:
+   * - INFO: --alert-info (#0066cc)
+   * - WARNING: --alert-warning (#ff9900)
+   * - ERROR: --alert-error (#cc0000)
+   * - CRITICAL: --alert-critical (#990000)
    */
   private generateEmailHTML(alert: Alert): string {
     const severityColor = {

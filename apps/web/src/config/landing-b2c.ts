@@ -363,7 +363,7 @@ export const B2C_FINAL_CTA_CONFIG: BgHighlightConfig = {
     title: 'landing-b2c.finalCta.header',
     description: 'landing-b2c.finalCta.body',
     ctaText: 'landing-b2c.finalCta.button',
-    ctaHref: '#waitlist-form'
+    ctaHref: '#waitlist'
   },
   seo: {
     headingLevel: 'h2',

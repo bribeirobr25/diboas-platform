@@ -1,0 +1,1 @@
+export { FAQAccordionDefault } from './FAQAccordionDefault';

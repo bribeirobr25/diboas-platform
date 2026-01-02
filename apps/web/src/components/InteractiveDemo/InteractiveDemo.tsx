@@ -343,7 +343,7 @@ export function InteractiveDemo({
             <div className={styles.amountInput}>
               {formatCurrency(state.selectedAmount)}
             </div>
-            <div className={styles.amountButtons} role="group" aria-label="Select deposit amount">
+            <div className={styles.amountButtons} role="group" aria-label={intl.formatMessage({ id: 'common.accessibility.selectAmount' })}>
               {AMOUNT_OPTIONS.map(amount => (
                 <button
                   key={amount}
@@ -485,7 +485,11 @@ export function InteractiveDemo({
             ) : (
               <>
                 <form onSubmit={handleSubmit} className={styles.signupForm}>
+                  <label htmlFor="demo-email" className="sr-only">
+                    {intl.formatMessage({ id: 'landing-b2c.demo.invitation.emailPlaceholder' })}
+                  </label>
                   <input
+                    id="demo-email"
                     type="email"
                     className={styles.emailInput}
                     placeholder={intl.formatMessage({ id: 'landing-b2c.demo.invitation.emailPlaceholder' })}
@@ -493,6 +497,7 @@ export function InteractiveDemo({
                     onChange={handleEmailChange}
                     onFocus={handleEmailFocus}
                     required
+                    aria-required="true"
                   />
                   <Button
                     type="submit"
@@ -549,17 +554,17 @@ export function InteractiveDemo({
             <p className={styles.shareLabel}>
               {intl.formatMessage({ id: 'landing-b2c.demo.success.shareLabel' })}
             </p>
-            <div className={styles.shareButtons} role="group" aria-label="Share options">
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('twitter')} aria-label="Share on Twitter">
+            <div className={styles.shareButtons} role="group" aria-label={intl.formatMessage({ id: 'common.accessibility.shareOptions' })}>
+              <button type="button" className={styles.socialButton} onClick={() => handleShare('twitter')} aria-label={intl.formatMessage({ id: 'common.accessibility.shareOnTwitter' })}>
                 Twitter
               </button>
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('whatsapp')} aria-label="Share on WhatsApp">
+              <button type="button" className={styles.socialButton} onClick={() => handleShare('whatsapp')} aria-label={intl.formatMessage({ id: 'common.accessibility.shareOnWhatsapp' })}>
                 WhatsApp
               </button>
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('linkedin')} aria-label="Share on LinkedIn">
+              <button type="button" className={styles.socialButton} onClick={() => handleShare('linkedin')} aria-label={intl.formatMessage({ id: 'common.accessibility.shareOnLinkedin' })}>
                 LinkedIn
               </button>
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('copy')} aria-label="Copy referral link">
+              <button type="button" className={styles.socialButton} onClick={() => handleShare('copy')} aria-label={intl.formatMessage({ id: 'common.accessibility.copyReferralLink' })}>
                 {intl.formatMessage({ id: 'landing-b2c.demo.success.copyLink' })}
               </button>
             </div>

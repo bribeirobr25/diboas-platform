@@ -124,7 +124,19 @@
     "openMenu": "Abrir menú de navegación",
     "closeMenu": "Cerrar menú de navegación",
     "toggleLanguage": "Cambiar idioma",
-    "currentLanguage": "Idioma actual: Español"
+    "currentLanguage": "Idioma actual: Español",
+    "warning": "Advertencia",
+    "selectAmount": "Seleccionar monto de depósito",
+    "shareOptions": "Opciones para compartir",
+    "shareOnTwitter": "Compartir en Twitter",
+    "shareOnWhatsapp": "Compartir en WhatsApp",
+    "shareOnLinkedin": "Compartir en LinkedIn",
+    "copyReferralLink": "Copiar enlace de referido",
+    "previousSlide": "Diapositiva anterior",
+    "nextSlide": "Siguiente diapositiva",
+    "changeLanguage": "Cambiar idioma",
+    "switchTo": "Cambiar a {language}",
+    "emailLabel": "Dirección de correo electrónico"
   },
   "languageSwitcher": {
     "label": "Idioma",
@@ -155,6 +167,22 @@
       "title": "Sin Conexión a Internet",
       "description": "Por favor, verifica tu conexión e inténtalo de nuevo.",
       "action": "Reintentar"
+    },
+    "page": {
+      "title": "Algo salió mal",
+      "message": "Encontramos un error inesperado. Por favor, actualiza la página o contacta con soporte si el problema persiste.",
+      "tryAgain": "Intentar de nuevo",
+      "refreshPage": "Actualizar página",
+      "devDetails": "Detalles del error (Desarrollo)"
+    },
+    "section": {
+      "title": "Algo salió mal",
+      "message": "Lo sentimos, pero esta sección no se pudo cargar correctamente.",
+      "canRetry": "Puedes intentar recargarla a continuación.",
+      "tryAgain": "Intentar de nuevo",
+      "reloadPage": "Recargar página",
+      "devDetails": "Detalles del error (Solo desarrollo)",
+      "persistHelp": "Si este problema persiste, por favor actualiza la página o contacta con soporte."
     }
   },
   "footer": {
@@ -220,6 +248,14 @@
     "declineAriaLabel": "Rechazar cookies",
     "acceptAriaLabel": "Aceptar cookies"
   },
+  "bookCall": {
+    "notConfigured": "Calendario de reservas no configurado",
+    "loading": "Cargando calendario...",
+    "contactUs": "Contáctanos directamente para programar una llamada",
+    "error": "No se pudo cargar el calendario",
+    "loadError": "No se pudo cargar el calendario de reservas",
+    "contactDirectly": "Contáctenos directamente para programar una llamada"
+  },
   "waitingList": {
     "title": "Únete a la Lista de Espera",
     "subtitle": "Sé el primero en experimentar el futuro de las finanzas. Regístrate ahora para obtener acceso anticipado a diBoaS.",
@@ -278,10 +314,9 @@
     "shareVia": "Compartir vía:",
     "download": "Descargar"
   },
-  "bookCall": {
-    "loading": "Cargando calendario...",
-    "notConfigured": "Calendario de reservas no configurado",
-    "contactUs": "Contáctanos directamente para programar una llamada",
-    "error": "No se pudo cargar el calendario"
+  "notFound": {
+    "title": "Página no encontrada",
+    "message": "Lo sentimos, no pudimos encontrar la página que buscas.",
+    "goHome": "Ir a la página principal"
   }
 }

@@ -124,7 +124,19 @@
     "openMenu": "Navigationsmenü öffnen",
     "closeMenu": "Navigationsmenü schließen",
     "toggleLanguage": "Sprache wechseln",
-    "currentLanguage": "Aktuelle Sprache: Deutsch"
+    "currentLanguage": "Aktuelle Sprache: Deutsch",
+    "warning": "Warnung",
+    "selectAmount": "Einzahlungsbetrag auswählen",
+    "shareOptions": "Teilen-Optionen",
+    "shareOnTwitter": "Auf Twitter teilen",
+    "shareOnWhatsapp": "Auf WhatsApp teilen",
+    "shareOnLinkedin": "Auf LinkedIn teilen",
+    "copyReferralLink": "Empfehlungslink kopieren",
+    "previousSlide": "Vorherige Folie",
+    "nextSlide": "Nächste Folie",
+    "changeLanguage": "Sprache ändern",
+    "switchTo": "Zu {language} wechseln",
+    "emailLabel": "E-Mail-Adresse"
   },
   "languageSwitcher": {
     "label": "Sprache",
@@ -155,6 +167,22 @@
       "title": "Keine Internetverbindung",
       "description": "Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
       "action": "Erneut versuchen"
+    },
+    "page": {
+      "title": "Etwas ist schiefgelaufen",
+      "message": "Ein unerwarteter Fehler ist aufgetreten. Bitte aktualisieren Sie die Seite oder kontaktieren Sie den Support.",
+      "tryAgain": "Erneut versuchen",
+      "refreshPage": "Seite aktualisieren",
+      "devDetails": "Fehlerdetails (Entwicklung)"
+    },
+    "section": {
+      "title": "Etwas ist schiefgelaufen",
+      "message": "Dieser Bereich konnte leider nicht geladen werden.",
+      "canRetry": "Sie können versuchen, ihn unten neu zu laden.",
+      "tryAgain": "Erneut versuchen",
+      "reloadPage": "Seite neu laden",
+      "devDetails": "Fehlerdetails (nur Entwicklung)",
+      "persistHelp": "Wenn dieses Problem weiterhin besteht, aktualisieren Sie bitte die Seite oder kontaktieren Sie den Support."
     }
   },
   "footer": {
@@ -220,6 +248,14 @@
     "declineAriaLabel": "Cookies ablehnen",
     "acceptAriaLabel": "Cookies akzeptieren"
   },
+  "bookCall": {
+    "notConfigured": "Buchungskalender nicht konfiguriert",
+    "loading": "Kalender wird geladen...",
+    "contactUs": "Kontaktieren Sie uns direkt um einen Termin zu vereinbaren",
+    "error": "Buchungskalender konnte nicht geladen werden",
+    "loadError": "Buchungskalender konnte nicht geladen werden",
+    "contactDirectly": "Kontaktieren Sie uns direkt, um einen Anruf zu vereinbaren"
+  },
   "waitingList": {
     "title": "Auf die Warteliste setzen",
     "subtitle": "Seien Sie der Erste, der die Zukunft der Finanzen erlebt. Melden Sie sich jetzt an, um frühzeitigen Zugang zu diBoaS zu erhalten.",
@@ -278,10 +314,9 @@
     "shareVia": "Teilen über:",
     "download": "Herunterladen"
   },
-  "bookCall": {
-    "loading": "Kalender wird geladen...",
-    "notConfigured": "Buchungskalender nicht konfiguriert",
-    "contactUs": "Kontaktieren Sie uns direkt um einen Termin zu vereinbaren",
-    "error": "Buchungskalender konnte nicht geladen werden"
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "message": "Leider konnten wir die gesuchte Seite nicht finden.",
+    "goHome": "Zur Startseite"
   }
 }

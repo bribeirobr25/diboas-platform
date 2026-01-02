@@ -2,6 +2,9 @@
  * Metadata Factory
  * Factory Pattern: Creates metadata for different page types
  * DRY Principle: Reusable metadata generation
+ *
+ * This is the canonical metadata factory. All metadata generation should use this factory.
+ * Previously there was a simpler factory at /lib/metadata-factory.ts which is now deprecated.
  */
 
 import { Metadata } from 'next';
@@ -9,6 +12,7 @@ import { seoService } from './service';
 import { PageSEOConfig } from './types';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from './constants';
 import type { SupportedLocale } from '@diboas/i18n/server';
+import { SUPPORTED_LOCALES } from '@diboas/i18n/server';
 
 export class MetadataFactory {
   /**
@@ -284,5 +288,15 @@ export class MetadataFactory {
       description: pageConfig.description,
       category: 'Financial Services'
     });
+  }
+
+  /**
+   * Generate static params for Next.js locale-based routing
+   * DRY Principle: Single source for generateStaticParams across pages
+   */
+  static generateLocaleStaticParams() {
+    return SUPPORTED_LOCALES.map((locale) => ({
+      locale,
+    }));
   }
 }

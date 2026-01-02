@@ -29,7 +29,7 @@
   border-color: var(--platform-color, #64748b);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--shadow-black-heavy, rgba(0, 0, 0, 0.15));
 }
 
 .button:active:not(:disabled) {
@@ -77,35 +77,35 @@
   height: 20px;
 }
 
-/* Platform-specific hover effects */
+/* Platform-specific hover effects - using design tokens */
 .button[data-platform="whatsapp"]:hover {
-  background: #25D366;
-  border-color: #25D366;
+  background: var(--social-whatsapp, #25D366);
+  border-color: var(--social-whatsapp, #25D366);
 }
 
 .button[data-platform="twitter"]:hover {
-  background: #000000;
-  border-color: #000000;
+  background: var(--social-twitter, #000000);
+  border-color: var(--social-twitter, #000000);
 }
 
 .button[data-platform="instagram"]:hover {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  border-color: #E4405F;
+  background: var(--social-instagram-gradient, linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%));
+  border-color: var(--social-instagram, #E4405F);
 }
 
 .button[data-platform="linkedin"]:hover {
-  background: #0A66C2;
-  border-color: #0A66C2;
+  background: var(--social-linkedin, #0A66C2);
+  border-color: var(--social-linkedin, #0A66C2);
 }
 
 .button[data-platform="facebook"]:hover {
-  background: #1877F2;
-  border-color: #1877F2;
+  background: var(--social-facebook, #1877F2);
+  border-color: var(--social-facebook, #1877F2);
 }
 
 .button[data-platform="telegram"]:hover {
-  background: #0088cc;
-  border-color: #0088cc;
+  background: var(--social-telegram, #0088cc);
+  border-color: var(--social-telegram, #0088cc);
 }
 
 /* Focus styles for accessibility */

@@ -51,7 +51,7 @@
 .positionNumber {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--color-primary, #14b8a6);
+  color: var(--text-primary-accessible, #0f766e);
   line-height: 1.2;
 }
 
@@ -63,8 +63,8 @@
   padding: 4px 10px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
+  color: var(--theme-status-success, #10b981);
+  background: var(--success-overlay-subtle, rgba(16, 185, 129, 0.1));
   border-radius: 20px;
 }
 
@@ -141,7 +141,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
-  color: var(--color-primary, #14b8a6);
+  color: var(--text-primary-accessible, #0f766e);
   background: var(--color-surface-elevated, #f1f5f9);
   border-radius: 6px;
   letter-spacing: 0.05em;

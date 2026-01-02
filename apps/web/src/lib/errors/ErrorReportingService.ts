@@ -719,8 +719,9 @@ export class ErrorReportingService {
 // Singleton instance
 export const errorReportingService = new ErrorReportingService({
   enableReporting: process.env.NODE_ENV === 'production',
-  reportingEndpoint: process.env.NEXT_PUBLIC_ERROR_REPORTING_ENDPOINT,
-  apiKey: process.env.NEXT_PUBLIC_ERROR_REPORTING_API_KEY
+  reportingEndpoint: process.env.ERROR_REPORTING_ENDPOINT,
+  // API key is server-only - never expose to client
+  apiKey: process.env.ERROR_REPORTING_API_KEY
 });
 
 // Development utilities

@@ -4,6 +4,7 @@
   "subheadline": "Entre na lista de espera e tenha acesso antecipado ao lançamento.",
   "form": {
     "emailPlaceholder": "Seu email",
+    "emailLabel": "Endereço de e-mail",
     "cta": "Entrar na lista",
     "submitting": "Entrando...",
     "privacyNote": "A gente só manda email sobre o diBoaS. Cancela quando quiser."

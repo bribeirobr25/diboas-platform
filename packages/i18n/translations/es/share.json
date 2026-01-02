@@ -49,7 +49,9 @@
   },
   "waitlistPosition": {
     "twitter": "Soy el #{position} en la lista de espera de @diBoaS. Los bancos ganan 7% con nuestros ahorros. Nos pagan 0.5%. ¿Esa brecha? Siempre estuvo ahí. #WhileISlept",
-    "whatsapp": "Acabo de unirme a la lista de espera de diBoaS (#{position}). ¿Sabías que los bancos ganan 7% con nuestros ahorros pero solo nos pagan 0.5%? Échale un vistazo: {referralUrl}"
+    "whatsapp": "Acabo de unirme a la lista de espera de diBoaS (#{position}). ¿Sabías que los bancos ganan 7% con nuestros ahorros pero solo nos pagan 0.5%? Échale un vistazo: {referralUrl}",
+    "facebook": "Soy el #{position} en la lista de espera de diBoaS. Los bancos ganan 7% con nuestros ahorros pero solo nos pagan 0.5%. Es hora de cambiar eso. {referralUrl}",
+    "linkedin": "Acabo de unirme a la lista de espera de diBoaS en la posición #{position}. La brecha entre lo que los bancos ganan con nuestro dinero (7%) y lo que nos pagan (0.5%) es notable. Explorando cómo DeFi puede cambiar esto. {referralUrl} #InnovaciónFinanciera #DeFi"
   },
   "dreamCard": {
     "watermark": "PROYECCIÓN",

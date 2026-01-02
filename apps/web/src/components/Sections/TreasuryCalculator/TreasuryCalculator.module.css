@@ -80,7 +80,7 @@
   background: var(--section-bg-white);
   border-radius: var(--radius-3xl);
   padding: var(--spacing-xl);
-  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--shadow-xl), 0 0 0 1px var(--shadow-black-subtle, rgba(0, 0, 0, 0.03));
   max-width: 560px;
   margin: 0 auto;
   width: var(--percent-100);
@@ -145,7 +145,7 @@
 
 .inputWrapper:focus-within {
   border-color: var(--cta-bg-primary);
-  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+  box-shadow: 0 0 0 3px var(--teal-deep-overlay-light, rgba(15, 118, 110, 0.1));
 }
 
 .currencySymbol {
@@ -177,6 +177,10 @@
   letter-spacing: -0.01em;
 }
 
+.input:focus-visible {
+  box-shadow: 0 0 0 2px var(--cta-bg-primary, #0f766e);
+}
+
 .input::placeholder {
   color: var(--fs-color-muted);
 }
@@ -203,7 +207,7 @@
 }
 
 .resultRow:not(:last-child) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--shadow-black-light, rgba(0, 0, 0, 0.06));
 }
 
 .resultLabel {
@@ -235,7 +239,7 @@
 }
 
 .resultRowHighlight {
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.08) 0%, rgba(17, 94, 89, 0.08) 100%);
+  background: linear-gradient(135deg, var(--teal-deep-overlay-subtle, rgba(15, 118, 110, 0.08)) 0%, var(--teal-deep-overlay-subtle, rgba(17, 94, 89, 0.08)) 100%);
   border-radius: var(--radius-xl);
   padding: var(--spacing-md) var(--spacing-lg);
   margin-top: var(--spacing-sm);

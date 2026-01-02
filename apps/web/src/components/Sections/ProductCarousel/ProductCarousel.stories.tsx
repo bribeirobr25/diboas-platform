@@ -158,7 +158,7 @@ export const CustomContent: Story = createCarouselStory('default', {
         id: 'investing',
         title: 'Investment Tools',
         subtitle: 'Professional-grade portfolio management',
-        image: '/assets/socials/real/investor_market.avif',
+        image: '/assets/socials/real/investing_woman.avif',
         imageAlt: 'Investment portfolio dashboard',
         ctaText: 'Start Investing',
         ctaHref: '#investing',
@@ -167,7 +167,7 @@ export const CustomContent: Story = createCarouselStory('default', {
         id: 'defi',
         title: 'DeFi Strategies',
         subtitle: 'Decentralized finance made simple',
-        image: '/assets/socials/real/crypto.avif',
+        image: '/assets/socials/real/business_deal.avif',
         imageAlt: 'DeFi strategy interface',
         ctaText: 'Discover DeFi',
         ctaHref: '#defi',
@@ -198,7 +198,7 @@ export const BusinessFocused: Story = createCarouselStory('fullWidth', {
         id: 'treasury',
         title: 'Treasury Management',
         subtitle: 'Optimize your business cash flow',
-        image: '/assets/socials/real/business_cashflow.avif',
+        image: '/assets/socials/real/business_balance.avif',
         imageAlt: 'Treasury management interface',
         ctaText: 'Explore Treasury',
         ctaHref: '#treasury',
@@ -233,7 +233,7 @@ export const LearningFocused: Story = createCarouselStory('compact', {
         id: 'courses',
         title: 'Financial Courses',
         subtitle: 'Expert-led financial education',
-        image: '/assets/socials/real/learn_guides.avif',
+        image: '/assets/socials/real/learn_woman.avif',
         imageAlt: 'Online financial courses',
         ctaText: 'Start Learning',
         ctaHref: '#courses',
@@ -242,7 +242,7 @@ export const LearningFocused: Story = createCarouselStory('compact', {
         id: 'guides',
         title: 'Investment Guides',
         subtitle: 'Step-by-step investment strategies',
-        image: '/assets/socials/real/study_coral2.avif',
+        image: '/assets/socials/real/learn_woman2.avif',
         imageAlt: 'Investment strategy guides',
         ctaText: 'Read Guides',
         ctaHref: '#guides',
@@ -251,7 +251,7 @@ export const LearningFocused: Story = createCarouselStory('compact', {
         id: 'certifications',
         title: 'Certifications',
         subtitle: 'Earn recognized financial certifications',
-        image: '/assets/socials/real/study_coral_woman.avif',
+        image: '/assets/socials/real/learn_woman3.avif',
         imageAlt: 'Financial certification programs',
         ctaText: 'Get Certified',
         ctaHref: '#certifications',
@@ -377,7 +377,7 @@ export const DarkTheme: Story = {
   },
   decorators: [
     (Story) => (
-      <div data-theme="dark" style={{ minHeight: '100vh', backgroundColor: '#1f2937' }}>
+      <div data-theme="dark" style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}>
         <Story />
       </div>
     ),

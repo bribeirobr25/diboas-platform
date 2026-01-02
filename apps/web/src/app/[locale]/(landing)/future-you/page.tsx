@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/PageI18nProvider';
@@ -17,17 +17,53 @@ interface FutureYouPageProps {
 
 /**
  * Generate metadata for the Future You Calculator page
+ * Uses i18n translations for locale-aware SEO
  */
 export async function generateMetadata({ params }: FutureYouPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+
+  // Load translations for metadata
+  const messages = await loadMessages(validLocale, 'future-you');
+  const seo = messages?.seo || {};
+
+  const title = seo.title || 'Future You Calculator | diBoaS';
+  const description = seo.description || 'See what your money could become. Small amounts. Consistent effort. Time does the rest.';
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
+
   return {
-    title: 'Future You Calculator | diBoaS',
-    description: 'See what your money could become. Small amounts. Consistent effort. Time does the rest.',
+    title,
+    description,
     openGraph: {
-      title: 'Meet Your Future Self | diBoaS',
-      description: 'See what your money could become if it worked as hard as you do.',
-      type: 'website'
-    }
+      title: seo.ogTitle || 'Meet Your Future Self | diBoaS',
+      description: seo.ogDescription || description,
+      type: 'website',
+      locale: validLocale,
+      images: [
+        {
+          url: `${siteUrl}/api/og/future-you`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle || 'Meet Your Future Self | diBoaS',
+      description: seo.ogDescription || description,
+      images: [`${siteUrl}/api/og/future-you`],
+    },
+    alternates: {
+      canonical: `/future-you`,
+      languages: {
+        'en': '/en/future-you',
+        'de': '/de/future-you',
+        'pt-BR': '/pt-BR/future-you',
+        'es': '/es/future-you',
+      },
+    },
   };
 }
 

@@ -5,10 +5,23 @@
  * - Get current position by email
  * - Get referral stats
  * - Track referral attributions
+ *
+ * Security:
+ * - No email enumeration (generic responses)
+ * - Rate limiting
+ * - Zero-Trust authentication for POST
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
+import {
+  checkRateLimit,
+  getClientIP,
+  createRateLimitHeaders,
+  RateLimitPresets,
+  requireAuth,
+  csrfProtection,
+} from '@/lib/security';
 
 /**
  * Simple server-side sanitization for text inputs
@@ -31,18 +44,35 @@ import {
 
 interface PositionResponse {
   success: boolean;
-  position?: number;
-  referralCode?: string;
-  referralUrl?: string;
-  referralCount?: number;
+  position?: number | null;
+  referralCode?: string | null;
+  referralUrl?: string | null;
+  referralCount?: number | null;
   error?: string;
 }
 
 /**
  * GET /api/waitlist/position?email=user@example.com
- * Returns the user's waitlist position and referral info
+ *
+ * Returns the user's waitlist position and referral info.
+ * Returns same structure regardless of email existence to prevent enumeration.
  */
 export async function GET(request: NextRequest): Promise<NextResponse<PositionResponse>> {
+  // Rate limiting
+  const clientIP = getClientIP(request);
+  const rateLimitResult = await checkRateLimit(
+    `position:${clientIP}`,
+    RateLimitPresets.standard.limit,
+    RateLimitPresets.standard.windowMs
+  );
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests. Please try again later.' },
+      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+    );
+  }
+
   try {
     const searchParams = request.nextUrl.searchParams;
     const email = searchParams.get('email');
@@ -65,11 +95,18 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
 
     const userData = getByEmail(sanitizedEmail);
 
+    // Add artificial delay to prevent timing attacks (100-300ms)
+    await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
+
     if (!userData) {
-      return NextResponse.json(
-        { success: false, error: 'Email not found on waitlist' },
-        { status: 404 }
-      );
+      // Return same structure with null values to prevent enumeration
+      return NextResponse.json({
+        success: true,
+        position: null,
+        referralCode: null,
+        referralUrl: null,
+        referralCount: null,
+      });
     }
 
     return NextResponse.json({
@@ -91,23 +128,41 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
 
 /**
  * POST /api/waitlist/position
- * Update position (used internally when referrals come in)
- * This is typically called by webhooks, not directly by users
+ *
+ * Update position (used internally when referrals come in).
+ * This is typically called by webhooks, not directly by users.
+ *
+ * Security: Requires valid API key (Zero-Trust authentication)
  */
 export async function POST(request: NextRequest): Promise<NextResponse<PositionResponse>> {
+  // CSRF protection
+  const csrfError = csrfProtection(request);
+  if (csrfError) {
+    return csrfError as NextResponse<PositionResponse>;
+  }
+
+  // Zero-Trust: Mandatory authentication
+  const authError = requireAuth(request, { requireAdmin: true });
+  if (authError) {
+    return authError as NextResponse<PositionResponse>;
+  }
+
+  // Rate limiting for internal endpoints
+  const clientIP = getClientIP(request);
+  const rateLimitResult = await checkRateLimit(
+    `position-update:${clientIP}`,
+    RateLimitPresets.standard.limit,
+    RateLimitPresets.standard.windowMs
+  );
+
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests. Please try again later.' },
+      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+    );
+  }
+
   try {
-    // Verify internal API key for webhook security
-    const authHeader = request.headers.get('x-api-key');
-    const internalApiKey = process.env.INTERNAL_API_KEY;
-
-    // In production, uncomment this check
-    // if (!internalApiKey || authHeader !== internalApiKey) {
-    //   return NextResponse.json(
-    //     { success: false, error: 'Unauthorized' },
-    //     { status: 401 }
-    //   );
-    // }
-
     const body = await request.json();
     const { email, newPosition, incrementReferral } = body;
 
@@ -121,10 +176,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
     const sanitizedEmail = email.toLowerCase().trim();
     let userData = getByEmail(sanitizedEmail);
 
+    // Don't reveal whether email exists for internal endpoints either
     if (!userData) {
       return NextResponse.json(
-        { success: false, error: 'Email not found on waitlist' },
-        { status: 404 }
+        { success: false, error: 'Operation failed' },
+        { status: 400 }
       );
     }
 

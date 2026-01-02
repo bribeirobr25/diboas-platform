@@ -16,8 +16,10 @@ export type AppFeaturesCarouselVariant = 'default';
 export interface AppFeatureContent {
   readonly title: string;
   readonly description: string;
-  readonly ctaText: string;
-  readonly ctaHref: string;
+  /** Optional CTA text - omit if no CTA needed */
+  readonly ctaText?: string;
+  /** Optional CTA href - omit if no CTA needed */
+  readonly ctaHref?: string;
   readonly ctaTarget?: '_blank' | '_self';
   readonly chipLabel?: string;
 }

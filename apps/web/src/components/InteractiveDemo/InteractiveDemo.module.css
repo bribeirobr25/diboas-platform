@@ -17,7 +17,7 @@
   margin: 0 auto;
   background: var(--section-bg-white);
   border-radius: var(--radius-3xl);
-  box-shadow: var(--shadow-2xl), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--shadow-2xl), 0 0 0 1px var(--shadow-black-subtle, rgba(0, 0, 0, 0.03));
   overflow: hidden;
   position: relative;
 }
@@ -43,7 +43,7 @@
 
 .progressBar {
   height: 3px;
-  background: linear-gradient(90deg, #e2e8f0 0%, #edf2f7 100%);
+  background: linear-gradient(90deg, var(--color-gray-200, #e5e7eb) 0%, var(--color-gray-100, #f3f4f6) 100%);
   position: relative;
   margin-top: 28px;
 }
@@ -399,7 +399,7 @@
 
 .amountButtonSelected {
   border-color: var(--cta-bg-primary);
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.08) 0%, rgba(17, 94, 89, 0.08) 100%);
+  background: linear-gradient(135deg, var(--teal-deep-overlay-subtle, rgba(15, 118, 110, 0.08)) 0%, var(--teal-deep-overlay-subtle, rgba(17, 94, 89, 0.08)) 100%);
   color: var(--cta-bg-hover);
 }
 
@@ -483,7 +483,7 @@
 
 .emailInput:focus {
   border-color: var(--cta-bg-primary);
-  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+  box-shadow: 0 0 0 3px var(--teal-deep-overlay-light, rgba(15, 118, 110, 0.1));
 }
 
 .emailInput::placeholder {
@@ -736,9 +736,9 @@
   width: var(--percent-100);
   padding: var(--spacing-lg);
   margin-top: var(--spacing-md);
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.08) 0%, rgba(45, 212, 191, 0.08) 100%);
+  background: linear-gradient(135deg, var(--teal-deep-overlay-subtle, rgba(15, 118, 110, 0.08)) 0%, var(--teal-bright-overlay, rgba(45, 212, 191, 0.08)) 100%);
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(15, 118, 110, 0.2);
+  border: 1px solid var(--teal-deep-overlay-medium, rgba(15, 118, 110, 0.2));
   text-align: center;
 }
 
@@ -782,7 +782,7 @@
   cursor: pointer;
   padding: var(--spacing-xs) var(--spacing-sm);
   text-decoration: underline;
-  text-decoration-color: rgba(100, 116, 139, 0.3);
+  text-decoration-color: var(--text-decoration-subtle, rgba(100, 116, 139, 0.3));
   text-underline-offset: 4px;
   transition: color var(--transition-base), text-decoration-color var(--transition-base);
 }

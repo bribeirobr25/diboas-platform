@@ -15,10 +15,10 @@
   left: 0;
   right: 0;
   z-index: 9999;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+  background: linear-gradient(135deg, var(--glass-bg-dark) 0%, var(--slate-gradient-end, rgba(30, 41, 59, 0.98)) 100%);
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+  border-top: 1px solid var(--glass-border-dark);
+  box-shadow: 0 -4px 24px var(--overlay-subtle);
   transform: translateY(100%);
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
   opacity: 0;
@@ -55,7 +55,7 @@
 
 .text {
   margin: 0;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--text-white-emphasis);
   font-size: 0.9rem;
   line-height: 1.6;
   font-weight: 400;
@@ -123,12 +123,12 @@
 .buttonAccept {
   background: linear-gradient(135deg, var(--theme-interactive-primary, #0d9488) 0%, var(--theme-interactive-primary-hover, #0a7c74) 100%);
   color: white;
-  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.3);
+  box-shadow: 0 2px 8px var(--teal-shadow);
 }
 
 .buttonAccept:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
+  box-shadow: 0 4px 12px var(--cta-shadow-teal, rgba(13, 148, 136, 0.4));
 }
 
 .buttonAccept:active {
@@ -136,19 +136,19 @@
 }
 
 .buttonAccept:focus {
-  outline: 2px solid rgba(13, 148, 136, 0.5);
+  outline: 2px solid var(--cta-outline-teal, rgba(13, 148, 136, 0.5));
   outline-offset: 2px;
 }
 
 .buttonDecline {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--glass-surface-muted);
+  color: var(--text-white-emphasis);
+  border: 1px solid var(--glass-border-light);
 }
 
 .buttonDecline:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--glass-surface-subtle);
+  border-color: var(--glass-surface-subtle);
   transform: translateY(-1px);
 }
 
@@ -157,7 +157,7 @@
 }
 
 .buttonDecline:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline: 2px solid var(--glass-border-medium, rgba(255, 255, 255, 0.5));
   outline-offset: 2px;
 }
 

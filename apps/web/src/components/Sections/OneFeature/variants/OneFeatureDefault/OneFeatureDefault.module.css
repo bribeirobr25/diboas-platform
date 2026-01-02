@@ -127,7 +127,7 @@
   justify-content: center;
   font-size: var(--font-size-title-desktop);
   color: var(--of-color-icon);
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  background: var(--afc-gradient-fallback, linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%));
   border-radius: var(--radius-4xl);
 }
 
@@ -520,12 +520,12 @@
 
   .featureCardPrimary {
     background: var(--of-color-cta-bg);
-    border-color: #000000;
+    border-color: var(--color-black, #000000);
   }
 
   .featureCardSecondary {
     background: var(--color-white);
-    border-color: #000000;
+    border-color: var(--color-black, #000000);
   }
 
   .title {

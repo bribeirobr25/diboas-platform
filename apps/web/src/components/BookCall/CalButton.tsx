@@ -19,6 +19,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import { useIntl } from 'react-intl';
 import type { CalButtonProps, BookingData } from './types';
 import styles from './BookCall.module.css';
 
@@ -47,6 +48,7 @@ export function CalButton({
   className,
   onBookingComplete,
 }: CalButtonProps) {
+  const intl = useIntl();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -142,7 +144,11 @@ export function CalButton({
   // Not configured - render disabled button
   if (!effectiveCalLink) {
     return (
-      <button className={buttonClasses} disabled title="Booking not configured">
+      <button
+        className={buttonClasses}
+        disabled
+        title={intl.formatMessage({ id: 'common.bookCall.notConfigured' })}
+      >
         {children}
       </button>
     );

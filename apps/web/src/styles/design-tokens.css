@@ -111,6 +111,172 @@
   --cta-bg-hover: #115e59;
   --cta-focus-color: #0d9488;
 
+  /* ================================
+     BRAND COLORS
+     ================================ */
+  --brand-logo: #02c3cf;
+  --brand-primary: #14b8a6;
+  --brand-primary-dark: #0d9488;
+
+  /* Accessible Text Colors (WCAG AA 4.5:1 on white) */
+  --text-primary-accessible: #0f766e;  /* Teal-700: 5.47:1 contrast - use for text on white */
+  --text-success-accessible: #059669;  /* Emerald-600: 4.52:1 contrast */
+  --text-error-accessible: #dc2626;    /* Red-600: 4.63:1 contrast */
+
+  /* Brand Accent - Coral */
+  --brand-coral: #FF6B6B;
+  --brand-coral-dark: #E55555;
+  --brand-coral-light: #FF8A8A;
+  --brand-coral-overlay: rgba(255, 107, 107, 0.1);
+  --brand-coral-overlay-medium: rgba(255, 107, 107, 0.2);
+
+  /* Brand Accent - Mystic (Purple) */
+  --brand-mystic: #8B5CF6;
+  --brand-mystic-dark: #7C3AED;
+  --brand-mystic-light: #A78BFA;
+  --brand-mystic-overlay: rgba(139, 92, 246, 0.1);
+  --brand-mystic-overlay-medium: rgba(139, 92, 246, 0.2);
+
+  /* ================================
+     SOCIAL PLATFORM COLORS
+     ================================ */
+  --social-whatsapp: #25D366;
+  --social-twitter: #000000;
+  --social-instagram: #E4405F;
+  --social-instagram-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  --social-linkedin: #0A66C2;
+  --social-facebook: #1877F2;
+  --social-telegram: #0088cc;
+  --social-copy: #64748b;
+  --social-download: #0d9488;
+
+  /* ================================
+     FOCUS & ACCESSIBILITY TOKENS
+     ================================ */
+  --focus-ring-width: 2px;
+  --focus-ring-color: #14b8a6;
+  --focus-ring-offset: 2px;
+  --focus-ring-blue: rgba(59, 130, 246, 0.1);
+
+  /* ================================
+     OVERLAY COLORS
+     ================================ */
+  --overlay-dark: rgba(15, 23, 42, 0.9);
+  --overlay-light: rgba(255, 255, 255, 0.9);
+  --overlay-backdrop: rgba(0, 0, 0, 0.8);
+  --overlay-modal: rgba(15, 23, 42, 0.7);
+  --overlay-subtle: rgba(0, 0, 0, 0.5);
+
+  /* Glass Effect Colors (for glassmorphism UI) */
+  --glass-bg-light: rgba(255, 255, 255, 0.9);
+  --glass-bg-dark: rgba(15, 23, 42, 0.9);
+  --glass-border-light: rgba(255, 255, 255, 0.2);
+  --glass-border-medium: rgba(255, 255, 255, 0.5);
+  --glass-border-dark: rgba(255, 255, 255, 0.1);
+  --glass-surface-elevated: rgba(255, 255, 255, 0.05);
+  --glass-surface-hover: rgba(255, 255, 255, 0.08);
+  --glass-surface-muted: rgba(255, 255, 255, 0.1);
+  --glass-surface-subtle: rgba(255, 255, 255, 0.15);
+  --slate-gradient-end: rgba(30, 41, 59, 0.98);
+
+  /* Text Opacity Variants */
+  --text-white-muted: rgba(255, 255, 255, 0.5);
+  --text-white-secondary: rgba(255, 255, 255, 0.7);
+  --text-white-primary: rgba(255, 255, 255, 0.8);
+  --text-white-emphasis: rgba(255, 255, 255, 0.95);
+
+  /* Brand Color with Opacity (Teal) */
+  --teal-overlay-subtle: rgba(20, 184, 166, 0.1);
+  --teal-overlay-light: rgba(20, 184, 166, 0.2);
+  --teal-overlay-medium: rgba(20, 184, 166, 0.3);
+  --teal-shadow: rgba(20, 184, 166, 0.3);
+  --teal-border-subtle: rgba(20, 184, 166, 0.2);
+  --teal-border-light: rgba(20, 184, 166, 0.3);
+
+  /* Warning Color with Opacity (Amber) */
+  --amber-overlay-subtle: rgba(245, 158, 11, 0.15);
+  --amber-overlay-medium: rgba(245, 158, 11, 0.3);
+  --amber-text-muted: rgba(245, 158, 11, 0.8);
+  --amber-text-bright: rgba(245, 158, 11, 0.9);
+
+  /* Error Color with Opacity (Red) */
+  --error-overlay-subtle: rgba(239, 68, 68, 0.1);
+  --error-border-subtle: rgba(239, 68, 68, 0.3);
+  --error-focus-ring: rgba(239, 68, 68, 0.1);
+
+  /* Success Color with Opacity (Green) */
+  --success-overlay-subtle: rgba(16, 185, 129, 0.1);
+  --success-focus-ring: rgba(16, 185, 129, 0.1);
+
+  /* ================================
+     SEMANTIC UI COLORS
+     ================================ */
+
+  /* Alert Severity Colors */
+  --alert-info: #0066cc;
+  --alert-warning: #ff9900;
+  --alert-error: #cc0000;
+  --alert-critical: #990000;
+
+  /* Error Boundary UI Colors */
+  --error-bg-light: #fef2f2;
+  --error-border-light: #fecaca;
+  --error-text-primary: #dc2626;
+  --error-text-secondary: #374151;
+  --error-bg-code: #f9fafb;
+  --error-border-code: #d1d5db;
+  --error-button-primary: #3b82f6;
+  --error-button-primary-hover: #2563eb;
+  --error-button-secondary: #6b7280;
+  --error-button-secondary-hover: #4b5563;
+
+  /* Card Rendering Colors */
+  --card-bank-comparison: #ef4444;
+  --card-watermark-amber: rgba(245, 158, 11, 0.8);
+  --card-highlight-amber: #f59e0b;
+  --card-overlay-dark: rgba(0, 0, 0, 0.5);
+
+  /* Shadow Colors with Opacity */
+  --shadow-black-subtle: rgba(0, 0, 0, 0.03);
+  --shadow-black-light: rgba(0, 0, 0, 0.06);
+  --shadow-black-soft: rgba(0, 0, 0, 0.08);
+  --shadow-black-medium: rgba(0, 0, 0, 0.1);
+  --shadow-black-heavy: rgba(0, 0, 0, 0.15);
+  --shadow-black-moderate: rgba(0, 0, 0, 0.2);
+  --shadow-black-intense: rgba(0, 0, 0, 0.3);
+  --shadow-black-dark: rgba(0, 0, 0, 0.4);
+  --shadow-black-semi: rgba(0, 0, 0, 0.5);
+  --shadow-black-very-dark: rgba(0, 0, 0, 0.6);
+  --shadow-black-deep: rgba(0, 0, 0, 0.7);
+  --shadow-black-almost-opaque: rgba(0, 0, 0, 0.8);
+  --shadow-black-opaque-90: rgba(0, 0, 0, 0.9);
+  --shadow-black-opaque: rgba(0, 0, 0, 1);
+
+  /* Teal Focus/Hover States */
+  --teal-deep-overlay-subtle: rgba(15, 118, 110, 0.08);
+  --teal-deep-overlay-light: rgba(15, 118, 110, 0.1);
+  --teal-deep-overlay-medium: rgba(15, 118, 110, 0.2);
+  --teal-deep-shadow: rgba(15, 118, 110, 0.1);
+  --teal-bright-overlay: rgba(45, 212, 191, 0.08);
+
+  /* CTA Shadow Colors */
+  --cta-shadow-teal: rgba(13, 148, 136, 0.4);
+  --cta-outline-teal: rgba(13, 148, 136, 0.5);
+  --cta-shadow-brand: rgba(56, 178, 172, 0.25);
+  --cta-outline-brand: rgba(56, 178, 172, 0.2);
+
+  /* Text decoration opacity */
+  --text-decoration-subtle: rgba(100, 116, 139, 0.3);
+
+  /* OG Image Colors */
+  --og-text-primary: #ffffff;
+  --og-text-secondary: #94a3b8;
+  --og-text-muted: #64748b;
+
+  /* Theme Colors (for meta tags) */
+  --theme-light: #ffffff;
+  --theme-dark: #0f172a;
+
   /* CTA Button Typography */
   --cta-font-size-desktop: 16px;
   --cta-font-size-tablet: 16px;

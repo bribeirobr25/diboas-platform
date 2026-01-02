@@ -19,6 +19,7 @@
   "paths": {
     "headline": "Como você se sente em relação a risco?",
     "subhead": "Não existe resposta errada — só caminhos diferentes.",
+    "warningLabel": "Risco maior",
     "safety": {
       "name": "Segurança em Primeiro",
       "tagline": "Não posso perder isso",

@@ -35,14 +35,47 @@ interface B2CLandingPageProps {
  */
 export async function generateMetadata({ params }: B2CLandingPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
   return {
     title: 'diBoaS - Make Your Money Work',
-    description: 'Turn your idle money into real growth. Start with just \u20ac5. Withdraw anytime. No crypto knowledge required.',
+    description: 'Turn your idle money into real growth. Start with just €5. Withdraw anytime. No crypto knowledge required.',
+    keywords: ['yield', 'savings', 'DeFi', 'stablecoin', 'earn interest', 'passive income', 'finance app'],
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+      languages: {
+        'en': `${baseUrl}/en`,
+        'de': `${baseUrl}/de`,
+        'es': `${baseUrl}/es`,
+        'pt-BR': `${baseUrl}/pt-BR`,
+        'x-default': `${baseUrl}/en`,
+      },
+    },
     openGraph: {
       title: 'diBoaS - Make Your Money Work',
-      description: 'Turn your idle money into real growth. Start with just \u20ac5.',
-      type: 'website'
-    }
+      description: 'Turn your idle money into real growth. Start with just €5.',
+      type: 'website',
+      locale: locale,
+      url: `${baseUrl}/${locale}`,
+      siteName: 'diBoaS',
+      images: [
+        {
+          url: `${baseUrl}/api/og/b2c`,
+          width: 1200,
+          height: 630,
+          alt: 'diBoaS - Make Your Money Work',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'diBoaS - Make Your Money Work',
+      description: 'Turn your idle money into real growth. Start with just €5.',
+      images: [`${baseUrl}/api/og/b2c`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 

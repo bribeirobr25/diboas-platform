@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/PageI18nProvider';
@@ -17,17 +17,53 @@ interface StrategiesPageProps {
 
 /**
  * Generate metadata for the Strategies page
+ * Uses i18n translations for locale-aware SEO
  */
 export async function generateMetadata({ params }: StrategiesPageProps): Promise<Metadata> {
   const { locale } = await params;
+  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+
+  // Load translations for metadata
+  const messages = await loadMessages(validLocale, 'strategies');
+  const seo = messages?.seo || {};
+
+  const title = seo.title || 'Investment Strategies | diBoaS';
+  const description = seo.description || '10 strategies. Different goals. Different timelines. Different risk levels.';
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
+
   return {
-    title: 'Investment Strategies | diBoaS',
-    description: '10 strategies. Different goals. Different timelines. Different risk levels. Find the strategy that fits your life.',
+    title,
+    description,
     openGraph: {
-      title: 'Find the Strategy That Fits Your Life | diBoaS',
-      description: '10 investment strategies from conservative to aggressive. No strategy is best - the best one matches your goals.',
-      type: 'website'
-    }
+      title: seo.ogTitle || 'Find the Strategy That Fits Your Life | diBoaS',
+      description: seo.ogDescription || description,
+      type: 'website',
+      locale: validLocale,
+      images: [
+        {
+          url: `${siteUrl}/api/og/strategies`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle || 'Find the Strategy That Fits Your Life | diBoaS',
+      description: seo.ogDescription || description,
+      images: [`${siteUrl}/api/og/strategies`],
+    },
+    alternates: {
+      canonical: `/strategies`,
+      languages: {
+        'en': '/en/strategies',
+        'de': '/de/strategies',
+        'pt-BR': '/pt-BR/strategies',
+        'es': '/es/strategies',
+      },
+    },
   };
 }
 
