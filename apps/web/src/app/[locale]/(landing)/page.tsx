@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
+import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
@@ -36,9 +36,19 @@ interface B2CLandingPageProps {
 export async function generateMetadata({ params }: B2CLandingPageProps): Promise<Metadata> {
   const { locale } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+
+  // Load translations for SEO metadata
+  const messages = await loadMessages(locale as SupportedLocale, 'landing-b2c');
+  const seo = messages.seo || {};
+
+  const title = seo.title || 'diBoaS - Make Your Money Work';
+  const description = seo.description || 'Turn your idle money into real growth.';
+  const ogTitle = seo.ogTitle || title;
+  const ogDescription = seo.ogDescription || description;
+
   return {
-    title: 'diBoaS - Make Your Money Work',
-    description: 'Turn your idle money into real growth. Start with just €5. Withdraw anytime. No crypto knowledge required.',
+    title,
+    description,
     keywords: ['yield', 'savings', 'DeFi', 'stablecoin', 'earn interest', 'passive income', 'finance app'],
     alternates: {
       canonical: `${baseUrl}/${locale}`,
@@ -51,8 +61,8 @@ export async function generateMetadata({ params }: B2CLandingPageProps): Promise
       },
     },
     openGraph: {
-      title: 'diBoaS - Make Your Money Work',
-      description: 'Turn your idle money into real growth. Start with just €5.',
+      title: ogTitle,
+      description: ogDescription,
       type: 'website',
       locale: locale,
       url: `${baseUrl}/${locale}`,
@@ -62,14 +72,14 @@ export async function generateMetadata({ params }: B2CLandingPageProps): Promise
           url: `${baseUrl}/api/og/b2c`,
           width: 1200,
           height: 630,
-          alt: 'diBoaS - Make Your Money Work',
+          alt: title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'diBoaS - Make Your Money Work',
-      description: 'Turn your idle money into real growth. Start with just €5.',
+      title: ogTitle,
+      description: ogDescription,
       images: [`${baseUrl}/api/og/b2c`],
     },
     robots: {

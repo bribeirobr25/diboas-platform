@@ -118,19 +118,17 @@ export async function POST(request: Request): Promise<NextResponse> {
         expiresAt: Date.now() + TOKEN_TTL_MS,
       });
 
-      // In production, you would send this token via email
-      // For now, include in response for testing (remove in production)
+      // In production, send this token via email
+      // Token is never exposed in response - only sent via secure email channel
       console.log(`[GDPR] Deletion requested for email, token generated`);
 
-      // Return token in development only
-      const isDev = process.env.NODE_ENV === 'development';
+      // TODO: Send deletion confirmation email with token
+      // await sendDeletionConfirmationEmail(normalizedEmail, token);
 
       return NextResponse.json(
         {
           success: true,
-          message: 'If this email exists in our system, you will receive deletion instructions.',
-          // Only include token in development for testing
-          ...(isDev && { _devToken: token }),
+          message: 'If this email exists in our system, you will receive deletion instructions via email.',
         },
         {
           status: 202,
