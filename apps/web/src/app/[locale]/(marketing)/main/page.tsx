@@ -26,7 +26,7 @@ import { DEFAULT_FAQ_ACCORDION_CONFIG } from '@/config/faqAccordion';
 import { DEFAULT_BENEFITS_CARDS_CONFIG } from '@/config/benefitsCards';
 import { DEFAULT_BG_HIGHLIGHT_CONFIG } from '@/config/bgHighlight';
 import { DEFAULT_STEP_GUIDE_CONFIG } from '@/config/stepGuide';
-import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import type { Metadata } from 'next';
 

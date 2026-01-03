@@ -1,93 +1,185 @@
 {
-  "title": "Privacidad | diBoaS",
-  "description": "Tus datos son tuyos.",
-  "hero": {
-    "title": "Tus datos son tuyos. Conoce exactamente cómo protegemos y usamos tu información.",
-    "description": "",
-    "cta": "Empezar ahora"
+  "seo": {
+    "title": "Política de Privacidad | diBoaS",
+    "description": "Descubre cómo diBoaS recopila, utiliza y protege tus datos personales. Cumplimiento RGPD."
   },
-  "benefitsCards": {
-    "title": "Tus datos son tuyos",
-    "description": "Sabe exactamente cómo los protegemos y usamos.",
-    "cards": {
-      "gdprLGPDCompliant": {
-        "iconAlt": "GDPR compliance icon",
-        "title": "Cumplimiento GDPR / LGPD",
-        "description": "Seguimos las leyes de privacidad más estrictas.\nTus datos, tus reglas.\nControl total sobre información."
-      },
-      "dataMinimization": {
-        "iconAlt": "Data minimization icon",
-        "title": "Minimización de Datos",
-        "description": "Recopilamos solo lo necesario.\nNo vendemos tu información.\nTu perfil no es el producto."
-      },
-      "endToEndEncryptionPrivacy": {
-        "iconAlt": "Encryption icon",
-        "title": "Encriptación de Extremo a Extremo",
-        "description": "Datos protegidos en reposo y en tránsito.\nNi siquiera nosotros accedemos sin autorización.\nPrivacidad técnica, no solo promesas."
-      },
-      "userRights": {
-        "iconAlt": "User rights icon",
-        "title": "Derechos del Usuario",
-        "description": "Accede, exporta, elimina tus datos.\nHerramientas de autoservicio en la app.\nEjercer derechos es fácil."
+  "header": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última Actualización: 3 de enero de 2026",
+    "intro": "diBoaS (\"nosotros\", \"nos\", \"nuestro\") está comprometido con la protección de tu privacidad. Esta política explica cómo recopilamos, usamos y protegemos tus datos personales."
+  },
+  "sections": {
+    "whoWeAre": {
+      "title": "Quiénes Somos",
+      "content": "diBoaS es una plataforma de tecnología financiera. Somos el responsable del tratamiento de los datos personales recopilados a través de nuestro sitio web y servicios.",
+      "contact": {
+        "label": "Contacto:",
+        "email": "privacy@diboas.com",
+        "dpo": "dpo@diboas.com",
+        "emailLabel": "Email:",
+        "dpoLabel": "Protección de Datos:"
       }
-    }
-  },
-  "stickyFeaturesNav": {
-    "title": "Tu privacidad es sagrada.",
-    "subtitle": "GDPR, LGPD, CCPA - cumplimiento en todo.",
-    "cards": {
-      "yourDataIsYours": {
-        "title": "Tus Datos Son Tuyos",
-        "description": "Tú controlas qué compartimos.\nNunca vendemos información.\nPrivacidad primero.",
-        "imageAlt": "Tus Datos Son Tuyos illustration"
+    },
+    "whatDataWeCollect": {
+      "title": "Qué Datos Recopilamos",
+      "provided": {
+        "title": "Información Que Proporcionas:",
+        "items": [
+          "Dirección de email (al unirte a la lista de espera)",
+          "Nombre (opcional)",
+          "Preferencia de idioma",
+          "Preferencias de comunicación"
+        ]
       },
-      "endToEndEncryption": {
-        "title": "Encriptación End-to-End",
-        "description": "Datos encriptados en tránsito y reposo.\nNi nosotros vemos todo.\nSeguridad máxima.",
-        "imageAlt": "Encriptación End-to-End illustration"
+      "automatic": {
+        "title": "Información Recopilada Automáticamente:",
+        "items": [
+          "Dirección IP (anonimizada para análisis)",
+          "Tipo y versión del navegador",
+          "Información del dispositivo",
+          "Páginas visitadas y tiempo de permanencia",
+          "Fuente de referencia"
+        ]
       },
-      "rightToBeForgotten": {
-        "title": "Derecho al Olvido",
-        "description": "Borra tu cuenta, borramos todo.\nCumple GDPR y LGPD.\nSalida limpia garantizada.",
-        "imageAlt": "Derecho al Olvido illustration"
-      },
-      "dataTransparency": {
-        "title": "Transparencia de Datos",
-        "description": "Ve exactamente qué tenemos sobre ti.\nExporta todo cuando quieras.\nControl total.",
-        "imageAlt": "Transparencia de Datos illustration"
+      "dreamMode": {
+        "title": "Datos de Dream Mode:",
+        "items": [
+          "Entradas de simulación (cantidad de depósito, selección de estrategia)",
+          "Estos datos se almacenan localmente en tu dispositivo, no en nuestros servidores"
+        ]
       }
-    }
-  },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "Tus Datos, Tu Control",
-        "description": "Cumplimiento GDPR y LGPD.\nTransparencia total sobre uso de datos.\nPrivacidad como derecho fundamental.",
-        "ctaText": "Comenzar Ahora",
-        "imageAlt": "Tus Datos, Tu Control illustration"
-      },
-      "simplicity": {
-        "title": "Controles Simples de Privacidad",
-        "description": "✓ Descarga tus datos cuando quieras\n✓ Elimina cuenta con un clic\n✓ Preferencias granulares de compartición\nTu información, tus decisiones.",
-        "ctaText": "Comenzar Ahora",
-        "imageAlt": "Controles Simples de Privacidad illustration"
-      },
-      "rewards": {
-        "title": "Nunca Vendidos o Compartidos",
-        "description": "Nunca vendemos tus datos personales.\nSin acceso de marketing de terceros.\nTu confianza es nuestro modelo de negocio.",
-        "ctaText": "Comenzar Ahora",
-        "imageAlt": "Nunca Vendidos o Compartidos illustration"
+    },
+    "howWeUseData": {
+      "title": "Cómo Usamos Tus Datos",
+      "table": {
+        "headers": {
+          "purpose": "Propósito",
+          "legalBasis": "Base Legal"
+        },
+        "rows": [
+          {
+            "purpose": "Gestionar tu registro en la lista de espera",
+            "legalBasis": "Ejecución de contrato"
+          },
+          {
+            "purpose": "Enviar actualizaciones sobre el lanzamiento de diBoaS",
+            "legalBasis": "Interés legítimo (con opción de exclusión)"
+          },
+          {
+            "purpose": "Mejorar nuestro sitio web y servicios",
+            "legalBasis": "Interés legítimo"
+          },
+          {
+            "purpose": "Responder a tus consultas",
+            "legalBasis": "Ejecución de contrato"
+          },
+          {
+            "purpose": "Cumplir con obligaciones legales",
+            "legalBasis": "Requisito legal"
+          }
+        ]
       }
+    },
+    "whoWeShareWith": {
+      "title": "Con Quién Compartimos Datos",
+      "intro": "No vendemos tus datos personales. Podemos compartir datos con:",
+      "serviceProviders": {
+        "title": "Proveedores de Servicios:",
+        "content": "Servicios de email (para enviar comunicaciones), proveedores de alojamiento, herramientas de análisis"
+      },
+      "legal": {
+        "title": "Requisitos Legales:",
+        "content": "Cuando lo exija la ley o para proteger nuestros derechos"
+      },
+      "note": "Todos los proveedores de servicios están contractualmente obligados a proteger tus datos."
+    },
+    "internationalTransfers": {
+      "title": "Transferencias Internacionales",
+      "content": "Tus datos pueden ser transferidos a países fuera del Espacio Económico Europeo (EEE). Garantizamos las salvaguardias apropiadas a través de Cláusulas Contractuales Tipo o decisiones de adecuación."
+    },
+    "dataRetention": {
+      "title": "Retención de Datos",
+      "items": [
+        {
+          "type": "Datos de lista de espera:",
+          "duration": "Hasta que te des de baja o 2 años después de la última interacción"
+        },
+        {
+          "type": "Datos de análisis:",
+          "duration": "26 meses (anonimizados)"
+        },
+        {
+          "type": "Registros de comunicaciones:",
+          "duration": "3 años"
+        }
+      ]
+    },
+    "yourRights": {
+      "title": "Tus Derechos (RGPD)",
+      "intro": "Tienes derecho a:",
+      "table": {
+        "headers": {
+          "right": "Derecho",
+          "description": "Descripción"
+        },
+        "rows": [
+          {
+            "right": "Acceso",
+            "description": "Solicitar una copia de tus datos personales"
+          },
+          {
+            "right": "Rectificación",
+            "description": "Corregir datos inexactos"
+          },
+          {
+            "right": "Supresión",
+            "description": "Solicitar la eliminación de tus datos"
+          },
+          {
+            "right": "Limitación",
+            "description": "Limitar cómo procesamos tus datos"
+          },
+          {
+            "right": "Portabilidad",
+            "description": "Recibir tus datos en un formato portátil"
+          },
+          {
+            "right": "Oposición",
+            "description": "Oponerte al tratamiento basado en interés legítimo"
+          },
+          {
+            "right": "Retirar Consentimiento",
+            "description": "Retirar el consentimiento en cualquier momento"
+          }
+        ]
+      },
+      "exerciseRights": "Para ejercer tus derechos, envía un email a {email}. Responderemos en un plazo de 30 días."
+    },
+    "complaints": {
+      "title": "Reclamaciones",
+      "content": "Si crees que hemos vulnerado tus derechos de privacidad, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) o ante la autoridad de protección de datos de tu localidad."
+    },
+    "security": {
+      "title": "Seguridad",
+      "intro": "Implementamos medidas técnicas y organizativas apropiadas para proteger tus datos, incluyendo:",
+      "measures": [
+        "Cifrado en tránsito (HTTPS)",
+        "Controles de acceso",
+        "Revisiones de seguridad periódicas"
+      ]
+    },
+    "childrenPrivacy": {
+      "title": "Privacidad de Menores",
+      "content": "diBoaS no está dirigido a menores de 18 años. No recopilamos intencionadamente datos de menores."
+    },
+    "changes": {
+      "title": "Cambios en Esta Política",
+      "content": "Podemos actualizar esta política. Los cambios importantes serán comunicados por email o mediante aviso en el sitio web."
+    },
+    "contact": {
+      "title": "Contáctanos",
+      "content": "¿Preguntas? Envía un email a {email}",
+      "email": "privacy@diboas.com"
     }
-  },
-  "faqAccordion": {
-    "sectionTitle": "Preguntas Frecuentes",
-    "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
-    "ctaText": "Ver Todas las Preguntas",
-    "questionIds": [
-      "q115",
-      "q116",
-      "q117"
-    ]
   }
 }

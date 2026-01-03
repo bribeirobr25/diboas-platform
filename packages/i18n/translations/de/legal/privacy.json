@@ -1,93 +1,185 @@
 {
-  "title": "Datenschutz | diBoaS",
-  "description": "Deine Daten gehören dir.",
-  "hero": {
-    "title": "Deine Daten gehören dir. Erfahre genau, wie wir deine Informationen schützen und verwenden.",
-    "description": "",
-    "cta": "Jetzt starten"
+  "seo": {
+    "title": "Datenschutzerklärung | diBoaS",
+    "description": "Erfahren Sie, wie diBoaS Ihre personenbezogenen Daten erhebt, verwendet und schützt. DSGVO-konform."
   },
-  "benefitsCards": {
-    "title": "Deine Daten gehören dir",
-    "description": "Wisse genau, wie wir sie schützen und nutzen.",
-    "cards": {
-      "gdprLGPDCompliant": {
-        "iconAlt": "GDPR compliance icon",
-        "title": "DSGVO / LGPD konform",
-        "description": "Befolge die strengsten Datenschutzgesetze.\nDeine Daten, deine Regeln.\nVolle Kontrolle über Informationen."
-      },
-      "dataMinimization": {
-        "iconAlt": "Data minimization icon",
-        "title": "Datenminimierung",
-        "description": "Sammle nur das Notwendige.\nWir verkaufen deine Informationen nicht.\nDein Profil ist nicht das Produkt."
-      },
-      "endToEndEncryptionPrivacy": {
-        "iconAlt": "Encryption icon",
-        "title": "Ende-zu-Ende-Verschlüsselung",
-        "description": "Daten geschützt im Ruhezustand und unterwegs.\nNicht einmal wir greifen ohne Autorisierung zu.\nTechnische Privatsphäre, nicht nur Versprechen."
-      },
-      "userRights": {
-        "iconAlt": "User rights icon",
-        "title": "Nutzerrechte",
-        "description": "Greife zu, exportiere, lösche deine Daten.\nSelf-Service-Tools in der App.\nRechte ausüben ist einfach."
+  "header": {
+    "title": "Datenschutzerklärung",
+    "lastUpdated": "Zuletzt aktualisiert: 3. Januar 2026",
+    "intro": "diBoaS (\"wir\", \"uns\", \"unser\") ist dem Schutz Ihrer Privatsphäre verpflichtet. Diese Richtlinie erklärt, wie wir Ihre personenbezogenen Daten erheben, verwenden und schützen."
+  },
+  "sections": {
+    "whoWeAre": {
+      "title": "Wer wir sind",
+      "content": "diBoaS ist eine Finanztechnologie-Plattform. Wir sind der Verantwortliche für personenbezogene Daten, die über unsere Website und Dienste erhoben werden.",
+      "contact": {
+        "label": "Kontakt:",
+        "email": "privacy@diboas.com",
+        "dpo": "dpo@diboas.com",
+        "emailLabel": "E-Mail:",
+        "dpoLabel": "Datenschutz:"
       }
-    }
-  },
-  "stickyFeaturesNav": {
-    "title": "Ihre Privatsphäre ist heilig.",
-    "subtitle": "DSGVO, LGPD, CCPA - konform in allem.",
-    "cards": {
-      "yourDataIsYours": {
-        "title": "Ihre Daten gehören Ihnen",
-        "description": "Sie kontrollieren was wir teilen.\nWir verkaufen nie Informationen.\nDatenschutz zuerst.",
-        "imageAlt": "Ihre Daten gehören Ihnen illustration"
+    },
+    "whatDataWeCollect": {
+      "title": "Welche Daten wir erheben",
+      "provided": {
+        "title": "Von Ihnen bereitgestellte Informationen:",
+        "items": [
+          "E-Mail-Adresse (bei Anmeldung zur Warteliste)",
+          "Name (optional)",
+          "Sprachpräferenz",
+          "Kommunikationspräferenzen"
+        ]
       },
-      "endToEndEncryption": {
-        "title": "Ende-zu-Ende Verschlüsselung",
-        "description": "Daten verschlüsselt unterwegs und im Ruhezustand.\nSelbst wir sehen nicht alles.\nMaximale Sicherheit.",
-        "imageAlt": "Ende-zu-Ende Verschlüsselung illustration"
+      "automatic": {
+        "title": "Automatisch erhobene Informationen:",
+        "items": [
+          "IP-Adresse (für Analysen anonymisiert)",
+          "Browsertyp und -version",
+          "Geräteinformationen",
+          "Besuchte Seiten und Verweildauer",
+          "Verweisquelle"
+        ]
       },
-      "rightToBeForgotten": {
-        "title": "Recht auf Vergessenwerden",
-        "description": "Löschen Sie Ihr Konto, wir löschen alles.\nDSGVO und LGPD konform.\nSauberer Ausstieg garantiert.",
-        "imageAlt": "Recht auf Vergessenwerden illustration"
-      },
-      "dataTransparency": {
-        "title": "Daten-Transparenz",
-        "description": "Sehen Sie genau was wir über Sie haben.\nAlles exportieren wann Sie wollen.\nTotale Kontrolle.",
-        "imageAlt": "Daten-Transparenz illustration"
+      "dreamMode": {
+        "title": "Dream Mode Daten:",
+        "items": [
+          "Simulationseingaben (Einzahlungsbetrag, Strategieauswahl)",
+          "Diese Daten werden lokal auf Ihrem Gerät gespeichert, nicht auf unseren Servern"
+        ]
       }
-    }
-  },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "Ihre Daten, Ihre Kontrolle",
-        "description": "GDPR- und LGPD-konform.\nVollständige Transparenz über Datennutzung.\nDatenschutz als Grundrecht.",
-        "ctaText": "Jetzt starten",
-        "imageAlt": "Ihre Daten, Ihre Kontrolle illustration"
-      },
-      "simplicity": {
-        "title": "Einfache Datenschutzkontrollen",
-        "description": "✓ Daten jederzeit herunterladen\n✓ Konto mit einem Klick löschen\n✓ Granulare Freigabepräferenzen\nIhre Informationen, Ihre Entscheidungen.",
-        "ctaText": "Jetzt starten",
-        "imageAlt": "Einfache Datenschutzkontrollen illustration"
-      },
-      "rewards": {
-        "title": "Niemals verkauft oder geteilt",
-        "description": "Wir verkaufen niemals Ihre persönlichen Daten.\nKein Zugriff für Drittanbieter-Marketing.\nIhr Vertrauen ist unser Geschäftsmodell.",
-        "ctaText": "Jetzt starten",
-        "imageAlt": "Niemals verkauft oder geteilt illustration"
+    },
+    "howWeUseData": {
+      "title": "Wie wir Ihre Daten verwenden",
+      "table": {
+        "headers": {
+          "purpose": "Zweck",
+          "legalBasis": "Rechtsgrundlage"
+        },
+        "rows": [
+          {
+            "purpose": "Verwaltung Ihrer Wartelisten-Anmeldung",
+            "legalBasis": "Vertragserfüllung"
+          },
+          {
+            "purpose": "Updates zum diBoaS-Launch senden",
+            "legalBasis": "Berechtigtes Interesse (mit Widerspruchsmöglichkeit)"
+          },
+          {
+            "purpose": "Verbesserung unserer Website und Dienste",
+            "legalBasis": "Berechtigtes Interesse"
+          },
+          {
+            "purpose": "Beantwortung Ihrer Anfragen",
+            "legalBasis": "Vertragserfüllung"
+          },
+          {
+            "purpose": "Einhaltung gesetzlicher Verpflichtungen",
+            "legalBasis": "Rechtliche Verpflichtung"
+          }
+        ]
       }
+    },
+    "whoWeShareWith": {
+      "title": "Mit wem wir Daten teilen",
+      "intro": "Wir verkaufen Ihre personenbezogenen Daten nicht. Wir können Daten teilen mit:",
+      "serviceProviders": {
+        "title": "Dienstleister:",
+        "content": "E-Mail-Dienste (zum Versand von Mitteilungen), Hosting-Anbieter, Analysetools"
+      },
+      "legal": {
+        "title": "Rechtliche Anforderungen:",
+        "content": "Wenn gesetzlich vorgeschrieben oder zum Schutz unserer Rechte"
+      },
+      "note": "Alle Dienstleister sind vertraglich verpflichtet, Ihre Daten zu schützen."
+    },
+    "internationalTransfers": {
+      "title": "Internationale Übermittlungen",
+      "content": "Ihre Daten können in Länder außerhalb des Europäischen Wirtschaftsraums (EWR) übermittelt werden. Wir stellen angemessene Schutzmaßnahmen durch Standardvertragsklauseln oder Angemessenheitsbeschlüsse sicher."
+    },
+    "dataRetention": {
+      "title": "Datenspeicherung",
+      "items": [
+        {
+          "type": "Wartelisten-Daten:",
+          "duration": "Bis Sie sich abmelden oder 2 Jahre nach letzter Interaktion"
+        },
+        {
+          "type": "Analysedaten:",
+          "duration": "26 Monate (anonymisiert)"
+        },
+        {
+          "type": "Kommunikationsaufzeichnungen:",
+          "duration": "3 Jahre"
+        }
+      ]
+    },
+    "yourRights": {
+      "title": "Ihre Rechte (DSGVO)",
+      "intro": "Sie haben das Recht auf:",
+      "table": {
+        "headers": {
+          "right": "Recht",
+          "description": "Beschreibung"
+        },
+        "rows": [
+          {
+            "right": "Auskunft",
+            "description": "Eine Kopie Ihrer personenbezogenen Daten anfordern"
+          },
+          {
+            "right": "Berichtigung",
+            "description": "Unrichtige Daten korrigieren"
+          },
+          {
+            "right": "Löschung",
+            "description": "Löschung Ihrer Daten verlangen"
+          },
+          {
+            "right": "Einschränkung",
+            "description": "Beschränken, wie wir Ihre Daten verarbeiten"
+          },
+          {
+            "right": "Datenübertragbarkeit",
+            "description": "Ihre Daten in einem portablen Format erhalten"
+          },
+          {
+            "right": "Widerspruch",
+            "description": "Widerspruch gegen Verarbeitung auf Basis berechtigter Interessen"
+          },
+          {
+            "right": "Widerruf der Einwilligung",
+            "description": "Einwilligung jederzeit widerrufen"
+          }
+        ]
+      },
+      "exerciseRights": "Um Ihre Rechte auszuüben, senden Sie eine E-Mail an {email}. Wir werden innerhalb von 30 Tagen antworten."
+    },
+    "complaints": {
+      "title": "Beschwerden",
+      "content": "Wenn Sie glauben, dass wir Ihre Datenschutzrechte verletzt haben, können Sie eine Beschwerde bei Ihrer lokalen Datenschutzbehörde einreichen."
+    },
+    "security": {
+      "title": "Sicherheit",
+      "intro": "Wir implementieren angemessene technische und organisatorische Maßnahmen zum Schutz Ihrer Daten, einschließlich:",
+      "measures": [
+        "Verschlüsselung bei der Übertragung (HTTPS)",
+        "Zugriffskontrollen",
+        "Regelmäßige Sicherheitsüberprüfungen"
+      ]
+    },
+    "childrenPrivacy": {
+      "title": "Datenschutz von Kindern",
+      "content": "diBoaS ist nicht für Kinder unter 18 Jahren bestimmt. Wir erheben wissentlich keine Daten von Kindern."
+    },
+    "changes": {
+      "title": "Änderungen dieser Richtlinie",
+      "content": "Wir können diese Richtlinie aktualisieren. Wesentliche Änderungen werden per E-Mail oder Website-Benachrichtigung mitgeteilt."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "content": "Fragen? Schreiben Sie an {email}",
+      "email": "privacy@diboas.com"
     }
-  },
-  "faqAccordion": {
-    "sectionTitle": "Häufig gestellte Fragen",
-    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
-    "ctaText": "Alle Fragen ansehen",
-    "questionIds": [
-      "q115",
-      "q116",
-      "q117"
-    ]
   }
 }

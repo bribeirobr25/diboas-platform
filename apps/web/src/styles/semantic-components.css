@@ -1084,3 +1084,37 @@ a:focus-visible {
 .minimal-nav-cta {
   @apply ml-4;
 }
+
+/* Mobile Hamburger Button */
+.minimal-nav-hamburger {
+  @apply flex md:hidden items-center justify-center w-12 h-12 ml-2 rounded-lg text-slate-600 hover:text-teal-600 hover:bg-slate-50 transition-colors;
+}
+
+/* Mobile Menu Dropdown */
+.minimal-nav-mobile-menu {
+  @apply md:hidden absolute top-20 left-0 right-0 bg-white border-t border-slate-100 shadow-lg;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.minimal-nav-mobile-links {
+  @apply flex flex-col py-4 gap-1;
+}
+
+.minimal-nav-mobile-link {
+  @apply px-4 py-3 text-base font-medium text-slate-600 hover:text-teal-600 hover:bg-slate-50 rounded-lg transition-colors;
+}
+
+.minimal-nav-mobile-cta {
+  @apply mt-3 mx-4;
+}

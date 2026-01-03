@@ -10,9 +10,10 @@
  * - Download option
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useIntl } from 'react-intl';
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { ShareButtons } from './ShareButtons';
 import {
   CardRenderer,
@@ -58,12 +59,16 @@ export function ShareModal({
 }: ShareModalProps) {
   const intl = useIntl();
   const { locale } = useLocale();
+  const modalRef = useRef<HTMLDivElement>(null);
   const [renderedCard, setRenderedCard] = useState<RenderedCard | null>(
     preRenderedCard || null
   );
   const [isRendering, setIsRendering] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const [shareError, setShareError] = useState<string | null>(null);
+
+  // WCAG 2.4.3: Focus trap for modal
+  useFocusTrap(modalRef, isOpen);
 
   const t = (key: string) => intl.formatMessage({ id: `share.${key}` });
 
@@ -176,7 +181,7 @@ export function ShareModal({
       aria-modal="true"
       aria-labelledby="share-modal-title"
     >
-      <div className={styles.modal}>
+      <div ref={modalRef} className={styles.modal}>
         {/* Header */}
         <div className={styles.header}>
           <h2 id="share-modal-title" className={styles.title}>
@@ -225,7 +230,11 @@ export function ShareModal({
         {shareContent.url && (
           <div className={styles.linkSection}>
             <div className={styles.linkBox}>
+              <label htmlFor="share-link" className="sr-only">
+                {t('modal.shareLink')}
+              </label>
               <input
+                id="share-link"
                 type="text"
                 value={shareContent.url}
                 readOnly

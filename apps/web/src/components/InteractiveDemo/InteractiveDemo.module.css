@@ -387,6 +387,7 @@
   cursor: pointer;
   transition: all var(--transition-fast) ease;
   min-width: 70px;
+  min-height: 44px; /* WCAG 2.2 minimum touch target */
 }
 
 .amountButton:hover {
@@ -482,6 +483,7 @@
   color: var(--pc-color-heading);
   outline: none;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 48px; /* WCAG 2.2 minimum touch target */
 }
 
 .emailInput:focus {
@@ -610,6 +612,7 @@
   color: var(--pc-color-subtitle);
   cursor: pointer;
   transition: all var(--transition-fast) ease;
+  min-height: 44px; /* WCAG 2.2 minimum touch target */
 }
 
 .socialButton:hover {

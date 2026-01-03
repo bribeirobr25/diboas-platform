@@ -18,7 +18,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
-import { useWaitingListModal } from '@/components/WaitingList';
 import type { InteractiveDemoProps, DemoScreen, DemoState, DemoAnalyticsEvent } from './types';
 import { useWaitlistStatus } from './hooks/useWaitlistStatus';
 import { Screen5CTA } from './Screen5CTA';
@@ -41,7 +40,16 @@ export function InteractiveDemo({
   className = ''
 }: InteractiveDemoProps) {
   const intl = useTranslation();
-  const { openModal } = useWaitingListModal();
+
+  /**
+   * Scroll to waitlist section with smooth behavior
+   */
+  const scrollToWaitlist = useCallback(() => {
+    const waitlistSection = document.getElementById('waitlist');
+    if (waitlistSection) {
+      waitlistSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
 
   // Check if user is on waitlist
   const { isOnWaitlist, saveStatus } = useWaitlistStatus();
@@ -437,7 +445,7 @@ export function InteractiveDemo({
               className={styles.ctaButton}
               onClick={() => {
                 trackEvent('demo_reward_continue_click');
-                openModal();
+                scrollToWaitlist();
               }}
             >
               {intl.formatMessage({ id: 'landing-b2c.demo.reward.continueCta' })}
@@ -464,7 +472,7 @@ export function InteractiveDemo({
                 isOnWaitlist={true}
                 onJoinWaitlist={() => {
                   trackEvent('demo_waitlist_click');
-                  openModal();
+                  scrollToWaitlist();
                 }}
                 onTryDreamMode={() => {
                   trackEvent('demo_dream_mode_click');

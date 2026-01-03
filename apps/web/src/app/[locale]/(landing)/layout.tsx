@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { LocaleProvider } from '@/components/LocaleProvider';
-import { I18nProvider } from '@/components/I18nProvider';
+import { LocaleProvider, I18nProvider } from '@/components/Providers';
 import { MinimalNavigation } from '@/components/Layout/Navigation';
 import { MinimalFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';

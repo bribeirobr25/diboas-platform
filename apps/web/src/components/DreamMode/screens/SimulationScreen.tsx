@@ -17,7 +17,12 @@ const ANIMATION_DURATION = 3000; // 3 seconds
 export function SimulationScreen() {
   const intl = useIntl();
   const { state, dispatch, nextScreen } = useDreamMode();
-  const [displayValue, setDisplayValue] = useState(state.input.initialAmount);
+
+  // Use total investment (initial + monthly contributions) as starting point
+  const startingValue = state.result?.totalInvestment || state.input.initialAmount;
+  const finalValue = state.result?.defiBalance || startingValue;
+
+  const [displayValue, setDisplayValue] = useState(startingValue);
   const [progress, setProgress] = useState(0);
   const animationRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
@@ -25,7 +30,6 @@ export function SimulationScreen() {
   const t = (key: string) => intl.formatMessage({ id: `dreamMode.simulation.${key}` });
 
   const currencyLocale = getCurrencyLocale(state.input.currency);
-  const finalValue = state.result?.defiBalance || state.input.initialAmount;
 
   // Run animation
   useEffect(() => {
@@ -42,7 +46,7 @@ export function SimulationScreen() {
 
       // Interpolate value
       const currentValue =
-        state.input.initialAmount + (finalValue - state.input.initialAmount) * eased;
+        startingValue + (finalValue - startingValue) * eased;
 
       setDisplayValue(currentValue);
       setProgress(progressPercent * 100);
@@ -67,14 +71,11 @@ export function SimulationScreen() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [finalValue, state.input.initialAmount, dispatch, nextScreen]);
+  }, [finalValue, startingValue, dispatch, nextScreen]);
 
   return (
     <div className={`${styles.screen} ${styles.simulationScreen}`}>
       <div className={styles.content}>
-        {/* Watermark */}
-        <div className={styles.watermark}>{t('watermark')}</div>
-
         {/* Animated growth display */}
         <div className={styles.simulationDisplay}>
           <p className={styles.simulationLabel}>{t('growing')}</p>

@@ -1,12 +1,12 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { LocaleProvider } from '@/components/LocaleProvider';
-import { I18nProvider } from '@/components/I18nProvider';
+import { LocaleProvider, I18nProvider } from '@/components/Providers';
 import { Navigation } from '@/components/Layout/Navigation';
 import { SiteFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationErrorBoundary';
 import { WaitingListProvider } from '@/components/WaitingList';
+import { CookieConsent } from '@/components/CookieConsent';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -61,6 +61,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
                 {children}
               </main>
               <SiteFooter />
+              <CookieConsent />
             </div>
           </WaitingListProvider>
         </PageErrorBoundary>

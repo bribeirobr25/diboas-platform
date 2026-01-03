@@ -82,7 +82,7 @@
   },
   "results": {
     "watermark": "PROJEÇÃO",
-    "headline": "Seus €{amount} poderiam virar...",
+    "headline": "Seus {currency}{amount} poderiam virar...",
     "subhead": "Seu crescimento potencial em {timeframe}",
     "withDiboas": "Com diBoaS",
     "traditionalBank": "Seu banco te daria:",
@@ -94,7 +94,10 @@
       "1year": "1 ano",
       "5years": "5 anos"
     },
-    "bank_source": "Baseado em 0,5% de rendimento médio da poupança. Fonte: Estatísticas do BCE.",
+    "bank_source": "Baseado em 6,5% de rendimento da poupança. Fonte: Banco Central do Brasil.",
+    "bank_source_us": "Baseado em 0,45% de rendimento médio da poupança. Fonte: Federal Reserve.",
+    "bank_source_eu": "Baseado em 0,5% de rendimento médio da poupança. Fonte: Estatísticas do BCE.",
+    "bank_source_br": "Baseado em 6,5% de rendimento da poupança (Selic). Fonte: Banco Central do Brasil.",
     "back": "Tentar outro caminho",
     "shareResults": "Compartilhar meu sonho"
   },

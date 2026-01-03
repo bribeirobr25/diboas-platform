@@ -1,88 +1,116 @@
 {
-  "title": "Cookies | diBoaS",
-  "description": "Cookies explicados de forma simples.",
-  "hero": {
-    "title": "Cookies explicados de forma simples. Entenda como melhoramos sua experiência no site.",
-    "description": "",
-    "cta": "Começar Agora"
+  "seo": {
+    "title": "Politica de Cookies | diBoaS",
+    "description": "Saiba como o diBoaS utiliza cookies para melhorar sua experiencia e analisar o trafego do site."
   },
-  "benefitsCards": {
-    "title": "Cookies explicados de forma simples",
-    "description": "Como melhoramos sua experiência.",
-    "cards": {
-      "whatCookiesAre": {
-        "iconAlt": "Cookie icon",
-        "title": "O Que São Cookies",
-        "description": "Pequenos arquivos que lembram suas preferências.\nFazem o site funcionar melhor para você.\nTecnologia comum, não mistério."
+  "header": {
+    "title": "Politica de Cookies",
+    "lastUpdated": "Ultima Atualizacao: 3 de Janeiro de 2026"
+  },
+  "sections": {
+    "whatAreCookies": {
+      "title": "O Que Sao Cookies?",
+      "content": "Cookies sao pequenos arquivos de texto armazenados em seu dispositivo quando voce visita nosso site. Eles nos ajudam a lembrar suas preferencias e entender como voce interage com o diBoaS."
+    },
+    "cookiesWeUse": {
+      "title": "Cookies Que Utilizamos",
+      "essential": {
+        "title": "Cookies Essenciais (Obrigatorios)",
+        "description": "Estes cookies sao necessarios para o funcionamento do site. Voce nao pode desativa-los.",
+        "table": {
+          "headers": {
+            "cookie": "Cookie",
+            "purpose": "Finalidade",
+            "duration": "Duracao"
+          },
+          "rows": [
+            {
+              "cookie": "session_id",
+              "purpose": "Mantem sua sessao ativa",
+              "duration": "Sessao"
+            },
+            {
+              "cookie": "locale",
+              "purpose": "Lembra sua preferencia de idioma",
+              "duration": "1 ano"
+            },
+            {
+              "cookie": "cookie_consent",
+              "purpose": "Armazena suas preferencias de cookies",
+              "duration": "1 ano"
+            }
+          ]
+        }
       },
-      "typesWeUse": {
-        "iconAlt": "Cookie types icon",
-        "title": "Tipos Que Usamos",
-        "description": "Essenciais (site funciona), preferências (idioma, tema).\nAnalytics (melhorar experiência).\nCada tipo explicado claramente."
+      "analytics": {
+        "title": "Cookies de Analise (Opcionais)",
+        "description": "Estes cookies nos ajudam a entender como os visitantes utilizam nosso site. Todos os dados sao anonimizados.",
+        "table": {
+          "headers": {
+            "cookie": "Cookie",
+            "purpose": "Finalidade",
+            "duration": "Duracao"
+          },
+          "rows": [
+            {
+              "cookie": "_ga",
+              "purpose": "Google Analytics - distingue usuarios",
+              "duration": "2 anos"
+            },
+            {
+              "cookie": "_gid",
+              "purpose": "Google Analytics - distingue usuarios",
+              "duration": "24 horas"
+            }
+          ]
+        }
       },
-      "youAreInControl": {
-        "iconAlt": "Control icon",
-        "title": "Você Controla",
-        "description": "Aceite só o que quer.\nMude preferências a qualquer momento.\nSem cookies obrigatórios não-essenciais."
-      },
-      "noInvasiveTracking": {
-        "iconAlt": "No tracking icon",
-        "title": "Sem Rastreamento Invasivo",
-        "description": "Não vendemos dados de navegação.\nNão fazemos tracking entre sites.\nPrivacidade respeitada."
+      "functional": {
+        "title": "Cookies Funcionais (Opcionais)",
+        "description": "Estes cookies habilitam funcionalidades aprimoradas.",
+        "table": {
+          "headers": {
+            "cookie": "Cookie",
+            "purpose": "Finalidade",
+            "duration": "Duracao"
+          },
+          "rows": [
+            {
+              "cookie": "theme",
+              "purpose": "Lembra preferencia de modo claro/escuro",
+              "duration": "1 ano"
+            },
+            {
+              "cookie": "dream_mode_data",
+              "purpose": "Armazena seus dados de simulacao do Dream Mode localmente",
+              "duration": "Sessao"
+            }
+          ]
+        }
       }
+    },
+    "yourChoices": {
+      "title": "Suas Escolhas",
+      "content": "Voce pode gerenciar cookies atraves de:",
+      "options": [
+        "Nosso banner de consentimento de cookies (aparece na primeira visita)",
+        "Configuracoes do seu navegador",
+        "O link \"Configuracoes de Cookies\" no rodape do site"
+      ],
+      "deleteNote": "Para excluir cookies existentes, utilize as configuracoes do seu navegador."
+    },
+    "changes": {
+      "title": "Alteracoes Nesta Politica",
+      "content": "Podemos atualizar esta politica ocasionalmente. A data de \"Ultima Atualizacao\" refletira quaisquer mudancas."
+    },
+    "brazilNote": {
+      "title": "Nota para Usuarios Brasileiros",
+      "content": "Este site esta disponivel para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o servico for lancado no Brasil, sujeito as aprovacoes regulatorias da ANPD (Autoridade Nacional de Protecao de Dados)."
+    },
+    "contact": {
+      "title": "Fale Conosco",
+      "content": "Duvidas sobre cookies? Envie um e-mail para {email}",
+      "email": "privacy@diboas.com"
     }
-  },
-  "stickyFeaturesNav": {
-    "title": "Cookies explicados claramente.",
-    "subtitle": "O que usamos, por que usamos, como controlar.",
-    "cards": {
-      "essentialVsOptional": {
-        "title": "Essenciais vs Opcionais",
-        "description": "O que é necessário vs o que melhora experiência.\nEscolha o que quer aceitar.\nControle nas suas mãos.",
-        "imageAlt": "Essenciais vs Opcionais illustration"
-      },
-      "noIntrusiveTracking": {
-        "title": "Sem Rastreamento Intrusivo",
-        "description": "Não vendemos dados para terceiros.\nCookies apenas para funcionalidade.\nPrivacidade respeitada.",
-        "imageAlt": "Sem Rastreamento Intrusivo illustration"
-      },
-      "manageYourPreferences": {
-        "title": "Gerencie Suas Preferências",
-        "description": "Mude consentimento a qualquer momento.\nDashboard claro de preferências.\nFlexibilidade total.",
-        "imageAlt": "Gerencie Suas Preferências illustration"
-      }
-    }
-  },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "Cookies Explicados de Forma Simples",
-        "description": "Como usamos cookies e por quê.\nRastreamento essencial vs opcional.\nTransparência total sobre dados do site.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Cookies Explicados de Forma Simples illustration"
-      },
-      "simplicity": {
-        "title": "Controle Suas Preferências",
-        "description": "✓ Aceite só cookies essenciais\n✓ Personalize opções de rastreamento\n✓ Mude configurações quando quiser\nNavegue nos seus termos.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Controle Suas Preferências illustration"
-      },
-      "rewards": {
-        "title": "Melhor Experiência",
-        "description": "Cookies nos ajudam a melhorar sua visita.\nPersonalizado sem ser invasivo.\nExperiência suave, troca justa.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Melhor Experiência illustration"
-      }
-    }
-  },
-  "faqAccordion": {
-    "sectionTitle": "Perguntas Frequentes",
-    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
-    "ctaText": "Ver Todas as Perguntas",
-    "questionIds": [
-      "q118",
-      "q119",
-      "q120"
-    ]
   }
 }

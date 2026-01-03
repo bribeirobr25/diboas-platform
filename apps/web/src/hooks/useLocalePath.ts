@@ -10,7 +10,7 @@
 
 'use client';
 
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
 import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 
 /**

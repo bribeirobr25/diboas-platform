@@ -15,6 +15,8 @@
 
 import { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
+import Link from 'next/link';
+import { useLocale } from '@/components/Providers';
 import styles from './CookieConsent.module.css';
 
 const CONSENT_KEY = 'diboas-cookie-consent';
@@ -61,6 +63,7 @@ export interface CookieConsentValue {
 
 export function CookieConsent() {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [showBanner, setShowBanner] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -171,23 +174,19 @@ export function CookieConsent() {
           <p id="cookie-consent-description" className={styles.text}>
             {intl.formatMessage({ id: 'common.cookieConsent.message' })}
             {' '}
-            <a
-              href="/legal/cookies/"
+            <Link
+              href={`/${locale}/legal/cookies`}
               className={styles.link}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               {intl.formatMessage({ id: 'common.cookieConsent.cookiePolicy' })}
-            </a>
+            </Link>
             {' · '}
-            <a
-              href="/legal/privacy/"
+            <Link
+              href={`/${locale}/legal/privacy`}
               className={styles.link}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               {intl.formatMessage({ id: 'common.cookieConsent.privacyPolicy' })}
-            </a>
+            </Link>
           </p>
         </div>
 

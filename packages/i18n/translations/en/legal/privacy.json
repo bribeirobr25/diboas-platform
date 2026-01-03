@@ -1,93 +1,185 @@
 {
-  "title": "Privacy | diBoaS",
-  "description": "Your data is yours.",
-  "hero": {
-    "title": "Your data is yours. Know exactly how we protect and use your information.",
-    "description": "",
-    "cta": "Get Started"
+  "seo": {
+    "title": "Privacy Policy | diBoaS",
+    "description": "Learn how diBoaS collects, uses, and protects your personal data. GDPR compliant."
   },
-  "benefitsCards": {
-    "title": "Your data is yours",
-    "description": "Know exactly how we protect and use it.",
-    "cards": {
-      "gdprLGPDCompliant": {
-        "iconAlt": "GDPR compliance icon",
-        "title": "GDPR / LGPD Compliant",
-        "description": "Follow strictest privacy laws.\nYour data, your rules.\nTotal control over information."
-      },
-      "dataMinimization": {
-        "iconAlt": "Data minimization icon",
-        "title": "Data Minimization",
-        "description": "Collect only what's necessary.\nWe don't sell your information.\nYour profile isn't the product."
-      },
-      "endToEndEncryptionPrivacy": {
-        "iconAlt": "Encryption icon",
-        "title": "End-to-End Encryption",
-        "description": "Data protected at rest and in transit.\nNot even we access without authorization.\nTechnical privacy, not just promises."
-      },
-      "userRights": {
-        "iconAlt": "User rights icon",
-        "title": "User Rights",
-        "description": "Access, export, delete your data.\nSelf-service tools in app.\nExercising rights is easy."
+  "header": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: January 3, 2026",
+    "intro": "diBoaS (\"we,\" \"us,\" \"our\") is committed to protecting your privacy. This policy explains how we collect, use, and protect your personal data."
+  },
+  "sections": {
+    "whoWeAre": {
+      "title": "Who We Are",
+      "content": "diBoaS is a financial technology platform. We are the data controller for personal data collected through our website and services.",
+      "contact": {
+        "label": "Contact:",
+        "email": "privacy@diboas.com",
+        "dpo": "dpo@diboas.com",
+        "emailLabel": "Email:",
+        "dpoLabel": "Data Protection:"
       }
-    }
-  },
-  "stickyFeaturesNav": {
-    "title": "Your privacy is sacred.",
-    "subtitle": "GDPR, LGPD, CCPA - compliant in everything.",
-    "cards": {
-      "yourDataIsYours": {
-        "title": "Your Data Is Yours",
-        "description": "You control what we share.\nWe never sell information.\nPrivacy first.",
-        "imageAlt": "Your Data Is Yours illustration"
+    },
+    "whatDataWeCollect": {
+      "title": "What Data We Collect",
+      "provided": {
+        "title": "Information You Provide:",
+        "items": [
+          "Email address (when joining the waitlist)",
+          "Name (optional)",
+          "Language preference",
+          "Communication preferences"
+        ]
       },
-      "endToEndEncryption": {
-        "title": "End-to-End Encryption",
-        "description": "Data encrypted in transit and at rest.\nEven we don't see everything.\nMaximum security.",
-        "imageAlt": "End-to-End Encryption illustration"
+      "automatic": {
+        "title": "Information Collected Automatically:",
+        "items": [
+          "IP address (anonymized for analytics)",
+          "Browser type and version",
+          "Device information",
+          "Pages visited and time spent",
+          "Referral source"
+        ]
       },
-      "rightToBeForgotten": {
-        "title": "Right to Be Forgotten",
-        "description": "Delete your account, we delete everything.\nGDPR and LGPD compliant.\nClean exit guaranteed.",
-        "imageAlt": "Right to Be Forgotten illustration"
-      },
-      "dataTransparency": {
-        "title": "Data Transparency",
-        "description": "See exactly what we have about you.\nExport everything whenever you want.\nTotal control.",
-        "imageAlt": "Data Transparency illustration"
+      "dreamMode": {
+        "title": "Dream Mode Data:",
+        "items": [
+          "Simulation inputs (deposit amount, strategy selection)",
+          "This data is stored locally on your device, not on our servers"
+        ]
       }
-    }
-  },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "Your Data, Your Control",
-        "description": "GDPR and LGPD compliant.\nComplete transparency on data use.\nPrivacy as a fundamental right.",
-        "ctaText": "Get Started",
-        "imageAlt": "Your Data, Your Control illustration"
-      },
-      "simplicity": {
-        "title": "Simple Privacy Controls",
-        "description": "✓ Download your data anytime\n✓ Delete account with one click\n✓ Granular sharing preferences\nYour information, your decisions.",
-        "ctaText": "Get Started",
-        "imageAlt": "Simple Privacy Controls illustration"
-      },
-      "rewards": {
-        "title": "Never Sold or Shared",
-        "description": "We never sell your personal data.\nNo third-party marketing access.\nYour trust is our business model.",
-        "ctaText": "Get Started",
-        "imageAlt": "Never Sold or Shared illustration"
+    },
+    "howWeUseData": {
+      "title": "How We Use Your Data",
+      "table": {
+        "headers": {
+          "purpose": "Purpose",
+          "legalBasis": "Legal Basis"
+        },
+        "rows": [
+          {
+            "purpose": "Manage your waitlist signup",
+            "legalBasis": "Contract performance"
+          },
+          {
+            "purpose": "Send updates about diBoaS launch",
+            "legalBasis": "Legitimate interest (with opt-out)"
+          },
+          {
+            "purpose": "Improve our website and services",
+            "legalBasis": "Legitimate interest"
+          },
+          {
+            "purpose": "Respond to your inquiries",
+            "legalBasis": "Contract performance"
+          },
+          {
+            "purpose": "Comply with legal obligations",
+            "legalBasis": "Legal requirement"
+          }
+        ]
       }
+    },
+    "whoWeShareWith": {
+      "title": "Who We Share Data With",
+      "intro": "We do not sell your personal data. We may share data with:",
+      "serviceProviders": {
+        "title": "Service Providers:",
+        "content": "Email services (to send communications), hosting providers, analytics tools"
+      },
+      "legal": {
+        "title": "Legal Requirements:",
+        "content": "When required by law or to protect our rights"
+      },
+      "note": "All service providers are contractually bound to protect your data."
+    },
+    "internationalTransfers": {
+      "title": "International Transfers",
+      "content": "Your data may be transferred to countries outside the European Economic Area (EEA). We ensure appropriate safeguards through Standard Contractual Clauses or adequacy decisions."
+    },
+    "dataRetention": {
+      "title": "Data Retention",
+      "items": [
+        {
+          "type": "Waitlist data:",
+          "duration": "Until you unsubscribe or 2 years after last interaction"
+        },
+        {
+          "type": "Analytics data:",
+          "duration": "26 months (anonymized)"
+        },
+        {
+          "type": "Communication records:",
+          "duration": "3 years"
+        }
+      ]
+    },
+    "yourRights": {
+      "title": "Your Rights (GDPR)",
+      "intro": "You have the right to:",
+      "table": {
+        "headers": {
+          "right": "Right",
+          "description": "Description"
+        },
+        "rows": [
+          {
+            "right": "Access",
+            "description": "Request a copy of your personal data"
+          },
+          {
+            "right": "Rectification",
+            "description": "Correct inaccurate data"
+          },
+          {
+            "right": "Erasure",
+            "description": "Request deletion of your data"
+          },
+          {
+            "right": "Restriction",
+            "description": "Limit how we process your data"
+          },
+          {
+            "right": "Portability",
+            "description": "Receive your data in a portable format"
+          },
+          {
+            "right": "Object",
+            "description": "Object to processing based on legitimate interest"
+          },
+          {
+            "right": "Withdraw Consent",
+            "description": "Withdraw consent at any time"
+          }
+        ]
+      },
+      "exerciseRights": "To exercise your rights, email {email}. We will respond within 30 days."
+    },
+    "complaints": {
+      "title": "Complaints",
+      "content": "If you believe we have violated your privacy rights, you may lodge a complaint with your local data protection authority."
+    },
+    "security": {
+      "title": "Security",
+      "intro": "We implement appropriate technical and organizational measures to protect your data, including:",
+      "measures": [
+        "Encryption in transit (HTTPS)",
+        "Access controls",
+        "Regular security reviews"
+      ]
+    },
+    "childrenPrivacy": {
+      "title": "Children's Privacy",
+      "content": "diBoaS is not intended for children under 18. We do not knowingly collect data from children."
+    },
+    "changes": {
+      "title": "Changes to This Policy",
+      "content": "We may update this policy. Material changes will be communicated via email or website notice."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "Questions? Email {email}",
+      "email": "privacy@diboas.com"
     }
-  },
-  "faqAccordion": {
-    "sectionTitle": "Frequently Asked Questions",
-    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-    "ctaText": "See All Questions",
-    "questionIds": [
-      "q115",
-      "q116",
-      "q117"
-    ]
   }
 }

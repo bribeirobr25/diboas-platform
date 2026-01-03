@@ -1,22 +1,13 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
-import { FeatureShowcase } from '@/components/Sections';
-import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
-import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
-
-
-import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
-import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
-import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
-import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
-import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
-import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { CookiePolicyContent } from '@/components/Legal';
+
 export const dynamic = 'auto';
 
 interface PageProps {
@@ -27,7 +18,26 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('legal/cookies', locale as SupportedLocale);
+
+  // Return localized metadata
+  const titles: Record<string, string> = {
+    en: 'Cookie Policy | diBoaS',
+    de: 'Cookie-Richtlinie | diBoaS',
+    'pt-BR': 'Política de Cookies | diBoaS',
+    es: 'Política de Cookies | diBoaS',
+  };
+
+  const descriptions: Record<string, string> = {
+    en: 'Learn how diBoaS uses cookies to improve your experience and analyze site traffic.',
+    de: 'Erfahren Sie, wie diBoaS Cookies verwendet, um Ihre Erfahrung zu verbessern und den Website-Traffic zu analysieren.',
+    'pt-BR': 'Saiba como o diBoaS usa cookies para melhorar sua experiência e analisar o tráfego do site.',
+    es: 'Conoce cómo diBoaS usa cookies para mejorar tu experiencia y analizar el tráfico del sitio.',
+  };
+
+  return {
+    title: titles[locale] || titles.en,
+    description: descriptions[locale] || descriptions.en,
+  };
 }
 
 export default async function LegalCookiesPage({ params }: PageProps) {
@@ -38,98 +48,22 @@ export default async function LegalCookiesPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces (legal/cookies + shared: home for StickyFeaturesNav, faq for FAQAccordion)
-  const pageMessages = await loadPageNamespaces(locale, ['legal/cookies', 'home', 'faq']);
-
-  const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS Cookie Policy',
-    description: 'Cookies explained simply',
-    category: 'Legal'
-  });
+  // Load legal/cookies namespace
+  const pageMessages = await loadPageNamespaces(locale, ['legal/cookies']);
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Cookie Policy', url: ROUTES.LEGAL.COOKIES }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('legal-cookies');
-
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-    <>
-      <StructuredData data={[serviceData, breadcrumbData]} />
-
-      <main className="main-page-wrapper">
-        <SectionErrorBoundary
-          sectionId="hero-section-legal-cookies"
-          sectionType="HeroSection"
-          enableReporting={true}
-          context={{ page: 'legal-cookies', variant: heroVariant }}
-        >
-          <HeroSection
-            variant={heroVariant}
-            config={HERO_PAGE_CONFIGS['legal-cookies']}
-            enableAnalytics={true}
-            priority={true}
-          />
-        </SectionErrorBoundary>
-
-        {/* Feature Showcase Section */}
-        <SectionErrorBoundary
-          sectionId="feature-showcase-legalCookies"
-          sectionType="FeatureShowcase"
-          enableReporting={true}
-          context={{ page: 'legalCookies' }}
-        >
-          <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.legalCookies}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-
-        
-        {/* Benefits Cards Section */}
-        <SectionErrorBoundary
-          sectionId="benefits-cards-legal-cookies"
-          sectionType="BenefitsCards"
-          enableReporting={true}
-          context={{ page: 'legal-cookies' }}
-        >
-          <BenefitsCardsSection
-            config={getBenefitsCardsConfig('legal-cookies')!}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-        {/* Sticky Features Navigation Section */}
-        <SectionErrorBoundary
-          sectionId="sticky-features-nav-legalCookies"
-          sectionType="StickyFeaturesNav"
-          enableReporting={true}
-          context={{ page: 'legalCookies' }}
-        >
-          <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.legalCookies}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-      
-        {/* FAQ Accordion Section */}
-        <SectionErrorBoundary
-          sectionId="faq-accordion-legalCookies"
-          sectionType="FAQAccordion"
-          enableReporting={true}
-          context={{ page: 'legalCookies' }}
-        >
-          <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.legalCookies!}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-      </main>
-    </>
+      <>
+        <StructuredData data={[breadcrumbData]} />
+        <main className="main-page-wrapper">
+          <CookiePolicyContent />
+        </main>
+      </>
     </PageI18nProvider>
   );
 }

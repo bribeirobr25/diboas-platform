@@ -1,34 +1,35 @@
 /**
  * WaitlistPosition Component Styles
+ * Using design tokens for consistent spacing, typography, and colors
  */
 
 /* Container */
 .container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 20px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
   background: var(--color-surface, #f8fafc);
-  border-radius: 12px;
+  border-radius: var(--radius-xl);
 }
 
 /* Size Variants */
 .size-sm {
-  padding: 12px;
-  gap: 12px;
+  padding: var(--spacing-md);
+  gap: var(--spacing-md);
 }
 
 .size-sm .positionNumber {
-  font-size: 1.5rem;
+  font-size: var(--font-size-2xl);
 }
 
 .size-lg {
-  padding: 28px;
-  gap: 20px;
+  padding: var(--spacing-3xl);
+  gap: var(--spacing-xl);
 }
 
 .size-lg .positionNumber {
-  font-size: 3rem;
+  font-size: var(--font-size-5xl);
 }
 
 /* Position Section */
@@ -36,49 +37,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-xs);
   text-align: center;
 }
 
 .positionLabel {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium, 500);
   color: var(--color-text-secondary, #64748b);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .positionNumber {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold, 700);
   color: var(--text-primary-accessible, #0f766e);
-  line-height: 1.2;
+  line-height: var(--line-height-tight, 1.2);
 }
 
 /* Improvement Indicator */
 .improvement {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) 10px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold, 600);
   color: var(--theme-status-success, #10b981);
   background: var(--success-overlay-subtle, rgba(16, 185, 129, 0.1));
-  border-radius: 20px;
+  border-radius: var(--radius-3xl);
 }
 
 .improvementArrow {
-  animation: bounce-up 1s ease-in-out infinite;
+  /* Static arrow - no animation for professional appearance */
+  display: inline-flex;
 }
 
-@keyframes bounce-up {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .improvementArrow {
+    animation: none;
   }
 }
 
@@ -86,8 +85,8 @@
 .referralSection {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 16px;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-lg);
   border-top: 1px solid var(--color-border, #e2e8f0);
 }
 
@@ -96,7 +95,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: var(--spacing-lg);
 }
 
 .statItem {
@@ -107,19 +106,19 @@
 }
 
 .statValue {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold, 700);
   color: var(--color-text-primary, #1e293b);
 }
 
 .statLabel {
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary, #64748b);
 }
 
 .statDivider {
   width: 1px;
-  height: 32px;
+  height: var(--spacing-3xl);
   background: var(--color-border, #e2e8f0);
 }
 
@@ -128,19 +127,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .codeLabel {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary, #64748b);
 }
 
 .code {
-  padding: 6px 12px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  padding: 6px var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold, 600);
+  font-family: var(--font-family-mono, ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace);
   color: var(--text-primary-accessible, #0f766e);
   background: var(--color-surface-elevated, #f1f5f9);
   border-radius: 6px;
@@ -150,18 +149,18 @@
 /* Responsive */
 @media (max-width: 480px) {
   .container {
-    padding: 16px;
+    padding: var(--spacing-lg);
   }
 
   .positionNumber {
-    font-size: 2rem;
+    font-size: var(--font-size-3xl);
   }
 
   .referralStats {
-    gap: 12px;
+    gap: var(--spacing-md);
   }
 
   .statValue {
-    font-size: 1.125rem;
+    font-size: var(--font-size-lg);
   }
 }

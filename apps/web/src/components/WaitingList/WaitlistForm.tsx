@@ -12,7 +12,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
@@ -193,14 +193,18 @@ export function WaitlistForm({
       className={`${styles.form} ${compact ? styles.compact : ''} ${className}`}
     >
       <div className={styles.inputGroup}>
+        <label htmlFor="waitlist-email" className="sr-only">
+          {t('form.emailLabel')}
+        </label>
         <input
           ref={emailInputRef}
+          id="waitlist-email"
           type="email"
           name="email"
           value={formState.email}
           onChange={handleInputChange}
           placeholder={t('form.emailPlaceholder')}
-          aria-label={t('form.emailLabel')}
+          aria-describedby={error ? 'waitlist-error' : undefined}
           className={`${styles.input} ${error ? styles.inputError : ''}`}
           required
           autoComplete="email"
@@ -220,21 +224,23 @@ export function WaitlistForm({
       </div>
 
       {error && (
-        <div className={styles.error} role="alert">
+        <div id="waitlist-error" className={styles.error} role="alert" aria-live="assertive">
           {error}
         </div>
       )}
 
       {!compact && (
         <div className={styles.consent}>
-          <label className={styles.consentLabel}>
+          <label htmlFor="waitlist-gdpr" className={styles.consentLabel}>
             <input
+              id="waitlist-gdpr"
               type="checkbox"
               name="gdprAccepted"
               checked={formState.gdprAccepted}
               onChange={handleInputChange}
               className={styles.checkbox}
               disabled={isLoading}
+              aria-required="true"
             />
             <span className={styles.consentText}>
               {t('form.privacyNote')}

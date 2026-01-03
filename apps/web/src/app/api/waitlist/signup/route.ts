@@ -6,7 +6,7 @@
  * - Distributed rate limiting (Redis with in-memory fallback)
  * - Position assignment
  * - Referral code generation
- * - Kit.com integration (when credentials available)
+ * - Kit.com (ConvertKit) integration for email marketing
  * - Local storage fallback for pre-launch
  *
  * Security:
@@ -53,6 +53,61 @@ import {
 } from '@/lib/waitingList/store';
 
 import type { WaitlistSource } from '@/lib/waitingList/store';
+
+/**
+ * Sync subscriber to Kit.com (ConvertKit)
+ * Non-blocking - failures are logged but don't affect the signup response
+ */
+async function syncToKit(
+  email: string,
+  metadata: {
+    position: number;
+    referralCode: string;
+    referredBy?: string;
+    locale: string;
+    source: string;
+  }
+): Promise<void> {
+  const apiKey = process.env.KIT_API_KEY;
+  const formId = process.env.KIT_FORM_ID;
+
+  if (!apiKey || !formId) {
+    console.log('[Kit.com] Skipping sync - credentials not configured');
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.convertkit.com/v3/forms/${formId}/subscribe`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          api_key: apiKey,
+          email,
+          fields: {
+            waitlist_position: metadata.position,
+            referral_code: metadata.referralCode,
+            referred_by: metadata.referredBy || '',
+            locale: metadata.locale,
+            signup_source: metadata.source,
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('[Kit.com] Sync failed:', response.status, errorData);
+    } else {
+      console.log('[Kit.com] Successfully synced subscriber:', email);
+    }
+  } catch (error) {
+    console.error('[Kit.com] Sync error:', error);
+  }
+}
 
 interface SignupRequestBody {
   email: string;
@@ -177,8 +232,14 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
 
     const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referralCode);
 
-    // TODO: When Kit.com credentials are available, sync to Kit.com
-    // await syncToKit(email, { position: entry.position, referralCode, referredBy, locale: body.locale });
+    // Sync to Kit.com (non-blocking - don't await to avoid slowing down response)
+    syncToKit(email, {
+      position: entry.position,
+      referralCode,
+      referredBy,
+      locale: body.locale || 'en',
+      source: body.source || (referredBy ? 'referral' : 'direct'),
+    });
 
     return NextResponse.json({
       success: true,
