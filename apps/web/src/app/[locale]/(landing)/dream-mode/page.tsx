@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { DreamModePageContent } from './DreamModePageContent';
 import type { Metadata } from 'next';
@@ -47,8 +47,8 @@ export default async function DreamModePage({ params }: DreamModePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['dreamMode', 'waitlist', 'share', 'landing-b2c']);
+  // Load page-specific namespaces (including common for accessibility translations)
+  const pageMessages = await loadPageNamespaces(locale, ['common', 'dreamMode', 'waitlist', 'share', 'landing-b2c']);
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

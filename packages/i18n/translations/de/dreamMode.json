@@ -82,7 +82,7 @@
   },
   "results": {
     "watermark": "PROJEKTION",
-    "headline": "Ihre €{amount} könnten werden...",
+    "headline": "Ihre {currency}{amount} könnten werden...",
     "subhead": "Ihr potenzielles Wachstum in {timeframe}",
     "withDiboas": "Mit diBoaS",
     "traditionalBank": "Ihre Bank würde Ihnen geben:",
@@ -95,6 +95,9 @@
       "5years": "5 Jahren"
     },
     "bank_source": "Basierend auf 0,5% durchschnittlichem Sparzins. Quelle: EZB-Statistik.",
+    "bank_source_us": "Basierend auf 0,45% durchschnittlichem Sparzins. Quelle: Federal Reserve.",
+    "bank_source_eu": "Basierend auf 0,5% durchschnittlichem Sparzins. Quelle: EZB-Statistik.",
+    "bank_source_br": "Basierend auf 6,5% Selic-basiertem Sparzins. Quelle: Banco Central do Brasil.",
     "back": "Anderen Weg probieren",
     "shareResults": "Meinen Traum teilen"
   },

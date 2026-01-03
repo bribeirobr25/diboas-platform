@@ -7,7 +7,7 @@ import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { TreasuryCalculator } from '@/components/Sections/TreasuryCalculator';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
-import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2B_HERO_CONFIG,

@@ -20,7 +20,8 @@
   flex-wrap: wrap;
 }
 
-@media (min-width: 640px) {
+/* Tablet (480px+) - Design system standard breakpoint */
+@media (min-width: 480px) {
   .inputGroup {
     flex-wrap: nowrap;
   }
@@ -29,6 +30,7 @@
 .input {
   flex: 1;
   min-width: 200px;
+  min-height: 48px; /* WCAG 2.2 minimum touch target */
   padding: var(--spacing-md, 16px);
   font-size: var(--font-size-body, 16px);
   border: 1px solid var(--border-default, #e2e8f0);
@@ -74,6 +76,7 @@
   transition: background-color 0.2s ease, transform 0.1s ease;
   white-space: nowrap;
   min-width: 160px;
+  min-height: 48px; /* WCAG 2.2 minimum touch target */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,9 +132,12 @@
 }
 
 .checkbox {
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+  min-width: 44px; /* WCAG 2.2 touch target via padding */
+  min-height: 44px; /* WCAG 2.2 touch target via padding */
+  margin: -12px; /* Offset to maintain visual size */
+  padding: 12px; /* Touch target padding */
   accent-color: var(--color-teal-600, #0d9488);
   cursor: pointer;
 }

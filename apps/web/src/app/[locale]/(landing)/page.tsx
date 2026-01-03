@@ -9,7 +9,7 @@ import { DemoEmbedSection } from '@/components/Sections/DemoEmbed';
 import { CalculatorSection } from '@/components/Sections/CalculatorSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
-import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2C_HERO_CONFIG,

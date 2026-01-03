@@ -12,7 +12,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIntl } from 'react-intl';
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
 import { SUPPORTED_LOCALES, LOCALE_CONFIG, type SupportedLocale } from '@diboas/i18n/server';
 import { Globe } from 'lucide-react';
 import styles from './LanguageSwitcher.module.css';

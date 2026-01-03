@@ -11,7 +11,7 @@
 
 import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import styles from './ReferralLink.module.css';

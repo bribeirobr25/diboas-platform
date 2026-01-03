@@ -54,24 +54,25 @@ const MATRIX_ROWS = [
 ] as const;
 
 /**
- * Risk level colors
+ * Risk level colors - Professional muted palette
  */
 function getRiskLevelColor(strategyId: string): string {
   const growthExposure = GROWTH_EXPOSURE[strategyId] || 0;
-  if (growthExposure === 0) return 'text-teal-600';
-  if (growthExposure < 40) return 'text-amber-600';
-  if (growthExposure < 70) return 'text-orange-600';
-  return 'text-red-600';
+  if (growthExposure === 0) return 'text-teal-700';
+  if (growthExposure < 40) return 'text-slate-700';
+  if (growthExposure < 70) return 'text-slate-800';
+  return 'text-slate-900';
 }
 
 /**
- * Border color based on growth exposure
+ * Card accent border color - subtle left border indicator
+ * Teal for stable strategies (0% growth), Amber for growth strategies
  */
-function getBorderColor(strategyId: string): string {
+function getCardBorderClass(strategyId: string): string {
   const growthExposure = GROWTH_EXPOSURE[strategyId] || 0;
-  if (growthExposure === 0) return 'border-teal-500';
-  if (growthExposure < 50) return 'border-amber-500';
-  return 'border-red-500';
+  return growthExposure === 0
+    ? 'border-l-4 border-l-teal-400'
+    : 'border-l-4 border-l-amber-400';
 }
 
 /**
@@ -186,14 +187,14 @@ export function StrategiesPageContent() {
                 return (
                   <div
                     key={strategyId}
-                    className={`bg-white rounded-xl p-6 shadow-sm border-l-4 ${getBorderColor(strategyId)}`}
+                    className={`bg-white rounded-xl p-6 shadow-sm border border-slate-200 ${getCardBorderClass(strategyId)}`}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="text-xl font-bold text-slate-900">
                         {t(`strategies.${strategyId}.name`)}
                       </h3>
                       {growthExposure > 0 && (
-                        <span className="text-xs font-medium bg-amber-100 text-amber-800 px-2 py-1 rounded">
+                        <span className="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-1 rounded border border-slate-200">
                           {growthExposure}% {t('growthBadge')}
                         </span>
                       )}

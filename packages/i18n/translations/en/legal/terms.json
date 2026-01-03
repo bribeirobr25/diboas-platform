@@ -1,93 +1,111 @@
 {
-  "title": "Terms of Service | diBoaS",
-  "description": "Clear rules, serious commitments.",
-  "hero": {
-    "title": "Clear rules, serious commitments. Know our terms and policies without the fine print.",
-    "description": "",
-    "cta": "Get Started"
+  "seo": {
+    "title": "Terms of Use | diBoaS",
+    "description": "Terms of Use for the diBoaS pre-launch website. Clear rules, serious commitments."
   },
-  "benefitsCards": {
-    "title": "Clear rules, serious commitments",
-    "description": "Terms without fine print.",
-    "cards": {
-      "humanizedTermsOfUse": {
-        "iconAlt": "Clear terms icon",
-        "title": "Humanized Terms of Use",
-        "description": "Plain language, not legalese.\nYou understand what you're accepting.\nTransparency as standard."
+  "header": {
+    "title": "Terms of Use",
+    "lastUpdated": "Last Updated: January 3, 2026",
+    "intro": "Welcome to diBoaS. By accessing our website, you agree to these Terms of Use."
+  },
+  "sections": {
+    "aboutDiboas": {
+      "title": "1. About diBoaS",
+      "content": "diBoaS is a financial technology platform currently in pre-launch. Our website provides:",
+      "items": [
+        "Information about our upcoming services",
+        "A waitlist for early access",
+        "Dream Mode simulation tool",
+        "Future You Calculator"
+      ],
+      "important": "Important: diBoaS is NOT currently offering financial services. The pre-launch website is for informational and educational purposes only."
+    },
+    "acceptance": {
+      "title": "2. Acceptance of Terms",
+      "intro": "By using our website, you confirm that:",
+      "items": [
+        "You are at least 18 years old",
+        "You are not located in a restricted jurisdiction (currently: United States, Brazil)",
+        "You agree to these Terms of Use"
+      ]
+    },
+    "preLaunchLimitations": {
+      "title": "3. Pre-Launch Limitations",
+      "simulationTools": {
+        "title": "Dream Mode and Future You Calculator:",
+        "items": [
+          "These tools provide simulations only, not financial advice",
+          "Results are based on historical data and assumptions",
+          "Past performance does not guarantee future results",
+          "Simulated returns may differ significantly from actual returns"
+        ]
       },
-      "multiJurisdictionCompliance": {
-        "iconAlt": "Global compliance icon",
-        "title": "Multi-Jurisdiction Compliance",
-        "description": "Follow laws where we operate.\nUpdates as regulations evolve.\nProactive, not reactive compliance."
-      },
-      "consumerProtection": {
-        "iconAlt": "Consumer protection icon",
-        "title": "Consumer Protection",
-        "description": "Your rights always respected.\nClear complaint process.\nFair dispute resolution."
-      },
-      "regularExternalAudit": {
-        "iconAlt": "External audit icon",
-        "title": "Regular External Audit",
-        "description": "Independent compliance verification.\nQuarterly public reports.\nAccountability that matters."
+      "noFinancialAdvice": {
+        "title": "No Financial Advice:",
+        "items": [
+          "Nothing on this website constitutes financial, investment, tax, or legal advice",
+          "You should consult qualified professionals before making financial decisions"
+        ]
       }
+    },
+    "geographicRestrictions": {
+      "title": "4. Geographic Restrictions",
+      "intro": "diBoaS services are not available to residents of:",
+      "restrictedCountries": [
+        "United States",
+        "Brazil"
+      ],
+      "note": "If you access our website from these jurisdictions, you may view informational content only. You may not join the waitlist or use interactive features."
+    },
+    "intellectualProperty": {
+      "title": "5. Intellectual Property",
+      "intro": "All content on this website, including text, graphics, logos, and software, is owned by diBoaS or its licensors. You may not:",
+      "items": [
+        "Copy, modify, or distribute our content without permission",
+        "Use our trademarks without authorization",
+        "Reverse engineer our software"
+      ]
+    },
+    "userConduct": {
+      "title": "6. User Conduct",
+      "intro": "You agree not to:",
+      "items": [
+        "Use the website for any illegal purpose",
+        "Attempt to gain unauthorized access to our systems",
+        "Interfere with other users' access to the website",
+        "Submit false or misleading information"
+      ]
+    },
+    "disclaimer": {
+      "title": "7. Disclaimer of Warranties",
+      "content": "THE WEBSITE IS PROVIDED \"AS IS\" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE DO NOT GUARANTEE THAT:",
+      "items": [
+        "The website will be available at all times",
+        "Information will be accurate or complete",
+        "The website will be free from errors or viruses"
+      ]
+    },
+    "limitation": {
+      "title": "8. Limitation of Liability",
+      "content": "TO THE MAXIMUM EXTENT PERMITTED BY LAW, DIBOAS SHALL NOT BE LIABLE FOR:",
+      "items": [
+        "Indirect, incidental, or consequential damages",
+        "Loss of profits, data, or goodwill",
+        "Damages arising from use of simulation tools"
+      ]
+    },
+    "changes": {
+      "title": "9. Changes to Terms",
+      "content": "We may modify these Terms at any time. Continued use of the website after changes constitutes acceptance of the new Terms."
+    },
+    "governingLaw": {
+      "title": "10. Governing Law",
+      "content": "These Terms are governed by the laws of the European Union. Disputes shall be resolved in accordance with applicable EU regulations."
+    },
+    "contact": {
+      "title": "11. Contact",
+      "content": "Questions about these Terms? Email us at {email}",
+      "email": "legal@diboas.com"
     }
-  },
-  "stickyFeaturesNav": {
-    "title": "Legality in every sense.",
-    "subtitle": "Clear terms, rigorous compliance, total protection.",
-    "cards": {
-      "termsOfUse": {
-        "title": "Terms of Use",
-        "description": "Clear language, no legalese.\nUnderstand exactly your rights.\nLegal transparency.",
-        "imageAlt": "Terms of Use illustration"
-      },
-      "multiJurisdiction": {
-        "title": "Multi-Jurisdiction",
-        "description": "Compliant in US, EU, Brazil, more.\nLegal operation everywhere.\nExpansion without barriers.",
-        "imageAlt": "Multi-Jurisdiction illustration"
-      },
-      "rigorousKycAml": {
-        "title": "Rigorous KYC/AML",
-        "description": "Robust identity verification.\nMoney laundering prevention.\nClean platform.",
-        "imageAlt": "Rigorous KYC/AML illustration"
-      },
-      "disputeResolution": {
-        "title": "Dispute Resolution",
-        "description": "Clear processes for conflicts.\nMediation before litigation.\nAccessible justice.",
-        "imageAlt": "Dispute Resolution illustration"
-      }
-    }
-  },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "Regulatory Excellence",
-        "description": "MiCA compliant in EU, BSA in US.\nMulti-jurisdiction operations ready.\nLegal clarity from day one.",
-        "ctaText": "Get Started",
-        "imageAlt": "Regulatory Excellence illustration"
-      },
-      "simplicity": {
-        "title": "Terms You Can Understand",
-        "description": "✓ Plain language policies\n✓ No hidden clauses\n✓ Clear user rights\nTransparency in everything.",
-        "ctaText": "Get Started",
-        "imageAlt": "Terms You Can Understand illustration"
-      },
-      "rewards": {
-        "title": "Your Rights Protected",
-        "description": "User-first policies and procedures.\nClear dispute resolution.\nFair treatment guaranteed.",
-        "ctaText": "Get Started",
-        "imageAlt": "Your Rights Protected illustration"
-      }
-    }
-  },
-  "faqAccordion": {
-    "sectionTitle": "Frequently Asked Questions",
-    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-    "ctaText": "See All Questions",
-    "questionIds": [
-      "q112",
-      "q113",
-      "q114"
-    ]
   }
 }

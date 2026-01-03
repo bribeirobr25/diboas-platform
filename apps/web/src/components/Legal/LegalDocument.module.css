@@ -1,0 +1,353 @@
+/**
+ * Legal Document Styles
+ *
+ * Professional, accessible styling for legal content
+ * Uses design tokens for colors and spacing
+ * Responsive and print-friendly
+ */
+
+.document {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-8) var(--spacing-4);
+  background: var(--color-white);
+  color: var(--color-slate-900);
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .document {
+    padding: var(--spacing-12) var(--spacing-8);
+  }
+}
+
+/* Header */
+.header {
+  margin-bottom: var(--spacing-8);
+  padding-bottom: var(--spacing-6);
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-slate-900);
+  margin: 0 0 var(--spacing-2) 0;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+.lastUpdated {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-500);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.intro {
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-700);
+  margin: 0;
+}
+
+/* Sections */
+.section {
+  margin-bottom: var(--spacing-8);
+  scroll-margin-top: var(--spacing-20);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-slate-900);
+  margin: 0 0 var(--spacing-4) 0;
+  padding-bottom: var(--spacing-2);
+  border-bottom: 2px solid var(--color-teal-500);
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+.sectionContent {
+  color: var(--color-slate-700);
+}
+
+/* Subsections */
+.subsection {
+  margin-top: var(--spacing-6);
+  margin-bottom: var(--spacing-4);
+}
+
+.subsectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-slate-800);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.subsectionContent {
+  color: var(--color-slate-700);
+}
+
+/* Paragraphs */
+.paragraph {
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Tables */
+.tableWrapper {
+  margin: var(--spacing-4) 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.tableCaption {
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: var(--spacing-2);
+  color: var(--color-slate-700);
+}
+
+.table th,
+.table td {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  border: 1px solid var(--color-slate-200);
+}
+
+.table th {
+  background: var(--color-slate-50);
+  font-weight: 600;
+  color: var(--color-slate-900);
+}
+
+.table tr:hover {
+  background: var(--color-slate-50);
+}
+
+/* Lists */
+.list {
+  margin: var(--spacing-4) 0;
+  padding-left: var(--spacing-6);
+}
+
+.list li {
+  margin-bottom: var(--spacing-2);
+  color: var(--color-slate-700);
+}
+
+.list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Retention List */
+.retentionList {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-4) 0;
+}
+
+.retentionList li {
+  padding: var(--spacing-3) 0;
+  border-bottom: 1px solid var(--color-slate-100);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.retentionList li:last-child {
+  border-bottom: none;
+}
+
+.retentionList strong {
+  color: var(--color-slate-900);
+  min-width: 180px;
+}
+
+/* Highlight Boxes */
+.highlight {
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-4) 0;
+}
+
+.highlightInfo {
+  background: var(--color-teal-50);
+  border-left: 4px solid var(--color-teal-500);
+}
+
+.highlightWarning {
+  background: var(--color-amber-50);
+  border-left: 4px solid var(--color-amber-500);
+}
+
+.highlightImportant {
+  background: var(--color-slate-100);
+  border-left: 4px solid var(--color-slate-500);
+  font-weight: 500;
+}
+
+/* Contact Info */
+.contactInfo {
+  font-style: normal;
+  margin: var(--spacing-4) 0;
+  padding: var(--spacing-4);
+  background: var(--color-slate-50);
+  border-radius: var(--radius-md);
+}
+
+.contactItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.contactItem:last-child {
+  margin-bottom: 0;
+}
+
+.contactLabel {
+  font-weight: 600;
+  color: var(--color-slate-700);
+  min-width: 140px;
+}
+
+.contactLink {
+  color: var(--color-teal-600);
+  text-decoration: none;
+}
+
+.contactLink:hover {
+  text-decoration: underline;
+}
+
+/* Print styles */
+@media print {
+  .document {
+    max-width: none;
+    padding: 0;
+    font-size: 11pt;
+  }
+
+  .title {
+    font-size: 18pt;
+  }
+
+  .sectionTitle {
+    font-size: 14pt;
+    page-break-after: avoid;
+  }
+
+  .table {
+    page-break-inside: avoid;
+  }
+
+  .highlight {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+  }
+
+  .contactLink {
+    color: inherit;
+  }
+
+  .contactLink::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .document {
+    background: var(--color-slate-900);
+    color: var(--color-slate-100);
+  }
+
+  .header {
+    border-bottom-color: var(--color-slate-700);
+  }
+
+  .title,
+  .sectionTitle,
+  .subsectionTitle {
+    color: var(--color-white);
+  }
+
+  .lastUpdated {
+    color: var(--color-slate-400);
+  }
+
+  .intro,
+  .sectionContent,
+  .subsectionContent,
+  .paragraph,
+  .list li {
+    color: var(--color-slate-300);
+  }
+
+  .table th {
+    background: var(--color-slate-800);
+    color: var(--color-white);
+  }
+
+  .table th,
+  .table td {
+    border-color: var(--color-slate-700);
+  }
+
+  .table tr:hover {
+    background: var(--color-slate-800);
+  }
+
+  .retentionList li {
+    border-bottom-color: var(--color-slate-700);
+  }
+
+  .retentionList strong {
+    color: var(--color-white);
+  }
+
+  .highlightInfo {
+    background: rgba(20, 184, 166, 0.1);
+  }
+
+  .highlightWarning {
+    background: rgba(245, 158, 11, 0.1);
+  }
+
+  .highlightImportant {
+    background: var(--color-slate-800);
+  }
+
+  .contactInfo {
+    background: var(--color-slate-800);
+  }
+
+  .contactLabel {
+    color: var(--color-slate-300);
+  }
+
+  .contactLink {
+    color: var(--color-teal-400);
+  }
+}

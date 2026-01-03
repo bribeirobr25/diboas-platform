@@ -7,7 +7,7 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
-import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 
 export const dynamic = 'auto';

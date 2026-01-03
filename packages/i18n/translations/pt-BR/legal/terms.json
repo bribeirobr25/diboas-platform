@@ -1,93 +1,115 @@
 {
-  "title": "Termos de Uso | diBoaS",
-  "description": "Regras claras, compromissos sérios.",
-  "hero": {
-    "title": "Regras claras, compromissos sérios. Conheça nossos termos e políticas sem letras miúdas.",
-    "description": "",
-    "cta": "Começar Agora"
+  "seo": {
+    "title": "Termos de Uso | diBoaS",
+    "description": "Termos de Uso do site pre-lancamento do diBoaS. Regras claras, compromissos serios."
   },
-  "benefitsCards": {
-    "title": "Regras claras, compromissos sérios",
-    "description": "Termos sem letras miúdas.",
-    "cards": {
-      "humanizedTermsOfUse": {
-        "iconAlt": "Clear terms icon",
-        "title": "Termos de Uso Humanizados",
-        "description": "Linguagem clara, não juridiquês.\nVocê entende o que está aceitando.\nTransparência como padrão."
+  "header": {
+    "title": "Termos de Uso",
+    "lastUpdated": "Ultima Atualizacao: 3 de Janeiro de 2026",
+    "intro": "Bem-vindo ao diBoaS. Ao acessar nosso site, voce concorda com estes Termos de Uso."
+  },
+  "sections": {
+    "aboutDiboas": {
+      "title": "1. Sobre o diBoaS",
+      "content": "O diBoaS e uma plataforma de tecnologia financeira atualmente em fase de pre-lancamento. Nosso site oferece:",
+      "items": [
+        "Informacoes sobre nossos servicos futuros",
+        "Uma lista de espera para acesso antecipado",
+        "Ferramenta de simulacao Dream Mode",
+        "Calculadora Voce do Futuro"
+      ],
+      "important": "Importante: O diBoaS NAO esta atualmente oferecendo servicos financeiros. O site de pre-lancamento e apenas para fins informativos e educacionais."
+    },
+    "acceptance": {
+      "title": "2. Aceitacao dos Termos",
+      "intro": "Ao utilizar nosso site, voce confirma que:",
+      "items": [
+        "Voce tem pelo menos 18 anos de idade",
+        "Voce nao esta localizado em uma jurisdicao restrita (atualmente: Estados Unidos, Brasil)",
+        "Voce concorda com estes Termos de Uso"
+      ]
+    },
+    "preLaunchLimitations": {
+      "title": "3. Limitacoes do Pre-Lancamento",
+      "simulationTools": {
+        "title": "Dream Mode e Calculadora Voce do Futuro:",
+        "items": [
+          "Estas ferramentas fornecem apenas simulacoes, nao aconselhamento financeiro",
+          "Os resultados sao baseados em dados historicos e premissas",
+          "Desempenho passado nao garante resultados futuros",
+          "Retornos simulados podem diferir significativamente dos retornos reais"
+        ]
       },
-      "multiJurisdictionCompliance": {
-        "iconAlt": "Global compliance icon",
-        "title": "Conformidade Multi-Jurisdição",
-        "description": "Seguimos leis de todos países onde operamos.\nAtualizações conforme regulação evolui.\nCompliance proativo, não reativo."
-      },
-      "consumerProtection": {
-        "iconAlt": "Consumer protection icon",
-        "title": "Proteção do Consumidor",
-        "description": "Seus direitos respeitados sempre.\nProcesso de reclamação claro.\nResolução justa de disputas."
-      },
-      "regularExternalAudit": {
-        "iconAlt": "External audit icon",
-        "title": "Auditoria Externa Regular",
-        "description": "Verificação independente de compliance.\nRelatórios públicos trimestrais.\nAccountability que importa."
+      "noFinancialAdvice": {
+        "title": "Sem Aconselhamento Financeiro:",
+        "items": [
+          "Nada neste site constitui aconselhamento financeiro, de investimento, tributario ou juridico",
+          "Voce deve consultar profissionais qualificados antes de tomar decisoes financeiras"
+        ]
       }
+    },
+    "geographicRestrictions": {
+      "title": "4. Restricoes Geograficas",
+      "intro": "Os servicos do diBoaS nao estao disponiveis para residentes de:",
+      "restrictedCountries": [
+        "Estados Unidos",
+        "Brasil"
+      ],
+      "note": "Se voce acessar nosso site a partir dessas jurisdicoes, podera visualizar apenas o conteudo informativo. Voce nao podera entrar na lista de espera ou usar recursos interativos."
+    },
+    "intellectualProperty": {
+      "title": "5. Propriedade Intelectual",
+      "intro": "Todo o conteudo deste site, incluindo texto, graficos, logos e software, e de propriedade do diBoaS ou de seus licenciadores. Voce nao pode:",
+      "items": [
+        "Copiar, modificar ou distribuir nosso conteudo sem permissao",
+        "Usar nossas marcas registradas sem autorizacao",
+        "Fazer engenharia reversa de nosso software"
+      ]
+    },
+    "userConduct": {
+      "title": "6. Conduta do Usuario",
+      "intro": "Voce concorda em nao:",
+      "items": [
+        "Usar o site para qualquer finalidade ilegal",
+        "Tentar obter acesso nao autorizado aos nossos sistemas",
+        "Interferir no acesso de outros usuarios ao site",
+        "Enviar informacoes falsas ou enganosas"
+      ]
+    },
+    "disclaimer": {
+      "title": "7. Isencao de Garantias",
+      "content": "O SITE E FORNECIDO \"NO ESTADO EM QUE SE ENCONTRA\" SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLICITAS. NAO GARANTIMOS QUE:",
+      "items": [
+        "O site estara disponivel em todos os momentos",
+        "As informacoes serao precisas ou completas",
+        "O site estara livre de erros ou virus"
+      ]
+    },
+    "limitation": {
+      "title": "8. Limitacao de Responsabilidade",
+      "content": "NA MAXIMA EXTENSAO PERMITIDA POR LEI, O DIBOAS NAO SERA RESPONSAVEL POR:",
+      "items": [
+        "Danos indiretos, incidentais ou consequenciais",
+        "Perda de lucros, dados ou fundo de comercio",
+        "Danos decorrentes do uso de ferramentas de simulacao"
+      ]
+    },
+    "changes": {
+      "title": "9. Alteracoes nos Termos",
+      "content": "Podemos modificar estes Termos a qualquer momento. O uso continuado do site apos as alteracoes constitui aceitacao dos novos Termos."
+    },
+    "governingLaw": {
+      "title": "10. Lei Aplicavel",
+      "content": "Estes Termos sao regidos pelas leis da Uniao Europeia. Disputas serao resolvidas de acordo com os regulamentos aplicaveis da UE. Para usuarios brasileiros, aplicam-se tambem as disposicoes do Codigo de Defesa do Consumidor (Lei n. 8.078/1990) e demais legislacoes aplicaveis."
+    },
+    "brazilNote": {
+      "title": "Nota para Usuarios Brasileiros",
+      "content": "Este site esta disponivel para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o servico for lancado no Brasil, sujeito as aprovacoes regulatorias necessarias, incluindo da ANPD (Autoridade Nacional de Protecao de Dados), Banco Central do Brasil e demais orgaos competentes."
+    },
+    "contact": {
+      "title": "11. Contato",
+      "content": "Duvidas sobre estes Termos? Envie um e-mail para {email}",
+      "email": "legal@diboas.com"
     }
-  },
-  "stickyFeaturesNav": {
-    "title": "Legalidade em todos os sentidos.",
-    "subtitle": "Termos claros, compliance rigoroso, proteção total.",
-    "cards": {
-      "termsOfUse": {
-        "title": "Termos de Uso",
-        "description": "Linguagem clara, sem juridiquês.\nEntenda exatamente seus direitos.\nTransparência legal.",
-        "imageAlt": "Termos de Uso illustration"
-      },
-      "multiJurisdiction": {
-        "title": "Multi-Jurisdição",
-        "description": "Compliant em EUA, UE, Brasil, mais.\nOperação legal em todos os lugares.\nExpansão sem barreiras.",
-        "imageAlt": "Multi-Jurisdição illustration"
-      },
-      "rigorousKycAml": {
-        "title": "KYC/AML Rigoroso",
-        "description": "Verificação robusta de identidade.\nPrevenção de lavagem de dinheiro.\nPlataforma limpa.",
-        "imageAlt": "KYC/AML Rigoroso illustration"
-      },
-      "disputeResolution": {
-        "title": "Resolução de Disputas",
-        "description": "Processos claros para conflitos.\nMediação antes de litígio.\nJustiça acessível.",
-        "imageAlt": "Resolução de Disputas illustration"
-      }
-    }
-  },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "Excelência Regulatória",
-        "description": "MiCA compliant na UE, BSA nos EUA.\nOperações multi-jurisdição prontas.\nClareza legal desde o dia um.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Excelência Regulatória illustration"
-      },
-      "simplicity": {
-        "title": "Termos Que Você Entende",
-        "description": "✓ Políticas em linguagem simples\n✓ Sem cláusulas escondidas\n✓ Direitos claros do usuário\nTransparência em tudo.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Termos Que Você Entende illustration"
-      },
-      "rewards": {
-        "title": "Seus Direitos Protegidos",
-        "description": "Políticas e procedimentos que priorizam o usuário.\nResolução clara de disputas.\nTratamento justo garantido.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Seus Direitos Protegidos illustration"
-      }
-    }
-  },
-  "faqAccordion": {
-    "sectionTitle": "Perguntas Frequentes",
-    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
-    "ctaText": "Ver Todas as Perguntas",
-    "questionIds": [
-      "q112",
-      "q113",
-      "q114"
-    ]
   }
 }

@@ -195,8 +195,8 @@ function getDomainNamespace(domain: string): string {
 // Middleware configuration matcher
 export const config = {
   matcher: [
-    // Skip internal Next.js paths and API routes
-    '/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|security.txt).*)',
+    // Skip internal Next.js paths, API routes, and static files
+    '/((?!api|_next/static|_next/image|favicon|robots.txt|sitemap.xml|security.txt|assets/|.*\\.(?:ico|svg|png|jpg|jpeg|gif|webp|avif|css|js|woff|woff2|ttf|eot)).*)',
   ],
 };
 

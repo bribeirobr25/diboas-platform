@@ -50,6 +50,10 @@ export interface DreamResult {
   difference: number;
   /** Growth percentage with DeFi */
   growthPercentage: number;
+  /** Total investment (initial + monthly contributions) */
+  totalInvestment?: number;
+  /** APY rate used for calculation based on selected path */
+  pathApy?: number;
 }
 
 /**

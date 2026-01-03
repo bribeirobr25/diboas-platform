@@ -82,7 +82,7 @@
   },
   "results": {
     "watermark": "PROYECCIÓN",
-    "headline": "Tus €{amount} podrían convertirse en...",
+    "headline": "Tus {currency}{amount} podrían convertirse en...",
     "subhead": "Tu crecimiento potencial en {timeframe}",
     "withDiboas": "Con diBoaS",
     "traditionalBank": "Tu banco te daría:",
@@ -95,6 +95,9 @@
       "5years": "5 años"
     },
     "bank_source": "Basado en 0.5% de tasa de ahorro promedio. Fuente: Estadísticas del BCE.",
+    "bank_source_us": "Basado en 0.45% de tasa de ahorro promedio. Fuente: Reserva Federal.",
+    "bank_source_eu": "Basado en 0.5% de tasa de ahorro promedio. Fuente: Estadísticas del BCE.",
+    "bank_source_br": "Basado en 6.5% de tasa de ahorro Selic. Fuente: Banco Central do Brasil.",
     "back": "Probar otro camino",
     "shareResults": "Compartir mi sueño"
   },

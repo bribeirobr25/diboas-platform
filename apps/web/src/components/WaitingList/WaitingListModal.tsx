@@ -12,14 +12,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useLocale } from '@/components/LocaleProvider';
-import { waitingListService } from '@/lib/waitingList';
+import { useLocale } from '@/components/Providers';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import {
   WaitingListFormData,
   WaitingListFormErrors,
-  WaitingListValidationError,
-  WaitingListDuplicateError,
-  SubmissionInput,
 } from '@/lib/waitingList/types';
 import { WAITING_LIST_CONFIG } from '@/lib/waitingList/constants';
 import { analyticsService } from '@/lib/analytics';
@@ -33,8 +30,12 @@ interface WaitingListModalProps {
 export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
   const intl = useIntl();
   const { locale } = useLocale();
+  const modalRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
+
+  // WCAG 2.4.3: Focus trap for modal
+  useFocusTrap(modalRef, isOpen, { initialFocus: '#email' });
 
   const [formData, setFormData] = useState<WaitingListFormData>({
     name: '',
@@ -53,14 +54,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
     return intl.formatMessage({ id: `common.waitingList.${key}` }, values);
   };
 
-  // Focus email input when modal opens
-  useEffect(() => {
-    if (isOpen && emailInputRef.current) {
-      setTimeout(() => {
-        emailInputRef.current?.focus();
-      }, 100);
-    }
-  }, [isOpen]);
+  // Note: Focus is now handled by useFocusTrap hook with initialFocus option
 
   // Reset form when modal closes
   useEffect(() => {
@@ -111,15 +105,57 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
     });
 
     try {
-      const input: SubmissionInput = {
-        email: formData.email,
-        name: formData.name || undefined,
-        xAccount: formData.xAccount || undefined,
-        gdprAccepted: formData.gdprAccepted,
-        locale: locale,
-      };
+      // Use API route for Kit.com sync and proper waitlist management
+      const response = await fetch('/api/waitlist/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email.toLowerCase().trim(),
+          name: formData.name || undefined,
+          locale: locale,
+          gdprAccepted: formData.gdprAccepted,
+          source: 'modal',
+        }),
+      });
 
-      await waitingListService.submitToWaitingList(input);
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle specific error codes
+        let errorType = 'unknown';
+        if (data.errorCode === 'ALREADY_REGISTERED') {
+          errorType = 'duplicate';
+          setErrors({
+            email: t('errors.duplicateEmail'),
+          });
+        } else if (data.errorCode === 'INVALID_EMAIL') {
+          errorType = 'validation';
+          setErrors({
+            email: t('errors.invalidEmail'),
+          });
+        } else if (data.errorCode === 'CONSENT_REQUIRED') {
+          errorType = 'validation';
+          setErrors({
+            gdprAccepted: t('errors.consentRequired'),
+          });
+        } else {
+          errorType = 'submission_failed';
+          setErrors({
+            general: t('errors.submissionFailed'),
+          });
+        }
+
+        analyticsService.track({
+          name: 'waiting_list_signup_error',
+          parameters: {
+            errorType,
+            timestamp: Date.now(),
+          },
+        });
+        return;
+      }
 
       setSubmittedEmail(formData.email);
       setIsSuccess(true);
@@ -129,40 +165,22 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
         name: 'waiting_list_signup_success',
         parameters: {
           locale: locale,
+          position: data.position,
           timestamp: Date.now(),
         },
       });
     } catch (error) {
-      // P10: Track signup error
-      let errorType = 'unknown';
-      if (error instanceof WaitingListValidationError) {
-        errorType = 'validation';
-        const fieldErrors: WaitingListFormErrors = {};
-        error.validationErrors.forEach((validationError) => {
-          const field = validationError.field as keyof WaitingListFormErrors;
-          // Extract the error key from the full path
-          const errorKey = validationError.message.replace('common.waitingList.', '');
-          fieldErrors[field] = t(errorKey);
-        });
-        setErrors(fieldErrors);
-      } else if (error instanceof WaitingListDuplicateError) {
-        errorType = 'duplicate';
-        setErrors({
-          email: t('errors.duplicateEmail'),
-        });
-      } else {
-        errorType = 'submission_failed';
-        setErrors({
-          general: t('errors.submissionFailed'),
-        });
-      }
-
+      // Network or unexpected error
       analyticsService.track({
         name: 'waiting_list_signup_error',
         parameters: {
-          errorType,
+          errorType: 'network_error',
           timestamp: Date.now(),
         },
+      });
+
+      setErrors({
+        general: t('errors.submissionFailed'),
       });
     } finally {
       setIsLoading(false);
@@ -185,7 +203,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
       aria-modal="true"
       aria-labelledby="waiting-list-title"
     >
-      <div className={styles.modal}>
+      <div ref={modalRef} className={styles.modal}>
         {/* Close button */}
         <button
           className={styles.closeButton}
@@ -258,7 +276,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
 
               <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
                 {errors.general && (
-                  <div className={styles.generalError} role="alert">
+                  <div className={styles.generalError} role="alert" aria-live="assertive">
                     {errors.general}
                   </div>
                 )}
@@ -278,11 +296,13 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                     onChange={handleInputChange}
                     placeholder={t('form.email.placeholder')}
                     className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    aria-invalid={!!errors.email}
                     required
                     autoComplete="email"
                   />
                   {errors.email && (
-                    <span className={styles.errorMessage} role="alert">
+                    <span id="email-error" className={styles.errorMessage} role="alert">
                       {errors.email}
                     </span>
                   )}
@@ -302,11 +322,13 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                     onChange={handleInputChange}
                     placeholder={t('form.name.placeholder')}
                     className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
+                    aria-invalid={!!errors.name}
                     maxLength={WAITING_LIST_CONFIG.maxNameLength}
                     autoComplete="name"
                   />
                   {errors.name && (
-                    <span className={styles.errorMessage} role="alert">
+                    <span id="name-error" className={styles.errorMessage} role="alert">
                       {errors.name}
                     </span>
                   )}
@@ -326,10 +348,12 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                     onChange={handleInputChange}
                     placeholder={t('form.xAccount.placeholder')}
                     className={`${styles.input} ${errors.xAccount ? styles.inputError : ''}`}
+                    aria-describedby={errors.xAccount ? 'xAccount-error' : undefined}
+                    aria-invalid={!!errors.xAccount}
                     maxLength={WAITING_LIST_CONFIG.maxXAccountLength}
                   />
                   {errors.xAccount && (
-                    <span className={styles.errorMessage} role="alert">
+                    <span id="xAccount-error" className={styles.errorMessage} role="alert">
                       {errors.xAccount}
                     </span>
                   )}
@@ -344,6 +368,9 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                     checked={formData.gdprAccepted}
                     onChange={handleInputChange}
                     className={styles.checkbox}
+                    aria-describedby={errors.gdprAccepted ? 'gdpr-error' : undefined}
+                    aria-invalid={!!errors.gdprAccepted}
+                    aria-required="true"
                     required
                   />
                   <label htmlFor="gdprAccepted" className={styles.checkboxLabel}>
@@ -358,7 +385,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
                     <span className={styles.required}>*</span>
                   </label>
                   {errors.gdprAccepted && (
-                    <span className={styles.errorMessage} role="alert">
+                    <span id="gdpr-error" className={styles.errorMessage} role="alert">
                       {errors.gdprAccepted}
                     </span>
                   )}

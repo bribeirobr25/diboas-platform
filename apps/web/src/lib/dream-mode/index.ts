@@ -20,6 +20,7 @@ export type {
 // Constants
 export {
   BANK_APY_RATE,
+  BANK_RATE_SOURCES,
   ECB_SOURCE_CITATION,
   TIMEFRAME_DAYS,
   PATH_ICONS,

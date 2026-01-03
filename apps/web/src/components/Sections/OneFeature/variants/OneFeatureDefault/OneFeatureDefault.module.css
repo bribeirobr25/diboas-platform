@@ -476,18 +476,9 @@
   }
 }
 
-/* Floating animation for hero image (optional enhancement) */
+/* Entrance animation for hero image (professional, single-play) */
 .heroImage.heroImageLoaded {
-  animation: floatIn var(--of-transition-duration-slow) ease-out, float 6s ease-in-out 1s infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  animation: floatIn var(--of-transition-duration-slow) ease-out;
 }
 
 /* ================================

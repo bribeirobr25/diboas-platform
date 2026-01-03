@@ -14,7 +14,7 @@
 
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
 import {
   calculateFullResult,
   formatCurrency,

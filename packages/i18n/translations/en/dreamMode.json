@@ -82,7 +82,7 @@
   },
   "results": {
     "watermark": "PROJECTION",
-    "headline": "Your €{amount} could become...",
+    "headline": "Your {currency}{amount} could become...",
     "subhead": "Your potential growth in {timeframe}",
     "withDiboas": "With diBoaS",
     "traditionalBank": "Your bank would give you:",
@@ -95,6 +95,9 @@
       "5years": "5 years"
     },
     "bank_source": "Based on 0.5% average savings rate. Source: ECB Statistics.",
+    "bank_source_us": "Based on 0.45% average savings rate. Source: Federal Reserve.",
+    "bank_source_eu": "Based on 0.5% average savings rate. Source: ECB Statistics.",
+    "bank_source_br": "Based on 6.5% Selic-based savings rate. Source: Banco Central do Brasil.",
     "back": "Try another path",
     "shareResults": "Share my dream"
   },

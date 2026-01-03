@@ -9,12 +9,29 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
-import { formatCurrency, formatPercentage, getCurrencyLocale, DEFI_SCENARIO, BANK_SCENARIO } from '@/lib/calculator';
+import { formatCurrency, formatPercentage, getCurrencyLocale } from '@/lib/calculator';
+import { BANK_RATE_SOURCES } from '@/lib/dream-mode';
 import styles from './screens.module.css';
+
+/**
+ * Get currency symbol for locale
+ */
+function getCurrencySymbol(locale: string): string {
+  switch (locale) {
+    case 'en':
+      return '$';
+    case 'pt-BR':
+      return 'R$';
+    case 'de':
+    case 'es':
+    default:
+      return '€';
+  }
+}
 
 export function ResultsScreen() {
   const intl = useIntl();
-  const { state, nextScreen, previousScreen } = useDreamMode();
+  const { state, nextScreen, goToScreen } = useDreamMode();
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `dreamMode.results.${key}` }, values);
@@ -26,18 +43,42 @@ export function ResultsScreen() {
     return null;
   }
 
+  // Get locale-specific values
+  const locale = intl.locale;
+  const currencySymbol = getCurrencySymbol(locale);
+  const bankSource = BANK_RATE_SOURCES[locale] || BANK_RATE_SOURCES['en'];
+
+  // Use total investment (initial + monthly contributions) for display
+  const totalInvestment = result.totalInvestment || state.input.initialAmount;
+
+  // Use path-based APY for DeFi display
+  const pathApy = result.pathApy || 12; // Default to 12% if not set
+
+  // Recalculate bank values with locale-specific rate
+  const yearsMap: Record<string, number> = {
+    '1week': 7/365,
+    '1month': 1/12,
+    '1year': 1,
+    '5years': 5,
+  };
+  const years = yearsMap[state.input.timeframe] || 1;
+  const bankApy = bankSource.rate / 100; // Convert percentage to decimal
+  const bankMultiplier = Math.pow(1 + bankApy, years);
+  const localeBankBalance = totalInvestment * bankMultiplier;
+  const localeBankInterest = localeBankBalance - totalInvestment;
+  const localeDifference = result.defiBalance - localeBankBalance;
+
   // Calculate bar widths for visualization
-  const maxValue = Math.max(result.defiBalance, result.bankBalance);
+  const maxValue = Math.max(result.defiBalance, localeBankBalance);
   const defiWidth = (result.defiBalance / maxValue) * 100;
-  const bankWidth = (result.bankBalance / maxValue) * 100;
+  const bankWidth = (localeBankBalance / maxValue) * 100;
 
   return (
     <div className={styles.screen}>
       <div className={styles.content}>
-        {/* Watermark */}
-        <div className={styles.watermark}>{t('watermark')}</div>
-
-        <h2 className={styles.headline}>{t('headline')}</h2>
+        <h2 className={styles.headline}>
+          {t('headline', { currency: currencySymbol, amount: Math.round(totalInvestment).toLocaleString(locale) })}
+        </h2>
         <p className={styles.subhead}>
           {t('subhead', { timeframe: t(`timeframe.${state.input.timeframe}`) })}
         </p>
@@ -49,7 +90,7 @@ export function ResultsScreen() {
             <div className={styles.resultHeader}>
               <span className={styles.resultLabel}>{t('withDiboas')}</span>
               <span className={styles.resultApy}>
-                {formatPercentage(DEFI_SCENARIO.apy)} APY
+                {formatPercentage(pathApy)} APY
               </span>
             </div>
             <div className={styles.resultBarContainer}>
@@ -73,7 +114,7 @@ export function ResultsScreen() {
             <div className={styles.resultHeader}>
               <span className={styles.resultLabel}>{t('traditionalBank')}</span>
               <span className={styles.resultApyDim}>
-                {formatPercentage(BANK_SCENARIO.apy)} APY
+                {formatPercentage(bankSource.rate)} APY
               </span>
             </div>
             <div className={styles.resultBarContainer}>
@@ -84,10 +125,10 @@ export function ResultsScreen() {
             </div>
             <div className={styles.resultValues}>
               <span className={styles.resultAmountDim}>
-                {formatCurrency(result.bankBalance, state.input.currency, currencyLocale)}
+                {formatCurrency(localeBankBalance, state.input.currency, currencyLocale)}
               </span>
               <span className={styles.resultGainDim}>
-                +{formatCurrency(result.bankInterest, state.input.currency, currencyLocale)}
+                +{formatCurrency(localeBankInterest, state.input.currency, currencyLocale)}
               </span>
             </div>
           </div>
@@ -99,20 +140,21 @@ export function ResultsScreen() {
             <TrendUpIcon />
           </div>
           <div className={styles.differenceContent}>
-            <span className={styles.differenceLabel}>{t('differenceLabel')}</span>
-            <span className={styles.differenceValue}>
-              +{formatCurrency(result.difference, state.input.currency, currencyLocale)}
+            <span className={styles.differenceLabel}>
+              {t('differenceLabel', { difference: formatCurrency(localeDifference, state.input.currency, currencyLocale) })}
             </span>
             <span className={styles.differenceNote}>{t('differenceNote')}</span>
           </div>
         </div>
 
-        {/* ECB source citation (CLO required) */}
-        <p className={styles.bankSource}>{t('bank_source')}</p>
+        {/* Bank source citation (CLO required - locale-specific) */}
+        <p className={styles.bankSource}>
+          {intl.formatMessage({ id: bankSource.translationKey })}
+        </p>
 
         {/* Navigation */}
         <div className={styles.navigation}>
-          <button onClick={previousScreen} className={styles.backButton}>
+          <button onClick={() => goToScreen('pathSelect')} className={styles.backButton}>
             <ChevronLeftIcon />
             {t('back')}
           </button>

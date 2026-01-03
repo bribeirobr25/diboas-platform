@@ -76,7 +76,7 @@
   color: var(--text-inverse, #ffffff);
 }
 
-/* Share buttons */
+/* Share buttons - Professional ghost/outline style */
 .shareButtons {
   display: flex;
   gap: var(--spacing-sm, 8px);
@@ -85,24 +85,27 @@
 }
 
 .shareButton {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
+  background: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border-default, #e2e8f0);
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  color: white;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  color: var(--text-secondary, #64748b);
 }
 
 .shareButton:hover {
-  transform: scale(1.05);
+  background: var(--bg-secondary, #f8fafc);
+  border-color: var(--border-hover, #cbd5e1);
+  color: var(--text-primary, #0f172a);
 }
 
 .shareButton:active {
-  transform: scale(0.95);
+  background: var(--bg-tertiary, #f1f5f9);
 }
 
 .shareButton:focus-visible {
@@ -110,16 +113,20 @@
   outline-offset: 2px;
 }
 
-.shareButton.whatsapp {
-  background: var(--social-whatsapp, #25D366);
+/* Platform-specific subtle hover colors */
+.shareButton.whatsapp:hover {
+  color: var(--social-whatsapp, #25D366);
+  border-color: var(--social-whatsapp, #25D366);
 }
 
-.shareButton.twitter {
-  background: var(--social-twitter, #000000);
+.shareButton.twitter:hover {
+  color: var(--text-primary, #0f172a);
+  border-color: var(--text-primary, #0f172a);
 }
 
-.shareButton.linkedin {
-  background: var(--social-linkedin, #0A66C2);
+.shareButton.linkedin:hover {
+  color: var(--social-linkedin, #0A66C2);
+  border-color: var(--social-linkedin, #0A66C2);
 }
 
 /* Compact mode */

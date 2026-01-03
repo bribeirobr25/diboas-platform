@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { PageI18nProvider } from '@/components/PageI18nProvider';
+import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { FutureYouPageContent } from '@/components/Pages/FutureYouPageContent';
 import type { Metadata } from 'next';
@@ -87,7 +87,7 @@ export default async function FutureYouPage({ params }: FutureYouPageProps) {
   }
 
   // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['future-you', 'calculator', 'waitlist', 'common']);
+  const pageMessages = await loadPageNamespaces(locale, ['future-you', 'calculator', 'waitlist', 'share', 'common']);
 
   // Generate structured data
   const organizationData = MetadataFactory.generateServiceStructuredData({

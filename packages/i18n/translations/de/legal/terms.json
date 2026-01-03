@@ -1,93 +1,111 @@
 {
-  "title": "Nutzungsbedingungen | diBoaS",
-  "description": "Klare Regeln, ernsthafte Verpflichtungen.",
-  "hero": {
-    "title": "Klare Regeln, ernsthafte Verpflichtungen. Kenne unsere Bedingungen und Richtlinien ohne Kleingedrucktes.",
-    "description": "",
-    "cta": "Jetzt starten"
+  "seo": {
+    "title": "Nutzungsbedingungen | diBoaS",
+    "description": "Nutzungsbedingungen für die diBoaS Pre-Launch-Website. Klare Regeln, ernsthafte Verpflichtungen."
   },
-  "benefitsCards": {
-    "title": "Klare Regeln, ernsthafte Verpflichtungen",
-    "description": "Bedingungen ohne Kleingedrucktes.",
-    "cards": {
-      "humanizedTermsOfUse": {
-        "iconAlt": "Clear terms icon",
-        "title": "Humanisierte Nutzungsbedingungen",
-        "description": "Klare Sprache, kein Juristendeutsch.\nDu verstehst, was du akzeptierst.\nTransparenz als Standard."
+  "header": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Zuletzt aktualisiert: 3. Januar 2026",
+    "intro": "Willkommen bei diBoaS. Durch den Zugriff auf unsere Website stimmen Sie diesen Nutzungsbedingungen zu."
+  },
+  "sections": {
+    "aboutDiboas": {
+      "title": "1. Über diBoaS",
+      "content": "diBoaS ist eine Finanztechnologie-Plattform, die sich derzeit in der Pre-Launch-Phase befindet. Unsere Website bietet:",
+      "items": [
+        "Informationen über unsere kommenden Dienste",
+        "Eine Warteliste für frühen Zugang",
+        "Dream Mode Simulationstool",
+        "Future You Rechner"
+      ],
+      "important": "Wichtig: diBoaS bietet derzeit KEINE Finanzdienstleistungen an. Die Pre-Launch-Website dient nur zu Informations- und Bildungszwecken."
+    },
+    "acceptance": {
+      "title": "2. Annahme der Bedingungen",
+      "intro": "Durch die Nutzung unserer Website bestätigen Sie:",
+      "items": [
+        "Sie sind mindestens 18 Jahre alt",
+        "Sie befinden sich nicht in einer eingeschränkten Gerichtsbarkeit (derzeit: Vereinigte Staaten, Brasilien)",
+        "Sie stimmen diesen Nutzungsbedingungen zu"
+      ]
+    },
+    "preLaunchLimitations": {
+      "title": "3. Pre-Launch-Einschränkungen",
+      "simulationTools": {
+        "title": "Dream Mode und Future You Rechner:",
+        "items": [
+          "Diese Tools bieten nur Simulationen, keine Finanzberatung",
+          "Ergebnisse basieren auf historischen Daten und Annahmen",
+          "Vergangene Wertentwicklung garantiert keine zukünftigen Ergebnisse",
+          "Simulierte Renditen können erheblich von tatsächlichen Renditen abweichen"
+        ]
       },
-      "multiJurisdictionCompliance": {
-        "iconAlt": "Global compliance icon",
-        "title": "Multi-Jurisdiktions-Compliance",
-        "description": "Befolge Gesetze dort, wo wir operieren.\nUpdates, wenn sich Regulierungen entwickeln.\nProaktive, nicht reaktive Compliance."
-      },
-      "consumerProtection": {
-        "iconAlt": "Consumer protection icon",
-        "title": "Verbraucherschutz",
-        "description": "Deine Rechte immer respektiert.\nKlarer Beschwerdeprozess.\nFaire Streitbeilegung."
-      },
-      "regularExternalAudit": {
-        "iconAlt": "External audit icon",
-        "title": "Regelmäßiges externes Audit",
-        "description": "Unabhängige Compliance-Überprüfung.\nVierteljährliche öffentliche Berichte.\nRechenschaftspflicht, die zählt."
+      "noFinancialAdvice": {
+        "title": "Keine Finanzberatung:",
+        "items": [
+          "Nichts auf dieser Website stellt eine Finanz-, Anlage-, Steuer- oder Rechtsberatung dar",
+          "Sie sollten qualifizierte Fachleute konsultieren, bevor Sie finanzielle Entscheidungen treffen"
+        ]
       }
+    },
+    "geographicRestrictions": {
+      "title": "4. Geografische Einschränkungen",
+      "intro": "diBoaS-Dienste stehen Einwohnern folgender Länder nicht zur Verfügung:",
+      "restrictedCountries": [
+        "Vereinigte Staaten",
+        "Brasilien"
+      ],
+      "note": "Wenn Sie von diesen Gerichtsbarkeiten aus auf unsere Website zugreifen, können Sie nur informative Inhalte ansehen. Sie dürfen sich nicht für die Warteliste anmelden oder interaktive Funktionen nutzen."
+    },
+    "intellectualProperty": {
+      "title": "5. Geistiges Eigentum",
+      "intro": "Alle Inhalte auf dieser Website, einschließlich Texte, Grafiken, Logos und Software, sind Eigentum von diBoaS oder seinen Lizenzgebern. Sie dürfen nicht:",
+      "items": [
+        "Unsere Inhalte ohne Genehmigung kopieren, ändern oder verbreiten",
+        "Unsere Marken ohne Autorisierung verwenden",
+        "Unsere Software zurückentwickeln"
+      ]
+    },
+    "userConduct": {
+      "title": "6. Nutzerverhalten",
+      "intro": "Sie verpflichten sich, nicht:",
+      "items": [
+        "Die Website für illegale Zwecke zu nutzen",
+        "Unerlaubten Zugriff auf unsere Systeme zu versuchen",
+        "Den Zugang anderer Nutzer zur Website zu beeinträchtigen",
+        "Falsche oder irreführende Informationen einzureichen"
+      ]
+    },
+    "disclaimer": {
+      "title": "7. Gewährleistungsausschluss",
+      "content": "DIE WEBSITE WIRD \"WIE BESEHEN\" OHNE JEGLICHE GEWÄHRLEISTUNG, AUSDRÜCKLICH ODER STILLSCHWEIGEND, BEREITGESTELLT. WIR GARANTIEREN NICHT, DASS:",
+      "items": [
+        "Die Website jederzeit verfügbar sein wird",
+        "Informationen genau oder vollständig sein werden",
+        "Die Website frei von Fehlern oder Viren sein wird"
+      ]
+    },
+    "limitation": {
+      "title": "8. Haftungsbeschränkung",
+      "content": "IM GESETZLICH ZULÄSSIGEN UMFANG HAFTET DIBOAS NICHT FÜR:",
+      "items": [
+        "Indirekte, zufällige oder Folgeschäden",
+        "Verlust von Gewinnen, Daten oder Geschäftswert",
+        "Schäden, die aus der Nutzung von Simulationstools entstehen"
+      ]
+    },
+    "changes": {
+      "title": "9. Änderungen der Bedingungen",
+      "content": "Wir können diese Bedingungen jederzeit ändern. Die fortgesetzte Nutzung der Website nach Änderungen gilt als Zustimmung zu den neuen Bedingungen."
+    },
+    "governingLaw": {
+      "title": "10. Anwendbares Recht",
+      "content": "Diese Bedingungen unterliegen dem Recht der Europäischen Union. Streitigkeiten werden gemäß den geltenden EU-Vorschriften beigelegt."
+    },
+    "contact": {
+      "title": "11. Kontakt",
+      "content": "Fragen zu diesen Bedingungen? Schreiben Sie uns an {email}",
+      "email": "legal@diboas.com"
     }
-  },
-  "stickyFeaturesNav": {
-    "title": "Legalität in jeder Hinsicht.",
-    "subtitle": "Klare Bedingungen, rigorose Compliance, totaler Schutz.",
-    "cards": {
-      "termsOfUse": {
-        "title": "Nutzungsbedingungen",
-        "description": "Klare Sprache, kein Juristendeutsch.\nVerstehen Sie genau Ihre Rechte.\nRechtliche Transparenz.",
-        "imageAlt": "Nutzungsbedingungen illustration"
-      },
-      "multiJurisdiction": {
-        "title": "Multi-Jurisdiktion",
-        "description": "Konform in USA, EU, Brasilien, mehr.\nLegaler Betrieb überall.\nExpansion ohne Barrieren.",
-        "imageAlt": "Multi-Jurisdiktion illustration"
-      },
-      "rigorousKycAml": {
-        "title": "Rigoroses KYC/AML",
-        "description": "Robuste Identitätsprüfung.\nGeldwäscheprävention.\nSaubere Plattform.",
-        "imageAlt": "Rigoroses KYC/AML illustration"
-      },
-      "disputeResolution": {
-        "title": "Streitbeilegung",
-        "description": "Klare Prozesse für Konflikte.\nMediation vor Rechtsstreit.\nZugängliche Gerechtigkeit.",
-        "imageAlt": "Streitbeilegung illustration"
-      }
-    }
-  },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "Regulatorische Exzellenz",
-        "description": "MiCA-konform in der EU, BSA in den USA.\nMulti-Jurisdiktions-Betrieb bereit.\nRechtliche Klarheit von Tag eins.",
-        "ctaText": "Jetzt starten",
-        "imageAlt": "Regulatorische Exzellenz illustration"
-      },
-      "simplicity": {
-        "title": "Bedingungen, die Sie verstehen",
-        "description": "✓ Richtlinien in klarer Sprache\n✓ Keine versteckten Klauseln\n✓ Klare Nutzerrechte\nTransparenz in allem.",
-        "ctaText": "Jetzt starten",
-        "imageAlt": "Bedingungen, die Sie verstehen illustration"
-      },
-      "rewards": {
-        "title": "Ihre Rechte geschützt",
-        "description": "Nutzerorientierte Richtlinien und Verfahren.\nKlare Streitbeilegung.\nFaire Behandlung garantiert.",
-        "ctaText": "Jetzt starten",
-        "imageAlt": "Ihre Rechte geschützt illustration"
-      }
-    }
-  },
-  "faqAccordion": {
-    "sectionTitle": "Häufig gestellte Fragen",
-    "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
-    "ctaText": "Alle Fragen ansehen",
-    "questionIds": [
-      "q112",
-      "q113",
-      "q114"
-    ]
   }
 }

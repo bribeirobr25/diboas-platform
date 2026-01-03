@@ -10,9 +10,8 @@
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
 import type { DreamState, DreamAction, DreamContextValue, DreamScreen, DreamInput } from './types';
 import type { DreamPath } from '@/lib/dream-mode';
-import { calculateFullResult } from '@/lib/calculator';
 import { analyticsService } from '@/lib/analytics';
-import { STORAGE_KEYS, DREAM_MODE_EVENTS } from '@/lib/dream-mode';
+import { STORAGE_KEYS, DREAM_MODE_EVENTS, PATH_CONFIGS, BANK_APY_RATE } from '@/lib/dream-mode';
 
 /**
  * Screen order for navigation
@@ -201,27 +200,64 @@ export function DreamModeProvider({
   const startSimulation = useCallback(() => {
     dispatch({ type: 'START_SIMULATION' });
 
-    // Calculate results
-    const result = calculateFullResult(
-      {
-        initialAmount: state.input.initialAmount,
-        monthlyContribution: state.input.monthlyContribution,
-        currency: state.input.currency,
-      },
-      state.input.timeframe
-    );
+    // Get path configuration based on selected path
+    const selectedPath = state.selectedPath || 'balance';
+    const pathConfig = PATH_CONFIGS[selectedPath];
 
-    const comparison = result.projections[state.input.timeframe];
+    // Map timeframe to path projection key
+    const timeframeMap: Record<string, '1_week' | '1_month' | '1_year' | '5_years'> = {
+      '1week': '1_week',
+      '1month': '1_month',
+      '1year': '1_year',
+      '5years': '5_years',
+    };
+    const projectionKey = timeframeMap[state.input.timeframe] || '1_year';
+
+    // Get months for the timeframe (for monthly contribution calculation)
+    const monthsMap: Record<string, number> = {
+      '1week': 0.25,
+      '1month': 1,
+      '1year': 12,
+      '5years': 60,
+    };
+    const months = monthsMap[state.input.timeframe] || 12;
+
+    // Calculate total investment (initial + monthly contributions)
+    const totalInvestment = state.input.initialAmount + (state.input.monthlyContribution * months);
+
+    // Calculate DeFi balance using path multiplier
+    const pathMultiplier = pathConfig.projections[projectionKey].multiplier;
+    const defiBalance = totalInvestment * pathMultiplier;
+    const defiInterest = defiBalance - totalInvestment;
+
+    // Calculate bank balance (using low bank rate)
+    const bankApy = BANK_APY_RATE / 100; // Convert 0.5 to 0.005
+    const yearsMap: Record<string, number> = {
+      '1week': 7/365,
+      '1month': 1/12,
+      '1year': 1,
+      '5years': 5,
+    };
+    const years = yearsMap[state.input.timeframe] || 1;
+    const bankMultiplier = Math.pow(1 + bankApy, years);
+    const bankBalance = totalInvestment * bankMultiplier;
+    const bankInterest = bankBalance - totalInvestment;
+
+    // Calculate difference
+    const difference = defiBalance - bankBalance;
+    const growthPercentage = ((defiBalance - totalInvestment) / totalInvestment) * 100;
 
     dispatch({
       type: 'SET_RESULT',
       result: {
-        defiBalance: comparison.defi.finalBalance,
-        bankBalance: comparison.bank.finalBalance,
-        defiInterest: comparison.defi.interestEarned,
-        bankInterest: comparison.bank.interestEarned,
-        difference: comparison.difference,
-        growthPercentage: comparison.defi.growthPercentage,
+        defiBalance,
+        bankBalance,
+        defiInterest,
+        bankInterest,
+        difference,
+        growthPercentage,
+        totalInvestment,  // Store for display
+        pathApy: pathConfig.avgApy,  // Store selected path APY
       },
     });
 
@@ -232,9 +268,11 @@ export function DreamModeProvider({
         initialAmount: state.input.initialAmount,
         monthlyContribution: state.input.monthlyContribution,
         timeframe: state.input.timeframe,
+        selectedPath,
+        pathApy: pathConfig.avgApy,
       },
     });
-  }, [state.input]);
+  }, [state.input, state.selectedPath]);
 
   // Reset
   const reset = useCallback(() => {

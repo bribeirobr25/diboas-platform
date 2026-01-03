@@ -6,23 +6,28 @@
  */
 
 import type { SupportedLocale } from './config';
+import { getStaticTranslations, TRANSLATIONS_MAP } from './translations-map';
 
 /**
  * Load translation messages for a specific locale and namespace
- * Supports hierarchical namespaces like 'personal/account', 'home', 'common'
+ * Uses static imports for reliable loading across all bundlers
  *
  * @param locale - The locale to load messages for
- * @param namespace - The namespace path (e.g., 'common', 'home', 'personal/account')
+ * @param namespace - The namespace path (e.g., 'common', 'home', 'dreamMode')
  * @returns Promise resolving to the translation messages object
  */
 export async function loadMessages(
   locale: SupportedLocale,
   namespace: string = 'common'
 ): Promise<Record<string, any>> {
+  // Use static translations map for common namespaces (most reliable)
+  const staticTranslations = getStaticTranslations(locale, namespace);
+  if (Object.keys(staticTranslations).length > 0) {
+    return staticTranslations;
+  }
+
+  // Fallback to dynamic import for namespaces not in the static map
   try {
-    // Support both flat and hierarchical namespace paths
-    // 'common' → ../translations/en/common.json
-    // 'personal/account' → ../translations/en/personal/account.json
     const messages = await import(`../translations/${locale}/${namespace}.json`);
     return messages.default || messages;
   } catch (error) {

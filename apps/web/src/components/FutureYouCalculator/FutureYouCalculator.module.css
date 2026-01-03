@@ -163,6 +163,7 @@
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 44px; /* WCAG 2.2 minimum touch target */
 }
 
 .timeframeButton:hover {
@@ -249,7 +250,7 @@
 }
 
 .defiBar {
-  background: linear-gradient(90deg, var(--color-teal-500, #14b8a6), var(--color-teal-400, #2dd4bf));
+  background: var(--color-teal-600, #0d9488);
 }
 
 .bankBar {
@@ -278,18 +279,19 @@
   opacity: 0.7;
 }
 
-/* Difference Card */
+/* Difference Card - Professional light theme */
 .differenceCard {
   padding: var(--spacing-lg, 24px);
-  background: linear-gradient(135deg, var(--color-teal-500, #14b8a6), var(--color-teal-600, #0d9488));
+  background: var(--color-teal-50, #f0fdfa);
+  border: 1px solid var(--color-teal-200, #99f6e4);
   border-radius: var(--radius-lg, 12px);
   text-align: center;
-  color: white;
 }
 
 .differenceLabel {
   font-size: var(--font-size-h4, 18px);
   font-weight: 600;
+  color: var(--text-primary, #0f172a);
   line-height: 1.4;
 }
 
@@ -297,11 +299,12 @@
   font-size: var(--font-size-display, 40px);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  color: var(--color-teal-700, #0f766e);
 }
 
 .differenceNote {
   font-size: var(--font-size-small, 14px);
-  opacity: 0.8;
+  color: var(--text-secondary, #64748b);
   margin-top: var(--spacing-xs, 4px);
 }
 
@@ -328,36 +331,60 @@
   padding: var(--spacing-md, 14px) var(--spacing-lg, 24px);
   font-size: var(--font-size-body, 16px);
   font-weight: 500;
-  color: var(--color-teal-600, #0d9488);
-  background: transparent;
-  border: 2px solid var(--color-teal-500, #14b8a6);
-  border-radius: var(--radius-md, 8px);
+  color: var(--text-secondary, #64748b);
+  background: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border-default, #e2e8f0);
+  border-radius: var(--cta-border-radius, 50px);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .shareButton:hover {
-  background: var(--color-teal-50, #f0fdfa);
+  background: var(--bg-secondary, #f8fafc);
+  border-color: var(--color-teal-500, #14b8a6);
+  color: var(--color-teal-700, #0f766e);
+}
+
+.shareButton:focus-visible {
+  outline: 2px solid var(--color-teal-500, #14b8a6);
+  outline-offset: 2px;
 }
 
 .ctaButton {
-  padding: var(--spacing-md, 14px) var(--spacing-xl, 32px);
-  font-size: var(--font-size-body, 16px);
-  font-weight: 600;
-  color: var(--text-inverse, #ffffff);
+  min-height: var(--cta-min-height-mobile, 48px);
+  padding: var(--cta-padding-mobile, 12px 24px);
+  font-size: var(--cta-font-size-mobile, 14px);
+  font-weight: var(--cta-font-weight, 600);
+  color: var(--cta-color-primary, #ffffff);
   background: var(--cta-bg-primary, #0f766e);
   border: none;
-  border-radius: var(--radius-md, 8px);
+  border-radius: var(--cta-border-radius, 50px);
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: transform var(--cta-transition-duration, 300ms) var(--cta-transition-easing, ease-in-out),
+              box-shadow var(--cta-transition-duration, 300ms) var(--cta-transition-easing, ease-in-out);
+  box-shadow: var(--cta-shadow-default, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+@media (min-width: 768px) {
+  .ctaButton {
+    min-height: var(--cta-min-height-tablet, 56px);
+    padding: var(--cta-padding-tablet, 16px 32px);
+    font-size: var(--cta-font-size-tablet, 16px);
+  }
 }
 
 .ctaButton:hover {
-  background: var(--cta-bg-primary-hover, #115e59);
+  transform: var(--cta-transform-hover, translateY(-2px));
+  box-shadow: var(--cta-shadow-hover, 0 8px 25px rgba(56, 178, 172, 0.25));
+}
+
+.ctaButton:focus-visible {
+  outline: 2px solid var(--cta-focus-color, #0d9488);
+  outline-offset: 2px;
 }
 
 .ctaButton:active {
-  transform: scale(0.98);
+  transform: var(--cta-transform-active, translateY(0));
 }
 
 .secondaryCtaButton {
@@ -377,43 +404,65 @@
   text-decoration: underline;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+/* Responsive - Mobile-first approach */
+/* Mobile base styles (default) */
+.container {
+  padding: var(--spacing-lg, 24px);
+  gap: var(--spacing-lg, 24px);
+}
+
+.headline {
+  font-size: var(--font-size-h3, 24px);
+}
+
+.timeframeSelector {
+  flex-wrap: wrap;
+}
+
+.actions {
+  flex-direction: column;
+}
+
+.shareButton,
+.ctaButton,
+.secondaryCtaButton {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Tablet (480px+) */
+@media (min-width: 480px) {
   .container {
-    padding: var(--spacing-lg, 24px);
-    gap: var(--spacing-lg, 24px);
+    padding: var(--spacing-xl, 32px);
+    gap: var(--spacing-xl, 32px);
   }
 
   .headline {
-    font-size: var(--font-size-h3, 24px);
-  }
-
-  .timeframeSelector {
-    flex-wrap: wrap;
-  }
-
-  .timeframeButton {
-    flex: 1 1 45%;
-    padding: var(--spacing-sm, 8px);
-    font-size: var(--font-size-xs, 12px);
-  }
-
-  .resultValue {
-    font-size: var(--font-size-h4, 22px);
-  }
-
-  .differenceValue {
     font-size: var(--font-size-h2, 32px);
   }
 
+  .timeframeSelector {
+    flex-wrap: nowrap;
+  }
+
   .actions {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .shareButton,
   .ctaButton,
   .secondaryCtaButton {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+  }
+}
+
+/* Desktop (768px+) */
+@media (min-width: 768px) {
+  .resultValue {
+    font-size: var(--font-size-h3, 28px);
+  }
+
+  .differenceValue {
+    font-size: var(--font-size-display, 40px);
   }
 }

@@ -11,7 +11,7 @@
 'use client';
 
 import Link, { LinkProps } from 'next/link';
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
 import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 
 interface LocaleLinkProps extends Omit<LinkProps, 'href'> {

@@ -51,8 +51,11 @@ export async function loadPageNamespaces(
     } else if (namespace.startsWith('landing-')) {
       // Landing pages use their namespace name as prefix directly
       prefix = namespace;
-    } else if (namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode') {
-      // Feature namespaces use their namespace name as prefix directly
+    } else if (namespace === 'common' || namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode') {
+      // Common and feature namespaces use their namespace name as prefix directly
+      prefix = namespace;
+    } else if (namespace.startsWith('legal/')) {
+      // Legal namespaces use their namespace path as prefix (with slash)
       prefix = namespace;
     } else {
       prefix = `marketing.pages.${pathToCamel(namespace)}`;

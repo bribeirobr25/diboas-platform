@@ -23,14 +23,12 @@
 }
 
 .successIcon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-teal-500, #14b8a6), var(--color-teal-600, #0d9488));
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-teal-600, #0d9488);
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -58,22 +56,24 @@
   margin: 0;
 }
 
-/* Position card */
+/* Position card - Professional light styling */
 .positionCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-xs, 4px);
   padding: var(--spacing-lg, 24px) var(--spacing-xl, 32px);
-  background: linear-gradient(135deg, var(--color-slate-900, #0f172a), var(--color-slate-800, #1e293b));
+  background: var(--bg-primary, #ffffff);
+  border: 1px solid var(--border-default, #e2e8f0);
   border-radius: var(--radius-lg, 16px);
   margin-bottom: var(--spacing-xl, 32px);
   min-width: 200px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
 }
 
 .positionLabel {
   font-size: var(--font-size-small, 14px);
-  color: var(--color-slate-400, #94a3b8);
+  color: var(--text-secondary, #64748b);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -81,7 +81,7 @@
 .positionNumber {
   font-size: var(--font-size-display, 48px);
   font-weight: 700;
-  color: var(--color-teal-400, #2dd4bf);
+  color: var(--color-slate-800, #1e293b);
   font-variant-numeric: tabular-nums;
 }
 
@@ -114,37 +114,54 @@
   font-weight: 500;
 }
 
-/* CTAs */
+/* CTAs - Unified Design Token Style */
 .dreamModeCta {
   width: 100%;
-  padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
-  font-size: var(--font-size-body, 16px);
-  font-weight: 600;
-  color: var(--text-inverse, #ffffff);
+  min-height: var(--cta-min-height-mobile, 48px);
+  padding: var(--cta-padding-mobile, 12px 24px);
+  font-size: var(--cta-font-size-mobile, 14px);
+  font-weight: var(--cta-font-weight, 600);
+  color: var(--cta-color-primary, #ffffff);
   background: var(--cta-bg-primary, #0f766e);
   border: none;
-  border-radius: var(--radius-md, 8px);
+  border-radius: var(--cta-border-radius, 50px);
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: transform var(--cta-transition-duration, 300ms) var(--cta-transition-easing, ease-in-out),
+              box-shadow var(--cta-transition-duration, 300ms) var(--cta-transition-easing, ease-in-out);
   margin-bottom: var(--spacing-md, 16px);
+  box-shadow: var(--cta-shadow-default, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+@media (min-width: 768px) {
+  .dreamModeCta {
+    min-height: var(--cta-min-height-tablet, 56px);
+    padding: var(--cta-padding-tablet, 16px 32px);
+    font-size: var(--cta-font-size-tablet, 16px);
+  }
 }
 
 .dreamModeCta:hover {
-  background: var(--cta-bg-primary-hover, #115e59);
+  transform: var(--cta-transform-hover, translateY(-2px));
+  box-shadow: var(--cta-shadow-hover, 0 8px 25px rgba(56, 178, 172, 0.25));
+}
+
+.dreamModeCta:focus-visible {
+  outline: 2px solid var(--cta-focus-color, #0d9488);
+  outline-offset: 2px;
 }
 
 .dreamModeCta:active {
-  transform: scale(0.98);
+  transform: var(--cta-transform-active, translateY(0));
 }
 
 .exploreCta {
   font-size: var(--font-size-body, 16px);
-  color: var(--color-teal-600, #0d9488);
+  color: var(--text-primary-accessible, #0f766e);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .exploreCta:hover {
-  color: var(--color-teal-700, #0f766e);
+  color: var(--color-teal-800, #115e59);
   text-decoration: underline;
 }

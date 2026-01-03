@@ -12,7 +12,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { useLocale } from '@/components/LocaleProvider';
+import { useLocale } from '@/components/Providers';
 import { ReferralLink } from './ReferralLink';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { formatPosition } from '@/lib/waitingList/helpers';
@@ -94,8 +94,8 @@ export function WaitlistConfirmation({
       <div className={styles.header}>
         <div className={styles.successIcon}>
           <svg
-            width="48"
-            height="48"
+            width="32"
+            height="32"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -103,8 +103,8 @@ export function WaitlistConfirmation({
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-            <polyline points="22 4 12 14.01 9 11.01" />
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="9 12 12 15 16 10" />
           </svg>
         </div>
         <h2 className={styles.headline}>{t('confirmation.headline')}</h2>
