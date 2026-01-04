@@ -1,0 +1,95 @@
+{
+  "seo": {
+    "title": "Where Your Money Works | The Protocols We Trust | diBoaS",
+    "description": "diBoaS connects you to established decentralized finance protocols. See exactly where your money goes with full transparency.",
+    "ogTitle": "Where Your Money Works | The Protocols We Trust",
+    "ogDescription": "See exactly which DeFi protocols diBoaS uses and why we trust them. Full transparency about where your money works."
+  },
+  "hero": {
+    "title": "Where Your Money Works",
+    "subtitle": "The Protocols We Trust"
+  },
+  "intro": {
+    "header": "Why This Page Exists",
+    "paragraph1": "We believe you should know exactly where your money works. Unlike traditional banks that hide what they do with your deposits, we show you everything.",
+    "paragraph2": "Every protocol listed here has been researched, tested, and approved by our team. We look at security audits, track record, and how long they've been operating. If we wouldn't put our own money there, we won't put yours there either.",
+    "important": "Important:",
+    "disclaimer": "Being on this list doesn't mean zero risk. It means we've done our homework and trust these protocols enough to include them in our strategies."
+  },
+  "categories": {
+    "lending": {
+      "title": "Lending Protocols",
+      "description": "These protocols let people lend and borrow crypto. You earn yield by providing liquidity that others borrow."
+    },
+    "staking": {
+      "title": "Staking Protocols",
+      "description": "These protocols let you earn rewards by helping secure blockchain networks."
+    },
+    "stablecoins": {
+      "title": "Stablecoins & Synthetic Assets",
+      "description": "These protocols create stable assets pegged to real-world values like the US dollar."
+    },
+    "yield": {
+      "title": "Yield & Trading Protocols",
+      "description": "These protocols generate yield through trading fees, yield optimization, or structured products."
+    },
+    "perpetuals": {
+      "title": "Perpetual & Trading Exchanges",
+      "description": "These protocols let traders bet on price movements. You earn yield by providing the liquidity they trade against."
+    },
+    "dex": {
+      "title": "Decentralized Exchanges (DEX)",
+      "description": "These protocols let you swap tokens without a centralized exchange."
+    },
+    "rwa": {
+      "title": "Payment & RWA Infrastructure",
+      "description": "These protocols bridge traditional finance and crypto."
+    }
+  },
+  "protocolLabels": {
+    "whatItDoes": "What it does:",
+    "founded": "Founded",
+    "tvl": "Total Value Locked",
+    "blockchains": "Blockchains",
+    "audits": "Security Audits",
+    "regulatory": "Regulatory Status"
+  },
+  "selectionProcess": {
+    "header": "Our Selection Process",
+    "intro": "We don't add protocols randomly. Every protocol here passed our checklist:",
+    "criteria": {
+      "operation": "At least 1 year of operation (with few exceptions for exceptional protocols)",
+      "audits": "Professional security audits from recognized firms",
+      "exploits": "No unresolved exploits where user funds were lost and not recovered",
+      "transparent": "Transparent operations — we can verify how the protocol works",
+      "usage": "Real usage — actual users, not just hype"
+    },
+    "note": "When protocols have had security incidents, we note them clearly. Transparency works both ways."
+  },
+  "totalTvl": {
+    "header": "Total Combined TVL",
+    "paragraph1": "The protocols we work with collectively secure over",
+    "amount": "$120 billion",
+    "paragraph2": "in user deposits.",
+    "note": "This doesn't mean your money is in all of them. Each diBoaS strategy uses specific protocols suited to its risk level and goals."
+  },
+  "faq": {
+    "header": "Questions?",
+    "q1": {
+      "question": "Why don't you list every DeFi protocol?",
+      "answer": "We're selective. Most DeFi protocols don't meet our standards."
+    },
+    "q2": {
+      "question": "How often do you update this list?",
+      "answer": "We continuously monitor all protocols. If something changes, we'll add or remove as needed."
+    },
+    "q3": {
+      "question": "Can I request a protocol to be added?",
+      "answer": "Yes. Contact us at hello@diboas.com with your suggestion."
+    }
+  },
+  "footer": {
+    "lastUpdated": "Last updated: January 2026",
+    "sources": "Data sources: DeFiLlama, official protocol documentation, security audit reports"
+  }
+}

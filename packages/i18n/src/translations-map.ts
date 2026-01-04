@@ -19,6 +19,7 @@ import en_faq from '../translations/en/faq.json';
 import en_marketing from '../translations/en/marketing.json';
 import en_home from '../translations/en/home.json';
 import en_about from '../translations/en/about.json';
+import en_protocols from '../translations/en/protocols.json';
 
 // German translations
 import de_common from '../translations/de/common.json';
@@ -34,6 +35,7 @@ import de_faq from '../translations/de/faq.json';
 import de_marketing from '../translations/de/marketing.json';
 import de_home from '../translations/de/home.json';
 import de_about from '../translations/de/about.json';
+import de_protocols from '../translations/de/protocols.json';
 
 // Spanish translations
 import es_common from '../translations/es/common.json';
@@ -49,6 +51,7 @@ import es_faq from '../translations/es/faq.json';
 import es_marketing from '../translations/es/marketing.json';
 import es_home from '../translations/es/home.json';
 import es_about from '../translations/es/about.json';
+import es_protocols from '../translations/es/protocols.json';
 
 // Portuguese (Brazil) translations
 import ptBR_common from '../translations/pt-BR/common.json';
@@ -64,6 +67,7 @@ import ptBR_faq from '../translations/pt-BR/faq.json';
 import ptBR_marketing from '../translations/pt-BR/marketing.json';
 import ptBR_home from '../translations/pt-BR/home.json';
 import ptBR_about from '../translations/pt-BR/about.json';
+import ptBR_protocols from '../translations/pt-BR/protocols.json';
 
 import type { SupportedLocale } from './config';
 
@@ -87,6 +91,7 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     marketing: en_marketing,
     home: en_home,
     about: en_about,
+    protocols: en_protocols,
   },
   de: {
     common: de_common,
@@ -102,6 +107,7 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     marketing: de_marketing,
     home: de_home,
     about: de_about,
+    protocols: de_protocols,
   },
   es: {
     common: es_common,
@@ -117,6 +123,7 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     marketing: es_marketing,
     home: es_home,
     about: es_about,
+    protocols: es_protocols,
   },
   'pt-BR': {
     common: ptBR_common,
@@ -132,6 +139,7 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     marketing: ptBR_marketing,
     home: ptBR_home,
     about: ptBR_about,
+    protocols: ptBR_protocols,
   },
 };
 

@@ -4,18 +4,21 @@
  * Welcome Screen
  *
  * First screen of Dream Mode - introduces the simulation
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { useDreamModeTranslation } from '../hooks';
 import styles from './screens.module.css';
 
 export function WelcomeScreen() {
-  const intl = useIntl();
+  const { getTranslator } = useDreamModeTranslation();
   const { nextScreen } = useDreamMode();
 
-  const t = (key: string) => intl.formatMessage({ id: `dreamMode.welcome.${key}` });
+  const t = getTranslator('welcome');
 
   return (
     <div className={styles.screen}>

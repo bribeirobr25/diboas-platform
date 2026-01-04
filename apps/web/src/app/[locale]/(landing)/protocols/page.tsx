@@ -4,32 +4,31 @@ import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import { AboutPageContent } from '@/components/Pages/AboutPageContent';
-import { ROUTES } from '@/config/routes';
+import { ProtocolsPageContent } from '@/components/Pages/ProtocolsPageContent';
 import type { Metadata } from 'next';
 
 export const dynamic = 'auto';
 
-interface AboutPageProps {
+interface ProtocolsPageProps {
   params: Promise<{
     locale: string;
   }>;
 }
 
 /**
- * Generate metadata for the About page
+ * Generate metadata for the Protocols page
  * Uses i18n translations for locale-aware SEO
  */
-export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ProtocolsPageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
 
   // Load translations for metadata
-  const messages = await loadMessages(validLocale, 'about');
+  const messages = await loadMessages(validLocale, 'protocols');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'About diBoaS | Built to Fix What Banks Keep Hidden';
-  const description = seo.description || 'diBoaS was founded to give everyone access to real returns. Learn the story of why Breno is building this platform.';
+  const title = seo.title || 'Where Your Money Works | The Protocols We Trust | diBoaS';
+  const description = seo.description || 'diBoaS connects you to established decentralized finance protocols. See exactly where your money goes with full transparency.';
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
 
@@ -43,7 +42,7 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
       locale: validLocale,
       images: [
         {
-          url: `${siteUrl}/api/og/about`,
+          url: `${siteUrl}/api/og/protocols`,
           width: 1200,
           height: 630,
           alt: title,
@@ -54,33 +53,33 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
       card: 'summary_large_image',
       title: seo.ogTitle || title,
       description: seo.ogDescription || description,
-      images: [`${siteUrl}/api/og/about`],
+      images: [`${siteUrl}/api/og/protocols`],
     },
     alternates: {
-      canonical: `/about`,
+      canonical: `/protocols`,
       languages: {
-        'en': '/en/about',
-        'de': '/de/about',
-        'pt-BR': '/pt-BR/about',
-        'es': '/es/about',
+        'en': '/en/protocols',
+        'de': '/de/protocols',
+        'pt-BR': '/pt-BR/protocols',
+        'es': '/es/protocols',
       },
     },
   };
 }
 
 /**
- * About Page
+ * Protocols Page
  *
- * Personal founder story page featuring:
+ * Transparency page showing all 26 DeFi protocols we trust:
  * - Section 1: Hero with headline
- * - Section 2: The Story (grandmother narrative)
- * - Section 3: What diBoaS Does
- * - Section 4: What We Believe (3 pillars)
- * - Section 5: The Mission
- * - Section 6: For Businesses CTA
- * - Section 7: Contact
+ * - Section 2: Why This Page Exists
+ * - Section 3: Protocol Categories (Lending, Staking, etc.)
+ * - Section 4: Our Selection Process
+ * - Section 5: Total TVL
+ * - Section 6: FAQ
+ * - Section 7: Waitlist
  */
-export default async function AboutPage({ params }: AboutPageProps) {
+export default async function ProtocolsPage({ params }: ProtocolsPageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -89,24 +88,24 @@ export default async function AboutPage({ params }: AboutPageProps) {
   }
 
   // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['about', 'common', 'waitlist']);
+  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'common', 'waitlist']);
 
   // Generate structured data
-  const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'diBoaS',
-    description: 'Platform giving regular people access to institutional-grade financial returns',
+  const organizationData = MetadataFactory.generateServiceStructuredData({
+    name: 'diBoaS Protocol Transparency',
+    description: 'Complete list of DeFi protocols used by diBoaS with security audits and regulatory information',
     category: 'Financial Technology'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
-    { name: 'About', url: ROUTES.ABOUT }
+    { name: 'Protocols', url: '/protocols' }
   ], locale);
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={[serviceData, breadcrumbData]} />
-      <AboutPageContent />
+      <StructuredData data={[organizationData, breadcrumbData]} />
+      <ProtocolsPageContent />
     </PageI18nProvider>
   );
 }

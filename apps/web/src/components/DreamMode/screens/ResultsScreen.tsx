@@ -4,11 +4,14 @@
  * Results Screen
  *
  * Fifth screen - comparison between DeFi and bank results
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { useDreamModeTranslation } from '../hooks';
 import { formatCurrency, formatPercentage, getCurrencyLocale } from '@/lib/calculator';
 import { BANK_RATE_SOURCES } from '@/lib/dream-mode';
 import styles from './screens.module.css';
@@ -30,11 +33,10 @@ function getCurrencySymbol(locale: string): string {
 }
 
 export function ResultsScreen() {
-  const intl = useIntl();
+  const { intl, t: translate, getTranslator } = useDreamModeTranslation();
   const { state, nextScreen, goToScreen } = useDreamMode();
 
-  const t = (key: string, values?: Record<string, string | number>) =>
-    intl.formatMessage({ id: `dreamMode.results.${key}` }, values);
+  const t = getTranslator('results');
 
   const currencyLocale = getCurrencyLocale(state.input.currency);
   const result = state.result;

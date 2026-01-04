@@ -19,7 +19,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import type { CalButtonProps, BookingData } from './types';
 import styles from './BookCall.module.css';
 
@@ -48,7 +48,7 @@ export function CalButton({
   className,
   onBookingComplete,
 }: CalButtonProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

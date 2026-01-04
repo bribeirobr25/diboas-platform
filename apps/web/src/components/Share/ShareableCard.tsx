@@ -17,7 +17,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import Image from 'next/image';
 import type { RenderedCard, SharePlatform, CardType } from '@/lib/share/types';
 import { ShareButtons } from './ShareButtons';
@@ -61,7 +61,7 @@ export function ShareableCard({
   onRetry,
   className,
 }: ShareableCardProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const [imageLoaded, setImageLoaded] = useState(false);
 
   // Handle share click

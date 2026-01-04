@@ -17,7 +17,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import type { CalEmbedProps, BookingData } from './types';
 import styles from './BookCall.module.css';
 
@@ -42,7 +42,7 @@ export function CalEmbed({
   onBookingComplete,
   onLoad,
 }: CalEmbedProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);

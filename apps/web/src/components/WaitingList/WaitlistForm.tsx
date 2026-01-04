@@ -11,7 +11,7 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
@@ -44,7 +44,7 @@ export function WaitlistForm({
   compact = false,
   className = '',
 }: WaitlistFormProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale } = useLocale();
   const emailInputRef = useRef<HTMLInputElement>(null);
 

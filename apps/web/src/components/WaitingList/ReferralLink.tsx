@@ -10,7 +10,7 @@
  */
 
 import React, { useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
@@ -38,7 +38,7 @@ export function ReferralLink({
   compact = false,
   className = '',
 }: ReferralLinkProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale } = useLocale();
   const [copied, setCopied] = useState(false);
 

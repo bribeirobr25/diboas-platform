@@ -12,7 +12,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ASSET_PATHS } from '@/config/assets';
 import { DESIGN_SYSTEM } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 
 interface DesktopNavProps {
   activeMenu: string | null;
@@ -33,7 +33,7 @@ export default function DesktopNav({
 }: DesktopNavProps) {
   if (isMobile) return null;
 
-  const intl = useIntl();
+  const intl = useTranslation();
   const activeMenuItem = config.mainMenu.find(item => item.id === activeMenu);
 
   return (

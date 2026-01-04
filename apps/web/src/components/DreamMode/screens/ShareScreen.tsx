@@ -4,11 +4,14 @@
  * Share Screen
  *
  * Final screen - share results and CTA to join waitlist
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React, { useState, useCallback } from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { useDreamModeTranslation } from '../hooks';
 import { ShareButtons } from '@/components/Share';
 import { CardRenderer, type SharePlatform, type DreamCardData, getShareUrl } from '@/lib/share';
 import { formatCurrency, getCurrencyLocale } from '@/lib/calculator';
@@ -22,12 +25,12 @@ interface ShareScreenProps {
 }
 
 export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
-  const intl = useIntl();
+  const { intl, getTranslator } = useDreamModeTranslation();
   const { state, reset, previousScreen } = useDreamMode();
   const [isSharing, setIsSharing] = useState(false);
   const [cardUrl, setCardUrl] = useState<string | null>(null);
 
-  const t = (key: string) => intl.formatMessage({ id: `dreamMode.share.${key}` });
+  const t = getTranslator('share');
 
   const currencyLocale = getCurrencyLocale(state.input.currency);
   const result = state.result;

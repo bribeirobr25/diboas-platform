@@ -11,7 +11,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { SUPPORTED_LOCALES, LOCALE_CONFIG, type SupportedLocale } from '@diboas/i18n/server';
 import { Globe } from 'lucide-react';
@@ -46,7 +46,7 @@ export function LanguageSwitcher({
   theme = 'light',
   className = ''
 }: LanguageSwitcherProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale: currentLocale, isHydrated } = useLocale();
   const pathname = usePathname();
   const router = useRouter();

@@ -11,7 +11,7 @@
  */
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { ShareButtons } from './ShareButtons';
@@ -57,7 +57,7 @@ export function ShareModal({
   platforms,
   className = '',
 }: ShareModalProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale } = useLocale();
   const modalRef = useRef<HTMLDivElement>(null);
   const [renderedCard, setRenderedCard] = useState<RenderedCard | null>(

@@ -1,6 +1,6 @@
 'use client';
 
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -80,7 +80,7 @@ function getCardBorderClass(strategyId: string): string {
  * Uses i18n for all text content
  */
 export function StrategiesPageContent() {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   // Helper function to get prefixed i18n key
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });

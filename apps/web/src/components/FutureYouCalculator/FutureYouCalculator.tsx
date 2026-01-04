@@ -13,7 +13,7 @@
  */
 
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import {
   calculateFullResult,
@@ -101,7 +101,7 @@ export function FutureYouCalculator({
   className = '',
   initialValues,
 }: FutureYouCalculatorProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale } = useLocale();
 
   // State for inputs

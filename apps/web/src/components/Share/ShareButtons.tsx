@@ -9,7 +9,7 @@
  */
 
 import React, { useMemo } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import type { SharePlatform, CardLocale } from '@/lib/share';
 import { PLATFORM_PRIORITY_BY_LOCALE } from '@/lib/share';
 import styles from './ShareButtons.module.css';
@@ -174,7 +174,7 @@ export function ShareButtons({
   className = '',
   disabled = false,
 }: ShareButtonsProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   // Use locale-specific platform order if platforms not explicitly provided
   const orderedPlatforms = useMemo(() => {

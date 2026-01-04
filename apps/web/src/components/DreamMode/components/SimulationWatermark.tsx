@@ -5,10 +5,13 @@
  *
  * CLO-required watermark that appears on all Dream Mode screens
  * after the disclaimer is accepted
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React from 'react';
-import { useIntl } from 'react-intl';
+import { useDreamModeTranslation } from '../hooks';
 import { AlertTriangleIcon } from '@/components/Icons';
 import styles from './SimulationWatermark.module.css';
 
@@ -18,9 +21,9 @@ interface SimulationWatermarkProps {
 }
 
 export function SimulationWatermark({ className = '' }: SimulationWatermarkProps) {
-  const intl = useIntl();
+  const { tRoot } = useDreamModeTranslation();
 
-  const watermarkText = intl.formatMessage({ id: 'dreamMode.watermark' });
+  const watermarkText = tRoot('watermark');
 
   return (
     <div className={`${styles.watermark} ${className}`} aria-label="Simulation mode indicator">

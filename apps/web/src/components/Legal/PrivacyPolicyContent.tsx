@@ -7,7 +7,7 @@
  * Follows GDPR requirements for privacy disclosure.
  */
 
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import {
   LegalDocument,
   LegalHeader,
@@ -21,7 +21,7 @@ import {
 } from './LegalDocument';
 
 export function PrivacyPolicyContent() {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   const t = (id: string) => intl.formatMessage({ id: `legal/privacy.${id}` });
 

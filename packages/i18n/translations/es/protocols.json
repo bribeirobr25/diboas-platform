@@ -1,0 +1,95 @@
+{
+  "seo": {
+    "title": "Donde Trabaja Tu Dinero | Los Protocolos en los que Confiamos | diBoaS",
+    "description": "diBoaS te conecta con protocolos de finanzas descentralizadas establecidos. Ve exactamente a dónde va tu dinero con total transparencia.",
+    "ogTitle": "Donde Trabaja Tu Dinero | Los Protocolos en los que Confiamos",
+    "ogDescription": "Ve exactamente qué protocolos DeFi usa diBoaS y por qué confiamos en ellos. Transparencia total sobre dónde trabaja tu dinero."
+  },
+  "hero": {
+    "title": "Donde Trabaja Tu Dinero",
+    "subtitle": "Los Protocolos en los que Confiamos"
+  },
+  "intro": {
+    "header": "Por Qué Existe Esta Página",
+    "paragraph1": "Creemos que debes saber exactamente dónde trabaja tu dinero. A diferencia de los bancos tradicionales que ocultan lo que hacen con tus depósitos, nosotros te mostramos todo.",
+    "paragraph2": "Cada protocolo listado aquí ha sido investigado, probado y aprobado por nuestro equipo. Analizamos auditorías de seguridad, historial y cuánto tiempo llevan operando. Si no pondríamos nuestro propio dinero ahí, tampoco pondremos el tuyo.",
+    "important": "Importante:",
+    "disclaimer": "Estar en esta lista no significa riesgo cero. Significa que hicimos nuestra tarea y confiamos en estos protocolos lo suficiente para incluirlos en nuestras estrategias."
+  },
+  "categories": {
+    "lending": {
+      "title": "Protocolos de Préstamo",
+      "description": "Estos protocolos permiten que las personas presten y pidan prestado cripto. Ganas rendimiento proporcionando liquidez que otros toman prestada."
+    },
+    "staking": {
+      "title": "Protocolos de Staking",
+      "description": "Estos protocolos te permiten ganar recompensas ayudando a asegurar redes blockchain."
+    },
+    "stablecoins": {
+      "title": "Stablecoins y Activos Sintéticos",
+      "description": "Estos protocolos crean activos estables vinculados a valores del mundo real como el dólar estadounidense."
+    },
+    "yield": {
+      "title": "Protocolos de Rendimiento y Trading",
+      "description": "Estos protocolos generan rendimiento a través de comisiones de trading, optimización de rendimiento o productos estructurados."
+    },
+    "perpetuals": {
+      "title": "Exchanges Perpetuos y de Trading",
+      "description": "Estos protocolos permiten a los traders apostar sobre movimientos de precios. Ganas rendimiento proporcionando la liquidez contra la que operan."
+    },
+    "dex": {
+      "title": "Exchanges Descentralizados (DEX)",
+      "description": "Estos protocolos te permiten intercambiar tokens sin un exchange centralizado."
+    },
+    "rwa": {
+      "title": "Infraestructura de Pagos y RWA",
+      "description": "Estos protocolos conectan las finanzas tradicionales con cripto."
+    }
+  },
+  "protocolLabels": {
+    "whatItDoes": "Qué hace:",
+    "founded": "Fundado",
+    "tvl": "Valor Total Bloqueado",
+    "blockchains": "Blockchains",
+    "audits": "Auditorías de Seguridad",
+    "regulatory": "Estado Regulatorio"
+  },
+  "selectionProcess": {
+    "header": "Nuestro Proceso de Selección",
+    "intro": "No agregamos protocolos al azar. Cada protocolo aquí pasó nuestra checklist:",
+    "criteria": {
+      "operation": "Al menos 1 año de operación (con pocas excepciones para protocolos excepcionales)",
+      "audits": "Auditorías de seguridad profesionales de firmas reconocidas",
+      "exploits": "Sin exploits no resueltos donde se perdieron fondos de usuarios y no se recuperaron",
+      "transparent": "Operaciones transparentes — podemos verificar cómo funciona el protocolo",
+      "usage": "Uso real — usuarios reales, no solo hype"
+    },
+    "note": "Cuando los protocolos han tenido incidentes de seguridad, lo anotamos claramente. La transparencia funciona en ambos sentidos."
+  },
+  "totalTvl": {
+    "header": "TVL Total Combinado",
+    "paragraph1": "Los protocolos con los que trabajamos colectivamente aseguran más de",
+    "amount": "$120 mil millones",
+    "paragraph2": "en depósitos de usuarios.",
+    "note": "Esto no significa que tu dinero está en todos ellos. Cada estrategia de diBoaS usa protocolos específicos adecuados a su nivel de riesgo y objetivos."
+  },
+  "faq": {
+    "header": "¿Preguntas?",
+    "q1": {
+      "question": "¿Por qué no listan todos los protocolos DeFi?",
+      "answer": "Somos selectivos. La mayoría de los protocolos DeFi no cumplen nuestros estándares."
+    },
+    "q2": {
+      "question": "¿Con qué frecuencia actualizan esta lista?",
+      "answer": "Monitoreamos todos los protocolos continuamente. Si algo cambia, agregamos o eliminamos según sea necesario."
+    },
+    "q3": {
+      "question": "¿Puedo solicitar que se agregue un protocolo?",
+      "answer": "Sí. Contáctanos en hello@diboas.com con tu sugerencia."
+    }
+  },
+  "footer": {
+    "lastUpdated": "Última actualización: Enero 2026",
+    "sources": "Fuentes de datos: DeFiLlama, documentación oficial de protocolos, informes de auditoría de seguridad"
+  }
+}

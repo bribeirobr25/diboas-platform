@@ -4,18 +4,21 @@
  * Simulation Screen
  *
  * Fourth screen - animated growth visualization
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React, { useEffect, useState, useRef } from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { useDreamModeTranslation } from '../hooks';
 import { formatCurrency, getCurrencyLocale } from '@/lib/calculator';
 import styles from './screens.module.css';
 
 const ANIMATION_DURATION = 3000; // 3 seconds
 
 export function SimulationScreen() {
-  const intl = useIntl();
+  const { getTranslator } = useDreamModeTranslation();
   const { state, dispatch, nextScreen } = useDreamMode();
 
   // Use total investment (initial + monthly contributions) as starting point
@@ -27,7 +30,7 @@ export function SimulationScreen() {
   const animationRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
 
-  const t = (key: string) => intl.formatMessage({ id: `dreamMode.simulation.${key}` });
+  const t = getTranslator('simulation');
 
   const currencyLocale = getCurrencyLocale(state.input.currency);
 

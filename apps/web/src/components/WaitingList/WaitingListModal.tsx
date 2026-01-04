@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
@@ -28,7 +28,7 @@ interface WaitingListModalProps {
 }
 
 export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale } = useLocale();
   const modalRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);

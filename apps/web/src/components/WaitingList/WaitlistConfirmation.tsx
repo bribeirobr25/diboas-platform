@@ -11,7 +11,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { ReferralLink } from './ReferralLink';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
@@ -45,7 +45,7 @@ export function WaitlistConfirmation({
   onShareClick,
   className = '',
 }: WaitlistConfirmationProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale } = useLocale();
   const [animatedPosition, setAnimatedPosition] = useState(position + 100);
 

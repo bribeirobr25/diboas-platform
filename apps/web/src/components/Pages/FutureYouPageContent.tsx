@@ -1,6 +1,6 @@
 'use client';
 
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { CalculatorSection } from '@/components/Sections/CalculatorSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
@@ -16,7 +16,7 @@ const I18N_PREFIX = 'marketing.pages.futureYou';
  * Uses i18n for all text content
  */
 export function FutureYouPageContent() {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   // Helper function to get prefixed i18n key
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });

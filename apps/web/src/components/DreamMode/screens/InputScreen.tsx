@@ -4,19 +4,22 @@
  * Input Screen
  *
  * Second screen - collects initial amount and monthly contribution
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { useDreamModeTranslation } from '../hooks';
 import { CALCULATOR_CONFIG } from '@/lib/calculator';
 import styles from './screens.module.css';
 
 export function InputScreen() {
-  const intl = useIntl();
+  const { getTranslator } = useDreamModeTranslation();
   const { state, setInput, nextScreen, previousScreen } = useDreamMode();
 
-  const t = (key: string) => intl.formatMessage({ id: `dreamMode.input.${key}` });
+  const t = getTranslator('input');
 
   const handleInitialAmountChange = (value: number) => {
     const clamped = Math.min(

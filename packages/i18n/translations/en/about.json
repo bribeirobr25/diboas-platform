@@ -1,93 +1,64 @@
 {
-  "title": "About | diBoaS",
-  "description": "The world's first OneFi platform.",
+  "seo": {
+    "title": "About diBoaS | Built to Fix What Banks Keep Hidden",
+    "description": "diBoaS was founded to give everyone access to real returns. Learn the story of why Breno is building this platform.",
+    "ogTitle": "About diBoaS | Built to Fix What Banks Keep Hidden",
+    "ogDescription": "diBoaS was founded to give everyone access to real returns. Learn the story of why Breno is building this platform."
+  },
   "hero": {
-    "title": "The world's first OneFi platform. Banking, Investing, Crypto, Strategies, and DeFi, all in one place. For everyone.",
-    "description": "",
-    "cta": "Get Started"
+    "title": "About diBoaS",
+    "subtitle": "The story behind the platform"
   },
-  "benefitsCards": {
-    "title": "World's first OneFi platform",
-    "description": "Our story, mission, and values.",
-    "cards": {
-      "visionDemocratizeFinance": {
-        "iconAlt": "Vision icon",
-        "title": "Vision: Democratize Finance",
-        "description": "5.4 billion use traditional finance.\nOnly 560 million have touched crypto.\nWe're uniting these worlds for everyone."
-      },
-      "missionSimplifyComplexity": {
-        "iconAlt": "Mission icon",
-        "title": "Mission: Simplify Complexity",
-        "description": "Sophisticated technology, simple experience.\nFrom beginner to expert, all welcome.\nProgressive disclosure that works."
-      },
-      "valuesTransparencyEducation": {
-        "iconAlt": "Values icon",
-        "title": "Values: Transparency and Education",
-        "description": "No fine print.\nNo hidden fees.\nKnowledge as a right, not privilege."
-      },
-      "globalTeamLocalImpact": {
-        "iconAlt": "Global team icon",
-        "title": "Global Team, Local Impact",
-        "description": "Experts in fintech, crypto, and UX.\nExperience across 3 continents.\nBuilding for the world."
-      }
+  "story": {
+    "header": "The Story Behind diBoaS",
+    "paragraph1": "I'm Breno, and I'm building diBoaS because of my grandmother.",
+    "paragraph2": "She lived in Rio de Janeiro her whole life. She taught me to save. She said I should try to save half of everything I earn. She tried that herself. Her whole life.",
+    "paragraph3": "Work hard. Buy only the basics. Try to save.",
+    "paragraph4": "It still didn't work.",
+    "soundsFamiliar": "Sounds familiar?",
+    "revelation": "Here's what no one told her: Her bank paid her 0.5% interest while earning 7% with her money.",
+    "example": "Think about it. That €1,000 you saved? The bank made €70 with it and gave you €5 back. The other €65? That was supposed to be yours.",
+    "universal": "The same bank is doing that with all of us.",
+    "turning": "In 2024, I lost my job and I decided to do something about this problem."
+  },
+  "whatWeDo": {
+    "header": "What diBoaS Does",
+    "description": "diBoaS connects you to trusted financial protocols, the same ones banks and institutions use to grow their money. The difference? Now those returns go to you, not them.",
+    "noMiddleman": "No middleman keeping the difference. No mystery about where your money goes. Just transparent access to 6-10% annually on stablecoins, with the ability to withdraw anytime."
+  },
+  "beliefs": {
+    "header": "What We Believe",
+    "money": {
+      "title": "Your money should work for you.",
+      "description": "The concept of earning returns on money has existed for over 5,000 years. For most of that time, only the wealthy had access to the best rates. We're changing that."
+    },
+    "honesty": {
+      "title": "Honesty over hype.",
+      "description": "We don't promise guaranteed returns because nobody can. What we do offer: real data from 4 years of historical analysis, clear explanations of how each strategy works, and a Learn Center to help you understand what you're doing before you do it."
+    },
+    "startSmall": {
+      "title": "Start small, learn as you go.",
+      "description": "You don't need €10,000 to begin. Start with what you're comfortable with. Watch how it works. Then decide if it's right for you."
     }
   },
-  "stickyFeaturesNav": {
-    "title": "Who we are and why we exist.",
-    "subtitle": "The world's first OneFi platform has a clear mission.",
-    "cards": {
-      "ourMission": {
-        "title": "Our Mission",
-        "description": "Democratize access to financial growth.\nSimplify the complex.\nEmpower regular people to prosper.",
-        "imageAlt": "Our Mission illustration"
-      },
-      "howItStarted": {
-        "title": "How It Started",
-        "description": "Frustration with fragmentation.\nVision to unify everything.\nFrom idea to OneFi reality.",
-        "imageAlt": "How It Started illustration"
-      },
-      "globalTeam": {
-        "title": "Global Team",
-        "description": "Expertise in fintech, crypto, AI.\nTeams distributed across 3 continents.\nDiversity that enriches.",
-        "imageAlt": "Global Team illustration"
-      },
-      "guidingValues": {
-        "title": "Guiding Values",
-        "description": "Simplicity, transparency, education.\nUser always comes first.\nGrowth for everyone.",
-        "imageAlt": "Guiding Values illustration"
-      }
-    }
+  "mission": {
+    "header": "The Mission",
+    "statement": "To give regular people access to the same financial opportunities that were previously reserved for institutions and the wealthy.",
+    "tagline": "One platform. Real returns. Your money, your control."
   },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "The OneFi Revolution",
-        "description": "First platform combining traditional and DeFi.\nBreaking down financial barriers.\nAccessible, transparent, empowering.",
-        "ctaText": "Get Started",
-        "imageAlt": "The OneFi Revolution illustration"
-      },
-      "simplicity": {
-        "title": "Built for Everyone",
-        "description": "✓ $400 billion market opportunity\n✓ 89.6% of users underserved\n✓ Validated by 118.6M Nubank users\nProven methodology, modern technology.",
-        "ctaText": "Get Started",
-        "imageAlt": "Built for Everyone illustration"
-      },
-      "rewards": {
-        "title": "Join the Movement",
-        "description": "Be part of financial democratization.\nEarly adopters shape the future.\nTogether, we're changing finance.",
-        "ctaText": "Get Started",
-        "imageAlt": "Join the Movement illustration"
-      }
-    }
+  "business": {
+    "header": "For Businesses",
+    "description": "If you're a founder, CFO, or treasury manager, the same system that failed my grandmother is sitting on your company's cash reserves.",
+    "pitch": "We built diBoaS Treasury for businesses that want their idle cash to work harder, with same-day liquidity and institutional-grade protocols.",
+    "cta": "Learn more about diBoaS for Business"
   },
-  "faqAccordion": {
-    "sectionTitle": "Frequently Asked Questions",
-    "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
-    "ctaText": "See All Questions",
-    "questionIds": [
-      "q103",
-      "q104",
-      "q105"
-    ]
+  "contact": {
+    "header": "Contact",
+    "founder": "Founder:",
+    "founderName": "Breno",
+    "location": "Based in:",
+    "locationValue": "Berlin, Germany",
+    "email": "Email:",
+    "emailValue": "hello@diboas.com"
   }
 }
