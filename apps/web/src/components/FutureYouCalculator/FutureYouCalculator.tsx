@@ -23,9 +23,12 @@ import {
   CALCULATOR_CONFIG,
   CALCULATOR_EVENTS,
   LONG_TERM_TIMEFRAMES,
+  DEFI_SCENARIO,
+  getLocaleConfig,
   type InvestmentInput,
   type LongTermTimeframe,
   type CalculatorResult,
+  type RateScenario,
 } from '@/lib/calculator';
 import { analyticsService } from '@/lib/analytics';
 import styles from './FutureYouCalculator.module.css';
@@ -104,6 +107,9 @@ export function FutureYouCalculator({
   const intl = useTranslation();
   const { locale } = useLocale();
 
+  // Get locale-specific configuration for currency and bank rates
+  const localeConfig = useMemo(() => getLocaleConfig(locale), [locale]);
+
   // State for inputs
   const [initialAmount, setInitialAmount] = useState(
     initialValues?.initialAmount ?? CALCULATOR_CONFIG.defaultInitialAmount
@@ -111,25 +117,33 @@ export function FutureYouCalculator({
   const [monthlyContribution, setMonthlyContribution] = useState(
     initialValues?.monthlyContribution ?? CALCULATOR_CONFIG.defaultMonthlyContribution
   );
-  const [currency] = useState(
-    initialValues?.currency ?? CALCULATOR_CONFIG.defaultCurrency
-  );
+  // Use locale-based currency instead of hardcoded EUR
+  const currency = initialValues?.currency ?? localeConfig.currency;
   const [selectedTimeframe, setSelectedTimeframe] = useState<LongTermTimeframe>('5years');
+
+  // Create locale-specific bank scenario with appropriate rate
+  const bankScenario: RateScenario = useMemo(() => ({
+    id: 'bank',
+    name: 'Traditional Bank',
+    apy: localeConfig.bankApy,
+    description: 'Average savings account rate',
+    isBank: true,
+  }), [localeConfig.bankApy]);
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {
     return intl.formatMessage({ id: `calculator.${key}` }, values);
   };
 
-  // Calculate results
+  // Calculate results with locale-specific bank rate
   const result = useMemo(() => {
     const input: InvestmentInput = {
       initialAmount,
       monthlyContribution,
       currency,
     };
-    return calculateFullResult(input, selectedTimeframe);
-  }, [initialAmount, monthlyContribution, currency, selectedTimeframe]);
+    return calculateFullResult(input, selectedTimeframe, DEFI_SCENARIO, bankScenario);
+  }, [initialAmount, monthlyContribution, currency, selectedTimeframe, bankScenario]);
 
   // Current comparison for selected timeframe (use long-term projections for Future You Calculator)
   const currentComparison = result.longTermProjections?.[selectedTimeframe] ?? result.projections['5years'];
@@ -242,9 +256,6 @@ export function FutureYouCalculator({
 
       {/* Input Section */}
       <div className={styles.inputSection}>
-        {/* Slider Label per spec */}
-        <p className={styles.sliderLabel}>{t('sliderLabel')}</p>
-
         <div className={styles.inputGroup}>
           <label className={styles.inputLabel}>{t('initialAmount')}</label>
           <div className={styles.inputWrapper}>

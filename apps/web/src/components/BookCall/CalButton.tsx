@@ -20,11 +20,12 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { CAL_CONFIG } from '@/config/env';
 import type { CalButtonProps, BookingData } from './types';
 import styles from './BookCall.module.css';
 
-// Cal.com embed script URL
-const CAL_EMBED_SCRIPT = 'https://app.cal.com/embed/embed.js';
+// Cal.com embed script URL (from environment configuration)
+const CAL_EMBED_SCRIPT = CAL_CONFIG.embedScript;
 
 // Declare Cal global type
 declare global {
@@ -81,7 +82,7 @@ export function CalButton({
       script.onload = () => {
         // Initialize Cal
         if (window.Cal) {
-          window.Cal('init', namespace, { origin: 'https://app.cal.com' });
+          window.Cal('init', namespace, { origin: CAL_CONFIG.origin });
 
           // Listen for booking complete
           window.Cal(namespace, 'on', {

@@ -17,10 +17,12 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
+import { COOKIE_CONFIG } from '@/config/env';
 import styles from './CookieConsent.module.css';
 
-const CONSENT_KEY = 'diboas-cookie-consent';
-const CONSENT_VERSION = '1.0';
+// Use centralized environment configuration
+const CONSENT_KEY = COOKIE_CONFIG.consentLocalStorageKey;
+const CONSENT_VERSION = COOKIE_CONFIG.consentVersion;
 
 /**
  * Sync consent to HttpOnly cookie via API

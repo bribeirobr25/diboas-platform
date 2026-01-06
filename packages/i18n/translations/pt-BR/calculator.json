@@ -1,7 +1,6 @@
 {
   "headline": "No que R$20/mês poderiam se transformar?",
-  "subhead": "Veja seu futuro — sem precisar de conta",
-  "sliderLabel": "Valor mensal que você poderia guardar",
+  "subhead": "Veja seu eu do futuro",
   "initialAmount": "Valor inicial",
   "monthlyContribution": "Aporte mensal",
   "timeframe": {
@@ -10,15 +9,14 @@
     "1year": "1 Ano",
     "5years": "5 anos",
     "10years": "10 anos",
-    "15years": "15 anos",
     "20years": "20 anos"
   },
-  "resultHeadline": "Em {years} anos, seus R${amount}/mês poderiam virar:",
+  "resultHeadline": "Em {years} anos, seus {amount}/mês poderiam virar:",
   "defiYield": "Com diBoaS",
-  "bankRate": "Com seu banco (0,5% da poupança)",
-  "difference": "Isso é R${difference} a mais — com o mesmo valor mensal.",
+  "bankRate": "Com seu banco (6.71% da poupança)",
+  "difference": "Isso é {difference} a mais com o mesmo valor mensal.",
   "opportunityCost": "Esse é o dinheiro que você está deixando na mesa",
-  "ecbSource": "Comparação bancária baseada na taxa média de poupança da UE de 0,5% APY. Fonte: Estatísticas do BCE, Dezembro 2024.",
+  "ecbSource": "Comparação bancária baseada na taxa média da poupança brasileira de 6.71% ao ano. Fonte: Banco Central do Brasil, Dezembro 2024.",
   "disclaimer": "PROJEÇÃO — Baseado em dados históricos. Resultados passados não garantem retornos futuros.",
   "share": "Compartilhar",
   "cta": "Entrar na lista de espera",

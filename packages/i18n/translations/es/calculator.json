@@ -1,7 +1,6 @@
 {
   "headline": "¿En qué podrían convertirse €20/mes?",
-  "subhead": "Mira tu futuro — sin necesidad de cuenta",
-  "sliderLabel": "Cantidad mensual que podrías apartar",
+  "subhead": "Mira tu yo del futuro",
   "initialAmount": "Monto inicial",
   "monthlyContribution": "Aportación mensual",
   "timeframe": {
@@ -10,15 +9,14 @@
     "1year": "1 Año",
     "5years": "5 años",
     "10years": "10 años",
-    "15years": "15 años",
     "20years": "20 años"
   },
-  "resultHeadline": "En {years} años, tus €{amount}/mes podrían convertirse en:",
+  "resultHeadline": "En {years} años, tus {amount}/mes podrían convertirse en:",
   "defiYield": "Con diBoaS",
-  "bankRate": "Con tu banco (0.5% de ahorro)",
-  "difference": "Eso es €{difference} más — con la misma cantidad mensual.",
+  "bankRate": "Con tu banco (2.59% de ahorro)",
+  "difference": "Eso es {difference} más con la misma cantidad mensual.",
   "opportunityCost": "Ese es el dinero que estás dejando sobre la mesa",
-  "ecbSource": "Comparación bancaria basada en la tasa promedio de ahorro de la UE del 0,5% APY. Fuente: Estadísticas del BCE, Diciembre 2024.",
+  "ecbSource": "Comparación bancaria basada en la tasa promedio de ahorro de la UE del 2.59% APY. Fuente: Estadísticas del BCE, Diciembre 2024.",
   "disclaimer": "PROYECCIÓN — Basado en datos históricos. El rendimiento pasado no garantiza resultados futuros.",
   "share": "Compartir",
   "cta": "Unirse a la lista de espera",

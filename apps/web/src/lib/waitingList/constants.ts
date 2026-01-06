@@ -6,6 +6,12 @@
  */
 
 import { WaitingListConfiguration } from './domain/WaitingListDomain';
+import {
+  APP_URL,
+  WAITLIST_STORAGE_KEYS,
+  REFERRAL_COOKIE_CONFIG,
+  KIT_CONFIG as ENV_KIT_CONFIG,
+} from '@/config/env';
 
 export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
   consentVersion: '1.0.0',
@@ -13,20 +19,17 @@ export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
   privacyPolicyUrl: '/privacy',
   maxNameLength: 100,
   maxXAccountLength: 50,
-  storageKey: 'diboas_waiting_list',
+  storageKey: WAITLIST_STORAGE_KEYS.main,
 };
 
 // Kit.com (ConvertKit) integration configuration
 export const KIT_CONFIG = {
   // API configuration - credentials loaded from environment
-  apiBaseUrl: 'https://api.convertkit.com/v3',
+  apiBaseUrl: ENV_KIT_CONFIG.apiBaseUrl,
   // Form ID for waitlist signups (set via KIT_FORM_ID env var)
-  formId: process.env.NEXT_PUBLIC_KIT_FORM_ID || '',
+  formId: ENV_KIT_CONFIG.formId,
   // Tag IDs for segmentation
-  tags: {
-    waitlist: process.env.NEXT_PUBLIC_KIT_TAG_WAITLIST || '',
-    prelaunch: process.env.NEXT_PUBLIC_KIT_TAG_PRELAUNCH || '',
-  },
+  tags: ENV_KIT_CONFIG.tags,
   // Custom field names in Kit.com
   customFields: {
     position: 'waitlist_position',
@@ -43,23 +46,23 @@ export const REFERRAL_CONFIG = {
   // Spots moved up per successful referral
   spotsPerReferral: 10,
   // Base URL for referral links
-  referralBaseUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com',
+  referralBaseUrl: APP_URL,
   // Referral code prefix (for identification)
-  codePrefix: 'REF',
+  codePrefix: REFERRAL_COOKIE_CONFIG.codePrefix,
   // Code length (excluding prefix)
   codeLength: 6,
   // Cookie name for tracking referral attribution
-  referralCookieName: 'diboas_ref',
+  referralCookieName: REFERRAL_COOKIE_CONFIG.name,
   // Cookie expiry in days
-  referralCookieExpiry: 30,
+  referralCookieExpiry: REFERRAL_COOKIE_CONFIG.expiryDays,
 } as const;
 
 // Position storage keys for local fallback
 export const POSITION_STORAGE_KEYS = {
-  email: 'diboas_waitlist_email',
-  position: 'diboas_waitlist_position',
-  referralCode: 'diboas_waitlist_referral_code',
-  referralCount: 'diboas_waitlist_referral_count',
+  email: WAITLIST_STORAGE_KEYS.email,
+  position: WAITLIST_STORAGE_KEYS.position,
+  referralCode: WAITLIST_STORAGE_KEYS.referralCode,
+  referralCount: WAITLIST_STORAGE_KEYS.referralCount,
 } as const;
 
 // Validation patterns

@@ -29,6 +29,8 @@ export {
   LONG_TERM_TIMEFRAMES,
   CURRENCY_CONFIG,
   CALCULATOR_EVENTS,
+  LOCALE_CONFIG,
+  getLocaleConfig,
 } from './constants';
 
 // Calculations
