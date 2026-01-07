@@ -11,9 +11,9 @@
 
 import { useCallback } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from '@diboas/i18n/client';
+import { CTAButtonLink, CarouselDots, DEFAULT_CTA_PROPS } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
@@ -153,27 +153,20 @@ export function FeatureShowcaseBenefits({
               {currentSlide.content.description}
             </p>
             
+            {/* CTA - Using shared CTAButtonLink component */}
             {currentSlide.content.ctaText && currentSlide.content.ctaHref && (
               <div className={styles.ctaWrapper}>
-                {currentSlide.content.ctaTarget === '_blank' ? (
-                  <a
-                    href={currentSlide.content.ctaHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.ctaButton}
-                    onClick={() => handleCTAClick(currentSlide.id, currentSlide.content.ctaHref)}
-                  >
-                    {currentSlide.content.ctaText}
-                  </a>
-                ) : (
-                  <Link
-                    href={currentSlide.content.ctaHref}
-                    className={styles.ctaButton}
-                    onClick={() => handleCTAClick(currentSlide.id, currentSlide.content.ctaHref)}
-                  >
-                    {currentSlide.content.ctaText}
-                  </Link>
-                )}
+                <CTAButtonLink
+                  href={currentSlide.content.ctaHref}
+                  target={currentSlide.content.ctaTarget}
+                  onClick={() => handleCTAClick(currentSlide.id, currentSlide.content.ctaHref)}
+                  variant={DEFAULT_CTA_PROPS.variant}
+                  size={DEFAULT_CTA_PROPS.size}
+                  trackable={DEFAULT_CTA_PROPS.trackable}
+                  className={styles.ctaButton}
+                >
+                  {currentSlide.content.ctaText}
+                </CTAButtonLink>
               </div>
             )}
 
@@ -202,19 +195,15 @@ export function FeatureShowcaseBenefits({
           </div>
         </div>
 
-        {/* Dots Navigation */}
-        {config.settings?.showDots && slides.length > 1 && (
-          <div className={styles.dotsContainer}>
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`${styles.dot} ${index === currentSlideIndex ? styles.dotActive : ''}`}
-                aria-label={`Go to slide ${index + 1}`}
-                disabled={isTransitioning}
-              />
-            ))}
-          </div>
+        {/* Dots Navigation - Using shared CarouselDots component */}
+        {config.settings?.showDots && (
+          <CarouselDots
+            totalSlides={slides.length}
+            currentIndex={currentSlideIndex}
+            onDotClick={goToSlide}
+            disabled={isTransitioning}
+            className={styles.dotsContainer}
+          />
         )}
       </div>
     </SectionContainer>

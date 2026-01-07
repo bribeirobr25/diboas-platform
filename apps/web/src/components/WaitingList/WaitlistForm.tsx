@@ -10,9 +10,10 @@
  * - Success callback with position data
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { Button } from '@diboas/ui';
 import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
@@ -210,17 +211,17 @@ export function WaitlistForm({
           autoComplete="email"
           disabled={isLoading}
         />
-        <button
+        <Button
           type="submit"
+          variant="primary"
+          size="lg"
+          loading={isLoading}
+          loadingText={t('form.cta')}
           className={styles.submitButton}
-          disabled={isLoading}
+          trackable
         >
-          {isLoading ? (
-            <span className={styles.loadingSpinner} />
-          ) : (
-            t('form.cta')
-          )}
-        </button>
+          {t('form.cta')}
+        </Button>
       </div>
 
       {error && (

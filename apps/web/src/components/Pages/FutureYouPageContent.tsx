@@ -1,10 +1,12 @@
 'use client';
 
 import { useTranslation } from '@diboas/i18n/client';
-import Link from 'next/link';
 import { CalculatorSection } from '@/components/Sections/CalculatorSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
+import { PageHeroSection, SectionContainer } from '@/components/Sections';
+import { ContentCard, CTAButtonLink, ChevronRightIcon } from '@/components/UI';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import styles from './FutureYouPageContent.module.css';
 
 /**
  * i18n namespace prefix for future-you page
@@ -30,19 +32,12 @@ export function FutureYouPageContent() {
         enableReporting={true}
         context={{ page: 'future-you', variant: 'centered' }}
       >
-        <section className="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-slate-800">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              {t('hero.headline')}
-            </h1>
-            <p className="text-xl md:text-2xl text-slate-300 mb-4 max-w-3xl mx-auto">
-              {t('hero.subheadline')}
-            </p>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              {t('hero.subheadline2')}
-            </p>
-          </div>
-        </section>
+        <PageHeroSection
+          headline={t('hero.headline')}
+          subheadline={t('hero.subheadline')}
+          subheadline2={t('hero.subheadline2')}
+          align="center"
+        />
       </SectionErrorBoundary>
 
       {/* Section 2: Calculator */}
@@ -64,48 +59,32 @@ export function FutureYouPageContent() {
         enableReporting={true}
         context={{ page: 'future-you' }}
       >
-        <section className="py-16 md:py-24 bg-slate-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-6">
-              {t('mathExplained.header')}
-            </h2>
-            <p className="text-lg text-slate-600 text-center mb-12 max-w-2xl mx-auto">
-              {t('mathExplained.intro')}
-            </p>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-slate-50)"
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('mathExplained.header')}
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            {t('mathExplained.intro')}
+          </p>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Bank Gap */}
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">
-                  {t('mathExplained.bankGap.headline')}
-                </h3>
-                <p className="text-slate-600 text-sm">
-                  {t('mathExplained.bankGap.body2')}
-                </p>
-              </div>
+          <div className={styles.cardsGrid}>
+            <ContentCard title={t('mathExplained.bankGap.headline')}>
+              <p>{t('mathExplained.bankGap.body2')}</p>
+            </ContentCard>
 
-              {/* Compound */}
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">
-                  {t('mathExplained.compound.headline')}
-                </h3>
-                <p className="text-slate-600 text-sm">
-                  {t('mathExplained.compound.body')}
-                </p>
-              </div>
+            <ContentCard title={t('mathExplained.compound.headline')}>
+              <p>{t('mathExplained.compound.body')}</p>
+            </ContentCard>
 
-              {/* Time */}
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">
-                  {t('mathExplained.time.headline')}
-                </h3>
-                <p className="text-slate-600 text-sm">
-                  {t('mathExplained.time.takeaway')}
-                </p>
-              </div>
-            </div>
+            <ContentCard title={t('mathExplained.time.headline')}>
+              <p>{t('mathExplained.time.takeaway')}</p>
+            </ContentCard>
           </div>
-        </section>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 4: Strategy Connection */}
@@ -115,25 +94,23 @@ export function FutureYouPageContent() {
         enableReporting={true}
         context={{ page: 'future-you' }}
       >
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              {t('strategyConnection.header')}
-            </h2>
-            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-              {t('strategyConnection.body')}
-            </p>
-            <Link
-              href="/strategies"
-              className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-            >
-              {t('strategyConnection.cta')}
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </section>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-white)"
+          className={styles.ctaSection}
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('strategyConnection.header')}
+          </h2>
+          <p className={styles.ctaDescription}>
+            {t('strategyConnection.body')}
+          </p>
+          <CTAButtonLink href="/strategies" variant="primary" size="lg">
+            {t('strategyConnection.cta')}
+            <ChevronRightIcon size="md" />
+          </CTAButtonLink>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 5: Final CTA / Waitlist */}
@@ -149,13 +126,16 @@ export function FutureYouPageContent() {
       </SectionErrorBoundary>
 
       {/* Footer Disclaimer */}
-      <section className="py-8 bg-slate-100">
-        <div className="container mx-auto px-4">
-          <p className="text-xs text-slate-500 text-center max-w-4xl mx-auto">
-            {t('footer.disclaimer')}
-          </p>
-        </div>
-      </section>
+      <SectionContainer
+        variant="standard"
+        padding="none"
+        backgroundColor="var(--color-slate-100)"
+        className={styles.disclaimer}
+      >
+        <p className={styles.disclaimerText}>
+          {t('footer.disclaimer')}
+        </p>
+      </SectionContainer>
     </main>
   );
 }

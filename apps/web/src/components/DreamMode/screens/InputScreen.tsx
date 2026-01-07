@@ -6,12 +6,14 @@
  * Second screen - collects initial amount and monthly contribution
  *
  * Service Agnostic Abstraction: Uses centralized translation hook
- * Code Reusability & DRY: No inline translation helpers
+ * Code Reusability & DRY: Uses shared CurrencyInput and Button components
  */
 
 import React from 'react';
 import { useDreamMode } from '../DreamModeProvider';
 import { useDreamModeTranslation } from '../hooks';
+import { Button } from '@diboas/ui';
+import { CurrencyInput, ChevronLeftIcon } from '@/components/UI';
 import { CALCULATOR_CONFIG } from '@/lib/calculator';
 import styles from './screens.module.css';
 
@@ -22,27 +24,11 @@ export function InputScreen() {
   const t = getTranslator('input');
 
   const handleInitialAmountChange = (value: number) => {
-    const clamped = Math.min(
-      Math.max(value, CALCULATOR_CONFIG.minInitialAmount),
-      CALCULATOR_CONFIG.maxInitialAmount
-    );
-    setInput({ initialAmount: clamped });
+    setInput({ initialAmount: value });
   };
 
   const handleMonthlyChange = (value: number) => {
-    const clamped = Math.min(
-      Math.max(value, CALCULATOR_CONFIG.minMonthlyContribution),
-      CALCULATOR_CONFIG.maxMonthlyContribution
-    );
-    setInput({ monthlyContribution: clamped });
-  };
-
-  const getCurrencySymbol = () => {
-    switch (state.input.currency) {
-      case 'EUR': return '€';
-      case 'BRL': return 'R$';
-      default: return '$';
-    }
+    setInput({ monthlyContribution: value });
   };
 
   return (
@@ -58,83 +44,40 @@ export function InputScreen() {
         <h2 className={styles.headline}>{t('headline')}</h2>
         <p className={styles.subhead}>{t('subhead')}</p>
 
-        {/* Initial amount input */}
-        <div className={styles.inputGroup}>
-          <label htmlFor="initialAmount" className={styles.inputLabel}>{t('initialAmount')}</label>
-          <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol} aria-hidden="true">{getCurrencySymbol()}</span>
-            <input
-              id="initialAmount"
-              type="number"
-              value={state.input.initialAmount}
-              onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
-              className={styles.input}
-              min={CALCULATOR_CONFIG.minInitialAmount}
-              max={CALCULATOR_CONFIG.maxInitialAmount}
-              aria-describedby="initialAmountSlider"
-            />
-          </div>
-          <input
-            id="initialAmountSlider"
-            type="range"
-            value={state.input.initialAmount}
-            onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
-            className={styles.slider}
-            min={CALCULATOR_CONFIG.minInitialAmount}
-            max={50000}
-            step={100}
-            aria-label={t('initialAmount')}
-          />
-        </div>
+        {/* Input fields - Using shared CurrencyInput component */}
+        <CurrencyInput
+          value={state.input.initialAmount}
+          onChange={handleInitialAmountChange}
+          label={t('initialAmount')}
+          currency={state.input.currency}
+          min={CALCULATOR_CONFIG.minInitialAmount}
+          max={CALCULATOR_CONFIG.maxInitialAmount}
+          sliderMax={50000}
+          step={100}
+        />
 
-        {/* Monthly contribution input */}
-        <div className={styles.inputGroup}>
-          <label htmlFor="monthlyContribution" className={styles.inputLabel}>{t('monthlyContribution')}</label>
-          <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol} aria-hidden="true">{getCurrencySymbol()}</span>
-            <input
-              id="monthlyContribution"
-              type="number"
-              value={state.input.monthlyContribution}
-              onChange={(e) => handleMonthlyChange(Number(e.target.value))}
-              className={styles.input}
-              min={CALCULATOR_CONFIG.minMonthlyContribution}
-              max={CALCULATOR_CONFIG.maxMonthlyContribution}
-              aria-describedby="monthlyContributionSlider"
-            />
-          </div>
-          <input
-            id="monthlyContributionSlider"
-            type="range"
-            value={state.input.monthlyContribution}
-            onChange={(e) => handleMonthlyChange(Number(e.target.value))}
-            className={styles.slider}
-            min={0}
-            max={2000}
-            step={25}
-            aria-label={t('monthlyContribution')}
-          />
-        </div>
+        <CurrencyInput
+          value={state.input.monthlyContribution}
+          onChange={handleMonthlyChange}
+          label={t('monthlyContribution')}
+          currency={state.input.currency}
+          min={CALCULATOR_CONFIG.minMonthlyContribution}
+          max={CALCULATOR_CONFIG.maxMonthlyContribution}
+          sliderMax={2000}
+          sliderStep={25}
+        />
 
-        {/* Navigation */}
+        {/* Navigation - Using shared Button component */}
         <div className={styles.navigation}>
-          <button onClick={previousScreen} className={styles.backButton}>
+          <Button variant="ghost" size="default" onClick={previousScreen}>
             <ChevronLeftIcon />
             {t('back')}
-          </button>
-          <button onClick={nextScreen} className={styles.primaryButton}>
+          </Button>
+          <Button variant="primary" size="lg" onClick={nextScreen}>
             {t('continue')}
-          </button>
+          </Button>
         </div>
       </div>
     </div>
-  );
-}
-
-function ChevronLeftIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <polyline points="15 18 9 12 15 6" />
-    </svg>
   );
 }

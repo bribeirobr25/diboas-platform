@@ -1,9 +1,11 @@
 'use client';
 
 import { useTranslation } from '@diboas/i18n/client';
-import Link from 'next/link';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
+import { PageHeroSection, SectionContainer } from '@/components/Sections';
+import { ContentCard, CTAButtonLink, ChevronRightIcon } from '@/components/UI';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import styles from './AboutPageContent.module.css';
 
 /**
  * About Page Content - Client Component
@@ -24,16 +26,11 @@ export function AboutPageContent() {
         enableReporting={true}
         context={{ page: 'about', variant: 'centered' }}
       >
-        <section className="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-slate-800">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              {t('hero.title')}
-            </h1>
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto">
-              {t('hero.subtitle')}
-            </p>
-          </div>
-        </section>
+        <PageHeroSection
+          headline={t('hero.title')}
+          subheadline={t('hero.subtitle')}
+          align="center"
+        />
       </SectionErrorBoundary>
 
       {/* Section 2: The Story */}
@@ -43,29 +40,29 @@ export function AboutPageContent() {
         enableReporting={true}
         context={{ page: 'about' }}
       >
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-                {t('story.header')}
-              </h2>
+        <SectionContainer
+          variant="narrow"
+          padding="standard"
+          backgroundColor="var(--color-white)"
+        >
+          <h2 className={styles.sectionTitleLeft}>
+            {t('story.header')}
+          </h2>
 
-              <div className="space-y-6 text-lg text-slate-700 leading-relaxed">
-                <p>{t('story.paragraph1')}</p>
-                <p>{t('story.paragraph2')}</p>
-                <p className="font-medium text-slate-800">{t('story.paragraph3')}</p>
-                <p className="text-xl font-bold text-slate-900">{t('story.paragraph4')}</p>
-                <p className="text-teal-700 font-medium text-xl">{t('story.soundsFamiliar')}</p>
-                <p>{t('story.revelation')}</p>
-                <div className="bg-slate-50 border-l-4 border-teal-500 p-6 my-8 rounded-r-lg">
-                  <p className="text-slate-800">{t('story.example')}</p>
-                </div>
-                <p>{t('story.universal')}</p>
-                <p className="font-medium">{t('story.turning')}</p>
-              </div>
-            </div>
+          <div className={styles.storyContent}>
+            <p>{t('story.paragraph1')}</p>
+            <p>{t('story.paragraph2')}</p>
+            <p className={styles.storyMedium}>{t('story.paragraph3')}</p>
+            <p className={styles.storyBold}>{t('story.paragraph4')}</p>
+            <p className={styles.storyHighlight}>{t('story.soundsFamiliar')}</p>
+            <p>{t('story.revelation')}</p>
+            <ContentCard variant="accent">
+              <p className={styles.storyExample}>{t('story.example')}</p>
+            </ContentCard>
+            <p>{t('story.universal')}</p>
+            <p className={styles.storyMedium}>{t('story.turning')}</p>
           </div>
-        </section>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 3: What diBoaS Does */}
@@ -75,19 +72,19 @@ export function AboutPageContent() {
         enableReporting={true}
         context={{ page: 'about' }}
       >
-        <section className="py-16 md:py-24 bg-slate-50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-                {t('whatWeDo.header')}
-              </h2>
-              <div className="space-y-6 text-lg text-slate-700 leading-relaxed">
-                <p>{t('whatWeDo.description')}</p>
-                <p className="text-slate-800 font-medium">{t('whatWeDo.noMiddleman')}</p>
-              </div>
-            </div>
+        <SectionContainer
+          variant="narrow"
+          padding="standard"
+          backgroundColor="var(--color-slate-50)"
+        >
+          <h2 className={styles.sectionTitleLeft}>
+            {t('whatWeDo.header')}
+          </h2>
+          <div className={styles.storyContent}>
+            <p>{t('whatWeDo.description')}</p>
+            <p className={styles.storyMedium}>{t('whatWeDo.noMiddleman')}</p>
           </div>
-        </section>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 4: What We Believe */}
@@ -97,45 +94,29 @@ export function AboutPageContent() {
         enableReporting={true}
         context={{ page: 'about' }}
       >
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-12">
-              {t('beliefs.header')}
-            </h2>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-white)"
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('beliefs.header')}
+          </h2>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Belief 1: Money */}
-              <div className="bg-slate-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">
-                  {t('beliefs.money.title')}
-                </h3>
-                <p className="text-slate-600">
-                  {t('beliefs.money.description')}
-                </p>
-              </div>
+          <div className={styles.beliefsGrid}>
+            <ContentCard variant="muted" title={t('beliefs.money.title')}>
+              <p>{t('beliefs.money.description')}</p>
+            </ContentCard>
 
-              {/* Belief 2: Honesty */}
-              <div className="bg-slate-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">
-                  {t('beliefs.honesty.title')}
-                </h3>
-                <p className="text-slate-600">
-                  {t('beliefs.honesty.description')}
-                </p>
-              </div>
+            <ContentCard variant="muted" title={t('beliefs.honesty.title')}>
+              <p>{t('beliefs.honesty.description')}</p>
+            </ContentCard>
 
-              {/* Belief 3: Start Small */}
-              <div className="bg-slate-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">
-                  {t('beliefs.startSmall.title')}
-                </h3>
-                <p className="text-slate-600">
-                  {t('beliefs.startSmall.description')}
-                </p>
-              </div>
-            </div>
+            <ContentCard variant="muted" title={t('beliefs.startSmall.title')}>
+              <p>{t('beliefs.startSmall.description')}</p>
+            </ContentCard>
           </div>
-        </section>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 5: The Mission */}
@@ -145,19 +126,22 @@ export function AboutPageContent() {
         enableReporting={true}
         context={{ page: 'about' }}
       >
-        <section className="py-16 md:py-24 bg-teal-50">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-              {t('mission.header')}
-            </h2>
-            <p className="text-xl md:text-2xl text-slate-700 max-w-3xl mx-auto mb-6">
-              {t('mission.statement')}
-            </p>
-            <p className="text-lg font-bold text-teal-700">
-              {t('mission.tagline')}
-            </p>
-          </div>
-        </section>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-teal-50)"
+          className={styles.missionSection}
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('mission.header')}
+          </h2>
+          <p className={styles.missionStatement}>
+            {t('mission.statement')}
+          </p>
+          <p className={styles.missionTagline}>
+            {t('mission.tagline')}
+          </p>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 6: For Businesses */}
@@ -167,28 +151,26 @@ export function AboutPageContent() {
         enableReporting={true}
         context={{ page: 'about' }}
       >
-        <section className="py-16 md:py-24 bg-slate-900">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              {t('business.header')}
-            </h2>
-            <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-4">
-              {t('business.description')}
-            </p>
-            <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-8">
-              {t('business.pitch')}
-            </p>
-            <Link
-              href="/business"
-              className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-            >
-              {t('business.cta')}
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </section>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-slate-900)"
+          className={styles.businessSection}
+        >
+          <h2 className={styles.businessTitle}>
+            {t('business.header')}
+          </h2>
+          <p className={styles.businessDescription}>
+            {t('business.description')}
+          </p>
+          <p className={styles.businessDescription}>
+            {t('business.pitch')}
+          </p>
+          <CTAButtonLink href="/business" variant="primary" size="lg">
+            {t('business.cta')}
+            <ChevronRightIcon size="md" />
+          </CTAButtonLink>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 7: Contact */}
@@ -198,29 +180,30 @@ export function AboutPageContent() {
         enableReporting={true}
         context={{ page: 'about' }}
       >
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-slate-900 mb-8">
-                {t('contact.header')}
-              </h2>
-              <div className="space-y-4 text-lg text-slate-700">
-                <p>
-                  <span className="font-medium">{t('contact.founder')}</span> {t('contact.founderName')}
-                </p>
-                <p>
-                  <span className="font-medium">{t('contact.location')}</span> {t('contact.locationValue')}
-                </p>
-                <p>
-                  <span className="font-medium">{t('contact.email')}</span>{' '}
-                  <a href="mailto:hello@diboas.com" className="text-teal-600 hover:text-teal-700">
-                    {t('contact.emailValue')}
-                  </a>
-                </p>
-              </div>
-            </div>
+        <SectionContainer
+          variant="narrow"
+          padding="standard"
+          backgroundColor="var(--color-white)"
+          className={styles.contactSection}
+        >
+          <h2 className={styles.contactTitle}>
+            {t('contact.header')}
+          </h2>
+          <div className={styles.contactInfo}>
+            <p>
+              <span className={styles.contactLabel}>{t('contact.founder')}</span> {t('contact.founderName')}
+            </p>
+            <p>
+              <span className={styles.contactLabel}>{t('contact.location')}</span> {t('contact.locationValue')}
+            </p>
+            <p>
+              <span className={styles.contactLabel}>{t('contact.email')}</span>{' '}
+              <a href="mailto:hello@diboas.com" className={styles.contactLink}>
+                {t('contact.emailValue')}
+              </a>
+            </p>
           </div>
-        </section>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 8: Waitlist */}

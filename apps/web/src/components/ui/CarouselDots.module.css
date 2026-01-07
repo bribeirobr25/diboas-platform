@@ -1,0 +1,61 @@
+/**
+ * CarouselDots Styles
+ *
+ * DRY Principle: Centralized styling for carousel dot navigation.
+ * Uses design tokens for consistency with the design system.
+ */
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm, 8px);
+}
+
+.dot {
+  border-radius: 50%;
+  background: var(--bg-tertiary, #e2e8f0);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+/* Size variants */
+.sm .dot {
+  width: 8px;
+  height: 8px;
+}
+
+.md .dot {
+  width: 10px;
+  height: 10px;
+}
+
+.lg .dot {
+  width: 12px;
+  height: 12px;
+}
+
+/* Hover state */
+.dot:hover:not(:disabled) {
+  background: var(--color-teal-300, #5eead4);
+  transform: scale(1.2);
+}
+
+/* Active state */
+.dot.dotActive {
+  background: var(--color-teal-500, #14b8a6);
+}
+
+/* Focus state for accessibility */
+.dot:focus-visible {
+  outline: 2px solid var(--color-teal-500, #14b8a6);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.dot:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

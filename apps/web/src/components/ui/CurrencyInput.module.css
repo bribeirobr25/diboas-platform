@@ -1,0 +1,121 @@
+/**
+ * CurrencyInput Styles
+ *
+ * DRY Principle: Centralized styling for currency inputs with sliders.
+ * Uses design tokens for consistency with the design system.
+ */
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 8px);
+}
+
+.inputLabel {
+  font-size: var(--font-size-small, 14px);
+  font-weight: 500;
+  color: var(--text-secondary, #64748b);
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 4px);
+  background: var(--bg-secondary, #f8fafc);
+  border: 1px solid var(--border-default, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-sm, 8px) var(--spacing-md, 12px);
+  transition: border-color 0.2s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-teal-500, #14b8a6);
+}
+
+.currencySymbol {
+  font-size: var(--font-size-h4, 18px);
+  font-weight: 600;
+  color: var(--text-secondary, #64748b);
+}
+
+.input {
+  flex: 1;
+  font-size: var(--font-size-h4, 18px);
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+  background: transparent;
+  border: none;
+  outline: none;
+  min-width: 0;
+}
+
+.input:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-primary, #14b8a6);
+}
+
+/* Hide number input spinners */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Range slider styling */
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-tertiary, #e2e8f0);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.slider:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-primary, #14b8a6);
+}
+
+/* WebKit slider thumb */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-teal-500, #14b8a6);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* Firefox slider thumb */
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-teal-500, #14b8a6);
+  cursor: pointer;
+}
+
+/* Disabled state */
+.slider:disabled,
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+.slider:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}

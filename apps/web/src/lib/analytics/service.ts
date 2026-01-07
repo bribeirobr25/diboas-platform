@@ -6,6 +6,7 @@
 
 import { AnalyticsService, AnalyticsEvent, AnalyticsConfig, WebVitalsMetric } from './types';
 import { ANALYTICS_DEFAULTS } from './constants';
+import { Logger } from '@/lib/monitoring/Logger';
 
 class AnalyticsServiceImpl implements AnalyticsService {
   private config: AnalyticsConfig;
@@ -37,7 +38,7 @@ class AnalyticsServiceImpl implements AnalyticsService {
     this.eventQueue.push(enrichedEvent);
 
     if (this.config.debug) {
-      console.log('Analytics event tracked:', enrichedEvent);
+      Logger.debug('Analytics event tracked', { event: enrichedEvent });
     }
 
     // Auto-flush if queue is full
@@ -119,7 +120,7 @@ class AnalyticsServiceImpl implements AnalyticsService {
     try {
       // Future: Send to actual analytics service
       if (this.config.debug) {
-        console.log('Flushing analytics events:', events);
+        Logger.debug('Flushing analytics events', { count: events.length, events });
       }
 
       // Example: Send to Google Analytics 4

@@ -15,6 +15,8 @@
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { Button } from '@diboas/ui';
+import { CurrencyInput } from '@/components/UI';
 import {
   calculateFullResult,
   formatCurrency,
@@ -254,59 +256,29 @@ export function FutureYouCalculator({
         <p className={styles.subhead}>{t('subhead')}</p>
       </div>
 
-      {/* Input Section */}
+      {/* Input Section - Using shared CurrencyInput component */}
       <div className={styles.inputSection}>
-        <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>{t('initialAmount')}</label>
-          <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol}>
-              {currency === 'USD' ? '$' : currency === 'EUR' ? '€' : 'R$'}
-            </span>
-            <input
-              type="number"
-              value={initialAmount}
-              onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
-              className={styles.input}
-              min={CALCULATOR_CONFIG.minInitialAmount}
-              max={CALCULATOR_CONFIG.maxInitialAmount}
-            />
-          </div>
-          <input
-            type="range"
-            value={initialAmount}
-            onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
-            className={styles.slider}
-            min={CALCULATOR_CONFIG.minInitialAmount}
-            max={100000}
-            step={100}
-          />
-        </div>
+        <CurrencyInput
+          value={initialAmount}
+          onChange={handleInitialAmountChange}
+          label={t('initialAmount')}
+          currency={currency}
+          min={CALCULATOR_CONFIG.minInitialAmount}
+          max={CALCULATOR_CONFIG.maxInitialAmount}
+          sliderMax={100000}
+          step={100}
+        />
 
-        <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>{t('monthlyContribution')}</label>
-          <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol}>
-              {currency === 'USD' ? '$' : currency === 'EUR' ? '€' : 'R$'}
-            </span>
-            <input
-              type="number"
-              value={monthlyContribution}
-              onChange={(e) => handleMonthlyContributionChange(Number(e.target.value))}
-              className={styles.input}
-              min={CALCULATOR_CONFIG.minMonthlyContribution}
-              max={CALCULATOR_CONFIG.maxMonthlyContribution}
-            />
-          </div>
-          <input
-            type="range"
-            value={monthlyContribution}
-            onChange={(e) => handleMonthlyContributionChange(Number(e.target.value))}
-            className={styles.slider}
-            min={0}
-            max={5000}
-            step={50}
-          />
-        </div>
+        <CurrencyInput
+          value={monthlyContribution}
+          onChange={handleMonthlyContributionChange}
+          label={t('monthlyContribution')}
+          currency={currency}
+          min={CALCULATOR_CONFIG.minMonthlyContribution}
+          max={CALCULATOR_CONFIG.maxMonthlyContribution}
+          sliderMax={5000}
+          sliderStep={50}
+        />
       </div>
 
       {/* Timeframe Selector */}
@@ -400,23 +372,37 @@ export function FutureYouCalculator({
       {/* Disclaimer */}
       <p className={styles.disclaimer}>{t('disclaimer')}</p>
 
-      {/* Actions */}
+      {/* Actions - Using shared Button component from @diboas/ui */}
       <div className={styles.actions}>
         {onShare && (
-          <button onClick={handleShare} className={styles.shareButton}>
+          <Button
+            variant="outline"
+            size="default"
+            onClick={handleShare}
+            className={styles.shareButton}
+          >
             <ShareIcon />
             {t('share')}
-          </button>
+          </Button>
         )}
         {onCtaClick && (
-          <button onClick={handleCtaClick} className={styles.ctaButton}>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={handleCtaClick}
+            trackable
+          >
             {t('cta')}
-          </button>
+          </Button>
         )}
         {onSecondaryCta && (
-          <button onClick={onSecondaryCta} className={styles.secondaryCtaButton}>
+          <Button
+            variant="ghost"
+            size="default"
+            onClick={onSecondaryCta}
+          >
             {t('ctaSecondary')}
-          </button>
+          </Button>
         )}
       </div>
     </div>

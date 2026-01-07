@@ -15,6 +15,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { Logger } from '@/lib/monitoring/Logger';
 import styles from './StickyFeaturesNavDefault.module.css';
 import type { StickyFeaturesNavVariantProps } from '../types';
 
@@ -43,7 +44,7 @@ export function StickyFeaturesNavDefault({
 
       // Analytics
       if (enableAnalytics && analytics?.enabled) {
-        console.log(`[Analytics] CTA clicked: ${categoryId}/${itemId}`);
+        Logger.debug('[Analytics] CTA clicked', { categoryId, itemId });
       }
     },
     [onCTAClick, enableAnalytics, analytics]

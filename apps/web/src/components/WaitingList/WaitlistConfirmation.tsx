@@ -13,6 +13,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { Button } from '@diboas/ui';
 import { ReferralLink } from './ReferralLink';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { formatPosition } from '@/lib/waitingList/helpers';
@@ -139,20 +140,28 @@ export function WaitlistConfirmation({
         )}
       </div>
 
-      {/* Dream Mode CTA */}
+      {/* Dream Mode CTA - Using shared Button component */}
       {onDreamModeClick && (
-        <button
-          className={styles.dreamModeCta}
+        <Button
+          variant="primary"
+          size="lg"
           onClick={handleDreamModeClick}
+          trackable
+          className={styles.dreamModeCta}
         >
           {t('confirmation.dreamModeCta')}
-        </button>
+        </Button>
       )}
 
-      {/* Secondary CTA */}
-      <a href="#how-it-works" className={styles.exploreCta}>
+      {/* Secondary CTA - Using shared Button component */}
+      <Button
+        variant="ghost"
+        size="default"
+        onClick={() => window.location.href = '#how-it-works'}
+        className={styles.exploreCta}
+      >
         {t('confirmation.exploreCta')}
-      </a>
+      </Button>
     </div>
   );
 }

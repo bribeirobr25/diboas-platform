@@ -1,9 +1,11 @@
 'use client';
 
 import { useTranslation } from '@diboas/i18n/client';
-import Link from 'next/link';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
+import { PageHeroSection, SectionContainer } from '@/components/Sections';
+import { ContentCard, StrategyCard, CTAButtonLink, ChevronRightIcon } from '@/components/UI';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import styles from './StrategiesPageContent.module.css';
 
 /**
  * i18n namespace prefix for strategies page
@@ -54,28 +56,6 @@ const MATRIX_ROWS = [
 ] as const;
 
 /**
- * Risk level colors - Professional muted palette
- */
-function getRiskLevelColor(strategyId: string): string {
-  const growthExposure = GROWTH_EXPOSURE[strategyId] || 0;
-  if (growthExposure === 0) return 'text-teal-700';
-  if (growthExposure < 40) return 'text-slate-700';
-  if (growthExposure < 70) return 'text-slate-800';
-  return 'text-slate-900';
-}
-
-/**
- * Card accent border color - subtle left border indicator
- * Teal for stable strategies (0% growth), Amber for growth strategies
- */
-function getCardBorderClass(strategyId: string): string {
-  const growthExposure = GROWTH_EXPOSURE[strategyId] || 0;
-  return growthExposure === 0
-    ? 'border-l-4 border-l-teal-400'
-    : 'border-l-4 border-l-amber-400';
-}
-
-/**
  * Strategies Page Content - Client Component
  * Uses i18n for all text content
  */
@@ -94,19 +74,12 @@ export function StrategiesPageContent() {
         enableReporting={true}
         context={{ page: 'strategies', variant: 'centered' }}
       >
-        <section className="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-slate-800">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              {t('hero.headline')}
-            </h1>
-            <p className="text-xl md:text-2xl text-slate-300 mb-4 max-w-3xl mx-auto">
-              {t('hero.subheadline')}
-            </p>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              {t('hero.subheadline2')}
-            </p>
-          </div>
-        </section>
+        <PageHeroSection
+          headline={t('hero.headline')}
+          subheadline={t('hero.subheadline')}
+          subheadline2={t('hero.subheadline2')}
+          align="center"
+        />
       </SectionErrorBoundary>
 
       {/* Section 2: Strategy Matrix */}
@@ -116,56 +89,58 @@ export function StrategiesPageContent() {
         enableReporting={true}
         context={{ page: 'strategies' }}
       >
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-6">
-              {t('matrix.header')}
-            </h2>
-            <p className="text-lg text-slate-600 text-center mb-12 max-w-2xl mx-auto">
-              {t('matrix.instructions')}
-            </p>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-white)"
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('matrix.header')}
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            {t('matrix.instructions')}
+          </p>
 
-            <div className="overflow-x-auto">
-              <table className="w-full max-w-4xl mx-auto bg-slate-50 rounded-xl">
-                <thead>
-                  <tr className="border-b border-slate-200">
-                    <th className="px-6 py-4 text-left text-slate-600 font-medium">
-                      {t('matrix.columns.goal')}
-                    </th>
-                    <th className="px-6 py-4 text-center text-teal-700 font-medium">
-                      {t('matrix.columns.stable')}
-                    </th>
-                    <th className="px-6 py-4 text-center text-amber-700 font-medium">
-                      {t('matrix.columns.growth')}
-                    </th>
+          <div className={styles.tableWrapper}>
+            <table className={styles.strategyTable}>
+              <thead>
+                <tr className={styles.tableHeaderRow}>
+                  <th className={styles.tableHeaderGoal}>
+                    {t('matrix.columns.goal')}
+                  </th>
+                  <th className={styles.tableHeaderStable}>
+                    {t('matrix.columns.stable')}
+                  </th>
+                  <th className={styles.tableHeaderGrowth}>
+                    {t('matrix.columns.growth')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {MATRIX_ROWS.map((row, index) => (
+                  <tr
+                    key={row.id}
+                    className={index < MATRIX_ROWS.length - 1 ? styles.tableRow : styles.tableRowLast}
+                  >
+                    <td className={styles.tableCellGoal}>
+                      {t(`matrix.rows.${row.id}.goal`)}
+                    </td>
+                    <td className={styles.tableCellStable}>
+                      {t(`matrix.rows.${row.id}.stable`)}
+                    </td>
+                    <td className={styles.tableCellGrowth}>
+                      {t(`matrix.rows.${row.id}.growth`)}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {MATRIX_ROWS.map((row, index) => (
-                    <tr
-                      key={row.id}
-                      className={index < MATRIX_ROWS.length - 1 ? 'border-b border-slate-200' : ''}
-                    >
-                      <td className="px-6 py-4 font-medium text-slate-900">
-                        {t(`matrix.rows.${row.id}.goal`)}
-                      </td>
-                      <td className="px-6 py-4 text-center text-teal-600">
-                        {t(`matrix.rows.${row.id}.stable`)}
-                      </td>
-                      <td className="px-6 py-4 text-center text-amber-600">
-                        {t(`matrix.rows.${row.id}.growth`)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <p className="text-center text-slate-500 mt-8 text-sm">
-              {t('matrix.note')}
-            </p>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </section>
+
+          <p className={styles.tableNote}>
+            {t('matrix.note')}
+          </p>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 3: Strategy Cards */}
@@ -175,77 +150,34 @@ export function StrategiesPageContent() {
         enableReporting={true}
         context={{ page: 'strategies' }}
       >
-        <section className="py-16 md:py-24 bg-slate-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-12">
-              {t('allStrategiesHeader')}
-            </h2>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-slate-50)"
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('allStrategiesHeader')}
+          </h2>
 
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              {STRATEGY_IDS.map((strategyId) => {
-                const growthExposure = GROWTH_EXPOSURE[strategyId];
-                return (
-                  <div
-                    key={strategyId}
-                    className={`bg-white rounded-xl p-6 shadow-sm border border-slate-200 ${getCardBorderClass(strategyId)}`}
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-bold text-slate-900">
-                        {t(`strategies.${strategyId}.name`)}
-                      </h3>
-                      {growthExposure > 0 && (
-                        <span className="text-xs font-medium bg-slate-100 text-slate-600 px-2 py-1 rounded border border-slate-200">
-                          {growthExposure}% {t('growthBadge')}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-slate-500 mb-3">
-                      {t(`strategies.${strategyId}.badge`)}
-                    </p>
-                    <p className="text-slate-700 font-medium mb-4">
-                      {t(`strategies.${strategyId}.tagline`)}
-                    </p>
-
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-slate-500">
-                          {t('statsLabels.lossChance')}:
-                        </span>
-                        <span className="font-medium text-slate-900">
-                          {t(`strategies.${strategyId}.stats.lossChance`)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-slate-500">
-                          {t('statsLabels.typicalReturn')}:
-                        </span>
-                        <span className="font-medium text-slate-900">
-                          {t(`strategies.${strategyId}.stats.typicalReturn`)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-slate-500">
-                          {t('statsLabels.bumpiness')}:
-                        </span>
-                        <span className="font-medium text-slate-900">
-                          {t(`strategies.${strategyId}.stats.bumpiness`)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-slate-500">
-                          {t('statsLabels.riskLevel')}:
-                        </span>
-                        <span className={`font-medium ${getRiskLevelColor(strategyId)}`}>
-                          {t(`strategies.${strategyId}.riskLevel`)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          <div className={styles.cardsGrid}>
+            {STRATEGY_IDS.map((strategyId) => (
+              <StrategyCard
+                key={strategyId}
+                name={t(`strategies.${strategyId}.name`)}
+                badge={t(`strategies.${strategyId}.badge`)}
+                tagline={t(`strategies.${strategyId}.tagline`)}
+                growthExposure={GROWTH_EXPOSURE[strategyId]}
+                growthBadgeLabel={t('growthBadge')}
+                stats={[
+                  { label: t('statsLabels.lossChance'), value: t(`strategies.${strategyId}.stats.lossChance`) },
+                  { label: t('statsLabels.typicalReturn'), value: t(`strategies.${strategyId}.stats.typicalReturn`) },
+                  { label: t('statsLabels.bumpiness'), value: t(`strategies.${strategyId}.stats.bumpiness`) },
+                  { label: t('statsLabels.riskLevel'), value: t(`strategies.${strategyId}.riskLevel`) },
+                ]}
+              />
+            ))}
           </div>
-        </section>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 4: How to Choose */}
@@ -255,58 +187,40 @@ export function StrategiesPageContent() {
         enableReporting={true}
         context={{ page: 'strategies' }}
       >
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-12">
-              {t('howToChoose.header')}
-            </h2>
+        <SectionContainer
+          variant="narrow"
+          padding="standard"
+          backgroundColor="var(--color-white)"
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('howToChoose.header')}
+          </h2>
 
-            <div className="max-w-3xl mx-auto space-y-8">
-              <div className="bg-slate-50 rounded-xl p-6">
-                <h3 className="font-bold text-lg text-slate-900 mb-4">
-                  {t('howToChoose.question1.title')}
-                </h3>
-                <ul className="space-y-2 text-slate-600">
-                  <li>
-                    {t('howToChoose.question1.options.emergency')}
-                  </li>
-                  <li>
-                    {t('howToChoose.question1.options.shortTerm')}
-                  </li>
-                  <li>
-                    {t('howToChoose.question1.options.mediumTerm')}
-                  </li>
-                  <li>
-                    {t('howToChoose.question1.options.longTerm')}
-                  </li>
-                </ul>
-              </div>
+          <div className={styles.questionsList}>
+            <ContentCard variant="muted" title={t('howToChoose.question1.title')}>
+              <ul className={styles.optionsList}>
+                <li>{t('howToChoose.question1.options.emergency')}</li>
+                <li>{t('howToChoose.question1.options.shortTerm')}</li>
+                <li>{t('howToChoose.question1.options.mediumTerm')}</li>
+                <li>{t('howToChoose.question1.options.longTerm')}</li>
+              </ul>
+            </ContentCard>
 
-              <div className="bg-slate-50 rounded-xl p-6">
-                <h3 className="font-bold text-lg text-slate-900 mb-4">
-                  {t('howToChoose.question2.title')}
-                </h3>
-                <ul className="space-y-2 text-slate-600">
-                  <li>
-                    {t('howToChoose.question2.options.none')}
-                  </li>
-                  <li>
-                    {t('howToChoose.question2.options.understand')}
-                  </li>
-                  <li>
-                    {t('howToChoose.question2.options.unsure')}
-                  </li>
-                </ul>
-              </div>
+            <ContentCard variant="muted" title={t('howToChoose.question2.title')}>
+              <ul className={styles.optionsList}>
+                <li>{t('howToChoose.question2.options.none')}</li>
+                <li>{t('howToChoose.question2.options.understand')}</li>
+                <li>{t('howToChoose.question2.options.unsure')}</li>
+              </ul>
+            </ContentCard>
 
-              <div className="bg-teal-50 rounded-xl p-6 border border-teal-200">
-                <p className="text-teal-800 font-medium text-center">
-                  {t('howToChoose.goldenRule')}
-                </p>
-              </div>
-            </div>
+            <ContentCard variant="highlight">
+              <p className={styles.goldenRule}>
+                {t('howToChoose.goldenRule')}
+              </p>
+            </ContentCard>
           </div>
-        </section>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 5: Future You Connection */}
@@ -316,25 +230,23 @@ export function StrategiesPageContent() {
         enableReporting={true}
         context={{ page: 'strategies' }}
       >
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              {t('futureYouConnection.header')}
-            </h2>
-            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-              {t('futureYouConnection.body')}
-            </p>
-            <Link
-              href="/future-you"
-              className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-            >
-              {t('futureYouConnection.cta')}
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </section>
+        <SectionContainer
+          variant="standard"
+          padding="standard"
+          backgroundColor="var(--color-white)"
+          className={styles.ctaSection}
+        >
+          <h2 className={styles.sectionTitle}>
+            {t('futureYouConnection.header')}
+          </h2>
+          <p className={styles.ctaDescription}>
+            {t('futureYouConnection.body')}
+          </p>
+          <CTAButtonLink href="/future-you" variant="primary" size="lg">
+            {t('futureYouConnection.cta')}
+            <ChevronRightIcon size="md" />
+          </CTAButtonLink>
+        </SectionContainer>
       </SectionErrorBoundary>
 
       {/* Section 6: Final CTA / Waitlist */}
@@ -350,13 +262,16 @@ export function StrategiesPageContent() {
       </SectionErrorBoundary>
 
       {/* Footer Disclaimer */}
-      <section className="py-8 bg-slate-100">
-        <div className="container mx-auto px-4">
-          <p className="text-xs text-slate-500 text-center max-w-4xl mx-auto">
-            {t('footer.disclaimer')}
-          </p>
-        </div>
-      </section>
+      <SectionContainer
+        variant="standard"
+        padding="none"
+        backgroundColor="var(--color-slate-100)"
+        className={styles.disclaimer}
+      >
+        <p className={styles.disclaimerText}>
+          {t('footer.disclaimer')}
+        </p>
+      </SectionContainer>
     </main>
   );
 }

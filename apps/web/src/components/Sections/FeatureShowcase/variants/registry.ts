@@ -84,6 +84,7 @@ export function getAvailableFeatureShowcaseVariants(): string[] {
  * @param variantName - The variant name to validate
  * @param config - The configuration object to validate
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Validation function accepts untyped runtime data
 export function validateFeatureShowcaseVariant(variantName: string, config: any): boolean {
   if (!hasFeatureShowcaseVariant(variantName)) {
     console.warn(`FeatureShowcase variant '${variantName}' not found in registry`);

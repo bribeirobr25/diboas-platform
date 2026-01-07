@@ -50,9 +50,9 @@ import {
   getByEmail,
   getByReferralCode,
   processReferral,
+  type WaitlistSource,
 } from '@/lib/waitingList/store';
-
-import type { WaitlistSource } from '@/lib/waitingList/store';
+import { Logger } from '@/lib/monitoring/Logger';
 
 /**
  * Sync subscriber to Kit.com (ConvertKit)
@@ -72,7 +72,7 @@ async function syncToKit(
   const formId = process.env.KIT_FORM_ID;
 
   if (!apiKey || !formId) {
-    console.log('[Kit.com] Skipping sync - credentials not configured');
+    Logger.debug('[Kit.com] Skipping sync - credentials not configured');
     return;
   }
 
@@ -100,12 +100,12 @@ async function syncToKit(
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('[Kit.com] Sync failed:', response.status, errorData);
+      Logger.error('[Kit.com] Sync failed', { status: response.status, error: errorData });
     } else {
-      console.log('[Kit.com] Successfully synced subscriber:', email);
+      Logger.info('[Kit.com] Successfully synced subscriber', { email });
     }
   } catch (error) {
-    console.error('[Kit.com] Sync error:', error);
+    Logger.error('[Kit.com] Sync error', {}, error instanceof Error ? error : undefined);
   }
 }
 

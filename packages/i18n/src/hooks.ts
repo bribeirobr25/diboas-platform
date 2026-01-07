@@ -7,8 +7,7 @@
 
 'use client';
 
-import { useIntl } from 'react-intl';
-import type { MessageDescriptor, IntlShape } from 'react-intl';
+import { useIntl, type IntlShape } from 'react-intl';
 
 /**
  * Hook for accessing translation functions

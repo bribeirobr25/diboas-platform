@@ -21,6 +21,9 @@ export { StickyFeaturesNav } from './StickyFeaturesNav';
 // Unified Section Container Component
 export { SectionContainer } from './SectionContainer';
 
+// Page-level Sections
+export { PageHeroSection, type PageHeroSectionProps } from './PageHeroSection';
+
 
 // Re-export unified types for convenience
 export type { 
