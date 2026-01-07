@@ -4,11 +4,14 @@
  * Timeframe Screen
  *
  * Third screen - select projection timeframe
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { useDreamModeTranslation } from '../hooks';
 import { TimeframeIcon, type TimeframeIconType } from '@/components/Icons';
 import type { DreamInput } from '../types';
 import styles from './screens.module.css';
@@ -29,10 +32,10 @@ const TIMEFRAMES: TimeframeData[] = [
 ];
 
 export function TimeframeScreen() {
-  const intl = useIntl();
+  const { getTranslator } = useDreamModeTranslation();
   const { state, setInput, nextScreen, previousScreen, startSimulation } = useDreamMode();
 
-  const t = (key: string) => intl.formatMessage({ id: `dreamMode.timeframe.${key}` });
+  const t = getTranslator('timeframe');
 
   const handleSelect = (timeframe: TimeframeOption) => {
     setInput({ timeframe });

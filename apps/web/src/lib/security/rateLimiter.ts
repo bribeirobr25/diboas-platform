@@ -12,13 +12,14 @@
 
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
+import { RATE_LIMIT_CONFIG, IS_PRODUCTION } from '@/config/env';
 
 // In-memory fallback store
 const inMemoryStore = new Map<string, { count: number; resetAt: number }>();
 
-// Configuration
-const DEFAULT_LIMIT = 5;
-const DEFAULT_WINDOW_MS = 60 * 1000; // 1 minute
+// Configuration from environment
+const DEFAULT_LIMIT = RATE_LIMIT_CONFIG.strict.limit;
+const DEFAULT_WINDOW_MS = RATE_LIMIT_CONFIG.strict.windowMs;
 
 // Redis client (lazy initialization)
 let redis: Redis | null = null;
@@ -39,7 +40,7 @@ function initializeRedis(): boolean {
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (!url || !token) {
-    if (process.env.NODE_ENV === 'production') {
+    if (IS_PRODUCTION) {
       console.warn('[RateLimiter] Upstash Redis not configured, using in-memory fallback');
     }
     return false;
@@ -51,7 +52,7 @@ function initializeRedis(): boolean {
       redis,
       limiter: Ratelimit.slidingWindow(DEFAULT_LIMIT, `${DEFAULT_WINDOW_MS}ms`),
       analytics: true,
-      prefix: 'diboas-ratelimit',
+      prefix: RATE_LIMIT_CONFIG.prefix,
     });
     return true;
   } catch (error) {
@@ -209,14 +210,15 @@ export function createRateLimitHeaders(result: RateLimitResult): Headers {
 
 /**
  * Preset rate limiters for different endpoints
+ * Configuration loaded from environment variables
  */
 export const RateLimitPresets = {
-  // Strict: 5 requests per minute (waitlist signup)
-  strict: { limit: 5, windowMs: 60 * 1000 },
+  // Strict: for sensitive endpoints like waitlist signup
+  strict: RATE_LIMIT_CONFIG.strict,
 
-  // Standard: 30 requests per minute (general API)
-  standard: { limit: 30, windowMs: 60 * 1000 },
+  // Standard: for general API endpoints
+  standard: RATE_LIMIT_CONFIG.standard,
 
-  // Lenient: 100 requests per minute (read-only endpoints)
-  lenient: { limit: 100, windowMs: 60 * 1000 },
+  // Lenient: for read-only endpoints
+  lenient: RATE_LIMIT_CONFIG.lenient,
 } as const;

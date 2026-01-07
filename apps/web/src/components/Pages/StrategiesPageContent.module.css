@@ -1,0 +1,191 @@
+/**
+ * StrategiesPageContent Styles
+ *
+ * Page-specific styles for Strategies page content
+ * Uses design tokens for consistent styling
+ */
+
+/* ================================
+   SECTION TYPOGRAPHY
+   ================================ */
+
+.sectionTitle {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700;
+  color: var(--color-slate-900);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    font-size: 2.25rem; /* text-4xl */
+  }
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem; /* text-lg */
+  color: var(--color-slate-600);
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 32rem; /* max-w-2xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ================================
+   STRATEGY MATRIX TABLE
+   ================================ */
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.strategyTable {
+  width: 100%;
+  max-width: 56rem; /* max-w-4xl */
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--color-slate-50);
+  border-radius: 0.75rem;
+}
+
+.tableHeaderRow {
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.tableHeaderGoal {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  color: var(--color-slate-600);
+  font-weight: 500;
+}
+
+.tableHeaderStable {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  color: var(--color-teal-700);
+  font-weight: 500;
+}
+
+.tableHeaderGrowth {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  color: var(--color-amber-700);
+  font-weight: 500;
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.tableRowLast {
+  /* No border for last row */
+}
+
+.tableCellGoal {
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  color: var(--color-slate-900);
+}
+
+.tableCellStable {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  color: var(--color-teal-600);
+}
+
+.tableCellGrowth {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  color: var(--color-amber-600);
+}
+
+.tableNote {
+  text-align: center;
+  color: var(--color-slate-500);
+  margin-top: 2rem;
+  font-size: 0.875rem;
+}
+
+/* ================================
+   STRATEGY CARDS GRID
+   ================================ */
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 64rem; /* max-w-5xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ================================
+   HOW TO CHOOSE SECTION
+   ================================ */
+
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--color-slate-600);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.goldenRule {
+  color: var(--color-teal-800);
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+}
+
+/* ================================
+   CTA SECTION
+   ================================ */
+
+.ctaSection {
+  text-align: center;
+}
+
+.ctaDescription {
+  font-size: 1.125rem; /* text-lg */
+  color: var(--color-slate-600);
+  margin-bottom: 2rem;
+  max-width: 32rem; /* max-w-2xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ================================
+   DISCLAIMER SECTION
+   ================================ */
+
+.disclaimer {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.disclaimerText {
+  font-size: 0.75rem;
+  color: var(--color-slate-500);
+  text-align: center;
+  max-width: 56rem; /* max-w-4xl */
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -50,9 +50,9 @@ import {
   getByEmail,
   getByReferralCode,
   processReferral,
+  type WaitlistSource,
 } from '@/lib/waitingList/store';
-
-import type { WaitlistSource } from '@/lib/waitingList/store';
+import { Logger } from '@/lib/monitoring/Logger';
 
 /**
  * Sync subscriber to Kit.com (ConvertKit)
@@ -72,7 +72,7 @@ async function syncToKit(
   const formId = process.env.KIT_FORM_ID;
 
   if (!apiKey || !formId) {
-    console.log('[Kit.com] Skipping sync - credentials not configured');
+    Logger.debug('[Kit.com] Skipping sync - credentials not configured');
     return;
   }
 
@@ -100,12 +100,12 @@ async function syncToKit(
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('[Kit.com] Sync failed:', response.status, errorData);
+      Logger.error('[Kit.com] Sync failed', { status: response.status, error: errorData });
     } else {
-      console.log('[Kit.com] Successfully synced subscriber:', email);
+      Logger.info('[Kit.com] Successfully synced subscriber', { email });
     }
   } catch (error) {
-    console.error('[Kit.com] Sync error:', error);
+    Logger.error('[Kit.com] Sync error', {}, error instanceof Error ? error : undefined);
   }
 }
 
@@ -188,20 +188,20 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       );
     }
 
-    // Check for existing signup
+    // Check for existing signup - return same response structure to prevent email enumeration
+    // Security: Attackers cannot distinguish between new and existing signups
     if (exists(email)) {
       const existing = getByEmail(email)!;
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Already registered',
-          errorCode: 'ALREADY_REGISTERED',
-          position: existing.position,
-          referralCode: existing.referralCode,
-          referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, existing.referralCode),
-        },
-        { status: 409 }
-      );
+      const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, existing.referralCode);
+
+      // Return identical response structure as new signup (prevents enumeration)
+      // Note: Kit.com sync is NOT called for existing users (already synced)
+      return NextResponse.json({
+        success: true,
+        position: existing.position,
+        referralCode: existing.referralCode,
+        referralUrl,
+      });
     }
 
     // Validate and process referral code if provided
@@ -232,7 +232,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
 
     const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referralCode);
 
-    // Sync to Kit.com (non-blocking - don't await to avoid slowing down response)
+    // Sync to Kit.com (non-blocking - only for NEW signups)
     syncToKit(email, {
       position: entry.position,
       referralCode,
@@ -251,11 +251,12 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
   } catch (error) {
     console.error('Waitlist signup error:', error);
 
-    // Handle duplicate email error from store
+    // Handle duplicate email error from store (race condition)
+    // Return generic error to prevent email enumeration
     if (error instanceof Error && error.message === 'Email already exists') {
       return NextResponse.json(
-        { success: false, error: 'Already registered', errorCode: 'ALREADY_REGISTERED' },
-        { status: 409 }
+        { success: false, error: 'Unable to process request. Please try again.', errorCode: 'PROCESSING_ERROR' },
+        { status: 500 }
       );
     }
 

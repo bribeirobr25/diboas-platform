@@ -129,17 +129,20 @@
   align-items: flex-start;
   gap: var(--spacing-sm, 8px);
   cursor: pointer;
+  /* WCAG 2.2: Label provides 44px touch target */
+  min-height: 44px;
+  padding: 10px 0;
 }
 
 .checkbox {
-  width: 20px;
-  height: 20px;
-  min-width: 44px; /* WCAG 2.2 touch target via padding */
-  min-height: 44px; /* WCAG 2.2 touch target via padding */
-  margin: -12px; /* Offset to maintain visual size */
-  padding: 12px; /* Touch target padding */
+  /* Visual size - clean proportional appearance */
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
   accent-color: var(--color-teal-600, #0d9488);
   cursor: pointer;
+  /* Vertically align with first line of text */
+  margin-top: 2px;
 }
 
 .checkbox:disabled {

@@ -13,8 +13,10 @@
  */
 
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { Button } from '@diboas/ui';
+import { CurrencyInput } from '@/components/UI';
 import {
   calculateFullResult,
   formatCurrency,
@@ -23,9 +25,12 @@ import {
   CALCULATOR_CONFIG,
   CALCULATOR_EVENTS,
   LONG_TERM_TIMEFRAMES,
+  DEFI_SCENARIO,
+  getLocaleConfig,
   type InvestmentInput,
   type LongTermTimeframe,
   type CalculatorResult,
+  type RateScenario,
 } from '@/lib/calculator';
 import { analyticsService } from '@/lib/analytics';
 import styles from './FutureYouCalculator.module.css';
@@ -101,8 +106,11 @@ export function FutureYouCalculator({
   className = '',
   initialValues,
 }: FutureYouCalculatorProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const { locale } = useLocale();
+
+  // Get locale-specific configuration for currency and bank rates
+  const localeConfig = useMemo(() => getLocaleConfig(locale), [locale]);
 
   // State for inputs
   const [initialAmount, setInitialAmount] = useState(
@@ -111,25 +119,33 @@ export function FutureYouCalculator({
   const [monthlyContribution, setMonthlyContribution] = useState(
     initialValues?.monthlyContribution ?? CALCULATOR_CONFIG.defaultMonthlyContribution
   );
-  const [currency] = useState(
-    initialValues?.currency ?? CALCULATOR_CONFIG.defaultCurrency
-  );
+  // Use locale-based currency instead of hardcoded EUR
+  const currency = initialValues?.currency ?? localeConfig.currency;
   const [selectedTimeframe, setSelectedTimeframe] = useState<LongTermTimeframe>('5years');
+
+  // Create locale-specific bank scenario with appropriate rate
+  const bankScenario: RateScenario = useMemo(() => ({
+    id: 'bank',
+    name: 'Traditional Bank',
+    apy: localeConfig.bankApy,
+    description: 'Average savings account rate',
+    isBank: true,
+  }), [localeConfig.bankApy]);
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {
     return intl.formatMessage({ id: `calculator.${key}` }, values);
   };
 
-  // Calculate results
+  // Calculate results with locale-specific bank rate
   const result = useMemo(() => {
     const input: InvestmentInput = {
       initialAmount,
       monthlyContribution,
       currency,
     };
-    return calculateFullResult(input, selectedTimeframe);
-  }, [initialAmount, monthlyContribution, currency, selectedTimeframe]);
+    return calculateFullResult(input, selectedTimeframe, DEFI_SCENARIO, bankScenario);
+  }, [initialAmount, monthlyContribution, currency, selectedTimeframe, bankScenario]);
 
   // Current comparison for selected timeframe (use long-term projections for Future You Calculator)
   const currentComparison = result.longTermProjections?.[selectedTimeframe] ?? result.projections['5years'];
@@ -240,62 +256,29 @@ export function FutureYouCalculator({
         <p className={styles.subhead}>{t('subhead')}</p>
       </div>
 
-      {/* Input Section */}
+      {/* Input Section - Using shared CurrencyInput component */}
       <div className={styles.inputSection}>
-        {/* Slider Label per spec */}
-        <p className={styles.sliderLabel}>{t('sliderLabel')}</p>
+        <CurrencyInput
+          value={initialAmount}
+          onChange={handleInitialAmountChange}
+          label={t('initialAmount')}
+          currency={currency}
+          min={CALCULATOR_CONFIG.minInitialAmount}
+          max={CALCULATOR_CONFIG.maxInitialAmount}
+          sliderMax={100000}
+          step={100}
+        />
 
-        <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>{t('initialAmount')}</label>
-          <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol}>
-              {currency === 'USD' ? '$' : currency === 'EUR' ? '€' : 'R$'}
-            </span>
-            <input
-              type="number"
-              value={initialAmount}
-              onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
-              className={styles.input}
-              min={CALCULATOR_CONFIG.minInitialAmount}
-              max={CALCULATOR_CONFIG.maxInitialAmount}
-            />
-          </div>
-          <input
-            type="range"
-            value={initialAmount}
-            onChange={(e) => handleInitialAmountChange(Number(e.target.value))}
-            className={styles.slider}
-            min={CALCULATOR_CONFIG.minInitialAmount}
-            max={100000}
-            step={100}
-          />
-        </div>
-
-        <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>{t('monthlyContribution')}</label>
-          <div className={styles.inputWrapper}>
-            <span className={styles.currencySymbol}>
-              {currency === 'USD' ? '$' : currency === 'EUR' ? '€' : 'R$'}
-            </span>
-            <input
-              type="number"
-              value={monthlyContribution}
-              onChange={(e) => handleMonthlyContributionChange(Number(e.target.value))}
-              className={styles.input}
-              min={CALCULATOR_CONFIG.minMonthlyContribution}
-              max={CALCULATOR_CONFIG.maxMonthlyContribution}
-            />
-          </div>
-          <input
-            type="range"
-            value={monthlyContribution}
-            onChange={(e) => handleMonthlyContributionChange(Number(e.target.value))}
-            className={styles.slider}
-            min={0}
-            max={5000}
-            step={50}
-          />
-        </div>
+        <CurrencyInput
+          value={monthlyContribution}
+          onChange={handleMonthlyContributionChange}
+          label={t('monthlyContribution')}
+          currency={currency}
+          min={CALCULATOR_CONFIG.minMonthlyContribution}
+          max={CALCULATOR_CONFIG.maxMonthlyContribution}
+          sliderMax={5000}
+          sliderStep={50}
+        />
       </div>
 
       {/* Timeframe Selector */}
@@ -389,23 +372,37 @@ export function FutureYouCalculator({
       {/* Disclaimer */}
       <p className={styles.disclaimer}>{t('disclaimer')}</p>
 
-      {/* Actions */}
+      {/* Actions - Using shared Button component from @diboas/ui */}
       <div className={styles.actions}>
         {onShare && (
-          <button onClick={handleShare} className={styles.shareButton}>
+          <Button
+            variant="outline"
+            size="default"
+            onClick={handleShare}
+            className={styles.shareButton}
+          >
             <ShareIcon />
             {t('share')}
-          </button>
+          </Button>
         )}
         {onCtaClick && (
-          <button onClick={handleCtaClick} className={styles.ctaButton}>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={handleCtaClick}
+            trackable
+          >
             {t('cta')}
-          </button>
+          </Button>
         )}
         {onSecondaryCta && (
-          <button onClick={onSecondaryCta} className={styles.secondaryCtaButton}>
+          <Button
+            variant="ghost"
+            size="default"
+            onClick={onSecondaryCta}
+          >
             {t('ctaSecondary')}
-          </button>
+          </Button>
         )}
       </div>
     </div>

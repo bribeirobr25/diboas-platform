@@ -91,6 +91,7 @@ export const navigationConfig: NavigationConfig = {
       description: 'common.navigation.aboutMenu.description',
       subItems: [
         { id: 'about-diboas', label: 'common.navigation.aboutMenu.subItems.about', href: createUrl(ROUTES.ABOUT) },
+        { id: 'protocols', label: 'common.navigation.aboutMenu.subItems.protocols', href: createUrl(ROUTES.PROTOCOLS) },
         { id: 'careers', label: 'common.navigation.aboutMenu.subItems.careers', href: createUrl(ROUTES.CAREERS) },
         { id: 'documentation', label: 'common.navigation.aboutMenu.subItems.documentation', href: createUrl(ROUTES.DOCS) },
         { id: 'investors', label: 'common.navigation.aboutMenu.subItems.investors', href: createUrl(ROUTES.INVESTORS) },

@@ -8,7 +8,7 @@
 'use client';
 
 import { memo, useState, useCallback } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '../SectionContainer/SectionContainer';
 import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
 import { WaitlistConfirmation } from '@/components/WaitingList/WaitlistConfirmation';
@@ -37,7 +37,7 @@ export const WaitlistSection = memo(function WaitlistSection({
   config,
   enableAnalytics = true,
 }: WaitlistSectionProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const [signupData, setSignupData] = useState<SignupData | null>(null);
   const [showDreamMode, setShowDreamMode] = useState(false);
 

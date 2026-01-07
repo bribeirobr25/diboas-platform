@@ -5,22 +5,24 @@
  *
  * CLO-required disclaimer gate before entering Dream Mode
  * User must check checkbox to proceed
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React, { useState } from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
-import { useRegionalDisclaimer } from '../hooks/useRegionalDisclaimer';
+import { useDreamModeTranslation, useRegionalDisclaimer } from '../hooks';
 import { AlertTriangleIcon } from '@/components/Icons';
 import styles from './screens.module.css';
 
 export function DisclaimerScreen() {
-  const intl = useIntl();
+  const { getTranslator, tCommon } = useDreamModeTranslation();
   const { acceptDisclaimer } = useDreamMode();
   const { disclaimerText, enhancedDisclaimer, hasEnhancedDisclaimer } = useRegionalDisclaimer();
   const [isChecked, setIsChecked] = useState(false);
 
-  const t = (key: string) => intl.formatMessage({ id: `dreamMode.disclaimer.${key}` });
+  const t = getTranslator('disclaimer');
 
   const handleAccept = () => {
     if (isChecked) {
@@ -33,7 +35,7 @@ export function DisclaimerScreen() {
       <div className={styles.disclaimerCard}>
         {/* Warning icon and headline */}
         <div className={styles.disclaimerHeader}>
-          <AlertTriangleIcon size={32} className={styles.disclaimerIcon} aria-label={intl.formatMessage({ id: 'common.accessibility.warning' })} />
+          <AlertTriangleIcon size={32} className={styles.disclaimerIcon} aria-label={tCommon('accessibility.warning')} />
           <h2 className={styles.disclaimerHeadline}>{t('headline')}</h2>
         </div>
 

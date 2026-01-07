@@ -7,6 +7,7 @@
 import { ContentService, PageContent, ContentSection, ContentConfig } from './types';
 import { CONTENT_DEFAULTS } from './constants';
 import type { SupportedLocale } from '@diboas/i18n/server';
+import { Logger } from '@/lib/monitoring/Logger';
 
 class ContentServiceImpl implements ContentService {
   private config: ContentConfig;
@@ -39,7 +40,7 @@ class ContentServiceImpl implements ContentService {
       if (content) {
         // Validate content if enabled
         if (this.config.validateOnLoad && !this.validateContent(content)) {
-          console.warn(`Invalid content structure for page: ${pageId}`);
+          Logger.warn('Invalid content structure for page', { pageId });
           return null;
         }
 
@@ -49,7 +50,7 @@ class ContentServiceImpl implements ContentService {
 
       return content;
     } catch (error) {
-      console.error(`Failed to load page content: ${pageId}`, error);
+      Logger.error('Failed to load page content', { pageId }, error instanceof Error ? error : undefined);
       return null;
     }
   }
@@ -71,7 +72,7 @@ class ContentServiceImpl implements ContentService {
       }
       return content;
     } catch (error) {
-      console.error(`Failed to load section content: ${sectionId}`, error);
+      Logger.error('Failed to load section content', { sectionId }, error instanceof Error ? error : undefined);
       return null;
     }
   }
@@ -97,7 +98,7 @@ class ContentServiceImpl implements ContentService {
    */
   async updateContent(content: Partial<PageContent>): Promise<void> {
     // Future: Implement content updates for CMS integration
-    console.log('Content update requested:', content);
+    Logger.debug('Content update requested', { contentId: content.metadata?.id });
 
     // Clear related cache entries
     if (content.metadata?.id) {

@@ -26,6 +26,7 @@ import {
   createRateLimitHeaders,
   RateLimitPresets,
 } from '@/lib/security';
+import { Logger } from '@/lib/monitoring/Logger';
 
 /**
  * Kit.com Webhook Event Types
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<WebhookRe
     const webhookSecret = process.env.KIT_WEBHOOK_SECRET;
 
     if (!webhookSecret) {
-      console.warn('[Kit Webhook] KIT_WEBHOOK_SECRET not configured');
+      Logger.warn('[Kit Webhook] KIT_WEBHOOK_SECRET not configured');
       // In development, allow webhooks without signature verification
       if (process.env.NODE_ENV === 'production') {
         return NextResponse.json(
@@ -130,7 +131,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<WebhookRe
     // Verify signature in production
     if (webhookSecret && signature) {
       if (!verifySignature(rawBody, signature, webhookSecret)) {
-        console.error('[Kit Webhook] Invalid signature');
+        Logger.error('[Kit Webhook] Invalid signature');
         return NextResponse.json(
           { success: false, error: 'Invalid signature' },
           { status: 401 }
@@ -141,7 +142,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<WebhookRe
     // Parse payload
     const payload: KitWebhookPayload = JSON.parse(rawBody);
 
-    console.log(`[Kit Webhook] Received event: ${payload.event}`);
+    Logger.info('[Kit Webhook] Received event', { event: payload.event });
 
     // Process based on event type
     switch (payload.event) {
@@ -164,11 +165,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<WebhookRe
 
       case 'subscriber.tag_removed':
         // Log but don't remove tags from our store
-        console.log(`[Kit Webhook] Tag removed: ${payload.tag?.name} from ${payload.subscriber.email_address}`);
+        Logger.info('[Kit Webhook] Tag removed', { tag: payload.tag?.name, email: payload.subscriber.email_address });
         break;
 
       default:
-        console.log(`[Kit Webhook] Unhandled event: ${payload.event}`);
+        Logger.info('[Kit Webhook] Unhandled event', { event: payload.event });
     }
 
     return NextResponse.json({
@@ -176,7 +177,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<WebhookRe
       message: `Processed ${payload.event}`,
     });
   } catch (error) {
-    console.error('[Kit Webhook] Error:', error);
+    Logger.error('[Kit Webhook] Error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
@@ -197,10 +198,10 @@ async function handleSubscriberCreated(payload: KitWebhookPayload): Promise<void
   if (existingEntry) {
     // Update with Kit subscriber ID
     updateKitSubscriberId(email, String(subscriber.id));
-    console.log(`[Kit Webhook] Updated subscriber ID for ${email}: ${subscriber.id}`);
+    Logger.info('[Kit Webhook] Updated subscriber ID', { email, subscriberId: subscriber.id });
   } else {
     // User signed up directly on Kit.com (not through our form)
-    console.log(`[Kit Webhook] New subscriber from Kit.com: ${email}`);
+    Logger.info('[Kit Webhook] New subscriber from Kit.com', { email });
     // We don't create entries for external signups - they need to go through our waitlist
   }
 }
@@ -229,7 +230,7 @@ async function handleSubscriberUpdated(payload: KitWebhookPayload): Promise<void
 
       if (Object.keys(updates).length > 0) {
         updateEntry(email, updates as any);
-        console.log(`[Kit Webhook] Updated fields for ${email}:`, updates);
+        Logger.info('[Kit Webhook] Updated fields', { email, updates });
       }
     }
   }
@@ -248,7 +249,7 @@ async function handleTagAdded(payload: KitWebhookPayload): Promise<void> {
 
   if (existingEntry) {
     addTags(email, [tag.name]);
-    console.log(`[Kit Webhook] Added tag "${tag.name}" to ${email}`);
+    Logger.info('[Kit Webhook] Added tag', { tag: tag.name, email });
   }
 }
 
@@ -265,7 +266,7 @@ async function handleUnsubscribed(payload: KitWebhookPayload): Promise<void> {
     // Add "unsubscribed" tag but don't remove from waitlist
     // They may still want early access, just no emails
     addTags(email, ['unsubscribed']);
-    console.log(`[Kit Webhook] Marked ${email} as unsubscribed`);
+    Logger.info('[Kit Webhook] Marked as unsubscribed', { email });
   }
 }
 

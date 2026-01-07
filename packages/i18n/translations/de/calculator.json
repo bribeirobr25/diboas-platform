@@ -1,7 +1,6 @@
 {
   "headline": "Was könnten €20/Monat werden?",
-  "subhead": "Sehen Sie Ihre Zukunft — kein Konto nötig",
-  "sliderLabel": "Monatlicher Betrag, den Sie zurücklegen könnten",
+  "subhead": "Sehen Sie Ihr zukünftiges Ich",
   "initialAmount": "Startbetrag",
   "monthlyContribution": "Monatliche Einzahlung",
   "timeframe": {
@@ -10,15 +9,14 @@
     "1year": "1 Jahr",
     "5years": "5 Jahre",
     "10years": "10 Jahre",
-    "15years": "15 Jahre",
     "20years": "20 Jahre"
   },
-  "resultHeadline": "In {years} Jahren könnten Ihre €{amount}/Monat werden:",
+  "resultHeadline": "In {years} Jahren könnten Ihre {amount}/Monat werden:",
   "defiYield": "Mit diBoaS",
-  "bankRate": "Mit Ihrer Bank (0,5% Sparzins)",
-  "difference": "Das sind €{difference} mehr — bei gleichem monatlichem Betrag.",
+  "bankRate": "Mit Ihrer Bank (2.59% Sparzins)",
+  "difference": "Das sind {difference} mehr bei gleichem monatlichem Betrag.",
   "opportunityCost": "Das ist Geld, das Sie auf dem Tisch liegen lassen",
-  "ecbSource": "Bankvergleich basierend auf dem durchschnittlichen EU-Sparkonto-Zinssatz von 0,5% APY. Quelle: EZB-Statistik, Dezember 2024.",
+  "ecbSource": "Bankvergleich basierend auf dem durchschnittlichen EU-Sparkonto-Zinssatz von 2.59% APY. Quelle: EZB-Statistik, Dezember 2024.",
   "disclaimer": "PROJEKTION — Basierend auf historischen Daten. Vergangene Performance garantiert keine zukünftigen Ergebnisse.",
   "share": "Teilen",
   "cta": "Auf die Warteliste",

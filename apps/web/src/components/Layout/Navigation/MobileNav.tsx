@@ -14,7 +14,7 @@ import { UI_CONSTANTS } from '@/config/ui-constants';
 import { ASSET_PATHS } from '@/config/assets';
 import { DESIGN_SYSTEM } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -40,7 +40,7 @@ export default function MobileNav({
   config,
   isMobile
 }: MobileNavProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const activeMenuItem = config.mainMenu.find(item => item.id === activeSubmenu);
 
   // Scroll to top when submenu opens

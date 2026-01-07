@@ -2,20 +2,22 @@
 
 This Storybook instance provides comprehensive documentation and interactive examples for all section components built with the Component Factory Pattern.
 
-## 🚀 Getting Started
+## Getting Started
 
 ```bash
-# Install Storybook dependencies (if not already installed)
-npm install --save-dev @storybook/nextjs @storybook/addon-essentials @storybook/addon-a11y @storybook/addon-viewport @storybook/addon-docs @storybook/addon-links @storybook/addon-interactions
+# From the apps/web directory
+cd apps/web
 
 # Start Storybook development server
-npm run storybook
+pnpm run storybook
 
 # Build Storybook for production
-npm run build-storybook
+pnpm run build-storybook
 ```
 
-## 📚 Available Stories
+Storybook will be available at [http://localhost:6006](http://localhost:6006)
+
+## Available Stories
 
 ### Section Components
 
@@ -25,7 +27,7 @@ npm run build-storybook
 - **AppFeaturesCarousel** - Feature cards with rotation and layouts
 - **SecurityOneFeature** - Security-focused feature presentation
 
-## 🎯 Key Features
+## Key Features
 
 ### Component Factory Pattern
 All components use the factory pattern for variant selection, providing:
@@ -48,7 +50,7 @@ All components use the factory pattern for variant selection, providing:
 - **Theme Testing**: All theme variants available
 - **Analytics Simulation**: Performance monitoring examples
 
-## 🛠️ Development Guidelines
+## Development Guidelines
 
 ### Story Structure
 Each component includes:
@@ -66,7 +68,7 @@ Each component includes:
 - Check **performance** with browser dev tools
 - Test **theme switching** for design token consistency
 
-## 📋 Testing Checklist
+## Testing Checklist
 
 When adding new stories:
 - [ ] Include all component variants
@@ -77,7 +79,7 @@ When adding new stories:
 - [ ] Document component API and features
 - [ ] Include interactive playground story
 
-## 🔧 Configuration
+## Configuration
 
 ### Main Configuration
 - **main.ts** - Storybook configuration with Next.js integration
@@ -89,7 +91,7 @@ When adding new stories:
 - **Viewport** - Responsive design testing
 - **Docs** - Automated documentation generation
 
-## 📖 Documentation Standards
+## Documentation Standards
 
 ### Story Naming
 - Use descriptive names that indicate the story purpose
@@ -102,7 +104,7 @@ When adding new stories:
 - Include usage examples and best practices
 - Explain architectural patterns and principles
 
-## 🚦 Quality Assurance
+## Quality Assurance
 
 ### Performance
 - All stories include performance monitoring examples
@@ -120,7 +122,7 @@ When adding new stories:
 - CSS custom properties for theming
 - Next.js Image optimization support
 
-## 📈 Analytics Integration
+## Analytics Integration
 
 Stories demonstrate:
 - Performance monitoring setup
@@ -128,7 +130,7 @@ Stories demonstrate:
 - Error boundary implementation
 - Custom metrics recording
 
-## 🎨 Design System
+## Design System
 
 ### Tokens
 - **Colors** - Semantic color tokens with theme support

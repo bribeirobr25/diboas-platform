@@ -5,11 +5,14 @@
  *
  * User selects their investment path: Safety, Balance, or Growth
  * WCAG 2.2 Compliant: Uses radiogroup pattern for selection
+ *
+ * Service Agnostic Abstraction: Uses centralized translation hook
+ * Code Reusability & DRY: No inline translation helpers
  */
 
 import React, { useCallback, useRef } from 'react';
-import { useIntl } from 'react-intl';
 import { useDreamMode } from '../DreamModeProvider';
+import { useDreamModeTranslation } from '../hooks';
 import { PATH_CONFIGS, type DreamPath } from '@/lib/dream-mode';
 import { PathIcon, AlertTriangleIcon, type PathIconType } from '@/components/Icons';
 import styles from './screens.module.css';
@@ -17,12 +20,13 @@ import styles from './screens.module.css';
 const PATH_ORDER: DreamPath[] = ['safety', 'balance', 'growth'];
 
 export function PathSelectorScreen() {
-  const intl = useIntl();
+  const { t: tDreamMode, getTranslator } = useDreamModeTranslation();
   const { selectPath, previousScreen, state } = useDreamMode();
   const selectedPath = state.selectedPath;
   const pathRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const t = (key: string) => intl.formatMessage({ id: `dreamMode.paths.${key}` });
+  const t = getTranslator('paths');
+  const tInput = getTranslator('input');
 
   const handleSelectPath = (path: DreamPath) => {
     selectPath(path);
@@ -75,7 +79,9 @@ export function PathSelectorScreen() {
           {PATH_ORDER.map((pathId, index) => {
             const config = PATH_CONFIGS[pathId];
             const isSelected = selectedPath === pathId;
-            const pathName = intl.formatMessage({ id: `dreamMode.paths.${pathId}.name` });
+            const pathName = t(`${pathId}.name`);
+            const pathDescription = t(`${pathId}.description`);
+            const pathRisk = t(`${pathId}.risk`);
 
             return (
               <button
@@ -88,7 +94,7 @@ export function PathSelectorScreen() {
                 data-testid={`path-${pathId}`}
                 role="radio"
                 aria-checked={isSelected}
-                aria-label={`${pathName}: ${intl.formatMessage({ id: `dreamMode.paths.${pathId}.description` })}`}
+                aria-label={`${pathName}: ${pathDescription}`}
                 tabIndex={isSelected || (!selectedPath && index === 0) ? 0 : -1}
               >
                 <span className={styles.pathIcon} aria-hidden="true"><PathIcon type={pathId as PathIconType} size={28} /></span>
@@ -96,14 +102,14 @@ export function PathSelectorScreen() {
                   {pathName}
                 </h3>
                 <p className={styles.pathDescription}>
-                  {intl.formatMessage({ id: `dreamMode.paths.${pathId}.description` })}
+                  {pathDescription}
                 </p>
                 <div className={styles.pathRisk}>
                   <span className={styles.pathRiskLabel}>
-                    {intl.formatMessage({ id: `dreamMode.paths.${pathId}.risk` })}
+                    {pathRisk}
                   </span>
                   {config.warning && (
-                    <span className={styles.pathWarning} aria-label={intl.formatMessage({ id: 'dreamMode.paths.warningLabel' }, { defaultMessage: 'Higher risk' })}><AlertTriangleIcon size={16} /></span>
+                    <span className={styles.pathWarning} aria-label={t('warningLabel')}><AlertTriangleIcon size={16} /></span>
                   )}
                 </div>
               </button>
@@ -114,7 +120,7 @@ export function PathSelectorScreen() {
         {/* Back button */}
         <button onClick={previousScreen} className={styles.backButton}>
           <ChevronLeftIcon />
-          {intl.formatMessage({ id: 'dreamMode.input.back' })}
+          {tInput('back')}
         </button>
       </div>
     </div>

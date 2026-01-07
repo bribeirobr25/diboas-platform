@@ -6,17 +6,10 @@
  */
 
 import { NextRequest } from 'next/server';
+import { getCsrfAllowedOrigins } from '@/config/env';
 
-// Allowed origins for CSRF validation
-const ALLOWED_ORIGINS = [
-  process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com',
-  'https://diboas.com',
-  'https://www.diboas.com',
-  // Development origins
-  ...(process.env.NODE_ENV === 'development'
-    ? ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000']
-    : [])
-];
+// Allowed origins for CSRF validation (loaded from environment)
+const ALLOWED_ORIGINS = getCsrfAllowedOrigins();
 
 /**
  * Validates the request origin against allowed origins

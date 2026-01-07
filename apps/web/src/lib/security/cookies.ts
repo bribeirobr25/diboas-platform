@@ -7,6 +7,7 @@
 
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { COOKIE_CONFIG, IS_PRODUCTION } from '@/config/env';
 
 /**
  * Consent cookie configuration
@@ -17,9 +18,10 @@ export interface ConsentValue {
   timestamp: number;
 }
 
-const CONSENT_COOKIE_NAME = 'diboas-consent';
-const CONSENT_VERSION = '1.0';
-const COOKIE_MAX_AGE = 365 * 24 * 60 * 60; // 1 year in seconds
+// Use centralized environment configuration
+const CONSENT_COOKIE_NAME = COOKIE_CONFIG.consentCookieName;
+const CONSENT_VERSION = COOKIE_CONFIG.consentVersion;
+const COOKIE_MAX_AGE = COOKIE_CONFIG.maxAge;
 
 /**
  * Set consent cookie on response
@@ -38,13 +40,11 @@ export function setConsentCookie(
     timestamp: Date.now(),
   };
 
-  const isProduction = process.env.NODE_ENV === 'production';
-
   response.cookies.set({
     name: CONSENT_COOKIE_NAME,
     value: JSON.stringify(value),
     httpOnly: true,
-    secure: isProduction,
+    secure: IS_PRODUCTION,
     sameSite: 'strict',
     maxAge: COOKIE_MAX_AGE,
     path: '/',

@@ -8,7 +8,7 @@
 'use client';
 
 import { memo, useCallback, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '../SectionContainer/SectionContainer';
 import { FutureYouCalculator } from '@/components/FutureYouCalculator';
 import styles from './CalculatorSection.module.css';
@@ -29,7 +29,7 @@ export const CalculatorSection = memo(function CalculatorSection({
   enableAnalytics = true,
   onCtaClick,
 }: CalculatorSectionProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   const handleCtaClick = useCallback(() => {
     // Scroll to waitlist section

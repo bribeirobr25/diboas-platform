@@ -24,7 +24,7 @@ export type ShortTermTimeframe = '1week' | '1month' | '1year' | '5years';
 /**
  * Long-term timeframes (for Future You Calculator)
  */
-export type LongTermTimeframe = '5years' | '10years' | '15years' | '20years';
+export type LongTermTimeframe = '5years' | '10years' | '20years';
 
 /**
  * Timeframe for projections (combines short and long term)
@@ -99,7 +99,6 @@ export interface ShortTermProjections {
 export interface LongTermProjections {
   readonly '5years': ScenarioComparison;
   readonly '10years': ScenarioComparison;
-  readonly '15years': ScenarioComparison;
   readonly '20years': ScenarioComparison;
 }
 

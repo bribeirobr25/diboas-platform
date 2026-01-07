@@ -1,36 +1,86 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
+import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
-import { FeatureShowcase } from '@/components/Sections';
-import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
-import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
+import { PageI18nProvider } from '@/components/Providers';
+import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { AboutPageContent } from '@/components/Pages/AboutPageContent';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
 
-
-import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
-import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
-import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
-import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
-import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
-import { PageI18nProvider } from '@/components/Providers';
-import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 export const dynamic = 'auto';
 
-interface PageProps {
+interface AboutPageProps {
   params: Promise<{
     locale: string;
   }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+/**
+ * Generate metadata for the About page
+ * Uses i18n translations for locale-aware SEO
+ */
+export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
   const { locale } = await params;
-  return generateStaticPageMetadata('about', locale as SupportedLocale);
+  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+
+  // Load translations for metadata
+  const messages = await loadMessages(validLocale, 'about');
+  const seo = messages?.seo || {};
+
+  const title = seo.title || 'About diBoaS | Built to Fix What Banks Keep Hidden';
+  const description = seo.description || 'diBoaS was founded to give everyone access to real returns. Learn the story of why Breno is building this platform.';
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo.ogTitle || title,
+      description: seo.ogDescription || description,
+      type: 'website',
+      locale: validLocale,
+      images: [
+        {
+          url: `${siteUrl}/api/og/about`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle || title,
+      description: seo.ogDescription || description,
+      images: [`${siteUrl}/api/og/about`],
+    },
+    alternates: {
+      canonical: `/about`,
+      languages: {
+        'en': '/en/about',
+        'de': '/de/about',
+        'pt-BR': '/pt-BR/about',
+        'es': '/es/about',
+      },
+    },
+  };
 }
 
-export default async function AboutPage({ params }: PageProps) {
+/**
+ * About Page
+ *
+ * Personal founder story page featuring:
+ * - Section 1: Hero with headline
+ * - Section 2: The Story (grandmother narrative)
+ * - Section 3: What diBoaS Does
+ * - Section 4: What We Believe (3 pillars)
+ * - Section 5: The Mission
+ * - Section 6: For Businesses CTA
+ * - Section 7: Contact
+ */
+export default async function AboutPage({ params }: AboutPageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -38,13 +88,14 @@ export default async function AboutPage({ params }: PageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces (about + shared: home for StickyFeaturesNav, faq for FAQAccordion)
-  const pageMessages = await loadPageNamespaces(locale, ['about', 'home', 'faq']);
+  // Load page-specific namespaces
+  const pageMessages = await loadPageNamespaces(locale, ['about', 'common', 'waitlist']);
 
+  // Generate structured data
   const serviceData = MetadataFactory.generateServiceStructuredData({
-    name: 'About diBoaS',
-    description: "The world's first OneFi platform",
-    category: 'About'
+    name: 'diBoaS',
+    description: 'Platform giving regular people access to institutional-grade financial returns',
+    category: 'Financial Technology'
   });
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
@@ -52,84 +103,10 @@ export default async function AboutPage({ params }: PageProps) {
     { name: 'About', url: ROUTES.ABOUT }
   ], locale);
 
-  const heroVariant = getVariantForPageConfig('about');
-
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-    <>
       <StructuredData data={[serviceData, breadcrumbData]} />
-
-      <main className="main-page-wrapper">
-        <SectionErrorBoundary
-          sectionId="hero-section-about"
-          sectionType="HeroSection"
-          enableReporting={true}
-          context={{ page: 'about', variant: heroVariant }}
-        >
-          <HeroSection
-            variant={heroVariant}
-            config={HERO_PAGE_CONFIGS.about}
-            enableAnalytics={true}
-            priority={true}
-          />
-        </SectionErrorBoundary>
-
-        {/* Feature Showcase Section */}
-        <SectionErrorBoundary
-          sectionId="feature-showcase-about"
-          sectionType="FeatureShowcase"
-          enableReporting={true}
-          context={{ page: 'about' }}
-        >
-          <FeatureShowcase
-            config={FEATURE_SHOWCASE_PAGE_CONFIGS.about}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-
-        
-        {/* Benefits Cards Section */}
-        <SectionErrorBoundary
-          sectionId="benefits-cards-about"
-          sectionType="BenefitsCards"
-          enableReporting={true}
-          context={{ page: 'about' }}
-        >
-          <BenefitsCardsSection
-            config={getBenefitsCardsConfig('about')!}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-        {/* Sticky Features Navigation Section */}
-        <SectionErrorBoundary
-          sectionId="sticky-features-nav-about"
-          sectionType="StickyFeaturesNav"
-          enableReporting={true}
-          context={{ page: 'about' }}
-        >
-          <StickyFeaturesNav
-            config={STICKY_FEATURES_NAV_PAGE_CONFIGS.about}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-      
-        {/* FAQ Accordion Section */}
-        <SectionErrorBoundary
-          sectionId="faq-accordion-about"
-          sectionType="FAQAccordion"
-          enableReporting={true}
-          context={{ page: 'about' }}
-        >
-          <FAQAccordion
-            config={FAQ_ACCORDION_PAGE_CONFIGS.about!}
-            enableAnalytics={true}
-          />
-        </SectionErrorBoundary>
-
-      </main>
-    </>
+      <AboutPageContent />
     </PageI18nProvider>
   );
 }

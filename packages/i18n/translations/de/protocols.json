@@ -1,0 +1,95 @@
+{
+  "seo": {
+    "title": "Wo Dein Geld Arbeitet | Die Protokolle, denen wir vertrauen | diBoaS",
+    "description": "diBoaS verbindet dich mit etablierten dezentralen Finanzprotokollen. Sieh genau, wohin dein Geld geht, mit voller Transparenz.",
+    "ogTitle": "Wo Dein Geld Arbeitet | Die Protokolle, denen wir vertrauen",
+    "ogDescription": "Sieh genau, welche DeFi-Protokolle diBoaS nutzt und warum wir ihnen vertrauen. Volle Transparenz darüber, wo dein Geld arbeitet."
+  },
+  "hero": {
+    "title": "Wo Dein Geld Arbeitet",
+    "subtitle": "Die Protokolle, denen wir vertrauen"
+  },
+  "intro": {
+    "header": "Warum diese Seite existiert",
+    "paragraph1": "Wir glauben, dass du genau wissen solltest, wo dein Geld arbeitet. Anders als traditionelle Banken, die verbergen, was sie mit deinen Einlagen machen, zeigen wir dir alles.",
+    "paragraph2": "Jedes Protokoll auf dieser Liste wurde von unserem Team recherchiert, getestet und genehmigt. Wir schauen auf Sicherheitsaudits, Erfolgsbilanz und wie lange sie schon in Betrieb sind. Wenn wir unser eigenes Geld nicht dort anlegen würden, werden wir auch deines nicht dort anlegen.",
+    "important": "Wichtig:",
+    "disclaimer": "Auf dieser Liste zu sein bedeutet nicht null Risiko. Es bedeutet, dass wir unsere Hausaufgaben gemacht haben und diesen Protokollen genug vertrauen, um sie in unsere Strategien aufzunehmen."
+  },
+  "categories": {
+    "lending": {
+      "title": "Kreditprotokolle",
+      "description": "Diese Protokolle ermöglichen es Menschen, Krypto zu verleihen und zu leihen. Du verdienst Rendite, indem du Liquidität bereitstellst, die andere leihen."
+    },
+    "staking": {
+      "title": "Staking-Protokolle",
+      "description": "Diese Protokolle ermöglichen es dir, Belohnungen zu verdienen, indem du zur Sicherung von Blockchain-Netzwerken beiträgst."
+    },
+    "stablecoins": {
+      "title": "Stablecoins & Synthetische Assets",
+      "description": "Diese Protokolle erschaffen stabile Vermögenswerte, die an reale Werte wie den US-Dollar gekoppelt sind."
+    },
+    "yield": {
+      "title": "Rendite- & Handelsprotokolle",
+      "description": "Diese Protokolle generieren Rendite durch Handelsgebühren, Renditeoptimierung oder strukturierte Produkte."
+    },
+    "perpetuals": {
+      "title": "Perpetual- & Handelsbörsen",
+      "description": "Diese Protokolle ermöglichen es Händlern, auf Preisbewegungen zu wetten. Du verdienst Rendite, indem du die Liquidität bereitstellst, gegen die sie handeln."
+    },
+    "dex": {
+      "title": "Dezentralisierte Börsen (DEX)",
+      "description": "Diese Protokolle ermöglichen dir den Tausch von Token ohne zentralisierte Börse."
+    },
+    "rwa": {
+      "title": "Zahlungs- & RWA-Infrastruktur",
+      "description": "Diese Protokolle überbrücken traditionelle Finanzen und Krypto."
+    }
+  },
+  "protocolLabels": {
+    "whatItDoes": "Was es macht:",
+    "founded": "Gegründet",
+    "tvl": "Verwaltetes Vermögen",
+    "blockchains": "Blockchains",
+    "audits": "Sicherheitsaudits",
+    "regulatory": "Regulatorischer Status"
+  },
+  "selectionProcess": {
+    "header": "Unser Auswahlprozess",
+    "intro": "Wir fügen Protokolle nicht zufällig hinzu. Jedes Protokoll hier hat unsere Checkliste bestanden:",
+    "criteria": {
+      "operation": "Mindestens 1 Jahr in Betrieb (mit wenigen Ausnahmen für außergewöhnliche Protokolle)",
+      "audits": "Professionelle Sicherheitsaudits von anerkannten Firmen",
+      "exploits": "Keine ungelösten Exploits, bei denen Nutzergelder verloren gingen und nicht wiederhergestellt wurden",
+      "transparent": "Transparenter Betrieb — wir können nachvollziehen, wie das Protokoll funktioniert",
+      "usage": "Echte Nutzung — tatsächliche Nutzer, nicht nur Hype"
+    },
+    "note": "Wenn Protokolle Sicherheitsvorfälle hatten, vermerken wir diese deutlich. Transparenz funktioniert in beide Richtungen."
+  },
+  "totalTvl": {
+    "header": "Gesamtes kombiniertes TVL",
+    "paragraph1": "Die Protokolle, mit denen wir arbeiten, sichern zusammen über",
+    "amount": "120 Milliarden $",
+    "paragraph2": "an Nutzereinlagen.",
+    "note": "Das bedeutet nicht, dass dein Geld in allen ist. Jede diBoaS-Strategie nutzt spezifische Protokolle, die zu ihrem Risikoniveau und ihren Zielen passen."
+  },
+  "faq": {
+    "header": "Fragen?",
+    "q1": {
+      "question": "Warum listet ihr nicht jedes DeFi-Protokoll?",
+      "answer": "Wir sind selektiv. Die meisten DeFi-Protokolle erfüllen unsere Standards nicht."
+    },
+    "q2": {
+      "question": "Wie oft aktualisiert ihr diese Liste?",
+      "answer": "Wir überwachen alle Protokolle kontinuierlich. Wenn sich etwas ändert, fügen wir hinzu oder entfernen nach Bedarf."
+    },
+    "q3": {
+      "question": "Kann ich ein Protokoll zur Aufnahme vorschlagen?",
+      "answer": "Ja. Kontaktiere uns unter hello@diboas.com mit deinem Vorschlag."
+    }
+  },
+  "footer": {
+    "lastUpdated": "Zuletzt aktualisiert: Januar 2026",
+    "sources": "Datenquellen: DeFiLlama, offizielle Protokolldokumentation, Sicherheitsaudit-Berichte"
+  }
+}

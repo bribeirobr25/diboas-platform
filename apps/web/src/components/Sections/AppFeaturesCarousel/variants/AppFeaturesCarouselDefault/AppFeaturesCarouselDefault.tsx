@@ -13,6 +13,7 @@ import { useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight, Play, Pause } from 'lucide-react';
+import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
@@ -196,17 +197,14 @@ export function AppFeaturesCarouselDefault({
 
         {/* Controls - Using shared carousel controls styles */}
         <div className={carouselControls.controls}>
-          <div className={carouselControls.dots}>
-            {cards.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`${carouselControls.dot} ${index === currentSlideIndex ? carouselControls.dotActive : ''}`}
-                aria-label={`Go to slide ${index + 1}`}
-                disabled={isTransitioning}
-              />
-            ))}
-          </div>
+          {/* Dots Navigation - Using shared CarouselDots component */}
+          <CarouselDots
+            totalSlides={cards.length}
+            currentIndex={currentSlideIndex}
+            onDotClick={goToSlide}
+            disabled={isTransitioning}
+            className={carouselControls.dots}
+          />
 
           {cards.length > 1 && (
             <button

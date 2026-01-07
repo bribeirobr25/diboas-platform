@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { FOOTER_CONFIG, type FooterConfig, type FooterSection } from '@/config/footer';
 import { ASSET_PATHS } from '@/config/assets';
@@ -48,7 +48,7 @@ interface SocialIconProps {
 }
 
 export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
 
   const toggleSection = (title: string) => {
@@ -167,7 +167,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
 
 // Accordion Section Component
 function AccordionSection({ section, isOpen, onToggle }: AccordionSectionProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const sectionId = section.title.replace(/\./g, '-');
 
   return (

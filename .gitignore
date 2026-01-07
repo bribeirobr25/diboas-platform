@@ -14,10 +14,11 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
-.env.example
+# Note: .env.example should be committed (it's a template with no secrets)
 .env.sample
 .env.template
 *.env
+!.env.example
 secrets/
 config/secrets/
 .secrets/

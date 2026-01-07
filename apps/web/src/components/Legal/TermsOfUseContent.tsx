@@ -6,7 +6,7 @@
  * Renders the Terms of Use legal document using translation keys.
  */
 
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import {
   LegalDocument,
   LegalHeader,
@@ -18,7 +18,7 @@ import {
 } from './LegalDocument';
 
 export function TermsOfUseContent() {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   const t = (id: string) => intl.formatMessage({ id: `legal/terms.${id}` });
 

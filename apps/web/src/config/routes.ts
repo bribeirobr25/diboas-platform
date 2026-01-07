@@ -84,6 +84,7 @@ export const ROUTES = {
 
   // About & Legal
   ABOUT: '/about',
+  PROTOCOLS: '/protocols',
   CAREERS: '/careers',
   DOCS: '/docs',
   INVESTORS: '/investors',

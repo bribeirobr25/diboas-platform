@@ -17,12 +17,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
+import { CAL_CONFIG } from '@/config/env';
 import type { CalEmbedProps, BookingData } from './types';
 import styles from './BookCall.module.css';
 
-// Cal.com embed script URL
-const CAL_EMBED_SCRIPT = 'https://app.cal.com/embed/embed.js';
+// Cal.com embed script URL (from environment configuration)
+const CAL_EMBED_SCRIPT = CAL_CONFIG.embedScript;
 
 // Declare Cal global type
 declare global {
@@ -42,7 +43,7 @@ export function CalEmbed({
   onBookingComplete,
   onLoad,
 }: CalEmbedProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -91,7 +92,7 @@ export function CalEmbed({
           const namespace = 'diboas-embed';
 
           // Initialize namespace
-          window.Cal('init', namespace, { origin: 'https://app.cal.com' });
+          window.Cal('init', namespace, { origin: CAL_CONFIG.origin });
 
           // Configure embed
           window.Cal(namespace, 'inline', {

@@ -67,6 +67,7 @@ export function getAvailableProductCarouselVariants(): string[] {
  * @param variantName - The variant name to validate
  * @param config - The configuration object to validate
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Validation function accepts untyped runtime data
 export function validateProductCarouselVariant(variantName: string, config: any): boolean {
   if (!hasProductCarouselVariant(variantName)) {
     console.warn(`ProductCarousel variant '${variantName}' not found in registry`);

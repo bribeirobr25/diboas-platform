@@ -65,6 +65,7 @@ export function getOneFeatureVariantNames(): string[] {
  * Validate variant configuration
  * Security & Audit Standards: Ensures configuration integrity
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Validation function accepts untyped runtime data
 export function validateOneFeatureVariant(
   variant: string,
   config: any
@@ -73,7 +74,7 @@ export function validateOneFeatureVariant(
     Logger.error('Invalid OneFeature variant', { variant });
     throw new Error(`Invalid OneFeature variant: ${variant}`);
   }
-  
+
   // Additional validation logic can be added here
   if (!config?.content?.features || !Array.isArray(config.content.features)) {
     Logger.error('Invalid OneFeature configuration', { variant, config });

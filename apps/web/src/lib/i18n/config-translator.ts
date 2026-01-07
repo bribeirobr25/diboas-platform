@@ -13,7 +13,7 @@
 
 'use client';
 
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import type { IntlShape } from 'react-intl';
 
 /**
@@ -40,7 +40,7 @@ export function useConfigTranslation<T extends Record<string, any>>(
   config: T,
   translationKeyMap?: Map<string, string>
 ): T {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   const translateValue = (value: any): any => {
     // Handle null/undefined
@@ -103,7 +103,7 @@ export function createTranslationMap(
  * Use this for simple one-off translations
  */
 export function useTranslate(key: string, defaultMessage?: string): string {
-  const intl = useIntl();
+  const intl = useTranslation();
   return intl.formatMessage({ id: key, defaultMessage: defaultMessage || key });
 }
 
@@ -115,7 +115,7 @@ export function useTranslateWithValues(
   values: Record<string, any>,
   defaultMessage?: string
 ): string {
-  const intl = useIntl();
+  const intl = useTranslation();
   return intl.formatMessage({ id: key, defaultMessage: defaultMessage || key }, values);
 }
 
@@ -124,7 +124,7 @@ export function useTranslateWithValues(
  * This provides scoped translations for cleaner code
  */
 export function useNamespacedTranslation(namespace: string) {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   return {
     t: (key: string, defaultMessage?: string) => {

@@ -12,6 +12,7 @@ import posthog from 'posthog-js';
 import { PostHogProvider as PHProvider } from 'posthog-js/react';
 import { useEffect, useState } from 'react';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
+import { POSTHOG_CONFIG } from '@/config/env';
 
 interface PostHogProviderProps {
   children: React.ReactNode;
@@ -21,8 +22,8 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-    const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com';
+    const posthogKey = POSTHOG_CONFIG.apiKey;
+    const posthogHost = POSTHOG_CONFIG.host;
 
     const initPostHog = () => {
       if (posthogKey && typeof window !== 'undefined' && hasAnalyticsConsent() && !isInitialized) {
@@ -67,10 +68,8 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
     };
   }, [isInitialized]);
 
-  const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-
   // Only wrap with PostHog provider if key is configured
-  if (!posthogKey) {
+  if (!POSTHOG_CONFIG.apiKey) {
     return <>{children}</>;
   }
 

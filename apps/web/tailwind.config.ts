@@ -1,5 +1,83 @@
 import type { Config } from "tailwindcss";
-import { diBoasColors } from "./src/lib/colors";
+
+/**
+ * diBoaS Brand Colors - Inlined for Turbopack compatibility
+ * Source of truth: ./src/lib/colors.ts
+ * Keep in sync when updating brand colors
+ */
+const diBoasColors = {
+  brand: {
+    logo: '#02c3cf',
+    primary: '#14b8a6',
+    primaryDark: '#0d9488'
+  },
+  social: {
+    whatsapp: '#25D366',
+    twitter: '#000000',
+    instagram: '#E4405F',
+    linkedin: '#0A66C2',
+    facebook: '#1877F2',
+    telegram: '#0088cc',
+    copy: '#64748b',
+    download: '#0d9488'
+  },
+  primary: {
+    50: '#f0fdfa',
+    100: '#ccfbf1',
+    200: '#99f6e4',
+    300: '#5eead4',
+    400: '#2dd4bf',
+    500: '#14b8a6',
+    600: '#0d9488',
+    700: '#0f766e',
+    800: '#115e59',
+    900: '#134e4a'
+  },
+  secondary: {
+    purple: {
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      200: '#e9d5ff',
+      300: '#d8b4fe',
+      400: '#c084fc',
+      500: '#a855f7',
+      600: '#9333ea',
+      700: '#7c3aed',
+      800: '#6b21a8',
+      900: '#581c87'
+    },
+    coral: {
+      50: '#fef2f2',
+      100: '#fee2e2',
+      200: '#fecaca',
+      300: '#fca5a5',
+      400: '#f87171',
+      500: '#ef4444',
+      600: '#dc2626',
+      700: '#b91c1c',
+      800: '#991b1b',
+      900: '#7f1d1d'
+    }
+  },
+  neutral: {
+    50: '#f8fafc',
+    100: '#f1f5f9',
+    200: '#e2e8f0',
+    300: '#cbd5e1',
+    400: '#94a3b8',
+    500: '#64748b',
+    600: '#475569',
+    700: '#334155',
+    800: '#1e293b',
+    900: '#0f172a'
+  },
+  semantic: {
+    success: '#10b981',
+    warning: '#f59e0b',
+    error: '#ef4444',
+    info: '#3b82f6'
+  }
+} as const;
 
 export default {
   content: [

@@ -8,7 +8,7 @@
  */
 
 import { useMemo } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import {
   getDisclaimerRegion,
   requiresEnhancedDisclaimer,
@@ -36,7 +36,7 @@ export interface RegionalDisclaimerResult {
  * @returns Regional disclaimer content
  */
 export function useRegionalDisclaimer(): RegionalDisclaimerResult {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   const result = useMemo(() => {
     const region = getDisclaimerRegion();

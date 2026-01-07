@@ -18,15 +18,16 @@ diBoaS Platform is a modern financial services application built with Next.js 15
 
 ## Tech Stack
 
-- **Framework**: Next.js 15.5.3 (App Router)
-- **UI Library**: React 18.3.1
+- **Framework**: Next.js 16.1.1 (App Router with Turbopack)
+- **UI Library**: React 19.0.0
 - **Language**: TypeScript 5.2.2
-- **Styling**: Tailwind CSS 3.4.17, CSS Custom Properties
-- **Monorepo**: Turborepo 2.5.8
+- **Styling**: Tailwind CSS 4.1.8, CSS Custom Properties
+- **Monorepo**: Turborepo 2.6.3
 - **Package Manager**: pnpm 8.15.0
-- **Internationalization**: react-intl 6.4.7
-- **Component Development**: Storybook 9.1.10
+- **Internationalization**: react-intl 7.1.9
+- **Component Development**: Storybook 9.1.17
 - **UI Components**: Radix UI, React Aria
+- **Monitoring**: Sentry 10.32.1
 
 ## Prerequisites
 
@@ -162,7 +163,9 @@ pnpm run generate:design-tokens   # Generate CSS from tokens
 # Quality Assurance
 pnpm run performance:audit        # Run Lighthouse audits
 pnpm run accessibility:audit      # Run accessibility tests
-pnpm run security:audit          # Run security audit
+pnpm run security:audit           # Run security audit
+pnpm run audit:full               # Run comprehensive pre-launch audit
+pnpm run audit:ci                 # Run audit in CI mode (fails on issues)
 ```
 
 ### Web Application
@@ -191,18 +194,23 @@ pnpm run build-storybook  # Build Storybook
 
 ## Environment Variables
 
-Create a `.env.local` file in `apps/web/`:
+Copy the example file and configure your environment:
 
 ```bash
-# Optional: Set environment
-NODE_ENV=development
-
-# Optional: Enable bundle analysis
-ANALYZE=false
-
-# Optional: Bundle analysis target
-BUNDLE_ANALYZE=browser
+cd apps/web
+cp .env.example .env.local
 ```
+
+Key configuration categories in `.env.example`:
+- **Application**: URLs, domain, environment
+- **Kit.com Integration**: Email marketing API keys
+- **Cal.com Integration**: Booking calendar links
+- **Analytics & Monitoring**: GA4, Sentry, PostHog
+- **Security**: Encryption keys, CSRF, rate limiting
+- **Feature Flags**: Enable/disable integrations
+- **Brand & Company**: Business identity configuration
+
+See `apps/web/.env.example` for the complete list of 50+ configuration options.
 
 ## Component Development
 

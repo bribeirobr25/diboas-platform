@@ -1,0 +1,85 @@
+/**
+ * PageHeroSection Styles
+ *
+ * Dark gradient hero section for content pages
+ * Uses design tokens for consistent styling
+ */
+
+/* ================================
+   HERO SECTION - BASE STYLES
+   ================================ */
+
+.hero {
+  background: linear-gradient(to bottom, var(--color-slate-900), var(--color-slate-800));
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* ================================
+   CONTENT CONTAINER
+   ================================ */
+
+.content {
+  max-width: 48rem; /* max-w-3xl */
+}
+
+/* Alignment Variants */
+.alignCenter {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+/* ================================
+   TYPOGRAPHY
+   ================================ */
+
+.headline {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .headline {
+    font-size: 3.75rem; /* text-6xl */
+  }
+}
+
+.subheadline {
+  font-size: 1.25rem; /* text-xl */
+  color: var(--color-slate-300);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .subheadline {
+    font-size: 1.5rem; /* text-2xl */
+  }
+}
+
+.subheadline2 {
+  font-size: 1.125rem; /* text-lg */
+  color: var(--color-slate-400);
+  line-height: 1.5;
+  max-width: 32rem; /* max-w-2xl */
+}
+
+.alignCenter .subheadline2 {
+  margin-left: auto;
+  margin-right: auto;
+}

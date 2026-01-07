@@ -25,6 +25,7 @@ import {
   csrfProtection,
 } from '@/lib/security';
 import { getByEmail, deleteByEmail } from '@/lib/waitingList/store';
+import { Logger } from '@/lib/monitoring/Logger';
 
 // In-memory token store (in production, use Redis with TTL)
 const pendingDeletions = new Map<string, { email: string; expiresAt: number }>();
@@ -120,7 +121,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
       // In production, send this token via email
       // Token is never exposed in response - only sent via secure email channel
-      console.log(`[GDPR] Deletion requested for email, token generated`);
+      Logger.info('[GDPR] Deletion requested for email, token generated');
 
       // TODO: Send deletion confirmation email with token
       // await sendDeletionConfirmationEmail(normalizedEmail, token);
@@ -235,7 +236,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     pendingDeletions.delete(foundHash);
 
     if (deleted) {
-      console.log(`[GDPR] Data deleted successfully`);
+      Logger.info('[GDPR] Data deleted successfully');
       return NextResponse.json(
         {
           success: true,

@@ -12,7 +12,8 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { encrypt, decrypt, isEncryptionEnabled } from '@/lib/security/encryption';
+import { encrypt, decrypt } from '@/lib/security/encryption';
+import { Logger } from '@/lib/monitoring/Logger';
 
 /**
  * WaitlistEntry type - Full spec-compliant model
@@ -113,10 +114,10 @@ function initializeStore(): void {
       positionCounter = parsed.positionCounter || 847;
       entryIdCounter = parsed.entryIdCounter || 0;
 
-      console.log(`[Waitlist] Loaded ${store.size} entries from persistent storage`);
+      Logger.info('[Waitlist] Loaded entries from persistent storage', { count: store.size });
     }
   } catch (error) {
-    console.warn('[Waitlist] Could not load persistent storage, starting fresh:', error);
+    Logger.warn('[Waitlist] Could not load persistent storage, starting fresh', { error: String(error) });
   }
 
   isInitialized = true;
@@ -142,7 +143,7 @@ function persistStore(): void {
 
     fs.writeFileSync(STORAGE_PATH, JSON.stringify(data, null, 2), 'utf-8');
   } catch (error) {
-    console.error('[Waitlist] Failed to persist store:', error);
+    Logger.error('[Waitlist] Failed to persist store', {}, error instanceof Error ? error : undefined);
   }
 }
 
@@ -386,6 +387,6 @@ export function deleteByEmail(email: string): boolean {
 
   store.delete(key);
   persistStore();
-  console.log(`[Waitlist] Entry deleted for GDPR request`);
+  Logger.info('[Waitlist] Entry deleted for GDPR request');
   return true;
 }

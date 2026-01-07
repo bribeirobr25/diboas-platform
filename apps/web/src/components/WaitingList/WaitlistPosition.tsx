@@ -18,7 +18,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { formatPosition } from '@/lib/waitingList/helpers';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import styles from './WaitlistPosition.module.css';
@@ -58,7 +58,7 @@ export function WaitlistPosition({
   size = 'md',
   className,
 }: WaitlistPositionProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
 
   // Calculate spots gained from referrals
   const spotsGained = useMemo(() => {

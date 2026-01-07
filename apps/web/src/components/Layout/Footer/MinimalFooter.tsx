@@ -13,7 +13,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { FOOTER_CONFIG } from '@/config/footer';
 import styles from './MinimalFooter.module.css';
@@ -40,7 +40,7 @@ interface SocialIconProps {
 }
 
 export function MinimalFooter({ disclaimerKey }: MinimalFooterProps) {
-  const intl = useIntl();
+  const intl = useTranslation();
   const config = FOOTER_CONFIG;
 
   return (

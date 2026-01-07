@@ -1,93 +1,64 @@
 {
-  "title": "Sobre | diBoaS",
-  "description": "A primeira plataforma OneFi do mundo.",
+  "seo": {
+    "title": "Sobre a diBoaS | Criada pra Mudar o que os Bancos Escondem",
+    "description": "A diBoaS foi fundada pra dar a todo mundo acesso a rendimentos reais. Conheça a história de por que o Breno tá construindo essa plataforma.",
+    "ogTitle": "Sobre a diBoaS | Criada pra Mudar o que os Bancos Escondem",
+    "ogDescription": "A diBoaS foi fundada pra dar a todo mundo acesso a rendimentos reais. Conheça a história de por que o Breno tá construindo essa plataforma."
+  },
   "hero": {
-    "title": "A primeira plataforma OneFi do mundo. Banking, Investing, Crypto, Strategies e DeFi, tudo em um só lugar. Para todos.",
-    "description": "",
-    "cta": "Começar Agora"
+    "title": "Sobre a diBoaS",
+    "subtitle": "A história por trás da plataforma"
   },
-  "benefitsCards": {
-    "title": "A primeira plataforma OneFi do mundo",
-    "description": "Nossa história, missão e valores.",
-    "cards": {
-      "visionDemocratizeFinance": {
-        "iconAlt": "Vision icon",
-        "title": "Visão: Democratizar Finanças",
-        "description": "5.4 bilhões usam finanças tradicionais.\nApenas 560 milhões tocaram em crypto.\nVamos unir esses dois mundos para todos."
-      },
-      "missionSimplifyComplexity": {
-        "iconAlt": "Mission icon",
-        "title": "Missão: Simplificar Complexidade",
-        "description": "Tecnologia sofisticada, experiência simples.\nDo iniciante ao expert, todos bem-vindos.\nProgressive disclosure que funciona."
-      },
-      "valuesTransparencyEducation": {
-        "iconAlt": "Values icon",
-        "title": "Valores: Transparência e Educação",
-        "description": "Sem letras miúdas.\nSem taxas escondidas.\nConhecimento como direito, não privilégio."
-      },
-      "globalTeamLocalImpact": {
-        "iconAlt": "Global team icon",
-        "title": "Time Global, Impacto Local",
-        "description": "Especialistas em fintech, crypto e UX.\nExperiência em 3 continentes.\nConstruindo para o mundo."
-      }
+  "story": {
+    "header": "A História por Trás da diBoaS",
+    "paragraph1": "Eu sou o Breno, e tô construindo a diBoaS por causa da minha avó.",
+    "paragraph2": "Ela viveu a vida toda no Rio de Janeiro. Foi ela que me ensinou a guardar dinheiro. Ela dizia que eu deveria tentar guardar metade de tudo que eu ganhasse. Ela mesma tentou fazer isso. A vida toda.",
+    "paragraph3": "Trabalhar duro. Comprar só o básico. Tentar guardar.",
+    "paragraph4": "Mesmo assim não funcionou.",
+    "soundsFamiliar": "Soa familiar?",
+    "revelation": "O que ninguém contou pra ela: O banco pagava 0,5% de juros enquanto ganhava 7% com o dinheiro dela.",
+    "example": "Pensa comigo. Aqueles R$5.000 que você guardou? O banco fez R$350 com eles e te devolveu R$25. Os outros R$325? Eram pra ser seus.",
+    "universal": "O mesmo banco tá fazendo isso com todos nós.",
+    "turning": "Em 2024, eu perdi meu emprego e decidi fazer alguma coisa sobre esse problema."
+  },
+  "whatWeDo": {
+    "header": "O Que a diBoaS Faz",
+    "description": "A diBoaS conecta você a protocolos financeiros confiáveis, os mesmos que bancos e instituições usam pra fazer o dinheiro deles render. A diferença? Agora esses rendimentos vão pra você, não pra eles.",
+    "noMiddleman": "Sem intermediário ficando com a diferença. Sem mistério sobre pra onde vai seu dinheiro. Só acesso transparente a 6-10% ao ano em stablecoins, com a possibilidade de sacar quando quiser."
+  },
+  "beliefs": {
+    "header": "No Que Acreditamos",
+    "money": {
+      "title": "Seu dinheiro deveria trabalhar pra você.",
+      "description": "O conceito de ganhar rendimentos sobre dinheiro existe há mais de 5.000 anos. Durante a maior parte desse tempo, só os ricos tinham acesso às melhores taxas. A gente tá mudando isso."
+    },
+    "honesty": {
+      "title": "Honestidade acima do hype.",
+      "description": "A gente não promete retornos garantidos porque ninguém pode. O que a gente oferece: dados reais de 4 anos de análise histórica, explicações claras de como cada estratégia funciona, e uma Central de Aprendizado pra te ajudar a entender o que você tá fazendo antes de fazer."
+    },
+    "startSmall": {
+      "title": "Comece pequeno, aprenda no caminho.",
+      "description": "Você não precisa de R$50.000 pra começar. Comece com o que você se sentir confortável. Veja como funciona. Depois decide se é certo pra você."
     }
   },
-  "stickyFeaturesNav": {
-    "title": "Quem somos e por que existimos.",
-    "subtitle": "A primeira plataforma OneFi do mundo tem uma missão clara.",
-    "cards": {
-      "ourMission": {
-        "title": "Nossa Missão",
-        "description": "Democratizar acesso a crescimento financeiro.\nSimplificar o complexo.\nCapacitar pessoas comuns a prosperarem.",
-        "imageAlt": "Nossa Missão illustration"
-      },
-      "howItStarted": {
-        "title": "Como Começou",
-        "description": "Frustração com fragmentação.\nVisão de unificar tudo.\nDa ideia à realidade OneFi.",
-        "imageAlt": "Como Começou illustration"
-      },
-      "globalTeam": {
-        "title": "Time Global",
-        "description": "Expertise em fintech, crypto, IA.\nTimes distribuídos por 3 continentes.\nDiversidade que enriquece.",
-        "imageAlt": "Time Global illustration"
-      },
-      "guidingValues": {
-        "title": "Valores Que Guiam",
-        "description": "Simplicidade, transparência, educação.\nUsuário sempre em primeiro lugar.\nCrescimento para todos.",
-        "imageAlt": "Valores Que Guiam illustration"
-      }
-    }
+  "mission": {
+    "header": "A Missão",
+    "statement": "Dar a pessoas comuns acesso às mesmas oportunidades financeiras que antes eram reservadas pra instituições e pros ricos.",
+    "tagline": "Uma plataforma. Rendimentos reais. Seu dinheiro, seu controle."
   },
-  "featureShowcase": {
-    "slides": {
-      "unification": {
-        "title": "A Revolução OneFi",
-        "description": "Primeira plataforma unindo tradicional e DeFi.\nDerrubando barreiras financeiras.\nAcessível, transparente, empoderadora.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "A Revolução OneFi illustration"
-      },
-      "simplicity": {
-        "title": "Feito Pra Todo Mundo",
-        "description": "✓ Oportunidade de US$ 400 bilhões\n✓ 89,6% dos usuários mal atendidos\n✓ Validado por 118,6M de usuários Nubank\nMetodologia comprovada, tecnologia moderna.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Feito Pra Todo Mundo illustration"
-      },
-      "rewards": {
-        "title": "Entre Pro Movimento",
-        "description": "Faça parte da democratização financeira.\nEarly adopters moldam o futuro.\nJuntos, estamos mudando as finanças.",
-        "ctaText": "Começar Agora",
-        "imageAlt": "Entre Pro Movimento illustration"
-      }
-    }
+  "business": {
+    "header": "Para Empresas",
+    "description": "Se você é fundador, CFO ou gestor de tesouraria, o mesmo sistema que falhou com a minha avó tá parado em cima das reservas de caixa da sua empresa.",
+    "pitch": "A gente criou o diBoaS Treasury pra empresas que querem que seu caixa parado trabalhe mais, com liquidez no mesmo dia e protocolos de grau institucional.",
+    "cta": "Saiba mais sobre diBoaS para Empresas"
   },
-  "faqAccordion": {
-    "sectionTitle": "Perguntas Frequentes",
-    "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
-    "ctaText": "Ver Todas as Perguntas",
-    "questionIds": [
-      "q103",
-      "q104",
-      "q105"
-    ]
+  "contact": {
+    "header": "Contato",
+    "founder": "Fundador:",
+    "founderName": "Breno",
+    "location": "Localização:",
+    "locationValue": "Berlim, Alemanha",
+    "email": "E-mail:",
+    "emailValue": "hello@diboas.com"
   }
 }

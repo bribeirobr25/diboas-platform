@@ -13,6 +13,7 @@
 
 // Import design tokens from centralized JSON configuration
 import designTokensJson from '../../../../config/design-tokens.json';
+import { Logger } from '@/lib/monitoring/Logger';
 
 // Type definitions for design tokens (auto-generated from JSON structure)
 export type DesignTokens = typeof designTokensJson;
@@ -30,15 +31,15 @@ export type BreakpointTokens = DesignTokens['breakpoints'];
  */
 function validateDesignTokens(tokens: any): tokens is DesignTokens {
   if (!tokens || typeof tokens !== 'object') {
-    console.error('Design tokens: Invalid or missing configuration');
+    Logger.error('Design tokens: Invalid or missing configuration');
     return false;
   }
 
   const requiredSections = ['typography', 'spacing', 'layout', 'animation', 'zIndex', 'breakpoints'];
   const missingSections = requiredSections.filter(section => !tokens[section]);
-  
+
   if (missingSections.length > 0) {
-    console.error(`Design tokens: Missing required sections: ${missingSections.join(', ')}`);
+    Logger.error('Design tokens: Missing required sections', { missingSections });
     return false;
   }
 
@@ -59,14 +60,14 @@ function loadDesignTokens(): DesignTokens {
 
     // Log successful loading (development only)
     if (process.env.NODE_ENV === 'development') {
-      console.log(`✅ Design tokens loaded successfully (v${designTokensJson.version})`);
+      Logger.debug('Design tokens loaded successfully', { version: designTokensJson.version });
     }
 
     return designTokensJson;
-    
+
   } catch (error) {
-    console.error('❌ Failed to load design tokens:', error);
-    console.warn('🔄 Using fallback configuration...');
+    Logger.error('Failed to load design tokens', {}, error instanceof Error ? error : undefined);
+    Logger.warn('Using fallback configuration');
     
     // Fallback configuration for error recovery
     return {

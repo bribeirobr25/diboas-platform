@@ -17,7 +17,7 @@
 
 import { useCallback, useState } from 'react';
 import Image from 'next/image';
-import { useIntl } from 'react-intl';
+import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import { Container, FlexBetween, LocaleLink } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
@@ -49,7 +49,7 @@ const LANDING_NAV_LINKS = [
 ] as const;
 
 export default function MinimalNavigation() {
-  const intl = useIntl();
+  const intl = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   /**

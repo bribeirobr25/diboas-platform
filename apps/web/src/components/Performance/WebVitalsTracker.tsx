@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { performanceService } from '@/lib/performance/services/PerformanceService';
 import { WebVitalMetric } from '@/lib/performance/domain/PerformanceDomain';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
+import { Logger } from '@/lib/monitoring/Logger';
 
 interface WebVitalsTrackerProps {
   /**
@@ -40,7 +41,7 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
       setHasConsent(consent);
 
       if (debug) {
-        console.log('WebVitals: Consent status:', consent ? 'granted' : 'denied');
+        Logger.debug('WebVitals: Consent status', { consent: consent ? 'granted' : 'denied' });
       }
     };
 
@@ -62,13 +63,13 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
   useEffect(() => {
     // GDPR Compliance: Don't track without consent
     if (!hasConsent) {
-      if (debug) console.log('WebVitals: Tracking disabled - no consent');
+      if (debug) Logger.debug('WebVitals: Tracking disabled - no consent');
       return;
     }
 
     // Performance: Only track if within sample rate
     if (Math.random() > sampleRate) {
-      if (debug) console.log('WebVitals: Skipped due to sample rate');
+      if (debug) Logger.debug('WebVitals: Skipped due to sample rate');
       return;
     }
 
@@ -83,7 +84,7 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
       try {
         webVitalsModule = await import('web-vitals');
         
-        if (debug) console.log('WebVitals: Module loaded successfully');
+        if (debug) Logger.debug('WebVitals: Module loaded successfully');
         
         // Track Core Web Vitals
         webVitalsModule.onFCP(handleMetric);
@@ -99,7 +100,7 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
 
       } catch (error) {
         // Error Handling: Graceful fallback if web-vitals fails to load
-        console.error('Failed to load web-vitals library:', error);
+        Logger.error('Failed to load web-vitals library', {}, error instanceof Error ? error : undefined);
         
         // Track the error for monitoring
         if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -138,7 +139,7 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
         await performanceService.trackWebVital(webVitalMetric);
 
         if (debug) {
-          console.log('WebVitals tracked:', {
+          Logger.debug('WebVitals tracked', {
             name: webVitalMetric.name,
             value: webVitalMetric.value,
             rating: webVitalMetric.rating,
@@ -161,11 +162,7 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
 
       } catch (error) {
         // Error Handling: Don't let tracking errors break the app
-        console.error(`Failed to track ${metric.name}:`, error);
-        
-        if (debug) {
-          console.error('WebVitals tracking error:', error);
-        }
+        Logger.error(`Failed to track ${metric.name}`, { metric: metric.name }, error instanceof Error ? error : undefined);
       }
     };
 
@@ -233,7 +230,7 @@ export function usePerformanceTracking() {
         userAgent: navigator.userAgent,
       });
     } catch (error) {
-      console.error('Failed to track custom metric:', error);
+      Logger.error('Failed to track custom metric', { name }, error instanceof Error ? error : undefined);
     }
   };
 

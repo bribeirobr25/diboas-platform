@@ -17,7 +17,7 @@ interface DreamModePageProps {
  * Generate metadata for the Dream Mode page
  */
 export async function generateMetadata({ params }: DreamModePageProps): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale: _locale } = await params;
   return {
     title: 'Dream Mode - diBoaS',
     description: 'Visualize your financial future. See what different strategies could do for your money over time.',

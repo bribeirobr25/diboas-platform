@@ -4,12 +4,13 @@ The main web application for the diBoaS unified financial services platform.
 
 ## Tech Stack
 
-- **Next.js 15.5.3** with App Router
-- **React 18.3.1** with Server Components
+- **Next.js 16.1.1** with App Router and Turbopack
+- **React 19.0.0** with Server Components
 - **TypeScript 5.2.2**
-- **Tailwind CSS 3.4.17**
-- **react-intl 6.4.7** for internationalization
-- **Storybook 9.1.10** for component development
+- **Tailwind CSS 4.1.8**
+- **react-intl 7.1.9** for internationalization
+- **Storybook 9.1.17** for component development
+- **Sentry 10.32.1** for error monitoring
 
 ## Installation
 
@@ -54,15 +55,24 @@ The app uses locale-based routing:
 - `/de` - German
 
 Main pages:
-- `/[locale]` - Home page
+- `/[locale]` - Home page (B2C landing)
+- `/[locale]/business` - B2B landing page
 - `/[locale]/about` - About page
+- `/[locale]/strategies` - Investment strategies
+- `/[locale]/future-you` - Financial future calculator
+- `/[locale]/dream-mode` - Interactive dream simulator
+- `/[locale]/share` - Social sharing page
 - `/[locale]/benefits` - Benefits page
 - `/[locale]/banking-services` - Banking services
 - `/[locale]/investing` - Investment features
 - `/[locale]/cryptocurrency` - Crypto trading
-- `/[locale]/business` - Business solutions
 - `/[locale]/learn` - Educational content
 - `/[locale]/rewards` - Rewards program
+
+Legal pages:
+- `/[locale]/privacy` - Privacy policy
+- `/[locale]/terms` - Terms of service
+- `/[locale]/cookies` - Cookie policy
 
 ## Project Structure
 
@@ -214,13 +224,26 @@ Translation files are in `../../packages/i18n/translations/`.
 
 ## Environment Variables
 
-Create `.env.local`:
+Copy the example file and configure:
 
 ```bash
-NODE_ENV=development
-ANALYZE=false
-BUNDLE_ANALYZE=browser
+cp .env.example .env.local
 ```
+
+The `.env.example` file contains 50+ configuration options organized by category:
+
+| Category | Description |
+|----------|-------------|
+| Application | Base URLs, domain, environment |
+| Kit.com | Email marketing integration |
+| Cal.com | Booking calendar integration |
+| Waitlist | Storage path, API keys |
+| Analytics | GA4, Sentry, PostHog |
+| Security | Encryption, CSRF, rate limiting |
+| Feature Flags | Toggle integrations on/off |
+| Brand | Company name, tagline, social links |
+
+See `.env.example` for detailed documentation of each variable.
 
 ## Performance Optimization
 

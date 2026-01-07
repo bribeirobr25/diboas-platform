@@ -16,6 +16,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Play, Pause } from 'lucide-react';
+import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
@@ -265,19 +266,16 @@ export function ProductCarouselDefault({
         {/* Controls - Using shared carousel controls styles */}
         <div className={carouselControls.controls}>
 
-          {/* Dots Navigation */}
+          {/* Dots Navigation - Using shared CarouselDots component */}
           {config.settings?.enableDots && (
-            <div className={carouselControls.dots}>
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`${carouselControls.dot} ${index === currentSlideIndex ? carouselControls.dotActive : ''}`}
-                  aria-label={`Go to slide ${index + 1} of ${slides.length}`}
-                  disabled={isTransitioning}
-                />
-              ))}
-            </div>
+            <CarouselDots
+              totalSlides={slides.length}
+              currentIndex={currentSlideIndex}
+              onDotClick={goToSlide}
+              disabled={isTransitioning}
+              ariaLabelPattern="Go to slide {index} of {total}"
+              className={carouselControls.dots}
+            />
           )}
 
           {/* Play/Pause Button */}
