@@ -52,8 +52,9 @@ import { HeroSection } from '@/components/Sections/HeroSection';
 ```
 
 ### **2. Custom Configuration**
+{% raw %}
 ```tsx
-<HeroSection 
+<HeroSection
   variant="fullBackground"
   config={{
     content: {
@@ -67,6 +68,7 @@ import { HeroSection } from '@/components/Sections/HeroSection';
   enableAnalytics={true}
 />
 ```
+{% endraw %}
 
 ### **3. Page-Specific Implementations**
 
