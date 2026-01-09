@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, isValidLocale, getSafeLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { Logger } from '@/lib/monitoring/Logger';
 
 /**
  * Simplified Proxy for Immediate Functionality
@@ -9,7 +10,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, isValidLocale, getSafeLocale, type S
  */
 
 export async function proxy(request: NextRequest) {
-  const { pathname, search, origin } = request.nextUrl;
+  const { pathname, search, origin: _origin } = request.nextUrl;
   
   // Security: Basic request validation
   if (!isValidRequest(request)) {
@@ -85,14 +86,14 @@ function isValidRequest(request: NextRequest): boolean {
   // Block suspicious patterns
   const suspiciousPatterns = [
     /\.\./,           // Directory traversal
-    /[<>\"']/,        // Potential XSS
+    /[<>"']/,        // Potential XSS
     /__[a-z]+__/,     // Python-style attacks
     /\.(php|asp|jsp)/, // Server file extensions
   ];
   
   for (const pattern of suspiciousPatterns) {
     if (pattern.test(pathname)) {
-      console.warn(`Blocked suspicious request: ${pathname}`);
+      Logger.warn(`Blocked suspicious request: ${pathname}`);
       return false;
     }
   }
@@ -100,7 +101,7 @@ function isValidRequest(request: NextRequest): boolean {
   // Validate search parameters
   for (const [key, value] of searchParams.entries()) {
     if (value.length > 1000) { // Prevent DoS via large params
-      console.warn(`Blocked request with large parameter: ${key}`);
+      Logger.warn(`Blocked request with large parameter: ${key}`);
       return false;
     }
   }

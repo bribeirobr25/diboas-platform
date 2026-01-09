@@ -31,10 +31,10 @@ export default function DesktopNav({
   config,
   isMobile
 }: DesktopNavProps) {
-  if (isMobile) return null;
-
   const intl = useTranslation();
   const activeMenuItem = config.mainMenu.find(item => item.id === activeMenu);
+
+  if (isMobile) return null;
 
   return (
     <nav className="navigation-bar" onMouseLeave={closeMenu}>

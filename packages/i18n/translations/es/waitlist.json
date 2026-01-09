@@ -21,13 +21,12 @@
     "positionIntro": "Tu posición:",
     "positionFormat": "#{position}",
     "shareIntro": "¿Quieres subir en la fila?",
-    "shareBenefit": "Comparte tu enlace — cada registro te sube {spots} posiciones",
+    "shareBenefit": "Comparte tu enlace. Cada registro te sube 10 posiciones.",
     "shareExplanation": "Entre más pronto lancemos, más pronto esto se vuelve realidad.",
     "referralLinkLabel": "Tu enlace personal:",
     "copy": "Copiar enlace",
     "copied": "¡Copiado!",
-    "dreamModeCta": "Probar el Modo Sueño",
-    "exploreCta": "Explorar lo que viene"
+    "dreamModeCta": "Prueba el Dream Mode mientras esperas"
   },
   "referral": {
     "movedUp": "¡Subiste {spots} posiciones!",
@@ -45,7 +44,7 @@
   "card": {
     "headline": "SOY EL #{position} EN LA LISTA DE DIBOAS",
     "bodyLine1": "Los bancos ganan 7% con nuestros ahorros.",
-    "bodyLine2": "Nos pagan 0.5%.",
+    "bodyLine2": "Nos pagan 0.4%.",
     "bodyLine3": "¿Esa brecha? Siempre estuvo ahí.",
     "ctaIntro": "Únete conmigo:",
     "hashtag": "#WhileISlept"

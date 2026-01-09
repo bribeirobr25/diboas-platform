@@ -7,6 +7,10 @@
 
 import type { DreamPath, DreamTimeframe, GrowthResult, BankComparisonResult } from './types';
 import { PATH_CONFIGS, BANK_APY_RATE, TIMEFRAME_DAYS, ECB_SOURCE_CITATION } from './constants';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 /**
  * Calculate growth for a given amount, path, and timeframe
@@ -64,25 +68,50 @@ export function calculateBankBalance(amount: number, timeframe: DreamTimeframe):
  * @param amount - Starting amount
  * @param path - Investment path
  * @param timeframe - Time horizon
+ * @param emitEvent - Whether to emit completion event (default: true)
  * @returns Comparison result with both balances and difference
  */
 export function calculateBankComparison(
   amount: number,
   path: DreamPath,
-  timeframe: DreamTimeframe
+  timeframe: DreamTimeframe,
+  emitEvent: boolean = true
 ): BankComparisonResult {
   const defiResult = calculatePathGrowth(amount, path, timeframe);
   const bankBalance = calculateBankBalance(amount, timeframe);
 
   const difference = defiResult.finalBalance - bankBalance;
 
-  return {
+  const result = {
     bankBalance,
     defiBalance: defiResult.finalBalance,
     difference: Math.round(difference * 100) / 100,
     bankRate: BANK_APY_RATE,
     source: `${ECB_SOURCE_CITATION.source}, ${ECB_SOURCE_CITATION.date}`,
   };
+
+  // Emit calculation completed event for analytics and tracking
+  if (emitEvent) {
+    applicationEventBus.emit(ApplicationEventType.DREAM_MODE_CALCULATION_COMPLETED, {
+      source: 'dreamMode',
+      timestamp: Date.now(),
+      amount,
+      path,
+      timeframe,
+      result: {
+        finalBalance: defiResult.finalBalance,
+        growthPercentage: defiResult.growthPercentage,
+        bankComparison: difference,
+      },
+      metadata: {
+        bankBalance,
+        defiBalance: defiResult.finalBalance,
+        growthAmount: defiResult.growthAmount,
+      },
+    });
+  }
+
+  return result;
 }
 
 /**

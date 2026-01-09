@@ -3,6 +3,10 @@
     "title": "Datenschutzerklärung | diBoaS",
     "description": "Erfahren Sie, wie diBoaS Ihre personenbezogenen Daten erhebt, verwendet und schützt. DSGVO-konform."
   },
+  "toc": {
+    "title": "Inhalt"
+  },
+  "backToTop": "Nach oben",
   "header": {
     "title": "Datenschutzerklärung",
     "lastUpdated": "Zuletzt aktualisiert: 3. Januar 2026",

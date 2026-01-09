@@ -11,6 +11,7 @@
 
 'use client';
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { ONE_FEATURE_CONFIGS, type OneFeatureVariantConfig, type OneFeatureVariant } from '@/config/oneFeature';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
@@ -107,7 +108,7 @@ export function OneFeature({
         window.location.href = href;
       }
     } catch (error) {
-      console.warn('Failed to track feature click:', error);
+      // Analytics tracking failed silently:  feature click:', error);
       
       // Still navigate even if analytics fails
       if (href.startsWith('http')) {
@@ -137,7 +138,7 @@ export function OneFeature({
         window.location.href = href;
       }
     } catch (error) {
-      console.warn('Failed to track CTA click:', error);
+      // Analytics tracking failed silently:  CTA click:', error);
       
       // Still navigate even if analytics fails
       if (href.startsWith('http')) {
@@ -163,8 +164,8 @@ export function OneFeature({
   try {
     return <VariantComponent {...variantProps} />;
   } catch (error) {
-    console.error(`Failed to render one feature variant '${variant}':`, error);
-    
+    Logger.error(`Failed to render one feature variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+
     // Fallback to default variant
     const DefaultVariant = getOneFeatureVariant('default');
     return <DefaultVariant {...variantProps} />;

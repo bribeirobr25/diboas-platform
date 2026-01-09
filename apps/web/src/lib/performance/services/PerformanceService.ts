@@ -7,6 +7,7 @@
  * Concurrency Prevention: Safe metric aggregation
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import {
   PerformanceDomainService,
   PerformanceMetric,
@@ -207,7 +208,7 @@ export class PerformanceServiceImpl implements PerformanceDomainService {
         metrics: allMetrics,
         webVitals,
         budgetStatus,
-        trends: [], // TODO: Implement trend analysis
+        trends: [], // POST-LAUNCH: Requires database for historical metrics storage
         recommendations
       };
 
@@ -257,7 +258,7 @@ export class PerformanceServiceImpl implements PerformanceDomainService {
 
       return alert;
     } catch (error) {
-      console.error('Failed to create performance alert:', error);
+      Logger.error('Failed to create performance alert:', { error: error instanceof Error ? error.message : String(error) });
       return null;
     }
   }
@@ -317,7 +318,7 @@ export class PerformanceServiceImpl implements PerformanceDomainService {
       try {
         handler(event);
       } catch (error) {
-        console.error('Performance event handler failed:', error);
+        Logger.error('Performance event handler failed:', { error: error instanceof Error ? error.message : String(error) });
       }
     });
   }

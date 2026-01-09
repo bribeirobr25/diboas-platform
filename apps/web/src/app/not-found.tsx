@@ -47,7 +47,7 @@ const DEFAULT_TRANSLATIONS = TRANSLATIONS.en;
 function detectLanguage(): string {
   if (typeof window === 'undefined') return 'en';
 
-  const browserLang = navigator.language || (navigator as any).userLanguage;
+  const browserLang = navigator.language || (navigator as Navigator & { userLanguage?: string }).userLanguage || 'en';
 
   // Check for exact match first
   if (TRANSLATIONS[browserLang]) {
@@ -55,7 +55,7 @@ function detectLanguage(): string {
   }
 
   // Check for language code match (e.g., 'pt' matches 'pt-BR')
-  const langCode = browserLang?.split('-')[0];
+  const langCode = browserLang.split('-')[0];
   const matchingLocale = Object.keys(TRANSLATIONS).find(
     (locale) => locale.startsWith(langCode) || locale === langCode
   );

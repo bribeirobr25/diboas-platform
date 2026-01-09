@@ -3,27 +3,52 @@
 /**
  * Privacy Policy Content Component
  *
- * Renders the Privacy Policy legal document using translation keys.
- * Follows GDPR requirements for privacy disclosure.
+ * Renders the Privacy Policy using the platform's reusable components
+ * and specialized legal components for document structure.
+ *
+ * Structure:
+ * - PageHeroSection: Page header with title
+ * - SectionContainer: Main content wrapper (narrow variant)
+ * - LegalTableOfContents: Navigation
+ * - LegalContentSection: Each policy section
+ * - ContentCard: Highlight boxes
  */
 
 import { useTranslation } from '@diboas/i18n/client';
+import { PageHeroSection } from '@/components/Sections/PageHeroSection';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
 import {
-  LegalDocument,
-  LegalHeader,
-  LegalSection,
+  LegalTableOfContents,
+  LegalContentSection,
   LegalSubsection,
   LegalParagraph,
   LegalTable,
   LegalList,
   LegalContactInfo,
   LegalRetentionList,
+  LegalBackToTop,
 } from './LegalDocument';
 
 export function PrivacyPolicyContent() {
   const intl = useTranslation();
 
   const t = (id: string) => intl.formatMessage({ id: `legal/privacy.${id}` });
+
+  // Table of contents items
+  const tocItems = [
+    { id: 'who-we-are', title: t('sections.whoWeAre.title') },
+    { id: 'what-data-we-collect', title: t('sections.whatDataWeCollect.title') },
+    { id: 'how-we-use-your-data', title: t('sections.howWeUseData.title') },
+    { id: 'who-we-share-data-with', title: t('sections.whoWeShareWith.title') },
+    { id: 'international-transfers', title: t('sections.internationalTransfers.title') },
+    { id: 'data-retention', title: t('sections.dataRetention.title') },
+    { id: 'your-rights', title: t('sections.yourRights.title') },
+    { id: 'complaints', title: t('sections.complaints.title') },
+    { id: 'security', title: t('sections.security.title') },
+    { id: 'childrens-privacy', title: t('sections.childrenPrivacy.title') },
+    { id: 'changes-to-this-policy', title: t('sections.changes.title') },
+    { id: 'contact-us', title: t('sections.contact.title') },
+  ];
 
   // Data usage table
   const dataUsageHeaders = [
@@ -89,90 +114,107 @@ export function PrivacyPolicyContent() {
   ];
 
   return (
-    <LegalDocument>
-      <LegalHeader
-        title={t('header.title')}
-        lastUpdated={t('header.lastUpdated')}
-        intro={t('header.intro')}
+    <main id="top">
+      {/* Page Header */}
+      <PageHeroSection
+        headline={t('header.title')}
+        subheadline={t('header.lastUpdated')}
+        subheadline2={t('header.intro')}
+        align="center"
       />
 
-      <LegalSection title={t('sections.whoWeAre.title')}>
-        <LegalParagraph>{t('sections.whoWeAre.content')}</LegalParagraph>
-        <LegalContactInfo
-          email={t('sections.whoWeAre.contact.email')}
-          dpoEmail={t('sections.whoWeAre.contact.dpo')}
-          emailLabel={t('sections.whoWeAre.contact.emailLabel')}
-          dpoLabel={t('sections.whoWeAre.contact.dpoLabel')}
+      {/* Main Content */}
+      <SectionContainer
+        variant="narrow"
+        padding="standard"
+        as="article"
+        ariaLabel="Privacy Policy content"
+      >
+        <LegalTableOfContents
+          items={tocItems}
+          title={t('toc.title')}
         />
-      </LegalSection>
 
-      <LegalSection title={t('sections.whatDataWeCollect.title')}>
-        <LegalSubsection title={t('sections.whatDataWeCollect.provided.title')}>
-          <LegalList items={providedItems} />
-        </LegalSubsection>
+        <LegalContentSection title={t('sections.whoWeAre.title')} id="who-we-are">
+          <LegalParagraph>{t('sections.whoWeAre.content')}</LegalParagraph>
+          <LegalContactInfo
+            email={t('sections.whoWeAre.contact.email')}
+            dpoEmail={t('sections.whoWeAre.contact.dpo')}
+            emailLabel={t('sections.whoWeAre.contact.emailLabel')}
+            dpoLabel={t('sections.whoWeAre.contact.dpoLabel')}
+          />
+        </LegalContentSection>
 
-        <LegalSubsection title={t('sections.whatDataWeCollect.automatic.title')}>
-          <LegalList items={automaticItems} />
-        </LegalSubsection>
+        <LegalContentSection title={t('sections.whatDataWeCollect.title')} id="what-data-we-collect">
+          <LegalSubsection title={t('sections.whatDataWeCollect.provided.title')}>
+            <LegalList items={providedItems} />
+          </LegalSubsection>
 
-        <LegalSubsection title={t('sections.whatDataWeCollect.dreamMode.title')}>
-          <LegalList items={dreamModeItems} />
-        </LegalSubsection>
-      </LegalSection>
+          <LegalSubsection title={t('sections.whatDataWeCollect.automatic.title')}>
+            <LegalList items={automaticItems} />
+          </LegalSubsection>
 
-      <LegalSection title={t('sections.howWeUseData.title')}>
-        <LegalTable headers={dataUsageHeaders} rows={dataUsageRows} />
-      </LegalSection>
+          <LegalSubsection title={t('sections.whatDataWeCollect.dreamMode.title')}>
+            <LegalList items={dreamModeItems} />
+          </LegalSubsection>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.whoWeShareWith.title')}>
-        <LegalParagraph>{t('sections.whoWeShareWith.intro')}</LegalParagraph>
-        <LegalSubsection title={t('sections.whoWeShareWith.serviceProviders.title')}>
-          <LegalParagraph>{t('sections.whoWeShareWith.serviceProviders.content')}</LegalParagraph>
-        </LegalSubsection>
-        <LegalSubsection title={t('sections.whoWeShareWith.legal.title')}>
-          <LegalParagraph>{t('sections.whoWeShareWith.legal.content')}</LegalParagraph>
-        </LegalSubsection>
-        <LegalParagraph>{t('sections.whoWeShareWith.note')}</LegalParagraph>
-      </LegalSection>
+        <LegalContentSection title={t('sections.howWeUseData.title')} id="how-we-use-your-data">
+          <LegalTable headers={dataUsageHeaders} rows={dataUsageRows} />
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.internationalTransfers.title')}>
-        <LegalParagraph>{t('sections.internationalTransfers.content')}</LegalParagraph>
-      </LegalSection>
+        <LegalContentSection title={t('sections.whoWeShareWith.title')} id="who-we-share-data-with">
+          <LegalParagraph>{t('sections.whoWeShareWith.intro')}</LegalParagraph>
+          <LegalSubsection title={t('sections.whoWeShareWith.serviceProviders.title')}>
+            <LegalParagraph>{t('sections.whoWeShareWith.serviceProviders.content')}</LegalParagraph>
+          </LegalSubsection>
+          <LegalSubsection title={t('sections.whoWeShareWith.legal.title')}>
+            <LegalParagraph>{t('sections.whoWeShareWith.legal.content')}</LegalParagraph>
+          </LegalSubsection>
+          <LegalParagraph>{t('sections.whoWeShareWith.note')}</LegalParagraph>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.dataRetention.title')}>
-        <LegalRetentionList items={retentionItems} />
-      </LegalSection>
+        <LegalContentSection title={t('sections.internationalTransfers.title')} id="international-transfers">
+          <LegalParagraph>{t('sections.internationalTransfers.content')}</LegalParagraph>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.yourRights.title')}>
-        <LegalParagraph>{t('sections.yourRights.intro')}</LegalParagraph>
-        <LegalTable headers={rightsHeaders} rows={rightsRows} />
-        <LegalParagraph>
-          {t('sections.yourRights.exerciseRights').replace('{email}', t('sections.contact.email'))}
-        </LegalParagraph>
-      </LegalSection>
+        <LegalContentSection title={t('sections.dataRetention.title')} id="data-retention">
+          <LegalRetentionList items={retentionItems} />
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.complaints.title')}>
-        <LegalParagraph>{t('sections.complaints.content')}</LegalParagraph>
-      </LegalSection>
+        <LegalContentSection title={t('sections.yourRights.title')} id="your-rights">
+          <LegalParagraph>{t('sections.yourRights.intro')}</LegalParagraph>
+          <LegalTable headers={rightsHeaders} rows={rightsRows} />
+          <LegalParagraph>
+            {t('sections.yourRights.exerciseRights').replace('{email}', t('sections.contact.email'))}
+          </LegalParagraph>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.security.title')}>
-        <LegalParagraph>{t('sections.security.intro')}</LegalParagraph>
-        <LegalList items={securityMeasures} />
-      </LegalSection>
+        <LegalContentSection title={t('sections.complaints.title')} id="complaints">
+          <LegalParagraph>{t('sections.complaints.content')}</LegalParagraph>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.childrenPrivacy.title')}>
-        <LegalParagraph>{t('sections.childrenPrivacy.content')}</LegalParagraph>
-      </LegalSection>
+        <LegalContentSection title={t('sections.security.title')} id="security">
+          <LegalParagraph>{t('sections.security.intro')}</LegalParagraph>
+          <LegalList items={securityMeasures} />
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.changes.title')}>
-        <LegalParagraph>{t('sections.changes.content')}</LegalParagraph>
-      </LegalSection>
+        <LegalContentSection title={t('sections.childrenPrivacy.title')} id="childrens-privacy">
+          <LegalParagraph>{t('sections.childrenPrivacy.content')}</LegalParagraph>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.contact.title')}>
-        <LegalParagraph>
-          {t('sections.contact.content').replace('{email}', t('sections.contact.email'))}
-        </LegalParagraph>
-      </LegalSection>
-    </LegalDocument>
+        <LegalContentSection title={t('sections.changes.title')} id="changes-to-this-policy">
+          <LegalParagraph>{t('sections.changes.content')}</LegalParagraph>
+        </LegalContentSection>
+
+        <LegalContentSection title={t('sections.contact.title')} id="contact-us">
+          <LegalParagraph>
+            {t('sections.contact.content').replace('{email}', t('sections.contact.email'))}
+          </LegalParagraph>
+        </LegalContentSection>
+
+        <LegalBackToTop label={t('backToTop')} />
+      </SectionContainer>
+    </main>
   );
 }

@@ -29,7 +29,8 @@
     "downloadComplete": "Imagem salva!",
     "shareSuccess": "Compartilhado!",
     "shareFailed": "Não deu pra compartilhar. Tenta baixar a imagem.",
-    "shareCancelled": "Compartilhamento cancelado"
+    "shareCancelled": "Compartilhamento cancelado",
+    "linkedInCopied": "Texto copiado! Cole no seu post do LinkedIn."
   },
   "instagramInstructions": "Imagem salva! Abra o Instagram e compartilhe da sua galeria.",
   "card": {
@@ -43,15 +44,15 @@
     "copied": "Link copiado!"
   },
   "dreamMode": {
-    "twitter": "No Modo Sonho, eu poderia crescer {start} -> {end} em {timeframe}. Meu banco? Só {bank}. #WhileISlept diboas.com",
-    "whatsapp": "Olha isso — no Modo Sonho, vi no que meus {start} poderiam virar: {end} em {timeframe}. Meu banco me daria {bank}. Veja o que o seu poderia fazer: diboas.com #WhileISlept",
-    "linkedin": "Acabei de explorar no que minhas economias poderiam se transformar com diferentes estratégias. A diferença entre banco tradicional (0,5%) e o que é realmente possível é impressionante. Experimente você mesmo: diboas.com #WhileISlept"
+    "twitter": "No @diboasfi Dream Mode, eu poderia crescer {start} → {end} em {timeframe}. Meu banco? Só {bank}. Mesmo dinheiro, lugar diferente. diboas.com",
+    "whatsapp": "No diBoaS Dream Mode, eu poderia crescer {start} → {end} em {timeframe}. Meu banco? Só {bank}. Mesmo dinheiro, lugar diferente. Olha: diboas.com",
+    "linkedin": "No @diboasfi Dream Mode, eu poderia crescer {start} → {end} em {timeframe}. Meu banco? Só {bank}. Mesmo dinheiro, lugar diferente. Olha: diboas.com"
   },
   "waitlistPosition": {
-    "twitter": "Eu sou o #{position} na lista de espera do @diBoaS. Bancos ganham 7% com nossas economias. Nos pagam 0,5%. Essa diferença? Sempre esteve lá. #WhileISlept",
-    "whatsapp": "Acabei de entrar na lista de espera do diBoaS (#{position}). Sabia que os bancos ganham 7% com nossas economias mas só nos pagam 0,5%? Dá uma olhada: {referralUrl}",
-    "facebook": "Eu sou o #{position} na lista de espera do diBoaS. Bancos ganham 7% com nossas economias mas só nos pagam 0,5%. Hora de mudar isso. {referralUrl}",
-    "linkedin": "Acabei de entrar na lista de espera do diBoaS na posição #{position}. A diferença entre o que os bancos ganham com nosso dinheiro (7%) e o que nos pagam (0,5%) é impressionante. Explorando como DeFi pode mudar isso. {referralUrl} #InovaçãoFinanceira #DeFi"
+    "twitter": "Sou #{position} na lista de espera @diboasfi. Com só R$30 tenho as mesmas oportunidades que instituições e bilionários. Em dólares.",
+    "whatsapp": "Acabei de entrar na lista de espera do diBoaS (#{position}). Sabia que dá pra começar com só R$30 e ter as mesmas oportunidades que instituições e bilionários? Em dólares. Dá uma olhada: {referralUrl}",
+    "facebook": "Eu sou o #{position} na lista de espera do diBoaS. Bancos ganham 15% com nosso dinheiro mas devolvem só 7% na poupança. Hora de mudar isso.",
+    "linkedin": "Acabei de entrar na lista de espera @diboasfi (#{position}). Sabia que os bancos ganham 15% com nosso dinheiro mas devolvem só 7% na poupança? E o real ainda perde 6% ao ano contra o dólar. Com o diBoaS eu posso mudar isso e você também pode. Dá uma olhada: {referralUrl}"
   },
   "dreamCard": {
     "watermark": "PROJEÇÃO",

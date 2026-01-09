@@ -62,27 +62,45 @@ export function getAvailableProductCarouselVariants(): string[] {
 }
 
 /**
+ * Runtime configuration type for validation
+ */
+interface ProductCarouselValidationConfig {
+  content?: {
+    slides?: unknown[];
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
+
+/**
+ * Type guard to check if config has required shape
+ */
+function isValidConfig(config: unknown): config is ProductCarouselValidationConfig {
+  return typeof config === 'object' && config !== null;
+}
+
+/**
  * Development helper: Validate variant configuration
- * 
+ *
  * @param variantName - The variant name to validate
  * @param config - The configuration object to validate
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Validation function accepts untyped runtime data
-export function validateProductCarouselVariant(variantName: string, config: any): boolean {
+export function validateProductCarouselVariant(variantName: string, config: unknown): boolean {
   if (!hasProductCarouselVariant(variantName)) {
-    console.warn(`ProductCarousel variant '${variantName}' not found in registry`);
+    // Variant not found in registry
+    return false;
+  }
+
+  // Type guard for runtime validation
+  if (!isValidConfig(config)) {
+    // Config is not a valid object
     return false;
   }
 
   // Add more validation logic here as needed
-  if (!config?.content?.slides?.length) {
-    console.warn(`ProductCarousel variant '${variantName}' missing required slides`, {
-      variant: variantName,
-      config: config ? 'Config exists' : 'No config',
-      contentExists: !!config?.content,
-      slidesExists: !!config?.content?.slides,
-      slidesLength: config?.content?.slides?.length || 0
-    });
+  const slides = config.content?.slides;
+  if (!slides || !Array.isArray(slides) || slides.length === 0) {
+    // Missing required slides
     return false;
   }
 

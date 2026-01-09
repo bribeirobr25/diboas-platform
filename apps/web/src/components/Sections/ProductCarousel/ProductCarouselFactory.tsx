@@ -11,6 +11,7 @@
 
 'use client';
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { PRODUCT_CAROUSEL_CONFIGS, type ProductCarouselVariantConfig, type ProductCarouselVariant } from '@/config/productCarousel';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
@@ -88,7 +89,7 @@ export function ProductCarousel({
 
       return finalConfig;
     } catch (error) {
-      console.warn('Failed to resolve ProductCarousel configuration:', error);
+      Logger.warn('Failed to resolve ProductCarousel configuration:', { error: error instanceof Error ? error.message : String(error) });
       return PRODUCT_CAROUSEL_CONFIGS.default;
     }
   }, [variant, customConfig]);
@@ -113,7 +114,7 @@ export function ProductCarousel({
         timestamp: new Date().toISOString()
       });
     } catch (error) {
-      console.warn('Failed to track carousel navigation:', error);
+      // Analytics tracking failed silently:  carousel navigation:', error);
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -129,7 +130,7 @@ export function ProductCarousel({
         timestamp: new Date().toISOString()
       });
     } catch (error) {
-      console.warn('Failed to track carousel slide change:', error);
+      // Analytics tracking failed silently:  carousel slide change:', error);
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -149,7 +150,7 @@ export function ProductCarousel({
       // Navigate to CTA link
       window.location.href = ctaHref;
     } catch (error) {
-      console.warn('Failed to track carousel CTA click:', error);
+      // Analytics tracking failed silently:  carousel CTA click:', error);
       
       // Still navigate even if analytics fails
       window.location.href = ctaHref;
@@ -166,7 +167,7 @@ export function ProductCarousel({
         timestamp: new Date().toISOString()
       });
     } catch (error) {
-      console.warn('Failed to track carousel play/pause:', error);
+      // Analytics tracking failed silently:  carousel play/pause:', error);
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -188,8 +189,8 @@ export function ProductCarousel({
   try {
     return <VariantComponent {...variantProps} />;
   } catch (error) {
-    console.error(`Failed to render product carousel variant '${variant}':`, error);
-    
+    Logger.error(`Failed to render product carousel variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+
     // Fallback to default variant
     const DefaultVariant = getProductCarouselVariant('default');
     return <DefaultVariant {...variantProps} />;

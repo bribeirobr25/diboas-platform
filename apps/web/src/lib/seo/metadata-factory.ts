@@ -11,8 +11,7 @@ import { Metadata } from 'next';
 import { seoService } from './service';
 import { PageSEOConfig } from './types';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from './constants';
-import type { SupportedLocale } from '@diboas/i18n/server';
-import { SUPPORTED_LOCALES } from '@diboas/i18n/server';
+import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 
 export class MetadataFactory {
   /**
@@ -237,7 +236,7 @@ export class MetadataFactory {
    * Generate structured data based on page category
    * Code Reusability: Automatic structured data selection
    */
-  static generateCategoryStructuredData(pageKey: string, pageConfig: any) {
+  static generateCategoryStructuredData(pageKey: string, pageConfig: { title: string; description: string }) {
     if (pageKey.startsWith('personal/')) {
       return this.generateServiceStructuredData({
         name: pageConfig.title,

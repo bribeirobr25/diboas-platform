@@ -202,13 +202,17 @@ export function ProductCarouselDefault({
                   key={slide.id}
                   className={`${styles.card} ${isActive ? styles.cardActive : ''} ${isLeftSide ? styles.cardLeft : ''} ${isRightSide ? styles.cardRight : ''}`}
                   style={{
-                    visibility: isVisible ? 'visible' : 'hidden'
+                    visibility: isVisible ? 'visible' : 'hidden',
+                    cursor: !isActive && isVisible ? 'pointer' : 'default'
                   }}
                   role="group"
                   aria-label={`Slide ${index + 1} of ${slides.length}: ${slide.title}`}
                   aria-hidden={!isActive}
-                  inert={!isActive ? true : undefined}
-                  onClick={() => !isActive && goToSlide(index)}
+                  onClick={() => {
+                    if (!isActive && isVisible) {
+                      goToSlide(index);
+                    }
+                  }}
                 >
                   <div className={styles.cardContent}>
                     

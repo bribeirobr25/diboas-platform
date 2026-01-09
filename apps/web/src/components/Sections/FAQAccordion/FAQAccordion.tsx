@@ -14,6 +14,8 @@ import { useState, useCallback, useEffect, useRef, KeyboardEvent } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import type { FAQAccordionConfig } from '@/config/faqAccordion';
+import { resolveFAQItems, trackFAQExpand } from './faqUtils';
+import { AccordionItem } from './AccordionItem';
 import styles from './FAQAccordion.module.css';
 
 export interface FAQAccordionProps {
@@ -26,71 +28,7 @@ export function FAQAccordion({ config, className = '' }: FAQAccordionProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
-  // Resolve FAQ items from either registry (new mode) or direct items (legacy mode)
-  const resolvedItems = (() => {
-    // Registry mode: questionIds references centralized FAQ registry
-    if (config.content.questionIds) {
-      const questionIdsKey = config.content.questionIds as any as string;
-
-      // If it's a translation key string, we need to access the raw array value
-      if (typeof questionIdsKey === 'string' && questionIdsKey.startsWith('marketing.')) {
-        // The messages object is FLATTENED with dot-notation keys
-        // e.g., messages["marketing.pages.benefits.faqAccordion.questionIds"]
-        // NOT a nested structure like messages.marketing.pages.benefits...
-
-        let questionIds: string[] = [];
-        try {
-          // @ts-ignore - accessing internal messages structure
-          const messages = intl.messages;
-
-          // The flattenMessages function flattens arrays into individual keys with numeric indices
-          // Reconstruct the array by looking for keys with numeric indices
-          const baseKey = questionIdsKey;
-          let index = 0;
-          const reconstructedArray: string[] = [];
-
-          while (true) {
-            const indexedKey = `${baseKey}.${index}`;
-            const value = messages[indexedKey];
-
-            if (value === undefined) {
-              break; // No more elements
-            }
-
-            // Type guard: only push string values
-            if (typeof value === 'string') {
-              reconstructedArray.push(value);
-            }
-            index++;
-          }
-
-          questionIds = reconstructedArray;
-        } catch (error) {
-          console.error('Error accessing questionIds:', error);
-          questionIds = [];
-        }
-
-        // Resolve each question ID from the registry
-        return questionIds.map((qId: string) => ({
-          id: qId,
-          question: `marketing.faq.registry.${qId}.question`,
-          answer: `marketing.faq.registry.${qId}.answer`,
-          category: 'getting-started' as const
-        }));
-      }
-
-      // Direct questionIds array (shouldn't happen with current setup)
-      return config.content.questionIds.map(qId => ({
-        id: qId,
-        question: `marketing.faq.registry.${qId}.question`,
-        answer: `marketing.faq.registry.${qId}.answer`,
-        category: 'getting-started' as const
-      }));
-    }
-
-    // Legacy mode: direct items array (for landing page backwards compatibility)
-    return config.content.items || [];
-  })();
+  const resolvedItems = resolveFAQItems(config, intl);
 
   const handleToggle = useCallback((id: string) => {
     if (!config.settings.enableAnimations) {
@@ -101,7 +39,6 @@ export function FAQAccordion({ config, className = '' }: FAQAccordionProps) {
     setExpandedId(prev => {
       const newExpandedId = prev === id ? null : id;
 
-      // Scroll into view if expanding and setting enabled
       if (newExpandedId && config.settings.scrollIntoView) {
         const button = itemRefs.current.get(id);
         if (button) {
@@ -150,16 +87,17 @@ export function FAQAccordion({ config, className = '' }: FAQAccordionProps) {
     }
   }, [config.settings.enableKeyboardNav]);
 
-  // Track analytics on expansion
+  const setItemRef = useCallback((id: string, el: HTMLButtonElement | null) => {
+    if (el) {
+      itemRefs.current.set(id, el);
+    } else {
+      itemRefs.current.delete(id);
+    }
+  }, []);
+
   useEffect(() => {
     if (expandedId && config.analytics?.enabled) {
-      // Analytics tracking would go here
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'faq_expand', {
-          event_category: config.analytics.trackingPrefix,
-          event_label: expandedId
-        });
-      }
+      trackFAQExpand(expandedId, config.analytics.trackingPrefix);
     }
   }, [expandedId, config.analytics]);
 
@@ -182,65 +120,17 @@ export function FAQAccordion({ config, className = '' }: FAQAccordionProps) {
 
         {/* Right Panel: Accordion Items */}
         <div className={styles.accordionPanel} role="region" aria-label="FAQ items">
-          {resolvedItems.map((item, index) => {
-            const isExpanded = expandedId === item.id;
-            const contentId = `faq-content-${item.id}`;
-
-            return (
-              <div
-                key={item.id}
-                className={`${styles.accordionItem} ${isExpanded ? styles.accordionItemExpanded : ''}`}
-              >
-                <button
-                  ref={(el) => {
-                    if (el) {
-                      itemRefs.current.set(item.id, el);
-                    } else {
-                      itemRefs.current.delete(item.id);
-                    }
-                  }}
-                  className={styles.accordionHeader}
-                  onClick={() => handleToggle(item.id)}
-                  onKeyDown={(e) => handleKeyDown(e, item.id, index)}
-                  aria-expanded={isExpanded}
-                  aria-controls={contentId}
-                  aria-label={intl.formatMessage({ id: item.question })}
-                >
-                  <h3 className={styles.question}>
-                    {intl.formatMessage({ id: item.question })}
-                  </h3>
-                  <svg
-                    className={`${styles.icon} ${isExpanded ? styles.iconExpanded : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                  <span className={styles.srOnly}>
-                    {isExpanded ? 'Collapse' : 'Expand'} question
-                  </span>
-                </button>
-                <div
-                  id={contentId}
-                  className={`${styles.accordionContent} ${isExpanded ? styles.accordionContentExpanded : ''}`}
-                  role="region"
-                  aria-labelledby={`faq-header-${item.id}`}
-                  hidden={!isExpanded}
-                >
-                  <p className={styles.answer}>
-                    {intl.formatMessage({ id: item.answer })}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+          {resolvedItems.map((item, index) => (
+            <AccordionItem
+              key={item.id}
+              item={item}
+              index={index}
+              isExpanded={expandedId === item.id}
+              onToggle={handleToggle}
+              onKeyDown={handleKeyDown}
+              setRef={setItemRef}
+            />
+          ))}
         </div>
 
         {/* CTA Button */}

@@ -10,8 +10,7 @@
  * - Slides: 3 slides per page (unification, simplicity, rewards)
  */
 
-import type { FeatureShowcaseSlide, FeatureShowcaseVariantConfig } from './featureShowcase';
-import { DEFAULT_FEATURE_SHOWCASE_SETTINGS } from './featureShowcase';
+import { DEFAULT_FEATURE_SHOWCASE_SETTINGS, type FeatureShowcaseSlide, type FeatureShowcaseVariantConfig } from './featureShowcase';
 import { ROUTES } from './routes';
 import { getSocialRealAsset } from './assets';
 

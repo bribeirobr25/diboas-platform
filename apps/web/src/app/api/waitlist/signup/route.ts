@@ -24,20 +24,7 @@ import {
   RateLimitPresets,
   csrfProtection,
 } from '@/lib/security';
-
-/**
- * Simple server-side sanitization for text inputs
- * Escapes HTML entities to prevent XSS
- */
-function sanitizeText(str: string): string {
-  if (!str) return str;
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+import { sanitizeText, sanitizeUserName } from '@/lib/utils/sanitize';
 import {
   generateReferralCode,
   generateReferralUrl,
@@ -53,6 +40,10 @@ import {
   type WaitlistSource,
 } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 /**
  * Sync subscriber to Kit.com (ConvertKit)
@@ -222,7 +213,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     // Add entry to store
     const entry = addEntry({
       email,
-      name: body.name ? sanitizeText(body.name.trim()) : undefined,
+      name: body.name ? sanitizeUserName(body.name) : undefined,
       referralCode,
       referredBy,
       locale: body.locale || 'en',
@@ -241,6 +232,22 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       source: body.source || (referredBy ? 'referral' : 'direct'),
     });
 
+    // Emit signup completed event for analytics and audit trail
+    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      submissionId: entry.id,
+      locale: body.locale || 'en',
+      hasName: !!body.name,
+      hasXAccount: !!body.xAccount,
+      referralCode: referredBy,
+      metadata: {
+        position: entry.position,
+        hasReferral: !!referredBy,
+        signupSource: body.source || (referredBy ? 'referral' : 'direct'),
+      },
+    });
+
     return NextResponse.json({
       success: true,
       position: entry.position,
@@ -249,7 +256,29 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     });
 
   } catch (error) {
-    console.error('Waitlist signup error:', error);
+    Logger.error('Waitlist signup error', {}, error instanceof Error ? error : undefined);
+
+    // Emit signup failed event for audit trail
+    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_FAILED, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      metadata: {
+        errorType: error instanceof Error && error.message === 'Email already exists'
+          ? 'duplicate'
+          : 'unknown',
+      },
+    });
+
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'high',
+      context: {
+        operation: 'signup',
+      },
+    });
 
     // Handle duplicate email error from store (race condition)
     // Return generic error to prevent email enumeration

@@ -143,7 +143,7 @@ export interface InteractiveDemoProps {
   /** Optional callback when demo completes */
   onComplete?: () => void;
   /** Optional callback for analytics events */
-  onAnalyticsEvent?: (event: DemoAnalyticsEvent, data?: Record<string, any>) => void;
+  onAnalyticsEvent?: (event: DemoAnalyticsEvent, data?: Record<string, unknown>) => void;
   /** Optional class name */
   className?: string;
 }

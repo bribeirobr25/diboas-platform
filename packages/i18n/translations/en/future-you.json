@@ -37,7 +37,7 @@
       "differenceNote": "Same sacrifice. Different outcome. That's what happens when your money actually works for you."
     },
     "watermark": "PROJECTION",
-    "disclaimer": "Based on historical performance (8% annual for diBoaS using our most conservative strategy, 0.5% for typical bank savings). This is a projection, not a guarantee. Actual results will vary based on the strategy you choose and market conditions.",
+    "disclaimer": "Based on historical performance (8% annual for diBoaS using our most conservative strategy, 0.4% for typical bank savings). This is a projection, not a guarantee. Actual results will vary based on the strategy you choose and market conditions.",
     "cta": "Join the waitlist to make this real →",
     "secondaryCta": "Want higher potential returns?",
     "strategiesLink": "Explore all 10 strategies"
@@ -48,12 +48,12 @@
     "bankGap": {
       "headline": "Your bank earns more than they pay you",
       "body": "Banks take your deposits and put them to work — lending, investing, earning real returns. But they only share a tiny fraction with you.",
-      "body2": "A typical bank earns around 7% with your money. They pay you 0.5%. That 6.5% difference? That's their entire business model.",
+      "body2": "A typical bank earns around 7% with your money. They pay you 0.4%. That 6.6% difference? That's their entire business model.",
       "body3": "With diBoaS, you access the same kinds of returns they do. The gap goes to you instead."
     },
     "compound": {
       "headline": "Your earnings start earning too",
-      "body": "When you earn returns, and those returns earn more returns, growth accelerates over time. At 0.5%, this barely matters. At 8%, it transforms everything.",
+      "body": "When you earn returns, and those returns earn more returns, growth accelerates over time. At 0.4%, this barely matters. At 8%, it transforms everything.",
       "example": {
         "title": "{currency}100/month for 20 years:",
         "deposited": "Total deposited: {currency}24,000",
@@ -103,12 +103,12 @@
         "answer": "The 8% is in the middle of our Safe Harbor strategy's expected range (6-10% per year). We tested this strategy across 4 years of real market data, including the 2022 crash and multiple smaller drops.\n\nIs it guaranteed going forward? No. Could it be higher or lower? Yes. But it's grounded in real data, not wishful thinking.\n\nWe use 8% instead of 10% to be conservative. We'd rather you be pleasantly surprised than disappointed."
       },
       "bankRate": {
-        "question": "Why do you use 0.5% for banks?",
-        "answer": "That's the average savings account rate in the EU. Some banks pay more during promotional periods (maybe 1-2%), most pay less or even nothing. We use the average because that's what most people actually get.\n\nIf your bank pays more, great! But even at 2%, the gap between what you're earning and what's possible is still enormous."
+        "question": "Why do you use 0.4% for banks?",
+        "answer": "That's the average savings account rate in the US. Some banks pay more during promotional periods (maybe 1-2%), most pay less or even nothing. We use the average because that's what most people actually get.\n\nIf your bank pays more, great! But even at 2%, the gap between what you're earning and what's possible is still enormous."
       },
       "inflation": {
         "question": "What about inflation?",
-        "answer": "This calculator shows the actual numbers, not adjusted for inflation.\n\nHere's why that matters:\n- At 0.5%, you're almost certainly losing purchasing power every year. Inflation eats more than you earn.\n- At 8%, you're likely beating inflation and building real wealth.\n\nThe exact impact depends on future inflation, which nobody can predict. But earning 8% puts you in a much stronger position than earning 0.5%."
+        "answer": "This calculator shows the actual numbers, not adjusted for inflation.\n\nHere's why that matters:\n- At 0.4%, you're almost certainly losing purchasing power every year. Inflation eats more than you earn.\n- At 8%, you're likely beating inflation and building real wealth.\n\nThe exact impact depends on future inflation, which nobody can predict. But earning 8% puts you in a much stronger position than earning 0.4%."
       },
       "minimum": {
         "question": "Can I really start with {currency}5/month?",
@@ -124,7 +124,7 @@
       },
       "bankDifference": {
         "question": "How is this different from my bank's savings account?",
-        "answer": "Three main differences:\n\n1. Returns: Banks typically pay 0.5% or less. Our most conservative strategy targets 6-10%.\n\n2. Where your money goes: Banks lend your money out and keep most of the returns. With diBoaS, your money goes into systems that pay you directly.\n\n3. Control: Bank deposits become the bank's money (legally, they just owe you). With diBoaS, your money stays in your own wallet. We can't touch it.\n\nThe tradeoff? Bank deposits are insured up to {currency}100,000. diBoaS deposits are not insured, though the systems we use have secured billions safely for years."
+        "answer": "Three main differences:\n\n1. Returns: Banks typically pay 0.4% or less. Our most conservative strategy targets 6-10%.\n\n2. Where your money goes: Banks lend your money out and keep most of the returns. With diBoaS, your money goes into systems that pay you directly.\n\n3. Control: Bank deposits become the bank's money (legally, they just owe you). With diBoaS, your money stays in your own wallet. We can't touch it.\n\nThe tradeoff? Bank deposits are insured up to {currency}100,000. diBoaS deposits are not insured, though the systems we use have secured billions safely for years."
       }
     }
   },
@@ -137,6 +137,6 @@
     "position": "⏰ You're #{position} in line for early access"
   },
   "footer": {
-    "disclaimer": "This calculator provides projections only. The 8% rate is based on Safe Harbor strategy's expected performance range and is not guaranteed. The 0.5% bank rate is based on ECB average savings rates. Actual results will vary based on the strategy you choose, market conditions, and timing of deposits. Past performance does not guarantee future results. Your money is placed in automated systems that carry technical risk, market risk, and liquidity risk. diBoaS is not a bank and your funds are not insured. This is not financial advice."
+    "disclaimer": "This calculator provides projections only. The 8% rate is based on Safe Harbor strategy's expected performance range and is not guaranteed. The 0.4% bank rate is based on FDIC National Average, January 2026. Actual results will vary based on the strategy you choose, market conditions, and timing of deposits. Past performance does not guarantee future results. Your money is placed in automated systems that carry technical risk, market risk, and liquidity risk. diBoaS is not a bank and your funds are not insured. This is not financial advice."
   }
 }

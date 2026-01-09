@@ -15,8 +15,32 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { LocaleLink } from '@/components/UI';
 import { FOOTER_CONFIG } from '@/config/footer';
+import { ROUTES } from '@/config/routes';
 import styles from './MinimalFooter.module.css';
+
+/**
+ * Legal links configuration for minimal footer
+ * Shows Privacy, Terms, and Cookies links
+ */
+const LEGAL_LINKS = [
+  {
+    id: 'privacy',
+    labelKey: 'common.footer.sections.transparency.links.privacy',
+    href: ROUTES.LEGAL.PRIVACY,
+  },
+  {
+    id: 'terms',
+    labelKey: 'common.footer.sections.transparency.links.terms',
+    href: ROUTES.LEGAL.TERMS,
+  },
+  {
+    id: 'cookies',
+    labelKey: 'common.footer.sections.legal.links.cookies',
+    href: ROUTES.LEGAL.COOKIES,
+  },
+] as const;
 
 // Dynamic icon imports for better performance
 const IconComponents = {
@@ -56,6 +80,22 @@ export function MinimalFooter({ disclaimerKey }: MinimalFooterProps) {
         )}
 
         {/* Divider */}
+        <div className={styles.divider} />
+
+        {/* Legal Links Section */}
+        <nav className={styles.legalLinks} aria-label="Legal pages">
+          {LEGAL_LINKS.map((link) => (
+            <LocaleLink
+              key={link.id}
+              href={link.href}
+              className={styles.legalLink}
+            >
+              {intl.formatMessage({ id: link.labelKey })}
+            </LocaleLink>
+          ))}
+        </nav>
+
+        {/* Divider between legal links and bottom section */}
         <div className={styles.divider} />
 
         {/* Bottom Section */}
@@ -110,7 +150,7 @@ function SocialIcon({ iconName, label, href }: SocialIconProps) {
 
 // Dynamic Icon Renderer with Fallback
 function SocialIconRenderer({ iconName }: { iconName: string }) {
-  const [IconComponent, setIconComponent] = useState<React.ComponentType<any> | null>(null);
+  const [IconComponent, setIconComponent] = useState<React.ComponentType<{ className?: string }> | null>(null);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -123,7 +163,7 @@ function SocialIconRenderer({ iconName }: { iconName: string }) {
           setHasError(true);
         }
       } catch (error) {
-        console.error(`Failed to load icon: ${iconName}`, error);
+        // Icon load failed: ${iconName}`, error);
         setHasError(true);
       }
     };

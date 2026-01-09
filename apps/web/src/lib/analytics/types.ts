@@ -5,7 +5,7 @@
 
 export interface AnalyticsEvent {
   name: string;
-  parameters?: Record<string, any>;
+  parameters?: Record<string, unknown>;
   timestamp?: number;
   userId?: string;
   sessionId?: string;

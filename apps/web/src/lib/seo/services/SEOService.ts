@@ -7,6 +7,7 @@
  * Security Standards: Safe URL generation and validation
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { SupportedLocale } from '@diboas/i18n/server';
 import { BRAND_CONFIG } from '@/config/brand';
 import { ENV_CONFIG } from '@/config/environment';
@@ -109,7 +110,7 @@ export class SEOServiceImpl implements SEODomainService {
         handler(event);
       } catch (error) {
         // Error Handling: Don't let event handler failures break SEO generation
-        console.error('SEO event handler failed:', error);
+        Logger.error('SEO event handler failed:', { error: error instanceof Error ? error.message : String(error) });
       }
     });
   }
@@ -176,15 +177,15 @@ export class SEOServiceImpl implements SEODomainService {
       return `https://${this.config.domain}${localePrefix}${sanitizedPath}`;
     } catch (error) {
       // Error Recovery: Fallback to home page
-      console.warn(`Failed to generate canonical URL for ${path}, falling back to home`);
+      Logger.warn(`Failed to generate canonical URL for ${path}, falling back to home`);
       return `https://${this.config.domain}`;
     }
   }
 
   public async generateOpenGraphImage(page: string): Promise<string> {
     try {
-      // For now, return a default OG image path
-      // TODO: Implement dynamic OG image generation
+      // Dynamic OG image generation via Edge API route
+      // See: /api/og/[page]/route.tsx for implementation
       const ogImagePath = `/api/og/${encodeURIComponent(page)}`;
       
       this.emitEvent({

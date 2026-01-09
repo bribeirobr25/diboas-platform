@@ -1,11 +1,76 @@
 /**
  * Production Monitoring Configuration
- * 
+ *
  * Monitoring & Observability: Production-ready monitoring configuration
  * Service Agnostic Abstraction: Multi-provider monitoring setup
  * Security & Audit Standards: Secure configuration management
  * No Hard Coded Values: Environment-based configuration
  */
+
+/**
+ * Error object shape for error reporting callbacks
+ */
+export interface MonitoringError {
+  message?: string;
+  name?: string;
+  stack?: string;
+  [key: string]: unknown;
+}
+
+/**
+ * Sentry event shape for beforeSend callback
+ * Using a flexible type that's compatible with Sentry's actual types
+ */
+export interface SentryEventLike {
+  event_id?: string;
+  message?: string;
+  level?: string;
+  platform?: string;
+  timestamp?: number;
+  user?: {
+    id?: string | number;
+    email?: string;
+    username?: string;
+    ip_address?: string;
+    [key: string]: unknown;
+  };
+  tags?: Record<string, string>;
+  extra?: Record<string, unknown>;
+  exception?: {
+    values?: Array<{
+      type?: string;
+      value?: string;
+      stacktrace?: {
+        frames?: Array<{
+          filename?: string;
+          function?: string;
+          lineno?: number;
+          colno?: number;
+        }>;
+      };
+    }>;
+  };
+  [key: string]: unknown;
+}
+
+/**
+ * HTTP request object for network sanitization
+ */
+export interface NetworkRequest {
+  url?: string;
+  method?: string;
+  headers: Record<string, string>;
+  body?: unknown;
+}
+
+/**
+ * HTTP response object for network sanitization
+ */
+export interface NetworkResponse {
+  status?: number;
+  headers?: Record<string, string>;
+  body?: Record<string, unknown>;
+}
 
 export interface MonitoringConfig {
   errorReporting: {
@@ -15,7 +80,7 @@ export interface MonitoringConfig {
     sampleRate: number;
     environment: string;
     release?: string;
-    beforeSend?: (error: any) => any | null;
+    beforeSend?: (error: MonitoringError) => MonitoringError | null;
   };
   performance: {
     enabled: boolean;
@@ -130,7 +195,8 @@ export const SENTRY_CONFIG = {
   sampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
   tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.01 : 0.1,
   debug: process.env.NODE_ENV === 'development',
-  beforeSend: (event: any) => {
+  // Note: Using SentryEventLike for local type safety; Sentry's init() will adapt
+  beforeSend: (event: SentryEventLike) => {
     // Privacy: Don't send user data in production
     if (process.env.NODE_ENV === 'production' && event.user) {
       delete event.user.email;
@@ -189,18 +255,19 @@ export const LOGROCKET_CONFIG = {
     }
   },
   network: {
-    requestSanitizer: (request: any) => {
+    requestSanitizer: (request: NetworkRequest): NetworkRequest => {
       // Remove sensitive headers
       if (request.headers.authorization) {
         request.headers.authorization = '[REDACTED]';
       }
       return request;
     },
-    responseSanitizer: (response: any) => {
+    responseSanitizer: (response: NetworkResponse): NetworkResponse => {
       // Remove sensitive response data
       if (response.body && typeof response.body === 'object') {
-        ['password', 'token', 'secret', 'key'].forEach(field => {
-          if (response.body[field]) {
+        const sensitiveFields = ['password', 'token', 'secret', 'key'] as const;
+        sensitiveFields.forEach(field => {
+          if (response.body && response.body[field]) {
             response.body[field] = '[REDACTED]';
           }
         });
@@ -225,9 +292,10 @@ export function initializeMonitoringServices(): void {
 
   // Initialize Sentry if configured (only if package is available)
   if (SENTRY_CONFIG.dsn) {
-    // @ts-ignore - Optional package
+    // Dynamic import - Sentry may not be installed in all environments
     import('@sentry/nextjs').then(({ init }) => {
-      init(SENTRY_CONFIG);
+      // Type assertion through unknown needed because our SentryEventLike is compatible but not identical to Sentry's types
+      init(SENTRY_CONFIG as unknown as Parameters<typeof init>[0]);
     }).catch(() => {
       console.warn('Sentry package not available. Install @sentry/nextjs to enable error reporting.');
     });
@@ -238,7 +306,7 @@ export function initializeMonitoringServices(): void {
   // Uncomment and install @datadog/browser-rum when needed.
   /*
   if (DATADOG_CONFIG.apiKey) {
-    // @ts-ignore - Optional package
+    // @ts-expect-error - Optional package
     import('@datadog/browser-rum').then(({ datadogRum }) => {
       datadogRum.init({
         applicationId: DATADOG_CONFIG.appKey || '',
@@ -262,7 +330,7 @@ export function initializeMonitoringServices(): void {
   // Uncomment and install logrocket when needed.
   /*
   if (LOGROCKET_CONFIG.appId) {
-    // @ts-ignore - Optional package
+    // @ts-expect-error - Optional package
     import('logrocket').then((LogRocket) => {
       LogRocket.default.init(LOGROCKET_CONFIG.appId, LOGROCKET_CONFIG);
     }).catch(() => {

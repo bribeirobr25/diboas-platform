@@ -10,6 +10,7 @@
  * - Configurable limits per endpoint
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { RATE_LIMIT_CONFIG, IS_PRODUCTION } from '@/config/env';
@@ -41,7 +42,7 @@ function initializeRedis(): boolean {
 
   if (!url || !token) {
     if (IS_PRODUCTION) {
-      console.warn('[RateLimiter] Upstash Redis not configured, using in-memory fallback');
+      Logger.warn('[RateLimiter] Upstash Redis not configured, using in-memory fallback');
     }
     return false;
   }
@@ -56,7 +57,7 @@ function initializeRedis(): boolean {
     });
     return true;
   } catch (error) {
-    console.error('[RateLimiter] Failed to initialize Redis:', error);
+    Logger.error('[RateLimiter] Failed to initialize Redis:', { error: error instanceof Error ? error.message : String(error) });
     return false;
   }
 }
@@ -104,7 +105,7 @@ export async function checkRateLimit(
         reset: Math.ceil(result.reset / 1000),
       };
     } catch (error) {
-      console.error('[RateLimiter] Redis rate limit failed, using fallback:', error);
+      Logger.error('[RateLimiter] Redis rate limit failed, using fallback:', { error: error instanceof Error ? error.message : String(error) });
       // Fall through to in-memory
     }
   }

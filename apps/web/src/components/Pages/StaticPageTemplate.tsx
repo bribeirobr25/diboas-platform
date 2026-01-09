@@ -79,6 +79,6 @@ export async function generatePageMetadata(
     return generateStaticPageMetadata(pageKey as keyof typeof PAGE_SEO_CONFIG, locale);
   }
   // Fallback to home if pageKey is not found
-  console.warn(`Invalid pageKey: ${pageKey}, falling back to home`);
+  // Invalid pageKey: ${pageKey}, falling back to home`);
   return generateStaticPageMetadata('home', locale);
 }

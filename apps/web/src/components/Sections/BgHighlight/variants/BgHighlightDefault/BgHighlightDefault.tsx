@@ -81,7 +81,7 @@ export function BgHighlightDefault({
   // Handle image load error
   const handleImageError = () => {
     setImageError(true);
-    console.error('BgHighlight: Failed to load background image', backgroundImage.src);
+    // Image load error: Failed to load background image', backgroundImage.src);
   };
 
   return (

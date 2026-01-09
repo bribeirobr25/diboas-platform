@@ -65,9 +65,7 @@ export function DemoEmbedSection({
 
   // Handle unknown variant (graceful fallback)
   if (!VariantComponent) {
-    console.warn(
-      `DemoEmbed: Unknown variant "${variant}". Falling back to "default".`
-    );
+    // Unknown variant - fallback to default
     return (
       <DemoEmbedDefault
         config={config}

@@ -36,13 +36,13 @@ export interface ResolvedTranslations {
  * Hook to translate configuration objects
  * Recursively resolves all translation keys in a config object
  */
-export function useConfigTranslation<T extends Record<string, any>>(
+export function useConfigTranslation<T extends object>(
   config: T,
   translationKeyMap?: Map<string, string>
 ): T {
   const intl = useTranslation();
 
-  const translateValue = (value: any): any => {
+  const translateValue = (value: unknown): unknown => {
     // Handle null/undefined
     if (value == null) return value;
 
@@ -52,9 +52,9 @@ export function useConfigTranslation<T extends Record<string, any>>(
     }
 
     // Handle objects
-    if (typeof value === 'object' && !Array.isArray(value)) {
-      const translatedObj: any = {};
-      for (const [key, val] of Object.entries(value)) {
+    if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+      const translatedObj: Record<string, unknown> = {};
+      for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
         translatedObj[key] = translateValue(val);
       }
       return translatedObj;
@@ -112,7 +112,7 @@ export function useTranslate(key: string, defaultMessage?: string): string {
  */
 export function useTranslateWithValues(
   key: string,
-  values: Record<string, any>,
+  values: Record<string, string | number | boolean | Date>,
   defaultMessage?: string
 ): string {
   const intl = useTranslation();
@@ -131,7 +131,7 @@ export function useNamespacedTranslation(namespace: string) {
       const fullKey = `${namespace}.${key}`;
       return intl.formatMessage({ id: fullKey, defaultMessage: defaultMessage || key });
     },
-    tv: (key: string, values: Record<string, any>, defaultMessage?: string) => {
+    tv: (key: string, values: Record<string, string | number | boolean | Date>, defaultMessage?: string) => {
       const fullKey = `${namespace}.${key}`;
       return intl.formatMessage({ id: fullKey, defaultMessage: defaultMessage || key }, values);
     }
@@ -142,20 +142,20 @@ export function useNamespacedTranslation(namespace: string) {
  * Higher-order function to create translation-aware config
  * Use this to wrap config objects at runtime
  */
-export function withTranslations<T extends Record<string, any>>(
+export function withTranslations<T extends object>(
   intl: IntlShape,
   config: T
 ): T {
-  const translateValue = (value: any): any => {
+  const translateValue = (value: unknown): unknown => {
     if (value == null) return value;
 
     if (Array.isArray(value)) {
       return value.map(item => translateValue(item));
     }
 
-    if (typeof value === 'object' && !Array.isArray(value)) {
-      const translatedObj: any = {};
-      for (const [key, val] of Object.entries(value)) {
+    if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+      const translatedObj: Record<string, unknown> = {};
+      for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
         translatedObj[key] = translateValue(val);
       }
       return translatedObj;
@@ -184,22 +184,20 @@ export function withTranslations<T extends Record<string, any>>(
  * Create translation keys from existing config
  * Helper for migration - generates translation key structure
  */
-export function generateTranslationKeys<T extends Record<string, any>>(
+export function generateTranslationKeys<T extends object>(
   config: T,
   namespace: string
-): Record<string, any> {
-  const result: Record<string, any> = {};
-
-  const process = (obj: any, path: string[] = []): any => {
+): Record<string, unknown> {
+  const process = (obj: unknown, path: string[] = []): unknown => {
     if (obj == null) return obj;
 
     if (Array.isArray(obj)) {
       return obj.map((item, index) => process(item, [...path, `${index}`]));
     }
 
-    if (typeof obj === 'object' && !Array.isArray(obj)) {
-      const processed: any = {};
-      for (const [key, value] of Object.entries(obj)) {
+    if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) {
+      const processed: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
         processed[key] = process(value, [...path, key]);
       }
       return processed;
@@ -213,5 +211,5 @@ export function generateTranslationKeys<T extends Record<string, any>>(
     return obj;
   };
 
-  return process(config);
+  return process(config) as Record<string, unknown>;
 }

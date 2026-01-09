@@ -29,8 +29,6 @@ interface DreamModeProps {
   initialInput?: Partial<DreamInput>;
   /** Callback when dream mode completes */
   onComplete?: () => void;
-  /** Callback when user wants to join waitlist */
-  onJoinWaitlist?: () => void;
   /** Callback when user closes dream mode */
   onClose?: () => void;
   /** Custom class name */
@@ -40,7 +38,7 @@ interface DreamModeProps {
 /**
  * Inner component that renders the current screen
  */
-function DreamModeContent({ onJoinWaitlist, onClose }: { onJoinWaitlist?: () => void; onClose?: () => void }) {
+function DreamModeContent({ onClose }: { onClose?: () => void }) {
   const { state } = useDreamMode();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -113,7 +111,7 @@ function DreamModeContent({ onJoinWaitlist, onClose }: { onJoinWaitlist?: () => 
       case 'results':
         return <ResultsScreen />;
       case 'share':
-        return <ShareScreen onJoinWaitlist={onJoinWaitlist} />;
+        return <ShareScreen />;
       default:
         return <DisclaimerScreen />;
     }
@@ -150,7 +148,6 @@ function DreamModeContent({ onJoinWaitlist, onClose }: { onJoinWaitlist?: () => 
 export function DreamMode({
   initialInput,
   onComplete,
-  onJoinWaitlist,
   onClose,
   className = '',
 }: DreamModeProps) {
@@ -164,7 +161,7 @@ export function DreamMode({
   return (
     <div className={className}>
       <DreamModeProvider initialInput={initialInput} onComplete={onComplete}>
-        <DreamModeContent onJoinWaitlist={onJoinWaitlist} onClose={onClose} />
+        <DreamModeContent onClose={onClose} />
       </DreamModeProvider>
     </div>
   );

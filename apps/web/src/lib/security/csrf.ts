@@ -5,6 +5,7 @@
  * in Next.js App Router API routes.
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { NextRequest } from 'next/server';
 import { getCsrfAllowedOrigins } from '@/config/env';
 
@@ -102,7 +103,7 @@ export function csrfProtection(request: NextRequest): Response | null {
   const validation = validateOrigin(request);
 
   if (!validation.valid) {
-    console.warn('[CSRF] Validation failed:', {
+    Logger.warn('[CSRF] Validation failed:', {
       error: validation.error,
       method: request.method,
       url: request.url,

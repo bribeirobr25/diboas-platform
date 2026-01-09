@@ -286,6 +286,6 @@ export class Logger {
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
-    (window as any).Logger = Logger;
+    (window as Window & { Logger?: typeof Logger }).Logger = Logger;
   }
 }

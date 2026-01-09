@@ -22,6 +22,3 @@ export function formatCurrency(
 export function formatPercentage(value: number, decimals: number = NUMBER_FORMATS.PERCENTAGE_DECIMALS): string {
   return `${value.toFixed(decimals)}%`;
 }
-
-// Re-export color utilities
-export * from './utils/colors';

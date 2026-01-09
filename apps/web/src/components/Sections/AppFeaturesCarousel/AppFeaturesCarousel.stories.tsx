@@ -7,10 +7,9 @@
  * Performance & SEO Optimization: Interactive card carousel with image optimization
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { AppFeaturesCarousel } from './AppFeaturesCarouselFactory';
-import { APP_FEATURES_CAROUSEL_CONFIGS, PAGE_APP_FEATURES_CONFIGS } from '@/config/appFeaturesCarousel';
-import type { AppFeaturesCarouselVariantConfig, AppFeatureCard } from '@/config/appFeaturesCarousel';
+import { APP_FEATURES_CAROUSEL_CONFIGS, type AppFeaturesCarouselVariantConfig } from '@/config/appFeaturesCarousel';
 
 const meta: Meta<typeof AppFeaturesCarousel> = {
   title: 'Sections/AppFeaturesCarousel',

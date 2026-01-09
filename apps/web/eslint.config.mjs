@@ -28,7 +28,7 @@ const eslintConfig = [
   {
     ignores: [
       "node_modules/**",
-      ".next/**", 
+      ".next/**",
       "out/**",
       "build/**",
       "dist/**",
@@ -37,7 +37,13 @@ const eslintConfig = [
       "*.config.mjs",
       "public/**",
       ".turbo/**",
-      "coverage/**"
+      "coverage/**",
+      // Utility scripts using CommonJS
+      "analyze-*.js",
+      "scripts/**/*.js",
+      "src/lib/performance/webpack-performance-plugin.js",
+      // Storybook config (development tool)
+      ".storybook/**"
     ],
   },
   // JavaScript recommended rules

@@ -3,28 +3,24 @@
 /**
  * Share Screen
  *
- * Final screen - share results and CTA to join waitlist
+ * Final screen - share results and CTA to try again
  *
  * Service Agnostic Abstraction: Uses centralized translation hook
  * Code Reusability & DRY: No inline translation helpers
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useDreamMode } from '../DreamModeProvider';
 import { useDreamModeTranslation } from '../hooks';
 import { ShareButtons } from '@/components/Share';
+import { Button } from '@diboas/ui';
 import { CardRenderer, type SharePlatform, type DreamCardData, getShareUrl } from '@/lib/share';
 import { formatCurrency, getCurrencyLocale } from '@/lib/calculator';
 import { analyticsService } from '@/lib/analytics';
 import { SuccessCheckIcon } from '@/components/Icons';
 import styles from './screens.module.css';
 
-interface ShareScreenProps {
-  /** Callback when waitlist CTA is clicked */
-  onJoinWaitlist?: () => void;
-}
-
-export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
+export function ShareScreen() {
   const { intl, getTranslator } = useDreamModeTranslation();
   const { state, reset, previousScreen } = useDreamMode();
   const [isSharing, setIsSharing] = useState(false);
@@ -34,6 +30,22 @@ export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
 
   const currencyLocale = getCurrencyLocale(state.input.currency);
   const result = state.result;
+
+  // Get timeframe label for share text
+  const timeframeLabel = useMemo(() => {
+    return t(`in.${state.input.timeframe}`);
+  }, [t, state.input.timeframe]);
+
+  // Format share values for translation interpolation
+  const shareValues = useMemo(() => {
+    if (!result) return null;
+    return {
+      start: formatCurrency(state.input.initialAmount, state.input.currency, currencyLocale),
+      end: formatCurrency(result.defiBalance, state.input.currency, currencyLocale),
+      timeframe: timeframeLabel,
+      bank: formatCurrency(result.bankBalance, state.input.currency, currencyLocale),
+    };
+  }, [result, state.input, currencyLocale, timeframeLabel]);
 
   // Generate share card
   const generateCard = useCallback(async () => {
@@ -79,14 +91,15 @@ export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
           link.download = 'diboas-dream-card.png';
           link.click();
         } else if (platform === 'copy') {
-          // Copy result text with UTM tracking
+          // Copy result text with UTM tracking - pass interpolation values
           const shareUrl = getShareUrl('dream', platform);
-          const text = `${t('shareText')} ${formatCurrency(result?.defiBalance || 0, state.input.currency, currencyLocale)} #WhileISlept\n${shareUrl}`;
+          const shareTextWithValues = shareValues ? t('shareText', shareValues) : t('shareText');
+          const text = `${shareTextWithValues}\n${shareUrl}`;
           await navigator.clipboard.writeText(text);
         } else {
-          // Social share with UTM tracking
+          // Social share with UTM tracking - pass interpolation values
           const shareUrl = getShareUrl('dream', platform);
-          const shareText = `${t('shareText')} ${formatCurrency(result?.defiBalance || 0, state.input.currency, currencyLocale)} #WhileISlept`;
+          const shareText = shareValues ? t('shareText', shareValues) : t('shareText');
 
           let url = '';
           switch (platform) {
@@ -97,6 +110,13 @@ export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
               url = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`;
               break;
             case 'linkedin':
+              // LinkedIn doesn't support pre-filled text, so copy it first
+              try {
+                await navigator.clipboard.writeText(shareText);
+                alert(intl.formatMessage({ id: 'share.toast.linkedInCopied' }));
+              } catch {
+                // Clipboard failed, continue anyway
+              }
               url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
               break;
           }
@@ -110,30 +130,24 @@ export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
           setCardUrl(card.dataUrl);
         }
       } catch (error) {
-        console.error('Share failed:', error);
+        // Share action failed;
       } finally {
         setIsSharing(false);
       }
     },
-    [generateCard, result, state.input, currencyLocale, t]
+    [generateCard, result, state.input, currencyLocale, t, shareValues]
   );
 
-  // Handle join waitlist
-  const handleJoinWaitlist = () => {
+  // Handle try again
+  const handleTryAgain = () => {
     analyticsService.track({
-      name: 'dream_mode_waitlist_click',
+      name: 'dream_mode_try_again',
       parameters: {
         initialAmount: state.input.initialAmount,
         defiResult: result?.defiBalance,
         timeframe: state.input.timeframe,
       },
     });
-
-    onJoinWaitlist?.();
-  };
-
-  // Handle try again
-  const handleTryAgain = () => {
     reset();
   };
 
@@ -173,14 +187,16 @@ export function ShareScreen({ onJoinWaitlist }: ShareScreenProps) {
           />
         </div>
 
-        {/* CTAs */}
-        <div className={styles.ctaSection}>
-          <button onClick={handleJoinWaitlist} className={styles.primaryButton}>
-            {t('joinWaitlist')}
-          </button>
-          <button onClick={handleTryAgain} className={styles.secondaryButton}>
+        {/* CTA - Single centered primary button */}
+        <div className={styles.ctaSectionCentered}>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={handleTryAgain}
+            className={styles.tryAgainButton}
+          >
             {t('tryAgain')}
-          </button>
+          </Button>
         </div>
 
         {/* Disclaimer */}

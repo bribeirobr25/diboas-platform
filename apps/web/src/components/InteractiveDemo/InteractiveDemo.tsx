@@ -13,25 +13,24 @@
  * 4. Reward - Animated counter showing growth
  * 5. Invitation - Waitlist signup
  * 6. Success - Thank you with share options
+ *
+ * Refactored: Screens and hooks extracted for maintainability
  */
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import { Button } from '@diboas/ui';
 import type { InteractiveDemoProps, DemoScreen, DemoState, DemoAnalyticsEvent } from './types';
-import { useWaitlistStatus } from './hooks/useWaitlistStatus';
-import { Screen5CTA } from './Screen5CTA';
+import { useWaitlistStatus, useDemoAnalytics, useCurrency, useRewardAnimation } from './hooks';
+import { GROWTH_STEPS } from './constants';
+import {
+  PainScreen,
+  HopeScreen,
+  ActionScreen,
+  RewardScreen,
+  InvitationScreen,
+  SuccessScreen,
+} from './screens';
 import styles from './InteractiveDemo.module.css';
-
-// Amount options (in EUR, will be converted for BRL)
-const AMOUNT_OPTIONS = [5, 20, 50, 100];
-
-// APY rate for calculations
-const APY_RATE = 0.08;
-
-// Initial balance for Screen 1
-const INITIAL_BALANCE = 247.52;
-const INITIAL_INTEREST = 1.24;
 
 export function InteractiveDemo({
   locale = 'en',
@@ -41,18 +40,14 @@ export function InteractiveDemo({
 }: InteractiveDemoProps) {
   const intl = useTranslation();
 
-  /**
-   * Scroll to waitlist section with smooth behavior
-   */
-  const scrollToWaitlist = useCallback(() => {
-    const waitlistSection = document.getElementById('waitlist');
-    if (waitlistSection) {
-      waitlistSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, []);
-
   // Check if user is on waitlist
   const { isOnWaitlist, saveStatus } = useWaitlistStatus();
+
+  // Analytics tracking
+  const { trackEvent } = useDemoAnalytics({ onAnalyticsEvent });
+
+  // Currency formatting
+  const { isBrazil, formatCurrency } = useCurrency({ locale });
 
   // Demo state
   const [state, setState] = useState<DemoState>({
@@ -65,41 +60,26 @@ export function InteractiveDemo({
     referralCode: null
   });
 
-  // Animation step for reward screen (0 = initial, 1-3 = progressive reveal)
-  const [rewardStep, setRewardStep] = useState(0);
+  // Reward animation
+  const { rewardStep } = useRewardAnimation(state.currentScreen);
 
-  // Animation timer ref
-  const animationRef = useRef<NodeJS.Timeout | null>(null);
+  // Helper for i18n
+  const t = useCallback((id: string, values?: Record<string, string | number | null>) => {
+    return intl.formatMessage({ id }, values);
+  }, [intl]);
 
-  // Currency settings based on locale
-  const isBrazil = locale === 'pt-BR';
-  const isUS = locale === 'en';
-  const currencySymbol = isBrazil ? 'R$' : isUS ? '$' : '€';
-  const currencyMultiplier = isBrazil ? 6 : 1; // Approximate EUR to BRL (USD ~= EUR for demo)
-
-  // Track analytics events
-  const trackEvent = useCallback((event: DemoAnalyticsEvent, data?: Record<string, any>) => {
-    onAnalyticsEvent?.(event, data);
-
-    // Also track via gtag if available
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', event, {
-        event_category: 'interactive_demo',
-        ...data
-      });
+  // Scroll to waitlist section
+  const scrollToWaitlist = useCallback(() => {
+    const waitlistSection = document.getElementById('waitlist');
+    if (waitlistSection) {
+      waitlistSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [onAnalyticsEvent]);
+  }, []);
 
-  // Track demo start
-  useEffect(() => {
-    trackEvent('demo_start');
-  }, [trackEvent]);
-
-  // Navigate to next screen
+  // Navigate to screen
   const goToScreen = useCallback((screen: DemoScreen) => {
     setState(prev => ({ ...prev, currentScreen: screen }));
 
-    // Track screen transitions
     const screenEvents: Record<DemoScreen, DemoAnalyticsEvent | null> = {
       pain: null,
       hope: 'demo_screen_2',
@@ -124,37 +104,9 @@ export function InteractiveDemo({
   // Handle deposit click
   const handleDeposit = useCallback(() => {
     trackEvent('demo_deposit_click', { amount: state.selectedAmount });
-    // Set final balance (no animation)
-    setState(prev => ({ ...prev, animatedBalance: state.selectedAmount + 0.0012 }));
+    setState(prev => ({ ...prev, animatedBalance: state.selectedAmount + GROWTH_STEPS[2] }));
     goToScreen('reward');
   }, [state.selectedAmount, goToScreen, trackEvent]);
-
-  // Reward screen animation - progressive reveal
-  useEffect(() => {
-    if (state.currentScreen === 'reward') {
-      // Reset animation state
-      setRewardStep(0);
-
-      // Progressive reveal timing (ms)
-      const timings = [800, 1600, 2400];
-      const timeouts: NodeJS.Timeout[] = [];
-
-      timings.forEach((delay, index) => {
-        const timeout = setTimeout(() => {
-          setRewardStep(index + 1);
-        }, delay);
-        timeouts.push(timeout);
-      });
-
-      // Cleanup timeouts on screen change or unmount
-      return () => {
-        timeouts.forEach(clearTimeout);
-      };
-    } else {
-      // Reset when leaving reward screen
-      setRewardStep(0);
-    }
-  }, [state.currentScreen]);
 
   // Handle email change
   const handleEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -175,7 +127,6 @@ export function InteractiveDemo({
     setState(prev => ({ ...prev, isSubmitting: true }));
 
     try {
-      // Call the actual waitlist API
       const response = await fetch('/api/waitlist/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -200,7 +151,6 @@ export function InteractiveDemo({
           referralCode: code
         }));
 
-        // Save to localStorage for persistent status
         saveStatus({
           email: state.email,
           position,
@@ -213,8 +163,7 @@ export function InteractiveDemo({
       } else {
         throw new Error(data.error || 'Signup failed');
       }
-    } catch (error) {
-      console.error('[InteractiveDemo] Signup error:', error);
+    } catch {
       setState(prev => ({ ...prev, isSubmitting: false }));
     }
   }, [state.email, state.isSubmitting, locale, goToScreen, trackEvent, onComplete, saveStatus]);
@@ -231,7 +180,7 @@ export function InteractiveDemo({
 
     const urls: Record<string, string> = {
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
-      whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`
     };
 
@@ -241,19 +190,6 @@ export function InteractiveDemo({
       window.open(urls[platform], '_blank', 'noopener,noreferrer');
     }
   }, [state.referralCode, trackEvent, intl]);
-
-  // Format currency
-  const formatCurrency = useCallback((value: number, decimals = 2) => {
-    const adjustedValue = value * currencyMultiplier;
-    return `${currencySymbol}${adjustedValue.toLocaleString(locale, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    })}`;
-  }, [currencySymbol, currencyMultiplier, locale]);
-
-  // Calculate projected balance
-  const projectedBalance = INITIAL_BALANCE * (1 + APY_RATE);
-  const projectedInterest = INITIAL_BALANCE * APY_RATE;
 
   // Progress indicator
   const screens: DemoScreen[] = ['pain', 'hope', 'action', 'reward', 'invitation'];
@@ -269,351 +205,96 @@ export function InteractiveDemo({
 
       {/* Screen content */}
       <div className={styles.screenContainer}>
-        {/* Screen 1: Pain */}
         {state.currentScreen === 'pain' && (
-          <div className={styles.screen}>
-            <h2 className={styles.header}>
-              {isBrazil
-                ? intl.formatMessage({ id: 'landing-b2c.demo.pain.pixHeader' })
-                : intl.formatMessage({ id: 'landing-b2c.demo.pain.header' })
-              }
-            </h2>
-            <div className={styles.balanceDisplay}>
-              {formatCurrency(INITIAL_BALANCE)}
-            </div>
-            <p className={styles.subtext}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.pain.subtext' }, { interest: formatCurrency(INITIAL_INTEREST) })}
-            </p>
-            <p className={styles.hook}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.pain.hook' })}
-            </p>
-            <Button
-              variant="primary"
-              size="lg"
-              className={styles.ctaButton}
-              onClick={() => goToScreen('hope')}
-              aria-label={intl.formatMessage({ id: 'landing-b2c.demo.pain.cta' })}
-            >
-              {intl.formatMessage({ id: 'landing-b2c.demo.pain.cta' })}
-            </Button>
-          </div>
+          <PainScreen
+            isBrazil={isBrazil}
+            formatCurrency={formatCurrency}
+            onContinue={() => goToScreen('hope')}
+            t={t}
+          />
         )}
 
-        {/* Screen 2: Hope */}
         {state.currentScreen === 'hope' && (
-          <div className={styles.screen}>
-            <h2 className={styles.header}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.hope.header' })}
-            </h2>
-            <div className={styles.comparisonContainer}>
-              <div className={styles.startBalance}>
-                {formatCurrency(INITIAL_BALANCE)}
-              </div>
-              <div className={styles.arrow}>↓</div>
-              <p className={styles.projectionLabel}>
-                {intl.formatMessage({ id: 'landing-b2c.demo.hope.projectionLabel' })}
-              </p>
-              <div className={styles.projectedBalance}>
-                {formatCurrency(projectedBalance)}
-              </div>
-            </div>
-            <p className={styles.comparison}>
-              {intl.formatMessage({
-                id: 'landing-b2c.demo.hope.comparison'
-              }, {
-                projected: formatCurrency(projectedInterest),
-                current: formatCurrency(INITIAL_INTEREST)
-              })}
-            </p>
-            <p className={styles.impact}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.hope.impact' })}
-            </p>
-            <Button
-              variant="primary"
-              size="lg"
-              className={styles.ctaButton}
-              onClick={() => goToScreen('action')}
-            >
-              {intl.formatMessage({ id: 'landing-b2c.demo.hope.cta' })}
-            </Button>
-          </div>
+          <HopeScreen
+            formatCurrency={formatCurrency}
+            onContinue={() => goToScreen('action')}
+            t={t}
+          />
         )}
 
-        {/* Screen 3: Action */}
         {state.currentScreen === 'action' && (
-          <div className={styles.screen}>
-            <h2 className={styles.header}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.action.header' })}
-            </h2>
-            <p className={styles.prompt}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.action.prompt' })}
-            </p>
-            <div className={styles.amountInput}>
-              {formatCurrency(state.selectedAmount)}
-            </div>
-            <div className={styles.amountButtons} role="group" aria-label={intl.formatMessage({ id: 'common.accessibility.selectAmount' })}>
-              {AMOUNT_OPTIONS.map(amount => (
-                <button
-                  key={amount}
-                  type="button"
-                  className={`${styles.amountButton} ${state.selectedAmount === amount ? styles.amountButtonSelected : ''}`}
-                  onClick={() => selectAmount(amount)}
-                  aria-pressed={state.selectedAmount === amount}
-                >
-                  {formatCurrency(amount, 0)}
-                </button>
-              ))}
-            </div>
-            <p className={styles.reassurance}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.action.reassurance1' })}
-            </p>
-            <p className={styles.reassurance}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.action.reassurance2' })}
-            </p>
-            <Button
-              variant="primary"
-              size="lg"
-              className={styles.ctaButton}
-              onClick={handleDeposit}
-            >
-              {intl.formatMessage({ id: 'landing-b2c.demo.action.cta' })}
-            </Button>
-          </div>
+          <ActionScreen
+            selectedAmount={state.selectedAmount}
+            formatCurrency={formatCurrency}
+            onSelectAmount={selectAmount}
+            onDeposit={handleDeposit}
+            t={t}
+          />
         )}
 
-        {/* Screen 4: Reward */}
         {state.currentScreen === 'reward' && (
-          <div className={styles.screen}>
-            <h2 className={styles.header}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.reward.header' })}
-            </h2>
-            {/* Progressive balance reveal */}
-            <div className={styles.balanceProgression}>
-              {/* Initial balance - always visible */}
-              <span className={styles.smallBalance}>{formatCurrency(state.selectedAmount, 2)}</span>
-
-              {/* Step 1: First growth */}
-              {rewardStep >= 1 && (
-                <>
-                  <span className={`${styles.smallArrow} ${styles.fadeIn}`}>↓</span>
-                  <span className={`${styles.smallBalance} ${styles.fadeIn}`}>
-                    {formatCurrency(state.selectedAmount + 0.0003, 4)}
-                  </span>
-                </>
-              )}
-
-              {/* Step 2: Second growth */}
-              {rewardStep >= 2 && (
-                <>
-                  <span className={`${styles.smallArrow} ${styles.fadeIn}`}>↓</span>
-                  <span className={`${styles.smallBalance} ${styles.fadeIn}`}>
-                    {formatCurrency(state.selectedAmount + 0.0007, 4)}
-                  </span>
-                </>
-              )}
-
-              {/* Step 3: Final growth indicator */}
-              {rewardStep >= 3 && (
-                <span className={`${styles.smallArrow} ${styles.fadeIn}`}>↓</span>
-              )}
-            </div>
-
-            {/* Final value - revealed at step 3 */}
-            {rewardStep >= 3 && (
-              <div className={`${styles.finalBalance} ${styles.fadeIn}`}>
-                {formatCurrency(state.animatedBalance, 4)}
-              </div>
-            )}
-
-            {/* Delight message - revealed at step 3 */}
-            {rewardStep >= 3 && (
-              <p className={`${styles.delight} ${styles.fadeIn}`}>
-                {intl.formatMessage({
-                  id: 'landing-b2c.demo.reward.delight'
-                }, {
-                  earned: formatCurrency(0.0012, 4)
-                })}
-              </p>
-            )}
-
-            <p className={styles.vision}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.reward.vision' })}
-            </p>
-            <Button
-              variant="primary"
-              size="lg"
-              className={styles.ctaButton}
-              onClick={() => {
-                trackEvent('demo_reward_continue_click');
-                scrollToWaitlist();
-              }}
-            >
-              {intl.formatMessage({ id: 'landing-b2c.demo.reward.continueCta' })}
-            </Button>
-          </div>
+          <RewardScreen
+            selectedAmount={state.selectedAmount}
+            animatedBalance={state.animatedBalance}
+            rewardStep={rewardStep}
+            formatCurrency={formatCurrency}
+            onContinue={() => {
+              trackEvent('demo_reward_continue_click');
+              scrollToWaitlist();
+            }}
+            t={t}
+          />
         )}
 
-        {/* Screen 5: Invitation */}
         {state.currentScreen === 'invitation' && (
-          <div className={styles.screen}>
-            <h2 className={styles.header}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.invitation.header' })}
-            </h2>
-            <p className={styles.subheader}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.invitation.subheader' })}
-            </p>
-            <p className={styles.callToAction}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.invitation.callToAction' })}
-            </p>
-
-            {/* Conditional CTA based on user waitlist status */}
-            {isOnWaitlist ? (
-              <Screen5CTA
-                isOnWaitlist={true}
-                onJoinWaitlist={() => {
-                  trackEvent('demo_waitlist_click');
-                  scrollToWaitlist();
-                }}
-                onTryDreamMode={() => {
-                  trackEvent('demo_dream_mode_click');
-                  // Navigate to Dream Mode
-                  window.location.hash = 'dream-mode';
-                }}
-                onExplore={() => {
-                  trackEvent('demo_explore_click');
-                  // Navigate to features/learn section
-                  const featuresSection = document.getElementById('features');
-                  if (featuresSection) {
-                    featuresSection.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    window.location.href = `/${locale}/learn/overview`;
-                  }
-                }}
-              />
-            ) : (
-              <>
-                <form onSubmit={handleSubmit} className={styles.signupForm}>
-                  <label htmlFor="demo-email" className="sr-only">
-                    {intl.formatMessage({ id: 'landing-b2c.demo.invitation.emailPlaceholder' })}
-                  </label>
-                  <input
-                    id="demo-email"
-                    type="email"
-                    className={styles.emailInput}
-                    placeholder={intl.formatMessage({ id: 'landing-b2c.demo.invitation.emailPlaceholder' })}
-                    value={state.email}
-                    onChange={handleEmailChange}
-                    onFocus={handleEmailFocus}
-                    required
-                    aria-required="true"
-                  />
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="lg"
-                    className={`${styles.ctaButton} ${styles.submitButton}`}
-                    disabled={state.isSubmitting}
-                    loading={state.isSubmitting}
-                    aria-label={intl.formatMessage({ id: 'landing-b2c.demo.invitation.submitButton' })}
-                    onClick={() => trackEvent('demo_waitlist_click')}
-                  >
-                    {intl.formatMessage({ id: 'landing-b2c.demo.invitation.submitButton' })}
-                  </Button>
-                </form>
-                <ul className={styles.trustPoints}>
-                  <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint1' })}</li>
-                  <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint2' })}</li>
-                  <li>{intl.formatMessage({ id: 'landing-b2c.demo.invitation.trustPoint3' })}</li>
-                </ul>
-              </>
-            )}
-          </div>
+          <InvitationScreen
+            isOnWaitlist={isOnWaitlist}
+            email={state.email}
+            isSubmitting={state.isSubmitting}
+            locale={locale}
+            onEmailChange={handleEmailChange}
+            onEmailFocus={handleEmailFocus}
+            onSubmit={handleSubmit}
+            onJoinWaitlist={() => {
+              trackEvent('demo_waitlist_click');
+              scrollToWaitlist();
+            }}
+            onTryDreamMode={() => {
+              trackEvent('demo_dream_mode_click');
+              window.location.hash = 'dream-mode';
+            }}
+            onExplore={() => {
+              trackEvent('demo_explore_click');
+              const featuresSection = document.getElementById('features');
+              if (featuresSection) {
+                featuresSection.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                window.location.href = `/${locale}/learn/overview`;
+              }
+            }}
+            t={t}
+          />
         )}
 
-        {/* Screen 6: Success */}
         {state.currentScreen === 'success' && (
-          <div className={styles.screen}>
-            <h2 className={styles.header}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.success.header' })}
-            </h2>
-            <p className={styles.position}>
-              {intl.formatMessage({
-                id: 'landing-b2c.demo.success.positionLabel'
-              }, {
-                position: state.waitlistPosition
-              })}
-            </p>
-            <div className={styles.referralSection}>
-              <h3 className={styles.incentiveHeader}>
-                {intl.formatMessage({ id: 'landing-b2c.demo.success.incentiveHeader' })}
-              </h3>
-              <p className={styles.incentiveMechanic}>
-                {intl.formatMessage({ id: 'landing-b2c.demo.success.incentiveMechanic' })}
-              </p>
-              <div className={styles.linkBox}>
-                <span className={styles.linkBoxLabel}>
-                  {intl.formatMessage({ id: 'landing-b2c.demo.success.linkBoxLabel' })}
-                </span>
-                <code className={styles.referralLink}>
-                  diboas.com/invite/{state.referralCode}
-                </code>
-              </div>
-            </div>
-            <p className={styles.shareLabel}>
-              {intl.formatMessage({ id: 'landing-b2c.demo.success.shareLabel' })}
-            </p>
-            <div className={styles.shareButtons} role="group" aria-label={intl.formatMessage({ id: 'common.accessibility.shareOptions' })}>
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('twitter')} aria-label={intl.formatMessage({ id: 'common.accessibility.shareOnTwitter' })}>
-                Twitter
-              </button>
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('whatsapp')} aria-label={intl.formatMessage({ id: 'common.accessibility.shareOnWhatsapp' })}>
-                WhatsApp
-              </button>
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('linkedin')} aria-label={intl.formatMessage({ id: 'common.accessibility.shareOnLinkedin' })}>
-                LinkedIn
-              </button>
-              <button type="button" className={styles.socialButton} onClick={() => handleShare('copy')} aria-label={intl.formatMessage({ id: 'common.accessibility.copyReferralLink' })}>
-                {intl.formatMessage({ id: 'landing-b2c.demo.success.copyLink' })}
-              </button>
-            </div>
-
-            {/* Dream Mode CTA - for users who completed waitlist signup */}
-            <div className={styles.dreamModeSection}>
-              <h3 className={styles.dreamModeHeader}>
-                {intl.formatMessage({ id: 'landing-b2c.demo.success.dreamModeHeader' })}
-              </h3>
-              <Button
-                variant="secondary"
-                size="lg"
-                className={styles.dreamModeButton}
-                onClick={() => {
-                  trackEvent('demo_dream_mode_click');
-                  // Navigate to Dream Mode page
-                  window.location.href = `/${locale}/dream-mode`;
-                }}
-              >
-                {intl.formatMessage({ id: 'landing-b2c.demo.success.dreamModeCta' })}
-              </Button>
-            </div>
-
-            {/* Calculator suggestion - EP3 */}
-            <div className={styles.calculatorSuggestion}>
-              <button
-                type="button"
-                className={styles.calculatorLink}
-                onClick={() => {
-                  trackEvent('demo_calculator_click');
-                  // Scroll to calculator section
-                  const calculatorSection = document.getElementById('calculator');
-                  if (calculatorSection) {
-                    calculatorSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                {intl.formatMessage({ id: 'landing-b2c.demo.success.calculatorSuggestion' })}
-              </button>
-            </div>
-          </div>
+          <SuccessScreen
+            waitlistPosition={state.waitlistPosition}
+            referralCode={state.referralCode}
+            locale={locale}
+            onShare={handleShare}
+            onDreamModeClick={() => {
+              trackEvent('demo_dream_mode_click');
+              window.location.href = `/${locale}/dream-mode`;
+            }}
+            onCalculatorClick={() => {
+              trackEvent('demo_calculator_click');
+              const calculatorSection = document.getElementById('calculator');
+              if (calculatorSection) {
+                calculatorSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            t={t}
+          />
         )}
       </div>
     </div>

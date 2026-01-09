@@ -26,7 +26,7 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
     title: 'landing-b2c.hero.headline',
     description: 'landing-b2c.hero.subheadline',
     ctaText: 'landing-b2c.hero.cta',
-    ctaHref: '#waitlist',
+    ctaHref: '#our-story',
     ctaTarget: '_self'
   },
   backgroundAssets: {
@@ -197,7 +197,7 @@ export const B2C_ORIGIN_STORY_CONFIG: FeatureShowcaseVariantConfig = {
         title: 'landing-b2c.whyWeBuiltThis.header',
         description: 'landing-b2c.whyWeBuiltThis.story',
         ctaText: 'landing-b2c.whyWeBuiltThis.signature',
-        ctaHref: '#waitlist',
+        ctaHref: '#how-it-works',
         ctaTarget: '_self'
       },
       assets: {

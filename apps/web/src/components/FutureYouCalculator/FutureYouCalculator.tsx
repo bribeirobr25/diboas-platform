@@ -10,9 +10,11 @@
  * - Shareable results
  * - Counter animation for results
  * - ECB source citation
+ *
+ * Refactored: Hooks and sub-components extracted for maintainability
  */
 
-import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { Button } from '@diboas/ui';
@@ -20,7 +22,6 @@ import { CurrencyInput } from '@/components/UI';
 import {
   calculateFullResult,
   formatCurrency,
-  formatPercentage,
   getCurrencyLocale,
   CALCULATOR_CONFIG,
   CALCULATOR_EVENTS,
@@ -33,55 +34,11 @@ import {
   type RateScenario,
 } from '@/lib/calculator';
 import { analyticsService } from '@/lib/analytics';
+import { useAnimatedCounter } from './hooks';
+import { ResultCard } from './ResultCard';
+import { TimeframeSelector } from './TimeframeSelector';
+import { ShareIcon } from './CalculatorIcons';
 import styles from './FutureYouCalculator.module.css';
-
-/**
- * Custom hook for animating a number from 0 to target value
- */
-function useAnimatedCounter(targetValue: number, duration: number = 1000) {
-  const [displayValue, setDisplayValue] = useState(0);
-  const previousTarget = useRef(targetValue);
-  const animationRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    // Only animate if target changed significantly
-    if (Math.abs(targetValue - previousTarget.current) < 1) {
-      setDisplayValue(targetValue);
-      return;
-    }
-
-    const startValue = displayValue;
-    const startTime = performance.now();
-    const difference = targetValue - startValue;
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Ease out cubic for smooth deceleration
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      const current = startValue + difference * easeOut;
-
-      setDisplayValue(current);
-
-      if (progress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
-        previousTarget.current = targetValue;
-      }
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [targetValue, duration]);
-
-  return Math.round(displayValue);
-}
 
 interface FutureYouCalculatorProps {
   /** Callback when user wants to share results */
@@ -119,7 +76,6 @@ export function FutureYouCalculator({
   const [monthlyContribution, setMonthlyContribution] = useState(
     initialValues?.monthlyContribution ?? CALCULATOR_CONFIG.defaultMonthlyContribution
   );
-  // Use locale-based currency instead of hardcoded EUR
   const currency = initialValues?.currency ?? localeConfig.currency;
   const [selectedTimeframe, setSelectedTimeframe] = useState<LongTermTimeframe>('5years');
 
@@ -147,7 +103,7 @@ export function FutureYouCalculator({
     return calculateFullResult(input, selectedTimeframe, DEFI_SCENARIO, bankScenario);
   }, [initialAmount, monthlyContribution, currency, selectedTimeframe, bankScenario]);
 
-  // Current comparison for selected timeframe (use long-term projections for Future You Calculator)
+  // Current comparison for selected timeframe
   const currentComparison = result.longTermProjections?.[selectedTimeframe] ?? result.projections['5years'];
   const currencyLocale = getCurrencyLocale(currency);
 
@@ -162,11 +118,7 @@ export function FutureYouCalculator({
 
       analyticsService.track({
         name: CALCULATOR_EVENTS.INPUT_CHANGED,
-        parameters: {
-          field: 'initialAmount',
-          value: clamped,
-          locale,
-        },
+        parameters: { field: 'initialAmount', value: clamped, locale },
       });
     },
     [locale]
@@ -182,11 +134,7 @@ export function FutureYouCalculator({
 
       analyticsService.track({
         name: CALCULATOR_EVENTS.INPUT_CHANGED,
-        parameters: {
-          field: 'monthlyContribution',
-          value: clamped,
-          locale,
-        },
+        parameters: { field: 'monthlyContribution', value: clamped, locale },
       });
     },
     [locale]
@@ -198,10 +146,7 @@ export function FutureYouCalculator({
 
       analyticsService.track({
         name: CALCULATOR_EVENTS.TIMEFRAME_CHANGED,
-        parameters: {
-          timeframe,
-          locale,
-        },
+        parameters: { timeframe, locale },
       });
     },
     [locale]
@@ -226,10 +171,7 @@ export function FutureYouCalculator({
   const handleCtaClick = useCallback(() => {
     analyticsService.track({
       name: CALCULATOR_EVENTS.CTA_CLICKED,
-      parameters: {
-        timeframe: selectedTimeframe,
-        locale,
-      },
+      parameters: { timeframe: selectedTimeframe, locale },
     });
 
     onCtaClick?.();
@@ -256,7 +198,7 @@ export function FutureYouCalculator({
         <p className={styles.subhead}>{t('subhead')}</p>
       </div>
 
-      {/* Input Section - Using shared CurrencyInput component */}
+      {/* Input Section */}
       <div className={styles.inputSection}>
         <CurrencyInput
           value={initialAmount}
@@ -282,17 +224,12 @@ export function FutureYouCalculator({
       </div>
 
       {/* Timeframe Selector */}
-      <div className={styles.timeframeSelector}>
-        {TIMEFRAMES.map((tf) => (
-          <button
-            key={tf}
-            onClick={() => handleTimeframeChange(tf)}
-            className={`${styles.timeframeButton} ${selectedTimeframe === tf ? styles.active : ''}`}
-          >
-            {t(`timeframe.${tf}`)}
-          </button>
-        ))}
-      </div>
+      <TimeframeSelector
+        timeframes={TIMEFRAMES}
+        selectedTimeframe={selectedTimeframe}
+        onTimeframeChange={handleTimeframeChange}
+        getLabel={(tf) => t(`timeframe.${tf}`)}
+      />
 
       {/* Results Section */}
       <div className={styles.resultsSection}>
@@ -305,59 +242,35 @@ export function FutureYouCalculator({
         </h3>
 
         {/* DeFi Result */}
-        <div className={styles.resultCard}>
-          <div className={styles.resultHeader}>
-            <span className={styles.resultLabel}>{t('defiYield')}</span>
-            <span className={styles.resultApy}>
-              {formatPercentage(result.defiScenario.apy)} APY
-            </span>
-          </div>
-          <div className={styles.resultBar}>
-            <div
-              className={`${styles.bar} ${styles.defiBar}`}
-              style={{ width: `${defiBarWidth}%` }}
-            />
-          </div>
-          <div className={styles.resultValue}>
-            {formatCurrency(animatedDefiBalance, currency, currencyLocale)}
-          </div>
-          <div className={styles.resultGrowth}>
-            +{formatCurrency(currentComparison.defi.interestEarned, currency, currencyLocale)}
-            <span className={styles.growthPercent}>
-              ({formatPercentage(currentComparison.defi.growthPercentage)})
-            </span>
-          </div>
-        </div>
+        <ResultCard
+          label={t('defiYield')}
+          apy={result.defiScenario.apy}
+          apyLabel="APY"
+          finalBalance={animatedDefiBalance}
+          interestEarned={currentComparison.defi.interestEarned}
+          growthPercentage={currentComparison.defi.growthPercentage}
+          barWidth={defiBarWidth}
+          currency={currency}
+          currencyLocale={currencyLocale}
+          variant="defi"
+        />
 
         {/* Bank Result */}
-        <div className={`${styles.resultCard} ${styles.bankCard}`}>
-          <div className={styles.resultHeader}>
-            <span className={styles.resultLabel}>{t('bankRate')}</span>
-            <span className={styles.resultApy}>
-              {formatPercentage(result.bankScenario.apy)} APY
-            </span>
-          </div>
-          <div className={styles.resultBar}>
-            <div
-              className={`${styles.bar} ${styles.bankBar}`}
-              style={{ width: `${bankBarWidth}%` }}
-            />
-          </div>
-          <div className={styles.resultValue}>
-            {formatCurrency(animatedBankBalance, currency, currencyLocale)}
-          </div>
-          <div className={styles.resultGrowth}>
-            +{formatCurrency(currentComparison.bank.interestEarned, currency, currencyLocale)}
-            <span className={styles.growthPercent}>
-              ({formatPercentage(currentComparison.bank.growthPercentage)})
-            </span>
-          </div>
-        </div>
+        <ResultCard
+          label={t('bankRate')}
+          apy={result.bankScenario.apy}
+          apyLabel="APY"
+          finalBalance={animatedBankBalance}
+          interestEarned={currentComparison.bank.interestEarned}
+          growthPercentage={currentComparison.bank.growthPercentage}
+          barWidth={bankBarWidth}
+          currency={currency}
+          currencyLocale={currencyLocale}
+          variant="bank"
+        />
 
         {/* ECB Source Citation */}
-        <p className={styles.ecbCitation}>
-          {t('ecbSource')}
-        </p>
+        <p className={styles.ecbCitation}>{t('ecbSource')}</p>
 
         {/* Difference Highlight */}
         <div className={styles.differenceCard}>
@@ -372,7 +285,7 @@ export function FutureYouCalculator({
       {/* Disclaimer */}
       <p className={styles.disclaimer}>{t('disclaimer')}</p>
 
-      {/* Actions - Using shared Button component from @diboas/ui */}
+      {/* Actions */}
       <div className={styles.actions}>
         {onShare && (
           <Button
@@ -386,46 +299,16 @@ export function FutureYouCalculator({
           </Button>
         )}
         {onCtaClick && (
-          <Button
-            variant="primary"
-            size="lg"
-            onClick={handleCtaClick}
-            trackable
-          >
+          <Button variant="primary" size="lg" onClick={handleCtaClick} trackable>
             {t('cta')}
           </Button>
         )}
         {onSecondaryCta && (
-          <Button
-            variant="ghost"
-            size="default"
-            onClick={onSecondaryCta}
-          >
+          <Button variant="ghost" size="default" onClick={onSecondaryCta}>
             {t('ctaSecondary')}
           </Button>
         )}
       </div>
     </div>
-  );
-}
-
-function ShareIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="18" cy="5" r="3" />
-      <circle cx="6" cy="12" r="3" />
-      <circle cx="18" cy="19" r="3" />
-      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-    </svg>
   );
 }

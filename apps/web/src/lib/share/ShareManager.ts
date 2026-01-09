@@ -18,104 +18,31 @@ import type {
   CardType,
 } from './types';
 
-import { PLATFORM_CONFIGS, SHARE_EVENTS, CAMPAIGN_HASHTAGS } from './constants';
-import { getShareUrl } from './utm';
+import { SHARE_EVENTS } from './constants';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
+import { isWebShareAvailable, isWebShareFilesAvailable } from './shareUtils';
+import {
+  shareToTwitter,
+  shareToWhatsApp,
+  shareToFacebook,
+  shareToLinkedIn,
+  shareToTelegram,
+  copyToClipboard,
+  downloadImage,
+} from './platformHandlers';
 
-/**
- * Check if Web Share API is available
- */
-export function isWebShareAvailable(): boolean {
-  return typeof navigator !== 'undefined' && 'share' in navigator;
-}
+// Re-export utilities for backwards compatibility
+export {
+  isWebShareAvailable,
+  isWebShareFilesAvailable,
+  getHashtags,
+  truncateForPlatform,
+} from './shareUtils';
 
-/**
- * Check if Web Share API supports files
- */
-export function isWebShareFilesAvailable(): boolean {
-  return (
-    isWebShareAvailable() &&
-    typeof navigator !== 'undefined' &&
-    'canShare' in navigator
-  );
-}
-
-/**
- * Generate hashtags string for sharing
- */
-export function getHashtags(locale: CardLocale, asString = true): string | string[] {
-  const tags = CAMPAIGN_HASHTAGS.localized[locale] || CAMPAIGN_HASHTAGS.localized.en;
-  if (asString) {
-    return tags.map((tag) => `#${tag}`).join(' ');
-  }
-  return [...tags]; // Convert readonly to mutable array
-}
-
-/**
- * Truncate text to fit platform character limits
- * Preserves hashtags and URLs by accounting for their length
- */
-export function truncateForPlatform(
-  text: string,
-  platform: SharePlatform,
-  urlLength: number = 23 // Twitter counts all URLs as 23 chars
-): string {
-  const config = PLATFORM_CONFIGS[platform];
-  const maxLength = config?.maxTextLength;
-
-  if (!maxLength || text.length <= maxLength) {
-    return text;
-  }
-
-  // Reserve space for URL (if sharing) and ellipsis
-  const reservedLength = urlLength + 4; // URL + " ..."
-  const availableLength = maxLength - reservedLength;
-
-  if (availableLength <= 0) {
-    return text.slice(0, maxLength - 3) + '...';
-  }
-
-  // Find a good break point (word boundary)
-  let truncated = text.slice(0, availableLength);
-  const lastSpace = truncated.lastIndexOf(' ');
-
-  if (lastSpace > availableLength * 0.8) {
-    truncated = truncated.slice(0, lastSpace);
-  }
-
-  return truncated + '...';
-}
-
-/**
- * Build share URL for a platform with UTM tracking
- */
-export function buildShareUrl(
-  platform: SharePlatform,
-  content: ShareContent,
-  cardType: CardType = 'dream',
-  referralCode?: string
-): string | null {
-  const config = PLATFORM_CONFIGS[platform];
-  if (!config?.urlTemplate) return null;
-
-  // Get URL with UTM parameters
-  const shareUrl = content.url || getShareUrl(cardType, platform, referralCode);
-
-  // Truncate text for platform limits
-  const truncatedText = truncateForPlatform(content.text, platform);
-
-  let url = config.urlTemplate;
-
-  // Encode and replace placeholders
-  url = url.replace('{text}', encodeURIComponent(truncatedText));
-  url = url.replace('{url}', encodeURIComponent(shareUrl));
-
-  // Add hashtags for Twitter
-  if (platform === 'twitter' && content.hashtags?.length) {
-    url += `&hashtags=${encodeURIComponent(content.hashtags.join(','))}`;
-  }
-
-  return url;
-}
+export { buildShareUrl } from './platformHandlers';
 
 /**
  * Share Manager class
@@ -150,6 +77,20 @@ export class ShareManager {
    */
   setReferralCode(referralCode: string): void {
     this.referralCode = referralCode;
+  }
+
+  /**
+   * Set locale
+   */
+  setLocale(locale: CardLocale): void {
+    this.locale = locale;
+  }
+
+  /**
+   * Set tracking callback
+   */
+  setTrackingCallback(callback: (data: ShareTrackingData) => void): void {
+    this.trackingCallback = callback;
   }
 
   /**
@@ -196,21 +137,14 @@ export class ShareManager {
       await navigator.share(shareData);
 
       this.track({
-        platform: 'copy', // Generic for Web Share API
+        platform: 'copy',
         locale: this.locale,
       });
 
-      return {
-        success: true,
-        platform: 'copy',
-      };
+      return { success: true, platform: 'copy' };
     } catch (error) {
       if ((error as Error).name === 'AbortError') {
-        return {
-          success: false,
-          platform: 'copy',
-          cancelled: true,
-        };
+        return { success: false, platform: 'copy', cancelled: true };
       }
 
       return {
@@ -225,288 +159,186 @@ export class ShareManager {
    * Share to Twitter/X
    */
   shareToTwitter(content: ShareContent): ShareResult {
-    const url = buildShareUrl(
-      'twitter',
-      {
-        ...content,
-        hashtags: content.hashtags || (getHashtags(this.locale, false) as string[]),
-      },
-      this.cardType,
-      this.referralCode
-    );
-
-    if (url) {
-      window.open(url, '_blank', 'width=600,height=400');
-
-      this.track({
-        platform: 'twitter',
-        cardType: this.cardType,
-        locale: this.locale,
-      });
-
-      return {
-        success: true,
-        platform: 'twitter',
-      };
+    const result = shareToTwitter(content, this.locale, this.cardType, this.referralCode);
+    if (result.success) {
+      this.track({ platform: 'twitter', cardType: this.cardType, locale: this.locale });
     }
-
-    return {
-      success: false,
-      platform: 'twitter',
-      error: 'Failed to build share URL',
-    };
+    return result;
   }
 
   /**
    * Share to WhatsApp
    */
   shareToWhatsApp(content: ShareContent): ShareResult {
-    // Get URL with UTM parameters
-    const shareUrl = content.url || getShareUrl(this.cardType, 'whatsapp', this.referralCode);
-
-    // Truncate text for WhatsApp limits
-    const truncatedText = truncateForPlatform(content.text, 'whatsapp');
-
-    // Combine text and URL for WhatsApp
-    const fullText = `${truncatedText}\n\n${shareUrl}`;
-
-    const url = `https://wa.me/?text=${encodeURIComponent(fullText)}`;
-    window.open(url, '_blank');
-
-    this.track({
-      platform: 'whatsapp',
-      cardType: this.cardType,
-      locale: this.locale,
-    });
-
-    return {
-      success: true,
-      platform: 'whatsapp',
-    };
+    const result = shareToWhatsApp(content, this.cardType, this.referralCode);
+    if (result.success) {
+      this.track({ platform: 'whatsapp', cardType: this.cardType, locale: this.locale });
+    }
+    return result;
   }
 
   /**
    * Share to Facebook
    */
   shareToFacebook(content: ShareContent): ShareResult {
-    const url = buildShareUrl('facebook', content, this.cardType, this.referralCode);
-
-    if (url) {
-      window.open(url, '_blank', 'width=600,height=400');
-
-      this.track({
-        platform: 'facebook',
-        cardType: this.cardType,
-        locale: this.locale,
-      });
-
-      return {
-        success: true,
-        platform: 'facebook',
-      };
+    const result = shareToFacebook(content, this.cardType, this.referralCode);
+    if (result.success) {
+      this.track({ platform: 'facebook', cardType: this.cardType, locale: this.locale });
     }
-
-    return {
-      success: false,
-      platform: 'facebook',
-      error: 'Failed to build share URL',
-    };
+    return result;
   }
 
   /**
    * Share to LinkedIn
    */
   shareToLinkedIn(content: ShareContent): ShareResult {
-    const url = buildShareUrl('linkedin', content, this.cardType, this.referralCode);
-
-    if (url) {
-      window.open(url, '_blank', 'width=600,height=400');
-
-      this.track({
-        platform: 'linkedin',
-        cardType: this.cardType,
-        locale: this.locale,
-      });
-
-      return {
-        success: true,
-        platform: 'linkedin',
-      };
+    const result = shareToLinkedIn(content, this.cardType, this.referralCode);
+    if (result.success) {
+      this.track({ platform: 'linkedin', cardType: this.cardType, locale: this.locale });
     }
-
-    return {
-      success: false,
-      platform: 'linkedin',
-      error: 'Failed to build share URL',
-    };
+    return result;
   }
 
   /**
    * Share to Telegram
    */
   shareToTelegram(content: ShareContent): ShareResult {
-    const url = buildShareUrl('telegram', content, this.cardType, this.referralCode);
-
-    if (url) {
-      window.open(url, '_blank');
-
-      this.track({
-        platform: 'telegram',
-        cardType: this.cardType,
-        locale: this.locale,
-      });
-
-      return {
-        success: true,
-        platform: 'telegram',
-      };
+    const result = shareToTelegram(content, this.cardType, this.referralCode);
+    if (result.success) {
+      this.track({ platform: 'telegram', cardType: this.cardType, locale: this.locale });
     }
-
-    return {
-      success: false,
-      platform: 'telegram',
-      error: 'Failed to build share URL',
-    };
+    return result;
   }
 
   /**
    * Copy link to clipboard
    */
   async copyToClipboard(content: ShareContent): Promise<ShareResult> {
-    try {
-      const textToCopy = content.url || content.text;
-      await navigator.clipboard.writeText(textToCopy);
-
-      this.track({
-        platform: 'copy',
-        locale: this.locale,
-      });
-
-      return {
-        success: true,
-        platform: 'copy',
-      };
-    } catch (error) {
-      // Fallback for older browsers
-      try {
-        const textArea = document.createElement('textarea');
-        textArea.value = content.url || content.text;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-
-        this.track({
-          platform: 'copy',
-          locale: this.locale,
-        });
-
-        return {
-          success: true,
-          platform: 'copy',
-        };
-      } catch (fallbackError) {
-        return {
-          success: false,
-          platform: 'copy',
-          error: 'Failed to copy to clipboard',
-        };
-      }
+    const result = await copyToClipboard(content);
+    if (result.success) {
+      this.track({ platform: 'copy', locale: this.locale });
     }
+    return result;
   }
 
   /**
    * Download image
    */
   async downloadImage(card: RenderedCard, filename?: string): Promise<ShareResult> {
-    try {
-      const name = filename || `diboas-${card.type}-${Date.now()}.png`;
-
-      // Create download link
-      const link = document.createElement('a');
-      link.href = card.dataUrl;
-      link.download = name;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      this.track({
-        platform: 'download',
-        cardType: card.type,
-        locale: this.locale,
-      });
-
-      return {
-        success: true,
-        platform: 'download',
-      };
-    } catch (error) {
-      return {
-        success: false,
-        platform: 'download',
-        error: (error as Error).message,
-      };
+    const result = downloadImage(card.dataUrl, card.type, filename);
+    if (result.success) {
+      this.track({ platform: 'download', cardType: card.type, locale: this.locale });
     }
+    return result;
   }
 
   /**
    * Share to a specific platform
    */
-  async share(
-    platform: SharePlatform,
-    content: ShareContent
-  ): Promise<ShareResult> {
+  async share(platform: SharePlatform, content: ShareContent): Promise<ShareResult> {
+    // Emit share initiated event
+    applicationEventBus.emit(ApplicationEventType.SHARE_INITIATED, {
+      source: 'share',
+      timestamp: Date.now(),
+      platform,
+      cardType: this.cardType,
+      locale: this.locale,
+      hasImage: !!content.image,
+    });
+
+    // Emit feature used event for audit trail
+    applicationEventBus.emit(ApplicationEventType.FEATURE_USED, {
+      source: 'share',
+      timestamp: Date.now(),
+      metadata: {
+        feature: 'share_card',
+        platform,
+        cardType: this.cardType,
+      },
+    });
+
+    let result: ShareResult;
+
     switch (platform) {
       case 'twitter':
-        return this.shareToTwitter(content);
+        result = this.shareToTwitter(content);
+        break;
       case 'whatsapp':
-        return this.shareToWhatsApp(content);
+        result = this.shareToWhatsApp(content);
+        break;
       case 'facebook':
-        return this.shareToFacebook(content);
+        result = this.shareToFacebook(content);
+        break;
       case 'linkedin':
-        return this.shareToLinkedIn(content);
+        result = this.shareToLinkedIn(content);
+        break;
       case 'telegram':
-        return this.shareToTelegram(content);
+        result = this.shareToTelegram(content);
+        break;
       case 'copy':
-        return this.copyToClipboard(content);
+        result = await this.copyToClipboard(content);
+        break;
       case 'download':
         if (content.image) {
-          return this.downloadImage(content.image);
+          result = await this.downloadImage(content.image);
+        } else {
+          result = {
+            success: false,
+            platform: 'download',
+            error: 'No image provided for download',
+          };
         }
-        return {
-          success: false,
-          platform: 'download',
-          error: 'No image provided for download',
-        };
+        break;
       case 'instagram':
-        // Instagram requires native share or download
         if (content.image) {
-          return this.downloadImage(content.image, 'diboas-instagram.png');
+          result = await this.downloadImage(content.image, 'diboas-instagram.png');
+        } else {
+          result = await this.shareWithWebAPI(content);
         }
-        return this.shareWithWebAPI(content);
+        break;
       default:
-        return {
+        result = {
           success: false,
           platform,
           error: `Unknown platform: ${platform}`,
         };
     }
-  }
 
-  /**
-   * Set locale
-   */
-  setLocale(locale: CardLocale): void {
-    this.locale = locale;
-  }
+    // Emit result event based on outcome
+    if (result.success) {
+      applicationEventBus.emit(ApplicationEventType.SHARE_COMPLETED, {
+        source: 'share',
+        timestamp: Date.now(),
+        platform,
+        cardType: this.cardType,
+        locale: this.locale,
+        hasImage: !!content.image,
+        success: true,
+      });
+    } else if (result.cancelled) {
+      applicationEventBus.emit(ApplicationEventType.SHARE_CANCELLED, {
+        source: 'share',
+        timestamp: Date.now(),
+        platform,
+        cardType: this.cardType,
+        locale: this.locale,
+        hasImage: !!content.image,
+        success: false,
+      });
+    } else {
+      applicationEventBus.emit(ApplicationEventType.SHARE_FAILED, {
+        source: 'share',
+        timestamp: Date.now(),
+        platform,
+        cardType: this.cardType,
+        locale: this.locale,
+        hasImage: !!content.image,
+        success: false,
+        error: result.error,
+      });
+    }
 
-  /**
-   * Set tracking callback
-   */
-  setTrackingCallback(callback: (data: ShareTrackingData) => void): void {
-    this.trackingCallback = callback;
+    return result;
   }
 }
 

@@ -62,9 +62,7 @@ export function StepGuideSection({
 
   // Handle unknown variant (graceful fallback)
   if (!VariantComponent) {
-    console.warn(
-      `StepGuide: Unknown variant "${variant}". Falling back to "default".`
-    );
+    // Unknown variant - fallback to default
     return (
       <StepGuideDefault
         config={config}

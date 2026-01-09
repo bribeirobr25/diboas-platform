@@ -28,7 +28,7 @@ import { ROUTES } from '@/config/routes';
 
 /**
  * Landing page navigation links configuration
- * Following the spec: For Business | Strategies | Future You
+ * Following the spec: For Business | Strategies | Future You | About | Protocols
  */
 const LANDING_NAV_LINKS = [
   {
@@ -45,6 +45,16 @@ const LANDING_NAV_LINKS = [
     id: 'future-you',
     labelKey: 'common.navigation.landing.futureYou',
     href: ROUTES.FUTURE_YOU,
+  },
+  {
+    id: 'about',
+    labelKey: 'common.navigation.landing.about',
+    href: ROUTES.ABOUT,
+  },
+  {
+    id: 'protocols',
+    labelKey: 'common.navigation.landing.protocols',
+    href: ROUTES.PROTOCOLS,
   },
 ] as const;
 

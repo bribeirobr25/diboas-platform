@@ -82,7 +82,7 @@ export function LocaleLink({
     }
 
     // Rule 3: Add locale prefix
-    return `/${locale}${path.startsWith('/') ? path : '/' + path}`;
+    return `/${locale}${path.startsWith('/') ? path : `/${  path}`}`;
   };
 
   return (

@@ -27,6 +27,10 @@ import {
   RateLimitPresets,
 } from '@/lib/security';
 import { Logger } from '@/lib/monitoring/Logger';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 /**
  * Kit.com Webhook Event Types
@@ -144,6 +148,15 @@ export async function POST(request: NextRequest): Promise<NextResponse<WebhookRe
 
     Logger.info('[Kit Webhook] Received event', { event: payload.event });
 
+    // Emit webhook received event for monitoring
+    applicationEventBus.emit(ApplicationEventType.WEBHOOK_RECEIVED, {
+      source: 'webhook',
+      timestamp: Date.now(),
+      provider: 'kit',
+      eventType: payload.event,
+      success: true,
+    });
+
     // Process based on event type
     switch (payload.event) {
       case 'subscriber.created':
@@ -172,11 +185,42 @@ export async function POST(request: NextRequest): Promise<NextResponse<WebhookRe
         Logger.info('[Kit Webhook] Unhandled event', { event: payload.event });
     }
 
+    // Emit webhook processed event for monitoring
+    applicationEventBus.emit(ApplicationEventType.WEBHOOK_PROCESSED, {
+      source: 'webhook',
+      timestamp: Date.now(),
+      provider: 'kit',
+      eventType: payload.event,
+      success: true,
+    });
+
     return NextResponse.json({
       success: true,
       message: `Processed ${payload.event}`,
     });
   } catch (error) {
+    // Emit webhook failed event for monitoring
+    applicationEventBus.emit(ApplicationEventType.WEBHOOK_FAILED, {
+      source: 'webhook',
+      timestamp: Date.now(),
+      provider: 'kit',
+      eventType: 'unknown',
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+
+    // Emit application error for system monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'webhook',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'high',
+      context: {
+        provider: 'kit',
+        operation: 'webhook_processing',
+      },
+    });
+
     Logger.error('[Kit Webhook] Error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
@@ -229,7 +273,7 @@ async function handleSubscriberUpdated(payload: KitWebhookPayload): Promise<void
       }
 
       if (Object.keys(updates).length > 0) {
-        updateEntry(email, updates as any);
+        updateEntry(email, updates as { position?: number; referralCount?: number });
         Logger.info('[Kit Webhook] Updated fields', { email, updates });
       }
     }

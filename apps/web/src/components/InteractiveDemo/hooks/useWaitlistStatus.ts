@@ -59,8 +59,8 @@ export function useWaitlistStatus(options: UseWaitlistStatusOptions = {}) {
           referralCode: referralCode || undefined,
         };
       }
-    } catch (error) {
-      console.warn('[useWaitlistStatus] Failed to read localStorage:', error);
+    } catch {
+      // localStorage access failed - return default state
     }
 
     return { isOnWaitlist: false };
@@ -89,8 +89,8 @@ export function useWaitlistStatus(options: UseWaitlistStatusOptions = {}) {
           };
         }
       }
-    } catch (error) {
-      console.warn('[useWaitlistStatus] API verification failed:', error);
+    } catch {
+      // API verification failed - return default state
     }
 
     return { isOnWaitlist: false };
@@ -137,8 +137,8 @@ export function useWaitlistStatus(options: UseWaitlistStatusOptions = {}) {
         position: data.position,
         referralCode: data.referralCode,
       });
-    } catch (error) {
-      console.warn('[useWaitlistStatus] Failed to save to localStorage:', error);
+    } catch {
+      // localStorage save failed - status update still applied to state
     }
   }, []);
 
@@ -154,8 +154,8 @@ export function useWaitlistStatus(options: UseWaitlistStatusOptions = {}) {
       localStorage.removeItem(POSITION_STORAGE_KEYS.referralCode);
 
       setStatus({ isOnWaitlist: false });
-    } catch (error) {
-      console.warn('[useWaitlistStatus] Failed to clear localStorage:', error);
+    } catch {
+      // localStorage clear failed - state still reset
     }
   }, []);
 

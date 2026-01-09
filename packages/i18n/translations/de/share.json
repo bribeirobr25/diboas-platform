@@ -29,7 +29,8 @@
     "downloadComplete": "Bild gespeichert!",
     "shareSuccess": "Geteilt!",
     "shareFailed": "Teilen nicht möglich. Versuchen Sie den Download.",
-    "shareCancelled": "Teilen abgebrochen"
+    "shareCancelled": "Teilen abgebrochen",
+    "linkedInCopied": "Text kopiert! Fügen Sie ihn in Ihren LinkedIn-Beitrag ein."
   },
   "instagramInstructions": "Bild gespeichert! Öffnen Sie Instagram und teilen Sie aus Ihrer Galerie.",
   "card": {
@@ -43,15 +44,15 @@
     "copied": "Link in die Zwischenablage kopiert!"
   },
   "dreamMode": {
-    "twitter": "Im Dream Mode könnte ich {start} -> {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. #WhileISlept diboas.com",
-    "whatsapp": "Schau dir das an — im Dream Mode habe ich gesehen, was aus meinen {start} werden könnte: {end} in {timeframe}. Meine Bank würde mir {bank} geben. Schau, was deines erreichen könnte: diboas.com #WhileISlept",
-    "linkedin": "Ich habe gerade erkundet, was aus meinen Ersparnissen mit verschiedenen Strategien werden könnte. Die Lücke zwischen traditionellem Banking (0,5%) und dem, was tatsächlich möglich ist, ist erstaunlich. Probieren Sie es selbst: diboas.com #WhileISlept"
+    "twitter": "Im @diboasfi Dream Mode könnte ich {start} → {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. Gleicher Betrag, anderer Ort. diboas.com",
+    "whatsapp": "Im diBoaS Dream Mode könnte ich {start} → {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. Gleicher Betrag, anderer Ort. Schau mal: diboas.com",
+    "linkedin": "Im @diboasfi Dream Mode könnte ich {start} → {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. Gleicher Betrag, anderer Ort. Schau mal: diboas.com"
   },
   "waitlistPosition": {
-    "twitter": "Ich bin #{position} auf der @diBoaS-Warteliste. Banken verdienen 7% mit unseren Ersparnissen. Sie zahlen uns 0,5%. Diese Lücke? Die war schon immer da. #WhileISlept",
-    "whatsapp": "Ich bin gerade der diBoaS-Warteliste beigetreten (#{position}). Wussten Sie, dass Banken 7% mit unseren Ersparnissen verdienen, uns aber nur 0,5% zahlen? Schauen Sie es sich an: {referralUrl}",
-    "facebook": "Ich bin #{position} auf der diBoaS-Warteliste. Banken verdienen 7% mit unseren Ersparnissen, zahlen uns aber nur 0,5%. Zeit, das zu ändern. {referralUrl}",
-    "linkedin": "Gerade der diBoaS-Warteliste auf Position #{position} beigetreten. Die Lücke zwischen dem, was Banken mit unserem Geld verdienen (7%) und dem, was sie uns zahlen (0,5%), ist bemerkenswert. Ich erkunde, wie DeFi das ändern kann. {referralUrl} #Finanzinnovation #DeFi"
+    "twitter": "Ich bin #{position} auf der @diboasfi Warteliste. Mit nur €5 bekomme ich die gleichen Möglichkeiten wie Institutionen und Milliardäre.",
+    "whatsapp": "Ich bin gerade der diBoaS-Warteliste beigetreten (#{position}). Wussten Sie, dass man schon ab €5 die gleichen Möglichkeiten wie Institutionen und Milliardäre bekommen kann? Schauen Sie mal: {referralUrl}",
+    "facebook": "Ich bin #{position} auf der diBoaS-Warteliste. Banken verdienen 7% mit unseren Ersparnissen, zahlen uns aber nur 0,4%. Zeit, das zu ändern.",
+    "linkedin": "Ich bin gerade der @diboasfi Warteliste beigetreten (#{position}). Wussten Sie, dass Banken 7% mit unserem Ersparten verdienen, uns aber nur 0,4% zurückgeben? Mit diBoaS kann ich das ändern und Sie können es auch. Schauen Sie mal: {referralUrl}"
   },
   "dreamCard": {
     "watermark": "PROJEKTION",
@@ -66,7 +67,7 @@
   "waitlistCard": {
     "headline": "ICH BIN #{position} AUF DER DIBOAS-WARTELISTE",
     "bodyLine1": "Banken verdienen 7% mit unseren Ersparnissen.",
-    "bodyLine2": "Sie zahlen uns 0,5%.",
+    "bodyLine2": "Sie zahlen uns 0,4%.",
     "bodyLine3": "Diese Lücke? Die war schon immer da.",
     "ctaIntro": "Machen Sie mit:",
     "hashtag": "#WhileISlept"

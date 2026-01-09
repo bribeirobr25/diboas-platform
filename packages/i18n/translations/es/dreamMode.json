@@ -87,6 +87,8 @@
     "withDiboas": "Con diBoaS",
     "traditionalBank": "Tu banco te daría:",
     "differenceLabel": "Eso es {difference} MÁS con diBoaS",
+    "differencePrefix": "Eso es ",
+    "differenceSuffix": " MÁS con diBoaS",
     "differenceNote": "Mismo dinero. Lugar diferente. Gran diferencia.",
     "timeframe": {
       "1week": "1 semana",
@@ -94,9 +96,9 @@
       "1year": "1 año",
       "5years": "5 años"
     },
-    "bank_source": "Basado en 0.5% de tasa de ahorro promedio. Fuente: Estadísticas del BCE.",
-    "bank_source_us": "Basado en 0.45% de tasa de ahorro promedio. Fuente: Reserva Federal.",
-    "bank_source_eu": "Basado en 0.5% de tasa de ahorro promedio. Fuente: Estadísticas del BCE.",
+    "bank_source": "Basado en 0.4% de tasa de ahorro promedio. Fuente: FDIC National Average, Enero 2026.",
+    "bank_source_us": "Basado en 0.4% de tasa de ahorro promedio. Fuente: FDIC National Average, Enero 2026.",
+    "bank_source_eu": "Basado en 0.4% de tasa de ahorro promedio. Fuente: Estadísticas del BCE, Enero 2026.",
     "bank_source_br": "Basado en 6.5% de tasa de ahorro Selic. Fuente: Banco Central do Brasil.",
     "back": "Probar otro camino",
     "shareResults": "Compartir mi sueño"
@@ -118,7 +120,7 @@
       "5years": "en 5 años"
     },
     "shareYourDream": "Compartir mi sueño",
-    "shareText": "En Modo Sueño, podría crecer €{start} → €{end} en {timeframe}. ¿Mi banco? Solo €{bank}. #WhileISlept diboas.com",
+    "shareText": "En el Modo Sueño @diboasfi, podría crecer {start} → {end} {timeframe}. ¿Mi banco? Solo {bank}. Mismo dinero, lugar diferente. diboas.com",
     "joinWaitlist": "Unirse a la Lista de Espera",
     "tryAgain": "Probar con Otros Números",
     "disclaimer": "Proyección basada en datos históricos. El rendimiento pasado no garantiza resultados futuros."

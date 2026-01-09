@@ -5,6 +5,7 @@ import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
+import { SocialProofSection } from '@/components/Sections/SocialProofSection';
 import { DemoEmbedSection } from '@/components/Sections/DemoEmbed';
 import { CalculatorSection } from '@/components/Sections/CalculatorSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
@@ -16,7 +17,6 @@ import {
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_ORIGIN_STORY_CONFIG,
   B2C_FEATURES_CONFIG,
-  B2C_SOCIAL_PROOF_CONFIG,
   B2C_DEMO_CONFIG,
   B2C_FAQ_CONFIG
 } from '@/config/landing-b2c';
@@ -222,13 +222,12 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
         {/* Section 7: Social Proof */}
         <SectionErrorBoundary
           sectionId="social-proof-section-b2c"
-          sectionType="BenefitsCards"
+          sectionType="SocialProofSection"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <BenefitsCardsSection
-            config={B2C_SOCIAL_PROOF_CONFIG}
-            variant="default"
+          <SocialProofSection
+            namespace="landing-b2c.socialProof"
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

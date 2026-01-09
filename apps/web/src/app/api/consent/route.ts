@@ -11,6 +11,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { Logger } from '@/lib/monitoring/Logger';
 import {
   setConsentCookie,
   getConsentFromRequest,
@@ -25,6 +26,10 @@ import {
   RateLimitPresets,
   csrfProtection,
 } from '@/lib/security';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 interface ConsentRequest {
   analytics: boolean;
@@ -78,6 +83,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
       );
     }
 
+    // Get previous consent state for audit trail
+    const previousConsent = getConsentFromRequest(request);
+    const previousState = previousConsent?.analytics;
+
     // Create response with consent cookie
     const response = NextResponse.json({
       success: true,
@@ -90,9 +99,36 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
     // Set HttpOnly cookie
     setConsentCookie(response, { analytics: body.analytics });
 
+    // Emit consent event for analytics and audit trail
+    const eventType = body.analytics
+      ? ApplicationEventType.CONSENT_GIVEN
+      : ApplicationEventType.CONSENT_WITHDRAWN;
+
+    applicationEventBus.emit(eventType, {
+      source: 'consent',
+      timestamp: Date.now(),
+      consentType: 'analytics',
+      previousState,
+      newState: body.analytics,
+      metadata: {
+        version: CookieConfig.version,
+      },
+    });
+
     return response;
   } catch (error) {
-    console.error('[Consent] Error setting consent:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'consent',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'medium',
+      context: {
+        operation: 'consent_set',
+      },
+    });
+
+    Logger.error('[Consent] Error setting consent:', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json(
       { success: false, error: 'Failed to set consent' },
       { status: 500 }
@@ -140,7 +176,18 @@ export async function GET(request: NextRequest): Promise<NextResponse<ConsentRes
       },
     });
   } catch (error) {
-    console.error('[Consent] Error checking consent:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'consent',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'low',
+      context: {
+        operation: 'consent_check',
+      },
+    });
+
+    Logger.error('[Consent] Error checking consent:', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json(
       { success: false, error: 'Failed to check consent' },
       { status: 500 }
@@ -177,15 +224,41 @@ export async function DELETE(request: NextRequest): Promise<NextResponse<Consent
   }
 
   try {
+    // Get previous consent state for audit trail
+    const previousConsent = getConsentFromRequest(request);
+
     const response = NextResponse.json({
       success: true,
     });
 
     clearConsentCookie(response);
 
+    // Emit consent withdrawn event for audit trail
+    applicationEventBus.emit(ApplicationEventType.CONSENT_WITHDRAWN, {
+      source: 'consent',
+      timestamp: Date.now(),
+      consentType: 'all',
+      previousState: previousConsent?.analytics,
+      newState: false,
+      metadata: {
+        method: 'cookie_cleared',
+      },
+    });
+
     return response;
   } catch (error) {
-    console.error('[Consent] Error clearing consent:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'consent',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'medium',
+      context: {
+        operation: 'consent_clear',
+      },
+    });
+
+    Logger.error('[Consent] Error clearing consent:', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json(
       { success: false, error: 'Failed to clear consent' },
       { status: 500 }

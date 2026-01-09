@@ -41,7 +41,7 @@
         "bumpiness": "Muito tranquilo. Seu saldo ficou estável durante todo nosso teste de 4 anos."
       },
       "bestFor": "Gente construindo a primeira reserva de emergência. Qualquer um que quer entender como funciona sem oscilações de preço.",
-      "riskLevel": "Mínimo — Seu saldo fica estável. O único risco são problemas técnicos com os sistemas, que funcionam com segurança há anos."
+      "riskLevel": "Mínimo — Riscos são possíveis vulnerabilidades técnicas nos sistemas subjacentes, porém eles operam com segurança há anos."
     },
     "stableGrowth": {
       "name": "Stable Growth",
@@ -53,7 +53,7 @@
       "allocationNote": "A maior parte do seu dinheiro fica em dólares digitais estáveis. Uma parte menor participa do crescimento de ativos digitais.",
       "stats": {
         "lossChance": "Cerca de 5%",
-        "typicalReturn": "7-12% ao ano",
+        "typicalReturn": "8-12% ao ano",
         "bumpiness": "Algumas ondas. No pior momento, seu saldo caiu temporariamente 8% antes de se recuperar."
       },
       "bestFor": "Gente confortável com alguma movimentação de preço que quer que sua reserva capture potencial de crescimento.",
@@ -70,7 +70,7 @@
       "allocationNote": "Seu dinheiro é distribuído em sistemas comprovados focados em estabilidade.",
       "stats": {
         "lossChance": "Menos de 1%",
-        "typicalReturn": "6-9% ao ano",
+        "typicalReturn": "6-10% ao ano",
         "bumpiness": "Muito tranquilo. Seu saldo ficou estável durante todo nosso teste de 4 anos."
       },
       "bestFor": "Qualquer um com um objetivo específico e prazo menor que 2 anos.",
@@ -85,7 +85,7 @@
       "allocationNote": "A maioria fica estável. Uma parte participa do crescimento de ativos digitais.",
       "stats": {
         "lossChance": "Cerca de 7%",
-        "typicalReturn": "7-11% ao ano",
+        "typicalReturn": "8-12% ao ano",
         "bumpiness": "Ondas moderadas. No pior momento, seu saldo caiu temporariamente 11% antes de se recuperar."
       },
       "bestFor": "Gente guardando pra um objetivo que aguenta ver o saldo cair temporariamente.",
@@ -100,7 +100,7 @@
       "allocationNote": "Distribuído em sistemas estáveis pra rendimentos consistentes.",
       "stats": {
         "lossChance": "Menos de 1%",
-        "typicalReturn": "5-8% ao ano",
+        "typicalReturn": "6-10% ao ano",
         "bumpiness": "Muito tranquilo. Seu saldo ficou estável durante todo nosso teste de 4 anos."
       },
       "bestFor": "Quem guarda pro médio prazo e prioriza previsibilidade sobre retornos máximos.",
@@ -162,7 +162,7 @@
       "allocationNote": "Nossa configuração de maior rendimento só com estáveis.",
       "stats": {
         "lossChance": "Menos de 1%",
-        "typicalReturn": "7-11% ao ano",
+        "typicalReturn": "6-10% ao ano",
         "bumpiness": "Muito tranquilo. Seu saldo ficou estável durante todo nosso teste de 4 anos."
       },
       "bestFor": "Construtores de patrimônio conservadores de longo prazo que querem retornos fortes sem oscilações de preço.",

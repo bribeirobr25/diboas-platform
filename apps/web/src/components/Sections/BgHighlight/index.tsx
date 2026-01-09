@@ -65,9 +65,7 @@ export function BgHighlightSection({
 
   // Handle unknown variant (graceful fallback)
   if (!VariantComponent) {
-    console.warn(
-      `BgHighlight: Unknown variant "${variant}". Falling back to "default".`
-    );
+    // Unknown variant - fallback to default
     return (
       <BgHighlightDefault
         config={config}

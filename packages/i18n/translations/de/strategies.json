@@ -41,7 +41,7 @@
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Menschen, die ihren ersten Notgroschen aufbauen. Alle, die verstehen möchten, wie das funktioniert, ohne Preisschwankungen.",
-      "riskLevel": "Minimal — Ihr Guthaben bleibt stabil. Das einzige Risiko sind technische Probleme mit den zugrunde liegenden Systemen, die seit Jahren sicher funktionieren."
+      "riskLevel": "Minimal — Risiken sind mögliche technische Schwachstellen in den zugrunde liegenden Systemen, diese funktionieren jedoch seit Jahren sicher."
     },
     "stableGrowth": {
       "name": "Stable Growth",
@@ -53,7 +53,7 @@
       "allocationNote": "Der größte Teil Ihres Geldes bleibt in stabilen digitalen Dollars. Ein kleinerer Teil nimmt am digitalen Vermögenswachstum teil.",
       "stats": {
         "lossChance": "Etwa 5%",
-        "typicalReturn": "7-12% pro Jahr",
+        "typicalReturn": "8-12% pro Jahr",
         "bumpiness": "Einige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 8%, bevor es sich erholte."
       },
       "bestFor": "Menschen, die mit einigen Preisbewegungen vertraut sind und möchten, dass ihr Sicherheitsnetz Wachstumspotenzial erfasst.",
@@ -70,7 +70,7 @@
       "allocationNote": "Ihr Geld ist auf bewährte Systeme verteilt, die auf Stabilität ausgerichtet sind.",
       "stats": {
         "lossChance": "Weniger als 1%",
-        "typicalReturn": "6-9% pro Jahr",
+        "typicalReturn": "6-10% pro Jahr",
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Alle mit einem bestimmten Ziel und Zeitrahmen unter 2 Jahren.",
@@ -85,7 +85,7 @@
       "allocationNote": "Der Großteil bleibt stabil. Ein Teil nimmt am digitalen Vermögenswachstum teil.",
       "stats": {
         "lossChance": "Etwa 7%",
-        "typicalReturn": "7-11% pro Jahr",
+        "typicalReturn": "8-12% pro Jahr",
         "bumpiness": "Mäßige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 11%, bevor es sich erholte."
       },
       "bestFor": "Menschen, die für ein Ziel sparen und es verkraften können, ihr Guthaben vorübergehend sinken zu sehen.",
@@ -100,7 +100,7 @@
       "allocationNote": "Verteilt auf stabile Systeme für konsistente Renditen.",
       "stats": {
         "lossChance": "Weniger als 1%",
-        "typicalReturn": "5-8% pro Jahr",
+        "typicalReturn": "6-10% pro Jahr",
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Mittelfristige Sparer, die Vorhersehbarkeit über maximale Renditen stellen.",
@@ -162,7 +162,7 @@
       "allocationNote": "Unsere renditestärkste Nur-Stabil-Konfiguration.",
       "stats": {
         "lossChance": "Weniger als 1%",
-        "typicalReturn": "7-11% pro Jahr",
+        "typicalReturn": "6-10% pro Jahr",
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Konservative langfristige Vermögensaufbauer, die starke Renditen ohne Preisschwankungen wollen.",

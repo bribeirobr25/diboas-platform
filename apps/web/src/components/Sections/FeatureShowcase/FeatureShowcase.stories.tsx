@@ -7,10 +7,9 @@
  * Performance & SEO Optimization: Interactive carousel with image optimization
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { FeatureShowcaseFactory } from './FeatureShowcaseFactory';
-import { FEATURE_SHOWCASE_CONFIGS, PAGE_FEATURE_SHOWCASE_CONFIGS } from '@/config/featureShowcase';
-import type { FeatureShowcaseVariantConfig, FeatureShowcaseSlide } from '@/config/featureShowcase';
+import { FEATURE_SHOWCASE_CONFIGS, PAGE_FEATURE_SHOWCASE_CONFIGS, type FeatureShowcaseVariantConfig } from '@/config/featureShowcase';
 
 const meta: Meta<typeof FeatureShowcaseFactory> = {
   title: 'Sections/FeatureShowcase',

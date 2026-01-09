@@ -3,23 +3,22 @@
 /**
  * Waiting List Modal Component
  *
- * Full-screen modal with 40/60 split layout on desktop
- * Includes form with validation, sanitization, and consent tracking
- * Internationalized with react-intl
+ * Full-screen modal orchestrator with 40/60 split layout on desktop
+ * Uses extracted sub-components for better maintainability
+ *
+ * Domain-Driven Design: Orchestration layer for modal functionality
+ * Code Reusability: Uses extracted form, success, and hook components
+ * File Decoupling: Each concern in its own component
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
-import {
-  WaitingListFormData,
-  WaitingListFormErrors,
-} from '@/lib/waitingList/types';
-import { WAITING_LIST_CONFIG } from '@/lib/waitingList/constants';
-import { analyticsService } from '@/lib/analytics';
+import { useWaitlistModalForm } from './hooks/useWaitlistModalForm';
+import { WaitlistModalForm } from './WaitlistModalForm';
+import { WaitlistModalSuccess } from './WaitlistModalSuccess';
 import styles from './WaitingListModal.module.css';
 
 interface WaitingListModalProps {
@@ -37,155 +36,29 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
   // WCAG 2.4.3: Focus trap for modal
   useFocusTrap(modalRef, isOpen, { initialFocus: '#email' });
 
-  const [formData, setFormData] = useState<WaitingListFormData>({
-    name: '',
-    email: '',
-    xAccount: '',
-    gdprAccepted: false,
-  });
-
-  const [errors, setErrors] = useState<WaitingListFormErrors>({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [submittedEmail, setSubmittedEmail] = useState('');
-
   // Helper function for translations
   const t = (key: string, values?: Record<string, string>) => {
     return intl.formatMessage({ id: `common.waitingList.${key}` }, values);
   };
 
-  // Note: Focus is now handled by useFocusTrap hook with initialFocus option
+  // Form state and handlers from custom hook
+  const {
+    formData,
+    errors,
+    isLoading,
+    isSuccess,
+    submittedEmail,
+    handleInputChange,
+    handleSubmit,
+    resetForm,
+  } = useWaitlistModalForm({ locale, t });
 
   // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
-      setFormData({
-        name: '',
-        email: '',
-        xAccount: '',
-        gdprAccepted: false,
-      });
-      setErrors({});
-      setIsLoading(false);
-      setIsSuccess(false);
-      setSubmittedEmail('');
+      resetForm();
     }
-  }, [isOpen]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-
-    // Clear error for this field when user types
-    if (errors[name as keyof WaitingListFormErrors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: undefined,
-      }));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrors({});
-    setIsLoading(true);
-
-    // P10: Track form submission attempt
-    analyticsService.track({
-      name: 'waiting_list_form_submitted',
-      parameters: {
-        hasName: !!formData.name,
-        hasXAccount: !!formData.xAccount,
-        locale: locale,
-        timestamp: Date.now(),
-      },
-    });
-
-    try {
-      // Use API route for Kit.com sync and proper waitlist management
-      const response = await fetch('/api/waitlist/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email.toLowerCase().trim(),
-          name: formData.name || undefined,
-          locale: locale,
-          gdprAccepted: formData.gdprAccepted,
-          source: 'modal',
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Handle specific error codes
-        let errorType = 'unknown';
-        if (data.errorCode === 'ALREADY_REGISTERED') {
-          errorType = 'duplicate';
-          setErrors({
-            email: t('errors.duplicateEmail'),
-          });
-        } else if (data.errorCode === 'INVALID_EMAIL') {
-          errorType = 'validation';
-          setErrors({
-            email: t('errors.invalidEmail'),
-          });
-        } else if (data.errorCode === 'CONSENT_REQUIRED') {
-          errorType = 'validation';
-          setErrors({
-            gdprAccepted: t('errors.consentRequired'),
-          });
-        } else {
-          errorType = 'submission_failed';
-          setErrors({
-            general: t('errors.submissionFailed'),
-          });
-        }
-
-        analyticsService.track({
-          name: 'waiting_list_signup_error',
-          parameters: {
-            errorType,
-            timestamp: Date.now(),
-          },
-        });
-        return;
-      }
-
-      setSubmittedEmail(formData.email);
-      setIsSuccess(true);
-
-      // P10: Track successful signup
-      analyticsService.track({
-        name: 'waiting_list_signup_success',
-        parameters: {
-          locale: locale,
-          position: data.position,
-          timestamp: Date.now(),
-        },
-      });
-    } catch (error) {
-      // Network or unexpected error
-      analyticsService.track({
-        name: 'waiting_list_signup_error',
-        parameters: {
-          errorType: 'network_error',
-          timestamp: Date.now(),
-        },
-      });
-
-      setErrors({
-        general: t('errors.submissionFailed'),
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [isOpen, resetForm]);
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -211,17 +84,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
           aria-label={t('close')}
           type="button"
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <CloseIcon />
         </button>
 
         {/* Left side - Image (desktop only) */}
@@ -237,176 +100,64 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
           </div>
         </div>
 
-        {/* Right side - Form */}
+        {/* Right side - Form or Success */}
         <div className={styles.formSection}>
           {isSuccess ? (
-            <div className={styles.successContainer}>
-              <div className={styles.successIcon}>
-                <svg
-                  width="64"
-                  height="64"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                  <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
-              </div>
-              <h2 className={styles.successTitle}>{t('success.title')}</h2>
-              <p className={styles.successMessage}>{t('success.message')}</p>
-              <p className={styles.successEmail}>
-                {t('success.emailSent', { email: submittedEmail })}
-              </p>
-              <button
-                className={styles.closeModalButton}
-                onClick={onClose}
-                type="button"
-              >
-                {t('success.close')}
-              </button>
-            </div>
+            <WaitlistModalSuccess
+              submittedEmail={submittedEmail}
+              onClose={onClose}
+              labels={{
+                title: t('success.title'),
+                message: t('success.message'),
+                emailSent: t('success.emailSent', { email: submittedEmail }),
+                closeButton: t('success.close'),
+              }}
+            />
           ) : (
-            <>
-              <h2 id="waiting-list-title" className={styles.title}>
-                {t('title')}
-              </h2>
-              <p className={styles.subtitle}>{t('subtitle')}</p>
-
-              <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-                {errors.general && (
-                  <div className={styles.generalError} role="alert" aria-live="assertive">
-                    {errors.general}
-                  </div>
-                )}
-
-                {/* Email field (required) - First because it's the only mandatory field */}
-                <div className={styles.formGroup}>
-                  <label htmlFor="email" className={styles.label}>
-                    {t('form.email.label')}
-                    <span className={styles.required}>*</span>
-                  </label>
-                  <input
-                    ref={emailInputRef}
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder={t('form.email.placeholder')}
-                    className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
-                    aria-describedby={errors.email ? 'email-error' : undefined}
-                    aria-invalid={!!errors.email}
-                    required
-                    autoComplete="email"
-                  />
-                  {errors.email && (
-                    <span id="email-error" className={styles.errorMessage} role="alert">
-                      {errors.email}
-                    </span>
-                  )}
-                </div>
-
-                {/* Name field (optional) */}
-                <div className={styles.formGroup}>
-                  <label htmlFor="name" className={styles.label}>
-                    {t('form.name.label')}
-                    <span className={styles.optional}>{t('form.optional')}</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder={t('form.name.placeholder')}
-                    className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
-                    aria-describedby={errors.name ? 'name-error' : undefined}
-                    aria-invalid={!!errors.name}
-                    maxLength={WAITING_LIST_CONFIG.maxNameLength}
-                    autoComplete="name"
-                  />
-                  {errors.name && (
-                    <span id="name-error" className={styles.errorMessage} role="alert">
-                      {errors.name}
-                    </span>
-                  )}
-                </div>
-
-                {/* X Account field (optional) */}
-                <div className={styles.formGroup}>
-                  <label htmlFor="xAccount" className={styles.label}>
-                    {t('form.xAccount.label')}
-                    <span className={styles.optional}>{t('form.optional')}</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="xAccount"
-                    name="xAccount"
-                    value={formData.xAccount}
-                    onChange={handleInputChange}
-                    placeholder={t('form.xAccount.placeholder')}
-                    className={`${styles.input} ${errors.xAccount ? styles.inputError : ''}`}
-                    aria-describedby={errors.xAccount ? 'xAccount-error' : undefined}
-                    aria-invalid={!!errors.xAccount}
-                    maxLength={WAITING_LIST_CONFIG.maxXAccountLength}
-                  />
-                  {errors.xAccount && (
-                    <span id="xAccount-error" className={styles.errorMessage} role="alert">
-                      {errors.xAccount}
-                    </span>
-                  )}
-                </div>
-
-                {/* GDPR Consent checkbox (required) */}
-                <div className={styles.checkboxGroup}>
-                  <input
-                    type="checkbox"
-                    id="gdprAccepted"
-                    name="gdprAccepted"
-                    checked={formData.gdprAccepted}
-                    onChange={handleInputChange}
-                    className={styles.checkbox}
-                    aria-describedby={errors.gdprAccepted ? 'gdpr-error' : undefined}
-                    aria-invalid={!!errors.gdprAccepted}
-                    aria-required="true"
-                    required
-                  />
-                  <label htmlFor="gdprAccepted" className={styles.checkboxLabel}>
-                    {t('form.consent.text')}{' '}
-                    <Link
-                      href={WAITING_LIST_CONFIG.privacyPolicyUrl}
-                      target="_blank"
-                      className={styles.privacyLink}
-                    >
-                      {t('form.consent.privacyPolicy')}
-                    </Link>
-                    <span className={styles.required}>*</span>
-                  </label>
-                  {errors.gdprAccepted && (
-                    <span id="gdpr-error" className={styles.errorMessage} role="alert">
-                      {errors.gdprAccepted}
-                    </span>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  className={styles.submitButton}
-                  disabled={isLoading || !formData.gdprAccepted}
-                >
-                  {isLoading ? (
-                    <span className={styles.loadingSpinner} />
-                  ) : (
-                    t('form.submit')
-                  )}
-                </button>
-              </form>
-            </>
+            <WaitlistModalForm
+              formRef={formRef}
+              emailInputRef={emailInputRef}
+              formData={formData}
+              errors={errors}
+              isLoading={isLoading}
+              onInputChange={handleInputChange}
+              onSubmit={handleSubmit}
+              labels={{
+                title: t('title'),
+                subtitle: t('subtitle'),
+                emailLabel: t('form.email.label'),
+                emailPlaceholder: t('form.email.placeholder'),
+                nameLabel: t('form.name.label'),
+                namePlaceholder: t('form.name.placeholder'),
+                xAccountLabel: t('form.xAccount.label'),
+                xAccountPlaceholder: t('form.xAccount.placeholder'),
+                optional: t('form.optional'),
+                required: '*',
+                consentText: t('form.consent.text'),
+                privacyPolicy: t('form.consent.privacyPolicy'),
+                submit: t('form.submit'),
+              }}
+            />
           )}
         </div>
       </div>
     </div>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
   );
 }

@@ -889,35 +889,64 @@ a:focus-visible {
 }
 
 /* =================================================================== */
-/* BUTTON COMPONENTS */
+/* BUTTON COMPONENTS - CTA Design Token System
 /* =================================================================== */
 
 .btn-base {
-  @apply inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 no-underline;
+  @apply inline-flex items-center justify-center whitespace-nowrap text-base font-semibold transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 no-underline;
+  border-radius: var(--cta-border-radius, 50px);
 }
 
 .btn-primary {
-  @apply bg-teal-600 text-white hover:bg-teal-700 shadow-md hover:shadow-lg;
+  background: linear-gradient(135deg, var(--color-teal-500, #14b8a6), var(--color-teal-600, #0d9488));
+  color: var(--cta-color-primary, #ffffff);
+  box-shadow: 0 4px 14px var(--teal-shadow, rgba(20, 184, 166, 0.25));
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--teal-shadow, rgba(20, 184, 166, 0.35));
+}
+
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 .btn-secondary {
-  @apply bg-neutral-100 text-neutral-900 hover:bg-neutral-200 border border-neutral-200;
+  @apply bg-white border-2 border-teal-300 text-teal-700;
+}
+
+.btn-secondary:hover {
+  @apply bg-teal-50 border-teal-500;
 }
 
 .btn-outline {
-  @apply border border-teal-700 text-teal-700 bg-transparent hover:bg-teal-50;
+  @apply border-2 border-teal-500 text-teal-700 bg-transparent;
+}
+
+.btn-outline:hover {
+  @apply bg-teal-50 border-teal-600;
 }
 
 .btn-ghost {
   @apply text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900;
+  border-radius: var(--radius-md, 8px);
 }
 
 .btn-link {
   @apply text-teal-700 underline-offset-4 hover:underline p-0;
+  border-radius: 0;
 }
 
 .btn-gradient {
-  @apply bg-teal-700 text-white hover:bg-teal-800 shadow-lg hover:shadow-xl;
+  background: linear-gradient(135deg, var(--color-teal-500, #14b8a6), var(--color-teal-600, #0d9488));
+  color: var(--cta-color-primary, #ffffff);
+  box-shadow: 0 4px 14px var(--teal-shadow, rgba(20, 184, 166, 0.25));
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--teal-shadow, rgba(20, 184, 166, 0.35));
 }
 
 .btn-destructive {
@@ -925,14 +954,7 @@ a:focus-visible {
 }
 
 /* ================================
-   BUTTON SIZE VARIANTS
-   ================================
-
-   IMPORTANT: These are generic size classes from @diboas/ui Button component.
-   They should NOT define min-width - that's controlled by context-specific
-   classes like .desktop-get-started-button or component-specific CSS modules.
-
-   Removed deprecated --fs-min-width-cta references (token no longer exists).
+   BUTTON SIZE VARIANTS - CTA Design Token System
    ================================ */
 
 .btn-xs {
@@ -940,23 +962,43 @@ a:focus-visible {
 }
 
 .btn-sm {
-  @apply h-9 px-4 text-xs;
+  @apply h-9 px-4 text-sm;
 }
 
 .btn-default {
-  @apply h-10 px-4 py-2;
+  min-height: var(--cta-min-height-mobile, 48px);
+  padding: var(--cta-padding-mobile, 12px 24px);
+}
+
+@media (min-width: 768px) {
+  .btn-default {
+    min-height: var(--cta-min-height-desktop, 56px);
+    padding: var(--cta-padding-desktop, 16px 32px);
+  }
 }
 
 .btn-lg {
-  @apply h-12 px-8;
+  min-height: var(--cta-min-height-mobile, 48px);
+  padding: var(--cta-padding-mobile, 12px 24px);
+  min-width: var(--cta-min-width-mobile, 160px);
+}
+
+@media (min-width: 768px) {
+  .btn-lg {
+    min-height: var(--cta-min-height-desktop, 56px);
+    padding: var(--cta-padding-desktop, 16px 32px);
+    min-width: var(--cta-min-width-desktop, 200px);
+  }
 }
 
 .btn-xl {
   @apply h-14 px-10 text-base;
+  min-width: var(--cta-min-width-desktop, 220px);
 }
 
 .btn-icon {
   @apply h-10 w-10;
+  min-width: auto;
 }
 
 .btn-icon svg {

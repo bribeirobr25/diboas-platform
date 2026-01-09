@@ -18,7 +18,7 @@ const FeatureShowcaseBenefits = dynamic(
   () => import('./FeatureShowcaseBenefits/FeatureShowcaseBenefits')
     .then(mod => ({ default: mod.FeatureShowcaseBenefits }))
     .catch((error) => {
-      console.error('Failed to load FeatureShowcaseBenefits variant:', error);
+      // Dev error: 'Failed to load FeatureShowcaseBenefits variant:', error);
       // Fallback to default variant
       return { default: FeatureShowcaseDefault };
     }),
@@ -79,21 +79,41 @@ export function getAvailableFeatureShowcaseVariants(): string[] {
 }
 
 /**
+ * Runtime configuration type for validation
+ */
+interface FeatureShowcaseValidationConfig {
+  slides?: unknown[];
+  [key: string]: unknown;
+}
+
+/**
+ * Type guard to check if config has required shape
+ */
+function isValidConfig(config: unknown): config is FeatureShowcaseValidationConfig {
+  return typeof config === 'object' && config !== null;
+}
+
+/**
  * Development helper: Validate variant configuration
- * 
+ *
  * @param variantName - The variant name to validate
  * @param config - The configuration object to validate
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Validation function accepts untyped runtime data
-export function validateFeatureShowcaseVariant(variantName: string, config: any): boolean {
+export function validateFeatureShowcaseVariant(variantName: string, config: unknown): boolean {
   if (!hasFeatureShowcaseVariant(variantName)) {
-    console.warn(`FeatureShowcase variant '${variantName}' not found in registry`);
+    // Dev warning: FeatureShowcase variant '${variantName}' not found in registry`);
+    return false;
+  }
+
+  // Type guard for runtime validation
+  if (!isValidConfig(config)) {
+    // Dev warning: FeatureShowcase variant '${variantName}' config is not a valid object`);
     return false;
   }
 
   // Add more validation logic here as needed
-  if (!config?.slides?.length) {
-    console.warn(`FeatureShowcase variant '${variantName}' missing required slides`);
+  if (!config.slides || !Array.isArray(config.slides) || config.slides.length === 0) {
+    // Dev warning: FeatureShowcase variant '${variantName}' missing required slides`);
     return false;
   }
 

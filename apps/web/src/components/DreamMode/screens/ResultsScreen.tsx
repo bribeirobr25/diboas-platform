@@ -143,7 +143,11 @@ export function ResultsScreen() {
           </div>
           <div className={styles.differenceContent}>
             <span className={styles.differenceLabel}>
-              {t('differenceLabel', { difference: formatCurrency(localeDifference, state.input.currency, currencyLocale) })}
+              {t('differencePrefix')}
+              <span className={styles.differenceAmount}>
+                {formatCurrency(localeDifference, state.input.currency, currencyLocale)}
+              </span>
+              {t('differenceSuffix')}
             </span>
             <span className={styles.differenceNote}>{t('differenceNote')}</span>
           </div>

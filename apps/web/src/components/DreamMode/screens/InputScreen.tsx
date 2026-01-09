@@ -15,6 +15,10 @@ import { useDreamModeTranslation } from '../hooks';
 import { Button } from '@diboas/ui';
 import { CurrencyInput, ChevronLeftIcon } from '@/components/UI';
 import { CALCULATOR_CONFIG } from '@/lib/calculator';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 import styles from './screens.module.css';
 
 export function InputScreen() {
@@ -25,10 +29,30 @@ export function InputScreen() {
 
   const handleInitialAmountChange = (value: number) => {
     setInput({ initialAmount: value });
+
+    // Emit amount changed event for analytics
+    applicationEventBus.emit(ApplicationEventType.DREAM_MODE_AMOUNT_CHANGED, {
+      source: 'dreamMode',
+      timestamp: Date.now(),
+      amount: value,
+      metadata: {
+        type: 'initialAmount',
+      },
+    });
   };
 
   const handleMonthlyChange = (value: number) => {
     setInput({ monthlyContribution: value });
+
+    // Emit amount changed event for analytics
+    applicationEventBus.emit(ApplicationEventType.DREAM_MODE_AMOUNT_CHANGED, {
+      source: 'dreamMode',
+      timestamp: Date.now(),
+      amount: value,
+      metadata: {
+        type: 'monthlyContribution',
+      },
+    });
   };
 
   return (
