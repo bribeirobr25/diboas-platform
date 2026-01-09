@@ -7,10 +7,9 @@
  * Performance & SEO Optimization: Lazy loading and image optimization showcased
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { HeroSectionFactory } from './HeroSectionFactory';
-import { HERO_CONFIGS } from '@/config/hero';
-import type { HeroVariantConfig } from '@/config/hero';
+import { HERO_CONFIGS, type HeroVariantConfig } from '@/config/hero';
 
 const meta: Meta<typeof HeroSectionFactory> = {
   title: 'Sections/HeroSection',
@@ -304,7 +303,7 @@ export const WithPerformanceMonitoring: Story = {
  * Story demonstrating error boundary behavior.
  */
 export const ErrorState: Story = createHeroStory('default', {
-  // @ts-ignore - Intentionally invalid config for error testing
+  // @ts-expect-error - Intentionally invalid config for error testing
   content: null,
 });
 

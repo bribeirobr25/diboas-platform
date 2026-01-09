@@ -81,7 +81,7 @@ export function useDreamModeTranslation(): DreamModeTranslationResult {
       } catch {
         // Return the key as fallback to make debugging easier
         if (process.env.NODE_ENV === 'development') {
-          console.warn(`[DreamMode] Missing translation: ${id}`);
+          // Dev: [DreamMode] Missing translation: ${id}`);
         }
         return key;
       }
@@ -110,7 +110,7 @@ export function useDreamModeTranslation(): DreamModeTranslationResult {
         return intl.formatMessage({ id }, values);
       } catch {
         if (process.env.NODE_ENV === 'development') {
-          console.warn(`[DreamMode] Missing common translation: ${id}`);
+          // Dev: [DreamMode] Missing common translation: ${id}`);
         }
         return key;
       }
@@ -128,7 +128,7 @@ export function useDreamModeTranslation(): DreamModeTranslationResult {
         return intl.formatMessage({ id }, values);
       } catch {
         if (process.env.NODE_ENV === 'development') {
-          console.warn(`[DreamMode] Missing root translation: ${id}`);
+          // Dev: [DreamMode] Missing root translation: ${id}`);
         }
         return key;
       }

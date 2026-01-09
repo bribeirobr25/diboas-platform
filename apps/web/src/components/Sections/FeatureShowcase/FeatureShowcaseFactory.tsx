@@ -11,6 +11,7 @@
 
 'use client';
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { FEATURE_SHOWCASE_CONFIGS, type FeatureShowcaseVariantConfig, type FeatureShowcaseVariant } from '@/config/featureShowcase';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
@@ -99,7 +100,7 @@ export function FeatureShowcase({
         timestamp: new Date().toISOString()
       });
     } catch (error) {
-      console.warn('Failed to track showcase navigation:', error);
+      // Analytics tracking failed silently:  showcase navigation:', error);
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -115,7 +116,7 @@ export function FeatureShowcase({
         timestamp: new Date().toISOString()
       });
     } catch (error) {
-      console.warn('Failed to track showcase slide change:', error);
+      // Analytics tracking failed silently:  showcase slide change:', error);
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -140,7 +141,7 @@ export function FeatureShowcase({
         window.location.href = ctaHref;
       }
     } catch (error) {
-      console.warn('Failed to track showcase CTA click:', error);
+      // Analytics tracking failed silently:  showcase CTA click:', error);
       
       // Still navigate even if analytics fails
       const slide = resolvedConfig.slides?.find(s => s.id === slideId);
@@ -168,8 +169,8 @@ export function FeatureShowcase({
   try {
     return <VariantComponent {...variantProps} />;
   } catch (error) {
-    console.error(`Failed to render feature showcase variant '${variant}':`, error);
-    
+    Logger.error(`Failed to render feature showcase variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+
     // Fallback to default variant
     const DefaultVariant = getFeatureShowcaseVariant('default');
     return <DefaultVariant {...variantProps} />;

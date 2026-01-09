@@ -4,6 +4,7 @@
  * Security: Track security events and violations
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { MonitoringService, ErrorEvent, PerformanceIssue, SecurityEvent, MonitoringConfig } from './types';
 import { MONITORING_DEFAULTS } from './constants';
 
@@ -12,8 +13,8 @@ class MonitoringServiceImpl implements MonitoringService {
   private errorQueue: ErrorEvent[] = [];
   private performanceQueue: PerformanceIssue[] = [];
   private securityQueue: SecurityEvent[] = [];
-  private userContext: Record<string, any> = {};
-  private globalContext: Record<string, any> = {};
+  private userContext: Record<string, unknown> = {};
+  private globalContext: Record<string, unknown> = {};
   private flushTimer?: NodeJS.Timeout;
 
   constructor(config: MonitoringConfig = MONITORING_DEFAULTS) {
@@ -26,7 +27,7 @@ class MonitoringServiceImpl implements MonitoringService {
    * Track JavaScript errors
    * Error Handling: Centralized error tracking
    */
-  trackError(error: Error, context?: Record<string, any>): void {
+  trackError(error: Error, context?: Record<string, unknown>): void {
     if (!this.config.enabled || !this.config.trackErrors) return;
 
     const errorEvent: ErrorEvent = {
@@ -35,10 +36,10 @@ class MonitoringServiceImpl implements MonitoringService {
       stack: error.stack,
       url: typeof window !== 'undefined' ? window.location.href : '',
       timestamp: Date.now(),
-      userId: this.userContext.userId,
-      sessionId: this.userContext.sessionId,
+      userId: this.userContext.userId as string | undefined,
+      sessionId: this.userContext.sessionId as string | undefined,
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
-      locale: this.globalContext.locale,
+      locale: this.globalContext.locale as string | undefined,
       severity: this.classifyErrorSeverity(error),
       category: this.classifyErrorCategory(error),
       metadata: {
@@ -56,7 +57,7 @@ class MonitoringServiceImpl implements MonitoringService {
 
     // Log critical errors immediately
     if (errorEvent.severity === 'critical') {
-      console.error('Critical error tracked:', errorEvent);
+      Logger.error('Critical error tracked', { ...errorEvent });
       this.flush();
     }
   }
@@ -90,7 +91,7 @@ class MonitoringServiceImpl implements MonitoringService {
 
     // Log high/critical security events immediately
     if (event.severity === 'high' || event.severity === 'critical') {
-      console.warn('Security event tracked:', event);
+      Logger.warn('Security event tracked', { ...event });
       this.flush();
     }
   }
@@ -99,7 +100,7 @@ class MonitoringServiceImpl implements MonitoringService {
    * Set user context for tracking
    * User Context: Associate events with users
    */
-  setUser(userId: string, metadata?: Record<string, any>): void {
+  setUser(userId: string, metadata?: Record<string, unknown>): void {
     this.userContext = {
       userId,
       ...metadata
@@ -110,7 +111,7 @@ class MonitoringServiceImpl implements MonitoringService {
    * Set global context
    * Context: Add metadata to all events
    */
-  setContext(key: string, value: any): void {
+  setContext(key: string, value: unknown): void {
     this.globalContext[key] = value;
   }
 
@@ -137,7 +138,7 @@ class MonitoringServiceImpl implements MonitoringService {
     try {
       await this.sendToMonitoringService(payload);
     } catch (error) {
-      console.error('Failed to flush monitoring events:', error);
+      Logger.error('Failed to flush monitoring events:', { error: error instanceof Error ? error.message : String(error) });
     }
   }
 
@@ -243,7 +244,13 @@ class MonitoringServiceImpl implements MonitoringService {
   /**
    * Private: Send events to monitoring service
    */
-  private async sendToMonitoringService(payload: any): Promise<void> {
+  private async sendToMonitoringService(payload: {
+    errors: ErrorEvent[];
+    performance: PerformanceIssue[];
+    security: SecurityEvent[];
+    timestamp: number;
+    context: Record<string, unknown>;
+  }): Promise<void> {
     if (!this.config.endpoint) return;
 
     const response = await fetch(this.config.endpoint, {

@@ -129,6 +129,39 @@
   border-color: var(--social-linkedin, #0A66C2);
 }
 
+/* Mobile - Compact copy button with icon only */
+@media (max-width: 480px) {
+  .linkBox {
+    gap: var(--spacing-xs, 4px);
+    padding: var(--spacing-xs, 4px);
+  }
+
+  .input {
+    padding: var(--spacing-sm, 8px) var(--spacing-sm, 8px);
+    font-size: var(--font-size-xs, 12px);
+  }
+
+  .copyButton {
+    padding: var(--spacing-sm, 8px);
+    min-width: 36px;
+    justify-content: center;
+  }
+
+  /* Hide text, show only icon on mobile */
+  .copyButton span {
+    display: none;
+  }
+
+  .shareButtons {
+    gap: var(--spacing-xs, 4px);
+  }
+
+  .shareButton {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 /* Compact mode */
 .compact .linkBox {
   padding: var(--spacing-xs, 2px);

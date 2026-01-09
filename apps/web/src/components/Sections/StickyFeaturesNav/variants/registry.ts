@@ -30,9 +30,7 @@ export function getStickyFeaturesNavVariant(variant: string = 'default') {
   const VariantComponent = STICKY_FEATURES_NAV_VARIANT_REGISTRY[variant];
 
   if (!VariantComponent) {
-    console.warn(
-      `StickyFeaturesNav variant '${variant}' not found. Falling back to 'default'.`
-    );
+    // Unknown variant - fallback to default
     return STICKY_FEATURES_NAV_VARIANT_REGISTRY.default;
   }
 

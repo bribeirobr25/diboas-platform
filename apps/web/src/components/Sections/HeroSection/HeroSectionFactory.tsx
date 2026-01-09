@@ -11,6 +11,7 @@
 
 'use client';
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { HERO_CONFIGS, type HeroVariantConfig, type HeroVariant } from '@/config/hero';
@@ -111,7 +112,7 @@ export function HeroSection({
       }
     } catch (error) {
       // Error Handling: Don't let analytics failures break user experience
-      console.warn('Failed to track hero CTA click:', error);
+      // Analytics tracking failed silently:  hero CTA click:', error);
       
       // Still navigate even if analytics fails
       if (resolvedConfig.content.ctaTarget === '_blank') {
@@ -136,8 +137,8 @@ export function HeroSection({
   try {
     return <VariantComponent {...variantProps} />;
   } catch (error) {
-    console.error(`Failed to render hero variant '${variant}':`, error);
-    
+    Logger.error(`Failed to render hero variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+
     // Fallback to default variant
     const DefaultVariant = getHeroVariant('default');
     return <DefaultVariant {...variantProps} />;

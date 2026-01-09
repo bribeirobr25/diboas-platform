@@ -29,8 +29,8 @@ const CAL_EMBED_SCRIPT = CAL_CONFIG.embedScript;
 declare global {
   interface Window {
     Cal?: {
-      (action: string, ...args: any[]): void;
-      ns?: Record<string, any>;
+      (action: string, ...args: unknown[]): void;
+      ns?: Record<string, unknown>;
       loaded?: boolean;
     };
   }
@@ -112,7 +112,7 @@ export function CalEmbed({
           // Listen for booking complete
           window.Cal(namespace, 'on', {
             action: 'bookingSuccessful',
-            callback: (e: any) => {
+            callback: (e: { detail?: { booking?: { uid?: string; startTime?: string; email?: string }; eventType?: { slug?: string } } }) => {
               const bookingData: BookingData = {
                 bookingId: e.detail?.booking?.uid,
                 eventType: e.detail?.eventType?.slug,
@@ -128,7 +128,7 @@ export function CalEmbed({
           onLoad?.();
         }
       } catch (err) {
-        console.error('[CalEmbed] Failed to initialize:', err);
+        // Cal.com initialization failed;
         setError(err instanceof Error ? err.message : 'Failed to load calendar');
       }
     };

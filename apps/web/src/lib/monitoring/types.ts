@@ -17,7 +17,7 @@ export interface ErrorEvent {
   locale?: string;
   severity: 'low' | 'medium' | 'high' | 'critical';
   category: 'javascript' | 'network' | 'security' | 'performance' | 'user';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface PerformanceIssue {
@@ -28,7 +28,7 @@ export interface PerformanceIssue {
   threshold: number;
   url: string;
   timestamp: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface SecurityEvent {
@@ -38,7 +38,7 @@ export interface SecurityEvent {
   url: string;
   timestamp: number;
   severity: 'low' | 'medium' | 'high' | 'critical';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface MonitoringConfig {
@@ -53,10 +53,10 @@ export interface MonitoringConfig {
 }
 
 export interface MonitoringService {
-  trackError(error: Error, context?: Record<string, any>): void;
+  trackError(error: Error, context?: Record<string, unknown>): void;
   trackPerformanceIssue(issue: PerformanceIssue): void;
   trackSecurityEvent(event: SecurityEvent): void;
-  setUser(userId: string, metadata?: Record<string, any>): void;
-  setContext(key: string, value: any): void;
+  setUser(userId: string, metadata?: Record<string, unknown>): void;
+  setContext(key: string, value: unknown): void;
   flush(): Promise<void>;
 }

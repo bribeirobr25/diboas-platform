@@ -38,8 +38,8 @@ function useWaitlistMembership() {
     try {
       const email = localStorage.getItem(POSITION_STORAGE_KEYS.email);
       setIsOnWaitlist(!!email);
-    } catch (error) {
-      console.warn('[DreamModePage] Failed to check waitlist status:', error);
+    } catch {
+      // localStorage access failed - default to not on waitlist
       setIsOnWaitlist(false);
     } finally {
       setIsLoading(false);
@@ -146,7 +146,6 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
       >
         <DreamMode
           onComplete={handleComplete}
-          onJoinWaitlist={openModal}
           onClose={handleClose}
           className={styles.dreamMode}
         />

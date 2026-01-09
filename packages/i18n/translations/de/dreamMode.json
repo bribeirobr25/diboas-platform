@@ -87,6 +87,8 @@
     "withDiboas": "Mit diBoaS",
     "traditionalBank": "Ihre Bank würde Ihnen geben:",
     "differenceLabel": "Das sind {difference} MEHR mit diBoaS",
+    "differencePrefix": "Das sind ",
+    "differenceSuffix": " MEHR mit diBoaS",
     "differenceNote": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
     "timeframe": {
       "1week": "1 Woche",
@@ -94,9 +96,9 @@
       "1year": "1 Jahr",
       "5years": "5 Jahren"
     },
-    "bank_source": "Basierend auf 0,5% durchschnittlichem Sparzins. Quelle: EZB-Statistik.",
-    "bank_source_us": "Basierend auf 0,45% durchschnittlichem Sparzins. Quelle: Federal Reserve.",
-    "bank_source_eu": "Basierend auf 0,5% durchschnittlichem Sparzins. Quelle: EZB-Statistik.",
+    "bank_source": "Basierend auf 0,4% durchschnittlichem Sparzins. Quelle: EZB-Statistik, Januar 2026.",
+    "bank_source_us": "Basierend auf 0,4% durchschnittlichem Sparzins. Quelle: FDIC National Average, Januar 2026.",
+    "bank_source_eu": "Basierend auf 0,4% durchschnittlichem Sparzins. Quelle: EZB-Statistik, Januar 2026.",
     "bank_source_br": "Basierend auf 6,5% Selic-basiertem Sparzins. Quelle: Banco Central do Brasil.",
     "back": "Anderen Weg probieren",
     "shareResults": "Meinen Traum teilen"
@@ -118,7 +120,7 @@
       "5years": "in 5 Jahren"
     },
     "shareYourDream": "Meinen Traum teilen",
-    "shareText": "Im Dream Mode könnte ich €{start} → €{end} in {timeframe} wachsen lassen. Meine Bank? Nur €{bank}. #WhileISlept diboas.com",
+    "shareText": "Im @diboasfi Dream Mode könnte ich {start} → {end} {timeframe} wachsen lassen. Meine Bank? Nur {bank}. Gleiches Geld, anderer Ort. diboas.com",
     "joinWaitlist": "Auf die Warteliste",
     "tryAgain": "Andere Zahlen probieren",
     "disclaimer": "Projektion basierend auf historischen Daten. Vergangene Performance garantiert keine zukünftigen Ergebnisse."

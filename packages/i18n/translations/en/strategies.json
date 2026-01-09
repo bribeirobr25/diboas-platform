@@ -61,7 +61,7 @@
         "bumpiness": "Very smooth. Your balance stayed stable throughout our 4-year test."
       },
       "bestFor": "People building their first emergency fund. Anyone who wants to learn how this works without price swings.",
-      "riskLevel": "Minimal — Your balance stays stable. The only risk is technical issues with the underlying systems, which have operated safely for years."
+      "riskLevel": "Minimal — Risks are possible technical vulnerabilities in the underlying systems, however they have operated safely for years."
     },
     "stableGrowth": {
       "name": "Stable Growth",
@@ -72,7 +72,7 @@
       "allocation": "70% System A + 30% System D",
       "stats": {
         "lossChance": "Around 5%",
-        "typicalReturn": "7-12% per year",
+        "typicalReturn": "8-12% per year",
         "bumpiness": "Some waves. At worst, your balance temporarily dropped 8% before recovering."
       },
       "bestFor": "People comfortable with some price movement who want their safety net to capture growth potential.",
@@ -87,7 +87,7 @@
       "allocation": "60% System A + 25% System B + 15% System C",
       "stats": {
         "lossChance": "Less than 1%",
-        "typicalReturn": "6-9% per year",
+        "typicalReturn": "6-10% per year",
         "bumpiness": "Very smooth."
       },
       "bestFor": "Anyone with a specific goal and timeline under 2 years.",
@@ -101,7 +101,7 @@
       "allocation": "65% System A + 35% System D",
       "stats": {
         "lossChance": "Around 7%",
-        "typicalReturn": "7-11% per year",
+        "typicalReturn": "8-12% per year",
         "bumpiness": "Moderate waves. At worst, your balance temporarily dropped 11% before recovering."
       },
       "bestFor": "People saving for a goal who can handle seeing their balance dip temporarily.",
@@ -115,7 +115,7 @@
       "allocation": "50% System A + 30% System B + 20% System C",
       "stats": {
         "lossChance": "Less than 1%",
-        "typicalReturn": "5-8% per year",
+        "typicalReturn": "6-10% per year",
         "bumpiness": "Very smooth."
       },
       "bestFor": "Medium-term savers who prioritize predictability over maximum returns.",
@@ -172,7 +172,7 @@
       "allocation": "45% System A + 35% System B + 20% System C",
       "stats": {
         "lossChance": "Less than 1%",
-        "typicalReturn": "7-11% per year",
+        "typicalReturn": "6-10% per year",
         "bumpiness": "Very smooth."
       },
       "bestFor": "Conservative long-term wealth builders who want strong returns without price swings.",

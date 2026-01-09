@@ -3,11 +3,14 @@
 /**
  * Share Modal Component
  *
- * Modal that displays:
- * - Generated card preview
- * - Share platform buttons
- * - Copy link functionality
- * - Download option
+ * Modal orchestrator that combines:
+ * - ShareCardPreview for card display
+ * - ShareButtons for platform selection
+ * - ShareLinkSection for copy functionality
+ *
+ * Domain-Driven Design: Orchestration layer for share functionality
+ * Code Reusability: Uses extracted sub-components
+ * File Decoupling: Each concern in its own component
  */
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
@@ -15,6 +18,9 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { ShareButtons } from './ShareButtons';
+import { ShareCardPreview } from './ShareCardPreview';
+import { ShareLinkSection } from './ShareLinkSection';
+import { CloseIcon, DownloadIcon } from './ShareIcons';
 import {
   CardRenderer,
   ShareManager,
@@ -106,8 +112,7 @@ export function ShareModal({
             },
           });
         })
-        .catch((err) => {
-          console.error('Failed to render card:', err);
+        .catch(() => {
           setShareError('Failed to generate share card');
         })
         .finally(() => {
@@ -121,7 +126,6 @@ export function ShareModal({
     if (!isOpen) {
       setShareError(null);
       setCopySuccess(false);
-      // Don't reset renderedCard if preRenderedCard was provided
       if (!preRenderedCard) {
         setRenderedCard(null);
       }
@@ -164,6 +168,11 @@ export function ShareModal({
     [shareContent, renderedCard, shareManager]
   );
 
+  // Handle copy link
+  const handleCopyLink = useCallback(() => {
+    handleShare('copy');
+  }, [handleShare]);
+
   // Handle backdrop click
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -197,24 +206,12 @@ export function ShareModal({
         </div>
 
         {/* Card preview */}
-        <div className={styles.preview}>
-          {isRendering ? (
-            <div className={styles.loading}>
-              <div className={styles.spinner} />
-              <span>{t('modal.generating')}</span>
-            </div>
-          ) : renderedCard ? (
-            <img
-              src={renderedCard.dataUrl}
-              alt="Share card preview"
-              className={styles.cardImage}
-            />
-          ) : (
-            <div className={styles.noCard}>
-              <span>{t('modal.noPreview')}</span>
-            </div>
-          )}
-        </div>
+        <ShareCardPreview
+          renderedCard={renderedCard}
+          isRendering={isRendering}
+          loadingText={t('modal.generating')}
+          noPreviewText={t('modal.noPreview')}
+        />
 
         {/* Share buttons */}
         <div className={styles.shareSection}>
@@ -228,37 +225,16 @@ export function ShareModal({
 
         {/* Copy link section */}
         {shareContent.url && (
-          <div className={styles.linkSection}>
-            <div className={styles.linkBox}>
-              <label htmlFor="share-link" className="sr-only">
-                {t('modal.shareLink')}
-              </label>
-              <input
-                id="share-link"
-                type="text"
-                value={shareContent.url}
-                readOnly
-                className={styles.linkInput}
-                onClick={(e) => (e.target as HTMLInputElement).select()}
-              />
-              <button
-                onClick={() => handleShare('copy')}
-                className={`${styles.copyButton} ${copySuccess ? styles.copied : ''}`}
-              >
-                {copySuccess ? (
-                  <>
-                    <CheckIcon />
-                    <span>{t('modal.copied')}</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon />
-                    <span>{t('modal.copyLink')}</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
+          <ShareLinkSection
+            url={shareContent.url}
+            copySuccess={copySuccess}
+            onCopy={handleCopyLink}
+            labels={{
+              shareLink: t('modal.shareLink'),
+              copyLink: t('modal.copyLink'),
+              copied: t('modal.copied'),
+            }}
+          />
         )}
 
         {/* Error message */}
@@ -280,78 +256,5 @@ export function ShareModal({
         )}
       </div>
     </div>
-  );
-}
-
-// Icon components
-function CloseIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
-    </svg>
-  );
-}
-
-function CopyIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
-
-function DownloadIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7 10 12 15 17 10" />
-      <line x1="12" y1="15" x2="12" y2="3" />
-    </svg>
   );
 }

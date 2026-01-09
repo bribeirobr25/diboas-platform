@@ -1,50 +1,26 @@
 /**
  * Site Footer Component
- * 
+ *
  * Performance & SEO Optimization: Optimized footer with external links
  * Error Handling: Graceful icon loading fallbacks
  * Accessibility: Full keyboard navigation and screen reader support
  * Responsive Design: Mobile accordions, desktop grid layout
+ *
+ * Refactored: Sub-components extracted for maintainability
  */
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslation } from '@diboas/i18n/client';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
-import { FOOTER_CONFIG, type FooterConfig, type FooterSection } from '@/config/footer';
-import { ASSET_PATHS } from '@/config/assets';
-import { BRAND_CONFIG } from '@/config/brand';
+import { FOOTER_CONFIG, type FooterConfig } from '@/config/footer';
+import { AccordionSection, SocialIcon } from './components';
 import styles from './SiteFooter.module.css';
 
-// Dynamic icon imports for better performance
-const IconComponents = {
-  Instagram: () => import('lucide-react').then(mod => mod.Instagram),
-  Twitter: () => import('lucide-react').then(mod => mod.Twitter),
-  Youtube: () => import('lucide-react').then(mod => mod.Youtube),
-  Linkedin: () => import('lucide-react').then(mod => mod.Linkedin),
-};
-
 interface SiteFooterProps {
-  /**
-   * Override default footer configuration
-   */
   config?: FooterConfig;
-}
-
-interface AccordionSectionProps {
-  section: FooterSection;
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-interface SocialIconProps {
-  iconName: string;
-  label: string;
-  href: string;
 }
 
 export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
@@ -66,14 +42,10 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
   return (
     <footer aria-label="Site footer" className={styles.footer}>
       <div className={styles.container}>
-
         {/* Desktop Grid / Mobile Accordions */}
         <div className={styles.contentGrid}>
-
-          {/* All Footer Sections (including Platforms) */}
           {config.sections.map((section) => (
             <div key={section.title} className={styles.footerSection}>
-
               {/* Mobile Accordion */}
               <div className={styles.mobileAccordion}>
                 <AccordionSection
@@ -163,109 +135,4 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
       </div>
     </footer>
   );
-}
-
-// Accordion Section Component
-function AccordionSection({ section, isOpen, onToggle }: AccordionSectionProps) {
-  const intl = useTranslation();
-  const sectionId = section.title.replace(/\./g, '-');
-
-  return (
-    <>
-      <button
-        onClick={onToggle}
-        className={styles.accordionButton}
-        aria-expanded={isOpen}
-        aria-controls={`footer-section-${sectionId}`}
-      >
-        <span className={styles.accordionTitle}>
-          {intl.formatMessage({ id: section.title })}
-        </span>
-        {isOpen ? (
-          <ChevronUp className={styles.accordionIcon} aria-hidden="true" />
-        ) : (
-          <ChevronDown className={styles.accordionIcon} aria-hidden="true" />
-        )}
-      </button>
-
-      {isOpen && (
-        <div
-          id={`footer-section-${sectionId}`}
-          className={styles.accordionContent}
-        >
-          <ul className={styles.accordionLinksList}>
-            {section.links.map((link) => (
-              <li key={link.id}>
-                {link.external ? (
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.accordionLink}
-                  >
-                    {intl.formatMessage({ id: link.label })}
-                  </a>
-                ) : (
-                  <Link href={link.href} className={styles.accordionLink}>
-                    {intl.formatMessage({ id: link.label })}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </>
-  );
-}
-
-// Social Icon Component with Error Handling
-function SocialIcon({ iconName, label, href }: SocialIconProps) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={styles.socialLink}
-      aria-label={label}
-    >
-      <SocialIconRenderer iconName={iconName} />
-    </a>
-  );
-}
-
-// Dynamic Icon Renderer with Fallback
-function SocialIconRenderer({ iconName }: { iconName: string }) {
-  const [IconComponent, setIconComponent] = useState<React.ComponentType<any> | null>(null);
-  const [hasError, setHasError] = useState(false);
-
-  // Lazy load icons
-  useEffect(() => {
-    const loadIcon = async () => {
-      try {
-        if (iconName in IconComponents) {
-          const Component = await IconComponents[iconName as keyof typeof IconComponents]();
-          setIconComponent(() => Component);
-        } else {
-          setHasError(true);
-        }
-      } catch (error) {
-        console.error(`Failed to load icon: ${iconName}`, error);
-        setHasError(true);
-      }
-    };
-
-    loadIcon();
-  }, [iconName]);
-
-  // Error Handling: Fallback to generic icon or letter
-  if (hasError || !IconComponent) {
-    return (
-      <span className={styles.socialFallback}>
-        {iconName.charAt(0).toUpperCase()}
-      </span>
-    );
-  }
-
-  return <IconComponent className={styles.socialIcon} />;
 }

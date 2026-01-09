@@ -62,22 +62,46 @@ export function getOneFeatureVariantNames(): string[] {
 }
 
 /**
+ * Runtime configuration type for validation
+ */
+interface OneFeatureValidationConfig {
+  content?: {
+    features?: unknown[];
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
+
+/**
+ * Type guard to check if config has required shape
+ */
+function isValidConfig(config: unknown): config is OneFeatureValidationConfig {
+  return typeof config === 'object' && config !== null;
+}
+
+/**
  * Validate variant configuration
  * Security & Audit Standards: Ensures configuration integrity
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Validation function accepts untyped runtime data
 export function validateOneFeatureVariant(
   variant: string,
-  config: any
+  config: unknown
 ): void {
   if (!hasOneFeatureVariant(variant)) {
     Logger.error('Invalid OneFeature variant', { variant });
     throw new Error(`Invalid OneFeature variant: ${variant}`);
   }
 
+  // Type guard for runtime validation
+  if (!isValidConfig(config)) {
+    Logger.error('Invalid OneFeature configuration', { variant, config: 'Invalid config type' });
+    throw new Error('OneFeature configuration must be a valid object');
+  }
+
   // Additional validation logic can be added here
-  if (!config?.content?.features || !Array.isArray(config.content.features)) {
-    Logger.error('Invalid OneFeature configuration', { variant, config });
+  const features = config.content?.features;
+  if (!features || !Array.isArray(features)) {
+    Logger.error('Invalid OneFeature configuration', { variant, config: 'Missing features array' });
     throw new Error('OneFeature configuration must include features array');
   }
 }

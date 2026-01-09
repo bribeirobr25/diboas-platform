@@ -11,8 +11,7 @@
 'use client';
 
 import { ProductCarousel as ProductCarouselFactory } from './ProductCarouselFactory';
-import { PRODUCT_CAROUSEL_CONFIGS } from '@/config/productCarousel';
-import type { ProductCarouselVariant } from '@/config/productCarousel';
+import { PRODUCT_CAROUSEL_CONFIGS, type ProductCarouselVariant } from '@/config/productCarousel';
 
 export interface ProductCarouselProps {
   /** Carousel variant to render */
@@ -62,7 +61,7 @@ export function ProductCarousel({
   const config = PRODUCT_CAROUSEL_CONFIGS[variant];
 
   if (!config) {
-    console.warn(`ProductCarousel: Unknown variant "${variant}". Using default.`);
+    // Dev: `ProductCarousel: Unknown variant "${variant}". Using default.`);
     return (
       <ProductCarouselFactory
         variant="default"

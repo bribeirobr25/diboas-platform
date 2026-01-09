@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+package-lock.json
+yarn.lock
 
 # Production builds
 .next/
@@ -134,7 +136,8 @@ ehthumbs.db
 Thumbs.db
 
 # Custom folders to ignore
-docs/
+# Note: docs/ folder should NOT be ignored - it contains project documentation
+# docs/
 images/
 
 # Database and backup files
@@ -148,6 +151,10 @@ images/
 dumps/
 backups/
 .backups/
+
+# Waitlist data files (contain PII - user emails)
+.waitlist-data.json
+*waitlist-data*.json
 
 # API keys and tokens
 api-keys.json

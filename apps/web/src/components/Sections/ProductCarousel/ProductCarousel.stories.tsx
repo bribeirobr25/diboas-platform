@@ -7,10 +7,9 @@
  * Performance & SEO Optimization: Auto-play carousel with image optimization
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { ProductCarouselFactory } from './ProductCarouselFactory';
-import { PRODUCT_CAROUSEL_CONFIGS } from '@/config/productCarousel';
-import type { ProductCarouselVariantConfig, ProductCarouselSlide } from '@/config/productCarousel';
+import { PRODUCT_CAROUSEL_CONFIGS, type ProductCarouselVariantConfig } from '@/config/productCarousel';
 
 const meta: Meta<typeof ProductCarouselFactory> = {
   title: 'Sections/ProductCarousel',

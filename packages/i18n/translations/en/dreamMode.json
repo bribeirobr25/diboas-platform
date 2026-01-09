@@ -87,6 +87,8 @@
     "withDiboas": "With diBoaS",
     "traditionalBank": "Your bank would give you:",
     "differenceLabel": "That's {difference} MORE with diBoaS",
+    "differencePrefix": "That's ",
+    "differenceSuffix": " MORE with diBoaS",
     "differenceNote": "Same money. Different place. Big difference.",
     "timeframe": {
       "1week": "1 week",
@@ -94,9 +96,9 @@
       "1year": "1 year",
       "5years": "5 years"
     },
-    "bank_source": "Based on 0.5% average savings rate. Source: ECB Statistics.",
-    "bank_source_us": "Based on 0.45% average savings rate. Source: Federal Reserve.",
-    "bank_source_eu": "Based on 0.5% average savings rate. Source: ECB Statistics.",
+    "bank_source": "Based on 0.4% average savings rate. Source: FDIC National Average, January 2026.",
+    "bank_source_us": "Based on 0.4% average savings rate. Source: FDIC National Average, January 2026.",
+    "bank_source_eu": "Based on 0.4% average savings rate. Source: ECB Statistics, January 2026.",
     "bank_source_br": "Based on 6.5% Selic-based savings rate. Source: Banco Central do Brasil.",
     "back": "Try another path",
     "shareResults": "Share my dream"
@@ -118,7 +120,7 @@
       "5years": "in 5 years"
     },
     "shareYourDream": "Share my dream",
-    "shareText": "In Dream Mode, I could grow €{start} → €{end} in {timeframe}. My bank? Only €{bank}. #WhileISlept diboas.com",
+    "shareText": "At @diboasfi Dream Mode, I could grow {start} → {end} {timeframe}. My bank? Only {bank}. Same money, different place. diboas.com",
     "joinWaitlist": "Join the Waitlist",
     "tryAgain": "Try Different Numbers",
     "disclaimer": "Projection based on historical data. Past performance does not guarantee future results."

@@ -124,9 +124,11 @@ class AnalyticsServiceImpl implements AnalyticsService {
       }
 
       // Example: Send to Google Analytics 4
-      if (typeof window !== 'undefined' && (window as any).gtag) {
+      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
+      if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+        const gtag = windowWithGtag.gtag;
         events.forEach(event => {
-          (window as any).gtag('event', event.name, event.parameters);
+          gtag('event', event.name, event.parameters);
         });
       }
 
@@ -142,7 +144,7 @@ class AnalyticsServiceImpl implements AnalyticsService {
       }
 
     } catch (error) {
-      console.error('Failed to flush analytics events:', error);
+      Logger.error('Failed to flush analytics events:', { error: error instanceof Error ? error.message : String(error) });
       // Re-queue events on failure
       this.eventQueue.unshift(...events);
     }

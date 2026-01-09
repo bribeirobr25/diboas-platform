@@ -87,6 +87,8 @@
     "withDiboas": "Com diBoaS",
     "traditionalBank": "Seu banco te daria:",
     "differenceLabel": "Isso é {difference} A MAIS com diBoaS",
+    "differencePrefix": "Isso é ",
+    "differenceSuffix": " A MAIS com diBoaS",
     "differenceNote": "Mesmo dinheiro. Lugar diferente. Grande diferença.",
     "timeframe": {
       "1week": "1 semana",
@@ -118,7 +120,7 @@
       "5years": "em 5 anos"
     },
     "shareYourDream": "Compartilhar meu sonho",
-    "shareText": "No Modo Sonho, eu poderia crescer €{start} → €{end} em {timeframe}. Meu banco? Só €{bank}. #WhileISlept diboas.com",
+    "shareText": "No Modo Sonho @diboasfi, eu poderia crescer {start} → {end} {timeframe}. Meu banco? Só {bank}. Mesmo dinheiro, lugar diferente. diboas.com",
     "joinWaitlist": "Entrar na Lista de Espera",
     "tryAgain": "Tentar com Outros Valores",
     "disclaimer": "Projeção baseada em dados históricos. Desempenho passado não garante resultados futuros."

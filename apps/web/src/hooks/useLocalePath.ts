@@ -61,7 +61,7 @@ export function useLocalePath() {
     }
 
     // Rule 3: Add locale prefix
-    return `/${locale}${path.startsWith('/') ? path : '/' + path}`;
+    return `/${locale}${path.startsWith('/') ? path : `/${  path}`}`;
   };
 
   return {

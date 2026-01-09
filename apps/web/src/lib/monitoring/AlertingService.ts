@@ -1,6 +1,6 @@
 /**
  * Production Alerting Service
- * 
+ *
  * Monitoring & Observability: Real-time alerting for performance and errors
  * Error Handling & System Recovery: Automated incident response
  * Service Agnostic Abstraction: Multi-channel alerting system
@@ -11,75 +11,38 @@
 import { Logger } from './Logger';
 import { MONITORING_CONFIG } from '@/config/monitoring';
 
-export enum AlertSeverity {
-  INFO = 'info',
-  WARNING = 'warning',
-  ERROR = 'error',
-  CRITICAL = 'critical'
-}
+// Import types
+import {
+  AlertSeverity,
+  AlertCategory,
+  type Alert,
+  type AlertThresholds,
+  type AlertStats
+} from './alertTypes';
 
-export enum AlertCategory {
-  PERFORMANCE = 'performance',
-  ERROR = 'error',
-  SECURITY = 'security',
-  BUSINESS = 'business',
-  INFRASTRUCTURE = 'infrastructure'
-}
+// Import configuration
+import {
+  DEFAULT_THRESHOLDS,
+  ALERT_CLEANUP_INTERVAL,
+  MAX_ALERT_AGE
+} from './alertConfig';
 
-export interface Alert {
-  id: string;
-  title: string;
-  message: string;
-  severity: AlertSeverity;
-  category: AlertCategory;
-  timestamp: number;
-  source: string;
-  metadata: Record<string, unknown>;
-  fingerprint?: string;
-  actionUrl?: string;
-  resolved?: boolean;
-}
+// Import utilities
+import {
+  generateAlertId,
+  generateFingerprint,
+  generateActionUrl,
+  getLogLevel,
+  getSuppressionDuration
+} from './alertUtils';
 
-export interface AlertThresholds {
-  performance: {
-    renderTimeMs: { warning: number; critical: number };
-    memoryUsageMB: { warning: number; critical: number };
-    errorRate: { warning: number; critical: number };
-    pageLoadTimeMs: { warning: number; critical: number };
-  };
-  business: {
-    conversionRate: { warning: number; critical: number };
-    userEngagement: { warning: number; critical: number };
-    errorImpactUsers: { warning: number; critical: number };
-  };
-  infrastructure: {
-    uptime: { warning: number; critical: number };
-    responseTimeMs: { warning: number; critical: number };
-    errorCount: { warning: number; critical: number };
-  };
-}
+// Import delivery handlers
+import { deliverAlert, sendResolutionNotification } from './alertDelivery';
 
-/**
- * Default alert thresholds based on industry standards
- */
-const DEFAULT_THRESHOLDS: AlertThresholds = {
-  performance: {
-    renderTimeMs: { warning: 100, critical: 300 },
-    memoryUsageMB: { warning: 50, critical: 100 },
-    errorRate: { warning: 1, critical: 5 }, // percentage
-    pageLoadTimeMs: { warning: 2000, critical: 4000 }
-  },
-  business: {
-    conversionRate: { warning: -10, critical: -25 }, // percentage drop
-    userEngagement: { warning: -15, critical: -30 }, // percentage drop
-    errorImpactUsers: { warning: 10, critical: 50 } // number of users
-  },
-  infrastructure: {
-    uptime: { warning: 99.9, critical: 99.5 }, // percentage
-    responseTimeMs: { warning: 500, critical: 1000 },
-    errorCount: { warning: 10, critical: 50 } // errors per minute
-  }
-};
+// Re-export for backwards compatibility
+export { AlertSeverity, AlertCategory } from './alertTypes';
+export type { Alert, AlertThresholds, AlertStats } from './alertTypes';
+export { DEFAULT_THRESHOLDS } from './alertConfig';
 
 /**
  * Centralized Alerting Service
@@ -104,7 +67,7 @@ export class AlertingService {
     // Set up alert cleanup interval
     setInterval(() => {
       this.cleanupOldAlerts();
-    }, 5 * 60 * 1000); // Clean up every 5 minutes
+    }, ALERT_CLEANUP_INTERVAL);
 
     this.isInitialized = true;
     Logger.info('Alerting service initialized', {
@@ -117,7 +80,7 @@ export class AlertingService {
    * Send an alert
    */
   async sendAlert(alert: Omit<Alert, 'id' | 'timestamp'>): Promise<string> {
-    const alertId = this.generateAlertId();
+    const alertId = generateAlertId();
     const fullAlert: Alert = {
       ...alert,
       id: alertId,
@@ -125,7 +88,7 @@ export class AlertingService {
     };
 
     // Check if alert should be suppressed
-    const fingerprint = alert.fingerprint || this.generateFingerprint(alert);
+    const fingerprint = alert.fingerprint || generateFingerprint(alert);
     if (this.suppressedAlerts.has(fingerprint)) {
       Logger.debug('Alert suppressed due to rate limiting', { alertId, fingerprint });
       return alertId;
@@ -144,7 +107,8 @@ export class AlertingService {
       source: alert.source
     };
 
-    switch (this.getLogLevel(alert.severity)) {
+    const logLevel = getLogLevel(alert.severity);
+    switch (logLevel) {
       case 'error':
         Logger.error(logMessage, logContext);
         break;
@@ -160,13 +124,13 @@ export class AlertingService {
 
     try {
       // Send to configured channels
-      await this.deliverAlert(fullAlert);
+      await deliverAlert(fullAlert);
 
       // Add to suppression list temporarily
       this.suppressedAlerts.add(fingerprint);
       setTimeout(() => {
         this.suppressedAlerts.delete(fingerprint);
-      }, this.getSuppressionDuration(alert.severity));
+      }, getSuppressionDuration(alert.severity));
 
     } catch (error) {
       Logger.error('Failed to deliver alert', { alertId, error });
@@ -198,7 +162,7 @@ export class AlertingService {
         ...context
       },
       fingerprint: `performance-${metric}`,
-      actionUrl: this.generateActionUrl('performance', { metric })
+      actionUrl: generateActionUrl('performance', { metric })
     });
   }
 
@@ -223,7 +187,7 @@ export class AlertingService {
         ...context
       },
       fingerprint: `error-${error.name}-${error.message}`,
-      actionUrl: this.generateActionUrl('error', { errorName: error.name })
+      actionUrl: generateActionUrl('error', { errorName: error.name })
     });
   }
 
@@ -238,7 +202,7 @@ export class AlertingService {
     context?: Record<string, unknown>
   ): Promise<string> {
     const changePercent = ((currentValue - expectedValue) / expectedValue) * 100;
-    
+
     return this.sendAlert({
       title: `Business Alert: ${metric}`,
       message: `${metric} is ${currentValue} (expected: ${expectedValue}, change: ${changePercent.toFixed(1)}%)`,
@@ -253,7 +217,7 @@ export class AlertingService {
         ...context
       },
       fingerprint: `business-${metric}`,
-      actionUrl: this.generateActionUrl('business', { metric })
+      actionUrl: generateActionUrl('business', { metric })
     });
   }
 
@@ -307,159 +271,6 @@ export class AlertingService {
   }
 
   /**
-   * Deliver alert to configured channels
-   */
-  private async deliverAlert(alert: Alert): Promise<void> {
-    const promises: Promise<void>[] = [];
-
-    // Slack delivery
-    if (MONITORING_CONFIG.alerts.channels.slack) {
-      const { slack } = MONITORING_CONFIG.alerts.channels;
-      if ((alert.category === AlertCategory.PERFORMANCE && slack.enablePerformanceAlerts) ||
-          (alert.category === AlertCategory.ERROR && slack.enableErrorAlerts)) {
-        promises.push(this.sendToSlack(alert, slack));
-      }
-    }
-
-    // Email delivery
-    if (MONITORING_CONFIG.alerts.channels.email) {
-      const { email } = MONITORING_CONFIG.alerts.channels;
-      if ((alert.category === AlertCategory.PERFORMANCE && email.enablePerformanceAlerts) ||
-          (alert.category === AlertCategory.ERROR && email.enableErrorAlerts)) {
-        promises.push(this.sendToEmail(alert, email));
-      }
-    }
-
-    // Wait for all deliveries
-    await Promise.allSettled(promises);
-  }
-
-  /**
-   * Send alert to Slack
-   */
-  private async sendToSlack(alert: Alert, config: NonNullable<typeof MONITORING_CONFIG.alerts.channels.slack>): Promise<void> {
-    const color = this.getSlackColor(alert.severity);
-    const emoji = this.getSlackEmoji(alert.severity);
-    
-    const payload = {
-      channel: config.channel,
-      username: 'diBoaS Monitoring',
-      icon_emoji: ':warning:',
-      attachments: [{
-        color,
-        title: `${emoji} ${alert.title}`,
-        text: alert.message,
-        fields: [
-          { title: 'Severity', value: alert.severity.toUpperCase(), short: true },
-          { title: 'Category', value: alert.category, short: true },
-          { title: 'Source', value: alert.source, short: true },
-          { title: 'Time', value: new Date(alert.timestamp).toISOString(), short: true }
-        ],
-        actions: alert.actionUrl ? [{
-          type: 'button',
-          text: 'View Details',
-          url: alert.actionUrl
-        }] : undefined,
-        footer: 'diBoaS Monitoring',
-        ts: Math.floor(alert.timestamp / 1000)
-      }]
-    };
-
-    const response = await fetch(config.webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error(`Slack API error: ${response.status} ${response.statusText}`);
-    }
-  }
-
-  /**
-   * Send alert to email
-   */
-  private async sendToEmail(alert: Alert, config: NonNullable<typeof MONITORING_CONFIG.alerts.channels.email>): Promise<void> {
-    const payload = {
-      to: config.recipients,
-      subject: `[${alert.severity.toUpperCase()}] ${alert.title}`,
-      html: this.generateEmailHTML(alert),
-      from: 'alerts@diboas.com'
-    };
-
-    const response = await fetch(config.endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error(`Email API error: ${response.status} ${response.statusText}`);
-    }
-  }
-
-  /**
-   * Generate email HTML content
-   *
-   * NOTE: Email clients don't support CSS variables, so colors are hardcoded here.
-   * These values match the design tokens in design-tokens.css:
-   * - INFO: --alert-info (#0066cc)
-   * - WARNING: --alert-warning (#ff9900)
-   * - ERROR: --alert-error (#cc0000)
-   * - CRITICAL: --alert-critical (#990000)
-   */
-  private generateEmailHTML(alert: Alert): string {
-    const severityColor = {
-      [AlertSeverity.INFO]: '#0066cc',
-      [AlertSeverity.WARNING]: '#ff9900',
-      [AlertSeverity.ERROR]: '#cc0000',
-      [AlertSeverity.CRITICAL]: '#990000'
-    }[alert.severity];
-
-    return `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <title>diBoaS Alert</title>
-          <style>
-            body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
-            .container { max-width: 600px; margin: 0 auto; background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-            .header { background-color: ${severityColor}; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-            .content { padding: 20px; }
-            .metadata { background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin-top: 20px; }
-            .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
-            .button { display: inline-block; background-color: ${severityColor}; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-top: 15px; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>${alert.title}</h1>
-              <p>Severity: ${alert.severity.toUpperCase()}</p>
-            </div>
-            <div class="content">
-              <p><strong>Message:</strong> ${alert.message}</p>
-              <p><strong>Source:</strong> ${alert.source}</p>
-              <p><strong>Time:</strong> ${new Date(alert.timestamp).toLocaleString()}</p>
-              
-              ${alert.actionUrl ? `<a href="${alert.actionUrl}" class="button">View Details</a>` : ''}
-              
-              <div class="metadata">
-                <strong>Additional Information:</strong>
-                <pre>${JSON.stringify(alert.metadata, null, 2)}</pre>
-              </div>
-            </div>
-            <div class="footer">
-              This alert was generated by diBoaS Monitoring System
-            </div>
-          </div>
-        </body>
-      </html>
-    `;
-  }
-
-  /**
    * Resolve an alert
    */
   async resolveAlert(alertId: string, resolvedBy?: string): Promise<boolean> {
@@ -473,39 +284,10 @@ export class AlertingService {
 
     // Send resolution notification if configured
     if (MONITORING_CONFIG.alerts.channels.slack?.webhookUrl) {
-      await this.sendResolutionNotification(alert, resolvedBy);
+      await sendResolutionNotification(alert, resolvedBy);
     }
 
     return true;
-  }
-
-  /**
-   * Send resolution notification
-   */
-  private async sendResolutionNotification(alert: Alert, resolvedBy?: string): Promise<void> {
-    const config = MONITORING_CONFIG.alerts.channels.slack;
-    if (!config) return;
-
-    const payload = {
-      channel: config.channel,
-      username: 'diBoaS Monitoring',
-      icon_emoji: ':white_check_mark:',
-      text: `✅ Alert resolved: ${alert.title}`,
-      attachments: [{
-        color: 'good',
-        fields: [
-          { title: 'Alert ID', value: alert.id, short: true },
-          { title: 'Resolved By', value: resolvedBy || 'System', short: true },
-          { title: 'Duration', value: this.formatDuration(Date.now() - alert.timestamp), short: true }
-        ]
-      }]
-    };
-
-    await fetch(config.webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
   }
 
   /**
@@ -518,15 +300,9 @@ export class AlertingService {
   /**
    * Get alert statistics
    */
-  getAlertStats(): {
-    total: number;
-    active: number;
-    resolved: number;
-    bySeverity: Record<AlertSeverity, number>;
-    byCategory: Record<AlertCategory, number>;
-  } {
+  getAlertStats(): AlertStats {
     const alerts = Array.from(this.alerts.values());
-    
+
     return {
       total: alerts.length,
       active: alerts.filter(a => !a.resolved).length,
@@ -543,82 +319,13 @@ export class AlertingService {
   }
 
   /**
-   * Utility methods
+   * Clean up old alerts
    */
-  private generateAlertId(): string {
-    return `alert-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  }
-
-  private generateFingerprint(alert: Omit<Alert, 'id' | 'timestamp'>): string {
-    const components = [alert.title, alert.category, alert.source].join('|');
-    return btoa(components).replace(/[^a-zA-Z0-9]/g, '').substr(0, 16);
-  }
-
-  private generateActionUrl(type: string, params: Record<string, unknown>): string {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
-    const query = new URLSearchParams(Object.entries(params).map(([k, v]) => [k, String(v)]));
-    return `${baseUrl}/admin/monitoring/${type}?${query}`;
-  }
-
-  private getLogLevel(severity: AlertSeverity): keyof typeof Logger {
-    switch (severity) {
-      case AlertSeverity.INFO: return 'info';
-      case AlertSeverity.WARNING: return 'warn';
-      case AlertSeverity.ERROR: return 'error';
-      case AlertSeverity.CRITICAL: return 'critical';
-      default: return 'info';
-    }
-  }
-
-  private getSlackColor(severity: AlertSeverity): string {
-    switch (severity) {
-      case AlertSeverity.INFO: return 'good';
-      case AlertSeverity.WARNING: return 'warning';
-      case AlertSeverity.ERROR: return 'danger';
-      case AlertSeverity.CRITICAL: return '#990000';
-      default: return 'good';
-    }
-  }
-
-  private getSlackEmoji(severity: AlertSeverity): string {
-    switch (severity) {
-      case AlertSeverity.INFO: return 'ℹ️';
-      case AlertSeverity.WARNING: return '⚠️';
-      case AlertSeverity.ERROR: return '❌';
-      case AlertSeverity.CRITICAL: return '🚨';
-      default: return 'ℹ️';
-    }
-  }
-
-  private getSuppressionDuration(severity: AlertSeverity): number {
-    switch (severity) {
-      case AlertSeverity.INFO: return 10 * 60 * 1000; // 10 minutes
-      case AlertSeverity.WARNING: return 5 * 60 * 1000; // 5 minutes
-      case AlertSeverity.ERROR: return 2 * 60 * 1000; // 2 minutes
-      case AlertSeverity.CRITICAL: return 1 * 60 * 1000; // 1 minute
-      default: return 5 * 60 * 1000;
-    }
-  }
-
-  private formatDuration(ms: number): string {
-    const minutes = Math.floor(ms / 60000);
-    const hours = Math.floor(minutes / 60);
-    
-    if (hours > 0) {
-      return `${hours}h ${minutes % 60}m`;
-    } else if (minutes > 0) {
-      return `${minutes}m`;
-    } else {
-      return '<1m';
-    }
-  }
-
   private cleanupOldAlerts(): void {
     const now = Date.now();
-    const maxAge = 24 * 60 * 60 * 1000; // 24 hours
-    
+
     for (const [id, alert] of this.alerts.entries()) {
-      if (now - alert.timestamp > maxAge) {
+      if (now - alert.timestamp > MAX_ALERT_AGE) {
         this.alerts.delete(id);
       }
     }
@@ -631,6 +338,6 @@ export const alertingService = new AlertingService();
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
-    (window as any).alertingService = alertingService;
+    (window as Window & { alertingService?: AlertingService }).alertingService = alertingService;
   }
 }

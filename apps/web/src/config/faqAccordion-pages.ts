@@ -13,7 +13,8 @@ import { ROUTES } from './routes';
 import {
   DEFAULT_FAQ_ACCORDION_SETTINGS,
   type FAQAccordionVariantConfig,
-  type FAQItem
+  type FAQItem,
+  type FAQQuestionId
 } from './faqAccordion';
 
 /**
@@ -77,7 +78,8 @@ function createPageConfig(pageKey: string, _questionCount?: number): FAQAccordio
       ctaTarget: '_self' as const,
       // Use questionIds to reference centralized registry
       // The component will resolve these IDs from marketing.faq.registry at runtime
-      questionIds: `marketing.pages.${pageKey}.faqAccordion.questionIds` as any
+      // Type assertion needed as runtime resolves translation key to array
+      questionIds: `marketing.pages.${pageKey}.faqAccordion.questionIds` as unknown as readonly FAQQuestionId[]
     },
     settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
     seo: {

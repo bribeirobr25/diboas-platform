@@ -3,25 +3,44 @@
 /**
  * Cookie Policy Content Component
  *
- * Renders the Cookie Policy legal document using translation keys.
+ * Renders the Cookie Policy using the platform's reusable components
+ * and specialized legal components for document structure.
  * Follows GDPR requirements for cookie disclosure.
+ *
+ * Structure:
+ * - PageHeroSection: Page header with title
+ * - SectionContainer: Main content wrapper (narrow variant)
+ * - LegalTableOfContents: Navigation
+ * - LegalContentSection: Each policy section
+ * - LegalTable: Cookie disclosure tables
  */
 
 import { useTranslation } from '@diboas/i18n/client';
+import { PageHeroSection } from '@/components/Sections/PageHeroSection';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
 import {
-  LegalDocument,
-  LegalHeader,
-  LegalSection,
+  LegalTableOfContents,
+  LegalContentSection,
   LegalSubsection,
   LegalParagraph,
   LegalTable,
   LegalList,
+  LegalBackToTop,
 } from './LegalDocument';
 
 export function CookiePolicyContent() {
   const intl = useTranslation();
 
   const t = (id: string) => intl.formatMessage({ id: `legal/cookies.${id}` });
+
+  // Table of contents items
+  const tocItems = [
+    { id: 'what-are-cookies', title: t('sections.whatAreCookies.title') },
+    { id: 'cookies-we-use', title: t('sections.cookiesWeUse.title') },
+    { id: 'your-choices', title: t('sections.yourChoices.title') },
+    { id: 'changes', title: t('sections.changes.title') },
+    { id: 'contact-us', title: t('sections.contact.title') },
+  ];
 
   // Build cookie tables from translations
   const essentialHeaders = [
@@ -65,48 +84,65 @@ export function CookiePolicyContent() {
   ];
 
   return (
-    <LegalDocument>
-      <LegalHeader
-        title={t('header.title')}
-        lastUpdated={t('header.lastUpdated')}
+    <main id="top">
+      {/* Page Header */}
+      <PageHeroSection
+        headline={t('header.title')}
+        subheadline={t('header.lastUpdated')}
+        align="center"
       />
 
-      <LegalSection title={t('sections.whatAreCookies.title')}>
-        <LegalParagraph>{t('sections.whatAreCookies.content')}</LegalParagraph>
-      </LegalSection>
+      {/* Main Content */}
+      <SectionContainer
+        variant="narrow"
+        padding="standard"
+        as="article"
+        ariaLabel="Cookie Policy content"
+      >
+        <LegalTableOfContents
+          items={tocItems}
+          title={t('toc.title')}
+        />
 
-      <LegalSection title={t('sections.cookiesWeUse.title')}>
-        <LegalSubsection title={t('sections.cookiesWeUse.essential.title')}>
-          <LegalParagraph>{t('sections.cookiesWeUse.essential.description')}</LegalParagraph>
-          <LegalTable headers={essentialHeaders} rows={essentialRows} />
-        </LegalSubsection>
+        <LegalContentSection title={t('sections.whatAreCookies.title')} id="what-are-cookies">
+          <LegalParagraph>{t('sections.whatAreCookies.content')}</LegalParagraph>
+        </LegalContentSection>
 
-        <LegalSubsection title={t('sections.cookiesWeUse.analytics.title')}>
-          <LegalParagraph>{t('sections.cookiesWeUse.analytics.description')}</LegalParagraph>
-          <LegalTable headers={analyticsHeaders} rows={analyticsRows} />
-        </LegalSubsection>
+        <LegalContentSection title={t('sections.cookiesWeUse.title')} id="cookies-we-use">
+          <LegalSubsection title={t('sections.cookiesWeUse.essential.title')}>
+            <LegalParagraph>{t('sections.cookiesWeUse.essential.description')}</LegalParagraph>
+            <LegalTable headers={essentialHeaders} rows={essentialRows} />
+          </LegalSubsection>
 
-        <LegalSubsection title={t('sections.cookiesWeUse.functional.title')}>
-          <LegalParagraph>{t('sections.cookiesWeUse.functional.description')}</LegalParagraph>
-          <LegalTable headers={functionalHeaders} rows={functionalRows} />
-        </LegalSubsection>
-      </LegalSection>
+          <LegalSubsection title={t('sections.cookiesWeUse.analytics.title')}>
+            <LegalParagraph>{t('sections.cookiesWeUse.analytics.description')}</LegalParagraph>
+            <LegalTable headers={analyticsHeaders} rows={analyticsRows} />
+          </LegalSubsection>
 
-      <LegalSection title={t('sections.yourChoices.title')}>
-        <LegalParagraph>{t('sections.yourChoices.content')}</LegalParagraph>
-        <LegalList items={choicesOptions} />
-        <LegalParagraph>{t('sections.yourChoices.deleteNote')}</LegalParagraph>
-      </LegalSection>
+          <LegalSubsection title={t('sections.cookiesWeUse.functional.title')}>
+            <LegalParagraph>{t('sections.cookiesWeUse.functional.description')}</LegalParagraph>
+            <LegalTable headers={functionalHeaders} rows={functionalRows} />
+          </LegalSubsection>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.changes.title')}>
-        <LegalParagraph>{t('sections.changes.content')}</LegalParagraph>
-      </LegalSection>
+        <LegalContentSection title={t('sections.yourChoices.title')} id="your-choices">
+          <LegalParagraph>{t('sections.yourChoices.content')}</LegalParagraph>
+          <LegalList items={choicesOptions} />
+          <LegalParagraph>{t('sections.yourChoices.deleteNote')}</LegalParagraph>
+        </LegalContentSection>
 
-      <LegalSection title={t('sections.contact.title')}>
-        <LegalParagraph>
-          {t('sections.contact.content').replace('{email}', t('sections.contact.email'))}
-        </LegalParagraph>
-      </LegalSection>
-    </LegalDocument>
+        <LegalContentSection title={t('sections.changes.title')} id="changes">
+          <LegalParagraph>{t('sections.changes.content')}</LegalParagraph>
+        </LegalContentSection>
+
+        <LegalContentSection title={t('sections.contact.title')} id="contact-us">
+          <LegalParagraph>
+            {t('sections.contact.content').replace('{email}', t('sections.contact.email'))}
+          </LegalParagraph>
+        </LegalContentSection>
+
+        <LegalBackToTop label={t('backToTop')} />
+      </SectionContainer>
+    </main>
   );
 }

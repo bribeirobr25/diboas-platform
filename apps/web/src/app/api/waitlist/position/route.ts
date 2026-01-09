@@ -13,6 +13,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { Logger } from '@/lib/monitoring/Logger';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import {
   checkRateLimit,
@@ -22,25 +23,17 @@ import {
   requireAuth,
   csrfProtection,
 } from '@/lib/security';
-
-/**
- * Simple server-side sanitization for text inputs
- */
-function sanitizeText(str: string): string {
-  if (!str) return str;
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+import { sanitizeEmail } from '@/lib/utils/sanitize';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
 import {
   getByEmail,
   updateEntry,
   processReferral,
 } from '@/lib/waitingList/store';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 interface PositionResponse {
   success: boolean;
@@ -84,7 +77,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       );
     }
 
-    const sanitizedEmail = sanitizeText(email.toLowerCase().trim());
+    const sanitizedEmail = sanitizeEmail(email);
 
     if (!isValidEmail(sanitizedEmail)) {
       return NextResponse.json(
@@ -109,6 +102,15 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       });
     }
 
+    // Emit position checked event for analytics (only when user exists)
+    applicationEventBus.emit(ApplicationEventType.WAITLIST_POSITION_CHECKED, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      metadata: {
+        hasReferrals: userData.referralCount > 0,
+      },
+    });
+
     return NextResponse.json({
       success: true,
       position: userData.position,
@@ -118,7 +120,18 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
     });
 
   } catch (error) {
-    console.error('Position lookup error:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'medium',
+      context: {
+        operation: 'position_lookup',
+      },
+    });
+
+    Logger.error('Position lookup error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
@@ -210,7 +223,18 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
     });
 
   } catch (error) {
-    console.error('Position update error:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'high',
+      context: {
+        operation: 'position_update',
+      },
+    });
+
+    Logger.error('Position update error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }

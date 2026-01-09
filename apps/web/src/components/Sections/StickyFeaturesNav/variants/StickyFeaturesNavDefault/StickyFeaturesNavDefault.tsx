@@ -73,7 +73,7 @@ export function StickyFeaturesNavDefault({
                 key={item.id}
                 className={styles.card}
                 style={{
-                  // @ts-ignore - CSS custom properties
+                  // @ts-expect-error - CSS custom properties
                   '--card-index': index,
                   '--card-z-index': index,
                 }}

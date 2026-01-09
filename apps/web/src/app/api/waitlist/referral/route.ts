@@ -11,6 +11,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { Logger } from '@/lib/monitoring/Logger';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import {
   generateReferralUrl,
@@ -28,6 +29,10 @@ import {
   RateLimitPresets,
   csrfProtection,
 } from '@/lib/security';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 /**
  * Response types
@@ -108,7 +113,18 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
       },
     });
   } catch (error) {
-    console.error('Referral lookup error:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'medium',
+      context: {
+        operation: 'referral_lookup',
+      },
+    });
+
+    Logger.error('Referral lookup error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
@@ -208,6 +224,18 @@ export async function POST(request: NextRequest): Promise<NextResponse<ProcessRe
       );
     }
 
+    // Emit referral used event for analytics and audit trail
+    applicationEventBus.emit(ApplicationEventType.WAITLIST_REFERRAL_USED, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      referralCode: referralCode.toUpperCase(),
+      metadata: {
+        referrerPosition: updatedReferrer.position,
+        referralCount: updatedReferrer.referralCount,
+        spotsAwarded: REFERRAL_CONFIG.spotsPerReferral,
+      },
+    });
+
     return NextResponse.json({
       success: true,
       referrerEmail: updatedReferrer.email,
@@ -215,7 +243,18 @@ export async function POST(request: NextRequest): Promise<NextResponse<ProcessRe
       newReferralCount: updatedReferrer.referralCount,
     });
   } catch (error) {
-    console.error('Process referral error:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'medium',
+      context: {
+        operation: 'referral_process',
+      },
+    });
+
+    Logger.error('Process referral error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }

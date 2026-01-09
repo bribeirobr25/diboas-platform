@@ -10,8 +10,7 @@
 
 import React, { useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import type { SharePlatform, CardLocale } from '@/lib/share';
-import { PLATFORM_PRIORITY_BY_LOCALE } from '@/lib/share';
+import { PLATFORM_PRIORITY_BY_LOCALE, type SharePlatform, type CardLocale } from '@/lib/share';
 import styles from './ShareButtons.module.css';
 
 interface ShareButtonsProps {

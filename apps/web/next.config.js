@@ -35,8 +35,8 @@ const nextConfig = {
   // Enable compression
   compress: true,
   
-  // Output optimization
-  output: 'standalone',
+  // Output optimization (standalone only for production builds)
+  output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
   
   // Image optimization
   images: {

@@ -95,12 +95,12 @@ export function WaitlistConfirmation({
       <div className={styles.header}>
         <div className={styles.successIcon}>
           <svg
-            width="32"
-            height="32"
+            width="36"
+            height="36"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
@@ -130,6 +130,7 @@ export function WaitlistConfirmation({
         <ReferralLink
           referralCode={referralCode}
           referralUrl={referralUrl}
+          position={position}
           onShare={onShareClick}
         />
 
@@ -152,16 +153,6 @@ export function WaitlistConfirmation({
           {t('confirmation.dreamModeCta')}
         </Button>
       )}
-
-      {/* Secondary CTA - Using shared Button component */}
-      <Button
-        variant="ghost"
-        size="default"
-        onClick={() => window.location.href = '#how-it-works'}
-        className={styles.exploreCta}
-      >
-        {t('confirmation.exploreCta')}
-      </Button>
     </div>
   );
 }

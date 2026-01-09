@@ -2,47 +2,48 @@
   "hero": {
     "headlineLine1": "O sistema não está quebrado.",
     "headlineLine2": "Ele funciona exatamente como foi projetado.",
-    "headlineLine3": "Só que não foi projetado pra você.",
-    "headline": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não foi projetado pra você.",
-    "subheadline": "Seu banco investe seu dinheiro. Cobra taxas. Oferece quase nada em troca. Limita seus saques. Aí ganha bilhões e te dá migalhas.",
-    "cta": "Olha como eu descobri isso →",
+    "headlineLine3": "Só que não para você.",
+    "headline": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não para você.",
+    "subheadline": "Seu banco pega seu dinheiro, investe para ter lucros enormes, cobra taxas de você e devolve centavos. Existe um jeito de equilibrar isso e ter as mesmas oportunidades que instituições e bilionários. A partir de R$30.",
+    "cta": "Foi assim que eu descobri isso →",
     "trust": "Seu dinheiro continua seu. Saque quando quiser.",
     "socialProof": "Junte-se a {count} pessoas que disseram \"basta\""
   },
   "origin": {
-    "header": "Por causa da minha avó",
-    "body": "Minha avó me ensinou a guardar dinheiro. Ela dizia pra eu tentar guardar metade de tudo que eu ganhasse. Ela tentou isso a vida inteira.\n\nTrabalhar duro. Comprar só o básico. Tentar guardar.\n\nMesmo assim não deu certo.\n\nConhece essa história?\n\nOlha o que ninguém contou pra ela: O banco pagava 0,5% de juros enquanto ganhava 7% com o dinheiro dela.\n\nPensa comigo. Aqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.\n\nO mesmo banco tá fazendo isso com todos nós.\n\nÉ por isso que eu tô construindo o diBoaS.",
-    "soundsFamiliar": "Conhece essa história?",
-    "bankFact": "Olha o que ninguém contou pra ela: O banco pagava 0,5% de juros enquanto ganhava 7% com o dinheiro dela.",
-    "thinkAboutIt": "Pensa comigo. Aqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.",
-    "sameBank": "O mesmo banco tá fazendo isso com todos nós.",
-    "whyBuilding": "É por isso que eu tô construindo o diBoaS.",
-    "signature": "— Bar, Fundador",
+    "header": "Tudo começou com minha avó",
+    "body": "Minha avó sempre me disse: \"Guarde metade do que você ganhar.\" Ela viveu por essa regra a vida inteira, trabalhando duro, abrindo mão de luxos, guardando dinheiro.\n\nMas não foi o suficiente.\n\nIsso parece familiar?\n\nNinguém explicou o porquê: O banco dela pagava cerca de 7% na poupança, enquanto ganhava 15% com o dinheiro dela. Ou por que as taxas dela eram sempre maiores do que as de quem tinha mais dinheiro.\n\nAgora pensa: Você guarda R$1.000. O banco ganha R$150 com isso e te devolve R$70. Os outros R$80? Eles ficam com tudo.\n\nE tem mais: a poupança paga em reais, mas o real perde cerca de 6% por ano contra o dólar. Então, em poder de compra global, você quase não ganha nada.\n\nIsso acontece todo dia com milhões de pessoas. Por isso estou construindo o diBoaS, para fazer o jogo funcionar a seu favor.",
+    "soundsFamiliar": "Isso parece familiar?",
+    "bankFact": "Ninguém explicou o porquê: O banco dela pagava cerca de 7% na poupança, enquanto ganhava 15% com o dinheiro dela.",
+    "thinkAboutIt": "Agora pensa: Você guarda R$1.000. O banco ganha R$150 com isso e te devolve R$70. Os outros R$80? Eles ficam com tudo.",
+    "sameBank": "Isso acontece todo dia com milhões de pessoas.",
+    "whyBuilding": "Por isso estou construindo o diBoaS, para fazer o jogo funcionar a seu favor.",
+    "signature": "— Breno, Fundador",
     "cta": "Olha como funciona →"
   },
   "howItWorks": {
-    "header": "Como o diBoaS funciona",
+    "header": "Como o diBoaS te ajuda a mudar isso",
+    "subheader": "Comece com apenas R$30. Leva só 2 minutos.",
     "step1": {
-      "title": "Coloca o dinheiro",
-      "description": "Começa com só R$5. Leva 2 minutos."
+      "title": "Coloque seu dinheiro",
+      "description": "Ele começa a render 6-10% ao ano em dólares. As mesmas taxas que grandes instituições conseguem. Agora esse crescimento vem para você."
     },
     "step2": {
-      "title": "Ganha o que é seu",
-      "description": "Seu dinheiro rende 6-10% ao ano. As mesmas taxas que os bancos ganham. Agora vai pra você."
+      "title": "Veja ele crescer",
+      "description": "Seu dinheiro trabalha 24 horas por dia em sistemas confiáveis, construindo valor real em moeda forte."
     },
     "step3": {
-      "title": "Saca quando quiser",
-      "description": "Precisa do dinheiro? Um toque. No mesmo dia. Sem carência. Sem multa."
+      "title": "Acesse quando quiser",
+      "description": "Precisa do seu dinheiro? Um toque. No mesmo dia. Sem espera. Sem bloqueios. Sem multas."
     },
     "footerNote": "É isso. Sem papo difícil. Sem complicação. Só seu dinheiro trabalhando de verdade pra você.",
     "cta": "Mas não é só isso →"
   },
   "futureYouCalculator": {
-    "header": "No que seu dinheiro poderia se transformar?",
-    "subheader": "Veja seu futuro. Sem precisar de conta.",
+    "header": "O que R$100 por mês podem virar?",
+    "subheader": "Deixa eu te mostrar as possibilidades para seu eu do futuro.",
     "sliderLabel": "Valor mensal que você poderia guardar",
-    "sliderMin": "R$5",
-    "sliderMax": "R$500",
+    "sliderMin": "R$30",
+    "sliderMax": "R$2.500",
     "timeButtons": {
       "5years": "5 anos",
       "10years": "10 anos",
@@ -50,68 +51,70 @@
       "20years": "20 anos"
     },
     "results": {
-      "intro": "Em {years} anos, seus R${amount}/mês poderiam virar:",
-      "withDiboas": "Com estratégias diBoaS",
-      "withBank": "Com seu banco (0,5% da poupança)",
-      "difference": "Isso é R${difference} a mais com o mesmo valor mensal."
+      "intro": "Em {years} anos, seus R${amount}/mês podem virar:",
+      "withDiboas": "Com diBoaS (8,0% ao ano em dólares)",
+      "withBank": "Com a poupança (7% ao ano, mas -6% vs dólar)",
+      "difference": "São R${difference} a mais de verdade. Em moeda que não derrete. Pequenos passos, grande diferença ao longo do tempo."
     },
-    "disclaimer": "⚠️ SIMULAÇÃO — Baseado em dados históricos. Resultados passados não garantem retornos futuros.",
-    "cta": "Entrar na lista de espera pra fazer isso virar realidade →"
+    "sourceNote": "Comparação considera: Poupança rende ~7% em reais, mas o real perde ~6% ao ano contra o dólar. diBoaS rende em dólares, preservando seu poder de compra global.",
+    "disclaimer": "Isso é uma projeção baseada em dados passados. Resultados não são garantidos. Mercados podem mudar.",
+    "cta": "Entre na lista de espera para experimentar de verdade"
   },
   "features": {
-    "header": "Mais que poupança. Tudo que seu dinheiro precisa.",
-    "intro": "O diBoaS não é só rendimento. É dar controle da sua vida financeira inteira, sem as taxas, demoras e fronteiras que os bancos impõem.",
+    "header": "Mais do que guardar dinheiro. Sua vida financeira inteira.",
+    "intro": "O diBoaS te dá controle simples sobre suas finanças, cortando taxas bancárias, esperas e limites.",
     "earn": {
-      "headline": "Ganha o que os bancos ganham",
-      "body": "Seu dinheiro trabalha 24 horas em protocolos confiáveis. As mesmas taxas que os bancos conseguem. Agora vão pra você. 6-10% ao ano em stablecoins. Saca quando quiser.",
+      "headline": "Ganhe rendimento de verdade",
+      "body": "Suas economias rendem 6-10% ao ano em dólares digitais que mantêm seu valor, usando sistemas confiáveis. Taxas parecidas com as de instituições, agora suas. Saque quando quiser.",
       "stat": "Baseado em análise histórica de 4 anos. Resultados variam por estratégia. Detalhes na página Estratégias."
     },
     "send": {
-      "headline": "Manda dinheiro. Na hora. Pra qualquer lugar. Sem taxa.",
-      "body": "Transfere pra qualquer pessoa no mundo em segundos, não dias. Sem taxa de TED. Sem spread no câmbio. Sem horário bancário. Só manda.",
+      "headline": "Envie dinheiro rápido e sem taxas",
+      "body": "Transfira para qualquer pessoa no mundo em segundos. Pense no PIX, mas global. Sem taxas de transferência, sem câmbio ruim, sem banco fechado. Simples e rápido.",
       "stat": "R$0 de taxa. Tempo real. 24/7/365."
     },
     "invest": {
-      "headline": "Compra ativos sem fronteira",
-      "body": "Acesso a investimentos globais sem barreiras. Ações, cripto, ativos tokenizados, tudo num lugar só. Sem mínimo. Sem exclusão.",
-      "stat": "Começa com R$5. Seja dono de um pedaço de qualquer coisa."
+      "headline": "Alcance oportunidades globais",
+      "body": "Compre ações, cripto ou outros ativos de qualquer lugar. Sem fronteiras, sem valores mínimos altos, sem intermediários te barrando.",
+      "stat": "Comece com R$30. Seja dono de um pedaço de qualquer coisa."
     },
     "goals": {
-      "headline": "Guarda pro que importa",
-      "body": "Define uma meta. Escolhe um prazo. A gente encontra a estratégia certa. Acompanha seu progresso. Ajusta quando a vida muda. Seu dinheiro cresce pro seu futuro.",
-      "stat": "10 estratégias pra diferentes níveis de risco."
+      "headline": "Construa em direção aos seus objetivos",
+      "body": "Escolha para que você está guardando e quando. Sugerimos um plano que funciona. Acompanhe fácil, ajuste quando precisar. Seu dinheiro acompanha sua vida.",
+      "stat": "10 estratégias para diferentes níveis de risco."
     },
-    "strategiesLink": "Conhece todas →",
+    "strategiesLink": "Conheça todas →",
     "cta": "Conhecer todas as estratégias →"
   },
   "demo": {
-    "header": "Veja você mesmo",
-    "subtext": "60 segundos. Sem cadastro. Você vai entender.",
+    "header": "Dá uma olhada rápida",
+    "subtext": "60 segundos para ver como funciona",
     "postDemoCta": "Pronto pra começar? Entra na lista de espera →",
     "pain": {
       "header": "Suas economias hoje",
-      "pixHeader": "Você recebeu um PIX",
-      "subtext": "Juros ganhos esse ano: {interest}",
-      "hook": "Isso não dá nem um café. O banco fica com o resto.",
+      "pixHeader": "Seu PIX de hoje",
+      "currentSavings": "Digamos que sua poupança atual seja:",
+      "subtext": "Rendimento nesse ano: {interest}",
+      "hook": "Parece bom, né? Mas o real perdeu 6% contra o dólar. Seu ganho real? Quase zero.",
       "cta": "E se...?"
     },
     "hope": {
-      "header": "E se esse dinheiro crescesse?",
-      "projectionLabel": "Em 1 ano a 8% ao ano:",
-      "comparison": "Isso é {projected} em vez de {current}.",
-      "impact": "Mesmo dinheiro. Lugar mais inteligente. 16x mais crescimento.",
+      "header": "E se seu dinheiro crescesse em moeda forte?",
+      "projectionLabel": "Em 1 ano a 8% ao ano em dólares:",
+      "comparison": "São {projected} de ganho real, não {current} que viram pó.",
+      "impact": "Mesmo valor, lugar melhor e crescimento de verdade.",
       "cta": "Me mostra como"
     },
     "action": {
-      "header": "Começa com um depósito",
-      "prompt": "Quanto você quer fazer crescer?",
-      "reassurance1": "Escolhe qualquer valor. Começa pequeno.",
-      "reassurance2": "Sem mínimo. Sem julgamento.",
-      "cta": "Depositar"
+      "header": "Comece com uma quantia",
+      "prompt": "Quanto quer experimentar?",
+      "reassurance1": "Qualquer valor funciona.",
+      "reassurance2": "Sem pressão.",
+      "cta": "Adicionar"
     },
     "reward": {
-      "header": "Seu dinheiro tá crescendo!",
-      "delight": "Você acabou de ganhar {earned} enquanto lia isso.",
+      "header": "Veja crescendo!",
+      "delight": "Você ganhou {earned} agora mesmo. Imagina o que acontece enquanto você dorme.",
       "vision": "Imagina o que acontece enquanto você dorme.",
       "sharePrompt": "Bem legal, né?",
       "shareCta": "Compartilha com um amigo",
@@ -121,8 +124,8 @@
       "header": "O APRENDIZADO É REAL.",
       "subheader": "A diferença entre o que os bancos ganham e o que te pagam? Sempre esteve lá.",
       "callToAction": "Agora você sabe o que minha avó nunca soube.",
-      "emailPlaceholder": "Digite seu email",
-      "submitButton": "Garantir meu lugar na lista",
+      "emailPlaceholder": "Seu e-mail",
+      "submitButton": "Entrar na lista de espera",
       "trustPoint1": "Sem spam, nunca",
       "trustPoint2": "Acesso antecipado no lançamento",
       "trustPoint3": "Convida amigos = passa na frente"
@@ -149,10 +152,10 @@
     }
   },
   "socialProof": {
-    "header": "Faz parte do movimento",
+    "header": "Junte-se a quem está dizendo \"chega\"",
     "stats": {
-      "waitlist": "{count} pessoas já disseram \"basta\" — entra na lista com elas",
-      "countries": "Gente de {countries} países tá esperando"
+      "waitlist": "{count} pessoas estão prontas para mudança. Junte-se a elas na lista de espera.",
+      "countries": "De {countries} países e contando"
     },
     "testimonial": {
       "quote": "Finalmente algo que faz sentido pra gente como eu, que não é expert em finanças. Parece que foi feito pra nós.",
@@ -161,32 +164,32 @@
   },
   "faq": {
     "header": "Coisas que vale saber",
-    "description": "Respostas pras dúvidas mais comuns sobre o diBoaS.",
+    "description": "Respostas diretas sobre as perguntas mais comuns do diBoaS.",
     "ctaText": "Entrar na lista de espera",
     "items": {
       "safety": {
-        "question": "Meu dinheiro tá seguro?",
-        "answer": "Uma coisa que pouca gente sabe:\n\nQuando você coloca dinheiro no banco, tecnicamente não é mais \"seu\". Legalmente vira do banco. Eles só te devem aquele valor. É assim que conseguem emprestar e investir.\n\nNo diBoaS é diferente. Seu dinheiro fica na sua própria carteira. A gente não consegue mexer nele. Só mostra onde colocar pra render mais.\n\nOs protocolos que a gente usa (Aave, Compound) guardam bilhões de dólares há anos. É igual conta em banco? Não. É terra de ninguém? Também não. Tá no meio, e agora você sabe o suficiente pra decidir."
+        "question": "Meu dinheiro está seguro?",
+        "answer": "Tem uma coisa que a maioria das pessoas não sabe: Quando você coloca dinheiro no banco, ele tecnicamente não é mais \"seu\". Legalmente, vira dinheiro do banco. Eles só prometem devolver, enquanto usam para os ganhos deles.\n\nCom o diBoaS, funciona diferente. Seus fundos ficam na sua própria carteira. A gente não consegue tocar neles. Só mostramos onde colocar para seu dinheiro trabalhar mais. Esses sistemas confiáveis protegeram bilhões por anos.\n\nSão iguais a depósitos bancários? Não. São uma bagunça total? Também não. Estão no meio termo, e agora você sabe o suficiente para decidir se faz sentido para você."
       },
       "risks": {
-        "question": "Qual o risco?",
-        "answer": "Vamos falar de risco de verdade:\n\nSeu dinheiro no banco parece seguro porque tem o FGC, que cobre até R$250 mil se o banco quebrar. Mas o banco tá tomando risco com seu dinheiro o tempo todo. Só não te conta.\n\nDeFi tem riscos diferentes. Smart contracts são código, e código pode ter bug. Protocolos podem ser explorados.\n\nA gente só usa protocolos com mais de $10 bilhões há anos sem incidente grave. Risco zero? Não. Mais transparente do que o banco faz? Com certeza.\n\nComeça com o que não vai fazer falta. Até R$5. Aprende como funciona. Depois decide."
+        "question": "Quais riscos eu preciso conhecer?",
+        "answer": "Vamos ser honestos: O FGC cobre até R$250 mil, mas os bancos arriscam seu dinheiro nos bastidores sem te contar.\n\nO diBoaS usa tecnologia diferente: sistemas baseados em código que podem ter falhas ou ataques. Ficamos só com os comprovados ($10 bilhões+ protegidos, histórico longo).\n\nRisco zero não existe em lugar nenhum, mas aqui é mais transparente. Comece com o que você não vai sentir falta. Até R$30. Aprenda como funciona. Depois decide se é certo para você."
       },
       "withdraw": {
-        "question": "Posso sacar quando quiser?",
-        "answer": "Pode, e isso é importante:\n\nMuitas opções de \"alto rendimento\" travam seu dinheiro. CDB com carência. Tesouro Direto com prazo. Staking travado.\n\nNo diBoaS, seu dinheiro continua líquido. Pede o saque, recebe no mesmo dia. Sem espera. Sem multa. Sem pergunta.\n\nPorque é seu dinheiro. Você não deveria precisar de permissão pra usar."
+        "question": "Posso pegar meu dinheiro a qualquer hora?",
+        "answer": "Com certeza. Esse é o ponto. Muitas opções de alto rendimento prendem seu dinheiro por meses.\n\nAqui, está sempre pronto: peça e receba no mesmo dia, sem multas ou perguntas.\n\nSeu dinheiro, sua escolha. Você não deveria precisar de permissão para usar o que é seu."
       },
       "revenue": {
-        "question": "Como vocês ganham dinheiro?",
-        "answer": "A gente cobra 0,9% quando você saca. Se você sacar R$100, a gente fica com 90 centavos.\n\nSe você não sacar, a gente não ganha nada.\n\nA gente só ganha quando você ganha."
+        "question": "Como o diBoaS ganha dinheiro?",
+        "answer": "Cobramos 0,75% em saques ou transferências, e 0,12% ao fechar posições ou vender ativos.\n\nPara R$500 de saque, são R$3,75 para a gente. Se você não movimentar, ganhamos zero.\n\nA gente só ganha quando você ganha."
       },
       "trust": {
-        "question": "Por que eu deveria confiar em vocês?",
-        "answer": "Você não deveria confiar porque a gente pede. Deveria confiar porque você pode verificar.\n\nSeu dinheiro tá na sua carteira. Você confere quando quiser. Os protocolos são públicos. Dá pra ver exatamente onde tá. A gente tá construindo dentro da regulação europeia (MiCA). Tem responsabilização.\n\nComeça pequeno. Vê como funciona. Confiança se constrói."
+        "question": "Por que confiar em vocês?",
+        "answer": "Não confie só porque a gente diz. Confira você mesmo.\n\nSeus fundos estão na sua carteira, visíveis a qualquer momento. Os sistemas são abertos para verificação. Focamos em regras claras e responsabilidade.\n\nExperimente com pouco; construa confiança passo a passo."
       },
       "strategies": {
-        "question": "Quais estratégias de investimento vocês oferecem?",
-        "answer": "A gente oferece 10 estratégias pra diferentes objetivos e níveis de risco, de reserva de emergência até construção de patrimônio de longo prazo.\n\nCada estratégia foi feita pra um propósito específico: proteger seu colchão de segurança, guardar pra metas de curto prazo, ou crescer patrimônio ao longo de décadas.",
+        "question": "Quais estratégias vocês oferecem?",
+        "answer": "10 estratégias para diferentes objetivos e níveis de conforto com risco. De reservas de emergência seguras até crescimento de longo prazo mais ousado.\n\nCada uma combina com um propósito, como guardar para curto prazo ou construir ao longo de décadas.",
         "link": "Conhecer todas as estratégias"
       },
       "crypto": {
@@ -195,17 +198,25 @@
       }
     }
   },
+  "waitlist": {
+    "header": "Entre cedo",
+    "subheader": "Seja o primeiro a saber quando lançarmos.",
+    "emailPlaceholder": "Seu e-mail",
+    "submitButton": "Entrar na lista de espera",
+    "privacyNote": "Só atualizações do diBoaS. Sem spam. Cancele fácil."
+  },
   "finalCta": {
     "header": "Bora?",
     "body": "Agora você sabe o que minha avó nunca soube.\n\nO sistema foi feito assim. Mas você não precisa aceitar.\n\nA gente tá construindo algo diferente.\n\nSeu dinheiro. Seu futuro. Suas regras.",
     "anthem": "Seu dinheiro. Seu futuro. Suas regras.",
     "button": "Entrar na lista de espera — é grátis →",
-    "footer": "⏰ Você é o #{position} na fila pro acesso antecipado"
+    "footer": "Você é o #{position} na fila pro acesso antecipado"
   },
   "footer": {
-    "riskDisclaimer": "O diBoaS oferece acesso a protocolos de finanças descentralizadas. Retornos não são garantidos. Resultados passados não indicam resultados futuros. DeFi envolve risco de smart contract, risco de mercado e risco de liquidez. Use apenas valores que você pode arriscar. O diBoaS não é um banco e depósitos não são segurados.",
-    "bcbDisclaimer": "⚠️ AVISO IMPORTANTE: O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil.",
+    "riskDisclaimer": "O diBoaS conecta você a sistemas de finanças descentralizadas. Crescimento não é prometido. Resultados passados não preveem futuros. Envolve riscos como problemas de código, mudanças de mercado e desafios de acesso. Use apenas o que você pode arriscar. Não é um banco. Sem garantia de depósito.",
+    "brDisclaimer": "Aviso para o Brasil: diBoaS é uma empresa sediada na União Europeia. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil. Usuários brasileiros são responsáveis por suas próprias obrigações fiscais e regulatórias.",
     "regulatoryNote": "O diBoaS opera sob o framework MiCA da União Europeia. Autorização CASP pendente.",
+    "copyright": "© 2025 diBoaS. Todos os direitos reservados.",
     "links": {
       "privacy": "Política de Privacidade",
       "terms": "Termos de Uso",
@@ -213,19 +224,19 @@
     }
   },
   "problem": {
-    "header": "O sistema não tá quebrado. Ele funciona exatamente como foi projetado.",
-    "body": "Seu banco investe seu dinheiro. Cobra taxas. Te oferece quase nada em troca. Limita seus saques. Depois, ganha bilhões e te dá migalhas.\n\nAqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.",
-    "cta": "Olha o que eu descobri →"
+    "header": "O sistema não está quebrado. Ele funciona exatamente como foi projetado.",
+    "body": "Seu banco pega seu dinheiro, investe para ter lucros enormes, cobra taxas de você e devolve centavos.\n\nAgora pensa: Você guarda R$1.000. O banco ganha R$150 com isso e te devolve R$70. Os outros R$80? Eles ficam com tudo.",
+    "cta": "Foi assim que eu descobri isso →"
   },
   "whyWeBuiltThis": {
-    "header": "Por causa da minha avó",
-    "story": "Minha avó me ensinou a guardar dinheiro. Ela dizia pra eu tentar guardar metade de tudo que eu ganhasse. Ela fez isso a vida inteira.\n\nTrabalhar duro. Comprar só o básico. Tentar guardar.\n\nMesmo assim não deu certo.\n\nConhece essa história?\n\nOlha o que ninguém contou pra ela: O banco pagava 0,5% de juros enquanto ganhava 7% — com o dinheiro dela.\n\nPensa nisso. Aqueles R$1.000 que você guardou? O banco fez R$70 com eles e te devolveu R$5. Os outros R$65? Eram pra ser seus.\n\nO mesmo banco tá fazendo isso com todos nós.\n\nÉ por isso que eu tô construindo o diBoaS.",
-    "signature": "— Bar, Fundador"
+    "header": "Tudo começou com minha avó",
+    "story": "Minha avó sempre me disse: \"Guarde metade do que você ganhar.\" Ela viveu por essa regra a vida inteira, trabalhando duro, abrindo mão de luxos, guardando dinheiro.\n\nMas não foi o suficiente.\n\nIsso parece familiar?\n\nNinguém explicou o porquê: O banco dela pagava cerca de 7% na poupança, enquanto ganhava 15% com o dinheiro dela.\n\nAgora pensa: Você guarda R$1.000. O banco ganha R$150 com isso e te devolve R$70. Os outros R$80? Eles ficam com tudo.\n\nE tem mais: a poupança paga em reais, mas o real perde cerca de 6% por ano contra o dólar.\n\nIsso acontece todo dia com milhões de pessoas.\n\nPor isso estou construindo o diBoaS.",
+    "signature": "— Breno, Fundador"
   },
   "seo": {
     "title": "diBoaS | O Sistema Não Foi Feito Pra Você. A Gente Tá Mudando Isso.",
-    "description": "Seu banco investe seu dinheiro, ganha bilhões e te dá migalhas. Ganhe 6-10%, mande dinheiro na hora de graça, invista globalmente a partir de R$5. Seu dinheiro. Suas regras.",
-    "ogTitle": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não foi projetado pra você.",
-    "ogDescription": "Por causa da minha avó, eu aprendi o que os bancos não contam pra gente. Eles ganham 7% com nosso dinheiro e nos dão 0,5%. É por isso que eu tô construindo o diBoaS."
+    "description": "Seu banco pega seu dinheiro, investe pra lucrar e te devolve centavos. Ganhe 6-10% em dólares, envie dinheiro na hora de graça, invista globalmente a partir de R$30. Seu dinheiro. Suas regras.",
+    "ogTitle": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não para você.",
+    "ogDescription": "Tudo começou com minha avó. Aprendi o que os bancos não contam pra gente. Eles ganham 15% com nosso dinheiro e nos dão 7% — mas em reais que perdem valor. É por isso que estou construindo o diBoaS."
   }
 }

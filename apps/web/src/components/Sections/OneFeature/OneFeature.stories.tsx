@@ -7,10 +7,9 @@
  * Flexible Features: Generic feature presentation for any domain
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { OneFeatureFactory } from './OneFeatureFactory';
-import { ONE_FEATURE_CONFIGS } from '@/config/oneFeature';
-import type { OneFeatureVariantConfig, FeatureItem } from '@/config/oneFeature';
+import { ONE_FEATURE_CONFIGS, type OneFeatureVariantConfig } from '@/config/oneFeature';
 
 const meta: Meta<typeof OneFeatureFactory> = {
   title: 'Sections/OneFeature',
@@ -68,7 +67,7 @@ Extended layout with additional security tools and features.
   argTypes: {
     variant: {
       control: 'select',
-      options: Object.keys(SECURITY_ONE_FEATURE_CONFIGS),
+      options: Object.keys(ONE_FEATURE_CONFIGS),
       description: 'Security variant to display',
     },
     config: {
@@ -98,17 +97,17 @@ Extended layout with additional security tools and features.
 };
 
 export default meta;
-type Story = StoryObj<typeof SecurityOneFeatureFactory>;
+type Story = StoryObj<typeof OneFeatureFactory>;
 
 // Helper function to create stories
-const createSecurityStory = (
-  variant: keyof typeof SECURITY_ONE_FEATURE_CONFIGS,
-  overrides: Partial<SecurityOneFeatureVariantConfig> = {}
+const createStory = (
+  variant: keyof typeof ONE_FEATURE_CONFIGS,
+  overrides: Partial<OneFeatureVariantConfig> = {}
 ): Story => ({
   args: {
     variant,
     config: {
-      ...SECURITY_ONE_FEATURE_CONFIGS[variant],
+      ...ONE_FEATURE_CONFIGS[variant],
       ...overrides,
     },
   },
@@ -119,28 +118,28 @@ const createSecurityStory = (
  * 
  * Standard layout with all security features.
  */
-export const Default: Story = createSecurityStory('default');
+export const Default: Story = createStory('default');
 
 /**
  * Compact Security Variant
  * 
  * Condensed layout with essential security features.
  */
-export const Compact: Story = createSecurityStory('compact');
+export const Compact: Story = createStory('compact');
 
 /**
  * Expanded Security Variant
  * 
  * Extended layout with additional security tools.
  */
-export const Expanded: Story = createSecurityStory('expanded');
+export const Expanded: Story = createStory('expanded');
 
 /**
  * English Security Features
  * 
  * Security section with English content for international users.
  */
-export const EnglishContent: Story = createSecurityStory('default', {
+export const EnglishContent: Story = createStory('default', {
   content: {
     title: 'Your Security Comes First',
     subtitle: 'Discover our tools and dedicated channels for protecting your account',
@@ -184,7 +183,7 @@ export const EnglishContent: Story = createSecurityStory('default', {
  * 
  * Security section focused on business security needs.
  */
-export const BusinessSecurity: Story = createSecurityStory('expanded', {
+export const BusinessSecurity: Story = createStory('expanded', {
   content: {
     title: 'Enterprise Security Solutions',
     subtitle: 'Comprehensive security tools designed for business protection and compliance',
@@ -248,7 +247,7 @@ export const BusinessSecurity: Story = createSecurityStory('expanded', {
  * 
  * Security section focused on personal account protection.
  */
-export const PersonalSecurity: Story = createSecurityStory('default', {
+export const PersonalSecurity: Story = createStory('default', {
   content: {
     title: 'Protect Your Personal Account',
     subtitle: 'Essential security tools for individual account protection and peace of mind',
@@ -292,7 +291,7 @@ export const PersonalSecurity: Story = createSecurityStory('default', {
  * 
  * Essential security features only.
  */
-export const MinimalSecurity: Story = createSecurityStory('compact', {
+export const MinimalSecurity: Story = createStory('compact', {
   content: {
     title: 'Essential Security',
     subtitle: 'Core security features for account protection',
@@ -318,7 +317,7 @@ export const MinimalSecurity: Story = createSecurityStory('compact', {
     },
   },
   settings: {
-    ...SECURITY_ONE_FEATURE_CONFIGS.compact.settings,
+    ...ONE_FEATURE_CONFIGS.compact.settings,
     enableAnimations: false,
   },
 });
@@ -328,9 +327,9 @@ export const MinimalSecurity: Story = createSecurityStory('compact', {
  * 
  * Security section with animations disabled for accessibility.
  */
-export const NoAnimations: Story = createSecurityStory('default', {
+export const NoAnimations: Story = createStory('default', {
   settings: {
-    ...SECURITY_ONE_FEATURE_CONFIGS.default.settings,
+    ...ONE_FEATURE_CONFIGS.default.settings,
     enableAnimations: false,
   },
 });
@@ -340,9 +339,9 @@ export const NoAnimations: Story = createSecurityStory('default', {
  * 
  * Security section with fast animations for quick presentation.
  */
-export const FastAnimations: Story = createSecurityStory('default', {
+export const FastAnimations: Story = createStory('default', {
   settings: {
-    ...SECURITY_ONE_FEATURE_CONFIGS.default.settings,
+    ...ONE_FEATURE_CONFIGS.default.settings,
     animationDelay: 50,
   },
 });
@@ -352,9 +351,9 @@ export const FastAnimations: Story = createSecurityStory('default', {
  * 
  * Security section with slow animations for detailed presentation.
  */
-export const SlowAnimations: Story = createSecurityStory('expanded', {
+export const SlowAnimations: Story = createStory('expanded', {
   settings: {
-    ...SECURITY_ONE_FEATURE_CONFIGS.expanded.settings,
+    ...ONE_FEATURE_CONFIGS.expanded.settings,
     animationDelay: 300,
   },
 });
@@ -364,7 +363,7 @@ export const SlowAnimations: Story = createSecurityStory('expanded', {
  * 
  * Security section with external security resources.
  */
-export const ExternalResources: Story = createSecurityStory('default', {
+export const ExternalResources: Story = createStory('default', {
   content: {
     title: 'Security Resources & Partners',
     subtitle: 'External security resources and trusted partner organizations',
@@ -409,7 +408,7 @@ export const ExternalResources: Story = createSecurityStory('default', {
  * Story demonstrating mobile-first responsive design.
  */
 export const MobileOptimized: Story = {
-  ...createSecurityStory('compact'),
+  ...createStory('compact'),
   parameters: {
     viewport: {
       defaultViewport: 'mobile',
@@ -428,7 +427,7 @@ export const MobileOptimized: Story = {
  * Story demonstrating tablet responsive breakpoints.
  */
 export const TabletLayout: Story = {
-  ...createSecurityStory('default'),
+  ...createStory('default'),
   parameters: {
     viewport: {
       defaultViewport: 'tablet',
@@ -447,7 +446,7 @@ export const TabletLayout: Story = {
  * Security section with dark theme applied.
  */
 export const DarkTheme: Story = {
-  ...createSecurityStory('default'),
+  ...createStory('default'),
   parameters: {
     backgrounds: {
       default: 'dark',
@@ -473,7 +472,7 @@ export const DarkTheme: Story = {
  * Security section with high contrast accessibility theme.
  */
 export const HighContrast: Story = {
-  ...createSecurityStory('default'),
+  ...createStory('default'),
   parameters: {
     docs: {
       description: {
@@ -496,12 +495,12 @@ export const HighContrast: Story = {
  * Story with performance monitoring and analytics enabled.
  */
 export const WithPerformanceMonitoring: Story = {
-  ...createSecurityStory('default'),
+  ...createStory('default'),
   args: {
     variant: 'default',
     enableAnalytics: true,
     config: {
-      ...SECURITY_ONE_FEATURE_CONFIGS.default,
+      ...ONE_FEATURE_CONFIGS.default,
       analytics: {
         trackingPrefix: 'security_storybook',
         enabled: true,
@@ -525,13 +524,13 @@ export const WithPerformanceMonitoring: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-      {Object.entries(SECURITY_ONE_FEATURE_CONFIGS).map(([variant, config]) => (
+      {Object.entries(ONE_FEATURE_CONFIGS).map(([variant, config]) => (
         <div key={variant}>
           <h3 style={{ margin: '0 0 1rem 0', padding: '0 1rem', textTransform: 'capitalize' }}>
             {variant} Variant
           </h3>
-          <SecurityOneFeatureFactory 
-            variant={variant as keyof typeof SECURITY_ONE_FEATURE_CONFIGS} 
+          <OneFeatureFactory 
+            variant={variant as keyof typeof ONE_FEATURE_CONFIGS} 
             config={{
               ...config,
               settings: {
@@ -560,7 +559,7 @@ export const AllVariants: Story = {
  * Fully interactive security section for testing all features.
  */
 export const InteractivePlayground: Story = {
-  ...createSecurityStory('default'),
+  ...createStory('default'),
   parameters: {
     docs: {
       description: {

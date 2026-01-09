@@ -103,12 +103,12 @@ export const getRouteById = (id: string): string | undefined => {
   // Flatten the routes object for lookup
   const flatRoutes: Record<string, string> = {};
 
-  const flatten = (obj: any, prefix = ''): void => {
+  const flatten = (obj: Record<string, unknown>, prefix = ''): void => {
     Object.entries(obj).forEach(([key, value]) => {
       if (typeof value === 'string') {
         flatRoutes[prefix + key] = value;
-      } else if (typeof value === 'object') {
-        flatten(value, `${prefix}${key}_`);
+      } else if (value && typeof value === 'object') {
+        flatten(value as Record<string, unknown>, `${prefix}${key}_`);
       }
     });
   };

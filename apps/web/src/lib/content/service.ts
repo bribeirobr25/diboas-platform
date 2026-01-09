@@ -11,7 +11,7 @@ import { Logger } from '@/lib/monitoring/Logger';
 
 class ContentServiceImpl implements ContentService {
   private config: ContentConfig;
-  private cache: Map<string, { data: any; timestamp: number }> = new Map();
+  private cache: Map<string, { data: PageContent | ContentSection; timestamp: number }> = new Map();
 
   constructor(config: ContentConfig = CONTENT_DEFAULTS) {
     this.config = config;
@@ -26,7 +26,7 @@ class ContentServiceImpl implements ContentService {
 
     // Check cache first
     const cached = this.getCachedContent(cacheKey);
-    if (cached) return cached;
+    if (cached && 'sections' in cached) return cached as PageContent;
 
     try {
       // Try to load content for the requested locale
@@ -63,7 +63,7 @@ class ContentServiceImpl implements ContentService {
     const cacheKey = `section_${sectionId}_${locale}`;
 
     const cached = this.getCachedContent(cacheKey);
-    if (cached) return cached;
+    if (cached && 'order' in cached) return cached as ContentSection;
 
     try {
       const content = await this.loadSectionContent(sectionId, locale);
@@ -81,7 +81,7 @@ class ContentServiceImpl implements ContentService {
    * Get field value with type safety and defaults
    * Code Reusability: Common field access pattern
    */
-  getFieldValue<T = any>(fieldId: string, defaultValue?: T): T {
+  getFieldValue<T = unknown>(fieldId: string, defaultValue?: T): T {
     // This method would typically access a content store or context
     // For now, return the default value as this is the abstraction layer
 
@@ -162,7 +162,7 @@ class ContentServiceImpl implements ContentService {
   /**
    * Private: Cache management
    */
-  private getCachedContent(key: string): any | null {
+  private getCachedContent(key: string): PageContent | ContentSection | null {
     const cached = this.cache.get(key);
     if (!cached) return null;
 
@@ -175,7 +175,7 @@ class ContentServiceImpl implements ContentService {
     return cached.data;
   }
 
-  private setCachedContent(key: string, data: any): void {
+  private setCachedContent(key: string, data: PageContent | ContentSection): void {
     this.cache.set(key, {
       data,
       timestamp: Date.now()

@@ -29,14 +29,15 @@ export type BreakpointTokens = DesignTokens['breakpoints'];
  * Error Handling & System Recovery: Validate imported tokens
  * Security: Runtime validation to prevent malformed data
  */
-function validateDesignTokens(tokens: any): tokens is DesignTokens {
+function validateDesignTokens(tokens: unknown): tokens is DesignTokens {
   if (!tokens || typeof tokens !== 'object') {
     Logger.error('Design tokens: Invalid or missing configuration');
     return false;
   }
 
+  const tokensObj = tokens as Record<string, unknown>;
   const requiredSections = ['typography', 'spacing', 'layout', 'animation', 'zIndex', 'breakpoints'];
-  const missingSections = requiredSections.filter(section => !tokens[section]);
+  const missingSections = requiredSections.filter(section => !tokensObj[section]);
 
   if (missingSections.length > 0) {
     Logger.error('Design tokens: Missing required sections', { missingSections });
@@ -219,7 +220,7 @@ export const COMPONENTS = {
 if (process.env.NODE_ENV === 'development') {
   // Make design system available in browser console for debugging
   if (typeof window !== 'undefined') {
-    (window as any).DESIGN_SYSTEM = DESIGN_SYSTEM;
+    (window as Window & { DESIGN_SYSTEM?: typeof DESIGN_SYSTEM }).DESIGN_SYSTEM = DESIGN_SYSTEM;
   }
 }
 

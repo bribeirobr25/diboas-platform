@@ -17,51 +17,23 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
-import { COOKIE_CONFIG } from '@/config/env';
+import {
+  syncConsentToApi,
+  checkConsentFromApi,
+  saveConsentToStorage,
+  createConsentValue,
+  dispatchConsentEvent,
+  getStoredConsent,
+  isConsentVersionCurrent,
+} from './consentUtils';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 import styles from './CookieConsent.module.css';
 
-// Use centralized environment configuration
-const CONSENT_KEY = COOKIE_CONFIG.consentLocalStorageKey;
-const CONSENT_VERSION = COOKIE_CONFIG.consentVersion;
-
-/**
- * Sync consent to HttpOnly cookie via API
- * This provides XSS protection as the cookie cannot be read by JavaScript
- */
-async function syncConsentToApi(analytics: boolean): Promise<boolean> {
-  try {
-    const response = await fetch('/api/consent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ analytics }),
-    });
-    return response.ok;
-  } catch (error) {
-    console.warn('[CookieConsent] Failed to sync consent to API:', error);
-    return false;
-  }
-}
-
-/**
- * Check consent from HttpOnly cookie API
- */
-async function checkConsentFromApi(): Promise<{ analytics: boolean; version: string } | null> {
-  try {
-    const response = await fetch('/api/consent');
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    return data.consent || null;
-  } catch {
-    return null;
-  }
-}
-
-export interface CookieConsentValue {
-  analytics: boolean;
-  version: string;
-  timestamp: number;
-}
+// Re-export utilities for external use
+export { hasAnalyticsConsent, getConsent, type CookieConsentValue } from './consentUtils';
 
 export function CookieConsent() {
   const intl = useTranslation();
@@ -71,40 +43,23 @@ export function CookieConsent() {
 
   useEffect(() => {
     async function checkConsent() {
-      // First check localStorage for immediate hydration
-      const stored = localStorage.getItem(CONSENT_KEY);
+      const stored = getStoredConsent();
 
       if (!stored) {
-        // No localStorage, check HttpOnly cookie via API
         const apiConsent = await checkConsentFromApi();
 
         if (apiConsent) {
-          // Sync API consent to localStorage for future hydration
-          const localConsent: CookieConsentValue = {
-            analytics: apiConsent.analytics,
-            version: apiConsent.version,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem(CONSENT_KEY, JSON.stringify(localConsent));
-          return; // Consent exists, don't show banner
+          const localConsent = createConsentValue(apiConsent.analytics);
+          saveConsentToStorage(localConsent);
+          return;
         }
 
-        // No consent anywhere - show banner
         setTimeout(() => {
           setShowBanner(true);
           setTimeout(() => setIsVisible(true), 100);
         }, 1500);
       } else {
-        // Validate stored consent version
-        try {
-          const consent = JSON.parse(stored) as CookieConsentValue;
-          if (consent.version !== CONSENT_VERSION) {
-            // Version mismatch - request new consent
-            setShowBanner(true);
-            setTimeout(() => setIsVisible(true), 100);
-          }
-        } catch {
-          // Invalid stored data - request new consent
+        if (!isConsentVersionCurrent(stored)) {
           setShowBanner(true);
           setTimeout(() => setIsVisible(true), 100);
         }
@@ -115,50 +70,50 @@ export function CookieConsent() {
   }, []);
 
   const handleAccept = async () => {
-    const consent: CookieConsentValue = {
-      analytics: true,
-      version: CONSENT_VERSION,
-      timestamp: Date.now()
-    };
+    const consent = createConsentValue(true);
+    saveConsentToStorage(consent);
 
-    // Store in localStorage for immediate use
-    localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
+    // Emit consent given event (local fallback - API also emits on success)
+    applicationEventBus.emit(ApplicationEventType.CONSENT_GIVEN, {
+      source: 'consent',
+      timestamp: Date.now(),
+      consentType: 'analytics',
+      newState: true,
+      metadata: {
+        method: 'banner_accept',
+        version: consent.version,
+      },
+    });
 
-    // Sync to HttpOnly cookie via API (async, don't block UI)
     syncConsentToApi(true);
-
-    // Dispatch event for WebVitalsTracker to start tracking
-    window.dispatchEvent(new CustomEvent('cookie-consent-changed', {
-      detail: consent
-    }));
-
+    dispatchConsentEvent(consent);
     closeBanner();
   };
 
   const handleDecline = async () => {
-    const consent: CookieConsentValue = {
-      analytics: false,
-      version: CONSENT_VERSION,
-      timestamp: Date.now()
-    };
+    const consent = createConsentValue(false);
+    saveConsentToStorage(consent);
 
-    // Store in localStorage for immediate use
-    localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
+    // Emit consent withdrawn event (local fallback - API also emits on success)
+    applicationEventBus.emit(ApplicationEventType.CONSENT_WITHDRAWN, {
+      source: 'consent',
+      timestamp: Date.now(),
+      consentType: 'analytics',
+      newState: false,
+      metadata: {
+        method: 'banner_decline',
+        version: consent.version,
+      },
+    });
 
-    // Sync to HttpOnly cookie via API (async, don't block UI)
     syncConsentToApi(false);
-
-    // Dispatch event for WebVitalsTracker to stop tracking
-    window.dispatchEvent(new CustomEvent('cookie-consent-changed', {
-      detail: consent
-    }));
-
+    dispatchConsentEvent(consent);
     closeBanner();
   };
 
   const closeBanner = () => {
     setIsVisible(false);
-    setTimeout(() => setShowBanner(false), 300); // Wait for animation
+    setTimeout(() => setShowBanner(false), 300);
   };
 
   if (!showBanner) return null;
@@ -211,38 +166,4 @@ export function CookieConsent() {
       </div>
     </div>
   );
-}
-
-/**
- * Helper function to check if analytics consent is given
- * Used by WebVitalsTracker and other analytics components
- */
-export function hasAnalyticsConsent(): boolean {
-  if (typeof window === 'undefined') return false;
-
-  try {
-    const stored = localStorage.getItem(CONSENT_KEY);
-    if (!stored) return false;
-
-    const consent = JSON.parse(stored) as CookieConsentValue;
-    return consent.analytics && consent.version === CONSENT_VERSION;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Helper function to get consent value
- */
-export function getConsent(): CookieConsentValue | null {
-  if (typeof window === 'undefined') return null;
-
-  try {
-    const stored = localStorage.getItem(CONSENT_KEY);
-    if (!stored) return null;
-
-    return JSON.parse(stored) as CookieConsentValue;
-  } catch {
-    return null;
-  }
 }

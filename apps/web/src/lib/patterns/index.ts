@@ -8,6 +8,8 @@
  * Enables code reusability and maintains architectural consistency
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
+
 // Core Pattern Interfaces and Types
 export type {
   BaseSectionProps,
@@ -31,56 +33,45 @@ export type {
   SectionComponentFactory
 } from './SectionPattern';
 
-// Import types for internal use
-import type {
-  BaseSectionProps as IBaseSectionProps,
-  BaseSectionConfig as IBaseSectionConfig,
-  SectionAnalyticsConfig as ISectionAnalyticsConfig,
-  SectionAnalyticsService as ISectionAnalyticsService,
-  DesignTokenConvention as IDesignTokenConvention,
-  SectionErrorConfig as ISectionErrorConfig
+// Import types and values for internal use and re-export
+import {
+  DesignTokenGenerator,
+  STANDARD_BREAKPOINTS,
+  DESIGN_TOKEN_CONVENTIONS,
+  DEFAULT_ERROR_CONFIG,
+  type BaseSectionProps as IBaseSectionProps,
+  type BaseSectionConfig as IBaseSectionConfig,
+  type SectionAnalyticsConfig as ISectionAnalyticsConfig,
+  type SectionAnalyticsService as ISectionAnalyticsService,
+  type DesignTokenConvention as IDesignTokenConvention,
+  type SectionErrorConfig as ISectionErrorConfig
 } from './SectionPattern';
 
-// Design Token Generation Utilities
+// Re-export Design Token Generation Utilities
 export {
   DesignTokenGenerator,
   STANDARD_BREAKPOINTS,
   DESIGN_TOKEN_CONVENTIONS,
   DEFAULT_ERROR_CONFIG
-} from './SectionPattern';
-
-// Import constants for internal use
-import {
-  DESIGN_TOKEN_CONVENTIONS,
-  DesignTokenGenerator,
-  DEFAULT_ERROR_CONFIG,
-  STANDARD_BREAKPOINTS
-} from './SectionPattern';
+};
 
 // React Hooks for Section Components
-export {
-  useSectionLoading,
-  useSectionAnalytics,
-  useSectionNavigation,
-  useKeyboardNavigation,
-  useTouchNavigation
-} from './SectionHooks';
+// Note: Hooks kept in SectionHooks.ts for future use but not exported here
+// Available hooks: useSectionLoading, useSectionAnalytics, useSectionNavigation,
+// useKeyboardNavigation, useTouchNavigation
 
 // Utility Functions
+// Note: Some utilities kept in SectionUtils.ts for future use but not exported here
+// Available internally: mergeSectionConfig, validateSectionConfig, preloadImages,
+// throttle, debounce, retryWithBackoff
 export {
-  mergeSectionConfig,
-  validateSectionConfig,
-  preloadImages,
   preloadImage,
   generateImageSizes,
   getOptimizedImageDimensions,
-  throttle,
-  debounce,
   createPerformanceMonitor,
   createSectionErrorBoundary,
-  retryWithBackoff,
   generateTokenName,
-  validateDesignTokens,
+  validateCSSDesignTokens,
   generateMediaQueries,
   generateAriaAttributes,
   announceToScreenReader,
@@ -90,16 +81,17 @@ export {
 } from './SectionUtils';
 
 // ================================
-// PATTERN FACTORY FUNCTIONS
+// PATTERN FACTORY FUNCTIONS (Internal - not exported)
 // ================================
 
 /**
  * Create a section component following the established pattern
  * Provides type-safe factory for building new section components
+ * Note: Kept for future use but not exported
  */
-export function createSectionPattern<
+function createSectionPattern<
   TVariant extends string,
-  TConfig extends IBaseSectionConfig<TVariant, any, any, any>
+  TConfig extends IBaseSectionConfig<TVariant, unknown, unknown, unknown>
 >(options: {
   name: string;
   variants: Record<TVariant, TConfig>;
@@ -184,15 +176,16 @@ export function withSectionErrorBoundary<P extends object>(
   return function ErrorBoundaryWrapper(props: P) {
     // In a real implementation, this would use React.ErrorBoundary
     // For now, we'll return the wrapped component
-    return WrappedComponent as any;
+    return WrappedComponent as unknown as JSX.Element;
   };
 }
 
 /**
  * Create analytics service instance for sections
+ * Note: Kept for future use but not exported
  */
-export function createSectionAnalyticsService(
-  baseService: any, // Your actual analytics service
+function createSectionAnalyticsService(
+  baseService: { track: (eventName: string, properties: Record<string, unknown>) => Promise<void> },
   sectionConfig: ISectionAnalyticsConfig
 ): ISectionAnalyticsService {
   return {
@@ -206,7 +199,7 @@ export function createSectionAnalyticsService(
           timestamp: new Date().toISOString()
         });
       } catch (error) {
-        console.warn(`Analytics tracking failed: ${eventName}`, error);
+        Logger.warn(`Analytics tracking failed: ${eventName}`, { error });
       }
     },
     
@@ -283,7 +276,7 @@ export const isDevelopment = process.env.NODE_ENV === 'development';
  */
 export function checkPatternCompliance(
   componentName: string,
-  config: any,
+  config: Record<string, unknown>,
   patterns: string[] = []
 ): void {
   if (!isDevelopment) return;
@@ -300,20 +293,18 @@ export function checkPatternCompliance(
   const total = Object.keys(compliance).length;
   const percentage = (score / total) * 100;
   
-  console.group(`🏗️ Pattern Compliance Check: ${componentName}`);
-  console.log(`📊 Score: ${score}/${total} (${percentage.toFixed(1)}%)`);
-  
-  Object.entries(compliance).forEach(([pattern, implemented]) => {
-    console.log(`${implemented ? '✅' : '❌'} ${pattern}`);
+  Logger.info(`Pattern Compliance Check: ${componentName}`, {
+    score,
+    total,
+    percentage: `${percentage.toFixed(1)}%`,
+    compliance
   });
-  
+
   if (percentage < 80) {
-    console.warn('⚠️ Component below recommended pattern compliance (80%)');
+    Logger.warn(`Component ${componentName} below recommended pattern compliance (80%)`, { percentage });
   } else if (percentage === 100) {
-    console.log('🎉 Perfect pattern compliance!');
+    Logger.debug(`Perfect pattern compliance for ${componentName}`, { compliance });
   }
-  
-  console.groupEnd();
 }
 
 // ================================
@@ -328,20 +319,20 @@ export function createMigrationHelper<TLegacyProps, TNewProps extends IBaseSecti
   propMapper: (legacyProps: TLegacyProps) => TNewProps
 ) {
   return function migrateLegacyProps(legacyProps: TLegacyProps): TNewProps {
-    console.warn(`🔄 Migrating legacy props for ${componentName}. Consider updating to new pattern.`);
-    
+    Logger.warn(`Migrating legacy props for ${componentName}. Consider updating to new pattern.`, { componentName });
+
     try {
       const newProps = propMapper(legacyProps);
-      
+
       // Validate migrated props
       const validation = validateSectionProps(newProps);
       if (!validation.isValid) {
-        console.error('❌ Migration validation failed:', validation.errors);
+        Logger.error('Migration validation failed', { errors: validation.errors, componentName });
       }
-      
+
       return newProps;
     } catch (error) {
-      console.error(`❌ Migration failed for ${componentName}:`, error);
+      Logger.error(`Migration failed for ${componentName}`, { error, componentName });
       throw error;
     }
   };
@@ -351,20 +342,24 @@ export function createMigrationHelper<TLegacyProps, TNewProps extends IBaseSecti
 // EXPORTS FOR EXTERNAL CONSUMPTION
 // ================================
 
-// Default export with all utilities
-export default {
-  createSectionPattern,
+// Default export with actively used utilities
+const sectionPatterns = {
   withSectionErrorBoundary,
-  createSectionAnalyticsService,
   validateSectionProps,
   checkPatternCompliance,
   createMigrationHelper,
-  
+
   // Constants
   STANDARD_BREAKPOINTS,
   DESIGN_TOKEN_CONVENTIONS,
   DEFAULT_ERROR_CONFIG,
-  
+
   // Development utilities
   isDevelopment
 };
+
+export default sectionPatterns;
+
+// Suppress unused variable warnings for internal functions kept for future use
+void createSectionPattern;
+void createSectionAnalyticsService;

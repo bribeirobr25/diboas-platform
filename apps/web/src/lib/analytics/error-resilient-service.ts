@@ -5,6 +5,7 @@
  * Semantic Naming: Clear, descriptive service and method names
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { ANALYTICS_CONSTANTS } from './constants';
 
 interface AnalyticsEvent {
@@ -137,7 +138,7 @@ class AnalyticsResilientService {
         this.scheduleRetryFailedEvents();
       } else {
         // Max retries reached, log and drop
-        console.warn('Analytics: Max retries reached for event:', analyticsEvent.event);
+        Logger.warn('Analytics: Max retries reached for event', { event: analyticsEvent.event });
       }
     }
 
@@ -235,7 +236,7 @@ class AnalyticsResilientService {
     if (process.env.NODE_ENV === 'development') {
       // Only log non-expected errors in development to reduce noise
       if (error.code !== 'GTAG_UNAVAILABLE') {
-        console.warn('Analytics Error:', {
+        Logger.warn('Analytics Error:', {
           error: error.message,
           code: error.code,
           event: event.event,

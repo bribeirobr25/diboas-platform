@@ -64,21 +64,44 @@ export function getAvailableHeroVariants(): string[] {
 }
 
 /**
+ * Runtime configuration type for validation
+ */
+interface HeroValidationConfig {
+  content?: {
+    title?: string;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
+
+/**
+ * Type guard to check if config has required shape
+ */
+function isValidConfig(config: unknown): config is HeroValidationConfig {
+  return typeof config === 'object' && config !== null;
+}
+
+/**
  * Development helper: Validate variant configuration
- * 
+ *
  * @param variantName - The variant name to validate
  * @param config - The configuration object to validate
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Validation function accepts untyped runtime data
-export function validateHeroVariant(variantName: string, config: any): boolean {
+export function validateHeroVariant(variantName: string, config: unknown): boolean {
   if (!hasHeroVariant(variantName)) {
-    console.warn(`Hero variant '${variantName}' not found in registry`);
+    // Dev warning: Hero variant '${variantName}' not found in registry`);
+    return false;
+  }
+
+  // Type guard for runtime validation
+  if (!isValidConfig(config)) {
+    // Dev warning: Hero variant '${variantName}' config is not a valid object`);
     return false;
   }
 
   // Add more validation logic here as needed
-  if (!config?.content?.title) {
-    console.warn(`Hero variant '${variantName}' missing required content.title`);
+  if (!config.content?.title) {
+    // Dev warning: Hero variant '${variantName}' missing required content.title`);
     return false;
   }
 

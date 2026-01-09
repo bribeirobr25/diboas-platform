@@ -3,6 +3,7 @@
  * Performance: Real User Monitoring with Core Web Vitals
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { WebVitalsMetric } from './types';
 import { analyticsService } from './service';
 import { WEB_VITALS_THRESHOLDS, evaluatePerformance } from '@/config/performance-thresholds';
@@ -25,7 +26,14 @@ export function initializeWebVitals(): void {
     onTTFB(handleVital);
     onINP(handleVital);
 
-    function handleVital(metric: any) {
+    function handleVital(metric: {
+      name: 'FCP' | 'LCP' | 'CLS' | 'TTFB' | 'INP';
+      value: number;
+      rating: 'good' | 'needs-improvement' | 'poor';
+      delta: number;
+      id: string;
+      navigationType?: string;
+    }) {
       const webVital: WebVitalsMetric = {
         name: metric.name,
         value: metric.value,
@@ -52,7 +60,7 @@ export function initializeWebVitals(): void {
     });
 
   }).catch(error => {
-    console.warn('Failed to load web-vitals library:', error);
+    Logger.warn('Failed to load web-vitals library:', error);
   });
 }
 

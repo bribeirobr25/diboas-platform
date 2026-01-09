@@ -49,25 +49,25 @@ export function LucideIcon({
 /**
  * Pre-configured Navigation Icons
  */
-export const MenuIcon = ({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
-  <LucideIcon icon={Menu} size={size} className={className} {...props} />
-);
+export function MenuIcon({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) {
+  return <LucideIcon icon={Menu} size={size} className={className} {...props} />
+}
 
-export const CloseIcon = ({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
-  <LucideIcon icon={X} size={size} className={className} {...props} />
-);
+export function CloseIcon({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) {
+  return <LucideIcon icon={X} size={size} className={className} {...props} />
+}
 
-export const ChevronRightIcon = ({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
-  <LucideIcon icon={ChevronRight} size={size} className={className} {...props} />
-);
+export function ChevronRightIcon({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) {
+  return <LucideIcon icon={ChevronRight} size={size} className={className} {...props} />
+}
 
-export const ChevronLeftIcon = ({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
-  <LucideIcon icon={ChevronLeft} size={size} className={className} {...props} />
-);
+export function ChevronLeftIcon({ size = 'lg', className, ...props }: Omit<LucideIconProps, 'icon'>) {
+  return <LucideIcon icon={ChevronLeft} size={size} className={className} {...props} />
+}
 
-export const SparklesIcon = ({ size = 'sm', className, ...props }: Omit<LucideIconProps, 'icon'>) => (
-  <LucideIcon icon={Sparkles} size={size} className={className} {...props} />
-);
+export function SparklesIcon({ size = 'sm', className, ...props }: Omit<LucideIconProps, 'icon'>) {
+  return <LucideIcon icon={Sparkles} size={size} className={className} {...props} />
+}
 
 /**
  * Navigation Icon Toggle

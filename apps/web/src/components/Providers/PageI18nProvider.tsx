@@ -55,7 +55,7 @@ export function PageI18nProvider({ children, pageMessages }: PageI18nProviderPro
         if (process.env.NODE_ENV === 'development') {
           // Filter out missing translation warnings during development
           if (err.code !== 'MISSING_TRANSLATION') {
-            console.warn('[PageI18nProvider]', err.message);
+            // Translation load warning;
           }
         }
       }}

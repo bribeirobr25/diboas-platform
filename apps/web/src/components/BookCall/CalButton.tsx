@@ -31,8 +31,8 @@ const CAL_EMBED_SCRIPT = CAL_CONFIG.embedScript;
 declare global {
   interface Window {
     Cal?: {
-      (action: string, ...args: any[]): void;
-      ns?: Record<string, any>;
+      (action: string, ...args: unknown[]): void;
+      ns?: Record<string, unknown>;
       loaded?: boolean;
     };
   }
@@ -87,7 +87,7 @@ export function CalButton({
           // Listen for booking complete
           window.Cal(namespace, 'on', {
             action: 'bookingSuccessful',
-            callback: (e: any) => {
+            callback: (e: { detail?: { booking?: { uid?: string; startTime?: string; email?: string }; eventType?: { slug?: string } } }) => {
               const bookingData: BookingData = {
                 bookingId: e.detail?.booking?.uid,
                 eventType: e.detail?.eventType?.slug,
@@ -111,7 +111,7 @@ export function CalButton({
   // Handle button click
   const handleClick = useCallback(() => {
     if (!isLoaded || !window.Cal || !effectiveCalLink) {
-      console.warn('[CalButton] Cal.com not loaded or not configured');
+      // Cal.com not available;
       return;
     }
 

@@ -114,8 +114,9 @@ export function FAQAccordionDefault({
   useEffect(() => {
     if (expandedId && enableAnalytics && config.analytics?.enabled) {
       // Analytics tracking
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'faq_expand', {
+      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params: Record<string, unknown>) => void };
+      if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+        windowWithGtag.gtag('event', 'faq_expand', {
           event_category: config.analytics.trackingPrefix,
           event_label: expandedId
         });

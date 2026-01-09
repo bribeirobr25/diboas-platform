@@ -15,7 +15,7 @@ import { loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18
 function pathToCamel(str: string): string {
   // Remove slashes and hyphens, capitalize the letter after each
   return str
-    .replace(/[-\/](.)/g, (_, letter) => letter.toUpperCase());  // -a or /a -> A
+    .replace(/[-/](.)/g, (_, letter) => letter.toUpperCase());  // -a or /a -> A
 }
 
 /**
@@ -51,7 +51,7 @@ export async function loadPageNamespaces(
     } else if (namespace.startsWith('landing-')) {
       // Landing pages use their namespace name as prefix directly
       prefix = namespace;
-    } else if (namespace === 'common' || namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode') {
+    } else if (namespace === 'common' || namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode' || namespace === 'about' || namespace === 'protocols') {
       // Common and feature namespaces use their namespace name as prefix directly
       prefix = namespace;
     } else if (namespace.startsWith('legal/')) {

@@ -88,8 +88,8 @@ export interface PageSEOConfig {
     organization?: Organization;
     webpage?: WebPage;
     breadcrumbs?: BreadcrumbList;
-    categorySpecific?: any;
-    custom?: Record<string, any>;
+    categorySpecific?: Record<string, unknown>;
+    custom?: Record<string, unknown>;
   };
   alternateLanguages?: {
     lang: string;

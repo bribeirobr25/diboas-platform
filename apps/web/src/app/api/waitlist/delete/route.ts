@@ -13,7 +13,7 @@
  * - Audit logging
  */
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import {
   checkRateLimit,
   getClientIP,
@@ -26,6 +26,10 @@ import {
 } from '@/lib/security';
 import { getByEmail, deleteByEmail } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 // In-memory token store (in production, use Redis with TTL)
 const pendingDeletions = new Map<string, { email: string; expiresAt: number }>();
@@ -51,9 +55,9 @@ function cleanupExpiredTokens(): void {
  */
 export async function POST(request: Request): Promise<NextResponse> {
   // CSRF protection
-  const csrfError = csrfProtection(request as any);
+  const csrfError = csrfProtection(request as unknown as NextRequest);
   if (csrfError) {
-    return csrfError as unknown as NextResponse;
+    return csrfError as NextResponse;
   }
 
   const clientIP = getClientIP(request);
@@ -123,8 +127,19 @@ export async function POST(request: Request): Promise<NextResponse> {
       // Token is never exposed in response - only sent via secure email channel
       Logger.info('[GDPR] Deletion requested for email, token generated');
 
-      // TODO: Send deletion confirmation email with token
-      // await sendDeletionConfirmationEmail(normalizedEmail, token);
+      // Emit deletion requested event for audit trail
+      applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_REQUESTED, {
+        source: 'waitlist',
+        timestamp: Date.now(),
+        reason: 'user_request',
+        metadata: {
+          tokenExpiry: Date.now() + TOKEN_TTL_MS,
+        },
+      });
+
+      // POST-LAUNCH: Integrate email service (SendGrid/Resend) to send deletion confirmation
+      // Implementation: await emailService.sendDeletionConfirmation(normalizedEmail, token);
+      // Requirement: GDPR Article 17 - Right to erasure confirmation
 
       return NextResponse.json(
         {
@@ -153,7 +168,18 @@ export async function POST(request: Request): Promise<NextResponse> {
       }
     );
   } catch (error) {
-    console.error('[GDPR] Deletion request error:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'high',
+      context: {
+        operation: 'deletion_request',
+      },
+    });
+
+    Logger.error('[GDPR] Deletion request error:', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json(
       { success: false, error: 'Failed to process deletion request' },
       { status: 500 }
@@ -168,9 +194,9 @@ export async function POST(request: Request): Promise<NextResponse> {
  */
 export async function DELETE(request: Request): Promise<NextResponse> {
   // CSRF protection
-  const csrfError = csrfProtection(request as any);
+  const csrfError = csrfProtection(request as unknown as NextRequest);
   if (csrfError) {
-    return csrfError as unknown as NextResponse;
+    return csrfError as NextResponse;
   }
 
   const clientIP = getClientIP(request);
@@ -237,6 +263,17 @@ export async function DELETE(request: Request): Promise<NextResponse> {
 
     if (deleted) {
       Logger.info('[GDPR] Data deleted successfully');
+
+      // Emit deletion completed event for audit trail
+      applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {
+        source: 'waitlist',
+        timestamp: Date.now(),
+        reason: 'gdpr',
+        metadata: {
+          method: 'token_confirmation',
+        },
+      });
+
       return NextResponse.json(
         {
           success: true,
@@ -261,7 +298,18 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       }
     );
   } catch (error) {
-    console.error('[GDPR] Deletion confirmation error:', error);
+    // Emit application error for monitoring
+    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      error: error instanceof Error ? error : new Error(String(error)),
+      severity: 'high',
+      context: {
+        operation: 'deletion_confirmation',
+      },
+    });
+
+    Logger.error('[GDPR] Deletion confirmation error:', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json(
       { success: false, error: 'Failed to process deletion' },
       { status: 500 }

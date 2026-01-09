@@ -262,9 +262,10 @@ export class SectionEventBus {
     }
 
     // Required fields validation
-    const requiredFields = ['sectionId', 'sectionType'];
+    const requiredFields = ['sectionId', 'sectionType'] as const;
     for (const field of requiredFields) {
-      if (!(field in payload) || typeof (payload as any)[field] !== 'string') {
+      const payloadRecord = payload as unknown as Record<string, unknown>;
+      if (!(field in payload) || typeof payloadRecord[field] !== 'string') {
         throw new Error(`Invalid payload for event ${eventType}: missing or invalid ${field}`);
       }
     }
@@ -349,6 +350,6 @@ export const sectionEventBus = new SectionEventBus();
 if (process.env.NODE_ENV === 'development') {
   // Make event bus available in browser console for debugging
   if (typeof window !== 'undefined') {
-    (window as any).sectionEventBus = sectionEventBus;
+    (window as Window & { sectionEventBus?: SectionEventBus }).sectionEventBus = sectionEventBus;
   }
 }

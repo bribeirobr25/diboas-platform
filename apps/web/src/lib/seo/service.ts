@@ -90,7 +90,8 @@ class SEOServiceImpl implements SEOService {
    * Performance: Pre-stringify for faster rendering
    */
   generateStructuredData(config: PageSEOConfig): string {
-    const scripts: any[] = [];
+    // Using unknown[] for JSON-serializable structured data from various sources
+    const scripts: unknown[] = [];
 
     // Organization structured data
     if (config.structuredData?.organization) {

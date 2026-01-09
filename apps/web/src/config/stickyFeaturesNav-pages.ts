@@ -10,8 +10,7 @@
  * - Variant: Always 'default' for consistency
  */
 
-import type { FeatureItem, StickyFeaturesNavVariantConfig } from './stickyFeaturesNav';
-import { DEFAULT_STICKY_FEATURES_NAV_SETTINGS } from './stickyFeaturesNav';
+import { DEFAULT_STICKY_FEATURES_NAV_SETTINGS, type FeatureItem, type StickyFeaturesNavVariantConfig } from './stickyFeaturesNav';
 import { ROUTES } from './routes';
 import { getSocialRealAsset } from './assets';
 

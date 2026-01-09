@@ -200,7 +200,7 @@ export function useSmoothScroll(
 
       const element = document.getElementById(elementId);
       if (!element) {
-        console.warn(`Element with ID "${elementId}" not found`);
+        // Dev: Element with ID "${elementId}" not found`);
         return;
       }
 

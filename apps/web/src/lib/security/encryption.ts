@@ -11,6 +11,7 @@
  * - Authentication tag verification
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import crypto from 'crypto';
 
 const ALGORITHM = 'aes-256-gcm';
@@ -27,7 +28,7 @@ function getEncryptionKey(): Buffer | null {
 
   if (!keyBase64) {
     if (process.env.NODE_ENV === 'production') {
-      console.error('[Encryption] ENCRYPTION_KEY not set in production');
+      Logger.error('[Encryption] ENCRYPTION_KEY not set in production');
     }
     return null;
   }
@@ -35,12 +36,12 @@ function getEncryptionKey(): Buffer | null {
   try {
     const key = Buffer.from(keyBase64, 'base64');
     if (key.length !== 32) {
-      console.error('[Encryption] Invalid key length. Expected 32 bytes (256 bits)');
+      Logger.error('[Encryption] Invalid key length. Expected 32 bytes (256 bits)');
       return null;
     }
     return key;
   } catch {
-    console.error('[Encryption] Invalid base64 key format');
+    Logger.error('[Encryption] Invalid base64 key format');
     return null;
   }
 }
@@ -90,7 +91,7 @@ export function encrypt(plaintext: string): string | null {
 
     return combined.toString(ENCODING);
   } catch (error) {
-    console.error('[Encryption] Encryption failed:', error);
+    Logger.error('[Encryption] Encryption failed:', { error: error instanceof Error ? error.message : String(error) });
     return null;
   }
 }
@@ -145,7 +146,7 @@ export function decrypt(ciphertext: string): string | null {
     if (isLikelyUnencrypted(ciphertext)) {
       return ciphertext;
     }
-    console.error('[Encryption] Decryption failed:', error);
+    Logger.error('[Encryption] Decryption failed:', { error: error instanceof Error ? error.message : String(error) });
     return null;
   }
 }

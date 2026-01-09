@@ -14,6 +14,10 @@ import { useDreamMode } from '../DreamModeProvider';
 import { useDreamModeTranslation } from '../hooks';
 import { TimeframeIcon, type TimeframeIconType } from '@/components/Icons';
 import type { DreamInput } from '../types';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 import styles from './screens.module.css';
 
 type TimeframeOption = DreamInput['timeframe'];
@@ -39,6 +43,13 @@ export function TimeframeScreen() {
 
   const handleSelect = (timeframe: TimeframeOption) => {
     setInput({ timeframe });
+
+    // Emit timeframe changed event for analytics
+    applicationEventBus.emit(ApplicationEventType.DREAM_MODE_TIMEFRAME_CHANGED, {
+      source: 'dreamMode',
+      timestamp: Date.now(),
+      timeframe,
+    });
   };
 
   const handleContinue = () => {

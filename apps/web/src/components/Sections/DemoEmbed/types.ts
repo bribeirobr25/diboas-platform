@@ -23,7 +23,7 @@ export interface DemoEmbedDemo {
   /** Demo embed URL (iframe src) */
   embedUrl?: string;
   /** Demo component to render (if not using iframe) */
-  component?: React.ComponentType<any>;
+  component?: React.ComponentType<{ className?: string; locale?: string }>;
   /** Placeholder message when demo is not available */
   placeholder?: string;
 }

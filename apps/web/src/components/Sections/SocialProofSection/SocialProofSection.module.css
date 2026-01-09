@@ -1,0 +1,100 @@
+/**
+ * Social Proof Section Styles
+ *
+ * Uses design tokens for consistency with BenefitsCards component
+ */
+
+.section {
+  padding: var(--section-padding-y, 64px) var(--section-padding-x, 24px);
+  background-color: var(--bg-secondary, #f8fafc);
+}
+
+.container {
+  max-width: var(--max-width-content, 1200px);
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl, 48px);
+}
+
+.title {
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 700;
+  color: var(--text-primary, #1e293b);
+  margin: 0;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-xl, 32px);
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl, 32px);
+  background: var(--bg-primary, #ffffff);
+  border-radius: var(--radius-xl, 16px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--spacing-md, 16px);
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cardContent {
+  text-align: center;
+}
+
+.cardTitle {
+  font-size: var(--font-size-body, 16px);
+  font-weight: 500;
+  color: var(--text-primary, #1e293b);
+  line-height: 1.5;
+  margin: 0;
+  transition: opacity 0.2s ease;
+}
+
+.cardTitle.loading {
+  opacity: 0.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-2xl, 48px) var(--spacing-lg, 24px);
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg, 24px);
+  }
+
+  .card {
+    padding: var(--spacing-lg, 24px);
+  }
+
+  .iconWrapper {
+    width: 48px;
+    height: 48px;
+  }
+}

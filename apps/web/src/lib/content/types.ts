@@ -30,14 +30,14 @@ export interface ContentSection {
   type: string;
   order: number;
   isVisible: boolean;
-  content: Record<string, any>;
+  content: Record<string, unknown>;
   variant?: string;
 }
 
 export interface ContentField {
   id: string;
   type: 'text' | 'richtext' | 'image' | 'url' | 'number' | 'boolean' | 'array';
-  value: any;
+  value: unknown;
   metadata?: {
     alt?: string;
     caption?: string;
@@ -48,7 +48,7 @@ export interface ContentField {
 export interface ContentService {
   getPageContent(pageId: string, locale: SupportedLocale): Promise<PageContent | null>;
   getSectionContent(sectionId: string, locale: SupportedLocale): Promise<ContentSection | null>;
-  getFieldValue<T = any>(fieldId: string, defaultValue?: T): T;
+  getFieldValue<T = unknown>(fieldId: string, defaultValue?: T): T;
   updateContent(content: Partial<PageContent>): Promise<void>;
   validateContent(content: PageContent): boolean;
 }

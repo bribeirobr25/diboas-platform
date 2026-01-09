@@ -29,7 +29,8 @@
     "downloadComplete": "Image saved!",
     "shareSuccess": "Shared!",
     "shareFailed": "Couldn't share. Try downloading instead.",
-    "shareCancelled": "Share cancelled"
+    "shareCancelled": "Share cancelled",
+    "linkedInCopied": "Text copied! Paste it in your LinkedIn post."
   },
   "instagramInstructions": "Image saved! Open Instagram and share from your gallery.",
   "card": {
@@ -43,15 +44,15 @@
     "copied": "Link copied to clipboard!"
   },
   "dreamMode": {
-    "twitter": "In Dream Mode, I could grow {start} -> {end} in {timeframe}. My bank? Only {bank}. #WhileISlept diboas.com",
-    "whatsapp": "Check this out — in Dream Mode, I saw what my {start} could become: {end} in {timeframe}. My bank would give me {bank}. See what yours could do: diboas.com #WhileISlept",
-    "linkedin": "I just explored what my savings could become with different strategies. The gap between traditional banking (0.5%) and what's actually possible is eye-opening. Try it yourself: diboas.com #WhileISlept #FinancialLiteracy"
+    "twitter": "At @diboasfi Dream Mode, I could grow {start} → {end} in {timeframe}. My bank? Only {bank}. Same money, different place. diboas.com",
+    "whatsapp": "At diBoaS Dream Mode, I could grow {start} → {end} in {timeframe}. My bank? Only {bank}. Same money, different place. Check it out: diboas.com",
+    "linkedin": "At @diboasfi Dream Mode, I could grow {start} → {end} in {timeframe}. My bank? Only {bank}. Same money, different place. Check it out: diboas.com"
   },
   "waitlistPosition": {
-    "twitter": "I'm #{position} on the @diBoaS waitlist. Banks earn 7% with our savings. They pay us 0.5%. That gap? It's been there the whole time. #WhileISlept",
-    "whatsapp": "I just joined the diBoaS waitlist (#{position}). Did you know banks earn 7% with our savings but only pay us 0.5%? Check it out: {referralUrl}",
-    "facebook": "I'm #{position} on the diBoaS waitlist. Banks earn 7% with our savings but only pay us 0.5%. Time to change that. {referralUrl}",
-    "linkedin": "Just joined the diBoaS waitlist at position #{position}. The gap between what banks earn with our money (7%) and what they pay us (0.5%) is remarkable. Exploring how DeFi can change this. {referralUrl} #FinancialInnovation #DeFi"
+    "twitter": "I'm #{position} on the @diboasfi waitlist. With just $5 I'm getting the same opportunities as institutions and billionaires.",
+    "whatsapp": "I just joined the diBoaS waitlist (#{position}). Did you know there is a way to start with just $5 and get the same opportunities as institutions and billionaires? Check it out: {referralUrl}",
+    "facebook": "I'm #{position} on the diBoaS waitlist. Banks earn 7% with our savings but only pay us 0.4%. Time to change that.",
+    "linkedin": "I just joined the @diboasfi waitlist (#{position}). Did you know banks earn 7% with our savings but only give us back 0.4%? With diBoaS I can change this and you can change it too. Check it out: {referralUrl}"
   },
   "dreamCard": {
     "watermark": "PROJECTION",
@@ -66,7 +67,7 @@
   "waitlistCard": {
     "headline": "I'M #{position} ON THE DIBOAS WAITLIST",
     "bodyLine1": "Banks earn 7% with our savings.",
-    "bodyLine2": "They pay us 0.5%.",
+    "bodyLine2": "They pay us 0.4%.",
     "bodyLine3": "That gap? It's been there the whole time.",
     "ctaIntro": "Join me:",
     "hashtag": "#WhileISlept"

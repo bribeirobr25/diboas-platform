@@ -11,8 +11,7 @@
  * - Analytics: Tracking configuration per page
  */
 
-import { DEFAULT_VISUAL_ASSETS } from './hero';
-import type { HeroVariantConfig } from './hero';
+import { DEFAULT_VISUAL_ASSETS, type HeroVariantConfig } from './hero';
 import { getSocialRealAsset } from './assets';
 
 /**

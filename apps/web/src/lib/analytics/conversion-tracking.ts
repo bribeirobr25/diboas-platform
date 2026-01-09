@@ -7,6 +7,7 @@
  * Error Handling: Resilient conversion tracking with retry
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { SupportedLocale } from '@diboas/i18n/server';
 
 // Domain Entities
@@ -121,7 +122,7 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
       await this.sendToExternalAnalytics(event);
 
     } catch (error) {
-      console.error('Conversion tracking failed:', error);
+      Logger.error('Conversion tracking failed:', { error: error instanceof Error ? error.message : String(error) });
       // Error Handling: Don't let tracking failures break the user experience
     }
   }
@@ -133,7 +134,7 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
 
       return sessionFunnels.get(funnelName) || null;
     } catch (error) {
-      console.error('Failed to get funnel progress:', error);
+      Logger.error('Failed to get funnel progress:', { error: error instanceof Error ? error.message : String(error) });
       return null;
     }
   }
@@ -164,7 +165,7 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
 
       return totalSessions > 0 ? (convertedSessions / totalSessions) * 100 : 0;
     } catch (error) {
-      console.error('Failed to calculate conversion rate:', error);
+      Logger.error('Failed to calculate conversion rate:', { error: error instanceof Error ? error.message : String(error) });
       return 0;
     }
   }
@@ -200,7 +201,7 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
       await this.trackConversionEvent(identificationEvent);
 
     } catch (error) {
-      console.error('User identification failed:', error);
+      Logger.error('User identification failed:', { error: error instanceof Error ? error.message : String(error) });
     }
   }
 
@@ -253,7 +254,7 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
       }
 
     } catch (error) {
-      console.error('Failed to update funnel progress:', error);
+      Logger.error('Failed to update funnel progress:', { error: error instanceof Error ? error.message : String(error) });
     }
   }
 
@@ -295,8 +296,9 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
   private async sendToExternalAnalytics(event: ConversionEvent): Promise<void> {
     try {
       // Send to Google Analytics
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', event.eventName, {
+      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params: Record<string, unknown>) => void };
+      if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+        windowWithGtag.gtag('event', event.eventName, {
           event_category: 'Conversion',
           event_label: event.page,
           session_id: event.sessionId,
@@ -312,7 +314,7 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
       // etc.
 
     } catch (error) {
-      console.error('External analytics tracking failed:', error);
+      Logger.error('External analytics tracking failed:', { error: error instanceof Error ? error.message : String(error) });
     }
   }
 
@@ -321,7 +323,7 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
       try {
         handler(event);
       } catch (error) {
-        console.error('Conversion event handler failed:', error);
+        Logger.error('Conversion event handler failed:', { error: error instanceof Error ? error.message : String(error) });
       }
     });
   }

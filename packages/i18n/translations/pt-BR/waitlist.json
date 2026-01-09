@@ -21,13 +21,12 @@
     "positionIntro": "Sua posição:",
     "positionFormat": "#{position}",
     "shareIntro": "Quer subir na fila?",
-    "shareBenefit": "Compartilha seu link — cada cadastro te sobe {spots} posições",
+    "shareBenefit": "Compartilhe seu link. Cada cadastro te move 10 posições para cima.",
     "shareExplanation": "Quanto antes a gente lançar, antes isso vira realidade.",
     "referralLinkLabel": "Seu link pessoal:",
     "copy": "Copiar link",
     "copied": "Copiado!",
-    "dreamModeCta": "Experimentar o Modo Sonho",
-    "exploreCta": "Explorar o que vem por aí"
+    "dreamModeCta": "Experimente o Dream Mode enquanto espera"
   },
   "referral": {
     "movedUp": "Você subiu {spots} posições!",

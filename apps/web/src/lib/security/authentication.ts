@@ -5,6 +5,7 @@
  * for securing internal and admin endpoints.
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
@@ -34,7 +35,7 @@ export function validateApiKey(
   // Check if API key is configured
   if (!internalApiKey) {
     if (process.env.NODE_ENV === 'production') {
-      console.error('[Auth] INTERNAL_API_KEY not configured in production');
+      Logger.error('[Auth] INTERNAL_API_KEY not configured in production');
       return {
         authenticated: false,
         error: 'Server configuration error',
@@ -103,7 +104,7 @@ function logAuthFailure(request: Request, reason: string): void {
 
   const path = new URL(request.url).pathname;
 
-  console.warn(`[Auth] Failed authentication: ${reason}`, {
+  Logger.warn(`[Auth] Failed authentication: ${reason}`, {
     ip,
     path,
     userAgent: request.headers.get('user-agent'),

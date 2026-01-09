@@ -9,10 +9,10 @@
 
 'use client';
 
+import { Logger } from '@/lib/monitoring/Logger';
 import React, { useMemo } from 'react';
 import { getStickyFeaturesNavVariant } from './variants/registry';
-import { STICKY_FEATURES_NAV_CONFIGS } from '@/config/stickyFeaturesNav';
-import type { StickyFeaturesNavVariantConfig } from '@/config/stickyFeaturesNav';
+import { STICKY_FEATURES_NAV_CONFIGS, type StickyFeaturesNavVariantConfig } from '@/config/stickyFeaturesNav';
 
 export interface StickyFeaturesNavFactoryProps {
   /**
@@ -125,7 +125,7 @@ export function StickyFeaturesNavFactory({
   // Security: Validate configuration in development
   if (process.env.NODE_ENV === 'development') {
     if (!resolvedConfig.categories || resolvedConfig.categories.length === 0) {
-      console.warn(
+      Logger.warn(
         '[StickyFeaturesNavFactory] No categories provided in configuration'
       );
     }
@@ -146,10 +146,7 @@ export function StickyFeaturesNavFactory({
   try {
     return <VariantComponent {...variantProps} />;
   } catch (error) {
-    console.error(
-      `Failed to render StickyFeaturesNav variant '${variant}':`,
-      error
-    );
+    Logger.error(`Failed to render StickyFeaturesNav variant '${variant}'`, {}, error instanceof Error ? error : undefined);
 
     // Fallback to default variant
     const DefaultVariant = getStickyFeaturesNavVariant('default');

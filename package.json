@@ -16,6 +16,9 @@
     "dev:web": "turbo run dev --filter=web",
     "dev:app": "turbo run dev --filter=app",
     "dev:business": "turbo run dev --filter=business",
+    "dev:clean": "lsof -ti:3000 | xargs kill 2>/dev/null; pnpm -w run dev:web",
+    "dev:reset": "rm -rf apps/web/.next .turbo && pnpm -w run dev:web",
+    "dev:fresh": "rm -rf apps/web/.next .turbo && pnpm --filter @diboas/i18n build && pnpm -w run dev:web",
     "performance:audit": "turbo run lighthouse",
     "accessibility:audit": "turbo run pa11y",
     "security:audit": "pnpm audit --audit-level moderate",
@@ -24,12 +27,12 @@
     "audit:ci": "bash scripts/pre-launch-audit.sh --ci"
   },
   "devDependencies": {
-    "@types/node": "^20.5.0",
+    "@types/node": "^25.0.3",
     "ajv": "^8.17.1",
-    "eslint": "^9.0.0",
-    "prettier": "^3.0.2",
-    "turbo": "^2.6.3",
-    "typescript": "^5.2.2"
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "turbo": "^2.7.3",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -42,7 +45,8 @@
       "glob": "^10.5.0",
       "next@<15.5.8": ">=15.5.8",
       "tmp@<=0.2.3": ">=0.2.4",
-      "qs@<6.14.1": ">=6.14.1"
+      "qs@<6.14.1": ">=6.14.1",
+      "preact@<10.28.2": ">=10.28.2"
     }
   }
 }

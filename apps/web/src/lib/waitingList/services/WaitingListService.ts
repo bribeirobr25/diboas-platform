@@ -23,7 +23,7 @@ import {
 } from '../domain/WaitingListDomain';
 import {
   WAITING_LIST_CONFIG,
-  VALIDATION_PATTERNS,
+  VALIDATION_PATTERNS as _VALIDATION_PATTERNS,
   ERROR_CODES,
   SANITIZATION_CONFIG,
 } from '../constants';
@@ -42,6 +42,10 @@ import {
   ErrorSeverity,
   ErrorCategory,
 } from '@/lib/errors/ErrorReportingService';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
 
 // LocalStorage Repository Implementation
 class LocalStorageRepository implements WaitingListRepository {
@@ -196,8 +200,35 @@ export class WaitingListService implements WaitingListDomainService {
       // 6. Persist submission
       const result = await this.repository.save(submission);
 
+      // 7. Emit success event for analytics, audit logging, and future webhooks
+      applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {
+        source: 'waitlist',
+        timestamp: Date.now(),
+        submissionId: submission.id,
+        locale: sanitizedInput.locale,
+        hasName: !!sanitizedInput.name,
+        hasXAccount: !!sanitizedInput.xAccount,
+        referralCode: undefined, // Add referral code support when available
+        metadata: {
+          consentVersion: this.config.consentVersion,
+          privacyPolicyVersion: this.config.privacyPolicyVersion,
+        },
+      });
+
       return result;
     } catch (error) {
+      // Emit failure event for tracking
+      applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_FAILED, {
+        source: 'waitlist',
+        timestamp: Date.now(),
+        metadata: {
+          errorType: error instanceof WaitingListValidationError ? 'validation' :
+                     error instanceof WaitingListDuplicateError ? 'duplicate' :
+                     error instanceof WaitingListStorageError ? 'storage' : 'unknown',
+          locale: input.locale,
+        },
+      });
+
       // P12: Report unexpected errors (not validation or duplicate errors)
       if (
         !(error instanceof WaitingListValidationError) &&

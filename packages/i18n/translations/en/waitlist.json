@@ -21,13 +21,12 @@
     "positionIntro": "Your position:",
     "positionFormat": "#{position}",
     "shareIntro": "Want to move up?",
-    "shareBenefit": "Share your link — each signup moves you up {spots} spots",
+    "shareBenefit": "Share your link. Each signup moves you up 10 spots.",
     "shareExplanation": "The sooner we launch, the sooner this becomes real.",
     "referralLinkLabel": "Your personal link:",
     "copy": "Copy link",
     "copied": "Copied!",
-    "dreamModeCta": "Try Dream Mode while you wait",
-    "exploreCta": "Explore what's coming"
+    "dreamModeCta": "Try Dream Mode while you wait"
   },
   "referral": {
     "movedUp": "You moved up {spots} spots!",
@@ -45,7 +44,7 @@
   "card": {
     "headline": "I'M #{position} ON THE DIBOAS WAITLIST",
     "bodyLine1": "Banks earn 7% with our savings.",
-    "bodyLine2": "They pay us 0.5%.",
+    "bodyLine2": "They pay us 0.4%.",
     "bodyLine3": "That gap? It's been there the whole time.",
     "ctaIntro": "Join me:",
     "hashtag": "#WhileISlept"

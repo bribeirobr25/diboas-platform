@@ -103,7 +103,7 @@ export function FeatureShowcaseDefault({
           timestamp: new Date().toISOString()
         });
       } catch (error) {
-        console.warn('Failed to track showcase CTA click:', error);
+        // Analytics tracking failed silently:  showcase CTA click:', error);
       }
     }
     

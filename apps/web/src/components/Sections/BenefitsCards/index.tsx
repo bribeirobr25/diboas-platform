@@ -75,9 +75,7 @@ export function BenefitsCardsSection({
 
   // Fallback to default variant if unknown variant is requested
   if (!VariantComponent) {
-    console.warn(
-      `BenefitsCards: Unknown variant "${variant}". Falling back to "default".`
-    );
+    // Unknown variant - fallback to default
     return (
       <BenefitsCardsDefault
         config={translatedConfig}

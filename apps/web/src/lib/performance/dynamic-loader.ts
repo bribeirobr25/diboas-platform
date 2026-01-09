@@ -9,7 +9,7 @@
  * No Hard coded values: All configuration through design tokens
  */
 
-import { lazy, ComponentType, Suspense, ReactNode, createElement } from 'react';
+import React, { lazy, ComponentType, ReactNode } from 'react';
 import { Logger } from '@/lib/monitoring/Logger';
 
 // Type definitions for Service Agnostic Abstraction
@@ -22,7 +22,7 @@ export interface DynamicLoaderConfig {
   /**
    * Fallback component for error handling
    */
-  fallback?: ComponentType<any>;
+  fallback?: ComponentType<Record<string, unknown>>;
   
   /**
    * Retry attempts for error recovery
@@ -58,9 +58,12 @@ export interface LoaderMetrics {
  * 
  * Implements sophisticated loading strategies for optimal performance
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyComponentType = ComponentType<any>;
+
 export class DynamicComponentLoader {
   private static instance: DynamicComponentLoader;
-  private loadingCache = new Map<string, Promise<ComponentType<any>>>();
+  private loadingCache = new Map<string, Promise<AnyComponentType>>();
   private preloadCache = new Set<string>();
   private metrics: LoaderMetrics[] = [];
   
@@ -78,7 +81,7 @@ export class DynamicComponentLoader {
    * Performance & SEO Optimization: Multiple loading strategies
    * Error Handling & System Recovery: Retry logic and fallbacks
    */
-  public async loadComponent<T = any>(
+  public async loadComponent<T = Record<string, unknown>>(
     componentPath: string,
     config: DynamicLoaderConfig = {}
   ): Promise<ComponentType<T>> {
@@ -91,7 +94,7 @@ export class DynamicComponentLoader {
     } = config;
     
     const startTime = performance.now();
-    let retryCount = 0;
+    const retryCount = 0;
     
     // Check cache first for performance
     if (this.loadingCache.has(componentPath)) {
@@ -132,7 +135,7 @@ export class DynamicComponentLoader {
     startTime: number,
     strategy: string,
     enableMonitoring: boolean,
-    fallback?: ComponentType<any>
+    fallback?: ComponentType<Record<string, unknown>>
   ): Promise<ComponentType<T>> {
     try {
       // Create timeout promise for error handling
@@ -217,10 +220,10 @@ export class DynamicComponentLoader {
    * Create lazy component with Suspense wrapper
    * Performance & SEO Optimization: Lazy loading with proper boundaries
    */
-  public createLazyComponent<T = any>(
+  public createLazyComponent<T = Record<string, unknown>>(
     componentPath: string,
     config: DynamicLoaderConfig = {}
-  ): any {
+  ): React.LazyExoticComponent<ComponentType<T>> {
     return lazy(() => 
       this.loadComponent<T>(componentPath, config)
         .then(Component => ({ default: Component }))
@@ -294,9 +297,9 @@ export const dynamicLoader = DynamicComponentLoader.getInstance();
  * Hook for React components to use dynamic loading
  * Service Agnostic Abstraction: Clean React integration
  */
-export function useDynamicComponent<T = any>(
+export function useDynamicComponent<T = Record<string, unknown>>(
   componentPath: string,
   config: DynamicLoaderConfig = {}
-) {
+): React.LazyExoticComponent<ComponentType<T>> {
   return dynamicLoader.createLazyComponent<T>(componentPath, config);
 }

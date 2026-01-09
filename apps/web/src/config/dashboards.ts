@@ -34,6 +34,107 @@ export interface Dashboard {
 }
 
 /**
+ * Grafana dashboard panel configuration
+ */
+export interface GrafanaPanel {
+  id: number;
+  title: string;
+  type: string;
+  gridPos: {
+    h: number;
+    w: number;
+    x: number;
+    y: number;
+  };
+  targets: Array<{
+    expr: string;
+    interval: string;
+    legendFormat: string;
+  }>;
+  fieldConfig: {
+    defaults: {
+      thresholds: {
+        steps: Array<{
+          color: string;
+          value: number | null | undefined;
+        }>;
+      };
+    };
+  };
+}
+
+/**
+ * Grafana dashboard export format
+ */
+export interface GrafanaDashboardExport {
+  dashboard: {
+    id: null;
+    title: string;
+    description: string;
+    tags: string[];
+    refresh: string;
+    time: {
+      from: string;
+      to: string;
+    };
+    panels: GrafanaPanel[];
+  };
+  folderId: number;
+  overwrite: boolean;
+}
+
+/**
+ * DataDog widget definition
+ */
+export interface DataDogWidget {
+  definition: {
+    title: string;
+    type: string;
+    requests: Array<{
+      q: string;
+      display_type: string;
+    }>;
+  };
+  layout: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+}
+
+/**
+ * DataDog dashboard export format
+ */
+export interface DataDogDashboardExport {
+  title: string;
+  description: string;
+  widgets: DataDogWidget[];
+  layout_type: string;
+  is_read_only: boolean;
+  notify_list: string[];
+  template_variables: unknown[];
+}
+
+/**
+ * New Relic dashboard widget
+ */
+export interface NewRelicWidget {
+  title: string;
+  visualization: string | undefined;
+  nrql: string;
+}
+
+/**
+ * New Relic dashboard export format
+ */
+export interface NewRelicDashboardExport {
+  name: string;
+  description: string;
+  widgets: NewRelicWidget[];
+}
+
+/**
  * Business Metrics Dashboard
  * Focus: User engagement, conversion, business KPIs
  */
@@ -437,7 +538,7 @@ export const DASHBOARD_INTEGRATIONS = {
 /**
  * Generate Grafana dashboard JSON
  */
-export function generateGrafanaDashboard(dashboard: Dashboard): any {
+export function generateGrafanaDashboard(dashboard: Dashboard): GrafanaDashboardExport {
   return {
     dashboard: {
       id: null,
@@ -485,7 +586,7 @@ export function generateGrafanaDashboard(dashboard: Dashboard): any {
 /**
  * Generate DataDog dashboard JSON
  */
-export function generateDataDogDashboard(dashboard: Dashboard): any {
+export function generateDataDogDashboard(dashboard: Dashboard): DataDogDashboardExport {
   return {
     title: dashboard.name,
     description: dashboard.description,
@@ -516,9 +617,9 @@ export function generateDataDogDashboard(dashboard: Dashboard): any {
  * Export dashboard configurations for external tools
  */
 export function exportDashboardConfigs(): {
-  grafana: any[];
-  datadog: any[];
-  newrelic: any[];
+  grafana: GrafanaDashboardExport[];
+  datadog: DataDogDashboardExport[];
+  newrelic: NewRelicDashboardExport[];
 } {
   return {
     grafana: AVAILABLE_DASHBOARDS.map(generateGrafanaDashboard),

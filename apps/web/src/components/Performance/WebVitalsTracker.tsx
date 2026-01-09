@@ -15,16 +15,18 @@ import { performanceService } from '@/lib/performance/services/PerformanceServic
 import { WebVitalMetric } from '@/lib/performance/domain/PerformanceDomain';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { Logger } from '@/lib/monitoring/Logger';
+import {
+  getRating,
+  getConnectionType,
+  sendToGoogleAnalytics,
+  trackWebVitalsLoadError,
+} from './webVitalsUtils';
+
+// Re-export the hook for external use
+export { usePerformanceTracking } from './usePerformanceTracking';
 
 interface WebVitalsTrackerProps {
-  /**
-   * Enable debug logging for development
-   */
   debug?: boolean;
-  
-  /**
-   * Sample rate for tracking (0-1, where 1 = 100%)
-   */
   sampleRate?: number;
 }
 
@@ -35,7 +37,6 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
   const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    // GDPR Compliance: Check for consent
     const checkConsent = () => {
       const consent = hasAnalyticsConsent();
       setHasConsent(consent);
@@ -45,10 +46,8 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
       }
     };
 
-    // Check initial consent
     checkConsent();
 
-    // Listen for consent changes
     const handleConsentChange = () => {
       checkConsent();
     };
@@ -61,81 +60,38 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
   }, [debug]);
 
   useEffect(() => {
-    // GDPR Compliance: Don't track without consent
     if (!hasConsent) {
       if (debug) Logger.debug('WebVitals: Tracking disabled - no consent');
       return;
     }
 
-    // Performance: Only track if within sample rate
     if (Math.random() > sampleRate) {
       if (debug) Logger.debug('WebVitals: Skipped due to sample rate');
       return;
     }
 
-    // Prevent duplicate tracking
     if (isTracking.current) return;
     isTracking.current = true;
 
-    let webVitalsModule: any = null;
-
-    // Dynamic import for better performance
-    const loadWebVitals = async () => {
+    const handleMetric = async (metric: { name: string; value: number; id: string; rating?: string; delta: number }) => {
       try {
-        webVitalsModule = await import('web-vitals');
-        
-        if (debug) Logger.debug('WebVitals: Module loaded successfully');
-        
-        // Track Core Web Vitals
-        webVitalsModule.onFCP(handleMetric);
-        webVitalsModule.onLCP(handleMetric);
-        webVitalsModule.onFID?.(handleMetric); // FID might not be available in newer versions
-        webVitalsModule.onCLS(handleMetric);
-        webVitalsModule.onTTFB(handleMetric);
-        
-        // Track INP if available (newer metric)
-        if (webVitalsModule.onINP) {
-          webVitalsModule.onINP(handleMetric);
-        }
-
-      } catch (error) {
-        // Error Handling: Graceful fallback if web-vitals fails to load
-        Logger.error('Failed to load web-vitals library', {}, error instanceof Error ? error : undefined);
-        
-        // Track the error for monitoring
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'web_vitals_load_error', {
-            event_category: 'Performance',
-            event_label: 'library_load_failed',
-            error_message: error instanceof Error ? error.message : 'Unknown error'
-          });
-        }
-      }
-    };
-
-    // Handle individual metrics
-    const handleMetric = async (metric: any) => {
-      try {
-        // Prevent duplicate tracking of the same metric
         const metricKey = `${metric.name}-${metric.id}`;
         if (trackedMetrics.current.has(metricKey)) {
           return;
         }
         trackedMetrics.current.add(metricKey);
 
-        // Convert web-vitals metric to our domain model
         const webVitalMetric: WebVitalMetric = {
           name: metric.name as 'FCP' | 'LCP' | 'FID' | 'CLS' | 'TTFB' | 'INP',
           value: metric.value,
           timestamp: new Date(),
           url: pathname,
-          rating: metric.rating || getRating(metric.name, metric.value),
+          rating: (metric.rating as 'good' | 'needs-improvement' | 'poor') || getRating(metric.name, metric.value),
           delta: metric.delta,
           userAgent: navigator.userAgent,
           connectionType: getConnectionType(),
         };
 
-        // Track through our performance service
         await performanceService.trackWebVital(webVitalMetric);
 
         if (debug) {
@@ -147,100 +103,47 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
           });
         }
 
-        // Send to external analytics (Google Analytics, etc.)
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', metric.name, {
-            event_category: 'Web Vitals',
-            event_label: pathname,
-            value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-            custom_map: {
-              metric_rating: webVitalMetric.rating,
-              metric_delta: metric.delta,
-            }
-          });
-        }
+        sendToGoogleAnalytics(
+          metric.name,
+          metric.value,
+          webVitalMetric.rating,
+          pathname,
+          metric.delta
+        );
 
       } catch (error) {
-        // Error Handling: Don't let tracking errors break the app
         Logger.error(`Failed to track ${metric.name}`, { metric: metric.name }, error instanceof Error ? error : undefined);
       }
     };
 
-    // Load and initialize web-vitals
+    const loadWebVitals = async () => {
+      try {
+        const webVitalsModule = await import('web-vitals');
+
+        if (debug) Logger.debug('WebVitals: Module loaded successfully');
+
+        webVitalsModule.onFCP(handleMetric);
+        webVitalsModule.onLCP(handleMetric);
+        webVitalsModule.onCLS(handleMetric);
+        webVitalsModule.onTTFB(handleMetric);
+
+        if (webVitalsModule.onINP) {
+          webVitalsModule.onINP(handleMetric);
+        }
+
+      } catch (error) {
+        Logger.error('Failed to load web-vitals library', {}, error instanceof Error ? error : undefined);
+        trackWebVitalsLoadError(error);
+      }
+    };
+
     loadWebVitals();
 
-    // Cleanup
     return () => {
       isTracking.current = false;
       trackedMetrics.current.clear();
     };
   }, [pathname, debug, sampleRate, hasConsent]);
 
-  // This component doesn't render anything
   return null;
-}
-
-// Helper functions
-
-/**
- * Get performance rating based on metric thresholds
- */
-function getRating(metricName: string, value: number): 'good' | 'needs-improvement' | 'poor' {
-  const thresholds: Record<string, { good: number; poor: number }> = {
-    FCP: { good: 1800, poor: 3000 },
-    LCP: { good: 2500, poor: 4000 },
-    FID: { good: 100, poor: 300 },
-    CLS: { good: 0.1, poor: 0.25 },
-    TTFB: { good: 600, poor: 1200 },
-    INP: { good: 200, poor: 500 },
-  };
-
-  const threshold = thresholds[metricName];
-  if (!threshold) return 'good';
-
-  if (value <= threshold.good) return 'good';
-  if (value <= threshold.poor) return 'needs-improvement';
-  return 'poor';
-}
-
-/**
- * Get connection type information
- */
-function getConnectionType(): string | undefined {
-  if (typeof navigator !== 'undefined' && 'connection' in navigator) {
-    const connection = (navigator as any).connection;
-    return connection?.effectiveType || connection?.type;
-  }
-  return undefined;
-}
-
-/**
- * Hook for manual performance tracking
- */
-export function usePerformanceTracking() {
-  const pathname = usePathname();
-
-  const trackCustomMetric = async (name: string, value: number) => {
-    try {
-      await performanceService.trackCustomMetric({
-        name,
-        value,
-        timestamp: new Date(),
-        url: pathname,
-        userAgent: navigator.userAgent,
-      });
-    } catch (error) {
-      Logger.error('Failed to track custom metric', { name }, error instanceof Error ? error : undefined);
-    }
-  };
-
-  const trackTiming = (name: string, startTime: number) => {
-    const duration = performance.now() - startTime;
-    trackCustomMetric(name, duration);
-  };
-
-  return {
-    trackCustomMetric,
-    trackTiming,
-  };
 }

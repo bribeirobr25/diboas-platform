@@ -21,9 +21,9 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
   variant: 'fullBackground',
   content: {
     title: 'landing-b2b.hero.headline',
-    description: 'landing-b2b.hero.valueProp',
+    description: 'landing-b2b.hero.subheadline',
     ctaText: 'landing-b2b.hero.cta',
-    ctaHref: '#final-cta',
+    ctaHref: '#the-math',
     ctaTarget: '_self'
   },
   backgroundAssets: {
@@ -103,25 +103,12 @@ export const B2B_CALCULATOR_CONFIG = {
 
 /**
  * How It Works Section Configuration (AppFeaturesCarousel)
- * Maps to: Section 3 - How it works (4 steps)
+ * Maps to: Section 5 - How it works (3 steps)
  */
 export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
   variant: 'default',
   sectionTitle: 'landing-b2b.howItWorks.header',
   cards: [
-    {
-      id: 'step-connect',
-      content: {
-        title: 'landing-b2b.howItWorks.steps.connect.title',
-        description: 'landing-b2b.howItWorks.steps.connect.description'
-      },
-      assets: {
-        image: getSocialRealAsset('BUSINESS_PAYMENT')
-      },
-      seo: {
-        imageAlt: 'Connect business bank account'
-      }
-    },
     {
       id: 'step-set-floor',
       content: {
@@ -579,7 +566,7 @@ export const B2B_ORIGIN_STORY_CONFIG: FeatureShowcaseVariantConfig = {
 export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2b.fitAssessment.header',
-    description: 'landing-b2b.fitAssessment.honestNote',
+    description: 'landing-b2b.fitAssessment.intro',
     backgroundColor: 'light-purple'
   },
   cards: [
