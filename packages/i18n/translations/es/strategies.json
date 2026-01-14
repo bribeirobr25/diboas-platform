@@ -4,14 +4,14 @@
     "description": "10 estrategias. Diferentes objetivos. Diferentes plazos. Diferentes niveles de riesgo. Encuentra la estrategia que se adapta a tu vida."
   },
   "hero": {
-    "headline": "Encuentra la estrategia que se adapta a tu vida",
-    "subheadline": "10 estrategias. Diferentes objetivos. Diferentes plazos. Diferentes niveles de riesgo.",
-    "subheadline2": "Ninguna estrategia es \"la mejor.\" La mejor es la que coincide con dónde estás y hacia dónde vas.",
-    "trustLine": "Todas las estrategias usan sistemas sólidos que han asegurado miles de millones durante años. Las probamos en 4 años de datos reales del mercado — mercados alcistas y bajistas, caídas y recuperaciones, y todo lo demás."
+    "headline": "El acceso que te negaron. Ahora es todo tuyo.",
+    "subheadline": "10 estrategias. Diferentes objetivos. Diferentes niveles de riesgo. Ninguna es \"la mejor.\" La mejor es la que coincide con dónde estás y adónde quieres llegar.",
+    "subheadline2": "",
+    "trustLine": "Probadas en 4 años de datos reales. Caídas, recuperaciones, todo. Construidas sobre sistemas que han asegurado miles de millones durante años."
   },
   "matrix": {
-    "header": "Elige tu camino",
-    "instructions": "Elige tu objetivo a la izquierda. Luego decide: ¿solo rendimientos estables, o abierto a potencial de crecimiento?",
+    "header": "Elige tu estrategia",
+    "instructions": "Objetivos a la izquierda. Cuánto quieres arriesgar y crecer, a la derecha.",
     "columns": {
       "goal": "Tu Objetivo",
       "stable": "Rendimientos Estables",
@@ -24,7 +24,7 @@
       "longTerm": { "goal": "Largo Plazo (5-10 años)", "stable": "Steady Compounder", "growth": "Wealth Accelerator" },
       "wealthBuilding": { "goal": "Construcción de Riqueza (10+ años)", "stable": "Yield Maximizer", "growth": "Full Throttle" }
     },
-    "note": "¿No estás seguro? Empieza con Safe Harbor. Está diseñada para personas que quieren entender cómo funciona esto antes de comprometer más. Siempre puedes cambiar después."
+    "note": "¿No estás seguro? Empieza con **Safe Harbor**. Aprende primero. Cambia cuando quieras."
   },
   "strategies": {
     "safeHarbor": {
@@ -202,8 +202,8 @@
   "allStrategiesHeader": "Las 10 Estrategias",
   "growthBadge": "Crecimiento",
   "howToChoose": {
-    "header": "¿No sabes por dónde empezar?",
-    "intro": "Aquí hay un marco simple:",
+    "header": "Empieza aquí",
+    "intro": "",
     "question1": {
       "title": "¿Para qué es este dinero?",
       "options": {
@@ -216,20 +216,20 @@
     "question2": {
       "title": "¿Cómo te sientes con las oscilaciones de precio?",
       "options": {
-        "none": "\"No quiero ninguna\" → Quédate en la columna de Rendimientos Estables",
-        "understand": "\"Las entiendo y puedo esperar las caídas\" → Considera la columna de Potencial de Crecimiento",
-        "unsure": "\"No estoy seguro\" → Empieza estable. Aprende. Siempre puedes agregar exposición a crecimiento después."
+        "none": "\"No quiero ninguna\" → Quédate en la columna Rendimientos Estables",
+        "understand": "\"Las entiendo y puedo esperar a que pasen\" → Considera la columna Potencial de Crecimiento",
+        "unsure": "\"No estoy seguro\" → Empieza estable. Aprende. Añade crecimiento después."
       }
     },
     "question3": {
       "title": "¿Qué harías si tu saldo cayera 20%?",
       "options": {
         "panic": "\"Entraría en pánico y retiraría\" → Solo estrategias de Rendimientos Estables",
-        "wait": "\"Esperaría a que se recupere\" → Estrategias de crecimiento bajo-medio",
-        "addMore": "\"Agregaría más dinero\" → Podrías estar listo para mayor exposición a crecimiento"
+        "wait": "\"Esperaría a que se recupere\" → Estrategias de crecimiento bajo a medio",
+        "addMore": "\"Pondría más dinero\" → Quizás estés listo para más exposición al crecimiento"
       }
     },
-    "goldenRule": "En caso de duda, empieza conservador. Siempre puedes subir en el espectro de riesgo. No puedes deshacer pérdidas de estrategias para las que no estabas listo."
+    "goldenRule": "En la duda, empieza seguro. Siempre puedes subir después."
   },
   "faq": {
     "header": "Preguntas sobre estrategias",
@@ -265,15 +265,15 @@
     }
   },
   "futureYouConnection": {
-    "header": "Mira cómo podría crecer",
-    "body": "¿Elegiste tu estrategia? Usa la Calculadora Tu Futuro para ver en qué podría convertirse tu inversión con el tiempo.",
-    "cta": "Ir a la Calculadora"
+    "header": "Mira lo que es posible",
+    "body": "Tu yo del futuro te lo agradecerá",
+    "cta": "Muéstrame →"
   },
   "finalCta": {
-    "header": "¿Listo para elegir tu camino?",
-    "body": "Únete a la lista de espera. Cuando lancemos, serás de los primeros en poner tu estrategia a trabajar.",
-    "cta": "Únete a la lista — es gratis →",
-    "position": "⏰ Eres el #{position} para acceso anticipado"
+    "header": "¿Listo para elegir?",
+    "body": "Súmate. Tu estrategia empieza a trabajar cuando lancemos.",
+    "cta": "Quiero acceso →",
+    "position": "⏰ Eres #{position} en la fila"
   },
   "footer": {
     "disclaimer": "Todos los datos de rendimiento se basan en análisis histórico (Mayo 2022 - Diciembre 2025) y miles de simulaciones. El rendimiento pasado no garantiza resultados futuros. Tu dinero se coloca en sistemas automatizados que conllevan riesgo técnico, riesgo de mercado y riesgo de liquidez. Las estrategias de crecimiento implican riesgo adicional de volatilidad de precios. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados."

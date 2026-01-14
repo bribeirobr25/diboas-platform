@@ -118,9 +118,6 @@ export function DemoEmbedDefault({
           <HeadingTag className={styles.title}>
             {intl.formatMessage({ id: content.header })}
           </HeadingTag>
-          <p className={styles.subtext}>
-            {intl.formatMessage({ id: content.subtext })}
-          </p>
         </div>
 
         {/* Demo Embed Area */}

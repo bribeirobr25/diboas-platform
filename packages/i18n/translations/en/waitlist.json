@@ -1,11 +1,13 @@
 {
   "sectionTitle": "Join the waitlist",
-  "headline": "Be the first to know",
-  "subheadline": "Join the waitlist and get early access when we launch.",
+  "headline": "Ready?",
+  "subheadline": "Join the movement.",
+  "header": "Ready?",
+  "subheader": "Join the movement.",
   "form": {
     "emailPlaceholder": "Your email address",
     "emailLabel": "Email address",
-    "cta": "Join the waitlist",
+    "cta": "Get access →",
     "submitting": "Joining...",
     "privacyNote": "We'll only email you about diBoaS. Unsubscribe anytime."
   },
@@ -17,7 +19,7 @@
   },
   "confirmation": {
     "headline": "You're in!",
-    "subhead": "Welcome to the future of your finances.",
+    "subhead": "You just said enough. Welcome to the movement.",
     "positionIntro": "Your position:",
     "positionFormat": "#{position}",
     "shareIntro": "Want to move up?",
@@ -26,7 +28,7 @@
     "referralLinkLabel": "Your personal link:",
     "copy": "Copy link",
     "copied": "Copied!",
-    "dreamModeCta": "Try Dream Mode while you wait"
+    "dreamModeCta": "See what your money could do →"
   },
   "referral": {
     "movedUp": "You moved up {spots} spots!",

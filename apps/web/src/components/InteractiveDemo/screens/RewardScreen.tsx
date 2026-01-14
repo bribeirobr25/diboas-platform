@@ -14,7 +14,7 @@ interface RewardScreenProps {
   selectedAmount: number;
   animatedBalance: number;
   rewardStep: number;
-  formatCurrency: (value: number, decimals?: number) => string;
+  formatCurrencyRaw: (value: number, decimals?: number) => string;
   onContinue: () => void;
   t: (id: string, values?: Record<string, string>) => string;
 }
@@ -23,7 +23,7 @@ export function RewardScreen({
   selectedAmount,
   animatedBalance,
   rewardStep,
-  formatCurrency,
+  formatCurrencyRaw,
   onContinue,
   t,
 }: RewardScreenProps) {
@@ -35,14 +35,14 @@ export function RewardScreen({
       {/* Progressive balance reveal - 2 decimals for clarity */}
       <div className={styles.balanceProgression}>
         {/* Initial balance - always visible */}
-        <span className={styles.smallBalance}>{formatCurrency(selectedAmount, 2)}</span>
+        <span className={styles.smallBalance}>{formatCurrencyRaw(selectedAmount, 2)}</span>
 
         {/* Step 1: First growth */}
         {rewardStep >= 1 && (
           <>
             <span className={`${styles.smallArrow} ${styles.fadeIn}`}>↓</span>
             <span className={`${styles.smallBalance} ${styles.fadeIn}`}>
-              {formatCurrency(selectedAmount + GROWTH_STEPS[0], 2)}
+              {formatCurrencyRaw(selectedAmount + GROWTH_STEPS[0], 2)}
             </span>
           </>
         )}
@@ -52,7 +52,7 @@ export function RewardScreen({
           <>
             <span className={`${styles.smallArrow} ${styles.fadeIn}`}>↓</span>
             <span className={`${styles.smallBalance} ${styles.fadeIn}`}>
-              {formatCurrency(selectedAmount + GROWTH_STEPS[1], 2)}
+              {formatCurrencyRaw(selectedAmount + GROWTH_STEPS[1], 2)}
             </span>
           </>
         )}
@@ -66,7 +66,7 @@ export function RewardScreen({
       {/* Final value - revealed at step 3 */}
       {rewardStep >= 3 && (
         <div className={`${styles.finalBalance} ${styles.fadeIn}`}>
-          {formatCurrency(animatedBalance, 2)}
+          {formatCurrencyRaw(animatedBalance, 2)}
         </div>
       )}
 
@@ -74,7 +74,7 @@ export function RewardScreen({
       {rewardStep >= 3 && (
         <p className={`${styles.delight} ${styles.fadeIn}`}>
           {t('landing-b2c.demo.reward.delight', {
-            earned: formatCurrency(GROWTH_STEPS[2], 2)
+            earned: formatCurrencyRaw(GROWTH_STEPS[2], 2)
           })}
         </p>
       )}

@@ -72,9 +72,12 @@ export function AccordionItem({
         aria-labelledby={`faq-header-${item.id}`}
         hidden={!isExpanded}
       >
-        <p className={styles.answer}>
-          {intl.formatMessage({ id: item.answer })}
-        </p>
+        <div
+          className={styles.answer}
+          dangerouslySetInnerHTML={{
+            __html: intl.formatMessage({ id: item.answer }).replace(/\n/g, '<br />')
+          }}
+        />
       </div>
     </div>
   );

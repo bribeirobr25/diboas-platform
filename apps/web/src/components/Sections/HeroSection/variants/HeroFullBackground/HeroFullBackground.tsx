@@ -91,9 +91,12 @@ export function HeroFullBackground({
           </h1>
 
           {config.content.description && (
-            <p className={styles.description}>
-              {config.content.description}
-            </p>
+            <p
+              className={styles.description}
+              dangerouslySetInnerHTML={{
+                __html: config.content.description.replace(/\n/g, '<br />')
+              }}
+            />
           )}
 
           <div className={styles.ctaWrapper}>

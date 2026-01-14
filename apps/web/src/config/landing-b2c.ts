@@ -13,7 +13,6 @@ import type { FAQAccordionVariantConfig, FAQItem } from './faqAccordion';
 import type { HeroVariantConfig } from './hero';
 import type { FeatureShowcaseVariantConfig } from './featureShowcase';
 import type { ProductCarouselVariantConfig } from './productCarousel';
-import type { BgHighlightConfig } from '@/components/Sections/BgHighlight';
 import type { DemoEmbedConfig } from '@/components/Sections/DemoEmbed';
 import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards';
 
@@ -56,9 +55,9 @@ export const B2C_PROBLEM_CONFIG: FeatureShowcaseVariantConfig = {
     {
       id: 'problem-savings',
       content: {
-        title: 'landing-b2c.problem.header',
-        description: 'landing-b2c.problem.body',
-        ctaText: 'landing-b2c.problem.cta',
+        title: 'landing-b2c.hero.headline',
+        description: 'landing-b2c.hero.subheadline',
+        ctaText: 'landing-b2c.hero.cta',
         ctaHref: '#how-it-works',
         ctaTarget: '_self'
       },
@@ -141,8 +140,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
 export const B2C_FEATURES_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2c.features.header',
-    description: 'landing-b2c.features.intro',
-    backgroundColor: 'light-purple'
+    backgroundColor: 'white'
   },
   cards: [
     {
@@ -194,9 +192,9 @@ export const B2C_ORIGIN_STORY_CONFIG: FeatureShowcaseVariantConfig = {
     {
       id: 'origin-story',
       content: {
-        title: 'landing-b2c.whyWeBuiltThis.header',
-        description: 'landing-b2c.whyWeBuiltThis.story',
-        ctaText: 'landing-b2c.whyWeBuiltThis.signature',
+        title: 'landing-b2c.origin.header',
+        description: 'landing-b2c.origin.body',
+        ctaText: 'landing-b2c.origin.signature',
         ctaHref: '#how-it-works',
         ctaTarget: '_self'
       },
@@ -349,31 +347,6 @@ export const B2C_FAQ_CONFIG: FAQAccordionVariantConfig = {
     enabled: true
   }
 };
-
-/**
- * Final CTA Section Configuration (BgHighlight)
- * Maps to: Section 6 - Final CTA
- */
-export const B2C_FINAL_CTA_CONFIG: BgHighlightConfig = {
-  backgroundImage: {
-    src: getSocialRealAsset('LIFE_NATURE'),
-    alt: 'landing-b2c.finalCta.header'
-  },
-  content: {
-    title: 'landing-b2c.finalCta.header',
-    description: 'landing-b2c.finalCta.body',
-    ctaText: 'landing-b2c.finalCta.button',
-    ctaHref: '#waitlist'
-  },
-  seo: {
-    headingLevel: 'h2',
-    ariaLabel: 'Final call to action'
-  },
-  analytics: {
-    sectionId: 'final-cta-b2c',
-    category: 'landing-b2c'
-  }
-} as const;
 
 /**
  * Risk Disclaimer Configuration

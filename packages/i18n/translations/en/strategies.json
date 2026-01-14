@@ -4,14 +4,14 @@
     "description": "10 strategies. Different goals. Different timelines. Different risk levels. Find the strategy that fits your life."
   },
   "hero": {
-    "headline": "Find the strategy that fits your life",
-    "subheadline": "10 strategies. Different goals. Different timelines. Different risk levels.",
-    "subheadline2": "No strategy is \"best.\" The best one is the one that matches where you are and where you're going.",
-    "trustLine": "All strategies use solid systems that have secured billions for years. We tested them across 4 years of real market data — bull and bear markets, crashes and recoveries, and everything in between."
+    "headline": "The access they kept. Now yours to choose.",
+    "subheadline": "10 strategies. Different goals. Different risk levels. None is \"best.\" The best one matches where you are and where you wanna be.",
+    "subheadline2": "",
+    "trustLine": "Tested across 4 years of real data. Crashes, recoveries, everything. Built on systems that have secured billions for years."
   },
   "matrix": {
-    "header": "Choose your path",
-    "instructions": "Pick your goal on the left. Then decide: stable returns only, or open to growth potential?",
+    "header": "Pick your strategy",
+    "instructions": "Your goal on the left. Risk appetite on the right.",
     "columns": {
       "goal": "Your Goal",
       "stable": "Stable Returns",
@@ -44,7 +44,7 @@
         "growth": "Full Throttle"
       }
     },
-    "note": "Not sure? Start with Safe Harbor. It's designed for people who want to learn how this works before committing more. You can always switch later."
+    "note": "Not sure? Start with **Safe Harbor**. Learn first. Switch anytime."
   },
   "strategies": {
     "safeHarbor": {
@@ -210,8 +210,8 @@
   "allStrategiesHeader": "All 10 Strategies",
   "growthBadge": "Growth",
   "howToChoose": {
-    "header": "Not sure where to start?",
-    "intro": "Here's a simple framework:",
+    "header": "Start here",
+    "intro": "",
     "question1": {
       "title": "What's this money for?",
       "options": {
@@ -237,7 +237,7 @@
         "addMore": "\"I'd add more money\" → You might be ready for higher growth exposure"
       }
     },
-    "goldenRule": "When in doubt, start conservative. You can always move up the risk spectrum. You can't undo losses from strategies you weren't ready for."
+    "goldenRule": "When in doubt, start safe. You can always move up later."
   },
   "faq": {
     "header": "Questions about strategies",
@@ -273,14 +273,14 @@
     }
   },
   "futureYouConnection": {
-    "header": "See how it could grow",
-    "body": "Picked your strategy? Use the Future You Calculator to see what your investment could become over time.",
-    "cta": "Try the Calculator"
+    "header": "See what's possible",
+    "body": "Your future self will thank you",
+    "cta": "Show me →"
   },
   "finalCta": {
-    "header": "Ready to pick your path?",
-    "body": "Join the waitlist. When we launch, you'll be among the first to put your strategy to work.",
-    "cta": "Join the waitlist — it's free →",
+    "header": "Ready to choose?",
+    "body": "Join the movement. Your strategy starts working when we launch.",
+    "cta": "Get access →",
     "position": "⏰ You're #{position} in line for early access"
   },
   "footer": {

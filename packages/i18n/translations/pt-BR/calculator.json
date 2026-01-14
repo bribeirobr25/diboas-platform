@@ -15,10 +15,8 @@
   "defiYield": "Com diBoaS",
   "bankRate": "Com seu banco (6.71% da poupança)",
   "difference": "Isso é {difference} a mais com o mesmo valor mensal.",
-  "opportunityCost": "Esse é o dinheiro que você está deixando na mesa",
   "ecbSource": "Comparação bancária baseada na taxa média da poupança brasileira de 6.71% ao ano. Fonte: Banco Central do Brasil, Dezembro 2024.",
   "disclaimer": "PROJEÇÃO — Baseado em dados históricos. Resultados passados não garantem retornos futuros.",
-  "share": "Compartilhar",
   "cta": "Entrar na lista de espera",
-  "ctaSecondary": "Quer ver mais? Experimentar o Modo Sonho →"
+  "previewCta": "Calculadora do Futuro"
 }

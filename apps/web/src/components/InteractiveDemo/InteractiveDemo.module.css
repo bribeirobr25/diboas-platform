@@ -142,7 +142,7 @@
 
 .subtext {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-text-mobile);
+  font-size: 14px;
   color: var(--pc-color-subtitle);
   margin: 0;
   line-height: var(--line-height-text);
@@ -150,7 +150,7 @@
 
 .hook {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-description-mobile);
+  font-size: 16px;
   font-weight: var(--font-weight-medium);
   color: var(--pc-color-heading);
   margin: 0;
@@ -160,7 +160,7 @@
 
 .prompt {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-description-mobile);
+  font-size: 14px;
   color: var(--pc-color-subtitle);
   margin: 0;
   line-height: var(--line-height-description);
@@ -176,7 +176,7 @@
 
 .reassurance {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-text-mobile);
+  font-size: 14px;
   color: var(--fs-color-muted);
   margin: 0;
   display: flex;
@@ -279,13 +279,13 @@
 
 .smallBalance {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-text-mobile);
+  font-size: 14px;
   color: var(--pc-color-subtitle);
   font-variant-numeric: tabular-nums;
 }
 
 .smallArrow {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--cta-bg-primary);
   opacity: 0.6;
 }
@@ -315,7 +315,7 @@
   margin: var(--spacing-xs) 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-bold);
 }
 
 .projectedBalance {
@@ -421,7 +421,7 @@
 
 .vision {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-text-mobile);
+  font-size: 14px;
   color: var(--pc-color-subtitle);
   margin: 0;
   font-style: italic;

@@ -4,27 +4,39 @@
  * Action Screen (Screen 3)
  *
  * Amount selection screen
+ * Amount options are displayed without currency conversion (fixed values per locale)
  */
 
+import { useMemo } from 'react';
 import { Button } from '@diboas/ui';
 import { AMOUNT_OPTIONS } from '../constants';
 import styles from '../InteractiveDemo.module.css';
 
 interface ActionScreenProps {
+  isBrazil: boolean;
   selectedAmount: number;
-  formatCurrency: (value: number, decimals?: number) => string;
+  formatCurrencyRaw: (value: number, decimals?: number) => string;
   onSelectAmount: (amount: number) => void;
   onDeposit: () => void;
-  t: (id: string) => string;
+  t: (id: string, values?: Record<string, string>) => string;
 }
 
 export function ActionScreen({
+  isBrazil,
   selectedAmount,
-  formatCurrency,
+  formatCurrencyRaw,
   onSelectAmount,
   onDeposit,
   t,
 }: ActionScreenProps) {
+  // Get amount options based on locale
+  const amountOptions = useMemo(() =>
+    isBrazil ? AMOUNT_OPTIONS.BRAZIL : AMOUNT_OPTIONS.DEFAULT
+  , [isBrazil]);
+
+  // Get minimum amount from options, formatted with currency (no conversion)
+  const minAmount = formatCurrencyRaw(amountOptions[0], 0);
+
   return (
     <div className={styles.screen}>
       <h2 className={styles.header}>
@@ -34,10 +46,10 @@ export function ActionScreen({
         {t('landing-b2c.demo.action.prompt')}
       </p>
       <div className={styles.amountInput}>
-        {formatCurrency(selectedAmount)}
+        {formatCurrencyRaw(selectedAmount, 0)}
       </div>
       <div className={styles.amountButtons} role="group" aria-label={t('common.accessibility.selectAmount')}>
-        {AMOUNT_OPTIONS.map(amount => (
+        {amountOptions.map(amount => (
           <button
             key={amount}
             type="button"
@@ -45,12 +57,12 @@ export function ActionScreen({
             onClick={() => onSelectAmount(amount)}
             aria-pressed={selectedAmount === amount}
           >
-            {formatCurrency(amount, 0)}
+            {formatCurrencyRaw(amount, 0)}
           </button>
         ))}
       </div>
       <p className={styles.reassurance}>
-        {t('landing-b2c.demo.action.reassurance1')}
+        {t('landing-b2c.demo.action.reassurance1', { minAmount })}
       </p>
       <p className={styles.reassurance}>
         {t('landing-b2c.demo.action.reassurance2')}

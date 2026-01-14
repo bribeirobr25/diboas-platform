@@ -1,178 +1,97 @@
 {
   "hero": {
-    "headlineLine1": "The system isn't broken.",
-    "headlineLine2": "It's working exactly as designed.",
-    "headlineLine3": "Just not for you.",
-    "headline": "The system isn't broken. It's working exactly as designed. Just not for you.",
-    "subheadline": "Your bank takes your money, invests it for big profits, charges you fees, and hands you back pennies in return. There is a way to make the balance fair and get the same opportunities as institutions and billionaires with just $5.",
-    "cta": "Here's how I discovered this →",
-    "trust": "Your money stays yours. Withdraw anytime.",
-    "socialProof": "Join {count} people who decided \"enough\""
+    "headline": "The system isn't broken. It's designed this way",
+    "subheadline": "Banks make 7% with your money. Give you 0.4%. Wealthy people never accepted that deal. You had no option. Until now.",
+    "cta": "Here's how I discovered this →"
   },
   "origin": {
-    "header": "It started with my grandmother",
-    "body": "My grandmother always told me: \"Save half of what you earn.\" She lived by that rule her whole life, working hard, skipping luxuries, putting money aside.\n\nBut it wasn't enough.\n\nDoes that sound like your story?\n\nNo one explained why: Her bank gave her around 0.4% interest while making 7% off her savings. Or the reasons her fees were always higher than others with more money.\n\nPicture this: You save $1,000. The bank earns $70 from it and gives you back $4. The other $66? They keep it.\n\nThis happens every day to millions of people. That's why I'm building diBoaS to make the balance work in your favor.",
-    "soundsFamiliar": "Does that sound like your story?",
-    "bankFact": "No one explained why: Her bank gave her around 0.4% interest while making 7% off her savings.",
-    "thinkAboutIt": "Picture this: You save $1,000. The bank earns $70 from it and gives you back $4. The other $66? They keep it.",
-    "sameBank": "This happens every day to millions of people.",
-    "whyBuilding": "That's why I'm building diBoaS to make the balance work in your favor.",
-    "signature": "— Breno, Founder",
-    "cta": "Here's how it works →"
+    "header": "Because of my grandmother",
+    "body": "She saved her whole life. Half of everything she earned. Did everything right.\n\nIt still wasn't enough.\nThe system wasn't built for people like her.\nLike me. Like you.\n\n<strong>I'm building what she deserved.</strong>",
+    "signature": "— Breno, Founder"
   },
   "howItWorks": {
-    "header": "How diBoaS helps you to change it",
-    "subheader": "Get started with as little as $5. It takes just 2 minutes.",
+    "header": "How it works",
     "step1": {
       "title": "Add your money",
-      "description": "It starts earning 6-10% per year. Similar rates to what big institutions get. Now, that growth comes to you."
+      "description": "Start with $5 or $5,000. It begins earning 6-10% per year. The same access institutions have. Now yours."
     },
     "step2": {
       "title": "Watch it grow",
-      "description": "Your money works around the clock in trusted systems, building real value."
+      "description": "Your money works 24/7 in trusted systems. Real growth. Real value. Now compounding."
     },
     "step3": {
       "title": "Access anytime",
       "description": "Need your money? Tap once. Get it the same day. No waiting. No lock-ups. No penalties."
-    },
-    "footerNote": "That's it. No jargon. No complexity. Just your money, actually working for you.",
-    "cta": "But that's not all →"
-  },
-  "futureYouCalculator": {
-    "header": "What could your $20 a month turn into?",
-    "subheader": "Let me show you the possibilities for your future self.",
-    "sliderLabel": "Monthly amount you could set aside",
-    "sliderMin": "$5",
-    "sliderMax": "$500",
-    "timeButtons": {
-      "5years": "5 years",
-      "10years": "10 years",
-      "15years": "15 years",
-      "20years": "20 years"
-    },
-    "results": {
-      "intro": "In {years} years, your ${amount}/month could become:",
-      "withDiboas": "With diBoaS (8.0% per year)",
-      "withBank": "With your bank (0.4% per year)",
-      "difference": "That's ${difference} more with the same effort. Small steps, big difference over time."
-    },
-    "sourceNote": "Bank comparison based on current FDIC national average savings rate of 0.4% per year (January 2026).",
-    "disclaimer": "This is a projection based on past data. Results aren't guaranteed. Markets can change.",
-    "cta": "Join the waitlist to explore this for real"
+    }
   },
   "features": {
-    "header": "Beyond just saving. Your whole financial life.",
-    "intro": "diBoaS gives you simple control over money matters, cutting out bank fees, waits, and limits.",
+    "header": "Earn. Send. Invest. Grow.",
     "earn": {
-      "headline": "Earn real growth",
-      "body": "Your savings earn 6-10% per year on digital dollars that hold steady value, using trusted systems. Similar to institutional rates, now yours. Pull it out anytime.",
-      "stat": "Based on 4-year historical analysis. Results vary by strategy. See our Strategies page for details."
+      "headline": "Earn 6-10% per year",
+      "body": "Your money grows in trusted systems. Institutional access, now yours. Withdraw anytime."
     },
     "send": {
-      "headline": "Send money fast and free",
-      "body": "Move money to anyone worldwide in seconds. No wire charges, no bad exchange rates, no closed-bank delays. Just quick and simple.",
-      "stat": "$0 fees. Real-time. 24/7/365."
+      "headline": "Move money freely",
+      "body": "Worldwide in seconds. Anyone. Anywhere. No fees. No waits."
     },
     "invest": {
-      "headline": "Reach global opportunities",
-      "body": "Buy stocks, crypto, or other assets from anywhere. No borders, no big minimums, no gatekeepers holding you back.",
-      "stat": "Start with $5. Own a piece of anything."
+      "headline": "Invest without borders",
+      "body": "Global assets. Stocks, Gold, crypto. No borders. No permission needed."
     },
     "goals": {
-      "headline": "Build toward goals",
-      "body": "Pick what you're saving for and when. We suggest a plan that fits. Track it easily, tweak as needed. Your money moves with your life.",
-      "stat": "10 strategies across different risk levels."
-    },
-    "strategiesLink": "Explore them →",
-    "cta": "Explore all strategies →"
+      "headline": "Set goals. Hit them.",
+      "body": "Tell us what you're saving for. We'll suggest a plan. Track progress. Adjust as life changes."
+    }
   },
   "demo": {
-    "header": "Take a quick look inside",
-    "subtext": "60 seconds to see how it feels",
-    "postDemoCta": "Ready to start? Join the waitlist →",
+    "header": "Try it for yourself",
     "pain": {
       "header": "Your savings today",
-      "currentSavings": "Let's say your current savings is:",
-      "subtext": "Growth this year: {interest}",
-      "hook": "That's barely a snack. Your bank takes the rest.",
-      "cta": "What if...?"
+      "subtext": "What your bank gave you this year: {bankPays}",
+      "hook": "What they made with it: {bankEarns}",
+      "hookBrazil": "What they made with it: {bankEarns}. And the real lost {currencyLoss}% against the dollar.",
+      "cta": "with diBoaS"
     },
     "hope": {
-      "header": "What if it grew smarter?",
-      "projectionLabel": "In 1 year at 8% per year:",
-      "comparison": "That's {projected} instead of {current}.",
-      "impact": "Same amount, better spot and 20 times the growth.",
+      "header": "Same {balance}. One year later.",
+      "projectionLabel": "In 1 year at {apyRate}% per year:",
+      "comparison": "Your bank: {bankTotal}.\ndiBoaS: {diboasTotal}.\nThe gap: {difference}.",
+      "impact": "Same money. Different place. {multiplier}x the growth.",
       "cta": "Show me how"
     },
     "action": {
-      "header": "Start with one addition",
+      "header": "Try with any amount",
       "prompt": "How much to try?",
-      "reassurance1": "Any amount works.",
-      "reassurance2": "No pressure.",
+      "reassurance1": "Even {minAmount} works.",
+      "reassurance2": "No commitment.",
       "cta": "Add it"
     },
     "reward": {
-      "header": "See it growing!",
-      "delight": "You earned {earned} just now. Think what happens overnight.",
+      "header": "Watch it grow",
+      "delight": "{earned} earned. Now imagine a year.",
       "vision": "Imagine what happens while you sleep.",
-      "sharePrompt": "Pretty cool, right?",
-      "shareCta": "Share this with a friend",
       "continueCta": "Keep going"
-    },
-    "invitation": {
-      "header": "THE LEARNING IS REAL.",
-      "subheader": "The gap between what banks earn and what they pay you? That's been there the whole time.",
-      "callToAction": "Now you know what my grandma never did.",
-      "emailPlaceholder": "Your email address",
-      "submitButton": "Join the waitlist",
-      "trustPoint1": "No spam, ever",
-      "trustPoint2": "Early access when we launch",
-      "trustPoint3": "Invite friends = skip the line"
-    },
-    "screen5": {
-      "ctaAnonymous": "Join the waitlist",
-      "ctaLoggedIn": "Try Dream Mode",
-      "divider": "or",
-      "ctaSecondary": "Explore what's coming",
-      "dreamModeHelper": "Dream Mode: See what different approaches could do with your money — using real historical data."
-    },
-    "success": {
-      "header": "You're in!",
-      "positionLabel": "You're #{position} on the waitlist",
-      "incentiveHeader": "Want to skip the line?",
-      "incentiveMechanic": "Every friend who joins = you move up 10 spots.",
-      "linkBoxLabel": "Copy your invite link",
-      "shareLabel": "Or share directly:",
-      "copyLink": "Copy Link",
-      "prewrittenMessage": "Just signed up for diBoaS. Finally a way to make my savings actually grow. 8% vs my bank's 0.4%. Check it out",
-      "dreamModeHeader": "Want to dream bigger?",
-      "dreamModeCta": "Try Dream Mode",
-      "calculatorSuggestion": "Also try our Future You Calculator"
     }
   },
   "socialProof": {
     "header": "Join others saying \"enough\"",
     "stats": {
-      "waitlist": "{count} people are ready for change. Join them on the waitlist.",
-      "countries": "From {countries} countries and counting"
-    },
-    "testimonial": {
-      "quote": "Finally, something that makes sense for people like me who aren't finance experts. This feels like it was built for us.",
-      "author": "Early waitlist member"
+      "waitlist": "{count} signed up.",
+      "countries": "{countries} countries. One mission."
     }
   },
   "faq": {
     "header": "Things worth knowing",
     "description": "Straight talk on common questions about diBoaS.",
-    "ctaText": "Join the waitlist",
+    "ctaText": "Get access →",
     "items": {
       "safety": {
         "question": "Is my money secure?",
-        "answer": "Here's something most people don't know: When you put money in a bank, it's not technically \"yours\" anymore. Legally, it becomes the bank's money. They just promise to pay it back, while using it for their gains.\n\nWith diBoaS, it works differently. Your funds stay in your own wallet. We can't touch them. We just show you where to put them so your money works harder. These trusted systems have protected billions for years.\n\nAre they the same as bank deposits? No. Are they the Wild West? Also no. They're somewhere in between, and now you know enough to decide if it fits you."
+        "answer": "<strong>Here's something most people don't know:</strong> When you put money in a bank, it's not technically \"yours\" anymore. Legally, it becomes the bank's money. They just promise to pay it back, while using it for their gains.\n\n<strong>With diBoaS, it works differently.</strong> Your funds stay in your own wallet. <strong>diBoaS can't touch them.</strong> We just show you where to put them so your money works harder.\n\n<strong>These trusted systems have protected billions for years.</strong>\n\nAre they the same as bank deposits? No. Are they the Wild West? Also no. They're somewhere in between, and now you know enough to decide if it fits you."
       },
       "risks": {
         "question": "What risks should I know?",
-        "answer": "Let's be real: Bank insurance covers up to $250K, but they risk your money behind the scenes without telling you.\n\ndiBoaS uses different tech code-based systems that could have glitches or attacks. We stick to proven ones ($10B+ protected, long track records).\n\nNo zero-risk anywhere, but this is clearer. Start with what you won't miss. Even $5. Learn how it works. Then decide if it's right for you."
+        "answer": "diBoaS uses different tech: code-based systems that could have glitches or attacks. We stick to proven ones ($10B+ protected, long track records).\n\nNo zero-risk anywhere, but this is clearer. Start with what you won't miss. Even $5. Learn how it works. Then decide if it's right for you."
       },
       "withdraw": {
         "question": "Can I get my money anytime?",
@@ -198,18 +117,11 @@
     }
   },
   "waitlist": {
-    "header": "Get in early",
-    "subheader": "Be first to know when we launch.",
-    "emailPlaceholder": "Your email address",
-    "submitButton": "Join the waitlist",
-    "privacyNote": "Only diBoaS updates. No spam. Unsubscribe easily."
-  },
-  "finalCta": {
     "header": "Ready?",
-    "body": "Now you know what my grandma never did.\n\nThe system was built this way. But you don't have to accept it.\n\nWe're building something different.\n\nYour money. Your future. Your rules.",
-    "anthem": "Your money. Your future. Your rules.",
-    "button": "Join the waitlist — it's free →",
-    "footer": "You're #{position} in line for early access"
+    "subheader": "Join the movement.",
+    "emailPlaceholder": "Your email address",
+    "submitButton": "Get access →",
+    "privacyNote": "Only diBoaS updates. No spam. Unsubscribe easily."
   },
   "footer": {
     "riskDisclaimer": "diBoaS connects you to decentralized finance systems. Growth isn't promised. Past results don't predict future ones. Involves risks like code issues, market shifts, and access challenges. Use only what you can risk. Not a bank. No deposit insurance.",
@@ -221,16 +133,6 @@
       "terms": "Terms of Service",
       "risk": "Risk Disclosure"
     }
-  },
-  "problem": {
-    "header": "The system isn't broken. It's working exactly as designed.",
-    "body": "Your bank takes your money, invests it for big profits, charges you fees, and hands you back pennies in return.\n\nPicture this: You save $1,000. The bank earns $70 from it and gives you back $4. The other $66? They keep it.",
-    "cta": "Here's how I discovered this →"
-  },
-  "whyWeBuiltThis": {
-    "header": "It started with my grandmother",
-    "story": "My grandmother always told me: \"Save half of what you earn.\" She lived by that rule her whole life, working hard, skipping luxuries, putting money aside.\n\nBut it wasn't enough.\n\nDoes that sound like your story?\n\nNo one explained why: Her bank gave her around 0.4% interest while making 7% off her savings.\n\nPicture this: You save $1,000. The bank earns $70 from it and gives you back $4. The other $66? They keep it.\n\nThis happens every day to millions of people.\n\nThat's why I'm building diBoaS.",
-    "signature": "— Breno, Founder"
   },
   "seo": {
     "title": "diBoaS | The System Wasn't Built for You. We're Changing That.",

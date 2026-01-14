@@ -1,11 +1,13 @@
 {
   "sectionTitle": "Lista de espera",
-  "headline": "Seja o primeiro a saber",
-  "subheadline": "Entre na lista de espera e tenha acesso antecipado ao lançamento.",
+  "headline": "Pronto?",
+  "subheadline": "Entre para o movimento.",
+  "header": "Pronto?",
+  "subheader": "Entre para o movimento.",
   "form": {
     "emailPlaceholder": "Seu email",
     "emailLabel": "Endereço de e-mail",
-    "cta": "Entrar na lista",
+    "cta": "Acesse agora →",
     "submitting": "Entrando...",
     "privacyNote": "A gente só manda email sobre o diBoaS. Cancela quando quiser."
   },
@@ -17,16 +19,16 @@
   },
   "confirmation": {
     "headline": "Você tá dentro!",
-    "subhead": "Bem-vindo ao futuro das suas finanças.",
+    "subhead": "Você acabou de dizer basta. Bem-vindo ao movimento.",
     "positionIntro": "Sua posição:",
     "positionFormat": "#{position}",
-    "shareIntro": "Quer subir na fila?",
-    "shareBenefit": "Compartilhe seu link. Cada cadastro te move 10 posições para cima.",
+    "shareIntro": "Quer subir?",
+    "shareBenefit": "Compartilha seu link. Cada cadastro te move 10 posições pra cima.",
     "shareExplanation": "Quanto antes a gente lançar, antes isso vira realidade.",
     "referralLinkLabel": "Seu link pessoal:",
     "copy": "Copiar link",
     "copied": "Copiado!",
-    "dreamModeCta": "Experimente o Dream Mode enquanto espera"
+    "dreamModeCta": "Veja o que seu dinheiro pode fazer →"
   },
   "referral": {
     "movedUp": "Você subiu {spots} posições!",

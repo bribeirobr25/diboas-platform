@@ -1,8 +1,8 @@
 {
   "hero": {
-    "headline": "El sistema no est\u00e1 roto. Funciona exactamente como fue dise\u00f1ado. Solo que no para tu empresa.",
-    "subheadline": "\u00bfEs dif\u00edcil conseguir buenas l\u00edneas de cr\u00e9dito con tasas bajas? \u00bfY recibir pagos con tarjeta, perdiendo 2-3% en comisiones y esperando 15 d\u00edas para recibir tu dinero? Ah, y ese efectivo en la cuenta de tu empresa? Tu banco lo est\u00e1 invirtiendo, ganando 7%, y te devuelve 0,4%. Hay una mejor manera. Por eso existe diBoaS para Empresas.",
-    "cta": "As\u00ed fue como lo descubr\u00ed \u2192",
+    "headline": "El sistema no está roto. Solo está diseñado para empresas multimillonarias.",
+    "subheadline": "Tu banco gana 7% con tu efectivo. Los procesadores de tarjetas se llevan 2,9%.\nTu caja está sangrando. Hay una mejor manera.",
+    "cta": "Así fue como lo descubrí →",
     "trustBadges": {
       "mica": {
         "label": "Regulado en UE (MiCA)",
@@ -23,23 +23,23 @@
     }
   },
   "theMath": {
-    "header": "Las cuentas que nadie te muestra",
-    "intro": "Levantaste \u20ac2M. Los gastar\u00e1s en 18 meses. Eso significa que \u20ac1M+ est\u00e1 en tu cuenta en cualquier momento.\n\nEsto es lo que est\u00e1 pasando con ese dinero ahora mismo:\n\nTu banco gana \u20ac70.000 al a\u00f1o con \u00e9l. T\u00fa recibes \u20ac4.000. \u00bfLos otros \u20ac66.000? Es su ganancia. De tu runway.",
-    "cta": "Calcula tus n\u00fameros \u2192"
+    "header": "¿Dónde están los €65.000?",
+    "intro": "€2M levantados. 18 meses de caja. €1M+ parado.\n\nTu banco gana: €70.000/año.\nTe da: €4.000/año.\nLa diferencia: €66.000 es su ganancia.\n\nEso es lo que tu empresa está dejando sobre la mesa.",
+    "cta": "Calcula tus números →"
   },
   "origin": {
-    "header": "Todo empez\u00f3 con mi abuela",
-    "body": "Mi abuela siempre me dec\u00eda: \"Ahorra la mitad de lo que ganes.\" Vivi\u00f3 con esa regla toda su vida, trabajando duro, renunciando a lujos, guardando dinero.\n\nPero no fue suficiente.\n\n\u00bfTe suena familiar?\n\nNadie le explic\u00f3 por qu\u00e9: Su banco le daba alrededor del 0,5% de inter\u00e9s mientras ganaba el 7% con sus ahorros.\n\nLo mismo est\u00e1 pasando con la tesorer\u00eda de tu empresa ahora mismo.\n\nMi abuela no pod\u00eda acceder a mejores tasas. El sistema no fue construido para personas como ella.\n\n\u00bfPero los fundadores? Ustedes tienen opciones. Solo necesitan saber que existen.\n\nPor eso estoy construyendo diBoaS.",
-    "signature": "\u2014 Bar, Fundador"
+    "header": "Por mi abuela",
+    "body": "Ahorró toda su vida. La mitad de todo lo que ganaba. Hizo todo bien.\n\nAun así, no fue suficiente.\nEl sistema no fue hecho para personas como ella.\nTampoco para empresas como la tuya.\n\nPero emprendedores? Tienen opciones. Solo necesitan saber que existen.\n\nPor eso estoy construyendo diBoaS para Empresas.",
+    "signature": "— Bar, Fundador"
   },
   "calculator": {
-    "header": "Veamos tus n\u00fameros",
+    "header": "Haz los números",
     "fields": {
       "cashOnHand": "Efectivo disponible",
-      "currentRate": "Tasa de inter\u00e9s actual",
+      "currentRate": "Tasa de interés actual",
       "bankEarns": "Lo que tu banco gana con tu dinero",
       "bankPays": "Lo que tu banco te paga",
-      "diboasPays": "Lo que diBoaS te pagar\u00eda",
+      "diboasPays": "Lo que diBoaS te pagaría",
       "difference": "La diferencia",
       "projectedYield": "Con diBoaS",
       "currentInterest": "Con tu banco",
@@ -49,114 +49,80 @@
       "cashOnHand": "500000",
       "currentRate": "0.4"
     },
-    "perYear": "/a\u00f1o",
-    "cta": "Hablemos de esto \u2192"
+    "perYear": "/año",
+    "cta": "Consigue estos retornos →"
   },
   "howItWorks": {
-    "header": "C\u00f3mo funciona",
-    "subhead": "Conecta tu cuenta empresarial. 2 minutos de configuraci\u00f3n. Sin integraci\u00f3n t\u00e9cnica necesaria.",
+    "header": "Cómo funciona",
+    "subhead": "",
     "steps": {
-      "setFloor": {
-        "title": "Establece tu piso de seguridad",
-        "description": "Dinos tu umbral de liquidez. \"Siempre mant\u00e9n \u20ac50K disponibles.\" Solo desplegamos por encima de eso. Nunca te quedas corto."
+      "link": {
+        "title": "Conecta tu cuenta empresarial",
+        "description": "2 minutos de configuración. Sin integración técnica."
+      },
+      "control": {
+        "title": "Tú tienes el control",
+        "description": "Define cuánto quieres invertir. Solo desplegamos lo que tú decidas."
       },
       "earn": {
-        "title": "Tu efectivo empieza a trabajar",
-        "description": "El efectivo por encima de tu umbral gana 6-8% al a\u00f1o a trav\u00e9s de sistemas confiables. Tasas similares a lo que ganan los bancos. Ahora tuyas."
+        "title": "Míralo crecer",
+        "description": "6-8% al año trabajando 24/7 en sistemas confiables. Crecimiento real. Ahora con interés compuesto."
       },
       "withdraw": {
         "title": "Accede cuando quieras",
-        "description": "\u00bfNecesitas efectivo? Un toque. Liquidaci\u00f3n el mismo d\u00eda. Sin bloqueos. Sin penalizaciones. Sin preguntas."
+        "description": "¿Necesitas efectivo? Un toque. Liquidación el mismo día. Sin bloqueos. Sin penalizaciones. Sin preguntas."
       }
     },
-    "footer": "Estados mensuales. Reportes listos para el board. Lenguaje claro \u2014 sin jerga."
+    "footer": "Estados mensuales. Reportes listos para el board. Lenguaje claro — sin jerga."
   },
   "features": {
-    "header": "M\u00e1s que rendimiento. Todo lo que tu empresa necesita.",
-    "intro": "El rendimiento es el titular. Pero estos puntos podr\u00edan importar a\u00fan m\u00e1s para tu negocio.",
+    "header": "Paga. Cobra. Gana. Optimiza.",
+    "intro": "",
     "instantPayments": {
-      "headline": "Paga a cualquiera. Instant\u00e1neamente. Comisiones bajas.",
-      "body": "\u00bfPagando contratistas en Argentina? \u00bfUn proveedor en Alemania? \u00bfUn freelancer en Singapur?\n\nTransferencias tradicionales: \u20ac25-50 por transacci\u00f3n. 2-5 d\u00edas h\u00e1biles. Markup en tipo de cambio.\n\nCon diBoaS: Solo 0,12% por transferencia. Liquidado en segundos. Tipo de cambio real.",
+      "headline": "Paga a cualquiera, donde sea",
+      "body": "En tiempo real. Solo 0,12% por transferencia. Tipo de cambio real. Sin comisiones bancarias.",
       "example": {
-        "before": "\u20ac500 transferencia a contratista = \u20ac475 recibidos (despu\u00e9s de comisiones + spread)",
-        "after": "\u20ac500 enviados = \u20ac500 recibidos"
+        "before": "€500 transferencia a contratista = €475 recibidos (después de comisiones + spread)",
+        "after": "€500 enviados = €500 recibidos"
       }
     },
     "receivePayments": {
-      "headline": "Cobra m\u00e1s r\u00e1pido. Qu\u00e9date con m\u00e1s.",
-      "body": "Tus clientes pueden pagarte instant\u00e1neamente, desde cualquier parte del mundo. Sin procesador de pagos llev\u00e1ndose 2,9% + \u20ac0,30. Sin esperar 3-5 d\u00edas por la liquidaci\u00f3n.",
+      "headline": "Cobra más rápido",
+      "body": "A cualquier hora. Cualquier día. Desde cualquier lugar. Sin 2,9% de procesador. Sin esperar 3-5 días.",
       "example": {
-        "before": "Factura de \u20ac10.000 \u2192 \u20ac9.700 despu\u00e9s de comisiones \u2192 disponible en 3 d\u00edas",
-        "after": "Factura de \u20ac10.000 \u2192 \u20ac10.000 recibidos \u2192 disponible inmediatamente"
+        "before": "Factura de €10.000 → €9.700 después de comisiones → disponible en 3 días",
+        "after": "Factura de €10.000 → €10.000 recibidos → disponible inmediatamente"
       }
     },
     "cashflowOptimization": {
-      "headline": "Tu efectivo trabaja 24/7. Incluso cuando t\u00fa no.",
-      "body": "La mayor\u00eda de las cuentas empresariales no pagan nada durante la noche. Tus \u20ac500K simplemente... est\u00e1n ah\u00ed.\n\nCon diBoaS, el efectivo inactivo genera rendimientos continuamente. Cada hora. Cada d\u00eda. Incluyendo fines de semana y festivos.",
+      "headline": "Tu caja trabaja 24/7",
+      "body": "El efectivo inactivo gana 6-8% al año. Cada hora. Cada día. Fines de semana y festivos incluidos.",
       "example": {
-        "label": "\u20ac500K durante la noche por 30 d\u00edas:",
-        "bank": "\u20ac0-20",
-        "diboas": "~\u20ac2.500"
+        "label": "€500K durante la noche por 30 días:",
+        "bank": "€0-20",
+        "diboas": "~€2.500"
       }
     },
     "overnightSweep": {
-      "headline": "Optimizaci\u00f3n nocturna autom\u00e1tica",
-      "body": "Al final del d\u00eda laboral, tu efectivo se mueve autom\u00e1ticamente a sistemas que generan rendimiento. Al inicio del d\u00eda laboral, est\u00e1 de vuelta y l\u00edquido. T\u00fa estableces el piso. Nosotros nos encargamos del resto.",
+      "headline": "Optimización automática",
+      "body": "Al final del día, tu efectivo genera rendimiento. Por la mañana, está de vuelta y líquido. Tú defines el mínimo.",
       "schedule": {
-        "evening": "6 PM: Efectivo sobre umbral \u2192 sistemas de rendimiento",
+        "evening": "6 PM: Efectivo sobre umbral → sistemas de rendimiento",
         "morning": "9 AM: Liquidez total restaurada",
-        "you": "T\u00fa: No haces nada"
+        "you": "Tú: No haces nada"
       }
     }
   },
-  "trust": {
-    "header": "Para equipos que necesitan los detalles",
-    "euRegulated": {
-      "title": "Regulado en la UE",
-      "description": "Operamos bajo el marco MiCA de la UE con autorizaci\u00f3n pendiente.",
-      "translation": "Traducci\u00f3n: supervisi\u00f3n regulatoria, requisitos de reporte, responsabilidad."
-    },
-    "nonCustodial": {
-      "title": "Tu Dinero, Tu Wallet",
-      "description": "Nunca guardamos tus fondos. Tu dinero permanece en tu propia wallet.",
-      "details": "Incluso si diBoaS desapareciera ma\u00f1ana, tus fondos siguen siendo tuyos. Esto es diferente de las finanzas tradicionales \u2014 literalmente no podemos tocar tu dinero sin tu aprobaci\u00f3n."
-    },
-    "audited": {
-      "title": "Auditado Independientemente",
-      "description": "Solo usamos sistemas que tienen:",
-      "points": [
-        "\u20ac10 mil millones+ en valor total asegurado",
-        "M\u00faltiples auditor\u00edas de seguridad independientes",
-        "Operaciones transparentes que puedes verificar"
-      ],
-      "note": "La misma infraestructura que usan las instituciones."
-    },
-    "reporting": {
-      "title": "Reportes Transparentes",
-      "description": "Estados mensuales. Dashboard en tiempo real. Registro de auditor\u00eda completo.",
-      "note": "Tu CFO lo entender\u00e1. Tu board lo apreciar\u00e1."
-    }
-  },
   "fitAssessment": {
-    "header": "Evaluaci\u00f3n honesta de ajuste",
-    "intro": "Prefiero decirte que esto no es adecuado para ti que convencerte de hacer algo que no encaja.",
+    "header": "¿Es esto para ti?",
+    "intro": "Prefiero perderte ahora que decepcionarte después.",
     "goodFit": {
-      "title": "Buen Ajuste",
-      "items": [
-        "\u20ac100K+ en tesorer\u00eda que est\u00e1 inactiva por 6+ meses",
-        "C\u00f3modo con riesgo calculado para mejores retornos",
-        "Pagas contratistas o proveedores internacionales regularmente",
-        "Quieres recibir pagos sin comisiones de procesador"
-      ]
+      "title": "Buen Encaje",
+      "description": "• €100K+ inactivo por 6+ meses\n• Cómodo con riesgo calculado\n• No estás de acuerdo con el sistema actual\n• Quieres cero comisiones de procesador"
     },
     "notAFit": {
-      "title": "No es Adecuado",
-      "items": [
-        "Necesitas seguro de dep\u00f3sitos por encima de todo",
-        "Cero tolerancia al riesgo, incluso para mayores retornos",
-        "Todo el efectivo necesario en un par de d\u00edas",
-        "Prefieres relaciones bancarias tradicionales"
-      ]
+      "title": "No es para ti si",
+      "description": "• Necesitas seguro de depósitos por encima de todo\n• Tolerancia cero al riesgo\n• Necesitas todo el efectivo en días\n• Prefieres bancos tradicionales"
     }
   },
   "faq": {
@@ -194,17 +160,12 @@
       }
     }
   },
-  "socialProof": {
-    "header": "Primeros adoptantes",
-    "preLaunch": "Lanzamos a principios de 2026. \u00danete a la lista de espera para ser una de las primeras empresas en acceder a gesti\u00f3n de tesorer\u00eda de nivel institucional.",
-    "count": "{count} empresas ya est\u00e1n en la lista."
-  },
   "finalCta": {
-    "header": "\u00bfQuieres revisar los n\u00fameros juntos?",
-    "body": "15 minutos. Tu situaci\u00f3n espec\u00edfica.\n\nSi tiene sentido, genial. Si no, al menos sabr\u00e1s exactamente lo que est\u00e1s dejando sobre la mesa.",
-    "cta": "Agendar conversaci\u00f3n con el Fundador",
+    "header": "15 minutos. Sin compromiso.",
+    "body": "Se trata de Ti. Tu Empresa. Tus Números.\nEncaje o no, sabrás exactamente lo que está sobre la mesa.",
+    "cta": "Hablemos →",
     "alternative": "O email: bar@diboas.com",
-    "footer": "Sin pitch deck. Sin presi\u00f3n de ventas. Solo matem\u00e1ticas."
+    "footer": "Sin pitch deck. Sin presión de ventas. Solo matemáticas."
   },
   "footer": {
     "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. El crecimiento no est\u00e1 prometido. Resultados pasados no predicen los futuros. Involucra riesgos como problemas de c\u00f3digo, cambios de mercado y desaf\u00edos de acceso. Usa solo lo que puedas arriesgar. No es un banco. Sin seguro de dep\u00f3sitos.",

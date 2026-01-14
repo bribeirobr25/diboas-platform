@@ -150,11 +150,6 @@ export function BenefitsCardsDefault({
             <HeadingTag id="benefits-title" className={styles.title}>
               {config.section.title}
             </HeadingTag>
-            {config.section.description && (
-              <p className={styles.description}>
-                {config.section.description}
-              </p>
-            )}
           </header>
         )}
 

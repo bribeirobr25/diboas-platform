@@ -4,14 +4,14 @@
     "description": "10 Strategien. Verschiedene Ziele. Verschiedene Zeithorizonte. Verschiedene Risikostufen. Finden Sie die Strategie, die zu Ihrem Leben passt."
   },
   "hero": {
-    "headline": "Finden Sie die Strategie, die zu Ihrem Leben passt",
-    "subheadline": "10 Strategien. Verschiedene Ziele. Verschiedene Zeithorizonte. Verschiedene Risikostufen.",
-    "subheadline2": "Keine Strategie ist \"die beste.\" Die beste ist die, die zu Ihrer aktuellen Situation und Ihren Zielen passt.",
-    "trustLine": "Alle Strategien nutzen solide Systeme, die seit Jahren Milliarden gesichert haben. Wir haben sie über 4 Jahre echter Marktdaten getestet — Bullen- und Bärenmärkte, Crashs und Erholungen, und alles dazwischen."
+    "headline": "Der Zugang, den sie für sich behalten haben. Jetzt Ihrer.",
+    "subheadline": "10 Strategien. Verschiedene Ziele. Verschiedene Risikostufen. Keine ist \"die beste.\" Die beste ist die, die zu Ihnen und Ihren Zielen passt.",
+    "subheadline2": "",
+    "trustLine": "Getestet über 4 Jahre echter Marktdaten. Crashs, Erholungen, alles. Gebaut auf Systemen, die seit Jahren Milliarden sichern."
   },
   "matrix": {
-    "header": "Wählen Sie Ihren Weg",
-    "instructions": "Wählen Sie links Ihr Ziel. Dann entscheiden Sie: Nur stabile Renditen, oder offen für Wachstumspotenzial?",
+    "header": "Wählen Sie Ihre Strategie",
+    "instructions": "Ihr Ziel links. Ihre Risikobereitschaft rechts.",
     "columns": {
       "goal": "Ihr Ziel",
       "stable": "Stabile Renditen",
@@ -24,7 +24,7 @@
       "longTerm": { "goal": "Langfristig (5-10 Jahre)", "stable": "Steady Compounder", "growth": "Wealth Accelerator" },
       "wealthBuilding": { "goal": "Vermögensaufbau (10+ Jahre)", "stable": "Yield Maximizer", "growth": "Full Throttle" }
     },
-    "note": "Nicht sicher? Beginnen Sie mit Safe Harbor. Diese Strategie ist für Menschen konzipiert, die erst verstehen möchten, wie das funktioniert. Sie können jederzeit wechseln."
+    "note": "Unsicher? Beginnen Sie mit **Safe Harbor**. Erst lernen. Jederzeit wechseln."
   },
   "strategies": {
     "safeHarbor": {
@@ -202,8 +202,8 @@
   "allStrategiesHeader": "Alle 10 Strategien",
   "growthBadge": "Wachstum",
   "howToChoose": {
-    "header": "Nicht sicher, wo Sie anfangen sollen?",
-    "intro": "Hier ist ein einfacher Rahmen:",
+    "header": "Hier beginnen",
+    "intro": "",
     "question1": {
       "title": "Wofür ist dieses Geld?",
       "options": {
@@ -214,22 +214,22 @@
       }
     },
     "question2": {
-      "title": "Wie fühlen Sie sich bei Preisschwankungen?",
+      "title": "Wie stehen Sie zu Kursschwankungen?",
       "options": {
-        "none": "\"Ich will keine\" → Bleiben Sie bei der Spalte Stabile Renditen",
-        "understand": "\"Ich verstehe sie und kann Einbrüche aussitzen\" → Erwägen Sie die Spalte Wachstumspotenzial",
-        "unsure": "\"Ich bin mir nicht sicher\" → Beginnen Sie stabil. Lernen Sie. Sie können später immer Wachstumsexposition hinzufügen."
+        "none": "\"Will ich nicht\" → Bleiben Sie bei der Spalte Stabile Renditen",
+        "understand": "\"Ich verstehe sie und kann Dips aussitzen\" → Erwägen Sie die Spalte Wachstumspotenzial",
+        "unsure": "\"Bin mir nicht sicher\" → Stabil beginnen. Lernen. Wachstum später hinzufügen."
       }
     },
     "question3": {
-      "title": "Was würden Sie tun, wenn Ihr Guthaben um 20% fällt?",
+      "title": "Was würden Sie tun, wenn Ihr Saldo um 20% fällt?",
       "options": {
         "panic": "\"Ich würde in Panik geraten und abheben\" → Nur Strategien mit stabilen Renditen",
-        "wait": "\"Ich würde warten, bis es sich erholt\" → Strategien mit niedrigem bis mittlerem Wachstum",
-        "addMore": "\"Ich würde mehr Geld hinzufügen\" → Sie könnten bereit sein für höhere Wachstumsexposition"
+        "wait": "\"Ich würde auf Erholung warten\" → Strategien mit niedrigem bis mittlerem Wachstum",
+        "addMore": "\"Ich würde mehr einzahlen\" → Sie sind vielleicht bereit für höhere Wachstumsexposition"
       }
     },
-    "goldenRule": "Im Zweifelsfall beginnen Sie konservativ. Sie können immer das Risikospektrum hinaufgehen. Sie können Verluste aus Strategien, für die Sie nicht bereit waren, nicht rückgängig machen."
+    "goldenRule": "Im Zweifel sicher starten. Sie können später immer aufsteigen."
   },
   "faq": {
     "header": "Fragen zu Strategien",
@@ -265,15 +265,15 @@
     }
   },
   "futureYouConnection": {
-    "header": "Sehen Sie, wie es wachsen könnte",
-    "body": "Strategie gewählt? Nutzen Sie den Zukunfts-Du Rechner, um zu sehen, wie sich Ihre Investition im Laufe der Zeit entwickeln könnte.",
-    "cta": "Zum Rechner"
+    "header": "Sehen Sie, was möglich ist",
+    "body": "Ihr zukünftiges Ich wird es Ihnen danken",
+    "cta": "Zeig mir →"
   },
   "finalCta": {
-    "header": "Bereit, Ihren Weg zu wählen?",
-    "body": "Tragen Sie sich auf die Warteliste ein. Bei der Einführung gehören Sie zu den Ersten, die Ihre Strategie in Aktion setzen können.",
-    "cta": "Auf die Warteliste — kostenlos →",
-    "position": "⏰ Sie sind #{position} für frühen Zugang"
+    "header": "Bereit zu wählen?",
+    "body": "Seien Sie dabei. Ihre Strategie arbeitet ab dem Start für Sie.",
+    "cta": "Dabei sein →",
+    "position": "⏰ Sie sind #{position} in der Warteschlange"
   },
   "footer": {
     "disclaimer": "Alle Performancedaten basieren auf historischer Analyse (Mai 2022 - Dezember 2025) und tausenden Simulationen. Vergangene Wertentwicklung garantiert keine zukünftigen Ergebnisse. Ihr Geld wird in automatisierte Systeme platziert, die technisches Risiko, Marktrisiko und Liquiditätsrisiko tragen. Wachstumsstrategien beinhalten zusätzliches Preisvolatilitätsrisiko. Verwenden Sie nur Geld, das Sie sich leisten können zu verlieren. diBoaS ist keine Bank und Ihre Mittel sind nicht versichert."

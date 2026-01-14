@@ -4,10 +4,10 @@
     "description": "See what your money could become. Small amounts. Consistent effort. Time does the rest."
   },
   "hero": {
-    "headline": "Meet your future self",
-    "subheadline": "Small amounts. Consistent effort. Time does the rest.",
-    "subheadline2": "See what your money could become if it worked as hard as you do.",
-    "context": "This isn't a promise. It's a projection based on historical data. But it shows you what's possible when the math is finally on your side."
+    "headline": "Your $20. Five years from now.",
+    "subheadline": "Small amounts. Real difference.",
+    "subheadline2": "",
+    "context": "Not a promise. Just math. And the access kept from you. Until now."
   },
   "calculator": {
     "header": "What could your money become?",
@@ -33,45 +33,45 @@
       "futureValue": "Future Value",
       "deposited": "You Deposited",
       "earned": "You Earned",
-      "difference": "That's {currency}{amount} more from the same monthly effort.",
-      "differenceNote": "Same sacrifice. Different outcome. That's what happens when your money actually works for you."
+      "difference": "That's {currency}{amount} more. Just by switching where it sits.",
+      "differenceNote": ""
     },
     "watermark": "PROJECTION",
     "disclaimer": "Based on historical performance (8% annual for diBoaS using our most conservative strategy, 0.4% for typical bank savings). This is a projection, not a guarantee. Actual results will vary based on the strategy you choose and market conditions.",
-    "cta": "Join the waitlist to make this real →",
-    "secondaryCta": "Want higher potential returns?",
-    "strategiesLink": "Explore all 10 strategies"
+    "cta": "Get access →",
+    "secondaryCta": "",
+    "strategiesLink": "See all 10 strategies →"
   },
   "mathExplained": {
-    "header": "Why the difference is so big",
-    "intro": "It's not magic. It's math. Here's what's actually happening:",
+    "header": "How is it possible?",
+    "intro": "Because now you have the same access. Take a look.",
     "bankGap": {
-      "headline": "Your bank earns more than they pay you",
-      "body": "Banks take your deposits and put them to work — lending, investing, earning real returns. But they only share a tiny fraction with you.",
-      "body2": "A typical bank earns around 7% with your money. They pay you 0.4%. That 6.6% difference? That's their entire business model.",
-      "body3": "With diBoaS, you access the same kinds of returns they do. The gap goes to you instead."
+      "headline": "Without diBoaS",
+      "body": "Banks earn around 7% with your money. Pay you 0.4%. The other 6.6%? You have no access.",
+      "body2": "",
+      "body3": ""
     },
     "compound": {
-      "headline": "Your earnings start earning too",
-      "body": "When you earn returns, and those returns earn more returns, growth accelerates over time. At 0.4%, this barely matters. At 8%, it transforms everything.",
+      "headline": "With diBoaS",
+      "body": "Your money. Your returns. 6-10% goes to you. Plus other options with even higher potential.",
       "example": {
-        "title": "{currency}100/month for 20 years:",
-        "deposited": "Total deposited: {currency}24,000",
-        "bankEarnings": "Bank earnings: {currency}1,185 (that's 5% of what you put in)",
-        "diboasEarnings": "diBoaS earnings: {currency}34,902 (that's 145% of what you put in)",
-        "conclusion": "The difference isn't 16x the rate. It's 29x the earnings. That's what happens when returns compound."
+        "title": "",
+        "deposited": "",
+        "bankEarnings": "",
+        "diboasEarnings": "",
+        "conclusion": ""
       }
     },
     "time": {
-      "headline": "The longer you wait to start, the more it costs you",
-      "body": "Starting 5 years earlier with {currency}100/month means tens of thousands more at the end. Every year you delay costs you future growth you'll never get back.",
-      "takeaway": "The best time to start was years ago. The second best time is now."
+      "headline": "Why now?",
+      "body": "Time to say enough. Time to join the movement. Time to take it back.",
+      "takeaway": ""
     }
   },
   "strategyConnection": {
     "header": "The 8% isn't random",
-    "body": "This projection uses our most conservative strategy, called Safe Harbor. It uses only stable systems with no exposure to price swings. In our 4-year test, it never lost money.",
-    "body2": "If you're comfortable with some ups and downs, other strategies have delivered higher returns:",
+    "body": "This uses Safe Harbor, our most conservative strategy. Stable systems only. No price swings. In 4 years of testing, money lost chances were < 1%.",
+    "body2": "",
     "table": {
       "strategy": "Strategy",
       "returns": "What could happen",
@@ -92,8 +92,8 @@
         "exposure": "70%"
       }
     },
-    "note": "Higher potential returns come with bumpier rides. This calculator uses Safe Harbor because it's what we'd recommend for someone just starting out.",
-    "cta": "Explore all 10 strategies"
+    "note": "",
+    "cta": "See all 10 strategies →"
   },
   "faq": {
     "header": "Questions about the calculator",
@@ -129,11 +129,11 @@
     }
   },
   "finalCta": {
-    "header": "Ready to build your future?",
-    "body": "You've seen the math. You know what's possible.",
-    "body2": "The only question left: when do you start?",
-    "cta": "Join the waitlist — it's free →",
-    "secondary": "Every month you wait is growth you're missing.",
+    "header": "Ready?",
+    "body": "Join the movement. Your future self will thank you.",
+    "body2": "",
+    "cta": "Get access →",
+    "secondary": "We'll only email you about diBoaS. Unsubscribe anytime.",
     "position": "⏰ You're #{position} in line for early access"
   },
   "footer": {

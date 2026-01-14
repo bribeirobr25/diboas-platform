@@ -61,7 +61,6 @@ export function SocialProofSection({
         }
       } catch (error) {
         // Keep fallback values on error
-        // Dev: 'Failed to fetch waitlist stats, using fallback');
       } finally {
         setIsLoading(false);
       }
@@ -104,7 +103,7 @@ export function SocialProofSection({
               />
             </div>
             <div className={styles.cardContent}>
-              <p className={`${styles.cardTitle} ${isLoading ? styles.loading : ''}`}>
+              <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
                 {t('stats.waitlist', { count: formattedCount })}
               </p>
             </div>
@@ -122,7 +121,7 @@ export function SocialProofSection({
               />
             </div>
             <div className={styles.cardContent}>
-              <p className={`${styles.cardTitle} ${isLoading ? styles.loading : ''}`}>
+              <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
                 {t('stats.countries', { countries: formattedCountries })}
               </p>
             </div>

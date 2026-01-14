@@ -1,99 +1,85 @@
 {
   "hero": {
-    "headline": "O sistema n\u00e3o est\u00e1 quebrado. Ele funciona exatamente como foi projetado. S\u00f3 que n\u00e3o para sua empresa.",
-    "subheadline": "\u00c9 dif\u00edcil conseguir boas linhas de cr\u00e9dito com juros baixos? E receber pagamentos no cart\u00e3o, perdendo 2-3% em taxas e esperando 15-30 dias para receber? Ah, e aquele dinheiro parado na conta da empresa? Seu banco est\u00e1 investindo ele, ganhando 15%, e te devolvendo 7% na poupan\u00e7a. S\u00f3 que o real perde 6% ao ano contra o d\u00f3lar. Resultado? Voc\u00ea quase n\u00e3o ganha nada de verdade. Existe um jeito melhor. Por isso criamos o diBoaS para Empresas.",
-    "cta": "Foi assim que eu descobri isso \u2192",
-    "trustBadges": {
-      "mica": {
-        "label": "Regulado na UE (MiCA)",
-        "tooltip": "Opera sob o framework MiCA de Cripto-Ativos da UE"
-      },
-      "nonCustodial": {
-        "label": "Seu dinheiro, sua carteira",
-        "tooltip": "A gente nunca segura seu dinheiro \u2014 ele fica na sua pr\u00f3pria carteira"
-      },
-      "audited": {
-        "label": "Auditado independentemente",
-        "tooltip": "Todos os sistemas verificados por firmas de seguran\u00e7a terceirizadas"
-      },
-      "boardReady": {
-        "label": "Relat\u00f3rios para o board",
-        "tooltip": "Relat\u00f3rios mensais que seu CFO vai entender de verdade"
-      }
-    }
+    "headline": "O sistema não está quebrado. Só que ele foi feito pra empresas Bilionárias.",
+    "subheadline": "Seu banco ganha 15% com seu caixa. Maquininhas levam 2-3%.\nSeu caixa tá sangrando. Existe um jeito melhor.",
+    "cta": "Foi assim que eu descobri isso →"
   },
   "theMath": {
-    "header": "A conta que ningu\u00e9m te mostra",
-    "intro": "Voc\u00ea captou R$10M. Vai gastar em 18 meses. Isso significa que R$5M+ ficam parados na sua conta o tempo todo.\n\nIsso \u00e9 o que est\u00e1 acontecendo com esse dinheiro agora:\n\nSeu banco ganha R$750.000 por ano com ele. Voc\u00ea recebe R$350.000 na poupan\u00e7a. Mas o real perdeu 6% contra o d\u00f3lar. Seu ganho real? Quase zero. Os outros R$400.000+? \u00c9 lucro deles. Da sua runway.",
-    "cta": "Calcule seus n\u00fameros \u2192"
+    "header": "Cadê os R$325.000?",
+    "intro": "R$2M captados. 18 meses de caixa. R$1M+ parado.\n\nSeu banco ganha: R$150.000/ano.\nTe devolve: R$70.000/ano\nE o real perde mais 6% pro dólar.\nResultado real: você tá no zero. Ou no negativo.\n\nIsso é o que sua empresa tá deixando escapar.",
+    "cta": "Calcula seus números →"
   },
   "origin": {
-    "header": "Tudo come\u00e7ou com minha av\u00f3",
-    "body": "Minha av\u00f3 sempre me disse: \"Guarde metade do que voc\u00ea ganhar.\" Ela viveu por essa regra a vida inteira, trabalhando duro, abrindo m\u00e3o de luxos, guardando dinheiro.\n\nMas n\u00e3o foi o suficiente.\n\nIsso parece familiar?\n\nNingu\u00e9m explicou o porqu\u00ea: O banco dela pagava cerca de 7% na poupan\u00e7a, enquanto ganhava 15% com o dinheiro dela. E o real ainda perdia valor contra o d\u00f3lar todo ano.\n\nA mesma coisa est\u00e1 acontecendo com o caixa da sua empresa agora.\n\nMinha av\u00f3 n\u00e3o tinha acesso a melhores taxas. O sistema n\u00e3o foi constru\u00eddo para pessoas como ela.\n\nMas fundadores? Voc\u00eas t\u00eam op\u00e7\u00f5es. S\u00f3 precisam saber que elas existem.\n\nPor isso estou construindo o diBoaS.",
-    "signature": "\u2014 Bar, Fundador"
+    "header": "Por causa da minha avó",
+    "body": "Ela economizou a vida inteira. Metade de tudo que ganhava. Fez tudo certo.\n\nAinda assim, não foi o bastante.\nO sistema não foi feito pra pessoas como ela.\nNem pra empresas como a sua.\n\nMas empreendedores? Vocês têm opções. Só precisam saber que elas existem.\n\nPor isso tô construindo o diBoaS pra Empresas.",
+    "signature": "— Bar, Fundador"
   },
   "calculator": {
-    "header": "Vamos olhar seus n\u00fameros",
+    "header": "Faz as contas",
     "fields": {
-      "cashOnHand": "Caixa dispon\u00edvel",
-      "currentRate": "Taxa atual (poupan\u00e7a)",
+      "cashOnHand": "Caixa disponível",
+      "currentRate": "Taxa atual do banco",
       "currencyLoss": "Perda cambial (R$ vs $)",
       "bankEarns": "O que seu banco ganha com isso",
       "bankPays": "O que seu banco te paga",
       "diboasPays": "O que o diBoaS te pagaria",
-      "difference": "A diferen\u00e7a",
-      "projectedYield": "Com diBoaS (em d\u00f3lares)",
+      "difference": "A diferença",
+      "projectedYield": "Com diBoaS (em dólares)",
       "currentInterest": "Com seu banco (em reais)",
-      "additionalRunway": "A diferen\u00e7a"
+      "additionalRunway": "A diferença"
     },
     "defaults": {
       "cashOnHand": "2500000",
       "currentRate": "7"
     },
     "perYear": "/ano",
-    "cta": "Vamos conversar sobre isso \u2192"
+    "cta": "Quero esses retornos →"
   },
   "howItWorks": {
     "header": "Como funciona",
-    "subhead": "Conecte sua conta empresarial. 2 minutos de configura\u00e7\u00e3o. Sem integra\u00e7\u00e3o t\u00e9cnica.",
+    "subhead": "",
     "steps": {
-      "setFloor": {
-        "title": "Defina seu piso de seguran\u00e7a",
-        "description": "Nos diga seu limite de liquidez. \"Sempre mantenha R$250K dispon\u00edveis.\" S\u00f3 alocamos acima disso. Voc\u00ea nunca fica descoberto."
+      "link": {
+        "title": "Conecta sua conta empresarial",
+        "description": "2 minutos pra configurar. Sem integração técnica."
+      },
+      "control": {
+        "title": "Você no controle",
+        "description": "Define quanto quer investir. A gente só movimenta o que você autorizar."
       },
       "earn": {
-        "title": "Seu dinheiro come\u00e7a a trabalhar",
-        "description": "Caixa acima do seu limite rende 6-8% ao ano em d\u00f3lares, atrav\u00e9s de sistemas confi\u00e1veis. Taxas parecidas com as que bancos ganham. Agora suas. Em moeda forte."
+        "title": "Veja crescer",
+        "description": "6-8% ao ano, 24h em sistemas confiáveis. Em dólares. Crescimento real. Agora rendendo."
       },
       "withdraw": {
-        "title": "Acesse quando quiser",
-        "description": "Precisa de caixa? Um toque. Liquida\u00e7\u00e3o no mesmo dia. Sem bloqueios. Sem multas. Sem perguntas."
+        "title": "Acessa quando quiser",
+        "description": "Precisa do caixa? Um toque. Recebe no mesmo dia. Sem bloqueio. Sem multa. Sem pergunta."
       }
     },
-    "footer": "Extratos mensais. Relat\u00f3rios para o board. Linguagem clara \u2014 sem jarg\u00e3o."
+    "footer": "Extratos mensais. Relatórios para o board. Linguagem clara — sem jargão."
   },
   "features": {
-    "header": "Mais do que rendimento. Tudo que sua empresa precisa.",
-    "intro": "Rendimento \u00e9 a manchete. Mas esses pontos podem importar ainda mais para o seu neg\u00f3cio.",
+    "header": "Pague. Receba. Multiplique. Otimize.",
+    "intro": "",
     "instantPayments": {
-      "headline": "Pague qualquer um. Instantaneamente. Taxas baixas.",
-      "body": "Pagando prestadores na Argentina? Um fornecedor na Alemanha? Um freelancer em Singapura?\n\nTransfer\u00eancias tradicionais: R$125-250 por transa\u00e7\u00e3o. 2-5 dias \u00fateis. Markup no c\u00e2mbio.\n\nCom diBoaS: Apenas 0,12% por transfer\u00eancia. Liquidado em segundos. C\u00e2mbio real. Pense no PIX, mas global.",
+      "headline": "Pague qualquer um, em qualquer lugar",
+      "body": "Em tempo real. Só 0,12% por transferência. Câmbio real. Sem taxa de transferência.",
       "example": {
-        "before": "R$2.500 transfer\u00eancia para prestador = R$2.375 recebidos (depois de taxas + spread)",
+        "before": "R$2.500 transferência para prestador = R$2.375 recebidos (depois de taxas + spread)",
         "after": "R$2.500 enviados = R$2.500 recebidos"
       }
     },
     "receivePayments": {
-      "headline": "Receba mais r\u00e1pido. Fique com mais.",
-      "body": "Seus clientes podem te pagar instantaneamente, de qualquer lugar do mundo. Sem processador de pagamento levando 2,9% + R$1,50. Sem esperar 3-5 dias pela liquida\u00e7\u00e3o. Sem esperar 15-30 dias pelo cart\u00e3o.",
+      "headline": "Receba mais rápido",
+      "body": "Qualquer hora. Qualquer dia. De qualquer lugar. Sem 2-3% de maquininha. Sem esperar dias.",
       "example": {
-        "before": "Fatura de R$50.000 \u2192 R$48.500 depois das taxas \u2192 dispon\u00edvel em 3 dias",
-        "after": "Fatura de R$50.000 \u2192 R$50.000 recebido \u2192 dispon\u00edvel na hora"
+        "before": "Fatura de R$50.000 → R$48.500 depois das taxas → disponível em 3 dias",
+        "after": "Fatura de R$50.000 → R$50.000 recebido → disponível na hora"
       }
     },
     "cashflowOptimization": {
-      "headline": "Seu dinheiro trabalha 24/7. Mesmo quando voc\u00ea n\u00e3o trabalha.",
-      "body": "A maioria das contas empresariais n\u00e3o rende nada durante a noite. Seus R$2,5M simplesmente... ficam parados.\n\nCom diBoaS, dinheiro parado rende continuamente. Toda hora. Todo dia. Incluindo fins de semana e feriados. Em d\u00f3lares.",
+      "headline": "Seu caixa trabalha 24h",
+      "body": "Dinheiro parado rende 6-8% ao ano. Em dólares. Toda hora. Todo dia. Fim de semana e feriado também.",
       "example": {
         "label": "R$2,5M durante a noite por 30 dias:",
         "bank": "R$0-100",
@@ -101,63 +87,25 @@
       }
     },
     "overnightSweep": {
-      "headline": "Otimiza\u00e7\u00e3o autom\u00e1tica noturna",
-      "body": "No fim do dia \u00fatil, seu dinheiro automaticamente vai para sistemas que geram rendimento. No in\u00edcio do dia \u00fatil, est\u00e1 de volta e l\u00edquido. Voc\u00ea define o piso. N\u00f3s cuidamos do resto.",
+      "headline": "Otimização automática",
+      "body": "No fim do dia, seu caixa vai pra rendimento. De manhã, tá de volta e líquido. Você define o mínimo.",
       "schedule": {
-        "evening": "18h: Caixa acima do limite \u2192 sistemas de rendimento",
+        "evening": "18h: Caixa acima do limite → sistemas de rendimento",
         "morning": "9h: Liquidez total restaurada",
-        "you": "Voc\u00ea: N\u00e3o faz nada"
+        "you": "Você: Não faz nada"
       }
     }
   },
-  "trust": {
-    "header": "Para times que precisam dos detalhes",
-    "euRegulated": {
-      "title": "Regulado na UE",
-      "description": "Operamos sob o framework MiCA da UE com autoriza\u00e7\u00e3o pendente.",
-      "translation": "Tradu\u00e7\u00e3o: supervis\u00e3o regulat\u00f3ria, requisitos de relat\u00f3rio, responsabilidade."
-    },
-    "nonCustodial": {
-      "title": "Seu Dinheiro, Sua Carteira",
-      "description": "A gente nunca segura seus fundos. Seu dinheiro fica na sua pr\u00f3pria carteira.",
-      "details": "Mesmo se o diBoaS sumisse amanh\u00e3, seus fundos ainda s\u00e3o seus. Isso \u00e9 diferente das finan\u00e7as tradicionais \u2014 a gente literalmente n\u00e3o consegue mover seu dinheiro sem sua aprova\u00e7\u00e3o."
-    },
-    "audited": {
-      "title": "Auditado Independentemente",
-      "description": "A gente s\u00f3 usa sistemas que:",
-      "points": [
-        "Guardaram $10 bilh\u00f5es+ por anos sem incidentes graves",
-        "T\u00eam m\u00faltiplas auditorias de seguran\u00e7a independentes",
-        "Opera\u00e7\u00f5es transparentes que voc\u00ea pode verificar"
-      ],
-      "note": "Mesma infraestrutura que institui\u00e7\u00f5es usam."
-    },
-    "reporting": {
-      "title": "Relat\u00f3rios Transparentes",
-      "description": "Extratos mensais. Dashboard em tempo real. Trilha de auditoria completa.",
-      "note": "Seu CFO vai entender. Seu board vai gostar."
-    }
-  },
   "fitAssessment": {
-    "header": "Avalia\u00e7\u00e3o honesta de adequa\u00e7\u00e3o",
-    "intro": "Prefiro te dizer que isso n\u00e3o \u00e9 certo para voc\u00ea do que te convencer a fazer algo que n\u00e3o se encaixa.",
+    "header": "Isso é pra você?",
+    "intro": "Prefiro te perder agora do que te decepcionar depois.",
     "goodFit": {
-      "title": "Boa Adequa\u00e7\u00e3o",
-      "items": [
-        "R$500K+ em caixa que fica parado por 6+ meses",
-        "Confort\u00e1vel com risco calculado para melhores retornos",
-        "Paga prestadores ou fornecedores internacionais regularmente",
-        "Quer receber pagamentos sem taxas de processador"
-      ]
+      "title": "Faz sentido se",
+      "description": "• Sua empresa tem dinheiro parado há 6+ meses\n• Confortável com risco calculado\n• Não concorda com o sistema atual\n• Quer zero taxa de maquininha"
     },
     "notAFit": {
-      "title": "N\u00e3o \u00e9 Adequado",
-      "items": [
-        "Precisa de garantia do FGC acima de tudo",
-        "Zero toler\u00e2ncia a risco, mesmo para retornos maiores",
-        "Todo o caixa necess\u00e1rio em alguns dias",
-        "Prefere relacionamentos banc\u00e1rios tradicionais"
-      ]
+      "title": "Não faz sentido se",
+      "description": "• Precisa de garantia do FGC acima de tudo\n• Tolerância zero a risco\n• Precisa de todo o caixa em dias\n• Prefere bancos tradicionais"
     }
   },
   "faq": {
@@ -195,17 +143,12 @@
       }
     }
   },
-  "socialProof": {
-    "header": "Primeiros adotantes",
-    "preLaunch": "Lan\u00e7amos no in\u00edcio de 2026. Entre na lista de espera para ser uma das primeiras empresas a ter acesso a gest\u00e3o de tesouraria de n\u00edvel institucional.",
-    "count": "{count} empresas j\u00e1 est\u00e3o na lista."
-  },
   "finalCta": {
-    "header": "Quer olhar os n\u00fameros juntos?",
-    "body": "15 minutos. Sua situa\u00e7\u00e3o espec\u00edfica.\n\nSe fizer sentido, \u00f3timo. Se n\u00e3o, pelo menos voc\u00ea vai saber exatamente o que est\u00e1 deixando na mesa.",
-    "cta": "Agendar conversa com o Fundador",
+    "header": "15 minutos. Sem compromisso.",
+    "body": "É sobre Você. Sua Empresa. Seus Números.\nFaça sentido ou não, você vai saber exatamente o que tá em jogo.",
+    "cta": "Vamos conversar →",
     "alternative": "Ou email: bar@diboas.com",
-    "footer": "Sem pitch deck. Sem press\u00e3o de venda. S\u00f3 matem\u00e1tica."
+    "footer": "Sem pitch deck. Sem pressão de venda. Só matemática."
   },
   "footer": {
     "riskDisclaimer": "O diBoaS conecta voc\u00ea a sistemas de finan\u00e7as descentralizadas. Crescimento n\u00e3o \u00e9 prometido. Resultados passados n\u00e3o preveem futuros. Envolve riscos como problemas de c\u00f3digo, mudan\u00e7as de mercado e desafios de acesso. Use apenas o que voc\u00ea pode arriscar. N\u00e3o \u00e9 um banco. Sem garantia de dep\u00f3sito.",

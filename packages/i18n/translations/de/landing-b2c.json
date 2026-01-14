@@ -1,178 +1,97 @@
 {
   "hero": {
-    "headlineLine1": "Das System ist nicht kaputt.",
-    "headlineLine2": "Es funktioniert genau so, wie es konzipiert wurde.",
-    "headlineLine3": "Nur nicht für Sie.",
-    "headline": "Das System ist nicht kaputt. Es funktioniert genau so, wie es konzipiert wurde. Nur nicht für Sie.",
-    "subheadline": "Ihre Bank nimmt Ihr Geld, investiert es für hohe Gewinne, berechnet Ihnen Gebühren und gibt Ihnen Cent-Beträge zurück. Es gibt einen Weg, das Gleichgewicht fair zu gestalten und dieselben Möglichkeiten wie Institutionen und Milliardäre zu erhalten. Schon ab €5.",
-    "cta": "So habe ich das entdeckt →",
-    "trust": "Ihr Geld bleibt Ihres. Jederzeit abheben.",
-    "socialProof": "Schließen Sie sich {count} Menschen an, die \"genug\" gesagt haben"
+    "headline": "Das System ist nicht kaputt. Es ist so konzipiert",
+    "subheadline": "Banken verdienen 7% mit Ihrem Geld. Geben Ihnen 0,4%. Vermögende haben dieses Angebot nie akzeptiert. Sie hatten keine Wahl. Bis jetzt.",
+    "cta": "So habe ich das entdeckt →"
   },
   "origin": {
-    "header": "Es begann mit meiner Großmutter",
-    "body": "Meine Großmutter sagte mir immer: \"Spare die Hälfte von dem, was du verdienst.\" Nach dieser Regel lebte sie ihr ganzes Leben lang. Sie arbeitete hart, verzichtete auf Luxus und legte Geld zur Seite.\n\nAber es reichte nicht.\n\nKommt Ihnen das bekannt vor?\n\nNiemand erklärte ihr warum: Ihre Bank gab ihr etwa 0,4% Zinsen, während sie 7% mit ihrem Ersparten verdiente. Oder warum ihre Gebühren immer höher waren als bei denen mit mehr Geld.\n\nStellen Sie sich vor: Sie sparen €1.000. Die Bank verdient €70 damit und gibt Ihnen €4 zurück. Die anderen €66? Die behalten sie.\n\nDas passiert jeden Tag Millionen von Menschen. Deshalb baue ich diBoaS, um das Gleichgewicht zu Ihren Gunsten zu verändern.",
-    "soundsFamiliar": "Kommt Ihnen das bekannt vor?",
-    "bankFact": "Niemand erklärte ihr warum: Ihre Bank gab ihr etwa 0,4% Zinsen, während sie 7% mit ihrem Ersparten verdiente.",
-    "thinkAboutIt": "Stellen Sie sich vor: Sie sparen €1.000. Die Bank verdient €70 damit und gibt Ihnen €4 zurück. Die anderen €66? Die behalten sie.",
-    "sameBank": "Das passiert jeden Tag Millionen von Menschen.",
-    "whyBuilding": "Deshalb baue ich diBoaS, um das Gleichgewicht zu Ihren Gunsten zu verändern.",
-    "signature": "— Breno, Gründer",
-    "cta": "So funktioniert es →"
+    "header": "Wegen meiner Großmutter",
+    "body": "Sie hat ihr ganzes Leben gespart. Die Hälfte von allem, was sie verdient hat. Alles richtig gemacht.\n\nEs hat trotzdem nicht gereicht.\nDas System war nicht für Menschen wie sie gemacht.\nWie mich. Wie Sie.\n\n<strong>Ich baue, was sie verdient hätte.</strong>",
+    "signature": "— Breno, Gründer"
   },
   "howItWorks": {
-    "header": "Wie diBoaS Ihnen hilft, das zu ändern",
-    "subheader": "Starten Sie schon ab €5. Es dauert nur 2 Minuten.",
+    "header": "So funktioniert es",
     "step1": {
       "title": "Geld einzahlen",
-      "description": "Es beginnt sofort, 6-10% pro Jahr zu verdienen. Ähnliche Renditen wie große Institutionen erhalten. Jetzt kommt dieses Wachstum zu Ihnen."
+      "description": "Ab €5 oder €5.000. Es beginnt sofort, 6-10% pro Jahr zu verdienen. Der gleiche Zugang wie Institutionen. Jetzt Ihrer."
     },
     "step2": {
       "title": "Wachstum beobachten",
-      "description": "Ihr Geld arbeitet rund um die Uhr in vertrauenswürdigen Systemen und baut echten Wert auf."
+      "description": "Ihr Geld arbeitet rund um die Uhr in geprüften Systemen. Echtes Wachstum. Echter Wert. Jetzt mit Zinseszins."
     },
     "step3": {
       "title": "Jederzeit verfügbar",
-      "description": "Brauchen Sie Ihr Geld? Ein Tippen. Noch am selben Tag. Keine Wartezeit. Keine Sperrfristen. Keine Strafen."
-    },
-    "footerNote": "Das ist alles. Kein Fachjargon. Keine Komplexität. Einfach Ihr Geld, das tatsächlich für Sie arbeitet.",
-    "cta": "Aber das ist noch nicht alles →"
-  },
-  "futureYouCalculator": {
-    "header": "Was könnte aus Ihren €20 im Monat werden?",
-    "subheader": "Lassen Sie mich Ihnen die Möglichkeiten für Ihr zukünftiges Ich zeigen.",
-    "sliderLabel": "Monatlicher Betrag, den Sie zurücklegen könnten",
-    "sliderMin": "€5",
-    "sliderMax": "€500",
-    "timeButtons": {
-      "5years": "5 Jahre",
-      "10years": "10 Jahre",
-      "15years": "15 Jahre",
-      "20years": "20 Jahre"
-    },
-    "results": {
-      "intro": "In {years} Jahren könnten Ihre €{amount}/Monat werden:",
-      "withDiboas": "Mit diBoaS (8,0% pro Jahr)",
-      "withBank": "Mit Ihrer Bank (0,4% pro Jahr)",
-      "difference": "Das sind €{difference} mehr bei gleichem Aufwand. Kleine Schritte, großer Unterschied über die Zeit."
-    },
-    "sourceNote": "Bankvergleich basiert auf dem durchschnittlichen Sparkassen-Zinssatz von 0,4% pro Jahr (Januar 2026).",
-    "disclaimer": "Dies ist eine Projektion basierend auf historischen Daten. Ergebnisse sind nicht garantiert. Märkte können sich ändern.",
-    "cta": "Treten Sie der Warteliste bei, um das real zu erleben"
+      "description": "Sie brauchen Ihr Geld? Ein Tippen. Noch am selben Tag. Keine Wartezeit. Keine Sperrfristen. Keine Strafen."
+    }
   },
   "features": {
-    "header": "Mehr als nur Sparen. Ihr gesamtes Finanzleben.",
-    "intro": "diBoaS gibt Ihnen einfache Kontrolle über Ihre Finanzen und eliminiert Bankgebühren, Wartezeiten und Einschränkungen.",
+    "header": "Verdienen. Senden. Investieren. Wachsen.",
     "earn": {
-      "headline": "Echtes Wachstum verdienen",
-      "body": "Ihre Ersparnisse verdienen 6-10% pro Jahr mit digitalen Dollars, die ihren Wert halten, in vertrauenswürdigen Systemen. Ähnlich wie institutionelle Renditen, jetzt Ihre. Jederzeit abhebbar.",
-      "stat": "Basierend auf 4-jähriger historischer Analyse. Ergebnisse variieren je nach Strategie. Details auf unserer Strategien-Seite."
+      "headline": "6-10% pro Jahr verdienen",
+      "body": "Ihr Geld wächst in geprüften Systemen. Institutioneller Zugang, jetzt Ihrer. Jederzeit abheben."
     },
     "send": {
-      "headline": "Geld schnell und kostenlos senden",
-      "body": "Überweisen Sie Geld an jeden weltweit in Sekunden. Keine Überweisungsgebühren, keine schlechten Wechselkurse, keine geschlossenen Bankschalter. Einfach schnell und unkompliziert.",
-      "stat": "€0 Gebühren. Echtzeit. 24/7/365."
+      "headline": "Geld frei bewegen",
+      "body": "Weltweit in Sekunden. An jeden. Überall. Keine Gebühren. Kein Warten."
     },
     "invest": {
-      "headline": "Globale Möglichkeiten erreichen",
-      "body": "Kaufen Sie Aktien, Krypto oder andere Vermögenswerte von überall. Keine Grenzen, keine hohen Mindestbeträge, keine Torwächter, die Sie zurückhalten.",
-      "stat": "Beginnen Sie mit €5. Besitzen Sie ein Stück von allem."
+      "headline": "Investieren ohne Grenzen",
+      "body": "Globale Anlagen. Aktien, Gold, Krypto. Keine Grenzen. Keine Genehmigung nötig."
     },
     "goals": {
-      "headline": "Auf Ziele hinarbeiten",
-      "body": "Wählen Sie, wofür Sie sparen und wann. Wir schlagen einen Plan vor, der passt. Verfolgen Sie es einfach, passen Sie es bei Bedarf an. Ihr Geld bewegt sich mit Ihrem Leben.",
-      "stat": "10 Strategien für verschiedene Risikostufen."
-    },
-    "strategiesLink": "Entdecken Sie alle →",
-    "cta": "Alle Strategien entdecken →"
+      "headline": "Ziele setzen. Erreichen.",
+      "body": "Sagen Sie uns, wofür Sie sparen. Wir schlagen einen Plan vor. Fortschritt verfolgen. Anpassen, wenn sich das Leben ändert."
+    }
   },
   "demo": {
-    "header": "Werfen Sie einen kurzen Blick hinein",
-    "subtext": "60 Sekunden, um zu sehen, wie es sich anfühlt",
-    "postDemoCta": "Bereit zu starten? Auf die Warteliste →",
+    "header": "Probieren Sie es selbst",
     "pain": {
       "header": "Ihre Ersparnisse heute",
-      "currentSavings": "Nehmen wir an, Ihre aktuellen Ersparnisse sind:",
-      "subtext": "Wachstum dieses Jahr: {interest}",
-      "hook": "Das ist kaum ein Snack. Ihre Bank behält den Rest.",
-      "cta": "Was wäre wenn...?"
+      "subtext": "Was Ihre Bank Ihnen dieses Jahr gab: {bankPays}",
+      "hook": "Was sie damit verdient hat: {bankEarns}",
+      "hookBrazil": "Was sie damit verdient hat: {bankEarns}. Und der Real verlor {currencyLoss}% gegenüber dem Dollar.",
+      "cta": "mit diBoaS"
     },
     "hope": {
-      "header": "Was wäre, wenn es klüger wachsen würde?",
-      "projectionLabel": "In 1 Jahr bei 8% pro Jahr:",
-      "comparison": "Das sind {projected} statt {current}.",
-      "impact": "Gleicher Betrag, besserer Ort und 20-mal mehr Wachstum.",
+      "header": "Dieselben {balance}. Ein Jahr später.",
+      "projectionLabel": "In 1 Jahr bei {apyRate}% pro Jahr:",
+      "comparison": "Ihre Bank: {bankTotal}.\ndiBoaS: {diboasTotal}.\nDie Differenz: {difference}.",
+      "impact": "Gleiches Geld. Anderer Ort. {multiplier}x mehr Wachstum.",
       "cta": "Zeigen Sie mir wie"
     },
     "action": {
-      "header": "Beginnen Sie mit einer Einzahlung",
+      "header": "Probieren Sie mit beliebigem Betrag",
       "prompt": "Wie viel möchten Sie probieren?",
-      "reassurance1": "Jeder Betrag funktioniert.",
-      "reassurance2": "Kein Druck.",
-      "cta": "Einzahlen"
+      "reassurance1": "Schon ab {minAmount} möglich.",
+      "reassurance2": "Keine Verpflichtung.",
+      "cta": "Hinzufügen"
     },
     "reward": {
-      "header": "Sehen Sie es wachsen!",
-      "delight": "Sie haben gerade {earned} verdient. Stellen Sie sich vor, was über Nacht passiert.",
+      "header": "Beobachten Sie das Wachstum",
+      "delight": "{earned} verdient. Stellen Sie sich ein Jahr vor.",
       "vision": "Stellen Sie sich vor, was passiert, während Sie schlafen.",
-      "sharePrompt": "Ziemlich cool, oder?",
-      "shareCta": "Mit Freunden teilen",
-      "continueCta": "Weitermachen"
-    },
-    "invitation": {
-      "header": "DAS WISSEN IST ECHT.",
-      "subheader": "Die Lücke zwischen dem, was Banken verdienen, und dem, was sie Ihnen zahlen? Die war schon immer da.",
-      "callToAction": "Jetzt wissen Sie, was meine Großmutter nie erfahren hat.",
-      "emailPlaceholder": "Ihre E-Mail-Adresse",
-      "submitButton": "Der Warteliste beitreten",
-      "trustPoint1": "Kein Spam, niemals",
-      "trustPoint2": "Früher Zugang beim Start",
-      "trustPoint3": "Freunde einladen = Warteschlange überspringen"
-    },
-    "screen5": {
-      "ctaAnonymous": "Der Warteliste beitreten",
-      "ctaLoggedIn": "Dream Mode ausprobieren",
-      "divider": "oder",
-      "ctaSecondary": "Entdecken Sie, was kommt",
-      "dreamModeHelper": "Dream Mode: Sehen Sie, was verschiedene Ansätze mit Ihrem Geld erreichen könnten — mit echten historischen Daten."
-    },
-    "success": {
-      "header": "Sie sind dabei!",
-      "positionLabel": "Sie sind #{position} auf der Warteliste",
-      "incentiveHeader": "Möchten Sie vorspringen?",
-      "incentiveMechanic": "Jeder Freund, der beitritt = Sie rücken 10 Plätze vor.",
-      "linkBoxLabel": "Kopieren Sie Ihren Einladungslink",
-      "shareLabel": "Oder direkt teilen:",
-      "copyLink": "Link kopieren",
-      "prewrittenMessage": "Gerade bei diBoaS angemeldet — endlich eine Möglichkeit, meine Ersparnisse wachsen zu lassen. 8% statt 0,4% bei meiner Bank. Schau mal",
-      "dreamModeHeader": "Wollen Sie größer träumen?",
-      "dreamModeCta": "Dream Mode ausprobieren",
-      "calculatorSuggestion": "Probieren Sie auch unseren Zukunfts-Rechner"
+      "continueCta": "Weiter"
     }
   },
   "socialProof": {
-    "header": "Schließen Sie sich anderen an, die \"genug\" sagen",
+    "header": "Schließen Sie sich denen an, die \"genug\" sagen",
     "stats": {
-      "waitlist": "{count} Menschen sind bereit für Veränderung. Treten Sie ihnen auf der Warteliste bei.",
-      "countries": "Aus {countries} Ländern und es werden mehr"
-    },
-    "testimonial": {
-      "quote": "Endlich etwas, das Sinn macht für Menschen wie mich, die keine Finanzexperten sind. Das fühlt sich an, als wäre es für uns gebaut worden.",
-      "author": "Frühes Wartelistenmitglied"
+      "waitlist": "{count} haben sich angemeldet.",
+      "countries": "{countries} Länder. Eine Mission."
     }
   },
   "faq": {
     "header": "Wissenswerte Dinge",
     "description": "Klare Antworten auf häufige Fragen zu diBoaS.",
-    "ctaText": "Der Warteliste beitreten",
+    "ctaText": "Zugang erhalten →",
     "items": {
       "safety": {
         "question": "Ist mein Geld sicher?",
-        "answer": "Hier ist etwas, das die meisten Menschen nicht wissen: Wenn Sie Geld bei einer Bank einzahlen, gehört es technisch gesehen nicht mehr \"Ihnen\". Rechtlich wird es das Geld der Bank. Sie versprechen nur, es zurückzuzahlen, während sie es für ihre Zwecke nutzen.\n\nBei diBoaS funktioniert es anders. Ihre Mittel bleiben in Ihrer eigenen Wallet. Wir können sie nicht anfassen. Wir zeigen Ihnen nur, wo Sie sie anlegen können, damit Ihr Geld härter arbeitet. Diese vertrauenswürdigen Systeme haben seit Jahren Milliarden geschützt.\n\nSind sie dasselbe wie Bankeinlagen? Nein. Sind sie der Wilde Westen? Auch nein. Sie liegen irgendwo dazwischen, und jetzt wissen Sie genug, um zu entscheiden, ob es zu Ihnen passt."
+        "answer": "<strong>Hier ist etwas, das die meisten Menschen nicht wissen:</strong> Wenn Sie Geld bei einer Bank einzahlen, gehört es technisch gesehen nicht mehr \"Ihnen\". Rechtlich wird es das Geld der Bank. Sie versprechen nur, es zurückzuzahlen, während sie es für ihre Zwecke nutzen.\n\n<strong>Bei diBoaS funktioniert es anders.</strong> Ihre Mittel bleiben in Ihrer eigenen Wallet. <strong>diBoaS kann sie nicht anfassen.</strong> Wir zeigen Ihnen nur, wo Sie sie anlegen können, damit Ihr Geld härter arbeitet.\n\n<strong>Diese vertrauenswürdigen Systeme haben seit Jahren Milliarden geschützt.</strong>\n\nSind sie dasselbe wie Bankeinlagen? Nein. Sind sie der Wilde Westen? Auch nein. Sie liegen irgendwo dazwischen, und jetzt wissen Sie genug, um zu entscheiden, ob es zu Ihnen passt."
       },
       "risks": {
         "question": "Welche Risiken sollte ich kennen?",
-        "answer": "Seien wir ehrlich: Die Einlagensicherung deckt bis zu €100.000 ab, aber Banken riskieren Ihr Geld hinter den Kulissen, ohne es Ihnen zu sagen.\n\ndiBoaS verwendet andere Technologie: Code-basierte Systeme, die Fehler haben oder angegriffen werden könnten. Wir halten uns an bewährte (€10 Mrd.+ geschützt, lange Erfolgsgeschichten).\n\nNirgendwo gibt es null Risiko, aber hier ist es transparenter. Beginnen Sie mit dem, was Sie nicht vermissen werden. Selbst €5. Lernen Sie, wie es funktioniert. Dann entscheiden Sie, ob es das Richtige für Sie ist."
+        "answer": "diBoaS verwendet andere Technologie: Code-basierte Systeme, die Fehler haben oder angegriffen werden könnten. Wir halten uns an bewährte (€10 Mrd.+ geschützt, lange Erfolgsgeschichten).\n\nNirgendwo gibt es null Risiko, aber hier ist es transparenter. Beginnen Sie mit dem, was Sie nicht vermissen werden. Selbst €5. Lernen Sie, wie es funktioniert. Dann entscheiden Sie, ob es das Richtige für Sie ist."
       },
       "withdraw": {
         "question": "Kann ich mein Geld jederzeit abheben?",
@@ -198,18 +117,11 @@
     }
   },
   "waitlist": {
-    "header": "Früh dabei sein",
-    "subheader": "Seien Sie die Ersten, die erfahren, wenn wir starten.",
-    "emailPlaceholder": "Ihre E-Mail-Adresse",
-    "submitButton": "Der Warteliste beitreten",
-    "privacyNote": "Nur diBoaS-Updates. Kein Spam. Einfach abmelden."
-  },
-  "finalCta": {
     "header": "Bereit?",
-    "body": "Jetzt wissen Sie, was meine Großmutter nie erfahren hat.\n\nDas System wurde so gebaut. Aber Sie müssen es nicht akzeptieren.\n\nWir bauen etwas anderes.\n\nIhr Geld. Ihre Zukunft. Ihre Regeln.",
-    "anthem": "Ihr Geld. Ihre Zukunft. Ihre Regeln.",
-    "button": "Der Warteliste beitreten — kostenlos →",
-    "footer": "Sie sind #{position} in der Reihe für den frühen Zugang"
+    "subheader": "Werde Teil der Bewegung.",
+    "emailPlaceholder": "Ihre E-Mail-Adresse",
+    "submitButton": "Zugang erhalten →",
+    "privacyNote": "Nur diBoaS-Updates. Kein Spam. Einfach abmelden."
   },
   "footer": {
     "riskDisclaimer": "diBoaS verbindet Sie mit dezentralen Finanzsystemen. Wachstum ist nicht garantiert. Vergangene Ergebnisse sagen keine zukünftigen voraus. Beinhaltet Risiken wie Code-Probleme, Marktveränderungen und Zugangsherausforderungen. Nutzen Sie nur, was Sie riskieren können. Keine Bank. Keine Einlagensicherung.",
@@ -220,16 +132,6 @@
       "terms": "Nutzungsbedingungen",
       "risk": "Risikohinweis"
     }
-  },
-  "problem": {
-    "header": "Das System ist nicht kaputt. Es funktioniert genau so, wie es konzipiert wurde.",
-    "body": "Ihre Bank nimmt Ihr Geld, investiert es für hohe Gewinne, berechnet Ihnen Gebühren und gibt Ihnen Cent-Beträge zurück.\n\nStellen Sie sich vor: Sie sparen €1.000. Die Bank verdient €70 damit und gibt Ihnen €4 zurück. Die anderen €66? Die behalten sie.",
-    "cta": "So habe ich das entdeckt →"
-  },
-  "whyWeBuiltThis": {
-    "header": "Es begann mit meiner Großmutter",
-    "story": "Meine Großmutter sagte mir immer: \"Spare die Hälfte von dem, was du verdienst.\" Nach dieser Regel lebte sie ihr ganzes Leben lang. Sie arbeitete hart, verzichtete auf Luxus und legte Geld zur Seite.\n\nAber es reichte nicht.\n\nKommt Ihnen das bekannt vor?\n\nNiemand erklärte ihr warum: Ihre Bank gab ihr etwa 0,4% Zinsen, während sie 7% mit ihrem Ersparten verdiente.\n\nStellen Sie sich vor: Sie sparen €1.000. Die Bank verdient €70 damit und gibt Ihnen €4 zurück. Die anderen €66? Die behalten sie.\n\nDas passiert jeden Tag Millionen von Menschen.\n\nDeshalb baue ich diBoaS.",
-    "signature": "— Breno, Gründer"
   },
   "seo": {
     "title": "diBoaS | Das System wurde nicht für Sie gebaut. Wir ändern das.",

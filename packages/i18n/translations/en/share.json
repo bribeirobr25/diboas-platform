@@ -44,15 +44,15 @@
     "copied": "Link copied to clipboard!"
   },
   "dreamMode": {
-    "twitter": "At @diboasfi Dream Mode, I could grow {start} → {end} in {timeframe}. My bank? Only {bank}. Same money, different place. diboas.com",
-    "whatsapp": "At diBoaS Dream Mode, I could grow {start} → {end} in {timeframe}. My bank? Only {bank}. Same money, different place. Check it out: diboas.com",
-    "linkedin": "At @diboasfi Dream Mode, I could grow {start} → {end} in {timeframe}. My bank? Only {bank}. Same money, different place. Check it out: diboas.com"
+    "twitter": "#WhileISlept, my money could become {end}. Banks gave me nothing. What could yours do? @diboasfi diboas.com",
+    "whatsapp": "#WhileISlept, my money could become {end}. Banks gave me nothing. What could yours do? Check it out: diboas.com",
+    "linkedin": "#WhileISlept, my money could become {end}. Banks gave me nothing. What could yours do? Check it out: diboas.com"
   },
   "waitlistPosition": {
-    "twitter": "I'm #{position} on the @diboasfi waitlist. With just $5 I'm getting the same opportunities as institutions and billionaires.",
-    "whatsapp": "I just joined the diBoaS waitlist (#{position}). Did you know there is a way to start with just $5 and get the same opportunities as institutions and billionaires? Check it out: {referralUrl}",
-    "facebook": "I'm #{position} on the diBoaS waitlist. Banks earn 7% with our savings but only pay us 0.4%. Time to change that.",
-    "linkedin": "I just joined the @diboasfi waitlist (#{position}). Did you know banks earn 7% with our savings but only give us back 0.4%? With diBoaS I can change this and you can change it too. Check it out: {referralUrl}"
+    "twitter": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join the movement @diboasfi",
+    "whatsapp": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join us in this movement: {referralUrl}",
+    "facebook": "The wealth gap isn't just income. It's ACCESS. Banks earn 7% with our money, give us 0.4%. I'm #{position} saying enough. Join the movement.",
+    "linkedin": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join us in this movement: {referralUrl}"
   },
   "dreamCard": {
     "watermark": "PROJECTION",

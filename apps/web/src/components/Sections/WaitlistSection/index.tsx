@@ -77,10 +77,10 @@ export const WaitlistSection = memo(function WaitlistSection({
             <>
               <div className={styles.header}>
                 <h2 className={styles.headline}>
-                  {config?.headline || intl.formatMessage({ id: 'waitlist.headline' })}
+                  {config?.headline || intl.formatMessage({ id: 'waitlist.header' })}
                 </h2>
                 <p className={styles.subheadline}>
-                  {config?.subheadline || intl.formatMessage({ id: 'waitlist.subheadline' })}
+                  {config?.subheadline || intl.formatMessage({ id: 'waitlist.subheader' })}
                 </p>
               </div>
               <WaitlistForm

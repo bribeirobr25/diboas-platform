@@ -1,7 +1,7 @@
 {
   "hero": {
-    "headline": "Das System ist nicht kaputt. Es funktioniert genau so, wie es konzipiert wurde. Nur nicht f\u00fcr Ihr Unternehmen.",
-    "subheadline": "Ist es schwierig, gute Kreditlinien mit niedrigen Zinsen zu bekommen? Und was ist mit Kartenzahlungen, bei denen Sie 2-3% an Geb\u00fchren verlieren und 15 Tage auf Ihr Geld warten? Ach ja, und das Geld auf Ihrem Gesch\u00e4ftskonto? Ihre Bank investiert es, verdient 7% und gibt Ihnen 0,4% zur\u00fcck. Es gibt einen besseren Weg. Deshalb gibt es diBoaS for Business.",
+    "headline": "Das System ist nicht kaputt. Es ist nur für Milliarden-Konzerne konzipiert.",
+    "subheadline": "Ihre Bank verdient 7% mit Ihrem Geld. Kartenzahlungen kosten 2,9%.\nIhre Liquidität blutet. Es gibt einen besseren Weg.",
     "cta": "So habe ich das entdeckt \u2192",
     "trustBadges": {
       "mica": {
@@ -23,17 +23,17 @@
     }
   },
   "theMath": {
-    "header": "Die Rechnung, die Ihnen niemand zeigt",
-    "intro": "Sie haben \u20ac2M eingesammelt. Sie werden es \u00fcber 18 Monate ausgeben. Das bedeutet, dass \u20ac1M+ jederzeit auf Ihrem Konto liegt.\n\nDas passiert gerade mit diesem Geld:\n\nIhre Bank verdient \u20ac70.000 pro Jahr damit. Sie bekommen \u20ac4.000. Die anderen \u20ac66.000? Das ist deren Gewinn. Von Ihrer Runway.",
+    "header": "Wo bleiben die €65.000?",
+    "intro": "€2M eingesammelt. 18 Monate Liquidität. €1M+ liegt ungenutzt.\n\nIhre Bank verdient: €70.000/Jahr.\nGibt Ihnen: €4.000/Jahr.\nDie Differenz: €66.000 ist deren Gewinn.\n\nDas verschenkt Ihr Unternehmen gerade.",
     "cta": "Berechnen Sie Ihre Zahlen \u2192"
   },
   "origin": {
-    "header": "Es begann mit meiner Gro\u00dfmutter",
-    "body": "Meine Gro\u00dfmutter sagte mir immer: \u201eSpare die H\u00e4lfte von dem, was du verdienst.\u201c Nach dieser Regel lebte sie ihr ganzes Leben lang, arbeitete hart, verzichtete auf Luxus und legte Geld zur Seite.\n\nAber es reichte nicht.\n\nKommt Ihnen das bekannt vor?\n\nNiemand erkl\u00e4rte ihr warum: Ihre Bank gab ihr etwa 0,4% Zinsen, w\u00e4hrend sie 7% mit ihrem Ersparten verdiente.\n\nDas Gleiche passiert gerade mit der Liquidit\u00e4t Ihres Unternehmens.\n\nMeine Gro\u00dfmutter hatte keinen Zugang zu besseren Zinsen. Das System war nicht f\u00fcr Menschen wie sie gebaut.\n\nAber Gr\u00fcnder? Sie haben Optionen. Sie m\u00fcssen nur wissen, dass sie existieren.\n\nDeshalb baue ich diBoaS.",
+    "header": "Wegen meiner Großmutter",
+    "body": "Sie hat ihr ganzes Leben gespart. Die Hälfte von allem, was sie verdient hat. Alles richtig gemacht.\n\nEs hat trotzdem nicht gereicht.\nDas System war nicht für Menschen wie sie gemacht.\nGenauso wenig wie für Unternehmen wie Ihres.\n\nAber Gründer? Sie haben Optionen. Sie müssen nur wissen, dass sie existieren.\n\nDeshalb baue ich diBoaS für Unternehmen.",
     "signature": "\u2014 Bar, Gr\u00fcnder"
   },
   "calculator": {
-    "header": "Schauen wir uns Ihre Zahlen an",
+    "header": "Rechnen Sie selbst",
     "fields": {
       "cashOnHand": "Liquidit\u00e4t",
       "currentRate": "Aktueller Zinssatz",
@@ -50,49 +50,53 @@
       "currentRate": "0.4"
     },
     "perYear": "/Jahr",
-    "cta": "Lassen Sie uns dar\u00fcber sprechen \u2192"
+    "cta": "Diese Renditen sichern →"
   },
   "howItWorks": {
     "header": "So funktioniert es",
-    "subhead": "Verbinden Sie Ihr Gesch\u00e4ftskonto. 2 Minuten Einrichtung. Keine technische Integration erforderlich.",
+    "subhead": "",
     "steps": {
-      "setFloor": {
-        "title": "Legen Sie Ihren Sicherheitspuffer fest",
-        "description": "Teilen Sie uns Ihre Liquidit\u00e4tsschwelle mit. \u201eHalte immer \u20ac50K verf\u00fcgbar.\u201c Wir setzen nur dar\u00fcber ein. Sie werden nie knapp."
+      "link": {
+        "title": "Verbinden Sie Ihr Geschäftskonto",
+        "description": "2 Minuten Einrichtung. Keine technische Integration nötig."
+      },
+      "control": {
+        "title": "Sie haben die Kontrolle",
+        "description": "Bestimmen Sie, wie viel Sie investieren möchten. Wir setzen nur ein, was Sie wollen."
       },
       "earn": {
-        "title": "Ihr Geld beginnt zu arbeiten",
-        "description": "Liquidit\u00e4t \u00fcber Ihrer Schwelle verdient 6-8% pro Jahr durch vertrauensw\u00fcrdige Systeme. \u00c4hnliche Renditen wie Banken verdienen. Jetzt Ihre."
+        "title": "Beobachten Sie das Wachstum",
+        "description": "6-8% pro Jahr, rund um die Uhr in geprüften Systemen. Echtes Wachstum. Jetzt mit Zinseszins."
       },
       "withdraw": {
-        "title": "Jederzeit verf\u00fcgbar",
-        "description": "Brauchen Sie Liquidit\u00e4t? Ein Tippen. Abwicklung am selben Tag. Keine Sperrfristen. Keine Strafen. Keine Fragen."
+        "title": "Jederzeit verfügbar",
+        "description": "Brauchen Sie Liquidität? Ein Tippen. Abwicklung am selben Tag. Keine Sperrfristen. Keine Strafen. Keine Fragen."
       }
     },
-    "footer": "Monatliche Abrechnungen. Vorstandstaugliche Berichte. Klare Sprache \u2014 kein Fachjargon."
+    "footer": "Monatliche Abrechnungen. Vorstandstaugliche Berichte. Klare Sprache — kein Fachjargon."
   },
   "features": {
-    "header": "Mehr als Rendite. Alles, was Ihr Unternehmen braucht.",
-    "intro": "Rendite ist die Schlagzeile. Aber diese Punkte k\u00f6nnten f\u00fcr Ihr Gesch\u00e4ft noch wichtiger sein.",
+    "header": "Zahlen. Kassieren. Verdienen. Optimieren.",
+    "intro": "",
     "instantPayments": {
-      "headline": "Zahlen Sie jeden. Sofort. Niedrige Geb\u00fchren.",
-      "body": "Bezahlen Sie Auftragnehmer in Argentinien? Einen Lieferanten in Deutschland? Einen Freelancer in Singapur?\n\nTraditionelle \u00dcberweisungen: \u20ac25-50 pro Transaktion. 2-5 Werktage. Wechselkursaufschlag.\n\nMit diBoaS: Nur 0,12% pro \u00dcberweisung. In Sekunden abgewickelt. Echter Wechselkurs.",
+      "headline": "Zahlen Sie jeden, überall",
+      "body": "In Echtzeit. Nur 0,12% pro Überweisung. Echter Wechselkurs. Keine Überweisungsgebühren.",
       "example": {
         "before": "\u20ac500 \u00dcberweisung an Auftragnehmer = \u20ac475 erhalten (nach Geb\u00fchren + Spread)",
         "after": "\u20ac500 gesendet = \u20ac500 erhalten"
       }
     },
     "receivePayments": {
-      "headline": "Schneller bezahlt werden. Mehr behalten.",
-      "body": "Ihre Kunden k\u00f6nnen Sie sofort bezahlen, von \u00fcberall auf der Welt. Kein Zahlungsabwickler, der 2,9% + \u20ac0,30 nimmt. Kein Warten von 3-5 Tagen auf die Abwicklung.",
+      "headline": "Schneller kassieren",
+      "body": "Jederzeit. Jeden Tag. Überall. Keine 2,9% Abwicklergebühren. Kein 3-5 Tage warten.",
       "example": {
         "before": "\u20ac10.000 Rechnung \u2192 \u20ac9.700 nach Stripe-Geb\u00fchren \u2192 verf\u00fcgbar in 3 Tagen",
         "after": "\u20ac10.000 Rechnung \u2192 \u20ac10.000 erhalten \u2192 sofort verf\u00fcgbar"
       }
     },
     "cashflowOptimization": {
-      "headline": "Ihr Geld arbeitet 24/7. Auch wenn Sie es nicht tun.",
-      "body": "Die meisten Gesch\u00e4ftskonten zahlen \u00fcber Nacht nichts. Ihre \u20ac500K liegen einfach... da.\n\nMit diBoaS verdient ungenutztes Geld kontinuierlich Rendite. Jede Stunde. Jeden Tag. Einschlie\u00dflich Wochenenden und Feiertagen.",
+      "headline": "Ihre Liquidität arbeitet rund um die Uhr",
+      "body": "Ungenutztes Kapital verdient 6-8% pro Jahr. Jede Stunde. Jeden Tag. Auch an Wochenenden und Feiertagen.",
       "example": {
         "label": "\u20ac500K overnight f\u00fcr 30 Tage:",
         "bank": "\u20ac0-20",
@@ -100,8 +104,8 @@
       }
     },
     "overnightSweep": {
-      "headline": "Automatische \u00dcbernacht-Optimierung",
-      "body": "Am Ende des Gesch\u00e4ftstages bewegt sich Ihr Geld automatisch in renditebringende Systeme. Am Anfang des Gesch\u00e4ftstages ist es zur\u00fcck und liquide. Sie legen den Boden fest. Wir k\u00fcmmern uns um den Rest.",
+      "headline": "Automatische Optimierung",
+      "body": "Am Tagesende fließt Ihr Geld in Rendite. Am Morgen ist es zurück und liquide. Sie bestimmen die Untergrenze.",
       "schedule": {
         "evening": "18 Uhr: Bargeld \u00fcber Schwelle \u2192 Ertragssysteme",
         "morning": "9 Uhr: Volle Liquidit\u00e4t wiederhergestellt",
@@ -109,54 +113,16 @@
       }
     }
   },
-  "trust": {
-    "header": "F\u00fcr Teams, die Details brauchen",
-    "euRegulated": {
-      "title": "EU-Reguliert",
-      "description": "Wir arbeiten unter dem MiCA-Rahmenwerk der EU mit ausstehender Genehmigung.",
-      "translation": "\u00dcbersetzung: Regulatorische Aufsicht, Berichtspflichten, Rechenschaftspflicht."
-    },
-    "nonCustodial": {
-      "title": "Ihre Mittel, Ihre Wallet",
-      "description": "Wir halten niemals Ihre Gelder. Ihr Geld bleibt in Ihrer eigenen Wallet.",
-      "details": "Selbst wenn diBoaS morgen verschwinden w\u00fcrde, geh\u00f6ren Ihre Mittel immer noch Ihnen. Das unterscheidet uns von traditionellen Finanzen \u2014 wir k\u00f6nnen Ihr Geld buchst\u00e4blich nicht ohne Ihre Zustimmung bewegen."
-    },
-    "audited": {
-      "title": "Unabh\u00e4ngig Gepr\u00fcft",
-      "description": "Wir nutzen nur Systeme, die:",
-      "points": [
-        "\u20ac10 Mrd.+ an gesichertem Gesamtwert haben",
-        "Mehrfache unabh\u00e4ngige Sicherheitspr\u00fcfungen haben",
-        "Transparente Operationen, die Sie selbst \u00fcberpr\u00fcfen k\u00f6nnen"
-      ],
-      "note": "Dieselbe Infrastruktur, die Institutionen nutzen."
-    },
-    "reporting": {
-      "title": "Transparente Berichterstattung",
-      "description": "Monatliche Abrechnungen. Echtzeit-Dashboard. Vollst\u00e4ndige Pr\u00fcfspur.",
-      "note": "Ihr CFO wird es verstehen. Ihr Vorstand wird es sch\u00e4tzen."
-    }
-  },
   "fitAssessment": {
-    "header": "Ehrliche Eignungspr\u00fcfung",
-    "intro": "Ich sage Ihnen lieber, dass dies nicht das Richtige f\u00fcr Sie ist, als Sie zu etwas zu \u00fcberreden, das nicht passt.",
+    "header": "Ist das etwas für Sie?",
+    "intro": "Ich verliere Sie lieber jetzt als Sie später zu enttäuschen.",
     "goodFit": {
       "title": "Gute Passung",
-      "items": [
-        "\u20ac100K+ an Liquidit\u00e4t, die 6+ Monate ungenutzt liegt",
-        "Bereit f\u00fcr kalkuliertes Risiko f\u00fcr bessere Renditen",
-        "Zahlen regelm\u00e4\u00dfig internationale Auftragnehmer oder Lieferanten",
-        "M\u00f6chten Zahlungen ohne Abwicklergeb\u00fchren empfangen"
-      ]
+      "description": "• €100K+ liegt ungenutzt seit 6+ Monaten\n• Bereit für kalkuliertes Risiko\n• Nicht einverstanden mit dem aktuellen System\n• Wollen keine Abwicklergebühren"
     },
     "notAFit": {
       "title": "Keine Passung",
-      "items": [
-        "Brauchen Einlagensicherung \u00fcber alles andere",
-        "Null Risikotoleranz, auch f\u00fcr h\u00f6here Renditen",
-        "Alle Mittel innerhalb weniger Tage ben\u00f6tigt",
-        "Bevorzugen traditionelle Bankbeziehungen"
-      ]
+      "description": "• Einlagensicherung ist oberste Priorität\n• Null Risikotoleranz\n• Brauchen alle Mittel innerhalb von Tagen\n• Bevorzugen traditionelle Banken"
     }
   },
   "faq": {
@@ -194,15 +160,10 @@
       }
     }
   },
-  "socialProof": {
-    "header": "Fr\u00fche Anwender",
-    "preLaunch": "Wir starten Anfang 2026. Treten Sie der Warteliste bei, um zu den ersten Unternehmen zu geh\u00f6ren, die Zugang zu institutionellem Treasury-Management erhalten.",
-    "count": "{count} Unternehmen sind bereits auf der Liste."
-  },
   "finalCta": {
-    "header": "M\u00f6chten Sie die Zahlen gemeinsam durchgehen?",
-    "body": "15 Minuten. Ihre spezifische Situation.\n\nWenn es Sinn macht, gro\u00dfartig. Wenn nicht, wissen Sie zumindest genau, was Sie auf dem Tisch liegen lassen.",
-    "cta": "Gespr\u00e4ch mit dem Gr\u00fcnder vereinbaren",
+    "header": "15 Minuten. Unverbindlich.",
+    "body": "Es geht um Sie. Ihr Unternehmen. Ihre Zahlen.\nPassend oder nicht, Sie wissen genau, was auf dem Tisch liegt.",
+    "cta": "Lassen Sie uns sprechen →",
     "alternative": "Oder E-Mail: bar@diboas.com",
     "footer": "Kein Pitch Deck. Kein Verkaufsdruck. Nur Mathematik."
   },

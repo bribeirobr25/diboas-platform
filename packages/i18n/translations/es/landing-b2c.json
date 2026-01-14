@@ -1,178 +1,97 @@
 {
   "hero": {
-    "headlineLine1": "El sistema no está roto.",
-    "headlineLine2": "Funciona exactamente como fue diseñado.",
-    "headlineLine3": "Solo que no para ti.",
-    "headline": "El sistema no está roto. Funciona exactamente como fue diseñado. Solo que no para ti.",
-    "subheadline": "Tu banco toma tu dinero, lo invierte para obtener grandes ganancias, te cobra comisiones y te devuelve centavos. Hay una forma de equilibrar esto y tener las mismas oportunidades que las instituciones y los multimillonarios. Desde solo €5.",
-    "cta": "Así fue como lo descubrí →",
-    "trust": "Tu dinero sigue siendo tuyo. Retira cuando quieras.",
-    "socialProof": "Únete a {count} personas que dijeron \"basta\""
+    "headline": "El sistema no está roto. Fue diseñado así",
+    "subheadline": "Los bancos ganan 7% con tu dinero. Te dan 0,4%. Los ricos nunca aceptaron ese trato. Tú no tenías opción. Hasta ahora.",
+    "cta": "Así fue como lo descubrí →"
   },
   "origin": {
-    "header": "Todo empezó con mi abuela",
-    "body": "Mi abuela siempre me decía: \"Ahorra la mitad de lo que ganes.\" Vivió con esa regla toda su vida, trabajando duro, renunciando a lujos, guardando dinero.\n\nPero no fue suficiente.\n\n¿Te suena familiar?\n\nNadie le explicó por qué: Su banco le daba alrededor del 0,4% de interés mientras ganaba el 7% con sus ahorros. O por qué sus comisiones siempre eran más altas que las de quienes tenían más dinero.\n\nImagina esto: Ahorras €1.000. El banco gana €70 con eso y te devuelve €4. ¿Los otros €66? Se los quedan ellos.\n\nEsto pasa todos los días a millones de personas. Por eso estoy construyendo diBoaS, para hacer que el equilibrio funcione a tu favor.",
-    "soundsFamiliar": "¿Te suena familiar?",
-    "bankFact": "Nadie le explicó por qué: Su banco le daba alrededor del 0,4% de interés mientras ganaba el 7% con sus ahorros.",
-    "thinkAboutIt": "Imagina esto: Ahorras €1.000. El banco gana €70 con eso y te devuelve €4. ¿Los otros €66? Se los quedan ellos.",
-    "sameBank": "Esto pasa todos los días a millones de personas.",
-    "whyBuilding": "Por eso estoy construyendo diBoaS, para hacer que el equilibrio funcione a tu favor.",
-    "signature": "— Breno, Fundador",
-    "cta": "Así es como funciona →"
+    "header": "Por mi abuela",
+    "body": "Ahorró toda su vida. La mitad de todo lo que ganaba. Hizo todo bien.\n\nAun así, no fue suficiente.\nEl sistema no fue hecho para personas como ella.\nComo yo. Como tú.\n\n<strong>Estoy construyendo lo que ella merecía.</strong>",
+    "signature": "— Breno, Fundador"
   },
   "howItWorks": {
-    "header": "Cómo diBoaS te ayuda a cambiar esto",
-    "subheader": "Empieza con tan solo €5. Solo toma 2 minutos.",
+    "header": "Cómo funciona",
     "step1": {
       "title": "Añade tu dinero",
-      "description": "Empieza a ganar 6-10% al año. Tasas similares a las que obtienen las grandes instituciones. Ahora ese crecimiento viene hacia ti."
+      "description": "Desde €5 o €5.000. Empieza a ganar 6-10% al año. El mismo acceso que tienen las instituciones. Ahora es tuyo."
     },
     "step2": {
       "title": "Míralo crecer",
-      "description": "Tu dinero trabaja las 24 horas en sistemas confiables, construyendo valor real."
+      "description": "Tu dinero trabaja 24/7 en sistemas verificados. Crecimiento real. Valor real. Ahora con interés compuesto."
     },
     "step3": {
       "title": "Accede cuando quieras",
       "description": "¿Necesitas tu dinero? Un toque. El mismo día. Sin esperas. Sin bloqueos. Sin penalizaciones."
-    },
-    "footerNote": "Eso es todo. Sin jerga. Sin complejidad. Solo tu dinero, trabajando de verdad para ti.",
-    "cta": "Pero eso no es todo →"
-  },
-  "futureYouCalculator": {
-    "header": "¿En qué podrían convertirse tus €20 al mes?",
-    "subheader": "Déjame mostrarte las posibilidades para tu yo futuro.",
-    "sliderLabel": "Cantidad mensual que podrías apartar",
-    "sliderMin": "€5",
-    "sliderMax": "€500",
-    "timeButtons": {
-      "5years": "5 años",
-      "10years": "10 años",
-      "15years": "15 años",
-      "20years": "20 años"
-    },
-    "results": {
-      "intro": "En {years} años, tus €{amount}/mes podrían convertirse en:",
-      "withDiboas": "Con diBoaS (8,0% al año)",
-      "withBank": "Con tu banco (0,4% al año)",
-      "difference": "Eso son €{difference} más con el mismo esfuerzo. Pequeños pasos, gran diferencia con el tiempo."
-    },
-    "sourceNote": "Comparación bancaria basada en la tasa promedio de ahorro de cajas de ahorros del 0,4% anual (enero 2026).",
-    "disclaimer": "Esta es una proyección basada en datos históricos. Los resultados no están garantizados. Los mercados pueden cambiar.",
-    "cta": "Únete a la lista de espera para explorar esto de verdad"
+    }
   },
   "features": {
-    "header": "Más que solo ahorrar. Toda tu vida financiera.",
-    "intro": "diBoaS te da control simple sobre tus finanzas, eliminando comisiones bancarias, esperas y límites.",
+    "header": "Gana. Envía. Invierte. Crece.",
     "earn": {
-      "headline": "Gana crecimiento real",
-      "body": "Tus ahorros ganan 6-10% al año en dólares digitales que mantienen su valor, usando sistemas confiables. Similar a las tasas institucionales, ahora tuyas. Retira cuando quieras.",
-      "stat": "Basado en análisis histórico de 4 años. Los resultados varían según la estrategia. Detalles en nuestra página de Estrategias."
+      "headline": "Gana 6-10% al año",
+      "body": "Tu dinero crece en sistemas verificados. Acceso institucional, ahora tuyo. Retira cuando quieras."
     },
     "send": {
-      "headline": "Envía dinero rápido y gratis",
-      "body": "Transfiere a cualquier persona en el mundo en segundos. Sin comisiones de transferencia, sin malas tasas de cambio, sin bancos cerrados. Rápido y simple.",
-      "stat": "€0 comisiones. Tiempo real. 24/7/365."
+      "headline": "Mueve dinero libremente",
+      "body": "Por el mundo en segundos. A cualquier persona. En cualquier lugar. Sin comisiones. Sin esperas."
     },
     "invest": {
-      "headline": "Alcanza oportunidades globales",
-      "body": "Compra acciones, cripto u otros activos desde cualquier lugar. Sin fronteras, sin mínimos altos, sin intermediarios que te bloqueen.",
-      "stat": "Empieza con €5. Sé dueño de un pedazo de lo que quieras."
+      "headline": "Invierte sin fronteras",
+      "body": "Activos globales. Acciones, Oro, cripto. Sin fronteras. Sin necesidad de permiso."
     },
     "goals": {
-      "headline": "Construye hacia tus metas",
-      "body": "Elige para qué estás ahorrando y cuándo. Te sugerimos un plan que funcione. Síguelo fácilmente, ajústalo cuando necesites. Tu dinero se mueve con tu vida.",
-      "stat": "10 estrategias para diferentes niveles de riesgo."
-    },
-    "strategiesLink": "Explóralas todas →",
-    "cta": "Explorar todas las estrategias →"
+      "headline": "Define metas. Alcánzalas.",
+      "body": "Dinos para qué estás ahorrando. Te sugerimos un plan. Sigue el progreso. Ajusta cuando la vida cambie."
+    }
   },
   "demo": {
-    "header": "Echa un vistazo rápido",
-    "subtext": "60 segundos para ver cómo se siente",
-    "postDemoCta": "¿Listo para empezar? Únete a la lista de espera →",
+    "header": "Pruébalo tú mismo",
     "pain": {
       "header": "Tus ahorros hoy",
-      "currentSavings": "Digamos que tus ahorros actuales son:",
-      "subtext": "Crecimiento este año: {interest}",
-      "hook": "Eso es apenas un café. Tu banco se queda con el resto.",
-      "cta": "¿Y si...?"
+      "subtext": "Lo que tu banco te dio este año: {bankPays}",
+      "hook": "Lo que ellos ganaron con eso: {bankEarns}",
+      "hookBrazil": "Lo que ellos ganaron con eso: {bankEarns}. Y el real perdió {currencyLoss}% contra el dólar.",
+      "cta": "con diBoaS"
     },
     "hope": {
-      "header": "¿Y si creciera de forma más inteligente?",
-      "projectionLabel": "En 1 año al 8% anual:",
-      "comparison": "Eso son {projected} en lugar de {current}.",
-      "impact": "La misma cantidad, mejor lugar y 20 veces más crecimiento.",
+      "header": "Los mismos {balance}. Un año después.",
+      "projectionLabel": "En 1 año al {apyRate}% anual:",
+      "comparison": "Tu banco: {bankTotal}.\ndiBoaS: {diboasTotal}.\nLa diferencia: {difference}.",
+      "impact": "Mismo dinero. Diferente lugar. {multiplier}x más crecimiento.",
       "cta": "Muéstrame cómo"
     },
     "action": {
-      "header": "Empieza con una cantidad",
+      "header": "Prueba con cualquier cantidad",
       "prompt": "¿Cuánto quieres probar?",
-      "reassurance1": "Cualquier cantidad funciona.",
-      "reassurance2": "Sin presión.",
+      "reassurance1": "Hasta {minAmount} funciona.",
+      "reassurance2": "Sin compromiso.",
       "cta": "Añadir"
     },
     "reward": {
-      "header": "¡Míralo crecer!",
-      "delight": "Acabas de ganar {earned}. Imagina lo que pasa mientras duermes.",
+      "header": "Míralo crecer",
+      "delight": "{earned} ganados. Ahora imagina un año.",
       "vision": "Imagina lo que pasa mientras duermes.",
-      "sharePrompt": "Bastante genial, ¿no?",
-      "shareCta": "Comparte con un amigo",
       "continueCta": "Continuar"
-    },
-    "invitation": {
-      "header": "EL APRENDIZAJE ES REAL.",
-      "subheader": "¿La brecha entre lo que los bancos ganan y lo que te pagan? Siempre estuvo ahí.",
-      "callToAction": "Ahora sabes lo que mi abuela nunca supo.",
-      "emailPlaceholder": "Tu correo electrónico",
-      "submitButton": "Unirse a la lista de espera",
-      "trustPoint1": "Sin spam, nunca",
-      "trustPoint2": "Acceso anticipado en el lanzamiento",
-      "trustPoint3": "Invita amigos = salta la fila"
-    },
-    "screen5": {
-      "ctaAnonymous": "Unirse a la lista de espera",
-      "ctaLoggedIn": "Probar el Modo Sueño",
-      "divider": "o",
-      "ctaSecondary": "Explorar lo que viene",
-      "dreamModeHelper": "Modo Sueño: Mira lo que diferentes enfoques podrían hacer con tu dinero — usando datos históricos reales."
-    },
-    "success": {
-      "header": "¡Estás dentro!",
-      "positionLabel": "Eres el #{position} en la lista de espera",
-      "incentiveHeader": "¿Quieres adelantarte?",
-      "incentiveMechanic": "Cada amigo que se una = avanzas 10 lugares.",
-      "linkBoxLabel": "Copia tu link de invitación",
-      "shareLabel": "O comparte directamente:",
-      "copyLink": "Copiar Link",
-      "prewrittenMessage": "Acabo de registrarme en diBoaS — por fin una forma de hacer crecer mis ahorros de verdad. 8% vs el 0,4% del banco. Échale un vistazo",
-      "dreamModeHeader": "¿Quieres soñar más grande?",
-      "dreamModeCta": "Probar Modo Sueño",
-      "calculatorSuggestion": "Prueba también nuestra Calculadora del Futuro"
     }
   },
   "socialProof": {
-    "header": "Únete a otros que dicen \"basta\"",
+    "header": "Únete a quienes dicen \"basta\"",
     "stats": {
-      "waitlist": "{count} personas están listas para el cambio. Únete a ellas en la lista de espera.",
-      "countries": "De {countries} países y sumando"
-    },
-    "testimonial": {
-      "quote": "Por fin algo que tiene sentido para personas como yo que no son expertos en finanzas. Esto se siente como si hubiera sido construido para nosotros.",
-      "author": "Miembro temprano de la lista de espera"
+      "waitlist": "{count} ya se registraron.",
+      "countries": "{countries} países. Una misión."
     }
   },
   "faq": {
     "header": "Cosas que vale la pena saber",
     "description": "Respuestas directas a las preguntas más comunes sobre diBoaS.",
-    "ctaText": "Unirse a la lista de espera",
+    "ctaText": "Accede ahora →",
     "items": {
       "safety": {
         "question": "¿Está seguro mi dinero?",
-        "answer": "Aquí hay algo que la mayoría de la gente no sabe: Cuando pones dinero en un banco, técnicamente ya no es \"tuyo\". Legalmente, se convierte en dinero del banco. Solo prometen devolvértelo, mientras lo usan para sus ganancias.\n\nCon diBoaS, funciona diferente. Tus fondos permanecen en tu propia cartera. No podemos tocarlos. Solo te mostramos dónde ponerlos para que tu dinero trabaje más. Estos sistemas confiables han protegido miles de millones durante años.\n\n¿Son iguales a los depósitos bancarios? No. ¿Son el salvaje oeste? Tampoco. Están en algún punto intermedio, y ahora sabes lo suficiente para decidir si te conviene."
+        "answer": "<strong>Aquí hay algo que la mayoría de la gente no sabe:</strong> Cuando pones dinero en un banco, técnicamente ya no es \"tuyo\". Legalmente, se convierte en dinero del banco. Solo prometen devolvértelo, mientras lo usan para sus ganancias.\n\n<strong>Con diBoaS, funciona diferente.</strong> Tus fondos permanecen en tu propia cartera. <strong>diBoaS no puede tocarlos.</strong> Solo te mostramos dónde ponerlos para que tu dinero trabaje más.\n\n<strong>Estos sistemas confiables han protegido miles de millones durante años.</strong>\n\n¿Son iguales a los depósitos bancarios? No. ¿Son el salvaje oeste? Tampoco. Están en algún punto intermedio, y ahora sabes lo suficiente para decidir si te conviene."
       },
       "risks": {
         "question": "¿Qué riesgos debo conocer?",
-        "answer": "Seamos honestos: El seguro de depósitos cubre hasta €100.000, pero los bancos arriesgan tu dinero tras bambalinas sin decírtelo.\n\ndiBoaS usa tecnología diferente: sistemas basados en código que podrían tener fallos o ataques. Nos quedamos con los probados (€10 mil millones+ protegidos, largo historial).\n\nNo existe el riesgo cero en ningún lugar, pero aquí es más transparente. Empieza con lo que no vayas a extrañar. Incluso €5. Aprende cómo funciona. Luego decide si es lo correcto para ti."
+        "answer": "diBoaS usa tecnología diferente: sistemas basados en código que podrían tener fallos o ataques. Nos quedamos con los probados (€10 mil millones+ protegidos, largo historial).\n\nNo existe el riesgo cero en ningún lugar, pero aquí es más transparente. Empieza con lo que no vayas a extrañar. Incluso €5. Aprende cómo funciona. Luego decide si es lo correcto para ti."
       },
       "withdraw": {
         "question": "¿Puedo sacar mi dinero en cualquier momento?",
@@ -198,18 +117,11 @@
     }
   },
   "waitlist": {
-    "header": "Entra temprano",
-    "subheader": "Sé el primero en saber cuando lancemos.",
-    "emailPlaceholder": "Tu correo electrónico",
-    "submitButton": "Unirse a la lista de espera",
-    "privacyNote": "Solo actualizaciones de diBoaS. Sin spam. Cancela fácilmente."
-  },
-  "finalCta": {
     "header": "¿Listo?",
-    "body": "Ahora sabes lo que mi abuela nunca supo.\n\nEl sistema fue construido así. Pero no tienes que aceptarlo.\n\nEstamos construyendo algo diferente.\n\nTu dinero. Tu futuro. Tus reglas.",
-    "anthem": "Tu dinero. Tu futuro. Tus reglas.",
-    "button": "Únete a la lista de espera — es gratis →",
-    "footer": "Eres el #{position} en la fila para acceso anticipado"
+    "subheader": "Únete al movimiento.",
+    "emailPlaceholder": "Tu correo electrónico",
+    "submitButton": "Accede ahora →",
+    "privacyNote": "Solo actualizaciones de diBoaS. Sin spam. Cancela fácilmente."
   },
   "footer": {
     "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. El crecimiento no está prometido. Resultados pasados no predicen los futuros. Involucra riesgos como problemas de código, cambios de mercado y desafíos de acceso. Usa solo lo que puedas arriesgar. No es un banco. Sin seguro de depósitos.",
@@ -220,16 +132,6 @@
       "terms": "Términos de Servicio",
       "risk": "Aviso de Riesgos"
     }
-  },
-  "problem": {
-    "header": "El sistema no está roto. Funciona exactamente como fue diseñado.",
-    "body": "Tu banco toma tu dinero, lo invierte para obtener grandes ganancias, te cobra comisiones y te devuelve centavos.\n\nImagina esto: Ahorras €1.000. El banco gana €70 con eso y te devuelve €4. ¿Los otros €66? Se los quedan ellos.",
-    "cta": "Así fue como lo descubrí →"
-  },
-  "whyWeBuiltThis": {
-    "header": "Todo empezó con mi abuela",
-    "story": "Mi abuela siempre me decía: \"Ahorra la mitad de lo que ganes.\" Vivió con esa regla toda su vida, trabajando duro, renunciando a lujos, guardando dinero.\n\nPero no fue suficiente.\n\n¿Te suena familiar?\n\nNadie le explicó por qué: Su banco le daba alrededor del 0,4% de interés mientras ganaba el 7% con sus ahorros.\n\nImagina esto: Ahorras €1.000. El banco gana €70 con eso y te devuelve €4. ¿Los otros €66? Se los quedan ellos.\n\nEsto pasa todos los días a millones de personas.\n\nPor eso estoy construyendo diBoaS.",
-    "signature": "— Breno, Fundador"
   },
   "seo": {
     "title": "diBoaS | El Sistema No Fue Diseñado Para Ti. Estamos Cambiando Eso.",

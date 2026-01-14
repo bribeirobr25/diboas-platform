@@ -56,7 +56,7 @@
 @media (min-width: 1024px) {
   .title {
     font-size: var(--font-size-title-desktop);
-    text-align: left;
+    text-align: center;
   }
 }
 
@@ -267,28 +267,63 @@
   transition: all var(--afc-transition-duration) var(--afc-transition-easing);
 }
 
-/* Responsive: Mobile - Match image width (90%), align left */
+/* Responsive: Mobile - Match image width (90%), center aligned */
 @media (max-width: 767px) {
   .cardDescription {
     max-width: var(--afc-description-width-mobile); /* 90% */
     width: var(--percent-100);
-    align-items: flex-start; /* Align items to left */
+    align-items: center; /* Center align items */
   }
 }
 
-/* Responsive: Tablet - Constrain to 490px width below card, align left */
+/* Responsive: Tablet - Constrain to 490px width below card, center aligned */
 @media (min-width: 768px) and (max-width: 1023px) {
   .cardDescription {
     max-width: var(--afc-description-width-tablet); /* 490px */
-    align-items: flex-start; /* Align items to left */
+    align-items: center; /* Center align items */
   }
 }
 
-/* Responsive: Desktop - Constrain to 416px width below active card, align left */
+/* Responsive: Desktop - Constrain to 416px width below active card, center aligned */
 @media (min-width: 1024px) {
   .cardDescription {
     max-width: var(--afc-description-width-desktop); /* 416px */
-    align-items: flex-start; /* Align items to left */
+    align-items: center; /* Center align items */
+  }
+}
+
+/* Card Title - Bold title above description */
+.cardTitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--afc-color-title);
+  text-align: center;
+  margin: 0;
+}
+
+/* Responsive: Mobile - Center align card title */
+@media (max-width: 767px) {
+  .cardTitle {
+    text-align: center;
+    font-size: var(--font-size-md);
+  }
+}
+
+/* Responsive: Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cardTitle {
+    text-align: center;
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Responsive: Desktop */
+@media (min-width: 1024px) {
+  .cardTitle {
+    text-align: center;
+    font-size: var(--font-size-xl);
   }
 }
 
@@ -299,16 +334,16 @@
   font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-description);
   color: var(--afc-color-description);
-  text-align: center;
+  text-align: justify;
   margin: 0;
   white-space: pre-line; /* Preserve line breaks from \n characters */
   transition: opacity var(--afc-transition-duration) var(--afc-transition-easing);
 }
 
-/* Responsive: Mobile - Left align text */
+/* Responsive: Mobile - Justify align text */
 @media (max-width: 767px) {
   .description {
-    text-align: left; /* Align text to left on mobile */
+    text-align: justify; /* Align text to justify on mobile */
   }
 }
 
@@ -316,7 +351,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .description {
     font-size: var(--font-size-description-tablet);
-    text-align: left; /* Align text to left on tablet */
+    text-align: justify; /* Align text to justify on tablet */
   }
 }
 
@@ -324,7 +359,7 @@
 @media (min-width: 1024px) {
   .description {
     font-size: var(--font-size-description-desktop);
-    text-align: left; /* Align text to left on desktop */
+    text-align: justify; /* Align text to justify on desktop */
   }
 }
 
@@ -339,24 +374,24 @@
   width: var(--percent-100);
 }
 
-/* Responsive: Mobile - Align CTA to left */
+/* Responsive: Mobile - Center CTA */
 @media (max-width: 767px) {
   .ctaWrapper {
-    justify-content: flex-start; /* Align CTA to left on mobile */
+    justify-content: center; /* Center CTA on mobile */
   }
 }
 
-/* Responsive: Tablet - Align CTA to left */
+/* Responsive: Tablet - Center CTA */
 @media (min-width: 768px) and (max-width: 1023px) {
   .ctaWrapper {
-    justify-content: flex-start; /* Align CTA to left on tablet */
+    justify-content: center; /* Center CTA on tablet */
   }
 }
 
-/* Responsive: Desktop - Align CTA to left */
+/* Responsive: Desktop - Center CTA */
 @media (min-width: 1024px) {
   .ctaWrapper {
-    justify-content: flex-start; /* Align CTA to left on desktop */
+    justify-content: center; /* Center CTA on desktop */
   }
 }
 

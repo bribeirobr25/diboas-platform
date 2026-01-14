@@ -16,10 +16,8 @@ import {
   B2B_CALCULATOR_CONFIG,
   B2B_HOW_IT_WORKS_CONFIG,
   B2B_FEATURES_CONFIG,
-  B2B_TRUST_CONFIG,
   B2B_FIT_ASSESSMENT_CONFIG,
   B2B_FAQ_CONFIG,
-  B2B_SOCIAL_PROOF_CONFIG,
   B2B_FINAL_CTA_CONFIG
 } from '@/config/landing-b2b';
 import type { Metadata } from 'next';
@@ -103,9 +101,8 @@ export async function generateMetadata({ params }: B2BLandingPageProps): Promise
  * - Section 6: More Than Yield (4 features)
  * - Section 7: Trust & Compliance
  * - Section 8: Is This Right For You (Fit Assessment)
- * - Section 9: FAQ
- * - Section 10: Social Proof
- * - Section 11: Final CTA
+ * - Section 9: Final CTA
+ * - Section 10: FAQ
  */
 export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
   const { locale: localeParam } = await params;
@@ -228,23 +225,7 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: Trust & Compliance */}
-        <SectionErrorBoundary
-          sectionId="trust-section-b2b"
-          sectionType="BenefitsCards"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div id="trust">
-            <BenefitsCardsSection
-              config={B2B_TRUST_CONFIG}
-              variant="default"
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 8: Is This Right For You (Fit Assessment) */}
+        {/* Section 7: Is This Right For You (Fit Assessment) */}
         <SectionErrorBoundary
           sectionId="fit-assessment-section-b2b"
           sectionType="BenefitsCards"
@@ -260,33 +241,7 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 9: FAQ */}
-        <SectionErrorBoundary
-          sectionId="faq-section-b2b"
-          sectionType="FAQAccordion"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <FAQAccordion config={B2B_FAQ_CONFIG} />
-        </SectionErrorBoundary>
-
-        {/* Section 10: Social Proof */}
-        <SectionErrorBoundary
-          sectionId="social-proof-section-b2b"
-          sectionType="BenefitsCards"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div id="social-proof">
-            <BenefitsCardsSection
-              config={B2B_SOCIAL_PROOF_CONFIG}
-              variant="default"
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 11: Final CTA */}
+        {/* Section 8: Final CTA */}
         <SectionErrorBoundary
           sectionId="final-cta-b2b"
           sectionType="FeatureShowcase"
@@ -300,6 +255,16 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
               enableAnalytics={true}
             />
           </div>
+        </SectionErrorBoundary>
+
+        {/* Section 9: FAQ */}
+        <SectionErrorBoundary
+          sectionId="faq-section-b2b"
+          sectionType="FAQAccordion"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <FAQAccordion config={B2B_FAQ_CONFIG} />
         </SectionErrorBoundary>
       </main>
     </PageI18nProvider>

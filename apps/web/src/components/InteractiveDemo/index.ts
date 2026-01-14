@@ -10,6 +10,5 @@ export type {
   DemoScreen,
   DemoState,
   DemoAnalyticsEvent,
-  DemoLocaleContent,
   AmountOption
 } from './types';

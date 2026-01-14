@@ -1,11 +1,13 @@
 {
   "sectionTitle": "Lista de espera",
-  "headline": "Sé el primero en saber",
-  "subheadline": "Únete a la lista de espera y obtén acceso anticipado al lanzamiento.",
+  "headline": "¿Listo?",
+  "subheadline": "Únete al movimiento.",
+  "header": "¿Listo?",
+  "subheader": "Únete al movimiento.",
   "form": {
     "emailPlaceholder": "Tu correo electrónico",
     "emailLabel": "Dirección de correo electrónico",
-    "cta": "Unirse a la lista",
+    "cta": "Accede ahora →",
     "submitting": "Uniéndose...",
     "privacyNote": "Solo te enviaremos emails sobre diBoaS. Cancela cuando quieras."
   },
@@ -17,16 +19,16 @@
   },
   "confirmation": {
     "headline": "¡Estás dentro!",
-    "subhead": "Bienvenido al futuro de tus finanzas.",
+    "subhead": "Acabas de decir basta. Bienvenido al movimiento.",
     "positionIntro": "Tu posición:",
     "positionFormat": "#{position}",
-    "shareIntro": "¿Quieres subir en la fila?",
+    "shareIntro": "¿Quieres subir?",
     "shareBenefit": "Comparte tu enlace. Cada registro te sube 10 posiciones.",
     "shareExplanation": "Entre más pronto lancemos, más pronto esto se vuelve realidad.",
     "referralLinkLabel": "Tu enlace personal:",
     "copy": "Copiar enlace",
     "copied": "¡Copiado!",
-    "dreamModeCta": "Prueba el Dream Mode mientras esperas"
+    "dreamModeCta": "Mira lo que tu dinero puede hacer →"
   },
   "referral": {
     "movedUp": "¡Subiste {spots} posiciones!",

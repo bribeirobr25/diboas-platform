@@ -6,5 +6,3 @@ export { PainScreen } from './PainScreen';
 export { HopeScreen } from './HopeScreen';
 export { ActionScreen } from './ActionScreen';
 export { RewardScreen } from './RewardScreen';
-export { InvitationScreen } from './InvitationScreen';
-export { SuccessScreen } from './SuccessScreen';

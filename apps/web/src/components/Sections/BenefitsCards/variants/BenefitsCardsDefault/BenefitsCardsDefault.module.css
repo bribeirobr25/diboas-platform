@@ -95,33 +95,6 @@
   }
 }
 
-/* Section Description */
-.description {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-description-mobile);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-description);
-  color: var(--bc-color-card-description);
-  margin: 0;
-  max-width: var(--bc-description-max-width);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
-@media (min-width: 768px) {
-  .description {
-    font-size: var(--font-size-description-tablet);
-  }
-}
-
-/* Responsive: Desktop (breakpoint: var(--bc-breakpoint-desktop)) */
-@media (min-width: 1024px) {
-  .description {
-    font-size: var(--font-size-description-desktop);
-  }
-}
-
 /* ================================
    CARDS GRID
    ================================ */
@@ -423,6 +396,7 @@
   line-height: var(--bc-card-description-line-height);
   color: var(--bc-color-card-description);
   margin: 0;
+  white-space: pre-line; /* Preserve line breaks from \n characters */
 }
 
 /* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
@@ -471,7 +445,6 @@
     color: var(--color-black);
   }
 
-  .description,
   .cardDescription {
     color: var(--color-black);
   }

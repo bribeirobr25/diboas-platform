@@ -194,7 +194,7 @@
   color: var(--fs-color-description);
   margin: 0 auto;
   max-width: var(--fs-description-max-width);
-  text-align: center;
+  text-align: justify;
   white-space: pre-line; /* Preserve line breaks from \n characters */
 }
 
@@ -369,6 +369,7 @@
   max-height: var(--fs-image-base-height); /* Mobile: 360px */
   object-fit: contain;
   background-color: transparent;
+  border-radius: var(--fs-panel-border-radius);
   transition: opacity var(--fs-visual-transition-duration) var(--fs-easing-visual),
               transform var(--fs-visual-transition-duration) var(--fs-easing-visual);
 }

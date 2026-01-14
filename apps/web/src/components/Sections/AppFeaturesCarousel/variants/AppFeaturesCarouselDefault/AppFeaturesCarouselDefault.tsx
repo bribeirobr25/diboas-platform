@@ -160,6 +160,9 @@ export function AppFeaturesCarouselDefault({
               {/* Description below each card - visible only when active */}
               {index === currentSlideIndex && (
                 <div className={styles.cardDescription}>
+                  <h3 className={styles.cardTitle}>
+                    {card.content.title}
+                  </h3>
                   <p className={styles.description}>
                     {card.content.description}
                   </p>

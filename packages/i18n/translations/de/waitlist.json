@@ -1,11 +1,13 @@
 {
   "sectionTitle": "Auf die Warteliste setzen",
-  "headline": "Seien Sie unter den Ersten",
-  "subheadline": "Melden Sie sich an und erhalten Sie frühen Zugang zum Start.",
+  "headline": "Bereit?",
+  "subheadline": "Schließ dich der Bewegung an.",
+  "header": "Bereit?",
+  "subheader": "Schließ dich der Bewegung an.",
   "form": {
     "emailPlaceholder": "Ihre E-Mail-Adresse",
     "emailLabel": "E-Mail-Adresse",
-    "cta": "Auf die Warteliste",
+    "cta": "Jetzt Zugang erhalten →",
     "submitting": "Wird hinzugefügt...",
     "privacyNote": "Wir senden Ihnen nur E-Mails über diBoaS. Jederzeit abmeldbar."
   },
@@ -17,16 +19,16 @@
   },
   "confirmation": {
     "headline": "Sie sind dabei!",
-    "subhead": "Willkommen in der Zukunft Ihrer Finanzen.",
+    "subhead": "Sie haben genug gesagt. Willkommen in der Bewegung.",
     "positionIntro": "Ihre Position:",
     "positionFormat": "#{position}",
-    "shareIntro": "Möchten Sie nach vorne rücken?",
+    "shareIntro": "Möchten Sie aufsteigen?",
     "shareBenefit": "Teilen Sie Ihren Link. Jede Anmeldung bringt Sie 10 Plätze nach vorne.",
     "shareExplanation": "Je früher wir starten, desto eher wird das Realität.",
     "referralLinkLabel": "Ihr persönlicher Link:",
     "copy": "Link kopieren",
     "copied": "Kopiert!",
-    "dreamModeCta": "Dream Mode ausprobieren, während Sie warten"
+    "dreamModeCta": "Sehen Sie, was Ihr Geld bewirken könnte →"
   },
   "referral": {
     "movedUp": "Sie sind {spots} Plätze vorgerückt!",

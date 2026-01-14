@@ -273,6 +273,14 @@
 .accordionContentExpanded {
   max-height: 500px;
   opacity: 1;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.accordionContentExpanded::-webkit-scrollbar {
+  display: none;
 }
 
 .answer {

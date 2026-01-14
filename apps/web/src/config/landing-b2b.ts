@@ -103,23 +103,36 @@ export const B2B_CALCULATOR_CONFIG = {
 
 /**
  * How It Works Section Configuration (AppFeaturesCarousel)
- * Maps to: Section 5 - How it works (3 steps)
+ * Maps to: Section 5 - How it works (4 steps)
  */
 export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
   variant: 'default',
   sectionTitle: 'landing-b2b.howItWorks.header',
   cards: [
     {
-      id: 'step-set-floor',
+      id: 'step-link',
       content: {
-        title: 'landing-b2b.howItWorks.steps.setFloor.title',
-        description: 'landing-b2b.howItWorks.steps.setFloor.description'
+        title: 'landing-b2b.howItWorks.steps.link.title',
+        description: 'landing-b2b.howItWorks.steps.link.description'
       },
       assets: {
         image: getSocialRealAsset('BUSINESS_BALANCE')
       },
       seo: {
-        imageAlt: 'Set liquidity threshold'
+        imageAlt: 'Link your business account'
+      }
+    },
+    {
+      id: 'step-control',
+      content: {
+        title: 'landing-b2b.howItWorks.steps.control.title',
+        description: 'landing-b2b.howItWorks.steps.control.description'
+      },
+      assets: {
+        image: getSocialRealAsset('BUSINESS_PAYMENT')
+      },
+      seo: {
+        imageAlt: 'You are in control'
       }
     },
     {
@@ -132,7 +145,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: getSocialRealAsset('BUSINESS_INVESTING')
       },
       seo: {
-        imageAlt: 'Earn yield on treasury'
+        imageAlt: 'Watch it grow'
       }
     },
     {
@@ -145,7 +158,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: getSocialRealAsset('BUSINESS_SENDING')
       },
       seo: {
-        imageAlt: 'Withdraw funds anytime'
+        imageAlt: 'Access anytime'
       }
     }
   ],
@@ -213,56 +226,6 @@ export const B2B_FEATURES_CONFIG: BenefitsCardsConfig = {
 };
 
 /**
- * Trust & Compliance Section Configuration (BenefitsCards)
- * Maps to: Section 7 - Trust and Compliance
- */
-export const B2B_TRUST_CONFIG: BenefitsCardsConfig = {
-  section: {
-    title: 'landing-b2b.trust.header',
-    description: '',
-    backgroundColor: 'light-purple'
-  },
-  cards: [
-    {
-      id: 'eu-regulated',
-      icon: '/assets/icons/safe-money.avif',
-      title: 'landing-b2b.trust.euRegulated.title',
-      description: 'landing-b2b.trust.euRegulated.description',
-      iconAlt: 'EU regulated icon'
-    },
-    {
-      id: 'non-custodial',
-      icon: '/assets/icons/money-circle.avif',
-      title: 'landing-b2b.trust.nonCustodial.title',
-      description: 'landing-b2b.trust.nonCustodial.description',
-      iconAlt: 'Non-custodial icon'
-    },
-    {
-      id: 'audited',
-      icon: '/assets/icons/learn-certificate.avif',
-      title: 'landing-b2b.trust.audited.title',
-      description: 'landing-b2b.trust.audited.description',
-      iconAlt: 'Audited protocols icon'
-    },
-    {
-      id: 'reporting',
-      icon: '/assets/icons/chart-growing.avif',
-      title: 'landing-b2b.trust.reporting.title',
-      description: 'landing-b2b.trust.reporting.description',
-      iconAlt: 'Transparent reporting icon'
-    }
-  ],
-  seo: {
-    headingLevel: 'h2',
-    ariaLabel: 'Trust and compliance features'
-  },
-  analytics: {
-    sectionId: 'trust-compliance-b2b',
-    category: 'landing-b2b'
-  }
-};
-
-/**
  * Use Cases Section Configuration (ProductCarousel)
  * Maps to: Section 5 - Use Cases (3 cases)
  */
@@ -311,27 +274,6 @@ export const B2B_USE_CASES_CONFIG: ProductCarouselVariantConfig = {
   analytics: {
     trackingPrefix: 'use_cases_b2b',
     enabled: true
-  }
-};
-
-/**
- * Social Proof Section Configuration (BenefitsCards)
- * Maps to: Section 10 - Social Proof (pre-launch)
- */
-export const B2B_SOCIAL_PROOF_CONFIG: BenefitsCardsConfig = {
-  section: {
-    title: 'landing-b2b.socialProof.header',
-    description: 'landing-b2b.socialProof.preLaunch',
-    backgroundColor: 'white'
-  },
-  cards: [],
-  seo: {
-    headingLevel: 'h2',
-    ariaLabel: 'Early adopters'
-  },
-  analytics: {
-    sectionId: 'social-proof-b2b',
-    category: 'landing-b2b'
   }
 };
 
@@ -567,21 +509,21 @@ export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2b.fitAssessment.header',
     description: 'landing-b2b.fitAssessment.intro',
-    backgroundColor: 'light-purple'
+    backgroundColor: 'neutral'
   },
   cards: [
     {
       id: 'good-fit',
       icon: '/assets/icons/rewards-trophy.avif',
       title: 'landing-b2b.fitAssessment.goodFit.title',
-      description: '',
+      description: 'landing-b2b.fitAssessment.goodFit.description',
       iconAlt: 'Good fit checkmark'
     },
     {
       id: 'not-a-fit',
       icon: '/assets/icons/safe-money.avif',
       title: 'landing-b2b.fitAssessment.notAFit.title',
-      description: '',
+      description: 'landing-b2b.fitAssessment.notAFit.description',
       iconAlt: 'Not a fit icon'
     }
   ],

@@ -7,7 +7,7 @@ import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection';
 import { DemoEmbedSection } from '@/components/Sections/DemoEmbed';
-import { CalculatorSection } from '@/components/Sections/CalculatorSection';
+import { FutureYouPreviewSection } from '@/components/Sections/FutureYouPreviewSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { PageI18nProvider } from '@/components/Providers';
@@ -96,12 +96,12 @@ export async function generateMetadata({ params }: B2CLandingPageProps): Promise
  * - Section 1: Hero with headline and CTA
  * - Section 2: Origin Story (Grandmother story)
  * - Section 3: How It Works (3 steps)
- * - Section 4: Future You Calculator
+ * - Section 4: Interactive Demo
  * - Section 5: Feature Showcase (EARN, SEND, INVEST, GOALS)
- * - Section 6: Interactive Demo
- * - Section 7: Social Proof
- * - Section 8: FAQ
- * - Section 9: Final CTA / Waitlist
+ * - Section 6: Social Proof
+ * - Section 7: Future You Preview (links to full calculator)
+ * - Section 8: Waitlist
+ * - Section 9: FAQ
  */
 export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
   const { locale: localeParam } = await params;
@@ -176,15 +176,18 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 4: Future You Calculator */}
+        {/* Section 4: Demo */}
         <SectionErrorBoundary
-          sectionId="calculator-section-b2c"
-          sectionType="CalculatorSection"
+          sectionId="demo-section-b2c"
+          sectionType="DemoEmbed"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <div id="calculator">
-            <CalculatorSection enableAnalytics={true} />
+          <div id="demo">
+            <DemoEmbedSection
+              config={B2C_DEMO_CONFIG}
+              enableAnalytics={true}
+            />
           </div>
         </SectionErrorBoundary>
 
@@ -204,22 +207,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 6: Demo */}
-        <SectionErrorBoundary
-          sectionId="demo-section-b2c"
-          sectionType="DemoEmbed"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="demo">
-            <DemoEmbedSection
-              config={B2C_DEMO_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 7: Social Proof */}
+        {/* Section 6: Social Proof */}
         <SectionErrorBoundary
           sectionId="social-proof-section-b2c"
           sectionType="SocialProofSection"
@@ -232,17 +220,17 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           />
         </SectionErrorBoundary>
 
-        {/* Section 8: FAQ */}
+        {/* Section 7: Future You Preview */}
         <SectionErrorBoundary
-          sectionId="faq-section-b2c"
-          sectionType="FAQAccordion"
+          sectionId="future-you-preview-section-b2c"
+          sectionType="FutureYouPreviewSection"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <FAQAccordion config={B2C_FAQ_CONFIG} />
+          <FutureYouPreviewSection enableAnalytics={true} />
         </SectionErrorBoundary>
 
-        {/* Section 9: Final CTA / Waitlist */}
+        {/* Section 8: Waitlist */}
         <SectionErrorBoundary
           sectionId="waitlist-section-b2c"
           sectionType="WaitlistSection"
@@ -252,6 +240,16 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           <div id="waitlist">
             <WaitlistSection enableAnalytics={true} />
           </div>
+        </SectionErrorBoundary>
+
+        {/* Section 9: FAQ */}
+        <SectionErrorBoundary
+          sectionId="faq-section-b2c"
+          sectionType="FAQAccordion"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <FAQAccordion config={B2C_FAQ_CONFIG} />
         </SectionErrorBoundary>
       </main>
     </PageI18nProvider>

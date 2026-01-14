@@ -1,0 +1,161 @@
+/**
+ * Future You Preview Section Styles
+ *
+ * Clean, centered layout for the calculator preview
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  gap: var(--spacing-xl, 32px);
+}
+
+/* Header */
+.header {
+  width: 100%;
+}
+
+.headline {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2xl, 28px);
+  font-weight: var(--font-weight-bold, 700);
+  line-height: var(--line-height-tight, 1.2);
+  color: var(--color-text-primary, #1e293b);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .headline {
+    font-size: var(--font-size-3xl, 36px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .headline {
+    font-size: var(--font-size-4xl, 40px);
+  }
+}
+
+/* Result Preview */
+.resultPreview {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg, 24px);
+}
+
+.resultHeadline {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-secondary, #64748b);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .resultHeadline {
+    font-size: var(--font-size-xl, 20px);
+  }
+}
+
+/* Comparison Grid */
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md, 16px);
+}
+
+@media (min-width: 480px) {
+  .comparisonGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Result Cards */
+.resultCard {
+  background-color: var(--color-surface, #ffffff);
+  border: 2px solid var(--color-primary, #0f766e);
+  border-radius: var(--radius-lg, 16px);
+  padding: var(--spacing-lg, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 8px);
+}
+
+.resultCard.bankCard {
+  border-color: var(--color-border, #e2e8f0);
+}
+
+.resultLabel {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.resultValue {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2xl, 28px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #1e293b);
+}
+
+@media (min-width: 768px) {
+  .resultValue {
+    font-size: var(--font-size-3xl, 32px);
+  }
+}
+
+/* Difference Card */
+.differenceCard {
+  background: linear-gradient(135deg, var(--color-primary-light, #f0fdfa) 0%, var(--color-surface, #ffffff) 100%);
+  border: 1px solid var(--color-primary, #0f766e);
+  border-radius: var(--radius-md, 12px);
+  padding: var(--spacing-md, 16px) var(--spacing-lg, 24px);
+}
+
+.differenceLabel {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base, 16px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-primary, #0f766e);
+}
+
+@media (min-width: 768px) {
+  .differenceLabel {
+    font-size: var(--font-size-lg, 18px);
+  }
+}
+
+/* CTA */
+.ctaWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ctaButton {
+  min-width: 200px;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .resultCard,
+  .differenceCard {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .resultCard {
+    border-width: 3px;
+  }
+
+  .differenceCard {
+    border-width: 2px;
+  }
+}

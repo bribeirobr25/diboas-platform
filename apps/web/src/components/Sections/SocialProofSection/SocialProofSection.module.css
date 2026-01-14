@@ -2,99 +2,299 @@
  * Social Proof Section Styles
  *
  * Uses design tokens for consistency with BenefitsCards component
+ * Card dimensions match the Features/BenefitsCards section
  */
 
+/* ================================
+   SECTION STYLES
+   ================================ */
+
 .section {
-  padding: var(--section-padding-y, 64px) var(--section-padding-x, 24px);
-  background-color: var(--bg-secondary, #f8fafc);
+  width: var(--section-width-full, 100%);
+  position: relative;
+  background-color: var(--bc-color-section-bg, #f8fafc);
 }
 
+/* ================================
+   CONTAINER & LAYOUT
+   ================================ */
+
 .container {
-  max-width: var(--max-width-content, 1200px);
+  max-width: var(--bc-container-max-width, 1200px);
   margin: 0 auto;
+  padding: var(--padding-section-mobile-y, 48px) var(--padding-section-mobile-x, 24px);
+  width: var(--percent-100, 100%);
 }
+
+@media (min-width: 768px) {
+  .container {
+    padding: var(--padding-section-tablet-y, 64px) var(--padding-section-tablet-x, 32px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: var(--padding-section-desktop-y, 80px) var(--padding-section-desktop-x, 48px);
+  }
+}
+
+/* ================================
+   HEADER STYLES
+   ================================ */
 
 .header {
   text-align: center;
-  margin-bottom: var(--spacing-2xl, 48px);
+  margin-bottom: var(--bc-section-title-margin-bottom, 48px);
 }
 
 .title {
-  font-size: clamp(24px, 5vw, 36px);
-  font-weight: 700;
-  color: var(--text-primary, #1e293b);
+  font-family: var(--font-family-primary);
+  font-size: var(--bc-title-font-size-mobile, 24px);
+  font-weight: var(--bc-title-font-weight, 700);
+  line-height: var(--bc-title-line-height, 1.2);
+  color: var(--bc-color-title, #1e293b);
   margin: 0;
 }
 
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-xl, 32px);
-  justify-content: center;
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--bc-title-font-size-tablet, 32px);
+  }
 }
 
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--bc-title-font-size-desktop, 40px);
+  }
+}
+
+/* ================================
+   CARDS GRID - Matches BenefitsCards
+   ================================ */
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: var(--bc-grid-columns-mobile, 1fr);
+  gap: var(--bc-grid-gap-mobile, 24px);
+  width: var(--percent-100, 100%);
+}
+
+@media (min-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: var(--bc-grid-columns-tablet, repeat(2, 1fr));
+    gap: var(--bc-grid-gap-tablet, 32px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardsGrid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--bc-grid-gap-desktop, 32px);
+  }
+
+  /* 2 CARDS: centered with same width as BenefitsCards */
+  .card:first-child:nth-last-child(2),
+  .card:first-child:nth-last-child(2) ~ .card {
+    grid-column: auto / span 2;
+  }
+
+  .card:first-child:nth-last-child(2):nth-child(1) {
+    grid-column: 2 / 4;
+  }
+
+  .card:first-child:nth-last-child(2) ~ .card:nth-child(2) {
+    grid-column: 4 / 6;
+  }
+}
+
+/* ================================
+   CARD STYLES - Matches BenefitsCards
+   ================================ */
+
 .card {
+  background-color: var(--bc-color-card-bg, #ffffff);
+  border-radius: var(--bc-card-border-radius, 16px);
+  padding: var(--bc-card-padding-mobile, 24px);
+  box-shadow: var(--bc-card-shadow, 0 2px 8px rgba(0, 0, 0, 0.04));
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--spacing-xl, 32px);
-  background: var(--bg-primary, #ffffff);
-  border-radius: var(--radius-xl, 16px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  gap: var(--bc-card-content-gap, 16px);
+  transition: transform var(--bc-transition-duration, 0.2s) var(--bc-transition-easing, ease),
+              box-shadow var(--bc-transition-duration, 0.2s) var(--bc-transition-easing, ease);
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: var(--bc-card-padding-tablet, 32px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: var(--bc-card-padding-desktop, 40px);
+  }
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: var(--bc-transform-hover, translateY(-4px));
+  box-shadow: var(--bc-card-shadow-hover, 0 8px 24px rgba(0, 0, 0, 0.08));
 }
 
+/* ================================
+   ICON STYLES - Matches BenefitsCards
+   ================================ */
+
 .iconWrapper {
-  width: 64px;
-  height: 64px;
-  margin-bottom: var(--spacing-md, 16px);
+  width: var(--bc-icon-size-mobile, 48px);
+  height: var(--bc-icon-size-mobile, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bc-color-icon-bg, #f1f5f9);
+  border-radius: var(--bc-icon-border-radius, 12px);
+  padding: var(--bc-icon-padding, 8px);
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .iconWrapper {
+    width: var(--bc-icon-size-tablet, 56px);
+    height: var(--bc-icon-size-tablet, 56px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .iconWrapper {
+    width: var(--bc-icon-size-desktop, 64px);
+    height: var(--bc-icon-size-desktop, 64px);
+  }
 }
 
 .icon {
-  width: 100%;
-  height: 100%;
+  width: var(--percent-100, 100%);
+  height: var(--percent-100, 100%);
   object-fit: contain;
 }
 
+/* ================================
+   CARD CONTENT STYLES
+   ================================ */
+
 .cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm, 8px);
   text-align: center;
 }
 
-.cardTitle {
-  font-size: var(--font-size-body, 16px);
-  font-weight: 500;
-  color: var(--text-primary, #1e293b);
-  line-height: 1.5;
+/* Stat Number - Large centered title */
+.statNumber {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-3xl, 32px);
+  font-weight: var(--font-weight-bold, 700);
+  line-height: var(--line-height-tight, 1.2);
+  color: var(--bc-color-card-title, #1e293b);
   margin: 0;
   transition: opacity 0.2s ease;
 }
 
-.cardTitle.loading {
+@media (min-width: 768px) {
+  .statNumber {
+    font-size: var(--font-size-4xl, 40px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .statNumber {
+    font-size: var(--font-size-5xl, 48px);
+  }
+}
+
+.statNumber.loading {
   opacity: 0.6;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .section {
-    padding: var(--spacing-2xl, 48px) var(--spacing-lg, 24px);
-  }
+/* Stat Text - Full sentence display */
+.statText {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl, 20px);
+  font-weight: var(--font-weight-semibold, 600);
+  line-height: var(--line-height-normal, 1.5);
+  color: var(--bc-color-card-title, #1e293b);
+  margin: 0;
+  transition: opacity 0.2s ease;
+}
 
-  .cardsGrid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg, 24px);
+@media (min-width: 768px) {
+  .statText {
+    font-size: var(--font-size-2xl, 24px);
   }
+}
 
+@media (min-width: 1024px) {
+  .statText {
+    font-size: var(--font-size-3xl, 28px);
+  }
+}
+
+.statText.loading {
+  opacity: 0.6;
+}
+
+/* Card Description */
+.cardDescription {
+  font-family: var(--font-family-primary);
+  font-size: var(--bc-card-description-font-size-mobile, 14px);
+  font-weight: var(--bc-card-description-font-weight, 400);
+  line-height: var(--bc-card-description-line-height, 1.5);
+  color: var(--bc-color-card-description, #64748b);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .cardDescription {
+    font-size: var(--bc-card-description-font-size-tablet, 15px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardDescription {
+    font-size: var(--bc-card-description-font-size-desktop, 16px);
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
   .card {
-    padding: var(--spacing-lg, 24px);
+    transition: none;
   }
 
-  .iconWrapper {
-    width: 48px;
-    height: 48px;
+  .card:hover {
+    transform: none;
+  }
+}
+
+.card:focus-visible {
+  outline: var(--bc-outline-width, 2px) solid var(--theme-focus-ring, #0f766e);
+  outline-offset: var(--bc-outline-offset, 2px);
+}
+
+@media (prefers-contrast: high) {
+  .card {
+    border: var(--bc-border-width, 2px) solid var(--color-black, #000);
+  }
+
+  .title,
+  .statNumber {
+    color: var(--color-black, #000);
+  }
+
+  .cardDescription {
+    color: var(--color-black, #000);
   }
 }

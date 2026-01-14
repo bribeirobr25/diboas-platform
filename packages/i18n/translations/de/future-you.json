@@ -4,10 +4,10 @@
     "description": "Sehen Sie, was aus Ihrem Geld werden könnte. Kleine Beträge. Konsequenter Einsatz. Die Zeit erledigt den Rest."
   },
   "hero": {
-    "headline": "Treffen Sie Ihr zukünftiges Ich",
-    "subheadline": "Kleine Beträge. Konsequenter Einsatz. Die Zeit erledigt den Rest.",
-    "subheadline2": "Sehen Sie, was aus Ihrem Geld werden könnte, wenn es so hart arbeitet wie Sie.",
-    "context": "Das ist kein Versprechen. Es ist eine Projektion basierend auf historischen Daten. Aber sie zeigt Ihnen, was möglich ist, wenn die Mathematik endlich auf Ihrer Seite ist."
+    "headline": "Ihre €20. In fünf Jahren.",
+    "subheadline": "Kleine Beträge. Großer Unterschied.",
+    "subheadline2": "",
+    "context": "Kein Versprechen. Nur Mathematik. Und der Zugang, der Ihnen verwehrt wurde. Bis jetzt."
   },
   "calculator": {
     "header": "Was könnte aus Ihrem Geld werden?",
@@ -33,45 +33,45 @@
       "futureValue": "Endwert",
       "deposited": "Sie haben eingezahlt",
       "earned": "Sie haben verdient",
-      "difference": "Das sind {currency}{amount} mehr bei gleichem monatlichem Einsatz.",
-      "differenceNote": "Gleicher Verzicht. Unterschiedliches Ergebnis. Das passiert, wenn Ihr Geld tatsächlich für Sie arbeitet."
+      "difference": "Das sind {currency}{amount} mehr. Nur durch einen Wechsel, wo es liegt.",
+      "differenceNote": ""
     },
     "watermark": "PROJEKTION",
     "disclaimer": "Basierend auf historischer Performance (8% jährlich für diBoaS mit unserer konservativsten Strategie, 0,5% für typische Banksparzinsen). Dies ist eine Projektion, keine Garantie. Tatsächliche Ergebnisse variieren je nach gewählter Strategie und Marktbedingungen.",
-    "cta": "Auf die Warteliste, um dies Realität werden zu lassen →",
-    "secondaryCta": "Möchten Sie höheres Potenzial?",
-    "strategiesLink": "Alle 10 Strategien entdecken"
+    "cta": "Zugang sichern →",
+    "secondaryCta": "",
+    "strategiesLink": "Alle 10 Strategien ansehen →"
   },
   "mathExplained": {
-    "header": "Warum der Unterschied so groß ist",
-    "intro": "Es ist keine Magie. Es ist Mathematik. Hier ist, was tatsächlich passiert:",
+    "header": "Wie ist das möglich?",
+    "intro": "Weil Sie jetzt denselben Zugang haben. Sehen Sie selbst.",
     "bankGap": {
-      "headline": "Ihre Bank verdient mehr als sie Ihnen zahlt",
-      "body": "Banken nehmen Ihre Einlagen und setzen sie ein — verleihen, investieren, echte Renditen erzielen. Aber sie teilen nur einen winzigen Bruchteil mit Ihnen.",
-      "body2": "Eine typische Bank verdient etwa 7% mit Ihrem Geld. Sie zahlen Ihnen 0,5%. Diese 6,5% Differenz? Das ist ihr gesamtes Geschäftsmodell.",
-      "body3": "Mit diBoaS erhalten Sie Zugang zu den gleichen Arten von Renditen. Die Lücke geht stattdessen an Sie."
+      "headline": "Ohne diBoaS",
+      "body": "Banken verdienen etwa 7% mit Ihrem Geld. Zahlen Ihnen 0,4%. Die anderen 6,6%? Kein Zugang für Sie.",
+      "body2": "",
+      "body3": ""
     },
     "compound": {
-      "headline": "Ihre Erträge beginnen auch zu verdienen",
-      "body": "Wenn Sie Renditen erzielen und diese Renditen weitere Renditen erwirtschaften, beschleunigt sich das Wachstum im Laufe der Zeit. Bei 0,5% macht das kaum einen Unterschied. Bei 8% verändert es alles.",
+      "headline": "Mit diBoaS",
+      "body": "Ihr Geld. Ihre Rendite. 6-10% gehen an Sie. Plus weitere Optionen mit noch höherem Potenzial.",
       "example": {
-        "title": "{currency}100/Monat für 20 Jahre:",
-        "deposited": "Gesamteinzahlung: {currency}24.000",
-        "bankEarnings": "Bankerträge: {currency}1.185 (das sind 5% Ihrer Einzahlung)",
-        "diboasEarnings": "diBoaS-Erträge: {currency}34.902 (das sind 145% Ihrer Einzahlung)",
-        "conclusion": "Der Unterschied ist nicht 16x der Zinssatz. Es sind 29x die Erträge. Das passiert, wenn Renditen sich vermehren."
+        "title": "",
+        "deposited": "",
+        "bankEarnings": "",
+        "diboasEarnings": "",
+        "conclusion": ""
       }
     },
     "time": {
-      "headline": "Je länger Sie mit dem Start warten, desto mehr kostet es Sie",
-      "body": "5 Jahre früher mit {currency}100/Monat zu beginnen bedeutet Zehntausende mehr am Ende. Jedes Jahr Verzögerung kostet Sie zukünftiges Wachstum, das Sie nie zurückbekommen werden.",
-      "takeaway": "Der beste Zeitpunkt zum Starten war vor Jahren. Der zweitbeste ist jetzt."
+      "headline": "Warum jetzt?",
+      "body": "Zeit, genug zu sagen. Zeit, Teil der Bewegung zu werden. Zeit, es zurückzuholen.",
+      "takeaway": ""
     }
   },
   "strategyConnection": {
-    "header": "Die 8% sind nicht zufällig",
-    "body": "Diese Projektion verwendet unsere konservativste Strategie namens Safe Harbor. Sie nutzt nur stabile Systeme ohne Exposition gegenüber Preisschwankungen. In unserem 4-Jahres-Test hat sie nie Geld verloren.",
-    "body2": "Wenn Sie mit einigen Auf und Abs vertraut sind, haben andere Strategien höhere Renditen geliefert:",
+    "header": "Die 8% sind kein Zufall",
+    "body": "Hier kommt Safe Harbor zum Einsatz, unsere konservativste Strategie. Nur stabile Systeme. Keine Kursschwankungen. In 4 Jahren Testphase lag die Verlustwahrscheinlichkeit bei < 1%.",
+    "body2": "",
     "table": {
       "strategy": "Strategie",
       "returns": "Was passieren könnte",
@@ -92,8 +92,8 @@
         "exposure": "70%"
       }
     },
-    "note": "Höheres Renditepotenzial kommt mit unruhigeren Fahrten. Dieser Rechner verwendet Safe Harbor, weil es das ist, was wir jemandem empfehlen würden, der gerade anfängt.",
-    "cta": "Alle 10 Strategien entdecken"
+    "note": "",
+    "cta": "Alle 10 Strategien ansehen →"
   },
   "faq": {
     "header": "Fragen zum Rechner",
@@ -129,12 +129,12 @@
     }
   },
   "finalCta": {
-    "header": "Bereit, Ihre Zukunft aufzubauen?",
-    "body": "Sie haben die Mathematik gesehen. Sie wissen, was möglich ist.",
-    "body2": "Die einzige Frage, die bleibt: Wann fangen Sie an?",
-    "cta": "Auf die Warteliste — kostenlos →",
-    "secondary": "Jeden Monat, den Sie warten, ist Wachstum, das Sie verpassen.",
-    "position": "⏰ Sie sind #{position} für frühen Zugang"
+    "header": "Bereit?",
+    "body": "Seien Sie dabei. Ihr zukünftiges Ich wird es Ihnen danken.",
+    "body2": "",
+    "cta": "Dabei sein →",
+    "secondary": "Wir schreiben Ihnen nur über diBoaS. Jederzeit abmelden.",
+    "position": "⏰ Sie sind #{position} in der Warteschlange"
   },
   "footer": {
     "disclaimer": "Dieser Rechner bietet nur Projektionen. Die 8%-Rate basiert auf dem erwarteten Performancebereich der Safe-Harbor-Strategie und ist nicht garantiert. Die 0,5%-Bankrate basiert auf EZB-Durchschnittssparzinsen. Tatsächliche Ergebnisse variieren je nach gewählter Strategie, Marktbedingungen und Zeitpunkt der Einzahlungen. Vergangene Wertentwicklung garantiert keine zukünftigen Ergebnisse. Ihr Geld wird in automatisierte Systeme platziert, die technisches Risiko, Marktrisiko und Liquiditätsrisiko tragen. diBoaS ist keine Bank und Ihre Mittel sind nicht versichert. Dies ist keine Finanzberatung."
