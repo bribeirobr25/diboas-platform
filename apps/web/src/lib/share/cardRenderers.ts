@@ -257,11 +257,12 @@ export function renderMilestoneCard(
   // Draw branding
   drawBranding(ctx, width, padding, accentColor);
 
-  // Draw celebration emoji
-  ctx.font = `80px Arial`;
+  // Draw star symbol for celebration
+  ctx.font = `bold 60px ${CARD_FONTS.heading.family}`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('🎉', width / 2, height * 0.25);
+  ctx.fillStyle = accentColor;
+  ctx.fillText('★', width / 2, height * 0.25);
 
   // Draw milestone headline
   ctx.fillStyle = colors.secondaryText;

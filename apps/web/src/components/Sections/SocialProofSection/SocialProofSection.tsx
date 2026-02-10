@@ -11,9 +11,9 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import Image from 'next/image';
+import { Users, Globe } from 'lucide-react';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
 import styles from './SocialProofSection.module.css';
 
@@ -24,6 +24,8 @@ interface SocialProofSectionProps {
   enableAnalytics?: boolean;
   /** Additional CSS class */
   className?: string;
+  /** Custom background color (CSS value or variable) */
+  backgroundColor?: string;
 }
 
 interface WaitlistStats {
@@ -42,6 +44,7 @@ export function SocialProofSection({
   namespace = 'landing-b2c.socialProof',
   enableAnalytics = true,
   className = '',
+  backgroundColor,
 }: SocialProofSectionProps) {
   const intl = useTranslation();
   const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv());
@@ -69,8 +72,8 @@ export function SocialProofSection({
     fetchStats();
   }, []);
 
-  // Translation helper with interpolation
-  const t = (key: string, values?: Record<string, string | number>) => {
+  // Translation helper with rich text support for highlighting numbers
+  const t = (key: string, values?: Record<string, React.ReactNode>) => {
     const fullKey = `${namespace}.${key}`;
     return intl.formatMessage({ id: fullKey }, values);
   };
@@ -78,10 +81,15 @@ export function SocialProofSection({
   const formattedCount = formatNumber(stats.count, intl.locale);
   const formattedCountries = formatNumber(stats.countries, intl.locale);
 
+  // Wrap numbers in highlight span for styling
+  const highlightedCount = <span key="count" className={styles.highlight}>{formattedCount}</span>;
+  const highlightedCountries = <span key="countries" className={styles.highlight}>{formattedCountries}</span>;
+
   return (
     <section
       className={`${styles.section} ${className}`}
       aria-label="Social proof and waitlist statistics"
+      style={backgroundColor ? { backgroundColor } : undefined}
     >
       <div className={styles.container}>
         {/* Section Header */}
@@ -94,17 +102,11 @@ export function SocialProofSection({
           {/* Waitlist Count Card */}
           <article className={styles.card}>
             <div className={styles.iconWrapper}>
-              <Image
-                src="/assets/icons/chart-growing.avif"
-                alt="Growth chart icon"
-                width={64}
-                height={64}
-                className={styles.icon}
-              />
+              <Users className={styles.icon} aria-hidden="true" />
             </div>
             <div className={styles.cardContent}>
               <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
-                {t('stats.waitlist', { count: formattedCount })}
+                {t('stats.waitlist', { count: highlightedCount })}
               </p>
             </div>
           </article>
@@ -112,17 +114,11 @@ export function SocialProofSection({
           {/* Countries Card */}
           <article className={styles.card}>
             <div className={styles.iconWrapper}>
-              <Image
-                src="/assets/icons/rewards-medal.avif"
-                alt="Medal icon"
-                width={64}
-                height={64}
-                className={styles.icon}
-              />
+              <Globe className={styles.icon} aria-hidden="true" />
             </div>
             <div className={styles.cardContent}>
               <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
-                {t('stats.countries', { countries: formattedCountries })}
+                {t('stats.countries', { countries: highlightedCountries })}
               </p>
             </div>
           </article>

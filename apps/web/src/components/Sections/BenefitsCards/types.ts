@@ -39,7 +39,7 @@ export interface BenefitsCardsConfig {
     description?: string;
 
     /** Background color variant */
-    backgroundColor?: 'light-purple' | 'white' | 'neutral';
+    backgroundColor?: 'light-purple' | 'white' | 'neutral' | 'enterprise';
   };
 
   /** Array of benefit cards (max 5 for default layout) */

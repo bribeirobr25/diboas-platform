@@ -43,34 +43,11 @@
     "benefit": "Each signup = {spots} spots up",
     "copied": "Link copied to clipboard!"
   },
-  "dreamMode": {
-    "twitter": "#WhileISlept, my money could become {end}. Banks gave me nothing. What could yours do? @diboasfi diboas.com",
-    "whatsapp": "#WhileISlept, my money could become {end}. Banks gave me nothing. What could yours do? Check it out: diboas.com",
-    "linkedin": "#WhileISlept, my money could become {end}. Banks gave me nothing. What could yours do? Check it out: diboas.com"
-  },
   "waitlistPosition": {
     "twitter": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join the movement @diboasfi",
     "whatsapp": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join us in this movement: {referralUrl}",
     "facebook": "The wealth gap isn't just income. It's ACCESS. Banks earn 7% with our money, give us 0.4%. I'm #{position} saying enough. Join the movement.",
     "linkedin": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join us in this movement: {referralUrl}"
-  },
-  "dreamCard": {
-    "watermark": "PROJECTION",
-    "headline": "IN DREAM MODE, I COULD GROW",
-    "timeframePrefix": "in",
-    "bankComparison": "My bank would have given me:",
-    "cta": "Ready to stop dreaming?",
-    "url": "diboas.com",
-    "disclaimer": "Based on historical data. Past performance ≠ future results.",
-    "hashtag": "#WhileISlept"
-  },
-  "waitlistCard": {
-    "headline": "I'M #{position} ON THE DIBOAS WAITLIST",
-    "bodyLine1": "Banks earn 7% with our savings.",
-    "bodyLine2": "They pay us 0.4%.",
-    "bodyLine3": "That gap? It's been there the whole time.",
-    "ctaIntro": "Join me:",
-    "hashtag": "#WhileISlept"
   },
   "timeframes": {
     "1week": "1 week",

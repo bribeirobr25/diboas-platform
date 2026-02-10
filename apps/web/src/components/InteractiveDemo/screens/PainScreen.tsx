@@ -32,11 +32,14 @@ export function PainScreen({
     const bankPays = INITIAL_BALANCE * rates.bankPaysRate;
     const bankEarns = INITIAL_BALANCE * rates.bankEarnsRate;
     const currencyLoss = isBrazil ? BANK_RATES.BRAZIL.currencyDepreciation * 100 : 0;
+    // Real gain after currency depreciation (for Brazil)
+    const realGain = isBrazil ? bankPays * (1 - BANK_RATES.BRAZIL.currencyDepreciation) : bankPays;
 
     return {
       bankPays: formatCurrency(bankPays, 2),
       bankEarns: formatCurrency(bankEarns, 2),
       currencyLoss: Math.round(currencyLoss),
+      realGain: formatCurrency(realGain, 2),
     };
   }, [isBrazil, formatCurrency]);
 
@@ -52,21 +55,24 @@ export function PainScreen({
         {formatCurrency(INITIAL_BALANCE)}
       </div>
       <p className={styles.subtext}>
-        {t('landing-b2c.demo.pain.subtext', { bankPays: calculatedValues.bankPays })}
+        {t('landing-b2c.demo.pain.subtext', {
+          bankPays: calculatedValues.bankPays,
+          bankEarns: calculatedValues.bankEarns
+        })}
       </p>
       <p className={styles.hook}>
         {isBrazil
           ? t('landing-b2c.demo.pain.hookBrazil', {
               bankEarns: calculatedValues.bankEarns,
-              currencyLoss: calculatedValues.currencyLoss
+              currencyLoss: calculatedValues.currencyLoss,
+              realGain: calculatedValues.realGain
             })
           : t('landing-b2c.demo.pain.hook', { bankEarns: calculatedValues.bankEarns })
         }
       </p>
       <Button
         variant="primary"
-        size="lg"
-        className={styles.ctaButton}
+        size="sm"
         onClick={onContinue}
         aria-label={t('landing-b2c.demo.pain.cta')}
       >

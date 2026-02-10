@@ -68,7 +68,6 @@ export function TimeframeScreen() {
         </div>
 
         <h2 className={styles.headline}>{t('headline')}</h2>
-        <p className={styles.subhead}>{t('subhead')}</p>
 
         {/* Timeframe options */}
         <div className={styles.optionGrid}>
@@ -88,22 +87,17 @@ export function TimeframeScreen() {
         {/* Navigation */}
         <div className={styles.navigation}>
           <button onClick={previousScreen} className={styles.backButton}>
-            <ChevronLeftIcon />
             {t('back')}
           </button>
           <button onClick={handleContinue} className={styles.primaryButton}>
             {t('startSimulation')}
           </button>
         </div>
+
+        {/* Disclaimer */}
+        <p className={styles.disclaimer}>{t('disclaimer')}</p>
       </div>
     </div>
   );
 }
 
-function ChevronLeftIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <polyline points="15 18 9 12 15 6" />
-    </svg>
-  );
-}

@@ -14,7 +14,7 @@
 .section {
   width: var(--percent-100);
   padding: var(--padding-section-mobile-y) var(--padding-section-mobile-x);
-  background: linear-gradient(135deg, var(--section-bg-neutral) 0%, var(--section-bg-neutral-alt) 100%);
+  background-color: var(--section-bg-neutral);
   position: relative;
 }
 
@@ -52,23 +52,22 @@
 
 .title {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-subtitle-mobile);
+  font-size: var(--font-size-title-mobile);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
   color: var(--pc-color-heading);
   margin: 0;
-  letter-spacing: -0.02em;
 }
 
 @media (min-width: 768px) {
   .title {
-    font-size: var(--font-size-subtitle-tablet);
+    font-size: var(--font-size-title-tablet);
   }
 }
 
 @media (min-width: 1024px) {
   .title {
-    font-size: var(--font-size-title-tablet);
+    font-size: var(--font-size-title-desktop);
   }
 }
 
@@ -80,8 +79,8 @@
   background: var(--section-bg-white);
   border-radius: var(--radius-3xl);
   padding: var(--spacing-xl);
-  box-shadow: var(--shadow-xl), 0 0 0 1px var(--shadow-black-subtle, rgba(0, 0, 0, 0.03));
-  max-width: 560px;
+  box-shadow: var(--shadow-xl), 0 0 0 1px var(--shadow-black-subtle);
+  max-width: var(--dimension-560);
   margin: 0 auto;
   width: var(--percent-100);
   position: relative;
@@ -95,7 +94,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: var(--spacing-xs);
   background: linear-gradient(90deg, var(--cta-bg-primary), var(--cta-bg-hover));
 }
 
@@ -129,7 +128,7 @@
   font-weight: var(--font-weight-medium);
   color: var(--pc-color-subtitle);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .inputWrapper {
@@ -139,13 +138,13 @@
   background: linear-gradient(135deg, var(--section-bg-neutral) 0%, var(--section-bg-neutral-alt) 100%);
   border-radius: var(--radius-xl);
   padding: var(--spacing-md) var(--spacing-lg);
-  border: 2px solid transparent;
+  border: var(--focus-ring-width) solid transparent;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .inputWrapper:focus-within {
   border-color: var(--cta-bg-primary);
-  box-shadow: 0 0 0 3px var(--teal-deep-overlay-light, rgba(15, 118, 110, 0.1));
+  box-shadow: var(--cta-shadow-focus);
 }
 
 .currencySymbol {
@@ -153,7 +152,7 @@
   font-size: var(--font-size-subtitle-mobile);
   font-weight: var(--font-weight-semibold);
   color: var(--pc-color-subtitle);
-  opacity: 0.7;
+  opacity: var(--opacity-70);
 }
 
 .percentSymbol {
@@ -161,7 +160,7 @@
   font-size: var(--font-size-subtitle-mobile);
   font-weight: var(--font-weight-semibold);
   color: var(--pc-color-subtitle);
-  opacity: 0.7;
+  opacity: var(--opacity-70);
 }
 
 .input {
@@ -174,11 +173,11 @@
   color: var(--pc-color-heading);
   outline: none;
   width: var(--percent-100);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .input:focus-visible {
-  box-shadow: 0 0 0 2px var(--cta-bg-primary, #0f766e);
+  box-shadow: var(--cta-shadow-focus);
 }
 
 .input::placeholder {
@@ -207,7 +206,7 @@
 }
 
 .resultRow:not(:last-child) {
-  border-bottom: 1px solid var(--shadow-black-light, rgba(0, 0, 0, 0.06));
+  border-bottom: 1px solid var(--shadow-black-light);
 }
 
 .resultLabel {
@@ -239,7 +238,7 @@
 }
 
 .resultRowHighlight {
-  background: linear-gradient(135deg, var(--teal-deep-overlay-subtle, rgba(15, 118, 110, 0.08)) 0%, var(--teal-deep-overlay-subtle, rgba(17, 94, 89, 0.08)) 100%);
+  background: linear-gradient(135deg, var(--teal-deep-overlay-subtle) 0%, var(--teal-deep-overlay-subtle) 100%);
   border-radius: var(--radius-xl);
   padding: var(--spacing-md) var(--spacing-lg);
   margin-top: var(--spacing-sm);
@@ -331,8 +330,8 @@
 }
 
 .ctaButton:focus-visible {
-  outline: 2px solid var(--cta-focus-color);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--cta-focus-color);
+  outline-offset: var(--focus-ring-offset);
   box-shadow: var(--cta-shadow-focus);
 }
 
@@ -351,7 +350,7 @@
 
 .disclaimer {
   font-family: var(--font-family-primary);
-  font-size: 11px;
+  font-size: var(--font-size-xxs);
   color: var(--fs-color-muted);
   text-align: center;
   margin-top: var(--spacing-lg);

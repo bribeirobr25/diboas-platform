@@ -58,22 +58,28 @@ export function ResultsScreen() {
 
   // Recalculate bank values with locale-specific rate
   const yearsMap: Record<string, number> = {
-    '1week': 7/365,
-    '1month': 1/12,
-    '1year': 1,
-    '5years': 5,
+    '1_week': 7/365,
+    '1_month': 1/12,
+    '1_year': 1,
+    '5_years': 5,
   };
   const years = yearsMap[state.input.timeframe] || 1;
   const bankApy = bankSource.rate / 100; // Convert percentage to decimal
   const bankMultiplier = Math.pow(1 + bankApy, years);
-  const localeBankBalance = totalInvestment * bankMultiplier;
-  const localeBankInterest = localeBankBalance - totalInvestment;
+  const nominalBankBalance = totalInvestment * bankMultiplier;
+  const nominalBankInterest = nominalBankBalance - totalInvestment;
+
+  // Apply currency depreciation for Brazil (BRL loses ~6% vs USD annually)
+  // diBoaS returns are in USD, so they're protected from this depreciation
+  const currencyDepreciation = locale === 'pt-BR' ? 0.06 : 0;
+  const depreciationFactor = currencyDepreciation > 0 ? Math.pow(1 - currencyDepreciation, years) : 1;
+  const localeBankInterest = nominalBankInterest * depreciationFactor;
+  const localeBankBalance = totalInvestment + localeBankInterest;
   const localeDifference = result.defiBalance - localeBankBalance;
 
-  // Calculate bar widths for visualization
-  const maxValue = Math.max(result.defiBalance, localeBankBalance);
-  const defiWidth = (result.defiBalance / maxValue) * 100;
-  const bankWidth = (localeBankBalance / maxValue) * 100;
+  // Calculate bar widths for visualization - bankBar fixed at 60%
+  const defiWidth = 100;
+  const bankWidth = 60;
 
   return (
     <div className={styles.screen}>
@@ -81,9 +87,6 @@ export function ResultsScreen() {
         <h2 className={styles.headline}>
           {t('headline', { currency: currencySymbol, amount: Math.round(totalInvestment).toLocaleString(locale) })}
         </h2>
-        <p className={styles.subhead}>
-          {t('subhead', { timeframe: t(`timeframe.${state.input.timeframe}`) })}
-        </p>
 
         {/* Results comparison */}
         <div className={styles.resultsComparison}>
@@ -161,13 +164,15 @@ export function ResultsScreen() {
         {/* Navigation */}
         <div className={styles.navigation}>
           <button onClick={() => goToScreen('pathSelect')} className={styles.backButton}>
-            <ChevronLeftIcon />
             {t('back')}
           </button>
           <button onClick={nextScreen} className={styles.primaryButton}>
             {t('shareResults')}
           </button>
         </div>
+
+        {/* Disclaimer */}
+        <p className={styles.disclaimer}>{t('disclaimer')}</p>
       </div>
     </div>
   );
@@ -182,10 +187,3 @@ function TrendUpIcon() {
   );
 }
 
-function ChevronLeftIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <polyline points="15 18 9 12 15 6" />
-    </svg>
-  );
-}

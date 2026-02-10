@@ -395,7 +395,7 @@
     },
     "q85": {
       "question": "Wie verdiene ich Badges?",
-      "answer": "Badges feiern echte Leistungen:\n\nAnfänger-Badges:\n🌱 First Investment - Erstes Investment getätigt\n🎯 Goal Setter - Erstes Ziel erstellt\n📚 Learner - Financial Basics abgeschlossen\n\nFortgeschrittene Badges:\n💎 Diversifier - 5+ Asset-Typen\n🔥 Streak Master - 30 Tage investieren\n🤝 Connector - 5+ Empfehlungen\n\nExperten-Badges:\n🏆 DeFi Explorer - 3+ Strategien genutzt\n👑 Whale - 10.000€+ investiert\n🎓 Professor - Bildungsinhalt erstellt\n\nJedes Badge = Bonuspunkte + Community-Status."
+      "answer": "Badges feiern echte Leistungen:\n\nAnfänger-Badges:\n• First Investment - Erstes Investment getätigt\n• Goal Setter - Erstes Ziel erstellt\n• Learner - Financial Basics abgeschlossen\n\nFortgeschrittene Badges:\n• Diversifier - 5+ Asset-Typen\n• Streak Master - 30 Tage investieren\n• Connector - 5+ Empfehlungen\n\nExperten-Badges:\n• DeFi Explorer - 3+ Strategien genutzt\n• Whale - 10.000€+ investiert\n• Professor - Bildungsinhalt erstellt\n\nJedes Badge = Bonuspunkte + Community-Status."
     },
     "q86": {
       "question": "Ist das Leaderboard kompetitiv oder kollaborativ?",
@@ -455,7 +455,7 @@
     },
     "q100": {
       "question": "Wie erkenne ich häufige Betrügereien?",
-      "answer": "Rote Flaggen, die IMMER Betrug signalisieren:\n\n❌ Garantierte feste Rendite\n\"Verdiene garantiert 10% täglich\"\n→ Nichts garantiert Rendite beim Investieren\n\n❌ Künstliche Dringlichkeit\n\"Angebot läuft in 1 Stunde ab!\"\n→ Betrüger erzeugen Dringlichkeit, damit du Fehler machst\n\n❌ Nach Passwort/privaten Schlüsseln fragen\n\"Sende deine Seed Phrase an Support\"\n→ NIEMALS mit JEMANDEM teilen\n\n❌ Versprechen von \"gratis Geld\"\n\"Sende 1 BTC, erhalte 2 BTC zurück\"\n→ Klassischer Verdopplungsbetrug\n\n❌ diBoaS kontaktiert dich außerhalb der App\n→ Wir rufen nicht an, um nach Daten zu fragen\n→ Wir senden keine DMs auf Instagram\n→ Nur offizielle Kanäle\n\nStay Safe hat komplette Liste + interaktives Quiz."
+      "answer": "Rote Flaggen, die IMMER Betrug signalisieren:\n\n[WARNUNG] Garantierte feste Rendite\n\"Verdiene garantiert 10% täglich\"\n→ Nichts garantiert Rendite beim Investieren\n\n[WARNUNG] Künstliche Dringlichkeit\n\"Angebot läuft in 1 Stunde ab!\"\n→ Betrüger erzeugen Dringlichkeit, damit du Fehler machst\n\n[WARNUNG] Nach Passwort/privaten Schlüsseln fragen\n\"Sende deine Seed Phrase an Support\"\n→ NIEMALS mit JEMANDEM teilen\n\n[WARNUNG] Versprechen von \"gratis Geld\"\n\"Sende 1 BTC, erhalte 2 BTC zurück\"\n→ Klassischer Verdopplungsbetrug\n\n[WARNUNG] diBoaS kontaktiert dich außerhalb der App\n→ Wir rufen nicht an, um nach Daten zu fragen\n→ Wir senden keine DMs auf Instagram\n→ Nur offizielle Kanäle\n\nStay Safe hat komplette Liste + interaktives Quiz."
     },
     "q101": {
       "question": "Wie schütze ich mein Konto besser?",

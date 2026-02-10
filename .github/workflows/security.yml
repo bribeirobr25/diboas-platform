@@ -1,0 +1,52 @@
+name: Security Audit
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 1'  # Weekly scans
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+
+      - name: Security Audit
+        id: audit
+        run: |
+          pnpm -r audit --prod --audit-level=high || echo "failed=true" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Notify Slack on Failure
+        if: steps.audit.outputs.failed == 'true'
+        uses: slackapi/slack-github-action@v1.26.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ALERT }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "text": "🚨 Security vulnerabilities detected in diBoaS Platform",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Event:* ${{ github.event_name }}\n*Branch:* ${{ github.ref_name }}\n\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Details>"
+                  }
+                }
+              ]
+            }
+
+      - name: Fail if vulnerabilities found
+        if: steps.audit.outputs.failed == 'true'
+        run: exit 1

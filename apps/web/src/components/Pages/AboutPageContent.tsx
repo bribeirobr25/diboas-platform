@@ -43,7 +43,7 @@ export function AboutPageContent() {
         <SectionContainer
           variant="narrow"
           padding="standard"
-          backgroundColor="var(--color-white)"
+          backgroundColor="var(--section-bg-neutral)"
         >
           <h2 className={styles.sectionTitleLeft}>
             {t('story.header')}
@@ -75,7 +75,7 @@ export function AboutPageContent() {
         <SectionContainer
           variant="narrow"
           padding="standard"
-          backgroundColor="var(--color-slate-50)"
+          backgroundColor="var(--section-bg-enterprise)"
         >
           <h2 className={styles.sectionTitleLeft}>
             {t('whatWeDo.header')}
@@ -97,7 +97,7 @@ export function AboutPageContent() {
         <SectionContainer
           variant="standard"
           padding="standard"
-          backgroundColor="var(--color-white)"
+          backgroundColor="var(--section-bg-neutral)"
         >
           <h2 className={styles.sectionTitle}>
             {t('beliefs.header')}
@@ -129,7 +129,7 @@ export function AboutPageContent() {
         <SectionContainer
           variant="standard"
           padding="standard"
-          backgroundColor="var(--color-teal-50)"
+          backgroundColor="var(--section-bg-enterprise)"
           className={styles.missionSection}
         >
           <h2 className={styles.sectionTitle}>
@@ -183,7 +183,7 @@ export function AboutPageContent() {
         <SectionContainer
           variant="narrow"
           padding="standard"
-          backgroundColor="var(--color-white)"
+          backgroundColor="var(--section-bg-neutral)"
           className={styles.contactSection}
         >
           <h2 className={styles.contactTitle}>

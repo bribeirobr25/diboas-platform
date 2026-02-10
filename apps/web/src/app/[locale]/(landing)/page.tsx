@@ -172,6 +172,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
             <ProductCarouselFactory
               config={B2C_HOW_IT_WORKS_CONFIG}
               enableAnalytics={true}
+              backgroundColor="var(--bc-color-section-bg)"
             />
           </div>
         </SectionErrorBoundary>
@@ -217,6 +218,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           <SocialProofSection
             namespace="landing-b2c.socialProof"
             enableAnalytics={true}
+            backgroundColor="var(--section-bg-neutral)"
           />
         </SectionErrorBoundary>
 
@@ -227,7 +229,10 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <FutureYouPreviewSection enableAnalytics={true} />
+          <FutureYouPreviewSection
+            enableAnalytics={true}
+            backgroundColor="var(--section-bg-neutral)"
+          />
         </SectionErrorBoundary>
 
         {/* Section 8: Waitlist */}
@@ -238,7 +243,10 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           context={{ page: 'landing-b2c' }}
         >
           <div id="waitlist">
-            <WaitlistSection enableAnalytics={true} />
+            <WaitlistSection
+              enableAnalytics={true}
+              config={{ backgroundColor: 'var(--bc-color-section-bg)' }}
+            />
           </div>
         </SectionErrorBoundary>
 
@@ -249,7 +257,10 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <FAQAccordion config={B2C_FAQ_CONFIG} />
+          <FAQAccordion
+            config={B2C_FAQ_CONFIG}
+            backgroundColor="var(--section-bg-neutral)"
+          />
         </SectionErrorBoundary>
       </main>
     </PageI18nProvider>

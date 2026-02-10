@@ -395,7 +395,7 @@
     },
     "q85": {
       "question": "¿Cómo gano badges?",
-      "answer": "Los badges celebran logros reales:\n\nBadges Principiantes:\n🌱 First Investment - Primera inversión realizada\n🎯 Goal Setter - Primera meta creada\n📚 Learner - Completó Financial Basics\n\nBadges Intermedios:\n💎 Diversifier - 5+ tipos de activos\n🔥 Streak Master - 30 días invirtiendo\n🤝 Connector - 5+ referidos\n\nBadges Expertos:\n🏆 DeFi Explorer - Usó 3+ estrategias\n👑 Whale - $10k+ invertidos\n🎓 Professor - Creó contenido educativo\n\nCada badge = puntos bonus + estatus en comunidad."
+      "answer": "Los badges celebran logros reales:\n\nBadges Principiantes:\n• First Investment - Primera inversión realizada\n• Goal Setter - Primera meta creada\n• Learner - Completó Financial Basics\n\nBadges Intermedios:\n• Diversifier - 5+ tipos de activos\n• Streak Master - 30 días invirtiendo\n• Connector - 5+ referidos\n\nBadges Expertos:\n• DeFi Explorer - Usó 3+ estrategias\n• Whale - $10k+ invertidos\n• Professor - Creó contenido educativo\n\nCada badge = puntos bonus + estatus en comunidad."
     },
     "q86": {
       "question": "¿El leaderboard es competitivo o colaborativo?",
@@ -455,7 +455,7 @@
     },
     "q100": {
       "question": "¿Cómo identifico estafas comunes?",
-      "answer": "Banderas rojas que SIEMPRE indican estafa:\n\n❌ Retorno fijo garantizado\n\"Gana 10% diario garantizado\"\n→ Nada garantiza retorno en inversión\n\n❌ Urgencia artificial\n\"¡Oferta expira en 1 hora!\"\n→ Estafadores crean urgencia para que cometas errores\n\n❌ Pedir contraseña/llaves privadas\n\"Envía tu seed phrase a soporte\"\n→ NUNCA compartas esto con NADIE\n\n❌ Promesa de \"dinero gratis\"\n\"Envía 1 BTC, recibe 2 BTC\"\n→ Clásica estafa de duplicación\n\n❌ diBoaS te contacta fuera de la app\n→ No llamamos pidiendo datos\n→ No enviamos DMs en Instagram\n→ Solo canales oficiales\n\nStay Safe tiene lista completa + quiz interactivo."
+      "answer": "Banderas rojas que SIEMPRE indican estafa:\n\n[ALERTA] Retorno fijo garantizado\n\"Gana 10% diario garantizado\"\n→ Nada garantiza retorno en inversión\n\n[ALERTA] Urgencia artificial\n\"¡Oferta expira en 1 hora!\"\n→ Estafadores crean urgencia para que cometas errores\n\n[ALERTA] Pedir contraseña/llaves privadas\n\"Envía tu seed phrase a soporte\"\n→ NUNCA compartas esto con NADIE\n\n[ALERTA] Promesa de \"dinero gratis\"\n\"Envía 1 BTC, recibe 2 BTC\"\n→ Clásica estafa de duplicación\n\n[ALERTA] diBoaS te contacta fuera de la app\n→ No llamamos pidiendo datos\n→ No enviamos DMs en Instagram\n→ Solo canales oficiales\n\nStay Safe tiene lista completa + quiz interactivo."
     },
     "q101": {
       "question": "¿Cómo protejo mejor mi cuenta?",

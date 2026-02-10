@@ -79,14 +79,15 @@ export function FutureYouCalculator({
   const currency = initialValues?.currency ?? localeConfig.currency;
   const [selectedTimeframe, setSelectedTimeframe] = useState<LongTermTimeframe>('5years');
 
-  // Create locale-specific bank scenario with appropriate rate
+  // Create locale-specific bank scenario with appropriate rate and currency depreciation
   const bankScenario: RateScenario = useMemo(() => ({
     id: 'bank',
     name: 'Traditional Bank',
     apy: localeConfig.bankApy,
     description: 'Average savings account rate',
     isBank: true,
-  }), [localeConfig.bankApy]);
+    currencyDepreciation: localeConfig.currencyDepreciation,
+  }), [localeConfig.bankApy, localeConfig.currencyDepreciation]);
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {

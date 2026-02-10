@@ -1,8 +1,8 @@
 {
   "hero": {
     "headline": "The system isn't broken. It's just designed for Multi-Billion companies.",
-    "subheadline": "Your bank earns 7% with your cash. Card processors take 2.9%.\nYour runway is bleeding. There's a better way.",
-    "cta": "Here's what I found out \u2192",
+    "subheadline": "Your bank earns 7% with your cash. Card processors take 2.9%.\nYour runway bleeds. There's a better way.",
+    "cta": "How I found out →",
     "trustBadges": {
       "mica": {
         "label": "EU-regulated (MiCA)",
@@ -76,7 +76,7 @@
     "footer": "Monthly statements. Board-ready reporting. Plain language — no jargon."
   },
   "features": {
-    "header": "Pay. Get paid. Earn. Optimize.",
+    "header": "diBoaS Business is much more!",
     "intro": "",
     "instantPayments": {
       "headline": "Pay anyone anywhere",
@@ -118,7 +118,7 @@
     "intro": "I'd rather lose you now than disappoint you later.",
     "goodFit": {
       "title": "Good Fit",
-      "description": "• $100K+ sitting idle for 6+ months\n• Comfortable with calculated risk\n• Don't agree with current system\n• Want zero processor fees"
+      "description": "• Your company has cash sitting idle.\n• Comfortable with calculated risk\n• Don't agree with current system\n• Want zero processor fees"
     },
     "notAFit": {
       "title": "Not a Fit",

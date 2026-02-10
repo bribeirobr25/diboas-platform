@@ -18,8 +18,9 @@
   "watermark": "PROJEÇÃO",
   "paths": {
     "headline": "Como você se sente em relação a risco?",
-    "subhead": "Não existe resposta errada — só caminhos diferentes.",
+    "subhead": "Não existe resposta errada, só caminhos diferentes.",
     "warningLabel": "Risco maior",
+    "disclaimer": "Isto é uma projeção. Resultados passados não garantem resultados futuros.",
     "safety": {
       "name": "Segurança em Primeiro",
       "tagline": "Não posso perder isso",
@@ -56,7 +57,8 @@
     "monthlyContribution": "Aporte mensal",
     "helper": "Arraste para definir seu valor inicial",
     "back": "Voltar",
-    "continue": "Me mostra o que acontece"
+    "continue": "Me mostra o que acontece",
+    "disclaimer": "Isto é uma projeção. Resultados passados não garantem resultados futuros."
   },
   "timeframe": {
     "headline": "Até quando você quer ver?",
@@ -68,7 +70,8 @@
       "5years": "5 Anos"
     },
     "back": "Voltar",
-    "startSimulation": "Me mostra o que acontece"
+    "startSimulation": "Me mostra o que acontece",
+    "disclaimer": "Isto é uma projeção. Resultados passados não garantem resultados futuros."
   },
   "simulation": {
     "watermark": "PROJEÇÃO",
@@ -101,13 +104,8 @@
     "bank_source_eu": "Baseado em 0,5% de rendimento médio da poupança. Fonte: Estatísticas do BCE.",
     "bank_source_br": "Baseado em 6,5% de rendimento da poupança (Selic). Fonte: Banco Central do Brasil.",
     "back": "Tentar outro caminho",
-    "shareResults": "Compartilhar meu sonho"
-  },
-  "postDream": {
-    "headline": "Você é #{position} na lista de espera",
-    "subhead": "Quanto antes a gente lançar, antes isso vira realidade.",
-    "ctaShare": "Compartilhar pra subir",
-    "ctaExplore": "Explorar mais"
+    "shareResults": "Compartilhar meu sonho",
+    "disclaimer": "Isto é uma projeção. Resultados passados não garantem resultados futuros."
   },
   "share": {
     "headline": "Que sonho bom!",
@@ -120,19 +118,9 @@
       "5years": "em 5 anos"
     },
     "shareYourDream": "Compartilhar meu sonho",
-    "shareText": "Você precisa ver isso. O que os bancos guardam pra eles, finalmente aberto. E em dólares. Meus R${start} viram R${end}. Meu banco? Só R${bank}. E ainda perde pro dólar. Vem testar: diboas.com",
-    "joinWaitlist": "Entrar na Lista de Espera",
+    "shareText": "Você precisa ver isso. O que os bancos guardam pra eles, finalmente aberto. E em dólares. Meus R${start} viram R${end}. E ainda perde pro dólar. Vem testar: ",
     "tryAgain": "Tentar com Outros Valores",
     "disclaimer": "Projeção baseada em dados históricos. Desempenho passado não garante resultados futuros."
-  },
-  "card": {
-    "watermark": "PROJEÇÃO",
-    "mainText": "No Modo Sonho, eu poderia crescer",
-    "bankComparison": "Meu banco teria me dado:",
-    "cta": "Pronto pra parar de sonhar?",
-    "url": "diboas.com",
-    "disclaimer": "Baseado em dados históricos. Desempenho passado ≠ resultados futuros.",
-    "hashtag": "#WhileISlept"
   },
   "gate": {
     "title": "Modo Sonho é para Membros da Lista de Espera",

@@ -96,6 +96,7 @@ export function CookiePolicyContent() {
       <SectionContainer
         variant="narrow"
         padding="standard"
+        backgroundColor="var(--section-bg-neutral)"
         as="article"
         ariaLabel="Cookie Policy content"
       >

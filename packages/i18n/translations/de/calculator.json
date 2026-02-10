@@ -13,7 +13,7 @@
   },
   "resultHeadline": "In {years} Jahren könnten Ihre {amount}/Monat werden:",
   "defiYield": "Mit diBoaS",
-  "bankRate": "Mit Ihrer Bank (2.59% Sparzins)",
+  "bankRate": "Mit Ihrer Bank (2.59%)",
   "difference": "Das sind {difference} mehr bei gleichem monatlichem Betrag.",
   "opportunityCost": "Das ist Geld, das Sie auf dem Tisch liegen lassen",
   "ecbSource": "Bankvergleich basierend auf dem durchschnittlichen EU-Sparkonto-Zinssatz von 2.59% APY. Quelle: EZB-Statistik, Dezember 2024.",
@@ -21,5 +21,5 @@
   "share": "Teilen",
   "cta": "Auf die Warteliste",
   "ctaSecondary": "Mehr sehen? Dream Mode ausprobieren →",
-  "previewCta": "Zukunfts-Rechner"
+  "previewCta": "Jetzt selbst erleben"
 }

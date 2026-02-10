@@ -18,17 +18,17 @@
     "network": "Error de conexión. Verifica tu internet e intenta de nuevo."
   },
   "confirmation": {
-    "headline": "¡Estás dentro!",
-    "subhead": "Acabas de decir basta. Bienvenido al movimiento.",
+    "headline": "¡Basta!",
+    "subhead": "Bienvenido al movimiento.",
     "positionIntro": "Tu posición:",
     "positionFormat": "#{position}",
-    "shareIntro": "¿Quieres subir?",
-    "shareBenefit": "Comparte tu enlace. Cada registro te sube 10 posiciones.",
+    "shareIntro": "Vamos juntos?",
+    "shareBenefit": "Comparte y sube 10 posiciones.",
     "shareExplanation": "Entre más pronto lancemos, más pronto esto se vuelve realidad.",
     "referralLinkLabel": "Tu enlace personal:",
     "copy": "Copiar enlace",
     "copied": "¡Copiado!",
-    "dreamModeCta": "Mira lo que tu dinero puede hacer →"
+    "dreamModeCta": "Prueba el Dream Mode →"
   },
   "referral": {
     "movedUp": "¡Subiste {spots} posiciones!",
@@ -43,16 +43,8 @@
     "referralCount": "Has referido a {count} personas",
     "keepSharing": "¡Sigue compartiendo para subir!"
   },
-  "card": {
-    "headline": "SOY EL #{position} EN LA LISTA DE DIBOAS",
-    "bodyLine1": "Los bancos ganan 7% con nuestros ahorros.",
-    "bodyLine2": "Nos pagan 0.4%.",
-    "bodyLine3": "¿Esa brecha? Siempre estuvo ahí.",
-    "ctaIntro": "Únete conmigo:",
-    "hashtag": "#WhileISlept"
-  },
   "email": {
-    "welcome": "Bienvenido a diBoaS — Eres el #{position} 🎉",
+    "welcome": "Bienvenido a diBoaS — Eres el #{position}",
     "email1Subject": "Por qué tu banco no está trabajando para ti",
     "email2Subject": "Cómo tu dinero podría realmente trabajar para ti",
     "email3Subject": "Conoce a Aqua, Mystic y Coral — tus guías financieros",

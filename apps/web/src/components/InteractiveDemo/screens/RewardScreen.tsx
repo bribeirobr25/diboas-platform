@@ -79,13 +79,9 @@ export function RewardScreen({
         </p>
       )}
 
-      <p className={styles.vision}>
-        {t('landing-b2c.demo.reward.vision')}
-      </p>
       <Button
         variant="primary"
-        size="lg"
-        className={styles.ctaButton}
+        size="sm"
         onClick={onContinue}
       >
         {t('landing-b2c.demo.reward.continueCta')}

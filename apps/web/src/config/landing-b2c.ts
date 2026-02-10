@@ -140,33 +140,33 @@ export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
 export const B2C_FEATURES_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2c.features.header',
-    backgroundColor: 'white'
+    backgroundColor: 'light-purple'
   },
   cards: [
     {
       id: 'feature-earn',
-      icon: '/assets/icons/chart-growing.avif',
+      icon: 'trending-up',
       title: 'landing-b2c.features.earn.headline',
       description: 'landing-b2c.features.earn.body',
       iconAlt: 'Earnings growth chart'
     },
     {
       id: 'feature-send',
-      icon: '/assets/icons/rewards-medal.avif',
+      icon: 'send',
       title: 'landing-b2c.features.send.headline',
       description: 'landing-b2c.features.send.body',
       iconAlt: 'Send money instantly'
     },
     {
       id: 'feature-invest',
-      icon: '/assets/icons/chart-growing.avif',
+      icon: 'line-chart',
       title: 'landing-b2c.features.invest.headline',
       description: 'landing-b2c.features.invest.body',
       iconAlt: 'Global investments'
     },
     {
       id: 'feature-goals',
-      icon: '/assets/icons/rewards-medal.avif',
+      icon: 'target',
       title: 'landing-b2c.features.goals.headline',
       description: 'landing-b2c.features.goals.body',
       iconAlt: 'Savings goals'

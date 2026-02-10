@@ -13,7 +13,7 @@
   },
   "resultHeadline": "In {years} years, your {amount}/month could become:",
   "defiYield": "With diBoaS",
-  "bankRate": "With your bank (0.45% savings)",
+  "bankRate": "With your bank (0.45%)",
   "difference": "That's {difference} more from the same monthly amount.",
   "opportunityCost": "That's money you're leaving on the table",
   "ecbSource": "Bank comparison based on average US high-yield savings account rate of 0.45% APY. Source: FDIC National Rates, December 2024.",
@@ -21,5 +21,5 @@
   "share": "Share",
   "cta": "Join the waitlist to make this real",
   "ctaSecondary": "Want to see more? Try Dream Mode →",
-  "previewCta": "Future You Calculator"
+  "previewCta": "Come see for yourself"
 }

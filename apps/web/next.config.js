@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Performance optimizations
@@ -337,4 +339,33 @@ const nextConfig = {
   poweredByHeader: false,
 };
 
-module.exports = nextConfig;
+// Sentry configuration options
+const sentryWebpackPluginOptions = {
+  // Suppress source map upload logs during build
+  silent: true,
+
+  // Upload source maps for better error debugging
+  // Only upload in production builds with SENTRY_AUTH_TOKEN set
+  disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
+  disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
+
+  // Automatically tree-shake Sentry logger in production
+  disableLogger: process.env.NODE_ENV === 'production',
+
+  // Hide source maps from browser devtools in production
+  hideSourceMaps: process.env.NODE_ENV === 'production',
+
+  // Widens the scope of the SDK to capture more errors
+  widenClientFileUpload: true,
+
+  // Routes browser requests through a tunnel to avoid ad-blockers
+  tunnelRoute: '/monitoring',
+
+  // Automatically instrument API routes
+  automaticVercelMonitors: true,
+};
+
+// Export with Sentry wrapper if DSN is configured, otherwise export plain config
+module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
+  ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
+  : nextConfig;

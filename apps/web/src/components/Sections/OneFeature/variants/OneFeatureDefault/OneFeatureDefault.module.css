@@ -125,10 +125,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-size-title-desktop);
   color: var(--of-color-icon);
-  background: var(--afc-gradient-fallback, linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%));
+  background: var(--afc-gradient-fallback);
   border-radius: var(--radius-4xl);
+}
+
+/* Fallback icon styling */
+.fallbackIcon {
+  width: var(--dimension-80);
+  height: var(--dimension-80);
+  stroke-width: 1.5;
 }
 
 /* ================================
@@ -511,12 +517,12 @@
 
   .featureCardPrimary {
     background: var(--of-color-cta-bg);
-    border-color: var(--color-black, #000000);
+    border-color: var(--color-slate-900);
   }
 
   .featureCardSecondary {
     background: var(--color-white);
-    border-color: var(--color-black, #000000);
+    border-color: var(--color-slate-900);
   }
 
   .title {

@@ -114,7 +114,7 @@ export function ProtocolsPageContent() {
       </SectionErrorBoundary>
 
       {/* Footer */}
-      <section className="py-8 bg-slate-100">
+      <section className="py-8" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
         <div className="container mx-auto px-4">
           <p className="text-xs text-slate-500 text-center">
             {t('footer.lastUpdated')}

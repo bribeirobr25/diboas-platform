@@ -80,7 +80,7 @@ export function WaitlistForm({
         <Button
           type="submit"
           variant="primary"
-          size="lg"
+          size="sm"
           loading={isLoading}
           loadingText={t('form.cta')}
           className={styles.submitButton}

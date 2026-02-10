@@ -14,6 +14,7 @@
 'use client';
 
 import React, { Component, ErrorInfo } from 'react';
+import * as Sentry from '@sentry/nextjs';
 import { Logger } from '@/lib/monitoring/Logger';
 import { sectionEventBus, SectionEventType } from '@/lib/events/SectionEventBus';
 import type { SectionErrorBoundaryProps, SectionErrorBoundaryState } from './types';
@@ -87,6 +88,24 @@ export class SectionErrorBoundary extends Component<
       userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : 'unknown',
       url: typeof window !== 'undefined' ? window.location.href : 'unknown'
     });
+
+    // Report to Sentry for error monitoring
+    if (enableReporting) {
+      Sentry.captureException(error, {
+        tags: {
+          errorBoundary: 'section',
+          sectionId,
+          sectionType,
+          errorId,
+        },
+        extra: {
+          componentStack: errorInfo.componentStack,
+          context,
+          retryCount: this.state.retryCount,
+        },
+        level: determineSeverity(error) === 'critical' ? 'fatal' : 'error',
+      });
+    }
 
     // Emit error event for monitoring
     sectionEventBus.emit(SectionEventType.SECTION_ERROR, {

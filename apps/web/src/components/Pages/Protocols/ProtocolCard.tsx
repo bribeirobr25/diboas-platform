@@ -5,6 +5,7 @@
  * Extracted from ProtocolsPageContent for better maintainability
  */
 
+import { AlertTriangle, CheckCircle } from 'lucide-react';
 import type { Protocol, ProtocolLabels } from './types';
 
 interface ProtocolCardProps {
@@ -37,12 +38,12 @@ export function ProtocolCard({ protocol, labels }: ProtocolCardProps) {
         </div>
         <div className="flex justify-between items-start pt-1">
           <span className="text-slate-500">{labels.regulatory}</span>
-          <span className={`font-medium text-right max-w-[250px] ${
+          <span className={`font-medium text-right max-w-[250px] flex items-center gap-1 ${
             protocol.hasWarning ? 'text-amber-600' :
             protocol.hasSuccess ? 'text-teal-600' : 'text-slate-900'
           }`}>
-            {protocol.hasWarning && '⚠️ '}
-            {protocol.hasSuccess && '✅ '}
+            {protocol.hasWarning && <AlertTriangle className="w-4 h-4 inline-block flex-shrink-0" />}
+            {protocol.hasSuccess && <CheckCircle className="w-4 h-4 inline-block flex-shrink-0" />}
             {protocol.regulatory}
           </span>
         </div>

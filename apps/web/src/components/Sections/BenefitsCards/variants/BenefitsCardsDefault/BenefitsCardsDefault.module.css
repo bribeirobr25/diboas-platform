@@ -34,6 +34,10 @@
   background-color: var(--section-bg-neutral);
 }
 
+.section-enterprise {
+  background-color: var(--section-bg-enterprise);
+}
+
 /* ================================
    CONTAINER & LAYOUT
    ================================ */
@@ -73,10 +77,10 @@
 /* Section Title */
 .title {
   font-family: var(--font-family-primary);
-  font-size: var(--bc-title-font-size-mobile);
-  font-weight: var(--bc-title-font-weight);
-  line-height: var(--bc-title-line-height);
-  color: var(--bc-color-title);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
   margin: 0;
   margin-bottom: var(--spacing-lg);
 }
@@ -84,14 +88,14 @@
 /* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
 @media (min-width: 768px) {
   .title {
-    font-size: var(--bc-title-font-size-tablet);
+    font-size: var(--font-size-section-title-tablet);
   }
 }
 
 /* Responsive: Desktop (breakpoint: var(--bc-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .title {
-    font-size: var(--bc-title-font-size-desktop);
+    font-size: var(--font-size-section-title-desktop);
   }
 }
 
@@ -304,7 +308,7 @@
 }
 
 /* ================================
-   ICON STYLES
+   ICON STYLES - Lucide SVG Icons
    ================================ */
 
 /* Icon Wrapper */
@@ -314,9 +318,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bc-color-icon-bg);
-  border-radius: var(--bc-icon-border-radius);
-  padding: var(--bc-icon-padding);
   flex-shrink: 0;
 }
 
@@ -336,21 +337,12 @@
   }
 }
 
-/* Icon Image */
+/* Icon - Lucide SVG */
 .icon {
   width: var(--percent-100);
   height: var(--percent-100);
-  object-fit: contain;
-}
-
-/* Icon Fallback */
-.iconFallback {
-  width: var(--percent-100);
-  height: var(--percent-100);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-2xl);
+  color: var(--color-text-primary);
+  stroke-width: 1.5;
 }
 
 /* ================================

@@ -5,32 +5,32 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm, 8px);
-  width: 100%;
+  gap: var(--spacing-sm);
+  width: var(--percent-100);
 }
 
 .label {
-  font-size: var(--font-size-small, 14px);
-  color: var(--text-secondary, #64748b);
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
 }
 
 .linkBox {
   display: flex;
-  gap: var(--spacing-xs, 4px);
-  background: var(--bg-primary, #ffffff);
-  border: 1px solid var(--border-default, #e2e8f0);
-  border-radius: var(--radius-md, 8px);
-  padding: var(--spacing-xs, 4px);
+  gap: var(--spacing-xs);
+  background: var(--section-bg-white);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xs);
   overflow: hidden;
 }
 
 .input {
   flex: 1;
-  padding: var(--spacing-sm, 8px) var(--spacing-md, 12px);
-  font-size: var(--font-size-small, 14px);
-  font-family: var(--font-mono, monospace);
-  color: var(--text-primary, #0f172a);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-mono);
+  color: var(--color-text-primary);
   background: transparent;
   border: none;
   outline: none;
@@ -39,111 +39,111 @@
 }
 
 .input:focus {
-  background: var(--bg-secondary, #f8fafc);
+  background: var(--section-bg-neutral);
 }
 
 .input:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-teal-500, #14b8a6);
+  box-shadow: var(--cta-shadow-focus);
 }
 
 .copyButton {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs, 4px);
-  padding: var(--spacing-sm, 8px) var(--spacing-md, 12px);
-  font-size: var(--font-size-small, 14px);
-  font-weight: 500;
-  color: var(--text-primary, #0f172a);
-  background: var(--bg-secondary, #f8fafc);
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background: var(--section-bg-neutral);
   border: none;
-  border-radius: var(--radius-sm, 6px);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color var(--animation-duration-fast) ease, color var(--animation-duration-fast) ease;
   white-space: nowrap;
 }
 
 .copyButton:hover {
-  background: var(--bg-tertiary, #e2e8f0);
+  background: var(--color-slate-200);
 }
 
 .copyButton:focus-visible {
-  outline: 2px solid var(--color-teal-500, #14b8a6);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--color-teal-500);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .copyButton.copied {
-  background: var(--color-teal-500, #14b8a6);
-  color: var(--text-inverse, #ffffff);
+  background: var(--color-teal-500);
+  color: var(--color-white);
 }
 
 /* Share buttons - Professional ghost/outline style */
 .shareButtons {
   display: flex;
-  gap: var(--spacing-sm, 8px);
-  margin-top: var(--spacing-sm, 8px);
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
   justify-content: center;
 }
 
 .shareButton {
-  width: 40px;
-  height: 40px;
+  width: var(--spacing-4xl);
+  height: var(--spacing-4xl);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-primary, #ffffff);
-  border: 1px solid var(--border-default, #e2e8f0);
-  border-radius: var(--radius-md, 8px);
+  background: var(--section-bg-white);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-  color: var(--text-secondary, #64748b);
+  transition: background-color var(--animation-duration-fast) ease, border-color var(--animation-duration-fast) ease, color var(--animation-duration-fast) ease;
+  color: var(--color-text-secondary);
 }
 
 .shareButton:hover {
-  background: var(--bg-secondary, #f8fafc);
-  border-color: var(--border-hover, #cbd5e1);
-  color: var(--text-primary, #0f172a);
+  background: var(--section-bg-neutral);
+  border-color: var(--color-slate-300);
+  color: var(--color-text-primary);
 }
 
 .shareButton:active {
-  background: var(--bg-tertiary, #f1f5f9);
+  background: var(--color-surface-elevated);
 }
 
 .shareButton:focus-visible {
-  outline: 2px solid var(--color-teal-500, #14b8a6);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--color-teal-500);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Platform-specific subtle hover colors */
 .shareButton.whatsapp:hover {
-  color: var(--social-whatsapp, #25D366);
-  border-color: var(--social-whatsapp, #25D366);
+  color: var(--social-whatsapp);
+  border-color: var(--social-whatsapp);
 }
 
 .shareButton.twitter:hover {
-  color: var(--text-primary, #0f172a);
-  border-color: var(--text-primary, #0f172a);
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
 }
 
 .shareButton.linkedin:hover {
-  color: var(--social-linkedin, #0A66C2);
-  border-color: var(--social-linkedin, #0A66C2);
+  color: var(--social-linkedin);
+  border-color: var(--social-linkedin);
 }
 
 /* Mobile - Compact copy button with icon only */
 @media (max-width: 480px) {
   .linkBox {
-    gap: var(--spacing-xs, 4px);
-    padding: var(--spacing-xs, 4px);
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
   }
 
   .input {
-    padding: var(--spacing-sm, 8px) var(--spacing-sm, 8px);
-    font-size: var(--font-size-xs, 12px);
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-xs);
   }
 
   .copyButton {
-    padding: var(--spacing-sm, 8px);
-    min-width: 36px;
+    padding: var(--spacing-sm);
+    min-width: var(--spacing-4xl);
     justify-content: center;
   }
 
@@ -153,28 +153,28 @@
   }
 
   .shareButtons {
-    gap: var(--spacing-xs, 4px);
+    gap: var(--spacing-xs);
   }
 
   .shareButton {
-    width: 36px;
-    height: 36px;
+    width: var(--spacing-4xl);
+    height: var(--spacing-4xl);
   }
 }
 
 /* Compact mode */
 .compact .linkBox {
-  padding: var(--spacing-xs, 2px);
+  padding: var(--spacing-xs);
 }
 
 .compact .input {
-  padding: var(--spacing-xs, 6px) var(--spacing-sm, 8px);
-  font-size: var(--font-size-xs, 12px);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
 }
 
 .compact .copyButton {
-  padding: var(--spacing-xs, 6px) var(--spacing-sm, 8px);
-  font-size: var(--font-size-xs, 12px);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
 }
 
 .compact .copyButton span {

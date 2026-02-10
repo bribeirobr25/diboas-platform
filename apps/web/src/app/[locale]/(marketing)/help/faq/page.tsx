@@ -51,12 +51,15 @@ export default async function HelpFaqPage({ params }: PageProps) {
     { name: 'FAQ', url: ROUTES.HELP.FAQ }
   ], locale);
 
+  // FAQPage structured data for better SEO
+  const faqData = MetadataFactory.generateFAQStructuredData();
+
   const heroVariant = getVariantForPageConfig('help-faq');
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
     <>
-      <StructuredData data={[serviceData, breadcrumbData]} />
+      <StructuredData data={[serviceData, breadcrumbData, faqData]} />
 
       <main className="main-page-wrapper">
         <SectionErrorBoundary

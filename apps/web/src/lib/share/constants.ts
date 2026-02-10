@@ -200,13 +200,13 @@ export const DISCLAIMERS_BY_LOCALE: Record<CardLocale, string> = {
 };
 
 /**
- * Watermark text by locale (with warning emoji per CLO spec)
+ * Watermark text by locale
  */
 export const WATERMARK_TEXT: Record<CardLocale, string> = {
-  en: '⚠️ PROJECTION',
-  de: '⚠️ PROJEKTION',
-  'pt-BR': '⚠️ PROJEÇÃO',
-  es: '⚠️ PROYECCIÓN',
+  en: '[PROJECTION]',
+  de: '[PROJEKTION]',
+  'pt-BR': '[PROJEÇÃO]',
+  es: '[PROYECCIÓN]',
 };
 
 /**

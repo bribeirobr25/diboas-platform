@@ -8,26 +8,26 @@
  * Accessibility: Full keyboard and screen reader support
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { useLocale } from '@/components/Providers';
 import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
+import { getLocaleConfig } from '@/lib/calculator';
 import type { TreasuryCalculatorProps } from './types';
 import styles from './TreasuryCalculator.module.css';
 
 /**
- * Format number as currency (EUR)
+ * Currency configuration by locale
  */
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat('en-EU', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(value);
-}
+const CURRENCY_CONFIG: Record<string, { currency: string; locale: string; symbol: string }> = {
+  en: { currency: 'USD', locale: 'en-US', symbol: '$' },
+  de: { currency: 'EUR', locale: 'de-DE', symbol: '€' },
+  es: { currency: 'EUR', locale: 'es-ES', symbol: '€' },
+  'pt-BR': { currency: 'BRL', locale: 'pt-BR', symbol: 'R$' },
+};
 
 /**
  * TreasuryCalculator Component
@@ -40,10 +40,25 @@ export function TreasuryCalculator({
   enableAnalytics = true
 }: TreasuryCalculatorProps) {
   const intl = useTranslation();
+  const { locale } = useLocale();
   const { recordSectionRenderTime } = usePerformanceMonitoring();
 
   // Translate config values (header, cta text)
   const translatedConfig = useConfigTranslation(config);
+
+  // Get locale-specific currency and depreciation config
+  const currencyConfig = CURRENCY_CONFIG[locale] || CURRENCY_CONFIG['de'];
+  const localeConfig = useMemo(() => getLocaleConfig(locale), [locale]);
+
+  // Format number as currency (locale-aware)
+  const formatCurrency = useCallback((value: number): string => {
+    return new Intl.NumberFormat(currencyConfig.locale, {
+      style: 'currency',
+      currency: currencyConfig.currency,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(value);
+  }, [currencyConfig]);
 
   // State for calculator inputs
   const [cashOnHand, setCashOnHand] = useState(config.defaults.cashOnHand);
@@ -64,10 +79,16 @@ export function TreasuryCalculator({
     return () => clearTimeout(timeoutId);
   }, [recordSectionRenderTime, enableAnalytics]);
 
-  // Calculate yields
+  // Calculate yields (1 year projection)
   const diboasRate = config.defaults.diboasRate;
   const projectedYield = Math.round(cashOnHand * (diboasRate / 100));
-  const currentInterest = Math.round(cashOnHand * (currentRate / 100));
+
+  // Calculate current interest with currency depreciation adjustment
+  // For Brazil (BRL), the nominal interest is reduced by 6% annual depreciation against USD
+  // diBoaS returns are in USD, so they're protected from this depreciation
+  const nominalCurrentInterest = cashOnHand * (currentRate / 100);
+  const depreciationFactor = 1 - localeConfig.currencyDepreciation; // e.g., 0.94 for Brazil
+  const currentInterest = Math.round(nominalCurrentInterest * depreciationFactor);
   const additionalRunway = projectedYield - currentInterest;
 
   // Handle cash input change
@@ -113,13 +134,13 @@ export function TreasuryCalculator({
                 {intl.formatMessage({ id: 'landing-b2b.calculator.fields.cashOnHand' })}
               </label>
               <div className={styles.inputWrapper}>
-                <span className={styles.currencySymbol} aria-hidden="true">€</span>
+                <span className={styles.currencySymbol} aria-hidden="true">{currencyConfig.symbol}</span>
                 <input
                   id="cash-input"
                   type="text"
                   inputMode="numeric"
                   className={styles.input}
-                  value={cashOnHand.toLocaleString()}
+                  value={cashOnHand.toLocaleString(currencyConfig.locale)}
                   onChange={handleCashChange}
                   aria-label={intl.formatMessage({ id: 'landing-b2b.calculator.fields.cashOnHand' })}
                   placeholder="500,000"

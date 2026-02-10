@@ -35,7 +35,6 @@ export function FutureYouPageContent() {
         <PageHeroSection
           headline={t('hero.headline')}
           subheadline={t('hero.subheadline')}
-          subheadline2={t('hero.subheadline2')}
           align="center"
         />
       </SectionErrorBoundary>
@@ -62,7 +61,7 @@ export function FutureYouPageContent() {
         <SectionContainer
           variant="standard"
           padding="standard"
-          backgroundColor="var(--color-slate-50)"
+          backgroundColor="var(--section-bg-neutral)"
         >
           <h2 className={styles.sectionTitle}>
             {t('mathExplained.header')}
@@ -73,7 +72,7 @@ export function FutureYouPageContent() {
 
           <div className={styles.cardsGrid}>
             <ContentCard title={t('mathExplained.bankGap.headline')}>
-              <p>{t('mathExplained.bankGap.body2')}</p>
+              <p>{t('mathExplained.bankGap.body')}</p>
             </ContentCard>
 
             <ContentCard title={t('mathExplained.compound.headline')}>
@@ -81,7 +80,7 @@ export function FutureYouPageContent() {
             </ContentCard>
 
             <ContentCard title={t('mathExplained.time.headline')}>
-              <p>{t('mathExplained.time.takeaway')}</p>
+              <p>{t('mathExplained.time.body')}</p>
             </ContentCard>
           </div>
         </SectionContainer>
@@ -97,7 +96,7 @@ export function FutureYouPageContent() {
         <SectionContainer
           variant="standard"
           padding="standard"
-          backgroundColor="var(--color-white)"
+          backgroundColor="var(--bc-color-section-bg)"
           className={styles.ctaSection}
         >
           <h2 className={styles.sectionTitle}>
@@ -129,7 +128,7 @@ export function FutureYouPageContent() {
       <SectionContainer
         variant="standard"
         padding="none"
-        backgroundColor="var(--color-slate-100)"
+        backgroundColor="var(--section-bg-neutral)"
         className={styles.disclaimer}
       >
         <p className={styles.disclaimerText}>

@@ -117,6 +117,7 @@ export function TermsOfUseContent() {
       <SectionContainer
         variant="narrow"
         padding="standard"
+        backgroundColor="var(--section-bg-neutral)"
         as="article"
         ariaLabel="Terms of Use content"
       >

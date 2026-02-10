@@ -20,6 +20,7 @@
     "headline": "¿Cómo te sientes respecto al riesgo?",
     "subhead": "No hay respuesta incorrecta — solo caminos diferentes.",
     "warningLabel": "Riesgo mayor",
+    "disclaimer": "Esto es una proyección. Los resultados pasados no garantizan resultados futuros.",
     "safety": {
       "name": "Seguridad Primero",
       "tagline": "No puedo perder esto",
@@ -56,7 +57,8 @@
     "monthlyContribution": "Aportación mensual",
     "helper": "Arrastra para establecer tu monto inicial",
     "back": "Atrás",
-    "continue": "Muéstrame qué pasa"
+    "continue": "Muéstrame qué pasa",
+    "disclaimer": "Esto es una proyección. Los resultados pasados no garantizan resultados futuros."
   },
   "timeframe": {
     "headline": "¿Hasta cuándo quieres ver?",
@@ -68,7 +70,8 @@
       "5years": "5 Años"
     },
     "back": "Atrás",
-    "startSimulation": "Muéstrame qué pasa"
+    "startSimulation": "Muéstrame qué pasa",
+    "disclaimer": "Esto es una proyección. Los resultados pasados no garantizan resultados futuros."
   },
   "simulation": {
     "watermark": "PROYECCIÓN",
@@ -101,13 +104,8 @@
     "bank_source_eu": "Basado en 0.4% de tasa de ahorro promedio. Fuente: Estadísticas del BCE, Enero 2026.",
     "bank_source_br": "Basado en 6.5% de tasa de ahorro Selic. Fuente: Banco Central do Brasil.",
     "back": "Probar otro camino",
-    "shareResults": "Compartir mi sueño"
-  },
-  "postDream": {
-    "headline": "Eres #{position} en la lista de espera",
-    "subhead": "Cuanto antes lancemos, antes esto se hace realidad.",
-    "ctaShare": "Comparte para subir",
-    "ctaExplore": "Explorar más"
+    "shareResults": "Compartir mi sueño",
+    "disclaimer": "Esto es una proyección. Los resultados pasados no garantizan resultados futuros."
   },
   "share": {
     "headline": "¡Qué buen sueño!",
@@ -120,19 +118,10 @@
       "5years": "en 5 años"
     },
     "shareYourDream": "Compartir mi sueño",
-    "shareText": "Tienes que ver esto. Retornos institucionales, finalmente abiertos. Mis €{start} se convierten en €{end}. ¿Mi banco? Solo €{bank}. Pruébalo tú mismo: diboas.com",
+    "shareText": "Tienes que ver esto. Retornos institucionales, finalmente abiertos. Mis €{start} se convierten en €{end}. Pruébalo tú mismo: ",
     "joinWaitlist": "Unirse a la Lista de Espera",
     "tryAgain": "Probar con Otros Números",
     "disclaimer": "Proyección basada en datos históricos. El rendimiento pasado no garantiza resultados futuros."
-  },
-  "card": {
-    "watermark": "PROYECCIÓN",
-    "mainText": "En Modo Sueño, podría crecer",
-    "bankComparison": "Mi banco me habría dado:",
-    "cta": "¿Listo para dejar de soñar?",
-    "url": "diboas.com",
-    "disclaimer": "Basado en datos históricos. Rendimiento pasado ≠ resultados futuros.",
-    "hashtag": "#WhileISlept"
   },
   "gate": {
     "title": "Modo Sueño es para Miembros de la Lista de Espera",

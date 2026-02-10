@@ -43,34 +43,11 @@
     "benefit": "Jede Anmeldung = {spots} Plätze nach vorne",
     "copied": "Link in die Zwischenablage kopiert!"
   },
-  "dreamMode": {
-    "twitter": "Im @diboasfi Dream Mode könnte ich {start} → {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. Gleicher Betrag, anderer Ort. diboas.com",
-    "whatsapp": "Im diBoaS Dream Mode könnte ich {start} → {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. Gleicher Betrag, anderer Ort. Schau mal: diboas.com",
-    "linkedin": "Im @diboasfi Dream Mode könnte ich {start} → {end} in {timeframe} wachsen lassen. Meine Bank? Nur {bank}. Gleicher Betrag, anderer Ort. Schau mal: diboas.com"
-  },
   "waitlistPosition": {
-    "twitter": "Ich bin #{position} auf der @diboasfi Warteliste. Mit nur €5 bekomme ich die gleichen Möglichkeiten wie Institutionen und Milliardäre.",
-    "whatsapp": "Ich bin gerade der diBoaS-Warteliste beigetreten (#{position}). Wussten Sie, dass man schon ab €5 die gleichen Möglichkeiten wie Institutionen und Milliardäre bekommen kann? Schauen Sie mal: {referralUrl}",
-    "facebook": "Ich bin #{position} auf der diBoaS-Warteliste. Banken verdienen 7% mit unseren Ersparnissen, zahlen uns aber nur 0,4%. Zeit, das zu ändern.",
-    "linkedin": "Ich bin gerade der @diboasfi Warteliste beigetreten (#{position}). Wussten Sie, dass Banken 7% mit unserem Ersparten verdienen, uns aber nur 0,4% zurückgeben? Mit diBoaS kann ich das ändern und Sie können es auch. Schauen Sie mal: {referralUrl}"
-  },
-  "dreamCard": {
-    "watermark": "PROJEKTION",
-    "headline": "IM DREAM MODE KÖNNTE ICH WACHSEN",
-    "timeframePrefix": "in",
-    "bankComparison": "Meine Bank hätte mir gegeben:",
-    "cta": "Bereit, aufzuhören zu träumen?",
-    "url": "diboas.com",
-    "disclaimer": "Basierend auf historischen Daten. Vergangene Performance ≠ zukünftige Ergebnisse.",
-    "hashtag": "#WhileISlept"
-  },
-  "waitlistCard": {
-    "headline": "ICH BIN #{position} AUF DER DIBOAS-WARTELISTE",
-    "bodyLine1": "Banken verdienen 7% mit unseren Ersparnissen.",
-    "bodyLine2": "Sie zahlen uns 0,4%.",
-    "bodyLine3": "Diese Lücke? Die war schon immer da.",
-    "ctaIntro": "Machen Sie mit:",
-    "hashtag": "#WhileISlept"
+    "twitter": "Vermögenslücke = kein Einkommen, sondern ZUGANG. Das System ist unfair. Ich bin #{position} und sage: Es reicht. Mach mit. ",
+    "whatsapp": "Die Vermögenslücke hat nichts mit Einkommen zu tun. Es geht um ZUGANG. Das System schließt uns aus. Ich bin #{position} und sage: Es reicht. Mach mit: {referralUrl}",
+    "facebook": "Vermögenslücke? Nicht Einkommen - ZUGANG. Banken verdienen 7% mit unserem Geld, zahlen uns 0,4%. Ich bin #{position}. Es reicht. Zeit für Veränderung.",
+    "linkedin": "Die Vermögenslücke ist kein Einkommensproblem. Es ist ein Zugangsproblem. Das System schließt systematisch aus. Ich bin #{position} und sage: Es reicht. Gemeinsam ändern wir das: {referralUrl}"
   },
   "timeframes": {
     "1week": "1 Woche",

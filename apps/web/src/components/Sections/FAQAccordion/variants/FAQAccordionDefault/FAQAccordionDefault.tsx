@@ -12,7 +12,6 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef, KeyboardEvent } from 'react';
-import Link from 'next/link';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import type { FAQAccordionVariantProps } from '../types';
 import styles from './FAQAccordionDefault.module.css';
@@ -27,8 +26,7 @@ export function FAQAccordionDefault({
   backgroundColor,
   enableAnalytics = true,
   onExpand,
-  onCollapse,
-  onCTAClick
+  onCollapse
 }: FAQAccordionVariantProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
@@ -124,10 +122,6 @@ export function FAQAccordionDefault({
     }
   }, [expandedId, enableAnalytics, config.analytics]);
 
-  const handleCTAClick = useCallback(() => {
-    onCTAClick?.(config.content.ctaHref);
-  }, [config.content.ctaHref, onCTAClick]);
-
   return (
     <SectionContainer
       variant="wide"
@@ -213,17 +207,6 @@ export function FAQAccordionDefault({
             );
           })}
         </div>
-
-        {/* CTA Button - Using unified CTA design tokens */}
-        <Link
-          href={config.content.ctaHref}
-          target={config.content.ctaTarget}
-          className={styles.ctaButton}
-          aria-label={config.content.ctaText}
-          onClick={handleCTAClick}
-        >
-          {config.content.ctaText}
-        </Link>
     </SectionContainer>
   );
 }

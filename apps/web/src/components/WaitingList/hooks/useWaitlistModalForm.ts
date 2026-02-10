@@ -10,7 +10,7 @@
  * Code Reusability: Can be used in different modal implementations
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { analyticsService } from '@/lib/analytics';
 import type {
   WaitingListFormData,
@@ -60,6 +60,9 @@ export function useWaitlistModalForm({
   const [isSuccess, setIsSuccess] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState('');
 
+  // Ref to prevent double-submit (immediate check before React state update)
+  const isSubmittingRef = useRef(false);
+
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -76,6 +79,13 @@ export function useWaitlistModalForm({
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Prevent double-submit using ref (immediate check before state update)
+    if (isSubmittingRef.current) {
+      return;
+    }
+    isSubmittingRef.current = true;
+
     setErrors({});
     setIsLoading(true);
 
@@ -150,6 +160,7 @@ export function useWaitlistModalForm({
       setErrors({ general: t('errors.submissionFailed') });
     } finally {
       setIsLoading(false);
+      isSubmittingRef.current = false;
     }
   }, [formData, locale, t]);
 

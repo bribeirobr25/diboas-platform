@@ -31,9 +31,14 @@ export function HopeScreen({
 
     // After 1 year with bank
     const bankInterest = INITIAL_BALANCE * rates.bankPaysRate;
-    const bankTotal = INITIAL_BALANCE + bankInterest;
+    // For Brazil: adjust bank total for currency depreciation (only interest is affected)
+    // This reflects real purchasing power loss when BRL depreciates against USD
+    const adjustedBankInterest = isBrazil
+      ? bankInterest * (1 - BANK_RATES.BRAZIL.currencyDepreciation)
+      : bankInterest;
+    const bankTotal = INITIAL_BALANCE + adjustedBankInterest;
 
-    // After 1 year with diBoaS
+    // After 1 year with diBoaS (returns are in USD, no currency loss)
     const diboasInterest = INITIAL_BALANCE * APY_RATE;
     const diboasTotal = INITIAL_BALANCE + diboasInterest;
 
@@ -41,7 +46,7 @@ export function HopeScreen({
     const difference = diboasTotal - bankTotal;
 
     // Growth multiplier (how many times better)
-    const growthMultiplier = Math.round(diboasInterest / bankInterest);
+    const growthMultiplier = Math.round(diboasInterest / (isBrazil ? adjustedBankInterest : bankInterest));
 
     return {
       balance: formatCurrency(INITIAL_BALANCE),
@@ -71,21 +76,20 @@ export function HopeScreen({
         <div className={styles.projectedBalance}>
           {formatCurrency(diboasTotal)}
         </div>
+        <p className={styles.comparison}>
+          {t('landing-b2c.demo.hope.comparison', {
+            bankTotal: calculatedValues.bankTotal,
+            diboasTotal: calculatedValues.diboasTotal,
+            difference: calculatedValues.difference
+          })}
+        </p>
       </div>
-      <p className={styles.comparison}>
-        {t('landing-b2c.demo.hope.comparison', {
-          bankTotal: calculatedValues.bankTotal,
-          diboasTotal: calculatedValues.diboasTotal,
-          difference: calculatedValues.difference
-        })}
-      </p>
       <p className={styles.impact}>
         {t('landing-b2c.demo.hope.impact', { multiplier: calculatedValues.growthMultiplier })}
       </p>
       <Button
         variant="primary"
-        size="lg"
-        className={styles.ctaButton}
+        size="sm"
         onClick={onContinue}
       >
         {t('landing-b2c.demo.hope.cta')}

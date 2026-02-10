@@ -1,8 +1,8 @@
 {
   "hero": {
     "headline": "Das System ist nicht kaputt. Es ist so konzipiert",
-    "subheadline": "Banken verdienen 7% mit Ihrem Geld. Geben Ihnen 0,4%. Vermögende haben dieses Angebot nie akzeptiert. Sie hatten keine Wahl. Bis jetzt.",
-    "cta": "So habe ich das entdeckt →"
+    "subheadline": "Banken verdienen 7% mit Ihrem Geld. Geben Ihnen 0,4%. Wer Zugang hatte, hat das nie akzeptiert.\nSie hatten keine Wahl. Bis jetzt.",
+    "cta": "Wie ich das entdeckt habe? →"
   },
   "origin": {
     "header": "Wegen meiner Großmutter",
@@ -25,7 +25,7 @@
     }
   },
   "features": {
-    "header": "Verdienen. Senden. Investieren. Wachsen.",
+    "header": "diBoaS ist viel mehr!",
     "earn": {
       "headline": "6-10% pro Jahr verdienen",
       "body": "Ihr Geld wächst in geprüften Systemen. Institutioneller Zugang, jetzt Ihrer. Jederzeit abheben."
@@ -50,33 +50,32 @@
       "subtext": "Was Ihre Bank Ihnen dieses Jahr gab: {bankPays}",
       "hook": "Was sie damit verdient hat: {bankEarns}",
       "hookBrazil": "Was sie damit verdient hat: {bankEarns}. Und der Real verlor {currencyLoss}% gegenüber dem Dollar.",
-      "cta": "mit diBoaS"
+      "cta": "Zeigen Sie mir wie"
     },
     "hope": {
-      "header": "Dieselben {balance}. Ein Jahr später.",
-      "projectionLabel": "In 1 Jahr bei {apyRate}% pro Jahr:",
-      "comparison": "Ihre Bank: {bankTotal}.\ndiBoaS: {diboasTotal}.\nDie Differenz: {difference}.",
-      "impact": "Gleiches Geld. Anderer Ort. {multiplier}x mehr Wachstum.",
-      "cta": "Zeigen Sie mir wie"
+      "header": "Ein Jahr später.",
+      "projectionLabel": "{apyRate}% pro Jahr:",
+      "comparison": "Ihre Bank: {bankTotal}.\nDie Differenz: {difference}.",
+      "impact": "Gleiches Geld. Anderer Ort. {multiplier}x mehr.",
+      "cta": "Weiter"
     },
     "action": {
       "header": "Probieren Sie mit beliebigem Betrag",
       "prompt": "Wie viel möchten Sie probieren?",
       "reassurance1": "Schon ab {minAmount} möglich.",
       "reassurance2": "Keine Verpflichtung.",
-      "cta": "Hinzufügen"
+      "cta": "Geld einzahlen"
     },
     "reward": {
       "header": "Beobachten Sie das Wachstum",
       "delight": "{earned} verdient. Stellen Sie sich ein Jahr vor.",
-      "vision": "Stellen Sie sich vor, was passiert, während Sie schlafen.",
-      "continueCta": "Weiter"
+      "continueCta": "Ich benötige Zugriff"
     }
   },
   "socialProof": {
-    "header": "Schließen Sie sich denen an, die \"genug\" sagen",
+    "header": "Gemeinsam \"genug\" sagen",
     "stats": {
-      "waitlist": "{count} haben sich angemeldet.",
+      "waitlist": "{count}\nschon dabei",
       "countries": "{countries} Länder. Eine Mission."
     }
   },
