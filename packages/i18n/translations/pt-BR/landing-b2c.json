@@ -1,8 +1,8 @@
 {
   "hero": {
     "headline": "O sistema não está quebrado. Ele foi projetado assim",
-    "subheadline": "Bancos ganham 15% com seu dinheiro. Te devolvem 7% na poupança.\nQuem tinha acesso nunca aceitou esse acordo.\nVocê não tinha opção. Até agora.",
-    "cta": "Foi assim que eu descobri isso →"
+    "subheadline": "Bancos ganham 15% com seu dinheiro. Te devolvem 7% na poupança. Quem tinha acesso nunca aceitou esse acordo.\nVocê não tinha opção. Até agora.",
+    "cta": "Como eu descobri isso →"
   },
   "origin": {
     "header": "Por causa da minha avó",
@@ -25,7 +25,7 @@
     }
   },
   "features": {
-    "header": "Ganhe. Envie. Invista. Cresça.",
+    "header": "diBoaS é muito mais!",
     "earn": {
       "headline": "Ganhe 6-10% ao ano",
       "body": "Seu dinheiro cresce em sistemas verificados. Acesso institucional, agora seu. Saque quando quiser."
@@ -47,16 +47,16 @@
     "header": "Experimente você mesmo",
     "pain": {
       "pixHeader": "Seu PIX de hoje",
-      "subtext": "O que o banco te deu esse ano: {bankPays}",
-      "hookBrazil": "O que eles ganharam com isso: {bankEarns}.\nE o real perdeu {currencyLoss}% contra o dólar.",
-      "cta": "com diBoaS"
+      "subtext": "Seu banco ganhou: {bankEarns}\nte devolveu {bankPays}",
+      "hookBrazil": "Nossa moeda perdeu {currencyLoss}% para o dólar.\nSeu ganho real = {realGain}",
+      "cta": "Me mostre"
     },
     "hope": {
-      "header": "Mesmos {balance}. Um ano depois.",
-      "projectionLabel": "Em 1 ano a {apyRate}% ao ano em dólares:",
-      "comparison": "Poupança: {bankTotal} em reais.\ndiBoaS: {diboasTotal} em dólares.",
-      "impact": "Mesmo dinheiro. Lugar diferente. Crescimento de verdade.",
-      "cta": "Me mostra como"
+      "header": "Um ano depois.",
+      "projectionLabel": "{apyRate}% ao ano em dólares:",
+      "comparison": "Poupança: {bankTotal} em reais.\nDiferença: {difference}.",
+      "impact": "Mesmo dinheiro. Lugar diferente. Lucro em Dólar.",
+      "cta": "Continue"
     },
     "action": {
       "header": "Experimente com qualquer valor",
@@ -67,15 +67,14 @@
     },
     "reward": {
       "header": "Veja crescendo",
-      "delight": "{earned} ganhos. Imagina um ano.",
-      "vision": "Imagina o que acontece enquanto você dorme.",
-      "continueCta": "Continuar"
+      "delight": "{earned} ganhos. Imagina em um ano.",
+      "continueCta": "Quero acesso"
     }
   },
   "socialProof": {
     "header": "Junte-se a quem está dizendo \"chega\"",
     "stats": {
-      "waitlist": "{count} já se cadastraram.",
+      "waitlist": "{count} já estão com a gente.",
       "countries": "{countries} países. Uma missão."
     }
   },

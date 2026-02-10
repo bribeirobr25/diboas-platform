@@ -77,7 +77,6 @@ export function StrategiesPageContent() {
         <PageHeroSection
           headline={t('hero.headline')}
           subheadline={t('hero.subheadline')}
-          subheadline2={t('hero.subheadline2')}
           align="center"
         />
       </SectionErrorBoundary>
@@ -92,7 +91,7 @@ export function StrategiesPageContent() {
         <SectionContainer
           variant="standard"
           padding="standard"
-          backgroundColor="var(--color-white)"
+          backgroundColor="var(--section-bg-neutral)"
         >
           <h2 className={styles.sectionTitle}>
             {t('matrix.header')}
@@ -153,7 +152,7 @@ export function StrategiesPageContent() {
         <SectionContainer
           variant="standard"
           padding="standard"
-          backgroundColor="var(--color-slate-50)"
+          backgroundColor="var(--bc-color-section-bg)"
         >
           <h2 className={styles.sectionTitle}>
             {t('allStrategiesHeader')}
@@ -190,7 +189,7 @@ export function StrategiesPageContent() {
         <SectionContainer
           variant="narrow"
           padding="standard"
-          backgroundColor="var(--color-white)"
+          backgroundColor="var(--section-bg-neutral)"
         >
           <h2 className={styles.sectionTitle}>
             {t('howToChoose.header')}
@@ -233,7 +232,7 @@ export function StrategiesPageContent() {
         <SectionContainer
           variant="standard"
           padding="standard"
-          backgroundColor="var(--color-white)"
+          backgroundColor="var(--bc-color-section-bg)"
           className={styles.ctaSection}
         >
           <h2 className={styles.sectionTitle}>
@@ -265,7 +264,7 @@ export function StrategiesPageContent() {
       <SectionContainer
         variant="standard"
         padding="none"
-        backgroundColor="var(--color-slate-100)"
+        backgroundColor="var(--section-bg-neutral)"
         className={styles.disclaimer}
       >
         <p className={styles.disclaimerText}>

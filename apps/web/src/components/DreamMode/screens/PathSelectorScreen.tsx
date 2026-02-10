@@ -122,6 +122,9 @@ export function PathSelectorScreen() {
           <ChevronLeftIcon />
           {tInput('back')}
         </button>
+
+        {/* Disclaimer */}
+        <p className={styles.disclaimer}>{t('disclaimer')}</p>
       </div>
     </div>
   );

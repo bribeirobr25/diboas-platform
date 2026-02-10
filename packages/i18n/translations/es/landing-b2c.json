@@ -1,8 +1,8 @@
 {
   "hero": {
     "headline": "El sistema no está roto. Fue diseñado así",
-    "subheadline": "Los bancos ganan 7% con tu dinero. Te dan 0,4%. Los ricos nunca aceptaron ese trato. Tú no tenías opción. Hasta ahora.",
-    "cta": "Así fue como lo descubrí →"
+    "subheadline": "Los bancos ganan 7% con tu dinero. Te dan 0,4%. Quienes tenían acceso nunca aceptaron ese trato.\nTú no tenías opción. Hasta ahora.",
+    "cta": "¿Cómo lo descubrí? →"
   },
   "origin": {
     "header": "Por mi abuela",
@@ -25,7 +25,7 @@
     }
   },
   "features": {
-    "header": "Gana. Envía. Invierte. Crece.",
+    "header": "diBoaS és mucho más!",
     "earn": {
       "headline": "Gana 6-10% al año",
       "body": "Tu dinero crece en sistemas verificados. Acceso institucional, ahora tuyo. Retira cuando quieras."
@@ -50,33 +50,32 @@
       "subtext": "Lo que tu banco te dio este año: {bankPays}",
       "hook": "Lo que ellos ganaron con eso: {bankEarns}",
       "hookBrazil": "Lo que ellos ganaron con eso: {bankEarns}. Y el real perdió {currencyLoss}% contra el dólar.",
-      "cta": "con diBoaS"
+      "cta": "Muéstrame"
     },
     "hope": {
-      "header": "Los mismos {balance}. Un año después.",
-      "projectionLabel": "En 1 año al {apyRate}% anual:",
-      "comparison": "Tu banco: {bankTotal}.\ndiBoaS: {diboasTotal}.\nLa diferencia: {difference}.",
-      "impact": "Mismo dinero. Diferente lugar. {multiplier}x más crecimiento.",
-      "cta": "Muéstrame cómo"
+      "header": "Un año después.",
+      "projectionLabel": "{apyRate}% anual:",
+      "comparison": "Tu banco: {bankTotal}.\nLa diferencia: {difference}.",
+      "impact": "Mismo dinero. Diferente lugar. {multiplier}x más.",
+      "cta": "Continuar"
     },
     "action": {
       "header": "Prueba con cualquier cantidad",
       "prompt": "¿Cuánto quieres probar?",
       "reassurance1": "Hasta {minAmount} funciona.",
       "reassurance2": "Sin compromiso.",
-      "cta": "Añadir"
+      "cta": "Depositar dinero"
     },
     "reward": {
       "header": "Míralo crecer",
       "delight": "{earned} ganados. Ahora imagina un año.",
-      "vision": "Imagina lo que pasa mientras duermes.",
-      "continueCta": "Continuar"
+      "continueCta": "Quiero acceder "
     }
   },
   "socialProof": {
     "header": "Únete a quienes dicen \"basta\"",
     "stats": {
-      "waitlist": "{count} ya se registraron.",
+      "waitlist": "{count} Ya forman parte.",
       "countries": "{countries} países. Una misión."
     }
   },

@@ -43,34 +43,11 @@
     "benefit": "Cada cadastro = {spots} posições pra cima",
     "copied": "Link copiado!"
   },
-  "dreamMode": {
-    "twitter": "No @diboasfi Dream Mode, eu poderia crescer {start} → {end} em {timeframe}. Meu banco? Só {bank}. Mesmo dinheiro, lugar diferente. diboas.com",
-    "whatsapp": "No diBoaS Dream Mode, eu poderia crescer {start} → {end} em {timeframe}. Meu banco? Só {bank}. Mesmo dinheiro, lugar diferente. Olha: diboas.com",
-    "linkedin": "No @diboasfi Dream Mode, eu poderia crescer {start} → {end} em {timeframe}. Meu banco? Só {bank}. Mesmo dinheiro, lugar diferente. Olha: diboas.com"
-  },
   "waitlistPosition": {
-    "twitter": "Sou #{position} na lista de espera @diboasfi. Com só R$30 tenho as mesmas oportunidades que instituições e bilionários. Em dólares.",
-    "whatsapp": "Acabei de entrar na lista de espera do diBoaS (#{position}). Sabia que dá pra começar com só R$30 e ter as mesmas oportunidades que instituições e bilionários? Em dólares. Dá uma olhada: {referralUrl}",
-    "facebook": "Eu sou o #{position} na lista de espera do diBoaS. Bancos ganham 15% com nosso dinheiro mas devolvem só 7% na poupança. Hora de mudar isso.",
-    "linkedin": "Acabei de entrar na lista de espera @diboasfi (#{position}). Sabia que os bancos ganham 15% com nosso dinheiro mas devolvem só 7% na poupança? E o real ainda perde 6% ao ano contra o dólar. Com o diBoaS eu posso mudar isso e você também pode. Dá uma olhada: {referralUrl}"
-  },
-  "dreamCard": {
-    "watermark": "PROJEÇÃO",
-    "headline": "NO MODO SONHO, EU PODERIA CRESCER",
-    "timeframePrefix": "em",
-    "bankComparison": "Meu banco teria me dado:",
-    "cta": "Pronto pra parar de sonhar?",
-    "url": "diboas.com",
-    "disclaimer": "Baseado em dados históricos. Desempenho passado ≠ resultados futuros.",
-    "hashtag": "#WhileISlept"
-  },
-  "waitlistCard": {
-    "headline": "EU SOU O #{position} NA LISTA DO DIBOAS",
-    "bodyLine1": "Bancos ganham 7% com nossas economias.",
-    "bodyLine2": "Nos pagam 0,5%.",
-    "bodyLine3": "Essa diferença? Sempre esteve lá.",
-    "ctaIntro": "Entra comigo:",
-    "hashtag": "#WhileISlept"
+    "twitter": "Desigualdade não é renda. É ACESSO. O sistema nos exclui. Sou #{position} dizendo chega. Vem pro movimento: ",
+    "whatsapp": "A desigualdade não é sobre renda. É sobre ACESSO. O sistema foi feito pra nos excluir. Sou #{position} e tá na hora de mudar. Vem com a gente: {referralUrl}",
+    "facebook": "Desigualdade não é renda. É ACESSO. Bancos ganham 15% com nosso dinheiro, devolvem 7%. Sou #{position}. Chega. A gente muda isso junto.",
+    "linkedin": "A desigualdade não é sobre renda. É sobre ACESSO. O sistema nos exclui por design. Sou #{position} e acredito que tá na hora de mudar. Vamos juntos: {referralUrl}"
   },
   "timeframes": {
     "1week": "1 semana",

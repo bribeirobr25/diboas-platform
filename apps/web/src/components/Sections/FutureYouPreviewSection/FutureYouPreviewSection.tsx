@@ -32,11 +32,14 @@ interface FutureYouPreviewSectionProps {
   enableAnalytics?: boolean;
   /** Additional CSS class */
   className?: string;
+  /** Custom background color (CSS value or variable) */
+  backgroundColor?: string;
 }
 
 export function FutureYouPreviewSection({
   enableAnalytics = true,
   className = '',
+  backgroundColor,
 }: FutureYouPreviewSectionProps) {
   const intl = useTranslation();
   const { locale } = useLocale();
@@ -44,14 +47,15 @@ export function FutureYouPreviewSection({
   // Get locale-specific configuration
   const localeConfig = useMemo(() => getLocaleConfig(locale), [locale]);
 
-  // Create locale-specific bank scenario
+  // Create locale-specific bank scenario with currency depreciation
   const bankScenario: RateScenario = useMemo(() => ({
     id: 'bank',
     name: 'Traditional Bank',
     apy: localeConfig.bankApy,
     description: 'Average savings account rate',
     isBank: true,
-  }), [localeConfig.bankApy]);
+    currencyDepreciation: localeConfig.currencyDepreciation,
+  }), [localeConfig.bankApy, localeConfig.currencyDepreciation]);
 
   // Calculate results for default values: $20/month, 5 years
   const result = useMemo(() => {
@@ -66,11 +70,6 @@ export function FutureYouPreviewSection({
   // Get the 5-year comparison
   const comparison = result.longTermProjections?.['5years'] ?? result.projections['5years'];
   const currencyLocale = getCurrencyLocale(localeConfig.currency);
-  const monthlyAmount = formatCurrency(
-    CALCULATOR_CONFIG.defaultMonthlyContribution,
-    localeConfig.currency,
-    currencyLocale
-  );
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {
@@ -82,6 +81,7 @@ export function FutureYouPreviewSection({
       id="future-you"
       variant="standard"
       padding="standard"
+      backgroundColor={backgroundColor}
       className={className}
       ariaLabel={t('headline')}
       data-testid="future-you-preview-section"
@@ -94,10 +94,6 @@ export function FutureYouPreviewSection({
 
         {/* Result Preview */}
         <div className={styles.resultPreview}>
-          <p className={styles.resultHeadline}>
-            {t('resultHeadline', { years: '5', amount: monthlyAmount })}
-          </p>
-
           {/* Comparison Cards */}
           <div className={styles.comparisonGrid}>
             {/* diBoaS Result */}
@@ -132,7 +128,7 @@ export function FutureYouPreviewSection({
           <CTAButtonLink
             href="/future-you"
             variant="primary"
-            size="lg"
+            size="sm"
             trackable={enableAnalytics}
             className={styles.ctaButton}
           >

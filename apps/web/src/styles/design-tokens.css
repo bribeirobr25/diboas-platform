@@ -19,35 +19,58 @@
   
   /* Font Weights */
   --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
   /* Typography Scale - Desktop */
   --font-size-title-desktop: 48px;
-  --font-size-subtitle-desktop: 30px;
-  --font-size-description-desktop: 18px;
-  --font-size-text-desktop: 14px;
+  --font-size-subtitle-desktop: 22px;
+  --font-size-description-desktop: 22px;
+  --font-size-text-desktop: 16px;
 
   /* Typography Scale - Tablet */
-  --font-size-title-tablet: 39px;
-  --font-size-subtitle-tablet: 22px;
-  --font-size-description-tablet: 16px;
-  --font-size-text-tablet: 12px;
+  --font-size-title-tablet: 42px;
+  --font-size-subtitle-tablet: 20px;
+  --font-size-description-tablet: 20px;
+  --font-size-text-tablet: 16px;
 
   /* Typography Scale - Mobile */
-  --font-size-title-mobile: 30px;
-  --font-size-subtitle-mobile: 20px;
-  --font-size-description-mobile: 14px;
-  --font-size-text-mobile: 12px;
-  
-  /* UI Elements (keep existing values with token approach) */
+  --font-size-title-mobile: 38px;
+  --font-size-subtitle-mobile: 18px;
+  --font-size-description-mobile: 18px;
+  --font-size-text-mobile: 16px;
+
+  /* Section Title Typography (non-hero sections) */
+  --font-size-section-title-desktop: 38px;
+  --font-size-section-title-tablet: 32px;
+  --font-size-section-title-mobile: 28px;
+  --color-section-title: var(--color-slate-900);
+
+  /* Social Proof Stat Text */
+  --font-size-stat-text-desktop: 28px;
+  --font-size-stat-text-tablet: 24px;
+  --font-size-stat-text-mobile: 20px;
+
+  /* Icon Sizes */
+  --icon-size-desktop: 48px;
+  --icon-size-mobile: 40px;
+
+  /* UI Elements */
   --font-size-ui-link: 14px;
-  --font-size-ui-button: 12px;
+  --font-size-ui-button: 16px;
   
   /* Line Heights */
   --line-height-title: 1.2;
   --line-height-subtitle: 1.3;
   --line-height-description: 1.5;
   --line-height-text: 1.6;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
 
   /* ================================
      PADDING DESIGN SYSTEM
@@ -98,6 +121,11 @@
   --cta-min-height-tablet: 56px;
   --cta-min-height-mobile: 48px;
 
+  /* CTA Mini Button Heights (for navigation and compact buttons) */
+  --cta-mini-height-desktop: 48px;
+  --cta-mini-height-tablet: 48px;
+  --cta-mini-height-mobile: 36px;
+
   /* CTA Button Spacing */
   --cta-padding-desktop: 16px 32px;
   --cta-padding-tablet: 16px 32px;
@@ -122,20 +150,6 @@
   --text-primary-accessible: #0f766e;  /* Teal-700: 5.47:1 contrast - use for text on white */
   --text-success-accessible: #059669;  /* Emerald-600: 4.52:1 contrast */
   --text-error-accessible: #dc2626;    /* Red-600: 4.63:1 contrast */
-
-  /* Brand Accent - Coral */
-  --brand-coral: #FF6B6B;
-  --brand-coral-dark: #E55555;
-  --brand-coral-light: #FF8A8A;
-  --brand-coral-overlay: rgba(255, 107, 107, 0.1);
-  --brand-coral-overlay-medium: rgba(255, 107, 107, 0.2);
-
-  /* Brand Accent - Mystic (Purple) */
-  --brand-mystic: #8B5CF6;
-  --brand-mystic-dark: #7C3AED;
-  --brand-mystic-light: #A78BFA;
-  --brand-mystic-overlay: rgba(139, 92, 246, 0.1);
-  --brand-mystic-overlay-medium: rgba(139, 92, 246, 0.2);
 
   /* ================================
      SOCIAL PLATFORM COLORS
@@ -267,15 +281,6 @@
 
   /* Text decoration opacity */
   --text-decoration-subtle: rgba(100, 116, 139, 0.3);
-
-  /* OG Image Colors */
-  --og-text-primary: #ffffff;
-  --og-text-secondary: #94a3b8;
-  --og-text-muted: #64748b;
-
-  /* Theme Colors (for meta tags) */
-  --theme-light: #ffffff;
-  --theme-dark: #0f172a;
 
   /* CTA Button Typography */
   --cta-font-size-desktop: 16px;
@@ -410,6 +415,7 @@
   --section-bg-neutral-alt: #f8f9fa;       /* Alternative neutral section background - OneFeature, FAQAccordion */
   --section-bg-white: #ffffff;             /* White backgrounds for cards/containers/panels */
   --section-bg-hover: #f7fafc;             /* Hover state backgrounds for interactive elements */
+  --section-bg-enterprise: #f0f4f8;        /* Light enterprise blue - subtle professional tone for B2B sections */
 
   /* ================================
      PRODUCT CAROUSEL DIMENSIONS
@@ -483,14 +489,19 @@
   --animation-duration-fast: 0.15s;
   --animation-duration-normal: 0.3s;
   --animation-duration-slow: 0.6s;
+  --animation-duration-bounce: 1.4s;
   --animation-easing-easeout: cubic-bezier(0.16, 1, 0.3, 1);
   --animation-easing-easeinout: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Spinner Tokens */
+  --spinner-border-width: 3px;
 
   /* Z-Index Hierarchy */
   --z-index-dropdown: 40;
   --z-index-mobileMenu: 50;
   --z-index-modal: 60;
+  --z-index-fixed: 65;
   --z-index-toast: 70;
 
   /* FeatureShowcase Design Tokens */
@@ -932,6 +943,7 @@
   --hs-content-padding-mobile: 2rem 1.5rem;
   --hs-content-padding-desktop: 136px 120px;
   --hs-content-padding-top: 276px;              /* Hero content top offset */
+  --hs-content-max-width: 600px;                /* Maximum width for hero text content on desktop */
   --hs-content-gap-mobile: 2rem;
   --hs-content-gap-desktop: 2rem;
   
@@ -1314,6 +1326,7 @@
   --dimension-490: 490px;
   --dimension-500: 500px;
   --dimension-550: 550px;
+  --dimension-560: 560px;
   --dimension-600: 600px;
   --dimension-700: 700px;
   --dimension-800: 800px;
@@ -1388,6 +1401,8 @@
   --transform-scale-102: scale(1.02);
   --transform-scale-105: scale(1.05);
   --transform-scale-110: scale(1.1);
+  --transform-scale-115: scale(1.15);
+  --transform-scale-120: scale(1.2);
   --transform-scale-104: scale(1.04);
   --transform-rotate-90: rotate(90deg);
   --transform-rotate-180: rotate(180deg);
@@ -1642,12 +1657,6 @@
   --dimension-480: 480px;
   --dimension-500: 500px;
 
-  /* Mobile Banner Image Heights - Responsive */
-  --mobile-banner-image-height-small: 150px;  /* For 320px-374px viewports */
-  --mobile-banner-image-height-medium: 170px; /* For 375px-424px viewports */
-  --mobile-banner-image-height-large: 190px;  /* For 425px+ mobile viewports */
-  --mobile-banner-image-height-tablet: 190px; /* For tablet viewports (reduced by 30px from 220px) */
-  
   /* Common Percentages */
   --percent-50: 50%;
   --percent-100: 100%;
@@ -1876,33 +1885,34 @@
   --bc-card-content-gap: 16px;                  /* Gap between icon, title, and description */
 
   /* Icon Dimensions */
-  --bc-icon-size-desktop: 64px;                 /* Icon size - desktop */
-  --bc-icon-size-tablet: 56px;                  /* Icon size - tablet */
-  --bc-icon-size-mobile: 48px;                  /* Icon size - mobile */
+  --bc-icon-size-desktop: 48px;                 /* Icon size - desktop */
+  --bc-icon-size-tablet: 44px;                  /* Icon size - tablet */
+  --bc-icon-size-mobile: 40px;                  /* Icon size - mobile */
   --bc-icon-padding: 0;                         /* Icon background padding (0 for full fill) */
+  --bc-icon-color: #000000;                     /* Icon color - always black */
 
   /* ================================
      TYPOGRAPHY
      ================================ */
   /* Section Title Typography */
-  --bc-title-font-size-desktop: var(--font-size-title-desktop);
-  --bc-title-font-size-tablet: var(--font-size-title-tablet);
-  --bc-title-font-size-mobile: var(--font-size-title-mobile);
-  --bc-title-font-weight: var(--font-weight-bold);
+  --bc-title-font-size-desktop: 48px;
+  --bc-title-font-size-tablet: 40px;
+  --bc-title-font-size-mobile: 34px;
+  --bc-title-font-weight: var(--font-weight-medium);
   --bc-title-line-height: var(--line-height-title);
 
   /* Card Title Typography */
-  --bc-card-title-font-size-desktop: 20px;
-  --bc-card-title-font-size-tablet: 18px;
-  --bc-card-title-font-size-mobile: 18px;
-  --bc-card-title-font-weight: var(--font-weight-bold);
+  --bc-card-title-font-size-desktop: 28px;
+  --bc-card-title-font-size-tablet: 26px;
+  --bc-card-title-font-size-mobile: 24px;
+  --bc-card-title-font-weight: var(--font-weight-medium);
   --bc-card-title-line-height: 1.3;
 
   /* Card Description Typography */
-  --bc-card-description-font-size-desktop: 16px;
-  --bc-card-description-font-size-tablet: 15px;
-  --bc-card-description-font-size-mobile: 14px;
-  --bc-card-description-font-weight: var(--font-weight-normal);
+  --bc-card-description-font-size-desktop: 20px;
+  --bc-card-description-font-size-tablet: 19px;
+  --bc-card-description-font-size-mobile: 18px;
+  --bc-card-description-font-weight: var(--font-weight-medium);
   --bc-card-description-line-height: 1.6;
 
   /* ================================
@@ -2124,6 +2134,25 @@
   --sg-step-text-font-weight: var(--font-weight-normal);
   --sg-step-text-line-height: var(--line-height-body);
   --sg-step-text-color: var(--color-text-primary);
+
+  /* ================================
+     INTERACTIVE DEMO TOKENS
+     ================================ */
+  /* Demo Screen 1 Typography - Pain Screen */
+  /* Header: "Your savings today" - responsive sizes */
+  --demo-header-font-size-desktop: 28px;
+  --demo-header-font-size-tablet: 24px;
+  --demo-header-font-size-mobile: 20px;
+
+  /* Subtext: "What your bank gave you this year:" - responsive sizes */
+  --demo-subtext-font-size-desktop: var(--font-size-md);   /* 16px */
+  --demo-subtext-font-size-tablet: var(--font-size-md);    /* 16px */
+  --demo-subtext-font-size-mobile: var(--font-size-sm);    /* 14px */
+
+  /* Hook: "What they made with it" - responsive sizes */
+  --demo-hook-font-size-desktop: var(--font-size-md);      /* 16px */
+  --demo-hook-font-size-tablet: var(--font-size-md);       /* 16px */
+  --demo-hook-font-size-mobile: var(--font-size-sm);       /* 14px */
 
   /* ================================
      RESPONSIVE BREAKPOINTS

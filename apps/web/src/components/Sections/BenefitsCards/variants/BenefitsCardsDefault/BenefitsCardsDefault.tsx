@@ -4,66 +4,67 @@
  * Domain-Driven Design: Benefits display domain with minimalist card layout
  * Service Agnostic Abstraction: Pure presentation component for benefit cards
  * Code Reusability: Uses shared design tokens and patterns
- * Performance: Optimized image loading with Next/Image AVIF format
+ * Performance: Optimized with Lucide SVG icons
  */
 
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
-import Image from 'next/image';
+import { useCallback, useEffect } from 'react';
+import {
+  TrendingUp,
+  Send,
+  LineChart,
+  Target,
+  type LucideIcon
+} from 'lucide-react';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { BenefitsCardsVariantProps, BenefitCard } from '../../types';
 import styles from './BenefitsCardsDefault.module.css';
 
+/**
+ * Icon mapping for feature cards
+ * Maps icon identifiers to Lucide icon components
+ */
+const ICON_MAP: Record<string, LucideIcon> = {
+  'trending-up': TrendingUp,
+  'send': Send,
+  'line-chart': LineChart,
+  'target': Target,
+  // Fallbacks for legacy icon paths
+  'chart-growing': TrendingUp,
+  'rewards-medal': Target,
+};
+
 interface BenefitCardItemProps {
   card: BenefitCard;
-  priority?: boolean;
-  onLoad?: () => void;
-  onError?: (cardId: string) => void;
+}
+
+/**
+ * Get icon component from icon identifier or path
+ */
+function getIconComponent(iconPath: string): LucideIcon {
+  // Check if it's a direct icon name
+  if (ICON_MAP[iconPath]) {
+    return ICON_MAP[iconPath];
+  }
+
+  // Extract icon name from path (e.g., '/assets/icons/chart-growing.avif' -> 'chart-growing')
+  const fileName = iconPath.split('/').pop()?.replace(/\.(avif|png|svg)$/, '') || '';
+  return ICON_MAP[fileName] || TrendingUp; // Default fallback
 }
 
 /**
  * Individual Benefit Card Component
  * Note: Config values are pre-translated by the factory using useConfigTranslation
  */
-function BenefitCardItem({
-  card,
-  priority = false,
-  onLoad,
-  onError
-}: BenefitCardItemProps) {
-  const [imageError, setImageError] = useState(false);
-
-  const handleImageError = useCallback(() => {
-    setImageError(true);
-    onError?.(card.id);
-  }, [card.id, onError]);
-
-  const handleImageLoad = useCallback(() => {
-    onLoad?.();
-  }, [onLoad]);
+function BenefitCardItem({ card }: BenefitCardItemProps) {
+  const IconComponent = getIconComponent(card.icon);
 
   return (
     <article className={styles.card}>
       {/* Icon */}
       <div className={styles.iconWrapper}>
-        {!imageError ? (
-          <Image
-            src={card.icon}
-            alt={card.iconAlt || 'Benefit icon'}
-            width={64}
-            height={64}
-            priority={priority}
-            className={styles.icon}
-            onError={handleImageError}
-            onLoad={handleImageLoad}
-            sizes="(max-width: 768px) 48px, (max-width: 1024px) 56px, 64px"
-          />
-        ) : (
-          <div className={styles.iconFallback} aria-hidden="true">
-            <span>💡</span>
-          </div>
-        )}
+        <IconComponent className={styles.icon} aria-hidden="true" />
       </div>
 
       {/* Content - values are already translated */}
@@ -88,15 +89,9 @@ function BenefitCardItem({
 export function BenefitsCardsDefault({
   config,
   className = '',
-  enableAnalytics = true,
-  priority = false
+  enableAnalytics = true
 }: BenefitsCardsVariantProps) {
   const { recordSectionRenderTime } = usePerformanceMonitoring();
-  const [imageLoadingState, setImageLoadingState] = useState({
-    loaded: 0,
-    total: config.cards.length,
-    errors: new Set<string>()
-  });
 
   // Performance monitoring
   useEffect(() => {
@@ -114,21 +109,6 @@ export function BenefitsCardsDefault({
 
     return () => clearTimeout(timeoutId);
   }, [recordSectionRenderTime, enableAnalytics]);
-
-  // Image loading handlers
-  const handleImageError = useCallback((cardId: string) => {
-    setImageLoadingState(prev => ({
-      ...prev,
-      errors: new Set(prev.errors).add(cardId)
-    }));
-  }, []);
-
-  const handleImageLoad = useCallback(() => {
-    setImageLoadingState(prev => ({
-      ...prev,
-      loaded: prev.loaded + 1
-    }));
-  }, []);
 
   // Determine heading level
   const HeadingTag = config.seo?.headingLevel || 'h2';
@@ -155,13 +135,10 @@ export function BenefitsCardsDefault({
 
         {/* Cards Grid */}
         <div className={styles.cardsGrid}>
-          {config.cards.map((card, index) => (
+          {config.cards.map((card) => (
             <BenefitCardItem
               key={card.id}
               card={card}
-              priority={priority && index < 3} // Prioritize first 3 cards (top row on desktop)
-              onLoad={handleImageLoad}
-              onError={handleImageError}
             />
           ))}
         </div>

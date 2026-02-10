@@ -147,23 +147,7 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
           />
         </SectionErrorBoundary>
 
-        {/* Section 2: The Math */}
-        <SectionErrorBoundary
-          sectionId="the-math-section-b2b"
-          sectionType="FeatureShowcase"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div id="the-math">
-            <FeatureShowcase
-              variant="default"
-              config={B2B_THE_MATH_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 3: Origin Story (Grandmother) */}
+        {/* Section 2: Origin Story (Grandmother) */}
         <SectionErrorBoundary
           sectionId="origin-story-section-b2b"
           sectionType="FeatureShowcase"
@@ -175,6 +159,23 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
               variant="default"
               config={B2B_ORIGIN_STORY_CONFIG}
               enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 3: The Math */}
+        <SectionErrorBoundary
+          sectionId="the-math-section-b2b"
+          sectionType="FeatureShowcase"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <div id="the-math">
+            <FeatureShowcase
+              variant="default"
+              config={B2B_THE_MATH_CONFIG}
+              enableAnalytics={true}
+              backgroundColor="var(--section-bg-enterprise)"
             />
           </div>
         </SectionErrorBoundary>
@@ -205,6 +206,7 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
             <AppFeaturesCarousel
               config={B2B_HOW_IT_WORKS_CONFIG}
               enableAnalytics={true}
+              backgroundColor="var(--section-bg-enterprise)"
             />
           </div>
         </SectionErrorBoundary>
@@ -253,6 +255,7 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
               variant="default"
               config={B2B_FINAL_CTA_CONFIG}
               enableAnalytics={true}
+              backgroundColor="var(--section-bg-neutral)"
             />
           </div>
         </SectionErrorBoundary>
@@ -264,7 +267,10 @@ export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <FAQAccordion config={B2B_FAQ_CONFIG} />
+          <FAQAccordion
+            config={B2B_FAQ_CONFIG}
+            backgroundColor="var(--section-bg-enterprise)"
+          />
         </SectionErrorBoundary>
       </main>
     </PageI18nProvider>

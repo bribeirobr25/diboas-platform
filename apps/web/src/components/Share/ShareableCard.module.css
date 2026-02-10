@@ -8,24 +8,24 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
-  width: 100%;
+  width: var(--percent-100);
   max-width: var(--dimension-400);
 }
 
 /* Card Wrapper */
 .cardWrapper {
   position: relative;
-  width: 100%;
+  width: var(--percent-100);
   border-radius: var(--radius-2xl);
   overflow: hidden;
-  box-shadow: 0 var(--spacing-xs) var(--spacing-xl) var(--shadow-black-medium, rgba(0, 0, 0, 0.1));
-  background: var(--color-surface, #f8fafc);
+  box-shadow: 0 var(--spacing-xs) var(--spacing-xl) var(--shadow-black-medium);
+  background: var(--section-bg-neutral);
 }
 
 /* Card Image Container */
 .cardImage {
   position: relative;
-  width: 100%;
+  width: var(--percent-100);
   opacity: 0;
   transition: opacity var(--transition-normal);
 }
@@ -44,11 +44,11 @@
   top: var(--spacing-sm);
   right: var(--spacing-sm);
   padding: var(--spacing-xs) var(--spacing-sm);
-  font-size: 10px;
-  font-weight: var(--font-weight-bold, 700);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0.05em;
-  color: var(--card-highlight-amber, #f59e0b);
-  background: var(--shadow-black-very-dark, rgba(0, 0, 0, 0.6));
+  color: var(--card-highlight-amber);
+  background: var(--shadow-black-very-dark);
   border-radius: var(--radius-md);
 }
 
@@ -61,7 +61,7 @@
   gap: var(--spacing-md);
   min-height: var(--dimension-300);
   padding: var(--spacing-2xl);
-  background: var(--color-surface-elevated, #f1f5f9);
+  background: var(--color-surface-elevated);
   border-radius: var(--radius-2xl);
   text-align: center;
 }
@@ -70,10 +70,10 @@
 .loading .loadingSpinner {
   width: var(--spacing-3xl);
   height: var(--spacing-3xl);
-  border: 3px solid var(--color-border, #e2e8f0);
-  border-top-color: var(--color-primary, #14b8a6);
+  border: var(--hs-spinner-border-width) solid var(--color-slate-200);
+  border-top-color: var(--color-teal-500);
   border-radius: var(--radius-full);
-  animation: spin 1s linear infinite;
+  animation: spin var(--fs-animation-duration-spinner) linear infinite;
 }
 
 @keyframes spin {
@@ -84,7 +84,7 @@
 
 .loadingText {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary, #64748b);
+  color: var(--color-text-secondary);
 }
 
 /* Error State */
@@ -95,38 +95,38 @@
   width: var(--spacing-4xl);
   height: var(--spacing-4xl);
   font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold, 700);
-  color: white;
-  background: var(--color-error, #ef4444);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  background: var(--theme-status-error);
   border-radius: var(--radius-full);
 }
 
 .errorText {
   font-size: var(--font-size-sm);
-  color: var(--color-error, #ef4444);
+  color: var(--theme-status-error);
 }
 
 .retryButton {
   padding: var(--spacing-sm) var(--spacing-lg);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium, 500);
-  color: var(--text-primary-accessible, #0f766e);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary-accessible);
   background: transparent;
-  border: 1px solid var(--text-primary-accessible, #0f766e);
-  border-radius: 6px;
+  border: 1px solid var(--text-primary-accessible);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .retryButton:hover {
-  color: white;
-  background: var(--color-primary, #14b8a6);
+  color: var(--color-white);
+  background: var(--color-teal-500);
 }
 
 /* Empty State */
 .emptyText {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary, #64748b);
+  color: var(--color-text-secondary);
 }
 
 /* Actions */
@@ -145,7 +145,7 @@
 
 .shareLabel {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary, #64748b);
+  color: var(--color-text-secondary);
 }
 
 /* Download Button */
@@ -154,21 +154,21 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  width: 100%;
+  width: var(--percent-100);
   padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold, 600);
-  color: var(--color-text-primary, #1e293b);
-  background: var(--color-surface, #f8fafc);
-  border: 1px solid var(--color-border, #e2e8f0);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background: var(--section-bg-neutral);
+  border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-lg);
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .downloadButton:hover {
-  background: var(--color-surface-elevated, #f1f5f9);
-  border-color: var(--color-primary, #14b8a6);
+  background: var(--color-surface-elevated);
+  border-color: var(--color-teal-500);
 }
 
 .downloadButton svg {
@@ -178,7 +178,7 @@
 /* Responsive */
 @media (max-width: 480px) {
   .cardContainer {
-    max-width: 100%;
+    max-width: var(--percent-100);
   }
 
   .cardPlaceholder {

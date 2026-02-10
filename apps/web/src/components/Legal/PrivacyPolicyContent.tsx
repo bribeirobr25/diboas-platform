@@ -127,6 +127,7 @@ export function PrivacyPolicyContent() {
       <SectionContainer
         variant="narrow"
         padding="standard"
+        backgroundColor="var(--section-bg-neutral)"
         as="article"
         ariaLabel="Privacy Policy content"
       >

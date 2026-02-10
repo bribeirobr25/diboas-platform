@@ -20,6 +20,7 @@
     "headline": "Wie stehen Sie zu Risiko?",
     "subhead": "Es gibt keine falsche Antwort — nur verschiedene Wege.",
     "warningLabel": "Höheres Risiko",
+    "disclaimer": "Dies ist eine Projektion. Vergangene Ergebnisse garantieren keine zukünftigen Ergebnisse.",
     "safety": {
       "name": "Sicherheit zuerst",
       "tagline": "Das darf ich nicht verlieren",
@@ -56,7 +57,8 @@
     "monthlyContribution": "Monatliche Einzahlung",
     "helper": "Ziehen Sie, um Ihren Startbetrag festzulegen",
     "back": "Zurück",
-    "continue": "Zeig mir, was passiert"
+    "continue": "Zeig mir, was passiert",
+    "disclaimer": "Dies ist eine Projektion. Vergangene Ergebnisse garantieren keine zukünftigen Ergebnisse."
   },
   "timeframe": {
     "headline": "Wie weit in die Zukunft?",
@@ -68,7 +70,8 @@
       "5years": "5 Jahre"
     },
     "back": "Zurück",
-    "startSimulation": "Zeig mir, was passiert"
+    "startSimulation": "Zeig mir, was passiert",
+    "disclaimer": "Dies ist eine Projektion. Vergangene Ergebnisse garantieren keine zukünftigen Ergebnisse."
   },
   "simulation": {
     "watermark": "PROJEKTION",
@@ -101,13 +104,8 @@
     "bank_source_eu": "Basierend auf 0,4% durchschnittlichem Sparzins. Quelle: EZB-Statistik, Januar 2026.",
     "bank_source_br": "Basierend auf 6,5% Selic-basiertem Sparzins. Quelle: Banco Central do Brasil.",
     "back": "Anderen Weg probieren",
-    "shareResults": "Meinen Traum teilen"
-  },
-  "postDream": {
-    "headline": "Sie sind #{position} auf der Warteliste",
-    "subhead": "Je früher wir starten, desto eher wird das Realität.",
-    "ctaShare": "Teilen und aufsteigen",
-    "ctaExplore": "Mehr entdecken"
+    "shareResults": "Meinen Traum teilen",
+    "disclaimer": "Dies ist eine Projektion. Vergangene Ergebnisse garantieren keine zukünftigen Ergebnisse."
   },
   "share": {
     "headline": "Schöner Traum!",
@@ -120,19 +118,10 @@
       "5years": "in 5 Jahren"
     },
     "shareYourDream": "Meinen Traum teilen",
-    "shareText": "Das müssen Sie sehen. Institutionelle Renditen, endlich zugänglich. Meine €{start} werden zu €{end}. Meine Bank? Nur €{bank}. Probieren Sie es selbst: diboas.com",
+    "shareText": "Das müssen Sie sehen. Institutionelle Renditen, endlich zugänglich. Meine €{start} werden zu €{end}. Probieren Sie es selbst: ",
     "joinWaitlist": "Auf die Warteliste",
     "tryAgain": "Andere Zahlen probieren",
     "disclaimer": "Projektion basierend auf historischen Daten. Vergangene Performance garantiert keine zukünftigen Ergebnisse."
-  },
-  "card": {
-    "watermark": "PROJEKTION",
-    "mainText": "Im Dream Mode könnte ich wachsen",
-    "bankComparison": "Meine Bank hätte mir gegeben:",
-    "cta": "Bereit, aufzuhören zu träumen?",
-    "url": "diboas.com",
-    "disclaimer": "Basierend auf historischen Daten. Vergangene Performance ≠ zukünftige Ergebnisse.",
-    "hashtag": "#WhileISlept"
   },
   "gate": {
     "title": "Dream Mode ist für Wartelisten-Mitglieder",

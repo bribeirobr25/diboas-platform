@@ -23,7 +23,7 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
     title: 'landing-b2b.hero.headline',
     description: 'landing-b2b.hero.subheadline',
     ctaText: 'landing-b2b.hero.cta',
-    ctaHref: '#the-math',
+    ctaHref: '#origin-story',
     ctaTarget: '_self'
   },
   backgroundAssets: {
@@ -183,7 +183,7 @@ export const B2B_FEATURES_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2b.features.header',
     description: 'landing-b2b.features.intro',
-    backgroundColor: 'light-purple'
+    backgroundColor: 'neutral'
   },
   cards: [
     {
@@ -509,7 +509,7 @@ export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2b.fitAssessment.header',
     description: 'landing-b2b.fitAssessment.intro',
-    backgroundColor: 'neutral'
+    backgroundColor: 'enterprise'
   },
   cards: [
     {

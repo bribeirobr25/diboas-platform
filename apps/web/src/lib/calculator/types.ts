@@ -45,6 +45,8 @@ export interface RateScenario {
   readonly description?: string;
   /** Is this the bank/traditional scenario */
   readonly isBank?: boolean;
+  /** Annual currency depreciation rate (e.g., 0.06 for 6% BRL depreciation vs USD) */
+  readonly currencyDepreciation?: number;
 }
 
 /**

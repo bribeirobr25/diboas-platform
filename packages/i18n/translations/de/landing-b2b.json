@@ -1,8 +1,8 @@
 {
   "hero": {
-    "headline": "Das System ist nicht kaputt. Es ist nur für Milliarden-Konzerne konzipiert.",
-    "subheadline": "Ihre Bank verdient 7% mit Ihrem Geld. Kartenzahlungen kosten 2,9%.\nIhre Liquidität blutet. Es gibt einen besseren Weg.",
-    "cta": "So habe ich das entdeckt \u2192",
+    "headline": "Das System ist nicht kaputt. Es ist für Milliardenunternehmen gemacht.",
+    "subheadline": "Ihre Bank verdient 7 % mit Ihrem Geld. Zahlungsanbieter nehmen 2,9 %\nIhre Liquidität blutet. Es gibt einen besseren Weg.",
+    "cta": "Wie ich das entdeckt habe →",
     "trustBadges": {
       "mica": {
         "label": "EU-reguliert (MiCA)",
@@ -76,7 +76,7 @@
     "footer": "Monatliche Abrechnungen. Vorstandstaugliche Berichte. Klare Sprache — kein Fachjargon."
   },
   "features": {
-    "header": "Zahlen. Kassieren. Verdienen. Optimieren.",
+    "header": "diBoaS Business ist viel mehr!",
     "intro": "",
     "instantPayments": {
       "headline": "Zahlen Sie jeden, überall",
@@ -118,7 +118,7 @@
     "intro": "Ich verliere Sie lieber jetzt als Sie später zu enttäuschen.",
     "goodFit": {
       "title": "Gute Passung",
-      "description": "• €100K+ liegt ungenutzt seit 6+ Monaten\n• Bereit für kalkuliertes Risiko\n• Nicht einverstanden mit dem aktuellen System\n• Wollen keine Abwicklergebühren"
+      "description": "• Kapital liegt ungenutzt auf Ihrem Firmenkonto.\n• Bereit für kalkuliertes Risiko\n• Nicht einverstanden mit dem aktuellen System\n• Wollen keine Abwicklergebühren"
     },
     "notAFit": {
       "title": "Keine Passung",

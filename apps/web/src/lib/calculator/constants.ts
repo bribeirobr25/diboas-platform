@@ -109,18 +109,22 @@ export const TIMEFRAME_LABELS: Record<string, Record<ProjectionTimeframe, string
 /**
  * Locale-based configuration for currency and bank rates
  * Different countries have different savings rates and currencies
+ *
+ * currencyDepreciation: Annual depreciation rate against USD (for non-USD currencies)
+ * - Applied to bank returns to show real purchasing power loss
+ * - diBoaS returns are in USD, so they're protected from this depreciation
  */
-export const LOCALE_CONFIG: Record<string, { currency: string; bankApy: number }> = {
-  en: { currency: 'USD', bankApy: 0.45 },      // US high-yield savings (FDIC)
-  de: { currency: 'EUR', bankApy: 2.59 },      // EU ECB rate
-  es: { currency: 'EUR', bankApy: 2.59 },      // EU ECB rate
-  'pt-BR': { currency: 'BRL', bankApy: 6.71 }, // Brazil poupança (Selic-based)
+export const LOCALE_CONFIG: Record<string, { currency: string; bankApy: number; currencyDepreciation: number }> = {
+  en: { currency: 'USD', bankApy: 0.45, currencyDepreciation: 0 },      // US high-yield savings (FDIC)
+  de: { currency: 'EUR', bankApy: 2.59, currencyDepreciation: 0 },      // EU ECB rate (EUR stable vs USD)
+  es: { currency: 'EUR', bankApy: 2.59, currencyDepreciation: 0 },      // EU ECB rate (EUR stable vs USD)
+  'pt-BR': { currency: 'BRL', bankApy: 6.71, currencyDepreciation: 0.06 }, // Brazil poupança - BRL loses ~6% vs USD annually
 } as const;
 
 /**
  * Get locale-specific configuration
  */
-export function getLocaleConfig(locale: string): { currency: string; bankApy: number } {
+export function getLocaleConfig(locale: string): { currency: string; bankApy: number; currencyDepreciation: number } {
   return LOCALE_CONFIG[locale] || LOCALE_CONFIG['en'];
 }
 

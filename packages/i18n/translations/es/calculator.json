@@ -13,7 +13,7 @@
   },
   "resultHeadline": "En {years} años, tus {amount}/mes podrían convertirse en:",
   "defiYield": "Con diBoaS",
-  "bankRate": "Con tu banco (2.59% de ahorro)",
+  "bankRate": "Con tu banco (2.59%)",
   "difference": "Eso es {difference} más con la misma cantidad mensual.",
   "opportunityCost": "Ese es el dinero que estás dejando sobre la mesa",
   "ecbSource": "Comparación bancaria basada en la tasa promedio de ahorro de la UE del 2.59% APY. Fuente: Estadísticas del BCE, Diciembre 2024.",
@@ -21,5 +21,5 @@
   "share": "Compartir",
   "cta": "Unirse a la lista de espera",
   "ctaSecondary": "¿Quieres ver más? Probar el Modo Sueño →",
-  "previewCta": "Calculadora del Futuro"
+  "previewCta": "Pruébalo tú mismo"
 }

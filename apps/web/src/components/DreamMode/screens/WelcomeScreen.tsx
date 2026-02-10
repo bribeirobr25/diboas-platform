@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { TrendingUp } from 'lucide-react';
 import { useDreamMode } from '../DreamModeProvider';
 import { useDreamModeTranslation } from '../hooks';
 import styles from './screens.module.css';
@@ -26,7 +27,7 @@ export function WelcomeScreen() {
         {/* Animated icon */}
         <div className={styles.iconWrapper}>
           <div className={styles.dreamIcon}>
-            <MoonIcon />
+            <TrendingUp size={64} strokeWidth={1.5} />
           </div>
         </div>
 
@@ -50,13 +51,5 @@ export function WelcomeScreen() {
         <p className={styles.disclaimer}>{t('disclaimer')}</p>
       </div>
     </div>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-    </svg>
   );
 }

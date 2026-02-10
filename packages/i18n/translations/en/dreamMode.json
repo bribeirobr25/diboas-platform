@@ -20,6 +20,7 @@
     "headline": "How do you feel about risk?",
     "subhead": "There's no wrong answer — just different paths.",
     "warningLabel": "Higher risk",
+    "disclaimer": "This is a projection. Past performance does not guarantee future results.",
     "safety": {
       "name": "Safety First",
       "tagline": "I can't afford to lose this",
@@ -56,7 +57,8 @@
     "monthlyContribution": "Monthly contribution",
     "helper": "Drag to set your starting amount",
     "back": "Back",
-    "continue": "Show me what happens"
+    "continue": "Show me what happens",
+    "disclaimer": "This is a projection. Past performance does not guarantee future results."
   },
   "timeframe": {
     "headline": "How far into the future?",
@@ -68,7 +70,8 @@
       "5years": "5 Years"
     },
     "back": "Back",
-    "startSimulation": "Show me what happens"
+    "startSimulation": "Show me what happens",
+    "disclaimer": "This is a projection. Past performance does not guarantee future results."
   },
   "simulation": {
     "watermark": "PROJECTION",
@@ -101,13 +104,8 @@
     "bank_source_eu": "Based on 0.4% average savings rate. Source: ECB Statistics, January 2026.",
     "bank_source_br": "Based on 6.5% Selic-based savings rate. Source: Banco Central do Brasil.",
     "back": "Try another path",
-    "shareResults": "Share my dream"
-  },
-  "postDream": {
-    "headline": "You're #{position} on the waitlist",
-    "subhead": "The sooner we launch, the sooner this becomes real.",
-    "ctaShare": "Share to move up",
-    "ctaExplore": "Explore more"
+    "shareResults": "Share my dream",
+    "disclaimer": "This is a projection. Past performance does not guarantee future results."
   },
   "share": {
     "headline": "Nice dream!",
@@ -120,19 +118,10 @@
       "5years": "in 5 years"
     },
     "shareYourDream": "Share my dream",
-    "shareText": "You need to see this. Institution-level returns, finally open. My ${start} becomes ${end}. My bank? Just ${bank}. Try it yourself: diboas.com",
+    "shareText": "You need to see this. Institution-level returns, finally open. My ${start} becomes ${end}. Try it yourself: ",
     "joinWaitlist": "Join the Waitlist",
     "tryAgain": "Try Different Numbers",
     "disclaimer": "Projection based on historical data. Past performance does not guarantee future results."
-  },
-  "card": {
-    "watermark": "PROJECTION",
-    "mainText": "In Dream Mode, I could grow",
-    "bankComparison": "My bank would have given me:",
-    "cta": "Ready to stop dreaming?",
-    "url": "diboas.com",
-    "disclaimer": "Based on historical data. Past performance ≠ future results.",
-    "hashtag": "#WhileISlept"
   },
   "gate": {
     "title": "Dream Mode is for Waitlist Members",

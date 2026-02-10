@@ -12,8 +12,7 @@
 import React from 'react';
 import { useDreamMode } from '../DreamModeProvider';
 import { useDreamModeTranslation } from '../hooks';
-import { Button } from '@diboas/ui';
-import { CurrencyInput, ChevronLeftIcon } from '@/components/UI';
+import { CurrencyInput } from '@/components/UI';
 import { CALCULATOR_CONFIG } from '@/lib/calculator';
 import {
   applicationEventBus,
@@ -66,7 +65,6 @@ export function InputScreen() {
         </div>
 
         <h2 className={styles.headline}>{t('headline')}</h2>
-        <p className={styles.subhead}>{t('subhead')}</p>
 
         {/* Input fields - Using shared CurrencyInput component */}
         <CurrencyInput
@@ -91,16 +89,18 @@ export function InputScreen() {
           sliderStep={25}
         />
 
-        {/* Navigation - Using shared Button component */}
+        {/* Navigation */}
         <div className={styles.navigation}>
-          <Button variant="ghost" size="default" onClick={previousScreen}>
-            <ChevronLeftIcon />
+          <button onClick={previousScreen} className={styles.backButton}>
             {t('back')}
-          </Button>
-          <Button variant="primary" size="lg" onClick={nextScreen}>
+          </button>
+          <button onClick={nextScreen} className={styles.primaryButton}>
             {t('continue')}
-          </Button>
+          </button>
         </div>
+
+        {/* Disclaimer */}
+        <p className={styles.disclaimer}>{t('disclaimer')}</p>
       </div>
     </div>
   );

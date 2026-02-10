@@ -1,8 +1,8 @@
 {
   "hero": {
-    "headline": "O sistema não está quebrado. Só que ele foi feito pra empresas Bilionárias.",
+    "headline": "O sistema não está quebrado. Ele foi feito para empresas bilionárias.",
     "subheadline": "Seu banco ganha 15% com seu caixa. Maquininhas levam 2-3%.\nSeu caixa tá sangrando. Existe um jeito melhor.",
-    "cta": "Foi assim que eu descobri isso →"
+    "cta": "Como eu descobri isso →"
   },
   "theMath": {
     "header": "Cadê os R$325.000?",
@@ -59,7 +59,7 @@
     "footer": "Extratos mensais. Relatórios para o board. Linguagem clara — sem jargão."
   },
   "features": {
-    "header": "Pague. Receba. Multiplique. Otimize.",
+    "header": "diBoaS Empresa é muito mais!",
     "intro": "",
     "instantPayments": {
       "headline": "Pague qualquer um, em qualquer lugar",
@@ -101,7 +101,7 @@
     "intro": "Prefiro te perder agora do que te decepcionar depois.",
     "goodFit": {
       "title": "Faz sentido se",
-      "description": "• Sua empresa tem dinheiro parado há 6+ meses\n• Confortável com risco calculado\n• Não concorda com o sistema atual\n• Quer zero taxa de maquininha"
+      "description": "• Sua empresa tem dinheiro em caixa parado\n• Confortável com risco calculado\n• Não concorda com o sistema atual\n• Quer zero taxa de maquininha"
     },
     "notAFit": {
       "title": "Não faz sentido se",

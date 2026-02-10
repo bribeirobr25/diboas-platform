@@ -1,8 +1,8 @@
 {
   "hero": {
-    "headline": "El sistema no está roto. Solo está diseñado para empresas multimillonarias.",
-    "subheadline": "Tu banco gana 7% con tu efectivo. Los procesadores de tarjetas se llevan 2,9%.\nTu caja está sangrando. Hay una mejor manera.",
-    "cta": "Así fue como lo descubrí →",
+    "headline": "El sistema no está roto. Está diseñado para empresas multimillonarias.",
+    "subheadline": "Tu banco gana 7% con tu efectivo. Los procesadores de tarjetas se llevan 2,9%.\nTu caja se desangra. Hay una mejor forma.",
+    "cta": "¿Cómo lo descubrí →",
     "trustBadges": {
       "mica": {
         "label": "Regulado en UE (MiCA)",
@@ -76,7 +76,7 @@
     "footer": "Estados mensuales. Reportes listos para el board. Lenguaje claro — sin jerga."
   },
   "features": {
-    "header": "Paga. Cobra. Gana. Optimiza.",
+    "header": "diBoaS Empresa és mucho más!",
     "intro": "",
     "instantPayments": {
       "headline": "Paga a cualquiera, donde sea",
@@ -118,7 +118,7 @@
     "intro": "Prefiero perderte ahora que decepcionarte después.",
     "goodFit": {
       "title": "Buen Encaje",
-      "description": "• €100K+ inactivo por 6+ meses\n• Cómodo con riesgo calculado\n• No estás de acuerdo con el sistema actual\n• Quieres cero comisiones de procesador"
+      "description": "• Tu empresa tiene dinero parado en la cuenta\n• Cómodo con riesgo calculado\n• No estás de acuerdo con el sistema actual\n• Quieres cero comisiones de procesador"
     },
     "notAFit": {
       "title": "No es para ti si",

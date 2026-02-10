@@ -12,7 +12,7 @@
 
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
 import type { DreamContextValue, DreamScreen, DreamInput } from './types';
-import { dreamReducer, initialState } from './dreamReducer';
+import { dreamReducer, initialState, SCREEN_ORDER } from './dreamReducer';
 import { calculateSimulationResult } from './simulationCalculator';
 import { analyticsService } from '@/lib/analytics';
 import { DREAM_MODE_EVENTS, type DreamPath } from '@/lib/dream-mode';
@@ -59,12 +59,45 @@ export function DreamModeProvider({
       name: 'dream_mode_screen_view',
       parameters: { screen },
     });
+
+    // Track Dream Mode completion when reaching share screen
+    if (screen === 'share') {
+      analyticsService.track({
+        name: DREAM_MODE_EVENTS.COMPLETED,
+        parameters: {
+          initialAmount: state.input.initialAmount,
+          monthlyContribution: state.input.monthlyContribution,
+          timeframe: state.input.timeframe,
+          selectedPath: state.selectedPath,
+          timestamp: Date.now(),
+        },
+      });
+    }
+
     dispatch({ type: 'GO_TO_SCREEN', screen });
-  }, []);
+  }, [state.input, state.selectedPath]);
 
   const nextScreen = useCallback(() => {
+    // Check if moving to share screen (completion)
+    const currentIndex = SCREEN_ORDER.indexOf(state.screen);
+    const nextIndex = Math.min(currentIndex + 1, SCREEN_ORDER.length - 1);
+    const nextScreenName = SCREEN_ORDER[nextIndex];
+
+    if (nextScreenName === 'share' && state.screen !== 'share') {
+      analyticsService.track({
+        name: DREAM_MODE_EVENTS.COMPLETED,
+        parameters: {
+          initialAmount: state.input.initialAmount,
+          monthlyContribution: state.input.monthlyContribution,
+          timeframe: state.input.timeframe,
+          selectedPath: state.selectedPath,
+          timestamp: Date.now(),
+        },
+      });
+    }
+
     dispatch({ type: 'NEXT_SCREEN' });
-  }, []);
+  }, [state.screen, state.input, state.selectedPath]);
 
   const previousScreen = useCallback(() => {
     dispatch({ type: 'PREVIOUS_SCREEN' });
@@ -110,6 +143,11 @@ export function DreamModeProvider({
 
   // Start simulation
   const startSimulation = useCallback(() => {
+    // Prevent double-execution if already simulating
+    if (state.isPlaying) {
+      return;
+    }
+
     // Emit feature used event for audit trail
     applicationEventBus.emit(ApplicationEventType.FEATURE_USED, {
       source: 'dreamMode',
@@ -161,7 +199,7 @@ export function DreamModeProvider({
         bankComparison: result.difference,
       },
     });
-  }, [state.input, state.selectedPath]);
+  }, [state.input, state.selectedPath, state.isPlaying]);
 
   // Reset
   const reset = useCallback(() => {

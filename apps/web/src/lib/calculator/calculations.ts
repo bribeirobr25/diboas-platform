@@ -114,26 +114,59 @@ export function calculateProjection(
 
 /**
  * Compare two scenarios for a specific timeframe
+ *
+ * @param input - Investment parameters
+ * @param defiApy - DeFi APY rate
+ * @param bankApy - Bank APY rate
+ * @param timeframe - Projection timeframe
+ * @param currencyDepreciation - Annual currency depreciation rate (e.g., 0.06 for 6% BRL vs USD)
  */
 export function compareScenarios(
   input: InvestmentInput,
   defiApy: number,
   bankApy: number,
-  timeframe: ProjectionTimeframe
+  timeframe: ProjectionTimeframe,
+  currencyDepreciation: number = 0
 ): ScenarioComparison {
   const defi = calculateProjection(input, defiApy, timeframe);
   const bank = calculateProjection(input, bankApy, timeframe);
 
-  const difference = defi.finalBalance - bank.finalBalance;
+  // Apply currency depreciation to bank results if applicable
+  // This reflects the real purchasing power loss when local currency depreciates vs USD
+  // diBoaS returns are in USD, so they're protected from this depreciation
+  let adjustedBank = bank;
+  if (currencyDepreciation > 0) {
+    const days = TIMEFRAME_DAYS[timeframe];
+    const years = days / 365;
+    // Compound depreciation factor: (1 - rate)^years
+    const depreciationFactor = Math.pow(1 - currencyDepreciation, years);
+
+    // Adjust only the interest earned, not the principal (consistent with InteractiveDemo approach)
+    const adjustedInterestEarned = bank.interestEarned * depreciationFactor;
+    const adjustedFinalBalance = bank.totalContributed + adjustedInterestEarned;
+    const adjustedGrowthPercentage =
+      bank.totalContributed > 0
+        ? ((adjustedFinalBalance - bank.totalContributed) / bank.totalContributed) * 100
+        : 0;
+
+    adjustedBank = {
+      ...bank,
+      finalBalance: Math.round(adjustedFinalBalance * 100) / 100,
+      interestEarned: Math.round(adjustedInterestEarned * 100) / 100,
+      growthPercentage: Math.round(adjustedGrowthPercentage * 100) / 100,
+    };
+  }
+
+  const difference = defi.finalBalance - adjustedBank.finalBalance;
   const differencePercentage =
-    bank.finalBalance > 0
-      ? ((defi.finalBalance - bank.finalBalance) / bank.finalBalance) * 100
+    adjustedBank.finalBalance > 0
+      ? ((defi.finalBalance - adjustedBank.finalBalance) / adjustedBank.finalBalance) * 100
       : 0;
 
   return {
     timeframe,
     defi,
-    bank,
+    bank: adjustedBank,
     difference: Math.round(difference * 100) / 100,
     differencePercentage: Math.round(differencePercentage * 100) / 100,
     opportunityCost: Math.round(difference * 100) / 100,
@@ -149,19 +182,22 @@ export function calculateFullResult(
   defiScenario: RateScenario = DEFI_SCENARIO,
   bankScenario: RateScenario = BANK_SCENARIO
 ): CalculatorResult {
+  // Get currency depreciation from bank scenario (e.g., 6% for BRL)
+  const currencyDepreciation = bankScenario.currencyDepreciation || 0;
+
   // Short-term timeframes (for Dream Mode)
   const shortTermTimeframes: ShortTermTimeframe[] = ['1week', '1month', '1year', '5years'];
 
   const projectionsBuilder: Record<string, ScenarioComparison> = {};
   for (const tf of shortTermTimeframes) {
-    projectionsBuilder[tf] = compareScenarios(input, defiScenario.apy, bankScenario.apy, tf);
+    projectionsBuilder[tf] = compareScenarios(input, defiScenario.apy, bankScenario.apy, tf, currencyDepreciation);
   }
   const projections = projectionsBuilder as unknown as ShortTermProjections;
 
   // Long-term timeframes (for Future You Calculator)
   const longTermBuilder: Record<string, ScenarioComparison> = {};
   for (const tf of LONG_TERM_TIMEFRAMES) {
-    longTermBuilder[tf] = compareScenarios(input, defiScenario.apy, bankScenario.apy, tf);
+    longTermBuilder[tf] = compareScenarios(input, defiScenario.apy, bankScenario.apy, tf, currencyDepreciation);
   }
   const longTermProjections = longTermBuilder as unknown as LongTermProjections;
 

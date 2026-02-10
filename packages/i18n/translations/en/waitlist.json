@@ -18,17 +18,17 @@
     "network": "Connection error. Please check your internet and try again."
   },
   "confirmation": {
-    "headline": "You're in!",
-    "subhead": "You just said enough. Welcome to the movement.",
+    "headline": "Enough!",
+    "subhead": "Welcome to the movement.",
     "positionIntro": "Your position:",
     "positionFormat": "#{position}",
-    "shareIntro": "Want to move up?",
-    "shareBenefit": "Share your link. Each signup moves you up 10 spots.",
+    "shareIntro": "Come together",
+    "shareBenefit": "Share and move up 10 spots.",
     "shareExplanation": "The sooner we launch, the sooner this becomes real.",
     "referralLinkLabel": "Your personal link:",
     "copy": "Copy link",
     "copied": "Copied!",
-    "dreamModeCta": "See what your money could do →"
+    "dreamModeCta": "Test the Dream Mode →"
   },
   "referral": {
     "movedUp": "You moved up {spots} spots!",
@@ -43,16 +43,8 @@
     "referralCount": "You've referred {count} people",
     "keepSharing": "Keep sharing to move up!"
   },
-  "card": {
-    "headline": "I'M #{position} ON THE DIBOAS WAITLIST",
-    "bodyLine1": "Banks earn 7% with our savings.",
-    "bodyLine2": "They pay us 0.4%.",
-    "bodyLine3": "That gap? It's been there the whole time.",
-    "ctaIntro": "Join me:",
-    "hashtag": "#WhileISlept"
-  },
   "email": {
-    "welcome": "Welcome to diBoaS — You're #{position} 🎉",
+    "welcome": "Welcome to diBoaS — You're #{position}",
     "email1Subject": "Why your bank isn't working for you",
     "email2Subject": "How your money could actually work for you",
     "email3Subject": "Meet Aqua, Mystic & Coral — your financial guides",

@@ -14,15 +14,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
-  background: linear-gradient(135deg, var(--glass-bg-dark) 0%, var(--slate-gradient-end, rgba(30, 41, 59, 0.98)) 100%);
-  backdrop-filter: blur(10px);
+  z-index: var(--z-index-modal);
+  background: linear-gradient(135deg, var(--glass-bg-dark) 0%, var(--color-slate-800) 100%);
+  backdrop-filter: blur(var(--blur-md));
   border-top: 1px solid var(--glass-border-dark);
   box-shadow: 0 -4px 24px var(--overlay-subtle);
   transform: translateY(100%);
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transition: transform var(--animation-duration-normal) ease-out, opacity var(--animation-duration-normal) ease-out;
   opacity: 0;
-  padding: 1rem;
+  padding: var(--spacing-lg);
 }
 
 .banner.visible {
@@ -31,12 +31,12 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: var(--dimension-1200);
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: var(--spacing-2xl);
   flex-wrap: wrap;
 }
 
@@ -44,7 +44,7 @@
   .container {
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
+    gap: var(--spacing-lg);
   }
 }
 
@@ -56,79 +56,79 @@
 .text {
   margin: 0;
   color: var(--text-white-emphasis);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  font-weight: 400;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-description);
+  font-weight: var(--font-weight-normal);
 }
 
 @media (max-width: 768px) {
   .text {
-    font-size: 0.85rem;
+    font-size: var(--font-size-xs);
   }
 }
 
 .link {
-  color: var(--theme-interactive-primary, #0d9488);
+  color: var(--color-teal-400);
   text-decoration: underline;
-  text-underline-offset: 2px;
-  margin-left: 0.5rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  text-underline-offset: var(--focus-ring-offset);
+  margin-left: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--animation-duration-fast) ease;
 }
 
 .link:hover {
-  color: var(--theme-interactive-primary-hover, #0a7c74);
+  color: var(--color-teal-300);
 }
 
 .link:focus {
-  outline: 2px solid var(--theme-interactive-primary, #0d9488);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: var(--focus-ring-width) solid var(--color-teal-400);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-xs);
 }
 
 .actions {
   display: flex;
-  gap: 0.75rem;
+  gap: var(--spacing-md);
   flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
   .actions {
-    width: 100%;
-    gap: 0.5rem;
+    width: var(--percent-100);
+    gap: var(--spacing-sm);
   }
 }
 
 .button {
-  padding: 0.65rem 1.5rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: 6px;
+  padding: var(--spacing-md) var(--spacing-2xl);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--animation-duration-fast) ease;
   white-space: nowrap;
   font-family: inherit;
-  min-width: 100px;
+  min-width: var(--dimension-100);
 }
 
 @media (max-width: 768px) {
   .button {
     flex: 1;
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-sm);
   }
 }
 
 .buttonAccept {
-  background: linear-gradient(135deg, var(--theme-interactive-primary, #0d9488) 0%, var(--theme-interactive-primary-hover, #0a7c74) 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-teal-500) 0%, var(--color-teal-600) 100%);
+  color: var(--color-white);
   box-shadow: 0 2px 8px var(--teal-shadow);
 }
 
 .buttonAccept:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px var(--cta-shadow-teal, rgba(13, 148, 136, 0.4));
+  box-shadow: var(--cta-shadow-hover);
 }
 
 .buttonAccept:active {
@@ -136,8 +136,8 @@
 }
 
 .buttonAccept:focus {
-  outline: 2px solid var(--cta-outline-teal, rgba(13, 148, 136, 0.5));
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--color-teal-400);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .buttonDecline {
@@ -157,28 +157,28 @@
 }
 
 .buttonDecline:focus {
-  outline: 2px solid var(--glass-border-medium, rgba(255, 255, 255, 0.5));
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--glass-border-medium);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .banner {
-    background: rgb(15, 23, 42);
-    border-top: 2px solid white;
+    background: var(--color-slate-900);
+    border-top: var(--focus-ring-width) solid var(--color-white);
   }
 
   .text {
-    color: white;
+    color: var(--color-white);
   }
 
   .link {
     text-decoration: underline;
-    text-decoration-thickness: 2px;
+    text-decoration-thickness: var(--focus-ring-width);
   }
 
   .buttonDecline {
-    border-width: 2px;
+    border-width: var(--focus-ring-width);
   }
 }
 

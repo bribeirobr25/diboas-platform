@@ -73,11 +73,24 @@
 }
 
 .heading {
-  font-size: clamp(var(--faq-intro-heading-size-mobile), 4vw, var(--faq-intro-heading-size-desktop));
-  font-weight: var(--faq-intro-heading-weight);
-  line-height: var(--faq-intro-heading-line-height);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
   color: var(--faq-intro-heading-color);
   margin: 0 0 var(--faq-intro-heading-margin-bottom) 0;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: var(--font-size-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: var(--font-size-title-desktop);
+  }
 }
 
 .description {

@@ -395,7 +395,7 @@
     },
     "q85": {
       "question": "How do I earn badges?",
-      "answer": "Badges celebrate real achievements:\n\nBeginner Badges:\n🌱 First Investment - First investment made\n🎯 Goal Setter - First goal created\n📚 Learner - Completed Financial Basics\n\nIntermediate Badges:\n💎 Diversifier - 5+ asset types\n🔥 Streak Master - 30 days investing\n🤝 Connector - 5+ referrals\n\nExpert Badges:\n🏆 DeFi Explorer - Used 3+ strategies\n👑 Whale - $10k+ invested\n🎓 Professor - Created educational content\n\nEach badge = bonus points + community status."
+      "answer": "Badges celebrate real achievements:\n\nBeginner Badges:\n• First Investment - First investment made\n• Goal Setter - First goal created\n• Learner - Completed Financial Basics\n\nIntermediate Badges:\n• Diversifier - 5+ asset types\n• Streak Master - 30 days investing\n• Connector - 5+ referrals\n\nExpert Badges:\n• DeFi Explorer - Used 3+ strategies\n• Whale - $10k+ invested\n• Professor - Created educational content\n\nEach badge = bonus points + community status."
     },
     "q86": {
       "question": "Is the leaderboard competitive or collaborative?",
@@ -455,7 +455,7 @@
     },
     "q100": {
       "question": "How do I identify common scams?",
-      "answer": "Red flags that ALWAYS indicate scam:\n\n❌ Guaranteed fixed return\n\"Earn 10% daily guaranteed\"\n→ Nothing guarantees return in investing\n\n❌ Artificial urgency\n\"Offer expires in 1 hour!\"\n→ Scammers create urgency so you make mistakes\n\n❌ Ask for password/private keys\n\"Send your seed phrase to support\"\n→ NEVER share this with ANYONE\n\n❌ Promise of \"free money\"\n\"Send 1 BTC, receive 2 BTC back\"\n→ Classic doubling scam\n\n❌ diBoaS contacting you outside app\n→ We don't call asking for data\n→ We don't DM on Instagram\n→ Only official channels\n\nStay Safe has complete list + interactive quiz."
+      "answer": "Red flags that ALWAYS indicate scam:\n\n[WARNING] Guaranteed fixed return\n\"Earn 10% daily guaranteed\"\n→ Nothing guarantees return in investing\n\n[WARNING] Artificial urgency\n\"Offer expires in 1 hour!\"\n→ Scammers create urgency so you make mistakes\n\n[WARNING] Ask for password/private keys\n\"Send your seed phrase to support\"\n→ NEVER share this with ANYONE\n\n[WARNING] Promise of \"free money\"\n\"Send 1 BTC, receive 2 BTC back\"\n→ Classic doubling scam\n\n[WARNING] diBoaS contacting you outside app\n→ We don't call asking for data\n→ We don't DM on Instagram\n→ Only official channels\n\nStay Safe has complete list + interactive quiz."
     },
     "q101": {
       "question": "How do I better protect my account?",

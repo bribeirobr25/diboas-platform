@@ -64,24 +64,24 @@
 /* Title */
 .title {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-title-mobile);
+  font-size: var(--font-size-section-title-mobile);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
-  color: var(--pc-color-heading);
+  color: var(--color-section-title);
   margin-bottom: var(--pc-subtitle-margin);
 }
 
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .title {
-    font-size: var(--font-size-title-tablet);
+    font-size: var(--font-size-section-title-tablet);
   }
 }
 
 /* Responsive: Desktop */
 @media (min-width: 1024px) {
   .title {
-    font-size: var(--font-size-title-desktop);
+    font-size: var(--font-size-section-title-desktop);
   }
 }
 

@@ -7,24 +7,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  width: 100%;
-  max-width: 400px;
+  gap: var(--spacing-lg);
+  width: var(--percent-100);
+  max-width: var(--dimension-400);
   margin: 0 auto;
 }
 
 /* Helper Text (Dream Mode description) */
 .helperText {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--color-text-secondary, #64748b);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 /* Primary CTA */
 .primaryCta {
-  width: 100%;
+  width: var(--percent-100);
 }
 
 /* Divider */
@@ -32,9 +32,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
-  font-size: 0.875rem;
-  color: var(--color-text-tertiary, #94a3b8);
+  width: var(--percent-100);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
   text-transform: lowercase;
 }
 
@@ -43,51 +43,51 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--color-border, #e2e8f0);
+  background: var(--color-slate-200);
 }
 
 .divider::before {
-  margin-right: 16px;
+  margin-right: var(--spacing-lg);
 }
 
 .divider::after {
-  margin-left: 16px;
+  margin-left: var(--spacing-lg);
 }
 
 /* Secondary CTA (link style) */
 .secondaryCta {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 8px 16px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-primary-accessible, #0f766e);
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary-accessible);
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--animation-duration-fast) ease;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: var(--focus-ring-offset);
 }
 
 .secondaryCta:hover {
-  color: var(--cta-bg-hover, #115e59);
-  text-decoration-thickness: 2px;
+  color: var(--cta-bg-hover);
+  text-decoration-thickness: var(--focus-ring-width);
 }
 
 .secondaryCta:focus-visible {
-  outline: 2px solid var(--color-primary, #14b8a6);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: var(--focus-ring-width) solid var(--brand-primary);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
 }
 
 /* Logged-in specific styles */
 .loggedIn {
-  padding: 24px;
-  background: var(--color-surface-elevated, rgba(255, 255, 255, 0.05));
-  border-radius: 16px;
-  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
+  padding: var(--spacing-2xl);
+  background: var(--color-surface-elevated);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-slate-200);
 }
 
 /* Anonymous specific styles */
@@ -98,14 +98,14 @@
 /* Responsive */
 @media (max-width: 480px) {
   .container {
-    padding: 16px;
+    padding: var(--spacing-lg);
   }
 
   .helperText {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
   }
 
   .divider {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-xs);
   }
 }

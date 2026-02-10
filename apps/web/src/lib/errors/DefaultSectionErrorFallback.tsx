@@ -82,7 +82,7 @@ function ErrorTitle({ errorId, title }: { errorId: string; title: string }) {
         marginBottom: '1rem'
       }}
     >
-      ⚠️ {title}
+      [Warning] {title}
     </h2>
   );
 }

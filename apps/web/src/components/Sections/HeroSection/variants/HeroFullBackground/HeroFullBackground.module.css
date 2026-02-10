@@ -50,7 +50,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: var(--bg-mobile, none);
+  background-image: var(--bg-mobile);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -62,7 +62,7 @@
 /* Responsive: Desktop - Use CSS custom property for desktop image */
 @media (min-width: var(--breakpoint-desktop)) {
   .backgroundLayer {
-    background-image: var(--desktop-bg, var(--bg-mobile, none));
+    background-image: var(--desktop-bg, var(--bg-mobile));
   }
 }
 
@@ -108,8 +108,8 @@
 /* Content Wrapper - Single column left-aligned layout */
 .content {
   position: relative;
-  width: 100%;
-  max-width: 700px;
+  width: var(--percent-100);
+  max-width: var(--hs-content-max-width);
   padding-top: var(--hs-content-padding-top);
   padding-left: var(--spacing-3xl);
   padding-right: var(--spacing-3xl);
@@ -144,7 +144,7 @@
    TYPOGRAPHY STYLES
    ================================ */
 
-/* Title - High contrast for overlay */
+/* Title - Clean typography, no shadow */
 .title {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-title-mobile);
@@ -152,8 +152,6 @@
   line-height: var(--line-height-title);
   color: var(--hs-color-stats-text);
   margin: 0;
-  /* Stronger text shadow for better contrast on background images */
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.6);
   text-align: left;
 }
 
@@ -171,16 +169,14 @@
   }
 }
 
-/* Description - High contrast for overlay */
+/* Description - Clean typography, no shadow */
 .description {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-description-mobile);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-normal);
   line-height: var(--line-height-description);
   color: var(--hs-color-stats-text);
   margin: 0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, var(--opacity-50));
-  opacity: var(--opacity-90);
   text-align: left;
 }
 
@@ -194,7 +190,7 @@
 /* Responsive: Desktop */
 @media (min-width: 1024px) {
   .description {
-    font-size: var(--font-size-subtitle-tablet);
+    font-size: var(--font-size-description-desktop);
   }
 }
 
@@ -236,7 +232,7 @@
   background: var(--cta-bg-primary);
   color: var(--cta-color-primary);
   border: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 
   /* Typography */
   font-size: var(--cta-font-size-mobile);
@@ -283,12 +279,12 @@
 
 .ctaButton:hover {
   transform: var(--cta-transform-hover);
-  box-shadow: var(--cta-shadow-hover), 0 6px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--cta-shadow-hover);
 }
 
 .ctaButton:focus-visible {
-  outline: 2px solid var(--cta-focus-color);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--cta-focus-color);
+  outline-offset: var(--focus-ring-offset);
   box-shadow: var(--cta-shadow-focus);
 }
 
@@ -361,14 +357,14 @@
   .title,
   .description {
     color: var(--color-white);
-    text-shadow: 2px 2px var(--spacing-xs) var(--color-black);
+    text-shadow: var(--focus-ring-width) var(--focus-ring-width) var(--spacing-xs) var(--color-black);
   }
-  
+
   .ctaButton {
     border: var(--fs-border-width-button) solid var(--color-white);
   }
-  
+
   .backgroundOverlay {
-    background: rgba(0, 0, 0, var(--opacity-70));
+    background: var(--overlay-dark-heavy);
   }
 }

@@ -1,8 +1,8 @@
 {
   "hero": {
     "headline": "The system isn't broken. It's designed this way",
-    "subheadline": "Banks make 7% with your money. Give you 0.4%. Wealthy people never accepted that deal. You had no option. Until now.",
-    "cta": "Here's how I discovered this →"
+    "subheadline": "Banks make 7% with your money. Give you 0.4%. Those with access never accepted that deal.\nYou had no option. Until now.",
+    "cta": "How I found out? →"
   },
   "origin": {
     "header": "Because of my grandmother",
@@ -25,7 +25,7 @@
     }
   },
   "features": {
-    "header": "Earn. Send. Invest. Grow.",
+    "header": "diBoaS is much more!",
     "earn": {
       "headline": "Earn 6-10% per year",
       "body": "Your money grows in trusted systems. Institutional access, now yours. Withdraw anytime."
@@ -50,14 +50,14 @@
       "subtext": "What your bank gave you this year: {bankPays}",
       "hook": "What they made with it: {bankEarns}",
       "hookBrazil": "What they made with it: {bankEarns}. And the real lost {currencyLoss}% against the dollar.",
-      "cta": "with diBoaS"
+      "cta": "Show me"
     },
     "hope": {
-      "header": "Same {balance}. One year later.",
-      "projectionLabel": "In 1 year at {apyRate}% per year:",
-      "comparison": "Your bank: {bankTotal}.\ndiBoaS: {diboasTotal}.\nThe gap: {difference}.",
-      "impact": "Same money. Different place. {multiplier}x the growth.",
-      "cta": "Show me how"
+      "header": "One year later.",
+      "projectionLabel": "{apyRate}% per year:",
+      "comparison": "Your bank: {bankTotal}.\nThe gap: {difference}.",
+      "impact": "Same money. Different place. {multiplier}x more.",
+      "cta": "Keep going"
     },
     "action": {
       "header": "Try with any amount",
@@ -68,15 +68,14 @@
     },
     "reward": {
       "header": "Watch it grow",
-      "delight": "{earned} earned. Now imagine a year.",
-      "vision": "Imagine what happens while you sleep.",
-      "continueCta": "Keep going"
+      "delight": "{earned} earned. Imagine in one year.",
+      "continueCta": "I need access"
     }
   },
   "socialProof": {
     "header": "Join others saying \"enough\"",
     "stats": {
-      "waitlist": "{count} signed up.",
+      "waitlist": "{count} already with us.",
       "countries": "{countries} countries. One mission."
     }
   },

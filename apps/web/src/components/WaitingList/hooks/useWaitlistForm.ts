@@ -6,7 +6,7 @@
  * Manages waitlist form state and submission logic
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
@@ -72,6 +72,9 @@ export function useWaitlistForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Ref to prevent double-submit (immediate check before React state update)
+  const isSubmittingRef = useRef(false);
+
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormState((prev) => ({
@@ -85,6 +88,13 @@ export function useWaitlistForm({
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Prevent double-submit using ref (immediate check before state update)
+    if (isSubmittingRef.current) {
+      return;
+    }
+    isSubmittingRef.current = true;
+
     setError(null);
     setIsLoading(true);
 
@@ -205,6 +215,7 @@ export function useWaitlistForm({
       });
     } finally {
       setIsLoading(false);
+      isSubmittingRef.current = false;
     }
   }, [formState, compact, locale, t, onSuccess, onError]);
 

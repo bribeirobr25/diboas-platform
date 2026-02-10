@@ -69,8 +69,7 @@ export function ActionScreen({
       </p>
       <Button
         variant="primary"
-        size="lg"
-        className={styles.ctaButton}
+        size="sm"
         onClick={onDeposit}
       >
         {t('landing-b2c.demo.action.cta')}

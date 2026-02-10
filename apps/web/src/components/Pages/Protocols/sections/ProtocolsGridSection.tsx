@@ -29,7 +29,7 @@ export function ProtocolsGridSection({
       enableReporting={true}
       context={{ page: 'protocols' }}
     >
-      <section className="py-16 md:py-24 bg-slate-50">
+      <section className="py-16 md:py-24" style={{ backgroundColor: 'var(--bc-color-section-bg)' }}>
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-4">

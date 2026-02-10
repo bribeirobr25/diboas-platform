@@ -13,16 +13,16 @@
   align-items: center;
   justify-content: center;
   min-height: 80vh;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  background: var(--gradient-dark-section);
 }
 
 .loadingSpinner {
-  width: 48px;
-  height: 48px;
-  border: 3px solid rgba(20, 184, 166, 0.2);
-  border-top-color: #14b8a6;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  width: var(--spacing-5xl);
+  height: var(--spacing-5xl);
+  border: var(--spinner-border-width) solid var(--teal-overlay-subtle);
+  border-top-color: var(--color-teal-500);
+  border-radius: var(--radius-full);
+  animation: spin var(--fs-animation-duration-spinner) linear infinite;
 }
 
 @keyframes spin {
@@ -37,91 +37,91 @@
   align-items: center;
   justify-content: center;
   min-height: 80vh;
-  padding: 24px;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  padding: var(--spacing-2xl);
+  background: var(--gradient-dark-section);
 }
 
 .gateCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 400px;
-  padding: 48px 32px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
+  max-width: var(--dimension-400);
+  padding: var(--spacing-5xl) var(--spacing-3xl);
+  background: var(--glass-bg-dark);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-2xl);
   text-align: center;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(var(--blur-md));
 }
 
 .gateIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
-  margin-bottom: 24px;
-  color: #14b8a6;
-  background: rgba(20, 184, 166, 0.1);
-  border-radius: 50%;
+  width: var(--dimension-80);
+  height: var(--dimension-80);
+  margin-bottom: var(--spacing-2xl);
+  color: var(--color-teal-500);
+  background: var(--teal-overlay-subtle);
+  border-radius: var(--radius-full);
 }
 
 .gateTitle {
-  margin: 0 0 16px;
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.3;
+  margin: 0 0 var(--spacing-lg);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  line-height: var(--line-height-tight);
 }
 
 .gateDescription {
-  margin: 0 0 32px;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
+  margin: 0 0 var(--spacing-3xl);
+  font-size: var(--font-size-md);
+  color: var(--text-dark-secondary);
+  line-height: var(--line-height-relaxed);
 }
 
 .gateCta {
-  width: 100%;
-  margin-bottom: 16px;
+  width: var(--percent-100);
+  margin-bottom: var(--spacing-lg);
 }
 
 .gateBack {
-  padding: 8px 16px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--text-dark-muted);
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color var(--animation-duration-fast) ease;
 }
 
 .gateBack:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-dark-secondary);
 }
 
 /* Dream Mode Container */
 .dreamModeContainer {
   min-height: 80vh;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  background: var(--gradient-dark-section);
 }
 
 .dreamMode {
-  width: 100%;
-  max-width: 100%;
+  width: var(--percent-100);
+  max-width: var(--percent-100);
 }
 
 /* Responsive */
 @media (max-width: 480px) {
   .gateCard {
-    padding: 32px 24px;
+    padding: var(--spacing-3xl) var(--spacing-2xl);
   }
 
   .gateTitle {
-    font-size: 20px;
+    font-size: var(--font-size-xl);
   }
 
   .gateDescription {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
 }

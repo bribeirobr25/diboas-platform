@@ -12,7 +12,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Lock } from 'lucide-react';
 import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
@@ -102,7 +102,7 @@ export function OneFeatureDefault({
               />
             ) : (
               <div className={styles.imageFallback} aria-hidden="true">
-                🔒
+                <Lock className={styles.fallbackIcon} />
               </div>
             )}
           </div>

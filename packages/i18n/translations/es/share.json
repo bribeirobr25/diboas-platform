@@ -43,34 +43,11 @@
     "benefit": "Cada registro = {spots} posiciones arriba",
     "copied": "¡Enlace copiado!"
   },
-  "dreamMode": {
-    "twitter": "En @diboasfi Dream Mode, podría crecer {start} → {end} en {timeframe}. ¿Mi banco? Solo {bank}. Mismo dinero, lugar diferente. diboas.com",
-    "whatsapp": "En diBoaS Dream Mode, podría crecer {start} → {end} en {timeframe}. ¿Mi banco? Solo {bank}. Mismo dinero, lugar diferente. Mira: diboas.com",
-    "linkedin": "En @diboasfi Dream Mode, podría crecer {start} → {end} en {timeframe}. ¿Mi banco? Solo {bank}. Mismo dinero, lugar diferente. Mira: diboas.com"
-  },
   "waitlistPosition": {
-    "twitter": "Soy #{position} en la lista de espera @diboasfi. Con solo €5 tengo las mismas oportunidades que instituciones y multimillonarios.",
-    "whatsapp": "Acabo de unirme a la lista de espera de diBoaS (#{position}). ¿Sabías que hay una forma de empezar con solo €5 y tener las mismas oportunidades que instituciones y multimillonarios? Échale un vistazo: {referralUrl}",
-    "facebook": "Soy el #{position} en la lista de espera de diBoaS. Los bancos ganan 7% con nuestros ahorros pero solo nos pagan 0.4%. Es hora de cambiar eso.",
-    "linkedin": "Acabo de unirme a la lista de espera @diboasfi (#{position}). ¿Sabías que los bancos ganan 7% con nuestro dinero pero solo nos devuelven 0.4%? Con diBoaS puedo cambiar esto y tú también. Échale un vistazo: {referralUrl}"
-  },
-  "dreamCard": {
-    "watermark": "PROYECCIÓN",
-    "headline": "EN MODO SUEÑO, PODRÍA CRECER",
-    "timeframePrefix": "en",
-    "bankComparison": "Mi banco me habría dado:",
-    "cta": "¿Listo para dejar de soñar?",
-    "url": "diboas.com",
-    "disclaimer": "Basado en datos históricos. Rendimiento pasado ≠ resultados futuros.",
-    "hashtag": "#WhileISlept"
-  },
-  "waitlistCard": {
-    "headline": "SOY EL #{position} EN LA LISTA DE DIBOAS",
-    "bodyLine1": "Los bancos ganan 7% con nuestros ahorros.",
-    "bodyLine2": "Nos pagan 0.4%.",
-    "bodyLine3": "¿Esa brecha? Siempre estuvo ahí.",
-    "ctaIntro": "Únete conmigo:",
-    "hashtag": "#WhileISlept"
+    "twitter": "La brecha de riqueza no es ingreso. Es ACCESO. Nos excluyen por diseño. Soy #{position} diciendo ya basta. Únete al movimiento. ",
+    "whatsapp": "La brecha de riqueza no es ingreso. Es ACCESO. Nos excluyen por diseño. Soy #{position} diciendo ya basta. Únete: {referralUrl}",
+    "facebook": "La brecha de riqueza no es ingreso. Es ACCESO. Los bancos ganan 7% con nuestro dinero, nos dan 0,4%. Soy #{position}. Ya basta. Juntos cambiamos esto.",
+    "linkedin": "La desigualdad no es sobre ingresos. Es sobre ACCESO. El sistema nos excluye por diseño. Soy #{position} y digo ya basta. Unidos podemos cambiar esto: {referralUrl}"
   },
   "timeframes": {
     "1week": "1 semana",
