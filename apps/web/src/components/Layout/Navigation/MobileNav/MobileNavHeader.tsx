@@ -7,7 +7,6 @@
  */
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { NavigationToggle, LocaleLink } from '@/components/UI';
@@ -46,11 +45,9 @@ export function MobileNavHeader({
           />
         </LocaleLink>
 
-        <Link
+        <LocaleLink
           href={config.actions.primary.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackNavigationInteraction('get-started-mobile', 'click')}
+          onClick={() => trackNavigationInteraction('try-demo-mobile', 'click')}
           className="inline-block"
         >
           <Button
@@ -61,7 +58,7 @@ export function MobileNavHeader({
           >
             {primaryLabel}
           </Button>
-        </Link>
+        </LocaleLink>
 
         <button
           onClick={toggleMenu}

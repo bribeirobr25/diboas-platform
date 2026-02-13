@@ -1,47 +1,51 @@
 {
   "hero": {
-    "headline": "The system isn't broken. It's designed this way",
-    "subheadline": "Banks make 7% with your money. Give you 0.4%. Those with access never accepted that deal.\nYou had no option. Until now.",
-    "cta": "How I found out? →"
+    "headline": "Your money deserves better.",
+    "subheadline": "Now you can access opportunities that used to be reserved for the few.",
+    "cta": "Try the Demo? →"
   },
   "origin": {
-    "header": "Because of my grandmother",
-    "body": "She saved her whole life. Half of everything she earned. Did everything right.\n\nIt still wasn't enough.\nThe system wasn't built for people like her.\nLike me. Like you.\n\n<strong>I'm building what she deserved.</strong>",
+    "header": "Aren't you also tired?",
+    "body": "Transferring money shouldn't take 2 days.\nWhy am I paying fees just to keep my money somewhere?\nIt's MY money. Why can't I move it when I want, where I want?\nWhere are the good investment options? And why do they all have hidden fees?\n\nThese aren't just frustrations. They're symptoms of a system built for institutions, not for me, not for you.\n<strong>We built something different.</strong>",
     "signature": "— Breno, Founder"
+  },
+  "features": {
+    "header": "A different approach",
+    "earn": {
+      "headline": "Not a bank",
+      "body": "We don't hold your money. We don't charge you to keep it. We don't decide when you can use it"
+    },
+    "send": {
+      "headline": "The key",
+      "body": "We are the key to access the best opportunities. Your money. Your control. Your growth."
+    }
   },
   "howItWorks": {
     "header": "How it works",
     "step1": {
-      "title": "Add your money",
-      "description": "Start with $5 or $5,000. It begins earning 6-10% per year. The same access institutions have. Now yours."
+      "title": "Add money",
+      "description": "Add money in one click. Ready to use."
     },
     "step2": {
-      "title": "Watch it grow",
-      "description": "Your money works 24/7 in trusted systems. Real growth. Real value. Now compounding."
+      "title": "Send Money",
+      "description": "Send to anyone, anywhere, anytime"
     },
     "step3": {
-      "title": "Access anytime",
-      "description": "Need your money? Tap once. Get it the same day. No waiting. No lock-ups. No penalties."
-    }
-  },
-  "features": {
-    "header": "diBoaS is much more!",
-    "earn": {
-      "headline": "Earn 6-10% per year",
-      "body": "Your money grows in trusted systems. Institutional access, now yours. Withdraw anytime."
+      "title": "Invest",
+      "description": "Invest without intermediaries"
     },
-    "send": {
-      "headline": "Move money freely",
-      "body": "Worldwide in seconds. Anyone. Anywhere. No fees. No waits."
+    "step4": {
+      "title": "Transparency",
+      "description": "See where every cent goes"
     },
-    "invest": {
-      "headline": "Invest without borders",
-      "body": "Global assets. Stocks, Gold, crypto. No borders. No permission needed."
+    "step5": {
+      "title": "Set Goals",
+      "description": "Your money works 24/7"
     },
-    "goals": {
-      "headline": "Set goals. Hit them.",
-      "body": "Tell us what you're saving for. We'll suggest a plan. Track progress. Adjust as life changes."
-    }
+    "step6": {
+      "title": "Withdraw",
+      "description": "Withdraw anytime. Your money, your decision"
+    }    
   },
   "demo": {
     "header": "Try it for yourself",
@@ -73,11 +77,18 @@
     }
   },
   "socialProof": {
-    "header": "Join others saying \"enough\"",
+    "header": "Join the movement",
     "stats": {
       "waitlist": "{count} already with us.",
       "countries": "{countries} countries. One mission."
     }
+  },
+  "waitlist": {
+    "header": "Ready?",
+    "subheader": "Join the movement.",
+    "emailPlaceholder": "Your email address",
+    "submitButton": "Get access →",
+    "privacyNote": "Only diBoaS updates. No spam. Unsubscribe easily."
   },
   "faq": {
     "header": "Things worth knowing",
@@ -114,13 +125,6 @@
         "answer": "No. You don't need to understand blockchain, wallets, or DeFi to use diBoaS.\n\nWe handle all the technical complexity. You just see your balance grow.\n\nThink of it like using email without understanding how internet protocols work. The technology is there, but you don't need to see it."
       }
     }
-  },
-  "waitlist": {
-    "header": "Ready?",
-    "subheader": "Join the movement.",
-    "emailPlaceholder": "Your email address",
-    "submitButton": "Get access →",
-    "privacyNote": "Only diBoaS updates. No spam. Unsubscribe easily."
   },
   "footer": {
     "riskDisclaimer": "diBoaS connects you to decentralized finance systems. Growth isn't promised. Past results don't predict future ones. Involves risks like code issues, market shifts, and access challenges. Use only what you can risk. Not a bank. No deposit insurance.",

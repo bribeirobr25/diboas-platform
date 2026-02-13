@@ -98,7 +98,8 @@
     },
     "actions": {
       "primary": "Get Started",
-      "secondary": "Business Login"
+      "secondary": "Business Login",
+      "demo": "Try Demo"
     },
     "joinWaitlist": "Join Waitlist",
     "tools": {

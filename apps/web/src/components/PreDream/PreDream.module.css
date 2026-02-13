@@ -1,0 +1,844 @@
+/**
+ * PreDream Styles
+ *
+ * Light theme matching B2C landing page
+ * Uses design system tokens for consistency
+ */
+
+/* Container */
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-modal, 1000);
+  background: var(--section-bg-white, #f9fafb);
+  overflow-y: auto;
+}
+
+.closeButton {
+  position: fixed;
+  top: var(--spacing-2xl, 24px);
+  left: var(--spacing-2xl, 24px);
+  width: var(--spacing-5xl, 48px);
+  height: var(--spacing-5xl, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--section-bg-neutral, #f1f5f9);
+  border: 1px solid var(--color-slate-200, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  color: var(--color-text-secondary, #64748b);
+  cursor: pointer;
+  z-index: calc(var(--z-index-modal, 1000) + 1);
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+}
+
+.closeButton:hover {
+  background: #fff;
+  color: var(--color-text-primary, #0f172a);
+  transform: scale(1.05);
+}
+
+.screenContainer {
+  width: 100%;
+  min-height: 100%;
+}
+
+.screenContainer > div {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Screen Layouts */
+.screenCenter {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.screenContent {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 16px 32px;
+  max-width: 448px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.screenCard {
+  width: 100%;
+  max-width: 448px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.screenHeader {
+  text-align: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.screenTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.screenSubtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* Icon Circles */
+.iconCircleAmber {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #fffbeb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f59e0b;
+}
+
+.iconCircleTeal {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #f0fdfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d9488;
+}
+
+/* Disclaimer */
+.disclaimerCard {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.textSecondary {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.legalNotice {
+  font-size: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Checkbox */
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border-radius: 4px;
+  accent-color: #0d9488;
+  flex-shrink: 0;
+}
+
+.checkboxText {
+  font-size: 14px;
+  color: #334155;
+}
+
+/* Buttons */
+.primaryButton {
+  width: 100%;
+  padding: 14px;
+  background: #0d9488;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.primaryButton:hover {
+  background: #0f766e;
+}
+
+.primaryButton:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.secondaryButton {
+  flex: 1;
+  padding: 12px;
+  background: #fff;
+  color: #475569;
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.secondaryButton:hover {
+  background: #f8fafc;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  margin-top: 24px;
+  padding: 10px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.backButton:hover {
+  color: #334155;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.buttonRow .primaryButton,
+.buttonRow .secondaryButton {
+  flex: 1;
+}
+
+/* Feature List */
+.featureList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #334155;
+}
+
+.featureCheck {
+  color: #0d9488;
+  font-weight: 700;
+}
+
+/* Path Cards */
+.pathList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pathCard {
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+  border: 2px solid;
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  background: #fff;
+}
+
+.pathCard:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.pathCardContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pathIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pathInfo {
+  flex: 1;
+}
+
+.pathName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pathDescription {
+  font-size: 13px;
+  color: #475569;
+  margin-top: 2px;
+}
+
+.pathMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pathRiskBadge {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: currentColor;
+  background-clip: padding-box;
+}
+
+.pathApy {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.warningIcon {
+  color: #f59e0b;
+}
+
+/* Path color variants */
+.pathSafetyBg { background: #eff6ff; }
+.pathSafetyBorder { border-color: #bfdbfe; }
+.pathSafetyText { color: #2563eb; }
+.pathSafetyIconBg { background: #dbeafe; }
+
+.pathBalanceBg { background: #f5f3ff; }
+.pathBalanceBorder { border-color: #c4b5fd; }
+.pathBalanceText { color: #7c3aed; }
+.pathBalanceIconBg { background: #ede9fe; }
+
+.pathGrowthBg { background: #fef2f2; }
+.pathGrowthBorder { border-color: #fca5a5; }
+.pathGrowthText { color: #dc2626; }
+.pathGrowthIconBg { background: #fee2e2; }
+
+.pathRiskBadge.pathSafetyText { background: #dbeafe; color: #1d4ed8; }
+.pathRiskBadge.pathBalanceText { background: #ede9fe; color: #6d28d9; }
+.pathRiskBadge.pathGrowthText { background: #fee2e2; color: #dc2626; }
+
+/* Slider Cards */
+.inputGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sliderCard {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sliderLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.sliderValueInput {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.currencySymbol {
+  color: #94a3b8;
+}
+
+.sliderNumberInput {
+  width: 80px;
+  text-align: right;
+  font-weight: 600;
+  color: #0f172a;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+.rangeSlider {
+  width: 100%;
+  height: 12px;
+  border-radius: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e2e8f0;
+  outline: none;
+  cursor: pointer;
+}
+
+.rangeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0d9488;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.rangeSlider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0d9488;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.sliderRange {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Timeframe Grid */
+.timeframeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.timeframeCard {
+  padding: 20px;
+  border-radius: 16px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.timeframeCard:hover {
+  border-color: #99f6e4;
+}
+
+.timeframeCardSelected {
+  border-color: #14b8a6;
+  background: #f0fdfa;
+}
+
+.timeframeIcon {
+  color: #94a3b8;
+  margin: 0 auto 8px;
+  display: block;
+}
+
+.timeframeIconSelected {
+  color: #0d9488;
+  margin: 0 auto 8px;
+  display: block;
+}
+
+.timeframeLabel {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 15px;
+  margin: 0;
+}
+
+.timeframeLabelSelected {
+  color: #0f766e;
+}
+
+.timeframeDays {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Simulation */
+.simulationScreen {
+  background: #f9fafb;
+}
+
+.simulationContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+}
+
+.simulationWatermark {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  padding: 4px 12px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #d97706;
+  letter-spacing: 1px;
+  z-index: calc(var(--z-index-modal, 1000) + 2);
+}
+
+.simulationLabel {
+  font-size: 18px;
+  color: #4b5563;
+  margin: 0;
+}
+
+.valueDisplay {
+  position: relative;
+}
+
+.simulationValue {
+  font-size: clamp(36px, 10vw, 48px);
+  font-weight: 700;
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+}
+
+.indicatorRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.growthBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #ecfdf5;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #047857;
+}
+
+.timeBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #f3f4f6;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+/* Results - Comparison Cards */
+.comparisonCards {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.comparisonCardDiboas {
+  background: #fff;
+  border: 2px solid #99f6e4;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.comparisonCardBank {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.comparisonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.comparisonLabel {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 14px;
+  margin: 0;
+}
+
+.comparisonLabelMuted {
+  font-weight: 600;
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+.comparisonApy {
+  font-size: 13px;
+  color: #0d9488;
+  margin: 0;
+}
+
+.comparisonApyMuted {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.comparisonValues {
+  text-align: right;
+}
+
+.comparisonAmount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.comparisonAmountMuted {
+  font-size: 24px;
+  font-weight: 700;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.comparisonGain {
+  font-size: 13px;
+  color: #059669;
+  margin: 0;
+}
+
+.comparisonGainMuted {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 12px;
+  background: #ccfbf1;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressBarDiboas {
+  height: 100%;
+  background: #14b8a6;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.progressBarBgMuted {
+  width: 100%;
+  height: 12px;
+  background: #f1f5f9;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressBarBank {
+  height: 100%;
+  background: #cbd5e1;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+/* Difference Highlight */
+.differenceHighlight {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(to right, #ecfdf5, #f0fdfa);
+  border: 1px solid #a7f3d0;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.differenceIcon {
+  width: 40px;
+  height: 40px;
+  background: #d1fae5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #059669;
+}
+
+.differenceText {
+  font-size: 14px;
+  color: #334155;
+  margin: 0;
+}
+
+.differenceText span {
+  font-weight: 700;
+  color: #059669;
+}
+
+.differenceSubtext {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Share Section */
+.shareSection {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.shareTitle {
+  font-weight: 600;
+  color: #0f172a;
+  text-align: center;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.shareButtons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.shareButton {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--share-bg, #f1f5f9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.shareButton:hover {
+  background: var(--share-hover, #e2e8f0);
+}
+
+/* Bank Source */
+.bankSource {
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+/* Result Actions */
+.resultActions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .closeButton {
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .screenContent {
+    padding: 64px 16px 24px;
+  }
+
+  .comparisonAmount,
+  .comparisonAmountMuted {
+    font-size: 20px;
+  }
+}

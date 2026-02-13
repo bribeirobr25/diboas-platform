@@ -63,13 +63,9 @@ export default function MinimalNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   /**
-   * Scroll to waitlist section with smooth behavior
+   * Close mobile menu on navigation
    */
-  const scrollToWaitlist = useCallback(() => {
-    const waitlistSection = document.getElementById('waitlist');
-    if (waitlistSection) {
-      waitlistSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const handleCtaClick = useCallback(() => {
     setIsMobileMenuOpen(false);
   }, []);
 
@@ -119,15 +115,16 @@ export default function MinimalNavigation() {
           {/* Desktop Actions: Language Switcher + CTA */}
           <div className="minimal-nav-actions">
             <LanguageSwitcher variant="dropdown" size="sm" />
-            <Button
-              variant={DEFAULT_CTA_PROPS.variant}
-              size="sm"
-              trackable={DEFAULT_CTA_PROPS.trackable}
-              onClick={scrollToWaitlist}
-              className="minimal-nav-cta hidden md:inline-flex"
-            >
-              {intl.formatMessage({ id: 'common.navigation.landing.joinWaitlist' })}
-            </Button>
+            <LocaleLink href={ROUTES.DEMO} className="hidden md:inline-flex">
+              <Button
+                variant={DEFAULT_CTA_PROPS.variant}
+                size="sm"
+                trackable={DEFAULT_CTA_PROPS.trackable}
+                className="minimal-nav-cta"
+              >
+                {intl.formatMessage({ id: 'common.navigation.actions.demo' })}
+              </Button>
+            </LocaleLink>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -159,15 +156,16 @@ export default function MinimalNavigation() {
                   {intl.formatMessage({ id: link.labelKey })}
                 </LocaleLink>
               ))}
-              <Button
-                variant={DEFAULT_CTA_PROPS.variant}
-                size="default"
-                trackable={DEFAULT_CTA_PROPS.trackable}
-                onClick={scrollToWaitlist}
-                className="minimal-nav-mobile-cta"
-              >
-                {intl.formatMessage({ id: 'common.navigation.landing.joinWaitlist' })}
-              </Button>
+              <LocaleLink href={ROUTES.DEMO} onClick={handleCtaClick}>
+                <Button
+                  variant={DEFAULT_CTA_PROPS.variant}
+                  size="default"
+                  trackable={DEFAULT_CTA_PROPS.trackable}
+                  className="minimal-nav-mobile-cta"
+                >
+                  {intl.formatMessage({ id: 'common.navigation.actions.demo' })}
+                </Button>
+              </LocaleLink>
             </div>
           </Container>
         </div>

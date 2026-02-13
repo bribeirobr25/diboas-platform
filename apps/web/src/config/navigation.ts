@@ -125,8 +125,8 @@ export const navigationConfig: NavigationConfig = {
 
   actions: {
     primary: {
-      label: 'common.navigation.actions.primary',
-      href: APP_URL,
+      label: 'common.navigation.actions.demo',
+      href: ROUTES.DEMO,
       variant: 'primary'
     },
     secondary: {

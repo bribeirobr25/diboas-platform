@@ -87,11 +87,9 @@ export default function DesktopNav({
             >
               {intl.formatMessage({ id: config.actions.secondary.label })}
             </Link>
-            <Link
+            <LocaleLink
               href={config.actions.primary.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackNavigationInteraction('get-started', 'click')}
+              onClick={() => trackNavigationInteraction('try-demo', 'click')}
               className="action-button-wrapper"
             >
               <Button
@@ -102,7 +100,7 @@ export default function DesktopNav({
               >
                 {intl.formatMessage({ id: config.actions.primary.label })}
               </Button>
-            </Link>
+            </LocaleLink>
           </div>
         </FlexBetween>
       </Container>

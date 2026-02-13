@@ -1,0 +1,1815 @@
+/**
+ * PreDemo Styles
+ *
+ * Light theme matching B2C landing page
+ * Uses design system tokens for consistency
+ */
+
+/* ==================== Container ==================== */
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--section-bg-white, #f9fafb);
+  overflow-y: auto;
+}
+
+.screenContainer {
+  width: 100%;
+  min-height: 100%;
+}
+
+.screenContainer > div {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== Screen Layouts ==================== */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.screenCenter {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.screenContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  max-width: 448px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.screenCard {
+  width: 100%;
+  max-width: 448px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.screenTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+  margin: 0;
+  text-align: center;
+}
+
+.screenSubtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* ==================== Demo Header ==================== */
+.demoHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.demoHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  max-width: 672px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.demoHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.demoHeaderLogoButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.demoHeaderLogoImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.demoHeaderLogo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.demoBadge {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: #d97706;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.demoHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.exitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.exitButton:hover {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+.userAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: #f0fdfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d9488;
+}
+
+/* ==================== Login ==================== */
+.logoCircle {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.loginCard {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.inputGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+}
+
+.inputField:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.onChainNote {
+  font-size: 12px;
+  color: #0d9488;
+  margin-top: 4px;
+}
+
+.selectField {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #0f172a;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.dividerText {
+  font-size: 12px;
+  color: #94a3b8;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.oauthGrid {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.oauthButton {
+  flex: 1;
+  padding: 12px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #94a3b8;
+  background: #fff;
+  cursor: not-allowed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.5;
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.disclaimerText {
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.backToHomeLink {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.15s ease;
+}
+
+.backToHomeLink:hover {
+  color: #0d9488;
+}
+
+/* ==================== Loading / Processing ==================== */
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #0d9488;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.checkmarkList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.checkmarkItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #334155;
+}
+
+.checkmarkIcon {
+  color: #0d9488;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #f0fdfa;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #f0fdfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d9488;
+}
+
+/* ==================== Balance Card ==================== */
+.balanceCard {
+  width: 100%;
+  background: linear-gradient(135deg, #0d9488, #0f766e);
+  border-radius: 16px;
+  padding: 20px;
+  color: #fff;
+}
+
+.balanceCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.balanceLabel {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.balanceAmount {
+  font-size: 32px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.balanceBreakdown {
+  display: flex;
+  gap: 24px;
+  margin-top: 12px;
+  padding: 12px 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.balanceBreakdownItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.balanceBreakdownLabel {
+  opacity: 0.7;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.balanceTapToView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 12px;
+  opacity: 0.8;
+  cursor: pointer;
+  text-align: center;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.clickable:hover {
+  transform: scale(1.01);
+}
+
+.compactCard {
+  margin-bottom: 16px;
+}
+
+.compactCard .balanceCard {
+  padding: 14px 16px;
+}
+
+.compactCard .balanceAmount {
+  font-size: 24px;
+}
+
+.compactCard .balanceBreakdown {
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.compactCard .balanceTapToView {
+  display: none;
+}
+
+/* ==================== Quick Actions ==================== */
+.quickActionsHeading {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 16px 0 0;
+}
+
+.quickActionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin: 16px 0;
+}
+
+.quickActionButton {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 12px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quickActionButton:hover:not(:disabled) {
+  border-color: #99f6e4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.quickActionHighlighted {
+  border-color: #14b8a6;
+  background: #f0fdfa;
+}
+
+.quickActionCompleted {
+  border-color: #a7f3d0;
+}
+
+.quickActionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quickActionBadge {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: #0d9488;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.quickActionIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #475569;
+}
+
+.quickActionHighlighted .quickActionIcon {
+  background: #ccfbf1;
+  color: #0d9488;
+}
+
+.quickActionLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.quickActionSubtitle {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: -4px;
+}
+
+.quickActionCheck {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color: #059669;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ==================== Activity Feed ==================== */
+.activityFeed {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.activityTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 12px;
+}
+
+.activityEmpty {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.activityEmptyIcon {
+  color: #cbd5e1;
+  margin-bottom: 8px;
+}
+
+.activityEmptyText {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+  margin: 0;
+}
+
+.activityEmptySubtext {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 4px 0 0;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.activityIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.activityIconDeposit {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.activityIconSend {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.activityIconBuy {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.activityDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.activityDescription {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+  display: block;
+}
+
+.activityDate {
+  font-size: 12px;
+  color: #94a3b8;
+  display: block;
+  margin-top: 2px;
+}
+
+.activityAmounts {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.activityAmount {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+}
+
+.activityAmountPositive {
+  color: #16a34a;
+}
+
+.activityAmountNegative {
+  color: #0f172a;
+}
+
+.activityFees {
+  font-size: 11px;
+  color: #94a3b8;
+  display: block;
+  margin-top: 2px;
+}
+
+/* ==================== Tabs ==================== */
+.tabRow {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tabActive {
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.tabDisabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* ==================== Field Labels ==================== */
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+/* ==================== Method Selector ==================== */
+.methodRow {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.methodButton {
+  flex: 1;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.methodActive {
+  border-color: #14b8a6;
+  background: #f0fdfa;
+  color: #0d9488;
+}
+
+.methodDisabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* ==================== Amount Input ==================== */
+.amountInputContainer {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+
+.amountInputContainer:focus-within {
+  border-color: #14b8a6;
+}
+
+.amountPrefix {
+  font-size: 24px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-right: 4px;
+}
+
+.amountInput {
+  flex: 1;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+.amountInput::placeholder {
+  color: #cbd5e1;
+}
+
+/* ==================== Quick Amounts ==================== */
+.quickAmounts {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.quickAmountButton {
+  flex: 1;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quickAmountButton:hover {
+  border-color: #99f6e4;
+}
+
+.quickAmountActive {
+  border-color: #14b8a6;
+  background: #f0fdfa;
+  color: #0d9488;
+}
+
+/* ==================== Fee Breakdown ==================== */
+.feeBreakdown {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.feeToggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #475569;
+}
+
+.feeToggleLabel {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.feeToggleAmount {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.feeToggleChevron {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.feeRows {
+  padding: 0 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.feeRowLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.feeLabel {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.feeInfoButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.feeInfoButton:hover {
+  color: #64748b;
+}
+
+.feeAmount {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.feeAmountFree {
+  color: #059669;
+  font-weight: 600;
+}
+
+.feeTooltip {
+  width: 100%;
+  font-size: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.feeTotalRow {
+  padding-top: 10px;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 4px;
+}
+
+.feeTotalLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.feeTotalAmount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ==================== Warning Banner ==================== */
+.warningBanner {
+  width: 100%;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+
+/* ==================== Category Tabs ==================== */
+.categoryTabs {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+
+.categoryTab {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.categoryTabActive {
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* ==================== Asset List ==================== */
+.assetList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.assetItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.assetItem:hover:not(:disabled) {
+  border-color: #99f6e4;
+}
+
+.assetItemSelected {
+  border-color: #14b8a6;
+  background: #f0fdfa;
+}
+
+.assetItemDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.assetInfoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.assetIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.assetInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.assetSymbol {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.assetName {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.assetPrice {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.comingSoon {
+  font-size: 12px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* ==================== Confirmation ==================== */
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px;
+}
+
+.sectionSubtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 16px;
+}
+
+.confirmCard {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.confirmHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.confirmIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #f0fdfa;
+  color: #0d9488;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.confirmTypeLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.confirmMethod {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.confirmDetail {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid #f1f5f9;
+}
+
+.confirmDetailLabel {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.confirmDetailValue {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.confirmTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.confirmTotalAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0d9488;
+}
+
+/* ==================== Terms ==================== */
+.termsCard {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.termsCardHighlighted {
+  width: 100%;
+  background: #fffbeb;
+  border: 1px solid #f59e0b;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border-radius: 4px;
+  accent-color: #0d9488;
+  flex-shrink: 0;
+}
+
+.checkboxText {
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.5;
+}
+
+/* ==================== Buttons ==================== */
+.primaryButton {
+  width: 100%;
+  padding: 14px;
+  background: #0d9488;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.primaryButton:hover {
+  background: #0f766e;
+}
+
+.primaryButton:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  margin-bottom: 8px;
+}
+
+.backButton:hover {
+  color: #334155;
+}
+
+/* ==================== Wallet Details ==================== */
+.portfolioCard {
+  width: 100%;
+  background: linear-gradient(135deg, #0d9488, #0f766e);
+  border-radius: 16px;
+  padding: 24px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.portfolioLabel {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.portfolioAmount {
+  font-size: 36px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.portfolioBreakdown {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  padding: 16px 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.portfolioBreakdownItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.portfolioBreakdownLabel {
+  opacity: 0.7;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.walletList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.walletCard {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.walletHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.chainIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.walletInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.walletName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.walletAddress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+  font-family: ui-monospace, monospace;
+  margin-top: 2px;
+}
+
+.copyButton {
+  font-size: 11px;
+  font-weight: 500;
+  color: #0d9488;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.copyButton:hover {
+  color: #0f766e;
+}
+
+.tokenList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tokenItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid #f1f5f9;
+}
+
+.tokenSymbol {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.tokenValues {
+  text-align: right;
+}
+
+.tokenAmount {
+  font-size: 13px;
+  color: #0f172a;
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+.tokenUsd {
+  font-size: 12px;
+  color: #94a3b8;
+  display: block;
+}
+
+.exportKeyButton {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.exportKeyButton:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.copiedText {
+  color: #059669;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.selfCustodyNotice {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 14px;
+}
+
+.selfCustodyIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #ccfbf1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #0d9488;
+}
+
+.selfCustodyTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.selfCustodyText {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* ==================== Export Key Modal ==================== */
+.exportModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px;
+}
+
+.exportModalContent {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 384px;
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.exportModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exportModalTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.exportModalClose {
+  padding: 4px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.exportModalClose:hover {
+  background: #f1f5f9;
+}
+
+.exportModalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exportModalText {
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.exportModalAmberBox {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.exportModalAmberTitle {
+  font-size: 14px;
+  color: #92400e;
+  margin: 0;
+}
+
+.exportModalSteps {
+  font-size: 14px;
+  color: #a16207;
+  margin: 8px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exportModalRedBox {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.exportModalWarningText {
+  font-size: 12px;
+  color: #b91c1c;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.exportModalButton {
+  width: 100%;
+  padding: 12px;
+  background: #0d9488;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.exportModalButtonDemo {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.exportModalFooter {
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: center;
+  margin: 0;
+}
+
+/* ==================== Footer ==================== */
+.footer {
+  padding: 16px;
+  text-align: center;
+  border-top: 1px solid #f1f5f9;
+  margin-top: auto;
+}
+
+.footerText {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ==================== Demo Footer (shared) ==================== */
+.demoFooter {
+  padding: 16px;
+  text-align: center;
+  margin-top: auto;
+  border-top: 1px solid #f1f5f9;
+}
+
+.demoFooterDisclaimer {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
+.demoFooterCopyright {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ==================== You'll Receive Row ==================== */
+.receiveRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-top: 1px solid #e2e8f0;
+  margin-bottom: 16px;
+}
+
+.receiveLabel {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.receiveAmount {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d9488;
+}
+
+.receiveAmountSub {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* ==================== Investments Expansion ==================== */
+.investmentsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.investmentsChevron {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+.investmentsChevronExpanded {
+  transform: rotate(180deg);
+}
+
+.investmentsBreakdown {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.investmentAssetRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+/* ==================== Wallet Card Enhancements ==================== */
+.walletCardDisabled {
+  opacity: 0.6;
+}
+
+.walletHeaderTotal {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.soonBadge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-left: auto;
+}
+
+.noTokensText {
+  font-size: 13px;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 8px 0;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 480px) {
+  .balanceAmount {
+    font-size: 28px;
+  }
+
+  .portfolioAmount {
+    font-size: 28px;
+  }
+
+  .amountPrefix,
+  .amountInput {
+    font-size: 20px;
+  }
+
+  .confirmTotalAmount {
+    font-size: 16px;
+  }
+
+  /* Export Key Modal — bottom sheet on mobile */
+  .exportModalOverlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .exportModalContent {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .exportModalHeader {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding-bottom: 8px;
+    z-index: 1;
+  }
+}

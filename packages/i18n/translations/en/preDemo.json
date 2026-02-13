@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "title": "Interactive Demo - diBoaS",
+    "description": "Experience diBoaS with our interactive demo. Deposit, send, invest, and explore your financial future."
+  },
+  "common": {
+    "back": "Back"
+  },
+  "header": {
+    "demoBadge": "Demo",
+    "exitDemo": "Exit demo"
+  },
+  "login": {
+    "title": "Welcome to diBoaS",
+    "subtitle": "Experience the future of personal finance",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "orContinueWith": "OR CONTINUE WITH",
+    "startDemo": "Start Demo",
+    "disclaimer": "This is a demo environment. All features shown will be available in the full product.",
+    "backToHome": "Back to home page"
+  },
+  "loading": {
+    "creatingAccount": "Creating your account",
+    "creatingAccountSubtitle": "Setting up your secure profile",
+    "checkIdentity": "Identity verified",
+    "checkCompliance": "Compliance check passed",
+    "creatingWallet": "Setting up your wallet",
+    "creatingWalletSubtitle": "Preparing your digital wallet",
+    "checkWallet": "Wallet created"
+  },
+  "processing": {
+    "depositProcessing": "Processing payment",
+    "depositProcessingSub": "Connecting to your payment method",
+    "depositApproved": "Payment approved",
+    "depositApprovedSub": "Your transaction has been verified",
+    "depositComplete": "Deposit complete!",
+    "depositCompleteSub": "Funds added to your wallet",
+    "sendProcessing": "Sending funds",
+    "sendProcessingSub": "Processing your transfer",
+    "sendComplete": "Transfer complete!",
+    "sendCompleteSub": "Funds sent successfully",
+    "buyProcessing": "Processing purchase",
+    "buyProcessingSub": "Processing your investment",
+    "buyComplete": "Purchase complete!",
+    "buyCompleteSub": "Asset added to your portfolio"
+  },
+  "home": {
+    "totalBalance": "Total Balance",
+    "cash": "Cash",
+    "investments": "Investments",
+    "tapToViewWallets": "Tap to view your wallets",
+    "quickActions": "Quick Actions",
+    "addMoney": "Add/Withdraw",
+    "addMoneySubtitle": "1-click",
+    "send": "Send/Pay",
+    "sendSubtitle": "realtime & worldwide",
+    "invest": "Invest",
+    "investSubtitle": "Buy/Sell assets",
+    "goals": "Goals",
+    "goalsSubtitle": "Grow your money",
+    "badgeStart": "Start",
+    "badgeNext": "Next",
+    "activity": "Activity",
+    "recentActivity": "Recent Activity",
+    "noActivity": "No activity yet",
+    "noActivitySubtitle": "Your transactions will appear here",
+    "copyright": "© 2026 diBoaS · Your money, your control"
+  },
+  "footer": {
+    "disclaimer": "This is a demo environment. No real money or data is used. All features shown might be available in the full product.",
+    "copyright": "© 2026 diBoaS · Your money, your control"
+  },
+  "transaction": {
+    "fees": "Fees",
+    "youllReceive": "You'll receive",
+    "theyReceive": "They'll receive",
+    "approximate": "≈"
+  },
+  "fees": {
+    "title": "Fee Breakdown",
+    "free": "Free",
+    "total": "Total Fees"
+  },
+  "deposit": {
+    "addMoney": "Add Money",
+    "withdraw": "Withdraw",
+    "paymentMethod": "Payment Method",
+    "card": "Card",
+    "bank": "Bank",
+    "mobile": "Mobile",
+    "amountLabel": "Amount",
+    "proceed": "Proceed"
+  },
+  "send": {
+    "send": "Send",
+    "payment": "Payment",
+    "recipientLabel": "Recipient",
+    "onChainTransfer": "On-chain transfer",
+    "amountLabel": "Amount",
+    "insufficientFunds": "Insufficient funds for this amount",
+    "proceed": "Proceed"
+  },
+  "buy": {
+    "categoryLabel": "Category",
+    "selectAsset": "Select Asset",
+    "amountLabel": "Amount to Buy",
+    "comingSoon": "Coming soon",
+    "proceed": "Proceed",
+    "insufficientFunds": "Insufficient funds. Please add money first."
+  },
+  "confirm": {
+    "titleDeposit": "Confirm Deposit",
+    "titleSend": "Confirm Transfer",
+    "titleBuy": "Confirm Purchase",
+    "typeDeposit": "Add Money",
+    "typeSend": "Send Money",
+    "typeBuy": "Buy Asset",
+    "method": "Payment Method",
+    "recipient": "Recipient",
+    "asset": "Asset",
+    "totalAmount": "Total Amount",
+    "theyReceive": "They'll receive",
+    "youReceive": "You'll receive",
+    "termsDeposit": "I understand my funds will be converted to stablecoins and held in a self-custodial wallet. I acknowledge that I am responsible for my wallet security.",
+    "termsSend": "I understand this transfer is final and cannot be reversed. I have verified the recipient address is correct.",
+    "termsBuy": "I understand I am purchasing a digital asset which may be volatile. I acknowledge that cryptocurrency investments carry risk.",
+    "subtitle": "Review the details before confirming",
+    "confirmButton": "Confirm",
+    "confirmDeposit": "Confirm Deposit",
+    "confirmTransfer": "Confirm Transfer",
+    "confirmPurchase": "Confirm Purchase"
+  },
+  "wallet": {
+    "title": "Your Wallets",
+    "subtitle": "Self-custodial · Secured by 3rd party provider",
+    "totalBalance": "Total Portfolio",
+    "cash": "Cash",
+    "investments": "Investments",
+    "copyAddress": "Copy address",
+    "copied": "Copied!",
+    "copy": "Copy",
+    "exportKey": "Export Private Key",
+    "selfCustodyTitle": "100% Self-Custody",
+    "selfCustodyText": "Your wallets are fully yours. diBoaS provides the interface, but never holds your funds or has access to your private keys. You can export and use these wallets with any web3 application.",
+    "exportModalTitle": "Your Private Keys",
+    "exportModalDesc1": "Your private keys are secured by a <strong>trusted 3rd party wallet provider</strong>.",
+    "exportModalDesc2": "<strong>diBoaS never stores or has access to your private keys.</strong> You maintain full control of your wallets.",
+    "exportModalStepsTitle": "To export your keys:",
+    "exportModalStep1": "Open your wallet provider dashboard",
+    "exportModalStep2": "Verify your identity",
+    "exportModalStep3": "Access your recovery phrase",
+    "exportModalWarning": "<strong>Warning:</strong> Never share your private keys with anyone. Anyone with your keys can access your funds.",
+    "exportModalButton": "Open Wallet Dashboard",
+    "exportModalButtonDemo": "(Demo)",
+    "exportModalFooter": "Secured by 3rd party provider · Industry-leading security",
+    "solNetworkFees": "SOL for network fees",
+    "soon": "Soon",
+    "noTokensYet": "No tokens yet"
+  }
+}

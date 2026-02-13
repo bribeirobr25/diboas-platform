@@ -1,0 +1,12 @@
+/**
+ * Demo Page Styles
+ *
+ * The PreDemo container uses position: fixed to overlay everything.
+ * This wrapper is minimal — just prevents layout shift.
+ */
+
+.demoContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}

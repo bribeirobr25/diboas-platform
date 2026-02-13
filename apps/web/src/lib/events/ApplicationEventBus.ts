@@ -46,6 +46,17 @@ export enum ApplicationEventType {
   WEBHOOK_PROCESSED = 'webhook:processed',
   WEBHOOK_FAILED = 'webhook:failed',
 
+  // PreDemo Events
+  PRE_DEMO_STARTED = 'preDemo:started',
+  PRE_DEMO_DEPOSIT_COMPLETED = 'preDemo:depositCompleted',
+  PRE_DEMO_SEND_COMPLETED = 'preDemo:sendCompleted',
+  PRE_DEMO_BUY_COMPLETED = 'preDemo:buyCompleted',
+
+  // PreDream Events
+  PRE_DREAM_STARTED = 'preDream:started',
+  PRE_DREAM_SHARE_INITIATED = 'preDream:shareInitiated',
+  PRE_DREAM_SHARE_COMPLETED = 'preDream:shareCompleted',
+
   // General Application Events
   APPLICATION_ERROR = 'application:error',
   FEATURE_USED = 'feature:used'
@@ -170,6 +181,13 @@ const EVENT_VALIDATION_SCHEMA: Record<ApplicationEventType, string[]> = {
   [ApplicationEventType.WEBHOOK_RECEIVED]: ['source', 'provider', 'eventType'],
   [ApplicationEventType.WEBHOOK_PROCESSED]: ['source', 'provider', 'eventType', 'success'],
   [ApplicationEventType.WEBHOOK_FAILED]: ['source', 'provider', 'eventType', 'success'],
+  [ApplicationEventType.PRE_DEMO_STARTED]: ['source'],
+  [ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED]: ['source'],
+  [ApplicationEventType.PRE_DEMO_SEND_COMPLETED]: ['source'],
+  [ApplicationEventType.PRE_DEMO_BUY_COMPLETED]: ['source'],
+  [ApplicationEventType.PRE_DREAM_STARTED]: ['source'],
+  [ApplicationEventType.PRE_DREAM_SHARE_INITIATED]: ['source'],
+  [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: ['source'],
   [ApplicationEventType.APPLICATION_ERROR]: ['source', 'error', 'severity'],
   [ApplicationEventType.FEATURE_USED]: ['source']
 };
@@ -368,7 +386,13 @@ export class ApplicationEventBus {
       [ApplicationEventType.DREAM_MODE_DISCLAIMER_ACCEPTED]: 'dream_mode_disclaimer_accepted',
       [ApplicationEventType.CONSENT_GIVEN]: 'consent_given',
       [ApplicationEventType.CONSENT_WITHDRAWN]: 'consent_withdrawn',
-      [ApplicationEventType.WEBHOOK_PROCESSED]: 'webhook_processed'
+      [ApplicationEventType.WEBHOOK_PROCESSED]: 'webhook_processed',
+      [ApplicationEventType.PRE_DEMO_STARTED]: 'pre_demo_started',
+      [ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED]: 'pre_demo_deposit_completed',
+      [ApplicationEventType.PRE_DEMO_SEND_COMPLETED]: 'pre_demo_send_completed',
+      [ApplicationEventType.PRE_DEMO_BUY_COMPLETED]: 'pre_demo_buy_completed',
+      [ApplicationEventType.PRE_DREAM_STARTED]: 'pre_dream_started',
+      [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: 'pre_dream_share_completed'
     };
 
     const analyticsEvent = analyticsEventMap[eventType];

@@ -16,6 +16,7 @@ export const ROUTES = {
   WHY_DIBOAS: '/why-diboas',
 
   // Interactive Features
+  DEMO: '/demo',
   DREAM_MODE: '/dream-mode',
   CALCULATOR: '/#calculator',
   STRATEGIES: '/strategies',
