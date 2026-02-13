@@ -20,6 +20,8 @@ import en_marketing from '../translations/en/marketing.json';
 import en_home from '../translations/en/home.json';
 import en_about from '../translations/en/about.json';
 import en_protocols from '../translations/en/protocols.json';
+import en_preDemo from '../translations/en/preDemo.json';
+import en_preDream from '../translations/en/preDream.json';
 
 // German translations
 import de_common from '../translations/de/common.json';
@@ -92,6 +94,8 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     home: en_home,
     about: en_about,
     protocols: en_protocols,
+    preDemo: en_preDemo,
+    preDream: en_preDream,
   },
   de: {
     common: de_common,
