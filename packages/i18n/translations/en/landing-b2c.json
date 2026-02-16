@@ -18,6 +18,14 @@
     "send": {
       "headline": "Access",
       "body": "We show you how to access and connect to the best opportunities. You decide. Your money. Your control. Your growth."
+    },
+    "invest": {
+      "headline": "Invest without borders",
+      "body": "Global assets. Stocks, Gold, crypto. No borders. No permission needed."
+    },
+    "goals": {
+      "headline": "Set goals. Achieve them.",
+      "body": "Tell us what you're saving for. We suggest a plan. Track progress. Adjust when life changes."
     }
   },
   "howItWorks": {

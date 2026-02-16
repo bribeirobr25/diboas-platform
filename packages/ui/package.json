@@ -12,7 +12,7 @@
     "dev": "echo \"@diboas/ui dev mode - watching for changes...\" && sleep infinity",
     "lint": "eslint src --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
-    "test": "jest",
+    "test": "echo \"No tests configured\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

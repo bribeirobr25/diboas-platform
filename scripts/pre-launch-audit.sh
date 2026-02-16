@@ -176,19 +176,21 @@ fi
 # ==========================================================================
 # CHECK 11: Dead Code Detection
 # ==========================================================================
-print_check "11/15: Dead Code Detection (unused exports)"
-if command -v ts-prune &> /dev/null; then
-  UNUSED_EXPORTS=$(npx ts-prune apps/web/src 2>/dev/null | head -30)
-  if [ -n "$UNUSED_EXPORTS" ]; then
-    echo "Potentially unused exports (first 30):"
-    echo "$UNUSED_EXPORTS"
+print_check "11/15: Dead Code Detection (knip)"
+if pnpm knip --no-exit-code > /tmp/knip-output.txt 2>&1; then
+  KNIP_ISSUES=$(grep -cE "^(Unused|Unlisted)" /tmp/knip-output.txt || true)
+  if [ "$KNIP_ISSUES" -gt 0 ]; then
+    echo "Potentially unused code detected:"
+    cat /tmp/knip-output.txt | head -40
     ((WARNINGS++)) || true
   else
-    echo "OK: No unused exports detected"
+    echo "OK: No dead code detected by knip"
   fi
 else
-  echo "SKIP: ts-prune not installed (npm i -g ts-prune)"
+  echo "WARN: knip encountered an error (run 'pnpm check:dead-code' for details)"
+  ((WARNINGS++)) || true
 fi
+rm -f /tmp/knip-output.txt
 
 # ==========================================================================
 # CHECK 12: License Compliance

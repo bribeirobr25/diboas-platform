@@ -22,6 +22,18 @@
     "step3": {
       "title": "Accede cuando quieras",
       "description": "¿Necesitas tu dinero? Un toque. El mismo día. Sin esperas. Sin bloqueos. Sin penalizaciones."
+    },
+    "step4": {
+      "title": "Sin intermediarios",
+      "description": "Las mejores estrategias de inversi\u00f3n sin intermediarios."
+    },
+    "step5": {
+      "title": "Retira",
+      "description": "Retira cuando quieras, cualquier cantidad. T\u00fa tienes el control."
+    },
+    "step6": {
+      "title": "Transparencia",
+      "description": "Ve a d\u00f3nde va cada centavo."
     }
   },
   "features": {
@@ -125,6 +137,7 @@
   },
   "footer": {
     "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. El crecimiento no está prometido. Resultados pasados no predicen los futuros. Involucra riesgos como problemas de código, cambios de mercado y desafíos de acceso. Usa solo lo que puedas arriesgar. No es un banco. Sin seguro de depósitos.",
+    "usDisclaimer": "Aviso de EE.UU.: diBoaS es una interfaz no custodial que proporciona acceso a protocolos de finanzas descentralizadas. diBoaS no est\u00e1 registrado con la SEC, CFTC, FinCEN ni ninguna agencia reguladora estatal. El tratamiento regulatorio de DeFi en EE.UU. est\u00e1 evolucionando. Usted es responsable de determinar si su uso de esta interfaz cumple con las leyes aplicables.",
     "regulatoryNote": "diBoaS opera bajo el marco MiCA de la UE. Autorización CASP pendiente.",
     "copyright": "© 2025 diBoaS. Todos los derechos reservados.",
     "links": {

@@ -23,6 +23,9 @@
     "accessibility:audit": "turbo run pa11y",
     "security:audit": "pnpm audit --audit-level moderate",
     "analytics:report": "turbo run analytics-report",
+    "validate:translations": "node packages/i18n/scripts/validate-translations.js",
+    "check:dead-code": "knip",
+    "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run validate:design-tokens && pnpm run validate:translations",
     "audit:full": "bash scripts/pre-launch-audit.sh",
     "audit:ci": "bash scripts/pre-launch-audit.sh --ci"
   },
@@ -30,6 +33,7 @@
     "@types/node": "^25.0.3",
     "ajv": "^8.17.1",
     "eslint": "^9.39.2",
+    "knip": "^5.83.1",
     "prettier": "^3.7.4",
     "turbo": "^2.7.3",
     "typescript": "^5.9.3"

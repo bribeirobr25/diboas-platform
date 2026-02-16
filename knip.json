@@ -1,0 +1,50 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "workspaces": {
+    "apps/web": {
+      "eslint": false,
+      "entry": [
+        "src/app/**/page.tsx",
+        "src/app/**/layout.tsx",
+        "src/app/**/route.ts",
+        "src/app/**/loading.tsx",
+        "src/app/**/error.tsx",
+        "src/app/**/not-found.tsx",
+        "src/app/**/template.tsx",
+        "src/app/**/default.tsx",
+        "src/app/sitemap.ts",
+        "src/app/robots.ts",
+        "src/app/globals.css",
+        "src/middleware.ts",
+        "next.config.*",
+        "postcss.config.*",
+        "tailwind.config.*",
+        "sentry.*.config.*"
+      ],
+      "project": ["src/**/*.{ts,tsx,js,jsx}"],
+      "ignore": [
+        "src/**/*.stories.tsx",
+        "src/**/*.test.{ts,tsx}",
+        "src/test/**"
+      ],
+      "ignoreDependencies": [
+        "autoprefixer",
+        "@next/bundle-analyzer",
+        "eslint-config-next",
+        "storybook",
+        "@storybook/*",
+        "eslint-plugin-storybook",
+        "@lhci/cli",
+        "pa11y"
+      ]
+    },
+    "packages/i18n": {
+      "entry": ["src/index.ts", "src/server.ts", "src/client.ts", "src/config.ts"],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/ui": {
+      "entry": ["src/index.ts"],
+      "project": ["src/**/*.{ts,tsx}"]
+    }
+  }
+}

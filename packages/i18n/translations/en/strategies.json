@@ -70,6 +70,7 @@
       "description": "Same purpose as Safe Harbor, but with 30% exposure to digital asset growth. You're accepting some price movement for higher potential returns.",
       "description2": "This works for people who already have a stable emergency fund and want their second layer to work harder.",
       "allocation": "70% System A + 30% System D",
+      "allocationNote": "The majority of your money stays in stable digital dollars. A smaller portion participates in digital asset growth.",
       "stats": {
         "lossChance": "Around 5%",
         "typicalReturn": "8-12% per year",
@@ -84,7 +85,9 @@
       "badge": "Stable Returns | Short-Term",
       "tagline": "Protecting your near-term dreams",
       "description": "Saving for something in the next 2 years? A trip, a wedding, a car? This keeps every euro working toward your deadline without risking it.",
+      "description2": "No exposure to digital asset prices. Predictable growth.",
       "allocation": "60% System A + 25% System B + 15% System C",
+      "allocationNote": "Your money is distributed across proven systems optimized for stability.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
@@ -99,6 +102,7 @@
       "tagline": "Short-term goals with growth potential",
       "description": "You have a goal in the next 2 years, but you're okay with some price movement if it means higher returns.",
       "allocation": "65% System A + 35% System D",
+      "allocationNote": "Most stays stable. A portion participates in digital asset growth.",
       "stats": {
         "lossChance": "Around 7%",
         "typicalReturn": "8-12% per year",
@@ -113,6 +117,7 @@
       "tagline": "Steady growth for the patient investor",
       "description": "You're thinking 2-5 years out. Maybe a down payment, maybe starting a business.",
       "allocation": "50% System A + 30% System B + 20% System C",
+      "allocationNote": "Distributed across stable systems for consistent returns.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
@@ -127,6 +132,7 @@
       "tagline": "The best of both worlds",
       "description": "Most of your money stays safe. Some captures digital asset growth. This is our most popular strategy for people with 3-5 year horizons.",
       "allocation": "60% System A + 25% System D + 15% System E",
+      "allocationNote": "A balanced mix of stability and growth potential.",
       "stats": {
         "lossChance": "Around 12%",
         "typicalReturn": "10-16% per year",
@@ -141,6 +147,7 @@
       "tagline": "Let time do the heavy lifting",
       "description": "You're playing the long game. 5-10 years. You don't need to take big risks because you have time on your side.",
       "allocation": "55% System A + 30% System B + 15% System C",
+      "allocationNote": "Optimized for long-term compounding with minimal volatility.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
@@ -154,7 +161,9 @@
       "badge": "Growth Potential (70%) | Long-Term",
       "tagline": "For believers who've done the research",
       "description": "This is not for everyone. 70% growth exposure means your portfolio will move significantly with digital asset prices.",
+      "description2": "You need to be able to watch your balance drop 40%+ and not panic.",
       "allocation": "30% System A + 35% System D + 35% System E",
+      "allocationNote": "Heavily tilted toward growth potential.",
       "stats": {
         "lossChance": "Around 24%",
         "typicalReturn": "Highly variable — could be negative or exceed 50%",
@@ -170,6 +179,7 @@
       "tagline": "Maximum returns, minimum volatility",
       "description": "You want the highest stable returns over 10+ years without exposure to digital asset prices.",
       "allocation": "45% System A + 35% System B + 20% System C",
+      "allocationNote": "Our highest-yielding stable-only configuration.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
@@ -183,7 +193,9 @@
       "badge": "Growth Potential (85%) | Wealth Building",
       "tagline": "Maximum risk. Maximum potential.",
       "description": "This is our most aggressive strategy. 85% growth exposure. Designed for a small portion of your portfolio that you're willing to lose entirely.",
+      "description2": "The upside? In rare scenarios, returns have exceeded 1,000%. The downside? 27% chance of loss. Your balance dropped 66% at its worst moment in our test.",
       "allocation": "15% System A + 30% System D + 35% System E + 20% System F",
+      "allocationNote": "Maximum growth exposure with minimal stability buffer.",
       "stats": {
         "lossChance": "Around 27%",
         "typicalReturn": "Extremely variable — from large losses to extraordinary gains",

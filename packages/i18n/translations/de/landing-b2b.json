@@ -169,6 +169,7 @@
   },
   "footer": {
     "riskDisclaimer": "diBoaS verbindet Sie mit dezentralen Finanzsystemen. Wachstum ist nicht garantiert. Vergangene Ergebnisse sagen keine zuk\u00fcnftigen voraus. Beinhaltet Risiken wie Code-Probleme, Marktver\u00e4nderungen und Zugangsherausforderungen. Nutzen Sie nur, was Sie riskieren k\u00f6nnen. Keine Bank. Keine Einlagensicherung.",
+    "usDisclaimer": "US-Hinweis: diBoaS ist eine nicht-verwahrende Schnittstelle f\u00fcr den Zugang zu dezentralen Finanzprotokollen. diBoaS ist nicht bei der SEC, CFTC, FinCEN oder einer staatlichen Regulierungsbeh\u00f6rde registriert. Die US-regulatorische Behandlung von DeFi entwickelt sich weiter. Sie sind daf\u00fcr verantwortlich, festzustellen, ob Ihre Nutzung dieser Schnittstelle den geltenden Gesetzen entspricht.",
     "regulatoryNote": "diBoaS operiert unter dem EU-MiCA-Rahmenwerk. CASP-Autorisierung ausstehend.",
     "links": {
       "privacy": "Datenschutz",

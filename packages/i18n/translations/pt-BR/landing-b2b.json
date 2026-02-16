@@ -2,7 +2,25 @@
   "hero": {
     "headline": "O sistema não está quebrado. Ele foi feito para empresas bilionárias.",
     "subheadline": "Seu banco ganha 15% com seu caixa. Maquininhas levam 2-3%.\nSeu caixa tá sangrando. Existe um jeito melhor.",
-    "cta": "Como eu descobri isso →"
+    "cta": "Como eu descobri isso →",
+    "trustBadges": {
+      "mica": {
+        "label": "Regulado na UE (MiCA)",
+        "tooltip": "Operando sob o framework MiCA da UE para criptoativos"
+      },
+      "nonCustodial": {
+        "label": "Seus fundos, sua carteira",
+        "tooltip": "N\u00f3s nunca seguramos seu dinheiro \u2014 ele fica na sua pr\u00f3pria carteira"
+      },
+      "audited": {
+        "label": "Auditado independentemente",
+        "tooltip": "Todos os sistemas verificados por firmas de seguran\u00e7a independentes"
+      },
+      "boardReady": {
+        "label": "Relat\u00f3rios para o board",
+        "tooltip": "Extratos mensais que seu CFO vai realmente entender"
+      }
+    }
   },
   "theMath": {
     "header": "Cadê os R$325.000?",
@@ -152,6 +170,7 @@
   },
   "footer": {
     "riskDisclaimer": "O diBoaS conecta voc\u00ea a sistemas de finan\u00e7as descentralizadas. Crescimento n\u00e3o \u00e9 prometido. Resultados passados n\u00e3o preveem futuros. Envolve riscos como problemas de c\u00f3digo, mudan\u00e7as de mercado e desafios de acesso. Use apenas o que voc\u00ea pode arriscar. N\u00e3o \u00e9 um banco. Sem garantia de dep\u00f3sito.",
+    "usDisclaimer": "Aviso dos EUA: diBoaS \u00e9 uma interface n\u00e3o custodial que fornece acesso a protocolos de finan\u00e7as descentralizadas. O diBoaS n\u00e3o \u00e9 registrado na SEC, CFTC, FinCEN ou qualquer ag\u00eancia reguladora estadual. O tratamento regulat\u00f3rio de DeFi nos EUA est\u00e1 evoluindo. Voc\u00ea \u00e9 respons\u00e1vel por determinar se o uso desta interface est\u00e1 em conformidade com as leis aplic\u00e1veis.",
     "bcbDisclaimer": "Aviso para o Brasil: diBoaS \u00e9 uma empresa sediada na Uni\u00e3o Europeia. O diBoaS N\u00c3O \u00e9 uma institui\u00e7\u00e3o financeira autorizada pelo Banco Central do Brasil. Usu\u00e1rios brasileiros s\u00e3o respons\u00e1veis por suas pr\u00f3prias obriga\u00e7\u00f5es fiscais e regulat\u00f3rias.",
     "regulatoryNote": "diBoaS opera sob o framework MiCA da UE. Autoriza\u00e7\u00e3o CASP pendente.",
     "links": {
