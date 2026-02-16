@@ -22,6 +22,16 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
   const router = useRouter();
   const [hasTrackedEntry, setHasTrackedEntry] = useState(false);
 
+  // Lock body scroll while demo is active — prevents the underlying
+  // layout from intercepting touch events on the fixed overlay (iOS)
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, []);
+
   // Track demo entry
   useEffect(() => {
     if (!hasTrackedEntry) {
@@ -37,7 +47,7 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
   }, [hasTrackedEntry, locale]);
 
   const handleExit = useCallback(() => {
-    router.push(`/${locale}`);
+    router.push(`/${locale}#social-proof`);
   }, [router, locale]);
 
   return (

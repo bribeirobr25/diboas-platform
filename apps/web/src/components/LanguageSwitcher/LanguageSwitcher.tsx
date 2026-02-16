@@ -14,7 +14,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { SUPPORTED_LOCALES, LOCALE_CONFIG, type SupportedLocale } from '@diboas/i18n/server';
 import { Globe } from 'lucide-react';
-import { ChevronIcon, CheckmarkIcon } from './LanguageSwitcherIcons';
+import { ChevronIcon, CheckmarkIcon, FlagIcon } from './LanguageSwitcherIcons';
 import { useLanguageSwitcher } from './useLanguageSwitcher';
 import styles from './LanguageSwitcher.module.css';
 
@@ -61,7 +61,12 @@ export function LanguageSwitcher({
               id: `common.languageSwitcher.languages.${locale}`
             })}
           >
-            <span className={styles.flagEmoji}>{LOCALE_CONFIG[locale].flag}</span>
+            <span className={styles.flagIcon}>
+              <FlagIcon locale={locale} size={size === 'sm' ? 20 : size === 'lg' ? 28 : 24} />
+            </span>
+            <span className={styles.localeCode}>
+              {LOCALE_CONFIG[locale].code.split('-')[0].toUpperCase()}
+            </span>
           </button>
         ))}
       </div>

@@ -5,8 +5,7 @@
  */
 
 import { useCallback, useRef } from 'react';
-import type { PreDemoScreen } from '@/lib/pre-demo';
-import { PROCESSING_TIMING } from '@/lib/pre-demo';
+import { PROCESSING_TIMING, type PreDemoScreen } from '@/lib/pre-demo';
 
 interface UseTransactionAnimationProps {
   setScreen: (screen: PreDemoScreen) => void;

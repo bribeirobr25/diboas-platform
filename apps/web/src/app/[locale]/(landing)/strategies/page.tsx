@@ -56,12 +56,13 @@ export async function generateMetadata({ params }: StrategiesPageProps): Promise
       images: [`${siteUrl}/api/og/strategies`],
     },
     alternates: {
-      canonical: `/strategies`,
+      canonical: `${siteUrl}/${validLocale}/strategies`,
       languages: {
-        'en': '/en/strategies',
-        'de': '/de/strategies',
-        'pt-BR': '/pt-BR/strategies',
-        'es': '/es/strategies',
+        'en': `${siteUrl}/en/strategies`,
+        'de': `${siteUrl}/de/strategies`,
+        'es': `${siteUrl}/es/strategies`,
+        'pt-BR': `${siteUrl}/pt-BR/strategies`,
+        'x-default': `${siteUrl}/en/strategies`,
       },
     },
   };

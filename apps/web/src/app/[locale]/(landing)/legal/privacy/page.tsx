@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
 import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { ROUTES } from '@/config/routes';
@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { PrivacyPolicyContent } from '@/components/Legal';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 
 export const dynamic = 'auto';
 
@@ -18,25 +19,54 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
-  // Return localized metadata
-  const titles: Record<string, string> = {
-    en: 'Privacy Policy | diBoaS',
-    de: 'Datenschutzerklärung | diBoaS',
-    'pt-BR': 'Política de Privacidade | diBoaS',
-    es: 'Política de Privacidad | diBoaS',
-  };
+  // Load translations for SEO metadata
+  const messages = await loadMessages(locale as SupportedLocale, 'legal/privacy');
+  const seo = messages?.seo || {};
 
-  const descriptions: Record<string, string> = {
-    en: 'Learn how diBoaS collects, uses, and protects your personal data. GDPR compliant.',
-    de: 'Erfahren Sie, wie diBoaS Ihre personenbezogenen Daten erhebt, verwendet und schützt. DSGVO-konform.',
-    'pt-BR': 'Saiba como o diBoaS coleta, usa e protege seus dados pessoais. Conformidade com LGPD e GDPR.',
-    es: 'Conoce cómo diBoaS recopila, usa y protege tus datos personales. Cumple con RGPD.',
-  };
+  const title = seo.title || 'Privacy Policy | diBoaS';
+  const description = seo.description || 'Learn how diBoaS collects, uses, and protects your personal data. GDPR compliant.';
 
   return {
-    title: titles[locale] || titles.en,
-    description: descriptions[locale] || descriptions.en,
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/legal/privacy`,
+      languages: {
+        'en': `${baseUrl}/en/legal/privacy`,
+        'de': `${baseUrl}/de/legal/privacy`,
+        'es': `${baseUrl}/es/legal/privacy`,
+        'pt-BR': `${baseUrl}/pt-BR/legal/privacy`,
+        'x-default': `${baseUrl}/en/legal/privacy`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      locale: locale,
+      url: `${baseUrl}/${locale}/legal/privacy`,
+      siteName: 'diBoaS',
+      images: [
+        {
+          url: `${baseUrl}/api/og/legal`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/api/og/legal`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -59,7 +89,14 @@ export default async function LegalPrivacyPage({ params }: PageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[breadcrumbData]} />
-      <PrivacyPolicyContent />
+      <SectionErrorBoundary
+        sectionId="privacy-policy-content"
+        sectionType="LegalContent"
+        enableReporting={true}
+        context={{ page: 'legal/privacy', locale }}
+      >
+        <PrivacyPolicyContent />
+      </SectionErrorBoundary>
     </PageI18nProvider>
   );
 }

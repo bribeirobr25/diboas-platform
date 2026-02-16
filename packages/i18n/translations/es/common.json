@@ -98,7 +98,8 @@
     },
     "actions": {
       "primary": "Comenzar",
-      "secondary": "Inicio de Sesión Empresarial"
+      "secondary": "Inicio de Sesión Empresarial",
+      "demo": "Probar Demo"
     },
     "joinWaitlist": "Unirse a la Lista",
     "tools": {

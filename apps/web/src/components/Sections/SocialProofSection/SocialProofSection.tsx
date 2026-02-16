@@ -11,9 +11,10 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Users, Globe } from 'lucide-react';
+import { analyticsService } from '@/lib/analytics';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
 import styles from './SocialProofSection.module.css';
 
@@ -26,6 +27,8 @@ interface SocialProofSectionProps {
   className?: string;
   /** Custom background color (CSS value or variable) */
   backgroundColor?: string;
+  /** Translation key for CTA button text (appended to namespace) */
+  ctaText?: string;
 }
 
 interface WaitlistStats {
@@ -45,6 +48,7 @@ export function SocialProofSection({
   enableAnalytics = true,
   className = '',
   backgroundColor,
+  ctaText,
 }: SocialProofSectionProps) {
   const intl = useTranslation();
   const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv());
@@ -85,6 +89,16 @@ export function SocialProofSection({
   const highlightedCount = <span key="count" className={styles.highlight}>{formattedCount}</span>;
   const highlightedCountries = <span key="countries" className={styles.highlight}>{formattedCountries}</span>;
 
+  const handleCtaClick = useCallback(() => {
+    if (enableAnalytics) {
+      analyticsService.track({
+        name: 'social_proof_cta_click',
+        parameters: { locale: intl.locale },
+      });
+    }
+    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+  }, [enableAnalytics, intl.locale]);
+
   return (
     <section
       className={`${styles.section} ${className}`}
@@ -123,6 +137,18 @@ export function SocialProofSection({
             </div>
           </article>
         </div>
+
+        {ctaText && (
+          <div className={styles.ctaWrapper}>
+            <button
+              className={styles.ctaButton}
+              onClick={handleCtaClick}
+              type="button"
+            >
+              {t(ctaText)}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

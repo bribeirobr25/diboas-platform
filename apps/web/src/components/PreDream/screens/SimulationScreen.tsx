@@ -1,31 +1,33 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
+import { formatCurrency } from '@/lib/pre-dream';
 import styles from '../PreDream.module.css';
 
-const ANIMATION_STEPS = 50;
-const ANIMATION_INTERVAL_MS = 60;
+const ANIMATION_DURATION_MS = 3000;
+const AUTO_ADVANCE_DELAY_MS = 500;
+const PARTICLE_COUNT = 20;
+const RING_RADIUS = 45;
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
-function formatCurrency(amount: number, decimals = 0): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
+/** Ease-out cubic: decelerates smoothly */
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
 }
 
 export function SimulationScreen() {
   const intl = useTranslation();
   const { state, goToScreen } = usePreDream();
 
-  const startingValue = state.initialAmount;
-  const totalInvestment = state.result?.totalInvestment ?? startingValue;
+  const startingValue = state.result?.totalInvestment ?? state.initialAmount;
   const finalValue = state.result?.defiBalance ?? startingValue;
 
   const [displayValue, setDisplayValue] = useState(startingValue);
+  const [progress, setProgress] = useState(0);
+  const animFrameRef = useRef<number>(0);
+  const startTimeRef = useRef<number>(0);
   const completedRef = useRef(false);
 
   const t = (key: string) => intl.formatMessage({ id: `preDream.simulation.${key}` });
@@ -33,40 +35,69 @@ export function SimulationScreen() {
     id: `preDream.timeframe.options.${state.selectedTimeframe}.label`,
   });
 
-  // Growth percentage: how much the displayed value has grown beyond total investment
-  const growthPercent = totalInvestment > 0
-    ? Math.max(0, ((displayValue - totalInvestment) / totalInvestment) * 100)
-    : 0;
+  // Pre-compute random X positions for particles (stable across re-renders)
+  const particlePositions = useMemo(
+    () => Array.from({ length: PARTICLE_COUNT }, () => Math.random() * 100),
+    [],
+  );
+  const particleDelays = useMemo(
+    () => Array.from({ length: PARTICLE_COUNT }, () => Math.random() * 4),
+    [],
+  );
 
-  // Animate value via setInterval (matching original linear interpolation)
+  // requestAnimationFrame loop with ease-out-cubic
   useEffect(() => {
     completedRef.current = false;
-    const stepValue = (finalValue - startingValue) / ANIMATION_STEPS;
-    let currentStep = 0;
+    startTimeRef.current = 0;
 
-    const interval = setInterval(() => {
-      currentStep++;
-      const newValue = startingValue + stepValue * currentStep;
-      setDisplayValue(Math.min(newValue, finalValue));
+    function tick(timestamp: number) {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+      const elapsed = timestamp - startTimeRef.current;
+      const rawProgress = Math.min(elapsed / ANIMATION_DURATION_MS, 1);
+      const eased = easeOutCubic(rawProgress);
 
-      if (currentStep >= ANIMATION_STEPS) {
-        clearInterval(interval);
+      const value = startingValue + (finalValue - startingValue) * eased;
+      setDisplayValue(value);
+      setProgress(rawProgress * 100);
+
+      if (rawProgress < 1) {
+        animFrameRef.current = requestAnimationFrame(tick);
+      } else {
+        // Animation complete — auto-advance after delay
         if (!completedRef.current) {
           completedRef.current = true;
           setTimeout(() => {
             goToScreen('results');
-          }, 500);
+          }, AUTO_ADVANCE_DELAY_MS);
         }
       }
-    }, ANIMATION_INTERVAL_MS);
+    }
+
+    animFrameRef.current = requestAnimationFrame(tick);
 
     return () => {
-      clearInterval(interval);
+      cancelAnimationFrame(animFrameRef.current);
     };
   }, [finalValue, startingValue, goToScreen]);
 
+  const dashOffset = RING_CIRCUMFERENCE * (1 - progress / 100);
+
   return (
     <div className={`${styles.screenCenter} ${styles.simulationScreen}`}>
+      {/* Floating particles */}
+      <div className={styles.particles}>
+        {particlePositions.map((x, i) => (
+          <div
+            key={i}
+            className={styles.particle}
+            style={{
+              '--x': `${x}%`,
+              '--delay': `${particleDelays[i]}s`,
+            } as React.CSSProperties}
+          />
+        ))}
+      </div>
+
       <div className={styles.simulationContent}>
         <div className={styles.simulationWatermark}>{t('watermark')}</div>
 
@@ -78,28 +109,42 @@ export function SimulationScreen() {
           </span>
         </div>
 
-        {/* Indicator badges row */}
-        <div className={styles.indicatorRow}>
-          <div className={styles.growthBadge}>
-            <TrendUpIcon />
-            <span>{growthPercent.toFixed(0)}%</span>
-          </div>
-          <div className={styles.timeBadge}>
-            <ClockIcon />
-            <span>{timeframeLabel}</span>
-          </div>
+        {/* Progress ring */}
+        <div className={styles.progressRing}>
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle
+              className={styles.progressBackground}
+              cx="60"
+              cy="60"
+              r={RING_RADIUS}
+              fill="none"
+              strokeWidth="6"
+            />
+            <circle
+              className={styles.progressForeground}
+              cx="60"
+              cy="60"
+              r={RING_RADIUS}
+              fill="none"
+              strokeWidth="6"
+              strokeDasharray={RING_CIRCUMFERENCE}
+              strokeDashoffset={dashOffset}
+              strokeLinecap="round"
+              transform="rotate(-90 60 60)"
+            />
+          </svg>
+          <span className={styles.progressText}>
+            {Math.round(progress)}%
+          </span>
+        </div>
+
+        {/* Time indicator */}
+        <div className={styles.timeIndicator}>
+          <ClockIcon />
+          <span>{timeframeLabel}</span>
         </div>
       </div>
     </div>
-  );
-}
-
-function TrendUpIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-      <polyline points="16 7 22 7 22 13" />
-    </svg>
   );
 }
 

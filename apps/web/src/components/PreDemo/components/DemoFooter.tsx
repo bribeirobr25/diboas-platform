@@ -5,20 +5,15 @@ import styles from '../PreDemo.module.css';
 
 export function DemoFooter() {
   const intl = useTranslation();
+  const t = (key: string) => intl.formatMessage({ id: key });
 
   return (
     <footer className={styles.demoFooter}>
       <p className={styles.demoFooterDisclaimer}>
-        {intl.formatMessage({
-          id: 'preDemo.footer.disclaimer',
-          defaultMessage: 'This is a demo environment. No real money or data is used. All features shown might be available in the full product.',
-        })}
+        {t('preDemo.footer.disclaimer')}
       </p>
       <p className={styles.demoFooterCopyright}>
-        {intl.formatMessage({
-          id: 'preDemo.footer.copyright',
-          defaultMessage: '© 2026 diBoaS · Your money, your control',
-        })}
+        {t('preDemo.footer.copyright')}
       </p>
     </footer>
   );

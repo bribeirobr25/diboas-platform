@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
 import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { ROUTES } from '@/config/routes';
@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { TermsOfUseContent } from '@/components/Legal';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 
 export const dynamic = 'auto';
 
@@ -18,25 +19,54 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
-  // Return localized metadata
-  const titles: Record<string, string> = {
-    en: 'Terms of Use | diBoaS',
-    de: 'Nutzungsbedingungen | diBoaS',
-    'pt-BR': 'Termos de Uso | diBoaS',
-    es: 'Términos de Uso | diBoaS',
-  };
+  // Load translations for SEO metadata
+  const messages = await loadMessages(locale as SupportedLocale, 'legal/terms');
+  const seo = messages?.seo || {};
 
-  const descriptions: Record<string, string> = {
-    en: 'Terms of Use for the diBoaS pre-launch website. Clear rules, serious commitments.',
-    de: 'Nutzungsbedingungen für die diBoaS Vorstart-Website. Klare Regeln, ernsthafte Verpflichtungen.',
-    'pt-BR': 'Termos de Uso do site de pré-lançamento do diBoaS. Regras claras, compromissos sérios.',
-    es: 'Términos de Uso del sitio de pre-lanzamiento de diBoaS. Reglas claras, compromisos serios.',
-  };
+  const title = seo.title || 'Terms of Use | diBoaS';
+  const description = seo.description || 'Terms of Use for the diBoaS pre-launch website. Clear rules, serious commitments.';
 
   return {
-    title: titles[locale] || titles.en,
-    description: descriptions[locale] || descriptions.en,
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/${locale}/legal/terms`,
+      languages: {
+        'en': `${baseUrl}/en/legal/terms`,
+        'de': `${baseUrl}/de/legal/terms`,
+        'es': `${baseUrl}/es/legal/terms`,
+        'pt-BR': `${baseUrl}/pt-BR/legal/terms`,
+        'x-default': `${baseUrl}/en/legal/terms`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      locale: locale,
+      url: `${baseUrl}/${locale}/legal/terms`,
+      siteName: 'diBoaS',
+      images: [
+        {
+          url: `${baseUrl}/api/og/legal`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/api/og/legal`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -59,7 +89,14 @@ export default async function LegalTermsPage({ params }: PageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[breadcrumbData]} />
-      <TermsOfUseContent />
+      <SectionErrorBoundary
+        sectionId="terms-of-use-content"
+        sectionType="LegalContent"
+        enableReporting={true}
+        context={{ page: 'legal/terms', locale }}
+      >
+        <TermsOfUseContent />
+      </SectionErrorBoundary>
     </PageI18nProvider>
   );
 }

@@ -77,7 +77,8 @@
     "stats": {
       "waitlist": "{count} Ya forman parte.",
       "countries": "{countries} países. Una misión."
-    }
+    },
+    "cta": "Unirse ahora"
   },
   "faq": {
     "header": "Cosas que vale la pena saber",

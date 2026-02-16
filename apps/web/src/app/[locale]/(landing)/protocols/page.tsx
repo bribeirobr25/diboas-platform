@@ -56,12 +56,13 @@ export async function generateMetadata({ params }: ProtocolsPageProps): Promise<
       images: [`${siteUrl}/api/og/protocols`],
     },
     alternates: {
-      canonical: `/protocols`,
+      canonical: `${siteUrl}/${validLocale}/protocols`,
       languages: {
-        'en': '/en/protocols',
-        'de': '/de/protocols',
-        'pt-BR': '/pt-BR/protocols',
-        'es': '/es/protocols',
+        'en': `${siteUrl}/en/protocols`,
+        'de': `${siteUrl}/de/protocols`,
+        'es': `${siteUrl}/es/protocols`,
+        'pt-BR': `${siteUrl}/pt-BR/protocols`,
+        'x-default': `${siteUrl}/en/protocols`,
       },
     },
   };

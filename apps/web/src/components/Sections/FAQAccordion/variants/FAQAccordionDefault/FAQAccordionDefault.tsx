@@ -196,12 +196,9 @@ export function FAQAccordionDefault({
                   aria-labelledby={`faq-header-${item.id}`}
                   hidden={!isExpanded}
                 >
-                  <div
-                    className={styles.answer}
-                    dangerouslySetInnerHTML={{
-                      __html: item.answer.replace(/\n/g, '<br />')
-                    }}
-                  />
+                  <div className={styles.answer}>
+                    {item.answer}
+                  </div>
                 </div>
               </div>
             );

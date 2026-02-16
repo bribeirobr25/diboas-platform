@@ -14,14 +14,25 @@ export const ASSET_PRICES: Record<string, number> = {
   ETH: 2650.00,
   SOL: 195.40,
   SUI: 3.85,
+  TRX: 0.27,
 } as const;
 
 /** Chain configurations */
 export const CHAIN_CONFIG: Record<ChainId, ChainConfig> = {
   SOL: { name: 'Solana', fullName: 'Solana Wallet', color: '#9945FF', tokens: ['USDC', 'SOL'] },
   BTC: { name: 'Bitcoin', fullName: 'Bitcoin Wallet', color: '#F7931A', tokens: ['BTC'] },
-  ETH: { name: 'Ethereum', fullName: 'Ethereum Wallet', color: '#627EEA', tokens: ['XAUT', 'ETH'] },
+  ETH: {
+    name: 'Ethereum',
+    fullName: 'Ethereum Wallet',
+    color: '#627EEA',
+    tokens: ['XAUT', 'ETH'],
+    l2Chains: {
+      ARB: { name: 'Arbitrum', color: '#28A0F0', address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F', token: 'ETH' },
+      BASE: { name: 'Base', color: '#0052FF', address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F', token: 'ETH' },
+    },
+  },
   SUI: { name: 'SUI', fullName: 'SUI Wallet', color: '#4DA2FF', tokens: ['SUI'], comingSoon: true },
+  TRX: { name: 'TRON', fullName: 'TRON Wallet', color: '#FF0013', tokens: ['TRX'], comingSoon: true },
 } as const;
 
 /** Wallet addresses (demo) */
@@ -30,6 +41,7 @@ export const WALLET_ADDRESSES: Record<ChainId, string> = {
   BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
   ETH: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
   SUI: '0x2d78c927cd5de66d29e5e0a0f61f8e3f2b2e8c7a',
+  TRX: 'TJYyFqNEJLJvN6KxQo3MBFfLjGZCBAPZBf',
 } as const;
 
 /** Recipient options for send */
@@ -93,7 +105,7 @@ export const FEE_RATES = {
 } as const;
 
 /** Chain order for wallet display */
-export const CHAIN_ORDER: ChainId[] = ['SOL', 'BTC', 'ETH', 'SUI'];
+export const CHAIN_ORDER: ChainId[] = ['SOL', 'BTC', 'ETH', 'SUI', 'TRX'];
 
 /** SOL gas reserve kept per deposit for network/protocol fees */
 export const SOL_GAS_RESERVE = 0.03;

@@ -283,6 +283,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--bc-card-content-gap);
+  min-width: 0; /* Prevent grid blowout on narrow viewports */
   transition: transform var(--bc-transition-duration) var(--bc-transition-easing),
               box-shadow var(--bc-transition-duration) var(--bc-transition-easing);
 }
@@ -364,6 +365,7 @@
   line-height: var(--bc-card-title-line-height);
   color: var(--bc-color-card-title);
   margin: 0;
+  overflow-wrap: anywhere; /* Prevent long words from overflowing card on narrow viewports */
 }
 
 /* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
@@ -389,6 +391,7 @@
   color: var(--bc-color-card-description);
   margin: 0;
   white-space: pre-line; /* Preserve line breaks from \n characters */
+  overflow-wrap: anywhere; /* Prevent long words from overflowing card on narrow viewports */
 }
 
 /* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */

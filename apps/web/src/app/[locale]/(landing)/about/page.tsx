@@ -57,12 +57,13 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
       images: [`${siteUrl}/api/og/about`],
     },
     alternates: {
-      canonical: `/about`,
+      canonical: `${siteUrl}/${validLocale}/about`,
       languages: {
-        'en': '/en/about',
-        'de': '/de/about',
-        'pt-BR': '/pt-BR/about',
-        'es': '/es/about',
+        'en': `${siteUrl}/en/about`,
+        'de': `${siteUrl}/de/about`,
+        'es': `${siteUrl}/es/about`,
+        'pt-BR': `${siteUrl}/pt-BR/about`,
+        'x-default': `${siteUrl}/en/about`,
       },
     },
   };

@@ -112,10 +112,9 @@ export default function MinimalNavigation() {
             ))}
           </div>
 
-          {/* Desktop Actions: Language Switcher + CTA */}
-          <div className="minimal-nav-actions">
-            <LanguageSwitcher variant="dropdown" size="sm" />
-            <LocaleLink href={ROUTES.DEMO} className="hidden md:inline-flex">
+          {/* Mobile CTA — centered between logo and hamburger */}
+          <div className="minimal-nav-mobile-center">
+            <LocaleLink href={ROUTES.DEMO} onClick={handleCtaClick}>
               <Button
                 variant={DEFAULT_CTA_PROPS.variant}
                 size="sm"
@@ -125,6 +124,26 @@ export default function MinimalNavigation() {
                 {intl.formatMessage({ id: 'common.navigation.actions.demo' })}
               </Button>
             </LocaleLink>
+          </div>
+
+          {/* Right Actions */}
+          <div className="minimal-nav-actions">
+            {/* Desktop CTA */}
+            <LocaleLink href={ROUTES.DEMO} className="minimal-nav-cta-desktop">
+              <Button
+                variant={DEFAULT_CTA_PROPS.variant}
+                size="sm"
+                trackable={DEFAULT_CTA_PROPS.trackable}
+                className="minimal-nav-cta"
+              >
+                {intl.formatMessage({ id: 'common.navigation.actions.demo' })}
+              </Button>
+            </LocaleLink>
+
+            {/* Language Switcher — desktop nav bar only */}
+            <div className="minimal-nav-lang-desktop">
+              <LanguageSwitcher variant="dropdown" size="sm" />
+            </div>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -156,16 +175,11 @@ export default function MinimalNavigation() {
                   {intl.formatMessage({ id: link.labelKey })}
                 </LocaleLink>
               ))}
-              <LocaleLink href={ROUTES.DEMO} onClick={handleCtaClick}>
-                <Button
-                  variant={DEFAULT_CTA_PROPS.variant}
-                  size="default"
-                  trackable={DEFAULT_CTA_PROPS.trackable}
-                  className="minimal-nav-mobile-cta"
-                >
-                  {intl.formatMessage({ id: 'common.navigation.actions.demo' })}
-                </Button>
-              </LocaleLink>
+
+              {/* Language Switcher — flags side by side in mobile menu */}
+              <div className="minimal-nav-mobile-lang">
+                <LanguageSwitcher variant="inline" size="md" />
+              </div>
             </div>
           </Container>
         </div>

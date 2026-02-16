@@ -6,10 +6,10 @@ import { HeroSection, FAQAccordion, FeatureShowcase } from '@/components/Section
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection';
-import { DemoEmbedSection } from '@/components/Sections/DemoEmbed';
 import { FutureYouPreviewSection } from '@/components/Sections/FutureYouPreviewSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { ScrollToHash } from '@/components/Layout/ScrollToHash';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
@@ -17,7 +17,6 @@ import {
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_ORIGIN_STORY_CONFIG,
   B2C_FEATURES_CONFIG,
-  B2C_DEMO_CONFIG,
   B2C_FAQ_CONFIG
 } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
@@ -96,12 +95,11 @@ export async function generateMetadata({ params }: B2CLandingPageProps): Promise
  * - Section 1: Hero with headline and CTA
  * - Section 2: Origin Story (Grandmother story)
  * - Section 3: How It Works (3 steps)
- * - Section 4: Interactive Demo
- * - Section 5: Feature Showcase (EARN, SEND, INVEST, GOALS)
- * - Section 6: Social Proof
- * - Section 7: Future You Preview (links to full calculator)
- * - Section 8: Waitlist
- * - Section 9: FAQ
+ * - Section 4: Feature Showcase (EARN, SEND, INVEST, GOALS)
+ * - Section 5: Social Proof
+ * - Section 6: Future You Preview (links to full calculator)
+ * - Section 7: Waitlist
+ * - Section 8: FAQ
  */
 export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
   const { locale: localeParam } = await params;
@@ -128,6 +126,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[organizationData, breadcrumbData]} />
+      <ScrollToHash />
 
       <main className="main-page-wrapper">
         {/* Section 1: Hero */}
@@ -137,12 +136,14 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           enableReporting={true}
           context={{ page: 'landing-b2c', variant: 'fullBackground' }}
         >
-          <HeroSection
-            variant="fullBackground"
-            config={B2C_HERO_CONFIG}
-            enableAnalytics={true}
-            priority={true}
-          />
+          <div data-section-id="hero-section-b2c">
+            <HeroSection
+              variant="fullBackground"
+              config={B2C_HERO_CONFIG}
+              enableAnalytics={true}
+              priority={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
         {/* Section 2: Origin Story (Grandmother) */}
@@ -152,7 +153,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <div id="our-story">
+          <div id="our-story" data-section-id="origin-story-section-b2c">
             <FeatureShowcase
               variant="default"
               config={B2C_ORIGIN_STORY_CONFIG}
@@ -168,7 +169,7 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <div id="how-it-works">
+          <div id="how-it-works" data-section-id="how-it-works-section-b2c">
             <ProductCarouselFactory
               config={B2C_HOW_IT_WORKS_CONFIG}
               enableAnalytics={true}
@@ -177,29 +178,14 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 4: Demo */}
-        <SectionErrorBoundary
-          sectionId="demo-section-b2c"
-          sectionType="DemoEmbed"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="demo">
-            <DemoEmbedSection
-              config={B2C_DEMO_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 5: Feature Showcase (EARN, SEND, INVEST, GOALS) */}
+        {/* Section 4: Feature Showcase (EARN, SEND, INVEST, GOALS) */}
         <SectionErrorBoundary
           sectionId="features-section-b2c"
           sectionType="BenefitsCards"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <div id="features">
+          <div id="features" data-section-id="features-section-b2c">
             <BenefitsCardsSection
               config={B2C_FEATURES_CONFIG}
               variant="default"
@@ -208,41 +194,46 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 6: Social Proof */}
+        {/* Section 5: Social Proof */}
         <SectionErrorBoundary
           sectionId="social-proof-section-b2c"
           sectionType="SocialProofSection"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <SocialProofSection
-            namespace="landing-b2c.socialProof"
-            enableAnalytics={true}
-            backgroundColor="var(--section-bg-neutral)"
-          />
+          <div id="social-proof" data-section-id="social-proof-section-b2c">
+            <SocialProofSection
+              namespace="landing-b2c.socialProof"
+              enableAnalytics={true}
+              backgroundColor="var(--section-bg-neutral)"
+              ctaText="cta"
+            />
+          </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: Future You Preview */}
+        {/* Section 6: Future You Preview */}
         <SectionErrorBoundary
           sectionId="future-you-preview-section-b2c"
           sectionType="FutureYouPreviewSection"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <FutureYouPreviewSection
-            enableAnalytics={true}
-            backgroundColor="var(--section-bg-neutral)"
-          />
+          <div data-section-id="future-you-preview-section-b2c">
+            <FutureYouPreviewSection
+              enableAnalytics={true}
+              backgroundColor="var(--section-bg-neutral)"
+            />
+          </div>
         </SectionErrorBoundary>
 
-        {/* Section 8: Waitlist */}
+        {/* Section 7: Waitlist */}
         <SectionErrorBoundary
           sectionId="waitlist-section-b2c"
           sectionType="WaitlistSection"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <div id="waitlist">
+          <div id="waitlist" data-section-id="waitlist-section-b2c">
             <WaitlistSection
               enableAnalytics={true}
               config={{ backgroundColor: 'var(--bc-color-section-bg)' }}
@@ -250,17 +241,19 @@ export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 9: FAQ */}
+        {/* Section 8: FAQ */}
         <SectionErrorBoundary
           sectionId="faq-section-b2c"
           sectionType="FAQAccordion"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
-          <FAQAccordion
-            config={B2C_FAQ_CONFIG}
-            backgroundColor="var(--section-bg-neutral)"
-          />
+          <div data-section-id="faq-section-b2c">
+            <FAQAccordion
+              config={B2C_FAQ_CONFIG}
+              backgroundColor="var(--section-bg-neutral)"
+            />
+          </div>
         </SectionErrorBoundary>
       </main>
     </PageI18nProvider>

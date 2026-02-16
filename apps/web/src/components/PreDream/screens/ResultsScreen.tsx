@@ -1,19 +1,12 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
 import { ShareDreamSection } from '../components/ShareDreamSection';
-import { PRE_DREAM_BANK_APY } from '@/lib/pre-dream';
+import { PRE_DREAM_BANK_APY, formatCurrency } from '@/lib/pre-dream';
+import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDream.module.css';
-
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
 
 interface ResultsScreenProps {
   onBackToHome?: () => void;
@@ -22,12 +15,32 @@ interface ResultsScreenProps {
 export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
   const intl = useTranslation();
   const { state, reset } = usePreDream();
+  const trackedRef = useRef(false);
 
   const t = (key: string, values?: Record<string, string>) => {
     return intl.formatMessage({ id: `preDream.results.${key}` }, values);
   };
 
   const result = state.result;
+
+  // Track pre_dream_completed when results are shown
+  useEffect(() => {
+    if (result && !trackedRef.current) {
+      trackedRef.current = true;
+      analyticsService.track({
+        name: 'pre_dream_completed',
+        parameters: {
+          path: state.selectedPath,
+          timeframe: state.selectedTimeframe,
+          initial_amount: result.totalInvestment,
+          defi_balance: result.defiBalance,
+          bank_balance: result.bankBalance,
+          difference: result.difference,
+        },
+      });
+    }
+  }, [result, state.selectedPath, state.selectedTimeframe]);
+
   if (!result) return null;
 
   const bankBarWidth = result.defiBalance > 0

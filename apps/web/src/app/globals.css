@@ -24,9 +24,15 @@
     }
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-white text-gray-900 antialiased;
     font-family: 'Inter', system-ui, sans-serif;
+    touch-action: manipulation;
+    overflow-x: hidden;
   }
 }
 

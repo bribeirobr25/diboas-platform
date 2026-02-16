@@ -21,3 +21,5 @@ export {
 } from './constants';
 
 export { calculatePreDreamResult } from './calculations';
+
+export { formatCurrency } from './format';

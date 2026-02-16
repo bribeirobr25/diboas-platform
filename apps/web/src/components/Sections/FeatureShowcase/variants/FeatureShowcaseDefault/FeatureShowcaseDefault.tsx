@@ -153,12 +153,9 @@ export function FeatureShowcaseDefault({
               </div>
             </div>
 
-            <p
-              className={styles.description}
-              dangerouslySetInnerHTML={{
-                __html: currentSlide.content.description.replace(/\n/g, '<br />')
-              }}
-            />
+            <p className={styles.description}>
+              {currentSlide.content.description}
+            </p>
             
             {/* CTA - Using shared CTAButtonLink component */}
             {currentSlide.content.ctaText && currentSlide.content.ctaHref && (

@@ -7,17 +7,9 @@ import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { BalanceCard } from '../components/BalanceCard';
 import { FeeBreakdown } from '../components/FeeBreakdown';
-import { calculateDepositFees, DEPOSIT_QUICK_AMOUNTS } from '@/lib/pre-demo';
+import { calculateDepositFees, DEPOSIT_QUICK_AMOUNTS, formatCurrency } from '@/lib/pre-demo';
+import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDemo.module.css';
-
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
 
 export function DepositScreen() {
   const intl = useTranslation();
@@ -39,6 +31,7 @@ export function DepositScreen() {
 
   const handleQuickAmount = useCallback(
     (quickAmount: string) => {
+      analyticsService.track({ name: 'pre_demo_deposit_quick_amount', parameters: { amount: quickAmount } });
       dispatch({ type: 'SET_DEPOSIT_AMOUNT', amount: quickAmount });
     },
     [dispatch],
@@ -135,6 +128,7 @@ export function DepositScreen() {
             onChange={(e) => handleAmountChange(e.target.value)}
             placeholder="0.00"
             className={styles.amountInput}
+            aria-label={t('preDemo.deposit.amountLabel')}
           />
         </div>
 
@@ -159,7 +153,7 @@ export function DepositScreen() {
         {/* You'll receive row */}
         {amount > 0 && (
           <div className={styles.receiveRow}>
-            <span className={styles.receiveLabel}>{intl.formatMessage({ id: 'preDemo.transaction.youllReceive', defaultMessage: "You'll receive" })}</span>
+            <span className={styles.receiveLabel}>{t('preDemo.transaction.youllReceive')}</span>
             <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount)}</span>
           </div>
         )}

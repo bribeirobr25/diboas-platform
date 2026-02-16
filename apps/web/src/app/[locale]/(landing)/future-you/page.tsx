@@ -56,12 +56,13 @@ export async function generateMetadata({ params }: FutureYouPageProps): Promise<
       images: [`${siteUrl}/api/og/future-you`],
     },
     alternates: {
-      canonical: `/future-you`,
+      canonical: `${siteUrl}/${validLocale}/future-you`,
       languages: {
-        'en': '/en/future-you',
-        'de': '/de/future-you',
-        'pt-BR': '/pt-BR/future-you',
-        'es': '/es/future-you',
+        'en': `${siteUrl}/en/future-you`,
+        'de': `${siteUrl}/de/future-you`,
+        'es': `${siteUrl}/es/future-you`,
+        'pt-BR': `${siteUrl}/pt-BR/future-you`,
+        'x-default': `${siteUrl}/en/future-you`,
       },
     },
   };

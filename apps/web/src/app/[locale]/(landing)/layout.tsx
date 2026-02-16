@@ -6,6 +6,7 @@ import { MinimalFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { WaitingListProvider } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
+import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
 
 interface LandingLayoutProps {
   children: React.ReactNode;
@@ -64,6 +65,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
               </main>
               <MinimalFooter disclaimerKey="landing-b2c.footer.riskDisclaimer" />
               <CookieConsent />
+              <ScrollDepthTracker />
             </div>
           </WaitingListProvider>
         </PageErrorBoundary>

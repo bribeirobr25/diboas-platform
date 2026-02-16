@@ -77,7 +77,8 @@
     "stats": {
       "waitlist": "{count}\nschon dabei",
       "countries": "{countries} Länder. Eine Mission."
-    }
+    },
+    "cta": "Jetzt beitreten"
   },
   "faq": {
     "header": "Wissenswerte Dinge",

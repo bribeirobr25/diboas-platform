@@ -118,8 +118,8 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
         : state.solBalance - sendSolCost;
       return {
         ...state,
-        cashBalance: sendNewCash,
-        solBalance: sendNewSol,
+        cashBalance: Math.max(0, sendNewCash),
+        solBalance: Math.max(0, sendNewSol),
         transactions: [
           {
             id: Date.now(),
@@ -155,8 +155,8 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
         : state.solBalance - buySolCost;
       return {
         ...state,
-        cashBalance: buyNewCash,
-        solBalance: buyNewSol,
+        cashBalance: Math.max(0, buyNewCash),
+        solBalance: Math.max(0, buyNewSol),
         investments: {
           ...state.investments,
           assets: {

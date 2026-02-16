@@ -9,7 +9,7 @@ import { diBoasColors } from '@/lib/colors';
 /**
  * Share type for OG images
  */
-export type ShareType = 'waitlist' | 'calculator';
+export type ShareType = 'waitlist' | 'calculator' | 'dream';
 
 /**
  * Supported locales for OG image translations

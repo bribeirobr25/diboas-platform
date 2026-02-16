@@ -3,10 +3,16 @@ import { ASSET_PATHS } from '@/config/assets';
 import { APP_URL, BUSINESS_URL } from '@/config/environment';
 import { ROUTES } from '@/config/routes';
 
-// Helper function to generate URLs that work in both dev and production
+/**
+ * Generate URLs that work in both dev and production.
+ *
+ * Currently a pass-through, but kept as a centralised hook so that every
+ * navigation href is created through a single code-path. When we need
+ * environment-specific URL transformations (e.g. locale prefixes, base-path
+ * rewriting, or absolute-URL generation for SSR/email contexts) this is the
+ * single place to update.
+ */
 const createUrl = (path: string): string => {
-  // In development, use relative paths
-  // In production, Next.js will handle the proper domain
   return path;
 };
 

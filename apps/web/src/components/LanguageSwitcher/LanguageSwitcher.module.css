@@ -44,7 +44,6 @@
 .currentLanguage {
   flex: 1;
   text-align: left;
-  min-width: max-content;
 }
 
 .chevron {
@@ -123,29 +122,28 @@
 .inline {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-lg);
   flex-wrap: nowrap;
 }
 
 .inlineButton {
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
   background: transparent;
-  border: 2px solid var(--color-gray-200);
-  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all var(--transition-normal);
-  font-size: var(--font-size-2xl);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  gap: 4px;
+  position: relative;
 }
 
 .inlineButton:hover {
   background: var(--color-gray-100);
-  border-color: var(--color-gray-300);
-  transform: var(--transform-scale-105);
+  border-color: var(--color-gray-200);
 }
 
 .inlineButton:focus {
@@ -154,16 +152,51 @@
 }
 
 .inlineButton.active {
+  background: var(--color-gray-50);
+  border-color: var(--color-gray-200);
+}
+
+/* Accent bar on the active locale */
+.inlineButton.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 25%;
+  right: 25%;
+  height: 2px;
   background: var(--theme-interactive-primary);
-  border-color: var(--theme-interactive-primary);
-  transform: var(--transform-scale-110);
-  box-shadow: var(--shadow-md);
+  border-radius: 1px;
 }
 
 .flagEmoji {
   font-size: var(--font-size-2xl);
   line-height: 1;
   display: block;
+}
+
+/* SVG flag icon for inline variant */
+.flagIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+/* Locale code label beneath the flag */
+.localeCode {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-400);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.inlineButton.active .localeCode {
+  color: var(--theme-interactive-primary);
 }
 
 /* Size Variants */
@@ -173,13 +206,15 @@
 }
 
 .size-sm .inlineButton {
-  width: 36px;
-  height: 36px;
-  padding: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
 }
 
 .size-sm .flagEmoji {
-  font-size: var(--font-size-xl);
+  font-size: 18px;
+}
+
+.size-sm .localeCode {
+  font-size: 9px;
 }
 
 .size-sm .icon,
@@ -195,13 +230,11 @@
 }
 
 .size-md .inlineButton {
-  width: 48px;
-  height: 48px;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
 }
 
 .size-md .flagEmoji {
-  font-size: var(--font-size-2xl);
+  font-size: 24px;
 }
 
 .size-md .icon,
@@ -217,13 +250,15 @@
 }
 
 .size-lg .inlineButton {
-  width: 56px;
-  height: 56px;
-  padding: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
 }
 
 .size-lg .flagEmoji {
-  font-size: var(--font-size-3xl);
+  font-size: 28px;
+}
+
+.size-lg .localeCode {
+  font-size: 11px;
 }
 
 .size-lg .icon,

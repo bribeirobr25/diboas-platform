@@ -88,6 +88,21 @@ const LANDING_PAGE_FUNNELS: ConversionFunnel[] = [
   }
 ] as const;
 
+// localStorage key and TTL for funnel persistence
+const FUNNEL_STORAGE_KEY = 'diboas_funnel_progress';
+const FUNNEL_STORAGE_TTL_MS = 86400000; // 24 hours
+
+/** Serializable shape for localStorage persistence */
+interface SerializedFunnelProgress {
+  funnelName: string;
+  sessionId: string;
+  completedSteps: string[];
+  currentStep: string | null;
+  startedAt: string; // ISO date string
+  lastActivity: string; // ISO date string
+  conversionRate: number;
+}
+
 export class ConversionTrackingServiceImpl implements ConversionTrackingService {
   private readonly funnels: Map<string, ConversionFunnel> = new Map();
   private readonly sessions: Map<string, Map<string, FunnelProgress>> = new Map();
@@ -98,6 +113,9 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
     LANDING_PAGE_FUNNELS.forEach(funnel => {
       this.funnels.set(funnel.name, funnel);
     });
+
+    // Restore persisted funnel progress from localStorage
+    this.loadFunnelProgress();
 
     // Clean up old sessions periodically
     setInterval(() => this.cleanupOldSessions(), 5 * 60 * 1000); // Every 5 minutes
@@ -251,6 +269,9 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
         };
 
         sessionFunnels.set(funnelName, updatedProgress);
+
+        // Persist updated progress to localStorage
+        this.saveFunnelProgress();
       }
 
     } catch (error) {
@@ -315,6 +336,86 @@ export class ConversionTrackingServiceImpl implements ConversionTrackingService 
 
     } catch (error) {
       Logger.error('External analytics tracking failed:', { error: error instanceof Error ? error.message : String(error) });
+    }
+  }
+
+  /**
+   * Persist funnel progress to localStorage for cross-reload continuity.
+   * Wrapped in try-catch for SSR safety and localStorage quota errors.
+   */
+  private saveFunnelProgress(): void {
+    try {
+      if (typeof window === 'undefined') return;
+
+      const serializedSessions: Record<string, Record<string, SerializedFunnelProgress>> = {};
+
+      for (const [sessionId, sessionFunnels] of this.sessions.entries()) {
+        const serializedFunnels: Record<string, SerializedFunnelProgress> = {};
+        for (const [funnelName, progress] of sessionFunnels.entries()) {
+          serializedFunnels[funnelName] = {
+            funnelName: progress.funnelName,
+            sessionId: progress.sessionId,
+            completedSteps: progress.completedSteps,
+            currentStep: progress.currentStep,
+            startedAt: progress.startedAt.toISOString(),
+            lastActivity: progress.lastActivity.toISOString(),
+            conversionRate: progress.conversionRate,
+          };
+        }
+        serializedSessions[sessionId] = serializedFunnels;
+      }
+
+      const data = {
+        progress: serializedSessions,
+        timestamp: Date.now(),
+      };
+
+      localStorage.setItem(FUNNEL_STORAGE_KEY, JSON.stringify(data));
+    } catch {
+      // localStorage may be unavailable or over quota
+    }
+  }
+
+  /**
+   * Load persisted funnel progress from localStorage.
+   * Includes TTL check (24 hours) to clear stale data.
+   * Wrapped in try-catch for SSR safety and parse errors.
+   */
+  private loadFunnelProgress(): void {
+    try {
+      if (typeof window === 'undefined') return;
+
+      const raw = localStorage.getItem(FUNNEL_STORAGE_KEY);
+      if (!raw) return;
+
+      const data = JSON.parse(raw);
+
+      // Check TTL (24 hours)
+      if (Date.now() - data.timestamp > FUNNEL_STORAGE_TTL_MS) {
+        localStorage.removeItem(FUNNEL_STORAGE_KEY);
+        return;
+      }
+
+      // Restore progress
+      if (data.progress && typeof data.progress === 'object') {
+        for (const [sessionId, funnels] of Object.entries(data.progress)) {
+          const sessionFunnels = new Map<string, FunnelProgress>();
+          for (const [funnelName, serialized] of Object.entries(funnels as Record<string, SerializedFunnelProgress>)) {
+            sessionFunnels.set(funnelName, {
+              funnelName: serialized.funnelName,
+              sessionId: serialized.sessionId,
+              completedSteps: serialized.completedSteps,
+              currentStep: serialized.currentStep,
+              startedAt: new Date(serialized.startedAt),
+              lastActivity: new Date(serialized.lastActivity),
+              conversionRate: serialized.conversionRate,
+            });
+          }
+          this.sessions.set(sessionId, sessionFunnels);
+        }
+      }
+    } catch {
+      // Ignore parse errors or localStorage access issues
     }
   }
 

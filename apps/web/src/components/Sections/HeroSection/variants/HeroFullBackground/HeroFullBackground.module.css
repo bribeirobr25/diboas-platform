@@ -43,27 +43,42 @@
    BACKGROUND STYLES
    ================================ */
 
-/* Background Layer */
+/* Background Layer — container for next/image and overlay */
 .backgroundLayer {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: var(--bg-mobile);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   border-bottom-left-radius: var(--hs-section-border-radius-bottom-left);
   border-bottom-right-radius: var(--hs-section-border-radius-bottom-right);
+  overflow: hidden;
   z-index: 1;
 }
 
-/* Responsive: Desktop - Use CSS custom property for desktop image */
-@media (min-width: var(--breakpoint-desktop)) {
-  .backgroundLayer {
-    background-image: var(--desktop-bg, var(--bg-mobile));
+/* Default background image — shown at all breakpoints (single image) */
+.bgImage {
+  object-fit: cover;
+}
+
+/* Desktop background image — hidden on mobile, shown on desktop */
+.bgImageDesktop {
+  object-fit: cover;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .bgImageDesktop {
+    display: block;
   }
+  .bgImageMobile {
+    display: none;
+  }
+}
+
+/* Mobile background image — shown on mobile, hidden on desktop */
+.bgImageMobile {
+  object-fit: cover;
 }
 
 /* Background Overlay */
@@ -75,6 +90,7 @@
   bottom: 0;
   background: var(--hs-gradient-overlay);
   transition: opacity var(--fs-transition-duration) var(--fs-transition-easing);
+  z-index: 1;
 }
 
 /* ================================
@@ -178,6 +194,7 @@
   color: var(--hs-color-stats-text);
   margin: 0;
   text-align: left;
+  white-space: pre-line;
 }
 
 /* Responsive: Tablet */

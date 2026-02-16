@@ -76,7 +76,8 @@
     "stats": {
       "waitlist": "{count} já estão com a gente.",
       "countries": "{countries} países. Uma missão."
-    }
+    },
+    "cta": "Entrar agora"
   },
   "faq": {
     "header": "Coisas que vale saber",

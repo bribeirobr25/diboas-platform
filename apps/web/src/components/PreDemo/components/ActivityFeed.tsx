@@ -8,16 +8,8 @@
 
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
+import { formatCurrency } from '@/lib/pre-demo';
 import styles from '../PreDemo.module.css';
-
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
 
 /** SVG icons for activity types */
 function ActivityTypeIcon({ type }: { type: string }) {

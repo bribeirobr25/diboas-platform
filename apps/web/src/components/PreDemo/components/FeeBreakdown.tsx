@@ -10,17 +10,8 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import type { FeeItem } from '@/lib/pre-demo';
+import { formatCurrency, type FeeItem } from '@/lib/pre-demo';
 import styles from '../PreDemo.module.css';
-
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
 
 interface FeeBreakdownProps {
   feeItems: Record<string, FeeItem>;
@@ -62,14 +53,14 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
           {Object.entries(feeItems).map(([key, fee]) => (
             <div key={key} className={styles.feeRow}>
               <div className={styles.feeRowLeft}>
-                <span className={styles.feeLabel}>{fee.label}</span>
+                <span className={styles.feeLabel}>{t(fee.label)}</span>
                 {fee.tooltip && (
                   <button
                     className={styles.feeInfoButton}
                     onClick={() =>
                       setTooltipKey(tooltipKey === key ? null : key)
                     }
-                    aria-label={`Info about ${fee.label}`}
+                    aria-label={t('preDemo.fees.tooltipAriaLabel')}
                   >
                     <svg
                       width="14"
@@ -98,7 +89,7 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
               </span>
               {/* Tooltip */}
               {tooltipKey === key && fee.tooltip && (
-                <div className={styles.feeTooltip}>{fee.tooltip}</div>
+                <div className={styles.feeTooltip}>{t(fee.tooltip)}</div>
               )}
             </div>
           ))}

@@ -1,50 +1,50 @@
 {
   "hero": {
-    "headline": "Your money deserves better.",
-    "subheadline": "Now you can access opportunities that used to be reserved for the few.",
+    "headline": "You deserve better.",
+    "subheadline": "We are opening the access to financial opportunities that used to be reserved for the few.",
     "cta": "Try the Demo? →"
   },
   "origin": {
     "header": "Aren't you also tired?",
-    "body": "Transferring money shouldn't take 2 days.\nWhy am I paying fees just to keep my money somewhere?\nIt's MY money. Why can't I move it when I want, where I want?\nWhere are the good investment options? And why do they all have hidden fees?\n\nThese aren't just frustrations. They're symptoms of a system built for institutions, not for me, not for you.\n<strong>We built something different.</strong>",
+    "body": "Why am I paying fees just to keep my money somewhere?\nIt's MY money. Why can't I move any amount\nwhenever I want, wherever I want?\nWhere are the good investment options? And why do they all have hidden fees?\n\nThese aren't just frustrations. They're symptoms of a system built for institutions, not for me, not for you.\n<strong>We built something different.</strong>",
     "signature": "— Breno, Founder"
   },
   "features": {
     "header": "A different approach",
     "earn": {
       "headline": "Not a bank",
-      "body": "We don't hold your money. We don't charge you to keep it. We don't decide when you can use it"
+      "body": "We don't hold your money. We can't touch it. We don't decide when or where you can use it. Only YOU do!"
     },
     "send": {
-      "headline": "The key",
-      "body": "We are the key to access the best opportunities. Your money. Your control. Your growth."
+      "headline": "Access",
+      "body": "We show you how to access and connect to the best opportunities. You decide. Your money. Your control. Your growth."
     }
   },
   "howItWorks": {
     "header": "How it works",
     "step1": {
-      "title": "Add money",
+      "title": "Create Account",
       "description": "Add money in one click. Ready to use."
     },
     "step2": {
-      "title": "Send Money",
-      "description": "Send to anyone, anywhere, anytime"
+      "title": "Real-time & Worldwide",
+      "description": "Send & Receive to/from anyone, anywhere, anytime."
     },
     "step3": {
-      "title": "Invest",
-      "description": "Invest without intermediaries"
+      "title": "Pay Now & Free",
+      "description": "Pay & Get Paid. Now and Free of fees."
     },
     "step4": {
-      "title": "Transparency",
-      "description": "See where every cent goes"
+      "title": "No middle-man",
+      "description": "Best Investment Strategies without intermediaries."
     },
     "step5": {
-      "title": "Set Goals",
-      "description": "Your money works 24/7"
+      "title": "Withdraw",
+      "description": "Withdraw anytime, any amount. You are in control."
     },
     "step6": {
-      "title": "Withdraw",
-      "description": "Withdraw anytime. Your money, your decision"
+      "title": "Transparency",
+      "description": "See where every cent goes."
     }    
   },
   "demo": {
@@ -81,7 +81,8 @@
     "stats": {
       "waitlist": "{count} already with us.",
       "countries": "{countries} countries. One mission."
-    }
+    },
+    "cta": "Join Now"
   },
   "waitlist": {
     "header": "Ready?",

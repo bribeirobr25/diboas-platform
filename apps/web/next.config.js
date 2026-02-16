@@ -213,6 +213,14 @@ const nextConfig = {
     
     // Advanced bundle optimization for production
     if (!dev && !isServer) {
+      // Enable native webpack performance budget warnings
+      config.performance = {
+        ...config.performance,
+        hints: 'warning',
+        maxAssetSize: 300 * 1024,      // 300KB — matches custom plugin budget
+        maxEntrypointSize: 800 * 1024,  // 800KB — matches custom plugin budget
+      };
+
       config.optimization.splitChunks = {
         chunks: 'all',
         minSize: 20000,

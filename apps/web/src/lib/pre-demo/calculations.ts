@@ -30,9 +30,9 @@ export function calculateDepositFees(grossAmount: number): {
     totalFees,
     netAmount,
     feeItems: {
-      card: { label: 'Card processing (2.90%)', amount: cardFee, tooltip: 'Credit/debit card processing fee charged by payment network' },
-      network: { label: 'Network fee (0.01%)', amount: networkFee, tooltip: 'Blockchain network transaction fee' },
-      diboas: { label: 'diBoaS fee', amount: diboasFee, tooltip: 'diBoaS does not charge for adding money' },
+      card: { label: 'preDemo.fees.cardProcessing', amount: cardFee, tooltip: 'preDemo.fees.tooltips.cardProcessing' },
+      network: { label: 'preDemo.fees.networkFee', amount: networkFee, tooltip: 'preDemo.fees.tooltips.networkFee' },
+      diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeDeposit' },
     },
   };
 }
@@ -59,9 +59,9 @@ export function calculateSendFees(grossAmount: number): {
     totalFees,
     netAmount,
     feeItems: {
-      network: { label: 'Network fee (0.01%)', amount: networkFee, tooltip: 'Blockchain network transaction fee' },
-      priority: { label: 'Priority fee', amount: priorityFee, tooltip: 'Fast transaction priority fee for quick settlement' },
-      diboas: { label: 'diBoaS fee', amount: diboasFee, tooltip: 'diBoaS does not charge for sending money' },
+      network: { label: 'preDemo.fees.networkFee', amount: networkFee, tooltip: 'preDemo.fees.tooltips.networkFee' },
+      priority: { label: 'preDemo.fees.priorityFee', amount: priorityFee, tooltip: 'preDemo.fees.tooltips.priorityFee' },
+      diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeSend' },
     },
   };
 }
@@ -87,9 +87,9 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
       totalFees,
       netAmount: grossAmount - totalFees,
       feeItems: {
-        swap: { label: 'Cross-chain swap (~0.30%)', amount: swapFee, tooltip: 'THORChain-style cross-chain routing fee' },
-        miner: { label: 'BTC miner fee', amount: minerFee, tooltip: 'Bitcoin network miner fee, varies with network congestion' },
-        diboas: { label: 'diBoaS fee', amount: diboasFee, tooltip: 'diBoaS does not charge for investing' },
+        swap: { label: 'preDemo.fees.crossChainSwap', amount: swapFee, tooltip: 'preDemo.fees.tooltips.crossChainSwap' },
+        miner: { label: 'preDemo.fees.btcMinerFee', amount: minerFee, tooltip: 'preDemo.fees.tooltips.btcMinerFee' },
+        diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeBuy' },
       },
     };
   }
@@ -105,10 +105,10 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
       totalFees,
       netAmount: grossAmount - totalFees,
       feeItems: {
-        issuer: { label: 'Issuer mint/redemption (0.25%)', amount: issuerFee, tooltip: 'Tether Gold issuer fee for minting/redeeming tokens' },
-        gas: { label: 'ETH swap gas (~$0.09)', amount: swapGas, tooltip: 'Ethereum network gas fee for token swap' },
-        lp: { label: 'DEX LP fee (~0.10%)', amount: lpFee, tooltip: 'Decentralized exchange liquidity provider fee' },
-        diboas: { label: 'diBoaS fee', amount: diboasFee, tooltip: 'diBoaS does not charge for investing' },
+        issuer: { label: 'preDemo.fees.issuerMintRedemption', amount: issuerFee, tooltip: 'preDemo.fees.tooltips.issuerMintRedemption' },
+        gas: { label: 'preDemo.fees.ethSwapGas', amount: swapGas, tooltip: 'preDemo.fees.tooltips.ethSwapGas' },
+        lp: { label: 'preDemo.fees.dexLpFee', amount: lpFee, tooltip: 'preDemo.fees.tooltips.dexLpFee' },
+        diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeBuy' },
       },
     };
   }
@@ -122,8 +122,8 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
     totalFees,
     netAmount: grossAmount - totalFees,
     feeItems: {
-      fee: { label: 'Transaction fee', amount: defaultFee, tooltip: 'Standard transaction fee' },
-      diboas: { label: 'diBoaS fee', amount: diboasFee, tooltip: 'diBoaS does not charge for investing' },
+      fee: { label: 'preDemo.fees.transactionFee', amount: defaultFee, tooltip: 'preDemo.fees.tooltips.transactionFee' },
+      diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeBuy' },
     },
   };
 }

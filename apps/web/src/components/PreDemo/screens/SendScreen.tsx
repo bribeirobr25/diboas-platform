@@ -12,17 +12,10 @@ import {
   checkInsufficientFunds,
   SEND_QUICK_AMOUNTS,
   RECIPIENT_OPTIONS,
+  formatCurrency,
 } from '@/lib/pre-demo';
+import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDemo.module.css';
-
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
 
 export function SendScreen() {
   const intl = useTranslation();
@@ -46,6 +39,7 @@ export function SendScreen() {
 
   const handleQuickAmount = useCallback(
     (quickAmount: string) => {
+      analyticsService.track({ name: 'pre_demo_send_quick_amount', parameters: { amount: quickAmount } });
       dispatch({ type: 'SET_SEND_AMOUNT', amount: quickAmount });
     },
     [dispatch],
@@ -53,6 +47,7 @@ export function SendScreen() {
 
   const handleRecipientChange = useCallback(
     (handle: string) => {
+      analyticsService.track({ name: 'pre_demo_send_recipient_change', parameters: { recipient: handle } });
       dispatch({ type: 'SET_SELECTED_RECIPIENT', recipient: handle });
     },
     [dispatch],
@@ -116,6 +111,7 @@ export function SendScreen() {
             value={state.selectedRecipient}
             onChange={(e) => handleRecipientChange(e.target.value)}
             className={styles.selectField}
+            aria-label={t('preDemo.send.recipientLabel')}
           >
             {RECIPIENT_OPTIONS.map((recipient) => (
               <option key={recipient.handle} value={recipient.handle}>
@@ -143,6 +139,7 @@ export function SendScreen() {
             onChange={(e) => handleAmountChange(e.target.value)}
             placeholder="0.00"
             className={styles.amountInput}
+            aria-label={t('preDemo.send.amountLabel')}
           />
         </div>
 
@@ -174,7 +171,7 @@ export function SendScreen() {
         {/* They'll receive row */}
         {amount > 0 && !insufficientFunds && (
           <div className={styles.receiveRow}>
-            <span className={styles.receiveLabel}>{intl.formatMessage({ id: 'preDemo.transaction.theyReceive', defaultMessage: "They'll receive" })}</span>
+            <span className={styles.receiveLabel}>{t('preDemo.transaction.theyReceive')}</span>
             <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount)}</span>
           </div>
         )}
