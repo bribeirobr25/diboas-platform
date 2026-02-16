@@ -21,6 +21,12 @@ const nextConfig = {
       'react-intl',
       '@formatjs/intl-localematcher',
       
+      // React Aria (used by @diboas/ui)
+      '@react-aria/button',
+      '@react-aria/focus',
+      '@react-aria/interactions',
+      '@react-aria/utils',
+
       // Our workspace packages
       '@diboas/ui',
       '@diboas/i18n'

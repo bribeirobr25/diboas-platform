@@ -113,6 +113,38 @@ ComponentName/
 - No hardcoded secrets - use environment variables
 - CSRF protection on mutation endpoints
 
+### React Performance Guidelines
+
+Prioritized by real-world impact (ref: Vercel React Best Practices).
+
+#### Already in place (do not regress)
+- **Bundle optimization:** `optimizePackageImports` for 17+ packages, 9-group webpack splitChunks, 300KB asset budget (`next.config.js`)
+- **Analytics deferral:** GA4 `afterInteractive`, PostHog consent-gated lazy init, web-vitals dynamic `import()` with sample rate
+- **Production compiler:** `removeConsole`, `reactRemoveProperties` enabled
+- **SSR-safe localStorage:** All reads wrapped in try-catch inside `useEffect` (never in `useState` initializer for SSR components)
+
+#### Apply now (all new code)
+- **Defer `await` until needed:** Move `await` inside conditional branches — don't block on fetches that may not be used
+- **`Promise.all()` for independent operations:** Never chain sequential `await`s when operations are independent
+- **Lazy `useState` initialization:** Use `useState(() => compute())` when initial value requires computation (parsing, filtering, index building)
+- **Derived state during render:** Compute values from props/state inline — don't store in state or sync via `useEffect`
+- **Functional `setState`:** Use `setState(prev => ...)` when new state depends on previous state
+- **Event handlers over effects:** Run user-triggered side effects in event handlers, not in `useEffect`
+- **Explicit conditional rendering:** Use ternary `condition ? <X /> : null` instead of `&&` to avoid rendering falsy values like `0`
+- **Extract default non-primitive values:** Hoist default objects/functions to module scope (`const NOOP = () => {}`)
+
+#### Apply post-launch (product features)
+- **Strategic Suspense boundaries:** Wrap async data sections to show shell UI while loading
+- **`next/dynamic` with `ssr: false`:** For heavy client-only components (charts, editors, rich text)
+- **Cross-request LRU caching:** For frequently accessed data shared across requests
+- **`React.cache()` for per-request dedup:** Wrap repeated DB queries or auth checks within a single request
+- **`after()` from `next/server`:** Schedule non-blocking work (logging, analytics, email) after response is sent
+- **SWR for client-side data fetching:** Automatic deduplication, caching, and revalidation
+- **`content-visibility: auto`:** For long scrollable lists (transaction history, activity feeds)
+- **`useRef` for transient values:** Store frequently-changing non-UI values (mouse position, intervals) without re-renders
+- **`useTransition` for non-urgent updates:** Mark search filtering, pagination as transitions to keep UI responsive
+- **React Compiler:** When adopted, removes need for manual `useMemo`/`memo`
+
 ## i18n
 
 - Reference locale: `en` (source of truth)
