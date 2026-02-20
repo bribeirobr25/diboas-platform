@@ -7,8 +7,9 @@
  * Flow: disclaimer → welcome → pathSelect → input → timeframe → simulation → results → share
  */
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DreamModeProvider, useDreamMode } from './DreamModeProvider';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import {
   DisclaimerScreen,
   WelcomeScreen,
@@ -50,49 +51,19 @@ function DreamModeContent({ onClose }: { onClose?: () => void }) {
     });
   }, [state.screen]);
 
-  // Focus trap implementation for WCAG 2.2 compliance
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Escape' && onClose) {
-      onClose();
-      return;
-    }
+  // WCAG 2.4.3: Focus trap via shared hook (replaces inline implementation)
+  useFocusTrap(containerRef, true, { returnFocus: true });
 
-    if (e.key !== 'Tab') return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const focusableElements = container.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-
-    if (focusableElements.length === 0) return;
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    if (e.shiftKey && document.activeElement === firstElement) {
-      e.preventDefault();
-      lastElement.focus();
-    } else if (!e.shiftKey && document.activeElement === lastElement) {
-      e.preventDefault();
-      firstElement.focus();
-    }
-  }, [onClose]);
-
-  // Focus first element on mount
+  // Escape key to close
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const focusableElements = container.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-
-    if (focusableElements.length > 0) {
-      focusableElements[0].focus();
-    }
-  }, [state.screen]);
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && onClose) {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   const renderScreen = () => {
     switch (state.screen) {
@@ -124,7 +95,6 @@ function DreamModeContent({ onClose }: { onClose?: () => void }) {
       role="dialog"
       aria-modal="true"
       aria-label="Dream Mode Calculator"
-      onKeyDown={handleKeyDown}
     >
       {/* CLO-required simulation watermark - shows after disclaimer accepted */}
       {state.disclaimerAccepted && <SimulationWatermark />}

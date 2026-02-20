@@ -60,7 +60,7 @@ export function CarouselDots({
     >
       {Array.from({ length: totalSlides }, (_, index) => (
         <button
-          key={index}
+          key={`carousel-dot-${index}`}
           onClick={() => onDotClick(index)}
           className={`${styles.dot} ${index === currentIndex ? styles.dotActive : ''}`}
           aria-label={getAriaLabel(index)}

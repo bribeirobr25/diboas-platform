@@ -54,19 +54,44 @@ export function SocialProofSection({
   const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv());
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch stats from API
+  // Fetch stats from API with sessionStorage cache (5-minute TTL)
   useEffect(() => {
+    const CACHE_KEY = 'diboas-waitlist-stats';
+    const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+    const controller = new AbortController();
+
     async function fetchStats() {
+      // Check cache first
       try {
-        const response = await fetch('/api/waitlist/stats');
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { data, timestamp } = JSON.parse(cached);
+          if (Date.now() - timestamp < CACHE_TTL) {
+            setStats(data);
+            setIsLoading(false);
+            return;
+          }
+        }
+      } catch {
+        // Cache read failed — continue to fetch
+      }
+
+      try {
+        const response = await fetch('/api/waitlist/stats', { signal: controller.signal });
         if (response.ok) {
           const data = await response.json();
-          setStats({
-            count: data.count,
-            countries: data.countries,
-          });
+          const statsData = { count: data.count, countries: data.countries };
+          setStats(statsData);
+
+          // Write to cache
+          try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: statsData, timestamp: Date.now() }));
+          } catch {
+            // sessionStorage full or unavailable
+          }
         }
-      } catch (error) {
+      } catch {
         // Keep fallback values on error
       } finally {
         setIsLoading(false);
@@ -74,6 +99,8 @@ export function SocialProofSection({
     }
 
     fetchStats();
+
+    return () => controller.abort();
   }, []);
 
   // Translation helper with rich text support for highlighting numbers

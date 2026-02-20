@@ -42,11 +42,15 @@ export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
     async function checkConsent() {
       const stored = getStoredConsent();
 
       if (!stored) {
         const apiConsent = await checkConsentFromApi();
+        if (!mounted) return;
 
         if (apiConsent) {
           const localConsent = createConsentValue(apiConsent.analytics);
@@ -54,19 +58,32 @@ export function CookieConsent() {
           return;
         }
 
-        setTimeout(() => {
+        timers.push(setTimeout(() => {
+          if (!mounted) return;
           setShowBanner(true);
-          setTimeout(() => setIsVisible(true), 100);
-        }, 1500);
+          timers.push(setTimeout(() => {
+            if (!mounted) return;
+            setIsVisible(true);
+          }, 100));
+        }, 1500));
       } else {
         if (!isConsentVersionCurrent(stored)) {
+          if (!mounted) return;
           setShowBanner(true);
-          setTimeout(() => setIsVisible(true), 100);
+          timers.push(setTimeout(() => {
+            if (!mounted) return;
+            setIsVisible(true);
+          }, 100));
         }
       }
     }
 
     checkConsent();
+
+    return () => {
+      mounted = false;
+      timers.forEach(clearTimeout);
+    };
   }, []);
 
   const handleAccept = async () => {

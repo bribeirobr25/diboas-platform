@@ -9,7 +9,8 @@
     "emailLabel": "Endereço de e-mail",
     "cta": "Acesse agora →",
     "submitting": "Entrando...",
-    "privacyNote": "A gente só manda email sobre o diBoaS. Cancela quando quiser."
+    "privacyNote": "A gente só manda email sobre o diBoaS. Cancela quando quiser.",
+    "legendText": "Cadastro na lista de espera"
   },
   "error": {
     "generic": "Algo deu errado. Tenta de novo.",

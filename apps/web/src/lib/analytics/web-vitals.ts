@@ -12,8 +12,10 @@ import { WEB_VITALS_THRESHOLDS, evaluatePerformance } from '@/config/performance
  * Initialize Web Vitals tracking
  * Performance: Automatic Core Web Vitals monitoring
  */
-export function initializeWebVitals(): void {
-  if (typeof window === 'undefined') return;
+export function initializeWebVitals(): (() => void) | undefined {
+  if (typeof window === 'undefined') return undefined;
+
+  let beforeUnloadHandler: (() => void) | null = null;
 
   // Dynamic import to avoid SSR issues
   import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
@@ -53,15 +55,23 @@ export function initializeWebVitals(): void {
     }
 
     // Send remaining vitals on page unload
-    window.addEventListener('beforeunload', () => {
+    beforeUnloadHandler = () => {
       if (vitalsQueue.length > 0) {
         analyticsService.trackPerformance([...vitalsQueue]);
       }
-    });
+    };
+    window.addEventListener('beforeunload', beforeUnloadHandler);
 
   }).catch(error => {
     Logger.warn('Failed to load web-vitals library:', error);
   });
+
+  // Return cleanup function
+  return () => {
+    if (beforeUnloadHandler) {
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    }
+  };
 }
 
 /**

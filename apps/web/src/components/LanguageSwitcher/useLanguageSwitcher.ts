@@ -37,11 +37,14 @@ export function useLanguageSwitcher(): UseLanguageSwitcherReturn {
     }
   }, [isOpen]);
 
-  // Close dropdown on escape key
+  // Close dropdown on escape key and return focus to trigger
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
         setIsOpen(false);
+        // Return focus to the trigger button within the dropdown container
+        const triggerButton = dropdownRef.current?.querySelector<HTMLElement>('button');
+        triggerButton?.focus();
       }
     };
 

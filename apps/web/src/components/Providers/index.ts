@@ -9,3 +9,4 @@ export { I18nProvider } from './I18nProvider';
 export { LocaleProvider, useLocale } from './LocaleProvider';
 export { PageI18nProvider } from './PageI18nProvider';
 export { PostHogProvider } from './PostHogProvider';
+export { SetHtmlLang } from './SetHtmlLang';

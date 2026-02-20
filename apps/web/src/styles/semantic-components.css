@@ -552,7 +552,7 @@ a:focus-visible {
 }
 
 .mobile-main-menu-icon {
-  @apply text-gray-400 w-6 h-6;
+  @apply text-gray-500 w-6 h-6;
 }
 
 .mobile-menu-description-text {

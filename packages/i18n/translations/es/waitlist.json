@@ -9,7 +9,8 @@
     "emailLabel": "Dirección de correo electrónico",
     "cta": "Accede ahora →",
     "submitting": "Uniéndose...",
-    "privacyNote": "Solo te enviaremos emails sobre diBoaS. Cancela cuando quieras."
+    "privacyNote": "Solo te enviaremos emails sobre diBoaS. Cancela cuando quieras.",
+    "legendText": "Registro en la lista de espera"
   },
   "error": {
     "generic": "Algo salió mal. Intenta de nuevo.",

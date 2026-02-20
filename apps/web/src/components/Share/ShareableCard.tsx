@@ -109,7 +109,7 @@ export function ShareableCard({
           <span className={styles.errorIcon}>!</span>
           <span className={styles.errorText}>{error}</span>
           {onRetry && (
-            <button className={styles.retryButton} onClick={onRetry}>
+            <button className={styles.retryButton} onClick={onRetry} aria-label="Retry generating card">
               {intl.formatMessage({ id: 'common.share.retry' }, { defaultMessage: 'Try Again' })}
             </button>
           )}

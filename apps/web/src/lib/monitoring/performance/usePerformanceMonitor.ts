@@ -50,9 +50,7 @@ export function usePerformanceMonitor(config: PerformanceMonitorConfig): Perform
     if (!enableMemoryMonitoring) return undefined;
 
     try {
-      // @ts-expect-error - performance.memory is a Chrome-specific API
       if (performance.memory) {
-        // @ts-expect-error - usedJSHeapSize is Chrome-specific
         return performance.memory.usedJSHeapSize;
       }
     } catch (error) {
@@ -276,6 +274,8 @@ export function usePerformanceMonitor(config: PerformanceMonitorConfig): Perform
     return 0;
   }, [recordMetric, sectionId, componentName]);
 
+  // Intentionally runs on every render to track render count
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     updateCount.current += 1;
     renderStartTime.current = performance.now();

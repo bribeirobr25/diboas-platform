@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
@@ -53,11 +54,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const nonce = headersList.get('x-nonce') ?? undefined;
+
   return (
     <html lang={UI_LAYOUT_CONSTANTS.DEFAULT_LOCALE} suppressHydrationWarning>
       <head>
@@ -69,6 +73,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.diboas.com" />
         <script
           type="application/ld+json"
+          nonce={nonce}
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
@@ -82,8 +88,11 @@ export default function RootLayout({
         {/* Google Analytics 4 with Consent Mode */}
         {GA_MEASUREMENT_ID && (
           <>
-            <Script id="gtag-consent-default" strategy="beforeInteractive">
-              {`
+            <script
+              nonce={nonce}
+              suppressHydrationWarning
+              dangerouslySetInnerHTML={{
+                __html: `
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
 
@@ -110,13 +119,15 @@ export default function RootLayout({
                     gtag('consent', 'update', { 'analytics_storage': 'denied' });
                   }
                 });
-              `}
-            </Script>
+              `,
+              }}
+            />
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
               strategy="afterInteractive"
+              nonce={nonce}
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
               {`
                 gtag('js', new Date());
                 gtag('config', '${GA_MEASUREMENT_ID}');

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { LocaleProvider, I18nProvider } from '@/components/Providers';
+import { LocaleProvider, I18nProvider, SetHtmlLang } from '@/components/Providers';
 import { Navigation } from '@/components/Layout/Navigation';
 import { SiteFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
@@ -47,6 +47,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
   return (
     <LocaleProvider initialLocale={locale}>
       <I18nProvider locale={locale} messages={allMessages}>
+        <SetHtmlLang locale={locale} />
         <PageErrorBoundary>
           <WaitingListProvider>
             <div className="min-h-screen flex flex-col">

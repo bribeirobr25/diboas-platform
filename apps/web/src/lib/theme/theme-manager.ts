@@ -67,6 +67,9 @@ export class ThemeManager {
   private listeners: Set<(event: ThemeChangeEvent) => void> = new Set();
   private mediaQueries: { [key: string]: MediaQueryList } = {};
 
+  // Store bound handler for proper cleanup in destroy()
+  private boundHandleSystemPreferenceChange = () => this.handleSystemPreferenceChange();
+
   private constructor() {
     this.currentState = this.initializeState();
     this.setupMediaQueryListeners();
@@ -128,13 +131,13 @@ export class ThemeManager {
 
     try {
       this.mediaQueries.colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
-      this.mediaQueries.colorScheme.addEventListener('change', this.handleSystemPreferenceChange.bind(this));
+      this.mediaQueries.colorScheme.addEventListener('change', this.boundHandleSystemPreferenceChange);
 
       this.mediaQueries.contrast = window.matchMedia('(prefers-contrast: high)');
-      this.mediaQueries.contrast.addEventListener('change', this.handleSystemPreferenceChange.bind(this));
+      this.mediaQueries.contrast.addEventListener('change', this.boundHandleSystemPreferenceChange);
 
       this.mediaQueries.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      this.mediaQueries.reducedMotion.addEventListener('change', this.handleSystemPreferenceChange.bind(this));
+      this.mediaQueries.reducedMotion.addEventListener('change', this.boundHandleSystemPreferenceChange);
 
     } catch (error) {
       Logger.warn('Failed to setup media query listeners', { error });
@@ -402,7 +405,7 @@ export class ThemeManager {
   public destroy(): void {
     try {
       Object.values(this.mediaQueries).forEach(mq => {
-        mq.removeEventListener('change', this.handleSystemPreferenceChange.bind(this));
+        mq.removeEventListener('change', this.boundHandleSystemPreferenceChange);
       });
 
       this.listeners.clear();

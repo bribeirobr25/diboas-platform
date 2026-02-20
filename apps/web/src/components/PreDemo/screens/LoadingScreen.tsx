@@ -55,7 +55,7 @@ export function LoadingScreen({ title, subtitle, checkmarks, showAvatar = false 
             <div className={styles.checkmarkList}>
               {checkmarks.map((step, index) => (
                 <div
-                  key={index}
+                  key={step}
                   className={`${styles.checkmarkItem} ${index < visibleCount ? styles.checkmarkVisible : styles.checkmarkHidden}`}
                 >
                   <span className={styles.checkmarkIcon}>

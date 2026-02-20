@@ -21,17 +21,13 @@ export function HomeScreen() {
 
       <div className={styles.screenContent}>
         {/* Balance card - clickable to wallet details */}
-        <div
+        <button
+          type="button"
           onClick={() => setScreen('wallet-details')}
           className={styles.clickable}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') setScreen('wallet-details');
-          }}
         >
           <BalanceCard />
-        </div>
+        </button>
 
         {/* Quick actions */}
         <QuickActions />

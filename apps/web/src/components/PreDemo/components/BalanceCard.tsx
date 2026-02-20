@@ -66,19 +66,12 @@ export function BalanceCard({ compact, showTapToView = true }: BalanceCardProps)
         <div className={styles.balanceBreakdownItem}>
           <span className={styles.balanceBreakdownLabel}>
             {totalInvestments > 0 ? (
-              <span
+              <button
+                type="button"
                 className={styles.investmentsRow}
                 onClick={(e) => {
                   e.stopPropagation();
                   setInvestmentsExpanded(!investmentsExpanded);
-                }}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.stopPropagation();
-                    setInvestmentsExpanded(!investmentsExpanded);
-                  }
                 }}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8, marginRight: 4, flexShrink: 0 }}>
@@ -91,7 +84,7 @@ export function BalanceCard({ compact, showTapToView = true }: BalanceCardProps)
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </span>
-              </span>
+              </button>
             ) : (
               <>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8, marginRight: 4, flexShrink: 0 }}>

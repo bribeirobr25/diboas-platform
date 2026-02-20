@@ -6,6 +6,7 @@
  * Sticky header with logo image + text, amber "Demo" badge, user avatar, and exit button
  */
 
+import Image from 'next/image';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
 import styles from '../PreDemo.module.css';
@@ -29,10 +30,11 @@ export function DemoHeader({ showAvatar = true }: DemoHeaderProps) {
             className={styles.demoHeaderLogoButton}
             onClick={onExit}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/assets/logos/logo-icon.avif"
               alt="diBoaS"
+              width={24}
+              height={24}
               className={styles.demoHeaderLogoImage}
             />
             <span className={styles.demoHeaderLogo}>diBoaS</span>

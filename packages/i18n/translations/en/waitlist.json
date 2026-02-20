@@ -9,7 +9,8 @@
     "emailLabel": "Email address",
     "cta": "Get access →",
     "submitting": "Joining...",
-    "privacyNote": "We'll only email you about diBoaS. Unsubscribe anytime."
+    "privacyNote": "We'll only email you about diBoaS. Unsubscribe anytime.",
+    "legendText": "Waitlist signup"
   },
   "error": {
     "generic": "Something went wrong. Please try again.",

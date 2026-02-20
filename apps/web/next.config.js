@@ -80,16 +80,10 @@ const nextConfig = {
     ]
   },
 
-  // Security headers with CSP and asset optimization
+  // Security headers (CSP is handled per-request in middleware.ts with nonces)
   async headers() {
     const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-    
-    // CSP configuration inline to avoid module loading issues
-    // GDPR Compliant: Google Fonts removed - using next/font/google for self-hosted fonts
-    const csp = environment === 'production'
-      ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com; font-src 'self' data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com"
-      : "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://nextjs.org; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com http://localhost:* https://localhost:*; font-src 'self' data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com";
-    
+
     // Asset optimization headers
     const maxAge = environment === 'production' ? 31536000 : 3600;
     const assetHeaders = [
@@ -121,16 +115,12 @@ const nextConfig = {
         ]
       }
     ];
-    
+
     return [
-      // Security headers for all routes
+      // Security headers for all routes (CSP excluded — set in middleware with nonce)
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: csp,
-          },
           {
             key: 'X-Frame-Options',
             value: 'DENY',

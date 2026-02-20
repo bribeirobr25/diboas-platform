@@ -9,7 +9,8 @@
     "emailLabel": "E-Mail-Adresse",
     "cta": "Jetzt Zugang erhalten →",
     "submitting": "Wird hinzugefügt...",
-    "privacyNote": "Wir senden Ihnen nur E-Mails über diBoaS. Jederzeit abmeldbar."
+    "privacyNote": "Wir senden Ihnen nur E-Mails über diBoaS. Jederzeit abmeldbar.",
+    "legendText": "Anmeldung zur Warteliste"
   },
   "error": {
     "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",

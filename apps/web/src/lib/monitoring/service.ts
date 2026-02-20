@@ -7,6 +7,7 @@
 import { Logger } from '@/lib/monitoring/Logger';
 import { MonitoringService, ErrorEvent, PerformanceIssue, SecurityEvent, MonitoringConfig } from './types';
 import { MONITORING_DEFAULTS } from './constants';
+import { errorReportingService } from '@/lib/errors/ErrorReportingService';
 
 class MonitoringServiceImpl implements MonitoringService {
   private config: MonitoringConfig;
@@ -16,6 +17,41 @@ class MonitoringServiceImpl implements MonitoringService {
   private userContext: Record<string, unknown> = {};
   private globalContext: Record<string, unknown> = {};
   private flushTimer?: NodeJS.Timeout;
+
+  // Store bound handlers for proper cleanup
+  // Single coordinator pattern: track locally then delegate to ErrorReportingService
+  private boundHandleError = (event: globalThis.ErrorEvent) => {
+    const error = event.error instanceof Error ? event.error : new Error(event.message);
+    this.trackError(error, {
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+      type: 'unhandled_error'
+    });
+    errorReportingService.handleError(error);
+  };
+  private boundHandleRejection = (event: PromiseRejectionEvent) => {
+    const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+    this.trackError(error, {
+      type: 'unhandled_promise_rejection'
+    });
+    errorReportingService.handleError(error);
+  };
+  private boundHandleCspViolation = (event: SecurityPolicyViolationEvent) => {
+    this.trackSecurityEvent({
+      id: this.generateId(),
+      type: 'csp_violation',
+      description: `CSP violation: ${event.violatedDirective}`,
+      url: event.documentURI,
+      timestamp: Date.now(),
+      severity: 'medium',
+      metadata: {
+        blockedURI: event.blockedURI,
+        violatedDirective: event.violatedDirective,
+        originalPolicy: event.originalPolicy
+      }
+    });
+  };
 
   constructor(config: MonitoringConfig = MONITORING_DEFAULTS) {
     this.config = config;
@@ -148,39 +184,9 @@ class MonitoringServiceImpl implements MonitoringService {
   private initializeGlobalHandlers(): void {
     if (typeof window === 'undefined') return;
 
-    // Handle unhandled errors
-    window.addEventListener('error', (event) => {
-      this.trackError(new Error(event.message), {
-        filename: event.filename,
-        lineno: event.lineno,
-        colno: event.colno,
-        type: 'unhandled_error'
-      });
-    });
-
-    // Handle unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
-      this.trackError(new Error(`Unhandled Promise Rejection: ${event.reason}`), {
-        type: 'unhandled_promise_rejection'
-      });
-    });
-
-    // Handle CSP violations
-    window.addEventListener('securitypolicyviolation', (event) => {
-      this.trackSecurityEvent({
-        id: this.generateId(),
-        type: 'csp_violation',
-        description: `CSP violation: ${event.violatedDirective}`,
-        url: event.documentURI,
-        timestamp: Date.now(),
-        severity: 'medium',
-        metadata: {
-          blockedURI: event.blockedURI,
-          violatedDirective: event.violatedDirective,
-          originalPolicy: event.originalPolicy
-        }
-      });
-    });
+    window.addEventListener('error', this.boundHandleError);
+    window.addEventListener('unhandledrejection', this.boundHandleRejection);
+    window.addEventListener('securitypolicyviolation', this.boundHandleCspViolation);
   }
 
   /**
@@ -287,6 +293,14 @@ class MonitoringServiceImpl implements MonitoringService {
     if (this.flushTimer) {
       clearInterval(this.flushTimer);
     }
+
+    // Remove global handlers
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('error', this.boundHandleError);
+      window.removeEventListener('unhandledrejection', this.boundHandleRejection);
+      window.removeEventListener('securitypolicyviolation', this.boundHandleCspViolation);
+    }
+
     this.flush(); // Final flush
   }
 }

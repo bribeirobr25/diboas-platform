@@ -109,9 +109,11 @@ ComponentName/
 - All user input sanitized with DOMPurify
 - API routes require rate limiting (Upstash Redis)
 - PII encrypted with AES-256-GCM
-- CSP headers configured in next.config.js
+- CSP: Nonce-based CSP generated per-request in `middleware.ts` (`'unsafe-inline'` prohibited for scripts)
 - No hardcoded secrets - use environment variables
 - CSRF protection on mutation endpoints
+- Analytics libraries: lazy-loaded behind consent check via dynamic `import()` (never static import)
+- PostHog: never imported at module level; use `import('posthog-js')` after consent
 
 ### React Performance Guidelines
 
@@ -173,3 +175,96 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 - `apps/web` depends on `@diboas/i18n` and `@diboas/ui`
 - `@diboas/i18n` must be built before `apps/web` dev/build (`pnpm dev:fresh` handles this)
 - Turborepo handles build ordering via `turbo.json` task dependencies
+
+## 12 Principles of Excellence
+
+Condensed reference from `docs/coding-standards.md`:
+
+1. **Domain-Driven Design** — Organize around business domains, clear boundaries, events for cross-domain
+2. **Event-Driven Architecture** — All state changes emit events (eventId, type, timestamp, correlationId)
+3. **Service Agnostic Abstraction** — Interface-based, swappable providers, factory pattern
+4. **Code Reusability & DRY** — Write once, shared packages, no duplication
+5. **Semantic Naming** — [Domain][Entity][Action]Service, SCREAMING_SNAKE_CASE constants
+6. **File Decoupling** — Single responsibility, Services ≤200 lines, Components ≤150, Utils ≤100
+7. **Error Handling & Recovery** — Never crash, retry with backoff, circuit breakers, fallbacks
+8. **Security & Audit** — Input validation, output encoding, rate limiting, encryption, PII masking
+9. **Performance & SEO** — Code splitting, lazy loading, LCP <2.5s, FID <100ms, CLS <0.1
+10. **Product KPIs & Analytics** — Track interactions, enrich with context, conversion funnels
+11. **Concurrency & Race Conditions** — Locks, optimistic locking, queues, idempotency
+12. **Monitoring & Observability** — Tracing, structured logging, health checks, Sentry
+
+## Race Condition & Async Patterns
+
+- Every `useEffect` with timers → store IDs, clear in cleanup
+- Every `useEffect` with async → use `mounted` flag or `AbortController`
+- Every `addEventListener` → corresponding `removeEventListener` in cleanup
+- Use refs (not state) for values that should not trigger re-renders
+- Service classes with global listeners → store bound references, remove in `destroy()`
+- Never include state-setter output in same effect's dependency array if the effect sets that state
+
+## Accessibility Standards
+
+- WCAG 2.1 AA minimum compliance
+- All interactive elements: native `<button>` or `<a>` (never `div role="button"`)
+- All modals/dialogs: use `useFocusTrap` hook with `returnFocus: true`
+- Minimum contrast: 4.5:1 for text, 3:1 for UI components — use `text-gray-500` minimum
+- Form groups: `<fieldset>` + `<legend>` for screen readers
+- Dropdowns: handle Escape key, return focus to trigger
+- Reduced motion: all animations must respect `prefers-reduced-motion`
+- Skip navigation link required on all page layouts
+
+## Error Handling Patterns
+
+- Error boundaries: 3 layers — Root (`global-error.tsx`) > Route group (`(marketing)/error.tsx`, `(landing)/error.tsx`) > Page
+- Loading states: `loading.tsx` in every route group for Suspense
+- API calls: use `fetchWithRetry` for user-facing operations (2 retries, exponential backoff)
+- Third-party scripts: always dynamic `import()` with fallback (never static import for analytics)
+- Global error handlers: single coordinator pattern — MonitoringService registers, delegates to ErrorReportingService
+
+## Testing Requirements
+
+- 80% coverage minimum for `lib/`, `hooks/`
+- 60% coverage minimum for components
+- 100% for security utilities
+- Naming: `should [expected behavior] when [condition]`
+- Required: hooks with async behavior, error handlers, security utilities, API routes
+- Tools: Vitest + @testing-library/react
+- Environment: node (default); add jsdom as dev dependency for DOM-based component tests
+
+## Audit Tracker
+
+| ID | Phase | Finding | Status |
+|----|-------|---------|--------|
+| 1 | 1 | CookieConsent setTimeout cleanup | Done |
+| 2 | 1 | CalEmbed script listener cleanup | Done |
+| 3 | 1 | ErrorReportingService bound handler cleanup | Done |
+| 4 | 1 | MonitoringService bound handler cleanup | Done |
+| 5 | 1 | ThemeManager bound handler cleanup | Done |
+| 6 | 1 | web-vitals beforeunload cleanup | Done |
+| 7 | 1 | ShareModal isRendering race condition | Done |
+| 8 | 1 | PostHogProvider isInitialized race condition | Done |
+| 9 | 2 | CSP nonce-based in middleware | Done |
+| 10 | 2 | PostHog lazy-load behind consent | Done |
+| 11 | 3 | Route group loading.tsx files | Done |
+| 12 | 3 | Route group error.tsx files | Done |
+| 13 | 3 | fetchWithRetry utility + useWaitlistForm | Done |
+| 14 | 3 | Deduplicate global error handlers | Done |
+| 15 | 4 | DreamMode useFocusTrap | Done |
+| 16 | 4 | Native buttons (HomeScreen, BalanceCard) | Done |
+| 17 | 4 | Aria labels (ShareableCard, InputScreen) | Done |
+| 18 | 4 | LanguageSwitcher escape focus return | Done |
+| 19 | 4 | WCAG AA contrast (text-gray-500) | Done |
+| 20 | 4 | WaitlistForm fieldset + legend | Done |
+| 21 | 4 | MobileNav useFocusTrap | Done |
+| 22 | 5 | Remove 'use client' from SectionContainer | Done |
+| 23 | 5 | Dynamic imports (DreamMode, PreDemo) | Done |
+| 24 | 5 | SocialProofSection sessionStorage cache | Done |
+| 25 | 5 | next/image for PreDemo logos | Done |
+| 26 | 5 | logo-icon.png compression | Open |
+| 27 | 6 | usePerformanceMonitor useEffect deps comment | Done |
+| 28 | 6 | Stable keys (CarouselDots, LoadingScreen) | Done |
+| 29 | 6 | Typed gtag + PerformanceMemory interface | Done |
+| 30 | 6 | usePerformanceMonitor @ts-expect-error removal | Done |
+| 31 | 6 | Extract ChainIcons from WalletDetailsScreen | Done |
+| 32 | 6 | CSS module classes for inline styles | Done |
+| 33 | 8 | SetHtmlLang component for locale | Done |

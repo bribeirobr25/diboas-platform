@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef } from 'react';
+import Image from 'next/image';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
@@ -38,24 +39,25 @@ export function LoginScreen({ onExit }: { onExit?: () => void }) {
     <div className={styles.screen}>
       <DemoHeader showAvatar={false} />
 
-      <div className={styles.screenCenter} style={{ flex: 1, minHeight: 0 }}>
-        <div className={styles.screenCard} style={{ maxWidth: 384 }}>
+      <div className={`${styles.screenCenter} ${styles.screenCenterFlex}`}>
+        <div className={`${styles.screenCard} ${styles.screenCardNarrow}`}>
           {/* Logo */}
           <div className={styles.logoCircle}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/assets/logos/logo-icon.avif"
               alt="diBoaS"
+              width={48}
+              height={48}
               className={styles.logoImage}
             />
           </div>
 
           {/* Title + Subtitle with reduced gap */}
-          <div style={{ textAlign: 'center' }}>
+          <div className={styles.textCenter}>
             <h1 className={styles.screenTitle}>
               {t('preDemo.login.title')}
             </h1>
-            <p className={styles.screenSubtitle} style={{ marginTop: 4 }}>
+            <p className={`${styles.screenSubtitle} ${styles.subtitleClose}`}>
               {t('preDemo.login.subtitle')}
             </p>
           </div>

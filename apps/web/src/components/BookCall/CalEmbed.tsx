@@ -57,6 +57,8 @@ export function CalEmbed({
       return;
     }
 
+    const abortController = new AbortController();
+
     // Load Cal.com embed script
     const loadCalScript = () => {
       return new Promise<void>((resolve, reject) => {
@@ -69,7 +71,7 @@ export function CalEmbed({
         // Check if script is already in DOM
         const existingScript = document.querySelector(`script[src="${CAL_EMBED_SCRIPT}"]`);
         if (existingScript) {
-          existingScript.addEventListener('load', () => resolve());
+          existingScript.addEventListener('load', () => resolve(), { once: true });
           return;
         }
 
@@ -86,6 +88,7 @@ export function CalEmbed({
     const initializeEmbed = async () => {
       try {
         await loadCalScript();
+        if (abortController.signal.aborted) return;
 
         // Initialize Cal embed
         if (window.Cal && containerRef.current) {
@@ -124,16 +127,23 @@ export function CalEmbed({
             },
           });
 
-          setIsLoaded(true);
-          onLoad?.();
+          if (!abortController.signal.aborted) {
+            setIsLoaded(true);
+            onLoad?.();
+          }
         }
       } catch (err) {
-        // Cal.com initialization failed;
-        setError(err instanceof Error ? err.message : 'Failed to load calendar');
+        if (!abortController.signal.aborted) {
+          setError(err instanceof Error ? err.message : 'Failed to load calendar');
+        }
       }
     };
 
     initializeEmbed();
+
+    return () => {
+      abortController.abort();
+    };
   }, [calLink, config, onBookingComplete, onLoad]);
 
   // Error state
