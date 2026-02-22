@@ -23,7 +23,7 @@
   },
   "pathSelect": {
     "title": "¿Qué tanto riesgo te acomoda?",
-    "subtitle": "No hay respuesta incorrecta — solo caminos diferentes.",
+    "subtitle": "No hay respuesta incorrecta, solo caminos diferentes.",
     "back": "Volver",
     "paths": {
       "safety": {
@@ -86,7 +86,7 @@
     "differenceSubtext": "El mismo dinero. Diferente lugar. Gran diferencia.",
     "shareTitle": "Compartir mi sueño",
     "shareCopied": "¡Copiado!",
-    "shareText": "Tienes que ver esto. Rendimientos de nivel institucional, por fin accesibles. Mis {start} se convierten en {end}. Pruébalo tú mismo:",
+    "shareText": "Mi simulación en Dream Mode convertiría {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo tú mismo:",
     "bankSource": "Basado en una tasa de ahorro promedio de {rate}%. Fuente: Promedio Nacional FDIC, enero 2026.",
     "tryDifferent": "Probar Otros Números",
     "backToHome": "Volver al Inicio"

@@ -14,12 +14,17 @@ import {
   RECIPIENT_OPTIONS,
   formatCurrency,
 } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
+import { getCurrencyForLocale, getCurrencySymbol } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDemo.module.css';
 
 export function SendScreen() {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
+
+  const { locale } = useLocale();
+  const currencySymbol = getCurrencySymbol(getCurrencyForLocale(locale));
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
@@ -131,7 +136,7 @@ export function SendScreen() {
 
         {/* Amount input */}
         <div className={styles.amountInputContainer}>
-          <span className={styles.amountPrefix}>$</span>
+          <span className={styles.amountPrefix}>{currencySymbol}</span>
           <input
             type="text"
             inputMode="decimal"
@@ -160,7 +165,7 @@ export function SendScreen() {
                 state.sendAmount === qa ? styles.quickAmountActive : ''
               }`}
             >
-              ${qa}
+              {currencySymbol}{qa}
             </button>
           ))}
         </div>
@@ -172,7 +177,7 @@ export function SendScreen() {
         {amount > 0 && !insufficientFunds && (
           <div className={styles.receiveRow}>
             <span className={styles.receiveLabel}>{t('preDemo.transaction.theyReceive')}</span>
-            <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount)}</span>
+            <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount, 2, locale)}</span>
           </div>
         )}
 

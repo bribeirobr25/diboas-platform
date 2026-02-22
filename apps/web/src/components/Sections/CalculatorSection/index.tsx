@@ -7,10 +7,13 @@
 
 'use client';
 
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { useLocale } from '@/components/Providers';
 import { SectionContainer } from '../SectionContainer/SectionContainer';
 import { FutureYouCalculator } from '@/components/FutureYouCalculator';
+import { getLocaleConfig } from '@/lib/calculator';
+import { getCurrencySymbol } from '@/config/formats';
 import styles from './CalculatorSection.module.css';
 
 interface CalculatorSectionConfig {
@@ -30,6 +33,8 @@ export const CalculatorSection = memo(function CalculatorSection({
   onCtaClick,
 }: CalculatorSectionProps) {
   const intl = useTranslation();
+  const { locale } = useLocale();
+  const currencySymbol = useMemo(() => getCurrencySymbol(getLocaleConfig(locale).currency), [locale]);
 
   const handleCtaClick = useCallback(() => {
     // Scroll to waitlist section
@@ -46,7 +51,7 @@ export const CalculatorSection = memo(function CalculatorSection({
       variant="standard"
       padding="standard"
       backgroundColor={config?.backgroundColor}
-      ariaLabel={intl.formatMessage({ id: 'calculator.headline' })}
+      ariaLabel={intl.formatMessage({ id: 'calculator.headline' }, { currency: currencySymbol })}
       data-testid={config?.sectionId || 'calculator-section'}
     >
       <div className={styles.wrapper}>

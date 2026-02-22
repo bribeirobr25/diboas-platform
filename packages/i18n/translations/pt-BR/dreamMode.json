@@ -13,7 +13,7 @@
       "us": "IMPORTANTE: Esta projeção é apenas para fins educacionais. Não constitui oferta de valores mobiliários, aconselhamento financeiro ou recomendação de compra ou venda. Resultados reais podem variar significativamente. Desempenho passado não garante resultados futuros.",
       "brazil": "PROJEÇÃO EDUCACIONAL - Este recurso utiliza dados históricos apenas para fins ilustrativos. Não constitui oferta de investimento, promessa de retorno ou aconselhamento financeiro. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil (BCB). Rendimentos passados não garantem resultados futuros."
     },
-    "card": "PROJEÇÃO — Baseado em dados históricos. Sem garantia. diboas.com"
+    "card": "PROJEÇÃO. Baseado em dados históricos. Sem garantia. diboas.com"
   },
   "watermark": "PROJEÇÃO",
   "paths": {
@@ -118,7 +118,7 @@
       "5years": "em 5 anos"
     },
     "shareYourDream": "Compartilhar meu sonho",
-    "shareText": "Você precisa ver isso. O que os bancos guardam pra eles, finalmente aberto. E em dólares. Meus R${start} viram R${end}. E ainda perde pro dólar. Vem testar: ",
+    "shareText": "Você precisa ver isso. O que os bancos guardam pra eles, finalmente aberto. E em dólares. Meus {start} viram {end}. E ainda perde pro dólar. Vem testar: ",
     "joinWaitlist": "Entrar na Lista de Espera",
     "tryAgain": "Tentar com Outros Valores",
     "disclaimer": "Projeção baseada em dados históricos. Desempenho passado não garante resultados futuros."

@@ -9,6 +9,7 @@
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
 import { formatCurrency } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
 import styles from '../PreDemo.module.css';
 
 /** SVG icons for activity types */
@@ -43,6 +44,7 @@ function ActivityTypeIcon({ type }: { type: string }) {
 export function ActivityFeed() {
   const intl = useTranslation();
   const { state } = usePreDemo();
+  const { locale } = useLocale();
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
@@ -105,7 +107,7 @@ export function ActivityFeed() {
                 }`}
               >
                 {tx.type === 'deposit' ? '+' : '-'}
-                {formatCurrency(tx.amount)}
+                {formatCurrency(tx.amount, 2, locale)}
               </span>
             </div>
           </div>

@@ -11,10 +11,51 @@
 
 'use client';
 
-import { useState, useCallback, useEffect, useRef, KeyboardEvent } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo, KeyboardEvent } from 'react';
+import DOMPurify from 'dompurify';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import type { FAQAccordionVariantProps } from '../types';
 import styles from './FAQAccordionDefault.module.css';
+
+const HTML_TAG_REGEX = /<[a-z][\s\S]*>/i;
+
+/**
+ * FAQ Answer renderer with HTML support
+ * Detects HTML tags and renders safely via DOMPurify
+ * Falls back to multi-paragraph plain text rendering
+ */
+function FAQAnswer({ answer, className }: { answer: string; className: string }) {
+  const containsHtml = useMemo(() => HTML_TAG_REGEX.test(answer), [answer]);
+
+  if (containsHtml) {
+    const sanitized = DOMPurify.sanitize(answer, {
+      ALLOWED_TAGS: ['strong', 'em', 'br', 'p', 'a', 'ul', 'li', 'ol'],
+      ALLOWED_ATTR: ['href', 'target', 'rel'],
+    });
+    return (
+      <div
+        className={className}
+        dangerouslySetInnerHTML={{ __html: sanitized }}
+      />
+    );
+  }
+
+  // Plain text with paragraph splitting
+  const paragraphs = answer.split('\n\n');
+  if (paragraphs.length > 1) {
+    return (
+      <div className={className}>
+        {paragraphs.map((p, i) => (
+          <p key={i} style={{ marginBottom: i < paragraphs.length - 1 ? '0.75em' : 0 }}>
+            {p}
+          </p>
+        ))}
+      </div>
+    );
+  }
+
+  return <div className={className}>{answer}</div>;
+}
 
 /**
  * Note: Config values are pre-translated by the factory using useConfigTranslation.
@@ -137,9 +178,11 @@ export function FAQAccordionDefault({
           <h2 id="faq-heading" className={styles.heading}>
             {config.content.title}
           </h2>
-          <p className={styles.description}>
-            {config.content.description}
-          </p>
+          {config.content.description ? (
+            <p className={styles.description}>
+              {config.content.description}
+            </p>
+          ) : null}
         </div>
 
         {/* Right Panel: Accordion Items */}
@@ -196,9 +239,7 @@ export function FAQAccordionDefault({
                   aria-labelledby={`faq-header-${item.id}`}
                   hidden={!isExpanded}
                 >
-                  <div className={styles.answer}>
-                    {item.answer}
-                  </div>
+                  <FAQAnswer answer={item.answer} className={styles.answer} />
                 </div>
               </div>
             );

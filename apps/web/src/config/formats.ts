@@ -94,6 +94,42 @@ export const NUMBER_FORMATS = {
 } as const;
 
 /**
+ * Locale → currency mapping
+ * EN (US) → USD, DE/ES (EU) → EUR, PT-BR (Brazil) → BRL
+ */
+export const LOCALE_CURRENCY_MAP: Record<SupportedLocale, string> = {
+  'en': 'USD',
+  'de': 'EUR',
+  'es': 'EUR',
+  'pt-BR': 'BRL',
+} as const;
+
+/**
+ * Locale → Intl locale string mapping
+ * Maps our SupportedLocale to the BCP 47 locale tag used by Intl.NumberFormat
+ */
+export const LOCALE_INTL_MAP: Record<SupportedLocale, string> = {
+  'en': 'en-US',
+  'de': 'de-DE',
+  'es': 'es-ES',
+  'pt-BR': 'pt-BR',
+} as const;
+
+/**
+ * Get currency code for a given locale
+ */
+export function getCurrencyForLocale(locale: SupportedLocale): string {
+  return LOCALE_CURRENCY_MAP[locale] || 'USD';
+}
+
+/**
+ * Get Intl-compatible locale string
+ */
+export function getIntlLocale(locale: SupportedLocale): string {
+  return LOCALE_INTL_MAP[locale] || 'en-US';
+}
+
+/**
  * Get locale-specific date format
  */
 export function getDateFormatForLocale(locale: SupportedLocale): string {

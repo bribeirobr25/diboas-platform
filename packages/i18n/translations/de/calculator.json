@@ -1,5 +1,5 @@
 {
-  "headline": "Was könnten €20/Monat werden?",
+  "headline": "Was könnten {currency}20/Monat werden?",
   "subhead": "Sehen Sie Ihr zukünftiges Ich",
   "initialAmount": "Startbetrag",
   "monthlyContribution": "Monatliche Einzahlung",
@@ -17,7 +17,7 @@
   "difference": "Das sind {difference} mehr bei gleichem monatlichem Betrag.",
   "opportunityCost": "Das ist Geld, das Sie auf dem Tisch liegen lassen",
   "ecbSource": "Bankvergleich basierend auf dem durchschnittlichen EU-Sparkonto-Zinssatz von 2.59% APY. Quelle: EZB-Statistik, Dezember 2024.",
-  "disclaimer": "PROJEKTION — Basierend auf historischen Daten. Vergangene Performance garantiert keine zukünftigen Ergebnisse.",
+  "disclaimer": "PROJEKTION. Basierend auf historischen Daten. Vergangene Performance garantiert keine zukünftigen Ergebnisse.",
   "share": "Teilen",
   "cta": "Auf die Warteliste",
   "ctaSecondary": "Mehr sehen? Dream Mode ausprobieren →",

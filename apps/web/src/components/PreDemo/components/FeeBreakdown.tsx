@@ -11,6 +11,7 @@
 import { useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { formatCurrency, type FeeItem } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
 import styles from '../PreDemo.module.css';
 
 interface FeeBreakdownProps {
@@ -21,6 +22,7 @@ interface FeeBreakdownProps {
 
 export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdownProps) {
   const intl = useTranslation();
+  const { locale } = useLocale();
   const [isExpanded, setIsExpanded] = useState(alwaysExpanded || false);
   const [tooltipKey, setTooltipKey] = useState<string | null>(null);
 
@@ -38,7 +40,7 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
           {t('preDemo.fees.total')}
         </span>
         <span className={styles.feeToggleAmount}>
-          {alwaysExpanded ? `-${formatCurrency(totalFees)}` : formatCurrency(totalFees)}
+          {alwaysExpanded ? `-${formatCurrency(totalFees, 2, locale)}` : formatCurrency(totalFees, 2, locale)}
           {!alwaysExpanded && (
             <span className={styles.feeToggleChevron}>
               {isExpanded ? '\u25B2' : '\u25BC'}
@@ -82,10 +84,10 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
                 }`}
               >
                 {fee.amount === 0
-                  ? formatCurrency(0)
+                  ? formatCurrency(0, 2, locale)
                   : alwaysExpanded
-                    ? `-${formatCurrency(fee.amount)}`
-                    : formatCurrency(fee.amount)}
+                    ? `-${formatCurrency(fee.amount, 2, locale)}`
+                    : formatCurrency(fee.amount, 2, locale)}
               </span>
               {/* Tooltip */}
               {tooltipKey === key && fee.tooltip && (

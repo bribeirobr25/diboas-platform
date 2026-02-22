@@ -413,6 +413,19 @@
   color: #fff;
 }
 
+.balanceCardClickable {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+}
+
+.balanceCardClickable:hover {
+  opacity: 0.95;
+}
+
 .balanceCardHeader {
   display: flex;
   justify-content: space-between;
@@ -459,10 +472,15 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
+  width: 100%;
   margin-top: 12px;
   padding-top: 10px;
+  border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: none;
+  font: inherit;
   font-size: 12px;
+  color: inherit;
   opacity: 0.8;
   cursor: pointer;
   text-align: center;

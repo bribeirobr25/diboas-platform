@@ -41,6 +41,15 @@ export function inferSeverity(error: Error): ErrorSeverity {
     return ErrorSeverity.MEDIUM;
   }
 
+  // Browser extension errors are low severity (not our code)
+  if (
+    error.stack?.includes('chrome-extension://') ||
+    error.stack?.includes('moz-extension://') ||
+    error.message.includes('MetaMask')
+  ) {
+    return ErrorSeverity.LOW;
+  }
+
   return ErrorSeverity.LOW;
 }
 
@@ -58,6 +67,16 @@ export function inferCategory(error: Error): ErrorCategory {
 
   if (error.message.includes('render') || error.message.includes('React')) {
     return ErrorCategory.RENDERING;
+  }
+
+  // Detect browser extension errors (MetaMask, wallet providers, etc.)
+  if (
+    error.stack?.includes('chrome-extension://') ||
+    error.stack?.includes('moz-extension://') ||
+    error.message.includes('MetaMask') ||
+    error.message.includes('Provider not found')
+  ) {
+    return ErrorCategory.THIRD_PARTY;
   }
 
   return ErrorCategory.UNKNOWN;

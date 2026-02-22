@@ -8,6 +8,8 @@ import { DemoFooter } from '../components/DemoFooter';
 import { FeeBreakdown } from '../components/FeeBreakdown';
 import { DepositIcon, SendIcon, InvestIcon, BackIcon } from '../components/Icons';
 import { PROCESSING_TIMING, formatCurrency } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
+import { getIntlLocale } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
 import {
   applicationEventBus,
@@ -37,6 +39,7 @@ const METHOD_KEYS: Record<string, string> = {
 export function ConfirmationScreen() {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
+  const { locale } = useLocale();
   const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const t = (key: string) => intl.formatMessage({ id: key });
@@ -80,6 +83,7 @@ export function ConfirmationScreen() {
           grossAmount: pending.grossAmount,
           totalFees: pending.totalFees,
           feeDetails: pending.fees,
+          intlLocale: getIntlLocale(locale),
         });
 
         analyticsService.track({
@@ -113,6 +117,7 @@ export function ConfirmationScreen() {
           totalFees: pending.totalFees,
           recipient: pending.recipient || '',
           feeDetails: pending.fees,
+          intlLocale: getIntlLocale(locale),
         });
 
         analyticsService.track({
@@ -150,6 +155,7 @@ export function ConfirmationScreen() {
             ? { symbol: pending.asset.symbol, name: pending.asset.name }
             : { symbol: '', name: '' },
           feeDetails: pending.fees,
+          intlLocale: getIntlLocale(locale),
         });
 
         analyticsService.track({
@@ -289,7 +295,7 @@ export function ConfirmationScreen() {
               {t('preDemo.confirm.totalAmount')}
             </span>
             <span className={styles.confirmDetailValue}>
-              {formatCurrency(pending.grossAmount)}
+              {formatCurrency(pending.grossAmount, 2, locale)}
             </span>
           </div>
         </div>
@@ -311,12 +317,12 @@ export function ConfirmationScreen() {
               </span>
               <br />
               <span style={{ fontSize: 12, color: '#94a3b8' }}>
-                {t('preDemo.transaction.approximate')} {formatCurrency(pending.netAmount)}
+                {t('preDemo.transaction.approximate')} {formatCurrency(pending.netAmount, 2, locale)}
               </span>
             </div>
           ) : (
             <span className={styles.confirmTotalAmount}>
-              {formatCurrency(pending.netAmount)}
+              {formatCurrency(pending.netAmount, 2, locale)}
             </span>
           )}
         </div>

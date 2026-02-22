@@ -72,32 +72,20 @@
   line-height: var(--line-height-description);
 }
 
-/* Position Card - Featured element (compact) */
+/* Position Card - Minimalist flat style */
 .positionCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-xs);
   padding: var(--spacing-lg) var(--spacing-xl);
-  background: linear-gradient(135deg, var(--section-bg-white) 0%, var(--color-slate-50) 100%);
-  border: var(--focus-ring-width) solid var(--color-teal-200);
+  background: var(--section-bg-white);
+  border: 1px solid var(--color-slate-100);
   border-radius: var(--radius-xl);
   margin-bottom: var(--spacing-lg);
   min-width: var(--cta-min-width-mobile);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   animation: slideUp var(--animation-duration-normal) ease-out 0.2s both;
-  position: relative;
-  overflow: hidden;
-}
-
-.positionCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--spacing-xs);
-  background: linear-gradient(90deg, var(--color-teal-400), var(--color-teal-500));
 }
 
 @keyframes slideUp {
@@ -127,12 +115,12 @@
   line-height: 1;
 }
 
-/* Referral Section */
+/* Referral Section - Minimalist flat style */
 .referralSection {
   width: var(--percent-100);
   padding: var(--spacing-xl);
-  background: var(--section-bg-neutral);
-  border: 1px solid var(--color-slate-200);
+  background: var(--section-bg-white);
+  border: 1px solid var(--color-slate-100);
   border-radius: var(--radius-xl);
   margin-bottom: var(--spacing-xl);
   animation: slideUp var(--animation-duration-normal) ease-out 0.3s both;

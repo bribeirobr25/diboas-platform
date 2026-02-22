@@ -18,6 +18,7 @@ import {
   type TokenBalance,
   type Investments,
 } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDemo.module.css';
 
@@ -175,6 +176,7 @@ function ExportKeyModal({ onClose, t }: { onClose: () => void; t: (key: string) 
 export function WalletDetailsScreen() {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
+  const { locale } = useLocale();
   const [showExportModal, setShowExportModal] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState<string | null>(null);
   const [l2Expanded, setL2Expanded] = useState(false);
@@ -238,7 +240,7 @@ export function WalletDetailsScreen() {
             {t('preDemo.wallet.totalBalance')}
           </div>
           <div className={styles.portfolioAmount}>
-            {formatCurrency(totalBalance)}
+            {formatCurrency(totalBalance, 2, locale)}
           </div>
           <div className={styles.portfolioBreakdown}>
             <div className={styles.portfolioBreakdownItem}>
@@ -249,7 +251,7 @@ export function WalletDetailsScreen() {
                 </svg>
                 {t('preDemo.wallet.cash')}
               </span>
-              <span>{formatCurrency(state.cashBalance + solReserveValue)}</span>
+              <span>{formatCurrency(state.cashBalance + solReserveValue, 2, locale)}</span>
             </div>
             <div className={styles.portfolioBreakdownItem}>
               <span className={styles.portfolioBreakdownLabel}>
@@ -259,7 +261,7 @@ export function WalletDetailsScreen() {
                 </svg>
                 {t('preDemo.wallet.investments')}
               </span>
-              <span>{formatCurrency(totalInvestments)}</span>
+              <span>{formatCurrency(totalInvestments, 2, locale)}</span>
             </div>
           </div>
         </div>
@@ -320,7 +322,7 @@ export function WalletDetailsScreen() {
                       className={styles.walletHeaderTotal}
                       style={{ color: CHAIN_TEXT_COLORS[chain] }}
                     >
-                      {formatCurrency(totalValue)}
+                      {formatCurrency(totalValue, 2, locale)}
                     </span>
                   )}
                 </div>
@@ -346,7 +348,7 @@ export function WalletDetailsScreen() {
                             </span>
                           ) : token.symbol === 'USDC' ? (
                             <span className={styles.tokenAmount}>
-                              {formatCurrency(token.usdValue)}
+                              {formatCurrency(token.usdValue, 2, locale)}
                             </span>
                           ) : (
                             <>
@@ -354,7 +356,7 @@ export function WalletDetailsScreen() {
                                 {token.amount.toFixed(token.decimals)}
                               </span>
                               <span className={styles.tokenUsd}>
-                                ≈ {formatCurrency(token.usdValue)}
+                                ≈ {formatCurrency(token.usdValue, 2, locale)}
                               </span>
                             </>
                           )}

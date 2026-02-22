@@ -131,13 +131,15 @@ export function useWaitlistForm({
     if (!formState.email || !isValidEmail(formState.email)) {
       setError(t('error.invalidEmail'));
       setIsLoading(false);
+      isSubmittingRef.current = false;
       return;
     }
 
     // Validate consent (unless compact mode)
     if (!compact && !formState.gdprAccepted) {
-      setError(t('error.generic'));
+      setError(t('error.consentRequired'));
       setIsLoading(false);
+      isSubmittingRef.current = false;
       return;
     }
 

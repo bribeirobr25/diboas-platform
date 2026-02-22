@@ -18,7 +18,60 @@
   padding: var(--spacing-2xl) var(--spacing-2xl);
 }
 
-/* Disclaimer Section */
+/* Tagline */
+.tagline {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--footer-text-color);
+  opacity: var(--opacity-75);
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  font-style: italic;
+}
+
+/* Product Nav Links */
+.productNav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm) var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.productNavLink {
+  font-size: var(--font-size-sm);
+  color: var(--footer-text-color);
+  opacity: var(--opacity-75);
+  text-decoration: none;
+  transition: opacity var(--footer-transition);
+}
+
+.productNavLink:hover,
+.productNavLink:focus-visible {
+  opacity: var(--opacity-100);
+  text-decoration: underline;
+}
+
+/* Disclosures Section */
+.disclosures {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.disclosureText {
+  font-size: var(--font-size-xs);
+  color: var(--footer-text-color);
+  opacity: var(--opacity-50);
+  line-height: var(--line-height-relaxed);
+  max-width: 800px;
+  margin: 0 auto var(--spacing-sm) auto;
+}
+
+.disclosureText:last-child {
+  margin-bottom: 0;
+}
+
+/* Disclaimer Section (legacy) */
 .disclaimer {
   margin-bottom: var(--spacing-xl);
   text-align: center;

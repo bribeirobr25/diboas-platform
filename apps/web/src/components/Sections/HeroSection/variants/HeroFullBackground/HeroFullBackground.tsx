@@ -32,6 +32,10 @@ export function HeroFullBackground({
     setBackgroundLoaded(true);
   }, []);
 
+  const handleImageError = useCallback(() => {
+    setBackgroundLoaded(true); // Dismiss spinner on error to avoid infinite loading state
+  }, []);
+
   const hasBackgroundAssets = config.backgroundAssets?.backgroundImage;
   const backgroundImage = backgroundColor || config.backgroundAssets?.backgroundImage;
   const backgroundImageMobile = config.backgroundAssets?.backgroundImageMobile || backgroundImage;
@@ -54,6 +58,7 @@ export function HeroFullBackground({
             className={hasSeparateMobileImage ? styles.bgImageDesktop : styles.bgImage}
             style={{ objectFit: 'cover' }}
             onLoad={handleImageLoad}
+            onError={handleImageError}
           />
           {/* Mobile image (only rendered when different from desktop) */}
           {hasSeparateMobileImage && (
@@ -67,6 +72,7 @@ export function HeroFullBackground({
               className={styles.bgImageMobile}
               style={{ objectFit: 'cover' }}
               onLoad={handleImageLoad}
+              onError={handleImageError}
             />
           )}
           <div
@@ -101,6 +107,9 @@ export function HeroFullBackground({
           </div>
         </div>
       </div>
+
+      {/* Bottom Gradient Overlay */}
+      <div className={styles.bottomGradient} aria-hidden="true" />
 
       {/* Loading State */}
       {!backgroundLoaded && (

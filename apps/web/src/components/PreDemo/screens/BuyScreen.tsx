@@ -17,6 +17,8 @@ import {
   type AssetCategory,
   type Asset,
 } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
+import { getCurrencyForLocale, getCurrencySymbol } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDemo.module.css';
 
@@ -116,6 +118,9 @@ function AssetIcon({ symbol }: { symbol: string }) {
 export function BuyScreen() {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
+
+  const { locale } = useLocale();
+  const currencySymbol = getCurrencySymbol(getCurrencyForLocale(locale));
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
@@ -266,7 +271,7 @@ export function BuyScreen() {
                 </div>
                 <div className={styles.assetPrice}>
                   {enabled ? (
-                    formatCurrency(asset.price)
+                    formatCurrency(asset.price, 2, locale)
                   ) : (
                     <span className={styles.comingSoon}>
                       {t('preDemo.buy.comingSoon')}
@@ -287,7 +292,7 @@ export function BuyScreen() {
             </div>
 
             <div className={styles.amountInputContainer}>
-              <span className={styles.amountPrefix}>$</span>
+              <span className={styles.amountPrefix}>{currencySymbol}</span>
               <input
                 type="text"
                 inputMode="decimal"
@@ -316,7 +321,7 @@ export function BuyScreen() {
                     state.buyAmount === qa ? styles.quickAmountActive : ''
                   }`}
                 >
-                  ${qa}
+                  {currencySymbol}{qa}
                 </button>
               ))}
             </div>
@@ -336,7 +341,7 @@ export function BuyScreen() {
                   </span>
                   <br />
                   <span className={styles.receiveAmountSub}>
-                    {t('preDemo.transaction.approximate')} {formatCurrency(fees.netAmount)}
+                    {t('preDemo.transaction.approximate')} {formatCurrency(fees.netAmount, 2, locale)}
                   </span>
                 </div>
               </div>

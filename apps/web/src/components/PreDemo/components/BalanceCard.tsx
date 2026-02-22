@@ -12,16 +12,19 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
 import { ASSET_PRICES, formatCurrency } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
 import styles from '../PreDemo.module.css';
 
 interface BalanceCardProps {
   compact?: boolean;
   showTapToView?: boolean;
+  onCardClick?: () => void;
 }
 
-export function BalanceCard({ compact, showTapToView = true }: BalanceCardProps) {
+export function BalanceCard({ compact, showTapToView = true, onCardClick }: BalanceCardProps) {
   const intl = useTranslation();
   const { state } = usePreDemo();
+  const { locale } = useLocale();
   const [investmentsExpanded, setInvestmentsExpanded] = useState(false);
 
   const t = (key: string) => intl.formatMessage({ id: key });
@@ -38,20 +41,25 @@ export function BalanceCard({ compact, showTapToView = true }: BalanceCardProps)
 
   return (
     <div className={styles.balanceCard}>
-      <div className={styles.balanceCardHeader}>
-        <div className={styles.balanceLabel}>
-          {t('preDemo.home.totalBalance')}
+      {/* Main clickable area — navigates to wallet details */}
+      <button type="button" onClick={onCardClick} className={styles.balanceCardClickable}>
+        <div className={styles.balanceCardHeader}>
+          <div className={styles.balanceLabel}>
+            {t('preDemo.home.totalBalance')}
+          </div>
+          {/* Wallet icon top-right */}
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+            <path d="M2 10h20" />
+            <path d="M16 15h2" />
+          </svg>
         </div>
-        {/* Wallet icon top-right */}
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="5" width="20" height="14" rx="2" />
-          <path d="M2 10h20" />
-          <path d="M16 15h2" />
-        </svg>
-      </div>
-      <div className={styles.balanceAmount}>
-        {formatCurrency(totalBalance)}
-      </div>
+        <div className={styles.balanceAmount}>
+          {formatCurrency(totalBalance, 2, locale)}
+        </div>
+      </button>
+
+      {/* Balance breakdown — outside the card button to avoid nested buttons */}
       <div className={styles.balanceBreakdown}>
         <div className={styles.balanceBreakdownItem}>
           <span className={styles.balanceBreakdownLabel}>
@@ -61,7 +69,7 @@ export function BalanceCard({ compact, showTapToView = true }: BalanceCardProps)
             </svg>
             {t('preDemo.home.cash')}
           </span>
-          <span>{formatCurrency(state.cashBalance + solReserveValue)}</span>
+          <span>{formatCurrency(state.cashBalance + solReserveValue, 2, locale)}</span>
         </div>
         <div className={styles.balanceBreakdownItem}>
           <span className={styles.balanceBreakdownLabel}>
@@ -69,10 +77,7 @@ export function BalanceCard({ compact, showTapToView = true }: BalanceCardProps)
               <button
                 type="button"
                 className={styles.investmentsRow}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setInvestmentsExpanded(!investmentsExpanded);
-                }}
+                onClick={() => setInvestmentsExpanded(!investmentsExpanded)}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8, marginRight: 4, flexShrink: 0 }}>
                   <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
@@ -95,31 +100,32 @@ export function BalanceCard({ compact, showTapToView = true }: BalanceCardProps)
               </>
             )}
           </span>
-          <span>{formatCurrency(totalInvestments)}</span>
+          <span>{formatCurrency(totalInvestments, 2, locale)}</span>
           {/* Expanded investments breakdown */}
           {investmentsExpanded && totalInvestments > 0 && (
             <div className={styles.investmentsBreakdown}>
               {Object.entries(state.investments.assets).map(([symbol, asset]) => (
-                asset.amount > 0 && (
+                asset.amount > 0 ? (
                   <div key={symbol} className={styles.investmentAssetRow}>
                     <span>{asset.name}</span>
-                    <span>{formatCurrency(asset.amount)}</span>
+                    <span>{formatCurrency(asset.amount, 2, locale)}</span>
                   </div>
-                )
+                ) : null
               ))}
             </div>
           )}
         </div>
       </div>
-      {/* Tap to view wallets link */}
+
+      {/* Tap to view wallets — separate button, not nested */}
       {showTapToView && !compact && (
-        <div className={styles.balanceTapToView}>
+        <button type="button" onClick={onCardClick} className={styles.balanceTapToView}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="2" y="5" width="20" height="14" rx="2" />
             <path d="M2 10h20" />
           </svg>
           <span>{t('preDemo.home.tapToViewWallets')}</span>
-        </div>
+        </button>
       )}
     </div>
   );

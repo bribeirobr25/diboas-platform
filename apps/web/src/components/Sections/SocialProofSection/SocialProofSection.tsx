@@ -16,6 +16,8 @@ import { useTranslation } from '@diboas/i18n/client';
 import { Users, Globe } from 'lucide-react';
 import { analyticsService } from '@/lib/analytics';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
+import type { ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
 import styles from './SocialProofSection.module.css';
 
 interface SocialProofSectionProps {
@@ -101,6 +103,45 @@ export function SocialProofSection({
     fetchStats();
 
     return () => controller.abort();
+  }, []);
+
+  // Listen for waitlist signup success to update counter in real-time
+  useEffect(() => {
+    const unsubscribe = applicationEventBus.on<ApplicationEventPayload>(
+      ApplicationEventType.WAITLIST_SIGNUP_SUCCESS,
+      (event) => {
+        const position = (event.metadata as { position?: number } | undefined)?.position;
+        if (typeof position === 'number') {
+          // Optimistically update count
+          setStats(prev => ({ ...prev, count: position }));
+        }
+
+        // Clear cache so next page load fetches fresh data
+        try {
+          sessionStorage.removeItem('diboas-waitlist-stats');
+        } catch {
+          // sessionStorage unavailable
+        }
+
+        // Re-fetch authoritative data from API
+        const refetchController = new AbortController();
+        fetch('/api/waitlist/stats', { signal: refetchController.signal })
+          .then(res => {
+            if (res.ok) return res.json();
+            return null;
+          })
+          .then(data => {
+            if (data) {
+              setStats({ count: data.count, countries: data.countries });
+            }
+          })
+          .catch(() => {
+            // Keep optimistic update on error
+          });
+      }
+    );
+
+    return unsubscribe;
   }, []);
 
   // Translation helper with rich text support for highlighting numbers

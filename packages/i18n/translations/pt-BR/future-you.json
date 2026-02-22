@@ -4,7 +4,7 @@
     "description": "Veja no que seu dinheiro poderia se transformar. Valores pequenos. Esforço consistente. O tempo faz o resto."
   },
   "hero": {
-    "headline": "Seus R$20. Daqui a cinco anos.",
+    "headline": "Seus {currency}20. Daqui a cinco anos.",
     "subheadline": "Valores pequenos. Diferença real. Em dólares.",
     "subheadline2": "",
     "context": "Não é promessa. É matemática. E o acesso que te foi negado. Até agora."
@@ -116,7 +116,7 @@
       },
       "inconsistent": {
         "question": "E se eu não conseguir guardar o mesmo valor todo mês?",
-        "answer": "A vida acontece. Você pode ajustar a qualquer hora.\n\nEsse calculador assume valores mensais consistentes porque é o jeito mais fácil de projetar. Mas o diBoaS não exige consistência.\n\nAlguns meses você guarda {currency}200. Alguns meses {currency}20. Alguns meses {currency}0. A matemática continua funcionando — só diferente. O que importa é que você comece."
+        "answer": "A vida acontece. Você pode ajustar a qualquer hora.\n\nEsse calculador assume valores mensais consistentes porque é o jeito mais fácil de projetar. Mas o diBoaS não exige consistência.\n\nAlguns meses você guarda {currency}200. Alguns meses {currency}20. Alguns meses {currency}0. A matemática continua funcionando, só diferente. O que importa é que você comece."
       },
       "whichStrategy": {
         "question": "Qual estratégia eu deveria usar?",

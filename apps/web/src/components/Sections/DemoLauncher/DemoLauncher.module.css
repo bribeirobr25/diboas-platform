@@ -1,0 +1,108 @@
+/**
+ * DemoLauncher Styles
+ * Dual CTA section for launching PreDemo and PreDream overlays
+ */
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 680px;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--section-title-font-size-mobile, 26px);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-heading);
+  margin: 0 0 1em 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.description {
+  font-family: var(--font-family-primary);
+  font-size: 18px;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--prose-line-height, 1.7);
+  color: var(--color-text-body);
+  margin: 0 0 2em 0;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .ctaGroup {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-semibold);
+  padding: 14px 32px;
+  border-radius: var(--border-radius-md, 8px);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  min-width: 220px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.ctaPrimary {
+  background-color: var(--color-brand-primary, #0d9488);
+  color: #ffffff;
+  border: 2px solid var(--color-brand-primary, #0d9488);
+}
+
+.ctaPrimary:hover {
+  background-color: var(--color-brand-primary-hover, #0f766e);
+  border-color: var(--color-brand-primary-hover, #0f766e);
+}
+
+.ctaPrimary:active {
+  transform: scale(0.98);
+}
+
+.ctaSecondary {
+  background-color: transparent;
+  color: var(--color-brand-primary, #0d9488);
+  border: 2px solid var(--color-brand-primary, #0d9488);
+}
+
+.ctaSecondary:hover {
+  background-color: var(--color-brand-primary, #0d9488);
+  color: #ffffff;
+}
+
+.ctaSecondary:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaPrimary,
+  .ctaSecondary {
+    transition: none;
+  }
+}

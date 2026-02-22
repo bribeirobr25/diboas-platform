@@ -1,5 +1,5 @@
 {
-  "headline": "No que R$20/mês poderiam se transformar?",
+  "headline": "No que {currency}20/mês poderiam se transformar?",
   "subhead": "Veja seu eu do futuro",
   "initialAmount": "Valor inicial",
   "monthlyContribution": "Aporte mensal",
@@ -16,7 +16,7 @@
   "bankRate": "Com seu banco (6.71%)",
   "difference": "Isso é {difference} a mais com o mesmo valor mensal.",
   "ecbSource": "Comparação bancária baseada na taxa média da poupança brasileira de 6.71% ao ano. Fonte: Banco Central do Brasil, Dezembro 2024.",
-  "disclaimer": "PROJEÇÃO — Baseado em dados históricos. Resultados passados não garantem retornos futuros.",
+  "disclaimer": "PROJEÇÃO. Baseado em dados históricos. Resultados passados não garantem retornos futuros.",
   "opportunityCost": "\u00c9 dinheiro que voc\u00ea est\u00e1 deixando na mesa",
   "share": "Compartilhar",
   "cta": "Entrar na lista de espera",

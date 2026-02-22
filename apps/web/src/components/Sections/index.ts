@@ -21,6 +21,12 @@ export { StickyFeaturesNav } from './StickyFeaturesNav';
 // Unified Section Container Component
 export { SectionContainer } from './SectionContainer';
 
+// New B2C Landing Page Sections
+export { ProseSection } from './ProseSection';
+export { ScenarioCards } from './ScenarioCards';
+export { FeeTable } from './FeeTable';
+export { DemoLauncher } from './DemoLauncher';
+
 // Page-level Sections
 export { PageHeroSection, type PageHeroSectionProps } from './PageHeroSection';
 

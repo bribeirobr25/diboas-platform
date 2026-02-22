@@ -13,6 +13,7 @@ import { ROUTES } from './routes';
 export type FeatureShowcaseVariant = 'default' | 'benefits';
 
 export interface FeatureShowcaseContent {
+  readonly tagline?: string;
   readonly title: string;
   readonly description: string;
   readonly ctaText: string;

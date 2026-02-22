@@ -8,12 +8,17 @@ import { DemoFooter } from '../components/DemoFooter';
 import { BalanceCard } from '../components/BalanceCard';
 import { FeeBreakdown } from '../components/FeeBreakdown';
 import { calculateDepositFees, DEPOSIT_QUICK_AMOUNTS, formatCurrency } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
+import { getCurrencyForLocale, getCurrencySymbol } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDemo.module.css';
 
 export function DepositScreen() {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
+
+  const { locale } = useLocale();
+  const currencySymbol = getCurrencySymbol(getCurrencyForLocale(locale));
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
@@ -120,7 +125,7 @@ export function DepositScreen() {
 
         {/* Amount input */}
         <div className={styles.amountInputContainer}>
-          <span className={styles.amountPrefix}>$</span>
+          <span className={styles.amountPrefix}>{currencySymbol}</span>
           <input
             type="text"
             inputMode="decimal"
@@ -142,7 +147,7 @@ export function DepositScreen() {
                 state.depositAmount === qa ? styles.quickAmountActive : ''
               }`}
             >
-              ${qa}
+              {currencySymbol}{qa}
             </button>
           ))}
         </div>
@@ -154,7 +159,7 @@ export function DepositScreen() {
         {amount > 0 && (
           <div className={styles.receiveRow}>
             <span className={styles.receiveLabel}>{t('preDemo.transaction.youllReceive')}</span>
-            <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount)}</span>
+            <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount, 2, locale)}</span>
           </div>
         )}
 

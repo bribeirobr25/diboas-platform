@@ -15,7 +15,7 @@
 .section {
   position: relative;
   width: var(--section-width-full);
-  min-height: var(--section-min-height-hero-mobile);
+  min-height: 100svh;
   padding-bottom: var(--section-hero-bottom-padding);
   border-bottom-left-radius: var(--hs-section-border-radius-bottom-left);
   border-bottom-right-radius: var(--hs-section-border-radius-bottom-right);
@@ -25,19 +25,7 @@
   justify-content: center;
 }
 
-/* Responsive: Tablet */
-@media (min-width: 768px) {
-  .section {
-    min-height: var(--section-min-height-hero-tablet);
-  }
-}
-
-/* Responsive: Desktop */
-@media (min-width: 1024px) {
-  .section {
-    min-height: var(--section-min-height-hero-desktop);
-  }
-}
+/* min-height: 100svh applies across all breakpoints for fullBackground variant */
 
 /* ================================
    BACKGROUND STYLES
@@ -138,6 +126,15 @@
   margin: 0;
 }
 
+/* Mobile: backdrop for text readability against bright backgrounds */
+@media (max-width: 767px) {
+  .content {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 100%);
+    border-radius: 16px;
+    margin: var(--spacing-md);
+  }
+}
+
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .content {
@@ -160,21 +157,23 @@
    TYPOGRAPHY STYLES
    ================================ */
 
-/* Title - Clean typography, no shadow */
+/* Title - Clean typography, text-shadow for mobile contrast */
 .title {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-title-mobile);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--hs-font-size-title-mobile);
+  font-weight: var(--hs-font-weight-title);
   line-height: var(--line-height-title);
   color: var(--hs-color-stats-text);
   margin: 0;
   text-align: left;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .title {
     font-size: var(--font-size-title-tablet);
+    text-shadow: none;
   }
 }
 
@@ -185,22 +184,37 @@
   }
 }
 
-/* Description - Clean typography, no shadow */
+/* Description - Clean typography, muted white on dark */
 .description {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-description-mobile);
+  font-size: 18px;
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-description);
-  color: var(--hs-color-stats-text);
+  color: var(--color-text-on-dark-muted);
   margin: 0;
   text-align: left;
   white-space: pre-line;
+  max-width: 600px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Bottom gradient overlay (transparent → white) */
+.bottomGradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15%;
+  background: linear-gradient(to bottom, transparent, white);
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .description {
     font-size: var(--font-size-description-tablet);
+    text-shadow: none;
   }
 }
 

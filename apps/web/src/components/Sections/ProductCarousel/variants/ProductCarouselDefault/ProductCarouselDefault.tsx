@@ -40,10 +40,41 @@ export function ProductCarouselDefault({
   onPlayPause
 }: ProductCarouselVariantProps) {
   const [subtitleKey, setSubtitleKey] = useState(0); // For cross-fade animation
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const slides = config.content.slides || [];
-  
+
+  // Detect images that failed before React hydration (SSR timing)
+  useEffect(() => {
+    if (!carouselRef.current) return;
+
+    const markFailed = (slideId: string) => {
+      setFailedImages(prev => new Set(prev).add(slideId));
+    };
+
+    const checkImages = () => {
+      if (!carouselRef.current) return;
+      const imgs = carouselRef.current.querySelectorAll('img[data-slide-id]');
+      imgs.forEach((img) => {
+        const htmlImg = img as HTMLImageElement;
+        const slideId = htmlImg.dataset.slideId;
+        if (!slideId) return;
+
+        if (htmlImg.complete && htmlImg.naturalWidth === 0) {
+          markFailed(slideId);
+        } else if (!htmlImg.complete) {
+          // Attach error listener for images still loading
+          htmlImg.addEventListener('error', () => markFailed(slideId), { once: true });
+        }
+      });
+    };
+
+    // Use rAF to ensure images have had time to process 404 responses
+    const rafId = requestAnimationFrame(checkImages);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
   // Helper function to get CSS custom property values
   const getCSSValue = useCallback((property: string, fallback: string = '0') => {
     if (typeof window === 'undefined') return fallback;
@@ -61,20 +92,28 @@ export function ProductCarouselDefault({
   const PRIORITY_IMAGES_COUNT = 2; // Number of images to load with priority
 
   // Custom slide change handler with subtitle animation and event bus
-  const handleSlideChange = useCallback((index: number) => {
+  const handleSlideChange = useCallback((index: number, source: 'auto' | 'user') => {
     // Trigger subtitle cross-fade animation
     setSubtitleKey(prev => prev + 1);
 
     // Call parent callback
     onSlideChange?.(index);
 
-    // Log section event for analytics
-    Logger.info('Product carousel slide changed', {
-      section: 'ProductCarousel',
-      slideIndex: index,
-      slideId: slides[index]?.id,
-      subtitle: slides[index]?.subtitle
-    });
+    // Log at appropriate level: user interactions are INFO, auto-play is DEBUG
+    if (source === 'auto') {
+      Logger.debug('Product carousel auto-rotated', {
+        section: 'ProductCarousel',
+        slideIndex: index,
+        slideId: slides[index]?.id
+      });
+    } else {
+      Logger.info('Product carousel slide changed', {
+        section: 'ProductCarousel',
+        slideIndex: index,
+        slideId: slides[index]?.id,
+        subtitle: slides[index]?.subtitle
+      });
+    }
 
     // Event-Driven Architecture: Emit section event
     sectionEventBus.emit(SectionEventType.CAROUSEL_SLIDE_CHANGED, {
@@ -86,14 +125,10 @@ export function ProductCarouselDefault({
       metadata: {
         slideId: slides[index]?.id,
         subtitle: slides[index]?.subtitle,
-        action: 'slide_change'
+        action: source === 'auto' ? 'auto_slide_change' : 'user_slide_change'
       }
     });
 
-    Logger.debug('Product carousel slide change', {
-      slideIndex: index,
-      slideId: slides[index]?.id
-    });
   }, [slides, onSlideChange]);
 
   // Shared carousel hook
@@ -216,19 +251,26 @@ export function ProductCarouselDefault({
                 >
                   <div className={styles.cardContent}>
                     
-                    {/* Card Image */}
+                    {/* Card Image — gradient fallback shows when asset unavailable */}
                     <div className={styles.imageWrapper}>
-                      <Image
-                        src={slide.image}
-                        alt={slide.imageAlt}
-                        fill
-                        priority={priority && index <= PRIORITY_IMAGES_COUNT}
-                        className={styles.cardImage}
-                        onLoad={() => handleImageLoad(slide.id)}
-                        sizes={imageSizes}
-                        decoding="async"
-                        loading={index <= PRIORITY_IMAGES_COUNT ? 'eager' : 'lazy'}
-                      />
+                      {!failedImages.has(slide.id) ? (
+                        <Image
+                          src={slide.image}
+                          alt={slide.imageAlt}
+                          fill
+                          data-slide-id={slide.id}
+                          priority={priority && index <= PRIORITY_IMAGES_COUNT}
+                          className={styles.cardImage}
+                          onLoad={() => handleImageLoad(slide.id)}
+                          onError={() => {
+                            handleImageError(slide.id);
+                            setFailedImages(prev => new Set(prev).add(slide.id));
+                          }}
+                          sizes={imageSizes}
+                          decoding="async"
+                          loading={index <= PRIORITY_IMAGES_COUNT ? 'eager' : 'lazy'}
+                        />
+                      ) : null}
                       
                       {/* Bottom Gradient Overlay for Legibility */}
                       <div className={styles.cardOverlay}>
@@ -256,6 +298,13 @@ export function ProductCarouselDefault({
                             >
                               {slide.ctaText}
                             </Link>
+                          )}
+
+                          {/* Quote */}
+                          {slide.quote && (
+                            <blockquote className={styles.cardQuote}>
+                              {slide.quote}
+                            </blockquote>
                           )}
                         </div>
                       </div>

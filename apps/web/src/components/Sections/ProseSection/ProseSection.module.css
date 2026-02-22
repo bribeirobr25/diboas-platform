@@ -1,0 +1,202 @@
+/**
+ * ProseSection Styles
+ * Single centered column for long-form prose content
+ * Two-column layout with optional image (mobile-first)
+ */
+
+/* ================================
+   TEXT-ONLY LAYOUT (default)
+   ================================ */
+
+.prose {
+  margin: 0 auto;
+  max-width: 680px;
+}
+
+.generous {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .generous {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+/* ================================
+   TYPOGRAPHY
+   ================================ */
+
+.header {
+  font-family: var(--font-family-primary);
+  font-size: var(--section-title-font-size-mobile, 26px);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-heading);
+  margin: 0 0 1.5em 0;
+  text-align: center;
+}
+
+.headerWithImage {
+  text-align: left;
+}
+
+.headerCentered {
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+
+@media (min-width: 768px) {
+  .headerCentered {
+    margin-bottom: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .headerCentered {
+    margin-bottom: 56px;
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.paragraph {
+  font-family: var(--font-family-primary);
+  font-size: 18px;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--prose-line-height, 1.7);
+  color: var(--color-text-body);
+  margin: 0 0 var(--prose-paragraph-spacing, 1.5em) 0;
+}
+
+.paragraph:last-of-type {
+  margin-bottom: 0;
+}
+
+.signature {
+  font-family: var(--font-family-primary);
+  font-size: 20px;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--prose-line-height, 1.7);
+  color: var(--text-primary-accessible);
+  margin: var(--prose-paragraph-spacing, 1.5em) 0 0 0;
+}
+
+.emphasis {
+  font-family: var(--font-family-primary);
+  font-size: 20px;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--prose-line-height, 1.7);
+  color: var(--text-primary-accessible);
+  margin: var(--prose-paragraph-spacing, 1.5em) 0 0 0;
+}
+
+/* ================================
+   TWO-COLUMN IMAGE LAYOUT
+   ================================ */
+
+.withImage {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .withImage {
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .withImage {
+    gap: 64px;
+  }
+}
+
+.textColumn {
+  flex: 1;
+  min-width: 0;
+}
+
+.imageColumn {
+  width: 100%;
+  max-width: 400px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .imageColumn {
+    width: auto;
+    max-width: none;
+    flex: 0 0 42%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .imageColumn {
+    flex: 0 0 40%;
+  }
+}
+
+.sectionImage {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* ================================
+   MOBILE ORDER: title → image → text
+   ================================ */
+
+.headerStandalone {
+  order: 0;
+  width: 100%;
+}
+
+/* On mobile: hide inline header (shown via standalone), reorder columns */
+@media (max-width: 767px) {
+  .headerInline {
+    display: none;
+  }
+  .withImage .imageColumn {
+    order: 1;
+  }
+  .withImage .textColumn {
+    order: 2;
+  }
+}
+
+/* On desktop: hide standalone header (shown inline in text column) */
+@media (min-width: 768px) {
+  .headerStandalone {
+    display: none;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .prose {
+    transition: none;
+  }
+}

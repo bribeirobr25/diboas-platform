@@ -25,6 +25,7 @@ import {
   getLocaleConfig,
   type RateScenario,
 } from '@/lib/calculator';
+import { getCurrencySymbol } from '@/config/formats';
 import styles from './FutureYouPreviewSection.module.css';
 
 interface FutureYouPreviewSectionProps {
@@ -70,6 +71,7 @@ export function FutureYouPreviewSection({
   // Get the 5-year comparison
   const comparison = result.longTermProjections?.['5years'] ?? result.projections['5years'];
   const currencyLocale = getCurrencyLocale(localeConfig.currency);
+  const currencySymbol = getCurrencySymbol(localeConfig.currency);
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {
@@ -83,13 +85,13 @@ export function FutureYouPreviewSection({
       padding="standard"
       backgroundColor={backgroundColor}
       className={className}
-      ariaLabel={t('headline')}
+      ariaLabel={t('headline', { currency: currencySymbol })}
       data-testid="future-you-preview-section"
     >
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.header}>
-          <h2 className={styles.headline}>{t('headline')}</h2>
+          <h2 className={styles.headline}>{t('headline', { currency: currencySymbol })}</h2>
         </div>
 
         {/* Result Preview */}

@@ -8,9 +8,9 @@
 import type { PreDemoState, PreDemoAction } from './types';
 import { RECIPIENT_OPTIONS, ASSET_PRICES, SOL_GAS_RESERVE } from '@/lib/pre-demo';
 
-function formatDateTime(): string {
+function formatDateTime(intlLocale: string = 'en-US'): string {
   const now = new Date();
-  return now.toLocaleString('en-US', {
+  return now.toLocaleString(intlLocale, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -91,7 +91,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
             grossAmount: action.grossAmount,
             fees: action.totalFees,
             feeDetails: action.feeDetails,
-            date: formatDateTime(),
+            date: formatDateTime(action.intlLocale),
           },
           ...state.transactions,
         ],
@@ -129,7 +129,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
             grossAmount: action.grossAmount,
             fees: action.totalFees,
             feeDetails: action.feeDetails,
-            date: formatDateTime(),
+            date: formatDateTime(action.intlLocale),
           },
           ...state.transactions,
         ],
@@ -177,7 +177,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
             fees: action.totalFees,
             feeDetails: action.feeDetails,
             asset: action.asset.symbol,
-            date: formatDateTime(),
+            date: formatDateTime(action.intlLocale),
           },
           ...state.transactions,
         ],

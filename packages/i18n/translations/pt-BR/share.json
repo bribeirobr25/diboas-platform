@@ -44,10 +44,10 @@
     "copied": "Link copiado!"
   },
   "waitlistPosition": {
-    "twitter": "Desigualdade não é renda. É ACESSO. O sistema nos exclui. Sou #{position} dizendo chega. Vem pro movimento: ",
-    "whatsapp": "A desigualdade não é sobre renda. É sobre ACESSO. O sistema foi feito pra nos excluir. Sou #{position} e tá na hora de mudar. Vem com a gente: {referralUrl}",
-    "facebook": "Desigualdade não é renda. É ACESSO. Bancos ganham 15% com nosso dinheiro, devolvem 7%. Sou #{position}. Chega. A gente muda isso junto.",
-    "linkedin": "A desigualdade não é sobre renda. É sobre ACESSO. O sistema nos exclui por design. Sou #{position} e acredito que tá na hora de mudar. Vamos juntos: {referralUrl}"
+    "twitter": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente: {referralUrl} @diboasfi",
+    "whatsapp": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente: {referralUrl}",
+    "facebook": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente.",
+    "linkedin": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente: {referralUrl}"
   },
   "timeframes": {
     "1week": "1 semana",

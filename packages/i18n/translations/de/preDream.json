@@ -23,7 +23,7 @@
   },
   "pathSelect": {
     "title": "Wie stehen Sie zu Risiko?",
-    "subtitle": "Es gibt keine falsche Antwort — nur verschiedene Wege.",
+    "subtitle": "Es gibt keine falsche Antwort, nur verschiedene Wege.",
     "back": "Zurück",
     "paths": {
       "safety": {
@@ -86,7 +86,7 @@
     "differenceSubtext": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
     "shareTitle": "Meine Projektion teilen",
     "shareCopied": "Kopiert!",
-    "shareText": "Das müssen Sie sehen. Renditen auf institutionellem Niveau, endlich zugänglich. Aus meinen {start} werden {end}. Probieren Sie es selbst:",
+    "shareText": "Meine Dream Mode Simulation würde {start} in {end} verwandeln, das sind {difference} mehr als meine Bank mir geben würde. Probieren Sie es selbst:",
     "bankSource": "Basierend auf {rate}% durchschnittlichem Sparzins. Quelle: FDIC National Average, Januar 2026.",
     "tryDifferent": "Andere Beträge ausprobieren",
     "backToHome": "Zurück zur Startseite"

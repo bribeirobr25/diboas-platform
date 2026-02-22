@@ -26,8 +26,8 @@ export function middleware(request: NextRequest): NextResponse {
 
   // Build CSP with nonce — 'unsafe-inline' removed for scripts in production
   const scriptSrc = isDev
-    ? `'self' 'unsafe-eval' 'nonce-${nonce}' https://vercel.live https://nextjs.org`
-    : `'self' 'nonce-${nonce}' https://vercel.live`;
+    ? `'self' 'unsafe-eval' 'nonce-${nonce}' https://vercel.live https://nextjs.org https://*.googletagmanager.com https://*.google-analytics.com`
+    : `'self' 'nonce-${nonce}' https://vercel.live https://*.googletagmanager.com https://*.google-analytics.com`;
 
   const csp = [
     `default-src 'self'`,
@@ -35,7 +35,7 @@ export function middleware(request: NextRequest): NextResponse {
     `style-src 'self' 'unsafe-inline'`,
     `img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com${isDev ? ' http://localhost:* https://localhost:*' : ''}`,
     `font-src 'self' data:`,
-    `connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com${isDev ? ' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*' : ''}`,
+    `connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com https://*.google-analytics.com https://*.googletagmanager.com https://*.doubleclick.net${isDev ? ' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*' : ''}`,
     `frame-ancestors 'none'`,
     `object-src 'none'`,
     `base-uri 'self'`,

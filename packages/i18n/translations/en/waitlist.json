@@ -1,30 +1,31 @@
 {
   "sectionTitle": "Join the waitlist",
-  "headline": "Ready?",
-  "subheadline": "Join the movement.",
-  "header": "Ready?",
-  "subheader": "Join the movement.",
+  "headline": "Want early access?",
+  "subheadline": "We're opening diBoaS to a small group first. Join the waitlist to be among the first to get access.",
+  "header": "Want early access?",
+  "subheader": "We're opening diBoaS to a small group first. Join the waitlist to be among the first to get access.",
   "form": {
     "emailPlaceholder": "Your email address",
     "emailLabel": "Email address",
-    "cta": "Get access →",
+    "cta": "Join Waitlist",
     "submitting": "Joining...",
-    "privacyNote": "We'll only email you about diBoaS. Unsubscribe anytime.",
+    "privacyNote": "We'll never spam you. Just updates on when you can get started.",
     "legendText": "Waitlist signup"
   },
   "error": {
     "generic": "Something went wrong. Please try again.",
     "invalidEmail": "Please enter a valid email address.",
+    "consentRequired": "Please check the box to continue.",
     "alreadyRegistered": "You're already on the waitlist!",
     "network": "Connection error. Please check your internet and try again."
   },
   "confirmation": {
-    "headline": "Enough!",
-    "subhead": "Welcome to the movement.",
+    "headline": "Welcome to the movement.",
+    "subhead": "",
     "positionIntro": "Your position:",
     "positionFormat": "#{position}",
-    "shareIntro": "Come together",
-    "shareBenefit": "Share and move up 10 spots.",
+    "shareIntro": "Invite your Friends",
+    "shareBenefit": "Your personal link:",
     "shareExplanation": "The sooner we launch, the sooner this becomes real.",
     "referralLinkLabel": "Your personal link:",
     "copy": "Copy link",
@@ -45,10 +46,10 @@
     "keepSharing": "Keep sharing to move up!"
   },
   "email": {
-    "welcome": "Welcome to diBoaS — You're #{position}",
+    "welcome": "Welcome to diBoaS, You're #{position}",
     "email1Subject": "Why your bank isn't working for you",
     "email2Subject": "How your money could actually work for you",
-    "email3Subject": "Meet Aqua, Mystic & Coral — your financial guides",
-    "email4Subject": "What's next — and why you're early"
+    "email3Subject": "Meet Aqua, Mystic & Coral, your financial guides",
+    "email4Subject": "What's next, and why you're early"
   }
 }

@@ -60,7 +60,7 @@ export class CleanupManager {
    */
   destroy(): void {
     if (this.isDestroyed) {
-      Logger.warn(`Cleanup manager ${this.label} already destroyed`);
+      Logger.debug(`Cleanup manager ${this.label} already destroyed`);
       return;
     }
 

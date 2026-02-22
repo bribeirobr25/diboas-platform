@@ -22,6 +22,7 @@ export interface ProductCarouselSlide {
   readonly imageAlt: string;
   readonly ctaText?: string;
   readonly ctaHref?: string;
+  readonly quote?: string;
 }
 
 export interface ProductCarouselSettings {

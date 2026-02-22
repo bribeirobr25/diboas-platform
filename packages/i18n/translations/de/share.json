@@ -44,10 +44,10 @@
     "copied": "Link in die Zwischenablage kopiert!"
   },
   "waitlistPosition": {
-    "twitter": "Vermögenslücke = kein Einkommen, sondern ZUGANG. Das System ist unfair. Ich bin #{position} und sage: Es reicht. Mach mit. ",
-    "whatsapp": "Die Vermögenslücke hat nichts mit Einkommen zu tun. Es geht um ZUGANG. Das System schließt uns aus. Ich bin #{position} und sage: Es reicht. Mach mit: {referralUrl}",
-    "facebook": "Vermögenslücke? Nicht Einkommen - ZUGANG. Banken verdienen 7% mit unserem Geld, zahlen uns 0,4%. Ich bin #{position}. Es reicht. Zeit für Veränderung.",
-    "linkedin": "Die Vermögenslücke ist kein Einkommensproblem. Es ist ein Zugangsproblem. Das System schließt systematisch aus. Ich bin #{position} und sage: Es reicht. Gemeinsam ändern wir das: {referralUrl}"
+    "twitter": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu: {referralUrl} @diboasfi",
+    "whatsapp": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu: {referralUrl}",
+    "facebook": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu.",
+    "linkedin": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu: {referralUrl}"
   },
   "timeframes": {
     "1week": "1 Woche",

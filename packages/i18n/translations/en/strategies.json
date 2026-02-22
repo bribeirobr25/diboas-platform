@@ -61,7 +61,7 @@
         "bumpiness": "Very smooth. Your balance stayed stable throughout our 4-year test."
       },
       "bestFor": "People building their first emergency fund. Anyone who wants to learn how this works without price swings.",
-      "riskLevel": "Minimal — Risks are possible technical vulnerabilities in the underlying systems, however they have operated safely for years."
+      "riskLevel": "Minimal. Risks are possible technical vulnerabilities in the underlying systems, however they have operated safely for years."
     },
     "stableGrowth": {
       "name": "Stable Growth",
@@ -77,7 +77,7 @@
         "bumpiness": "Some waves. At worst, your balance temporarily dropped 8% before recovering."
       },
       "bestFor": "People comfortable with some price movement who want their safety net to capture growth potential.",
-      "riskLevel": "Low — 30% of your balance will move with digital asset prices.",
+      "riskLevel": "Low. 30% of your balance will move with digital asset prices.",
       "note": "Not for your primary emergency fund. Build Safe Harbor first."
     },
     "goalKeeper": {
@@ -94,7 +94,7 @@
         "bumpiness": "Very smooth."
       },
       "bestFor": "Anyone with a specific goal and timeline under 2 years.",
-      "riskLevel": "Minimal — Designed for capital preservation with steady returns."
+      "riskLevel": "Minimal. Designed for capital preservation with steady returns."
     },
     "steadyProgress": {
       "name": "Steady Progress",
@@ -109,7 +109,7 @@
         "bumpiness": "Moderate waves. At worst, your balance temporarily dropped 11% before recovering."
       },
       "bestFor": "People saving for a goal who can handle seeing their balance dip temporarily.",
-      "riskLevel": "Low-Medium — Your balance will move with digital asset prices."
+      "riskLevel": "Low-Medium. Your balance will move with digital asset prices."
     },
     "patientBuilder": {
       "name": "Patient Builder",
@@ -124,7 +124,7 @@
         "bumpiness": "Very smooth."
       },
       "bestFor": "Medium-term savers who prioritize predictability over maximum returns.",
-      "riskLevel": "Minimal — Same stable profile, optimized for longer holding."
+      "riskLevel": "Minimal. Same stable profile, optimized for longer holding."
     },
     "balancedBuilder": {
       "name": "Balanced Builder",
@@ -139,7 +139,7 @@
         "bumpiness": "Moderate waves. At worst, your balance temporarily dropped 13% before recovering."
       },
       "bestFor": "People who understand that prices go up AND down, and can hold through temporary dips.",
-      "riskLevel": "Medium — 40% growth exposure means meaningful swings in both directions."
+      "riskLevel": "Medium. 40% growth exposure means meaningful swings in both directions."
     },
     "steadyCompounder": {
       "name": "Steady Compounder",
@@ -154,7 +154,7 @@
         "bumpiness": "Very smooth."
       },
       "bestFor": "Long-term savers who want peace of mind over maximum returns.",
-      "riskLevel": "Minimal — Slow and steady wins the race."
+      "riskLevel": "Minimal. Slow and steady wins the race."
     },
     "wealthAccelerator": {
       "name": "Wealth Accelerator",
@@ -166,11 +166,11 @@
       "allocationNote": "Heavily tilted toward growth potential.",
       "stats": {
         "lossChance": "Around 24%",
-        "typicalReturn": "Highly variable — could be negative or exceed 50%",
+        "typicalReturn": "Highly variable, could be negative or exceed 50%",
         "bumpiness": "Big swings. At worst, your balance dropped 47% before recovering."
       },
       "bestFor": "Long-term believers who can stomach extreme volatility for potentially higher returns.",
-      "riskLevel": "High — Significant chance of meaningful losses in shorter timeframes.",
+      "riskLevel": "High. Significant chance of meaningful losses in shorter timeframes.",
       "warning": "Your outcomes could range from -60% to +200%+. Only for users who can tolerate significant losses."
     },
     "yieldMaximizer": {
@@ -186,7 +186,7 @@
         "bumpiness": "Very smooth."
       },
       "bestFor": "Conservative long-term wealth builders who want strong returns without price swings.",
-      "riskLevel": "Minimal — Our highest-yielding stable strategy."
+      "riskLevel": "Minimal. Our highest-yielding stable strategy."
     },
     "fullThrottle": {
       "name": "Full Throttle",
@@ -198,7 +198,7 @@
       "allocationNote": "Maximum growth exposure with minimal stability buffer.",
       "stats": {
         "lossChance": "Around 27%",
-        "typicalReturn": "Extremely variable — from large losses to extraordinary gains",
+        "typicalReturn": "Extremely variable, from large losses to extraordinary gains",
         "bumpiness": "Roller coaster. At worst, your balance dropped 66% before recovering."
       },
       "requirements": {
@@ -209,7 +209,7 @@
         "riskAck": "Risk acknowledgment required"
       },
       "bestFor": "Experienced investors with high risk tolerance allocating a small portion of their portfolio.",
-      "riskLevel": "Very High — Near-total loss possible. Only use what you can afford to lose completely.",
+      "riskLevel": "Very High. Near-total loss possible. Only use what you can afford to lose completely.",
       "warning": "This isn't safe. It's for those who understand that. You could lose 78% or gain extraordinarily. Never put money here that you need."
     }
   },

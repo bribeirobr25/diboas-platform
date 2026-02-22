@@ -11,6 +11,7 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { formatCurrency, type PreDreamResult } from '@/lib/pre-dream';
+import { useLocale } from '@/components/Providers';
 import { getShareUrl, type SharePlatform } from '@/lib/share';
 import { analyticsService } from '@/lib/analytics';
 import {
@@ -21,26 +22,31 @@ import styles from '../PreDream.module.css';
 
 interface ShareDreamSectionProps {
   result: PreDreamResult;
+  /** Locale-adjusted difference for accurate sharing */
+  localeDifference?: number;
 }
 
-export function ShareDreamSection({ result }: ShareDreamSectionProps) {
+export function ShareDreamSection({ result, localeDifference }: ShareDreamSectionProps) {
   const intl = useTranslation();
+  const { locale } = useLocale();
   const [copied, setCopied] = useState(false);
 
   const t = (key: string) => intl.formatMessage({ id: `preDream.results.${key}` });
 
   const getShareText = useCallback((): string => {
-    const start = formatCurrency(result.totalInvestment, 0);
-    const end = formatCurrency(result.defiBalance, 0);
+    const start = formatCurrency(result.totalInvestment, 0, locale);
+    const end = formatCurrency(result.defiBalance, 0, locale);
+    const diff = localeDifference != null ? localeDifference : result.difference;
+    const difference = formatCurrency(diff, 0, locale);
     return intl.formatMessage(
       { id: 'preDream.results.shareText' },
-      { start, end },
+      { start, end, difference },
     );
-  }, [result, intl]);
+  }, [result, intl, localeDifference, locale]);
 
   const handleShare = useCallback(async (platform: 'whatsapp' | 'twitter' | 'linkedin' | 'copy') => {
     const shareText = getShareText();
-    const amount = formatCurrency(result.defiBalance, 0);
+    const amount = formatCurrency(result.defiBalance, 0, locale);
     const growth = `${result.growthPercentage.toFixed(0)}%`;
     const baseShareUrl = getShareUrl('dream', platform as SharePlatform);
     // Append dream result params so the landing page can render OG metadata

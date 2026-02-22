@@ -15,6 +15,7 @@ import { Logger } from '@/lib/monitoring/Logger';
 // Application Event Types following Domain-Driven Design
 export enum ApplicationEventType {
   // Waitlist Events
+  WAITLIST_SIGNUP_SUCCESS = 'waitlist:signup:success',
   WAITLIST_SIGNUP_COMPLETED = 'waitlist:signupCompleted',
   WAITLIST_SIGNUP_FAILED = 'waitlist:signupFailed',
   WAITLIST_DELETION_REQUESTED = 'waitlist:deletionRequested',
@@ -159,6 +160,7 @@ export type AppEventListener<T extends AppEventPayload = AppEventPayload> = (
 
 // Event validation schema
 const EVENT_VALIDATION_SCHEMA: Record<ApplicationEventType, string[]> = {
+  [ApplicationEventType.WAITLIST_SIGNUP_SUCCESS]: ['source'],
   [ApplicationEventType.WAITLIST_SIGNUP_COMPLETED]: ['source', 'submissionId', 'locale'],
   [ApplicationEventType.WAITLIST_SIGNUP_FAILED]: ['source'],
   [ApplicationEventType.WAITLIST_DELETION_REQUESTED]: ['source'],

@@ -1,5 +1,5 @@
 {
-  "headline": "What could $20/month become?",
+  "headline": "What could {currency}20/month become?",
   "subhead": "See your future self",
   "initialAmount": "Starting amount",
   "monthlyContribution": "Monthly contribution",
@@ -17,7 +17,7 @@
   "difference": "That's {difference} more from the same monthly amount.",
   "opportunityCost": "That's money you're leaving on the table",
   "ecbSource": "Bank comparison based on average US high-yield savings account rate of 0.45% APY. Source: FDIC National Rates, December 2024.",
-  "disclaimer": "PROJECTION — Based on historical data. Past performance does not guarantee future results.",
+  "disclaimer": "PROJECTION. Based on historical data. Past performance does not guarantee future results.",
   "share": "Share",
   "cta": "Join the waitlist to make this real",
   "ctaSecondary": "Want to see more? Try Dream Mode →",

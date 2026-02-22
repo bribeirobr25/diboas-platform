@@ -1,157 +1,215 @@
 {
   "hero": {
-    "headline": "O sistema não está quebrado. Ele foi projetado assim",
-    "subheadline": "Bancos ganham 15% com seu dinheiro. Te devolvem 7% na poupança. Quem tinha acesso nunca aceitou esse acordo.\nVocê não tinha opção. Até agora.",
-    "cta": "Como eu descobri isso →"
+    "headline": "O sistema não está quebrado. Ele funciona como projetado. Só que não pra você.",
+    "subheadline": "Dinheiro deveria se mover livre e na hora. Suas economias deveriam crescer. Seu dinheiro deveria trabalhar enquanto você dorme.",
+    "cta": "Testar Demo"
   },
   "origin": {
-    "header": "Por causa da minha avó",
-    "body": "Ela economizou a vida inteira. Metade de tudo que ganhava. Fez tudo certo.\n\nAinda assim, não foi o bastante.\nO sistema não foi feito pra pessoas como ela.\nComo eu. Como você.\n\n<strong>Tô construindo o que ela merecia ter tido.</strong>",
-    "signature": "— Breno, Fundador"
+    "header": "Por que diBoaS?",
+    "paragraphs": {
+      "p1": "Minha avó nunca teve acesso a boas oportunidades financeiras.",
+      "p2": "O sistema nunca foi feito pra pessoas como ela. Como eu. Como você.",
+      "p3": "O acesso estava trancado atrás de valores mínimos altos, palavras complicadas e grandes instituições financeiras.",
+      "p4": "Estou construindo isso pra ela e para todos que ela representa e merecem algo melhor e nunca tiveram.",
+      "p5": "Isso é diBoaS"
+    }
   },
   "howItWorks": {
-    "header": "Como funciona",
+    "header": "É Simples",
     "step1": {
-      "title": "Coloque seu dinheiro",
-      "description": "A partir de R$10. Ele começa a render 6-10% ao ano em dólares. O mesmo acesso que as instituições têm. Agora é seu."
+      "title": "Deposite Envie Pague",
+      "description": "Crie sua conta e deposite com PIX ou cartão de crédito/débito. Seu dinheiro é convertido em cripto moedas estáveis (stablecoins) que valem 1:1 com o dólar.",
+      "quote": "Mando dinheiro pra qualquer lugar. Cai na hora. Rápido, Seguro e simples."
     },
     "step2": {
-      "title": "Veja ele crescer",
-      "description": "Seu dinheiro trabalha 24 horas em sistemas verificados. Crescimento real. Valor real. Agora com juros compostos."
+      "title": "Invista Compre Venda",
+      "description": "Seu Acesso a oportunidades globais em Ações, Fundos, Cripto, Ouro com retornos em dólar",
+      "quote": "Tinha R$ 100 parados na conta sem fazer nada. Agora estão crescendo."
     },
     "step3": {
-      "title": "Acesse quando quiser",
-      "description": "Precisa do seu dinheiro? Um toque. No mesmo dia. Sem espera. Sem bloqueios. Sem multas."
+      "title": "Estratégias Alertas Saque",
+      "description": "Seu dinheiro cresce. A gente te mantém informado. Quando quiser sacar, você saca. Na hora, sem multas ou pegadinhas.",
+      "quote": "Meu dinheiro rende enquanto eu durmo. Adelaide me conta como tá indo."
+    }
+  },
+  "scenarios": {
+    "header": "Gente Real. Momentos Reais.",
+    "card1": {
+      "title": "Dividindo o jantar em São Paulo",
+      "description": "Quatro amigos. Um toque. Pronto antes do garçom trazer a conta."
     },
-    "step4": {
-      "title": "Sem intermedi\u00e1rio",
-      "description": "Melhores estrat\u00e9gias de investimento sem intermedi\u00e1rios."
+    "card2": {
+      "title": "Pagando um designer na Polônia",
+      "description": "Ele tá na Europa. Você no Brasil. O dinheiro chega antes da reunião acabar."
     },
-    "step5": {
-      "title": "Saque",
-      "description": "Saque a qualquer hora, qualquer valor. Voc\u00ea est\u00e1 no controle."
-    },
-    "step6": {
-      "title": "Transpar\u00eancia",
-      "description": "Veja pra onde cada centavo vai."
+    "card3": {
+      "title": "Dinheiro de emergência pra mãe",
+      "description": "3 da manhã. Ela precisa agora. Não no \"horário comercial.\""
     }
   },
   "features": {
-    "header": "diBoaS é muito mais!",
-    "earn": {
-      "headline": "Ganhe 6-10% ao ano",
-      "body": "Seu dinheiro cresce em sistemas verificados. Acesso institucional, agora seu. Saque quando quiser."
+    "slide1": {
+      "tagline": "Dinheiro que se move como mensagem",
+      "title": "Enviar & Receber",
+      "description": "Envie dinheiro para qualquer pessoa, em qualquer lugar. Solicite pagamentos. Divida despesas. Qualquer valor, na hora e sem fronteiras."
     },
-    "send": {
-      "headline": "Mova dinheiro livremente",
-      "body": "Pelo mundo em segundos. Para qualquer pessoa. Em qualquer lugar. Sem taxas. Sem espera."
+    "slide2": {
+      "tagline": "Economias que crescem",
+      "title": "Estratégias por Objetivo",
+      "description": "Escolha um objetivo. Escolha um nível de risco. Cada estratégia testada com milhares de simulações. Você escolhe a direção. A gente cuida da complexidade."
     },
-    "invest": {
-      "headline": "Invista sem fronteiras",
-      "body": "Ativos globais. Ações, Ouro, cripto. Sem fronteiras. Sem precisar de permissão."
-    },
-    "goals": {
-      "headline": "Defina metas. Alcance.",
-      "body": "Diz pra gente pra que você está guardando. Sugerimos um plano. Acompanhe o progresso. Ajuste quando a vida mudar."
+    "slide3": {
+      "tagline": "Seu dinheiro trabalha enquanto você dorme",
+      "title": "Sem Surpresas",
+      "description": "24 horas. Sem fins de semana. Sem feriados. Sem horário comercial. Seu dinheiro, sempre disponível, quando você precisar, pra o que precisar."
     }
   },
-  "demo": {
-    "header": "Experimente você mesmo",
-    "pain": {
-      "header": "Suas economias hoje",
-      "pixHeader": "Seu PIX de hoje",
-      "subtext": "Seu banco ganhou: {bankEarns}\nte devolveu {bankPays}",
-      "hook": "O que eles ganharam com isso: {bankEarns}",
-      "hookBrazil": "Nossa moeda perdeu {currencyLoss}% para o dólar.\nSeu ganho real = {realGain}",
-      "cta": "Me mostre"
+  "fees": {
+    "title": "Seu dinheiro. Suas regras. Sem surpresas.",
+    "subtitle": "Veja exatamente o que você paga. Aqui está tudo. Sem letras miúdas.",
+    "disclaimer": "Sem mensalidade. Sem saldo mínimo. Sem spread escondido. Sem surpresas.",
+    "example": "Exemplo: Investir R$100 custa R$0,39 no diBoaS. Em outros apps, você paga R$1,50–R$3,50.",
+    "headers": {
+      "action": "O que você faz",
+      "diboas": "Com diBoaS",
+      "competitors": "Apps comuns",
+      "difference": "A diferença"
     },
-    "hope": {
-      "header": "Um ano depois.",
-      "projectionLabel": "{apyRate}% ao ano em dólares:",
-      "comparison": "Poupança: {bankTotal} em reais.\nDiferença: {difference}.",
-      "impact": "Mesmo dinheiro. Lugar diferente. Lucro em Dólar.",
-      "cta": "Continue"
-    },
-    "action": {
-      "header": "Experimente com qualquer valor",
-      "prompt": "Quanto quer experimentar?",
-      "reassurance1": "Até {minAmount} funciona.",
-      "reassurance2": "Sem compromisso.",
-      "cta": "Adicionar"
-    },
-    "reward": {
-      "header": "Veja crescendo",
-      "delight": "{earned} ganhos. Imagina em um ano.",
-      "continueCta": "Quero acesso"
-    }
-  },
-  "socialProof": {
-    "header": "Junte-se a quem está dizendo \"chega\"",
-    "stats": {
-      "waitlist": "{count} já estão com a gente.",
-      "countries": "{countries} países. Uma missão."
-    },
-    "cta": "Entrar agora"
-  },
-  "faq": {
-    "header": "Coisas que vale saber",
-    "description": "Respostas diretas sobre as perguntas mais comuns do diBoaS.",
-    "ctaText": "Acesse agora →",
-    "items": {
-      "safety": {
-        "question": "Meu dinheiro está seguro?",
-        "answer": "<strong>Tem uma coisa que a maioria das pessoas não sabe:</strong> Quando você coloca dinheiro no banco, ele tecnicamente não é mais \"seu\". Legalmente, vira dinheiro do banco. Eles só prometem devolver, enquanto usam para os ganhos deles.\n\n<strong>Com o diBoaS, funciona diferente.</strong> Seus fundos ficam na sua própria carteira. <strong>O diBoaS não consegue tocar neles.</strong> Só mostramos onde colocar para seu dinheiro trabalhar mais.\n\n<strong>Esses sistemas confiáveis protegeram bilhões por anos.</strong>\n\nSão iguais a depósitos bancários? Não. São uma bagunça total? Também não. Estão no meio termo, e agora você sabe o suficiente para decidir se faz sentido para você."
+    "rows": {
+      "account": {
+        "action": "Manter sua conta",
+        "diboas": "Grátis sempre",
+        "competitors": "R$16–90/mês (bancos)",
+        "difference": "Você economiza R$200+/ano"
       },
-      "risks": {
-        "question": "Quais riscos eu preciso conhecer?",
-        "answer": "O diBoaS usa tecnologia diferente: sistemas baseados em código que podem ter falhas ou ataques. Ficamos só com os comprovados ($10 bilhões+ protegidos, histórico longo).\n\nRisco zero não existe em lugar nenhum, mas aqui é mais transparente. Comece com o que você não vai sentir falta. Até R$30. Aprenda como funciona. Depois decide se é certo para você."
+      "adding": {
+        "action": "Adicionar dinheiro",
+        "diboas": "0,48%",
+        "competitors": "1–3%",
+        "difference": "2–6× mais barato"
       },
-      "withdraw": {
-        "question": "Posso pegar meu dinheiro a qualquer hora?",
-        "answer": "Com certeza. Esse é o ponto. Muitas opções de alto rendimento prendem seu dinheiro por meses.\n\nAqui, está sempre pronto: peça e receba no mesmo dia, sem multas ou perguntas.\n\nSeu dinheiro, sua escolha. Você não deveria precisar de permissão para usar o que é seu."
+      "sending": {
+        "action": "Enviar para qualquer pessoa",
+        "diboas": "GRÁTIS, na hora, para o mundo todo",
+        "competitors": "PIX grátis, internacional R$20–100",
+        "difference": "PIX grátis, na hora, para o mundo todo"
       },
-      "revenue": {
-        "question": "Como o diBoaS ganha dinheiro?",
-        "answer": "Cobramos 0,75% em saques ou transferências, e 0,12% ao fechar posições ou vender ativos.\n\nPara R$500 de saque, são R$3,75 para a gente. Se você não movimentar, ganhamos zero.\n\nA gente só ganha quando você ganha."
+      "buying": {
+        "action": "Comprar Ações, Fundos, Cripto, Ouro",
+        "diboas": "0,39%",
+        "competitors": "1–2,5% + spread",
+        "difference": "4–6× mais barato"
       },
-      "trust": {
-        "question": "Por que confiar em vocês?",
-        "answer": "Não confie só porque a gente diz. Confira você mesmo.\n\nSeus fundos estão na sua carteira, visíveis a qualquer momento. Os sistemas são abertos para verificação. Focamos em regras claras e responsabilidade.\n\nExperimente com pouco; construa confiança passo a passo."
+      "selling": {
+        "action": "Vender investimentos",
+        "diboas": "0,39%",
+        "competitors": "1–2,5% + spread",
+        "difference": "4–6× mais barato"
+      },
+      "swapping": {
+        "action": "Transações de Troca",
+        "diboas": "GRÁTIS",
+        "competitors": "0,5–2%",
+        "difference": "Você fica com tudo"
       },
       "strategies": {
-        "question": "Quais estratégias vocês oferecem?",
-        "answer": "10 estratégias para diferentes objetivos e níveis de conforto com risco. De reservas de emergência seguras até crescimento de longo prazo mais ousado.\n\nCada uma combina com um propósito, como guardar para curto prazo ou construir ao longo de décadas.",
-        "link": "Conhecer todas as estratégias"
+        "action": "Crescer com estratégias",
+        "diboas": "Grátis para começar, 0.39% quando parar",
+        "competitors": "Não disponível",
+        "difference": "Ganhe enquanto dorme"
       },
-      "crypto": {
-        "question": "Preciso entender de cripto?",
-        "answer": "Não. Você não precisa entender de blockchain, carteiras ou DeFi pra usar o diBoaS.\n\nA gente cuida de toda a complexidade técnica. Você só vê seu saldo crescendo.\n\nPensa assim: é como usar email sem entender como protocolos de internet funcionam. A tecnologia tá lá, mas você não precisa ver."
+      "cashout": {
+        "action": "Sacar",
+        "diboas": "0,48% - Na hora",
+        "competitors": "1–3% - demora",
+        "difference": "2–6× mais barato"
       }
     }
   },
+  "catch": {
+    "header": "Qual é a pegadinha?",
+    "paragraphs": {
+      "p1": "Pergunta justa. Aqui vai a resposta honesta:",
+      "p2": "As melhores oportunidades financeiras ficaram trancadas atrás de grandes bancos, fundos de investimento. Você precisava de dinheiro pra fazer dinheiro.",
+      "p3": "A tecnologia nova (Blockchain) mudou isso. Tornou possível acessar as mesmas oportunidades sem os intermediários.",
+      "p4": "A gente não inventou isso. Só tornou simples o suficiente pra qualquer um usar.",
+      "p5": "A gente ganha quando você ganha. Quando você cresce, a gente cresce. Nossos interesses estão alinhados."
+    },
+    "earlyEmphasis": "Nenhuma!"
+  },
+  "demo": {
+    "header": "Testa Aí. Sem Cadastro.",
+    "subtext": "Veja exatamente como diBoaS funciona. Sem cadastro, sem dinheiro real. Você pode simular depositos, envios, invistir, sacar.",
+    "ctaPrimary": "Testar Demo Completa",
+    "ctaSecondary": "Você no Futuro"
+  },
+  "socialProof": {
+    "header": "O movimento está crescendo.",
+    "stats": {
+      "waitlist": "{count} pessoas",
+      "countries": "De {countries} países"
+    },
+    "cta": "Entrar na Lista"
+  },
   "waitlist": {
-    "header": "Pronto?",
-    "subheader": "Entre para o movimento.",
+    "header": "Entre na Lista?",
+    "description": "Estamos abrindo diBoaS pra um grupo pequeno primeiro. Se você gostou do que viu se cadastre.",
     "emailPlaceholder": "Seu e-mail",
-    "submitButton": "Acesse agora →",
-    "privacyNote": "Só atualizações do diBoaS. Sem spam. Cancele fácil."
+    "submitButton": "Entrar na Lista",
+    "privacyNote": "A gente nunca vai te mandar spam. Só atualizações sobre quando você pode começar."
+  },
+  "faq": {
+    "header": "Perguntas? A gente responde.",
+    "items": {
+      "isBank": {
+        "question": "diBoaS é um banco?",
+        "answer": "Não. diBoaS é uma plataforma que ajuda você a se conectar com as opções financeiras. A gente não toca, guarda, acessa ou gerencia o seu dinheiro. Você controla seus próprios recursos diretamente pela sua carteira pessoal. A gente oferece as ferramentas, você toma as decisões."
+      },
+      "howPossible": {
+        "question": "Como isso é possível sem taxas altas?",
+        "answer": "Primeiro pela vontade em criar algo novo, para pessoas que nunca tiveram uma chance justa. Segundo, tirando os intermediários, as agências, os executivos, os sistemas antigos. A gente usa tecnologia moderna (Blockchain) que custa uma fração do que o sistema financeiro tradicional cobra."
+      },
+      "safety": {
+        "question": "Meu dinheiro tá seguro?",
+        "answer": "Seu dinheiro é protegido por você. A gente usa tecnologia de segurança, com parceiros líderes da indústria, mas no final das contas, você tá no controle. Esse é o ponto, ninguém mais consegue acessar seus recursos sem sua permissão."
+      },
+      "understanding": {
+        "question": "E se eu não entendo nada de investimento?",
+        "answer": "É exatamente pra quem a gente construiu isso. Nosso objetivo é tornar tão simples que qualquer um consiga. Sem jargão. Sem decisões complicadas. Só opções claras e informação transparente."
+      },
+      "minimum": {
+        "question": "Qual é o valor mínimo pra começar?",
+        "answer": "Comece com apenas R$ 10. Sem exigência de saldo mínimo."
+      }
+    }
   },
   "footer": {
-    "riskDisclaimer": "O diBoaS conecta você a sistemas de finanças descentralizadas. Crescimento não é prometido. Resultados passados não preveem futuros. Envolve riscos como problemas de código, mudanças de mercado e desafios de acesso. Use apenas o que você pode arriscar. Não é um banco. Sem garantia de depósito.",
-    "usDisclaimer": "Aviso dos EUA: diBoaS \u00e9 uma interface n\u00e3o custodial que fornece acesso a protocolos de finan\u00e7as descentralizadas. O diBoaS n\u00e3o \u00e9 registrado na SEC, CFTC, FinCEN ou qualquer ag\u00eancia reguladora estadual. O tratamento regulat\u00f3rio de DeFi nos EUA est\u00e1 evoluindo. Voc\u00ea \u00e9 respons\u00e1vel por determinar se o uso desta interface est\u00e1 em conformidade com as leis aplic\u00e1veis.",
-    "regulatoryNote": "O diBoaS opera sob o framework MiCA da UE. Autoriza\u00e7\u00e3o CASP pendente.",
-    "brDisclaimer": "Aviso para o Brasil: diBoaS é uma empresa sediada na União Europeia. O diBoaS NÃO é uma instituição financeira autorizada pelo Banco Central do Brasil. Usuários brasileiros são responsáveis por suas próprias obrigações fiscais e regulatórias.",
-    "copyright": "© 2025 diBoaS. Todos os direitos reservados.",
-    "links": {
-      "privacy": "Política de Privacidade",
-      "terms": "Termos de Uso",
-      "risk": "Aviso de Riscos"
-    }
+    "tagline": "Acesso aberto e Oportunidades justa para todos!",
+    "nav": {
+      "forYou": "Pra Você",
+      "forBusiness": "Pra Empresas",
+      "adelaideDaily": "Adelaide Daily",
+      "about": "Sobre",
+      "help": "Ajuda",
+      "legal": "Legal"
+    },
+    "disclosures": {
+      "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento.",
+      "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou a totalidade do seu dinheiro. Criptoativos não são protegidos por sistemas de garantia de depósito.",
+      "stories": "As histórias de usuários são exemplos ilustrativos e não representam indivíduos específicos.",
+      "ai": "Este conteúdo foi criado com o auxílio de inteligência artificial e revisado para precisão. Conteúdo gerado por IA possui limitações inerentes. Verifique informações importantes de forma independente antes de tomar decisões.",
+      "mica": "Este comunicado de marketing de criptoativos não foi revisado ou aprovado por nenhuma autoridade competente em qualquer Estado-Membro da União Europeia. O ofertante do criptoativo é o único responsável pelo conteúdo deste comunicado de marketing.",
+      "cvm": "Retornos passados não são garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
+      "bcb": "A diBoaS não é uma instituição financeira autorizada pelo Banco Central do Brasil.",
+      "us": "",
+      "closing": "Você decide o que é melhor pra sua situação."
+    },
+    "copyright": "© 2026 diBoaS. Todos os direitos reservados."
   },
   "seo": {
     "title": "diBoaS | O Sistema Não Foi Feito Pra Você. A Gente Tá Mudando Isso.",
-    "description": "Seu banco pega seu dinheiro, investe pra lucrar e te devolve centavos. Ganhe 6-10% em dólares, envie dinheiro na hora de graça, invista globalmente a partir de R$10. Seu dinheiro. Suas regras.",
-    "ogTitle": "O sistema não está quebrado. Ele foi projetado assim",
-    "ogDescription": "Bancos ganham 15% com seu dinheiro. Te devolvem 7% — em reais que perdem valor. Os ricos nunca aceitaram isso. Você não tinha opção. Até agora."
+    "description": "Dinheiro deveria se mover de graça e na hora. Suas economias deveriam crescer. Seu dinheiro deveria trabalhar enquanto você dorme. Conheça a diBoaS.",
+    "ogTitle": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não pra você.",
+    "ogDescription": "Começou com minha avó. Eu aprendi o que os bancos não contam. Por isso estou construindo a diBoaS."
   }
 }

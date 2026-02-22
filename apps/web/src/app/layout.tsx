@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { headers } from "next/headers";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
@@ -10,22 +10,13 @@ import "./globals.css";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: 'swap',
   preload: true,
   adjustFontFallback: true,
   fallback: ['system-ui', 'arial'],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: 'swap',
-  preload: true,
-  adjustFontFallback: true,
-  fallback: ['ui-monospace', 'Courier New', 'monospace'],
 });
 
 export const viewport: Viewport = {
@@ -137,7 +128,7 @@ export default async function RootLayout({
         )}
       </head>
       <body
-        className={`${UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} ${geistSans.variable} ${geistMono.variable}`}
+        className={`${UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} ${inter.variable}`}
         suppressHydrationWarning
       >
         <PostHogProvider>

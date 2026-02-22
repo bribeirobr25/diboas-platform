@@ -1,11 +1,15 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { useLocale } from '@/components/Providers';
 import { CalculatorSection } from '@/components/Sections/CalculatorSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { PageHeroSection, SectionContainer } from '@/components/Sections';
 import { ContentCard, CTAButtonLink, ChevronRightIcon } from '@/components/UI';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { getLocaleConfig } from '@/lib/calculator';
+import { getCurrencySymbol } from '@/config/formats';
 import styles from './FutureYouPageContent.module.css';
 
 /**
@@ -19,9 +23,11 @@ const I18N_PREFIX = 'marketing.pages.futureYou';
  */
 export function FutureYouPageContent() {
   const intl = useTranslation();
+  const { locale } = useLocale();
+  const currencySymbol = useMemo(() => getCurrencySymbol(getLocaleConfig(locale).currency), [locale]);
 
   // Helper function to get prefixed i18n key
-  const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+  const t = (key: string, values?: Record<string, string | number>) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` }, values);
 
   return (
     <main className="main-page-wrapper">
@@ -33,7 +39,7 @@ export function FutureYouPageContent() {
         context={{ page: 'future-you', variant: 'centered' }}
       >
         <PageHeroSection
-          headline={t('hero.headline')}
+          headline={t('hero.headline', { currency: currencySymbol })}
           subheadline={t('hero.subheadline')}
           align="center"
         />

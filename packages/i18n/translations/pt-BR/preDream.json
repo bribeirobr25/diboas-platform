@@ -23,7 +23,7 @@
   },
   "pathSelect": {
     "title": "Como você se sente em relação a risco?",
-    "subtitle": "Não existe resposta errada — só caminhos diferentes.",
+    "subtitle": "Não existe resposta errada, só caminhos diferentes.",
     "back": "Voltar",
     "paths": {
       "safety": {
@@ -86,7 +86,7 @@
     "differenceSubtext": "Mesmo dinheiro. Lugar diferente. Grande diferença.",
     "shareTitle": "Compartilhar meu sonho",
     "shareCopied": "Copiado!",
-    "shareText": "Você precisa ver isso. Rendimento de nível institucional, finalmente acessível. Meus {start} viram {end}. Experimenta você também:",
+    "shareText": "Minha simulação no Dream Mode transformaria {start} em {end}, isso é {difference} a mais do que meu banco me daria. Experimenta você também:",
     "bankSource": "Baseado em taxa média de poupança de {rate}%. Fonte: FDIC National Average, janeiro de 2026.",
     "tryDifferent": "Tentar Outros Valores",
     "backToHome": "Voltar para o Início"

@@ -42,6 +42,13 @@
   width: var(--percent-100);
 }
 
+.counterRow {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-md);
+  text-align: center;
+}
+
 /* Tablet and up */
 @media (min-width: 768px) {
   .wrapper {

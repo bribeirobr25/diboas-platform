@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
 import { formatCurrency } from '@/lib/pre-dream';
+import { useLocale } from '@/components/Providers';
 import styles from '../PreDream.module.css';
 
 const ANIMATION_DURATION_MS = 3000;
@@ -20,6 +21,7 @@ function easeOutCubic(t: number): number {
 export function SimulationScreen() {
   const intl = useTranslation();
   const { state, goToScreen } = usePreDream();
+  const { locale } = useLocale();
 
   const startingValue = state.result?.totalInvestment ?? state.initialAmount;
   const finalValue = state.result?.defiBalance ?? startingValue;
@@ -105,7 +107,7 @@ export function SimulationScreen() {
 
         <div className={styles.valueDisplay}>
           <span className={styles.simulationValue}>
-            {formatCurrency(displayValue)}
+            {formatCurrency(displayValue, 2, locale)}
           </span>
         </div>
 

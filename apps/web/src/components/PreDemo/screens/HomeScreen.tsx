@@ -20,14 +20,8 @@ export function HomeScreen() {
       <DemoHeader />
 
       <div className={styles.screenContent}>
-        {/* Balance card - clickable to wallet details */}
-        <button
-          type="button"
-          onClick={() => setScreen('wallet-details')}
-          className={styles.clickable}
-        >
-          <BalanceCard />
-        </button>
+        {/* Balance card - navigates to wallet details via onCardClick */}
+        <BalanceCard onCardClick={() => setScreen('wallet-details')} />
 
         {/* Quick actions */}
         <QuickActions />

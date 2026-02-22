@@ -36,8 +36,10 @@ const CSP_DIRECTIVES: readonly CSPDirective[] = [
       "'unsafe-eval'", // Required for Next.js development
       "'unsafe-inline'", // Required for Next.js inline scripts
       'https://vercel.live', // Vercel analytics
-      ...(process.env.NODE_ENV === 'development' 
-        ? ["'unsafe-eval'", 'https://nextjs.org'] 
+      'https://*.googletagmanager.com', // GTM script loading
+      'https://*.google-analytics.com', // GA4 script
+      ...(process.env.NODE_ENV === 'development'
+        ? ["'unsafe-eval'", 'https://nextjs.org']
         : [])
     ]
   },
@@ -77,8 +79,11 @@ const CSP_DIRECTIVES: readonly CSPDirective[] = [
       "'self'",
       'https://vitals.vercel-analytics.com', // Vercel analytics
       'https://api.diboas.com', // API endpoints
-      ...(process.env.NODE_ENV === 'development' 
-        ? ['http://localhost:*', 'https://localhost:*', 'ws://localhost:*', 'wss://localhost:*'] 
+      'https://*.google-analytics.com', // GA4 data collection
+      'https://*.googletagmanager.com', // GTM
+      'https://*.doubleclick.net', // GA4 advertising signals
+      ...(process.env.NODE_ENV === 'development'
+        ? ['http://localhost:*', 'https://localhost:*', 'ws://localhost:*', 'wss://localhost:*']
         : [])
     ]
   },

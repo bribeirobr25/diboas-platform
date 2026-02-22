@@ -49,6 +49,7 @@ const nextConfig = {
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
+    qualities: [75, 80],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     dangerouslyAllowSVG: process.env.NODE_ENV !== 'production',
@@ -353,9 +354,6 @@ const sentryWebpackPluginOptions = {
   disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
   disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
 
-  // Automatically tree-shake Sentry logger in production
-  disableLogger: process.env.NODE_ENV === 'production',
-
   // Hide source maps from browser devtools in production
   hideSourceMaps: process.env.NODE_ENV === 'production',
 
@@ -365,8 +363,13 @@ const sentryWebpackPluginOptions = {
   // Routes browser requests through a tunnel to avoid ad-blockers
   tunnelRoute: '/monitoring',
 
-  // Automatically instrument API routes
-  automaticVercelMonitors: true,
+  // Webpack-scoped options (migrated from deprecated top-level keys)
+  webpack: {
+    treeshake: {
+      removeDebugLogging: process.env.NODE_ENV === 'production',
+    },
+    automaticVercelMonitors: true,
+  },
 };
 
 // Export with Sentry wrapper if DSN is configured, otherwise export plain config
