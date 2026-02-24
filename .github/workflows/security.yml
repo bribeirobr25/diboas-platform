@@ -23,7 +23,7 @@ jobs:
       - name: Security Audit
         id: audit
         run: |
-          pnpm -r audit --prod --audit-level=high || echo "failed=true" >> $GITHUB_OUTPUT
+          pnpm audit --prod --audit-level=high || echo "failed=true" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - name: Notify Slack on Failure
