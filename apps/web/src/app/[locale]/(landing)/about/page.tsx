@@ -7,20 +7,15 @@ import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { AboutPageContent } from '@/components/Pages/AboutPageContent';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface AboutPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the About page
  * Uses i18n translations for locale-aware SEO
  */
-export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
 
@@ -81,7 +76,7 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
  * - Section 6: For Businesses CTA
  * - Section 7: Contact
  */
-export default async function AboutPage({ params }: AboutPageProps) {
+export default async function AboutPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

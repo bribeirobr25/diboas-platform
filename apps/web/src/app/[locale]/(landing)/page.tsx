@@ -34,19 +34,14 @@ import {
   B2C_FOOTER_DISCLOSURES,
 } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface B2CLandingPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the B2C landing page
  */
-export async function generateMetadata({ params }: B2CLandingPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -118,7 +113,7 @@ export async function generateMetadata({ params }: B2CLandingPageProps): Promise
  * 10. FAQ — 5 CLO-approved Q&A items
  * 11. Footer — Tagline, nav, disclosures
  */
-export default async function B2CLandingPage({ params }: B2CLandingPageProps) {
+export default async function B2CLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

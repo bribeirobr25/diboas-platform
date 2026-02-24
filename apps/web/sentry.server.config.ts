@@ -14,8 +14,9 @@ if (SENTRY_DSN) {
   Sentry.init({
     dsn: SENTRY_DSN,
 
-    // Environment tracking
+    // Environment and release tracking
     environment: process.env.NODE_ENV,
+    release: process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
 
     // Performance Monitoring
     // Capture 10% of transactions in production

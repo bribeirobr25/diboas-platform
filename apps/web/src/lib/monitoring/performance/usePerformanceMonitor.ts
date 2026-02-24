@@ -17,7 +17,7 @@ import type {
   PerformanceSeverity,
   PerformanceMonitorReturn,
 } from './types';
-import { DEFAULT_THRESHOLDS, DEFAULT_REPORTING_INTERVAL } from './constants';
+import { DEFAULT_PERFORMANCE_THRESHOLDS, DEFAULT_REPORTING_INTERVAL } from './constants';
 
 export function usePerformanceMonitor(config: PerformanceMonitorConfig): PerformanceMonitorReturn {
   const {
@@ -39,7 +39,7 @@ export function usePerformanceMonitor(config: PerformanceMonitorConfig): Perform
   const [isMonitoring, setIsMonitoring] = useState(false);
 
   const mergedThresholds: PerformanceThresholds = {
-    ...DEFAULT_THRESHOLDS,
+    ...DEFAULT_PERFORMANCE_THRESHOLDS,
     ...thresholds,
     customThresholds: {
       ...thresholds.customThresholds

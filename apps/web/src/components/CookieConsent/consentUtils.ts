@@ -5,10 +5,12 @@
  */
 
 import { COOKIE_CONFIG } from '@/config/env';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import {
   applicationEventBus,
   ApplicationEventType,
 } from '@/lib/events/ApplicationEventBus';
+import { Logger } from '@/lib/monitoring/Logger';
 
 const CONSENT_KEY = COOKIE_CONFIG.consentLocalStorageKey;
 const CONSENT_VERSION = COOKIE_CONFIG.consentVersion;
@@ -25,7 +27,7 @@ export interface CookieConsentValue {
  */
 export async function syncConsentToApi(analytics: boolean): Promise<boolean> {
   try {
-    const response = await fetch('/api/consent', {
+    const response = await fetchWithRetry('/api/consent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ analytics }),
@@ -52,7 +54,7 @@ export async function syncConsentToApi(analytics: boolean): Promise<boolean> {
  */
 export async function checkConsentFromApi(): Promise<{ analytics: boolean; version: string } | null> {
   try {
-    const response = await fetch('/api/consent');
+    const response = await fetchWithRetry('/api/consent');
     if (!response.ok) return null;
 
     const data = await response.json();
@@ -151,4 +153,17 @@ export function getStoredConsent(): CookieConsentValue | null {
  */
 export function isConsentVersionCurrent(consent: CookieConsentValue): boolean {
   return consent.version === CONSENT_VERSION;
+}
+
+/**
+ * Register consent withdrawal handler to clear analytics logs.
+ * Should be called once at app bootstrap.
+ */
+export function registerConsentWithdrawalHandler(): () => void {
+  return applicationEventBus.on(
+    ApplicationEventType.CONSENT_WITHDRAWN,
+    () => {
+      Logger.clearLogs();
+    }
+  );
 }

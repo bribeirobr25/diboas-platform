@@ -31,6 +31,7 @@ export function SimulationScreen() {
   const animFrameRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
   const completedRef = useRef(false);
+  const autoAdvanceRef = useRef<ReturnType<typeof setTimeout>>();
 
   const t = (key: string) => intl.formatMessage({ id: `preDream.simulation.${key}` });
   const timeframeLabel = intl.formatMessage({
@@ -68,7 +69,7 @@ export function SimulationScreen() {
         // Animation complete — auto-advance after delay
         if (!completedRef.current) {
           completedRef.current = true;
-          setTimeout(() => {
+          autoAdvanceRef.current = setTimeout(() => {
             goToScreen('results');
           }, AUTO_ADVANCE_DELAY_MS);
         }
@@ -79,6 +80,7 @@ export function SimulationScreen() {
 
     return () => {
       cancelAnimationFrame(animFrameRef.current);
+      clearTimeout(autoAdvanceRef.current);
     };
   }, [finalValue, startingValue, goToScreen]);
 

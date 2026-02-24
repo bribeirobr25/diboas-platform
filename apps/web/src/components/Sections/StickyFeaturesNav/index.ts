@@ -20,6 +20,3 @@ export type {
   FeatureItem,
   StickyFeaturesNavSettings,
 } from '@/config/stickyFeaturesNav';
-
-// Default export
-export { StickyFeaturesNavFactory as default } from './StickyFeaturesNavFactory';

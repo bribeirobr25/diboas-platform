@@ -4,5 +4,5 @@
  * Barrel export for FAQ accordion section component
  */
 
-export { FAQAccordion } from './FAQAccordion';
-export type { FAQAccordionProps } from './FAQAccordion';
+export { FAQAccordion } from './FAQAccordionFactory';
+export type { FAQAccordionVariantProps as FAQAccordionProps } from './variants/types';

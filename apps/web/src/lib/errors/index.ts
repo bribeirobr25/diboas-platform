@@ -8,9 +8,6 @@
 export { SectionErrorBoundary } from './SectionErrorBoundary';
 export type { SectionErrorTranslations, SectionErrorFallbackProps } from './SectionErrorBoundary';
 
-// HOC wrapper
-export { withSectionErrorBoundary } from './withSectionErrorBoundary';
-
 // Default fallback component (for customization)
 export { DefaultSectionErrorFallback } from './DefaultSectionErrorFallback';
 

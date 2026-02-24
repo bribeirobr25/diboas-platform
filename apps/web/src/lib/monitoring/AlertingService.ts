@@ -22,7 +22,7 @@ import {
 
 // Import configuration
 import {
-  DEFAULT_THRESHOLDS,
+  DEFAULT_ALERT_THRESHOLDS,
   ALERT_CLEANUP_INTERVAL,
   MAX_ALERT_AGE
 } from './alertConfig';
@@ -42,7 +42,7 @@ import { deliverAlert, sendResolutionNotification } from './alertDelivery';
 // Re-export for backwards compatibility
 export { AlertSeverity, AlertCategory } from './alertTypes';
 export type { Alert, AlertThresholds, AlertStats } from './alertTypes';
-export { DEFAULT_THRESHOLDS } from './alertConfig';
+export { DEFAULT_ALERT_THRESHOLDS } from './alertConfig';
 
 /**
  * Centralized Alerting Service
@@ -52,9 +52,10 @@ export class AlertingService {
   private suppressedAlerts = new Set<string>();
   private thresholds: AlertThresholds;
   private isInitialized = false;
+  private cleanupIntervalId: ReturnType<typeof setInterval> | null = null;
 
   constructor(customThresholds?: Partial<AlertThresholds>) {
-    this.thresholds = { ...DEFAULT_THRESHOLDS, ...customThresholds };
+    this.thresholds = { ...DEFAULT_ALERT_THRESHOLDS, ...customThresholds };
     this.initialize();
   }
 
@@ -65,7 +66,7 @@ export class AlertingService {
     if (this.isInitialized || !MONITORING_CONFIG.alerts.enabled) return;
 
     // Set up alert cleanup interval
-    setInterval(() => {
+    this.cleanupIntervalId = setInterval(() => {
       this.cleanupOldAlerts();
     }, ALERT_CLEANUP_INTERVAL);
 
@@ -329,6 +330,20 @@ export class AlertingService {
         this.alerts.delete(id);
       }
     }
+  }
+
+  /**
+   * Destroy the alerting service and clean up resources
+   */
+  destroy(): void {
+    if (this.cleanupIntervalId) {
+      clearInterval(this.cleanupIntervalId);
+      this.cleanupIntervalId = null;
+    }
+    this.alerts.clear();
+    this.suppressedAlerts.clear();
+    this.isInitialized = false;
+    Logger.info('Alerting service destroyed');
   }
 }
 

@@ -1,6 +1,6 @@
 import { NavigationConfig } from '@/types/navigation';
 import { ASSET_PATHS } from '@/config/assets';
-import { APP_URL, BUSINESS_URL } from '@/config/environment';
+import { APP_URL, BUSINESS_URL } from '@/config/env';
 import { ROUTES } from '@/config/routes';
 
 /**

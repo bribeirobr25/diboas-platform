@@ -21,19 +21,14 @@ import {
   B2B_FINAL_CTA_CONFIG
 } from '@/config/landing-b2b';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface B2BLandingPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the B2B landing page
  */
-export async function generateMetadata({ params }: B2BLandingPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -104,7 +99,7 @@ export async function generateMetadata({ params }: B2BLandingPageProps): Promise
  * - Section 9: Final CTA
  * - Section 10: FAQ
  */
-export default async function B2BLandingPage({ params }: B2BLandingPageProps) {
+export default async function B2BLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

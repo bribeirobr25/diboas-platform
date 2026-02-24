@@ -19,8 +19,6 @@ export interface WaitingListSubmission {
   readonly locale: SupportedLocale;
   readonly submittedAt: Date;
   readonly source: SubmissionSource;
-  // Kit.com integration fields
-  readonly kitSubscriberId?: string;
   readonly position?: number;
   readonly referralCode?: string;
   readonly referredBy?: string;
@@ -40,15 +38,6 @@ export interface ReferralInfo {
   readonly referralCode: string;
   readonly referredBy?: string;
   readonly spotsPerReferral: number;
-}
-
-// Kit.com subscriber response
-export interface KitSubscriber {
-  readonly id: number;
-  readonly email: string;
-  readonly firstName?: string;
-  readonly fields?: Record<string, string | number | boolean>;
-  readonly createdAt: string;
 }
 
 export type SubmissionSource = 'marketing_site' | 'app_intercept';
@@ -75,7 +64,6 @@ export interface SubmissionResult {
   readonly id?: string;
   readonly error?: string;
   readonly isDuplicate?: boolean;
-  // Extended fields for Kit.com integration
   readonly position?: number;
   readonly referralCode?: string;
   readonly referralUrl?: string;
@@ -184,11 +172,3 @@ export interface WaitingListRepository {
   incrementReferralCount(email: string): Promise<number>;
 }
 
-// Kit.com API Service Interface (Service Agnostic Abstraction)
-export interface KitApiService {
-  createSubscriber(email: string, fields?: Record<string, string | number | boolean>): Promise<KitSubscriber>;
-  getSubscriber(subscriberId: number): Promise<KitSubscriber | null>;
-  getSubscriberByEmail(email: string): Promise<KitSubscriber | null>;
-  addToForm(subscriberId: number, formId: string): Promise<void>;
-  updateSubscriberFields(subscriberId: number, fields: Record<string, string | number | boolean>): Promise<void>;
-}

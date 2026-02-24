@@ -21,16 +21,23 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ page: string }> }
 ) {
-  const { page } = await params;
+  try {
+    const { page } = await params;
 
-  // Validate page type
-  const pageType = isValidPageType(page) ? page : 'default';
+    // Validate page type
+    const pageType = isValidPageType(page) ? page : 'default';
 
-  // Generate the OG image template
-  const template = getOGTemplate(pageType);
+    // Generate the OG image template
+    const template = getOGTemplate(pageType);
 
-  return new ImageResponse(template, {
-    width: 1200,
-    height: 630,
-  });
+    return new ImageResponse(template, {
+      width: 1200,
+      height: 630,
+      headers: {
+        'Cache-Control': 'public, max-age=86400',
+      },
+    });
+  } catch {
+    return new Response('Failed to generate OG image', { status: 500 });
+  }
 }

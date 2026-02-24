@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       { url: '/favicon.avif', type: 'image/avif' }
     ],
     shortcut: '/favicon.svg',
-    apple: '/assets/logos/logo-icon.png',
+    apple: '/assets/logos/logo-icon.avif',
   },
 };
 

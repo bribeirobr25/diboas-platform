@@ -7,6 +7,7 @@ import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationErrorBoundary';
 import { WaitingListProvider } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
+import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -62,6 +63,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
                 {children}
               </main>
               <SiteFooter />
+              <ScrollDepthTracker />
               <CookieConsent />
             </div>
           </WaitingListProvider>

@@ -226,6 +226,8 @@ export class Logger {
    * Sanitize context to remove sensitive data
    * Security: Prevents logging of sensitive information
    */
+  private static readonly EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
   private static sanitizeContext(context?: Record<string, unknown>): Record<string, unknown> | undefined {
     if (!context) return undefined;
 
@@ -233,8 +235,17 @@ export class Logger {
     const sanitized = { ...context };
 
     for (const key of Object.keys(sanitized)) {
+      // Redact by key name
       if (sensitiveKeys.some(sensitive => key.toLowerCase().includes(sensitive))) {
         sanitized[key] = '[REDACTED]';
+        continue;
+      }
+      // Redact string values matching email patterns
+      if (typeof sanitized[key] === 'string') {
+        sanitized[key] = (sanitized[key] as string).replace(
+          this.EMAIL_PATTERN,
+          '[EMAIL_REDACTED]'
+        );
       }
     }
 

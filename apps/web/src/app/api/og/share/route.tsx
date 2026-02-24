@@ -38,61 +38,65 @@ export const runtime = 'edge';
  * - Cache headers for performance
  */
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const type = searchParams.get('type') as ShareType | null;
-  const locale = searchParams.get('locale') || 'en';
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const type = searchParams.get('type') as ShareType | null;
+    const locale = searchParams.get('locale') || 'en';
 
-  let template: React.ReactElement;
+    let template: React.ReactElement;
 
-  switch (type) {
-    case 'waitlist': {
-      const position = parseIntSafe(searchParams.get('position'), 0);
-      const name = sanitizeInput(searchParams.get('name'));
+    switch (type) {
+      case 'waitlist': {
+        const position = parseIntSafe(searchParams.get('position'), 0);
+        const name = sanitizeInput(searchParams.get('name'));
 
-      if (!isValidPosition(position)) {
-        template = <DefaultTemplate locale={locale} />;
-      } else {
-        template = (
-          <WaitlistTemplate position={position} name={name} locale={locale} />
-        );
+        if (!isValidPosition(position)) {
+          template = <DefaultTemplate locale={locale} />;
+        } else {
+          template = (
+            <WaitlistTemplate position={position} name={name} locale={locale} />
+          );
+        }
+        break;
       }
-      break;
+
+      case 'calculator': {
+        const futureAmount = parseIntSafe(searchParams.get('amount'), 0);
+        const years = parseIntSafe(searchParams.get('years'), 10);
+        const strategy = sanitizeInput(searchParams.get('strategy'));
+        const initialInvestment = searchParams.get('initial')
+          ? parseIntSafe(searchParams.get('initial'), 0)
+          : undefined;
+
+        if (!isValidCalculatorInput(futureAmount, years)) {
+          template = <DefaultTemplate locale={locale} />;
+        } else {
+          template = (
+            <CalculatorTemplate
+              futureAmount={futureAmount}
+              years={years}
+              strategy={strategy}
+              initialInvestment={initialInvestment}
+              locale={locale}
+            />
+          );
+        }
+        break;
+      }
+
+      default:
+        template = <DefaultTemplate locale={locale} />;
     }
 
-    case 'calculator': {
-      const futureAmount = parseIntSafe(searchParams.get('amount'), 0);
-      const years = parseIntSafe(searchParams.get('years'), 10);
-      const strategy = sanitizeInput(searchParams.get('strategy'));
-      const initialInvestment = searchParams.get('initial')
-        ? parseIntSafe(searchParams.get('initial'), 0)
-        : undefined;
-
-      if (!isValidCalculatorInput(futureAmount, years)) {
-        template = <DefaultTemplate locale={locale} />;
-      } else {
-        template = (
-          <CalculatorTemplate
-            futureAmount={futureAmount}
-            years={years}
-            strategy={strategy}
-            initialInvestment={initialInvestment}
-            locale={locale}
-          />
-        );
-      }
-      break;
-    }
-
-    default:
-      template = <DefaultTemplate locale={locale} />;
+    return new ImageResponse(template, {
+      width: OG_DIMENSIONS.width,
+      height: OG_DIMENSIONS.height,
+      headers: {
+        // Cache for 1 hour, stale-while-revalidate for 1 day
+        'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
+      },
+    });
+  } catch {
+    return new Response('Failed to generate OG image', { status: 500 });
   }
-
-  return new ImageResponse(template, {
-    width: OG_DIMENSIONS.width,
-    height: OG_DIMENSIONS.height,
-    headers: {
-      // Cache for 1 hour, stale-while-revalidate for 1 day
-      'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
-    },
-  });
 }

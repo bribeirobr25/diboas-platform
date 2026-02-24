@@ -14,7 +14,7 @@ export const DEFAULT_REPORTING_INTERVAL = 5000; // 5 seconds
 /**
  * Default performance thresholds based on web vitals
  */
-export const DEFAULT_THRESHOLDS: PerformanceThresholds = {
+export const DEFAULT_PERFORMANCE_THRESHOLDS: PerformanceThresholds = {
   renderTime: {
     good: 100, // 100ms
     needsImprovement: 300, // 300ms

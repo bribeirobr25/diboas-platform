@@ -222,4 +222,3 @@ export function SocialProofSection({
   );
 }
 
-export default SocialProofSection;

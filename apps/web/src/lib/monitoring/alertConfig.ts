@@ -9,7 +9,7 @@ import type { AlertThresholds } from './alertTypes';
 /**
  * Default alert thresholds based on industry standards
  */
-export const DEFAULT_THRESHOLDS: AlertThresholds = {
+export const DEFAULT_ALERT_THRESHOLDS: AlertThresholds = {
   performance: {
     renderTimeMs: { warning: 100, critical: 300 },
     memoryUsageMB: { warning: 50, critical: 100 },

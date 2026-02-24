@@ -14,7 +14,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Logger } from '@/lib/monitoring/Logger';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import {
-  generateReferralUrl,
   isValidReferralCode,
 } from '@/lib/waitingList/helpers';
 import {
@@ -95,7 +94,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
     }
 
     // Find referrer
-    const referrer = getByReferralCode(code);
+    const referrer = await getByReferralCode(code);
 
     if (!referrer) {
       return NextResponse.json({
@@ -187,7 +186,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ProcessRe
     }
 
     // Find the referrer
-    const referrer = getByReferralCode(referralCode);
+    const referrer = await getByReferralCode(referralCode);
 
     if (!referrer) {
       return NextResponse.json(
@@ -197,7 +196,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ProcessRe
     }
 
     // Verify the referred user exists
-    const referredUser = getByEmail(referredEmail);
+    const referredUser = await getByEmail(referredEmail);
 
     if (!referredUser) {
       return NextResponse.json(
@@ -214,8 +213,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<ProcessRe
       );
     }
 
-    // Process the referral (bump position)
-    const updatedReferrer = processReferral(referrer.email, REFERRAL_CONFIG.spotsPerReferral);
+    // Process the referral (increment invite count)
+    const updatedReferrer = await processReferral(referrer.email);
 
     if (!updatedReferrer) {
       return NextResponse.json(

@@ -6,8 +6,7 @@
  * - Distributed rate limiting (Redis with in-memory fallback)
  * - Position assignment
  * - Referral code generation
- * - Kit.com (ConvertKit) integration for email marketing
- * - Local storage fallback for pre-launch
+ * - Email notification via Resend
  *
  * Security:
  * - No email enumeration (generic responses)
@@ -23,6 +22,8 @@ import {
   createRateLimitHeaders,
   RateLimitPresets,
   csrfProtection,
+  getIdempotentResponse,
+  cacheIdempotentResponse,
 } from '@/lib/security';
 import { sanitizeText, sanitizeUserName } from '@/lib/utils/sanitize';
 import {
@@ -38,67 +39,13 @@ import {
   getByReferralCode,
   processReferral,
   type WaitlistSource,
+  type WaitlistTier,
 } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
 import {
   applicationEventBus,
   ApplicationEventType,
 } from '@/lib/events/ApplicationEventBus';
-
-/**
- * Sync subscriber to Kit.com (ConvertKit)
- * Non-blocking - failures are logged but don't affect the signup response
- */
-async function syncToKit(
-  email: string,
-  metadata: {
-    position: number;
-    referralCode: string;
-    referredBy?: string;
-    locale: string;
-    source: string;
-  }
-): Promise<void> {
-  const apiKey = process.env.KIT_API_KEY;
-  const formId = process.env.KIT_FORM_ID;
-
-  if (!apiKey || !formId) {
-    Logger.debug('[Kit.com] Skipping sync - credentials not configured');
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `https://api.convertkit.com/v3/forms/${formId}/subscribe`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          api_key: apiKey,
-          email,
-          fields: {
-            waitlist_position: metadata.position,
-            referral_code: metadata.referralCode,
-            referred_by: metadata.referredBy || '',
-            locale: metadata.locale,
-            signup_source: metadata.source,
-          },
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.text();
-      Logger.error('[Kit.com] Sync failed', { status: response.status, error: errorData });
-    } else {
-      Logger.info('[Kit.com] Successfully synced subscriber', { email });
-    }
-  } catch (error) {
-    Logger.error('[Kit.com] Sync error', {}, error instanceof Error ? error : undefined);
-  }
-}
 
 interface SignupRequestBody {
   email: string;
@@ -116,11 +63,17 @@ interface SignupResponse {
   position?: number;
   referralCode?: string;
   referralUrl?: string;
+  tier?: WaitlistTier;
   error?: string;
   errorCode?: string;
 }
 
 export async function POST(request: NextRequest): Promise<NextResponse<SignupResponse>> {
+  // Idempotency check
+  const idempotencyKey = request.headers.get('idempotency-key');
+  const cachedResponse = getIdempotentResponse(idempotencyKey);
+  if (cachedResponse) return cachedResponse as NextResponse<SignupResponse>;
+
   // CSRF protection
   const csrfError = csrfProtection(request);
   if (csrfError) {
@@ -181,37 +134,36 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
 
     // Check for existing signup - return same response structure to prevent email enumeration
     // Security: Attackers cannot distinguish between new and existing signups
-    if (exists(email)) {
-      const existing = getByEmail(email)!;
-      const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, existing.referralCode);
+    if (await exists(email)) {
+      const existing = await getByEmail(email);
+      if (existing) {
+        const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, existing.referralCode);
 
-      // Return identical response structure as new signup (prevents enumeration)
-      // Note: Kit.com sync is NOT called for existing users (already synced)
-      return NextResponse.json({
-        success: true,
-        position: existing.position,
-        referralCode: existing.referralCode,
-        referralUrl,
-      });
+        // Return identical response structure as new signup (prevents enumeration)
+        return NextResponse.json({
+          success: true,
+          position: existing.position,
+          referralCode: existing.referralCode,
+          referralUrl,
+          tier: existing.tier,
+        });
+      }
     }
 
-    // Validate and process referral code if provided
+    // Validate referral code if provided
     let referredBy: string | undefined;
     if (body.referredBy && isValidReferralCode(body.referredBy, REFERRAL_CONFIG.codePrefix)) {
       referredBy = body.referredBy.toUpperCase();
-
-      // Find and credit the referrer
-      const referrer = getByReferralCode(referredBy);
-      if (referrer) {
-        processReferral(referrer.email, REFERRAL_CONFIG.spotsPerReferral);
-      }
     }
 
     // Generate referral code for new user
     const referralCode = generateReferralCode(REFERRAL_CONFIG.codePrefix, REFERRAL_CONFIG.codeLength);
 
-    // Add entry to store
-    const entry = addEntry({
+    // Detect country from Vercel/CDN headers (optional, for Founders Wall)
+    const country = request.headers.get('x-vercel-ip-country') || undefined;
+
+    // Add entry to store (tier determination + referrer lookup happens inside addEntry)
+    const entry = await addEntry({
       email,
       name: body.name ? sanitizeUserName(body.name) : undefined,
       referralCode,
@@ -219,17 +171,26 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       locale: body.locale || 'en',
       source: body.source || (referredBy ? 'referral' : 'direct'),
       tags: body.tags || [],
+      country,
     });
+
+    // Credit the referrer's invite count (after successful signup)
+    if (referredBy) {
+      const referrer = await getByReferralCode(referredBy);
+      if (referrer) {
+        await processReferral(referrer.email);
+      }
+    }
 
     const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referralCode);
 
-    // Sync to Kit.com (non-blocking - only for NEW signups)
-    syncToKit(email, {
+    // Send welcome email (non-blocking)
+    sendWelcomeEmail(email, {
       position: entry.position,
       referralCode,
-      referredBy,
+      referralUrl,
       locale: body.locale || 'en',
-      source: body.source || (referredBy ? 'referral' : 'direct'),
+      name: body.name ? sanitizeUserName(body.name) : undefined,
     });
 
     // Emit signup completed event for analytics and audit trail
@@ -248,12 +209,16 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       },
     });
 
-    return NextResponse.json({
+    const responseBody = {
       success: true,
       position: entry.position,
       referralCode: entry.referralCode,
       referralUrl,
-    });
+      tier: entry.tier,
+    };
+    cacheIdempotentResponse(idempotencyKey, 200, responseBody);
+
+    return NextResponse.json(responseBody);
 
   } catch (error) {
     Logger.error('Waitlist signup error', {}, error instanceof Error ? error : undefined);
@@ -297,6 +262,46 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
 }
 
 /**
+ * Send welcome email (fire-and-forget).
+ * Failures are logged but don't affect the signup response.
+ */
+function sendWelcomeEmail(
+  email: string,
+  data: {
+    position: number;
+    referralCode: string;
+    referralUrl: string;
+    locale: string;
+    name?: string;
+  }
+): void {
+  Promise.all([
+    import('@diboas/email'),
+  ]).then(async ([{ createEmailService, sendViaResend }]) => {
+    try {
+      const emailService = createEmailService({ send: sendViaResend });
+      const result = await emailService.sendWelcome(email, {
+        position: data.position,
+        referralCode: data.referralCode,
+        referralUrl: data.referralUrl,
+        locale: data.locale,
+        name: data.name,
+      });
+
+      if (result.success) {
+        Logger.info('[Email] Welcome email sent', { email });
+      } else {
+        Logger.error('[Email] Welcome email failed', { email, error: result.error });
+      }
+    } catch (err) {
+      Logger.error('[Email] Welcome email error', {}, err instanceof Error ? err : undefined);
+    }
+  }).catch((err) => {
+    Logger.error('[Email] Failed to load email service', {}, err instanceof Error ? err : undefined);
+  });
+}
+
+/**
  * GET /api/waitlist/signup?email=user@example.com
  *
  * Check registration status. Returns same structure regardless of existence
@@ -307,47 +312,55 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
  * to retrieve their actual data.
  */
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  // Rate limit check requests
-  const clientIP = getClientIP(request);
-  const rateLimitResult = await checkRateLimit(
-    `check:${clientIP}`,
-    RateLimitPresets.standard.limit,
-    RateLimitPresets.standard.windowMs
-  );
+  try {
+    // Rate limit check requests
+    const clientIP = getClientIP(request);
+    const rateLimitResult = await checkRateLimit(
+      `check:${clientIP}`,
+      RateLimitPresets.standard.limit,
+      RateLimitPresets.standard.windowMs
+    );
 
-  if (!rateLimitResult.success) {
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { success: false, error: 'Too many requests. Please try again later.' },
+        { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      );
+    }
+
+    const searchParams = request.nextUrl.searchParams;
+    const email = searchParams.get('email');
+
+    if (!email) {
+      return NextResponse.json(
+        { success: false, error: 'Email parameter required' },
+        { status: 400 }
+      );
+    }
+
+    const sanitizedEmail = email.toLowerCase().trim();
+
+    if (!isValidEmail(sanitizedEmail)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid email format' },
+        { status: 400 }
+      );
+    }
+
+    // Add artificial delay to prevent timing attacks (100-300ms)
+    await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
+
+    // Always return same response structure to prevent enumeration
+    // Users must use /api/waitlist/position with authentication to get actual data
+    return NextResponse.json({
+      success: true,
+      message: 'Check complete. Use position endpoint with authentication to retrieve your data.',
+    });
+  } catch (error) {
+    Logger.error('Waitlist check error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      { success: false, error: 'Internal server error' },
+      { status: 500 }
     );
   }
-
-  const searchParams = request.nextUrl.searchParams;
-  const email = searchParams.get('email');
-
-  if (!email) {
-    return NextResponse.json(
-      { success: false, error: 'Email parameter required' },
-      { status: 400 }
-    );
-  }
-
-  const sanitizedEmail = email.toLowerCase().trim();
-
-  if (!isValidEmail(sanitizedEmail)) {
-    return NextResponse.json(
-      { success: false, error: 'Invalid email format' },
-      { status: 400 }
-    );
-  }
-
-  // Add artificial delay to prevent timing attacks (100-300ms)
-  await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
-
-  // Always return same response structure to prevent enumeration
-  // Users must use /api/waitlist/position with authentication to get actual data
-  return NextResponse.json({
-    success: true,
-    message: 'Check complete. Use position endpoint with authentication to retrieve your data.',
-  });
 }

@@ -86,7 +86,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       );
     }
 
-    const userData = getByEmail(sanitizedEmail);
+    const userData = await getByEmail(sanitizedEmail);
 
     // Add artificial delay to prevent timing attacks (100-300ms)
     await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
@@ -187,7 +187,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
     }
 
     const sanitizedEmail = email.toLowerCase().trim();
-    let userData = getByEmail(sanitizedEmail);
+    let userData = await getByEmail(sanitizedEmail);
 
     // Don't reveal whether email exists for internal endpoints either
     if (!userData) {
@@ -199,19 +199,12 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
 
     // Update position if provided
     if (typeof newPosition === 'number' && newPosition > 0) {
-      userData = updateEntry(sanitizedEmail, { position: newPosition });
+      userData = await updateEntry(sanitizedEmail, { position: newPosition }) ?? userData;
     }
 
     // Increment referral count if requested
     if (incrementReferral) {
-      userData = processReferral(sanitizedEmail, REFERRAL_CONFIG.spotsPerReferral);
-    }
-
-    if (!userData) {
-      return NextResponse.json(
-        { success: false, error: 'Failed to update entry' },
-        { status: 500 }
-      );
+      userData = await processReferral(sanitizedEmail) ?? userData;
     }
 
     return NextResponse.json({

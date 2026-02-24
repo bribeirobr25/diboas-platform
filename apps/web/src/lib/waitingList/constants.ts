@@ -10,7 +10,6 @@ import {
   APP_URL,
   WAITLIST_STORAGE_KEYS,
   REFERRAL_COOKIE_CONFIG,
-  KIT_CONFIG as ENV_KIT_CONFIG,
 } from '@/config/env';
 
 export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
@@ -21,25 +20,6 @@ export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
   maxXAccountLength: 50,
   storageKey: WAITLIST_STORAGE_KEYS.main,
 };
-
-// Kit.com (ConvertKit) integration configuration
-export const KIT_CONFIG = {
-  // API configuration - credentials loaded from environment
-  apiBaseUrl: ENV_KIT_CONFIG.apiBaseUrl,
-  // Form ID for waitlist signups (set via KIT_FORM_ID env var)
-  formId: ENV_KIT_CONFIG.formId,
-  // Tag IDs for segmentation
-  tags: ENV_KIT_CONFIG.tags,
-  // Custom field names in Kit.com
-  customFields: {
-    position: 'waitlist_position',
-    referralCode: 'referral_code',
-    referredBy: 'referred_by',
-    referralCount: 'referral_count',
-    locale: 'locale',
-    xAccount: 'x_account',
-  },
-} as const;
 
 // Referral mechanics configuration
 export const REFERRAL_CONFIG = {

@@ -33,6 +33,57 @@ export interface ResolvedTranslations {
 }
 
 /**
+ * Check whether a string looks like a translation key.
+ * Translation keys have format 'namespace.key.path' (must have dots after prefix).
+ * Valid: 'landing-b2c.demo.header', 'common.buttons.submit'
+ * Invalid: 'landing-b2c' (just a category/identifier, not a translation key)
+ */
+function isTranslationKey(value: string): boolean {
+  return (
+    (value.startsWith('common.') && value.indexOf('.', 7) > 0) ||
+    (value.startsWith('marketing.') && value.indexOf('.', 10) > 0) ||
+    (value.startsWith('landing-') && value.indexOf('.', value.indexOf('-') + 1) > 0)
+  );
+}
+
+/**
+ * Recursively translate values in a config object using the provided intl instance.
+ * Shared implementation used by both useConfigTranslation and withTranslations.
+ */
+function translateValue(
+  value: unknown,
+  intl: IntlShape,
+  translationKeyMap?: Map<string, string>
+): unknown {
+  if (value == null) return value;
+
+  if (Array.isArray(value)) {
+    return value.map(item => translateValue(item, intl, translationKeyMap));
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const translatedObj: Record<string, unknown> = {};
+    for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
+      translatedObj[key] = translateValue(val, intl, translationKeyMap);
+    }
+    return translatedObj;
+  }
+
+  if (typeof value === 'string') {
+    if (isTranslationKey(value)) {
+      return intl.formatMessage({ id: value, defaultMessage: value });
+    }
+
+    if (translationKeyMap && translationKeyMap.has(value)) {
+      const key = translationKeyMap.get(value)!;
+      return intl.formatMessage({ id: key, defaultMessage: value });
+    }
+  }
+
+  return value;
+}
+
+/**
  * Hook to translate configuration objects
  * Recursively resolves all translation keys in a config object
  */
@@ -41,51 +92,7 @@ export function useConfigTranslation<T extends object>(
   translationKeyMap?: Map<string, string>
 ): T {
   const intl = useTranslation();
-
-  const translateValue = (value: unknown): unknown => {
-    // Handle null/undefined
-    if (value == null) return value;
-
-    // Handle arrays
-    if (Array.isArray(value)) {
-      return value.map(item => translateValue(item));
-    }
-
-    // Handle objects
-    if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-      const translatedObj: Record<string, unknown> = {};
-      for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
-        translatedObj[key] = translateValue(val);
-      }
-      return translatedObj;
-    }
-
-    // Handle strings - check if it's a translation key
-    if (typeof value === 'string') {
-      // Translation keys have format 'namespace.key.path' (must have dots after prefix)
-      // Valid: 'landing-b2c.demo.header', 'common.buttons.submit'
-      // Invalid: 'landing-b2c' (just a category/identifier, not a translation key)
-      const isTranslationKey = (
-        (value.startsWith('common.') && value.indexOf('.', 7) > 0) ||
-        (value.startsWith('marketing.') && value.indexOf('.', 10) > 0) ||
-        (value.startsWith('landing-') && value.indexOf('.', value.indexOf('-') + 1) > 0)
-      );
-
-      if (isTranslationKey) {
-        return intl.formatMessage({ id: value, defaultMessage: value });
-      }
-
-      // Check custom translation map
-      if (translationKeyMap && translationKeyMap.has(value)) {
-        const key = translationKeyMap.get(value)!;
-        return intl.formatMessage({ id: key, defaultMessage: value });
-      }
-    }
-
-    return value;
-  };
-
-  return translateValue(config) as T;
+  return translateValue(config, intl, translationKeyMap) as T;
 }
 
 /**
@@ -146,38 +153,7 @@ export function withTranslations<T extends object>(
   intl: IntlShape,
   config: T
 ): T {
-  const translateValue = (value: unknown): unknown => {
-    if (value == null) return value;
-
-    if (Array.isArray(value)) {
-      return value.map(item => translateValue(item));
-    }
-
-    if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-      const translatedObj: Record<string, unknown> = {};
-      for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
-        translatedObj[key] = translateValue(val);
-      }
-      return translatedObj;
-    }
-
-    if (typeof value === 'string') {
-      // Translation keys have format 'namespace.key.path' (must have dots after prefix)
-      const isTranslationKey = (
-        (value.startsWith('common.') && value.indexOf('.', 7) > 0) ||
-        (value.startsWith('marketing.') && value.indexOf('.', 10) > 0) ||
-        (value.startsWith('landing-') && value.indexOf('.', value.indexOf('-') + 1) > 0)
-      );
-
-      if (isTranslationKey) {
-        return intl.formatMessage({ id: value, defaultMessage: value });
-      }
-    }
-
-    return value;
-  };
-
-  return translateValue(config) as T;
+  return translateValue(config, intl) as T;
 }
 
 /**

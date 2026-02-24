@@ -4,19 +4,14 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { DreamModePageContent } from './DreamModePageContent';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface DreamModePageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the Dream Mode page
  */
-export async function generateMetadata({ params }: DreamModePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale: _locale } = await params;
   return {
     title: 'Dream Mode - diBoaS',
@@ -39,7 +34,7 @@ export async function generateMetadata({ params }: DreamModePageProps): Promise<
  * Entry point EP4: Direct URL access to Dream Mode
  * Requires waitlist membership for access (enforced client-side)
  */
-export default async function DreamModePage({ params }: DreamModePageProps) {
+export default async function DreamModePage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

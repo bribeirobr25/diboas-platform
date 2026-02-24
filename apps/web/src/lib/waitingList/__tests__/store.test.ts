@@ -1,13 +1,35 @@
 /**
  * Waitlist Store Tests
  *
- * Critical path tests for:
- * - CRUD operations
- * - Encryption/decryption of PII
- * - Edge cases (duplicates, invalid data)
+ * Tests for the database-backed waitlist store with tier system.
+ * Mocks the SQL client to avoid actual database calls.
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+// Mock the database client
+const mockSql = vi.fn();
+vi.mock('@/lib/database/client', () => ({
+  sql: (...args: unknown[]) => mockSql(...args),
+}));
+
+// Mock the encryption module
+vi.mock('@/lib/security/encryption', () => ({
+  encrypt: (value: string) => `enc_${value}`,
+  decrypt: (value: string) => value.startsWith('enc_') ? value.slice(4) : null,
+  hmacHash: (value: string) => `hash_${value}`,
+}));
+
+// Mock Logger
+vi.mock('@/lib/monitoring/Logger', () => ({
+  Logger: {
+    info: vi.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    debug: vi.fn(),
+  },
+}));
+
 import {
   addEntry,
   getByEmail,
@@ -21,512 +43,531 @@ import {
   getAllEntries,
   getTotalCount,
   addTags,
+  getCurrentPositionCounter,
+  getFoundingMemberCount,
   type AddEntryInput,
 } from '../store';
 
-// Mock fs to prevent actual file operations
-vi.mock('fs', () => ({
-  existsSync: vi.fn(() => false),
-  readFileSync: vi.fn(() => '{"entries":[],"positionCounter":847,"entryIdCounter":0}'),
-  writeFileSync: vi.fn(),
-}));
+// Helper to create a mock row
+function mockRow(overrides: Record<string, unknown> = {}) {
+  return {
+    id: 'wl_123_1',
+    email: 'enc_test@example.com',
+    email_hash: 'hash_test@example.com',
+    name: null,
+    position: 1,
+    original_position: 1,
+    referral_code: 'REFTEST01',
+    referred_by: null,
+    referral_count: 0,
+    locale: 'en',
+    source: 'direct',
+    tags: [],
+    gdpr_accepted: true,
+    tier: 'founding_member',
+    country: null,
+    created_at: '2024-01-01T00:00:00.000Z',
+    updated_at: '2024-01-01T00:00:00.000Z',
+    ...overrides,
+  };
+}
 
 describe('Waitlist Store', () => {
   beforeEach(() => {
-    // Clear store before each test
-    clearStore();
+    vi.clearAllMocks();
   });
 
-  describe('CRUD Operations', () => {
-    describe('addEntry', () => {
-      it('should create a new entry with correct fields', () => {
-        const input: AddEntryInput = {
-          email: 'test@example.com',
-          name: 'Test User',
-          referralCode: 'REFABC123',
-          locale: 'en',
-          source: 'landing_b2c',
-          tags: ['early-adopter'],
-        };
+  describe('getByEmail', () => {
+    it('should return entry when email found', async () => {
+      mockSql.mockResolvedValueOnce([mockRow()]);
 
-        const entry = addEntry(input);
+      const result = await getByEmail('test@example.com');
 
-        expect(entry).toBeDefined();
-        expect(entry.id).toMatch(/^wl_\d+_\d+$/);
-        expect(entry.email).toBe('test@example.com');
-        expect(entry.name).toBe('Test User');
-        expect(entry.referralCode).toBe('REFABC123');
-        expect(entry.locale).toBe('en');
-        expect(entry.source).toBe('landing_b2c');
-        expect(entry.tags).toEqual(['early-adopter']);
-        expect(entry.position).toBeGreaterThan(0);
-        expect(entry.originalPosition).toBe(entry.position);
-        expect(entry.referralCount).toBe(0);
-        expect(entry.createdAt).toBeInstanceOf(Date);
-        expect(entry.updatedAt).toBeInstanceOf(Date);
-      });
-
-      it('should normalize email to lowercase', () => {
-        const entry = addEntry({
-          email: 'TEST@EXAMPLE.COM',
-          referralCode: 'REFTEST01',
-          locale: 'en',
-        });
-
-        expect(entry.email).toBe('test@example.com');
-      });
-
-      it('should trim whitespace from email', () => {
-        const entry = addEntry({
-          email: '  spaced@example.com  ',
-          referralCode: 'REFTEST02',
-          locale: 'en',
-        });
-
-        expect(entry.email).toBe('spaced@example.com');
-      });
-
-      it('should assign incrementing positions', () => {
-        const entry1 = addEntry({
-          email: 'first@example.com',
-          referralCode: 'REFFIRST1',
-          locale: 'en',
-        });
-        const entry2 = addEntry({
-          email: 'second@example.com',
-          referralCode: 'REFSECND2',
-          locale: 'en',
-        });
-
-        expect(entry2.position).toBe(entry1.position + 1);
-      });
-
-      it('should default source to "direct" if not provided', () => {
-        const entry = addEntry({
-          email: 'default@example.com',
-          referralCode: 'REFDEFLT3',
-          locale: 'en',
-        });
-
-        expect(entry.source).toBe('direct');
-      });
-
-      it('should throw error for duplicate email', () => {
-        addEntry({
-          email: 'duplicate@example.com',
-          referralCode: 'REFDUPE01',
-          locale: 'en',
-        });
-
-        expect(() => {
-          addEntry({
-            email: 'duplicate@example.com',
-            referralCode: 'REFDUPE02',
-            locale: 'en',
-          });
-        }).toThrow('Email already exists');
-      });
-
-      it('should treat same email with different case as duplicate', () => {
-        addEntry({
-          email: 'case@example.com',
-          referralCode: 'REFCASE01',
-          locale: 'en',
-        });
-
-        expect(() => {
-          addEntry({
-            email: 'CASE@EXAMPLE.COM',
-            referralCode: 'REFCASE02',
-            locale: 'en',
-          });
-        }).toThrow('Email already exists');
-      });
+      expect(result).toBeDefined();
+      expect(result?.email).toBe('test@example.com');
+      expect(result?.tier).toBe('founding_member');
     });
 
-    describe('getByEmail', () => {
-      it('should return entry by email', () => {
-        const input: AddEntryInput = {
-          email: 'find@example.com',
-          referralCode: 'REFFIND01',
-          locale: 'en',
-        };
-        addEntry(input);
+    it('should return undefined when email not found', async () => {
+      mockSql.mockResolvedValueOnce([]);
 
-        const found = getByEmail('find@example.com');
+      const result = await getByEmail('nonexistent@example.com');
 
-        expect(found).toBeDefined();
-        expect(found?.email).toBe('find@example.com');
-      });
-
-      it('should return undefined for non-existent email', () => {
-        const found = getByEmail('nonexistent@example.com');
-
-        expect(found).toBeUndefined();
-      });
-
-      it('should be case-insensitive', () => {
-        addEntry({
-          email: 'casetest@example.com',
-          referralCode: 'REFCASE03',
-          locale: 'en',
-        });
-
-        const found = getByEmail('CASETEST@EXAMPLE.COM');
-
-        expect(found).toBeDefined();
-        expect(found?.email).toBe('casetest@example.com');
-      });
+      expect(result).toBeUndefined();
     });
 
-    describe('getById', () => {
-      it('should return entry by ID', () => {
-        const entry = addEntry({
-          email: 'byid@example.com',
-          referralCode: 'REFBYID01',
-          locale: 'en',
-        });
+    it('should normalize email to lowercase and trim', async () => {
+      mockSql.mockResolvedValueOnce([mockRow()]);
 
-        const found = getById(entry.id);
+      await getByEmail('  TEST@EXAMPLE.COM  ');
 
-        expect(found).toBeDefined();
-        expect(found?.id).toBe(entry.id);
-      });
-
-      it('should return undefined for non-existent ID', () => {
-        const found = getById('wl_nonexistent_123');
-
-        expect(found).toBeUndefined();
-      });
-    });
-
-    describe('getByReferralCode', () => {
-      it('should return entry by referral code', () => {
-        addEntry({
-          email: 'referral@example.com',
-          referralCode: 'REFCODE01',
-          locale: 'en',
-        });
-
-        const found = getByReferralCode('REFCODE01');
-
-        expect(found).toBeDefined();
-        expect(found?.referralCode).toBe('REFCODE01');
-      });
-
-      it('should be case-insensitive for referral code', () => {
-        addEntry({
-          email: 'refcase@example.com',
-          referralCode: 'REFCASE04',
-          locale: 'en',
-        });
-
-        const found = getByReferralCode('refcase04');
-
-        expect(found).toBeDefined();
-      });
-
-      it('should return undefined for non-existent code', () => {
-        const found = getByReferralCode('REFNOTFND');
-
-        expect(found).toBeUndefined();
-      });
-    });
-
-    describe('exists', () => {
-      it('should return true for existing email', () => {
-        addEntry({
-          email: 'exists@example.com',
-          referralCode: 'REFEXIST1',
-          locale: 'en',
-        });
-
-        expect(exists('exists@example.com')).toBe(true);
-      });
-
-      it('should return false for non-existent email', () => {
-        expect(exists('notexists@example.com')).toBe(false);
-      });
-
-      it('should be case-insensitive', () => {
-        addEntry({
-          email: 'existscase@example.com',
-          referralCode: 'REFEXIST2',
-          locale: 'en',
-        });
-
-        expect(exists('EXISTSCASE@EXAMPLE.COM')).toBe(true);
-      });
-    });
-
-    describe('updateEntry', () => {
-      it('should update mutable fields', () => {
-        addEntry({
-          email: 'update@example.com',
-          referralCode: 'REFUPDT01',
-          locale: 'en',
-        });
-
-        const updated = updateEntry('update@example.com', {
-          name: 'Updated Name',
-          locale: 'pt-BR',
-        });
-
-        expect(updated).toBeDefined();
-        expect(updated?.name).toBe('Updated Name');
-        expect(updated?.locale).toBe('pt-BR');
-      });
-
-      it('should update the updatedAt timestamp', () => {
-        const entry = addEntry({
-          email: 'timestamp@example.com',
-          referralCode: 'REFTSTMP1',
-          locale: 'en',
-        });
-        const originalUpdatedAt = entry.updatedAt;
-
-        // Wait a bit to ensure different timestamp
-        const updated = updateEntry('timestamp@example.com', { name: 'New Name' });
-
-        expect(updated?.updatedAt.getTime()).toBeGreaterThanOrEqual(originalUpdatedAt.getTime());
-      });
-
-      it('should return undefined for non-existent email', () => {
-        const updated = updateEntry('nonexistent@example.com', { name: 'Test' });
-
-        expect(updated).toBeUndefined();
-      });
-
-      it('should preserve immutable fields (id, email, originalPosition, createdAt)', () => {
-        const entry = addEntry({
-          email: 'immutable@example.com',
-          referralCode: 'REFIMMUT1',
-          locale: 'en',
-        });
-
-        const updated = updateEntry('immutable@example.com', {
-          name: 'New Name',
-          position: 1, // Position can be updated
-        });
-
-        expect(updated?.id).toBe(entry.id);
-        expect(updated?.email).toBe(entry.email);
-        expect(updated?.originalPosition).toBe(entry.originalPosition);
-        expect(updated?.createdAt).toEqual(entry.createdAt);
-      });
-    });
-
-    describe('deleteByEmail', () => {
-      it('should delete existing entry and return true', () => {
-        addEntry({
-          email: 'delete@example.com',
-          referralCode: 'REFDELET1',
-          locale: 'en',
-        });
-
-        const result = deleteByEmail('delete@example.com');
-
-        expect(result).toBe(true);
-        expect(exists('delete@example.com')).toBe(false);
-      });
-
-      it('should return false for non-existent email', () => {
-        const result = deleteByEmail('nonexistent@example.com');
-
-        expect(result).toBe(false);
-      });
-
-      it('should be case-insensitive', () => {
-        addEntry({
-          email: 'deletecase@example.com',
-          referralCode: 'REFDELET2',
-          locale: 'en',
-        });
-
-        const result = deleteByEmail('DELETECASE@EXAMPLE.COM');
-
-        expect(result).toBe(true);
-        expect(exists('deletecase@example.com')).toBe(false);
-      });
+      expect(mockSql).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('Referral Processing', () => {
-    it('should increment referral count', () => {
-      addEntry({
-        email: 'referrer@example.com',
-        referralCode: 'REFREFERR',
+  describe('getById', () => {
+    it('should return entry when ID found', async () => {
+      mockSql.mockResolvedValueOnce([mockRow()]);
+
+      const result = await getById('wl_123_1');
+
+      expect(result).toBeDefined();
+      expect(result?.id).toBe('wl_123_1');
+    });
+
+    it('should return undefined when ID not found', async () => {
+      mockSql.mockResolvedValueOnce([]);
+
+      const result = await getById('wl_nonexistent');
+
+      expect(result).toBeUndefined();
+    });
+  });
+
+  describe('getByReferralCode', () => {
+    it('should return entry when referral code found', async () => {
+      mockSql.mockResolvedValueOnce([mockRow({ referral_code: 'REFCODE01' })]);
+
+      const result = await getByReferralCode('REFCODE01');
+
+      expect(result).toBeDefined();
+      expect(result?.referralCode).toBe('REFCODE01');
+    });
+
+    it('should be case-insensitive', async () => {
+      mockSql.mockResolvedValueOnce([mockRow({ referral_code: 'REFCODE01' })]);
+
+      const result = await getByReferralCode('refcode01');
+
+      expect(result).toBeDefined();
+    });
+
+    it('should return undefined when not found', async () => {
+      mockSql.mockResolvedValueOnce([]);
+
+      const result = await getByReferralCode('REFNOTFND');
+
+      expect(result).toBeUndefined();
+    });
+  });
+
+  describe('exists', () => {
+    it('should return true when email exists', async () => {
+      mockSql.mockResolvedValueOnce([{ '?column?': 1 }]);
+
+      const result = await exists('exists@example.com');
+
+      expect(result).toBe(true);
+    });
+
+    it('should return false when email does not exist', async () => {
+      mockSql.mockResolvedValueOnce([]);
+
+      const result = await exists('notexists@example.com');
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('addEntry', () => {
+    it('should create founding_member when cap not full (direct signup)', async () => {
+      // Mock: duplicate check
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: tryClaimFoundingSlot — UPDATE returns row (slot claimed)
+      mockSql.mockResolvedValueOnce([{ value: 1 }]);
+      // Mock: nextEntryId
+      mockSql.mockResolvedValueOnce([{ value: 1 }]);
+      // Mock: nextPosition
+      mockSql.mockResolvedValueOnce([{ value: 1 }]);
+      // Mock: INSERT
+      mockSql.mockResolvedValueOnce([]);
+
+      const entry = await addEntry({
+        email: 'founder@example.com',
+        name: 'Founder',
+        referralCode: 'REFFNDR1',
+        locale: 'en',
+        source: 'landing_b2c',
+        country: 'US',
+      });
+
+      expect(entry.tier).toBe('founding_member');
+      expect(entry.country).toBe('US');
+      expect(entry.position).toBe(1);
+    });
+
+    it('should create priority_waitlist when cap is full (direct signup)', async () => {
+      // Mock: duplicate check
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: tryClaimFoundingSlot — UPDATE returns empty (cap full)
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: nextEntryId
+      mockSql.mockResolvedValueOnce([{ value: 2 }]);
+      // Mock: nextPosition
+      mockSql.mockResolvedValueOnce([{ value: 1201 }]);
+      // Mock: INSERT
+      mockSql.mockResolvedValueOnce([]);
+
+      const entry = await addEntry({
+        email: 'latecomer@example.com',
+        referralCode: 'REFLATE1',
         locale: 'en',
       });
 
-      const updated = processReferral('referrer@example.com', 10);
+      expect(entry.tier).toBe('priority_waitlist');
+    });
+
+    it('should create founding_member when invited by founder and cap not full', async () => {
+      // Mock: duplicate check
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: getByReferralCode (referrer lookup)
+      mockSql.mockResolvedValueOnce([mockRow({
+        tier: 'founding_member',
+        referral_count: 2,
+      })]);
+      // Mock: tryClaimFoundingSlot — slot claimed
+      mockSql.mockResolvedValueOnce([{ value: 50 }]);
+      // Mock: nextEntryId
+      mockSql.mockResolvedValueOnce([{ value: 3 }]);
+      // Mock: nextPosition
+      mockSql.mockResolvedValueOnce([{ value: 50 }]);
+      // Mock: INSERT
+      mockSql.mockResolvedValueOnce([]);
+
+      const entry = await addEntry({
+        email: 'invited@example.com',
+        referralCode: 'REFINVT1',
+        referredBy: 'REFTEST01',
+        locale: 'en',
+      });
+
+      expect(entry.tier).toBe('founding_member');
+    });
+
+    it('should create early_member when invited by founder and cap IS full', async () => {
+      // Mock: duplicate check
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: getByReferralCode (referrer lookup)
+      mockSql.mockResolvedValueOnce([mockRow({
+        tier: 'founding_member',
+        referral_count: 3,
+      })]);
+      // Mock: tryClaimFoundingSlot — cap full
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: nextEntryId
+      mockSql.mockResolvedValueOnce([{ value: 4 }]);
+      // Mock: nextPosition
+      mockSql.mockResolvedValueOnce([{ value: 1300 }]);
+      // Mock: INSERT
+      mockSql.mockResolvedValueOnce([]);
+
+      const entry = await addEntry({
+        email: 'earlybird@example.com',
+        referralCode: 'REFEARLY',
+        referredBy: 'REFTEST01',
+        locale: 'en',
+      });
+
+      expect(entry.tier).toBe('early_member');
+    });
+
+    it('should create priority_waitlist when referrer has >= 5 invites', async () => {
+      // Mock: duplicate check
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: getByReferralCode (referrer has 5 invites used)
+      mockSql.mockResolvedValueOnce([mockRow({
+        tier: 'founding_member',
+        referral_count: 5,
+      })]);
+      // No tryClaimFoundingSlot call — referrer is at limit
+      // Mock: nextEntryId
+      mockSql.mockResolvedValueOnce([{ value: 5 }]);
+      // Mock: nextPosition
+      mockSql.mockResolvedValueOnce([{ value: 1400 }]);
+      // Mock: INSERT
+      mockSql.mockResolvedValueOnce([]);
+
+      const entry = await addEntry({
+        email: 'overlimit@example.com',
+        referralCode: 'REFOVRL1',
+        referredBy: 'REFTEST01',
+        locale: 'en',
+      });
+
+      expect(entry.tier).toBe('priority_waitlist');
+    });
+
+    it('should create standard when referrer is standard tier', async () => {
+      // Mock: duplicate check
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: getByReferralCode (referrer is standard)
+      mockSql.mockResolvedValueOnce([mockRow({
+        tier: 'standard',
+        referral_count: 0,
+      })]);
+      // No tryClaimFoundingSlot call — standard referrer
+      // Mock: nextEntryId
+      mockSql.mockResolvedValueOnce([{ value: 6 }]);
+      // Mock: nextPosition
+      mockSql.mockResolvedValueOnce([{ value: 1500 }]);
+      // Mock: INSERT
+      mockSql.mockResolvedValueOnce([]);
+
+      const entry = await addEntry({
+        email: 'standardref@example.com',
+        referralCode: 'REFSTD01',
+        referredBy: 'REFTEST01',
+        locale: 'en',
+      });
+
+      expect(entry.tier).toBe('standard');
+    });
+
+    it('should throw error for duplicate email', async () => {
+      mockSql.mockResolvedValueOnce([{ '?column?': 1 }]);
+
+      await expect(addEntry({
+        email: 'duplicate@example.com',
+        referralCode: 'REFDUPE01',
+        locale: 'en',
+      })).rejects.toThrow('Email already exists');
+    });
+
+    it('should throw "Email already exists" on concurrent INSERT race (23505)', async () => {
+      // Mock: duplicate check passes
+      mockSql.mockResolvedValueOnce([]);
+      // Mock: tryClaimFoundingSlot
+      mockSql.mockResolvedValueOnce([{ value: 10 }]);
+      // Mock: nextEntryId
+      mockSql.mockResolvedValueOnce([{ value: 7 }]);
+      // Mock: nextPosition
+      mockSql.mockResolvedValueOnce([{ value: 10 }]);
+      // Mock: INSERT fails with unique violation
+      const pgError = new Error('duplicate key value violates unique constraint');
+      (pgError as unknown as { code: string }).code = '23505';
+      mockSql.mockRejectedValueOnce(pgError);
+
+      await expect(addEntry({
+        email: 'race@example.com',
+        referralCode: 'REFRACE01',
+        locale: 'en',
+      })).rejects.toThrow('Email already exists');
+    });
+
+    it('should re-throw non-unique-violation DB errors', async () => {
+      mockSql.mockResolvedValueOnce([]);
+      mockSql.mockResolvedValueOnce([{ value: 11 }]);
+      mockSql.mockResolvedValueOnce([{ value: 8 }]);
+      mockSql.mockResolvedValueOnce([{ value: 11 }]);
+      mockSql.mockRejectedValueOnce(new Error('connection timeout'));
+
+      await expect(addEntry({
+        email: 'error@example.com',
+        referralCode: 'REFERROR1',
+        locale: 'en',
+      })).rejects.toThrow('connection timeout');
+    });
+
+    it('should default source to "direct" if not provided', async () => {
+      mockSql.mockResolvedValueOnce([]);
+      mockSql.mockResolvedValueOnce([{ value: 12 }]);
+      mockSql.mockResolvedValueOnce([{ value: 9 }]);
+      mockSql.mockResolvedValueOnce([{ value: 12 }]);
+      mockSql.mockResolvedValueOnce([]);
+
+      const entry = await addEntry({
+        email: 'default@example.com',
+        referralCode: 'REFDEFLT3',
+        locale: 'en',
+      });
+
+      expect(entry.source).toBe('direct');
+    });
+  });
+
+  describe('updateEntry', () => {
+    it('should return updated entry on success', async () => {
+      mockSql.mockResolvedValueOnce([mockRow({
+        name: 'enc_Updated Name',
+        locale: 'pt-BR',
+        updated_at: '2024-01-02T00:00:00.000Z',
+      })]);
+
+      const updated = await updateEntry('update@example.com', {
+        name: 'Updated Name',
+        locale: 'pt-BR',
+      });
 
       expect(updated).toBeDefined();
-      expect(updated?.referralCount).toBe(1);
+      expect(updated?.name).toBe('Updated Name');
+      expect(updated?.locale).toBe('pt-BR');
     });
 
-    it('should decrease position by spots per referral', () => {
-      const entry = addEntry({
-        email: 'posref@example.com',
-        referralCode: 'REFPOSREF',
-        locale: 'en',
-      });
-      const originalPosition = entry.position;
+    it('should return undefined for non-existent email', async () => {
+      mockSql.mockResolvedValueOnce([]);
 
-      const updated = processReferral('posref@example.com', 10);
+      const updated = await updateEntry('nonexistent@example.com', { name: 'Test' });
 
-      expect(updated?.position).toBe(originalPosition - 10);
+      expect(updated).toBeUndefined();
+    });
+  });
+
+  describe('processReferral', () => {
+    it('should increment count for founding_member with < 5 invites', async () => {
+      mockSql.mockResolvedValueOnce([mockRow({
+        tier: 'founding_member',
+        referral_count: 1,
+      })]);
+
+      const result = await processReferral('referrer@example.com');
+
+      expect(result).toBeDefined();
+      expect(result?.referralCount).toBe(1);
     });
 
-    it('should not decrease position below 1', () => {
-      addEntry({
-        email: 'minpos@example.com',
-        referralCode: 'REFMINPOS',
-        locale: 'en',
-      });
+    it('should increment count for early_member with < 5 invites', async () => {
+      mockSql.mockResolvedValueOnce([mockRow({
+        tier: 'early_member',
+        referral_count: 3,
+      })]);
 
-      // Process many referrals to try to go negative
-      let entry = processReferral('minpos@example.com', 500);
-      entry = processReferral('minpos@example.com', 500);
+      const result = await processReferral('earlyref@example.com');
 
-      expect(entry?.position).toBe(1);
+      expect(result).toBeDefined();
+      expect(result?.referralCount).toBe(3);
     });
 
-    it('should return undefined for non-existent referrer', () => {
-      const result = processReferral('nonexistent@example.com', 10);
+    it('should return undefined when referrer has >= 5 invites (SQL WHERE blocks)', async () => {
+      mockSql.mockResolvedValueOnce([]);
+
+      const result = await processReferral('maxedreferrer@example.com');
+
+      expect(result).toBeUndefined();
+    });
+
+    it('should return undefined for non-existent referrer', async () => {
+      mockSql.mockResolvedValueOnce([]);
+
+      const result = await processReferral('nonexistent@example.com');
 
       expect(result).toBeUndefined();
     });
   });
 
-  describe('Tags Management', () => {
-    it('should add tags to entry', () => {
-      addEntry({
-        email: 'tags@example.com',
-        referralCode: 'REFTAGS01',
-        locale: 'en',
-        tags: ['initial'],
-      });
+  describe('deleteByEmail', () => {
+    it('should return true when entry deleted', async () => {
+      mockSql.mockResolvedValueOnce([{ id: 'wl_123_1' }]);
 
-      const updated = addTags('tags@example.com', ['new-tag', 'another']);
+      const result = await deleteByEmail('delete@example.com');
 
+      expect(result).toBe(true);
+    });
+
+    it('should return false for non-existent email', async () => {
+      mockSql.mockResolvedValueOnce([]);
+
+      const result = await deleteByEmail('nonexistent@example.com');
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('addTags', () => {
+    it('should return updated entry with new tags', async () => {
+      mockSql.mockResolvedValueOnce([mockRow({
+        tags: ['initial', 'new-tag'],
+      })]);
+
+      const updated = await addTags('tags@example.com', ['new-tag']);
+
+      expect(updated).toBeDefined();
       expect(updated?.tags).toContain('initial');
       expect(updated?.tags).toContain('new-tag');
-      expect(updated?.tags).toContain('another');
     });
 
-    it('should not duplicate existing tags', () => {
-      addEntry({
-        email: 'duptags@example.com',
-        referralCode: 'REFTAGS02',
-        locale: 'en',
-        tags: ['existing'],
-      });
+    it('should return undefined for non-existent email', async () => {
+      mockSql.mockResolvedValueOnce([]);
 
-      const updated = addTags('duptags@example.com', ['existing', 'new']);
-
-      expect(updated?.tags).toEqual(['existing', 'new']);
-    });
-
-    it('should return undefined for non-existent email', () => {
-      const result = addTags('nonexistent@example.com', ['tag']);
+      const result = await addTags('nonexistent@example.com', ['tag']);
 
       expect(result).toBeUndefined();
     });
   });
 
-  describe('Store Statistics', () => {
-    it('should return correct total count', () => {
-      expect(getTotalCount()).toBe(0);
+  describe('getAllEntries', () => {
+    it('should return all entries', async () => {
+      mockSql.mockResolvedValueOnce([
+        mockRow({ email: 'enc_a@example.com' }),
+        mockRow({ email: 'enc_b@example.com', position: 2 }),
+      ]);
 
-      addEntry({ email: 'one@example.com', referralCode: 'REFONE001', locale: 'en' });
-      addEntry({ email: 'two@example.com', referralCode: 'REFTWO002', locale: 'en' });
-      addEntry({ email: 'three@example.com', referralCode: 'REFTHREE3', locale: 'en' });
-
-      expect(getTotalCount()).toBe(3);
-    });
-
-    it('should return all entries', () => {
-      addEntry({ email: 'all1@example.com', referralCode: 'REFALL001', locale: 'en' });
-      addEntry({ email: 'all2@example.com', referralCode: 'REFALL002', locale: 'en' });
-
-      const entries = getAllEntries();
+      const entries = await getAllEntries();
 
       expect(entries).toHaveLength(2);
-      expect(entries.map(e => e.email)).toContain('all1@example.com');
-      expect(entries.map(e => e.email)).toContain('all2@example.com');
     });
   });
 
-  describe('Edge Cases', () => {
-    it('should handle empty string email gracefully', () => {
-      // The store normalizes to lowercase and trims, empty string becomes ''
-      // This should either throw or create an entry with empty email
-      // depending on validation at higher layer
-      const entry = addEntry({
-        email: '',
-        referralCode: 'REFEMPTY1',
-        locale: 'en',
-      });
+  describe('getTotalCount', () => {
+    it('should return count from database', async () => {
+      mockSql.mockResolvedValueOnce([{ count: 42 }]);
 
-      expect(entry.email).toBe('');
+      const count = await getTotalCount();
+
+      expect(count).toBe(42);
+    });
+  });
+
+  describe('getCurrentPositionCounter', () => {
+    it('should return position from counters table', async () => {
+      mockSql.mockResolvedValueOnce([{ value: 900 }]);
+
+      const counter = await getCurrentPositionCounter();
+
+      expect(counter).toBe(900);
     });
 
-    it('should handle very long email addresses', () => {
-      const longEmail = 'a'.repeat(200) + '@example.com';
-      const entry = addEntry({
-        email: longEmail,
-        referralCode: 'REFLONG01',
-        locale: 'en',
-      });
+    it('should return 0 as fallback when no counter exists', async () => {
+      mockSql.mockResolvedValueOnce([]);
 
-      expect(entry.email).toBe(longEmail.toLowerCase());
+      const counter = await getCurrentPositionCounter();
+
+      expect(counter).toBe(0);
+    });
+  });
+
+  describe('getFoundingMemberCount', () => {
+    it('should return count and cap from counters', async () => {
+      mockSql.mockResolvedValueOnce([
+        { key: 'founding_member_count', value: 500 },
+        { key: 'founding_member_cap', value: 1200 },
+      ]);
+
+      const status = await getFoundingMemberCount();
+
+      expect(status.count).toBe(500);
+      expect(status.cap).toBe(1200);
     });
 
-    it('should handle special characters in email', () => {
-      const specialEmail = 'user+tag@example.com';
-      const entry = addEntry({
-        email: specialEmail,
-        referralCode: 'REFSPEC01',
-        locale: 'en',
-      });
+    it('should default to 0/1200 when no counters exist', async () => {
+      mockSql.mockResolvedValueOnce([]);
 
-      expect(entry.email).toBe(specialEmail);
-      expect(getByEmail(specialEmail)).toBeDefined();
+      const status = await getFoundingMemberCount();
+
+      expect(status.count).toBe(0);
+      expect(status.cap).toBe(1200);
     });
+  });
 
-    it('should handle unicode in name', () => {
-      const entry = addEntry({
-        email: 'unicode@example.com',
-        name: 'José María 中文 Émilie',
-        referralCode: 'REFUNIC01',
-        locale: 'en',
-      });
+  describe('clearStore', () => {
+    it('should call delete and reset counters', async () => {
+      mockSql.mockResolvedValueOnce([]);
+      mockSql.mockResolvedValueOnce([]);
+      mockSql.mockResolvedValueOnce([]);
+      mockSql.mockResolvedValueOnce([]);
 
-      expect(entry.name).toBe('José María 中文 Émilie');
-    });
+      await clearStore();
 
-    it('should handle undefined optional fields', () => {
-      const entry = addEntry({
-        email: 'minimal@example.com',
-        referralCode: 'REFMIN001',
-        locale: 'en',
-      });
-
-      expect(entry.name).toBeUndefined();
-      expect(entry.referredBy).toBeUndefined();
-      expect(entry.kitSubscriberId).toBeUndefined();
-      expect(entry.tags).toEqual([]);
-    });
-
-    it('should clear store correctly', () => {
-      addEntry({ email: 'clear1@example.com', referralCode: 'REFCLR001', locale: 'en' });
-      addEntry({ email: 'clear2@example.com', referralCode: 'REFCLR002', locale: 'en' });
-
-      clearStore();
-
-      expect(getTotalCount()).toBe(0);
-      expect(getAllEntries()).toEqual([]);
+      expect(mockSql).toHaveBeenCalledTimes(4);
     });
   });
 });

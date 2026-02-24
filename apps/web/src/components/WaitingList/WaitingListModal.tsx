@@ -91,10 +91,11 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
         <div className={styles.imageSection}>
           <div className={styles.imageWrapper}>
             <Image
-              src="/assets/socials/drawing/phone-hero.avif"
+              src="/assets/images/phone-banner.avif"
               alt={t('imageAlt')}
               fill
               priority
+              sizes="(max-width: 768px) 100vw, 40vw"
               className={styles.bannerImage}
             />
           </div>

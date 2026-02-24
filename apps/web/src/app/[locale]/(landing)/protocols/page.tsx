@@ -6,20 +6,15 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { ProtocolsPageContent } from '@/components/Pages/ProtocolsPageContent';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface ProtocolsPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the Protocols page
  * Uses i18n translations for locale-aware SEO
  */
-export async function generateMetadata({ params }: ProtocolsPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
 
@@ -80,7 +75,7 @@ export async function generateMetadata({ params }: ProtocolsPageProps): Promise<
  * - Section 6: FAQ
  * - Section 7: Waitlist
  */
-export default async function ProtocolsPage({ params }: ProtocolsPageProps) {
+export default async function ProtocolsPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

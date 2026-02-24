@@ -6,16 +6,15 @@
  */
 
 export {
-  LegalDocument,
-  LegalHeader,
-  LegalSection,
+  LegalTableOfContents,
+  LegalContentSection,
   LegalSubsection,
   LegalParagraph,
   LegalTable,
   LegalList,
-  LegalHighlight,
   LegalContactInfo,
   LegalRetentionList,
+  LegalBackToTop,
 } from './LegalDocument';
 
 export { CookiePolicyContent } from './CookiePolicyContent';

@@ -8,7 +8,6 @@ import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages'
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
 
-
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
@@ -16,20 +15,15 @@ import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { LocalePageProps } from '@/types/page';
 export const dynamic = 'auto';
 
-interface PageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   return generateStaticPageMetadata('learn/defi-explained', locale as SupportedLocale);
 }
 
-export default async function DeFiExplainedPage({ params }: PageProps) {
+export default async function DeFiExplainedPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 
@@ -85,7 +79,6 @@ export default async function DeFiExplainedPage({ params }: PageProps) {
             enableAnalytics={true}
           />
         </SectionErrorBoundary>
-
 
         
         {/* Benefits Cards Section */}

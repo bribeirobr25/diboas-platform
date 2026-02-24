@@ -8,16 +8,11 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { PrivacyPolicyContent } from '@/components/Legal';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
 
-interface PageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -70,7 +65,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function LegalPrivacyPage({ params }: PageProps) {
+export default async function LegalPrivacyPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

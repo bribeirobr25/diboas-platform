@@ -15,21 +15,16 @@ import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
 import type { Metadata } from 'next';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
 
-interface PageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   return generateStaticPageMetadata('why-diboas', locale as SupportedLocale);
 }
 
-export default async function BenefitsPage({ params }: PageProps) {
+export default async function BenefitsPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

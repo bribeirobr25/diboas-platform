@@ -3,12 +3,12 @@
  *
  * Implements Article 17 "Right to Erasure" compliance.
  * Two-step deletion process:
- * 1. POST: Request deletion (generates token, returns 202)
+ * 1. POST: Request deletion (generates token, stores in DB)
  * 2. DELETE: Confirm deletion with token (actually deletes)
  *
  * Security:
  * - Does not reveal email existence (prevents enumeration)
- * - Token-based confirmation
+ * - Token-based confirmation (tokens stored in DB, not memory)
  * - Rate limited
  * - Audit logging
  */
@@ -25,24 +25,67 @@ import {
   csrfProtection,
 } from '@/lib/security';
 import { getByEmail, deleteByEmail } from '@/lib/waitingList/store';
+import { sql } from '@/lib/database/client';
+import { isValidEmail } from '@/lib/waitingList/helpers';
 import { Logger } from '@/lib/monitoring/Logger';
 import {
   applicationEventBus,
   ApplicationEventType,
 } from '@/lib/events/ApplicationEventBus';
 
-// In-memory token store (in production, use Redis with TTL)
-const pendingDeletions = new Map<string, { email: string; expiresAt: number }>();
 const TOKEN_TTL_MS = 15 * 60 * 1000; // 15 minutes
 
 /**
- * Clean up expired tokens
+ * Store a deletion token in the database.
  */
-function cleanupExpiredTokens(): void {
-  const now = Date.now();
-  for (const [hash, data] of pendingDeletions.entries()) {
-    if (data.expiresAt < now) {
-      pendingDeletions.delete(hash);
+async function storeDeletionToken(tokenHash: string, email: string): Promise<void> {
+  const expiresAt = new Date(Date.now() + TOKEN_TTL_MS).toISOString();
+  await sql`
+    INSERT INTO deletion_tokens (token_hash, email, expires_at)
+    VALUES (${tokenHash}, ${email}, ${expiresAt})
+    ON CONFLICT (token_hash) DO UPDATE SET
+      email = ${email},
+      expires_at = ${expiresAt}
+  `;
+}
+
+/**
+ * Look up a deletion token from the database.
+ * Automatically cleans up expired tokens.
+ */
+async function findDeletionToken(token: string): Promise<{ email: string } | null> {
+  // Clean up expired tokens (probabilistic)
+  if (Math.random() < 0.1) {
+    await sql`DELETE FROM deletion_tokens WHERE expires_at < NOW()`;
+  }
+
+  // Retrieve all non-expired tokens and verify against the provided token
+  const rows = await sql`
+    SELECT token_hash, email FROM deletion_tokens WHERE expires_at > NOW()
+  `;
+
+  for (const row of rows) {
+    const r = row as { token_hash: string; email: string };
+    if (verifyToken(token, r.token_hash)) {
+      return { email: r.email };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Remove a deletion token from the database after use.
+ */
+async function removeDeletionToken(token: string): Promise<void> {
+  const rows = await sql`
+    SELECT token_hash FROM deletion_tokens WHERE expires_at > NOW()
+  `;
+  for (const row of rows) {
+    const r = row as { token_hash: string };
+    if (verifyToken(token, r.token_hash)) {
+      await sql`DELETE FROM deletion_tokens WHERE token_hash = ${r.token_hash}`;
+      return;
     }
   }
 }
@@ -95,36 +138,25 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(normalizedEmail)) {
+    if (!isValidEmail(normalizedEmail)) {
       return NextResponse.json(
         { success: false, error: 'Invalid email format' },
         { status: 400 }
       );
     }
 
-    // Clean up expired tokens periodically
-    if (Math.random() < 0.1) {
-      cleanupExpiredTokens();
-    }
-
     // Check if email exists (silently - don't reveal to user)
-    const entry = getByEmail(normalizedEmail);
+    const entry = await getByEmail(normalizedEmail);
 
     if (entry) {
       // Generate deletion token
       const token = generateDeletionToken();
       const tokenHash = hashToken(token);
 
-      // Store pending deletion
-      pendingDeletions.set(tokenHash, {
-        email: normalizedEmail,
-        expiresAt: Date.now() + TOKEN_TTL_MS,
-      });
+      // Store pending deletion in database
+      await storeDeletionToken(tokenHash, normalizedEmail);
 
-      // In production, send this token via email
-      // Token is never exposed in response - only sent via secure email channel
       Logger.info('[GDPR] Deletion requested for email, token generated');
 
       // Emit deletion requested event for audit trail
@@ -137,9 +169,8 @@ export async function POST(request: Request): Promise<NextResponse> {
         },
       });
 
-      // POST-LAUNCH: Integrate email service (SendGrid/Resend) to send deletion confirmation
-      // Implementation: await emailService.sendDeletionConfirmation(normalizedEmail, token);
-      // Requirement: GDPR Article 17 - Right to erasure confirmation
+      // Send deletion confirmation email (non-blocking)
+      sendDeletionEmail(normalizedEmail, token, entry.locale);
 
       return NextResponse.json(
         {
@@ -188,6 +219,30 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 /**
+ * Send deletion confirmation email (fire-and-forget).
+ */
+function sendDeletionEmail(email: string, _token: string, locale: string): void {
+  Promise.all([
+    import('@diboas/email'),
+  ]).then(async ([{ createEmailService, sendViaResend }]) => {
+    try {
+      const emailService = createEmailService({ send: sendViaResend });
+      const result = await emailService.sendDeletionConfirmation(email, { locale });
+
+      if (result.success) {
+        Logger.info('[Email] Deletion confirmation email sent');
+      } else {
+        Logger.error('[Email] Deletion confirmation email failed', { error: result.error });
+      }
+    } catch (err) {
+      Logger.error('[Email] Deletion email error', {}, err instanceof Error ? err : undefined);
+    }
+  }).catch((err) => {
+    Logger.error('[Email] Failed to load email service', {}, err instanceof Error ? err : undefined);
+  });
+}
+
+/**
  * DELETE /api/waitlist/delete
  *
  * Confirm and execute deletion with token.
@@ -233,22 +288,10 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       );
     }
 
-    // Clean up expired tokens
-    cleanupExpiredTokens();
-
     // Find pending deletion by verifying token against stored hashes
-    let foundHash: string | null = null;
-    let foundEmail: string | null = null;
+    const found = await findDeletionToken(token);
 
-    for (const [hash, data] of pendingDeletions.entries()) {
-      if (verifyToken(token, hash)) {
-        foundHash = hash;
-        foundEmail = data.email;
-        break;
-      }
-    }
-
-    if (!foundHash || !foundEmail) {
+    if (!found) {
       return NextResponse.json(
         { success: false, error: 'Invalid or expired deletion token' },
         { status: 400 }
@@ -256,10 +299,10 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     }
 
     // Execute deletion
-    const deleted = deleteByEmail(foundEmail);
+    const deleted = await deleteByEmail(found.email);
 
-    // Remove pending deletion
-    pendingDeletions.delete(foundHash);
+    // Remove pending deletion token
+    await removeDeletionToken(token);
 
     if (deleted) {
       Logger.info('[GDPR] Data deleted successfully');

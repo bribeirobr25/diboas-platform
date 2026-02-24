@@ -54,6 +54,7 @@ function getDreamTranslations(locale: string) {
  * - locale: Locale for translations (default: "en")
  */
 export async function GET(request: NextRequest) {
+  try {
   const searchParams = request.nextUrl.searchParams;
 
   const amount = sanitizeInput(searchParams.get('amount')) || '$10,000';
@@ -181,4 +182,7 @@ export async function GET(request: NextRequest) {
       'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
     },
   });
+  } catch {
+    return new Response('Failed to generate OG image', { status: 500 });
+  }
 }

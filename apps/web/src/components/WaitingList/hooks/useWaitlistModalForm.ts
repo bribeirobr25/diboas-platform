@@ -11,6 +11,7 @@
  */
 
 import { useState, useCallback, useRef } from 'react';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import { analyticsService } from '@/lib/analytics';
 import type {
   WaitingListFormData,
@@ -101,7 +102,7 @@ export function useWaitlistModalForm({
     });
 
     try {
-      const response = await fetch('/api/waitlist/signup', {
+      const response = await fetchWithRetry('/api/waitlist/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

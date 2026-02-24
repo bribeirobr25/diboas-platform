@@ -4,7 +4,7 @@
  * Functions for analyzing performance budget data
  */
 
-import type { PerformanceBudget, BudgetViolation, BudgetTrends } from './budgetTypes';
+import type { PerformanceBudget, BudgetViolation, BudgetTrends, PercentileStats } from './budgetTypes';
 import { PERFORMANCE_BUDGETS } from './budgetDefinitions';
 
 /**
@@ -137,4 +137,35 @@ export function determineSeverity(
     return 'warning';
   }
   return null;
+}
+
+/**
+ * Compute percentile from a sorted array using nearest-rank method.
+ */
+function percentile(sorted: number[], p: number): number {
+  if (sorted.length === 0) return 0;
+  const idx = Math.ceil((p / 100) * sorted.length) - 1;
+  return sorted[Math.max(0, idx)];
+}
+
+/**
+ * Compute p50/p95/p99 for all budget histories.
+ */
+export function computePercentiles(
+  budgetHistory: Map<string, number[]>
+): Record<string, PercentileStats> {
+  const result: Record<string, PercentileStats> = {};
+
+  for (const [budgetId, values] of budgetHistory) {
+    if (values.length === 0) continue;
+    const sorted = [...values].sort((a, b) => a - b);
+    result[budgetId] = {
+      p50: percentile(sorted, 50),
+      p95: percentile(sorted, 95),
+      p99: percentile(sorted, 99),
+      count: sorted.length,
+    };
+  }
+
+  return result;
 }

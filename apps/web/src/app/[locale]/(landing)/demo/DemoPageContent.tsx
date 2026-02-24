@@ -69,4 +69,3 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
   );
 }
 
-export default DemoPageContent;

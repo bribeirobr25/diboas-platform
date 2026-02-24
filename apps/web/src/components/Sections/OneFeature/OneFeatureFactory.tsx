@@ -173,4 +173,3 @@ export function OneFeature({
 }
 
 // Export for backward compatibility
-export default OneFeature;

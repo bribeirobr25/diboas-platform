@@ -159,4 +159,3 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
   );
 }
 
-export default DreamModePageContent;

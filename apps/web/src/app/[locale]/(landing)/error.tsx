@@ -7,8 +7,8 @@
  * Reports to Sentry for monitoring.
  */
 
-import * as Sentry from '@sentry/nextjs';
 import { useEffect } from 'react';
+import { errorReportingService } from '@/lib/errors/ErrorReportingService';
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -17,7 +17,7 @@ interface ErrorProps {
 
 export default function LandingError({ error, reset }: ErrorProps) {
   useEffect(() => {
-    Sentry.captureException(error, {
+    errorReportingService.captureException(error, {
       tags: {
         errorBoundary: 'landing-route-group',
         digest: error.digest,

@@ -6,20 +6,15 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { FutureYouPageContent } from '@/components/Pages/FutureYouPageContent';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface FutureYouPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the Future You Calculator page
  * Uses i18n translations for locale-aware SEO
  */
-export async function generateMetadata({ params }: FutureYouPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
 
@@ -79,7 +74,7 @@ export async function generateMetadata({ params }: FutureYouPageProps): Promise<
  * - Section 5: FAQ
  * - Section 6: Final CTA / Waitlist
  */
-export default async function FutureYouPage({ params }: FutureYouPageProps) {
+export default async function FutureYouPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

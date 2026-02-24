@@ -113,7 +113,7 @@ export const DEFAULT_ONE_FEATURE_SETTINGS: OneFeatureSettings = {
 
 // Default assets
 export const DEFAULT_ONE_FEATURE_ASSETS: OneFeatureAssets = {
-  heroImage: '/assets/socials/drawing/safe.avif',
+  heroImage: '/assets/icons/safe-money.avif',
   heroImageAlt: '3D security vault illustration'
 } as const;
 

@@ -73,6 +73,7 @@ export function ShareModal({
   const [isRendering, setIsRendering] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const [shareError, setShareError] = useState<string | null>(null);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   // WCAG 2.4.3: Focus trap for modal
   useFocusTrap(modalRef, isOpen);
@@ -129,6 +130,7 @@ export function ShareModal({
     if (!isOpen) {
       setShareError(null);
       setCopySuccess(false);
+      clearTimeout(copyTimerRef.current);
       if (!preRenderedCard) {
         setRenderedCard(null);
       }
@@ -165,7 +167,8 @@ export function ShareModal({
 
       if (platform === 'copy' && result.success) {
         setCopySuccess(true);
-        setTimeout(() => setCopySuccess(false), 2000);
+        clearTimeout(copyTimerRef.current);
+        copyTimerRef.current = setTimeout(() => setCopySuccess(false), 2000);
       }
     },
     [shareContent, renderedCard, shareManager]

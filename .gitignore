@@ -140,6 +140,11 @@ Thumbs.db
 # docs/
 images/
 
+# Test artifacts and screenshots
+screenshots/
+test-results/
+.lighthouseci/
+
 # Database and backup files
 *.sql
 *.sqlite

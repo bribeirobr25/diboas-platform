@@ -7,6 +7,7 @@
  * Service Agnostic Abstraction: Platform-independent error reporting
  */
 
+import * as Sentry from '@sentry/nextjs';
 import { Logger } from '@/lib/monitoring/Logger';
 import { sectionEventBus, SectionEventType, ErrorEventPayload } from '@/lib/events/SectionEventBus';
 import { alertingService, AlertSeverity } from '@/lib/monitoring/AlertingService';
@@ -435,6 +436,32 @@ export class ErrorReportingService {
    */
   public handleError(error: Error, context?: Partial<ErrorContext>): string {
     return this.reportError(error, { context });
+  }
+
+  /**
+   * Capture exception via Sentry (abstraction layer for error boundaries)
+   * All error boundaries should use this instead of importing Sentry directly.
+   */
+  public captureException(
+    error: Error,
+    context?: {
+      tags?: Record<string, string | undefined>;
+      extra?: Record<string, unknown>;
+      level?: 'fatal' | 'error' | 'warning' | 'info';
+    }
+  ): void {
+    try {
+      Sentry.captureException(error, {
+        tags: context?.tags,
+        extra: context?.extra,
+        level: context?.level,
+      });
+    } catch (sentryError) {
+      Logger.error('Failed to capture exception via Sentry', {
+        originalError: error.message,
+        sentryError,
+      });
+    }
   }
 
   /**

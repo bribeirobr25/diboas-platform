@@ -17,9 +17,8 @@ describe('useFocusTrap', () => {
       expect(typeof useFocusTrap).toBe('function');
     });
 
-    it('should export default as the same function', async () => {
-      const mod = await import('../useFocusTrap');
-      expect(mod.default).toBe(mod.useFocusTrap);
+    it('should be importable as a named export', () => {
+      expect(useFocusTrap).toBeDefined();
     });
   });
 

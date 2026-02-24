@@ -167,7 +167,7 @@ describe('POST /api/waitlist/signup', () => {
 
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
-      expect(store.processReferral).toHaveBeenCalledWith('referrer@example.com', expect.any(Number));
+      expect(store.processReferral).toHaveBeenCalledWith('referrer@example.com');
     });
 
     it('should return existing signup data without revealing it as duplicate', async () => {

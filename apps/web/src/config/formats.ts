@@ -173,24 +173,42 @@ export function formatDisplayDate(date: Date, locale: SupportedLocale = 'en'): s
 }
 
 /**
- * Format currency value
+ * Format currency value with explicit currency code
  */
 export function formatCurrency(
   amount: number,
   currency: string = CURRENCY_CONFIG.DEFAULT,
   locale: SupportedLocale = 'en'
 ): string {
+  const intlLocale = getIntlLocale(locale);
   const decimals = getCurrencyDecimals(currency);
-  const symbol = getCurrencySymbol(currency);
-  
-  // Format number with locale
-  const formatted = new Intl.NumberFormat(locale, {
+
+  return new Intl.NumberFormat(intlLocale, {
+    style: 'currency',
+    currency,
     minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals
+    maximumFractionDigits: decimals,
   }).format(amount);
-  
-  // Add currency symbol (simplified - use Intl.NumberFormat with currency in production)
-  return `${symbol}${formatted}`;
+}
+
+/**
+ * Format currency value derived from locale (auto-selects currency)
+ * Used by pre-demo, pre-dream, and other locale-driven features
+ */
+export function formatLocaleCurrency(
+  amount: number,
+  decimals = 2,
+  locale: SupportedLocale = 'en'
+): string {
+  const currency = getCurrencyForLocale(locale);
+  const intlLocale = getIntlLocale(locale);
+
+  return new Intl.NumberFormat(intlLocale, {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(amount);
 }
 
 /**

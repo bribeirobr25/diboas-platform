@@ -68,9 +68,11 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
       }, { headers: CACHE_HEADERS });
     }
 
-    // Get live data from store
-    const storeCount = getTotalCount();
-    const positionCounter = getCurrentPositionCounter();
+    // Get live data from store (both are now async)
+    const [storeCount, positionCounter] = await Promise.all([
+      getTotalCount(),
+      getCurrentPositionCounter(),
+    ]);
 
     // Use position counter as count (more representative of total signups)
     // Store count only shows current entries, position counter shows all-time signups

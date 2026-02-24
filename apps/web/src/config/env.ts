@@ -12,6 +12,36 @@
  */
 
 // =============================================================================
+// STARTUP VALIDATION
+// =============================================================================
+
+/**
+ * Validate that critical security environment variables are set in production.
+ * Logs a critical warning at startup. Skipped during `next build` (NEXT_PHASE).
+ */
+function validateProductionSecrets(): void {
+  if (process.env.NODE_ENV !== 'production') return;
+  // Skip during build phase — secrets are only needed at runtime
+  if (process.env.NEXT_PHASE === 'phase-production-build') return;
+
+  const required = [
+    'ENCRYPTION_KEY',
+    'DATABASE_URL',
+    'INTERNAL_API_KEY',
+  ] as const;
+
+  const missing = required.filter((key) => !process.env[key]);
+
+  if (missing.length > 0) {
+    throw new Error(
+      `Missing required production environment variables: ${missing.join(', ')}`
+    );
+  }
+}
+
+validateProductionSecrets();
+
+// =============================================================================
 // APPLICATION
 // =============================================================================
 
@@ -34,6 +64,21 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
  * Is development environment
  */
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+
+/**
+ * Business sub-application URL
+ */
+export const BUSINESS_URL = process.env.NEXT_PUBLIC_BUSINESS_URL || (IS_PRODUCTION ? 'https://business.diboas.com' : 'http://localhost:3002');
+
+/**
+ * Learn sub-application URL
+ */
+export const LEARN_URL = process.env.NEXT_PUBLIC_LEARN_URL || (IS_PRODUCTION ? 'https://learn.diboas.com' : 'http://localhost:3003');
+
+/**
+ * Monitoring endpoint URL
+ */
+export const MONITORING_ENDPOINT = process.env.NEXT_PUBLIC_MONITORING_ENDPOINT || '';
 
 // =============================================================================
 // CSRF PROTECTION
@@ -173,20 +218,23 @@ export const CAL_CONFIG = {
 } as const;
 
 /**
- * Kit.com (ConvertKit) configuration
+ * Email service configuration (Resend)
  */
-export const KIT_CONFIG = {
-  /** API base URL */
-  apiBaseUrl: process.env.KIT_API_BASE_URL || 'https://api.convertkit.com/v3',
-  /** Form ID for waitlist signups */
-  formId: process.env.NEXT_PUBLIC_KIT_FORM_ID || '',
-  /** API Key */
-  apiKey: process.env.KIT_API_KEY || '',
-  /** Tag IDs */
-  tags: {
-    waitlist: process.env.NEXT_PUBLIC_KIT_TAG_WAITLIST || '',
-    prelaunch: process.env.NEXT_PUBLIC_KIT_TAG_PRELAUNCH || '',
-  },
+export const EMAIL_CONFIG = {
+  /** Resend API key */
+  apiKey: process.env.RESEND_API_KEY || '',
+  /** Verified sender address */
+  fromAddress: process.env.EMAIL_FROM_ADDRESS || 'diBoaS <noreply@diboas.com>',
+  /** Reply-to address */
+  replyTo: process.env.EMAIL_REPLY_TO || 'support@diboas.com',
+} as const;
+
+/**
+ * Database configuration
+ */
+export const DATABASE_CONFIG = {
+  /** Neon PostgreSQL connection string */
+  url: process.env.DATABASE_URL || '',
 } as const;
 
 /**
@@ -210,6 +258,9 @@ export const ENV = {
   // Application
   APP_URL,
   APP_DOMAIN,
+  BUSINESS_URL,
+  LEARN_URL,
+  MONITORING_ENDPOINT,
   IS_PRODUCTION,
   IS_DEVELOPMENT,
 
@@ -228,7 +279,8 @@ export const ENV = {
 
   // External Services
   CAL_CONFIG,
-  KIT_CONFIG,
+  EMAIL_CONFIG,
+  DATABASE_CONFIG,
   POSTHOG_CONFIG,
 } as const;
 

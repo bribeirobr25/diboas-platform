@@ -13,7 +13,7 @@
  * - Internationalized with react-intl
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
@@ -40,6 +40,7 @@ export function CookieConsent() {
   const { locale } = useLocale();
   const [showBanner, setShowBanner] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const closeBannerTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     let mounted = true;
@@ -83,6 +84,7 @@ export function CookieConsent() {
     return () => {
       mounted = false;
       timers.forEach(clearTimeout);
+      clearTimeout(closeBannerTimerRef.current);
     };
   }, []);
 
@@ -130,7 +132,8 @@ export function CookieConsent() {
 
   const closeBanner = () => {
     setIsVisible(false);
-    setTimeout(() => setShowBanner(false), 300);
+    clearTimeout(closeBannerTimerRef.current);
+    closeBannerTimerRef.current = setTimeout(() => setShowBanner(false), 300);
   };
 
   if (!showBanner) return null;

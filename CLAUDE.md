@@ -8,10 +8,10 @@ diBoaS (Digital Bank of Autonomous Services) is a unified financial services pla
 
 - **Framework:** Next.js 16 (App Router, Turbopack)
 - **Language:** TypeScript (strict mode)
-- **UI:** React 18, Tailwind CSS 3, Radix UI, React Aria
+- **UI:** React 18, Tailwind CSS 3
 - **Monorepo:** Turborepo + pnpm 8.15 workspaces
 - **i18n:** react-intl (4 locales: en, pt-BR, es, de)
-- **Testing:** Vitest, @testing-library/react, Lighthouse CI, pa11y
+- **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry (error tracking), PostHog (analytics), web-vitals
 - **Security:** DOMPurify, Upstash Redis rate limiting, AES-256-GCM encryption
 - **Component dev:** Storybook 9
@@ -260,7 +260,7 @@ Condensed reference from `docs/coding-standards.md`:
 | 23 | 5 | Dynamic imports (DreamMode, PreDemo) | Done |
 | 24 | 5 | SocialProofSection sessionStorage cache | Done |
 | 25 | 5 | next/image for PreDemo logos | Done |
-| 26 | 5 | logo-icon.png compression | Open |
+| 26 | 5 | logo-icon.png compression | Done (replaced with logo-icon.avif) |
 | 27 | 6 | usePerformanceMonitor useEffect deps comment | Done |
 | 28 | 6 | Stable keys (CarouselDots, LoadingScreen) | Done |
 | 29 | 6 | Typed gtag + PerformanceMemory interface | Done |

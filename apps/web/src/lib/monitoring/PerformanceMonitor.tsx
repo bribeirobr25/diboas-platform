@@ -12,7 +12,7 @@ export {
   usePerformanceMonitor,
   withPerformanceMonitoring,
   PerformanceMonitorComponent as PerformanceMonitor,
-  DEFAULT_THRESHOLDS,
+  DEFAULT_PERFORMANCE_THRESHOLDS,
   DEFAULT_REPORTING_INTERVAL,
 } from './performance';
 

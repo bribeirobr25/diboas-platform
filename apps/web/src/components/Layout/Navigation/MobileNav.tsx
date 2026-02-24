@@ -56,15 +56,17 @@ export default function MobileNav({
 
   // Scroll to top when submenu opens
   useEffect(() => {
-    if (activeSubmenu) {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        const submenuContainer = document.querySelector('[data-submenu-scroll]');
-        if (submenuContainer) {
-          submenuContainer.scrollTop = 0;
-        }
-      }, UI_CONSTANTS.ANIMATION.MOBILE_NAV_CLOSE_DELAY);
-    }
+    if (!activeSubmenu) return;
+
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      const submenuContainer = document.querySelector('[data-submenu-scroll]');
+      if (submenuContainer) {
+        submenuContainer.scrollTop = 0;
+      }
+    }, UI_CONSTANTS.ANIMATION.MOBILE_NAV_CLOSE_DELAY);
+
+    return () => clearTimeout(timer);
   }, [activeSubmenu]);
 
   // Don't render on non-mobile devices

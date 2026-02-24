@@ -4,19 +4,14 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { DemoPageContent } from './DemoPageContent';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface DemoPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the Demo page
  */
-export async function generateMetadata({ params }: DemoPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale: _locale } = await params;
   return {
     title: 'Interactive Demo - diBoaS',
@@ -39,7 +34,7 @@ export async function generateMetadata({ params }: DemoPageProps): Promise<Metad
  * Entry point for the interactive PreDemo experience
  * Accessible to all visitors via "Try Demo" CTA
  */
-export default async function DemoPage({ params }: DemoPageProps) {
+export default async function DemoPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

@@ -29,6 +29,7 @@ export function SimulationScreen() {
   const [progress, setProgress] = useState(0);
   const animationRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
+  const autoAdvanceRef = useRef<ReturnType<typeof setTimeout>>();
 
   const t = getTranslator('simulation');
 
@@ -61,7 +62,7 @@ export function SimulationScreen() {
       } else {
         dispatch({ type: 'COMPLETE_SIMULATION' });
         // Auto-advance after a short delay
-        setTimeout(() => {
+        autoAdvanceRef.current = setTimeout(() => {
           nextScreen();
         }, 500);
       }
@@ -73,6 +74,7 @@ export function SimulationScreen() {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      clearTimeout(autoAdvanceRef.current);
     };
   }, [finalValue, startingValue, dispatch, nextScreen]);
 

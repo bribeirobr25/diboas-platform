@@ -9,7 +9,6 @@
  * Security & Audit Standards: Event validation and audit trail
  */
 
-import { analyticsService } from '@/lib/analytics';
 import { Logger } from '@/lib/monitoring/Logger';
 
 // Application Event Types following Domain-Driven Design
@@ -67,6 +66,8 @@ export enum ApplicationEventType {
 export interface ApplicationEventPayload {
   timestamp: number;
   source: string;
+  eventId?: string;
+  correlationId?: string;
   metadata?: Record<string, unknown>;
 }
 
@@ -260,9 +261,10 @@ export class ApplicationEventBus {
       // Validate payload
       this.validateEventPayload(eventType, payload);
 
-      // Enrich payload with timestamp
+      // Enrich payload with eventId and timestamp
       const enrichedPayload = {
         ...payload,
+        eventId: payload.eventId || crypto.randomUUID(),
         timestamp: payload.timestamp || Date.now()
       };
 
@@ -275,8 +277,6 @@ export class ApplicationEventBus {
         if (this.isDebugMode) {
           Logger.debug('ApplicationEventBus: No listeners for event', { eventType });
         }
-        // Still track analytics even without listeners
-        this.trackAnalytics(eventType, enrichedPayload);
         return;
       }
 
@@ -305,9 +305,6 @@ export class ApplicationEventBus {
       });
 
       await Promise.allSettled(listenerPromises);
-
-      // Track analytics
-      this.trackAnalytics(eventType, enrichedPayload);
 
       // Performance monitoring
       const duration = performance.now() - startTime;
@@ -371,108 +368,6 @@ export class ApplicationEventBus {
 
     if (this.eventHistory.length > this.maxHistorySize) {
       this.eventHistory = this.eventHistory.slice(-this.maxHistorySize);
-    }
-  }
-
-  /**
-   * Track analytics for application events
-   */
-  private trackAnalytics(eventType: ApplicationEventType, payload: AppEventPayload): void {
-    // Map event types to analytics event names
-    const analyticsEventMap: Partial<Record<ApplicationEventType, string>> = {
-      [ApplicationEventType.WAITLIST_SIGNUP_COMPLETED]: 'waitlist_signup',
-      [ApplicationEventType.WAITLIST_REFERRAL_USED]: 'waitlist_referral_used',
-      [ApplicationEventType.SHARE_COMPLETED]: 'share_completed',
-      [ApplicationEventType.DREAM_MODE_CALCULATION_COMPLETED]: 'dream_mode_calculation',
-      [ApplicationEventType.DREAM_MODE_PATH_SELECTED]: 'dream_mode_path_selected',
-      [ApplicationEventType.DREAM_MODE_DISCLAIMER_ACCEPTED]: 'dream_mode_disclaimer_accepted',
-      [ApplicationEventType.CONSENT_GIVEN]: 'consent_given',
-      [ApplicationEventType.CONSENT_WITHDRAWN]: 'consent_withdrawn',
-      [ApplicationEventType.WEBHOOK_PROCESSED]: 'webhook_processed',
-      [ApplicationEventType.PRE_DEMO_STARTED]: 'pre_demo_started',
-      [ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED]: 'pre_demo_deposit_completed',
-      [ApplicationEventType.PRE_DEMO_SEND_COMPLETED]: 'pre_demo_send_completed',
-      [ApplicationEventType.PRE_DEMO_BUY_COMPLETED]: 'pre_demo_buy_completed',
-      [ApplicationEventType.PRE_DREAM_STARTED]: 'pre_dream_started',
-      [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: 'pre_dream_share_completed'
-    };
-
-    const analyticsEvent = analyticsEventMap[eventType];
-    if (analyticsEvent) {
-      analyticsService.track({
-        name: analyticsEvent,
-        parameters: {
-          event_type: eventType,
-          source: payload.source,
-          ...this.extractAnalyticsParams(eventType, payload)
-        }
-      });
-    }
-  }
-
-  /**
-   * Extract analytics parameters from payload
-   */
-  private extractAnalyticsParams(
-    eventType: ApplicationEventType,
-    payload: AppEventPayload
-  ): Record<string, unknown> {
-    switch (eventType) {
-      case ApplicationEventType.WAITLIST_SIGNUP_COMPLETED: {
-        const p = payload as WaitlistSignupEventPayload;
-        return {
-          locale: p.locale,
-          has_name: p.hasName,
-          has_x_account: p.hasXAccount,
-          has_referral: !!p.referralCode
-        };
-      }
-      case ApplicationEventType.WAITLIST_REFERRAL_USED: {
-        const p = payload as WaitlistReferralEventPayload;
-        return {
-          referral_code: p.referralCode
-        };
-      }
-      case ApplicationEventType.SHARE_COMPLETED: {
-        const p = payload as ShareEventPayload;
-        return {
-          platform: p.platform,
-          card_type: p.cardType,
-          locale: p.locale
-        };
-      }
-      case ApplicationEventType.DREAM_MODE_CALCULATION_COMPLETED: {
-        const p = payload as DreamModeEventPayload;
-        return {
-          path: p.path,
-          timeframe: p.timeframe,
-          growth_percentage: p.result?.growthPercentage
-        };
-      }
-      case ApplicationEventType.DREAM_MODE_PATH_SELECTED: {
-        const p = payload as DreamModeEventPayload;
-        return {
-          path: p.path
-        };
-      }
-      case ApplicationEventType.CONSENT_GIVEN:
-      case ApplicationEventType.CONSENT_WITHDRAWN: {
-        const p = payload as ConsentEventPayload;
-        return {
-          consent_type: p.consentType,
-          new_state: p.newState
-        };
-      }
-      case ApplicationEventType.WEBHOOK_PROCESSED: {
-        const p = payload as WebhookEventPayload;
-        return {
-          provider: p.provider,
-          webhook_event_type: p.eventType,
-          success: p.success
-        };
-      }
-      default:
-        return {};
     }
   }
 
