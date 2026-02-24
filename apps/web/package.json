@@ -41,7 +41,7 @@
     "@eslint/js": "^9.36.0",
     "@lhci/cli": "^0.15.1",
     "@next/eslint-plugin-next": "^15.5.4",
-    "@storybook/addon-docs": "^9.1.10",
+    "@storybook/addon-docs": "^10.2.11",
     "@storybook/addon-onboarding": "^9.1.10",
     "@storybook/nextjs": "^9.1.17",
     "@storybook/react": "^9.1.17",
