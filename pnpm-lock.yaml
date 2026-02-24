@@ -59,8 +59,8 @@ importers:
         specifier: ^10.32.1
         version: 10.32.1(@opentelemetry/context-async-hooks@2.5.1)(@opentelemetry/core@2.5.1)(@opentelemetry/sdk-trace-base@2.5.1)(next@16.1.5)(react@18.3.1)(webpack@5.105.2)
       '@upstash/ratelimit':
-        specifier: ^2.0.7
-        version: 2.0.7(@upstash/redis@1.36.0)
+        specifier: ^2.0.8
+        version: 2.0.8(@upstash/redis@1.36.0)
       '@upstash/redis':
         specifier: ^1.36.0
         version: 1.36.0
@@ -4782,8 +4782,8 @@ packages:
       '@upstash/redis': 1.36.0
     dev: false
 
-  /@upstash/ratelimit@2.0.7(@upstash/redis@1.36.0):
-    resolution: {integrity: sha512-qNQW4uBPKVk8c4wFGj2S/vfKKQxXx1taSJoSGBN36FeiVBBKHQgsjPbKUijZ9Xu5FyVK+pfiXWKIsQGyoje8Fw==}
+  /@upstash/ratelimit@2.0.8(@upstash/redis@1.36.0):
+    resolution: {integrity: sha512-YSTMBJ1YIxsoPkUMX/P4DDks/xV5YYCswWMamU8ZIfK9ly6ppjRnVOyBhMDXBmzjODm4UQKcxsJPvaeFAijp5w==}
     peerDependencies:
       '@upstash/redis': ^1.34.3
     dependencies:
