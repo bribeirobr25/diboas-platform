@@ -13,7 +13,7 @@
  * - Internationalized with react-intl
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
@@ -40,13 +40,18 @@ export function CookieConsent() {
   const { locale } = useLocale();
   const [showBanner, setShowBanner] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const closeBannerTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
+    let mounted = true;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
     async function checkConsent() {
       const stored = getStoredConsent();
 
       if (!stored) {
         const apiConsent = await checkConsentFromApi();
+        if (!mounted) return;
 
         if (apiConsent) {
           const localConsent = createConsentValue(apiConsent.analytics);
@@ -54,19 +59,33 @@ export function CookieConsent() {
           return;
         }
 
-        setTimeout(() => {
+        timers.push(setTimeout(() => {
+          if (!mounted) return;
           setShowBanner(true);
-          setTimeout(() => setIsVisible(true), 100);
-        }, 1500);
+          timers.push(setTimeout(() => {
+            if (!mounted) return;
+            setIsVisible(true);
+          }, 100));
+        }, 1500));
       } else {
         if (!isConsentVersionCurrent(stored)) {
+          if (!mounted) return;
           setShowBanner(true);
-          setTimeout(() => setIsVisible(true), 100);
+          timers.push(setTimeout(() => {
+            if (!mounted) return;
+            setIsVisible(true);
+          }, 100));
         }
       }
     }
 
     checkConsent();
+
+    return () => {
+      mounted = false;
+      timers.forEach(clearTimeout);
+      clearTimeout(closeBannerTimerRef.current);
+    };
   }, []);
 
   const handleAccept = async () => {
@@ -113,7 +132,8 @@ export function CookieConsent() {
 
   const closeBanner = () => {
     setIsVisible(false);
-    setTimeout(() => setShowBanner(false), 300);
+    clearTimeout(closeBannerTimerRef.current);
+    closeBannerTimerRef.current = setTimeout(() => setShowBanner(false), 300);
   };
 
   if (!showBanner) return null;

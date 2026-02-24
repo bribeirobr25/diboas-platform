@@ -12,8 +12,8 @@
  * User Experience: Graceful error UI with recovery options
  */
 
-import * as Sentry from '@sentry/nextjs';
 import { useEffect } from 'react';
+import { errorReportingService } from '@/lib/errors/ErrorReportingService';
 
 interface GlobalErrorProps {
   error: Error & { digest?: string };
@@ -22,8 +22,7 @@ interface GlobalErrorProps {
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   useEffect(() => {
-    // Report error to Sentry
-    Sentry.captureException(error, {
+    errorReportingService.captureException(error, {
       tags: {
         errorBoundary: 'global',
         digest: error.digest,

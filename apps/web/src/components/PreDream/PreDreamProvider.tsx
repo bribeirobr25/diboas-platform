@@ -9,8 +9,7 @@
 
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
 import type { PreDreamContextValue } from './types';
-import type { PreDreamPath, PreDreamTimeframe, PreDreamScreen } from '@/lib/pre-dream';
-import { calculatePreDreamResult } from '@/lib/pre-dream';
+import { calculatePreDreamResult, type PreDreamPath, type PreDreamTimeframe, type PreDreamScreen } from '@/lib/pre-dream';
 import { preDreamReducer, initialPreDreamState } from './preDreamReducer';
 import { analyticsService } from '@/lib/analytics';
 import {

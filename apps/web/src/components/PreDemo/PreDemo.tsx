@@ -56,10 +56,10 @@ function PreDemoContent({ onExit }: PreDemoProps) {
     }
   }, [state.screen]);
 
-  // Handle Dream Mode close -> back to home
+  // Handle Dream Mode close -> exit demo entirely, back to landing page
   const handleDreamClose = useCallback(() => {
-    setScreen('home');
-  }, [setScreen]);
+    onExit?.();
+  }, [onExit]);
 
   const renderScreen = () => {
     switch (state.screen) {

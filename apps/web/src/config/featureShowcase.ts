@@ -13,6 +13,7 @@ import { ROUTES } from './routes';
 export type FeatureShowcaseVariant = 'default' | 'benefits';
 
 export interface FeatureShowcaseContent {
+  readonly tagline?: string;
   readonly title: string;
   readonly description: string;
   readonly ctaText: string;
@@ -103,7 +104,7 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/socials/drawing/phone-dashboard.avif'
+      primaryImage: '/assets/images/phone-features.avif'
     },
     seo: {
       imageAlt: 'diBoaS mobile app showing dashboard overview interface'
@@ -119,7 +120,7 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/socials/drawing/phone-transaction-history.avif'
+      primaryImage: '/assets/images/phone-transfer.avif'
     },
     seo: {
       imageAlt: 'diBoaS mobile app showing financial activities tracking interface'
@@ -135,7 +136,7 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/socials/drawing/phone-aqua-dashboard.avif'
+      primaryImage: '/assets/images/phone-features2.avif'
     },
     seo: {
       imageAlt: 'diBoaS mobile app showing rewards and loyalty program interface'
@@ -197,7 +198,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           ctaTarget: '_self'
         },
         assets: {
-          primaryImage: '/assets/socials/drawing/phone-learn.avif'
+          primaryImage: '/assets/images/phone-features3.avif'
         },
         seo: {
           imageAlt: 'diBoaS learning platform showing educational courses interface'
@@ -234,7 +235,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           ctaTarget: '_self'
         },
         assets: {
-          primaryImage: '/assets/socials/drawing/phone-invest-overview.avif'
+          primaryImage: '/assets/images/phone-grow.avif'
         },
         seo: {
           imageAlt: 'diBoaS business platform showing enterprise financial tools'

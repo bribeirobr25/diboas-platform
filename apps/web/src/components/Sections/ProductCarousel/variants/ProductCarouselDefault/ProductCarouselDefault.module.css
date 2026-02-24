@@ -256,7 +256,7 @@
   }
 }
 
-/* Card Content */
+/* Card Content — transparent so .imageWrapper gradient fallback shows when assets are missing */
 .cardContent {
   width: var(--pc-width-full);
   height: var(--pc-width-full);
@@ -271,20 +271,23 @@
    IMAGE STYLES
    ================================ */
 
-/* Image Wrapper */
+/* Image Wrapper — gradient fallback when image assets are unavailable */
 .imageWrapper {
   position: relative;
   width: var(--pc-width-full);
   height: var(--pc-width-full);
   overflow: hidden;
   aspect-ratio: var(--pc-aspect-ratio);
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 50%, #0d9488 100%);
 }
 
-/* Card Image */
+/* Card Image — color:transparent hides broken-image icon & alt text on 404 */
 .cardImage {
   width: var(--pc-width-full);
   height: var(--pc-width-full);
   object-fit: cover;
+  color: transparent;
+  font-size: 0;
   transition: transform var(--pc-transition-duration) var(--pc-transition-timing);
 }
 
@@ -366,6 +369,17 @@
 .cardCTA:focus-visible {
   outline: var(--spacing-sm) solid var(--pc-color-accent);
   outline-offset: var(--spacing-xs);
+}
+
+/* Quote below card description */
+.cardQuote {
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  border-left: 3px solid var(--color-teal-300, #5eead4);
+  padding-left: 16px;
+  margin: 12px 0 0 0;
 }
 
 /* ================================

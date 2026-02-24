@@ -222,6 +222,72 @@ export function decryptFields<T extends Record<string, unknown>>(
 }
 
 /**
+ * Get the dedicated HMAC key from environment.
+ *
+ * Uses a SEPARATE key from the AES encryption key to maintain proper
+ * cryptographic separation between encryption and hashing operations.
+ * Falls back to ENCRYPTION_KEY if HMAC_KEY is not set (dev convenience).
+ */
+function getHmacKey(): Buffer | null {
+  const hmacKeyBase64 = process.env.HMAC_KEY;
+
+  if (hmacKeyBase64) {
+    try {
+      const key = Buffer.from(hmacKeyBase64, 'base64');
+      if (key.length < 32) {
+        Logger.error('[Encryption] HMAC_KEY too short. Expected at least 32 bytes');
+        return null;
+      }
+      return key;
+    } catch {
+      Logger.error('[Encryption] Invalid base64 HMAC_KEY format');
+      return null;
+    }
+  }
+
+  // Fallback to ENCRYPTION_KEY for dev/staging convenience
+  // In production, HMAC_KEY SHOULD be set separately
+  if (process.env.NODE_ENV === 'production' && !hmacKeyBase64) {
+    Logger.warn('[Encryption] HMAC_KEY not set in production — falling back to ENCRYPTION_KEY');
+  }
+
+  return getEncryptionKey();
+}
+
+/**
+ * Deterministic HMAC-SHA256 hash for searchable blind index.
+ *
+ * Used to create a searchable hash column (e.g. `email_hash`) so we can
+ * do `WHERE email_hash = $1` even though the actual email is encrypted
+ * with AES-256-GCM (which uses random IVs and produces different ciphertext
+ * each time).
+ *
+ * Uses a DEDICATED `HMAC_KEY` env var (separate from `ENCRYPTION_KEY`)
+ * for cryptographic separation. Falls back to `ENCRYPTION_KEY` in dev.
+ *
+ * Key rotation implications:
+ * - Rotating HMAC_KEY breaks ALL email_hash lookups (must re-hash all rows)
+ * - Rotating ENCRYPTION_KEY breaks stored PII decryption (must re-encrypt all rows)
+ * - These are independent operations — rotate one without affecting the other
+ *
+ * @param value - The plaintext value to hash (e.g. normalized email)
+ * @returns Hex-encoded HMAC-SHA256 hash, or null if key unavailable
+ */
+export function hmacHash(value: string): string | null {
+  const key = getHmacKey();
+
+  if (!key) {
+    // In dev mode without any key, return a plain hash for testing
+    if (process.env.NODE_ENV !== 'production') {
+      return crypto.createHash('sha256').update(value).digest('hex');
+    }
+    return null;
+  }
+
+  return crypto.createHmac('sha256', key).update(value).digest('hex');
+}
+
+/**
  * Generate a new encryption key
  * For use in generating ENCRYPTION_KEY environment variable
  */

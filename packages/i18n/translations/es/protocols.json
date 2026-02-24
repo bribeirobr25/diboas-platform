@@ -61,8 +61,8 @@
       "operation": "Al menos 1 año de operación (con pocas excepciones para protocolos excepcionales)",
       "audits": "Auditorías de seguridad profesionales de firmas reconocidas",
       "exploits": "Sin exploits no resueltos donde se perdieron fondos de usuarios y no se recuperaron",
-      "transparent": "Operaciones transparentes — podemos verificar cómo funciona el protocolo",
-      "usage": "Uso real — usuarios reales, no solo hype"
+      "transparent": "Operaciones transparentes, podemos verificar cómo funciona el protocolo",
+      "usage": "Uso real, usuarios reales, no solo hype"
     },
     "note": "Cuando los protocolos han tenido incidentes de seguridad, lo anotamos claramente. La transparencia funciona en ambos sentidos."
   },

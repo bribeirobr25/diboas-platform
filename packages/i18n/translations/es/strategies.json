@@ -41,7 +41,7 @@
         "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
       },
       "bestFor": "Personas construyendo su primer fondo de emergencia. Cualquiera que quiera entender cómo funciona esto sin oscilaciones de precio.",
-      "riskLevel": "Mínimo — Los riesgos son posibles vulnerabilidades técnicas en los sistemas subyacentes, sin embargo han operado de forma segura durante años."
+      "riskLevel": "Mínimo. Los riesgos son posibles vulnerabilidades técnicas en los sistemas subyacentes, sin embargo han operado de forma segura durante años."
     },
     "stableGrowth": {
       "name": "Stable Growth",
@@ -57,7 +57,7 @@
         "bumpiness": "Algunas olas. En el peor momento, tu saldo cayó temporalmente 8% antes de recuperarse."
       },
       "bestFor": "Personas cómodas con algo de movimiento de precios que quieren que su red de seguridad capture potencial de crecimiento.",
-      "riskLevel": "Bajo — 30% de tu saldo se moverá con los precios de activos digitales. Espera caídas ocasionales.",
+      "riskLevel": "Bajo. 30% de tu saldo se moverá con los precios de activos digitales. Espera caídas ocasionales.",
       "note": "No es para tu fondo de emergencia principal. Construye Safe Harbor primero."
     },
     "goalKeeper": {
@@ -74,7 +74,7 @@
         "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
       },
       "bestFor": "Cualquiera con un objetivo específico y plazo menor a 2 años.",
-      "riskLevel": "Mínimo — Diseñado para preservación de capital con rendimientos estables."
+      "riskLevel": "Mínimo. Diseñado para preservación de capital con rendimientos estables."
     },
     "steadyProgress": {
       "name": "Steady Progress",
@@ -89,7 +89,7 @@
         "bumpiness": "Olas moderadas. En el peor momento, tu saldo cayó temporalmente 11% antes de recuperarse."
       },
       "bestFor": "Personas ahorrando para un objetivo que pueden manejar ver su saldo caer temporalmente.",
-      "riskLevel": "Bajo-Medio — Tu saldo se moverá con los precios de activos digitales. Algunos meses serán negativos."
+      "riskLevel": "Bajo-Medio. Tu saldo se moverá con los precios de activos digitales. Algunos meses serán negativos."
     },
     "patientBuilder": {
       "name": "Patient Builder",
@@ -104,7 +104,7 @@
         "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
       },
       "bestFor": "Ahorradores de mediano plazo que priorizan la previsibilidad sobre los rendimientos máximos.",
-      "riskLevel": "Mínimo — Mismo perfil estable, optimizado para mantener más tiempo."
+      "riskLevel": "Mínimo. Mismo perfil estable, optimizado para mantener más tiempo."
     },
     "balancedBuilder": {
       "name": "Balanced Builder",
@@ -119,7 +119,7 @@
         "bumpiness": "Olas moderadas. En el peor momento, tu saldo cayó temporalmente 13% antes de recuperarse."
       },
       "bestFor": "Personas que entienden que los precios suben Y bajan, y pueden mantener durante caídas temporales.",
-      "riskLevel": "Medio — 40% de exposición a crecimiento significa oscilaciones significativas en ambas direcciones."
+      "riskLevel": "Medio. 40% de exposición a crecimiento significa oscilaciones significativas en ambas direcciones."
     },
     "steadyCompounder": {
       "name": "Steady Compounder",
@@ -134,7 +134,7 @@
         "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
       },
       "bestFor": "Ahorradores a largo plazo que quieren tranquilidad sobre rendimientos máximos.",
-      "riskLevel": "Mínimo — Lento y constante gana la carrera."
+      "riskLevel": "Mínimo. Lento y constante gana la carrera."
     },
     "wealthAccelerator": {
       "name": "Wealth Accelerator",
@@ -146,11 +146,11 @@
       "allocationNote": "Muy inclinado hacia el potencial de crecimiento.",
       "stats": {
         "lossChance": "Alrededor del 24%",
-        "typicalReturn": "Muy variable — podría ser negativo o superar 50%",
+        "typicalReturn": "Muy variable, podría ser negativo o superar 50%",
         "bumpiness": "Grandes oscilaciones. En el peor momento, tu saldo cayó 47% antes de recuperarse. Necesitas estar cómodo viendo tu saldo temporalmente reducirse a la mitad."
       },
       "bestFor": "Creyentes a largo plazo que pueden soportar volatilidad extrema por rendimientos potencialmente mayores.",
-      "riskLevel": "Alto — Probabilidad significativa de pérdidas significativas en plazos cortos. Solo para dinero que no necesitarás por 5+ años.",
+      "riskLevel": "Alto. Probabilidad significativa de pérdidas significativas en plazos cortos. Solo para dinero que no necesitarás por 5+ años.",
       "warning": "Tus resultados podrían ir de -60% a +200%+. Solo para usuarios que pueden tolerar pérdidas significativas."
     },
     "yieldMaximizer": {
@@ -166,7 +166,7 @@
         "bumpiness": "Muy tranquilo. Tu saldo se mantuvo estable durante toda nuestra prueba de 4 años."
       },
       "bestFor": "Constructores de riqueza conservadores a largo plazo que quieren rendimientos fuertes sin oscilaciones de precio.",
-      "riskLevel": "Mínimo — Nuestra estrategia estable de mayor rendimiento."
+      "riskLevel": "Mínimo. Nuestra estrategia estable de mayor rendimiento."
     },
     "fullThrottle": {
       "name": "Full Throttle",
@@ -178,7 +178,7 @@
       "allocationNote": "Máxima exposición a crecimiento con mínimo buffer de estabilidad.",
       "stats": {
         "lossChance": "Alrededor del 27%",
-        "typicalReturn": "Extremadamente variable — desde grandes pérdidas hasta ganancias extraordinarias",
+        "typicalReturn": "Extremadamente variable, desde grandes pérdidas hasta ganancias extraordinarias",
         "bumpiness": "Montaña rusa. En el peor momento, tu saldo cayó 66% antes de recuperarse. Solo para quienes pueden soportar pérdidas temporales casi totales."
       },
       "requirements": {
@@ -189,7 +189,7 @@
         "riskAck": "Confirmación de riesgo requerida"
       },
       "bestFor": "Inversores experimentados con alta tolerancia al riesgo asignando una pequeña porción de su portafolio.",
-      "riskLevel": "Muy Alto — Pérdida casi total posible. Solo usa lo que puedas permitirte perder completamente.",
+      "riskLevel": "Muy Alto. Pérdida casi total posible. Solo usa lo que puedas permitirte perder completamente.",
       "warning": "Esto no es seguro. Es para quienes entienden eso. Podrías perder 78% o ganar extraordinariamente. Nunca pongas aquí dinero que necesitas."
     }
   },
@@ -236,7 +236,7 @@
     "items": {
       "switch": {
         "question": "¿Puedo cambiar de estrategia?",
-        "answer": "Sí, en cualquier momento. Sin penalidades. Sin preguntas.\n\nPero ten en cuenta: si cambias durante una caída del mercado, podrías fijar una pérdida temporal. Es como vender tu casa durante una recesión — recibes menos de lo que vale.\n\nEl mejor momento para cambiar es cuando tus OBJETIVOS cambian, no cuando el mercado se mueve. Si pasaste de \"ahorrar para un carro\" a \"ahorrar para la jubilación,\" esa es una buena razón. Si estás cambiando porque los precios cayeron la semana pasada, generalmente es la decisión equivocada."
+        "answer": "Sí, en cualquier momento. Sin penalidades. Sin preguntas.\n\nPero ten en cuenta: si cambias durante una caída del mercado, podrías fijar una pérdida temporal. Es como vender tu casa durante una recesión, recibes menos de lo que vale.\n\nEl mejor momento para cambiar es cuando tus OBJETIVOS cambian, no cuando el mercado se mueve. Si pasaste de \"ahorrar para un carro\" a \"ahorrar para la jubilación,\" esa es una buena razón. Si estás cambiando porque los precios cayeron la semana pasada, generalmente es la decisión equivocada."
       },
       "multiple": {
         "question": "¿Puedo usar múltiples estrategias a la vez?",
@@ -260,7 +260,7 @@
       },
       "whatSystems": {
         "question": "¿Qué sistemas usan realmente?",
-        "answer": "Trabajamos con sistemas establecidos que:\n- Han operado durante años sin incidentes de seguridad graves\n- Han asegurado miles de millones de dólares\n- Han sido auditados por firmas de seguridad independientes\n- Tienen operaciones transparentes que puedes verificar tú mismo\n\nUna vez que te unas e inicies sesión, verás los detalles completos de cada sistema, incluyendo sus nombres, historial y por qué los elegimos.\n\n¿Por qué no mostramos esto públicamente? Porque la combinación específica de sistemas y asignaciones es parte de lo que hace único a diBoaS. Estamos encantados de ser completamente transparentes con nuestros usuarios — solo no con competidores."
+        "answer": "Trabajamos con sistemas establecidos que:\n- Han operado durante años sin incidentes de seguridad graves\n- Han asegurado miles de millones de dólares\n- Han sido auditados por firmas de seguridad independientes\n- Tienen operaciones transparentes que puedes verificar tú mismo\n\nUna vez que te unas e inicies sesión, verás los detalles completos de cada sistema, incluyendo sus nombres, historial y por qué los elegimos.\n\n¿Por qué no mostramos esto públicamente? Porque la combinación específica de sistemas y asignaciones es parte de lo que hace único a diBoaS. Estamos encantados de ser completamente transparentes con nuestros usuarios, solo no con competidores."
       }
     }
   },

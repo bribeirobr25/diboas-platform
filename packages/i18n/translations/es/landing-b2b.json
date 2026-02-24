@@ -30,7 +30,7 @@
   "origin": {
     "header": "Por mi abuela",
     "body": "Ahorró toda su vida. La mitad de todo lo que ganaba. Hizo todo bien.\n\nAun así, no fue suficiente.\nEl sistema no fue hecho para personas como ella.\nTampoco para empresas como la tuya.\n\nPero emprendedores? Tienen opciones. Solo necesitan saber que existen.\n\nPor eso estoy construyendo diBoaS para Empresas.",
-    "signature": "— Bar, Fundador"
+    "signature": "Bar, Fundador"
   },
   "calculator": {
     "header": "Haz los números",
@@ -73,7 +73,7 @@
         "description": "¿Necesitas efectivo? Un toque. Liquidación el mismo día. Sin bloqueos. Sin penalizaciones. Sin preguntas."
       }
     },
-    "footer": "Estados mensuales. Reportes listos para el board. Lenguaje claro — sin jerga."
+    "footer": "Estados mensuales. Reportes listos para el board. Lenguaje claro, sin jerga."
   },
   "features": {
     "header": "diBoaS Empresa és mucho más!",
@@ -169,6 +169,7 @@
   },
   "footer": {
     "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. El crecimiento no est\u00e1 prometido. Resultados pasados no predicen los futuros. Involucra riesgos como problemas de c\u00f3digo, cambios de mercado y desaf\u00edos de acceso. Usa solo lo que puedas arriesgar. No es un banco. Sin seguro de dep\u00f3sitos.",
+    "usDisclaimer": "Aviso de EE.UU.: diBoaS es una interfaz no custodial que proporciona acceso a protocolos de finanzas descentralizadas. diBoaS no est\u00e1 registrado con la SEC, CFTC, FinCEN ni ninguna agencia reguladora estatal. El tratamiento regulatorio de DeFi en EE.UU. est\u00e1 evolucionando. Usted es responsable de determinar si su uso de esta interfaz cumple con las leyes aplicables.",
     "regulatoryNote": "diBoaS opera bajo el marco MiCA de la UE. Autorizaci\u00f3n CASP pendiente.",
     "links": {
       "privacy": "Pol\u00edtica de Privacidad",

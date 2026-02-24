@@ -11,10 +11,11 @@ import Link from 'next/link';
 import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { NavigationConfig } from '@/types/navigation';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { DESIGN_SYSTEM } from '@/config/design-system';
 import { UI_CONSTANTS } from '@/config/ui-constants';
 import { useTranslation } from '@diboas/i18n/client';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { MobileNavHeader, MobileMenuMain, MobileSubmenu } from './MobileNav/index';
 
 interface MobileNavProps {
@@ -42,7 +43,11 @@ export default function MobileNav({
   isMobile
 }: MobileNavProps) {
   const intl = useTranslation();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const activeMenuItem = config.mainMenu.find(item => item.id === activeSubmenu);
+
+  // WCAG 2.4.3: Trap focus within mobile overlay when open
+  useFocusTrap(mobileMenuRef, isOpen, { returnFocus: true });
 
   // Translation helper
   const t = useCallback((key: string) => {
@@ -51,15 +56,17 @@ export default function MobileNav({
 
   // Scroll to top when submenu opens
   useEffect(() => {
-    if (activeSubmenu) {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        const submenuContainer = document.querySelector('[data-submenu-scroll]');
-        if (submenuContainer) {
-          submenuContainer.scrollTop = 0;
-        }
-      }, UI_CONSTANTS.ANIMATION.MOBILE_NAV_CLOSE_DELAY);
-    }
+    if (!activeSubmenu) return;
+
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      const submenuContainer = document.querySelector('[data-submenu-scroll]');
+      if (submenuContainer) {
+        submenuContainer.scrollTop = 0;
+      }
+    }, UI_CONSTANTS.ANIMATION.MOBILE_NAV_CLOSE_DELAY);
+
+    return () => clearTimeout(timer);
   }, [activeSubmenu]);
 
   // Don't render on non-mobile devices
@@ -100,6 +107,7 @@ export default function MobileNav({
 
       {/* Mobile Menu */}
       <div
+        ref={mobileMenuRef}
         className={`mobile-menu-overlay ${activeSubmenu ? 'z-50' : 'z-40'}`}
         style={{
           transform: isOpen ? 'translateY(0)' : 'translateY(-100%)',

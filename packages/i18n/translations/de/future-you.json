@@ -4,7 +4,7 @@
     "description": "Sehen Sie, was aus Ihrem Geld werden könnte. Kleine Beträge. Konsequenter Einsatz. Die Zeit erledigt den Rest."
   },
   "hero": {
-    "headline": "Ihre €20. In fünf Jahren.",
+    "headline": "Ihre {currency}20. In fünf Jahren.",
     "subheadline": "Kleine Beträge. Großer Unterschied.",
     "subheadline2": "",
     "context": "Kein Versprechen. Nur Mathematik. Und der Zugang, der Ihnen verwehrt wurde. Bis jetzt."
@@ -116,7 +116,7 @@
       },
       "inconsistent": {
         "question": "Was ist, wenn ich nicht jeden Monat den gleichen Betrag sparen kann?",
-        "answer": "Das Leben passiert. Sie können jederzeit anpassen.\n\nDieser Rechner nimmt konsistente monatliche Beträge an, weil das der einfachste Weg zur Projektion ist. Aber diBoaS erfordert keine Konsistenz.\n\nManche Monate sparen Sie {currency}200. Manche Monate {currency}20. Manche Monate {currency}0. Die Mathematik funktioniert trotzdem — nur anders. Was zählt, ist, dass Sie anfangen."
+        "answer": "Das Leben passiert. Sie können jederzeit anpassen.\n\nDieser Rechner nimmt konsistente monatliche Beträge an, weil das der einfachste Weg zur Projektion ist. Aber diBoaS erfordert keine Konsistenz.\n\nManche Monate sparen Sie {currency}200. Manche Monate {currency}20. Manche Monate {currency}0. Die Mathematik funktioniert trotzdem, nur anders. Was zählt, ist, dass Sie anfangen."
       },
       "whichStrategy": {
         "question": "Welche Strategie sollte ich tatsächlich verwenden?",

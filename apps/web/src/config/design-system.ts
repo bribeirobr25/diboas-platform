@@ -200,22 +200,6 @@ export const DESIGN_SYSTEM = {
   }
 } as const;
 
-// Legacy exports for backward compatibility (will be removed in future versions)
-// @deprecated Use DESIGN_SYSTEM instead
-export const COMPONENTS = {
-  navigation: {
-    desktop: { height: LAYOUT.NAVIGATION.DESKTOP_HEIGHT },
-    mobile: { height: LAYOUT.NAVIGATION.MOBILE_NAV_HEIGHT }
-  },
-  dropdown: {
-    height: LAYOUT.NAVIGATION.DROPDOWN_HEIGHT,
-    marginLeft: LAYOUT.SPACING.DROPDOWN_MARGIN_LEFT
-  },
-  mobileSubmenu: {
-    height: LAYOUT.NAVIGATION.MOBILE_SUBMENU_HEIGHT
-  }
-};
-
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   // Make design system available in browser console for debugging

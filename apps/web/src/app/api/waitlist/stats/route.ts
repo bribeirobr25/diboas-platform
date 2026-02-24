@@ -29,6 +29,10 @@ import {
 export const dynamic = 'force-dynamic';
 export const revalidate = 300; // 5 minutes
 
+const CACHE_HEADERS = {
+  'Cache-Control': 'public, max-age=300, s-maxage=300, stale-while-revalidate=60',
+};
+
 export async function GET(request: NextRequest): Promise<NextResponse<WaitlistStats>> {
   // Rate limiting (lenient preset for read-only endpoint)
   const clientIP = getClientIP(request);
@@ -61,12 +65,14 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
         countries: parseInt(envCountries, 10),
         source: 'env',
         lastUpdated: new Date().toISOString(),
-      });
+      }, { headers: CACHE_HEADERS });
     }
 
-    // Get live data from store
-    const storeCount = getTotalCount();
-    const positionCounter = getCurrentPositionCounter();
+    // Get live data from store (both are now async)
+    const [storeCount, positionCounter] = await Promise.all([
+      getTotalCount(),
+      getCurrentPositionCounter(),
+    ]);
 
     // Use position counter as count (more representative of total signups)
     // Store count only shows current entries, position counter shows all-time signups
@@ -81,7 +87,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
           : WAITLIST_STATS_FALLBACK.countries,
         source: 'store',
         lastUpdated: new Date().toISOString(),
-      });
+      }, { headers: CACHE_HEADERS });
     }
 
     // Fallback values
@@ -90,7 +96,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
       countries: WAITLIST_STATS_FALLBACK.countries,
       source: 'fallback',
       lastUpdated: new Date().toISOString(),
-    });
+    }, { headers: CACHE_HEADERS });
   } catch (error) {
     Logger.error('Error fetching waitlist stats', {}, error instanceof Error ? error : undefined);
 

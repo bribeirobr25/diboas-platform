@@ -50,9 +50,9 @@ export type PreDemoAction =
   | { type: 'SET_PENDING_TRANSACTION'; transaction: PendingTransaction }
   | { type: 'SET_TERMS_ACCEPTED'; accepted: boolean }
   | { type: 'TOGGLE_FEES_EXPANDED' }
-  | { type: 'COMPLETE_DEPOSIT'; netAmount: number; grossAmount: number; totalFees: number; feeDetails: Record<string, import('@/lib/pre-demo').FeeItem> }
-  | { type: 'COMPLETE_SEND'; grossAmount: number; netAmount: number; totalFees: number; recipient: string; feeDetails: Record<string, import('@/lib/pre-demo').FeeItem> }
-  | { type: 'COMPLETE_BUY'; grossAmount: number; netAmount: number; totalFees: number; asset: { symbol: string; name: string }; feeDetails: Record<string, import('@/lib/pre-demo').FeeItem> }
+  | { type: 'COMPLETE_DEPOSIT'; netAmount: number; grossAmount: number; totalFees: number; feeDetails: Record<string, import('@/lib/pre-demo').FeeItem>; intlLocale?: string }
+  | { type: 'COMPLETE_SEND'; grossAmount: number; netAmount: number; totalFees: number; recipient: string; feeDetails: Record<string, import('@/lib/pre-demo').FeeItem>; intlLocale?: string }
+  | { type: 'COMPLETE_BUY'; grossAmount: number; netAmount: number; totalFees: number; asset: { symbol: string; name: string }; feeDetails: Record<string, import('@/lib/pre-demo').FeeItem>; intlLocale?: string }
   | { type: 'SET_COPIED_ADDRESS'; chain: string | null }
   | { type: 'CLEAR_PENDING' };
 

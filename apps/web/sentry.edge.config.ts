@@ -13,13 +13,24 @@ if (SENTRY_DSN) {
   Sentry.init({
     dsn: SENTRY_DSN,
 
-    // Environment tracking
+    // Environment and release tracking
     environment: process.env.NODE_ENV,
+    release: process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
 
     // Performance Monitoring
     tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
 
     // Debug mode disabled to reduce log noise
     debug: false,
+
+    // Filter out noisy errors
+    beforeSend(event) {
+      // Filter out expected errors
+      if (event.message?.includes('NEXT_NOT_FOUND')) {
+        return null;
+      }
+
+      return event;
+    },
   });
 }

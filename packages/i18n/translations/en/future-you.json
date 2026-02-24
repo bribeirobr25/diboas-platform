@@ -4,7 +4,7 @@
     "description": "See what your money could become. Small amounts. Consistent effort. Time does the rest."
   },
   "hero": {
-    "headline": "Your $20. Five years from now.",
+    "headline": "Your {currency}20. Five years from now.",
     "subheadline": "Small amounts. Real difference.",
     "subheadline2": "",
     "context": "Not a promise. Just math. And the access kept from you. Until now."
@@ -116,7 +116,7 @@
       },
       "inconsistent": {
         "question": "What if I can't save the same amount every month?",
-        "answer": "Life happens. You can adjust anytime.\n\nThis calculator assumes consistent monthly amounts because that's the easiest way to project. But diBoaS doesn't require consistency.\n\nSome months you save {currency}200. Some months {currency}20. Some months {currency}0. The math still works — just differently. What matters is that you start."
+        "answer": "Life happens. You can adjust anytime.\n\nThis calculator assumes consistent monthly amounts because that's the easiest way to project. But diBoaS doesn't require consistency.\n\nSome months you save {currency}200. Some months {currency}20. Some months {currency}0. The math still works, just differently. What matters is that you start."
       },
       "whichStrategy": {
         "question": "Which strategy should I actually use?",

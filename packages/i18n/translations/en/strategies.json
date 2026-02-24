@@ -61,7 +61,7 @@
         "bumpiness": "Very smooth. Your balance stayed stable throughout our 4-year test."
       },
       "bestFor": "People building their first emergency fund. Anyone who wants to learn how this works without price swings.",
-      "riskLevel": "Minimal — Risks are possible technical vulnerabilities in the underlying systems, however they have operated safely for years."
+      "riskLevel": "Minimal. Risks are possible technical vulnerabilities in the underlying systems, however they have operated safely for years."
     },
     "stableGrowth": {
       "name": "Stable Growth",
@@ -70,13 +70,14 @@
       "description": "Same purpose as Safe Harbor, but with 30% exposure to digital asset growth. You're accepting some price movement for higher potential returns.",
       "description2": "This works for people who already have a stable emergency fund and want their second layer to work harder.",
       "allocation": "70% System A + 30% System D",
+      "allocationNote": "The majority of your money stays in stable digital dollars. A smaller portion participates in digital asset growth.",
       "stats": {
         "lossChance": "Around 5%",
         "typicalReturn": "8-12% per year",
         "bumpiness": "Some waves. At worst, your balance temporarily dropped 8% before recovering."
       },
       "bestFor": "People comfortable with some price movement who want their safety net to capture growth potential.",
-      "riskLevel": "Low — 30% of your balance will move with digital asset prices.",
+      "riskLevel": "Low. 30% of your balance will move with digital asset prices.",
       "note": "Not for your primary emergency fund. Build Safe Harbor first."
     },
     "goalKeeper": {
@@ -84,14 +85,16 @@
       "badge": "Stable Returns | Short-Term",
       "tagline": "Protecting your near-term dreams",
       "description": "Saving for something in the next 2 years? A trip, a wedding, a car? This keeps every euro working toward your deadline without risking it.",
+      "description2": "No exposure to digital asset prices. Predictable growth.",
       "allocation": "60% System A + 25% System B + 15% System C",
+      "allocationNote": "Your money is distributed across proven systems optimized for stability.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
         "bumpiness": "Very smooth."
       },
       "bestFor": "Anyone with a specific goal and timeline under 2 years.",
-      "riskLevel": "Minimal — Designed for capital preservation with steady returns."
+      "riskLevel": "Minimal. Designed for capital preservation with steady returns."
     },
     "steadyProgress": {
       "name": "Steady Progress",
@@ -99,13 +102,14 @@
       "tagline": "Short-term goals with growth potential",
       "description": "You have a goal in the next 2 years, but you're okay with some price movement if it means higher returns.",
       "allocation": "65% System A + 35% System D",
+      "allocationNote": "Most stays stable. A portion participates in digital asset growth.",
       "stats": {
         "lossChance": "Around 7%",
         "typicalReturn": "8-12% per year",
         "bumpiness": "Moderate waves. At worst, your balance temporarily dropped 11% before recovering."
       },
       "bestFor": "People saving for a goal who can handle seeing their balance dip temporarily.",
-      "riskLevel": "Low-Medium — Your balance will move with digital asset prices."
+      "riskLevel": "Low-Medium. Your balance will move with digital asset prices."
     },
     "patientBuilder": {
       "name": "Patient Builder",
@@ -113,13 +117,14 @@
       "tagline": "Steady growth for the patient investor",
       "description": "You're thinking 2-5 years out. Maybe a down payment, maybe starting a business.",
       "allocation": "50% System A + 30% System B + 20% System C",
+      "allocationNote": "Distributed across stable systems for consistent returns.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
         "bumpiness": "Very smooth."
       },
       "bestFor": "Medium-term savers who prioritize predictability over maximum returns.",
-      "riskLevel": "Minimal — Same stable profile, optimized for longer holding."
+      "riskLevel": "Minimal. Same stable profile, optimized for longer holding."
     },
     "balancedBuilder": {
       "name": "Balanced Builder",
@@ -127,13 +132,14 @@
       "tagline": "The best of both worlds",
       "description": "Most of your money stays safe. Some captures digital asset growth. This is our most popular strategy for people with 3-5 year horizons.",
       "allocation": "60% System A + 25% System D + 15% System E",
+      "allocationNote": "A balanced mix of stability and growth potential.",
       "stats": {
         "lossChance": "Around 12%",
         "typicalReturn": "10-16% per year",
         "bumpiness": "Moderate waves. At worst, your balance temporarily dropped 13% before recovering."
       },
       "bestFor": "People who understand that prices go up AND down, and can hold through temporary dips.",
-      "riskLevel": "Medium — 40% growth exposure means meaningful swings in both directions."
+      "riskLevel": "Medium. 40% growth exposure means meaningful swings in both directions."
     },
     "steadyCompounder": {
       "name": "Steady Compounder",
@@ -141,27 +147,30 @@
       "tagline": "Let time do the heavy lifting",
       "description": "You're playing the long game. 5-10 years. You don't need to take big risks because you have time on your side.",
       "allocation": "55% System A + 30% System B + 15% System C",
+      "allocationNote": "Optimized for long-term compounding with minimal volatility.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
         "bumpiness": "Very smooth."
       },
       "bestFor": "Long-term savers who want peace of mind over maximum returns.",
-      "riskLevel": "Minimal — Slow and steady wins the race."
+      "riskLevel": "Minimal. Slow and steady wins the race."
     },
     "wealthAccelerator": {
       "name": "Wealth Accelerator",
       "badge": "Growth Potential (70%) | Long-Term",
       "tagline": "For believers who've done the research",
       "description": "This is not for everyone. 70% growth exposure means your portfolio will move significantly with digital asset prices.",
+      "description2": "You need to be able to watch your balance drop 40%+ and not panic.",
       "allocation": "30% System A + 35% System D + 35% System E",
+      "allocationNote": "Heavily tilted toward growth potential.",
       "stats": {
         "lossChance": "Around 24%",
-        "typicalReturn": "Highly variable — could be negative or exceed 50%",
+        "typicalReturn": "Highly variable, could be negative or exceed 50%",
         "bumpiness": "Big swings. At worst, your balance dropped 47% before recovering."
       },
       "bestFor": "Long-term believers who can stomach extreme volatility for potentially higher returns.",
-      "riskLevel": "High — Significant chance of meaningful losses in shorter timeframes.",
+      "riskLevel": "High. Significant chance of meaningful losses in shorter timeframes.",
       "warning": "Your outcomes could range from -60% to +200%+. Only for users who can tolerate significant losses."
     },
     "yieldMaximizer": {
@@ -170,23 +179,26 @@
       "tagline": "Maximum returns, minimum volatility",
       "description": "You want the highest stable returns over 10+ years without exposure to digital asset prices.",
       "allocation": "45% System A + 35% System B + 20% System C",
+      "allocationNote": "Our highest-yielding stable-only configuration.",
       "stats": {
         "lossChance": "Less than 1%",
         "typicalReturn": "6-10% per year",
         "bumpiness": "Very smooth."
       },
       "bestFor": "Conservative long-term wealth builders who want strong returns without price swings.",
-      "riskLevel": "Minimal — Our highest-yielding stable strategy."
+      "riskLevel": "Minimal. Our highest-yielding stable strategy."
     },
     "fullThrottle": {
       "name": "Full Throttle",
       "badge": "Growth Potential (85%) | Wealth Building",
       "tagline": "Maximum risk. Maximum potential.",
       "description": "This is our most aggressive strategy. 85% growth exposure. Designed for a small portion of your portfolio that you're willing to lose entirely.",
+      "description2": "The upside? In rare scenarios, returns have exceeded 1,000%. The downside? 27% chance of loss. Your balance dropped 66% at its worst moment in our test.",
       "allocation": "15% System A + 30% System D + 35% System E + 20% System F",
+      "allocationNote": "Maximum growth exposure with minimal stability buffer.",
       "stats": {
         "lossChance": "Around 27%",
-        "typicalReturn": "Extremely variable — from large losses to extraordinary gains",
+        "typicalReturn": "Extremely variable, from large losses to extraordinary gains",
         "bumpiness": "Roller coaster. At worst, your balance dropped 66% before recovering."
       },
       "requirements": {
@@ -197,7 +209,7 @@
         "riskAck": "Risk acknowledgment required"
       },
       "bestFor": "Experienced investors with high risk tolerance allocating a small portion of their portfolio.",
-      "riskLevel": "Very High — Near-total loss possible. Only use what you can afford to lose completely.",
+      "riskLevel": "Very High. Near-total loss possible. Only use what you can afford to lose completely.",
       "warning": "This isn't safe. It's for those who understand that. You could lose 78% or gain extraordinarily. Never put money here that you need."
     }
   },

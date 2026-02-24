@@ -8,56 +8,64 @@
  * GDPR compliant - waits for cookie consent before tracking.
  */
 
-import posthog from 'posthog-js';
-import { PostHogProvider as PHProvider } from 'posthog-js/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { POSTHOG_CONFIG } from '@/config/env';
 
+// Lazy-loaded PostHog types
+type PostHogInstance = { opt_out_capturing: () => void; debug: (enabled: boolean) => void; init: (...args: unknown[]) => void };
+
 interface PostHogProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function PostHogProvider({ children }: PostHogProviderProps) {
-  const [isInitialized, setIsInitialized] = useState(false);
+  const isInitializedRef = useRef(false);
+  const posthogRef = useRef<PostHogInstance | null>(null);
+  const [PHWrapper, setPHWrapper] = useState<{ Provider: React.ComponentType<{ client: PostHogInstance; children: ReactNode }> } | null>(null);
 
   useEffect(() => {
     const posthogKey = POSTHOG_CONFIG.apiKey;
     const posthogHost = POSTHOG_CONFIG.host;
 
-    const initPostHog = () => {
-      if (posthogKey && typeof window !== 'undefined' && hasAnalyticsConsent() && !isInitialized) {
+    const initPostHog = async () => {
+      if (!posthogKey || typeof window === 'undefined' || !hasAnalyticsConsent() || isInitializedRef.current) return;
+
+      try {
+        const [posthogModule, reactModule] = await Promise.all([
+          import('posthog-js'),
+          import('posthog-js/react'),
+        ]);
+
+        const posthog = posthogModule.default;
         posthog.init(posthogKey, {
           api_host: posthogHost,
-          // Capture pageviews automatically
           capture_pageview: true,
-          // Capture pageleaves for session duration
           capture_pageleave: true,
-          // Respect Do Not Track
           respect_dnt: true,
-          // Disable remote config fetching (reduces console noise)
           advanced_disable_feature_flags: process.env.NODE_ENV === 'development',
-          // Disable in development unless explicitly enabled
-          loaded: (posthog) => {
+          loaded: (ph) => {
             if (process.env.NODE_ENV === 'development') {
-              posthog.debug(false); // Disable verbose logging in dev
+              ph.debug(false);
             }
           },
         });
-        setIsInitialized(true);
+
+        posthogRef.current = posthog as unknown as PostHogInstance;
+        isInitializedRef.current = true;
+        setPHWrapper({ Provider: reactModule.PostHogProvider as React.ComponentType<{ client: PostHogInstance; children: ReactNode }> });
+      } catch {
+        // PostHog load failed — analytics will be unavailable
       }
     };
 
-    // Check consent on mount
     initPostHog();
 
-    // Listen for consent changes
     const handleConsentChange = (event: CustomEvent) => {
       if (event.detail?.analytics) {
         initPostHog();
-      } else if (isInitialized) {
-        // User revoked consent - opt out
-        posthog.opt_out_capturing();
+      } else if (isInitializedRef.current && posthogRef.current) {
+        posthogRef.current.opt_out_capturing();
       }
     };
 
@@ -66,12 +74,12 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
     return () => {
       window.removeEventListener('cookie-consent-changed', handleConsentChange as EventListener);
     };
-  }, [isInitialized]);
+  }, []);
 
-  // Only wrap with PostHog provider if key is configured
-  if (!POSTHOG_CONFIG.apiKey) {
+  // Only wrap with PostHog provider if initialized and loaded
+  if (!POSTHOG_CONFIG.apiKey || !PHWrapper || !posthogRef.current) {
     return <>{children}</>;
   }
 
-  return <PHProvider client={posthog}>{children}</PHProvider>;
+  return <PHWrapper.Provider client={posthogRef.current}>{children}</PHWrapper.Provider>;
 }

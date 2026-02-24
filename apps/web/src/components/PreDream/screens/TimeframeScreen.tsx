@@ -38,7 +38,7 @@ export function TimeframeScreen() {
                 {tf.label}
               </p>
               <p className={styles.timeframeDays}>
-                {tf.days.toLocaleString()} days
+                {tf.days.toLocaleString()} {t('daysUnit')}
               </p>
             </button>
           );

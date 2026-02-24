@@ -33,8 +33,6 @@
  * ```
  */
 
-'use client';
-
 import { memo } from 'react';
 import type { SectionContainerProps } from './types';
 import styles from './SectionContainer.module.css';

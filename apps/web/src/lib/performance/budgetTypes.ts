@@ -32,6 +32,13 @@ export interface BudgetViolation {
   };
 }
 
+export interface PercentileStats {
+  p50: number;
+  p95: number;
+  p99: number;
+  count: number;
+}
+
 export interface BudgetReport {
   timestamp: number;
   budgets: {
@@ -46,6 +53,7 @@ export interface BudgetReport {
     degrading: number;
     stable: number;
   };
+  percentiles: Record<string, PercentileStats>;
   recommendations: string[];
 }
 

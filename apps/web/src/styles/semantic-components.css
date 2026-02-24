@@ -85,6 +85,12 @@ a:focus-visible {
   @apply min-h-screen bg-gray-50;
 }
 
+/* Offset anchor-scroll targets by the fixed nav height (h-20 = 80px)
+   so scrollIntoView / hash navigation doesn't hide content behind the bar */
+.main-page-wrapper > [id] {
+  scroll-margin-top: 80px;
+}
+
 .main-content {
   @apply pt-14 md:pt-20;
 }
@@ -147,7 +153,18 @@ a:focus-visible {
 /* =================================================================== */
 
 .navigation-bar {
-  @apply fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50;
+  @apply fixed top-0 w-full shadow-sm z-50;
+  /* Solid background on mobile — backdrop-filter on position:fixed
+     elements breaks native scroll on iOS Safari (WebKit compositing bug). */
+  background-color: rgb(255, 255, 255);
+}
+
+@media (min-width: 768px) {
+  .navigation-bar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 .navigation-content {
@@ -535,7 +552,7 @@ a:focus-visible {
 }
 
 .mobile-main-menu-icon {
-  @apply text-gray-400 w-6 h-6;
+  @apply text-gray-500 w-6 h-6;
 }
 
 .mobile-menu-description-text {
@@ -1108,16 +1125,28 @@ a:focus-visible {
 /* =================================================================== */
 
 .minimal-navigation-bar {
-  @apply fixed top-0 w-full backdrop-blur-md shadow-sm z-50;
-  background-color: rgba(249, 250, 251, 0.95); /* --color-gray-50 with 95% opacity */
+  @apply fixed top-0 w-full shadow-sm z-50;
+  /* Solid background on mobile — backdrop-filter on position:fixed
+     elements breaks native scroll on iOS Safari (WebKit compositing bug). */
+  background-color: rgb(249, 250, 251);
+}
+
+@media (min-width: 768px) {
+  .minimal-navigation-bar {
+    background-color: rgba(249, 250, 251, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 .minimal-navigation-content {
   @apply flex items-center justify-between h-20;
+  max-width: 100%;
 }
 
 .minimal-nav-actions {
-  @apply flex items-center;
+  @apply flex items-center flex-shrink-0;
+  gap: 0;
 }
 
 /* Landing Page Navigation Links */
@@ -1133,8 +1162,26 @@ a:focus-visible {
   @apply bg-slate-50;
 }
 
+/* Mobile CTA — centered between logo and hamburger on mobile */
+.minimal-nav-mobile-center {
+  @apply flex md:hidden items-center justify-center;
+  flex: 1;
+}
+
+/* Language Switcher — visible in nav bar on desktop only, after CTA */
+.minimal-nav-lang-desktop {
+  @apply hidden md:block;
+  margin-left: var(--spacing-lg);
+}
+
+/* Desktop CTA link — visible on desktop only */
+.minimal-nav-cta-desktop {
+  @apply hidden md:inline-flex;
+  margin-left: var(--spacing-lg);
+}
+
 .minimal-nav-cta {
-  @apply ml-4;
+  @apply ml-0;
 }
 
 /* Navigation CTA keeps compact 36px height on all breakpoints */
@@ -1191,6 +1238,9 @@ a:focus-visible {
   background-color: var(--color-slate-100);
 }
 
-.minimal-nav-mobile-cta {
-  margin: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+/* Language Switcher in mobile menu — replaces CTA at bottom of menu */
+.minimal-nav-mobile-lang {
+  padding: var(--spacing-xl);
+  display: flex;
+  justify-content: center;
 }

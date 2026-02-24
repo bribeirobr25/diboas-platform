@@ -30,7 +30,18 @@ export type PreDemoScreen =
 export type AssetCategory = 'ETFs' | 'Stocks' | 'Crypto' | 'Gold';
 
 /** Chain identifiers */
-export type ChainId = 'SOL' | 'BTC' | 'ETH' | 'SUI';
+export type ChainId = 'SOL' | 'BTC' | 'ETH' | 'SUI' | 'TRX';
+
+/** L2 chain identifiers */
+export type L2ChainId = 'ARB' | 'BASE';
+
+/** L2 chain configuration */
+export interface L2ChainConfig {
+  readonly name: string;
+  readonly color: string;
+  readonly address: string;
+  readonly token: string;
+}
 
 /** Asset definition */
 export interface Asset {
@@ -46,6 +57,7 @@ export interface ChainConfig {
   readonly color: string;
   readonly tokens: string[];
   readonly comingSoon?: boolean;
+  readonly l2Chains?: Record<string, L2ChainConfig>;
 }
 
 /** Recipient option */

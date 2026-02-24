@@ -39,21 +39,24 @@ export function AppFeaturesCarouselDefault({
   const autoRotateMs = config.settings?.autoRotateMs || 4000;
 
   // Custom slide change handler with logging
-  const handleSlideChange = useCallback((index: number) => {
+  const handleSlideChange = useCallback((index: number, source: 'auto' | 'user') => {
     // Call parent callback
     onSlideChange?.(index);
 
-    // Log section event for analytics
-    Logger.info('App features carousel card changed', {
-      section: 'AppFeaturesCarousel',
-      slideIndex: index,
-      slideId: cards[index]?.id
-    });
-
-    Logger.debug('App features carousel card change', {
-      slideIndex: index,
-      slideId: cards[index]?.id
-    });
+    // Log at appropriate level: user interactions are INFO, auto-play is DEBUG
+    if (source === 'auto') {
+      Logger.debug('App features carousel auto-rotated', {
+        section: 'AppFeaturesCarousel',
+        slideIndex: index,
+        slideId: cards[index]?.id
+      });
+    } else {
+      Logger.info('App features carousel card changed', {
+        section: 'AppFeaturesCarousel',
+        slideIndex: index,
+        slideId: cards[index]?.id
+      });
+    }
   }, [cards, onSlideChange]);
 
   // Shared carousel hook

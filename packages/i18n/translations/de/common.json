@@ -98,7 +98,8 @@
     },
     "actions": {
       "primary": "Loslegen",
-      "secondary": "Business-Login"
+      "secondary": "Business-Login",
+      "demo": "Demo testen"
     },
     "joinWaitlist": "Zur Warteliste",
     "tools": {

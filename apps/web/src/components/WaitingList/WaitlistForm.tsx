@@ -59,7 +59,8 @@ export function WaitlistForm({
       onSubmit={handleSubmit}
       className={`${styles.form} ${compact ? styles.compact : ''} ${className}`}
     >
-      <div className={styles.inputGroup}>
+      <fieldset className={styles.inputGroup}>
+        <legend className="sr-only">{t('form.legendText')}</legend>
         <label htmlFor="waitlist-email" className="sr-only">
           {t('form.emailLabel')}
         </label>
@@ -88,7 +89,7 @@ export function WaitlistForm({
         >
           {t('form.cta')}
         </Button>
-      </div>
+      </fieldset>
 
       {error && (
         <div id="waitlist-error" className={styles.error} role="alert" aria-live="assertive">

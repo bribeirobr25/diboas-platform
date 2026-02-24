@@ -8,9 +8,9 @@
 import type { PreDemoState, PreDemoAction } from './types';
 import { RECIPIENT_OPTIONS, ASSET_PRICES, SOL_GAS_RESERVE } from '@/lib/pre-demo';
 
-function formatDateTime(): string {
+function formatDateTime(intlLocale: string = 'en-US'): string {
   const now = new Date();
-  return now.toLocaleString('en-US', {
+  return now.toLocaleString(intlLocale, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -91,7 +91,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
             grossAmount: action.grossAmount,
             fees: action.totalFees,
             feeDetails: action.feeDetails,
-            date: formatDateTime(),
+            date: formatDateTime(action.intlLocale),
           },
           ...state.transactions,
         ],
@@ -118,8 +118,8 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
         : state.solBalance - sendSolCost;
       return {
         ...state,
-        cashBalance: sendNewCash,
-        solBalance: sendNewSol,
+        cashBalance: Math.max(0, sendNewCash),
+        solBalance: Math.max(0, sendNewSol),
         transactions: [
           {
             id: Date.now(),
@@ -129,7 +129,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
             grossAmount: action.grossAmount,
             fees: action.totalFees,
             feeDetails: action.feeDetails,
-            date: formatDateTime(),
+            date: formatDateTime(action.intlLocale),
           },
           ...state.transactions,
         ],
@@ -155,8 +155,8 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
         : state.solBalance - buySolCost;
       return {
         ...state,
-        cashBalance: buyNewCash,
-        solBalance: buyNewSol,
+        cashBalance: Math.max(0, buyNewCash),
+        solBalance: Math.max(0, buyNewSol),
         investments: {
           ...state.investments,
           assets: {
@@ -177,7 +177,7 @@ export function preDemoReducer(state: PreDemoState, action: PreDemoAction): PreD
             fees: action.totalFees,
             feeDetails: action.feeDetails,
             asset: action.asset.symbol,
-            date: formatDateTime(),
+            date: formatDateTime(action.intlLocale),
           },
           ...state.transactions,
         ],

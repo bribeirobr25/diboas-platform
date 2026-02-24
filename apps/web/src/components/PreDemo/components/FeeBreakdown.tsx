@@ -10,17 +10,9 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import type { FeeItem } from '@/lib/pre-demo';
+import { formatCurrency, type FeeItem } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
 import styles from '../PreDemo.module.css';
-
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
 
 interface FeeBreakdownProps {
   feeItems: Record<string, FeeItem>;
@@ -30,6 +22,7 @@ interface FeeBreakdownProps {
 
 export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdownProps) {
   const intl = useTranslation();
+  const { locale } = useLocale();
   const [isExpanded, setIsExpanded] = useState(alwaysExpanded || false);
   const [tooltipKey, setTooltipKey] = useState<string | null>(null);
 
@@ -47,7 +40,7 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
           {t('preDemo.fees.total')}
         </span>
         <span className={styles.feeToggleAmount}>
-          {alwaysExpanded ? `-${formatCurrency(totalFees)}` : formatCurrency(totalFees)}
+          {alwaysExpanded ? `-${formatCurrency(totalFees, 2, locale)}` : formatCurrency(totalFees, 2, locale)}
           {!alwaysExpanded && (
             <span className={styles.feeToggleChevron}>
               {isExpanded ? '\u25B2' : '\u25BC'}
@@ -62,14 +55,14 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
           {Object.entries(feeItems).map(([key, fee]) => (
             <div key={key} className={styles.feeRow}>
               <div className={styles.feeRowLeft}>
-                <span className={styles.feeLabel}>{fee.label}</span>
+                <span className={styles.feeLabel}>{t(fee.label)}</span>
                 {fee.tooltip && (
                   <button
                     className={styles.feeInfoButton}
                     onClick={() =>
                       setTooltipKey(tooltipKey === key ? null : key)
                     }
-                    aria-label={`Info about ${fee.label}`}
+                    aria-label={t('preDemo.fees.tooltipAriaLabel')}
                   >
                     <svg
                       width="14"
@@ -91,14 +84,14 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
                 }`}
               >
                 {fee.amount === 0
-                  ? formatCurrency(0)
+                  ? formatCurrency(0, 2, locale)
                   : alwaysExpanded
-                    ? `-${formatCurrency(fee.amount)}`
-                    : formatCurrency(fee.amount)}
+                    ? `-${formatCurrency(fee.amount, 2, locale)}`
+                    : formatCurrency(fee.amount, 2, locale)}
               </span>
               {/* Tooltip */}
               {tooltipKey === key && fee.tooltip && (
-                <div className={styles.feeTooltip}>{fee.tooltip}</div>
+                <div className={styles.feeTooltip}>{t(fee.tooltip)}</div>
               )}
             </div>
           ))}

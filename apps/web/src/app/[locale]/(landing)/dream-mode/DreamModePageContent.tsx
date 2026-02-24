@@ -14,7 +14,12 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
-import { DreamMode } from '@/components/DreamMode';
+import dynamic from 'next/dynamic';
+
+const DreamMode = dynamic(() => import('@/components/DreamMode').then(m => ({ default: m.DreamMode })), {
+  ssr: false,
+  loading: () => <div style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div style={{ width: '2rem', height: '2rem', border: '2px solid #e0e7ff', borderTopColor: '#3b82f6', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /></div>,
+});
 import { useWaitingListModal } from '@/components/WaitingList';
 import { analyticsService } from '@/lib/analytics';
 import { POSITION_STORAGE_KEYS } from '@/lib/waitingList/constants';
@@ -154,4 +159,3 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
   );
 }
 
-export default DreamModePageContent;

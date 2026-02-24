@@ -3,11 +3,17 @@
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
 import { PRE_DREAM_INITIAL_AMOUNT_CONFIG, PRE_DREAM_MONTHLY_AMOUNT_CONFIG } from '@/lib/pre-dream';
+import { useLocale } from '@/components/Providers';
+import { getCurrencyForLocale, getCurrencySymbol, getIntlLocale } from '@/config/formats';
 import styles from '../PreDream.module.css';
 
 export function InputScreen() {
   const intl = useTranslation();
   const { state, setInitialAmount, setMonthlyContribution, goToTimeframe, goToScreen } = usePreDream();
+
+  const { locale } = useLocale();
+  const currencySymbol = getCurrencySymbol(getCurrencyForLocale(locale));
+  const intlLocale = getIntlLocale(locale);
 
   const t = (key: string) => intl.formatMessage({ id: `preDream.input.${key}` });
 
@@ -39,7 +45,7 @@ export function InputScreen() {
           <div className={styles.sliderHeader}>
             <span className={styles.sliderLabel}>{t('startingAmount')}</span>
             <div className={styles.sliderValueInput}>
-              <span className={styles.currencySymbol}>$</span>
+              <span className={styles.currencySymbol}>{currencySymbol}</span>
               <input
                 type="number"
                 value={state.initialAmount}
@@ -59,8 +65,8 @@ export function InputScreen() {
             aria-label={t('startingAmount')}
           />
           <div className={styles.sliderRange}>
-            <span>${PRE_DREAM_INITIAL_AMOUNT_CONFIG.min.toLocaleString()}</span>
-            <span>${PRE_DREAM_INITIAL_AMOUNT_CONFIG.max.toLocaleString()}</span>
+            <span>{currencySymbol}{PRE_DREAM_INITIAL_AMOUNT_CONFIG.min.toLocaleString(intlLocale)}</span>
+            <span>{currencySymbol}{PRE_DREAM_INITIAL_AMOUNT_CONFIG.max.toLocaleString(intlLocale)}</span>
           </div>
         </div>
 
@@ -69,7 +75,7 @@ export function InputScreen() {
           <div className={styles.sliderHeader}>
             <span className={styles.sliderLabel}>{t('monthlyContribution')}</span>
             <div className={styles.sliderValueInput}>
-              <span className={styles.currencySymbol}>$</span>
+              <span className={styles.currencySymbol}>{currencySymbol}</span>
               <input
                 type="number"
                 value={state.monthlyContribution}
@@ -89,8 +95,8 @@ export function InputScreen() {
             aria-label={t('monthlyContribution')}
           />
           <div className={styles.sliderRange}>
-            <span>${PRE_DREAM_MONTHLY_AMOUNT_CONFIG.min.toLocaleString()}</span>
-            <span>${PRE_DREAM_MONTHLY_AMOUNT_CONFIG.max.toLocaleString()}</span>
+            <span>{currencySymbol}{PRE_DREAM_MONTHLY_AMOUNT_CONFIG.min.toLocaleString(intlLocale)}</span>
+            <span>{currencySymbol}{PRE_DREAM_MONTHLY_AMOUNT_CONFIG.max.toLocaleString(intlLocale)}</span>
           </div>
         </div>
       </div>

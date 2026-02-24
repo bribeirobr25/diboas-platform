@@ -13,7 +13,6 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { SafeInterval, SafeTimer, CleanupManager, MutexLock, StateMachine } from '@/lib/utils/RaceConditionPrevention';
-import { Logger } from '@/lib/monitoring/Logger';
 
 export interface UseCarouselOptions {
   /**
@@ -58,8 +57,10 @@ export interface UseCarouselOptions {
 
   /**
    * Callback when slide changes
+   * @param index - The new slide index
+   * @param source - Whether the change was triggered by auto-play or user interaction
    */
-  onSlideChange?: (index: number) => void;
+  onSlideChange?: (index: number, source: 'auto' | 'user') => void;
 
   /**
    * Callback when user navigates (next/prev)
@@ -174,7 +175,7 @@ export function useCarousel({
   /**
    * Navigate to specific slide with race condition prevention
    */
-  const goToSlide = useCallback(async (index: number) => {
+  const goToSlide = useCallback(async (index: number, source: 'auto' | 'user' = 'user') => {
     if (index < 0 || index >= totalSlides || index === currentSlideIndex) return;
 
     const acquired = await mutexRef.current.acquire();
@@ -185,16 +186,7 @@ export function useCarousel({
       carouselStateRef.current.transitionTo('transitioning');
 
       setCurrentSlideIndex(index);
-      onSlideChange?.(index);
-
-      Logger.info(`${componentName} slide changed`, {
-        section: componentName,
-        slideIndex: index
-      });
-
-      Logger.debug(`${componentName} slide change`, {
-        slideIndex: index
-      });
+      onSlideChange?.(index, source);
 
       // Schedule transition end
       timerRef.current = new SafeTimer(componentName);
@@ -209,22 +201,30 @@ export function useCarousel({
   }, [totalSlides, currentSlideIndex, componentName, onSlideChange, transitionDuration, isAutoPlaying]);
 
   /**
-   * Navigate to next slide
+   * Navigate to next slide (safe to pass as onClick / onSwipeLeft handler)
    */
   const goToNext = useCallback(() => {
     const nextIndex = (currentSlideIndex + 1) % totalSlides;
-    goToSlide(nextIndex);
+    goToSlide(nextIndex, 'user');
     onNavigate?.('next');
   }, [currentSlideIndex, totalSlides, goToSlide, onNavigate]);
 
   /**
-   * Navigate to previous slide
+   * Navigate to previous slide (safe to pass as onClick / onSwipeRight handler)
    */
   const goToPrev = useCallback(() => {
     const prevIndex = currentSlideIndex === 0 ? totalSlides - 1 : currentSlideIndex - 1;
-    goToSlide(prevIndex);
+    goToSlide(prevIndex, 'user');
     onNavigate?.('prev');
   }, [currentSlideIndex, totalSlides, goToSlide, onNavigate]);
+
+  /**
+   * Internal auto-advance (not exposed — skips onNavigate, marks source as 'auto')
+   */
+  const autoAdvance = useCallback(() => {
+    const nextIndex = (currentSlideIndex + 1) % totalSlides;
+    goToSlide(nextIndex, 'auto');
+  }, [currentSlideIndex, totalSlides, goToSlide]);
 
   /**
    * Auto-rotation logic with race condition prevention
@@ -240,7 +240,7 @@ export function useCarousel({
         intervalRef.current = new SafeInterval(componentName);
         intervalRef.current.set(() => {
           if (carouselStateRef.current.canTransitionTo('transitioning')) {
-            goToNext();
+            autoAdvance();
           }
         }, autoPlayInterval);
 
@@ -259,7 +259,7 @@ export function useCarousel({
     return () => {
       intervalRef.current?.clear();
     };
-  }, [isAutoPlaying, totalSlides, autoPlayInterval, componentName, goToNext]);
+  }, [isAutoPlaying, totalSlides, autoPlayInterval, componentName, autoAdvance]);
 
   /**
    * Toggle play/pause state

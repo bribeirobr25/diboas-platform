@@ -1,0 +1,200 @@
+/**
+ * FeeTable Section Styles
+ * 4-column comparison table with mobile card fallback
+ */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--section-title-font-size-mobile, 26px);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-heading);
+  margin: 0 0 12px 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0 0 40px 0;
+}
+
+/* Desktop table */
+.tableWrapper {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .tableWrapper {
+    display: block;
+    margin-bottom: 32px;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tableHeaderRow {
+  background-color: #f0fdfa;
+}
+
+.th {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tableRow {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.td {
+  font-size: 16px;
+  color: var(--color-text-body);
+  padding: 16px;
+  vertical-align: top;
+}
+
+.tdCompetitors {
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+/* Free rows: green text with check icon */
+.freeText {
+  color: var(--text-success-accessible, #059669);
+  font-weight: 600;
+}
+
+.freeLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.checkIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-success-accessible, #059669);
+}
+
+/* Highlight rows: bold accent on difference column */
+.highlightDifference {
+  color: var(--text-primary-accessible);
+  font-weight: 700;
+}
+
+/* Example line */
+.example {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 16px auto 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.disclaimer {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Mobile cards */
+.mobileCards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .mobileCards {
+    display: none;
+  }
+}
+
+.mobileCard {
+  background: var(--section-bg-white);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+}
+
+.mobileCardAction {
+  font-size: 16px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-heading);
+  margin-bottom: 12px;
+}
+
+.mobileCompareGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mobileCompareLabel {
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.mobileCompareValue {
+  font-size: 15px;
+  color: var(--color-text-body);
+  line-height: 1.4;
+}
+
+.mobileDifference {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  padding-top: 8px;
+  border-top: 1px solid #e2e8f0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tableRow,
+  .mobileCard {
+    transition: none;
+  }
+}

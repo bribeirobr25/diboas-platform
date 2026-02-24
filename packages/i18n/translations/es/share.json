@@ -44,10 +44,10 @@
     "copied": "¡Enlace copiado!"
   },
   "waitlistPosition": {
-    "twitter": "La brecha de riqueza no es ingreso. Es ACCESO. Nos excluyen por diseño. Soy #{position} diciendo ya basta. Únete al movimiento. ",
-    "whatsapp": "La brecha de riqueza no es ingreso. Es ACCESO. Nos excluyen por diseño. Soy #{position} diciendo ya basta. Únete: {referralUrl}",
-    "facebook": "La brecha de riqueza no es ingreso. Es ACCESO. Los bancos ganan 7% con nuestro dinero, nos dan 0,4%. Soy #{position}. Ya basta. Juntos cambiamos esto.",
-    "linkedin": "La desigualdad no es sobre ingresos. Es sobre ACCESO. El sistema nos excluye por diseño. Soy #{position} y digo ya basta. Unidos podemos cambiar esto: {referralUrl}"
+    "twitter": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete: {referralUrl} @diboasfi",
+    "whatsapp": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete: {referralUrl}",
+    "facebook": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete.",
+    "linkedin": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete: {referralUrl}"
   },
   "timeframes": {
     "1week": "1 semana",

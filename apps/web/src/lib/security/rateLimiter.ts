@@ -71,6 +71,20 @@ export function isRedisEnabled(): boolean {
 }
 
 /**
+ * Ping Redis to check connectivity (for health checks)
+ */
+export async function pingRedis(): Promise<boolean> {
+  initializeRedis();
+  if (!redis) return false;
+  try {
+    const result = await redis.ping();
+    return result === 'PONG';
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Rate limit result
  */
 export interface RateLimitResult {

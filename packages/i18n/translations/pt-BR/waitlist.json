@@ -1,29 +1,31 @@
 {
   "sectionTitle": "Lista de espera",
-  "headline": "Pronto?",
-  "subheadline": "Entre para o movimento.",
-  "header": "Pronto?",
-  "subheader": "Entre para o movimento.",
+  "headline": "Quer acesso antecipado?",
+  "subheadline": "Estamos abrindo a diBoaS pra um grupo pequeno primeiro. Entre na lista de espera pra ser dos primeiros a ter acesso.",
+  "header": "Quer acesso antecipado?",
+  "subheader": "Estamos abrindo a diBoaS pra um grupo pequeno primeiro. Entre na lista de espera pra ser dos primeiros a ter acesso.",
   "form": {
     "emailPlaceholder": "Seu email",
     "emailLabel": "Endereço de e-mail",
-    "cta": "Acesse agora →",
+    "cta": "Entrar na Lista",
     "submitting": "Entrando...",
-    "privacyNote": "A gente só manda email sobre o diBoaS. Cancela quando quiser."
+    "privacyNote": "A gente nunca vai te mandar spam. Só atualizações sobre quando você pode começar.",
+    "legendText": "Cadastro na lista de espera"
   },
   "error": {
     "generic": "Algo deu errado. Tenta de novo.",
     "invalidEmail": "Coloca um email válido.",
+    "consentRequired": "Marca a caixinha pra continuar.",
     "alreadyRegistered": "Você já tá na lista!",
     "network": "Erro de conexão. Verifica sua internet e tenta de novo."
   },
   "confirmation": {
-    "headline": "Chega!",
-    "subhead": "Bem-vindo ao movimento.",
+    "headline": "Bem-vindo ao movimento.",
+    "subhead": "",
     "positionIntro": "Sua posição:",
     "positionFormat": "#{position}",
-    "shareIntro": "Vamos crescer",
-    "shareBenefit": "Compartilhe e suba 10 posições.",
+    "shareIntro": "Convide seus amigos",
+    "shareBenefit": "Seu link pessoal:",
     "shareExplanation": "Quanto antes a gente lançar, antes isso vira realidade.",
     "referralLinkLabel": "Seu link pessoal:",
     "copy": "Copiar link",
@@ -44,11 +46,11 @@
     "keepSharing": "Continua compartilhando pra subir!"
   },
   "email": {
-    "welcome": "Bem-vindo ao diBoaS — Você é o #{position}",
+    "welcome": "Bem-vindo ao diBoaS, Você é o #{position}",
     "email1Subject": "Por que seu banco não tá trabalhando pra você",
     "email2Subject": "Como seu dinheiro poderia trabalhar de verdade pra você",
-    "email3Subject": "Conheça Aqua, Mystic & Coral — seus guias financeiros",
-    "email4Subject": "O que vem por aí — e por que você tá na frente"
+    "email3Subject": "Conheça Aqua, Mystic & Coral, seus guias financeiros",
+    "email4Subject": "O que vem por aí, e por que você tá na frente"
   },
   "legal": {
     "bcbDisclaimer": "O diBoaS NÃO é uma instituição financeira."

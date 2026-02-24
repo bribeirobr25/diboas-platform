@@ -32,7 +32,15 @@ class AnalyticsServiceImpl implements AnalyticsService {
       ...event,
       timestamp: event.timestamp || Date.now(),
       userId: this.userId,
-      sessionId: this.sessionId
+      sessionId: this.sessionId,
+      parameters: {
+        ...event.parameters,
+        ...(typeof window !== 'undefined' ? {
+          user_agent: navigator.userAgent,
+          viewport: `${window.innerWidth}x${window.innerHeight}`,
+          language: navigator.language,
+        } : {}),
+      },
     };
 
     this.eventQueue.push(enrichedEvent);
@@ -123,7 +131,7 @@ class AnalyticsServiceImpl implements AnalyticsService {
         Logger.debug('Flushing analytics events', { count: events.length, events });
       }
 
-      // Example: Send to Google Analytics 4
+      // Send to Google Analytics 4
       const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
       if (typeof window !== 'undefined' && windowWithGtag.gtag) {
         const gtag = windowWithGtag.gtag;
@@ -132,7 +140,21 @@ class AnalyticsServiceImpl implements AnalyticsService {
         });
       }
 
-      // Example: Send to custom analytics endpoint
+      // Send to PostHog (lazy-loaded behind consent)
+      if (typeof window !== 'undefined') {
+        try {
+          const posthog = (await import('posthog-js')).default;
+          if (posthog.__loaded) {
+            events.forEach(event => {
+              posthog.capture(event.name, event.parameters);
+            });
+          }
+        } catch {
+          // PostHog not available or not consented — silently skip
+        }
+      }
+
+      // Send to custom analytics endpoint
       if (process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT) {
         await fetch(process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT, {
           method: 'POST',

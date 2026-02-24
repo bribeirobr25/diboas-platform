@@ -13,12 +13,12 @@
       "us": "IMPORTANT: This projection is for educational purposes only. It does not constitute an offer of securities, financial advice, or a recommendation to buy or sell any asset. Actual returns may vary significantly. Past performance does not guarantee future results.",
       "brazil": "EDUCATIONAL PROJECTION - This feature uses historical data for illustrative purposes only. It does not constitute an investment offer, return promise, or financial advice. diBoaS is NOT a financial institution authorized by the Central Bank of Brazil (BCB)."
     },
-    "card": "PROJECTION — Based on historical data. Not a guarantee. diboas.com"
+    "card": "PROJECTION. Based on historical data. Not a guarantee. diboas.com"
   },
   "watermark": "PROJECTION",
   "paths": {
     "headline": "How do you feel about risk?",
-    "subhead": "There's no wrong answer — just different paths.",
+    "subhead": "There's no wrong answer, just different paths.",
     "warningLabel": "Higher risk",
     "disclaimer": "This is a projection. Past performance does not guarantee future results.",
     "safety": {
@@ -118,7 +118,7 @@
       "5years": "in 5 years"
     },
     "shareYourDream": "Share my dream",
-    "shareText": "You need to see this. Institution-level returns, finally open. My ${start} becomes ${end}. Try it yourself: ",
+    "shareText": "You need to see this. Institution-level returns, finally open. My {start} becomes {end}. Try it yourself: ",
     "joinWaitlist": "Join the Waitlist",
     "tryAgain": "Try Different Numbers",
     "disclaimer": "Projection based on historical data. Past performance does not guarantee future results."

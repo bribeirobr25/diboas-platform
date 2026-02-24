@@ -6,6 +6,8 @@ export type {
   PreDemoScreen,
   AssetCategory,
   ChainId,
+  L2ChainId,
+  L2ChainConfig,
   Asset,
   ChainConfig,
   Recipient,
@@ -39,3 +41,5 @@ export {
   checkInsufficientFunds,
   isAssetEnabled,
 } from './calculations';
+
+export { formatCurrency } from './format';

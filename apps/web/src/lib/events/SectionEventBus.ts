@@ -11,30 +11,23 @@
  * No Hard Coded Values: Event types from configuration
  */
 
-import { analyticsService } from '@/lib/analytics';
 import { Logger } from '@/lib/monitoring/Logger';
 
 // Event types following Domain-Driven Design
 export enum SectionEventType {
   // Navigation Events
   CAROUSEL_SLIDE_CHANGED = 'carousel:slideChanged',
-  CAROUSEL_AUTO_PLAY_STARTED = 'carousel:autoPlayStarted',
-  CAROUSEL_AUTO_PLAY_STOPPED = 'carousel:autoPlayStopped',
   CAROUSEL_USER_INTERACTION = 'carousel:userInteraction',
-  
+
   // Performance Events
-  SECTION_LOADED = 'section:loaded',
   SECTION_ERROR = 'section:error',
   SECTION_PERFORMANCE_METRIC = 'section:performanceMetric',
-  
+
   // User Interaction Events
   CTA_CLICKED = 'cta:clicked',
-  IMAGE_LOADED = 'image:loaded',
-  IMAGE_ERROR = 'image:error',
-  
+
   // Accessibility Events
   KEYBOARD_NAVIGATION = 'accessibility:keyboardNavigation',
-  SCREEN_READER_ANNOUNCEMENT = 'accessibility:screenReaderAnnouncement'
 }
 
 // Event payload interfaces with strict typing
@@ -42,6 +35,8 @@ export interface SectionEventPayload {
   sectionId: string;
   sectionType: string;
   timestamp: number;
+  eventId?: string;
+  correlationId?: string;
   metadata?: Record<string, unknown>;
 }
 
@@ -84,17 +79,11 @@ export type EventListener<T extends EventPayload = EventPayload> = (payload: T) 
 // Event validation schema
 const EVENT_VALIDATION_SCHEMA = {
   [SectionEventType.CAROUSEL_SLIDE_CHANGED]: ['sectionId', 'slideIndex', 'totalSlides'],
-  [SectionEventType.CAROUSEL_AUTO_PLAY_STARTED]: ['sectionId', 'slideIndex', 'totalSlides'],
-  [SectionEventType.CAROUSEL_AUTO_PLAY_STOPPED]: ['sectionId', 'slideIndex', 'totalSlides'],
   [SectionEventType.CAROUSEL_USER_INTERACTION]: ['sectionId', 'slideIndex', 'totalSlides'],
   [SectionEventType.SECTION_PERFORMANCE_METRIC]: ['sectionId', 'metric', 'value', 'unit'],
   [SectionEventType.CTA_CLICKED]: ['sectionId', 'ctaLabel', 'ctaUrl'],
   [SectionEventType.SECTION_ERROR]: ['sectionId', 'error', 'severity'],
-  [SectionEventType.SECTION_LOADED]: ['sectionId'],
-  [SectionEventType.IMAGE_LOADED]: ['sectionId'],
-  [SectionEventType.IMAGE_ERROR]: ['sectionId'],
   [SectionEventType.KEYBOARD_NAVIGATION]: ['sectionId'],
-  [SectionEventType.SCREEN_READER_ANNOUNCEMENT]: ['sectionId']
 } as const;
 
 /**
@@ -175,9 +164,10 @@ export class SectionEventBus {
       // Validate payload
       this.validateEventPayload(eventType, payload);
 
-      // Add timestamp if not present
+      // Enrich payload with eventId and timestamp
       const enrichedPayload = {
         ...payload,
+        eventId: payload.eventId || crypto.randomUUID(),
         timestamp: payload.timestamp || Date.now()
       };
 
@@ -229,18 +219,6 @@ export class SectionEventBus {
           eventType,
           duration: `${duration.toFixed(2)}ms`,
           listenerCount: listeners.size
-        });
-      }
-
-      // Analytics tracking for user interactions
-      if (this.isUserInteractionEvent(eventType)) {
-        analyticsService.track({
-          name: 'section_interaction',
-          parameters: {
-            event_type: eventType,
-            section_id: payload.sectionId,
-            section_type: payload.sectionType
-          }
         });
       }
 
@@ -296,17 +274,6 @@ export class SectionEventBus {
     if (this.eventHistory.length > this.maxHistorySize) {
       this.eventHistory = this.eventHistory.slice(-this.maxHistorySize);
     }
-  }
-
-  /**
-   * Check if event is user interaction for analytics
-   */
-  private isUserInteractionEvent(eventType: SectionEventType): boolean {
-    return [
-      SectionEventType.CAROUSEL_USER_INTERACTION,
-      SectionEventType.CTA_CLICKED,
-      SectionEventType.KEYBOARD_NAVIGATION
-    ].includes(eventType);
   }
 
   /**

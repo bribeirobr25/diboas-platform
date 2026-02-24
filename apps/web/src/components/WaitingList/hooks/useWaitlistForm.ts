@@ -6,11 +6,12 @@
  * Manages waitlist form state and submission logic
  */
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -74,6 +75,14 @@ export function useWaitlistForm({
 
   // Ref to prevent double-submit (immediate check before React state update)
   const isSubmittingRef = useRef(false);
+  // AbortController for cancelling in-flight requests on unmount
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -122,20 +131,25 @@ export function useWaitlistForm({
     if (!formState.email || !isValidEmail(formState.email)) {
       setError(t('error.invalidEmail'));
       setIsLoading(false);
+      isSubmittingRef.current = false;
       return;
     }
 
     // Validate consent (unless compact mode)
     if (!compact && !formState.gdprAccepted) {
-      setError(t('error.generic'));
+      setError(t('error.consentRequired'));
       setIsLoading(false);
+      isSubmittingRef.current = false;
       return;
     }
 
     try {
       const referredBy = getReferralCode();
 
-      const response = await fetch('/api/waitlist/signup', {
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = new AbortController();
+
+      const response = await fetchWithRetry('/api/waitlist/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -146,6 +160,7 @@ export function useWaitlistForm({
           gdprAccepted: compact ? true : formState.gdprAccepted,
           referredBy,
         }),
+        signal: abortControllerRef.current.signal,
       });
 
       const data = await response.json();

@@ -33,6 +33,7 @@ import {
   type CalculatorResult,
   type RateScenario,
 } from '@/lib/calculator';
+import { getCurrencySymbol } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
 import { useAnimatedCounter } from './hooks';
 import { ResultCard } from './ResultCard';
@@ -77,6 +78,7 @@ export function FutureYouCalculator({
     initialValues?.monthlyContribution ?? CALCULATOR_CONFIG.defaultMonthlyContribution
   );
   const currency = initialValues?.currency ?? localeConfig.currency;
+  const currencySymbol = getCurrencySymbol(currency);
   const [selectedTimeframe, setSelectedTimeframe] = useState<LongTermTimeframe>('5years');
 
   // Create locale-specific bank scenario with appropriate rate and currency depreciation
@@ -195,7 +197,7 @@ export function FutureYouCalculator({
     <div className={`${styles.container} ${className}`}>
       {/* Header */}
       <div className={styles.header}>
-        <h2 className={styles.headline}>{t('headline')}</h2>
+        <h2 className={styles.headline}>{t('headline', { currency: currencySymbol })}</h2>
         <p className={styles.subhead}>{t('subhead')}</p>
       </div>
 

@@ -11,6 +11,23 @@
       "type": "string",
       "description": "JSON Schema reference for validation"
     },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "logo": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "primary": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "primaryDark": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+      }
+    },
+    "social": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+    },
+    "components": {
+      "type": "object",
+      "additionalProperties": true
+    },
     "version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
@@ -167,9 +184,21 @@
               "description": "Dropdown menu height"
             },
             "mobileSubmenuHeight": {
-              "type": "string",
-              "pattern": "^\\d+(\\.\\d+)?(px|rem|em|vh)$",
-              "description": "Mobile submenu height"
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "mobile": {
+                  "type": "string",
+                  "pattern": "^\\d+(\\.\\d+)?(px|rem|em|vh)$",
+                  "description": "Mobile submenu height for mobile devices"
+                },
+                "tablet": {
+                  "type": "string",
+                  "pattern": "^\\d+(\\.\\d+)?(px|rem|em|vh)$",
+                  "description": "Mobile submenu height for tablet devices"
+                }
+              },
+              "description": "Mobile submenu height per device type"
             }
           }
         },

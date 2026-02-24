@@ -38,6 +38,8 @@ import de_marketing from '../translations/de/marketing.json';
 import de_home from '../translations/de/home.json';
 import de_about from '../translations/de/about.json';
 import de_protocols from '../translations/de/protocols.json';
+import de_preDemo from '../translations/de/preDemo.json';
+import de_preDream from '../translations/de/preDream.json';
 
 // Spanish translations
 import es_common from '../translations/es/common.json';
@@ -54,6 +56,8 @@ import es_marketing from '../translations/es/marketing.json';
 import es_home from '../translations/es/home.json';
 import es_about from '../translations/es/about.json';
 import es_protocols from '../translations/es/protocols.json';
+import es_preDemo from '../translations/es/preDemo.json';
+import es_preDream from '../translations/es/preDream.json';
 
 // Portuguese (Brazil) translations
 import ptBR_common from '../translations/pt-BR/common.json';
@@ -70,6 +74,8 @@ import ptBR_marketing from '../translations/pt-BR/marketing.json';
 import ptBR_home from '../translations/pt-BR/home.json';
 import ptBR_about from '../translations/pt-BR/about.json';
 import ptBR_protocols from '../translations/pt-BR/protocols.json';
+import ptBR_preDemo from '../translations/pt-BR/preDemo.json';
+import ptBR_preDream from '../translations/pt-BR/preDream.json';
 
 import type { SupportedLocale } from './config';
 
@@ -112,6 +118,8 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     home: de_home,
     about: de_about,
     protocols: de_protocols,
+    preDemo: de_preDemo,
+    preDream: de_preDream,
   },
   es: {
     common: es_common,
@@ -128,6 +136,8 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     home: es_home,
     about: es_about,
     protocols: es_protocols,
+    preDemo: es_preDemo,
+    preDream: es_preDream,
   },
   'pt-BR': {
     common: ptBR_common,
@@ -144,6 +154,8 @@ export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
     home: ptBR_home,
     about: ptBR_about,
     protocols: ptBR_protocols,
+    preDemo: ptBR_preDemo,
+    preDream: ptBR_preDream,
   },
 };
 

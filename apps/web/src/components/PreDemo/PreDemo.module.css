@@ -12,6 +12,9 @@
   z-index: 9999;
   background: var(--section-bg-white, #f9fafb);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 .screenContainer {
@@ -31,12 +34,14 @@
 /* ==================== Screen Layouts ==================== */
 .screen {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
 
 .screenCenter {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -363,6 +368,17 @@
   gap: 8px;
   font-size: 14px;
   color: #334155;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.checkmarkHidden {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.checkmarkVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .checkmarkIcon {
@@ -395,6 +411,19 @@
   border-radius: 16px;
   padding: 20px;
   color: #fff;
+}
+
+.balanceCardClickable {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+}
+
+.balanceCardClickable:hover {
+  opacity: 0.95;
 }
 
 .balanceCardHeader {
@@ -443,10 +472,15 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
+  width: 100%;
   margin-top: 12px;
   padding-top: 10px;
+  border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: none;
+  font: inherit;
   font-size: 12px;
+  color: inherit;
   opacity: 0.8;
   cursor: pointer;
   text-align: center;
@@ -840,6 +874,7 @@
 .quickAmountButton {
   flex: 1;
   padding: 8px;
+  min-height: 44px;
   font-size: 13px;
   font-weight: 500;
   border: 1px solid #e2e8f0;
@@ -1009,6 +1044,7 @@
 .categoryTab {
   flex: 1;
   padding: 8px 12px;
+  min-height: 44px;
   font-size: 13px;
   font-weight: 500;
   border: none;
@@ -1275,6 +1311,7 @@
   align-items: center;
   gap: 4px;
   padding: 10px 0;
+  min-height: 44px;
   color: #64748b;
   font-size: 14px;
   font-weight: 500;
@@ -1770,6 +1807,88 @@
   padding: 8px 0;
 }
 
+/* ==================== L2 Chain Section ==================== */
+.l2Section {
+  border-top: 1px solid #f1f5f9;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.l2Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.l2HeaderLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.l2Chevron {
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+}
+
+.l2ChevronOpen {
+  transform: rotate(180deg);
+}
+
+.l2Content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.l2ChainItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #f1f5f9;
+}
+
+.l2ChainInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.l2ChainName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.l2ChainAddress {
+  font-size: 11px;
+  color: #94a3b8;
+  font-family: ui-monospace, monospace;
+  margin-left: auto;
+}
+
+.l2TokenRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6px;
+  border-top: 1px solid #e2e8f0;
+}
+
 /* ==================== Responsive ==================== */
 @media (max-width: 480px) {
   .balanceAmount {
@@ -1812,4 +1931,81 @@
     padding-bottom: 8px;
     z-index: 1;
   }
+}
+
+/* ==================== Accessibility ==================== */
+
+/* Focus-visible indicators for keyboard navigation */
+.quickAmountButton:focus-visible,
+.categoryTab:focus-visible,
+.backButton:focus-visible,
+.assetItem:focus-visible,
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.copyButton:focus-visible,
+.exportKeyButton:focus-visible,
+.feeToggle:focus-visible,
+.feeInfoButton:focus-visible,
+.methodButton:focus-visible,
+.oauthButton:focus-visible,
+.shareButton:focus-visible,
+.tab:focus-visible,
+.quickActionButton:focus-visible,
+.exitButton:focus-visible,
+.demoHeaderLogoButton:focus-visible,
+.backToHomeLink:focus-visible,
+.exportModalClose:focus-visible,
+.exportModalButton:focus-visible,
+.l2Header:focus-visible {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+}
+
+.amountInput:focus-visible,
+.inputField:focus-visible,
+.selectField:focus-visible,
+.checkbox:focus-visible {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
+}
+
+/* ==================== Utility classes ==================== */
+
+.iconMuted {
+  opacity: 0.8;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.textMuted {
+  color: #94a3b8;
+}
+
+.copyFailedText {
+  color: #ef4444;
+  font-size: 0.7rem;
+}
+
+.chainIconBox {
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.screenCenterFlex {
+  flex: 1;
+  min-height: 0;
+}
+
+.screenCardNarrow {
+  max-width: 384px;
+}
+
+.subtitleClose {
+  margin-top: 4px;
 }

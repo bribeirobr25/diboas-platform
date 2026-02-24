@@ -9,7 +9,12 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { PreDemo } from '@/components/PreDemo';
+import dynamic from 'next/dynamic';
+
+const PreDemo = dynamic(() => import('@/components/PreDemo').then(m => ({ default: m.PreDemo })), {
+  ssr: false,
+  loading: () => <div style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div style={{ width: '2rem', height: '2rem', border: '2px solid #e0e7ff', borderTopColor: '#3b82f6', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /></div>,
+});
 import { analyticsService } from '@/lib/analytics';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from './DemoPage.module.css';
@@ -21,6 +26,16 @@ interface DemoPageContentProps {
 export function DemoPageContent({ locale }: DemoPageContentProps) {
   const router = useRouter();
   const [hasTrackedEntry, setHasTrackedEntry] = useState(false);
+
+  // Lock body scroll while demo is active — prevents the underlying
+  // layout from intercepting touch events on the fixed overlay (iOS)
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, []);
 
   // Track demo entry
   useEffect(() => {
@@ -37,7 +52,7 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
   }, [hasTrackedEntry, locale]);
 
   const handleExit = useCallback(() => {
-    router.push(`/${locale}`);
+    router.push(`/${locale}#social-proof`);
   }, [router, locale]);
 
   return (
@@ -54,4 +69,3 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
   );
 }
 
-export default DemoPageContent;

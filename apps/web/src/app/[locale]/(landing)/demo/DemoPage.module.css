@@ -1,12 +1,14 @@
 /**
  * Demo Page Styles
  *
- * The PreDemo container uses position: fixed to overlay everything.
- * This wrapper is minimal — just prevents layout shift.
+ * Minimal wrapper — the PreDemo/PreDream components handle their own
+ * position: fixed overlay. This wrapper only prevents layout shift.
+ * Must NOT be position: fixed itself to avoid double-fixed nesting
+ * which breaks touch scrolling on iOS/mobile.
  */
 
 .demoContainer {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
 }

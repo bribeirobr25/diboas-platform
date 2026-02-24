@@ -1,15 +1,16 @@
 /**
  * HeroFullBackground Variant Component
- * 
+ *
  * Domain-Driven Design: Full-screen background hero with overlay
  * Service Agnostic Abstraction: Background-focused presentation variant
  * Code Reusability: Shared design tokens and patterns
- * Performance: Optimized background image loading
+ * Performance: Optimized background image loading via next/image
  */
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import Image from 'next/image';
 import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import type { HeroVariantProps } from '../types';
@@ -27,59 +28,56 @@ export function HeroFullBackground({
     onCTAClick?.();
   }, [onCTAClick]);
 
-  // Performance: Preload background images
-  useEffect(() => {
-    if (config.backgroundAssets?.backgroundImage) {
-      const preloadImages = [config.backgroundAssets.backgroundImage];
-      if (config.backgroundAssets.backgroundImageMobile && 
-          config.backgroundAssets.backgroundImageMobile !== config.backgroundAssets.backgroundImage) {
-        preloadImages.push(config.backgroundAssets.backgroundImageMobile);
-      }
+  const handleImageLoad = useCallback(() => {
+    setBackgroundLoaded(true);
+  }, []);
 
-      let loadedCount = 0;
-      const totalImages = preloadImages.length;
-      
-      preloadImages.forEach((src) => {
-        const img = new window.Image();
-        img.onload = () => {
-          loadedCount++;
-          if (loadedCount === totalImages) {
-            setBackgroundLoaded(true);
-          }
-        };
-        img.onerror = () => {
-          loadedCount++;
-          if (loadedCount === totalImages) {
-            setBackgroundLoaded(true);
-          }
-        };
-        img.src = src;
-      });
-    } else {
-      setBackgroundLoaded(true);
-    }
-  }, [config.backgroundAssets]);
+  const handleImageError = useCallback(() => {
+    setBackgroundLoaded(true); // Dismiss spinner on error to avoid infinite loading state
+  }, []);
 
   const hasBackgroundAssets = config.backgroundAssets?.backgroundImage;
   const backgroundImage = backgroundColor || config.backgroundAssets?.backgroundImage;
   const backgroundImageMobile = config.backgroundAssets?.backgroundImageMobile || backgroundImage;
+  const hasSeparateMobileImage = backgroundImageMobile && backgroundImageMobile !== backgroundImage;
   const overlayOpacity = config.backgroundAssets?.overlayOpacity || 0.3;
 
   return (
     <section className={`${styles.section} ${className}`} aria-labelledby="hero-title">
-      {/* Background Layer */}
+      {/* Background Layer — uses next/image for optimization */}
       {hasBackgroundAssets && backgroundImage && (
-        <div
-          className={styles.backgroundLayer}
-          style={{
-            backgroundImage: `url(${backgroundImageMobile})`,
-            '--desktop-bg': `url(${backgroundImage})`
-          } as React.CSSProperties & { '--desktop-bg': string }}
-        >
+        <div className={styles.backgroundLayer} aria-hidden="true">
+          {/* Desktop image (hidden on mobile when separate mobile image exists) */}
+          <Image
+            src={backgroundImage}
+            alt=""
+            fill
+            priority
+            quality={80}
+            sizes={hasSeparateMobileImage ? '(min-width: 1024px) 100vw, 0px' : '100vw'}
+            className={hasSeparateMobileImage ? styles.bgImageDesktop : styles.bgImage}
+            style={{ objectFit: 'cover' }}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+          />
+          {/* Mobile image (only rendered when different from desktop) */}
+          {hasSeparateMobileImage && (
+            <Image
+              src={backgroundImageMobile}
+              alt=""
+              fill
+              priority
+              quality={75}
+              sizes="(max-width: 1023px) 100vw, 0px"
+              className={styles.bgImageMobile}
+              style={{ objectFit: 'cover' }}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          )}
           <div
             className={styles.backgroundOverlay}
             style={{ opacity: overlayOpacity }}
-            aria-hidden="true"
           />
         </div>
       )}
@@ -91,12 +89,9 @@ export function HeroFullBackground({
           </h1>
 
           {config.content.description && (
-            <p
-              className={styles.description}
-              dangerouslySetInnerHTML={{
-                __html: config.content.description.replace(/\n/g, '<br />')
-              }}
-            />
+            <p className={styles.description}>
+              {config.content.description}
+            </p>
           )}
 
           <div className={styles.ctaWrapper}>
@@ -112,6 +107,9 @@ export function HeroFullBackground({
           </div>
         </div>
       </div>
+
+      {/* Bottom Gradient Overlay */}
+      <div className={styles.bottomGradient} aria-hidden="true" />
 
       {/* Loading State */}
       {!backgroundLoaded && (

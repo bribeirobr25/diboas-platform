@@ -12,7 +12,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '../SectionContainer/SectionContainer';
 import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
 import { WaitlistConfirmation } from '@/components/WaitingList/WaitlistConfirmation';
-import { DreamMode } from '@/components/DreamMode';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import styles from './WaitlistSection.module.css';
 
 interface WaitlistSectionConfig {
@@ -39,29 +39,15 @@ export const WaitlistSection = memo(function WaitlistSection({
 }: WaitlistSectionProps) {
   const intl = useTranslation();
   const [signupData, setSignupData] = useState<SignupData | null>(null);
-  const [showDreamMode, setShowDreamMode] = useState(false);
 
   const handleSuccess = useCallback((data: SignupData) => {
     setSignupData(data);
+    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_SUCCESS, {
+      source: 'waitlist',
+      timestamp: Date.now(),
+      metadata: { position: data.position },
+    });
   }, []);
-
-  const handleTryDreamMode = useCallback(() => {
-    setShowDreamMode(true);
-  }, []);
-
-  const handleCloseDreamMode = useCallback(() => {
-    setShowDreamMode(false);
-  }, []);
-
-  // If Dream Mode is active, render it as fullscreen overlay
-  if (showDreamMode) {
-    return (
-      <DreamMode
-        onClose={handleCloseDreamMode}
-        onComplete={handleCloseDreamMode}
-      />
-    );
-  }
 
   return (
     <SectionContainer
@@ -77,10 +63,10 @@ export const WaitlistSection = memo(function WaitlistSection({
             <>
               <div className={styles.header}>
                 <h2 className={styles.headline}>
-                  {config?.headline || intl.formatMessage({ id: 'waitlist.header' })}
+                  {intl.formatMessage({ id: config?.headline || 'waitlist.header' })}
                 </h2>
                 <p className={styles.subheadline}>
-                  {config?.subheadline || intl.formatMessage({ id: 'waitlist.subheader' })}
+                  {intl.formatMessage({ id: config?.subheadline || 'waitlist.subheader' })}
                 </p>
               </div>
               <WaitlistForm
@@ -93,7 +79,6 @@ export const WaitlistSection = memo(function WaitlistSection({
               position={signupData.position}
               referralCode={signupData.referralCode}
               referralUrl={signupData.referralUrl}
-              onDreamModeClick={handleTryDreamMode}
             />
           )}
         </div>

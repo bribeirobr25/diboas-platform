@@ -3,17 +3,18 @@
 /**
  * Minimal Footer Component
  *
- * A simplified footer variant for landing pages that displays only:
+ * A simplified footer variant for landing pages that displays:
+ * - Tagline
+ * - Product nav links
  * - Legal info (brand name, copyright)
  * - Language switcher
  * - Social media links
- * - Risk disclaimer (optional)
- *
- * Used for B2C/B2B landing pages where full footer navigation is not needed.
+ * - Full disclosure block with locale-conditional disclaimers
  */
 
-import { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { useLocale } from '@/components/Providers';
+import { Instagram, Twitter, Youtube, Linkedin } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { LocaleLink } from '@/components/UI';
 import { FOOTER_CONFIG } from '@/config/footer';
@@ -22,7 +23,6 @@ import styles from './MinimalFooter.module.css';
 
 /**
  * Legal links configuration for minimal footer
- * Shows Privacy, Terms, and Cookies links
  */
 const LEGAL_LINKS = [
   {
@@ -42,19 +42,34 @@ const LEGAL_LINKS = [
   },
 ] as const;
 
-// Dynamic icon imports for better performance
-const IconComponents = {
-  Instagram: () => import('lucide-react').then(mod => mod.Instagram),
-  Twitter: () => import('lucide-react').then(mod => mod.Twitter),
-  Youtube: () => import('lucide-react').then(mod => mod.Youtube),
-  Linkedin: () => import('lucide-react').then(mod => mod.Linkedin),
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin,
 };
 
+interface NavLink {
+  readonly id: string;
+  readonly labelKey: string;
+  readonly href: string;
+}
+
 interface MinimalFooterProps {
-  /**
-   * Optional disclaimer text translation key
-   */
   disclaimerKey?: string;
+  taglineKey?: string;
+  navLinks?: readonly NavLink[];
+  disclosureKeys?: {
+    general?: string;
+    crypto?: string;
+    stories?: string;
+    ai?: string;
+    closing?: string;
+    mica?: string;
+    cvm?: string;
+    bcb?: string;
+    us?: string;
+  };
 }
 
 interface SocialIconProps {
@@ -63,15 +78,100 @@ interface SocialIconProps {
   href: string;
 }
 
-export function MinimalFooter({ disclaimerKey }: MinimalFooterProps) {
+/**
+ * Locale-conditional disclosure logic
+ * - general, crypto, stories, ai, closing: ALL locales
+ * - mica: DE, ES, PT-BR only
+ * - cvm, bcb: PT-BR only
+ * - us: EN only
+ */
+function getDisclosureKeysForLocale(
+  locale: string,
+  keys: NonNullable<MinimalFooterProps['disclosureKeys']>
+): string[] {
+  const result: string[] = [];
+
+  if (keys.general) result.push(keys.general);
+  if (keys.crypto) result.push(keys.crypto);
+
+  // MiCA Article 68: DE, ES, PT-BR only
+  if (keys.mica && ['de', 'es', 'pt-BR'].includes(locale)) {
+    result.push(keys.mica);
+  }
+
+  // CVM + BCB: PT-BR only
+  if (keys.cvm && locale === 'pt-BR') result.push(keys.cvm);
+  if (keys.bcb && locale === 'pt-BR') result.push(keys.bcb);
+
+  // US regulatory: EN only
+  if (keys.us && locale === 'en') result.push(keys.us);
+
+  if (keys.stories) result.push(keys.stories);
+  if (keys.ai) result.push(keys.ai);
+  if (keys.closing) result.push(keys.closing);
+
+  return result;
+}
+
+export function MinimalFooter({
+  disclaimerKey,
+  taglineKey,
+  navLinks,
+  disclosureKeys,
+}: MinimalFooterProps) {
   const intl = useTranslation();
+  const { locale } = useLocale();
   const config = FOOTER_CONFIG;
+
+  const disclosures = disclosureKeys
+    ? getDisclosureKeysForLocale(locale, disclosureKeys)
+    : [];
 
   return (
     <footer aria-label="Site footer" className={styles.footer}>
       <div className={styles.container}>
-        {/* Disclaimer */}
-        {disclaimerKey && (
+        {/* Tagline */}
+        {taglineKey && (
+          <p className={styles.tagline}>
+            {intl.formatMessage({ id: taglineKey })}
+          </p>
+        )}
+
+        {/* Product Nav Links */}
+        {navLinks && navLinks.length > 0 && (
+          <nav className={styles.productNav} aria-label="Product navigation">
+            {navLinks.map((link) => (
+              <LocaleLink
+                key={link.id}
+                href={link.href}
+                className={styles.productNavLink}
+              >
+                {intl.formatMessage({ id: link.labelKey })}
+              </LocaleLink>
+            ))}
+          </nav>
+        )}
+
+        {/* Divider */}
+        <div className={styles.divider} />
+
+        {/* Locale-conditional Disclosures */}
+        {disclosures.length > 0 && (
+          <div className={styles.disclosures}>
+            {disclosures.map((key, index) => {
+              const text = intl.formatMessage({ id: key });
+              if (!text || text === key) return null;
+              return (
+                <p key={index} className={styles.disclosureText}>
+                  {text}
+                </p>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Legacy single disclaimer */}
+        {!disclosureKeys && disclaimerKey && (
           <div className={styles.disclaimer}>
             <p className={styles.disclaimerText}>
               {intl.formatMessage({ id: disclaimerKey })}
@@ -80,7 +180,9 @@ export function MinimalFooter({ disclaimerKey }: MinimalFooterProps) {
         )}
 
         {/* Divider */}
-        <div className={styles.divider} />
+        {(disclosures.length > 0 || disclaimerKey) && (
+          <div className={styles.divider} />
+        )}
 
         {/* Legal Links Section */}
         <nav className={styles.legalLinks} aria-label="Legal pages">
@@ -105,7 +207,7 @@ export function MinimalFooter({ disclaimerKey }: MinimalFooterProps) {
               {intl.formatMessage({ id: config.legal.brandName })}
             </span>
             <span className={styles.copyright}>
-              {intl.formatMessage({ id: config.legal.copyrightText })}
+              {intl.formatMessage({ id: 'landing-b2c.footer.copyright' })}
             </span>
           </div>
 
@@ -133,7 +235,7 @@ export function MinimalFooter({ disclaimerKey }: MinimalFooterProps) {
   );
 }
 
-// Social Icon Component with Error Handling
+// Social Icon Component
 function SocialIcon({ iconName, label, href }: SocialIconProps) {
   return (
     <a
@@ -148,30 +250,11 @@ function SocialIcon({ iconName, label, href }: SocialIconProps) {
   );
 }
 
-// Dynamic Icon Renderer with Fallback
+// Static Icon Renderer with Fallback
 function SocialIconRenderer({ iconName }: { iconName: string }) {
-  const [IconComponent, setIconComponent] = useState<React.ComponentType<{ className?: string }> | null>(null);
-  const [hasError, setHasError] = useState(false);
+  const IconComponent = ICON_MAP[iconName];
 
-  useEffect(() => {
-    const loadIcon = async () => {
-      try {
-        if (iconName in IconComponents) {
-          const Component = await IconComponents[iconName as keyof typeof IconComponents]();
-          setIconComponent(() => Component);
-        } else {
-          setHasError(true);
-        }
-      } catch (error) {
-        // Icon load failed: ${iconName}`, error);
-        setHasError(true);
-      }
-    };
-
-    loadIcon();
-  }, [iconName]);
-
-  if (hasError || !IconComponent) {
+  if (!IconComponent) {
     return (
       <span className={styles.socialFallback}>
         {iconName.charAt(0).toUpperCase()}

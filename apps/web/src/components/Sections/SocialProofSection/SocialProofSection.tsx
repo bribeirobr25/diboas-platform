@@ -11,10 +11,13 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Users, Globe } from 'lucide-react';
+import { analyticsService } from '@/lib/analytics';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
+import type { ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
 import styles from './SocialProofSection.module.css';
 
 interface SocialProofSectionProps {
@@ -26,6 +29,8 @@ interface SocialProofSectionProps {
   className?: string;
   /** Custom background color (CSS value or variable) */
   backgroundColor?: string;
+  /** Translation key for CTA button text (appended to namespace) */
+  ctaText?: string;
 }
 
 interface WaitlistStats {
@@ -45,24 +50,50 @@ export function SocialProofSection({
   enableAnalytics = true,
   className = '',
   backgroundColor,
+  ctaText,
 }: SocialProofSectionProps) {
   const intl = useTranslation();
   const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv());
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch stats from API
+  // Fetch stats from API with sessionStorage cache (5-minute TTL)
   useEffect(() => {
+    const CACHE_KEY = 'diboas-waitlist-stats';
+    const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+    const controller = new AbortController();
+
     async function fetchStats() {
+      // Check cache first
       try {
-        const response = await fetch('/api/waitlist/stats');
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { data, timestamp } = JSON.parse(cached);
+          if (Date.now() - timestamp < CACHE_TTL) {
+            setStats(data);
+            setIsLoading(false);
+            return;
+          }
+        }
+      } catch {
+        // Cache read failed — continue to fetch
+      }
+
+      try {
+        const response = await fetch('/api/waitlist/stats', { signal: controller.signal });
         if (response.ok) {
           const data = await response.json();
-          setStats({
-            count: data.count,
-            countries: data.countries,
-          });
+          const statsData = { count: data.count, countries: data.countries };
+          setStats(statsData);
+
+          // Write to cache
+          try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: statsData, timestamp: Date.now() }));
+          } catch {
+            // sessionStorage full or unavailable
+          }
         }
-      } catch (error) {
+      } catch {
         // Keep fallback values on error
       } finally {
         setIsLoading(false);
@@ -70,6 +101,47 @@ export function SocialProofSection({
     }
 
     fetchStats();
+
+    return () => controller.abort();
+  }, []);
+
+  // Listen for waitlist signup success to update counter in real-time
+  useEffect(() => {
+    const unsubscribe = applicationEventBus.on<ApplicationEventPayload>(
+      ApplicationEventType.WAITLIST_SIGNUP_SUCCESS,
+      (event) => {
+        const position = (event.metadata as { position?: number } | undefined)?.position;
+        if (typeof position === 'number') {
+          // Optimistically update count
+          setStats(prev => ({ ...prev, count: position }));
+        }
+
+        // Clear cache so next page load fetches fresh data
+        try {
+          sessionStorage.removeItem('diboas-waitlist-stats');
+        } catch {
+          // sessionStorage unavailable
+        }
+
+        // Re-fetch authoritative data from API
+        const refetchController = new AbortController();
+        fetch('/api/waitlist/stats', { signal: refetchController.signal })
+          .then(res => {
+            if (res.ok) return res.json();
+            return null;
+          })
+          .then(data => {
+            if (data) {
+              setStats({ count: data.count, countries: data.countries });
+            }
+          })
+          .catch(() => {
+            // Keep optimistic update on error
+          });
+      }
+    );
+
+    return unsubscribe;
   }, []);
 
   // Translation helper with rich text support for highlighting numbers
@@ -84,6 +156,16 @@ export function SocialProofSection({
   // Wrap numbers in highlight span for styling
   const highlightedCount = <span key="count" className={styles.highlight}>{formattedCount}</span>;
   const highlightedCountries = <span key="countries" className={styles.highlight}>{formattedCountries}</span>;
+
+  const handleCtaClick = useCallback(() => {
+    if (enableAnalytics) {
+      analyticsService.track({
+        name: 'social_proof_cta_click',
+        parameters: { locale: intl.locale },
+      });
+    }
+    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+  }, [enableAnalytics, intl.locale]);
 
   return (
     <section
@@ -123,9 +205,20 @@ export function SocialProofSection({
             </div>
           </article>
         </div>
+
+        {ctaText && (
+          <div className={styles.ctaWrapper}>
+            <button
+              className={styles.ctaButton}
+              onClick={handleCtaClick}
+              type="button"
+            >
+              {t(ctaText)}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-export default SocialProofSection;

@@ -8,9 +8,6 @@
 // Domain Layer
 export * from './domain/WaitingListDomain';
 
-// Service Layer
-export { WaitingListService, waitingListService } from './services/WaitingListService';
-
 // Types (including presentation types)
 export * from './types';
 

@@ -5,7 +5,7 @@
  * File Organization: Centralized component export following project patterns
  */
 
-export { OneFeature, default } from './OneFeatureFactory';
+export { OneFeature } from './OneFeatureFactory';
 export type { OneFeatureProps } from './OneFeatureFactory';
 
 // Legacy exports for backward compatibility

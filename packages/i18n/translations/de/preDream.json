@@ -1,0 +1,97 @@
+{
+  "disclaimer": {
+    "title": "Bevor Sie träumen...",
+    "description": "Dies ist eine Bildungsprojektion auf Basis historischer Marktdaten. Die gezeigten Zahlen beruhen auf vergangener Wertentwicklung und stellen keine Garantie für zukünftige Ergebnisse dar. Es wird kein echtes Geld verwendet.",
+    "bullets": {
+      "noMoney": "Kein echtes Geld beteiligt",
+      "notAdvice": "Dies ist keine Finanzberatung",
+      "pastPerformance": "Vergangene Wertentwicklung ≠ zukünftige Ergebnisse"
+    },
+    "legalNotice": "WICHTIG: Diese Projektion dient ausschließlich zu Bildungszwecken. Sie stellt kein Angebot von Wertpapieren, keine Finanzberatung und keine Empfehlung zum Kauf oder Verkauf von Vermögenswerten dar.",
+    "acceptLabel": "Ich verstehe, dass dies ausschließlich zu Bildungszwecken dient",
+    "enterButton": "Dream Mode starten"
+  },
+  "welcome": {
+    "title": "Dream Mode",
+    "subtitle": "Sehen Sie, was Ihr Geld erreichen könnte, während Sie schlafen",
+    "features": {
+      "strategies": "Wählen Sie aus bewährten DeFi-Strategien",
+      "projections": "Projektionen auf Basis realer Marktdaten",
+      "comparison": "Vergleich mit traditionellen Bankprodukten"
+    },
+    "exploreButton": "Jetzt entdecken"
+  },
+  "pathSelect": {
+    "title": "Wie stehen Sie zu Risiko?",
+    "subtitle": "Es gibt keine falsche Antwort, nur verschiedene Wege.",
+    "back": "Zurück",
+    "paths": {
+      "safety": {
+        "name": "Sicherheit zuerst",
+        "description": "Stabile Renditen. Ihr Geld bleibt sicher. Ruhig schlafen.",
+        "riskLabel": "Minimales Risiko"
+      },
+      "balance": {
+        "name": "Ausgewogenes Wachstum",
+        "description": "Eine Mischung aus Stabilität und Wachstumspotenzial. Der Mittelweg.",
+        "riskLabel": "Moderates Risiko"
+      },
+      "growth": {
+        "name": "Maximales Wachstum",
+        "description": "Höheres Potenzial, aber auch größere Schwankungen.",
+        "riskLabel": "Höheres Risiko"
+      }
+    }
+  },
+  "input": {
+    "title": "Mit welchem Betrag möchten Sie starten?",
+    "startingAmount": "Anfangsbetrag",
+    "monthlyContribution": "Monatlicher Beitrag",
+    "back": "Zurück",
+    "nextButton": "Für wie lange?"
+  },
+  "timeframe": {
+    "title": "Wie weit in die Zukunft?",
+    "back": "Zurück",
+    "simulateButton": "Ergebnis anzeigen",
+    "daysUnit": "Tage",
+    "options": {
+      "1year": {
+        "label": "1 Jahr",
+        "days": "365 Tage"
+      },
+      "3years": {
+        "label": "3 Jahre",
+        "days": "1.095 Tage"
+      },
+      "5years": {
+        "label": "5 Jahre",
+        "days": "1.825 Tage"
+      },
+      "10years": {
+        "label": "10 Jahre",
+        "days": "3.650 Tage"
+      }
+    }
+  },
+  "simulation": {
+    "title": "Ihr Geld wächst...",
+    "watermark": "PROJEKTION"
+  },
+  "results": {
+    "titlePrefix": "Aus Ihren {amount} könnten werden...",
+    "withDiboas": "Mit diBoaS",
+    "bankWouldGive": "Ihre Bank würde Ihnen bieten:",
+    "differenceMore": "Das sind {amount} MEHR mit diBoaS",
+    "differenceSubtext": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
+    "shareTitle": "Meine Projektion teilen",
+    "shareCopied": "Kopiert!",
+    "shareText": "Meine Dream Mode Simulation würde {start} in {end} verwandeln, das sind {difference} mehr als meine Bank mir geben würde. Probieren Sie es selbst:",
+    "bankSource": "Basierend auf {rate}% durchschnittlichem Sparzins. Quelle: FDIC National Average, Januar 2026.",
+    "tryDifferent": "Andere Beträge ausprobieren",
+    "backToHome": "Zurück zur Startseite"
+  },
+  "header": {
+    "closeDreamMode": "Dream Mode schließen"
+  }
+}

@@ -19,6 +19,7 @@ import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { Logger } from '@/lib/monitoring/Logger';
 import type { FeatureShowcaseVariantProps } from '../types';
 import styles from './FeatureShowcaseBenefits.module.css';
 
@@ -35,6 +36,17 @@ export function FeatureShowcaseBenefits({
   const intl = useTranslation();
   const slides = config.slides || [];
 
+  // Custom slide change handler with logging
+  const handleSlideChange = useCallback((index: number, source: 'auto' | 'user') => {
+    onSlideChange?.(index);
+
+    Logger.info('FeatureShowcaseBenefits slide changed', {
+      section: 'FeatureShowcaseBenefits',
+      slideIndex: index,
+      source,
+    });
+  }, [onSlideChange]);
+
   // Shared carousel hook (manual navigation only - no auto-play)
   const {
     currentSlideIndex,
@@ -49,7 +61,7 @@ export function FeatureShowcaseBenefits({
     pauseOnHover: false, // Not applicable for manual carousel
     enableKeyboard: true,
     componentName: 'FeatureShowcaseBenefits',
-    onSlideChange,
+    onSlideChange: handleSlideChange,
     onNavigate
   });
 

@@ -22,4 +22,4 @@ export type {
 } from './types';
 
 // Constants
-export { DEFAULT_THRESHOLDS, DEFAULT_REPORTING_INTERVAL } from './constants';
+export { DEFAULT_PERFORMANCE_THRESHOLDS, DEFAULT_REPORTING_INTERVAL } from './constants';

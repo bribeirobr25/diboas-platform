@@ -41,7 +41,7 @@
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Menschen, die ihren ersten Notgroschen aufbauen. Alle, die verstehen möchten, wie das funktioniert, ohne Preisschwankungen.",
-      "riskLevel": "Minimal — Risiken sind mögliche technische Schwachstellen in den zugrunde liegenden Systemen, diese funktionieren jedoch seit Jahren sicher."
+      "riskLevel": "Minimal. Risiken sind mögliche technische Schwachstellen in den zugrunde liegenden Systemen, diese funktionieren jedoch seit Jahren sicher."
     },
     "stableGrowth": {
       "name": "Stable Growth",
@@ -57,7 +57,7 @@
         "bumpiness": "Einige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 8%, bevor es sich erholte."
       },
       "bestFor": "Menschen, die mit einigen Preisbewegungen vertraut sind und möchten, dass ihr Sicherheitsnetz Wachstumspotenzial erfasst.",
-      "riskLevel": "Niedrig — 30% Ihres Guthabens bewegen sich mit digitalen Vermögenswertpreisen. Erwarten Sie gelegentliche Einbrüche.",
+      "riskLevel": "Niedrig. 30% Ihres Guthabens bewegen sich mit digitalen Vermögenswertpreisen. Erwarten Sie gelegentliche Einbrüche.",
       "note": "Nicht für Ihren primären Notgroschen. Bauen Sie zuerst Safe Harbor auf."
     },
     "goalKeeper": {
@@ -74,7 +74,7 @@
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Alle mit einem bestimmten Ziel und Zeitrahmen unter 2 Jahren.",
-      "riskLevel": "Minimal — Konzipiert für Kapitalerhalt mit stetigen Renditen."
+      "riskLevel": "Minimal. Konzipiert für Kapitalerhalt mit stetigen Renditen."
     },
     "steadyProgress": {
       "name": "Steady Progress",
@@ -89,7 +89,7 @@
         "bumpiness": "Mäßige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 11%, bevor es sich erholte."
       },
       "bestFor": "Menschen, die für ein Ziel sparen und es verkraften können, ihr Guthaben vorübergehend sinken zu sehen.",
-      "riskLevel": "Niedrig-Mittel — Ihr Guthaben bewegt sich mit digitalen Vermögenswertpreisen. Einige Monate werden im Minus sein."
+      "riskLevel": "Niedrig-Mittel. Ihr Guthaben bewegt sich mit digitalen Vermögenswertpreisen. Einige Monate werden im Minus sein."
     },
     "patientBuilder": {
       "name": "Patient Builder",
@@ -104,7 +104,7 @@
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Mittelfristige Sparer, die Vorhersehbarkeit über maximale Renditen stellen.",
-      "riskLevel": "Minimal — Gleiches stabiles Profil, optimiert für längeres Halten."
+      "riskLevel": "Minimal. Gleiches stabiles Profil, optimiert für längeres Halten."
     },
     "balancedBuilder": {
       "name": "Balanced Builder",
@@ -119,7 +119,7 @@
         "bumpiness": "Mäßige Wellen. Im schlimmsten Fall fiel Ihr Guthaben vorübergehend um 13%, bevor es sich erholte."
       },
       "bestFor": "Menschen, die verstehen, dass Preise steigen UND fallen, und die durch vorübergehende Einbrüche halten können.",
-      "riskLevel": "Mittel — 40% Wachstumsexposition bedeutet merkliche Schwankungen in beide Richtungen."
+      "riskLevel": "Mittel. 40% Wachstumsexposition bedeutet merkliche Schwankungen in beide Richtungen."
     },
     "steadyCompounder": {
       "name": "Steady Compounder",
@@ -134,7 +134,7 @@
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Langfristige Sparer, die Seelenfrieden über maximale Renditen wollen.",
-      "riskLevel": "Minimal — Langsam und stetig gewinnt das Rennen."
+      "riskLevel": "Minimal. Langsam und stetig gewinnt das Rennen."
     },
     "wealthAccelerator": {
       "name": "Wealth Accelerator",
@@ -146,11 +146,11 @@
       "allocationNote": "Stark in Richtung Wachstumspotenzial geneigt.",
       "stats": {
         "lossChance": "Etwa 24%",
-        "typicalReturn": "Sehr variabel — könnte negativ sein oder 50% übersteigen",
+        "typicalReturn": "Sehr variabel, könnte negativ sein oder 50% übersteigen",
         "bumpiness": "Große Schwankungen. Im schlimmsten Fall fiel Ihr Guthaben um 47%, bevor es sich erholte. Sie müssen damit vertraut sein, zuzusehen, wie sich Ihr Guthaben vorübergehend halbiert."
       },
       "bestFor": "Langfristige Gläubige, die extreme Volatilität für potenziell höhere Renditen verkraften können.",
-      "riskLevel": "Hoch — Signifikante Chance auf bedeutende Verluste in kürzeren Zeiträumen. Nur für Geld, das Sie 5+ Jahre nicht brauchen werden.",
+      "riskLevel": "Hoch. Signifikante Chance auf bedeutende Verluste in kürzeren Zeiträumen. Nur für Geld, das Sie 5+ Jahre nicht brauchen werden.",
       "warning": "Ihre Ergebnisse könnten von -60% bis +200%+ reichen. Nur für Nutzer, die erhebliche Verluste tolerieren können."
     },
     "yieldMaximizer": {
@@ -166,7 +166,7 @@
         "bumpiness": "Sehr ruhig. Ihr Guthaben blieb während unseres 4-Jahres-Tests stabil."
       },
       "bestFor": "Konservative langfristige Vermögensaufbauer, die starke Renditen ohne Preisschwankungen wollen.",
-      "riskLevel": "Minimal — Unsere renditestärkste stabile Strategie."
+      "riskLevel": "Minimal. Unsere renditestärkste stabile Strategie."
     },
     "fullThrottle": {
       "name": "Full Throttle",
@@ -178,7 +178,7 @@
       "allocationNote": "Maximale Wachstumsexposition mit minimalem Stabilitätspuffer.",
       "stats": {
         "lossChance": "Etwa 27%",
-        "typicalReturn": "Extrem variabel — von großen Verlusten bis zu außergewöhnlichen Gewinnen",
+        "typicalReturn": "Extrem variabel, von großen Verlusten bis zu außergewöhnlichen Gewinnen",
         "bumpiness": "Achterbahn. Im schlimmsten Fall fiel Ihr Guthaben um 66%, bevor es sich erholte. Nur für diejenigen, die fast vollständige vorübergehende Verluste verkraften können."
       },
       "requirements": {
@@ -189,7 +189,7 @@
         "riskAck": "Risikobestätigung erforderlich"
       },
       "bestFor": "Erfahrene Investoren mit hoher Risikotoleranz, die einen kleinen Teil ihres Portfolios allokieren.",
-      "riskLevel": "Sehr Hoch — Fast-Totalverlust möglich. Nur verwenden, was Sie sich leisten können, vollständig zu verlieren.",
+      "riskLevel": "Sehr Hoch. Fast-Totalverlust möglich. Nur verwenden, was Sie sich leisten können, vollständig zu verlieren.",
       "warning": "Das ist nicht sicher. Es ist für diejenigen, die das verstehen. Sie könnten 78% verlieren oder außergewöhnlich gewinnen. Verwenden Sie niemals Geld hier, das Sie brauchen."
     }
   },
@@ -236,7 +236,7 @@
     "items": {
       "switch": {
         "question": "Kann ich die Strategie wechseln?",
-        "answer": "Ja, jederzeit. Keine Strafen. Keine Fragen.\n\nBedenken Sie jedoch: Wenn Sie während eines Markteinbruchs wechseln, könnten Sie einen vorübergehenden Verlust festschreiben. Es ist wie ein Hausverkauf während einer Rezession — Sie bekommen weniger als es wert ist.\n\nDer beste Zeitpunkt zum Wechseln ist, wenn sich Ihre ZIELE ändern, nicht wenn sich der Markt bewegt. Wenn Sie von \"Sparen für ein Auto\" zu \"Sparen für die Rente\" gewechselt sind, ist das ein guter Grund. Wenn Sie wechseln, weil die Preise letzte Woche gefallen sind, ist das meist die falsche Entscheidung."
+        "answer": "Ja, jederzeit. Keine Strafen. Keine Fragen.\n\nBedenken Sie jedoch: Wenn Sie während eines Markteinbruchs wechseln, könnten Sie einen vorübergehenden Verlust festschreiben. Es ist wie ein Hausverkauf während einer Rezession, Sie bekommen weniger als es wert ist.\n\nDer beste Zeitpunkt zum Wechseln ist, wenn sich Ihre ZIELE ändern, nicht wenn sich der Markt bewegt. Wenn Sie von \"Sparen für ein Auto\" zu \"Sparen für die Rente\" gewechselt sind, ist das ein guter Grund. Wenn Sie wechseln, weil die Preise letzte Woche gefallen sind, ist das meist die falsche Entscheidung."
       },
       "multiple": {
         "question": "Kann ich mehrere Strategien gleichzeitig nutzen?",
@@ -260,7 +260,7 @@
       },
       "whatSystems": {
         "question": "Welche Systeme nutzen Sie tatsächlich?",
-        "answer": "Wir arbeiten mit etablierten Systemen zusammen, die:\n- Seit Jahren ohne größere Sicherheitsvorfälle operieren\n- Milliarden von Dollar gesichert haben\n- Von unabhängigen Sicherheitsfirmen geprüft wurden\n- Transparente Operationen haben, die Sie selbst überprüfen können\n\nSobald Sie beitreten und sich einloggen, sehen Sie die vollständigen Details jedes Systems, einschließlich ihrer Namen, Erfolgsbilanz und warum wir sie gewählt haben.\n\nWarum zeigen wir das nicht öffentlich? Weil die spezifische Kombination von Systemen und Allokationen Teil dessen ist, was diBoaS einzigartig macht. Wir sind gerne vollständig transparent mit unseren Nutzern — nur nicht mit Wettbewerbern."
+        "answer": "Wir arbeiten mit etablierten Systemen zusammen, die:\n- Seit Jahren ohne größere Sicherheitsvorfälle operieren\n- Milliarden von Dollar gesichert haben\n- Von unabhängigen Sicherheitsfirmen geprüft wurden\n- Transparente Operationen haben, die Sie selbst überprüfen können\n\nSobald Sie beitreten und sich einloggen, sehen Sie die vollständigen Details jedes Systems, einschließlich ihrer Namen, Erfolgsbilanz und warum wir sie gewählt haben.\n\nWarum zeigen wir das nicht öffentlich? Weil die spezifische Kombination von Systemen und Allokationen Teil dessen ist, was diBoaS einzigartig macht. Wir sind gerne vollständig transparent mit unseren Nutzern, nur nicht mit Wettbewerbern."
       }
     }
   },

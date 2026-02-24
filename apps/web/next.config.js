@@ -21,6 +21,12 @@ const nextConfig = {
       'react-intl',
       '@formatjs/intl-localematcher',
       
+      // React Aria (used by @diboas/ui)
+      '@react-aria/button',
+      '@react-aria/focus',
+      '@react-aria/interactions',
+      '@react-aria/utils',
+
       // Our workspace packages
       '@diboas/ui',
       '@diboas/i18n'
@@ -43,6 +49,7 @@ const nextConfig = {
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
+    qualities: [75, 80],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     dangerouslyAllowSVG: process.env.NODE_ENV !== 'production',
@@ -74,16 +81,10 @@ const nextConfig = {
     ]
   },
 
-  // Security headers with CSP and asset optimization
+  // Security headers (CSP is handled per-request in middleware.ts with nonces)
   async headers() {
     const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-    
-    // CSP configuration inline to avoid module loading issues
-    // GDPR Compliant: Google Fonts removed - using next/font/google for self-hosted fonts
-    const csp = environment === 'production'
-      ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com; font-src 'self' data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com"
-      : "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://nextjs.org; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com http://localhost:* https://localhost:*; font-src 'self' data:; connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://diboas.com https://app.diboas.com";
-    
+
     // Asset optimization headers
     const maxAge = environment === 'production' ? 31536000 : 3600;
     const assetHeaders = [
@@ -115,16 +116,12 @@ const nextConfig = {
         ]
       }
     ];
-    
+
     return [
-      // Security headers for all routes
+      // Security headers for all routes (CSP excluded — set in middleware with nonce)
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: csp,
-          },
           {
             key: 'X-Frame-Options',
             value: 'DENY',
@@ -213,6 +210,14 @@ const nextConfig = {
     
     // Advanced bundle optimization for production
     if (!dev && !isServer) {
+      // Enable native webpack performance budget warnings
+      config.performance = {
+        ...config.performance,
+        hints: 'warning',
+        maxAssetSize: 300 * 1024,      // 300KB — matches custom plugin budget
+        maxEntrypointSize: 800 * 1024,  // 800KB — matches custom plugin budget
+      };
+
       config.optimization.splitChunks = {
         chunks: 'all',
         minSize: 20000,
@@ -349,9 +354,6 @@ const sentryWebpackPluginOptions = {
   disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
   disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
 
-  // Automatically tree-shake Sentry logger in production
-  disableLogger: process.env.NODE_ENV === 'production',
-
   // Hide source maps from browser devtools in production
   hideSourceMaps: process.env.NODE_ENV === 'production',
 
@@ -361,8 +363,13 @@ const sentryWebpackPluginOptions = {
   // Routes browser requests through a tunnel to avoid ad-blockers
   tunnelRoute: '/monitoring',
 
-  // Automatically instrument API routes
-  automaticVercelMonitors: true,
+  // Webpack-scoped options (migrated from deprecated top-level keys)
+  webpack: {
+    treeshake: {
+      removeDebugLogging: process.env.NODE_ENV === 'production',
+    },
+    automaticVercelMonitors: true,
+  },
 };
 
 // Export with Sentry wrapper if DSN is configured, otherwise export plain config

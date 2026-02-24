@@ -120,10 +120,6 @@ export function ReferralLink({
 
   return (
     <div className={`${styles.container} ${compact ? styles.compact : ''} ${className}`}>
-      <label className={styles.label}>
-        {t('confirmation.referralLinkLabel')}
-      </label>
-
       <div className={styles.linkBox}>
         <input
           id="referral-url-input"
@@ -131,6 +127,7 @@ export function ReferralLink({
           value={referralUrl}
           readOnly
           className={styles.input}
+          aria-label={t('confirmation.referralLinkLabel')}
           onClick={(e) => (e.target as HTMLInputElement).select()}
         />
         <button

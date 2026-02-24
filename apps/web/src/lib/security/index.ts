@@ -8,6 +8,7 @@
 export {
   encrypt,
   decrypt,
+  hmacHash,
   encryptFields,
   decryptFields,
   isEncryptionEnabled,
@@ -20,6 +21,7 @@ export {
   getClientIP,
   createRateLimitHeaders,
   isRedisEnabled,
+  pingRedis,
   RateLimitPresets,
   type RateLimitResult,
 } from './rateLimiter';
@@ -52,3 +54,9 @@ export {
   validateOrigin,
   csrfProtection,
 } from './csrf';
+
+// Idempotency
+export {
+  getIdempotentResponse,
+  cacheIdempotentResponse,
+} from './idempotency';

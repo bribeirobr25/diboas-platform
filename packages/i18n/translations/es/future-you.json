@@ -4,7 +4,7 @@
     "description": "Mira en qué podría convertirse tu dinero. Cantidades pequeñas. Esfuerzo constante. El tiempo hace el resto."
   },
   "hero": {
-    "headline": "Tus €20. Dentro de cinco años.",
+    "headline": "Tus {currency}20. Dentro de cinco años.",
     "subheadline": "Cantidades pequeñas. Diferencia real.",
     "subheadline2": "",
     "context": "No es una promesa. Solo matemáticas. Y el acceso que te negaron. Hasta ahora."
@@ -116,7 +116,7 @@
       },
       "inconsistent": {
         "question": "¿Qué pasa si no puedo ahorrar la misma cantidad cada mes?",
-        "answer": "La vida pasa. Puedes ajustar en cualquier momento.\n\nEsta calculadora asume cantidades mensuales consistentes porque es la manera más fácil de proyectar. Pero diBoaS no requiere consistencia.\n\nAlgunos meses ahorras {currency}200. Algunos meses {currency}20. Algunos meses {currency}0. Las matemáticas siguen funcionando — solo diferente. Lo que importa es que empieces."
+        "answer": "La vida pasa. Puedes ajustar en cualquier momento.\n\nEsta calculadora asume cantidades mensuales consistentes porque es la manera más fácil de proyectar. Pero diBoaS no requiere consistencia.\n\nAlgunos meses ahorras {currency}200. Algunos meses {currency}20. Algunos meses {currency}0. Las matemáticas siguen funcionando, solo diferente. Lo que importa es que empieces."
       },
       "whichStrategy": {
         "question": "¿Qué estrategia debería usar realmente?",

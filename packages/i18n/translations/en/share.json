@@ -44,10 +44,10 @@
     "copied": "Link copied to clipboard!"
   },
   "waitlistPosition": {
-    "twitter": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join the movement @diboasfi",
-    "whatsapp": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join us in this movement: {referralUrl}",
-    "facebook": "The wealth gap isn't just income. It's ACCESS. Banks earn 7% with our money, give us 0.4%. I'm #{position} saying enough. Join the movement.",
-    "linkedin": "The wealth gap isn't just income. It's ACCESS. It's designed to keep us out. I'm #{position} saying enough. Join us in this movement: {referralUrl}"
+    "twitter": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us: {referralUrl} @diboasfi",
+    "whatsapp": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us: {referralUrl}",
+    "facebook": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us.",
+    "linkedin": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us: {referralUrl}"
   },
   "timeframes": {
     "1week": "1 week",

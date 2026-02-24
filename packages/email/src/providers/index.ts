@@ -1,0 +1,1 @@
+export { sendViaResend } from './ResendProvider';

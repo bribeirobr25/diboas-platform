@@ -13,20 +13,23 @@ import {
   calculateBuyFees,
   checkInsufficientFunds,
   isAssetEnabled,
+  formatCurrency,
+  type AssetCategory,
+  type Asset,
 } from '@/lib/pre-demo';
-import type { AssetCategory, Asset } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
+import { getCurrencyForLocale, getCurrencySymbol } from '@/config/formats';
+import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDemo.module.css';
 
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
-
 const CATEGORY_LIST: AssetCategory[] = ['ETFs', 'Stocks', 'Crypto', 'Gold'];
+
+const CATEGORY_I18N: Record<AssetCategory, string> = {
+  ETFs: 'preDemo.buy.categoryETFs',
+  Stocks: 'preDemo.buy.categoryStocks',
+  Crypto: 'preDemo.buy.categoryCrypto',
+  Gold: 'preDemo.buy.categoryGold',
+};
 
 /** Branded icons for enabled crypto assets, 2-letter fallback for others */
 function AssetIcon({ symbol }: { symbol: string }) {
@@ -116,6 +119,9 @@ export function BuyScreen() {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
 
+  const { locale } = useLocale();
+  const currencySymbol = getCurrencySymbol(getCurrencyForLocale(locale));
+
   const t = (key: string) => intl.formatMessage({ id: key });
 
   const amount = parseFloat(state.buyAmount) || 0;
@@ -139,6 +145,7 @@ export function BuyScreen() {
 
   const handleCategoryChange = useCallback(
     (category: AssetCategory) => {
+      analyticsService.track({ name: 'pre_demo_buy_category_change', parameters: { category } });
       dispatch({ type: 'SET_SELECTED_CATEGORY', category });
       const assets = ASSET_CATEGORIES[category];
       const enabledAsset = assets.find((a) => isAssetEnabled(a.symbol));
@@ -150,6 +157,7 @@ export function BuyScreen() {
   const handleAssetSelect = useCallback(
     (asset: Asset) => {
       if (!isAssetEnabled(asset.symbol)) return;
+      analyticsService.track({ name: 'pre_demo_buy_asset_select', parameters: { asset: asset.symbol } });
       dispatch({ type: 'SET_SELECTED_ASSET', asset: asset.symbol });
     },
     [dispatch],
@@ -165,6 +173,7 @@ export function BuyScreen() {
 
   const handleQuickAmount = useCallback(
     (quickAmount: string) => {
+      analyticsService.track({ name: 'pre_demo_buy_quick_amount', parameters: { amount: quickAmount } });
       dispatch({ type: 'SET_BUY_AMOUNT', amount: quickAmount });
     },
     [dispatch],
@@ -228,7 +237,7 @@ export function BuyScreen() {
                 state.selectedCategory === category ? styles.categoryTabActive : ''
               }`}
             >
-              {category}
+              {t(CATEGORY_I18N[category])}
             </button>
           ))}
         </div>
@@ -262,7 +271,7 @@ export function BuyScreen() {
                 </div>
                 <div className={styles.assetPrice}>
                   {enabled ? (
-                    formatCurrency(asset.price)
+                    formatCurrency(asset.price, 2, locale)
                   ) : (
                     <span className={styles.comingSoon}>
                       {t('preDemo.buy.comingSoon')}
@@ -283,7 +292,7 @@ export function BuyScreen() {
             </div>
 
             <div className={styles.amountInputContainer}>
-              <span className={styles.amountPrefix}>$</span>
+              <span className={styles.amountPrefix}>{currencySymbol}</span>
               <input
                 type="text"
                 inputMode="decimal"
@@ -291,6 +300,7 @@ export function BuyScreen() {
                 onChange={(e) => handleAmountChange(e.target.value)}
                 placeholder="0.00"
                 className={styles.amountInput}
+                aria-label={t('preDemo.buy.amountLabel')}
               />
             </div>
 
@@ -311,7 +321,7 @@ export function BuyScreen() {
                     state.buyAmount === qa ? styles.quickAmountActive : ''
                   }`}
                 >
-                  ${qa}
+                  {currencySymbol}{qa}
                 </button>
               ))}
             </div>
@@ -324,14 +334,14 @@ export function BuyScreen() {
             {/* You'll receive — crypto format */}
             {amount > 0 && !insufficientFunds && cryptoQuantity > 0 && (
               <div className={styles.receiveRow}>
-                <span className={styles.receiveLabel}>{intl.formatMessage({ id: 'preDemo.transaction.youllReceive', defaultMessage: "You'll receive" })}</span>
+                <span className={styles.receiveLabel}>{t('preDemo.transaction.youllReceive')}</span>
                 <div style={{ textAlign: 'right' }}>
                   <span className={styles.receiveAmount}>
                     {cryptoQuantity.toFixed(8)} {currentAsset.symbol}
                   </span>
                   <br />
                   <span className={styles.receiveAmountSub}>
-                    {intl.formatMessage({ id: 'preDemo.transaction.approximate', defaultMessage: '≈' })} {formatCurrency(fees.netAmount)}
+                    {t('preDemo.transaction.approximate')} {formatCurrency(fees.netAmount, 2, locale)}
                   </span>
                 </div>
               </div>

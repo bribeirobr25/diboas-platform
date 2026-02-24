@@ -9,7 +9,7 @@
 
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from '@diboas/i18n/client';
@@ -19,6 +19,7 @@ import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { Logger } from '@/lib/monitoring/Logger';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { FeatureShowcaseVariantProps } from '../types';
 import styles from './FeatureShowcaseDefault.module.css';
@@ -50,6 +51,52 @@ export function FeatureShowcaseDefault({
   }, [recordSectionRenderTime]);
 
   const slides = config.slides || [];
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleImageError = useCallback((slideId: string) => {
+    setFailedImages(prev => new Set(prev).add(slideId));
+  }, []);
+
+  // Detect images that failed before React hydration (SSR timing)
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const markFailed = (slideId: string) => {
+      setFailedImages(prev => new Set(prev).add(slideId));
+    };
+
+    const checkImages = () => {
+      if (!containerRef.current) return;
+      const imgs = containerRef.current.querySelectorAll('img[data-slide-id]');
+      imgs.forEach((img) => {
+        const htmlImg = img as HTMLImageElement;
+        const slideId = htmlImg.dataset.slideId;
+        if (!slideId) return;
+
+        if (htmlImg.complete && htmlImg.naturalWidth === 0) {
+          markFailed(slideId);
+        } else if (!htmlImg.complete) {
+          htmlImg.addEventListener('error', () => markFailed(slideId), { once: true });
+        }
+      });
+    };
+
+    // Use rAF to ensure images have had time to process 404 responses
+    const rafId = requestAnimationFrame(checkImages);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
+  // Custom slide change handler with logging
+  const handleSlideChange = useCallback((index: number, source: 'auto' | 'user') => {
+    onSlideChange?.(index);
+
+    Logger.info('FeatureShowcaseDefault slide changed', {
+      section: 'FeatureShowcaseDefault',
+      slideIndex: index,
+      source,
+    });
+  }, [onSlideChange]);
 
   // Shared carousel hook (manual navigation only - no auto-play)
   const {
@@ -66,7 +113,7 @@ export function FeatureShowcaseDefault({
     pauseOnHover: false, // Not applicable for manual carousel
     enableKeyboard: true,
     componentName: 'FeatureShowcaseDefault',
-    onSlideChange,
+    onSlideChange: handleSlideChange,
     onNavigate
   });
 
@@ -120,7 +167,7 @@ export function FeatureShowcaseDefault({
       className={className}
       ariaLabelledBy="showcase-title"
     >
-      <div className={styles.container}>
+      <div ref={containerRef} className={styles.container}>
 
         {/* Content Container */}
         <div
@@ -131,6 +178,9 @@ export function FeatureShowcaseDefault({
           
           {/* LEFT COLUMN: Text Content (Desktop: 1fr) */}
           <div className={styles.textColumn}>
+            {currentSlide.content.tagline ? (
+              <p className={styles.tagline}>{currentSlide.content.tagline}</p>
+            ) : null}
             <h2 id="showcase-title" className={styles.title}>
               {currentSlide.content.title}
             </h2>
@@ -139,26 +189,27 @@ export function FeatureShowcaseDefault({
             <div className={styles.mobileVisualContent}>
               <div className={styles.visualPanel}>
                 <div className={styles.imageContainer}>
-                  <Image
-                    src={currentSlide.assets.primaryImage}
-                    alt={currentSlide.seo.imageAlt}
-                    width={400}
-                    height={520}
-                    priority={priority}
-                    className={styles.image}
-                    onLoad={() => handleImageLoad(currentSlide.id)}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
-                  />
+                  {!failedImages.has(currentSlide.id) ? (
+                    <Image
+                      src={currentSlide.assets.primaryImage}
+                      alt={currentSlide.seo.imageAlt}
+                      width={400}
+                      height={520}
+                      data-slide-id={currentSlide.id}
+                      priority={priority}
+                      className={styles.image}
+                      onLoad={() => handleImageLoad(currentSlide.id)}
+                      onError={() => handleImageError(currentSlide.id)}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
+                    />
+                  ) : null}
                 </div>
               </div>
             </div>
 
-            <p
-              className={styles.description}
-              dangerouslySetInnerHTML={{
-                __html: currentSlide.content.description.replace(/\n/g, '<br />')
-              }}
-            />
+            <p className={styles.description}>
+              {currentSlide.content.description}
+            </p>
             
             {/* CTA - Using shared CTAButtonLink component */}
             {currentSlide.content.ctaText && currentSlide.content.ctaHref && (
@@ -205,16 +256,20 @@ export function FeatureShowcaseDefault({
           <div className={styles.visualColumn}>
             <div className={styles.visualPanel}>
               <div className={styles.imageContainer}>
-                <Image
-                  src={currentSlide.assets.primaryImage}
-                  alt={currentSlide.seo.imageAlt}
-                  width={400}
-                  height={520}
-                  priority={priority}
-                  className={styles.image}
-                  onLoad={() => handleImageLoad(currentSlide.id)}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
-                />
+                {!failedImages.has(currentSlide.id) ? (
+                  <Image
+                    src={currentSlide.assets.primaryImage}
+                    alt={currentSlide.seo.imageAlt}
+                    width={400}
+                    height={520}
+                    data-slide-id={currentSlide.id}
+                    priority={priority}
+                    className={styles.image}
+                    onLoad={() => handleImageLoad(currentSlide.id)}
+                    onError={() => handleImageError(currentSlide.id)}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
+                  />
+                ) : null}
               </div>
             </div>
           </div>

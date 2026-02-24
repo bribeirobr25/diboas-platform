@@ -243,4 +243,3 @@ function HelpText({ text }: { text: string }) {
   );
 }
 
-export default DefaultSectionErrorFallback;

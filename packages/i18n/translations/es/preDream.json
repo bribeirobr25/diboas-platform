@@ -1,0 +1,97 @@
+{
+  "disclaimer": {
+    "title": "Antes de soñar...",
+    "description": "Esta es una proyección educativa basada en datos históricos del mercado. Los números que ves se basan en rendimientos pasados y no garantizan resultados futuros. No se usa dinero real.",
+    "bullets": {
+      "noMoney": "No se usa dinero real",
+      "notAdvice": "Esto no es asesoría financiera",
+      "pastPerformance": "Rendimiento pasado ≠ resultados futuros"
+    },
+    "legalNotice": "IMPORTANTE: Esta proyección es solo con fines educativos. No constituye una oferta de valores, asesoría financiera ni una recomendación para comprar o vender ningún activo.",
+    "acceptLabel": "Entiendo que esto es solo con fines educativos",
+    "enterButton": "Entrar al Modo Sueño"
+  },
+  "welcome": {
+    "title": "Modo Sueño",
+    "subtitle": "Mira lo que tu dinero podría hacer mientras duermes",
+    "features": {
+      "strategies": "Elige entre estrategias DeFi probadas",
+      "projections": "Mira proyecciones basadas en datos reales",
+      "comparison": "Compara con la banca tradicional"
+    },
+    "exploreButton": "Vamos a explorar"
+  },
+  "pathSelect": {
+    "title": "¿Qué tanto riesgo te acomoda?",
+    "subtitle": "No hay respuesta incorrecta, solo caminos diferentes.",
+    "back": "Volver",
+    "paths": {
+      "safety": {
+        "name": "Seguridad Primero",
+        "description": "Rendimientos estables. Tu dinero se mantiene seguro. Duerme tranquilo.",
+        "riskLabel": "Riesgo mínimo"
+      },
+      "balance": {
+        "name": "Crecimiento Equilibrado",
+        "description": "Un balance entre estabilidad y potencial de crecimiento. El camino intermedio.",
+        "riskLabel": "Riesgo moderado"
+      },
+      "growth": {
+        "name": "Crecimiento Máximo",
+        "description": "Mayor potencial, pero prepárate para más altibajos.",
+        "riskLabel": "Riesgo alto"
+      }
+    }
+  },
+  "input": {
+    "title": "¿Con cuánto empezarías?",
+    "startingAmount": "Monto inicial",
+    "monthlyContribution": "Aporte mensual",
+    "back": "Volver",
+    "nextButton": "¿Por Cuánto Tiempo?"
+  },
+  "timeframe": {
+    "title": "¿Qué tan lejos en el futuro?",
+    "back": "Volver",
+    "simulateButton": "Muéstrame qué pasa",
+    "daysUnit": "días",
+    "options": {
+      "1year": {
+        "label": "1 Año",
+        "days": "365 días"
+      },
+      "3years": {
+        "label": "3 Años",
+        "days": "1,095 días"
+      },
+      "5years": {
+        "label": "5 Años",
+        "days": "1,825 días"
+      },
+      "10years": {
+        "label": "10 Años",
+        "days": "3,650 días"
+      }
+    }
+  },
+  "simulation": {
+    "title": "Tu dinero está creciendo...",
+    "watermark": "PROYECCIÓN"
+  },
+  "results": {
+    "titlePrefix": "Tus {amount} podrían convertirse en...",
+    "withDiboas": "Con diBoaS",
+    "bankWouldGive": "Tu banco te daría:",
+    "differenceMore": "Eso es {amount} MÁS con diBoaS",
+    "differenceSubtext": "El mismo dinero. Diferente lugar. Gran diferencia.",
+    "shareTitle": "Compartir mi sueño",
+    "shareCopied": "¡Copiado!",
+    "shareText": "Mi simulación en Dream Mode convertiría {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo tú mismo:",
+    "bankSource": "Basado en una tasa de ahorro promedio de {rate}%. Fuente: Promedio Nacional FDIC, enero 2026.",
+    "tryDifferent": "Probar Otros Números",
+    "backToHome": "Volver al Inicio"
+  },
+  "header": {
+    "closeDreamMode": "Cerrar Modo Sueño"
+  }
+}

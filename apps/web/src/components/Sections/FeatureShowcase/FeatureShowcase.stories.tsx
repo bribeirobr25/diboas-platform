@@ -159,8 +159,8 @@ export const SingleSlide: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/socials/drawing/phone-dashboard.avif',
-        secondaryImage: '/assets/socials/drawing/phone-transaction-history.avif',
+        primaryImage: '/assets/images/phone-features.avif',
+        secondaryImage: '/assets/images/phone-transfer.avif',
       },
       seo: {
         imageAlt: {
@@ -221,8 +221,8 @@ export const MultipleSlides: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/socials/drawing/phone-account.avif',
-        secondaryImage: '/assets/socials/drawing/phone-send.avif',
+        primaryImage: '/assets/images/phone-account.avif',
+        secondaryImage: '/assets/images/phone-transfer.avif',
       },
       seo: {
         imageAlt: {
@@ -242,8 +242,8 @@ export const MultipleSlides: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/socials/drawing/phone-invest-overview.avif',
-        secondaryImage: '/assets/socials/drawing/phone-invest-stock.avif',
+        primaryImage: '/assets/images/phone-grow.avif',
+        secondaryImage: '/assets/images/phone-grow2.avif',
       },
       seo: {
         imageAlt: {
@@ -263,8 +263,8 @@ export const MultipleSlides: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/socials/drawing/phone-hero-crypto.avif',
-        secondaryImage: '/assets/socials/drawing/phone-invest-crypto-portfolio.avif',
+        primaryImage: '/assets/images/phone-diboas.avif',
+        secondaryImage: '/assets/images/phone-balance.avif',
       },
       seo: {
         imageAlt: {

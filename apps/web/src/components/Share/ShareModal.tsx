@@ -13,7 +13,7 @@
  * File Decoupling: Each concern in its own component
  */
 
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
@@ -69,9 +69,11 @@ export function ShareModal({
   const [renderedCard, setRenderedCard] = useState<RenderedCard | null>(
     preRenderedCard || null
   );
+  const isRenderingRef = useRef(false);
   const [isRendering, setIsRendering] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const [shareError, setShareError] = useState<string | null>(null);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   // WCAG 2.4.3: Focus trap for modal
   useFocusTrap(modalRef, isOpen);
@@ -96,7 +98,8 @@ export function ShareModal({
 
   // Render card when modal opens
   useEffect(() => {
-    if (isOpen && cardData && !renderedCard && !isRendering) {
+    if (isOpen && cardData && !renderedCard && !isRenderingRef.current) {
+      isRenderingRef.current = true;
       setIsRendering(true);
       const renderer = new CardRenderer();
 
@@ -116,16 +119,18 @@ export function ShareModal({
           setShareError('Failed to generate share card');
         })
         .finally(() => {
+          isRenderingRef.current = false;
           setIsRendering(false);
         });
     }
-  }, [isOpen, cardData, renderedCard, isRendering, locale]);
+  }, [isOpen, cardData, renderedCard, locale]);
 
   // Reset state when modal closes
   useEffect(() => {
     if (!isOpen) {
       setShareError(null);
       setCopySuccess(false);
+      clearTimeout(copyTimerRef.current);
       if (!preRenderedCard) {
         setRenderedCard(null);
       }
@@ -162,7 +167,8 @@ export function ShareModal({
 
       if (platform === 'copy' && result.success) {
         setCopySuccess(true);
-        setTimeout(() => setCopySuccess(false), 2000);
+        clearTimeout(copyTimerRef.current);
+        copyTimerRef.current = setTimeout(() => setCopySuccess(false), 2000);
       }
     },
     [shareContent, renderedCard, shareManager]

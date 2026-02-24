@@ -8,7 +8,7 @@
  * DRY Principles: Uses centralized ROUTES configuration for all links
  */
 
-import { APP_URL } from '@/config/environment';
+import { APP_URL } from '@/config/env';
 import { ROUTES } from './routes';
 import { getSocialDrawingAsset } from './assets';
 
@@ -22,6 +22,7 @@ export interface ProductCarouselSlide {
   readonly imageAlt: string;
   readonly ctaText?: string;
   readonly ctaHref?: string;
+  readonly quote?: string;
 }
 
 export interface ProductCarouselSettings {

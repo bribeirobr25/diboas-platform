@@ -161,6 +161,21 @@ export class Logger {
   }
 
   /**
+   * Circular-reference-safe JSON serialization
+   * Error Handling: Prevents cascading failures from non-serializable objects (e.g. DOM elements, React events)
+   */
+  private static safeStringify(obj: unknown): string {
+    const seen = new WeakSet();
+    return JSON.stringify(obj, (_key, value) => {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) return '[Circular]';
+        seen.add(value);
+      }
+      return value;
+    });
+  }
+
+  /**
    * Local storage logging for debugging
    * Performance: Maintains size limits
    */
@@ -174,9 +189,9 @@ export class Logger {
         this.logBuffer = this.logBuffer.slice(-this.config.maxStorageEntries);
       }
 
-      // Store in localStorage for debugging
+      // Store in localStorage for debugging (safe against circular references)
       if (typeof window !== 'undefined' && window.localStorage) {
-        localStorage.setItem('diboas_logs', JSON.stringify(this.logBuffer.slice(-100))); // Keep last 100
+        localStorage.setItem('diboas_logs', this.safeStringify(this.logBuffer.slice(-100)));
       }
     } catch (error) {
       // Silently fail to prevent logging loops
@@ -211,15 +226,26 @@ export class Logger {
    * Sanitize context to remove sensitive data
    * Security: Prevents logging of sensitive information
    */
+  private static readonly EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
   private static sanitizeContext(context?: Record<string, unknown>): Record<string, unknown> | undefined {
     if (!context) return undefined;
 
-    const sensitiveKeys = ['password', 'token', 'key', 'secret', 'auth', 'credential'];
+    const sensitiveKeys = ['password', 'token', 'key', 'secret', 'auth', 'credential', 'email', 'ssn'];
     const sanitized = { ...context };
 
     for (const key of Object.keys(sanitized)) {
+      // Redact by key name
       if (sensitiveKeys.some(sensitive => key.toLowerCase().includes(sensitive))) {
         sanitized[key] = '[REDACTED]';
+        continue;
+      }
+      // Redact string values matching email patterns
+      if (typeof sanitized[key] === 'string') {
+        sanitized[key] = (sanitized[key] as string).replace(
+          this.EMAIL_PATTERN,
+          '[EMAIL_REDACTED]'
+        );
       }
     }
 

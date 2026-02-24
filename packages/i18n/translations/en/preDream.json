@@ -23,7 +23,7 @@
   },
   "pathSelect": {
     "title": "How do you feel about risk?",
-    "subtitle": "There's no wrong answer — just different paths.",
+    "subtitle": "There's no wrong answer, just different paths.",
     "back": "Back",
     "paths": {
       "safety": {
@@ -54,6 +54,7 @@
     "title": "How far into the future?",
     "back": "Back",
     "simulateButton": "Show me what happens",
+    "daysUnit": "days",
     "options": {
       "1year": {
         "label": "1 Year",
@@ -84,6 +85,8 @@
     "differenceMore": "That's {amount} MORE with diBoaS",
     "differenceSubtext": "Same money. Different place. Big difference.",
     "shareTitle": "Share my dream",
+    "shareCopied": "Copied!",
+    "shareText": "My Dream Mode simulation would turn {start} into {end}, that is {difference} more than my bank would give me. Try it yourself:",
     "bankSource": "Based on {rate}% average savings rate. Source: FDIC National Average, January 2026.",
     "tryDifferent": "Try Different Numbers",
     "backToHome": "Back to Home"

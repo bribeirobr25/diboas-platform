@@ -8,9 +8,10 @@
  * Uses existing UTM infrastructure from lib/share
  */
 
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import type { PreDreamResult } from '@/lib/pre-dream';
+import { formatCurrency, type PreDreamResult } from '@/lib/pre-dream';
+import { useLocale } from '@/components/Providers';
 import { getShareUrl, type SharePlatform } from '@/lib/share';
 import { analyticsService } from '@/lib/analytics';
 import {
@@ -19,33 +20,38 @@ import {
 } from '@/lib/events/ApplicationEventBus';
 import styles from '../PreDream.module.css';
 
-function formatCurrency(amount: number, decimals = 0): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
-
 interface ShareDreamSectionProps {
   result: PreDreamResult;
+  /** Locale-adjusted difference for accurate sharing */
+  localeDifference?: number;
 }
 
-export function ShareDreamSection({ result }: ShareDreamSectionProps) {
+export function ShareDreamSection({ result, localeDifference }: ShareDreamSectionProps) {
   const intl = useTranslation();
+  const { locale } = useLocale();
+  const [copied, setCopied] = useState(false);
 
   const t = (key: string) => intl.formatMessage({ id: `preDream.results.${key}` });
 
   const getShareText = useCallback((): string => {
-    const start = formatCurrency(result.totalInvestment);
-    const end = formatCurrency(result.defiBalance);
-    return `You need to see this. Institution-level returns, finally open. My ${start} becomes ${end}. Try it yourself:`;
-  }, [result]);
+    const start = formatCurrency(result.totalInvestment, 0, locale);
+    const end = formatCurrency(result.defiBalance, 0, locale);
+    const diff = localeDifference != null ? localeDifference : result.difference;
+    const difference = formatCurrency(diff, 0, locale);
+    return intl.formatMessage(
+      { id: 'preDream.results.shareText' },
+      { start, end, difference },
+    );
+  }, [result, intl, localeDifference, locale]);
 
   const handleShare = useCallback(async (platform: 'whatsapp' | 'twitter' | 'linkedin' | 'copy') => {
     const shareText = getShareText();
-    const shareUrl = getShareUrl('dream', platform as SharePlatform);
+    const amount = formatCurrency(result.defiBalance, 0, locale);
+    const growth = `${result.growthPercentage.toFixed(0)}%`;
+    const baseShareUrl = getShareUrl('dream', platform as SharePlatform);
+    // Append dream result params so the landing page can render OG metadata
+    // via /api/og/dream?amount=...&growth=...
+    const shareUrl = `${baseShareUrl}&dream_amount=${encodeURIComponent(amount)}&dream_growth=${encodeURIComponent(growth)}`;
 
     applicationEventBus.emit(ApplicationEventType.PRE_DREAM_SHARE_INITIATED, {
       source: 'preDream',
@@ -58,48 +64,58 @@ export function ShareDreamSection({ result }: ShareDreamSectionProps) {
       parameters: { platform },
     });
 
-    switch (platform) {
-      case 'whatsapp':
-        window.open(
-          `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
-          '_blank',
-          'width=600,height=400'
-        );
-        break;
-      case 'twitter':
-        window.open(
-          `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
-          '_blank',
-          'width=600,height=400'
-        );
-        break;
-      case 'linkedin':
-        try {
-          await navigator.clipboard.writeText(shareText);
-        } catch {
-          // Clipboard access may fail silently
-        }
-        window.open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
-          '_blank',
-          'width=600,height=400'
-        );
-        break;
-      case 'copy':
-        try {
+    try {
+      switch (platform) {
+        case 'whatsapp':
+          window.open(
+            `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
+            '_blank',
+            'width=600,height=400'
+          );
+          break;
+        case 'twitter':
+          window.open(
+            `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
+            '_blank',
+            'width=600,height=400'
+          );
+          break;
+        case 'linkedin':
+          try {
+            await navigator.clipboard.writeText(shareText);
+          } catch (err) {
+            console.warn('Clipboard write failed for LinkedIn share:', err);
+          }
+          window.open(
+            `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+            '_blank',
+            'width=600,height=400'
+          );
+          break;
+        case 'copy':
           await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
-        } catch {
-          // Clipboard access may fail silently
-        }
-        break;
-    }
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+          break;
+      }
 
-    applicationEventBus.emit(ApplicationEventType.PRE_DREAM_SHARE_COMPLETED, {
-      source: 'preDream',
-      timestamp: Date.now(),
-      metadata: { platform },
-    });
-  }, [getShareText]);
+      analyticsService.track({
+        name: 'pre_dream_share_success',
+        parameters: { platform },
+      });
+
+      applicationEventBus.emit(ApplicationEventType.PRE_DREAM_SHARE_COMPLETED, {
+        source: 'preDream',
+        timestamp: Date.now(),
+        metadata: { platform },
+      });
+    } catch {
+      analyticsService.track({
+        name: 'pre_dream_share_failed',
+        parameters: { platform },
+      });
+    }
+  }, [getShareText, result.defiBalance, result.growthPercentage]);
 
   return (
     <div className={styles.shareSection}>
@@ -141,14 +157,20 @@ export function ShareDreamSection({ result }: ShareDreamSectionProps) {
         <button
           onClick={() => handleShare('copy')}
           className={styles.shareButton}
-          style={{ '--share-bg': '#f0fdfa', '--share-hover': '#ccfbf1' } as React.CSSProperties}
-          title="Copy to Clipboard"
+          style={{ '--share-bg': copied ? '#ccfbf1' : '#f0fdfa', '--share-hover': '#ccfbf1' } as React.CSSProperties}
+          title={copied ? t('shareCopied') : 'Copy to Clipboard'}
           aria-label="Copy share text to clipboard"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-          </svg>
+          {copied ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+          )}
         </button>
       </div>
     </div>

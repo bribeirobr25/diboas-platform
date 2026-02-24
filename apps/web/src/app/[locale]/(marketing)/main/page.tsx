@@ -27,25 +27,20 @@ import { DEFAULT_STEP_GUIDE_CONFIG } from '@/config/stepGuide';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import type { Metadata } from 'next';
+import { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface MainPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the main marketing page
  * SEO Optimization: Dynamic metadata generation with i18n support
  */
-export async function generateMetadata({ params }: MainPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   return generateStaticPageMetadata('home', locale as SupportedLocale);
 }
 
-export default async function MainPage({ params }: MainPageProps) {
+export default async function MainPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

@@ -10,7 +10,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { ENV_CONFIG } from '@/config/environment';
+import { APP_URL } from '@/config/env';
 import { WaitingListContextValue } from '@/lib/waitingList/types';
 import { WaitingListModal } from './WaitingListModal';
 import { analyticsService } from '@/lib/analytics';
@@ -64,8 +64,8 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
       const href = anchor.getAttribute('href');
       if (!href) return;
 
-      // Check if link points to app URL (either absolute or matching ENV_CONFIG)
-      const appUrl = ENV_CONFIG.APP_URL;
+      // Check if link points to app URL
+      const appUrl = APP_URL;
       const isAppLink =
         href.startsWith(appUrl) ||
         href.includes('app.diboas.com') ||
@@ -100,16 +100,17 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
     };
   }, [isOpen, closeModal]);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open.
+  // Only capture/restore when transitioning to open — avoids resetting
+  // overflow on initial mount (which conflicts with other components
+  // that may lock body scroll, e.g. DemoPageContent).
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!isOpen) return;
 
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = original;
     };
   }, [isOpen]);
 

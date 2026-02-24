@@ -5,4 +5,3 @@
  */
 
 export { SocialProofSection } from './SocialProofSection';
-export { default } from './SocialProofSection';

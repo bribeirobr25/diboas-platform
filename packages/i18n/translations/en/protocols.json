@@ -61,8 +61,8 @@
       "operation": "At least 1 year of operation (with few exceptions for exceptional protocols)",
       "audits": "Professional security audits from recognized firms",
       "exploits": "No unresolved exploits where user funds were lost and not recovered",
-      "transparent": "Transparent operations — we can verify how the protocol works",
-      "usage": "Real usage — actual users, not just hype"
+      "transparent": "Transparent operations, we can verify how the protocol works",
+      "usage": "Real usage, actual users, not just hype"
     },
     "note": "When protocols have had security incidents, we note them clearly. Transparency works both ways."
   },

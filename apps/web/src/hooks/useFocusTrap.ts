@@ -131,4 +131,3 @@ export function useFocusTrap(
   }, [isActive, containerRef, autoFocus, returnFocus, initialFocus]);
 }
 
-export default useFocusTrap;

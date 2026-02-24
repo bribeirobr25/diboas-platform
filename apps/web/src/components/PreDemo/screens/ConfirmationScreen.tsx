@@ -6,141 +6,66 @@ import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { FeeBreakdown } from '../components/FeeBreakdown';
-import { PROCESSING_TIMING } from '@/lib/pre-demo';
+import { DepositIcon, SendIcon, InvestIcon, BackIcon } from '../components/Icons';
+import { PROCESSING_TIMING, formatCurrency } from '@/lib/pre-demo';
+import { useLocale } from '@/components/Providers';
+import { getIntlLocale } from '@/config/formats';
+import { analyticsService } from '@/lib/analytics';
 import {
   applicationEventBus,
   ApplicationEventType,
 } from '@/lib/events/ApplicationEventBus';
 import styles from '../PreDemo.module.css';
 
-function formatCurrency(amount: number, decimals = 2): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  }).format(amount);
-}
-
-/** Type icon SVGs */
+/** Type icon — delegates to shared Icon components */
 function TypeIcon({ type }: { type: string }) {
   switch (type) {
     case 'deposit':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
-      );
+      return <DepositIcon />;
     case 'send':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12" />
-          <polyline points="12 5 19 12 12 19" />
-        </svg>
-      );
+      return <SendIcon />;
     default:
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-          <polyline points="17 6 23 6 23 12" />
-        </svg>
-      );
+      return <InvestIcon />;
   }
 }
 
-/** Payment method display name */
-function getMethodDisplay(method: string): string {
-  switch (method) {
-    case 'card':
-      return 'Credit Card';
-    case 'bank':
-      return 'Bank Transfer';
-    case 'mobile':
-      return 'Mobile Money';
-    default:
-      return method;
-  }
-}
+/** Payment method i18n key */
+const METHOD_KEYS: Record<string, string> = {
+  card: 'preDemo.confirm.methodCard',
+  bank: 'preDemo.confirm.methodBank',
+  mobile: 'preDemo.confirm.methodMobile',
+};
 
 export function ConfirmationScreen() {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
+  const { locale } = useLocale();
   const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
   const pending = state.pendingTransaction;
 
-  if (!pending) return null;
-
-  const txType = pending.type;
-
-  // Title by type
-  const titleKey =
-    txType === 'deposit'
-      ? 'preDemo.confirm.titleDeposit'
-      : txType === 'send'
-        ? 'preDemo.confirm.titleSend'
-        : 'preDemo.confirm.titleBuy';
-
-  // Type label
-  const typeLabelKey =
-    txType === 'deposit'
-      ? 'preDemo.confirm.typeDeposit'
-      : txType === 'send'
-        ? 'preDemo.confirm.typeSend'
-        : 'preDemo.confirm.typeBuy';
-
-  // Back navigation
-  const backScreen =
-    txType === 'deposit'
-      ? 'deposit'
-      : txType === 'send'
-        ? 'send'
-        : 'buy';
-
-  // Processing screen prefix
-  const processingPrefix = txType;
-
-  // "You'll receive" vs "They'll receive"
-  const receiveKey =
-    txType === 'send'
-      ? 'preDemo.confirm.theyReceive'
-      : 'preDemo.confirm.youReceive';
-
-  // Terms text key
-  const termsKey =
-    txType === 'deposit'
-      ? 'preDemo.confirm.termsDeposit'
-      : txType === 'send'
-        ? 'preDemo.confirm.termsSend'
-        : 'preDemo.confirm.termsBuy';
-
-  // Confirm button text — type-specific
-  const confirmButtonKey =
-    txType === 'deposit'
-      ? 'preDemo.confirm.confirmDeposit'
-      : txType === 'send'
-        ? 'preDemo.confirm.confirmTransfer'
-        : 'preDemo.confirm.confirmPurchase';
-
-  // Calculate crypto quantity for buy
+  // Calculate crypto quantity for buy (hook must be called unconditionally)
   const cryptoQuantity = useMemo(() => {
-    if (txType !== 'buy' || !pending.asset?.price || pending.netAmount <= 0) return 0;
+    if (!pending || pending.type !== 'buy' || !pending.asset?.price || pending.netAmount <= 0) return 0;
     return pending.netAmount / pending.asset.price;
-  }, [txType, pending.netAmount, pending.asset?.price]);
+  }, [pending]);
 
   const handleConfirm = useCallback(() => {
+    if (!pending) return;
+
     // Clear any existing timers
     timerRef.current.forEach(clearTimeout);
     timerRef.current = [];
+
+    const processingPrefix = pending.type;
 
     // Start processing flow
     setScreen(`${processingPrefix}-processing` as Parameters<typeof setScreen>[0]);
 
     // Approved step (only deposit has explicit approved)
-    if (txType === 'deposit') {
+    if (pending.type === 'deposit') {
       const t1 = setTimeout(() => {
         setScreen('deposit-approved');
       }, PROCESSING_TIMING.processingDelay);
@@ -158,6 +83,17 @@ export function ConfirmationScreen() {
           grossAmount: pending.grossAmount,
           totalFees: pending.totalFees,
           feeDetails: pending.fees,
+          intlLocale: getIntlLocale(locale),
+        });
+
+        analyticsService.track({
+          name: 'pre_demo_transaction_completed',
+          parameters: {
+            type: 'deposit',
+            amount: pending.grossAmount,
+            net_amount: pending.netAmount,
+            fees: pending.totalFees,
+          },
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, {
@@ -167,7 +103,7 @@ export function ConfirmationScreen() {
         });
       }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay + PROCESSING_TIMING.completeDelay);
       timerRef.current.push(t3);
-    } else if (txType === 'send') {
+    } else if (pending.type === 'send') {
       const t1 = setTimeout(() => {
         setScreen('send-complete');
       }, PROCESSING_TIMING.processingDelay);
@@ -181,6 +117,18 @@ export function ConfirmationScreen() {
           totalFees: pending.totalFees,
           recipient: pending.recipient || '',
           feeDetails: pending.fees,
+          intlLocale: getIntlLocale(locale),
+        });
+
+        analyticsService.track({
+          name: 'pre_demo_transaction_completed',
+          parameters: {
+            type: 'send',
+            amount: pending.grossAmount,
+            net_amount: pending.netAmount,
+            fees: pending.totalFees,
+            recipient: pending.recipient,
+          },
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
@@ -207,6 +155,18 @@ export function ConfirmationScreen() {
             ? { symbol: pending.asset.symbol, name: pending.asset.name }
             : { symbol: '', name: '' },
           feeDetails: pending.fees,
+          intlLocale: getIntlLocale(locale),
+        });
+
+        analyticsService.track({
+          name: 'pre_demo_transaction_completed',
+          parameters: {
+            type: 'buy',
+            amount: pending.grossAmount,
+            net_amount: pending.netAmount,
+            fees: pending.totalFees,
+            asset: pending.asset?.symbol,
+          },
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {
@@ -220,7 +180,55 @@ export function ConfirmationScreen() {
       }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay);
       timerRef.current.push(t2);
     }
-  }, [txType, processingPrefix, pending, dispatch, setScreen]);
+  }, [pending, dispatch, setScreen]);
+
+  if (!pending) return null;
+
+  // Title by type
+  const titleKey =
+    pending.type === 'deposit'
+      ? 'preDemo.confirm.titleDeposit'
+      : pending.type === 'send'
+        ? 'preDemo.confirm.titleSend'
+        : 'preDemo.confirm.titleBuy';
+
+  // Type label
+  const typeLabelKey =
+    pending.type === 'deposit'
+      ? 'preDemo.confirm.typeDeposit'
+      : pending.type === 'send'
+        ? 'preDemo.confirm.typeSend'
+        : 'preDemo.confirm.typeBuy';
+
+  // Back navigation
+  const backScreen =
+    pending.type === 'deposit'
+      ? 'deposit'
+      : pending.type === 'send'
+        ? 'send'
+        : 'buy';
+
+  // "You'll receive" vs "They'll receive"
+  const receiveKey =
+    pending.type === 'send'
+      ? 'preDemo.confirm.theyReceive'
+      : 'preDemo.confirm.youReceive';
+
+  // Terms text key
+  const termsKey =
+    pending.type === 'deposit'
+      ? 'preDemo.confirm.termsDeposit'
+      : pending.type === 'send'
+        ? 'preDemo.confirm.termsSend'
+        : 'preDemo.confirm.termsBuy';
+
+  // Confirm button text — type-specific
+  const confirmButtonKey =
+    pending.type === 'deposit'
+      ? 'preDemo.confirm.confirmDeposit'
+      : pending.type === 'send'
+        ? 'preDemo.confirm.confirmTransfer'
+        : 'preDemo.confirm.confirmPurchase';
 
   return (
     <div className={styles.screen}>
@@ -235,9 +243,7 @@ export function ConfirmationScreen() {
           }}
           className={styles.backButton}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <BackIcon />
           {t('preDemo.common.back')}
         </button>
 
@@ -249,20 +255,20 @@ export function ConfirmationScreen() {
         <div className={styles.confirmCard}>
           <div className={styles.confirmHeader}>
             <div className={styles.confirmIcon}>
-              <TypeIcon type={txType} />
+              <TypeIcon type={pending.type} />
             </div>
             <div>
               <div className={styles.confirmTypeLabel}>{t(typeLabelKey)}</div>
               {pending.paymentMethod && (
                 <div className={styles.confirmMethod}>
-                  {getMethodDisplay(pending.paymentMethod)}
+                  {t(METHOD_KEYS[pending.paymentMethod] || 'preDemo.confirm.methodCard')}
                 </div>
               )}
             </div>
           </div>
 
           {/* Recipient (send only) */}
-          {txType === 'send' && pending.recipient && (
+          {pending.type === 'send' && pending.recipient && (
             <div className={styles.confirmDetail}>
               <span className={styles.confirmDetailLabel}>
                 {t('preDemo.confirm.recipient')}
@@ -272,7 +278,7 @@ export function ConfirmationScreen() {
           )}
 
           {/* Asset (buy only) */}
-          {txType === 'buy' && pending.asset && (
+          {pending.type === 'buy' && pending.asset && (
             <div className={styles.confirmDetail}>
               <span className={styles.confirmDetailLabel}>
                 {t('preDemo.confirm.asset')}
@@ -289,7 +295,7 @@ export function ConfirmationScreen() {
               {t('preDemo.confirm.totalAmount')}
             </span>
             <span className={styles.confirmDetailValue}>
-              {formatCurrency(pending.grossAmount)}
+              {formatCurrency(pending.grossAmount, 2, locale)}
             </span>
           </div>
         </div>
@@ -304,19 +310,19 @@ export function ConfirmationScreen() {
         {/* Net amount — crypto format for buy, fiat for others */}
         <div className={styles.confirmTotal}>
           <span>{t(receiveKey)}</span>
-          {txType === 'buy' && pending.asset && cryptoQuantity > 0 ? (
+          {pending.type === 'buy' && pending.asset && cryptoQuantity > 0 ? (
             <div style={{ textAlign: 'right' }}>
               <span className={styles.confirmTotalAmount}>
                 {cryptoQuantity.toFixed(8)} {pending.asset.symbol}
               </span>
               <br />
               <span style={{ fontSize: 12, color: '#94a3b8' }}>
-                {intl.formatMessage({ id: 'preDemo.transaction.approximate', defaultMessage: '≈' })} {formatCurrency(pending.netAmount)}
+                {t('preDemo.transaction.approximate')} {formatCurrency(pending.netAmount, 2, locale)}
               </span>
             </div>
           ) : (
             <span className={styles.confirmTotalAmount}>
-              {formatCurrency(pending.netAmount)}
+              {formatCurrency(pending.netAmount, 2, locale)}
             </span>
           )}
         </div>
@@ -327,9 +333,10 @@ export function ConfirmationScreen() {
             <input
               type="checkbox"
               checked={state.termsAccepted}
-              onChange={(e) =>
-                dispatch({ type: 'SET_TERMS_ACCEPTED', accepted: e.target.checked })
-              }
+              onChange={(e) => {
+                analyticsService.track({ name: 'pre_demo_terms_toggle', parameters: { type: pending.type, accepted: e.target.checked } });
+                dispatch({ type: 'SET_TERMS_ACCEPTED', accepted: e.target.checked });
+              }}
               className={styles.checkbox}
             />
             <span className={styles.checkboxText}>{t(termsKey)}</span>

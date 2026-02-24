@@ -7,6 +7,7 @@
  * Service Agnostic Abstraction: Platform-independent error reporting
  */
 
+import * as Sentry from '@sentry/nextjs';
 import { Logger } from '@/lib/monitoring/Logger';
 import { sectionEventBus, SectionEventType, ErrorEventPayload } from '@/lib/events/SectionEventBus';
 import { alertingService, AlertSeverity } from '@/lib/monitoring/AlertingService';
@@ -54,6 +55,11 @@ export class ErrorReportingService {
   private sessionId: string;
   private isInitialized = false;
 
+  // Store bound handlers for proper cleanup
+  private boundHandleGlobalError = (event: ErrorEvent) => this.handleGlobalError(event);
+  private boundHandleUnhandledRejection = (event: PromiseRejectionEvent) => this.handleUnhandledRejection(event);
+  private boundHandleResourceError = (event: Event) => this.handleResourceError(event);
+
   constructor(config?: Partial<ErrorReportingConfig>) {
     this.config = { ...DEFAULT_ERROR_CONFIG, ...config };
     this.sessionId = generateSessionId();
@@ -67,11 +73,11 @@ export class ErrorReportingService {
   private initialize(): void {
     if (this.isInitialized) return;
 
-    // Set up global error handlers
+    // Global error/rejection handlers are registered by MonitoringService
+    // (single coordinator pattern) and delegated here via handleError().
+    // Only resource loading errors are captured directly.
     if (typeof window !== 'undefined') {
-      window.addEventListener('error', this.handleGlobalError.bind(this));
-      window.addEventListener('unhandledrejection', this.handleUnhandledRejection.bind(this));
-      window.addEventListener('error', this.handleResourceError.bind(this), true);
+      window.addEventListener('error', this.boundHandleResourceError, true);
     }
 
     // Initialize breadcrumb collection
@@ -423,6 +429,52 @@ export class ErrorReportingService {
     this.reportedErrors.clear();
     this.breadcrumbManager.clear();
     Logger.info('Error history cleared');
+  }
+
+  /**
+   * Public error handler for delegation from MonitoringService
+   */
+  public handleError(error: Error, context?: Partial<ErrorContext>): string {
+    return this.reportError(error, { context });
+  }
+
+  /**
+   * Capture exception via Sentry (abstraction layer for error boundaries)
+   * All error boundaries should use this instead of importing Sentry directly.
+   */
+  public captureException(
+    error: Error,
+    context?: {
+      tags?: Record<string, string | undefined>;
+      extra?: Record<string, unknown>;
+      level?: 'fatal' | 'error' | 'warning' | 'info';
+    }
+  ): void {
+    try {
+      Sentry.captureException(error, {
+        tags: context?.tags,
+        extra: context?.extra,
+        level: context?.level,
+      });
+    } catch (sentryError) {
+      Logger.error('Failed to capture exception via Sentry', {
+        originalError: error.message,
+        sentryError,
+      });
+    }
+  }
+
+  /**
+   * Cleanup all global listeners and resources
+   */
+  public destroy(): void {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('error', this.boundHandleResourceError, true);
+    }
+    this.breadcrumbManager.clear();
+    this.reportedErrors.clear();
+    this.isInitialized = false;
+    Logger.info('Error reporting service destroyed');
   }
 }
 

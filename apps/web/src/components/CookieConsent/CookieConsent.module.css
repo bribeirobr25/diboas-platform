@@ -15,8 +15,8 @@
   left: 0;
   right: 0;
   z-index: var(--z-index-modal);
+  /* Solid background — backdrop-filter on position:fixed breaks iOS Safari scroll */
   background: linear-gradient(135deg, var(--glass-bg-dark) 0%, var(--color-slate-800) 100%);
-  backdrop-filter: blur(var(--blur-md));
   border-top: 1px solid var(--glass-border-dark);
   box-shadow: 0 -4px 24px var(--overlay-subtle);
   transform: translateY(100%);
@@ -26,7 +26,9 @@
 }
 
 .banner.visible {
-  transform: translateY(0);
+  /* Use 'none' instead of 'translateY(0)' — an identity transform on
+     position:fixed creates a compositing layer that traps touch events on iOS */
+  transform: none;
   opacity: 1;
 }
 
@@ -115,6 +117,7 @@
 @media (max-width: 768px) {
   .button {
     flex: 1;
+    min-width: 0;
     padding: var(--spacing-md) var(--spacing-lg);
     font-size: var(--font-size-sm);
   }

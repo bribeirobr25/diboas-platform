@@ -1,0 +1,122 @@
+'use client';
+
+/**
+ * Landing Route Group Error Boundary
+ *
+ * Catches errors in landing pages and provides recovery UI.
+ * Reports to Sentry for monitoring.
+ */
+
+import { useEffect } from 'react';
+import { errorReportingService } from '@/lib/errors/ErrorReportingService';
+
+interface ErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
+
+export default function LandingError({ error, reset }: ErrorProps) {
+  useEffect(() => {
+    errorReportingService.captureException(error, {
+      tags: {
+        errorBoundary: 'landing-route-group',
+        digest: error.digest,
+      },
+      level: 'error',
+    });
+  }, [error]);
+
+  return (
+    <div
+      style={{
+        minHeight: '50vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '2rem',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: '500px',
+          padding: '2rem',
+          textAlign: 'center',
+          backgroundColor: 'var(--error-bg-light, #fef2f2)',
+          border: '1px solid var(--error-border-light, #fecaca)',
+          borderRadius: '0.75rem',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '1.25rem',
+            fontWeight: 'bold',
+            marginBottom: '1rem',
+            color: 'var(--error-text-primary, #dc2626)',
+          }}
+        >
+          Something went wrong
+        </h2>
+        <p
+          style={{
+            color: 'var(--error-text-secondary, #374151)',
+            marginBottom: '1.5rem',
+            lineHeight: '1.6',
+          }}
+        >
+          We encountered an error loading this page. Please try again or return
+          to the homepage.
+        </p>
+        <div
+          style={{
+            display: 'flex',
+            gap: '1rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <button
+            onClick={reset}
+            style={{
+              backgroundColor: 'var(--error-button-primary, #3b82f6)',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '0.5rem',
+              padding: '0.625rem 1.25rem',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              cursor: 'pointer',
+            }}
+          >
+            Try again
+          </button>
+          <button
+            onClick={() => (window.location.href = '/')}
+            style={{
+              backgroundColor: 'transparent',
+              color: 'var(--error-text-secondary, #374151)',
+              border: '1px solid var(--error-border-light, #d1d5db)',
+              borderRadius: '0.5rem',
+              padding: '0.625rem 1.25rem',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              cursor: 'pointer',
+            }}
+          >
+            Go to homepage
+          </button>
+        </div>
+        {process.env.NODE_ENV === 'development' && error.digest && (
+          <p
+            style={{
+              marginTop: '1.5rem',
+              fontSize: '0.75rem',
+              color: 'var(--error-text-muted, #6b7280)',
+            }}
+          >
+            Error ID: {error.digest}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}

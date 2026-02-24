@@ -6,20 +6,15 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { StrategiesPageContent } from '@/components/Pages/StrategiesPageContent';
 import type { Metadata } from 'next';
+import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
-
-interface StrategiesPageProps {
-  params: Promise<{
-    locale: string;
-  }>;
-}
 
 /**
  * Generate metadata for the Strategies page
  * Uses i18n translations for locale-aware SEO
  */
-export async function generateMetadata({ params }: StrategiesPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
 
@@ -56,12 +51,13 @@ export async function generateMetadata({ params }: StrategiesPageProps): Promise
       images: [`${siteUrl}/api/og/strategies`],
     },
     alternates: {
-      canonical: `/strategies`,
+      canonical: `${siteUrl}/${validLocale}/strategies`,
       languages: {
-        'en': '/en/strategies',
-        'de': '/de/strategies',
-        'pt-BR': '/pt-BR/strategies',
-        'es': '/es/strategies',
+        'en': `${siteUrl}/en/strategies`,
+        'de': `${siteUrl}/de/strategies`,
+        'es': `${siteUrl}/es/strategies`,
+        'pt-BR': `${siteUrl}/pt-BR/strategies`,
+        'x-default': `${siteUrl}/en/strategies`,
       },
     },
   };
@@ -78,7 +74,7 @@ export async function generateMetadata({ params }: StrategiesPageProps): Promise
  * - Section 5: FAQ
  * - Section 6: Final CTA / Waitlist
  */
-export default async function StrategiesPage({ params }: StrategiesPageProps) {
+export default async function StrategiesPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
 

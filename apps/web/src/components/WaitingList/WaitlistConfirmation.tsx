@@ -13,11 +13,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { Button } from '@diboas/ui';
 import { ReferralLink } from './ReferralLink';
-import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
+import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import { formatPosition } from '@/lib/waitingList/helpers';
-import { analyticsService } from '@/lib/analytics';
 import styles from './WaitlistConfirmation.module.css';
 
 interface WaitlistConfirmationProps {
@@ -29,8 +27,6 @@ interface WaitlistConfirmationProps {
   referralUrl: string;
   /** Number of successful referrals (optional) */
   referralCount?: number;
-  /** Callback when Dream Mode CTA is clicked */
-  onDreamModeClick?: () => void;
   /** Callback when share is initiated */
   onShareClick?: (platform: string) => void;
   /** Custom class name */
@@ -42,7 +38,6 @@ export function WaitlistConfirmation({
   referralCode,
   referralUrl,
   referralCount = 0,
-  onDreamModeClick,
   onShareClick,
   className = '',
 }: WaitlistConfirmationProps) {
@@ -77,24 +72,11 @@ export function WaitlistConfirmation({
     return () => clearInterval(timer);
   }, [position]);
 
-  const handleDreamModeClick = () => {
-    analyticsService.track({
-      name: 'waitlist_dream_mode_click',
-      parameters: {
-        position,
-        locale,
-        timestamp: Date.now(),
-      },
-    });
-    onDreamModeClick?.();
-  };
-
   return (
     <div className={`${styles.container} ${className}`}>
       {/* Success header */}
       <div className={styles.header}>
         <h2 className={styles.headline}>{t('confirmation.headline')}</h2>
-        <p className={styles.subhead}>{t('confirmation.subhead')}</p>
       </div>
 
       {/* Position display */}
@@ -126,18 +108,6 @@ export function WaitlistConfirmation({
         )}
       </div>
 
-      {/* Dream Mode CTA - Using shared Button component */}
-      {onDreamModeClick && (
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={handleDreamModeClick}
-          trackable
-          className={styles.dreamModeCta}
-        >
-          {t('confirmation.dreamModeCta')}
-        </Button>
-      )}
     </div>
   );
 }

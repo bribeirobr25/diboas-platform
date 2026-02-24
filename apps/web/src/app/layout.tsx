@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
+import { headers } from "next/headers";
+import { Inter } from "next/font/google";
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
@@ -9,22 +10,13 @@ import "./globals.css";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: 'swap',
   preload: true,
   adjustFontFallback: true,
   fallback: ['system-ui', 'arial'],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: 'swap',
-  preload: true,
-  adjustFontFallback: true,
-  fallback: ['ui-monospace', 'Courier New', 'monospace'],
 });
 
 export const viewport: Viewport = {
@@ -49,15 +41,18 @@ export const metadata: Metadata = {
       { url: '/favicon.avif', type: 'image/avif' }
     ],
     shortcut: '/favicon.svg',
-    apple: '/assets/logos/logo-icon.png',
+    apple: '/assets/logos/logo-icon.avif',
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const nonce = headersList.get('x-nonce') ?? undefined;
+
   return (
     <html lang={UI_LAYOUT_CONSTANTS.DEFAULT_LOCALE} suppressHydrationWarning>
       <head>
@@ -69,6 +64,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.diboas.com" />
         <script
           type="application/ld+json"
+          nonce={nonce}
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
@@ -82,8 +79,11 @@ export default function RootLayout({
         {/* Google Analytics 4 with Consent Mode */}
         {GA_MEASUREMENT_ID && (
           <>
-            <Script id="gtag-consent-default" strategy="beforeInteractive">
-              {`
+            <script
+              nonce={nonce}
+              suppressHydrationWarning
+              dangerouslySetInnerHTML={{
+                __html: `
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
 
@@ -110,13 +110,15 @@ export default function RootLayout({
                     gtag('consent', 'update', { 'analytics_storage': 'denied' });
                   }
                 });
-              `}
-            </Script>
+              `,
+              }}
+            />
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
               strategy="afterInteractive"
+              nonce={nonce}
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
               {`
                 gtag('js', new Date());
                 gtag('config', '${GA_MEASUREMENT_ID}');
@@ -126,7 +128,7 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} ${geistSans.variable} ${geistMono.variable}`}
+        className={`${UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} ${inter.variable}`}
         suppressHydrationWarning
       >
         <PostHogProvider>
