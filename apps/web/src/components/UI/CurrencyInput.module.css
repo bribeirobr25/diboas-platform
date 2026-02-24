@@ -1,0 +1,160 @@
+/**
+ * CurrencyInput Styles
+ *
+ * Improved UI/UX with:
+ * - Better spacing and breathing room
+ * - Larger touch targets for mobile
+ * - Clearer visual hierarchy
+ * - Consistent with design system
+ */
+
+.inputGroup {
+  width: var(--percent-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.inputLabel {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: var(--section-bg-white);
+  border: var(--cta-border-width) solid var(--color-slate-200);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  transition: border-color var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-teal-500);
+  box-shadow: var(--cta-shadow-focus);
+}
+
+.currencySymbol {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+}
+
+.input {
+  flex: 1;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  min-width: 0;
+  width: var(--percent-100);
+}
+
+.input:focus-visible {
+  box-shadow: none;
+}
+
+/* Hide number input spinners */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Range slider styling */
+.slider {
+  width: var(--percent-100);
+  height: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: var(--color-slate-200);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider:focus-visible {
+  box-shadow: var(--cta-shadow-focus);
+}
+
+/* WebKit slider thumb */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+  border-radius: var(--radius-full);
+  background: var(--color-teal-500);
+  cursor: pointer;
+  transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+  box-shadow: 0 2px 8px var(--teal-shadow);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: var(--transform-scale-110);
+  box-shadow: 0 4px 12px var(--teal-shadow);
+}
+
+/* Firefox slider thumb */
+.slider::-moz-range-thumb {
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-teal-500);
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--teal-shadow);
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: var(--transform-scale-110);
+}
+
+/* Disabled state */
+.slider:disabled,
+.input:disabled {
+  opacity: var(--opacity-50);
+  cursor: not-allowed;
+}
+
+.slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+.slider:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .inputWrapper {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .currencySymbol {
+    font-size: var(--font-size-lg);
+  }
+
+  .input {
+    font-size: var(--font-size-lg);
+  }
+
+  .slider::-webkit-slider-thumb {
+    width: var(--spacing-3xl);
+    height: var(--spacing-3xl);
+  }
+
+  .slider::-moz-range-thumb {
+    width: var(--spacing-3xl);
+    height: var(--spacing-3xl);
+  }
+}
