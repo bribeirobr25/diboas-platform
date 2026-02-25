@@ -38,19 +38,47 @@ import {
   getByEmail,
   getByReferralCode,
   processReferral,
+  getFoundingMemberCount,
   type WaitlistSource,
   type WaitlistTier,
 } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
+import { logEmailDelivery } from '@/lib/email/deliveryLogger';
 import {
   applicationEventBus,
   ApplicationEventType,
 } from '@/lib/events/ApplicationEventBus';
 
+/**
+ * Detect country from CDN geo-IP headers with Accept-Language fallback.
+ * Does NOT store IP addresses — only derives a country code from headers.
+ */
+function detectCountry(request: NextRequest): string | undefined {
+  // 1. Vercel (production)
+  const vercel = request.headers.get('x-vercel-ip-country');
+  if (vercel && vercel !== 'XX') return vercel;
+
+  // 2. Cloudflare (if behind CF proxy)
+  const cf = request.headers.get('cf-ipcountry');
+  if (cf && cf !== 'XX') return cf;
+
+  // 3. Accept-Language heuristic (last resort, imprecise)
+  const acceptLang = request.headers.get('accept-language');
+  if (acceptLang) {
+    const primary = acceptLang.split(',')[0]?.trim().toLowerCase();
+    if (primary?.startsWith('pt-br')) return 'BR';
+    if (primary?.startsWith('de')) return 'DE';
+    if (primary?.startsWith('es')) return 'ES';
+    if (primary?.startsWith('fr')) return 'FR';
+    if (primary?.startsWith('en-gb')) return 'GB';
+  }
+
+  return undefined;
+}
+
 interface SignupRequestBody {
   email: string;
   name?: string;
-  xAccount?: string;
   locale: string;
   gdprAccepted: boolean;
   referredBy?: string;
@@ -159,8 +187,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     // Generate referral code for new user
     const referralCode = generateReferralCode(REFERRAL_CONFIG.codePrefix, REFERRAL_CONFIG.codeLength);
 
-    // Detect country from Vercel/CDN headers (optional, for Founders Wall)
-    const country = request.headers.get('x-vercel-ip-country') || undefined;
+    // Detect country from CDN geo-IP headers (optional, for Founders Wall)
+    const country = detectCountry(request);
 
     // Add entry to store (tier determination + referrer lookup happens inside addEntry)
     const entry = await addEntry({
@@ -191,6 +219,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       referralUrl,
       locale: body.locale || 'en',
       name: body.name ? sanitizeUserName(body.name) : undefined,
+      tier: entry.tier,
     });
 
     // Emit signup completed event for analytics and audit trail
@@ -200,7 +229,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       submissionId: entry.id,
       locale: body.locale || 'en',
       hasName: !!body.name,
-      hasXAccount: !!body.xAccount,
       referralCode: referredBy,
       metadata: {
         position: entry.position,
@@ -273,12 +301,15 @@ function sendWelcomeEmail(
     referralUrl: string;
     locale: string;
     name?: string;
+    tier: string;
   }
 ): void {
   Promise.all([
     import('@diboas/email'),
-  ]).then(async ([{ createEmailService, sendViaResend }]) => {
+    getFoundingMemberCount(),
+  ]).then(async ([{ createEmailService, sendViaResend }, foundingMember]) => {
     try {
+      const spotsRemaining = Math.max(0, foundingMember.cap - foundingMember.count);
       const emailService = createEmailService({ send: sendViaResend });
       const result = await emailService.sendWelcome(email, {
         position: data.position,
@@ -286,6 +317,8 @@ function sendWelcomeEmail(
         referralUrl: data.referralUrl,
         locale: data.locale,
         name: data.name,
+        tier: data.tier as 'founding_member' | 'early_member' | 'priority_waitlist' | 'standard',
+        foundingMemberSpotsRemaining: spotsRemaining,
       });
 
       if (result.success) {
@@ -293,6 +326,17 @@ function sendWelcomeEmail(
       } else {
         Logger.error('[Email] Welcome email failed', { email, error: result.error });
       }
+
+      // Log delivery to email_delivery_logs (fire-and-forget)
+      logEmailDelivery({
+        recipientEmail: email,
+        template: 'welcome',
+        subject: 'Welcome to diBoaS',
+        locale: data.locale,
+        providerId: result.messageId,
+        status: result.success ? 'sent' : 'failed',
+        errorMessage: result.error,
+      });
     } catch (err) {
       Logger.error('[Email] Welcome email error', {}, err instanceof Error ? err : undefined);
     }

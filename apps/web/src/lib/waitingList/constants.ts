@@ -23,8 +23,6 @@ export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
 
 // Referral mechanics configuration
 export const REFERRAL_CONFIG = {
-  // Spots moved up per successful referral
-  spotsPerReferral: 10,
   // Base URL for referral links
   referralBaseUrl: APP_URL,
   // Referral code prefix (for identification)

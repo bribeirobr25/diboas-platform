@@ -26,6 +26,7 @@ export interface WaitlistSuccessData {
   position: number;
   referralCode: string;
   referralUrl: string;
+  tier?: string;
 }
 
 interface UseWaitlistFormOptions {
@@ -39,6 +40,7 @@ interface UseWaitlistFormReturn {
   formState: FormState;
   error: string | null;
   isLoading: boolean;
+  hasReferral: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
 }
@@ -72,6 +74,7 @@ export function useWaitlistForm({
   });
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasReferral, setHasReferral] = useState(false);
 
   // Ref to prevent double-submit (immediate check before React state update)
   const isSubmittingRef = useRef(false);
@@ -79,6 +82,7 @@ export function useWaitlistForm({
   const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
+    setHasReferral(getReferralCode() !== null);
     return () => {
       abortControllerRef.current?.abort();
     };
@@ -175,6 +179,7 @@ export function useWaitlistForm({
               position: data.position,
               referralCode: data.referralCode,
               referralUrl: data.referralUrl,
+              tier: data.tier,
             });
           }
         } else if (data.errorCode === 'INVALID_EMAIL') {
@@ -197,11 +202,15 @@ export function useWaitlistForm({
         },
       });
 
+      // Clear social proof cache so counter updates on next render/refresh
+      try { sessionStorage.removeItem('diboas-waitlist-stats'); } catch { /* SSR or unavailable */ }
+
       // Call success callback
       onSuccess({
         position: data.position,
         referralCode: data.referralCode,
         referralUrl: data.referralUrl,
+        tier: data.tier,
       });
 
     } catch (error) {
@@ -238,6 +247,7 @@ export function useWaitlistForm({
     formState,
     error,
     isLoading,
+    hasReferral,
     handleInputChange,
     handleSubmit,
   };

@@ -25,6 +25,8 @@ interface ReferralLinkProps {
   referralUrl: string;
   /** User's position on the waitlist */
   position?: number;
+  /** User's tier */
+  tier?: string;
   /** Callback when share button is clicked */
   onShare?: (platform: string) => void;
   /** Show compact version */
@@ -37,6 +39,7 @@ export function ReferralLink({
   referralCode,
   referralUrl,
   position,
+  tier: _tier,
   onShare,
   compact = false,
   className = '',

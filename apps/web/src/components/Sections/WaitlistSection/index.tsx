@@ -31,6 +31,7 @@ interface SignupData {
   position: number;
   referralCode: string;
   referralUrl: string;
+  tier?: string;
 }
 
 export const WaitlistSection = memo(function WaitlistSection({
@@ -79,6 +80,7 @@ export const WaitlistSection = memo(function WaitlistSection({
               position={signupData.position}
               referralCode={signupData.referralCode}
               referralUrl={signupData.referralUrl}
+              tier={signupData.tier}
             />
           )}
         </div>

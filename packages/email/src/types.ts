@@ -1,8 +1,10 @@
+export type WaitlistTier = 'founding_member' | 'early_member' | 'priority_waitlist' | 'standard';
+
 export type EmailTemplate =
   | 'welcome'
-  | 'position-update'
   | 'referral-success'
-  | 'deletion-confirmation';
+  | 'deletion-confirmation'
+  | 'deletion-complete';
 
 export interface EmailPayload {
   to: string;
@@ -34,23 +36,26 @@ export interface WelcomeEmailData {
   referralCode: string;
   referralUrl: string;
   locale: string;
-}
-
-export interface PositionUpdateEmailData {
-  name?: string;
-  oldPosition: number;
-  newPosition: number;
-  spotsGained: number;
-  locale: string;
+  tier: WaitlistTier;
+  foundingMemberSpotsRemaining?: number;
 }
 
 export interface ReferralSuccessEmailData {
   name?: string;
   referralCount: number;
-  newPosition: number;
+  tier: WaitlistTier;
+  invitesRemaining: number;
   locale: string;
 }
 
 export interface DeletionConfirmationEmailData {
   locale: string;
+  confirmationUrl: string;
+  expiresInMinutes: number;
+  name?: string;
+}
+
+export interface DeletionCompleteEmailData {
+  locale: string;
+  name?: string;
 }

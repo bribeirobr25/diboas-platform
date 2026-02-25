@@ -115,6 +115,16 @@
   line-height: 1;
 }
 
+.tierExplanation {
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  max-width: 400px;
+  line-height: var(--line-height-description);
+}
+
 /* Referral Section - Minimalist flat style */
 .referralSection {
   width: var(--percent-100);

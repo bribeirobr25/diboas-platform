@@ -382,6 +382,11 @@ export async function getTotalCount(): Promise<number> {
   return (rows[0] as { count: number }).count;
 }
 
+export async function getDistinctCountryCount(): Promise<number> {
+  const rows = await sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL`;
+  return (rows[0] as { count: number }).count;
+}
+
 export async function addTags(email: string, newTags: string[]): Promise<WaitlistEntry | undefined> {
   const hash = emailHash(email);
   if (!hash) return undefined;

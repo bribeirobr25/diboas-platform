@@ -28,6 +28,8 @@ function validateProductionSecrets(): void {
     'ENCRYPTION_KEY',
     'DATABASE_URL',
     'INTERNAL_API_KEY',
+    'RESEND_API_KEY',
+    'HMAC_KEY',
   ] as const;
 
   const missing = required.filter((key) => !process.env[key]);

@@ -48,6 +48,7 @@ export interface EmailDeliveryLogRow {
 export interface DeletionTokenRow {
   token_hash: string;
   email: string;
+  email_hash: string | null;
   expires_at: string;
   created_at: string;
 }

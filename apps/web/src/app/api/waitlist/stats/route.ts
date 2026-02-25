@@ -17,7 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { Logger } from '@/lib/monitoring/Logger';
-import { getTotalCount, getCurrentPositionCounter } from '@/lib/waitingList/store';
+import { getTotalCount, getCurrentPositionCounter, getFoundingMemberCount, getDistinctCountryCount } from '@/lib/waitingList/store';
 import { WAITLIST_STATS_FALLBACK, type WaitlistStats } from '@/config/waitlist-stats';
 import {
   checkRateLimit,
@@ -34,6 +34,12 @@ const CACHE_HEADERS = {
 };
 
 export async function GET(request: NextRequest): Promise<NextResponse<WaitlistStats>> {
+  // Support cache bypass for real-time accuracy after signup
+  const noCache = request.nextUrl.searchParams.get('fresh') === '1';
+  const responseHeaders = noCache
+    ? { 'Cache-Control': 'no-store' }
+    : CACHE_HEADERS;
+
   // Rate limiting (lenient preset for read-only endpoint)
   const clientIP = getClientIP(request);
   const rateLimitResult = await checkRateLimit(
@@ -55,6 +61,14 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   }
 
   try {
+    // Founding member data is always needed, regardless of response path
+    const foundingMember = await getFoundingMemberCount();
+    const foundingMemberFields = {
+      foundingMemberCount: foundingMember.count,
+      foundingMemberCap: foundingMember.cap,
+      foundingMemberSpotsRemaining: Math.max(0, foundingMember.cap - foundingMember.count),
+    };
+
     // Check for environment variable overrides first (manual control)
     const envCount = process.env.NEXT_PUBLIC_WAITLIST_COUNT;
     const envCountries = process.env.NEXT_PUBLIC_WAITLIST_COUNTRIES;
@@ -65,13 +79,15 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
         countries: parseInt(envCountries, 10),
         source: 'env',
         lastUpdated: new Date().toISOString(),
-      }, { headers: CACHE_HEADERS });
+        ...foundingMemberFields,
+      }, { headers: responseHeaders });
     }
 
-    // Get live data from store (both are now async)
-    const [storeCount, positionCounter] = await Promise.all([
+    // Get live data from store (all async, parallel fetch)
+    const [storeCount, positionCounter, countryCount] = await Promise.all([
       getTotalCount(),
       getCurrentPositionCounter(),
+      getDistinctCountryCount(),
     ]);
 
     // Use position counter as count (more representative of total signups)
@@ -81,13 +97,14 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
     if (actualCount > 0) {
       return NextResponse.json({
         count: actualCount,
-        // Countries: Use env override or fallback (we don't track countries in store yet)
+        // Countries: env override > live distinct count > fallback
         countries: envCountries
           ? parseInt(envCountries, 10)
-          : WAITLIST_STATS_FALLBACK.countries,
+          : countryCount || WAITLIST_STATS_FALLBACK.countries,
         source: 'store',
         lastUpdated: new Date().toISOString(),
-      }, { headers: CACHE_HEADERS });
+        ...foundingMemberFields,
+      }, { headers: responseHeaders });
     }
 
     // Fallback values
@@ -96,7 +113,8 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
       countries: WAITLIST_STATS_FALLBACK.countries,
       source: 'fallback',
       lastUpdated: new Date().toISOString(),
-    }, { headers: CACHE_HEADERS });
+      ...foundingMemberFields,
+    }, { headers: responseHeaders });
   } catch (error) {
     Logger.error('Error fetching waitlist stats', {}, error instanceof Error ? error : undefined);
 

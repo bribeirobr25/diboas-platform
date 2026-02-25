@@ -4,59 +4,68 @@ import { BRAND } from '../config';
 
 const translations: Record<string, Record<string, string>> = {
   en: {
-    subject: 'Your data has been deleted',
-    title: 'Data deletion complete',
-    body: 'As requested, we have permanently deleted all your personal data from the diBoaS waitlist.',
-    deletedTitle: 'What was deleted:',
-    deletedItems: 'Email address, name, waitlist position, referral data, and all associated records.',
-    contact: 'If you have questions or believe this was done in error, please contact us at',
-    farewell: 'We wish you all the best.',
+    subject: 'Confirm your data deletion request',
+    title: 'Confirm data deletion',
+    greeting: 'Hi{name},',
+    greetingNoName: 'Hi,',
+    body: 'We received a request to permanently delete your data from the diBoaS waitlist. Click the button below to confirm.',
+    ctaButton: 'Confirm deletion',
+    expiry: 'This link expires in {minutes} minutes.',
+    safety: "If you didn't request this, you can safely ignore this email. No data will be deleted.",
   },
   'pt-BR': {
-    subject: 'Seus dados foram excluídos',
-    title: 'Exclusão de dados concluída',
-    body: 'Conforme solicitado, excluímos permanentemente todos os seus dados pessoais da lista de espera do diBoaS.',
-    deletedTitle: 'O que foi excluído:',
-    deletedItems: 'Endereço de e-mail, nome, posição na lista, dados de indicação e todos os registros associados.',
-    contact: 'Se tiver dúvidas ou acreditar que isso foi feito por engano, entre em contato conosco em',
-    farewell: 'Desejamos tudo de bom.',
+    subject: 'Confirme sua solicitação de exclusão de dados',
+    title: 'Confirmar exclusão de dados',
+    greeting: 'Olá{name},',
+    greetingNoName: 'Olá,',
+    body: 'Recebemos uma solicitação para excluir permanentemente seus dados da lista de espera do diBoaS. Clique no botão abaixo para confirmar.',
+    ctaButton: 'Confirmar exclusão',
+    expiry: 'Este link expira em {minutes} minutos.',
+    safety: 'Se você não fez esta solicitação, pode ignorar este email com segurança. Nenhum dado será excluído.',
   },
   es: {
-    subject: 'Tus datos han sido eliminados',
-    title: 'Eliminación de datos completada',
-    body: 'Como solicitaste, hemos eliminado permanentemente todos tus datos personales de la lista de espera de diBoaS.',
-    deletedTitle: 'Lo que se eliminó:',
-    deletedItems: 'Dirección de correo, nombre, posición, datos de referidos y todos los registros asociados.',
-    contact: 'Si tienes preguntas o crees que fue un error, contáctanos en',
-    farewell: 'Te deseamos lo mejor.',
+    subject: 'Confirma tu solicitud de eliminación de datos',
+    title: 'Confirmar eliminación de datos',
+    greeting: 'Hola{name},',
+    greetingNoName: 'Hola,',
+    body: 'Recibimos una solicitud para eliminar permanentemente tus datos de la lista de espera de diBoaS. Haz clic en el botón de abajo para confirmar.',
+    ctaButton: 'Confirmar eliminación',
+    expiry: 'Este enlace expira en {minutes} minutos.',
+    safety: 'Si no solicitaste esto, puedes ignorar este correo. No se eliminará ningún dato.',
   },
   de: {
-    subject: 'Deine Daten wurden gelöscht',
-    title: 'Datenlöschung abgeschlossen',
-    body: 'Wie gewünscht haben wir alle deine persönlichen Daten dauerhaft von der diBoaS-Warteliste gelöscht.',
-    deletedTitle: 'Was gelöscht wurde:',
-    deletedItems: 'E-Mail-Adresse, Name, Wartelistenposition, Empfehlungsdaten und alle zugehörigen Einträge.',
-    contact: 'Bei Fragen oder wenn dies irrtümlich geschah, kontaktiere uns unter',
-    farewell: 'Wir wünschen dir alles Gute.',
+    subject: 'Bestätige deine Datenlöschungsanfrage',
+    title: 'Datenlöschung bestätigen',
+    greeting: 'Hallo{name},',
+    greetingNoName: 'Hallo,',
+    body: 'Wir haben eine Anfrage erhalten, deine Daten dauerhaft von der diBoaS-Warteliste zu löschen. Klicke auf den Button unten, um zu bestätigen.',
+    ctaButton: 'Löschung bestätigen',
+    expiry: 'Dieser Link läuft in {minutes} Minuten ab.',
+    safety: 'Wenn du dies nicht angefordert hast, kannst du diese E-Mail ignorieren. Es werden keine Daten gelöscht.',
   },
 };
 
 export function renderDeletionConfirmation(data: DeletionConfirmationEmailData): { subject: string; html: string } {
   const t = translations[data.locale] || translations.en;
 
+  const greeting = data.name
+    ? t.greeting.replace('{name}', ` ${data.name}`)
+    : t.greetingNoName;
+
   const content = `
     <h1 style="margin:0 0 8px;font-size:24px;color:${BRAND.textColor};">${t.title}</h1>
+    <p style="margin:0 0 8px;font-size:16px;color:#475569;">${greeting}</p>
     <p style="margin:0 0 24px;font-size:16px;color:#475569;">${t.body}</p>
 
-    <div style="padding:16px;background-color:#f8fafc;border-radius:8px;border-left:4px solid #94a3b8;margin-bottom:24px;">
-      <p style="margin:0 0 8px;font-size:14px;font-weight:600;color:${BRAND.textColor};">${t.deletedTitle}</p>
-      <p style="margin:0;font-size:14px;color:#475569;">${t.deletedItems}</p>
+    <div style="text-align:center;margin-bottom:24px;">
+      <a href="${data.confirmationUrl}" style="display:inline-block;padding:14px 32px;background-color:#ef4444;color:#ffffff;font-size:16px;font-weight:600;text-decoration:none;border-radius:8px;">${t.ctaButton}</a>
     </div>
 
-    <p style="margin:0 0 8px;font-size:14px;color:#475569;">
-      ${t.contact} <a href="mailto:support@diboas.com" style="color:${BRAND.primaryColor};">support@diboas.com</a>.
-    </p>
-    <p style="margin:0;font-size:14px;color:#475569;">${t.farewell}</p>
+    <div style="padding:16px;background-color:#fef2f2;border-radius:8px;border-left:4px solid #ef4444;margin-bottom:16px;">
+      <p style="margin:0;font-size:13px;color:#991b1b;">${t.expiry.replace('{minutes}', String(data.expiresInMinutes))}</p>
+    </div>
+
+    <p style="margin:0;font-size:13px;color:#94a3b8;">${t.safety}</p>
   `;
 
   return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale }) };

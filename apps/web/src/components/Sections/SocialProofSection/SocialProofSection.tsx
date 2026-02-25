@@ -13,7 +13,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import { Users, Globe } from 'lucide-react';
+import { Users, Globe, Star } from 'lucide-react';
 import { analyticsService } from '@/lib/analytics';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
@@ -36,6 +36,7 @@ interface SocialProofSectionProps {
 interface WaitlistStats {
   count: number;
   countries: number;
+  foundingMemberSpotsRemaining?: number;
 }
 
 /**
@@ -83,7 +84,11 @@ export function SocialProofSection({
         const response = await fetch('/api/waitlist/stats', { signal: controller.signal });
         if (response.ok) {
           const data = await response.json();
-          const statsData = { count: data.count, countries: data.countries };
+          const statsData = {
+            count: data.count,
+            countries: data.countries,
+            foundingMemberSpotsRemaining: data.foundingMemberSpotsRemaining,
+          };
           setStats(statsData);
 
           // Write to cache
@@ -123,16 +128,20 @@ export function SocialProofSection({
           // sessionStorage unavailable
         }
 
-        // Re-fetch authoritative data from API
+        // Re-fetch authoritative data from API (bypass HTTP + CDN cache)
         const refetchController = new AbortController();
-        fetch('/api/waitlist/stats', { signal: refetchController.signal })
+        fetch('/api/waitlist/stats?fresh=1', { signal: refetchController.signal, cache: 'no-store' })
           .then(res => {
             if (res.ok) return res.json();
             return null;
           })
           .then(data => {
             if (data) {
-              setStats({ count: data.count, countries: data.countries });
+              setStats({
+                count: data.count,
+                countries: data.countries,
+                foundingMemberSpotsRemaining: data.foundingMemberSpotsRemaining,
+              });
             }
           })
           .catch(() => {
@@ -204,6 +213,34 @@ export function SocialProofSection({
               </p>
             </div>
           </article>
+
+          {/* Founding Member Spots Card */}
+          {stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining > 0 ? (
+            <article className={styles.card}>
+              <div className={styles.iconWrapper}>
+                <Star className={styles.icon} aria-hidden="true" />
+              </div>
+              <div className={styles.cardContent}>
+                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
+                  {intl.formatMessage(
+                    { id: 'waitlist.tier.spotsRemaining' },
+                    { spots: <span key="spots" className={styles.highlight}>{formatNumber(stats.foundingMemberSpotsRemaining, intl.locale)}</span> }
+                  )}
+                </p>
+              </div>
+            </article>
+          ) : stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining === 0 ? (
+            <article className={styles.card}>
+              <div className={styles.iconWrapper}>
+                <Star className={styles.icon} aria-hidden="true" />
+              </div>
+              <div className={styles.cardContent}>
+                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
+                  {intl.formatMessage({ id: 'waitlist.stats.foundingMembersFull' })}
+                </p>
+              </div>
+            </article>
+          ) : null}
         </div>
 
         {ctaText && (

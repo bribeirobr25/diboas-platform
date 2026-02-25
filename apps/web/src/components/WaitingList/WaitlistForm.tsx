@@ -45,6 +45,7 @@ export function WaitlistForm({
     formState,
     error,
     isLoading,
+    hasReferral,
     handleInputChange,
     handleSubmit,
   } = useWaitlistForm({
@@ -59,6 +60,11 @@ export function WaitlistForm({
       onSubmit={handleSubmit}
       className={`${styles.form} ${compact ? styles.compact : ''} ${className}`}
     >
+      {hasReferral ? (
+        <p className={styles.referralIndicator}>
+          {t('referral.invitedIndicator')}
+        </p>
+      ) : null}
       <fieldset className={styles.inputGroup}>
         <legend className="sr-only">{t('form.legendText')}</legend>
         <label htmlFor="waitlist-email" className="sr-only">

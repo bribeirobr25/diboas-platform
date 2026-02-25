@@ -21,9 +21,15 @@
  */
 export const WAITLIST_STATS_FALLBACK = {
   /** Total number of waitlist subscribers */
-  count: 847,
+  count: 0,
   /** Number of countries represented */
-  countries: 12,
+  countries: 0,
+  /** Founding member count */
+  foundingMemberCount: 0,
+  /** Founding member cap */
+  foundingMemberCap: 1200,
+  /** Founding member spots remaining */
+  foundingMemberSpotsRemaining: 1200,
 } as const;
 
 /**
@@ -48,4 +54,7 @@ export interface WaitlistStats {
   countries: number;
   source: 'provider' | 'store' | 'env' | 'fallback';
   lastUpdated: string;
+  foundingMemberCount?: number;
+  foundingMemberCap?: number;
+  foundingMemberSpotsRemaining?: number;
 }

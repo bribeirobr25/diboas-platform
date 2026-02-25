@@ -2,8 +2,10 @@
  * Waitlist Referral API Route
  *
  * Dedicated endpoint for referral operations:
- * - GET: Lookup referral code details
- * - POST: Process a referral (credit referrer)
+ * - GET: Lookup referral code details (for validation before signup)
+ *
+ * Referral processing (crediting referrer) is handled by the signup route
+ * after successful signup — no separate POST endpoint needed.
  *
  * Security:
  * - Rate limiting on all endpoints
@@ -18,15 +20,12 @@ import {
 } from '@/lib/waitingList/helpers';
 import {
   getByReferralCode,
-  getByEmail,
-  processReferral,
 } from '@/lib/waitingList/store';
 import {
   checkRateLimit,
   getClientIP,
   createRateLimitHeaders,
   RateLimitPresets,
-  csrfProtection,
 } from '@/lib/security';
 import {
   applicationEventBus,
@@ -43,14 +42,6 @@ interface ReferralLookupResponse {
     position: number;
     referralCount: number;
   };
-  error?: string;
-}
-
-interface ProcessReferralResponse {
-  success: boolean;
-  referrerEmail?: string;
-  newPosition?: number;
-  newReferralCount?: number;
   error?: string;
 }
 
@@ -124,136 +115,6 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
     });
 
     Logger.error('Referral lookup error', {}, error instanceof Error ? error : undefined);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
-
-/**
- * POST /api/waitlist/referral
- * Process a referral (called after successful signup with referral code)
- *
- * Body: { referralCode: string, referredEmail: string }
- */
-export async function POST(request: NextRequest): Promise<NextResponse<ProcessReferralResponse>> {
-  // CSRF protection
-  const csrfError = csrfProtection(request);
-  if (csrfError) {
-    return csrfError as NextResponse<ProcessReferralResponse>;
-  }
-
-  // Rate limiting
-  const clientIP = getClientIP(request);
-  const rateLimitResult = await checkRateLimit(
-    `referral-process:${clientIP}`,
-    RateLimitPresets.standard.limit,
-    RateLimitPresets.standard.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-    );
-  }
-
-  try {
-    const body = await request.json();
-    const { referralCode, referredEmail } = body;
-
-    if (!referralCode) {
-      return NextResponse.json(
-        { success: false, error: 'Referral code is required' },
-        { status: 400 }
-      );
-    }
-
-    if (!referredEmail) {
-      return NextResponse.json(
-        { success: false, error: 'Referred email is required' },
-        { status: 400 }
-      );
-    }
-
-    // Validate referral code format
-    if (!isValidReferralCode(referralCode, REFERRAL_CONFIG.codePrefix)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid referral code format' },
-        { status: 400 }
-      );
-    }
-
-    // Find the referrer
-    const referrer = await getByReferralCode(referralCode);
-
-    if (!referrer) {
-      return NextResponse.json(
-        { success: false, error: 'Referral code not found' },
-        { status: 404 }
-      );
-    }
-
-    // Verify the referred user exists
-    const referredUser = await getByEmail(referredEmail);
-
-    if (!referredUser) {
-      return NextResponse.json(
-        { success: false, error: 'Referred user not found' },
-        { status: 404 }
-      );
-    }
-
-    // Verify this user was actually referred by this code
-    if (referredUser.referredBy !== referralCode.toUpperCase()) {
-      return NextResponse.json(
-        { success: false, error: 'Referral mismatch' },
-        { status: 400 }
-      );
-    }
-
-    // Process the referral (increment invite count)
-    const updatedReferrer = await processReferral(referrer.email);
-
-    if (!updatedReferrer) {
-      return NextResponse.json(
-        { success: false, error: 'Failed to process referral' },
-        { status: 500 }
-      );
-    }
-
-    // Emit referral used event for analytics and audit trail
-    applicationEventBus.emit(ApplicationEventType.WAITLIST_REFERRAL_USED, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      referralCode: referralCode.toUpperCase(),
-      metadata: {
-        referrerPosition: updatedReferrer.position,
-        referralCount: updatedReferrer.referralCount,
-        spotsAwarded: REFERRAL_CONFIG.spotsPerReferral,
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      referrerEmail: updatedReferrer.email,
-      newPosition: updatedReferrer.position,
-      newReferralCount: updatedReferrer.referralCount,
-    });
-  } catch (error) {
-    // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'medium',
-      context: {
-        operation: 'referral_process',
-      },
-    });
-
-    Logger.error('Process referral error', {}, error instanceof Error ? error : undefined);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }

@@ -5,7 +5,7 @@ import { Navigation } from '@/components/Layout/Navigation';
 import { SiteFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationErrorBoundary';
-import { WaitingListProvider } from '@/components/WaitingList';
+import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
 
@@ -51,6 +51,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
         <SetHtmlLang locale={locale} />
         <PageErrorBoundary>
           <WaitingListProvider>
+            <ReferralCapture />
             <div className="min-h-screen flex flex-col">
               {/* Skip Navigation Link for Accessibility */}
               <a href="#main-content" className="skip-link">

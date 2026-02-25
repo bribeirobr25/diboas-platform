@@ -25,31 +25,60 @@
     "positionIntro": "Tu posición:",
     "positionFormat": "#{position}",
     "shareIntro": "Invita a tus amigos",
-    "shareBenefit": "Tu enlace personal:",
+    "shareBenefit": "Comparte para ayudar a amigos a tener acceso anticipado",
     "shareExplanation": "Entre más pronto lancemos, más pronto esto se vuelve realidad.",
     "referralLinkLabel": "Tu enlace personal:",
     "copy": "Copiar enlace",
     "copied": "¡Copiado!",
     "dreamModeCta": "Prueba el Dream Mode →"
   },
+  "tier": {
+    "foundingMember": "Miembro Fundador",
+    "earlyMember": "Miembro Anticipado",
+    "priorityWaitlist": "Lista Prioritaria",
+    "standard": "Lista de Espera",
+    "badge": {
+      "foundingMember": "¡Eres Miembro Fundador!",
+      "earlyMember": "¡Eres un Miembro Temprano!"
+    },
+    "explanation": {
+      "foundingMember": "Estás entre los primeros 1.200. Comparte tu enlace — tienes 5 invitaciones para dar estatus de Miembro Fundador.",
+      "earlyMember": "Invitado por un Miembro Fundador. Comparte tu enlace para ayudar a amigos a tener acceso anticipado.",
+      "priorityWaitlist": "Estás en la lista de espera prioritaria. Comparte tu enlace para avanzar y ayudar a amigos."
+    },
+    "spotsRemaining": "{spots} lugares de miembro fundador restantes"
+  },
+  "stats": {
+    "foundingMembersFull": "Todas las plazas de miembro fundador ocupadas — únete a la lista de espera"
+  },
   "referral": {
-    "movedUp": "¡Subiste {spots} posiciones!",
-    "newPosition": "Nueva posición: #{position}",
+    "friendJoined": "¡Un amigo acaba de unirse!",
+    "invitesUsed": "{count} de 5 invitaciones usadas",
+    "invitesRemaining": "{remaining} invitaciones restantes",
+    "keepSharing": "¡Sigue compartiendo para ayudar a amigos a tener acceso anticipado!",
     "thanks": "Gracias por correr la voz.",
     "notificationTitle": "¡Alguien usó tu enlace!",
-    "notificationBody": "Acabas de subir {spots} posiciones a #{position}"
+    "invitedIndicator": "Invitado por un amigo"
   },
   "returningUser": {
     "welcomeBack": "¡Bienvenido de vuelta!",
     "currentPosition": "Estás en la posición #{position} de la lista",
     "referralCount": "Has referido a {count} personas",
-    "keepSharing": "¡Sigue compartiendo para subir!"
+    "keepSharing": "¡Sigue compartiendo para ayudar a amigos a tener acceso anticipado!"
+  },
+  "deletion": {
+    "confirmTitle": "Confirmar eliminación de datos",
+    "confirmBody": "Haz clic en el botón de abajo para eliminar permanentemente todos tus datos de la lista de espera de diBoaS. Esta acción no se puede deshacer.",
+    "confirmButton": "Confirmar eliminación",
+    "confirming": "Eliminando tus datos...",
+    "success": "Datos eliminados",
+    "successBody": "Todos tus datos personales han sido eliminados permanentemente de nuestro sistema.",
+    "expired": "Enlace expirado",
+    "expiredBody": "Este enlace de eliminación ha expirado. Por favor, envía una nueva solicitud de eliminación.",
+    "error": "Algo salió mal",
+    "errorBody": "No pudimos procesar tu solicitud. Intenta de nuevo o contacta a soporte."
   },
   "email": {
-    "welcome": "Bienvenido a diBoaS, Eres el #{position}",
-    "email1Subject": "Por qué tu banco no está trabajando para ti",
-    "email2Subject": "Cómo tu dinero podría realmente trabajar para ti",
-    "email3Subject": "Conoce a Aqua, Mystic y Coral, tus guías financieros",
-    "email4Subject": "Qué viene, y por qué estás temprano"
+    "welcome": "Bienvenido a diBoaS, Eres el #{position}"
   }
 }

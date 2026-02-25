@@ -4,36 +4,36 @@ import { BRAND } from '../config';
 
 const translations: Record<string, Record<string, string>> = {
   en: {
-    subject: 'Someone joined through your link!',
+    subject: 'A friend just joined through your link!',
     greeting: 'Nice one{name}!',
     body: 'A friend just joined diBoaS using your referral link.',
-    totalLabel: 'Total referrals',
-    positionLabel: 'Your position',
-    cta: 'Keep sharing — every referral moves you up 10 spots!',
+    invitesUsedLabel: 'Invites used',
+    invitesRemainingLabel: 'Remaining',
+    cta: 'Keep sharing to help friends get early access!',
   },
   'pt-BR': {
-    subject: 'Alguém entrou pelo seu link!',
+    subject: 'Um amigo acabou de entrar pelo seu link!',
     greeting: 'Muito bem{name}!',
     body: 'Um amigo acabou de entrar no diBoaS usando seu link.',
-    totalLabel: 'Total de indicações',
-    positionLabel: 'Sua posição',
-    cta: 'Continue indicando — cada indicação te sobe 10 posições!',
+    invitesUsedLabel: 'Convites usados',
+    invitesRemainingLabel: 'Restantes',
+    cta: 'Continue compartilhando para ajudar amigos a ter acesso antecipado!',
   },
   es: {
-    subject: '¡Alguien se unió con tu enlace!',
+    subject: '¡Un amigo se unió con tu enlace!',
     greeting: '¡Bien hecho{name}!',
     body: 'Un amigo se acaba de unir a diBoaS usando tu enlace.',
-    totalLabel: 'Total de referidos',
-    positionLabel: 'Tu posición',
-    cta: '¡Sigue compartiendo — cada referido te sube 10 puestos!',
+    invitesUsedLabel: 'Invitaciones usadas',
+    invitesRemainingLabel: 'Restantes',
+    cta: '¡Sigue compartiendo para ayudar a amigos a tener acceso anticipado!',
   },
   de: {
-    subject: 'Jemand ist über deinen Link beigetreten!',
+    subject: 'Ein Freund ist über deinen Link beigetreten!',
     greeting: 'Gut gemacht{name}!',
     body: 'Ein Freund ist gerade über deinen Empfehlungslink diBoaS beigetreten.',
-    totalLabel: 'Empfehlungen gesamt',
-    positionLabel: 'Deine Position',
-    cta: 'Teile weiter — jede Empfehlung bringt dich 10 Plätze nach vorne!',
+    invitesUsedLabel: 'Einladungen genutzt',
+    invitesRemainingLabel: 'Verbleibend',
+    cta: 'Teile weiter, um Freunden frühzeitigen Zugang zu ermöglichen!',
   },
 };
 
@@ -48,12 +48,12 @@ export function renderReferralSuccess(data: ReferralSuccessEmailData): { subject
 
     <div style="display:flex;gap:16px;margin-bottom:24px;">
       <div style="flex:1;text-align:center;padding:16px;background-color:#f0fdfa;border-radius:8px;">
-        <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;text-transform:uppercase;">${t.totalLabel}</p>
+        <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;text-transform:uppercase;">${t.invitesUsedLabel}</p>
         <p style="margin:0;font-size:32px;font-weight:700;color:${BRAND.primaryColor};">${data.referralCount}</p>
       </div>
       <div style="flex:1;text-align:center;padding:16px;background-color:#f0fdfa;border-radius:8px;">
-        <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;text-transform:uppercase;">${t.positionLabel}</p>
-        <p style="margin:0;font-size:32px;font-weight:700;color:${BRAND.primaryColor};">#${data.newPosition}</p>
+        <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;text-transform:uppercase;">${t.invitesRemainingLabel}</p>
+        <p style="margin:0;font-size:32px;font-weight:700;color:${BRAND.primaryColor};">${data.invitesRemaining}</p>
       </div>
     </div>
 

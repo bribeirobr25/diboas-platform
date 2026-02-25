@@ -25,31 +25,60 @@
     "positionIntro": "Ihre Position:",
     "positionFormat": "#{position}",
     "shareIntro": "Laden Sie Ihre Freunde ein",
-    "shareBenefit": "Ihr persönlicher Link:",
+    "shareBenefit": "Teilen, um Freunden frühzeitigen Zugang zu ermöglichen",
     "shareExplanation": "Je früher wir starten, desto eher wird das Realität.",
     "referralLinkLabel": "Ihr persönlicher Link:",
     "copy": "Link kopieren",
     "copied": "Kopiert!",
     "dreamModeCta": "Dream Mode ausprobieren →"
   },
+  "tier": {
+    "foundingMember": "Gründungsmitglied",
+    "earlyMember": "Frühes Mitglied",
+    "priorityWaitlist": "Prioritäts-Warteliste",
+    "standard": "Warteliste",
+    "badge": {
+      "foundingMember": "Sie sind Gründungsmitglied!",
+      "earlyMember": "Sie sind ein Early Member!"
+    },
+    "explanation": {
+      "foundingMember": "Sie gehören zu den ersten 1.200. Teilen Sie Ihren Link — Sie haben 5 Einladungen für den Gründungsmitglied-Status.",
+      "earlyMember": "Eingeladen von einem Gründungsmitglied. Teilen Sie Ihren Link, um Freunden frühen Zugang zu ermöglichen.",
+      "priorityWaitlist": "Sie sind auf der prioritären Warteliste. Teilen Sie Ihren Link, um aufzusteigen und Freunden zu helfen."
+    },
+    "spotsRemaining": "{spots} Gründungsmitglied-Plätze verbleibend"
+  },
+  "stats": {
+    "foundingMembersFull": "Alle Gründungsmitglied-Plätze vergeben — tritt der Warteliste bei"
+  },
   "referral": {
-    "movedUp": "Sie sind {spots} Plätze vorgerückt!",
-    "newPosition": "Neue Position: #{position}",
+    "friendJoined": "Ein Freund ist gerade beigetreten!",
+    "invitesUsed": "{count} von 5 Einladungen genutzt",
+    "invitesRemaining": "{remaining} Einladungen verbleibend",
+    "keepSharing": "Teilen Sie weiter, um Freunden frühzeitigen Zugang zu ermöglichen!",
     "thanks": "Danke fürs Weitersagen.",
     "notificationTitle": "Jemand hat Ihren Link verwendet!",
-    "notificationBody": "Sie sind gerade {spots} Plätze auf #{position} vorgerückt"
+    "invitedIndicator": "Von einem Freund eingeladen"
   },
   "returningUser": {
     "welcomeBack": "Willkommen zurück!",
     "currentPosition": "Sie sind aktuell #{position} auf der Warteliste",
     "referralCount": "Sie haben {count} Personen empfohlen",
-    "keepSharing": "Teilen Sie weiter, um nach vorne zu rücken!"
+    "keepSharing": "Teilen Sie weiter, um Freunden frühzeitigen Zugang zu ermöglichen!"
+  },
+  "deletion": {
+    "confirmTitle": "Datenlöschung bestätigen",
+    "confirmBody": "Klicken Sie auf den Button unten, um alle Ihre Daten dauerhaft von der diBoaS-Warteliste zu löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "confirmButton": "Löschung bestätigen",
+    "confirming": "Ihre Daten werden gelöscht...",
+    "success": "Daten gelöscht",
+    "successBody": "Alle Ihre persönlichen Daten wurden dauerhaft aus unserem System entfernt.",
+    "expired": "Link abgelaufen",
+    "expiredBody": "Dieser Löschungslink ist abgelaufen. Bitte senden Sie eine neue Löschungsanfrage.",
+    "error": "Etwas ist schiefgelaufen",
+    "errorBody": "Wir konnten Ihre Anfrage nicht verarbeiten. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
   },
   "email": {
-    "welcome": "Willkommen bei diBoaS, Sie sind #{position}",
-    "email1Subject": "Warum Ihre Bank nicht für Sie arbeitet",
-    "email2Subject": "Wie Ihr Geld tatsächlich für Sie arbeiten könnte",
-    "email3Subject": "Lernen Sie Aqua, Mystic & Coral kennen, Ihre Finanzbegleiter",
-    "email4Subject": "Was kommt, und warum Sie früh dran sind"
+    "welcome": "Willkommen bei diBoaS, Sie sind #{position}"
   }
 }

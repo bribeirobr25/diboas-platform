@@ -3,10 +3,11 @@ export type {
   EmailPayload,
   DeliveryResult,
   EmailServiceConfig,
+  WaitlistTier,
   WelcomeEmailData,
-  PositionUpdateEmailData,
   ReferralSuccessEmailData,
   DeletionConfirmationEmailData,
+  DeletionCompleteEmailData,
 } from './types';
 
 export type { IEmailService } from './EmailService';
@@ -15,7 +16,7 @@ export { getEmailConfig, BRAND } from './config';
 export { sendViaResend } from './providers';
 export {
   renderWelcome,
-  renderPositionUpdate,
   renderReferralSuccess,
   renderDeletionConfirmation,
+  renderDeletionComplete,
 } from './templates';
