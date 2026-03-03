@@ -32,7 +32,7 @@
     "next": "^16.1.5",
     "posthog-js": "^1.313.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.2.4",
     "react-intl": "^6.4.7",
     "web-vitals": "^5.1.0"
   },
@@ -48,7 +48,7 @@
     "@types/dompurify": "^3.2.0",
     "@types/node": "^25.3.0",
     "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
     "@vitest/coverage-v8": "^4.0.18",
     "autoprefixer": "^10.4.24",
