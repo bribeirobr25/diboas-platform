@@ -12,13 +12,13 @@ import { APP_URL } from '@/config/env';
 import { ROUTES } from './routes';
 import { getSocialDrawingAsset } from './assets';
 
-export type ProductCarouselVariant = 'default';
+export type ProductCarouselVariant = 'default' | 'persona';
 
 export interface ProductCarouselSlide {
   readonly id: string;
   readonly title: string;
   readonly subtitle: string;
-  readonly image: string;
+  readonly image?: string;
   readonly imageAlt: string;
   readonly ctaText?: string;
   readonly ctaHref?: string;

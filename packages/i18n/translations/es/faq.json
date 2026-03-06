@@ -1,4 +1,5 @@
 {
+  "_TODO_fee_audit": "CRITICAL: ~60 legacy 0.09%/0.9% fee refs in this file and 3 other locales. Blocked on CMO delivery. See docs/new-copy/CTO_FEE_AUDIT_CLAUDE_CODE_HANDOFF.md Issue K.",
   "title": "Preguntas Frecuentes",
   "description": "Encuentra respuestas a tus principales dudas. Si no lo encuentras aquí, nuestro chat responde en minutos.",
   "ctaText": "Ver Todas las Preguntas",

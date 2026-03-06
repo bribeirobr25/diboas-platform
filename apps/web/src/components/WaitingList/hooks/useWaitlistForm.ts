@@ -31,6 +31,10 @@ export interface WaitlistSuccessData {
 
 interface UseWaitlistFormOptions {
   compact?: boolean;
+  /** Override referral code (e.g. from manually entered invite code) */
+  referredBy?: string;
+  /** Waitlist source identifier (e.g. 'landing_b2b') */
+  source?: string;
   onSuccess: (data: WaitlistSuccessData) => void;
   onError?: (error: string) => void;
   t: (key: string, values?: Record<string, string | number>) => string;
@@ -60,12 +64,15 @@ function getReferralCode(): string | null {
   return getReferralFromStorage(REFERRAL_CONFIG.referralCookieName);
 }
 
-export function useWaitlistForm({
-  compact = false,
-  onSuccess,
-  onError,
-  t
-}: UseWaitlistFormOptions): UseWaitlistFormReturn {
+export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFormReturn {
+  const {
+    compact = false,
+    referredBy: referredByOverride,
+    source,
+    onSuccess,
+    onError,
+    t,
+  } = options;
   const { locale } = useLocale();
 
   const [formState, setFormState] = useState<FormState>({
@@ -82,11 +89,11 @@ export function useWaitlistForm({
   const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    setHasReferral(getReferralCode() !== null);
+    setHasReferral(!!referredByOverride || getReferralCode() !== null);
     return () => {
       abortControllerRef.current?.abort();
     };
-  }, []);
+  }, [referredByOverride]);
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -148,7 +155,7 @@ export function useWaitlistForm({
     }
 
     try {
-      const referredBy = getReferralCode();
+      const referredBy = referredByOverride || getReferralCode();
 
       abortControllerRef.current?.abort();
       abortControllerRef.current = new AbortController();
@@ -163,6 +170,7 @@ export function useWaitlistForm({
           locale,
           gdprAccepted: compact ? true : formState.gdprAccepted,
           referredBy,
+          ...(source ? { source } : {}),
         }),
         signal: abortControllerRef.current.signal,
       });
@@ -241,7 +249,7 @@ export function useWaitlistForm({
       setIsLoading(false);
       isSubmittingRef.current = false;
     }
-  }, [formState, compact, locale, t, onSuccess, onError]);
+  }, [formState, compact, referredByOverride, source, locale, t, onSuccess, onError]);
 
   return {
     formState,

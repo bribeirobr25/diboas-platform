@@ -1,7 +1,17 @@
 /**
  * DemoLauncher Styles
- * Dual CTA section for launching PreDemo and PreDream overlays
+ * Dual CTA section with transition hook and demo links
  */
+
+.transitionHook {
+  font-family: var(--font-family-primary);
+  font-size: 22px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary-accessible);
+  text-align: center;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
 
 .wrapper {
   margin: 0 auto;
@@ -56,48 +66,74 @@
 .ctaPrimary,
 .ctaSecondary {
   font-family: var(--font-family-primary);
-  font-size: 16px;
-  font-weight: var(--font-weight-semibold);
-  padding: 14px 32px;
-  border-radius: var(--border-radius-md, 8px);
+  font-size: var(--cta-font-size-mobile);
+  font-weight: var(--cta-font-weight);
+  padding: var(--cta-padding-mobile);
+  border-radius: var(--cta-border-radius);
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
-  min-width: 220px;
+  transition: all var(--cta-transition-duration) var(--cta-transition-easing);
+  min-width: var(--cta-min-width-mobile);
+  min-height: var(--cta-min-height-mobile);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   box-sizing: border-box;
+  box-shadow: var(--cta-shadow-default);
+}
+
+@media (min-width: 768px) {
+  .ctaPrimary,
+  .ctaSecondary {
+    font-size: var(--cta-font-size-tablet);
+    padding: var(--cta-padding-tablet);
+    min-width: var(--cta-min-width-tablet);
+    min-height: var(--cta-min-height-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctaPrimary,
+  .ctaSecondary {
+    font-size: var(--cta-font-size-desktop);
+    padding: var(--cta-padding-desktop);
+    min-width: var(--cta-min-width-desktop);
+    min-height: var(--cta-min-height-desktop);
+  }
 }
 
 .ctaPrimary {
-  background-color: var(--color-brand-primary, #0d9488);
-  color: #ffffff;
-  border: 2px solid var(--color-brand-primary, #0d9488);
+  background-color: var(--cta-bg-primary);
+  color: var(--cta-color-primary);
+  border: var(--cta-border-width) solid var(--cta-bg-primary);
 }
 
 .ctaPrimary:hover {
-  background-color: var(--color-brand-primary-hover, #0f766e);
-  border-color: var(--color-brand-primary-hover, #0f766e);
+  background-color: var(--cta-bg-hover);
+  border-color: var(--cta-bg-hover);
+  transform: var(--cta-transform-hover);
+  box-shadow: var(--cta-shadow-hover);
 }
 
 .ctaPrimary:active {
-  transform: scale(0.98);
+  transform: var(--cta-transform-active);
 }
 
 .ctaSecondary {
   background-color: transparent;
-  color: var(--color-brand-primary, #0d9488);
-  border: 2px solid var(--color-brand-primary, #0d9488);
+  color: var(--cta-bg-primary);
+  border: var(--cta-border-width) solid var(--cta-bg-primary);
 }
 
 .ctaSecondary:hover {
-  background-color: var(--color-brand-primary, #0d9488);
-  color: #ffffff;
+  background-color: var(--cta-bg-primary);
+  color: var(--cta-color-primary);
+  transform: var(--cta-transform-hover);
+  box-shadow: var(--cta-shadow-hover);
 }
 
 .ctaSecondary:active {
-  transform: scale(0.98);
+  transform: var(--cta-transform-active);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -90,6 +90,7 @@
     align-items: flex-start; /* Align items to top */
     justify-content: center; /* Center cards horizontally */
     gap: var(--afc-image-gap-desktop); /* 20px between images */
+    padding: 0 var(--spacing-lg); /* Prevent edge card clipping */
   }
 }
 
@@ -241,9 +242,10 @@
    CARD STATES
    ================================ */
 
-/* Active Card Enhancement */
+/* Active Card Enhancement — overflow: visible ensures shadow isn't clipped */
 .cardWrapper.active .card {
   box-shadow: var(--shadow-lg);
+  overflow: visible;
 }
 
 /* Inactive Cards Hover */

@@ -46,7 +46,7 @@
       "earlyMember": "Eingeladen von einem Gründungsmitglied. Teilen Sie Ihren Link, um Freunden frühen Zugang zu ermöglichen.",
       "priorityWaitlist": "Sie sind auf der prioritären Warteliste. Teilen Sie Ihren Link, um aufzusteigen und Freunden zu helfen."
     },
-    "spotsRemaining": "{spots} Gründungsmitglied-Plätze verbleibend"
+    "spotsRemaining": "{spots} Plätze verbleibend"
   },
   "stats": {
     "foundingMembersFull": "Alle Gründungsmitglied-Plätze vergeben — tritt der Warteliste bei"

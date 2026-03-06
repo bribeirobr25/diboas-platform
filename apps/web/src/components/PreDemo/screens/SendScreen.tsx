@@ -31,7 +31,7 @@ export function SendScreen() {
   const amount = parseFloat(state.sendAmount) || 0;
   const fees = useMemo(() => calculateSendFees(amount), [amount]);
   const insufficientFunds = checkInsufficientFunds(
-    amount, fees.totalFees, state.cashBalance, state.solBalance,
+    amount, fees.totalFees, fees.diboasFee, state.cashBalance, state.solBalance,
   );
 
   const handleAmountChange = useCallback(

@@ -1,95 +1,450 @@
 {
   "seo": {
-    "title": "Donde Trabaja Tu Dinero | Los Protocolos en los que Confiamos | diBoaS",
-    "description": "diBoaS te conecta con protocolos de finanzas descentralizadas establecidos. Ve exactamente a dónde va tu dinero con total transparencia.",
-    "ogTitle": "Donde Trabaja Tu Dinero | Los Protocolos en los que Confiamos",
-    "ogDescription": "Ve exactamente qué protocolos DeFi usa diBoaS y por qué confiamos en ellos. Transparencia total sobre dónde trabaja tu dinero."
+    "title": "Donde trabaja tu dinero | Los protocolos en los que confiamos | diBoaS",
+    "description": "diBoaS te conecta con protocolos de finanzas descentralizadas establecidos. Mira exactamente donde va tu dinero con total transparencia.",
+    "ogTitle": "Donde trabaja tu dinero | Los protocolos en los que confiamos",
+    "ogDescription": "Mira exactamente que protocolos DeFi usa diBoaS y por que confiamos en ellos. Transparencia total sobre donde trabaja tu dinero."
   },
   "hero": {
-    "title": "Donde Trabaja Tu Dinero",
-    "subtitle": "Los Protocolos en los que Confiamos"
+    "h1": "Donde trabaja tu dinero",
+    "subtitle": "Cada sistema. Cada nombre. Nada oculto.",
+    "trustLine": "26 protocolos. 7 categorias. Transparencia total sobre cada sistema que toca tu dinero."
   },
-  "intro": {
-    "header": "Por Qué Existe Esta Página",
-    "paragraph1": "Creemos que debes saber exactamente dónde trabaja tu dinero. A diferencia de los bancos tradicionales que ocultan lo que hacen con tus depósitos, nosotros te mostramos todo.",
-    "paragraph2": "Cada protocolo listado aquí ha sido investigado, probado y aprobado por nuestro equipo. Analizamos auditorías de seguridad, historial y cuánto tiempo llevan operando. Si no pondríamos nuestro propio dinero ahí, tampoco pondremos el tuyo.",
-    "important": "Importante:",
-    "disclaimer": "Estar en esta lista no significa riesgo cero. Significa que hicimos nuestra tarea y confiamos en estos protocolos lo suficiente para incluirlos en nuestras estrategias."
+  "transitions": {
+    "t1": "Por eso construimos esta pagina.",
+    "t2": "Como llegaron estos 26 a la lista?",
+    "t3": "Entonces, cuanto dinero real hay en estos sistemas?",
+    "t4": "Antes de seguir, algo importante.",
+    "t5": "Probablemente aun tienes preguntas. Bien."
+  },
+  "why": {
+    "h2": "Por que existe esta pagina",
+    "text1": "Pregunta a tu banco adonde va tu dinero. No te lo van a decir.",
+    "text2": "Nosotros si. Cada sistema en esta pagina es uno que tu dinero puede tocar cuando usas una estrategia de diBoaS. Publicamos los nombres, el historial, las auditorias de seguridad y las cosas que salieron mal. Porque deberias saberlo.",
+    "text3": "Cada protocolo en esta pagina se gano su lugar. Comprobamos cuanto tiempo lleva funcionando, quien auditio el codigo, como manejo los problemas y si gente real le confia dinero real. Si no paso, no esta aqui.",
+    "scope": "Listamos 26 protocolos aqui. Nuestras estrategias actualmente usan 6 de ellos. El resto son protocolos que hemos investigado y aprobado, y podrian incluirse en futuras estrategias a medida que expandamos.",
+    "warningBox": "Importante: Estar listado aqui no significa riesgo cero. Significa que hicimos nuestro trabajo y somos honestos sobre lo que encontramos. Cada sistema en esta pagina conlleva riesgo tecnico, riesgo de mercado y la posibilidad de perdidas."
+  },
+  "grid": {
+    "h2": "Los 26 protocolos",
+    "subtitle": "Organizados por lo que hacen. Haz clic en cualquier tarjeta para ver detalles.",
+    "tvlFreshness": "Todas las cifras de TVL son aproximadas, provienen de DeFiLlama y estan actualizadas a febrero de 2026. Los valores fluctuan diariamente."
   },
   "categories": {
     "lending": {
-      "title": "Protocolos de Préstamo",
-      "description": "Estos protocolos permiten que las personas presten y pidan prestado cripto. Ganas rendimiento proporcionando liquidez que otros toman prestada."
+      "title": "Protocolos de prestamo",
+      "description": "Tu depositas activos. Los prestatarios pagan intereses por usarlos. Tu ganas los intereses."
     },
     "staking": {
-      "title": "Protocolos de Staking",
-      "description": "Estos protocolos te permiten ganar recompensas ayudando a asegurar redes blockchain."
+      "title": "Protocolos de staking",
+      "description": "Ayudas a asegurar una red blockchain. La red te paga recompensas por hacerlo."
     },
     "stablecoins": {
-      "title": "Stablecoins y Activos Sintéticos",
-      "description": "Estos protocolos crean activos estables vinculados a valores del mundo real como el dólar estadounidense."
+      "title": "Stablecoins y activos sinteticos",
+      "description": "Estos sistemas crean activos digitales disenados para mantener un valor estable, generalmente vinculado al dolar estadounidense. Las stablecoins pueden perder su vinculacion."
     },
     "yield": {
-      "title": "Protocolos de Rendimiento y Trading",
-      "description": "Estos protocolos generan rendimiento a través de comisiones de trading, optimización de rendimiento o productos estructurados."
+      "title": "Protocolos de rendimiento y trading",
+      "description": "Estos sistemas generan rendimientos a traves de comisiones de trading, optimizacion de rendimiento o productos estructurados."
     },
     "perpetuals": {
-      "title": "Exchanges Perpetuos y de Trading",
-      "description": "Estos protocolos permiten a los traders apostar sobre movimientos de precios. Ganas rendimiento proporcionando la liquidez contra la que operan."
+      "title": "Exchanges perpetuos y de trading",
+      "description": "Los traders usan estos sistemas para apostar por movimientos de precios. Tu ganas rendimientos proporcionando la liquidez contra la que operan."
     },
     "dex": {
-      "title": "Exchanges Descentralizados (DEX)",
-      "description": "Estos protocolos te permiten intercambiar tokens sin un exchange centralizado."
+      "title": "Exchanges descentralizados",
+      "description": "Intercambia un token por otro sin un exchange centralizado. Tambien puedes ganar comisiones proporcionando liquidez para que otros operen."
     },
-    "rwa": {
-      "title": "Infraestructura de Pagos y RWA",
-      "description": "Estos protocolos conectan las finanzas tradicionales con cripto."
+    "payments": {
+      "title": "Infraestructura de pagos y activos del mundo real",
+      "description": "Estos sistemas conectan las finanzas tradicionales y crypto. Pagos transfronterizos, financiacion comercial y activos del mundo real en blockchain."
     }
   },
   "protocolLabels": {
-    "whatItDoes": "Qué hace:",
+    "whatItDoes": "Que hace:",
     "founded": "Fundado",
     "tvl": "Valor Total Bloqueado",
     "blockchains": "Blockchains",
-    "audits": "Auditorías de Seguridad",
-    "regulatory": "Estado Regulatorio"
+    "audits": "Auditorias de seguridad",
+    "regulatory": "Regulatorio / Historial",
+    "showLess": "Ver menos",
+    "showMore": "Leer más",
+    "websiteLink": "Website →",
+    "twitterLink": "@Twitter"
   },
-  "selectionProcess": {
-    "header": "Nuestro Proceso de Selección",
-    "intro": "No agregamos protocolos al azar. Cada protocolo aquí pasó nuestra checklist:",
-    "criteria": {
-      "operation": "Al menos 1 año de operación (con pocas excepciones para protocolos excepcionales)",
-      "audits": "Auditorías de seguridad profesionales de firmas reconocidas",
-      "exploits": "Sin exploits no resueltos donde se perdieron fondos de usuarios y no se recuperaron",
-      "transparent": "Operaciones transparentes, podemos verificar cómo funciona el protocolo",
-      "usage": "Uso real, usuarios reales, no solo hype"
+  "cards": {
+    "aaveV3": {
+      "name": "Aave V3",
+      "description": "El sistema de prestamos mas grande de las finanzas descentralizadas. Depositas activos, ganas intereses de prestatarios y puedes retirar en cualquier momento. Usado por instituciones y particulares en 18 blockchains.",
+      "details": {
+        "founded": "2017 (V3: 2022)",
+        "tvl": "~35.000 millones USD",
+        "blockchains": "Ethereum, Arbitrum, Polygon, + 15 mas",
+        "audits": "30+ auditorias independientes",
+        "regulatory": "La SEC cerro su investigacion de 4 anos sin cargos (diciembre 2025). Fuente: carta de cierre de la SEC compartida por el fundador de Aave; informado por Yahoo Finance, CoinDesk, Unchained."
+      },
+      "usedInStrategies": "Puerto Seguro, Portero, Constructor Paciente, Acumulador Constante, Maximizador de Rendimiento"
     },
-    "note": "Cuando los protocolos han tenido incidentes de seguridad, lo anotamos claramente. La transparencia funciona en ambos sentidos."
-  },
-  "totalTvl": {
-    "header": "TVL Total Combinado",
-    "paragraph1": "Los protocolos con los que trabajamos colectivamente aseguran más de",
-    "amount": "$120 mil millones",
-    "paragraph2": "en depósitos de usuarios.",
-    "note": "Esto no significa que tu dinero está en todos ellos. Cada estrategia de diBoaS usa protocolos específicos adecuados a su nivel de riesgo y objetivos."
-  },
-  "faq": {
-    "header": "¿Preguntas?",
-    "q1": {
-      "question": "¿Por qué no listan todos los protocolos DeFi?",
-      "answer": "Somos selectivos. La mayoría de los protocolos DeFi no cumplen nuestros estándares."
+    "compoundV3": {
+      "name": "Compound V3",
+      "description": "Uno de los sistemas de prestamo mas antiguos en DeFi. Ganas intereses proporcionando activos que otros toman prestados. Simple, probado en batalla y funcionando desde 2018.",
+      "details": {
+        "founded": "2018 (V3: 2022)",
+        "tvl": "~2.000 millones USD",
+        "blockchains": "Ethereum, Arbitrum, Base, Polygon",
+        "audits": "4+ auditorias independientes",
+        "regulatory": "Completamente descentralizado. Sin licencias especificas requeridas."
+      },
+      "usedInStrategies": "Puerto Seguro, Portero, Constructor Paciente, Acumulador Constante, Maximizador de Rendimiento"
     },
-    "q2": {
-      "question": "¿Con qué frecuencia actualizan esta lista?",
-      "answer": "Monitoreamos todos los protocolos continuamente. Si algo cambia, agregamos o eliminamos según sea necesario."
+    "kamino": {
+      "name": "Kamino",
+      "description": "La plataforma todo-en-uno de prestamos y liquidez de Solana. Combina prestamos, gestion automatizada de liquidez y apalancamiento en un solo sistema. Ganas intereses prestando activos a prestatarios, similar a Aave y Compound.",
+      "details": {
+        "founded": "2022",
+        "tvl": "~2.500 millones USD",
+        "blockchains": "Solana",
+        "audits": "Multiples auditorias de OtterSec",
+        "regulatory": "Protocolo descentralizado. Sin incidentes importantes."
+      }
     },
-    "q3": {
-      "question": "¿Puedo solicitar que se agregue un protocolo?",
-      "answer": "Sí. Contáctanos en hello@diboas.com con tu sugerencia."
+    "morpho": {
+      "name": "Morpho",
+      "description": "Conecta prestamistas directamente con prestatarios para mejores tasas que los pools de prestamo tradicionales. Coinbase integro Morpho en Base para prestamos en USDC respaldados por bitcoin (enero 2025), originando mas de 1.200 millones USD en prestamos a finales de 2025.",
+      "details": {
+        "founded": "2022",
+        "tvl": "~7.000 millones USD",
+        "blockchains": "Ethereum, Base, Arbitrum",
+        "audits": "23+ auditorias independientes",
+        "regulatory": "Integrado por Coinbase (ene. 2025) y Crypto.com (oct. 2025) para prestamos respaldados por DeFi. Fuente: blog de Coinbase, morpho.org/stories/coinbase, DL News."
+      }
+    },
+    "sparkProtocol": {
+      "name": "Spark Protocol",
+      "description": "Sistema de prestamos construido sobre el codigo probado de Aave, conectado con la profunda liquidez de Sky/MakerDAO. Se beneficia de la historia operativa mas larga en DeFi (desde 2014).",
+      "details": {
+        "founded": "2023",
+        "tvl": "~4.000 millones USD",
+        "blockchains": "Ethereum, Base, Arbitrum",
+        "audits": "7+ auditorias independientes",
+        "regulatory": "Se beneficia de los 10+ anos de historial de compliance de MakerDAO"
+      }
+    },
+    "fluid": {
+      "name": "Fluid",
+      "description": "Prestamos de proxima generacion que combina funciones de multiples sistemas establecidos. Penalizaciones de liquidacion muy bajas para prestatarios. Ganas intereses de prestatarios, similar a otros protocolos de prestamo.",
+      "details": {
+        "founded": "2024",
+        "tvl": "~2.000 millones USD",
+        "blockchains": "Ethereum, Arbitrum, Base",
+        "audits": "3+ auditorias independientes",
+        "regulatory": "Construido por el equipo de Instadapp (6+ anos construyendo infraestructura DeFi)"
+      },
+      "exceptionNote": "Excepcion a nuestro minimo de 1 ano: Fluid se lanzo en 2024 pero fue construido por el equipo de Instadapp, que tiene 6+ anos de experiencia en infraestructura DeFi."
+    },
+    "lido": {
+      "name": "Lido Finance",
+      "description": "Haz staking de tu ETH y recibe un token (stETH) que puedes usar en otros sitios mientras sigues ganando recompensas de staking. El servicio de staking mas grande en crypto.",
+      "details": {
+        "founded": "2020",
+        "tvl": "~27.000 millones USD",
+        "blockchains": "Ethereum, Polygon",
+        "audits": "20+ auditorias independientes",
+        "regulatory": "Declaracion del personal de la Division de Finanzas Corporativas de la SEC (5 de agosto de 2025): los tokens de recibo de liquid staking, incluido stETH, no son valores bajo la Ley de Valores de 1933 ni la Ley de Bolsas de 1934. Parte de la iniciativa \"Project Crypto\" del presidente de la SEC, Atkins. Fuente: declaracion en SEC.gov; informado por CoinDesk, Decrypt, CCN."
+      }
+    },
+    "rocketPool": {
+      "name": "Rocket Pool",
+      "description": "Staking descentralizado de Ethereum. Puedes hacer staking con tan solo 0,01 ETH. Ningun operador centralizado controla la red.",
+      "details": {
+        "founded": "2016 (mainnet 2021)",
+        "tvl": "~2.000 millones USD",
+        "blockchains": "Ethereum",
+        "audits": "5+ auditorias independientes",
+        "regulatory": "Declaracion del personal de la SEC (5 de agosto de 2025): los tokens de recibo de liquid staking, incluido rETH, no son valores. Misma declaracion que cubre Lido stETH y Jito JitoSOL. Fuente: declaracion en SEC.gov."
+      }
+    },
+    "jito": {
+      "name": "Jito",
+      "description": "Liquid staking de Solana que gana tanto recompensas estandar de staking como recompensas adicionales de MEV (arbitraje de trading). Usado en estrategias de crecimiento de diBoaS.",
+      "details": {
+        "founded": "2022",
+        "tvl": "~2.800 millones USD",
+        "blockchains": "Solana",
+        "audits": "Multiples auditorias de Certora, OtterSec",
+        "regulatory": "Declaracion del personal de la SEC (agosto 2025): los tokens de recibo de liquid staking, incluido JitoSOL, no son valores. Fuente: declaracion en SEC.gov; informado por CoinDesk, CCN, Blockchain Magazine."
+      },
+      "usedInStrategies": "A Toda Potencia"
+    },
+    "marinade": {
+      "name": "Marinade Finance",
+      "description": "Staking de Solana distribuido entre mas de 100 validadores para mejor descentralizacion y recompensas. Uno de los pocos protocolos DeFi con certificacion de compliance institucional.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~550 millones USD",
+        "blockchains": "Solana",
+        "audits": "5+ auditorias independientes",
+        "regulatory": "Certificado SOC 2 Tipo I y II. Compliance de grado institucional."
+      }
+    },
+    "sanctum": {
+      "name": "Sanctum (INF)",
+      "description": "Capa de liquidez unificada para todos los tokens de staking de Solana. Te permite intercambiar al instante entre diferentes activos en staking sin periodos de espera para unstaking.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~1.700 millones USD",
+        "blockchains": "Solana",
+        "audits": "Auditado por Accretion",
+        "regulatory": "Con sede en Singapur. Proporciona staking para Binance y Bybit."
+      },
+      "usedInStrategies": "Crecimiento Estable, Progreso Constante, Constructor Equilibrado, Acelerador de Riqueza, A Toda Potencia"
+    },
+    "eigenLayer": {
+      "name": "EigenLayer",
+      "description": "Restaking: usa tu ETH ya en staking para apoyar otros servicios construidos sobre Ethereum y ganar recompensas extra sobre tu rendimiento base de staking. Ganas recompensas de staking mas bonificaciones de los servicios que ayudas a asegurar.",
+      "details": {
+        "founded": "2023",
+        "tvl": "~12.000 millones USD",
+        "blockchains": "Ethereum",
+        "audits": "Multiples auditorias independientes",
+        "regulatory": "Programa de bug bounty de 2 millones USD en Immunefi"
+      }
+    },
+    "sky": {
+      "name": "Sky Protocol / SSR (antes MakerDAO)",
+      "description": "El sistema DeFi original. Funcionando desde 2014. Deposita crypto como colateral, genera stablecoins, gana la tasa de ahorro. Ha sobrevivido cada caida importante del mercado desde 2017.",
+      "details": {
+        "founded": "2014",
+        "tvl": "~6.000 millones USD",
+        "blockchains": "Ethereum (las estrategias de diBoaS usan el despliegue en Arbitrum)",
+        "audits": "10+ auditorias independientes",
+        "regulatory": "10+ anos de operacion continua a traves de multiples ciclos de mercado"
+      },
+      "usedInStrategies": "Las 10 estrategias (Puerto Seguro, Crecimiento Estable, Portero, Progreso Constante, Constructor Paciente, Constructor Equilibrado, Acumulador Constante, Acelerador de Riqueza, Maximizador de Rendimiento, A Toda Potencia)"
+    },
+    "ethena": {
+      "name": "Ethena",
+      "description": "Crea un dolar sintetico (USDe) a traves de posiciones cubiertas. Ofrece rendimientos mas altos que las stablecoins tradicionales, pero con un mecanismo mas complejo y un perfil de riesgo mas elevado.",
+      "details": {
+        "founded": "2023",
+        "tvl": "~6.500 millones USD",
+        "blockchains": "Ethereum + 23 cadenas",
+        "audits": "7+ auditorias independientes",
+        "regulatory": "BaFin (Alemania) rechazo la solicitud de autorizacion MiCA en marzo de 2025, citando \"deficiencias significativas\" en la estructura organizativa y el cumplimiento de reservas. BaFin ordeno detener la emision/reembolso de USDe y congelo los activos de reserva. Ethena GmbH acepto liquidar las operaciones en Alemania (abril 2025). Toda la actividad opera ahora a traves de Ethena (BVI) Limited, una entidad de las Islas Virgenes Britanicas. BaFin tambien expreso preocupaciones de que sUSDe pueda constituir un valor no registrado bajo la ley alemana. Fuentes: aviso oficial de BaFin (21 de marzo de 2025); Decrypt, The Block, CoinTelegraph, Ledger Insights."
+      }
+    },
+    "ondo": {
+      "name": "Ondo Finance",
+      "description": "Trae activos financieros tradicionales a la blockchain. Bonos del Tesoro de EE.UU., bonos y acciones como tokens digitales. Adquirio licencias de broker-dealer y agente de transferencias registrado ante la SEC mediante la compra de Oasis Pro (completada en octubre de 2025).",
+      "details": {
+        "founded": "2021",
+        "tvl": "~1.700 millones USD",
+        "blockchains": "Ethereum, Solana, Arbitrum",
+        "audits": "4+ auditorias independientes",
+        "regulatory": "Broker-dealer registrado ante la SEC, Sistema Alternativo de Negociacion (ATS) y licencias de Agente de Transferencias adquiridas via Oasis Pro (miembro de FINRA desde 2020). Adquisicion completada en octubre de 2025. Mas de 1.600 millones USD en activos tokenizados bajo gestion. Fuentes: blog de Ondo Finance, Blockworks, CoinDesk, FINRA BrokerCheck (Oasis Pro Markets LLC)."
+      }
+    },
+    "pendle": {
+      "name": "Pendle Finance",
+      "description": "Separa el rendimiento del capital para que puedas negociar, fijar o especular con rendimientos futuros. Te permite asegurar una tasa fija o apostar a que las tasas subiran.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~4.500 millones USD",
+        "blockchains": "Ethereum, Arbitrum, BNB Chain",
+        "audits": "6+ auditorias independientes",
+        "regulatory": "Bug bounty de 250.000 USD. Acuerdo Safe Harbor vigente."
+      }
+    },
+    "yearn": {
+      "name": "Yearn Finance",
+      "description": "Yield farming automatizado. Mueve tu dinero entre sistemas para buscar el mejor rendimiento disponible. Un pionero que lleva funcionando desde 2020.",
+      "details": {
+        "founded": "2020",
+        "tvl": "~500 millones USD",
+        "blockchains": "Ethereum, Arbitrum, Fantom",
+        "audits": "6+ auditorias independientes",
+        "regulatory": "Pionero de la agregacion de rendimiento. 5+ anos de operacion continua."
+      }
+    },
+    "curve": {
+      "name": "Curve Finance",
+      "description": "Exchange especializado en stablecoins y activos similares. Disenado para un impacto minimo en el precio al intercambiar entre activos de valor similar.",
+      "details": {
+        "founded": "2020",
+        "tvl": "~2.200 millones USD",
+        "blockchains": "Ethereum + 20 cadenas",
+        "audits": "15+ auditorias independientes",
+        "regulatory": "Julio 2023: exploit de 70 millones USD. 73% de los fondos recuperados. La causa raiz fue un bug del compilador (Vyper), no del codigo de Curve."
+      }
+    },
+    "convex": {
+      "name": "Convex Finance",
+      "description": "Aumenta tus recompensas de Curve sin necesidad de bloquear tokens durante anos. Simplifica la participacion en Curve.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~1.500 millones USD",
+        "blockchains": "Ethereum, Arbitrum",
+        "audits": "7 auditorias independientes",
+        "regulatory": "Sin exploits en 4 anos. Una vulnerabilidad critica fue encontrada y parcheada en 2022 antes de que se perdieran fondos."
+      }
+    },
+    "gmxV2": {
+      "name": "GMX V2",
+      "description": "Exchange perpetuo descentralizado. Proporcionas liquidez a un pool compartido. Los traders pagan comisiones al pool. Tu ganas una parte de cada operacion.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~400 millones USD",
+        "blockchains": "Arbitrum, Avalanche, Solana",
+        "audits": "10+ auditorias independientes",
+        "regulatory": "Bug bounty de 5 millones USD en Immunefi (uno de los mas grandes en DeFi)"
+      }
+    },
+    "jupiterJlp": {
+      "name": "Jupiter JLP",
+      "description": "El exchange perpetuo lider de Solana. Proporciona liquidez y gana el 70% de todas las comisiones de trading. Usado en varias estrategias de crecimiento de diBoaS.",
+      "details": {
+        "founded": "2021 (perpetuos: 2023)",
+        "tvl": "~1.600 millones USD",
+        "blockchains": "Solana",
+        "audits": "6+ auditorias independientes",
+        "regulatory": "Mas de 137 millones USD pagados a proveedores de liquidez de enero a octubre de 2024, basado en datos de comisiones de Dune Analytics (75% de 183 millones USD en comisiones totales). Fuente: SolanaFloor / Dune Analytics (octubre 2024). La cifra es probablemente significativamente mayor al momento de la publicacion."
+      },
+      "usedInStrategies": "Constructor Equilibrado, Acelerador de Riqueza, A Toda Potencia"
+    },
+    "drift": {
+      "name": "Drift Protocol",
+      "description": "Plataforma de trading completa en Solana. Perpetuos, trading spot y prestamos en un solo sistema. El panel de monitorizacion de riesgos en tiempo real es publico.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~850 millones USD",
+        "blockchains": "Solana",
+        "audits": "3+ auditorias de Trail of Bits, OtterSec",
+        "regulatory": "Codigo open-source. Monitorizacion de riesgos publica."
+      }
+    },
+    "raydium": {
+      "name": "Raydium",
+      "description": "El principal exchange descentralizado de Solana. Market making automatizado, liquidez concentrada y lanzamientos de tokens.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~2.000 millones USD",
+        "blockchains": "Solana",
+        "audits": "4+ auditorias independientes",
+        "regulatory": "Noviembre 2022: exploit de 4,4 millones USD causado por clave de administrador comprometida. Todos los usuarios afectados fueron reembolsados."
+      }
+    },
+    "orca": {
+      "name": "Orca",
+      "description": "Exchange de Solana facil de usar, conocido por su diseno limpio, swaps eficientes y uno de los historiales de seguridad mas solidos del ecosistema. Puedes proporcionar liquidez y ganar comisiones de las operaciones en la plataforma.",
+      "details": {
+        "founded": "2021",
+        "tvl": "~400 millones USD",
+        "blockchains": "Solana",
+        "audits": "6+ auditorias independientes",
+        "regulatory": "Sin exploits en 4+ anos. Elogiado por revisores independientes por la calidad del codigo."
+      }
+    },
+    "balancer": {
+      "name": "Balancer",
+      "description": "Pools de liquidez programables que pueden contener multiples tokens en proporciones personalizadas. Mas flexible que los pools de exchange estandar. Proporcionas tokens al pool y ganas una parte de las comisiones de trading.",
+      "details": {
+        "founded": "2020",
+        "tvl": "~258 millones USD (despues del exploit; era ~775M USD antes de noviembre 2025)",
+        "blockchains": "Ethereum, Arbitrum, Polygon",
+        "audits": "11+ auditorias independientes",
+        "regulatory": "3 de noviembre de 2025: exploit de 128 millones USD que afecto a pools V2 en Ethereum, Polygon, Base, Arbitrum y otras cadenas. Vulnerabilidad de error de redondeo en contratos ComposableStablePool. Aproximadamente 28 millones USD recuperados a traves de operaciones whitehat e intervenciones del protocolo. La mayoria de los fondos (~100 millones USD) permanecen sin recuperar a febrero de 2026. Balancer DAO aprobo bounty de recuperacion del 10% (BIP-908, febrero 2026). V3 (version actual) NO fue afectada por este exploit. Las estrategias de diBoaS usan exclusivamente V3. Fuentes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
+      }
+    },
+    "huma": {
+      "name": "Huma Finance",
+      "description": "Pagos transfronterizos instantaneos y financiacion comercial usando infraestructura crypto. Socios de Circle y la Stellar Development Foundation. Los rendimientos provienen de las comisiones cobradas por el procesamiento de pagos transfronterizos.",
+      "details": {
+        "founded": "2022",
+        "tvl": "~100 millones USD",
+        "blockchains": "Solana, Stellar, Polygon",
+        "audits": "6+ auditorias independientes",
+        "regulatory": "Alianzas estrategicas con Circle y Stellar Development Foundation"
+      }
     }
   },
+  "howWeChoose": {
+    "h2": "Nuestro proceso de seleccion",
+    "intro": "No anadimos protocolos porque sean populares. Los anadimos porque pasaron nuestra lista de verificacion.",
+    "criteria": {
+      "1": "Al menos 1 ano de operacion continua. Hacemos excepciones para protocolos construidos por equipos con largo historial, pero lo indicamos claramente.",
+      "2": "Auditorias de seguridad profesionales de firmas reconocidas. No solo una. Buscamos multiples auditorias independientes.",
+      "3": "Sin exploits no resueltos que afecten a la version que usamos donde los fondos de usuarios se perdieron permanentemente. Los incidentes pasados y exploits especificos de version se divulgan en cada tarjeta con un badge de advertencia.",
+      "4": "Operaciones transparentes. Podemos verificar como funciona el protocolo. Se prefiere el codigo open-source.",
+      "5": "Uso real. Usuarios reales depositando dinero real. No solo hype, no solo un precio de token."
+    },
+    "belowCriteria": "Cuando los protocolos han tenido incidentes de seguridad, lo indicamos en la tarjeta con una advertencia ambar. La transparencia funciona en ambas direcciones. Mostramos lo bueno y lo malo."
+  },
+  "tvl": {
+    "h2": "Valor combinado asegurado",
+    "textBefore": "Los protocolos en esta pagina mantienen colectivamente mas de",
+    "number": "120.000 millones USD",
+    "textAfter": "en depositos de usuarios a traves de todos sus despliegues. Eso es mas de lo que la mayoria de bancos regionales mantienen en depositos totales.",
+    "context": "Esto no significa que tu dinero este en todos ellos. Cada estrategia de diBoaS usa protocolos especificos adecuados a su nivel de riesgo y objetivos. Consulta la pagina de Estrategias para ver que protocolos se usan en cada estrategia.",
+    "source": "TVL combinado obtenido de DeFiLlama. Ultima verificacion: enero 2026. Los valores fluctuan diariamente."
+  },
+  "notIs": {
+    "h2": "Lo que esta pagina no es",
+    "text": "Esto no es una recomendacion de usar ninguno de estos protocolos directamente.\n\nLas estrategias de diBoaS estan construidas sobre estos sistemas, y nuestro equipo maneja la complejidad. No necesitas interactuar con ningun protocolo tu mismo. Esta pagina existe para que puedas ver exactamente donde va tu dinero y verificar todo lo que decimos.\n\nCada protocolo aqui conlleva riesgo. Los smart contracts pueden tener bugs. Los mercados pueden desplomarse. Las stablecoins pueden perder su vinculacion. Sistemas que han operado de forma segura durante anos pueden enfrentar problemas manana. Monitorizamos estos sistemas de forma continua, pero no podemos eliminar el riesgo. Nadie puede.\n\nEsta pagina existe porque creemos que mereces saberlo. No porque tengas que hacer nada con ella.",
+    "warmLine": "Si no estas seguro de si esto es adecuado para ti, consulta a un asesor financiero autorizado antes de tomar decisiones de inversion."
+  },
+  "faq": {
+    "h2": "Preguntas sobre nuestros protocolos",
+    "q1": {
+      "question": "Por que no listais todos los protocolos DeFi?",
+      "answer": "Hay miles de protocolos DeFi. Preferimos listar 26 que hemos investigado a fondo a 200 que no conocemos."
+    },
+    "q2": {
+      "question": "Con que frecuencia actualizais esta lista?",
+      "answer": "Monitorizamos todos los protocolos listados de forma continua. Si un protocolo tiene un incidente de seguridad, cambio regulatorio o problema operativo significativo, actualizamos esta pagina. Tambien revisamos la lista completa trimestralmente para decidir si anadir o eliminar protocolos."
+    },
+    "q3": {
+      "question": "Puedo solicitar que se anade un protocolo?",
+      "answer": "Si. Escribe a hello@diboas.com con tu sugerencia y por que crees que deberia incluirse. Revisamos cada solicitud segun nuestros criterios de seleccion."
+    },
+    "q4": {
+      "question": "Estar listado aqui significa que diBoaS recomienda estos protocolos?",
+      "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningun protocolo. Su inclusion no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendacion de usarlos directamente."
+    },
+    "q5": {
+      "question": "Que pasa si un protocolo es hackeado?",
+      "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rapidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afecto a una version anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de seleccion arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
+    },
+    "q6": {
+      "question": "Por que algunos protocolos tienen badges de advertencia?",
+      "answer": "El badge de advertencia ambar significa que el protocolo ha tenido un incidente de seguridad notable, problema regulatorio o un perfil de riesgo elevado comparado con sus pares. Incluimos estos protocolos porque siguen cumpliendo nuestros criterios generales, pero queremos que veas el panorama completo. Los detalles estan en cada tarjeta."
+    },
+    "q7": {
+      "question": "Que es TVL y por que importa?",
+      "answer": "TVL significa Total Value Locked (Valor Total Bloqueado). Es la cantidad total de dinero depositada en un protocolo por todos los usuarios a nivel mundial. Un TVL mas alto generalmente significa que mas personas confian en el sistema con dinero real. No es garantia de seguridad, pero es una senal que tenemos en cuenta."
+    },
+    "q8": {
+      "question": "Necesito interactuar con estos protocolos yo mismo?",
+      "answer": "No. diBoaS gestiona todas las interacciones con los protocolos en tu nombre cuando eliges una estrategia. No necesitas crear cuentas en ningun protocolo, gestionar wallets en diferentes blockchains ni entender los detalles tecnicos. Esta pagina existe por transparencia, no porque necesites hacer nada con ella."
+    }
+  },
+  "cta": {
+    "transition": "Satisfecho con lo que ves? Unete a la lista de espera."
+  },
+  "cvmWarnings": {
+    "warning1": "",
+    "warning2": "",
+    "warning3": ""
+  },
   "footer": {
-    "lastUpdated": "Última actualización: Enero 2026",
-    "sources": "Fuentes de datos: DeFiLlama, documentación oficial de protocolos, informes de auditoría de seguridad"
+    "lastUpdated": "Ultima actualizacion: febrero de 2026",
+    "dataSources": "Fuentes de datos: DeFiLlama (TVL), documentacion oficial de protocolos, informes de auditorias de seguridad publicados, SEC EDGAR (presentaciones regulatorias), CoinGecko y comunicaciones directas con protocolos.",
+    "mainDisclaimer": "La informacion en esta pagina es unicamente con fines educativos y de transparencia. No constituye asesoramiento de inversion, asesoramiento financiero ni una recomendacion de usar ningun protocolo listado. La inclusion de protocolos refleja nuestra investigacion y no implica respaldo por ni afiliacion con ningun protocolo listado. Todos los protocolos DeFi conllevan riesgo tecnico, riesgo de smart contracts, riesgo de mercado, riesgo de liquidez y riesgo de desvinculacion de stablecoins. El rendimiento, TVL y estado regulatorio de los protocolos pueden cambiar en cualquier momento. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no estan asegurados.",
+    "micaArt68": "El valor de los criptoactivos puede fluctuar. Puede perder la totalidad o parte de su dinero invertido. Los criptoactivos no estan cubiertos por los sistemas de garantia de depositos.",
+    "micaArt7": "Esta comunicacion comercial relativa a criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningun Estado miembro de la Union Europea. El emisor del criptoactivo es el unico responsable del contenido de esta comunicacion comercial relativa a criptoactivos.",
+    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo analisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la informacion de forma independiente antes de tomar decisiones financieras.",
+    "usDisclosure": "",
+    "externalLinks": "Los enlaces externos en esta pagina conducen a sitios web de terceros no controlados por diBoaS. No somos responsables de su contenido, practicas de privacidad o disponibilidad.",
+    "professionalAdvice": "Considere consultar a un asesor financiero autorizado antes de tomar decisiones de inversion.",
+    "copyright": "© 2026 diBoaS. Todos los derechos reservados."
   }
 }

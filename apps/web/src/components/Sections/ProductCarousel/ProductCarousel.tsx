@@ -58,7 +58,7 @@ export function ProductCarousel({
   onCTAClick,
   onPlayPause
 }: ProductCarouselProps) {
-  const config = PRODUCT_CAROUSEL_CONFIGS[variant];
+  const config = (PRODUCT_CAROUSEL_CONFIGS as Record<string, unknown>)[variant];
 
   if (!config) {
     // Dev: `ProductCarousel: Unknown variant "${variant}". Using default.`);

@@ -1357,11 +1357,11 @@
   /* Common Spacing Values */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
-  --spacing-md: 12px;
+  --spacing-md: 16px;
   
   /* Negative Spacing Values */
   --spacing-xs-negative: -4px;
-  --spacing-md-negative: -12px;
+  --spacing-md-negative: -16px;
   --spacing-xl-negative: -20px;
   --spacing-lg: 16px;
   --spacing-xl: 20px;
@@ -1373,6 +1373,9 @@
   --spacing-6xl: 64px;
   --spacing-7xl: 80px;
   --spacing-8xl: 96px;
+
+  /* Semantic Spacing Tokens */
+  --card-padding-desktop: 64px;
 
   /* Common Percentage Values */
   --percent-10: 10%;
@@ -1675,27 +1678,6 @@
   --dimension-450: 450px;
   --dimension-480: 480px;
   --dimension-500: 500px;
-
-  /* Common Percentages */
-  --percent-50: 50%;
-  --percent-100: 100%;
-  
-  /* Common Opacities */
-  --opacity-30: 0.3;
-  
-  /* Common Spacing */
-  --spacing-xs: 4px;
-  --spacing-md: 16px;
-  --spacing-4xl: 64px;
-  
-  /* Common Radius */
-  --radius-3xl: 24px;
-  
-  /* Common Shadows */
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
-  /* Common Transforms */
-  --transform-scale-102: scale(1.02);
 
   /* ================================
      FAQ ACCORDION DESIGN TOKENS

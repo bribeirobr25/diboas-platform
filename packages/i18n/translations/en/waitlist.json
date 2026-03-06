@@ -46,7 +46,7 @@
       "earlyMember": "Invited by a Founding Member. Share your link to help friends get early access.",
       "priorityWaitlist": "You're on the priority waitlist. Share your link to move up and help friends join."
     },
-    "spotsRemaining": "{spots} founding member spots remaining"
+    "spotsRemaining": "{spots} spots remaining"
   },
   "stats": {
     "foundingMembersFull": "All founding member spots claimed — join the early access waitlist"

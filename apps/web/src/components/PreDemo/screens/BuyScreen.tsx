@@ -134,7 +134,7 @@ export function BuyScreen() {
   );
 
   const insufficientFunds = checkInsufficientFunds(
-    amount, fees.totalFees, state.cashBalance, state.solBalance,
+    amount, fees.totalFees, fees.feeItems.diboas.amount, state.cashBalance, state.solBalance,
   );
 
   // Calculate crypto quantity from net amount

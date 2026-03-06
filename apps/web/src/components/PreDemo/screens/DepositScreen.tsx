@@ -53,7 +53,7 @@ export function DepositScreen() {
         netAmount: fees.netAmount,
         totalFees: fees.totalFees,
         fees: fees.feeItems,
-        paymentMethod: 'card',
+        paymentMethod: 'bank',
       },
     });
 
@@ -100,15 +100,15 @@ export function DepositScreen() {
         <div className={styles.methodRow}>
           <button className={`${styles.methodButton} ${styles.methodActive}`}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-            </svg>
-            {t('preDemo.deposit.card')}
-          </button>
-          <button className={`${styles.methodButton} ${styles.methodDisabled}`} disabled>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
             {t('preDemo.deposit.bank')}
+          </button>
+          <button className={`${styles.methodButton} ${styles.methodDisabled}`} disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+            </svg>
+            {t('preDemo.deposit.card')}
           </button>
           <button className={`${styles.methodButton} ${styles.methodDisabled}`} disabled>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

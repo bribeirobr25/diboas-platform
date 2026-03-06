@@ -6,14 +6,16 @@
  * Hero section for the protocols page
  */
 
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import styles from './ProtocolsHeroSection.module.css';
 
-interface ProtocolsHeroSectionProps {
-  title: string;
-  subtitle: string;
-}
+const I18N_PREFIX = 'protocols';
 
-export function ProtocolsHeroSection({ title, subtitle }: ProtocolsHeroSectionProps) {
+export function ProtocolsHeroSection() {
+  const intl = useTranslation();
+  const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+
   return (
     <SectionErrorBoundary
       sectionId="hero-section-protocols"
@@ -21,13 +23,16 @@ export function ProtocolsHeroSection({ title, subtitle }: ProtocolsHeroSectionPr
       enableReporting={true}
       context={{ page: 'protocols', variant: 'centered' }}
     >
-      <section className="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-slate-800">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            {title}
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <h1 className={styles.title}>
+            {t('hero.h1')}
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto">
-            {subtitle}
+          <p className={styles.subtitle}>
+            {t('hero.subtitle')}
+          </p>
+          <p className={styles.trustLine}>
+            {t('hero.trustLine')}
           </p>
         </div>
       </section>

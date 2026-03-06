@@ -4,7 +4,24 @@ import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import { ProtocolsPageContent } from '@/components/Pages/ProtocolsPageContent';
+import { FAQAccordion } from '@/components/Sections/FAQAccordion/FAQAccordionFactory';
+import { WaitlistSection } from '@/components/Sections/WaitlistSection';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { CvmBanner } from '@/components/Pages/CvmBanner';
+import {
+  ProtocolsHeroSection,
+  ProtocolsIntroSection,
+  ProtocolsGridSection,
+  ProtocolsSelectionSection,
+  ProtocolsTvlSection,
+  ProtocolsNotIsSection,
+} from '@/components/Pages/Protocols/sections';
+import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
+import {
+  ProtocolsTransitionHook,
+} from '@/components/Pages/Protocols/ProtocolsClientSections';
+import { PROTOCOLS_I18N_PREFIX, PROTOCOLS_FAQ_CONFIG } from '@/config/landing-protocols';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -66,14 +83,24 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 /**
  * Protocols Page
  *
- * Transparency page showing all 26 DeFi protocols we trust:
+ * Config-driven composition pattern (Phase 3E migration).
+ * Each section is a self-contained client component with SectionErrorBoundary.
+ *
+ * - CVM Banner (PT-BR only, before Hero)
  * - Section 1: Hero with headline
+ * - t1: Transition hook
  * - Section 2: Why This Page Exists
- * - Section 3: Protocol Categories (Lending, Staking, etc.)
+ * - Section 3: Protocol Grid (26 protocols in categories)
+ * - t2: Transition hook
  * - Section 4: Our Selection Process
+ * - t3: Transition hook
  * - Section 5: Total TVL
- * - Section 6: FAQ
- * - Section 7: Waitlist
+ * - t4: Transition hook
+ * - Section 6: What This Page Is Not
+ * - t5: Transition hook
+ * - Section 7: FAQ (8 items)
+ * - Section 8: Waitlist
+ * - Section 9: Footer Disclaimers (locale-conditional)
  */
 export default async function ProtocolsPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -84,7 +111,7 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
   }
 
   // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'common', 'waitlist']);
+  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'common', 'waitlist', 'landing-b2c']);
 
   // Generate structured data
   const organizationData = MetadataFactory.generateServiceStructuredData({
@@ -101,7 +128,72 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[organizationData, breadcrumbData]} />
-      <ProtocolsPageContent />
+
+      <main className="main-page-wrapper">
+        {/* CVM Banner (PT-BR only, BEFORE Hero) */}
+        <CvmBanner namespace={PROTOCOLS_I18N_PREFIX} />
+
+        {/* Section 1: Hero */}
+        <ProtocolsHeroSection />
+
+        {/* Transition 1 */}
+        <ProtocolsTransitionHook hookKey="transitions.t1" />
+
+        {/* Section 2: Why This Page Exists */}
+        <ProtocolsIntroSection />
+
+        {/* Section 3: Protocol Grid */}
+        <ProtocolsGridSection />
+
+        {/* Transition 2 */}
+        <ProtocolsTransitionHook hookKey="transitions.t2" />
+
+        {/* Section 4: Selection Process */}
+        <ProtocolsSelectionSection />
+
+        {/* Transition 3 */}
+        <ProtocolsTransitionHook hookKey="transitions.t3" />
+
+        {/* Section 5: TVL */}
+        <ProtocolsTvlSection />
+
+        {/* Transition 4 */}
+        <ProtocolsTransitionHook hookKey="transitions.t4" />
+
+        {/* Section 6: What This Page Is Not */}
+        <ProtocolsNotIsSection />
+
+        {/* Transition 5 */}
+        <ProtocolsTransitionHook hookKey="transitions.t5" />
+
+        {/* Section 7: FAQ */}
+        <SectionErrorBoundary
+          sectionId="faq-section-protocols"
+          sectionType="FAQAccordion"
+          enableReporting
+          context={{ page: 'protocols' }}
+        >
+          <FAQAccordion config={PROTOCOLS_FAQ_CONFIG} />
+        </SectionErrorBoundary>
+
+        {/* CTA Transition */}
+        <ProtocolsTransitionHook hookKey="cta.transition" />
+
+        {/* Section 8: Waitlist */}
+        <SectionErrorBoundary
+          sectionId="waitlist-section-protocols"
+          sectionType="WaitlistSection"
+          enableReporting
+          context={{ page: 'protocols' }}
+        >
+          <div id="waitlist">
+            <WaitlistSection enableAnalytics />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 9: Footer */}
+        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+      </main>
     </PageI18nProvider>
   );
 }

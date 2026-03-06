@@ -4,7 +4,27 @@ import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import { StrategiesPageContent } from '@/components/Pages/StrategiesPageContent';
+import { SectionContainer } from '@/components/Sections';
+import { FAQAccordion } from '@/components/Sections/FAQAccordion/FAQAccordionFactory';
+import { WaitlistSection } from '@/components/Sections/WaitlistSection';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { CvmBanner } from '@/components/Pages/CvmBanner';
+import { StrategiesMatrixSection } from '@/components/Pages/StrategiesMatrixSection';
+import { StrategiesCardsSection } from '@/components/Pages/StrategiesCardsSection';
+import { StrategiesProtocolTable } from '@/components/Pages/StrategiesProtocolTable';
+import { StrategyFeeTable } from '@/components/Pages/StrategyFeeTable';
+import { StrategiesHowToChoose } from '@/components/Pages/StrategiesHowToChoose';
+import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
+import {
+  StrategiesHeroSection,
+  StrategiesTransitionHook,
+} from '@/components/Pages/StrategiesClientSections';
+import {
+  STRATEGIES_I18N_PREFIX,
+  STRATEGIES_FAQ_CONFIG,
+  STRATEGIES_WAITLIST_CONFIG,
+} from '@/config/landing-strategies';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -66,13 +86,19 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 /**
  * Strategies Page
  *
- * Page showcasing all 10 investment strategies:
- * - Section 1: Hero with headline
- * - Section 2: Strategy Matrix
- * - Section 3: Strategy Cards
- * - Section 4: How to Choose
- * - Section 5: FAQ
- * - Section 6: Final CTA / Waitlist
+ * Config-driven composition pattern (Phase 3E migration).
+ * Each section is a self-contained client component with SectionErrorBoundary.
+ *
+ * - CVM Banner (PT-BR only, before Hero)
+ * - Section 1: Hero with trust line + honest limitation
+ * - Section 2: Strategy Matrix (6 rows, null handling)
+ * - Section 3: Strategy Cards ×10 (expanded with protocols, allocation, use cases)
+ * - Section 4: Protocol Table (6 protocols, expandable)
+ * - Section 5: Fee Table (invest=FREE, sell=0.39%)
+ * - Section 6: How to Choose (3 questions + brand promise)
+ * - Section 7: FAQ Accordion (10 items, A/B answer for "safe")
+ * - Section 8: Waitlist / CTA
+ * - Section 9: Footer Disclaimers (locale-conditional)
  */
 export default async function StrategiesPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -100,7 +126,78 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[organizationData, breadcrumbData]} />
-      <StrategiesPageContent />
+
+      <main className="main-page-wrapper">
+        {/* CVM Banner (PT-BR only, BEFORE Hero) */}
+        <CvmBanner namespace={STRATEGIES_I18N_PREFIX} />
+
+        {/* Section 1: Hero */}
+        <StrategiesHeroSection />
+
+        <StrategiesTransitionHook hookKey="hero.transition" />
+
+        {/* Section 2: Strategy Matrix */}
+        <SectionErrorBoundary sectionId="matrix-section-strategies" sectionType="StrategyMatrix" enableReporting context={{ page: 'strategies' }}>
+          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+            <StrategiesMatrixSection />
+          </SectionContainer>
+        </SectionErrorBoundary>
+
+        <StrategiesTransitionHook hookKey="matrix.transition" />
+
+        {/* Section 3: Strategy Cards */}
+        <SectionErrorBoundary sectionId="cards-section-strategies" sectionType="StrategyCards" enableReporting context={{ page: 'strategies' }}>
+          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
+            <StrategiesCardsSection />
+          </SectionContainer>
+        </SectionErrorBoundary>
+
+        <StrategiesTransitionHook hookKey="cardsTransition" />
+
+        {/* Section 4: Protocol Table */}
+        <SectionErrorBoundary sectionId="protocols-section-strategies" sectionType="ProtocolTable" enableReporting context={{ page: 'strategies' }}>
+          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+            <StrategiesProtocolTable />
+          </SectionContainer>
+        </SectionErrorBoundary>
+
+        <StrategiesTransitionHook hookKey="protocols.transition" />
+
+        {/* Section 5: Fee Table */}
+        <SectionErrorBoundary sectionId="fees-section-strategies" sectionType="FeeTable" enableReporting context={{ page: 'strategies' }}>
+          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
+            <StrategyFeeTable />
+          </SectionContainer>
+        </SectionErrorBoundary>
+
+        <StrategiesTransitionHook hookKey="fees.transition" />
+
+        {/* Section 6: How to Choose */}
+        <SectionErrorBoundary sectionId="how-to-choose-section" sectionType="HowToChoose" enableReporting context={{ page: 'strategies' }}>
+          <SectionContainer variant="narrow" padding="standard" backgroundColor="var(--section-bg-neutral)">
+            <StrategiesHowToChoose />
+          </SectionContainer>
+        </SectionErrorBoundary>
+
+        <StrategiesTransitionHook hookKey="howToChoose.transition" />
+
+        {/* Section 7: FAQ */}
+        <SectionErrorBoundary sectionId="faq-section-strategies" sectionType="FAQAccordion" enableReporting context={{ page: 'strategies' }}>
+          <FAQAccordion config={STRATEGIES_FAQ_CONFIG} />
+        </SectionErrorBoundary>
+
+        <StrategiesTransitionHook hookKey="faq.transition" />
+
+        {/* Section 8: Waitlist / CTA */}
+        <SectionErrorBoundary sectionId="waitlist-section-strategies" sectionType="WaitlistSection" enableReporting context={{ page: 'strategies' }}>
+          <div id="waitlist">
+            <WaitlistSection config={STRATEGIES_WAITLIST_CONFIG} enableAnalytics />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 9: Footer */}
+        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+      </main>
     </PageI18nProvider>
   );
 }

@@ -5,10 +5,10 @@
 
 .header {
   font-family: var(--font-family-primary);
-  font-size: var(--section-title-font-size-mobile, 26px);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
-  color: var(--color-text-heading);
+  color: var(--color-section-title);
   text-align: center;
   margin: 0 0 40px 0;
 }
@@ -42,7 +42,7 @@
 
 .card {
   position: relative;
-  border-radius: 16px;
+  border-radius: var(--radius-2xl);
   overflow: hidden;
   min-height: 280px;
   display: flex;
@@ -105,4 +105,55 @@
   .card {
     transition: none;
   }
+}
+
+.transitionHook {
+  font-family: var(--font-family-primary);
+  font-size: 18px;
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0 0 16px 0;
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .transitionHook {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.costComparison {
+  font-family: var(--font-family-primary);
+  font-size: 13px;
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4;
+  color: var(--color-text-on-dark-muted);
+  margin: 8px 0 0 0;
+  opacity: 0.85;
+}
+
+.clarificationLine {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 32px 0 0 0;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footnote {
+  font-family: var(--font-family-primary);
+  font-size: 13px;
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 12px 0 0 0;
 }

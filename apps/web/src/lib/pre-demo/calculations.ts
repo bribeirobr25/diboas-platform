@@ -10,27 +10,30 @@ import { FEE_RATES, ASSET_PRICES } from './constants';
 
 /** Deposit fee calculation */
 export function calculateDepositFees(grossAmount: number): {
-  cardFee: number;
+  processorFee: number;
   networkFee: number;
   diboasFee: number;
   totalFees: number;
   netAmount: number;
   feeItems: Record<string, FeeItem>;
 } {
-  const cardFee = grossAmount * FEE_RATES.deposit.card;
+  const processorFee = grossAmount * FEE_RATES.deposit.paymentProcessor;
   const networkFee = grossAmount * FEE_RATES.deposit.network;
-  const diboasFee = FEE_RATES.deposit.diboas;
-  const totalFees = cardFee + networkFee + diboasFee;
+  const rawDiboasFee = grossAmount * FEE_RATES.deposit.diboas;
+  const diboasFee = grossAmount > 0
+    ? Math.min(FEE_RATES.deposit.diboasMax, Math.max(FEE_RATES.deposit.diboasMin, rawDiboasFee))
+    : 0;
+  const totalFees = processorFee + networkFee + diboasFee;
   const netAmount = grossAmount - totalFees;
 
   return {
-    cardFee,
+    processorFee,
     networkFee,
     diboasFee,
     totalFees,
     netAmount,
     feeItems: {
-      card: { label: 'preDemo.fees.cardProcessing', amount: cardFee, tooltip: 'preDemo.fees.tooltips.cardProcessing' },
+      processor: { label: 'preDemo.fees.paymentProcessor', amount: processorFee, tooltip: 'preDemo.fees.tooltips.paymentProcessor' },
       network: { label: 'preDemo.fees.networkFee', amount: networkFee, tooltip: 'preDemo.fees.tooltips.networkFee' },
       diboas: { label: 'preDemo.fees.diboasFee', amount: diboasFee, tooltip: 'preDemo.fees.tooltips.diboasFeeDeposit' },
     },
@@ -48,7 +51,7 @@ export function calculateSendFees(grossAmount: number): {
 } {
   const networkFee = grossAmount * FEE_RATES.send.network;
   const priorityFee = FEE_RATES.send.priority;
-  const diboasFee = FEE_RATES.send.diboas;
+  const diboasFee = grossAmount * FEE_RATES.send.diboas;
   const totalFees = networkFee + priorityFee + diboasFee;
   const netAmount = grossAmount - totalFees;
 
@@ -77,10 +80,8 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
 
   if (isBitcoin) {
     const swapFee = grossAmount * FEE_RATES.buy.btcSwap;
-    const minerFee = grossAmount > 0
-      ? Math.min(Math.max(FEE_RATES.buy.btcMinerMin, grossAmount * FEE_RATES.buy.btcMinerRate), FEE_RATES.buy.btcMinerMax)
-      : 0;
-    const diboasFee = FEE_RATES.buy.diboas;
+    const minerFee = grossAmount * FEE_RATES.buy.btcMinerRate;
+    const diboasFee = grossAmount * FEE_RATES.buy.btcDiboas;
     const totalFees = swapFee + minerFee + diboasFee;
 
     return {
@@ -98,7 +99,7 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
     const issuerFee = grossAmount * FEE_RATES.buy.xautIssuer;
     const swapGas = FEE_RATES.buy.xautSwapGas;
     const lpFee = grossAmount * FEE_RATES.buy.xautLp;
-    const diboasFee = FEE_RATES.buy.diboas;
+    const diboasFee = grossAmount * FEE_RATES.buy.xautDiboas;
     const totalFees = issuerFee + swapGas + lpFee + diboasFee;
 
     return {
@@ -115,7 +116,10 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
 
   // Default for disabled assets
   const defaultFee = grossAmount * FEE_RATES.buy.defaultRate;
-  const diboasFee = FEE_RATES.buy.diboas;
+  const rawDiboasFee = grossAmount * FEE_RATES.buy.diboas;
+  const diboasFee = grossAmount > 0
+    ? Math.min(25, Math.max(0.25, rawDiboasFee))
+    : 0;
   const totalFees = defaultFee + diboasFee;
 
   return {
@@ -140,18 +144,18 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
 export function checkInsufficientFunds(
   grossAmount: number,
   totalFees: number,
+  diboasFee: number,
   cashBalance: number,
   solBalance: number,
 ): boolean {
   if (grossAmount <= 0) return false;
 
-  // diBoaS fees are 0 currently; adjust here if they become non-zero
-  const nonDiboasFees = totalFees;
+  const nonDiboasFees = totalFees - diboasFee;
   const solCost = nonDiboasFees / ASSET_PRICES.SOL;
 
   const cashCost = solCost >= solBalance
-    ? grossAmount + nonDiboasFees   // USDC SWAP: fees are additional USDC cost
-    : grossAmount - nonDiboasFees;  // SOL PAYS: fees deducted from SOL reserve
+    ? grossAmount + totalFees        // USDC SWAP: all fees are additional USDC cost
+    : grossAmount + diboasFee;       // SOL PAYS: diBoaS fee always paid in USDC
 
   return cashCost > cashBalance;
 }

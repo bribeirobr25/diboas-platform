@@ -202,11 +202,21 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       country,
     });
 
-    // Credit the referrer's invite count (after successful signup)
+    // Credit the referrer's invite count + notify them
     if (referredBy) {
       const referrer = await getByReferralCode(referredBy);
       if (referrer) {
-        await processReferral(referrer.email);
+        const updatedReferrer = await processReferral(referrer.email);
+        // Notify referrer (fire-and-forget, matching sendWelcomeEmail pattern)
+        if (updatedReferrer) {
+          sendReferralNotification(referrer.email, {
+            locale: body.locale || 'en',
+            name: updatedReferrer.name,
+            referralCount: updatedReferrer.referralCount,
+            tier: updatedReferrer.tier,
+            invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
+          });
+        }
       }
     }
 
@@ -342,6 +352,54 @@ function sendWelcomeEmail(
     }
   }).catch((err) => {
     Logger.error('[Email] Failed to load email service', {}, err instanceof Error ? err : undefined);
+  });
+}
+
+/**
+ * Send referral success notification to referrer (fire-and-forget).
+ * Failures are logged but don't affect the signup response.
+ */
+function sendReferralNotification(
+  referrerEmail: string,
+  data: {
+    locale: string;
+    name?: string;
+    referralCount: number;
+    tier: WaitlistTier;
+    invitesRemaining: number;
+  }
+): void {
+  import('@diboas/email').then(async ({ createEmailService, sendViaResend }) => {
+    try {
+      const emailService = createEmailService({ send: sendViaResend });
+      const result = await emailService.sendReferralSuccess(referrerEmail, {
+        locale: data.locale,
+        name: data.name,
+        referralCount: data.referralCount,
+        tier: data.tier as 'founding_member' | 'early_member' | 'priority_waitlist' | 'standard',
+        invitesRemaining: data.invitesRemaining,
+      });
+
+      if (result.success) {
+        Logger.info('[Email] Referral success email sent', { email: referrerEmail });
+      } else {
+        Logger.error('[Email] Referral success email failed', { email: referrerEmail, error: result.error });
+      }
+
+      logEmailDelivery({
+        recipientEmail: referrerEmail,
+        template: 'referral-success',
+        subject: 'Someone used your invite!',
+        locale: data.locale,
+        providerId: result.messageId,
+        status: result.success ? 'sent' : 'failed',
+        errorMessage: result.error,
+      });
+    } catch (err) {
+      Logger.error('[Email] Referral success email error', {}, err instanceof Error ? err : undefined);
+    }
+  }).catch((err) => {
+    Logger.error('[Email] Failed to load email service for referral', {}, err instanceof Error ? err : undefined);
   });
 }
 

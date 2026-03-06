@@ -1,0 +1,68 @@
+/**
+ * ProtocolsSelectionSection Styles
+ *
+ * Selection criteria list with design tokens
+ */
+
+.content {
+  max-width: var(--dimension-700);
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  margin: 0 0 var(--spacing-3xl) 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.intro {
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-700);
+  margin: 0 0 var(--spacing-2xl) 0;
+}
+
+.criteriaList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-3xl) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.criteriaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.checkmark {
+  color: var(--color-teal-500);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.criteriaText {
+  color: var(--color-slate-700);
+}
+
+.belowCriteria {
+  color: var(--color-slate-600);
+  font-style: italic;
+  margin: 0;
+}

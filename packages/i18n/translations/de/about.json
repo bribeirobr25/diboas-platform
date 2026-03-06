@@ -1,64 +1,80 @@
 {
   "seo": {
-    "title": "Über diBoaS | Gebaut, um zu ändern, was Banken verbergen",
-    "description": "diBoaS wurde gegründet, um jedem Zugang zu echten Erträgen zu geben. Erfahren Sie die Geschichte, warum Breno diese Plattform baut.",
-    "ogTitle": "Über diBoaS | Gebaut, um zu ändern, was Banken verbergen",
-    "ogDescription": "diBoaS wurde gegründet, um jedem Zugang zu echten Erträgen zu geben. Erfahren Sie die Geschichte, warum Breno diese Plattform baut."
+    "title": "Ueber diBoaS | Gebaut fuer die, die Banken vergessen haben",
+    "description": "diBoaS wurde gebaut, weil eine Grossmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Ueberweisungen, echte Wachstumsoptionen, ab 5 EUR.",
+    "ogTitle": "Ueber diBoaS | Gebaut fuer die, die Banken vergessen haben",
+    "ogDescription": "diBoaS wurde gebaut, weil eine Grossmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Ueberweisungen, echte Wachstumsoptionen, ab 5 EUR."
   },
   "hero": {
-    "title": "Über diBoaS",
-    "subtitle": "Die Geschichte hinter der Plattform"
+    "title": "Ueber diBoaS",
+    "subtitle": "Eine Grossmutter. Ein Problem. Eine Plattform."
+  },
+  "transitions": {
+    "t1": "Lass mich dir eine Geschichte erzaehlen.",
+    "t2": "Das hier habe ich gebaut.",
+    "t3": "Und das gilt nicht nur fuer Privatpersonen.",
+    "t4": "Du willst reden? Ich bin hier."
   },
   "story": {
-    "header": "Die Geschichte hinter diBoaS",
-    "paragraph1": "Ich bin Breno, und ich baue diBoaS wegen meiner Großmutter.",
-    "paragraph2": "Sie lebte ihr ganzes Leben in Rio de Janeiro. Sie brachte mir das Sparen bei. Sie sagte, ich solle versuchen, die Hälfte von allem zu sparen, was ich verdiene. Das hat sie selbst auch versucht. Ihr ganzes Leben lang.",
-    "paragraph3": "Hart arbeiten. Nur das Nötigste kaufen. Versuchen zu sparen.",
-    "paragraph4": "Es hat trotzdem nicht funktioniert.",
-    "soundsFamiliar": "Kommt Ihnen das bekannt vor?",
-    "revelation": "Was ihr niemand gesagt hat: Ihre Bank zahlte ihr 0,5% Zinsen, während sie 7% mit ihrem Geld verdiente.",
-    "example": "Denken Sie darüber nach. Die 1.000€, die Sie gespart haben? Die Bank hat damit 70€ verdient und Ihnen 5€ zurückgegeben. Die anderen 65€? Die hätten Ihnen gehören sollen.",
-    "universal": "Dieselbe Bank macht das mit uns allen.",
-    "turning": "2024 habe ich meinen Job verloren und beschlossen, etwas gegen dieses Problem zu unternehmen."
+    "header": "Ihr Name war Adelaide.",
+    "paragraph1": "Meine Grossmutter hat ihr ganzes Leben in Rio de Janeiro gelebt. Sie hat mir beigebracht zu sparen. Sie sagte, ich solle versuchen, die Haelfte von allem zu sparen, was ich verdiene. Sie selbst hat das auch versucht. Ihr ganzes Leben lang.",
+    "paragraph2": "Hart arbeiten. Nur das Noetigste kaufen. Versuchen zu sparen.",
+    "paragraph3": "Es hat trotzdem nicht gereicht.",
+    "gapExplanation": "Was ihr niemand gesagt hat: Ihre Bank hat ihr fast nichts gezahlt, waehrend sie mit ihrem Geld echte Renditen erwirtschaftet hat. Diese Luecke, zwischen dem, was Banken verdienen, und dem, was sie weitergeben, ist kein Fehler im System. Das System funktioniert genau so. Nur nicht fuer Menschen wie sie.",
+    "accessLocked": "Der Zugang war versperrt hinter hohen Mindestbetraegen, komplizierten Woertern und Institutionen, denen Menschen mit kleinen Ersparnissen egal waren.",
+    "turning": "2024 habe ich meinen Job verloren und beschlossen, etwas an diesem Problem zu aendern. Neue Technologie machte es moeglich, die Torwaechter zu umgehen. Ich musste nur die Tuer bauen.",
+    "namedAfterHer": "Ich habe sie nach ihr benannt."
   },
   "whatWeDo": {
     "header": "Was diBoaS macht",
-    "description": "diBoaS verbindet Sie mit vertrauenswürdigen Finanzprotokollen, dieselben, die Banken und Institutionen nutzen, um ihr Geld zu vermehren. Der Unterschied? Jetzt gehen diese Erträge an Sie, nicht an sie.",
-    "noMiddleman": "Kein Mittelsmann, der die Differenz behält. Kein Geheimnis, wohin Ihr Geld geht. Nur transparenter Zugang zu 6-10% jährlich auf Stablecoins, mit der Möglichkeit, jederzeit abzuheben."
+    "transfers": "Zuerst das Wichtigste. Sende Geld an jeden auf diBoaS. Ueberall auf der Welt. In Sekunden. Kostenlos. Keine Formulare, keine Gebuehren, kein Warten auf drei Bankarbeitstage. Geld sollte sich wie eine Nachricht bewegen. Jetzt tut es das.",
+    "transfersDisclaimer": "Kostenlose Ueberweisungen zwischen diBoaS-Nutzern. Ueberweisungszeiten sind typisch und koennen variieren. Vorbehaltlich geltender Sanktionen und Compliance-Anforderungen.",
+    "growth": "Dann Wachstum. Waehle aus 10 Moeglichkeiten, dein Geld wachsen zu lassen, von der sichersten Option bis zur abenteuerlichsten. Ab 5 EUR. Dein Geld arbeitet ueber vertrauenswuerdige Finanzsysteme, die zusammen Milliarden an Vermoegenswerten gesichert haben. Die gleiche Art von Systemen, die Institutionen nutzen, jetzt offen fuer dich.",
+    "adelaide": "Und Adelaide ueberwacht das Ganze. Benannt nach der Grossmutter, die das hier inspiriert hat, ist Adelaide deine persoenliche Finanzintelligenz. Was sich bewegt. Was es bedeutet. Was du tun koenntest. Klare Sprache, kein Fachjargon."
   },
   "beliefs": {
     "header": "Woran wir glauben",
     "money": {
-      "title": "Ihr Geld sollte für Sie arbeiten.",
-      "description": "Das Konzept, Erträge auf Geld zu erwirtschaften, existiert seit über 5.000 Jahren. Die meiste Zeit hatten nur Wohlhabende Zugang zu den besten Konditionen. Das ändern wir."
+      "title": "Dein Geld sollte fuer dich arbeiten.",
+      "description": "Nicht fuer deine Bank. Nicht fuer einen Mittelsmann. Fuer dich. Die Luecke zwischen dem, was Banken mit deinem Geld verdienen, und dem, was sie dir davon zurueckgeben, ist real. Wir schliessen diese Luecke."
     },
     "honesty": {
       "title": "Ehrlichkeit statt Hype.",
-      "description": "Wir versprechen keine garantierten Renditen, weil das niemand kann. Was wir bieten: echte Daten aus 4 Jahren historischer Analyse, klare Erklärungen, wie jede Strategie funktioniert, und ein Lernzentrum, das Ihnen hilft zu verstehen, was Sie tun, bevor Sie es tun."
+      "description": "Wir versprechen keine garantierten Renditen, denn das kann niemand. Was wir bieten: echte Daten aus fast 4 Jahren historischer Analyse, klare Erklaerungen, wie jede Option funktioniert, und ein Lernzentrum, damit du verstehst, was du tust, bevor du es tust. Wir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
     },
     "startSmall": {
-      "title": "Klein anfangen, dabei lernen.",
-      "description": "Sie brauchen keine 10.000€, um zu beginnen. Starten Sie mit dem, womit Sie sich wohlfühlen. Beobachten Sie, wie es funktioniert. Dann entscheiden Sie, ob es das Richtige für Sie ist."
+      "title": "Starte mit 5 EUR. Lerne dabei.",
+      "description": "Du brauchst keine 10.000 EUR, um anzufangen. Starte mit dem, was sich fuer dich gut anfuehlt. Schau, wie es funktioniert. Dann entscheide, ob es zu dir passt. Kein Druck, keine Paketangebote, keine langfristigen Bindungen."
     }
   },
   "mission": {
     "header": "Die Mission",
-    "statement": "Normalen Menschen Zugang zu denselben finanziellen Möglichkeiten zu geben, die bisher Institutionen und Wohlhabenden vorbehalten waren.",
-    "tagline": "Eine Plattform. Echte Erträge. Ihr Geld, Ihre Kontrolle."
+    "story": "Adelaide hatte nie eine Wahl. Hohe Mindestbetraege, versteckte Gebuehren und komplizierte Woerter hielten die Tuer verschlossen.",
+    "statement": "Wir bauen die Tuer, die sie nie bekommen hat.",
+    "pillars": "Kostenloser Geldtransfer. Echte Wachstumsoptionen. Volle Transparenz. Ab 5 EUR. In vier Sprachen. Fuer alle."
   },
   "business": {
-    "header": "Für Unternehmen",
-    "description": "Wenn Sie Gründer, CFO oder Treasury-Manager sind: Dasselbe System, das bei meiner Großmutter versagt hat, sitzt auf den Barreserven Ihres Unternehmens.",
-    "pitch": "Wir haben diBoaS Treasury für Unternehmen entwickelt, die wollen, dass ihr ungenutztes Kapital härter arbeitet, mit taggleicher Liquidität und institutionellen Protokollen.",
-    "cta": "Mehr über diBoaS für Unternehmen erfahren"
+    "header": "Fuer Unternehmen",
+    "description": "Wenn du Kartenzahlungen akzeptierst, fressen Bearbeitungsgebuehren an jeder Transaktion. Wenn Geld auf deinem Geschaeftskonto liegt, verdient deine Bank damit, waehrend du fast nichts davon siehst. Das gleiche System, das meiner Grossmutter nicht geholfen hat, sitzt auf den Ruecklagen deines Unternehmens.",
+    "pitch": "diBoaS for Business hilft Unternehmen, mehr von dem zu behalten, was sie verdienen, mit taggleicher Liquiditaet, Berichten fuer die Geschaeftsfuehrung und Zugang zu den gleichen vertrauenswuerdigen Systemen, die unsere Plattform fuer Privatkunden antreiben.",
+    "cta": "Mehr erfahren ueber diBoaS for Business"
   },
   "contact": {
     "header": "Kontakt",
-    "founder": "Gründer:",
-    "founderName": "Breno",
+    "founder": "Gruender:",
+    "founderName": "Bar",
     "location": "Standort:",
     "locationValue": "Berlin, Deutschland",
     "email": "E-Mail:",
-    "emailValue": "hello@diboas.com"
+    "emailValue": "hello@diboas.com",
+    "personal": "Fragen? Ich lese jede E-Mail.",
+    "personalEmail": "bar@diboas.com"
+  },
+  "footer": {
+    "mica": "Kryptowerte sind nicht durch gesetzliche Einlagensicherung geschuetzt. Vergangene Wertentwicklungen garantieren keine zukuenftigen Ergebnisse. Sie sollten Ihre eigene unabhaengige Bewertung vornehmen, bevor Sie eine Investitionsentscheidung treffen.",
+    "micaArticle7": "Diese Marketingmitteilung fuer Kryptowerte wurde von keiner zustaendigen Behoerde eines Mitgliedstaats der Europaeischen Union ueberprueft oder genehmigt. Der Anbieter des Kryptowertes ist allein fuer den Inhalt dieser Marketingmitteilung fuer Kryptowerte verantwortlich.",
+    "ai": "Teile der Inhalte auf dieser Plattform, einschliesslich Marktanalysen und Lehrmaterialien, werden von kuenstlicher Intelligenz generiert oder unterstuetzt. KI-generierte Inhalte koennen Fehler oder Einschraenkungen enthalten. Nutzer sollten Informationen unabhaengig ueberpruefen, bevor sie finanzielle Entscheidungen treffen.",
+    "us": "",
+    "cvm": ""
   }
 }

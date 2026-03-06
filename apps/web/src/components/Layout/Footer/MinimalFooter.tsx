@@ -58,6 +58,7 @@ interface NavLink {
 interface MinimalFooterProps {
   disclaimerKey?: string;
   taglineKey?: string;
+  copyrightKey?: string;
   navLinks?: readonly NavLink[];
   disclosureKeys?: {
     general?: string;
@@ -66,6 +67,7 @@ interface MinimalFooterProps {
     ai?: string;
     closing?: string;
     mica?: string;
+    micaArticle7?: string;
     cvm?: string;
     bcb?: string;
     us?: string;
@@ -94,9 +96,14 @@ function getDisclosureKeysForLocale(
   if (keys.general) result.push(keys.general);
   if (keys.crypto) result.push(keys.crypto);
 
-  // MiCA Article 68: DE, ES, PT-BR only
-  if (keys.mica && ['de', 'es', 'pt-BR'].includes(locale)) {
+  // MiCA Article 68: DE, ES only (not PT-BR, they use CVM)
+  if (keys.mica && ['de', 'es'].includes(locale)) {
     result.push(keys.mica);
+  }
+
+  // MiCA Article 7: EN, ES, DE only
+  if (keys.micaArticle7 && ['en', 'es', 'de'].includes(locale)) {
+    result.push(keys.micaArticle7);
   }
 
   // CVM + BCB: PT-BR only
@@ -116,6 +123,7 @@ function getDisclosureKeysForLocale(
 export function MinimalFooter({
   disclaimerKey,
   taglineKey,
+  copyrightKey = 'landing-b2c.footer.copyright',
   navLinks,
   disclosureKeys,
 }: MinimalFooterProps) {
@@ -207,7 +215,7 @@ export function MinimalFooter({
               {intl.formatMessage({ id: config.legal.brandName })}
             </span>
             <span className={styles.copyright}>
-              {intl.formatMessage({ id: 'landing-b2c.footer.copyright' })}
+              {intl.formatMessage({ id: copyrightKey })}
             </span>
           </div>
 

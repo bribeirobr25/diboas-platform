@@ -11,10 +11,10 @@
 
 .title {
   font-family: var(--font-family-primary);
-  font-size: var(--section-title-font-size-mobile, 26px);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
-  color: var(--color-text-heading);
+  color: var(--color-section-title);
   margin: 0 0 12px 0;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .tableHeaderRow {
-  background-color: #f0fdfa;
+  background-color: var(--color-teal-50, #f0fdfa);
 }
 
 .th {
@@ -67,11 +67,11 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 12px 16px;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--color-slate-200);
 }
 
 .tableRow {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-slate-200);
 }
 
 .tableRow:last-child {
@@ -150,7 +150,7 @@
 
 .mobileCard {
   background: var(--section-bg-white);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-slate-200);
   border-radius: 12px;
   padding: 16px;
   text-align: left;
@@ -189,7 +189,46 @@
   font-size: 14px;
   color: var(--color-text-secondary);
   padding-top: 8px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-slate-200);
+}
+
+/* Transition hook: styled intro above the title */
+.transitionHook {
+  font-family: var(--font-family-primary);
+  font-size: 22px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary-accessible);
+  text-align: center;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+/* Pain intro: descriptive text below subtitle */
+.painIntro {
+  font-size: 18px;
+  color: var(--color-text-body);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+/* Footer line: additional context after example */
+.footerLine {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 12px auto 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Mobile example value in comparison cards */
+.mobileExample {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-top: 8px;
 }
 
 @media (prefers-reduced-motion: reduce) {

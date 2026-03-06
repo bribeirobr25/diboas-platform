@@ -7,6 +7,7 @@
 
 export interface ProseSectionConfig {
   readonly content: {
+    readonly transitionHook?: string;
     readonly header?: string;
     readonly paragraphs: readonly string[];
     readonly signatureLine?: string;

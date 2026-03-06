@@ -35,6 +35,10 @@ export const ProseSection = memo(function ProseSection({
       className={`${styles.prose} ${isGenerous ? styles.generous : ''}`}
       style={hasImage ? undefined : { maxWidth: translated.style.maxWidth || '680px' }}
     >
+      {translated.content.transitionHook ? (
+        <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+      ) : null}
+
       {translated.content.header && !(hasImage && isCenteredHeader) && (
         <h2 className={`${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}>
           {translated.content.header}
@@ -79,14 +83,22 @@ export const ProseSection = memo(function ProseSection({
 
     // Centered header renders above the two-column layout
     const centeredHeader = isCenteredHeader && translated.content.header ? (
-      <h2 className={`${styles.header} ${styles.headerCentered}`}>
-        {translated.content.header}
-      </h2>
+      <>
+        {translated.content.transitionHook ? (
+          <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+        ) : null}
+        <h2 className={`${styles.header} ${styles.headerCentered}`}>
+          {translated.content.header}
+        </h2>
+      </>
     ) : null;
 
     // Standalone header for mobile reorder (title → image → text) — only when not centered
     const standaloneHeader = !isCenteredHeader && translated.content.header ? (
       <div className={styles.headerStandalone}>
+        {translated.content.transitionHook ? (
+          <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+        ) : null}
         <h2 className={`${styles.header} ${styles.headerWithImage}`}>
           {translated.content.header}
         </h2>

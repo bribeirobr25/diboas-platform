@@ -74,7 +74,7 @@ export function ProductCarousel({
   // Domain-Driven Design: Configuration resolution with validation
   const baseResolvedConfig = useMemo(() => {
     try {
-      const baseConfig = PRODUCT_CAROUSEL_CONFIGS[variant as ProductCarouselVariant] || PRODUCT_CAROUSEL_CONFIGS.default;
+      const baseConfig = (PRODUCT_CAROUSEL_CONFIGS as Record<string, ProductCarouselVariantConfig>)[variant] || PRODUCT_CAROUSEL_CONFIGS.default;
       const finalConfig = customConfig
         ? { ...baseConfig, ...customConfig } as ProductCarouselVariantConfig
         : baseConfig;

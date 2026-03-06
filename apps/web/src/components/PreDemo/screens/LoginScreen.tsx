@@ -3,6 +3,7 @@
 import { useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@diboas/i18n/client';
+import { ASSET_PATHS } from '@/config/assets';
 import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
@@ -44,7 +45,7 @@ export function LoginScreen({ onExit }: { onExit?: () => void }) {
           {/* Logo */}
           <div className={styles.logoCircle}>
             <Image
-              src="/assets/logos/logo-icon.avif"
+              src={ASSET_PATHS.LOGOS.ICON}
               alt="diBoaS"
               width={48}
               height={48}

@@ -6,23 +6,17 @@
  * Displays total TVL statistics
  */
 
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
+import styles from './ProtocolsTvlSection.module.css';
 
-interface ProtocolsTvlSectionProps {
-  header: string;
-  paragraph1: string;
-  amount: string;
-  paragraph2: string;
-  note: string;
-}
+const I18N_PREFIX = 'protocols';
 
-export function ProtocolsTvlSection({
-  header,
-  paragraph1,
-  amount,
-  paragraph2,
-  note,
-}: ProtocolsTvlSectionProps) {
+export function ProtocolsTvlSection() {
+  const intl = useTranslation();
+  const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+
   return (
     <SectionErrorBoundary
       sectionId="tvl-section-protocols"
@@ -30,21 +24,22 @@ export function ProtocolsTvlSection({
       enableReporting={true}
       context={{ page: 'protocols' }}
     >
-      <section className="py-16 md:py-24" style={{ backgroundColor: 'var(--bc-color-section-bg)' }}>
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-            {header}
-          </h2>
-          <p className="text-xl text-slate-700 max-w-3xl mx-auto mb-2">
-            {paragraph1}{' '}
-            <span className="font-bold text-teal-700 text-3xl">{amount}</span>{' '}
-            {paragraph2}
+      <SectionContainer
+        variant="standard"
+        padding="standard"
+        backgroundColor="var(--bc-color-section-bg)"
+      >
+        <div className={styles.container}>
+          <h2 className={styles.title}>{t('tvl.h2')}</h2>
+          <p className={styles.paragraph}>
+            {t('tvl.textBefore')}{' '}
+            <span className={styles.amount}>{t('tvl.number')}</span>{' '}
+            {t('tvl.textAfter')}
           </p>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            {note}
-          </p>
+          <p className={styles.context}>{t('tvl.context')}</p>
+          <p className={styles.source}>{t('tvl.source')}</p>
         </div>
-      </section>
+      </SectionContainer>
     </SectionErrorBoundary>
   );
 }

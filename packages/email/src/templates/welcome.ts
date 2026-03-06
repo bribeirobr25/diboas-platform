@@ -9,10 +9,12 @@ interface TierTranslations {
   intro: string;
   tierBadge: Record<WaitlistTier, string>;
   tierMessage: Record<WaitlistTier, string>;
+  foundingMemberBenefits: string[];
   referralCta: string;
   whatNext: string;
   whatNextBody: string;
   spotsRemaining: string;
+  memberNumber: string; // template: "#{position} of 1,200"
 }
 
 const translations: Record<string, TierTranslations> = {
@@ -33,10 +35,17 @@ const translations: Record<string, TierTranslations> = {
       priority_waitlist: "You're on the waitlist! Share your link to help friends get early access.",
       standard: "You're on the waitlist! Share your link to help friends get early access.",
     },
+    foundingMemberBenefits: [
+      'Permanent Founding Member badge (#47 of 1,200)',
+      'Your name on the Founders Wall',
+      '5 personal invites',
+      'Future exclusive benefits for Founding Members only',
+    ],
     referralCta: 'Copy your referral link',
     whatNext: "What's next?",
     whatNextBody: "We'll keep you posted on our progress and let you know when it's your turn.",
     spotsRemaining: '{spots} founding member spots remaining',
+    memberNumber: '#{position} of 1,200',
   },
   'pt-BR': {
     subject: 'Bem-vindo ao diBoaS — Você está na lista de espera!',
@@ -55,10 +64,17 @@ const translations: Record<string, TierTranslations> = {
       priority_waitlist: 'Você está na lista de espera! Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
       standard: 'Você está na lista de espera! Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
     },
+    foundingMemberBenefits: [
+      'Selo permanente de Membro Fundador (#47 de 1.200)',
+      'Seu nome no Mural dos Fundadores',
+      '5 convites pessoais',
+      'Benefícios exclusivos futuros só pra Membros Fundadores',
+    ],
     referralCta: 'Copie seu link de indicação',
     whatNext: 'Próximos passos',
     whatNextBody: 'Manteremos você informado sobre nosso progresso e avisaremos quando for sua vez.',
     spotsRemaining: '{spots} vagas de membro fundador restantes',
+    memberNumber: '#{position} de 1.200',
   },
   es: {
     subject: 'Bienvenido a diBoaS — ¡Estás en la lista de espera!',
@@ -77,10 +93,17 @@ const translations: Record<string, TierTranslations> = {
       priority_waitlist: '¡Estás en la lista de espera! Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
       standard: '¡Estás en la lista de espera! Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
     },
+    foundingMemberBenefits: [
+      'Insignia permanente de Miembro Fundador (#47 de 1.200)',
+      'Tu nombre en el Muro de los Fundadores',
+      '5 invitaciones personales',
+      'Beneficios exclusivos futuros solo para Miembros Fundadores',
+    ],
     referralCta: 'Copia tu enlace de referencia',
     whatNext: '¿Qué sigue?',
     whatNextBody: 'Te mantendremos informado y te avisaremos cuando sea tu turno.',
     spotsRemaining: '{spots} lugares de miembro fundador restantes',
+    memberNumber: '#{position} de 1.200',
   },
   de: {
     subject: 'Willkommen bei diBoaS — Du bist auf der Warteliste!',
@@ -99,10 +122,17 @@ const translations: Record<string, TierTranslations> = {
       priority_waitlist: 'Du bist auf der Warteliste! Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
       standard: 'Du bist auf der Warteliste! Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
     },
+    foundingMemberBenefits: [
+      'Permanentes Gründungsmitglied-Abzeichen (#47 von 1.200)',
+      'Dein Name auf der Gründerwand',
+      '5 persönliche Einladungen',
+      'Zukünftige exklusive Vorteile nur für Gründungsmitglieder',
+    ],
     referralCta: 'Empfehlungslink kopieren',
     whatNext: 'Wie geht es weiter?',
     whatNextBody: 'Wir halten dich auf dem Laufenden und informieren dich, wenn du an der Reihe bist.',
     spotsRemaining: '{spots} Gründungsmitglied-Plätze verbleibend',
+    memberNumber: '#{position} von 1.200',
   },
 };
 
@@ -126,8 +156,18 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
   const tierBadge = renderTierBadge(data.tier, t.tierBadge[data.tier]);
   const tierMessage = t.tierMessage[data.tier];
 
+  const positionLine = data.tier === 'founding_member'
+    ? `<p style="margin:8px 0 0;font-size:14px;font-weight:600;color:#115e59;">${t.memberNumber.replace('{position}', String(data.position))}</p>`
+    : '';
+
   const spotsSection = data.tier === 'founding_member' && data.foundingMemberSpotsRemaining != null
     ? `<p style="margin:8px 0 0;font-size:13px;color:#94a3b8;">${t.spotsRemaining.replace('{spots}', String(data.foundingMemberSpotsRemaining))}</p>`
+    : '';
+
+  const benefitsSection = data.tier === 'founding_member'
+    ? `<ul style="margin:0 0 16px;padding:0;list-style:none;">${t.foundingMemberBenefits.map(
+        (b) => `<li style="margin:0 0 8px;font-size:14px;color:#475569;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#0d9488;">&#10003;</span>${b}</li>`,
+      ).join('')}</ul>`
     : '';
 
   const content = `
@@ -136,8 +176,11 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
 
     <div style="text-align:center;padding:24px;background-color:#f0fdfa;border-radius:8px;margin-bottom:24px;">
       ${tierBadge}
+      ${positionLine}
       ${spotsSection}
     </div>
+
+    ${benefitsSection}
 
     <p style="margin:0 0 16px;font-size:14px;color:#475569;">${tierMessage}</p>
 

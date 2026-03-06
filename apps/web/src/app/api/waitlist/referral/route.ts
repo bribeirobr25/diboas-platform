@@ -41,6 +41,7 @@ interface ReferralLookupResponse {
   referrer?: {
     position: number;
     referralCount: number;
+    remainingInvites: number;
   };
   error?: string;
 }
@@ -100,6 +101,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
       referrer: {
         position: referrer.position,
         referralCount: referrer.referralCount,
+        remainingInvites: Math.max(0, 5 - referrer.referralCount),
       },
     });
   } catch (error) {

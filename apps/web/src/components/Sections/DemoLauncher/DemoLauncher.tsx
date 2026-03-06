@@ -15,6 +15,7 @@ const PreDream = dynamic(
 
 interface DemoLauncherConfig {
   content: {
+    transitionHook?: string;
     header: string;
     subtext: string;
     ctaPrimary: string;
@@ -67,6 +68,9 @@ export const DemoLauncher = memo(function DemoLauncher({
         ariaLabel={translated.seo.ariaLabel}
       >
         <div className={styles.wrapper}>
+          {translated.content.transitionHook ? (
+            <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+          ) : null}
           <h2 className={styles.title}>{translated.content.header}</h2>
           <p className={styles.description}>{translated.content.subtext}</p>
 

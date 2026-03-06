@@ -46,7 +46,7 @@
       "earlyMember": "Invitado por un Miembro Fundador. Comparte tu enlace para ayudar a amigos a tener acceso anticipado.",
       "priorityWaitlist": "Estás en la lista de espera prioritaria. Comparte tu enlace para avanzar y ayudar a amigos."
     },
-    "spotsRemaining": "{spots} lugares de miembro fundador restantes"
+    "spotsRemaining": "{spots} lugares restantes"
   },
   "stats": {
     "foundingMembersFull": "Todas las plazas de miembro fundador ocupadas — únete a la lista de espera"

@@ -1,0 +1,187 @@
+/**
+ * ProtocolCard Styles
+ *
+ * Unified card styling using design tokens
+ * Supports badge pills, exception notes, strategy tags, and expand/collapse
+ */
+
+.card {
+  background-color: var(--section-bg-white);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-slate-200);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-section-title);
+  margin: 0;
+}
+
+.badgeWarning {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background-color: var(--color-amber-50, #fffbeb);
+  color: var(--color-amber-600);
+  flex-shrink: 0;
+}
+
+.badgeSuccess {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background-color: var(--color-teal-50, #f0fdfa);
+  color: var(--color-teal-600);
+  flex-shrink: 0;
+}
+
+.badgeIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.description {
+  color: var(--color-slate-600);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.exceptionNote {
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  color: var(--color-slate-500);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.usedInStrategies {
+  font-size: var(--font-size-xs);
+  color: var(--color-teal-600);
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-slate-100);
+  padding-bottom: var(--spacing-sm);
+}
+
+.detailRowLast {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding-top: var(--spacing-xs);
+}
+
+.detailLabel {
+  color: var(--color-slate-500);
+}
+
+.detailValue {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-section-title);
+}
+
+.detailValueRight {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-section-title);
+  text-align: right;
+  max-width: 200px;
+}
+
+.regulatoryValue {
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.regulatoryWarning {
+  color: var(--color-amber-600);
+}
+
+.regulatorySuccess {
+  color: var(--color-teal-600);
+}
+
+.regulatoryDefault {
+  color: var(--color-section-title);
+}
+
+.regulatoryTruncated {
+  display: inline;
+}
+
+.expandToggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-teal-600);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  text-decoration: underline;
+  align-self: flex-start;
+}
+
+.expandToggle:hover {
+  color: var(--color-teal-700);
+}
+
+.regulatoryIcon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.links {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-slate-100);
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.websiteLink {
+  color: var(--color-teal-600);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.websiteLink:hover {
+  color: var(--color-teal-700);
+}
+
+.twitterLink {
+  color: var(--color-slate-500);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.twitterLink:hover {
+  color: var(--color-slate-700);
+}

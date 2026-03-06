@@ -23,6 +23,14 @@ interface WaitlistFormProps {
   onError?: (error: string) => void;
   /** Show compact version (email only) */
   compact?: boolean;
+  /** Override referral code (e.g. from manually entered invite code) */
+  referredBy?: string;
+  /** Waitlist source identifier (e.g. 'landing_b2b') */
+  source?: string;
+  /** Text rendered below submit button */
+  belowCta?: string;
+  /** Text rendered below consent checkbox */
+  belowCheckbox?: string;
   /** Custom class name */
   className?: string;
 }
@@ -31,6 +39,10 @@ export function WaitlistForm({
   onSuccess,
   onError,
   compact = false,
+  referredBy,
+  source,
+  belowCta,
+  belowCheckbox,
   className = '',
 }: WaitlistFormProps) {
   const intl = useTranslation();
@@ -50,6 +62,8 @@ export function WaitlistForm({
     handleSubmit,
   } = useWaitlistForm({
     compact,
+    referredBy,
+    source,
     onSuccess,
     onError,
     t,
@@ -103,6 +117,8 @@ export function WaitlistForm({
         </div>
       )}
 
+      {belowCta ? <p className={styles.belowCta}>{belowCta}</p> : null}
+
       {!compact && (
         <div className={styles.consent}>
           <label htmlFor="waitlist-gdpr" className={styles.consentLabel}>
@@ -128,6 +144,8 @@ export function WaitlistForm({
           {t('form.privacyNote')}
         </p>
       )}
+
+      {belowCheckbox ? <p className={styles.belowCheckbox}>{belowCheckbox}</p> : null}
     </form>
   );
 }

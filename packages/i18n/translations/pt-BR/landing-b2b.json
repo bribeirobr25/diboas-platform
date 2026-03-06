@@ -1,188 +1,301 @@
 {
   "hero": {
-    "headline": "O sistema não está quebrado. Ele foi feito para empresas bilionárias.",
-    "subheadline": "Seu banco ganha 15% com seu caixa. Maquininhas levam 2-3%.\nSeu caixa tá sangrando. Existe um jeito melhor.",
-    "cta": "Como eu descobri isso →",
+    "headline": "O sistema nao esta quebrado. Ele foi feito pra ficar com um pedaco de tudo que voce ganha.",
+    "subheadline": "Voce perde de 2% a 5% em cada venda no cartao. E ainda espera 30 dias pra receber. O dinheiro que sobra no caixa? Rende pro banco, nao pra voce. Isso muda agora.",
+    "cta": "Veja o que voce esta perdendo",
     "trustBadges": {
-      "mica": {
-        "label": "Regulado na UE (MiCA)",
-        "tooltip": "Operando sob o framework MiCA da UE para criptoativos"
-      },
-      "nonCustodial": {
-        "label": "Seus fundos, sua carteira",
-        "tooltip": "N\u00f3s nunca seguramos seu dinheiro \u2014 ele fica na sua pr\u00f3pria carteira"
-      },
-      "audited": {
-        "label": "Auditado independentemente",
-        "tooltip": "Todos os sistemas verificados por firmas de seguran\u00e7a independentes"
-      },
-      "boardReady": {
-        "label": "Relat\u00f3rios para o board",
-        "tooltip": "Extratos mensais que seu CFO vai realmente entender"
-      }
+      "wallet": { "label": "Seu dinheiro, seu controle" },
+      "reporting": { "label": "Relatorios prontos pro conselho" },
+      "audited": { "label": "Construido sobre sistemas auditados" }
     }
   },
-  "theMath": {
-    "header": "Cadê os R$325.000?",
-    "intro": "R$2M captados. 18 meses de caixa. R$1M+ parado.\n\nSeu banco ganha: R$150.000/ano.\nTe devolve: R$70.000/ano\nE o real perde mais 6% pro dólar.\nResultado real: você tá no zero. Ou no negativo.\n\nIsso é o que sua empresa tá deixando escapar.",
-    "cta": "Calcula seus números →"
+  "twoWorlds": {
+    "header": "Duas formas que o sistema custa dinheiro pra voce.",
+    "cardA": {
+      "headline": "Se voce aceita pagamentos no cartao",
+      "body": "Cada vez que um cliente paga no cartao, voce perde de 2% a 5% pra maquininha.\n\nCom R$5.000 por dia em vendas, sao R$3.000 a R$7.500 por mes. Sumidos. E no cartao de credito? O dinheiro so cai na sua conta em 30 dias. Se voce quer receber antes, paga MAIS uma taxa de antecipacao.\n\nVoce paga pra receber o seu proprio dinheiro. Faz sentido?",
+      "cta": "Calcule o que voce esta perdendo"
+    },
+    "cardB": {
+      "headline": "Se sua empresa tem dinheiro parado no caixa",
+      "body": "Voce captou investimento. Esta gastando com cuidado. Mas o dinheiro que voce nao esta usando agora? O banco pega, aplica, e te devolve uma miseria.\n\nCom R$2.500.000 parados, a diferenca entre o que o banco te paga e o que e possivel pode ser de centenas de milhares de reais por ano.\n\nE se esse dinheiro trabalhasse pra voce?",
+      "cta": "Calcule o que o banco esta ficando"
+    }
   },
-  "origin": {
-    "header": "Por causa da minha avó",
-    "body": "Ela economizou a vida inteira. Metade de tudo que ganhava. Fez tudo certo.\n\nAinda assim, não foi o bastante.\nO sistema não foi feito pra pessoas como ela.\nNem pra empresas como a sua.\n\nMas empreendedores? Vocês têm opções. Só precisam saber que elas existem.\n\nPor isso tô construindo o diBoaS pra Empresas.",
-    "signature": "Bar, Fundador"
+  "cashflowCalculator": {
+    "header": "Hoje sem nos V.S. Amanha com diBoaS",
+    "todayTitle": "Como e Hoje? Sem nos?",
+    "tomorrowTitle": "Como deveria ser? So com diBoaS",
+    "fields": {
+      "dailyRevenue": "Suas vendas diarias no cartao",
+      "currentFee": "Sua taxa atual da maquininha"
+    },
+    "periodToggle": { "month": "1 mes", "sixMonths": "6 meses", "year": "1 ano" },
+    "disclaimer": "Estas projecoes sao ilustrativas. Os resultados reais podem ser maiores ou menores. Desempenho passado nao garante resultados futuros.",
+    "results": {
+      "step1Label": "Voce perde em taxas",
+      "step2Label": "Voce pode fazer sua economia render",
+      "savingsLabel": "Voce economiza em taxas",
+      "scenarios": {
+        "conservative": "Conservador (4%)",
+        "historical": "Media historica (7%)",
+        "optimistic": "Otimista (10%)"
+      }
+    },
+    "sliderLabel": "Retorno anual esperado (media historica: 7%)",
+    "belowResults": "",
+    "customRateTemplate": "Com {rate}% de retorno anual: {amount}",
+    "cta": "Fale conosco",
+    "transitionHook": "Simulador de taxas de pagamento. Simulador de caixa parado"
   },
   "calculator": {
-    "header": "Faz as contas",
+    "header": "Hoje sem nos V.S. Amanha com diBoaS",
+    "todayTitle": "Como e Hoje? Sem nos?",
+    "tomorrowTitle": "Como deveria ser? So com diBoaS",
     "fields": {
-      "cashOnHand": "Caixa disponível",
-      "currentRate": "Taxa atual do banco",
-      "currencyLoss": "Perda cambial (R$ vs $)",
-      "bankEarns": "O que seu banco ganha com isso",
-      "bankPays": "O que seu banco te paga",
-      "diboasPays": "O que o diBoaS te pagaria",
-      "difference": "A diferença",
-      "projectedYield": "Com diBoaS (em dólares)",
-      "currentInterest": "Com seu banco (em reais)",
-      "additionalRunway": "A diferença"
+      "cashOnHand": "Capital disponivel",
+      "currentRate": "Taxa de juros atual"
     },
-    "defaults": {
-      "cashOnHand": "2500000",
-      "currentRate": "7"
+    "periodToggle": { "month": "1 mes", "sixMonths": "6 meses", "year": "1 ano" },
+    "disclaimer": "Estas projecoes sao ilustrativas. Os resultados reais podem ser maiores ou menores. Desempenho passado nao garante resultados futuros. Seu capital esta em risco.",
+    "results": {
+      "step1Label": "O que seu banco te da",
+      "step2Label": "Voce pode fazer seu caixa parado render",
+      "savingsLabel": "O que voce fica com diBoaS",
+      "scenarios": {
+        "conservative": "Conservador",
+        "historical": "Media historica",
+        "optimistic": "Otimista"
+      }
     },
-    "perYear": "/ano",
-    "cta": "Quero esses retornos →"
+    "sliderLabel": "Retorno anual esperado (media historica: 7%)",
+    "belowResults": "",
+    "customRateTemplate": "Com {rate}% de retorno anual: {amount}",
+    "cta": "Fale conosco",
+    "transitionHook": "Simulador de caixa parado"
+  },
+  "origin": {
+    "header": "O nome dela era Adelaide.",
+    "paragraphs": [
+      "Minha avo economizou a vida inteira. Metade de tudo que ganhou. Fez tudo certo.",
+      "Nao foi suficiente.",
+      "O banco investiu as economias dela, lucrou, e devolveu quase nada. Te parece familiar?",
+      "Eu ja vi padarias perderem R$50.000 por ano em taxas de maquininha. Ja vi startups com R$2 milhoes no banco recebendo menos de R$1.000 por mes de rendimento.",
+      "O sistema nao foi feito pra pessoas como ela. Tambem nao foi feito pra negocios como o seu.",
+      "Mas agora? A tecnologia tornou possivel eliminar os intermediarios. Eu so precisava construir a porta.",
+      "Dei o nome dela."
+    ],
+    "signature": "Bar, Fundador",
+    "transitionHook": "Por que construir o diBoaS"
   },
   "howItWorks": {
-    "header": "Como funciona",
-    "subhead": "",
+    "header": "Quatro passos. Dois minutos.",
     "steps": {
-      "link": {
-        "title": "Conecta sua conta empresarial",
-        "description": "2 minutos pra configurar. Sem integração técnica."
+      "connect": {
+        "title": "Conecte seu negocio",
+        "description": "Vincule sua conta empresarial. Dois minutos de configuracao. Sem integracao tecnica. Sem desenvolvedor. Sem parar nada. Voce faz isso enquanto toma o cafe da manha."
       },
-      "control": {
-        "title": "Você no controle",
-        "description": "Define quanto quer investir. A gente só movimenta o que você autorizar."
+      "rules": {
+        "title": "Voce define as regras",
+        "description": "Diga qual e o seu minimo. \"Sempre manter R$250.000 disponiveis.\" Tudo que estiver acima? Coloca pra trabalhar. Voce define as regras. Muda quando quiser."
       },
-      "earn": {
-        "title": "Veja crescer",
-        "description": "6-8% ao ano, 24h em sistemas confiáveis. Em dólares. Crescimento real. Agora rendendo."
+      "works": {
+        "title": "Seu dinheiro trabalha",
+        "description": "Seu caixa parado comeca a render. Pagamentos chegam em segundos, nao em 30 dias. Suas taxas de processamento caem de 4% pra zero. E voce nao precisou pensar em nada disso."
       },
-      "withdraw": {
-        "title": "Acessa quando quiser",
-        "description": "Precisa do caixa? Um toque. Recebe no mesmo dia. Sem bloqueio. Sem multa. Sem pergunta."
+      "access": {
+        "title": "Acesso a qualquer hora",
+        "description": "Precisa de dinheiro? Um toque. Sem bloqueios. Sem multas. Processado na hora. Tempos de transferencia bancaria podem variar."
       }
     },
-    "footer": "Extratos mensais. Relatórios para o board. Linguagem clara, sem jargão."
+    "transitionHook": "Esse e o processo. Agora veja o que voce realmente recebe."
   },
   "features": {
-    "header": "diBoaS Empresa é muito mais!",
-    "intro": "",
-    "instantPayments": {
-      "headline": "Pague qualquer um, em qualquer lugar",
-      "body": "Em tempo real. Só 0,12% por transferência. Câmbio real. Sem taxa de transferência.",
-      "example": {
-        "before": "R$2.500 transferência para prestador = R$2.375 recebidos (depois de taxas + spread)",
-        "after": "R$2.500 enviados = R$2.500 recebidos"
+    "header": "O que o seu negocio ganha.",
+    "cards": {
+      "getPaid": {
+        "headline": "Receba sem perder um pedaco",
+        "body": "Seus clientes pagam. Voce fica com 100%. Na hora."
+      },
+      "payAnyone": {
+        "headline": "Pague qualquer pessoa, em qualquer lugar, na hora",
+        "body": "Fornecedores, prestadores, freelancers. No mundo todo. Sem taxas. Em tempo real"
+      },
+      "adelaide": {
+        "headline": "Adelaide cuida do seu dinheiro",
+        "body": "Inteligencia de mercado pra donos de negocio. Sem consultor a R$2.500 a hora."
       }
     },
-    "receivePayments": {
-      "headline": "Receba mais rápido",
-      "body": "Qualquer hora. Qualquer dia. De qualquer lugar. Sem 2-3% de maquininha. Sem esperar dias.",
-      "example": {
-        "before": "Fatura de R$50.000 → R$48.500 depois das taxas → disponível em 3 dias",
-        "after": "Fatura de R$50.000 → R$50.000 recebido → disponível na hora"
-      }
+    "transitionHook": "Mas aqui vem a parte que ninguem mais esta fazendo."
+  },
+  "cashflowInvesting": {
+    "header": "Investimento de fluxo. Dois ganhos com uma so mudanca.",
+    "saveIt": {
+      "title": "Economize.",
+      "body": "A cada R$100 em vendas no cartao, voce paga de R$2 a R$5 em taxas. Com diBoaS, paga R$0. Uma cafeteria com R$5.000/dia? Sao R$69.000+ por ano de volta."
     },
-    "cashflowOptimization": {
-      "headline": "Seu caixa trabalha 24h",
-      "body": "Dinheiro parado rende 6-8% ao ano. Em dólares. Toda hora. Todo dia. Fim de semana e feriado também.",
-      "example": {
-        "label": "R$2,5M durante a noite por 30 dias:",
-        "bank": "R$0-100",
-        "diboas": "~R$12.500"
-      }
+    "growIt": {
+      "title": "Faca render.",
+      "body": "A economia e sua, investindo ou nao. Se quiser colocar pra trabalhar: a partir de R$10, da mais segura ate a mais arrojada. Adelaide fica de olho."
     },
-    "overnightSweep": {
-      "headline": "Otimização automática",
-      "body": "No fim do dia, seu caixa vai pra rendimento. De manhã, tá de volta e líquido. Você define o mínimo.",
-      "schedule": {
-        "evening": "18h: Caixa acima do limite → sistemas de rendimento",
-        "morning": "9h: Liquidez total restaurada",
-        "you": "Você: Não faz nada"
-      }
-    }
+    "microExample": "Economize R$69.840 em taxas. Invista. Termine o ano com R$72.634 a R$76.824. Nao e corte de custos. E uma nova linha de receita.",
+    "limitation": "A economia e certa. O crescimento nao. Essa e a conta honesta.",
+    "brandPromise": "Mostramos os dois lados, as oportunidades e os riscos, sempre.",
+    "cta": "Faca as contas",
+    "microDisclosure": "Exemplo baseado em R$5.000/dia de vendas no cartao a 4% de taxa, com economias investidas a uma faixa de 4% a 10% de retorno anual. Projecoes de retorno sao ilustrativas. Os resultados reais podem variar."
+  },
+  "fees": {
+    "header": "Quanto custa. Tudo.",
+    "subtitle": "Sem taxas escondidas. Sem saldo minimo. Sem mensalidade. Aqui esta cada taxa, na mesa.",
+    "headers": { "action": "Acao", "diboas": "diBoaS", "competitors": "Provedores tipicos", "example": "Exemplo" },
+    "rows": {
+      "account": { "action": "Conta empresarial", "diboas": "Gratis pra sempre", "competitors": "R$50 a R$250/mes", "example": "Sua conta: R$0. Sempre." },
+      "receive": { "action": "Receber pagamentos", "diboas": "GRATIS", "competitors": "2 a 5% (maquininha)", "example": "Receber R$5.000: custa R$0. Outros cobram R$100 a R$250." },
+      "send": { "action": "Enviar / Pagar", "diboas": "GRATIS", "competitors": "R$7,50 a R$250 (SWIFT)", "example": "Pagar um fornecedor R$2.500: R$0" },
+      "add": { "action": "Adicionar dinheiro", "diboas": "0,48% (mín R$0,25, máx R$25)", "competitors": "0 a 1,5%", "example": "Adicionar R$50.000: custa R$240" },
+      "invest": { "action": "Investir / Crescer", "diboas": "GRATIS", "competitors": "0,5 a 2% (assessores, plataformas)", "example": "Investir R$10.000: R$0. Gratis pra comecar." },
+      "sell": { "action": "Vender / Fechar", "diboas": "0,39% (mín R$0,25, máx R$25)", "competitors": "0,5 a 2%", "example": "Vender R$50.000: custa R$195" },
+      "swap": { "action": "Trocar", "diboas": "GRATIS", "competitors": "0,5 a 2% spread", "example": "Trocar R$50.000: R$0" },
+      "cashOut": { "action": "Sacar", "diboas": "0,48% (mín R$0,25, máx R$25)", "competitors": "1 a 3% + atrasos", "example": "Sacar R$50.000: custa R$240" }
+    },
+    "disclaimer": "*Taxa diBoaS mostrada. Taxas de rede de terceiros podem se aplicar (normalmente menos de R$0,05).",
+    "pricingNote": "Comparacoes de precos baseadas em tarifas publicas de fevereiro de 2026. As faixas refletem precos comuns entre os principais provedores. O preco real de cada concorrente varia por provedor, volume e condicoes contratuais.",
+    "example": "Receba R$5.000 em pagamentos: voce fica com R$5.000 na sua conta diBoaS. Saque para o banco: R$4.976 (apos 0,48% de taxa de saque). Ainda muito mais barato que os R$4.750 a R$4.900 que uma maquininha deixa pra voce.",
+    "footerLine": "Cada taxa. Na mesa. Nada mais.",
+    "transitionHook": "Ainda lendo? Otimo. Vamos ver se isso encaixa pro seu negocio."
   },
   "fitAssessment": {
-    "header": "Isso é pra você?",
-    "intro": "Prefiro te perder agora do que te decepcionar depois.",
+    "header": "Isso e certo pro seu negocio?",
     "goodFit": {
-      "title": "Faz sentido se",
-      "description": "• Sua empresa tem dinheiro em caixa parado\n• Confortável com risco calculado\n• Não concorda com o sistema atual\n• Quer zero taxa de maquininha"
+      "title": "Bom Encaixe",
+      "description": "Seu negocio aceita pagamentos no cartao e voce esta cansado de perder de 2% a 5% na maquininha. Sua empresa tem dinheiro parado no caixa rendendo quase nada.",
+      "items": [
+        "Cansado de perder 2% a 5% na maquininha.",
+        "Dinheiro parado no caixa rendendo quase nada.",
+        "Quer controle total sobre o seu dinheiro.",
+        "Aceita um risco diferente em troca de retornos melhores."
+      ]
     },
     "notAFit": {
-      "title": "Não faz sentido se",
-      "description": "• Precisa de garantia do FGC acima de tudo\n• Tolerância zero a risco\n• Precisa de todo o caixa em dias\n• Prefere bancos tradicionais"
+      "title": "Nao e pra Voce",
+      "description": "Voce precisa de protecao do FGC acima de tudo. Voce tem tolerancia zero pra qualquer tipo de risco.",
+      "items": [
+        "Precisa de protecao do FGC acima de tudo.",
+        "Tolerancia zero pra qualquer tipo de risco.",
+        "Prefere bancos tradicionais mesmo custando mais.",
+        "Precisa que alguem gerencie seu dinheiro por voce."
+      ]
+    }
+  },
+  "founder": {
+    "header": "Construido por Bar.",
+    "paragraphs": {
+      "versionA": [
+        "Eu cresci vendo minha avo Adelaide navegar um sistema financeiro que nao foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como voce.",
+        "A diBoaS tem sede em Berlim, Alemanha, construindo para negocios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
+      ],
+      "versionB": [
+        "Eu cresci vendo minha avo Adelaide navegar um sistema financeiro que nao foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como voce.",
+        "A diBoaS esta sendo estabelecida em Berlim, Alemanha, construindo para negocios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
+      ],
+      "versionC": [
+        "Eu cresci vendo minha avo Adelaide navegar um sistema financeiro que nao foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como voce.",
+        "Estamos construindo a diBoaS de Berlim, Alemanha, para negocios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
+      ]
+    },
+    "email": "Perguntas? Eu leio cada email.",
+    "emailAddress": "bar@diboas.com"
+  },
+  "dualCta": {
+    "header": "Junte-se aos negocios que pararam de pagar demais.",
+    "counter": "{count} negocios explorando diBoaS. {countries} paises.",
+    "pathA": {
+      "header": "Garanta acesso antecipado.",
+      "description": "Deixe seu email. Avisamos quando seu negocio puder comecar a economizar.",
+      "emailPlaceholder": "Seu email empresarial",
+      "cta": "Quero acesso antecipado",
+      "noSpam": "Sem spam. So o seu convite quando estivermos prontos.",
+      "privacyLabel": "Concordo com a Politica de Privacidade"
+    },
+    "pathB": {
+      "header": "Vamos olhar seus numeros.",
+      "description": "15 minutos. Sem compromisso. Sem apresentacao de vendas. So numeros.",
+      "cta": "Agende uma conversa",
+      "alternative": "Ou escreva pra bar@diboas.com"
     }
   },
   "faq": {
-    "header": "Coisas que vale saber",
-    "description": "Respostas diretas sobre as possibilidades do diBoaS.",
-    "ctaText": "Agendar uma conversa",
+    "header": "Antes de decidir.",
     "items": {
       "catch": {
-        "question": "Qual \u00e9 o truque?",
-        "answer": "\u00c9 assim que ganhamos dinheiro: 0,75% quando voc\u00ea saca ou transfere para fora, e 0,12% ao fechar posi\u00e7\u00f5es, vender ativos ou transfer\u00eancias empresariais (enviar dinheiro).\n\nSe voc\u00ea sacar R$50.000, ficamos com R$375. Se voc\u00ea n\u00e3o ganhar nada e n\u00e3o enviar dinheiro, n\u00e3o ganhamos nada. \u00c9 isso. Sem taxas escondidas. Sem saldo m\u00ednimo. Sem truque."
+        "question": "Qual e a pegadinha?",
+        "answer": "Cobramos taxas pequenas quando o dinheiro se move. Gratis quando voce recebe pagamentos. Gratis quando voce investe. 0,39% quando voce vende ou fecha uma posicao. 0,48% quando voce saca.\n\nSe voce recebe R$50.000 em pagamentos, ficamos com R$0. Se voce investe R$50.000, a gente fica com R$0. Se voce vende R$50.000, ficamos com R$195. Se voce nao ganha nada e nao envia nada, a gente nao ganha nada.\n\nSem taxas escondidas. Sem saldo minimo. Sem mensalidade. Sem pegadinha."
+      },
+      "smbOrStartup": {
+        "question": "E pra pequenas empresas ou startups?",
+        "answer": "Pras duas. Se voce tem uma padaria perdendo 4% em cada venda no cartao, ajudamos voce a ficar com esse dinheiro. Se voce e uma startup com R$2 milhoes parados no banco rendendo CDI, ajudamos a render mais.\n\nAs ferramentas sao as mesmas. So os numeros que mudam."
+      },
+      "safety": {
+        "question": "Meu dinheiro esta seguro?",
+        "answerA": "Seu dinheiro e protegido por voce. Sua carteira, suas chaves. Ninguem na diBoaS pode acessar seus fundos sem sua autorizacao.\n\nDito isso, nao e uma conta bancaria. Seu dinheiro funciona atraves de tecnologia nova. O valor pode oscilar e voce pode perder parte ou todo o seu investimento. Nao existe cobertura do FGC.\n\nMostramos os dois lados, as oportunidades e os riscos, sempre.",
+        "answerB": "Seu dinheiro e protegido por seguranca multipartidaria. Sua autorizacao e necessaria para cada transacao. A diBoaS possui uma parte parcial da chave para recuperacao, mas nao pode movimentar seus fundos unilateralmente.\n\nDito isso, nao e uma conta bancaria. Seu dinheiro funciona atraves de tecnologia nova. O valor pode oscilar e voce pode perder parte ou todo o seu investimento. Nao existe cobertura do FGC.\n\nMostramos os dois lados, as oportunidades e os riscos, sempre."
       },
       "liquidity": {
-        "question": "\u00c9 realmente l\u00edquido?",
-        "answer": "Com certeza! Sem bloqueios. Seu dinheiro \u00e9 seu para decidir. Voc\u00ea define o piso. \"Sempre mantenha R$250K l\u00edquidos.\" S\u00f3 alocamos o que est\u00e1 acima disso.\n\nA maioria das ferramentas de tesouraria te faz escolher: rendimento OU liquidez. N\u00f3s damos os dois."
-      },
-      "risk": {
-        "question": "Qual \u00e9 o risco real?",
-        "answer": "Vamos ser honestos sobre isso.\n\nRisco de sistema automatizado: Os sistemas para onde seu dinheiro vai s\u00e3o constru\u00eddos em c\u00f3digo. C\u00f3digo pode ter vulnerabilidades.\n\nComo reduzimos isso:\n- Apenas sistemas com $10 bilh\u00f5es+ em valor total protegido\n- M\u00faltiplas auditorias de seguran\u00e7a independentes\n- Anos de hist\u00f3rico atrav\u00e9s de eventos de mercado\n- Seu dinheiro distribu\u00eddo entre m\u00faltiplos sistemas independentes\n\nRisco zero? N\u00e3o. Nada \u00e9, incluindo seu banco.\n\nA verdadeira pergunta: 14x melhores retornos valem um perfil de risco diferente? Para alguns fundadores, sim. Para outros, n\u00e3o. Ambos s\u00e3o v\u00e1lidos."
+        "question": "Posso acessar meu dinheiro a qualquer momento?",
+        "answer": "Sim. Sem bloqueios. Voce define o minimo: \"sempre manter R$250.000 liquidos.\" So colocamos pra trabalhar o que esta acima disso.\n\nPrecisa de dinheiro? Um toque. Processamos na hora. Tempos de transferencia bancaria podem variar. Sem multas. Sem perguntas."
       },
       "payments": {
-        "question": "Como funcionam os pagamentos instant\u00e2neos?",
-        "answer": "Transfer\u00eancias tradicionais passam por bancos correspondentes. Seu banco \u2192 banco deles \u2192 talvez outro banco \u2192 banco do destinat\u00e1rio. Cada passo leva tempo e cobra taxas.\n\nCom diBoaS, pagamentos v\u00e3o direto. Sua carteira \u2192 carteira deles. Pronto. Como um PIX global.\n\nResultado: Seu freelancer em Buenos Aires recebe na moeda local dele, no mesmo dia, no c\u00e2mbio real, por apenas 0,12% de taxa."
+        "question": "Como funcionam os pagamentos instantaneos?",
+        "answer": "Transferencias tradicionais passam por bancos correspondentes. Seu banco, o banco deles, talvez outro banco, e ai o banco do destinatario. Cada etapa leva tempo e cobra taxas.\n\nCom diBoaS, os pagamentos vao direto. Da sua carteira pra carteira deles. Pronto.\n\nSeu freelancer em Miami recebe em segundos, pelo cambio real, gratis. Nao R$75 a R$250 e 3 dias uteis."
       },
       "compliance": {
-        "question": "E a conformidade?",
-        "answer": "Constru\u00edmos o diBoaS para empresas reais com necessidades reais de conformidade:\n- Extratos mensais formatados para seu software de contabilidade\n- Hist\u00f3rico de transa\u00e7\u00f5es com trilha de auditoria completa\n- Documenta\u00e7\u00e3o fiscal no fim do ano\n- Relat\u00f3rios prontos para o conselho que seu CFO vai realmente entender\n\nSabemos que voc\u00ea vai ser auditado eventualmente. Garantimos que voc\u00ea esteja pronto."
+        "question": "E quanto a compliance e impostos?",
+        "answer": "Construimos a diBoaS pra negocios reais com necessidades reais de compliance.\n\nExtratos mensais formatados pro seu software contabil. Historico de transacoes com trilha de auditoria completa. Documentacao fiscal no final do ano. Relatorios prontos pro conselho que seu CFO realmente vai entender.\n\nSabemos que uma hora voce vai ser auditado. Garantimos que voce esteja preparado."
       },
       "whereMoneyGoes": {
-        "question": "Para onde meu dinheiro realmente vai?",
-        "answer": "Seu dinheiro \u00e9 colocado em sistemas confi\u00e1veis que geram rendimento. Estes s\u00e3o:\n- Estabelecidos: Operando h\u00e1 3+ anos\n- Testados em batalha: Sobreviveram a m\u00faltiplos crashes de mercado\n- Transparentes: Voc\u00ea pode ver exatamente onde seus fundos est\u00e3o a qualquer momento\n- Auditados independentemente: Seguran\u00e7a verificada por terceiros\n\nUma vez que voc\u00ea for cliente, ver\u00e1 os detalhes completos de cada sistema: nomes, hist\u00f3ricos e por que os escolhemos. Temos prazer em ser transparentes com clientes. S\u00f3 n\u00e3o publicamos nossa estrat\u00e9gia exata para concorrentes."
+        "question": "Pra onde vai meu dinheiro exatamente?",
+        "answer": "Seu dinheiro e colocado em sistemas financeiros estabelecidos que operam ha mais de 3 anos, sobreviveram a multiplas quedas de mercado e sao auditados de forma independente em seguranca.\n\nTodos os detalhes, incluindo nomes, historico e nossos criterios de selecao, estao publicados na nossa pagina de Estrategias. Sem necessidade de cadastro.\n\nEscolhemos esses sistemas porque sao transparentes, testados em batalha, e voce pode ver exatamente onde seus fundos estao a qualquer momento."
       },
       "whyCantTouch": {
-        "question": "Por que voc\u00eas n\u00e3o podem tocar no meu dinheiro?",
-        "answer": "Esse \u00e9 na verdade o ponto central de como somos constru\u00eddos.\n\nFinan\u00e7as tradicionais: Voc\u00ea deposita dinheiro \u2192 vira dinheiro do banco \u2192 eles te devem um saldo.\n\ndiBoaS: Seu dinheiro fica na sua pr\u00f3pria carteira. Fornecemos o software que te ajuda a alocar em sistemas que rendem. Mas nunca temos acesso para mov\u00ea-lo n\u00f3s mesmos.\n\nPor que isso importa:\n- Se o diBoaS falir, seu dinheiro ainda \u00e9 seu\n- Ningu\u00e9m no diBoaS pode roubar seus fundos\n- Toda transa\u00e7\u00e3o requer sua aprova\u00e7\u00e3o\n\n\u00c9 um modelo fundamentalmente diferente. Mais controle para voc\u00ea, menos risco vindo de n\u00f3s."
+        "question": "Por que a diBoaS nao pode tocar no meu dinheiro?",
+        "answerA": "Esse e exatamente o ponto da nossa arquitetura.\n\nFinancas tradicionais: voce deposita dinheiro, vira dinheiro do banco, e eles te devem um saldo.\n\ndiBoaS: seu dinheiro fica na sua propria carteira. Fornecemos o software que te ajuda a colocar ele em sistemas que geram retorno. Mas nunca temos acesso pra movimenta-lo.\n\nSe a diBoaS falir, seu dinheiro continua sendo seu. Ninguem na diBoaS pode movimentar seus fundos. Cada transacao precisa da sua aprovacao.\n\nMais controle pra voce. Menos risco nosso.",
+        "answerB": "Isso e parte fundamental de como somos construidos.\n\nFinancas tradicionais: voce deposita dinheiro, vira dinheiro do banco, e eles te devem um saldo.\n\ndiBoaS: seu dinheiro e protegido por seguranca multipartidaria. Possuimos uma parte parcial da chave para recuperacao de conta, mas cada transacao requer sua aprovacao explicita. Nao podemos movimentar seus fundos unilateralmente.\n\nSe a diBoaS tiver problemas, seus fundos permanecem protegidos pelo sistema de seguranca multipartidaria. Cada transacao requer sua autorizacao.\n\nMais protecao pra voce. Menos risco nosso."
+      },
+      "risk": {
+        "question": "Qual e o risco real?",
+        "answer": "Vamos ser honestos.\n\nOs sistemas onde seu dinheiro e colocado sao construidos com codigo. Codigo pode ter vulnerabilidades. Reduzimos isso usando apenas sistemas com valor total significativo sob gestao, multiplas auditorias de seguranca independentes, anos de historico atraves de eventos de mercado, e distribuindo seu dinheiro entre multiplos sistemas independentes.\n\nRisco zero? Nao. Nada e, incluindo o seu banco.\n\nA pergunta real: vale a pena um perfil de risco diferente em troca de retornos melhores? Pra alguns negocios, sim. Pra outros, nao. As duas respostas sao validas."
+      },
+      "audited": {
+        "question": "A diBoaS foi auditada?",
+        "answer": "Somos uma plataforma em fase de pre-lancamento. Nossas estrategias sao testadas contra quedas historicas e cenarios reais, e usamos sistemas auditados e estabelecidos. Conforme crescermos, planejamos realizar auditorias independentes de terceiros.\n\nPara todos os detalhes sobre os sistemas e a tecnologia por tras de cada estrategia, visite nossas paginas de Estrategias e Protocolos."
       }
     }
   },
-  "finalCta": {
-    "header": "15 minutos. Sem compromisso.",
-    "body": "É sobre Você. Sua Empresa. Seus Números.\nFaça sentido ou não, você vai saber exatamente o que tá em jogo.",
-    "cta": "Vamos conversar →",
-    "alternative": "Ou email: bar@diboas.com",
-    "footer": "Sem pitch deck. Sem pressão de venda. Só matemática."
-  },
   "footer": {
-    "riskDisclaimer": "O diBoaS conecta voc\u00ea a sistemas de finan\u00e7as descentralizadas. Crescimento n\u00e3o \u00e9 prometido. Resultados passados n\u00e3o preveem futuros. Envolve riscos como problemas de c\u00f3digo, mudan\u00e7as de mercado e desafios de acesso. Use apenas o que voc\u00ea pode arriscar. N\u00e3o \u00e9 um banco. Sem garantia de dep\u00f3sito.",
-    "usDisclaimer": "Aviso dos EUA: diBoaS \u00e9 uma interface n\u00e3o custodial que fornece acesso a protocolos de finan\u00e7as descentralizadas. O diBoaS n\u00e3o \u00e9 registrado na SEC, CFTC, FinCEN ou qualquer ag\u00eancia reguladora estadual. O tratamento regulat\u00f3rio de DeFi nos EUA est\u00e1 evoluindo. Voc\u00ea \u00e9 respons\u00e1vel por determinar se o uso desta interface est\u00e1 em conformidade com as leis aplic\u00e1veis.",
-    "bcbDisclaimer": "Aviso para o Brasil: diBoaS \u00e9 uma empresa sediada na Uni\u00e3o Europeia. O diBoaS N\u00c3O \u00e9 uma institui\u00e7\u00e3o financeira autorizada pelo Banco Central do Brasil. Usu\u00e1rios brasileiros s\u00e3o respons\u00e1veis por suas pr\u00f3prias obriga\u00e7\u00f5es fiscais e regulat\u00f3rias.",
-    "regulatoryNote": "diBoaS opera sob o framework MiCA da UE. Autoriza\u00e7\u00e3o CASP pendente.",
-    "links": {
-      "privacy": "Pol\u00edtica de Privacidade",
-      "terms": "Termos de Uso",
-      "risk": "Aviso de Riscos"
-    }
+    "copyright": "\u00a9 2026 diBoaS. Todos os direitos reservados.",
+    "riskDisclaimer": "A diBoaS conecta voce a sistemas de financas descentralizadas. Retornos nao sao garantidos. Desempenho passado nao preve resultados futuros. Envolve riscos incluindo vulnerabilidades de codigo, flutuacoes de mercado e desafios de acesso. Use apenas fundos que voce pode se dar ao luxo de arriscar. A diBoaS nao e um banco. Nao se aplica seguro de depositos ou cobertura do FGC.",
+    "micaArticle68": "",
+    "micaArticle7": "",
+    "usDisclosure": "",
+    "cvmWarning": "Retornos passados nao sao garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opiniao do autor, com base em informacoes disponiveis a epoca e consideradas confiaveis.",
+    "aiDisclosure": "Determinados conteudos desta plataforma, incluindo analises de mercado e materiais educativos, sao gerados ou assistidos por inteligencia artificial. Conteudo gerado por IA pode conter erros ou limitacoes. Usuarios devem verificar informacoes de forma independente antes de tomar decisoes financeiras.",
+    "fictionalResults": "Os exemplos nesta pagina sao ilustrativos e nao representam negocios reais ou resultados reais. Projecoes das calculadoras sao baseadas em cenarios hipoteticos e medias historicas. Os resultados reais irao variar.",
+    "nav": {
+      "about": "Sobre nos",
+      "legal": "Legal",
+      "privacy": "Politica de Privacidade",
+      "terms": "Termos de Servico",
+      "cookies": "Politica de Cookies",
+      "help": "Ajuda",
+      "security": "Seguranca"
+    },
+    "tagline": "A ferramenta financeira que Adelaide merecia."
   },
   "seo": {
-    "title": "diBoaS para Empresas | Pare de Deixar R$400.000 na Mesa",
-    "description": "Seu banco investe o caixa da sua empresa, ganha muito e te d\u00e1 pouco. Enquanto o real perde valor. diBoaS: 6-8% de rendimento em d\u00f3lares, pagamentos globais instant\u00e2neos, taxas baixas. Vamos olhar seus n\u00fameros.",
-    "ogTitle": "O sistema n\u00e3o est\u00e1 quebrado. Ele funciona exatamente como foi projetado. S\u00f3 que n\u00e3o para sua empresa.",
-    "ogDescription": "Tudo come\u00e7ou com minha av\u00f3. Ela poupou a vida inteira mas o banco dela pagava pouco enquanto ganhava muito. E o real ainda perdia valor. A mesma coisa est\u00e1 acontecendo com o caixa da sua empresa. Por isso estou construindo o diBoaS."
+    "title": "diBoaS para Negocios | Pare de perder dinheiro com taxas e caixa parado",
+    "description": "Sua maquininha cobra de 2 a 5%. Seu banco te paga quase nada. diBoaS: pagamentos gratis, pagamentos instantaneos, e seu caixa parado trabalhando pra voce.",
+    "ogTitle": "O sistema nao esta quebrado. Ele foi feito pra ficar com um pedaco de tudo que voce ganha.",
+    "ogDescription": "Duas ferramentas. Uma plataforma. Fique com mais da sua receita de cartao e faca seu caixa parado render. diBoaS para Negocios.",
+    "keywords": "gestao de tesouraria, financas para startups, retornos, capital operacional, pagamentos empresariais, fintech B2B"
   }
 }

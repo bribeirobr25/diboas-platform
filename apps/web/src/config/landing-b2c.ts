@@ -6,17 +6,20 @@
  * Configuration Management: Centralized landing page content
  * No Hardcoded Values: All values from design tokens and i18n keys
  *
- * 11-Section Layout:
+ * 12-Section Layout (CMO Final Copy):
  * 1. Hero
  * 2. Origin Story (ProseSection)
- * 3. How It Works (ProductCarousel)
- * 4. Scenarios (ScenarioCards)
- * 5. Features (FeatureShowcase)
- * 6. Fees (FeeTable)
- * 7. What's the Catch? (ProseSection)
- * 8. Demo (DemoEmbed)
- * 9. Waitlist
- * 10. FAQ
+ * 2.5. Persona Carousel (ProductCarousel persona variant)
+ * 3. Scenarios (ScenarioCards) — swapped with 4
+ * 4. How It Works (ProductCarousel) — swapped with 3
+ * 5. Fees (FeeTable) — moved up from 6
+ * 6. What's the Catch? (ProseSection) — moved up from 7
+ * 6.5. Under the Hood (ExpandableSection)
+ * 7. Demo (DemoLauncher) — moved up from 8
+ * 8. Social Proof — moved up from 9
+ * 8.5. About the Founder (FounderSection)
+ * 9. Waitlist (Version A/B)
+ * 10. FAQ (expanded 5→12)
  * 11. Footer (MinimalFooter)
  */
 
@@ -27,6 +30,8 @@ import type { ProductCarouselVariantConfig } from './productCarousel';
 import type { ProseSectionConfig } from './proseSection';
 import type { ScenarioCardsConfig } from './scenarioCards';
 import type { FeeTableConfig } from './feeTable';
+import type { ExpandableSectionConfig } from './expandableSection';
+import type { FounderSectionConfig } from './founderSection';
 
 /**
  * B2C Landing Page Image Paths
@@ -79,18 +84,19 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
 
 /**
  * Section 2: Origin Story Configuration (ProseSection)
- * "Why This Exists", white background, 5 paragraphs + signature line
+ * "Her name was Adelaide.", warm background, 6 paragraphs + transition hook
  */
 export const B2C_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
   content: {
+    transitionHook: 'landing-b2c.origin.transitionHook',
     header: 'landing-b2c.origin.header',
     paragraphs: [
       'landing-b2c.origin.paragraphs.p1',
       'landing-b2c.origin.paragraphs.p2',
       'landing-b2c.origin.paragraphs.p3',
-      'landing-b2c.origin.paragraphs.p4',
+      'landing-b2c.origin.paragraphs.p5',
+      'landing-b2c.origin.paragraphs.p6',
     ],
-    signatureLine: 'landing-b2c.origin.paragraphs.p5',
   },
   image: {
     src: B2C_IMAGES.originStory,
@@ -111,8 +117,63 @@ export const B2C_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
 } as const;
 
 /**
- * Section 3: How It Works Configuration (ProductCarousel)
- * 3 steps with quotes
+ * Section 2.5: Persona Carousel Configuration (ProductCarousel persona variant)
+ * 3 persona slides with headline, subtext, CTA
+ */
+export const B2C_PERSONA_CAROUSEL_CONFIG: ProductCarouselVariantConfig = {
+  variant: 'persona',
+  content: {
+    heading: 'landing-b2c.personas.header',
+    slides: [
+      {
+        id: 'persona-urgent-transfer',
+        title: 'landing-b2c.personas.slide1.headline',
+        subtitle: 'landing-b2c.personas.slide1.subtext',
+        imageAlt: '',
+        ctaText: 'landing-b2c.personas.slide1.cta',
+        ctaHref: '#demo',
+      },
+      {
+        id: 'persona-hidden-fees',
+        title: 'landing-b2c.personas.slide2.headline',
+        subtitle: 'landing-b2c.personas.slide2.subtext',
+        imageAlt: '',
+        ctaText: 'landing-b2c.personas.slide2.cta',
+        ctaHref: '#demo',
+      },
+      {
+        id: 'persona-savings',
+        title: 'landing-b2c.personas.slide3.headline',
+        subtitle: 'landing-b2c.personas.slide3.subtext',
+        imageAlt: '',
+        ctaText: 'landing-b2c.personas.slide3.cta',
+        ctaHref: '#demo',
+      },
+    ],
+  },
+  settings: {
+    autoPlay: true,
+    autoPlayInterval: 5000,
+    transitionDuration: 500,
+    pauseOnHover: true,
+    enableKeyboard: true,
+    enableTouch: true,
+    enableDots: true,
+    enablePlayPause: false,
+  },
+  seo: {
+    headingTag: 'h2',
+    ariaLabel: 'Persona carousel showing who diBoaS is for',
+  },
+  analytics: {
+    trackingPrefix: 'persona_carousel_b2c',
+    enabled: true,
+  },
+};
+
+/**
+ * Section 4: How It Works Configuration (ProductCarousel)
+ * 3 steps with quotes, transition hook + micro-disclosure
  */
 export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
   variant: 'default',
@@ -166,12 +227,14 @@ export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
 };
 
 /**
- * Section 4: Scenarios Configuration (ScenarioCards)
- * 3 real-life scenario cards
+ * Section 3: Scenarios Configuration (ScenarioCards)
+ * 3 real-life scenario cards with cost comparisons
  */
 export const B2C_SCENARIOS_CONFIG: ScenarioCardsConfig = {
   section: {
     title: 'landing-b2c.scenarios.header',
+    transitionHook: 'landing-b2c.scenarios.transitionHook',
+    clarificationLine: 'landing-b2c.scenarios.clarificationLine',
   },
   cards: [
     {
@@ -207,88 +270,23 @@ export const B2C_SCENARIOS_CONFIG: ScenarioCardsConfig = {
 } as const;
 
 /**
- * Section 5: Features Configuration (FeatureShowcase)
- * 3 feature slides with tagline/title/description
- */
-export const B2C_FEATURES_CONFIG = {
-  variant: 'default' as const,
-  slides: [
-    {
-      id: 'feature-send',
-      content: {
-        tagline: 'landing-b2c.features.slide1.tagline',
-        title: 'landing-b2c.features.slide1.title',
-        description: 'landing-b2c.features.slide1.description',
-        ctaText: '',
-        ctaHref: '',
-      },
-      assets: {
-        primaryImage: B2C_IMAGES.featureSend,
-      },
-      seo: {
-        imageAlt: 'Send and receive money instantly',
-      },
-    },
-    {
-      id: 'feature-goals',
-      content: {
-        tagline: 'landing-b2c.features.slide2.tagline',
-        title: 'landing-b2c.features.slide2.title',
-        description: 'landing-b2c.features.slide2.description',
-        ctaText: '',
-        ctaHref: '',
-      },
-      assets: {
-        primaryImage: B2C_IMAGES.featureGoals,
-      },
-      seo: {
-        imageAlt: 'Goal-based investment strategies',
-      },
-    },
-    {
-      id: 'feature-always-on',
-      content: {
-        tagline: 'landing-b2c.features.slide3.tagline',
-        title: 'landing-b2c.features.slide3.title',
-        description: 'landing-b2c.features.slide3.description',
-        ctaText: '',
-        ctaHref: '',
-      },
-      assets: {
-        primaryImage: B2C_IMAGES.featureAlwaysOn,
-      },
-      seo: {
-        imageAlt: 'Your money works 24/7',
-      },
-    },
-  ],
-  settings: {
-    showNavigation: true,
-    showDots: true,
-    enableAnalytics: true,
-    transitionDuration: 250,
-  },
-  analytics: {
-    trackingPrefix: 'features_b2c_landing',
-    enabled: true,
-  },
-};
-
-/**
- * Section 6: Fees Configuration (FeeTable)
- * 8 fee rows, 4-column comparison layout
+ * Section 5: Fees Configuration (FeeTable)
+ * 8 fee rows, 5-column comparison layout with examples
  */
 export const B2C_FEES_CONFIG: FeeTableConfig = {
   content: {
+    transitionHook: 'landing-b2c.fees.transitionHook',
     title: 'landing-b2c.fees.title',
-    subtitle: 'landing-b2c.fees.subtitle',
+    painIntro: 'landing-b2c.fees.painIntro',
     disclaimer: 'landing-b2c.fees.disclaimer',
     example: 'landing-b2c.fees.example',
+    footerLine: 'landing-b2c.fees.footerLine',
     headers: {
       action: 'landing-b2c.fees.headers.action',
       diboas: 'landing-b2c.fees.headers.diboas',
       competitors: 'landing-b2c.fees.headers.competitors',
       difference: 'landing-b2c.fees.headers.difference',
+      example: 'landing-b2c.fees.headers.example',
     },
     rows: [
       {
@@ -297,6 +295,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.account.diboas',
         competitors: 'landing-b2c.fees.rows.account.competitors',
         difference: 'landing-b2c.fees.rows.account.difference',
+        example: 'landing-b2c.fees.rows.account.example',
         isFree: true,
       },
       {
@@ -305,6 +304,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.adding.diboas',
         competitors: 'landing-b2c.fees.rows.adding.competitors',
         difference: 'landing-b2c.fees.rows.adding.difference',
+        example: 'landing-b2c.fees.rows.adding.example',
         isHighlight: true,
       },
       {
@@ -313,6 +313,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.sending.diboas',
         competitors: 'landing-b2c.fees.rows.sending.competitors',
         difference: 'landing-b2c.fees.rows.sending.difference',
+        example: 'landing-b2c.fees.rows.sending.example',
         isFree: true,
       },
       {
@@ -321,7 +322,9 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.buying.diboas',
         competitors: 'landing-b2c.fees.rows.buying.competitors',
         difference: 'landing-b2c.fees.rows.buying.difference',
+        example: 'landing-b2c.fees.rows.buying.example',
         isHighlight: true,
+        isFree: true,
       },
       {
         id: 'selling',
@@ -329,6 +332,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.selling.diboas',
         competitors: 'landing-b2c.fees.rows.selling.competitors',
         difference: 'landing-b2c.fees.rows.selling.difference',
+        example: 'landing-b2c.fees.rows.selling.example',
         isHighlight: true,
       },
       {
@@ -337,6 +341,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.swapping.diboas',
         competitors: 'landing-b2c.fees.rows.swapping.competitors',
         difference: 'landing-b2c.fees.rows.swapping.difference',
+        example: 'landing-b2c.fees.rows.swapping.example',
         isFree: true,
       },
       {
@@ -345,6 +350,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.strategies.diboas',
         competitors: 'landing-b2c.fees.rows.strategies.competitors',
         difference: 'landing-b2c.fees.rows.strategies.difference',
+        example: 'landing-b2c.fees.rows.strategies.example',
         isFree: true,
       },
       {
@@ -353,6 +359,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
         diboas: 'landing-b2c.fees.rows.cashout.diboas',
         competitors: 'landing-b2c.fees.rows.cashout.competitors',
         difference: 'landing-b2c.fees.rows.cashout.difference',
+        example: 'landing-b2c.fees.rows.cashout.example',
         isHighlight: true,
       },
     ],
@@ -368,8 +375,8 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
 } as const;
 
 /**
- * Section 7: What's the Catch? Configuration (ProseSection)
- * Warm background, 6 paragraphs, emphasis line
+ * Section 6: What's the Catch? Configuration (ProseSection)
+ * Warm background, 6 paragraphs, no emphasis line
  */
 export const B2C_CATCH_CONFIG: ProseSectionConfig = {
   content: {
@@ -380,8 +387,8 @@ export const B2C_CATCH_CONFIG: ProseSectionConfig = {
       'landing-b2c.catch.paragraphs.p3',
       'landing-b2c.catch.paragraphs.p4',
       'landing-b2c.catch.paragraphs.p5',
+      'landing-b2c.catch.paragraphs.p6',
     ],
-    earlyEmphasisLine: 'landing-b2c.catch.earlyEmphasis',
   },
   image: {
     src: B2C_IMAGES.catchSection,
@@ -403,10 +410,36 @@ export const B2C_CATCH_CONFIG: ProseSectionConfig = {
 } as const;
 
 /**
- * Section 8: Demo Configuration
+ * Section 6.5: Under the Hood Configuration (ExpandableSection)
+ * Collapsible technical details
+ */
+export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
+  content: {
+    toggleLabel: 'landing-b2c.underTheHood.toggleLabel',
+    paragraphs: [
+      'landing-b2c.underTheHood.paragraphs.p1',
+      'landing-b2c.underTheHood.paragraphs.p2',
+      'landing-b2c.underTheHood.paragraphs.p3',
+      'landing-b2c.underTheHood.paragraphs.p4',
+    ],
+    linkText: 'landing-b2c.underTheHood.linkText',
+    linkHref: '/protocols',
+  },
+  seo: {
+    ariaLabel: 'Technical details about diBoaS architecture',
+  },
+  analytics: {
+    sectionId: 'under-the-hood-b2c',
+    category: 'landing-b2c',
+  },
+} as const;
+
+/**
+ * Section 7: Demo Configuration
  */
 export const B2C_DEMO_CONFIG = {
   content: {
+    transitionHook: 'landing-b2c.demo.transitionHook',
     header: 'landing-b2c.demo.header',
     subtext: 'landing-b2c.demo.subtext',
     ctaPrimary: 'landing-b2c.demo.ctaPrimary',
@@ -430,11 +463,42 @@ export const B2C_WAITLIST_CONFIG = {
   backgroundColor: 'var(--section-bg-brand)',
   headline: 'landing-b2c.waitlist.header',
   subheadline: 'landing-b2c.waitlist.description',
+  hideBenefits: true,
+  hideNoSpam: true,
+} as const;
+
+/**
+ * Section 8.5: About the Founder Configuration (FounderSection)
+ * Circular photo + bio paragraphs + contact
+ */
+export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
+  content: {
+    header: 'landing-b2c.founder.header',
+    paragraphs: [
+      'landing-b2c.founder.paragraphs.p1',
+      'landing-b2c.founder.paragraphs.p2',
+      'landing-b2c.founder.paragraphs.p3',
+    ],
+    emailText: 'landing-b2c.founder.emailText',
+    emailHref: 'bar@diboas.com',
+    socialLinks: [
+      { label: 'landing-b2c.founder.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
+      { label: 'landing-b2c.founder.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },
+      { label: 'landing-b2c.founder.social.substack', href: 'https://bribeirobr.substack.com/', icon: 'substack' },
+    ],
+  },
+  seo: {
+    ariaLabel: 'About the founder of diBoaS',
+  },
+  analytics: {
+    sectionId: 'founder-b2c',
+    category: 'landing-b2c',
+  },
 } as const;
 
 /**
  * Section 10: FAQ Items for B2C Landing Page
- * 5 new CLO-approved items
+ * 12 CMO-approved items
  */
 export const B2C_FAQ_ITEMS: FAQItem[] = [
   {
@@ -444,9 +508,15 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     category: 'general'
   },
   {
-    id: 'howPossible',
-    question: 'landing-b2c.faq.items.howPossible.question',
-    answer: 'landing-b2c.faq.items.howPossible.answer',
+    id: 'isForEveryone',
+    question: 'landing-b2c.faq.items.isForEveryone.question',
+    answer: 'landing-b2c.faq.items.isForEveryone.answer',
+    category: 'general'
+  },
+  {
+    id: 'withdraw',
+    question: 'landing-b2c.faq.items.withdraw.question',
+    answer: 'landing-b2c.faq.items.withdraw.answer',
     category: 'fees'
   },
   {
@@ -456,15 +526,51 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     category: 'security'
   },
   {
+    id: 'howPossible',
+    question: 'landing-b2c.faq.items.howPossible.question',
+    answer: 'landing-b2c.faq.items.howPossible.answer',
+    category: 'fees'
+  },
+  {
+    id: 'minimum',
+    question: 'landing-b2c.faq.items.minimum.question',
+    answer: 'landing-b2c.faq.items.minimum.answer',
+    category: 'getting-started'
+  },
+  {
+    id: 'justTransfers',
+    question: 'landing-b2c.faq.items.justTransfers.question',
+    answer: 'landing-b2c.faq.items.justTransfers.answer',
+    category: 'getting-started'
+  },
+  {
     id: 'understanding',
     question: 'landing-b2c.faq.items.understanding.question',
     answer: 'landing-b2c.faq.items.understanding.answer',
     category: 'getting-started'
   },
   {
-    id: 'minimum',
-    question: 'landing-b2c.faq.items.minimum.question',
-    answer: 'landing-b2c.faq.items.minimum.answer',
+    id: 'whatIfWrong',
+    question: 'landing-b2c.faq.items.whatIfWrong.question',
+    answer: 'landing-b2c.faq.items.whatIfWrong.answer',
+    category: 'security'
+  },
+  {
+    id: 'shutdown',
+    question: 'landing-b2c.faq.items.shutdown.question',
+    answer: 'landing-b2c.faq.items.shutdown.answer',
+    category: 'security'
+  },
+  {
+    id: 'audited',
+    question: 'landing-b2c.faq.items.audited.question',
+    answer: 'landing-b2c.faq.items.audited.answer',
+    category: 'security'
+  },
+  {
+    id: 'afterSignup',
+    question: 'landing-b2c.faq.items.afterSignup.question',
+    answer: 'landing-b2c.faq.items.afterSignup.answer',
     category: 'getting-started'
   }
 ];
@@ -507,11 +613,12 @@ export const B2C_DISCLAIMER_KEY = 'landing-b2c.footer.disclosures.general';
  * Footer nav links for B2C landing page
  */
 export const B2C_FOOTER_NAV = [
-  { id: 'forYou', labelKey: 'landing-b2c.footer.nav.forYou', href: ROUTES.PERSONAL.ACCOUNT },
+  { id: 'forYou', labelKey: 'landing-b2c.footer.nav.forYou', href: ROUTES.HOME },
   { id: 'forBusiness', labelKey: 'landing-b2c.footer.nav.forBusiness', href: ROUTES.BUSINESS_LANDING },
-  { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.LEARN.OVERVIEW },
+  { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.DAILY_MARKET },
   { id: 'about', labelKey: 'landing-b2c.footer.nav.about', href: ROUTES.ABOUT },
-  { id: 'help', labelKey: 'landing-b2c.footer.nav.help', href: ROUTES.HELP.FAQ },
+  { id: 'help', labelKey: 'landing-b2c.footer.nav.help', href: '/help' },
+  { id: 'security', labelKey: 'landing-b2c.footer.nav.security', href: '/security' },
   { id: 'legal', labelKey: 'landing-b2c.footer.nav.legal', href: ROUTES.LEGAL.TERMS },
 ] as const;
 
@@ -527,6 +634,7 @@ export const B2C_FOOTER_DISCLOSURES = {
   closing: 'landing-b2c.footer.disclosures.closing',
   // Locale-conditional (keys may not exist in all locales)
   mica: 'landing-b2c.footer.disclosures.mica',
+  micaArticle7: 'landing-b2c.footer.disclosures.micaArticle7',
   cvm: 'landing-b2c.footer.disclosures.cvm',
   bcb: 'landing-b2c.footer.disclosures.bcb',
   us: 'landing-b2c.footer.disclosures.us',

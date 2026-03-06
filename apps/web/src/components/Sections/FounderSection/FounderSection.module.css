@@ -1,0 +1,120 @@
+/**
+ * FounderSection Styles
+ * Two-column layout with circular photo and prose text
+ */
+
+.withImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .withImage {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+}
+
+.textOnly {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.imageColumn {
+  flex-shrink: 0;
+}
+
+.photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .photo {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+.textColumn {
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  font-family: var(--font-family-primary);
+  font-size: var(--section-title-font-size-mobile, 26px);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-title);
+  color: var(--color-text-heading);
+  margin: 0 0 24px 0;
+}
+
+@media (min-width: 768px) {
+  .header {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.paragraph {
+  font-family: var(--font-family-primary);
+  font-size: 18px;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--prose-line-height, 1.7);
+  color: var(--color-text-body);
+  margin: 0 0 16px 0;
+}
+
+.paragraph:last-of-type {
+  margin-bottom: 0;
+}
+
+.emailLink {
+  display: inline-block;
+  margin-top: 20px;
+  font-family: var(--font-family-primary);
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary, #0d9488);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.emailLink:hover {
+  color: var(--color-brand-primary-hover, #0f766e);
+}
+
+.socialLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary, #0d9488);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.socialLink:hover {
+  color: var(--color-brand-primary-hover, #0f766e);
+}

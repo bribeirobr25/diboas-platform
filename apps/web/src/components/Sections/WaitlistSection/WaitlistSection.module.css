@@ -78,3 +78,116 @@
     font-size: var(--font-size-subtitle-desktop);
   }
 }
+
+/* Benefits list for Version A */
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-xl) 0;
+  text-align: left;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.benefitItem {
+  font-family: var(--font-family-primary);
+  font-size: 15px;
+  color: var(--color-text-body);
+  padding: 6px 0;
+  padding-left: 24px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.benefitItem::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: var(--text-success-accessible, #059669);
+  font-weight: 700;
+}
+
+.spotsHighlight {
+  font-weight: 700;
+  color: var(--text-primary-accessible);
+}
+
+.noSpam {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-sm);
+  text-align: center;
+}
+
+/* Version B: Two paths layout */
+.versionBPaths {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.inviteCodeSection {
+  width: 100%;
+}
+
+.inviteCodeRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.inviteCodeInput {
+  flex: 1;
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--border-radius-md, 8px);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.inviteCodeInput:focus {
+  border-color: var(--color-brand-primary, #0d9488);
+}
+
+.inviteCodeButton {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  padding: 12px 20px;
+  background-color: var(--color-brand-primary, #0d9488);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--border-radius-md, 8px);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.inviteCodeButton:hover {
+  background-color: var(--color-brand-primary-hover, #0f766e);
+}
+
+.inviteCodeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.inviteError {
+  font-size: 14px;
+  color: var(--color-error, #dc2626);
+  margin-top: 8px;
+}
+
+.prioritySection {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inviteCodeInput,
+  .inviteCodeButton {
+    transition: none;
+  }
+}
