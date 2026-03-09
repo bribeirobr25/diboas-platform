@@ -26,11 +26,11 @@ export const WAITLIST_STATS_FALLBACK = {
   countries: 0,
   /** Founding member count */
   foundingMemberCount: 0,
-  /** Founding member cap */
-  foundingMemberCap: 1200,
+  /** Founding member cap (overridable via NEXT_PUBLIC_FOUNDING_MEMBER_CAP env var) */
+  foundingMemberCap: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP || '1200', 10),
   /** Founding member spots remaining */
-  foundingMemberSpotsRemaining: 1200,
-} as const;
+  foundingMemberSpotsRemaining: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP || '1200', 10),
+};
 
 /**
  * Get waitlist stats from environment or fallback

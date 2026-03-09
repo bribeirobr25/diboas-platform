@@ -55,9 +55,7 @@ export class ErrorReportingService {
   private sessionId: string;
   private isInitialized = false;
 
-  // Store bound handlers for proper cleanup
-  private boundHandleGlobalError = (event: ErrorEvent) => this.handleGlobalError(event);
-  private boundHandleUnhandledRejection = (event: PromiseRejectionEvent) => this.handleUnhandledRejection(event);
+  // Store bound handler for proper cleanup
   private boundHandleResourceError = (event: Event) => this.handleResourceError(event);
 
   constructor(config?: Partial<ErrorReportingConfig>) {

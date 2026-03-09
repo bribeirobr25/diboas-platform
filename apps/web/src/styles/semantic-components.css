@@ -339,38 +339,35 @@ a:focus-visible {
    NAVIGATION CTA BUTTONS
    ================================
 
-   IMPORTANT: These classes override @diboas/ui Button size variants.
-   The !important flags are necessary because:
-   1. Button component applies .btn-sm or .btn-xs classes
-   2. Those classes use Tailwind @apply directive (h-9, px-4, etc.)
-   3. Tailwind utilities have same specificity as custom classes
-   4. !important ensures design token values take precedence
+   These classes override @diboas/ui Button size variants.
+   Doubled selectors raise specificity above Tailwind utilities
+   (e.g. .btn-sm h-9, px-4) without resorting to !important.
 
    This allows Navigation CTAs to have custom dimensions while
    still using the shared Button component from @diboas/ui.
    ================================ */
 
-.desktop-get-started-button {
-  min-width: var(--nav-cta-min-width-desktop) !important;
-  min-height: var(--nav-cta-min-height-desktop) !important;
-  height: var(--nav-cta-min-height-desktop) !important;
-  padding: var(--nav-cta-padding-desktop) !important;
-  font-size: var(--nav-cta-font-size-desktop) !important;
-  font-weight: var(--nav-cta-font-weight) !important;
-  line-height: var(--nav-cta-line-height) !important;
-  border-radius: var(--nav-cta-border-radius) !important;
+.desktop-get-started-button.desktop-get-started-button {
+  min-width: var(--nav-cta-min-width-desktop);
+  min-height: var(--nav-cta-min-height-desktop);
+  height: var(--nav-cta-min-height-desktop);
+  padding: var(--nav-cta-padding-desktop);
+  font-size: var(--nav-cta-font-size-desktop);
+  font-weight: var(--nav-cta-font-weight);
+  line-height: var(--nav-cta-line-height);
+  border-radius: var(--nav-cta-border-radius);
 }
 
-.mobile-get-started-button {
-  min-width: var(--nav-cta-min-width-mobile) !important;
-  min-height: var(--nav-cta-min-height-mobile) !important;
-  height: var(--nav-cta-min-height-mobile) !important;
-  padding: var(--nav-cta-padding-mobile) !important;
-  font-size: var(--nav-cta-font-size-mobile) !important;
-  font-weight: var(--nav-cta-font-weight) !important;
-  line-height: var(--nav-cta-line-height) !important;
-  border-radius: var(--nav-cta-border-radius) !important;
-  width: auto !important;
+.mobile-get-started-button.mobile-get-started-button {
+  min-width: var(--nav-cta-min-width-mobile);
+  min-height: var(--nav-cta-min-height-mobile);
+  height: var(--nav-cta-min-height-mobile);
+  padding: var(--nav-cta-padding-mobile);
+  font-size: var(--nav-cta-font-size-mobile);
+  font-weight: var(--nav-cta-font-weight);
+  line-height: var(--nav-cta-line-height);
+  border-radius: var(--nav-cta-border-radius);
+  width: auto;
 }
 
 .mobile-menu-overlay {
@@ -631,7 +628,7 @@ a:focus-visible {
 
 .mobile-banner-image-wrapper {
   @apply px-4 pt-4;
-  flex-shrink: var(--opacity-0);
+  flex-shrink: 0;
   width: var(--percent-100);
 }
 
@@ -643,7 +640,7 @@ a:focus-visible {
     padding-top: var(--spacing-lg);    /* 16px top padding - aligns with text */
     padding-bottom: var(--spacing-lg); /* 16px bottom padding */
     padding-right: var(--spacing-3xl); /* 32px from right border (closest to 30px) */
-    padding-left: var(--opacity-0);    /* Remove left padding for alignment */
+    padding-left: 0;    /* Remove left padding for alignment */
     align-self: flex-start;  /* Don't stretch, only take height of content (image) */
   }
 }
@@ -698,7 +695,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: var(--opacity-0);
+  min-height: 0;
   padding-bottom: var(--spacing-2xl);
 }
 
@@ -729,7 +726,7 @@ a:focus-visible {
 .mobile-submenu-content {
   @apply px-4 py-6 space-y-2;
   /* CHANGE 3: Content starts only after mobile-banner-wrapper ends */
-  margin-top: var(--opacity-0);
+  margin-top: 0;
   position: relative;
   clear: both;
   /* Gray-green-ish background matching mobile-menu-section */
@@ -868,10 +865,6 @@ a:focus-visible {
 /* =================================================================== */
 /* ACCESSIBILITY */
 /* =================================================================== */
-
-.skip-link {
-  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 transition-all focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 bg-primary-500 text-white px-3 py-2 rounded-lg text-sm font-medium;
-}
 
 .accessibility-skip {
   @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-500 text-white px-4 py-2 rounded-lg z-50;

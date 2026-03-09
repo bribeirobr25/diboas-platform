@@ -124,7 +124,7 @@ async function getFoundingMemberStatus(): Promise<{ count: number; cap: number }
     WHERE key IN ('founding_member_count', 'founding_member_cap')
   `;
   let count = 0;
-  let cap = 1200;
+  let cap = parseInt(process.env.FOUNDING_MEMBER_CAP || '1200', 10);
   for (const row of rows as unknown as { key: string; value: number }[]) {
     if (row.key === 'founding_member_count') count = row.value;
     if (row.key === 'founding_member_cap') cap = row.value;

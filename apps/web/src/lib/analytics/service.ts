@@ -132,12 +132,14 @@ class AnalyticsServiceImpl implements AnalyticsService {
       }
 
       // Send to Google Analytics 4
-      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
-      if (typeof window !== 'undefined' && windowWithGtag.gtag) {
-        const gtag = windowWithGtag.gtag;
-        events.forEach(event => {
-          gtag('event', event.name, event.parameters);
-        });
+      if (typeof window !== 'undefined') {
+        const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
+        if (windowWithGtag.gtag) {
+          const gtag = windowWithGtag.gtag;
+          events.forEach(event => {
+            gtag('event', event.name, event.parameters);
+          });
+        }
       }
 
       // Send to PostHog (lazy-loaded behind consent)
@@ -202,6 +204,8 @@ class AnalyticsServiceImpl implements AnalyticsService {
    * Private: Start automatic flush timer
    */
   private startAutoFlush(): void {
+    if (typeof window === 'undefined') return;
+
     if (this.flushTimer) {
       clearInterval(this.flushTimer);
     }

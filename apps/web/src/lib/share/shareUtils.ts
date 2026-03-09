@@ -81,9 +81,9 @@ export function openShareWindow(
   const { width = 600, height = 400, popup = true } = options;
 
   if (popup) {
-    window.open(url, '_blank', `width=${width},height=${height}`);
+    window.open(url, '_blank', `width=${width},height=${height},noopener,noreferrer`);
   } else {
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 }
 

@@ -32,7 +32,6 @@ export { FounderSection } from './FounderSection';
 // B2B Landing Page Sections
 export { CalculatorFactory } from './CalculatorFactory';
 export { TwoWorldsSection } from './TwoWorldsSection';
-export { DualCtaSection } from './DualCtaSection';
 export { CashflowExplainerSection } from './CashflowExplainerSection';
 
 // Page-level Sections

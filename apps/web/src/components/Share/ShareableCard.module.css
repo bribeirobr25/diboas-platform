@@ -175,6 +175,12 @@
   flex-shrink: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .loading .loadingSpinner {
+    animation: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .cardContainer {

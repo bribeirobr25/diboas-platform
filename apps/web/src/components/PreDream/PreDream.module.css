@@ -898,6 +898,13 @@
   box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .screenContainer > div,
+  .particle {
+    animation: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .closeButton {

@@ -2,8 +2,8 @@
  * B2B Landing Page Configuration
  *
  * 14-section layout: Hero → Two Worlds → Cashflow Calculator → Treasury Calculator
- * → How It Works → Features → Cashflow Investing → Origin Story → Fees
- * → Fit Assessment → Founder → Dual CTA → FAQ → Footer
+ * → Origin Story → How It Works → Features → Cashflow Investing → Fees
+ * → Fit Assessment → Founder → Waitlist → FAQ → Footer
  *
  * Domain-Driven Design: B2B landing page domain configuration
  * Service Agnostic Abstraction: Decoupled content from presentation

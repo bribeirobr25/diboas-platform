@@ -206,20 +206,6 @@ export const RATE_LIMIT_CONFIG = {
 // =============================================================================
 
 /**
- * Cal.com configuration
- */
-export const CAL_CONFIG = {
-  /** Cal.com embed script URL */
-  embedScript: process.env.NEXT_PUBLIC_CAL_EMBED_SCRIPT || 'https://app.cal.com/embed/embed.js',
-  /** Cal.com origin for initialization */
-  origin: process.env.NEXT_PUBLIC_CAL_ORIGIN || 'https://app.cal.com',
-  /** Default calendar link */
-  defaultLink: process.env.NEXT_PUBLIC_CAL_LINK || '',
-  /** B2B treasury conversation link */
-  treasuryLink: process.env.NEXT_PUBLIC_CAL_TREASURY_LINK || 'diboas/treasury-conversation',
-} as const;
-
-/**
  * Email service configuration (Resend)
  */
 export const EMAIL_CONFIG = {
@@ -280,7 +266,6 @@ export const ENV = {
   RATE_LIMIT_CONFIG,
 
   // External Services
-  CAL_CONFIG,
   EMAIL_CONFIG,
   DATABASE_CONFIG,
   POSTHOG_CONFIG,

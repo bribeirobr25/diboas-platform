@@ -352,6 +352,14 @@
   background-color: var(--color-slate-200);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .modal,
+  .loadingSpinner {
+    animation: none;
+  }
+}
+
 /* Desktop layout (1024px+) */
 @media (min-width: 1024px) {
   .imageSection {

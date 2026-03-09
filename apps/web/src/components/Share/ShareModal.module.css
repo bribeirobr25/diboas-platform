@@ -254,6 +254,14 @@
   outline-offset: var(--focus-ring-offset);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .modal,
+  .spinner {
+    animation: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .modal {

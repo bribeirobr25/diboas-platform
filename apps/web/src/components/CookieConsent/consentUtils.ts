@@ -78,6 +78,7 @@ export async function checkConsentFromApi(): Promise<{ analytics: boolean; versi
  * Save consent to localStorage
  */
 export function saveConsentToStorage(consent: CookieConsentValue): void {
+  if (typeof window === 'undefined') return;
   localStorage.setItem(CONSENT_KEY, JSON.stringify(consent));
 }
 
@@ -96,6 +97,7 @@ export function createConsentValue(analytics: boolean): CookieConsentValue {
  * Dispatch consent changed event
  */
 export function dispatchConsentEvent(consent: CookieConsentValue): void {
+  if (typeof window === 'undefined') return;
   window.dispatchEvent(new CustomEvent('cookie-consent-changed', {
     detail: consent
   }));
@@ -139,6 +141,8 @@ export function getConsent(): CookieConsentValue | null {
  * Get stored consent from localStorage
  */
 export function getStoredConsent(): CookieConsentValue | null {
+  if (typeof window === 'undefined') return null;
+
   try {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (!stored) return null;

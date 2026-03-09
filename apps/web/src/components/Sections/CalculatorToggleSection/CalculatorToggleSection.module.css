@@ -27,7 +27,7 @@
   color: var(--brand-primary, #2563eb);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-sm, 0.875rem);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold, 600);
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }

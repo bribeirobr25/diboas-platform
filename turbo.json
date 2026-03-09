@@ -1,11 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "generate:design-tokens": {
-      "outputs": ["apps/web/src/styles/design-tokens.css"]
-    },
     "build": {
-      "dependsOn": ["^build", "generate:design-tokens"],
+      "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "dev": {

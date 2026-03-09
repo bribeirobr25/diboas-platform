@@ -142,6 +142,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .loadingSpinner {
+    animation: none;
+  }
+}
+
 .error {
   padding: var(--spacing-sm) var(--spacing-lg);
   font-size: var(--font-size-sm);

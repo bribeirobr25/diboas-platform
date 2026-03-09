@@ -18,7 +18,7 @@ interface ShareConfig {
  * Opens a share URL in a new window
  */
 function openShareWindow(url: string): void {
-  window.open(url, '_blank');
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 /**

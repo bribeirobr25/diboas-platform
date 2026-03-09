@@ -13,6 +13,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
 import { WaitlistConfirmation } from '@/components/WaitingList/WaitlistConfirmation';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import styles from './WaitlistSection.module.css';
 
 interface SignupData {
@@ -28,6 +29,7 @@ interface WaitlistVersionBProps {
     subheadline?: string;
     belowCta?: string;
     belowCheckbox?: string;
+    namespace?: string;
   };
   enableAnalytics?: boolean;
 }
@@ -42,14 +44,15 @@ export function WaitlistVersionB({
   const [isValidating, setIsValidating] = useState(false);
   const [signupData, setSignupData] = useState<SignupData | null>(null);
 
+  const ns = config?.namespace ?? 'landing-b2c.waitlist.versionB';
   const t = (key: string) =>
-    intl.formatMessage({ id: `landing-b2c.waitlist.versionB.${key}` });
+    intl.formatMessage({ id: `${ns}.${key}` });
 
   const handleValidateCode = useCallback(async () => {
     if (!inviteCode.trim()) return;
     setIsValidating(true);
     try {
-      const res = await fetch(`/api/waitlist/referral?code=${encodeURIComponent(inviteCode.trim())}`);
+      const res = await fetchWithRetry(`/api/waitlist/referral?code=${encodeURIComponent(inviteCode.trim())}`);
       if (res.ok) {
         const data = await res.json();
         setInviteValid(data.valid && data.referrer?.remainingInvites > 0);

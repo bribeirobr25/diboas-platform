@@ -222,6 +222,16 @@
   text-decoration: underline;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .successIcon,
+  .positionCard,
+  .referralSection,
+  .dreamModeCta,
+  .exploreCta {
+    animation: none;
+  }
+}
+
 /* Responsive Adjustments */
 @media (max-width: 480px) {
   .container {

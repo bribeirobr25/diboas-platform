@@ -70,14 +70,14 @@ export function ShareDreamSection({ result, localeDifference }: ShareDreamSectio
           window.open(
             `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
             '_blank',
-            'width=600,height=400'
+            'width=600,height=400,noopener,noreferrer'
           );
           break;
         case 'twitter':
           window.open(
             `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
             '_blank',
-            'width=600,height=400'
+            'width=600,height=400,noopener,noreferrer'
           );
           break;
         case 'linkedin':
@@ -89,7 +89,7 @@ export function ShareDreamSection({ result, localeDifference }: ShareDreamSectio
           window.open(
             `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
             '_blank',
-            'width=600,height=400'
+            'width=600,height=400,noopener,noreferrer'
           );
           break;
         case 'copy':
