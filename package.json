@@ -12,7 +12,7 @@
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
     "validate:design-tokens": "node scripts/validate-design-tokens.js",
-    "generate:design-tokens": "node scripts/validate-design-tokens.js && node scripts/generate-design-tokens.js",
+    "generate:design-tokens": "echo 'DISABLED: Generator destroys 2500+ lines of hand-maintained CSS. See CRIT-1 in docs/audit/code/full-codebase-audit-20260309.md' && exit 1",
     "dev:web": "turbo run dev --filter=web",
     "dev:app": "turbo run dev --filter=app",
     "dev:business": "turbo run dev --filter=business",
@@ -53,8 +53,5 @@
       "preact@<10.28.2": ">=10.28.2",
       "tailwindcss": "3.4.17"
     }
-  },
-  "dependencies": {
-    "@neondatabase/serverless": "^1.0.2"
   }
 }

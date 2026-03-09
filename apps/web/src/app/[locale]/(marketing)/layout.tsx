@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { LocaleProvider, I18nProvider, SetHtmlLang } from '@/components/Providers';
@@ -8,6 +9,11 @@ import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationEr
 import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
+
+// CEO Decision Q5: Marketing pages removed for V1. Noindexed until post-launch.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 interface RootLayoutProps {
   children: React.ReactNode;

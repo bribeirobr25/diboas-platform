@@ -24,12 +24,12 @@ vi.mock('../errorInference', () => ({
 }));
 
 vi.mock('../breadcrumbManager', () => ({
-  BreadcrumbManager: vi.fn(() => ({
-    initialize: vi.fn(),
-    add: vi.fn(),
-    getAll: vi.fn(() => []),
-    clear: vi.fn(),
-  })),
+  BreadcrumbManager: class MockBreadcrumbManager {
+    initialize = vi.fn();
+    add = vi.fn();
+    getAll = vi.fn(() => []);
+    clear = vi.fn();
+  },
 }));
 
 vi.mock('../errorConfig', () => ({
