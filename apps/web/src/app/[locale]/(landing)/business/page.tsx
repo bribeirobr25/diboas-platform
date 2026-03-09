@@ -8,11 +8,13 @@ import {
   ProseSection,
   FeeTable,
   FounderSection,
-  CalculatorFactory,
+  ExpandableSection,
   TwoWorldsSection,
-  DualCtaSection,
   CashflowExplainerSection,
 } from '@/components/Sections';
+import { CalculatorToggleSection } from '@/components/Sections/CalculatorToggleSection';
+import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
+import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
@@ -30,9 +32,10 @@ import {
   B2B_FEATURES_CONFIG,
   B2B_CASHFLOW_INVESTING_CONFIG,
   B2B_FEES_CONFIG,
+  B2B_FEES_EXPANDABLE_CONFIG,
   B2B_FIT_ASSESSMENT_CONFIG,
   B2B_FOUNDER_CONFIG,
-  B2B_DUAL_CTA_CONFIG,
+  B2B_WAITLIST_CONFIG,
   B2B_FAQ_CONFIG,
   B2B_FOOTER_NAV,
   B2B_FOOTER_DISCLOSURES,
@@ -105,16 +108,16 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  *
  * 1. Hero
  * 2. Two Worlds (self-selection cards)
- * 3. Cashflow Calculator (fee savings)
- * 4. Treasury Calculator (idle cash growth)
+ * 3. Calculator Toggle (cashflow + treasury with tab switch)
+ * 4. Cashflow Investing (Save it + Grow it)
  * 5. How It Works (4 steps)
  * 6. Three Features (3 cards)
- * 7. Cashflow Investing (Save it + Grow it)
- * 8. Origin Story (Adelaide / Grandmother)
- * 9. Fee Transparency (FeeTable)
- * 10. Fit Assessment (Good Fit / Not a Fit)
- * 11. About the Founder
- * 12. Dual CTA (Waitlist + Book a conversation)
+ * 7. Origin Story (Adelaide / Grandmother)
+ * 8. Fee Transparency (FeeTable, expandable)
+ * 9. Fit Assessment (Good Fit / Not a Fit)
+ * 10. About the Founder
+ * 11. Social Proof (waitlist stats)
+ * 12. Waitlist (email signup)
  * 13. FAQ (10 items)
  * 14. Footer (MinimalFooter)
  */
@@ -152,12 +155,14 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           enableReporting={true}
           context={{ page: 'landing-b2b', variant: 'fullBackground' }}
         >
-          <HeroSection
-            variant="fullBackground"
-            config={B2B_HERO_CONFIG}
-            enableAnalytics={true}
-            priority={true}
-          />
+          <div data-section-id="hero-section-b2b">
+            <HeroSection
+              variant="fullBackground"
+              config={B2B_HERO_CONFIG}
+              enableAnalytics={true}
+              priority={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
         {/* Section 2: Two Worlds */}
@@ -175,31 +180,32 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 3: Cashflow Calculator */}
+        {/* Section 3: Calculator Toggle (cashflow + treasury) */}
         <SectionErrorBoundary
-          sectionId="cashflow-calculator-section-b2b"
-          sectionType="CalculatorFactory"
+          sectionId="calculator-section-b2b"
+          sectionType="CalculatorToggleSection"
           enableReporting={true}
-          context={{ page: 'landing-b2b', variant: 'cashflow' }}
+          context={{ page: 'landing-b2b' }}
         >
-          <div id="cashflow-calculator" data-section-id="cashflow-calculator-section-b2b">
-            <CalculatorFactory
-              config={B2B_CASHFLOW_CALCULATOR_CONFIG}
+          <div id="cashflow-calculator" data-section-id="calculator-section-b2b">
+            <CalculatorToggleSection
+              cashflowConfig={B2B_CASHFLOW_CALCULATOR_CONFIG}
+              treasuryConfig={B2B_CALCULATOR_CONFIG}
               enableAnalytics={true}
             />
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 4: Treasury Calculator */}
+        {/* Section 4: Cashflow Investing */}
         <SectionErrorBoundary
-          sectionId="treasury-calculator-section-b2b"
-          sectionType="CalculatorFactory"
+          sectionId="cashflow-investing-section-b2b"
+          sectionType="CashflowExplainerSection"
           enableReporting={true}
-          context={{ page: 'landing-b2b', variant: 'treasury' }}
+          context={{ page: 'landing-b2b' }}
         >
-          <div id="treasury-calculator" data-section-id="treasury-calculator-section-b2b">
-            <CalculatorFactory
-              config={B2B_CALCULATOR_CONFIG}
+          <div id="cashflow-investing" data-section-id="cashflow-investing-section-b2b">
+            <CashflowExplainerSection
+              config={B2B_CASHFLOW_INVESTING_CONFIG}
               enableAnalytics={true}
             />
           </div>
@@ -236,22 +242,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: Cashflow Investing */}
-        <SectionErrorBoundary
-          sectionId="cashflow-investing-section-b2b"
-          sectionType="CashflowExplainerSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div id="cashflow-investing" data-section-id="cashflow-investing-section-b2b">
-            <CashflowExplainerSection
-              config={B2B_CASHFLOW_INVESTING_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 8: Origin Story */}
+        {/* Section 7: Origin Story */}
         <SectionErrorBoundary
           sectionId="origin-story-section-b2b"
           sectionType="ProseSection"
@@ -266,7 +257,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 9: Fee Transparency */}
+        {/* Section 8: Fee Transparency (expandable) */}
         <SectionErrorBoundary
           sectionId="fees-section-b2b"
           sectionType="FeeTable"
@@ -274,14 +265,16 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           context={{ page: 'landing-b2b' }}
         >
           <div id="fees" data-section-id="fees-section-b2b">
-            <FeeTable
-              config={B2B_FEES_CONFIG}
-              enableAnalytics={true}
-            />
+            <ExpandableSection config={B2B_FEES_EXPANDABLE_CONFIG}>
+              <FeeTable
+                config={B2B_FEES_CONFIG}
+                enableAnalytics={true}
+              />
+            </ExpandableSection>
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 10: Fit Assessment */}
+        {/* Section 9: Fit Assessment */}
         <SectionErrorBoundary
           sectionId="fit-assessment-section-b2b"
           sectionType="BenefitsCards"
@@ -297,7 +290,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 11: About the Founder */}
+        {/* Section 10: About the Founder */}
         <SectionErrorBoundary
           sectionId="founder-section-b2b"
           sectionType="FounderSection"
@@ -312,17 +305,40 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 12: Dual CTA */}
+        {/* Section 11: Social Proof */}
         <SectionErrorBoundary
-          sectionId="dual-cta-section-b2b"
-          sectionType="DualCtaSection"
+          sectionId="social-proof-section-b2b"
+          sectionType="SocialProofSection"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <div id="dual-cta" data-section-id="dual-cta-section-b2b">
-            <DualCtaSection
-              config={B2B_DUAL_CTA_CONFIG}
+          <div data-section-id="social-proof-section-b2b">
+            <SocialProofSection
+              namespace="landing-b2b.socialProof"
               enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 12: Waitlist */}
+        <SectionErrorBoundary
+          sectionId="waitlist-section-b2b"
+          sectionType="WaitlistSection"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <div id="waitlist" data-section-id="waitlist-section-b2b">
+            <WaitlistSection
+              enableAnalytics={true}
+              config={{
+                sectionId: B2B_WAITLIST_CONFIG.sectionId,
+                backgroundColor: B2B_WAITLIST_CONFIG.backgroundColor,
+                headline: B2B_WAITLIST_CONFIG.headline,
+                subheadline: B2B_WAITLIST_CONFIG.subheadline,
+                hideBenefits: B2B_WAITLIST_CONFIG.hideBenefits,
+                hideNoSpam: B2B_WAITLIST_CONFIG.hideNoSpam,
+                namespace: B2B_WAITLIST_CONFIG.namespace,
+              }}
             />
           </div>
         </SectionErrorBoundary>

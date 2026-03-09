@@ -29,7 +29,7 @@
     }
   },
   "cashflowCalculator": {
-    "header": "Heute ohne uns V.S. Morgen mit diBoaS",
+    "header": "Mit und Ohne diBoaS",
     "todayTitle": "Wie ist es Heute? Ohne uns?",
     "tomorrowTitle": "Wie es sein sollte? Nur mit diBoaS",
     "fields": {
@@ -86,15 +86,19 @@
     "belowResults": "",
     "customRateTemplate": "Bei {rate} % Jahresrendite: {amount}",
     "cta": "Sprich mit uns",
-    "transitionHook": "Ungenutztes-Kapital-Simulator"
+    "transitionHook": "Ungenutztes-Kapital-Simulator",
+    "toggle": {
+      "paymentFees": "Gebühren-Simulator",
+      "idleCash": "Kapitalsimulator"
+    }
   },
   "origin": {
     "header": "Ihr Name war Adelaide.",
     "paragraphs": [
       "Meine Grossmutter hat ihr ganzes Leben lang gespart. Die Haelfte von allem, was sie verdient hat. Alles richtig gemacht.",
       "Es hat trotzdem nicht gereicht.",
-      "Die Bank hat ihre Ersparnisse angelegt, Rendite erwirtschaftet und ihr fast nichts davon zurueckgegeben. Kommt dir das bekannt vor?",
-      "Ich habe gesehen, wie Cafes 8.000 EUR im Jahr an Kartengebuehren verlieren. Ich habe gesehen, wie Startups mit einer halben Million auf dem Konto weniger als 200 EUR im Monat an Zinsen bekommen.",
+      "Die Bank hat mit ihren Ersparnissen Rendite erwirtschaftet und ihr fast nichts davon zurueckgegeben.",
+      "Ich habe dasselbe bei Unternehmen gesehen. Cafes, die 8.000 EUR im Jahr an Kartengebuehren verlieren. Startups mit einer halben Million auf dem Konto, die weniger als 200 EUR im Monat an Zinsen bekommen.",
       "Das System war nicht fuer Menschen wie sie gebaut. Es war auch nicht fuer Unternehmen wie deines gebaut.",
       "Aber jetzt? Die Technologie hat es moeglich gemacht, die Mittelsmanner auszuschalten. Ich musste nur die Tuer bauen.",
       "Ich habe sie nach ihr benannt."
@@ -143,14 +147,15 @@
     "transitionHook": "Aber jetzt kommt der Teil, den sonst niemand macht."
   },
   "cashflowInvesting": {
-    "header": "Cashflow-Investieren. Zwei Vorteile durch eine Veraenderung.",
+    "header": "Cashflow-Investieren.",
+    "subheader": "Zwei Vorteile durch eine Veraenderung.",
     "saveIt": {
       "title": "Spare es.",
       "body": "Jeder 100 EUR Kartenumsatz kostet dich 2 bis 3 EUR Gebuehren. Mit diBoaS: 0 EUR. Ein Cafe mit 1.000 EUR Tagesumsatz? Ueber 10.000 EUR im Jahr zurueck."
     },
     "growIt": {
       "title": "Lass es wachsen.",
-      "body": "Die Ersparnis gehoert dir, egal ob du investierst oder nicht. Willst du sie arbeiten lassen? Ab 5 EUR, von sicher bis abenteuerlich. Adelaide passt auf."
+      "body": "Die Ersparnis gehoert dir, egal ob du investierst oder nicht. Aber wenn du sie arbeiten laesst, wird aus Kostensenkung eine moegliche neue Einnahmequelle."
     },
     "microExample": "Spare 8.568 EUR an Gebuehren. Investiere es. Beende das Jahr mit 8.911 bis 9.425 EUR, je nach Marktbedingungen. Eine neue Einnahmequelle.",
     "limitation": "Die Ersparnisse sind sicher. Das Wachstum nicht. Das ist die ehrliche Rechnung.",
@@ -220,6 +225,7 @@
     "disclaimer": "*Angezeigte diBoaS-Gebuehr. Netzwerkgebuehren Dritter koennen anfallen (typischerweise unter 0,01 EUR).",
     "pricingNote": "Preisvergleiche basieren auf oeffentlich verfuegbaren Tarifen, Stand Februar 2026. Die Spannen spiegeln gaengige Preise bei grossen Anbietern wider. Die tatsaechlichen Preise variieren je nach Anbieter, Volumen und Vertragsbedingungen.",
     "example": "Du empfaengst 1.000 EUR an Zahlungen: Du behaltst 1.000 EUR in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto: 995,20 EUR (nach 0,48% Auszahlungsgebuehr). Immer noch guenstiger als die 970 bis 980 EUR, die ein Kartenzahlungsdienstleister uebrig laesst.",
+    "expandableToggle": "Keine versteckten Gebühren. Kein Mindestguthaben. Keine monatlichen Kosten. Alle Gebühren anzeigen.",
     "footerLine": "Jede Gebuehr. Auf dem Tisch. Sonst nichts.",
     "transitionHook": "Du liest noch? Gut. Schauen wir, ob es zu deinem Unternehmen passt."
   },
@@ -255,15 +261,20 @@
       ],
       "versionB": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
-        "diBoaS wird derzeit in Berlin gegruendet und baut fuer Unternehmen in den USA, der EU und Brasilien. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
+        "diBoaS wird derzeit in Berlin gegruendet und baut zunaechst fuer Unternehmen in den USA, der EU und Brasilien. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
       ],
       "versionC": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
         "Wir bauen diBoaS von Berlin aus, fuer Unternehmen in den USA, der EU und Brasilien. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
       ]
     },
-    "email": "Fragen? Ich lese jede E-Mail.",
-    "emailAddress": "bar@diboas.com"
+    "email": "Lass uns in Kontakt treten.",
+    "emailAddress": "bar@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "substack": "Substack"
+    }
   },
   "dualCta": {
     "header": "Werde Teil der Unternehmen, die aufgehoert haben, zu viel zu bezahlen.",
@@ -282,6 +293,19 @@
       "cta": "Gespraech buchen",
       "alternative": "Oder schreib an bar@diboas.com"
     }
+  },
+  "socialProof": {
+    "header": "Die ersten 24 Unternehmen.",
+    "subtext": "Wir starten klein, damit wir jedes Unternehmen gut betreuen können.",
+    "stats": {
+      "waitlist": "{count} Gründungsunternehmen",
+      "countries": "{countries} Länder"
+    }
+  },
+  "waitlist": {
+    "header": "Schließen Sie sich anderen Unternehmen in dieser Bewegung an.",
+    "description": "Offener Zugang und faire Möglichkeiten. Lassen Sie uns reden.",
+    "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend"
   },
   "faq": {
     "header": "Bevor du dich entscheidest.",
@@ -340,13 +364,16 @@
     "cvmWarning": "",
     "fictionalResults": "Die Beispiele auf dieser Seite sind illustrativ und stellen keine realen Unternehmen oder tatsaechlichen Ergebnisse dar. Rechner-Projektionen basieren auf hypothetischen Szenarien und historischen Durchschnitten. Die tatsaechlichen Ergebnisse werden abweichen.",
     "nav": {
+      "forYou": "Für Dich",
+      "forBusiness": "Für Unternehmen",
+      "adelaideDaily": "Adelaide Daily",
       "about": "Ueber uns",
-      "legal": "Rechtliches",
+      "help": "Hilfe",
+      "strategies": "Strategien",
+      "protocols": "Protokolle",
       "privacy": "Datenschutzerklaerung",
       "terms": "Nutzungsbedingungen",
-      "cookies": "Cookie-Richtlinie",
-      "help": "Hilfe",
-      "security": "Sicherheit"
+      "cookies": "Cookie-Richtlinie"
     },
     "tagline": "Das Finanzwerkzeug, das Adelaide verdient haette."
   },

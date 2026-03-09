@@ -34,7 +34,12 @@ export const CashflowExplainerSection = memo(function CashflowExplainerSection({
       ariaLabel={translated.seo.ariaLabel}
       className={className}
     >
-      <h2 className={styles.header}>{translated.content.header}</h2>
+      <h2 className={`${styles.header} ${translated.content.subheader ? styles.headerWithSub : ''}`}>
+        {translated.content.header}
+      </h2>
+      {translated.content.subheader ? (
+        <p className={styles.subheader}>{translated.content.subheader}</p>
+      ) : null}
 
       {/* Two-part grid: Save it + Grow it */}
       <div className={styles.grid}>

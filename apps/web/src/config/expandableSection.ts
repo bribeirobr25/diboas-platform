@@ -8,7 +8,7 @@
 export interface ExpandableSectionConfig {
   readonly content: {
     readonly toggleLabel: string;
-    readonly paragraphs: readonly string[];
+    readonly paragraphs?: readonly string[];
     readonly linkText?: string;
     readonly linkHref?: string;
   };

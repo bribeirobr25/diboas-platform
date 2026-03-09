@@ -23,7 +23,7 @@
     }
   },
   "cashflowCalculator": {
-    "header": "Hoje sem nos V.S. Amanha com diBoaS",
+    "header": "Com e Sem diBoaS",
     "todayTitle": "Como e Hoje? Sem nos?",
     "tomorrowTitle": "Como deveria ser? So com diBoaS",
     "fields": {
@@ -72,15 +72,19 @@
     "belowResults": "",
     "customRateTemplate": "Com {rate}% de retorno anual: {amount}",
     "cta": "Fale conosco",
-    "transitionHook": "Simulador de caixa parado"
+    "transitionHook": "Simulador de caixa parado",
+    "toggle": {
+      "paymentFees": "Simulador de Taxas",
+      "idleCash": "Simulador de Caixa"
+    }
   },
   "origin": {
     "header": "O nome dela era Adelaide.",
     "paragraphs": [
       "Minha avo economizou a vida inteira. Metade de tudo que ganhou. Fez tudo certo.",
       "Nao foi suficiente.",
-      "O banco investiu as economias dela, lucrou, e devolveu quase nada. Te parece familiar?",
-      "Eu ja vi padarias perderem R$50.000 por ano em taxas de maquininha. Ja vi startups com R$2 milhoes no banco recebendo menos de R$1.000 por mes de rendimento.",
+      "O banco lucrou com as economias dela e devolveu quase nada.",
+      "Eu ja vi a mesma coisa acontecer com negocios. Padarias perdendo R$50.000 por ano em taxas de maquininha. Startups com R$2 milhoes no banco recebendo menos de R$1.000 por mes de rendimento.",
       "O sistema nao foi feito pra pessoas como ela. Tambem nao foi feito pra negocios como o seu.",
       "Mas agora? A tecnologia tornou possivel eliminar os intermediarios. Eu so precisava construir a porta.",
       "Dei o nome dela."
@@ -129,14 +133,15 @@
     "transitionHook": "Mas aqui vem a parte que ninguem mais esta fazendo."
   },
   "cashflowInvesting": {
-    "header": "Investimento de fluxo. Dois ganhos com uma so mudanca.",
+    "header": "Investimento de fluxo.",
+    "subheader": "Dois ganhos com uma so mudanca.",
     "saveIt": {
       "title": "Economize.",
       "body": "A cada R$100 em vendas no cartao, voce paga de R$2 a R$5 em taxas. Com diBoaS, paga R$0. Uma cafeteria com R$5.000/dia? Sao R$69.000+ por ano de volta."
     },
     "growIt": {
       "title": "Faca render.",
-      "body": "A economia e sua, investindo ou nao. Se quiser colocar pra trabalhar: a partir de R$10, da mais segura ate a mais arrojada. Adelaide fica de olho."
+      "body": "A economia e sua, investindo ou nao. Mas se voce decidir colocar pra trabalhar, deixa de ser corte de custos e vira uma possivel nova linha de receita."
     },
     "microExample": "Economize R$69.840 em taxas. Invista. Termine o ano com R$72.634 a R$76.824. Nao e corte de custos. E uma nova linha de receita.",
     "limitation": "A economia e certa. O crescimento nao. Essa e a conta honesta.",
@@ -161,6 +166,7 @@
     "disclaimer": "*Taxa diBoaS mostrada. Taxas de rede de terceiros podem se aplicar (normalmente menos de R$0,05).",
     "pricingNote": "Comparacoes de precos baseadas em tarifas publicas de fevereiro de 2026. As faixas refletem precos comuns entre os principais provedores. O preco real de cada concorrente varia por provedor, volume e condicoes contratuais.",
     "example": "Receba R$5.000 em pagamentos: voce fica com R$5.000 na sua conta diBoaS. Saque para o banco: R$4.976 (apos 0,48% de taxa de saque). Ainda muito mais barato que os R$4.750 a R$4.900 que uma maquininha deixa pra voce.",
+    "expandableToggle": "Sem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Veja todas as taxas.",
     "footerLine": "Cada taxa. Na mesa. Nada mais.",
     "transitionHook": "Ainda lendo? Otimo. Vamos ver se isso encaixa pro seu negocio."
   },
@@ -196,15 +202,20 @@
       ],
       "versionB": [
         "Eu cresci vendo minha avo Adelaide navegar um sistema financeiro que nao foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como voce.",
-        "A diBoaS esta sendo estabelecida em Berlim, Alemanha, construindo para negocios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
+        "A diBoaS esta sendo estabelecida em Berlim, Alemanha, construindo para negocios nos EUA, na UE e no Brasil primeiro. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
       ],
       "versionC": [
         "Eu cresci vendo minha avo Adelaide navegar um sistema financeiro que nao foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como voce.",
         "Estamos construindo a diBoaS de Berlim, Alemanha, para negocios nos EUA, na UE e no Brasil. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
       ]
     },
-    "email": "Perguntas? Eu leio cada email.",
-    "emailAddress": "bar@diboas.com"
+    "email": "Vamos nos conectar.",
+    "emailAddress": "bar@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "substack": "Substack"
+    }
   },
   "dualCta": {
     "header": "Junte-se aos negocios que pararam de pagar demais.",
@@ -223,6 +234,19 @@
       "cta": "Agende uma conversa",
       "alternative": "Ou escreva pra bar@diboas.com"
     }
+  },
+  "socialProof": {
+    "header": "As primeiras 24 empresas.",
+    "subtext": "Estamos começando pequeno para cuidar de cada empresa que entra.",
+    "stats": {
+      "waitlist": "{count} empresas fundadoras",
+      "countries": "{countries} países"
+    }
+  },
+  "waitlist": {
+    "header": "Junte-se a outras empresas neste movimento.",
+    "description": "Acesso aberto e oportunidades justas. Vamos conversar.",
+    "spotsCounter": "{count} vagas de membros fundadores restantes"
   },
   "faq": {
     "header": "Antes de decidir.",
@@ -281,13 +305,16 @@
     "aiDisclosure": "Determinados conteudos desta plataforma, incluindo analises de mercado e materiais educativos, sao gerados ou assistidos por inteligencia artificial. Conteudo gerado por IA pode conter erros ou limitacoes. Usuarios devem verificar informacoes de forma independente antes de tomar decisoes financeiras.",
     "fictionalResults": "Os exemplos nesta pagina sao ilustrativos e nao representam negocios reais ou resultados reais. Projecoes das calculadoras sao baseadas em cenarios hipoteticos e medias historicas. Os resultados reais irao variar.",
     "nav": {
+      "forYou": "Para Você",
+      "forBusiness": "Para Empresas",
+      "adelaideDaily": "Adelaide Daily",
       "about": "Sobre nos",
-      "legal": "Legal",
+      "help": "Ajuda",
+      "strategies": "Estratégias",
+      "protocols": "Protocolos",
       "privacy": "Politica de Privacidade",
       "terms": "Termos de Servico",
-      "cookies": "Politica de Cookies",
-      "help": "Ajuda",
-      "security": "Seguranca"
+      "cookies": "Politica de Cookies"
     },
     "tagline": "A ferramenta financeira que Adelaide merecia."
   },

@@ -1,0 +1,60 @@
+.wrapper {
+  width: 100%;
+}
+
+.toggleBar {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-lg);
+  padding: 0 var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .toggleBar {
+    gap: var(--spacing-4);
+    padding: 0;
+  }
+}
+
+.toggleButton {
+  flex: 1;
+  max-width: 280px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: 2px solid var(--brand-primary, #2563eb);
+  border-radius: var(--radius-lg, 0.5rem);
+  background: transparent;
+  color: var(--brand-primary, #2563eb);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .toggleButton {
+    font-size: var(--font-size-base, 1rem);
+    padding: var(--spacing-md) var(--spacing-xl);
+  }
+}
+
+.toggleButtonActive {
+  background: var(--brand-primary, #2563eb);
+  color: var(--cta-color-primary, #ffffff);
+}
+
+.toggleButton:hover:not(.toggleButtonActive) {
+  background: var(--brand-primary-light, rgba(37, 99, 235, 0.08));
+}
+
+.toggleButton:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--cta-focus-color, #2563eb);
+  outline-offset: var(--focus-ring-offset, 2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggleButton {
+    transition: none;
+  }
+}

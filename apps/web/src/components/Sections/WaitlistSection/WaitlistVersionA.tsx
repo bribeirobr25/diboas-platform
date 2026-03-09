@@ -29,6 +29,7 @@ interface WaitlistVersionAProps {
     belowCheckbox?: string;
     hideBenefits?: boolean;
     hideNoSpam?: boolean;
+    namespace?: string;
   };
   stats: {
     count: number;
@@ -56,8 +57,9 @@ export function WaitlistVersionA({
     });
   }, []);
 
+  const ns = config?.namespace || 'landing-b2c.waitlist';
   const t = (key: string, values?: Record<string, React.ReactNode>) =>
-    intl.formatMessage({ id: `landing-b2c.waitlist.${key}` }, values);
+    intl.formatMessage({ id: `${ns}.${key}` }, values);
 
   if (signupData) {
     return (

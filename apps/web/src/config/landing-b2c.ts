@@ -435,6 +435,23 @@ export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
 } as const;
 
 /**
+ * Section 5 wrapper: Fees Expandable Configuration
+ * Wraps FeeTable inside an ExpandableSection for collapsed-by-default UX
+ */
+export const B2C_FEES_EXPANDABLE_CONFIG: ExpandableSectionConfig = {
+  content: {
+    toggleLabel: 'landing-b2c.fees.expandableToggle',
+  },
+  seo: {
+    ariaLabel: 'Fee transparency details',
+  },
+  analytics: {
+    sectionId: 'fees-expandable-b2c',
+    category: 'landing-b2c',
+  },
+} as const;
+
+/**
  * Section 7: Demo Configuration
  */
 export const B2C_DEMO_CONFIG = {
@@ -617,9 +634,9 @@ export const B2C_FOOTER_NAV = [
   { id: 'forBusiness', labelKey: 'landing-b2c.footer.nav.forBusiness', href: ROUTES.BUSINESS_LANDING },
   { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.DAILY_MARKET },
   { id: 'about', labelKey: 'landing-b2c.footer.nav.about', href: ROUTES.ABOUT },
+  { id: 'strategies', labelKey: 'landing-b2c.footer.nav.strategies', href: ROUTES.STRATEGIES },
+  { id: 'protocols', labelKey: 'landing-b2c.footer.nav.protocols', href: ROUTES.PROTOCOLS },
   { id: 'help', labelKey: 'landing-b2c.footer.nav.help', href: '/help' },
-  { id: 'security', labelKey: 'landing-b2c.footer.nav.security', href: '/security' },
-  { id: 'legal', labelKey: 'landing-b2c.footer.nav.legal', href: ROUTES.LEGAL.TERMS },
 ] as const;
 
 /**

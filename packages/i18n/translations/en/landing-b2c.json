@@ -80,6 +80,7 @@
     "painIntro": "The average person pays hundreds of dollars a year in bank fees, transfer charges, and hidden spreads. Here's what it looks like with us.",
     "disclaimer": "*diBoaS fee shown. Third-party network fees may apply (typically less than $0.01).",
     "example": "A $100 investment costs $0 with diBoaS. Selling costs 39 cents.",
+    "expandableToggle": "Send money, buy and invest is free. But we do have fees. See all fees.",
     "footerLine": "Every fee. On the table. Nothing else.",
     "headers": {
       "action": "Action",
@@ -151,7 +152,7 @@
     "header": "What's the catch?",
     "paragraphs": {
       "p1": "Fair question. Here's the real answer:",
-      "p2": "Investing is free. When you sell, we charge 0.39%. If you sell $100, we make 39 cents. The only way we earn more is if your money grows. Our incentives are aligned with yours.",
+      "p2": "Investing is free. When you sell, we charge 0.39%. If you sell $100, we make 39 cents. The only way we earn more is if your money grows. And the fee never exceeds $25. Our incentives are aligned with yours.",
       "p3": "No monthly fees. No surprise charges. No withdrawal penalties.",
       "p4": "How? New technology removed the branches, the executives, and the legacy costs. We pass those savings to you.",
       "p5": "Is there risk? Yes. Your money isn't in a bank. It's working through new technology. That means it can grow more, but there's also real risk. We monitor 24/7 and we test every strategy against past crashes, but we can't guarantee returns, and anyone who says they can is lying.",
@@ -161,9 +162,9 @@
   "underTheHood": {
     "toggleLabel": "Want the technical details?",
     "paragraphs": {
-      "p1": "Architecture: diBoaS is built on open-source and decentralized financial infrastructure (Blockchain and DeFi). Your wallet is secured so that no one, including diBoaS, can access your funds. Only you can authorize transactions.",
+      "p1": "Architecture: diBoaS is built on open-source and decentralized financial infrastructure (Blockchain and DeFi). This means every transaction is verifiable, every system is auditable, and your money moves without middlemen.",
       "p2": "Your wallet: Every user gets their own personal wallet with their own private key. diBoaS never sees, holds, or has access to your key. If diBoaS disappeared tomorrow, your money would still be yours.",
-      "p3": "Security: We only use audited and established protocols. Every strategy is tested against historical market crashes before it's offered to users. We monitor all positions 24/7. Transaction signing will always require your approval.",
+      "p3": "Security: Your wallet is secured so that no one, including diBoaS, can access your funds. Only you can authorize transactions. We only use audited and established protocols. Every strategy is tested against historical market crashes before it's offered to users. We monitor all positions 24/7. Transaction signing will always require your approval.",
       "p4": "Transparency: All fees are disclosed upfront. All risks are stated plainly. No hidden mechanics."
     },
     "linkText": "See full technical documentation"
@@ -188,7 +189,7 @@
     "header": "Built by BAR",
     "paragraphs": {
       "p1": "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does everyone like her.",
-      "p2": "diBoaS is being established in Berlin, Germany, building for people in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish my grandmother had.",
+      "p2": "diBoaS is being established in Berlin, Germany, building for people in the US, EU, Brazil and expanding Worldwide. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish my grandmother had.",
       "p3": "Let's connect."
     },
     "emailText": "bar@diboas.com",
@@ -282,8 +283,8 @@
       "adelaideDaily": "Adelaide Daily",
       "about": "About",
       "help": "Help",
-      "legal": "Legal",
-      "security": "Security"
+      "strategies": "Strategies",
+      "protocols": "Protocols"
     },
     "disclosures": {
       "general": "This content is for educational purposes only and does not constitute investment advice, financial advice, or any other type of advice. Past performance is not indicative of future results. Any historical data or simulations are hypothetical and not guarantees.",

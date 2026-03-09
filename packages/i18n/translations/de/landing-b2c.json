@@ -80,6 +80,7 @@
     "painIntro": "Der Durchschnittsdeutsche zahlt Hunderte Euro im Jahr an Bankgebühren, Überweisungskosten und versteckten Aufschlägen. So sieht es bei uns aus.",
     "disclaimer": "*diBoaS-Gebühr angegeben. Netzwerkgebühren Dritter können anfallen (in der Regel weniger als 0,01 EUR).",
     "example": "Eine Investition von 100 EUR kostet 0 EUR bei diBoaS. Verkaufen kostet 39 Cent.",
+    "expandableToggle": "Geld senden, kaufen und investieren ist kostenlos. Aber wir haben Gebühren. Alle Gebühren anzeigen.",
     "footerLine": "Jede Gebühr. Auf dem Tisch. Sonst nichts.",
     "headers": {
       "action": "Aktion",
@@ -151,7 +152,7 @@
     "header": "Wo ist der Haken?",
     "paragraphs": {
       "p1": "Berechtigte Frage. Hier ist die ehrliche Antwort:",
-      "p2": "Investieren ist kostenlos. Wenn du verkaufst, berechnen wir 0,39%. Wenn du 100 EUR verkaufst, verdienen wir 39 Cent. Wir verdienen nur mehr, wenn dein Geld wächst. Unsere Anreize sind auf deine abgestimmt.",
+      "p2": "Investieren ist kostenlos. Wenn du verkaufst, berechnen wir 0,39%. Wenn du 100 EUR verkaufst, verdienen wir 39 Cent. Wir verdienen nur mehr, wenn dein Geld wächst. Und die Gebühr übersteigt nie 25 EUR. Unsere Anreize sind auf deine abgestimmt.",
       "p3": "Keine monatlichen Gebühren. Keine überraschenden Kosten. Keine Strafgebühren bei Auszahlung.",
       "p4": "Wie geht das? Neue Technologie hat die Filialen, die Manager und die alten Kostenstrukturen überflüssig gemacht. Wir geben diese Ersparnis an dich weiter.",
       "p5": "Gibt es Risiken? Ja. Dein Geld liegt nicht bei einer Bank. Es arbeitet mit neuer Technologie. Das bedeutet, es kann stärker wachsen, aber es gibt auch echtes Risiko. Wir überwachen rund um die Uhr und testen jede Strategie gegen vergangene Krisen, aber wir können keine Rendite garantieren, und wer das behauptet, lügt.",
@@ -161,9 +162,9 @@
   "underTheHood": {
     "toggleLabel": "Willst du die technischen Details?",
     "paragraphs": {
-      "p1": "Architektur: diBoaS basiert auf quelloffener und dezentraler Finanzinfrastruktur (Blockchain und DeFi). Deine Wallet ist so gesichert, dass niemand, einschließlich diBoaS, auf deine Mittel zugreifen kann. Nur du kannst Transaktionen autorisieren.",
+      "p1": "Architektur: diBoaS basiert auf quelloffener und dezentraler Finanzinfrastruktur (Blockchain und DeFi). Das bedeutet, jede Transaktion ist überprüfbar, jedes System ist auditierbar, und dein Geld bewegt sich ohne Mittelsmänner.",
       "p2": "Deine Wallet: Jeder Nutzer erhält seine eigene persönliche Wallet mit eigenem privaten Schlüssel. diBoaS sieht, speichert oder hat niemals Zugriff auf deinen Schlüssel. Wenn diBoaS morgen verschwinden würde, wäre dein Geld immer noch deins.",
-      "p3": "Sicherheit: Wir verwenden ausschließlich auditierte und etablierte Protokolle. Jede Strategie wird gegen historische Marktkrisen getestet, bevor sie Nutzern angeboten wird. Wir überwachen alle Positionen rund um die Uhr. Die Transaktionssignierung erfordert immer deine Genehmigung.",
+      "p3": "Sicherheit: Deine Wallet ist so gesichert, dass niemand, einschließlich diBoaS, auf deine Mittel zugreifen kann. Nur du kannst Transaktionen autorisieren. Wir verwenden ausschließlich auditierte und etablierte Protokolle. Jede Strategie wird gegen historische Marktkrisen getestet, bevor sie Nutzern angeboten wird. Wir überwachen alle Positionen rund um die Uhr. Die Transaktionssignierung erfordert immer deine Genehmigung.",
       "p4": "Transparenz: Alle Gebühren werden im Voraus offengelegt. Alle Risiken werden klar benannt. Keine versteckten Mechanismen."
     },
     "linkText": "Vollständige technische Dokumentation ansehen"
@@ -188,7 +189,7 @@
     "header": "Gebaut von BAR",
     "paragraphs": {
       "p1": "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Alle, die so sind wie sie, verdienen das auch.",
-      "p2": "diBoaS wird in Berlin, Deutschland gegründet, gebaut für Menschen in den USA, der EU und Brasilien. Ich habe über 20 Jahre in Produktmanagement und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für meine Großmutter gewünscht hätte.",
+      "p2": "diBoaS wird in Berlin, Deutschland gegründet, gebaut für Menschen in den USA, der EU, Brasilien und mit weltweiter Expansion. Ich habe über 20 Jahre in Produktmanagement und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für meine Großmutter gewünscht hätte.",
       "p3": "Lass uns in Kontakt treten."
     },
     "emailText": "bar@diboas.com",
@@ -282,8 +283,8 @@
       "adelaideDaily": "Adelaide Daily",
       "about": "Über uns",
       "help": "Hilfe",
-      "legal": "Rechtliches",
-      "security": "Sicherheit"
+      "strategies": "Strategien",
+      "protocols": "Protokolle"
     },
     "disclosures": {
       "general": "Dieser Inhalt dient ausschließlich Bildungszwecken und stellt keine Anlageberatung, Finanzberatung oder sonstige Beratung dar. Die Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für die zukünftige Wertentwicklung. Historische Daten und Simulationen sind hypothetisch und keine Garantien.",

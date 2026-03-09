@@ -9,6 +9,7 @@
 export interface CashflowExplainerSectionConfig {
   readonly content: {
     readonly header: string;
+    readonly subheader?: string;
     readonly partA: {
       readonly title: string;
       readonly body: string;

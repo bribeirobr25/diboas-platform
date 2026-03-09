@@ -29,7 +29,7 @@
     }
   },
   "cashflowCalculator": {
-    "header": "Today without us V.S. Tomorrow with diBoaS",
+    "header": "With and Without diBoaS",
     "todayTitle": "How is it Today? Without us?",
     "tomorrowTitle": "How it should be? Only with diBoaS",
     "fields": {
@@ -86,15 +86,19 @@
     "belowResults": "",
     "customRateTemplate": "At {rate}% annual return: {amount}",
     "cta": "Talk to us",
-    "transitionHook": "Idle Cash Simulator"
+    "transitionHook": "Idle Cash Simulator",
+    "toggle": {
+      "paymentFees": "Payment Fee Simulator",
+      "idleCash": "Idle Cash Simulator"
+    }
   },
   "origin": {
     "header": "Her name was Adelaide.",
     "paragraphs": [
       "My grandmother saved her whole life. Half of everything she earned. Did everything right.",
       "It still wasn't enough.",
-      "The bank invested her savings, earned returns, and gave her almost nothing back. Sound familiar?",
-      "I've seen coffee shops lose $10,000 a year to card fees. I've seen startups with half a million in the bank earning less than $200 a month in interest.",
+      "The bank earned returns with her savings and gave her almost nothing back.",
+      "I've seen the same thing happen with businesses. Coffee shops losing $10,000 a year to card fees. Startups with half a million in the bank earning less than $200 a month in interest.",
       "The system wasn't built for people like her. It wasn't built for businesses like yours either.",
       "But now? Technology made it possible to cut out the middlemen. I just had to build the door.",
       "I named it after her."
@@ -143,14 +147,15 @@
     "transitionHook": "But here's the part nobody else is doing."
   },
   "cashflowInvesting": {
-    "header": "Cashflow investing. Two wins from one change.",
+    "header": "Cashflow investing.",
+    "subheader": "Two wins from one change.",
     "saveIt": {
       "title": "Save it.",
       "body": "Every $100 in card sales costs you $2 to $3 in fees. With diBoaS, it costs $0. A coffee shop doing $1,000/day? That's $10,000+ a year back."
     },
     "growIt": {
       "title": "Grow it.",
-      "body": "The savings are yours whether you invest or not. If you choose to put them to work: starting at $5, from safe to adventurous. Adelaide keeps watch."
+      "body": "The savings are yours whether you invest or not. But if you choose to put them to work it changes from cost cut to a possible new revenue line."
     },
     "microExample": "Save $10,368 in fees. Invest it. End the year with $10,782 to $11,405. That's not a cost cut. That's a new revenue line.",
     "limitation": "The savings are certain. The growth is not. That's the honest math.",
@@ -220,6 +225,7 @@
     "disclaimer": "*diBoaS fee shown. Third-party network fees may apply (typically less than $0.01).",
     "pricingNote": "Pricing comparisons based on publicly available rates as of February 2026. Ranges reflect common pricing across major providers. Actual competitor pricing varies by provider, volume, and agreement terms.",
     "example": "Receive $1,000 in payments: you keep $1,000 in your diBoaS account. Cash out to your bank: $995.20 (after 0.48% cash-out fee). Still cheaper than the $970 to $980 a card processor leaves you.",
+    "expandableToggle": "No hidden fees. No minimum balances. No monthly charges. See all fees.",
     "footerLine": "Every fee. On the table. Nothing else.",
     "transitionHook": "Still reading? Good. Let's make sure this actually fits."
   },
@@ -255,15 +261,20 @@
       ],
       "versionB": [
         "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
-        "diBoaS is being established in Berlin, Germany, building for businesses in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
+        "diBoaS is being established in Berlin, Germany, building for businesses in the US, EU, and Brazil first. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
       ],
       "versionC": [
         "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
         "We're building diBoaS from Berlin, Germany, for businesses in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
       ]
     },
-    "email": "Questions? I read every email.",
-    "emailAddress": "bar@diboas.com"
+    "email": "Let's connect.",
+    "emailAddress": "bar@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "substack": "Substack"
+    }
   },
   "dualCta": {
     "header": "Join the businesses that are done overpaying.",
@@ -282,6 +293,19 @@
       "cta": "Book a conversation",
       "alternative": "Or email bar@diboas.com"
     }
+  },
+  "socialProof": {
+    "header": "The first 24 businesses.",
+    "subtext": "We're starting small so we can take care of every business who joins.",
+    "stats": {
+      "waitlist": "{count} founding businesses",
+      "countries": "{countries} countries"
+    }
+  },
+  "waitlist": {
+    "header": "Join other businesses in this movement.",
+    "description": "Open access and fair opportunities. Let's talk.",
+    "spotsCounter": "{count} founding members spots remaining"
   },
   "faq": {
     "header": "Before you decide.",
@@ -340,13 +364,16 @@
     "cvmWarning": "",
     "fictionalResults": "Examples on this page are illustrative and do not represent real businesses or actual results. Calculator projections are based on hypothetical scenarios and historical averages. Actual results will vary.",
     "nav": {
+      "forYou": "For You",
+      "forBusiness": "For Business",
+      "adelaideDaily": "Adelaide Daily",
       "about": "About",
-      "legal": "Legal",
+      "help": "Help",
+      "strategies": "Strategies",
+      "protocols": "Protocols",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
-      "cookies": "Cookie Policy",
-      "help": "Help",
-      "security": "Security"
+      "cookies": "Cookie Policy"
     },
     "tagline": "The financial tool Adelaide deserved."
   },

@@ -23,7 +23,7 @@
     }
   },
   "cashflowCalculator": {
-    "header": "Hoy sin nosotros V.S. Manana con diBoaS",
+    "header": "Con y Sin diBoaS",
     "todayTitle": "Como es Hoy? Sin nosotros?",
     "tomorrowTitle": "Como deberia ser? Solo con diBoaS",
     "fields": {
@@ -72,15 +72,19 @@
     "belowResults": "",
     "customRateTemplate": "Con {rate} % de retorno anual: {amount}",
     "cta": "Hablemos",
-    "transitionHook": "Simulador de efectivo parado"
+    "transitionHook": "Simulador de efectivo parado",
+    "toggle": {
+      "paymentFees": "Simulador de Comisiones",
+      "idleCash": "Simulador de Efectivo"
+    }
   },
   "origin": {
     "header": "Se llamaba Adelaide.",
     "paragraphs": [
       "Mi abuela ahorro toda su vida. La mitad de todo lo que gano. Hizo todo bien.",
       "No fue suficiente.",
-      "El banco invirtio sus ahorros, genero beneficios, y a ella le devolvio casi nada. Te suena?",
-      "He visto bares perder 8.000 EUR al ano en comisiones de tarjeta. He visto startups con medio millon en el banco ganando menos de 200 EUR al mes en intereses.",
+      "El banco genero beneficios con sus ahorros y a ella le devolvio casi nada.",
+      "He visto lo mismo pasar con negocios. Bares perdiendo 8.000 EUR al ano en comisiones de tarjeta. Startups con medio millon en el banco ganando menos de 200 EUR al mes en intereses.",
       "El sistema no estaba hecho para personas como ella. Tampoco para negocios como el tuyo.",
       "Pero ahora? La tecnologia hizo posible eliminar a los intermediarios. Solo tenia que construir la puerta.",
       "Le puse su nombre."
@@ -129,14 +133,15 @@
     "transitionHook": "Pero aqui viene la parte que nadie mas esta haciendo."
   },
   "cashflowInvesting": {
-    "header": "Inversion de flujo. Dos beneficios de un solo cambio.",
+    "header": "Inversion de flujo.",
+    "subheader": "Dos beneficios de un solo cambio.",
     "saveIt": {
       "title": "Ahorralo.",
       "body": "Cada 100 EUR en ventas con tarjeta te cuestan de 1,50 a 3 EUR en comisiones. Con diBoaS, cuestan 0 EUR. Un bar que factura 1.000 EUR al dia? Son mas de 8.000 EUR al ano de vuelta."
     },
     "growIt": {
       "title": "Hazlo crecer.",
-      "body": "El ahorro es tuyo decidas o no invertirlo. Si decides ponerlo a trabajar: desde 5 EUR, del mas seguro al mas aventurero. Adelaide vigila."
+      "body": "El ahorro es tuyo decidas o no invertirlo. Pero si decides ponerlo a trabajar, deja de ser un recorte de costes y se convierte en una posible nueva linea de ingresos."
     },
     "microExample": "Ahorra 8.568 EUR en comisiones. Inviertelo. Termina el ano con entre 8.911 y 9.425 EUR. Eso no es un recorte. Es una nueva linea de ingresos.",
     "limitation": "El ahorro es seguro. El crecimiento no. Esa es la cuenta real.",
@@ -161,6 +166,7 @@
     "disclaimer": "*Comision diBoaS mostrada. Pueden aplicarse comisiones de red de terceros (normalmente menos de 0,01 EUR).",
     "pricingNote": "Comparaciones de precios basadas en tarifas publicas a febrero de 2026. Los rangos reflejan precios comunes entre los principales proveedores. El precio real de cada competidor varia segun proveedor, volumen y condiciones contractuales.",
     "example": "Recibes 1.000 EUR en pagos: te quedas con 1.000 EUR en tu cuenta diBoaS. Retiras a tu banco: 995,20 EUR (tras 0,48% de comision de retirada). Aun asi mas barato que los 970 a 980 EUR que te deja un procesador de tarjetas.",
+    "expandableToggle": "Sin comisiones ocultas. Sin saldo mínimo. Sin cargos mensuales. Ver todas las comisiones.",
     "footerLine": "Cada comision. Sobre la mesa. Nada mas.",
     "transitionHook": "Sigues leyendo? Bien. Veamos si esto encaja con tu negocio."
   },
@@ -196,15 +202,20 @@
       ],
       "versionB": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
-        "diBoaS esta siendo constituida en Berlin, Alemania, construyendo para negocios en EEUU, la UE y Brasil. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
+        "diBoaS esta siendo constituida en Berlin, Alemania, construyendo para negocios en EEUU, la UE y Brasil primero. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
       ],
       "versionC": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
         "Estamos construyendo diBoaS desde Berlin, Alemania, para negocios en EEUU, la UE y Brasil. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
       ]
     },
-    "email": "Preguntas? Leo cada email.",
-    "emailAddress": "bar@diboas.com"
+    "email": "Conectemos.",
+    "emailAddress": "bar@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "substack": "Substack"
+    }
   },
   "dualCta": {
     "header": "Unete a los negocios que han dejado de pagar de mas.",
@@ -223,6 +234,19 @@
       "cta": "Reserva una conversacion",
       "alternative": "O escribe a bar@diboas.com"
     }
+  },
+  "socialProof": {
+    "header": "Las primeras 24 empresas.",
+    "subtext": "Empezamos en pequeño para cuidar a cada empresa que se una.",
+    "stats": {
+      "waitlist": "{count} empresas fundadoras",
+      "countries": "{countries} países"
+    }
+  },
+  "waitlist": {
+    "header": "Únete a otras empresas en este movimiento.",
+    "description": "Acceso abierto y oportunidades justas. Hablemos.",
+    "spotsCounter": "{count} plazas de miembros fundadores restantes"
   },
   "faq": {
     "header": "Antes de decidir.",
@@ -281,13 +305,16 @@
     "cvmWarning": "",
     "fictionalResults": "Los ejemplos en esta pagina son ilustrativos y no representan negocios reales ni resultados reales. Las proyecciones de las calculadoras se basan en escenarios hipoteticos y medias historicas. Los resultados reales variaran.",
     "nav": {
+      "forYou": "Para Ti",
+      "forBusiness": "Para Empresas",
+      "adelaideDaily": "Adelaide Daily",
       "about": "Sobre nosotros",
-      "legal": "Legal",
+      "help": "Ayuda",
+      "strategies": "Estrategias",
+      "protocols": "Protocolos",
       "privacy": "Politica de Privacidad",
       "terms": "Terminos de Servicio",
-      "cookies": "Politica de Cookies",
-      "help": "Ayuda",
-      "security": "Seguridad"
+      "cookies": "Politica de Cookies"
     },
     "tagline": "La herramienta financiera que Adelaide merecia."
   },

@@ -28,6 +28,7 @@ export const ProseSection = memo(function ProseSection({
   const isGenerous = translated.style.verticalPadding === 'generous';
   const hasImage = translated.image?.src && !imgFailed;
   const imagePosition = translated.image?.position || 'right';
+  const isPortrait = translated.image?.aspectRatio === 'portrait';
   const isCenteredHeader = translated.style.headerStyle === 'centered';
 
   const textContent = (
@@ -74,7 +75,7 @@ export const ProseSection = memo(function ProseSection({
           alt={translated.image!.alt}
           width={640}
           height={800}
-          className={styles.sectionImage}
+          className={`${styles.sectionImage} ${isPortrait ? styles.sectionImagePortrait : ''}`}
           sizes="(max-width: 768px) 100vw, 40vw"
           onError={handleImageError}
         />

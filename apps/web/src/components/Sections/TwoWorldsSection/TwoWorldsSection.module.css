@@ -90,6 +90,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-top: var(--spacing-4);
   min-width: var(--cta-min-width-mobile);
   min-height: var(--cta-min-height-mobile);
   padding: var(--cta-padding-mobile);

@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { memo, useState, useCallback } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
@@ -11,12 +12,14 @@ interface ExpandableSectionProps {
   config: ExpandableSectionConfig;
   enableAnalytics?: boolean;
   className?: string;
+  children?: ReactNode;
 }
 
 export const ExpandableSection = memo(function ExpandableSection({
   config,
   enableAnalytics = true,
   className = '',
+  children,
 }: ExpandableSectionProps) {
   const translated = useConfigTranslation(config);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -56,19 +59,23 @@ export const ExpandableSection = memo(function ExpandableSection({
           hidden={!isExpanded}
         >
           <div className={styles.inner}>
-            {translated.content.paragraphs.map((paragraph: string, index: number) => (
-              <p key={index} className={styles.paragraph}>{paragraph}</p>
-            ))}
-            {translated.content.linkText && translated.content.linkHref ? (
-              <a
-                href={translated.content.linkHref}
-                className={styles.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {translated.content.linkText}
-              </a>
-            ) : null}
+            {children ?? (
+              <>
+                {translated.content.paragraphs?.map((paragraph: string, index: number) => (
+                  <p key={index} className={styles.paragraph}>{paragraph}</p>
+                ))}
+                {translated.content.linkText && translated.content.linkHref ? (
+                  <a
+                    href={translated.content.linkHref}
+                    className={styles.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {translated.content.linkText}
+                  </a>
+                ) : null}
+              </>
+            )}
           </div>
         </div>
       </div>

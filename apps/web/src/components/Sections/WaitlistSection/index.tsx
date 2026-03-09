@@ -22,6 +22,7 @@ interface WaitlistSectionConfig {
   belowCheckbox?: string;
   hideBenefits?: boolean;
   hideNoSpam?: boolean;
+  namespace?: string;
 }
 
 interface WaitlistSectionProps {

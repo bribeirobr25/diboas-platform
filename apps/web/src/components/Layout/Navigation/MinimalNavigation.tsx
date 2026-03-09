@@ -28,7 +28,7 @@ import { ROUTES } from '@/config/routes';
 
 /**
  * Landing page navigation links configuration
- * Following the spec: For Business | Strategies | Future You | About | Protocols
+ * Following the spec: For Business | Adelaide Daily | About
  */
 const LANDING_NAV_LINKS = [
   {
@@ -37,24 +37,14 @@ const LANDING_NAV_LINKS = [
     href: ROUTES.BUSINESS_LANDING,
   },
   {
-    id: 'strategies',
-    labelKey: 'common.navigation.landing.strategies',
-    href: ROUTES.STRATEGIES,
-  },
-  {
-    id: 'future-you',
-    labelKey: 'common.navigation.landing.futureYou',
-    href: ROUTES.FUTURE_YOU,
+    id: 'adelaide-daily',
+    labelKey: 'common.navigation.landing.adelaideDaily',
+    href: ROUTES.DAILY_MARKET,
   },
   {
     id: 'about',
     labelKey: 'common.navigation.landing.about',
     href: ROUTES.ABOUT,
-  },
-  {
-    id: 'protocols',
-    labelKey: 'common.navigation.landing.protocols',
-    href: ROUTES.PROTOCOLS,
   },
 ] as const;
 

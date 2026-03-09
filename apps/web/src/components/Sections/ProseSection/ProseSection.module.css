@@ -172,6 +172,10 @@
   object-fit: cover;
 }
 
+.sectionImagePortrait {
+  aspect-ratio: 3 / 4;
+}
+
 /* ================================
    MOBILE ORDER: title → image → text
    ================================ */

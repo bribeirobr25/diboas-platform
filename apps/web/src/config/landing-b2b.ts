@@ -18,8 +18,8 @@ import type { FeeTableConfig } from './feeTable';
 import type { FounderSectionConfig } from './founderSection';
 import type { CalculatorFactoryConfig } from './calculatorFactory';
 import type { TwoWorldsSectionConfig } from './twoWorldsSection';
-import type { DualCtaSectionConfig } from './dualCtaSection';
 import type { CashflowExplainerSectionConfig } from './cashflowExplainerSection';
+import type { ExpandableSectionConfig } from './expandableSection';
 
 /**
  * B2B Landing Page Image Paths
@@ -52,7 +52,7 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
   backgroundAssets: {
     backgroundImage: B2B_IMAGES.twoWorldsPayments,
     backgroundImageMobile: B2B_IMAGES.twoWorldsPayments,
-    overlayOpacity: 0.5
+    overlayOpacity: 0.1
   },
   seo: {
     titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',
@@ -129,7 +129,7 @@ export const B2B_CASHFLOW_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
     belowResults: 'landing-b2b.cashflowCalculator.belowResults',
     customRateTemplate: 'landing-b2b.cashflowCalculator.customRateTemplate',
     cta: 'landing-b2b.cashflowCalculator.cta',
-    ctaHref: '#dual-cta',
+    ctaHref: '#waitlist',
     transitionHook: 'landing-b2b.cashflowCalculator.transitionHook'
   },
   defaults: {
@@ -179,7 +179,7 @@ export const B2B_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
     belowResults: 'landing-b2b.calculator.belowResults',
     customRateTemplate: 'landing-b2b.calculator.customRateTemplate',
     cta: 'landing-b2b.calculator.cta',
-    ctaHref: '#dual-cta',
+    ctaHref: '#waitlist',
     transitionHook: 'landing-b2b.calculator.transitionHook'
   },
   defaults: {
@@ -217,7 +217,8 @@ export const B2B_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
   image: {
     src: B2B_IMAGES.originStory,
     alt: 'diBoaS founder',
-    position: 'right'
+    position: 'right',
+    aspectRatio: 'portrait'
   },
   style: {
     backgroundColor: 'white',
@@ -349,6 +350,7 @@ export const B2B_FEATURES_CONFIG: BenefitsCardsConfig = {
 export const B2B_CASHFLOW_INVESTING_CONFIG: CashflowExplainerSectionConfig = {
   content: {
     header: 'landing-b2b.cashflowInvesting.header',
+    subheader: 'landing-b2b.cashflowInvesting.subheader',
     partA: {
       title: 'landing-b2b.cashflowInvesting.saveIt.title',
       body: 'landing-b2b.cashflowInvesting.saveIt.body'
@@ -472,6 +474,23 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
   }
 };
 
+/**
+ * Section 9 wrapper: Fees Expandable Configuration
+ * Wraps FeeTable inside an ExpandableSection for collapsed-by-default UX
+ */
+export const B2B_FEES_EXPANDABLE_CONFIG: ExpandableSectionConfig = {
+  content: {
+    toggleLabel: 'landing-b2b.fees.expandableToggle',
+  },
+  seo: {
+    ariaLabel: 'Complete fee transparency details',
+  },
+  analytics: {
+    sectionId: 'fees-expandable-b2b',
+    category: 'landing-b2b',
+  },
+};
+
 // ─── Section 10: Fit Assessment (BenefitsCards) ──────────────
 
 export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
@@ -512,10 +531,16 @@ export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
     header: 'landing-b2b.founder.header',
     paragraphs: [
       'landing-b2b.founder.paragraphs.versionB.0',
-      'landing-b2b.founder.paragraphs.versionB.1'
+      'landing-b2b.founder.paragraphs.versionB.1',
+      'landing-b2b.founder.email'
     ],
-    emailText: 'landing-b2b.founder.email',
-    emailHref: 'mailto:bar@diboas.com'
+    emailText: 'landing-b2b.founder.emailAddress',
+    emailHref: 'bar@diboas.com',
+    socialLinks: [
+      { label: 'landing-b2b.founder.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
+      { label: 'landing-b2b.founder.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },
+      { label: 'landing-b2b.founder.social.substack', href: 'https://bribeirobr.substack.com/', icon: 'substack' },
+    ],
   },
   image: {
     src: B2B_IMAGES.founderPhoto,
@@ -530,36 +555,17 @@ export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
   }
 };
 
-// ─── Section 12: Dual CTA (NEW) ─────────────────────────────
+// ─── Section 12: Waitlist Configuration ─────────────────────
 
-export const B2B_DUAL_CTA_CONFIG: DualCtaSectionConfig = {
-  content: {
-    header: 'landing-b2b.dualCta.header',
-    counterTemplate: 'landing-b2b.dualCta.counter',
-    pathA: {
-      header: 'landing-b2b.dualCta.pathA.header',
-      description: 'landing-b2b.dualCta.pathA.description',
-      emailPlaceholder: 'landing-b2b.dualCta.pathA.emailPlaceholder',
-      cta: 'landing-b2b.dualCta.pathA.cta',
-      noSpam: 'landing-b2b.dualCta.pathA.noSpam',
-      privacyLabel: 'landing-b2b.dualCta.pathA.privacyLabel'
-    },
-    pathB: {
-      header: 'landing-b2b.dualCta.pathB.header',
-      description: 'landing-b2b.dualCta.pathB.description',
-      cta: 'landing-b2b.dualCta.pathB.cta',
-      ctaHref: 'https://cal.com/diboas/treasury-conversation',
-      alternative: 'landing-b2b.dualCta.pathB.alternative'
-    }
-  },
-  seo: {
-    ariaLabel: 'Join the waitlist or book a conversation'
-  },
-  analytics: {
-    sectionId: 'dual-cta-b2b',
-    category: 'landing-b2b'
-  }
-};
+export const B2B_WAITLIST_CONFIG = {
+  sectionId: 'waitlist-section-b2b',
+  backgroundColor: 'var(--section-bg-brand)',
+  headline: 'landing-b2b.waitlist.header',
+  subheadline: 'landing-b2b.waitlist.description',
+  hideBenefits: true,
+  hideNoSpam: true,
+  namespace: 'landing-b2b.waitlist',
+} as const;
 
 // ─── Section 13: FAQ (10 items) ──────────────────────────────
 
@@ -632,7 +638,7 @@ export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
     title: 'landing-b2b.faq.header',
     description: '',
     ctaText: '',
-    ctaHref: '#dual-cta',
+    ctaHref: '#waitlist',
     items: B2B_FAQ_ITEMS
   },
   settings: {
@@ -655,10 +661,13 @@ export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
 // ─── Section 14: Footer navigation & disclosures ────────────
 
 export const B2B_FOOTER_NAV = [
+  { id: 'forYou', labelKey: 'landing-b2b.footer.nav.forYou', href: '/' },
+  { id: 'forBusiness', labelKey: 'landing-b2b.footer.nav.forBusiness', href: '/business' },
+  { id: 'adelaideDaily', labelKey: 'landing-b2b.footer.nav.adelaideDaily', href: '/daily-market' },
   { id: 'about', labelKey: 'landing-b2b.footer.nav.about', href: '/about' },
-  { id: 'legal', labelKey: 'landing-b2b.footer.nav.legal', href: '/legal' },
+  { id: 'strategies', labelKey: 'landing-b2b.footer.nav.strategies', href: '/strategies' },
+  { id: 'protocols', labelKey: 'landing-b2b.footer.nav.protocols', href: '/protocols' },
   { id: 'help', labelKey: 'landing-b2b.footer.nav.help', href: '/help' },
-  { id: 'security', labelKey: 'landing-b2b.footer.nav.security', href: '/security' },
 ] as const;
 
 /**

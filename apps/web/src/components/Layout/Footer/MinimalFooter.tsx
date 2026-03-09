@@ -26,6 +26,11 @@ import styles from './MinimalFooter.module.css';
  */
 const LEGAL_LINKS = [
   {
+    id: 'security',
+    labelKey: 'common.footer.sections.transparency.links.security',
+    href: '/security',
+  },
+  {
     id: 'privacy',
     labelKey: 'common.footer.sections.transparency.links.privacy',
     href: ROUTES.LEGAL.PRIVACY,

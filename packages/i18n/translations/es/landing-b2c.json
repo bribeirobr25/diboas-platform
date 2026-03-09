@@ -80,6 +80,7 @@
     "painIntro": "La persona media paga cientos de euros al año en comisiones bancarias, gastos de transferencia y costes ocultos. Mira cómo queda con nosotros.",
     "disclaimer": "*Comisión diBoaS mostrada. Pueden aplicarse comisiones de red de terceros (normalmente menos de 0,01 EUR).",
     "example": "Una inversión de 100 EUR cuesta 0 EUR con diBoaS. Vender cuesta 39 céntimos.",
+    "expandableToggle": "Enviar dinero, comprar e invertir es gratis. Pero tenemos comisiones. Ver todas las comisiones.",
     "footerLine": "Cada comisión. Sobre la mesa. Nada más.",
     "headers": {
       "action": "Acción",
@@ -151,7 +152,7 @@
     "header": "¿Cuál es la trampa?",
     "paragraphs": {
       "p1": "Buena pregunta. Aquí va la respuesta real:",
-      "p2": "Invertir es gratis. Cuando vendes, cobramos el 0,39%. Si vendes 100 EUR, ganamos 39 céntimos. La única forma de ganar más es que tu dinero crezca. Nuestros incentivos están alineados con los tuyos.",
+      "p2": "Invertir es gratis. Cuando vendes, cobramos el 0,39%. Si vendes 100 EUR, ganamos 39 céntimos. La única forma de ganar más es que tu dinero crezca. Y la comisión nunca supera los 25 EUR. Nuestros incentivos están alineados con los tuyos.",
       "p3": "Sin cuotas mensuales. Sin cargos sorpresa. Sin penalizaciones por retirar.",
       "p4": "¿Cómo? La nueva tecnología eliminó las sucursales, los ejecutivos y los costes heredados. Te pasamos ese ahorro a ti.",
       "p5": "¿Hay riesgo? Sí. Tu dinero no está en un banco. Está trabajando con tecnología nueva. Eso significa que puede crecer más, pero también hay riesgo real. Monitorizamos las 24 horas del día y probamos cada estrategia contra crisis pasadas, pero no podemos garantizar rentabilidad, y quien diga que puede está mintiendo.",
@@ -161,9 +162,9 @@
   "underTheHood": {
     "toggleLabel": "¿Quieres los detalles técnicos?",
     "paragraphs": {
-      "p1": "Arquitectura: diBoaS está construido sobre infraestructura financiera de código abierto y descentralizada (Blockchain y DeFi). Tu cartera está protegida de forma que nadie, incluido diBoaS, pueda acceder a tus fondos. Solo tú puedes autorizar transacciones.",
+      "p1": "Arquitectura: diBoaS está construido sobre infraestructura financiera de código abierto y descentralizada (Blockchain y DeFi). Esto significa que cada transacción es verificable, cada sistema es auditable, y tu dinero se mueve sin intermediarios.",
       "p2": "Tu cartera: cada usuario recibe su propia cartera personal con su propia clave privada. diBoaS nunca ve, guarda ni tiene acceso a tu clave. Si diBoaS desapareciera mañana, tu dinero seguiría siendo tuyo.",
-      "p3": "Seguridad: solo utilizamos protocolos auditados y establecidos. Cada estrategia se prueba contra crisis históricas del mercado antes de ofrecerla a los usuarios. Monitorizamos todas las posiciones las 24 horas del día. La firma de transacciones siempre requerirá tu aprobación.",
+      "p3": "Seguridad: tu cartera está protegida de forma que nadie, incluido diBoaS, pueda acceder a tus fondos. Solo tú puedes autorizar transacciones. Solo utilizamos protocolos auditados y establecidos. Cada estrategia se prueba contra crisis históricas del mercado antes de ofrecerla a los usuarios. Monitorizamos todas las posiciones las 24 horas del día. La firma de transacciones siempre requerirá tu aprobación.",
       "p4": "Transparencia: todas las comisiones se revelan por adelantado. Todos los riesgos se declaran con claridad. Sin mecanismos ocultos."
     },
     "linkText": "Ver la documentación técnica completa"
@@ -188,7 +189,7 @@
     "header": "Construido por BAR",
     "paragraphs": {
       "p1": "Crecí viendo a mi abuela Adelaide navegar un sistema financiero que no fue diseñado para ella. Merecía mejores herramientas. Todos los que son como ella también lo merecen.",
-      "p2": "diBoaS se está estableciendo en Berlín, Alemania, construido para personas en EE.UU., la UE y Brasil. He pasado más de 20 años trabajando en Productos y TI en Brasil, EE.UU., Japón y Alemania. Ahora estoy construyendo la herramienta financiera que ojalá mi abuela hubiera tenido.",
+      "p2": "diBoaS se está estableciendo en Berlín, Alemania, construido para personas en EE.UU., la UE, Brasil y expandiéndose a todo el mundo. He pasado más de 20 años trabajando en Productos y TI en Brasil, EE.UU., Japón y Alemania. Ahora estoy construyendo la herramienta financiera que ojalá mi abuela hubiera tenido.",
       "p3": "Conectemos."
     },
     "emailText": "bar@diboas.com",
@@ -282,8 +283,8 @@
       "adelaideDaily": "Adelaide Daily",
       "about": "Acerca de",
       "help": "Ayuda",
-      "legal": "Legal",
-      "security": "Seguridad"
+      "strategies": "Estrategias",
+      "protocols": "Protocolos"
     },
     "disclosures": {
       "general": "Este contenido es solo para fines educativos y no constituye asesoramiento de inversión, asesoramiento financiero ni ningún otro tipo de asesoramiento. La rentabilidad pasada no es un indicador fiable de resultados futuros. Los datos históricos y las simulaciones son hipotéticos y no constituyen garantías.",

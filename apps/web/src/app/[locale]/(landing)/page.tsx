@@ -26,6 +26,7 @@ import {
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_SCENARIOS_CONFIG,
   B2C_FEES_CONFIG,
+  B2C_FEES_EXPANDABLE_CONFIG,
   B2C_CATCH_CONFIG,
   B2C_UNDER_THE_HOOD_CONFIG,
   B2C_DEMO_CONFIG,
@@ -216,10 +217,12 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           context={{ page: 'landing-b2c' }}
         >
           <div id="fees" data-section-id="fees-section-b2c">
-            <FeeTable
-              config={B2C_FEES_CONFIG}
-              enableAnalytics={true}
-            />
+            <ExpandableSection config={B2C_FEES_EXPANDABLE_CONFIG}>
+              <FeeTable
+                config={B2C_FEES_CONFIG}
+                enableAnalytics={true}
+              />
+            </ExpandableSection>
           </div>
         </SectionErrorBoundary>
 
