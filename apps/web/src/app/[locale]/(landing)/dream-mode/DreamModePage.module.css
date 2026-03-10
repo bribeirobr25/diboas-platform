@@ -106,11 +106,6 @@
   background: var(--gradient-dark-section);
 }
 
-.dreamMode {
-  width: var(--percent-100);
-  max-width: var(--percent-100);
-}
-
 /* Responsive */
 @media (max-width: 480px) {
   .gateCard {

@@ -18,7 +18,7 @@ import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { Logger } from '@/lib/monitoring/Logger';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { FeatureShowcaseVariantProps } from '../types';

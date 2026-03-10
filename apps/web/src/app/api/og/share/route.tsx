@@ -15,6 +15,8 @@ import { NextRequest } from 'next/server';
 
 // Import from extracted modules
 import { OG_DIMENSIONS, type ShareType } from './ogTypes';
+import { checkRateLimit, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
+import { RATE_LIMIT_CONFIG } from '@/config/env';
 import {
   sanitizeInput,
   isValidPosition,
@@ -39,6 +41,16 @@ export const runtime = 'edge';
  */
 export async function GET(request: NextRequest) {
   try {
+    // Rate limiting
+    const clientIP = getClientIP(request);
+    const rateLimitResult = await checkRateLimit(clientIP, RATE_LIMIT_CONFIG.lenient.limit, RATE_LIMIT_CONFIG.lenient.windowMs);
+    if (!rateLimitResult.success) {
+      return new Response('Too Many Requests', {
+        status: 429,
+        headers: createRateLimitHeaders(rateLimitResult),
+      });
+    }
+
     const searchParams = request.nextUrl.searchParams;
     const type = searchParams.get('type') as ShareType | null;
     const locale = searchParams.get('locale') || 'en';

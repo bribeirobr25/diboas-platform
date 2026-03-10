@@ -6,8 +6,7 @@
  * Client component that handles:
  * - User state detection (waitlist membership)
  * - Access enforcement (only waitlist members)
- * - Analytics tracking (dream_mode_entry)
- * - Dream Mode rendering
+ * - PreDream rendering
  */
 
 import { useEffect, useState, useCallback } from 'react';
@@ -16,7 +15,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import dynamic from 'next/dynamic';
 
-const DreamMode = dynamic(() => import('@/components/DreamMode').then(m => ({ default: m.DreamMode })), {
+const PreDream = dynamic(() => import('@/components/PreDream').then(m => ({ default: m.PreDream })), {
   ssr: false,
   loading: () => <div style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div style={{ width: '2rem', height: '2rem', border: '2px solid #e0e7ff', borderTopColor: '#3b82f6', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /></div>,
 });
@@ -59,21 +58,6 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
   const router = useRouter();
   const { openModal } = useWaitingListModal();
   const { isOnWaitlist, isLoading } = useWaitlistMembership();
-  const [hasTrackedEntry, setHasTrackedEntry] = useState(false);
-
-  // Track dream_mode_entry when user accesses the page
-  useEffect(() => {
-    if (!isLoading && isOnWaitlist && !hasTrackedEntry) {
-      analyticsService.track({
-        name: 'dream_mode_entry',
-        parameters: {
-          source: 'direct_url',
-          locale,
-        },
-      });
-      setHasTrackedEntry(true);
-    }
-  }, [isLoading, isOnWaitlist, hasTrackedEntry, locale]);
 
   // Handle join waitlist from gate
   const handleJoinWaitlist = useCallback(() => {
@@ -83,11 +67,6 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
     });
     openModal();
   }, [openModal, locale]);
-
-  // Handle complete - go back to landing
-  const handleComplete = useCallback(() => {
-    router.push(`/${locale}`);
-  }, [router, locale]);
 
   // Handle close - go back to landing
   const handleClose = useCallback(() => {
@@ -149,10 +128,9 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
         enableReporting={true}
         context={{ page: 'dream-mode', locale }}
       >
-        <DreamMode
-          onComplete={handleComplete}
+        <PreDream
           onClose={handleClose}
-          className={styles.dreamMode}
+          onBackToHome={handleClose}
         />
       </SectionErrorBoundary>
     </div>

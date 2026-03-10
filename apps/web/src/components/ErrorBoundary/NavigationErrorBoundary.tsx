@@ -8,7 +8,7 @@
  */
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { UI_CONSTANTS } from '@/config/ui-constants';
 import { NavigationErrorFallback } from './NavigationErrorFallback';
 import {

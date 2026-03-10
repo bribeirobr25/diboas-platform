@@ -4,7 +4,7 @@
 
 import { useNavigation } from '@/hooks/useNavigation';
 import { navigationConfig } from '@/config/navigation';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import { useEffect } from 'react';

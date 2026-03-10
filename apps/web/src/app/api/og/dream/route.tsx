@@ -12,6 +12,8 @@ import { NextRequest } from 'next/server';
 
 import { OG_DIMENSIONS, OG_COLORS } from '../share/ogTypes';
 import { sanitizeInput } from '../share/ogUtils';
+import { checkRateLimit, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
+import { RATE_LIMIT_CONFIG } from '@/config/env';
 
 export const runtime = 'edge';
 
@@ -55,6 +57,16 @@ function getDreamTranslations(locale: string) {
  */
 export async function GET(request: NextRequest) {
   try {
+  // Rate limiting
+  const clientIP = getClientIP(request);
+  const rateLimitResult = await checkRateLimit(clientIP, RATE_LIMIT_CONFIG.lenient.limit, RATE_LIMIT_CONFIG.lenient.windowMs);
+  if (!rateLimitResult.success) {
+    return new Response('Too Many Requests', {
+      status: 429,
+      headers: createRateLimitHeaders(rateLimitResult),
+    });
+  }
+
   const searchParams = request.nextUrl.searchParams;
 
   const amount = sanitizeInput(searchParams.get('amount')) || '$10,000';

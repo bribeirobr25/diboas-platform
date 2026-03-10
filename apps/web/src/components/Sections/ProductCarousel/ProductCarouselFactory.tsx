@@ -14,7 +14,7 @@
 import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { PRODUCT_CAROUSEL_CONFIGS, type ProductCarouselVariantConfig, type ProductCarouselVariant } from '@/config/productCarousel';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { getProductCarouselVariant, validateProductCarouselVariant } from './variants/registry';
 import type { ProductCarouselVariantProps } from './variants/types';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
