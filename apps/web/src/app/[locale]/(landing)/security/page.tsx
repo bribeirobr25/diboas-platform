@@ -12,14 +12,23 @@ import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
 
+const PLACEHOLDER_TRANSLATIONS: Record<string, { title: string; comingSoon: string; backHome: string; metaDescription: string }> = {
+  en: { title: 'Security', comingSoon: 'Coming soon.', backHome: 'Back to Home', metaDescription: 'How diBoaS keeps your money safe — coming soon.' },
+  'pt-BR': { title: 'Segurança', comingSoon: 'Em breve.', backHome: 'Voltar ao Início', metaDescription: 'Como o diBoaS mantém seu dinheiro seguro — em breve.' },
+  es: { title: 'Seguridad', comingSoon: 'Próximamente.', backHome: 'Volver al Inicio', metaDescription: 'Cómo diBoaS mantiene tu dinero seguro — próximamente.' },
+  de: { title: 'Sicherheit', comingSoon: 'Demnächst verfügbar.', backHome: 'Zurück zur Startseite', metaDescription: 'Wie diBoaS Ihr Geld schützt — demnächst verfügbar.' },
+};
+
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
+  const t = PLACEHOLDER_TRANSLATIONS[validLocale] || PLACEHOLDER_TRANSLATIONS.en;
 
   return {
-    title: 'Security | diBoaS',
-    description: 'How diBoaS keeps your money safe — coming soon.',
+    title: `${t.title} | diBoaS`,
+    description: t.metaDescription,
+    robots: { index: false, follow: false },
     alternates: {
       canonical: `${siteUrl}/${validLocale}/security`,
     },
@@ -70,10 +79,10 @@ export default async function SecurityPage({ params }: LocalePageProps) {
                 marginBottom: 16,
               }}
             >
-              Security
+              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).title}
             </h1>
             <p style={{ fontSize: 18, color: '#64748b', marginBottom: 32 }}>
-              Coming soon.
+              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).comingSoon}
             </p>
             <a
               href={`/${locale}`}
@@ -84,7 +93,7 @@ export default async function SecurityPage({ params }: LocalePageProps) {
                 textUnderlineOffset: 3,
               }}
             >
-              Back to Home
+              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).backHome}
             </a>
           </section>
         </SectionErrorBoundary>

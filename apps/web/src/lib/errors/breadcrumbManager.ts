@@ -1,7 +1,8 @@
 /**
  * Breadcrumb Manager
  *
- * Manages breadcrumb collection for error tracking
+ * Manages breadcrumb collection for error tracking.
+ * Stores references to all monkey-patches and listeners for proper cleanup.
  */
 
 import type { ErrorBreadcrumb, ErrorReportingConfig } from './errorTypes';
@@ -15,6 +16,12 @@ export class BreadcrumbManager {
   private config: ErrorReportingConfig;
   private isInitialized = false;
 
+  // Store originals for restoration on destroy
+  private originalPushState: typeof history.pushState | null = null;
+  private originalReplaceState: typeof history.replaceState | null = null;
+  private originalConsoleError: typeof console.error | null = null;
+  private boundClickHandler: ((event: Event) => void) | null = null;
+
   constructor(config: ErrorReportingConfig) {
     this.config = config;
   }
@@ -26,13 +33,8 @@ export class BreadcrumbManager {
     if (this.isInitialized || typeof window === 'undefined') return;
     if (!this.config.enableBreadcrumbs) return;
 
-    // Track navigation changes
     this.initializeNavigationTracking();
-
-    // Track console errors
     this.initializeConsoleTracking();
-
-    // Track user interactions
     this.initializeClickTracking();
 
     this.isInitialized = true;
@@ -42,29 +44,33 @@ export class BreadcrumbManager {
    * Track navigation changes via History API
    */
   private initializeNavigationTracking(): void {
-    const originalPushState = history.pushState;
-    const originalReplaceState = history.replaceState;
+    this.originalPushState = history.pushState;
+    this.originalReplaceState = history.replaceState;
 
-    history.pushState = (...args) => {
-      this.add({
+    const self = this;
+    const origPush = this.originalPushState;
+    const origReplace = this.originalReplaceState;
+
+    history.pushState = function (...args) {
+      self.add({
         timestamp: Date.now(),
         message: `Navigation to ${args[2]}`,
         category: 'navigation',
         level: 'info',
         data: { url: args[2] }
       });
-      return originalPushState.apply(history, args);
+      return origPush.apply(history, args);
     };
 
-    history.replaceState = (...args) => {
-      this.add({
+    history.replaceState = function (...args) {
+      self.add({
         timestamp: Date.now(),
         message: `Navigation replaced to ${args[2]}`,
         category: 'navigation',
         level: 'info',
         data: { url: args[2] }
       });
-      return originalReplaceState.apply(history, args);
+      return origReplace.apply(history, args);
     };
   }
 
@@ -72,15 +78,18 @@ export class BreadcrumbManager {
    * Track console error messages
    */
   private initializeConsoleTracking(): void {
-    const originalConsoleError = console.error;
-    console.error = (...args) => {
-      this.add({
+    this.originalConsoleError = console.error;
+    const origError = this.originalConsoleError;
+    const self = this;
+
+    console.error = function (...args: Parameters<typeof console.error>) {
+      self.add({
         timestamp: Date.now(),
         message: args.join(' '),
         category: 'console',
         level: 'error'
       });
-      return originalConsoleError.apply(console, args);
+      return origError.apply(console, args);
     };
   }
 
@@ -88,7 +97,7 @@ export class BreadcrumbManager {
    * Track user click interactions
    */
   private initializeClickTracking(): void {
-    document.addEventListener('click', (event) => {
+    this.boundClickHandler = (event: Event) => {
       const target = event.target as HTMLElement;
       this.add({
         timestamp: Date.now(),
@@ -101,7 +110,8 @@ export class BreadcrumbManager {
           id: target.id
         }
       });
-    }, true);
+    };
+    document.addEventListener('click', this.boundClickHandler, true);
   }
 
   /**
@@ -112,7 +122,6 @@ export class BreadcrumbManager {
 
     this.breadcrumbs.push(breadcrumb);
 
-    // Maintain breadcrumb limit
     if (this.breadcrumbs.length > this.config.maxBreadcrumbs) {
       this.breadcrumbs = this.breadcrumbs.slice(-this.config.maxBreadcrumbs);
     }
@@ -132,5 +141,37 @@ export class BreadcrumbManager {
    */
   clear(): void {
     this.breadcrumbs = [];
+  }
+
+  /**
+   * Destroy: restore all monkey-patches and remove listeners
+   */
+  destroy(): void {
+    if (!this.isInitialized) return;
+
+    // Restore History API
+    if (this.originalPushState) {
+      history.pushState = this.originalPushState;
+      this.originalPushState = null;
+    }
+    if (this.originalReplaceState) {
+      history.replaceState = this.originalReplaceState;
+      this.originalReplaceState = null;
+    }
+
+    // Restore console.error
+    if (this.originalConsoleError) {
+      console.error = this.originalConsoleError;
+      this.originalConsoleError = null;
+    }
+
+    // Remove click listener
+    if (this.boundClickHandler) {
+      document.removeEventListener('click', this.boundClickHandler, true);
+      this.boundClickHandler = null;
+    }
+
+    this.breadcrumbs = [];
+    this.isInitialized = false;
   }
 }

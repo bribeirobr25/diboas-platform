@@ -25,10 +25,13 @@
     "check:dead-code": "knip",
     "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run validate:design-tokens && pnpm run validate:translations",
     "audit:full": "bash scripts/pre-launch-audit.sh",
-    "audit:ci": "bash scripts/pre-launch-audit.sh --ci"
+    "audit:ci": "bash scripts/pre-launch-audit.sh --ci",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
+    "prettier": "^3.5.3",
     "ajv": "^8.18.0",
     "eslint": "^10.0.2",
     "knip": "^5.85.0",

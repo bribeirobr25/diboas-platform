@@ -56,6 +56,9 @@ export class Logger {
 
   private static logBuffer: LogEntry[] = [];
   private static sessionId = this.generateSessionId();
+  private static storageFlushTimer: ReturnType<typeof setTimeout> | null = null;
+  private static pendingStorageWrite = false;
+  private static readonly STORAGE_FLUSH_INTERVAL_MS = 5000;
 
   /**
    * Debug level logging
@@ -177,25 +180,41 @@ export class Logger {
 
   /**
    * Local storage logging for debugging
-   * Performance: Maintains size limits
+   * Performance: Batches localStorage writes on a 5s timer to avoid
+   * JSON.stringify + setItem on every single log call.
    */
   private static logToStorage(entry: LogEntry): void {
     try {
-      // Add to buffer
       this.logBuffer.push(entry);
 
-      // Maintain buffer size
       if (this.logBuffer.length > this.config.maxStorageEntries) {
         this.logBuffer = this.logBuffer.slice(-this.config.maxStorageEntries);
       }
 
-      // Store in localStorage for debugging (safe against circular references)
+      // Schedule a batched write instead of writing on every call
+      if (!this.pendingStorageWrite) {
+        this.pendingStorageWrite = true;
+        this.storageFlushTimer = setTimeout(() => {
+          this.flushToStorage();
+        }, this.STORAGE_FLUSH_INTERVAL_MS);
+      }
+    } catch (error) {
+      console.warn('Failed to log to storage:', error);
+    }
+  }
+
+  /**
+   * Flush buffered logs to localStorage
+   */
+  private static flushToStorage(): void {
+    this.pendingStorageWrite = false;
+    this.storageFlushTimer = null;
+    try {
       if (typeof window !== 'undefined' && window.localStorage) {
         localStorage.setItem('diboas_logs', this.safeStringify(this.logBuffer.slice(-100)));
       }
-    } catch (error) {
+    } catch {
       // Silently fail to prevent logging loops
-      console.warn('Failed to log to storage:', error);
     }
   }
 
@@ -296,6 +315,11 @@ export class Logger {
    */
   static clearLogs(): void {
     this.logBuffer = [];
+    if (this.storageFlushTimer) {
+      clearTimeout(this.storageFlushTimer);
+      this.storageFlushTimer = null;
+      this.pendingStorageWrite = false;
+    }
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('diboas_logs');
     }

@@ -74,7 +74,7 @@ export function SocialProofSection({
   return (
     <section
       className={`${styles.section} ${className}`}
-      aria-label="Social proof and waitlist statistics"
+      aria-label={intl.formatMessage({ id: 'common.aria.socialProof' })}
       style={backgroundColor ? { backgroundColor } : undefined}
     >
       <div className={styles.container}>

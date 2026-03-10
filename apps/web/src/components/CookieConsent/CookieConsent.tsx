@@ -13,7 +13,7 @@
  * - Internationalized with react-intl
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useId, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
@@ -38,6 +38,7 @@ export { hasAnalyticsConsent, getConsent, type CookieConsentValue } from './cons
 export function CookieConsent() {
   const intl = useTranslation();
   const { locale } = useLocale();
+  const descriptionId = useId();
   const [showBanner, setShowBanner] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const closeBannerTimerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -144,11 +145,11 @@ export function CookieConsent() {
       role="dialog"
       aria-live="polite"
       aria-label={intl.formatMessage({ id: 'common.cookieConsent.ariaLabel' })}
-      aria-describedby="cookie-consent-description"
+      aria-describedby={descriptionId}
     >
       <div className={styles.container}>
         <div className={styles.content}>
-          <p id="cookie-consent-description" className={styles.text}>
+          <p id={descriptionId} className={styles.text}>
             {intl.formatMessage({ id: 'common.cookieConsent.message' })}
             {' '}
             <Link

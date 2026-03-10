@@ -10,7 +10,7 @@
  * - Success callback with position data
  */
 
-import React, { useRef } from 'react';
+import React, { useId, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import { useWaitlistForm, type WaitlistSuccessData } from './hooks';
@@ -46,6 +46,10 @@ export function WaitlistForm({
   className = '',
 }: WaitlistFormProps) {
   const intl = useTranslation();
+  const uid = useId();
+  const emailId = `${uid}-email`;
+  const errorMsgId = `${uid}-error`;
+  const gdprId = `${uid}-gdpr`;
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   // Translation helper
@@ -81,18 +85,18 @@ export function WaitlistForm({
       ) : null}
       <fieldset className={styles.inputGroup}>
         <legend className="sr-only">{t('form.legendText')}</legend>
-        <label htmlFor="waitlist-email" className="sr-only">
+        <label htmlFor={emailId} className="sr-only">
           {t('form.emailLabel')}
         </label>
         <input
           ref={emailInputRef}
-          id="waitlist-email"
+          id={emailId}
           type="email"
           name="email"
           value={formState.email}
           onChange={handleInputChange}
           placeholder={t('form.emailPlaceholder')}
-          aria-describedby={error ? 'waitlist-error' : undefined}
+          aria-describedby={error ? errorMsgId : undefined}
           className={`${styles.input} ${error ? styles.inputError : ''}`}
           required
           autoComplete="email"
@@ -112,7 +116,7 @@ export function WaitlistForm({
       </fieldset>
 
       {error && (
-        <div id="waitlist-error" className={styles.error} role="alert" aria-live="assertive">
+        <div id={errorMsgId} className={styles.error} role="alert" aria-live="assertive">
           {error}
         </div>
       )}
@@ -121,9 +125,9 @@ export function WaitlistForm({
 
       {!compact && (
         <div className={styles.consent}>
-          <label htmlFor="waitlist-gdpr" className={styles.consentLabel}>
+          <label htmlFor={gdprId} className={styles.consentLabel}>
             <input
-              id="waitlist-gdpr"
+              id={gdprId}
               type="checkbox"
               name="gdprAccepted"
               checked={formState.gdprAccepted}

@@ -29,6 +29,7 @@ vi.mock('../breadcrumbManager', () => ({
     add = vi.fn();
     getAll = vi.fn(() => []);
     clear = vi.fn();
+    destroy = vi.fn();
   },
 }));
 

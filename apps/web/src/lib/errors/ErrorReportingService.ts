@@ -469,7 +469,7 @@ export class ErrorReportingService {
     if (typeof window !== 'undefined') {
       window.removeEventListener('error', this.boundHandleResourceError, true);
     }
-    this.breadcrumbManager.clear();
+    this.breadcrumbManager.destroy();
     this.reportedErrors.clear();
     this.isInitialized = false;
     Logger.info('Error reporting service destroyed');

@@ -12,14 +12,23 @@ import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
 
+const PLACEHOLDER_TRANSLATIONS: Record<string, { title: string; comingSoon: string; backHome: string; metaDescription: string }> = {
+  en: { title: 'Help', comingSoon: 'Coming soon.', backHome: 'Back to Home', metaDescription: 'Get help with diBoaS — coming soon.' },
+  'pt-BR': { title: 'Ajuda', comingSoon: 'Em breve.', backHome: 'Voltar ao Início', metaDescription: 'Obtenha ajuda com o diBoaS — em breve.' },
+  es: { title: 'Ayuda', comingSoon: 'Próximamente.', backHome: 'Volver al Inicio', metaDescription: 'Obtén ayuda con diBoaS — próximamente.' },
+  de: { title: 'Hilfe', comingSoon: 'Demnächst verfügbar.', backHome: 'Zurück zur Startseite', metaDescription: 'Hilfe zu diBoaS — demnächst verfügbar.' },
+};
+
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
+  const t = PLACEHOLDER_TRANSLATIONS[validLocale] || PLACEHOLDER_TRANSLATIONS.en;
 
   return {
-    title: 'Help | diBoaS',
-    description: 'Get help with diBoaS — coming soon.',
+    title: `${t.title} | diBoaS`,
+    description: t.metaDescription,
+    robots: { index: false, follow: false },
     alternates: {
       canonical: `${siteUrl}/${validLocale}/help`,
     },
@@ -70,10 +79,10 @@ export default async function HelpPage({ params }: LocalePageProps) {
                 marginBottom: 16,
               }}
             >
-              Help
+              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).title}
             </h1>
             <p style={{ fontSize: 18, color: '#64748b', marginBottom: 32 }}>
-              Coming soon.
+              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).comingSoon}
             </p>
             <a
               href={`/${locale}`}
@@ -84,7 +93,7 @@ export default async function HelpPage({ params }: LocalePageProps) {
                 textUnderlineOffset: 3,
               }}
             >
-              Back to Home
+              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).backHome}
             </a>
           </section>
         </SectionErrorBoundary>

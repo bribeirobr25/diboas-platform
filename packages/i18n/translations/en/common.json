@@ -323,5 +323,17 @@
     "title": "Page Not Found",
     "message": "Sorry, we couldn't find the page you're looking for.",
     "goHome": "Go to Homepage"
+  },
+  "aria": {
+    "socialProof": "Social proof and waitlist statistics",
+    "calculatorType": "Calculator type",
+    "calculatorResults": "Calculator results",
+    "carouselNavigation": "Carousel navigation",
+    "slideOf": "Slide {index} of {total}",
+    "pauseCarousel": "Pause carousel",
+    "playCarousel": "Play carousel",
+    "loadingPage": "Loading page",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   }
 }

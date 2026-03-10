@@ -323,5 +323,17 @@
     "title": "Página no encontrada",
     "message": "Lo sentimos, no pudimos encontrar la página que buscas.",
     "goHome": "Ir a la página principal"
+  },
+  "aria": {
+    "socialProof": "Prueba social y estadísticas de la lista de espera",
+    "calculatorType": "Tipo de calculadora",
+    "calculatorResults": "Resultados de la calculadora",
+    "carouselNavigation": "Navegación del carrusel",
+    "slideOf": "Diapositiva {index} de {total}",
+    "pauseCarousel": "Pausar carrusel",
+    "playCarousel": "Reproducir carrusel",
+    "loadingPage": "Cargando página",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   }
 }

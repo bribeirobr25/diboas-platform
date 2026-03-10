@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { memo, useState, useCallback } from 'react';
+import { memo, useId, useState, useCallback } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
@@ -22,6 +22,9 @@ export const ExpandableSection = memo(function ExpandableSection({
   children,
 }: ExpandableSectionProps) {
   const translated = useConfigTranslation(config);
+  const uid = useId();
+  const toggleId = `${uid}-toggle`;
+  const contentId = `${uid}-content`;
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleToggle = useCallback(() => {
@@ -39,10 +42,11 @@ export const ExpandableSection = memo(function ExpandableSection({
       <div className={styles.container}>
         <button
           type="button"
+          id={toggleId}
           className={styles.toggle}
           onClick={handleToggle}
           aria-expanded={isExpanded}
-          aria-controls="expandable-content"
+          aria-controls={contentId}
         >
           <span className={styles.toggleText}>{translated.content.toggleLabel}</span>
           <ChevronDown
@@ -52,10 +56,10 @@ export const ExpandableSection = memo(function ExpandableSection({
         </button>
 
         <div
-          id="expandable-content"
+          id={contentId}
           className={`${styles.content} ${isExpanded ? styles.contentOpen : ''}`}
           role="region"
-          aria-labelledby="expandable-toggle"
+          aria-labelledby={toggleId}
           hidden={!isExpanded}
         >
           <div className={styles.inner}>

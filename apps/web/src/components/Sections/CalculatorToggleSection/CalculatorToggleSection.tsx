@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState, useCallback } from 'react';
+import { memo, useId, useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { CalculatorFactory } from '@/components/Sections/CalculatorFactory';
 import type { CalculatorFactoryConfig } from '@/config/calculatorFactory';
@@ -22,7 +22,10 @@ export const CalculatorToggleSection = memo(function CalculatorToggleSection({
   className = '',
 }: CalculatorToggleSectionProps) {
   const intl = useTranslation();
+  const uid = useId();
   const [active, setActive] = useState<ActiveCalculator>('cashflow');
+  const tabId = (type: string) => `${uid}-tab-${type}`;
+  const panelId = (type: string) => `${uid}-panel-${type}`;
 
   const handleToggle = useCallback((tab: ActiveCalculator) => {
     setActive(tab);
@@ -33,13 +36,13 @@ export const CalculatorToggleSection = memo(function CalculatorToggleSection({
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
-      <div className={styles.toggleBar} role="tablist" aria-label="Calculator type">
+      <div className={styles.toggleBar} role="tablist" aria-label={intl.formatMessage({ id: 'common.aria.calculatorType' })}>
         <button
           type="button"
           role="tab"
           aria-selected={active === 'cashflow'}
-          aria-controls="calculator-panel-cashflow"
-          id="calculator-tab-cashflow"
+          aria-controls={panelId('cashflow')}
+          id={tabId('cashflow')}
           className={`${styles.toggleButton} ${active === 'cashflow' ? styles.toggleButtonActive : ''}`}
           onClick={() => handleToggle('cashflow')}
         >
@@ -49,8 +52,8 @@ export const CalculatorToggleSection = memo(function CalculatorToggleSection({
           type="button"
           role="tab"
           aria-selected={active === 'treasury'}
-          aria-controls="calculator-panel-treasury"
-          id="calculator-tab-treasury"
+          aria-controls={panelId('treasury')}
+          id={tabId('treasury')}
           className={`${styles.toggleButton} ${active === 'treasury' ? styles.toggleButtonActive : ''}`}
           onClick={() => handleToggle('treasury')}
         >
@@ -59,9 +62,9 @@ export const CalculatorToggleSection = memo(function CalculatorToggleSection({
       </div>
 
       <div
-        id="calculator-panel-cashflow"
+        id={panelId('cashflow')}
         role="tabpanel"
-        aria-labelledby="calculator-tab-cashflow"
+        aria-labelledby={tabId('cashflow')}
         hidden={active !== 'cashflow'}
       >
         {active === 'cashflow' ? (
@@ -73,9 +76,9 @@ export const CalculatorToggleSection = memo(function CalculatorToggleSection({
       </div>
 
       <div
-        id="calculator-panel-treasury"
+        id={panelId('treasury')}
         role="tabpanel"
-        aria-labelledby="calculator-tab-treasury"
+        aria-labelledby={tabId('treasury')}
         hidden={active !== 'treasury'}
       >
         {active === 'treasury' ? (

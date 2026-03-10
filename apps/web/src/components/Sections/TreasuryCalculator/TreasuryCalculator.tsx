@@ -8,7 +8,7 @@
  * Accessibility: Full keyboard and screen reader support
  */
 
-import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect, useId, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { Button } from '@diboas/ui';
@@ -40,6 +40,10 @@ export function TreasuryCalculator({
   enableAnalytics = true
 }: TreasuryCalculatorProps) {
   const intl = useTranslation();
+  const uid = useId();
+  const calcTitleId = `${uid}-title`;
+  const cashInputId = `${uid}-cash`;
+  const rateInputId = `${uid}-rate`;
   const { locale } = useLocale();
   const { recordSectionRenderTime } = usePerformanceMonitoring();
 
@@ -112,14 +116,14 @@ export function TreasuryCalculator({
     <section
       id="calculator"
       className={`${styles.section} ${className}`}
-      aria-labelledby="calculator-title"
+      aria-labelledby={calcTitleId}
       data-section-id={translatedConfig.analytics?.sectionId}
       data-analytics-category={translatedConfig.analytics?.category}
     >
       <div className={styles.container}>
         {/* Header - pre-translated */}
         <header className={styles.header}>
-          <h2 id="calculator-title" className={styles.title}>
+          <h2 id={calcTitleId} className={styles.title}>
             {translatedConfig.content.header}
           </h2>
         </header>
@@ -130,13 +134,13 @@ export function TreasuryCalculator({
           <div className={styles.inputGroup}>
             {/* Cash on Hand */}
             <div className={styles.inputField}>
-              <label htmlFor="cash-input" className={styles.inputLabel}>
+              <label htmlFor={cashInputId} className={styles.inputLabel}>
                 {intl.formatMessage({ id: 'landing-b2b.calculator.fields.cashOnHand' })}
               </label>
               <div className={styles.inputWrapper}>
                 <span className={styles.currencySymbol} aria-hidden="true">{currencyConfig.symbol}</span>
                 <input
-                  id="cash-input"
+                  id={cashInputId}
                   type="text"
                   inputMode="numeric"
                   className={styles.input}
@@ -150,12 +154,12 @@ export function TreasuryCalculator({
 
             {/* Current Rate */}
             <div className={styles.inputField}>
-              <label htmlFor="rate-input" className={styles.inputLabel}>
+              <label htmlFor={rateInputId} className={styles.inputLabel}>
                 {intl.formatMessage({ id: 'landing-b2b.calculator.fields.currentRate' })}
               </label>
               <div className={styles.inputWrapper}>
                 <input
-                  id="rate-input"
+                  id={rateInputId}
                   type="text"
                   inputMode="decimal"
                   className={styles.input}
@@ -170,7 +174,7 @@ export function TreasuryCalculator({
           </div>
 
           {/* Results */}
-          <div className={styles.results} role="region" aria-live="polite" aria-label="Calculator results">
+          <div className={styles.results} role="region" aria-live="polite" aria-label={intl.formatMessage({ id: 'common.aria.calculatorResults' })}>
             {/* Projected Yield at 7% */}
             <div className={styles.resultRow}>
               <span className={styles.resultLabel}>

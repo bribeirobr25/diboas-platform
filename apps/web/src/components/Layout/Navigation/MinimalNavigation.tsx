@@ -15,7 +15,7 @@
  * @see docs/handoffs/cmo/FINAL-B2C-Landing-Page-v4.md - Navigation Structure spec
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
@@ -23,6 +23,7 @@ import { Container, FlexBetween, LocaleLink } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { ASSET_PATHS } from '@/config/assets';
 import { BRAND_CONFIG } from '@/config/brand';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { ROUTES } from '@/config/routes';
 
@@ -51,6 +52,8 @@ const LANDING_NAV_LINKS = [
 export default function MinimalNavigation() {
   const intl = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(mobileMenuRef, isMobileMenuOpen, { returnFocus: true });
 
   /**
    * Close mobile menu on navigation
@@ -142,7 +145,7 @@ export default function MinimalNavigation() {
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
-              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={intl.formatMessage({ id: isMobileMenuOpen ? 'common.aria.closeMenu' : 'common.aria.openMenu' })}
             >
               {isMobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
             </button>
@@ -152,7 +155,7 @@ export default function MinimalNavigation() {
 
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div id="mobile-menu" className="minimal-nav-mobile-menu">
+        <div id="mobile-menu" ref={mobileMenuRef} className="minimal-nav-mobile-menu">
           <Container>
             <div className="minimal-nav-mobile-links">
               {LANDING_NAV_LINKS.map((link) => (

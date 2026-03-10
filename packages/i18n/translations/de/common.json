@@ -323,5 +323,17 @@
     "title": "Seite nicht gefunden",
     "message": "Leider konnten wir die gesuchte Seite nicht finden.",
     "goHome": "Zur Startseite"
+  },
+  "aria": {
+    "socialProof": "Soziale Bestätigung und Wartelisten-Statistiken",
+    "calculatorType": "Rechnertyp",
+    "calculatorResults": "Rechnerergebnisse",
+    "carouselNavigation": "Karussell-Navigation",
+    "slideOf": "Folie {index} von {total}",
+    "pauseCarousel": "Karussell pausieren",
+    "playCarousel": "Karussell abspielen",
+    "loadingPage": "Seite wird geladen",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen"
   }
 }

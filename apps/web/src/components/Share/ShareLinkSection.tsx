@@ -10,7 +10,7 @@
  * Code Reusability: Can be used independently in other contexts
  */
 
-import React from 'react';
+import React, { useId } from 'react';
 import styles from './ShareModal.module.css';
 
 interface ShareLinkSectionProps {
@@ -37,6 +37,7 @@ export function ShareLinkSection({
   labels,
   className = '',
 }: ShareLinkSectionProps) {
+  const linkId = useId();
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     (e.target as HTMLInputElement).select();
   };
@@ -44,11 +45,11 @@ export function ShareLinkSection({
   return (
     <div className={`${styles.linkSection} ${className}`}>
       <div className={styles.linkBox}>
-        <label htmlFor="share-link" className="sr-only">
+        <label htmlFor={linkId} className="sr-only">
           {labels.shareLink}
         </label>
         <input
-          id="share-link"
+          id={linkId}
           type="text"
           value={url}
           readOnly
