@@ -30,12 +30,16 @@ interface WaitlistVersionBProps {
     belowCta?: string;
     belowCheckbox?: string;
     namespace?: string;
+    confirmationNamespace?: string;
   };
+  /** Waitlist source for signup tagging (e.g., 'landing_b2b') */
+  source?: string;
   enableAnalytics?: boolean;
 }
 
 export function WaitlistVersionB({
   config,
+  source,
   enableAnalytics = true,
 }: WaitlistVersionBProps) {
   const intl = useTranslation();
@@ -84,6 +88,7 @@ export function WaitlistVersionB({
             referralCode={signupData.referralCode}
             referralUrl={signupData.referralUrl}
             tier={signupData.tier}
+            namespace={config?.confirmationNamespace}
           />
         </div>
       </div>
@@ -124,6 +129,7 @@ export function WaitlistVersionB({
               <WaitlistForm
                 onSuccess={handleSuccess}
                 referredBy={inviteCode.trim()}
+                source={source}
                 className={styles.form}
                 belowCta={config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined}
                 belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}
@@ -139,6 +145,7 @@ export function WaitlistVersionB({
           <div className={styles.prioritySection}>
             <WaitlistForm
               onSuccess={handleSuccess}
+              source={source}
               className={styles.form}
               belowCta={config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined}
               belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}

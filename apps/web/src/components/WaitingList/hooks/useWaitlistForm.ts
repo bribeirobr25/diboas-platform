@@ -12,6 +12,8 @@ import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
+import { getStoredUtmParams, utmToTags } from '@/hooks/useUtmCapture';
+import { getCtaSource } from '@/lib/analytics/ctaAttribution';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -157,6 +159,12 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
     try {
       const referredBy = referredByOverride || getReferralCode();
 
+      // Capture UTM params and CTA source for attribution
+      const utmParams = getStoredUtmParams();
+      const utmTags = utmToTags(utmParams);
+      const ctaSource = getCtaSource();
+      if (ctaSource) utmTags.push(`cta_source:${ctaSource}`);
+
       abortControllerRef.current?.abort();
       abortControllerRef.current = new AbortController();
 
@@ -171,6 +179,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
           gdprAccepted: compact ? true : formState.gdprAccepted,
           referredBy,
           ...(source ? { source } : {}),
+          ...(utmTags.length > 0 ? { tags: utmTags } : {}),
         }),
         signal: abortControllerRef.current.signal,
       });
@@ -199,7 +208,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         return;
       }
 
-      // Track success
+      // Track success with attribution data
       analyticsService.track({
         name: WAITING_LIST_EVENTS.SUBMISSION_SUCCESS,
         parameters: {
@@ -207,11 +216,18 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
           hasReferral: !!referredBy,
           locale,
           timestamp: Date.now(),
+          ...(utmParams.utm_source ? { utm_source: utmParams.utm_source } : {}),
+          ...(utmParams.utm_medium ? { utm_medium: utmParams.utm_medium } : {}),
+          ...(utmParams.utm_campaign ? { utm_campaign: utmParams.utm_campaign } : {}),
+          ...(ctaSource ? { cta_source: ctaSource } : {}),
         },
       });
 
       // Clear social proof cache so counter updates on next render/refresh
-      try { sessionStorage.removeItem('diboas-waitlist-stats'); } catch { /* SSR or unavailable */ }
+      try {
+        sessionStorage.removeItem('diboas-waitlist-stats');
+        if (source) sessionStorage.removeItem(`diboas-waitlist-stats-${source}`);
+      } catch { /* SSR or unavailable */ }
 
       // Call success callback
       onSuccess({

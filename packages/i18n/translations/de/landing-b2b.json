@@ -377,6 +377,33 @@
     },
     "tagline": "Das Finanzwerkzeug, das Adelaide verdient haette."
   },
+  "waitlistSuccess": {
+    "confirmation": {
+      "headline": "Willkommen an Bord.",
+      "positionIntro": "Ihr Unternehmen ist:",
+      "shareIntro": "Erzaehlen Sie anderen Unternehmen davon",
+      "shareBenefit": "Teilen Sie den Link, damit andere Unternehmen fruehen Zugang erhalten",
+      "shareExplanation": "Je schneller wir starten, desto eher wird das Realitaet.",
+      "referralLinkLabel": "Ihr Empfehlungslink:",
+      "copy": "Link kopieren",
+      "copied": "Kopiert!",
+      "dreamModeCta": "Dream Mode testen →"
+    },
+    "tier": {
+      "badge": {
+        "foundingMember": "Sie sind ein Gruendungsunternehmen!",
+        "earlyMember": "Sie sind ein fruehes Unternehmen!"
+      },
+      "explanation": {
+        "foundingMember": "Sie gehoeren zu den ersten 24 Unternehmen. Teilen Sie Ihren Link — Sie haben 5 Einladungen fuer andere Unternehmen.",
+        "earlyMember": "Eingeladen von einem Gruendungsunternehmen. Teilen Sie Ihren Link, damit andere Unternehmen fruehen Zugang erhalten.",
+        "priorityWaitlist": "Sie sind auf der Prioritaets-Warteliste. Teilen Sie Ihren Link, um aufzuruecken und anderen Unternehmen zu helfen."
+      }
+    },
+    "returningUser": {
+      "referralCount": "Sie haben {count} Unternehmen empfohlen"
+    }
+  },
   "seo": {
     "title": "diBoaS fuer Unternehmen | Schluss mit zu hohen Gebuehren und schlafendem Kapital",
     "description": "Dein Zahlungsdienstleister nimmt 1,5 bis 3%. Deine Bank zahlt dir fast nichts. diBoaS: kostenlose Zahlungen, sofortige Zahlungen, und dein ungenutztes Kapital arbeitet fuer dich.",

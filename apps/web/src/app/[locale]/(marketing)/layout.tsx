@@ -9,6 +9,7 @@ import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationEr
 import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
+import { UtmCapture } from '@/components/Layout/UtmCapture';
 
 // CEO Decision Q5: Marketing pages removed for V1. Noindexed until post-launch.
 export const metadata: Metadata = {
@@ -71,6 +72,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
               </main>
               <SiteFooter />
               <ScrollDepthTracker />
+              <UtmCapture />
               <CookieConsent />
             </div>
           </WaitingListProvider>

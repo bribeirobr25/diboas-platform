@@ -564,10 +564,11 @@ describe('Waitlist Store', () => {
       mockSql.mockResolvedValueOnce([]);
       mockSql.mockResolvedValueOnce([]);
       mockSql.mockResolvedValueOnce([]);
+      mockSql.mockResolvedValueOnce([]);
 
       await clearStore();
 
-      expect(mockSql).toHaveBeenCalledTimes(4);
+      expect(mockSql).toHaveBeenCalledTimes(5);
     });
   });
 });

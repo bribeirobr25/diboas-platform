@@ -30,7 +30,10 @@ interface WaitlistVersionAProps {
     hideBenefits?: boolean;
     hideNoSpam?: boolean;
     namespace?: string;
+    confirmationNamespace?: string;
   };
+  /** Waitlist source for signup tagging (e.g., 'landing_b2b') */
+  source?: string;
   stats: {
     count: number;
     foundingMemberSpotsRemaining?: number;
@@ -41,6 +44,7 @@ interface WaitlistVersionAProps {
 
 export function WaitlistVersionA({
   config,
+  source,
   stats,
   isLoading,
   enableAnalytics = true,
@@ -70,6 +74,7 @@ export function WaitlistVersionA({
             referralCode={signupData.referralCode}
             referralUrl={signupData.referralUrl}
             tier={signupData.tier}
+            namespace={config?.confirmationNamespace}
           />
         </div>
       </div>
@@ -100,6 +105,7 @@ export function WaitlistVersionA({
         <WaitlistForm
           onSuccess={handleSuccess}
           className={styles.form}
+          source={source}
           belowCta={config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined}
           belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}
         />

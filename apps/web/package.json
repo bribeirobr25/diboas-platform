@@ -17,7 +17,9 @@
     "bundle-size": "npm run build && du -sh .next",
     "optimize": "npm run perf-test && echo 'Check .next/performance-report.json for optimization suggestions'",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "db:migrate": "tsx src/lib/database/migrate.ts",
+    "db:status": "tsx -e \"require('./src/lib/database/migrate').getMigrationStatus().then(s => console.log(JSON.stringify(s, null, 2)))\""
   },
   "dependencies": {
     "@diboas/email": "workspace:*",

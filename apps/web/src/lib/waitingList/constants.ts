@@ -82,6 +82,7 @@ export const WAITING_LIST_EVENTS = {
   SHARE_CANCELLED: 'waitlist_share_cancelled',
   CARD_GENERATED: 'waitlist_card_generated',
   CARD_DOWNLOADED: 'waitlist_card_downloaded',
+  VERSION_SHOWN: 'waitlist_version_shown',
 } as const;
 
 // XSS prevention - allowed HTML tags (none for waiting list)

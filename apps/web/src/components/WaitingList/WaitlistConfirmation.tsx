@@ -48,6 +48,8 @@ interface WaitlistConfirmationProps {
   onShareClick?: (platform: string) => void;
   /** Custom class name */
   className?: string;
+  /** Translation namespace prefix (default: 'waitlist') */
+  namespace?: string;
 }
 
 export function WaitlistConfirmation({
@@ -58,6 +60,7 @@ export function WaitlistConfirmation({
   tier,
   onShareClick,
   className = '',
+  namespace = 'waitlist',
 }: WaitlistConfirmationProps) {
   const intl = useTranslation();
   const { locale } = useLocale();
@@ -65,7 +68,7 @@ export function WaitlistConfirmation({
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {
-    return intl.formatMessage({ id: `waitlist.${key}` }, values);
+    return intl.formatMessage({ id: `${namespace}.${key}` }, values);
   };
 
   // Animate position number counting down

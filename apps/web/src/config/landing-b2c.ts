@@ -482,6 +482,7 @@ export const B2C_WAITLIST_CONFIG = {
   subheadline: 'landing-b2c.waitlist.description',
   hideBenefits: true,
   hideNoSpam: true,
+  source: 'landing_b2c' as const,
 } as const;
 
 /**

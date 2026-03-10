@@ -71,6 +71,26 @@ export const HiddenBenefits: Story = {
 };
 
 /**
+ * B2B variant — business-specific messaging and counters
+ */
+export const B2BVariant: Story = {
+  args: {
+    config: {
+      sectionId: 'waitlist-section-b2b',
+      backgroundColor: 'var(--section-bg-brand)',
+      headline: 'landing-b2b.waitlist.header',
+      subheadline: 'landing-b2b.waitlist.description',
+      hideBenefits: true,
+      hideNoSpam: true,
+      namespace: 'landing-b2b.waitlist',
+      confirmationNamespace: 'landing-b2b.waitlistSuccess',
+      source: 'landing_b2b',
+    },
+    enableAnalytics: false,
+  },
+};
+
+/**
  * Mobile Optimized
  */
 export const MobileOptimized: Story = {

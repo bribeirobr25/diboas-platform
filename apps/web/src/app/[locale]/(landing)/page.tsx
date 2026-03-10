@@ -279,6 +279,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
               namespace="landing-b2c.socialProof"
               enableAnalytics={true}
               ctaText="cta"
+              source="landing_b2c"
             />
           </div>
         </SectionErrorBoundary>
@@ -314,6 +315,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
                 subheadline: B2C_WAITLIST_CONFIG.subheadline,
                 hideBenefits: B2C_WAITLIST_CONFIG.hideBenefits,
                 hideNoSpam: B2C_WAITLIST_CONFIG.hideNoSpam,
+                source: B2C_WAITLIST_CONFIG.source,
               }}
             />
           </div>

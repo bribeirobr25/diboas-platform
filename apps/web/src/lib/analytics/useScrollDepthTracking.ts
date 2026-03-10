@@ -10,6 +10,8 @@ interface ScrollDepthConfig {
   threshold?: number;
   /** Only fire once per section */
   fireOnce?: boolean;
+  /** Locale for impression attribution */
+  locale?: string;
 }
 
 /**
@@ -20,9 +22,12 @@ export function useScrollDepthTracking(config: ScrollDepthConfig = {}) {
   const {
     sectionSelector = '[data-section-id]',
     threshold = 0.3,
-    fireOnce = true
+    fireOnce = true,
+    locale,
   } = config;
   const viewedSections = useRef<Set<string>>(new Set());
+  const localeRef = useRef(locale);
+  localeRef.current = locale;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,6 +50,7 @@ export function useScrollDepthTracking(config: ScrollDepthConfig = {}) {
               scroll_depth: Math.round(
                 (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100
               ),
+              ...(localeRef.current ? { locale: localeRef.current } : {}),
             },
           });
         });

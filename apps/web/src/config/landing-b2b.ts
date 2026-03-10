@@ -565,6 +565,8 @@ export const B2B_WAITLIST_CONFIG = {
   hideBenefits: true,
   hideNoSpam: true,
   namespace: 'landing-b2b.waitlist',
+  confirmationNamespace: 'landing-b2b.waitlistSuccess',
+  source: 'landing_b2b' as const,
 } as const;
 
 // ─── Section 13: FAQ (10 items) ──────────────────────────────

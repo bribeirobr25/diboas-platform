@@ -15,6 +15,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Users, Globe, Award } from 'lucide-react';
 import { analyticsService } from '@/lib/analytics';
+import { setCtaSource } from '@/lib/analytics/ctaAttribution';
 import { useWaitlistStats } from '@/hooks/useWaitlistStats';
 import styles from './SocialProofSection.module.css';
 
@@ -29,6 +30,8 @@ interface SocialProofSectionProps {
   backgroundColor?: string;
   /** Translation key for CTA button text (appended to namespace) */
   ctaText?: string;
+  /** Waitlist source for audience-specific stats (e.g., 'landing_b2b') */
+  source?: 'landing_b2c' | 'landing_b2b';
 }
 
 /**
@@ -44,9 +47,10 @@ export function SocialProofSection({
   className = '',
   backgroundColor,
   ctaText,
+  source,
 }: SocialProofSectionProps) {
   const intl = useTranslation();
-  const { stats, isLoading } = useWaitlistStats();
+  const { stats, isLoading } = useWaitlistStats(source ? { source } : undefined);
 
   // Translation helper with rich text support for highlighting numbers
   const t = (key: string, values?: Record<string, React.ReactNode>) => {
@@ -68,6 +72,7 @@ export function SocialProofSection({
         parameters: { locale: intl.locale },
       });
     }
+    setCtaSource('social-proof');
     document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
   }, [enableAnalytics, intl.locale]);
 

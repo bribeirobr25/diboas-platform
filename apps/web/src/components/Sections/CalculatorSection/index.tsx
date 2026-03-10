@@ -14,6 +14,7 @@ import { SectionContainer } from '../SectionContainer/SectionContainer';
 import { FutureYouCalculator } from '@/components/FutureYouCalculator';
 import { getLocaleConfig } from '@/lib/calculator';
 import { getCurrencySymbol } from '@/config/formats';
+import { setCtaSource } from '@/lib/analytics/ctaAttribution';
 import styles from './CalculatorSection.module.css';
 
 interface CalculatorSectionConfig {
@@ -37,7 +38,7 @@ export const CalculatorSection = memo(function CalculatorSection({
   const currencySymbol = useMemo(() => getCurrencySymbol(getLocaleConfig(locale).currency), [locale]);
 
   const handleCtaClick = useCallback(() => {
-    // Scroll to waitlist section
+    setCtaSource('calculator');
     const waitlistSection = document.getElementById('waitlist');
     if (waitlistSection) {
       waitlistSection.scrollIntoView({ behavior: 'smooth' });

@@ -318,6 +318,33 @@
     },
     "tagline": "A ferramenta financeira que Adelaide merecia."
   },
+  "waitlistSuccess": {
+    "confirmation": {
+      "headline": "Bem-vindo a bordo.",
+      "positionIntro": "Seu negocio e:",
+      "shareIntro": "Conte para outros negocios",
+      "shareBenefit": "Compartilhe para ajudar outros negocios a ter acesso antecipado",
+      "shareExplanation": "Quanto antes lancarmos, antes isso se torna realidade.",
+      "referralLinkLabel": "Seu link de indicacao empresarial:",
+      "copy": "Copiar link",
+      "copied": "Copiado!",
+      "dreamModeCta": "Testar o Dream Mode →"
+    },
+    "tier": {
+      "badge": {
+        "foundingMember": "Voce e um Negocio Fundador!",
+        "earlyMember": "Voce e um Negocio Inicial!"
+      },
+      "explanation": {
+        "foundingMember": "Voce esta entre os primeiros 24 negocios. Compartilhe seu link — voce tem 5 convites para outros negocios.",
+        "earlyMember": "Convidado por um Negocio Fundador. Compartilhe seu link para ajudar outros negocios a ter acesso antecipado.",
+        "priorityWaitlist": "Voce esta na lista de espera prioritaria. Compartilhe seu link para subir e ajudar outros negocios."
+      }
+    },
+    "returningUser": {
+      "referralCount": "Voce indicou {count} negocios"
+    }
+  },
   "seo": {
     "title": "diBoaS para Negocios | Pare de perder dinheiro com taxas e caixa parado",
     "description": "Sua maquininha cobra de 2 a 5%. Seu banco te paga quase nada. diBoaS: pagamentos gratis, pagamentos instantaneos, e seu caixa parado trabalhando pra voce.",

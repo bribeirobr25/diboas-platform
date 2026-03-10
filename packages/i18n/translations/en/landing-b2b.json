@@ -377,6 +377,33 @@
     },
     "tagline": "The financial tool Adelaide deserved."
   },
+  "waitlistSuccess": {
+    "confirmation": {
+      "headline": "Welcome aboard.",
+      "positionIntro": "Your business is:",
+      "shareIntro": "Tell other businesses",
+      "shareBenefit": "Share to help other businesses get early access",
+      "shareExplanation": "The sooner we launch, the sooner this becomes real.",
+      "referralLinkLabel": "Your business referral link:",
+      "copy": "Copy link",
+      "copied": "Copied!",
+      "dreamModeCta": "Test the Dream Mode →"
+    },
+    "tier": {
+      "badge": {
+        "foundingMember": "You're a Founding Business!",
+        "earlyMember": "You're an Early Business!"
+      },
+      "explanation": {
+        "foundingMember": "You're among the first 24 businesses. Share your link — you have 5 invites to give other businesses Founding status.",
+        "earlyMember": "Invited by a Founding Business. Share your link to help other businesses get early access.",
+        "priorityWaitlist": "You're on the priority waitlist. Share your link to move up and help other businesses join."
+      }
+    },
+    "returningUser": {
+      "referralCount": "You've referred {count} businesses"
+    }
+  },
   "seo": {
     "title": "diBoaS for Business | Stop Overpaying on Fees and Idle Cash",
     "description": "Your card processor takes 2 to 3%. Your bank pays you almost nothing. diBoaS: free payments, instant transfers, and your idle cash working for you.",

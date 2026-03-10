@@ -18,26 +18,36 @@ interface WaitlistStats {
   foundingMemberSpotsRemaining?: number;
 }
 
+interface UseWaitlistStatsOptions {
+  /** Filter stats by waitlist source (e.g., 'landing_b2b' for B2B-specific counters) */
+  source?: 'landing_b2c' | 'landing_b2b';
+}
+
 interface UseWaitlistStatsReturn {
   stats: WaitlistStats;
   isLoading: boolean;
 }
 
-const CACHE_KEY = 'diboas-waitlist-stats';
+const CACHE_KEY_PREFIX = 'diboas-waitlist-stats';
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
-export function useWaitlistStats(): UseWaitlistStatsReturn {
+export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlistStatsReturn {
+  const source = options?.source;
+  const cacheKey = source ? `${CACHE_KEY_PREFIX}-${source}` : CACHE_KEY_PREFIX;
   const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch stats from API with sessionStorage cache
   useEffect(() => {
     const controller = new AbortController();
+    const url = source
+      ? `/api/waitlist/stats?source=${source}`
+      : '/api/waitlist/stats';
 
     async function fetchStats() {
       // Check cache first
       try {
-        const cached = sessionStorage.getItem(CACHE_KEY);
+        const cached = sessionStorage.getItem(cacheKey);
         if (cached) {
           const { data, timestamp } = JSON.parse(cached);
           if (Date.now() - timestamp < CACHE_TTL) {
@@ -51,7 +61,7 @@ export function useWaitlistStats(): UseWaitlistStatsReturn {
       }
 
       try {
-        const response = await fetch('/api/waitlist/stats', { signal: controller.signal });
+        const response = await fetch(url, { signal: controller.signal });
         if (response.ok) {
           const data = await response.json();
           const statsData: WaitlistStats = {
@@ -62,7 +72,7 @@ export function useWaitlistStats(): UseWaitlistStatsReturn {
           setStats(statsData);
 
           try {
-            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: statsData, timestamp: Date.now() }));
+            sessionStorage.setItem(cacheKey, JSON.stringify({ data: statsData, timestamp: Date.now() }));
           } catch {
             // sessionStorage full or unavailable
           }
@@ -76,7 +86,7 @@ export function useWaitlistStats(): UseWaitlistStatsReturn {
 
     fetchStats();
     return () => controller.abort();
-  }, []);
+  }, [cacheKey, source]);
 
   // Listen for real-time signup events
   useEffect(() => {
@@ -89,13 +99,16 @@ export function useWaitlistStats(): UseWaitlistStatsReturn {
         }
 
         try {
-          sessionStorage.removeItem(CACHE_KEY);
+          sessionStorage.removeItem(cacheKey);
         } catch {
           // sessionStorage unavailable
         }
 
         // Re-fetch fresh data
-        fetch('/api/waitlist/stats?fresh=1', { cache: 'no-store' })
+        const freshUrl = source
+          ? `/api/waitlist/stats?fresh=1&source=${source}`
+          : '/api/waitlist/stats?fresh=1';
+        fetch(freshUrl, { cache: 'no-store' })
           .then(res => res.ok ? res.json() : null)
           .then(data => {
             if (data) {

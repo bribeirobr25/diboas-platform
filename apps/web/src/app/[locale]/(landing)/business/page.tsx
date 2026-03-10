@@ -316,6 +316,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
             <SocialProofSection
               namespace="landing-b2b.socialProof"
               enableAnalytics={true}
+              source="landing_b2b"
             />
           </div>
         </SectionErrorBoundary>
@@ -338,6 +339,8 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
                 hideBenefits: B2B_WAITLIST_CONFIG.hideBenefits,
                 hideNoSpam: B2B_WAITLIST_CONFIG.hideNoSpam,
                 namespace: B2B_WAITLIST_CONFIG.namespace,
+                confirmationNamespace: B2B_WAITLIST_CONFIG.confirmationNamespace,
+                source: B2B_WAITLIST_CONFIG.source,
               }}
             />
           </div>

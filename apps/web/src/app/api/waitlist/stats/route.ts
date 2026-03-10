@@ -27,7 +27,6 @@ import {
 } from '@/lib/security';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 300; // 5 minutes
 
 const CACHE_HEADERS = {
   'Cache-Control': 'public, max-age=300, s-maxage=300, stale-while-revalidate=60',
@@ -39,6 +38,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   const responseHeaders = noCache
     ? { 'Cache-Control': 'no-store' }
     : CACHE_HEADERS;
+
+  // Optional source filter for audience-specific stats (e.g., ?source=landing_b2b)
+  const sourceParam = request.nextUrl.searchParams.get('source') as
+    | 'landing_b2c'
+    | 'landing_b2b'
+    | null;
 
   // Rate limiting (lenient preset for read-only endpoint)
   const clientIP = getClientIP(request);
@@ -61,8 +66,8 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   }
 
   try {
-    // Founding member data is always needed, regardless of response path
-    const foundingMember = await getFoundingMemberCount();
+    // Founding member data — audience-specific when source is provided
+    const foundingMember = await getFoundingMemberCount(sourceParam || undefined);
     const foundingMemberFields = {
       foundingMemberCount: foundingMember.count,
       foundingMemberCap: foundingMember.cap,
@@ -84,10 +89,11 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
     }
 
     // Get live data from store (all async, parallel fetch)
+    // When source is provided, filter counts to that audience
     const [storeCount, positionCounter, countryCount] = await Promise.all([
-      getTotalCount(),
-      getCurrentPositionCounter(),
-      getDistinctCountryCount(),
+      getTotalCount(sourceParam || undefined),
+      sourceParam ? getTotalCount(sourceParam) : getCurrentPositionCounter(),
+      getDistinctCountryCount(sourceParam || undefined),
     ]);
 
     // Use position counter as count (more representative of total signups)

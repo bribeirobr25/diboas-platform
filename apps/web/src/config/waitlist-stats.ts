@@ -26,10 +26,18 @@ export const WAITLIST_STATS_FALLBACK = {
   countries: 0,
   /** Founding member count */
   foundingMemberCount: 0,
-  /** Founding member cap (overridable via NEXT_PUBLIC_FOUNDING_MEMBER_CAP env var) */
+  /** Founding member cap — B2C (overridable via NEXT_PUBLIC_FOUNDING_MEMBER_CAP env var) */
   foundingMemberCap: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP || '1200', 10),
-  /** Founding member spots remaining */
+  /** Founding member spots remaining — B2C */
   foundingMemberSpotsRemaining: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP || '1200', 10),
+};
+
+export const WAITLIST_STATS_FALLBACK_B2B = {
+  count: 0,
+  countries: 0,
+  foundingMemberCount: 0,
+  foundingMemberCap: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP_B2B || '24', 10),
+  foundingMemberSpotsRemaining: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP_B2B || '24', 10),
 };
 
 /**

@@ -7,8 +7,10 @@
 
 'use client';
 
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useWaitlistStats } from '@/hooks/useWaitlistStats';
+import { analyticsService } from '@/lib/analytics';
+import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { SectionContainer } from '../SectionContainer/SectionContainer';
 import { WaitlistVersionA } from './WaitlistVersionA';
 import { WaitlistVersionB } from './WaitlistVersionB';
@@ -23,6 +25,9 @@ interface WaitlistSectionConfig {
   hideBenefits?: boolean;
   hideNoSpam?: boolean;
   namespace?: string;
+  confirmationNamespace?: string;
+  /** Waitlist source for audience-specific counters and signup tagging */
+  source?: 'landing_b2c' | 'landing_b2b';
 }
 
 interface WaitlistSectionProps {
@@ -34,11 +39,29 @@ export const WaitlistSection = memo(function WaitlistSection({
   config,
   enableAnalytics = true,
 }: WaitlistSectionProps) {
-  const { stats, isLoading } = useWaitlistStats();
+  const source = config?.source;
+  const { stats, isLoading } = useWaitlistStats(source ? { source } : undefined);
 
   const showVersionB = !isLoading &&
     stats.foundingMemberSpotsRemaining != null &&
     stats.foundingMemberSpotsRemaining <= 0;
+
+  // Track which A/B version is shown (fires once after loading resolves)
+  const hasTrackedVersion = useRef(false);
+  useEffect(() => {
+    if (isLoading || hasTrackedVersion.current) return;
+    hasTrackedVersion.current = true;
+    if (enableAnalytics) {
+      analyticsService.track({
+        name: WAITING_LIST_EVENTS.VERSION_SHOWN,
+        parameters: {
+          version: showVersionB ? 'B' : 'A',
+          source: source || 'landing_b2c',
+          timestamp: Date.now(),
+        },
+      });
+    }
+  }, [isLoading, showVersionB, enableAnalytics, source]);
 
   return (
     <SectionContainer
@@ -49,9 +72,9 @@ export const WaitlistSection = memo(function WaitlistSection({
       data-testid={config?.sectionId || 'waitlist-section'}
     >
       {showVersionB ? (
-        <WaitlistVersionB config={config} enableAnalytics={enableAnalytics} />
+        <WaitlistVersionB config={config} source={source} enableAnalytics={enableAnalytics} />
       ) : (
-        <WaitlistVersionA config={config} stats={stats} isLoading={isLoading} enableAnalytics={enableAnalytics} />
+        <WaitlistVersionA config={config} source={source} stats={stats} isLoading={isLoading} enableAnalytics={enableAnalytics} />
       )}
     </SectionContainer>
   );

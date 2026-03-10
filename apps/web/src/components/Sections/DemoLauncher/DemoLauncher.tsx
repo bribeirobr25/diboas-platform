@@ -6,6 +6,7 @@ import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LocaleLink } from '@/components/UI';
 import { ROUTES } from '@/config/routes';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
+import { setCtaSource } from '@/lib/analytics/ctaAttribution';
 import styles from './DemoLauncher.module.css';
 
 const PreDream = dynamic(
@@ -37,6 +38,7 @@ interface DemoLauncherProps {
 }
 
 function scrollToWaitlist() {
+  setCtaSource('demo-launcher');
   const el = document.getElementById('waitlist');
   if (!el) return;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

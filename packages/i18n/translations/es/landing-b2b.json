@@ -318,6 +318,33 @@
     },
     "tagline": "La herramienta financiera que Adelaide merecia."
   },
+  "waitlistSuccess": {
+    "confirmation": {
+      "headline": "Bienvenido a bordo.",
+      "positionIntro": "Tu negocio es:",
+      "shareIntro": "Comparte con otros negocios",
+      "shareBenefit": "Comparte para que otros negocios obtengan acceso anticipado",
+      "shareExplanation": "Cuanto antes lancemos, antes esto se hara realidad.",
+      "referralLinkLabel": "Tu enlace de referido empresarial:",
+      "copy": "Copiar enlace",
+      "copied": "Copiado!",
+      "dreamModeCta": "Probar el Dream Mode →"
+    },
+    "tier": {
+      "badge": {
+        "foundingMember": "Eres un Negocio Fundador!",
+        "earlyMember": "Eres un Negocio Temprano!"
+      },
+      "explanation": {
+        "foundingMember": "Estas entre los primeros 24 negocios. Comparte tu enlace — tienes 5 invitaciones para otros negocios.",
+        "earlyMember": "Invitado por un Negocio Fundador. Comparte tu enlace para ayudar a otros negocios a obtener acceso anticipado.",
+        "priorityWaitlist": "Estas en la lista de espera prioritaria. Comparte tu enlace para subir y ayudar a otros negocios."
+      }
+    },
+    "returningUser": {
+      "referralCount": "Has referido {count} negocios"
+    }
+  },
   "seo": {
     "title": "diBoaS para Negocios | Deja de pagar de mas en comisiones y efectivo parado",
     "description": "Tu procesador de tarjetas se lleva de 1,5 a 3%. Tu banco casi no te paga. diBoaS: pagos gratis, pagos instantaneos, y tu efectivo parado trabajando para ti.",

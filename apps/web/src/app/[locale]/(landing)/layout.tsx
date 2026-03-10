@@ -6,6 +6,7 @@ import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
+import { UtmCapture } from '@/components/Layout/UtmCapture';
 
 interface LandingLayoutProps {
   children: React.ReactNode;
@@ -67,6 +68,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
               </main>
               <CookieConsent />
               <ScrollDepthTracker />
+              <UtmCapture />
             </div>
           </WaitingListProvider>
         </PageErrorBoundary>
