@@ -138,7 +138,7 @@ Thumbs.db
 # Custom folders to ignore
 # Note: docs/ folder should NOT be ignored - it contains project documentation
 # docs/
-images/
+/images/
 
 # Test artifacts and screenshots
 screenshots/

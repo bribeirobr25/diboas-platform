@@ -3,7 +3,16 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": [
+        "DATABASE_URL",
+        "ENCRYPTION_KEY",
+        "HMAC_KEY",
+        "RESEND_API_KEY",
+        "EMAIL_FROM_ADDRESS",
+        "INTERNAL_API_KEY",
+        "CSP_NONCE_SECRET"
+      ]
     },
     "dev": {
       "cache": false,
