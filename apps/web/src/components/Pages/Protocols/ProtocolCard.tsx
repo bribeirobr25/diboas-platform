@@ -2,69 +2,121 @@
  * Protocol Card Component
  *
  * Displays individual protocol information with details and links
- * Extracted from ProtocolsPageContent for better maintainability
+ * Supports badge system (warning/success), usedInStrategies, and exceptionNote
  */
 
+'use client';
+
+import { useState } from 'react';
 import { AlertTriangle, CheckCircle } from 'lucide-react';
-import type { Protocol, ProtocolLabels } from './types';
+import type { Protocol, ProtocolLabels, ProtocolI18nContent } from './types';
+import styles from './ProtocolCard.module.css';
 
 interface ProtocolCardProps {
   protocol: Protocol;
   labels: ProtocolLabels;
+  i18nContent: ProtocolI18nContent;
+  exceptionNote?: string;
+  usedInStrategiesText?: string;
 }
 
-export function ProtocolCard({ protocol, labels }: ProtocolCardProps) {
-  return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-      <h4 className="text-xl font-bold text-slate-900 mb-2">{protocol.name}</h4>
-      <p className="text-slate-600 mb-4">{protocol.description}</p>
+const LONG_REGULATORY_THRESHOLD = 200;
 
-      <div className="space-y-2 text-sm">
-        <div className="flex justify-between border-b border-slate-100 pb-2">
-          <span className="text-slate-500">{labels.founded}</span>
-          <span className="font-medium text-slate-900">{protocol.founded}</span>
+export function ProtocolCard({ protocol, labels, i18nContent, exceptionNote, usedInStrategiesText }: ProtocolCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const regulatoryClass = protocol.badge === 'warning'
+    ? styles.regulatoryWarning
+    : protocol.badge === 'success'
+      ? styles.regulatorySuccess
+      : styles.regulatoryDefault;
+
+  const isLongRegulatory = i18nContent.regulatory.length > LONG_REGULATORY_THRESHOLD;
+
+  return (
+    <div className={styles.card}>
+      <div className={styles.header}>
+        <h4 className={styles.title}>{i18nContent.name}</h4>
+        {protocol.badge === 'warning' ? (
+          <span className={styles.badgeWarning} aria-label="Warning badge">
+            <AlertTriangle className={styles.badgeIcon} aria-hidden="true" />
+          </span>
+        ) : null}
+        {protocol.badge === 'success' ? (
+          <span className={styles.badgeSuccess} aria-label="Compliance badge">
+            <CheckCircle className={styles.badgeIcon} aria-hidden="true" />
+          </span>
+        ) : null}
+      </div>
+
+      <p className={styles.description}>{i18nContent.description}</p>
+
+      {exceptionNote ? (
+        <p className={styles.exceptionNote}>{exceptionNote}</p>
+      ) : null}
+
+      {usedInStrategiesText ? (
+        <p className={styles.usedInStrategies}>{usedInStrategiesText}</p>
+      ) : null}
+
+      <div className={styles.details}>
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>{labels.founded}</span>
+          <span className={styles.detailValue}>{i18nContent.founded}</span>
         </div>
-        <div className="flex justify-between border-b border-slate-100 pb-2">
-          <span className="text-slate-500">{labels.tvl}</span>
-          <span className="font-medium text-slate-900">{protocol.tvl}</span>
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>{labels.tvl}</span>
+          <span className={styles.detailValue}>{i18nContent.tvl}</span>
         </div>
-        <div className="flex justify-between border-b border-slate-100 pb-2">
-          <span className="text-slate-500">{labels.blockchains}</span>
-          <span className="font-medium text-slate-900 text-right max-w-[200px]">{protocol.blockchains}</span>
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>{labels.blockchains}</span>
+          <span className={styles.detailValueRight}>{i18nContent.blockchains}</span>
         </div>
-        <div className="flex justify-between border-b border-slate-100 pb-2">
-          <span className="text-slate-500">{labels.audits}</span>
-          <span className="font-medium text-slate-900">{protocol.audits}</span>
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>{labels.audits}</span>
+          <span className={styles.detailValue}>{i18nContent.audits}</span>
         </div>
-        <div className="flex justify-between items-start pt-1">
-          <span className="text-slate-500">{labels.regulatory}</span>
-          <span className={`font-medium text-right max-w-[250px] flex items-center gap-1 ${
-            protocol.hasWarning ? 'text-amber-600' :
-            protocol.hasSuccess ? 'text-teal-600' : 'text-slate-900'
-          }`}>
-            {protocol.hasWarning && <AlertTriangle className="w-4 h-4 inline-block flex-shrink-0" />}
-            {protocol.hasSuccess && <CheckCircle className="w-4 h-4 inline-block flex-shrink-0" />}
-            {protocol.regulatory}
+        <div className={styles.detailRowLast}>
+          <span className={styles.detailLabel}>{labels.regulatory}</span>
+          <span className={`${styles.regulatoryValue} ${regulatoryClass}`}>
+            {isLongRegulatory ? (
+              <>
+                <span className={isExpanded ? undefined : styles.regulatoryTruncated}>
+                  {isExpanded ? i18nContent.regulatory : `${i18nContent.regulatory.slice(0, LONG_REGULATORY_THRESHOLD)}...`}
+                </span>
+                <button
+                  type="button"
+                  className={styles.expandToggle}
+                  onClick={() => setIsExpanded(prev => !prev)}
+                  aria-expanded={isExpanded}
+                  aria-controls={`regulatory-${protocol.id}`}
+                >
+                  {isExpanded ? labels.showLess : labels.showMore}
+                </button>
+              </>
+            ) : (
+              i18nContent.regulatory
+            )}
           </span>
         </div>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-slate-100 flex gap-4">
+      <div className={styles.links}>
         <a
           href={protocol.website}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-teal-600 hover:text-teal-700 text-sm font-medium"
+          className={styles.websiteLink}
         >
-          Website →
+          {labels.websiteLink}
         </a>
         <a
           href={protocol.twitter}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-slate-500 hover:text-slate-700 text-sm"
+          className={styles.twitterLink}
         >
-          @Twitter
+          {labels.twitterLink}
         </a>
       </div>
     </div>

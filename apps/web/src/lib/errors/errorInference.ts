@@ -110,17 +110,27 @@ export function generateFingerprint(error: Error, context?: Partial<ErrorContext
   return btoa(components.join('|')).replace(/[^a-zA-Z0-9]/g, '').substr(0, 16);
 }
 
+/** Pattern to detect email addresses in string values */
+const EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
 /**
  * Sanitize context to remove sensitive information
  */
 export function sanitizeContext(context: ErrorContext): ErrorContext {
   const sanitized = { ...context };
 
-  // Remove sensitive keys from custom data
+  // Remove sensitive keys and email values from custom data
   if (sanitized.customData) {
     Object.keys(sanitized.customData).forEach(key => {
       if (SENSITIVE_KEYS.some(sensitive => key.toLowerCase().includes(sensitive))) {
         sanitized.customData![key] = '[REDACTED]';
+      } else if (typeof sanitized.customData![key] === 'string') {
+        const value = sanitized.customData![key] as string;
+        if (EMAIL_PATTERN.test(value)) {
+          sanitized.customData![key] = value.replace(EMAIL_PATTERN, '[EMAIL_REDACTED]');
+        }
+        // Reset regex lastIndex (global flag)
+        EMAIL_PATTERN.lastIndex = 0;
       }
     });
   }

@@ -11,8 +11,7 @@ import { describe, it, expect, beforeEach, vi, type Mock } from 'vitest';
 import { NextRequest } from 'next/server';
 import { POST, GET } from '../signup/route';
 import * as store from '@/lib/waitingList/store';
-import * as rateLimiter from '@/lib/security/rateLimiter';
-import * as csrf from '@/lib/security/csrf';
+import * as security from '@/lib/security';
 
 // Mock the store module
 vi.mock('@/lib/waitingList/store', () => ({
@@ -21,10 +20,11 @@ vi.mock('@/lib/waitingList/store', () => ({
   getByEmail: vi.fn(),
   getByReferralCode: vi.fn(),
   processReferral: vi.fn(),
+  getFoundingMemberCount: vi.fn().mockResolvedValue({ count: 100, cap: 1200 }),
 }));
 
-// Mock rate limiter
-vi.mock('@/lib/security/rateLimiter', () => ({
+// Mock security barrel (rate limiter, CSRF, idempotency)
+vi.mock('@/lib/security', () => ({
   checkRateLimit: vi.fn(),
   getClientIP: vi.fn(),
   createRateLimitHeaders: vi.fn(() => new Headers()),
@@ -32,11 +32,42 @@ vi.mock('@/lib/security/rateLimiter', () => ({
     strict: { limit: 5, windowMs: 60000 },
     standard: { limit: 20, windowMs: 60000 },
   },
+  csrfProtection: vi.fn(),
+  getIdempotentResponse: vi.fn().mockReturnValue(null),
+  cacheIdempotentResponse: vi.fn(),
 }));
 
-// Mock CSRF protection
-vi.mock('@/lib/security/csrf', () => ({
-  csrfProtection: vi.fn(),
+// Mock sanitize utilities
+vi.mock('@/lib/utils/sanitize', () => ({
+  sanitizeText: vi.fn((text: string) => text),
+  sanitizeUserName: vi.fn((name: string) => name),
+}));
+
+// Mock waitingList helpers
+vi.mock('@/lib/waitingList/helpers', () => ({
+  generateReferralCode: vi.fn().mockReturnValue('REFTEST01'),
+  generateReferralUrl: vi.fn().mockReturnValue('https://diboas.com/ref/REFTEST01'),
+  isValidEmail: vi.fn((email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)),
+  isValidReferralCode: vi.fn().mockReturnValue(true),
+}));
+
+// Mock Logger
+vi.mock('@/lib/monitoring/Logger', () => ({
+  Logger: { info: vi.fn(), error: vi.fn(), warn: vi.fn(), debug: vi.fn(), critical: vi.fn() },
+}));
+
+// Mock email delivery logger
+vi.mock('@/lib/email/deliveryLogger', () => ({
+  logEmailDelivery: vi.fn(),
+}));
+
+// Mock @diboas/email (dynamic import in sendWelcomeEmail)
+vi.mock('@diboas/email', () => ({
+  createEmailService: vi.fn().mockReturnValue({
+    sendWelcome: vi.fn().mockResolvedValue({ success: true, messageId: 'msg-1' }),
+    sendReferralSuccess: vi.fn().mockResolvedValue({ success: true, messageId: 'msg-2' }),
+  }),
+  sendViaResend: vi.fn(),
 }));
 
 // Mock ApplicationEventBus
@@ -81,7 +112,7 @@ describe('POST /api/waitlist/signup', () => {
     vi.clearAllMocks();
 
     // Default: rate limit passes
-    (rateLimiter.checkRateLimit as Mock).mockResolvedValue({
+    (security.checkRateLimit as Mock).mockResolvedValue({
       success: true,
       limit: 5,
       remaining: 4,
@@ -89,13 +120,13 @@ describe('POST /api/waitlist/signup', () => {
     });
 
     // Default: CSRF passes
-    (csrf.csrfProtection as Mock).mockReturnValue(null);
+    (security.csrfProtection as Mock).mockReturnValue(null);
 
     // Default: no existing email
-    (store.exists as Mock).mockReturnValue(false);
+    (store.exists as Mock).mockResolvedValue(false);
 
     // Default: client IP
-    (rateLimiter.getClientIP as Mock).mockReturnValue('127.0.0.1');
+    (security.getClientIP as Mock).mockReturnValue('127.0.0.1');
   });
 
   describe('Happy Path', () => {
@@ -114,7 +145,7 @@ describe('POST /api/waitlist/signup', () => {
         updatedAt: new Date(),
       };
 
-      (store.addEntry as Mock).mockReturnValue(mockEntry);
+      (store.addEntry as Mock).mockResolvedValue(mockEntry);
 
       const request = createMockRequest({
         email: 'new@example.com',
@@ -139,13 +170,13 @@ describe('POST /api/waitlist/signup', () => {
         referralCode: 'REFCODE01',
       };
 
-      (store.getByReferralCode as Mock).mockReturnValue(mockReferrer);
-      (store.processReferral as Mock).mockReturnValue({
+      (store.getByReferralCode as Mock).mockResolvedValue(mockReferrer);
+      (store.processReferral as Mock).mockResolvedValue({
         ...mockReferrer,
         referralCount: 1,
         position: 838,
       });
-      (store.addEntry as Mock).mockReturnValue({
+      (store.addEntry as Mock).mockResolvedValue({
         id: 'wl_new_user',
         email: 'referred@example.com',
         position: 849,
@@ -177,8 +208,8 @@ describe('POST /api/waitlist/signup', () => {
         referralCode: 'REFEXIST1',
       };
 
-      (store.exists as Mock).mockReturnValue(true);
-      (store.getByEmail as Mock).mockReturnValue(existingEntry);
+      (store.exists as Mock).mockResolvedValue(true);
+      (store.getByEmail as Mock).mockResolvedValue(existingEntry);
 
       const request = createMockRequest({
         email: 'existing@example.com',
@@ -200,7 +231,7 @@ describe('POST /api/waitlist/signup', () => {
     });
 
     it('should sanitize and normalize email', async () => {
-      (store.addEntry as Mock).mockReturnValue({
+      (store.addEntry as Mock).mockResolvedValue({
         id: 'wl_sanitized',
         email: 'sanitized@example.com',
         position: 850,
@@ -292,7 +323,7 @@ describe('POST /api/waitlist/signup', () => {
 
   describe('Rate Limiting', () => {
     it('should return 429 when rate limited', async () => {
-      (rateLimiter.checkRateLimit as Mock).mockResolvedValue({
+      (security.checkRateLimit as Mock).mockResolvedValue({
         success: false,
         limit: 5,
         remaining: 0,
@@ -321,7 +352,7 @@ describe('POST /api/waitlist/signup', () => {
         gdprAccepted: true,
       });
 
-      (store.addEntry as Mock).mockReturnValue({
+      (store.addEntry as Mock).mockResolvedValue({
         id: 'wl_test',
         email: 'test@example.com',
         position: 851,
@@ -331,7 +362,7 @@ describe('POST /api/waitlist/signup', () => {
       await POST(request);
 
       // Should use strict rate limiting for signup
-      expect(rateLimiter.checkRateLimit).toHaveBeenCalledWith(
+      expect(security.checkRateLimit).toHaveBeenCalledWith(
         expect.stringContaining('signup:'),
         expect.any(Number), // strict limit
         expect.any(Number)  // strict window
@@ -339,9 +370,9 @@ describe('POST /api/waitlist/signup', () => {
     });
 
     it('should include client IP in rate limit key', async () => {
-      (rateLimiter.getClientIP as Mock).mockReturnValue('192.168.1.100');
+      (security.getClientIP as Mock).mockReturnValue('192.168.1.100');
 
-      (store.addEntry as Mock).mockReturnValue({
+      (store.addEntry as Mock).mockResolvedValue({
         id: 'wl_ip_test',
         email: 'iptest@example.com',
         position: 852,
@@ -356,7 +387,7 @@ describe('POST /api/waitlist/signup', () => {
 
       await POST(request);
 
-      expect(rateLimiter.checkRateLimit).toHaveBeenCalledWith(
+      expect(security.checkRateLimit).toHaveBeenCalledWith(
         'signup:192.168.1.100',
         expect.any(Number),
         expect.any(Number)
@@ -366,9 +397,7 @@ describe('POST /api/waitlist/signup', () => {
 
   describe('Error Handling', () => {
     it('should handle store errors gracefully', async () => {
-      (store.addEntry as Mock).mockImplementation(() => {
-        throw new Error('Database connection failed');
-      });
+      (store.addEntry as Mock).mockRejectedValue(new Error('Database connection failed'));
 
       const request = createMockRequest({
         email: 'error@example.com',
@@ -386,11 +415,9 @@ describe('POST /api/waitlist/signup', () => {
 
     it('should handle duplicate email race condition', async () => {
       // First check says email doesn't exist
-      (store.exists as Mock).mockReturnValue(false);
+      (store.exists as Mock).mockResolvedValue(false);
       // But addEntry throws because another request added it
-      (store.addEntry as Mock).mockImplementation(() => {
-        throw new Error('Email already exists');
-      });
+      (store.addEntry as Mock).mockRejectedValue(new Error('Email already exists'));
 
       const request = createMockRequest({
         email: 'race@example.com',
@@ -413,7 +440,7 @@ describe('POST /api/waitlist/signup', () => {
         JSON.stringify({ error: 'CSRF validation failed' }),
         { status: 403 }
       );
-      (csrf.csrfProtection as Mock).mockReturnValue(csrfErrorResponse);
+      (security.csrfProtection as Mock).mockReturnValue(csrfErrorResponse);
 
       const request = createMockRequest({
         email: 'csrf@example.com',
@@ -432,14 +459,14 @@ describe('GET /api/waitlist/signup', () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    (rateLimiter.checkRateLimit as Mock).mockResolvedValue({
+    (security.checkRateLimit as Mock).mockResolvedValue({
       success: true,
       limit: 20,
       remaining: 19,
       reset: Math.floor(Date.now() / 1000) + 60,
     });
 
-    (rateLimiter.getClientIP as Mock).mockReturnValue('127.0.0.1');
+    (security.getClientIP as Mock).mockReturnValue('127.0.0.1');
   });
 
   it('should return generic response regardless of email existence', async () => {
@@ -477,7 +504,7 @@ describe('GET /api/waitlist/signup', () => {
   });
 
   it('should rate limit check requests', async () => {
-    (rateLimiter.checkRateLimit as Mock).mockResolvedValue({
+    (security.checkRateLimit as Mock).mockResolvedValue({
       success: false,
       limit: 20,
       remaining: 0,
@@ -498,22 +525,20 @@ describe('Security Considerations', () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    (rateLimiter.checkRateLimit as Mock).mockResolvedValue({
+    (security.checkRateLimit as Mock).mockResolvedValue({
       success: true,
       limit: 5,
       remaining: 4,
       reset: Math.floor(Date.now() / 1000) + 60,
     });
 
-    (csrf.csrfProtection as Mock).mockReturnValue(null);
-    (rateLimiter.getClientIP as Mock).mockReturnValue('127.0.0.1');
+    (security.csrfProtection as Mock).mockReturnValue(null);
+    (security.getClientIP as Mock).mockReturnValue('127.0.0.1');
   });
 
   it('should not expose internal error details', async () => {
-    (store.exists as Mock).mockReturnValue(false);
-    (store.addEntry as Mock).mockImplementation(() => {
-      throw new Error('Internal database constraint violation XYZ-123');
-    });
+    (store.exists as Mock).mockResolvedValue(false);
+    (store.addEntry as Mock).mockRejectedValue(new Error('Internal database constraint violation XYZ-123'));
 
     const request = createMockRequest({
       email: 'error@example.com',
@@ -531,8 +556,8 @@ describe('Security Considerations', () => {
   });
 
   it('should prevent email enumeration on existing emails', async () => {
-    (store.exists as Mock).mockReturnValue(true);
-    (store.getByEmail as Mock).mockReturnValue({
+    (store.exists as Mock).mockResolvedValue(true);
+    (store.getByEmail as Mock).mockResolvedValue({
       email: 'existing@example.com',
       position: 100,
       referralCode: 'REFEXIST2',

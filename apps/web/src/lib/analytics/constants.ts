@@ -4,8 +4,6 @@
  */
 
 import { AnalyticsConfig } from './types';
-import { WEB_VITALS_THRESHOLDS } from '@/config/performance-thresholds';
-
 export const ANALYTICS_DEFAULTS: AnalyticsConfig = {
   enabled: process.env.NODE_ENV === 'production',
   debug: process.env.NODE_ENV === 'development',
@@ -27,6 +25,3 @@ export const ANALYTICS_CONSTANTS = {
   JITTER_MAX: 1000, // 1 second jitter
   BACKOFF_MULTIPLIER: 2
 } as const;
-
-// Use centralized performance thresholds
-export const PERFORMANCE_THRESHOLDS = WEB_VITALS_THRESHOLDS;

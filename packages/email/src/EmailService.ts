@@ -2,22 +2,22 @@ import type {
   EmailPayload,
   DeliveryResult,
   WelcomeEmailData,
-  PositionUpdateEmailData,
   ReferralSuccessEmailData,
   DeletionConfirmationEmailData,
+  DeletionCompleteEmailData,
 } from './types';
 import { getEmailConfig } from './config';
 import { renderWelcome } from './templates/welcome';
-import { renderPositionUpdate } from './templates/position-update';
 import { renderReferralSuccess } from './templates/referral-success';
 import { renderDeletionConfirmation } from './templates/deletion-confirmation';
+import { renderDeletionComplete } from './templates/deletion-complete';
 
 export interface IEmailService {
   send(payload: EmailPayload): Promise<DeliveryResult>;
   sendWelcome(to: string, data: WelcomeEmailData): Promise<DeliveryResult>;
-  sendPositionUpdate(to: string, data: PositionUpdateEmailData): Promise<DeliveryResult>;
   sendReferralSuccess(to: string, data: ReferralSuccessEmailData): Promise<DeliveryResult>;
   sendDeletionConfirmation(to: string, data: DeletionConfirmationEmailData): Promise<DeliveryResult>;
+  sendDeletionComplete(to: string, data: DeletionCompleteEmailData): Promise<DeliveryResult>;
 }
 
 export function createEmailService(
@@ -47,11 +47,6 @@ export function createEmailService(
       return provider.send(buildPayload(to, subject, html, ['welcome', 'waitlist']));
     },
 
-    sendPositionUpdate: (to, data) => {
-      const { subject, html } = renderPositionUpdate(data);
-      return provider.send(buildPayload(to, subject, html, ['position-update', 'waitlist']));
-    },
-
     sendReferralSuccess: (to, data) => {
       const { subject, html } = renderReferralSuccess(data);
       return provider.send(buildPayload(to, subject, html, ['referral-success', 'waitlist']));
@@ -60,6 +55,11 @@ export function createEmailService(
     sendDeletionConfirmation: (to, data) => {
       const { subject, html } = renderDeletionConfirmation(data);
       return provider.send(buildPayload(to, subject, html, ['deletion-confirmation', 'gdpr']));
+    },
+
+    sendDeletionComplete: (to, data) => {
+      const { subject, html } = renderDeletionComplete(data);
+      return provider.send(buildPayload(to, subject, html, ['deletion-complete', 'gdpr']));
     },
   };
 }

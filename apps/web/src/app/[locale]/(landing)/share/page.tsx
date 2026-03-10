@@ -37,7 +37,7 @@ export async function generateMetadata({
   const search = await searchParams;
   const type = search.type || 'default';
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com';
 
   // Build OG image URL
   const ogParams = new URLSearchParams();

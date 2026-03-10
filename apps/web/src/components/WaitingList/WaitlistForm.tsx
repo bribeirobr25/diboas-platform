@@ -10,7 +10,7 @@
  * - Success callback with position data
  */
 
-import React, { useRef } from 'react';
+import React, { useId, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import { useWaitlistForm, type WaitlistSuccessData } from './hooks';
@@ -23,6 +23,14 @@ interface WaitlistFormProps {
   onError?: (error: string) => void;
   /** Show compact version (email only) */
   compact?: boolean;
+  /** Override referral code (e.g. from manually entered invite code) */
+  referredBy?: string;
+  /** Waitlist source identifier (e.g. 'landing_b2b') */
+  source?: string;
+  /** Text rendered below submit button */
+  belowCta?: string;
+  /** Text rendered below consent checkbox */
+  belowCheckbox?: string;
   /** Custom class name */
   className?: string;
 }
@@ -31,9 +39,17 @@ export function WaitlistForm({
   onSuccess,
   onError,
   compact = false,
+  referredBy,
+  source,
+  belowCta,
+  belowCheckbox,
   className = '',
 }: WaitlistFormProps) {
   const intl = useTranslation();
+  const uid = useId();
+  const emailId = `${uid}-email`;
+  const errorMsgId = `${uid}-error`;
+  const gdprId = `${uid}-gdpr`;
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   // Translation helper
@@ -45,10 +61,13 @@ export function WaitlistForm({
     formState,
     error,
     isLoading,
+    hasReferral,
     handleInputChange,
     handleSubmit,
   } = useWaitlistForm({
     compact,
+    referredBy,
+    source,
     onSuccess,
     onError,
     t,
@@ -59,20 +78,25 @@ export function WaitlistForm({
       onSubmit={handleSubmit}
       className={`${styles.form} ${compact ? styles.compact : ''} ${className}`}
     >
+      {hasReferral ? (
+        <p className={styles.referralIndicator}>
+          {t('referral.invitedIndicator')}
+        </p>
+      ) : null}
       <fieldset className={styles.inputGroup}>
         <legend className="sr-only">{t('form.legendText')}</legend>
-        <label htmlFor="waitlist-email" className="sr-only">
+        <label htmlFor={emailId} className="sr-only">
           {t('form.emailLabel')}
         </label>
         <input
           ref={emailInputRef}
-          id="waitlist-email"
+          id={emailId}
           type="email"
           name="email"
           value={formState.email}
           onChange={handleInputChange}
           placeholder={t('form.emailPlaceholder')}
-          aria-describedby={error ? 'waitlist-error' : undefined}
+          aria-describedby={error ? errorMsgId : undefined}
           className={`${styles.input} ${error ? styles.inputError : ''}`}
           required
           autoComplete="email"
@@ -92,16 +116,18 @@ export function WaitlistForm({
       </fieldset>
 
       {error && (
-        <div id="waitlist-error" className={styles.error} role="alert" aria-live="assertive">
+        <div id={errorMsgId} className={styles.error} role="alert" aria-live="assertive">
           {error}
         </div>
       )}
 
+      {belowCta ? <p className={styles.belowCta}>{belowCta}</p> : null}
+
       {!compact && (
         <div className={styles.consent}>
-          <label htmlFor="waitlist-gdpr" className={styles.consentLabel}>
+          <label htmlFor={gdprId} className={styles.consentLabel}>
             <input
-              id="waitlist-gdpr"
+              id={gdprId}
               type="checkbox"
               name="gdprAccepted"
               checked={formState.gdprAccepted}
@@ -122,6 +148,8 @@ export function WaitlistForm({
           {t('form.privacyNote')}
         </p>
       )}
+
+      {belowCheckbox ? <p className={styles.belowCheckbox}>{belowCheckbox}</p> : null}
     </form>
   );
 }

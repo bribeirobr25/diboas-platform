@@ -10,12 +10,18 @@
    ================================ */
 
 .card {
-  background-color: var(--color-white);
-  border-radius: 0.75rem; /* rounded-xl */
-  padding: 1.5rem; /* p-6 */
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
+  background-color: var(--section-bg-white);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-slate-200);
   border-left-width: 4px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: var(--spacing-3xl);
+  }
 }
 
 /* ================================
@@ -77,6 +83,39 @@
   margin: 0 0 1rem 0;
 }
 
+.description {
+  font-size: 0.9375rem;
+  color: var(--color-slate-600);
+  line-height: 1.6;
+  margin: 0 0 0.75rem 0;
+}
+
+/* ================================
+   ALLOCATION SECTION
+   ================================ */
+
+.allocationSection {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: var(--color-slate-50);
+  border-radius: 0.5rem;
+}
+
+.allocation {
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  color: var(--color-slate-700);
+  margin: 0 0 0.25rem 0;
+}
+
+.allocationNote {
+  font-size: 0.75rem;
+  color: var(--color-slate-500);
+  margin: 0;
+  line-height: 1.4;
+}
+
 /* ================================
    STATS GRID
    ================================ */
@@ -85,21 +124,132 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .statRow {
   display: flex;
   justify-content: space-between;
   font-size: 0.875rem; /* text-sm */
+  gap: 0.5rem;
 }
 
 .statLabel {
   color: var(--color-slate-500);
+  flex-shrink: 0;
 }
 
 .statValue {
   font-weight: 500;
   color: var(--color-slate-900);
+  text-align: right;
+}
+
+/* ================================
+   COMMON USE CASE
+   ================================ */
+
+.commonUseCase {
+  padding: 0.75rem;
+  background-color: var(--color-slate-50);
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.commonUseCaseText {
+  font-size: 0.8125rem;
+  color: var(--color-slate-600);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ================================
+   OPTIONAL SECTIONS
+   ================================ */
+
+.note {
+  font-size: 0.75rem;
+  color: var(--color-slate-500);
+  margin: 0 0 0.75rem 0;
+  font-style: italic;
+}
+
+.warningCallout {
+  padding: 0.75rem 1rem;
+  background-color: var(--color-amber-50, #fffbeb);
+  border-left: 3px solid var(--color-amber-400);
+  border-radius: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.warningCallout p {
+  font-size: 0.8125rem;
+  color: var(--color-slate-700);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.accessCallout {
+  padding: 0.75rem 1rem;
+  background-color: var(--color-slate-50);
+  border-left: 3px solid var(--color-slate-400);
+  border-radius: 0.25rem;
+}
+
+.accessCallout p {
+  font-size: 0.8125rem;
+  color: var(--color-slate-600);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ================================
+   EXPAND TOGGLE
+   ================================ */
+
+.expandToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--spacing-sm) 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-teal-600);
+  font-weight: var(--font-weight-medium);
+}
+
+.expandToggle:hover {
+  color: var(--color-teal-800);
+}
+
+.expandToggle:focus-visible {
+  outline: 2px solid var(--cta-focus-color);
+  outline-offset: 2px;
+}
+
+/* ================================
+   EXPANDABLE CONTENT
+   ================================ */
+
+.expandableContent {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.expandableContentOpen {
+  max-height: 600px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expandableContent {
+    transition: none;
+  }
 }
 
 /* ================================

@@ -317,11 +317,11 @@ Nonce-based CSP is implemented in the middleware (`/Users/simonekugler/Desktop/d
 **Finding:** The file `/Users/simonekugler/Desktop/diboas-platform/apps/web/.env.local` exists on disk and contains real API keys and tokens:
 
 ```
-NEXT_PUBLIC_SENTRY_DSN=https://dd8092edd9f1cb336571bc4c6259cfb8@o4510647498440704.ingest.de.sentry.io/4510647511810128
-NEXT_PUBLIC_GA_ID=G-8TGT00PGQL
-NEXT_PUBLIC_POSTHOG_KEY=phc_CUWDFVLeAwxybafuvTwjRbuzuYldPTghHhYRRer677G
-KIT_API_KEY=LOfkwaQQgs_50z8KVWmCqQ
-KIT_FORM_ID=8933981
+NEXT_PUBLIC_SENTRY_DSN=<redacted>
+NEXT_PUBLIC_GA_ID=<redacted>
+NEXT_PUBLIC_POSTHOG_KEY=<redacted>
+KIT_API_KEY=<redacted>
+KIT_FORM_ID=<redacted>
 ```
 
 **Mitigation already in place:**

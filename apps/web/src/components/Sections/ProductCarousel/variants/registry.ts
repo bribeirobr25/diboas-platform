@@ -11,6 +11,7 @@ import type { ProductCarouselVariantRegistry, ProductCarouselVariantComponent } 
 
 // Static imports for critical variants
 import { ProductCarouselDefault } from './ProductCarouselDefault/ProductCarouselDefault';
+import { ProductCarouselPersona } from './ProductCarouselPersona/ProductCarouselPersona';
 
 /**
  * ProductCarousel Variant Registry
@@ -21,7 +22,8 @@ import { ProductCarouselDefault } from './ProductCarouselDefault/ProductCarousel
 export const PRODUCT_CAROUSEL_VARIANT_REGISTRY: ProductCarouselVariantRegistry = {
   // Core variants (static import for performance)
   default: ProductCarouselDefault,
-  
+  persona: ProductCarouselPersona,
+
   // Future variants can be easily added here when needed:
   // grid: ProductCarouselGrid,
   // stack: ProductCarouselStack,

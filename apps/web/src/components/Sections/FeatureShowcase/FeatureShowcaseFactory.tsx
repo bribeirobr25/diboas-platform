@@ -14,7 +14,7 @@
 import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { FEATURE_SHOWCASE_CONFIGS, type FeatureShowcaseVariantConfig, type FeatureShowcaseVariant } from '@/config/featureShowcase';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { getFeatureShowcaseVariant, validateFeatureShowcaseVariant } from './variants/registry';
 import type { FeatureShowcaseVariantProps } from './variants/types';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';

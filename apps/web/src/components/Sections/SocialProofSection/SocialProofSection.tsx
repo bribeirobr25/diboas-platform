@@ -11,13 +11,12 @@
 
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import { Users, Globe } from 'lucide-react';
+import { Users, Globe, Award } from 'lucide-react';
 import { analyticsService } from '@/lib/analytics';
-import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
-import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
-import type { ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
+import { setCtaSource } from '@/lib/analytics/ctaAttribution';
+import { useWaitlistStats } from '@/hooks/useWaitlistStats';
 import styles from './SocialProofSection.module.css';
 
 interface SocialProofSectionProps {
@@ -31,11 +30,8 @@ interface SocialProofSectionProps {
   backgroundColor?: string;
   /** Translation key for CTA button text (appended to namespace) */
   ctaText?: string;
-}
-
-interface WaitlistStats {
-  count: number;
-  countries: number;
+  /** Waitlist source for audience-specific stats (e.g., 'landing_b2b') */
+  source?: 'landing_b2c' | 'landing_b2b';
 }
 
 /**
@@ -51,98 +47,10 @@ export function SocialProofSection({
   className = '',
   backgroundColor,
   ctaText,
+  source,
 }: SocialProofSectionProps) {
   const intl = useTranslation();
-  const [stats, setStats] = useState<WaitlistStats>(getWaitlistStatsFromEnv());
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Fetch stats from API with sessionStorage cache (5-minute TTL)
-  useEffect(() => {
-    const CACHE_KEY = 'diboas-waitlist-stats';
-    const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-
-    const controller = new AbortController();
-
-    async function fetchStats() {
-      // Check cache first
-      try {
-        const cached = sessionStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < CACHE_TTL) {
-            setStats(data);
-            setIsLoading(false);
-            return;
-          }
-        }
-      } catch {
-        // Cache read failed — continue to fetch
-      }
-
-      try {
-        const response = await fetch('/api/waitlist/stats', { signal: controller.signal });
-        if (response.ok) {
-          const data = await response.json();
-          const statsData = { count: data.count, countries: data.countries };
-          setStats(statsData);
-
-          // Write to cache
-          try {
-            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: statsData, timestamp: Date.now() }));
-          } catch {
-            // sessionStorage full or unavailable
-          }
-        }
-      } catch {
-        // Keep fallback values on error
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchStats();
-
-    return () => controller.abort();
-  }, []);
-
-  // Listen for waitlist signup success to update counter in real-time
-  useEffect(() => {
-    const unsubscribe = applicationEventBus.on<ApplicationEventPayload>(
-      ApplicationEventType.WAITLIST_SIGNUP_SUCCESS,
-      (event) => {
-        const position = (event.metadata as { position?: number } | undefined)?.position;
-        if (typeof position === 'number') {
-          // Optimistically update count
-          setStats(prev => ({ ...prev, count: position }));
-        }
-
-        // Clear cache so next page load fetches fresh data
-        try {
-          sessionStorage.removeItem('diboas-waitlist-stats');
-        } catch {
-          // sessionStorage unavailable
-        }
-
-        // Re-fetch authoritative data from API
-        const refetchController = new AbortController();
-        fetch('/api/waitlist/stats', { signal: refetchController.signal })
-          .then(res => {
-            if (res.ok) return res.json();
-            return null;
-          })
-          .then(data => {
-            if (data) {
-              setStats({ count: data.count, countries: data.countries });
-            }
-          })
-          .catch(() => {
-            // Keep optimistic update on error
-          });
-      }
-    );
-
-    return unsubscribe;
-  }, []);
+  const { stats, isLoading } = useWaitlistStats(source ? { source } : undefined);
 
   // Translation helper with rich text support for highlighting numbers
   const t = (key: string, values?: Record<string, React.ReactNode>) => {
@@ -164,19 +72,23 @@ export function SocialProofSection({
         parameters: { locale: intl.locale },
       });
     }
+    setCtaSource('social-proof');
     document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
   }, [enableAnalytics, intl.locale]);
 
   return (
     <section
       className={`${styles.section} ${className}`}
-      aria-label="Social proof and waitlist statistics"
+      aria-label={intl.formatMessage({ id: 'common.aria.socialProof' })}
       style={backgroundColor ? { backgroundColor } : undefined}
     >
       <div className={styles.container}>
         {/* Section Header */}
         <header className={styles.header}>
           <h2 className={styles.title}>{t('header')}</h2>
+          {t('subtext') ? (
+            <p className={styles.subtext}>{t('subtext')}</p>
+          ) : null}
         </header>
 
         {/* Stats Cards */}
@@ -204,6 +116,34 @@ export function SocialProofSection({
               </p>
             </div>
           </article>
+
+          {/* Founding Member Spots Card */}
+          {stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining > 0 ? (
+            <article className={styles.card}>
+              <div className={styles.iconWrapper}>
+                <Award className={styles.icon} aria-hidden="true" />
+              </div>
+              <div className={styles.cardContent}>
+                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
+                  {intl.formatMessage(
+                    { id: 'waitlist.tier.spotsRemaining' },
+                    { spots: <span key="spots" className={styles.highlight}>{formatNumber(stats.foundingMemberSpotsRemaining, intl.locale)}</span> }
+                  )}
+                </p>
+              </div>
+            </article>
+          ) : stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining === 0 ? (
+            <article className={styles.card}>
+              <div className={styles.iconWrapper}>
+                <Award className={styles.icon} aria-hidden="true" />
+              </div>
+              <div className={styles.cardContent}>
+                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
+                  {intl.formatMessage({ id: 'waitlist.stats.foundingMembersFull' })}
+                </p>
+              </div>
+            </article>
+          ) : null}
         </div>
 
         {ctaText && (

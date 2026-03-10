@@ -1,0 +1,62 @@
+/**
+ * ProtocolsIntroSection Styles
+ *
+ * Introduction section with design token typography
+ */
+
+.content {
+  max-width: var(--dimension-700);
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  margin: 0 0 var(--spacing-3xl) 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-700);
+  line-height: var(--line-height-relaxed);
+}
+
+.body p {
+  margin: 0;
+}
+
+.disclaimer {
+  background-color: var(--color-amber-50, #fffbeb);
+  border-left: 4px solid var(--color-amber-500);
+  padding: var(--spacing-lg);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.disclaimerText {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-amber-800);
+  margin: 0;
+}
+
+.scope {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-500);
+}

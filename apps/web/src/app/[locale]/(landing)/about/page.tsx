@@ -4,7 +4,21 @@ import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import { AboutPageContent } from '@/components/Pages/AboutPageContent';
+import { WaitlistSection } from '@/components/Sections/WaitlistSection';
+import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
+import {
+  AboutHeroSection,
+  AboutStorySection,
+  AboutWhatWeDoSection,
+  AboutBeliefsSection,
+  AboutMissionSection,
+  AboutBusinessSection,
+  AboutContactSection,
+  AboutTransitionHook,
+} from '@/components/Pages/About';
+import { ABOUT_FOOTER_DISCLOSURES } from '@/config/landing-about';
+import { B2C_FOOTER_NAV } from '@/config/landing-b2c';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -23,10 +37,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(validLocale, 'about');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'About diBoaS | Built to Fix What Banks Keep Hidden';
-  const description = seo.description || 'diBoaS was founded to give everyone access to real returns. Learn the story of why Breno is building this platform.';
+  const title = seo.title || 'About diBoaS | Built for the People Banks Forgot';
+  const description = seo.description || 'diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options, starting at $5.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   return {
     title,
@@ -67,14 +81,22 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 /**
  * About Page
  *
- * Personal founder story page featuring:
+ * Config-driven composition pattern (Phase 3E migration).
+ * Each section is a self-contained client component with SectionErrorBoundary.
+ *
  * - Section 1: Hero with headline
+ * - t1: Transition hook
  * - Section 2: The Story (grandmother narrative)
+ * - t2: Transition hook
  * - Section 3: What diBoaS Does
  * - Section 4: What We Believe (3 pillars)
  * - Section 5: The Mission
+ * - t3: Transition hook
  * - Section 6: For Businesses CTA
+ * - t4: Transition hook
  * - Section 7: Contact
+ * - Section 8: Waitlist
+ * - Footer with locale-conditional disclaimers
  */
 export default async function AboutPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -85,7 +107,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
   }
 
   // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['about', 'common', 'waitlist']);
+  const pageMessages = await loadPageNamespaces(locale, ['about', 'common', 'waitlist', 'landing-b2c']);
 
   // Generate structured data
   const serviceData = MetadataFactory.generateServiceStructuredData({
@@ -102,7 +124,56 @@ export default async function AboutPage({ params }: LocalePageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[serviceData, breadcrumbData]} />
-      <AboutPageContent />
+
+      <main className="main-page-wrapper">
+        {/* Section 1: Hero */}
+        <AboutHeroSection />
+
+        {/* Transition t1 */}
+        <AboutTransitionHook hookKey="t1" />
+
+        {/* Section 2: The Story */}
+        <AboutStorySection />
+
+        {/* Transition t2 */}
+        <AboutTransitionHook hookKey="t2" />
+
+        {/* Section 3: What diBoaS Does */}
+        <AboutWhatWeDoSection />
+
+        {/* Section 4: What We Believe */}
+        <AboutBeliefsSection />
+
+        {/* Section 5: The Mission */}
+        <AboutMissionSection />
+
+        {/* Transition t3 */}
+        <AboutTransitionHook hookKey="t3" />
+
+        {/* Section 6: For Businesses */}
+        <AboutBusinessSection />
+
+        {/* Transition t4 */}
+        <AboutTransitionHook hookKey="t4" />
+
+        {/* Section 7: Contact */}
+        <AboutContactSection />
+
+        {/* Section 8: Waitlist */}
+        <SectionErrorBoundary
+          sectionId="waitlist-section-about"
+          sectionType="WaitlistSection"
+          enableReporting
+          context={{ page: 'about' }}
+        >
+          <div id="waitlist">
+            <WaitlistSection enableAnalytics />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Footer with locale-conditional disclaimers */}
+        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={ABOUT_FOOTER_DISCLOSURES} />
+      </main>
     </PageI18nProvider>
   );
 }

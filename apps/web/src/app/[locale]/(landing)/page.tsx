@@ -5,11 +5,12 @@ import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
   FAQAccordion,
-  FeatureShowcase,
   ProseSection,
   ScenarioCards,
   FeeTable,
   DemoLauncher,
+  ExpandableSection,
+  FounderSection,
 } from '@/components/Sections';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
@@ -24,11 +25,13 @@ import {
   B2C_ORIGIN_STORY_CONFIG,
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_SCENARIOS_CONFIG,
-  B2C_FEATURES_CONFIG,
   B2C_FEES_CONFIG,
+  B2C_FEES_EXPANDABLE_CONFIG,
   B2C_CATCH_CONFIG,
+  B2C_UNDER_THE_HOOD_CONFIG,
   B2C_DEMO_CONFIG,
   B2C_WAITLIST_CONFIG,
+  B2C_FOUNDER_CONFIG,
   B2C_FAQ_CONFIG,
   B2C_FOOTER_NAV,
   B2C_FOOTER_DISCLOSURES,
@@ -101,17 +104,19 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  * B2C Landing Page
  *
  * 11-section layout:
- * 1. Hero — Full background with headline and CTA
- * 2. Origin Story — "Why This Exists" (ProseSection)
- * 3. How It Works — 3-step ProductCarousel
- * 4. Scenarios — Real-life scenario cards
- * 5. Features — Feature showcase slides
- * 6. Fees — Transparent fee table
- * 7. What's the Catch? — Honest transparency (ProseSection)
- * 8. Demo — Interactive demo embed
- * 9. Waitlist — Email signup with counter
- * 10. FAQ — 5 CLO-approved Q&A items
- * 11. Footer — Tagline, nav, disclosures
+ * 1.   Hero — Full background with headline and CTA
+ * 2.   Origin Story — "Her name was Adelaide." (ProseSection)
+ * 3.   Scenarios — Real-life scenario cards
+ * 4.   How It Works — 3-step ProductCarousel
+ * 5.   Fees — Transparent fee table (5 columns)
+ * 6.   What's the Catch? — Honest transparency (ProseSection)
+ * 6.5  Under the Hood — Expandable technical details
+ * 7.   Demo — Interactive demo embed
+ * 8.   Social Proof — Waitlist counter + country stats
+ * 8.5  About the Founder — Founder story + contact
+ * 9.   Waitlist — Version A/B email signup
+ * 10.  FAQ — 12 CLO-approved Q&A items
+ * 11.  Footer — Tagline, nav, disclosures
  */
 export default async function B2CLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -158,7 +163,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 2: Origin Story — "Why This Exists" */}
+        {/* Section 2: Origin Story — "Her name was Adelaide." */}
         <SectionErrorBoundary
           sectionId="origin-story-section-b2c"
           sectionType="ProseSection"
@@ -173,7 +178,22 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 3: How It Works — 3 Steps */}
+        {/* Section 3: Scenarios — Real People, Real Moments */}
+        <SectionErrorBoundary
+          sectionId="scenarios-section-b2c"
+          sectionType="ScenarioCards"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="scenarios" data-section-id="scenarios-section-b2c">
+            <ScenarioCards
+              config={B2C_SCENARIOS_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 4: How It Works — 3 Steps */}
         <SectionErrorBoundary
           sectionId="how-it-works-section-b2c"
           sectionType="ProductCarousel"
@@ -189,39 +209,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 4: Scenarios — Real People, Real Moments */}
-        <SectionErrorBoundary
-          sectionId="scenarios-section-b2c"
-          sectionType="ScenarioCards"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="scenarios" data-section-id="scenarios-section-b2c">
-            <ScenarioCards
-              config={B2C_SCENARIOS_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 5: Features — Send, Invest, Always On */}
-        <SectionErrorBoundary
-          sectionId="features-section-b2c"
-          sectionType="FeatureShowcase"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="features" data-section-id="features-section-b2c">
-            <FeatureShowcase
-              variant="default"
-              config={B2C_FEATURES_CONFIG}
-              enableAnalytics={true}
-              backgroundColor="var(--section-bg-neutral)"
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 6: Fees — Transparent Pricing */}
+        {/* Section 5: Fees — Transparent Pricing */}
         <SectionErrorBoundary
           sectionId="fees-section-b2c"
           sectionType="FeeTable"
@@ -229,14 +217,16 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           context={{ page: 'landing-b2c' }}
         >
           <div id="fees" data-section-id="fees-section-b2c">
-            <FeeTable
-              config={B2C_FEES_CONFIG}
-              enableAnalytics={true}
-            />
+            <ExpandableSection config={B2C_FEES_EXPANDABLE_CONFIG}>
+              <FeeTable
+                config={B2C_FEES_CONFIG}
+                enableAnalytics={true}
+              />
+            </ExpandableSection>
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: What's the Catch? */}
+        {/* Section 6: What's the Catch? */}
         <SectionErrorBoundary
           sectionId="catch-section-b2c"
           sectionType="ProseSection"
@@ -251,7 +241,21 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 8: Demo — PreDemo + PreDream launchers */}
+        {/* Section 6.5: Under the Hood — Expandable technical details */}
+        <SectionErrorBoundary
+          sectionId="under-the-hood-section-b2c"
+          sectionType="ExpandableSection"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="under-the-hood" data-section-id="under-the-hood-section-b2c">
+            <ExpandableSection
+              config={B2C_UNDER_THE_HOOD_CONFIG}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 7: Demo */}
         <SectionErrorBoundary
           sectionId="demo-section-b2c"
           sectionType="DemoLauncher"
@@ -263,7 +267,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 9: Social Proof */}
+        {/* Section 8: Social Proof */}
         <SectionErrorBoundary
           sectionId="social-proof-section-b2c"
           sectionType="SocialProofSection"
@@ -275,11 +279,26 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
               namespace="landing-b2c.socialProof"
               enableAnalytics={true}
               ctaText="cta"
+              source="landing_b2c"
             />
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 10: Waitlist */}
+        {/* Section 8.5: About the Founder */}
+        <SectionErrorBoundary
+          sectionId="founder-section-b2c"
+          sectionType="FounderSection"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="founder" data-section-id="founder-section-b2c">
+            <FounderSection
+              config={B2C_FOUNDER_CONFIG}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 9: Waitlist */}
         <SectionErrorBoundary
           sectionId="waitlist-section-b2c"
           sectionType="WaitlistSection"
@@ -292,6 +311,11 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
               config={{
                 sectionId: B2C_WAITLIST_CONFIG.sectionId,
                 backgroundColor: B2C_WAITLIST_CONFIG.backgroundColor,
+                headline: B2C_WAITLIST_CONFIG.headline,
+                subheadline: B2C_WAITLIST_CONFIG.subheadline,
+                hideBenefits: B2C_WAITLIST_CONFIG.hideBenefits,
+                hideNoSpam: B2C_WAITLIST_CONFIG.hideNoSpam,
+                source: B2C_WAITLIST_CONFIG.source,
               }}
             />
           </div>

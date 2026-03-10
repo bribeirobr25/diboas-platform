@@ -15,7 +15,7 @@ import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { HERO_CONFIGS, type HeroVariantConfig, type HeroVariant } from '@/config/hero';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { getHeroVariant, validateHeroVariant } from './variants/registry';
 import type { HeroVariantProps } from './variants/types';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';

@@ -1,38 +1,42 @@
 {
   "hero": {
     "headline": "The system isn't broken. It's working exactly as designed. Just not for you.",
-    "subheadline": "Money should move free and instant. Savings should grow. Your money should work while you sleep.",
-    "cta": "Try Demo"
+    "subheadline": "You're paying hundreds a year in fees. You can't move your money in real-time world wide. And the cash in your bank? It's earning returns for everyone except you. That changes now.",
+    "cta": "See your money in action"
   },
   "origin": {
-    "header": "Why diBoaS?",
+    "transitionHook": "Why build diBoaS",
+    "header": "Her name was Adelaide.",
     "paragraphs": {
-      "p1": "My grandmother never had access to good financial opportunities.",
-      "p2": "The system was never built for people like her. Like me. Like you.",
-      "p3": "Access was locked behind high minimums, complicated words, and big financial institutions.",
-      "p4": "I'm building this for her and for everyone she represents who deserves better and never got it.",
-      "p5": "This is diBoaS."
+      "p1": "My grandmother never had access to the financial tools that could have changed her life.",
+      "p2": "The system was and is still working as designed.\nJust not for people like her. Like me. Like you.",
+      "p3": "Access is locked behind high minimums, complicated words, and big financial institutions that didn't and still don't care about people with small savings.",
+      "p4": "$10,000 to open an investment account. $25 a month just to keep a checking account open. That was the price of access.",
+      "p5": "New technology made it possible to bypass the gatekeepers.\nI just had to build the door.",
+      "p6": "I named it after her."
     }
   },
-  "howItWorks": {
-    "header": "It's Simple.",
-    "step1": {
-      "title": "Deposit Send Pay",
-      "description": "Create your account and deposit with ACH or debit/credit card. Your money is converted into stable cryptocurrencies (stablecoins) worth 1:1 with the dollar.",
-      "quote": "I send money anywhere. Arrives instantly. Fast, secure, and simple."
+  "personas": {
+    "transitionHook": "I built it for you.",
+    "header": "I built it for you.",
+    "slide1": {
+      "headline": "Your mom needs it now. Not during business hours.",
+      "subtext": "Send money to anyone on diBoaS. Anywhere in the world. In seconds. Free.",
+      "cta": "See your money in action"
     },
-    "step2": {
-      "title": "Invest Buy Sell",
-      "description": "Your access to global opportunities in Stocks, ETFs, Crypto, and Gold.",
-      "quote": "I had $200 sitting in my account doing nothing. Now it's growing."
+    "slide2": {
+      "headline": "You're paying hundreds a year in fees you don't even see.",
+      "subtext": "No monthly charges. No surprise fees. No fine print. Just your money, working for you.",
+      "cta": "See your money in action"
     },
-    "step3": {
-      "title": "Strategies Alerts Cash Out",
-      "description": "Your money grows. We keep you informed. When you want to withdraw, you withdraw. Instantly, no penalties or tricks.",
-      "quote": "My money earns while I sleep. Adelaide tells me how it's going."
+    "slide3": {
+      "headline": "Your savings account is paying you almost nothing. You know it.",
+      "subtext": "Pick what fits your life, cautious or adventurous. Starting at $5. Adelaide watches your money so you don't have to.",
+      "cta": "See your money in action"
     }
   },
   "scenarios": {
+    "transitionHook": "And this is what it looks like.",
     "header": "Real People. Real Moments.",
     "card1": {
       "title": "Splitting dinner in San Francisco",
@@ -45,162 +49,252 @@
     "card3": {
       "title": "Emergency money to Mom",
       "description": "3 AM. She needs it now. Not during \"business hours.\""
-    }
+    },
+    "clarificationLine": "Use diBoaS just for free transfers. When you're ready for more, it's here!",
+    "footnote": ""
   },
-  "features": {
-    "slide1": {
-      "tagline": "Money that moves like messages",
-      "title": "Send & Receive",
-      "description": "Send money to anyone, anywhere. Request payments. Split expenses. Any amount, real-time and worldwide."
+  "howItWorks": {
+    "transitionHook": "Here's how it works.",
+    "header": "Money that moves like messages.",
+    "step1": {
+      "title": "Send and Receive",
+      "description": "Send money to anyone on diBoaS. Anywhere in the world. In seconds. Free. Withdraw it anytime.",
+      "quote": "\"I sent $200 to my brother. It arrived before I put my phone down.\""
     },
-    "slide2": {
-      "tagline": "Savings that grow",
-      "title": "Goal-Based Strategies",
-      "description": "Pick a goal. Pick a risk level. Each strategy stress-tested with thousands of simulations. You choose the direction. We handle the complexity."
+    "step2": {
+      "title": "Invest and Grow",
+      "description": "Choose from 10 ways to grow your money. Your money works while you sleep.",
+      "quote": "\"I had $200 sitting in my account doing nothing. Now it's earning more than my bank offered in 5 years.\""
     },
-    "slide3": {
-      "tagline": "Your money works while you sleep",
-      "title": "No Surprises",
-      "description": "24/7. No weekends. No holidays. No business hours. Your money, always available, whenever you need it, for whatever you need."
-    }
+    "step3": {
+      "title": "Track and Learn",
+      "description": "What's moving. What it means. What you could do. Clear language, not jargon.",
+      "quote": "\"Adelaide watches your money so you don't have to. Check once a day. Less stress. More life.\""
+    },
+    "microDisclosure": "Examples shown are illustrative and do not represent actual users."
   },
   "fees": {
-    "title": "Your money. Your rules. No surprises.",
-    "subtitle": "See exactly what you pay. Here's everything. No fine print.",
-    "disclaimer": "No monthly fees. No minimum balance. No hidden spreads. No surprises.",
-    "example": "Example: A $100 investment costs you $0.39 with diBoaS. The same purchase costs $1.50–$2.50 elsewhere.",
+    "transitionHook": "Now let's talk money.",
+    "title": "What It Costs. All of It.",
+    "subtitle": "",
+    "painIntro": "The average person pays hundreds of dollars a year in bank fees, transfer charges, and hidden spreads. Here's what it looks like with us.",
+    "disclaimer": "*diBoaS fee shown. Third-party network fees may apply (typically less than $0.01).",
+    "example": "A $100 investment costs $0 with diBoaS. Selling costs 39 cents.",
+    "expandableToggle": "Send money, buy and invest is free. But we do have fees. See all fees.",
+    "footerLine": "Every fee. On the table. Nothing else.",
     "headers": {
-      "action": "What you do",
-      "diboas": "With diBoaS",
-      "competitors": "Typical apps",
-      "difference": "The difference"
+      "action": "Action",
+      "diboas": "diBoaS",
+      "competitors": "Typical Apps",
+      "difference": "Difference",
+      "example": "Example"
     },
     "rows": {
       "account": {
-        "action": "Keep your account",
+        "action": "Account",
         "diboas": "Free forever",
-        "competitors": "$12–25/month",
-        "difference": "You save $150+/year"
+        "competitors": "$5 to $15/month",
+        "difference": "Save $60 to $180/year",
+        "example": "Your account: $0. Always."
       },
       "adding": {
-        "action": "Add money",
-        "diboas": "0.48%",
-        "competitors": "1–3%",
-        "difference": "2–6× cheaper"
+        "action": "Add Money",
+        "diboas": "0.48% (min $0.25, max $25)",
+        "competitors": "0 to 1.5%",
+        "difference": "Cheaper than most apps charge to add money",
+        "example": "Add $100: costs you 48 cents"
       },
       "sending": {
-        "action": "Send to anyone",
-        "diboas": "FREE, instant, worldwide",
-        "competitors": "Free locally, $5–50 internationally",
-        "difference": "Send globally, instantly, free"
+        "action": "Send Money",
+        "diboas": "FREE",
+        "competitors": "$1.50 to $50",
+        "difference": "Save $5 to $50 per transfer",
+        "example": "Send $50 to Mom: it costs less than a penny"
       },
       "buying": {
-        "action": "Buy Stocks, ETFs, Crypto, Gold",
-        "diboas": "0.39%",
-        "competitors": "1.5–2.5% + spreads",
-        "difference": "4–6× cheaper"
+        "action": "Buy / Invest",
+        "diboas": "FREE",
+        "competitors": "1.5 to 2.5% (exchanges, brokers)",
+        "difference": "Save $1.50 to $2.50 per $100",
+        "example": "Invest $100: it costs less than a penny"
       },
       "selling": {
-        "action": "Sell investments",
-        "diboas": "0.39%",
-        "competitors": "1.5–2.5% + spreads",
-        "difference": "4–6× cheaper"
+        "action": "Sell / Close",
+        "diboas": "0.39% (min $0.25, max $25)",
+        "competitors": "1.5 to 2.5% (exchanges, brokers)",
+        "difference": "Save $1.11 to $2.11 per $100",
+        "example": "Sell $100: costs you 39 cents"
       },
       "swapping": {
-        "action": "Swap transactions",
+        "action": "Swap",
         "diboas": "FREE",
-        "competitors": "0.5–2%",
-        "difference": "You keep everything"
+        "competitors": "0.5 to 2% spread",
+        "difference": "Save $0.50 to $2 per $100",
+        "example": "It costs less than a penny"
       },
       "strategies": {
-        "action": "Grow with strategies",
-        "diboas": "Free to start, 0.39% when you stop",
-        "competitors": "Not available",
-        "difference": "Earn while you sleep"
+        "action": "Grow (Strategies)",
+        "diboas": "Free to start, 0.39% to exit",
+        "competitors": "N/A",
+        "difference": "Growth options your bank doesn't offer",
+        "example": "Start a $100 strategy: $0. Closing costs 39 cents."
       },
       "cashout": {
-        "action": "Cash out",
-        "diboas": "0.48% — Instant",
-        "competitors": "1–3% — delays",
-        "difference": "2–6× cheaper"
+        "action": "Cash Out",
+        "diboas": "0.48%",
+        "competitors": "1 to 3% plus delays",
+        "difference": "Save up to $2.52 per $100",
+        "example": "Cash out $100: costs you 48 cents"
       }
     }
   },
   "catch": {
     "header": "What's the catch?",
     "paragraphs": {
-      "p1": "Fair question. Here's the honest answer:",
-      "p2": "The best financial opportunities were locked behind big banks and hedge funds. You needed money to make money.",
-      "p3": "New technology (Blockchain) changed that. It made it possible to access the same opportunities without the middlemen.",
-      "p4": "We didn't invent this. We just made it simple enough that anyone can use it.",
-      "p5": "We win when you win. When you grow, we grow. Our interests are aligned."
+      "p1": "Fair question. Here's the real answer:",
+      "p2": "Investing is free. When you sell, we charge 0.39%. If you sell $100, we make 39 cents. The only way we earn more is if your money grows. And the fee never exceeds $25. Our incentives are aligned with yours.",
+      "p3": "No monthly fees. No surprise charges. No withdrawal penalties.",
+      "p4": "How? New technology removed the branches, the executives, and the legacy costs. We pass those savings to you.",
+      "p5": "Is there risk? Yes. Your money isn't in a bank. It's working through new technology. That means it can grow more, but there's also real risk. We monitor 24/7 and we test every strategy against past crashes, but we can't guarantee returns, and anyone who says they can is lying.",
+      "p6": "We win when you win. We show you both sides, the opportunities AND the risks, always."
+    }
+  },
+  "underTheHood": {
+    "toggleLabel": "Want the technical details?",
+    "paragraphs": {
+      "p1": "Architecture: diBoaS is built on open-source and decentralized financial infrastructure (Blockchain and DeFi). This means every transaction is verifiable, every system is auditable, and your money moves without middlemen.",
+      "p2": "Your wallet: Every user gets their own personal wallet with their own private key. diBoaS never sees, holds, or has access to your key. If diBoaS disappeared tomorrow, your money would still be yours.",
+      "p3": "Security: Your wallet is secured so that no one, including diBoaS, can access your funds. Only you can authorize transactions. We only use audited and established protocols. Every strategy is tested against historical market crashes before it's offered to users. We monitor all positions 24/7. Transaction signing will always require your approval.",
+      "p4": "Transparency: All fees are disclosed upfront. All risks are stated plainly. No hidden mechanics."
     },
-    "earlyEmphasis": "There isn't one!"
+    "linkText": "See full technical documentation"
   },
   "demo": {
-    "header": "Try It. No Signup Needed.",
-    "subtext": "See exactly how diBoaS works. No signup, no real money. You can simulate deposits, transfers, investments, and withdrawals.",
-    "ctaPrimary": "Try Full Demo",
-    "ctaSecondary": "Future You"
+    "transitionHook": "Don't take our word for it.",
+    "header": "What would your $100 do here?",
+    "subtext": "No signup. No real money. Just proof.",
+    "ctaPrimary": "Try now the Full Demo",
+    "ctaSecondary": "See what your future self could become."
   },
   "socialProof": {
-    "header": "The movement is growing.",
+    "header": "The first 1,200.",
+    "subtext": "We're starting small so we can take care of every person who joins.",
     "stats": {
-      "waitlist": "{count} people",
-      "countries": "From {countries} countries"
+      "waitlist": "{count} founding members",
+      "countries": "{countries} countries"
     },
-    "cta": "Join the Waitlist"
+    "cta": "Get early access"
+  },
+  "founder": {
+    "header": "Built by BAR",
+    "paragraphs": {
+      "p1": "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does everyone like her.",
+      "p2": "diBoaS is being established in Berlin, Germany, building for people in the US, EU, Brazil and expanding Worldwide. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish my grandmother had.",
+      "p3": "Let's connect."
+    },
+    "emailText": "bar@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "substack": "Substack"
+    }
   },
   "waitlist": {
-    "header": "Join the List?",
-    "description": "We're opening diBoaS to a small group first. If you like what you see, sign up.",
+    "header": "Join the movement",
+    "description": "Open access and fair opportunities for everyone.",
     "emailPlaceholder": "Your email address",
-    "submitButton": "Join Waitlist",
-    "privacyNote": "We'll never spam you. Just updates on when you can get started."
+    "submitButton": "Get early access",
+    "privacyNote": "No spam. Just your invite when we're ready.",
+    "benefits": {
+      "badge": "Permanent Founding Member badge (#47 of 1,200)",
+      "wall": "Your name on the Founders Wall",
+      "invites": "5 personal invites",
+      "exclusive": "Future exclusive benefits for Founding Members only"
+    },
+    "spotsCounter": "{count} founding members spots remaining",
+    "noSpam": "",
+    "privacyCheckbox": "I agree to the Privacy Policy",
+    "versionB": {
+      "header": "Founding spots are full.",
+      "description": "Got an invite code? You're in as an Early Member, with your own badge and 5 invites.\nNo code? Join the priority list. We'll open more spots soon.",
+      "inviteCodePlaceholder": "Enter your invite code",
+      "inviteSubmit": "Enter with my invite",
+      "prioritySubmit": "Join the priority list"
+    }
   },
   "faq": {
-    "header": "Questions? We've got answers.",
+    "header": "Before you decide.",
     "items": {
       "isBank": {
         "question": "Is diBoaS a bank?",
-        "answer": "No. diBoaS is a platform that helps you connect with financial opportunities. We don't touch, hold, access, or manage your money. You control your own funds directly through your personal wallet. We provide the tools, you make the decisions."
+        "answer": "No. diBoaS is a platform that helps you connect with financial opportunities. We don't manage your money or make decisions about your funds. Your wallet is secured so that only YOU can authorize transactions. We provide the tools, you make the decisions."
       },
-      "howPossible": {
-        "question": "How is this possible without high fees?",
-        "answer": "First, by the will to create something new, for people who never had a fair chance. Second, by removing the middlemen, the branches, the executives, the legacy systems. We use modern technology (Blockchain) that costs a fraction of what traditional finance charges."
+      "isForEveryone": {
+        "question": "Is diBoaS for everyone?",
+        "answer": "No. If you want someone else to make financial decisions for you, that's not us. If you want a traditional bank with branches and paper statements, that's not us either.\n\ndiBoaS is for people who want control over their own money, transparency about costs, and access to opportunities that used to require $10,000 minimums. You don't need to understand everything right now, that's what we're here for. You just need to be willing to learn."
+      },
+      "withdraw": {
+        "question": "Can I withdraw my money anytime?",
+        "answer": "Yes. Your money is yours. Withdraw to your bank account whenever you want. The fee is 0.48%, so cashing out $100 costs you 48 cents. There are no lock-up periods and no penalties. We process your withdrawal instantly. Bank transfer times may vary."
       },
       "safety": {
         "question": "Is my money safe?",
-        "answer": "Your money is secured by you. We use security technology, with industry-leading partners, but ultimately you're in control. That's the point — no one else can access your funds without your permission."
+        "answer": "Your money is secured by you. Only you hold the keys, no one else can access your funds without your permission.\n\nThat said, this isn't a bank account. Crypto-assets aren't covered by deposit guarantee schemes. The value of your assets can fluctuate, and you could lose some or all of your investment.\n\nWe show you both sides, the opportunities and the risks, always."
       },
-      "understanding": {
-        "question": "What if I don't understand investing?",
-        "answer": "That's exactly who we built this for. Our goal is to make it so simple that anyone can do it. No jargon. No complicated decisions. Just clear options and transparent information."
+      "howPossible": {
+        "question": "How is this possible without high fees?",
+        "answer": "By cutting out the middlemen, the branches, the executives, the legacy costs. New financial technology does the same job at a fraction of the price. We pass those savings to you. That's the entire model."
       },
       "minimum": {
         "question": "What's the minimum amount to start?",
-        "answer": "Start with as little as $5. No minimum balance requirements."
+        "answer": "$5. That's a coffee. Most investment platforms require $500 to $10,000 just to open the door. We think that's part of the problem."
+      },
+      "justTransfers": {
+        "question": "Can I just use diBoaS for transfers?",
+        "answer": "Yes. Absolutely. You can use diBoaS only for sending and receiving money, free, instant, worldwide. The investing and growth features are there when and if you ever want them. No pressure. No package deals."
+      },
+      "understanding": {
+        "question": "What if I don't understand investing?",
+        "answer": "That's exactly who we built this for. Our goal is to make it so simple that anyone can do it. No jargon. No complicated decisions. Just clear options and transparent information. Start with $5. Explore. Learn. We're here every step."
+      },
+      "whatIfWrong": {
+        "question": "What if something goes wrong?",
+        "answer": "The technology we use carries real risk. Returns can go up or down. The systems aren't perfect, no system is. We monitor 24/7, and we test every strategy against past crashes (COVID, FTX, Terra) before we offer it. We'll always tell you what's happening. But we can't eliminate all risk, and anyone who says they can is lying."
+      },
+      "shutdown": {
+        "question": "What happens to my money if diBoaS shuts down?",
+        "answer": "Your money is in YOUR wallet. Not ours. If diBoaS disappeared tomorrow, you would still have your funds, accessible through your wallet keys. We never hold your money. We never can. That's not a feature we added. It's how the whole system was built."
+      },
+      "audited": {
+        "question": "Has diBoaS been audited?",
+        "answer": "We're a pre-launch platform. Our strategies are stress-tested against historical crashes and real-world scenarios, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits. For full details on the protocols and technology behind each strategy, visit our Strategies and Protocols pages."
+      },
+      "afterSignup": {
+        "question": "What happens after I sign up?",
+        "answer": "You'll receive an email with your Founding Member badge and number, your personal invite link (5 invites to share), and instructions to get started.\n\nFrom there, you set up your wallet, add funds, and you're in."
       }
     }
   },
   "footer": {
-    "tagline": "Open access and fair opportunities for everyone!",
+    "tagline": "Open access and fair opportunities for everyone.",
     "nav": {
       "forYou": "For You",
       "forBusiness": "For Business",
       "adelaideDaily": "Adelaide Daily",
       "about": "About",
       "help": "Help",
-      "legal": "Legal"
+      "strategies": "Strategies",
+      "protocols": "Protocols"
     },
     "disclosures": {
       "general": "This content is for educational purposes only and does not constitute investment advice, financial advice, or any other type of advice. Past performance is not indicative of future results. Any historical data or simulations are hypothetical and not guarantees.",
       "crypto": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
-      "stories": "User stories are illustrative examples and do not represent specific individuals.",
-      "ai": "This content was created with the assistance of artificial intelligence and reviewed for accuracy. AI-generated content has inherent limitations. Verify important information independently before making decisions.",
-      "mica": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this marketing communication.",
-      "cvm": "Past returns are not a guarantee of future returns. Investments involve risks and may result in losses, including the total loss of the capital invested. Prospective percentages reflect only the author's opinion, based on information available at the time and considered reliable.",
-      "bcb": "diBoaS is not a financial institution authorized by the Central Bank of Brazil.",
+      "stories": "Testimonials on this page are illustrative examples and do not represent real users.",
+      "ai": "Certain content on this platform, including market analysis and educational materials, is generated or assisted by artificial intelligence. AI-generated content may contain errors or limitations. Users should verify information independently before making financial decisions.",
+      "mica": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
+      "micaArticle7": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this crypto-asset marketing communication.",
+      "cvm": "",
+      "bcb": "",
       "us": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
       "closing": "You decide what's best for your situation."
     },
@@ -208,8 +302,8 @@
   },
   "seo": {
     "title": "diBoaS | The System Wasn't Built for You. We're Changing That.",
-    "description": "Money should move free and instant. Savings should grow. Your money should work while you sleep. Meet diBoaS.",
+    "description": "Send money anywhere in seconds. Free. Then make it grow while you sleep. Meet diBoaS.",
     "ogTitle": "The system isn't broken. It's working exactly as designed. Just not for you.",
-    "ogDescription": "It started with my grandmother. I learned what banks don't tell us. That's why I'm building diBoaS."
+    "ogDescription": "It started with my grandmother Adelaide. I learned what banks don't tell us. That's why I'm building diBoaS."
   }
 }

@@ -20,6 +20,7 @@ export const ROUTES = {
   DREAM_MODE: '/dream-mode',
   CALCULATOR: '/#calculator',
   STRATEGIES: '/strategies',
+  DAILY_MARKET: '/daily-market',
   FUTURE_YOU: '/future-you',
 
   // Landing Page Links

@@ -6,9 +6,10 @@
  * Performance Optimization: Variant-specific CSS for better bundle splitting
  * No Hardcoded Values: All values from design tokens
  *
- * Layout Implementation:
- * - Mobile & Tablet: Single column, cards stacked vertically
- * - Desktop: 3 cards in top row, 2 cards in bottom row (centered)
+ * Layout Implementation (matches SocialProofSection):
+ * - Mobile: Single column, cards stacked vertically
+ * - Tablet: 2-column grid
+ * - Desktop: 3-column centered grid (max-width 900px)
  */
 
 /* ================================
@@ -76,7 +77,7 @@
 
 /* Section Title */
 .title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
@@ -100,173 +101,35 @@
 }
 
 /* ================================
-   CARDS GRID
+   CARDS GRID - Centered layout (max 3 columns)
+   Matches SocialProofSection grid pattern
    ================================ */
 
-/* Cards Grid Container */
 .cardsGrid {
   display: grid;
-  grid-template-columns: var(--bc-grid-columns-mobile);
-  gap: var(--bc-grid-gap-mobile);
+  grid-template-columns: 1fr;
+  gap: var(--spacing-2xl);
   width: var(--percent-100);
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-/* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
 @media (min-width: 768px) {
   .cardsGrid {
-    grid-template-columns: var(--bc-grid-columns-tablet);
-    gap: var(--bc-grid-gap-tablet);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-3xl);
   }
 }
 
-/* Responsive: Desktop - Adaptive Layout based on card count (breakpoint: var(--bc-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .cardsGrid {
-    grid-template-columns: var(--bc-grid-columns-desktop);
-    gap: var(--bc-grid-gap-desktop);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-3xl);
   }
 
-  /* ================================
-     2 CARDS: 1 row, 2 cards centered
-     Each card spans 2 columns with 1-column gaps on sides
-     ================================ */
-  .card:first-child:nth-last-child(2),
-  .card:first-child:nth-last-child(2) ~ .card {
-    grid-column: auto / span 2;
-  }
-
-  .card:first-child:nth-last-child(2):nth-child(1) {
-    grid-column: 2 / 4; /* Columns 2-3, leaving 1 column gap on left */
-  }
-
-  .card:first-child:nth-last-child(2) ~ .card:nth-child(2) {
-    grid-column: 4 / 6; /* Columns 4-5, leaving 1 column gap on right */
-  }
-
-  /* ================================
-     3 CARDS: 1 row, 3 cards evenly distributed
-     Each card spans 2 columns
-     ================================ */
-  .card:first-child:nth-last-child(3),
-  .card:first-child:nth-last-child(3) ~ .card {
-    grid-column: auto / span 2;
-  }
-
-  .card:first-child:nth-last-child(3):nth-child(1) {
-    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
-  }
-
-  .card:first-child:nth-last-child(3) ~ .card:nth-child(2) {
-    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
-  }
-
-  .card:first-child:nth-last-child(3) ~ .card:nth-child(3) {
-    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
-  }
-
-  /* ================================
-     4 CARDS: 2 rows, 2 cards per row
-     Row 1: cards 1-2 (same as 2-card layout)
-     Row 2: cards 3-4 (same as 2-card layout)
-     ================================ */
-  .card:first-child:nth-last-child(4),
-  .card:first-child:nth-last-child(4) ~ .card {
-    grid-column: auto / span 2;
-  }
-
-  /* Row 1 */
-  .card:first-child:nth-last-child(4):nth-child(1) {
-    grid-column: 2 / 4;
-  }
-
-  .card:first-child:nth-last-child(4) ~ .card:nth-child(2) {
-    grid-column: 4 / 6;
-  }
-
-  /* Row 2 */
-  .card:first-child:nth-last-child(4) ~ .card:nth-child(3) {
-    grid-column: 2 / 4;
-  }
-
-  .card:first-child:nth-last-child(4) ~ .card:nth-child(4) {
-    grid-column: 4 / 6;
-  }
-
-  /* ================================
-     5 CARDS: Staggered 3+2 layout (original design)
-     Row 1: 3 cards
-     Row 2: 2 cards offset
-     ================================ */
-  .card:first-child:nth-last-child(5),
-  .card:first-child:nth-last-child(5) ~ .card {
-    grid-column: auto / span 2;
-  }
-
-  /* Top row - 3 cards */
-  .card:first-child:nth-last-child(5):nth-child(1) {
-    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
-  }
-
-  .card:first-child:nth-last-child(5) ~ .card:nth-child(2) {
-    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
-  }
-
-  .card:first-child:nth-last-child(5) ~ .card:nth-child(3) {
-    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
-  }
-
-  /* Bottom row - 2 cards offset */
-  .card:first-child:nth-last-child(5) ~ .card:nth-child(4) {
-    grid-column: var(--bc-card-4-column-span); /* 2 / 4 */
-  }
-
-  .card:first-child:nth-last-child(5) ~ .card:nth-child(5) {
-    grid-column: var(--bc-card-5-column-span); /* 4 / 6 */
-  }
-
-  /* ================================
-     6 CARDS: 2 rows, 3 cards per row
-     Row 1: cards 1-3 (same as 3-card layout)
-     Row 2: cards 4-6 (same as 3-card layout)
-     ================================ */
-  .card:first-child:nth-last-child(6),
-  .card:first-child:nth-last-child(6) ~ .card {
-    grid-column: auto / span 2;
-  }
-
-  /* Row 1 */
-  .card:first-child:nth-last-child(6):nth-child(1) {
-    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
-  }
-
-  .card:first-child:nth-last-child(6) ~ .card:nth-child(2) {
-    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
-  }
-
-  .card:first-child:nth-last-child(6) ~ .card:nth-child(3) {
-    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
-  }
-
-  /* Row 2 */
-  .card:first-child:nth-last-child(6) ~ .card:nth-child(4) {
-    grid-column: var(--bc-card-1-column-span); /* 1 / 3 */
-  }
-
-  .card:first-child:nth-last-child(6) ~ .card:nth-child(5) {
-    grid-column: var(--bc-card-2-column-span); /* 3 / 5 */
-  }
-
-  .card:first-child:nth-last-child(6) ~ .card:nth-child(6) {
-    grid-column: var(--bc-card-3-column-span); /* 5 / 7 */
-  }
-
-  /* ================================
-     7+ CARDS: Fallback to continuous 3-column layout
-     All cards span 2 columns, wrapping naturally
-     ================================ */
-  .card:first-child:nth-last-child(n + 7),
-  .card:first-child:nth-last-child(n + 7) ~ .card {
-    grid-column: auto / span 2;
+  /* 2-card layouts use 2 columns instead of 3 */
+  .cardsGrid:has(> .card:first-child:nth-last-child(2)) {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -276,36 +139,35 @@
 
 /* Individual Card */
 .card {
-  background-color: var(--bc-color-card-bg);
-  border-radius: var(--bc-card-border-radius);
-  padding: var(--bc-card-padding-mobile);
-  box-shadow: var(--bc-card-shadow);
+  background-color: var(--section-bg-white);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: var(--bc-card-content-gap);
-  min-width: 0; /* Prevent grid blowout on narrow viewports */
-  transition: transform var(--bc-transition-duration) var(--bc-transition-easing),
-              box-shadow var(--bc-transition-duration) var(--bc-transition-easing);
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  transition: transform var(--animation-duration-fast) ease,
+              box-shadow var(--animation-duration-fast) ease;
 }
 
-/* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
 @media (min-width: 768px) {
   .card {
-    padding: var(--bc-card-padding-tablet);
+    padding: var(--spacing-3xl);
   }
 }
 
-/* Responsive: Desktop (breakpoint: var(--bc-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .card {
-    padding: var(--bc-card-padding-desktop);
+    padding: var(--card-padding-desktop);
   }
 }
 
 /* Card Hover State */
 .card:hover {
-  transform: var(--bc-transform-hover);
-  box-shadow: var(--bc-card-shadow-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ================================
@@ -314,27 +176,18 @@
 
 /* Icon Wrapper */
 .iconWrapper {
-  width: var(--bc-icon-size-mobile);
-  height: var(--bc-icon-size-mobile);
+  width: var(--icon-size-mobile);
+  height: var(--icon-size-mobile);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-/* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
-@media (min-width: 768px) {
-  .iconWrapper {
-    width: var(--bc-icon-size-tablet);
-    height: var(--bc-icon-size-tablet);
-  }
-}
-
-/* Responsive: Desktop (breakpoint: var(--bc-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .iconWrapper {
-    width: var(--bc-icon-size-desktop);
-    height: var(--bc-icon-size-desktop);
+    width: var(--icon-size-desktop);
+    height: var(--icon-size-desktop);
   }
 }
 
@@ -354,57 +207,55 @@
 .cardContent {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--spacing-sm);
+  text-align: center;
 }
 
 /* Card Title */
 .cardTitle {
   font-family: var(--font-family-primary);
-  font-size: var(--bc-card-title-font-size-mobile);
-  font-weight: var(--bc-card-title-font-weight);
-  line-height: var(--bc-card-title-line-height);
-  color: var(--bc-color-card-title);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
   margin: 0;
-  overflow-wrap: anywhere; /* Prevent long words from overflowing card on narrow viewports */
+  overflow-wrap: anywhere;
 }
 
-/* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
 @media (min-width: 768px) {
   .cardTitle {
-    font-size: var(--bc-card-title-font-size-tablet);
+    font-size: var(--font-size-xl);
   }
 }
 
-/* Responsive: Desktop (breakpoint: var(--bc-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .cardTitle {
-    font-size: var(--bc-card-title-font-size-desktop);
+    font-size: var(--font-size-xl);
   }
 }
 
-/* Card Description */
+/* Card Description - Prose-like body text */
 .cardDescription {
   font-family: var(--font-family-primary);
-  font-size: var(--bc-card-description-font-size-mobile);
-  font-weight: var(--bc-card-description-font-weight);
-  line-height: var(--bc-card-description-line-height);
-  color: var(--bc-color-card-description);
+  font-size: var(--font-size-body-mobile, 16px);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--prose-line-height, 1.7);
+  color: var(--color-text-primary);
   margin: 0;
-  white-space: pre-line; /* Preserve line breaks from \n characters */
-  overflow-wrap: anywhere; /* Prevent long words from overflowing card on narrow viewports */
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
-/* Responsive: Tablet (breakpoint: var(--bc-breakpoint-tablet)) */
 @media (min-width: 768px) {
   .cardDescription {
-    font-size: var(--bc-card-description-font-size-tablet);
+    font-size: var(--font-size-body-tablet, 17px);
   }
 }
 
-/* Responsive: Desktop (breakpoint: var(--bc-breakpoint-desktop)) */
 @media (min-width: 1024px) {
   .cardDescription {
-    font-size: var(--bc-card-description-font-size-desktop);
+    font-size: var(--font-size-body-desktop, 18px);
   }
 }
 
@@ -425,22 +276,22 @@
 
 /* Focus Styles */
 .card:focus-visible {
-  outline: var(--bc-outline-width) solid var(--theme-focus-ring);
-  outline-offset: var(--bc-outline-offset);
+  outline: var(--focus-ring-width) solid var(--text-primary-accessible);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* High Contrast Mode */
 @media (prefers-contrast: high) {
   .card {
-    border: var(--bc-border-width) solid var(--color-black);
+    border: var(--focus-ring-width) solid var(--color-slate-900);
   }
 
   .title,
   .cardTitle {
-    color: var(--color-black);
+    color: var(--color-slate-900);
   }
 
   .cardDescription {
-    color: var(--color-black);
+    color: var(--color-slate-900);
   }
 }

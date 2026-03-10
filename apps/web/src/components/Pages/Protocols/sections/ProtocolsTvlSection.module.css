@@ -1,0 +1,57 @@
+/**
+ * ProtocolsTvlSection Styles
+ *
+ * TVL statistics display with design tokens
+ */
+
+.container {
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  margin: 0 0 var(--spacing-2xl) 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.paragraph {
+  font-size: var(--font-size-xl);
+  color: var(--color-slate-700);
+  max-width: var(--dimension-700);
+  margin: 0 auto var(--spacing-sm);
+}
+
+.amount {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-teal-700);
+  font-size: var(--font-size-3xl);
+}
+
+.context {
+  color: var(--color-slate-600);
+  max-width: var(--dimension-600);
+  margin: var(--spacing-lg) auto 0;
+  font-size: var(--font-size-sm);
+}
+
+.source {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  max-width: var(--dimension-600);
+  margin: var(--spacing-sm) auto 0;
+}

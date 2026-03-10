@@ -13,7 +13,7 @@
  * File Decoupling: Each concern in its own component
  */
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useEffect, useCallback, useId, useMemo, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
@@ -65,6 +65,7 @@ export function ShareModal({
 }: ShareModalProps) {
   const intl = useTranslation();
   const { locale } = useLocale();
+  const titleId = useId();
   const modalRef = useRef<HTMLDivElement>(null);
   const [renderedCard, setRenderedCard] = useState<RenderedCard | null>(
     preRenderedCard || null
@@ -194,12 +195,12 @@ export function ShareModal({
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="share-modal-title"
+      aria-labelledby={titleId}
     >
       <div ref={modalRef} className={styles.modal}>
         {/* Header */}
         <div className={styles.header}>
-          <h2 id="share-modal-title" className={styles.title}>
+          <h2 id={titleId} className={styles.title}>
             {title || t('modal.title')}
           </h2>
           <button

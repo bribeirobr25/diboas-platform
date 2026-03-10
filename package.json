@@ -12,10 +12,8 @@
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
     "validate:design-tokens": "node scripts/validate-design-tokens.js",
-    "generate:design-tokens": "node scripts/validate-design-tokens.js && node scripts/generate-design-tokens.js",
+    "generate:design-tokens": "echo 'DISABLED: Generator destroys 2500+ lines of hand-maintained CSS. See CRIT-1 in docs/audit/code/full-codebase-audit-20260309.md' && exit 1",
     "dev:web": "turbo run dev --filter=web",
-    "dev:app": "turbo run dev --filter=app",
-    "dev:business": "turbo run dev --filter=business",
     "dev:clean": "lsof -ti:3000 | xargs kill 2>/dev/null; pnpm -w run dev:web",
     "dev:reset": "rm -rf apps/web/.next .turbo && pnpm -w run dev:web",
     "dev:fresh": "rm -rf apps/web/.next .turbo && pnpm --filter @diboas/i18n build && pnpm -w run dev:web",
@@ -27,14 +25,17 @@
     "check:dead-code": "knip",
     "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run validate:design-tokens && pnpm run validate:translations",
     "audit:full": "bash scripts/pre-launch-audit.sh",
-    "audit:ci": "bash scripts/pre-launch-audit.sh --ci"
+    "audit:ci": "bash scripts/pre-launch-audit.sh --ci",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@types/node": "^25.3.0",
+    "@types/node": "^25.4.0",
     "ajv": "^8.18.0",
-    "eslint": "^10.0.2",
-    "knip": "^5.85.0",
-    "turbo": "^2.8.10",
+    "eslint": "^10.0.3",
+    "knip": "^5.86.0",
+    "prettier": "^3.8.1",
+    "turbo": "^2.8.15",
     "typescript": "^5.9.3"
   },
   "engines": {
@@ -53,8 +54,5 @@
       "preact@<10.28.2": ">=10.28.2",
       "tailwindcss": "3.4.17"
     }
-  },
-  "dependencies": {
-    "@neondatabase/serverless": "^1.0.2"
   }
 }

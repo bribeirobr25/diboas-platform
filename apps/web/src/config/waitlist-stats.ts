@@ -21,10 +21,24 @@
  */
 export const WAITLIST_STATS_FALLBACK = {
   /** Total number of waitlist subscribers */
-  count: 847,
+  count: 0,
   /** Number of countries represented */
-  countries: 12,
-} as const;
+  countries: 0,
+  /** Founding member count */
+  foundingMemberCount: 0,
+  /** Founding member cap — B2C (overridable via NEXT_PUBLIC_FOUNDING_MEMBER_CAP env var) */
+  foundingMemberCap: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP || '1200', 10),
+  /** Founding member spots remaining — B2C */
+  foundingMemberSpotsRemaining: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP || '1200', 10),
+};
+
+export const WAITLIST_STATS_FALLBACK_B2B = {
+  count: 0,
+  countries: 0,
+  foundingMemberCount: 0,
+  foundingMemberCap: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP_B2B || '24', 10),
+  foundingMemberSpotsRemaining: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP_B2B || '24', 10),
+};
 
 /**
  * Get waitlist stats from environment or fallback
@@ -48,4 +62,7 @@ export interface WaitlistStats {
   countries: number;
   source: 'provider' | 'store' | 'env' | 'fallback';
   lastUpdated: string;
+  foundingMemberCount?: number;
+  foundingMemberCap?: number;
+  foundingMemberSpotsRemaining?: number;
 }

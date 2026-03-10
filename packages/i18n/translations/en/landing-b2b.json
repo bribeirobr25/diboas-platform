@@ -1,186 +1,414 @@
 {
   "hero": {
-    "headline": "The system isn't broken. It's just designed for Multi-Billion companies.",
-    "subheadline": "Your bank earns 7% with your cash. Card processors take 2.9%.\nYour runway bleeds. There's a better way.",
-    "cta": "How I found out →",
+    "headline": "The system isn't broken. It's designed to take a cut of everything you earn.",
+    "subheadline": "You're losing 2 to 3% on every card payment. And the cash in your bank? It's earning returns for everyone except you. That changes now.",
+    "cta": "See what you're losing",
     "trustBadges": {
-      "mica": {
-        "label": "EU-regulated (MiCA)",
-        "tooltip": "Operating under the EU's Markets in Crypto-Assets framework"
+      "wallet": {
+        "label": "Your funds, your wallet"
       },
-      "nonCustodial": {
-        "label": "Your funds, your wallet",
-        "tooltip": "We never hold your money \u2014 it stays in your own wallet"
+      "reporting": {
+        "label": "Board-ready reporting"
       },
       "audited": {
-        "label": "Independently audited",
-        "tooltip": "All systems verified by third-party security firms"
-      },
-      "boardReady": {
-        "label": "Board-ready reporting",
-        "tooltip": "Monthly statements your CFO will actually understand"
+        "label": "Built on audited protocols"
       }
     }
   },
-  "theMath": {
-    "header": "Where's the $65,000 going?",
-    "intro": "$2M raised. 18-month runway. $1M+ idle.\n\nYour bank earns: $70,000/year.\nGives you: $5,000/year.\nThe gap: $65,000 is their profit.\n\nThat's what your company is leaving on the table.",
-    "cta": "Calculate your numbers \u2192"
+  "twoWorlds": {
+    "header": "Two ways the system costs you.",
+    "cardA": {
+      "headline": "If you accept card payments",
+      "body": "Every time a customer pays with a card, you lose 2 to 3%.\n\nOn $1,000 a day in sales, that's $600 to $900 a month. Gone. Then the money takes 3 to 5 business days to reach your account. Your money, sitting in someone else's pocket, earning them interest.\n\nWhat if you kept all of it?",
+      "cta": "Calculate what you're losing"
+    },
+    "cardB": {
+      "headline": "If your company has cash sitting idle",
+      "body": "You raised money. You're spending it carefully. But the cash you're not using right now? Your bank puts it to work, earns returns, and pays you almost nothing.\n\nOn $500,000 idle, the gap between what your bank pays and what's possible could be tens of thousands a year.\n\nWhat if that money worked for you instead?",
+      "cta": "Calculate what your bank is keeping"
+    }
   },
-  "origin": {
-    "header": "Because of my grandmother",
-    "body": "She saved her whole life. Half of everything she earned. Did everything right.\n\nIt still wasn't enough.\nThe system wasn't built for people like her.\nJust like it wasn't built for companies like yours.\n\nBut founders? You have options. You just need to know they exist.\n\nThat's why I'm building diBoaS for Businesses.",
-    "signature": "\u2014 Bar, Founder"
+  "cashflowCalculator": {
+    "header": "With and Without diBoaS",
+    "todayTitle": "How is it Today? Without us?",
+    "tomorrowTitle": "How it should be? Only with diBoaS",
+    "fields": {
+      "dailyRevenue": "Your daily card sales",
+      "currentFee": "Your current processing fee"
+    },
+    "periodToggle": {
+      "month": "1 month",
+      "sixMonths": "6 months",
+      "year": "1 year"
+    },
+    "disclaimer": "These projections are illustrative. Actual returns may be higher or lower. Past performance does not guarantee future results.",
+    "results": {
+      "step1Label": "You Lose On Fees",
+      "step2Label": "You can make your savings earn",
+      "savingsLabel": "You save on fees",
+      "scenarios": {
+        "conservative": "Conservative (4%)",
+        "historical": "Historical average (7%)",
+        "optimistic": "Optimistic (10%)"
+      }
+    },
+    "sliderLabel": "Expected annual return (historical average: 7%)",
+    "belowResults": "",
+    "customRateTemplate": "At {rate}% annual return: {amount}",
+    "cta": "Talk to us",
+    "transitionHook": "Payment Fees Simulator. Idle cash Simulator"
   },
   "calculator": {
-    "header": "Run your numbers",
+    "header": "Today without us V.S. Tomorrow with diBoaS",
+    "todayTitle": "How is it Today? Without us?",
+    "tomorrowTitle": "How it should be? Only with diBoaS",
     "fields": {
       "cashOnHand": "Cash on hand",
-      "currentRate": "Current interest rate",
-      "bankEarns": "What your bank earns with it",
-      "bankPays": "What your bank pays you",
-      "diboasPays": "What diBoaS would pay you",
-      "difference": "The difference",
-      "projectedYield": "With diBoaS",
-      "currentInterest": "With your bank",
-      "additionalRunway": "The difference"
+      "currentRate": "Current interest rate"
     },
-    "defaults": {
-      "cashOnHand": "500000",
-      "currentRate": "0.5"
+    "periodToggle": {
+      "month": "1 month",
+      "sixMonths": "6 months",
+      "year": "1 year"
     },
-    "perYear": "/year",
-    "cta": "Get these returns →"
-  },
-  "howItWorks": {
-    "header": "How it works",
-    "subhead": "",
-    "steps": {
-      "link": {
-        "title": "Link your business account",
-        "description": "2-minute setup. No technical integration needed."
-      },
-      "control": {
-        "title": "You're in charge",
-        "description": "Define how much you want to invest. We only deploy what you want."
-      },
-      "earn": {
-        "title": "Watch it grow",
-        "description": "6-8% per year working 24/7 in trusted systems. Real growth. Now compounding."
-      },
-      "withdraw": {
-        "title": "Access anytime",
-        "description": "Need cash? One tap. Same-day settlement. No lock-ups. No penalties. No questions."
+    "disclaimer": "These projections are illustrative. Actual returns may be higher or lower. Past performance does not guarantee future results. Your capital is at risk.",
+    "results": {
+      "step1Label": "What your bank gives you",
+      "step2Label": "You can make your idle cash earn",
+      "savingsLabel": "What you keep with diBoaS",
+      "scenarios": {
+        "conservative": "Conservative",
+        "historical": "Historical average",
+        "optimistic": "Optimistic"
       }
     },
-    "footer": "Monthly statements. Board-ready reporting. Plain language, no jargon."
-  },
-  "features": {
-    "header": "diBoaS Business is much more!",
-    "intro": "",
-    "instantPayments": {
-      "headline": "Pay anyone anywhere",
-      "body": "In real time. Just 0.12% per transfer. Real exchange rate. No wire fees.",
-      "example": {
-        "before": "$500 wire to contractor = $475 received (after fees + spread)",
-        "after": "$500 sent = $500 received"
-      }
-    },
-    "receivePayments": {
-      "headline": "Get paid faster",
-      "body": "Any time. Any day. Anywhere. No 2.9% processor fees. No 3-5 day waits.",
-      "example": {
-        "before": "$10,000 invoice \u2192 $9,700 after Stripe fees \u2192 available in 3 days",
-        "after": "$10,000 invoice \u2192 $10,000 received \u2192 available immediately"
-      }
-    },
-    "cashflowOptimization": {
-      "headline": "Your cash works 24/7",
-      "body": "Idle cash earns 6-8% per year. Every hour. Every day. Weekends and holidays included.",
-      "example": {
-        "label": "$500K overnight for 30 days:",
-        "bank": "$0-20",
-        "diboas": "~$2,500"
-      }
-    },
-    "overnightSweep": {
-      "headline": "Automatic optimization",
-      "body": "End of day, cash moves to yield. Start of day, it's back and liquid. You set the floor.",
-      "schedule": {
-        "evening": "6 PM: Cash above threshold \u2192 earning systems",
-        "morning": "9 AM: Full liquidity restored",
-        "you": "You: Do nothing"
-      }
+    "sliderLabel": "Expected annual return (historical average: 7%)",
+    "belowResults": "",
+    "customRateTemplate": "At {rate}% annual return: {amount}",
+    "cta": "Talk to us",
+    "transitionHook": "Idle Cash Simulator",
+    "toggle": {
+      "paymentFees": "Payment Fee Simulator",
+      "idleCash": "Idle Cash Simulator"
     }
   },
+  "origin": {
+    "header": "Her name was Adelaide.",
+    "paragraphs": [
+      "My grandmother saved her whole life. Half of everything she earned. Did everything right.",
+      "It still wasn't enough.",
+      "The bank earned returns with her savings and gave her almost nothing back.",
+      "I've seen the same thing happen with businesses. Coffee shops losing $10,000 a year to card fees. Startups with half a million in the bank earning less than $200 a month in interest.",
+      "The system wasn't built for people like her. It wasn't built for businesses like yours either.",
+      "But now? Technology made it possible to cut out the middlemen. I just had to build the door.",
+      "I named it after her."
+    ],
+    "signature": "Bar, Founder",
+    "transitionHook": "Why build diBoaS"
+  },
+  "howItWorks": {
+    "header": "Four steps. Two minutes.",
+    "steps": {
+      "connect": {
+        "title": "Connect your business",
+        "description": "Link your business account. Two-minute setup. No technical integration needed. No developer. No downtime. You do it during your morning coffee."
+      },
+      "rules": {
+        "title": "You set the rules",
+        "description": "Tell us your floor. \"Always keep $50,000 available.\" Everything above that? Put it to work. You set the rules. You change them anytime."
+      },
+      "works": {
+        "title": "Your money works",
+        "description": "Your idle cash starts earning. Payments arrive in seconds, not days. Your processing fees drop from 3% to zero. And you didn't have to think about any of it."
+      },
+      "access": {
+        "title": "Access anytime",
+        "description": "Need cash? One tap. No lock-ups. No penalties. Processed instantly. Bank transfer times may vary."
+      }
+    },
+    "transitionHook": "That's the process. Here's what you actually get."
+  },
+  "features": {
+    "header": "What your business gets.",
+    "cards": {
+      "getPaid": {
+        "headline": "Get paid without the cut",
+        "body": "Your customers pay. You keep 100%. Instantly."
+      },
+      "payAnyone": {
+        "headline": "Pay anyone, anywhere, instantly",
+        "body": "Contractors, suppliers, freelancers. Worldwide. No fees. Real-time"
+      },
+      "adelaide": {
+        "headline": "Adelaide watches your money",
+        "body": "Market intelligence for business owners. No $500-an-hour advisor needed."
+      }
+    },
+    "transitionHook": "But here's the part nobody else is doing."
+  },
+  "cashflowInvesting": {
+    "header": "Cashflow investing.",
+    "subheader": "Two wins from one change.",
+    "saveIt": {
+      "title": "Save it.",
+      "body": "Every $100 in card sales costs you $2 to $3 in fees. With diBoaS, it costs $0. A coffee shop doing $1,000/day? That's $10,000+ a year back."
+    },
+    "growIt": {
+      "title": "Grow it.",
+      "body": "The savings are yours whether you invest or not. But if you choose to put them to work it changes from cost cut to a possible new revenue line."
+    },
+    "microExample": "Save $10,368 in fees. Invest it. End the year with $10,782 to $11,405. That's not a cost cut. That's a new revenue line.",
+    "limitation": "The savings are certain. The growth is not. That's the honest math.",
+    "brandPromise": "We show you both sides, the opportunities and the risks, always.",
+    "cta": "Run your numbers",
+    "microDisclosure": "Example based on $1,000/day in card sales at 3% processing fee, with savings invested at a range of 4% to 10% annual return. Projected returns are illustrative. Actual results may vary."
+  },
+  "fees": {
+    "header": "What it costs. All of it.",
+    "subtitle": "No hidden fees. No minimum balances. No monthly charges. Here's every fee, on the table.",
+    "headers": {
+      "action": "Action",
+      "diboas": "diBoaS",
+      "competitors": "Typical Providers",
+      "example": "Example"
+    },
+    "rows": {
+      "account": {
+        "action": "Business Account",
+        "diboas": "Free forever",
+        "competitors": "$10 to $50/month",
+        "example": "Your account: $0. Always."
+      },
+      "receive": {
+        "action": "Receive Payments",
+        "diboas": "FREE",
+        "competitors": "2 to 3% (card processors)",
+        "example": "Receive $1,000: costs $0. Competitors charge $20 to $30."
+      },
+      "send": {
+        "action": "Send / Pay",
+        "diboas": "FREE",
+        "competitors": "$1.50 to $50 (wires)",
+        "example": "Pay a contractor $500: $0"
+      },
+      "add": {
+        "action": "Add Money",
+        "diboas": "0.48% (min $0.25, max $25)",
+        "competitors": "0 to 1.5%",
+        "example": "Add $10,000: costs $48"
+      },
+      "invest": {
+        "action": "Invest / Grow",
+        "diboas": "FREE",
+        "competitors": "0.5 to 2% (advisors, platforms)",
+        "example": "Invest $10,000: $0. Free to start."
+      },
+      "sell": {
+        "action": "Sell / Close",
+        "diboas": "0.39% (min $0.25, max $25)",
+        "competitors": "0.5 to 2%",
+        "example": "Sell $10,000: costs $39"
+      },
+      "swap": {
+        "action": "Swap",
+        "diboas": "FREE",
+        "competitors": "0.5 to 2% spread",
+        "example": "Swap $10,000: $0"
+      },
+      "cashOut": {
+        "action": "Cash Out",
+        "diboas": "0.48% (min $0.25, max $25)",
+        "competitors": "1 to 3% plus delays",
+        "example": "Cash out $10,000: costs $48"
+      }
+    },
+    "disclaimer": "*diBoaS fee shown. Third-party network fees may apply (typically less than $0.01).",
+    "pricingNote": "Pricing comparisons based on publicly available rates as of February 2026. Ranges reflect common pricing across major providers. Actual competitor pricing varies by provider, volume, and agreement terms.",
+    "example": "Receive $1,000 in payments: you keep $1,000 in your diBoaS account. Cash out to your bank: $995.20 (after 0.48% cash-out fee). Still cheaper than the $970 to $980 a card processor leaves you.",
+    "expandableToggle": "No hidden fees. No minimum balances. No monthly charges. See all fees.",
+    "footerLine": "Every fee. On the table. Nothing else.",
+    "transitionHook": "Still reading? Good. Let's make sure this actually fits."
+  },
   "fitAssessment": {
-    "header": "Is this for you?",
-    "intro": "I'd rather lose you now than disappoint you later.",
+    "header": "Is this right for your business?",
     "goodFit": {
       "title": "Good Fit",
-      "description": "• Your company has cash sitting idle.\n• Comfortable with calculated risk\n• Don't agree with current system\n• Want zero processor fees"
+      "description": "Your business accepts card payments and you're tired of the 2 to 3% cut. Your company has cash sitting idle earning almost nothing.",
+      "items": [
+        "Tired of losing 2 to 3% on card payments.",
+        "Cash sitting idle earning almost nothing.",
+        "You want full control over your money.",
+        "Comfortable with a different risk for better returns."
+      ]
     },
     "notAFit": {
       "title": "Not a Fit",
-      "description": "• Need FDIC insurance above all else\n• Zero risk tolerance\n• Need all cash within days\n• Prefer traditional banks"
+      "description": "You need government deposit insurance above everything else. You have zero tolerance for any risk.",
+      "items": [
+        "You need government deposit insurance above all.",
+        "Zero tolerance for any risk.",
+        "Prefer traditional banks even if they cost more.",
+        "Need someone else to manage your money."
+      ]
     }
   },
+  "founder": {
+    "header": "Built by Bar.",
+    "paragraphs": {
+      "versionA": [
+        "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
+        "diBoaS is headquartered in Berlin, Germany, building for businesses in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
+      ],
+      "versionB": [
+        "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
+        "diBoaS is being established in Berlin, Germany, building for businesses in the US, EU, and Brazil first. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
+      ],
+      "versionC": [
+        "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
+        "We're building diBoaS from Berlin, Germany, for businesses in the US, EU, and Brazil. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
+      ]
+    },
+    "email": "Let's connect.",
+    "emailAddress": "bar@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "substack": "Substack"
+    }
+  },
+  "dualCta": {
+    "header": "Join the businesses that are done overpaying.",
+    "counter": "{count} businesses exploring diBoaS. {countries} countries.",
+    "pathA": {
+      "header": "Get early access.",
+      "description": "Drop your email. We'll let you know when your business can start saving.",
+      "emailPlaceholder": "Your business email",
+      "cta": "Get early access",
+      "noSpam": "No spam. Just your invite when we're ready.",
+      "privacyLabel": "I agree to the Privacy Policy"
+    },
+    "pathB": {
+      "header": "Let's look at your numbers.",
+      "description": "15 minutes. No commitment. No pitch deck. Just math.",
+      "cta": "Book a conversation",
+      "alternative": "Or email bar@diboas.com"
+    }
+  },
+  "socialProof": {
+    "header": "The first 24 businesses.",
+    "subtext": "We're starting small so we can take care of every business who joins.",
+    "stats": {
+      "waitlist": "{count} founding businesses",
+      "countries": "{countries} countries"
+    }
+  },
+  "waitlist": {
+    "header": "Join other businesses in this movement.",
+    "description": "Open access and fair opportunities. Let's talk.",
+    "spotsCounter": "{count} founding members spots remaining"
+  },
   "faq": {
-    "header": "Things worth knowing",
-    "description": "Straight talk on common questions about diBoaS possibilities.",
-    "ctaText": "Schedule a conversation",
+    "header": "Before you decide.",
     "items": {
       "catch": {
         "question": "What's the catch?",
-        "answer": "Here's how we make money: 0.75% when you withdraw or transfer out, and 0.12% when closing positions, selling assets, or business transfers (sending money).\n\nIf you withdraw $10,000, we keep $75. If you earn nothing and don't send money, we earn nothing. That's it. No hidden fees. No minimum balances. No catch."
+        "answer": "We charge small fees when money moves. Free when you receive payments. Free when you invest. 0.39% when you sell or close a position. 0.48% when you cash out.\n\nIf you receive $10,000 in payments, we keep $0. If you invest $10,000, we keep $0. If you sell $10,000, we keep $39. If you earn nothing and send nothing, we earn nothing.\n\nNo hidden fees. No minimum balances. No monthly charges. No catch."
+      },
+      "smbOrStartup": {
+        "question": "Is this for small businesses or startups?",
+        "answer": "Both. If you're a coffee shop losing 3% on every card payment, we help you keep that money. If you're a startup with $500,000 idle in the bank earning 0.5%, we help it earn more.\n\nThe tools are the same. The math just looks different."
+      },
+      "safety": {
+        "question": "Is my money safe?",
+        "answerA": "Your money is secured by you. Your wallet, your keys. No one at diBoaS can access your funds without your authorization.\n\nThat said, this isn't a bank account. Your funds work through new technology. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always.",
+        "answerB": "Your money is protected by multi-party security. Your authorization is required for every transaction. DiBoaS holds a partial key share for recovery purposes, but cannot unilaterally move your funds.\n\nThat said, this isn't a bank account. Your funds work through new technology. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
       },
       "liquidity": {
-        "question": "Is it really liquid?",
-        "answer": "Absolutely! No lock-ups. Your money is yours to decide. You set the floor. \"Always keep $50K liquid.\" We only deploy what's above that.\n\nMost treasury tools make you choose: yield OR liquidity. We give you both."
-      },
-      "risk": {
-        "question": "What's the actual risk?",
-        "answer": "Let's be honest about this.\n\nAutomated system risk: The systems your money goes into are built on code. Code can have vulnerabilities.\n\nHow we reduce this:\n- Only systems with $10B+ in total value secured\n- Multiple independent security audits\n- Years of track record through market events\n- Your money spread across multiple independent systems\n\nZero risk? No. Nothing is, including your bank.\n\nThe real question: Is 14x better returns worth a different risk profile? For some founders, yes. For others, no. Both are valid."
+        "question": "Can I access my money anytime?",
+        "answer": "Yes. No lock-ups. You set the floor: \"always keep $50,000 liquid.\" We only deploy what's above that.\n\nNeed cash? One tap. We process it instantly. Bank transfer times may vary. No penalties. No questions."
       },
       "payments": {
         "question": "How do instant payments work?",
-        "answer": "Traditional wire transfers go through correspondent banks. Your bank \u2192 their bank \u2192 maybe another bank \u2192 recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, payments go direct. Your wallet \u2192 their wallet. Done.\n\nResult: Your freelancer in Buenos Aires gets paid in their local currency, same day, at the real exchange rate, for just 0.12% in fees."
+        "answer": "Traditional wire transfers go through correspondent banks. Your bank, their bank, maybe another bank, then the recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, payments go direct. Your wallet to their wallet. Done.\n\nYour freelancer in Buenos Aires gets paid in seconds, at the real exchange rate, for free. Not $25 to $50 and 3 business days."
       },
       "compliance": {
-        "question": "What about compliance?",
-        "answer": "We built diBoaS for real businesses with real compliance needs:\n- Monthly statements formatted for your accounting software\n- Transaction history with full audit trail\n- Tax documentation at year-end\n- Board-ready reports your CFO will actually understand\n\nWe know you're going to get audited eventually. We make sure you're ready."
+        "question": "What about compliance and tax reporting?",
+        "answer": "We built diBoaS for real businesses with real compliance needs.\n\nMonthly statements formatted for your accounting software. Transaction history with full audit trail. Tax documentation at year end. Board-ready reports your CFO will actually understand.\n\nWe know you're going to get audited eventually. We make sure you're ready."
       },
       "whereMoneyGoes": {
         "question": "Where does my money actually go?",
-        "answer": "Your money is placed into trusted yield-generating systems. These are:\n- Established: Operating for 3+ years\n- Battle-tested: Survived multiple market crashes\n- Transparent: You can see exactly where your funds are at any time\n- Independently audited: Security verified by third parties\n\nOnce you're a customer, you'll see the full details of each system: names, track records, and why we chose them. We're happy to be transparent with customers. We just don't publish our exact strategy for competitors."
+        "answer": "Your money is placed into established financial systems that have operated for 3+ years, survived multiple market crashes, and are independently audited for security.\n\nFull details, including names, track records, and our selection criteria, are published on our Strategies page. No signup required.\n\nWe chose these systems because they're transparent, battle-tested, and you can see exactly where your funds are at any time."
       },
       "whyCantTouch": {
-        "question": "Why can't you touch my money?",
-        "answer": "This is actually the whole point of how we're built.\n\nTraditional finance: You deposit money \u2192 it becomes the bank's money \u2192 they owe you a balance.\n\ndiBoaS: Your money stays in your own wallet. We provide the software that helps you deploy it to earning systems. But we never have access to move it ourselves.\n\nWhy this matters:\n- If diBoaS goes bankrupt, your money is still yours\n- No one at diBoaS can steal your funds\n- Every transaction requires your approval\n\nIt's a fundamentally different model. More control for you, less risk from us."
+        "question": "Why can't diBoaS touch my money?",
+        "answerA": "This is the whole point of how we're built.\n\nTraditional finance: you deposit money, it becomes the bank's money, and they owe you a balance.\n\ndiBoaS: your money stays in your own wallet. We provide the software that helps you deploy it to earning systems. But we never have access to move it ourselves.\n\nIf diBoaS goes bankrupt, your money is still yours. No one at diBoaS can move your funds. Every transaction requires your approval.\n\nMore control for you. Less risk from us.",
+        "answerB": "This is a core part of how we're built.\n\nTraditional finance: you deposit money, it becomes the bank's money, and they owe you a balance.\n\ndiBoaS: your money is protected by multi-party security. We hold a partial key share for account recovery purposes, but every transaction requires your explicit approval. We cannot unilaterally move your funds.\n\nIf diBoaS experiences issues, your funds remain protected by the multi-party security system. Every transaction requires your authorization.\n\nMore protection for you. Less risk from us."
+      },
+      "risk": {
+        "question": "What's the actual risk?",
+        "answer": "Let's be honest.\n\nThe systems your money goes into are built on code. Code can have vulnerabilities. We reduce this by only using systems with significant total value secured, multiple independent security audits, years of track record through market events, and by spreading your money across multiple independent systems.\n\nZero risk? No. Nothing is, including your bank.\n\nThe real question: are better returns worth a different risk profile? For some businesses, yes. For others, no. Both are valid."
+      },
+      "audited": {
+        "question": "Has diBoaS been audited?",
+        "answer": "We're a pre-launch platform. Our strategies are stress-tested against historical crashes and real-world scenarios, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits.\n\nFor full details on the systems and technology behind each strategy, visit our Strategies and Protocols pages."
       }
     }
   },
-  "finalCta": {
-    "header": "15 minutes. No commitment.",
-    "body": "It's about You. Your Company. Your Numbers.\nFit or not, you'll know exactly what's on the table.",
-    "cta": "Let's talk →",
-    "alternative": "Or email: bar@diboas.com",
-    "footer": "No pitch deck. No sales pressure. Just math."
-  },
   "footer": {
-    "riskDisclaimer": "diBoaS connects you to decentralized finance systems. Growth isn't promised. Past results don't predict future ones. Involves risks like code issues, market shifts, and access challenges. Use only what you can risk. Not a bank. No deposit insurance.",
-    "usDisclaimer": "US Disclosure: diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
-    "regulatoryNote": "diBoaS operates under the EU MiCA framework. CASP authorization pending.",
-    "links": {
+    "copyright": "\u00a9 2026 diBoaS. All rights reserved.",
+    "riskDisclaimer": "diBoaS connects you to decentralized finance systems. Returns are not guaranteed. Past performance does not predict future results. Involves risks including code vulnerabilities, market fluctuations, and access challenges. Only use funds you can afford to risk. diBoaS is not a bank. No deposit insurance applies.",
+    "micaArticle68": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
+    "micaArticle7": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this crypto-asset marketing communication.",
+    "aiDisclosure": "Certain content on this platform, including market analysis and educational materials, is generated or assisted by artificial intelligence. AI-generated content may contain errors or limitations. Users should verify information independently before making financial decisions.",
+    "usDisclosure": "US Disclosure: diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
+    "cvmWarning": "",
+    "fictionalResults": "Examples on this page are illustrative and do not represent real businesses or actual results. Calculator projections are based on hypothetical scenarios and historical averages. Actual results will vary.",
+    "nav": {
+      "forYou": "For You",
+      "forBusiness": "For Business",
+      "adelaideDaily": "Adelaide Daily",
+      "about": "About",
+      "help": "Help",
+      "strategies": "Strategies",
+      "protocols": "Protocols",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
-      "risk": "Risk Disclosure"
+      "cookies": "Cookie Policy"
+    },
+    "tagline": "The financial tool Adelaide deserved."
+  },
+  "waitlistSuccess": {
+    "confirmation": {
+      "headline": "Welcome aboard.",
+      "positionIntro": "Your business is:",
+      "shareIntro": "Tell other businesses",
+      "shareBenefit": "Share to help other businesses get early access",
+      "shareExplanation": "The sooner we launch, the sooner this becomes real.",
+      "referralLinkLabel": "Your business referral link:",
+      "copy": "Copy link",
+      "copied": "Copied!",
+      "dreamModeCta": "Test the Dream Mode →"
+    },
+    "tier": {
+      "badge": {
+        "foundingMember": "You're a Founding Business!",
+        "earlyMember": "You're an Early Business!"
+      },
+      "explanation": {
+        "foundingMember": "You're among the first 24 businesses. Share your link — you have 5 invites to give other businesses Founding status.",
+        "earlyMember": "Invited by a Founding Business. Share your link to help other businesses get early access.",
+        "priorityWaitlist": "You're on the priority waitlist. Share your link to move up and help other businesses join."
+      }
+    },
+    "returningUser": {
+      "referralCount": "You've referred {count} businesses"
     }
   },
   "seo": {
-    "title": "diBoaS for Business | Stop Leaving $65,000 on the Table",
-    "description": "Your bank invests your treasury, earns millions, and gives you nothing. diBoaS: 6-8% returns, instant global payments, low fees. Let's look at your numbers.",
-    "ogTitle": "The system isn't broken. It's working exactly as designed. Just not for your business.",
-    "ogDescription": "It started with my grandmother. She saved her whole life but her bank paid 0.5% while earning 7%. The same thing is happening to your company treasury. That's why I'm building diBoaS."
+    "title": "diBoaS for Business | Stop Overpaying on Fees and Idle Cash",
+    "description": "Your card processor takes 2 to 3%. Your bank pays you almost nothing. diBoaS: free payments, instant transfers, and your idle cash working for you.",
+    "ogTitle": "The system isn't broken. It's designed to take a cut of everything you earn.",
+    "ogDescription": "Two tools. One platform. Keep more of your card revenue and make your idle cash earn. diBoaS for Business.",
+    "keywords": "treasury management, startup finance, returns, operating cash, business payments, B2B fintech"
   }
 }

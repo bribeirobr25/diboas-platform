@@ -28,6 +28,8 @@ function validateProductionSecrets(): void {
     'ENCRYPTION_KEY',
     'DATABASE_URL',
     'INTERNAL_API_KEY',
+    'RESEND_API_KEY',
+    'HMAC_KEY',
   ] as const;
 
   const missing = required.filter((key) => !process.env[key]);
@@ -48,7 +50,7 @@ validateProductionSecrets();
 /**
  * Base application URL
  */
-export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com';
+export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com';
 
 /**
  * Base domain (without protocol)
@@ -204,20 +206,6 @@ export const RATE_LIMIT_CONFIG = {
 // =============================================================================
 
 /**
- * Cal.com configuration
- */
-export const CAL_CONFIG = {
-  /** Cal.com embed script URL */
-  embedScript: process.env.NEXT_PUBLIC_CAL_EMBED_SCRIPT || 'https://app.cal.com/embed/embed.js',
-  /** Cal.com origin for initialization */
-  origin: process.env.NEXT_PUBLIC_CAL_ORIGIN || 'https://app.cal.com',
-  /** Default calendar link */
-  defaultLink: process.env.NEXT_PUBLIC_CAL_LINK || '',
-  /** B2B treasury conversation link */
-  treasuryLink: process.env.NEXT_PUBLIC_CAL_TREASURY_LINK || 'diboas/treasury-conversation',
-} as const;
-
-/**
  * Email service configuration (Resend)
  */
 export const EMAIL_CONFIG = {
@@ -278,7 +266,6 @@ export const ENV = {
   RATE_LIMIT_CONFIG,
 
   // External Services
-  CAL_CONFIG,
   EMAIL_CONFIG,
   DATABASE_CONFIG,
   POSTHOG_CONFIG,

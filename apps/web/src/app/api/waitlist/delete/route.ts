@@ -26,8 +26,10 @@ import {
 } from '@/lib/security';
 import { getByEmail, deleteByEmail } from '@/lib/waitingList/store';
 import { sql } from '@/lib/database/client';
+import { encrypt, decrypt, hmacHash } from '@/lib/security/encryption';
 import { isValidEmail } from '@/lib/waitingList/helpers';
 import { Logger } from '@/lib/monitoring/Logger';
+import { logEmailDelivery } from '@/lib/email/deliveryLogger';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -37,14 +39,19 @@ const TOKEN_TTL_MS = 15 * 60 * 1000; // 15 minutes
 
 /**
  * Store a deletion token in the database.
+ * Email is encrypted (AES-256-GCM) with an HMAC blind index.
  */
 async function storeDeletionToken(tokenHash: string, email: string): Promise<void> {
   const expiresAt = new Date(Date.now() + TOKEN_TTL_MS).toISOString();
+  const emailEnc = encrypt(email) || email;
+  const emailHmac = hmacHash(email.toLowerCase().trim()) || '';
+
   await sql`
-    INSERT INTO deletion_tokens (token_hash, email, expires_at)
-    VALUES (${tokenHash}, ${email}, ${expiresAt})
+    INSERT INTO deletion_tokens (token_hash, email, email_hash, expires_at)
+    VALUES (${tokenHash}, ${emailEnc}, ${emailHmac}, ${expiresAt})
     ON CONFLICT (token_hash) DO UPDATE SET
-      email = ${email},
+      email = ${emailEnc},
+      email_hash = ${emailHmac},
       expires_at = ${expiresAt}
   `;
 }
@@ -67,7 +74,9 @@ async function findDeletionToken(token: string): Promise<{ email: string } | nul
   for (const row of rows) {
     const r = row as { token_hash: string; email: string };
     if (verifyToken(token, r.token_hash)) {
-      return { email: r.email };
+      // Decrypt email (falls back to plaintext for pre-migration rows)
+      const decryptedEmail = decrypt(r.email) || r.email;
+      return { email: decryptedEmail };
     }
   }
 
@@ -170,7 +179,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       });
 
       // Send deletion confirmation email (non-blocking)
-      sendDeletionEmail(normalizedEmail, token, entry.locale);
+      const confirmationUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com'}/${entry.locale || 'en'}/delete-confirm?token=${token}`;
+      sendDeletionEmail(normalizedEmail, entry.locale, confirmationUrl, entry.name);
 
       return NextResponse.json(
         {
@@ -221,21 +231,72 @@ export async function POST(request: Request): Promise<NextResponse> {
 /**
  * Send deletion confirmation email (fire-and-forget).
  */
-function sendDeletionEmail(email: string, _token: string, locale: string): void {
+function sendDeletionEmail(email: string, locale: string, confirmationUrl: string, name?: string): void {
   Promise.all([
     import('@diboas/email'),
   ]).then(async ([{ createEmailService, sendViaResend }]) => {
     try {
       const emailService = createEmailService({ send: sendViaResend });
-      const result = await emailService.sendDeletionConfirmation(email, { locale });
+      const result = await emailService.sendDeletionConfirmation(email, {
+        locale,
+        confirmationUrl,
+        expiresInMinutes: 15,
+        name,
+      });
 
       if (result.success) {
         Logger.info('[Email] Deletion confirmation email sent');
       } else {
         Logger.error('[Email] Deletion confirmation email failed', { error: result.error });
       }
+
+      // Log delivery to email_delivery_logs (fire-and-forget)
+      logEmailDelivery({
+        recipientEmail: email,
+        template: 'deletion-confirmation',
+        subject: 'Confirm deletion request',
+        locale,
+        providerId: result.messageId,
+        status: result.success ? 'sent' : 'failed',
+        errorMessage: result.error,
+      });
     } catch (err) {
       Logger.error('[Email] Deletion email error', {}, err instanceof Error ? err : undefined);
+    }
+  }).catch((err) => {
+    Logger.error('[Email] Failed to load email service', {}, err instanceof Error ? err : undefined);
+  });
+}
+
+/**
+ * Send deletion complete email (fire-and-forget).
+ */
+function sendDeletionCompleteEmail(email: string, locale: string, name?: string): void {
+  Promise.all([
+    import('@diboas/email'),
+  ]).then(async ([{ createEmailService, sendViaResend }]) => {
+    try {
+      const emailService = createEmailService({ send: sendViaResend });
+      const result = await emailService.sendDeletionComplete(email, { locale, name });
+
+      if (result.success) {
+        Logger.info('[Email] Deletion complete email sent');
+      } else {
+        Logger.error('[Email] Deletion complete email failed', { error: result.error });
+      }
+
+      // Log delivery to email_delivery_logs (fire-and-forget)
+      logEmailDelivery({
+        recipientEmail: email,
+        template: 'deletion-complete',
+        subject: 'Data deleted',
+        locale,
+        providerId: result.messageId,
+        status: result.success ? 'sent' : 'failed',
+        errorMessage: result.error,
+      });
+    } catch (err) {
+      Logger.error('[Email] Deletion complete email error', {}, err instanceof Error ? err : undefined);
     }
   }).catch((err) => {
     Logger.error('[Email] Failed to load email service', {}, err instanceof Error ? err : undefined);
@@ -298,6 +359,12 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       );
     }
 
+    // Capture entry data BEFORE deleting (needed for completion email)
+    const entryBeforeDeletion = await getByEmail(found.email);
+    const capturedLocale = entryBeforeDeletion?.locale || 'en';
+    const capturedName = entryBeforeDeletion?.name;
+    const capturedEmail = found.email;
+
     // Execute deletion
     const deleted = await deleteByEmail(found.email);
 
@@ -316,6 +383,9 @@ export async function DELETE(request: Request): Promise<NextResponse> {
           method: 'token_confirmation',
         },
       });
+
+      // Send deletion complete confirmation email (non-blocking)
+      sendDeletionCompleteEmail(capturedEmail, capturedLocale, capturedName);
 
       return NextResponse.json(
         {

@@ -46,7 +46,7 @@
   flex-direction: column;
   align-items: center;
   max-width: var(--dimension-400);
-  padding: var(--spacing-5xl) var(--spacing-3xl);
+  padding: var(--spacing-3xl) var(--spacing-2xl);
   background: var(--glass-bg-dark);
   border: 1px solid var(--glass-border-light);
   border-radius: var(--radius-2xl);
@@ -68,7 +68,7 @@
 
 .gateTitle {
   margin: 0 0 var(--spacing-lg);
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-white);
   line-height: var(--line-height-tight);
@@ -76,7 +76,7 @@
 
 .gateDescription {
   margin: 0 0 var(--spacing-3xl);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   color: var(--text-dark-secondary);
   line-height: var(--line-height-relaxed);
 }
@@ -106,22 +106,23 @@
   background: var(--gradient-dark-section);
 }
 
-.dreamMode {
-  width: var(--percent-100);
-  max-width: var(--percent-100);
+@media (prefers-reduced-motion: reduce) {
+  .loadingSpinner {
+    animation: none;
+  }
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+/* Responsive — mobile-first: scale up at 481px+ */
+@media (min-width: 481px) {
   .gateCard {
-    padding: var(--spacing-3xl) var(--spacing-2xl);
+    padding: var(--spacing-5xl) var(--spacing-3xl);
   }
 
   .gateTitle {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
   }
 
   .gateDescription {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
   }
 }

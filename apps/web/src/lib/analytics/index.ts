@@ -16,10 +16,9 @@ export type {
 } from './types';
 
 // Constant exports - only export what's needed
-export { 
+export {
   ANALYTICS_DEFAULTS,
-  ANALYTICS_CONSTANTS,
-  PERFORMANCE_THRESHOLDS 
+  ANALYTICS_CONSTANTS
 } from './constants';
 
 // Service exports

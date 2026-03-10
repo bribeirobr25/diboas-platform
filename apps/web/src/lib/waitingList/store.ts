@@ -115,19 +115,39 @@ async function nextPosition(): Promise<number> {
   return (rows[0] as { value: number }).value;
 }
 
+/** Counter key suffixes per source audience */
+const COUNTER_KEYS = {
+  b2c: { count: 'founding_member_count', cap: 'founding_member_cap' },
+  b2b: { count: 'founding_member_count_b2b', cap: 'founding_member_cap_b2b' },
+} as const;
+
+type Audience = keyof typeof COUNTER_KEYS;
+
+/** Map a WaitlistSource to the audience for counter selection */
+function sourceToAudience(source: WaitlistSource | undefined): Audience {
+  return source === 'landing_b2b' ? 'b2b' : 'b2c';
+}
+
 /**
- * Read the founding_member_count and founding_member_cap atomically.
+ * Read the founding_member_count and founding_member_cap for a given audience.
  */
-async function getFoundingMemberStatus(): Promise<{ count: number; cap: number }> {
+async function getFoundingMemberStatus(
+  audience: Audience = 'b2c'
+): Promise<{ count: number; cap: number }> {
+  const keys = COUNTER_KEYS[audience];
+  const defaultCap = audience === 'b2b'
+    ? parseInt(process.env.FOUNDING_MEMBER_CAP_B2B || '24', 10)
+    : parseInt(process.env.FOUNDING_MEMBER_CAP || '1200', 10);
+
   const rows = await sql`
     SELECT key, value FROM waitlist_counters
-    WHERE key IN ('founding_member_count', 'founding_member_cap')
+    WHERE key IN (${keys.count}, ${keys.cap})
   `;
   let count = 0;
-  let cap = 1200;
+  let cap = defaultCap;
   for (const row of rows as unknown as { key: string; value: number }[]) {
-    if (row.key === 'founding_member_count') count = row.value;
-    if (row.key === 'founding_member_cap') cap = row.value;
+    if (row.key === keys.count) count = row.value;
+    if (row.key === keys.cap) cap = row.value;
   }
   return { count, cap };
 }
@@ -136,12 +156,13 @@ async function getFoundingMemberStatus(): Promise<{ count: number; cap: number }
  * Atomically increment founding_member_count and return new value.
  * Returns the new count, or null if the counter was already at/above cap.
  */
-async function tryClaimFoundingSlot(): Promise<number | null> {
+async function tryClaimFoundingSlot(audience: Audience = 'b2c'): Promise<number | null> {
+  const keys = COUNTER_KEYS[audience];
   const rows = await sql`
     UPDATE waitlist_counters
     SET value = value + 1
-    WHERE key = 'founding_member_count'
-      AND value < (SELECT value FROM waitlist_counters WHERE key = 'founding_member_cap')
+    WHERE key = ${keys.count}
+      AND value < (SELECT value FROM waitlist_counters WHERE key = ${keys.cap})
     RETURNING value
   `;
   return rows.length > 0 ? (rows[0] as { value: number }).value : null;
@@ -160,7 +181,12 @@ async function tryClaimFoundingSlot(): Promise<number | null> {
  * | Valid referral + referrer has ≥ 5 invites                       | priority_waitlist |
  * | Valid referral + referrer is standard/priority_waitlist          | standard          |
  */
-async function determineTier(referrer: WaitlistEntry | undefined): Promise<WaitlistTier> {
+async function determineTier(
+  referrer: WaitlistEntry | undefined,
+  source: WaitlistSource | undefined,
+): Promise<WaitlistTier> {
+  const audience = sourceToAudience(source);
+
   // Referrer exists — check their tier and invite count
   if (referrer) {
     const referrerCanInvite =
@@ -176,13 +202,13 @@ async function determineTier(referrer: WaitlistEntry | undefined): Promise<Waitl
       return 'priority_waitlist';
     }
 
-    // Referrer can invite — try to claim a founding slot
-    const claimed = await tryClaimFoundingSlot();
+    // Referrer can invite — try to claim a founding slot for the right audience
+    const claimed = await tryClaimFoundingSlot(audience);
     return claimed !== null ? 'founding_member' : 'early_member';
   }
 
   // No referrer — direct signup
-  const claimed = await tryClaimFoundingSlot();
+  const claimed = await tryClaimFoundingSlot(audience);
   return claimed !== null ? 'founding_member' : 'priority_waitlist';
 }
 
@@ -264,8 +290,8 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
     referrer = await getByReferralCode(input.referredBy);
   }
 
-  // Determine tier based on referrer context and cap
-  const tier = await determineTier(referrer);
+  // Determine tier based on referrer context, cap, and source audience
+  const tier = await determineTier(referrer, input.source);
 
   const [id, position] = await Promise.all([nextEntryId(), nextPosition()]);
   const now = new Date().toISOString();
@@ -366,8 +392,10 @@ export async function processReferral(
   return rowToEntry(rows[0] as unknown as WaitlistEntryRow);
 }
 
-export async function getFoundingMemberCount(): Promise<{ count: number; cap: number }> {
-  return getFoundingMemberStatus();
+export async function getFoundingMemberCount(
+  source?: WaitlistSource
+): Promise<{ count: number; cap: number }> {
+  return getFoundingMemberStatus(sourceToAudience(source));
 }
 
 export async function getCurrentPositionCounter(): Promise<number> {
@@ -377,8 +405,21 @@ export async function getCurrentPositionCounter(): Promise<number> {
   return rows.length > 0 ? (rows[0] as { value: number }).value : 0;
 }
 
-export async function getTotalCount(): Promise<number> {
+export async function getTotalCount(source?: WaitlistSource): Promise<number> {
+  if (source) {
+    const rows = await sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries WHERE source = ${source}`;
+    return (rows[0] as { count: number }).count;
+  }
   const rows = await sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries`;
+  return (rows[0] as { count: number }).count;
+}
+
+export async function getDistinctCountryCount(source?: WaitlistSource): Promise<number> {
+  if (source) {
+    const rows = await sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL AND source = ${source}`;
+    return (rows[0] as { count: number }).count;
+  }
+  const rows = await sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL`;
   return (rows[0] as { count: number }).count;
 }
 
@@ -423,4 +464,5 @@ export async function clearStore(): Promise<void> {
   await sql`UPDATE waitlist_counters SET value = 0 WHERE key = 'position'`;
   await sql`UPDATE waitlist_counters SET value = 0 WHERE key = 'entry_id'`;
   await sql`UPDATE waitlist_counters SET value = 0 WHERE key = 'founding_member_count'`;
+  await sql`UPDATE waitlist_counters SET value = 0 WHERE key = 'founding_member_count_b2b'`;
 }

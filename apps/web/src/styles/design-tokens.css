@@ -1,12 +1,11 @@
 /**
  * Design System CSS Variables
- * 
- * Auto-generated from design-tokens.json
- * Do not edit manually - changes will be overwritten
- * 
- * Version: 1.0.0
- * Generated at: 2025-09-26T15:10:05.651Z
- * Last updated: 2025-09-26T14:55:00.000Z
+ *
+ * Source of Truth — manually maintained
+ * This CSS file is the canonical source for design tokens.
+ *
+ * Version: 1.1.0
+ * Last updated: 2026-03-10
  */
 
 :root {
@@ -14,8 +13,9 @@
      TYPOGRAPHY DESIGN SYSTEM
      ================================ */
   
-  /* Font Family - Single source of truth */
+  /* Font Families - Single source of truth */
   --font-family-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  --font-family-display: var(--font-geist), 'Inter', system-ui, sans-serif;
   
   /* Font Weights */
   --font-weight-normal: 400;
@@ -1357,11 +1357,11 @@
   /* Common Spacing Values */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
-  --spacing-md: 12px;
+  --spacing-md: 16px;
   
   /* Negative Spacing Values */
   --spacing-xs-negative: -4px;
-  --spacing-md-negative: -12px;
+  --spacing-md-negative: -16px;
   --spacing-xl-negative: -20px;
   --spacing-lg: 16px;
   --spacing-xl: 20px;
@@ -1373,6 +1373,9 @@
   --spacing-6xl: 64px;
   --spacing-7xl: 80px;
   --spacing-8xl: 96px;
+
+  /* Semantic Spacing Tokens */
+  --card-padding-desktop: 64px;
 
   /* Common Percentage Values */
   --percent-10: 10%;
@@ -1675,27 +1678,6 @@
   --dimension-450: 450px;
   --dimension-480: 480px;
   --dimension-500: 500px;
-
-  /* Common Percentages */
-  --percent-50: 50%;
-  --percent-100: 100%;
-  
-  /* Common Opacities */
-  --opacity-30: 0.3;
-  
-  /* Common Spacing */
-  --spacing-xs: 4px;
-  --spacing-md: 16px;
-  --spacing-4xl: 64px;
-  
-  /* Common Radius */
-  --radius-3xl: 24px;
-  
-  /* Common Shadows */
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
-  /* Common Transforms */
-  --transform-scale-102: scale(1.02);
 
   /* ================================
      FAQ ACCORDION DESIGN TOKENS
@@ -2537,14 +2519,14 @@
 
 /* Base Typography Classes */
 .typography-title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
   font-size: var(--font-size-title-mobile);
 }
 
 .typography-subtitle {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-weight: var(--font-weight-normal); /* Changed from bold to normal (400) */
   line-height: var(--line-height-subtitle);
   font-size: var(--font-size-subtitle-mobile);

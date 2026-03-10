@@ -14,6 +14,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Image from 'next/image';
+import { ASSET_PATHS } from '@/config/assets';
 import { useLocale } from '@/components/Providers';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { useWaitlistModalForm } from './hooks/useWaitlistModalForm';
@@ -91,7 +92,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
         <div className={styles.imageSection}>
           <div className={styles.imageWrapper}>
             <Image
-              src="/assets/images/phone-banner.avif"
+              src={ASSET_PATHS.IMAGES.PHONE_BANNER}
               alt={t('imageAlt')}
               fill
               priority

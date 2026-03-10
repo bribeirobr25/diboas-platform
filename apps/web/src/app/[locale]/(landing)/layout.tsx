@@ -3,9 +3,10 @@ import { isValidLocale, loadMessages, flattenMessages, type SupportedLocale } fr
 import { LocaleProvider, I18nProvider, SetHtmlLang } from '@/components/Providers';
 import { MinimalNavigation } from '@/components/Layout/Navigation';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
-import { WaitingListProvider } from '@/components/WaitingList';
+import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
+import { UtmCapture } from '@/components/Layout/UtmCapture';
 
 interface LandingLayoutProps {
   children: React.ReactNode;
@@ -39,9 +40,15 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
     notFound();
   }
 
-  // Load common namespace for navigation
-  const commonMessages = await loadMessages(locale, 'common');
-  const allMessages = flattenMessages(commonMessages, 'common');
+  // Load common namespace for navigation + waitlist for deletion confirm page
+  const [commonMessages, waitlistMessages] = await Promise.all([
+    loadMessages(locale, 'common'),
+    loadMessages(locale, 'waitlist'),
+  ]);
+  const allMessages = {
+    ...flattenMessages(commonMessages, 'common'),
+    ...flattenMessages(waitlistMessages, 'waitlist'),
+  };
 
   return (
     <LocaleProvider initialLocale={locale}>
@@ -49,6 +56,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
         <SetHtmlLang locale={locale} />
         <PageErrorBoundary>
           <WaitingListProvider>
+            <ReferralCapture />
             <div className="min-h-screen flex flex-col">
               {/* Skip Navigation Link for Accessibility */}
               <a href="#main-content" className="skip-link">
@@ -60,6 +68,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
               </main>
               <CookieConsent />
               <ScrollDepthTracker />
+              <UtmCapture />
             </div>
           </WaitingListProvider>
         </PageErrorBoundary>

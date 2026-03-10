@@ -22,6 +22,7 @@ import {
   RateLimitPresets,
   requireAuth,
   csrfProtection,
+  hmacHash,
 } from '@/lib/security';
 import { sanitizeEmail } from '@/lib/utils/sanitize';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
@@ -92,13 +93,21 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
     await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
 
     if (!userData) {
-      // Return same structure with null values to prevent enumeration
+      // Return deterministic dummy non-null values to prevent email enumeration
+      // HMAC-derived values are stable per email, indistinguishable from real users
+      const hash = hmacHash(sanitizedEmail);
+      // Fallback to a simple hash if HMAC key is unavailable
+      const hashHex = hash || sanitizedEmail.split('').reduce((acc, c) => acc + c.charCodeAt(0).toString(16), '').slice(0, 16);
+      const hashInt = parseInt(hashHex.slice(0, 8), 16);
+      const dummyPosition = (hashInt % 500) + 100;
+      const dummyCode = `${REFERRAL_CONFIG.codePrefix}${hashHex.slice(0, 6).toUpperCase()}`;
+
       return NextResponse.json({
         success: true,
-        position: null,
-        referralCode: null,
-        referralUrl: null,
-        referralCount: null,
+        position: dummyPosition,
+        referralCode: dummyCode,
+        referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, dummyCode),
+        referralCount: 0,
       });
     }
 

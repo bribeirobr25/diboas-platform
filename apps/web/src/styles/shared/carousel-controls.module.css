@@ -26,7 +26,7 @@
 }
 
 /* Responsive: Desktop - Increased top margin */
-@media (min-width: var(--breakpoint-desktop)) {
+@media (min-width: 1024px) {
   .controls {
     margin-top: var(--pc-heading-margin-desktop);
   }

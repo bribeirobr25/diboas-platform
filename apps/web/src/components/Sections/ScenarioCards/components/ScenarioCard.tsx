@@ -11,6 +11,7 @@ interface ScenarioCardProps {
     description: string;
     backgroundImage: string;
     imageAlt: string;
+    costComparison?: string;
   };
 }
 
@@ -41,6 +42,9 @@ export function ScenarioCard({ card }: ScenarioCardProps) {
       <div className={styles.cardContent}>
         <h3 className={styles.cardTitle}>&ldquo;{card.title}&rdquo;</h3>
         <p className={styles.cardDescription}>{card.description}</p>
+        {card.costComparison ? (
+          <p className={styles.costComparison}>{card.costComparison}</p>
+        ) : null}
       </div>
     </article>
   );

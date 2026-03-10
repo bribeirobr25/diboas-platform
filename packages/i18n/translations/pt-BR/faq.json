@@ -45,7 +45,7 @@
     },
     "q11": {
       "question": "Quanto custa usar o diBoaS?",
-      "answer": "Taxas transparentes:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operação           │ Você paga   │ Outros cobram  │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir conta        │ R$ 0        │ R$ 0 - R$ 50   │\n│ Manter conta       │ R$ 0/mês    │ R$ 15-R$ 50/mês│\n│ Investir R$ 100    │ R$ 0,09     │ R$ 2 - R$ 10   │\n│ Transferir R$ 100  │ R$ 0,90     │ R$ 3 - R$ 5    │\n│ Pix dentro diBoaS  │ R$ 0        │ Varia          │\n└────────────────────┴─────────────┴────────────────┘\n\nSem pegadinhas. Sem letras miúdas.\n\nSempre mostramos o custo exato antes de você confirmar qualquer coisa."
+      "answer": "Taxas transparentes:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operação           │ Você paga   │ Outros cobram  │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir conta        │ R$ 0        │ R$ 0 - R$ 50   │\n│ Manter conta       │ R$ 0/mês    │ R$ 15-R$ 50/mês│\n│ Comprar R$ 100     │ R$ 0 (Grátis)│ R$ 2 - R$ 10   │\n│ Vender R$ 100      │ R$ 0,39     │ R$ 2 - R$ 10   │\n│ Depositar R$ 100   │ R$ 0,48     │ R$ 3 - R$ 5    │\n│ Sacar R$ 100       │ R$ 0,48     │ R$ 3 - R$ 5    │\n│ Enviar P2P diBoaS  │ R$ 0        │ Varia          │\n└────────────────────┴─────────────┴────────────────┘\n\nSem pegadinhas. Sem letras miúdas.\n\nSempre mostramos o custo exato antes de você confirmar qualquer coisa."
     },
     "q12": {
       "question": "Tem assinatura obrigatória?",
@@ -53,7 +53,7 @@
     },
     "q13": {
       "question": "Como vocês ganham dinheiro então?",
-      "answer": "Transparência total:\n\n1. Pequena taxa nas transações (aqueles 0,09% e 0,9%)\n\n2. Criadores de conteúdo que usam nossa plataforma pagam 0,9%\n   (muito menos que os 10% do YouTube)\n\n3. Assinaturas opcionais para recursos avançados\n\nA gente ganha quando você usa. Não quando você só mantém a conta aberta."
+      "answer": "Transparência total:\n\n1. Pequena taxa nas transações (comprar é grátis, vender 0,39%, depósitos e saques 0,48%)\n\n2. Criadores de conteúdo que usam nossa plataforma pagam 0,48%\n   (muito menos que os 10% do YouTube)\n\n3. Assinaturas opcionais para recursos avançados\n\nA gente ganha quando você usa. Não quando você só mantém a conta aberta."
     }
   },
   "registry": {
@@ -67,7 +67,7 @@
     },
     "q3": {
       "question": "Quanto custa para usar o diBoaS?",
-      "answer": "Transparência total:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operação           │ Você paga   │ Outros cobram  │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir conta        │ $0          │ $0 - $50       │\n│ Manter conta       │ $0/mês      │ $15-$50/mês    │\n│ Investir $100      │ $0.09       │ $2 - $10       │\n│ Transferir $100    │ $0.90       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nSem taxas mensais. Sem mínimos obrigatórios."
+      "answer": "Transparência total:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operação           │ Você paga   │ Outros cobram  │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir conta        │ $0          │ $0 - $50       │\n│ Manter conta       │ $0/mês      │ $15-$50/mês    │\n│ Comprar $100       │ $0 (Grátis) │ $2 - $10       │\n│ Vender $100        │ $0.39       │ $2 - $10       │\n│ Depositar $100     │ $0.48       │ $3 - $5        │\n│ Sacar $100         │ $0.48       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nSem taxas mensais. Sem mínimos obrigatórios."
     },
     "q4": {
       "question": "Como começar com apenas $10?",
@@ -99,7 +99,7 @@
     },
     "q11": {
       "question": "Quanto custa fazer transferências?",
-      "answer": "Transparência total:\n\n┌──────────────────────┬─────────────┐\n│ Tipo de Transferência│ Taxa diBoaS │\n├──────────────────────┼─────────────┤\n│ Entre contas diBoaS  │ $0          │\n│ Pix                  │ $0          │\n│ TED nacional         │ $0          │\n│ Internacional        │ $0.90       │\n└──────────────────────┴─────────────┘\n\nTaxas de câmbio sempre mostradas antes de confirmar.\nZero taxas escondidas ou surpresas."
+      "answer": "Transparência total:\n\n┌──────────────────────┬─────────────┐\n│ Tipo de Transferência│ Taxa diBoaS │\n├──────────────────────┼─────────────┤\n│ Entre contas diBoaS  │ $0          │\n│ Pix                  │ $0          │\n│ TED nacional         │ $0          │\n│ Internacional        │ 0,48%       │\n└──────────────────────┴─────────────┘\n\nTaxas de câmbio sempre mostradas antes de confirmar.\nZero taxas escondidas ou surpresas."
     },
     "q12": {
       "question": "A conta diBoaS é conta corrente ou poupança?",
@@ -131,7 +131,7 @@
     },
     "q19": {
       "question": "Como funcionam as taxas de investimento?",
-      "answer": "0.09% por operação de compra/venda.\n\nExemplo prático:\n- Você investe $100\n- Taxa diBoaS: $0.09\n- Investimento real: $99.91\n\nCompare:\n- diBoaS: $0.09\n- Bancos tradicionais: $2 a $10\n- Corretoras: $5 a $15\n\nSomos 22x mais baratos que a média do mercado."
+      "answer": "Comprar é grátis. Vender custa 0,39% (mín. $0,25, máx. $25).\n\nExemplo prático:\n- Você compra $100 em ativos: taxa $0 (grátis)\n- Você vende $100 em ativos: taxa $0,39\n\nCompare ao vender:\n- diBoaS: $0,39\n- Bancos tradicionais: $2 a $10\n- Corretoras: $5 a $15\n\nSomos 5x mais baratos que a média do mercado."
     },
     "q20": {
       "question": "Qual a diferença entre investir e especular?",
@@ -159,7 +159,7 @@
     },
     "q26": {
       "question": "Quanto custa comprar crypto?",
-      "answer": "0.09% de taxa diBoaS + taxas de rede.\n\nExemplo real comprando $100 de Bitcoin:\n- Taxa diBoaS: $0.09\n- Taxa de rede blockchain: ~$1.50\n- Total recebido: ~$98.41\n\nCompare com outras exchanges:\n- Coinbase: 1.49% = $1.49 (16x mais caro)\n- Binance: 0.50% = $0.50 (5x mais caro)\n- diBoaS: 0.09% = $0.09\n\nMostramos tudo antes de você confirmar."
+      "answer": "Comprar é grátis! Vender custa 0,39% (mín. $0,25, máx. $25).\n\nExemplo real comprando $100 de Bitcoin:\n- Taxa diBoaS: $0 (grátis)\n- Taxa de rede blockchain: ~$1.50\n- Total recebido: ~$98.50\n\nCompare com outras exchanges ao comprar:\n- Coinbase: 1.49% = $1.49\n- Binance: 0.50% = $0.50\n- diBoaS: $0 (grátis)\n\nMostramos tudo antes de você confirmar."
     },
     "q27": {
       "question": "Bitcoin é pirâmide/golpe?",
@@ -183,7 +183,7 @@
     },
     "q32": {
       "question": "Quanto rende cada estratégia?",
-      "answer": "Varia, mas sempre mostramos em tempo real:\n\nEstratégias Conservadoras (Mystic recomenda):\n- Emergency Fund: 8-12% ao ano\n- Stable Growth: 10-15% ao ano\n\nEstratégias Moderadas (Coral desbloqueia):\n- Balanced Yield: 15-25% ao ano\n- Growth Portfolio: 20-35% ao ano\n\nEstratégias Agressivas (só para avançados):\n- High Yield: 35-80% ao ano (mais risco)\n\nTaxas: 0.09% ao iniciar + 0.09% ao encerrar estratégia."
+      "answer": "Varia, mas sempre mostramos em tempo real:\n\nEstratégias Conservadoras (Mystic recomenda):\n- Emergency Fund: 8-12% ao ano\n- Stable Growth: 10-15% ao ano\n\nEstratégias Moderadas (Coral desbloqueia):\n- Balanced Yield: 15-25% ao ano\n- Growth Portfolio: 20-35% ao ano\n\nEstratégias Agressivas (só para avançados):\n- High Yield: 35-80% ao ano (mais risco)\n\nTaxas: Grátis para iniciar, 0,39% para encerrar estratégia (mín. $0,25, máx. $25)."
     },
     "q33": {
       "question": "Posso perder dinheiro nessas estratégias?",
@@ -191,7 +191,7 @@
     },
     "q34": {
       "question": "O que é DeFi afinal?",
-      "answer": "DeFi = Decentralized Finance (Finanças Descentralizadas)\n\nEm português simples:\nFazer coisas de banco (emprestar, investir, ganhar juros)\nsem precisar de bancos.\n\nExemplo prático:\n\nBanco tradicional:\n- Você deposita $1.000\n- Banco paga 2% ao ano\n- Banco empresta seu dinheiro a 15% ao ano\n- Banco fica com a diferença\n\nDeFi:\n- Você empresta direto para quem precisa\n- Ganha 8-15% ao ano\n- Protocolo cobra 0.09%\n- Você fica com o resto\n\nDeFi Explained decodifica tudo isso."
+      "answer": "DeFi = Decentralized Finance (Finanças Descentralizadas)\n\nEm português simples:\nFazer coisas de banco (emprestar, investir, ganhar juros)\nsem precisar de bancos.\n\nExemplo prático:\n\nBanco tradicional:\n- Você deposita $1.000\n- Banco paga 2% ao ano\n- Banco empresta seu dinheiro a 15% ao ano\n- Banco fica com a diferença\n\nDeFi:\n- Você empresta direto para quem precisa\n- Ganha 8-15% ao ano\n- Protocolo cobra 0,39%\n- Você fica com o resto\n\nDeFi Explained decodifica tudo isso."
     },
     "q35": {
       "question": "DeFi é seguro?",
@@ -271,7 +271,7 @@
     },
     "q54": {
       "question": "Quanto custa manter conta Business?",
-      "answer": "Zero de mensalidade.\n\nTaxas Business:\n\n┌────────────────────┬─────────────┐\n│ Operação           │ Taxa        │\n├────────────────────┼─────────────┤\n│ Manutenção mensal  │ $0          │\n│ Pix/Transferências │ $0          │\n│ Cobranças (boleto) │ $0.90/boleto│\n│ Investir saldo     │ 0.09%       │\n└────────────────────┴─────────────┘\n\nSeu dinheiro parado rende 100% do CDI automaticamente."
+      "answer": "Zero de mensalidade.\n\nTaxas Business:\n\n┌────────────────────┬─────────────┐\n│ Operação           │ Taxa        │\n├────────────────────┼─────────────┤\n│ Manutenção mensal  │ $0          │\n│ Pix/Transferências │ $0          │\n│ Cobranças (boleto) │ 0,48%       │\n│ Comprar ativos      │ Grátis      │\n│ Vender ativos       │ 0,39%       │\n└────────────────────┴─────────────┘\n\nSeu dinheiro parado rende 100% do CDI automaticamente."
     },
     "q55": {
       "question": "Quanto tempo demora para aprovar conta Business?",
@@ -287,7 +287,7 @@
     },
     "q58": {
       "question": "Posso receber de clientes internacionais?",
-      "answer": "Sim! E sem complicação.\n\nReceber do exterior:\n\nVia SWIFT:\n- Qualquer país\n- 2-5 dias úteis\n- Taxa: $0.90 + câmbio transparente\n\nVia Crypto:\n- Instantâneo\n- Converte para sua moeda local\n- Ideal para freelancers globais\n\nO cliente paga em $, €, £ ou ¥\nVocê recebe em R$ ou na moeda que preferir."
+      "answer": "Sim! E sem complicação.\n\nReceber do exterior:\n\nVia SWIFT:\n- Qualquer país\n- 2-5 dias úteis\n- Taxa: 0,48% + câmbio transparente\n\nVia Crypto:\n- Instantâneo\n- Converte para sua moeda local\n- Ideal para freelancers globais\n\nO cliente paga em $, €, £ ou ¥\nVocê recebe em R$ ou na moeda que preferir."
     },
     "q59": {
       "question": "Como funciona o cartão Business?",
@@ -299,7 +299,7 @@
     },
     "q61": {
       "question": "Como recebo pagamentos dos meus clientes?",
-      "answer": "Múltiplas formas, todas integradas:\n\nPix:\n- Grátis para receber\n- QR code instantâneo\n- Confirmação em tempo real\n\nBoleto:\n- $0.90 por boleto emitido\n- Vencimento personalizável\n- Notificação automática ao cliente\n\nLink de Pagamento:\n- Cria link único\n- Cliente paga com cartão ou Pix\n- Taxa 1.99% apenas se pago\n\nTudo cai na sua conta Business automaticamente."
+      "answer": "Múltiplas formas, todas integradas:\n\nPix:\n- Grátis para receber\n- QR code instantâneo\n- Confirmação em tempo real\n\nBoleto:\n- 0,48% por boleto emitido\n- Vencimento personalizável\n- Notificação automática ao cliente\n\nLink de Pagamento:\n- Cria link único\n- Cliente paga com cartão ou Pix\n- Taxa 1.99% apenas se pago\n\nTudo cai na sua conta Business automaticamente."
     },
     "q62": {
       "question": "Vocês têm maquininha de cartão?",
@@ -319,7 +319,7 @@
     },
     "q66": {
       "question": "Quanto rende em média?",
-      "answer": "Depende do tipo:\n\nConservative Treasury (liquidez imediata):\n- 100-110% do CDI\n- Exemplo: CDI 10% → você ganha 10-11% ao ano\n- Zero risco\n\nModerate Treasury (D+1):\n- 110-130% do CDI  \n- Exemplo: CDI 10% → você ganha 11-13% ao ano\n- Risco muito baixo\n\nStrategic Treasury (D+30):\n- 130-150% do CDI\n- Exemplo: CDI 10% → você ganha 13-15% ao ano\n- Risco baixo\n\nTaxa diBoaS: 0.09% ao aplicar."
+      "answer": "Depende do tipo:\n\nConservative Treasury (liquidez imediata):\n- 100-110% do CDI\n- Exemplo: CDI 10% → você ganha 10-11% ao ano\n- Zero risco\n\nModerate Treasury (D+1):\n- 110-130% do CDI  \n- Exemplo: CDI 10% → você ganha 11-13% ao ano\n- Risco muito baixo\n\nStrategic Treasury (D+30):\n- 130-150% do CDI\n- Exemplo: CDI 10% → você ganha 13-15% ao ano\n- Risco baixo\n\nTaxa diBoaS: Grátis para aplicar, 0,39% ao resgatar (mín. $0,25, máx. $25)."
     },
     "q67": {
       "question": "O que é Cash Flow Yield?",
@@ -475,7 +475,7 @@
     },
     "q105": {
       "question": "Como diBoaS ganha dinheiro?",
-      "answer": "Modelo sustentável e transparente:\n\nReceita Principal (80%):\n- Taxas de transação (0.09% e 0.9%)\n- Volume alto, margem baixa\n- Escala com crescimento da base\n\nReceita Secundária (15%):\n- Subscriptions Premium ($12.90/mês)\n- Features avançadas opcionais\n- ~5% dos usuários pagam\n\nCreator Economy (5%):\n- Comissão de conteúdo educativo (0.9%)\n- Marketplace de estratégias\n- Win-win: creators ganham, nós ganhamos\n\nNÃO ganhamos com:\n✗ Vender seus dados\n✗ Taxas escondidas\n✗ Payment for order flow\n✗ Front-running suas trades\n\nNosso sucesso = seu sucesso.\nAlinhamento total de incentivos."
+      "answer": "Modelo sustentável e transparente:\n\nReceita Principal (80%):\n- Taxas de transação (vender 0,39%, depósitos/saques 0,48%)\n- Volume alto, margem baixa\n- Escala com crescimento da base\n\nReceita Secundária (15%):\n- Subscriptions Premium ($12.90/mês)\n- Features avançadas opcionais\n- ~5% dos usuários pagam\n\nCreator Economy (5%):\n- Comissão de conteúdo educativo (0,48%)\n- Marketplace de estratégias\n- Win-win: creators ganham, nós ganhamos\n\nNÃO ganhamos com:\n✗ Vender seus dados\n✗ Taxas escondidas\n✗ Payment for order flow\n✗ Front-running suas trades\n\nNosso sucesso = seu sucesso.\nAlinhamento total de incentivos."
     },
     "q106": {
       "question": "Como é trabalhar no diBoaS?",
@@ -491,7 +491,7 @@
     },
     "q109": {
       "question": "Por que investir no diBoaS?",
-      "answer": "Oportunidade de $400 bilhões + timing perfeito.\n\nO mercado:\n- 89.6% dos usuários fintech globais não usam crypto/DeFi\n- TAM: 5.4 bilhões de pessoas\n- Apenas 10.4% têm acesso hoje\n→ Mercado massivo e virgem\n\nNossa vantagem:\n- Metodologia validada por Nubank (118.6M usuários)\n- Progressive disclosure comprovada funcionando\n- Taxas 16x mais baratas que incumbentes\n- First-mover em OneFi verdadeiro\n\nTração:\n[Métricas atuais - confidenciais até falar com investor]\n\nTiming:\n- Regulação cripto clara (MiCA, etc)\n- Mainstream appetite crescendo\n- Competidores focados em segmentos errados\n\nÉ convergência de banking + investing + crypto + DeFi.\nMercado de trilhões sendo formado AGORA."
+      "answer": "Oportunidade de $400 bilhões + timing perfeito.\n\nO mercado:\n- 89.6% dos usuários fintech globais não usam crypto/DeFi\n- TAM: 5.4 bilhões de pessoas\n- Apenas 10.4% têm acesso hoje\n→ Mercado massivo e virgem\n\nNossa vantagem:\n- Metodologia validada por Nubank (118.6M usuários)\n- Progressive disclosure comprovada funcionando\n- Taxas 5x mais baratas que incumbentes\n- First-mover em OneFi verdadeiro\n\nTração:\n[Métricas atuais - confidenciais até falar com investor]\n\nTiming:\n- Regulação cripto clara (MiCA, etc)\n- Mainstream appetite crescendo\n- Competidores focados em segmentos errados\n\nÉ convergência de banking + investing + crypto + DeFi.\nMercado de trilhões sendo formado AGORA."
     },
     "q110": {
       "question": "Qual o status do fundraising?",

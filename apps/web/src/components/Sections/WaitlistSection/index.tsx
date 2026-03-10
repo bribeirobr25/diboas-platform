@@ -1,25 +1,33 @@
 /**
- * Waitlist Section
+ * Waitlist Section (Version A/B)
  *
- * Landing page section with waitlist signup form
- * Shows form initially, then confirmation with position + referral link on success
+ * Slim parent that renders VersionA (founding spots available) or VersionB (spots full).
+ * Stats provided by shared useWaitlistStats hook.
  */
 
 'use client';
 
-import { memo, useState, useCallback } from 'react';
-import { useTranslation } from '@diboas/i18n/client';
+import { memo, useEffect, useRef } from 'react';
+import { useWaitlistStats } from '@/hooks/useWaitlistStats';
+import { analyticsService } from '@/lib/analytics';
+import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { SectionContainer } from '../SectionContainer/SectionContainer';
-import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
-import { WaitlistConfirmation } from '@/components/WaitingList/WaitlistConfirmation';
-import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
-import styles from './WaitlistSection.module.css';
+import { WaitlistVersionA } from './WaitlistVersionA';
+import { WaitlistVersionB } from './WaitlistVersionB';
 
 interface WaitlistSectionConfig {
   sectionId?: string;
   backgroundColor?: string;
   headline?: string;
   subheadline?: string;
+  belowCta?: string;
+  belowCheckbox?: string;
+  hideBenefits?: boolean;
+  hideNoSpam?: boolean;
+  namespace?: string;
+  confirmationNamespace?: string;
+  /** Waitlist source for audience-specific counters and signup tagging */
+  source?: 'landing_b2c' | 'landing_b2b';
 }
 
 interface WaitlistSectionProps {
@@ -27,62 +35,47 @@ interface WaitlistSectionProps {
   enableAnalytics?: boolean;
 }
 
-interface SignupData {
-  position: number;
-  referralCode: string;
-  referralUrl: string;
-}
-
 export const WaitlistSection = memo(function WaitlistSection({
   config,
   enableAnalytics = true,
 }: WaitlistSectionProps) {
-  const intl = useTranslation();
-  const [signupData, setSignupData] = useState<SignupData | null>(null);
+  const source = config?.source;
+  const { stats, isLoading } = useWaitlistStats(source ? { source } : undefined);
 
-  const handleSuccess = useCallback((data: SignupData) => {
-    setSignupData(data);
-    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_SUCCESS, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      metadata: { position: data.position },
-    });
-  }, []);
+  const showVersionB = !isLoading &&
+    stats.foundingMemberSpotsRemaining != null &&
+    stats.foundingMemberSpotsRemaining <= 0;
+
+  // Track which A/B version is shown (fires once after loading resolves)
+  const hasTrackedVersion = useRef(false);
+  useEffect(() => {
+    if (isLoading || hasTrackedVersion.current) return;
+    hasTrackedVersion.current = true;
+    if (enableAnalytics) {
+      analyticsService.track({
+        name: WAITING_LIST_EVENTS.VERSION_SHOWN,
+        parameters: {
+          version: showVersionB ? 'B' : 'A',
+          source: source || 'landing_b2c',
+          timestamp: Date.now(),
+        },
+      });
+    }
+  }, [isLoading, showVersionB, enableAnalytics, source]);
 
   return (
     <SectionContainer
       variant="standard"
       padding="standard"
       backgroundColor={config?.backgroundColor || 'var(--color-surface-elevated)'}
-      ariaLabel={intl.formatMessage({ id: 'waitlist.sectionTitle' })}
+      ariaLabel="Waitlist signup"
       data-testid={config?.sectionId || 'waitlist-section'}
     >
-      <div className={styles.wrapper}>
-        <div className={styles.content}>
-          {!signupData ? (
-            <>
-              <div className={styles.header}>
-                <h2 className={styles.headline}>
-                  {intl.formatMessage({ id: config?.headline || 'waitlist.header' })}
-                </h2>
-                <p className={styles.subheadline}>
-                  {intl.formatMessage({ id: config?.subheadline || 'waitlist.subheader' })}
-                </p>
-              </div>
-              <WaitlistForm
-                onSuccess={handleSuccess}
-                className={styles.form}
-              />
-            </>
-          ) : (
-            <WaitlistConfirmation
-              position={signupData.position}
-              referralCode={signupData.referralCode}
-              referralUrl={signupData.referralUrl}
-            />
-          )}
-        </div>
-      </div>
+      {showVersionB ? (
+        <WaitlistVersionB config={config} source={source} enableAnalytics={enableAnalytics} />
+      ) : (
+        <WaitlistVersionA config={config} source={source} stats={stats} isLoading={isLoading} enableAnalytics={enableAnalytics} />
+      )}
     </SectionContainer>
   );
 });

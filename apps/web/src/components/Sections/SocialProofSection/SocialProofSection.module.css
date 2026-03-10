@@ -48,7 +48,7 @@
 }
 
 .title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--font-size-section-title-mobile);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
@@ -68,8 +68,17 @@
   }
 }
 
+.subtext {
+  font-size: 18px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 8px auto 0 auto;
+  max-width: 600px;
+  text-align: center;
+}
+
 /* ================================
-   CARDS GRID - Matches BenefitsCards
+   CARDS GRID - Centered layout (max 3 columns)
    ================================ */
 
 .cardsGrid {
@@ -77,6 +86,8 @@
   grid-template-columns: 1fr;
   gap: var(--spacing-2xl);
   width: var(--percent-100);
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
@@ -88,22 +99,8 @@
 
 @media (min-width: 1024px) {
   .cardsGrid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-3xl);
-  }
-
-  /* 2 CARDS: centered with same width as BenefitsCards */
-  .card:first-child:nth-last-child(2),
-  .card:first-child:nth-last-child(2) ~ .card {
-    grid-column: auto / span 2;
-  }
-
-  .card:first-child:nth-last-child(2):nth-child(1) {
-    grid-column: 2 / 4;
-  }
-
-  .card:first-child:nth-last-child(2) ~ .card:nth-child(2) {
-    grid-column: 4 / 6;
   }
 }
 
@@ -132,12 +129,12 @@
 
 @media (min-width: 1024px) {
   .card {
-    padding: var(--spacing-4xl);
+    padding: var(--card-padding-desktop);
   }
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -207,12 +204,12 @@
   opacity: var(--opacity-60);
 }
 
-/* Stat Text - Full sentence display */
+/* Stat Text - Prose-like body text */
 .statText {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-stat-text-mobile);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-body-mobile, 16px);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--prose-line-height, 1.7);
   color: var(--color-text-primary);
   margin: 0;
   transition: opacity var(--animation-duration-fast) ease;
@@ -221,13 +218,13 @@
 
 @media (min-width: 768px) {
   .statText {
-    font-size: var(--font-size-stat-text-tablet);
+    font-size: var(--font-size-body-tablet, 17px);
   }
 }
 
 @media (min-width: 1024px) {
   .statText {
-    font-size: var(--font-size-stat-text-desktop);
+    font-size: var(--font-size-body-desktop, 18px);
   }
 }
 
@@ -238,7 +235,7 @@
 /* Highlighted numbers */
 .highlight {
   color: var(--cta-bg-primary);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
 }
 
 /* Card Description */

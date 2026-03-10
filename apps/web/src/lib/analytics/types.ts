@@ -55,12 +55,14 @@ export interface AnalyticsConfig {
 
 export interface AnalyticsService {
   track(event: AnalyticsEvent): void;
+  trackEvent(eventName: string, properties?: Record<string, unknown>): Promise<void>;
   trackPageView(path: string, title: string, locale: string): void;
   trackPerformance(metrics: WebVitalsMetric[]): void;
   trackNavigation(menuId: string, action: string, locale: string): void;
   flush(): Promise<void>;
   setUserId(userId: string): void;
   setSessionId(sessionId: string): void;
+  destroy(): void;
 }
 
 export interface WebVitalsMetric {

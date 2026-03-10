@@ -7,6 +7,9 @@
 export interface ScenarioCardsConfig {
   readonly section: {
     readonly title: string;
+    readonly transitionHook?: string;
+    readonly clarificationLine?: string;
+    readonly footnote?: string;
   };
   readonly cards: readonly {
     readonly id: string;
@@ -14,6 +17,7 @@ export interface ScenarioCardsConfig {
     readonly description: string;
     readonly backgroundImage: string;
     readonly imageAlt: string;
+    readonly costComparison?: string;
   }[];
   readonly seo: {
     readonly headingLevel: 'h2';

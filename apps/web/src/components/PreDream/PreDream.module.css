@@ -19,10 +19,10 @@
 
 .closeButton {
   position: fixed;
-  top: var(--spacing-2xl, 24px);
-  left: var(--spacing-2xl, 24px);
-  width: var(--spacing-5xl, 48px);
-  height: var(--spacing-5xl, 48px);
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 16px 32px;
+  padding: 64px 16px 24px;
   max-width: 448px;
   margin: 0 auto;
   width: 100%;
@@ -722,14 +722,14 @@
 }
 
 .comparisonAmount {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #0f172a;
   margin: 0;
 }
 
 .comparisonAmountMuted {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #94a3b8;
   margin: 0;
@@ -898,21 +898,28 @@
   box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+@media (prefers-reduced-motion: reduce) {
+  .screenContainer > div,
+  .particle {
+    animation: none;
+  }
+}
+
+/* Responsive — mobile-first: scale up at 481px+ */
+@media (min-width: 481px) {
   .closeButton {
-    top: 16px;
-    left: 16px;
-    width: 40px;
-    height: 40px;
+    top: var(--spacing-2xl, 24px);
+    left: var(--spacing-2xl, 24px);
+    width: var(--spacing-5xl, 48px);
+    height: var(--spacing-5xl, 48px);
   }
 
   .screenContent {
-    padding: 64px 16px 24px;
+    padding: 80px 16px 32px;
   }
 
   .comparisonAmount,
   .comparisonAmountMuted {
-    font-size: 20px;
+    font-size: 24px;
   }
 }

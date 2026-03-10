@@ -26,6 +26,13 @@ export { ProseSection } from './ProseSection';
 export { ScenarioCards } from './ScenarioCards';
 export { FeeTable } from './FeeTable';
 export { DemoLauncher } from './DemoLauncher';
+export { ExpandableSection } from './ExpandableSection';
+export { FounderSection } from './FounderSection';
+
+// B2B Landing Page Sections
+export { CalculatorFactory } from './CalculatorFactory';
+export { TwoWorldsSection } from './TwoWorldsSection';
+export { CashflowExplainerSection } from './CashflowExplainerSection';
 
 // Page-level Sections
 export { PageHeroSection, type PageHeroSectionProps } from './PageHeroSection';

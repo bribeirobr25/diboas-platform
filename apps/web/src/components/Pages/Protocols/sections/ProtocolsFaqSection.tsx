@@ -7,6 +7,8 @@
  */
 
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
+import styles from './ProtocolsFaqSection.module.css';
 
 interface FaqItem {
   question: string;
@@ -26,28 +28,30 @@ export function ProtocolsFaqSection({ header, questions }: ProtocolsFaqSectionPr
       enableReporting={true}
       context={{ page: 'protocols' }}
     >
-      <section className="py-16 md:py-24" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-              {header}
-            </h2>
+      <SectionContainer
+        variant="narrow"
+        padding="standard"
+        backgroundColor="var(--section-bg-neutral)"
+      >
+        <div className={styles.content}>
+          <h2 className={styles.title}>
+            {header}
+          </h2>
 
-            <div className="space-y-6">
-              {questions.map((item, index) => (
-                <div key={index}>
-                  <h3 className="font-bold text-slate-900 mb-2">
-                    {item.question}
-                  </h3>
-                  <p className="text-slate-600">
-                    {item.answer}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div className={styles.faqList}>
+            {questions.map((item, index) => (
+              <div key={index}>
+                <h3 className={styles.faqQuestion}>
+                  {item.question}
+                </h3>
+                <p className={styles.faqAnswer}>
+                  {item.answer}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
+      </SectionContainer>
     </SectionErrorBoundary>
   );
 }

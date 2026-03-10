@@ -27,12 +27,21 @@ export const ScenarioCards = memo(function ScenarioCards({
       ariaLabel={translated.seo.ariaLabel}
       className={className}
     >
+      {translated.section.transitionHook ? (
+        <p className={styles.transitionHook}>{translated.section.transitionHook}</p>
+      ) : null}
       <h2 className={styles.header}>{translated.section.title}</h2>
       <div className={styles.grid}>
-        {translated.cards.map((card: { id: string; title: string; description: string; backgroundImage: string; imageAlt: string }) => (
+        {translated.cards.map((card: { id: string; title: string; description: string; backgroundImage: string; imageAlt: string; costComparison?: string }) => (
           <ScenarioCard key={card.id} card={card} />
         ))}
       </div>
+      {translated.section.clarificationLine ? (
+        <p className={styles.clarificationLine}>{translated.section.clarificationLine}</p>
+      ) : null}
+      {translated.section.footnote ? (
+        <p className={styles.footnote}>{translated.section.footnote}</p>
+      ) : null}
     </SectionContainer>
   );
 });

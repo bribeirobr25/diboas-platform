@@ -8,6 +8,8 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { TermsOfUseContent } from '@/components/Legal';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
@@ -74,7 +76,7 @@ export default async function LegalTermsPage({ params }: LocalePageProps) {
   }
 
   // Load legal/terms namespace
-  const pageMessages = await loadPageNamespaces(locale, ['legal/terms']);
+  const pageMessages = await loadPageNamespaces(locale, ['legal/terms', 'landing-b2c']);
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
@@ -84,14 +86,17 @@ export default async function LegalTermsPage({ params }: LocalePageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[breadcrumbData]} />
-      <SectionErrorBoundary
-        sectionId="terms-of-use-content"
-        sectionType="LegalContent"
-        enableReporting={true}
-        context={{ page: 'legal/terms', locale }}
-      >
-        <TermsOfUseContent />
-      </SectionErrorBoundary>
+      <main className="main-page-wrapper">
+        <SectionErrorBoundary
+          sectionId="terms-of-use-content"
+          sectionType="LegalContent"
+          enableReporting={true}
+          context={{ page: 'legal/terms', locale }}
+        >
+          <TermsOfUseContent />
+        </SectionErrorBoundary>
+        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+      </main>
     </PageI18nProvider>
   );
 }

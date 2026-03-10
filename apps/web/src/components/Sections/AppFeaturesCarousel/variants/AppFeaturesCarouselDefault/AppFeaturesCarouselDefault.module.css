@@ -36,7 +36,7 @@
 
 /* Section Title */
 .title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--font-size-title-mobile);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
@@ -70,17 +70,10 @@
   width: var(--percent-100);
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
-}
-
-/* Mobile & Tablet: Show only active image */
-@media (max-width: 1023px) {
-  .cardsGrid {
-    height: auto;
-    min-height: var(--dimension-400);
-    justify-content: center;
-  }
+  height: auto;
+  min-height: var(--dimension-400);
 }
 
 /* Desktop: Fixed width layout - Active (416px) + 3 Inactive (195px each) + gaps (20px each) */
@@ -90,6 +83,7 @@
     align-items: flex-start; /* Align items to top */
     justify-content: center; /* Center cards horizontally */
     gap: var(--afc-image-gap-desktop); /* 20px between images */
+    padding: 0 var(--spacing-lg); /* Prevent edge card clipping */
   }
 }
 
@@ -117,50 +111,37 @@
   outline: var(--radius-sm) solid var(--afc-color-accent);
 }
 
-/* Mobile: Only show active card with 90% width and 3:4 aspect ratio, hide others */
-@media (max-width: 767px) {
-  .cardWrapper {
-    width: var(--afc-image-width-mobile); /* 90% */
-    max-width: none; /* Remove max-width constraint */
-    position: relative;
-    opacity: var(--opacity-0);
-    pointer-events: none;
-    display: none;
-  }
-
-  .cardWrapper.active {
-    opacity: var(--opacity-100);
-    pointer-events: auto;
-    display: flex;
-    position: relative;
-  }
-
-  /* Card maintains 3:4 aspect ratio on mobile */
-  .cardWrapper .card {
-    aspect-ratio: var(--afc-image-aspect-ratio-mobile); /* 3 / 4 */
-    height: auto; /* Let aspect-ratio determine height */
-  }
+/* Mobile-first: Only show active card, 90% width, 3:4 aspect ratio */
+.cardWrapper {
+  width: var(--afc-image-width-mobile); /* 90% */
+  max-width: none;
+  position: relative;
+  opacity: var(--opacity-0);
+  pointer-events: none;
+  display: none;
 }
 
-/* Tablet: Only show active card with 490px width, hide others */
-@media (min-width: 768px) and (max-width: 1023px) {
+.cardWrapper.active {
+  opacity: var(--opacity-100);
+  pointer-events: auto;
+  display: flex;
+  position: relative;
+}
+
+/* Card maintains 3:4 aspect ratio on mobile */
+.cardWrapper .card {
+  aspect-ratio: var(--afc-image-aspect-ratio-mobile); /* 3 / 4 */
+  height: auto;
+}
+
+/* Tablet: Active card 490px width, 500px height */
+@media (min-width: 768px) {
   .cardWrapper {
     width: var(--afc-image-width-tablet); /* 490px */
-    position: relative;
-    opacity: var(--opacity-0);
-    pointer-events: none;
-    display: none;
   }
 
-  .cardWrapper.active {
-    opacity: var(--opacity-100);
-    pointer-events: auto;
-    display: flex;
-    position: relative;
-  }
-
-  /* Card maintains 500px height on tablet */
   .cardWrapper .card {
+    aspect-ratio: unset;
     height: var(--afc-image-height-tablet); /* 500px */
   }
 }
@@ -168,8 +149,10 @@
 /* Desktop: Fixed widths - Active (300px), Inactive (140px) */
 @media (min-width: 1024px) {
   .cardWrapper {
+    display: flex; /* Override mobile display:none — all cards visible on desktop */
     width: var(--afc-image-inactive-width-desktop); /* 140px */
     opacity: var(--opacity-60);
+    pointer-events: auto;
     position: relative;
   }
 
@@ -200,9 +183,9 @@
   justify-content: center;
 }
 
-/* Card Image */
+/* Card Image — mobile-first: fills container */
 .cardImage {
-  width: auto;
+  width: var(--percent-100);
   height: var(--percent-100);
   object-fit: cover;
   transition:
@@ -210,17 +193,8 @@
     transform var(--transition-slow) ease-in-out;
 }
 
-/* Mobile: Image fills container with proper aspect ratio */
-@media (max-width: 767px) {
-  .cardImage {
-    width: var(--percent-100);
-    height: var(--percent-100);
-    object-fit: cover;
-  }
-}
-
-/* Tablet: Image maintains 500px height, width auto (cropped if exceeds container) */
-@media (min-width: 768px) and (max-width: 1023px) {
+/* Tablet: Image maintains 500px height */
+@media (min-width: 768px) {
   .cardImage {
     height: var(--afc-image-height-tablet); /* 500px */
     width: auto;
@@ -241,9 +215,10 @@
    CARD STATES
    ================================ */
 
-/* Active Card Enhancement */
+/* Active Card Enhancement — overflow: visible ensures shadow isn't clipped */
 .cardWrapper.active .card {
   box-shadow: var(--shadow-lg);
+  overflow: visible;
 }
 
 /* Inactive Cards Hover */
@@ -255,9 +230,10 @@
    CARD DESCRIPTION STYLES
    ================================ */
 
-/* Card Description - Below each card, visible only when active */
+/* Card Description - Mobile-first: 90% width, center aligned */
 .cardDescription {
   position: relative;
+  max-width: var(--afc-description-width-mobile); /* 90% */
   width: var(--percent-100);
   display: flex;
   flex-direction: column;
@@ -267,20 +243,10 @@
   transition: all var(--afc-transition-duration) var(--afc-transition-easing);
 }
 
-/* Responsive: Mobile - Match image width (90%), center aligned */
-@media (max-width: 767px) {
-  .cardDescription {
-    max-width: var(--afc-description-width-mobile); /* 90% */
-    width: var(--percent-100);
-    align-items: center; /* Center align items */
-  }
-}
-
-/* Responsive: Tablet - Constrain to 490px width below card, center aligned */
-@media (min-width: 768px) and (max-width: 1023px) {
+/* Tablet: Constrain to 490px width below card */
+@media (min-width: 768px) {
   .cardDescription {
     max-width: var(--afc-description-width-tablet); /* 490px */
-    align-items: center; /* Center align items */
   }
 }
 
@@ -295,7 +261,7 @@
 /* Card Title - Bold title above description */
 .cardTitle {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--afc-color-title);
@@ -303,18 +269,9 @@
   margin: 0;
 }
 
-/* Responsive: Mobile - Center align card title */
-@media (max-width: 767px) {
-  .cardTitle {
-    text-align: center;
-    font-size: var(--font-size-md);
-  }
-}
-
 /* Responsive: Tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) {
   .cardTitle {
-    text-align: center;
     font-size: var(--font-size-lg);
   }
 }
@@ -340,18 +297,10 @@
   transition: opacity var(--afc-transition-duration) var(--afc-transition-easing);
 }
 
-/* Responsive: Mobile - Justify align text */
-@media (max-width: 767px) {
-  .description {
-    text-align: justify; /* Align text to justify on mobile */
-  }
-}
-
 /* Responsive: Tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) {
   .description {
     font-size: var(--font-size-description-tablet);
-    text-align: justify; /* Align text to justify on tablet */
   }
 }
 
@@ -374,26 +323,7 @@
   width: var(--percent-100);
 }
 
-/* Responsive: Mobile - Center CTA */
-@media (max-width: 767px) {
-  .ctaWrapper {
-    justify-content: center; /* Center CTA on mobile */
-  }
-}
-
-/* Responsive: Tablet - Center CTA */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .ctaWrapper {
-    justify-content: center; /* Center CTA on tablet */
-  }
-}
-
-/* Responsive: Desktop - Center CTA */
-@media (min-width: 1024px) {
-  .ctaWrapper {
-    justify-content: center; /* Center CTA on desktop */
-  }
-}
+/* CTA is centered at all breakpoints — no overrides needed */
 
 /* CTA Link - Using unified CTA typography tokens for consistency */
 .ctaLink {

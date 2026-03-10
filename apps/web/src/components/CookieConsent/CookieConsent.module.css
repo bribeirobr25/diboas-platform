@@ -36,17 +36,18 @@
   max-width: var(--dimension-1200);
   margin: 0 auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-2xl);
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-lg);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   .container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--spacing-lg);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2xl);
+    flex-wrap: wrap;
   }
 }
 
@@ -58,14 +59,14 @@
 .text {
   margin: 0;
   color: var(--text-white-emphasis);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   line-height: var(--line-height-description);
   font-weight: var(--font-weight-normal);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   .text {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
   }
 }
 
@@ -90,19 +91,22 @@
 
 .actions {
   display: flex;
-  gap: var(--spacing-md);
+  width: var(--percent-100);
+  gap: var(--spacing-sm);
   flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   .actions {
-    width: var(--percent-100);
-    gap: var(--spacing-sm);
+    width: auto;
+    gap: var(--spacing-md);
   }
 }
 
 .button {
-  padding: var(--spacing-md) var(--spacing-2xl);
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   border-radius: var(--radius-md);
@@ -111,15 +115,13 @@
   transition: all var(--animation-duration-fast) ease;
   white-space: nowrap;
   font-family: inherit;
-  min-width: var(--dimension-100);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   .button {
-    flex: 1;
-    min-width: 0;
-    padding: var(--spacing-md) var(--spacing-lg);
-    font-size: var(--font-size-sm);
+    flex: none;
+    min-width: var(--dimension-100);
+    padding: var(--spacing-md) var(--spacing-2xl);
   }
 }
 

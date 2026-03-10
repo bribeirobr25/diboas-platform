@@ -34,6 +34,17 @@ export function sql(
 }
 
 /**
+ * Execute a raw SQL string (for migrations and DDL).
+ * Not for user input — only for trusted SQL from migration files.
+ */
+export async function rawSql(query: string): Promise<Record<string, unknown>[]> {
+  const db = getSql();
+  // Wrap the raw string as a TemplateStringsArray to satisfy the neon driver
+  const strings = Object.assign([query], { raw: [query] }) as TemplateStringsArray;
+  return db(strings);
+}
+
+/**
  * Health check — verifies database connectivity.
  */
 export async function pingDatabase(): Promise<boolean> {

@@ -2,9 +2,9 @@
   "$schema": "./design-tokens.schema.json",
   "version": "1.1.0",
   "metadata": {
-    "lastUpdated": "2026-01-01T00:00:00.000Z",
+    "lastUpdated": "2026-03-10T00:00:00.000Z",
     "author": "diBoaS Platform Team",
-    "description": "Centralized design tokens for diBoaS platform following Domain-Driven Design principles"
+    "description": "Core design token subset (schema-validated). The canonical source of truth is design-tokens.css which is manually maintained and contains the full token set."
   },
   "brand": {
     "logo": "#02c3cf",

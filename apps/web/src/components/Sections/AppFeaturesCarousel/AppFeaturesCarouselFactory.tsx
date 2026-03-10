@@ -14,7 +14,7 @@
 import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { APP_FEATURES_CAROUSEL_CONFIGS, type AppFeaturesCarouselVariantConfig, type AppFeaturesCarouselVariant } from '@/config/appFeaturesCarousel';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { getAppFeaturesCarouselVariant, validateAppFeaturesCarouselVariant } from './variants/registry';
 import type { AppFeaturesCarouselVariantProps } from './variants/types';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';

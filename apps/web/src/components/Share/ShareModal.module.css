@@ -26,11 +26,12 @@
 
 .modal {
   background: var(--section-bg-white);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
   box-shadow: var(--shadow-2xl);
   width: var(--percent-100);
   max-width: var(--dimension-480);
-  max-height: var(--percent-90);
+  max-height: var(--percent-100);
+  margin-top: auto;
   overflow-y: auto;
   animation: slideUp var(--animation-duration-normal) ease-out;
 }
@@ -51,7 +52,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-lg);
   border-bottom: 1px solid var(--color-slate-200);
 }
 
@@ -139,7 +140,7 @@
 
 /* Share section */
 .shareSection {
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-lg);
   border-bottom: 1px solid var(--color-slate-200);
 }
 
@@ -152,7 +153,7 @@
 
 /* Link section */
 .linkSection {
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-lg);
   border-bottom: 1px solid var(--color-slate-200);
 }
 
@@ -228,8 +229,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  width: calc(100% - var(--spacing-2xl) * 2);
-  margin: var(--spacing-2xl);
+  width: calc(100% - var(--spacing-lg) * 2);
+  margin: var(--spacing-lg);
   padding: var(--spacing-lg);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
@@ -254,22 +255,30 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .modal,
+  .spinner {
+    animation: none;
+  }
+}
+
+/* Responsive — mobile-first: scale up at 481px+ */
+@media (min-width: 481px) {
   .modal {
-    max-height: var(--percent-100);
-    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
-    margin-top: auto;
+    max-height: var(--percent-90);
+    border-radius: var(--radius-xl);
+    margin-top: 0;
   }
 
   .header,
   .shareSection,
   .linkSection {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-2xl);
   }
 
   .downloadButton {
-    margin: var(--spacing-lg);
-    width: calc(100% - var(--spacing-lg) * 2);
+    margin: var(--spacing-2xl);
+    width: calc(100% - var(--spacing-2xl) * 2);
   }
 }

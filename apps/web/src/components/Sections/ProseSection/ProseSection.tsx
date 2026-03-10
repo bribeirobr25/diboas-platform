@@ -28,6 +28,7 @@ export const ProseSection = memo(function ProseSection({
   const isGenerous = translated.style.verticalPadding === 'generous';
   const hasImage = translated.image?.src && !imgFailed;
   const imagePosition = translated.image?.position || 'right';
+  const isPortrait = translated.image?.aspectRatio === 'portrait';
   const isCenteredHeader = translated.style.headerStyle === 'centered';
 
   const textContent = (
@@ -35,6 +36,10 @@ export const ProseSection = memo(function ProseSection({
       className={`${styles.prose} ${isGenerous ? styles.generous : ''}`}
       style={hasImage ? undefined : { maxWidth: translated.style.maxWidth || '680px' }}
     >
+      {translated.content.transitionHook ? (
+        <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+      ) : null}
+
       {translated.content.header && !(hasImage && isCenteredHeader) && (
         <h2 className={`${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}>
           {translated.content.header}
@@ -70,7 +75,7 @@ export const ProseSection = memo(function ProseSection({
           alt={translated.image!.alt}
           width={640}
           height={800}
-          className={styles.sectionImage}
+          className={`${styles.sectionImage} ${isPortrait ? styles.sectionImagePortrait : ''}`}
           sizes="(max-width: 768px) 100vw, 40vw"
           onError={handleImageError}
         />
@@ -79,14 +84,22 @@ export const ProseSection = memo(function ProseSection({
 
     // Centered header renders above the two-column layout
     const centeredHeader = isCenteredHeader && translated.content.header ? (
-      <h2 className={`${styles.header} ${styles.headerCentered}`}>
-        {translated.content.header}
-      </h2>
+      <>
+        {translated.content.transitionHook ? (
+          <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+        ) : null}
+        <h2 className={`${styles.header} ${styles.headerCentered}`}>
+          {translated.content.header}
+        </h2>
+      </>
     ) : null;
 
     // Standalone header for mobile reorder (title → image → text) — only when not centered
     const standaloneHeader = !isCenteredHeader && translated.content.header ? (
       <div className={styles.headerStandalone}>
+        {translated.content.transitionHook ? (
+          <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+        ) : null}
         <h2 className={`${styles.header} ${styles.headerWithImage}`}>
           {translated.content.header}
         </h2>

@@ -10,7 +10,7 @@
  * Code Reusability: Uses shared useWaitlistModalForm hook
  */
 
-import React from 'react';
+import React, { useId } from 'react';
 import Link from 'next/link';
 import type {
   WaitingListFormData,
@@ -65,9 +65,14 @@ export function WaitlistModalForm({
   labels,
   className = '',
 }: WaitlistModalFormProps) {
+  const uid = useId();
+  const titleId = `${uid}-title`;
+  const fieldId = (name: string) => `${uid}-${name}`;
+  const errorId = (name: string) => `${uid}-${name}-error`;
+
   return (
     <div className={className}>
-      <h2 id="waiting-list-title" className={styles.title}>
+      <h2 id={titleId} className={styles.title}>
         {labels.title}
       </h2>
       <p className={styles.subtitle}>{labels.subtitle}</p>
@@ -81,26 +86,26 @@ export function WaitlistModalForm({
 
         {/* Email field (required) */}
         <div className={styles.formGroup}>
-          <label htmlFor="email" className={styles.label}>
+          <label htmlFor={fieldId('email')} className={styles.label}>
             {labels.emailLabel}
             <span className={styles.required}>{labels.required}</span>
           </label>
           <input
             ref={emailInputRef}
             type="email"
-            id="email"
+            id={fieldId('email')}
             name="email"
             value={formData.email}
             onChange={onInputChange}
             placeholder={labels.emailPlaceholder}
             className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
-            aria-describedby={errors.email ? 'email-error' : undefined}
+            aria-describedby={errors.email ? errorId('email') : undefined}
             aria-invalid={!!errors.email}
             required
             autoComplete="email"
           />
           {errors.email && (
-            <span id="email-error" className={styles.errorMessage} role="alert">
+            <span id={errorId('email')} className={styles.errorMessage} role="alert">
               {errors.email}
             </span>
           )}
@@ -108,25 +113,25 @@ export function WaitlistModalForm({
 
         {/* Name field (optional) */}
         <div className={styles.formGroup}>
-          <label htmlFor="name" className={styles.label}>
+          <label htmlFor={fieldId('name')} className={styles.label}>
             {labels.nameLabel}
             <span className={styles.optional}>{labels.optional}</span>
           </label>
           <input
             type="text"
-            id="name"
+            id={fieldId('name')}
             name="name"
             value={formData.name}
             onChange={onInputChange}
             placeholder={labels.namePlaceholder}
             className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
-            aria-describedby={errors.name ? 'name-error' : undefined}
+            aria-describedby={errors.name ? errorId('name') : undefined}
             aria-invalid={!!errors.name}
             maxLength={WAITING_LIST_CONFIG.maxNameLength}
             autoComplete="name"
           />
           {errors.name && (
-            <span id="name-error" className={styles.errorMessage} role="alert">
+            <span id={errorId('name')} className={styles.errorMessage} role="alert">
               {errors.name}
             </span>
           )}
@@ -134,24 +139,24 @@ export function WaitlistModalForm({
 
         {/* X Account field (optional) */}
         <div className={styles.formGroup}>
-          <label htmlFor="xAccount" className={styles.label}>
+          <label htmlFor={fieldId('xAccount')} className={styles.label}>
             {labels.xAccountLabel}
             <span className={styles.optional}>{labels.optional}</span>
           </label>
           <input
             type="text"
-            id="xAccount"
+            id={fieldId('xAccount')}
             name="xAccount"
             value={formData.xAccount}
             onChange={onInputChange}
             placeholder={labels.xAccountPlaceholder}
             className={`${styles.input} ${errors.xAccount ? styles.inputError : ''}`}
-            aria-describedby={errors.xAccount ? 'xAccount-error' : undefined}
+            aria-describedby={errors.xAccount ? errorId('xAccount') : undefined}
             aria-invalid={!!errors.xAccount}
             maxLength={WAITING_LIST_CONFIG.maxXAccountLength}
           />
           {errors.xAccount && (
-            <span id="xAccount-error" className={styles.errorMessage} role="alert">
+            <span id={errorId('xAccount')} className={styles.errorMessage} role="alert">
               {errors.xAccount}
             </span>
           )}
@@ -161,17 +166,17 @@ export function WaitlistModalForm({
         <div className={styles.checkboxGroup}>
           <input
             type="checkbox"
-            id="gdprAccepted"
+            id={fieldId('gdpr')}
             name="gdprAccepted"
             checked={formData.gdprAccepted}
             onChange={onInputChange}
             className={styles.checkbox}
-            aria-describedby={errors.gdprAccepted ? 'gdpr-error' : undefined}
+            aria-describedby={errors.gdprAccepted ? errorId('gdpr') : undefined}
             aria-invalid={!!errors.gdprAccepted}
             aria-required="true"
             required
           />
-          <label htmlFor="gdprAccepted" className={styles.checkboxLabel}>
+          <label htmlFor={fieldId('gdpr')} className={styles.checkboxLabel}>
             {labels.consentText}{' '}
             <Link
               href={WAITING_LIST_CONFIG.privacyPolicyUrl}
@@ -183,7 +188,7 @@ export function WaitlistModalForm({
             <span className={styles.required}>{labels.required}</span>
           </label>
           {errors.gdprAccepted && (
-            <span id="gdpr-error" className={styles.errorMessage} role="alert">
+            <span id={errorId('gdpr')} className={styles.errorMessage} role="alert">
               {errors.gdprAccepted}
             </span>
           )}

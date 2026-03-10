@@ -9,7 +9,7 @@
   flex-direction: column;
   gap: var(--spacing-lg);
   width: var(--percent-100);
-  max-width: var(--dimension-400);
+  max-width: var(--percent-100);
 }
 
 /* Card Wrapper */
@@ -59,7 +59,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-md);
-  min-height: var(--dimension-300);
+  min-height: var(--dimension-250);
   padding: var(--spacing-2xl);
   background: var(--color-surface-elevated);
   border-radius: var(--radius-2xl);
@@ -175,13 +175,19 @@
   flex-shrink: 0;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+@media (prefers-reduced-motion: reduce) {
+  .loading .loadingSpinner {
+    animation: none;
+  }
+}
+
+/* Responsive — mobile-first: scale up at 481px+ */
+@media (min-width: 481px) {
   .cardContainer {
-    max-width: var(--percent-100);
+    max-width: var(--dimension-400);
   }
 
   .cardPlaceholder {
-    min-height: var(--dimension-250);
+    min-height: var(--dimension-300);
   }
 }

@@ -1,38 +1,61 @@
 /**
  * B2B Landing Page Configuration
  *
- * Domain-Driven Design: B2B treasury landing page domain configuration
+ * 14-section layout: Hero → Two Worlds → Cashflow Calculator → Treasury Calculator
+ * → Origin Story → How It Works → Features → Cashflow Investing → Fees
+ * → Fit Assessment → Founder → Waitlist → FAQ → Footer
+ *
+ * Domain-Driven Design: B2B landing page domain configuration
  * Service Agnostic Abstraction: Decoupled content from presentation
- * Configuration Management: Centralized landing page content
  */
 
-import { getSocialRealAsset } from './assets';
 import type { FAQAccordionVariantConfig, FAQItem } from './faqAccordion';
 import type { HeroVariantConfig } from './hero';
-import type { FeatureShowcaseVariantConfig } from './featureShowcase';
 import type { AppFeaturesCarouselVariantConfig } from './appFeaturesCarousel';
-import type { ProductCarouselVariantConfig } from './productCarousel';
 import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards';
+import type { ProseSectionConfig } from './proseSection';
+import type { FeeTableConfig } from './feeTable';
+import type { FounderSectionConfig } from './founderSection';
+import type { CalculatorFactoryConfig } from './calculatorFactory';
+import type { TwoWorldsSectionConfig } from './twoWorldsSection';
+import type { CashflowExplainerSectionConfig } from './cashflowExplainerSection';
+import type { ExpandableSectionConfig } from './expandableSection';
 
 /**
- * Hero Section Configuration for B2B Landing Page
+ * B2B Landing Page Image Paths
  */
+const B2B_IMAGES = {
+  twoWorldsPayments: '/assets/images/payment-dark.avif',
+  twoWorldsTreasury: '/assets/images/phone-grow2.avif',
+  originStory: '/assets/images/table-sunlight.avif',
+  featureGetPaid: '/assets/images/phone-transfer.avif',
+  featurePayAnyone: '/assets/images/global-jp-canada.avif',
+  featureAdelaide: '/assets/images/phone-features2.avif',
+  carouselConnect: '/assets/images/phone-account.avif',
+  carouselRules: '/assets/images/phone-balance.avif',
+  carouselWorks: '/assets/images/phone-grow.avif',
+  carouselAccess: '/assets/images/global.avif',
+  founderPhoto: '/assets/images/hand-bright.avif',
+} as const;
+
+// ─── Section 1: Hero ─────────────────────────────────────────
+
 export const B2B_HERO_CONFIG: HeroVariantConfig = {
   variant: 'fullBackground',
   content: {
     title: 'landing-b2b.hero.headline',
     description: 'landing-b2b.hero.subheadline',
     ctaText: 'landing-b2b.hero.cta',
-    ctaHref: '#origin-story',
+    ctaHref: '#two-worlds',
     ctaTarget: '_self'
   },
   backgroundAssets: {
-    backgroundImage: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN'),
-    backgroundImageMobile: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN'),
-    overlayOpacity: 0.5
+    backgroundImage: B2B_IMAGES.twoWorldsPayments,
+    backgroundImageMobile: B2B_IMAGES.twoWorldsPayments,
+    overlayOpacity: 0.1
   },
   seo: {
-    titleTag: 'diBoaS Treasury - Earn 6-8% on Startup Operating Cash',
+    titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',
     imageAlt: {
       background: 'Business treasury management illustration'
     }
@@ -43,122 +66,229 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
   }
 } as const;
 
-/**
- * The Math Section Configuration (FeatureShowcase)
- * Maps to: Section 2 - The Math (comparison table)
- */
-export const B2B_THE_MATH_CONFIG: FeatureShowcaseVariantConfig = {
-  variant: 'default',
-  slides: [
-    {
-      id: 'the-math',
-      content: {
-        title: 'landing-b2b.theMath.header',
-        description: 'landing-b2b.theMath.intro',
-        ctaText: 'landing-b2b.theMath.cta',
-        ctaHref: '#calculator',
-        ctaTarget: '_self'
-      },
-      assets: {
-        primaryImage: getSocialRealAsset('BUSINESS_CHARTS')
-      },
-      seo: {
-        imageAlt: 'Business treasury comparison analysis'
-      }
+// ─── Section 2: Two Worlds (NEW) ─────────────────────────────
+
+export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
+  content: {
+    header: 'landing-b2b.twoWorlds.header',
+    cardA: {
+      headline: 'landing-b2b.twoWorlds.cardA.headline',
+      body: 'landing-b2b.twoWorlds.cardA.body',
+      cta: 'landing-b2b.twoWorlds.cardA.cta',
+      ctaHref: '#cashflow-calculator',
+      image: B2B_IMAGES.twoWorldsPayments,
+      imageAlt: 'Business payment processing'
+    },
+    cardB: {
+      headline: 'landing-b2b.twoWorlds.cardB.headline',
+      body: 'landing-b2b.twoWorlds.cardB.body',
+      cta: 'landing-b2b.twoWorlds.cardB.cta',
+      ctaHref: '#treasury-calculator',
+      image: B2B_IMAGES.twoWorldsTreasury,
+      imageAlt: 'Treasury management on phone'
     }
-  ],
-  settings: {
-    showNavigation: false,
-    showDots: false,
-    enableAnalytics: true,
-    transitionDuration: 250
+  },
+  seo: {
+    ariaLabel: 'Two ways the system costs your business'
   },
   analytics: {
-    trackingPrefix: 'the_math_b2b_landing',
-    enabled: true
+    sectionId: 'two-worlds-b2b',
+    category: 'landing-b2b'
   }
 };
 
-/**
- * Calculator Section Configuration
- * Maps to: Section 2 - Interactive Calculator
- * Note: This requires a custom TreasuryCalculator component
- */
-export const B2B_CALCULATOR_CONFIG = {
+// ─── Section 3: Cashflow Calculator (NEW) ─────────────────────
+
+export const B2B_CASHFLOW_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
+  variant: 'cashflow',
   content: {
-    header: 'landing-b2b.calculator.header',
-    cta: 'landing-b2b.calculator.cta',
-    ctaHref: '#final-cta'
+    header: 'landing-b2b.cashflowCalculator.header',
+    todayTitle: 'landing-b2b.cashflowCalculator.todayTitle',
+    tomorrowTitle: 'landing-b2b.cashflowCalculator.tomorrowTitle',
+    fields: {
+      field1: 'landing-b2b.cashflowCalculator.fields.dailyRevenue',
+      field2: 'landing-b2b.cashflowCalculator.fields.currentFee'
+    },
+    periodToggle: {
+      month: 'landing-b2b.cashflowCalculator.periodToggle.month',
+      sixMonths: 'landing-b2b.cashflowCalculator.periodToggle.sixMonths',
+      year: 'landing-b2b.cashflowCalculator.periodToggle.year'
+    },
+    disclaimer: 'landing-b2b.cashflowCalculator.disclaimer',
+    results: {
+      step1Label: 'landing-b2b.cashflowCalculator.results.step1Label',
+      step2Label: 'landing-b2b.cashflowCalculator.results.step2Label',
+      savingsLabel: 'landing-b2b.cashflowCalculator.results.savingsLabel',
+      scenarios: {
+        conservative: 'landing-b2b.cashflowCalculator.results.scenarios.conservative',
+        historical: 'landing-b2b.cashflowCalculator.results.scenarios.historical',
+        optimistic: 'landing-b2b.cashflowCalculator.results.scenarios.optimistic'
+      }
+    },
+    sliderLabel: 'landing-b2b.cashflowCalculator.sliderLabel',
+    belowResults: 'landing-b2b.cashflowCalculator.belowResults',
+    customRateTemplate: 'landing-b2b.cashflowCalculator.customRateTemplate',
+    cta: 'landing-b2b.cashflowCalculator.cta',
+    ctaHref: '#waitlist',
+    transitionHook: 'landing-b2b.cashflowCalculator.transitionHook'
   },
   defaults: {
-    cashOnHand: 500000,
-    currentRate: 0.5,
-    diboasRate: 7
+    en: { field1: 1000, field2: 3 },
+    de: { field1: 1000, field2: 2.5 },
+    es: { field1: 1000, field2: 2.5 },
+    'pt-BR': { field1: 5000, field2: 4 }
+  },
+  seo: {
+    ariaLabel: 'Cashflow fee savings calculator'
   },
   analytics: {
-    sectionId: 'calculator-b2b',
+    sectionId: 'cashflow-calculator-b2b',
     category: 'landing-b2b'
   }
-} as const;
+};
 
-/**
- * How It Works Section Configuration (AppFeaturesCarousel)
- * Maps to: Section 5 - How it works (4 steps)
- */
+// ─── Section 4: Treasury Calculator ───────────────────────────
+
+export const B2B_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
+  variant: 'treasury',
+  content: {
+    header: 'landing-b2b.calculator.header',
+    todayTitle: 'landing-b2b.calculator.todayTitle',
+    tomorrowTitle: 'landing-b2b.calculator.tomorrowTitle',
+    fields: {
+      field1: 'landing-b2b.calculator.fields.cashOnHand',
+      field2: 'landing-b2b.calculator.fields.currentRate'
+    },
+    periodToggle: {
+      month: 'landing-b2b.calculator.periodToggle.month',
+      sixMonths: 'landing-b2b.calculator.periodToggle.sixMonths',
+      year: 'landing-b2b.calculator.periodToggle.year'
+    },
+    disclaimer: 'landing-b2b.calculator.disclaimer',
+    results: {
+      step1Label: 'landing-b2b.calculator.results.step1Label',
+      step2Label: 'landing-b2b.calculator.results.step2Label',
+      savingsLabel: 'landing-b2b.calculator.results.savingsLabel',
+      scenarios: {
+        conservative: 'landing-b2b.calculator.results.scenarios.conservative',
+        historical: 'landing-b2b.calculator.results.scenarios.historical',
+        optimistic: 'landing-b2b.calculator.results.scenarios.optimistic'
+      }
+    },
+    sliderLabel: 'landing-b2b.calculator.sliderLabel',
+    belowResults: 'landing-b2b.calculator.belowResults',
+    customRateTemplate: 'landing-b2b.calculator.customRateTemplate',
+    cta: 'landing-b2b.calculator.cta',
+    ctaHref: '#waitlist',
+    transitionHook: 'landing-b2b.calculator.transitionHook'
+  },
+  defaults: {
+    en: { field1: 500000, field2: 0.5 },
+    de: { field1: 500000, field2: 0.5 },
+    es: { field1: 500000, field2: 0.5 },
+    'pt-BR': { field1: 2500000, field2: 1 }
+  },
+  seo: {
+    ariaLabel: 'Treasury idle cash calculator'
+  },
+  analytics: {
+    sectionId: 'treasury-calculator-b2b',
+    category: 'landing-b2b'
+  }
+};
+
+// ─── Section 5: Origin Story (ProseSection) ───────────────────
+
+export const B2B_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
+  content: {
+    header: 'landing-b2b.origin.header',
+    paragraphs: [
+      'landing-b2b.origin.paragraphs.0',
+      'landing-b2b.origin.paragraphs.1',
+      'landing-b2b.origin.paragraphs.2',
+      'landing-b2b.origin.paragraphs.3',
+      'landing-b2b.origin.paragraphs.4',
+      'landing-b2b.origin.paragraphs.5',
+      'landing-b2b.origin.paragraphs.6'
+    ],
+    signatureLine: 'landing-b2b.origin.signature',
+    transitionHook: 'landing-b2b.origin.transitionHook'
+  },
+  image: {
+    src: B2B_IMAGES.originStory,
+    alt: 'diBoaS founder',
+    position: 'right',
+    aspectRatio: 'portrait'
+  },
+  style: {
+    backgroundColor: 'white',
+    headerStyle: 'inline'
+  },
+  seo: {
+    ariaLabel: 'Origin story — Her name was Adelaide'
+  },
+  analytics: {
+    sectionId: 'origin-story-b2b',
+    category: 'landing-b2b'
+  }
+};
+
+// ─── Section 6: How It Works (AppFeaturesCarousel) ────────────
+
 export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
   variant: 'default',
   sectionTitle: 'landing-b2b.howItWorks.header',
   cards: [
     {
-      id: 'step-link',
+      id: 'step-connect',
       content: {
-        title: 'landing-b2b.howItWorks.steps.link.title',
-        description: 'landing-b2b.howItWorks.steps.link.description'
+        title: 'landing-b2b.howItWorks.steps.connect.title',
+        description: 'landing-b2b.howItWorks.steps.connect.description'
       },
       assets: {
-        image: getSocialRealAsset('BUSINESS_BALANCE')
+        image: B2B_IMAGES.carouselConnect
       },
       seo: {
-        imageAlt: 'Link your business account'
+        imageAlt: 'Connect your business account'
       }
     },
     {
-      id: 'step-control',
+      id: 'step-rules',
       content: {
-        title: 'landing-b2b.howItWorks.steps.control.title',
-        description: 'landing-b2b.howItWorks.steps.control.description'
+        title: 'landing-b2b.howItWorks.steps.rules.title',
+        description: 'landing-b2b.howItWorks.steps.rules.description'
       },
       assets: {
-        image: getSocialRealAsset('BUSINESS_PAYMENT')
+        image: B2B_IMAGES.carouselRules
       },
       seo: {
-        imageAlt: 'You are in control'
+        imageAlt: 'Set your rules and limits'
       }
     },
     {
-      id: 'step-earn',
+      id: 'step-works',
       content: {
-        title: 'landing-b2b.howItWorks.steps.earn.title',
-        description: 'landing-b2b.howItWorks.steps.earn.description'
+        title: 'landing-b2b.howItWorks.steps.works.title',
+        description: 'landing-b2b.howItWorks.steps.works.description'
       },
       assets: {
-        image: getSocialRealAsset('BUSINESS_INVESTING')
+        image: B2B_IMAGES.carouselWorks
       },
       seo: {
-        imageAlt: 'Watch it grow'
+        imageAlt: 'Your money works for you'
       }
     },
     {
-      id: 'step-withdraw',
+      id: 'step-access',
       content: {
-        title: 'landing-b2b.howItWorks.steps.withdraw.title',
-        description: 'landing-b2b.howItWorks.steps.withdraw.description'
+        title: 'landing-b2b.howItWorks.steps.access.title',
+        description: 'landing-b2b.howItWorks.steps.access.description'
       },
       assets: {
-        image: getSocialRealAsset('BUSINESS_SENDING')
+        image: B2B_IMAGES.carouselAccess
       },
       seo: {
-        imageAlt: 'Access anytime'
+        imageAlt: 'Access your money anytime'
       }
     }
   ],
@@ -175,49 +305,39 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
   }
 };
 
-/**
- * More Than Yield Section Configuration (BenefitsCards)
- * Maps to: Section 6 - More Than Yield (4 features)
- */
+// ─── Section 7: Three Features (BenefitsCards, 3 cards) ───────
+
 export const B2B_FEATURES_CONFIG: BenefitsCardsConfig = {
   section: {
     title: 'landing-b2b.features.header',
-    description: 'landing-b2b.features.intro',
     backgroundColor: 'neutral'
   },
   cards: [
     {
-      id: 'feature-instant-payments',
+      id: 'feature-get-paid',
       icon: '/assets/icons/money-flow.avif',
-      title: 'landing-b2b.features.instantPayments.headline',
-      description: 'landing-b2b.features.instantPayments.body',
-      iconAlt: 'Instant payments icon'
+      title: 'landing-b2b.features.cards.getPaid.headline',
+      description: 'landing-b2b.features.cards.getPaid.body',
+      iconAlt: 'Get paid without the cut'
     },
     {
-      id: 'feature-receive-payments',
+      id: 'feature-pay-anyone',
       icon: '/assets/icons/money-circle.avif',
-      title: 'landing-b2b.features.receivePayments.headline',
-      description: 'landing-b2b.features.receivePayments.body',
-      iconAlt: 'Receive payments icon'
+      title: 'landing-b2b.features.cards.payAnyone.headline',
+      description: 'landing-b2b.features.cards.payAnyone.body',
+      iconAlt: 'Pay anyone anywhere instantly'
     },
     {
-      id: 'feature-cashflow',
+      id: 'feature-adelaide',
       icon: '/assets/icons/chart-growing.avif',
-      title: 'landing-b2b.features.cashflowOptimization.headline',
-      description: 'landing-b2b.features.cashflowOptimization.body',
-      iconAlt: 'Cashflow optimization icon'
-    },
-    {
-      id: 'feature-overnight-sweep',
-      icon: '/assets/icons/safe-money.avif',
-      title: 'landing-b2b.features.overnightSweep.headline',
-      description: 'landing-b2b.features.overnightSweep.body',
-      iconAlt: 'Overnight sweep icon'
+      title: 'landing-b2b.features.cards.adelaide.headline',
+      description: 'landing-b2b.features.cards.adelaide.body',
+      iconAlt: 'Adelaide market intelligence'
     }
   ],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Treasury features beyond yield'
+    ariaLabel: 'What your business gets with diBoaS'
   },
   analytics: {
     sectionId: 'features-b2b',
@@ -225,61 +345,232 @@ export const B2B_FEATURES_CONFIG: BenefitsCardsConfig = {
   }
 };
 
-/**
- * Use Cases Section Configuration (ProductCarousel)
- * Maps to: Section 5 - Use Cases (3 cases)
- */
-export const B2B_USE_CASES_CONFIG: ProductCarouselVariantConfig = {
-  variant: 'default',
+// ─── Section 8: Cashflow Investing (NEW) ──────────────────────
+
+export const B2B_CASHFLOW_INVESTING_CONFIG: CashflowExplainerSectionConfig = {
   content: {
-    heading: 'landing-b2b.useCases.header',
-    slides: [
+    header: 'landing-b2b.cashflowInvesting.header',
+    subheader: 'landing-b2b.cashflowInvesting.subheader',
+    partA: {
+      title: 'landing-b2b.cashflowInvesting.saveIt.title',
+      body: 'landing-b2b.cashflowInvesting.saveIt.body'
+    },
+    partB: {
+      title: 'landing-b2b.cashflowInvesting.growIt.title',
+      body: 'landing-b2b.cashflowInvesting.growIt.body'
+    },
+    microExample: 'landing-b2b.cashflowInvesting.microExample',
+    limitation: 'landing-b2b.cashflowInvesting.limitation',
+    brandPromise: 'landing-b2b.cashflowInvesting.brandPromise',
+    cta: 'landing-b2b.cashflowInvesting.cta',
+    ctaHref: '#cashflow-calculator',
+    microDisclosure: 'landing-b2b.cashflowInvesting.microDisclosure'
+  },
+  seo: {
+    ariaLabel: 'Cashflow investing — two wins from one change'
+  },
+  analytics: {
+    sectionId: 'cashflow-investing-b2b',
+    category: 'landing-b2b'
+  }
+};
+
+// ─── Section 9: Fee Transparency (FeeTable) ──────────────────
+
+export const B2B_FEES_CONFIG: FeeTableConfig = {
+  content: {
+    title: 'landing-b2b.fees.header',
+    subtitle: 'landing-b2b.fees.subtitle',
+    disclaimer: 'landing-b2b.fees.disclaimer',
+    example: 'landing-b2b.fees.example',
+    footerLine: 'landing-b2b.fees.footerLine',
+    transitionHook: 'landing-b2b.fees.transitionHook',
+    headers: {
+      action: 'landing-b2b.fees.headers.action',
+      diboas: 'landing-b2b.fees.headers.diboas',
+      competitors: 'landing-b2b.fees.headers.competitors',
+      difference: '',
+      example: 'landing-b2b.fees.headers.example'
+    },
+    rows: [
       {
-        id: 'post-fundraise',
-        title: 'landing-b2b.useCases.cases.postFundraise.title',
-        subtitle: 'landing-b2b.useCases.cases.postFundraise.description',
-        image: getSocialRealAsset('BUSINESS_DEAL'),
-        imageAlt: 'Post-fundraise treasury management'
+        id: 'account',
+        action: 'landing-b2b.fees.rows.account.action',
+        diboas: 'landing-b2b.fees.rows.account.diboas',
+        competitors: 'landing-b2b.fees.rows.account.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.account.example',
+        isFree: true
       },
       {
-        id: 'between-rounds',
-        title: 'landing-b2b.useCases.cases.betweenRounds.title',
-        subtitle: 'landing-b2b.useCases.cases.betweenRounds.description',
-        image: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN'),
-        imageAlt: 'Between funding rounds'
+        id: 'receive',
+        action: 'landing-b2b.fees.rows.receive.action',
+        diboas: 'landing-b2b.fees.rows.receive.diboas',
+        competitors: 'landing-b2b.fees.rows.receive.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.receive.example',
+        isFree: true
       },
       {
-        id: 'operating-reserves',
-        title: 'landing-b2b.useCases.cases.operatingReserves.title',
-        subtitle: 'landing-b2b.useCases.cases.operatingReserves.description',
-        image: getSocialRealAsset('BUSINESS_BALANCE'),
-        imageAlt: 'Operating reserves management'
+        id: 'send',
+        action: 'landing-b2b.fees.rows.send.action',
+        diboas: 'landing-b2b.fees.rows.send.diboas',
+        competitors: 'landing-b2b.fees.rows.send.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.send.example',
+        isFree: true
+      },
+      {
+        id: 'add',
+        action: 'landing-b2b.fees.rows.add.action',
+        diboas: 'landing-b2b.fees.rows.add.diboas',
+        competitors: 'landing-b2b.fees.rows.add.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.add.example'
+      },
+      {
+        id: 'invest',
+        action: 'landing-b2b.fees.rows.invest.action',
+        diboas: 'landing-b2b.fees.rows.invest.diboas',
+        competitors: 'landing-b2b.fees.rows.invest.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.invest.example',
+        isFree: true
+      },
+      {
+        id: 'sell',
+        action: 'landing-b2b.fees.rows.sell.action',
+        diboas: 'landing-b2b.fees.rows.sell.diboas',
+        competitors: 'landing-b2b.fees.rows.sell.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.sell.example'
+      },
+      {
+        id: 'swap',
+        action: 'landing-b2b.fees.rows.swap.action',
+        diboas: 'landing-b2b.fees.rows.swap.diboas',
+        competitors: 'landing-b2b.fees.rows.swap.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.swap.example',
+        isFree: true
+      },
+      {
+        id: 'cashOut',
+        action: 'landing-b2b.fees.rows.cashOut.action',
+        diboas: 'landing-b2b.fees.rows.cashOut.diboas',
+        competitors: 'landing-b2b.fees.rows.cashOut.competitors',
+        difference: '',
+        example: 'landing-b2b.fees.rows.cashOut.example'
       }
     ]
   },
-  settings: {
-    autoPlay: false,
-    autoPlayInterval: 5000,
-    transitionDuration: 500,
-    pauseOnHover: true,
-    enableKeyboard: true,
-    enableTouch: true,
-    enableDots: true,
-    enablePlayPause: false
-  },
   seo: {
-    headingTag: 'h2',
-    ariaLabel: 'Treasury use cases'
+    headingLevel: 'h2',
+    ariaLabel: 'Complete fee transparency table'
   },
   analytics: {
-    trackingPrefix: 'use_cases_b2b',
-    enabled: true
+    sectionId: 'fees-b2b',
+    category: 'landing-b2b'
   }
 };
 
 /**
- * FAQ Items for B2B Landing Page
+ * Section 9 wrapper: Fees Expandable Configuration
+ * Wraps FeeTable inside an ExpandableSection for collapsed-by-default UX
  */
+export const B2B_FEES_EXPANDABLE_CONFIG: ExpandableSectionConfig = {
+  content: {
+    toggleLabel: 'landing-b2b.fees.expandableToggle',
+  },
+  seo: {
+    ariaLabel: 'Complete fee transparency details',
+  },
+  analytics: {
+    sectionId: 'fees-expandable-b2b',
+    category: 'landing-b2b',
+  },
+};
+
+// ─── Section 10: Fit Assessment (BenefitsCards) ──────────────
+
+export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
+  section: {
+    title: 'landing-b2b.fitAssessment.header',
+    backgroundColor: 'enterprise'
+  },
+  cards: [
+    {
+      id: 'good-fit',
+      icon: '/assets/icons/rewards-trophy.avif',
+      title: 'landing-b2b.fitAssessment.goodFit.title',
+      description: 'landing-b2b.fitAssessment.goodFit.description',
+      iconAlt: 'Good fit checkmark'
+    },
+    {
+      id: 'not-a-fit',
+      icon: '/assets/icons/safe-money.avif',
+      title: 'landing-b2b.fitAssessment.notAFit.title',
+      description: 'landing-b2b.fitAssessment.notAFit.description',
+      iconAlt: 'Not a fit icon'
+    }
+  ],
+  seo: {
+    headingLevel: 'h2',
+    ariaLabel: 'Is diBoaS right for your business'
+  },
+  analytics: {
+    sectionId: 'fit-assessment-b2b',
+    category: 'landing-b2b'
+  }
+};
+
+// ─── Section 11: About the Founder (FounderSection) ──────────
+
+export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
+  content: {
+    header: 'landing-b2b.founder.header',
+    paragraphs: [
+      'landing-b2b.founder.paragraphs.versionB.0',
+      'landing-b2b.founder.paragraphs.versionB.1',
+      'landing-b2b.founder.email'
+    ],
+    emailText: 'landing-b2b.founder.emailAddress',
+    emailHref: 'bar@diboas.com',
+    socialLinks: [
+      { label: 'landing-b2b.founder.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
+      { label: 'landing-b2b.founder.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },
+      { label: 'landing-b2b.founder.social.substack', href: 'https://bribeirobr.substack.com/', icon: 'substack' },
+    ],
+  },
+  image: {
+    src: B2B_IMAGES.founderPhoto,
+    alt: 'Bar, Founder of diBoaS'
+  },
+  seo: {
+    ariaLabel: 'About the founder'
+  },
+  analytics: {
+    sectionId: 'founder-b2b',
+    category: 'landing-b2b'
+  }
+};
+
+// ─── Section 12: Waitlist Configuration ─────────────────────
+
+export const B2B_WAITLIST_CONFIG = {
+  sectionId: 'waitlist-section-b2b',
+  backgroundColor: 'var(--section-bg-brand)',
+  headline: 'landing-b2b.waitlist.header',
+  subheadline: 'landing-b2b.waitlist.description',
+  hideBenefits: true,
+  hideNoSpam: true,
+  namespace: 'landing-b2b.waitlist',
+  confirmationNamespace: 'landing-b2b.waitlistSuccess',
+  source: 'landing_b2b' as const,
+} as const;
+
+// ─── Section 13: FAQ (10 items) ──────────────────────────────
+
 export const B2B_FAQ_ITEMS: FAQItem[] = [
   {
     id: 'catch',
@@ -288,16 +579,22 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
     category: 'general'
   },
   {
+    id: 'smbOrStartup',
+    question: 'landing-b2b.faq.items.smbOrStartup.question',
+    answer: 'landing-b2b.faq.items.smbOrStartup.answer',
+    category: 'general'
+  },
+  {
+    id: 'safety',
+    question: 'landing-b2b.faq.items.safety.question',
+    answer: 'landing-b2b.faq.items.safety.answerA',
+    category: 'security'
+  },
+  {
     id: 'liquidity',
     question: 'landing-b2b.faq.items.liquidity.question',
     answer: 'landing-b2b.faq.items.liquidity.answer',
     category: 'operations'
-  },
-  {
-    id: 'risk',
-    question: 'landing-b2b.faq.items.risk.question',
-    answer: 'landing-b2b.faq.items.risk.answer',
-    category: 'security'
   },
   {
     id: 'payments',
@@ -320,22 +617,30 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
   {
     id: 'whyCantTouch',
     question: 'landing-b2b.faq.items.whyCantTouch.question',
-    answer: 'landing-b2b.faq.items.whyCantTouch.answer',
+    answer: 'landing-b2b.faq.items.whyCantTouch.answerA',
     category: 'security'
+  },
+  {
+    id: 'risk',
+    question: 'landing-b2b.faq.items.risk.question',
+    answer: 'landing-b2b.faq.items.risk.answer',
+    category: 'security'
+  },
+  {
+    id: 'audited',
+    question: 'landing-b2b.faq.items.audited.question',
+    answer: 'landing-b2b.faq.items.audited.answer',
+    category: 'compliance'
   }
 ];
 
-/**
- * FAQ Section Configuration
- * Maps to: Section 7 - FAQ
- */
 export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
   variant: 'default',
   content: {
     title: 'landing-b2b.faq.header',
-    description: 'landing-b2b.faq.description',
-    ctaText: 'landing-b2b.faq.ctaText',
-    ctaHref: '#final-cta',
+    description: '',
+    ctaText: '',
+    ctaHref: '#waitlist',
     items: B2B_FAQ_ITEMS
   },
   settings: {
@@ -346,7 +651,7 @@ export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
     scrollIntoView: true
   },
   seo: {
-    ariaLabel: 'Frequently asked questions for founders',
+    ariaLabel: 'Frequently asked questions for business owners',
     region: 'faq'
   },
   analytics: {
@@ -355,225 +660,33 @@ export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
   }
 };
 
-/**
- * Process Section Configuration (AppFeaturesCarousel)
- * Maps to: Section 8 - The Process (4 steps)
- */
-export const B2B_PROCESS_CONFIG: AppFeaturesCarouselVariantConfig = {
-  variant: 'default',
-  sectionTitle: 'landing-b2b.process.header',
-  cards: [
-    {
-      id: 'process-book',
-      content: {
-        title: 'landing-b2b.process.steps.book.title',
-        description: 'landing-b2b.process.steps.book.description'
-      },
-      assets: {
-        image: getSocialRealAsset('BUSINESS_DEAL')
-      },
-      seo: {
-        imageAlt: 'Book a call'
-      }
-    },
-    {
-      id: 'process-review',
-      content: {
-        title: 'landing-b2b.process.steps.review.title',
-        description: 'landing-b2b.process.steps.review.description'
-      },
-      assets: {
-        image: getSocialRealAsset('BUSINESS_PAYMENT')
-      },
-      seo: {
-        imageAlt: 'Review the numbers'
-      }
-    },
-    {
-      id: 'process-decide',
-      content: {
-        title: 'landing-b2b.process.steps.decide.title',
-        description: 'landing-b2b.process.steps.decide.description'
-      },
-      assets: {
-        image: getSocialRealAsset('BUSINESS_DEAL')
-      },
-      seo: {
-        imageAlt: 'Make a decision'
-      }
-    },
-    {
-      id: 'process-golive',
-      content: {
-        title: 'landing-b2b.process.steps.goLive.title',
-        description: 'landing-b2b.process.steps.goLive.description'
-      },
-      assets: {
-        image: getSocialRealAsset('BUSINESS_INVESTING')
-      },
-      seo: {
-        imageAlt: 'Go live'
-      }
-    }
-  ],
-  settings: {
-    autoRotateMs: 0,
-    pauseOnHover: true,
-    enableTouch: true,
-    enableAnalytics: true,
-    transitionDuration: 300
-  },
-  analytics: {
-    trackingPrefix: 'process_b2b',
-    enabled: true
-  }
-};
+// ─── Section 14: Footer navigation & disclosures ────────────
+
+export const B2B_FOOTER_NAV = [
+  { id: 'forYou', labelKey: 'landing-b2b.footer.nav.forYou', href: '/' },
+  { id: 'forBusiness', labelKey: 'landing-b2b.footer.nav.forBusiness', href: '/business' },
+  { id: 'adelaideDaily', labelKey: 'landing-b2b.footer.nav.adelaideDaily', href: '/daily-market' },
+  { id: 'about', labelKey: 'landing-b2b.footer.nav.about', href: '/about' },
+  { id: 'strategies', labelKey: 'landing-b2b.footer.nav.strategies', href: '/strategies' },
+  { id: 'protocols', labelKey: 'landing-b2b.footer.nav.protocols', href: '/protocols' },
+  { id: 'help', labelKey: 'landing-b2b.footer.nav.help', href: '/help' },
+] as const;
 
 /**
- * Final CTA Section Configuration (FeatureShowcase)
- * Maps to: Section 9 - Final CTA
+ * Locale-conditional footer disclosures.
+ * Uses the same interface as MinimalFooter's disclosureKeys prop.
+ *
+ * MiCA Art. 68: DE, ES only
+ * MiCA Art. 7: EN, DE, ES
+ * CVM 3-warning: PT-BR only
+ * US disclosure: EN only
  */
-export const B2B_FINAL_CTA_CONFIG: FeatureShowcaseVariantConfig = {
-  variant: 'default',
-  slides: [
-    {
-      id: 'final-cta',
-      content: {
-        title: 'landing-b2b.finalCta.header',
-        description: 'landing-b2b.finalCta.body',
-        ctaText: 'landing-b2b.finalCta.cta',
-        ctaHref: 'https://cal.com/diboas/treasury-conversation',
-        ctaTarget: '_blank'
-      },
-      assets: {
-        primaryImage: getSocialRealAsset('BUSINESS_INVESTING')
-      },
-      seo: {
-        imageAlt: 'Book a treasury conversation'
-      }
-    }
-  ],
-  settings: {
-    showNavigation: false,
-    showDots: false,
-    enableAnalytics: true,
-    transitionDuration: 250
-  },
-  analytics: {
-    trackingPrefix: 'final_cta_b2b',
-    enabled: true
-  }
-};
-
-/**
- * Origin Story Section Configuration (FeatureShowcase)
- * Maps to: Section 3 - Why I'm Building This (Grandmother Story)
- */
-export const B2B_ORIGIN_STORY_CONFIG: FeatureShowcaseVariantConfig = {
-  variant: 'default',
-  slides: [
-    {
-      id: 'origin-story',
-      content: {
-        title: 'landing-b2b.origin.header',
-        description: 'landing-b2b.origin.body',
-        ctaText: 'landing-b2b.origin.signature',
-        ctaHref: '#calculator',
-        ctaTarget: '_self'
-      },
-      assets: {
-        primaryImage: getSocialRealAsset('BUSINESS_OWNER')
-      },
-      seo: {
-        imageAlt: 'diBoaS founder story'
-      }
-    }
-  ],
-  settings: {
-    showNavigation: false,
-    showDots: false,
-    enableAnalytics: true,
-    transitionDuration: 250
-  },
-  analytics: {
-    trackingPrefix: 'origin_story_b2b',
-    enabled: true
-  }
-};
-
-/**
- * Fit Assessment Section Configuration (BenefitsCards)
- * Maps to: Section 8 - Is This Right For You (Good Fit / Not a Fit)
- */
-export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
-  section: {
-    title: 'landing-b2b.fitAssessment.header',
-    description: 'landing-b2b.fitAssessment.intro',
-    backgroundColor: 'enterprise'
-  },
-  cards: [
-    {
-      id: 'good-fit',
-      icon: '/assets/icons/rewards-trophy.avif',
-      title: 'landing-b2b.fitAssessment.goodFit.title',
-      description: 'landing-b2b.fitAssessment.goodFit.description',
-      iconAlt: 'Good fit checkmark'
-    },
-    {
-      id: 'not-a-fit',
-      icon: '/assets/icons/safe-money.avif',
-      title: 'landing-b2b.fitAssessment.notAFit.title',
-      description: 'landing-b2b.fitAssessment.notAFit.description',
-      iconAlt: 'Not a fit icon'
-    }
-  ],
-  seo: {
-    headingLevel: 'h2',
-    ariaLabel: 'Is diBoaS Treasury right for you'
-  },
-  analytics: {
-    sectionId: 'fit-assessment-b2b',
-    category: 'landing-b2b'
-  }
-};
-
-/**
- * Mission Footer Section Configuration (FeatureShowcase)
- * Maps to: Section 10 - Mission Footer
- */
-export const B2B_MISSION_FOOTER_CONFIG: FeatureShowcaseVariantConfig = {
-  variant: 'default',
-  slides: [
-    {
-      id: 'mission-footer',
-      content: {
-        title: 'landing-b2b.missionFooter.header',
-        description: 'landing-b2b.missionFooter.body',
-        ctaText: '',
-        ctaHref: '#',
-        ctaTarget: '_self'
-      },
-      assets: {
-        primaryImage: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN')
-      },
-      seo: {
-        imageAlt: 'diBoaS mission'
-      }
-    }
-  ],
-  settings: {
-    showNavigation: false,
-    showDots: false,
-    enableAnalytics: true,
-    transitionDuration: 250
-  },
-  analytics: {
-    trackingPrefix: 'mission_footer_b2b',
-    enabled: true
-  }
-};
-
-/**
- * Risk Disclaimer Configuration
- */
-export const B2B_DISCLAIMER_KEY = 'landing-b2b.disclaimer.text';
+export const B2B_FOOTER_DISCLOSURES = {
+  general: 'landing-b2b.footer.riskDisclaimer',
+  stories: 'landing-b2b.footer.fictionalResults',
+  ai: 'landing-b2b.footer.aiDisclosure',
+  mica: 'landing-b2b.footer.micaArticle68',
+  micaArticle7: 'landing-b2b.footer.micaArticle7',
+  cvm: 'landing-b2b.footer.cvmWarning',
+  us: 'landing-b2b.footer.usDisclosure',
+} as const;

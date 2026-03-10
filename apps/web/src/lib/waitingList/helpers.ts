@@ -137,54 +137,38 @@ export const formatPosition = (position: number, locale: string = 'en'): string 
 };
 
 /**
- * Calculates new position after referral bumps
+ * Stores referral code in sessionStorage (survives cross-page navigation within tab).
+ * Uses sessionStorage instead of cookies to avoid GDPR/ePrivacy consent requirements.
  */
-export const calculateNewPosition = (
-  currentPosition: number,
-  referralCount: number,
-  spotsPerReferral: number
-): number => {
-  const newPosition = currentPosition - (referralCount * spotsPerReferral);
-  return Math.max(1, newPosition); // Position can't go below 1
-};
-
-/**
- * Gets referral code from cookie or local storage
- */
-export const getReferralFromStorage = (cookieName: string): string | null => {
-  if (typeof window === 'undefined') return null;
-
-  // Try cookie first
-  const cookies = document.cookie.split(';');
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === cookieName) {
-      return decodeURIComponent(value);
-    }
+export const setReferralStorage = (key: string, referralCode: string): void => {
+  if (typeof window === 'undefined') return;
+  try {
+    sessionStorage.setItem(key, referralCode);
+  } catch {
+    // sessionStorage full or unavailable
   }
-
-  return null;
 };
 
 /**
- * Sets referral code in cookie
+ * Gets referral code from sessionStorage.
  */
-export const setReferralCookie = (
-  cookieName: string,
-  referralCode: string,
-  expiryDays: number = 30
-): void => {
-  if (typeof window === 'undefined') return;
-
-  const expires = new Date();
-  expires.setDate(expires.getDate() + expiryDays);
-  document.cookie = `${cookieName}=${encodeURIComponent(referralCode)};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+export const getReferralFromStorage = (key: string): string | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    return sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
 };
 
 /**
- * Clears referral cookie
+ * Clears referral code from sessionStorage.
  */
-export const clearReferralCookie = (cookieName: string): void => {
+export const clearReferralStorage = (key: string): void => {
   if (typeof window === 'undefined') return;
-  document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+  try {
+    sessionStorage.removeItem(key);
+  } catch {
+    // sessionStorage unavailable
+  }
 };

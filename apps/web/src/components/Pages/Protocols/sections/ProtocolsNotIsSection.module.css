@@ -1,0 +1,52 @@
+/**
+ * ProtocolsNotIsSection Styles
+ *
+ * "What This Page Is Not" risk framing section
+ */
+
+.content {
+  max-width: var(--dimension-700);
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  margin: 0 0 var(--spacing-3xl) 0;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-700);
+  line-height: var(--line-height-relaxed);
+}
+
+.body p {
+  margin: 0;
+}
+
+.warmLine {
+  font-style: italic;
+  color: var(--color-teal-700);
+  font-size: var(--font-size-lg);
+  margin: var(--spacing-3xl) 0 0;
+  line-height: var(--line-height-relaxed);
+}

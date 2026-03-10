@@ -8,6 +8,7 @@
 
 import Image from 'next/image';
 import { useTranslation } from '@diboas/i18n/client';
+import { ASSET_PATHS } from '@/config/assets';
 import { usePreDemo } from '../PreDemoProvider';
 import styles from '../PreDemo.module.css';
 
@@ -31,7 +32,7 @@ export function DemoHeader({ showAvatar = true }: DemoHeaderProps) {
             onClick={onExit}
           >
             <Image
-              src="/assets/logos/logo-icon.avif"
+              src={ASSET_PATHS.LOGOS.ICON}
               alt="diBoaS"
               width={24}
               height={24}

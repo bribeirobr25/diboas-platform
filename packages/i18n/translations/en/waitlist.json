@@ -25,31 +25,60 @@
     "positionIntro": "Your position:",
     "positionFormat": "#{position}",
     "shareIntro": "Invite your Friends",
-    "shareBenefit": "Your personal link:",
+    "shareBenefit": "Share to help friends get early access",
     "shareExplanation": "The sooner we launch, the sooner this becomes real.",
     "referralLinkLabel": "Your personal link:",
     "copy": "Copy link",
     "copied": "Copied!",
     "dreamModeCta": "Test the Dream Mode →"
   },
+  "tier": {
+    "foundingMember": "Founding Member",
+    "earlyMember": "Early Member",
+    "priorityWaitlist": "Priority Waitlist",
+    "standard": "Waitlist",
+    "badge": {
+      "foundingMember": "You're a Founding Member!",
+      "earlyMember": "You're an Early Member!"
+    },
+    "explanation": {
+      "foundingMember": "You're among the first 1,200. Share your link — you have 5 invites to give friends Founding Member status.",
+      "earlyMember": "Invited by a Founding Member. Share your link to help friends get early access.",
+      "priorityWaitlist": "You're on the priority waitlist. Share your link to move up and help friends join."
+    },
+    "spotsRemaining": "{spots} spots remaining"
+  },
+  "stats": {
+    "foundingMembersFull": "All founding member spots claimed — join the early access waitlist"
+  },
   "referral": {
-    "movedUp": "You moved up {spots} spots!",
-    "newPosition": "New position: #{position}",
+    "friendJoined": "A friend just joined!",
+    "invitesUsed": "{count} of 5 invites used",
+    "invitesRemaining": "{remaining} invites remaining",
+    "keepSharing": "Keep sharing to help friends get early access!",
     "thanks": "Thanks for spreading the word.",
     "notificationTitle": "Someone used your link!",
-    "notificationBody": "You just moved up {spots} spots to #{position}"
+    "invitedIndicator": "Invited by a friend"
   },
   "returningUser": {
     "welcomeBack": "Welcome back!",
     "currentPosition": "You're currently #{position} on the waitlist",
     "referralCount": "You've referred {count} people",
-    "keepSharing": "Keep sharing to move up!"
+    "keepSharing": "Keep sharing to help friends get early access!"
+  },
+  "deletion": {
+    "confirmTitle": "Confirm data deletion",
+    "confirmBody": "Click the button below to permanently delete all your data from the diBoaS waitlist. This action cannot be undone.",
+    "confirmButton": "Confirm deletion",
+    "confirming": "Deleting your data...",
+    "success": "Data deleted",
+    "successBody": "All your personal data has been permanently removed from our system.",
+    "expired": "Link expired",
+    "expiredBody": "This deletion link has expired. Please submit a new deletion request.",
+    "error": "Something went wrong",
+    "errorBody": "We couldn't process your request. Please try again or contact support."
   },
   "email": {
-    "welcome": "Welcome to diBoaS, You're #{position}",
-    "email1Subject": "Why your bank isn't working for you",
-    "email2Subject": "How your money could actually work for you",
-    "email3Subject": "Meet Aqua, Mystic & Coral, your financial guides",
-    "email4Subject": "What's next, and why you're early"
+    "welcome": "Welcome to diBoaS, You're #{position}"
   }
 }

@@ -253,7 +253,7 @@ export function ProductCarouselDefault({
                     
                     {/* Card Image — gradient fallback shows when asset unavailable */}
                     <div className={styles.imageWrapper}>
-                      {!failedImages.has(slide.id) ? (
+                      {slide.image && !failedImages.has(slide.id) ? (
                         <Image
                           src={slide.image}
                           alt={slide.imageAlt}

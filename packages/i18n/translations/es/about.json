@@ -1,64 +1,80 @@
 {
   "seo": {
-    "title": "Acerca de diBoaS | Creada para Cambiar lo que los Bancos Ocultan",
-    "description": "diBoaS fue fundada para dar a todos acceso a rendimientos reales. Conoce la historia de por qué Breno está construyendo esta plataforma.",
-    "ogTitle": "Acerca de diBoaS | Creada para Cambiar lo que los Bancos Ocultan",
-    "ogDescription": "diBoaS fue fundada para dar a todos acceso a rendimientos reales. Conoce la historia de por qué Breno está construyendo esta plataforma."
+    "title": "Sobre diBoaS | Construido para los que los bancos olvidaron",
+    "description": "diBoaS se construyo porque una abuela merecia algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR.",
+    "ogTitle": "Sobre diBoaS | Construido para los que los bancos olvidaron",
+    "ogDescription": "diBoaS se construyo porque una abuela merecia algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR."
   },
   "hero": {
-    "title": "Acerca de diBoaS",
-    "subtitle": "La historia detrás de la plataforma"
+    "title": "Sobre diBoaS",
+    "subtitle": "Una abuela. Un problema. Una plataforma."
+  },
+  "transitions": {
+    "t1": "Dejame contarte una historia.",
+    "t2": "Esto es lo que construi.",
+    "t3": "Y no es solo para particulares.",
+    "t4": "Quieres hablar? Estoy aqui."
   },
   "story": {
-    "header": "La Historia Detrás de diBoaS",
-    "paragraph1": "Soy Breno, y estoy construyendo diBoaS por mi abuela.",
-    "paragraph2": "Ella vivió toda su vida en Río de Janeiro. Fue ella quien me enseñó a ahorrar. Me decía que debería intentar guardar la mitad de todo lo que ganara. Ella misma intentó hacer eso. Toda su vida.",
-    "paragraph3": "Trabajar duro. Comprar solo lo básico. Intentar ahorrar.",
-    "paragraph4": "Aun así no funcionó.",
-    "soundsFamiliar": "¿Te suena familiar?",
-    "revelation": "Lo que nadie le dijo: Su banco le pagaba 0,5% de interés mientras ganaba 7% con su dinero.",
-    "example": "Piénsalo. Esos €1.000 que ahorraste? El banco ganó €70 con ellos y te devolvió €5. Los otros €65? Deberían haber sido tuyos.",
-    "universal": "El mismo banco está haciendo eso con todos nosotros.",
-    "turning": "En 2024, perdí mi trabajo y decidí hacer algo sobre este problema."
+    "header": "Se llamaba Adelaide.",
+    "paragraph1": "Mi abuela vivio toda su vida en Rio de Janeiro. Me enseno a ahorrar. Me dijo que intentara ahorrar la mitad de todo lo que ganara. Ella misma lo intento. Toda su vida.",
+    "paragraph2": "Trabajar duro. Comprar solo lo basico. Intentar ahorrar.",
+    "paragraph3": "Aun asi no fue suficiente.",
+    "gapExplanation": "Lo que nadie le dijo: su banco le pagaba casi nada mientras ganaba rendimientos reales con su dinero. Esa diferencia, entre lo que los bancos ganan y lo que comparten, es el sistema funcionando como fue disenado. Solo que no para gente como ella.",
+    "accessLocked": "El acceso estaba bloqueado detras de importes minimos altos, palabras complicadas e instituciones a las que no les importaba la gente con pocos ahorros.",
+    "turning": "En 2024, perdi mi trabajo y decidi hacer algo con este problema. La nueva tecnologia hizo posible esquivar a los que controlaban el acceso. Solo tenia que construir la puerta.",
+    "namedAfterHer": "Le puse su nombre."
   },
   "whatWeDo": {
-    "header": "Qué Hace diBoaS",
-    "description": "diBoaS te conecta con protocolos financieros confiables, los mismos que bancos e instituciones usan para hacer crecer su dinero. ¿La diferencia? Ahora esos rendimientos van para ti, no para ellos.",
-    "noMiddleman": "Sin intermediarios quedándose con la diferencia. Sin misterio sobre a dónde va tu dinero. Solo acceso transparente a 6-10% anual en stablecoins, con la posibilidad de retirar cuando quieras."
+    "header": "Que hace diBoaS",
+    "transfers": "Primero, lo basico. Envia dinero a cualquier persona en diBoaS. En cualquier parte del mundo. En segundos. Gratis. Sin formularios, sin comisiones, sin esperar tres dias habiles. El dinero deberia moverse como un mensaje. Ahora lo hace.",
+    "transfersDisclaimer": "Transferencias gratuitas entre usuarios de diBoaS. Los tiempos de transferencia son tipicos y pueden variar. Sujeto a sanciones aplicables y requisitos de cumplimiento normativo.",
+    "growth": "Despues, crecimiento. Elige entre 10 formas de hacer crecer tu dinero, desde la opcion mas segura hasta la mas aventurera. Desde 5 EUR. Tu dinero trabaja a traves de sistemas financieros de confianza que han asegurado colectivamente miles de millones en activos. El mismo tipo de sistemas que usan las instituciones, ahora abiertos para ti.",
+    "adelaide": "Y Adelaide vigila todo. Llamada asi por la abuela que inspiro todo esto, Adelaide es tu inteligencia financiera personal. Que se mueve. Que significa. Que podrias hacer. Lenguaje claro, sin jerga."
   },
   "beliefs": {
-    "header": "En Lo Que Creemos",
+    "header": "En que creemos",
     "money": {
-      "title": "Tu dinero debería trabajar para ti.",
-      "description": "El concepto de obtener rendimientos sobre el dinero existe desde hace más de 5.000 años. Durante la mayor parte de ese tiempo, solo los ricos tenían acceso a las mejores tasas. Estamos cambiando eso."
+      "title": "Tu dinero deberia trabajar para ti.",
+      "description": "No para tu banco. No para un intermediario. Para ti. La diferencia entre lo que los bancos ganan con tu dinero y lo que te devuelven es real. Nosotros cerramos esa brecha."
     },
     "honesty": {
-      "title": "Honestidad sobre el hype.",
-      "description": "No prometemos retornos garantizados porque nadie puede. Lo que sí ofrecemos: datos reales de 4 años de análisis histórico, explicaciones claras de cómo funciona cada estrategia, y un Centro de Aprendizaje para ayudarte a entender lo que estás haciendo antes de hacerlo."
+      "title": "Honestidad antes que bombo.",
+      "description": "No prometemos rendimientos garantizados porque nadie puede. Lo que ofrecemos: datos reales de casi 4 anos de analisis historico, explicaciones claras de como funciona cada opcion, y un Centro de Aprendizaje para que entiendas lo que haces antes de hacerlo. Te mostramos ambos lados, las oportunidades y los riesgos, siempre."
     },
     "startSmall": {
-      "title": "Empieza pequeño, aprende en el camino.",
-      "description": "No necesitas €10.000 para comenzar. Empieza con lo que te sientas cómodo. Observa cómo funciona. Luego decide si es lo correcto para ti."
+      "title": "Empieza con 5 EUR. Aprende sobre la marcha.",
+      "description": "No necesitas 10.000 EUR para empezar. Empieza con lo que te resulte comodo. Mira como funciona. Despues decide si es para ti. Sin presion, sin paquetes, sin ataduras."
     }
   },
   "mission": {
-    "header": "La Misión",
-    "statement": "Dar a personas comunes acceso a las mismas oportunidades financieras que antes estaban reservadas para instituciones y los ricos.",
-    "tagline": "Una plataforma. Rendimientos reales. Tu dinero, tu control."
+    "header": "La Mision",
+    "story": "Adelaide nunca tuvo eleccion. Importes minimos altos, comisiones ocultas y palabras complicadas mantuvieron la puerta cerrada.",
+    "statement": "Estamos construyendo la puerta que ella nunca tuvo.",
+    "pillars": "Movimiento de dinero gratuito. Opciones reales de crecimiento. Transparencia total. Desde 5 EUR. En cuatro idiomas. Para todos."
   },
   "business": {
     "header": "Para Empresas",
-    "description": "Si eres fundador, CFO o gerente de tesorería, el mismo sistema que falló con mi abuela está sentado sobre las reservas de efectivo de tu empresa.",
-    "pitch": "Creamos diBoaS Treasury para empresas que quieren que su efectivo inactivo trabaje más, con liquidez en el mismo día y protocolos de grado institucional.",
-    "cta": "Conoce más sobre diBoaS para Empresas"
+    "description": "Si aceptas pagos con tarjeta, las comisiones de procesamiento se comen cada transaccion. Si tienes dinero parado en la cuenta de empresa, tu banco esta ganando con el y a ti te paga casi nada. El mismo sistema que le fallo a mi abuela esta sentado sobre las reservas de tu empresa.",
+    "pitch": "diBoaS for Business ayuda a las empresas a quedarse con mas de lo que ganan, con liquidez en el mismo dia, informes listos para direccion, y acceso a los mismos sistemas de confianza que impulsan nuestra plataforma personal.",
+    "cta": "Saber mas sobre diBoaS for Business"
   },
   "contact": {
     "header": "Contacto",
     "founder": "Fundador:",
-    "founderName": "Breno",
-    "location": "Ubicación:",
-    "locationValue": "Berlín, Alemania",
-    "email": "Correo:",
-    "emailValue": "hello@diboas.com"
+    "founderName": "Bar",
+    "location": "Ubicacion:",
+    "locationValue": "Berlin, Alemania",
+    "email": "Email:",
+    "emailValue": "hello@diboas.com",
+    "personal": "Preguntas? Leo cada email.",
+    "personalEmail": "bar@diboas.com"
+  },
+  "footer": {
+    "mica": "Los criptoactivos no estan protegidos por los sistemas de garantia de depositos. Las rentabilidades pasadas no garantizan resultados futuros. Deberias realizar tu propia evaluacion independiente antes de tomar una decision de inversion.",
+    "micaArticle7": "Esta comunicacion comercial relativa a criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningun Estado miembro de la Union Europea. El emisor del criptoactivo es el unico responsable del contenido de esta comunicacion comercial relativa a criptoactivos.",
+    "ai": "Parte del contenido de esta plataforma, incluidos analisis de mercado y materiales educativos, es generado o asistido por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la informacion de forma independiente antes de tomar decisiones financieras.",
+    "us": "",
+    "cvm": ""
   }
 }

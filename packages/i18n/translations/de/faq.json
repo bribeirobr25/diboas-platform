@@ -45,7 +45,7 @@
     },
     "q11": {
       "question": "Wie viel kostet die Nutzung von diBoaS?",
-      "answer": "Transparente Gebühren:\n\n┌────────────────────┬─────────────┬─────────────────┐\n│ Vorgang            │ Du zahlst   │ Andere verlangen│\n├────────────────────┼─────────────┼─────────────────┤\n│ Konto eröffnen     │ 0 €         │ 0 € - 50 €      │\n│ Konto führen       │ 0 €/Monat   │ 15 € - 50 €/Mon │\n│ 100 € investieren  │ 0,09 €      │ 2 € - 10 €      │\n│ 100 € überweisen   │ 0,90 €      │ 3 € - 5 €       │\n│ Echtzeitüberweisung│ 0 €         │ Variiert        │\n│ innerhalb diBoaS   │             │                 │\n└────────────────────┴─────────────┴─────────────────┘\n\nKeine Tricks. Kein Kleingedrucktes.\n\nWir zeigen dir immer die exakten Kosten, bevor du etwas bestätigst."
+      "answer": "Transparente Gebühren:\n\n┌────────────────────┬─────────────┬─────────────────┐\n│ Vorgang            │ Du zahlst   │ Andere verlangen│\n├────────────────────┼─────────────┼─────────────────┤\n│ Konto eröffnen     │ 0 €         │ 0 € - 50 €      │\n│ Konto führen       │ 0 €/Monat   │ 15 € - 50 €/Mon │\n│ 100 € kaufen       │ 0 €         │ 2 € - 10 €      │\n│ 100 € verkaufen    │ 0,39 €      │ 2 € - 10 €      │\n│ 100 € einzahlen    │ 0,48 €      │ 3 € - 5 €       │\n│ 100 € auszahlen    │ 0,48 €      │ 3 € - 5 €       │\n│ Senden (P2P)       │ 0 €         │ Variiert        │\n│ innerhalb diBoaS   │             │                 │\n└────────────────────┴─────────────┴─────────────────┘\n\nKeine Tricks. Kein Kleingedrucktes.\n\nWir zeigen dir immer die exakten Kosten, bevor du etwas bestätigst."
     },
     "q12": {
       "question": "Gibt es ein Pflichtabonnement?",
@@ -53,7 +53,7 @@
     },
     "q13": {
       "question": "Wie verdient ihr dann Geld?",
-      "answer": "Totale Transparenz:\n\n1. Kleine Transaktionsgebühr (diese 0,09% und 0,9%)\n\n2. Content-Ersteller, die unsere Plattform nutzen, zahlen 0,9%\n   (viel weniger als YouTubes 10%)\n\n3. Optionale Abonnements für erweiterte Funktionen\n\nWir verdienen, wenn du es nutzt. Nicht, wenn du nur das Konto offen hältst."
+      "answer": "Totale Transparenz:\n\n1. Kleine Transaktionsgebühren (Verkaufen 0,39%, Ein-/Auszahlen 0,48%)\n\n2. Content-Ersteller, die unsere Plattform nutzen, zahlen 0,48%\n   (viel weniger als YouTubes 10%)\n\n3. Optionale Abonnements für erweiterte Funktionen\n\nWir verdienen, wenn du es nutzt. Nicht, wenn du nur das Konto offen hältst."
     }
   },
   "registry": {
@@ -67,7 +67,7 @@
     },
     "q3": {
       "question": "Was kostet die Nutzung von diBoaS?",
-      "answer": "Totale Transparenz:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Vorgang            │ Du zahlst   │ Andere verlangen│\n├────────────────────┼─────────────┼────────────────┤\n│ Konto eröffnen     │ 0€          │ 0€ - 50€       │\n│ Kontoführung       │ 0€/Monat    │ 15€-50€/Monat  │\n│ 100€ investieren   │ 0,09€       │ 2€ - 10€       │\n│ 100€ überweisen    │ 0,90€       │ 3€ - 5€        │\n└────────────────────┴─────────────┴────────────────┘\n\nKeine monatlichen Gebühren. Keine Mindestguthaben."
+      "answer": "Totale Transparenz:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Vorgang            │ Du zahlst   │ Andere verlangen│\n├────────────────────┼─────────────┼────────────────┤\n│ Konto eröffnen     │ 0€          │ 0€ - 50€       │\n│ Kontoführung       │ 0€/Monat    │ 15€-50€/Monat  │\n│ 100€ kaufen        │ 0€          │ 2€ - 10€       │\n│ 100€ verkaufen     │ 0,39€       │ 2€ - 10€       │\n│ 100€ einzahlen     │ 0,48€       │ 3€ - 5€        │\n│ 100€ auszahlen     │ 0,48€       │ 3€ - 5€        │\n└────────────────────┴─────────────┴────────────────┘\n\nKeine monatlichen Gebühren. Keine Mindestguthaben."
     },
     "q4": {
       "question": "Kann ich wirklich mit nur 10€ anfangen?",
@@ -99,7 +99,7 @@
     },
     "q11": {
       "question": "Was kosten Überweisungen?",
-      "answer": "Totale Transparenz:\n\n┌──────────────────────┬─────────────┐\n│ Überweisungsart      │ diBoaS-Gebühr│\n├──────────────────────┼─────────────┤\n│ Zwischen diBoaS-Konten│ 0€          │\n│ SEPA-Instant         │ 0€          │\n│ SEPA-Standard        │ 0€          │\n│ International        │ 0,90€       │\n└──────────────────────┴─────────────┘\n\nWechselkurse werden immer vor Bestätigung angezeigt.\nNull versteckte Gebühren oder Überraschungen."
+      "answer": "Totale Transparenz:\n\n┌──────────────────────┬─────────────┐\n│ Überweisungsart      │ diBoaS-Gebühr│\n├──────────────────────┼─────────────┤\n│ Zwischen diBoaS-Konten│ 0€          │\n│ SEPA-Instant         │ 0€          │\n│ SEPA-Standard        │ 0€          │\n│ International        │ 0,48%       │\n└──────────────────────┴─────────────┘\n\nWechselkurse werden immer vor Bestätigung angezeigt.\nNull versteckte Gebühren oder Überraschungen."
     },
     "q12": {
       "question": "Ist diBoaS ein Girokonto oder Sparkonto?",
@@ -131,7 +131,7 @@
     },
     "q19": {
       "question": "Wie funktionieren die Investment-Gebühren?",
-      "answer": "0,09% pro Kauf-/Verkaufstransaktion.\n\nKonkretes Beispiel:\n- Du investierst 100€\n- diBoaS-Gebühr: 0,09€\n- Tatsächliches Investment: 99,91€\n\nVergleich:\n- diBoaS: 0,09€\n- Traditionelle Banken: 2€ bis 10€\n- Broker: 5€ bis 15€\n\nWir sind 22x günstiger als der Marktdurchschnitt."
+      "answer": "Kaufen ist kostenlos, Verkaufen kostet 0,39%.\n\nKonkretes Beispiel:\n- Du kaufst für 100€\n- diBoaS-Gebühr: 0€\n- Tatsächliches Investment: 100€\n\n- Du verkaufst für 100€\n- diBoaS-Gebühr: 0,39€ (min. 0,25€, max. 25€)\n- Du erhältst: 99,61€\n\nVergleich beim Verkauf:\n- diBoaS: 0,39€\n- Traditionelle Banken: 2€ bis 10€\n- Broker: 5€ bis 15€\n\nWir sind deutlich günstiger als der Marktdurchschnitt."
     },
     "q20": {
       "question": "Was ist der Unterschied zwischen Investieren und Spekulieren?",
@@ -159,7 +159,7 @@
     },
     "q26": {
       "question": "Was kostet der Krypto-Kauf?",
-      "answer": "0,09% diBoaS-Gebühr + Netzwerkgebühren.\n\nEchtes Beispiel beim Kauf von 100€ Bitcoin:\n- diBoaS-Gebühr: 0,09€\n- Blockchain-Netzwerkgebühr: ~1,50€\n- Insgesamt erhalten: ~98,41€\n\nVergleich mit anderen Börsen:\n- Coinbase: 1,49% = 1,49€ (16x teurer)\n- Binance: 0,50% = 0,50€ (5x teurer)\n- diBoaS: 0,09% = 0,09€\n\nWir zeigen alles vor Bestätigung."
+      "answer": "Krypto kaufen ist kostenlos – du zahlst nur Netzwerkgebühren.\n\nEchtes Beispiel beim Kauf von 100€ Bitcoin:\n- diBoaS-Gebühr: 0€\n- Blockchain-Netzwerkgebühr: ~1,50€\n- Insgesamt erhalten: ~98,50€\n\nVergleich mit anderen Börsen:\n- Coinbase: 1,49% = 1,49€\n- Binance: 0,50% = 0,50€\n- diBoaS: 0€\n\nBeim Verkauf: 0,39% (min. 0,25€, max. 25€).\n\nWir zeigen alles vor Bestätigung."
     },
     "q27": {
       "question": "Ist Bitcoin ein Schneeballsystem/Betrug?",
@@ -183,7 +183,7 @@
     },
     "q32": {
       "question": "Wie viel verdienen die Strategien?",
-      "answer": "Variiert, aber wir zeigen immer Echtzeit-Zinssätze:\n\nKonservative Strategien (Mystic empfiehlt):\n- Emergency Fund: 8-12% jährlich\n- Stable Growth: 10-15% jährlich\n\nModerate Strategien (Coral schaltet frei):\n- Balanced Yield: 15-25% jährlich\n- Growth Portfolio: 20-35% jährlich\n\nAggressive Strategien (nur für Fortgeschrittene):\n- High Yield: 35-80% jährlich (höheres Risiko)\n\nGebühren: 0,09% beim Start + 0,09% beim Stopp der Strategie."
+      "answer": "Variiert, aber wir zeigen immer Echtzeit-Zinssätze:\n\nKonservative Strategien (Mystic empfiehlt):\n- Emergency Fund: 8-12% jährlich\n- Stable Growth: 10-15% jährlich\n\nModerate Strategien (Coral schaltet frei):\n- Balanced Yield: 15-25% jährlich\n- Growth Portfolio: 20-35% jährlich\n\nAggressive Strategien (nur für Fortgeschrittene):\n- High Yield: 35-80% jährlich (höheres Risiko)\n\nGebühren: Kostenlos zum Starten, 0,39% zum Beenden (min. 0,25€, max. 25€)."
     },
     "q33": {
       "question": "Kann ich bei Strategien Geld verlieren?",
@@ -191,7 +191,7 @@
     },
     "q34": {
       "question": "Was ist DeFi eigentlich?",
-      "answer": "DeFi = Decentralized Finance (Dezentrale Finanzen)\n\nAuf Deutsch:\nBank-Sachen machen (leihen, investieren, Zinsen verdienen)\nohne Banken zu brauchen.\n\nKonkretes Beispiel:\n\nTraditionelle Bank:\n- Du legst 1.000€ an\n- Bank zahlt 2% jährlich\n- Bank verleiht dein Geld zu 15% jährlich\n- Bank behält die Differenz\n\nDeFi:\n- Du leihst direkt an den, der es braucht\n- Verdienst 8-15% jährlich\n- Protokoll nimmt 0,09%\n- Du behältst den Rest\n\nDeFi Explained entschlüsselt all das."
+      "answer": "DeFi = Decentralized Finance (Dezentrale Finanzen)\n\nAuf Deutsch:\nBank-Sachen machen (leihen, investieren, Zinsen verdienen)\nohne Banken zu brauchen.\n\nKonkretes Beispiel:\n\nTraditionelle Bank:\n- Du legst 1.000€ an\n- Bank zahlt 2% jährlich\n- Bank verleiht dein Geld zu 15% jährlich\n- Bank behält die Differenz\n\nDeFi:\n- Du leihst direkt an den, der es braucht\n- Verdienst 8-15% jährlich\n- Protokoll nimmt minimale Gebühr\n- Du behältst den Rest\n\nDeFi Explained entschlüsselt all das."
     },
     "q35": {
       "question": "Ist DeFi sicher?",
@@ -271,7 +271,7 @@
     },
     "q54": {
       "question": "Was kostet das Business-Konto?",
-      "answer": "Null monatliche Gebühr.\n\nBusiness-Gebühren:\n\n┌────────────────────┬─────────────┐\n│ Vorgang            │ Gebühr      │\n├────────────────────┼─────────────┤\n│ Monatliche Führung │ 0€          │\n│ Überweisungen      │ 0€          │\n│ Rechnungen         │ 0,90€/Stück │\n│ Guthaben investieren│ 0,09%       │\n└────────────────────┴─────────────┘\n\nDein ruhendes Geld verdient automatisch 100% des Basiszinssatzes."
+      "answer": "Null monatliche Gebühr.\n\nBusiness-Gebühren:\n\n┌────────────────────┬─────────────┐\n│ Vorgang            │ Gebühr      │\n├────────────────────┼─────────────┤\n│ Monatliche Führung │ 0€          │\n│ Überweisungen      │ 0€          │\n│ Rechnungen         │ 0,48%/Stück │\n│ Kaufen              │ 0€          │\n│ Verkaufen           │ 0,39%       │\n└────────────────────┴─────────────┘\n\nDein ruhendes Geld verdient automatisch 100% des Basiszinssatzes."
     },
     "q55": {
       "question": "Wie lange dauert die Genehmigung des Business-Kontos?",
@@ -287,7 +287,7 @@
     },
     "q58": {
       "question": "Kann ich Zahlungen von internationalen Kunden empfangen?",
-      "answer": "Ja! Ohne Aufwand.\n\nAus dem Ausland empfangen:\n\nVia SWIFT:\n- Jedes Land\n- 2-5 Werktage\n- Gebühr: 0,90€ + transparenter Wechselkurs\n\nVia Krypto:\n- Sofort\n- Konvertiert in deine Lokalwährung\n- Ideal für globale Freiberufler\n\nKunde zahlt in $, £ oder ¥\nDu erhältst in € oder bevorzugter Währung."
+      "answer": "Ja! Ohne Aufwand.\n\nAus dem Ausland empfangen:\n\nVia SWIFT:\n- Jedes Land\n- 2-5 Werktage\n- Gebühr: 0,48% + transparenter Wechselkurs\n\nVia Krypto:\n- Sofort\n- Konvertiert in deine Lokalwährung\n- Ideal für globale Freiberufler\n\nKunde zahlt in $, £ oder ¥\nDu erhältst in € oder bevorzugter Währung."
     },
     "q59": {
       "question": "Wie funktioniert die Business-Karte?",
@@ -299,7 +299,7 @@
     },
     "q61": {
       "question": "Wie empfange ich Zahlungen von Kunden?",
-      "answer": "Mehrere Wege, alle integriert:\n\nSofortüberweisung:\n- Kostenlos zu empfangen\n- Sofortiger QR-Code\n- Echtzeit-Bestätigung\n\nBanküberweisung:\n- 0,90€ pro ausgestellter Überweisung\n- Individuelles Fälligkeitsdatum\n- Auto-Benachrichtigung an Kunden\n\nZahlungslink:\n- Erstellt einzigartigen Link\n- Kunde zahlt mit Karte oder Sofortüberweisung\n- Gebühr 1,99% nur wenn bezahlt\n\nAlles landet automatisch auf deinem Business-Konto."
+      "answer": "Mehrere Wege, alle integriert:\n\nSofortüberweisung:\n- Kostenlos zu empfangen\n- Sofortiger QR-Code\n- Echtzeit-Bestätigung\n\nBanküberweisung:\n- 0,48% pro ausgestellter Überweisung\n- Individuelles Fälligkeitsdatum\n- Auto-Benachrichtigung an Kunden\n\nZahlungslink:\n- Erstellt einzigartigen Link\n- Kunde zahlt mit Karte oder Sofortüberweisung\n- Gebühr 1,99% nur wenn bezahlt\n\nAlles landet automatisch auf deinem Business-Konto."
     },
     "q62": {
       "question": "Habt ihr Kartenlesegeräte?",
@@ -319,7 +319,7 @@
     },
     "q66": {
       "question": "Was ist die durchschnittliche Rendite?",
-      "answer": "Abhängig vom Typ:\n\nKonservatives Treasury (sofortige Liquidität):\n- 100-110% des Basiszinssatzes\n- Beispiel: Basiszins 3% → du verdienst 3-3,3% jährlich\n- Null Risiko\n\nModerates Treasury (nächster Tag):\n- 110-130% des Basiszinssatzes\n- Beispiel: Basiszins 3% → du verdienst 3,3-3,9% jährlich\n- Sehr geringes Risiko\n\nStrategisches Treasury (30 Tage):\n- 130-150% des Basiszinssatzes\n- Beispiel: Basiszins 3% → du verdienst 3,9-4,5% jährlich\n- Geringes Risiko\n\ndiBoaS-Gebühr: 0,09% beim Investieren."
+      "answer": "Abhängig vom Typ:\n\nKonservatives Treasury (sofortige Liquidität):\n- 100-110% des Basiszinssatzes\n- Beispiel: Basiszins 3% → du verdienst 3-3,3% jährlich\n- Null Risiko\n\nModerates Treasury (nächster Tag):\n- 110-130% des Basiszinssatzes\n- Beispiel: Basiszins 3% → du verdienst 3,3-3,9% jährlich\n- Sehr geringes Risiko\n\nStrategisches Treasury (30 Tage):\n- 130-150% des Basiszinssatzes\n- Beispiel: Basiszins 3% → du verdienst 3,9-4,5% jährlich\n- Geringes Risiko\n\nKaufen ist kostenlos. Beim Verkauf: 0,39% (min. 0,25€, max. 25€)."
     },
     "q67": {
       "question": "Was ist Cash Flow Yield?",
@@ -475,7 +475,7 @@
     },
     "q105": {
       "question": "Wie verdient diBoaS Geld?",
-      "answer": "Nachhaltiges und transparentes Modell:\n\nHaupteinnahmen (80%):\n- Transaktionsgebühren (0,09% und 0,9%)\n- Hohes Volumen, niedrige Marge\n- Skaliert mit Nutzerbasis-Wachstum\n\nNebeneinnahmen (15%):\n- Premium-Abonnements (12,90€/Monat)\n- Optionale erweiterte Features\n- ~5% der Nutzer zahlen\n\nCreator Economy (5%):\n- Bildungsinhalt-Provision (0,9%)\n- Strategie-Marktplatz\n- Win-Win: Creators verdienen, wir verdienen\n\nWir verdienen NICHT mit:\n✗ Verkauf deiner Daten\n✗ Versteckten Gebühren\n✗ Payment for Order Flow\n✗ Front-Running deiner Trades\n\nUnser Erfolg = dein Erfolg.\nTotale Anreiz-Ausrichtung."
+      "answer": "Nachhaltiges und transparentes Modell:\n\nHaupteinnahmen (80%):\n- Transaktionsgebühren (Verkaufen 0,39%, Ein-/Auszahlen 0,48%)\n- Hohes Volumen, niedrige Marge\n- Skaliert mit Nutzerbasis-Wachstum\n\nNebeneinnahmen (15%):\n- Premium-Abonnements (12,90€/Monat)\n- Optionale erweiterte Features\n- ~5% der Nutzer zahlen\n\nCreator Economy (5%):\n- Bildungsinhalt-Provision (0,48%)\n- Strategie-Marktplatz\n- Win-Win: Creators verdienen, wir verdienen\n\nWir verdienen NICHT mit:\n✗ Verkauf deiner Daten\n✗ Versteckten Gebühren\n✗ Payment for Order Flow\n✗ Front-Running deiner Trades\n\nUnser Erfolg = dein Erfolg.\nTotale Anreiz-Ausrichtung."
     },
     "q106": {
       "question": "Wie ist es bei diBoaS zu arbeiten?",
@@ -491,7 +491,7 @@
     },
     "q109": {
       "question": "Warum in diBoaS investieren?",
-      "answer": "400-Milliarden-€-Chance + perfektes Timing.\n\nDer Markt:\n- 89,6% der globalen Fintech-Nutzer nutzen kein Krypto/DeFi\n- TAM: 5,4 Milliarden Menschen\n- Nur 10,4% haben heute Zugang\n→ Massiver und jungfräulicher Markt\n\nUnser Vorteil:\n- Von Nubank validierte Methodik (118,6M Nutzer)\n- Bewährte progressive Offenlegung funktioniert\n- Gebühren 16x günstiger als Etablierte\n- First-Mover in echtem OneFi\n\nTraction:\n[Aktuelle Metriken - vertraulich bis Investoren-Gespräch]\n\nTiming:\n- Klare Krypto-Regulierung (MiCA, etc)\n- Wachsender Mainstream-Appetit\n- Wettbewerber fokussiert auf falsche Segmente\n\nEs ist Konvergenz von Banking + Investing + Krypto + DeFi.\nBillionen-Markt wird JETZT geformt."
+      "answer": "400-Milliarden-€-Chance + perfektes Timing.\n\nDer Markt:\n- 89,6% der globalen Fintech-Nutzer nutzen kein Krypto/DeFi\n- TAM: 5,4 Milliarden Menschen\n- Nur 10,4% haben heute Zugang\n→ Massiver und jungfräulicher Markt\n\nUnser Vorteil:\n- Von Nubank validierte Methodik (118,6M Nutzer)\n- Bewährte progressive Offenlegung funktioniert\n- Kaufen kostenlos, Gebühren deutlich günstiger als Etablierte\n- First-Mover in echtem OneFi\n\nTraction:\n[Aktuelle Metriken - vertraulich bis Investoren-Gespräch]\n\nTiming:\n- Klare Krypto-Regulierung (MiCA, etc)\n- Wachsender Mainstream-Appetit\n- Wettbewerber fokussiert auf falsche Segmente\n\nEs ist Konvergenz von Banking + Investing + Krypto + DeFi.\nBillionen-Markt wird JETZT geformt."
     },
     "q110": {
       "question": "Wie ist der Fundraising-Status?",

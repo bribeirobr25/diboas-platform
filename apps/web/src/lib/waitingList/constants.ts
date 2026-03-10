@@ -23,8 +23,6 @@ export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
 
 // Referral mechanics configuration
 export const REFERRAL_CONFIG = {
-  // Spots moved up per successful referral
-  spotsPerReferral: 10,
   // Base URL for referral links
   referralBaseUrl: APP_URL,
   // Referral code prefix (for identification)
@@ -84,6 +82,7 @@ export const WAITING_LIST_EVENTS = {
   SHARE_CANCELLED: 'waitlist_share_cancelled',
   CARD_GENERATED: 'waitlist_card_generated',
   CARD_DOWNLOADED: 'waitlist_card_downloaded',
+  VERSION_SHOWN: 'waitlist_version_shown',
 } as const;
 
 // XSS prevention - allowed HTML tags (none for waiting list)

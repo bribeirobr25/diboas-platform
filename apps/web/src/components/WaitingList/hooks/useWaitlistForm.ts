@@ -12,6 +12,8 @@ import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
+import { getStoredUtmParams, utmToTags } from '@/hooks/useUtmCapture';
+import { getCtaSource } from '@/lib/analytics/ctaAttribution';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -26,10 +28,15 @@ export interface WaitlistSuccessData {
   position: number;
   referralCode: string;
   referralUrl: string;
+  tier?: string;
 }
 
 interface UseWaitlistFormOptions {
   compact?: boolean;
+  /** Override referral code (e.g. from manually entered invite code) */
+  referredBy?: string;
+  /** Waitlist source identifier (e.g. 'landing_b2b') */
+  source?: string;
   onSuccess: (data: WaitlistSuccessData) => void;
   onError?: (error: string) => void;
   t: (key: string, values?: Record<string, string | number>) => string;
@@ -39,6 +46,7 @@ interface UseWaitlistFormReturn {
   formState: FormState;
   error: string | null;
   isLoading: boolean;
+  hasReferral: boolean;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
 }
@@ -58,12 +66,15 @@ function getReferralCode(): string | null {
   return getReferralFromStorage(REFERRAL_CONFIG.referralCookieName);
 }
 
-export function useWaitlistForm({
-  compact = false,
-  onSuccess,
-  onError,
-  t
-}: UseWaitlistFormOptions): UseWaitlistFormReturn {
+export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFormReturn {
+  const {
+    compact = false,
+    referredBy: referredByOverride,
+    source,
+    onSuccess,
+    onError,
+    t,
+  } = options;
   const { locale } = useLocale();
 
   const [formState, setFormState] = useState<FormState>({
@@ -72,6 +83,7 @@ export function useWaitlistForm({
   });
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasReferral, setHasReferral] = useState(false);
 
   // Ref to prevent double-submit (immediate check before React state update)
   const isSubmittingRef = useRef(false);
@@ -79,10 +91,11 @@ export function useWaitlistForm({
   const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
+    setHasReferral(!!referredByOverride || getReferralCode() !== null);
     return () => {
       abortControllerRef.current?.abort();
     };
-  }, []);
+  }, [referredByOverride]);
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -144,7 +157,13 @@ export function useWaitlistForm({
     }
 
     try {
-      const referredBy = getReferralCode();
+      const referredBy = referredByOverride || getReferralCode();
+
+      // Capture UTM params and CTA source for attribution
+      const utmParams = getStoredUtmParams();
+      const utmTags = utmToTags(utmParams);
+      const ctaSource = getCtaSource();
+      if (ctaSource) utmTags.push(`cta_source:${ctaSource}`);
 
       abortControllerRef.current?.abort();
       abortControllerRef.current = new AbortController();
@@ -159,6 +178,8 @@ export function useWaitlistForm({
           locale,
           gdprAccepted: compact ? true : formState.gdprAccepted,
           referredBy,
+          ...(source ? { source } : {}),
+          ...(utmTags.length > 0 ? { tags: utmTags } : {}),
         }),
         signal: abortControllerRef.current.signal,
       });
@@ -175,6 +196,7 @@ export function useWaitlistForm({
               position: data.position,
               referralCode: data.referralCode,
               referralUrl: data.referralUrl,
+              tier: data.tier,
             });
           }
         } else if (data.errorCode === 'INVALID_EMAIL') {
@@ -186,7 +208,7 @@ export function useWaitlistForm({
         return;
       }
 
-      // Track success
+      // Track success with attribution data
       analyticsService.track({
         name: WAITING_LIST_EVENTS.SUBMISSION_SUCCESS,
         parameters: {
@@ -194,14 +216,25 @@ export function useWaitlistForm({
           hasReferral: !!referredBy,
           locale,
           timestamp: Date.now(),
+          ...(utmParams.utm_source ? { utm_source: utmParams.utm_source } : {}),
+          ...(utmParams.utm_medium ? { utm_medium: utmParams.utm_medium } : {}),
+          ...(utmParams.utm_campaign ? { utm_campaign: utmParams.utm_campaign } : {}),
+          ...(ctaSource ? { cta_source: ctaSource } : {}),
         },
       });
+
+      // Clear social proof cache so counter updates on next render/refresh
+      try {
+        sessionStorage.removeItem('diboas-waitlist-stats');
+        if (source) sessionStorage.removeItem(`diboas-waitlist-stats-${source}`);
+      } catch { /* SSR or unavailable */ }
 
       // Call success callback
       onSuccess({
         position: data.position,
         referralCode: data.referralCode,
         referralUrl: data.referralUrl,
+        tier: data.tier,
       });
 
     } catch (error) {
@@ -232,12 +265,13 @@ export function useWaitlistForm({
       setIsLoading(false);
       isSubmittingRef.current = false;
     }
-  }, [formState, compact, locale, t, onSuccess, onError]);
+  }, [formState, compact, referredByOverride, source, locale, t, onSuccess, onError]);
 
   return {
     formState,
     error,
     isLoading,
+    hasReferral,
     handleInputChange,
     handleSubmit,
   };

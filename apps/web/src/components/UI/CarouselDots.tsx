@@ -26,6 +26,8 @@ export interface CarouselDotsProps {
   className?: string;
   /** Dot size variant */
   size?: 'sm' | 'md' | 'lg';
+  /** Aria label for the navigation container */
+  ariaLabel?: string;
 }
 
 /**
@@ -40,6 +42,7 @@ export function CarouselDots({
   ariaLabelPattern = 'Go to slide {index} of {total}',
   className = '',
   size = 'md',
+  ariaLabel = 'Carousel navigation',
 }: CarouselDotsProps) {
   // Don't render if there's only one slide
   if (totalSlides <= 1) {
@@ -56,7 +59,7 @@ export function CarouselDots({
     <div
       className={`${styles.dotsContainer} ${styles[size]} ${className}`}
       role="tablist"
-      aria-label="Carousel navigation"
+      aria-label={ariaLabel}
     >
       {Array.from({ length: totalSlides }, (_, index) => (
         <button

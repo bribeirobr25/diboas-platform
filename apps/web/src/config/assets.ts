@@ -26,17 +26,17 @@ export const ASSET_PATHS = {
   // Logo Assets
   LOGOS: {
     ICON: `${ASSETS_BASE}/logos/logo-icon.avif`,
-    FULL: `${ASSETS_BASE}/logos/logo-full.avif`,
-    ICON_DARK: `${ASSETS_BASE}/logos/logo-icon-dark.avif`,
-    FULL_DARK: `${ASSETS_BASE}/logos/logo-full-dark.avif`,
     WORDMARK: `${ASSETS_BASE}/logos/logo-wordmark.avif`
   },
-  
+
+  // General Images
+  IMAGES: {
+    PHONE_BANNER: `${ASSETS_BASE}/images/phone-banner.avif`
+  },
+
   // SEO Assets
   SEO: {
-    DEFAULT_OG: `${ASSETS_BASE}/seo/og-default.png`,
-    FAVICON: `${ASSETS_BASE}/favicon.ico`,
-    APPLE_TOUCH_ICON: `${ASSETS_BASE}/apple-touch-icon.png`
+    DEFAULT_OG: `${ASSETS_BASE}/seo/og-default.png` /* TODO: Replace with actual OG image when design provides one */
   },
   
   // Social Media Assets - Real Images (Categorized)

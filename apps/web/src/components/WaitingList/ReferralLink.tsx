@@ -9,7 +9,7 @@
  * - Visual feedback on copy
  */
 
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
@@ -25,6 +25,8 @@ interface ReferralLinkProps {
   referralUrl: string;
   /** User's position on the waitlist */
   position?: number;
+  /** User's tier */
+  tier?: string;
   /** Callback when share button is clicked */
   onShare?: (platform: string) => void;
   /** Show compact version */
@@ -37,12 +39,14 @@ export function ReferralLink({
   referralCode,
   referralUrl,
   position,
+  tier: _tier,
   onShare,
   compact = false,
   className = '',
 }: ReferralLinkProps) {
   const intl = useTranslation();
   const { locale } = useLocale();
+  const inputId = useId();
   const [copied, setCopied] = useState(false);
 
   // Translation helper
@@ -55,7 +59,7 @@ export function ReferralLink({
   };
 
   const handleCopy = async () => {
-    const success = await copyToClipboard(referralUrl, 'referral-url-input');
+    const success = await copyToClipboard(referralUrl, inputId);
 
     if (success) {
       setCopied(true);
@@ -122,7 +126,7 @@ export function ReferralLink({
     <div className={`${styles.container} ${compact ? styles.compact : ''} ${className}`}>
       <div className={styles.linkBox}>
         <input
-          id="referral-url-input"
+          id={inputId}
           type="text"
           value={referralUrl}
           readOnly

@@ -65,8 +65,8 @@ export function WaitlistPosition({
     if (originalPosition && originalPosition > position) {
       return originalPosition - position;
     }
-    return referralCount * REFERRAL_CONFIG.spotsPerReferral;
-  }, [originalPosition, position, referralCount]);
+    return 0;
+  }, [originalPosition, position]);
 
   // Format position with locale
   const formattedPosition = useMemo(() => {
@@ -125,16 +125,6 @@ export function WaitlistPosition({
                 {intl.formatMessage(
                   { id: 'common.waitingList.position.referrals' },
                   { defaultMessage: 'Referrals' }
-                )}
-              </span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>{REFERRAL_CONFIG.spotsPerReferral}</span>
-              <span className={styles.statLabel}>
-                {intl.formatMessage(
-                  { id: 'common.waitingList.position.spotsPerReferral' },
-                  { defaultMessage: 'Spots/Referral' }
                 )}
               </span>
             </div>

@@ -6,27 +6,25 @@
  * Explains the criteria for selecting protocols
  */
 
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
+import styles from './ProtocolsSelectionSection.module.css';
 
-interface ProtocolsSelectionSectionProps {
-  header: string;
-  intro: string;
-  criteria: {
-    operation: string;
-    audits: string;
-    exploits: string;
-    transparent: string;
-    usage: string;
+const I18N_PREFIX = 'protocols';
+
+export function ProtocolsSelectionSection() {
+  const intl = useTranslation();
+  const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+
+  const criteria = {
+    operation: t('howWeChoose.criteria.1'),
+    audits: t('howWeChoose.criteria.2'),
+    exploits: t('howWeChoose.criteria.3'),
+    transparent: t('howWeChoose.criteria.4'),
+    usage: t('howWeChoose.criteria.5'),
   };
-  note: string;
-}
 
-export function ProtocolsSelectionSection({
-  header,
-  intro,
-  criteria,
-  note,
-}: ProtocolsSelectionSectionProps) {
   return (
     <SectionErrorBoundary
       sectionId="selection-section-protocols"
@@ -34,45 +32,47 @@ export function ProtocolsSelectionSection({
       enableReporting={true}
       context={{ page: 'protocols' }}
     >
-      <section className="py-16 md:py-24" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-              {header}
-            </h2>
-            <p className="text-lg text-slate-700 mb-6">
-              {intro}
-            </p>
+      <SectionContainer
+        variant="standard"
+        padding="standard"
+        backgroundColor="var(--section-bg-neutral)"
+      >
+        <div className={styles.content}>
+          <h2 className={styles.title}>
+            {t('howWeChoose.h2')}
+          </h2>
+          <p className={styles.intro}>
+            {t('howWeChoose.intro')}
+          </p>
 
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-start gap-3">
-                <span className="text-teal-500 mt-1">✓</span>
-                <span className="text-slate-700">{criteria.operation}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-teal-500 mt-1">✓</span>
-                <span className="text-slate-700">{criteria.audits}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-teal-500 mt-1">✓</span>
-                <span className="text-slate-700">{criteria.exploits}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-teal-500 mt-1">✓</span>
-                <span className="text-slate-700">{criteria.transparent}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-teal-500 mt-1">✓</span>
-                <span className="text-slate-700">{criteria.usage}</span>
-              </li>
-            </ul>
+          <ul className={styles.criteriaList}>
+            <li className={styles.criteriaItem}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.criteriaText}>{criteria.operation}</span>
+            </li>
+            <li className={styles.criteriaItem}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.criteriaText}>{criteria.audits}</span>
+            </li>
+            <li className={styles.criteriaItem}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.criteriaText}>{criteria.exploits}</span>
+            </li>
+            <li className={styles.criteriaItem}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.criteriaText}>{criteria.transparent}</span>
+            </li>
+            <li className={styles.criteriaItem}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.criteriaText}>{criteria.usage}</span>
+            </li>
+          </ul>
 
-            <p className="text-slate-600 italic">
-              {note}
-            </p>
-          </div>
+          <p className={styles.belowCriteria}>
+            {t('howWeChoose.belowCriteria')}
+          </p>
         </div>
-      </section>
+      </SectionContainer>
     </SectionErrorBoundary>
   );
 }

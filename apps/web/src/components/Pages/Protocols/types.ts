@@ -16,8 +16,9 @@ export interface Protocol {
   blockchains: string;
   audits: string;
   regulatory: string;
-  hasWarning?: boolean;
-  hasSuccess?: boolean;
+  badge?: 'warning' | 'success';
+  usedInStrategies?: string[];
+  hasExceptionNote?: boolean;
   website: string;
   twitter: string;
 }
@@ -34,6 +35,24 @@ export interface ProtocolCategory {
  * Protocol card labels
  */
 export interface ProtocolLabels {
+  founded: string;
+  tvl: string;
+  blockchains: string;
+  audits: string;
+  regulatory: string;
+  showLess: string;
+  showMore: string;
+  websiteLink: string;
+  twitterLink: string;
+}
+
+/**
+ * Translated content for a single protocol card
+ * Resolved from i18n at the grid level, passed to ProtocolCard
+ */
+export interface ProtocolI18nContent {
+  name: string;
+  description: string;
   founded: string;
   tvl: string;
   blockchains: string;

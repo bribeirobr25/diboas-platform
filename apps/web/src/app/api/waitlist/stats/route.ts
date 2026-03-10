@@ -17,7 +17,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { Logger } from '@/lib/monitoring/Logger';
-import { getTotalCount, getCurrentPositionCounter } from '@/lib/waitingList/store';
+import { getTotalCount, getCurrentPositionCounter, getFoundingMemberCount, getDistinctCountryCount } from '@/lib/waitingList/store';
 import { WAITLIST_STATS_FALLBACK, type WaitlistStats } from '@/config/waitlist-stats';
 import {
   checkRateLimit,
@@ -27,13 +27,24 @@ import {
 } from '@/lib/security';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 300; // 5 minutes
 
 const CACHE_HEADERS = {
   'Cache-Control': 'public, max-age=300, s-maxage=300, stale-while-revalidate=60',
 };
 
 export async function GET(request: NextRequest): Promise<NextResponse<WaitlistStats>> {
+  // Support cache bypass for real-time accuracy after signup
+  const noCache = request.nextUrl.searchParams.get('fresh') === '1';
+  const responseHeaders = noCache
+    ? { 'Cache-Control': 'no-store' }
+    : CACHE_HEADERS;
+
+  // Optional source filter for audience-specific stats (e.g., ?source=landing_b2b)
+  const sourceParam = request.nextUrl.searchParams.get('source') as
+    | 'landing_b2c'
+    | 'landing_b2b'
+    | null;
+
   // Rate limiting (lenient preset for read-only endpoint)
   const clientIP = getClientIP(request);
   const rateLimitResult = await checkRateLimit(
@@ -55,6 +66,14 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   }
 
   try {
+    // Founding member data — audience-specific when source is provided
+    const foundingMember = await getFoundingMemberCount(sourceParam || undefined);
+    const foundingMemberFields = {
+      foundingMemberCount: foundingMember.count,
+      foundingMemberCap: foundingMember.cap,
+      foundingMemberSpotsRemaining: Math.max(0, foundingMember.cap - foundingMember.count),
+    };
+
     // Check for environment variable overrides first (manual control)
     const envCount = process.env.NEXT_PUBLIC_WAITLIST_COUNT;
     const envCountries = process.env.NEXT_PUBLIC_WAITLIST_COUNTRIES;
@@ -65,13 +84,16 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
         countries: parseInt(envCountries, 10),
         source: 'env',
         lastUpdated: new Date().toISOString(),
-      }, { headers: CACHE_HEADERS });
+        ...foundingMemberFields,
+      }, { headers: responseHeaders });
     }
 
-    // Get live data from store (both are now async)
-    const [storeCount, positionCounter] = await Promise.all([
-      getTotalCount(),
-      getCurrentPositionCounter(),
+    // Get live data from store (all async, parallel fetch)
+    // When source is provided, filter counts to that audience
+    const [storeCount, positionCounter, countryCount] = await Promise.all([
+      getTotalCount(sourceParam || undefined),
+      sourceParam ? getTotalCount(sourceParam) : getCurrentPositionCounter(),
+      getDistinctCountryCount(sourceParam || undefined),
     ]);
 
     // Use position counter as count (more representative of total signups)
@@ -81,13 +103,14 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
     if (actualCount > 0) {
       return NextResponse.json({
         count: actualCount,
-        // Countries: Use env override or fallback (we don't track countries in store yet)
+        // Countries: env override > live distinct count > fallback
         countries: envCountries
           ? parseInt(envCountries, 10)
-          : WAITLIST_STATS_FALLBACK.countries,
+          : countryCount || WAITLIST_STATS_FALLBACK.countries,
         source: 'store',
         lastUpdated: new Date().toISOString(),
-      }, { headers: CACHE_HEADERS });
+        ...foundingMemberFields,
+      }, { headers: responseHeaders });
     }
 
     // Fallback values
@@ -96,7 +119,8 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
       countries: WAITLIST_STATS_FALLBACK.countries,
       source: 'fallback',
       lastUpdated: new Date().toISOString(),
-    }, { headers: CACHE_HEADERS });
+      ...foundingMemberFields,
+    }, { headers: responseHeaders });
   } catch (error) {
     Logger.error('Error fetching waitlist stats', {}, error instanceof Error ? error : undefined);
 

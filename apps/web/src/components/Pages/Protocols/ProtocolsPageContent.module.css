@@ -1,0 +1,46 @@
+/**
+ * ProtocolsPageContent Styles
+ *
+ * Page-specific styles for Protocols page orchestrator
+ * Pattern mirrors StrategiesPageContent.module.css
+ */
+
+/* ================================
+   TRANSITION HOOKS
+   ================================ */
+
+.transitionHook {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--color-slate-500);
+  text-align: center;
+  padding: 2rem 1rem;
+  margin: 0;
+}
+
+/* ================================
+   DISCLAIMER SECTION
+   ================================ */
+
+.disclaimer {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.disclaimersSection {
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.disclaimerText {
+  font-size: 0.75rem;
+  color: var(--color-slate-500);
+  text-align: center;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.disclaimerText:last-child {
+  margin-bottom: 0;
+}

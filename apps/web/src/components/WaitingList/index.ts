@@ -10,6 +10,7 @@ export { WaitingListModal } from './WaitingListModal';
 export { WaitlistForm } from './WaitlistForm';
 export { WaitlistConfirmation } from './WaitlistConfirmation';
 export { ReferralLink } from './ReferralLink';
+export { ReferralCapture } from './ReferralCapture';
 export { WaitlistPosition } from './WaitlistPosition';
 
 // Sub-components (extracted from WaitingListModal)

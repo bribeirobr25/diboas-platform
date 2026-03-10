@@ -19,6 +19,7 @@ interface TranslatedRow {
   diboas: string;
   competitors: string;
   difference: string;
+  example?: string;
   isFree?: boolean;
   isHighlight?: boolean;
 }
@@ -38,10 +39,18 @@ export const FeeTable = memo(function FeeTable({
       className={className}
     >
       <div className={styles.container}>
+        {translated.content.transitionHook ? (
+          <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+        ) : null}
         <h2 className={styles.title}>{translated.content.title}</h2>
-        <p className={styles.subtitle}>{translated.content.subtitle}</p>
+        {translated.content.subtitle ? (
+          <p className={styles.subtitle}>{translated.content.subtitle}</p>
+        ) : null}
+        {translated.content.painIntro ? (
+          <p className={styles.painIntro}>{translated.content.painIntro}</p>
+        ) : null}
 
-        {/* Desktop: 4-column HTML table */}
+        {/* Desktop: comparison table (4 or 5 columns) */}
         <div className={styles.tableWrapper}>
           <table className={styles.table} role="table">
             <thead>
@@ -50,6 +59,9 @@ export const FeeTable = memo(function FeeTable({
                 <th scope="col" className={styles.th}>{translated.content.headers.diboas}</th>
                 <th scope="col" className={styles.th}>{translated.content.headers.competitors}</th>
                 <th scope="col" className={styles.th}>{translated.content.headers.difference}</th>
+                {translated.content.headers.example ? (
+                  <th scope="col" className={styles.th}>{translated.content.headers.example}</th>
+                ) : null}
               </tr>
             </thead>
             <tbody>
@@ -70,6 +82,9 @@ export const FeeTable = memo(function FeeTable({
                   <td className={`${styles.td} ${row.isHighlight ? styles.highlightDifference : ''}`}>
                     {row.difference}
                   </td>
+                  {translated.content.headers.example ? (
+                    <td className={styles.td}>{row.example ?? ''}</td>
+                  ) : null}
                 </tr>
               ))}
             </tbody>
@@ -100,6 +115,9 @@ export const FeeTable = memo(function FeeTable({
                   <div className={styles.mobileCompareValue}>{row.competitors}</div>
                 </div>
               </div>
+              {row.example ? (
+                <div className={styles.mobileExample}>{row.example}</div>
+              ) : null}
               <div className={`${styles.mobileDifference} ${row.isHighlight ? styles.highlightDifference : ''}`}>
                 {row.difference}
               </div>
@@ -109,6 +127,9 @@ export const FeeTable = memo(function FeeTable({
 
         <p className={styles.disclaimer}>{translated.content.disclaimer}</p>
         <p className={styles.example}>{translated.content.example}</p>
+        {translated.content.footerLine ? (
+          <p className={styles.footerLine}>{translated.content.footerLine}</p>
+        ) : null}
       </div>
     </SectionContainer>
   );

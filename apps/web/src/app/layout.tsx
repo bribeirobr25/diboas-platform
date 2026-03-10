@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { headers } from "next/headers";
-import { Inter } from "next/font/google";
+import { Inter, Geist } from "next/font/google";
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
@@ -16,6 +16,14 @@ const inter = Inter({
   display: 'swap',
   preload: true,
   adjustFontFallback: true,
+  fallback: ['system-ui', 'arial'],
+});
+
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+  display: 'swap',
+  preload: true,
   fallback: ['system-ui', 'arial'],
 });
 
@@ -128,7 +136,7 @@ export default async function RootLayout({
         )}
       </head>
       <body
-        className={`${UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} ${inter.variable}`}
+        className={`${UI_LAYOUT_CONSTANTS.BODY_BASE_CLASS} ${inter.variable} ${geist.variable}`}
         suppressHydrationWarning
       >
         <PostHogProvider>

@@ -258,9 +258,6 @@ export const ALL_PERFORMANCE_THRESHOLDS = {
   business: BUSINESS_PERFORMANCE_THRESHOLDS
 } as const;
 
-// Export legacy PERFORMANCE_THRESHOLDS for backward compatibility
-export const PERFORMANCE_THRESHOLDS = WEB_VITALS_THRESHOLDS;
-
 // Export types for external usage
 export type { 
   PerformanceThreshold, 

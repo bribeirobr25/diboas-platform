@@ -14,7 +14,7 @@
 import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { ONE_FEATURE_CONFIGS, type OneFeatureVariantConfig, type OneFeatureVariant } from '@/config/oneFeature';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { getOneFeatureVariant, validateOneFeatureVariant } from './variants/registry';
 import type { OneFeatureVariantProps } from './variants/types';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';

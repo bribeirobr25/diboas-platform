@@ -8,6 +8,8 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { CookiePolicyContent } from '@/components/Legal';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
@@ -74,7 +76,7 @@ export default async function LegalCookiesPage({ params }: LocalePageProps) {
   }
 
   // Load legal/cookies namespace
-  const pageMessages = await loadPageNamespaces(locale, ['legal/cookies']);
+  const pageMessages = await loadPageNamespaces(locale, ['legal/cookies', 'landing-b2c']);
 
   const breadcrumbData = MetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
@@ -84,14 +86,17 @@ export default async function LegalCookiesPage({ params }: LocalePageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[breadcrumbData]} />
-      <SectionErrorBoundary
-        sectionId="cookie-policy-content"
-        sectionType="LegalContent"
-        enableReporting={true}
-        context={{ page: 'legal/cookies', locale }}
-      >
-        <CookiePolicyContent />
-      </SectionErrorBoundary>
+      <main className="main-page-wrapper">
+        <SectionErrorBoundary
+          sectionId="cookie-policy-content"
+          sectionType="LegalContent"
+          enableReporting={true}
+          context={{ page: 'legal/cookies', locale }}
+        >
+          <CookiePolicyContent />
+        </SectionErrorBoundary>
+        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+      </main>
     </PageI18nProvider>
   );
 }

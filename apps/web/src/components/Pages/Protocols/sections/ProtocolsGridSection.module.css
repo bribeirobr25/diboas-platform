@@ -1,0 +1,81 @@
+/**
+ * ProtocolsGridSection Styles
+ *
+ * Protocol grid with category headings using design tokens
+ */
+
+.content {
+  max-width: var(--dimension-1200);
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  text-align: center;
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectionTitle {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.sectionSubtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-slate-600);
+  text-align: center;
+  margin: 0 auto;
+  max-width: var(--dimension-600);
+}
+
+.tvlFreshness {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  text-align: center;
+  margin: var(--spacing-sm) auto var(--spacing-5xl);
+}
+
+.categoryGroup {
+  margin-bottom: var(--spacing-6xl);
+}
+
+.categoryTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-section-title);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.categoryDescription {
+  color: var(--color-slate-600);
+  margin: 0 0 var(--spacing-3xl) 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-2xl);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

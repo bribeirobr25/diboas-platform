@@ -7,6 +7,7 @@
 
 export interface ProseSectionConfig {
   readonly content: {
+    readonly transitionHook?: string;
     readonly header?: string;
     readonly paragraphs: readonly string[];
     readonly signatureLine?: string;
@@ -17,6 +18,7 @@ export interface ProseSectionConfig {
     readonly src: string;
     readonly alt: string;
     readonly position?: 'left' | 'right';
+    readonly aspectRatio?: 'landscape' | 'portrait';
   };
   readonly style: {
     readonly backgroundColor: string;

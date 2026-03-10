@@ -10,7 +10,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 
 export interface UseSwipeGestureOptions {
   /**
@@ -73,8 +73,8 @@ export function useSwipeGesture({
   velocityThreshold = 0.3,
   enabled = true
 }: UseSwipeGestureOptions = {}): UseSwipeGestureReturn {
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchStartTime, setTouchStartTime] = useState(0);
+  const touchStartRef = useRef(0);
+  const touchStartTimeRef = useRef(0);
 
   /**
    * Handle touch start event
@@ -86,8 +86,8 @@ export function useSwipeGesture({
     const touch = e.touches[0];
     if (!touch) return;
 
-    setTouchStart(touch.clientX);
-    setTouchStartTime(Date.now());
+    touchStartRef.current = touch.clientX;
+    touchStartTimeRef.current = Date.now();
   }, [enabled]);
 
   /**
@@ -95,12 +95,12 @@ export function useSwipeGesture({
    * Calculates swipe distance, velocity, and direction
    */
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!enabled || !touchStart) return;
+    if (!enabled || !touchStartRef.current) return;
 
     const touch = e.changedTouches[0];
     if (!touch) {
-      setTouchStart(0);
-      setTouchStartTime(0);
+      touchStartRef.current = 0;
+      touchStartTimeRef.current = 0;
       return;
     }
 
@@ -108,9 +108,9 @@ export function useSwipeGesture({
     const touchEndTime = Date.now();
 
     // Calculate swipe metrics
-    const diff = touchStart - touchEnd;
+    const diff = touchStartRef.current - touchEnd;
     const distance = Math.abs(diff);
-    const duration = touchEndTime - touchStartTime;
+    const duration = touchEndTime - touchStartTimeRef.current;
     const velocity = duration > 0 ? distance / duration : 0;
 
     // Determine if swipe meets threshold requirements
@@ -127,13 +127,11 @@ export function useSwipeGesture({
       }
     }
 
-    // Reset state
-    setTouchStart(0);
-    setTouchStartTime(0);
+    // Reset refs
+    touchStartRef.current = 0;
+    touchStartTimeRef.current = 0;
   }, [
     enabled,
-    touchStart,
-    touchStartTime,
     threshold,
     velocityThreshold,
     onSwipeLeft,
@@ -144,14 +142,14 @@ export function useSwipeGesture({
    * Reset touch state manually
    */
   const reset = useCallback(() => {
-    setTouchStart(0);
-    setTouchStartTime(0);
+    touchStartRef.current = 0;
+    touchStartTimeRef.current = 0;
   }, []);
 
   return {
     handleTouchStart,
     handleTouchEnd,
-    touchStart,
+    touchStart: touchStartRef.current,
     reset
   };
 }

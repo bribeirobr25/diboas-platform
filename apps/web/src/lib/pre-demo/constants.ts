@@ -82,25 +82,27 @@ export const BUY_QUICK_AMOUNTS = ['5', '10', '50'] as const;
 /** Fee rates */
 export const FEE_RATES = {
   deposit: {
-    card: 0.029,      // 2.90%
-    network: 0.0001,   // 0.01%
-    diboas: 0,
+    paymentProcessor: 0.01, // 1% payment processor fee
+    network: 0.00001,       // 0.001%
+    diboas: 0.0048,         // 0.48% — canonical ramp fee
+    diboasMin: 0.25,        // $0.25 minimum
+    diboasMax: 25,          // $25.00 maximum
   },
   send: {
-    network: 0.0001,   // 0.01%
+    network: 0.00001,  // 0.001%
     priority: 0.009,   // Fixed ~$0.009
-    diboas: 0,
+    diboas: 0,         // Send is FREE
   },
   buy: {
     btcSwap: 0.003,    // Cross-chain swap ~0.30%
-    btcMinerMin: 0.75,
-    btcMinerMax: 1.50,
-    btcMinerRate: 0.01,
+    btcMinerRate: 0.02, // BTC miner fee: 2%
     xautIssuer: 0.0025, // 0.25%
     xautSwapGas: 0.09,  // Fixed ~$0.09
     xautLp: 0.001,      // ~0.10%
     defaultRate: 0.0006,
-    diboas: 0,
+    diboas: 0.0039,    // 0.39% — canonical execution fee (used for default assets only)
+    btcDiboas: 0,      // BTC: only charge on selling, not buying
+    xautDiboas: 0,     // Gold: only charge on selling, not buying
   },
 } as const;
 

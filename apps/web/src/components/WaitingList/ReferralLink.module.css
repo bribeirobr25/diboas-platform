@@ -27,8 +27,8 @@
 
 .input {
   flex: 1;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-xs);
   font-family: var(--font-family-mono);
   color: var(--color-text-primary);
   background: transparent;
@@ -49,8 +49,10 @@
 .copyButton {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-sm);
+  min-width: var(--spacing-4xl);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
@@ -79,7 +81,7 @@
 /* Share buttons - Professional ghost/outline style */
 .shareButtons {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   margin-top: var(--spacing-sm);
   justify-content: center;
 }
@@ -129,36 +131,29 @@
   border-color: var(--social-linkedin);
 }
 
-/* Mobile - Compact copy button with icon only */
-@media (max-width: 480px) {
-  .linkBox {
-    gap: var(--spacing-xs);
-    padding: var(--spacing-xs);
-  }
+/* Mobile: hide copy button text, show only icon */
+.copyButton span {
+  display: none;
+}
 
+/* Responsive — mobile-first: scale up at 481px+ */
+@media (min-width: 481px) {
   .input {
-    padding: var(--spacing-sm);
-    font-size: var(--font-size-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
   }
 
   .copyButton {
-    padding: var(--spacing-sm);
-    min-width: var(--spacing-4xl);
-    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-width: auto;
   }
 
-  /* Hide text, show only icon on mobile */
   .copyButton span {
-    display: none;
+    display: inline;
   }
 
   .shareButtons {
-    gap: var(--spacing-xs);
-  }
-
-  .shareButton {
-    width: var(--spacing-4xl);
-    height: var(--spacing-4xl);
+    gap: var(--spacing-sm);
   }
 }
 

@@ -6,22 +6,67 @@
  * Displays all protocols organized by category
  */
 
+import { useTranslation } from '@diboas/i18n/client';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { ProtocolCard } from '../ProtocolCard';
 import { PROTOCOL_DATA } from '../protocolsData';
-import type { ProtocolLabels } from '../types';
+import styles from './ProtocolsGridSection.module.css';
 
-interface ProtocolsGridSectionProps {
-  labels: ProtocolLabels;
-  getCategoryTitle: (categoryId: string) => string;
-  getCategoryDescription: (categoryId: string) => string;
-}
+const I18N_PREFIX = 'protocols';
 
-export function ProtocolsGridSection({
-  labels,
-  getCategoryTitle,
-  getCategoryDescription,
-}: ProtocolsGridSectionProps) {
+export function ProtocolsGridSection() {
+  const intl = useTranslation();
+  const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+
+  // Protocol labels for card rendering
+  const labels = {
+    founded: t('protocolLabels.founded'),
+    tvl: t('protocolLabels.tvl'),
+    blockchains: t('protocolLabels.blockchains'),
+    audits: t('protocolLabels.audits'),
+    regulatory: t('protocolLabels.regulatory'),
+    showLess: t('protocolLabels.showLess'),
+    showMore: t('protocolLabels.showMore'),
+    websiteLink: t('protocolLabels.websiteLink'),
+    twitterLink: t('protocolLabels.twitterLink'),
+  };
+
+  // Resolve translated content for a protocol card
+  const getI18nContent = (protocolId: string) => ({
+    name: t(`cards.${protocolId}.name`),
+    description: t(`cards.${protocolId}.description`),
+    founded: t(`cards.${protocolId}.details.founded`),
+    tvl: t(`cards.${protocolId}.details.tvl`),
+    blockchains: t(`cards.${protocolId}.details.blockchains`),
+    audits: t(`cards.${protocolId}.details.audits`),
+    regulatory: t(`cards.${protocolId}.details.regulatory`),
+  });
+
+  // Category translation helpers
+  const getCategoryTitle = (categoryId: string) => t(`categories.${categoryId}.title`);
+  const getCategoryDescription = (categoryId: string) => t(`categories.${categoryId}.description`);
+
+  // Exception note getter — only protocols with hasExceptionNote in protocolsData.ts
+  const getExceptionNote = (protocolId: string): string | undefined => {
+    const allProtocols = PROTOCOL_DATA.flatMap((cat) => cat.protocols);
+    const protocol = allProtocols.find((p) => p.id === protocolId);
+    if (protocol?.hasExceptionNote) {
+      return t(`cards.${protocolId}.exceptionNote`);
+    }
+    return undefined;
+  };
+
+  // Used-in-strategies getter — only protocols with usedInStrategies in protocolsData.ts
+  const getUsedInStrategies = (protocolId: string): string | undefined => {
+    const allProtocols = PROTOCOL_DATA.flatMap((cat) => cat.protocols);
+    const protocol = allProtocols.find((p) => p.id === protocolId);
+    if (protocol?.usedInStrategies && protocol.usedInStrategies.length > 0) {
+      return t(`cards.${protocolId}.usedInStrategies`);
+    }
+    return undefined;
+  };
+
   return (
     <SectionErrorBoundary
       sectionId="protocols-section"
@@ -29,39 +74,47 @@ export function ProtocolsGridSection({
       enableReporting={true}
       context={{ page: 'protocols' }}
     >
-      <section className="py-16 md:py-24" style={{ backgroundColor: 'var(--bc-color-section-bg)' }}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center mb-4">
-              The 26 Protocols
-            </h2>
-            <p className="text-lg text-slate-600 text-center mb-12 max-w-2xl mx-auto">
-              Organized by category for easy reference
-            </p>
+      <SectionContainer
+        variant="wide"
+        padding="standard"
+        backgroundColor="var(--bc-color-section-bg)"
+      >
+        <div className={styles.content}>
+          <h2 className={styles.sectionTitle}>
+            {t('grid.h2')}
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            {t('grid.subtitle')}
+          </p>
+          <p className={styles.tvlFreshness}>
+            {t('grid.tvlFreshness')}
+          </p>
 
-            {PROTOCOL_DATA.map((category) => (
-              <div key={category.id} className="mb-16">
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                  {getCategoryTitle(category.id)}
-                </h3>
-                <p className="text-slate-600 mb-8">
-                  {getCategoryDescription(category.id)}
-                </p>
+          {PROTOCOL_DATA.map((category) => (
+            <div key={category.id} className={styles.categoryGroup}>
+              <h3 className={styles.categoryTitle}>
+                {getCategoryTitle(category.id)}
+              </h3>
+              <p className={styles.categoryDescription}>
+                {getCategoryDescription(category.id)}
+              </p>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {category.protocols.map((protocol) => (
-                    <ProtocolCard
-                      key={protocol.id}
-                      protocol={protocol}
-                      labels={labels}
-                    />
-                  ))}
-                </div>
+              <div className={styles.grid}>
+                {category.protocols.map((protocol) => (
+                  <ProtocolCard
+                    key={protocol.id}
+                    protocol={protocol}
+                    labels={labels}
+                    i18nContent={getI18nContent(protocol.id)}
+                    exceptionNote={getExceptionNote(protocol.id)}
+                    usedInStrategiesText={getUsedInStrategies(protocol.id)}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </SectionContainer>
     </SectionErrorBoundary>
   );
 }

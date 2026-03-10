@@ -18,7 +18,7 @@ import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
-import { analyticsService } from '@/lib/analytics/error-resilient-service';
+import { analyticsService } from '@/lib/analytics';
 import { Logger } from '@/lib/monitoring/Logger';
 import type { FeatureShowcaseVariantProps } from '../types';
 import styles from './FeatureShowcaseBenefits.module.css';

@@ -85,7 +85,7 @@
 
 /* Section Title */
 .title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--sg-title-font-size-mobile);
   font-weight: var(--sg-title-font-weight);
   line-height: var(--sg-title-line-height);

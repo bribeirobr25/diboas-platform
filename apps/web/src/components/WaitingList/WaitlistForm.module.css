@@ -142,6 +142,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .loadingSpinner {
+    animation: none;
+  }
+}
+
 .error {
   padding: var(--spacing-sm) var(--spacing-lg);
   font-size: var(--font-size-sm);
@@ -204,4 +210,26 @@
 
 .compact .submitButton {
   padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.belowCta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+.belowCheckbox {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.referralIndicator {
+  font-size: var(--font-size-sm);
+  color: var(--color-teal-600);
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  font-weight: var(--font-weight-medium);
 }

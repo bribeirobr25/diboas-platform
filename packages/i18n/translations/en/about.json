@@ -1,64 +1,80 @@
 {
   "seo": {
-    "title": "About diBoaS | Built to Fix What Banks Keep Hidden",
-    "description": "diBoaS was founded to give everyone access to real returns. Learn the story of why Breno is building this platform.",
-    "ogTitle": "About diBoaS | Built to Fix What Banks Keep Hidden",
-    "ogDescription": "diBoaS was founded to give everyone access to real returns. Learn the story of why Breno is building this platform."
+    "title": "About diBoaS | Built for the People Banks Forgot",
+    "description": "diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options, starting at $5.",
+    "ogTitle": "About diBoaS | Built for the People Banks Forgot",
+    "ogDescription": "diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options, starting at $5."
   },
   "hero": {
     "title": "About diBoaS",
-    "subtitle": "The story behind the platform"
+    "subtitle": "One grandmother. One problem. One platform."
+  },
+  "transitions": {
+    "t1": "Let me tell you a story.",
+    "t2": "Here's what I built.",
+    "t3": "And it's not just for individuals.",
+    "t4": "Want to talk? I'm right here."
   },
   "story": {
-    "header": "The Story Behind diBoaS",
-    "paragraph1": "I'm Breno, and I'm building diBoaS because of my grandmother.",
-    "paragraph2": "She lived in Rio de Janeiro her whole life. She taught me to save. She said I should try to save half of everything I earn. She tried that herself. Her whole life.",
-    "paragraph3": "Work hard. Buy only the basics. Try to save.",
-    "paragraph4": "It still didn't work.",
-    "soundsFamiliar": "Sounds familiar?",
-    "revelation": "Here's what no one told her: Her bank paid her 0.5% interest while earning 7% with her money.",
-    "example": "Think about it. That €1,000 you saved? The bank made €70 with it and gave you €5 back. The other €65? That was supposed to be yours.",
-    "universal": "The same bank is doing that with all of us.",
-    "turning": "In 2024, I lost my job and I decided to do something about this problem."
+    "header": "Her name was Adelaide.",
+    "paragraph1": "My grandmother lived in Rio de Janeiro her whole life. She taught me to save. She said I should try to save half of everything I earn. She tried that herself. Her whole life.",
+    "paragraph2": "Work hard. Buy only the basics. Try to save.",
+    "paragraph3": "It still didn't work.",
+    "gapExplanation": "Here's what no one told her: her bank paid her almost nothing while earning real returns with her money. That gap, between what banks earn and what they share, is the system working as designed. Just not for people like her.",
+    "accessLocked": "Access was locked behind high minimums, complicated words, and institutions that didn't care about people with small savings.",
+    "turning": "In 2024, I lost my job and I decided to do something about this problem. New technology made it possible to bypass the gatekeepers. I just had to build the door.",
+    "namedAfterHer": "I named it after her."
   },
   "whatWeDo": {
     "header": "What diBoaS Does",
-    "description": "diBoaS connects you to trusted financial protocols, the same ones banks and institutions use to grow their money. The difference? Now those returns go to you, not them.",
-    "noMiddleman": "No middleman keeping the difference. No mystery about where your money goes. Just transparent access to 6-10% annually on stablecoins, with the ability to withdraw anytime."
+    "transfers": "First, the basics. Send money to anyone on diBoaS. Anywhere in the world. In seconds. Free. No forms, no fees, no waiting three business days. Money should move like a message. Now it does.",
+    "transfersDisclaimer": "Free transfers between diBoaS users. Transfer times are typical and may vary. Subject to applicable sanctions and compliance requirements.",
+    "growth": "Then, growth. Choose from 10 ways to grow your money, from the safest option to the most adventurous. Starting at $5. Your money works through trusted financial systems that have collectively secured billions in assets. The same kind of systems institutions use, now open to you.",
+    "adelaide": "And Adelaide watches over it all. Named after the grandmother who inspired this, Adelaide is your personal financial intelligence. What's moving. What it means. What you could do. Clear language, not jargon."
   },
   "beliefs": {
     "header": "What We Believe",
     "money": {
       "title": "Your money should work for you.",
-      "description": "The concept of earning returns on money has existed for over 5,000 years. For most of that time, only the wealthy had access to the best rates. We're changing that."
+      "description": "Not for your bank. Not for a middleman. For you. The gap between what banks earn with your money and what they give back is real. We close that gap."
     },
     "honesty": {
       "title": "Honesty over hype.",
-      "description": "We don't promise guaranteed returns because nobody can. What we do offer: real data from 4 years of historical analysis, clear explanations of how each strategy works, and a Learn Center to help you understand what you're doing before you do it."
+      "description": "We don't promise guaranteed returns because nobody can. What we offer: real data from nearly 4 years of historical analysis, clear explanations of how each option works, and a Learn Center to help you understand what you're doing before you do it. We show you both sides, the opportunities and the risks, always."
     },
     "startSmall": {
-      "title": "Start small, learn as you go.",
-      "description": "You don't need €10,000 to begin. Start with what you're comfortable with. Watch how it works. Then decide if it's right for you."
+      "title": "Start with $5. Learn as you go.",
+      "description": "You don't need $10,000 to begin. Start with what you're comfortable with. Watch how it works. Then decide if it's right for you. No pressure, no package deals, no locked-in commitments."
     }
   },
   "mission": {
     "header": "The Mission",
-    "statement": "To give regular people access to the same financial opportunities that were previously reserved for institutions and the wealthy.",
-    "tagline": "One platform. Real returns. Your money, your control."
+    "story": "Adelaide never had a choice. High minimums, hidden fees, and complicated words kept the door closed.",
+    "statement": "We're building the door she never got.",
+    "pillars": "Free money movement. Real growth options. Full transparency. Starting at $5. In four languages. For everyone."
   },
   "business": {
     "header": "For Businesses",
-    "description": "If you're a founder, CFO, or treasury manager, the same system that failed my grandmother is sitting on your company's cash reserves.",
-    "pitch": "We built diBoaS Treasury for businesses that want their idle cash to work harder, with same-day liquidity and institutional-grade protocols.",
+    "description": "If you accept card payments, processing fees eat into every transaction. If you have cash sitting idle, your bank is earning returns with it and paying you almost nothing. The same system that failed my grandmother is sitting on your company's reserves.",
+    "pitch": "diBoaS for Business helps companies keep more of what they earn, with same-day liquidity, board-ready reporting, and access to the same trusted systems powering our personal platform.",
     "cta": "Learn more about diBoaS for Business"
   },
   "contact": {
     "header": "Contact",
     "founder": "Founder:",
-    "founderName": "Breno",
+    "founderName": "Bar",
     "location": "Based in:",
     "locationValue": "Berlin, Germany",
     "email": "Email:",
-    "emailValue": "hello@diboas.com"
+    "emailValue": "hello@diboas.com",
+    "personal": "Questions? I read every email.",
+    "personalEmail": "bar@diboas.com"
+  },
+  "footer": {
+    "mica": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
+    "micaArticle7": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this crypto-asset marketing communication.",
+    "ai": "Certain content on this platform, including market analysis and educational materials, is generated or assisted by artificial intelligence. AI-generated content may contain errors or limitations. Users should verify information independently before making financial decisions.",
+    "us": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
+    "cvm": ""
   }
 }

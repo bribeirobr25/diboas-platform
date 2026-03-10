@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { LocaleProvider, I18nProvider, SetHtmlLang } from '@/components/Providers';
@@ -5,9 +6,15 @@ import { Navigation } from '@/components/Layout/Navigation';
 import { SiteFooter } from '@/components/Layout/Footer';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
 import { NavigationErrorBoundary } from '@/components/ErrorBoundary/NavigationErrorBoundary';
-import { WaitingListProvider } from '@/components/WaitingList';
+import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
+import { UtmCapture } from '@/components/Layout/UtmCapture';
+
+// CEO Decision Q5: Marketing pages removed for V1. Noindexed until post-launch.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -51,6 +58,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
         <SetHtmlLang locale={locale} />
         <PageErrorBoundary>
           <WaitingListProvider>
+            <ReferralCapture />
             <div className="min-h-screen flex flex-col">
               {/* Skip Navigation Link for Accessibility */}
               <a href="#main-content" className="skip-link">
@@ -64,6 +72,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
               </main>
               <SiteFooter />
               <ScrollDepthTracker />
+              <UtmCapture />
               <CookieConsent />
             </div>
           </WaitingListProvider>
