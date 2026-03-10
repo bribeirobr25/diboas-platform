@@ -4,6 +4,9 @@
  * Event-Driven Architecture: Centralized event system exports
  */
 
+// Generic Event Bus base class
+export { EventBus, type BaseEventPayload, type EventBusConfig } from './EventBus';
+
 // Section Event Bus (UI/Section events)
 export {
   SectionEventBus,
