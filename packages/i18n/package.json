@@ -47,11 +47,11 @@
     "@eslint/js": "^10.0.1",
     "@types/negotiator": "^0.6.1",
     "@types/react": "^18.2.21",
-    "eslint": "^10.0.2",
+    "eslint": "^10.0.3",
     "react": "^18.2.0",
     "tsup": "^8.5.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1"
+    "typescript-eslint": "^8.57.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
