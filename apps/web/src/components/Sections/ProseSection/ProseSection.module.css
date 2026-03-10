@@ -30,7 +30,7 @@
    ================================ */
 
 .header {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--section-title-font-size-mobile, 26px);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-title);
@@ -185,23 +185,35 @@
   width: 100%;
 }
 
-/* On mobile: hide inline header (shown via standalone), reorder columns */
-@media (max-width: 767px) {
-  .headerInline {
-    display: none;
-  }
-  .withImage .imageColumn {
-    order: 1;
-  }
-  .withImage .textColumn {
-    order: 2;
-  }
+/* Mobile-first: hide inline header, reorder for mobile */
+.headerInline {
+  display: none;
 }
 
-/* On desktop: hide standalone header (shown inline in text column) */
+.withImage .imageColumn {
+  order: 1;
+}
+
+.withImage .textColumn {
+  order: 2;
+}
+
+/* On tablet+: show inline header, hide standalone, reset order */
 @media (min-width: 768px) {
+  .headerInline {
+    display: block;
+  }
+
   .headerStandalone {
     display: none;
+  }
+
+  .withImage .imageColumn {
+    order: unset;
+  }
+
+  .withImage .textColumn {
+    order: unset;
   }
 }
 

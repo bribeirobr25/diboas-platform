@@ -61,7 +61,7 @@
   position: absolute;
   top: calc(100% + var(--spacing-sm));
   left: 0;
-  min-width: 100%;
+  min-width: 200px;
   background: var(--color-white);
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-lg);
@@ -287,10 +287,10 @@
   color: var(--theme-interactive-primary);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive — mobile-first: scale up at 769px+ */
+@media (min-width: 769px) {
   .dropdownMenu {
-    min-width: 200px;
+    min-width: 100%;
   }
 }
 

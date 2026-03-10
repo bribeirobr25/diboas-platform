@@ -28,7 +28,7 @@
   background: var(--section-bg-white);
   border: var(--cta-border-width) solid var(--color-slate-200);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-lg) var(--spacing-2xl);
+  padding: var(--spacing-md) var(--spacing-lg);
   transition: border-color var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
 }
 
@@ -38,14 +38,14 @@
 }
 
 .currencySymbol {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-secondary);
 }
 
 .input {
   flex: 1;
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   background: transparent;
@@ -134,27 +134,17 @@
   cursor: not-allowed;
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
+/* Responsive — mobile-first: scale up at 481px+ */
+@media (min-width: 481px) {
   .inputWrapper {
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-2xl);
   }
 
   .currencySymbol {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-2xl);
   }
 
   .input {
-    font-size: var(--font-size-lg);
-  }
-
-  .slider::-webkit-slider-thumb {
-    width: var(--spacing-3xl);
-    height: var(--spacing-3xl);
-  }
-
-  .slider::-moz-range-thumb {
-    width: var(--spacing-3xl);
-    height: var(--spacing-3xl);
+    font-size: var(--font-size-2xl);
   }
 }

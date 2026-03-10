@@ -109,7 +109,7 @@
   }
 }
 
-/* Content Wrapper - Single column left-aligned layout */
+/* Content Wrapper - Mobile-first: backdrop for text readability */
 .content {
   position: relative;
   width: var(--percent-100);
@@ -123,16 +123,9 @@
   gap: var(--spacing-lg);
   align-items: flex-start;
   text-align: left;
-  margin: 0;
-}
-
-/* Mobile: backdrop for text readability against bright backgrounds */
-@media (max-width: 767px) {
-  .content {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 100%);
-    border-radius: 16px;
-    margin: var(--spacing-md);
-  }
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 100%);
+  border-radius: 16px;
+  margin: var(--spacing-md);
 }
 
 /* Responsive: Tablet */
@@ -141,6 +134,9 @@
     padding-left: var(--spacing-5xl);
     padding-right: var(--spacing-5xl);
     gap: var(--spacing-xl);
+    background: none;
+    border-radius: 0;
+    margin: 0;
   }
 }
 
@@ -159,7 +155,7 @@
 
 /* Title - Clean typography, text-shadow for mobile contrast */
 .title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--hs-font-size-title-mobile);
   font-weight: var(--hs-font-weight-title);
   line-height: var(--line-height-title);

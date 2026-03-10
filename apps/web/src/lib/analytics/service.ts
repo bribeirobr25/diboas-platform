@@ -8,6 +8,7 @@
 import { AnalyticsService, AnalyticsEvent, AnalyticsConfig, WebVitalsMetric } from './types';
 import { ANALYTICS_DEFAULTS, ANALYTICS_CONSTANTS } from './constants';
 import { Logger } from '@/lib/monitoring/Logger';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 
 interface RetryConfig {
   maxRetries: number;
@@ -43,6 +44,10 @@ class AnalyticsServiceImpl implements AnalyticsService {
 
   constructor(config: AnalyticsConfig = ANALYTICS_DEFAULTS) {
     this.config = config;
+
+    // SSR guard: skip browser-only initialization on server
+    if (typeof window === 'undefined') return;
+
     this.initializeSession();
     this.startAutoFlush();
     this.initializeConnectionMonitoring();
@@ -172,56 +177,53 @@ class AnalyticsServiceImpl implements AnalyticsService {
    */
   async flush(): Promise<void> {
     if (this.eventQueue.length === 0) return;
+    if (typeof window === 'undefined') return;
 
     const events = [...this.eventQueue];
     this.eventQueue = [];
 
     try {
-      // Future: Send to actual analytics service
       if (this.config.debug) {
         Logger.debug('Flushing analytics events', { count: events.length, events });
       }
 
       // Send to Google Analytics 4
-      if (typeof window !== 'undefined') {
-        const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
-        if (windowWithGtag.gtag) {
-          const gtag = windowWithGtag.gtag;
-          events.forEach(event => {
-            gtag('event', event.name, event.parameters);
-          });
-        }
+      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
+      if (windowWithGtag.gtag) {
+        const gtag = windowWithGtag.gtag;
+        events.forEach(event => {
+          gtag('event', event.name, event.parameters);
+        });
       }
 
       // Send to PostHog (lazy-loaded behind consent)
-      if (typeof window !== 'undefined') {
-        try {
-          const posthog = (await import('posthog-js')).default;
-          if (posthog.__loaded) {
-            events.forEach(event => {
-              posthog.capture(event.name, event.parameters);
-            });
-          }
-        } catch {
-          // PostHog not available or not consented — silently skip
+      try {
+        const posthog = (await import('posthog-js')).default;
+        if (posthog.__loaded) {
+          events.forEach(event => {
+            posthog.capture(event.name, event.parameters);
+          });
         }
+      } catch {
+        // PostHog not available or not consented — silently skip
       }
 
-      // Send to custom analytics endpoint
+      // Send to custom analytics endpoint (with retry for resilience)
       if (process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT) {
-        await fetch(process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT, {
+        await fetchWithRetry(process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ events })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ events }),
         });
       }
 
     } catch (error) {
       Logger.error('Failed to flush analytics events:', { error: error instanceof Error ? error.message : String(error) });
-      // Re-queue events on failure
-      this.eventQueue.unshift(...events);
+      // Re-queue events on failure (capped to prevent unbounded growth)
+      const maxRequeue = ANALYTICS_CONSTANTS.MAX_QUEUE_SIZE - this.eventQueue.length;
+      if (maxRequeue > 0) {
+        this.eventQueue.unshift(...events.slice(0, maxRequeue));
+      }
     }
   }
 

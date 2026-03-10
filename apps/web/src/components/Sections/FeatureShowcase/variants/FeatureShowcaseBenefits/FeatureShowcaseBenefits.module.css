@@ -114,7 +114,7 @@
 
 /* Mobile Title - Documentation Specifications */
 .mobileTitle .title {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--font-size-title-mobile);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
@@ -149,7 +149,7 @@
 
 /* Desktop Title - Documentation Specifications */
 .titleDesktop {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-display);
   font-size: var(--font-size-title-mobile);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
