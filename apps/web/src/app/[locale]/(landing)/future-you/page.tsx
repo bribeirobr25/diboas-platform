@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'Future You Calculator | diBoaS';
   const description = seo.description || 'See what your money could become. Small amounts. Consistent effort. Time does the rest.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   return {
     title,

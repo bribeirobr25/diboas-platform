@@ -1,5 +1,4 @@
 {
-  "_TODO_fee_audit": "CRITICAL: ~60 legacy 0.09%/0.9% fee refs in this file and 3 other locales. Blocked on CMO delivery. See docs/new-copy/CTO_FEE_AUDIT_CLAUDE_CODE_HANDOFF.md Issue K.",
   "title": "Preguntas Frecuentes",
   "description": "Encuentra respuestas a tus principales dudas. Si no lo encuentras aquí, nuestro chat responde en minutos.",
   "ctaText": "Ver Todas las Preguntas",
@@ -46,7 +45,7 @@
     },
     "q11": {
       "question": "¿Cuánto cuesta usar diBoaS?",
-      "answer": "Tarifas transparentes:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ $0          │ $0 - $50       │\n│ Mantener cuenta    │ $0/mes      │ $15-$50/mes    │\n│ Invertir $100      │ $0,09       │ $2 - $10       │\n│ Transferir $100    │ $0,90       │ $3 - $5        │\n│ Transferencia      │ $0          │ Varía          │\n│ dentro de diBoaS   │             │                │\n└────────────────────┴─────────────┴────────────────┘\n\nSin trucos. Sin letra pequeña.\n\nSiempre te mostramos el costo exacto antes de que confirmes cualquier cosa."
+      "answer": "Tarifas transparentes:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ Gratis      │ $0 - $50       │\n│ Mantener cuenta    │ Gratis      │ $15-$50/mes    │\n│ Comprar activos    │ Gratis      │ $2 - $10       │\n│ Vender activos     │ 0,39%       │ $2 - $10       │\n│ Depositar $100     │ $0,48       │ $3 - $5        │\n│ Retirar $100       │ $0,48       │ $3 - $5        │\n│ Enviar P2P         │ Gratis      │ Varía          │\n│ Intercambiar       │ Gratis      │ Varía          │\n└────────────────────┴─────────────┴────────────────┘\n\nSin trucos. Sin letra pequeña.\n\nSiempre te mostramos el costo exacto antes de que confirmes cualquier cosa."
     },
     "q12": {
       "question": "¿Hay suscripción obligatoria?",
@@ -54,7 +53,7 @@
     },
     "q13": {
       "question": "¿Cómo ganan dinero entonces?",
-      "answer": "Transparencia total:\n\n1. Pequeña comisión en transacciones (ese 0,09% y 0,9%)\n\n2. Los creadores de contenido que usan nuestra plataforma pagan 0,9%\n   (mucho menos que el 10% de YouTube)\n\n3. Suscripciones opcionales para funciones avanzadas\n\nGanamos cuando la usas. No cuando solo mantienes la cuenta abierta."
+      "answer": "Transparencia total:\n\n1. Pequeña comisión en transacciones (0,39% al vender, 0,48% en depósitos/retiros)\n\n2. Los creadores de contenido que usan nuestra plataforma pagan 0,48%\n   (mucho menos que el 10% de YouTube)\n\n3. Suscripciones opcionales para funciones avanzadas\n\nGanamos cuando la usas. No cuando solo mantienes la cuenta abierta."
     }
   },
   "registry": {
@@ -68,7 +67,7 @@
     },
     "q3": {
       "question": "¿Cuánto cuesta usar diBoaS?",
-      "answer": "Transparencia total:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ $0          │ $0 - $50       │\n│ Mantenimiento      │ $0/mes      │ $15-$50/mes    │\n│ Invertir $100      │ $0.09       │ $2 - $10       │\n│ Transferir $100    │ $0.90       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nSin comisiones mensuales. Sin saldos mínimos."
+      "answer": "Transparencia total:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ Gratis      │ $0 - $50       │\n│ Mantenimiento      │ Gratis      │ $15-$50/mes    │\n│ Comprar activos    │ Gratis      │ $2 - $10       │\n│ Vender activos     │ 0,39%       │ $2 - $10       │\n│ Depositar $100     │ $0,48       │ $3 - $5        │\n│ Retirar $100       │ $0,48       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nSin comisiones mensuales. Sin saldos mínimos."
     },
     "q4": {
       "question": "¿De verdad puedo empezar con solo $10?",
@@ -100,7 +99,7 @@
     },
     "q11": {
       "question": "¿Cuánto cuestan las transferencias?",
-      "answer": "Transparencia total:\n\n┌──────────────────────┬─────────────┐\n│ Tipo de Transferencia│ Comisión    │\n├──────────────────────┼─────────────┤\n│ Entre cuentas diBoaS │ $0          │\n│ Instantáneas         │ $0          │\n│ Bancarias estándar   │ $0          │\n│ Internacionales      │ $0.90       │\n└──────────────────────┴─────────────┘\n\nTipos de cambio siempre mostrados antes de confirmar.\nCero comisiones ocultas o sorpresas."
+      "answer": "Transparencia total:\n\n┌──────────────────────┬─────────────┐\n│ Tipo de Transferencia│ Comisión    │\n├──────────────────────┼─────────────┤\n│ Entre cuentas diBoaS │ Gratis      │\n│ Instantáneas         │ Gratis      │\n│ Bancarias estándar   │ Gratis      │\n│ Internacionales      │ 0,48%       │\n└──────────────────────┴─────────────┘\n\nTipos de cambio siempre mostrados antes de confirmar.\nCero comisiones ocultas o sorpresas."
     },
     "q12": {
       "question": "¿La cuenta diBoaS es cuenta corriente o de ahorro?",
@@ -132,7 +131,7 @@
     },
     "q19": {
       "question": "¿Cómo funcionan las comisiones de inversión?",
-      "answer": "0.09% por operación de compra/venta.\n\nEjemplo real:\n- Inviertes $100\n- Comisión diBoaS: $0.09\n- Inversión real: $99.91\n\nCompara:\n- diBoaS: $0.09\n- Bancos tradicionales: $2 a $10\n- Brókers: $5 a $15\n\nSomos 22x más baratos que el promedio del mercado."
+      "answer": "Comprar activos: Gratis.\nVender activos: 0,39% (mínimo €0,25, máximo €25).\n\nEjemplo real:\n- Inviertes $100 → Comisión de compra: $0 (gratis)\n- Vendes $100 → Comisión diBoaS: $0,39\n\nCompara al vender:\n- diBoaS: $0,39\n- Bancos tradicionales: $2 a $10\n- Brókers: $5 a $15\n\nSomos 5x más baratos que el promedio del mercado."
     },
     "q20": {
       "question": "¿Cuál es la diferencia entre invertir y especular?",
@@ -160,7 +159,7 @@
     },
     "q26": {
       "question": "¿Cuánto cuesta comprar crypto?",
-      "answer": "0.09% comisión diBoaS + comisiones de red.\n\nEjemplo real comprando $100 de Bitcoin:\n- Comisión diBoaS: $0.09\n- Comisión de red blockchain: ~$1.50\n- Total recibido: ~$98.41\n\nCompara con otros exchanges:\n- Coinbase: 1.49% = $1.49 (16x más caro)\n- Binance: 0.50% = $0.50 (5x más caro)\n- diBoaS: 0.09% = $0.09\n\nMostramos todo antes de confirmar."
+      "answer": "Comprar crypto: Gratis (solo pagas comisiones de red).\nVender crypto: 0,39% (mínimo €0,25, máximo €25).\n\nEjemplo real comprando $100 de Bitcoin:\n- Comisión diBoaS: $0 (gratis)\n- Comisión de red blockchain: ~$1,50\n- Total recibido: ~$98,50\n\nCompara con otros exchanges al vender:\n- Coinbase: 1,49% = $1,49\n- Binance: 0,50% = $0,50\n- diBoaS: 0,39% = $0,39\n\nMostramos todo antes de confirmar."
     },
     "q27": {
       "question": "¿Bitcoin es una pirámide/estafa?",
@@ -184,7 +183,7 @@
     },
     "q32": {
       "question": "¿Cuánto rinden las estrategias?",
-      "answer": "Varía, pero siempre mostramos tasas en tiempo real:\n\nEstrategias Conservadoras (Mystic recomienda):\n- Emergency Fund: 8-12% anual\n- Stable Growth: 10-15% anual\n\nEstrategias Moderadas (Coral desbloquea):\n- Balanced Yield: 15-25% anual\n- Growth Portfolio: 20-35% anual\n\nEstrategias Agresivas (solo avanzados):\n- High Yield: 35-80% anual (mayor riesgo)\n\nComisiones: 0.09% al iniciar + 0.09% al detener estrategia."
+      "answer": "Varía, pero siempre mostramos tasas en tiempo real:\n\nEstrategias Conservadoras (Mystic recomienda):\n- Emergency Fund: 8-12% anual\n- Stable Growth: 10-15% anual\n\nEstrategias Moderadas (Coral desbloquea):\n- Balanced Yield: 15-25% anual\n- Growth Portfolio: 20-35% anual\n\nEstrategias Agresivas (solo avanzados):\n- High Yield: 35-80% anual (mayor riesgo)\n\nComisiones: Gratis para iniciar, 0,39% para detener estrategia."
     },
     "q33": {
       "question": "¿Puedo perder dinero en estrategias?",
@@ -192,7 +191,7 @@
     },
     "q34": {
       "question": "¿Qué es DeFi exactamente?",
-      "answer": "DeFi = Decentralized Finance (Finanzas Descentralizadas)\n\nEn español simple:\nHacer cosas de banco (prestar, invertir, ganar intereses)\nsin necesitar bancos.\n\nEjemplo real:\n\nBanco tradicional:\n- Depositas $1,000\n- Banco paga 2% anual\n- Banco presta tu dinero al 15% anual\n- Banco se queda la diferencia\n\nDeFi:\n- Prestas directamente a quien lo necesita\n- Ganas 8-15% anual\n- Protocolo cobra 0.09%\n- Tú te quedas el resto\n\nDeFi Explained decodifica todo esto."
+      "answer": "DeFi = Decentralized Finance (Finanzas Descentralizadas)\n\nEn español simple:\nHacer cosas de banco (prestar, invertir, ganar intereses)\nsin necesitar bancos.\n\nEjemplo real:\n\nBanco tradicional:\n- Depositas $1,000\n- Banco paga 2% anual\n- Banco presta tu dinero al 15% anual\n- Banco se queda la diferencia\n\nDeFi:\n- Prestas directamente a quien lo necesita\n- Ganas 8-15% anual\n- Protocolo cobra 0,39%\n- Tú te quedas el resto\n\nDeFi Explained decodifica todo esto."
     },
     "q35": {
       "question": "¿Es seguro DeFi?",
@@ -272,7 +271,7 @@
     },
     "q54": {
       "question": "¿Cuánto cuesta la cuenta Business?",
-      "answer": "Cero comisión mensual.\n\nComisiones Business:\n\n┌────────────────────┬─────────────┐\n│ Operación          │ Comisión    │\n├────────────────────┼─────────────┤\n│ Mantenimiento      │ $0          │\n│ Transferencias     │ $0          │\n│ Cobros (recibos)   │ $0.90/unidad│\n│ Invertir saldo     │ 0.09%       │\n└────────────────────┴─────────────┘\n\nTu dinero parado rinde 100% de la tasa base automáticamente."
+      "answer": "Cero comisión mensual.\n\nComisiones Business:\n\n┌────────────────────┬─────────────┐\n│ Operación          │ Comisión    │\n├────────────────────┼─────────────┤\n│ Mantenimiento      │ Gratis      │\n│ Transferencias     │ Gratis      │\n│ Cobros (recibos)   │ 0,48%       │\n│ Invertir saldo     │ Gratis      │\n│ Vender activos     │ 0,39%       │\n└────────────────────┴─────────────┘\n\nTu dinero parado rinde 100% de la tasa base automáticamente."
     },
     "q55": {
       "question": "¿Cuánto tarda la aprobación de cuenta Business?",
@@ -288,7 +287,7 @@
     },
     "q58": {
       "question": "¿Puedo recibir pagos de clientes internacionales?",
-      "answer": "¡Sí! Sin complicaciones.\n\nRecibir del extranjero:\n\nVía SWIFT:\n- Cualquier país\n- 2-5 días hábiles\n- Comisión: $0.90 + tipo de cambio transparente\n\nVía Crypto:\n- Instantáneo\n- Convierte a tu moneda local\n- Ideal para freelancers globales\n\nEl cliente paga en $, €, £ o ¥\nTú recibes en tu moneda preferida."
+      "answer": "¡Sí! Sin complicaciones.\n\nRecibir del extranjero:\n\nVía SWIFT:\n- Cualquier país\n- 2-5 días hábiles\n- Comisión: 0,48% + tipo de cambio transparente\n\nVía Crypto:\n- Instantáneo\n- Convierte a tu moneda local\n- Ideal para freelancers globales\n\nEl cliente paga en $, €, £ o ¥\nTú recibes en tu moneda preferida."
     },
     "q59": {
       "question": "¿Cómo funciona la tarjeta Business?",
@@ -300,7 +299,7 @@
     },
     "q61": {
       "question": "¿Cómo recibo pagos de clientes?",
-      "answer": "Múltiples formas, todas integradas:\n\nTransferencia Instantánea:\n- Gratis recibir\n- Código QR instantáneo\n- Confirmación en tiempo real\n\nTransferencia Bancaria:\n- $0.90 por recibo emitido\n- Fecha de vencimiento personalizable\n- Notificación automática al cliente\n\nLink de Pago:\n- Crea link único\n- Cliente paga con tarjeta o transferencia\n- Comisión 1.99% solo si se paga\n\nTodo cae en tu cuenta Business automáticamente."
+      "answer": "Múltiples formas, todas integradas:\n\nTransferencia Instantánea:\n- Gratis recibir\n- Código QR instantáneo\n- Confirmación en tiempo real\n\nTransferencia Bancaria:\n- 0,48% por recibo emitido\n- Fecha de vencimiento personalizable\n- Notificación automática al cliente\n\nLink de Pago:\n- Crea link único\n- Cliente paga con tarjeta o transferencia\n- Comisión 1.99% solo si se paga\n\nTodo cae en tu cuenta Business automáticamente."
     },
     "q62": {
       "question": "¿Tienen datáfonos?",
@@ -320,7 +319,7 @@
     },
     "q66": {
       "question": "¿Cuál es el rendimiento promedio?",
-      "answer": "Depende del tipo:\n\nTreasury Conservador (liquidez inmediata):\n- 100-110% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4-4.4% anual\n- Cero riesgo\n\nTreasury Moderado (día siguiente):\n- 110-130% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4.4-5.2% anual\n- Riesgo muy bajo\n\nTreasury Estratégico (30 días):\n- 130-150% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 5.2-6% anual\n- Riesgo bajo\n\nComisión diBoaS: 0.09% al invertir."
+      "answer": "Depende del tipo:\n\nTreasury Conservador (liquidez inmediata):\n- 100-110% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4-4.4% anual\n- Cero riesgo\n\nTreasury Moderado (día siguiente):\n- 110-130% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4.4-5.2% anual\n- Riesgo muy bajo\n\nTreasury Estratégico (30 días):\n- 130-150% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 5.2-6% anual\n- Riesgo bajo\n\nComisión diBoaS: Gratis al invertir, 0,39% al vender."
     },
     "q67": {
       "question": "¿Qué es Cash Flow Yield?",
@@ -476,7 +475,7 @@
     },
     "q105": {
       "question": "¿Cómo gana dinero diBoaS?",
-      "answer": "Modelo sostenible y transparente:\n\nIngreso Principal (80%):\n- Comisiones de transacción (0.09% y 0.9%)\n- Alto volumen, bajo margen\n- Escala con crecimiento de base de usuarios\n\nIngreso Secundario (15%):\n- Suscripciones Premium ($12.90/mes)\n- Funciones avanzadas opcionales\n- ~5% de usuarios pagan\n\nEconomía de Creadores (5%):\n- Comisión de contenido educativo (0.9%)\n- Marketplace de estrategias\n- Win-win: creadores ganan, nosotros ganamos\n\nNO ganamos con:\n✗ Vender tus datos\n✗ Comisiones ocultas\n✗ Payment for order flow\n✗ Front-running de tus trades\n\nNuestro éxito = tu éxito.\nAlineación total de incentivos."
+      "answer": "Modelo sostenible y transparente:\n\nIngreso Principal (80%):\n- Comisiones de transacción (0,39% al vender, 0,48% en depósitos/retiros)\n- Alto volumen, bajo margen\n- Escala con crecimiento de base de usuarios\n\nIngreso Secundario (15%):\n- Suscripciones Premium ($12,90/mes)\n- Funciones avanzadas opcionales\n- ~5% de usuarios pagan\n\nEconomía de Creadores (5%):\n- Comisión de contenido educativo (0,48%)\n- Marketplace de estrategias\n- Win-win: creadores ganan, nosotros ganamos\n\nNO ganamos con:\n✗ Vender tus datos\n✗ Comisiones ocultas\n✗ Payment for order flow\n✗ Front-running de tus trades\n\nNuestro éxito = tu éxito.\nAlineación total de incentivos."
     },
     "q106": {
       "question": "¿Cómo es trabajar en diBoaS?",

@@ -1,5 +1,4 @@
 {
-  "_TODO_fee_audit": "CRITICAL: ~60 legacy 0.09%/0.9% fee refs in this file and 3 other locales. Blocked on CMO delivery. See docs/new-copy/CTO_FEE_AUDIT_CLAUDE_CODE_HANDOFF.md Issue K.",
   "title": "Frequently Asked Questions",
   "description": "Find answers to your main questions. If you don't find it here, our chat responds in minutes.",
   "ctaText": "See All Questions",
@@ -46,7 +45,7 @@
     },
     "q11": {
       "question": "How much does it cost to use diBoaS?",
-      "answer": "Transparent fees:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operation          │ You pay     │ Others charge  │\n├────────────────────┼─────────────┼────────────────┤\n│ Open account       │ $0          │ $0 - $50       │\n│ Maintain account   │ $0/month    │ $15-$50/month  │\n│ Invest $100        │ $0.09       │ $2 - $10       │\n│ Transfer $100      │ $0.90       │ $3 - $5        │\n│ Instant transfer   │ $0          │ Varies         │\n│ within diBoaS      │             │                │\n└────────────────────┴─────────────┴────────────────┘\n\nNo tricks. No fine print.\n\nWe always show you the exact cost before you confirm anything."
+      "answer": "Transparent fees:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operation          │ You pay     │ Others charge  │\n├────────────────────┼─────────────┼────────────────┤\n│ Open account       │ $0          │ $0 - $50       │\n│ Maintain account   │ $0/month    │ $15-$50/month  │\n│ Buy $100           │ $0 (free)   │ $2 - $10       │\n│ Sell $100          │ $0.39       │ $2 - $10       │\n│ Add money          │ $0.48       │ $3 - $5        │\n│ Withdraw           │ $0.48       │ $3 - $5        │\n│ Send P2P / Swap    │ $0 (free)   │ Varies         │\n└────────────────────┴─────────────┴────────────────┘\n\nNo tricks. No fine print.\n\nWe always show you the exact cost before you confirm anything."
     },
     "q12": {
       "question": "Is there a mandatory subscription?",
@@ -54,7 +53,7 @@
     },
     "q13": {
       "question": "How do you make money then?",
-      "answer": "Total transparency:\n\n1. Small transaction fee (that 0.09% and 0.9%)\n\n2. Content creators using our platform pay 0.9%\n   (much less than YouTube's 10%)\n\n3. Optional subscriptions for advanced features\n\nWe earn when you use it. Not when you just keep the account open."
+      "answer": "Total transparency:\n\n1. Small transaction fees (0.39% on sells/exits, 0.48% on money movement)\n\n2. Content creators using our platform pay a small commission\n   (much less than YouTube's 10%)\n\n3. Optional subscriptions for advanced features\n\nWe earn when you use it. Not when you just keep the account open."
     }
   },
   "registry": {
@@ -68,7 +67,7 @@
     },
     "q3": {
       "question": "How much does it cost to use diBoaS?",
-      "answer": "Total transparency:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operation          │ You pay     │ Others charge  │\n├────────────────────┼─────────────┼────────────────┤\n│ Open account       │ $0          │ $0 - $50       │\n│ Monthly fee        │ $0/month    │ $15-$50/month  │\n│ Invest $100        │ $0.09       │ $2 - $10       │\n│ Transfer $100      │ $0.90       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nNo monthly fees. No minimum balances."
+      "answer": "Total transparency:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operation          │ You pay     │ Others charge  │\n├────────────────────┼─────────────┼────────────────┤\n│ Open account       │ $0          │ $0 - $50       │\n│ Monthly fee        │ $0/month    │ $15-$50/month  │\n│ Buy $100           │ $0 (free)   │ $2 - $10       │\n│ Sell $100          │ $0.39       │ $2 - $10       │\n│ Add/Withdraw $100  │ $0.48       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nNo monthly fees. No minimum balances."
     },
     "q4": {
       "question": "Can I really start with just $10?",
@@ -100,7 +99,7 @@
     },
     "q11": {
       "question": "How much do transfers cost?",
-      "answer": "Total transparency:\n\n┌──────────────────────┬─────────────┐\n│ Transfer Type        │ diBoaS Fee  │\n├──────────────────────┼─────────────┤\n│ Between diBoaS accts │ $0          │\n│ Domestic instant     │ $0          │\n│ Domestic wire        │ $0          │\n│ International        │ $0.90       │\n└──────────────────────┴─────────────┘\n\nExchange rates always shown before confirming.\nZero hidden fees or surprises."
+      "answer": "Total transparency:\n\n┌──────────────────────┬─────────────┐\n│ Transfer Type        │ diBoaS Fee  │\n├──────────────────────┼─────────────┤\n│ Between diBoaS accts │ $0          │\n│ Domestic instant     │ $0          │\n│ Domestic wire        │ $0          │\n│ International        │ 0.48%      │\n└──────────────────────┴─────────────┘\n\nExchange rates always shown before confirming.\nZero hidden fees or surprises."
     },
     "q12": {
       "question": "Is diBoaS a checking or savings account?",
@@ -132,7 +131,7 @@
     },
     "q19": {
       "question": "How do investment fees work?",
-      "answer": "0.09% per buy/sell transaction.\n\nReal example:\n- You invest $100\n- diBoaS fee: $0.09\n- Actual investment: $99.91\n\nCompare:\n- diBoaS: $0.09\n- Traditional banks: $2 to $10\n- Brokerages: $5 to $15\n\nWe're 22x cheaper than market average."
+      "answer": "Buying is FREE. Selling is just 0.39%.\n\nReal example:\n- You buy $100 of stock\n- diBoaS fee: $0 (free!)\n- You sell $100 of stock\n- diBoaS fee: $0.39 (floor $0.25, cap $25)\n\nCompare selling fees:\n- diBoaS: $0.39\n- Traditional banks: $2 to $10\n- Brokerages: $5 to $15\n\nWe're about 5x cheaper than market average."
     },
     "q20": {
       "question": "What's the difference between investing and speculating?",
@@ -160,7 +159,7 @@
     },
     "q26": {
       "question": "How much does buying crypto cost?",
-      "answer": "0.09% diBoaS fee + network fees.\n\nReal example buying $100 of Bitcoin:\n- diBoaS fee: $0.09\n- Network blockchain fee: ~$1.50\n- Total received: ~$98.41\n\nCompare with other exchanges:\n- Coinbase: 1.49% = $1.49 (16x more expensive)\n- Binance: 0.50% = $0.50 (5x more expensive)\n- diBoaS: 0.09% = $0.09\n\nWe show everything before you confirm."
+      "answer": "Buying crypto is FREE on diBoaS. You only pay network fees.\n\nReal example buying $100 of Bitcoin:\n- diBoaS fee: $0 (free!)\n- Network blockchain fee: ~$1.50\n- Total received: ~$98.50\n\nSelling crypto costs just 0.39% (floor $0.25, cap $25).\n\nCompare selling fees with other exchanges:\n- Coinbase: 1.49% = $1.49\n- Binance: 0.50% = $0.50\n- diBoaS: 0.39% = $0.39\n\nWe show everything before you confirm."
     },
     "q27": {
       "question": "Is Bitcoin a pyramid scheme/scam?",
@@ -184,7 +183,7 @@
     },
     "q32": {
       "question": "How much do strategies earn?",
-      "answer": "Varies, but we always show real-time rates:\n\nConservative Strategies (Mystic recommends):\n- Emergency Fund: 8-12% annually\n- Stable Growth: 10-15% annually\n\nModerate Strategies (Coral unlocks):\n- Balanced Yield: 15-25% annually\n- Growth Portfolio: 20-35% annually\n\nAggressive Strategies (advanced only):\n- High Yield: 35-80% annually (higher risk)\n\nFees: 0.09% to start + 0.09% to stop strategy."
+      "answer": "Varies, but we always show real-time rates:\n\nConservative Strategies (Mystic recommends):\n- Emergency Fund: 8-12% annually\n- Stable Growth: 10-15% annually\n\nModerate Strategies (Coral unlocks):\n- Balanced Yield: 15-25% annually\n- Growth Portfolio: 20-35% annually\n\nAggressive Strategies (advanced only):\n- High Yield: 35-80% annually (higher risk)\n\nFees: Free to start, 0.39% to stop/exit strategy (floor $0.25, cap $25)."
     },
     "q33": {
       "question": "Can I lose money in strategies?",
@@ -192,7 +191,7 @@
     },
     "q34": {
       "question": "What is DeFi anyway?",
-      "answer": "DeFi = Decentralized Finance\n\nIn plain English:\nDoing bank stuff (lending, investing, earning interest)\nwithout needing banks.\n\nReal example:\n\nTraditional bank:\n- You deposit $1,000\n- Bank pays 2% annually\n- Bank lends your money at 15% annually\n- Bank keeps the difference\n\nDeFi:\n- You lend directly to who needs it\n- Earn 8-15% annually\n- Protocol charges 0.09%\n- You keep the rest\n\nDeFi Explained decodes all of this."
+      "answer": "DeFi = Decentralized Finance\n\nIn plain English:\nDoing bank stuff (lending, investing, earning interest)\nwithout needing banks.\n\nReal example:\n\nTraditional bank:\n- You deposit $1,000\n- Bank pays 2% annually\n- Bank lends your money at 15% annually\n- Bank keeps the difference\n\nDeFi:\n- You lend directly to who needs it\n- Earn 8-15% annually\n- Protocol charges 0.39% on exit\n- You keep the rest\n\nDeFi Explained decodes all of this."
     },
     "q35": {
       "question": "Is DeFi safe?",
@@ -272,7 +271,7 @@
     },
     "q54": {
       "question": "How much does Business account cost?",
-      "answer": "Zero monthly fee.\n\nBusiness fees:\n\n┌────────────────────┬─────────────┐\n│ Operation          │ Fee         │\n├────────────────────┼─────────────┤\n│ Monthly maintenance│ $0          │\n│ Transfers          │ $0          │\n│ Collections        │ $0.90/item  │\n│ Invest balance     │ 0.09%       │\n└────────────────────┴─────────────┘\n\nYour idle cash earns 100% of base rate automatically."
+      "answer": "Zero monthly fee.\n\nBusiness fees:\n\n┌────────────────────┬─────────────┐\n│ Operation          │ Fee         │\n├────────────────────┼─────────────┤\n│ Monthly maintenance│ $0          │\n│ Transfers          │ $0          │\n│ Collections        │ 0.48%/item  │\n│ Buy assets         │ Free        │\n│ Sell assets        │ 0.39%       │\n└────────────────────┴─────────────┘\n\nYour idle cash earns 100% of base rate automatically."
     },
     "q55": {
       "question": "How long does Business account approval take?",
@@ -288,7 +287,7 @@
     },
     "q58": {
       "question": "Can I receive payments from international clients?",
-      "answer": "Yes! No hassle.\n\nReceive from abroad:\n\nVia SWIFT:\n- Any country\n- 2-5 business days\n- Fee: $0.90 + transparent FX\n\nVia Crypto:\n- Instant\n- Converts to your local currency\n- Ideal for global freelancers\n\nClient pays in $, €, £ or ¥\nYou receive in $ or preferred currency."
+      "answer": "Yes! No hassle.\n\nReceive from abroad:\n\nVia SWIFT:\n- Any country\n- 2-5 business days\n- Fee: 0.48% + transparent FX\n\nVia Crypto:\n- Instant\n- Converts to your local currency\n- Ideal for global freelancers\n\nClient pays in $, €, £ or ¥\nYou receive in $ or preferred currency."
     },
     "q59": {
       "question": "How does the Business card work?",
@@ -300,7 +299,7 @@
     },
     "q61": {
       "question": "How do I receive payments from customers?",
-      "answer": "Multiple ways, all integrated:\n\nInstant Transfer:\n- Free to receive\n- Instant QR code\n- Real-time confirmation\n\nBank Transfer:\n- $0.90 per transfer issued\n- Custom due date\n- Auto notification to customer\n\nPayment Link:\n- Creates unique link\n- Customer pays with card or instant transfer\n- Fee 1.99% only if paid\n\nEverything lands in your Business account automatically."
+      "answer": "Multiple ways, all integrated:\n\nInstant Transfer:\n- Free to receive\n- Instant QR code\n- Real-time confirmation\n\nBank Transfer:\n- 0.48% per transfer issued\n- Custom due date\n- Auto notification to customer\n\nPayment Link:\n- Creates unique link\n- Customer pays with card or instant transfer\n- Fee 1.99% only if paid\n\nEverything lands in your Business account automatically."
     },
     "q62": {
       "question": "Do you have card readers?",
@@ -320,7 +319,7 @@
     },
     "q66": {
       "question": "What's the average yield?",
-      "answer": "Depends on type:\n\nConservative Treasury (immediate liquidity):\n- 100-110% of base rate\n- Example: Base rate 4% → you earn 4-4.4% annually\n- Zero risk\n\nModerate Treasury (next-day):\n- 110-130% of base rate\n- Example: Base rate 4% → you earn 4.4-5.2% annually\n- Very low risk\n\nStrategic Treasury (30-day):\n- 130-150% of base rate\n- Example: Base rate 4% → you earn 5.2-6% annually\n- Low risk\n\ndiBoaS fee: 0.09% when investing."
+      "answer": "Depends on type:\n\nConservative Treasury (immediate liquidity):\n- 100-110% of base rate\n- Example: Base rate 4% → you earn 4-4.4% annually\n- Zero risk\n\nModerate Treasury (next-day):\n- 110-130% of base rate\n- Example: Base rate 4% → you earn 4.4-5.2% annually\n- Very low risk\n\nStrategic Treasury (30-day):\n- 130-150% of base rate\n- Example: Base rate 4% → you earn 5.2-6% annually\n- Low risk\n\ndiBoaS fee: Free to invest, 0.39% when exiting."
     },
     "q67": {
       "question": "What is Cash Flow Yield?",
@@ -476,7 +475,7 @@
     },
     "q105": {
       "question": "How does diBoaS make money?",
-      "answer": "Sustainable and transparent model:\n\nPrimary Revenue (80%):\n- Transaction fees (0.09% and 0.9%)\n- High volume, low margin\n- Scales with user base growth\n\nSecondary Revenue (15%):\n- Premium subscriptions ($12.90/month)\n- Optional advanced features\n- ~5% of users pay\n\nCreator Economy (5%):\n- Educational content commission (0.9%)\n- Strategy marketplace\n- Win-win: creators earn, we earn\n\nWe DON'T earn from:\n✗ Selling your data\n✗ Hidden fees\n✗ Payment for order flow\n✗ Front-running your trades\n\nOur success = your success.\nTotal incentive alignment."
+      "answer": "Sustainable and transparent model:\n\nPrimary Revenue (80%):\n- Transaction fees (0.39% on sells/exits, 0.48% on money movement)\n- High volume, low margin\n- Scales with user base growth\n\nSecondary Revenue (15%):\n- Premium subscriptions ($12.90/month)\n- Optional advanced features\n- ~5% of users pay\n\nCreator Economy (5%):\n- Educational content commission\n- Strategy marketplace\n- Win-win: creators earn, we earn\n\nWe DON'T earn from:\n✗ Selling your data\n✗ Hidden fees\n✗ Payment for order flow\n✗ Front-running your trades\n\nOur success = your success.\nTotal incentive alignment."
     },
     "q106": {
       "question": "What's it like working at diBoaS?",
@@ -492,7 +491,7 @@
     },
     "q109": {
       "question": "Why invest in diBoaS?",
-      "answer": "$400 billion opportunity + perfect timing.\n\nThe market:\n- 89.6% of global fintech users don't use crypto/DeFi\n- TAM: 5.4 billion people\n- Only 10.4% have access today\n→ Massive and virgin market\n\nOur advantage:\n- Methodology validated by Nubank (118.6M users)\n- Proven progressive disclosure working\n- Fees 16x cheaper than incumbents\n- First-mover in true OneFi\n\nTraction:\n[Current metrics - confidential until investor talk]\n\nTiming:\n- Clear crypto regulation (MiCA, etc)\n- Growing mainstream appetite\n- Competitors focused on wrong segments\n\nIt's convergence of banking + investing + crypto + DeFi.\nTrillion-dollar market being formed NOW."
+      "answer": "$400 billion opportunity + perfect timing.\n\nThe market:\n- 89.6% of global fintech users don't use crypto/DeFi\n- TAM: 5.4 billion people\n- Only 10.4% have access today\n→ Massive and virgin market\n\nOur advantage:\n- Methodology validated by Nubank (118.6M users)\n- Proven progressive disclosure working\n- Fees up to 5x cheaper than incumbents\n- First-mover in true OneFi\n\nTraction:\n[Current metrics - confidential until investor talk]\n\nTiming:\n- Clear crypto regulation (MiCA, etc)\n- Growing mainstream appetite\n- Competitors focused on wrong segments\n\nIt's convergence of banking + investing + crypto + DeFi.\nTrillion-dollar market being formed NOW."
     },
     "q110": {
       "question": "What's the fundraising status?",

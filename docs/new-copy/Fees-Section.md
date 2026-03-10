@@ -30,7 +30,7 @@
 | **Keep your account** | Free forever | $12–25/month | You save $150+/year |
 | **Add money** | 0.48% | 1–3% | **2–6× cheaper** |
 | **Send to anyone** | **FREE**, instant, worldwide | Free locally, $5–50 internationally | Send globally, instantly, free |
-| **Buy Stocks, ETFs, Crypto, Gold*** | 0.39% | 1.5–2.5% + spreads | **4–6× cheaper** |
+| **Buy Stocks, ETFs, Crypto, Gold*** | **FREE** | 1.5–2.5% + spreads | You keep everything |
 | **Sell investments** | 0.39% | 1.5–2.5% + spreads | **4–6× cheaper** |
 | **Swap transactions** | **FREE** | 0.5–2% | You keep everything |
 | **Grow with strategies** | Free to start, 0.39% when you stop | Not available | Earn while you sleep |
@@ -38,7 +38,7 @@
 
 **No monthly fees. No minimum balance. No hidden spreads. No surprises.**
 
-*Example: A $100 investment costs you $0.39 with diBoaS. The same purchase costs $1.50–$2.50 elsewhere.*
+*Example: Buying $100 of assets is free with diBoaS. Selling costs $0.39. Elsewhere, each trade costs $1.50–$2.50.*
 
 > **\*Gold:** Confirmed for demo. Production deployment pending CLO Board approval.
 
@@ -55,7 +55,7 @@
 | **Konto führen** | Kostenlos | €5–15/Monat | Du sparst €60–180/Jahr |
 | **Geld einzahlen** | 0,48% | 1–3% | **2–6× günstiger** |
 | **Geld senden** | **GRATIS**, sofort, weltweit | SEPA gratis, international €5–30 | Weltweit, sofort, kostenlos |
-| **Aktien, ETFs, Krypto, Gold* kaufen** | 0,39% | 1,5–2,5% + Spreads | **4–6× günstiger** |
+| **Aktien, ETFs, Krypto, Gold* kaufen** | **GRATIS** | 1,5–2,5% + Spreads | Alles bleibt bei dir |
 | **Investments verkaufen** | 0,39% | 1,5–2,5% + Spreads | **4–6× günstiger** |
 | **Transaktionen tauschen** | **GRATIS** | 0,5–2% | Alles bleibt bei dir |
 | **Mit Strategien wachsen** | Start kostenlos, 0,39% beim Beenden | Nicht verfügbar | Verdiene im Schlaf |
@@ -63,7 +63,7 @@
 
 **Keine Kontogebühren. Kein Mindestguthaben. Keine versteckten Spreads.**
 
-*Beispiel: €100 investieren kostet dich €0,39 bei diBoaS. Anderswo zahlst du €1,50–€2,50.*
+*Beispiel: €100 kaufen ist bei diBoaS kostenlos. Verkaufen kostet €0,39. Anderswo zahlst du €1,50–€2,50 pro Trade.*
 
 > **\*Gold:** Für Demo bestätigt. Produktionsfreigabe steht aus (CLO Board).
 
@@ -80,7 +80,7 @@
 | **Manter sua conta** | Grátis sempre | R$16–90/mês (bancos) | Você economiza R$200+/ano |
 | **Adicionar dinheiro** | 0,48% | 1–3% | **2–6× mais barato** |
 | **Enviar para qualquer pessoa** | **GRÁTIS**, na mesma hora, para o mundo | PIX grátis, internacional R$20–100 | PIX grátis, na mesma hora, para o mundo |
-| **Comprar Ações, ETFs, Cripto, Ouro*** | 0,39% | 1–2,5% + spread oculto | **4–6× mais barato** |
+| **Comprar Ações, ETFs, Cripto, Ouro*** | **GRÁTIS** | 1–2,5% + spread oculto | Tudo fica com você |
 | **Vender investimentos** | 0,39% | 1–2,5% + spread oculto | **4–6× mais barato** |
 | **Trocar transações** | **GRÁTIS** | 0,5–2% | Tudo fica com você |
 | **Crescer com estratégias** | Grátis para começar, 0,39% ao encerrar | Não disponível | Ganhe enquanto dorme |
@@ -88,7 +88,7 @@
 
 **Sem mensalidade. Sem saldo mínimo. Sem spread escondido. Sem surpresas.**
 
-*Exemplo: Investir R$100 custa R$0,39 no diBoaS. Em outros apps, você paga R$1,50–R$3,50.*
+*Exemplo: Comprar R$100 em ativos é grátis no diBoaS. Vender custa R$0,39. Em outros apps, você paga R$1,50–R$3,50 por operação.*
 
 > **\*Ouro:** Confirmado para demo. Produção pendente de aprovação do CLO Board.
 
@@ -105,7 +105,7 @@
 | **Mantener tu cuenta** | Gratis siempre | €5–15/mes | Ahorras €60–180/año |
 | **Añadir dinero** | 0,48% | 1–3% | **2–6× más barato** |
 | **Enviar a cualquier persona** | **GRATUITO**, instantáneo, mundial | SEPA gratis, internacional €5–30 | Envía global, instantáneo, gratis |
-| **Comprar Acciones, ETFs, Cripto, Oro*** | 0,39% | 1,5–2,5% + spreads | **4–6× más barato** |
+| **Comprar Acciones, ETFs, Cripto, Oro*** | **GRATUITO** | 1,5–2,5% + spreads | Te quedas con todo |
 | **Vender inversiones** | 0,39% | 1,5–2,5% + spreads | **4–6× más barato** |
 | **Intercambiar transacciones** | **GRATUITO** | 0,5–2% | Te quedas con todo |
 | **Crecer con estrategias** | Gratis para empezar, 0,39% al cerrar | No disponible | Gana mientras duermes |
@@ -113,7 +113,7 @@
 
 **Sin cuotas mensuales. Sin saldo mínimo. Sin spreads ocultos. Sin sorpresas.**
 
-*Ejemplo: Invertir €100 te cuesta €0,39 con diBoaS. En otras apps, pagas €1,50–€2,50.*
+*Ejemplo: Comprar €100 en activos es gratis con diBoaS. Vender cuesta €0,39. En otras apps, pagas €1,50–€2,50 por operación.*
 
 > **\*Oro:** Confirmado para demo. Producción pendiente de aprobación del CLO Board.
 
@@ -128,7 +128,7 @@
 | Add (on-ramp) | Ramp | 0.48% | — | — |
 | Send (P2P) | Free | 0% | — | — |
 | Withdraw (off-ramp) | Ramp | 0.48% | — | — |
-| Buy | Exec | 0.39% | $0.25 | $25 |
+| Buy | Free | 0% | — | — |
 | Sell | Exec | 0.39% | $0.25 | $25 |
 | Swap | Free | 0% | — | — |
 | Bridge | Free | 0% | — | — |

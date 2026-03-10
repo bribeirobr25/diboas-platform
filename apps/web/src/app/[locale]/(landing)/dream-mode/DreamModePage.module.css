@@ -106,6 +106,12 @@
   background: var(--gradient-dark-section);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .loadingSpinner {
+    animation: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .gateCard {

@@ -1211,6 +1211,12 @@ a:focus-visible {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .minimal-nav-mobile-menu {
+    animation: none;
+  }
+}
+
 .minimal-nav-mobile-links {
   @apply flex flex-col;
   padding: var(--spacing-xl) 0;

@@ -52,4 +52,11 @@
   .animate-slide-from-right {
     animation: slide-from-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-slide-from-right {
+      animation: none;
+      transform: translateX(0);
+    }
+  }
 }

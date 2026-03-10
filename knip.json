@@ -45,6 +45,10 @@
     "packages/ui": {
       "entry": ["src/index.ts"],
       "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/email": {
+      "entry": ["src/index.ts"],
+      "project": ["src/**/*.{ts,tsx}"]
     }
   }
 }
