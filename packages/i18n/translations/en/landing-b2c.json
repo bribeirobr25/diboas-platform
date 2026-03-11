@@ -1,7 +1,7 @@
 {
   "hero": {
-    "headline": "The system isn't broken. It's working exactly as designed. Just not for you.",
-    "subheadline": "You're paying hundreds a year in fees. You can't move your money in real-time world wide. And the cash in your bank? It's earning returns for everyone except you. That changes now.",
+    "headline": "The money system isn't broken. It just wasn't built for you.",
+    "subheadline": "Send money anywhere, instantly, for free. Grow it your way.",
     "cta": "See your money in action"
   },
   "origin": {
@@ -70,6 +70,10 @@
       "title": "Track and Learn",
       "description": "What's moving. What it means. What you could do. Clear language, not jargon.",
       "quote": "\"Adelaide watches your money so you don't have to. Check once a day. Less stress. More life.\""
+    },
+    "step4": {
+      "title": "Buy and Hold",
+      "description": "Buy crypto directly. Hold it in your own wallet. No middleman. No custody risk. Yours."
     },
     "microDisclosure": "Examples shown are illustrative and do not represent actual users."
   },

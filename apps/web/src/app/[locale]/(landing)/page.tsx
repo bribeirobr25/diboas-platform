@@ -6,7 +6,6 @@ import {
   HeroSection,
   FAQAccordion,
   ProseSection,
-  ScenarioCards,
   FeeTable,
   DemoLauncher,
   ExpandableSection,
@@ -14,6 +13,7 @@ import {
 } from '@/components/Sections';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
+import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -26,7 +26,6 @@ import {
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_SCENARIOS_CONFIG,
   B2C_FEES_CONFIG,
-  B2C_FEES_EXPANDABLE_CONFIG,
   B2C_CATCH_CONFIG,
   B2C_UNDER_THE_HOOD_CONFIG,
   B2C_DEMO_CONFIG,
@@ -105,9 +104,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  *
  * 11-section layout:
  * 1.   Hero — Full background with headline and CTA
- * 2.   Origin Story — "Her name was Adelaide." (ProseSection)
- * 3.   Scenarios — Real-life scenario cards
- * 4.   How It Works — 3-step ProductCarousel
+ * 2.   Scenarios — Real-life scenario slides (ProductCarousel)
+ * 3.   Origin Story — "Her name was Adelaide." (ProseSection)
+ * 4.   How It Works — 4-step AppFeaturesCarousel
  * 5.   Fees — Transparent fee table (5 columns)
  * 6.   What's the Catch? — Honest transparency (ProseSection)
  * 6.5  Under the Hood — Expandable technical details
@@ -163,7 +162,22 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 2: Origin Story — "Her name was Adelaide." */}
+        {/* Section 2: Scenarios — Real People, Real Moments (ProductCarousel) */}
+        <SectionErrorBoundary
+          sectionId="scenarios-section-b2c"
+          sectionType="ProductCarousel"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="scenarios" data-section-id="scenarios-section-b2c">
+            <ProductCarouselFactory
+              config={B2C_SCENARIOS_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 3: Origin Story — "Her name was Adelaide." */}
         <SectionErrorBoundary
           sectionId="origin-story-section-b2c"
           sectionType="ProseSection"
@@ -178,33 +192,17 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 3: Scenarios — Real People, Real Moments */}
-        <SectionErrorBoundary
-          sectionId="scenarios-section-b2c"
-          sectionType="ScenarioCards"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="scenarios" data-section-id="scenarios-section-b2c">
-            <ScenarioCards
-              config={B2C_SCENARIOS_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 4: How It Works — 3 Steps */}
+        {/* Section 4: How It Works — 4 Steps (AppFeaturesCarousel) */}
         <SectionErrorBoundary
           sectionId="how-it-works-section-b2c"
-          sectionType="ProductCarousel"
+          sectionType="AppFeaturesCarousel"
           enableReporting={true}
           context={{ page: 'landing-b2c' }}
         >
           <div id="how-it-works" data-section-id="how-it-works-section-b2c">
-            <ProductCarouselFactory
+            <AppFeaturesCarousel
               config={B2C_HOW_IT_WORKS_CONFIG}
               enableAnalytics={true}
-              backgroundColor="var(--section-bg-neutral)"
             />
           </div>
         </SectionErrorBoundary>
@@ -217,12 +215,10 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           context={{ page: 'landing-b2c' }}
         >
           <div id="fees" data-section-id="fees-section-b2c">
-            <ExpandableSection config={B2C_FEES_EXPANDABLE_CONFIG}>
-              <FeeTable
-                config={B2C_FEES_CONFIG}
-                enableAnalytics={true}
-              />
-            </ExpandableSection>
+            <FeeTable
+              config={B2C_FEES_CONFIG}
+              enableAnalytics={true}
+            />
           </div>
         </SectionErrorBoundary>
 

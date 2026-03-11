@@ -6,9 +6,9 @@ import {
   HeroSection,
   FAQAccordion,
   ProseSection,
+  ScenarioCards,
   FeeTable,
   FounderSection,
-  ExpandableSection,
   TwoWorldsSection,
   CashflowExplainerSection,
 } from '@/components/Sections';
@@ -32,7 +32,6 @@ import {
   B2B_FEATURES_CONFIG,
   B2B_CASHFLOW_INVESTING_CONFIG,
   B2B_FEES_CONFIG,
-  B2B_FEES_EXPANDABLE_CONFIG,
   B2B_FIT_ASSESSMENT_CONFIG,
   B2B_FOUNDER_CONFIG,
   B2B_WAITLIST_CONFIG,
@@ -113,7 +112,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  * 5. How It Works (4 steps)
  * 6. Three Features (3 cards)
  * 7. Origin Story (Adelaide / Grandmother)
- * 8. Fee Transparency (FeeTable, expandable)
+ * 8. Fee Transparency (FeeTable)
  * 9. Fit Assessment (Good Fit / Not a Fit)
  * 10. About the Founder
  * 11. Social Proof (waitlist stats)
@@ -226,17 +225,16 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 6: Three Features */}
+        {/* Section 6: Three Features (ScenarioCards) */}
         <SectionErrorBoundary
           sectionId="features-section-b2b"
-          sectionType="BenefitsCards"
+          sectionType="ScenarioCards"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
           <div id="features" data-section-id="features-section-b2b">
-            <BenefitsCardsSection
+            <ScenarioCards
               config={B2B_FEATURES_CONFIG}
-              variant="default"
               enableAnalytics={true}
             />
           </div>
@@ -265,12 +263,10 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           context={{ page: 'landing-b2b' }}
         >
           <div id="fees" data-section-id="fees-section-b2b">
-            <ExpandableSection config={B2B_FEES_EXPANDABLE_CONFIG}>
-              <FeeTable
-                config={B2B_FEES_CONFIG}
-                enableAnalytics={true}
-              />
-            </ExpandableSection>
+            <FeeTable
+              config={B2B_FEES_CONFIG}
+              enableAnalytics={true}
+            />
           </div>
         </SectionErrorBoundary>
 

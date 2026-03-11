@@ -15,6 +15,8 @@ import {
   Send,
   LineChart,
   Target,
+  CheckCircle2,
+  XCircle,
   type LucideIcon
 } from 'lucide-react';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
@@ -30,9 +32,13 @@ const ICON_MAP: Record<string, LucideIcon> = {
   'send': Send,
   'line-chart': LineChart,
   'target': Target,
+  'check-circle': CheckCircle2,
+  'x-circle': XCircle,
   // Fallbacks for legacy icon paths
   'chart-growing': TrendingUp,
   'rewards-medal': Target,
+  'rewards-trophy': CheckCircle2,
+  'safe-money': XCircle,
 };
 
 interface BenefitCardItemProps {

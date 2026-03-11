@@ -4,20 +4,27 @@ import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import {
+  HeroSection,
+  ProseSection,
+  FounderSection,
+} from '@/components/Sections';
+import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
+import { ScrollToHash } from '@/components/Layout/ScrollToHash';
 import {
-  AboutHeroSection,
-  AboutStorySection,
-  AboutWhatWeDoSection,
-  AboutBeliefsSection,
-  AboutMissionSection,
-  AboutBusinessSection,
-  AboutContactSection,
-  AboutTransitionHook,
-} from '@/components/Pages/About';
-import { ABOUT_FOOTER_DISCLOSURES } from '@/config/landing-about';
+  ABOUT_HERO_CONFIG,
+  ABOUT_STORY_CONFIG,
+  ABOUT_WHAT_WE_DO_CONFIG,
+  ABOUT_BELIEFS_CONFIG,
+  ABOUT_MISSION_CONFIG,
+  ABOUT_BUSINESS_CONFIG,
+  ABOUT_FOUNDER_CONFIG,
+  ABOUT_WAITLIST_CONFIG,
+  ABOUT_FOOTER_DISCLOSURES,
+} from '@/config/landing-about';
 import { B2C_FOOTER_NAV } from '@/config/landing-b2c';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
@@ -27,18 +34,16 @@ export const dynamic = 'auto';
 
 /**
  * Generate metadata for the About page
- * Uses i18n translations for locale-aware SEO
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
 
-  // Load translations for metadata
   const messages = await loadMessages(validLocale, 'about');
   const seo = messages?.seo || {};
 
   const title = seo.title || 'About diBoaS | Built for the People Banks Forgot';
-  const description = seo.description || 'diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options, starting at $5.';
+  const description = seo.description || 'diBoaS was built because one grandmother deserved better. Now everyone does.';
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -81,22 +86,16 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 /**
  * About Page
  *
- * Config-driven composition pattern (Phase 3E migration).
- * Each section is a self-contained client component with SectionErrorBoundary.
- *
- * - Section 1: Hero with headline
- * - t1: Transition hook
- * - Section 2: The Story (grandmother narrative)
- * - t2: Transition hook
- * - Section 3: What diBoaS Does
- * - Section 4: What We Believe (3 pillars)
- * - Section 5: The Mission
- * - t3: Transition hook
- * - Section 6: For Businesses CTA
- * - t4: Transition hook
- * - Section 7: Contact
- * - Section 8: Waitlist
- * - Footer with locale-conditional disclaimers
+ * Reusable section composition pattern:
+ * 1. Hero — HeroSection fullBackground
+ * 2. Story — ProseSection (Adelaide narrative)
+ * 3. What We Do — ProseSection (product capabilities)
+ * 4. What We Believe — BenefitsCardsSection (3 cards)
+ * 5. Mission — ProseSection (mission statement)
+ * 6. Business CTA — ProseSection (B2B pitch)
+ * 7. Founder / Contact — FounderSection
+ * 8. Waitlist — WaitlistSection
+ * 9. Footer — MinimalFooter
  */
 export default async function AboutPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -106,10 +105,8 @@ export default async function AboutPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
   const pageMessages = await loadPageNamespaces(locale, ['about', 'common', 'waitlist', 'landing-b2c']);
 
-  // Generate structured data
   const serviceData = MetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',
     description: 'Platform giving regular people access to institutional-grade financial returns',
@@ -124,56 +121,140 @@ export default async function AboutPage({ params }: LocalePageProps) {
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[serviceData, breadcrumbData]} />
+      <ScrollToHash />
 
-      <main className="main-page-wrapper">
+      <div className="main-page-wrapper">
         {/* Section 1: Hero */}
-        <AboutHeroSection />
+        <SectionErrorBoundary
+          sectionId="hero-section-about"
+          sectionType="HeroSection"
+          enableReporting={true}
+          context={{ page: 'about', variant: 'fullBackground' }}
+        >
+          <div data-section-id="hero-section-about">
+            <HeroSection
+              variant="fullBackground"
+              config={ABOUT_HERO_CONFIG}
+              enableAnalytics={true}
+              priority={true}
+            />
+          </div>
+        </SectionErrorBoundary>
 
-        {/* Transition t1 */}
-        <AboutTransitionHook hookKey="t1" />
-
-        {/* Section 2: The Story */}
-        <AboutStorySection />
-
-        {/* Transition t2 */}
-        <AboutTransitionHook hookKey="t2" />
+        {/* Section 2: The Story — "Her name was Adelaide." */}
+        <SectionErrorBoundary
+          sectionId="story-section-about"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'about' }}
+        >
+          <div id="story" data-section-id="story-section-about">
+            <ProseSection
+              config={ABOUT_STORY_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Section 3: What diBoaS Does */}
-        <AboutWhatWeDoSection />
+        <SectionErrorBoundary
+          sectionId="what-we-do-section-about"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'about' }}
+        >
+          <div id="what-we-do" data-section-id="what-we-do-section-about">
+            <ProseSection
+              config={ABOUT_WHAT_WE_DO_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Section 4: What We Believe */}
-        <AboutBeliefsSection />
+        <SectionErrorBoundary
+          sectionId="beliefs-section-about"
+          sectionType="BenefitsCards"
+          enableReporting={true}
+          context={{ page: 'about' }}
+        >
+          <div id="beliefs" data-section-id="beliefs-section-about">
+            <BenefitsCardsSection
+              config={ABOUT_BELIEFS_CONFIG}
+              variant="default"
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Section 5: The Mission */}
-        <AboutMissionSection />
-
-        {/* Transition t3 */}
-        <AboutTransitionHook hookKey="t3" />
+        <SectionErrorBoundary
+          sectionId="mission-section-about"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'about' }}
+        >
+          <div id="mission" data-section-id="mission-section-about">
+            <ProseSection
+              config={ABOUT_MISSION_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Section 6: For Businesses */}
-        <AboutBusinessSection />
+        <SectionErrorBoundary
+          sectionId="business-section-about"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'about' }}
+        >
+          <div id="business" data-section-id="business-section-about">
+            <ProseSection
+              config={ABOUT_BUSINESS_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
 
-        {/* Transition t4 */}
-        <AboutTransitionHook hookKey="t4" />
-
-        {/* Section 7: Contact */}
-        <AboutContactSection />
+        {/* Section 7: Founder / Contact */}
+        <SectionErrorBoundary
+          sectionId="founder-section-about"
+          sectionType="FounderSection"
+          enableReporting={true}
+          context={{ page: 'about' }}
+        >
+          <div id="contact" data-section-id="founder-section-about">
+            <FounderSection
+              config={ABOUT_FOUNDER_CONFIG}
+            />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Section 8: Waitlist */}
         <SectionErrorBoundary
           sectionId="waitlist-section-about"
           sectionType="WaitlistSection"
-          enableReporting
+          enableReporting={true}
           context={{ page: 'about' }}
         >
-          <div id="waitlist">
-            <WaitlistSection enableAnalytics />
+          <div id="waitlist" data-section-id="waitlist-section-about">
+            <WaitlistSection
+              enableAnalytics={true}
+              config={{
+                sectionId: ABOUT_WAITLIST_CONFIG.sectionId,
+                backgroundColor: ABOUT_WAITLIST_CONFIG.backgroundColor,
+                hideBenefits: ABOUT_WAITLIST_CONFIG.hideBenefits,
+                hideNoSpam: ABOUT_WAITLIST_CONFIG.hideNoSpam,
+                source: ABOUT_WAITLIST_CONFIG.source,
+              }}
+            />
           </div>
         </SectionErrorBoundary>
+      </div>
 
-        {/* Footer with locale-conditional disclaimers */}
-        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={ABOUT_FOOTER_DISCLOSURES} />
-      </main>
+      {/* Footer */}
+      <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={ABOUT_FOOTER_DISCLOSURES} />
     </PageI18nProvider>
   );
 }
