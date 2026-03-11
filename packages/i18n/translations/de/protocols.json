@@ -83,7 +83,7 @@
         "audits": "30+ unabhaengige Audits",
         "regulatory": "SEC hat ihre 4-jaehrige Untersuchung ohne Auflagen eingestellt (Dezember 2025). Quelle: SEC-Einstellungsschreiben, bestaetigt durch Aave-Gruender; berichtet von Yahoo Finance, CoinDesk, Unchained."
       },
-      "usedInStrategies": "Sicherer Hafen, Torhueter, Geduldiger Aufbauer, Stetiger Vermehrer, Rendite-Maximierer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
     },
     "compoundV3": {
       "name": "Compound V3",
@@ -95,7 +95,7 @@
         "audits": "4+ unabhaengige Audits",
         "regulatory": "Vollstaendig dezentralisiert. Keine spezifischen Lizenzen erforderlich."
       },
-      "usedInStrategies": "Sicherer Hafen, Torhueter, Geduldiger Aufbauer, Stetiger Vermehrer, Rendite-Maximierer"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
     },
     "kamino": {
       "name": "Kamino",
@@ -174,7 +174,7 @@
         "audits": "Mehrere Audits von Certora, OtterSec",
         "regulatory": "SEC Division of Corporation Finance Stellungnahme (August 2025): Liquid-Staking-Empfangstoken einschliesslich JitoSOL sind keine Wertpapiere. Quelle: SEC.gov Stellungnahme; berichtet von CoinDesk, CCN, Blockchain Magazine."
       },
-      "usedInStrategies": "Volle Kraft"
+      "usedInStrategies": "Full Throttle"
     },
     "marinade": {
       "name": "Marinade Finance",
@@ -197,7 +197,7 @@
         "audits": "Auditiert von Accretion",
         "regulatory": "Sitz in Singapur. Betreibt Staking fuer Binance und Bybit."
       },
-      "usedInStrategies": "Stabiles Wachstum, Stetige Fortschritte, Ausgewogener Aufbauer, Vermoegensturbo, Volle Kraft"
+      "usedInStrategies": "Stable Growth, Steady Progress, Balanced Builder, Wealth Accelerator, Full Throttle"
     },
     "eigenLayer": {
       "name": "EigenLayer",
@@ -220,7 +220,7 @@
         "audits": "10+ unabhaengige Audits",
         "regulatory": "10+ Jahre ununterbrochener Betrieb durch mehrere Marktzyklen"
       },
-      "usedInStrategies": "Alle 10 Strategien (Sicherer Hafen, Stabiles Wachstum, Torhueter, Stetige Fortschritte, Geduldiger Aufbauer, Ausgewogener Aufbauer, Stetiger Vermehrer, Vermoegensturbo, Rendite-Maximierer, Volle Kraft)"
+      "usedInStrategies": "Alle 10 Strategien (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Yield Maximizer, Full Throttle)"
     },
     "ethena": {
       "name": "Ethena",
@@ -309,7 +309,7 @@
         "audits": "6+ unabhaengige Audits",
         "regulatory": "Ueber 137 Mio. USD an Liquiditaetsanbieter ausgezahlt von Januar bis Oktober 2024, basierend auf Dune-Analytics-Gebuehrendaten (75% von 183 Mio. USD Gesamtgebuehren). Quelle: SolanaFloor / Dune Analytics (Oktober 2024). Die Zahl ist zum Zeitpunkt der Veroeffentlichung wahrscheinlich deutlich hoeher."
       },
-      "usedInStrategies": "Ausgewogener Aufbauer, Vermoegensturbo, Volle Kraft"
+      "usedInStrategies": "Balanced Builder, Wealth Accelerator, Full Throttle"
     },
     "drift": {
       "name": "Drift Protocol",

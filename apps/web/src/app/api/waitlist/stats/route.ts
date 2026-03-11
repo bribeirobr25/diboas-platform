@@ -18,7 +18,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Logger } from '@/lib/monitoring/Logger';
 import { getTotalCount, getCurrentPositionCounter, getFoundingMemberCount, getDistinctCountryCount } from '@/lib/waitingList/store';
-import { WAITLIST_STATS_FALLBACK, type WaitlistStats } from '@/config/waitlist-stats';
+import { WAITLIST_STATS_FALLBACK, WAITLIST_STATS_FALLBACK_B2B, type WaitlistStats } from '@/config/waitlist-stats';
 import {
   checkRateLimit,
   getClientIP,
@@ -54,12 +54,16 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   );
 
   if (!rateLimitResult.success) {
+    const rlFallback = sourceParam === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
     return NextResponse.json(
       {
-        count: WAITLIST_STATS_FALLBACK.count,
-        countries: WAITLIST_STATS_FALLBACK.countries,
+        count: rlFallback.count,
+        countries: rlFallback.countries,
         source: 'fallback',
         lastUpdated: new Date().toISOString(),
+        foundingMemberCount: rlFallback.foundingMemberCount,
+        foundingMemberCap: rlFallback.foundingMemberCap,
+        foundingMemberSpotsRemaining: rlFallback.foundingMemberSpotsRemaining,
       },
       { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
     );
@@ -124,12 +128,16 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   } catch (error) {
     Logger.error('Error fetching waitlist stats', {}, error instanceof Error ? error : undefined);
 
-    // Return fallback on error
+    // Return fallback on error — include founding member fields so the 3rd social proof card renders
+    const fallback = sourceParam === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
     return NextResponse.json({
-      count: WAITLIST_STATS_FALLBACK.count,
-      countries: WAITLIST_STATS_FALLBACK.countries,
+      count: fallback.count,
+      countries: fallback.countries,
       source: 'fallback',
       lastUpdated: new Date().toISOString(),
+      foundingMemberCount: fallback.foundingMemberCount,
+      foundingMemberCap: fallback.foundingMemberCap,
+      foundingMemberSpotsRemaining: fallback.foundingMemberSpotsRemaining,
     });
   }
 }

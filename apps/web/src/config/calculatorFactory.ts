@@ -49,6 +49,7 @@ export interface CalculatorFactoryConfig {
         readonly historical: string;
         readonly optimistic: string;
       };
+      readonly likelyBadge?: string;
     };
     readonly sliderLabel: string;
     readonly belowResults: string;

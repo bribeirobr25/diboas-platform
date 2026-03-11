@@ -73,7 +73,8 @@
     },
     "step4": {
       "title": "Kaufen und Halten",
-      "description": "Kaufe Krypto direkt. Halte es in deiner eigenen Wallet. Kein Mittelsmann. Kein Verwahrungsrisiko. Deins."
+      "description": "Kaufe digitale Vermögenswerte und verwahre sie in deiner eigenen Wallet. Beginnend mit BTC, ETH und SOL. Aktien und Gold folgen bald.",
+      "quote": "\"Deine Vermögenswerte. Deine Wallet. Dein Timing. Kauf was du willst, verkauf wann du willst.\""
     },
     "microDisclosure": "Die gezeigten Beispiele sind illustrativ und stellen keine echten Nutzer dar."
   },
@@ -196,7 +197,7 @@
       "p2": "diBoaS wird in Berlin, Deutschland gegründet, gebaut für Menschen in den USA, der EU, Brasilien und mit weltweiter Expansion. Ich habe über 20 Jahre in Produktmanagement und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für meine Großmutter gewünscht hätte.",
       "p3": "Lass uns in Kontakt treten."
     },
-    "emailText": "bar@diboas.com",
+    "emailText": "hello@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",

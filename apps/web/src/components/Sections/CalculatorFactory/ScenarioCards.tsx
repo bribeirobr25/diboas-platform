@@ -9,6 +9,7 @@ interface ScenarioCardsProps {
   computeGap: (rate: number) => number;
   formatCurrency: (value: number) => string;
   scenarioLabels: Record<ScenarioKey, string>;
+  likelyBadge?: string;
 }
 
 export function ScenarioCards({
@@ -17,6 +18,7 @@ export function ScenarioCards({
   computeGap,
   formatCurrency,
   scenarioLabels,
+  likelyBadge = '← likely',
 }: ScenarioCardsProps) {
   return (
     <div className={styles.scenarioCards}>
@@ -44,7 +46,7 @@ export function ScenarioCards({
             ) : null}
             {isHighlighted ? (
               <span className={styles.scenarioCardBadge} aria-label="likely scenario">
-                ← likely
+                {likelyBadge}
               </span>
             ) : null}
           </div>

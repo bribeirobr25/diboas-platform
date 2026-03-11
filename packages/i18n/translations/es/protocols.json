@@ -83,7 +83,7 @@
         "audits": "30+ auditorias independientes",
         "regulatory": "La SEC cerro su investigacion de 4 anos sin cargos (diciembre 2025). Fuente: carta de cierre de la SEC compartida por el fundador de Aave; informado por Yahoo Finance, CoinDesk, Unchained."
       },
-      "usedInStrategies": "Puerto Seguro, Portero, Constructor Paciente, Acumulador Constante, Maximizador de Rendimiento"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
     },
     "compoundV3": {
       "name": "Compound V3",
@@ -95,7 +95,7 @@
         "audits": "4+ auditorias independientes",
         "regulatory": "Completamente descentralizado. Sin licencias especificas requeridas."
       },
-      "usedInStrategies": "Puerto Seguro, Portero, Constructor Paciente, Acumulador Constante, Maximizador de Rendimiento"
+      "usedInStrategies": "Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer"
     },
     "kamino": {
       "name": "Kamino",
@@ -174,7 +174,7 @@
         "audits": "Multiples auditorias de Certora, OtterSec",
         "regulatory": "Declaracion del personal de la SEC (agosto 2025): los tokens de recibo de liquid staking, incluido JitoSOL, no son valores. Fuente: declaracion en SEC.gov; informado por CoinDesk, CCN, Blockchain Magazine."
       },
-      "usedInStrategies": "A Toda Potencia"
+      "usedInStrategies": "Full Throttle"
     },
     "marinade": {
       "name": "Marinade Finance",
@@ -197,7 +197,7 @@
         "audits": "Auditado por Accretion",
         "regulatory": "Con sede en Singapur. Proporciona staking para Binance y Bybit."
       },
-      "usedInStrategies": "Crecimiento Estable, Progreso Constante, Constructor Equilibrado, Acelerador de Riqueza, A Toda Potencia"
+      "usedInStrategies": "Stable Growth, Steady Progress, Balanced Builder, Wealth Accelerator, Full Throttle"
     },
     "eigenLayer": {
       "name": "EigenLayer",
@@ -220,7 +220,7 @@
         "audits": "10+ auditorias independientes",
         "regulatory": "10+ anos de operacion continua a traves de multiples ciclos de mercado"
       },
-      "usedInStrategies": "Las 10 estrategias (Puerto Seguro, Crecimiento Estable, Portero, Progreso Constante, Constructor Paciente, Constructor Equilibrado, Acumulador Constante, Acelerador de Riqueza, Maximizador de Rendimiento, A Toda Potencia)"
+      "usedInStrategies": "Las 10 estrategias (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Yield Maximizer, Full Throttle)"
     },
     "ethena": {
       "name": "Ethena",
@@ -309,7 +309,7 @@
         "audits": "6+ auditorias independientes",
         "regulatory": "Mas de 137 millones USD pagados a proveedores de liquidez de enero a octubre de 2024, basado en datos de comisiones de Dune Analytics (75% de 183 millones USD en comisiones totales). Fuente: SolanaFloor / Dune Analytics (octubre 2024). La cifra es probablemente significativamente mayor al momento de la publicacion."
       },
-      "usedInStrategies": "Constructor Equilibrado, Acelerador de Riqueza, A Toda Potencia"
+      "usedInStrategies": "Balanced Builder, Wealth Accelerator, Full Throttle"
     },
     "drift": {
       "name": "Drift Protocol",

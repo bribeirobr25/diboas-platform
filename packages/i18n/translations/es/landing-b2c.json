@@ -73,7 +73,8 @@
     },
     "step4": {
       "title": "Comprar y Mantener",
-      "description": "Compra cripto directamente. Guárdalo en tu propia billetera. Sin intermediarios. Sin riesgo de custodia. Tuyo."
+      "description": "Compra activos digitales y guárdalos en tu propia billetera. Empezando con BTC, ETH y SOL. Acciones y Oro próximamente.",
+      "quote": "\"Tus activos. Tu billetera. Tu momento. Compra lo que quieras, vende cuando quieras.\""
     },
     "microDisclosure": "Los ejemplos mostrados son ilustrativos y no representan usuarios reales."
   },
@@ -196,7 +197,7 @@
       "p2": "diBoaS se está estableciendo en Berlín, Alemania, construido para personas en EE.UU., la UE, Brasil y expandiéndose a todo el mundo. He pasado más de 20 años trabajando en Productos y TI en Brasil, EE.UU., Japón y Alemania. Ahora estoy construyendo la herramienta financiera que ojalá mi abuela hubiera tenido.",
       "p3": "Conectemos."
     },
-    "emailText": "bar@diboas.com",
+    "emailText": "hello@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",

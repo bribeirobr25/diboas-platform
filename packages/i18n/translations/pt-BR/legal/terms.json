@@ -53,13 +53,9 @@
       }
     },
     "geographicRestrictions": {
-      "title": "4. Restricoes Geograficas",
-      "intro": "Os servicos do diBoaS nao estao disponiveis para residentes de:",
-      "restrictedCountries": [
-        "Estados Unidos",
-        "Brasil"
-      ],
-      "note": "Se voce acessar nosso site a partir dessas jurisdicoes, podera visualizar apenas o conteudo informativo. Voce nao podera entrar na lista de espera ou usar recursos interativos."
+      "title": "4. Disponibilidade Geográfica",
+      "intro": "O diBoaS está atualmente em fase de pré-lançamento. Quando os serviços estiverem disponíveis, serão oferecidos inicialmente para usuários nos Estados Unidos, União Europeia e Brasil. A disponibilidade em outras regiões será anunciada conforme expandirmos.",
+      "note": "Durante o período de pré-lançamento, o site e a lista de espera estão acessíveis mundialmente. Certas funcionalidades ou serviços podem ser restritos em jurisdições onde não são permitidos pela legislação local, incluindo países sujeitos a sanções internacionais. Você é responsável por determinar se o uso desta plataforma está em conformidade com as leis aplicáveis na sua jurisdição."
     },
     "intellectualProperty": {
       "title": "5. Propriedade Intelectual",
@@ -107,8 +103,8 @@
       "content": "Estes Termos sao regidos pelas leis da Uniao Europeia. Disputas serao resolvidas de acordo com os regulamentos aplicaveis da UE. Para usuarios brasileiros, aplicam-se tambem as disposicoes do Codigo de Defesa do Consumidor (Lei n. 8.078/1990) e demais legislacoes aplicaveis."
     },
     "brazilNote": {
-      "title": "Nota para Usuarios Brasileiros",
-      "content": "Este site esta disponivel para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o servico for lancado no Brasil, sujeito as aprovacoes regulatorias necessarias, incluindo da ANPD (Autoridade Nacional de Protecao de Dados), Banco Central do Brasil e demais orgaos competentes."
+      "title": "Nota para Usuários Brasileiros",
+      "content": "O Brasil é um dos mercados iniciais do diBoaS. Durante a fase de pré-lançamento, o site e a lista de espera estão totalmente acessíveis para usuários brasileiros. O lançamento dos serviços financeiros estará sujeito às aprovações regulatórias necessárias, incluindo da ANPD (Autoridade Nacional de Proteção de Dados), Banco Central do Brasil e demais órgãos competentes."
     },
     "contact": {
       "title": "11. Contato",

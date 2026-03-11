@@ -68,13 +68,18 @@
     "email": "Email:",
     "emailValue": "hello@diboas.com",
     "personal": "Perguntas? Eu leio todos os emails.",
-    "personalEmail": "bar@diboas.com"
+    "personalEmail": "hello@diboas.com"
   },
   "footer": {
+    "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento.",
+    "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou a totalidade do seu dinheiro. Criptoativos não são protegidos por sistemas de garantia de depósito.",
+    "stories": "Depoimentos nesta página são exemplos ilustrativos e não representam usuários reais.",
+    "ai": "Parte do conteúdo desta plataforma, incluindo análises de mercado e materiais educacionais, é gerado ou assistido por inteligência artificial. Conteúdo gerado por IA pode conter erros ou limitações. Usuários devem verificar informações de forma independente antes de tomar decisões financeiras.",
+    "closing": "Você decide o que é melhor pra sua situação.",
     "mica": "",
     "micaArticle7": "",
-    "cvm": "Aviso 1: As operacoes com criptoativos envolvem riscos. Esses ativos podem aumentar ou diminuir de valor e podem perder todo o seu valor. Nao ha garantia de que os ativos digitais possam ser convertidos para a moeda de referencia. Aviso 2: Desempenho passado nao e garantia de resultados futuros. Aviso 3: Este produto pode nao ser adequado para o perfil do investidor.",
-    "ai": "Parte do conteudo desta plataforma, incluindo analises de mercado e materiais educacionais, e gerado ou assistido por inteligencia artificial. Conteudo gerado por IA pode conter erros ou limitacoes. Usuarios devem verificar informacoes de forma independente antes de tomar decisoes financeiras.",
+    "cvm": "Retornos passados não são garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
+    "bcb": "A diBoaS não é uma instituição financeira autorizada pelo Banco Central do Brasil.",
     "us": ""
   }
 }

@@ -336,7 +336,7 @@ export const CalculatorFactory = memo(function CalculatorFactory({
                       ) : null}
                       {isHighlighted ? (
                         <span className={styles.scenarioCardBadge} aria-label="likely scenario">
-                          ← likely
+                          {translated.content.results.likelyBadge || '← likely'}
                         </span>
                       ) : null}
                     </div>

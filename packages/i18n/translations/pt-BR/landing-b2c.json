@@ -73,7 +73,8 @@
     },
     "step4": {
       "title": "Comprar e Guardar",
-      "description": "Compre cripto diretamente. Guarde na sua própria carteira. Sem intermediário. Sem risco de custódia. Seu."
+      "description": "Compre ativos digitais e guarde na sua própria carteira. Começando com BTC, ETH e SOL. Ações e Ouro em breve.",
+      "quote": "\"Seus ativos. Sua carteira. Seu tempo. Compre o que quiser, venda quando quiser.\""
     },
     "microDisclosure": "Exemplos mostrados são ilustrativos e não representam usuários reais."
   },
@@ -196,7 +197,7 @@
       "p2": "O diBoaS está sendo criado em Berlim, Alemanha, construído pra pessoas nos EUA, na Europa, no Brasil e expandindo pro mundo todo. Eu tenho mais de 20 anos trabalhando com Produtos e TI no Brasil, nos EUA, no Japão e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que minha avó tivesse.",
       "p3": "Vamos nos conectar."
     },
-    "emailText": "bar@diboas.com",
+    "emailText": "hello@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",

@@ -73,11 +73,6 @@ export function TermsOfUseContent() {
     t('sections.preLaunchLimitations.noFinancialAdvice.items.1'),
   ];
 
-  const restrictedCountries = [
-    t('sections.geographicRestrictions.restrictedCountries.0'),
-    t('sections.geographicRestrictions.restrictedCountries.1'),
-  ];
-
   const ipItems = [
     t('sections.intellectualProperty.items.0'),
     t('sections.intellectualProperty.items.1'),
@@ -151,7 +146,6 @@ export function TermsOfUseContent() {
 
         <LegalContentSection title={t('sections.geographicRestrictions.title')} id="geographic-restrictions">
           <LegalParagraph>{t('sections.geographicRestrictions.intro')}</LegalParagraph>
-          <LegalList items={restrictedCountries} />
           <LegalParagraph>{t('sections.geographicRestrictions.note')}</LegalParagraph>
         </LegalContentSection>
 
