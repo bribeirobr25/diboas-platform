@@ -97,7 +97,7 @@
       "networkFee": "Blockchain network transaction fee",
       "diboasFeeDeposit": "diBoaS charges 0.48% to add money (minimum $0.25, maximum $25).",
       "diboasFeeSend": "diBoaS does not charge for sending money to other diBoaS users.",
-      "diboasFeeBuy": "diBoaS charges 0.39% to invest (minimum $0.25, maximum $25). Free for buying BTC and Gold.",
+      "diboasFeeBuy": "diBoaS does not charge for buying digital assets.",
       "priorityFee": "Fast transaction priority fee for quick settlement",
       "crossChainSwap": "THORChain-style cross-chain routing fee",
       "btcMinerFee": "Bitcoin network miner fee (2%)",

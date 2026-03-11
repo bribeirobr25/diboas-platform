@@ -97,7 +97,7 @@
       "networkFee": "Tarifa de transacción de la red blockchain",
       "diboasFeeDeposit": "diBoaS cobra el 0,48 % por añadir dinero (mínimo $0,25, máximo $25).",
       "diboasFeeSend": "diBoaS no cobra por enviar dinero a otros usuarios de diBoaS.",
-      "diboasFeeBuy": "diBoaS cobra el 0,39 % por invertir (mínimo $0,25, máximo $25). Gratis para comprar BTC y oro.",
+      "diboasFeeBuy": "diBoaS no cobra por la compra de activos digitales.",
       "priorityFee": "Tarifa de prioridad para liquidación rápida",
       "crossChainSwap": "Tarifa de enrutamiento cross-chain estilo THORChain",
       "btcMinerFee": "Tarifa de minero de la red Bitcoin (2%)",

@@ -205,7 +205,7 @@ export const ABOUT_FOUNDER_CONFIG: FounderSectionConfig = {
     emailText: 'about.contact.emailValue',
     emailHref: 'hello@diboas.com',
     socialLinks: [
-      { label: 'about.contact.personalEmail', href: 'mailto:bar@diboas.com', icon: 'email' },
+      { label: 'about.contact.personalEmail', href: 'mailto:hello@diboas.com', icon: 'email' },
     ],
   },
   seo: {
@@ -230,9 +230,14 @@ export const ABOUT_WAITLIST_CONFIG = {
 // ─── Footer Disclosures ─────────────────────────────────────
 
 export const ABOUT_FOOTER_DISCLOSURES = {
+  general: 'about.footer.general',
+  crypto: 'about.footer.crypto',
+  stories: 'about.footer.stories',
+  ai: 'about.footer.ai',
+  closing: 'about.footer.closing',
   mica: 'about.footer.mica',
   micaArticle7: 'about.footer.micaArticle7',
-  ai: 'about.footer.ai',
   cvm: 'about.footer.cvm',
+  bcb: 'about.footer.bcb',
   us: 'about.footer.us',
 } as const;

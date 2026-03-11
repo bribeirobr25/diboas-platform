@@ -510,7 +510,7 @@ export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
       'landing-b2c.founder.paragraphs.p3',
     ],
     emailText: 'landing-b2c.founder.emailText',
-    emailHref: 'bar@diboas.com',
+    emailHref: 'hello@diboas.com',
     socialLinks: [
       { label: 'landing-b2c.founder.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
       { label: 'landing-b2c.founder.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },

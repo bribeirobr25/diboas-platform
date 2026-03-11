@@ -68,13 +68,18 @@
     "email": "Email:",
     "emailValue": "hello@diboas.com",
     "personal": "Questions? I read every email.",
-    "personalEmail": "bar@diboas.com"
+    "personalEmail": "hello@diboas.com"
   },
   "footer": {
+    "general": "This content is for educational purposes only and does not constitute investment advice, financial advice, or any other type of advice. Past performance is not indicative of future results. Any historical data or simulations are hypothetical and not guarantees.",
+    "crypto": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
+    "stories": "Testimonials on this page are illustrative examples and do not represent real users.",
+    "ai": "Certain content on this platform, including market analysis and educational materials, is generated or assisted by artificial intelligence. AI-generated content may contain errors or limitations. Users should verify information independently before making financial decisions.",
+    "closing": "You decide what's best for your situation.",
     "mica": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
     "micaArticle7": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this crypto-asset marketing communication.",
-    "ai": "Certain content on this platform, including market analysis and educational materials, is generated or assisted by artificial intelligence. AI-generated content may contain errors or limitations. Users should verify information independently before making financial decisions.",
-    "us": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
-    "cvm": ""
+    "cvm": "",
+    "bcb": "",
+    "us": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws."
   }
 }

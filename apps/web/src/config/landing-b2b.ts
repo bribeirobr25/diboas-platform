@@ -124,7 +124,8 @@ export const B2B_CASHFLOW_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
         conservative: 'landing-b2b.cashflowCalculator.results.scenarios.conservative',
         historical: 'landing-b2b.cashflowCalculator.results.scenarios.historical',
         optimistic: 'landing-b2b.cashflowCalculator.results.scenarios.optimistic'
-      }
+      },
+      likelyBadge: 'landing-b2b.cashflowCalculator.results.likelyBadge'
     },
     sliderLabel: 'landing-b2b.cashflowCalculator.sliderLabel',
     belowResults: 'landing-b2b.cashflowCalculator.belowResults',
@@ -174,7 +175,8 @@ export const B2B_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
         conservative: 'landing-b2b.calculator.results.scenarios.conservative',
         historical: 'landing-b2b.calculator.results.scenarios.historical',
         optimistic: 'landing-b2b.calculator.results.scenarios.optimistic'
-      }
+      },
+      likelyBadge: 'landing-b2b.calculator.results.likelyBadge'
     },
     sliderLabel: 'landing-b2b.calculator.sliderLabel',
     belowResults: 'landing-b2b.calculator.belowResults',
@@ -389,7 +391,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
       action: 'landing-b2b.fees.headers.action',
       diboas: 'landing-b2b.fees.headers.diboas',
       competitors: 'landing-b2b.fees.headers.competitors',
-      difference: '',
+      difference: 'landing-b2b.fees.headers.difference',
       example: 'landing-b2b.fees.headers.example'
     },
     rows: [
@@ -398,7 +400,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.account.action',
         diboas: 'landing-b2b.fees.rows.account.diboas',
         competitors: 'landing-b2b.fees.rows.account.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.account.difference',
         example: 'landing-b2b.fees.rows.account.example',
         isFree: true
       },
@@ -407,7 +409,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.receive.action',
         diboas: 'landing-b2b.fees.rows.receive.diboas',
         competitors: 'landing-b2b.fees.rows.receive.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.receive.difference',
         example: 'landing-b2b.fees.rows.receive.example',
         isFree: true
       },
@@ -416,7 +418,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.send.action',
         diboas: 'landing-b2b.fees.rows.send.diboas',
         competitors: 'landing-b2b.fees.rows.send.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.send.difference',
         example: 'landing-b2b.fees.rows.send.example',
         isFree: true
       },
@@ -425,7 +427,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.add.action',
         diboas: 'landing-b2b.fees.rows.add.diboas',
         competitors: 'landing-b2b.fees.rows.add.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.add.difference',
         example: 'landing-b2b.fees.rows.add.example'
       },
       {
@@ -433,7 +435,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.invest.action',
         diboas: 'landing-b2b.fees.rows.invest.diboas',
         competitors: 'landing-b2b.fees.rows.invest.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.invest.difference',
         example: 'landing-b2b.fees.rows.invest.example',
         isFree: true
       },
@@ -442,7 +444,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.sell.action',
         diboas: 'landing-b2b.fees.rows.sell.diboas',
         competitors: 'landing-b2b.fees.rows.sell.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.sell.difference',
         example: 'landing-b2b.fees.rows.sell.example'
       },
       {
@@ -450,7 +452,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.swap.action',
         diboas: 'landing-b2b.fees.rows.swap.diboas',
         competitors: 'landing-b2b.fees.rows.swap.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.swap.difference',
         example: 'landing-b2b.fees.rows.swap.example',
         isFree: true
       },
@@ -459,7 +461,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
         action: 'landing-b2b.fees.rows.cashOut.action',
         diboas: 'landing-b2b.fees.rows.cashOut.diboas',
         competitors: 'landing-b2b.fees.rows.cashOut.competitors',
-        difference: '',
+        difference: 'landing-b2b.fees.rows.cashOut.difference',
         example: 'landing-b2b.fees.rows.cashOut.example'
       }
     ]
@@ -519,7 +521,7 @@ export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
       'landing-b2b.founder.email'
     ],
     emailText: 'landing-b2b.founder.emailAddress',
-    emailHref: 'bar@diboas.com',
+    emailHref: 'hello@diboas.com',
     socialLinks: [
       { label: 'landing-b2b.founder.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
       { label: 'landing-b2b.founder.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },

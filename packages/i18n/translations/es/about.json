@@ -68,13 +68,18 @@
     "email": "Email:",
     "emailValue": "hello@diboas.com",
     "personal": "Preguntas? Leo cada email.",
-    "personalEmail": "bar@diboas.com"
+    "personalEmail": "hello@diboas.com"
   },
   "footer": {
-    "mica": "Los criptoactivos no estan protegidos por los sistemas de garantia de depositos. Las rentabilidades pasadas no garantizan resultados futuros. Deberias realizar tu propia evaluacion independiente antes de tomar una decision de inversion.",
-    "micaArticle7": "Esta comunicacion comercial relativa a criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningun Estado miembro de la Union Europea. El emisor del criptoactivo es el unico responsable del contenido de esta comunicacion comercial relativa a criptoactivos.",
-    "ai": "Parte del contenido de esta plataforma, incluidos analisis de mercado y materiales educativos, es generado o asistido por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la informacion de forma independiente antes de tomar decisiones financieras.",
-    "us": "",
-    "cvm": ""
+    "general": "Este contenido es solo para fines educativos y no constituye asesoramiento de inversión, asesoramiento financiero ni ningún otro tipo de asesoramiento. La rentabilidad pasada no es un indicador fiable de resultados futuros. Los datos históricos y las simulaciones son hipotéticos y no constituyen garantías.",
+    "crypto": "El valor de los criptoactivos puede fluctuar. Puede perder parte o la totalidad de su dinero. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
+    "stories": "Los testimonios en esta página son ejemplos ilustrativos y no representan usuarios reales.",
+    "ai": "Cierto contenido de esta plataforma, incluidos análisis de mercado y materiales educativos, es generado o asistido por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
+    "closing": "Tú decides lo que es mejor para tu situación.",
+    "mica": "El valor de los criptoactivos puede fluctuar. Puede perder parte o la totalidad de su dinero. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
+    "micaArticle7": "Esta comunicación comercial sobre criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningún Estado miembro de la Unión Europea. El oferente de los criptoactivos es el único responsable del contenido de esta comunicación comercial sobre criptoactivos.",
+    "cvm": "",
+    "bcb": "",
+    "us": ""
   }
 }

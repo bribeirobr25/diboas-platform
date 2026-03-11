@@ -40,7 +40,8 @@
         "conservative": "Conservador (4%)",
         "historical": "Media historica (7%)",
         "optimistic": "Optimista (10%)"
-      }
+      },
+      "likelyBadge": "← probable"
     },
     "sliderLabel": "Retorno anual esperado (media historica: 7%)",
     "belowResults": "",
@@ -66,7 +67,8 @@
         "conservative": "Conservador",
         "historical": "Media historica",
         "optimistic": "Optimista"
-      }
+      },
+      "likelyBadge": "← probable"
     },
     "sliderLabel": "Retorno anual esperado (media historica: 7%)",
     "belowResults": "",
@@ -152,16 +154,16 @@
   "fees": {
     "header": "Lo que cuesta. Todo.",
     "subtitle": "Sin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Aqui tienes cada comision, sobre la mesa.",
-    "headers": { "action": "Accion", "diboas": "diBoaS", "competitors": "Proveedores tipicos", "example": "Ejemplo" },
+    "headers": { "action": "Accion", "diboas": "diBoaS", "competitors": "Proveedores tipicos", "difference": "Diferencia", "example": "Ejemplo" },
     "rows": {
-      "account": { "action": "Cuenta empresa", "diboas": "Gratis para siempre", "competitors": "10 a 50 EUR/mes", "example": "Tu cuenta: 0 EUR. Siempre." },
-      "receive": { "action": "Recibir pagos", "diboas": "GRATIS", "competitors": "1,5 a 3% (TPV)", "example": "Recibir 1.000 EUR: cuesta 0 EUR. Otros proveedores cobran 15 a 30 EUR." },
-      "send": { "action": "Enviar / Pagar", "diboas": "GRATIS", "competitors": "1,50 a 50 EUR (SWIFT)", "example": "Pagar a un proveedor 500 EUR: 0 EUR" },
-      "add": { "action": "Anadir dinero", "diboas": "0,48% (mín 0,25 EUR, máx 25 EUR)", "competitors": "0 a 1,5%", "example": "Anadir 10.000 EUR: cuesta 48 EUR" },
-      "invest": { "action": "Invertir / Crecer", "diboas": "GRATIS", "competitors": "0,5 a 2% (asesores, plataformas)", "example": "Invertir 10.000 EUR: 0 EUR. Gratis para empezar." },
-      "sell": { "action": "Vender / Cerrar", "diboas": "0,39% (mín 0,25 EUR, máx 25 EUR)", "competitors": "0,5 a 2%", "example": "Vender 10.000 EUR: cuesta 39 EUR" },
-      "swap": { "action": "Intercambiar", "diboas": "GRATIS", "competitors": "0,5 a 2% spread", "example": "Intercambiar 10.000 EUR: 0 EUR" },
-      "cashOut": { "action": "Retirar", "diboas": "0,48% (mín 0,25 EUR, máx 25 EUR)", "competitors": "1 a 3% + retrasos", "example": "Retirar 10.000 EUR: cuesta 48 EUR" }
+      "account": { "action": "Cuenta empresa", "diboas": "Gratis para siempre", "competitors": "10 a 50 EUR/mes", "difference": "Ahorra 120 a 600 EUR/año", "example": "Tu cuenta: 0 EUR. Siempre." },
+      "receive": { "action": "Recibir pagos", "diboas": "GRATIS", "competitors": "1,5 a 3% (TPV)", "difference": "Ahorra 20 a 30 EUR por cada 1.000 EUR", "example": "Recibir 1.000 EUR: cuesta 0 EUR. Otros proveedores cobran 15 a 30 EUR." },
+      "send": { "action": "Enviar / Pagar", "diboas": "GRATIS", "competitors": "1,50 a 50 EUR (SWIFT)", "difference": "Ahorra 1,50 a 50 EUR por transferencia", "example": "Pagar a un proveedor 500 EUR: 0 EUR" },
+      "add": { "action": "Anadir dinero", "diboas": "0,48% (mín 0,25 EUR, máx 25 EUR)", "competitors": "0 a 1,5%", "difference": "Comparable con la mayoría de proveedores", "example": "Anadir 10.000 EUR: cuesta 48 EUR" },
+      "invest": { "action": "Invertir / Crecer", "diboas": "GRATIS", "competitors": "0,5 a 2% (asesores, plataformas)", "difference": "Ahorra 50 a 200 EUR por cada 10.000 EUR", "example": "Invertir 10.000 EUR: 0 EUR. Gratis para empezar." },
+      "sell": { "action": "Vender / Cerrar", "diboas": "0,39% (mín 0,25 EUR, máx 25 EUR)", "competitors": "0,5 a 2%", "difference": "Ahorra 11 a 161 EUR por cada 10.000 EUR", "example": "Vender 10.000 EUR: cuesta 39 EUR" },
+      "swap": { "action": "Intercambiar", "diboas": "GRATIS", "competitors": "0,5 a 2% spread", "difference": "Ahorra 50 a 200 EUR por cada 10.000 EUR", "example": "Intercambiar 10.000 EUR: 0 EUR" },
+      "cashOut": { "action": "Retirar", "diboas": "0,48% (mín 0,25 EUR, máx 25 EUR)", "competitors": "1 a 3% + retrasos", "difference": "Ahorra 52 a 252 EUR por cada 10.000 EUR", "example": "Retirar 10.000 EUR: cuesta 48 EUR" }
     },
     "disclaimer": "*Comision diBoaS mostrada. Pueden aplicarse comisiones de red de terceros (normalmente menos de 0,01 EUR).",
     "pricingNote": "Comparaciones de precios basadas en tarifas publicas a febrero de 2026. Los rangos reflejan precios comunes entre los principales proveedores. El precio real de cada competidor varia segun proveedor, volumen y condiciones contractuales.",
@@ -202,7 +204,7 @@
       ],
       "versionB": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
-        "diBoaS esta siendo constituida en Berlin, Alemania, construyendo para negocios en EEUU, la UE y Brasil primero. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
+        "diBoaS esta siendo constituida en Berlin, Alemania, construyendo para negocios en EEUU, la UE, Brasil y expandiéndose a nivel mundial. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
       ],
       "versionC": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
@@ -210,7 +212,7 @@
       ]
     },
     "email": "Conectemos.",
-    "emailAddress": "bar@diboas.com",
+    "emailAddress": "hello@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",
@@ -232,7 +234,7 @@
       "header": "Revisemos tus numeros.",
       "description": "15 minutos. Sin compromiso. Sin presentacion de ventas. Solo numeros.",
       "cta": "Reserva una conversacion",
-      "alternative": "O escribe a bar@diboas.com"
+      "alternative": "O escribe a hello@diboas.com"
     }
   },
   "socialProof": {

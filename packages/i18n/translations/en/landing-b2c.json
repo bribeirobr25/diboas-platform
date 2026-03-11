@@ -73,7 +73,8 @@
     },
     "step4": {
       "title": "Buy and Hold",
-      "description": "Buy crypto directly. Hold it in your own wallet. No middleman. No custody risk. Yours."
+      "description": "Buy digital assets and hold them in your own wallet. Starting with BTC, ETH, and SOL. Stocks and Gold coming soon.",
+      "quote": "\"Your assets. Your wallet. Your timing. Buy what you want, sell when you're ready.\""
     },
     "microDisclosure": "Examples shown are illustrative and do not represent actual users."
   },
@@ -196,7 +197,7 @@
       "p2": "diBoaS is being established in Berlin, Germany, building for people in the US, EU, Brazil and expanding Worldwide. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish my grandmother had.",
       "p3": "Let's connect."
     },
-    "emailText": "bar@diboas.com",
+    "emailText": "hello@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",

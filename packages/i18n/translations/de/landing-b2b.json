@@ -50,7 +50,8 @@
         "conservative": "Konservativ (4%)",
         "historical": "Historischer Durchschnitt (7%)",
         "optimistic": "Optimistisch (10%)"
-      }
+      },
+      "likelyBadge": "← wahrscheinlich"
     },
     "sliderLabel": "Erwartete Jahresrendite (historischer Durchschnitt: 7%)",
     "belowResults": "",
@@ -80,7 +81,8 @@
         "conservative": "Konservativ",
         "historical": "Historischer Durchschnitt",
         "optimistic": "Optimistisch"
-      }
+      },
+      "likelyBadge": "← wahrscheinlich"
     },
     "sliderLabel": "Erwartete Jahresrendite (historischer Durchschnitt: 7%)",
     "belowResults": "",
@@ -170,6 +172,7 @@
       "action": "Aktion",
       "diboas": "diBoaS",
       "competitors": "Uebliche Anbieter",
+      "difference": "Unterschied",
       "example": "Beispiel"
     },
     "rows": {
@@ -177,48 +180,56 @@
         "action": "Geschaeftskonto",
         "diboas": "Fuer immer kostenlos",
         "competitors": "10 bis 50 EUR/Monat",
+        "difference": "Spare 120 bis 600 EUR/Jahr",
         "example": "Dein Konto: 0 EUR. Immer."
       },
       "receive": {
         "action": "Zahlungen empfangen",
         "diboas": "KOSTENLOS",
         "competitors": "1,5 bis 3% (Kartenterminal)",
+        "difference": "Spare 15 bis 30 EUR pro 1.000 EUR",
         "example": "1.000 EUR empfangen: kostet 0 EUR. Andere Anbieter berechnen 15 bis 30 EUR."
       },
       "send": {
         "action": "Senden / Bezahlen",
         "diboas": "KOSTENLOS",
         "competitors": "1,50 bis 50 EUR (SWIFT)",
+        "difference": "Spare 1,50 bis 50 EUR pro Überweisung",
         "example": "Lieferant 500 EUR bezahlen: 0 EUR"
       },
       "add": {
         "action": "Geld einzahlen",
         "diboas": "0,48% (min 0,25 EUR, max 25 EUR)",
         "competitors": "0 bis 1,5%",
+        "difference": "Vergleichbar mit den meisten Anbietern",
         "example": "10.000 EUR einzahlen: kostet 48 EUR"
       },
       "invest": {
         "action": "Investieren / Wachsen",
         "diboas": "KOSTENLOS",
         "competitors": "0,5 bis 2% (Berater, Plattformen)",
+        "difference": "Spare 50 bis 200 EUR pro 10.000 EUR",
         "example": "10.000 EUR investieren: 0 EUR. Kostenlos starten."
       },
       "sell": {
         "action": "Verkaufen / Schliessen",
         "diboas": "0,39% (min 0,25 EUR, max 25 EUR)",
         "competitors": "0,5 bis 2%",
+        "difference": "Spare 11 bis 161 EUR pro 10.000 EUR",
         "example": "10.000 EUR verkaufen: kostet 39 EUR"
       },
       "swap": {
         "action": "Tauschen",
         "diboas": "KOSTENLOS",
         "competitors": "0,5 bis 2% Spread",
+        "difference": "Spare 50 bis 200 EUR pro 10.000 EUR",
         "example": "10.000 EUR tauschen: 0 EUR"
       },
       "cashOut": {
         "action": "Auszahlen",
         "diboas": "0,48% (min 0,25 EUR, max 25 EUR)",
         "competitors": "1 bis 3% + Verzoegerungen",
+        "difference": "Spare 52 bis 252 EUR pro 10.000 EUR",
         "example": "10.000 EUR auszahlen: kostet 48 EUR"
       }
     },
@@ -261,7 +272,7 @@
       ],
       "versionB": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
-        "diBoaS wird derzeit in Berlin gegruendet und baut zunaechst fuer Unternehmen in den USA, der EU und Brasilien. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
+        "diBoaS wird derzeit in Berlin gegruendet und baut fuer Unternehmen in den USA, der EU, Brasilien und expandiert weltweit. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
       ],
       "versionC": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
@@ -269,7 +280,7 @@
       ]
     },
     "email": "Lass uns in Kontakt treten.",
-    "emailAddress": "bar@diboas.com",
+    "emailAddress": "hello@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",
@@ -291,7 +302,7 @@
       "header": "Schauen wir uns deine Zahlen an.",
       "description": "15 Minuten. Keine Verpflichtung. Kein Pitch Deck. Nur Zahlen.",
       "cta": "Gespraech buchen",
-      "alternative": "Oder schreib an bar@diboas.com"
+      "alternative": "Oder schreib an hello@diboas.com"
     }
   },
   "socialProof": {

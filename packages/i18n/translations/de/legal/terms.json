@@ -53,13 +53,9 @@
       }
     },
     "geographicRestrictions": {
-      "title": "4. Geografische Einschränkungen",
-      "intro": "diBoaS-Dienste stehen Einwohnern folgender Länder nicht zur Verfügung:",
-      "restrictedCountries": [
-        "Vereinigte Staaten",
-        "Brasilien"
-      ],
-      "note": "Wenn Sie von diesen Gerichtsbarkeiten aus auf unsere Website zugreifen, können Sie nur informative Inhalte ansehen. Sie dürfen sich nicht für die Warteliste anmelden oder interaktive Funktionen nutzen."
+      "title": "4. Geografische Verfügbarkeit",
+      "intro": "diBoaS befindet sich derzeit in der Pre-Launch-Phase. Wenn die Dienste verfügbar werden, werden sie zunächst Nutzern in den Vereinigten Staaten, der Europäischen Union und Brasilien angeboten. Die Verfügbarkeit in weiteren Regionen wird bekannt gegeben, sobald wir expandieren.",
+      "note": "Während der Pre-Launch-Phase sind die Website und die Warteliste weltweit zugänglich. Bestimmte Funktionen oder Dienste können in Ländern eingeschränkt sein, in denen sie nach geltendem Recht nicht zulässig sind, einschließlich Länder, die internationalen Sanktionen unterliegen. Du bist dafür verantwortlich, sicherzustellen, dass deine Nutzung dieser Plattform mit den geltenden Gesetzen deines Landes vereinbar ist."
     },
     "intellectualProperty": {
       "title": "5. Geistiges Eigentum",
