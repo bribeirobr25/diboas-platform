@@ -1,7 +1,7 @@
 {
   "hero": {
-    "headline": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não pra você.",
-    "subheadline": "Você paga centenas de reais por ano em taxas. Não consegue mover seu dinheiro em tempo real pelo mundo. E o dinheiro no seu banco? Tá rendendo pra todo mundo, menos pra você. Isso muda agora.",
+    "headline": "O sistema financeiro não está quebrado. Só não foi feito para você.",
+    "subheadline": "Envie dinheiro para qualquer lugar do mundo, na hora, de graça. E faça ele crescer do seu jeito.",
     "cta": "Veja seu dinheiro em ação"
   },
   "origin": {
@@ -70,6 +70,10 @@
       "title": "Acompanhar e Aprender",
       "description": "O que tá acontecendo. O que significa. O que você pode fazer. Linguagem clara, sem jargão.",
       "quote": "\"Adelaide cuida do meu dinheiro pra eu não ter que me preocupar. Olho uma vez por dia. Menos estresse. Mais vida.\""
+    },
+    "step4": {
+      "title": "Comprar e Guardar",
+      "description": "Compre cripto diretamente. Guarde na sua própria carteira. Sem intermediário. Sem risco de custódia. Seu."
     },
     "microDisclosure": "Exemplos mostrados são ilustrativos e não representam usuários reais."
   },

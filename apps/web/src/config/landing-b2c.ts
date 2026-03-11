@@ -8,10 +8,10 @@
  *
  * 12-Section Layout (CMO Final Copy):
  * 1. Hero
- * 2. Origin Story (ProseSection)
+ * 2. Scenarios (ProductCarousel default variant)
  * 2.5. Persona Carousel (ProductCarousel persona variant)
- * 3. Scenarios (ScenarioCards) — swapped with 4
- * 4. How It Works (ProductCarousel) — swapped with 3
+ * 3. Origin Story (ProseSection)
+ * 4. How It Works (AppFeaturesCarousel) — 4 steps
  * 5. Fees (FeeTable) — moved up from 6
  * 6. What's the Catch? (ProseSection) — moved up from 7
  * 6.5. Under the Hood (ExpandableSection)
@@ -27,8 +27,8 @@ import { ROUTES } from './routes';
 import type { FAQAccordionVariantConfig, FAQItem } from './faqAccordion';
 import type { HeroVariantConfig } from './hero';
 import type { ProductCarouselVariantConfig } from './productCarousel';
+import type { AppFeaturesCarouselVariantConfig } from './appFeaturesCarousel';
 import type { ProseSectionConfig } from './proseSection';
-import type { ScenarioCardsConfig } from './scenarioCards';
 import type { FeeTableConfig } from './feeTable';
 import type { ExpandableSectionConfig } from './expandableSection';
 import type { FounderSectionConfig } from './founderSection';
@@ -172,39 +172,110 @@ export const B2C_PERSONA_CAROUSEL_CONFIG: ProductCarouselVariantConfig = {
 };
 
 /**
- * Section 4: How It Works Configuration (ProductCarousel)
- * 3 steps with quotes, transition hook + micro-disclosure
+ * Section 4: How It Works Configuration (AppFeaturesCarousel)
+ * 4 steps with images
  */
-export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
+export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
+  variant: 'default',
+  sectionTitle: 'landing-b2c.howItWorks.header',
+  cards: [
+    {
+      id: 'step-1-deposit',
+      content: {
+        title: 'landing-b2c.howItWorks.step1.title',
+        description: 'landing-b2c.howItWorks.step1.description',
+      },
+      assets: {
+        image: B2C_IMAGES.step1,
+      },
+      seo: {
+        imageAlt: 'Step 1: Send and receive money',
+      },
+    },
+    {
+      id: 'step-2-earn',
+      content: {
+        title: 'landing-b2c.howItWorks.step2.title',
+        description: 'landing-b2c.howItWorks.step2.description',
+      },
+      assets: {
+        image: B2C_IMAGES.step2,
+      },
+      seo: {
+        imageAlt: 'Step 2: Invest and grow your money',
+      },
+    },
+    {
+      id: 'step-3-withdraw',
+      content: {
+        title: 'landing-b2c.howItWorks.step3.title',
+        description: 'landing-b2c.howItWorks.step3.description',
+      },
+      assets: {
+        image: B2C_IMAGES.step3,
+      },
+      seo: {
+        imageAlt: 'Step 3: Track and learn',
+      },
+    },
+    {
+      id: 'step-4-buy-hold',
+      content: {
+        title: 'landing-b2c.howItWorks.step4.title',
+        description: 'landing-b2c.howItWorks.step4.description',
+      },
+      assets: {
+        image: '/assets/images/garden.avif',
+      },
+      seo: {
+        imageAlt: 'Step 4: Buy and hold crypto assets',
+      },
+    },
+  ],
+  settings: {
+    autoRotateMs: 0,
+    pauseOnHover: true,
+    enableTouch: true,
+    enableAnalytics: true,
+    transitionDuration: 300,
+  },
+  analytics: {
+    trackingPrefix: 'how_it_works_b2c',
+    enabled: true,
+  },
+};
+
+/**
+ * Section 3: Scenarios Configuration (ProductCarousel default variant)
+ * 3 real-life scenario slides with background images
+ */
+export const B2C_SCENARIOS_CONFIG: ProductCarouselVariantConfig = {
   variant: 'default',
   content: {
-    heading: 'landing-b2c.howItWorks.header',
+    heading: 'landing-b2c.scenarios.header',
     slides: [
       {
-        id: 'step-1-deposit',
-        title: 'landing-b2c.howItWorks.step1.title',
-        subtitle: 'landing-b2c.howItWorks.step1.description',
-        image: B2C_IMAGES.step1,
-        imageAlt: 'Step 1: Add money to your account',
-        quote: 'landing-b2c.howItWorks.step1.quote',
+        id: 'scenario-dinner',
+        title: 'landing-b2c.scenarios.card1.title',
+        subtitle: 'landing-b2c.scenarios.card1.description',
+        image: B2C_IMAGES.scenarioDinner,
+        imageAlt: 'Friends splitting dinner',
       },
       {
-        id: 'step-2-earn',
-        title: 'landing-b2c.howItWorks.step2.title',
-        subtitle: 'landing-b2c.howItWorks.step2.description',
-        image: B2C_IMAGES.step2,
-        imageAlt: 'Step 2: Pick your strategy',
-        quote: 'landing-b2c.howItWorks.step2.quote',
+        id: 'scenario-global',
+        title: 'landing-b2c.scenarios.card2.title',
+        subtitle: 'landing-b2c.scenarios.card2.description',
+        image: B2C_IMAGES.scenarioGlobal,
+        imageAlt: 'Sending payment internationally',
       },
       {
-        id: 'step-3-withdraw',
-        title: 'landing-b2c.howItWorks.step3.title',
-        subtitle: 'landing-b2c.howItWorks.step3.description',
-        image: B2C_IMAGES.step3,
-        imageAlt: 'Step 3: Grow or withdraw anytime',
-        quote: 'landing-b2c.howItWorks.step3.quote',
-      }
-    ]
+        id: 'scenario-emergency',
+        title: 'landing-b2c.scenarios.card3.title',
+        subtitle: 'landing-b2c.scenarios.card3.description',
+        image: B2C_IMAGES.scenarioEmergency,
+        imageAlt: 'Emergency money transfer to family',
+      },
+    ],
   },
   settings: {
     autoPlay: false,
@@ -214,58 +285,15 @@ export const B2C_HOW_IT_WORKS_CONFIG: ProductCarouselVariantConfig = {
     enableKeyboard: true,
     enableTouch: true,
     enableDots: true,
-    enablePlayPause: false
+    enablePlayPause: false,
   },
   seo: {
     headingTag: 'h2',
-    ariaLabel: 'How diBoaS works in three steps'
-  },
-  analytics: {
-    trackingPrefix: 'how_it_works_b2c',
-    enabled: true
-  }
-};
-
-/**
- * Section 3: Scenarios Configuration (ScenarioCards)
- * 3 real-life scenario cards with cost comparisons
- */
-export const B2C_SCENARIOS_CONFIG: ScenarioCardsConfig = {
-  section: {
-    title: 'landing-b2c.scenarios.header',
-    transitionHook: 'landing-b2c.scenarios.transitionHook',
-    clarificationLine: 'landing-b2c.scenarios.clarificationLine',
-  },
-  cards: [
-    {
-      id: 'scenario-dinner',
-      title: 'landing-b2c.scenarios.card1.title',
-      description: 'landing-b2c.scenarios.card1.description',
-      backgroundImage: B2C_IMAGES.scenarioDinner,
-      imageAlt: 'Friends splitting dinner',
-    },
-    {
-      id: 'scenario-global',
-      title: 'landing-b2c.scenarios.card2.title',
-      description: 'landing-b2c.scenarios.card2.description',
-      backgroundImage: B2C_IMAGES.scenarioGlobal,
-      imageAlt: 'Sending payment internationally',
-    },
-    {
-      id: 'scenario-emergency',
-      title: 'landing-b2c.scenarios.card3.title',
-      description: 'landing-b2c.scenarios.card3.description',
-      backgroundImage: B2C_IMAGES.scenarioEmergency,
-      imageAlt: 'Emergency money transfer to family',
-    },
-  ],
-  seo: {
-    headingLevel: 'h2',
     ariaLabel: 'Real-life scenarios where diBoaS helps',
   },
   analytics: {
-    sectionId: 'scenarios-b2c',
-    category: 'landing-b2c',
+    trackingPrefix: 'scenarios_b2c',
+    enabled: true,
   },
 } as const;
 
@@ -434,22 +462,6 @@ export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
   },
 } as const;
 
-/**
- * Section 5 wrapper: Fees Expandable Configuration
- * Wraps FeeTable inside an ExpandableSection for collapsed-by-default UX
- */
-export const B2C_FEES_EXPANDABLE_CONFIG: ExpandableSectionConfig = {
-  content: {
-    toggleLabel: 'landing-b2c.fees.expandableToggle',
-  },
-  seo: {
-    ariaLabel: 'Fee transparency details',
-  },
-  analytics: {
-    sectionId: 'fees-expandable-b2c',
-    category: 'landing-b2c',
-  },
-} as const;
 
 /**
  * Section 7: Demo Configuration

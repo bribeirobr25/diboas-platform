@@ -19,14 +19,15 @@ import type { FounderSectionConfig } from './founderSection';
 import type { CalculatorFactoryConfig } from './calculatorFactory';
 import type { TwoWorldsSectionConfig } from './twoWorldsSection';
 import type { CashflowExplainerSectionConfig } from './cashflowExplainerSection';
-import type { ExpandableSectionConfig } from './expandableSection';
+import type { ScenarioCardsConfig } from './scenarioCards';
 
 /**
  * B2B Landing Page Image Paths
  */
 const B2B_IMAGES = {
+  hero: '/assets/images/card-dark2.avif',
   twoWorldsPayments: '/assets/images/payment-dark.avif',
-  twoWorldsTreasury: '/assets/images/phone-grow2.avif',
+  twoWorldsTreasury: '/assets/images/phone-features3.avif',
   originStory: '/assets/images/table-sunlight.avif',
   featureGetPaid: '/assets/images/phone-transfer.avif',
   featurePayAnyone: '/assets/images/global-jp-canada.avif',
@@ -50,8 +51,8 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
     ctaTarget: '_self'
   },
   backgroundAssets: {
-    backgroundImage: B2B_IMAGES.twoWorldsPayments,
-    backgroundImageMobile: B2B_IMAGES.twoWorldsPayments,
+    backgroundImage: B2B_IMAGES.hero,
+    backgroundImageMobile: B2B_IMAGES.hero,
     overlayOpacity: 0.1
   },
   seo: {
@@ -305,44 +306,43 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
   }
 };
 
-// ─── Section 7: Three Features (BenefitsCards, 3 cards) ───────
+// ─── Section 7: Three Features (ScenarioCards, 3 cards) ───────
 
-export const B2B_FEATURES_CONFIG: BenefitsCardsConfig = {
+export const B2B_FEATURES_CONFIG: ScenarioCardsConfig = {
   section: {
     title: 'landing-b2b.features.header',
-    backgroundColor: 'neutral'
   },
   cards: [
     {
       id: 'feature-get-paid',
-      icon: '/assets/icons/money-flow.avif',
       title: 'landing-b2b.features.cards.getPaid.headline',
       description: 'landing-b2b.features.cards.getPaid.body',
-      iconAlt: 'Get paid without the cut'
+      backgroundImage: B2B_IMAGES.featureGetPaid,
+      imageAlt: 'Get paid without the cut',
     },
     {
       id: 'feature-pay-anyone',
-      icon: '/assets/icons/money-circle.avif',
       title: 'landing-b2b.features.cards.payAnyone.headline',
       description: 'landing-b2b.features.cards.payAnyone.body',
-      iconAlt: 'Pay anyone anywhere instantly'
+      backgroundImage: B2B_IMAGES.featurePayAnyone,
+      imageAlt: 'Pay anyone anywhere instantly',
     },
     {
       id: 'feature-adelaide',
-      icon: '/assets/icons/chart-growing.avif',
       title: 'landing-b2b.features.cards.adelaide.headline',
       description: 'landing-b2b.features.cards.adelaide.body',
-      iconAlt: 'Adelaide market intelligence'
-    }
+      backgroundImage: B2B_IMAGES.featureAdelaide,
+      imageAlt: 'Adelaide market intelligence',
+    },
   ],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'What your business gets with diBoaS'
+    ariaLabel: 'What your business gets with diBoaS',
   },
   analytics: {
     sectionId: 'features-b2b',
-    category: 'landing-b2b'
-  }
+    category: 'landing-b2b',
+  },
 };
 
 // ─── Section 8: Cashflow Investing (NEW) ──────────────────────
@@ -474,22 +474,6 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
   }
 };
 
-/**
- * Section 9 wrapper: Fees Expandable Configuration
- * Wraps FeeTable inside an ExpandableSection for collapsed-by-default UX
- */
-export const B2B_FEES_EXPANDABLE_CONFIG: ExpandableSectionConfig = {
-  content: {
-    toggleLabel: 'landing-b2b.fees.expandableToggle',
-  },
-  seo: {
-    ariaLabel: 'Complete fee transparency details',
-  },
-  analytics: {
-    sectionId: 'fees-expandable-b2b',
-    category: 'landing-b2b',
-  },
-};
 
 // ─── Section 10: Fit Assessment (BenefitsCards) ──────────────
 
@@ -501,17 +485,17 @@ export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
   cards: [
     {
       id: 'good-fit',
-      icon: '/assets/icons/rewards-trophy.avif',
+      icon: 'check-circle',
       title: 'landing-b2b.fitAssessment.goodFit.title',
       description: 'landing-b2b.fitAssessment.goodFit.description',
       iconAlt: 'Good fit checkmark'
     },
     {
       id: 'not-a-fit',
-      icon: '/assets/icons/safe-money.avif',
+      icon: 'x-circle',
       title: 'landing-b2b.fitAssessment.notAFit.title',
       description: 'landing-b2b.fitAssessment.notAFit.description',
-      iconAlt: 'Not a fit icon'
+      iconAlt: 'Not a fit indicator'
     }
   ],
   seo: {

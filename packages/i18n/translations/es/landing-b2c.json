@@ -1,7 +1,7 @@
 {
   "hero": {
-    "headline": "El sistema no está roto. Funciona exactamente como fue diseñado. Solo que no para ti.",
-    "subheadline": "Pagas cientos al año en comisiones. No puedes mover tu dinero en tiempo real por el mundo. ¿Y el dinero en tu banco? Genera rendimientos para todos menos para ti. Eso cambia ahora.",
+    "headline": "El sistema financiero no está roto. Solo que no fue construido para ti.",
+    "subheadline": "Envía dinero a cualquier lugar, al instante, gratis. Hazlo crecer a tu manera.",
     "cta": "Ve tu dinero en acción"
   },
   "origin": {
@@ -70,6 +70,10 @@
       "title": "Seguir y Aprender",
       "description": "Qué se mueve. Qué significa. Qué puedes hacer. Lenguaje claro, sin jerga.",
       "quote": "\"Adelaide cuida mi dinero para que yo no tenga que preocuparme. Lo miro una vez al día. Menos estrés. Más vida.\""
+    },
+    "step4": {
+      "title": "Comprar y Mantener",
+      "description": "Compra cripto directamente. Guárdalo en tu propia billetera. Sin intermediarios. Sin riesgo de custodia. Tuyo."
     },
     "microDisclosure": "Los ejemplos mostrados son ilustrativos y no representan usuarios reales."
   },

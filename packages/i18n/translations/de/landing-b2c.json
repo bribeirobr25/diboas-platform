@@ -1,7 +1,7 @@
 {
   "hero": {
-    "headline": "Das System ist nicht kaputt. Es funktioniert genau so, wie es gedacht war. Nur nicht für dich.",
-    "subheadline": "Du zahlst Hunderte pro Jahr an Gebühren. Du kannst dein Geld nicht in Echtzeit weltweit bewegen. Und das Geld auf deinem Konto? Es erwirtschaftet Rendite für alle außer für dich. Das ändert sich jetzt.",
+    "headline": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gemacht.",
+    "subheadline": "Sende Geld überallhin, sofort, kostenlos. Lass es wachsen, auf deine Art.",
     "cta": "Sieh dein Geld in Aktion"
   },
   "origin": {
@@ -70,6 +70,10 @@
       "title": "Verfolgen und Lernen",
       "description": "Was sich bewegt. Was es bedeutet. Was du tun könntest. Klare Sprache, kein Fachjargon.",
       "quote": "\"Adelaide passt auf mein Geld auf, damit ich es nicht tun muss. Einmal am Tag nachschauen. Weniger Stress. Mehr Leben.\""
+    },
+    "step4": {
+      "title": "Kaufen und Halten",
+      "description": "Kaufe Krypto direkt. Halte es in deiner eigenen Wallet. Kein Mittelsmann. Kein Verwahrungsrisiko. Deins."
     },
     "microDisclosure": "Die gezeigten Beispiele sind illustrativ und stellen keine echten Nutzer dar."
   },

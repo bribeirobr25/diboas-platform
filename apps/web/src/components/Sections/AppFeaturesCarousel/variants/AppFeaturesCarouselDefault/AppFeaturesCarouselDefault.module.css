@@ -215,10 +215,9 @@
    CARD STATES
    ================================ */
 
-/* Active Card Enhancement — overflow: visible ensures shadow isn't clipped */
+/* Active Card Enhancement */
 .cardWrapper.active .card {
   box-shadow: var(--shadow-lg);
-  overflow: visible;
 }
 
 /* Inactive Cards Hover */

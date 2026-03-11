@@ -1,150 +1,234 @@
 /**
  * About Page Configuration
  *
- * 9-section layout: Hero → t1 → Story → t2 → What We Do → Beliefs
- * → Mission → t3 → Business CTA → t4 → Contact → Waitlist → Footer
- *
- * Phase 3C migration: extracts all content keys from the AboutPageContent
- * orchestrator into config-driven composition objects.
+ * 8-section layout using reusable section components:
+ * 1. Hero (HeroSection centered)
+ * 2. Story (ProseSection — Adelaide narrative)
+ * 3. What We Do (ProseSection — product capabilities)
+ * 4. What We Believe (BenefitsCardsSection — 3 cards)
+ * 5. Mission (ProseSection — mission statement)
+ * 6. Business CTA (ProseSection — B2B pitch)
+ * 7. Founder / Contact (FounderSection)
+ * 8. Waitlist (WaitlistSection)
+ * 9. Footer (MinimalFooter)
  *
  * Domain-Driven Design: About page domain configuration
  * Service Agnostic Abstraction: Decoupled content from presentation
  */
 
+import type { HeroVariantConfig } from './hero';
+import type { ProseSectionConfig } from './proseSection';
+import type { BenefitsCardsConfig } from '@/components/Sections/BenefitsCards';
+import type { FounderSectionConfig } from './founderSection';
+
 // ─── Section 1: Hero ─────────────────────────────────────────
 
-/** Hero section config for the About page. */
-export const ABOUT_HERO_CONFIG = {
-  title: 'about.hero.title',
-  subtitle: 'about.hero.subtitle',
+export const ABOUT_HERO_CONFIG: HeroVariantConfig = {
+  variant: 'fullBackground',
+  content: {
+    title: 'about.hero.title',
+    description: 'about.hero.subtitle',
+    ctaText: '',
+    ctaHref: '#story',
+    ctaTarget: '_self',
+  },
+  backgroundAssets: {
+    backgroundImage: '/assets/images/hand-bright2.avif',
+    backgroundImageMobile: '/assets/images/hand-bright2.avif',
+    overlayOpacity: 0.3,
+  },
+  seo: {
+    titleTag: 'About diBoaS',
+    imageAlt: {
+      background: 'About diBoaS background',
+    },
+  },
+  analytics: {
+    trackingPrefix: 'hero_about',
+    enabled: true,
+  },
 } as const;
 
 // ─── Section 2: The Story (Adelaide narrative) ───────────────
 
-/** Adelaide origin story section with multi-paragraph narrative. */
-export const ABOUT_STORY_CONFIG = {
+export const ABOUT_STORY_CONFIG: ProseSectionConfig = {
   content: {
+    transitionHook: 'about.transitions.t1',
     header: 'about.story.header',
-    paragraph1: 'about.story.paragraph1',
-    paragraph2: 'about.story.paragraph2',
-    paragraph3: 'about.story.paragraph3',
-    gapExplanation: 'about.story.gapExplanation',
-    accessLocked: 'about.story.accessLocked',
-    turning: 'about.story.turning',
-    namedAfterHer: 'about.story.namedAfterHer',
+    paragraphs: [
+      'about.story.paragraph1',
+      'about.story.paragraph2',
+      'about.story.paragraph3',
+      'about.story.gapExplanation',
+      'about.story.accessLocked',
+      'about.story.turning',
+      'about.story.namedAfterHer',
+    ],
   },
-  seo: { ariaLabel: 'The Story — Her name was Adelaide' },
+  style: {
+    backgroundColor: 'var(--section-bg-warm)',
+    verticalPadding: 'standard',
+  },
+  seo: {
+    ariaLabel: 'The Story, her name was Adelaide',
+  },
+  analytics: {
+    sectionId: 'story-about',
+    category: 'about',
+  },
 } as const;
 
 // ─── Section 3: What diBoaS Does ────────────────────────────
 
-/** Product capabilities section: transfers, growth, and Adelaide AI. */
-export const ABOUT_WHAT_WE_DO_CONFIG = {
+export const ABOUT_WHAT_WE_DO_CONFIG: ProseSectionConfig = {
   content: {
+    transitionHook: 'about.transitions.t2',
     header: 'about.whatWeDo.header',
-    transfers: 'about.whatWeDo.transfers',
-    transfersDisclaimer: 'about.whatWeDo.transfersDisclaimer',
-    growth: 'about.whatWeDo.growth',
-    adelaide: 'about.whatWeDo.adelaide',
+    paragraphs: [
+      'about.whatWeDo.transfers',
+      'about.whatWeDo.transfersDisclaimer',
+      'about.whatWeDo.growth',
+      'about.whatWeDo.adelaide',
+    ],
   },
-  seo: { ariaLabel: 'What diBoaS does' },
+  style: {
+    backgroundColor: 'var(--section-bg-neutral)',
+    verticalPadding: 'standard',
+  },
+  seo: {
+    ariaLabel: 'What diBoaS does',
+  },
+  analytics: {
+    sectionId: 'what-we-do-about',
+    category: 'about',
+  },
 } as const;
 
 // ─── Section 4: What We Believe (3 belief cards) ─────────────
 
-/** Three belief cards: money, honesty, start small. */
-export const ABOUT_BELIEFS_CONFIG = {
-  content: {
-    header: 'about.beliefs.header',
-    cards: {
-      money: {
-        title: 'about.beliefs.money.title',
-        description: 'about.beliefs.money.description',
-      },
-      honesty: {
-        title: 'about.beliefs.honesty.title',
-        description: 'about.beliefs.honesty.description',
-      },
-      startSmall: {
-        title: 'about.beliefs.startSmall.title',
-        description: 'about.beliefs.startSmall.description',
-      },
-    },
+export const ABOUT_BELIEFS_CONFIG: BenefitsCardsConfig = {
+  section: {
+    title: 'about.beliefs.header',
+    backgroundColor: 'enterprise',
   },
-  seo: { ariaLabel: 'What we believe' },
-} as const;
+  cards: [
+    {
+      id: 'belief-money',
+      icon: 'trending-up',
+      title: 'about.beliefs.money.title',
+      description: 'about.beliefs.money.description',
+      iconAlt: 'Your money should work for you',
+    },
+    {
+      id: 'belief-honesty',
+      icon: 'target',
+      title: 'about.beliefs.honesty.title',
+      description: 'about.beliefs.honesty.description',
+      iconAlt: 'Honesty over hype',
+    },
+    {
+      id: 'belief-start-small',
+      icon: 'check-circle',
+      title: 'about.beliefs.startSmall.title',
+      description: 'about.beliefs.startSmall.description',
+      iconAlt: 'Start small and learn',
+    },
+  ],
+  seo: {
+    headingLevel: 'h2',
+    ariaLabel: 'What we believe',
+  },
+  analytics: {
+    sectionId: 'beliefs-about',
+    category: 'about',
+  },
+};
 
 // ─── Section 5: The Mission ─────────────────────────────────
 
-/** Mission statement with Adelaide callback and founding pillars. */
-export const ABOUT_MISSION_CONFIG = {
+export const ABOUT_MISSION_CONFIG: ProseSectionConfig = {
   content: {
     header: 'about.mission.header',
-    story: 'about.mission.story',
-    statement: 'about.mission.statement',
-    pillars: 'about.mission.pillars',
+    paragraphs: [
+      'about.mission.story',
+      'about.mission.statement',
+      'about.mission.pillars',
+    ],
   },
-  seo: { ariaLabel: 'Our mission' },
+  style: {
+    backgroundColor: 'var(--section-bg-neutral)',
+    verticalPadding: 'standard',
+    headerStyle: 'centered',
+  },
+  seo: {
+    ariaLabel: 'Our mission',
+  },
+  analytics: {
+    sectionId: 'mission-about',
+    category: 'about',
+  },
 } as const;
 
 // ─── Section 6: For Businesses (CTA) ────────────────────────
 
-/** Business CTA section linking to the B2B landing page. */
-export const ABOUT_BUSINESS_CONFIG = {
+export const ABOUT_BUSINESS_CONFIG: ProseSectionConfig = {
   content: {
+    transitionHook: 'about.transitions.t3',
     header: 'about.business.header',
-    description: 'about.business.description',
-    pitch: 'about.business.pitch',
-    cta: 'about.business.cta',
+    paragraphs: [
+      'about.business.description',
+      'about.business.pitch',
+      'about.business.cta',
+    ],
   },
-  ctaHref: '/business',
-  seo: { ariaLabel: 'diBoaS for businesses' },
+  style: {
+    backgroundColor: 'var(--section-bg-warm)',
+    verticalPadding: 'standard',
+  },
+  seo: {
+    ariaLabel: 'diBoaS for businesses',
+  },
+  analytics: {
+    sectionId: 'business-about',
+    category: 'about',
+  },
 } as const;
 
-// ─── Section 7: Contact ─────────────────────────────────────
+// ─── Section 7: Founder / Contact ────────────────────────────
 
-/**
- * Contact section with founder details and email addresses.
- * emailHref and personalEmailHref are literal mailto: URIs, not i18n keys.
- */
-export const ABOUT_CONTACT_CONFIG = {
+export const ABOUT_FOUNDER_CONFIG: FounderSectionConfig = {
   content: {
     header: 'about.contact.header',
-    founder: 'about.contact.founder',
-    founderName: 'about.contact.founderName',
-    location: 'about.contact.location',
-    locationValue: 'about.contact.locationValue',
-    email: 'about.contact.email',
-    emailValue: 'about.contact.emailValue',
-    personal: 'about.contact.personal',
-    personalEmail: 'about.contact.personalEmail',
+    paragraphs: [
+      'about.contact.personal',
+    ],
+    emailText: 'about.contact.emailValue',
+    emailHref: 'hello@diboas.com',
+    socialLinks: [
+      { label: 'about.contact.personalEmail', href: 'mailto:bar@diboas.com', icon: 'email' },
+    ],
   },
-  emailHref: 'mailto:hello@diboas.com',
-  personalEmailHref: 'mailto:bar@diboas.com',
-  seo: { ariaLabel: 'Contact information' },
+  seo: {
+    ariaLabel: 'Contact and founder information',
+  },
+  analytics: {
+    sectionId: 'founder-about',
+    category: 'about',
+  },
 } as const;
 
-// ─── Transition Hooks ───────────────────────────────────────
+// ─── Waitlist ────────────────────────────────────────────────
 
-/** Transition copy between major sections. */
-export const ABOUT_TRANSITIONS = {
-  t1: 'about.transitions.t1',
-  t2: 'about.transitions.t2',
-  t3: 'about.transitions.t3',
-  t4: 'about.transitions.t4',
+export const ABOUT_WAITLIST_CONFIG = {
+  sectionId: 'waitlist-section-about',
+  backgroundColor: 'var(--section-bg-brand)',
+  hideBenefits: true,
+  hideNoSpam: true,
+  source: 'about' as const,
 } as const;
 
 // ─── Footer Disclosures ─────────────────────────────────────
 
-/**
- * Locale-conditional footer disclosures.
- * Uses the same interface as MinimalFooter's disclosureKeys prop.
- *
- * MiCA Art. 68: DE, ES only
- * MiCA Art. 7: EN, DE, ES
- * CVM 3-warning: PT-BR only
- * US disclosure: EN only
- */
 export const ABOUT_FOOTER_DISCLOSURES = {
   mica: 'about.footer.mica',
   micaArticle7: 'about.footer.micaArticle7',
