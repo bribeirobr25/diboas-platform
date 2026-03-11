@@ -23,6 +23,8 @@ function validateProductionSecrets(): void {
   if (process.env.NODE_ENV !== 'production') return;
   // Skip during build phase — secrets are only needed at runtime
   if (process.env.NEXT_PHASE === 'phase-production-build') return;
+  // Skip on the client — these are server-only secrets, never exposed to the browser
+  if (typeof window !== 'undefined') return;
 
   const required = [
     'ENCRYPTION_KEY',
