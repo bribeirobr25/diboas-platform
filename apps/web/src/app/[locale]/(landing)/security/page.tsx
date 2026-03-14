@@ -1,40 +1,87 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { MetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import {
+  HeroSection,
+  ProseSection,
+} from '@/components/Sections';
+import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
-import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
+import {
+  SECURITY_HERO_CONFIG,
+  SECURITY_WALLET_CONFIG,
+  SECURITY_PROTECTION_CONFIG,
+  SECURITY_TECHNOLOGY_CONFIG,
+  SECURITY_WHAT_WE_DONT_DO_CONFIG,
+  SECURITY_TRANSPARENCY_CONFIG,
+  SECURITY_WAITLIST_CONFIG,
+  SECURITY_FOOTER_DISCLOSURES,
+} from '@/config/landing-security';
+import { B2C_FOOTER_NAV } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
 export const dynamic = 'auto';
 
-const PLACEHOLDER_TRANSLATIONS: Record<string, { title: string; comingSoon: string; backHome: string; metaDescription: string }> = {
-  en: { title: 'Security', comingSoon: 'Coming soon.', backHome: 'Back to Home', metaDescription: 'How diBoaS keeps your money safe — coming soon.' },
-  'pt-BR': { title: 'Segurança', comingSoon: 'Em breve.', backHome: 'Voltar ao Início', metaDescription: 'Como o diBoaS mantém seu dinheiro seguro — em breve.' },
-  es: { title: 'Seguridad', comingSoon: 'Próximamente.', backHome: 'Volver al Inicio', metaDescription: 'Cómo diBoaS mantiene tu dinero seguro — próximamente.' },
-  de: { title: 'Sicherheit', comingSoon: 'Demnächst verfügbar.', backHome: 'Zurück zur Startseite', metaDescription: 'Wie diBoaS Ihr Geld schützt — demnächst verfügbar.' },
-};
-
+/**
+ * Generate metadata for the Security page
+ */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
+  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+
+  const messages = await loadMessages(validLocale, 'security');
+  const seo = messages?.seo || {};
+
+  const title = seo.title || 'Security | diBoaS';
+  const description = seo.description || 'How diBoaS protects your money. Your wallet, your keys. Non-custodial architecture. 24/7 monitoring.';
+
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
-  const t = PLACEHOLDER_TRANSLATIONS[validLocale] || PLACEHOLDER_TRANSLATIONS.en;
 
   return {
-    title: `${t.title} | diBoaS`,
-    description: t.metaDescription,
-    robots: { index: false, follow: false },
+    title,
+    description,
+    openGraph: {
+      title: seo.ogTitle || title,
+      description: seo.ogDescription || description,
+      type: 'website',
+      locale: validLocale,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle || title,
+      description: seo.ogDescription || description,
+    },
     alternates: {
       canonical: `${siteUrl}/${validLocale}/security`,
+      languages: {
+        'en': `${siteUrl}/en/security`,
+        'de': `${siteUrl}/de/security`,
+        'es': `${siteUrl}/es/security`,
+        'pt-BR': `${siteUrl}/pt-BR/security`,
+        'x-default': `${siteUrl}/en/security`,
+      },
     },
   };
 }
 
+/**
+ * Security Page
+ *
+ * Reusable section composition pattern:
+ * 1. Hero — HeroSection fullBackground
+ * 2. Your Wallet, Your Keys — ProseSection
+ * 3. How We Protect Your Funds — ProseSection
+ * 4. The Technology — ProseSection
+ * 5. What We Don't Do — ProseSection
+ * 6. Transparency — ProseSection
+ * 7. Waitlist — WaitlistSection
+ * 8. Footer — MinimalFooter
+ */
 export default async function SecurityPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
   const locale = localeParam as SupportedLocale;
@@ -43,63 +90,134 @@ export default async function SecurityPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['common', 'landing-b2c']);
+  const pageMessages = await loadPageNamespaces(locale, ['security', 'common', 'waitlist', 'landing-b2c']);
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs(
-    [
-      { name: 'Home', url: '/' },
-      { name: 'Security', url: '/security' },
-    ],
-    locale,
-  );
+  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+    { name: 'Home', url: '/' },
+    { name: 'Security', url: '/security' },
+  ], locale);
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
       <StructuredData data={[breadcrumbData]} />
 
-      <main className="main-page-wrapper">
+      <div className="main-page-wrapper">
+        {/* Section 1: Hero */}
         <SectionErrorBoundary
-          sectionId="security-placeholder"
-          sectionType="placeholder"
-          enableReporting
-          context={{ page: 'security' }}
+          sectionId="hero-section-security"
+          sectionType="HeroSection"
+          enableReporting={true}
+          context={{ page: 'security', variant: 'fullBackground' }}
         >
-          <section
-            style={{
-              maxWidth: 680,
-              margin: '0 auto',
-              padding: '120px 24px',
-              textAlign: 'center',
-            }}
-          >
-            <h1
-              style={{
-                fontSize: 32,
-                fontWeight: 600,
-                marginBottom: 16,
-              }}
-            >
-              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).title}
-            </h1>
-            <p style={{ fontSize: 18, color: '#64748b', marginBottom: 32 }}>
-              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).comingSoon}
-            </p>
-            <a
-              href={`/${locale}`}
-              style={{
-                color: '#0d9488',
-                fontWeight: 600,
-                textDecoration: 'underline',
-                textUnderlineOffset: 3,
-              }}
-            >
-              {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).backHome}
-            </a>
-          </section>
+          <div data-section-id="hero-section-security">
+            <HeroSection
+              variant="fullBackground"
+              config={SECURITY_HERO_CONFIG}
+              enableAnalytics={true}
+              priority={true}
+            />
+          </div>
         </SectionErrorBoundary>
 
-        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
-      </main>
+        {/* Section 2: Your Wallet, Your Keys */}
+        <SectionErrorBoundary
+          sectionId="wallet-section-security"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'security' }}
+        >
+          <div id="wallet" data-section-id="wallet-section-security">
+            <ProseSection
+              config={SECURITY_WALLET_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 3: How We Protect Your Funds */}
+        <SectionErrorBoundary
+          sectionId="protection-section-security"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'security' }}
+        >
+          <div id="protection" data-section-id="protection-section-security">
+            <ProseSection
+              config={SECURITY_PROTECTION_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 4: The Technology */}
+        <SectionErrorBoundary
+          sectionId="technology-section-security"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'security' }}
+        >
+          <div id="technology" data-section-id="technology-section-security">
+            <ProseSection
+              config={SECURITY_TECHNOLOGY_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 5: What We Don't Do */}
+        <SectionErrorBoundary
+          sectionId="what-we-dont-do-section-security"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'security' }}
+        >
+          <div id="what-we-dont-do" data-section-id="what-we-dont-do-section-security">
+            <ProseSection
+              config={SECURITY_WHAT_WE_DONT_DO_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 6: Transparency */}
+        <SectionErrorBoundary
+          sectionId="transparency-section-security"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'security' }}
+        >
+          <div id="transparency" data-section-id="transparency-section-security">
+            <ProseSection
+              config={SECURITY_TRANSPARENCY_CONFIG}
+              enableAnalytics={true}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 7: Waitlist */}
+        <SectionErrorBoundary
+          sectionId="waitlist-section-security"
+          sectionType="WaitlistSection"
+          enableReporting={true}
+          context={{ page: 'security' }}
+        >
+          <div id="waitlist" data-section-id="waitlist-section-security">
+            <WaitlistSection
+              enableAnalytics={true}
+              config={{
+                sectionId: SECURITY_WAITLIST_CONFIG.sectionId,
+                backgroundColor: SECURITY_WAITLIST_CONFIG.backgroundColor,
+                hideBenefits: SECURITY_WAITLIST_CONFIG.hideBenefits,
+                hideNoSpam: SECURITY_WAITLIST_CONFIG.hideNoSpam,
+                source: SECURITY_WAITLIST_CONFIG.source,
+              }}
+            />
+          </div>
+        </SectionErrorBoundary>
+      </div>
+
+      {/* Footer */}
+      <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={SECURITY_FOOTER_DISCLOSURES} />
     </PageI18nProvider>
   );
 }

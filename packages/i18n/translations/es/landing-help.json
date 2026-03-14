@@ -1,0 +1,105 @@
+{
+  "seo": {
+    "title": "Centro de Ayuda | diBoaS",
+    "description": "Encuentra respuestas a preguntas frecuentes sobre diBoaS — primeros pasos, seguridad, comisiones, inversión y funciones para empresas."
+  },
+  "hero": {
+    "title": "Centro de Ayuda",
+    "subtitle": "Encuentra respuestas a preguntas frecuentes sobre diBoaS."
+  },
+  "topics": {
+    "gettingStarted": {
+      "title": "Primeros Pasos",
+      "questions": {
+        "q1": {
+          "question": "¿Es diBoaS un banco?",
+          "answer": "No. diBoaS es una plataforma que te ayuda a conectar con oportunidades financieras. No gestionamos tu dinero ni tomamos decisiones sobre tus fondos. Tu cartera está protegida de forma que solo TÚ puedes autorizar transacciones. Nosotros damos las herramientas, tú tomas las decisiones."
+        },
+        "q2": {
+          "question": "¿Es diBoaS para todo el mundo?",
+          "answer": "No. Si quieres que otra persona tome decisiones financieras por ti, no somos nosotros. Si quieres un banco tradicional con sucursales y extractos en papel, tampoco somos nosotros.\n\ndiBoaS es para quien quiere control sobre su propio dinero, transparencia en los costes y acceso a oportunidades que antes exigían 10.000 EUR de mínimo. No necesitas entenderlo todo ahora, para eso estamos. Solo necesitas estar dispuesto a aprender."
+        },
+        "q3": {
+          "question": "¿Cuál es el importe mínimo para empezar?",
+          "answer": "5 EUR. El precio de un café. La mayoría de las plataformas de inversión exigen 500 a 10.000 EUR solo para abrirte la puerta. Creemos que eso es parte del problema."
+        },
+        "q4": {
+          "question": "¿Qué pasa después de registrarme?",
+          "answer": "Recibirás un correo con tu insignia y número de Miembro Fundador, tu enlace personal de invitación (5 invitaciones para compartir) e instrucciones para empezar.\n\nA partir de ahí, configuras tu cartera, añades fondos y ya estás dentro."
+        }
+      }
+    },
+    "moneySafety": {
+      "title": "Dinero y Seguridad",
+      "questions": {
+        "q1": {
+          "question": "¿Está seguro mi dinero?",
+          "answer": "Tu dinero está protegido por ti. Solo tú tienes las claves. Nadie más puede acceder a tus fondos sin tu permiso.\n\nDicho esto, esto no es una cuenta bancaria. Los criptoactivos no están cubiertos por los esquemas de garantía de depósitos. El valor de tus activos puede fluctuar, y podrías perder parte o la totalidad de tu inversión.\n\nTe mostramos ambos lados, las oportunidades y los riesgos, siempre."
+        },
+        "q2": {
+          "question": "¿Puedo retirar mi dinero en cualquier momento?",
+          "answer": "Sí. Tu dinero es tuyo. Retira a tu cuenta bancaria cuando quieras. La comisión es del 0,48%, así que retirar 100 EUR te cuesta 48 céntimos. No hay periodos de permanencia ni penalizaciones. Procesamos tu retirada al instante. Los tiempos de transferencia bancaria pueden variar."
+        },
+        "q3": {
+          "question": "¿Qué pasa con mi dinero si diBoaS cierra?",
+          "answer": "Tu dinero está en TU cartera. No en la nuestra. Si diBoaS desapareciera mañana, seguirías teniendo tus fondos, accesibles a través de las claves de tu cartera. Nunca guardamos tu dinero. Nunca podemos. Eso no es una funcionalidad que añadimos. Es cómo se construyó todo el sistema."
+        },
+        "q4": {
+          "question": "¿Y si algo sale mal?",
+          "answer": "La tecnología que usamos tiene riesgo real. La rentabilidad puede subir o bajar. Los sistemas no son perfectos, ningún sistema lo es. Monitorizamos las 24 horas del día y probamos cada estrategia contra crisis pasadas (COVID, FTX, Terra) antes de ofrecerla. Siempre te diremos qué está pasando. Pero no podemos eliminar todo el riesgo, y quien diga que puede está mintiendo."
+        }
+      }
+    },
+    "feesCosts": {
+      "title": "Comisiones y Costes",
+      "questions": {
+        "q1": {
+          "question": "¿Cómo es posible sin comisiones altas?",
+          "answer": "Eliminando a los intermediarios, las sucursales, los ejecutivos, los costes heredados. La nueva tecnología hace el mismo trabajo por una fracción del precio. Te pasamos ese ahorro a ti. Ese es todo el modelo."
+        },
+        "q2": {
+          "question": "¿Cuál es la trampa?",
+          "answer": "Cobramos comisiones pequeñas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posición. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envías nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos mínimos. Sin cargos mensuales. Sin trampa."
+        },
+        "q3": {
+          "question": "¿Puedo usar diBoaS solo para transferencias?",
+          "answer": "Sí. Absolutamente. Puedes usar diBoaS solo para enviar y recibir dinero, gratis, instantáneo, mundial. Las funciones de inversión y crecimiento están ahí cuando y si alguna vez las quieras. Sin presión. Sin paquetes."
+        }
+      }
+    },
+    "investingStrategies": {
+      "title": "Inversión y Estrategias",
+      "questions": {
+        "q1": {
+          "question": "¿Y si no entiendo de inversiones?",
+          "answer": "Para eso exactamente lo hemos construido. Nuestro objetivo es hacerlo tan sencillo que cualquiera pueda hacerlo. Sin jerga. Sin decisiones complicadas. Solo opciones claras e información transparente. Empieza con 5 EUR. Explora. Aprende. Estamos aquí en cada paso."
+        },
+        "q2": {
+          "question": "¿Ha sido diBoaS auditado?",
+          "answer": "Somos una plataforma en pre-lanzamiento. Nuestras estrategias se prueban contra crisis históricas y escenarios reales, y usamos protocolos auditados y establecidos. Conforme crezcamos, planeamos buscar auditorías independientes de terceros. Para detalles completos sobre los protocolos y la tecnología detrás de cada estrategia, visita nuestras páginas de Estrategias y Protocolos."
+        }
+      }
+    },
+    "forBusinesses": {
+      "title": "Para Empresas",
+      "questions": {
+        "q1": {
+          "question": "¿Es esto para pequeñas empresas o startups?",
+          "answer": "Para ambas. Si tienes un bar que pierde un 2,5% en cada pago con tarjeta, te ayudamos a quedarte con ese dinero. Si eres una startup con 500.000 EUR parados en el banco ganando un 0,5%, ayudamos a que generen más.\n\nLas herramientas son las mismas. Solo cambian los números."
+        },
+        "q2": {
+          "question": "¿Cómo funcionan los pagos instantáneos?",
+          "answer": "Las transferencias tradicionales pasan por bancos corresponsales. Tu banco, su banco, quizá otro banco, y luego el banco del receptor. Cada paso lleva tiempo y cobra comisiones.\n\nCon diBoaS, los pagos van directos. De tu cartera a la suya. Hecho.\n\nTu freelancer en Buenos Aires cobra en segundos, al tipo de cambio real, gratis. No 15 a 50 EUR y 3 días laborables."
+        },
+        "q3": {
+          "question": "¿Qué pasa con el cumplimiento normativo y los impuestos?",
+          "answer": "Construimos diBoaS para negocios reales con necesidades de cumplimiento reales.\n\nExtractos mensuales formateados para tu software contable. Historial de transacciones con rastro de auditoría completo. Documentación fiscal a final de año. Informes listos para tu consejo que tu CFO realmente entenderá.\n\nSabemos que en algún momento te van a auditar. Nos aseguramos de que estés preparado."
+        }
+      }
+    }
+  },
+  "waitlist": {
+    "header": "¿Aún tienes preguntas?",
+    "description": "Únete a la lista de espera y te contactaremos."
+  }
+}

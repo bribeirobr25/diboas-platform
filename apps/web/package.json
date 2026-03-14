@@ -29,6 +29,7 @@
     "@sentry/nextjs": "^10.43.0",
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.36.0",
+    "critters": "^0.0.25",
     "dompurify": "^3.3.0",
     "lucide-react": "^0.544.0",
     "next": "^16.1.5",

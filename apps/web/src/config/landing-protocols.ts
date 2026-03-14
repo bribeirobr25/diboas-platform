@@ -57,6 +57,13 @@ export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
   },
 };
 
+// ─── Waitlist Configuration ─────────────────────────────────
+
+export const PROTOCOLS_WAITLIST_CONFIG = {
+  sectionId: 'protocols-waitlist',
+  hideNoSpam: true,
+} as const;
+
 // ─── Footer Disclaimer Keys (locale-conditional) ────────────
 
 /**

@@ -1,0 +1,105 @@
+{
+  "seo": {
+    "title": "Central de Ajuda | diBoaS",
+    "description": "Encontre respostas para perguntas frequentes sobre o diBoaS — primeiros passos, segurança, taxas, investimentos e funcionalidades para empresas."
+  },
+  "hero": {
+    "title": "Central de Ajuda",
+    "subtitle": "Encontre respostas para perguntas frequentes sobre o diBoaS."
+  },
+  "topics": {
+    "gettingStarted": {
+      "title": "Primeiros Passos",
+      "questions": {
+        "q1": {
+          "question": "O diBoaS é um banco?",
+          "answer": "Não. O diBoaS é uma plataforma que te ajuda a se conectar com oportunidades financeiras. A gente não gerencia seu dinheiro e não toma decisões sobre seus fundos. Sua carteira é protegida de forma que só VOCÊ pode autorizar transações. A gente oferece as ferramentas, você toma as decisões."
+        },
+        "q2": {
+          "question": "O diBoaS é pra todo mundo?",
+          "answer": "Não. Se você quer que outra pessoa tome decisões financeiras por você, não somos nós. Se você quer um banco tradicional com agência e extrato de papel, também não somos nós.\n\nO diBoaS é pra quem quer controle sobre o próprio dinheiro, transparência sobre custos e acesso a oportunidades que antes exigiam R$50.000 de entrada. Você não precisa entender tudo agora, é pra isso que a gente tá aqui. Você só precisa estar disposto a aprender."
+        },
+        "q3": {
+          "question": "Qual o valor mínimo pra começar?",
+          "answer": "R$10. O preço de um cafezinho. A maioria das plataformas de investimento exige R$500 a R$50.000 só pra abrir a porta. A gente acha que isso faz parte do problema."
+        },
+        "q4": {
+          "question": "O que acontece depois que eu me cadastro?",
+          "answer": "Você vai receber um email com seu selo e número de Membro Fundador, seu link pessoal de convite (5 convites pra compartilhar) e instruções pra começar.\n\nA partir daí, você configura sua carteira, adiciona fundos e tá dentro."
+        }
+      }
+    },
+    "moneySafety": {
+      "title": "Dinheiro e Segurança",
+      "questions": {
+        "q1": {
+          "question": "Meu dinheiro está seguro?",
+          "answer": "Seu dinheiro é protegido por você. Só você tem as chaves. Ninguém mais pode acessar seus fundos sem sua permissão.\n\nDito isso, isso não é conta bancária. Criptoativos não são cobertos por esquemas de garantia de depósitos. O valor dos seus ativos pode variar, e você pode perder parte ou todo o seu investimento.\n\nA gente te mostra os dois lados, as oportunidades e os riscos, sempre."
+        },
+        "q2": {
+          "question": "Posso sacar meu dinheiro a qualquer hora?",
+          "answer": "Sim. Seu dinheiro é seu. Saque pra sua conta bancária quando quiser. A taxa é 0,48%, então sacar R$100 custa R$0,48. Não tem período de carência e não tem multa. A gente processa seu saque na hora. O tempo de transferência bancária pode variar."
+        },
+        "q3": {
+          "question": "O que acontece com meu dinheiro se o diBoaS fechar?",
+          "answer": "Seu dinheiro tá na SUA carteira. Não na nossa. Se o diBoaS desaparecesse amanhã, você ainda teria seus fundos, acessíveis pelas suas chaves de carteira. A gente nunca guarda seu dinheiro. Nunca pode. Isso não é uma funcionalidade que a gente adicionou. É como o sistema inteiro foi construído."
+        },
+        "q4": {
+          "question": "E se algo der errado?",
+          "answer": "A tecnologia que a gente usa tem risco real. Retornos podem subir ou descer. Os sistemas não são perfeitos, nenhum sistema é. A gente monitora 24 horas por dia e testa toda estratégia contra crises passadas (COVID, FTX, Terra) antes de oferecer. A gente sempre vai te dizer o que tá acontecendo. Mas não dá pra eliminar todo risco, e quem disser que dá tá mentindo."
+        }
+      }
+    },
+    "feesCosts": {
+      "title": "Taxas e Custos",
+      "questions": {
+        "q1": {
+          "question": "Como isso é possível sem taxas altas?",
+          "answer": "Eliminando os intermediários, as agências, os executivos, os custos antigos. Tecnologia nova faz o mesmo trabalho por uma fração do preço. A gente repassa essa economia pra você. Esse é o modelo inteiro."
+        },
+        "q2": {
+          "question": "Qual é a pegadinha?",
+          "answer": "Cobramos taxas pequenas quando o dinheiro se move. Grátis quando você recebe pagamentos. Grátis quando você investe. 0,39% quando você vende ou fecha uma posição. 0,48% quando você saca.\n\nSe você recebe R$50.000 em pagamentos, ficamos com R$0. Se você investe R$50.000, a gente fica com R$0. Se você vende R$50.000, ficamos com R$195. Se você não ganha nada e não envia nada, a gente não ganha nada.\n\nSem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Sem pegadinha."
+        },
+        "q3": {
+          "question": "Posso usar o diBoaS só pra transferências?",
+          "answer": "Sim. Com certeza. Você pode usar o diBoaS só pra enviar e receber dinheiro, grátis, instantâneo, mundial. As funções de investimento e crescimento estão lá quando e se você quiser. Sem pressão. Sem pacote."
+        }
+      }
+    },
+    "investingStrategies": {
+      "title": "Investimentos e Estratégias",
+      "questions": {
+        "q1": {
+          "question": "E se eu não entendo de investimento?",
+          "answer": "É exatamente pra você que a gente construiu isso. Nosso objetivo é fazer tão simples que qualquer pessoa consiga. Sem jargão. Sem decisões complicadas. Só opções claras e informações transparentes. Comece com R$10. Explore. Aprenda. A gente tá aqui em cada passo."
+        },
+        "q2": {
+          "question": "O diBoaS já foi auditado?",
+          "answer": "Somos uma plataforma em pré-lançamento. Nossas estratégias são testadas contra crises históricas e cenários reais, e usamos protocolos auditados e estabelecidos. Conforme crescemos, planejamos buscar auditorias independentes de terceiros. Pra detalhes completos sobre os protocolos e a tecnologia por trás de cada estratégia, visite nossas páginas de Estratégias e Protocolos."
+        }
+      }
+    },
+    "forBusinesses": {
+      "title": "Para Empresas",
+      "questions": {
+        "q1": {
+          "question": "É pra pequenas empresas ou startups?",
+          "answer": "Pras duas. Se você tem uma padaria perdendo 4% em cada venda no cartão, ajudamos você a ficar com esse dinheiro. Se você é uma startup com R$2 milhões parados no banco rendendo CDI, ajudamos a render mais.\n\nAs ferramentas são as mesmas. Só os números que mudam."
+        },
+        "q2": {
+          "question": "Como funcionam os pagamentos instantâneos?",
+          "answer": "Transferências tradicionais passam por bancos correspondentes. Seu banco, o banco deles, talvez outro banco, e aí o banco do destinatário. Cada etapa leva tempo e cobra taxas.\n\nCom diBoaS, os pagamentos vão direto. Da sua carteira pra carteira deles. Pronto.\n\nSeu freelancer em Miami recebe em segundos, pelo câmbio real, grátis. Não R$75 a R$250 e 3 dias úteis."
+        },
+        "q3": {
+          "question": "E quanto a compliance e impostos?",
+          "answer": "Construímos a diBoaS pra negócios reais com necessidades reais de compliance.\n\nExtratos mensais formatados pro seu software contábil. Histórico de transações com trilha de auditoria completa. Documentação fiscal no final do ano. Relatórios prontos pro conselho que seu CFO realmente vai entender.\n\nSabemos que uma hora você vai ser auditado. Garantimos que você esteja preparado."
+        }
+      }
+    }
+  },
+  "waitlist": {
+    "header": "Ainda tem dúvidas?",
+    "description": "Entre na lista de espera e entraremos em contato."
+  }
+}

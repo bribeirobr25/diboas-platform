@@ -1,0 +1,105 @@
+{
+  "seo": {
+    "title": "Help Center | diBoaS",
+    "description": "Find answers to common questions about diBoaS — getting started, safety, fees, investing, and business features."
+  },
+  "hero": {
+    "title": "Help Center",
+    "subtitle": "Find answers to common questions about diBoaS."
+  },
+  "topics": {
+    "gettingStarted": {
+      "title": "Getting Started",
+      "questions": {
+        "q1": {
+          "question": "Is diBoaS a bank?",
+          "answer": "No. diBoaS is a platform that helps you connect with financial opportunities. We don't manage your money or make decisions about your funds. Your wallet is secured so that only YOU can authorize transactions. We provide the tools, you make the decisions."
+        },
+        "q2": {
+          "question": "Is diBoaS for everyone?",
+          "answer": "No. If you want someone else to make financial decisions for you, that's not us. If you want a traditional bank with branches and paper statements, that's not us either.\n\ndiBoaS is for people who want control over their own money, transparency about costs, and access to opportunities that used to require $10,000 minimums. You don't need to understand everything right now, that's what we're here for. You just need to be willing to learn."
+        },
+        "q3": {
+          "question": "What's the minimum amount to start?",
+          "answer": "$5. That's a coffee. Most investment platforms require $500 to $10,000 just to open the door. We think that's part of the problem."
+        },
+        "q4": {
+          "question": "What happens after I sign up?",
+          "answer": "You'll receive an email with your Founding Member badge and number, your personal invite link (5 invites to share), and instructions to get started.\n\nFrom there, you set up your wallet, add funds, and you're in."
+        }
+      }
+    },
+    "moneySafety": {
+      "title": "Money & Safety",
+      "questions": {
+        "q1": {
+          "question": "Is my money safe?",
+          "answer": "Your money is secured by you. Only you hold the keys, no one else can access your funds without your permission.\n\nThat said, this isn't a bank account. Crypto-assets aren't covered by deposit guarantee schemes. The value of your assets can fluctuate, and you could lose some or all of your investment.\n\nWe show you both sides, the opportunities and the risks, always."
+        },
+        "q2": {
+          "question": "Can I withdraw my money anytime?",
+          "answer": "Yes. Your money is yours. Withdraw to your bank account whenever you want. The fee is 0.48%, so cashing out $100 costs you 48 cents. There are no lock-up periods and no penalties. We process your withdrawal instantly. Bank transfer times may vary."
+        },
+        "q3": {
+          "question": "What happens to my money if diBoaS shuts down?",
+          "answer": "Your money is in YOUR wallet. Not ours. If diBoaS disappeared tomorrow, you would still have your funds, accessible through your wallet keys. We never hold your money. We never can. That's not a feature we added. It's how the whole system was built."
+        },
+        "q4": {
+          "question": "What if something goes wrong?",
+          "answer": "The technology we use carries real risk. Returns can go up or down. The systems aren't perfect, no system is. We monitor 24/7, and we test every strategy against past crashes (COVID, FTX, Terra) before we offer it. We'll always tell you what's happening. But we can't eliminate all risk, and anyone who says they can is lying."
+        }
+      }
+    },
+    "feesCosts": {
+      "title": "Fees & Costs",
+      "questions": {
+        "q1": {
+          "question": "How is this possible without high fees?",
+          "answer": "By cutting out the middlemen, the branches, the executives, the legacy costs. New financial technology does the same job at a fraction of the price. We pass those savings to you. That's the entire model."
+        },
+        "q2": {
+          "question": "What's the catch?",
+          "answer": "We charge small fees when money moves. Free when you receive payments. Free when you invest. 0.39% when you sell or close a position. 0.48% when you cash out.\n\nIf you receive $10,000 in payments, we keep $0. If you invest $10,000, we keep $0. If you sell $10,000, we keep $39. If you earn nothing and send nothing, we earn nothing.\n\nNo hidden fees. No minimum balances. No monthly charges. No catch."
+        },
+        "q3": {
+          "question": "Can I just use diBoaS for transfers?",
+          "answer": "Yes. Absolutely. You can use diBoaS only for sending and receiving money, free, instant, worldwide. The investing and growth features are there when and if you ever want them. No pressure. No package deals."
+        }
+      }
+    },
+    "investingStrategies": {
+      "title": "Investing & Strategies",
+      "questions": {
+        "q1": {
+          "question": "What if I don't understand investing?",
+          "answer": "That's exactly who we built this for. Our goal is to make it so simple that anyone can do it. No jargon. No complicated decisions. Just clear options and transparent information. Start with $5. Explore. Learn. We're here every step."
+        },
+        "q2": {
+          "question": "Has diBoaS been audited?",
+          "answer": "We're a pre-launch platform. Our strategies are stress-tested against historical crashes and real-world scenarios, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits. For full details on the protocols and technology behind each strategy, visit our Strategies and Protocols pages."
+        }
+      }
+    },
+    "forBusinesses": {
+      "title": "For Businesses",
+      "questions": {
+        "q1": {
+          "question": "Is this for small businesses or startups?",
+          "answer": "Both. If you're a coffee shop losing 3% on every card payment, we help you keep that money. If you're a startup with $500,000 idle in the bank earning 0.5%, we help it earn more.\n\nThe tools are the same. The math just looks different."
+        },
+        "q2": {
+          "question": "How do instant payments work?",
+          "answer": "Traditional wire transfers go through correspondent banks. Your bank, their bank, maybe another bank, then the recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, payments go direct. Your wallet to their wallet. Done.\n\nYour freelancer in Buenos Aires gets paid in seconds, at the real exchange rate, for free. Not $25 to $50 and 3 business days."
+        },
+        "q3": {
+          "question": "What about compliance and tax reporting?",
+          "answer": "We built diBoaS for real businesses with real compliance needs.\n\nMonthly statements formatted for your accounting software. Transaction history with full audit trail. Tax documentation at year end. Board-ready reports your CFO will actually understand.\n\nWe know you're going to get audited eventually. We make sure you're ready."
+        }
+      }
+    }
+  },
+  "waitlist": {
+    "header": "Still have questions?",
+    "description": "Join the waitlist and we'll be in touch."
+  }
+}

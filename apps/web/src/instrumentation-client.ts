@@ -1,8 +1,9 @@
 /**
- * Sentry Client Configuration
+ * Client Instrumentation
  *
- * This file configures the initialization of Sentry on the client.
- * The config you add here will be used whenever a user loads a page in the browser.
+ * Next.js 16 convention: this file is auto-loaded on the client.
+ * Replaces the legacy sentry.client.config.ts for Turbopack compatibility.
+ * https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation
  * https://docs.sentry.io/platforms/javascript/guides/nextjs/
  */
 

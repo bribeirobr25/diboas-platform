@@ -51,7 +51,7 @@ export async function loadPageNamespaces(
     } else if (namespace.startsWith('landing-')) {
       // Landing pages use their namespace name as prefix directly
       prefix = namespace;
-    } else if (namespace === 'common' || namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode' || namespace === 'preDemo' || namespace === 'preDream' || namespace === 'about' || namespace === 'protocols') {
+    } else if (namespace === 'common' || namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode' || namespace === 'preDemo' || namespace === 'preDream' || namespace === 'about' || namespace === 'protocols' || namespace === 'security') {
       // Common and feature namespaces use their namespace name as prefix directly
       prefix = namespace;
     } else if (namespace.startsWith('legal/')) {

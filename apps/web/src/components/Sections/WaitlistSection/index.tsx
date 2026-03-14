@@ -27,7 +27,7 @@ interface WaitlistSectionConfig {
   namespace?: string;
   confirmationNamespace?: string;
   /** Waitlist source for audience-specific counters and signup tagging */
-  source?: 'landing_b2c' | 'landing_b2b' | 'about';
+  source?: 'landing_b2c' | 'landing_b2b' | 'about' | 'security' | 'help';
 }
 
 interface WaitlistSectionProps {

@@ -1,0 +1,67 @@
+{
+  "seo": {
+    "title": "Sicherheit | diBoaS",
+    "description": "So schützt diBoaS Ihr Geld. Ihre Wallet, Ihre Schlüssel. Nicht-verwahrende Architektur. Rund-um-die-Uhr-Überwachung.",
+    "ogTitle": "Sicherheit | diBoaS",
+    "ogDescription": "Ihre Wallet, Ihre Schlüssel. Wie diBoaS Ihr Geld mit nicht-verwahrender Architektur und 24/7-Überwachung schützt."
+  },
+  "hero": {
+    "title": "Sicherheit",
+    "subtitle": "So schützen wir Ihr Geld."
+  },
+  "sections": {
+    "wallet": {
+      "title": "Ihre Wallet, Ihre Schlüssel",
+      "paragraphs": [
+        "Jeder Nutzer bekommt seine eigene Wallet mit seinem eigenen privaten Schlüssel.",
+        "diBoaS sieht, speichert oder hat niemals Zugang zu Ihrem Schlüssel.",
+        "Sollte diBoaS morgen verschwinden, wäre Ihr Geld immer noch Ihres."
+      ]
+    },
+    "protection": {
+      "title": "Wie wir Ihr Geld schützen",
+      "paragraphs": [
+        "Niemand, einschließlich diBoaS, kann auf Ihr Geld zugreifen.",
+        "Nur Sie können Transaktionen autorisieren.",
+        "Jede Transaktionssignierung erfordert Ihre Zustimmung.",
+        "Wir überwachen alle Positionen rund um die Uhr."
+      ]
+    },
+    "technology": {
+      "title": "Die Technologie",
+      "paragraphs": [
+        "Aufgebaut auf quelloffener und dezentraler Finanzinfrastruktur.",
+        "Jede Transaktion ist nachprüfbar, jedes System ist überprüfbar.",
+        "Wir nutzen ausschließlich geprüfte und etablierte Protokolle.",
+        "Jede Strategie wird gegen historische Marktzusammenbrüche getestet."
+      ]
+    },
+    "whatWeDontDo": {
+      "title": "Was wir nicht tun",
+      "paragraphs": [
+        "Wir verwahren niemals Ihre privaten Schlüssel.",
+        "Wir führen niemals Transaktionen ohne Ihre Zustimmung durch.",
+        "Wir speichern Ihr Geld niemals auf unseren Servern.",
+        "Wir sind keine Bank und Ihr Geld ist nicht versichert."
+      ]
+    },
+    "transparency": {
+      "title": "Transparenz",
+      "paragraphs": [
+        "Alle Gebühren im Voraus offengelegt.",
+        "Alle Risiken klar benannt.",
+        "Keine versteckten Mechanismen."
+      ],
+      "cta": "Alle Protokolle ansehen",
+      "ctaHref": "/protocols"
+    }
+  },
+  "footer": {
+    "general": "Dieser Inhalt dient ausschließlich zu Informationszwecken und stellt keine Anlage-, Finanz- oder sonstige Beratung dar.",
+    "crypto": "Der Wert von Krypto-Assets kann schwanken. Sie könnten einen Teil oder Ihr gesamtes Geld verlieren. Krypto-Assets sind nicht durch Einlagensicherungssysteme gedeckt.",
+    "mica": "",
+    "micaArticle7": "Diese Krypto-Asset-Marketingmitteilung wurde von keiner zuständigen Behörde eines Mitgliedstaats der Europäischen Union geprüft oder genehmigt. Der Anbieter des Krypto-Assets ist allein für den Inhalt dieser Marketingmitteilung verantwortlich.",
+    "us": "diBoaS ist eine nicht-verwahrende Schnittstelle für dezentrale Finanzprotokolle. diBoaS ist nicht bei der SEC, CFTC, FinCEN oder einer staatlichen Regulierungsbehörde registriert. Die US-amerikanische regulatorische Behandlung von DeFi entwickelt sich weiter. Sie sind dafür verantwortlich festzustellen, ob Ihre Nutzung dieser Schnittstelle den geltenden Gesetzen entspricht.",
+    "closing": "Sie entscheiden, was für Ihre Situation am besten ist."
+  }
+}

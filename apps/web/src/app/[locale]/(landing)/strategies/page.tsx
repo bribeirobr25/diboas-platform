@@ -109,7 +109,7 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
   }
 
   // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['strategies', 'waitlist', 'share', 'common']);
+  const pageMessages = await loadPageNamespaces(locale, ['strategies', 'waitlist', 'share', 'common', 'landing-b2c']);
 
   // Generate structured data
   const organizationData = MetadataFactory.generateServiceStructuredData({

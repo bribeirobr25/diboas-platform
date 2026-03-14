@@ -20,7 +20,7 @@ import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import {
   ProtocolsTransitionHook,
 } from '@/components/Pages/Protocols/ProtocolsClientSections';
-import { PROTOCOLS_I18N_PREFIX, PROTOCOLS_FAQ_CONFIG } from '@/config/landing-protocols';
+import { PROTOCOLS_I18N_PREFIX, PROTOCOLS_FAQ_CONFIG, PROTOCOLS_WAITLIST_CONFIG } from '@/config/landing-protocols';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -187,7 +187,7 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
           context={{ page: 'protocols' }}
         >
           <div id="waitlist">
-            <WaitlistSection enableAnalytics />
+            <WaitlistSection config={PROTOCOLS_WAITLIST_CONFIG} enableAnalytics />
           </div>
         </SectionErrorBoundary>
 

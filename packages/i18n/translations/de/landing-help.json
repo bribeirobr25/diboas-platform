@@ -1,0 +1,105 @@
+{
+  "seo": {
+    "title": "Hilfe-Center | diBoaS",
+    "description": "Finde Antworten auf häufige Fragen zu diBoaS — Erste Schritte, Sicherheit, Gebühren, Investieren und Geschäftsfunktionen."
+  },
+  "hero": {
+    "title": "Hilfe-Center",
+    "subtitle": "Finde Antworten auf häufige Fragen zu diBoaS."
+  },
+  "topics": {
+    "gettingStarted": {
+      "title": "Erste Schritte",
+      "questions": {
+        "q1": {
+          "question": "Ist diBoaS eine Bank?",
+          "answer": "Nein. diBoaS ist eine Plattform, die dir hilft, dich mit finanziellen Möglichkeiten zu verbinden. Wir verwalten dein Geld nicht und treffen keine Entscheidungen über deine Mittel. Deine Wallet ist so gesichert, dass nur DU Transaktionen autorisieren kannst. Wir liefern die Werkzeuge, du triffst die Entscheidungen."
+        },
+        "q2": {
+          "question": "Ist diBoaS für jeden?",
+          "answer": "Nein. Wenn du willst, dass jemand anderes finanzielle Entscheidungen für dich trifft, sind wir nicht die Richtigen. Wenn du eine traditionelle Bank mit Filialen und Papierauszügen willst, auch nicht.\n\ndiBoaS ist für Menschen, die Kontrolle über ihr eigenes Geld wollen, Transparenz bei den Kosten und Zugang zu Möglichkeiten, die früher 10.000 EUR Mindestanlage erforderten. Du musst nicht alles jetzt verstehen, dafür sind wir da. Du musst nur bereit sein zu lernen."
+        },
+        "q3": {
+          "question": "Was ist der Mindestbetrag zum Anfangen?",
+          "answer": "5 EUR. Der Preis eines Kaffees. Die meisten Investmentplattformen verlangen 500 bis 10.000 EUR, nur um die Tür zu öffnen. Wir finden, das ist Teil des Problems."
+        },
+        "q4": {
+          "question": "Was passiert nach der Anmeldung?",
+          "answer": "Du erhältst eine E-Mail mit deinem Gründungsmitglied-Abzeichen und deiner Nummer, deinem persönlichen Einladungslink (5 Einladungen zum Teilen) und Anweisungen zum Starten.\n\nVon dort aus richtest du deine Wallet ein, zahlst Geld ein und bist dabei."
+        }
+      }
+    },
+    "moneySafety": {
+      "title": "Geld & Sicherheit",
+      "questions": {
+        "q1": {
+          "question": "Ist mein Geld sicher?",
+          "answer": "Dein Geld wird von dir gesichert. Nur du hast die Schlüssel. Niemand sonst kann ohne deine Erlaubnis auf deine Mittel zugreifen.\n\nDas gesagt, das ist kein Bankkonto. Kryptoassets sind nicht durch Einlagensicherungssysteme gedeckt. Der Wert deiner Anlagen kann schwanken, und du könntest einen Teil oder deine gesamte Investition verlieren.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
+        },
+        "q2": {
+          "question": "Kann ich mein Geld jederzeit abheben?",
+          "answer": "Ja. Dein Geld gehört dir. Hebe auf dein Bankkonto ab, wann immer du willst. Die Gebühr beträgt 0,48%, also kostet eine Auszahlung von 100 EUR dich 48 Cent. Es gibt keine Sperrfristen und keine Strafgebühren. Wir verarbeiten deine Auszahlung sofort. Banküberweisungszeiten können variieren."
+        },
+        "q3": {
+          "question": "Was passiert mit meinem Geld, wenn diBoaS schließt?",
+          "answer": "Dein Geld ist in DEINER Wallet. Nicht in unserer. Wenn diBoaS morgen verschwinden würde, hättest du immer noch deine Mittel, zugänglich über deine Wallet-Schlüssel. Wir halten dein Geld nie. Wir können es nie. Das ist keine Funktion, die wir hinzugefügt haben. So wurde das gesamte System gebaut."
+        },
+        "q4": {
+          "question": "Was, wenn etwas schiefgeht?",
+          "answer": "Die Technologie, die wir nutzen, birgt echtes Risiko. Renditen können steigen oder fallen. Die Systeme sind nicht perfekt, kein System ist das. Wir überwachen rund um die Uhr und testen jede Strategie gegen vergangene Krisen (COVID, FTX, Terra), bevor wir sie anbieten. Wir werden dir immer sagen, was passiert. Aber wir können nicht jedes Risiko eliminieren, und wer das behauptet, lügt."
+        }
+      }
+    },
+    "feesCosts": {
+      "title": "Gebühren & Kosten",
+      "questions": {
+        "q1": {
+          "question": "Wie ist das ohne hohe Gebühren möglich?",
+          "answer": "Indem wir die Mittelmänner eliminieren, die Filialen, die Manager, die alten Kostenstrukturen. Neue Technologie erledigt die gleiche Arbeit für einen Bruchteil des Preises. Wir geben diese Ersparnis an dich weiter. Das ist das gesamte Modell."
+        },
+        "q2": {
+          "question": "Wo ist der Haken?",
+          "answer": "Wir berechnen kleine Gebühren, wenn Geld bewegt wird. Kostenlos wenn du Zahlungen empfängst. Kostenlos wenn du investierst. 0,39% wenn du verkaufst oder eine Position schließt. 0,48% wenn du auszahlst.\n\nWenn du 10.000 EUR an Zahlungen empfängst, behalten wir 0 EUR. Wenn du 10.000 EUR investierst, behalten wir 0 EUR. Wenn du 10.000 EUR verkaufst, behalten wir 39 EUR. Wenn du nichts verdienst und nichts sendest, verdienen wir nichts.\n\nKeine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Kein Haken."
+        },
+        "q3": {
+          "question": "Kann ich diBoaS nur für Überweisungen nutzen?",
+          "answer": "Ja. Absolut. Du kannst diBoaS nur zum Senden und Empfangen von Geld nutzen, kostenlos, sofort, weltweit. Die Investitions- und Wachstumsfunktionen sind da, wenn und falls du sie jemals nutzen möchtest. Kein Druck. Kein Paketverkauf."
+        }
+      }
+    },
+    "investingStrategies": {
+      "title": "Investieren & Strategien",
+      "questions": {
+        "q1": {
+          "question": "Was, wenn ich nichts von Investitionen verstehe?",
+          "answer": "Genau dafür haben wir es gebaut. Unser Ziel ist es, es so einfach zu machen, dass es jeder kann. Kein Fachjargon. Keine komplizierten Entscheidungen. Nur klare Optionen und transparente Informationen. Fang mit 5 EUR an. Entdecke. Lerne. Wir sind bei jedem Schritt dabei."
+        },
+        "q2": {
+          "question": "Wurde diBoaS auditiert?",
+          "answer": "Wir sind eine Plattform vor dem Launch. Unsere Strategien werden gegen historische Krisen und reale Szenarien getestet, und wir nutzen auditierte, etablierte Protokolle. Wenn wir wachsen, planen wir unabhängige Drittanbieter-Audits. Für vollständige Details zu den Protokollen und der Technologie hinter jeder Strategie besuche unsere Strategien- und Protokoll-Seiten."
+        }
+      }
+    },
+    "forBusinesses": {
+      "title": "Für Unternehmen",
+      "questions": {
+        "q1": {
+          "question": "Ist das für kleine Unternehmen oder Startups?",
+          "answer": "Für beide. Wenn du ein Café führst und 2,5% bei jeder Kartenzahlung verlierst, helfen wir dir, das Geld zu behalten. Wenn du ein Startup bist mit 500.000 EUR auf dem Konto, die 0,5% verdienen, helfen wir, mehr daraus zu machen.\n\nDie Werkzeuge sind die gleichen. Nur die Zahlen sehen anders aus."
+        },
+        "q2": {
+          "question": "Wie funktionieren sofortige Zahlungen?",
+          "answer": "Traditionelle Überweisungen laufen über Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfängers. Jeder Schritt kostet Zeit und Gebühren.\n\nMit diBoaS gehen Zahlungen direkt. Dein Wallet zu deren Wallet. Fertig.\n\nDein Freelancer in Lissabon wird in Sekunden bezahlt, zum echten Wechselkurs, kostenlos. Nicht 15 bis 50 EUR und 3 Werktage."
+        },
+        "q3": {
+          "question": "Was ist mit Compliance und Steuern?",
+          "answer": "Wir haben diBoaS für echte Unternehmen mit echten Compliance-Anforderungen gebaut.\n\nMonatliche Auszüge, formatiert für deine Buchhaltungssoftware. Transaktionsverlauf mit vollständigem Audit-Trail. Steuerunterlagen zum Jahresende. Berichte für den Vorstand, die dein CFO wirklich versteht.\n\nWir wissen, dass du irgendwann geprüft wirst. Wir sorgen dafür, dass du vorbereitet bist."
+        }
+      }
+    }
+  },
+  "waitlist": {
+    "header": "Noch Fragen?",
+    "description": "Tritt der Warteliste bei und wir melden uns."
+  }
+}

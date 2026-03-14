@@ -20,7 +20,7 @@ interface WaitlistStats {
 
 interface UseWaitlistStatsOptions {
   /** Filter stats by waitlist source (e.g., 'landing_b2b' for B2B-specific counters) */
-  source?: 'landing_b2c' | 'landing_b2b' | 'about';
+  source?: 'landing_b2c' | 'landing_b2b' | 'about' | 'security' | 'help';
 }
 
 interface UseWaitlistStatsReturn {

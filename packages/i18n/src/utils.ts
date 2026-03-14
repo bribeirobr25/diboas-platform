@@ -6,11 +6,11 @@
  */
 
 import type { SupportedLocale } from './config';
-import { getStaticTranslations, TRANSLATIONS_MAP } from './translations-map';
+import { getTranslations, hasRegisteredNamespace } from './translations-map';
 
 /**
  * Load translation messages for a specific locale and namespace
- * Uses static imports for reliable loading across all bundlers
+ * Uses lazy dynamic imports for optimal bundle splitting
  *
  * @param locale - The locale to load messages for
  * @param namespace - The namespace path (e.g., 'common', 'home', 'dreamMode')
@@ -20,13 +20,16 @@ export async function loadMessages(
   locale: SupportedLocale,
   namespace: string = 'common'
 ): Promise<Record<string, any>> {
-  // Use static translations map for common namespaces (most reliable)
-  const staticTranslations = getStaticTranslations(locale, namespace);
-  if (Object.keys(staticTranslations).length > 0) {
-    return staticTranslations;
+  // Use registered namespace loaders first (covers all common namespaces)
+  if (hasRegisteredNamespace(locale, namespace) || hasRegisteredNamespace('en', namespace)) {
+    const translations = await getTranslations(locale, namespace);
+    if (Object.keys(translations).length > 0) {
+      return translations;
+    }
   }
 
-  // Fallback to dynamic import for namespaces not in the static map
+  // Fallback to dynamic import for namespaces not in the registry
+  // (e.g., hierarchical paths like 'personal/credit', 'legal/terms')
   try {
     const messages = await import(`../translations/${locale}/${namespace}.json`);
     return messages.default || messages;

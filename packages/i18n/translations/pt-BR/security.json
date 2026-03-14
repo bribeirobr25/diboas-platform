@@ -1,0 +1,67 @@
+{
+  "seo": {
+    "title": "Segurança | diBoaS",
+    "description": "Como o diBoaS protege seu dinheiro. Sua carteira, suas chaves. Arquitetura sem custódia. Monitoramento 24/7.",
+    "ogTitle": "Segurança | diBoaS",
+    "ogDescription": "Sua carteira, suas chaves. Como o diBoaS protege seu dinheiro com arquitetura sem custódia e monitoramento 24/7."
+  },
+  "hero": {
+    "title": "Segurança",
+    "subtitle": "Como protegemos o seu dinheiro."
+  },
+  "sections": {
+    "wallet": {
+      "title": "Sua Carteira, Suas Chaves",
+      "paragraphs": [
+        "Cada usuário tem sua própria carteira com sua própria chave privada.",
+        "O diBoaS nunca vê, armazena ou tem acesso à sua chave.",
+        "Se o diBoaS desaparecesse amanhã, seu dinheiro ainda seria seu."
+      ]
+    },
+    "protection": {
+      "title": "Como Protegemos Seus Fundos",
+      "paragraphs": [
+        "Ninguém, incluindo o diBoaS, pode acessar seus fundos.",
+        "Somente você pode autorizar transações.",
+        "A assinatura de transações sempre requer sua aprovação.",
+        "Monitoramos todas as posições 24 horas por dia, 7 dias por semana."
+      ]
+    },
+    "technology": {
+      "title": "A Tecnologia",
+      "paragraphs": [
+        "Construído sobre infraestrutura financeira descentralizada e de código aberto.",
+        "Cada transação é verificável, cada sistema é auditável.",
+        "Usamos apenas protocolos auditados e estabelecidos.",
+        "Cada estratégia é testada contra quedas históricas do mercado."
+      ]
+    },
+    "whatWeDontDo": {
+      "title": "O Que Não Fazemos",
+      "paragraphs": [
+        "Nunca guardamos suas chaves privadas.",
+        "Nunca realizamos transações sem sua aprovação.",
+        "Nunca armazenamos seus fundos em nossos servidores.",
+        "Não somos um banco e seus fundos não são segurados."
+      ]
+    },
+    "transparency": {
+      "title": "Transparência",
+      "paragraphs": [
+        "Todas as taxas divulgadas antecipadamente.",
+        "Todos os riscos declarados de forma clara.",
+        "Sem mecanismos ocultos."
+      ],
+      "cta": "Veja todos os protocolos que usamos",
+      "ctaHref": "/protocols"
+    }
+  },
+  "footer": {
+    "general": "Este conteúdo é apenas para fins educacionais e não constitui aconselhamento de investimento, financeiro ou de qualquer outro tipo.",
+    "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou todo o seu dinheiro. Criptoativos não são cobertos por esquemas de garantia de depósitos.",
+    "mica": "",
+    "micaArticle7": "Esta comunicação de marketing de criptoativos não foi revisada ou aprovada por nenhuma autoridade competente de nenhum Estado-membro da União Europeia. O ofertante do criptoativo é o único responsável pelo conteúdo desta comunicação de marketing.",
+    "us": "O diBoaS é uma interface sem custódia que fornece acesso a protocolos de finanças descentralizadas. O diBoaS não é registrado na SEC, CFTC, FinCEN ou em nenhuma agência reguladora estadual. O tratamento regulatório dos EUA para DeFi está em evolução. Você é responsável por determinar se o uso desta interface está em conformidade com as leis aplicáveis.",
+    "closing": "Você decide o que é melhor para a sua situação."
+  }
+}
