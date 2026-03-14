@@ -1,9 +1,9 @@
 # Quality & Audit Fix Plan
 
 **Date:** March 14, 2026
-**Updated:** March 14, 2026 (CTO board review incorporated)
+**Updated:** March 15, 2026 (execution complete)
 **Triggered by:** Full quality/validation/audit run per CLAUDE.md
-**Status:** Ready for execution
+**Status:** Executed — see completion status per item below
 **Scope:** All issues found by `pnpm type-check`, `pnpm lint`, `pnpm test`, `pnpm build`, `pnpm validate:all`, `pnpm check:dead-code`, `pnpm audit:full`, `pnpm security:audit`, `pnpm performance:audit`, `pnpm accessibility:audit`
 
 **Relationship to existing plans:**
@@ -306,18 +306,18 @@ Phase QA-3 (do when time permits):
 
 ## Summary Table
 
-| # | Fix | Priority | Phase | Effort | Blocked By |
-|---|-----|----------|-------|--------|-----------|
-| Q-01 | ESLint minimatch crash | P0 | QA-1 | 30 min | — |
-| Q-02 | 18 security vulnerabilities | P0 | QA-1 | 1–2 hrs | Q-01 (for minimatch) |
-| Q-03 | Health routes rate limiting | P1 | QA-2 | 20 min | — |
-| Q-04 | `any` type in metricCollectors | P1 | QA-2 | 10 min | — |
-| Q-05 | TODO in assets.ts | P2 | QA-3 | 10 min | — |
-| Q-06 | Missing env vars in .env.example | P1 | QA-2 | 5 min | — |
-| Q-07 | Dead code cleanup | P2 | QA-3 | 2–3 hrs | — |
-| Q-08 | Lighthouse CI integration | P2 | QA-3 | 30 min | PLAN.md §1.5 |
-| Q-09 | pa11y CI integration | P2 | QA-3 | 30 min | PLAN.md §1.5 |
-| Q-10 | GoalCalculator refactor | P2 | QA-3 | 1 hr | — |
+| # | Fix | Priority | Phase | Status |
+|---|-----|----------|-------|--------|
+| Q-01 | ESLint minimatch crash | P0 | QA-1 | DONE — native flat config, FlatCompat removed |
+| Q-02 | 18 security vulnerabilities | P0 | QA-1 | DONE — 18→2 (2 accepted, see SECURITY_EXCEPTIONS.md) |
+| Q-03 | Health routes rate limiting | P1 | QA-2 | DONE |
+| Q-04 | `any` type in metricCollectors | P1 | QA-2 | DONE — `WebVitalsCompat` interface |
+| Q-05 | TODO in assets.ts | P2 | QA-3 | DONE |
+| Q-06 | Missing env vars in .env.example | P1 | QA-2 | DONE |
+| Q-07 | Dead code cleanup | P2 | QA-3 | DONE — 64→10 unused files (10 protected by 2-week safeguard), 5 devDeps removed, 347 unused exports remain (need per-export verification) |
+| Q-08 | Lighthouse CI integration | P2 | QA-3 | BLOCKED — awaiting PLAN.md §1.5 (CI/CD pipeline) |
+| Q-09 | pa11y CI integration | P2 | QA-3 | BLOCKED — awaiting PLAN.md §1.5 (CI/CD pipeline) |
+| Q-10 | GoalCalculator refactor | P2 | QA-3 | DONE — 425→256 lines (useGoalCalculatorState + GoalCalculatorSharedFields) |
 
 **Phase QA-1 total:** ~2–3 hours
 **Phase QA-2 total:** ~35 min
