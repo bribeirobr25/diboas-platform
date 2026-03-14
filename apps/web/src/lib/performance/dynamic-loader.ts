@@ -189,7 +189,7 @@ export class DynamicComponentLoader {
         return fallback as ComponentType<T>;
       }
       
-      throw new Error(`Failed to load component after ${maxRetries} attempts: ${componentPath}`);
+      throw new Error(`Failed to load component after ${maxRetries} attempts: ${componentPath}`, { cause: error });
     }
   }
   

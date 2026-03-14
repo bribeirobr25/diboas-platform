@@ -4,6 +4,86 @@
     "subheadline": "Envie dinheiro para qualquer lugar do mundo, na hora, de graça. E faça ele crescer do seu jeito.",
     "cta": "Veja seu dinheiro em ação"
   },
+  "goalCalculator": {
+    "header": "O que você tá construindo?",
+    "tabs": {
+      "christmas": "13º Salário",
+      "emergency": "Reserva de Emergência",
+      "vacation": "Dinheiro pra Viagem"
+    },
+    "fields": {
+      "christmas": {
+        "label": "Quanto você ganha por ano?",
+        "helper": "Bruto tá ótimo. A gente não guarda esse dado."
+      },
+      "emergency": {
+        "label": "Quanto você gasta por mês?",
+        "helper": "Aluguel, comida, contas — um número aproximado tá bom."
+      },
+      "vacation": {
+        "label": "Quanto você quer guardar?",
+        "helper": "Pensa numa viagem de verdade, não só um feriado prolongado."
+      },
+      "initialDeposit": {
+        "label": "Com quanto você pode começar?",
+        "helper": "Você pode mudar isso depois."
+      },
+      "monthlyDeposit": {
+        "label": "Quanto você pode colocar todo mês?",
+        "helper": "A gente sugere um valor baseado no seu objetivo."
+      },
+      "riskTier": {
+        "label": "Quanta movimentação tá ok pra você?"
+      }
+    },
+    "coverage": {
+      "label": "Quantos meses de cobertura?",
+      "months3": "3 meses",
+      "months4": "4 meses",
+      "months6": "6 meses"
+    },
+    "timeline": {
+      "label": "Em quanto tempo você quer construir?",
+      "months6": "6 meses",
+      "months9": "9 meses",
+      "months12": "12 meses",
+      "months18": "18 meses"
+    },
+    "vacationDate": {
+      "label": "Quando é a sua viagem?"
+    },
+    "tiers": {
+      "careful": "Prefiro ir com cuidado",
+      "moderate": "Um pouco mais de chance",
+      "aggressive": "Aguento as oscilações"
+    },
+    "cta": "Me mostra o plano",
+    "result": {
+      "christmasHeadline": "Seu 13º Salário: {value} até 30 de novembro.",
+      "emergencyHeadline": "Sua Reserva de Emergência: {value} — {months} meses de tranquilidade.",
+      "vacationHeadline": "Seu Fundo de Viagem: {value} até {date}.",
+      "planLine": "Guarde {monthly} por mês a partir de hoje. Seu dinheiro trabalha enquanto você espera.",
+      "scenarioGood": "Se as coisas forem bem",
+      "scenarioExpected": "Esperado",
+      "scenarioBad": "Num ano ruim",
+      "badCaseLoss": "Num ano ruim, você pode perder parte do que colocou. Esse é o preço de buscar mais crescimento.",
+      "disclaimer": "A gente tá te mostrando uma faixa, não uma promessa.",
+      "startSmallerToggle": "Vê o que acontece com R$ 100 por mês",
+      "startSmallerPrompt": "{monthly} por mês é muito?",
+      "startSmallerPartial": "Com R$ 100 por mês, você chega a uns {value} até {date}. Isso é {percent}% do seu objetivo. Você pode aumentar depois quando quiser.",
+      "primaryCta": "Começar esse objetivo",
+      "secondaryHow": "Como funciona?",
+      "secondaryRisks": "Quais são os riscos?",
+      "demoLink": "Quer experimentar antes? Demo com dinheiro de mentira →"
+    },
+    "helpers": {
+      "bigCommitment": "Esse é um valor alto. Você pode começar menor e ajustar depois.",
+      "oneMonthWarning": "Com só 1 mês, a gente recomenda a opção mais cuidadosa.",
+      "christmasRollover": "Seu próximo 13º: 30 de novembro de {year}.",
+      "vacationDateMinimum": "Escolhe uma data com pelo menos 3 meses pra frente, pra seu dinheiro ter tempo de trabalhar."
+    },
+    "microcopy": "A partir de R$ 10. Mude seu plano quando quiser."
+  },
   "origin": {
     "transitionHook": "Por que construir a diBoaS",
     "header": "O nome dela era Adelaide.",

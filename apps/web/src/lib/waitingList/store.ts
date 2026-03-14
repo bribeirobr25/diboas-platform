@@ -313,7 +313,7 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
   } catch (error: unknown) {
     // Handle concurrent INSERT race: UNIQUE constraint on email_hash (PostgreSQL 23505)
     const pgError = error as { code?: string };
-    if (pgError.code === '23505') throw new Error('Email already exists');
+    if (pgError.code === '23505') throw new Error('Email already exists', { cause: error });
     throw error;
   }
 

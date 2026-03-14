@@ -118,7 +118,7 @@ export function FAQAccordionDefault({
     if (!config.settings.enableKeyboardNav) return;
 
     const items = Array.from(itemRefs.current.keys());
-    let targetIndex = index;
+    let targetIndex;
 
     switch (event.key) {
       case 'ArrowDown':

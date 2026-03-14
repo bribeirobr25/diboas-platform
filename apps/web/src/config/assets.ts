@@ -36,7 +36,7 @@ export const ASSET_PATHS = {
 
   // SEO Assets
   SEO: {
-    DEFAULT_OG: `${ASSETS_BASE}/seo/og-default.png` /* TODO: Replace with actual OG image when design provides one */
+    DEFAULT_OG: `${ASSETS_BASE}/seo/og-default.png` /* Placeholder — replace when design provides branded OG image */
   },
   
   // Social Media Assets - Real Images (Categorized)

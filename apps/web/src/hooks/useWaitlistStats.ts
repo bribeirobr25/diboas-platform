@@ -9,8 +9,7 @@
 
 import { useState, useEffect } from 'react';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
-import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
-import type { ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType, type ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
 
 interface WaitlistStats {
   count: number;

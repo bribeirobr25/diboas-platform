@@ -4,6 +4,86 @@
     "subheadline": "Sende Geld überallhin, sofort, kostenlos. Lass es wachsen, auf deine Art.",
     "cta": "Sieh dein Geld in Aktion"
   },
+  "goalCalculator": {
+    "header": "Was baust du auf?",
+    "tabs": {
+      "christmas": "Weihnachtsgeld",
+      "emergency": "Notgroschen",
+      "vacation": "Urlaubskasse"
+    },
+    "fields": {
+      "christmas": {
+        "label": "Was verdienst du im Jahr?",
+        "helper": "Brutto ist okay. Wir speichern das nicht."
+      },
+      "emergency": {
+        "label": "Was gibst du im Monat aus?",
+        "helper": "Miete, Essen, Rechnungen — eine grobe Zahl reicht."
+      },
+      "vacation": {
+        "label": "Wie viel willst du sparen?",
+        "helper": "Denk an eine richtige Reise, nicht nur ein Wochenende."
+      },
+      "initialDeposit": {
+        "label": "Wie viel kannst du sofort einzahlen?",
+        "helper": "Du kannst das jederzeit ändern."
+      },
+      "monthlyDeposit": {
+        "label": "Wie viel kannst du jeden Monat dazugeben?",
+        "helper": "Wir schlagen einen Betrag vor, der zu deinem Ziel passt."
+      },
+      "riskTier": {
+        "label": "Wie viel Bewegung ist okay für dich?"
+      }
+    },
+    "coverage": {
+      "label": "Wie viele Monate Absicherung?",
+      "months3": "3 Monate",
+      "months4": "4 Monate",
+      "months6": "6 Monate"
+    },
+    "timeline": {
+      "label": "Wie schnell willst du es aufbauen?",
+      "months6": "6 Monate",
+      "months9": "9 Monate",
+      "months12": "12 Monate",
+      "months18": "18 Monate"
+    },
+    "vacationDate": {
+      "label": "Wann ist deine Reise?"
+    },
+    "tiers": {
+      "careful": "Lieber vorsichtig",
+      "moderate": "Ein bisschen mehr Chance",
+      "aggressive": "Ich kann Schwankungen vertragen"
+    },
+    "cta": "Zeig mir meinen Plan",
+    "result": {
+      "christmasHeadline": "Dein Weihnachtsgeld: {value} bis 1. Dezember.",
+      "emergencyHeadline": "Dein Notgroschen: {value} — {months} Monate Sicherheit.",
+      "vacationHeadline": "Deine Urlaubskasse: {value} bis {date}.",
+      "planLine": "Leg jeden Monat {monthly} zur Seite. Dein Geld arbeitet, während du wartest.",
+      "scenarioGood": "Wenn es gut läuft",
+      "scenarioExpected": "Erwartet",
+      "scenarioBad": "In einem schlechten Jahr",
+      "badCaseLoss": "In einem schlechten Jahr könntest du einen Teil deiner Einzahlung verlieren. Das ist der Preis für mehr Wachstumschance.",
+      "disclaimer": "Wir zeigen dir eine Spanne, kein Versprechen.",
+      "startSmallerToggle": "Schau, was mit 50 EUR pro Monat passiert",
+      "startSmallerPrompt": "{monthly} pro Monat ist zu viel?",
+      "startSmallerPartial": "Mit 50 EUR pro Monat erreichst du etwa {value} bis {date}. Das sind {percent}% deines Ziels. Du kannst später jederzeit erhöhen.",
+      "primaryCta": "Dieses Ziel starten",
+      "secondaryHow": "Wie funktioniert das?",
+      "secondaryRisks": "Was sind die Risiken?",
+      "demoLink": "Willst du es erst ausprobieren? Demo mit Spielgeld →"
+    },
+    "helpers": {
+      "bigCommitment": "Das ist ein großer Betrag. Du kannst kleiner anfangen und später anpassen.",
+      "oneMonthWarning": "Bei nur 1 Monat empfehlen wir die vorsichtige Variante.",
+      "christmasRollover": "Dein nächstes Weihnachtsgeld: 1. Dezember {year}.",
+      "vacationDateMinimum": "Wähl ein Datum, das mindestens 3 Monate entfernt ist, damit dein Geld Zeit hat zu arbeiten."
+    },
+    "microcopy": "Ab 5 EUR. Jederzeit änderbar."
+  },
   "origin": {
     "transitionHook": "Warum diBoaS bauen",
     "header": "Ihr Name war Adelaide.",

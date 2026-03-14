@@ -64,9 +64,10 @@ export function ProductCarouselPersona({
   });
 
   const currentSlide = slides[currentSlideIndex];
-  if (!currentSlide) return null;
 
   const handleCtaClick = useCallback(() => {
+    const slide = slides[currentSlideIndex];
+    if (!slide) return;
     const el = document.getElementById('demo');
     if (el) {
       const prefersReduced = window.matchMedia(
@@ -76,8 +77,10 @@ export function ProductCarouselPersona({
         behavior: prefersReduced ? 'instant' : 'smooth',
       });
     }
-    onCTAClick?.(currentSlide.id, '#demo');
-  }, [currentSlide, onCTAClick]);
+    onCTAClick?.(slide.id, '#demo');
+  }, [slides, currentSlideIndex, onCTAClick]);
+
+  if (!currentSlide) return null;
 
   return (
     <SectionContainer

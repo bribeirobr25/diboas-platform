@@ -10,6 +10,7 @@ import {
   DemoLauncher,
   ExpandableSection,
   FounderSection,
+  GoalCalculator,
 } from '@/components/Sections';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
@@ -22,6 +23,7 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2C_HERO_CONFIG,
+  B2C_GOAL_CALCULATOR_CONFIG,
   B2C_ORIGIN_STORY_CONFIG,
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_SCENARIOS_CONFIG,
@@ -159,6 +161,18 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
               enableAnalytics={true}
               priority={true}
             />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 1.5: Goal Calculator */}
+        <SectionErrorBoundary
+          sectionId="goal-calculator-section-b2c"
+          sectionType="GoalCalculator"
+          enableReporting={true}
+          context={{ page: 'landing-b2c' }}
+        >
+          <div id="goal-calculator" data-section-id="goal-calculator-section-b2c">
+            <GoalCalculator config={B2C_GOAL_CALCULATOR_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 

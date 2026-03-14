@@ -12,7 +12,7 @@
  */
 
 import { Logger } from '@/lib/monitoring/Logger';
-import { getBudgetById } from './budgetDefinitions';
+import { getBudgetById, PERFORMANCE_BUDGETS } from './budgetDefinitions';
 import type { PerformanceBudget } from './budgetTypes';
 
 /** Callback invoked when a metric measurement is ready for budget evaluation. */
@@ -45,14 +45,30 @@ export function setupWebVitalsCollector(onMeasurement: MetricMeasurementCallback
     });
   };
 
+  type MetricReporter = (callback: (metric: { value: number }) => void) => void;
+  interface WebVitalsCompat {
+    // v5 API (onXxx)
+    onCLS?: MetricReporter;
+    onFCP?: MetricReporter;
+    onLCP?: MetricReporter;
+    onTTFB?: MetricReporter;
+    onINP?: MetricReporter;
+    // v3 legacy API (getXxx)
+    getCLS?: MetricReporter;
+    getFID?: MetricReporter;
+    getFCP?: MetricReporter;
+    getLCP?: MetricReporter;
+    getTTFB?: MetricReporter;
+  }
+
   import('web-vitals')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .then((mod: any) => {
-      mod.getCLS?.((m: { value: number }) => handleMetric('cls', m));
-      mod.getFID?.((m: { value: number }) => handleMetric('fid', m));
-      mod.getFCP?.((m: { value: number }) => handleMetric('fcp', m));
-      mod.getLCP?.((m: { value: number }) => handleMetric('lcp', m));
-      mod.getTTFB?.((m: { value: number }) => handleMetric('ttfb', m));
+    .then((mod) => {
+      const vitals = mod as unknown as WebVitalsCompat;
+      (vitals.getCLS ?? vitals.onCLS)?.((m) => handleMetric('cls', m));
+      (vitals.getFID ?? vitals.onINP)?.((m) => handleMetric('fid', m));
+      (vitals.getFCP ?? vitals.onFCP)?.((m) => handleMetric('fcp', m));
+      (vitals.getLCP ?? vitals.onLCP)?.((m) => handleMetric('lcp', m));
+      (vitals.getTTFB ?? vitals.onTTFB)?.((m) => handleMetric('ttfb', m));
     })
     .catch(() => {
       setupPerformanceObserverFallback(handleMetric);
@@ -191,8 +207,6 @@ function monitorImagePerformance(onMeasurement: MetricMeasurementCallback): void
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-import { PERFORMANCE_BUDGETS } from './budgetDefinitions';
 
 function findBudgetByMetric(metricName: string): PerformanceBudget | undefined {
   return PERFORMANCE_BUDGETS.find((b) => b.metric === metricName && b.enabled);

@@ -1,7 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import { memo, useId, useState, useCallback } from 'react';
+import { memo, useId, useState, useCallback, type ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';

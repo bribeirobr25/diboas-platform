@@ -4,6 +4,86 @@
     "subheadline": "Send money anywhere, instantly, for free. Grow it your way.",
     "cta": "See your money in action"
   },
+  "goalCalculator": {
+    "header": "What are you building?",
+    "tabs": {
+      "christmas": "Christmas Bonus",
+      "emergency": "Emergency Fund",
+      "vacation": "Vacation Money"
+    },
+    "fields": {
+      "christmas": {
+        "label": "What do you earn per year?",
+        "helper": "Before taxes is fine. We don't store this."
+      },
+      "emergency": {
+        "label": "What do you spend per month?",
+        "helper": "Rent, food, bills — a rough number is fine."
+      },
+      "vacation": {
+        "label": "How much do you want to save?",
+        "helper": "Pick a number that feels like a real trip."
+      },
+      "initialDeposit": {
+        "label": "How much can you start with?",
+        "helper": "You can change this later."
+      },
+      "monthlyDeposit": {
+        "label": "How much can you add each month?",
+        "helper": "We'll suggest a monthly amount based on your goal."
+      },
+      "riskTier": {
+        "label": "How much movement feels okay?"
+      }
+    },
+    "coverage": {
+      "label": "How many months of coverage?",
+      "months3": "3 months",
+      "months4": "4 months",
+      "months6": "6 months"
+    },
+    "timeline": {
+      "label": "How fast do you want to build it?",
+      "months6": "6 months",
+      "months9": "9 months",
+      "months12": "12 months",
+      "months18": "18 months"
+    },
+    "vacationDate": {
+      "label": "When is your trip?"
+    },
+    "tiers": {
+      "careful": "Keep it careful",
+      "moderate": "A little more upside",
+      "aggressive": "I can handle more movement"
+    },
+    "cta": "Show me my plan",
+    "result": {
+      "christmasHeadline": "Your Christmas Bonus: {value} by December 1st.",
+      "emergencyHeadline": "Your Emergency Fund: {value} — {months} months of breathing room.",
+      "vacationHeadline": "Your Vacation Fund: {value} by {date}.",
+      "planLine": "Set aside {monthly}/month starting today. Your money earns while it waits.",
+      "scenarioGood": "If things go well",
+      "scenarioExpected": "Expected",
+      "scenarioBad": "In a bad year",
+      "badCaseLoss": "In a bad year, you could lose some of what you put in. That's the tradeoff for higher potential growth.",
+      "disclaimer": "We're showing you a range, not a promise.",
+      "startSmallerToggle": "See what happens if you start with less",
+      "startSmallerPrompt": "Don't want to commit to {monthly}/month?",
+      "startSmallerPartial": "With {monthly}/month, you'd reach about {value} by {date}. That's {percent}% of your goal. You can always increase later.",
+      "primaryCta": "Start this goal",
+      "secondaryHow": "How does this work?",
+      "secondaryRisks": "What are the risks?",
+      "demoLink": "Want to try before you start? Demo with practice money →"
+    },
+    "helpers": {
+      "bigCommitment": "That's a big commitment. You can start smaller and adjust later.",
+      "oneMonthWarning": "With only 1 month, we recommend keeping it careful.",
+      "christmasRollover": "Your next Christmas Bonus: December 1, {year}.",
+      "vacationDateMinimum": "Pick a date at least 3 months away so your money has time to work."
+    },
+    "microcopy": "Start from $5. Change your plan anytime."
+  },
   "origin": {
     "transitionHook": "Why build diBoaS",
     "header": "Her name was Adelaide.",

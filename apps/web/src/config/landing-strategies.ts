@@ -11,8 +11,7 @@
  * Service Agnostic Abstraction: Decoupled content from presentation
  */
 
-import { DEFAULT_FAQ_ACCORDION_SETTINGS } from '@/config/faqAccordion';
-import type { FAQAccordionVariantConfig, FAQItem } from '@/config/faqAccordion';
+import { DEFAULT_FAQ_ACCORDION_SETTINGS, type FAQAccordionVariantConfig, type FAQItem } from '@/config/faqAccordion';
 
 // ─── i18n Prefix (Pattern B: dynamic components) ────────────
 
