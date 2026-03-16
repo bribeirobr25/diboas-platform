@@ -1,13 +1,13 @@
 {
   "title": "diBoaS Protection | diBoaS",
-  "description": "Seu dinheiro protegido com segurança de nível militar.",
+  "description": "Seu dinheiro protegido com segurança institucional.",
   "hero": {
-    "title": "Seu dinheiro protegido com segurança de nível militar. Você mantém o controle, nós garantimos a proteção.",
+    "title": "Seu dinheiro protegido com segurança institucional. Você mantém o controle, nós garantimos a proteção.",
     "description": "",
     "cta": "Começar Agora"
   },
   "benefitsCards": {
-    "title": "Segurança de nível militar",
+    "title": "Segurança de nível institucional",
     "description": "Seu dinheiro protegido, sempre.",
     "cards": {
       "endToEndEncryption": {
@@ -39,12 +39,12 @@
   },
   "stickyFeaturesNav": {
     "title": "Segurança sem concessões.",
-    "subtitle": "Proteção militar, controle seu, transparência total.",
+    "subtitle": "Proteção institucional, controle seu, transparência total.",
     "cards": {
       "militaryGradeEncryption": {
-        "title": "Criptografia Militar",
+        "title": "Criptografia AES-256-GCM",
         "description": "Mesma tecnologia que protege governos.\nSeus dados e ativos totalmente seguros.\nNada menos que o melhor.",
-        "imageAlt": "Criptografia Militar illustration"
+        "imageAlt": "Criptografia AES-256-GCM illustration"
       },
       "youReTheOwner": {
         "title": "Você É o Dono",

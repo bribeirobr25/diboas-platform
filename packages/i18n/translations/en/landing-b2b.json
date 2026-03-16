@@ -47,9 +47,9 @@
       "step2Label": "You can make your savings earn",
       "savingsLabel": "You save on fees",
       "scenarios": {
-        "conservative": "Conservative (4%)",
-        "historical": "Historical average (7%)",
-        "optimistic": "Optimistic (10%)"
+        "conservative": "Conservative",
+        "historical": "Moderate",
+        "optimistic": "Optimistic"
       },
       "likelyBadge": "← likely"
     },
@@ -272,7 +272,7 @@
       ],
       "versionB": [
         "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
-        "diBoaS is being established in Berlin, Germany, building for businesses in the US, EU, Brazil and expanding Worldwide. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
+        "diBoaS is being established in Berlin, Germany, building for businesses in the US, EU, Brazil, with plans to expand to additional markets. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish every small business and startup had."
       ],
       "versionC": [
         "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does every business owner like you.",
@@ -374,6 +374,8 @@
     "usDisclosure": "US Disclosure: diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
     "cvmWarning": "",
     "fictionalResults": "Examples on this page are illustrative and do not represent real businesses or actual results. Calculator projections are based on hypothetical scenarios and historical averages. Actual results will vary.",
+    "cryptoDisclosure": "Crypto-assets are highly volatile. You may lose some or all of your investment. Past performance is not indicative of future results.",
+    "closing": "diBoaS is a technology platform, not a bank or financial advisor. All financial decisions are your own responsibility.",
     "nav": {
       "forYou": "For You",
       "forBusiness": "For Business",

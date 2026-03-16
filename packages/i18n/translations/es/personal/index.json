@@ -168,7 +168,7 @@
         },
         "rewards": {
           "title": "Comisiones Transparentes",
-          "description": "Solo 0.9% en transferencias externas.\n¿Todo lo demás? Gratis.\nSin comisiones ocultas. Nunca.",
+          "description": "Añadir dinero o retirar: 0,48%.\nVender o cerrar: 0,39%.\n¿Enviar, invertir? Gratis. Siempre.",
           "ctaText": "Comenzar Ahora",
           "imageAlt": "Comisiones Transparentes illustration"
         }
@@ -220,7 +220,7 @@
         "feesThatDontRobYou": {
           "iconAlt": "Low fees icon",
           "title": "Comisiones Que No Te Roban",
-          "description": "Solo 0.09% por transacción.\nHasta 16x más barato que plataformas tradicionales.\nTransparencia total."
+          "description": "Comprar e invertir es gratis.\nVender: solo 0,39%.\nTransparencia total."
         }
       }
     },
@@ -245,7 +245,7 @@
         },
         "feesThatMakeSense": {
           "title": "Tarifas Que Tienen Sentido",
-          "description": "0.09% de tarifa para compra/venta.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
+          "description": "Comprar es gratis. Vender: 0,39%.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
           "imageAlt": "Tarifas Que Tienen Sentido illustration"
         }
       }
@@ -266,7 +266,7 @@
         },
         "rewards": {
           "title": "Las Comisiones Más Bajas del Mercado",
-          "description": "Solo 0.09% de comisión por operación.\nEso es de 5 a 16 veces más barato que la competencia.\nMás dinero se queda en tu bolsillo.",
+          "description": "Invertir es gratis. Vender: solo 0,39%.\nEso es de 5 a 16 veces más barato que la competencia.\nMás dinero se queda en tu bolsillo.",
           "ctaText": "Comenzar Ahora",
           "imageAlt": "Las Comisiones Más Bajas del Mercado illustration"
         }
@@ -302,8 +302,8 @@
         },
         "militaryGradeCustody": {
           "iconAlt": "Security icon",
-          "title": "Custodia de Nivel Militar",
-          "description": "Tus criptos protegidas con seguridad militar.\nTú las controlas, nosotros las guardamos.\nAuditoría independiente disponible."
+          "title": "Custodia de Nivel Institucional",
+          "description": "Tus criptos protegidas con seguridad institucional.\nTú las controlas, nosotros las guardamos.\nAuditoría independiente disponible."
         },
         "integratedWithEverything": {
           "iconAlt": "Integration icon",
@@ -328,7 +328,7 @@
         },
         "securityYouUnderstand": {
           "title": "Seguridad Que Entiendes",
-          "description": "Wallets no-custodiales. Tú eres el dueño.\nEncriptación militar. Auditorías independientes.\nTu crypto, tu custodia.",
+          "description": "Wallets no-custodiales. Tú eres el dueño.\nEncriptación AES-256-GCM. Auditorías independientes.\nTu crypto, tu custodia.",
           "imageAlt": "Seguridad Que Entiendes illustration"
         },
         "fromZeroToAdvanced": {
@@ -358,10 +358,10 @@
           "imageAlt": "Crypto en 1 Clic illustration"
         },
         "rewards": {
-          "title": "Seguridad de Nivel Militar",
+          "title": "Seguridad de Nivel Institucional",
           "description": "Encriptación bancaria para tus activos digitales.\nAlmacenamiento en frío y protección multifirma.\nTus cryptos, tu control.",
           "ctaText": "Comenzar Ahora",
-          "imageAlt": "Seguridad de Nivel Militar illustration"
+          "imageAlt": "Seguridad de Nivel Institucional illustration"
         }
       }
     },

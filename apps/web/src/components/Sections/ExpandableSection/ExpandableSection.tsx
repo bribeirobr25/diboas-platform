@@ -1,7 +1,7 @@
 'use client';
 
 import { memo, useId, useState, useCallback, type ReactNode } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/UI/LucideIcon';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { ExpandableSectionConfig } from '@/config/expandableSection';

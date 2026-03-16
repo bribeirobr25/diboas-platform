@@ -12,7 +12,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronRight, Lock } from 'lucide-react';
+import { ChevronRight, Lock } from '@/components/UI/LucideIcon';
 import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { SectionContainer } from '@/components/Sections/SectionContainer';

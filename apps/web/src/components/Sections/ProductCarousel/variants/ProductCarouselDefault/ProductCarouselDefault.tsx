@@ -15,7 +15,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause } from '@/components/UI/LucideIcon';
 import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';

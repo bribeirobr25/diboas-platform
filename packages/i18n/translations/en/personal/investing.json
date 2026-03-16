@@ -33,7 +33,7 @@
       "feesThatDontRobYou": {
         "iconAlt": "Low fees icon",
         "title": "Fees That Don't Rob You",
-        "description": "Just 0.09% per transaction.\nUp to 16x cheaper than traditional platforms.\nTotal transparency."
+        "description": "Buying and investing is free.\nSelling: just 0.39%.\nTotal transparency."
       }
     }
   },
@@ -58,7 +58,7 @@
       },
       "feesThatMakeSense": {
         "title": "Fees That Make Sense",
-        "description": "0.09% fee for buying/selling.\nNo surprises, no hidden charges.\nAlways transparent.",
+        "description": "Buying is free. Selling: 0.39%.\nNo surprises, no hidden charges.\nAlways transparent.",
         "imageAlt": "Fees That Make Sense illustration"
       }
     }
@@ -79,7 +79,7 @@
       },
       "rewards": {
         "title": "Lowest Fees in the Market",
-        "description": "Only 0.09% trading fees.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
+        "description": "Investing is free. Selling: just 0.39%.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
         "ctaText": "Get Started",
         "imageAlt": "Lowest Fees in the Market illustration"
       }

@@ -71,7 +71,7 @@
 
 .paragraph {
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-normal);
   line-height: var(--prose-line-height, 1.7);
   color: var(--color-text-body);
@@ -86,7 +86,7 @@
   display: inline-block;
   margin-top: 20px;
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--color-brand-primary, #0d9488);
   text-decoration: underline;
@@ -108,7 +108,7 @@
   display: inline-flex;
   align-items: center;
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-brand-primary, #0d9488);
   text-decoration: underline;

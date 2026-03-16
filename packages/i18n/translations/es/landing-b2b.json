@@ -37,9 +37,9 @@
       "step2Label": "Puedes hacer que tus ahorros rindan",
       "savingsLabel": "Ahorras en comisiones",
       "scenarios": {
-        "conservative": "Conservador (4%)",
-        "historical": "Media historica (7%)",
-        "optimistic": "Optimista (10%)"
+        "conservative": "Conservador",
+        "historical": "Moderado",
+        "optimistic": "Optimista"
       },
       "likelyBadge": "← probable"
     },
@@ -204,7 +204,7 @@
       ],
       "versionB": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
-        "diBoaS esta siendo constituida en Berlin, Alemania, construyendo para negocios en EEUU, la UE, Brasil y expandiéndose a nivel mundial. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
+        "diBoaS esta siendo constituida en Berlin, Alemania, construyendo para negocios en EEUU, la UE, Brasil, con planes de expandirse a más mercados. He pasado mas de 20 anos trabajando en Producto y Tecnologia en Brasil, EEUU, Japon y Alemania. Ahora estoy construyendo la herramienta financiera que desearia que cada pequeno negocio y startup tuviera."
       ],
       "versionC": [
         "Creci viendo a mi abuela Adelaide navegar un sistema financiero que no estaba hecho para ella. Merecia mejores herramientas. Igual que cada propietario de negocio como tu.",
@@ -306,6 +306,8 @@
     "usDisclosure": "",
     "cvmWarning": "",
     "fictionalResults": "Los ejemplos en esta pagina son ilustrativos y no representan negocios reales ni resultados reales. Las proyecciones de las calculadoras se basan en escenarios hipoteticos y medias historicas. Los resultados reales variaran.",
+    "cryptoDisclosure": "Los criptoactivos son altamente volátiles. Puede perder parte o la totalidad de su inversión. El rendimiento pasado no es indicativo de resultados futuros.",
+    "closing": "diBoaS es una plataforma tecnológica, no un banco ni un asesor financiero. Todas las decisiones financieras son su propia responsabilidad.",
     "nav": {
       "forYou": "Para Ti",
       "forBusiness": "Para Empresas",

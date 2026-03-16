@@ -17,7 +17,7 @@
       },
       "guaranteedLiquidity": {
         "iconAlt": "Liquidity icon",
-        "title": "Liquidez Garantizada",
+        "title": "Liquidez Inmediata",
         "description": "Retiros cuando quieras.\nNo bloquea capital operativo.\nFlexibilidad para oportunidades."
       },
       "managedRisk": {

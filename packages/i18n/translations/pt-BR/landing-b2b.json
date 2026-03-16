@@ -37,9 +37,9 @@
       "step2Label": "Voce pode fazer sua economia render",
       "savingsLabel": "Voce economiza em taxas",
       "scenarios": {
-        "conservative": "Conservador (4%)",
-        "historical": "Media historica (7%)",
-        "optimistic": "Otimista (10%)"
+        "conservative": "Conservador",
+        "historical": "Moderado",
+        "optimistic": "Otimista"
       },
       "likelyBadge": "← provável"
     },
@@ -204,7 +204,7 @@
       ],
       "versionB": [
         "Eu cresci vendo minha avo Adelaide navegar um sistema financeiro que nao foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como voce.",
-        "A diBoaS esta sendo estabelecida em Berlim, Alemanha, construindo para negocios nos EUA, UE, Brasil e expandindo mundialmente. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
+        "A diBoaS esta sendo estabelecida em Berlim, Alemanha, construindo para negocios nos EUA, UE, Brasil, com planos de expandir pra mais mercados. Passei mais de 20 anos trabalhando com Produtos e Tecnologia no Brasil, nos EUA, no Japao e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que cada pequeno negocio e startup tivesse."
       ],
       "versionC": [
         "Eu cresci vendo minha avo Adelaide navegar um sistema financeiro que nao foi feito pra ela. Ela merecia ferramentas melhores. Assim como cada dono de negocio como voce.",
@@ -306,6 +306,8 @@
     "cvmWarning": "Retornos passados nao sao garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opiniao do autor, com base em informacoes disponiveis a epoca e consideradas confiaveis.",
     "aiDisclosure": "Determinados conteudos desta plataforma, incluindo analises de mercado e materiais educativos, sao gerados ou assistidos por inteligencia artificial. Conteudo gerado por IA pode conter erros ou limitacoes. Usuarios devem verificar informacoes de forma independente antes de tomar decisoes financeiras.",
     "fictionalResults": "Os exemplos nesta pagina sao ilustrativos e nao representam negocios reais ou resultados reais. Projecoes das calculadoras sao baseadas em cenarios hipoteticos e medias historicas. Os resultados reais irao variar.",
+    "cryptoDisclosure": "Criptoativos são altamente voláteis. Você pode perder parte ou todo o seu investimento. Desempenho passado não é indicativo de resultados futuros.",
+    "closing": "diBoaS é uma plataforma de tecnologia, não um banco ou consultor financeiro. Todas as decisões financeiras são de sua própria responsabilidade.",
     "nav": {
       "forYou": "Para Você",
       "forBusiness": "Para Empresas",

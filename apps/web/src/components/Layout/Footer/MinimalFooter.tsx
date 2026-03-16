@@ -14,7 +14,7 @@
 
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { Instagram, Twitter, Youtube, Linkedin } from 'lucide-react';
+import { Instagram, Twitter, Youtube, Linkedin } from '@/components/UI/LucideIcon';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { LocaleLink } from '@/components/UI';
 import { FOOTER_CONFIG } from '@/config/footer';

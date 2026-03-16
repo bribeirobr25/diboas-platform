@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { SUPPORTED_LOCALES, LOCALE_CONFIG, type SupportedLocale } from '@diboas/i18n/server';
-import { Globe } from 'lucide-react';
+import { Globe } from '@/components/UI/LucideIcon';
 import { ChevronIcon, CheckmarkIcon, FlagIcon } from './LanguageSwitcherIcons';
 import { useLanguageSwitcher } from './useLanguageSwitcher';
 import styles from './LanguageSwitcher.module.css';

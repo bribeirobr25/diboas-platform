@@ -1,7 +1,7 @@
 {
   "hero": {
     "headline": "El sistema financiero no está roto. Solo que no fue construido para ti.",
-    "subheadline": "Envía dinero a cualquier lugar, al instante, gratis. Hazlo crecer a tu manera.",
+    "subheadline": "Envía dinero en diBoaS, al instante, gratis. Hazlo crecer a tu manera.",
     "cta": "Ve tu dinero en acción"
   },
   "goalCalculator": {
@@ -247,8 +247,8 @@
   "underTheHood": {
     "toggleLabel": "¿Quieres los detalles técnicos?",
     "paragraphs": {
-      "p1": "Arquitectura: diBoaS está construido sobre infraestructura financiera de código abierto y descentralizada (Blockchain y DeFi). Esto significa que cada transacción es verificable, cada sistema es auditable, y tu dinero se mueve sin intermediarios.",
-      "p2": "Tu cartera: cada usuario recibe su propia cartera personal con su propia clave privada. diBoaS nunca ve, guarda ni tiene acceso a tu clave. Si diBoaS desapareciera mañana, tu dinero seguiría siendo tuyo.",
+      "p1": "Arquitectura: diBoaS está construido sobre infraestructura de código abierto y descentralizada. Esto significa que cada transacción es verificable, cada sistema es auditable, y tu dinero se mueve sin intermediarios.",
+      "p2": "Tu cartera: cada usuario recibe su propia cartera personal con su propia clave de seguridad personal. diBoaS nunca ve, guarda ni tiene acceso a tu clave. Si diBoaS desapareciera mañana, tu dinero seguiría siendo tuyo.",
       "p3": "Seguridad: tu cartera está protegida de forma que nadie, incluido diBoaS, pueda acceder a tus fondos. Solo tú puedes autorizar transacciones. Solo utilizamos protocolos auditados y establecidos. Cada estrategia se prueba contra crisis históricas del mercado antes de ofrecerla a los usuarios. Monitorizamos todas las posiciones las 24 horas del día. La firma de transacciones siempre requerirá tu aprobación.",
       "p4": "Transparencia: todas las comisiones se revelan por adelantado. Todos los riesgos se declaran con claridad. Sin mecanismos ocultos."
     },
@@ -274,7 +274,7 @@
     "header": "Construido por BAR",
     "paragraphs": {
       "p1": "Crecí viendo a mi abuela Adelaide navegar un sistema financiero que no fue diseñado para ella. Merecía mejores herramientas. Todos los que son como ella también lo merecen.",
-      "p2": "diBoaS se está estableciendo en Berlín, Alemania, construido para personas en EE.UU., la UE, Brasil y expandiéndose a todo el mundo. He pasado más de 20 años trabajando en Productos y TI en Brasil, EE.UU., Japón y Alemania. Ahora estoy construyendo la herramienta financiera que ojalá mi abuela hubiera tenido.",
+      "p2": "diBoaS se está estableciendo en Berlín, Alemania, construido para personas en EE.UU., la UE, Brasil, con planes de expandirse a más mercados. He pasado más de 20 años trabajando en Productos y TI en Brasil, EE.UU., Japón y Alemania. Ahora estoy construyendo la herramienta financiera que ojalá mi abuela hubiera tenido.",
       "p3": "Conectemos."
     },
     "emailText": "hello@diboas.com",
@@ -387,7 +387,7 @@
   },
   "seo": {
     "title": "diBoaS | El Sistema No Fue Construido Para Ti. Lo Estamos Cambiando.",
-    "description": "Envía dinero a cualquier lugar en segundos. Gratis. Después, haz que crezca mientras duermes. Descubre diBoaS.",
+    "description": "Envía dinero en diBoaS en segundos. Gratis. Después, haz que crezca mientras duermes. Descubre diBoaS.",
     "ogTitle": "El sistema no está roto. Funciona exactamente como fue diseñado. Solo que no para ti.",
     "ogDescription": "Empezó con mi abuela Adelaide. Aprendí lo que los bancos no cuentan. Por eso estoy construyendo diBoaS."
   }

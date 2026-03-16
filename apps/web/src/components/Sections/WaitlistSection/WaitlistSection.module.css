@@ -43,7 +43,7 @@
 }
 
 .counterRow {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   margin-top: var(--spacing-md);
   text-align: center;
@@ -140,12 +140,12 @@
 .inviteCodeInput {
   flex: 1;
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   padding: 12px 16px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-slate-200);
   border-radius: var(--border-radius-md, 8px);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--animation-duration-fast) ease;
 }
 
 .inviteCodeInput:focus {
@@ -154,16 +154,16 @@
 
 .inviteCodeButton {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   padding: 12px 20px;
   background-color: var(--color-brand-primary, #0d9488);
-  color: #ffffff;
+  color: var(--color-white);
   border: none;
   border-radius: var(--border-radius-md, 8px);
   cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.2s ease;
+  overflow-wrap: break-word;
+  transition: background-color var(--animation-duration-fast) ease;
 }
 
 .inviteCodeButton:hover {
@@ -176,7 +176,7 @@
 }
 
 .inviteError {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-error, #dc2626);
   margin-top: 8px;
 }

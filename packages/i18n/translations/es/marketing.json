@@ -1125,7 +1125,7 @@
           },
           "guaranteedLiquidity": {
             "iconAlt": "Liquidity icon",
-            "title": "Liquidez Garantizada",
+            "title": "Liquidez Inmediata",
             "description": "Retiros cuando quieras.\nNo bloquea capital operativo.\nFlexibilidad para oportunidades."
           },
           "managedRisk": {
@@ -3098,7 +3098,7 @@
             },
             "rewards": {
               "title": "Comisiones Transparentes",
-              "description": "Solo 0.9% en transferencias externas.\n¿Todo lo demás? Gratis.\nSin comisiones ocultas. Nunca.",
+              "description": "Añadir dinero o retirar: 0,48%.\nVender o cerrar: 0,39%.\n¿Enviar, invertir? Gratis. Siempre.",
               "ctaText": "Comenzar Ahora",
               "imageAlt": "Comisiones Transparentes illustration"
             }
@@ -3150,7 +3150,7 @@
             "feesThatDontRobYou": {
               "iconAlt": "Low fees icon",
               "title": "Comisiones Que No Te Roban",
-              "description": "Solo 0.09% por transacción.\nHasta 16x más barato que plataformas tradicionales.\nTransparencia total."
+              "description": "Comprar e invertir es gratis.\nVender: solo 0,39%.\nTransparencia total."
             }
           }
         },
@@ -3175,7 +3175,7 @@
             },
             "feesThatMakeSense": {
               "title": "Tarifas Que Tienen Sentido",
-              "description": "0.09% de tarifa para compra/venta.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
+              "description": "Comprar es gratis. Vender: 0,39%.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
               "imageAlt": "Tarifas Que Tienen Sentido illustration"
             }
           }
@@ -3196,7 +3196,7 @@
             },
             "rewards": {
               "title": "Las Comisiones Más Bajas del Mercado",
-              "description": "Solo 0.09% de comisión por operación.\nEso es de 5 a 16 veces más barato que la competencia.\nMás dinero se queda en tu bolsillo.",
+              "description": "Invertir es gratis. Vender: solo 0,39%.\nEso es de 5 a 16 veces más barato que la competencia.\nMás dinero se queda en tu bolsillo.",
               "ctaText": "Comenzar Ahora",
               "imageAlt": "Las Comisiones Más Bajas del Mercado illustration"
             }
@@ -3232,8 +3232,8 @@
             },
             "militaryGradeCustody": {
               "iconAlt": "Security icon",
-              "title": "Custodia de Nivel Militar",
-              "description": "Tus criptos protegidas con seguridad militar.\nTú las controlas, nosotros las guardamos.\nAuditoría independiente disponible."
+              "title": "Custodia de Nivel Institucional",
+              "description": "Tus criptos protegidas con encriptación AES-256-GCM.\nTú las controlas, nosotros las guardamos.\nAuditoría independiente disponible."
             },
             "integratedWithEverything": {
               "iconAlt": "Integration icon",
@@ -3258,7 +3258,7 @@
             },
             "securityYouUnderstand": {
               "title": "Seguridad Que Entiendes",
-              "description": "Wallets no-custodiales. Tú eres el dueño.\nEncriptación militar. Auditorías independientes.\nTu crypto, tu custodia.",
+              "description": "Wallets no-custodiales. Tú eres el dueño.\nEncriptación AES-256-GCM. Auditorías independientes.\nTu crypto, tu custodia.",
               "imageAlt": "Seguridad Que Entiendes illustration"
             },
             "fromZeroToAdvanced": {
@@ -3288,10 +3288,10 @@
               "imageAlt": "Crypto en 1 Clic illustration"
             },
             "rewards": {
-              "title": "Seguridad de Nivel Militar",
+              "title": "Seguridad de Nivel Institucional",
               "description": "Encriptación bancaria para tus activos digitales.\nAlmacenamiento en frío y protección multifirma.\nTus cryptos, tu control.",
               "ctaText": "Comenzar Ahora",
-              "imageAlt": "Seguridad de Nivel Militar illustration"
+              "imageAlt": "Seguridad de Nivel Institucional illustration"
             }
           }
         },
@@ -3791,14 +3791,14 @@
     "security": {
       "protection": {
         "title": "diBoaS Protection | diBoaS",
-        "description": "Tu dinero protegido con seguridad de nivel militar.",
+        "description": "Tu dinero protegido con seguridad institucional.",
         "hero": {
-          "title": "Tu dinero protegido con seguridad de nivel militar. Tú mantienes el control, nosotros garantizamos la protección.",
+          "title": "Tu dinero protegido con seguridad institucional. Tú mantienes el control, nosotros garantizamos la protección.",
           "description": "",
           "cta": "Empezar ahora"
         },
         "benefitsCards": {
-          "title": "Seguridad de nivel militar",
+          "title": "Seguridad de nivel institucional",
           "description": "Tu dinero protegido, siempre.",
           "cards": {
             "endToEndEncryption": {
@@ -3830,12 +3830,12 @@
         },
         "stickyFeaturesNav": {
           "title": "Seguridad sin concesiones.",
-          "subtitle": "Protección militar, tu control, transparencia total.",
+          "subtitle": "Protección institucional, tu control, transparencia total.",
           "cards": {
             "militaryGradeEncryption": {
-              "title": "Encriptación Militar",
+              "title": "Encriptación AES-256-GCM",
               "description": "La misma tecnología que protege gobiernos.\nTus datos y activos totalmente seguros.\nNada menos que lo mejor.",
-              "imageAlt": "Encriptación Militar illustration"
+              "imageAlt": "Encriptación AES-256-GCM illustration"
             },
             "youReTheOwner": {
               "title": "Tú Eres el Dueño",
@@ -3948,11 +3948,11 @@
       },
       "q8": {
         "question": "¿Mi dinero está seguro en diBoaS?",
-        "answer": "Sí. Los mismos estándares de seguridad que los grandes bancos.\n\n- Carteras no custodiales (tú eres dueño de tus activos)\n- Encriptación de nivel militar\n- Cumplimiento con regulaciones SEC (EE.UU.) y MiCA (Europa)\n- Auditado por empresas de seguridad independientes\n\nEn 2024, tuvimos CERO casos de pérdida de dinero por fallos de seguridad."
+        "answer": "Sí. Los mismos estándares de seguridad que los grandes bancos.\n\n- Carteras no custodiales (tú eres dueño de tus activos)\n- Cifrado AES-256-GCM\n- Cumplimiento con regulaciones SEC (EE.UU.) y MiCA (Europa)\n- Auditado por empresas de seguridad independientes\n\nEn 2024, tuvimos CERO casos de pérdida de dinero por fallos de seguridad."
       },
       "q9": {
         "question": "¿Qué pasa si diBoaS cierra algún día?",
-        "answer": "No pierdes nada.\n\nTus criptos quedan en carteras que TÚ controlas.\nTus inversiones tradicionales están custodiadas por instituciones reguladas.\n\nIncluso si desapareciéramos, tendrías acceso total a tus fondos."
+        "answer": "Tus activos crypto se mantienen en wallets no custodiales — tú controlas las llaves privadas, por lo que siguen siendo tuyos sin importar lo que pase con diBoaS. Los fondos en moneda fiduciaria están segregados en instituciones reguladas asociadas, separados del balance de diBoaS. Sin embargo, toda inversión conlleva riesgo y ningún resultado está garantizado."
       },
       "q10": {
         "question": "¿Puede diBoaS tocar mi dinero?",
@@ -3960,7 +3960,7 @@
       },
       "q11": {
         "question": "¿Cuánto cuesta usar diBoaS?",
-        "answer": "Tarifas transparentes:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ $0          │ $0 - $50       │\n│ Mantener cuenta    │ $0/mes      │ $15-$50/mes    │\n│ Invertir $100      │ $0,09       │ $2 - $10       │\n│ Transferir $100    │ $0,90       │ $3 - $5        │\n│ Transferencia      │ $0          │ Varía          │\n│ dentro de diBoaS   │             │                │\n└────────────────────┴─────────────┴────────────────┘\n\nSin trucos. Sin letra pequeña.\n\nSiempre te mostramos el costo exacto antes de que confirmes cualquier cosa."
+        "answer": "Tarifas transparentes:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ $0          │ $0 - $50       │\n│ Mantener cuenta    │ $0/mes      │ $15-$50/mes    │\n│ Invertir $100      │ $0 (GRATIS) │ $2 - $10       │\n│ Vender $100        │ $0,39       │ $2 - $10       │\n│ Añadir / Retirar   │ 0,48%       │ $3 - $5        │\n│ Enviar en diBoaS   │ $0 (GRATIS) │ Varía          │\n└────────────────────┴─────────────┴────────────────┘\n\nSin trucos. Sin letra pequeña.\n\nSiempre te mostramos el costo exacto antes de que confirmes cualquier cosa."
       },
       "q12": {
         "question": "¿Hay suscripción obligatoria?",
@@ -3968,7 +3968,7 @@
       },
       "q13": {
         "question": "¿Cómo ganan dinero entonces?",
-        "answer": "Transparencia total:\n\n1. Pequeña comisión en transacciones (ese 0,09% y 0,9%)\n\n2. Los creadores de contenido que usan nuestra plataforma pagan 0,9%\n   (mucho menos que el 10% de YouTube)\n\n3. Suscripciones opcionales para funciones avanzadas\n\nGanamos cuando la usas. No cuando solo mantienes la cuenta abierta."
+        "answer": "Transparencia total:\n\n1. Pequeñas comisiones en ventas (0,39%), añadir dinero y retirar (0,48%)\n\n2. Los creadores de contenido que usan nuestra plataforma pagan una pequeña comisión\n   (mucho menos que el 10% de YouTube)\n\n3. Suscripciones opcionales para funciones avanzadas\n\nGanamos cuando la usas. No cuando solo mantienes la cuenta abierta."
       }
     },
     "registry": {
@@ -3982,7 +3982,7 @@
       },
       "q3": {
         "question": "¿Cuánto cuesta usar diBoaS?",
-        "answer": "Transparencia total:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ $0          │ $0 - $50       │\n│ Mantenimiento      │ $0/mes      │ $15-$50/mes    │\n│ Invertir $100      │ $0.09       │ $2 - $10       │\n│ Transferir $100    │ $0.90       │ $3 - $5        │\n└────────────────────┴─────────────┴────────────────┘\n\nSin comisiones mensuales. Sin saldos mínimos."
+        "answer": "Transparencia total:\n\n┌────────────────────┬─────────────┬────────────────┐\n│ Operación          │ Tú pagas    │ Otros cobran   │\n├────────────────────┼─────────────┼────────────────┤\n│ Abrir cuenta       │ $0          │ $0 - $50       │\n│ Mantenimiento      │ $0/mes      │ $15-$50/mes    │\n│ Invertir $100      │ $0 (GRATIS) │ $2 - $10       │\n│ Vender $100        │ $0,39       │ $2 - $10       │\n│ Añadir / Retirar   │ 0,48%       │ $3 - $5        │\n│ Enviar en diBoaS   │ $0 (GRATIS) │ Varía          │\n└────────────────────┴─────────────┴────────────────┘\n\nSin comisiones mensuales. Sin saldos mínimos."
       },
       "q4": {
         "question": "¿De verdad puedo empezar con solo $10?",
@@ -4046,7 +4046,7 @@
       },
       "q19": {
         "question": "¿Cómo funcionan las comisiones de inversión?",
-        "answer": "0.09% por operación de compra/venta.\n\nEjemplo real:\n- Inviertes $100\n- Comisión diBoaS: $0.09\n- Inversión real: $99.91\n\nCompara:\n- diBoaS: $0.09\n- Bancos tradicionales: $2 a $10\n- Brókers: $5 a $15\n\nSomos 22x más baratos que el promedio del mercado."
+        "answer": "Comprar e invertir es GRATIS. Vender: 0,39% ($0,25 mín / $25 máx).\n\nEjemplo real:\n- Inviertes $100 → Comisión diBoaS: $0\n- Vendes $100 → Comisión diBoaS: $0,39\n\nCompara comisiones de venta:\n- diBoaS: $0,39\n- Bancos tradicionales: $2 a $10\n- Brókers: $5 a $15\n\nSomos dramáticamente más baratos que el promedio."
       },
       "q20": {
         "question": "¿Cuál es la diferencia entre invertir y especular?",
@@ -4066,7 +4066,7 @@
       },
       "q24": {
         "question": "¿Mi crypto está seguro en diBoaS?",
-        "answer": "Sí. Seguridad de nivel militar.\n\nCómo te protegemos:\n- Wallets no custodiales (TÚ controlas tus activos)\n- Encriptación de grado militar\n- Autenticación biométrica obligatoria\n- Auditorías independientes trimestrales\n\nSi diBoaS desaparece mañana, no pierdes nada.\nTu crypto está en wallets que SOLO tú controlas."
+        "answer": "Sí. Seguridad de nivel institucional.\n\nCómo te protegemos:\n- Wallets no custodiales (TÚ controlas tus activos)\n- Cifrado AES-256-GCM\n- Autenticación biométrica obligatoria\n- Auditorías independientes trimestrales\n\nSi diBoaS desaparece mañana, no pierdes nada.\nTu crypto está en wallets que SOLO tú controlas."
       },
       "q25": {
         "question": "¿Qué cryptos puedo comprar?",
@@ -4074,7 +4074,7 @@
       },
       "q26": {
         "question": "¿Cuánto cuesta comprar crypto?",
-        "answer": "0.09% comisión diBoaS + comisiones de red.\n\nEjemplo real comprando $100 de Bitcoin:\n- Comisión diBoaS: $0.09\n- Comisión de red blockchain: ~$1.50\n- Total recibido: ~$98.41\n\nCompara con otros exchanges:\n- Coinbase: 1.49% = $1.49 (16x más caro)\n- Binance: 0.50% = $0.50 (5x más caro)\n- diBoaS: 0.09% = $0.09\n\nMostramos todo antes de confirmar."
+        "answer": "Comprar crypto en diBoaS es GRATIS. Solo pagas comisiones de red.\n\nEjemplo real comprando $100 de Bitcoin:\n- Comisión diBoaS: $0 (GRATIS)\n- Comisión de red blockchain: ~$1,50\n- Total recibido: ~$98,50\n\nCompara con otros exchanges:\n- Coinbase: 1,49% = $1,49\n- Binance: 0,50% = $0,50\n- diBoaS: $0\n\nAl vender, cobramos 0,39%. Mostramos todo antes de confirmar."
       },
       "q27": {
         "question": "¿Bitcoin es una pirámide/estafa?",
@@ -4098,7 +4098,7 @@
       },
       "q32": {
         "question": "¿Cuánto rinden las estrategias?",
-        "answer": "Varía, pero siempre mostramos tasas en tiempo real:\n\nEstrategias Conservadoras (Mystic recomienda):\n- Emergency Fund: 8-12% anual\n- Stable Growth: 10-15% anual\n\nEstrategias Moderadas (Coral desbloquea):\n- Balanced Yield: 15-25% anual\n- Growth Portfolio: 20-35% anual\n\nEstrategias Agresivas (solo avanzados):\n- High Yield: 35-80% anual (mayor riesgo)\n\nComisiones: 0.09% al iniciar + 0.09% al detener estrategia."
+        "answer": "Varía, pero siempre mostramos tasas en tiempo real:\n\nEstrategias Conservadoras (Mystic recomienda):\n- Emergency Fund: 8-12% anual\n- Stable Growth: 10-15% anual\n\nEstrategias Moderadas (Coral desbloquea):\n- Balanced Yield: 15-25% anual\n- Growth Portfolio: 20-35% anual\n\nEstrategias Agresivas (solo avanzados):\n- High Yield: 35-80% anual (mayor riesgo)\n\nComisiones: GRATIS al iniciar. 0,39% al salir de estrategia."
       },
       "q33": {
         "question": "¿Puedo perder dinero en estrategias?",
@@ -4106,7 +4106,7 @@
       },
       "q34": {
         "question": "¿Qué es DeFi exactamente?",
-        "answer": "DeFi = Decentralized Finance (Finanzas Descentralizadas)\n\nEn español simple:\nHacer cosas de banco (prestar, invertir, ganar intereses)\nsin necesitar bancos.\n\nEjemplo real:\n\nBanco tradicional:\n- Depositas $1,000\n- Banco paga 2% anual\n- Banco presta tu dinero al 15% anual\n- Banco se queda la diferencia\n\nDeFi:\n- Prestas directamente a quien lo necesita\n- Ganas 8-15% anual\n- Protocolo cobra 0.09%\n- Tú te quedas el resto\n\nDeFi Explained decodifica todo esto."
+        "answer": "DeFi = Decentralized Finance (Finanzas Descentralizadas)\n\nEn español simple:\nHacer cosas de banco (prestar, invertir, ganar intereses)\nsin necesitar bancos.\n\nEjemplo real:\n\nBanco tradicional:\n- Depositas $1,000\n- Banco paga 2% anual\n- Banco presta tu dinero al 15% anual\n- Banco se queda la diferencia\n\nDeFi:\n- Prestas directamente a quien lo necesita\n- Ganas 8-15% anual\n- Pequeña comisión del protocolo\n- Tú te quedas el resto\n\nDeFi Explained decodifica todo esto."
       },
       "q35": {
         "question": "¿Es seguro DeFi?",
@@ -4186,7 +4186,7 @@
       },
       "q54": {
         "question": "¿Cuánto cuesta la cuenta Business?",
-        "answer": "Cero comisión mensual.\n\nComisiones Business:\n\n┌────────────────────┬─────────────┐\n│ Operación          │ Comisión    │\n├────────────────────┼─────────────┤\n│ Mantenimiento      │ $0          │\n│ Transferencias     │ $0          │\n│ Cobros (recibos)   │ $0.90/unidad│\n│ Invertir saldo     │ 0.09%       │\n└────────────────────┴─────────────┘\n\nTu dinero parado rinde 100% de la tasa base automáticamente."
+        "answer": "Cero comisión mensual.\n\nComisiones Business:\n\n┌────────────────────┬─────────────┐\n│ Operación          │ Comisión    │\n├────────────────────┼─────────────┤\n│ Mantenimiento      │ $0          │\n│ Transferencias     │ $0          │\n│ Recibir pagos      │ $0 (GRATIS) │\n│ Invertir saldo     │ GRATIS      │\n│ Cerrar / Salir     │ 0,39%       │\n│ Añadir / Retirar   │ 0,48%       │\n└────────────────────┴─────────────┘\n\nTu dinero parado rinde 100% de la tasa base automáticamente."
       },
       "q55": {
         "question": "¿Cuánto tarda la aprobación de cuenta Business?",
@@ -4234,7 +4234,7 @@
       },
       "q66": {
         "question": "¿Cuál es el rendimiento promedio?",
-        "answer": "Depende del tipo:\n\nTreasury Conservador (liquidez inmediata):\n- 100-110% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4-4.4% anual\n- Cero riesgo\n\nTreasury Moderado (día siguiente):\n- 110-130% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4.4-5.2% anual\n- Riesgo muy bajo\n\nTreasury Estratégico (30 días):\n- 130-150% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 5.2-6% anual\n- Riesgo bajo\n\nComisión diBoaS: 0.09% al invertir."
+        "answer": "Depende del tipo:\n\nTreasury Conservador (liquidez inmediata):\n- 100-110% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4-4.4% anual\n- Cero riesgo\n\nTreasury Moderado (día siguiente):\n- 110-130% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 4.4-5.2% anual\n- Riesgo muy bajo\n\nTreasury Estratégico (30 días):\n- 130-150% de la tasa base\n- Ejemplo: Tasa base 4% → ganas 5.2-6% anual\n- Riesgo bajo\n\nComisión diBoaS: GRATIS al invertir. 0,39% al salir."
       },
       "q67": {
         "question": "¿Qué es Cash Flow Yield?",
@@ -4346,11 +4346,11 @@
       },
       "q94": {
         "question": "¿Mi dinero está realmente seguro?",
-        "answer": "Sí. Múltiples capas de protección.\n\nSeguridad Técnica:\n- Encriptación militar (AES-256)\n- Autenticación biométrica obligatoria\n- Wallets no custodiales (tú controlas)\n- Cold storage para 95% de activos\n\nSeguridad Regulatoria:\n- Cumplimiento con reguladores locales y europeos\n- Auditorías independientes trimestrales\n- Seguros contra hacks\n- Fondo de reserva de emergencia\n\nHistorial:\n2024: CERO pérdidas por fallas de seguridad\n2023: CERO pérdidas por fallas de seguridad\n\nTu dinero está más seguro aquí que bajo el colchón."
+        "answer": "Sí. Múltiples capas de protección.\n\nSeguridad Técnica:\n- Cifrado AES-256-GCM\n- Autenticación biométrica obligatoria\n- Wallets no custodiales (tú controlas)\n- Cold storage para 95% de activos\n\nSeguridad Regulatoria:\n- Cumplimiento con reguladores locales y europeos\n- Auditorías independientes trimestrales\n- Seguros contra hacks\n- Fondo de reserva de emergencia\n\nHistorial:\n2024: CERO pérdidas por fallas de seguridad\n2023: CERO pérdidas por fallas de seguridad\n\nTu dinero está más seguro aquí que bajo el colchón."
       },
       "q95": {
         "question": "¿Y si diBoaS quiebra o cierra?",
-        "answer": "No pierdes nada. Garantizado.\n\nArquitectura a prueba de quiebra:\n\nCrypto:\n- Wallets no custodiales\n- TÚ tienes las llaves privadas\n- Funciona independiente de diBoaS\n\nInversiones tradicionales:\n- Custodiadas por instituciones reguladas\n- No son parte del balance de diBoaS\n- Protegidas por garantía de depósitos\n\nEfectivo en cuenta:\n- Segregado de activos de la empresa\n- Institución partner regulada\n- Asegurado hasta $250k\n\nIncluso si diBoaS desaparece mañana:\nTienes acceso TOTAL a tus activos."
+        "answer": "Tus activos crypto se mantienen en wallets no custodiales — tú controlas las llaves privadas, por lo que siguen siendo tuyos sin importar lo que pase con diBoaS. Los fondos en moneda fiduciaria están segregados en instituciones reguladas asociadas, separados del balance de diBoaS. Sin embargo, toda inversión conlleva riesgo y ningún resultado está garantizado."
       },
       "q96": {
         "question": "¿Cómo reporto algo sospechoso?",
@@ -4390,7 +4390,7 @@
       },
       "q105": {
         "question": "¿Cómo gana dinero diBoaS?",
-        "answer": "Modelo sostenible y transparente:\n\nIngreso Principal (80%):\n- Comisiones de transacción (0.09% y 0.9%)\n- Alto volumen, bajo margen\n- Escala con crecimiento de base de usuarios\n\nIngreso Secundario (15%):\n- Suscripciones Premium ($12.90/mes)\n- Funciones avanzadas opcionales\n- ~5% de usuarios pagan\n\nEconomía de Creadores (5%):\n- Comisión de contenido educativo (0.9%)\n- Marketplace de estrategias\n- Win-win: creadores ganan, nosotros ganamos\n\nNO ganamos con:\n✗ Vender tus datos\n✗ Comisiones ocultas\n✗ Payment for order flow\n✗ Front-running de tus trades\n\nNuestro éxito = tu éxito.\nAlineación total de incentivos."
+        "answer": "Modelo sostenible y transparente:\n\nIngreso Principal (80%):\n- Comisiones de transacción (0,39% en ventas, 0,48% en rampas)\n- Alto volumen, bajo margen\n- Escala con crecimiento de base de usuarios\n\nIngreso Secundario (15%):\n- Suscripciones Premium ($12,90/mes)\n- Funciones avanzadas opcionales\n- ~5% de usuarios pagan\n\nEconomía de Creadores (5%):\n- Comisión de contenido educativo\n- Marketplace de estrategias\n- Win-win: creadores ganan, nosotros ganamos\n\nNO ganamos con:\n✗ Vender tus datos\n✗ Comisiones ocultas\n✗ Payment for order flow\n✗ Front-running de tus trades\n\nNuestro éxito = tu éxito.\nAlineación total de incentivos."
       },
       "q106": {
         "question": "¿Cómo es trabajar en diBoaS?",

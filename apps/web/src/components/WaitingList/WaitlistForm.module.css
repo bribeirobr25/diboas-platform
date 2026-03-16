@@ -85,9 +85,9 @@
   border-radius: var(--cta-border-radius);
   cursor: pointer;
   transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
-  white-space: nowrap;
+  overflow-wrap: break-word;
   width: var(--percent-80);
-  max-width: var(--dimension-280);
+  min-width: 200px;
   min-height: var(--cta-min-height-mobile);
   display: flex;
   align-items: center;

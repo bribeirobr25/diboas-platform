@@ -17,8 +17,8 @@
       },
       "militaryGradeCustody": {
         "iconAlt": "Security icon",
-        "title": "Military-Grade Custody",
-        "description": "Your crypto protected with military-grade security.\nYou control it, we safeguard it.\nIndependent audit available."
+        "title": "Bank-Grade Custody",
+        "description": "Your crypto protected with AES-256-GCM encryption.\nYou control it, we safeguard it.\nIndependent audit available."
       },
       "integratedWithEverything": {
         "iconAlt": "Integration icon",
@@ -43,7 +43,7 @@
       },
       "securityYouUnderstand": {
         "title": "Security You Understand",
-        "description": "Non-custodial wallets. You own it.\nMilitary-grade encryption. Independent audits.\nYour crypto, your custody.",
+        "description": "Non-custodial wallets. You own it.\nAES-256-GCM encryption. Independent audits.\nYour crypto, your custody.",
         "imageAlt": "Security You Understand illustration"
       },
       "fromZeroToAdvanced": {
@@ -73,10 +73,10 @@
         "imageAlt": "1-Click Crypto illustration"
       },
       "rewards": {
-        "title": "Military-Grade Security",
-        "description": "Bank-level encryption for your digital assets.\nCold storage and multi-signature protection.\nYour crypto, your control.",
+        "title": "Bank-Grade Security",
+        "description": "AES-256-GCM encryption for your digital assets.\nCold storage and multi-signature protection.\nYour crypto, your control.",
         "ctaText": "Get Started",
-        "imageAlt": "Military-Grade Security illustration"
+        "imageAlt": "Bank-Grade Security illustration"
       }
     }
   },

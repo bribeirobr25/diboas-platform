@@ -9,7 +9,7 @@
 .container {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: var(--z-index-modal);
   background: var(--section-bg-white, #f9fafb);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -23,7 +23,7 @@
 }
 
 .screenContainer > div {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn var(--animation-duration-normal) ease-out;
 }
 
 @keyframes fadeIn {
@@ -68,7 +68,7 @@
 }
 
 .screenTitle {
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
   font-weight: 700;
   color: var(--color-text-heading);
   line-height: 1.3;
@@ -77,7 +77,7 @@
 }
 
 .screenSubtitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   margin-top: 4px;
   text-align: center;
@@ -87,7 +87,7 @@
 .demoHeader {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-index-sticky);
   background: var(--section-bg-white);
   border-bottom: 1px solid var(--color-slate-200);
 }
@@ -121,12 +121,12 @@
 .demoHeaderLogoImage {
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   object-fit: cover;
 }
 
 .demoHeaderLogo {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-text-heading);
 }
@@ -163,7 +163,7 @@
   border: 1px solid var(--color-slate-200);
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .exitButton:hover {
@@ -193,7 +193,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 700;
 }
 
@@ -201,7 +201,7 @@
   width: 100%;
   background: var(--section-bg-white);
   border: 1px solid var(--color-gray-100, #f3f4f6);
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -227,7 +227,7 @@
   padding: 12px 14px;
   border: 1px solid var(--color-slate-200);
   border-radius: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-heading);
   background: var(--color-slate-50);
   outline: none;
@@ -239,7 +239,7 @@
 }
 
 .onChainNote {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--brand-primary-dark);
   margin-top: 4px;
 }
@@ -249,7 +249,7 @@
   padding: 12px 14px;
   border: 1px solid var(--color-slate-200);
   border-radius: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-heading);
   background: var(--section-bg-white);
   outline: none;
@@ -272,7 +272,7 @@
 }
 
 .dividerText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   white-space: nowrap;
   text-transform: uppercase;
@@ -311,7 +311,7 @@
 }
 
 .disclaimerText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   text-align: center;
   line-height: 1.5;
@@ -319,14 +319,14 @@
 }
 
 .backToHomeLink {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-text-secondary);
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 8px 16px;
-  transition: color 0.15s ease;
+  transition: color var(--animation-duration-fast) ease;
 }
 
 .backToHomeLink:hover {
@@ -345,7 +345,7 @@
   height: 48px;
   border: 3px solid var(--color-slate-200);
   border-top-color: var(--brand-primary-dark);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   animation: spin 0.8s linear infinite;
 }
 
@@ -366,9 +366,9 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-700);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity var(--animation-duration-normal) ease, transform var(--animation-duration-normal) ease;
 }
 
 .checkmarkHidden {
@@ -389,14 +389,14 @@
   width: 20px;
   height: 20px;
   background: var(--section-bg-brand);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 
 .successIcon {
   width: 64px;
   height: 64px;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   background: var(--section-bg-brand);
   display: flex;
   align-items: center;
@@ -408,7 +408,7 @@
 .balanceCard {
   width: 100%;
   background: linear-gradient(135deg, var(--brand-primary-dark), var(--text-primary-accessible));
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   padding: 20px;
   color: var(--color-white);
 }
@@ -479,7 +479,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   background: none;
   font: inherit;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: inherit;
   opacity: 0.8;
   cursor: pointer;
@@ -504,7 +504,7 @@
 }
 
 .compactCard .balanceAmount {
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
 }
 
 .compactCard .balanceBreakdown {
@@ -542,9 +542,9 @@
   padding: 20px 12px;
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .quickActionButton:hover:not(:disabled) {
@@ -588,7 +588,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   color: var(--color-slate-600);
 }
 
@@ -614,7 +614,7 @@
   top: 8px;
   left: 8px;
   color: var(--text-success-accessible);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 700;
 }
 
@@ -645,7 +645,7 @@
 }
 
 .activityEmptyText {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   font-weight: 500;
   margin: 0;
@@ -680,7 +680,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -706,14 +706,14 @@
 }
 
 .activityDescription {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-text-heading);
   display: block;
 }
 
 .activityDate {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   display: block;
   margin-top: 2px;
@@ -725,7 +725,7 @@
 }
 
 .activityAmount {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   display: block;
 }
@@ -759,14 +759,14 @@
 .tab {
   flex: 1;
   padding: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   border: none;
   border-radius: 10px;
   background: transparent;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .tabActive {
@@ -806,7 +806,7 @@
   background: var(--section-bg-white);
   color: var(--color-slate-600);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -834,7 +834,7 @@
   padding: 16px;
   margin-bottom: 12px;
   width: 100%;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--animation-duration-fast) ease;
 }
 
 .amountInputContainer:focus-within {
@@ -842,7 +842,7 @@
 }
 
 .amountPrefix {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-slate-400);
   margin-right: 4px;
@@ -850,7 +850,7 @@
 
 .amountInput {
   flex: 1;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: 600;
   color: var(--color-text-heading);
   border: none;
@@ -882,7 +882,7 @@
   background: var(--section-bg-white);
   color: var(--color-slate-600);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .quickAmountButton:hover {
@@ -918,7 +918,7 @@
 }
 
 .feeToggleLabel {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
 }
 
@@ -926,7 +926,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-heading);
 }
@@ -990,11 +990,11 @@
 
 .feeTooltip {
   width: 100%;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   background: var(--color-slate-50);
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   margin-top: 4px;
   line-height: 1.4;
 }
@@ -1006,13 +1006,13 @@
 }
 
 .feeTotalLabel {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-heading);
 }
 
 .feeTotalAmount {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 700;
   color: var(--color-text-heading);
 }
@@ -1053,7 +1053,7 @@
   color: var(--color-text-secondary);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .categoryTabActive {
@@ -1080,7 +1080,7 @@
   border: 1px solid var(--color-slate-200);
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
   width: 100%;
   text-align: left;
 }
@@ -1108,12 +1108,12 @@
 .assetIcon {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-white);
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -1131,32 +1131,32 @@
 }
 
 .assetName {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
 }
 
 .assetPrice {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-text-heading);
 }
 
 .comingSoon {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   font-style: italic;
 }
 
 /* ==================== Confirmation ==================== */
 .sectionTitle {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-text-heading);
   margin: 0 0 4px;
 }
 
 .sectionSubtitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   margin: 0 0 16px;
 }
@@ -1186,7 +1186,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: 700;
 }
 
@@ -1197,7 +1197,7 @@
 }
 
 .confirmMethod {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   margin-top: 2px;
 }
@@ -1210,12 +1210,12 @@
 }
 
 .confirmDetailLabel {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
 
 .confirmDetailValue {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-text-heading);
 }
@@ -1236,7 +1236,7 @@
 }
 
 .confirmTotalAmount {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: 700;
   color: var(--brand-primary-dark);
 }
@@ -1271,13 +1271,13 @@
   width: 20px;
   height: 20px;
   margin-top: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   accent-color: var(--brand-primary-dark);
   flex-shrink: 0;
 }
 
 .checkboxText {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-700);
   line-height: 1.5;
 }
@@ -1293,7 +1293,7 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background var(--animation-duration-fast) ease;
 }
 
 .primaryButton:hover {
@@ -1313,12 +1313,12 @@
   padding: 10px 0;
   min-height: 44px;
   color: var(--color-text-secondary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color 0.15s ease;
+  transition: color var(--animation-duration-fast) ease;
   margin-bottom: 8px;
 }
 
@@ -1330,7 +1330,7 @@
 .portfolioCard {
   width: 100%;
   background: linear-gradient(135deg, var(--brand-primary-dark), var(--text-primary-accessible));
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   padding: 24px;
   color: var(--color-white);
   margin-bottom: 20px;
@@ -1360,12 +1360,12 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .portfolioBreakdownLabel {
   opacity: 0.7;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
@@ -1401,7 +1401,7 @@
   align-items: center;
   justify-content: center;
   color: var(--color-white);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -1412,7 +1412,7 @@
 }
 
 .walletName {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-heading);
 }
@@ -1421,9 +1421,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-family-mono);
   margin-top: 2px;
 }
 
@@ -1477,7 +1477,7 @@
 }
 
 .tokenUsd {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   display: block;
 }
@@ -1485,7 +1485,7 @@
 .exportKeyButton {
   width: 100%;
   padding: 10px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-slate-600);
   background: var(--color-slate-50);
@@ -1496,7 +1496,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .exportKeyButton:hover {
@@ -1534,7 +1534,7 @@
 }
 
 .selfCustodyTitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text-heading);
   margin-bottom: 4px;
@@ -1554,13 +1554,13 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  z-index: 50;
+  z-index: var(--z-index-modal-backdrop);
   padding: 0;
 }
 
 .exportModalContent {
   background: var(--section-bg-white);
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   max-width: 100%;
   width: 100%;
   max-height: 90vh;
@@ -1586,7 +1586,7 @@
 }
 
 .exportModalTitle {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--color-text-heading);
   margin: 0;
@@ -1596,13 +1596,13 @@
   padding: 4px;
   background: transparent;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
   color: var(--color-text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease;
+  transition: background var(--animation-duration-fast) ease;
 }
 
 .exportModalClose:hover {
@@ -1616,7 +1616,7 @@
 }
 
 .exportModalText {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-600);
   margin: 0;
   line-height: 1.5;
@@ -1630,13 +1630,13 @@
 }
 
 .exportModalAmberTitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-amber-800, #92400e);
   margin: 0;
 }
 
 .exportModalSteps {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-amber-700, #a16207);
   margin: 8px 0 0;
   padding-left: 20px;
@@ -1653,7 +1653,7 @@
 }
 
 .exportModalWarningText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-red-700, #b91c1c);
   margin: 0;
   display: flex;
@@ -1680,12 +1680,12 @@
 }
 
 .exportModalButtonDemo {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   opacity: 0.7;
 }
 
 .exportModalFooter {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   text-align: center;
   margin: 0;
@@ -1700,7 +1700,7 @@
 }
 
 .footerText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   margin: 0;
 }
@@ -1737,7 +1737,7 @@
 }
 
 .receiveLabel {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
 
@@ -1748,7 +1748,7 @@
 }
 
 .receiveAmountSub {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   font-weight: 400;
 }
@@ -1785,7 +1785,7 @@
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   opacity: 0.85;
 }
 
@@ -1795,7 +1795,7 @@
 }
 
 .walletHeaderTotal {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   margin-left: auto;
 }
@@ -1837,7 +1837,7 @@
 }
 
 .l2HeaderLabel {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-text-secondary);
   text-transform: uppercase;
@@ -1887,7 +1887,7 @@
 .l2ChainAddress {
   font-size: 11px;
   color: var(--color-slate-400);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-family-mono);
   margin-left: auto;
 }
 
@@ -1913,16 +1913,16 @@
   }
 
   .portfolioAmount {
-    font-size: 36px;
+    font-size: var(--font-size-4xl);
   }
 
   .amountPrefix,
   .amountInput {
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
   }
 
   .confirmTotalAmount {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
   }
 
   /* Export Key Modal — centered dialog on desktop */
@@ -1933,7 +1933,7 @@
 
   .exportModalContent {
     max-width: 384px;
-    border-radius: 16px;
+    border-radius: var(--radius-xl);
     max-height: none;
     overflow-y: visible;
     padding-bottom: 24px;

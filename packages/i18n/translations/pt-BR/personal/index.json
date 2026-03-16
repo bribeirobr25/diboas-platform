@@ -168,7 +168,7 @@
         },
         "rewards": {
           "title": "Taxas Transparentes",
-          "description": "Só 0,9% em transferências externas.\nTodo o resto? De graça.\nSem taxas escondidas. Nunca.",
+          "description": "Adicionar ou sacar dinheiro: 0,48%.\nVender ou encerrar: 0,39%.\nEnviar, investir? Grátis. Sempre.",
           "ctaText": "Começar Agora",
           "imageAlt": "Taxas Transparentes illustration"
         }
@@ -220,7 +220,7 @@
         "feesThatDontRobYou": {
           "iconAlt": "Low fees icon",
           "title": "Taxas Que Não Te Roubam",
-          "description": "Apenas 0.09% por transação.\nAté 16x mais barato que plataformas tradicionais.\nTransparência absoluta."
+          "description": "Comprar e investir é grátis.\nVender: apenas 0,39%.\nTransparência absoluta."
         }
       }
     },
@@ -245,7 +245,7 @@
         },
         "feesThatMakeSense": {
           "title": "Taxas Que Fazem Sentido",
-          "description": "0.09% de taxa para compra/venda.\nSem surpresas, sem taxas escondidas.\nTransparência sempre.",
+          "description": "Comprar é grátis. Vender: 0,39%.\nSem surpresas, sem taxas escondidas.\nTransparência sempre.",
           "imageAlt": "Taxas Que Fazem Sentido illustration"
         }
       }
@@ -266,7 +266,7 @@
         },
         "rewards": {
           "title": "Menores Taxas do Mercado",
-          "description": "Só 0,09% de taxa de negociação.\nIsso é de 5 a 16 vezes mais barato que a concorrência.\nMais dinheiro fica no seu bolso.",
+          "description": "Investir é grátis. Vender: apenas 0,39%.\nIsso é de 5 a 16 vezes mais barato que a concorrência.\nMais dinheiro fica no seu bolso.",
           "ctaText": "Começar Agora",
           "imageAlt": "Menores Taxas do Mercado illustration"
         }
@@ -303,7 +303,7 @@
         "militaryGradeCustody": {
           "iconAlt": "Security icon",
           "title": "Custódia Segura",
-          "description": "Seus cryptos protegidos com segurança militar.\nVocê controla, nós guardamos.\nAuditoria independente disponível."
+          "description": "Seus cryptos protegidos com segurança institucional.\nVocê controla, nós guardamos.\nAuditoria independente disponível."
         },
         "integratedWithEverything": {
           "iconAlt": "Integration icon",
@@ -328,7 +328,7 @@
         },
         "securityYouUnderstand": {
           "title": "Segurança Que Você Entende",
-          "description": "Carteiras não-custodiais. Você é o dono.\nCriptografia militar. Auditoria independente.\nSeu crypto, sua custódia.",
+          "description": "Carteiras não-custodiais. Você é o dono.\nCriptografia AES-256-GCM. Auditoria independente.\nSeu crypto, sua custódia.",
           "imageAlt": "Segurança Que Você Entende illustration"
         },
         "fromZeroToAdvanced": {
@@ -358,10 +358,10 @@
           "imageAlt": "Crypto em 1 Clique illustration"
         },
         "rewards": {
-          "title": "Segurança Nível Militar",
+          "title": "Segurança Nível Institucional",
           "description": "Criptografia bancária pros seus ativos digitais.\nArmazenamento frio e proteção multi-assinatura.\nSuas criptos, seu controle.",
           "ctaText": "Começar Agora",
-          "imageAlt": "Segurança Nível Militar illustration"
+          "imageAlt": "Segurança Nível Institucional illustration"
         }
       }
     },

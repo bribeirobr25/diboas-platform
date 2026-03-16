@@ -47,9 +47,9 @@
       "step2Label": "Du kannst deine Ersparnisse wachsen lassen",
       "savingsLabel": "Du sparst bei Gebuehren",
       "scenarios": {
-        "conservative": "Konservativ (4%)",
-        "historical": "Historischer Durchschnitt (7%)",
-        "optimistic": "Optimistisch (10%)"
+        "conservative": "Konservativ",
+        "historical": "Moderat",
+        "optimistic": "Optimistisch"
       },
       "likelyBadge": "← wahrscheinlich"
     },
@@ -272,7 +272,7 @@
       ],
       "versionB": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
-        "diBoaS wird derzeit in Berlin gegruendet und baut fuer Unternehmen in den USA, der EU, Brasilien und expandiert weltweit. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
+        "diBoaS wird derzeit in Berlin gegruendet und baut fuer Unternehmen in den USA, der EU, Brasilien, mit Plaenen fuer weitere Maerkte. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
       ],
       "versionC": [
         "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
@@ -374,6 +374,8 @@
     "usDisclosure": "",
     "cvmWarning": "",
     "fictionalResults": "Die Beispiele auf dieser Seite sind illustrativ und stellen keine realen Unternehmen oder tatsaechlichen Ergebnisse dar. Rechner-Projektionen basieren auf hypothetischen Szenarien und historischen Durchschnitten. Die tatsaechlichen Ergebnisse werden abweichen.",
+    "cryptoDisclosure": "Kryptoassets sind hochvolatil. Sie können einen Teil oder Ihr gesamtes Investment verlieren. Vergangene Wertentwicklung ist kein Indikator für zukünftige Ergebnisse.",
+    "closing": "diBoaS ist eine Technologieplattform, keine Bank und kein Finanzberater. Alle finanziellen Entscheidungen liegen in Ihrer eigenen Verantwortung.",
     "nav": {
       "forYou": "Für Dich",
       "forBusiness": "Für Unternehmen",

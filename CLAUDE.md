@@ -268,3 +268,72 @@ Condensed reference from `docs/coding-standards.md`:
 | 31 | 6 | Extract ChainIcons from WalletDetailsScreen | Done |
 | 32 | 6 | CSS module classes for inline styles | Done |
 | 33 | 8 | SetHtmlLang component for locale | Done |
+
+## Visual Development — Human-First Design Workflow
+
+### Design document precedence
+
+When working on any frontend UI, read these docs in order of priority:
+1. `docs/brand-brief.md` — product truth, audience, emotional target, what must never be invented
+2. `docs/design-principles.md` — implementation rules for typography, color, layout, interaction
+3. `docs/design-system-notes.md` — token source, component library, icon set, breakpoints
+4. `docs/anti-slop-checklist.md` — canonical anti-pattern list and review criteria
+
+If these conflict: product truth comes from brand-brief, UI rules from design-principles,
+anti-patterns from anti-slop-checklist, tokens from `apps/web/src/styles/design-tokens.css`.
+
+### Anti-slop defaults
+
+Avoid these patterns in all frontend work unless brand rules explicitly allow them:
+- Default purple/blue startup gradients or shiny AI orbs
+- Gradient profile circles with initials as decoration
+- Pure black (#000) or pure white (#FFF) — use palette-derived neutrals
+- Repeated KPI strips showing the same data in multiple places
+- Card soup — too many cards with equal visual weight and no hierarchy
+- Mixed icon families or inconsistent icon weights
+- Emoji used as core UI icons
+- Empty charts or decorative analytics that communicate nothing real
+- Too much border-radius on everything with no variation
+- Hierarchy created only by colored boxes instead of typography + spacing
+- Generic SaaS layout templates repeated across screens
+- Fake metrics, fake workflows, fake pricing, or hallucinated features
+- Lorem ipsum or "Acme Inc" placeholder copy in any deliverable
+- Legacy fee figures (0.75%, 0.12%, 0.09%, subscription tiers) — current fees in `docs/fees.md`
+
+### Quick visual check (after every frontend change)
+
+**IMMEDIATELY** after implementing any front-end change:
+1. Navigate to affected pages using Playwright MCP (`browser_navigate`)
+2. Take screenshots at desktop (1440px) and mobile (375px) viewports
+3. Compare against design direction and `docs/design-principles.md`
+4. Check console for errors using `browser_console_messages`
+5. Click through the primary user flow — verify interactions work
+6. Test at least one edge case (empty state, long content, error state)
+7. Fix visual and interaction issues before declaring done
+
+If Playwright MCP is NOT available: explicitly say "I could not visually verify this — browser tooling is not available." Never imply visual verification was performed when it was not.
+
+### Comprehensive design review
+
+Invoke `@agent design-reviewer` for thorough design validation when:
+- Completing significant UI/UX features
+- Before finalizing PRs with visual changes
+- Needing comprehensive accessibility and responsiveness testing
+- Running `/mydesign review` or `/review-ui`
+
+### Slash commands available
+
+- `/mydesign` — unified design workflow (build, review, audit, explore, tweak)
+- `/build-ui` — focused build workflow with interactive context gathering
+- `/review-ui` — focused review workflow against anti-slop checklist
+
+### Build rules for UI work
+
+- Always use existing design tokens from `apps/web/src/styles/design-tokens.css` — never hardcode colors, spacing, or font sizes
+- Always use the project's custom Icon component (`@/components/UI/Icon`) — never import Lucide, Hero Icons, or other external icon libraries
+- Always check `docs/brand-brief.md` before generating sample content — never invent product claims, fee figures, or capabilities not confirmed there
+- All new user-facing strings must be added to all 4 locales (en, pt-BR, es, de)
+- German text is ~30% longer than English — verify components handle text expansion
+- Regulatory disclaimers (MiCA for EU, CVM 3-warning for BR, FTC for US) have required text per locale — check brand-brief
+- Use Factory pattern with variants for all new components
+- Motion must respect `prefers-reduced-motion` (already in Accessibility Standards above)

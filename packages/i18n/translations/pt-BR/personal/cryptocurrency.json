@@ -18,7 +18,7 @@
       "militaryGradeCustody": {
         "iconAlt": "Security icon",
         "title": "Custódia Segura",
-        "description": "Seus cryptos protegidos com segurança militar.\nVocê controla, nós guardamos.\nAuditoria independente disponível."
+        "description": "Seus cryptos protegidos com criptografia AES-256-GCM.\nVocê controla, nós guardamos.\nAuditoria independente disponível."
       },
       "integratedWithEverything": {
         "iconAlt": "Integration icon",
@@ -43,7 +43,7 @@
       },
       "securityYouUnderstand": {
         "title": "Segurança Que Você Entende",
-        "description": "Carteiras não-custodiais. Você é o dono.\nCriptografia militar. Auditoria independente.\nSeu crypto, sua custódia.",
+        "description": "Carteiras não-custodiais. Você é o dono.\nCriptografia AES-256-GCM. Auditoria independente.\nSeu crypto, sua custódia.",
         "imageAlt": "Segurança Que Você Entende illustration"
       },
       "fromZeroToAdvanced": {
@@ -73,10 +73,10 @@
         "imageAlt": "Crypto em 1 Clique illustration"
       },
       "rewards": {
-        "title": "Segurança Nível Militar",
-        "description": "Criptografia bancária pros seus ativos digitais.\nArmazenamento frio e proteção multi-assinatura.\nSuas criptos, seu controle.",
+        "title": "Segurança Nível Institucional",
+        "description": "Criptografia AES-256-GCM para seus ativos digitais.\nArmazenamento frio e proteção multi-assinatura.\nSuas criptos, seu controle.",
         "ctaText": "Começar Agora",
-        "imageAlt": "Segurança Nível Militar illustration"
+        "imageAlt": "Segurança Nível Institucional illustration"
       }
     }
   },

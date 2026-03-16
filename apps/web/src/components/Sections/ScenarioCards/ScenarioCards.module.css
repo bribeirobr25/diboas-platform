@@ -85,7 +85,7 @@
 
 .cardTitle {
   font-family: var(--font-family-primary);
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   color: var(--color-text-on-dark);
@@ -94,7 +94,7 @@
 
 .cardDescription {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-normal);
   line-height: 1.5;
   color: var(--color-text-on-dark-muted);
@@ -109,7 +109,7 @@
 
 .transitionHook {
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-normal);
   line-height: 1.5;
   color: var(--color-text-secondary);
@@ -120,7 +120,7 @@
 
 @media (min-width: 768px) {
   .transitionHook {
-    font-size: 20px;
+    font-size: var(--font-size-xl);
     margin-bottom: 20px;
   }
 }
@@ -137,7 +137,7 @@
 
 .clarificationLine {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-normal);
   line-height: 1.5;
   color: var(--color-text-secondary);

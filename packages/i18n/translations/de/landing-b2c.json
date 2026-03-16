@@ -1,7 +1,7 @@
 {
   "hero": {
     "headline": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gemacht.",
-    "subheadline": "Sende Geld überallhin, sofort, kostenlos. Lass es wachsen, auf deine Art.",
+    "subheadline": "Sende Geld auf diBoaS, sofort, kostenlos. Lass es wachsen, auf deine Art.",
     "cta": "Sieh dein Geld in Aktion"
   },
   "goalCalculator": {
@@ -247,8 +247,8 @@
   "underTheHood": {
     "toggleLabel": "Willst du die technischen Details?",
     "paragraphs": {
-      "p1": "Architektur: diBoaS basiert auf quelloffener und dezentraler Finanzinfrastruktur (Blockchain und DeFi). Das bedeutet, jede Transaktion ist überprüfbar, jedes System ist auditierbar, und dein Geld bewegt sich ohne Mittelsmänner.",
-      "p2": "Deine Wallet: Jeder Nutzer erhält seine eigene persönliche Wallet mit eigenem privaten Schlüssel. diBoaS sieht, speichert oder hat niemals Zugriff auf deinen Schlüssel. Wenn diBoaS morgen verschwinden würde, wäre dein Geld immer noch deins.",
+      "p1": "Architektur: diBoaS basiert auf quelloffener und dezentraler Infrastruktur. Das bedeutet, jede Transaktion ist überprüfbar, jedes System ist auditierbar, und dein Geld bewegt sich ohne Mittelsmänner.",
+      "p2": "Deine Wallet: Jeder Nutzer erhält seine eigene persönliche Wallet mit eigenem persönlichen Sicherheitsschlüssel. diBoaS sieht, speichert oder hat niemals Zugriff auf deinen Schlüssel. Wenn diBoaS morgen verschwinden würde, wäre dein Geld immer noch deins.",
       "p3": "Sicherheit: Deine Wallet ist so gesichert, dass niemand, einschließlich diBoaS, auf deine Mittel zugreifen kann. Nur du kannst Transaktionen autorisieren. Wir verwenden ausschließlich auditierte und etablierte Protokolle. Jede Strategie wird gegen historische Marktkrisen getestet, bevor sie Nutzern angeboten wird. Wir überwachen alle Positionen rund um die Uhr. Die Transaktionssignierung erfordert immer deine Genehmigung.",
       "p4": "Transparenz: Alle Gebühren werden im Voraus offengelegt. Alle Risiken werden klar benannt. Keine versteckten Mechanismen."
     },
@@ -274,7 +274,7 @@
     "header": "Gebaut von BAR",
     "paragraphs": {
       "p1": "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Alle, die so sind wie sie, verdienen das auch.",
-      "p2": "diBoaS wird in Berlin, Deutschland gegründet, gebaut für Menschen in den USA, der EU, Brasilien und mit weltweiter Expansion. Ich habe über 20 Jahre in Produktmanagement und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für meine Großmutter gewünscht hätte.",
+      "p2": "diBoaS wird in Berlin, Deutschland gegründet, gebaut für Menschen in den USA, der EU, Brasilien, mit Plänen für weitere Märkte. Ich habe über 20 Jahre in Produktmanagement und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für meine Großmutter gewünscht hätte.",
       "p3": "Lass uns in Kontakt treten."
     },
     "emailText": "hello@diboas.com",
@@ -387,7 +387,7 @@
   },
   "seo": {
     "title": "diBoaS | Das System wurde nicht für dich gebaut. Wir ändern das.",
-    "description": "Sende Geld überall hin in Sekunden. Kostenlos. Und dann lass es wachsen, während du schläfst. Entdecke diBoaS.",
+    "description": "Sende Geld auf diBoaS in Sekunden. Kostenlos. Und dann lass es wachsen, während du schläfst. Entdecke diBoaS.",
     "ogTitle": "Das System ist nicht kaputt. Es funktioniert genau so, wie es gedacht war. Nur nicht für dich.",
     "ogDescription": "Es begann mit meiner Großmutter Adelaide. Ich lernte, was Banken uns nicht sagen. Deshalb baue ich diBoaS."
   }

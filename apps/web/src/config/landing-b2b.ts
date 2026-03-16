@@ -224,7 +224,7 @@ export const B2B_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
     aspectRatio: 'portrait'
   },
   style: {
-    backgroundColor: 'white',
+    backgroundColor: 'var(--section-bg-warm)',
     headerStyle: 'inline'
   },
   seo: {
@@ -675,4 +675,6 @@ export const B2B_FOOTER_DISCLOSURES = {
   micaArticle7: 'landing-b2b.footer.micaArticle7',
   cvm: 'landing-b2b.footer.cvmWarning',
   us: 'landing-b2b.footer.usDisclosure',
+  crypto: 'landing-b2b.footer.cryptoDisclosure',
+  closing: 'landing-b2b.footer.closing',
 } as const;

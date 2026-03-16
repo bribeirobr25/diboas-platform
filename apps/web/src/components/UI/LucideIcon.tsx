@@ -5,9 +5,63 @@ import {
   X,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
+  ChevronUp,
   Sparkles,
+  Check,
+  CheckCircle,
+  CheckCircle2,
+  AlertTriangle,
+  Play,
+  Pause,
+  Users,
+  Globe,
+  Award,
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin,
+  Lock,
+  TrendingUp,
+  Send,
+  LineChart,
+  Target,
+  XCircle,
   type LucideIcon as LucideIconType
 } from 'lucide-react';
+
+/**
+ * Centralized Lucide icon re-exports.
+ * All components should import icons from this file — never directly from 'lucide-react'.
+ * Default strokeWidth for all Lucide icons is 2 (the library default).
+ */
+export {
+  ChevronRight,
+  ChevronLeft,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  CheckCircle,
+  CheckCircle2,
+  AlertTriangle,
+  Play,
+  Pause,
+  Users,
+  Globe,
+  Award,
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin,
+  Lock,
+  TrendingUp,
+  Send,
+  LineChart,
+  Target,
+  XCircle,
+};
+
+export type { LucideIconType };
 
 interface LucideIconProps {
   icon: LucideIconType;

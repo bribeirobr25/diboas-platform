@@ -12,6 +12,7 @@ import {
   TwoWorldsSection,
   CashflowExplainerSection,
 } from '@/components/Sections';
+import { MidPageCTA } from '@/components/Sections/MidPageCTA';
 import { CalculatorToggleSection } from '@/components/Sections/CalculatorToggleSection';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
@@ -254,6 +255,14 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
             />
           </div>
         </SectionErrorBoundary>
+
+        {/* Mid-page CTA */}
+        <MidPageCTA
+          headingKey="Ready to put your capital to work?"
+          ctaKey="Join the Waitlist"
+          href="#waitlist"
+          ariaLabel="Mid-page call to action"
+        />
 
         {/* Section 8: Fee Transparency (expandable) */}
         <SectionErrorBoundary

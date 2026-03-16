@@ -33,7 +33,7 @@
     },
     "q8": {
       "question": "Is my money safe on diBoaS?",
-      "answer": "Yes. Same security standards as major banks.\n\n- Non-custodial wallets (you own your assets)\n- Military-grade encryption\n- Compliance with Federal Reserve, MiCA (Europe), and SEC regulations\n- Audited by independent security firms\n\nIn 2024, we had ZERO cases of money loss due to security failures."
+      "answer": "Yes. Same security standards as major banks.\n\n- Non-custodial wallets (you own your assets)\n- AES-256-GCM encryption\n- Compliance with Federal Reserve, MiCA (Europe), and SEC regulations\n- Audited by independent security firms\n\nIn 2024, we had ZERO cases of money loss due to security failures."
     },
     "q9": {
       "question": "What if diBoaS shuts down one day?",
@@ -151,7 +151,7 @@
     },
     "q24": {
       "question": "Is my crypto safe on diBoaS?",
-      "answer": "Yes. Military-grade security.\n\nHow we protect you:\n- Non-custodial wallets (YOU control your assets)\n- Military-grade encryption\n- Mandatory biometric authentication\n- Independent quarterly audits\n\nIf diBoaS disappeared tomorrow, you lose nothing.\nYour crypto is in wallets that ONLY you control."
+      "answer": "Yes. Bank-grade AES-256 encryption with non-custodial MPC wallet architecture.\n\nHow we protect you:\n- Non-custodial wallets (YOU control your assets)\n- AES-256-GCM encryption\n- Mandatory biometric authentication\n- Independent quarterly audits\n\nYour crypto is held in wallets that only you control.\nEven if diBoaS ceased operations, your keys remain yours."
     },
     "q25": {
       "question": "What cryptos can I buy?",
@@ -187,7 +187,7 @@
     },
     "q33": {
       "question": "Can I lose money in strategies?",
-      "answer": "Yes, all investments carry risk.\n\nBut we minimize it several ways:\n\n1. Gradual progression: Start with safe strategies only\n2. Auto-diversification: Your money goes to multiple protocols\n3. 24/7 monitoring: We detect issues before you do\n4. Insurance fund: Coverage for extreme cases\n\nRule: Aggressive strategies only appear when you've \ndemonstrated sufficient knowledge.\n\nCoral won't let you do something dumb."
+      "answer": "Yes, all investments carry risk.\n\nBut we minimize it several ways:\n\n1. Gradual progression: Start with safe strategies only\n2. Auto-diversification: Your money goes to multiple protocols\n3. 24/7 monitoring: We detect issues before you do\n4. Emergency protocols and risk management systems are designed to minimize exposure, but cannot eliminate all risk\n\nRule: Aggressive strategies only appear when you've \ndemonstrated sufficient knowledge.\n\nCoral won't let you do something dumb."
     },
     "q34": {
       "question": "What is DeFi anyway?",
@@ -195,7 +195,7 @@
     },
     "q35": {
       "question": "Is DeFi safe?",
-      "answer": "Safer than it looks, less safe than it should be.\n\nTruths about DeFi security:\n\n✓ Main protocols constantly audited\n✓ Smart contracts are transparent (open source)\n✓ No intermediaries = fewer failure points\n\n✗ New protocols can have bugs\n✗ Hacks happen (but are decreasing)\n✗ Need to understand what you're doing\n\nHow diBoaS protects you:\n- Only uses audited and established protocols\n- Automatically diversifies\n- 24/7 risk monitoring\n- Insurance fund for extreme cases"
+      "answer": "Safer than it looks, less safe than it should be.\n\nTruths about DeFi security:\n\n✓ Main protocols constantly audited\n✓ Smart contracts are transparent (open source)\n✓ No intermediaries = fewer failure points\n\n✗ New protocols can have bugs\n✗ Hacks happen (but are decreasing)\n✗ Need to understand what you're doing\n\nHow diBoaS protects you:\n- Only uses audited and established protocols\n- Automatically diversifies\n- 24/7 risk monitoring\n- Risk management protocols for extreme cases"
     },
     "q36": {
       "question": "Do I need to be a programmer to use DeFi?",
@@ -327,7 +327,7 @@
     },
     "q68": {
       "question": "Is it safe for working capital?",
-      "answer": "Yes! Designed exactly for this.\n\nSafety in 3 layers:\n\n1. Only ultra-liquid funds (withdraw in hours)\n2. Only AAA institutions (maximum security)\n3. FDIC guarantee up to $250,000 per institution\n\nThink of it this way:\nNot \"risky investment\"\nIt's \"supercharged savings\" for businesses\n\nYour money is available when you need it.\nIt just earns while waiting to be used."
+      "answer": "Yes! Designed exactly for this.\n\nFunds are allocated to ultra-liquid positions with regulated counterparties. Withdrawals are typically available within hours.\n\n1. Only ultra-liquid funds (withdraw in hours)\n2. Only regulated counterparties (maximum security)\n\nThink of it this way:\nNot \"risky investment\"\nIt's \"optimized cash management\" for businesses\n\nHowever, returns are not guaranteed and market conditions may affect availability.\nYour money is available when you need it — it just earns while waiting to be used."
     },
     "q69": {
       "question": "How to set up automatic?",
@@ -339,7 +339,7 @@
     },
     "q71": {
       "question": "What if the company doesn't pay?",
-      "answer": "Multiple protection layers:\n\nBefore approval:\n- Robust credit score\n- Financial history analyzed\n- Collateral when necessary\n\nDuring loan:\n- Continuous monitoring\n- Automatic collections\n- Recovery support\n\nIf default occurs:\n- Guarantee fund covers up to 80%\n- Professional recovery process\n- Auto-diversification (your money goes to multiple companies)\n\nHistorical default rate: 1.8%"
+      "answer": "Multiple protection layers:\n\nBefore approval:\n- Robust credit score\n- Financial history analyzed\n- Collateral when necessary\n\nDuring loan:\n- Continuous monitoring\n- Automatic collections\n- Recovery support\n\nIf default occurs:\n- Risk management protocols are in place, but no coverage is guaranteed. Only allocate funds you can afford to risk\n- Professional recovery process\n- Auto-diversification (your money goes to multiple companies)\n\nHistorical default rate: 1.8%"
     },
     "q72": {
       "question": "How much can I lend/borrow?",
@@ -431,11 +431,11 @@
     },
     "q94": {
       "question": "Is my money really safe?",
-      "answer": "Yes. Multiple protection layers.\n\nTechnical Security:\n- Military-grade encryption (AES-256)\n- Mandatory biometric authentication\n- Non-custodial wallets (you control)\n- Cold storage for 95% of assets\n\nRegulatory Security:\n- Compliance with SEC, MiCA, Fed\n- Independent quarterly audits\n- Hack insurance\n- Emergency reserve fund\n\nTrack record:\n2024: ZERO losses from security failures\n2023: ZERO losses from security failures\n\nYour money is safer here than under the mattress."
+      "answer": "Yes. Multiple protection layers.\n\nTechnical Security:\n- AES-256-GCM encryption\n- Mandatory biometric authentication\n- Non-custodial wallets (you control)\n- Cold storage for 95% of assets\n\nRegulatory Security:\n- Compliance with SEC, MiCA, Fed\n- Independent quarterly audits\n- Emergency reserve fund\n\nTrack record:\n2024: ZERO losses from security failures\n2023: ZERO losses from security failures\n\nYour money is safer here than under the mattress."
     },
     "q95": {
       "question": "What if diBoaS goes bankrupt or shuts down?",
-      "answer": "You lose nothing. Guaranteed.\n\nBankruptcy-proof architecture:\n\nCrypto:\n- Non-custodial wallets\n- YOU have the private keys\n- Works independent of diBoaS\n\nTraditional investments:\n- Custodied by regulated institutions\n- Not part of diBoaS balance sheet\n- Protected by FDIC/SIPC\n\nCash in account:\n- Segregated from company assets\n- Regulated partner institution\n- Insured up to $250k\n\nEven if diBoaS disappeared tomorrow:\nYou have TOTAL access to your assets."
+      "answer": "Your crypto assets are held in non-custodial wallets — you control the private keys, so they remain yours regardless of what happens to diBoaS.\n\nCrypto:\n- Non-custodial wallets\n- YOU have the private keys\n- Works independent of diBoaS\n\nTraditional investments:\n- Custodied by regulated institutions\n- Not part of diBoaS balance sheet\n\nFiat funds are segregated at regulated partner institutions, separate from diBoaS's balance sheet. However, all investments carry risk and no outcome is guaranteed."
     },
     "q96": {
       "question": "How do I report something suspicious?",

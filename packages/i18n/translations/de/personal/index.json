@@ -168,7 +168,7 @@
         },
         "rewards": {
           "title": "Transparente Gebühren",
-          "description": "Nur 0,9% für externe Überweisungen.\nAlles andere? Kostenlos.\nKeine versteckten Gebühren. Niemals.",
+          "description": "Geld einzahlen oder abheben: 0,48%.\nVerkaufen oder schließen: 0,39%.\nSenden, investieren? Kostenlos. Immer.",
           "ctaText": "Jetzt starten",
           "imageAlt": "Transparente Gebühren illustration"
         }
@@ -220,7 +220,7 @@
         "feesThatDontRobYou": {
           "iconAlt": "Low fees icon",
           "title": "Gebühren, die dich nicht ausrauben",
-          "description": "Nur 0,09% pro Transaktion.\nBis zu 16x günstiger als traditionelle Plattformen.\nTotale Transparenz."
+          "description": "Kaufen und investieren ist kostenlos.\nVerkaufen: nur 0,39%.\nTotale Transparenz."
         }
       }
     },
@@ -245,7 +245,7 @@
         },
         "feesThatMakeSense": {
           "title": "Gebühren die Sinn machen",
-          "description": "0,09% Gebühr für Kauf/Verkauf.\nKeine Überraschungen, keine versteckten Kosten.\nImmer transparent.",
+          "description": "Kaufen ist kostenlos. Verkaufen: 0,39%.\nKeine Überraschungen, keine versteckten Kosten.\nImmer transparent.",
           "imageAlt": "Gebühren die Sinn machen illustration"
         }
       }
@@ -266,7 +266,7 @@
         },
         "rewards": {
           "title": "Niedrigste Gebühren am Markt",
-          "description": "Nur 0,09% Handelsgebühren.\nDas ist 5 bis 16 Mal günstiger als die Konkurrenz.\nMehr Geld bleibt in Ihrer Tasche.",
+          "description": "Investieren ist kostenlos. Verkaufen: nur 0,39%.\nDas ist 5 bis 16 Mal günstiger als die Konkurrenz.\nMehr Geld bleibt in Ihrer Tasche.",
           "ctaText": "Jetzt starten",
           "imageAlt": "Niedrigste Gebühren am Markt illustration"
         }
@@ -302,8 +302,8 @@
         },
         "militaryGradeCustody": {
           "iconAlt": "Security icon",
-          "title": "Militärische Verwahrung",
-          "description": "Deine Kryptos mit militärischer Sicherheit geschützt.\nDu kontrollierst sie, wir bewahren sie auf.\nUnabhängige Prüfung verfügbar."
+          "title": "Institutionelle Verwahrung",
+          "description": "Deine Kryptos mit institutioneller Sicherheit geschützt.\nDu kontrollierst sie, wir bewahren sie auf.\nUnabhängige Prüfung verfügbar."
         },
         "integratedWithEverything": {
           "iconAlt": "Integration icon",
@@ -328,7 +328,7 @@
         },
         "securityYouUnderstand": {
           "title": "Sicherheit die Sie verstehen",
-          "description": "Non-Custodial Wallets. Sie sind der Eigentümer.\nMilitärische Verschlüsselung. Unabhängige Audits.\nIhr Krypto, Ihre Verwahrung.",
+          "description": "Non-Custodial Wallets. Sie sind der Eigentümer.\nAES-256-GCM-Verschlüsselung. Unabhängige Audits.\nIhr Krypto, Ihre Verwahrung.",
           "imageAlt": "Sicherheit die Sie verstehen illustration"
         },
         "fromZeroToAdvanced": {
@@ -358,10 +358,10 @@
           "imageAlt": "Krypto mit 1 Klick illustration"
         },
         "rewards": {
-          "title": "Militärische Sicherheit",
+          "title": "Institutionelle Sicherheit",
           "description": "Banken-Standard-Verschlüsselung für Ihre digitalen Assets.\nCold Storage und Multi-Signatur-Schutz.\nIhre Kryptos, Ihre Kontrolle.",
           "ctaText": "Jetzt starten",
-          "imageAlt": "Militärische Sicherheit illustration"
+          "imageAlt": "Institutionelle Sicherheit illustration"
         }
       }
     },

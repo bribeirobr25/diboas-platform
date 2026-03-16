@@ -33,7 +33,7 @@
       "feesThatDontRobYou": {
         "iconAlt": "Low fees icon",
         "title": "Comisiones Que No Te Roban",
-        "description": "Solo 0.09% por transacción.\nHasta 16x más barato que plataformas tradicionales.\nTransparencia total."
+        "description": "Comprar e invertir es gratis.\nVender: solo 0,39%.\nTransparencia total."
       }
     }
   },
@@ -58,7 +58,7 @@
       },
       "feesThatMakeSense": {
         "title": "Tarifas Que Tienen Sentido",
-        "description": "0.09% de tarifa para compra/venta.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
+        "description": "Comprar es gratis. Vender: 0,39%.\nSin sorpresas, sin cargos ocultos.\nSiempre transparente.",
         "imageAlt": "Tarifas Que Tienen Sentido illustration"
       }
     }
@@ -79,7 +79,7 @@
       },
       "rewards": {
         "title": "Las Comisiones Más Bajas del Mercado",
-        "description": "Solo 0.09% de comisión por operación.\nEso es de 5 a 16 veces más barato que la competencia.\nMás dinero se queda en tu bolsillo.",
+        "description": "Invertir es gratis. Vender: solo 0,39%.\nEso es de 5 a 16 veces más barato que la competencia.\nMás dinero se queda en tu bolsillo.",
         "ctaText": "Comenzar Ahora",
         "imageAlt": "Las Comisiones Más Bajas del Mercado illustration"
       }

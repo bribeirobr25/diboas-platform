@@ -33,7 +33,7 @@
     },
     "q8": {
       "question": "¿Mi dinero está seguro en diBoaS?",
-      "answer": "Sí. Los mismos estándares de seguridad que los grandes bancos.\n\n- Carteras no custodiales (tú eres dueño de tus activos)\n- Encriptación de nivel militar\n- Cumplimiento con regulaciones SEC (EE.UU.) y MiCA (Europa)\n- Auditado por empresas de seguridad independientes\n\nEn 2024, tuvimos CERO casos de pérdida de dinero por fallos de seguridad."
+      "answer": "Sí. Los mismos estándares de seguridad que los grandes bancos.\n\n- Carteras no custodiales (tú eres dueño de tus activos)\n- Cifrado AES-256-GCM\n- Cumplimiento con regulaciones SEC (EE.UU.) y MiCA (Europa)\n- Auditado por empresas de seguridad independientes\n\nEn 2024, tuvimos CERO casos de pérdida de dinero por fallos de seguridad."
     },
     "q9": {
       "question": "¿Qué pasa si diBoaS cierra algún día?",
@@ -151,7 +151,7 @@
     },
     "q24": {
       "question": "¿Mi crypto está seguro en diBoaS?",
-      "answer": "Sí. Seguridad de nivel militar.\n\nCómo te protegemos:\n- Wallets no custodiales (TÚ controlas tus activos)\n- Encriptación de grado militar\n- Autenticación biométrica obligatoria\n- Auditorías independientes trimestrales\n\nSi diBoaS desaparece mañana, no pierdes nada.\nTu crypto está en wallets que SOLO tú controlas."
+      "answer": "Sí. Cifrado AES-256-GCM con arquitectura de wallets MPC no custodiales.\n\nCómo te protegemos:\n- Wallets no custodiales (TÚ controlas tus activos)\n- Cifrado AES-256-GCM\n- Autenticación biométrica obligatoria\n- Auditorías independientes trimestrales\n\nTu crypto está en wallets que solo tú controlas.\nIncluso si diBoaS cesara operaciones, tus claves siguen siendo tuyas."
     },
     "q25": {
       "question": "¿Qué cryptos puedo comprar?",
@@ -187,7 +187,7 @@
     },
     "q33": {
       "question": "¿Puedo perder dinero en estrategias?",
-      "answer": "Sí, toda inversión tiene riesgo.\n\nPero minimizamos de varias formas:\n\n1. Progresión gradual: Solo estrategias seguras al inicio\n2. Diversificación automática: Tu dinero va a múltiples protocolos\n3. Monitoreo 24/7: Detectamos problemas antes que tú\n4. Fondo de seguro: Cobertura para casos extremos\n\nRegla: Estrategias agresivas solo aparecen cuando has \ndemostrado conocimiento suficiente.\n\nCoral no te deja hacer tonterías."
+      "answer": "Sí, toda inversión tiene riesgo.\n\nPero minimizamos de varias formas:\n\n1. Progresión gradual: Solo estrategias seguras al inicio\n2. Diversificación automática: Tu dinero va a múltiples protocolos\n3. Monitoreo 24/7: Detectamos problemas antes que tú\n4. Protocolos de emergencia y sistemas de gestión de riesgo diseñados para minimizar exposición, pero no pueden eliminar todo riesgo\n\nRegla: Estrategias agresivas solo aparecen cuando has \ndemostrado conocimiento suficiente.\n\nCoral no te deja hacer tonterías."
     },
     "q34": {
       "question": "¿Qué es DeFi exactamente?",
@@ -195,7 +195,7 @@
     },
     "q35": {
       "question": "¿Es seguro DeFi?",
-      "answer": "Más seguro de lo que parece, menos seguro de lo que debería.\n\nVerdades sobre seguridad DeFi:\n\n✓ Protocolos principales constantemente auditados\n✓ Smart contracts son transparentes (código abierto)\n✓ Sin intermediarios = menos puntos de falla\n\n✗ Protocolos nuevos pueden tener bugs\n✗ Los hacks ocurren (pero están disminuyendo)\n✗ Necesitas entender qué estás haciendo\n\nCómo diBoaS te protege:\n- Solo usa protocolos auditados y establecidos\n- Diversifica automáticamente\n- Monitoreo de riesgos 24/7\n- Fondo de seguro para casos extremos"
+      "answer": "Más seguro de lo que parece, menos seguro de lo que debería.\n\nVerdades sobre seguridad DeFi:\n\n✓ Protocolos principales constantemente auditados\n✓ Smart contracts son transparentes (código abierto)\n✓ Sin intermediarios = menos puntos de falla\n\n✗ Protocolos nuevos pueden tener bugs\n✗ Los hacks ocurren (pero están disminuyendo)\n✗ Necesitas entender qué estás haciendo\n\nCómo diBoaS te protege:\n- Solo usa protocolos auditados y establecidos\n- Diversifica automáticamente\n- Monitoreo de riesgos 24/7\n- Protocolos de gestión de riesgo para casos extremos"
     },
     "q36": {
       "question": "¿Necesito ser programador para usar DeFi?",
@@ -327,7 +327,7 @@
     },
     "q68": {
       "question": "¿Es seguro para capital de trabajo?",
-      "answer": "¡Sí! Diseñado exactamente para esto.\n\nSeguridad en 3 capas:\n\n1. Solo fondos ultra-líquidos (retiro en horas)\n2. Solo instituciones AAA (máxima seguridad)\n3. Garantía hasta $250,000 por institución\n\nPiénsalo así:\nNo es \"inversión de riesgo\"\nEs \"ahorro potenciado\" para empresas\n\nTu dinero está disponible cuando lo necesites.\nSolo rinde mientras espera ser usado."
+      "answer": "¡Sí! Diseñado exactamente para esto.\n\nLos fondos se asignan a posiciones ultra-líquidas con contrapartes reguladas. Los retiros normalmente están disponibles en horas.\n\n1. Solo fondos ultra-líquidos (retiro en horas)\n2. Solo contrapartes reguladas (máxima seguridad)\n\nPiénsalo así:\nNo es \"inversión de riesgo\"\nEs \"gestión de efectivo optimizada\" para empresas\n\nSin embargo, los retornos no están garantizados y las condiciones del mercado pueden afectar la disponibilidad.\nTu dinero está disponible cuando lo necesites — solo rinde mientras espera ser usado."
     },
     "q69": {
       "question": "¿Cómo configurar el automático?",
@@ -339,7 +339,7 @@
     },
     "q71": {
       "question": "¿Y si la empresa no paga?",
-      "answer": "Múltiples capas de protección:\n\nAntes de aprobar:\n- Score de crédito robusto\n- Historial financiero analizado\n- Garantías cuando sea necesario\n\nDurante el préstamo:\n- Monitoreo continuo\n- Cobros automáticos\n- Soporte de recuperación\n\nSi ocurre impago:\n- Fondo de garantía cubre hasta 80%\n- Proceso profesional de recuperación\n- Diversificación automática (tu dinero va a varias empresas)\n\nTasa histórica de impago: 1.8%"
+      "answer": "Múltiples capas de protección:\n\nAntes de aprobar:\n- Score de crédito robusto\n- Historial financiero analizado\n- Garantías cuando sea necesario\n\nDurante el préstamo:\n- Monitoreo continuo\n- Cobros automáticos\n- Soporte de recuperación\n\nSi ocurre impago:\n- Protocolos de gestión de riesgo están en vigor, pero ninguna cobertura está garantizada. Solo asigna fondos que puedas arriesgar\n- Proceso profesional de recuperación\n- Diversificación automática (tu dinero va a varias empresas)\n\nTasa histórica de impago: 1.8%"
     },
     "q72": {
       "question": "¿Cuánto puedo prestar/pedir prestado?",
@@ -431,11 +431,11 @@
     },
     "q94": {
       "question": "¿Mi dinero está realmente seguro?",
-      "answer": "Sí. Múltiples capas de protección.\n\nSeguridad Técnica:\n- Encriptación militar (AES-256)\n- Autenticación biométrica obligatoria\n- Wallets no custodiales (tú controlas)\n- Cold storage para 95% de activos\n\nSeguridad Regulatoria:\n- Cumplimiento con reguladores locales y europeos\n- Auditorías independientes trimestrales\n- Seguros contra hacks\n- Fondo de reserva de emergencia\n\nHistorial:\n2024: CERO pérdidas por fallas de seguridad\n2023: CERO pérdidas por fallas de seguridad\n\nTu dinero está más seguro aquí que bajo el colchón."
+      "answer": "Sí. Múltiples capas de protección.\n\nSeguridad Técnica:\n- Cifrado AES-256-GCM\n- Autenticación biométrica obligatoria\n- Wallets no custodiales (tú controlas)\n- Cold storage para 95% de activos\n\nSeguridad Regulatoria:\n- Cumplimiento con reguladores locales y europeos\n- Auditorías independientes trimestrales\n- Fondo de reserva de emergencia\n\nHistorial:\n2024: CERO pérdidas por fallas de seguridad\n2023: CERO pérdidas por fallas de seguridad\n\nTu dinero está más seguro aquí que bajo el colchón."
     },
     "q95": {
       "question": "¿Y si diBoaS quiebra o cierra?",
-      "answer": "No pierdes nada. Garantizado.\n\nArquitectura a prueba de quiebra:\n\nCrypto:\n- Wallets no custodiales\n- TÚ tienes las llaves privadas\n- Funciona independiente de diBoaS\n\nInversiones tradicionales:\n- Custodiadas por instituciones reguladas\n- No son parte del balance de diBoaS\n- Protegidas por garantía de depósitos\n\nEfectivo en cuenta:\n- Segregado de activos de la empresa\n- Institución partner regulada\n- Asegurado hasta $250k\n\nIncluso si diBoaS desaparece mañana:\nTienes acceso TOTAL a tus activos."
+      "answer": "Tus activos cripto están en wallets no custodiales — tú controlas las claves privadas, así que siguen siendo tuyos independientemente de lo que pase con diBoaS.\n\nCrypto:\n- Wallets no custodiales\n- TÚ tienes las llaves privadas\n- Funciona independiente de diBoaS\n\nInversiones tradicionales:\n- Custodiadas por instituciones reguladas\n- No son parte del balance de diBoaS\n\nLos fondos fiduciarios están segregados en instituciones partner reguladas, separados del balance de diBoaS. Sin embargo, todas las inversiones conllevan riesgo y ningún resultado está garantizado."
     },
     "q96": {
       "question": "¿Cómo reporto algo sospechoso?",

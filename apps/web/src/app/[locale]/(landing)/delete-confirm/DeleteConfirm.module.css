@@ -1,0 +1,51 @@
+/**
+ * DeleteConfirm page styles
+ * Uses design tokens instead of hardcoded values
+ */
+
+.container {
+  max-width: 480px;
+  margin: var(--spacing-7xl) auto;
+  padding: 0 var(--spacing-2xl);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.titleSuccess {
+  composes: title;
+  color: var(--theme-status-success);
+}
+
+.titleExpired {
+  composes: title;
+  color: var(--theme-status-warning);
+}
+
+.titleError {
+  composes: title;
+  color: var(--theme-status-error);
+}
+
+.bodyText {
+  color: var(--color-slate-600);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.statusText {
+  color: var(--color-slate-600);
+}
+
+.confirmButton {
+  padding: 14px 32px;
+  background-color: var(--theme-status-error);
+  color: var(--color-white, #fff);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  cursor: pointer;
+}

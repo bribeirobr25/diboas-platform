@@ -21,7 +21,7 @@
 /* Default: White background with shadow */
 .variantDefault {
   background-color: var(--color-white);
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
+  box-shadow: var(--shadow-sm);
 }
 
 /* Muted: Slate background, no shadow */

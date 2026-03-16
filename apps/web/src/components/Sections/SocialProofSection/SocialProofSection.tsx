@@ -13,7 +13,7 @@
 
 import React, { useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import { Users, Globe, Award } from 'lucide-react';
+import { Users, Globe, Award } from '@/components/UI/LucideIcon';
 import { analyticsService } from '@/lib/analytics';
 import { setCtaSource } from '@/lib/analytics/ctaAttribution';
 import { useWaitlistStats } from '@/hooks/useWaitlistStats';
@@ -94,7 +94,7 @@ export function SocialProofSection({
         {/* Stats Cards */}
         <div className={styles.cardsGrid}>
           {/* Waitlist Count Card */}
-          <article className={styles.card}>
+          <div role="group" className={styles.card}>
             <div className={styles.iconWrapper}>
               <Users className={styles.icon} aria-hidden="true" />
             </div>
@@ -103,10 +103,10 @@ export function SocialProofSection({
                 {t('stats.waitlist', { count: highlightedCount })}
               </p>
             </div>
-          </article>
+          </div>
 
           {/* Countries Card */}
-          <article className={styles.card}>
+          <div role="group" className={styles.card}>
             <div className={styles.iconWrapper}>
               <Globe className={styles.icon} aria-hidden="true" />
             </div>
@@ -115,11 +115,11 @@ export function SocialProofSection({
                 {t('stats.countries', { countries: highlightedCountries })}
               </p>
             </div>
-          </article>
+          </div>
 
           {/* Founding Member Spots Card */}
           {stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining > 0 ? (
-            <article className={styles.card}>
+            <div role="group" className={styles.card}>
               <div className={styles.iconWrapper}>
                 <Award className={styles.icon} aria-hidden="true" />
               </div>
@@ -131,9 +131,9 @@ export function SocialProofSection({
                   )}
                 </p>
               </div>
-            </article>
+            </div>
           ) : stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining === 0 ? (
-            <article className={styles.card}>
+            <div role="group" className={styles.card}>
               <div className={styles.iconWrapper}>
                 <Award className={styles.icon} aria-hidden="true" />
               </div>
@@ -142,7 +142,7 @@ export function SocialProofSection({
                   {intl.formatMessage({ id: 'waitlist.stats.foundingMembersFull' })}
                 </p>
               </div>
-            </article>
+            </div>
           ) : null}
         </div>
 

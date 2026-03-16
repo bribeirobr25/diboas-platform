@@ -17,7 +17,7 @@
       },
       "guaranteedLiquidity": {
         "iconAlt": "Liquidity icon",
-        "title": "Guaranteed Liquidity",
+        "title": "Immediate Liquidity",
         "description": "Withdrawals whenever you need.\nDoesn't lock operational capital.\nFlexibility for opportunities."
       },
       "managedRisk": {

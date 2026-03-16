@@ -17,8 +17,8 @@ import {
   Target,
   CheckCircle2,
   XCircle,
-  type LucideIcon
-} from 'lucide-react';
+  type LucideIconType as LucideIcon
+} from '@/components/UI/LucideIcon';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { BenefitsCardsVariantProps, BenefitCard } from '../../types';
 import styles from './BenefitsCardsDefault.module.css';

@@ -33,7 +33,7 @@
       "feesThatDontRobYou": {
         "iconAlt": "Low fees icon",
         "title": "Taxas Que Não Te Roubam",
-        "description": "Apenas 0.09% por transação.\nAté 16x mais barato que plataformas tradicionais.\nTransparência absoluta."
+        "description": "Comprar e investir é grátis.\nVender: apenas 0,39%.\nTransparência absoluta."
       }
     }
   },
@@ -58,7 +58,7 @@
       },
       "feesThatMakeSense": {
         "title": "Taxas Que Fazem Sentido",
-        "description": "0.09% de taxa para compra/venda.\nSem surpresas, sem taxas escondidas.\nTransparência sempre.",
+        "description": "Comprar é grátis. Vender: 0,39%.\nSem surpresas, sem taxas escondidas.\nTransparência sempre.",
         "imageAlt": "Taxas Que Fazem Sentido illustration"
       }
     }
@@ -79,7 +79,7 @@
       },
       "rewards": {
         "title": "Menores Taxas do Mercado",
-        "description": "Só 0,09% de taxa de negociação.\nIsso é de 5 a 16 vezes mais barato que a concorrência.\nMais dinheiro fica no seu bolso.",
+        "description": "Investir é grátis. Vender: apenas 0,39%.\nIsso é de 5 a 16 vezes mais barato que a concorrência.\nMais dinheiro fica no seu bolso.",
         "ctaText": "Começar Agora",
         "imageAlt": "Menores Taxas do Mercado illustration"
       }

@@ -20,6 +20,67 @@ export interface ScenarioResult {
   readonly bad: number;
 }
 
+/* Wizard state machine types */
+
+export type GoalCalculatorScreen =
+  | 'goalSelection'
+  | 'goalAmount'
+  | 'timeline'
+  | 'depositRisk'
+  | 'simulation'
+  | 'results';
+
+export interface GoalCalculatorState {
+  readonly screen: GoalCalculatorScreen;
+  readonly activeGoal: GoalTab | null;
+
+  // Inputs (raw strings for locale-aware editing)
+  readonly field1Raw: string;
+  readonly initialDepositRaw: string;
+  readonly monthlyDepositRaw: string;
+  readonly isMonthlyOverridden: boolean;
+  readonly riskTierIndex: RiskTierIndex;
+
+  // Goal-specific
+  readonly emergencyCoverage: EmergencyCoverage;
+  readonly emergencyTimeline: EmergencyTimeline;
+  readonly vacationDate: Date | null;
+
+  // Animation
+  readonly isAnimating: boolean;
+
+  // Result
+  readonly result: ScenarioResult | null;
+  readonly isStartSmaller: boolean;
+}
+
+export type GoalCalculatorAction =
+  | { type: 'SELECT_GOAL'; goal: GoalTab }
+  | { type: 'SET_FIELD1'; value: string }
+  | { type: 'SET_INITIAL_DEPOSIT'; value: string }
+  | { type: 'SET_MONTHLY_DEPOSIT'; value: string }
+  | { type: 'SET_RISK_TIER'; index: RiskTierIndex }
+  | { type: 'SET_COVERAGE'; coverage: EmergencyCoverage }
+  | { type: 'SET_TIMELINE'; timeline: EmergencyTimeline }
+  | { type: 'SET_VACATION_DATE'; date: Date }
+  | { type: 'START_SIMULATION'; result: ScenarioResult }
+  | { type: 'FINISH_SIMULATION' }
+  | { type: 'TOGGLE_START_SMALLER' }
+  | { type: 'GO_NEXT' }
+  | { type: 'GO_BACK' }
+  | { type: 'RESET' };
+
+export interface GoalCalculatorContextValue {
+  readonly state: GoalCalculatorState;
+  readonly dispatch: React.Dispatch<GoalCalculatorAction>;
+  readonly selectGoal: (goal: GoalTab) => void;
+  readonly goNext: () => void;
+  readonly goBack: () => void;
+  readonly startSimulation: (result: ScenarioResult) => void;
+  readonly finishSimulation: () => void;
+  readonly reset: () => void;
+}
+
 export interface GoalCalculatorConfig {
   readonly content: {
     readonly header: string;

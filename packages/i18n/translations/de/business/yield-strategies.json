@@ -17,7 +17,7 @@
       },
       "guaranteedLiquidity": {
         "iconAlt": "Liquidity icon",
-        "title": "Garantierte Liquidität",
+        "title": "Sofortige Liquidität",
         "description": "Abhebungen, wann immer du willst.\nSperrt kein operatives Kapital.\nFlexibilität für Chancen."
       },
       "managedRisk": {

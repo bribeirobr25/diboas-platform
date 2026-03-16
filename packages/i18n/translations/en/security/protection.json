@@ -1,13 +1,13 @@
 {
   "title": "diBoaS Protection | diBoaS",
-  "description": "Your money protected with military-grade security.",
+  "description": "Your money protected with bank-grade security.",
   "hero": {
-    "title": "Your money protected with military-grade security. You stay in control, we ensure the protection.",
+    "title": "Your money protected with bank-grade security. You stay in control, we ensure the protection.",
     "description": "",
     "cta": "Get Started"
   },
   "benefitsCards": {
-    "title": "Military-grade security",
+    "title": "Bank-grade security",
     "description": "Your money protected, always.",
     "cards": {
       "endToEndEncryption": {
@@ -39,12 +39,12 @@
   },
   "stickyFeaturesNav": {
     "title": "Security without compromise.",
-    "subtitle": "Military protection, your control, total transparency.",
+    "subtitle": "Institutional-grade protection, your control, total transparency.",
     "cards": {
       "militaryGradeEncryption": {
-        "title": "Military-Grade Encryption",
+        "title": "AES-256-GCM Encryption",
         "description": "Same technology that protects governments.\nYour data and assets totally secure.\nNothing less than the best.",
-        "imageAlt": "Military-Grade Encryption illustration"
+        "imageAlt": "AES-256-GCM Encryption illustration"
       },
       "youReTheOwner": {
         "title": "You're the Owner",

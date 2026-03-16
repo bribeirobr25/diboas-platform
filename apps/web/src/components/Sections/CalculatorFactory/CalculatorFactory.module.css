@@ -374,7 +374,7 @@
 /* Today Title */
 .todayTitle {
   font-family: var(--font-family-primary);
-  font-size: 22px;
+  font-size: var(--font-size-subtitle-desktop);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary-accessible);
   text-align: center;
@@ -401,7 +401,7 @@
 
 .expandToggleTitle {
   font-family: var(--font-family-primary);
-  font-size: 22px;
+  font-size: var(--font-size-subtitle-desktop);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary-accessible);
   margin: 0;
@@ -409,7 +409,7 @@
 
 .expandArrow {
   color: var(--cta-bg-primary);
-  transition: transform 0.3s ease;
+  transition: transform var(--animation-duration-normal) ease;
 }
 
 .expandArrowOpen {
@@ -421,7 +421,7 @@
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
+  transition: max-height var(--animation-duration-slow) ease, opacity var(--animation-duration-normal) ease;
 }
 
 .expandContentOpen {
@@ -432,7 +432,7 @@
 /* Below Results — restyled as transitionHook */
 .belowResultsValue {
   font-family: var(--font-family-primary);
-  font-size: 22px;
+  font-size: var(--font-size-subtitle-desktop);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary-accessible);
   text-align: center;

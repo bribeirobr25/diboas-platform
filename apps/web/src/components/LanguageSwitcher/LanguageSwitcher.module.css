@@ -132,7 +132,7 @@
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background-color var(--animation-duration-fast) ease, border-color var(--animation-duration-fast) ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -182,7 +182,7 @@
   line-height: 0;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-xs);
 }
 
 /* Locale code label beneath the flag */
@@ -210,7 +210,7 @@
 }
 
 .size-sm .flagEmoji {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
 }
 
 .size-sm .localeCode {
@@ -234,7 +234,7 @@
 }
 
 .size-md .flagEmoji {
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
 }
 
 .size-md .icon,

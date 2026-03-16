@@ -12,7 +12,7 @@
 import { useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronRight, Play, Pause } from 'lucide-react';
+import { ChevronRight, Play, Pause } from '@/components/UI/LucideIcon';
 import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';

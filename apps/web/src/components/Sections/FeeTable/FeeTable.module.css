@@ -31,7 +31,7 @@
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   line-height: 1.5;
   margin: 0 0 40px 0;
@@ -61,7 +61,7 @@
 
 .th {
   font-family: var(--font-family-primary);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   text-transform: uppercase;
@@ -79,7 +79,7 @@
 }
 
 .td {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   color: var(--color-text-body);
   padding: 16px;
   vertical-align: top;
@@ -126,7 +126,7 @@
 }
 
 .disclaimer {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   color: var(--color-text-secondary);
   line-height: 1.6;
   max-width: 600px;
@@ -157,7 +157,7 @@
 }
 
 .mobileCardAction {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
   margin-bottom: 12px;
@@ -171,7 +171,7 @@
 }
 
 .mobileCompareLabel {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   text-transform: uppercase;
@@ -186,7 +186,7 @@
 }
 
 .mobileDifference {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   padding-top: 8px;
   border-top: 1px solid var(--color-slate-200);
@@ -195,7 +195,7 @@
 /* Transition hook: styled intro above the title */
 .transitionHook {
   font-family: var(--font-family-primary);
-  font-size: 22px;
+  font-size: var(--font-size-subtitle-desktop);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary-accessible);
   text-align: center;
@@ -205,7 +205,7 @@
 
 /* Pain intro: descriptive text below subtitle */
 .painIntro {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   color: var(--color-text-body);
   line-height: 1.6;
   max-width: 680px;

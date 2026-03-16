@@ -140,6 +140,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         ref={ref}
         disabled={disabled || loading}
+        aria-busy={loading || undefined}
+        aria-disabled={disabled || loading || undefined}
         onClick={clickHandler}
         aria-label={loading && loadingText ? loadingText : ariaLabel}
         aria-describedby={ariaDescribedBy}

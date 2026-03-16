@@ -8,7 +8,7 @@
 'use client';
 
 import { useState } from 'react';
-import { AlertTriangle, CheckCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle } from '@/components/UI/LucideIcon';
 import type { Protocol, ProtocolLabels, ProtocolI18nContent } from './types';
 import styles from './ProtocolCard.module.css';
 

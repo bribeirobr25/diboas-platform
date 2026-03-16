@@ -82,13 +82,13 @@ export default async function DailyMarketPage({ params }: LocalePageProps) {
             >
               {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).title}
             </h1>
-            <p style={{ fontSize: 18, color: '#64748b', marginBottom: 32 }}>
+            <p style={{ fontSize: 18, color: 'var(--color-slate-500)', marginBottom: 32 }}>
               {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).comingSoon}
             </p>
             <a
               href={`/${locale}`}
               style={{
-                color: '#0d9488',
+                color: 'var(--color-teal-600)',
                 fontWeight: 600,
                 textDecoration: 'underline',
                 textUnderlineOffset: 3,

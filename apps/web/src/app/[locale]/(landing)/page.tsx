@@ -12,6 +12,7 @@ import {
   FounderSection,
   GoalCalculator,
 } from '@/components/Sections';
+import { MidPageCTA } from '@/components/Sections/MidPageCTA';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
 import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
 import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
@@ -264,6 +265,14 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
             />
           </div>
         </SectionErrorBoundary>
+
+        {/* Mid-page CTA */}
+        <MidPageCTA
+          headingKey="Ready to try it?"
+          ctaKey="Join the Waitlist"
+          href="#waitlist"
+          ariaLabel="Mid-page call to action"
+        />
 
         {/* Section 7: Demo */}
         <SectionErrorBoundary

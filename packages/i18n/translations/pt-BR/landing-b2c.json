@@ -247,8 +247,8 @@
   "underTheHood": {
     "toggleLabel": "Quer os detalhes técnicos?",
     "paragraphs": {
-      "p1": "Arquitetura: o diBoaS é construído sobre infraestrutura financeira de código aberto e descentralizada (Blockchain e DeFi). Isso significa que cada transação é verificável, cada sistema é auditável, e seu dinheiro se move sem intermediários.",
-      "p2": "Sua carteira: cada usuário recebe sua própria carteira pessoal com sua própria chave privada. O diBoaS nunca vê, guarda ou tem acesso à sua chave. Se o diBoaS desaparecesse amanhã, seu dinheiro continuaria sendo seu.",
+      "p1": "Arquitetura: o diBoaS é construído sobre infraestrutura de código aberto e descentralizada. Isso significa que cada transação é verificável, cada sistema é auditável, e seu dinheiro se move sem intermediários.",
+      "p2": "Sua carteira: cada usuário recebe sua própria carteira pessoal com sua própria chave de segurança pessoal. O diBoaS nunca vê, guarda ou tem acesso à sua chave. Se o diBoaS desaparecesse amanhã, seu dinheiro continuaria sendo seu.",
       "p3": "Segurança: sua carteira é protegida de forma que ninguém, incluindo o diBoaS, possa acessar seus fundos. Só você pode autorizar transações. Usamos apenas protocolos auditados e estabelecidos. Toda estratégia é testada contra crises históricas do mercado antes de ser oferecida aos usuários. Monitoramos todas as posições 24 horas por dia. A assinatura de transações sempre vai exigir sua aprovação.",
       "p4": "Transparência: todas as taxas são divulgadas antecipadamente. Todos os riscos são declarados de forma clara. Sem mecanismos escondidos."
     },
@@ -274,7 +274,7 @@
     "header": "Construído por BAR",
     "paragraphs": {
       "p1": "Eu cresci vendo minha avó Adelaide navegar um sistema financeiro que não foi feito pra ela. Ela merecia ferramentas melhores. Todo mundo como ela também merece.",
-      "p2": "O diBoaS está sendo criado em Berlim, Alemanha, construído pra pessoas nos EUA, na Europa, no Brasil e expandindo pro mundo todo. Eu tenho mais de 20 anos trabalhando com Produtos e TI no Brasil, nos EUA, no Japão e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que minha avó tivesse.",
+      "p2": "O diBoaS está sendo criado em Berlim, Alemanha, construído pra pessoas nos EUA, na Europa, no Brasil, com planos de expandir pra mais mercados. Eu tenho mais de 20 anos trabalhando com Produtos e TI no Brasil, nos EUA, no Japão e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que minha avó tivesse.",
       "p3": "Vamos nos conectar."
     },
     "emailText": "hello@diboas.com",
@@ -387,7 +387,7 @@
   },
   "seo": {
     "title": "diBoaS | O Sistema Não Foi Feito Pra Você. A Gente Tá Mudando Isso.",
-    "description": "Envie dinheiro pra qualquer lugar em segundos. De graça. Depois, faça ele crescer enquanto você dorme. Conheça a diBoaS.",
+    "description": "Envie dinheiro na diBoaS em segundos. De graça. Depois, faça ele crescer enquanto você dorme. Conheça a diBoaS.",
     "ogTitle": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não pra você.",
     "ogDescription": "Começou com minha avó Adelaide. Eu aprendi o que os bancos não contam. Por isso estou construindo a diBoaS."
   }

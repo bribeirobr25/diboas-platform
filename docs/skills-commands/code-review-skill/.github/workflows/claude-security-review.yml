@@ -1,0 +1,96 @@
+name: diBoaS Security Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  security-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run diBoaS Security Review
+        id: security-review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: true
+
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            You are a senior security engineer reviewing diBoaS changes.
+
+            OBJECTIVE: Identify HIGH-CONFIDENCE security vulnerabilities only. Focus
+            on security implications newly introduced by this PR. Do not comment on
+            existing code unless it interacts with the new changes.
+
+            CONFIDENCE THRESHOLD: Only report findings where confidence ≥ 0.8.
+            Each finding must include a concrete exploit scenario.
+
+            ## diBoaS-Specific Priorities (check these first)
+
+            NON-CUSTODIAL VIOLATIONS (always P0 / High):
+            - Server-side transaction initiation without user action
+            - Private key or seed phrase stored on diBoaS servers
+            - Turnkey API bypassed (all wallet ops must use the wrapper)
+            - Authorization checks removed from wallet/fee operations
+            - Any code path allowing a diBoaS employee to move user funds
+
+            AUTHORIZATION (P0 / High):
+            - Role check absent or client-side only on protected endpoints
+            - Role check existed before this PR but is now removed
+            - Privilege escalation paths
+
+            ## Standard Security Categories
+            Input validation (SQLi, command injection, path traversal, NoSQL injection),
+            Authentication/session management, Hardcoded secrets/API keys,
+            XSS in non-React/Angular contexts, PII exposure in logs or API responses,
+            Cryptographic weaknesses.
+
+            ## HARD EXCLUSIONS — Never report these
+            1. DoS/resource exhaustion vulnerabilities
+            2. Secrets on disk that are otherwise secured
+            3. Rate limiting or service overload
+            4. Missing best practices without a concrete vulnerability
+            5. Theoretical race conditions (only concrete ones)
+            6. Outdated third-party libraries (managed separately)
+            7. Unit test files
+            8. Log spoofing
+            9. SSRF controlling path only (not host/protocol)
+            10. Regex injection or regex DoS
+            11. Findings in markdown documentation files
+            12. Missing audit logs
+            13. React/Next.js XSS (safe framework) — unless dangerouslySetInnerHTML
+            14. Client-side missing auth/permission checks (backend is responsible)
+            15. Logging non-PII data
+            16. Environment variable/CLI flag attacks (trusted values)
+
+            ## Output Requirements
+            For each finding, provide:
+            - File and line number
+            - Severity (High / Medium)
+            - Confidence score (0.8–1.0)
+            - Description
+            - Exploit scenario (step-by-step)
+            - Recommendation
+
+            Only report High and Medium findings. If nothing meets the threshold,
+            output: "No high-confidence security findings in this PR."
+
+            Use `gh pr comment` to post the report.
+
+          claude_args: >-
+            --model claude-opus-4-1-20250805
+            --allowed-tools "Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(git diff:*),Bash(git log:*),Bash(git status:*),Read,Grep,Glob,LS,Task"

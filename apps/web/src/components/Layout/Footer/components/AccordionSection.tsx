@@ -7,7 +7,7 @@
  */
 
 import Link from 'next/link';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from '@/components/UI/LucideIcon';
 import { useTranslation } from '@diboas/i18n/client';
 import type { FooterSection } from '@/config/footer';
 import styles from '../SiteFooter.module.css';

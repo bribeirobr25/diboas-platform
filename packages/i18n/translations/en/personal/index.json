@@ -168,7 +168,7 @@
         },
         "rewards": {
           "title": "Transparent Fees",
-          "description": "Only 0.9% for external transfers.\nEverything else? Free.\nNo hidden charges. Ever.",
+          "description": "Add money or cash out: 0.48%.\nSell or close: 0.39%.\nSend, swap, invest? Free. Always.",
           "ctaText": "Get Started",
           "imageAlt": "Transparent Fees illustration"
         }
@@ -220,7 +220,7 @@
         "feesThatDontRobYou": {
           "iconAlt": "Low fees icon",
           "title": "Fees That Don't Rob You",
-          "description": "Just 0.09% per transaction.\nUp to 16x cheaper than traditional platforms.\nTotal transparency."
+          "description": "Buying and investing is free.\nSelling: just 0.39%.\nTotal transparency."
         }
       }
     },
@@ -245,7 +245,7 @@
         },
         "feesThatMakeSense": {
           "title": "Fees That Make Sense",
-          "description": "0.09% fee for buying/selling.\nNo surprises, no hidden charges.\nAlways transparent.",
+          "description": "Buying is free. Selling: 0.39%.\nNo surprises, no hidden charges.\nAlways transparent.",
           "imageAlt": "Fees That Make Sense illustration"
         }
       }
@@ -266,7 +266,7 @@
         },
         "rewards": {
           "title": "Lowest Fees in the Market",
-          "description": "Only 0.09% trading fees.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
+          "description": "Investing is free. Selling: just 0.39%.\nThat's 5 to 16 times cheaper than competitors.\nMore money stays in your pocket.",
           "ctaText": "Get Started",
           "imageAlt": "Lowest Fees in the Market illustration"
         }
@@ -302,8 +302,8 @@
         },
         "militaryGradeCustody": {
           "iconAlt": "Security icon",
-          "title": "Military-Grade Custody",
-          "description": "Your crypto protected with military-grade security.\nYou control it, we safeguard it.\nIndependent audit available."
+          "title": "Bank-Grade Custody",
+          "description": "Your crypto protected with AES-256-GCM encryption.\nYou control it, we safeguard it.\nIndependent audit available."
         },
         "integratedWithEverything": {
           "iconAlt": "Integration icon",
@@ -328,7 +328,7 @@
         },
         "securityYouUnderstand": {
           "title": "Security You Understand",
-          "description": "Non-custodial wallets. You own it.\nMilitary-grade encryption. Independent audits.\nYour crypto, your custody.",
+          "description": "Non-custodial wallets. You own it.\nAES-256-GCM encryption. Independent audits.\nYour crypto, your custody.",
           "imageAlt": "Security You Understand illustration"
         },
         "fromZeroToAdvanced": {
@@ -358,10 +358,10 @@
           "imageAlt": "1-Click Crypto illustration"
         },
         "rewards": {
-          "title": "Military-Grade Security",
+          "title": "Bank-Grade Security",
           "description": "Bank-level encryption for your digital assets.\nCold storage and multi-signature protection.\nYour crypto, your control.",
           "ctaText": "Get Started",
-          "imageAlt": "Military-Grade Security illustration"
+          "imageAlt": "Bank-Grade Security illustration"
         }
       }
     },

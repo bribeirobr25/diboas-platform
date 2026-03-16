@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { Check } from 'lucide-react';
+import { Check } from '@/components/UI/LucideIcon';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { FeeTableConfig } from '@/config/feeTable';

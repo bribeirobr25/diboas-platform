@@ -1,7 +1,7 @@
 {
   "hero": {
     "headline": "The money system isn't broken. It just wasn't built for you.",
-    "subheadline": "Send money anywhere, instantly, for free. Grow it your way.",
+    "subheadline": "Send money on diBoaS, instantly, for free. Grow it your way.",
     "cta": "See your money in action"
   },
   "goalCalculator": {
@@ -247,8 +247,8 @@
   "underTheHood": {
     "toggleLabel": "Want the technical details?",
     "paragraphs": {
-      "p1": "Architecture: diBoaS is built on open-source and decentralized financial infrastructure (Blockchain and DeFi). This means every transaction is verifiable, every system is auditable, and your money moves without middlemen.",
-      "p2": "Your wallet: Every user gets their own personal wallet with their own private key. diBoaS never sees, holds, or has access to your key. If diBoaS disappeared tomorrow, your money would still be yours.",
+      "p1": "Architecture: diBoaS is built on open-source and decentralized infrastructure. This means every transaction is verifiable, every system is auditable, and your money moves without middlemen.",
+      "p2": "Your wallet: Every user gets their own personal wallet with their own personal security key. diBoaS never sees, holds, or has access to your key. If diBoaS disappeared tomorrow, your money would still be yours.",
       "p3": "Security: Your wallet is secured so that no one, including diBoaS, can access your funds. Only you can authorize transactions. We only use audited and established protocols. Every strategy is tested against historical market crashes before it's offered to users. We monitor all positions 24/7. Transaction signing will always require your approval.",
       "p4": "Transparency: All fees are disclosed upfront. All risks are stated plainly. No hidden mechanics."
     },
@@ -274,7 +274,7 @@
     "header": "Built by BAR",
     "paragraphs": {
       "p1": "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her. She deserved better tools. So does everyone like her.",
-      "p2": "diBoaS is being established in Berlin, Germany, building for people in the US, EU, Brazil and expanding Worldwide. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish my grandmother had.",
+      "p2": "diBoaS is being established in Berlin, Germany, building for people in the US, EU, Brazil, with plans to expand to additional markets. I've spent 20+ years working in Products and IT across Brazil, the US, Japan, and Germany. Now I'm building the financial tool I wish my grandmother had.",
       "p3": "Let's connect."
     },
     "emailText": "hello@diboas.com",
@@ -387,7 +387,7 @@
   },
   "seo": {
     "title": "diBoaS | The System Wasn't Built for You. We're Changing That.",
-    "description": "Send money anywhere in seconds. Free. Then make it grow while you sleep. Meet diBoaS.",
+    "description": "Send money on diBoaS in seconds. Free. Then make it grow while you sleep. Meet diBoaS.",
     "ogTitle": "The system isn't broken. It's working exactly as designed. Just not for you.",
     "ogDescription": "It started with my grandmother Adelaide. I learned what banks don't tell us. That's why I'm building diBoaS."
   }

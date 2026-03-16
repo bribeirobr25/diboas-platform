@@ -7,6 +7,7 @@
  */
 
 import { useTranslation } from '@diboas/i18n/client';
+import { Check } from '@/components/UI/LucideIcon';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import styles from './ProtocolsSelectionSection.module.css';
@@ -47,23 +48,23 @@ export function ProtocolsSelectionSection() {
 
           <ul className={styles.criteriaList}>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}>✓</span>
+              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
               <span className={styles.criteriaText}>{criteria.operation}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}>✓</span>
+              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
               <span className={styles.criteriaText}>{criteria.audits}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}>✓</span>
+              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
               <span className={styles.criteriaText}>{criteria.exploits}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}>✓</span>
+              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
               <span className={styles.criteriaText}>{criteria.transparent}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}>✓</span>
+              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
               <span className={styles.criteriaText}>{criteria.usage}</span>
             </li>
           </ul>

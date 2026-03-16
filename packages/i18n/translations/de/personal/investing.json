@@ -33,7 +33,7 @@
       "feesThatDontRobYou": {
         "iconAlt": "Low fees icon",
         "title": "Gebühren, die dich nicht ausrauben",
-        "description": "Nur 0,09% pro Transaktion.\nBis zu 16x günstiger als traditionelle Plattformen.\nTotale Transparenz."
+        "description": "Kaufen und investieren ist kostenlos.\nVerkaufen: nur 0,39%.\nTotale Transparenz."
       }
     }
   },
@@ -58,7 +58,7 @@
       },
       "feesThatMakeSense": {
         "title": "Gebühren die Sinn machen",
-        "description": "0,09% Gebühr für Kauf/Verkauf.\nKeine Überraschungen, keine versteckten Kosten.\nImmer transparent.",
+        "description": "Kaufen ist kostenlos. Verkaufen: 0,39%.\nKeine Überraschungen, keine versteckten Kosten.\nImmer transparent.",
         "imageAlt": "Gebühren die Sinn machen illustration"
       }
     }
@@ -79,7 +79,7 @@
       },
       "rewards": {
         "title": "Niedrigste Gebühren am Markt",
-        "description": "Nur 0,09% Handelsgebühren.\nDas ist 5 bis 16 Mal günstiger als die Konkurrenz.\nMehr Geld bleibt in Ihrer Tasche.",
+        "description": "Investieren ist kostenlos. Verkaufen: nur 0,39%.\nDas ist 5 bis 16 Mal günstiger als die Konkurrenz.\nMehr Geld bleibt in Ihrer Tasche.",
         "ctaText": "Jetzt starten",
         "imageAlt": "Niedrigste Gebühren am Markt illustration"
       }

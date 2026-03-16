@@ -185,7 +185,7 @@
   background: var(--cta-bg-primary);
   color: var(--cta-color-primary);
   border: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
   font-size: var(--cta-font-size-mobile);
   font-weight: var(--cta-font-weight);
   line-height: var(--cta-line-height);

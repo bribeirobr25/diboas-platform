@@ -1,7 +1,8 @@
 // DRY Principle: Centralized UI component exports
 export { Container } from './Container';
 export { FlexBetween } from './FlexBetween';
-export { LucideIcon, MenuIcon, CloseIcon, ChevronRightIcon, ChevronLeftIcon, SparklesIcon, NavigationToggle } from './LucideIcon';
+export { LucideIcon, MenuIcon, CloseIcon, ChevronRightIcon, ChevronLeftIcon, SparklesIcon, NavigationToggle, ChevronDown, ChevronUp, Check, CheckCircle, CheckCircle2, AlertTriangle, Play, Pause, Users, Globe, Award, Instagram, Twitter, Youtube, Linkedin, Lock, TrendingUp, Send, LineChart, Target, XCircle } from './LucideIcon';
+export type { LucideIconType } from './LucideIcon';
 export { LocaleLink } from './LocaleLink';
 export { CTAButtonLink, DEFAULT_CTA_PROPS, type CTAButtonLinkProps } from './CTAButtonLink';
 export { CurrencyInput, type CurrencyInputProps } from './CurrencyInput';
