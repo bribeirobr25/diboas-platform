@@ -132,15 +132,18 @@
     "header": "Echte Menschen. Echte Momente.",
     "card1": {
       "title": "Geld an deinen Bruder in der Türkei senden",
-      "description": "Er ist Tausende Kilometer entfernt. Du schickst es. Es kommt an, bevor du dein Handy weglegst."
+      "description": "Er ist Tausende Kilometer entfernt. Du schickst es. Es kommt an, bevor du dein Handy weglegst.",
+      "imageAlt": "Freunde teilen die Rechnung beim Abendessen"
     },
     "card2": {
       "title": "Einen Designer in Lissabon bezahlen",
-      "description": "Er ist in Portugal. Du bist in Deutschland. Das Geld kommt an, bevor das Meeting vorbei ist."
+      "description": "Er ist in Portugal. Du bist in Deutschland. Das Geld kommt an, bevor das Meeting vorbei ist.",
+      "imageAlt": "Internationale Zahlung senden"
     },
     "card3": {
       "title": "Notfall-Geld für Mama",
-      "description": "3 Uhr morgens. Sie braucht es jetzt. Nicht am \"nächsten Werktag\"."
+      "description": "3 Uhr morgens. Sie braucht es jetzt. Nicht am \"nächsten Werktag\".",
+      "imageAlt": "Notfall-Geldüberweisung an die Familie"
     },
     "clarificationLine": "Nutze diBoaS einfach für kostenlose Überweisungen. Wenn du mehr willst, ist es da!",
     "footnote": ""
@@ -151,22 +154,26 @@
     "step1": {
       "title": "Senden und Empfangen",
       "description": "Sende Geld an jeden auf diBoaS. Überall auf der Welt. In Sekunden. Kostenlos. Jederzeit auszahlbar.",
-      "quote": "\"Ich habe 200 EUR an meinen Bruder geschickt. Es kam an, bevor ich mein Handy weggelegt habe.\""
+      "quote": "\"Ich habe 200 EUR an meinen Bruder geschickt. Es kam an, bevor ich mein Handy weggelegt habe.\"",
+      "imageAlt": "Geld senden und empfangen"
     },
     "step2": {
       "title": "Investieren und Wachsen",
       "description": "Wähle aus 10 Möglichkeiten, dein Geld wachsen zu lassen. Dein Geld arbeitet, während du schläfst.",
-      "quote": "\"Ich hatte 200 EUR auf dem Konto rumliegen, die nichts gebracht haben. Jetzt bringen sie mehr als das, was mir meine Bank in 5 Jahren geboten hat.\""
+      "quote": "\"Ich hatte 200 EUR auf dem Konto rumliegen, die nichts gebracht haben. Jetzt bringen sie mehr als das, was mir meine Bank in 5 Jahren geboten hat.\"",
+      "imageAlt": "Investieren und Geld vermehren"
     },
     "step3": {
       "title": "Verfolgen und Lernen",
       "description": "Was sich bewegt. Was es bedeutet. Was du tun könntest. Klare Sprache, kein Fachjargon.",
-      "quote": "\"Adelaide passt auf mein Geld auf, damit ich es nicht tun muss. Einmal am Tag nachschauen. Weniger Stress. Mehr Leben.\""
+      "quote": "\"Adelaide passt auf mein Geld auf, damit ich es nicht tun muss. Einmal am Tag nachschauen. Weniger Stress. Mehr Leben.\"",
+      "imageAlt": "Finanzen verfolgen und lernen"
     },
     "step4": {
       "title": "Kaufen und Halten",
       "description": "Kaufe digitale Vermögenswerte und verwahre sie in deiner eigenen Wallet. Beginnend mit BTC, ETH und SOL. Aktien und Gold folgen bald.",
-      "quote": "\"Deine Vermögenswerte. Deine Wallet. Dein Timing. Kauf was du willst, verkauf wann du willst.\""
+      "quote": "\"Deine Vermögenswerte. Deine Wallet. Dein Timing. Kauf was du willst, verkauf wann du willst.\"",
+      "imageAlt": "Digitale Vermögenswerte kaufen und halten"
     },
     "microDisclosure": "Die gezeigten Beispiele sind illustrativ und stellen keine echten Nutzer dar."
   },

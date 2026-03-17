@@ -174,7 +174,7 @@ export const CalculatorFactory = memo(function CalculatorFactory({
           </div>
 
           {/* Period Toggle */}
-          <div className={styles.periodToggle} role="group" aria-label="Time period">
+          <div className={styles.periodToggle} role="group" aria-label={translated.content.a11y?.timePeriodLabel ?? 'Time period'}>
             {(['month', 'sixMonths', 'year'] as const).map((key) => (
               <button
                 key={key}
@@ -189,7 +189,7 @@ export const CalculatorFactory = memo(function CalculatorFactory({
           </div>
 
           {/* Step 1: Loss / Current bank rate (always visible) */}
-          <div className={styles.twoStepResults} role="region" aria-live="polite" aria-label="Calculator results">
+          <div className={styles.twoStepResults} role="region" aria-live="polite" aria-label={translated.content.a11y?.resultsLabel ?? 'Calculator results'}>
             <div className={styles.step}>
               <div className={styles.stepLabel}>
                 <span className={styles.stepNumber}>1</span>

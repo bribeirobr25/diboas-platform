@@ -229,9 +229,7 @@ export function FAQAccordionDefault({
                       d="M12 4v16m8-8H4"
                     />
                   </svg>
-                  <span className={styles.srOnly}>
-                    {isExpanded ? 'Collapse' : 'Expand'} question
-                  </span>
+                  {/* aria-expanded on the button already communicates state to screen readers */}
                 </button>
                 <div
                   id={contentId}

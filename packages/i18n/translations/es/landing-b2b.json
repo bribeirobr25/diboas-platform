@@ -3,6 +3,7 @@
     "headline": "El sistema no esta roto. Esta disenado para quedarse con un trozo de todo lo que ganas.",
     "subheadline": "Pierdes entre un 1,5% y un 3% en cada pago con tarjeta. Y el dinero que tienes en el banco? Esta generando beneficios para todos menos para ti. Eso se acaba ahora.",
     "cta": "Mira lo que estas perdiendo",
+    "imageAlt": "Ilustracion de gestion de tesoreria empresarial",
     "trustBadges": {
       "wallet": { "label": "Tu dinero, tu cartera" },
       "reporting": { "label": "Informes listos para tu consejo" },
@@ -14,12 +15,14 @@
     "cardA": {
       "headline": "Si aceptas pagos con tarjeta",
       "body": "Cada vez que un cliente paga con tarjeta, pierdes entre un 1,5% y un 3%.\n\nCon 1.000 EUR al dia en ventas, son entre 450 y 900 EUR al mes. Desaparecidos. Y encima, el dinero tarda de 1 a 5 dias laborables en llegar a tu cuenta. Tu dinero, en el bolsillo de otro, generando intereses para ellos.\n\nY si te quedaras con todo?",
-      "cta": "Calcula lo que estas perdiendo"
+      "cta": "Calcula lo que estas perdiendo",
+      "imageAlt": "Procesamiento de pagos empresariales"
     },
     "cardB": {
       "headline": "Si tu empresa tiene efectivo parado",
       "body": "Has levantado capital. Lo estas gastando con cuidado. Pero el dinero que no estas usando ahora mismo? Tu banco lo pone a trabajar, genera beneficios y a ti te paga casi nada.\n\nCon 500.000 EUR parados, la diferencia entre lo que tu banco te paga y lo que es posible podria ser de decenas de miles de euros al ano.\n\nY si ese dinero trabajara para ti?",
-      "cta": "Calcula lo que tu banco se queda"
+      "cta": "Calcula lo que tu banco se queda",
+      "imageAlt": "Gestion de tesoreria en el movil"
     }
   },
   "cashflowCalculator": {
@@ -47,7 +50,11 @@
     "belowResults": "",
     "customRateTemplate": "Con {rate} % de retorno anual: {amount}",
     "cta": "Hablemos",
-    "transitionHook": "Simulador de comisiones de pago. Simulador de efectivo parado"
+    "transitionHook": "Simulador de comisiones de pago. Simulador de efectivo parado",
+    "a11y": {
+      "timePeriodLabel": "Período de tiempo",
+      "resultsLabel": "Resultados de la calculadora"
+    }
   },
   "calculator": {
     "header": "Hoy sin nosotros V.S. Manana con diBoaS",
@@ -75,6 +82,10 @@
     "customRateTemplate": "Con {rate} % de retorno anual: {amount}",
     "cta": "Hablemos",
     "transitionHook": "Simulador de efectivo parado",
+    "a11y": {
+      "timePeriodLabel": "Período de tiempo",
+      "resultsLabel": "Resultados de la calculadora"
+    },
     "toggle": {
       "paymentFees": "Simulador de Comisiones",
       "idleCash": "Simulador de Efectivo"
@@ -92,26 +103,31 @@
       "Le puse su nombre."
     ],
     "signature": "Bar, Fundador",
-    "transitionHook": "Por que construir diBoaS"
+    "transitionHook": "Por que construir diBoaS",
+    "imageAlt": "Fundador de diBoaS"
   },
   "howItWorks": {
     "header": "Cuatro pasos. Dos minutos.",
     "steps": {
       "connect": {
         "title": "Conecta tu negocio",
-        "description": "Vincula tu cuenta empresarial. Dos minutos de configuracion. Sin integracion tecnica. Sin desarrollador. Sin interrupciones. Lo haces mientras te tomas el cafe de la manana."
+        "description": "Vincula tu cuenta empresarial. Dos minutos de configuracion. Sin integracion tecnica. Sin desarrollador. Sin interrupciones. Lo haces mientras te tomas el cafe de la manana.",
+        "imageAlt": "Conecta tu cuenta empresarial"
       },
       "rules": {
         "title": "Tu pones las reglas",
-        "description": "Dinos tu minimo. \"Siempre tener 50.000 EUR disponibles.\" Todo lo que este por encima? A trabajar. Tu pones las reglas. Las cambias cuando quieras."
+        "description": "Dinos tu minimo. \"Siempre tener 50.000 EUR disponibles.\" Todo lo que este por encima? A trabajar. Tu pones las reglas. Las cambias cuando quieras.",
+        "imageAlt": "Define tus reglas y limites"
       },
       "works": {
         "title": "Tu dinero trabaja",
-        "description": "Tu efectivo parado empieza a generar. Los pagos llegan en segundos, no en dias. Tus comisiones de procesamiento bajan del 2,5% a cero. Y no tuviste que pensar en nada de esto."
+        "description": "Tu efectivo parado empieza a generar. Los pagos llegan en segundos, no en dias. Tus comisiones de procesamiento bajan del 2,5% a cero. Y no tuviste que pensar en nada de esto.",
+        "imageAlt": "Tu dinero trabaja para ti"
       },
       "access": {
         "title": "Acceso en cualquier momento",
-        "description": "Necesitas efectivo? Un toque. Sin bloqueos. Sin penalizaciones. Procesado al instante. Los tiempos de transferencia bancaria pueden variar."
+        "description": "Necesitas efectivo? Un toque. Sin bloqueos. Sin penalizaciones. Procesado al instante. Los tiempos de transferencia bancaria pueden variar.",
+        "imageAlt": "Accede a tu dinero en cualquier momento"
       }
     },
     "transitionHook": "Ese es el proceso. Esto es lo que realmente recibes."
@@ -121,15 +137,18 @@
     "cards": {
       "getPaid": {
         "headline": "Cobra sin que te quiten un trozo",
-        "body": "Tus clientes pagan. Te quedas con el 100%. Al instante."
+        "body": "Tus clientes pagan. Te quedas con el 100%. Al instante.",
+        "imageAlt": "Cobra sin que te quiten un trozo"
       },
       "payAnyone": {
         "headline": "Paga a cualquiera, en cualquier lugar, al instante",
-        "body": "Proveedores, autonomos, freelancers. En todo el mundo. Sin comisiones. En tiempo real"
+        "body": "Proveedores, autonomos, freelancers. En todo el mundo. Sin comisiones. En tiempo real",
+        "imageAlt": "Paga a cualquiera en cualquier lugar al instante"
       },
       "adelaide": {
         "headline": "Adelaide vigila tu dinero",
-        "body": "Inteligencia de mercado para propietarios de negocios. Sin asesores a 500 EUR la hora."
+        "body": "Inteligencia de mercado para propietarios de negocios. Sin asesores a 500 EUR la hora.",
+        "imageAlt": "Inteligencia de mercado Adelaide"
       }
     },
     "transitionHook": "Pero aqui viene la parte que nadie mas esta haciendo."
@@ -176,6 +195,7 @@
     "header": "Es esto para tu negocio?",
     "goodFit": {
       "title": "Buen encaje",
+      "iconAlt": "Indicador de buen encaje",
       "description": "Tu negocio acepta pagos con tarjeta y estas harto de la comision del 2 al 3%. Tu empresa tiene efectivo parado generando casi nada.",
       "items": [
         "Harto de perder del 2 al 3% en pagos con tarjeta.",
@@ -186,6 +206,7 @@
     },
     "notAFit": {
       "title": "No es para ti",
+      "iconAlt": "Indicador de no encaje",
       "description": "Necesitas seguro de depositos gubernamental por encima de todo. Tienes tolerancia cero al riesgo.",
       "items": [
         "Necesitas seguro de depositos por encima de todo.",
@@ -213,6 +234,7 @@
     },
     "email": "Conectemos.",
     "emailAddress": "hello@diboas.com",
+    "imageAlt": "Bar, Fundador de diBoaS",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",

@@ -132,15 +132,18 @@
     "header": "Gente de verdade. Momentos de verdade.",
     "card1": {
       "title": "Enviando dólares pro seu irmão em Portugal",
-      "description": "Ele tá do outro lado do oceano. Você manda. Chega antes de você guardar o celular."
+      "description": "Ele tá do outro lado do oceano. Você manda. Chega antes de você guardar o celular.",
+      "imageAlt": "Amigos dividindo o jantar"
     },
     "card2": {
       "title": "Pagando um freelancer na Argentina",
-      "description": "Ele tá na América do Sul. Você tá no Brasil. O dinheiro chega antes do café esfriar."
+      "description": "Ele tá na América do Sul. Você tá no Brasil. O dinheiro chega antes do café esfriar.",
+      "imageAlt": "Enviando pagamento internacional"
     },
     "card3": {
       "title": "Dinheiro urgente pra mãe",
-      "description": "3 da manhã. Ela precisa agora. Não no \"próximo dia útil\"."
+      "description": "3 da manhã. Ela precisa agora. Não no \"próximo dia útil\".",
+      "imageAlt": "Transferência de emergência para a família"
     },
     "clarificationLine": "Use o diBoaS só pra transferências gratuitas. Quando você quiser mais, tá aqui!",
     "footnote": ""
@@ -151,22 +154,26 @@
     "step1": {
       "title": "Enviar e Receber",
       "description": "Envie dinheiro pra qualquer pessoa no diBoaS. Em qualquer lugar do mundo. Em segundos. De graça. Saque quando quiser.",
-      "quote": "\"Mandei R$500 pro meu irmão. Chegou antes de eu guardar o celular.\""
+      "quote": "\"Mandei R$500 pro meu irmão. Chegou antes de eu guardar o celular.\"",
+      "imageAlt": "Enviar e receber dinheiro"
     },
     "step2": {
       "title": "Investir e Crescer",
       "description": "Escolha entre 10 formas de fazer seu dinheiro crescer. Seu dinheiro trabalha enquanto você dorme.",
-      "quote": "\"Eu tinha R$500 parado na conta sem render nada. Agora tá rendendo mais do que a poupança rendeu em 5 anos.\""
+      "quote": "\"Eu tinha R$500 parado na conta sem render nada. Agora tá rendendo mais do que a poupança rendeu em 5 anos.\"",
+      "imageAlt": "Investir e fazer seu dinheiro crescer"
     },
     "step3": {
       "title": "Acompanhar e Aprender",
       "description": "O que tá acontecendo. O que significa. O que você pode fazer. Linguagem clara, sem jargão.",
-      "quote": "\"Adelaide cuida do meu dinheiro pra eu não ter que me preocupar. Olho uma vez por dia. Menos estresse. Mais vida.\""
+      "quote": "\"Adelaide cuida do meu dinheiro pra eu não ter que me preocupar. Olho uma vez por dia. Menos estresse. Mais vida.\"",
+      "imageAlt": "Acompanhar e aprender sobre suas finanças"
     },
     "step4": {
       "title": "Comprar e Guardar",
       "description": "Compre ativos digitais e guarde na sua própria carteira. Começando com BTC, ETH e SOL. Ações e Ouro em breve.",
-      "quote": "\"Seus ativos. Sua carteira. Seu tempo. Compre o que quiser, venda quando quiser.\""
+      "quote": "\"Seus ativos. Sua carteira. Seu tempo. Compre o que quiser, venda quando quiser.\"",
+      "imageAlt": "Comprar e manter ativos digitais"
     },
     "microDisclosure": "Exemplos mostrados são ilustrativos e não representam usuários reais."
   },

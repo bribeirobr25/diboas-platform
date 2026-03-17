@@ -264,7 +264,7 @@ export function DepositRiskScreen({
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-sm)' }}>
           {TIER_KEYS.map((key, index) => {
             const expectedReturnText = (translated.content.expectedReturn ?? '{rate}% expected return')
-              .replace('{rate}', String(RISK_TIERS[index].expectedAPY * 100));
+              .replace('{rate}', String(Math.round(RISK_TIERS[index].expectedAPY * 100)));
             return (
               <button
                 key={key}

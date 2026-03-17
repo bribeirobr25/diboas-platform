@@ -132,15 +132,18 @@
     "header": "Real People. Real Moments.",
     "card1": {
       "title": "Splitting dinner in San Francisco",
-      "description": "Four friends. One tap. Done before the waiter brings the check."
+      "description": "Four friends. One tap. Done before the waiter brings the check.",
+      "imageAlt": "Friends splitting dinner"
     },
     "card2": {
       "title": "Paying a designer in Dubai",
-      "description": "They're in the Middle East. You're in America. The money arrives before the meeting ends."
+      "description": "They're in the Middle East. You're in America. The money arrives before the meeting ends.",
+      "imageAlt": "Sending payment internationally"
     },
     "card3": {
       "title": "Emergency money to Mom",
-      "description": "3 AM. She needs it now. Not during \"business hours.\""
+      "description": "3 AM. She needs it now. Not during \"business hours.\"",
+      "imageAlt": "Emergency money transfer to family"
     },
     "clarificationLine": "Use diBoaS just for free transfers. When you're ready for more, it's here!",
     "footnote": ""
@@ -151,22 +154,26 @@
     "step1": {
       "title": "Send and Receive",
       "description": "Send money to anyone on diBoaS. Anywhere in the world. In seconds. Free. Withdraw it anytime.",
-      "quote": "\"I sent $200 to my brother. It arrived before I put my phone down.\""
+      "quote": "\"I sent $200 to my brother. It arrived before I put my phone down.\"",
+      "imageAlt": "Send and receive money"
     },
     "step2": {
       "title": "Invest and Grow",
       "description": "Choose from 10 ways to grow your money. Your money works while you sleep.",
-      "quote": "\"I had $200 sitting in my account doing nothing. Now it's earning more than my bank offered in 5 years.\""
+      "quote": "\"I had $200 sitting in my account doing nothing. Now it's earning more than my bank offered in 5 years.\"",
+      "imageAlt": "Invest and grow your money"
     },
     "step3": {
       "title": "Track and Learn",
       "description": "What's moving. What it means. What you could do. Clear language, not jargon.",
-      "quote": "\"Adelaide watches your money so you don't have to. Check once a day. Less stress. More life.\""
+      "quote": "\"Adelaide watches your money so you don't have to. Check once a day. Less stress. More life.\"",
+      "imageAlt": "Track and learn about your finances"
     },
     "step4": {
       "title": "Buy and Hold",
       "description": "Buy digital assets and hold them in your own wallet. Starting with BTC, ETH, and SOL. Stocks and Gold coming soon.",
-      "quote": "\"Your assets. Your wallet. Your timing. Buy what you want, sell when you're ready.\""
+      "quote": "\"Your assets. Your wallet. Your timing. Buy what you want, sell when you're ready.\"",
+      "imageAlt": "Buy and hold digital assets"
     },
     "microDisclosure": "Examples shown are illustrative and do not represent actual users."
   },

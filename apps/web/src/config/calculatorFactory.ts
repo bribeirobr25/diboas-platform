@@ -57,6 +57,10 @@ export interface CalculatorFactoryConfig {
     readonly cta: string;
     readonly ctaHref: string;
     readonly transitionHook?: string;
+    readonly a11y?: {
+      readonly timePeriodLabel?: string;
+      readonly resultsLabel?: string;
+    };
   };
   readonly defaults: CalculatorLocaleDefaults;
   readonly seo: {

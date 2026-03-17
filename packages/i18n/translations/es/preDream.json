@@ -87,7 +87,7 @@
     "shareTitle": "Compartir mi sueño",
     "shareCopied": "¡Copiado!",
     "shareText": "Mi simulación en Dream Mode convertiría {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo tú mismo:",
-    "bankSource": "Basado en una tasa de ahorro promedio de {rate}%. Fuente: Promedio Nacional FDIC, enero 2026.",
+    "bankSource": "Basado en una tasa de ahorro promedio de {rate}%. Fuente: Estadísticas del BCE, enero 2026.",
     "tryDifferent": "Probar Otros Números",
     "backToHome": "Volver al Inicio"
   },

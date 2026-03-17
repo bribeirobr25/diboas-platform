@@ -1,14 +1,15 @@
 {
   "hero": {
     "headline": "Das System ist nicht kaputt. Es ist so gebaut, dass es sich an allem bedient, was du verdienst.",
-    "subheadline": "Du verlierst 1,5 bis 3% bei jeder Kartenzahlung. Und das Geld auf deinem Geschaeftskonto? Es erwirtschaftet Rendite fuer alle ausser fuer dich. Das aendert sich jetzt.",
+    "subheadline": "Du verlierst 1,5 bis 3% bei jeder Kartenzahlung. Und das Geld auf deinem Geschäftskonto? Es erwirtschaftet Rendite für alle außer für dich. Das ändert sich jetzt.",
     "cta": "Sieh, was du verlierst",
+    "imageAlt": "Illustration zur Unternehmens-Treasury-Verwaltung",
     "trustBadges": {
       "wallet": {
         "label": "Dein Geld, deine Kontrolle"
       },
       "reporting": {
-        "label": "Berichte fuer den Vorstand"
+        "label": "Berichte für den Vorstand"
       },
       "audited": {
         "label": "Gebaut auf auditierten Systemen"
@@ -19,13 +20,15 @@
     "header": "Zwei Wege, wie das System dich Geld kostet.",
     "cardA": {
       "headline": "Wenn du Kartenzahlungen akzeptierst",
-      "body": "Jedes Mal, wenn ein Kunde mit Karte zahlt, verlierst du 1,5 bis 3%.\n\nBei 1.000 EUR Tagesumsatz sind das 450 bis 900 EUR im Monat. Weg. Und dann dauert es 1 bis 5 Werktage, bis das Geld auf deinem Konto ist. Dein Geld, in der Tasche eines anderen, wo es fuer die arbeitet.\n\nWas waere, wenn du alles behalten koenntest?",
-      "cta": "Berechne, was du verlierst"
+      "body": "Jedes Mal, wenn ein Kunde mit Karte zahlt, verlierst du 1,5 bis 3%.\n\nBei 1.000 EUR Tagesumsatz sind das 450 bis 900 EUR im Monat. Weg. Und dann dauert es 1 bis 5 Werktage, bis das Geld auf deinem Konto ist. Dein Geld, in der Tasche eines anderen, wo es für die arbeitet.\n\nWas wäre, wenn du alles behalten könntest?",
+      "cta": "Berechne, was du verlierst",
+      "imageAlt": "Zahlungsabwicklung für Unternehmen"
     },
     "cardB": {
       "headline": "Wenn dein Unternehmen Geld auf dem Konto liegen hat",
-      "body": "Du hast Kapital aufgenommen. Du gibst es bedacht aus. Aber das Geld, das du gerade nicht brauchst? Deine Bank legt es an, erwirtschaftet Rendite und zahlt dir fast nichts davon.\n\nBei 500.000 EUR, die auf dem Konto liegen, koennte die Differenz zwischen dem, was deine Bank dir zahlt, und dem, was moeglich waere, Zehntausende Euro pro Jahr betragen.\n\nWas waere, wenn dieses Geld fuer dich arbeiten wuerde?",
-      "cta": "Berechne, was deine Bank behaelt"
+      "body": "Du hast Kapital aufgenommen. Du gibst es bedacht aus. Aber das Geld, das du gerade nicht brauchst? Deine Bank legt es an, erwirtschaftet Rendite und zahlt dir fast nichts davon.\n\nBei 500.000 EUR, die auf dem Konto liegen, könnte die Differenz zwischen dem, was deine Bank dir zahlt, und dem, was möglich wäre, Zehntausende Euro pro Jahr betragen.\n\nWas wäre, wenn dieses Geld für dich arbeiten würde?",
+      "cta": "Berechne, was deine Bank behält",
+      "imageAlt": "Treasury-Management auf dem Smartphone"
     }
   },
   "cashflowCalculator": {
@@ -33,19 +36,19 @@
     "todayTitle": "Wie ist es Heute? Ohne uns?",
     "tomorrowTitle": "Wie es sein sollte? Nur mit diBoaS",
     "fields": {
-      "dailyRevenue": "Deine taeglichen Kartenumsaetze",
-      "currentFee": "Deine aktuelle Verarbeitungsgebuehr"
+      "dailyRevenue": "Deine täglichen Kartenumsätze",
+      "currentFee": "Deine aktuelle Verarbeitungsgebühr"
     },
     "periodToggle": {
       "month": "1 Monat",
       "sixMonths": "6 Monate",
       "year": "1 Jahr"
     },
-    "disclaimer": "Diese Projektionen sind illustrativ. Die tatsaechlichen Ergebnisse koennen hoeher oder niedriger ausfallen. Vergangene Wertentwicklung ist kein zuverlaessiger Indikator fuer kuenftige Ergebnisse.",
+    "disclaimer": "Diese Projektionen sind illustrativ. Die tatsächlichen Ergebnisse können höher oder niedriger ausfallen. Vergangene Wertentwicklung ist kein zuverlässiger Indikator für künftige Ergebnisse.",
     "results": {
-      "step1Label": "Du verlierst bei Gebuehren",
+      "step1Label": "Du verlierst bei Gebühren",
       "step2Label": "Du kannst deine Ersparnisse wachsen lassen",
-      "savingsLabel": "Du sparst bei Gebuehren",
+      "savingsLabel": "Du sparst bei Gebühren",
       "scenarios": {
         "conservative": "Konservativ",
         "historical": "Moderat",
@@ -57,14 +60,18 @@
     "belowResults": "",
     "customRateTemplate": "Bei {rate} % Jahresrendite: {amount}",
     "cta": "Sprich mit uns",
-    "transitionHook": "Zahlungsgebuehren-Simulator. Ungenutztes-Kapital-Simulator"
+    "transitionHook": "Zahlungsgebühren-Simulator. Ungenutztes-Kapital-Simulator",
+    "a11y": {
+      "timePeriodLabel": "Zeitraum",
+      "resultsLabel": "Rechnerergebnisse"
+    }
   },
   "calculator": {
     "header": "Heute ohne uns V.S. Morgen mit diBoaS",
     "todayTitle": "Wie ist es Heute? Ohne uns?",
     "tomorrowTitle": "Wie es sein sollte? Nur mit diBoaS",
     "fields": {
-      "cashOnHand": "Verfuegbares Kapital",
+      "cashOnHand": "Verfügbares Kapital",
       "currentRate": "Aktueller Zinssatz"
     },
     "periodToggle": {
@@ -72,11 +79,11 @@
       "sixMonths": "6 Monate",
       "year": "1 Jahr"
     },
-    "disclaimer": "Diese Projektionen sind illustrativ. Die tatsaechlichen Ergebnisse koennen hoeher oder niedriger ausfallen. Vergangene Wertentwicklung ist kein zuverlaessiger Indikator fuer kuenftige Ergebnisse. Dein Kapital ist einem Risiko ausgesetzt.",
+    "disclaimer": "Diese Projektionen sind illustrativ. Die tatsächlichen Ergebnisse können höher oder niedriger ausfallen. Vergangene Wertentwicklung ist kein zuverlässiger Indikator für künftige Ergebnisse. Dein Kapital ist einem Risiko ausgesetzt.",
     "results": {
       "step1Label": "Was deine Bank dir gibt",
       "step2Label": "Du kannst dein ungenutztes Kapital wachsen lassen",
-      "savingsLabel": "Was du mit diBoaS behaltst",
+      "savingsLabel": "Was du mit diBoaS behältst",
       "scenarios": {
         "conservative": "Konservativ",
         "historical": "Historischer Durchschnitt",
@@ -89,6 +96,10 @@
     "customRateTemplate": "Bei {rate} % Jahresrendite: {amount}",
     "cta": "Sprich mit uns",
     "transitionHook": "Ungenutztes-Kapital-Simulator",
+    "a11y": {
+      "timePeriodLabel": "Zeitraum",
+      "resultsLabel": "Rechnerergebnisse"
+    },
     "toggle": {
       "paymentFees": "Gebühren-Simulator",
       "idleCash": "Kapitalsimulator"
@@ -97,15 +108,16 @@
   "origin": {
     "header": "Ihr Name war Adelaide.",
     "paragraphs": [
-      "Meine Grossmutter hat ihr ganzes Leben lang gespart. Die Haelfte von allem, was sie verdient hat. Alles richtig gemacht.",
+      "Meine Großmutter hat ihr ganzes Leben lang gespart. Die Hälfte von allem, was sie verdient hat. Alles richtig gemacht.",
       "Es hat trotzdem nicht gereicht.",
-      "Die Bank hat mit ihren Ersparnissen Rendite erwirtschaftet und ihr fast nichts davon zurueckgegeben.",
-      "Ich habe dasselbe bei Unternehmen gesehen. Cafes, die 8.000 EUR im Jahr an Kartengebuehren verlieren. Startups mit einer halben Million auf dem Konto, die weniger als 200 EUR im Monat an Zinsen bekommen.",
-      "Das System war nicht fuer Menschen wie sie gebaut. Es war auch nicht fuer Unternehmen wie deines gebaut.",
-      "Aber jetzt? Die Technologie hat es moeglich gemacht, die Mittelsmanner auszuschalten. Ich musste nur die Tuer bauen.",
+      "Die Bank hat mit ihren Ersparnissen Rendite erwirtschaftet und ihr fast nichts davon zurückgegeben.",
+      "Ich habe dasselbe bei Unternehmen gesehen. Cafés, die 8.000 EUR im Jahr an Kartengebühren verlieren. Startups mit einer halben Million auf dem Konto, die weniger als 200 EUR im Monat an Zinsen bekommen.",
+      "Das System war nicht für Menschen wie sie gebaut. Es war auch nicht für Unternehmen wie deines gebaut.",
+      "Aber jetzt? Die Technologie hat es möglich gemacht, die Mittelsmänner auszuschalten. Ich musste nur die Tür bauen.",
       "Ich habe sie nach ihr benannt."
     ],
-    "signature": "Bar, Gruender",
+    "signature": "Bar, Gründer",
+    "imageAlt": "diBoaS Gründer",
     "transitionHook": "Warum diBoaS bauen"
   },
   "howItWorks": {
@@ -113,19 +125,23 @@
     "steps": {
       "connect": {
         "title": "Verbinde dein Unternehmen",
-        "description": "Verknuepfe dein Geschaeftskonto. Zwei Minuten Einrichtung. Keine technische Integration noetig. Kein Entwickler. Keine Ausfallzeit. Das machst du beim Morgenkaffee."
+        "description": "Verknüpfe dein Geschäftskonto. Zwei Minuten Einrichtung. Keine technische Integration nötig. Kein Entwickler. Keine Ausfallzeit. Das machst du beim Morgenkaffee.",
+        "imageAlt": "Geschäftskonto verbinden"
       },
       "rules": {
         "title": "Du bestimmst die Regeln",
-        "description": "Sag uns deine Untergrenze. \"Immer 50.000 EUR verfuegbar halten.\" Alles darueber? An die Arbeit. Du bestimmst die Regeln. Du aenderst sie jederzeit."
+        "description": "Sag uns deine Untergrenze. \"Immer 50.000 EUR verfügbar halten.\" Alles darüber? An die Arbeit. Du bestimmst die Regeln. Du änderst sie jederzeit.",
+        "imageAlt": "Regeln und Limits festlegen"
       },
       "works": {
         "title": "Dein Geld arbeitet",
-        "description": "Dein ungenutztes Kapital beginnt zu verdienen. Zahlungen kommen in Sekunden an, nicht in Tagen. Deine Verarbeitungsgebuehren sinken von 2,5% auf null. Und du musstest an nichts davon denken."
+        "description": "Dein ungenutztes Kapital beginnt zu verdienen. Zahlungen kommen in Sekunden an, nicht in Tagen. Deine Verarbeitungsgebühren sinken von 2,5% auf null. Und du musstest an nichts davon denken.",
+        "imageAlt": "Dein Geld arbeitet für dich"
       },
       "access": {
         "title": "Jederzeit Zugriff",
-        "description": "Du brauchst Bargeld? Ein Tipp. Keine Sperrfristen. Keine Strafen. Sofort verarbeitet. Banktransferzeiten koennen variieren."
+        "description": "Du brauchst Bargeld? Ein Tipp. Keine Sperrfristen. Keine Strafen. Sofort verarbeitet. Banktransferzeiten können variieren.",
+        "imageAlt": "Jederzeit auf dein Geld zugreifen"
       }
     },
     "transitionHook": "Das ist der Prozess. Jetzt kommt das, was du wirklich bekommst."
@@ -135,50 +151,53 @@
     "cards": {
       "getPaid": {
         "headline": "Werde bezahlt, ohne dass jemand sich bedient",
-        "body": "Deine Kunden zahlen. Du behaltst 100%. Sofort."
+        "body": "Deine Kunden zahlen. Du behältst 100%. Sofort.",
+        "imageAlt": "Zahlungen empfangen ohne Abzüge"
       },
       "payAnyone": {
-        "headline": "Bezahle jeden, ueberall, sofort",
-        "body": "Lieferanten, Freiberufler, Dienstleister. Weltweit. Keine Gebuehren. In Echtzeit"
+        "headline": "Bezahle jeden, überall, sofort",
+        "body": "Lieferanten, Freiberufler, Dienstleister. Weltweit. Keine Gebühren. In Echtzeit",
+        "imageAlt": "Sofortige Zahlungen weltweit"
       },
       "adelaide": {
-        "headline": "Adelaide ueberwacht dein Geld",
-        "body": "Marktintelligenz fuer Unternehmer. Ohne Berater zu 500 EUR die Stunde."
+        "headline": "Adelaide überwacht dein Geld",
+        "body": "Marktintelligenz für Unternehmer. Ohne Berater zu 500 EUR die Stunde.",
+        "imageAlt": "Adelaide Marktintelligenz"
       }
     },
     "transitionHook": "Aber jetzt kommt der Teil, den sonst niemand macht."
   },
   "cashflowInvesting": {
     "header": "Cashflow-Investieren.",
-    "subheader": "Zwei Vorteile durch eine Veraenderung.",
+    "subheader": "Zwei Vorteile durch eine Veränderung.",
     "saveIt": {
       "title": "Spare es.",
-      "body": "Jeder 100 EUR Kartenumsatz kostet dich 2 bis 3 EUR Gebuehren. Mit diBoaS: 0 EUR. Ein Cafe mit 1.000 EUR Tagesumsatz? Ueber 10.000 EUR im Jahr zurueck."
+      "body": "Jeder 100 EUR Kartenumsatz kostet dich 2 bis 3 EUR Gebühren. Mit diBoaS: 0 EUR. Ein Café mit 1.000 EUR Tagesumsatz? Über 10.000 EUR im Jahr zurück."
     },
     "growIt": {
       "title": "Lass es wachsen.",
-      "body": "Die Ersparnis gehoert dir, egal ob du investierst oder nicht. Aber wenn du sie arbeiten laesst, wird aus Kostensenkung eine moegliche neue Einnahmequelle."
+      "body": "Die Ersparnis gehört dir, egal ob du investierst oder nicht. Aber wenn du sie arbeiten lässt, wird aus Kostensenkung eine mögliche neue Einnahmequelle."
     },
-    "microExample": "Spare 8.568 EUR an Gebuehren. Investiere es. Beende das Jahr mit 8.911 bis 9.425 EUR, je nach Marktbedingungen. Eine neue Einnahmequelle.",
+    "microExample": "Spare 8.568 EUR an Gebühren. Investiere es. Beende das Jahr mit 8.911 bis 9.425 EUR, je nach Marktbedingungen. Eine neue Einnahmequelle.",
     "limitation": "Die Ersparnisse sind sicher. Das Wachstum nicht. Das ist die ehrliche Rechnung.",
     "brandPromise": "Wir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
     "cta": "Rechne es durch",
-    "microDisclosure": "Beispiel basierend auf 1.000 EUR/Tag Kartenumsatz bei 2,5% Verarbeitungsgebuehr, mit Ersparnissen investiert zu einer Bandbreite von 4% bis 10% Jahresrendite. Projizierte Renditen sind illustrativ. Die tatsaechlichen Ergebnisse koennen abweichen."
+    "microDisclosure": "Beispiel basierend auf 1.000 EUR/Tag Kartenumsatz bei 2,5% Verarbeitungsgebühr, mit Ersparnissen investiert zu einer Bandbreite von 4% bis 10% Jahresrendite. Projizierte Renditen sind illustrativ. Die tatsächlichen Ergebnisse können abweichen."
   },
   "fees": {
     "header": "Was es kostet. Alles.",
-    "subtitle": "Keine versteckten Gebuehren. Keine Mindestguthaben. Keine monatlichen Kosten. Hier ist jede Gebuehr, auf dem Tisch.",
+    "subtitle": "Keine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Hier ist jede Gebühr, auf dem Tisch.",
     "headers": {
       "action": "Aktion",
       "diboas": "diBoaS",
-      "competitors": "Uebliche Anbieter",
+      "competitors": "Übliche Anbieter",
       "difference": "Unterschied",
       "example": "Beispiel"
     },
     "rows": {
       "account": {
-        "action": "Geschaeftskonto",
-        "diboas": "Fuer immer kostenlos",
+        "action": "Geschäftskonto",
+        "diboas": "Für immer kostenlos",
         "competitors": "10 bis 50 EUR/Monat",
         "difference": "Spare 120 bis 600 EUR/Jahr",
         "example": "Dein Konto: 0 EUR. Immer."
@@ -212,7 +231,7 @@
         "example": "10.000 EUR investieren: 0 EUR. Kostenlos starten."
       },
       "sell": {
-        "action": "Verkaufen / Schliessen",
+        "action": "Verkaufen / Schließen",
         "diboas": "0,39% (min 0,25 EUR, max 25 EUR)",
         "competitors": "0,5 bis 2%",
         "difference": "Spare 11 bis 161 EUR pro 10.000 EUR",
@@ -228,36 +247,38 @@
       "cashOut": {
         "action": "Auszahlen",
         "diboas": "0,48% (min 0,25 EUR, max 25 EUR)",
-        "competitors": "1 bis 3% + Verzoegerungen",
+        "competitors": "1 bis 3% + Verzögerungen",
         "difference": "Spare 52 bis 252 EUR pro 10.000 EUR",
         "example": "10.000 EUR auszahlen: kostet 48 EUR"
       }
     },
-    "disclaimer": "*Angezeigte diBoaS-Gebuehr. Netzwerkgebuehren Dritter koennen anfallen (typischerweise unter 0,01 EUR).",
-    "pricingNote": "Preisvergleiche basieren auf oeffentlich verfuegbaren Tarifen, Stand Februar 2026. Die Spannen spiegeln gaengige Preise bei grossen Anbietern wider. Die tatsaechlichen Preise variieren je nach Anbieter, Volumen und Vertragsbedingungen.",
-    "example": "Du empfaengst 1.000 EUR an Zahlungen: Du behaltst 1.000 EUR in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto: 995,20 EUR (nach 0,48% Auszahlungsgebuehr). Immer noch guenstiger als die 970 bis 980 EUR, die ein Kartenzahlungsdienstleister uebrig laesst.",
+    "disclaimer": "*Angezeigte diBoaS-Gebühr. Netzwerkgebühren Dritter können anfallen (typischerweise unter 0,01 EUR).",
+    "pricingNote": "Preisvergleiche basieren auf öffentlich verfügbaren Tarifen, Stand Februar 2026. Die Spannen spiegeln gängige Preise bei großen Anbietern wider. Die tatsächlichen Preise variieren je nach Anbieter, Volumen und Vertragsbedingungen.",
+    "example": "Du empfängst 1.000 EUR an Zahlungen: Du behältst 1.000 EUR in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto: 995,20 EUR (nach 0,48% Auszahlungsgebühr). Immer noch günstiger als die 970 bis 980 EUR, die ein Kartenzahlungsdienstleister übrig lässt.",
     "expandableToggle": "Keine versteckten Gebühren. Kein Mindestguthaben. Keine monatlichen Kosten. Alle Gebühren anzeigen.",
-    "footerLine": "Jede Gebuehr. Auf dem Tisch. Sonst nichts.",
+    "footerLine": "Jede Gebühr. Auf dem Tisch. Sonst nichts.",
     "transitionHook": "Du liest noch? Gut. Schauen wir, ob es zu deinem Unternehmen passt."
   },
   "fitAssessment": {
-    "header": "Ist das das Richtige fuer dein Unternehmen?",
+    "header": "Ist das das Richtige für dein Unternehmen?",
     "goodFit": {
       "title": "Gute Passung",
-      "description": "Dein Unternehmen akzeptiert Kartenzahlungen und du hast die 1,5 bis 3% Gebuehr satt. Dein Unternehmen hat Kapital auf dem Konto, das fast nichts verdient.",
+      "iconAlt": "Indikator für gute Passung",
+      "description": "Dein Unternehmen akzeptiert Kartenzahlungen und du hast die 1,5 bis 3% Gebühr satt. Dein Unternehmen hat Kapital auf dem Konto, das fast nichts verdient.",
       "items": [
         "Satt, 2 bis 3% bei Kartenzahlungen zu verlieren.",
         "Kapital auf dem Konto, das fast nichts verdient.",
-        "Du willst volle Kontrolle ueber dein Geld.",
-        "Bereit fuer ein anderes Risikoprofil bei besseren Renditen."
+        "Du willst volle Kontrolle über dein Geld.",
+        "Bereit für ein anderes Risikoprofil bei besseren Renditen."
       ]
     },
     "notAFit": {
       "title": "Keine Passung",
-      "description": "Du brauchst eine staatliche Einlagensicherung ueber alles andere. Du hast null Toleranz fuer jegliches Risiko.",
+      "iconAlt": "Indikator für keine Passung",
+      "description": "Du brauchst eine staatliche Einlagensicherung über alles andere. Du hast null Toleranz für jegliches Risiko.",
       "items": [
-        "Einlagensicherung geht dir ueber alles.",
-        "Null Toleranz fuer jegliches Risiko.",
+        "Einlagensicherung geht dir über alles.",
+        "Null Toleranz für jegliches Risiko.",
         "Traditionelle Banken bevorzugt, auch wenn teurer.",
         "Du brauchst jemanden, der dein Geld verwaltet."
       ]
@@ -267,18 +288,19 @@
     "header": "Gebaut von Bar.",
     "paragraphs": {
       "versionA": [
-        "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
-        "diBoaS hat seinen Sitz in Berlin und baut fuer Unternehmen in den USA, der EU und Brasilien. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
+        "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
+        "diBoaS hat seinen Sitz in Berlin und baut für Unternehmen in den USA, der EU und Brasilien. Ich habe über 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für jedes kleine Unternehmen und jedes Startup gewünscht hätte."
       ],
       "versionB": [
-        "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
-        "diBoaS wird derzeit in Berlin gegruendet und baut fuer Unternehmen in den USA, der EU, Brasilien, mit Plaenen fuer weitere Maerkte. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
+        "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
+        "diBoaS wird derzeit in Berlin gegründet und baut für Unternehmen in den USA, der EU, Brasilien, mit Plänen für weitere Märkte. Ich habe über 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für jedes kleine Unternehmen und jedes Startup gewünscht hätte."
       ],
       "versionC": [
-        "Ich bin aufgewachsen und habe zugesehen, wie meine Grossmutter Adelaide ein Finanzsystem navigierte, das nicht fuer sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
-        "Wir bauen diBoaS von Berlin aus, fuer Unternehmen in den USA, der EU und Brasilien. Ich habe ueber 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir fuer jedes kleine Unternehmen und jedes Startup gewuenscht haette."
+        "Ich bin aufgewachsen und habe zugesehen, wie meine Großmutter Adelaide ein Finanzsystem navigierte, das nicht für sie gemacht war. Sie verdiente bessere Werkzeuge. Genau wie jeder Unternehmer wie du.",
+        "Wir bauen diBoaS von Berlin aus, für Unternehmen in den USA, der EU und Brasilien. Ich habe über 20 Jahre in Produkt und IT in Brasilien, den USA, Japan und Deutschland gearbeitet. Jetzt baue ich das Finanzwerkzeug, das ich mir für jedes kleine Unternehmen und jedes Startup gewünscht hätte."
       ]
     },
+    "imageAlt": "Bar, Gründer von diBoaS",
     "email": "Lass uns in Kontakt treten.",
     "emailAddress": "hello@diboas.com",
     "social": {
@@ -288,20 +310,20 @@
     }
   },
   "dualCta": {
-    "header": "Werde Teil der Unternehmen, die aufgehoert haben, zu viel zu bezahlen.",
-    "counter": "{count} Unternehmen erkunden diBoaS. {countries} Laender.",
+    "header": "Werde Teil der Unternehmen, die aufgehört haben, zu viel zu bezahlen.",
+    "counter": "{count} Unternehmen erkunden diBoaS. {countries} Länder.",
     "pathA": {
-      "header": "Frueher Zugang sichern.",
+      "header": "Früher Zugang sichern.",
       "description": "Hinterlasse deine E-Mail. Wir melden uns, wenn dein Unternehmen anfangen kann zu sparen.",
-      "emailPlaceholder": "Deine geschaeftliche E-Mail",
-      "cta": "Frueher Zugang sichern",
+      "emailPlaceholder": "Deine geschäftliche E-Mail",
+      "cta": "Früher Zugang sichern",
       "noSpam": "Kein Spam. Nur deine Einladung, wenn wir bereit sind.",
-      "privacyLabel": "Ich stimme der Datenschutzerklaerung zu"
+      "privacyLabel": "Ich stimme der Datenschutzerklärung zu"
     },
     "pathB": {
       "header": "Schauen wir uns deine Zahlen an.",
       "description": "15 Minuten. Keine Verpflichtung. Kein Pitch Deck. Nur Zahlen.",
-      "cta": "Gespraech buchen",
+      "cta": "Gespräch buchen",
       "alternative": "Oder schreib an hello@diboas.com"
     }
   },
@@ -314,8 +336,8 @@
     }
   },
   "waitlist": {
-    "header": "Schließen Sie sich anderen Unternehmen in dieser Bewegung an.",
-    "description": "Offener Zugang und faire Möglichkeiten. Lassen Sie uns reden.",
+    "header": "Werde Teil dieser Bewegung, gemeinsam mit anderen Unternehmen.",
+    "description": "Offener Zugang und faire Möglichkeiten. Lass uns reden.",
     "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend"
   },
   "faq": {
@@ -323,107 +345,107 @@
     "items": {
       "catch": {
         "question": "Wo ist der Haken?",
-        "answer": "Wir berechnen kleine Gebuehren, wenn Geld bewegt wird. Kostenlos wenn du Zahlungen empfaengst. Kostenlos wenn du investierst. 0,39% wenn du verkaufst oder eine Position schliesst. 0,48% wenn du auszahlst.\n\nWenn du 10.000 EUR an Zahlungen empfaengst, behalten wir 0 EUR. Wenn du 10.000 EUR investierst, behalten wir 0 EUR. Wenn du 10.000 EUR verkaufst, behalten wir 39 EUR. Wenn du nichts verdienst und nichts sendest, verdienen wir nichts.\n\nKeine versteckten Gebuehren. Keine Mindestguthaben. Keine monatlichen Kosten. Kein Haken."
+        "answer": "Wir berechnen kleine Gebühren, wenn Geld bewegt wird. Kostenlos wenn du Zahlungen empfängst. Kostenlos wenn du investierst. 0,39% wenn du verkaufst oder eine Position schließt. 0,48% wenn du auszahlst.\n\nWenn du 10.000 EUR an Zahlungen empfängst, behalten wir 0 EUR. Wenn du 10.000 EUR investierst, behalten wir 0 EUR. Wenn du 10.000 EUR verkaufst, behalten wir 39 EUR. Wenn du nichts verdienst und nichts sendest, verdienen wir nichts.\n\nKeine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Kein Haken."
       },
       "smbOrStartup": {
-        "question": "Ist das fuer kleine Unternehmen oder Startups?",
-        "answer": "Fuer beide. Wenn du ein Cafe fuehrst und 2,5% bei jeder Kartenzahlung verlierst, helfen wir dir, das Geld zu behalten. Wenn du ein Startup bist mit 500.000 EUR auf dem Konto, die 0,5% verdienen, helfen wir, mehr daraus zu machen.\n\nDie Werkzeuge sind die gleichen. Nur die Zahlen sehen anders aus."
+        "question": "Ist das für kleine Unternehmen oder Startups?",
+        "answer": "Für beide. Wenn du ein Café führst und 2,5% bei jeder Kartenzahlung verlierst, helfen wir dir, das Geld zu behalten. Wenn du ein Startup bist mit 500.000 EUR auf dem Konto, die 0,5% verdienen, helfen wir, mehr daraus zu machen.\n\nDie Werkzeuge sind die gleichen. Nur die Zahlen sehen anders aus."
       },
       "safety": {
         "question": "Ist mein Geld sicher?",
-        "answerA": "Dein Geld wird von dir gesichert. Dein Wallet, deine Schluessel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Geld zugreifen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet ueber neue Technologie. Der Wert kann schwanken, und du koenntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
-        "answerB": "Dein Geld ist durch Multi-Party-Sicherheit geschuetzt. Deine Genehmigung ist fuer jede Transaktion erforderlich. DiBoaS haelt einen teilweisen Schluesselanteil fuer Wiederherstellungszwecke, kann dein Geld aber nicht einseitig bewegen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet ueber neue Technologie. Der Wert kann schwanken, und du koenntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
+        "answerA": "Dein Geld wird von dir gesichert. Dein Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Geld zugreifen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet über neue Technologie. Der Wert kann schwanken, und du könntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
+        "answerB": "Dein Geld ist durch Multi-Party-Sicherheit geschützt. Deine Genehmigung ist für jede Transaktion erforderlich. DiBoaS hält einen teilweisen Schlüsselanteil für Wiederherstellungszwecke, kann dein Geld aber nicht einseitig bewegen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet über neue Technologie. Der Wert kann schwanken, und du könntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
       },
       "liquidity": {
         "question": "Kann ich jederzeit auf mein Geld zugreifen?",
-        "answer": "Ja. Keine Sperrfristen. Du legst die Untergrenze fest: \"Immer 50.000 EUR liquide halten.\" Wir setzen nur ein, was darueber liegt.\n\nDu brauchst Bargeld? Ein Tipp. Wir verarbeiten es sofort. Banktransferzeiten koennen variieren. Keine Strafen. Keine Fragen."
+        "answer": "Ja. Keine Sperrfristen. Du legst die Untergrenze fest: \"Immer 50.000 EUR liquide halten.\" Wir setzen nur ein, was darüber liegt.\n\nDu brauchst Bargeld? Ein Tipp. Wir verarbeiten es sofort. Banktransferzeiten können variieren. Keine Strafen. Keine Fragen."
       },
       "payments": {
         "question": "Wie funktionieren sofortige Zahlungen?",
-        "answer": "Traditionelle Ueberweisungen laufen ueber Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfaengers. Jeder Schritt kostet Zeit und Gebuehren.\n\nMit diBoaS gehen Zahlungen direkt. Dein Wallet zu deren Wallet. Fertig.\n\nDein Freelancer in Lissabon wird in Sekunden bezahlt, zum echten Wechselkurs, kostenlos. Nicht 15 bis 50 EUR und 3 Werktage."
+        "answer": "Traditionelle Überweisungen laufen über Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfängers. Jeder Schritt kostet Zeit und Gebühren.\n\nMit diBoaS gehen Zahlungen direkt. Dein Wallet zu deren Wallet. Fertig.\n\nDein Freelancer in Lissabon wird in Sekunden bezahlt, zum echten Wechselkurs, kostenlos. Nicht 15 bis 50 EUR und 3 Werktage."
       },
       "compliance": {
         "question": "Was ist mit Compliance und Steuern?",
-        "answer": "Wir haben diBoaS fuer echte Unternehmen mit echten Compliance-Anforderungen gebaut.\n\nMonatliche Auszuege, formatiert fuer deine Buchhaltungssoftware. Transaktionsverlauf mit vollstaendigem Audit-Trail. Steuerunterlagen zum Jahresende. Berichte fuer den Vorstand, die dein CFO wirklich versteht.\n\nWir wissen, dass du irgendwann geprueft wirst. Wir sorgen dafuer, dass du vorbereitet bist."
+        "answer": "Wir haben diBoaS für echte Unternehmen mit echten Compliance-Anforderungen gebaut.\n\nMonatliche Auszüge, formatiert für deine Buchhaltungssoftware. Transaktionsverlauf mit vollständigem Audit-Trail. Steuerunterlagen zum Jahresende. Berichte für den Vorstand, die dein CFO wirklich versteht.\n\nWir wissen, dass du irgendwann geprüft wirst. Wir sorgen dafür, dass du vorbereitet bist."
       },
       "whereMoneyGoes": {
         "question": "Wo geht mein Geld genau hin?",
-        "answer": "Dein Geld wird in etablierte Finanzsysteme platziert, die seit ueber 3 Jahren in Betrieb sind, mehrere Markteinbrueche ueberstanden haben und unabhaengig auf Sicherheit geprueft werden.\n\nAlle Details, einschliesslich Namen, Erfolgsbilanzen und unserer Auswahlkriterien, sind auf unserer Strategien-Seite veroeffentlicht. Ohne Anmeldung einsehbar.\n\nWir haben diese Systeme gewaehlt, weil sie transparent und kampferprobt sind, und du jederzeit genau sehen kannst, wo dein Geld ist."
+        "answer": "Dein Geld wird in etablierte Finanzsysteme platziert, die seit über 3 Jahren in Betrieb sind, mehrere Markteinbrüche überstanden haben und unabhängig auf Sicherheit geprüft werden.\n\nAlle Details, einschließlich Namen, Erfolgsbilanzen und unserer Auswahlkriterien, sind auf unserer Strategien-Seite veröffentlicht. Ohne Anmeldung einsehbar.\n\nWir haben diese Systeme gewählt, weil sie transparent und kampferprobt sind, und du jederzeit genau sehen kannst, wo dein Geld ist."
       },
       "whyCantTouch": {
         "question": "Warum kann diBoaS mein Geld nicht anfassen?",
-        "answerA": "Genau das ist der Sinn unserer Architektur.\n\nTraditionelle Finanzen: Du zahlst Geld ein, es wird das Geld der Bank, und sie schulden dir einen Kontostand.\n\ndiBoaS: Dein Geld bleibt in deinem eigenen Wallet. Wir liefern die Software, die dir hilft, es in renditeerzeugende Systeme einzusetzen. Aber wir haben niemals Zugriff, es selbst zu bewegen.\n\nWenn diBoaS bankrott geht, ist dein Geld immer noch deins. Niemand bei diBoaS kann dein Geld bewegen. Jede Transaktion erfordert deine Genehmigung.\n\nMehr Kontrolle fuer dich. Weniger Risiko durch uns.",
-        "answerB": "Das ist ein Kernbestandteil unserer Architektur.\n\nTraditionelle Finanzen: Du zahlst Geld ein, es wird das Geld der Bank, und sie schulden dir einen Kontostand.\n\ndiBoaS: Dein Geld ist durch Multi-Party-Sicherheit geschuetzt. Wir halten einen teilweisen Schluesselanteil fuer die Kontowiederherstellung, aber jede Transaktion erfordert deine ausdrueckliche Genehmigung. Wir koennen dein Geld nicht einseitig bewegen.\n\nWenn diBoaS Probleme hat, bleiben deine Gelder durch das Multi-Party-Sicherheitssystem geschuetzt. Jede Transaktion erfordert deine Autorisierung.\n\nMehr Schutz fuer dich. Weniger Risiko durch uns."
+        "answerA": "Genau das ist der Sinn unserer Architektur.\n\nTraditionelle Finanzen: Du zahlst Geld ein, es wird das Geld der Bank, und sie schulden dir einen Kontostand.\n\ndiBoaS: Dein Geld bleibt in deinem eigenen Wallet. Wir liefern die Software, die dir hilft, es in renditeerzeugende Systeme einzusetzen. Aber wir haben niemals Zugriff, es selbst zu bewegen.\n\nWenn diBoaS bankrott geht, ist dein Geld immer noch deins. Niemand bei diBoaS kann dein Geld bewegen. Jede Transaktion erfordert deine Genehmigung.\n\nMehr Kontrolle für dich. Weniger Risiko durch uns.",
+        "answerB": "Das ist ein Kernbestandteil unserer Architektur.\n\nTraditionelle Finanzen: Du zahlst Geld ein, es wird das Geld der Bank, und sie schulden dir einen Kontostand.\n\ndiBoaS: Dein Geld ist durch Multi-Party-Sicherheit geschützt. Wir halten einen teilweisen Schlüsselanteil für die Kontowiederherstellung, aber jede Transaktion erfordert deine ausdrückliche Genehmigung. Wir können dein Geld nicht einseitig bewegen.\n\nWenn diBoaS Probleme hat, bleiben deine Gelder durch das Multi-Party-Sicherheitssystem geschützt. Jede Transaktion erfordert deine Autorisierung.\n\nMehr Schutz für dich. Weniger Risiko durch uns."
       },
       "risk": {
-        "question": "Was ist das tatsaechliche Risiko?",
-        "answer": "Seien wir ehrlich.\n\nDie Systeme, in die dein Geld fliesst, basieren auf Code. Code kann Schwachstellen haben. Wir reduzieren das, indem wir nur Systeme verwenden mit signifikantem Gesamtwert unter Verwaltung, mehreren unabhaengigen Sicherheitspruefungen, Jahren an Erfolgsgeschichte durch Marktereignisse hindurch, und indem wir dein Geld auf mehrere unabhaengige Systeme verteilen.\n\nNull Risiko? Nein. Das gibt es nirgendwo, auch nicht bei deiner Bank.\n\nDie eigentliche Frage: Sind bessere Renditen ein anderes Risikoprofil wert? Fuer manche Unternehmen ja. Fuer andere nein. Beides ist valide."
+        "question": "Was ist das tatsächliche Risiko?",
+        "answer": "Seien wir ehrlich.\n\nDie Systeme, in die dein Geld fließt, basieren auf Code. Code kann Schwachstellen haben. Wir reduzieren das, indem wir nur Systeme verwenden mit signifikantem Gesamtwert unter Verwaltung, mehreren unabhängigen Sicherheitsprüfungen, Jahren an Erfolgsgeschichte durch Marktereignisse hindurch, und indem wir dein Geld auf mehrere unabhängige Systeme verteilen.\n\nNull Risiko? Nein. Das gibt es nirgendwo, auch nicht bei deiner Bank.\n\nDie eigentliche Frage: Sind bessere Renditen ein anderes Risikoprofil wert? Für manche Unternehmen ja. Für andere nein. Beides ist valide."
       },
       "audited": {
         "question": "Wurde diBoaS auditiert?",
-        "answer": "Wir sind eine Plattform vor dem Launch. Unsere Strategien sind gegen historische Einbrueche und reale Szenarien getestet, und wir nutzen auditierte, etablierte Systeme. Mit unserem Wachstum planen wir unabhaengige Pruefungen durch Dritte.\n\nFuer alle Details ueber die Systeme und Technologie hinter jeder Strategie, besuche unsere Strategien- und Protokoll-Seiten."
+        "answer": "Wir sind eine Plattform vor dem Launch. Unsere Strategien sind gegen historische Einbrüche und reale Szenarien getestet, und wir nutzen auditierte, etablierte Systeme. Mit unserem Wachstum planen wir unabhängige Prüfungen durch Dritte.\n\nFür alle Details über die Systeme und Technologie hinter jeder Strategie, besuche unsere Strategien- und Protokoll-Seiten."
       }
     }
   },
   "midPageCta": {
-    "heading": "Bereit, Ihr Kapital arbeiten zu lassen?",
+    "heading": "Bereit, dein Kapital arbeiten zu lassen?",
     "cta": "Warteliste beitreten"
   },
   "footer": {
     "copyright": "\u00a9 2026 diBoaS. Alle Rechte vorbehalten.",
-    "riskDisclaimer": "diBoaS verbindet dich mit dezentralen Finanzsystemen. Renditen sind nicht garantiert. Vergangene Wertentwicklung sagt keine kuenftigen Ergebnisse voraus. Es bestehen Risiken, darunter Code-Schwachstellen, Marktschwankungen und Zugangsherausforderungen. Verwende nur Mittel, deren Verlust du dir leisten kannst. diBoaS ist keine Bank. Es gilt keine Einlagensicherung.",
-    "micaArticle68": "Der Wert von Kryptowerten kann schwanken. Sie koennen Ihr gesamtes investiertes Geld oder einen Teil davon verlieren. Kryptowerte sind nicht durch Einlagensicherungssysteme gedeckt.",
-    "micaArticle7": "Diese Marketingmitteilung zu Kryptowerten wurde von keiner zustaendigen Behoerde eines Mitgliedstaats der Europaeischen Union ueberprueft oder genehmigt. Der Anbieter des Kryptowerts ist allein fuer den Inhalt dieser Marketingmitteilung zu Kryptowerten verantwortlich.",
-    "aiDisclosure": "Bestimmte Inhalte auf dieser Plattform, einschliesslich Marktanalysen und Bildungsmaterialien, werden durch kuenstliche Intelligenz generiert oder unterstuetzt. KI-generierte Inhalte koennen Fehler oder Einschraenkungen enthalten. Nutzer sollten Informationen unabhaengig ueberpruefen, bevor sie finanzielle Entscheidungen treffen.",
+    "riskDisclaimer": "diBoaS verbindet dich mit dezentralen Finanzsystemen. Renditen sind nicht garantiert. Vergangene Wertentwicklung sagt keine künftigen Ergebnisse voraus. Es bestehen Risiken, darunter Code-Schwachstellen, Marktschwankungen und Zugangsherausforderungen. Verwende nur Mittel, deren Verlust du dir leisten kannst. diBoaS ist keine Bank. Es gilt keine Einlagensicherung.",
+    "micaArticle68": "Der Wert von Kryptowerten kann schwanken. Du kannst dein gesamtes investiertes Geld oder einen Teil davon verlieren. Kryptowerte sind nicht durch Einlagensicherungssysteme gedeckt.",
+    "micaArticle7": "Diese Marketingmitteilung zu Kryptowerten wurde von keiner zuständigen Behörde eines Mitgliedstaats der Europäischen Union überprüft oder genehmigt. Der Anbieter des Kryptowerts ist allein für den Inhalt dieser Marketingmitteilung zu Kryptowerten verantwortlich.",
+    "aiDisclosure": "Bestimmte Inhalte auf dieser Plattform, einschließlich Marktanalysen und Bildungsmaterialien, werden durch künstliche Intelligenz generiert oder unterstützt. KI-generierte Inhalte können Fehler oder Einschränkungen enthalten. Nutzer sollten Informationen unabhängig überprüfen, bevor sie finanzielle Entscheidungen treffen.",
     "usDisclosure": "",
     "cvmWarning": "",
-    "fictionalResults": "Die Beispiele auf dieser Seite sind illustrativ und stellen keine realen Unternehmen oder tatsaechlichen Ergebnisse dar. Rechner-Projektionen basieren auf hypothetischen Szenarien und historischen Durchschnitten. Die tatsaechlichen Ergebnisse werden abweichen.",
-    "cryptoDisclosure": "Kryptoassets sind hochvolatil. Sie können einen Teil oder Ihr gesamtes Investment verlieren. Vergangene Wertentwicklung ist kein Indikator für zukünftige Ergebnisse.",
-    "closing": "diBoaS ist eine Technologieplattform, keine Bank und kein Finanzberater. Alle finanziellen Entscheidungen liegen in Ihrer eigenen Verantwortung.",
+    "fictionalResults": "Die Beispiele auf dieser Seite sind illustrativ und stellen keine realen Unternehmen oder tatsächlichen Ergebnisse dar. Rechner-Projektionen basieren auf hypothetischen Szenarien und historischen Durchschnitten. Die tatsächlichen Ergebnisse werden abweichen.",
+    "cryptoDisclosure": "Kryptoassets sind hochvolatil. Du kannst einen Teil oder dein gesamtes Investment verlieren. Vergangene Wertentwicklung ist kein Indikator für zukünftige Ergebnisse.",
+    "closing": "diBoaS ist eine Technologieplattform, keine Bank und kein Finanzberater. Alle finanziellen Entscheidungen liegen in deiner eigenen Verantwortung.",
     "nav": {
       "forYou": "Für Dich",
       "forBusiness": "Für Unternehmen",
       "adelaideDaily": "Adelaide Daily",
-      "about": "Ueber uns",
+      "about": "Über uns",
       "help": "Hilfe",
       "strategies": "Strategien",
       "protocols": "Protokolle",
-      "privacy": "Datenschutzerklaerung",
+      "privacy": "Datenschutzerklärung",
       "terms": "Nutzungsbedingungen",
       "cookies": "Cookie-Richtlinie"
     },
-    "tagline": "Das Finanzwerkzeug, das Adelaide verdient haette."
+    "tagline": "Das Finanzwerkzeug, das Adelaide verdient hätte."
   },
   "waitlistSuccess": {
     "confirmation": {
       "headline": "Willkommen an Bord.",
-      "positionIntro": "Ihr Unternehmen ist:",
-      "shareIntro": "Erzaehlen Sie anderen Unternehmen davon",
-      "shareBenefit": "Teilen Sie den Link, damit andere Unternehmen fruehen Zugang erhalten",
-      "shareExplanation": "Je schneller wir starten, desto eher wird das Realitaet.",
-      "referralLinkLabel": "Ihr Empfehlungslink:",
+      "positionIntro": "Dein Unternehmen ist:",
+      "shareIntro": "Erzähl anderen Unternehmen davon",
+      "shareBenefit": "Teile den Link, damit andere Unternehmen frühen Zugang erhalten",
+      "shareExplanation": "Je schneller wir starten, desto eher wird das Realität.",
+      "referralLinkLabel": "Dein Empfehlungslink:",
       "copy": "Link kopieren",
       "copied": "Kopiert!",
       "dreamModeCta": "Dream Mode testen →"
     },
     "tier": {
       "badge": {
-        "foundingMember": "Sie sind ein Gruendungsunternehmen!",
-        "earlyMember": "Sie sind ein fruehes Unternehmen!"
+        "foundingMember": "Du bist ein Gründungsunternehmen!",
+        "earlyMember": "Du bist ein frühes Unternehmen!"
       },
       "explanation": {
-        "foundingMember": "Sie gehoeren zu den ersten 24 Unternehmen. Teilen Sie Ihren Link — Sie haben 5 Einladungen fuer andere Unternehmen.",
-        "earlyMember": "Eingeladen von einem Gruendungsunternehmen. Teilen Sie Ihren Link, damit andere Unternehmen fruehen Zugang erhalten.",
-        "priorityWaitlist": "Sie sind auf der Prioritaets-Warteliste. Teilen Sie Ihren Link, um aufzuruecken und anderen Unternehmen zu helfen."
+        "foundingMember": "Du gehörst zu den ersten 24 Unternehmen. Teile deinen Link — du hast 5 Einladungen für andere Unternehmen.",
+        "earlyMember": "Eingeladen von einem Gründungsunternehmen. Teile deinen Link, damit andere Unternehmen frühen Zugang erhalten.",
+        "priorityWaitlist": "Du bist auf der Prioritäts-Warteliste. Teile deinen Link, um aufzurücken und anderen Unternehmen zu helfen."
       }
     },
     "returningUser": {
-      "referralCount": "Sie haben {count} Unternehmen empfohlen"
+      "referralCount": "Du hast {count} Unternehmen empfohlen"
     }
   },
   "sections": {
     "systemCosts": {
-      "ariaLabel": "Zwei Wege, wie das System Ihr Unternehmen Geld kostet"
+      "ariaLabel": "Zwei Wege, wie das System dein Unternehmen Geld kostet"
     },
     "feeSavings": {
       "ariaLabel": "Cashflow-Gebührenersparnisrechner"
@@ -435,7 +457,7 @@
       "ariaLabel": "Entstehungsgeschichte — Ihr Name war Adelaide"
     },
     "businessBenefits": {
-      "ariaLabel": "Was Ihr Unternehmen mit diBoaS bekommt"
+      "ariaLabel": "Was dein Unternehmen mit diBoaS bekommt"
     },
     "cashflowInvesting": {
       "ariaLabel": "Cashflow-Investieren — zwei Vorteile durch eine Änderung"
@@ -444,7 +466,7 @@
       "ariaLabel": "Vollständige Gebührentransparenztabelle"
     },
     "rightForYou": {
-      "ariaLabel": "Ist diBoaS das Richtige für Ihr Unternehmen"
+      "ariaLabel": "Ist diBoaS das Richtige für dein Unternehmen"
     },
     "founder": {
       "ariaLabel": "Über den Gründer"
@@ -454,10 +476,10 @@
     }
   },
   "seo": {
-    "title": "diBoaS fuer Unternehmen | Schluss mit zu hohen Gebuehren und schlafendem Kapital",
-    "description": "Dein Zahlungsdienstleister nimmt 1,5 bis 3%. Deine Bank zahlt dir fast nichts. diBoaS: kostenlose Zahlungen, sofortige Zahlungen, und dein ungenutztes Kapital arbeitet fuer dich.",
+    "title": "diBoaS für Unternehmen | Schluss mit zu hohen Gebühren und schlafendem Kapital",
+    "description": "Dein Zahlungsdienstleister nimmt 1,5 bis 3%. Deine Bank zahlt dir fast nichts. diBoaS: kostenlose Zahlungen, sofortige Zahlungen, und dein ungenutztes Kapital arbeitet für dich.",
     "ogTitle": "Das System ist nicht kaputt. Es ist so gebaut, dass es sich an allem bedient, was du verdienst.",
-    "ogDescription": "Zwei Werkzeuge. Eine Plattform. Behalte mehr von deinen Kartenumsaetzen und lass dein ungenutztes Kapital wachsen. diBoaS fuer Unternehmen.",
-    "keywords": "Treasury-Management, Startup-Finanzen, Rendite, Betriebskapital, Geschaeftszahlungen, B2B-Fintech"
+    "ogDescription": "Zwei Werkzeuge. Eine Plattform. Behalte mehr von deinen Kartenumsätzen und lass dein ungenutztes Kapital wachsen. diBoaS für Unternehmen.",
+    "keywords": "Treasury-Management, Startup-Finanzen, Rendite, Betriebskapital, Geschäftszahlungen, B2B-Fintech"
   }
 }

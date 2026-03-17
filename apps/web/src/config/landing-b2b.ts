@@ -58,7 +58,7 @@ export const B2B_HERO_CONFIG: HeroVariantConfig = {
   seo: {
     titleTag: 'diBoaS for Business | Stop Overpaying on Fees and Idle Cash',
     imageAlt: {
-      background: 'Business treasury management illustration'
+      background: 'landing-b2b.hero.imageAlt'
     }
   },
   analytics: {
@@ -78,7 +78,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       cta: 'landing-b2b.twoWorlds.cardA.cta',
       ctaHref: '#cashflow-calculator',
       image: B2B_IMAGES.twoWorldsPayments,
-      imageAlt: 'Business payment processing'
+      imageAlt: 'landing-b2b.twoWorlds.cardA.imageAlt'
     },
     cardB: {
       headline: 'landing-b2b.twoWorlds.cardB.headline',
@@ -86,7 +86,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       cta: 'landing-b2b.twoWorlds.cardB.cta',
       ctaHref: '#treasury-calculator',
       image: B2B_IMAGES.twoWorldsTreasury,
-      imageAlt: 'Treasury management on phone'
+      imageAlt: 'landing-b2b.twoWorlds.cardB.imageAlt'
     }
   },
   seo: {
@@ -219,7 +219,7 @@ export const B2B_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
   },
   image: {
     src: B2B_IMAGES.originStory,
-    alt: 'diBoaS founder',
+    alt: 'landing-b2b.origin.imageAlt',
     position: 'right',
     aspectRatio: 'portrait'
   },
@@ -252,7 +252,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: B2B_IMAGES.carouselConnect
       },
       seo: {
-        imageAlt: 'Connect your business account'
+        imageAlt: 'landing-b2b.howItWorks.steps.connect.imageAlt'
       }
     },
     {
@@ -265,7 +265,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: B2B_IMAGES.carouselRules
       },
       seo: {
-        imageAlt: 'Set your rules and limits'
+        imageAlt: 'landing-b2b.howItWorks.steps.rules.imageAlt'
       }
     },
     {
@@ -278,7 +278,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: B2B_IMAGES.carouselWorks
       },
       seo: {
-        imageAlt: 'Your money works for you'
+        imageAlt: 'landing-b2b.howItWorks.steps.works.imageAlt'
       }
     },
     {
@@ -291,7 +291,7 @@ export const B2B_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: B2B_IMAGES.carouselAccess
       },
       seo: {
-        imageAlt: 'Access your money anytime'
+        imageAlt: 'landing-b2b.howItWorks.steps.access.imageAlt'
       }
     }
   ],
@@ -320,21 +320,21 @@ export const B2B_FEATURES_CONFIG: ScenarioCardsConfig = {
       title: 'landing-b2b.features.cards.getPaid.headline',
       description: 'landing-b2b.features.cards.getPaid.body',
       backgroundImage: B2B_IMAGES.featureGetPaid,
-      imageAlt: 'Get paid without the cut',
+      imageAlt: 'landing-b2b.features.cards.getPaid.imageAlt',
     },
     {
       id: 'feature-pay-anyone',
       title: 'landing-b2b.features.cards.payAnyone.headline',
       description: 'landing-b2b.features.cards.payAnyone.body',
       backgroundImage: B2B_IMAGES.featurePayAnyone,
-      imageAlt: 'Pay anyone anywhere instantly',
+      imageAlt: 'landing-b2b.features.cards.payAnyone.imageAlt',
     },
     {
       id: 'feature-adelaide',
       title: 'landing-b2b.features.cards.adelaide.headline',
       description: 'landing-b2b.features.cards.adelaide.body',
       backgroundImage: B2B_IMAGES.featureAdelaide,
-      imageAlt: 'Adelaide market intelligence',
+      imageAlt: 'landing-b2b.features.cards.adelaide.imageAlt',
     },
   ],
   style: {
@@ -493,14 +493,14 @@ export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
       icon: 'check-circle',
       title: 'landing-b2b.fitAssessment.goodFit.title',
       description: 'landing-b2b.fitAssessment.goodFit.description',
-      iconAlt: 'Good fit checkmark'
+      iconAlt: 'landing-b2b.fitAssessment.goodFit.iconAlt'
     },
     {
       id: 'not-a-fit',
       icon: 'x-circle',
       title: 'landing-b2b.fitAssessment.notAFit.title',
       description: 'landing-b2b.fitAssessment.notAFit.description',
-      iconAlt: 'Not a fit indicator'
+      iconAlt: 'landing-b2b.fitAssessment.notAFit.iconAlt'
     }
   ],
   seo: {
@@ -533,7 +533,7 @@ export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
   },
   image: {
     src: B2B_IMAGES.founderPhoto,
-    alt: 'Bar, Founder of diBoaS'
+    alt: 'landing-b2b.founder.imageAlt'
   },
   seo: {
     ariaLabel: 'landing-b2b.sections.founder.ariaLabel'

@@ -132,15 +132,18 @@
     "header": "Gente real. Momentos reales.",
     "card1": {
       "title": "Enviando dinero a tu hermano en Colombia",
-      "description": "Está al otro lado del océano. Tú envías. Llega antes de que guardes el móvil."
+      "description": "Está al otro lado del océano. Tú envías. Llega antes de que guardes el móvil.",
+      "imageAlt": "Amigos dividiendo la cena"
     },
     "card2": {
       "title": "Pagando a un diseñador en Buenos Aires",
-      "description": "Está en Sudamérica. Tú estás en España. El dinero llega antes de que termine la reunión."
+      "description": "Está en Sudamérica. Tú estás en España. El dinero llega antes de que termine la reunión.",
+      "imageAlt": "Enviando pago internacional"
     },
     "card3": {
       "title": "Dinero urgente para mamá",
-      "description": "Las 3 de la mañana. Lo necesita ahora. No en el \"siguiente día hábil\"."
+      "description": "Las 3 de la mañana. Lo necesita ahora. No en el \"siguiente día hábil\".",
+      "imageAlt": "Transferencia de emergencia a la familia"
     },
     "clarificationLine": "Usa diBoaS solo para transferencias gratuitas. Cuando quieras más, ¡está aquí!",
     "footnote": ""
@@ -151,22 +154,26 @@
     "step1": {
       "title": "Enviar y Recibir",
       "description": "Envía dinero a cualquier persona en diBoaS. En cualquier lugar del mundo. En segundos. Gratis. Retíralo cuando quieras.",
-      "quote": "\"Envié 200 EUR a mi hermano. Llegó antes de que guardara el móvil.\""
+      "quote": "\"Envié 200 EUR a mi hermano. Llegó antes de que guardara el móvil.\"",
+      "imageAlt": "Enviar y recibir dinero"
     },
     "step2": {
       "title": "Invertir y Crecer",
       "description": "Elige entre 10 formas de hacer crecer tu dinero. Tu dinero trabaja mientras tú duermes.",
-      "quote": "\"Tenía 200 EUR parados en mi cuenta sin hacer nada. Ahora están generando más de lo que mi banco me ofreció en 5 años.\""
+      "quote": "\"Tenía 200 EUR parados en mi cuenta sin hacer nada. Ahora están generando más de lo que mi banco me ofreció en 5 años.\"",
+      "imageAlt": "Invertir y hacer crecer tu dinero"
     },
     "step3": {
       "title": "Seguir y Aprender",
       "description": "Qué se mueve. Qué significa. Qué puedes hacer. Lenguaje claro, sin jerga.",
-      "quote": "\"Adelaide cuida mi dinero para que yo no tenga que preocuparme. Lo miro una vez al día. Menos estrés. Más vida.\""
+      "quote": "\"Adelaide cuida mi dinero para que yo no tenga que preocuparme. Lo miro una vez al día. Menos estrés. Más vida.\"",
+      "imageAlt": "Seguir y aprender sobre tus finanzas"
     },
     "step4": {
       "title": "Comprar y Mantener",
       "description": "Compra activos digitales y guárdalos en tu propia billetera. Empezando con BTC, ETH y SOL. Acciones y Oro próximamente.",
-      "quote": "\"Tus activos. Tu billetera. Tu momento. Compra lo que quieras, vende cuando quieras.\""
+      "quote": "\"Tus activos. Tu billetera. Tu momento. Compra lo que quieras, vende cuando quieras.\"",
+      "imageAlt": "Comprar y mantener activos digitales"
     },
     "microDisclosure": "Los ejemplos mostrados son ilustrativos y no representan usuarios reales."
   },

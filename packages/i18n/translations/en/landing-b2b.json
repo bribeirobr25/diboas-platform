@@ -3,6 +3,7 @@
     "headline": "The system isn't broken. It's designed to take a cut of everything you earn.",
     "subheadline": "You're losing 2 to 3% on every card payment. And the cash in your bank? It's earning returns for everyone except you. That changes now.",
     "cta": "See what you're losing",
+    "imageAlt": "Business treasury management illustration",
     "trustBadges": {
       "wallet": {
         "label": "Your funds, your wallet"
@@ -20,12 +21,14 @@
     "cardA": {
       "headline": "If you accept card payments",
       "body": "Every time a customer pays with a card, you lose 2 to 3%.\n\nOn $1,000 a day in sales, that's $600 to $900 a month. Gone. Then the money takes 3 to 5 business days to reach your account. Your money, sitting in someone else's pocket, earning them interest.\n\nWhat if you kept all of it?",
-      "cta": "Calculate what you're losing"
+      "cta": "Calculate what you're losing",
+      "imageAlt": "Business payment processing"
     },
     "cardB": {
       "headline": "If your company has cash sitting idle",
       "body": "You raised money. You're spending it carefully. But the cash you're not using right now? Your bank puts it to work, earns returns, and pays you almost nothing.\n\nOn $500,000 idle, the gap between what your bank pays and what's possible could be tens of thousands a year.\n\nWhat if that money worked for you instead?",
-      "cta": "Calculate what your bank is keeping"
+      "cta": "Calculate what your bank is keeping",
+      "imageAlt": "Treasury management on phone"
     }
   },
   "cashflowCalculator": {
@@ -57,7 +60,11 @@
     "belowResults": "",
     "customRateTemplate": "At {rate}% annual return: {amount}",
     "cta": "Talk to us",
-    "transitionHook": "Payment Fees Simulator. Idle cash Simulator"
+    "transitionHook": "Payment Fees Simulator. Idle cash Simulator",
+    "a11y": {
+      "timePeriodLabel": "Time period",
+      "resultsLabel": "Calculator results"
+    }
   },
   "calculator": {
     "header": "Today without us V.S. Tomorrow with diBoaS",
@@ -89,6 +96,10 @@
     "customRateTemplate": "At {rate}% annual return: {amount}",
     "cta": "Talk to us",
     "transitionHook": "Idle Cash Simulator",
+    "a11y": {
+      "timePeriodLabel": "Time period",
+      "resultsLabel": "Calculator results"
+    },
     "toggle": {
       "paymentFees": "Payment Fee Simulator",
       "idleCash": "Idle Cash Simulator"
@@ -106,26 +117,31 @@
       "I named it after her."
     ],
     "signature": "Bar, Founder",
-    "transitionHook": "Why build diBoaS"
+    "transitionHook": "Why build diBoaS",
+    "imageAlt": "diBoaS founder"
   },
   "howItWorks": {
     "header": "Four steps. Two minutes.",
     "steps": {
       "connect": {
         "title": "Connect your business",
-        "description": "Link your business account. Two-minute setup. No technical integration needed. No developer. No downtime. You do it during your morning coffee."
+        "description": "Link your business account. Two-minute setup. No technical integration needed. No developer. No downtime. You do it during your morning coffee.",
+        "imageAlt": "Connect your business account"
       },
       "rules": {
         "title": "You set the rules",
-        "description": "Tell us your floor. \"Always keep $50,000 available.\" Everything above that? Put it to work. You set the rules. You change them anytime."
+        "description": "Tell us your floor. \"Always keep $50,000 available.\" Everything above that? Put it to work. You set the rules. You change them anytime.",
+        "imageAlt": "Set your rules and limits"
       },
       "works": {
         "title": "Your money works",
-        "description": "Your idle cash starts earning. Payments arrive in seconds, not days. Your processing fees drop from 3% to zero. And you didn't have to think about any of it."
+        "description": "Your idle cash starts earning. Payments arrive in seconds, not days. Your processing fees drop from 3% to zero. And you didn't have to think about any of it.",
+        "imageAlt": "Your money works for you"
       },
       "access": {
         "title": "Access anytime",
-        "description": "Need cash? One tap. No lock-ups. No penalties. Processed instantly. Bank transfer times may vary."
+        "description": "Need cash? One tap. No lock-ups. No penalties. Processed instantly. Bank transfer times may vary.",
+        "imageAlt": "Access your money anytime"
       }
     },
     "transitionHook": "That's the process. Here's what you actually get."
@@ -135,15 +151,18 @@
     "cards": {
       "getPaid": {
         "headline": "Get paid without the cut",
-        "body": "Your customers pay. You keep 100%. Instantly."
+        "body": "Your customers pay. You keep 100%. Instantly.",
+        "imageAlt": "Get paid without the cut"
       },
       "payAnyone": {
         "headline": "Pay anyone, anywhere, instantly",
-        "body": "Contractors, suppliers, freelancers. Worldwide. No fees. Real-time"
+        "body": "Contractors, suppliers, freelancers. Worldwide. No fees. Real-time",
+        "imageAlt": "Pay anyone anywhere instantly"
       },
       "adelaide": {
         "headline": "Adelaide watches your money",
-        "body": "Market intelligence for business owners. No $500-an-hour advisor needed."
+        "body": "Market intelligence for business owners. No $500-an-hour advisor needed.",
+        "imageAlt": "Adelaide market intelligence"
       }
     },
     "transitionHook": "But here's the part nobody else is doing."
@@ -244,6 +263,7 @@
     "header": "Is this right for your business?",
     "goodFit": {
       "title": "Good Fit",
+      "iconAlt": "Good fit checkmark",
       "description": "Your business accepts card payments and you're tired of the 2 to 3% cut. Your company has cash sitting idle earning almost nothing.",
       "items": [
         "Tired of losing 2 to 3% on card payments.",
@@ -254,6 +274,7 @@
     },
     "notAFit": {
       "title": "Not a Fit",
+      "iconAlt": "Not a fit indicator",
       "description": "You need government deposit insurance above everything else. You have zero tolerance for any risk.",
       "items": [
         "You need government deposit insurance above all.",
@@ -281,6 +302,7 @@
     },
     "email": "Let's connect.",
     "emailAddress": "hello@diboas.com",
+    "imageAlt": "Bar, Founder of diBoaS",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",

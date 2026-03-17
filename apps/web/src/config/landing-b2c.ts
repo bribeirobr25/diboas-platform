@@ -295,7 +295,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: B2C_IMAGES.step1,
       },
       seo: {
-        imageAlt: 'Step 1: Send and receive money',
+        imageAlt: 'landing-b2c.howItWorks.step1.imageAlt',
       },
     },
     {
@@ -308,7 +308,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: B2C_IMAGES.step2,
       },
       seo: {
-        imageAlt: 'Step 2: Invest and grow your money',
+        imageAlt: 'landing-b2c.howItWorks.step2.imageAlt',
       },
     },
     {
@@ -321,7 +321,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: B2C_IMAGES.step3,
       },
       seo: {
-        imageAlt: 'Step 3: Track and learn',
+        imageAlt: 'landing-b2c.howItWorks.step3.imageAlt',
       },
     },
     {
@@ -334,7 +334,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         image: '/assets/images/garden.avif',
       },
       seo: {
-        imageAlt: 'Step 4: Buy and hold crypto assets',
+        imageAlt: 'landing-b2c.howItWorks.step4.imageAlt',
       },
     },
   ],
@@ -365,21 +365,21 @@ export const B2C_SCENARIOS_CONFIG: ProductCarouselVariantConfig = {
         title: 'landing-b2c.scenarios.card1.title',
         subtitle: 'landing-b2c.scenarios.card1.description',
         image: B2C_IMAGES.scenarioDinner,
-        imageAlt: 'Friends splitting dinner',
+        imageAlt: 'landing-b2c.scenarios.card1.imageAlt',
       },
       {
         id: 'scenario-global',
         title: 'landing-b2c.scenarios.card2.title',
         subtitle: 'landing-b2c.scenarios.card2.description',
         image: B2C_IMAGES.scenarioGlobal,
-        imageAlt: 'Sending payment internationally',
+        imageAlt: 'landing-b2c.scenarios.card2.imageAlt',
       },
       {
         id: 'scenario-emergency',
         title: 'landing-b2c.scenarios.card3.title',
         subtitle: 'landing-b2c.scenarios.card3.description',
         image: B2C_IMAGES.scenarioEmergency,
-        imageAlt: 'Emergency money transfer to family',
+        imageAlt: 'landing-b2c.scenarios.card3.imageAlt',
       },
     ],
   },

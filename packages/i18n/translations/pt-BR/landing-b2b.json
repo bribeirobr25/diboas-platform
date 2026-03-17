@@ -3,6 +3,7 @@
     "headline": "O sistema nao esta quebrado. Ele foi feito pra ficar com um pedaco de tudo que voce ganha.",
     "subheadline": "Voce perde de 2% a 5% em cada venda no cartao. E ainda espera 30 dias pra receber. O dinheiro que sobra no caixa? Rende pro banco, nao pra voce. Isso muda agora.",
     "cta": "Veja o que voce esta perdendo",
+    "imageAlt": "Ilustracao de gestao de tesouraria empresarial",
     "trustBadges": {
       "wallet": { "label": "Seu dinheiro, seu controle" },
       "reporting": { "label": "Relatorios prontos pro conselho" },
@@ -14,12 +15,14 @@
     "cardA": {
       "headline": "Se voce aceita pagamentos no cartao",
       "body": "Cada vez que um cliente paga no cartao, voce perde de 2% a 5% pra maquininha.\n\nCom R$5.000 por dia em vendas, sao R$3.000 a R$7.500 por mes. Sumidos. E no cartao de credito? O dinheiro so cai na sua conta em 30 dias. Se voce quer receber antes, paga MAIS uma taxa de antecipacao.\n\nVoce paga pra receber o seu proprio dinheiro. Faz sentido?",
-      "cta": "Calcule o que voce esta perdendo"
+      "cta": "Calcule o que voce esta perdendo",
+      "imageAlt": "Processamento de pagamentos empresariais"
     },
     "cardB": {
       "headline": "Se sua empresa tem dinheiro parado no caixa",
       "body": "Voce captou investimento. Esta gastando com cuidado. Mas o dinheiro que voce nao esta usando agora? O banco pega, aplica, e te devolve uma miseria.\n\nCom R$2.500.000 parados, a diferenca entre o que o banco te paga e o que e possivel pode ser de centenas de milhares de reais por ano.\n\nE se esse dinheiro trabalhasse pra voce?",
-      "cta": "Calcule o que o banco esta ficando"
+      "cta": "Calcule o que o banco esta ficando",
+      "imageAlt": "Gestao de tesouraria no celular"
     }
   },
   "cashflowCalculator": {
@@ -47,7 +50,11 @@
     "belowResults": "",
     "customRateTemplate": "Com {rate}% de retorno anual: {amount}",
     "cta": "Fale conosco",
-    "transitionHook": "Simulador de taxas de pagamento. Simulador de caixa parado"
+    "transitionHook": "Simulador de taxas de pagamento. Simulador de caixa parado",
+    "a11y": {
+      "timePeriodLabel": "Período de tempo",
+      "resultsLabel": "Resultados da calculadora"
+    }
   },
   "calculator": {
     "header": "Hoje sem nos V.S. Amanha com diBoaS",
@@ -75,6 +82,10 @@
     "customRateTemplate": "Com {rate}% de retorno anual: {amount}",
     "cta": "Fale conosco",
     "transitionHook": "Simulador de caixa parado",
+    "a11y": {
+      "timePeriodLabel": "Período de tempo",
+      "resultsLabel": "Resultados da calculadora"
+    },
     "toggle": {
       "paymentFees": "Simulador de Taxas",
       "idleCash": "Simulador de Caixa"
@@ -92,26 +103,31 @@
       "Dei o nome dela."
     ],
     "signature": "Bar, Fundador",
-    "transitionHook": "Por que construir o diBoaS"
+    "transitionHook": "Por que construir o diBoaS",
+    "imageAlt": "Fundador do diBoaS"
   },
   "howItWorks": {
     "header": "Quatro passos. Dois minutos.",
     "steps": {
       "connect": {
         "title": "Conecte seu negocio",
-        "description": "Vincule sua conta empresarial. Dois minutos de configuracao. Sem integracao tecnica. Sem desenvolvedor. Sem parar nada. Voce faz isso enquanto toma o cafe da manha."
+        "description": "Vincule sua conta empresarial. Dois minutos de configuracao. Sem integracao tecnica. Sem desenvolvedor. Sem parar nada. Voce faz isso enquanto toma o cafe da manha.",
+        "imageAlt": "Conecte sua conta empresarial"
       },
       "rules": {
         "title": "Voce define as regras",
-        "description": "Diga qual e o seu minimo. \"Sempre manter R$250.000 disponiveis.\" Tudo que estiver acima? Coloca pra trabalhar. Voce define as regras. Muda quando quiser."
+        "description": "Diga qual e o seu minimo. \"Sempre manter R$250.000 disponiveis.\" Tudo que estiver acima? Coloca pra trabalhar. Voce define as regras. Muda quando quiser.",
+        "imageAlt": "Defina suas regras e limites"
       },
       "works": {
         "title": "Seu dinheiro trabalha",
-        "description": "Seu caixa parado comeca a render. Pagamentos chegam em segundos, nao em 30 dias. Suas taxas de processamento caem de 4% pra zero. E voce nao precisou pensar em nada disso."
+        "description": "Seu caixa parado comeca a render. Pagamentos chegam em segundos, nao em 30 dias. Suas taxas de processamento caem de 4% pra zero. E voce nao precisou pensar em nada disso.",
+        "imageAlt": "Seu dinheiro trabalha pra voce"
       },
       "access": {
         "title": "Acesso a qualquer hora",
-        "description": "Precisa de dinheiro? Um toque. Sem bloqueios. Sem multas. Processado na hora. Tempos de transferencia bancaria podem variar."
+        "description": "Precisa de dinheiro? Um toque. Sem bloqueios. Sem multas. Processado na hora. Tempos de transferencia bancaria podem variar.",
+        "imageAlt": "Acesse seu dinheiro a qualquer hora"
       }
     },
     "transitionHook": "Esse e o processo. Agora veja o que voce realmente recebe."
@@ -121,15 +137,18 @@
     "cards": {
       "getPaid": {
         "headline": "Receba sem perder um pedaco",
-        "body": "Seus clientes pagam. Voce fica com 100%. Na hora."
+        "body": "Seus clientes pagam. Voce fica com 100%. Na hora.",
+        "imageAlt": "Receba sem perder um pedaco"
       },
       "payAnyone": {
         "headline": "Pague qualquer pessoa, em qualquer lugar, na hora",
-        "body": "Fornecedores, prestadores, freelancers. No mundo todo. Sem taxas. Em tempo real"
+        "body": "Fornecedores, prestadores, freelancers. No mundo todo. Sem taxas. Em tempo real",
+        "imageAlt": "Pague qualquer pessoa em qualquer lugar na hora"
       },
       "adelaide": {
         "headline": "Adelaide cuida do seu dinheiro",
-        "body": "Inteligencia de mercado pra donos de negocio. Sem consultor a R$2.500 a hora."
+        "body": "Inteligencia de mercado pra donos de negocio. Sem consultor a R$2.500 a hora.",
+        "imageAlt": "Inteligencia de mercado Adelaide"
       }
     },
     "transitionHook": "Mas aqui vem a parte que ninguem mais esta fazendo."
@@ -176,6 +195,7 @@
     "header": "Isso e certo pro seu negocio?",
     "goodFit": {
       "title": "Bom Encaixe",
+      "iconAlt": "Indicador de bom encaixe",
       "description": "Seu negocio aceita pagamentos no cartao e voce esta cansado de perder de 2% a 5% na maquininha. Sua empresa tem dinheiro parado no caixa rendendo quase nada.",
       "items": [
         "Cansado de perder 2% a 5% na maquininha.",
@@ -186,6 +206,7 @@
     },
     "notAFit": {
       "title": "Nao e pra Voce",
+      "iconAlt": "Indicador de nao encaixe",
       "description": "Voce precisa de protecao do FGC acima de tudo. Voce tem tolerancia zero pra qualquer tipo de risco.",
       "items": [
         "Precisa de protecao do FGC acima de tudo.",
@@ -213,6 +234,7 @@
     },
     "email": "Vamos nos conectar.",
     "emailAddress": "hello@diboas.com",
+    "imageAlt": "Bar, Fundador do diBoaS",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",
