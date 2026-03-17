@@ -39,7 +39,7 @@
     "validate-translations": "node scripts/validate-translations.js"
   },
   "dependencies": {
-    "react-intl": "^6.4.7",
+    "react-intl": "^10.0.0",
     "@formatjs/intl-localematcher": "^0.4.2",
     "negotiator": "^0.6.3"
   },
