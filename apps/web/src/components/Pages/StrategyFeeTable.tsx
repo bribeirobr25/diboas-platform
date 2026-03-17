@@ -28,21 +28,21 @@ export function StrategyFeeTable() {
         <table className={styles.feeTable}>
           <thead>
             <tr className={styles.tableHeaderRow}>
-              <th className={styles.tableHeaderGoal}>{t('fees.columnHeaders.action')}</th>
-              <th className={styles.tableHeaderGoal}>{t('fees.columnHeaders.fee')}</th>
-              <th className={styles.tableHeaderGoal}>{t('fees.columnHeaders.example')}</th>
+              <th className={styles.feeTableCell}>{t('fees.columnHeaders.action')}</th>
+              <th className={styles.feeTableCell}>{t('fees.columnHeaders.fee')}</th>
+              <th className={styles.feeTableCell}>{t('fees.columnHeaders.example')}</th>
             </tr>
           </thead>
           <tbody>
             <tr className={styles.tableRow}>
-              <td className={styles.tableCellGoal}>{t('fees.table.invest.action')}</td>
-              <td className={`${styles.tableCellGoal} ${styles.feeRowFree}`}>{t('fees.table.invest.fee')}</td>
-              <td className={styles.tableCellGoal}>{t('fees.table.invest.example')}</td>
+              <td className={styles.feeTableCell}>{t('fees.table.invest.action')}</td>
+              <td className={`${styles.feeTableCell} ${styles.feeRowFree}`}>{t('fees.table.invest.fee')}</td>
+              <td className={styles.feeTableCell}>{t('fees.table.invest.example')}</td>
             </tr>
             <tr className={styles.tableRowLast}>
-              <td className={styles.tableCellGoal}>{t('fees.table.sell.action')}</td>
-              <td className={styles.tableCellGoal}>{t('fees.table.sell.fee')}</td>
-              <td className={styles.tableCellGoal}>{t('fees.table.sell.example')}</td>
+              <td className={styles.feeTableCell}>{t('fees.table.sell.action')}</td>
+              <td className={styles.feeTableCell}>{t('fees.table.sell.fee')}</td>
+              <td className={styles.feeTableCell}>{t('fees.table.sell.example')}</td>
             </tr>
           </tbody>
         </table>

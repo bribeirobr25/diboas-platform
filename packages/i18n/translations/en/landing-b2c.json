@@ -6,6 +6,18 @@
   },
   "goalCalculator": {
     "header": "What are you building?",
+    "subtitle": "Pick a goal. We'll show you a path.",
+    "stepIndicator": "Step {current} of {total}:",
+    "goalDescriptions": {
+      "christmas": "Build your year-end bonus automatically",
+      "emergency": "Create a safety net for the unexpected",
+      "vacation": "Save for the trip you deserve"
+    },
+    "suggested": "Suggested: {amount}/month",
+    "override": "Override",
+    "startSmaller": "More than you expected? Start with {amount}/month",
+    "expectedReturn": "{rate}% expected return",
+    "back": "Back",
     "tabs": {
       "christmas": "Christmas Bonus",
       "emergency": "Emergency Fund",
@@ -360,6 +372,10 @@
       }
     }
   },
+  "midPageCta": {
+    "heading": "Ready to try it?",
+    "cta": "Join the Waitlist"
+  },
   "footer": {
     "tagline": "Open access and fair opportunities for everyone.",
     "nav": {
@@ -384,6 +400,38 @@
       "closing": "You decide what's best for your situation."
     },
     "copyright": "© 2026 diBoaS. All rights reserved."
+  },
+  "sections": {
+    "goalCalculator": {
+      "ariaLabel": "Goal-based savings calculator"
+    },
+    "originStory": {
+      "ariaLabel": "Origin story, why diBoaS exists"
+    },
+    "personaCarousel": {
+      "ariaLabel": "Persona carousel showing who diBoaS is for"
+    },
+    "scenarioCards": {
+      "ariaLabel": "Real-life scenarios where diBoaS helps"
+    },
+    "feeTable": {
+      "ariaLabel": "Complete fee transparency table"
+    },
+    "honestCatch": {
+      "ariaLabel": "What is the catch, honest transparency"
+    },
+    "techDetails": {
+      "ariaLabel": "Technical details about diBoaS architecture"
+    },
+    "demo": {
+      "ariaLabel": "Interactive demo section"
+    },
+    "founder": {
+      "ariaLabel": "About the founder of diBoaS"
+    },
+    "faq": {
+      "ariaLabel": "Frequently asked questions"
+    }
   },
   "seo": {
     "title": "diBoaS | The System Wasn't Built for You. We're Changing That.",

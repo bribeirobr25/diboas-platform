@@ -1,5 +1,6 @@
 'use client';
 
+import { ShieldCheck, TrendingUp, Zap } from '@/components/UI/LucideIcon';
 import { useGoalCalculator } from '../GoalCalculatorProvider';
 import {
   RISK_TIERS,
@@ -18,7 +19,11 @@ import {
 import type { RiskTierIndex, GoalCalculatorConfig } from '../goalCalculatorTypes';
 import styles from '../GoalCalculator.module.css';
 
-const TIER_ICONS = ['🛡️', '📊', '⚡'] as const;
+const TIER_ICONS: readonly React.ReactNode[] = [
+  <ShieldCheck key="careful" size={22} />,
+  <TrendingUp key="moderate" size={22} />,
+  <Zap key="aggressive" size={22} />,
+] as const;
 
 interface DepositRiskScreenProps {
   readonly translated: GoalCalculatorConfig;
@@ -161,6 +166,13 @@ export function DepositRiskScreen({
 
   const TIER_KEYS = ['careful', 'moderate', 'aggressive'] as const;
 
+  const suggestedText = (translated.content.suggested ?? 'Suggested: {amount}/month')
+    .replace('{amount}', formatCurrency(autoMonthly));
+  const overrideText = translated.content.override ?? 'Override';
+  const startSmallerText = (translated.content.startSmaller ?? 'More than you expected? Start with {amount}/month')
+    .replace('{amount}', formatCurrency(smallerAmount));
+  const backText = translated.content.back ?? 'Back';
+
   return (
     <div className={styles.screenContent}>
       <div className={styles.screenHeader}>
@@ -204,7 +216,7 @@ export function DepositRiskScreen({
         </div>
         <div className={styles.monthlyDisplay}>
           <span className={styles.monthlyLabel}>
-            Suggested: {formatCurrency(autoMonthly)}/month
+            {suggestedText}
           </span>
         </div>
         {state.isMonthlyOverridden ? (
@@ -226,7 +238,7 @@ export function DepositRiskScreen({
             onClick={() => dispatch({ type: 'SET_MONTHLY_DEPOSIT', value: String(autoMonthly) })}
             style={{ alignSelf: 'flex-start', fontSize: 'var(--font-size-xs, 12px)' }}
           >
-            Override
+            {overrideText}
           </button>
         ) : null}
 
@@ -237,7 +249,7 @@ export function DepositRiskScreen({
             className={styles.startSmallerLink}
             onClick={handleStartSmaller}
           >
-            More than you expected? Start with {formatCurrency(smallerAmount)}/month
+            {startSmallerText}
           </button>
         ) : null}
       </div>
@@ -250,26 +262,30 @@ export function DepositRiskScreen({
       <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
         <legend className={styles.sliderLabel}>{translated.content.fields.riskTier.label}</legend>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-sm)' }}>
-          {TIER_KEYS.map((key, index) => (
-            <button
-              key={key}
-              type="button"
-              className={`${styles.tierCard} ${
-                effectiveTierIndex === index ? styles.tierCardActive : ''
-              } ${isOneMonth && index !== 0 ? styles.tierCardDisabled : ''}`}
-              onClick={() => handleTierSelect(index as RiskTierIndex)}
-              aria-pressed={effectiveTierIndex === index}
-              disabled={isOneMonth && index !== 0}
-            >
-              <span className={styles.tierCardIcon} aria-hidden="true">{TIER_ICONS[index]}</span>
-              <div className={styles.tierCardContent}>
-                <span className={styles.tierCardTitle}>{translated.content.tiers[key]}</span>
-                <span className={styles.tierCardSubtitle}>
-                  {RISK_TIERS[index].expectedAPY * 100}% expected return
-                </span>
-              </div>
-            </button>
-          ))}
+          {TIER_KEYS.map((key, index) => {
+            const expectedReturnText = (translated.content.expectedReturn ?? '{rate}% expected return')
+              .replace('{rate}', String(RISK_TIERS[index].expectedAPY * 100));
+            return (
+              <button
+                key={key}
+                type="button"
+                className={`${styles.tierCard} ${
+                  effectiveTierIndex === index ? styles.tierCardActive : ''
+                } ${isOneMonth && index !== 0 ? styles.tierCardDisabled : ''}`}
+                onClick={() => handleTierSelect(index as RiskTierIndex)}
+                aria-pressed={effectiveTierIndex === index}
+                disabled={isOneMonth && index !== 0}
+              >
+                <span className={styles.tierCardIcon} aria-hidden="true">{TIER_ICONS[index]}</span>
+                <div className={styles.tierCardContent}>
+                  <span className={styles.tierCardTitle}>{translated.content.tiers[key]}</span>
+                  <span className={styles.tierCardSubtitle}>
+                    {expectedReturnText}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </fieldset>
 
@@ -279,7 +295,7 @@ export function DepositRiskScreen({
 
       <div className={styles.wizardNavigation}>
         <button type="button" className={styles.backButton} onClick={() => dispatch({ type: 'GO_BACK' })}>
-          Back
+          {backText}
         </button>
         <button
           type="button"
@@ -287,7 +303,7 @@ export function DepositRiskScreen({
           onClick={handleSimulate}
           disabled={!canProceed}
         >
-          Show me my plan
+          {translated.content.cta}
         </button>
       </div>
     </div>

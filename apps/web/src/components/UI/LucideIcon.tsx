@@ -27,6 +27,11 @@ import {
   LineChart,
   Target,
   XCircle,
+  Gift,
+  ShieldCheck,
+  Plane,
+  Zap,
+  BarChart3,
   type LucideIcon as LucideIconType
 } from 'lucide-react';
 
@@ -59,6 +64,11 @@ export {
   LineChart,
   Target,
   XCircle,
+  Gift,
+  ShieldCheck,
+  Plane,
+  Zap,
+  BarChart3,
 };
 
 export type { LucideIconType };

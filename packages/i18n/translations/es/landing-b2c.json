@@ -6,6 +6,18 @@
   },
   "goalCalculator": {
     "header": "¿Qué estás construyendo?",
+    "subtitle": "Elige una meta. Te mostraremos un camino.",
+    "stepIndicator": "Paso {current} de {total}:",
+    "goalDescriptions": {
+      "christmas": "Construye tu bono de fin de año automáticamente",
+      "emergency": "Crea una red de seguridad para lo inesperado",
+      "vacation": "Ahorra para el viaje que mereces"
+    },
+    "suggested": "Sugerido: {amount}/mes",
+    "override": "Modificar",
+    "startSmaller": "¿Más de lo esperado? Comienza con {amount}/mes",
+    "expectedReturn": "{rate}% retorno esperado",
+    "back": "Atrás",
     "tabs": {
       "christmas": "Paga Extra de Navidad",
       "emergency": "Fondo de Emergencia",
@@ -360,6 +372,10 @@
       }
     }
   },
+  "midPageCta": {
+    "heading": "\u00bfListo para probarlo?",
+    "cta": "Unirse a la lista de espera"
+  },
   "footer": {
     "tagline": "Acceso abierto y oportunidades justas para todos.",
     "nav": {
@@ -384,6 +400,38 @@
       "closing": "Tú decides lo que es mejor para tu situación."
     },
     "copyright": "© 2026 diBoaS. Todos los derechos reservados."
+  },
+  "sections": {
+    "goalCalculator": {
+      "ariaLabel": "Calculadora de ahorro por objetivos"
+    },
+    "originStory": {
+      "ariaLabel": "Historia de origen, por qué existe diBoaS"
+    },
+    "personaCarousel": {
+      "ariaLabel": "Carrusel de personas, para quién es diBoaS"
+    },
+    "scenarioCards": {
+      "ariaLabel": "Escenarios reales donde diBoaS ayuda"
+    },
+    "feeTable": {
+      "ariaLabel": "Tabla completa de transparencia de tarifas"
+    },
+    "honestCatch": {
+      "ariaLabel": "Dónde está la trampa, transparencia honesta"
+    },
+    "techDetails": {
+      "ariaLabel": "Detalles técnicos de la arquitectura de diBoaS"
+    },
+    "demo": {
+      "ariaLabel": "Sección de demostración interactiva"
+    },
+    "founder": {
+      "ariaLabel": "Sobre el fundador de diBoaS"
+    },
+    "faq": {
+      "ariaLabel": "Preguntas frecuentes"
+    }
   },
   "seo": {
     "title": "diBoaS | El Sistema No Fue Construido Para Ti. Lo Estamos Cambiando.",

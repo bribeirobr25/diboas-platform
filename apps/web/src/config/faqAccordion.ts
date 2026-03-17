@@ -134,7 +134,7 @@ export const FAQ_ACCORDION_CONFIGS = {
     content: DEFAULT_FAQ_ACCORDION_CONTENT,
     settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
     seo: {
-      ariaLabel: 'Frequently asked questions section',
+      ariaLabel: 'marketing.shared.faqAccordion.ariaLabel',
       region: 'faq'
     },
     analytics: {

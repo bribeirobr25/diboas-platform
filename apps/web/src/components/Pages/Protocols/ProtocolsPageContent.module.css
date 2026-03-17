@@ -10,12 +10,23 @@
    ================================ */
 
 .transitionHook {
-  font-size: 1.125rem;
   font-style: italic;
-  color: var(--color-slate-500);
   text-align: center;
   padding: 2rem 1rem;
   margin: 0;
+}
+
+/* Default: subtle narrative bridge */
+.transitionDefault {
+  font-size: 1.125rem;
+  color: var(--color-slate-500);
+}
+
+/* Pivotal: draws slightly more attention for key turning points */
+.transitionPivotal {
+  font-size: 1.25rem;
+  color: var(--color-slate-600);
+  letter-spacing: -0.01em;
 }
 
 /* ================================

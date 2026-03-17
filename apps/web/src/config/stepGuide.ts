@@ -48,7 +48,7 @@ export const DEFAULT_STEP_GUIDE_CONFIG: StepGuideConfig = {
   /** SEO and accessibility metadata */
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Step-by-step guide to getting started with diBoaS platform'
+    ariaLabel: 'marketing.shared.stepGuide.ariaLabel'
   },
 
   /** Analytics configuration */

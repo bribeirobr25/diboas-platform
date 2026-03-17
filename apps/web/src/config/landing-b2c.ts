@@ -89,6 +89,18 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
 export const B2C_GOAL_CALCULATOR_CONFIG: GoalCalculatorConfig = {
   content: {
     header: 'landing-b2c.goalCalculator.header',
+    subtitle: 'landing-b2c.goalCalculator.subtitle',
+    stepIndicator: 'landing-b2c.goalCalculator.stepIndicator',
+    goalDescriptions: {
+      christmas: 'landing-b2c.goalCalculator.goalDescriptions.christmas',
+      emergency: 'landing-b2c.goalCalculator.goalDescriptions.emergency',
+      vacation: 'landing-b2c.goalCalculator.goalDescriptions.vacation',
+    },
+    suggested: 'landing-b2c.goalCalculator.suggested',
+    override: 'landing-b2c.goalCalculator.override',
+    startSmaller: 'landing-b2c.goalCalculator.startSmaller',
+    expectedReturn: 'landing-b2c.goalCalculator.expectedReturn',
+    back: 'landing-b2c.goalCalculator.back',
     tabs: {
       christmas: 'landing-b2c.goalCalculator.tabs.christmas',
       emergency: 'landing-b2c.goalCalculator.tabs.emergency',
@@ -168,7 +180,7 @@ export const B2C_GOAL_CALCULATOR_CONFIG: GoalCalculatorConfig = {
     microcopy: 'landing-b2c.goalCalculator.microcopy',
   },
   seo: {
-    ariaLabel: 'Goal-based savings calculator',
+    ariaLabel: 'landing-b2c.sections.goalCalculator.ariaLabel',
   },
   analytics: {
     sectionId: 'goal-calculator-b2c',
@@ -202,7 +214,7 @@ export const B2C_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'Origin story, why diBoaS exists',
+    ariaLabel: 'landing-b2c.sections.originStory.ariaLabel',
   },
   analytics: {
     sectionId: 'origin-story-b2c',
@@ -257,7 +269,7 @@ export const B2C_PERSONA_CAROUSEL_CONFIG: ProductCarouselVariantConfig = {
   },
   seo: {
     headingTag: 'h2',
-    ariaLabel: 'Persona carousel showing who diBoaS is for',
+    ariaLabel: 'landing-b2c.sections.personaCarousel.ariaLabel',
   },
   analytics: {
     trackingPrefix: 'persona_carousel_b2c',
@@ -383,7 +395,7 @@ export const B2C_SCENARIOS_CONFIG: ProductCarouselVariantConfig = {
   },
   seo: {
     headingTag: 'h2',
-    ariaLabel: 'Real-life scenarios where diBoaS helps',
+    ariaLabel: 'landing-b2c.sections.scenarioCards.ariaLabel',
   },
   analytics: {
     trackingPrefix: 'scenarios_b2c',
@@ -488,7 +500,7 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
   },
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Complete fee transparency table',
+    ariaLabel: 'landing-b2c.sections.feeTable.ariaLabel',
   },
   analytics: {
     sectionId: 'fees-b2c',
@@ -523,7 +535,7 @@ export const B2C_CATCH_CONFIG: ProseSectionConfig = {
     headerStyle: 'centered',
   },
   seo: {
-    ariaLabel: 'What is the catch, honest transparency',
+    ariaLabel: 'landing-b2c.sections.honestCatch.ariaLabel',
   },
   analytics: {
     sectionId: 'catch-b2c',
@@ -548,7 +560,7 @@ export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
     linkHref: '/protocols',
   },
   seo: {
-    ariaLabel: 'Technical details about diBoaS architecture',
+    ariaLabel: 'landing-b2c.sections.techDetails.ariaLabel',
   },
   analytics: {
     sectionId: 'under-the-hood-b2c',
@@ -570,7 +582,7 @@ export const B2C_DEMO_CONFIG = {
   },
   seo: {
     headingLevel: 'h2' as const,
-    ariaLabel: 'Interactive demo section',
+    ariaLabel: 'landing-b2c.sections.demo.ariaLabel',
   },
   analytics: {
     sectionId: 'demo-section-b2c',
@@ -612,7 +624,7 @@ export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
     ],
   },
   seo: {
-    ariaLabel: 'About the founder of diBoaS',
+    ariaLabel: 'landing-b2c.sections.founder.ariaLabel',
   },
   analytics: {
     sectionId: 'founder-b2c',
@@ -719,7 +731,7 @@ export const B2C_FAQ_CONFIG: FAQAccordionVariantConfig = {
     scrollIntoView: true
   },
   seo: {
-    ariaLabel: 'Frequently asked questions',
+    ariaLabel: 'landing-b2c.sections.faq.ariaLabel',
     region: 'faq'
   },
   analytics: {

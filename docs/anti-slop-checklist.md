@@ -82,6 +82,15 @@ Reject or refine UI if you see any of these patterns.
 - [ ] Smart contract audit status claimed (not yet decided)
 - [ ] Financial advice language used (diBoaS is a software provider, not an advisor)
 
+## Layout and spacing slop
+
+- [ ] Buttons in the same group with dramatically different sizes (e.g., tiny "Back" next to full-width "Next")
+- [ ] Section content too tightly spaced with insufficient breathing room between elements
+- [ ] Section content too sparse with wasted vertical space
+- [ ] Inconsistent vertical rhythm between adjacent sections
+- [ ] Hardcoded English text not using i18n (appears as English on non-EN locale pages)
+- [ ] Components rendering translation keys as raw strings instead of translated text
+
 ## Quality and trust issues
 
 - [ ] Text contrast below 4.5:1 ratio (use `--text-primary-accessible` for teal on white)

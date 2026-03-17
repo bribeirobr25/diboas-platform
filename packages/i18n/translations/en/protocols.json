@@ -70,7 +70,7 @@
     "showLess": "Show less",
     "showMore": "Read more",
     "websiteLink": "Website →",
-    "twitterLink": "@Twitter"
+    "twitterLink": "@X"
   },
   "cards": {
     "aaveV3": {
@@ -446,5 +446,10 @@
     "externalLinks": "External links on this page lead to third-party websites not controlled by diBoaS. We are not responsible for their content, privacy practices, or availability.",
     "professionalAdvice": "Consider consulting a licensed financial advisor before making investment decisions.",
     "copyright": "© 2026 diBoaS. All rights reserved."
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Protocol frequently asked questions"
+    }
   }
 }

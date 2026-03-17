@@ -70,7 +70,7 @@
     "showLess": "Ver menos",
     "showMore": "Leer más",
     "websiteLink": "Website →",
-    "twitterLink": "@Twitter"
+    "twitterLink": "@X"
   },
   "cards": {
     "aaveV3": {
@@ -446,5 +446,10 @@
     "externalLinks": "Los enlaces externos en esta página conducen a sitios web de terceros no controlados por diBoaS. No somos responsables de su contenido, practicas de privacidad o disponibilidad.",
     "professionalAdvice": "Considere consultar a un asesor financiero autorizado antes de tomar decisiones de inversion.",
     "copyright": "© 2026 diBoaS. Todos los derechos reservados."
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Preguntas frecuentes sobre protocolos"
+    }
   }
 }

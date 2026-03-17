@@ -118,7 +118,7 @@ export const PRODUCT_CAROUSEL_CONFIGS = {
     settings: DEFAULT_PRODUCT_CAROUSEL_SETTINGS,
     seo: {
       headingTag: 'OneFi - Complete Financial Ecosystem',
-      ariaLabel: 'Product carousel showcasing financial solutions'
+      ariaLabel: 'marketing.shared.productCarousel.ariaLabel'
     },
     analytics: {
       trackingPrefix: 'product_carousel_default',

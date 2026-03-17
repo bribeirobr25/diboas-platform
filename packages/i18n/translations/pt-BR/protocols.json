@@ -70,7 +70,7 @@
     "showLess": "Ver menos",
     "showMore": "Ler mais",
     "websiteLink": "Website →",
-    "twitterLink": "@Twitter"
+    "twitterLink": "@X"
   },
   "cards": {
     "aaveV3": {
@@ -446,5 +446,10 @@
     "externalLinks": "Links externos nesta página levam a sites de terceiros não controlados pelo diBoaS. Não somos responsaveis pelo conteudo, praticas de privacidade ou disponibilidade desses sites.",
     "professionalAdvice": "Considere consultar um assessor de investimentos antes de tomar decisoes financeiras.",
     "copyright": "© 2026 diBoaS. Todos os direitos reservados."
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Perguntas frequentes sobre protocolos"
+    }
   }
 }

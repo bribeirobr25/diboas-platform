@@ -67,3 +67,9 @@ if (SENTRY_DSN) {
     ],
   });
 }
+
+/**
+ * Captures client-side route transitions for Sentry performance monitoring.
+ * Required by @sentry/nextjs v10+ for App Router navigation instrumentation.
+ */
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

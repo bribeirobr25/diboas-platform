@@ -90,7 +90,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
     }
   },
   seo: {
-    ariaLabel: 'Two ways the system costs your business'
+    ariaLabel: 'landing-b2b.sections.systemCosts.ariaLabel'
   },
   analytics: {
     sectionId: 'two-worlds-b2b',
@@ -141,7 +141,7 @@ export const B2B_CASHFLOW_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
     'pt-BR': { field1: 5000, field2: 4 }
   },
   seo: {
-    ariaLabel: 'Cashflow fee savings calculator'
+    ariaLabel: 'landing-b2b.sections.feeSavings.ariaLabel'
   },
   analytics: {
     sectionId: 'cashflow-calculator-b2b',
@@ -192,7 +192,7 @@ export const B2B_CALCULATOR_CONFIG: CalculatorFactoryConfig = {
     'pt-BR': { field1: 2500000, field2: 1 }
   },
   seo: {
-    ariaLabel: 'Treasury idle cash calculator'
+    ariaLabel: 'landing-b2b.sections.treasuryCalculator.ariaLabel'
   },
   analytics: {
     sectionId: 'treasury-calculator-b2b',
@@ -228,7 +228,7 @@ export const B2B_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
     headerStyle: 'inline'
   },
   seo: {
-    ariaLabel: 'Origin story — Her name was Adelaide'
+    ariaLabel: 'landing-b2b.sections.originStory.ariaLabel'
   },
   analytics: {
     sectionId: 'origin-story-b2b',
@@ -337,9 +337,12 @@ export const B2B_FEATURES_CONFIG: ScenarioCardsConfig = {
       imageAlt: 'Adelaide market intelligence',
     },
   ],
+  style: {
+    backgroundColor: 'var(--section-bg-enterprise)',
+  },
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'What your business gets with diBoaS',
+    ariaLabel: 'landing-b2b.sections.businessBenefits.ariaLabel',
   },
   analytics: {
     sectionId: 'features-b2b',
@@ -369,7 +372,7 @@ export const B2B_CASHFLOW_INVESTING_CONFIG: CashflowExplainerSectionConfig = {
     microDisclosure: 'landing-b2b.cashflowInvesting.microDisclosure'
   },
   seo: {
-    ariaLabel: 'Cashflow investing — two wins from one change'
+    ariaLabel: 'landing-b2b.sections.cashflowInvesting.ariaLabel'
   },
   analytics: {
     sectionId: 'cashflow-investing-b2b',
@@ -468,7 +471,7 @@ export const B2B_FEES_CONFIG: FeeTableConfig = {
   },
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Complete fee transparency table'
+    ariaLabel: 'landing-b2b.sections.feeTable.ariaLabel'
   },
   analytics: {
     sectionId: 'fees-b2b',
@@ -502,7 +505,7 @@ export const B2B_FIT_ASSESSMENT_CONFIG: BenefitsCardsConfig = {
   ],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Is diBoaS right for your business'
+    ariaLabel: 'landing-b2b.sections.rightForYou.ariaLabel'
   },
   analytics: {
     sectionId: 'fit-assessment-b2b',
@@ -533,7 +536,7 @@ export const B2B_FOUNDER_CONFIG: FounderSectionConfig = {
     alt: 'Bar, Founder of diBoaS'
   },
   seo: {
-    ariaLabel: 'About the founder'
+    ariaLabel: 'landing-b2b.sections.founder.ariaLabel'
   },
   analytics: {
     sectionId: 'founder-b2b',
@@ -637,7 +640,7 @@ export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
     scrollIntoView: true
   },
   seo: {
-    ariaLabel: 'Frequently asked questions for business owners',
+    ariaLabel: 'landing-b2b.sections.faq.ariaLabel',
     region: 'faq'
   },
   analytics: {

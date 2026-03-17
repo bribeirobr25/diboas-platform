@@ -125,7 +125,7 @@ export const ONE_FEATURE_CONFIGS = {
     assets: DEFAULT_ONE_FEATURE_ASSETS,
     settings: DEFAULT_ONE_FEATURE_SETTINGS,
     seo: {
-      ariaLabel: 'Security features section',
+      ariaLabel: 'marketing.shared.oneFeature.ariaLabel',
       region: 'region'
     },
     analytics: {

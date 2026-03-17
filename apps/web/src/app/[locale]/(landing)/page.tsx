@@ -268,8 +268,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
 
         {/* Mid-page CTA */}
         <MidPageCTA
-          headingKey="Ready to try it?"
-          ctaKey="Join the Waitlist"
+          translationPrefix="landing-b2c.midPageCta"
           href="#waitlist"
           ariaLabel="Mid-page call to action"
         />

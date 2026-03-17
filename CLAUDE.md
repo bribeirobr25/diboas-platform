@@ -303,15 +303,22 @@ Avoid these patterns in all frontend work unless brand rules explicitly allow th
 ### Quick visual check (after every frontend change)
 
 **IMMEDIATELY** after implementing any front-end change:
-1. Navigate to affected pages using Playwright MCP (`browser_navigate`)
-2. Take screenshots at desktop (1440px) and mobile (375px) viewports
-3. Compare against design direction and `docs/design-principles.md`
-4. Check console for errors using `browser_console_messages`
-5. Click through the primary user flow — verify interactions work
-6. Test at least one edge case (empty state, long content, error state)
-7. Fix visual and interaction issues before declaring done
+1. Start the dev server (`pnpm dev:web`) and wait for it to be ready
+2. Install the browser if needed (`mcp__MCP_DOCKER__browser_install`)
+3. Get the machine's network IP (`ifconfig en0 | grep "inet "`) — Docker MCP browser cannot reach `localhost`, use `http://<NETWORK_IP>:3000` instead
+4. Navigate to affected pages using `mcp__MCP_DOCKER__browser_navigate`
+5. Use `mcp__MCP_DOCKER__browser_snapshot` to discover all sections on the page
+6. **Screenshot EACH section individually** by element ref — not just one viewport-level screenshot (spacing and sizing issues are invisible at full-page zoom)
+7. Resize viewport with `mcp__MCP_DOCKER__browser_resize` — test at desktop (1440×900) and mobile (375×812)
+8. For interactive components (wizards, carousels, accordions): **click through ALL steps/states** and screenshot each — do not only check the initial view
+9. Check console for errors using `mcp__MCP_DOCKER__browser_console_messages`
+10. For each section, verify: spacing consistency, button sizing harmony within button groups, icon usage (no emoji as UI icons), content density
+11. Test German locale at mobile viewport (375px) — screenshot each section for text overflow and verify no hardcoded English strings leak through
+12. Fix visual and interaction issues before declaring done
 
-If Playwright MCP is NOT available: explicitly say "I could not visually verify this — browser tooling is not available." Never imply visual verification was performed when it was not.
+**Important:** The Playwright browser runs inside Docker MCP, not on the host machine. Always use the network IP (e.g., `http://192.168.x.x:3000`), never `localhost` or `127.0.0.1`.
+
+If Docker MCP browser tools are NOT available: explicitly say "I could not visually verify this — browser tooling is not available." Never imply visual verification was performed when it was not.
 
 ### Comprehensive design review
 

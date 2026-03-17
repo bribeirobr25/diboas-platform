@@ -11,6 +11,7 @@
   },
   "sections": {
     "wallet": {
+      "ariaLabel": "Your wallet, your keys",
       "title": "Your Wallet, Your Keys",
       "paragraphs": [
         "Every user gets their own wallet with their own private key.",
@@ -19,6 +20,7 @@
       ]
     },
     "protection": {
+      "ariaLabel": "How we protect your funds",
       "title": "How We Protect Your Funds",
       "paragraphs": [
         "No one, including diBoaS, can access your funds.",
@@ -28,6 +30,7 @@
       ]
     },
     "technology": {
+      "ariaLabel": "The technology behind diBoaS",
       "title": "The Technology",
       "paragraphs": [
         "Built on open-source and decentralized financial infrastructure.",
@@ -37,6 +40,7 @@
       ]
     },
     "whatWeDontDo": {
+      "ariaLabel": "What diBoaS does not do",
       "title": "What We Don't Do",
       "paragraphs": [
         "We never hold your private keys.",
@@ -46,6 +50,7 @@
       ]
     },
     "transparency": {
+      "ariaLabel": "Transparency at diBoaS",
       "title": "Transparency",
       "paragraphs": [
         "All fees disclosed upfront.",

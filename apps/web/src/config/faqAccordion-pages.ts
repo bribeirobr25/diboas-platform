@@ -83,7 +83,7 @@ function createPageConfig(pageKey: string, _questionCount?: number): FAQAccordio
     },
     settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
     seo: {
-      ariaLabel: 'Frequently asked questions section',
+      ariaLabel: 'marketing.shared.faqAccordion.ariaLabel',
       region: 'faq'
     },
     analytics: {

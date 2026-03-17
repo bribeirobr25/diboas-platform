@@ -454,5 +454,10 @@
     "warning1": "",
     "warning2": "",
     "warning3": ""
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Strategy frequently asked questions"
+    }
   }
 }

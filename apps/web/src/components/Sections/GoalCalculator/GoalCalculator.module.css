@@ -493,6 +493,8 @@
 
 .backButton {
   composes: secondaryButton;
+  flex: 0 0 auto;
+  min-width: 120px;
 }
 
 /* ═══ Scenario Table ═══ */

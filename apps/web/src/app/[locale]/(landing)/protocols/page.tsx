@@ -152,13 +152,13 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
         <ProtocolsSelectionSection />
 
         {/* Transition 3 */}
-        <ProtocolsTransitionHook hookKey="transitions.t3" />
+        <ProtocolsTransitionHook hookKey="transitions.t3" variant="pivotal" />
 
         {/* Section 5: TVL */}
         <ProtocolsTvlSection />
 
         {/* Transition 4 */}
-        <ProtocolsTransitionHook hookKey="transitions.t4" />
+        <ProtocolsTransitionHook hookKey="transitions.t4" variant="pivotal" />
 
         {/* Section 6: What This Page Is Not */}
         <ProtocolsNotIsSection />

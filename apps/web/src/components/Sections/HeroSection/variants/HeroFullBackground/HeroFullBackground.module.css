@@ -325,6 +325,47 @@
 }
 
 /* ================================
+   SCROLL INDICATOR
+   ================================ */
+
+.scrollIndicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--cta-bg-primary);
+  color: var(--cta-color-primary);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--animation-duration-normal) ease, box-shadow var(--animation-duration-normal) ease;
+  animation: bounceDown 2s ease-in-out infinite;
+  text-decoration: none;
+}
+
+.scrollIndicator:hover {
+  transform: translateY(2px);
+  box-shadow: 0 4px 14px var(--teal-shadow);
+}
+
+.scrollIndicator:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollIndicator {
+    animation: none;
+  }
+}
+
+/* ================================
    LOADING STATES
    ================================ */
 

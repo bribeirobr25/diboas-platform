@@ -40,7 +40,7 @@
     },
     "honesty": {
       "title": "Honesty over hype.",
-      "description": "We don't promise guaranteed returns because nobody can. What we offer: real data from nearly 4 years of historical analysis, clear explanations of how each option works, and a Learn Center to help you understand what you're doing before you do it. We show you both sides, the opportunities and the risks, always."
+      "description": "We don't promise guaranteed returns because nobody can. What we offer: real data, clear explanations, and a Learn Center so you understand what you're doing before you do it. Both sides, always."
     },
     "startSmall": {
       "title": "Start with $5. Learn as you go.",
@@ -81,5 +81,22 @@
     "cvm": "",
     "bcb": "",
     "us": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws."
+  },
+  "sections": {
+    "story": {
+      "ariaLabel": "The Story, her name was Adelaide"
+    },
+    "whatWeDo": {
+      "ariaLabel": "What diBoaS does"
+    },
+    "beliefs": {
+      "ariaLabel": "What we believe"
+    },
+    "mission": {
+      "ariaLabel": "Our mission"
+    },
+    "contact": {
+      "ariaLabel": "Contact and founder information"
+    }
   }
 }

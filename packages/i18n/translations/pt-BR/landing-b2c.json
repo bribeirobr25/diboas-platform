@@ -6,6 +6,18 @@
   },
   "goalCalculator": {
     "header": "O que você tá construindo?",
+    "subtitle": "Escolha uma meta. Vamos te mostrar um caminho.",
+    "stepIndicator": "Passo {current} de {total}:",
+    "goalDescriptions": {
+      "christmas": "Construa seu bônus de fim de ano automaticamente",
+      "emergency": "Crie uma reserva para o inesperado",
+      "vacation": "Economize para a viagem que você merece"
+    },
+    "suggested": "Sugerido: {amount}/mês",
+    "override": "Alterar",
+    "startSmaller": "Mais do que esperava? Comece com {amount}/mês",
+    "expectedReturn": "{rate}% retorno esperado",
+    "back": "Voltar",
     "tabs": {
       "christmas": "13º Salário",
       "emergency": "Reserva de Emergência",
@@ -360,6 +372,10 @@
       }
     }
   },
+  "midPageCta": {
+    "heading": "Pronto para experimentar?",
+    "cta": "Entrar na lista de espera"
+  },
   "footer": {
     "tagline": "Acesso aberto e oportunidades justas para todos.",
     "nav": {
@@ -384,6 +400,38 @@
       "closing": "Você decide o que é melhor pra sua situação."
     },
     "copyright": "© 2026 diBoaS. Todos os direitos reservados."
+  },
+  "sections": {
+    "goalCalculator": {
+      "ariaLabel": "Calculadora de economia por objetivos"
+    },
+    "originStory": {
+      "ariaLabel": "História de origem, por que o diBoaS existe"
+    },
+    "personaCarousel": {
+      "ariaLabel": "Carrossel de pessoas, para quem o diBoaS é feito"
+    },
+    "scenarioCards": {
+      "ariaLabel": "Cenários reais onde o diBoaS ajuda"
+    },
+    "feeTable": {
+      "ariaLabel": "Tabela completa de transparência de taxas"
+    },
+    "honestCatch": {
+      "ariaLabel": "Qual é o truque, transparência honesta"
+    },
+    "techDetails": {
+      "ariaLabel": "Detalhes técnicos da arquitetura do diBoaS"
+    },
+    "demo": {
+      "ariaLabel": "Seção de demonstração interativa"
+    },
+    "founder": {
+      "ariaLabel": "Sobre o fundador do diBoaS"
+    },
+    "faq": {
+      "ariaLabel": "Perguntas frequentes"
+    }
   },
   "seo": {
     "title": "diBoaS | O Sistema Não Foi Feito Pra Você. A Gente Tá Mudando Isso.",

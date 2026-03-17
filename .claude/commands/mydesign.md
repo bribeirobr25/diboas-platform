@@ -131,19 +131,34 @@ before shipping.
 
 ### Validate
 
-If Playwright MCP is available:
-- Screenshot at desktop and mobile viewports
-- Check console for errors
-- Compare against the direction summary
-- Fix issues before declaring done
+Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`) for visual validation:
+1. Install browser: `mcp__MCP_DOCKER__browser_install`
+2. Start dev server: `pnpm dev:web`
+3. Get network IP: `ifconfig en0 | grep "inet "` — Docker browser cannot reach `localhost`
+4. Navigate with `mcp__MCP_DOCKER__browser_navigate` using `http://<NETWORK_IP>:3000/...`
+5. Use `mcp__MCP_DOCKER__browser_snapshot` to discover all sections on the page
+6. **Screenshot EACH section individually** by element ref — not just one full-page screenshot
+7. Resize to desktop (1440×900) and mobile (375×812) with `mcp__MCP_DOCKER__browser_resize`
+8. For interactive components (wizards, carousels): click through ALL steps, screenshot each
+9. Check console with `mcp__MCP_DOCKER__browser_console_messages`
+10. Test German locale at mobile — screenshot each section for text overflow
+11. Verify no hardcoded English strings appear on non-EN locales
+12. Compare against the direction summary
+13. Fix issues before declaring done
 
-If Playwright is NOT available:
+If Docker MCP browser tools are NOT available:
 - State: "I could not visually verify this — browser tooling is not available."
 - Ask the user for a screenshot or manual confirmation.
 
 ### Review before delivering
 
-Run the anti-slop checklist from `docs/anti-slop-checklist.md`.
+Run the anti-slop checklist from `docs/anti-slop-checklist.md` — both visually (against
+screenshots) AND via code-level grep:
+- Emoji in components: `grep -rP '[\x{1F300}-\x{1F9FF}]' apps/web/src/components/ --include="*.tsx"`
+- Emoji in translations: `grep -rP '[\x{1F300}-\x{1F9FF}]' packages/i18n/translations/ --include="*.json"`
+- Hardcoded English: check accessibility tree for untranslated strings on non-EN pages
+- Button consistency: verify all buttons in the same section have harmonious sizing
+
 Run the collapse-and-elevate audit from Step 14 in `CLAUDE.md`.
 Run the self-review questions from Step 13 in `CLAUDE.md`.
 
@@ -187,37 +202,85 @@ If the git diff is empty or the user is not working from a branch, use ask_user_
   - "A specific page (I'll name it)"
   - "The whole frontend"
 
-### Phase 1: Visual validation
+### Phase 1: Section discovery and per-section screenshots
 
-If Playwright MCP is available:
-- Navigate to affected page(s)
-- Screenshot at desktop (1440px) and mobile (375px) viewports
-- Read browser console for errors and warnings
-- Note any visual issues visible in screenshots
+Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`):
+1. Install browser: `mcp__MCP_DOCKER__browser_install`
+2. Start dev server: `pnpm dev:web`
+3. Get network IP: `ifconfig en0 | grep "inet "` — Docker browser cannot reach `localhost`
+4. Navigate with `mcp__MCP_DOCKER__browser_navigate` using `http://<NETWORK_IP>:3000/...`
+5. Run `mcp__MCP_DOCKER__browser_snapshot` to discover ALL sections on the page
+6. **Screenshot EACH section individually** by element ref at 1:1 scale — do NOT rely on a single full-page screenshot (spacing/sizing issues are invisible at full-page zoom)
+7. For each section screenshot, evaluate: spacing, typography hierarchy, visual weight, content density
+8. Resize to mobile (375×812), repeat section screenshots
+9. Read console with `mcp__MCP_DOCKER__browser_console_messages`
 
-If Playwright is NOT available:
+If Docker MCP browser tools are NOT available:
 - State: "Browser tooling not available — this is a code-only review."
 - Ask for screenshots if visual validation matters.
 
-### Phase 2: Interaction and robustness testing
+### Phase 2: Interaction and user flow testing
 
-If Playwright MCP is available, actively test — don't just check that states are defined:
-- Click through the primary user flow on affected pages
-- Test all interactive states (hover, focus, active, disabled)
-- Enter invalid data in any forms — verify error handling
+**Critical: Don't just screenshot the initial page state. Actively interact with every
+interactive component:**
+- Click through wizard/stepper flows — screenshot EVERY step (not just step 1)
+- Navigate carousels — verify all slides render
+- Expand accordions — verify content doesn't break layout
+- Fill out forms — verify validation, error states, success states
+- Test all interactive states: hover, focus, active, disabled
+- **For button groups:** verify all buttons in the same group have consistent sizing and visual weight
+- Enter invalid data in forms — verify error handling
 - Test content overflow (long text, extreme values)
-- Verify loading states render correctly (not just that they exist)
-- Check empty states and edge cases (zero items, one item, many items)
-- Verify destructive actions have confirmations
+- Verify loading and empty states
 
-### Phase 3: Design quality checks
+### Phase 3: Section-level layout audit
 
-1. **Anti-slop checklist** — every item in `docs/anti-slop-checklist.md`
-2. **Collapse-and-elevate audit** — busy → collapse, sparse → enrich, redundant → consolidate
-3. **Accessibility** — contrast (4.5:1), focus rings, keyboard nav, tap targets, heading hierarchy
-4. **Human touch** — are craft details present or is the UI sterile?
+For EACH section identified in Phase 1:
+- **Vertical spacing:** Is there enough breathing room between elements? Too cramped or too sparse?
+- **Button consistency:** Do all buttons/CTAs in the section have harmonious sizing? (A small outline "Back" next to a massive full-width "Next" is a visual hierarchy failure)
+- **Content density:** Is the density appropriate for the section type? (Cards can be dense, prose needs air)
+- **Section transitions:** Does the visual break between this section and adjacent sections feel intentional? (Background changes, spacing, visual rhythm)
+- **Icon usage:** Are icons from the design system, or are emoji/external icons being used?
 
-### Phase 4: Code health
+### Phase 4: Anti-slop checklist (visual + code cross-reference)
+
+For EVERY item in `docs/anti-slop-checklist.md`:
+1. **Check visually** in the screenshots and accessibility tree — state PASS or FAIL
+2. **Check in code** with grep commands — state PASS or FAIL
+
+Mandatory code scans:
+```bash
+# Emoji in component JSX
+grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
+# Emoji in translation strings used as UI elements
+grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' packages/i18n/translations/ --include="*.json"
+# Hardcoded hex colors outside var() fallbacks
+grep -r '#[0-9a-fA-F]\{3,6\}' apps/web/src/components/ --include="*.module.css" | grep -v 'var(' | grep -v '@keyframes' | grep -v '/\*'
+# External icon imports
+grep -r "from 'lucide-react'" apps/web/src/ | grep -v LucideIcon
+# Hardcoded English strings (check accessibility tree on /de page for English text)
+```
+
+If visual check says PASS but code check says FAIL (or vice versa), investigate the discrepancy.
+
+### Phase 5: Multi-locale testing (MANDATORY)
+
+After completing EN testing:
+1. Navigate to `/de` (German) at mobile viewport (375×812)
+2. Screenshot EACH section — compare with EN for:
+   - Text overflow or truncation (German is ~30% longer)
+   - Button text overflowing containers
+   - Layout breaks from longer text
+   - **Untranslated English strings** leaking through (hardcoded text not using i18n)
+3. Quick check of one additional locale (PT-BR or ES) at mobile for the same issues
+
+### Phase 6: Design quality checks
+
+1. **Collapse-and-elevate audit** — busy → collapse, sparse → enrich, redundant → consolidate
+2. **Accessibility** — contrast (4.5:1), focus rings, keyboard nav, tap targets, heading hierarchy
+3. **Human touch** — are craft details present or is the UI sterile?
+
+### Phase 7: Code health
 
 Check the code diff for:
 - Hardcoded values that should be tokens (colors, spacing, font sizes)
@@ -236,14 +299,20 @@ Bad: "Change margin-bottom from 12px to 16px on the card component."
 
 ### Deliver the review
 
-For every visual issue, include a Playwright screenshot as evidence if available.
+For every visual issue, include a Playwright screenshot as evidence.
 
 **Summary:** 1-2 sentence overall assessment.
 
+**Sections identified:** List all sections found on the page.
+
 **Issues found** (with screenshot evidence where applicable):
 - P0 — Blocking (broken functionality, accessibility failures, fake product claims)
-- P1 — Should fix (anti-slop patterns, missing states, inconsistency, interaction bugs)
+- P1 — Should fix (anti-slop patterns, missing states, inconsistency, interaction bugs, layout issues)
 - P2 — Polish (craft improvements, motion, human touch, specific techniques to try)
+
+**Anti-slop audit table:** PASS/FAIL for each checklist item (visual + code).
+
+**Multi-locale results:** Per-locale findings with screenshots.
 
 **What works well:** 2-3 strengths.
 
@@ -255,25 +324,50 @@ If the user wants fixes applied, proceed starting from P0 → P1 → P2.
 
 ## MODE: AUDIT
 
-For deep review of an existing design system, token architecture, component library,
-Storybook, icon set, or full codebase design health.
+The comprehensive "run everything" command. Combines code-level audit, live visual inspection
+(via `@agent design-reviewer`), anti-slop checklist, interaction testing, and multi-locale
+verification into a single unified report.
 
-### Determine audit scope
+### Usage
 
-If not specified, use ask_user_input:
+```
+/mydesign audit                    → Full platform audit (all main pages, all locales)
+/mydesign audit /en                → Audit only the B2C landing page (EN)
+/mydesign audit /en/business       → Audit only the B2B landing page (EN)
+/mydesign audit /pt-BR/about       → Audit only the About page (PT-BR)
+/mydesign audit https://diboas.com → Audit production URL directly
+```
+
+### Determine scope
+
+**If a page path or URL is provided as argument:**
+- Audit ONLY that page (skip code-level system audit, go straight to visual)
+- If it's a relative path (e.g., `/en/business`), use the local dev server
+- If it's a full URL (e.g., `https://diboas.com/en`), navigate directly to that URL
+- The locale for multi-locale testing is derived from the path (e.g., `/en/...` → also test `/de/...`)
+
+**If NO argument is provided:**
+- Run the FULL platform audit: code-level system checks + visual inspection of ALL main pages
+- Main pages to audit: B2C landing (`/en`), B2B landing (`/en/business`), and any other
+  key pages (About, Strategies, Protocols, Demo) if time permits
+- Also test DE locale for each page
+
+**If ambiguous**, use ask_user_input:
 
 **"What do you want me to audit?"**
-- type: multi_select
-- Options adapted to what exists in the project:
-  - "Design tokens (colors, typography, spacing, shadows)"
-  - "Component library / Storybook"
-  - "Icon consistency across the project"
-  - "Token usage — are components actually using tokens or hardcoding?"
-  - "Dark mode coverage"
-  - "Responsive behavior across components"
-  - "Full design system health check (all of the above)"
+- type: single_select
+- Options:
+  - "Full platform audit (all pages, all checks)"
+  - "A specific page (I'll provide the path)"
+  - "Code-level only (tokens, storybook, hardcoded values — no visual)"
 
-### 1. Token audit
+---
+
+### Part A: Code-Level System Audit (skip if auditing a specific page)
+
+Only runs when no page argument is provided (full platform audit).
+
+#### A1. Token audit
 
 Read the token source files (tailwind.config, globals.css, design-tokens.css, etc.).
 
@@ -292,7 +386,7 @@ Check for completeness against these categories:
 - [ ] Transition / animation duration tokens
 - [ ] Focus ring color and style tokens
 
-### 2. Component library / Storybook audit
+#### A2. Component library / Storybook audit
 
 For each component, check:
 - [ ] Uses design tokens — no hardcoded colors, spacing, font sizes, or shadows
@@ -303,34 +397,181 @@ For each component, check:
 - [ ] Has documentation or Storybook story showing variants
 - [ ] Accessibility: ARIA, keyboard nav, contrast
 
-### 3. Icon audit
+#### A3. Icon and emoji audit
 
 - [ ] Single icon library used consistently
 - [ ] Consistent weight / stroke width
-- [ ] No emoji where icons should be
+- [ ] No emoji used as core UI icons (grep JSX AND translation JSON files)
 - [ ] Icon colors use token values
+- [ ] Mandatory grep scan:
+  ```bash
+  grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
+  grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' packages/i18n/translations/ --include="*.json"
+  ```
 
-### 4. Hardcoded value scan
+#### A4. Hardcoded value scan
 
 Search the codebase for hardcoded hex colors, font sizes, spacing, shadows, border radius,
 z-index, and breakpoint values that should reference tokens.
 
-### 5. Cross-page consistency check
+#### A5. Compliance scan
 
-Screenshot main pages and compare for consistent components, colors, typography, spacing.
+```bash
+grep -ri "military" packages/i18n/translations/ --include="*.json" | grep -v '"militaryGrade'
+grep -r "0\.09%" packages/i18n/translations/ --include="*.json"
+grep -ri "SIPC" packages/i18n/translations/ --include="*.json"
+grep -ri "FDIC" packages/i18n/translations/ --include="*.json" | grep -v "FDIC National"
+```
 
-### 6. Multi-locale consistency
+#### A6. Validation pipeline
 
-Check text expansion handling (DE ~30% longer), no truncation, consistent regulatory text styling.
+```bash
+pnpm type-check
+pnpm validate:translations
+pnpm validate:design-tokens
+pnpm lint
+```
 
-### 7. Anti-slop check on existing system
+---
 
-Does the system feel distinctive or generic? Any AI tells in the library itself?
+### Part B: Live Visual Inspection (ALWAYS runs — this is the core of the audit)
 
-### Deliver the audit
+This part runs for EVERY audit, whether full platform or single page.
 
-**Design System Health: [grade A-D]** with token completeness, component compliance,
-hardcoded value counts, priority actions (P0/P1/P2), and recommended next steps.
+#### B1. Browser setup
+
+1. Start dev server: `pnpm dev:web` (skip if auditing a production URL)
+2. Install browser: `mcp__MCP_DOCKER__browser_install`
+3. Get network IP: `ifconfig en0 | grep "inet "` (Docker can't reach localhost)
+4. Determine the target URL(s):
+   - If page argument is a full URL → use it directly
+   - If page argument is a path → `http://<NETWORK_IP>:3000<path>`
+   - If no argument → audit all main pages sequentially
+
+#### B2. Section discovery
+
+For EACH page being audited:
+1. Navigate to the page with `mcp__MCP_DOCKER__browser_navigate`
+2. Set viewport to desktop (1440×900) with `mcp__MCP_DOCKER__browser_resize`
+3. Run `mcp__MCP_DOCKER__browser_snapshot` to discover ALL sections
+4. List every section found (by `region` role, `data-section-id`, or structural landmark)
+5. Report the section list in the audit output
+
+#### B3. Per-section visual inspection (desktop)
+
+For EACH section discovered:
+1. **Screenshot the section individually** by element ref using `mcp__MCP_DOCKER__browser_take_screenshot`
+   — do NOT rely on full-page screenshots (spacing/sizing issues invisible at that zoom)
+2. Evaluate the screenshot for:
+   - **Spacing:** Enough breathing room between elements? Too tight or too sparse?
+   - **Button consistency:** All buttons/CTAs in the section have harmonious sizing?
+   - **Typography hierarchy:** Clear heading → subheading → body progression?
+   - **Visual weight:** Does the section draw appropriate attention relative to its importance?
+   - **Icon usage:** Design system icons or emoji/external icons?
+   - **Content density:** Appropriate for the section type?
+3. Compare against adjacent sections — do transitions feel intentional?
+
+#### B4. Interaction and user flow testing
+
+For EACH interactive component on the page:
+- **Wizards/steppers:** Click through EVERY step. Screenshot each step. Verify:
+  - Button sizing is consistent between steps (no tiny "Back" next to huge "Next")
+  - Content layout is consistent between steps
+  - Progress indicator updates correctly
+  - Back navigation works and preserves state
+- **Carousels:** Navigate to every slide. Verify all slides render correctly.
+- **Accordions:** Expand each item. Verify content doesn't break layout.
+- **Forms:** Fill with valid data, submit. Then test with invalid data.
+- **Tabs:** Click each tab. Verify content switches correctly.
+- **Links/CTAs:** Verify scroll targets and navigation work.
+- **Hover/focus/active states:** Test on buttons, links, interactive cards.
+
+#### B5. Mobile inspection (375×812)
+
+1. Resize to mobile viewport
+2. Re-run section discovery (`browser_snapshot`)
+3. Screenshot EACH section at mobile — compare with desktop for:
+   - Layout adapts properly (no horizontal scroll, no overlap)
+   - Touch targets are large enough (44×44px minimum)
+   - Text is readable without zooming
+   - Buttons don't overflow or truncate
+4. Re-test key interactive components at mobile (wizard, forms)
+
+#### B6. Anti-slop checklist (visual + code cross-reference)
+
+For EVERY item in `docs/anti-slop-checklist.md`:
+1. **Visual check:** Look at the screenshots and accessibility tree — PASS or FAIL
+2. **Code check:** Run the corresponding grep command — PASS or FAIL
+3. If visual says PASS but code says FAIL (or vice versa), investigate
+
+Mandatory code scans (run even for single-page audits):
+```bash
+# Emoji in JSX
+grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
+# Emoji in translations
+grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' packages/i18n/translations/ --include="*.json"
+# External icon imports
+grep -r "from 'lucide-react'" apps/web/src/ | grep -v LucideIcon
+# Hardcoded English on non-EN pages (check accessibility tree)
+```
+
+#### B7. Multi-locale testing (MANDATORY)
+
+1. Determine the equivalent DE path for the page being audited
+   (e.g., `/en/business` → `/de/business`)
+2. Navigate to the DE version at mobile (375×812)
+3. Screenshot EACH section — check for:
+   - Text overflow or truncation (German is ~30% longer than English)
+   - Buttons overflowing their containers
+   - **Untranslated English strings** leaking through (hardcoded text not using i18n)
+   - Layout breaks from longer text
+4. Quick check one more locale (PT-BR) for the same issues
+5. Verify regulatory text (MiCA for DE, CVM for PT-BR) is present
+
+#### B8. Console check
+
+Run `mcp__MCP_DOCKER__browser_console_messages` on each page tested.
+Flag any errors that are NOT pre-existing known issues.
+
+---
+
+### Part C: Unified Report
+
+Deliver a single report combining all findings:
+
+**Design System Health: [grade A-D]** (only for full platform audits)
+
+**Page(s) audited:** List with URLs and viewports tested.
+
+**Sections identified:** List all sections found on each page.
+
+**Token completeness scorecard** (only for full platform audits)
+
+**Issues found** (with per-section screenshot evidence):
+- P0 — Blocking (broken functionality, accessibility failures, fake product claims)
+- P1 — Should fix (anti-slop patterns, layout issues, button inconsistency, spacing problems,
+  missing states, interaction bugs, untranslated strings)
+- P2 — Polish (craft improvements, motion, human touch, specific techniques to try)
+
+**Anti-slop audit table:**
+
+| Checklist item | Visual | Code | Status |
+|---------------|--------|------|--------|
+| Emoji as UI icons | PASS/FAIL | PASS/FAIL | ... |
+| Button group sizing | PASS/FAIL | — | ... |
+| ... | ... | ... | ... |
+
+**Section-level layout notes:** Per-section spacing, density, transition observations.
+
+**Multi-locale results:** Per-locale findings with screenshots.
+
+**Interaction testing results:** Per-component flow test results with screenshots of each state.
+
+**What works well:** 2-3 strengths.
+
+**Recommended next steps:** Prioritized fix list (P0 → P1 → P2).
+
+If the user wants fixes applied, proceed starting from P0.
 
 ---
 

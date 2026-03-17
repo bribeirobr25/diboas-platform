@@ -99,7 +99,9 @@ export function GoalCalculatorWizard({
       <div className={styles.screenContainer}>
         <div aria-live="polite" aria-atomic="true">
           <span className={styles.srOnly}>
-            Step {currentStep} of {totalSteps}:
+            {(translated.content.stepIndicator ?? 'Step {current} of {total}:')
+              .replace('{current}', String(currentStep))
+              .replace('{total}', String(totalSteps))}
           </span>
           {renderScreen()}
         </div>

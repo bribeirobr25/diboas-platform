@@ -334,12 +334,34 @@
    ================================ */
 
 .feeTable {
-  width: 100%;
+  min-width: 28rem;
   max-width: 48rem;
   margin-left: auto;
   margin-right: auto;
   background-color: var(--section-bg-white);
   border-radius: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .feeTable {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* Fee table cells: responsive padding */
+.feeTableCell {
+  padding: 0.75rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-slate-900);
+}
+
+@media (min-width: 768px) {
+  .feeTableCell {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
 }
 
 .feeRowFree {

@@ -47,7 +47,7 @@ export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
   },
   settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
   seo: {
-    ariaLabel: 'Protocol frequently asked questions',
+    ariaLabel: 'protocols.sections.faq.ariaLabel',
     region: 'faq',
   },
   analytics: {

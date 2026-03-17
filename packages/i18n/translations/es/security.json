@@ -11,6 +11,7 @@
   },
   "sections": {
     "wallet": {
+      "ariaLabel": "Tu billetera, tus llaves",
       "title": "Tu Billetera, Tus Llaves",
       "paragraphs": [
         "Cada usuario tiene su propia billetera con su propia clave privada.",
@@ -19,6 +20,7 @@
       ]
     },
     "protection": {
+      "ariaLabel": "Cómo protegemos tus fondos",
       "title": "Cómo Protegemos Tus Fondos",
       "paragraphs": [
         "Nadie, incluyendo diBoaS, puede acceder a tus fondos.",
@@ -28,6 +30,7 @@
       ]
     },
     "technology": {
+      "ariaLabel": "La tecnología detrás de diBoaS",
       "title": "La Tecnología",
       "paragraphs": [
         "Construido sobre infraestructura financiera descentralizada y de código abierto.",
@@ -37,6 +40,7 @@
       ]
     },
     "whatWeDontDo": {
+      "ariaLabel": "Lo que diBoaS no hace",
       "title": "Lo Que No Hacemos",
       "paragraphs": [
         "Nunca guardamos tus claves privadas.",
@@ -46,6 +50,7 @@
       ]
     },
     "transparency": {
+      "ariaLabel": "Transparencia en diBoaS",
       "title": "Transparencia",
       "paragraphs": [
         "Todas las comisiones declaradas por adelantado.",

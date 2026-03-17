@@ -62,7 +62,7 @@ export const SECURITY_WALLET_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'Your wallet, your keys',
+    ariaLabel: 'security.sections.wallet.ariaLabel',
   },
   analytics: {
     sectionId: 'wallet-security',
@@ -87,7 +87,7 @@ export const SECURITY_PROTECTION_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'How we protect your funds',
+    ariaLabel: 'security.sections.protection.ariaLabel',
   },
   analytics: {
     sectionId: 'protection-security',
@@ -112,7 +112,7 @@ export const SECURITY_TECHNOLOGY_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'The technology behind diBoaS',
+    ariaLabel: 'security.sections.technology.ariaLabel',
   },
   analytics: {
     sectionId: 'technology-security',
@@ -137,7 +137,7 @@ export const SECURITY_WHAT_WE_DONT_DO_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'What diBoaS does not do',
+    ariaLabel: 'security.sections.whatWeDontDo.ariaLabel',
   },
   analytics: {
     sectionId: 'what-we-dont-do-security',
@@ -162,7 +162,7 @@ export const SECURITY_TRANSPARENCY_CONFIG: ProseSectionConfig = {
     headerStyle: 'centered',
   },
   seo: {
-    ariaLabel: 'Transparency at diBoaS',
+    ariaLabel: 'security.sections.transparency.ariaLabel',
   },
   analytics: {
     sectionId: 'transparency-security',

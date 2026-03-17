@@ -40,7 +40,7 @@
     },
     "honesty": {
       "title": "Honestidad antes que bombo.",
-      "description": "No prometemos rendimientos garantizados porque nadie puede. Lo que ofrecemos: datos reales de casi 4 anos de analisis historico, explicaciones claras de como funciona cada opcion, y un Centro de Aprendizaje para que entiendas lo que haces antes de hacerlo. Te mostramos ambos lados, las oportunidades y los riesgos, siempre."
+      "description": "No prometemos rendimientos garantizados porque nadie puede. Lo que ofrecemos: datos reales, explicaciones claras y un Centro de Aprendizaje para que entiendas lo que haces antes de hacerlo. Ambos lados, siempre."
     },
     "startSmall": {
       "title": "Empieza con 5 EUR. Aprende sobre la marcha.",
@@ -81,5 +81,22 @@
     "cvm": "",
     "bcb": "",
     "us": ""
+  },
+  "sections": {
+    "story": {
+      "ariaLabel": "La historia, su nombre era Adelaide"
+    },
+    "whatWeDo": {
+      "ariaLabel": "Lo que hace diBoaS"
+    },
+    "beliefs": {
+      "ariaLabel": "En lo que creemos"
+    },
+    "mission": {
+      "ariaLabel": "Nuestra misión"
+    },
+    "contact": {
+      "ariaLabel": "Información de contacto y del fundador"
+    }
   }
 }

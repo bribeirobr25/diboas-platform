@@ -70,7 +70,7 @@ export const ABOUT_STORY_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'The Story, her name was Adelaide',
+    ariaLabel: 'about.sections.story.ariaLabel',
   },
   analytics: {
     sectionId: 'story-about',
@@ -96,7 +96,7 @@ export const ABOUT_WHAT_WE_DO_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'What diBoaS does',
+    ariaLabel: 'about.sections.whatWeDo.ariaLabel',
   },
   analytics: {
     sectionId: 'what-we-do-about',
@@ -136,7 +136,7 @@ export const ABOUT_BELIEFS_CONFIG: BenefitsCardsConfig = {
   ],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'What we believe',
+    ariaLabel: 'about.sections.beliefs.ariaLabel',
   },
   analytics: {
     sectionId: 'beliefs-about',
@@ -161,7 +161,7 @@ export const ABOUT_MISSION_CONFIG: ProseSectionConfig = {
     headerStyle: 'centered',
   },
   seo: {
-    ariaLabel: 'Our mission',
+    ariaLabel: 'about.sections.mission.ariaLabel',
   },
   analytics: {
     sectionId: 'mission-about',
@@ -209,7 +209,7 @@ export const ABOUT_FOUNDER_CONFIG: FounderSectionConfig = {
     ],
   },
   seo: {
-    ariaLabel: 'Contact and founder information',
+    ariaLabel: 'about.sections.contact.ariaLabel',
   },
   analytics: {
     sectionId: 'founder-about',

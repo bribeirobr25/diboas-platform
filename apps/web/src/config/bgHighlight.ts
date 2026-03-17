@@ -35,7 +35,7 @@ export const DEFAULT_BG_HIGHLIGHT_CONFIG: BgHighlightConfig = {
   /** SEO and accessibility metadata */
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'DiBoaS platform brand introduction with comprehensive features'
+    ariaLabel: 'marketing.shared.bgHighlight.ariaLabel'
   },
 
   /** Analytics configuration */

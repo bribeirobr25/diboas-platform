@@ -4454,5 +4454,25 @@
       }
     },
     "landingPageQuestionIds": []
+  },
+  "shared": {
+    "faqAccordion": {
+      "ariaLabel": "Frequently asked questions section"
+    },
+    "benefitsCards": {
+      "ariaLabel": "Benefits of using diBoaS financial platform"
+    },
+    "stepGuide": {
+      "ariaLabel": "Step-by-step guide to getting started with diBoaS"
+    },
+    "productCarousel": {
+      "ariaLabel": "Product carousel showcasing financial solutions"
+    },
+    "bgHighlight": {
+      "ariaLabel": "diBoaS platform brand introduction"
+    },
+    "oneFeature": {
+      "ariaLabel": "Security features section"
+    }
   }
 }

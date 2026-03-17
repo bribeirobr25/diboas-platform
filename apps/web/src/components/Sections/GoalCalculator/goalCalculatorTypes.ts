@@ -84,6 +84,18 @@ export interface GoalCalculatorContextValue {
 export interface GoalCalculatorConfig {
   readonly content: {
     readonly header: string;
+    readonly subtitle: string;
+    readonly stepIndicator: string;
+    readonly goalDescriptions: {
+      readonly christmas: string;
+      readonly emergency: string;
+      readonly vacation: string;
+    };
+    readonly suggested: string;
+    readonly override: string;
+    readonly startSmaller: string;
+    readonly expectedReturn: string;
+    readonly back: string;
     readonly tabs: {
       readonly christmas: string;
       readonly emergency: string;

@@ -40,7 +40,7 @@
     },
     "honesty": {
       "title": "Ehrlichkeit statt Hype.",
-      "description": "Wir versprechen keine garantierten Renditen, denn das kann niemand. Was wir bieten: echte Daten aus fast 4 Jahren historischer Analyse, klare Erklaerungen, wie jede Option funktioniert, und ein Lernzentrum, damit du verstehst, was du tust, bevor du es tust. Wir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
+      "description": "Wir versprechen keine garantierten Renditen, denn das kann niemand. Was wir bieten: echte Daten, klare Erklaerungen und ein Lernzentrum, damit du verstehst, was du tust, bevor du es tust. Beide Seiten, immer."
     },
     "startSmall": {
       "title": "Starte mit 5 EUR. Lerne dabei.",
@@ -81,5 +81,22 @@
     "cvm": "",
     "bcb": "",
     "us": ""
+  },
+  "sections": {
+    "story": {
+      "ariaLabel": "Die Geschichte, ihr Name war Adelaide"
+    },
+    "whatWeDo": {
+      "ariaLabel": "Was diBoaS macht"
+    },
+    "beliefs": {
+      "ariaLabel": "Woran wir glauben"
+    },
+    "mission": {
+      "ariaLabel": "Unsere Mission"
+    },
+    "contact": {
+      "ariaLabel": "Kontakt- und Gründerinformationen"
+    }
   }
 }

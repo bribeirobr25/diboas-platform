@@ -43,17 +43,20 @@
 - [x] Z-index scale (dropdown 40, mobileMenu 50, modal 60, toast 70)
 - [x] Breakpoints (sm through 2xl)
 - [x] Focus ring tokens (width, color, offset)
-- [ ] Border radius scale — NOT YET DEFINED as tokens (used ad-hoc in components)
-- [ ] Shadow scale — NOT YET DEFINED as a consistent sm/md/lg/xl system
-- [ ] Chart/data visualization color tokens — NOT YET DEFINED as formal tokens
+- [x] Border radius scale (none through full — 9 stops, aligned with Tailwind xl/2xl/3xl)
+- [x] Shadow scale (xs through 2xl + text shadows)
+- [x] Chart/data visualization color tokens (--chart-1 through --chart-8, teal/purple/coral/amber)
 - [ ] Dark mode variant tokens — NOT YET DEFINED (demo uses glass effects, not a full dark mode system)
-- [ ] Spacing scale as generic utility tokens — partial (section + component padding defined, but no general 4/8/12/16/24/32 scale as tokens)
+- [x] Spacing scale (xs 4px through 8xl 96px + negative variants)
+- [x] Color palette scales (teal, slate, gray, amber, purple, coral — all 50-900)
+- [x] Heading scale tokens (h1-h6 desktop + mobile variants)
+- [x] Small text variants (small, overline, caption)
+- [x] Font family mono (JetBrains Mono)
 
 ## Reuse rules
 
 - **Components that should always be reused:** Button (primary, secondary, outline, ghost variants with xs-xl sizes), Card (default, elevated, gradient, accent variants), Icon (with theme + size props), Badge, and all Factory-pattern components in `apps/web/src/components/`
 - **Components that are still missing (need to be built):**
-  - Storybook stories for all existing components (Storybook 9 configured but zero stories exist)
   - Help page components
   - Security page components
   - Goal wizard components (strategy cards, stepper, contribution calculator)
@@ -83,10 +86,8 @@
 
 ## Component showcase
 
-- **Showcase page URL or route:** Not yet created
-- **Component documentation location:** Storybook 9 is configured in package.json but no `.stories.tsx` files exist yet. When created, stories should follow the pattern `ComponentName.stories.tsx` inside each component's Factory directory.
-
-Creating Storybook stories for existing components is a priority — they serve as both human reference and AI context for consistent component usage across the project.
+- **Showcase page URL or route:** `pnpm run storybook` (localhost:6006)
+- **Component documentation location:** Storybook 9 with 34 `.stories.tsx` files covering 100% of UI components and 89% of Section components. Stories follow the pattern `ComponentName.stories.tsx` inside each component directory.
 
 ## Design reference collection
 

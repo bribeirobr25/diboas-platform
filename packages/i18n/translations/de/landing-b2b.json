@@ -365,6 +365,10 @@
       }
     }
   },
+  "midPageCta": {
+    "heading": "Bereit, Ihr Kapital arbeiten zu lassen?",
+    "cta": "Warteliste beitreten"
+  },
   "footer": {
     "copyright": "\u00a9 2026 diBoaS. Alle Rechte vorbehalten.",
     "riskDisclaimer": "diBoaS verbindet dich mit dezentralen Finanzsystemen. Renditen sind nicht garantiert. Vergangene Wertentwicklung sagt keine kuenftigen Ergebnisse voraus. Es bestehen Risiken, darunter Code-Schwachstellen, Marktschwankungen und Zugangsherausforderungen. Verwende nur Mittel, deren Verlust du dir leisten kannst. diBoaS ist keine Bank. Es gilt keine Einlagensicherung.",
@@ -415,6 +419,38 @@
     },
     "returningUser": {
       "referralCount": "Sie haben {count} Unternehmen empfohlen"
+    }
+  },
+  "sections": {
+    "systemCosts": {
+      "ariaLabel": "Zwei Wege, wie das System Ihr Unternehmen Geld kostet"
+    },
+    "feeSavings": {
+      "ariaLabel": "Cashflow-Gebührenersparnisrechner"
+    },
+    "treasuryCalculator": {
+      "ariaLabel": "Rechner für ungenutztes Kassenkapital"
+    },
+    "originStory": {
+      "ariaLabel": "Entstehungsgeschichte — Ihr Name war Adelaide"
+    },
+    "businessBenefits": {
+      "ariaLabel": "Was Ihr Unternehmen mit diBoaS bekommt"
+    },
+    "cashflowInvesting": {
+      "ariaLabel": "Cashflow-Investieren — zwei Vorteile durch eine Änderung"
+    },
+    "feeTable": {
+      "ariaLabel": "Vollständige Gebührentransparenztabelle"
+    },
+    "rightForYou": {
+      "ariaLabel": "Ist diBoaS das Richtige für Ihr Unternehmen"
+    },
+    "founder": {
+      "ariaLabel": "Über den Gründer"
+    },
+    "faq": {
+      "ariaLabel": "Häufig gestellte Fragen für Unternehmer"
     }
   },
   "seo": {

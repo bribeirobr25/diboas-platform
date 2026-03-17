@@ -47,11 +47,13 @@
 
 .headline {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-title-mobile);
+  font-size: clamp(1.5rem, 7vw, 2.375rem);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
   color: var(--color-white);
   margin-bottom: 1.5rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 @media (min-width: 768px) {

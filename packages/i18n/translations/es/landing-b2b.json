@@ -297,6 +297,10 @@
       }
     }
   },
+  "midPageCta": {
+    "heading": "\u00bfListo para poner su capital a trabajar?",
+    "cta": "Unirse a la lista de espera"
+  },
   "footer": {
     "copyright": "\u00a9 2026 diBoaS. Todos los derechos reservados.",
     "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. Los retornos no estan garantizados. El rendimiento pasado no predice resultados futuros. Implica riesgos incluyendo vulnerabilidades de codigo, fluctuaciones de mercado y desafios de acceso. Usa solo fondos que puedas permitirte arriesgar. diBoaS no es un banco. No se aplica seguro de depositos.",
@@ -347,6 +351,38 @@
     },
     "returningUser": {
       "referralCount": "Has referido {count} negocios"
+    }
+  },
+  "sections": {
+    "systemCosts": {
+      "ariaLabel": "Dos formas en que el sistema le cuesta a su negocio"
+    },
+    "feeSavings": {
+      "ariaLabel": "Calculadora de ahorro en comisiones de flujo de caja"
+    },
+    "treasuryCalculator": {
+      "ariaLabel": "Calculadora de efectivo inactivo de tesorería"
+    },
+    "originStory": {
+      "ariaLabel": "Historia de origen — Su nombre era Adelaide"
+    },
+    "businessBenefits": {
+      "ariaLabel": "Lo que su empresa obtiene con diBoaS"
+    },
+    "cashflowInvesting": {
+      "ariaLabel": "Inversión de flujo de caja — dos beneficios de un cambio"
+    },
+    "feeTable": {
+      "ariaLabel": "Tabla completa de transparencia de tarifas"
+    },
+    "rightForYou": {
+      "ariaLabel": "Es diBoaS adecuado para su empresa"
+    },
+    "founder": {
+      "ariaLabel": "Sobre el fundador"
+    },
+    "faq": {
+      "ariaLabel": "Preguntas frecuentes para empresarios"
     }
   },
   "seo": {

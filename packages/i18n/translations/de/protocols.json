@@ -70,7 +70,7 @@
     "showLess": "Weniger anzeigen",
     "showMore": "Mehr lesen",
     "websiteLink": "Website →",
-    "twitterLink": "@Twitter"
+    "twitterLink": "@X"
   },
   "cards": {
     "aaveV3": {
@@ -446,5 +446,10 @@
     "externalLinks": "Externe Links auf dieser Seite führen zu Webseiten Dritter, die nicht von diBoaS kontrolliert werden. Wir sind nicht für deren Inhalt, Datenschutzpraktiken oder Verfügbarkeit verantwortlich.",
     "professionalAdvice": "Ziehe in Betracht, einen zugelassenen Finanzberater zu konsultieren, bevor du Anlageentscheidungen triffst.",
     "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten."
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Häufig gestellte Fragen zu Protokollen"
+    }
   }
 }

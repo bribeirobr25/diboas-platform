@@ -6,6 +6,18 @@
   },
   "goalCalculator": {
     "header": "Was baust du auf?",
+    "subtitle": "Wähle ein Ziel. Wir zeigen dir einen Weg.",
+    "stepIndicator": "Schritt {current} von {total}:",
+    "goalDescriptions": {
+      "christmas": "Baue deinen Jahresendbonus automatisch auf",
+      "emergency": "Schaffe ein Sicherheitsnetz für Unerwartetes",
+      "vacation": "Spare für die Reise, die du verdienst"
+    },
+    "suggested": "Vorgeschlagen: {amount}/Monat",
+    "override": "Anpassen",
+    "startSmaller": "Mehr als erwartet? Starte mit {amount}/Monat",
+    "expectedReturn": "{rate}% erwartete Rendite",
+    "back": "Zurück",
     "tabs": {
       "christmas": "Weihnachtsgeld",
       "emergency": "Notgroschen",
@@ -360,6 +372,10 @@
       }
     }
   },
+  "midPageCta": {
+    "heading": "Bereit, es auszuprobieren?",
+    "cta": "Warteliste beitreten"
+  },
   "footer": {
     "tagline": "Offener Zugang und faire Chancen für alle.",
     "nav": {
@@ -384,6 +400,38 @@
       "closing": "Du entscheidest, was für deine Situation das Beste ist."
     },
     "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten."
+  },
+  "sections": {
+    "goalCalculator": {
+      "ariaLabel": "Zielbasierter Sparrechner"
+    },
+    "originStory": {
+      "ariaLabel": "Entstehungsgeschichte, warum diBoaS existiert"
+    },
+    "personaCarousel": {
+      "ariaLabel": "Personen-Karussell, für wen diBoaS gedacht ist"
+    },
+    "scenarioCards": {
+      "ariaLabel": "Alltagsszenarien, bei denen diBoaS hilft"
+    },
+    "feeTable": {
+      "ariaLabel": "Vollständige Gebührentransparenztabelle"
+    },
+    "honestCatch": {
+      "ariaLabel": "Wo ist der Haken, ehrliche Transparenz"
+    },
+    "techDetails": {
+      "ariaLabel": "Technische Details zur diBoaS-Architektur"
+    },
+    "demo": {
+      "ariaLabel": "Interaktiver Demo-Bereich"
+    },
+    "founder": {
+      "ariaLabel": "Über den Gründer von diBoaS"
+    },
+    "faq": {
+      "ariaLabel": "Häufig gestellte Fragen"
+    }
   },
   "seo": {
     "title": "diBoaS | Das System wurde nicht für dich gebaut. Wir ändern das.",

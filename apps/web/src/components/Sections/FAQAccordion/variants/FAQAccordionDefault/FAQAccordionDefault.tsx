@@ -35,6 +35,7 @@ function FAQAnswer({ answer, className }: { answer: string; className: string })
     return (
       <div
         className={className}
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: sanitized }}
       />
     );
@@ -46,7 +47,7 @@ function FAQAnswer({ answer, className }: { answer: string; className: string })
     return (
       <div className={className}>
         {paragraphs.map((p, i) => (
-          <p key={i} style={{ marginBottom: i < paragraphs.length - 1 ? '0.75em' : 0 }}>
+          <p key={i} className={styles.answerParagraph}>
             {p}
           </p>
         ))}
@@ -170,12 +171,12 @@ export function FAQAccordionDefault({
       backgroundColor={backgroundColor}
       className={className}
       containerClassName={styles.container}
-      ariaLabelledBy="faq-heading"
+      ariaLabelledBy={`faq-heading-${config.seo.region}`}
       ariaLabel={config.seo.ariaLabel}
     >
       {/* Left Panel: Intro Content - values are pre-translated */}
         <div className={styles.introPanel}>
-          <h2 id="faq-heading" className={styles.heading}>
+          <h2 id={`faq-heading-${config.seo.region}`} className={styles.heading}>
             {config.content.title}
           </h2>
           {config.content.description ? (

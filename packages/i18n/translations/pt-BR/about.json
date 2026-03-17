@@ -40,7 +40,7 @@
     },
     "honesty": {
       "title": "Honestidade acima de promessa.",
-      "description": "A gente nao promete retorno garantido porque ninguem pode. O que a gente oferece: dados reais de quase 4 anos de analise historica, explicacoes claras de como cada opcao funciona, e um Centro de Aprendizado pra voce entender o que ta fazendo antes de fazer. A gente te mostra os dois lados, as oportunidades e os riscos, sempre."
+      "description": "A gente nao promete retorno garantido porque ninguem pode. O que a gente oferece: dados reais, explicacoes claras e um Centro de Aprendizado pra voce entender o que ta fazendo antes de fazer. Os dois lados, sempre."
     },
     "startSmall": {
       "title": "Comece com R$10. Aprenda no caminho.",
@@ -81,5 +81,22 @@
     "cvm": "Retornos passados não são garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
     "bcb": "A diBoaS não é uma instituição financeira autorizada pelo Banco Central do Brasil.",
     "us": ""
+  },
+  "sections": {
+    "story": {
+      "ariaLabel": "A história, o nome dela era Adelaide"
+    },
+    "whatWeDo": {
+      "ariaLabel": "O que o diBoaS faz"
+    },
+    "beliefs": {
+      "ariaLabel": "No que acreditamos"
+    },
+    "mission": {
+      "ariaLabel": "Nossa missão"
+    },
+    "contact": {
+      "ariaLabel": "Informações de contato e do fundador"
+    }
   }
 }

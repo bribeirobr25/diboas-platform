@@ -280,6 +280,14 @@
   white-space: pre-line;
 }
 
+.answerParagraph {
+  margin: 0 0 0.75em 0;
+}
+
+.answerParagraph:last-child {
+  margin-bottom: 0;
+}
+
 /* ================================
    ACCESSIBILITY
    ================================ */

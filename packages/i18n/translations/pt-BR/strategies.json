@@ -454,5 +454,10 @@
     "micaArticle7": "",
     "usDisclosure": "",
     "professionalAdvice": "As informações nesta página são apenas para fins educacionais e informativos. Não constituem aconselhamento de investimento, aconselhamento financeiro, nem qualquer outra forma de aconselhamento profissional. Considere consultar um consultor financeiro licenciado antes de tomar decisões de investimento."
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Perguntas frequentes sobre estratégias"
+    }
   }
 }

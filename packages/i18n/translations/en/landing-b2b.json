@@ -365,6 +365,10 @@
       }
     }
   },
+  "midPageCta": {
+    "heading": "Ready to put your capital to work?",
+    "cta": "Join the Waitlist"
+  },
   "footer": {
     "copyright": "\u00a9 2026 diBoaS. All rights reserved.",
     "riskDisclaimer": "diBoaS connects you to decentralized finance systems. Returns are not guaranteed. Past performance does not predict future results. Involves risks including code vulnerabilities, market fluctuations, and access challenges. Only use funds you can afford to risk. diBoaS is not a bank. No deposit insurance applies.",
@@ -415,6 +419,38 @@
     },
     "returningUser": {
       "referralCount": "You've referred {count} businesses"
+    }
+  },
+  "sections": {
+    "systemCosts": {
+      "ariaLabel": "Two ways the system costs your business"
+    },
+    "feeSavings": {
+      "ariaLabel": "Cashflow fee savings calculator"
+    },
+    "treasuryCalculator": {
+      "ariaLabel": "Treasury idle cash calculator"
+    },
+    "originStory": {
+      "ariaLabel": "Origin story — Her name was Adelaide"
+    },
+    "businessBenefits": {
+      "ariaLabel": "What your business gets with diBoaS"
+    },
+    "cashflowInvesting": {
+      "ariaLabel": "Cashflow investing — two wins from one change"
+    },
+    "feeTable": {
+      "ariaLabel": "Complete fee transparency table"
+    },
+    "rightForYou": {
+      "ariaLabel": "Is diBoaS right for your business"
+    },
+    "founder": {
+      "ariaLabel": "About the founder"
+    },
+    "faq": {
+      "ariaLabel": "Frequently asked questions for business owners"
     }
   },
   "seo": {

@@ -62,7 +62,7 @@ export const STRATEGIES_FAQ_CONFIG: FAQAccordionVariantConfig = {
   },
   settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
   seo: {
-    ariaLabel: 'Strategy frequently asked questions',
+    ariaLabel: 'marketing.pages.strategies.sections.faq.ariaLabel',
     region: 'faq',
   },
 };

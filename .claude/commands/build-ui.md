@@ -68,16 +68,38 @@ Follow the full process from `CLAUDE.md`:
 
 **For fine-tuning:** Add a Leva control panel for interactive parameter adjustment. Remove before shipping.
 
-### 5. Validate
+### 5. Validate (section-by-section visual inspection)
 
-If Playwright MCP is available: screenshot at desktop and mobile, check console, compare against direction, fix issues.
+Visual validation uses Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`):
+1. Install browser: `mcp__MCP_DOCKER__browser_install`
+2. Start dev server: `pnpm dev:web`
+3. Get network IP: `ifconfig en0 | grep "inet "` (Docker browser cannot reach localhost)
+4. Navigate with `mcp__MCP_DOCKER__browser_navigate` using `http://<NETWORK_IP>:3000/...`
+5. Run `mcp__MCP_DOCKER__browser_snapshot` to discover all sections on the page
+6. **Screenshot EACH section individually** by element ref — not just one viewport shot
+7. Resize to desktop (1440×900) and mobile (375×812) with `mcp__MCP_DOCKER__browser_resize`
+8. For interactive components (wizards, carousels): click through ALL steps, screenshot each
+9. For each section, check: spacing consistency, button sizing harmony, content density, icon usage
+10. Check console with `mcp__MCP_DOCKER__browser_console_messages`
+11. Test German locale at mobile — screenshot each section for text overflow
+12. Verify no hardcoded English strings appear on non-EN pages
+13. Fix issues before declaring done
 
-If NOT available: explicitly state "I could not visually verify this."
+If Docker MCP browser tools are NOT available: explicitly state "I could not visually verify this."
 
 ### 6. Review
 
-Run anti-slop checklist, collapse-and-elevate audit, and self-review questions from `CLAUDE.md`.
+Run anti-slop checklist — both visually (against per-section screenshots) AND via code grep:
+```bash
+# Emoji in components and translations
+grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
+grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' packages/i18n/translations/ --include="*.json"
+# External icon imports
+grep -r "from 'lucide-react'" apps/web/src/ | grep -v LucideIcon
+```
+
+Run collapse-and-elevate audit and self-review questions from `CLAUDE.md`.
 
 ### 7. Deliver
 
-Present with: summary, direction used, assumptions, states implemented vs. deferred, known issues, visual validation status.
+Present with: summary, direction used, assumptions, states implemented vs. deferred, known issues, visual validation status (including which sections were screenshotted and which locales were tested).
