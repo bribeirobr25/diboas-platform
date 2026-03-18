@@ -12,6 +12,7 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { Button } from '@diboas/ui';
+import { useTranslation } from '@diboas/i18n/client';
 import { ChevronDown } from '@/components/UI/LucideIcon';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import type { HeroVariantProps } from '../types';
@@ -23,6 +24,7 @@ export function HeroFullBackground({
   backgroundColor,
   onCTAClick
 }: HeroVariantProps) {
+  const intl = useTranslation();
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
 
   const handleCTAClick = useCallback(() => {
@@ -110,7 +112,7 @@ export function HeroFullBackground({
               <a
                 href={config.content.ctaHref}
                 className={styles.scrollIndicator}
-                aria-label="Scroll down"
+                aria-label={intl.formatMessage({ id: 'common.accessibility.scrollDown' })}
               >
                 <ChevronDown size={24} strokeWidth={2} />
               </a>

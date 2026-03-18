@@ -33,11 +33,11 @@
     },
     "q8": {
       "question": "Meu dinheiro está seguro no diBoaS?",
-      "answer": "Sim. Mesmos padrões de segurança dos maiores bancos.\n\n- Carteiras não-custodiais (você é dono dos seus ativos)\n- Criptografia AES-256-GCM\n- Conformidade com regulações do Banco Central, MiCA (Europa), BSA (EUA)\n- Auditado por empresas independentes de segurança\n\nEm 2024, tivemos ZERO casos de perda de dinheiro por falhas de segurança."
+      "answer": "Seu dinheiro está na sua wallet. Não na nossa.\n\n- Carteiras não-custodiais (você é dono dos seus ativos)\n- Criptografia AES-256-GCM\n- Nenhum funcionário do diBoaS pode movimentar seus fundos\n\nDito isso, todo investimento envolve risco. Smart contracts podem ter vulnerabilidades. Mercados podem se mover contra você. Monitoramos 24/7 e testamos cada estratégia contra crashes passados, mas não podemos garantir retornos nem eliminar todos os riscos."
     },
     "q9": {
       "question": "E se o diBoaS fechar um dia?",
-      "answer": "Você não perde nada.\n\nSuas cryptos ficam em carteiras que VOCÊ controla.\nSeus investimentos tradicionais ficam custodiados por instituições reguladas.\n\nMesmo que a gente desapareça, você tem acesso total aos seus fundos."
+      "answer": "Seu dinheiro continua sendo seu.\n\nSeus ativos estão em carteiras não-custodiais que você controla. O diBoaS é uma interface — nós nunca custodiamos seus fundos.\n\nSe o diBoaS fechasse amanhã, sua wallet e seus ativos continuariam lá. É assim que funciona o modelo não-custodial."
     },
     "q10": {
       "question": "O diBoaS pode mexer no meu dinheiro?",
@@ -151,7 +151,7 @@
     },
     "q24": {
       "question": "Meu crypto está seguro no diBoaS?",
-      "answer": "Sim. Criptografia AES-256-GCM com arquitetura de carteiras MPC não-custodiais.\n\nComo protegemos:\n- Carteiras não-custodiais (VOCÊ controla seus ativos)\n- Criptografia AES-256-GCM\n- Autenticação biométrica obrigatória\n- Auditorias independentes trimestrais\n\nSeu crypto está em carteiras que só você controla.\nMesmo que o diBoaS encerre operações, suas chaves continuam sendo suas."
+      "answer": "Seu crypto está em carteiras que só você controla.\n\nComo protegemos você:\n- Carteiras MPC não-custodiais (zero key shares do diBoaS)\n- Criptografia AES-256-GCM\n- Sem ponto único de falha\n\nSe o diBoaS encerrasse operações, suas chaves continuariam sendo suas. Dito isso, crypto envolve riscos reais — vulnerabilidades em smart contracts, volatilidade de mercado e riscos de protocolo existem. Não podemos eliminá-los."
     },
     "q25": {
       "question": "Quais cryptos posso comprar?",
@@ -431,7 +431,7 @@
     },
     "q94": {
       "question": "Meu dinheiro está realmente seguro?",
-      "answer": "Sim. Múltiplas camadas de proteção.\n\nSegurança Técnica:\n- Criptografia AES-256-GCM\n- Autenticação biométrica obrigatória\n- Carteiras não-custodiais (você controla)\n- Cold storage para 95% dos ativos\n\nSegurança Regulatória:\n- Compliance com SEC, MiCA, Banco Central\n- Auditorias trimestrais independentes\n- Fundo de reserva para emergências\n\nHistórico:\n2024: ZERO casos de perda por falha de segurança\n2023: ZERO casos de perda por falha de segurança\n\nSeu dinheiro está mais seguro aqui que no colchão."
+      "answer": "Levamos segurança a sério, mas somos honestos sobre os riscos.\n\nO que fazemos:\n- Criptografia AES-256-GCM\n- Carteiras não-custodiais (você controla seus ativos)\n- Monitoramento 24/7\n- Cada estratégia testada contra crashes passados do mercado\n\nO que não podemos fazer:\n- Garantir retornos\n- Eliminar risco de smart contracts\n- Oferecer seguro de depósitos (não somos um banco)\n\nSeu dinheiro trabalha com tecnologia nova. Isso significa que pode crescer mais, mas também há riscos reais. Mostramos os dois lados."
     },
     "q95": {
       "question": "E se o diBoaS falir ou fechar?",

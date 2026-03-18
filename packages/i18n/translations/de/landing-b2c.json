@@ -18,6 +18,9 @@
     "startSmaller": "Mehr als erwartet? Starte mit {amount}/Monat",
     "expectedReturn": "{rate}% erwartete Rendite",
     "back": "Zurück",
+    "next": "Weiter",
+    "simulationLabel": "Berechne deinen {goal}-Plan...",
+    "tryDifferent": "Ein anderes Ziel versuchen",
     "tabs": {
       "christmas": "Weihnachtsgeld",
       "emergency": "Notgroschen",

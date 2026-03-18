@@ -18,6 +18,9 @@
     "startSmaller": "More than you expected? Start with {amount}/month",
     "expectedReturn": "{rate}% expected return",
     "back": "Back",
+    "next": "Next",
+    "simulationLabel": "Calculating your {goal} plan...",
+    "tryDifferent": "Try a different goal",
     "tabs": {
       "christmas": "Christmas Bonus",
       "emergency": "Emergency Fund",

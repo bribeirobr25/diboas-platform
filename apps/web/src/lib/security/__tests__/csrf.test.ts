@@ -264,6 +264,56 @@ describe('csrf', () => {
         }
       );
     });
+
+    describe('malformed origin URL fallback', () => {
+      it('should fall back to exact string match when origin is a malformed URL', () => {
+        // A string that causes `new URL()` to throw — falls back to exact match (line 40)
+        const request = createRequest('POST', {
+          Origin: ':::not-a-url',
+        });
+        const result = validateOrigin(request);
+
+        // The malformed origin won't match any allowed origin via exact match either
+        expect(result).toEqual({
+          valid: false,
+          error: 'Invalid origin: :::not-a-url',
+        });
+      });
+    });
+
+    describe('missing origin and referer in production', () => {
+      it('should reject POST when both origin and referer are missing in non-development', () => {
+        vi.stubEnv('NODE_ENV', 'production');
+
+        try {
+          const request = createRequest('POST');
+          const result = validateOrigin(request);
+
+          expect(result).toEqual({
+            valid: false,
+            error: 'Missing origin and referer headers',
+          });
+        } finally {
+          vi.unstubAllEnvs();
+        }
+      });
+
+      it('should reject PUT when both origin and referer are missing in test environment', () => {
+        vi.stubEnv('NODE_ENV', 'test');
+
+        try {
+          const request = createRequest('PUT');
+          const result = validateOrigin(request);
+
+          expect(result).toEqual({
+            valid: false,
+            error: 'Missing origin and referer headers',
+          });
+        } finally {
+          vi.unstubAllEnvs();
+        }
+      });
+    });
   });
 
   describe('csrfProtection', () => {
@@ -339,6 +389,61 @@ describe('csrf', () => {
       csrfProtection(request);
 
       expect(Logger.warn).not.toHaveBeenCalled();
+    });
+  });
+});
+
+/**
+ * Separate describe block with a custom mock for getCsrfAllowedOrigins.
+ * This tests the catch block at line 66 (referer path) where new URL(allowed)
+ * throws on a malformed allowed origin, falling back to exact string comparison.
+ */
+describe('csrf — malformed allowed origin fallback paths', () => {
+  beforeEach(() => {
+    vi.resetModules();
+  });
+
+  it('should allow via exact string match on origin when allowed origin is malformed', async () => {
+    vi.doMock('@/config/env', () => ({
+      getCsrfAllowedOrigins: vi.fn(() => [':::malformed']),
+    }));
+    vi.doMock('@/lib/monitoring/Logger', () => ({
+      Logger: { warn: vi.fn() },
+    }));
+
+    const csrfModule = await import('../csrf');
+
+    const request = new NextRequest(new URL('http://localhost:3000/api/test'), {
+      method: 'POST',
+      headers: { Origin: ':::malformed' },
+    });
+    const result = csrfModule.validateOrigin(request);
+
+    // Both new URL(origin) and new URL(allowed) throw → catch does exact match → true
+    expect(result).toEqual({ valid: true });
+  });
+
+  it('should fall back to exact string match in referer path when allowed origin is malformed', async () => {
+    vi.doMock('@/config/env', () => ({
+      getCsrfAllowedOrigins: vi.fn(() => [':::malformed']),
+    }));
+    vi.doMock('@/lib/monitoring/Logger', () => ({
+      Logger: { warn: vi.fn() },
+    }));
+
+    const csrfModule = await import('../csrf');
+
+    const request = new NextRequest(new URL('http://localhost:3000/api/test'), {
+      method: 'POST',
+      headers: { Referer: 'https://evil.com/page' },
+    });
+    const result = csrfModule.validateOrigin(request);
+
+    // refererOrigin = 'https://evil.com'
+    // new URL(':::malformed') throws → catch: 'https://evil.com' === ':::malformed' → false
+    expect(result).toEqual({
+      valid: false,
+      error: 'Invalid referer origin: https://evil.com',
     });
   });
 });

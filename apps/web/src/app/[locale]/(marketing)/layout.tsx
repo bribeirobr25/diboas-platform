@@ -52,6 +52,10 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
   const commonMessages = await loadMessages(locale, 'common');
   const allMessages = flattenMessages(commonMessages, 'common');
 
+  // Keep in sync with packages/i18n/translations/{locale}/common.json → accessibility.skipToMain
+  const skipLabels: Record<string, string> = { en: 'Skip to main content', de: 'Zum Hauptinhalt springen', es: 'Saltar al contenido principal', 'pt-BR': 'Pular para o conteúdo principal' };
+  const skipText = skipLabels[locale] ?? skipLabels.en;
+
   return (
     <LocaleProvider initialLocale={locale}>
       <I18nProvider locale={locale} messages={allMessages}>
@@ -62,7 +66,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
             <div className="min-h-screen flex flex-col">
               {/* Skip Navigation Link for Accessibility */}
               <a href="#main-content" className="skip-link">
-                Skip to main content
+                {skipText}
               </a>
               <NavigationErrorBoundary maxRetries={3}>
                 <Navigation />

@@ -79,7 +79,7 @@ export function GoalCalculatorWizard({
           />
         );
       case 'simulation':
-        return <SimulationScreen formatCurrency={formatCurrency} />;
+        return <SimulationScreen translated={translated} formatCurrency={formatCurrency} />;
       case 'results':
         return (
           <ResultsScreen

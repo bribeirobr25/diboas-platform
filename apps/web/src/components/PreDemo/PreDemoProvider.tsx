@@ -3,8 +3,9 @@
 /**
  * PreDemo Provider
  *
- * Context provider for PreDemo state management
- * Handles screen transitions, fee calculations, and event emissions
+ * Context provider for PreDemo state management.
+ * Single responsibility: state + screen transitions + analytics tracking.
+ * Timer sequences live in useScreenTransitionSequence hook at PreDemoContent level.
  */
 
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
@@ -12,10 +13,6 @@ import type { PreDemoContextValue } from './types';
 import type { PreDemoScreen } from '@/lib/pre-demo';
 import { preDemoReducer, initialPreDemoState } from './preDemoReducer';
 import { analyticsService } from '@/lib/analytics';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
 
 const PreDemoContext = createContext<PreDemoContextValue | null>(null);
 
@@ -27,22 +24,15 @@ interface PreDemoProviderProps {
 export function PreDemoProvider({ children, onExit }: PreDemoProviderProps) {
   const [state, dispatch] = useReducer(preDemoReducer, initialPreDemoState);
 
+  // setScreen is stable (no dependencies on state) — dispatch is stable by React guarantee
   const setScreen = useCallback((screen: PreDemoScreen) => {
     analyticsService.track({
       name: 'pre_demo_screen_view',
       parameters: { screen },
     });
 
-    // Emit events for key milestones
-    if (screen === 'home' && state.screen === 'login') {
-      applicationEventBus.emit(ApplicationEventType.PRE_DEMO_STARTED, {
-        source: 'preDemo',
-        timestamp: Date.now(),
-      });
-    }
-
     dispatch({ type: 'SET_SCREEN', screen });
-  }, [state.screen]);
+  }, []);
 
   const value = useMemo<PreDemoContextValue>(
     () => ({ state, dispatch, setScreen, onExit }),

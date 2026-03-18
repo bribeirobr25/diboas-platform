@@ -8,6 +8,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
 import { applicationEventBus, ApplicationEventType, type ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
 
@@ -60,7 +61,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
       }
 
       try {
-        const response = await fetch(url, { signal: controller.signal });
+        const response = await fetchWithRetry(url, { signal: controller.signal });
         if (response.ok) {
           const data = await response.json();
           const statsData: WaitlistStats = {

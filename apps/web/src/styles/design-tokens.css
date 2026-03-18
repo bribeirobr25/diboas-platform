@@ -1236,8 +1236,11 @@
   --dimension-1200: 1200px;
 
   /* Common Spacing Values */
+  --spacing-2xs: 2px;
   --spacing-xs: 4px;
   --spacing-sm: 8px;
+  --spacing-sm-plus: 10px;
+  --spacing-md-minus: 12px;
   --spacing-md: 16px;
   
   /* Negative Spacing Values */
@@ -1322,7 +1325,11 @@
   --radius-none: 0;
   --radius-sm: 2px;
   --radius-md: 4px;
+  --radius-md-plus: 6px;
   --radius-lg: 8px;
+  --radius-lg-plus: 10px;
+  --radius-lg-extra: 12px;
+  --radius-xl-minus: 14px;
   --radius-xl: 16px;
   --radius-2xl: 24px;
   --radius-3xl: 32px;
@@ -1366,8 +1373,12 @@
   --font-weight-black: 900;
 
   /* Common Font Size Values */
+  --font-size-2xs: 9px;
+  --font-size-xs-minus: 10px;
   --font-size-xs: 12px;
+  --font-size-xs-plus: 13px;
   --font-size-sm: 14px;
+  --font-size-sm-plus: 15px;
   --font-size-md: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 20px;

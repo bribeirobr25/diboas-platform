@@ -19,10 +19,10 @@
 
 .closeButton {
   position: fixed;
-  top: 16px;
-  left: 16px;
-  width: 40px;
-  height: 40px;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  width: var(--spacing-4xl);
+  height: var(--spacing-4xl);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,7 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: var(--spacing-lg) var(--spacing-md);
 }
 
 .screenContent {
@@ -72,7 +72,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px 16px 24px;
+  padding: var(--spacing-6xl) var(--spacing-md) var(--spacing-lg);
   max-width: 448px;
   margin: 0 auto;
   width: 100%;
@@ -84,18 +84,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: var(--spacing-lg);
 }
 
 .screenHeader {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-lg);
   width: 100%;
 }
 
 .screenTitle {
   font-size: var(--font-size-2xl);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   line-height: 1.3;
   margin: 0;
@@ -104,13 +104,13 @@
 .screenSubtitle {
   font-size: var(--font-size-sm);
   color: var(--color-slate-500);
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
 }
 
 /* Icon Circles */
 .iconCircleAmber {
-  width: 64px;
-  height: 64px;
+  width: var(--spacing-6xl);
+  height: var(--spacing-6xl);
   border-radius: var(--radius-xl);
   background: var(--color-amber-50);
   display: flex;
@@ -120,8 +120,8 @@
 }
 
 .iconCircleTeal {
-  width: 64px;
-  height: 64px;
+  width: var(--spacing-6xl);
+  height: var(--spacing-6xl);
   border-radius: var(--radius-xl);
   background: var(--color-teal-50);
   display: flex;
@@ -136,10 +136,10 @@
   background: var(--color-white);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-xl);
-  padding: 24px;
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 .textSecondary {
@@ -155,7 +155,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
   font-size: var(--font-size-sm);
   color: var(--color-slate-600);
 }
@@ -164,7 +164,7 @@
   font-size: var(--font-size-xs);
   color: var(--color-slate-500);
   background: var(--color-slate-50);
-  padding: 12px;
+  padding: var(--spacing-md-minus);
   border-radius: var(--radius-lg);
   font-style: italic;
   line-height: 1.5;
@@ -175,15 +175,15 @@
 .checkboxLabel {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   cursor: pointer;
   width: 100%;
 }
 
 .checkbox {
-  width: 20px;
-  height: 20px;
-  margin-top: 2px;
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  margin-top: var(--radius-sm);
   border-radius: var(--radius-md);
   accent-color: var(--color-teal-600);
   flex-shrink: 0;
@@ -197,13 +197,13 @@
 /* Buttons */
 .primaryButton {
   width: 100%;
-  padding: 14px;
+  padding: 14px; /* no exact token */
   background: var(--color-teal-600);
   color: var(--color-white);
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm-plus);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   cursor: pointer;
   transition: background var(--animation-duration-fast) ease;
 }
@@ -220,13 +220,13 @@
 
 .secondaryButton {
   flex: 1;
-  padding: 12px;
+  padding: var(--spacing-md-minus);
   background: var(--color-white);
   color: var(--color-slate-600);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   cursor: pointer;
   transition: background var(--animation-duration-fast) ease;
 }
@@ -239,13 +239,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: var(--spacing-xs);
   width: 100%;
-  margin-top: 24px;
-  padding: 10px;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-sm-plus);
   color: var(--color-slate-500);
   font-size: var(--font-size-sm);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -258,9 +258,9 @@
 
 .buttonRow {
   display: flex;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   width: 100%;
-  margin-top: 32px;
+  margin-top: var(--spacing-3xl);
 }
 
 .buttonRow .primaryButton,
@@ -273,20 +273,20 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
 }
 
 .featureItem {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   font-size: var(--font-size-sm);
   color: var(--color-slate-700);
 }
 
 .featureCheck {
   color: var(--color-teal-600);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 /* Path Cards */
@@ -294,12 +294,12 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
 }
 
 .pathCard {
   width: 100%;
-  padding: 20px;
+  padding: var(--spacing-xl);
   border-radius: var(--radius-xl);
   border: 2px solid;
   text-align: left;
@@ -315,13 +315,13 @@
 .pathCardContent {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 .pathIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: var(--spacing-5xl);
+  height: var(--spacing-5xl);
+  border-radius: var(--radius-lg-extra);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -333,29 +333,29 @@
 }
 
 .pathName {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
   margin: 0;
 }
 
 .pathDescription {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-600);
-  margin-top: 2px;
+  margin-top: var(--radius-sm);
 }
 
 .pathMeta {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 8px;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
 }
 
 .pathRiskBadge {
   font-size: var(--font-size-xs);
-  font-weight: 500;
-  padding: 2px 8px;
+  font-weight: var(--font-weight-medium);
+  padding: var(--radius-sm) var(--spacing-sm);
   border-radius: 9999px;
   background: currentColor;
   background-clip: padding-box;
@@ -364,7 +364,7 @@
 .pathApy {
   font-size: var(--font-size-xs);
   color: var(--color-slate-500);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .warningIcon {
@@ -396,7 +396,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--spacing-lg);
 }
 
 .sliderCard {
@@ -404,26 +404,26 @@
   background: var(--color-white);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-xl);
-  padding: 20px;
+  padding: var(--spacing-xl);
 }
 
 .sliderHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-md-minus);
 }
 
 .sliderLabel {
   font-size: var(--font-size-sm);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-700);
 }
 
 .sliderValueInput {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 2px; /* no exact token */
 }
 
 .currencySymbol {
@@ -433,7 +433,7 @@
 .sliderNumberInput {
   width: 80px;
   text-align: right;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
   border: none;
   outline: none;
@@ -443,7 +443,7 @@
 
 .rangeSlider {
   width: 100%;
-  height: 12px;
+  height: 12px; /* no exact token */
   border-radius: var(--radius-lg);
   -webkit-appearance: none;
   appearance: none;
@@ -455,8 +455,8 @@
 .rangeSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 24px;
-  height: 24px;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
   border-radius: 50%;
   background: var(--color-teal-600);
   cursor: pointer;
@@ -464,8 +464,8 @@
 }
 
 .rangeSlider::-moz-range-thumb {
-  width: 24px;
-  height: 24px;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
   border-radius: 50%;
   background: var(--color-teal-600);
   cursor: pointer;
@@ -478,19 +478,19 @@
   justify-content: space-between;
   font-size: var(--font-size-xs);
   color: var(--color-slate-400);
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
 }
 
 /* Timeframe Grid */
 .timeframeGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   width: 100%;
 }
 
 .timeframeCard {
-  padding: 20px;
+  padding: var(--spacing-xl);
   border-radius: var(--radius-xl);
   border: 2px solid var(--color-slate-200);
   background: var(--color-white);
@@ -510,20 +510,20 @@
 
 .timeframeIcon {
   color: var(--color-slate-400);
-  margin: 0 auto 8px;
+  margin: 0 auto var(--spacing-sm);
   display: block;
 }
 
 .timeframeIconSelected {
   color: var(--color-teal-600);
-  margin: 0 auto 8px;
+  margin: 0 auto var(--spacing-sm);
   display: block;
 }
 
 .timeframeLabel {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
-  font-size: 15px;
+  font-size: var(--font-size-sm-plus);
   margin: 0;
 }
 
@@ -548,22 +548,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 32px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-3xl);
   z-index: 1;
   position: relative;
 }
 
 .simulationWatermark {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  padding: 4px 12px;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-md-minus);
   background: rgba(245, 158, 11, 0.1);
   border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
+  border-radius: var(--radius-md-plus);
+  font-size: 11px; /* no exact token */
+  font-weight: var(--font-weight-bold);
   color: var(--color-amber-600);
   letter-spacing: 1px;
   z-index: calc(var(--z-index-modal, 1000) + 2);
@@ -583,7 +583,7 @@
 
 .simulationValue {
   font-size: clamp(40px, 10vw, 64px);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-teal-600);
   font-variant-numeric: tabular-nums;
 }
@@ -615,7 +615,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: var(--font-size-lg);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-teal-600);
   font-variant-numeric: tabular-nums;
 }
@@ -624,7 +624,7 @@
 .timeIndicator {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   color: var(--color-slate-500);
   font-size: var(--font-size-sm);
 }
@@ -639,8 +639,8 @@
 
 .particle {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: var(--spacing-sm);
+  height: var(--spacing-sm);
   border-radius: 50%;
   background: var(--color-teal-200);
   bottom: -10px;
@@ -666,53 +666,53 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--spacing-md-minus);
+  margin-bottom: var(--spacing-md);
 }
 
 .comparisonCardDiboas {
   background: var(--color-white);
   border: 2px solid var(--color-teal-200);
   border-radius: var(--radius-xl);
-  padding: 20px;
+  padding: var(--spacing-xl);
 }
 
 .comparisonCardBank {
   background: var(--color-white);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-xl);
-  padding: 20px;
+  padding: var(--spacing-xl);
 }
 
 .comparisonHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-md-minus);
 }
 
 .comparisonLabel {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
   font-size: var(--font-size-sm);
   margin: 0;
 }
 
 .comparisonLabelMuted {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-500);
   font-size: var(--font-size-sm);
   margin: 0;
 }
 
 .comparisonApy {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-teal-600);
   margin: 0;
 }
 
 .comparisonApyMuted {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-400);
   margin: 0;
 }
@@ -723,33 +723,33 @@
 
 .comparisonAmount {
   font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   margin: 0;
 }
 
 .comparisonAmountMuted {
   font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-slate-400);
   margin: 0;
 }
 
 .comparisonGain {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: #059669;
   margin: 0;
 }
 
 .comparisonGainMuted {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-400);
   margin: 0;
 }
 
 .progressBarBg {
   width: 100%;
-  height: 12px;
+  height: 12px; /* no exact token */
   background: var(--color-teal-100);
   border-radius: 9999px;
   overflow: hidden;
@@ -764,7 +764,7 @@
 
 .progressBarBgMuted {
   width: 100%;
-  height: 12px;
+  height: 12px; /* no exact token */
   background: var(--color-slate-100);
   border-radius: 9999px;
   overflow: hidden;
@@ -782,19 +782,19 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px;
+  gap: var(--spacing-md-minus);
+  padding: var(--spacing-md);
   background: linear-gradient(to right, #ecfdf5, var(--color-teal-50));
   border: 1px solid #a7f3d0;
   border-radius: var(--radius-xl);
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .differenceIcon {
-  width: 40px;
-  height: 40px;
+  width: var(--spacing-4xl);
+  height: var(--spacing-4xl);
   background: #d1fae5;
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -809,7 +809,7 @@
 }
 
 .differenceText span {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: #059669;
 }
 
@@ -825,28 +825,28 @@
   background: var(--color-white);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-xl);
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .shareTitle {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
   text-align: center;
   font-size: var(--font-size-sm);
-  margin: 0 0 12px;
+  margin: 0 0 var(--spacing-md-minus);
 }
 
 .shareButtons {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
 }
 
 .shareButton {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: var(--spacing-5xl);
+  height: var(--spacing-5xl);
+  border-radius: var(--radius-lg-extra);
   background: var(--share-bg, #f1f5f9);
   border: none;
   display: flex;
@@ -865,7 +865,7 @@
   font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   text-align: center;
-  margin: 0 0 16px;
+  margin: 0 0 var(--spacing-md);
 }
 
 /* Result Actions */
@@ -873,7 +873,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
 }
 
 /* ==================== Accessibility ==================== */
@@ -915,7 +915,7 @@
   }
 
   .screenContent {
-    padding: 80px 16px 32px;
+    padding: var(--spacing-7xl) var(--spacing-md) var(--spacing-3xl);
   }
 
   .comparisonAmount,

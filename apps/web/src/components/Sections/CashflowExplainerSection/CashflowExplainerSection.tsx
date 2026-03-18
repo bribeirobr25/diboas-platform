@@ -1,6 +1,7 @@
 'use client';
 
 import { memo } from 'react';
+import { useTranslation } from '@diboas/i18n/client';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import type { CashflowExplainerSectionConfig } from '@/config/cashflowExplainerSection';
@@ -16,6 +17,7 @@ export const CashflowExplainerSection = memo(function CashflowExplainerSection({
   config,
   className = '',
 }: CashflowExplainerSectionProps) {
+  const intl = useTranslation();
   const translated = useConfigTranslation(config);
 
   const scrollTo = (href: string) => {
@@ -63,7 +65,7 @@ export const CashflowExplainerSection = memo(function CashflowExplainerSection({
       </div>
 
       {/* Micro-example box */}
-      <div className={styles.microExample} role="region" aria-label="Example calculation">
+      <div className={styles.microExample} role="region" aria-label={intl.formatMessage({ id: 'common.accessibility.exampleCalculation' })}>
         {translated.content.microExample}
       </div>
 

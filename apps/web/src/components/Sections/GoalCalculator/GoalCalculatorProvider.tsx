@@ -149,8 +149,9 @@ export function GoalCalculatorProvider({
       startSimulation,
       finishSimulation,
       reset,
+      trackEvent,
     }),
-    [state, selectGoal, goNext, goBack, startSimulation, finishSimulation, reset],
+    [state, selectGoal, goNext, goBack, startSimulation, finishSimulation, reset, trackEvent],
   );
 
   return (

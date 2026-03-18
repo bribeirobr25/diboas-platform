@@ -141,7 +141,18 @@
     "nextSlide": "Nächste Folie",
     "changeLanguage": "Sprache ändern",
     "switchTo": "Zu {language} wechseln",
-    "emailLabel": "E-Mail-Adresse"
+    "emailLabel": "E-Mail-Adresse",
+    "scrollDown": "Nach unten scrollen",
+    "exampleCalculation": "Beispielrechnung",
+    "siteFooter": "Seitenfußzeile",
+    "productNavigation": "Produktnavigation",
+    "legalPages": "Rechtliche Seiten",
+    "mainNavigation": "Hauptnavigation",
+    "dreamMode": "Dream Mode",
+    "closeDreamMode": "Dream Mode schließen",
+    "copyToClipboard": "Text in die Zwischenablage kopieren",
+    "warningBadge": "Warnhinweis",
+    "complianceBadge": "Compliance-Kennzeichen"
   },
   "languageSwitcher": {
     "label": "Sprache",

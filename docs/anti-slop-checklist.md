@@ -15,7 +15,7 @@ Reject or refine UI if you see any of these patterns.
 - [ ] Repeated KPI strips showing the same data in multiple places
 - [ ] Card soup — too many cards with equal visual weight and no hierarchy
 - [ ] Mixed icon families or inconsistent icon weights (project uses custom SVG icons ONLY)
-- [ ] External icon libraries imported (Lucide, Hero Icons, FontAwesome) — use `@/components/UI/Icon`
+- [ ] External icon libraries imported (Lucide, Hero Icons, FontAwesome) — use `@/components/UI/LucideIcon`
 - [ ] Emoji used as core UI icons or visual language
 - [ ] Empty charts or decorative analytics that communicate nothing real
 - [ ] Too much border-radius on everything with no variation

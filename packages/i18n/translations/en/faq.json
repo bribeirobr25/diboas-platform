@@ -33,11 +33,11 @@
     },
     "q8": {
       "question": "Is my money safe on diBoaS?",
-      "answer": "Yes. Same security standards as major banks.\n\n- Non-custodial wallets (you own your assets)\n- AES-256-GCM encryption\n- Compliance with Federal Reserve, MiCA (Europe), and SEC regulations\n- Audited by independent security firms\n\nIn 2024, we had ZERO cases of money loss due to security failures."
+      "answer": "Your money is in your wallet. Not ours.\n\n- Non-custodial wallets (you own your assets)\n- AES-256-GCM encryption\n- No diBoaS employee can move your funds\n\nThat said, all investments carry risk. Smart contracts can have vulnerabilities. Markets can move against you. We monitor 24/7 and test every strategy against past crashes, but we can't guarantee returns or eliminate all risk."
     },
     "q9": {
       "question": "What if diBoaS shuts down one day?",
-      "answer": "You lose nothing.\n\nYour crypto stays in wallets that YOU control.\nYour traditional investments are held by regulated institutions.\n\nEven if we disappeared, you'd have full access to your funds."
+      "answer": "Your money stays yours.\n\nYour assets are in non-custodial wallets that you control. diBoaS is an interface — we never hold your funds.\n\nIf diBoaS shut down tomorrow, your wallet and your assets would still be there. That's how non-custodial works."
     },
     "q10": {
       "question": "Can diBoaS touch my money?",
@@ -151,7 +151,7 @@
     },
     "q24": {
       "question": "Is my crypto safe on diBoaS?",
-      "answer": "Yes. Bank-grade AES-256 encryption with non-custodial MPC wallet architecture.\n\nHow we protect you:\n- Non-custodial wallets (YOU control your assets)\n- AES-256-GCM encryption\n- Mandatory biometric authentication\n- Independent quarterly audits\n\nYour crypto is held in wallets that only you control.\nEven if diBoaS ceased operations, your keys remain yours."
+      "answer": "Your crypto is in wallets that only you control.\n\nHow we protect you:\n- Non-custodial MPC wallets (zero diBoaS key shares)\n- AES-256-GCM encryption\n- No single point of failure\n\nIf diBoaS ceased operations, your keys remain yours. That said, crypto carries real risk — smart contract vulnerabilities, market volatility, and protocol risks exist. We can't eliminate them."
     },
     "q25": {
       "question": "What cryptos can I buy?",
@@ -431,7 +431,7 @@
     },
     "q94": {
       "question": "Is my money really safe?",
-      "answer": "Yes. Multiple protection layers.\n\nTechnical Security:\n- AES-256-GCM encryption\n- Mandatory biometric authentication\n- Non-custodial wallets (you control)\n- Cold storage for 95% of assets\n\nRegulatory Security:\n- Compliance with SEC, MiCA, Fed\n- Independent quarterly audits\n- Emergency reserve fund\n\nTrack record:\n2024: ZERO losses from security failures\n2023: ZERO losses from security failures\n\nYour money is safer here than under the mattress."
+      "answer": "We take security seriously, but we're honest about risk.\n\nWhat we do:\n- AES-256-GCM encryption\n- Non-custodial wallets (you control your assets)\n- 24/7 monitoring\n- Every strategy tested against past market crashes\n\nWhat we can't do:\n- Guarantee returns\n- Eliminate smart contract risk\n- Provide deposit insurance (we're not a bank)\n\nYour money works through new technology. That means it can grow more, but there's also real risk. We show you both sides."
     },
     "q95": {
       "question": "What if diBoaS goes bankrupt or shuts down?",

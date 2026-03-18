@@ -141,7 +141,18 @@
     "nextSlide": "Siguiente diapositiva",
     "changeLanguage": "Cambiar idioma",
     "switchTo": "Cambiar a {language}",
-    "emailLabel": "Dirección de correo electrónico"
+    "emailLabel": "Dirección de correo electrónico",
+    "scrollDown": "Desplazar hacia abajo",
+    "exampleCalculation": "Cálculo de ejemplo",
+    "siteFooter": "Pie de página",
+    "productNavigation": "Navegación de producto",
+    "legalPages": "Páginas legales",
+    "mainNavigation": "Navegación principal",
+    "dreamMode": "Dream Mode",
+    "closeDreamMode": "Cerrar Dream Mode",
+    "copyToClipboard": "Copiar texto al portapapeles",
+    "warningBadge": "Insignia de advertencia",
+    "complianceBadge": "Insignia de cumplimiento"
   },
   "languageSwitcher": {
     "label": "Idioma",

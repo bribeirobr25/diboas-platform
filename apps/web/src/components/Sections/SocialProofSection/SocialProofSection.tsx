@@ -58,8 +58,9 @@ export function SocialProofSection({
     return intl.formatMessage({ id: fullKey }, values);
   };
 
-  const formattedCount = formatNumber(stats.count, intl.locale);
-  const formattedCountries = formatNumber(stats.countries, intl.locale);
+  // Use placeholder while loading to avoid flashing "0" before real data arrives
+  const formattedCount = isLoading ? '—' : formatNumber(stats.count, intl.locale);
+  const formattedCountries = isLoading ? '—' : formatNumber(stats.countries, intl.locale);
 
   // Wrap numbers in highlight span for styling
   const highlightedCount = <span key="count" className={styles.highlight}>{formattedCount}</span>;

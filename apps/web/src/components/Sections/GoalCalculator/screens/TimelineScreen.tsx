@@ -67,7 +67,7 @@ export function TimelineScreen({ translated }: TimelineScreenProps) {
 
           {/* Coverage selector */}
           <div>
-            <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+            <fieldset className={styles.fieldsetReset}>
               <legend className={styles.sliderLabel}>{translated.content.coverage.label}</legend>
               <div
                 className={styles.segmentedControl}
@@ -93,7 +93,7 @@ export function TimelineScreen({ translated }: TimelineScreenProps) {
 
           {/* Timeline selector */}
           <div>
-            <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+            <fieldset className={styles.fieldsetReset}>
               <legend className={styles.sliderLabel}>{translated.content.timeline.label}</legend>
               <div
                 className={styles.segmentedControl}
@@ -150,7 +150,7 @@ export function TimelineScreen({ translated }: TimelineScreenProps) {
 
       <div className={styles.wizardNavigation}>
         <button type="button" className={styles.backButton} onClick={goBack}>
-          Back
+          {translated.content.back ?? 'Back'}
         </button>
         <button
           type="button"
@@ -158,7 +158,7 @@ export function TimelineScreen({ translated }: TimelineScreenProps) {
           onClick={goNext}
           disabled={!canProceed}
         >
-          Next
+          {translated.content.next ?? 'Next'}
         </button>
       </div>
     </div>

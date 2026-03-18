@@ -79,6 +79,7 @@ export interface GoalCalculatorContextValue {
   readonly startSimulation: (result: ScenarioResult) => void;
   readonly finishSimulation: () => void;
   readonly reset: () => void;
+  readonly trackEvent: (event: string, payload: Record<string, unknown>) => void;
 }
 
 export interface GoalCalculatorConfig {
@@ -96,6 +97,9 @@ export interface GoalCalculatorConfig {
     readonly startSmaller: string;
     readonly expectedReturn: string;
     readonly back: string;
+    readonly next?: string;
+    readonly simulationLabel?: string;
+    readonly tryDifferent?: string;
     readonly tabs: {
       readonly christmas: string;
       readonly emergency: string;

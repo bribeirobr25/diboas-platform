@@ -72,6 +72,12 @@ export function FAQAccordionDefault({
 }: FAQAccordionVariantProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const scrollTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // Clear scroll timer on unmount
+  useEffect(() => {
+    return () => clearTimeout(scrollTimerRef.current);
+  }, []);
 
   // Get FAQ items from direct items array (landing pages use this mode)
   // Config is pre-translated by useConfigTranslation in the factory
@@ -105,7 +111,8 @@ export function FAQAccordionDefault({
       if (newExpandedId && config.settings.scrollIntoView) {
         const button = itemRefs.current.get(id);
         if (button) {
-          setTimeout(() => {
+          clearTimeout(scrollTimerRef.current);
+          scrollTimerRef.current = setTimeout(() => {
             button.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }, 100);
         }

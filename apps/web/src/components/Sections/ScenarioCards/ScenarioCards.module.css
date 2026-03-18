@@ -10,13 +10,13 @@
   line-height: var(--line-height-title);
   color: var(--color-section-title);
   text-align: center;
-  margin: 0 0 40px 0;
+  margin: 0 0 var(--spacing-4xl) 0;
 }
 
 @media (min-width: 768px) {
   .header {
     font-size: var(--font-size-section-title-tablet);
-    margin-bottom: 48px;
+    margin-bottom: var(--spacing-5xl);
   }
 }
 
@@ -30,13 +30,13 @@
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--spacing-lg);
 }
 
 @media (min-width: 768px) {
   .grid {
     flex-direction: row;
-    gap: 24px;
+    gap: var(--spacing-lg);
   }
 }
 
@@ -72,14 +72,14 @@
 .cardContent {
   position: relative;
   z-index: 2;
-  padding: 24px;
+  padding: var(--spacing-lg);
   width: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
 }
 
 @media (min-width: 768px) {
   .cardContent {
-    padding: 32px;
+    padding: var(--spacing-3xl);
   }
 }
 
@@ -89,7 +89,7 @@
   font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   color: var(--color-text-on-dark);
-  margin: 0 0 8px 0;
+  margin: 0 0 var(--spacing-sm) 0;
 }
 
 .cardDescription {
@@ -114,24 +114,24 @@
   line-height: 1.5;
   color: var(--color-text-secondary);
   text-align: center;
-  margin: 0 0 16px 0;
+  margin: 0 0 var(--spacing-md) 0;
   font-style: italic;
 }
 
 @media (min-width: 768px) {
   .transitionHook {
     font-size: var(--font-size-xl);
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-xl);
   }
 }
 
 .costComparison {
   font-family: var(--font-family-primary);
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   font-weight: var(--font-weight-normal);
   line-height: 1.4;
   color: var(--color-text-on-dark-muted);
-  margin: 8px 0 0 0;
+  margin: var(--spacing-sm) 0 0 0;
   opacity: 0.85;
 }
 
@@ -142,7 +142,7 @@
   line-height: 1.5;
   color: var(--color-text-secondary);
   text-align: center;
-  margin: 32px 0 0 0;
+  margin: var(--spacing-3xl) 0 0 0;
   max-width: 640px;
   margin-left: auto;
   margin-right: auto;
@@ -150,10 +150,10 @@
 
 .footnote {
   font-family: var(--font-family-primary);
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   font-weight: var(--font-weight-normal);
   line-height: 1.4;
   color: var(--color-text-muted);
   text-align: center;
-  margin: 12px 0 0 0;
+  margin: var(--spacing-md-minus) 0 0 0;
 }

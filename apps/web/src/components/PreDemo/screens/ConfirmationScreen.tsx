@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
@@ -15,6 +15,7 @@ import {
   applicationEventBus,
   ApplicationEventType,
 } from '@/lib/events/ApplicationEventBus';
+import type { TransitionStep } from '../hooks';
 import styles from '../PreDemo.module.css';
 
 /** Type icon — delegates to shared Icon components */
@@ -36,11 +37,14 @@ const METHOD_KEYS: Record<string, string> = {
   mobile: 'preDemo.confirm.methodMobile',
 };
 
-export function ConfirmationScreen() {
+interface ConfirmationScreenProps {
+  runSequence: (steps: TransitionStep[]) => void;
+}
+
+export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
   const { locale } = useLocale();
-  const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
@@ -55,132 +59,111 @@ export function ConfirmationScreen() {
   const handleConfirm = useCallback(() => {
     if (!pending) return;
 
-    // Clear any existing timers
-    timerRef.current.forEach(clearTimeout);
-    timerRef.current = [];
+    const intlLocale = getIntlLocale(locale);
 
-    const processingPrefix = pending.type;
+    // Build transaction processing sequence — timers owned by PreDemoContent
+    // so they survive ConfirmationScreen unmount when screen changes
+    // The 'home' step is explicit for analytics tracking (setScreen fires screen_view event).
+    // The COMPLETE_DEPOSIT/SEND/BUY dispatch also sets screen: 'home' internally — React batches both.
 
-    // Start processing flow
-    setScreen(`${processingPrefix}-processing` as Parameters<typeof setScreen>[0]);
-
-    // Approved step (only deposit has explicit approved)
     if (pending.type === 'deposit') {
-      const t1 = setTimeout(() => {
-        setScreen('deposit-approved');
-      }, PROCESSING_TIMING.processingDelay);
-      timerRef.current.push(t1);
+      runSequence([
+        { screen: 'deposit-processing', delayMs: 0 },
+        { screen: 'deposit-approved', delayMs: PROCESSING_TIMING.processingDelay },
+        { screen: 'deposit-complete', delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay },
+        {
+          screen: 'home',
+          delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay + PROCESSING_TIMING.completeDelay,
+          onReach: () => {
+            dispatch({
+              type: 'COMPLETE_DEPOSIT',
+              netAmount: pending.netAmount,
+              grossAmount: pending.grossAmount,
+              totalFees: pending.totalFees,
+              feeDetails: pending.fees,
+              intlLocale,
+            });
 
-      const t2 = setTimeout(() => {
-        setScreen('deposit-complete');
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay);
-      timerRef.current.push(t2);
+            analyticsService.track({
+              name: 'pre_demo_transaction_completed',
+              parameters: { type: 'deposit', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees },
+            });
 
-      const t3 = setTimeout(() => {
-        dispatch({
-          type: 'COMPLETE_DEPOSIT',
-          netAmount: pending.netAmount,
-          grossAmount: pending.grossAmount,
-          totalFees: pending.totalFees,
-          feeDetails: pending.fees,
-          intlLocale: getIntlLocale(locale),
-        });
-
-        analyticsService.track({
-          name: 'pre_demo_transaction_completed',
-          parameters: {
-            type: 'deposit',
-            amount: pending.grossAmount,
-            net_amount: pending.netAmount,
-            fees: pending.totalFees,
+            applicationEventBus.emit(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, {
+              source: 'preDemo',
+              timestamp: Date.now(),
+              metadata: { amount: pending.grossAmount },
+            });
           },
-        });
-
-        applicationEventBus.emit(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, {
-          source: 'preDemo',
-          timestamp: Date.now(),
-          metadata: { amount: pending.grossAmount },
-        });
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay + PROCESSING_TIMING.completeDelay);
-      timerRef.current.push(t3);
+        },
+      ]);
     } else if (pending.type === 'send') {
-      const t1 = setTimeout(() => {
-        setScreen('send-complete');
-      }, PROCESSING_TIMING.processingDelay);
-      timerRef.current.push(t1);
+      runSequence([
+        { screen: 'send-processing', delayMs: 0 },
+        { screen: 'send-complete', delayMs: PROCESSING_TIMING.processingDelay },
+        {
+          screen: 'home',
+          delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay,
+          onReach: () => {
+            dispatch({
+              type: 'COMPLETE_SEND',
+              grossAmount: pending.grossAmount,
+              netAmount: pending.netAmount,
+              totalFees: pending.totalFees,
+              recipient: pending.recipient || '',
+              feeDetails: pending.fees,
+              intlLocale,
+            });
 
-      const t2 = setTimeout(() => {
-        dispatch({
-          type: 'COMPLETE_SEND',
-          grossAmount: pending.grossAmount,
-          netAmount: pending.netAmount,
-          totalFees: pending.totalFees,
-          recipient: pending.recipient || '',
-          feeDetails: pending.fees,
-          intlLocale: getIntlLocale(locale),
-        });
+            analyticsService.track({
+              name: 'pre_demo_transaction_completed',
+              parameters: { type: 'send', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees, recipient: pending.recipient },
+            });
 
-        analyticsService.track({
-          name: 'pre_demo_transaction_completed',
-          parameters: {
-            type: 'send',
-            amount: pending.grossAmount,
-            net_amount: pending.netAmount,
-            fees: pending.totalFees,
-            recipient: pending.recipient,
+            applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
+              source: 'preDemo',
+              timestamp: Date.now(),
+              metadata: { amount: pending.grossAmount, recipient: pending.recipient },
+            });
           },
-        });
-
-        applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
-          source: 'preDemo',
-          timestamp: Date.now(),
-          metadata: { amount: pending.grossAmount, recipient: pending.recipient },
-        });
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay);
-      timerRef.current.push(t2);
+        },
+      ]);
     } else {
       // buy
-      const t1 = setTimeout(() => {
-        setScreen('buy-complete');
-      }, PROCESSING_TIMING.processingDelay);
-      timerRef.current.push(t1);
+      runSequence([
+        { screen: 'buy-processing', delayMs: 0 },
+        { screen: 'buy-complete', delayMs: PROCESSING_TIMING.processingDelay },
+        {
+          screen: 'home',
+          delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay,
+          onReach: () => {
+            dispatch({
+              type: 'COMPLETE_BUY',
+              grossAmount: pending.grossAmount,
+              netAmount: pending.netAmount,
+              totalFees: pending.totalFees,
+              asset: pending.asset
+                ? { symbol: pending.asset.symbol, name: pending.asset.name }
+                : { symbol: '', name: '' },
+              feeDetails: pending.fees,
+              intlLocale,
+            });
 
-      const t2 = setTimeout(() => {
-        dispatch({
-          type: 'COMPLETE_BUY',
-          grossAmount: pending.grossAmount,
-          netAmount: pending.netAmount,
-          totalFees: pending.totalFees,
-          asset: pending.asset
-            ? { symbol: pending.asset.symbol, name: pending.asset.name }
-            : { symbol: '', name: '' },
-          feeDetails: pending.fees,
-          intlLocale: getIntlLocale(locale),
-        });
+            analyticsService.track({
+              name: 'pre_demo_transaction_completed',
+              parameters: { type: 'buy', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees, asset: pending.asset?.symbol },
+            });
 
-        analyticsService.track({
-          name: 'pre_demo_transaction_completed',
-          parameters: {
-            type: 'buy',
-            amount: pending.grossAmount,
-            net_amount: pending.netAmount,
-            fees: pending.totalFees,
-            asset: pending.asset?.symbol,
+            applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {
+              source: 'preDemo',
+              timestamp: Date.now(),
+              metadata: { amount: pending.grossAmount, asset: pending.asset?.symbol },
+            });
           },
-        });
-
-        applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {
-          source: 'preDemo',
-          timestamp: Date.now(),
-          metadata: {
-            amount: pending.grossAmount,
-            asset: pending.asset?.symbol,
-          },
-        });
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay);
-      timerRef.current.push(t2);
+        },
+      ]);
     }
-  }, [pending, dispatch, setScreen]);
+  }, [pending, dispatch, locale, runSequence]);
 
   if (!pending) return null;
 

@@ -88,4 +88,42 @@ describe('idempotency', () => {
       );
     });
   });
+
+  describe('evictStale', () => {
+    it('should evict expired entries when cache exceeds MAX_ENTRIES', () => {
+      // MAX_ENTRIES is 10_000 in the source. We need to fill past that limit
+      // with expired entries so evictStale actually runs and deletes them.
+      const baseTime = Date.now();
+
+      // Insert entries in the past so they are expired (TTL is 5 min)
+      vi.spyOn(Date, 'now').mockReturnValue(baseTime - 10 * 60 * 1000); // 10 min ago
+
+      // Fill cache past MAX_ENTRIES with expired entries
+      for (let i = 0; i <= 10_000; i++) {
+        cacheIdempotentResponse(`evict-stale-${i}`, 200, { i });
+      }
+
+      // Now restore time to "now" so all entries are expired
+      vi.spyOn(Date, 'now').mockReturnValue(baseTime);
+
+      // This call triggers evictStale() because cache.size > MAX_ENTRIES,
+      // and all entries are expired so they get deleted
+      const newKey = 'evict-stale-new';
+      cacheIdempotentResponse(newKey, 200, { fresh: true });
+
+      // The new entry should be retrievable
+      const result = getIdempotentResponse(newKey);
+      expect(result).not.toBeNull();
+      expect(result).toEqual(
+        expect.objectContaining({
+          body: { fresh: true },
+          status: 200,
+        })
+      );
+
+      // An old expired entry should no longer be retrievable
+      const oldResult = getIdempotentResponse('evict-stale-0');
+      expect(oldResult).toBeNull();
+    });
+  });
 });

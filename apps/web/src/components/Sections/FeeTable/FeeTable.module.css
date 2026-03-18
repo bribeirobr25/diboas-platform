@@ -15,7 +15,7 @@
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-title);
   color: var(--color-section-title);
-  margin: 0 0 12px 0;
+  margin: 0 0 var(--spacing-md-minus) 0;
 }
 
 @media (min-width: 768px) {
@@ -34,7 +34,7 @@
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   line-height: 1.5;
-  margin: 0 0 40px 0;
+  margin: 0 0 var(--spacing-4xl) 0;
 }
 
 /* Desktop table */
@@ -45,7 +45,7 @@
 @media (min-width: 768px) {
   .tableWrapper {
     display: block;
-    margin-bottom: 32px;
+    margin-bottom: var(--spacing-3xl);
   }
 }
 
@@ -66,7 +66,7 @@
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 12px 16px;
+  padding: var(--spacing-md-minus) var(--spacing-md);
   border-bottom: 2px solid var(--color-slate-200);
 }
 
@@ -81,13 +81,13 @@
 .td {
   font-size: var(--font-size-md);
   color: var(--color-text-body);
-  padding: 16px;
+  padding: var(--spacing-md);
   vertical-align: top;
 }
 
 .tdCompetitors {
   color: var(--color-text-secondary);
-  font-size: 15px;
+  font-size: var(--font-size-sm-plus);
 }
 
 /* Free rows: green text with check icon */
@@ -99,12 +99,12 @@
 .freeLabel {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .checkIcon {
-  width: 16px;
-  height: 16px;
+  width: var(--spacing-md);
+  height: var(--spacing-md);
   color: var(--text-success-accessible, #059669);
 }
 
@@ -116,11 +116,11 @@
 
 /* Example line */
 .example {
-  font-size: 15px;
+  font-size: var(--font-size-sm-plus);
   font-style: italic;
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin: 16px auto 0;
+  margin: var(--spacing-md) auto 0;
   text-align: center;
   line-height: 1.5;
 }
@@ -138,8 +138,8 @@
 .mobileCards {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-3xl);
 }
 
 @media (min-width: 768px) {
@@ -151,8 +151,8 @@
 .mobileCard {
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md);
   text-align: left;
 }
 
@@ -160,14 +160,14 @@
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-md-minus);
 }
 
 .mobileCompareGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: var(--spacing-md-minus);
+  margin-bottom: var(--spacing-md-minus);
 }
 
 .mobileCompareLabel {
@@ -176,11 +176,11 @@
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
 }
 
 .mobileCompareValue {
-  font-size: 15px;
+  font-size: var(--font-size-sm-plus);
   color: var(--color-text-body);
   line-height: 1.4;
 }
@@ -188,7 +188,7 @@
 .mobileDifference {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  padding-top: 8px;
+  padding-top: var(--spacing-sm);
   border-top: 1px solid var(--color-slate-200);
 }
 
@@ -199,7 +199,7 @@
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary-accessible);
   text-align: center;
-  margin: 0 0 8px 0;
+  margin: 0 0 var(--spacing-sm) 0;
   line-height: 1.4;
 }
 
@@ -209,26 +209,26 @@
   color: var(--color-text-body);
   line-height: 1.6;
   max-width: 680px;
-  margin: 0 auto 32px;
+  margin: 0 auto var(--spacing-3xl);
   text-align: center;
 }
 
 /* Footer line: additional context after example */
 .footerLine {
-  font-size: 15px;
+  font-size: var(--font-size-sm-plus);
   color: var(--color-text-secondary);
   max-width: 600px;
-  margin: 12px auto 0;
+  margin: var(--spacing-md-minus) auto 0;
   text-align: center;
   line-height: 1.5;
 }
 
 /* Mobile example value in comparison cards */
 .mobileExample {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-text-secondary);
   font-style: italic;
-  margin-top: 8px;
+  margin-top: var(--spacing-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {

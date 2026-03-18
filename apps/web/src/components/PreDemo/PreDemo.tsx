@@ -3,8 +3,12 @@
 /**
  * PreDemo Component
  *
- * Main orchestrator for the interactive demo flow
- * Wraps Provider + screen switch. When screen = 'dream-mode', renders <PreDream>
+ * Main orchestrator for the interactive demo flow.
+ * Wraps Provider + screen switch. When screen = 'dream-mode', renders <PreDream>.
+ *
+ * Timer sequences (login flow, transaction processing) are owned here via
+ * useScreenTransitionSequence — this component persists across screen changes,
+ * so timers survive child component unmounts.
  */
 
 import React, { useEffect, useRef, useCallback } from 'react';
@@ -22,7 +26,7 @@ import {
 } from './screens';
 import { PreDream } from '@/components/PreDream';
 import { useTranslation } from '@diboas/i18n/client';
-import { analyticsService } from '@/lib/analytics';
+import { useScreenTransitionSequence, type TransitionStep } from './hooks';
 import styles from './PreDemo.module.css';
 
 interface PreDemoProps {
@@ -35,6 +39,9 @@ function PreDemoContent({ onExit }: PreDemoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const t = (key: string) => intl.formatMessage({ id: key });
+
+  // Timer sequence hook — persists across screen changes
+  const { runSequence } = useScreenTransitionSequence(setScreen);
 
   // Focus management on screen change — prefer [data-autofocus] elements
   useEffect(() => {
@@ -64,7 +71,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
   const renderScreen = () => {
     switch (state.screen) {
       case 'login':
-        return <LoginScreen onExit={onExit} />;
+        return <LoginScreen onExit={onExit} runSequence={runSequence} />;
 
       case 'creating-account':
         return (
@@ -100,7 +107,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
         return <DepositScreen />;
 
       case 'deposit-confirm':
-        return <ConfirmationScreen />;
+        return <ConfirmationScreen runSequence={runSequence} />;
 
       case 'deposit-processing':
         return (
@@ -133,7 +140,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
         return <SendScreen />;
 
       case 'send-confirm':
-        return <ConfirmationScreen />;
+        return <ConfirmationScreen runSequence={runSequence} />;
 
       case 'send-processing':
         return (
@@ -157,7 +164,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
         return <BuyScreen />;
 
       case 'buy-confirm':
-        return <ConfirmationScreen />;
+        return <ConfirmationScreen runSequence={runSequence} />;
 
       case 'buy-processing':
         return (
@@ -189,7 +196,7 @@ function PreDemoContent({ onExit }: PreDemoProps) {
         );
 
       default:
-        return <LoginScreen />;
+        return <LoginScreen onExit={onExit} runSequence={runSequence} />;
     }
   };
 

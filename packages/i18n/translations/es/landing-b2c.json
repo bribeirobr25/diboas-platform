@@ -18,6 +18,9 @@
     "startSmaller": "¿Más de lo esperado? Comienza con {amount}/mes",
     "expectedReturn": "{rate}% retorno esperado",
     "back": "Atrás",
+    "next": "Siguiente",
+    "simulationLabel": "Calculando tu plan de {goal}...",
+    "tryDifferent": "Probar un objetivo diferente",
     "tabs": {
       "christmas": "Paga Extra de Navidad",
       "emergency": "Fondo de Emergencia",

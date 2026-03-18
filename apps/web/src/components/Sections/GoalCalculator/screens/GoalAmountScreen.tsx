@@ -103,7 +103,7 @@ export function GoalAmountScreen({ translated, formatCurrency }: GoalAmountScree
 
       <div className={styles.wizardNavigation}>
         <button type="button" className={styles.backButton} onClick={goBack}>
-          Back
+          {translated.content.back ?? 'Back'}
         </button>
         <button
           type="button"
@@ -111,7 +111,7 @@ export function GoalAmountScreen({ translated, formatCurrency }: GoalAmountScree
           onClick={goNext}
           disabled={!canProceed}
         >
-          Next
+          {translated.content.next ?? 'Next'}
         </button>
       </div>
     </div>

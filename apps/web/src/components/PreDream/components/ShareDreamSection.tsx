@@ -8,7 +8,7 @@
  * Uses existing UTM infrastructure from lib/share
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { formatCurrency, type PreDreamResult } from '@/lib/pre-dream';
 import { useLocale } from '@/components/Providers';
@@ -28,6 +28,12 @@ interface ShareDreamSectionProps {
 
 export function ShareDreamSection({ result, localeDifference }: ShareDreamSectionProps) {
   const intl = useTranslation();
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // Clear copy feedback timer on unmount
+  useEffect(() => {
+    return () => clearTimeout(copyTimerRef.current);
+  }, []);
   const { locale } = useLocale();
   const [copied, setCopied] = useState(false);
 
@@ -95,7 +101,8 @@ export function ShareDreamSection({ result, localeDifference }: ShareDreamSectio
         case 'copy':
           await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
           setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
+          clearTimeout(copyTimerRef.current);
+          copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
           break;
       }
 

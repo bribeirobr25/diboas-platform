@@ -31,7 +31,7 @@ export function GoalSelectionScreen({ translated }: GoalSelectionScreenProps) {
         <p className={styles.screenSubtitle}>{translated.content.subtitle}</p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-md)' }}>
+      <div className={styles.flexColumn}>
         {GOAL_OPTIONS.map(({ goal, icon, className }) => (
           <button
             key={goal}

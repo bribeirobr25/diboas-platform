@@ -77,7 +77,7 @@ export default function MinimalNavigation() {
   }, []);
 
   return (
-    <nav className="minimal-navigation-bar" aria-label="Main navigation">
+    <nav className="minimal-navigation-bar" aria-label={intl.formatMessage({ id: 'common.accessibility.mainNavigation' })}>
       <Container>
         <FlexBetween className="minimal-navigation-content">
           {/* Logo */}

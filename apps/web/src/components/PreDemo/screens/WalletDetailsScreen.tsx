@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
@@ -163,6 +163,12 @@ export function WalletDetailsScreen() {
   const [showExportModal, setShowExportModal] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState<string | null>(null);
   const [l2Expanded, setL2Expanded] = useState(false);
+  const feedbackTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // Clear feedback timer on unmount
+  useEffect(() => {
+    return () => clearTimeout(feedbackTimerRef.current);
+  }, []);
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
@@ -183,13 +189,15 @@ export function WalletDetailsScreen() {
       navigator.clipboard.writeText(address).then(() => {
         setCopyFeedback('copied');
         dispatch({ type: 'SET_COPIED_ADDRESS', chain });
-        setTimeout(() => {
+        clearTimeout(feedbackTimerRef.current);
+        feedbackTimerRef.current = setTimeout(() => {
           dispatch({ type: 'SET_COPIED_ADDRESS', chain: null });
           setCopyFeedback(null);
         }, 2000);
       }).catch(() => {
         setCopyFeedback('failed');
-        setTimeout(() => setCopyFeedback(null), 2000);
+        clearTimeout(feedbackTimerRef.current);
+        feedbackTimerRef.current = setTimeout(() => setCopyFeedback(null), 2000);
       });
     },
     [dispatch],

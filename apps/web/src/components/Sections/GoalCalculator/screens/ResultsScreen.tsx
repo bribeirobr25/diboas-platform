@@ -36,7 +36,7 @@ export function ResultsScreen({
   locale,
   enableAnalytics,
 }: ResultsScreenProps) {
-  const { state, dispatch, reset } = useGoalCalculator();
+  const { state, dispatch, reset, trackEvent } = useGoalCalculator();
 
   const scrollTo = useCallback((id: string) => {
     const el = document.getElementById(id);
@@ -133,40 +133,20 @@ export function ResultsScreen({
 
   const handleCtaClick = () => {
     scrollTo('waitlist');
-    if (enableAnalytics) {
-      import('posthog-js')
-        .then(({ default: posthog }) => {
-          if (posthog.__loaded) {
-            posthog.capture(GOAL_CALCULATOR_EVENTS.CTA_CLICK, {
-              tab: goal,
-              tier: RISK_TIERS[effectiveTierIndex].label,
-              expectedValue: scenarios.expected,
-              locale,
-              timestamp: Date.now(),
-            });
-          }
-        })
-        .catch(() => {});
-    }
+    trackEvent(GOAL_CALCULATOR_EVENTS.CTA_CLICK, {
+      tab: goal,
+      tier: RISK_TIERS[effectiveTierIndex].label,
+      expectedValue: scenarios.expected,
+    });
   };
 
   const handleStartSmallerToggle = () => {
     dispatch({ type: 'TOGGLE_START_SMALLER' });
-    if (enableAnalytics) {
-      import('posthog-js')
-        .then(({ default: posthog }) => {
-          if (posthog.__loaded) {
-            posthog.capture(GOAL_CALCULATOR_EVENTS.START_SMALLER_TOGGLE, {
-              tab: goal,
-              previousMonthly: effectiveMonthly,
-              newMonthly: smallerAmount,
-              locale,
-              timestamp: Date.now(),
-            });
-          }
-        })
-        .catch(() => {});
-    }
+    trackEvent(GOAL_CALCULATOR_EVENTS.START_SMALLER_TOGGLE, {
+      tab: goal,
+      previousMonthly: effectiveMonthly,
+      newMonthly: smallerAmount,
+    });
   };
 
   const startSmallerPartialPercent = target > 0 ? Math.round((scenarios.expected / target) * 100) : 100;
@@ -266,13 +246,13 @@ export function ResultsScreen({
       </div>
 
       {/* Try different goal */}
-      <div style={{ textAlign: 'center' }}>
+      <div className={styles.textCenter}>
         <button
           type="button"
           className={styles.startSmallerLink}
           onClick={reset}
         >
-          Try a different goal
+          {translated.content.tryDifferent ?? 'Try a different goal'}
         </button>
       </div>
     </div>

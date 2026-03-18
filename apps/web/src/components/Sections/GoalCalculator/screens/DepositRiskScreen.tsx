@@ -1,6 +1,5 @@
 'use client';
 
-import { ShieldCheck, TrendingUp, Zap } from '@/components/UI/LucideIcon';
 import { useGoalCalculator } from '../GoalCalculatorProvider';
 import {
   RISK_TIERS,
@@ -8,6 +7,7 @@ import {
   SLIDER_CONFIG,
   GOAL_CALCULATOR_EVENTS,
 } from '../goalCalculatorConstants';
+import { RiskTierSelector } from './RiskTierSelector';
 import { parseLocaleNumber } from '@/lib/currency';
 import {
   annualToMonthlyRate,
@@ -18,12 +18,6 @@ import {
 } from '../goalCalculatorFormulas';
 import type { RiskTierIndex, GoalCalculatorConfig } from '../goalCalculatorTypes';
 import styles from '../GoalCalculator.module.css';
-
-const TIER_ICONS: readonly React.ReactNode[] = [
-  <ShieldCheck key="careful" size={22} />,
-  <TrendingUp key="moderate" size={22} />,
-  <Zap key="aggressive" size={22} />,
-] as const;
 
 interface DepositRiskScreenProps {
   readonly translated: GoalCalculatorConfig;
@@ -38,7 +32,7 @@ export function DepositRiskScreen({
   locale,
   enableAnalytics,
 }: DepositRiskScreenProps) {
-  const { state, dispatch, startSimulation } = useGoalCalculator();
+  const { state, dispatch, startSimulation, trackEvent } = useGoalCalculator();
   const goal = state.activeGoal;
   if (!goal) return null;
 
@@ -105,39 +99,19 @@ export function DepositRiskScreen({
   const handleTierSelect = (index: RiskTierIndex) => {
     if (isOneMonth && index !== 0) return;
     dispatch({ type: 'SET_RISK_TIER', index });
-    if (enableAnalytics) {
-      import('posthog-js')
-        .then(({ default: posthog }) => {
-          if (posthog.__loaded) {
-            posthog.capture(GOAL_CALCULATOR_EVENTS.TIER_CHANGE, {
-              tier: RISK_TIERS[index].label,
-              tab: goal,
-              locale,
-              timestamp: Date.now(),
-            });
-          }
-        })
-        .catch(() => {});
-    }
+    trackEvent(GOAL_CALCULATOR_EVENTS.TIER_CHANGE, {
+      tier: RISK_TIERS[index].label,
+      tab: goal,
+    });
   };
 
   const handleStartSmaller = () => {
     dispatch({ type: 'SET_MONTHLY_DEPOSIT', value: String(smallerAmount) });
-    if (enableAnalytics) {
-      import('posthog-js')
-        .then(({ default: posthog }) => {
-          if (posthog.__loaded) {
-            posthog.capture(GOAL_CALCULATOR_EVENTS.START_SMALLER_EARLY, {
-              goal,
-              previousMonthly: autoMonthly,
-              newMonthly: smallerAmount,
-              locale,
-              timestamp: Date.now(),
-            });
-          }
-        })
-        .catch(() => {});
-    }
+    trackEvent(GOAL_CALCULATOR_EVENTS.START_SMALLER_EARLY, {
+      goal,
+      previousMonthly: autoMonthly,
+      newMonthly: smallerAmount,
+    });
   };
 
   const handleSimulate = () => {
@@ -163,8 +137,6 @@ export function DepositRiskScreen({
   };
 
   const canProceed = months > 0 && target > 0;
-
-  const TIER_KEYS = ['careful', 'moderate', 'aggressive'] as const;
 
   const suggestedText = (translated.content.suggested ?? 'Suggested: {amount}/month')
     .replace('{amount}', formatCurrency(autoMonthly));
@@ -222,21 +194,19 @@ export function DepositRiskScreen({
         {state.isMonthlyOverridden ? (
           <input
             type="number"
-            className={styles.sliderValueInput}
+            className={`${styles.sliderValueInput} ${styles.fullWidth}`}
             value={state.monthlyDepositRaw}
             onChange={handleMonthlyChange}
             min={0}
             max={SLIDER_CONFIG.monthlyDeposit.max}
             aria-label={`${translated.content.fields.monthlyDeposit.label} override`}
-            style={{ width: '100%' }}
           />
         ) : null}
         {!state.isMonthlyOverridden ? (
           <button
             type="button"
-            className={styles.startSmallerLink}
+            className={styles.startSmallerLinkSmall}
             onClick={() => dispatch({ type: 'SET_MONTHLY_DEPOSIT', value: String(autoMonthly) })}
-            style={{ alignSelf: 'flex-start', fontSize: 'var(--font-size-xs, 12px)' }}
           >
             {overrideText}
           </button>
@@ -259,35 +229,14 @@ export function DepositRiskScreen({
       ) : null}
 
       {/* Risk tier selector */}
-      <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
-        <legend className={styles.sliderLabel}>{translated.content.fields.riskTier.label}</legend>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-sm)' }}>
-          {TIER_KEYS.map((key, index) => {
-            const expectedReturnText = (translated.content.expectedReturn ?? '{rate}% expected return')
-              .replace('{rate}', String(Math.round(RISK_TIERS[index].expectedAPY * 100)));
-            return (
-              <button
-                key={key}
-                type="button"
-                className={`${styles.tierCard} ${
-                  effectiveTierIndex === index ? styles.tierCardActive : ''
-                } ${isOneMonth && index !== 0 ? styles.tierCardDisabled : ''}`}
-                onClick={() => handleTierSelect(index as RiskTierIndex)}
-                aria-pressed={effectiveTierIndex === index}
-                disabled={isOneMonth && index !== 0}
-              >
-                <span className={styles.tierCardIcon} aria-hidden="true">{TIER_ICONS[index]}</span>
-                <div className={styles.tierCardContent}>
-                  <span className={styles.tierCardTitle}>{translated.content.tiers[key]}</span>
-                  <span className={styles.tierCardSubtitle}>
-                    {expectedReturnText}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
+      <RiskTierSelector
+        label={translated.content.fields.riskTier.label}
+        tiers={translated.content.tiers}
+        expectedReturnTemplate={translated.content.expectedReturn}
+        effectiveTierIndex={effectiveTierIndex}
+        isOneMonth={isOneMonth}
+        onSelect={handleTierSelect}
+      />
 
       {isOneMonth ? (
         <p className={styles.infoNotice}>{translated.content.helpers.oneMonthWarning}</p>

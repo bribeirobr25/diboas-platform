@@ -141,7 +141,18 @@
     "nextSlide": "Next slide",
     "changeLanguage": "Change language",
     "switchTo": "Switch to {language}",
-    "emailLabel": "Email address"
+    "emailLabel": "Email address",
+    "scrollDown": "Scroll down",
+    "exampleCalculation": "Example calculation",
+    "siteFooter": "Site footer",
+    "productNavigation": "Product navigation",
+    "legalPages": "Legal pages",
+    "mainNavigation": "Main navigation",
+    "dreamMode": "Dream Mode",
+    "closeDreamMode": "Close Dream Mode",
+    "copyToClipboard": "Copy share text to clipboard",
+    "warningBadge": "Warning badge",
+    "complianceBadge": "Compliance badge"
   },
   "languageSwitcher": {
     "label": "Language",

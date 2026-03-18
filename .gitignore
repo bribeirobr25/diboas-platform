@@ -136,8 +136,12 @@ ehthumbs.db
 Thumbs.db
 
 # Custom folders to ignore
-# Note: docs/ folder should NOT be ignored - it contains project documentation
-# docs/
+# Note: docs/ and docs/tech/ are committed. Internal/sensitive subdirectories are excluded.
+docs/audit/
+docs/post-launch/
+docs/skills-commands/
+docs/revenue/
+docs/full-view/
 /images/
 
 # Test artifacts and screenshots

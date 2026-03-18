@@ -33,11 +33,11 @@
     },
     "q8": {
       "question": "Ist mein Geld bei diBoaS sicher?",
-      "answer": "Ja. Gleiche Sicherheitsstandards wie große Banken.\n\n- Non-custodial Wallets (du besitzt deine Vermögenswerte)\n- AES-256-GCM-Verschlüsselung\n- Konformität mit BaFin, MiCA (Europa) und Bundesbank-Vorschriften\n- Geprüft von unabhängigen Sicherheitsfirmen\n\n2024 hatten wir NULL Fälle von Geldverlust durch Sicherheitslücken."
+      "answer": "Dein Geld ist in deiner Wallet. Nicht in unserer.\n\n- Non-custodial Wallets (du besitzt deine Vermögenswerte)\n- AES-256-GCM-Verschlüsselung\n- Kein diBoaS-Mitarbeiter kann deine Gelder bewegen\n\nDas gesagt: Alle Investments tragen Risiken. Smart Contracts können Schwachstellen haben. Märkte können sich gegen dich bewegen. Wir überwachen rund um die Uhr und testen jede Strategie gegen vergangene Crashes, aber wir können keine Renditen garantieren oder alle Risiken ausschließen."
     },
     "q9": {
       "question": "Was passiert, wenn diBoaS eines Tages schließt?",
-      "answer": "Du verlierst nichts.\n\nDeine Kryptos bleiben in Wallets, die DU kontrollierst.\nDeine traditionellen Investments werden von regulierten Institutionen verwahrt.\n\nSelbst wenn wir verschwinden würden, hättest du vollen Zugang zu deinem Geld."
+      "answer": "Dein Geld bleibt deins.\n\nDeine Vermögenswerte befinden sich in Non-custodial Wallets, die du kontrollierst. diBoaS ist eine Benutzeroberfläche — wir verwahren niemals deine Gelder.\n\nWenn diBoaS morgen schließen würde, wären deine Wallet und deine Vermögenswerte immer noch da. So funktioniert Non-custodial."
     },
     "q10": {
       "question": "Kann diBoaS mein Geld anfassen?",
@@ -151,7 +151,7 @@
     },
     "q24": {
       "question": "Ist mein Krypto auf diBoaS sicher?",
-      "answer": "Ja. AES-256-GCM-Verschlüsselung mit nicht-kustodialer MPC-Wallet-Architektur.\n\nWie wir dich schützen:\n- Non-custodial Wallets (DU kontrollierst deine Assets)\n- AES-256-GCM-Verschlüsselung\n- Obligatorische biometrische Authentifizierung\n- Unabhängige vierteljährliche Audits\n\nDein Krypto ist in Wallets, die nur du kontrollierst.\nSelbst wenn diBoaS den Betrieb einstellen würde, bleiben deine Schlüssel bei dir."
+      "answer": "Dein Krypto ist in Wallets, die nur du kontrollierst.\n\nWie wir dich schützen:\n- Non-custodial MPC-Wallets (null diBoaS-Schlüsselanteile)\n- AES-256-GCM-Verschlüsselung\n- Kein Single Point of Failure\n\nWenn diBoaS den Betrieb einstellen würde, bleiben deine Schlüssel bei dir. Das gesagt: Krypto birgt echte Risiken — Schwachstellen in Smart Contracts, Marktvolatilität und Protokollrisiken existieren. Wir können sie nicht eliminieren."
     },
     "q25": {
       "question": "Welche Kryptos kann ich kaufen?",
@@ -431,7 +431,7 @@
     },
     "q94": {
       "question": "Ist mein Geld wirklich sicher?",
-      "answer": "Ja. Mehrere Schutzschichten.\n\nTechnische Sicherheit:\n- AES-256-GCM-Verschlüsselung\n- Obligatorische biometrische Authentifizierung\n- Non-custodial Wallets (du kontrollierst)\n- Cold Storage für 95% der Assets\n\nRegulatorische Sicherheit:\n- Compliance mit BaFin, MiCA, EZB\n- Unabhängige vierteljährliche Audits\n- Notfall-Reservefonds\n\nErfolgsbilanz:\n2024: NULL Verluste durch Sicherheitsfehler\n2023: NULL Verluste durch Sicherheitsfehler\n\nDein Geld ist hier sicherer als unter der Matratze."
+      "answer": "Wir nehmen Sicherheit ernst, aber wir sind ehrlich über Risiken.\n\nWas wir tun:\n- AES-256-GCM-Verschlüsselung\n- Non-custodial Wallets (du kontrollierst deine Vermögenswerte)\n- 24/7-Überwachung\n- Jede Strategie gegen vergangene Markt-Crashs getestet\n\nWas wir nicht können:\n- Renditen garantieren\n- Smart-Contract-Risiken eliminieren\n- Einlagensicherung bieten (wir sind keine Bank)\n\nDein Geld arbeitet mit neuer Technologie. Das bedeutet, es kann stärker wachsen, aber es gibt auch echte Risiken. Wir zeigen dir beide Seiten."
     },
     "q95": {
       "question": "Was wenn diBoaS pleitegeht oder schließt?",

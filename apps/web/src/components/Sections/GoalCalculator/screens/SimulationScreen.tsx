@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useGoalCalculator } from '../GoalCalculatorProvider';
+import type { GoalCalculatorConfig } from '../goalCalculatorTypes';
 import styles from '../GoalCalculator.module.css';
 
 const ANIMATION_DURATION_MS = 2000;
@@ -14,10 +15,11 @@ function easeOutCubic(t: number): number {
 }
 
 interface SimulationScreenProps {
+  readonly translated: GoalCalculatorConfig;
   readonly formatCurrency: (value: number) => string;
 }
 
-export function SimulationScreen({ formatCurrency }: SimulationScreenProps) {
+export function SimulationScreen({ translated, formatCurrency }: SimulationScreenProps) {
   const { state, finishSimulation } = useGoalCalculator();
 
   const startValue = 0;
@@ -74,16 +76,15 @@ export function SimulationScreen({ formatCurrency }: SimulationScreenProps) {
 
   const dashOffset = RING_CIRCUMFERENCE * (1 - progress / 100);
 
-  const goalLabels: Record<string, string> = {
-    christmas: 'Christmas Bonus',
-    emergency: 'Emergency Fund',
-    vacation: 'Vacation',
-  };
+  const activeGoal = state.activeGoal || 'christmas';
+  const goalLabel = translated.content.tabs[activeGoal as keyof typeof translated.content.tabs] ?? activeGoal;
+  const simulationText = (translated.content.simulationLabel ?? 'Calculating your {goal} plan...')
+    .replace('{goal}', goalLabel);
 
   return (
     <div className={styles.simulationScreen}>
       <p className={styles.simulationLabel}>
-        Calculating your {goalLabels[state.activeGoal || 'christmas']} plan...
+        {simulationText}
       </p>
 
       <span className={styles.simulationValue}>

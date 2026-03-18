@@ -1,7 +1,7 @@
 {
   "hero": {
     "headline": "O sistema financeiro não está quebrado. Só não foi feito para você.",
-    "subheadline": "Envie dinheiro para qualquer lugar do mundo, na hora, de graça. E faça ele crescer do seu jeito.",
+    "subheadline": "Envie dinheiro na diBoaS, na hora, de graça. E faça ele crescer do seu jeito.",
     "cta": "Veja seu dinheiro em ação"
   },
   "goalCalculator": {
@@ -18,6 +18,9 @@
     "startSmaller": "Mais do que esperava? Comece com {amount}/mês",
     "expectedReturn": "{rate}% retorno esperado",
     "back": "Voltar",
+    "next": "Próximo",
+    "simulationLabel": "Calculando seu plano de {goal}...",
+    "tryDifferent": "Tentar um objetivo diferente",
     "tabs": {
       "christmas": "13º Salário",
       "emergency": "Reserva de Emergência",

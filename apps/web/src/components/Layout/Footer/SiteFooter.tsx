@@ -40,7 +40,7 @@ export function SiteFooter({ config = FOOTER_CONFIG }: SiteFooterProps) {
   };
 
   return (
-    <footer aria-label="Site footer" className={styles.footer}>
+    <footer aria-label={intl.formatMessage({ id: 'common.accessibility.siteFooter' })} className={styles.footer}>
       <div className={styles.container}>
         {/* Desktop Grid / Mobile Accordions */}
         <div className={styles.contentGrid}>
