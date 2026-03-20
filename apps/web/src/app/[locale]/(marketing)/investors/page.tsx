@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -34,13 +34,13 @@ export default async function InvestorsPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (investors + shared: home for StickyFeaturesNav, faq for FAQAccordion)
   const pageMessages = await loadPageNamespaces(locale, ['investors', 'home', 'faq']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Investors',
     description: 'A $400 billion opportunity',
     category: 'Investors'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Investors', url: ROUTES.INVESTORS }
   ], locale);

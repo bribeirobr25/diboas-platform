@@ -15,21 +15,17 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import {
-  checkRateLimit,
-  getClientIP,
-  createRateLimitHeaders,
-  RateLimitPresets,
   generateDeletionToken,
   hashToken,
-  verifyToken,
-  csrfProtection,
 } from '@/lib/security';
+import { applyRateLimit, applyCsrf, emitErrorEvent } from '@/lib/api/routeHelpers';
+import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { getByEmail, deleteByEmail } from '@/lib/waitingList/store';
 import { sql } from '@/lib/database/client';
 import { encrypt, decrypt, hmacHash } from '@/lib/security/encryption';
 import { isValidEmail } from '@/lib/waitingList/helpers';
 import { Logger } from '@/lib/monitoring/Logger';
-import { logEmailDelivery } from '@/lib/email/deliveryLogger';
+import { sendEmailAsync } from '@/lib/email/sendEmail';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -57,46 +53,34 @@ async function storeDeletionToken(tokenHash: string, email: string): Promise<voi
 }
 
 /**
- * Look up a deletion token from the database.
- * Automatically cleans up expired tokens.
+ * Atomically consume a deletion token: find AND delete in a single SQL statement.
+ * If two concurrent requests try the same token, only one gets the RETURNING row.
+ * Also probabilistically cleans up expired tokens.
  */
-async function findDeletionToken(token: string): Promise<{ email: string } | null> {
+async function consumeDeletionToken(token: string): Promise<{ email: string } | null> {
   // Clean up expired tokens (probabilistic)
   if (Math.random() < 0.1) {
     await sql`DELETE FROM deletion_tokens WHERE expires_at < NOW()`;
   }
 
-  // Retrieve all non-expired tokens and verify against the provided token
+  const hashedToken = hashToken(token);
+
   const rows = await sql`
-    SELECT token_hash, email FROM deletion_tokens WHERE expires_at > NOW()
+    DELETE FROM deletion_tokens
+    WHERE token_hash = ${hashedToken}
+      AND expires_at > NOW()
+    RETURNING email
   `;
 
-  for (const row of rows) {
-    const r = row as { token_hash: string; email: string };
-    if (verifyToken(token, r.token_hash)) {
-      // Decrypt email (falls back to plaintext for pre-migration rows)
-      const decryptedEmail = decrypt(r.email) || r.email;
-      return { email: decryptedEmail };
-    }
-  }
+  if (rows.length === 0) return null;
 
-  return null;
-}
+  const row = rows[0] as Record<string, unknown> | undefined;
+  const emailValue = typeof row?.email === 'string' ? row.email : null;
+  if (!emailValue) return null;
 
-/**
- * Remove a deletion token from the database after use.
- */
-async function removeDeletionToken(token: string): Promise<void> {
-  const rows = await sql`
-    SELECT token_hash FROM deletion_tokens WHERE expires_at > NOW()
-  `;
-  for (const row of rows) {
-    const r = row as { token_hash: string };
-    if (verifyToken(token, r.token_hash)) {
-      await sql`DELETE FROM deletion_tokens WHERE token_hash = ${r.token_hash}`;
-      return;
-    }
-  }
+  // Decrypt email (falls back to plaintext for pre-migration rows)
+  const decryptedEmail = decrypt(emailValue) || emailValue;
+  return { email: decryptedEmail };
 }
 
 /**
@@ -106,33 +90,14 @@ async function removeDeletionToken(token: string): Promise<void> {
  * Always returns 202 regardless of whether email exists (prevents enumeration).
  */
 export async function POST(request: Request): Promise<NextResponse> {
-  // CSRF protection
-  const csrfError = csrfProtection(request as unknown as NextRequest);
-  if (csrfError) {
-    return csrfError as NextResponse;
-  }
+  const startTime = logRequestStart('POST', '/api/waitlist/delete');
+  const nextReq = request as unknown as NextRequest;
 
-  const clientIP = getClientIP(request);
+  const csrfError = applyCsrf(nextReq);
+  if (csrfError) return csrfError;
 
-  // Rate limiting - strict for deletion requests
-  const rateLimitResult = await checkRateLimit(
-    `delete:${clientIP}`,
-    RateLimitPresets.strict.limit,
-    RateLimitPresets.strict.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Too many requests. Please try again later.',
-      },
-      {
-        status: 429,
-        headers: createRateLimitHeaders(rateLimitResult),
-      }
-    );
-  }
+  const rateLimited = await applyRateLimit(nextReq, 'delete', 'strict');
+  if (rateLimited) return rateLimited;
 
   try {
     const body = await request.json();
@@ -169,9 +134,11 @@ export async function POST(request: Request): Promise<NextResponse> {
       Logger.info('[GDPR] Deletion requested for email, token generated');
 
       // Emit deletion requested event for audit trail
+      const correlationId = nextReq.headers.get('x-request-id') || undefined;
       applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_REQUESTED, {
         source: 'waitlist',
         timestamp: Date.now(),
+        correlationId,
         reason: 'user_request',
         metadata: {
           tokenExpiry: Date.now() + TOKEN_TTL_MS,
@@ -180,17 +147,27 @@ export async function POST(request: Request): Promise<NextResponse> {
 
       // Send deletion confirmation email (non-blocking)
       const confirmationUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com'}/${entry.locale || 'en'}/delete-confirm?token=${token}`;
-      sendDeletionEmail(normalizedEmail, entry.locale, confirmationUrl, entry.name);
+      sendEmailAsync({
+        method: 'sendDeletionConfirmation',
+        recipient: normalizedEmail,
+        template: 'deletion-confirmation',
+        subject: 'Confirm deletion request',
+        locale: entry.locale || 'en',
+        data: {
+          locale: entry.locale || 'en',
+          confirmationUrl,
+          expiresInMinutes: 15,
+          name: entry.name,
+        },
+      });
 
+      logRequestEnd('POST', '/api/waitlist/delete', 202, startTime);
       return NextResponse.json(
         {
           success: true,
           message: 'If this email exists in our system, you will receive deletion instructions via email.',
         },
-        {
-          status: 202,
-          headers: createRateLimitHeaders(rateLimitResult),
-        }
+        { status: 202 }
       );
     }
 
@@ -198,29 +175,18 @@ export async function POST(request: Request): Promise<NextResponse> {
     // Add artificial delay to prevent timing attacks
     await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
 
+    logRequestEnd('POST', '/api/waitlist/delete', 202, startTime);
     return NextResponse.json(
       {
         success: true,
         message: 'If this email exists in our system, you will receive deletion instructions.',
       },
-      {
-        status: 202,
-        headers: createRateLimitHeaders(rateLimitResult),
-      }
+      { status: 202 }
     );
   } catch (error) {
-    // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'high',
-      context: {
-        operation: 'deletion_request',
-      },
-    });
-
+    emitErrorEvent('waitlist', 'deletion_request', error);
     Logger.error('[GDPR] Deletion request error:', { error: error instanceof Error ? error.message : String(error) });
+    logRequestEnd('POST', '/api/waitlist/delete', 500, startTime);
     return NextResponse.json(
       { success: false, error: 'Failed to process deletion request' },
       { status: 500 }
@@ -229,113 +195,19 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 /**
- * Send deletion confirmation email (fire-and-forget).
- */
-function sendDeletionEmail(email: string, locale: string, confirmationUrl: string, name?: string): void {
-  Promise.all([
-    import('@diboas/email'),
-  ]).then(async ([{ createEmailService, sendViaResend }]) => {
-    try {
-      const emailService = createEmailService({ send: sendViaResend });
-      const result = await emailService.sendDeletionConfirmation(email, {
-        locale,
-        confirmationUrl,
-        expiresInMinutes: 15,
-        name,
-      });
-
-      if (result.success) {
-        Logger.info('[Email] Deletion confirmation email sent');
-      } else {
-        Logger.error('[Email] Deletion confirmation email failed', { error: result.error });
-      }
-
-      // Log delivery to email_delivery_logs (fire-and-forget)
-      logEmailDelivery({
-        recipientEmail: email,
-        template: 'deletion-confirmation',
-        subject: 'Confirm deletion request',
-        locale,
-        providerId: result.messageId,
-        status: result.success ? 'sent' : 'failed',
-        errorMessage: result.error,
-      });
-    } catch (err) {
-      Logger.error('[Email] Deletion email error', {}, err instanceof Error ? err : undefined);
-    }
-  }).catch((err) => {
-    Logger.error('[Email] Failed to load email service', {}, err instanceof Error ? err : undefined);
-  });
-}
-
-/**
- * Send deletion complete email (fire-and-forget).
- */
-function sendDeletionCompleteEmail(email: string, locale: string, name?: string): void {
-  Promise.all([
-    import('@diboas/email'),
-  ]).then(async ([{ createEmailService, sendViaResend }]) => {
-    try {
-      const emailService = createEmailService({ send: sendViaResend });
-      const result = await emailService.sendDeletionComplete(email, { locale, name });
-
-      if (result.success) {
-        Logger.info('[Email] Deletion complete email sent');
-      } else {
-        Logger.error('[Email] Deletion complete email failed', { error: result.error });
-      }
-
-      // Log delivery to email_delivery_logs (fire-and-forget)
-      logEmailDelivery({
-        recipientEmail: email,
-        template: 'deletion-complete',
-        subject: 'Data deleted',
-        locale,
-        providerId: result.messageId,
-        status: result.success ? 'sent' : 'failed',
-        errorMessage: result.error,
-      });
-    } catch (err) {
-      Logger.error('[Email] Deletion complete email error', {}, err instanceof Error ? err : undefined);
-    }
-  }).catch((err) => {
-    Logger.error('[Email] Failed to load email service', {}, err instanceof Error ? err : undefined);
-  });
-}
-
-/**
  * DELETE /api/waitlist/delete
  *
  * Confirm and execute deletion with token.
  */
 export async function DELETE(request: Request): Promise<NextResponse> {
-  // CSRF protection
-  const csrfError = csrfProtection(request as unknown as NextRequest);
-  if (csrfError) {
-    return csrfError as NextResponse;
-  }
+  const startTime = logRequestStart('DELETE', '/api/waitlist/delete');
+  const nextReq = request as unknown as NextRequest;
 
-  const clientIP = getClientIP(request);
+  const csrfError = applyCsrf(nextReq);
+  if (csrfError) return csrfError;
 
-  // Rate limiting
-  const rateLimitResult = await checkRateLimit(
-    `delete-confirm:${clientIP}`,
-    RateLimitPresets.strict.limit,
-    RateLimitPresets.strict.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Too many requests. Please try again later.',
-      },
-      {
-        status: 429,
-        headers: createRateLimitHeaders(rateLimitResult),
-      }
-    );
-  }
+  const rateLimited = await applyRateLimit(nextReq, 'delete-confirm', 'strict');
+  if (rateLimited) return rateLimited;
 
   try {
     const body = await request.json();
@@ -349,8 +221,9 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       );
     }
 
-    // Find pending deletion by verifying token against stored hashes
-    const found = await findDeletionToken(token);
+    // Atomically consume the deletion token (find + delete in one SQL statement).
+    // If two concurrent requests try the same token, only one succeeds.
+    const found = await consumeDeletionToken(token);
 
     if (!found) {
       return NextResponse.json(
@@ -368,9 +241,6 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     // Execute deletion
     const deleted = await deleteByEmail(found.email);
 
-    // Remove pending deletion token
-    await removeDeletionToken(token);
-
     if (deleted) {
       Logger.info('[GDPR] Data deleted successfully');
 
@@ -378,6 +248,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {
         source: 'waitlist',
         timestamp: Date.now(),
+        correlationId: nextReq.headers.get('x-request-id') || undefined,
         reason: 'gdpr',
         metadata: {
           method: 'token_confirmation',
@@ -385,8 +256,16 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       });
 
       // Send deletion complete confirmation email (non-blocking)
-      sendDeletionCompleteEmail(capturedEmail, capturedLocale, capturedName);
+      sendEmailAsync({
+        method: 'sendDeletionComplete',
+        recipient: capturedEmail,
+        template: 'deletion-complete',
+        subject: 'Data deleted',
+        locale: capturedLocale,
+        data: { locale: capturedLocale, name: capturedName },
+      });
 
+      logRequestEnd('DELETE', '/api/waitlist/delete', 200, startTime);
       return NextResponse.json(
         {
           success: true,
@@ -394,35 +273,23 @@ export async function DELETE(request: Request): Promise<NextResponse> {
         },
         {
           status: 200,
-          headers: createRateLimitHeaders(rateLimitResult),
         }
       );
     }
 
     // Entry was already deleted or never existed
+    logRequestEnd('DELETE', '/api/waitlist/delete', 200, startTime);
     return NextResponse.json(
       {
         success: true,
         message: 'No data found to delete.',
       },
-      {
-        status: 200,
-        headers: createRateLimitHeaders(rateLimitResult),
-      }
+      { status: 200 }
     );
   } catch (error) {
-    // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'high',
-      context: {
-        operation: 'deletion_confirmation',
-      },
-    });
-
+    emitErrorEvent('waitlist', 'deletion_confirmation', error);
     Logger.error('[GDPR] Deletion confirmation error:', { error: error instanceof Error ? error.message : String(error) });
+    logRequestEnd('DELETE', '/api/waitlist/delete', 500, startTime);
     return NextResponse.json(
       { success: false, error: 'Failed to process deletion' },
       { status: 500 }

@@ -1,45 +1,54 @@
 'use client';
 
+/**
+ * CalculatorFactory — interactive financial calculator
+ * Utility functions in calculatorUtils.ts, scenario cards in ScenarioCards.tsx
+ */
+
 import { memo, useState, useCallback, useRef, useEffect } from 'react';
 import { useLocale } from '@/components/Providers';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { CalculatorFactoryConfig } from '@/config/calculatorFactory';
+import {
+  CURRENCY_CONFIG,
+  parseLocaleNumber,
+  formatDecimal,
+  PERIOD_MULTIPLIERS,
+  computeStep1,
+  computeStep2,
+  resolveScenarioRates,
+  type PeriodKey,
+  type ScenarioRateOverrides,
+} from './calculatorUtils';
+import { ScenarioCards } from './ScenarioCards';
 import styles from './CalculatorFactory.module.css';
-
-import { CURRENCY_CONFIG, parseLocaleNumber, formatDecimal } from '@/lib/currency';
-
-/** diBoaS receive fee — Receive Payments is FREE per Fee Lab v3.4 */
-const DIBOAS_RECEIVE_FEE = 0;
-
-const SCENARIO_RATES = { conservative: 4, historical: 7, optimistic: 10 } as const;
-const PERIOD_MULTIPLIERS = { month: 1 / 12, sixMonths: 0.5, year: 1 } as const;
-
-type PeriodKey = keyof typeof PERIOD_MULTIPLIERS;
-type ScenarioKey = keyof typeof SCENARIO_RATES;
 
 interface CalculatorFactoryProps {
   config: CalculatorFactoryConfig;
   enableAnalytics?: boolean;
+  scenarioRateOverrides?: ScenarioRateOverrides;
   className?: string;
 }
 
 export const CalculatorFactory = memo(function CalculatorFactory({
   config,
+  scenarioRateOverrides,
   className = '',
 }: CalculatorFactoryProps) {
   const { locale } = useLocale();
   const translated = useConfigTranslation(config);
   const currencyInfo = CURRENCY_CONFIG[locale] || CURRENCY_CONFIG['en'];
   const localeDefaults = config.defaults[locale] || config.defaults['en'];
+  const resolvedRates = resolveScenarioRates(scenarioRateOverrides);
 
   // State
   const [field1, setField1] = useState(localeDefaults.field1);
   const [field2, setField2] = useState(localeDefaults.field2);
   const [period, setPeriod] = useState<PeriodKey>('year');
-  const [rate, setRate] = useState<number>(SCENARIO_RATES.historical);
+  const [rate, setRate] = useState<number>(resolvedRates.historical);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Analytics debounce ref — cleanup on unmount
+  // Analytics debounce ref
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
   useEffect(() => () => clearTimeout(timerRef.current), []);
 
@@ -84,35 +93,16 @@ export const CalculatorFactory = memo(function CalculatorFactory({
     }
   };
 
-  // Calculations — derived during render
+  // Derived values
   const periodMultiplier = PERIOD_MULTIPLIERS[period];
   const isCashflow = config.variant === 'cashflow';
+  const step1Value = computeStep1(isCashflow, field1, field2, periodMultiplier);
+  const customResult = computeStep2(isCashflow, field1, field2, periodMultiplier, rate);
 
-  // Step 1 values
-  const step1Value = isCashflow
-    ? Math.round(field1 * (field2 / 100) * 30 * periodMultiplier * 12)
-    : Math.round(field1 * (field2 / 100) * periodMultiplier);
-
-  // Step 2 scenario results
-  const computeStep2 = (scenarioRate: number): number => {
-    if (isCashflow) {
-      const savings = field1 * ((field2 - DIBOAS_RECEIVE_FEE) / 100) * 30 * periodMultiplier * 12;
-      const growth = savings * (scenarioRate / 100) * periodMultiplier;
-      return Math.round(savings + growth);
-    }
-    return Math.round(field1 * (scenarioRate / 100) * periodMultiplier);
-  };
-
-  // Gap for treasury (step2 - step1)
-  const computeGap = (scenarioRate: number): number => {
-    return computeStep2(scenarioRate) - step1Value;
-  };
-
-  const customResult = isCashflow
-    ? computeStep2(rate)
-    : computeStep2(rate);
-
-  const SCENARIO_KEYS: ScenarioKey[] = ['conservative', 'historical', 'optimistic'];
+  const computeStep2Bound = (scenarioRate: number) =>
+    computeStep2(isCashflow, field1, field2, periodMultiplier, scenarioRate);
+  const computeGap = (scenarioRate: number) =>
+    computeStep2Bound(scenarioRate) - step1Value;
 
   return (
     <section
@@ -127,7 +117,6 @@ export const CalculatorFactory = memo(function CalculatorFactory({
         ) : null}
 
         <div className={styles.card}>
-          {/* Today Title */}
           {translated.content.todayTitle ? (
             <h3 className={styles.todayTitle}>{translated.content.todayTitle}</h3>
           ) : null}
@@ -188,7 +177,7 @@ export const CalculatorFactory = memo(function CalculatorFactory({
             ))}
           </div>
 
-          {/* Step 1: Loss / Current bank rate (always visible) */}
+          {/* Step 1 */}
           <div className={styles.twoStepResults} role="region" aria-live="polite" aria-label={translated.content.a11y?.resultsLabel ?? 'Calculator results'}>
             <div className={styles.step}>
               <div className={styles.stepLabel}>
@@ -201,7 +190,7 @@ export const CalculatorFactory = memo(function CalculatorFactory({
             </div>
           </div>
 
-          {/* Expand Toggle — Tomorrow Title */}
+          {/* Expand Toggle */}
           {translated.content.tomorrowTitle ? (
             <button
               type="button"
@@ -227,7 +216,6 @@ export const CalculatorFactory = memo(function CalculatorFactory({
 
           {/* Expandable Content */}
           <div className={`${styles.expandContent} ${isExpanded ? styles.expandContentOpen : ''}`}>
-            {/* Savings step (positive value) */}
             {translated.content.results.savingsLabel ? (
               <div className={styles.step}>
                 <div className={styles.stepLabel}>
@@ -239,7 +227,6 @@ export const CalculatorFactory = memo(function CalculatorFactory({
               </div>
             ) : null}
 
-            {/* Arrow connector */}
             <div className={styles.stepArrow} aria-hidden="true">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -253,7 +240,6 @@ export const CalculatorFactory = memo(function CalculatorFactory({
                 <span>{translated.content.results.step2Label}</span>
               </div>
 
-              {/* Rate Slider */}
               <div className={styles.sliderGroup}>
                 <div className={styles.sliderLabel}>
                   <span>{translated.content.sliderLabel}</span>
@@ -271,49 +257,23 @@ export const CalculatorFactory = memo(function CalculatorFactory({
                 />
               </div>
 
-              {/* Scenario Cards */}
-              <div className={styles.scenarioCards}>
-                {SCENARIO_KEYS.map((key) => {
-                  const scenarioRate = SCENARIO_RATES[key];
-                  const result = computeStep2(scenarioRate);
-                  const gap = computeGap(scenarioRate);
-                  const isHighlighted = key === 'historical';
-
-                  return (
-                    <div
-                      key={key}
-                      className={`${styles.scenarioCard} ${isHighlighted ? styles.scenarioCardHighlight : ''}`}
-                    >
-                      <span className={styles.scenarioCardLabel}>
-                        {translated.content.results.scenarios[key]}
-                      </span>
-                      <span className={styles.scenarioCardValue}>
-                        {formatCurrency(result)}
-                      </span>
-                      {!isCashflow ? (
-                        <span className={styles.scenarioCardGap}>
-                          +{formatCurrency(gap)}
-                        </span>
-                      ) : null}
-                      {isHighlighted ? (
-                        <span className={styles.scenarioCardBadge} aria-label="likely scenario">
-                          {translated.content.results.likelyBadge || '← likely'}
-                        </span>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
+              <ScenarioCards
+                isCashflow={isCashflow}
+                scenarioRates={resolvedRates}
+                computeResult={computeStep2Bound}
+                computeGap={computeGap}
+                formatCurrency={formatCurrency}
+                scenarioLabels={translated.content.results.scenarios}
+                likelyBadge={translated.content.results.likelyBadge}
+              />
             </div>
 
-            {/* Below Results — custom rate display */}
             <p className={styles.belowResultsValue}>
               {(translated.content.customRateTemplate || `At ${rate}%: ${formatCurrency(customResult)}`)
                 .replace('{rate}', String(rate))
                 .replace('{amount}', formatCurrency(customResult))}
             </p>
 
-            {/* CTA */}
             <div className={styles.ctaWrapper}>
               <button
                 type="button"
@@ -325,7 +285,6 @@ export const CalculatorFactory = memo(function CalculatorFactory({
             </div>
           </div>
 
-          {/* Disclaimer (always visible, outside expandable) */}
           <p className={styles.disclaimer}>{translated.content.disclaimer}</p>
         </div>
       </div>

@@ -1,0 +1,1 @@
+export { BgHighlightDefault } from './BgHighlightDefault';

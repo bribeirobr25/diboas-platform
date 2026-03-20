@@ -34,7 +34,7 @@ export function LanguageSwitcher({
   const intl = useTranslation();
   const { locale: currentLocale, isHydrated } = useLocale();
   const [isMounted, setIsMounted] = useState(false);
-  const { isOpen, dropdownRef, toggleDropdown, switchLocale } = useLanguageSwitcher();
+  const { isOpen, dropdownRef, toggleDropdown, switchLocale, handleMenuKeyDown } = useLanguageSwitcher();
 
   useEffect(() => {
     setIsMounted(true);
@@ -93,7 +93,7 @@ export function LanguageSwitcher({
       </button>
 
       {isOpen && (
-        <ul className={styles.dropdownMenu} role="menu">
+        <ul className={styles.dropdownMenu} role="menu" onKeyDown={handleMenuKeyDown}>
           {SUPPORTED_LOCALES.map((locale) => (
             <li key={locale} role="none">
               <button

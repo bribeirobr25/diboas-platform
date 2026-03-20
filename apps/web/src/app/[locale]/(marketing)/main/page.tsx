@@ -13,7 +13,7 @@
 
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, ProductCarousel, FeatureShowcase, AppFeaturesCarousel, OneFeature, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
@@ -52,13 +52,13 @@ export default async function MainPage({ params }: LocalePageProps) {
   const pageMessages = await loadPageNamespaces(locale, ['home', 'faq']);
 
   // Generate structured data for the home page
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Financial Platform',
     description: 'Comprehensive financial platform for banking, investing, and DeFi management',
     category: 'Financial Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Main', url: '/main' }
   ], locale);

@@ -19,7 +19,7 @@
     "dev:fresh": "rm -rf apps/web/.next .turbo && pnpm --filter @diboas/i18n build && pnpm -w run dev:web",
     "performance:audit": "turbo run lighthouse",
     "accessibility:audit": "turbo run pa11y",
-    "security:audit": "pnpm audit --audit-level moderate",
+    "security:audit": "pnpm audit --audit-level high --prod",
     "analytics:report": "turbo run analytics-report",
     "validate:translations": "node packages/i18n/scripts/validate-translations.js",
     "check:dead-code": "knip",

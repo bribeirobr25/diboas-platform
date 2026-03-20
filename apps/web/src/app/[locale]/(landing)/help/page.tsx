@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -80,7 +80,7 @@ export default async function HelpPage({ params }: LocalePageProps) {
     'waitlist',
   ]);
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs(
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
       { name: 'Home', url: '/' },
       { name: 'Help', url: '/help' },

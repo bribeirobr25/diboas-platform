@@ -289,7 +289,10 @@ describe('authentication', () => {
     it('should return false when token is slightly modified', () => {
       const token = generateDeletionToken();
       const hash = hashToken(token);
-      const modifiedToken = token.slice(0, -1) + '0';
+      // Ensure the modification actually changes the token
+      const lastChar = token.charAt(token.length - 1);
+      const replacement = lastChar === '0' ? '1' : '0';
+      const modifiedToken = token.slice(0, -1) + replacement;
 
       expect(verifyToken(modifiedToken, hash)).toBe(false);
     });

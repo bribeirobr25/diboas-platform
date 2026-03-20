@@ -16,6 +16,10 @@ import { WebVitalMetric } from '@/lib/performance/domain/PerformanceDomain';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { Logger } from '@/lib/monitoring/Logger';
 import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
+import {
   getRating,
   getConnectionType,
   sendToGoogleAnalytics,
@@ -48,14 +52,19 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
 
     checkConsent();
 
-    const handleConsentChange = () => {
-      checkConsent();
-    };
-
-    window.addEventListener('cookie-consent-changed', handleConsentChange);
+    // Listen for consent changes via ApplicationEventBus
+    const unsubGiven = applicationEventBus.on(
+      ApplicationEventType.CONSENT_GIVEN,
+      () => checkConsent()
+    );
+    const unsubWithdrawn = applicationEventBus.on(
+      ApplicationEventType.CONSENT_WITHDRAWN,
+      () => checkConsent()
+    );
 
     return () => {
-      window.removeEventListener('cookie-consent-changed', handleConsentChange);
+      unsubGiven();
+      unsubWithdrawn();
     };
   }, [debug]);
 

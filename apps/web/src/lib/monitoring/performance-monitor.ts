@@ -229,7 +229,8 @@ export class PerformanceMonitor {
           session: getSessionId(),
           timestamp: Date.now()
         }),
-        keepalive: true // Ensure delivery on page unload
+        keepalive: true, // Ensure delivery on page unload
+        signal: AbortSignal.timeout(5000),
       });
 
       Logger.info('Performance metrics flushed', { count: metrics.length });

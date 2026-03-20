@@ -18,11 +18,11 @@ import {
   type ErrorContext,
   type ErrorReport,
   type ErrorReportingConfig,
-  type ErrorOccurrence,
 } from './errorTypes';
 
 import { DEFAULT_ERROR_CONFIG } from './errorConfig';
 import { BreadcrumbManager } from './breadcrumbManager';
+import { OccurrenceTracker } from './occurrenceTracker';
 import {
   mapSeverity,
   inferSeverity,
@@ -45,13 +45,16 @@ export {
   type ErrorBreadcrumb,
 } from './errorTypes';
 
+import type { IErrorReporter } from './errorReporterInterface';
+export type { IErrorReporter } from './errorReporterInterface';
+
 /**
  * Centralized Error Reporting Service
  */
-export class ErrorReportingService {
+export class ErrorReportingService implements IErrorReporter {
   private config: ErrorReportingConfig;
   private breadcrumbManager: BreadcrumbManager;
-  private reportedErrors = new Map<string, ErrorOccurrence>();
+  private occurrenceTracker = new OccurrenceTracker();
   private sessionId: string;
   private isInitialized = false;
 
@@ -214,7 +217,7 @@ export class ErrorReportingService {
         fingerprint,
         tags: buildTags(options.tags, context, this.config),
         isRecoverable: options.isRecoverable ?? inferRecoverability(error),
-        ...this.getOccurrenceData(fingerprint)
+        ...this.occurrenceTracker.getOccurrenceData(fingerprint)
       };
 
       // Apply beforeSend hook
@@ -237,7 +240,7 @@ export class ErrorReportingService {
         this.sendToExternalService(processedReport);
       }
 
-      this.updateOccurrenceTracking(fingerprint);
+      this.occurrenceTracker.update(fingerprint);
       this.config.onError?.(processedReport);
       this.sendAlertIfNeeded(processedReport, error, errorId);
 
@@ -303,45 +306,6 @@ export class ErrorReportingService {
   }
 
   /**
-   * Get occurrence data for error deduplication
-   */
-  private getOccurrenceData(fingerprint: string): { firstSeen: number; lastSeen: number; occurrenceCount: number } {
-    const existing = this.reportedErrors.get(fingerprint);
-
-    if (existing) {
-      return {
-        firstSeen: existing.firstSeen,
-        lastSeen: Date.now(),
-        occurrenceCount: existing.count + 1
-      };
-    }
-
-    return {
-      firstSeen: Date.now(),
-      lastSeen: Date.now(),
-      occurrenceCount: 1
-    };
-  }
-
-  /**
-   * Update occurrence tracking
-   */
-  private updateOccurrenceTracking(fingerprint: string): void {
-    const existing = this.reportedErrors.get(fingerprint);
-
-    if (existing) {
-      existing.count += 1;
-      existing.lastSeen = Date.now();
-    } else {
-      this.reportedErrors.set(fingerprint, {
-        count: 1,
-        firstSeen: Date.now(),
-        lastSeen: Date.now()
-      });
-    }
-  }
-
-  /**
    * Log error locally
    */
   private logError(report: ErrorReport): void {
@@ -376,7 +340,8 @@ export class ErrorReportingService {
           'Content-Type': 'application/json',
           ...(this.config.apiKey && { 'Authorization': `Bearer ${this.config.apiKey}` })
         },
-        body: JSON.stringify(report)
+        body: JSON.stringify(report),
+        signal: AbortSignal.timeout(5000)
       });
 
       if (!response.ok) {
@@ -403,8 +368,8 @@ export class ErrorReportingService {
     errorsBySeverity: Record<ErrorSeverity, number>;
   } {
     const stats = {
-      totalErrors: Array.from(this.reportedErrors.values()).reduce((sum, data) => sum + data.count, 0),
-      uniqueErrors: this.reportedErrors.size,
+      totalErrors: this.occurrenceTracker.getTotalCount(),
+      uniqueErrors: this.occurrenceTracker.getUniqueCount(),
       errorsByCategory: {} as Record<ErrorCategory, number>,
       errorsBySeverity: {} as Record<ErrorSeverity, number>
     };
@@ -424,7 +389,7 @@ export class ErrorReportingService {
    * Clear error history
    */
   public clearErrors(): void {
-    this.reportedErrors.clear();
+    this.occurrenceTracker.clear();
     this.breadcrumbManager.clear();
     Logger.info('Error history cleared');
   }
@@ -470,7 +435,7 @@ export class ErrorReportingService {
       window.removeEventListener('error', this.boundHandleResourceError, true);
     }
     this.breadcrumbManager.destroy();
-    this.reportedErrors.clear();
+    this.occurrenceTracker.clear();
     this.isInitialized = false;
     Logger.info('Error reporting service destroyed');
   }

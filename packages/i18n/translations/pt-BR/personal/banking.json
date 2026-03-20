@@ -32,6 +32,25 @@
       }
     }
   },
+  "cashflowExplainer": {
+    "header": "Pra onde vai seu dinheiro de verdade?",
+    "subheader": "Bancos tradicionais emprestam seu depósito e ficam com o lucro. Aqui, seu dinheiro trabalha pra você.",
+    "saveIt": {
+      "title": "Guarde com segurança",
+      "body": "Seu saldo fica na sua wallet não-custodial. Rende 100% do CDI por dia, automaticamente. Sem prazo de carência, sem valor mínimo."
+    },
+    "growIt": {
+      "title": "Movimente livremente",
+      "body": "Envie para qualquer país com taxas transparentes. Receba em tempo real. Sem cobranças escondidas, sem esperar dias por transferências internacionais."
+    },
+    "microExample": "Exemplo: Enviar R$ 5.000 internacionalmente. Banco tradicional: R$ 175 de taxa + 3 dias. diBoaS: R$ 24 de taxa + na hora.",
+    "limitation": "Transferências internacionais dependem do tempo de processamento do banco receptor. As taxas mostradas são para transferências padrão.",
+    "brandPromise": "Seu dinheiro deveria se mover tão rápido quanto você.",
+    "cta": "Ver todas as taxas",
+    "ctaHref": "#faq",
+    "microDisclosure": "Taxas do CDI são variáveis e dependem da política do banco central. Rendimento passado não indica resultados futuros.",
+    "ariaLabel": "Como seu dinheiro flui no diBoaS"
+  },
   "stickyFeaturesNav": {
     "title": "Banking sem complicação.",
     "subtitle": "Tudo que você precisa fazer com seu dinheiro, feito certo.",

@@ -10,6 +10,7 @@ import { Button } from '@diboas/ui';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { ChevronRightIcon, LocaleLink } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import type { NavigationConfig } from '@/types/navigation';
 
@@ -28,6 +29,7 @@ export function MobileMenuMain({
   trackNavigationInteraction,
   t,
 }: MobileMenuMainProps) {
+  const intl = useTranslation();
   return (
     <div className="mobile-menu-section">
       {/* Highlights */}
@@ -86,7 +88,7 @@ export function MobileMenuMain({
                   trackNavigationInteraction(item.id, 'open');
                 }}
                 className="mobile-additional-menu-button"
-                aria-label={`Open ${t(item.label)} menu`}
+                aria-label={intl.formatMessage({ id: 'common.accessibility.openMenuFor' }, { menu: t(item.label) })}
               >
                 <span className="mobile-additional-menu-text">
                   {t(item.label)}
@@ -116,6 +118,7 @@ function MobileMenuSection({
   trackNavigationInteraction,
   t,
 }: MobileMenuSectionProps) {
+  const intl = useTranslation();
   return (
     <div className="mobile-menu-section-container">
       <h3 className="mobile-section-header">
@@ -132,7 +135,7 @@ function MobileMenuSection({
                   trackNavigationInteraction(item.id, 'open');
                 }}
                 className="mobile-main-menu-button"
-                aria-label={`Open ${t(item.label)} menu`}
+                aria-label={intl.formatMessage({ id: 'common.accessibility.openMenuFor' }, { menu: t(item.label) })}
               >
                 <span className="mobile-main-menu-text">
                   {t(item.label)}

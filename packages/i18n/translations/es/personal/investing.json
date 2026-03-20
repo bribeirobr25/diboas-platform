@@ -37,6 +37,32 @@
       }
     }
   },
+  "scenarioCards": {
+    "title": "Personas reales, escenarios reales",
+    "transitionHook": "¿Cómo se vería esto para ti?",
+    "cards": [
+      {
+        "id": "scenario-student",
+        "title": "El Estudiante",
+        "description": "$10/mes en un portafolio diversificado. En 4 años, ese cambio podría convertirse en un fondo de emergencia real.",
+        "imageAlt": "Escenario de inversión para estudiantes"
+      },
+      {
+        "id": "scenario-freelancer",
+        "title": "El Freelancer",
+        "description": "¿Ingresos irregulares? Aparta $50 cuando puedas. Mystic te ayuda a diversificar entre acciones, bonos y crypto a tu ritmo.",
+        "imageAlt": "Escenario de inversión para freelancers"
+      },
+      {
+        "id": "scenario-parent",
+        "title": "El Padre/Madre",
+        "description": "$100/mes para el futuro de tu hijo. Empieza con bonos seguros, y mientras aprendes, Mystic te presenta opciones de mayor rendimiento.",
+        "imageAlt": "Escenario de inversión para padres"
+      }
+    ],
+    "clarificationLine": "Estos son escenarios ilustrativos, no proyecciones. Todas las inversiones conllevan riesgo.",
+    "ariaLabel": "Escenarios reales de inversión"
+  },
   "stickyFeaturesNav": {
     "title": "Invertir sin misterios.",
     "subtitle": "Comienza con $10 y ve tu dinero crecer.",

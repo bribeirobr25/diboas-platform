@@ -58,6 +58,17 @@
       }
     }
   },
+  "proseSection": {
+    "transitionHook": "Mas o que \"estar no controle\" realmente significa?",
+    "header": "Seu dinheiro. Sua wallet. Suas regras.",
+    "paragraphs": [
+      "A maioria dos bancos guarda seu dinheiro. Empresta, investe e te devolve uma fração dos lucros. Você confia neles, mas nunca tem realmente o controle.",
+      "O diBoaS funciona diferente. Sua conta é sua desde o começo. Não-custodial significa que ninguém no diBoaS pode mexer nos seus fundos. Eles ficam na sua wallet, rendendo automaticamente, enquanto você decide o que fazer.",
+      "Quer guardar, investir ou simplesmente deixar seu dinheiro parado? Você decide. Sem taxas escondidas, sem letras miúdas, sem intermediários tomando decisões por você."
+    ],
+    "emphasisLine": "É o seu dinheiro. Ele deveria trabalhar pra você, não o contrário.",
+    "ariaLabel": "Como sua conta coloca você no controle"
+  },
   "featureShowcase": {
     "slides": {
       "unification": {

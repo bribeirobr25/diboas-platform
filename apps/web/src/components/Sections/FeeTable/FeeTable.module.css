@@ -93,7 +93,7 @@
 /* Free rows: green text with check icon */
 .freeText {
   color: var(--text-success-accessible, #059669);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .freeLabel {
@@ -111,7 +111,7 @@
 /* Highlight rows: bold accent on difference column */
 .highlightDifference {
   color: var(--text-primary-accessible);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 /* Example line */

@@ -4,7 +4,8 @@
     "description": "Experience diBoaS with our interactive demo. Deposit, send, invest, and explore your financial future."
   },
   "common": {
-    "back": "Back"
+    "back": "Back",
+    "demoTitle": "Interactive banking demo"
   },
   "header": {
     "demoBadge": "Demo",

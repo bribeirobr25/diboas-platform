@@ -1,5 +1,10 @@
 'use client';
 
+/**
+ * ConfirmationScreen — transaction review and confirmation
+ * Transaction sequences extracted to TransactionSequences.tsx
+ */
+
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
@@ -7,14 +12,11 @@ import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { FeeBreakdown } from '../components/FeeBreakdown';
 import { DepositIcon, SendIcon, InvestIcon, BackIcon } from '../components/Icons';
-import { PROCESSING_TIMING, formatCurrency } from '@/lib/pre-demo';
+import { formatCurrency } from '@/lib/pre-demo';
 import { useLocale } from '@/components/Providers';
 import { getIntlLocale } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { buildDepositSequence, buildSendSequence, buildBuySequence } from './TransactionSequences';
 import type { TransitionStep } from '../hooks';
 import styles from '../PreDemo.module.css';
 
@@ -50,7 +52,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
 
   const pending = state.pendingTransaction;
 
-  // Calculate crypto quantity for buy (hook must be called unconditionally)
+  // Calculate crypto quantity for buy
   const cryptoQuantity = useMemo(() => {
     if (!pending || pending.type !== 'buy' || !pending.asset?.price || pending.netAmount <= 0) return 0;
     return pending.netAmount / pending.asset.price;
@@ -61,157 +63,24 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
 
     const intlLocale = getIntlLocale(locale);
 
-    // Build transaction processing sequence — timers owned by PreDemoContent
-    // so they survive ConfirmationScreen unmount when screen changes
-    // The 'home' step is explicit for analytics tracking (setScreen fires screen_view event).
-    // The COMPLETE_DEPOSIT/SEND/BUY dispatch also sets screen: 'home' internally — React batches both.
-
     if (pending.type === 'deposit') {
-      runSequence([
-        { screen: 'deposit-processing', delayMs: 0 },
-        { screen: 'deposit-approved', delayMs: PROCESSING_TIMING.processingDelay },
-        { screen: 'deposit-complete', delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay },
-        {
-          screen: 'home',
-          delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay + PROCESSING_TIMING.completeDelay,
-          onReach: () => {
-            dispatch({
-              type: 'COMPLETE_DEPOSIT',
-              netAmount: pending.netAmount,
-              grossAmount: pending.grossAmount,
-              totalFees: pending.totalFees,
-              feeDetails: pending.fees,
-              intlLocale,
-            });
-
-            analyticsService.track({
-              name: 'pre_demo_transaction_completed',
-              parameters: { type: 'deposit', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees },
-            });
-
-            applicationEventBus.emit(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, {
-              source: 'preDemo',
-              timestamp: Date.now(),
-              metadata: { amount: pending.grossAmount },
-            });
-          },
-        },
-      ]);
+      runSequence(buildDepositSequence(pending, dispatch, intlLocale));
     } else if (pending.type === 'send') {
-      runSequence([
-        { screen: 'send-processing', delayMs: 0 },
-        { screen: 'send-complete', delayMs: PROCESSING_TIMING.processingDelay },
-        {
-          screen: 'home',
-          delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay,
-          onReach: () => {
-            dispatch({
-              type: 'COMPLETE_SEND',
-              grossAmount: pending.grossAmount,
-              netAmount: pending.netAmount,
-              totalFees: pending.totalFees,
-              recipient: pending.recipient || '',
-              feeDetails: pending.fees,
-              intlLocale,
-            });
-
-            analyticsService.track({
-              name: 'pre_demo_transaction_completed',
-              parameters: { type: 'send', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees, recipient: pending.recipient },
-            });
-
-            applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
-              source: 'preDemo',
-              timestamp: Date.now(),
-              metadata: { amount: pending.grossAmount, recipient: pending.recipient },
-            });
-          },
-        },
-      ]);
+      runSequence(buildSendSequence(pending, dispatch, intlLocale));
     } else {
-      // buy
-      runSequence([
-        { screen: 'buy-processing', delayMs: 0 },
-        { screen: 'buy-complete', delayMs: PROCESSING_TIMING.processingDelay },
-        {
-          screen: 'home',
-          delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay,
-          onReach: () => {
-            dispatch({
-              type: 'COMPLETE_BUY',
-              grossAmount: pending.grossAmount,
-              netAmount: pending.netAmount,
-              totalFees: pending.totalFees,
-              asset: pending.asset
-                ? { symbol: pending.asset.symbol, name: pending.asset.name }
-                : { symbol: '', name: '' },
-              feeDetails: pending.fees,
-              intlLocale,
-            });
-
-            analyticsService.track({
-              name: 'pre_demo_transaction_completed',
-              parameters: { type: 'buy', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees, asset: pending.asset?.symbol },
-            });
-
-            applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {
-              source: 'preDemo',
-              timestamp: Date.now(),
-              metadata: { amount: pending.grossAmount, asset: pending.asset?.symbol },
-            });
-          },
-        },
-      ]);
+      runSequence(buildBuySequence(pending, dispatch, intlLocale));
     }
   }, [pending, dispatch, locale, runSequence]);
 
   if (!pending) return null;
 
-  // Title by type
-  const titleKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.titleDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.titleSend'
-        : 'preDemo.confirm.titleBuy';
-
-  // Type label
-  const typeLabelKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.typeDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.typeSend'
-        : 'preDemo.confirm.typeBuy';
-
-  // Back navigation
-  const backScreen =
-    pending.type === 'deposit'
-      ? 'deposit'
-      : pending.type === 'send'
-        ? 'send'
-        : 'buy';
-
-  // "You'll receive" vs "They'll receive"
-  const receiveKey =
-    pending.type === 'send'
-      ? 'preDemo.confirm.theyReceive'
-      : 'preDemo.confirm.youReceive';
-
-  // Terms text key
-  const termsKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.termsDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.termsSend'
-        : 'preDemo.confirm.termsBuy';
-
-  // Confirm button text — type-specific
-  const confirmButtonKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.confirmDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.confirmTransfer'
-        : 'preDemo.confirm.confirmPurchase';
+  // Derived keys based on transaction type
+  const typeKeys = {
+    deposit: { title: 'preDemo.confirm.titleDeposit', typeLabel: 'preDemo.confirm.typeDeposit', back: 'deposit', receive: 'preDemo.confirm.youReceive', terms: 'preDemo.confirm.termsDeposit', confirm: 'preDemo.confirm.confirmDeposit' },
+    send: { title: 'preDemo.confirm.titleSend', typeLabel: 'preDemo.confirm.typeSend', back: 'send', receive: 'preDemo.confirm.theyReceive', terms: 'preDemo.confirm.termsSend', confirm: 'preDemo.confirm.confirmTransfer' },
+    buy: { title: 'preDemo.confirm.titleBuy', typeLabel: 'preDemo.confirm.typeBuy', back: 'buy', receive: 'preDemo.confirm.youReceive', terms: 'preDemo.confirm.termsBuy', confirm: 'preDemo.confirm.confirmPurchase' },
+  } as const;
+  const keys = typeKeys[pending.type];
 
   return (
     <div className={styles.screen}>
@@ -222,7 +91,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
         <button
           onClick={() => {
             dispatch({ type: 'CLEAR_PENDING' });
-            setScreen(backScreen as Parameters<typeof setScreen>[0]);
+            setScreen(keys.back as Parameters<typeof setScreen>[0]);
           }}
           className={styles.backButton}
         >
@@ -231,7 +100,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
         </button>
 
         {/* Title + subtitle */}
-        <h2 className={styles.sectionTitle}>{t(titleKey)}</h2>
+        <h2 className={styles.sectionTitle}>{t(keys.title)}</h2>
         <p className={styles.sectionSubtitle}>{t('preDemo.confirm.subtitle')}</p>
 
         {/* Transaction details card */}
@@ -241,7 +110,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
               <TypeIcon type={pending.type} />
             </div>
             <div>
-              <div className={styles.confirmTypeLabel}>{t(typeLabelKey)}</div>
+              <div className={styles.confirmTypeLabel}>{t(keys.typeLabel)}</div>
               {pending.paymentMethod && (
                 <div className={styles.confirmMethod}>
                   {t(METHOD_KEYS[pending.paymentMethod] || 'preDemo.confirm.methodCard')}
@@ -283,16 +152,16 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
           </div>
         </div>
 
-        {/* Fee breakdown (always expanded, negative amounts) */}
+        {/* Fee breakdown */}
         <FeeBreakdown
           feeItems={pending.fees}
           totalFees={pending.totalFees}
           alwaysExpanded
         />
 
-        {/* Net amount — crypto format for buy, fiat for others */}
+        {/* Net amount */}
         <div className={styles.confirmTotal}>
-          <span>{t(receiveKey)}</span>
+          <span>{t(keys.receive)}</span>
           {pending.type === 'buy' && pending.asset && cryptoQuantity > 0 ? (
             <div style={{ textAlign: 'right' }}>
               <span className={styles.confirmTotalAmount}>
@@ -310,7 +179,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
           )}
         </div>
 
-        {/* Terms checkbox with colored border */}
+        {/* Terms checkbox */}
         <div className={styles.termsCardHighlighted}>
           <label className={styles.checkboxLabel}>
             <input
@@ -322,17 +191,17 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
               }}
               className={styles.checkbox}
             />
-            <span className={styles.checkboxText}>{t(termsKey)}</span>
+            <span className={styles.checkboxText}>{t(keys.terms)}</span>
           </label>
         </div>
 
-        {/* Confirm button — type-specific text */}
+        {/* Confirm button */}
         <button
           onClick={handleConfirm}
           disabled={!state.termsAccepted}
           className={styles.primaryButton}
         >
-          {t(confirmButtonKey)}
+          {t(keys.confirm)}
         </button>
       </div>
 

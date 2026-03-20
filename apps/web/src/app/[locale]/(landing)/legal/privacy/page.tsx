@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
@@ -78,7 +78,7 @@ export default async function LegalPrivacyPage({ params }: LocalePageProps) {
   // Load legal/privacy namespace
   const pageMessages = await loadPageNamespaces(locale, ['legal/privacy', 'landing-b2c']);
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Privacy Policy', url: ROUTES.LEGAL.PRIVACY }
   ], locale);

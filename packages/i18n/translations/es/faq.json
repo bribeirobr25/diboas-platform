@@ -33,7 +33,7 @@
     },
     "q8": {
       "question": "¿Mi dinero está seguro en diBoaS?",
-      "answer": "Tu dinero está en tu wallet. No en la nuestra.\n\n- Carteras no custodiales (tú eres dueño de tus activos)\n- Cifrado AES-256-GCM\n- Ningún empleado de diBoaS puede mover tus fondos\n\nDicho esto, todas las inversiones conllevan riesgo. Los smart contracts pueden tener vulnerabilidades. Los mercados pueden moverse en tu contra. Monitoreamos 24/7 y probamos cada estrategia contra crashes pasados, pero no podemos garantizar rendimientos ni eliminar todos los riesgos."
+      "answer": "Tu dinero está en tu wallet. No en la nuestra.\n\n- Carteras no custodiales (tú eres dueño de tus activos)\n- Cifrado AES-256-GCM\n- Ningún empleado de diBoaS puede mover tus fondos\n\ndiBoaS está construido con la seguridad como prioridad, pero todas las inversiones conllevan riesgo. Los smart contracts pueden tener vulnerabilidades. Los mercados pueden moverse en tu contra. Monitoreamos 24/7 y probamos cada estrategia contra crashes pasados, aunque los rendimientos nunca están asegurados y el riesgo es parte de cualquier inversión."
     },
     "q9": {
       "question": "¿Qué pasa si diBoaS cierra algún día?",
@@ -63,7 +63,7 @@
     },
     "q2": {
       "question": "¿Necesito entender de finanzas para usar esto?",
-      "answer": "Para nada.\n\nDe hecho, el 87% de nuestros usuarios nunca había invertido antes.\n\nAqua fue creada específicamente para principiantes absolutos.\nElla explica cada término, cada paso, cada decisión.\n\nEs como tener un amigo paciente que te enseña todo."
+      "answer": "Para nada.\n\nLa mayoría de nuestros usuarios comienzan sin experiencia en inversiones.\n\nAqua fue creada específicamente para principiantes absolutos.\nElla explica cada término, cada paso, cada decisión.\n\nEs como tener un amigo paciente que te enseña todo."
     },
     "q3": {
       "question": "¿Cuánto cuesta usar diBoaS?",

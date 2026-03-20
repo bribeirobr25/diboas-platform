@@ -37,6 +37,32 @@
       }
     }
   },
+  "scenarioCards": {
+    "title": "Echte Menschen, echte Szenarien",
+    "transitionHook": "Wie koennte das bei dir aussehen?",
+    "cards": [
+      {
+        "id": "scenario-student",
+        "title": "Der Student",
+        "description": "10 $/Monat in ein diversifiziertes Portfolio. In 4 Jahren koennte dieses Kleingeld zu einem echten Notgroschen heranwachsen.",
+        "imageAlt": "Investitions-Szenario fuer Studenten"
+      },
+      {
+        "id": "scenario-freelancer",
+        "title": "Der Freelancer",
+        "description": "Unregelmaessiges Einkommen? Leg 50 $ beiseite, wenn du kannst. Mystic hilft dir, in deinem Tempo ueber Aktien, Anleihen und Krypto zu diversifizieren.",
+        "imageAlt": "Investitions-Szenario fuer Freelancer"
+      },
+      {
+        "id": "scenario-parent",
+        "title": "Der Elternteil",
+        "description": "100 $/Monat fuer die Zukunft deines Kindes. Starte mit sicheren Anleihen, und wenn du dazulernst, zeigt dir Mystic Optionen mit hoeherer Rendite.",
+        "imageAlt": "Investitions-Szenario fuer Eltern"
+      }
+    ],
+    "clarificationLine": "Dies sind illustrative Szenarien, keine Prognosen. Alle Investitionen tragen Risiken.",
+    "ariaLabel": "Echte Investitions-Szenarien"
+  },
   "stickyFeaturesNav": {
     "title": "Investieren ohne Geheimnisse.",
     "subtitle": "Starten Sie mit $10 und sehen Sie Ihr Geld wachsen.",

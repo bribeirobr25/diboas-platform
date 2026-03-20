@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -107,13 +107,13 @@ export default async function AboutPage({ params }: LocalePageProps) {
 
   const pageMessages = await loadPageNamespaces(locale, ['about', 'common', 'waitlist', 'landing-b2c']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',
     description: 'Platform giving regular people access to institutional-grade financial returns',
     category: 'Financial Technology'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'About', url: ROUTES.ABOUT }
   ], locale);

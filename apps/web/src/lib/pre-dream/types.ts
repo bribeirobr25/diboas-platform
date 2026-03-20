@@ -25,7 +25,6 @@ export type PreDreamScreen =
 export interface PreDreamPathConfig {
   readonly id: PreDreamPath;
   readonly apy: number;
-  readonly multipliers: Record<PreDreamTimeframe, number>;
 }
 
 /** Timeframe configuration */
@@ -46,4 +45,5 @@ export interface PreDreamResult {
   readonly difference: number;
   readonly growthPercentage: number;
   readonly pathApy: number;
+  readonly bankApy: number;
 }

@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase } from '@/components/Sections';
+import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase, ProseSection } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
@@ -11,6 +11,7 @@ import { ROUTES } from '@/config/routes';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
+import { PERSONAL_ACCOUNT_PROSE_CONFIG } from '@/config/personal-sections';
 import type { Metadata } from 'next';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -35,13 +36,13 @@ export default async function AccountPage({ params }: LocalePageProps) {
   const pageMessages = await loadPageNamespaces(locale, ['personal/account', 'home', 'faq']);
 
   // Generate structured data for the account page
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Account',
     description: 'Free account that earns 100% CDI and puts you in control of your money',
     category: 'Financial Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Personal', url: '/personal' },
     { name: 'Account', url: ROUTES.PERSONAL.ACCOUNT }
@@ -66,6 +67,19 @@ export default async function AccountPage({ params }: LocalePageProps) {
             config={HERO_PAGE_CONFIGS['personal-account']}
             enableAnalytics={true}
             priority={true}
+          />
+        </SectionErrorBoundary>
+
+        {/* Prose Section — unique to account page */}
+        <SectionErrorBoundary
+          sectionId="prose-section-account"
+          sectionType="ProseSection"
+          enableReporting={true}
+          context={{ page: 'account' }}
+        >
+          <ProseSection
+            config={PERSONAL_ACCOUNT_PROSE_CONFIG}
+            enableAnalytics={true}
           />
         </SectionErrorBoundary>
 

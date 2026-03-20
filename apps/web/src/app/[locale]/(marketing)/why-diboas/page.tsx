@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, FeatureShowcase, StickyFeaturesNav, FAQAccordion } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
@@ -36,13 +36,13 @@ export default async function BenefitsPage({ params }: LocalePageProps) {
   const pageMessages = await loadPageNamespaces(locale, ['why-diboas', 'home', 'faq']);
 
   // Generate structured data for the benefits page
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Benefits & Rewards',
     description: 'Discover the exclusive benefits and rewards available with diBoaS financial platform',
     category: 'Financial Benefits'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Why diBoaS', url: ROUTES.WHY_DIBOAS }
   ], locale);

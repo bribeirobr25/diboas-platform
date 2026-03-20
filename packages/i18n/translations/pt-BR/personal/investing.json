@@ -37,6 +37,32 @@
       }
     }
   },
+  "scenarioCards": {
+    "title": "Pessoas reais, cenários reais",
+    "transitionHook": "Como isso poderia ser pra você?",
+    "cards": [
+      {
+        "id": "scenario-student",
+        "title": "O Estudante",
+        "description": "R$ 10/mês num portfólio diversificado. Em 4 anos, esse trocado pode virar uma reserva de emergência de verdade.",
+        "imageAlt": "Cenário de investimento para estudantes"
+      },
+      {
+        "id": "scenario-freelancer",
+        "title": "O Freelancer",
+        "description": "Renda irregular? Separe R$ 50 quando puder. Mystic te ajuda a diversificar entre ações, títulos e crypto no seu ritmo.",
+        "imageAlt": "Cenário de investimento para freelancers"
+      },
+      {
+        "id": "scenario-parent",
+        "title": "O Pai/Mãe",
+        "description": "R$ 100/mês pro futuro do seu filho. Comece com títulos seguros, e conforme aprende, Mystic apresenta opções com rendimento maior.",
+        "imageAlt": "Cenário de investimento para pais"
+      }
+    ],
+    "clarificationLine": "Estes são cenários ilustrativos, não projeções. Todo investimento envolve risco.",
+    "ariaLabel": "Cenários reais de investimento"
+  },
   "stickyFeaturesNav": {
     "title": "Investir sem mistério.",
     "subtitle": "Comece com $10 e veja seu dinheiro crescer.",

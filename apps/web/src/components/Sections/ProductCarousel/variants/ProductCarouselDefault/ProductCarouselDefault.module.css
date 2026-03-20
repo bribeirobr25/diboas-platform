@@ -278,7 +278,7 @@
   height: var(--pc-width-full);
   overflow: hidden;
   aspect-ratio: var(--pc-aspect-ratio);
-  background: linear-gradient(135deg, #0f766e 0%, #115e59 50%, #0d9488 100%);
+  background: linear-gradient(135deg, var(--text-primary-accessible) 0%, #115e59 50%, var(--brand-primary-dark) 100%);
 }
 
 /* Card Image — color:transparent hides broken-image icon & alt text on 404 */

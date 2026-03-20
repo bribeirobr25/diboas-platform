@@ -32,6 +32,25 @@
       }
     }
   },
+  "cashflowExplainer": {
+    "header": "Wo landet dein Geld eigentlich?",
+    "subheader": "Traditionelle Banken verleihen deine Einlagen und behalten den Gewinn. Hier arbeitet dein Geld fuer dich.",
+    "saveIt": {
+      "title": "Sicher parken",
+      "body": "Dein Guthaben liegt in deiner Non-custodial Wallet. Es verdient taeglich 100% CDI, automatisch. Keine Sperrfristen, keine Mindesthaltedauer."
+    },
+    "growIt": {
+      "title": "Frei bewegen",
+      "body": "Sende in jedes Land mit transparenten Gebuehren. Empfange in Echtzeit. Keine versteckten Kosten, kein tagelangem Warten auf internationale Ueberweisungen."
+    },
+    "microExample": "Beispiel: 1.000 $ international senden. Traditionelle Bank: 35 $ Gebuehr + 3 Tage. diBoaS: 4,80 $ Gebuehr + sofort.",
+    "limitation": "Internationale Ueberweisungen haengen von der Bearbeitungszeit der Empfaengerbank ab. Die angegebenen Gebuehren gelten fuer Standardueberweisungen.",
+    "brandPromise": "Dein Geld sollte so schnell sein wie du.",
+    "cta": "Alle Gebuehren ansehen",
+    "ctaHref": "#faq",
+    "microDisclosure": "CDI-Zinsen sind variabel und abhaengig von der Zentralbankpolitik. Vergangene Wertentwicklung ist kein Indikator fuer kuenftige Ergebnisse.",
+    "ariaLabel": "Wie dein Geld bei diBoaS fließt"
+  },
   "stickyFeaturesNav": {
     "title": "Banking ohne Kopfschmerzen.",
     "subtitle": "Alles was Sie mit Ihrem Geld machen müssen, richtig gemacht.",

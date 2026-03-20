@@ -37,6 +37,32 @@
       }
     }
   },
+  "scenarioCards": {
+    "title": "Real people, real scenarios",
+    "transitionHook": "What could this look like for you?",
+    "cards": [
+      {
+        "id": "scenario-student",
+        "title": "The Student",
+        "description": "$10/month into a diversified portfolio. In 4 years, that pocket change could grow into a real emergency fund.",
+        "imageAlt": "Student investing scenario"
+      },
+      {
+        "id": "scenario-freelancer",
+        "title": "The Freelancer",
+        "description": "Irregular income? Set aside $50 when you can. Mystic helps you diversify across stocks, bonds, and crypto at your own pace.",
+        "imageAlt": "Freelancer investing scenario"
+      },
+      {
+        "id": "scenario-parent",
+        "title": "The Parent",
+        "description": "$100/month for your kid's future. Start with safe bonds, and as you learn, Mystic introduces you to higher-yield options.",
+        "imageAlt": "Parent investing scenario"
+      }
+    ],
+    "clarificationLine": "These are illustrative scenarios, not projections. All investments carry risk.",
+    "ariaLabel": "Real investing scenarios"
+  },
   "stickyFeaturesNav": {
     "title": "Investing without the mystery.",
     "subtitle": "Start with $10 and watch your money grow.",

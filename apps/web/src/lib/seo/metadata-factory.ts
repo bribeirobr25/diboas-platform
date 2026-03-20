@@ -13,7 +13,7 @@ import { PageSEOConfig } from './types';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from './constants';
 import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 
-export class MetadataFactory {
+export class SEOMetadataFactory {
   /**
    * Generate metadata for static pages
    * Code Reusability: Single function for all static pages

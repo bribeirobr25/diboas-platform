@@ -1,0 +1,180 @@
+/**
+ * Export Key Modal Styles
+ *
+ * Extracted from PreDemo.module.css for maintainability.
+ * Used by: screens/ExportKeyModal.tsx, components/ExportKeyModal.tsx
+ */
+
+/* ==================== Export Key Modal ==================== */
+.exportModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-subtle);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: var(--z-index-modal-backdrop);
+  padding: 0;
+}
+
+.exportModalContent {
+  background: var(--section-bg-white);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  max-width: 100%;
+  width: 100%;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  padding-bottom: max(var(--spacing-lg), env(safe-area-inset-bottom));
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.exportModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: var(--section-bg-white);
+  padding-bottom: var(--spacing-sm);
+  z-index: 1;
+}
+
+.exportModalTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+.exportModalClose {
+  padding: var(--spacing-xs);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--animation-duration-fast) ease;
+}
+
+.exportModalClose:hover {
+  background: var(--color-slate-100);
+}
+
+.exportModalBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md-minus);
+}
+
+.exportModalText {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.exportModalAmberBox {
+  background: var(--color-amber-50, #fffbeb);
+  border: 1px solid var(--color-amber-200, #fde68a);
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md);
+}
+
+.exportModalAmberTitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-amber-800, #92400e);
+  margin: 0;
+}
+
+.exportModalSteps {
+  font-size: var(--font-size-sm);
+  color: var(--color-amber-700, #a16207);
+  margin: var(--spacing-sm) 0 0;
+  padding-left: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.exportModalRedBox {
+  background: var(--error-bg-light);
+  border: 1px solid var(--color-red-200, #fecaca);
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md-minus);
+}
+
+.exportModalWarningText {
+  font-size: var(--font-size-xs);
+  color: var(--color-red-700, #b91c1c);
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  line-height: 1.4;
+}
+
+.exportModalButton {
+  width: 100%;
+  padding: var(--spacing-md-minus);
+  background: var(--brand-primary-dark);
+  color: var(--color-white);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm-plus);
+  border: none;
+  border-radius: var(--radius-lg-extra);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.exportModalButtonDemo {
+  font-size: var(--font-size-xs);
+  opacity: 0.7;
+}
+
+.exportModalFooter {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-400);
+  text-align: center;
+  margin: 0;
+}
+
+/* ==================== Responsive — desktop centered dialog ==================== */
+@media (min-width: 481px) {
+  .exportModalOverlay {
+    align-items: center;
+    padding: var(--spacing-md);
+  }
+
+  .exportModalContent {
+    max-width: 384px;
+    border-radius: var(--radius-xl);
+    max-height: none;
+    overflow-y: visible;
+    padding-bottom: var(--spacing-lg);
+    -webkit-overflow-scrolling: auto;
+  }
+
+  .exportModalHeader {
+    position: static;
+    padding-bottom: 0;
+  }
+}
+
+/* ==================== Accessibility ==================== */
+.exportModalClose:focus-visible,
+.exportModalButton:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}

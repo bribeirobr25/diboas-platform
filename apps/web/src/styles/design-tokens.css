@@ -134,7 +134,7 @@
   /* CTA Mini Button Heights (for navigation and compact buttons) */
   --cta-mini-height-desktop: 48px;
   --cta-mini-height-tablet: 48px;
-  --cta-mini-height-mobile: 36px;
+  --cta-mini-height-mobile: 44px;
 
   /* CTA Button Spacing */
   --cta-padding-desktop: 16px 32px;
@@ -172,7 +172,7 @@
      SOCIAL PLATFORM COLORS
      ================================ */
   --social-whatsapp: #25D366;
-  --social-twitter: #000000;
+  --social-twitter: #000000; /* Twitter/X brand color — exception to no-pure-black rule */
   --social-instagram: #E4405F;
   --social-instagram-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
   --social-linkedin: #0A66C2;
@@ -340,9 +340,9 @@
   --nav-cta-min-width-desktop: 140px;
   --nav-cta-min-width-tablet: 140px;
   --nav-cta-min-width-mobile: 130px;
-  --nav-cta-min-height-desktop: 40px;
-  --nav-cta-min-height-tablet: 40px;
-  --nav-cta-min-height-mobile: 36px;
+  --nav-cta-min-height-desktop: 44px;
+  --nav-cta-min-height-tablet: 44px;
+  --nav-cta-min-height-mobile: 44px;
 
   /* Navigation CTA Spacing */
   --nav-cta-padding-desktop: 10px 32px;
@@ -753,7 +753,7 @@
   --fs-transition-easing-standard: ease;
   
   /* Animation Properties */
-  --fs-animation-duration-spinner: 1s;
+  --fs-animation-duration-spinner: 600ms;
   --fs-animation-easing-linear: linear;
   
   /* Transform Values */
@@ -878,7 +878,7 @@
      ANIMATIONS & INTERACTIONS
      ================================ */
   /* Transition Properties */
-  --pc-transition-duration: 800ms;
+  --pc-transition-duration: 600ms;
   --pc-transition-easing: ease-in-out;
   --pc-control-transition-duration: 200ms;
   --pc-control-transition-easing: ease;
@@ -1013,7 +1013,7 @@
   /* Transition Properties */
   --of-transition-duration-fast: 300ms;
   --of-transition-duration-normal: 600ms;
-  --of-transition-duration-slow: 800ms;
+  --of-transition-duration-slow: 600ms;
   --of-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
   --of-transition-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   
@@ -1238,11 +1238,14 @@
   /* Common Spacing Values */
   --spacing-2xs: 2px;
   --spacing-xs: 4px;
+  --spacing-xs-plus: 6px;
   --spacing-sm: 8px;
   --spacing-sm-plus: 10px;
   --spacing-md-minus: 12px;
+  --spacing-md-plus: 14px;
   --spacing-md: 16px;
-  
+  --spacing-base: 16px;
+
   /* Negative Spacing Values */
   --spacing-xs-negative: -4px;
   --spacing-md-negative: -16px;
@@ -1314,7 +1317,11 @@
   --transform-rotate-180: rotate(180deg);
   --transform-rotate-270: rotate(270deg);
 
-  /* Common Breakpoint Values */
+  /* Common Breakpoint Values
+   * NOTE: For responsive layout, tailwind.config.ts is authoritative for breakpoints.
+   * Tailwind screens: sm=640px, md=1024px, lg=1280px, xl=1440px, 2xl=1536px.
+   * These CSS custom properties are used only for component-level media queries
+   * and JS-based breakpoint detection. */
   --breakpoint-mobile: 480px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1024px;
@@ -1336,6 +1343,7 @@
   --radius-4xl: 24px;
   --radius-5xl: 28px;
   --radius-6xl: 32px;
+  --radius-pill: 9999px;
   --radius-full: 50%;
 
   /* Common Line Height Values */
@@ -1411,7 +1419,7 @@
 
   /* Common Color Values */
   --color-white: #ffffff;
-  --color-black: #000000;
+  --color-black: #0f172a;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;

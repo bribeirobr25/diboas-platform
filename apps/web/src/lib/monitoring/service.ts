@@ -9,7 +9,7 @@ import { MonitoringService, ErrorEvent, PerformanceIssue, SecurityEvent, Monitor
 import { MONITORING_DEFAULTS } from './constants';
 import { errorReportingService } from '@/lib/errors/ErrorReportingService';
 
-class MonitoringServiceImpl implements MonitoringService {
+class MonitoringCoordinatorService implements MonitoringService {
   private config: MonitoringConfig;
   private errorQueue: ErrorEvent[] = [];
   private performanceQueue: PerformanceIssue[] = [];
@@ -158,15 +158,19 @@ class MonitoringServiceImpl implements MonitoringService {
   async flush(): Promise<void> {
     if (!this.hasEventsToFlush()) return;
 
+    const errors = [...this.errorQueue];
+    const performance = [...this.performanceQueue];
+    const security = [...this.securityQueue];
+
     const payload = {
-      errors: [...this.errorQueue],
-      performance: [...this.performanceQueue],
-      security: [...this.securityQueue],
+      errors,
+      performance,
+      security,
       timestamp: Date.now(),
       context: this.globalContext
     };
 
-    // Clear queues
+    // Clear queues before send to prevent duplicate flush
     this.errorQueue = [];
     this.performanceQueue = [];
     this.securityQueue = [];
@@ -174,6 +178,10 @@ class MonitoringServiceImpl implements MonitoringService {
     try {
       await this.sendToMonitoringService(payload);
     } catch (error) {
+      // Re-add events to queues on failure to prevent data loss
+      this.errorQueue.unshift(...errors);
+      this.performanceQueue.unshift(...performance);
+      this.securityQueue.unshift(...security);
       Logger.error('Failed to flush monitoring events:', { error: error instanceof Error ? error.message : String(error) });
     }
   }
@@ -265,7 +273,8 @@ class MonitoringServiceImpl implements MonitoringService {
         'Content-Type': 'application/json',
         ...(this.config.apiKey && { 'Authorization': `Bearer ${this.config.apiKey}` })
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(5000)
     });
 
     if (!response.ok) {
@@ -306,4 +315,4 @@ class MonitoringServiceImpl implements MonitoringService {
 }
 
 // Export singleton instance
-export const monitoringService = new MonitoringServiceImpl();
+export const monitoringService = new MonitoringCoordinatorService();

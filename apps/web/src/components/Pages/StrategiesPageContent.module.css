@@ -93,21 +93,21 @@
   padding: 1rem 1.5rem;
   text-align: left;
   color: var(--color-slate-600);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .tableHeaderStable {
   padding: 1rem 1.5rem;
   text-align: center;
   color: var(--color-teal-700);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .tableHeaderGrowth {
   padding: 1rem 1.5rem;
   text-align: center;
   color: var(--color-amber-700);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .tableRow {
@@ -120,7 +120,7 @@
 
 .tableCellGoal {
   padding: 1rem 1.5rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-900);
 }
 
@@ -308,7 +308,7 @@
 }
 
 .mobileProtocolName {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
 }
 
@@ -353,7 +353,7 @@
 .feeTableCell {
   padding: 0.75rem 0.75rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-900);
 }
 
@@ -365,7 +365,7 @@
 }
 
 .feeRowFree {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--text-success-accessible, #059669);
 }
 
@@ -392,14 +392,14 @@
 
 .brandPromise {
   color: var(--color-teal-800);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-align: center;
   margin: 0 0 0.75rem 0;
 }
 
 .goldenRule {
   color: var(--color-teal-800);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   text-align: center;
   margin: 0;
 }

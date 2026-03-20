@@ -9,9 +9,10 @@
 
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
 import type { PreDreamContextValue } from './types';
-import { calculatePreDreamResult, type PreDreamPath, type PreDreamTimeframe, type PreDreamScreen } from '@/lib/pre-dream';
+import { calculatePreDreamResult, resolveBankRate, resolveStrategyApy, type StrategyApyOverrides, type PreDreamPath, type PreDreamTimeframe, type PreDreamScreen } from '@/lib/pre-dream';
 import { preDreamReducer, initialPreDreamState } from './preDreamReducer';
 import { analyticsService } from '@/lib/analytics';
+import { useLocale } from '@/components/Providers';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -22,10 +23,13 @@ const PreDreamContext = createContext<PreDreamContextValue | null>(null);
 interface PreDreamProviderProps {
   children: React.ReactNode;
   onClose?: () => void;
+  bankApyOverride?: number;
+  strategyApyOverrides?: StrategyApyOverrides;
 }
 
-export function PreDreamProvider({ children }: PreDreamProviderProps) {
+export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrides }: PreDreamProviderProps) {
   const [state, dispatch] = useReducer(preDreamReducer, initialPreDreamState);
+  const { locale } = useLocale();
 
   const acceptDisclaimer = useCallback(() => {
     analyticsService.track({
@@ -62,11 +66,17 @@ export function PreDreamProvider({ children }: PreDreamProviderProps) {
   const startSimulation = useCallback(() => {
     if (state.isAnimating || !state.selectedPath) return;
 
+    const bankRate = resolveBankRate(locale, bankApyOverride);
+    const defiApy = resolveStrategyApy(state.selectedPath, strategyApyOverrides);
+
     const result = calculatePreDreamResult(
       state.selectedPath,
       state.selectedTimeframe,
       state.initialAmount,
-      state.monthlyContribution
+      state.monthlyContribution,
+      bankRate.apy,
+      bankRate.currencyDepreciation,
+      defiApy
     );
 
     applicationEventBus.emit(ApplicationEventType.PRE_DREAM_STARTED, {
@@ -81,7 +91,7 @@ export function PreDreamProvider({ children }: PreDreamProviderProps) {
     });
 
     dispatch({ type: 'START_SIMULATION', result });
-  }, [state.isAnimating, state.selectedPath, state.selectedTimeframe, state.initialAmount, state.monthlyContribution]);
+  }, [state.isAnimating, state.selectedPath, state.selectedTimeframe, state.initialAmount, state.monthlyContribution, locale, bankApyOverride, strategyApyOverrides]);
 
   const goToScreen = useCallback((screen: PreDreamScreen) => {
     dispatch({ type: 'GO_TO_SCREEN', screen });

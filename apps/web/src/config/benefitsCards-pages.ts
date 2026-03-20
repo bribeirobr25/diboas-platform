@@ -169,7 +169,8 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
         icon: '/assets/icons/money-flow.avif',
         iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.noMoreAppJuggling.iconAlt',
         title: 'marketing.pages.whyDiboas.benefitsCards.cards.noMoreAppJuggling.title',
-        description: 'marketing.pages.whyDiboas.benefitsCards.cards.noMoreAppJuggling.description'
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.noMoreAppJuggling.description',
+        featured: true
       },
       {
         id: 'you-decide',
@@ -183,7 +184,8 @@ export const BENEFITS_CARDS_PAGE_CONFIGS: Record<string, BenefitsCardsConfig> = 
         icon: '/assets/icons/money-flow.avif',
         iconAlt: 'marketing.pages.whyDiboas.benefitsCards.cards.moneyNeverSleeps.iconAlt',
         title: 'marketing.pages.whyDiboas.benefitsCards.cards.moneyNeverSleeps.title',
-        description: 'marketing.pages.whyDiboas.benefitsCards.cards.moneyNeverSleeps.description'
+        description: 'marketing.pages.whyDiboas.benefitsCards.cards.moneyNeverSleeps.description',
+        featured: true
       },
       {
         id: 'investing-becomes-easy',

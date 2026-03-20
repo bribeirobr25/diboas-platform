@@ -4,6 +4,8 @@
 
 diBoaS (Digital Bank of Autonomous Services) is a unified financial services platform combining traditional banking, cryptocurrency, and DeFi strategies. Currently in **pre-launch/waitlist** phase. The web app is a marketing and onboarding site with waitlist functionality - no production banking features are live yet.
 
+**Current phase:** Pre-launch marketing site with waitlist functionality. Domain packages, application services, and full DDD are Phase 2+ requirements.
+
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router, Turbopack)
@@ -21,6 +23,7 @@ diBoaS (Digital Bank of Autonomous Services) is a unified financial services pla
 ```
 diboas-platform/
   apps/web/            # Next.js web application (only app)
+  packages/email/      # @diboas/email - Email service (Resend)
   packages/i18n/       # @diboas/i18n - Internationalization
   packages/ui/         # @diboas/ui - Design system components
   config/              # Design tokens JSON + schema
@@ -33,9 +36,35 @@ diboas-platform/
 ```
 apps/web/src/app/
   [locale]/
-    (marketing)/       # Marketing pages (personal, business, learn, security, rewards, etc.)
-    (landing)/         # Landing pages (about, demo, strategies, dream-mode, legal, etc.)
-  api/                 # API routes (waitlist, consent, health, og, webhooks)
+    (marketing)/           # Marketing pages
+      business/            # Business banking
+      careers/             # Careers
+      help/                # Help center
+      investors/           # Investor relations
+      learn/               # Educational content
+      main/                # Main marketing page
+      personal/            # Personal banking
+      rewards/             # Rewards program
+      security/            # Security information
+      why-diboas/          # Why diBoaS
+    (landing)/             # Landing pages
+      about/               # About us
+      daily-market/        # Daily market updates
+      delete-confirm/      # Account deletion confirmation
+      demo/                # Interactive demo
+      dream-mode/          # Dream mode experience
+      future-you/          # Future you visualization
+      legal/               # Legal pages
+      protocols/           # Protocol information
+      security/            # Security landing
+      share/               # Social sharing
+      strategies/          # Investment strategies
+  api/                     # API routes
+    consent/               # Cookie/privacy consent
+    health/                # Health check endpoint
+    og/                    # Open Graph image generation
+    waitlist/              # Waitlist signup
+    webhooks/              # Webhook handlers
 ```
 
 ### Source Organization (apps/web/src/)
@@ -72,6 +101,35 @@ pnpm validate:all              # Full pipeline: type-check -> lint -> test -> bu
 pnpm validate:design-tokens    # Validate design tokens against schema
 pnpm validate:translations     # Check translation key parity across locales
 pnpm check:dead-code           # Dead code detection (knip)
+```
+
+### Formatting
+```bash
+pnpm format                    # Prettier format all files
+pnpm format:check              # Check formatting (CI)
+```
+
+### Testing (web app)
+```bash
+pnpm --filter web test:watch   # Watch mode testing
+pnpm --filter web test:coverage # Coverage report
+```
+
+### Storybook
+```bash
+pnpm --filter web storybook        # Start Storybook dev server (port 6006)
+pnpm --filter web build-storybook  # Build Storybook for deployment
+```
+
+### Database
+```bash
+pnpm --filter web db:migrate   # Run database migrations
+pnpm --filter web db:status    # Check migration status
+```
+
+### Production
+```bash
+pnpm --filter web start        # Start production server
 ```
 
 ### Audits
@@ -172,7 +230,7 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 
 ## Dependencies Between Packages
 
-- `apps/web` depends on `@diboas/i18n` and `@diboas/ui`
+- `apps/web` depends on `@diboas/i18n`, `@diboas/ui`, and `@diboas/email`
 - `@diboas/i18n` must be built before `apps/web` dev/build (`pnpm dev:fresh` handles this)
 - Turborepo handles build ordering via `turbo.json` task dependencies
 
@@ -185,7 +243,7 @@ Condensed reference from `docs/coding-standards.md`:
 3. **Service Agnostic Abstraction** — Interface-based, swappable providers, factory pattern
 4. **Code Reusability & DRY** — Write once, shared packages, no duplication
 5. **Semantic Naming** — [Domain][Entity][Action]Service, SCREAMING_SNAKE_CASE constants
-6. **File Decoupling** — Single responsibility, Services ≤200 lines, Components ≤150, Utils ≤100
+6. **File Decoupling** — Single responsibility. Target file sizes: Services ~200 lines, Components ~150, Utils ~100. Files exceeding 2x these targets require justification or should be split
 7. **Error Handling & Recovery** — Never crash, retry with backoff, circuit breakers, fallbacks
 8. **Security & Audit** — Input validation, output encoding, rate limiting, encryption, PII masking
 9. **Performance & SEO** — Code splitting, lazy loading, LCP <2.5s, FID <100ms, CLS <0.1
@@ -337,7 +395,7 @@ Invoke `@agent design-reviewer` for thorough design validation when:
 ### Build rules for UI work
 
 - Always use existing design tokens from `apps/web/src/styles/design-tokens.css` — never hardcode colors, spacing, or font sizes
-- Always use the project's custom Icon component (`@/components/UI/Icon`) — never import Lucide, Hero Icons, or other external icon libraries
+- Always use the project's `LucideIcon` component (`@/components/UI/LucideIcon`) — never import `lucide-react` directly or other external icon libraries
 - Always check `docs/brand-brief.md` before generating sample content — never invent product claims, fee figures, or capabilities not confirmed there
 - All new user-facing strings must be added to all 4 locales (en, pt-BR, es, de)
 - German text is ~30% longer than English — verify components handle text expansion

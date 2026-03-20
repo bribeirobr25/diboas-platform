@@ -109,6 +109,9 @@ export default function MobileNav({
       <div
         ref={mobileMenuRef}
         className={`mobile-menu-overlay ${activeSubmenu ? 'z-50' : 'z-40'}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('common.accessibility.mobileMenu')}
         style={{
           transform: isOpen ? 'translateY(0)' : 'translateY(-100%)',
           transition: `transform ${DESIGN_SYSTEM.ANIMATION.DURATION.SLOW} ${DESIGN_SYSTEM.ANIMATION.EASING.EASE_OUT}`

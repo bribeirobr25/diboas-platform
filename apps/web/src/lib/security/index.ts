@@ -24,6 +24,7 @@ export {
   pingRedis,
   RateLimitPresets,
   type RateLimitResult,
+  type IRateLimiter,
 } from './rateLimiter';
 
 // Authentication
@@ -60,3 +61,16 @@ export {
   getIdempotentResponse,
   cacheIdempotentResponse,
 } from './idempotency';
+
+// Database-backed idempotency store
+export {
+  dbGetIdempotentResponse,
+  dbCacheIdempotentResponse,
+  dbCleanupIdempotencyCache,
+} from './DatabaseIdempotencyStore';
+
+// HTML Sanitization
+export {
+  sanitizeHtml,
+  type SanitizeHtmlOptions,
+} from './htmlSanitizer';

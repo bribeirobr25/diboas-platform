@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -112,13 +112,13 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
   const pageMessages = await loadPageNamespaces(locale, ['strategies', 'waitlist', 'share', 'common', 'landing-b2c']);
 
   // Generate structured data
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Investment Strategies',
     description: '10 investment strategies from conservative to aggressive for different financial goals',
     category: 'Investment Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Strategies', url: '/strategies' }
   ], locale);

@@ -47,10 +47,47 @@ if (SENTRY_DSN) {
       }
 
       // Privacy: Remove user PII in production
-      if (process.env.NODE_ENV === 'production' && event.user) {
-        delete event.user.email;
-        delete event.user.username;
-        delete event.user.ip_address;
+      if (process.env.NODE_ENV === 'production') {
+        if (event.user) {
+          delete event.user.email;
+          delete event.user.username;
+          delete event.user.ip_address;
+        }
+
+        // Scrub PII from event.extra
+        if (event.extra) {
+          const piiFields = ['email', 'name', 'username', 'ip_address', 'phone', 'address'];
+          const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
+          for (const key of Object.keys(event.extra)) {
+            if (piiFields.includes(key.toLowerCase())) {
+              event.extra[key] = '[REDACTED]';
+            } else if (typeof event.extra[key] === 'string' && emailPattern.test(event.extra[key] as string)) {
+              event.extra[key] = (event.extra[key] as string).replace(emailPattern, '[EMAIL_REDACTED]');
+            }
+          }
+        }
+
+        // Scrub PII from breadcrumbs
+        if (event.breadcrumbs) {
+          const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+          const piiDataFields = ['email', 'name', 'username', 'ip_address', 'phone', 'address'];
+
+          for (const breadcrumb of event.breadcrumbs) {
+            if (breadcrumb.data) {
+              for (const key of Object.keys(breadcrumb.data)) {
+                if (piiDataFields.includes(key.toLowerCase())) {
+                  breadcrumb.data[key] = '[REDACTED]';
+                } else if (typeof breadcrumb.data[key] === 'string' && emailPattern.test(breadcrumb.data[key] as string)) {
+                  breadcrumb.data[key] = (breadcrumb.data[key] as string).replace(emailPattern, '[EMAIL_REDACTED]');
+                }
+              }
+            }
+            if (breadcrumb.message && emailPattern.test(breadcrumb.message)) {
+              breadcrumb.message = breadcrumb.message.replace(emailPattern, '[EMAIL_REDACTED]');
+            }
+          }
+        }
       }
 
       return event;

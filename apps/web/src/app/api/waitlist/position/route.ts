@@ -13,19 +13,14 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { Logger } from '@/lib/monitoring/Logger';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import {
-  checkRateLimit,
-  getClientIP,
-  createRateLimitHeaders,
-  RateLimitPresets,
   requireAuth,
-  csrfProtection,
   hmacHash,
 } from '@/lib/security';
 import { sanitizeEmail } from '@/lib/utils/sanitize';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
+import { applyRateLimit, applyCsrf, handleRouteError } from '@/lib/api/routeHelpers';
 import {
   getByEmail,
   updateEntry,
@@ -52,20 +47,8 @@ interface PositionResponse {
  * Returns same structure regardless of email existence to prevent enumeration.
  */
 export async function GET(request: NextRequest): Promise<NextResponse<PositionResponse>> {
-  // Rate limiting
-  const clientIP = getClientIP(request);
-  const rateLimitResult = await checkRateLimit(
-    `position:${clientIP}`,
-    RateLimitPresets.standard.limit,
-    RateLimitPresets.standard.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-    );
-  }
+  const rateLimited = await applyRateLimit(request, 'position', 'standard');
+  if (rateLimited) return rateLimited as NextResponse<PositionResponse>;
 
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -129,22 +112,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
     });
 
   } catch (error) {
-    // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'medium',
-      context: {
-        operation: 'position_lookup',
-      },
-    });
-
-    Logger.error('Position lookup error', {}, error instanceof Error ? error : undefined);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
+    return handleRouteError(error, 'waitlist', 'position_lookup', 'Position lookup error') as NextResponse<PositionResponse>;
   }
 }
 
@@ -157,32 +125,15 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
  * Security: Requires valid API key (Zero-Trust authentication)
  */
 export async function POST(request: NextRequest): Promise<NextResponse<PositionResponse>> {
-  // CSRF protection
-  const csrfError = csrfProtection(request);
-  if (csrfError) {
-    return csrfError as NextResponse<PositionResponse>;
-  }
+  const csrfError = applyCsrf(request);
+  if (csrfError) return csrfError as NextResponse<PositionResponse>;
 
   // Zero-Trust: Mandatory authentication
   const authError = requireAuth(request, { requireAdmin: true });
-  if (authError) {
-    return authError as NextResponse<PositionResponse>;
-  }
+  if (authError) return authError as NextResponse<PositionResponse>;
 
-  // Rate limiting for internal endpoints
-  const clientIP = getClientIP(request);
-  const rateLimitResult = await checkRateLimit(
-    `position-update:${clientIP}`,
-    RateLimitPresets.standard.limit,
-    RateLimitPresets.standard.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-    );
-  }
+  const rateLimited = await applyRateLimit(request, 'position-update', 'standard');
+  if (rateLimited) return rateLimited as NextResponse<PositionResponse>;
 
   try {
     const body = await request.json();
@@ -225,21 +176,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
     });
 
   } catch (error) {
-    // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'high',
-      context: {
-        operation: 'position_update',
-      },
-    });
-
-    Logger.error('Position update error', {}, error instanceof Error ? error : undefined);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
+    return handleRouteError(error, 'waitlist', 'position_update', 'Position update error') as NextResponse<PositionResponse>;
   }
 }

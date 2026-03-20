@@ -58,6 +58,17 @@
       }
     }
   },
+  "proseSection": {
+    "transitionHook": "But what does \"in control\" really mean?",
+    "header": "Your money. Your wallet. Your rules.",
+    "paragraphs": [
+      "Most banks hold your money for you. They lend it out, invest it, and give you back a fraction of the profits. You trust them to keep it safe, but you never truly own the process.",
+      "diBoaS works differently. Your account is yours from the start. Non-custodial means no one at diBoaS can touch your funds. They sit in your wallet, earning yield automatically, while you decide what happens next.",
+      "Whether you want to save, invest, or simply park your cash, you stay in the driver's seat. No hidden fees, no fine print, no middlemen making decisions on your behalf."
+    ],
+    "emphasisLine": "It's your money. It should work for you, not the other way around.",
+    "ariaLabel": "How your account puts you in control"
+  },
   "featureShowcase": {
     "slides": {
       "unification": {

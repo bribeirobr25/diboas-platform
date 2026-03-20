@@ -10,7 +10,7 @@
 
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
 import type { PreDemoContextValue } from './types';
-import type { PreDemoScreen } from '@/lib/pre-demo';
+import type { PreDemoScreen, FeeRateOverrides } from '@/lib/pre-demo';
 import { preDemoReducer, initialPreDemoState } from './preDemoReducer';
 import { analyticsService } from '@/lib/analytics';
 
@@ -19,9 +19,11 @@ const PreDemoContext = createContext<PreDemoContextValue | null>(null);
 interface PreDemoProviderProps {
   children: React.ReactNode;
   onExit?: () => void;
+  feeRateOverrides?: FeeRateOverrides;  // From diBoaS analytics API when available
 }
 
-export function PreDemoProvider({ children, onExit }: PreDemoProviderProps) {
+// TODO: Wire feeRateOverrides through context → transactionService when analytics API ships
+export function PreDemoProvider({ children, onExit, feeRateOverrides }: PreDemoProviderProps) {
   const [state, dispatch] = useReducer(preDemoReducer, initialPreDemoState);
 
   // setScreen is stable (no dependencies on state) — dispatch is stable by React guarantee

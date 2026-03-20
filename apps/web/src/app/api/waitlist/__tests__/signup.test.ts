@@ -33,8 +33,8 @@ vi.mock('@/lib/security', () => ({
     standard: { limit: 20, windowMs: 60000 },
   },
   csrfProtection: vi.fn(),
-  getIdempotentResponse: vi.fn().mockReturnValue(null),
-  cacheIdempotentResponse: vi.fn(),
+  getIdempotentResponse: vi.fn().mockResolvedValue(null),
+  cacheIdempotentResponse: vi.fn().mockResolvedValue(undefined),
 }));
 
 // Mock sanitize utilities
@@ -342,7 +342,7 @@ describe('POST /api/waitlist/signup', () => {
       expect(response.status).toBe(429);
       expect(data.success).toBe(false);
       expect(data.errorCode).toBe('RATE_LIMITED');
-      expect(data.error).toContain('Too many signup attempts');
+      expect(data.error).toContain('Too many requests');
     });
 
     it('should use correct rate limit preset for signup', async () => {

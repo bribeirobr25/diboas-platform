@@ -67,7 +67,7 @@ function BenefitCardItem({ card }: BenefitCardItemProps) {
   const IconComponent = getIconComponent(card.icon);
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${card.featured ? styles.cardFeatured : ''}`}>
       {/* Icon */}
       <div className={styles.iconWrapper}>
         <IconComponent className={styles.icon} aria-hidden="true" />

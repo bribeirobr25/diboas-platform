@@ -94,10 +94,17 @@ export function createConsentValue(analytics: boolean): CookieConsentValue {
 }
 
 /**
- * Dispatch consent changed event
+ * Dispatch consent changed DOM event.
+ *
+ * This fires a DOM CustomEvent solely for the GA4 inline script in
+ * layout.tsx, which runs before React hydrates and cannot use the
+ * ApplicationEventBus. React consumers should subscribe to
+ * CONSENT_GIVEN / CONSENT_WITHDRAWN via applicationEventBus instead.
  */
 export function dispatchConsentEvent(consent: CookieConsentValue): void {
   if (typeof window === 'undefined') return;
+
+  // DOM fallback for GA4 inline script (pre-hydration)
   window.dispatchEvent(new CustomEvent('cookie-consent-changed', {
     detail: consent
   }));

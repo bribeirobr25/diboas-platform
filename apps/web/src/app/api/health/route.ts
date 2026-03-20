@@ -10,8 +10,9 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { checkRateLimit, RateLimitPresets, getClientIP, createRateLimitHeaders, pingRedis } from '@/lib/security/rateLimiter';
+import { pingRedis } from '@/lib/security/rateLimiter';
 import { pingDatabase } from '@/lib/database/client';
+import { applyRateLimit } from '@/lib/api/routeHelpers';
 
 interface HealthStatus {
   status: 'healthy' | 'degraded' | 'unhealthy';
@@ -36,20 +37,8 @@ const serverStartTime = Date.now();
 
 export async function GET(request: NextRequest): Promise<NextResponse<HealthStatus | { error: string }>> {
   try {
-    // Rate limiting - use lenient preset for health checks (monitoring services call frequently)
-    const ip = getClientIP(request);
-    const { limit, windowMs } = RateLimitPresets.lenient;
-    const rateLimitResult = await checkRateLimit(`health:${ip}`, limit, windowMs);
-
-    if (!rateLimitResult.success) {
-      return NextResponse.json(
-        { error: 'Too many requests' },
-        {
-          status: 429,
-          headers: createRateLimitHeaders(rateLimitResult),
-        }
-      );
-    }
+    const rateLimited = await applyRateLimit(request, 'health', 'lenient');
+    if (rateLimited) return rateLimited as NextResponse<HealthStatus | { error: string }>;
 
     const [redisHealthy, dbHealthy, memoryUsage] = await Promise.all([
       pingRedis(),
@@ -90,17 +79,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<HealthStat
     // Return 503 for unhealthy status (helps load balancers)
     const httpStatus = status === 'unhealthy' ? 503 : 200;
 
-    // Merge rate limit headers with response headers
-    const rateLimitHeaders = createRateLimitHeaders(rateLimitResult);
-    const responseHeaders = new Headers({
-      'Cache-Control': 'no-store, no-cache, must-revalidate',
-      'Content-Type': 'application/json',
-    });
-    rateLimitHeaders.forEach((value, key) => responseHeaders.set(key, value));
-
     return NextResponse.json(healthStatus, {
       status: httpStatus,
-      headers: responseHeaders,
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+        'Content-Type': 'application/json',
+      },
     });
   } catch {
     return NextResponse.json(
@@ -113,24 +97,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<HealthStat
 // Also support HEAD requests for simple uptime checks
 export async function HEAD(request: NextRequest): Promise<NextResponse> {
   try {
-    // Rate limiting for HEAD requests too
-    const ip = getClientIP(request);
-    const { limit, windowMs } = RateLimitPresets.lenient;
-    const rateLimitResult = await checkRateLimit(`health-head:${ip}`, limit, windowMs);
-
-    if (!rateLimitResult.success) {
-      return new NextResponse(null, {
-        status: 429,
-        headers: createRateLimitHeaders(rateLimitResult),
-      });
-    }
-
-    const rateLimitHeaders = createRateLimitHeaders(rateLimitResult);
-    rateLimitHeaders.set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    const rateLimited = await applyRateLimit(request, 'health-head', 'lenient');
+    if (rateLimited) return rateLimited;
 
     return new NextResponse(null, {
       status: 200,
-      headers: rateLimitHeaders,
+      headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' },
     });
   } catch {
     return new NextResponse(null, { status: 503 });

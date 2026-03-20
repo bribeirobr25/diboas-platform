@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -114,13 +114,13 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
   const pageMessages = await loadPageNamespaces(locale, ['protocols', 'common', 'waitlist', 'landing-b2c']);
 
   // Generate structured data
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Protocol Transparency',
     description: 'Complete list of DeFi protocols used by diBoaS with security audits and regulatory information',
     category: 'Financial Technology'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Protocols', url: '/protocols' }
   ], locale);

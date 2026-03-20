@@ -88,6 +88,7 @@
     "shareCopied": "Kopiert!",
     "shareText": "Meine Dream Mode Simulation würde {start} in {end} verwandeln, das sind {difference} mehr als meine Bank mir geben würde. Probieren Sie es selbst:",
     "bankSource": "Basierend auf {rate}% durchschnittlichem Sparzins. Quelle: EZB-Statistik, Januar 2026.",
+    "bankComparison": "vs deine Bank bei {rate}% APY",
     "tryDifferent": "Andere Beträge ausprobieren",
     "backToHome": "Zurück zur Startseite"
   },

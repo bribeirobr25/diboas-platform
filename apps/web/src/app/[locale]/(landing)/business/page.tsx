@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
@@ -131,13 +131,13 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
 
   const pageMessages = await loadPageNamespaces(locale, ['landing-b2b', 'waitlist']);
 
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS for Business',
     description: 'Stop overpaying on fees and idle cash. Free payments, instant transfers, and your idle cash working for you.',
     category: 'Financial Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Business', url: '/business' }
   ], locale);

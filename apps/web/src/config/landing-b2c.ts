@@ -32,8 +32,6 @@ import type { ProseSectionConfig } from './proseSection';
 import type { FeeTableConfig } from './feeTable';
 import type { ExpandableSectionConfig } from './expandableSection';
 import type { FounderSectionConfig } from './founderSection';
-import type { GoalCalculatorConfig } from './goalCalculator';
-
 /**
  * B2C Landing Page Image Paths
  * Handoff naming convention: /assets/images/{section}-{name}.avif
@@ -81,111 +79,6 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
     trackingPrefix: 'hero_b2c_landing',
     enabled: true
   }
-} as const;
-
-/**
- * Section 1.5: Goal Calculator Configuration
- */
-export const B2C_GOAL_CALCULATOR_CONFIG: GoalCalculatorConfig = {
-  content: {
-    header: 'landing-b2c.goalCalculator.header',
-    subtitle: 'landing-b2c.goalCalculator.subtitle',
-    stepIndicator: 'landing-b2c.goalCalculator.stepIndicator',
-    goalDescriptions: {
-      christmas: 'landing-b2c.goalCalculator.goalDescriptions.christmas',
-      emergency: 'landing-b2c.goalCalculator.goalDescriptions.emergency',
-      vacation: 'landing-b2c.goalCalculator.goalDescriptions.vacation',
-    },
-    suggested: 'landing-b2c.goalCalculator.suggested',
-    override: 'landing-b2c.goalCalculator.override',
-    startSmaller: 'landing-b2c.goalCalculator.startSmaller',
-    expectedReturn: 'landing-b2c.goalCalculator.expectedReturn',
-    back: 'landing-b2c.goalCalculator.back',
-    tabs: {
-      christmas: 'landing-b2c.goalCalculator.tabs.christmas',
-      emergency: 'landing-b2c.goalCalculator.tabs.emergency',
-      vacation: 'landing-b2c.goalCalculator.tabs.vacation',
-    },
-    fields: {
-      christmas: {
-        label: 'landing-b2c.goalCalculator.fields.christmas.label',
-        helper: 'landing-b2c.goalCalculator.fields.christmas.helper',
-      },
-      emergency: {
-        label: 'landing-b2c.goalCalculator.fields.emergency.label',
-        helper: 'landing-b2c.goalCalculator.fields.emergency.helper',
-      },
-      vacation: {
-        label: 'landing-b2c.goalCalculator.fields.vacation.label',
-        helper: 'landing-b2c.goalCalculator.fields.vacation.helper',
-      },
-      initialDeposit: {
-        label: 'landing-b2c.goalCalculator.fields.initialDeposit.label',
-        helper: 'landing-b2c.goalCalculator.fields.initialDeposit.helper',
-      },
-      monthlyDeposit: {
-        label: 'landing-b2c.goalCalculator.fields.monthlyDeposit.label',
-        helper: 'landing-b2c.goalCalculator.fields.monthlyDeposit.helper',
-      },
-      riskTier: {
-        label: 'landing-b2c.goalCalculator.fields.riskTier.label',
-      },
-    },
-    coverage: {
-      label: 'landing-b2c.goalCalculator.coverage.label',
-      months3: 'landing-b2c.goalCalculator.coverage.months3',
-      months4: 'landing-b2c.goalCalculator.coverage.months4',
-      months6: 'landing-b2c.goalCalculator.coverage.months6',
-    },
-    timeline: {
-      label: 'landing-b2c.goalCalculator.timeline.label',
-      months6: 'landing-b2c.goalCalculator.timeline.months6',
-      months9: 'landing-b2c.goalCalculator.timeline.months9',
-      months12: 'landing-b2c.goalCalculator.timeline.months12',
-      months18: 'landing-b2c.goalCalculator.timeline.months18',
-    },
-    vacationDate: {
-      label: 'landing-b2c.goalCalculator.vacationDate.label',
-    },
-    tiers: {
-      careful: 'landing-b2c.goalCalculator.tiers.careful',
-      moderate: 'landing-b2c.goalCalculator.tiers.moderate',
-      aggressive: 'landing-b2c.goalCalculator.tiers.aggressive',
-    },
-    cta: 'landing-b2c.goalCalculator.cta',
-    result: {
-      christmasHeadline: 'landing-b2c.goalCalculator.result.christmasHeadline',
-      emergencyHeadline: 'landing-b2c.goalCalculator.result.emergencyHeadline',
-      vacationHeadline: 'landing-b2c.goalCalculator.result.vacationHeadline',
-      planLine: 'landing-b2c.goalCalculator.result.planLine',
-      scenarioGood: 'landing-b2c.goalCalculator.result.scenarioGood',
-      scenarioExpected: 'landing-b2c.goalCalculator.result.scenarioExpected',
-      scenarioBad: 'landing-b2c.goalCalculator.result.scenarioBad',
-      badCaseLoss: 'landing-b2c.goalCalculator.result.badCaseLoss',
-      disclaimer: 'landing-b2c.goalCalculator.result.disclaimer',
-      startSmallerToggle: 'landing-b2c.goalCalculator.result.startSmallerToggle',
-      startSmallerPrompt: 'landing-b2c.goalCalculator.result.startSmallerPrompt',
-      startSmallerPartial: 'landing-b2c.goalCalculator.result.startSmallerPartial',
-      primaryCta: 'landing-b2c.goalCalculator.result.primaryCta',
-      secondaryHow: 'landing-b2c.goalCalculator.result.secondaryHow',
-      secondaryRisks: 'landing-b2c.goalCalculator.result.secondaryRisks',
-      demoLink: 'landing-b2c.goalCalculator.result.demoLink',
-    },
-    helpers: {
-      bigCommitment: 'landing-b2c.goalCalculator.helpers.bigCommitment',
-      oneMonthWarning: 'landing-b2c.goalCalculator.helpers.oneMonthWarning',
-      christmasRollover: 'landing-b2c.goalCalculator.helpers.christmasRollover',
-      vacationDateMinimum: 'landing-b2c.goalCalculator.helpers.vacationDateMinimum',
-    },
-    microcopy: 'landing-b2c.goalCalculator.microcopy',
-  },
-  seo: {
-    ariaLabel: 'landing-b2c.sections.goalCalculator.ariaLabel',
-  },
-  analytics: {
-    sectionId: 'goal-calculator-b2c',
-    category: 'landing-b2c',
-  },
 } as const;
 
 /**

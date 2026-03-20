@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -34,19 +34,19 @@ export default async function HelpFaqPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (help/faq + shared: home for StickyFeaturesNav, faq for FAQAccordion)
   const pageMessages = await loadPageNamespaces(locale, ['help/faq', 'home', 'faq']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS FAQ',
     description: 'Your questions, our answers',
     category: 'Help Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'FAQ', url: ROUTES.HELP.FAQ }
   ], locale);
 
   // FAQPage structured data for better SEO
-  const faqData = MetadataFactory.generateFAQStructuredData();
+  const faqData = SEOMetadataFactory.generateFAQStructuredData();
 
   const heroVariant = getVariantForPageConfig('help-faq');
 

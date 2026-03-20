@@ -3,7 +3,7 @@
  *
  * Exports for viral sharing functionality:
  * - Card generation (CardRenderer)
- * - Platform sharing (ShareManager)
+ * - Platform sharing (SocialShareService)
  * - Types and constants
  */
 
@@ -56,9 +56,9 @@ export { CardRenderer, cardRenderer } from './CardRenderer';
 
 // Share Manager
 export {
-  ShareManager,
+  SocialShareService,
   shareManager,
-  createShareManager,
+  createSocialShareService,
   isWebShareAvailable,
   isWebShareFilesAvailable,
   getHashtags,

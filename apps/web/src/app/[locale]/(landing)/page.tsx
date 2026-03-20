@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
@@ -10,7 +10,6 @@ import {
   DemoLauncher,
   ExpandableSection,
   FounderSection,
-  GoalCalculator,
 } from '@/components/Sections';
 import { MidPageCTA } from '@/components/Sections/MidPageCTA';
 import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
@@ -24,7 +23,6 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2C_HERO_CONFIG,
-  B2C_GOAL_CALCULATOR_CONFIG,
   B2C_ORIGIN_STORY_CONFIG,
   B2C_HOW_IT_WORKS_CONFIG,
   B2C_SCENARIOS_CONFIG,
@@ -132,13 +130,13 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
   const pageMessages = await loadPageNamespaces(locale, ['landing-b2c', 'calculator', 'waitlist', 'share', 'dreamMode', 'preDemo', 'preDream']);
 
   // Generate structured data
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',
     description: 'Turn your idle money into real growth with DeFi yields',
     category: 'Financial Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' }
   ], locale);
 
@@ -162,18 +160,6 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
               enableAnalytics={true}
               priority={true}
             />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 1.5: Goal Calculator */}
-        <SectionErrorBoundary
-          sectionId="goal-calculator-section-b2c"
-          sectionType="GoalCalculator"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="goal-calculator" data-section-id="goal-calculator-section-b2c">
-            <GoalCalculator config={B2C_GOAL_CALCULATOR_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 

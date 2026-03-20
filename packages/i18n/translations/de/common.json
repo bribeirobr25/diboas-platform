@@ -151,8 +151,12 @@
     "dreamMode": "Dream Mode",
     "closeDreamMode": "Dream Mode schließen",
     "copyToClipboard": "Text in die Zwischenablage kopieren",
+    "shareOnX": "Auf X teilen",
+    "homeLink": "{brand} Startseite",
+    "openMenuFor": "{menu}-Menü öffnen",
     "warningBadge": "Warnhinweis",
-    "complianceBadge": "Compliance-Kennzeichen"
+    "complianceBadge": "Compliance-Kennzeichen",
+    "mobileMenu": "Mobiles Navigationsmenü"
   },
   "languageSwitcher": {
     "label": "Sprache",

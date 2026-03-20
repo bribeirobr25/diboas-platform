@@ -6,7 +6,7 @@
 export * from './types';
 export * from './constants';
 export { seoService } from './service';
-export { MetadataFactory } from './metadata-factory';
+export { SEOMetadataFactory } from './metadata-factory';
 
 // Convenience exports for common use cases
 export { generateStaticPageMetadata, generateDynamicPageMetadata, generateLocaleStaticParams } from './helpers';

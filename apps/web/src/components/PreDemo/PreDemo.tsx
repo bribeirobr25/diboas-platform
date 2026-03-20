@@ -26,6 +26,7 @@ import {
 } from './screens';
 import { PreDream } from '@/components/PreDream';
 import { useTranslation } from '@diboas/i18n/client';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { useScreenTransitionSequence, type TransitionStep } from './hooks';
 import styles from './PreDemo.module.css';
 
@@ -42,6 +43,17 @@ function PreDemoContent({ onExit }: PreDemoProps) {
 
   // Timer sequence hook — persists across screen changes
   const { runSequence } = useScreenTransitionSequence(setScreen);
+
+  // WCAG 2.4.3: Trap focus within demo when active (not in dream-mode)
+  const isActive = state.screen !== 'dream-mode';
+  useFocusTrap(containerRef, isActive, { returnFocus: true });
+
+  // Escape key to exit demo
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Escape' && onExit) {
+      onExit();
+    }
+  }, [onExit]);
 
   // Focus management on screen change — prefer [data-autofocus] elements
   useEffect(() => {
@@ -206,7 +218,14 @@ function PreDemoContent({ onExit }: PreDemoProps) {
   }
 
   return (
-    <div ref={containerRef} className={styles.container}>
+    <div
+      ref={containerRef}
+      className={styles.container}
+      role="dialog"
+      aria-modal="true"
+      aria-label={t('preDemo.common.demoTitle')}
+      onKeyDown={handleKeyDown}
+    >
       <div className={styles.screenContainer}>{renderScreen()}</div>
     </div>
   );

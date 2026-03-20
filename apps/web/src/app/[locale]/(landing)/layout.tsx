@@ -7,6 +7,7 @@ import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
 import { UtmCapture } from '@/components/Layout/UtmCapture';
+import { PageViewTracker } from '@/components/Performance/PageViewTracker';
 
 interface LandingLayoutProps {
   children: React.ReactNode;
@@ -50,9 +51,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
     ...flattenMessages(waitlistMessages, 'waitlist'),
   };
 
-  // Keep in sync with packages/i18n/translations/{locale}/common.json → accessibility.skipToMain
-  const skipLabels: Record<string, string> = { en: 'Skip to main content', de: 'Zum Hauptinhalt springen', es: 'Saltar al contenido principal', 'pt-BR': 'Pular para o conteúdo principal' };
-  const skipText = skipLabels[locale] ?? skipLabels.en;
+  const skipText = (commonMessages as Record<string, Record<string, string>>).accessibility?.skipToMain ?? 'Skip to main content';
 
   return (
     <LocaleProvider initialLocale={locale}>
@@ -73,6 +72,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
               <CookieConsent />
               <ScrollDepthTracker />
               <UtmCapture />
+              <PageViewTracker />
             </div>
           </WaitingListProvider>
         </PageErrorBoundary>

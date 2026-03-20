@@ -157,17 +157,18 @@ export function FAQAccordionDefault({
     }
   }, [config.settings.enableKeyboardNav]);
 
-  // Track analytics on expansion
+  // Track analytics on expansion (consent-gated via analyticsService)
   useEffect(() => {
     if (expandedId && enableAnalytics && config.analytics?.enabled) {
-      // Analytics tracking
-      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params: Record<string, unknown>) => void };
-      if (typeof window !== 'undefined' && windowWithGtag.gtag) {
-        windowWithGtag.gtag('event', 'faq_expand', {
-          event_category: config.analytics.trackingPrefix,
-          event_label: expandedId
+      import('@/lib/analytics').then(({ analyticsService }) => {
+        analyticsService.track({
+          name: 'faq_expand',
+          parameters: {
+            event_category: config.analytics!.trackingPrefix,
+            event_label: expandedId,
+          },
         });
-      }
+      }).catch(() => {});
     }
   }, [expandedId, enableAnalytics, config.analytics]);
 

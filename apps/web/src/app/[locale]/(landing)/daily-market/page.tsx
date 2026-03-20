@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -46,7 +46,7 @@ export default async function DailyMarketPage({ params }: LocalePageProps) {
 
   const pageMessages = await loadPageNamespaces(locale, ['common', 'landing-b2c']);
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs(
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
       { name: 'Home', url: '/' },
       { name: 'Adelaide Daily', url: ROUTES.DAILY_MARKET },

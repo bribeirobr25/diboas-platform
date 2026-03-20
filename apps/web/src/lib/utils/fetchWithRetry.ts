@@ -8,6 +8,7 @@
 
 const MAX_RETRIES = 2;
 const BACKOFF_MS = [1000, 3000];
+const DEFAULT_TIMEOUT_MS = 5000;
 
 function isRetryable(status: number): boolean {
   return status >= 500;
@@ -15,14 +16,16 @@ function isRetryable(status: number): boolean {
 
 export async function fetchWithRetry(
   input: RequestInfo | URL,
-  init?: RequestInit & { retries?: number }
+  init?: RequestInit & { retries?: number; timeoutMs?: number }
 ): Promise<Response> {
   const maxRetries = init?.retries ?? MAX_RETRIES;
+  const timeoutMs = init?.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   let lastError: Error | null = null;
 
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
-      const response = await fetch(input, init);
+      const signal = init?.signal ?? AbortSignal.timeout(timeoutMs);
+      const response = await fetch(input, { ...init, signal });
 
       // Don't retry client errors (4xx) — only server errors (5xx)
       if (response.ok || !isRetryable(response.status)) {

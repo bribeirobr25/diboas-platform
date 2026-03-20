@@ -7,7 +7,7 @@ import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { BalanceCard } from '../components/BalanceCard';
 import { FeeBreakdown } from '../components/FeeBreakdown';
-import { calculateDepositFees, DEPOSIT_QUICK_AMOUNTS, formatCurrency } from '@/lib/pre-demo';
+import { processDeposit, DEPOSIT_QUICK_AMOUNTS, formatCurrency } from '@/lib/pre-demo';
 import { useLocale } from '@/components/Providers';
 import { getCurrencyForLocale, getCurrencySymbol } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
@@ -24,7 +24,7 @@ export function DepositScreen() {
 
   const amount = parseFloat(state.depositAmount) || 0;
 
-  const fees = useMemo(() => calculateDepositFees(amount), [amount]);
+  const depositResult = useMemo(() => processDeposit(amount, 'bank'), [amount]);
 
   const handleAmountChange = useCallback(
     (value: string) => {
@@ -43,22 +43,15 @@ export function DepositScreen() {
   );
 
   const handleProceed = useCallback(() => {
-    if (amount <= 0) return;
+    if (!depositResult.isValid) return;
 
     dispatch({
       type: 'SET_PENDING_TRANSACTION',
-      transaction: {
-        type: 'deposit',
-        grossAmount: amount,
-        netAmount: fees.netAmount,
-        totalFees: fees.totalFees,
-        fees: fees.feeItems,
-        paymentMethod: 'bank',
-      },
+      transaction: depositResult.pending,
     });
 
     setScreen('deposit-confirm');
-  }, [amount, fees, dispatch, setScreen]);
+  }, [depositResult, dispatch, setScreen]);
 
   return (
     <div className={styles.screen}>
@@ -153,13 +146,13 @@ export function DepositScreen() {
         </div>
 
         {/* Fee breakdown */}
-        {amount > 0 && <FeeBreakdown feeItems={fees.feeItems} totalFees={fees.totalFees} />}
+        {amount > 0 && <FeeBreakdown feeItems={depositResult.pending.fees} totalFees={depositResult.pending.totalFees} />}
 
         {/* You'll receive row */}
         {amount > 0 && (
           <div className={styles.receiveRow}>
             <span className={styles.receiveLabel}>{t('preDemo.transaction.youllReceive')}</span>
-            <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount, 2, locale)}</span>
+            <span className={styles.receiveAmount}>{formatCurrency(depositResult.pending.netAmount, 2, locale)}</span>
           </div>
         )}
 

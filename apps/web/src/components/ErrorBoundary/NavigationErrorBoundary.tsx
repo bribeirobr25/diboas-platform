@@ -10,6 +10,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { analyticsService } from '@/lib/analytics';
 import { UI_CONSTANTS } from '@/config/ui-constants';
+import { Logger } from '@/lib/monitoring/Logger';
 import { NavigationErrorFallback } from './NavigationErrorFallback';
 import {
   isRecoverableError,
@@ -69,7 +70,7 @@ export class NavigationErrorBoundary extends Component<
     this.setState({ errorInfo });
 
     if (process.env.NODE_ENV === 'development') {
-      console.error(UI_CONSTANTS.LOG.NAVIGATION_ERROR_CAUGHT, {
+      Logger.error(UI_CONSTANTS.LOG.NAVIGATION_ERROR_CAUGHT, {
         error: error.message,
         stack: error.stack,
         componentStack: errorInfo.componentStack,
@@ -84,7 +85,7 @@ export class NavigationErrorBoundary extends Component<
       try {
         this.props.onError(error, errorInfo);
       } catch (handlerError) {
-        console.warn(UI_CONSTANTS.LOG.NAVIGATION_ERROR_HANDLER_FAILED, handlerError);
+        Logger.warn(UI_CONSTANTS.LOG.NAVIGATION_ERROR_HANDLER_FAILED, { error: handlerError instanceof Error ? handlerError.message : String(handlerError) });
       }
     }
 
@@ -110,7 +111,7 @@ export class NavigationErrorBoundary extends Component<
         timestamp: new Date().toISOString()
       });
     } catch (analyticsError) {
-      console.warn(UI_CONSTANTS.LOG.ANALYTICS_TRACKING_FAILED, analyticsError);
+      Logger.warn(UI_CONSTANTS.LOG.ANALYTICS_TRACKING_FAILED, { error: analyticsError instanceof Error ? analyticsError.message : String(analyticsError) });
     }
   };
 
@@ -132,7 +133,7 @@ export class NavigationErrorBoundary extends Component<
 
   private handleRetry = () => {
     if (this.state.retryCount >= this.maxRetries) {
-      console.warn(UI_CONSTANTS.LOG.NAVIGATION_MAX_RETRY);
+      Logger.warn(UI_CONSTANTS.LOG.NAVIGATION_MAX_RETRY);
       return;
     }
 

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -34,13 +34,13 @@ export default async function SpecialContentPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (learn/special-content + shared: home for StickyFeaturesNav, faq for FAQAccordion)
   const pageMessages = await loadPageNamespaces(locale, ['learn/special-content', 'home', 'faq']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'Special Content',
     description: 'Exclusive learning content',
     category: 'Educational Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Special Content', url: ROUTES.LEARN.SPECIAL_CONTENT }
   ], locale);

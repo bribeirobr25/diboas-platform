@@ -58,6 +58,17 @@
       }
     }
   },
+  "proseSection": {
+    "transitionHook": "Aber was bedeutet \"Kontrolle\" wirklich?",
+    "header": "Dein Geld. Deine Wallet. Deine Regeln.",
+    "paragraphs": [
+      "Die meisten Banken verwahren dein Geld. Sie verleihen es, investieren es und geben dir einen Bruchteil der Gewinne zurück. Du vertraust ihnen, aber du hast nie wirklich die Kontrolle.",
+      "diBoaS funktioniert anders. Dein Konto gehört dir von Anfang an. Non-custodial bedeutet, dass niemand bei diBoaS dein Geld anrühren kann. Es liegt in deiner Wallet, verdient automatisch Rendite, und du entscheidest, was als Nächstes passiert.",
+      "Ob du sparen, investieren oder dein Geld einfach parken willst: Du behältst die Kontrolle. Keine versteckten Gebühren, kein Kleingedrucktes, keine Mittelsmänner, die Entscheidungen für dich treffen."
+    ],
+    "emphasisLine": "Es ist dein Geld. Es sollte für dich arbeiten, nicht umgekehrt.",
+    "ariaLabel": "Wie dein Konto dir die Kontrolle gibt"
+  },
   "featureShowcase": {
     "slides": {
       "unification": {

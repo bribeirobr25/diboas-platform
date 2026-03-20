@@ -14,6 +14,7 @@ import { UI_CONSTANTS } from '@/config/ui-constants';
 import { ASSET_PATHS } from '@/config/assets';
 import { DESIGN_SYSTEM } from '@/config/design-system';
 import { BRAND_CONFIG } from '@/config/brand';
+import { useTranslation } from '@diboas/i18n/client';
 import type { NavigationConfig } from '@/types/navigation';
 
 interface MobileNavHeaderProps {
@@ -31,10 +32,11 @@ export function MobileNavHeader({
   config,
   primaryLabel,
 }: MobileNavHeaderProps) {
+  const intl = useTranslation();
   return (
     <nav className="mobile-nav-bar">
       <div className="mobile-nav-content">
-        <LocaleLink href="/" className="mobile-brand" aria-label={`${BRAND_CONFIG.NAME} Home`}>
+        <LocaleLink href="/" className="mobile-brand" aria-label={intl.formatMessage({ id: 'common.accessibility.homeLink' }, { brand: BRAND_CONFIG.NAME })}>
           <Image
             src={ASSET_PATHS.LOGOS.ICON}
             alt={BRAND_CONFIG.NAME}

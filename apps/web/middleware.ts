@@ -77,6 +77,7 @@ function detectLocale(request: NextRequest): string {
 
 export function middleware(request: NextRequest): NextResponse {
   const nonce = crypto.randomUUID();
+  const requestId = crypto.randomUUID();
   const isDev = process.env.NODE_ENV !== 'production';
   const { pathname, search } = request.nextUrl;
 
@@ -106,6 +107,7 @@ export function middleware(request: NextRequest): NextResponse {
     const response = NextResponse.redirect(redirectUrl);
     response.headers.set('Content-Security-Policy', csp);
     response.headers.set('x-nonce', nonce);
+    response.headers.set('x-request-id', requestId);
     return response;
   }
 
@@ -116,12 +118,14 @@ export function middleware(request: NextRequest): NextResponse {
     const response = NextResponse.redirect(redirectUrl);
     response.headers.set('Content-Security-Policy', csp);
     response.headers.set('x-nonce', nonce);
+    response.headers.set('x-request-id', requestId);
     return response;
   }
 
-  // Set nonce in request headers for downstream use (layout.tsx)
+  // Set nonce and request ID in request headers for downstream use (layout.tsx)
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
+  requestHeaders.set('x-request-id', requestId);
 
   const response = NextResponse.next({
     request: { headers: requestHeaders },
@@ -129,6 +133,7 @@ export function middleware(request: NextRequest): NextResponse {
 
   response.headers.set('Content-Security-Policy', csp);
   response.headers.set('x-nonce', nonce);
+  response.headers.set('x-request-id', requestId);
 
   if (localeInPath) {
     response.headers.set('Content-Language', localeInPath);

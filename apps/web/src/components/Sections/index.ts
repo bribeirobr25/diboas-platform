@@ -29,9 +29,6 @@ export { DemoLauncher } from './DemoLauncher';
 export { ExpandableSection } from './ExpandableSection';
 export { FounderSection } from './FounderSection';
 
-// B2C Goal Calculator
-export { GoalCalculator } from './GoalCalculator';
-
 // B2B Landing Page Sections
 export { CalculatorFactory } from './CalculatorFactory';
 export { TwoWorldsSection } from './TwoWorldsSection';

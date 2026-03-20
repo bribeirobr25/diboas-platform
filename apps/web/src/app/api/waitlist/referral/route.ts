@@ -13,24 +13,10 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { Logger } from '@/lib/monitoring/Logger';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
-import {
-  isValidReferralCode,
-} from '@/lib/waitingList/helpers';
-import {
-  getByReferralCode,
-} from '@/lib/waitingList/store';
-import {
-  checkRateLimit,
-  getClientIP,
-  createRateLimitHeaders,
-  RateLimitPresets,
-} from '@/lib/security';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { isValidReferralCode } from '@/lib/waitingList/helpers';
+import { getByReferralCode } from '@/lib/waitingList/store';
+import { applyRateLimit, handleRouteError } from '@/lib/api/routeHelpers';
 
 /**
  * Response types
@@ -51,24 +37,11 @@ interface ReferralLookupResponse {
  * Lookup referral code details (for validation before signup)
  */
 export async function GET(request: NextRequest): Promise<NextResponse<ReferralLookupResponse>> {
-  // Rate limiting
-  const clientIP = getClientIP(request);
-  const rateLimitResult = await checkRateLimit(
-    `referral-lookup:${clientIP}`,
-    RateLimitPresets.lenient.limit,
-    RateLimitPresets.lenient.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-    );
-  }
+  const rateLimited = await applyRateLimit(request, 'referral-lookup', 'lenient');
+  if (rateLimited) return rateLimited as NextResponse<ReferralLookupResponse>;
 
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const code = searchParams.get('code');
+    const code = request.nextUrl.searchParams.get('code');
 
     if (!code) {
       return NextResponse.json(
@@ -79,20 +52,14 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
 
     // Validate format
     if (!isValidReferralCode(code, REFERRAL_CONFIG.codePrefix)) {
-      return NextResponse.json({
-        success: true,
-        valid: false,
-      });
+      return NextResponse.json({ success: true, valid: false });
     }
 
     // Find referrer
     const referrer = await getByReferralCode(code);
 
     if (!referrer) {
-      return NextResponse.json({
-        success: true,
-        valid: false,
-      });
+      return NextResponse.json({ success: true, valid: false });
     }
 
     return NextResponse.json({
@@ -105,21 +72,6 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
       },
     });
   } catch (error) {
-    // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'waitlist',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'medium',
-      context: {
-        operation: 'referral_lookup',
-      },
-    });
-
-    Logger.error('Referral lookup error', {}, error instanceof Error ? error : undefined);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
+    return handleRouteError(error, 'waitlist', 'referral_lookup', 'Referral lookup error') as NextResponse<ReferralLookupResponse>;
   }
 }

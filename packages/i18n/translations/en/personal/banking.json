@@ -32,6 +32,25 @@
       }
     }
   },
+  "cashflowExplainer": {
+    "header": "Where does your money actually go?",
+    "subheader": "Traditional banks lend your deposits and keep the profit. Here, your money works for you.",
+    "saveIt": {
+      "title": "Park it safely",
+      "body": "Your balance sits in your non-custodial wallet. It earns 100% CDI daily, automatically. No lock-ups, no minimum holding period."
+    },
+    "growIt": {
+      "title": "Move it freely",
+      "body": "Send to any country with transparent fees. Receive in real-time. No hidden charges, no waiting days for international transfers to clear."
+    },
+    "microExample": "Example: Send $1,000 internationally. Traditional bank: $35 fee + 3 days. diBoaS: $4.80 fee + instant.",
+    "limitation": "International transfers depend on receiving bank processing times. Fees shown are for standard transfers.",
+    "brandPromise": "Your money should move as fast as you do.",
+    "cta": "See all fees",
+    "ctaHref": "#faq",
+    "microDisclosure": "CDI rates are variable and based on central bank policy. Past performance does not indicate future results.",
+    "ariaLabel": "How your money flows at diBoaS"
+  },
   "stickyFeaturesNav": {
     "title": "Banking without the headache.",
     "subtitle": "Everything you need to do with your money, done right.",

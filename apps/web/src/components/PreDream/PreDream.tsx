@@ -9,6 +9,7 @@
 
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { PreDreamProvider, usePreDream } from './PreDreamProvider';
 import {
   DisclaimerScreen,
@@ -31,6 +32,9 @@ function PreDreamContent({ onClose, onBackToHome }: PreDreamProps) {
   const intl = useTranslation();
   const { state } = usePreDream();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // WCAG 2.4.3: Trap focus within dream mode overlay
+  useFocusTrap(containerRef, true, { returnFocus: true });
 
   // Track screen views
   useEffect(() => {

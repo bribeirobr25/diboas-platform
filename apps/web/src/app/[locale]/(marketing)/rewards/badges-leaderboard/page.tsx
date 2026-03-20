@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -34,13 +34,13 @@ export default async function BadgesLeaderboardPage({ params }: LocalePageProps)
   // Load page-specific namespaces (rewards/badges-leaderboard + shared: home for StickyFeaturesNav, faq for FAQAccordion)
   const pageMessages = await loadPageNamespaces(locale, ['rewards/badges-leaderboard', 'home', 'faq']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Badges & Leaderboard',
     description: 'Earn badges, climb the ranks',
     category: 'Rewards Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Badges & Leaderboard', url: ROUTES.REWARDS.BADGES_LEADERBOARD }
   ], locale);

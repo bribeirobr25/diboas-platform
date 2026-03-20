@@ -41,7 +41,7 @@ export default function DesktopNav({
       <Container>
         <FlexBetween className="navigation-content">
           {/* Logo */}
-          <LocaleLink href="/" className="brand-logo" aria-label={`${BRAND_CONFIG.NAME} Home`}>
+          <LocaleLink href="/" className="brand-logo" aria-label={intl.formatMessage({ id: 'common.accessibility.homeLink' }, { brand: BRAND_CONFIG.NAME })}>
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt={BRAND_CONFIG.NAME}

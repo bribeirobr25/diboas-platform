@@ -309,7 +309,7 @@
 }
 
 .pathCard:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px var(--shadow-black-soft);
 }
 
 .pathCardContent {
@@ -460,7 +460,7 @@
   border-radius: 50%;
   background: var(--color-teal-600);
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px var(--shadow-black-heavy);
 }
 
 .rangeSlider::-moz-range-thumb {
@@ -470,7 +470,7 @@
   background: var(--color-teal-600);
   cursor: pointer;
   border: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px var(--shadow-black-heavy);
 }
 
 .sliderRange {
@@ -560,7 +560,7 @@
   right: var(--spacing-md);
   padding: var(--spacing-xs) var(--spacing-md-minus);
   background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid var(--amber-overlay-medium);
   border-radius: var(--radius-md-plus);
   font-size: 11px; /* no exact token */
   font-weight: var(--font-weight-bold);
@@ -737,7 +737,7 @@
 
 .comparisonGain {
   font-size: var(--font-size-xs-plus);
-  color: #059669;
+  color: var(--text-success-accessible);
   margin: 0;
 }
 
@@ -799,7 +799,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #059669;
+  color: var(--text-success-accessible);
 }
 
 .differenceText {
@@ -810,7 +810,7 @@
 
 .differenceText span {
   font-weight: var(--font-weight-bold);
-  color: #059669;
+  color: var(--text-success-accessible);
 }
 
 .differenceSubtext {

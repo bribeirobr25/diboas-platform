@@ -141,7 +141,7 @@
   background: var(--color-amber-50, #fffbeb);
   border: 1px solid var(--color-amber-200, #fde68a);
   padding: 5px var(--spacing-md-minus);
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -158,7 +158,7 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   background: transparent;
   border: 1px solid var(--color-slate-200);
   color: var(--color-text-secondary);
@@ -175,7 +175,7 @@
 .userAvatar {
   width: 36px;
   height: 36px;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   background: var(--section-bg-brand);
   display: flex;
   align-items: center;
@@ -206,14 +206,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-xs);
 }
 
 .inputGroup {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .inputLabel {
@@ -299,7 +299,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
   opacity: 0.5;
 }
 
@@ -449,7 +449,7 @@
   gap: var(--spacing-lg);
   margin-top: var(--spacing-md-minus);
   padding: var(--spacing-md-minus) var(--spacing-xs) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--glass-border-light);
 }
 
 .balanceBreakdownItem {
@@ -471,12 +471,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
   width: 100%;
   margin-top: var(--spacing-md-minus);
   padding-top: var(--spacing-sm-plus);
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid var(--glass-surface-subtle);
   background: none;
   font: inherit;
   font-size: var(--font-size-xs);
@@ -500,7 +500,7 @@
 }
 
 .compactCard .balanceCard {
-  padding: 14px var(--spacing-md);
+  padding: var(--spacing-md-plus) var(--spacing-md);
 }
 
 .compactCard .balanceAmount {
@@ -574,8 +574,8 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-white);
   background: var(--brand-primary-dark);
-  padding: 2px var(--spacing-sm);
-  border-radius: 9999px;
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-pill);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -670,7 +670,7 @@
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-lg-extra);
-  padding: 14px;
+  padding: var(--spacing-md-plus);
 }
 
 .activityIcon {
@@ -810,7 +810,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .methodActive {
@@ -910,7 +910,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px var(--spacing-md);
+  padding: var(--spacing-md-plus) var(--spacing-md);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -925,7 +925,7 @@
 .feeToggleAmount {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
@@ -954,7 +954,7 @@
 .feeRowLeft {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .feeLabel {
@@ -970,7 +970,7 @@
   border: none;
   color: var(--color-slate-400);
   cursor: pointer;
-  padding: 2px;
+  padding: var(--spacing-2xs);
 }
 
 .feeInfoButton:hover {
@@ -1075,7 +1075,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px var(--spacing-md);
+  padding: var(--spacing-md-plus) var(--spacing-md);
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-lg-extra);
@@ -1285,7 +1285,7 @@
 /* ==================== Buttons ==================== */
 .primaryButton {
   width: 100%;
-  padding: 14px;
+  padding: var(--spacing-md-plus);
   background: var(--brand-primary-dark);
   color: var(--color-white);
   font-weight: var(--font-weight-semibold);
@@ -1353,7 +1353,7 @@
   gap: var(--spacing-lg);
   margin-top: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-xs) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--glass-border-light);
 }
 
 .portfolioBreakdownItem {
@@ -1434,7 +1434,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 2px;
+  padding: var(--spacing-2xs);
   font-family: inherit;
   display: flex;
   align-items: center;
@@ -1550,7 +1550,7 @@
 .exportModalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--overlay-subtle);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -1775,7 +1775,7 @@
 .investmentsBreakdown {
   margin-top: 6px;
   padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--glass-border-dark);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
@@ -1805,8 +1805,8 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   background: var(--color-slate-100);
-  padding: 2px var(--spacing-sm);
-  border-radius: 9999px;
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-pill);
   margin-left: auto;
 }
 
@@ -1865,7 +1865,7 @@
 .l2ChainItem {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
   padding: var(--spacing-sm-plus) var(--spacing-md-minus);
   background: var(--color-slate-50);
   border-radius: var(--radius-lg-plus);

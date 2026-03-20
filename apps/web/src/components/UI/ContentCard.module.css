@@ -48,7 +48,7 @@
 
 .title {
   font-size: 1.25rem; /* text-xl */
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   margin-bottom: 1rem;
 }

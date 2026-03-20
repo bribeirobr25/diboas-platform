@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase } from '@/components/Sections';
+import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase, CashflowExplainerSection } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { ROUTES } from '@/config/routes';
@@ -13,6 +13,7 @@ import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
+import { PERSONAL_BANKING_CASHFLOW_CONFIG } from '@/config/personal-sections';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { LocalePageProps } from '@/types/page';
@@ -34,13 +35,13 @@ export default async function BankingServicesPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (personal/banking + shared: home for StickyFeaturesNav, faq for FAQAccordion)
   const pageMessages = await loadPageNamespaces(locale, ['personal/banking', 'home', 'faq']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Banking Services',
     description: 'Modern banking services without borders',
     category: 'Financial Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Personal', url: '/personal' },
     { name: 'Banking', url: ROUTES.PERSONAL.BANKING }
@@ -81,7 +82,19 @@ export default async function BankingServicesPage({ params }: LocalePageProps) {
           />
         </SectionErrorBoundary>
 
-        
+        {/* Cashflow Explainer Section — unique to banking page */}
+        <SectionErrorBoundary
+          sectionId="cashflow-explainer-banking"
+          sectionType="CashflowExplainerSection"
+          enableReporting={true}
+          context={{ page: 'banking' }}
+        >
+          <CashflowExplainerSection
+            config={PERSONAL_BANKING_CASHFLOW_CONFIG}
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
         {/* Benefits Cards Section */}
         <SectionErrorBoundary
           sectionId="benefits-cards-banking-services"

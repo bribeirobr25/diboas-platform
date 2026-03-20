@@ -14,6 +14,19 @@ import styles from './StrategiesPageContent.module.css';
 
 const I18N_PREFIX = 'marketing.pages.strategies';
 
+/**
+ * Validate that a URL uses the https:// scheme.
+ * Returns the URL unchanged if valid, or '#' as a safe fallback.
+ */
+function safeHttpsUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'https:' ? url : '#';
+  } catch {
+    return '#';
+  }
+}
+
 const PROTOCOL_IDS = [
   'skySsr',
   'aaveV3',
@@ -126,7 +139,7 @@ export function StrategiesProtocolTable() {
                 </p>
                 <div className={styles.protocolLinks}>
                   <a
-                    href={t(`protocols.items.${protocolId}.verifyUrl`)}
+                    href={safeHttpsUrl(t(`protocols.items.${protocolId}.verifyUrl`))}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.protocolExternalLink}
@@ -134,7 +147,7 @@ export function StrategiesProtocolTable() {
                     {t('protocols.verifyOnSite')} &#8599;
                   </a>
                   <a
-                    href={t(`protocols.items.${protocolId}.defillamaUrl`)}
+                    href={safeHttpsUrl(t(`protocols.items.${protocolId}.defillamaUrl`))}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.protocolExternalLink}

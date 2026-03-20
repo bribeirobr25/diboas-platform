@@ -39,7 +39,14 @@ export function CookieConsent() {
   const intl = useTranslation();
   const { locale } = useLocale();
   const descriptionId = useId();
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner, setShowBanner] = useState(() => {
+    // Synchronous check: if consent already given with current version, skip banner entirely (prevents CLS)
+    const stored = getStoredConsent();
+    if (stored && isConsentVersionCurrent(stored)) {
+      return false;
+    }
+    return false;
+  });
   const [isVisible, setIsVisible] = useState(false);
   const closeBannerTimerRef = useRef<ReturnType<typeof setTimeout>>();
 

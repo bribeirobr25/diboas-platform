@@ -40,6 +40,20 @@ export {
   calculateBuyFees,
   checkInsufficientFunds,
   isAssetEnabled,
+  resolveFeeRates,
+  type FeeRateOverrides,
 } from './calculations';
 
 export { formatCurrency } from './format';
+
+export {
+  processDeposit,
+  processSend,
+  processBuy,
+} from './transactionService';
+
+export type {
+  DepositProcessingResult,
+  SendProcessingResult,
+  BuyProcessingResult,
+} from './transactionService';

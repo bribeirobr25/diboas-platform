@@ -1,1 +1,0 @@
-export { GoalCalculator } from './GoalCalculator';

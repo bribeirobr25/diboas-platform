@@ -13,8 +13,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { Play, Pause } from '@/components/UI/LucideIcon';
 import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
@@ -22,6 +20,7 @@ import { useCarousel } from '@/hooks/useCarousel';
 import { useImageLoading } from '@/hooks/useImageLoading';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { Logger } from '@/lib/monitoring/Logger';
+import { CarouselCard } from './CarouselCard';
 import { sectionEventBus, SectionEventType } from '@/lib/events/SectionEventBus';
 import type { ProductCarouselVariantProps } from '../types';
 import styles from './ProductCarouselDefault.module.css';
@@ -226,93 +225,24 @@ export function ProductCarouselDefault({
           style={{ touchAction: 'pan-y' }}
         >
           <div className={styles.carouselContainer}>
-            {slides.map((slide, index) => {
-              const isActive = index === currentSlideIndex;
-              const isLeftSide = index === (currentSlideIndex - 1 + slides.length) % slides.length;
-              const isRightSide = index === (currentSlideIndex + 1) % slides.length;
-              const isVisible = isActive || isLeftSide || isRightSide;
-
-              return (
-                <div
-                  key={slide.id}
-                  className={`${styles.card} ${isActive ? styles.cardActive : ''} ${isLeftSide ? styles.cardLeft : ''} ${isRightSide ? styles.cardRight : ''}`}
-                  style={{
-                    visibility: isVisible ? 'visible' : 'hidden',
-                    cursor: !isActive && isVisible ? 'pointer' : 'default'
-                  }}
-                  role="group"
-                  aria-label={`Slide ${index + 1} of ${slides.length}: ${slide.title}`}
-                  aria-hidden={!isActive}
-                  onClick={() => {
-                    if (!isActive && isVisible) {
-                      goToSlide(index);
-                    }
-                  }}
-                >
-                  <div className={styles.cardContent}>
-                    
-                    {/* Card Image — gradient fallback shows when asset unavailable */}
-                    <div className={styles.imageWrapper}>
-                      {slide.image && !failedImages.has(slide.id) ? (
-                        <Image
-                          src={slide.image}
-                          alt={slide.imageAlt}
-                          fill
-                          data-slide-id={slide.id}
-                          priority={priority && index <= PRIORITY_IMAGES_COUNT}
-                          className={styles.cardImage}
-                          onLoad={() => handleImageLoad(slide.id)}
-                          onError={() => {
-                            handleImageError(slide.id);
-                            setFailedImages(prev => new Set(prev).add(slide.id));
-                          }}
-                          sizes={imageSizes}
-                          decoding="async"
-                          loading={index <= PRIORITY_IMAGES_COUNT ? 'eager' : 'lazy'}
-                        />
-                      ) : null}
-                      
-                      {/* Bottom Gradient Overlay for Legibility */}
-                      <div className={styles.cardOverlay}>
-                        <div className={styles.cardInfo}>
-                          <h3 className={styles.cardTitle}>
-                            {slide.title}
-                          </h3>
-                          
-                          {/* Functional CTA Link */}
-                          {slide.ctaText && slide.ctaHref && (
-                            <Link
-                              href={slide.ctaHref}
-                              className={styles.cardCTA}
-                              target={slide.ctaHref.startsWith('http') ? '_blank' : '_self'}
-                              rel={slide.ctaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
-                              tabIndex={isActive ? 0 : -1}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onCTAClick?.(slide.id, slide.ctaHref!);
-                                Logger.info('Product carousel CTA clicked', {
-                                  slideId: slide.id,
-                                  ctaHref: slide.ctaHref
-                                });
-                              }}
-                            >
-                              {slide.ctaText}
-                            </Link>
-                          )}
-
-                          {/* Quote */}
-                          {slide.quote && (
-                            <blockquote className={styles.cardQuote}>
-                              {slide.quote}
-                            </blockquote>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {slides.map((slide, index) => (
+              <CarouselCard
+                key={slide.id}
+                slide={slide}
+                index={index}
+                currentSlideIndex={currentSlideIndex}
+                totalSlides={slides.length}
+                priority={priority}
+                priorityCount={PRIORITY_IMAGES_COUNT}
+                imageSizes={imageSizes}
+                failedImages={failedImages}
+                onImageLoad={handleImageLoad}
+                onImageError={handleImageError}
+                onImageFailed={(id) => setFailedImages(prev => new Set(prev).add(id))}
+                onGoToSlide={goToSlide}
+                onCTAClick={onCTAClick}
+              />
+            ))}
           </div>
         </div>
 

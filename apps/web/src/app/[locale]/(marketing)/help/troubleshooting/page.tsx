@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { HeroSection } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
@@ -29,13 +29,13 @@ export default async function HelpTroubleshootingPage({ params }: LocalePageProp
   // Load page-specific namespace
   const pageMessages = await loadPageNamespaces(locale, ['help/troubleshooting']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Troubleshooting',
     description: 'Solutions to common issues and problems',
     category: 'Troubleshooting Guide'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Help', url: '/help' },
     { name: 'Troubleshooting', url: ROUTES.HELP.TROUBLESHOOTING }

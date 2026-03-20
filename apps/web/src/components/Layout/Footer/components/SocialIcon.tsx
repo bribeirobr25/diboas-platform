@@ -3,18 +3,23 @@
 /**
  * Social Icon Component
  *
- * Dynamically loaded social media icons with fallback
+ * Uses centralized LucideIcon exports — no direct lucide-react imports.
  */
 
-import { useState, useEffect } from 'react';
+import {
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin,
+  type LucideIconType,
+} from '@/components/UI/LucideIcon';
 import styles from '../SiteFooter.module.css';
 
-// Dynamic icon imports for better performance
-const IconComponents = {
-  Instagram: () => import('lucide-react').then(mod => mod.Instagram),
-  Twitter: () => import('lucide-react').then(mod => mod.Twitter),
-  Youtube: () => import('lucide-react').then(mod => mod.Youtube),
-  Linkedin: () => import('lucide-react').then(mod => mod.Linkedin),
+const IconComponents: Record<string, LucideIconType> = {
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin,
 };
 
 interface SocialIconProps {
@@ -24,6 +29,8 @@ interface SocialIconProps {
 }
 
 export function SocialIcon({ iconName, label, href }: SocialIconProps) {
+  const Icon = IconComponents[iconName];
+
   return (
     <a
       href={href}
@@ -32,39 +39,13 @@ export function SocialIcon({ iconName, label, href }: SocialIconProps) {
       className={styles.socialLink}
       aria-label={label}
     >
-      <SocialIconRenderer iconName={iconName} />
+      {Icon ? (
+        <Icon className={styles.socialIcon} aria-hidden="true" />
+      ) : (
+        <span className={styles.socialFallback}>
+          {iconName.charAt(0).toUpperCase()}
+        </span>
+      )}
     </a>
   );
-}
-
-function SocialIconRenderer({ iconName }: { iconName: string }) {
-  const [IconComponent, setIconComponent] = useState<React.ComponentType<{ className?: string }> | null>(null);
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    const loadIcon = async () => {
-      try {
-        if (iconName in IconComponents) {
-          const Component = await IconComponents[iconName as keyof typeof IconComponents]();
-          setIconComponent(() => Component);
-        } else {
-          setHasError(true);
-        }
-      } catch {
-        setHasError(true);
-      }
-    };
-
-    loadIcon();
-  }, [iconName]);
-
-  if (hasError || !IconComponent) {
-    return (
-      <span className={styles.socialFallback}>
-        {iconName.charAt(0).toUpperCase()}
-      </span>
-    );
-  }
-
-  return <IconComponent className={styles.socialIcon} />;
 }

@@ -47,7 +47,7 @@ export { DEFAULT_ALERT_THRESHOLDS } from './alertConfig';
 /**
  * Centralized Alerting Service
  */
-export class AlertingService {
+export class MonitoringAlertService {
   private alerts: Map<string, Alert> = new Map();
   private suppressedAlerts = new Set<string>();
   private thresholds: AlertThresholds;
@@ -348,11 +348,11 @@ export class AlertingService {
 }
 
 // Singleton instance
-export const alertingService = new AlertingService();
+export const alertingService = new MonitoringAlertService();
 
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
-    (window as Window & { alertingService?: AlertingService }).alertingService = alertingService;
+    (window as Window & { alertingService?: MonitoringAlertService }).alertingService = alertingService;
   }
 }

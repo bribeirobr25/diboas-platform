@@ -21,8 +21,6 @@ export const ROUTES = {
   CALCULATOR: '/#calculator',
   STRATEGIES: '/strategies',
   DAILY_MARKET: '/daily-market',
-  FUTURE_YOU: '/future-you',
-
   // Landing Page Links
   BUSINESS_LANDING: '/business',
 

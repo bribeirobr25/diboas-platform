@@ -47,7 +47,7 @@ export { buildShareUrl } from './platformHandlers';
 /**
  * Share Manager class
  */
-export class ShareManager {
+export class SocialShareService {
   private trackingCallback?: (data: ShareTrackingData) => void;
   private locale: CardLocale;
   private cardType: CardType;
@@ -345,10 +345,10 @@ export class ShareManager {
 /**
  * Create a share manager with analytics tracking
  */
-export function createShareManager(
+export function createSocialShareService(
   locale: CardLocale,
   analyticsTrack?: (event: string, params: Record<string, unknown>) => void
-): ShareManager {
+): SocialShareService {
   const trackingCallback = analyticsTrack
     ? (data: ShareTrackingData) => {
         analyticsTrack(SHARE_EVENTS.SHARE_COMPLETED, {
@@ -360,10 +360,10 @@ export function createShareManager(
       }
     : undefined;
 
-  return new ShareManager(locale, trackingCallback);
+  return new SocialShareService(locale, trackingCallback);
 }
 
 /**
  * Default share manager instance
  */
-export const shareManager = new ShareManager();
+export const shareManager = new SocialShareService();

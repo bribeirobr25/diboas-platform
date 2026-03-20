@@ -21,7 +21,30 @@
 import { sql } from '@/lib/database/client';
 import { encrypt, decrypt, hmacHash } from '@/lib/security/encryption';
 import { Logger } from '@/lib/monitoring/Logger';
+import { ApplicationEventType } from '@/lib/events/applicationEventTypes';
+
+/**
+ * Lazily emit an application event via dynamic import to avoid circular dependencies.
+ */
+function emitStoreEvent(eventType: ApplicationEventType, payload: Record<string, unknown>): void {
+  import('@/lib/events/ApplicationEventBus').then(({ applicationEventBus }) => {
+    applicationEventBus.emit(eventType, {
+      source: 'waitlist-store',
+      timestamp: Date.now(),
+      ...payload,
+    });
+  }).catch(() => {
+    // Silent fail — event emission must not break store operations
+  });
+}
 import type { WaitlistEntryRow } from '@/lib/database/schema';
+import {
+  nextEntryId,
+  nextPosition,
+  getFoundingMemberStatus,
+  sourceToAudience,
+} from './counterManager';
+import { determineTier } from './tierDeterminer';
 
 /**
  * WaitlistEntry type - Full spec-compliant model
@@ -40,6 +63,7 @@ export interface WaitlistEntry {
   tags: string[];
   tier: WaitlistTier;
   country?: string;
+  version: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -81,6 +105,7 @@ function rowToEntry(row: WaitlistEntryRow): WaitlistEntry {
     tags: row.tags || [],
     tier: row.tier as WaitlistTier,
     country: row.country || undefined,
+    version: row.version,
     createdAt: new Date(row.created_at),
     updatedAt: new Date(row.updated_at),
   };
@@ -92,124 +117,6 @@ function rowToEntry(row: WaitlistEntryRow): WaitlistEntry {
  */
 function emailHash(email: string): string | null {
   return hmacHash(email.toLowerCase().trim());
-}
-
-async function nextEntryId(): Promise<string> {
-  const rows = await sql`
-    UPDATE waitlist_counters
-    SET value = value + 1
-    WHERE key = 'entry_id'
-    RETURNING value
-  `;
-  const counter = (rows[0] as { value: number }).value;
-  return `wl_${Date.now()}_${counter}`;
-}
-
-async function nextPosition(): Promise<number> {
-  const rows = await sql`
-    UPDATE waitlist_counters
-    SET value = value + 1
-    WHERE key = 'position'
-    RETURNING value
-  `;
-  return (rows[0] as { value: number }).value;
-}
-
-/** Counter key suffixes per source audience */
-const COUNTER_KEYS = {
-  b2c: { count: 'founding_member_count', cap: 'founding_member_cap' },
-  b2b: { count: 'founding_member_count_b2b', cap: 'founding_member_cap_b2b' },
-} as const;
-
-type Audience = keyof typeof COUNTER_KEYS;
-
-/** Map a WaitlistSource to the audience for counter selection */
-function sourceToAudience(source: WaitlistSource | undefined): Audience {
-  return source === 'landing_b2b' ? 'b2b' : 'b2c';
-}
-
-/**
- * Read the founding_member_count and founding_member_cap for a given audience.
- */
-async function getFoundingMemberStatus(
-  audience: Audience = 'b2c'
-): Promise<{ count: number; cap: number }> {
-  const keys = COUNTER_KEYS[audience];
-  const defaultCap = audience === 'b2b'
-    ? parseInt(process.env.FOUNDING_MEMBER_CAP_B2B || '24', 10)
-    : parseInt(process.env.FOUNDING_MEMBER_CAP || '1200', 10);
-
-  const rows = await sql`
-    SELECT key, value FROM waitlist_counters
-    WHERE key IN (${keys.count}, ${keys.cap})
-  `;
-  let count = 0;
-  let cap = defaultCap;
-  for (const row of rows as unknown as { key: string; value: number }[]) {
-    if (row.key === keys.count) count = row.value;
-    if (row.key === keys.cap) cap = row.value;
-  }
-  return { count, cap };
-}
-
-/**
- * Atomically increment founding_member_count and return new value.
- * Returns the new count, or null if the counter was already at/above cap.
- */
-async function tryClaimFoundingSlot(audience: Audience = 'b2c'): Promise<number | null> {
-  const keys = COUNTER_KEYS[audience];
-  const rows = await sql`
-    UPDATE waitlist_counters
-    SET value = value + 1
-    WHERE key = ${keys.count}
-      AND value < (SELECT value FROM waitlist_counters WHERE key = ${keys.cap})
-    RETURNING value
-  `;
-  return rows.length > 0 ? (rows[0] as { value: number }).value : null;
-}
-
-/**
- * Determine the tier for a new signup based on referral context and cap status.
- *
- * Rules:
- * | Scenario                                                        | Tier              |
- * |----------------------------------------------------------------|-------------------|
- * | No referral + cap not full                                      | founding_member   |
- * | No referral + cap full                                          | priority_waitlist |
- * | Valid referral + referrer is founder/early_member + invites < 5 + cap not full | founding_member |
- * | Valid referral + referrer is founder/early_member + invites < 5 + cap full     | early_member    |
- * | Valid referral + referrer has ≥ 5 invites                       | priority_waitlist |
- * | Valid referral + referrer is standard/priority_waitlist          | standard          |
- */
-async function determineTier(
-  referrer: WaitlistEntry | undefined,
-  source: WaitlistSource | undefined,
-): Promise<WaitlistTier> {
-  const audience = sourceToAudience(source);
-
-  // Referrer exists — check their tier and invite count
-  if (referrer) {
-    const referrerCanInvite =
-      (referrer.tier === 'founding_member' || referrer.tier === 'early_member') &&
-      referrer.referralCount < INVITE_LIMIT;
-
-    if (!referrerCanInvite) {
-      // Referrer is standard/priority_waitlist, or has used all 5 invites
-      if (referrer.tier === 'standard' || referrer.tier === 'priority_waitlist') {
-        return 'standard';
-      }
-      // Founder/early_member with ≥ 5 invites
-      return 'priority_waitlist';
-    }
-
-    // Referrer can invite — try to claim a founding slot for the right audience
-    const claimed = await tryClaimFoundingSlot(audience);
-    return claimed !== null ? 'founding_member' : 'early_member';
-  }
-
-  // No referrer — direct signup
-  const claimed = await tryClaimFoundingSlot(audience);
-  return claimed !== null ? 'founding_member' : 'priority_waitlist';
 }
 
 // ---------------------------------------------------------------------------
@@ -331,6 +238,7 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
     tags,
     tier,
     country: input.country,
+    version: 1,
     createdAt: new Date(now),
     updatedAt: new Date(now),
   };
@@ -338,13 +246,50 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
 
 export async function updateEntry(
   email: string,
-  updates: Partial<Omit<WaitlistEntry, 'id' | 'email' | 'originalPosition' | 'createdAt' | 'tier'>>
+  updates: Partial<Omit<WaitlistEntry, 'id' | 'email' | 'originalPosition' | 'createdAt' | 'tier'>>,
+  currentVersion?: number
 ): Promise<WaitlistEntry | undefined> {
   const hash = emailHash(email);
   if (!hash) return undefined;
 
   const now = new Date().toISOString();
 
+  // If currentVersion is provided, use optimistic locking
+  if (currentVersion !== undefined) {
+    const rows = await sql`
+      UPDATE waitlist_entries SET
+        position = COALESCE(${updates.position ?? null}::integer, position),
+        referral_count = COALESCE(${updates.referralCount ?? null}::integer, referral_count),
+        tags = COALESCE(${updates.tags ?? null}::text[], tags),
+        locale = COALESCE(${updates.locale ?? null}::text, locale),
+        source = COALESCE(${updates.source ?? null}::text, source),
+        name = COALESCE(${updates.name !== undefined ? encrypt(updates.name) : null}::text, name),
+        country = COALESCE(${updates.country ?? null}::text, country),
+        version = version + 1,
+        updated_at = ${now}
+      WHERE email_hash = ${hash}
+        AND version = ${currentVersion}
+      RETURNING *
+    `;
+
+    if (rows.length === 0) {
+      // Check if the row exists at all to distinguish "not found" from "version mismatch"
+      const existsRows = await sql`
+        SELECT 1 FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1
+      `;
+      if (existsRows.length > 0) {
+        throw new Error('Concurrent modification detected: entry was updated by another request');
+      }
+      return undefined;
+    }
+    const updatedEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+    emitStoreEvent(ApplicationEventType.WAITLIST_POSITION_UPDATED, {
+      metadata: { entryId: updatedEntry.id, hasPositionChange: updates.position !== undefined },
+    });
+    return updatedEntry;
+  }
+
+  // No version provided — update without optimistic locking (backward compatible)
   const rows = await sql`
     UPDATE waitlist_entries SET
       position = COALESCE(${updates.position ?? null}::integer, position),
@@ -354,13 +299,18 @@ export async function updateEntry(
       source = COALESCE(${updates.source ?? null}::text, source),
       name = COALESCE(${updates.name !== undefined ? encrypt(updates.name) : null}::text, name),
       country = COALESCE(${updates.country ?? null}::text, country),
+      version = version + 1,
       updated_at = ${now}
     WHERE email_hash = ${hash}
     RETURNING *
   `;
 
   if (rows.length === 0) return undefined;
-  return rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  const updatedEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  emitStoreEvent(ApplicationEventType.WAITLIST_POSITION_UPDATED, {
+    metadata: { entryId: updatedEntry.id, hasPositionChange: updates.position !== undefined },
+  });
+  return updatedEntry;
 }
 
 /**
@@ -373,14 +323,52 @@ export async function updateEntry(
  * Position bump is no longer applied (tier system replaces position-based rewards).
  */
 export async function processReferral(
-  referrerEmail: string
+  referrerEmail: string,
+  currentVersion?: number
 ): Promise<WaitlistEntry | undefined> {
   const hash = emailHash(referrerEmail);
   if (!hash) return undefined;
 
+  // If currentVersion is provided, use optimistic locking
+  if (currentVersion !== undefined) {
+    const rows = await sql`
+      UPDATE waitlist_entries SET
+        referral_count = referral_count + 1,
+        version = version + 1,
+        updated_at = ${new Date().toISOString()}
+      WHERE email_hash = ${hash}
+        AND tier IN ('founding_member', 'early_member')
+        AND referral_count < ${INVITE_LIMIT}
+        AND version = ${currentVersion}
+      RETURNING *
+    `;
+
+    if (rows.length === 0) {
+      // Check if the row exists and matches tier/count criteria
+      const existsRows = await sql`
+        SELECT 1 FROM waitlist_entries
+        WHERE email_hash = ${hash}
+          AND tier IN ('founding_member', 'early_member')
+          AND referral_count < ${INVITE_LIMIT}
+        LIMIT 1
+      `;
+      if (existsRows.length > 0) {
+        throw new Error('Concurrent modification detected: referral entry was updated by another request');
+      }
+      return undefined;
+    }
+    const referralEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+    emitStoreEvent(ApplicationEventType.WAITLIST_REFERRAL_USED, {
+      metadata: { referrerId: referralEntry.id, referralCount: referralEntry.referralCount },
+    });
+    return referralEntry;
+  }
+
+  // No version provided — update without optimistic locking (backward compatible)
   const rows = await sql`
     UPDATE waitlist_entries SET
       referral_count = referral_count + 1,
+      version = version + 1,
       updated_at = ${new Date().toISOString()}
     WHERE email_hash = ${hash}
       AND tier IN ('founding_member', 'early_member')
@@ -389,7 +377,11 @@ export async function processReferral(
   `;
 
   if (rows.length === 0) return undefined;
-  return rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  const referralEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  emitStoreEvent(ApplicationEventType.WAITLIST_REFERRAL_USED, {
+    metadata: { referrerId: referralEntry.id, referralCount: referralEntry.referralCount },
+  });
+  return referralEntry;
 }
 
 export async function getFoundingMemberCount(
@@ -402,25 +394,31 @@ export async function getCurrentPositionCounter(): Promise<number> {
   const rows = await sql`
     SELECT value FROM waitlist_counters WHERE key = 'position'
   `;
-  return rows.length > 0 ? (rows[0] as { value: number }).value : 0;
+  if (rows.length === 0) return 0;
+  const row = rows[0] as Record<string, unknown> | undefined;
+  return typeof row?.value === 'number' ? row.value : 0;
 }
 
 export async function getTotalCount(source?: WaitlistSource): Promise<number> {
   if (source) {
     const rows = await sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries WHERE source = ${source}`;
-    return (rows[0] as { count: number }).count;
+    const row = rows[0] as Record<string, unknown> | undefined;
+    return typeof row?.count === 'number' ? row.count : 0;
   }
   const rows = await sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries`;
-  return (rows[0] as { count: number }).count;
+  const row = rows[0] as Record<string, unknown> | undefined;
+  return typeof row?.count === 'number' ? row.count : 0;
 }
 
 export async function getDistinctCountryCount(source?: WaitlistSource): Promise<number> {
   if (source) {
     const rows = await sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL AND source = ${source}`;
-    return (rows[0] as { count: number }).count;
+    const row = rows[0] as Record<string, unknown> | undefined;
+    return typeof row?.count === 'number' ? row.count : 0;
   }
   const rows = await sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL`;
-  return (rows[0] as { count: number }).count;
+  const row = rows[0] as Record<string, unknown> | undefined;
+  return typeof row?.count === 'number' ? row.count : 0;
 }
 
 export async function addTags(email: string, newTags: string[]): Promise<WaitlistEntry | undefined> {
@@ -451,6 +449,10 @@ export async function deleteByEmail(email: string): Promise<boolean> {
 
   if (rows.length > 0) {
     Logger.info('[Waitlist] Entry deleted for GDPR request');
+    emitStoreEvent(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {
+      reason: 'gdpr',
+      metadata: { method: 'store_deleteByEmail' },
+    });
     return true;
   }
   return false;

@@ -13,6 +13,9 @@ import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 function getAllUrls(): string[] {
   const urls = new Set<string>(['/']); // Home page
 
+  // Standalone pages not in navigation config
+  urls.add('/share');
+
   // Add all navigation menu items
   navigationConfig.mainMenu.forEach(menu => {
     menu.subItems?.forEach(item => {

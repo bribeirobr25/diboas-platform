@@ -20,6 +20,7 @@ export interface WaitlistEntryRow {
   gdpr_accepted: boolean;
   tier: string;
   country: string | null;
+  version: number;
   created_at: string;
   updated_at: string;
 }

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
 import { ShareDreamSection } from '../components/ShareDreamSection';
-import { PRE_DREAM_TIMEFRAMES, formatCurrency } from '@/lib/pre-dream';
+import { formatCurrency } from '@/lib/pre-dream';
 import { BANK_RATE_SOURCES } from '@/lib/dream-mode/constants';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
@@ -26,20 +26,11 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
   const result = state.result;
 
-  // Locale-specific bank rate (matching DreamMode pattern)
+  // Bank display values come from the calculation layer (locale-aware, depreciation-adjusted)
   const bankSource = BANK_RATE_SOURCES[locale] || BANK_RATE_SOURCES['en'];
-  const bankApy = bankSource.rate / 100;
-  const years = result ? PRE_DREAM_TIMEFRAMES[state.selectedTimeframe].years : 1;
-  const bankMultiplier = Math.pow(1 + bankApy, years);
-  const localeBankBalance = result ? result.totalInvestment * bankMultiplier : 0;
-  const localeBankInterest = result ? localeBankBalance - result.totalInvestment : 0;
-
-  // Brazil currency depreciation (6% annual, matching DreamMode)
-  const currencyDepreciation = locale === 'pt-BR' ? 0.06 : 0;
-  const depreciationFactor = currencyDepreciation > 0 ? Math.pow(1 - currencyDepreciation, years) : 1;
-  const adjustedBankInterest = localeBankInterest * depreciationFactor;
-  const adjustedBankBalance = result ? result.totalInvestment + adjustedBankInterest : 0;
-  const localeDifference = result ? result.defiBalance - adjustedBankBalance : 0;
+  const bankBalance = result?.bankBalance ?? 0;
+  const bankInterest = result?.bankInterest ?? 0;
+  const difference = result?.difference ?? 0;
 
   // Track pre_dream_completed when results are shown
   useEffect(() => {
@@ -52,17 +43,17 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
           timeframe: state.selectedTimeframe,
           initial_amount: result.totalInvestment,
           defi_balance: result.defiBalance,
-          bank_balance: adjustedBankBalance,
-          difference: localeDifference,
+          bank_balance: bankBalance,
+          difference: difference,
         },
       });
     }
-  }, [result, state.selectedPath, state.selectedTimeframe, adjustedBankBalance, localeDifference]);
+  }, [result, state.selectedPath, state.selectedTimeframe, bankBalance, difference]);
 
   if (!result) return null;
 
   const bankBarWidth = result.defiBalance > 0
-    ? (adjustedBankBalance / result.defiBalance) * 100
+    ? (bankBalance / result.defiBalance) * 100
     : 0;
 
   return (
@@ -100,8 +91,8 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
               <p className={styles.comparisonApyMuted}>{bankSource.rate}% APY</p>
             </div>
             <div className={styles.comparisonValues}>
-              <p className={styles.comparisonAmountMuted}>{formatCurrency(adjustedBankBalance, 2, locale)}</p>
-              <p className={styles.comparisonGainMuted}>+{formatCurrency(adjustedBankInterest, 2, locale)}</p>
+              <p className={styles.comparisonAmountMuted}>{formatCurrency(bankBalance, 2, locale)}</p>
+              <p className={styles.comparisonGainMuted}>+{formatCurrency(bankInterest, 2, locale)}</p>
             </div>
           </div>
           <div className={styles.progressBarBgMuted}>
@@ -120,14 +111,14 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
         </div>
         <div>
           <p className={styles.differenceText}>
-            {t('differenceMore', { amount: formatCurrency(localeDifference, 2, locale) })}
+            {t('differenceMore', { amount: formatCurrency(difference, 2, locale) })}
           </p>
           <p className={styles.differenceSubtext}>{t('differenceSubtext')}</p>
         </div>
       </div>
 
       {/* Share Section */}
-      <ShareDreamSection result={result} localeDifference={localeDifference} />
+      <ShareDreamSection result={result} difference={difference} />
 
       {/* Bank Source */}
       <p className={styles.bankSource}>

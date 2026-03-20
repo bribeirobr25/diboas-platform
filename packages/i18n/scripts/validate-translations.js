@@ -27,7 +27,6 @@ const REFERENCE_LOCALE = 'en';
  */
 const LOCALE_SPECIFIC_KEYS = {
   'pt-BR': {
-    'future-you.json': ['footer.bcbDisclaimer'],
     'landing-b2b.json': ['calculator.fields.currencyLoss', 'footer.bcbDisclaimer'],
     'landing-b2c.json': ['demo.pain.pixHeader', 'footer.brDisclaimer'],
     'legal/cookies.json': ['sections.brazilNote'],

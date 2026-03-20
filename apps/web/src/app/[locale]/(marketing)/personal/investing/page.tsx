@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { generateStaticPageMetadata, MetadataFactory } from '@/lib/seo';
+import { generateStaticPageMetadata, SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
-import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase } from '@/components/Sections';
+import { HeroSection, StickyFeaturesNav, FAQAccordion, FeatureShowcase, ScenarioCards } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { HERO_PAGE_CONFIGS, getVariantForPageConfig } from '@/config/hero-pages';
 import { ROUTES } from '@/config/routes';
@@ -13,6 +13,7 @@ import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
 import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
+import { PERSONAL_INVESTING_SCENARIOS_CONFIG } from '@/config/personal-sections';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { LocalePageProps } from '@/types/page';
@@ -34,13 +35,13 @@ export default async function InvestingPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (personal/investing + shared: home for StickyFeaturesNav, faq for FAQAccordion)
   const pageMessages = await loadPageNamespaces(locale, ['personal/investing', 'home', 'faq']);
 
-  const serviceData = MetadataFactory.generateServiceStructuredData({
+  const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Investing',
     description: 'Start investing with just $10',
     category: 'Investment Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Personal', url: '/personal' },
     { name: 'Investing', url: ROUTES.PERSONAL.INVESTING }
@@ -91,6 +92,19 @@ export default async function InvestingPage({ params }: LocalePageProps) {
         >
           <BenefitsCardsSection
             config={getBenefitsCardsConfig('personal-investing')!}
+            enableAnalytics={true}
+          />
+        </SectionErrorBoundary>
+
+        {/* Scenario Cards Section — unique to investing page */}
+        <SectionErrorBoundary
+          sectionId="scenario-cards-investing"
+          sectionType="ScenarioCards"
+          enableReporting={true}
+          context={{ page: 'investing' }}
+        >
+          <ScenarioCards
+            config={PERSONAL_INVESTING_SCENARIOS_CONFIG}
             enableAnalytics={true}
           />
         </SectionErrorBoundary>

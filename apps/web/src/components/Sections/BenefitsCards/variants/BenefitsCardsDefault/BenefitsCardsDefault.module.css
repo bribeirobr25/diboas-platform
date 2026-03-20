@@ -164,6 +164,25 @@
   }
 }
 
+/* Featured Card - Visual emphasis for primary benefits */
+.cardFeatured {
+  padding: var(--spacing-3xl);
+  border-left: 4px solid var(--color-brand-primary);
+  background-color: var(--section-bg-neutral);
+}
+
+@media (min-width: 768px) {
+  .cardFeatured {
+    padding: var(--spacing-4xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardFeatured {
+    padding: var(--spacing-4xl) var(--spacing-3xl);
+  }
+}
+
 /* Card Hover State */
 .card:hover {
   transform: translateY(-2px);

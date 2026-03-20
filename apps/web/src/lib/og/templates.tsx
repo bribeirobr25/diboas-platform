@@ -5,7 +5,7 @@
 
 import { diBoasColors } from '@/lib/colors';
 
-export type OGPageType = 'default' | 'b2c' | 'b2b' | 'strategies' | 'future-you';
+export type OGPageType = 'default' | 'b2c' | 'b2b' | 'strategies';
 
 interface OGTemplateConfig {
   title: string;
@@ -37,12 +37,6 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     subtitle: '10 Strategies. Different Goals. Different Risk Levels.',
     badge: 'Strategies',
     theme: 'teal',
-  },
-  'future-you': {
-    title: 'Future You Calculator',
-    subtitle: 'See What Your Money Could Become',
-    badge: 'Calculator',
-    theme: 'dark',
   },
 };
 
@@ -210,5 +204,5 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
  * Check if a page type is valid
  */
 export function isValidPageType(page: string): page is OGPageType {
-  return ['default', 'b2c', 'b2b', 'strategies', 'future-you'].includes(page);
+  return ['default', 'b2c', 'b2b', 'strategies'].includes(page);
 }

@@ -19,6 +19,7 @@ import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { Logger } from '@/lib/monitoring/Logger';
 import type { OneFeatureVariantProps } from '../types';
 import styles from './OneFeatureDefault.module.css';
+import ctaStyles from '@/styles/shared/cta-button.module.css';
 
 export function OneFeatureDefault({ 
   config, 
@@ -190,7 +191,7 @@ export function OneFeatureDefault({
                 variant={DEFAULT_CTA_PROPS.variant}
                 size={DEFAULT_CTA_PROPS.size}
                 trackable={DEFAULT_CTA_PROPS.trackable}
-                className={styles.ctaButton}
+                className={ctaStyles.ctaButton}
               >
                 {config.content.cta.text}
               </Button>
@@ -204,7 +205,7 @@ export function OneFeatureDefault({
                 variant={DEFAULT_CTA_PROPS.variant}
                 size={DEFAULT_CTA_PROPS.size}
                 trackable={DEFAULT_CTA_PROPS.trackable}
-                className={styles.ctaButton}
+                className={ctaStyles.ctaButton}
               >
                 {config.content.cta.text}
               </Button>

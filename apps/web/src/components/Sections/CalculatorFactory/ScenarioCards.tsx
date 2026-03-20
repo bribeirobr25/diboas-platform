@@ -1,10 +1,11 @@
 'use client';
 
-import { SCENARIO_KEYS, SCENARIO_RATES, type ScenarioKey } from './calculatorUtils';
+import { SCENARIO_KEYS, type ScenarioKey } from './calculatorUtils';
 import styles from './CalculatorFactory.module.css';
 
 interface ScenarioCardsProps {
   isCashflow: boolean;
+  scenarioRates: Record<ScenarioKey, number>;
   computeResult: (rate: number) => number;
   computeGap: (rate: number) => number;
   formatCurrency: (value: number) => string;
@@ -14,6 +15,7 @@ interface ScenarioCardsProps {
 
 export function ScenarioCards({
   isCashflow,
+  scenarioRates,
   computeResult,
   computeGap,
   formatCurrency,
@@ -23,7 +25,7 @@ export function ScenarioCards({
   return (
     <div className={styles.scenarioCards}>
       {SCENARIO_KEYS.map((key) => {
-        const scenarioRate = SCENARIO_RATES[key];
+        const scenarioRate = scenarioRates[key];
         const result = computeResult(scenarioRate);
         const gap = computeGap(scenarioRate);
         const isHighlighted = key === 'historical';

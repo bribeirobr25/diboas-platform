@@ -10,6 +10,7 @@ import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
 import { UtmCapture } from '@/components/Layout/UtmCapture';
+import { PageViewTracker } from '@/components/Performance/PageViewTracker';
 
 // CEO Decision Q5: Marketing pages removed for V1. Noindexed until post-launch.
 export const metadata: Metadata = {
@@ -52,9 +53,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
   const commonMessages = await loadMessages(locale, 'common');
   const allMessages = flattenMessages(commonMessages, 'common');
 
-  // Keep in sync with packages/i18n/translations/{locale}/common.json → accessibility.skipToMain
-  const skipLabels: Record<string, string> = { en: 'Skip to main content', de: 'Zum Hauptinhalt springen', es: 'Saltar al contenido principal', 'pt-BR': 'Pular para o conteúdo principal' };
-  const skipText = skipLabels[locale] ?? skipLabels.en;
+  const skipText = (commonMessages as Record<string, Record<string, string>>).accessibility?.skipToMain ?? 'Skip to main content';
 
   return (
     <LocaleProvider initialLocale={locale}>
@@ -77,6 +76,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
               <SiteFooter />
               <ScrollDepthTracker />
               <UtmCapture />
+              <PageViewTracker />
               <CookieConsent />
             </div>
           </WaitingListProvider>

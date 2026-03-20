@@ -23,6 +23,7 @@ import { Logger } from '@/lib/monitoring/Logger';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { FeatureShowcaseVariantProps } from '../types';
 import styles from './FeatureShowcaseDefault.module.css';
+import ctaStyles from '@/styles/shared/cta-button.module.css';
 
 export function FeatureShowcaseDefault({
   config,
@@ -221,7 +222,7 @@ export function FeatureShowcaseDefault({
                   variant={DEFAULT_CTA_PROPS.variant}
                   size={DEFAULT_CTA_PROPS.size}
                   trackable={DEFAULT_CTA_PROPS.trackable}
-                  className={styles.ctaButton}
+                  className={ctaStyles.ctaButton}
                 >
                   {currentSlide.content.ctaText}
                 </CTAButtonLink>
