@@ -39,7 +39,7 @@
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.4",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.15.1",
     "@next/eslint-plugin-next": "^16.1.6",
