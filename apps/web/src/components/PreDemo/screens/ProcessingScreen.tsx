@@ -16,7 +16,7 @@ export function ProcessingScreen({ variant, title, subtitle }: ProcessingScreenP
 
   return (
     <div className={styles.screen}>
-      <div className={styles.screenCenter} style={{ flex: 1 }}>
+      <div className={`${styles.screenCenter} ${styles.screenCenterFlex}`}>
         <div className={styles.screenCard}>
           {variant === 'processing' ? (
             <div className={styles.spinnerContainer}>

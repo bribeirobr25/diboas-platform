@@ -1,0 +1,652 @@
+{
+  "pages": {
+    "learnFinancialBasics": {
+      "title": "Fundamentos Financeiros | diBoaS",
+      "description": "Os fundamentos que ninguém te ensinou. Construa uma base financeira sólida.",
+      "hero": {
+        "title": "Os fundamentos que ninguém te ensinou. Comece aqui e construa uma base financeira sólida.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "Os fundamentos que ninguém te ensinou",
+        "description": "Conceitos essenciais, linguagem simples.",
+        "cards": {
+          "personalBudgetingSimple": {
+            "iconAlt": "Budgeting icon",
+            "title": "Orçamento Pessoal Descomplicado",
+            "description": "Aprenda a controlar receitas e despesas.\nFerramentas práticas incluídas.\nAutonomia financeira começa aqui."
+          },
+          "interestFriendOrFoe": {
+            "iconAlt": "Interest icon",
+            "title": "Juros: Seu Amigo Ou Inimigo?",
+            "description": "Entenda como juros funcionam de verdade.\nQuando trabalham a seu favor.\nQuando te prejudicam."
+          },
+          "buildEmergencyFund": {
+            "iconAlt": "Emergency fund icon",
+            "title": "Construa Sua Reserva de Emergência",
+            "description": "Por que você precisa.\nQuanto guardar.\nOnde colocar esse dinheiro."
+          },
+          "debtHowToGetOut": {
+            "iconAlt": "Debt freedom icon",
+            "title": "Dívidas: Como Sair Delas",
+            "description": "Estratégias para quitar dívidas.\nPriorização inteligente.\nRecomeço financeiro possível."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Os fundamentos que faltaram.",
+        "subtitle": "Construa a base que ninguém te ensinou.",
+        "cards": {
+          "understandYourMoney": {
+            "title": "Entenda Seu Dinheiro",
+            "description": "Orçamento, poupança, gastos conscientes.\nOs pilares de uma vida financeira saudável.\nComece pela base.",
+            "imageAlt": "Entenda Seu Dinheiro illustration"
+          },
+          "jargonBecomesClarity": {
+            "title": "Jargão Virou Clareza",
+            "description": "CDI, inflação, juros compostos.\nExplicamos cada termo em português claro.\nSem tecniquês.",
+            "imageAlt": "Jargão Virou Clareza illustration"
+          },
+          "habitsThatTransform": {
+            "title": "Hábitos Que Transformam",
+            "description": "Pequenas mudanças, grandes resultados.\nAprenda os hábitos de quem prospera.\nMude hoje, colha sempre.",
+            "imageAlt": "Hábitos Que Transformam illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "A Base Que Você Precisa",
+            "description": "Orçamento, poupança e metas.\nTudo que deviam ter ensinado na escola.\nComece sua jornada financeira aqui.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "A Base Que Você Precisa illustration"
+          },
+          "simplicity": {
+            "title": "Não Precisa Saber Nada Antes",
+            "description": "✓ Aulas interativas\n✓ Exemplos do mundo real\n✓ Pratique com seu próprio dinheiro\nAprenda fazendo, não só lendo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Não Precisa Saber Nada Antes illustration"
+          },
+          "rewards": {
+            "title": "Acompanhe Seu Progresso",
+            "description": "Marcos visuais mostram seu crescimento.\nComemore cada conquista.\nConfiança financeira, uma aula de cada vez.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Acompanhe Seu Progresso illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q43",
+          "q44",
+          "q45"
+        ]
+      }
+    },
+    "learnMoneyManagement": {
+      "title": "Gestão Financeira | diBoaS",
+      "description": "Organize, controle e multiplique seu dinheiro como um profissional.",
+      "hero": {
+        "title": "Organize, controle e multiplique. Aprenda a gerenciar seu dinheiro como um profissional.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "Gerencie como um profissional",
+        "description": "Técnicas avançadas explicadas de forma simples.",
+        "cards": {
+          "financialPlanning360": {
+            "iconAlt": "Planning icon",
+            "title": "Planejamento Financeiro 360°",
+            "description": "Visão completa: curto, médio e longo prazo.\nMetas claras, passos concretos.\nDo sonho ao plano real."
+          },
+          "taxOptimization": {
+            "iconAlt": "Tax savings icon",
+            "title": "Otimização de Impostos",
+            "description": "Pague o justo, nada a mais.\nEstratégias legais de economia.\nSeu dinheiro trabalhando melhor."
+          },
+          "multipleIncomeStreams": {
+            "iconAlt": "Multiple income icon",
+            "title": "Múltiplas Fontes de Renda",
+            "description": "Diversifique onde ganha dinheiro.\nNão dependa só do salário.\nSegurança financeira real."
+          },
+          "behaviorAndMoney": {
+            "iconAlt": "Psychology icon",
+            "title": "Comportamento e Dinheiro",
+            "description": "Psicologia por trás das decisões financeiras.\nIdentifique seus gatilhos.\nMude hábitos, mude resultados."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Gerencie como um profissional.",
+        "subtitle": "Ferramentas e conhecimento para dominar suas finanças.",
+        "cards": {
+          "planYourFuture": {
+            "title": "Planeje Seu Futuro",
+            "description": "Metas claras, planos realistas.\nDo fundo de emergência à aposentadoria.\nCada objetivo tem um caminho.",
+            "imageAlt": "Planeje Seu Futuro illustration"
+          },
+          "controlYourSpending": {
+            "title": "Controle Seus Gastos",
+            "description": "Veja para onde seu dinheiro vai.\nIdentifique vazamentos, corrija rotas.\nConhecimento é economia.",
+            "imageAlt": "Controle Seus Gastos illustration"
+          },
+          "increaseYourIncome": {
+            "title": "Aumente Sua Renda",
+            "description": "Estratégias para ganhar mais.\nRenda extra, side hustles, investimentos.\nMúltiplas fontes, múltiplas oportunidades.",
+            "imageAlt": "Aumente Sua Renda illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Domine Seu Fluxo de Caixa",
+            "description": "Controle de entradas, gastos e economias inteligentes.\nTodas as ferramentas pra gerenciar como um pro.\nAssuma o controle da sua vida financeira.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Domine Seu Fluxo de Caixa illustration"
+          },
+          "simplicity": {
+            "title": "Insights Automatizados",
+            "description": "✓ Análise de gastos\n✓ Recomendações de orçamento\n✓ Oportunidades de economia\nSua IA encontra formas de otimizar.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Insights Automatizados illustration"
+          },
+          "rewards": {
+            "title": "Alcance Metas Mais Rápido",
+            "description": "Defina objetivos, receba lembretes, celebre vitórias.\nAlertas inteligentes te mantêm no caminho.\nGestão de dinheiro que funciona de verdade.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Alcance Metas Mais Rápido illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q46",
+          "q47",
+          "q48"
+        ]
+      }
+    },
+    "learnInvestmentGuide": {
+      "title": "Guia de Investimentos | diBoaS",
+      "description": "Seu guia completo para investir com confiança.",
+      "hero": {
+        "title": "Seu guia completo para investir com confiança. Do básico ao avançado, tudo em um lugar.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "Guia completo para investir com confiança",
+        "description": "Do básico ao avançado, tudo explicado.",
+        "cards": {
+          "investmentTypesExplained": {
+            "iconAlt": "Investment types icon",
+            "title": "Tipos de Investimento Explicados",
+            "description": "Ações, bonds, fundos, crypto, real estate.\nO que é cada um, como funcionam.\nRiscos e retornos de cada tipo."
+          },
+          "smartDiversification": {
+            "iconAlt": "Diversification icon",
+            "title": "Diversificação Inteligente",
+            "description": "Por que não colocar tudo num lugar só.\nComo balancear seu portfólio.\nProteção e crescimento juntos."
+          },
+          "assetAnalysis": {
+            "iconAlt": "Analysis icon",
+            "title": "Análise de Ativos",
+            "description": "Como avaliar se algo vale a pena.\nFundamentos vs especulação.\nDecisões baseadas em dados."
+          },
+          "longTermStrategies": {
+            "iconAlt": "Long-term icon",
+            "title": "Estratégias de Longo Prazo",
+            "description": "Buy and hold, dollar cost averaging.\nPoder dos juros compostos.\nPaciência que enriquece."
+          },
+          "riskManagement": {
+            "iconAlt": "Risk management icon",
+            "title": "Gestão de Risco",
+            "description": "Quanto você pode perder?\nStop loss, hedging, seguros.\nProteja o que você construiu."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Investir é mais simples do que parece.",
+        "subtitle": "Do primeiro investimento ao portfólio diversificado.",
+        "cards": {
+          "typesOfInvestments": {
+            "title": "Tipos de Investimento",
+            "description": "Ações, títulos, crypto, imóveis, ouro.\nEntenda cada opção, os riscos e retornos.\nEscolha com conhecimento.",
+            "imageAlt": "Tipos de Investimento illustration"
+          },
+          "buildYourPortfolio": {
+            "title": "Construa Seu Portfólio",
+            "description": "Diversificação inteligente.\nBalanceie risco e retorno.\nSeu perfil, seu portfólio.",
+            "imageAlt": "Construa Seu Portfólio illustration"
+          },
+          "strategiesThatWork": {
+            "title": "Estratégias Que Funcionam",
+            "description": "Longo prazo, Dollar Cost Average, rebalanceamento.\nTáticas testadas por milhões de investidores.\nSiga o que funciona.",
+            "imageAlt": "Estratégias Que Funcionam illustration"
+          },
+          "mistakesToAvoid": {
+            "title": "Erros Para Evitar",
+            "description": "Aprenda com quem já errou.\nPânico, FOMO, falta de paciência.\nEvite armadilhas comuns.",
+            "imageAlt": "Erros Para Evitar illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Educação Completa em Investimentos",
+            "description": "Ações, titles, fundos e alternativos.\nAprenda estratégias tradicionais e modernas.\nTudo que você precisa pra construir patrimônio.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Educação Completa em Investimentos illustration"
+          },
+          "simplicity": {
+            "title": "Da Teoria à Prática",
+            "description": "✓ Vídeo-aulas passo a passo\n✓ Exercícios de montagem de portfólio\n✓ Fundamentos de gestão de risco\nAplique o que aprender imediatamente.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Da Teoria à Prática illustration"
+          },
+          "rewards": {
+            "title": "Desbloqueie Recursos Avançados",
+            "description": "Complete cursos pra acessar ferramentas pro.\nAnálises e insights avançados.\nEducação abre portas.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Desbloqueie Recursos Avançados illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q20",
+          "q21",
+          "q22"
+        ]
+      }
+    },
+    "learnCryptocurrencyGuide": {
+      "title": "Crypto de A a Z | diBoaS",
+      "description": "De A a Z sobre criptomoedas. Desvende o mundo digital sem complicação.",
+      "hero": {
+        "title": "De A a Z sobre criptomoedas. Desvende o mundo digital sem complicação.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "Crypto de A a Z",
+        "description": "Desvende o mundo digital sem complicação.",
+        "cards": {
+          "blockchainExplainedForHumans": {
+            "iconAlt": "Blockchain icon",
+            "title": "Blockchain Explicado Para Humanos",
+            "description": "O que é, como funciona, por que importa.\nSem jargão técnico impossível.\nEntenda a tecnologia de verdade."
+          },
+          "bitcoinMajorCryptocurrencies": {
+            "iconAlt": "Bitcoin icon",
+            "title": "Bitcoin e Principais Criptomoedas",
+            "description": "História, tecnologia, casos de uso.\nDiferenças entre Bitcoin, Ethereum e outras.\nQual é qual e por quê."
+          },
+          "walletsAndSecurity": {
+            "iconAlt": "Wallet security icon",
+            "title": "Carteiras e Segurança",
+            "description": "Hot wallets, cold wallets, custódia.\nComo proteger seus ativos digitais.\nSegurança sem paranoia."
+          },
+          "volatilityHowToHandle": {
+            "iconAlt": "Volatility icon",
+            "title": "Volatilidade e Como Lidar",
+            "description": "Por que crypto sobe e desce tanto.\nEstratégias para não entrar em pânico.\nVisão de longo prazo."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Crypto sem enrolação.",
+        "subtitle": "De A a Z, tudo que você precisa saber.",
+        "cards": {
+          "whatIsBlockchain": {
+            "title": "O Que É Blockchain",
+            "description": "A tecnologia por trás do crypto.\nExplicada sem tecniquês.\nEntenda de verdade.",
+            "imageAlt": "O Que É Blockchain illustration"
+          },
+          "bitcoinEthereumAndBeyond": {
+            "title": "Bitcoin, Ethereum e Além",
+            "description": "Principais criptomoedas explicadas.\nO que são, para que servem, por que importam.\nConheça cada uma.",
+            "imageAlt": "Bitcoin, Ethereum e Além illustration"
+          },
+          "walletsAndSecurity": {
+            "title": "Carteiras e Segurança",
+            "description": "Hot wallets, cold wallets, custodial vs non-custodial.\nProteja seus ativos corretamente.\nSegurança primeiro.",
+            "imageAlt": "Carteiras e Segurança illustration"
+          },
+          "howToBuyAndSell": {
+            "title": "Como Comprar e Vender",
+            "description": "Passo a passo prático.\nDo primeiro Bitcoin ao trading avançado.\nDo zero ao expert.",
+            "imageAlt": "Como Comprar e Vender illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Desmistifique Ativos Digitais",
+            "description": "Blockchain, carteiras, trading, segurança.\nConhecimento crypto de A a Z.\nDe iniciante completo a investidor confiante.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Desmistifique Ativos Digitais illustration"
+          },
+          "simplicity": {
+            "title": "Não Precisa Saber Programar",
+            "description": "✓ Explicações em português claro\n✓ Guias visuais e animações\n✓ Ambientes seguros pra praticar\nAprenda crypto sem confusão.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Não Precisa Saber Programar illustration"
+          },
+          "rewards": {
+            "title": "Ganhe Crypto Enquanto Aprende",
+            "description": "Recompensas dos quizzes em criptomoeda real.\nMonte seu primeiro portfólio estudando.\nConhecimento que literalmente paga.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Ganhe Crypto Enquanto Aprende illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q27",
+          "q28",
+          "q29"
+        ]
+      }
+    },
+    "learnDefiExplained": {
+      "title": "DeFi Explicado | diBoaS",
+      "description": "DeFi descomplicado. Entenda as finanças descentralizadas.",
+      "hero": {
+        "title": "DeFi descomplicado. Entenda as finanças descentralizadas e aproveite suas oportunidades.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "DeFi descomplicado",
+        "description": "Finanças descentralizadas para todos.",
+        "cards": {
+          "whatIsDefiAnyway": {
+            "iconAlt": "DeFi concept icon",
+            "title": "O Que é DeFi Afinal?",
+            "description": "Finanças sem intermediários tradicionais.\nComo funciona na prática.\nVantagens e desafios claros."
+          },
+          "stakingYieldFarmingLiquidityPools": {
+            "iconAlt": "DeFi mechanisms icon",
+            "title": "Staking, Yield Farming e Liquidity Pools",
+            "description": "Conceitos principais destrinchados.\nComo você ganha com cada um.\nRiscos específicos de cada estratégia."
+          },
+          "smartContractsUnveiled": {
+            "iconAlt": "Smart contract icon",
+            "title": "Smart Contracts Desvendados",
+            "description": "Contratos que executam sozinhos.\nComo eles garantem confiança.\nLimitações que você precisa conhecer."
+          },
+          "opportunitiesAndTraps": {
+            "iconAlt": "Opportunity and risk icon",
+            "title": "Oportunidades e Armadilhas",
+            "description": "Yields altos têm contrapartida.\nComo identificar projetos sérios.\nRed flags para evitar."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "DeFi descomplicado.",
+        "subtitle": "Finanças descentralizadas explicadas para humanos.",
+        "cards": {
+          "whatIsDefi": {
+            "title": "O Que É DeFi",
+            "description": "Finanças sem intermediários.\nComo funciona, por que importa.\nA revolução financeira explicada.",
+            "imageAlt": "O Que É DeFi illustration"
+          },
+          "stakingAndYielding": {
+            "title": "Staking e Yielding",
+            "description": "Ganhe renda passiva com crypto.\nComo funciona, quais riscos.\nRendimento inteligente.",
+            "imageAlt": "Staking e Yielding illustration"
+          },
+          "liquidityPools": {
+            "title": "Pools de Liquidez",
+            "description": "Seja o banco.\nForneça liquidez, ganhe taxas.\nDeFi na prática.",
+            "imageAlt": "Pools de Liquidez illustration"
+          },
+          "risksAndRewards": {
+            "title": "Riscos e Recompensas",
+            "description": "Impermanent loss, smart contract risk.\nEntenda cada perigo claramente.\nDecisão informada sempre.",
+            "imageAlt": "Riscos e Recompensas illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Finanças Descentralizadas Simplificadas",
+            "description": "Empréstimos, staking, yield farming explicados.\nEntenda DeFi sem a complexidade.\nO futuro das finanças, acessível pra todos.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Finanças Descentralizadas Simplificadas illustration"
+          },
+          "simplicity": {
+            "title": "Coral Te Guia",
+            "description": "✓ Análises de risco e retorno\n✓ Comparações de protocolos\n✓ Passo a passo das estratégias\nConceitos avançados ficam digeríveis.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Coral Te Guia illustration"
+          },
+          "rewards": {
+            "title": "Evolua Pra Estratégias Avançadas",
+            "description": "Desbloqueie ferramentas DeFi profissionais.\nAcesse oportunidades curadas.\nTransforme conhecimento em ação.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Evolua Pra Estratégias Avançadas illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q34",
+          "q35",
+          "q36"
+        ]
+      }
+    },
+    "learnSpecialContent": {
+      "title": "Conteúdo Especial | diBoaS",
+      "description": "Conteúdos exclusivos para quem quer ir além.",
+      "hero": {
+        "title": "Conteúdos exclusivos para quem quer ir além. Aprenda com quem está fazendo acontecer.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "Conteúdo exclusivo para quem quer mais",
+        "description": "Aprenda com quem está fazendo acontecer.",
+        "cards": {
+          "expertInterviews": {
+            "iconAlt": "Interview icon",
+            "title": "Entrevistas Com Especialistas",
+            "description": "Investidores, traders, empresários de sucesso.\nExperiências reais, lições práticas.\nAprenda com quem já passou por isso."
+          },
+          "realUseCases": {
+            "iconAlt": "Use case icon",
+            "title": "Casos de Uso Reais",
+            "description": "Histórias de usuários do diBoaS.\nDo iniciante ao investidor sofisticado.\nInspiração que é alcançável."
+          },
+          "marketAnalysis": {
+            "iconAlt": "Market analysis icon",
+            "title": "Análises de Mercado",
+            "description": "Tendências, oportunidades, alertas.\nContexto para suas decisões.\nVisão macro e micro."
+          },
+          "webinarsLiveSessions": {
+            "iconAlt": "Webinar icon",
+            "title": "Webinars e Lives",
+            "description": "Sessões ao vivo com especialistas.\nTire dúvidas em tempo real.\nComunidade aprendendo junta."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Conteúdo exclusivo para quem quer mais.",
+        "subtitle": "Insights de experts, cases de sucesso, tendências do mercado.",
+        "cards": {
+          "expertTalks": {
+            "title": "Expert Talks",
+            "description": "Conversas com investidores de sucesso.\nEstratégias reais, resultados reais.\nAprenda com os melhores.",
+            "imageAlt": "Expert Talks illustration"
+          },
+          "successStories": {
+            "title": "Cases de Sucesso",
+            "description": "Histórias de usuários diBoaS.\nComo começaram, onde chegaram.\nInspiração real.",
+            "imageAlt": "Cases de Sucesso illustration"
+          },
+          "marketTrends": {
+            "title": "Tendências de Mercado",
+            "description": "O que está movimentando o mercado.\nAnálises semanais, oportunidades emergentes.\nFique à frente.",
+            "imageAlt": "Tendências de Mercado illustration"
+          },
+          "webinarsAndWorkshops": {
+            "title": "Webinars e Workshops",
+            "description": "Aulas ao vivo com especialistas.\nTire dúvidas, aprofunde conhecimento.\nEducação em tempo real.",
+            "imageAlt": "Webinars e Workshops illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Conteúdo Exclusivo Insider",
+            "description": "Webinars, entrevistas com experts, análises de mercado.\nConteúdo premium pra quem quer aprender mais.\nFique na frente da curva.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Conteúdo Exclusivo Insider illustration"
+          },
+          "simplicity": {
+            "title": "Curado Só Pra Você",
+            "description": "✓ Recomendações personalizadas\n✓ Insights semanais do mercado\n✓ Histórias de sucesso da comunidade\nConteúdo que combina com sua jornada.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Curado Só Pra Você illustration"
+          },
+          "rewards": {
+            "title": "Benefícios de Acesso Antecipado",
+            "description": "Novos recursos primeiro pra quem estuda.\nEventos e encontros exclusivos.\nVantagens premium pra alunos dedicados.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Benefícios de Acesso Antecipado illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q49",
+          "q50",
+          "q51"
+        ]
+      }
+    },
+    "learn": {
+      "overview": {
+        "title": "Centro de Aprendizado | diBoaS",
+        "description": "Aprenda no seu ritmo, cresça no seu tempo.",
+        "hero": {
+          "title": "Aprenda no seu ritmo, cresça no seu tempo. Educação financeira para todos.",
+          "description": "",
+          "cta": "Começar Agora"
+        },
+        "benefitsCards": {
+          "title": "Educação que liberta",
+          "description": "Conhecimento financeiro para todos, de graça.",
+          "cards": {
+            "fromZeroToAdvanced": {
+              "iconAlt": "Learning path icon",
+              "title": "Do Zero ao Avançado",
+              "description": "Cursos estruturados por nível.\nVocê evolui no seu ritmo.\nSem pressão, sem julgamento."
+            },
+            "curatedUpToDateContent": {
+              "iconAlt": "Quality content icon",
+              "title": "Conteúdo Curado e Atualizado",
+              "description": "Especialistas e criadores de conteúdo verificados.\nInformação confiável, não fake news financeira.\nAtualizado com o mercado real."
+            },
+            "learnByDoing": {
+              "iconAlt": "Hands-on learning icon",
+              "title": "Aprenda Fazendo",
+              "description": "Teoria + prática integradas.\nAprende sobre investimento? Teste com $10.\nConhecimento que vira ação."
+            },
+            "earnWhileYouLearn": {
+              "iconAlt": "Learning rewards icon",
+              "title": "Ganhe Enquanto Aprende",
+              "description": "Pontos por completar cursos.\nBadges por metas atingidas.\nEducação recompensada."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Aprenda a crescer.",
+          "subtitle": "Educação financeira que funciona, no seu ritmo.",
+          "cards": {
+            "fromBasicsToAdvanced": {
+              "title": "Do Básico ao Avançado",
+              "description": "Começando do zero? Perfeito.\nJá investe? Ainda melhor.\nConteúdo para cada nível.",
+              "imageAlt": "Do Básico ao Avançado illustration"
+            },
+            "learnByDoing": {
+              "title": "Aprenda Fazendo",
+              "description": "Teoria + Prática juntas.\nAprenda o conceito, aplique na hora.\nConhecimento que fica.",
+              "imageAlt": "Aprenda Fazendo illustration"
+            },
+            "communityThatTeaches": {
+              "title": "Comunidade Que Ensina",
+              "description": "Aprenda com quem já fez.\nCompartilhe o que aprendeu.\nCrescemos juntos.",
+              "imageAlt": "Comunidade Que Ensina illustration"
+            },
+            "guidesThatEvolveWithYou": {
+              "title": "Guias Que Evoluem Com Você",
+              "description": "Aqua para iniciantes. Mystic para investidores.\nCoral para estrategistas.\nCada guia aparece quando você está pronto.",
+              "imageAlt": "Guias Que Evoluem Com Você illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Aprenda no Seu Ritmo",
+              "description": "Banking, investimentos, crypto e DeFi.\nTodos os cursos em um só lugar.\nDe iniciante a expert.",
+              "ctaText": "Começar Agora",
+              "imageAlt": "Aprenda no Seu Ritmo illustration"
+            },
+            "simplicity": {
+              "title": "Guiado por Mentores IA",
+              "description": "✓ Aqua pra iniciantes\n✓ Mystic pra investidores\n✓ Coral pra estratégias avançadas\nAprenda com orientação personalizada.",
+              "ctaText": "Começar Agora",
+              "imageAlt": "Guiado por Mentores IA illustration"
+            },
+            "rewards": {
+              "title": "Ganhe Enquanto Aprende",
+              "description": "Complete cursos, ganhe pontos.\nDesbloqueie badges e benefícios exclusivos.\nEducação que te paga de volta.",
+              "ctaText": "Começar Agora",
+              "imageAlt": "Ganhe Enquanto Aprende illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Perguntas Frequentes",
+          "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+          "ctaText": "Ver Todas as Perguntas",
+          "questionIds": [
+            "q40",
+            "q41",
+            "q42"
+          ]
+        }
+      }
+    }
+  }
+}

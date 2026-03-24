@@ -105,7 +105,8 @@ export default async function AboutPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['about', 'common', 'waitlist', 'landing-b2c']);
+  // common + waitlist already provided by landing layout
+  const pageMessages = await loadPageNamespaces(locale, ['about', 'landing-b2c']);
 
   const serviceData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',

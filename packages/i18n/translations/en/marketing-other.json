@@ -1,0 +1,872 @@
+{
+  "pages": {
+    "home": {
+      "title": "diBoaS - Complete Financial Ecosystem",
+      "description": "Manage your banking, investing, and DeFi assets all in one secure platform.",
+      "hero": {
+        "title": "More than 5.4 billion people deserve safe, simple access to financial growth.\n\ndiBoaS is making this possible",
+        "description": ""
+      },
+      "productCarousel": {
+        "heading": "Everything in one app",
+        "slides": {
+          "benefits": {
+            "title": "No Hassles",
+            "subtitle": "Real-time transfers, no limits, anywhere in the world.\nEasy. Fast. Secure."
+          },
+          "rewards": {
+            "title": "Put Your Money to Work",
+            "subtitle": "Stocks, bonds, your first crypto.\nYour first investment.\nYour first step toward growth."
+          },
+          "business": {
+            "title": "For Your Business Too",
+            "subtitle": "Cash sitting idle? Put it to work.\nZero red tape, automatic returns."
+          }
+        }
+      },
+      "featureShowcase": {
+        "overview": {
+          "title": "Everything in One Place",
+          "description": "Transfers, crypto, stocks, investment strategies, and DeFi.\nAll on one screen. Updated in real time.\n\nStop juggling 5 different apps."
+        },
+        "activities": {
+          "title": "Secure and Simple",
+          "description": "\"I want to save $5,000 for a trip\"\n\"I need an emergency fund\"\n\"I want to invest $100 a month\"\n\nNo complications. diBoaS makes it that simple."
+        },
+        "rewards": {
+          "title": "Earn More",
+          "description": "✓ Cashback and Points system\n✓ Early access to new features\n✓ Bonus yields on strategies\n\nThe more you use it, the more you earn."
+        },
+        "learn": {
+          "title": "Learn Financial Strategies",
+          "description": "Access comprehensive courses on personal finance, investing, and DeFi strategies. Build your knowledge with expert-curated content.",
+          "ctaText": "Start Learning"
+        },
+        "business": {
+          "title": "Enterprise Financial Solutions",
+          "description": "Streamline your business financial operations with our comprehensive suite of tools. From payroll to treasury management.",
+          "ctaText": "Explore Business"
+        }
+      },
+      "appFeatures": {
+        "sectionTitle": "Everything you need is right here.",
+        "organizeMoney": {
+          "title": "Your Money, Your Control",
+          "description": "Take complete control of your money.\nNo limits, no interference.\nOnly you control it",
+          "ctaText": "Learn More",
+          "chipLabel": "Total Control"
+        },
+        "instantPayments": {
+          "title": "Learn Everything Without the Confusion",
+          "description": "Understand how money works.\nHow to organize your finances.\nThe best way to invest.",
+          "ctaText": "Learn More",
+          "chipLabel": "Education"
+        },
+        "securePurchases": {
+          "title": "Multiply Your Income",
+          "description": "Buy assets that appreciate over time.\nMake investments that multiply your money.\nAccess strategies with above-average returns.",
+          "ctaText": "Learn More",
+          "chipLabel": "Growth"
+        },
+        "financialGoals": {
+          "title": "Your Business Deserves More",
+          "description": "Investments using cash flow.\nCredit Line directly with other businesses (P2P).\nZero bureaucracy with high security.",
+          "ctaText": "Learn More",
+          "chipLabel": "Business"
+        }
+      },
+      "oneFeature": {
+        "title": "Security is always our priority.",
+        "subtitle": "We're here to give you complete support and help ensure your money stays protected. 24 hours a day, 7 days a week.",
+        "ctaText": "Discover Our Solutions",
+        "features": {
+          "fraudReport": "Boost Your Security",
+          "reports": "Something wrong? Act fast",
+          "protection": "Protection Center",
+          "support": "24/7 Support"
+        }
+      },
+      "stickyFeaturesNav": {
+        "mainTitle": "Discover more about diBoaS",
+        "ctaText": "Learn More",
+        "categories": {
+          "banking": {
+            "name": "Banking"
+          },
+          "investing": {
+            "name": "Investing"
+          },
+          "strategies": {
+            "name": "Strategies"
+          },
+          "business": {
+            "name": "Business"
+          }
+        },
+        "banking": {
+          "heading": "Your Money Without the Hassle",
+          "description": "Deposit, send, transfer, and withdraw easily and seamlessly.\n\nUse your account (instant transfers), Credit Card, PayPal, Apple or Google Pay, and much more.\n\nAll in one place.",
+          "ctaText": "See options"
+        },
+        "investing": {
+          "heading": "Real Investing with Real Autonomy",
+          "description": "Stocks, Bonds, Crypto, ETFs, Gold, and tokenized Real Estate.\nYour investment under your complete control.\n\nStart with $10 and watch your money grow.\nWith the freedom to buy or sell whenever you want.",
+          "ctaText": "See options"
+        },
+        "strategies": {
+          "heading": "Strategies That Work",
+          "description": "\"Build an emergency fund\"\n→ 6 months of expenses growing steadily\n\n\"Comfortable retirement\"\n→ Automated monthly investment, balanced portfolio\n\n\"High yield, controlled risk\"\n→ Advanced DeFi with calculated risk",
+          "ctaText": "Explore Strategies"
+        },
+        "business": {
+          "heading": "Your Business, More Opportunities",
+          "description": "Whether you need capital, want your cash flow to earn returns, or need credit to scale up.\n\nExclusive opportunities await your business.\nHigh returns with low risk, zero red tape, and best of all: under your complete control.",
+          "ctaText": "Learn More"
+        }
+      },
+      "faqAccordion": {
+        "questionIds": [
+          "q1",
+          "q2",
+          "q3",
+          "q4",
+          "q10"
+        ]
+      },
+      "benefitsCards": {
+        "title": "Why choose diBoaS?",
+        "description": "Because we solve real problems.",
+        "cards": {
+          "moneyFlow": {
+            "title": "Stop Juggling Apps",
+            "description": "Everything on diBoaS.\n\nYou save time, never lose passwords, and see your entire portfolio on one screen.",
+            "iconAlt": "Money flow icon representing seamless transaction management"
+          },
+          "investing": {
+            "title": "You're in Charge",
+            "description": "You have total control over your money.\n\nWhether investments, transfers, or strategies. You decide how much and when.",
+            "iconAlt": "Investing icon representing smart investment opportunities"
+          },
+          "moneyCircle": {
+            "title": "Your Money Always Works",
+            "description": "Whether buying Stocks, Crypto, or other assets.\nOr using exclusive strategies.\n\nYour money is always growing.",
+            "iconAlt": "Money circle icon representing circular economy and financial sustainability"
+          },
+          "learn": {
+            "title": "Investing Stops Being Scary",
+            "description": "Our users had never invested before diBoaS.\n\nOur Learning Center literally explains every term.\nEvery decision. Every risk.",
+            "iconAlt": "Learn icon representing financial education and knowledge"
+          },
+          "rewards": {
+            "title": "Use More, Earn More",
+            "description": "Points System, Referral Bonuses, Points for Achieved Goals, VIP Access to our Courses, and much more.",
+            "iconAlt": "Rewards medal icon representing benefits and achievements"
+          }
+        }
+      },
+      "bgHighlight": {
+        "title": "I'm diBoaS. Nice to meet you.",
+        "description": "Deposits, Withdrawals, Transfers.\nAll free, all fast.\n\nUSA, international, crypto, stocks, gold... doesn't matter.\n\nYour investments in one place.\nYour financial education school.\nYour rewards always active.\nYour security guaranteed.",
+        "imageAlt": "Natural landscape representing growth and financial sustainability with diBoaS"
+      },
+      "stepGuide": {
+        "title": "How to start (takes less than 5 minutes)",
+        "steps": {
+          "step1": "Visit our app → app.diboas.com",
+          "step2": "Create your account → Email or connect your Gmail/X",
+          "step3": "Meet Aqua → Your personal guide welcomes you and explains the basics",
+          "step4": "Start Learning → Use our Learning Center",
+          "step5": "Deposit $10 → Wire, instant transfer, Credit Card...",
+          "step6": "Choose your first step → Make a transfer\nOR → Make your first investment\nAqua shows the simplest options, You choose one\n\nDone! You're in!"
+        }
+      }
+    },
+    "about": {
+      "title": "About | diBoaS",
+      "description": "The world's first OneFi platform.",
+      "hero": {
+        "title": "The world's first OneFi platform. Banking, Investing, Crypto, Strategies, and DeFi, all in one place. For everyone.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "World's first OneFi platform",
+        "description": "Our story, mission, and values.",
+        "cards": {
+          "visionDemocratizeFinance": {
+            "iconAlt": "Vision icon",
+            "title": "Vision: Democratize Finance",
+            "description": "5.4 billion use traditional finance.\nOnly 560 million have touched crypto.\nWe're uniting these worlds for everyone."
+          },
+          "missionSimplifyComplexity": {
+            "iconAlt": "Mission icon",
+            "title": "Mission: Simplify Complexity",
+            "description": "Sophisticated technology, simple experience.\nFrom beginner to expert, all welcome.\nProgressive disclosure that works."
+          },
+          "valuesTransparencyEducation": {
+            "iconAlt": "Values icon",
+            "title": "Values: Transparency and Education",
+            "description": "No fine print.\nNo hidden fees.\nKnowledge as a right, not privilege."
+          },
+          "globalTeamLocalImpact": {
+            "iconAlt": "Global team icon",
+            "title": "Global Team, Local Impact",
+            "description": "Experts in fintech, crypto, and UX.\nExperience across 3 continents.\nBuilding for the world."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Who we are and why we exist.",
+        "subtitle": "The world's first OneFi platform has a clear mission.",
+        "cards": {
+          "ourMission": {
+            "title": "Our Mission",
+            "description": "Democratize access to financial growth.\nSimplify the complex.\nEmpower regular people to prosper.",
+            "imageAlt": "Our Mission illustration"
+          },
+          "howItStarted": {
+            "title": "How It Started",
+            "description": "Frustration with fragmentation.\nVision to unify everything.\nFrom idea to OneFi reality.",
+            "imageAlt": "How It Started illustration"
+          },
+          "globalTeam": {
+            "title": "Global Team",
+            "description": "Expertise in fintech, crypto, AI.\nTeams distributed across 3 continents.\nDiversity that enriches.",
+            "imageAlt": "Global Team illustration"
+          },
+          "guidingValues": {
+            "title": "Guiding Values",
+            "description": "Simplicity, transparency, education.\nUser always comes first.\nGrowth for everyone.",
+            "imageAlt": "Guiding Values illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "The OneFi Revolution",
+            "description": "First platform combining traditional and DeFi.\nBreaking down financial barriers.\nAccessible, transparent, empowering.",
+            "ctaText": "Get Started",
+            "imageAlt": "The OneFi Revolution illustration"
+          },
+          "simplicity": {
+            "title": "Built for Everyone",
+            "description": "✓ $400 billion market opportunity\n✓ 89.6% of users underserved\n✓ Validated by 118.6M Nubank users\nProven methodology, modern technology.",
+            "ctaText": "Get Started",
+            "imageAlt": "Built for Everyone illustration"
+          },
+          "rewards": {
+            "title": "Join the Movement",
+            "description": "Be part of financial democratization.\nEarly adopters shape the future.\nTogether, we're changing finance.",
+            "ctaText": "Get Started",
+            "imageAlt": "Join the Movement illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q103",
+          "q104",
+          "q105"
+        ]
+      }
+    },
+    "careers": {
+      "title": "Careers | diBoaS",
+      "description": "Build the future of finance with us.",
+      "hero": {
+        "title": "Build the future of finance with us. Join the team democratizing access.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "Build the future of finance",
+        "description": "Join the team changing the game.",
+        "cards": {
+          "innovationCulture": {
+            "iconAlt": "Innovation icon",
+            "title": "Innovation Culture",
+            "description": "Ideas valued, not hierarchy.\nExperimentation encouraged.\nLearn by doing, fail fast."
+          },
+          "realImpact": {
+            "iconAlt": "Impact icon",
+            "title": "Real Impact",
+            "description": "Your work democratizes access.\nMillions of people benefit.\nPurpose beyond the paycheck."
+          },
+          "acceleratedGrowth": {
+            "iconAlt": "Growth icon",
+            "title": "Accelerated Growth",
+            "description": "Startup in expansion phase.\nGrowing responsibilities.\nCareer that scales with company."
+          },
+          "competitiveBenefits": {
+            "iconAlt": "Benefits icon",
+            "title": "Competitive Benefits",
+            "description": "Equity ownership, flexible remote work.\nLearning budget.\nTeam that values balance."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Build the future of finance with us.",
+        "subtitle": "Join the team redefining OneFi.",
+        "cards": {
+          "realImpact": {
+            "title": "Real Impact",
+            "description": "Your work changes financial lives.\nMillions of people impacted.\nPurpose that motivates.",
+            "imageAlt": "Real Impact illustration"
+          },
+          "firstClassTeam": {
+            "title": "First-Class Team",
+            "description": "Work with industry's best.\nLearn while building.\nAccelerated growth.",
+            "imageAlt": "First-Class Team illustration"
+          },
+          "innovationCulture": {
+            "title": "Innovation Culture",
+            "description": "Your ideas are heard.\nExperimentation is encouraged.\nFailures are learnings.",
+            "imageAlt": "Innovation Culture illustration"
+          },
+          "uniqueBenefits": {
+            "title": "Unique Benefits",
+            "description": "Equity, remote work, continuous education.\nEarly access to features.\nWe all grow together.",
+            "imageAlt": "Unique Benefits illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Build the Future",
+            "description": "Join a mission-driven team.\nWork on cutting-edge fintech.\nShape how millions manage money.",
+            "ctaText": "Get Started",
+            "imageAlt": "Build the Future illustration"
+          },
+          "simplicity": {
+            "title": "Culture of Innovation",
+            "description": "✓ Remote-first workplace\n✓ Equity for all team members\n✓ Learning and growth focus\nWhere talent meets opportunity.",
+            "ctaText": "Get Started",
+            "imageAlt": "Culture of Innovation illustration"
+          },
+          "rewards": {
+            "title": "Competitive Benefits",
+            "description": "Top-tier compensation and equity.\nHealth, wellness, and development support.\nInvest in us, we invest in you.",
+            "ctaText": "Get Started",
+            "imageAlt": "Competitive Benefits illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q106",
+          "q107",
+          "q108"
+        ]
+      }
+    },
+    "investors": {
+      "title": "Investors | diBoaS",
+      "description": "A $400 billion opportunity.",
+      "hero": {
+        "title": "A $400 billion opportunity. 89.6% of the global market still untapped. Methodology validated by 118.6 million users.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "$400 billion opportunity",
+        "description": "89.6% of market still untapped.",
+        "cards": {
+          "massiveMarketGap": {
+            "iconAlt": "Market gap icon",
+            "title": "Massive Market Gap",
+            "description": "5.4B TradFi users vs 560M crypto.\n99% of crypto users never used DeFi.\nFirst to unite these worlds."
+          },
+          "validatedMethodology": {
+            "iconAlt": "Validation icon",
+            "title": "Validated Methodology",
+            "description": "Nubank: 118.6M users, $3.2B quarterly revenue.\nSame behavioral approach.\nProven it works."
+          },
+          "firstMoverAdvantage": {
+            "iconAlt": "First mover icon",
+            "title": "First-Mover Advantage",
+            "description": "No global competitor has OneFi.\nCoinbase focuses on institutional.\nNeobanks lack crypto."
+          },
+          "growthProjection": {
+            "iconAlt": "Growth projection icon",
+            "title": "Growth Projection",
+            "description": "15M users in 5 years.\n$750M annual revenue Year 5.\nLTV:CAC of 15:1."
+          },
+          "regulatoryCompliantInvestors": {
+            "iconAlt": "Regulatory icon",
+            "title": "Regulatory Compliant",
+            "description": "MiCA (EU), BSA (US), Central Bank (BR).\nLegal from day 1.\nNo regulatory risk."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Investing in the future of finance.",
+        "subtitle": "Transparent and complete investor relations.",
+        "cards": {
+          "quarterlyReports": {
+            "title": "Quarterly Reports",
+            "description": "Complete growth metrics.\nTransparency about every number.\nReal accountability.",
+            "imageAlt": "Quarterly Reports illustration"
+          },
+          "executivePresentations": {
+            "title": "Executive Presentations",
+            "description": "Strategy, roadmap, long-term vision.\nDirect access to leadership.\nClear communication.",
+            "imageAlt": "Executive Presentations illustration"
+          },
+          "eventsCalendar": {
+            "title": "Events Calendar",
+            "description": "Quarterly calls, AGMs, roadshows.\nParticipate in strategic discussions.\nActive voice.",
+            "imageAlt": "Events Calendar illustration"
+          },
+          "corporateGovernance": {
+            "title": "Corporate Governance",
+            "description": "Independent board, active committees.\nRigorous compliance.\nSolid structure.",
+            "imageAlt": "Corporate Governance illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "$400 Billion Opportunity",
+            "description": "Converging fintech, crypto, and DeFi markets.\n16-25% compound annual growth.\nMassive untapped market potential.",
+            "ctaText": "Get Started",
+            "imageAlt": "$400 Billion Opportunity illustration"
+          },
+          "simplicity": {
+            "title": "Validated Business Model",
+            "description": "✓ Nubank methodology proven at scale\n✓ 5-16x cost advantage on fees\n✓ Multiple revenue streams\nExecution risk minimized through validation.",
+            "ctaText": "Get Started",
+            "imageAlt": "Validated Business Model illustration"
+          },
+          "rewards": {
+            "title": "Investment Returns",
+            "description": "Path to $750M revenue by Year 5.\n40-60x base case returns.\nFirst-mover in unified OneFi platform.",
+            "ctaText": "Get Started",
+            "imageAlt": "Investment Returns illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q109",
+          "q110",
+          "q111"
+        ]
+      }
+    },
+    "legalTerms": {
+      "title": "Terms of Service | diBoaS",
+      "description": "Clear rules, serious commitments.",
+      "hero": {
+        "title": "Clear rules, serious commitments. Know our terms and policies without the fine print.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "Clear rules, serious commitments",
+        "description": "Terms without fine print.",
+        "cards": {
+          "humanizedTermsOfUse": {
+            "iconAlt": "Clear terms icon",
+            "title": "Humanized Terms of Use",
+            "description": "Plain language, not legalese.\nYou understand what you're accepting.\nTransparency as standard."
+          },
+          "multiJurisdictionCompliance": {
+            "iconAlt": "Global compliance icon",
+            "title": "Multi-Jurisdiction Compliance",
+            "description": "Follow laws where we operate.\nUpdates as regulations evolve.\nProactive, not reactive compliance."
+          },
+          "consumerProtection": {
+            "iconAlt": "Consumer protection icon",
+            "title": "Consumer Protection",
+            "description": "Your rights always respected.\nClear complaint process.\nFair dispute resolution."
+          },
+          "regularExternalAudit": {
+            "iconAlt": "External audit icon",
+            "title": "Regular External Audit",
+            "description": "Independent compliance verification.\nQuarterly public reports.\nAccountability that matters."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Legality in every sense.",
+        "subtitle": "Clear terms, rigorous compliance, total protection.",
+        "cards": {
+          "termsOfUse": {
+            "title": "Terms of Use",
+            "description": "Clear language, no legalese.\nUnderstand exactly your rights.\nLegal transparency.",
+            "imageAlt": "Terms of Use illustration"
+          },
+          "multiJurisdiction": {
+            "title": "Multi-Jurisdiction",
+            "description": "Compliant in US, EU, Brazil, more.\nLegal operation everywhere.\nExpansion without barriers.",
+            "imageAlt": "Multi-Jurisdiction illustration"
+          },
+          "rigorousKycAml": {
+            "title": "Rigorous KYC/AML",
+            "description": "Robust identity verification.\nMoney laundering prevention.\nClean platform.",
+            "imageAlt": "Rigorous KYC/AML illustration"
+          },
+          "disputeResolution": {
+            "title": "Dispute Resolution",
+            "description": "Clear processes for conflicts.\nMediation before litigation.\nAccessible justice.",
+            "imageAlt": "Dispute Resolution illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Regulatory Excellence",
+            "description": "MiCA compliant in EU, BSA in US.\nMulti-jurisdiction operations ready.\nLegal clarity from day one.",
+            "ctaText": "Get Started",
+            "imageAlt": "Regulatory Excellence illustration"
+          },
+          "simplicity": {
+            "title": "Terms You Can Understand",
+            "description": "✓ Plain language policies\n✓ No hidden clauses\n✓ Clear user rights\nTransparency in everything.",
+            "ctaText": "Get Started",
+            "imageAlt": "Terms You Can Understand illustration"
+          },
+          "rewards": {
+            "title": "Your Rights Protected",
+            "description": "User-first policies and procedures.\nClear dispute resolution.\nFair treatment guaranteed.",
+            "ctaText": "Get Started",
+            "imageAlt": "Your Rights Protected illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q112",
+          "q113",
+          "q114"
+        ]
+      }
+    },
+    "legalPrivacy": {
+      "title": "Privacy | diBoaS",
+      "description": "Your data is yours.",
+      "hero": {
+        "title": "Your data is yours. Know exactly how we protect and use your information.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "Your data is yours",
+        "description": "Know exactly how we protect and use it.",
+        "cards": {
+          "gdprLGPDCompliant": {
+            "iconAlt": "GDPR compliance icon",
+            "title": "GDPR / LGPD Compliant",
+            "description": "Follow strictest privacy laws.\nYour data, your rules.\nTotal control over information."
+          },
+          "dataMinimization": {
+            "iconAlt": "Data minimization icon",
+            "title": "Data Minimization",
+            "description": "Collect only what's necessary.\nWe don't sell your information.\nYour profile isn't the product."
+          },
+          "endToEndEncryptionPrivacy": {
+            "iconAlt": "Encryption icon",
+            "title": "End-to-End Encryption",
+            "description": "Data protected at rest and in transit.\nNot even we access without authorization.\nTechnical privacy, not just promises."
+          },
+          "userRights": {
+            "iconAlt": "User rights icon",
+            "title": "User Rights",
+            "description": "Access, export, delete your data.\nSelf-service tools in app.\nExercising rights is easy."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Your privacy is sacred.",
+        "subtitle": "GDPR, LGPD, CCPA - compliant in everything.",
+        "cards": {
+          "yourDataIsYours": {
+            "title": "Your Data Is Yours",
+            "description": "You control what we share.\nWe never sell information.\nPrivacy first.",
+            "imageAlt": "Your Data Is Yours illustration"
+          },
+          "endToEndEncryption": {
+            "title": "End-to-End Encryption",
+            "description": "Data encrypted in transit and at rest.\nEven we don't see everything.\nMaximum security.",
+            "imageAlt": "End-to-End Encryption illustration"
+          },
+          "rightToBeForgotten": {
+            "title": "Right to Be Forgotten",
+            "description": "Delete your account, we delete everything.\nGDPR and LGPD compliant.\nClean exit guaranteed.",
+            "imageAlt": "Right to Be Forgotten illustration"
+          },
+          "dataTransparency": {
+            "title": "Data Transparency",
+            "description": "See exactly what we have about you.\nExport everything whenever you want.\nTotal control.",
+            "imageAlt": "Data Transparency illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Your Data, Your Control",
+            "description": "GDPR and LGPD compliant.\nComplete transparency on data use.\nPrivacy as a fundamental right.",
+            "ctaText": "Get Started",
+            "imageAlt": "Your Data, Your Control illustration"
+          },
+          "simplicity": {
+            "title": "Simple Privacy Controls",
+            "description": "✓ Download your data anytime\n✓ Delete account with one click\n✓ Granular sharing preferences\nYour information, your decisions.",
+            "ctaText": "Get Started",
+            "imageAlt": "Simple Privacy Controls illustration"
+          },
+          "rewards": {
+            "title": "Never Sold or Shared",
+            "description": "We never sell your personal data.\nNo third-party marketing access.\nYour trust is our business model.",
+            "ctaText": "Get Started",
+            "imageAlt": "Never Sold or Shared illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q115",
+          "q116",
+          "q117"
+        ]
+      }
+    },
+    "legalCookies": {
+      "title": "Cookies | diBoaS",
+      "description": "Cookies explained simply.",
+      "hero": {
+        "title": "Cookies explained simply. Understand how we improve your site experience.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "Cookies explained simply",
+        "description": "How we improve your experience.",
+        "cards": {
+          "whatCookiesAre": {
+            "iconAlt": "Cookie icon",
+            "title": "What Cookies Are",
+            "description": "Small files that remember your preferences.\nMake the site work better for you.\nCommon technology, not mystery."
+          },
+          "typesWeUse": {
+            "iconAlt": "Cookie types icon",
+            "title": "Types We Use",
+            "description": "Essential (site functions), preferences (language, theme).\nAnalytics (improve experience).\nEach type clearly explained."
+          },
+          "youAreInControl": {
+            "iconAlt": "Control icon",
+            "title": "You're In Control",
+            "description": "Accept only what you want.\nChange preferences anytime.\nNo mandatory non-essential cookies."
+          },
+          "noInvasiveTracking": {
+            "iconAlt": "No tracking icon",
+            "title": "No Invasive Tracking",
+            "description": "Don't sell browsing data.\nNo cross-site tracking.\nPrivacy respected."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Cookies explained clearly.",
+        "subtitle": "What we use, why we use, how to control.",
+        "cards": {
+          "essentialVsOptional": {
+            "title": "Essential vs Optional",
+            "description": "What's necessary vs what improves experience.\nChoose what you want to accept.\nControl in your hands.",
+            "imageAlt": "Essential vs Optional illustration"
+          },
+          "noIntrusiveTracking": {
+            "title": "No Intrusive Tracking",
+            "description": "We don't sell data to third parties.\nCookies only for functionality.\nPrivacy respected.",
+            "imageAlt": "No Intrusive Tracking illustration"
+          },
+          "manageYourPreferences": {
+            "title": "Manage Your Preferences",
+            "description": "Change consent anytime.\nClear preferences dashboard.\nTotal flexibility.",
+            "imageAlt": "Manage Your Preferences illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Cookies Explained Simply",
+            "description": "How we use cookies and why.\nEssential vs optional tracking.\nComplete transparency on website data.",
+            "ctaText": "Get Started",
+            "imageAlt": "Cookies Explained Simply illustration"
+          },
+          "simplicity": {
+            "title": "Control Your Preferences",
+            "description": "✓ Accept only essential cookies\n✓ Customize tracking options\n✓ Change settings anytime\nBrowse on your terms.",
+            "ctaText": "Get Started",
+            "imageAlt": "Control Your Preferences illustration"
+          },
+          "rewards": {
+            "title": "Better Experience",
+            "description": "Cookies help us improve your visit.\nPersonalized without being invasive.\nSmooth experience, fair exchange.",
+            "ctaText": "Get Started",
+            "imageAlt": "Better Experience illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q118",
+          "q119",
+          "q120"
+        ]
+      }
+    },
+    "why-diboas": {
+      "title": "Benefits | diBoaS",
+      "description": "Discover all exclusive benefits and rewards available on the diBoaS platform.",
+      "hero": {
+        "title": "Your money, all in one place. Start simple, grow powerful, move at your own pace. Easy to begin, limitless when you're ready.",
+        "description": "",
+        "cta": "Get Started"
+      },
+      "benefitsCards": {
+        "title": "Why choose diBoas?",
+        "description": "Because we solve real problems.",
+        "cards": {
+          "noMoreAppJuggling": {
+            "iconAlt": "App consolidation icon",
+            "title": "No More App Juggling",
+            "description": "Everything's in diBoas.\nSave time, never lose passwords, and see your entire wealth \non one screen."
+          },
+          "youDecide": {
+            "iconAlt": "User control icon",
+            "title": "You're In Control",
+            "description": "Total control over your money.\nWhether it's investments, transfers, or strategies. \nYou decide how much and when."
+          },
+          "moneyNeverSleeps": {
+            "iconAlt": "Money working icon",
+            "title": "Your Money Never Sleeps",
+            "description": "Buy stocks, crypto, or other assets.\nOr use our exclusive strategies.\nYour money's always working for you."
+          },
+          "investingBecomesEasy": {
+            "iconAlt": "Learning icon",
+            "title": "Investing Becomes Easy",
+            "description": "Most of our users had never invested before diBoas.\nOur Learning Center explains every term.\nEvery decision. Every risk."
+          },
+          "moreYouUse": {
+            "iconAlt": "Rewards icon",
+            "title": "The More You Use, The More You Earn",
+            "description": "Points system, referral bonuses, \nmilestone rewards, VIP course access,\nand so much more."
+          },
+          "oneFiPlatform": {
+            "iconAlt": "OneFi platform icon",
+            "title": "OneFi: World's First Platform",
+            "description": "Banking + Investing + Crypto + Strategies + DeFi.\nAll integrated. All simple. \nBeginner-friendly, expert-powerful."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Why choose diBoaS?",
+        "subtitle": "Because we solve real problems.",
+        "cards": {
+          "stopJugglingApps": {
+            "title": "Stop Juggling Apps",
+            "description": "Everything on diBoaS.\nYou save time, never lose passwords, and see your entire portfolio \non one screen.",
+            "imageAlt": "Stop Juggling Apps illustration"
+          },
+          "youReInCharge": {
+            "title": "You're in Charge",
+            "description": "You have total control over your money.\nWhether investments, transfers, or strategies. \nYou decide how much and when.",
+            "imageAlt": "You're in Charge illustration"
+          },
+          "yourMoneyAlwaysWorks": {
+            "title": "Your Money Always Works",
+            "description": "Whether buying Stocks, Crypto, or other assets.\nOr using exclusive strategies.\nYour money is always growing.",
+            "imageAlt": "Your Money Always Works illustration"
+          },
+          "investingStopsBeingScary": {
+            "title": "Investing Stops Being Scary",
+            "description": "Our users had never invested before diBoaS.\nOur Learning Center literally explains every term.\nEvery decision. Every risk.",
+            "imageAlt": "Investing Stops Being Scary illustration"
+          },
+          "useMoreEarnMore": {
+            "title": "Use More, Earn More",
+            "description": "Points System, Referral Bonuses, \nPoints for Achieved Goals, VIP Access to our Courses, \nand much more.",
+            "imageAlt": "Use More, Earn More illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Everything in One Place",
+            "description": "Banking, Investing, Crypto, Strategies and DeFi.\nAll on one screen. Updated in real time.\nStop juggling 5 different apps.",
+            "ctaText": "Get Started",
+            "imageAlt": "Everything in One Place illustration"
+          },
+          "simplicity": {
+            "title": "Secure and Simple",
+            "description": "\"I want to save $5,000 for a trip\"\n\"I need an emergency fund\"\n\"I want to invest $100 a month\"\nNo complications. diBoaS makes it that simple.",
+            "ctaText": "Get Started",
+            "imageAlt": "Secure and Simple illustration"
+          },
+          "rewards": {
+            "title": "Earn More",
+            "description": "✓ Cashback and Points system\n✓ Early access to new features\n✓ Bonus yields on strategies\nThe more you use it, the more you earn.",
+            "ctaText": "Get Started",
+            "imageAlt": "Earn More illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Frequently Asked Questions",
+        "subtitle": "Find answers to your main questions.\nCan't find it here? Our chat responds in minutes.",
+        "ctaText": "See All Questions",
+        "questionIds": [
+          "q1",
+          "q2",
+          "q3"
+        ]
+      },
+      "carousel": {
+        "exclusiveRewards": {
+          "title": "Exclusive Rewards",
+          "description": "Earn points and unlock exclusive benefits with every transaction",
+          "ctaText": "Learn More"
+        },
+        "financialFreedom": {
+          "title": "Financial Freedom",
+          "description": "Take control of your finances with our comprehensive suite of tools",
+          "ctaText": "Get Started"
+        },
+        "smartInvesting": {
+          "title": "Smart Investing",
+          "description": "Invest in crypto and traditional assets with AI-powered insights"
+        },
+        "secureBanking": {
+          "title": "Secure Banking",
+          "description": "Bank-level security and regulatory compliance to protect your assets",
+          "ctaText": "Learn About Security"
+        }
+      }
+    }
+  }
+}

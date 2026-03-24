@@ -237,7 +237,7 @@ export function BuyScreen() {
             {amount > 0 && !insufficientFunds && cryptoQuantity > 0 && (
               <div className={styles.receiveRow}>
                 <span className={styles.receiveLabel}>{t('preDemo.transaction.youllReceive')}</span>
-                <div style={{ textAlign: 'right' }}>
+                <div className={styles.textRight}>
                   <span className={styles.receiveAmount}>
                     {cryptoQuantity.toFixed(8)} {currentAsset.symbol}
                   </span>

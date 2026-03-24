@@ -24,7 +24,13 @@ import {
   ProcessingScreen,
   WalletDetailsScreen,
 } from './screens';
-import { PreDream } from '@/components/PreDream';
+import dynamic from 'next/dynamic';
+
+// Lazy-load PreDream — only rendered when user enters dream-mode (interaction-gated)
+const PreDream = dynamic(
+  () => import('@/components/PreDream').then(m => ({ default: m.PreDream })),
+  { ssr: false, loading: () => null }
+);
 import { useTranslation } from '@diboas/i18n/client';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { useScreenTransitionSequence, type TransitionStep } from './hooks';

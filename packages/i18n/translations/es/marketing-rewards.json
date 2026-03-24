@@ -1,0 +1,662 @@
+{
+  "pages": {
+    "rewardsAiGuides": {
+      "title": "Guías IA | diBoaS",
+      "description": "Conoce a tus guías personales.",
+      "hero": {
+        "title": "Conoce a tus guías personales. Aqua, Mystic y Coral evolucionan contigo, del principiante al experto.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Tus guías personales en el viaje",
+        "description": "Aqua, Mystic y Coral evolucionan contigo.",
+        "cards": {
+          "aquaYourBeginnerFriend": {
+            "iconAlt": "Aqua mascot icon",
+            "title": "Aqua: Tu Amiga Principiante",
+            "description": "Guía tus primeros pasos.\nExplica cada término, cada acción.\nPaciencia infinita, conocimiento práctico."
+          },
+          "mysticTheWiseAdvisor": {
+            "iconAlt": "Mystic mascot icon",
+            "title": "Mystic: La Consejera Sabia",
+            "description": "Aparece cuando dominas lo básico.\nTe presenta inversiones más sofisticadas.\nEstrategias de crecimiento real."
+          },
+          "coralTheYieldExpert": {
+            "iconAlt": "Coral mascot icon",
+            "title": "Coral: La Experta en Rendimientos",
+            "description": "Desbloqueada para usuarios avanzados.\nEstrategias DeFi, balance de riesgo.\nMaximización de retornos."
+          },
+          "behavioralIntelligence": {
+            "iconAlt": "AI intelligence icon",
+            "title": "Inteligencia Conductual",
+            "description": "Las mascotas perciben tu progreso real.\nNo fuerzan complejidad prematura.\nEvolución a tu ritmo."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Tus guías personales.",
+        "subtitle": "Evolucionan contigo, de cero a avanzado.",
+        "cards": {
+          "aquaYourFirstStep": {
+            "title": "Aqua: Tu Primer Paso",
+            "description": "El amigo que te guía al principio.\nExplica todo, sin prisa.\nEmpezar se volvió fácil.",
+            "imageAlt": "Aqua: Tu Primer Paso illustration"
+          },
+          "mysticSmartGrowth": {
+            "title": "Mystic: Crecimiento Inteligente",
+            "description": "Aparece cuando estás listo para más.\nEstrategias, diversificación, planeación.\nTu asesor personal.",
+            "imageAlt": "Mystic: Crecimiento Inteligente illustration"
+          },
+          "coralHighYields": {
+            "title": "Coral: Altos Rendimientos",
+            "description": "El cazador de oportunidades avanzadas.\nDeFi, rendimientos altos, estrategias complejas.\nPara cuando dominas el juego.",
+            "imageAlt": "Coral: Altos Rendimientos illustration"
+          },
+          "aiThatKnowsYou": {
+            "title": "IA Que Te Conoce",
+            "description": "Aprende de tu comportamiento.\nRecomendaciones personalizadas.\nGuías que realmente te entienden.",
+            "imageAlt": "IA Que Te Conoce illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Conoce a Tus Compañeros Financieros",
+            "description": "Aqua, Mystic y Coral.\nTres guías IA para cada etapa.\nCrecen mientras tú creces.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Conoce a Tus Compañeros Financieros illustration"
+          },
+          "simplicity": {
+            "title": "Orientación Personalizada",
+            "description": "✓ Aqua para principiantes\n✓ Mystic para inversores\n✓ Coral para DeFi avanzado\nLa ayuda correcta en el momento correcto.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Orientación Personalizada illustration"
+          },
+          "rewards": {
+            "title": "Evolucionen Juntos",
+            "description": "Desbloquea nuevas habilidades de mascotas.\nDesbloquea funciones avanzadas mientras progresas.\nTu viaje, personalizado.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Evolucionen Juntos illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Preguntas Frecuentes",
+        "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+        "ctaText": "Ver Todas las Preguntas",
+        "questionIds": [
+          "q76",
+          "q77",
+          "q78"
+        ]
+      }
+    },
+    "rewardsReferralProgram": {
+      "title": "Programa de Referidos | diBoaS",
+      "description": "Comparte conocimiento, gana recompensas.",
+      "hero": {
+        "title": "Comparte conocimiento, gana recompensas. Crece junto con quienes refieres.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Comparte conocimiento, gana recompensas",
+        "description": "Crece junto a quienes refieres.",
+        "cards": {
+          "bonusForYouAndFriend": {
+            "iconAlt": "Referral bonus icon",
+            "title": "Bono Para Ti y Tu Amigo",
+            "description": "Ambos ganan cuando tu referido se registra.\nRecompensa justa para ambos lados.\nCrecimiento compartido."
+          },
+          "unlimitedReferrals": {
+            "iconAlt": "Unlimited referrals icon",
+            "title": "Referencias Ilimitadas",
+            "description": "Refiere a tantas personas como quieras.\nCada una cuenta.\nEscalabilidad real."
+          },
+          "transparentTracking": {
+            "iconAlt": "Tracking icon",
+            "title": "Seguimiento Transparente",
+            "description": "Ve quién se registró por tu link.\nRastrea tus ganancias.\nDashboard completo de referidos."
+          },
+          "progressiveBonuses": {
+            "iconAlt": "Progressive rewards icon",
+            "title": "Bonos Progresivos",
+            "description": "Cuanto más refieres, más ganas.\nNiveles de recompensa crecientes.\nIncentivo para evangelizar."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Comparte y gana.",
+        "subtitle": "Amigos crecen juntos, todos ganan.",
+        "cards": {
+          "bonusForBoth": {
+            "title": "Bono Para Ambos",
+            "description": "Tú ganas, tu amigo gana.\nMientras más refieres, más acumulas.\nCrecimiento compartido.",
+            "imageAlt": "Bono Para Ambos illustration"
+          },
+          "lifetimeCommission": {
+            "title": "Comisión Vitalicia",
+            "description": "Gana parte de las tarifas de tus referidos.\nPara siempre, no solo al inicio.\nIngreso pasivo real.",
+            "imageAlt": "Comisión Vitalicia illustration"
+          },
+          "referralTiers": {
+            "title": "Niveles de Referido",
+            "description": "Bronce, Plata, Oro, Platino.\nMás refieres, mejor comisión.\nConsistencia recompensada.",
+            "imageAlt": "Niveles de Referido illustration"
+          },
+          "completeDashboard": {
+            "title": "Dashboard Completo",
+            "description": "Ve todos tus referidos y ganancias.\nSigue performance en tiempo real.\nTransparencia total.",
+            "imageAlt": "Dashboard Completo illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Comparte la Riqueza",
+            "description": "Invita amigos, gana recompensas.\nEllos ahorran en comisiones, tú ganas bonos.\nCrecer juntos beneficia a todos.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Comparte la Riqueza illustration"
+          },
+          "simplicity": {
+            "title": "Invitaciones Con Un Clic",
+            "description": "✓ Comparte tu enlace personal\n✓ Rastrea quién se une\n✓ Créditos de recompensa automáticos\nInvita desde cualquier lugar, en cualquier momento.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Invitaciones Con Un Clic illustration"
+          },
+          "rewards": {
+            "title": "Potencial Ilimitado de Ganancias",
+            "description": "Sin límite en recompensas por referidos.\nBonos escalonados para mejores referidores.\nConstruye tu red, construye tu riqueza.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Potencial Ilimitado de Ganancias illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Preguntas Frecuentes",
+        "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+        "ctaText": "Ver Todas las Preguntas",
+        "questionIds": [
+          "q79",
+          "q80",
+          "q81"
+        ]
+      }
+    },
+    "rewardsPointsSystem": {
+      "title": "Sistema de Puntos | diBoaS",
+      "description": "Cada acción suma puntos. Cada punto significa crecimiento.",
+      "hero": {
+        "title": "Cada acción suma puntos. Cada punto significa crecimiento. Acumula y desbloquea beneficios.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Cada acción suma puntos",
+        "description": "Acumula y desbloquea beneficios.",
+        "cards": {
+          "earnByInvesting": {
+            "iconAlt": "Investment points icon",
+            "title": "Gana Invirtiendo",
+            "description": "Puntos por cada transacción.\nCuanto más inviertes, más acumulas.\nIncentivo para hacer crecer tu patrimonio."
+          },
+          "earnByLearning": {
+            "iconAlt": "Learning points icon",
+            "title": "Gana Aprendiendo",
+            "description": "Completa cursos, gana puntos.\nMira contenido, sé recompensado.\nEducación financiera valorada."
+          },
+          "earnByEngaging": {
+            "iconAlt": "Engagement points icon",
+            "title": "Gana Participando",
+            "description": "Participa en la comunidad.\nAyuda a otros usuarios.\nContribución reconocida."
+          },
+          "redeemForBenefits": {
+            "iconAlt": "Redeem points icon",
+            "title": "Canjea Por Beneficios",
+            "description": "Usa puntos para descontar comisiones.\nAccede a cursos premium.\nMarketplace de recompensas."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Cada acción vale puntos.",
+        "subtitle": "Usa más, gana más, crece más.",
+        "cards": {
+          "pointsForInvesting": {
+            "title": "Puntos Por Invertir",
+            "description": "Compra activos, gana puntos.\nUsa estrategias, gana más.\nTu crecimiento recompensado.",
+            "imageAlt": "Puntos Por Invertir illustration"
+          },
+          "pointsForLearning": {
+            "title": "Puntos Por Aprender",
+            "description": "Completa cursos, gana puntos.\nParticipa en webinars, gana más.\nConocimiento recompensado.",
+            "imageAlt": "Puntos Por Aprender illustration"
+          },
+          "pointsForEngaging": {
+            "title": "Puntos Por Participar",
+            "description": "Ayuda a la comunidad, gana puntos.\nCrea contenido, gana aún más.\nContribución valorada.",
+            "imageAlt": "Puntos Por Participar illustration"
+          },
+          "redeemForBenefits": {
+            "title": "Canjea Por Beneficios",
+            "description": "Cashback, cursos premium, acceso VIP.\nTus puntos se vuelven ventajas reales.\nSistema que vale la pena.",
+            "imageAlt": "Canjea Por Beneficios illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Cada Acción Cuenta",
+            "description": "Transacciones, aprendizaje, inversiones.\nTodo lo que haces genera puntos.\nUsuarios comprometidos ganan más.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Cada Acción Cuenta illustration"
+          },
+          "simplicity": {
+            "title": "Sistema de Puntos Transparente",
+            "description": "✓ Reglas claras de ganancia\n✓ Saldo de puntos en tiempo real\n✓ Múltiples opciones de canje\nSin letra pequeña confusa.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Sistema de Puntos Transparente illustration"
+          },
+          "rewards": {
+            "title": "Los Puntos Nunca Expiran",
+            "description": "Acumula a tu ritmo.\nAhorra para canjes grandes.\nTus puntos, tu cronograma.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Los Puntos Nunca Expiran illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Preguntas Frecuentes",
+        "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+        "ctaText": "Ver Todas las Preguntas",
+        "questionIds": [
+          "q82",
+          "q83",
+          "q84"
+        ]
+      }
+    },
+    "rewardsBadgesLeaderboard": {
+      "title": "Badges & Ranking | diBoaS",
+      "description": "Gana badges y sube en el ranking.",
+      "hero": {
+        "title": "Gana badges, sube en el ranking y muestra tus logros financieros a la comunidad.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Logra, muestra, inspira",
+        "description": "Tus logros financieros visibles.",
+        "cards": {
+          "milestoneBadges": {
+            "iconAlt": "Milestone badge icon",
+            "title": "Insignias de Hitos",
+            "description": "Primera inversión, $1K invertidos, 10 cursos completados.\nCada logro tiene una insignia.\nTu progreso visible."
+          },
+          "weeklyLeaderboard": {
+            "iconAlt": "Leaderboard icon",
+            "title": "Tabla Semanal",
+            "description": "Ranking de puntos de la semana.\nCompetencia sana.\nMotivación extra."
+          },
+          "optionalPublicProfile": {
+            "iconAlt": "Public profile icon",
+            "title": "Perfil Público Opcional",
+            "description": "Muestra tus insignias si quieres.\nInspira a otros usuarios.\nComunidad de crecimiento."
+          },
+          "specialBadges": {
+            "iconAlt": "Special badge icon",
+            "title": "Insignias Especiales",
+            "description": "Early adopter, top referidor, educador.\nReconocimiento único.\nEstatus en la comunidad."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Muestra tus logros.",
+        "subtitle": "Badges que importan, rankings que inspiran.",
+        "cards": {
+          "achievementBadges": {
+            "title": "Badges de Logros",
+            "description": "Primera inversión, portafolio diversificado.\nCada hito tiene su badge.\nCelebra cada victoria.",
+            "imageAlt": "Badges de Logros illustration"
+          },
+          "weeklyRankings": {
+            "title": "Rankings Semanales",
+            "description": "Ve quién está creciendo más.\nInspírate, compite, aprende.\nGamificación que motiva.",
+            "imageAlt": "Rankings Semanales illustration"
+          },
+          "verifiedProfile": {
+            "title": "Perfil Verificado",
+            "description": "Demuestra experiencia y confiabilidad.\nBadges de experto en cada categoría.\nCredibilidad visible.",
+            "imageAlt": "Perfil Verificado illustration"
+          },
+          "positionRewards": {
+            "title": "Recompensas Por Posición",
+            "description": "Top 10 semanal recibe bono especial.\nCompetencia sana, premios reales.\nDestácate y gana.",
+            "imageAlt": "Recompensas Por Posición illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Muestra Tu Éxito",
+            "description": "Gana insignias por logros.\nSube en el ranking de la comunidad.\nReconocimiento por tu crecimiento financiero.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Muestra Tu Éxito illustration"
+          },
+          "simplicity": {
+            "title": "Celebración de Hitos",
+            "description": "✓ Insignia de primera inversión\n✓ Logros de racha de ahorro\n✓ Premios de finalización de cursos\nCada paso celebrado.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Celebración de Hitos illustration"
+          },
+          "rewards": {
+            "title": "Ventajas Exclusivas Para Líderes",
+            "description": "Los mejores obtienen beneficios especiales.\nAcceso anticipado a funciones y bonos.\nCompetencia que beneficia a todos.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Ventajas Exclusivas Para Líderes illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Preguntas Frecuentes",
+        "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+        "ctaText": "Ver Todas las Preguntas",
+        "questionIds": [
+          "q85",
+          "q86",
+          "q87"
+        ]
+      }
+    },
+    "rewardsCampaigns": {
+      "title": "Campañas | diBoaS",
+      "description": "Desafíos que enseñan, recompensas que motivan.",
+      "hero": {
+        "title": "Desafíos que enseñan, recompensas que motivan. Participa y acelera tu crecimiento.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Desafíos que enseñan y recompensan",
+        "description": "Participa y acelera tu crecimiento.",
+        "cards": {
+          "monthlyChallenges": {
+            "iconAlt": "Challenge icon",
+            "title": "Desafíos Mensuales",
+            "description": "Metas específicas cada mes.\nInvierte X, aprende Y, refiere Z.\nRecompensas extra por completar."
+          },
+          "brandPartnerships": {
+            "iconAlt": "Partnership icon",
+            "title": "Alianzas Con Marcas",
+            "description": "Campañas con empresas asociadas.\nOfertas exclusivas para usuarios diBoas.\nValor más allá de la plataforma."
+          },
+          "seasonalEvents": {
+            "iconAlt": "Event icon",
+            "title": "Eventos de Temporada",
+            "description": "Black Friday, Año Nuevo, fechas especiales.\nBonos multiplicados.\nDiversión y beneficios juntos."
+          },
+          "educationalCampaigns": {
+            "iconAlt": "Educational campaign icon",
+            "title": "Campañas Educativas",
+            "description": "Aprende temas específicos, gana recompensas.\nIncentivo para educación enfocada.\nConocimiento que paga de vuelta."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Desafíos que enseñan.",
+        "subtitle": "Participa, aprende, gana recompensas.",
+        "cards": {
+          "monthlyChallenges": {
+            "title": "Desafíos Mensuales",
+            "description": "Metas diferentes cada mes.\nInvierte X, aprende Y, gana Z.\nSiempre algo nuevo que lograr.",
+            "imageAlt": "Desafíos Mensuales illustration"
+          },
+          "themedCampaigns": {
+            "title": "Campañas Temáticas",
+            "description": "Mes del Crypto, Semana DeFi, Especial Acciones.\nAprende enfocado, gana enfocado.\nEducación dirigida.",
+            "imageAlt": "Campañas Temáticas illustration"
+          },
+          "exclusivePartnerships": {
+            "title": "Alianzas Exclusivas",
+            "description": "Marcas aliadas con descuentos.\nCampañas conjuntas con bono extra.\nMás valor para ti.",
+            "imageAlt": "Alianzas Exclusivas illustration"
+          },
+          "earlyAdopterRewards": {
+            "title": "Recompensas Early Adopter",
+            "description": "Mientras antes entres, más ganas.\nPioneros tienen ventajas exclusivas.\nRecompensado por creer primero.",
+            "imageAlt": "Recompensas Early Adopter illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Desafíos Que Pagan",
+            "description": "Campañas mensuales con grandes recompensas.\nDesafíos de aprendizaje, metas de ahorro, concursos de trading.\nParticipa y gana simultáneamente.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Desafíos Que Pagan illustration"
+          },
+          "simplicity": {
+            "title": "Únete Con Un Toque",
+            "description": "✓ Objetivos claros de campaña\n✓ Seguimiento de progreso\n✓ Distribución automática de recompensas\nParticipa sin esfuerzo.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Únete Con Un Toque illustration"
+          },
+          "rewards": {
+            "title": "Bonos Por Tiempo Limitado",
+            "description": "Multiplicadores especiales durante campañas.\nPremios exclusivos para participantes.\nMás compromiso, más recompensas.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Bonos Por Tiempo Limitado illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Preguntas Frecuentes",
+        "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+        "ctaText": "Ver Todas las Preguntas",
+        "questionIds": [
+          "q88",
+          "q89",
+          "q90"
+        ]
+      }
+    },
+    "rewardsTokenAirdrop": {
+      "title": "Token & Airdrop | diBoaS",
+      "description": "Sé un early adopter.",
+      "hero": {
+        "title": "Sé un early adopter. Gana tokens exclusivos y forma parte de la revolución OneFi.",
+        "description": "",
+        "cta": "Empezar ahora"
+      },
+      "benefitsCards": {
+        "title": "Sé un early adopter",
+        "description": "Gana tokens exclusivos de la plataforma.",
+        "cards": {
+          "governanceToken": {
+            "iconAlt": "Governance token icon",
+            "title": "Token de Gobernanza",
+            "description": "Voz en las decisiones de la plataforma.\nMás comprometido, más tokens.\nComunidad que realmente gobierna."
+          },
+          "airdropsForActiveUsers": {
+            "iconAlt": "Airdrop icon",
+            "title": "Airdrops Para Usuarios Activos",
+            "description": "Distribución de tokens para usuarios y contribuyentes.\nRecompensa proporcional al compromiso.\nEarly adopters valorados."
+          },
+          "realUtility": {
+            "iconAlt": "Token utility icon",
+            "title": "Utilidad Real",
+            "description": "Usa tokens para descontar comisiones.\nAccede a funciones premium.\nNo es especulación, es valor de uso."
+          },
+          "transparentRoadmap": {
+            "iconAlt": "Roadmap icon",
+            "title": "Hoja de Ruta Transparente",
+            "description": "Distribución planeada y comunicada.\nSin sorpresas, sin manipulación.\nTokenomics responsable."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Sé parte de la revolución.",
+        "subtitle": "Token diBoaS: recompensado por construir juntos.",
+        "cards": {
+          "airdropForEarlyUsers": {
+            "title": "Airdrop Para Early Users",
+            "description": "Usa la plataforma, gana tokens.\nMientras antes empieces, más tokens.\nRecompensado por creer primero.",
+            "imageAlt": "Airdrop Para Early Users illustration"
+          },
+          "realGovernance": {
+            "title": "Gobernanza Real",
+            "description": "Tokens dan voz en decisiones de la plataforma.\nVota en features, cambios, direcciones.\nLos usuarios deciden el futuro.",
+            "imageAlt": "Gobernanza Real illustration"
+          },
+          "tokenStaking": {
+            "title": "Staking de Tokens",
+            "description": "Haz stake y gana rendimiento adicional.\nMás ventajas en tarifas y beneficios.\nMantener recompensado.",
+            "imageAlt": "Staking de Tokens illustration"
+          },
+          "appreciationTogether": {
+            "title": "Apreciación Conjunta",
+            "description": "Mientras más crece la plataforma, más vale.\nNo eres solo usuario, eres stakeholder.\nCrecemos juntos de verdad.",
+            "imageAlt": "Apreciación Conjunta illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Posee Parte de la Plataforma",
+            "description": "Token diBoaS para usuarios activos.\nGobernanza y recompensas de la plataforma.\nLos primeros usuarios obtienen los mayores airdrops.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Posee Parte de la Plataforma illustration"
+          },
+          "simplicity": {
+            "title": "Distribución Automática de Tokens",
+            "description": "✓ Sin necesidad de reclamar manualmente\n✓ Tokens basados en actividad\n✓ Cronograma claro de distribución\nRecompensado por creer temprano.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Distribución Automática de Tokens illustration"
+          },
+          "rewards": {
+            "title": "Crece Con la Plataforma",
+            "description": "Valor del token vinculado al éxito de la plataforma.\nOportunidades adicionales de rendimiento.\nPropiedad comunitaria, prosperidad compartida.",
+            "ctaText": "Comenzar Ahora",
+            "imageAlt": "Crece Con la Plataforma illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Preguntas Frecuentes",
+        "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+        "ctaText": "Ver Todas las Preguntas",
+        "questionIds": [
+          "q91",
+          "q92",
+          "q93"
+        ]
+      }
+    },
+    "rewards": {
+      "overview": {
+        "title": "diBoaS Rewards | diBoaS",
+        "description": "Recompensas que realmente importan.",
+        "hero": {
+          "title": "Recompensas que realmente importan. Aprende, crece y sé reconocido por cada logro.",
+          "description": "",
+          "cta": "Empezar ahora"
+        },
+        "benefitsCards": {
+          "title": "Recompensas que realmente importan",
+          "description": "Cuanto más creces, más ganas.",
+          "cards": {
+            "unifiedPointsSystem": {
+              "iconAlt": "Points system icon",
+              "title": "Sistema de Puntos Unificado",
+              "description": "Cada acción suma puntos.\nInvertir, aprender, referir, participar.\nLos puntos se vuelven beneficios reales."
+            },
+            "achievementBadges": {
+              "iconAlt": "Badge icon",
+              "title": "Insignias de Logros",
+              "description": "Muestra tus logros financieros.\nPrimera inversión, meta alcanzada, curso completado.\nGamificación que educa."
+            },
+            "communityLeaderboard": {
+              "iconAlt": "Leaderboard icon",
+              "title": "Tabla de Posiciones Comunitaria",
+              "description": "Ve dónde estás.\nCompetencia sana.\nInspiración de quienes están creciendo."
+            },
+            "exclusiveBenefits": {
+              "iconAlt": "VIP benefits icon",
+              "title": "Beneficios Exclusivos",
+              "description": "Acceso anticipado a funciones.\nCursos VIP gratis.\nEventos con expertos."
+            },
+            "realCashback": {
+              "iconAlt": "Cashback icon",
+              "title": "Cashback Real",
+              "description": "Dinero de vuelta en transacciones.\nNo son puntos que expiran.\nEs dinero que vuelve a ti."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Recompensas que importan.",
+          "subtitle": "Mientras más usas, más ganas.",
+          "cards": {
+            "pointsForEverything": {
+              "title": "Puntos Por Todo",
+              "description": "Invierte, aprende, refiere, participa.\nCada acción vale puntos.\nCada punto vale recompensas.",
+              "imageAlt": "Puntos Por Todo illustration"
+            },
+            "realCashback": {
+              "title": "Cashback Real",
+              "description": "Recibe de vuelta parte de tus transacciones.\nDinero en cuenta, no puntos que expiran.\nRecompensas que valen la pena.",
+              "imageAlt": "Cashback Real illustration"
+            },
+            "vipAccess": {
+              "title": "Acceso VIP",
+              "description": "Cursos exclusivos, eventos especiales.\nContenido premium para top users.\nMás usas, más accedes.",
+              "imageAlt": "Acceso VIP illustration"
+            },
+            "gamificationThatTeaches": {
+              "title": "Gamificación Que Enseña",
+              "description": "Desafíos, badges, rankings.\nAprende mientras compites.\nEducación financiera divertida.",
+              "imageAlt": "Gamificación Que Enseña illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Recompensas Que Importan",
+              "description": "Puntos, cashback, insignias y tokens.\nCada acción es reconocida.\nFinanzas gamificadas que pagan por jugar.",
+              "ctaText": "Comenzar Ahora",
+              "imageAlt": "Recompensas Que Importan illustration"
+            },
+            "simplicity": {
+              "title": "Seguimiento Automático",
+              "description": "✓ Gana puntos aprendiendo\n✓ Cashback en transacciones\n✓ Bonos por referidos\nSin formularios, sin complicaciones. Solo recompensas.",
+              "ctaText": "Comenzar Ahora",
+              "imageAlt": "Seguimiento Automático illustration"
+            },
+            "rewards": {
+              "title": "Canjea Como Quieras",
+              "description": "Efectivo, crypto, tarjetas de regalo o reinvierte.\nTus recompensas, tu elección.\nValor que realmente usas.",
+              "ctaText": "Comenzar Ahora",
+              "imageAlt": "Canjea Como Quieras illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Preguntas Frecuentes",
+          "subtitle": "Encuentra respuestas a tus principales dudas.\n¿No lo encuentras aquí? Nuestro chat responde en minutos.",
+          "ctaText": "Ver Todas las Preguntas",
+          "questionIds": [
+            "q73",
+            "q74",
+            "q75"
+          ]
+        }
+      }
+    }
+  }
+}

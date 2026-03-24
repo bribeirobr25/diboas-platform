@@ -51,6 +51,14 @@ export async function loadPageNamespaces(
     } else if (namespace.startsWith('landing-')) {
       // Landing pages use their namespace name as prefix directly
       prefix = namespace;
+    } else if (namespace === 'marketing-common') {
+      // Marketing common (shared aria labels, faq registry) uses 'marketing' prefix
+      // so keys become marketing.shared.* and marketing.faq.*
+      prefix = 'marketing';
+    } else if (namespace.startsWith('marketing-')) {
+      // Domain-specific marketing splits use 'marketing' prefix
+      // so keys become marketing.pages.*
+      prefix = 'marketing';
     } else if (namespace === 'common' || namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode' || namespace === 'preDemo' || namespace === 'preDream' || namespace === 'about' || namespace === 'protocols' || namespace === 'security') {
       // Common and feature namespaces use their namespace name as prefix directly
       prefix = namespace;

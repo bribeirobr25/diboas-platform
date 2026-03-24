@@ -1,0 +1,652 @@
+{
+  "pages": {
+    "businessAccount": {
+      "title": "Geschäftskonto | diBoaS",
+      "description": "Ein kostenloses Geschäftskonto, das Rendite bringt.",
+      "hero": {
+        "title": "Ein kostenloses Geschäftskonto, das Rendite bringt. Dein Business wächst, während du arbeitest.",
+        "description": "",
+        "cta": "Jetzt starten"
+      },
+      "benefitsCards": {
+        "title": "Geschäftskonto, das Sinn macht",
+        "description": "Kostenlos, ertragreich, ohne Komplikationen.",
+        "cards": {
+          "zeroMonthlyFees": {
+            "iconAlt": "Free account icon",
+            "title": "Null monatliche Gebühren",
+            "description": "Keine Verwaltungskosten.\nDein Geld bleibt bei dir.\nEinsparungen vom ersten Tag an."
+          },
+          "earns100CDI": {
+            "iconAlt": "High yield icon",
+            "title": "Verdient 100% CDI",
+            "description": "Saldo verdient automatisch.\nKein manuelles Investieren nötig.\nUngenutztes Kapital? Gibt's hier nicht."
+          },
+          "multiUserManagement": {
+            "iconAlt": "Team management icon",
+            "title": "Multi-User-Verwaltung",
+            "description": "Füge dein Team mit spezifischen Berechtigungen hinzu.\nGranulare Zugriffskontrolle.\nSicherheit und Autonomie zusammen."
+          },
+          "accountingIntegration": {
+            "iconAlt": "Accounting icon",
+            "title": "Buchhaltungsintegration",
+            "description": "Exportiere Daten für deinen Buchhalter.\nBerichte bereit für Compliance.\nWeniger Kopfschmerzen, mehr Effizienz."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Das Konto das Ihr Unternehmen braucht.",
+        "subtitle": "Kostenlos, komplett und verzinst während Sie arbeiten.",
+        "cards": {
+          "zeroMonthlyFees": {
+            "title": "Null monatliche Gebühren",
+            "description": "Keine Kontoführungsgebühr.\nKein Kleingedrucktes.\nIhr Unternehmen spart ab Tag eins.",
+            "imageAlt": "Null monatliche Gebühren illustration"
+          },
+          "earnsAutomatically": {
+            "title": "Automatische Verzinsung",
+            "description": "100% des CDI auf Ihr Guthaben.\nSie müssen nichts tun.\nIhr Kapital arbeitet immer.",
+            "imageAlt": "Automatische Verzinsung illustration"
+          },
+          "multipleUsers": {
+            "title": "Mehrere Nutzer",
+            "description": "Fügen Sie Ihr Team mit individuellen Berechtigungen hinzu.\nJeder sieht was er braucht.\nTotale Kontrolle, intelligente Delegation.",
+            "imageAlt": "Mehrere Nutzer illustration"
+          },
+          "accountingIntegration": {
+            "title": "Buchhaltungs-Integration",
+            "description": "Automatischer Export zu Ihrem Steuerberater.\nOFX, CSV, PDF.\nWeniger manuelle Arbeit, mehr Genauigkeit.",
+            "imageAlt": "Buchhaltungs-Integration illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Ein Konto, das für Sie arbeitet",
+            "description": "Kostenloses Girokonto mit automatischer Rendite.\nIhr Unternehmenskapital wächst täglich.\nBanking, das Ihr Geschäftsergebnis verbessert.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Ein Konto, das für Sie arbeitet illustration"
+          },
+          "simplicity": {
+            "title": "Alles mobil verwalten",
+            "description": "✓ Echtzeit-Saldo-Updates\n✓ Sofortige Transaktionsbenachrichtigungen\n✓ Genehmigungen mit einem Fingertipp\nFühren Sie Ihre Finanzen von überall aus.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Alles mobil verwalten illustration"
+          },
+          "rewards": {
+            "title": "Verdienen im Betrieb",
+            "description": "100% CDI-Rendite auf Ihr Guthaben.\nKeine Sperrfristen oder Mindestbeträge.\nIhr Betriebskapital arbeitet härter.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Verdienen im Betrieb illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Häufig gestellte Fragen",
+        "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+        "ctaText": "Alle Fragen ansehen",
+        "questionIds": [
+          "q55",
+          "q56",
+          "q57"
+        ]
+      }
+    },
+    "businessBanking": {
+      "title": "Business Banking | diBoaS",
+      "description": "Komplettes Business Banking in deiner App.",
+      "hero": {
+        "title": "Komplettes Business Banking in deiner App. Bezahle, empfange und verwalte alles an einem Ort.",
+        "description": "",
+        "cta": "Jetzt starten"
+      },
+      "benefitsCards": {
+        "title": "Komplettes Business-Banking",
+        "description": "Alles, was dein Unternehmen braucht, in der App.",
+        "cards": {
+          "unlimitedBusinessPix": {
+            "iconAlt": "Instant payments icon",
+            "title": "Unbegrenztes Business-Pix",
+            "description": "Senden und empfangen ohne absurde Limits.\nSofortzahlungen.\nCashflow, der nicht einfriert."
+          },
+          "boletosAndCollections": {
+            "iconAlt": "Billing icon",
+            "title": "Rechnungen und Inkasso",
+            "description": "Rechnungen ausstellen, senden und verfolgen.\nKomplettes Forderungsmanagement.\nEchtzeit-Zahlungsbenachrichtigungen."
+          },
+          "internationalTransfers": {
+            "iconAlt": "Global transfer icon",
+            "title": "Internationale Überweisungen",
+            "description": "Zahle Lieferanten im Ausland.\nEmpfange von globalen Kunden.\nViel niedrigere Gebühren als traditionelle Banken."
+          },
+          "corporateCards": {
+            "iconAlt": "Corporate card icon",
+            "title": "Firmenkarten",
+            "description": "Physische und virtuelle Karten für das Team.\nPro-Nutzer-Limitkontrolle.\nAutomatische Ausgabenkategorisierung."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Business Banking ohne Kopfschmerzen.",
+        "subtitle": "Alles was Ihr Unternehmen braucht um zu bewegen, zahlen und empfangen.",
+        "cards": {
+          "bulkPayments": {
+            "title": "Massen-Zahlungen",
+            "description": "Lieferanten, Mitarbeiter, alle auf einmal bezahlen.\nTabelle hochladen und fertig.\nEffizienz im großen Maßstab.",
+            "imageAlt": "Massen-Zahlungen illustration"
+          },
+          "simplifiedReceivables": {
+            "title": "Vereinfachter Zahlungseingang",
+            "description": "Rechnungen, Pix, internationale Überweisungen.\nAlle Empfangswege an einem Ort.\nGeld kommt schneller an.",
+            "imageAlt": "Vereinfachter Zahlungseingang illustration"
+          },
+          "corporateCard": {
+            "title": "Firmenkarte",
+            "description": "Karten für Ihr Team.\nIndividuelle Limits, zentralisierte Kontrolle.\nAusgaben in Echtzeit sichtbar.",
+            "imageAlt": "Firmenkarte illustration"
+          },
+          "automaticReconciliation": {
+            "title": "Automatische Abstimmung",
+            "description": "Zahlungen und Eingänge automatisch abgestimmt.\nWeniger Fehler, weniger manuelle Arbeit.\nMehr Zeit zum Wachsen.",
+            "imageAlt": "Automatische Abstimmung illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Komplette Banking-Suite",
+            "description": "Einzahlungen, Überweisungen, Rechnungszahlung, Lohn.\nAlles, was Sie für den Betrieb benötigen.\nTraditionelles Banking, moderne Geschwindigkeit.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Komplette Banking-Suite illustration"
+          },
+          "simplicity": {
+            "title": "Zahlungsautomatisierung",
+            "description": "✓ Geplante Zahlungen\n✓ Wiederkehrende Rechnungen\n✓ Sammelüberweisungen\nEinmal einrichten, dann vergessen.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Zahlungsautomatisierung illustration"
+          },
+          "rewards": {
+            "title": "Unbegrenzte kostenlose Transaktionen",
+            "description": "Keine Gebühren pro Transaktion.\nUnbegrenzte Überweisungen und Zahlungen.\nSkalieren Sie ohne Kostenbedenken.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Unbegrenzte kostenlose Transaktionen illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Häufig gestellte Fragen",
+        "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+        "ctaText": "Alle Fragen ansehen",
+        "questionIds": [
+          "q58",
+          "q59",
+          "q60"
+        ]
+      }
+    },
+    "businessPayments": {
+      "title": "Geschäftszahlungen | diBoaS",
+      "description": "Einfache Rechnungsstellung, schnelle Zahlungen.",
+      "hero": {
+        "title": "Einfache Rechnungsstellung, schnelle Zahlungen. Akzeptiere Zahlungen in Sekunden.",
+        "description": "",
+        "cta": "Jetzt starten"
+      },
+      "benefitsCards": {
+        "title": "Einfache Abrechnung, schneller Empfang",
+        "description": "Zahlungen in Sekunden akzeptieren.",
+        "cards": {
+          "paymentLinks": {
+            "iconAlt": "Payment link icon",
+            "title": "Zahlungslinks",
+            "description": "Erstelle und teile Abrechnungslinks.\nKunde zahlt mit wenigen Klicks.\nKein Kartenlesegerät, kein Ärger."
+          },
+          "dynamicQRCodes": {
+            "iconAlt": "QR code icon",
+            "title": "Dynamische QR-Codes",
+            "description": "Generiere QR-Codes für jeden Verkauf.\nKunde scannt und zahlt sofort.\nSofortige Bestätigung."
+          },
+          "automatedRecurring": {
+            "iconAlt": "Recurring payment icon",
+            "title": "Automatisierte Wiederkehrende",
+            "description": "Richte automatische monatliche Gebühren ein.\nAbos vom System verwaltet.\nUmsatzvorhersehbarkeit."
+          },
+          "paymentSplitting": {
+            "iconAlt": "Split payment icon",
+            "title": "Zahlungsaufteilung",
+            "description": "Teile Einnahmen automatisch auf.\nIdeal für Marktplätze und Partnerschaften.\nTransparenz für alle Parteien."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Inkasso ohne Komplikationen.",
+        "subtitle": "Von Rechnungen bis Zahlungslinks, schneller kassieren.",
+        "cards": {
+          "paymentLinks": {
+            "title": "Zahlungslinks",
+            "description": "Erstellen, senden, empfangen.\nOhne Website oder Online-Shop nötig.\nÜberall verkaufen.",
+            "imageAlt": "Zahlungslinks illustration"
+          },
+          "smartBills": {
+            "title": "Intelligente Rechnungen",
+            "description": "Automatische Generierung, Zahlungsbenachrichtigungen.\nErinnerungen vor Fälligkeit.\nWeniger Zahlungsausfälle.",
+            "imageAlt": "Intelligente Rechnungen illustration"
+          },
+          "recurringMadeEasy": {
+            "title": "Abonnements leicht gemacht",
+            "description": "Einmal einrichten, jeden Monat abbuchen.\nAbos und Mitgliedschaften im Autopilot.\nFinanzielle Planbarkeit.",
+            "imageAlt": "Abonnements leicht gemacht illustration"
+          },
+          "paymentSplit": {
+            "title": "Zahlungsaufteilung",
+            "description": "Eingänge automatisch aufteilen.\nMarktplätze, Partnerschaften, Provisionen.\nJeder bekommt seinen Anteil pünktlich.",
+            "imageAlt": "Zahlungsaufteilung illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Akzeptieren Sie jede Zahlungsmethode",
+            "description": "Karten, Pix, Rechnung, Krypto.\nAlle Zahlungsarten in einem Dashboard.\nVerpassen Sie nie wieder einen Verkauf.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Akzeptieren Sie jede Zahlungsmethode illustration"
+          },
+          "simplicity": {
+            "title": "Sofortige Abwicklung",
+            "description": "✓ Einzahlungen am selben Tag\n✓ Automatische Abstimmung\n✓ Echtzeit-Berichterstattung\nGeld auf Ihrem Konto, nicht unterwegs.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Sofortige Abwicklung illustration"
+          },
+          "rewards": {
+            "title": "Niedrigste Bearbeitungsgebühren",
+            "description": "Transparente Preisgestaltung, keine versteckten Kosten.\nBehalten Sie mehr von jedem Verkauf.\nVolumenrabatte bei Wachstum.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Niedrigste Bearbeitungsgebühren illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Häufig gestellte Fragen",
+        "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+        "ctaText": "Alle Fragen ansehen",
+        "questionIds": [
+          "q61",
+          "q62",
+          "q63"
+        ]
+      }
+    },
+    "businessTreasury": {
+      "title": "Treasury | diBoaS",
+      "description": "Intelligentes Treasury Management.",
+      "hero": {
+        "title": "Intelligentes Treasury Management. Dein Kapital arbeitet 24/7 für dein Geschäft.",
+        "description": "",
+        "cta": "Jetzt starten"
+      },
+      "benefitsCards": {
+        "title": "Intelligentes Treasury-Management",
+        "description": "Dein Kapital arbeitet 24/7.",
+        "cards": {
+          "automaticInvestment": {
+            "iconAlt": "Auto investment icon",
+            "title": "Automatisches Investment",
+            "description": "Ungenutztes Geld geht in sichere Investments.\nAuto-Rückkauf, wenn du es brauchst.\nNull Aufwand, maximale Renditen."
+          },
+          "personalizedStrategies": {
+            "iconAlt": "Strategy icon",
+            "title": "Personalisierte Strategien",
+            "description": "Das Risikoprofil deines Unternehmens.\nNotwendige Liquidität berücksichtigt.\nMaßgeschneiderte Optimierung."
+          },
+          "cashFlowProjection": {
+            "iconAlt": "Projection icon",
+            "title": "Cashflow-Prognose",
+            "description": "KI prognostiziert Ein- und Ausflüsse.\nWarnungen für potenzielle Lücken.\nPlane im Voraus."
+          },
+          "multiAccountConsolidation": {
+            "iconAlt": "Consolidation icon",
+            "title": "Multi-Konto-Konsolidierung",
+            "description": "Sieh alles in einem Dashboard.\nKonten bei verschiedenen Banken.\nGanzheitliche Treasury-Ansicht."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Treasury die für Sie arbeitet.",
+        "subtitle": "Ihr Kapital verdient immer, ist immer verfügbar.",
+        "cards": {
+          "overnightReturns": {
+            "title": "Overnight-Renditen",
+            "description": "Ruhendes Geld verdient 100% des CDI.\nTägliche Liquidität, kein Kapital gebunden.\nTreasury automatisch optimiert.",
+            "imageAlt": "Overnight-Renditen illustration"
+          },
+          "corporateInvestments": {
+            "title": "Unternehmens-Investments",
+            "description": "Investment-Optionen für langfristiges Kapital.\nAktien, Anleihen, Unternehmens-Krypto.\nFirmenvermögen diversifizieren.",
+            "imageAlt": "Unternehmens-Investments illustration"
+          },
+          "cashFlowForecast": {
+            "title": "Cashflow-Prognose",
+            "description": "KI prognostiziert Zu- und Abflüsse.\nLiquiditätsbedarf antizipieren.\nPlanung die funktioniert.",
+            "imageAlt": "Cashflow-Prognose illustration"
+          },
+          "executiveReports": {
+            "title": "Executive Reports",
+            "description": "Dashboard mit allen wichtigen Kennzahlen.\nRenditen, Anlagen, Verfügbar.\nKomplette Treasury-Übersicht.",
+            "imageAlt": "Executive Reports illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Optimieren Sie Ihre Liquidität",
+            "description": "Automatisiertes Treasury-Management.\nÜberschüssige Liquidität bringt automatisch Rendite.\nIntelligentes Cash-Management für Unternehmen.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Optimieren Sie Ihre Liquidität illustration"
+          },
+          "simplicity": {
+            "title": "Legen Sie Ihre Regeln fest",
+            "description": "✓ Definieren Sie minimale Betriebsliquidität\n✓ Investieren Sie Überschüsse automatisch\n✓ Sofortige Liquidität bei Bedarf\nTreasury-Management auf Autopilot.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Legen Sie Ihre Regeln fest illustration"
+          },
+          "rewards": {
+            "title": "Maximale Erträge",
+            "description": "Zugang zu mehreren Rendite-Strategien.\nDiversifizierte, risikoarme Optionen.\nIhr Cash arbeitet 24/7 für Ihr Geschäft.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Maximale Erträge illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Häufig gestellte Fragen",
+        "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+        "ctaText": "Alle Fragen ansehen",
+        "questionIds": [
+          "q64",
+          "q65",
+          "q66"
+        ]
+      }
+    },
+    "businessYieldStrategies": {
+      "title": "Cashflow Rendite | diBoaS",
+      "description": "Rendite auf deinen Cashflow.",
+      "hero": {
+        "title": "Rendite auf deinen Cashflow. Verwandle ungenutztes Kapital in zusätzliche Einnahmen.",
+        "description": "",
+        "cta": "Jetzt starten"
+      },
+      "benefitsCards": {
+        "title": "Renditen auf deinen Cashflow",
+        "description": "Ungenutztes Kapital wird zusätzliche Einnahme.",
+        "cards": {
+          "aboveMarketYields": {
+            "iconAlt": "High yield icon",
+            "title": "Über-Markt-Erträge",
+            "description": "Zugang zu Business-DeFi-Strategien.\nRenditen, die Banken nicht bieten.\nMit der Sicherheit, die du brauchst."
+          },
+          "guaranteedLiquidity": {
+            "iconAlt": "Liquidity icon",
+            "title": "Sofortige Liquidität",
+            "description": "Abhebungen, wann immer du willst.\nSperrt kein operatives Kapital.\nFlexibilität für Chancen."
+          },
+          "managedRisk": {
+            "iconAlt": "Risk management icon",
+            "title": "Gemanagtes Risiko",
+            "description": "Kalkulierte und diversifizierte Exposition.\nTransparente Risikoberichte.\nDu entscheidest, wie viel zu exponieren."
+          },
+          "balanceSheetImpact": {
+            "iconAlt": "Financial impact icon",
+            "title": "Bilanzauswirkung",
+            "description": "Zusätzliche Finanzeinnahmen.\nVerbessert Unternehmenskennzahlen.\nErhöhte Wettbewerbsfähigkeit."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Verwandeln Sie Cashflow in Einnahmen.",
+        "subtitle": "Strategien die jeden Euro zählen lassen.",
+        "cards": {
+          "yieldOnReceivables": {
+            "title": "Rendite auf Forderungen",
+            "description": "Verdienen Sie während Sie auf Zahlungen warten.\nForderungen generieren Einnahmen.\nWartezeit monetarisieren.",
+            "imageAlt": "Rendite auf Forderungen illustration"
+          },
+          "corporateDefiStrategies": {
+            "title": "Unternehmens-DeFi-Strategien",
+            "description": "Hohe Renditen mit Teil Ihres Kapitals.\nKontrolliertes Risiko, überlegene Renditen.\nDeFi für Unternehmen.",
+            "imageAlt": "Unternehmens-DeFi-Strategien illustration"
+          },
+          "currencyProtection": {
+            "title": "Währungsabsicherung",
+            "description": "Automatisches Hedging für internationale Geschäfte.\nMargen gegen Volatilität schützen.\nWährungsplanbarkeit.",
+            "imageAlt": "Währungsabsicherung illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Verwandeln Sie ungenutztes Cash in Umsatz",
+            "description": "Automatisierte Rendite auf Betriebsmittel.\nKein manuelles Management erforderlich.\nZusätzliches Einkommen, während Sie sich aufs Geschäft konzentrieren.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Verwandeln Sie ungenutztes Cash in Umsatz illustration"
+          },
+          "simplicity": {
+            "title": "Flexibler Zugriff",
+            "description": "✓ Jederzeit abheben ohne Strafen\n✓ Strategien nach Bedarf anpassen\n✓ Klare tägliche Ertragsberichte\nLiquidität trifft Rentabilität.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Flexibler Zugriff illustration"
+          },
+          "rewards": {
+            "title": "Besser als Sparkonten",
+            "description": "Bessere Zinsen als Unternehmens-Sparkonten.\nDiversifiziert über sichere Protokolle.\nRisikoverwaltete, optimierte Erträge.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Besser als Sparkonten illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Häufig gestellte Fragen",
+        "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+        "ctaText": "Alle Fragen ansehen",
+        "questionIds": [
+          "q67",
+          "q68",
+          "q69"
+        ]
+      }
+    },
+    "businessCreditSolutions": {
+      "title": "P2P Kredit | diBoaS",
+      "description": "Direktkredite zwischen Unternehmen.",
+      "hero": {
+        "title": "Direktkredite zwischen Unternehmen. Faire Konditionen, schnelle Prozesse, keine Bankbürokratie.",
+        "description": "",
+        "cta": "Jetzt starten"
+      },
+      "benefitsCards": {
+        "title": "Direkter Business-zu-Business-Kredit",
+        "description": "Keine traditionellen Banking-Mittelsmänner.",
+        "cards": {
+          "fairerRates": {
+            "iconAlt": "Fair rate icon",
+            "title": "Fairere Konditionen",
+            "description": "Keine missbräuchlichen Bankenmargen.\nUnternehmen leihen direkt an Unternehmen.\nAlle gewinnen."
+          },
+          "quickApproval": {
+            "iconAlt": "Fast approval icon",
+            "title": "Schnelle Genehmigung",
+            "description": "KI analysiert Risiko mit fairen Kriterien.\nAntwort in Stunden, nicht Wochen.\nMinimale Bürokratie."
+          },
+          "opportunityToInvestToo": {
+            "iconAlt": "Investment opportunity icon",
+            "title": "Chance auch zu investieren",
+            "description": "Dein Unternehmen kann ungenutztes Kapital verleihen.\nAttraktive und kontrollierte Renditen.\nB2B-Kredit-Marktplatz."
+          },
+          "totalTransparency": {
+            "iconAlt": "Transparency icon",
+            "title": "Totale Transparenz",
+            "description": "Sieh, wer verleiht.\nVerstehe die Zinsstruktur.\nKlare und zugängliche Verträge."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Direktkredit zwischen Unternehmen.",
+        "subtitle": "Keine Bank dazwischen. Schneller, fairer.",
+        "cards": {
+          "lowerRates": {
+            "title": "Niedrigere Zinsen",
+            "description": "Keine traditionelle Bankvermittlung.\nUnternehmen leihen an Unternehmen.\nAlle sparen.",
+            "imageAlt": "Niedrigere Zinsen illustration"
+          },
+          "fastApproval": {
+            "title": "Schnelle Bewilligung",
+            "description": "Analyse basierend auf echtem Cashflow.\nAntwort in Stunden, nicht Wochen.\nKredit im Tempo Ihres Business.",
+            "imageAlt": "Schnelle Bewilligung illustration"
+          },
+          "flexibleTerms": {
+            "title": "Flexible Konditionen",
+            "description": "Direkt mit Kreditgeber verhandeln.\nLaufzeit, Betrag, Sicherheiten.\nVereinbarung die für beide Sinn macht.",
+            "imageAlt": "Flexible Konditionen illustration"
+          },
+          "diversifySources": {
+            "title": "Quellen diversifizieren",
+            "description": "Weniger Bankabhängigkeit.\nMehrere Kreditquellen.\nFinanzielle Resilienz.",
+            "imageAlt": "Quellen diversifizieren illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Unternehmenskredite ohne Banken",
+            "description": "Direkte Peer-to-Peer-Kreditvergabe.\nFaire Zinsen, schnelle Genehmigungen.\nKredit für Wachstum gemacht.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Unternehmenskredite ohne Banken illustration"
+          },
+          "simplicity": {
+            "title": "Beantragen Sie in Minuten",
+            "description": "✓ Sofortige Vorabgenehmigungsentscheidungen\n✓ Flexible Rückzahlungsbedingungen\n✓ Keine versteckten Gebühren oder Strafen\nFinanzierung in Geschäftsgeschwindigkeit.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Beantragen Sie in Minuten illustration"
+          },
+          "rewards": {
+            "title": "Bauen Sie Unternehmenskredit auf",
+            "description": "Verantwortungsvolle Kreditnutzung verbessert Konditionen.\nZugang zu höheren Beträgen im Laufe der Zeit.\nKredit, der mit Ihrem Geschäft wächst.",
+            "ctaText": "Jetzt starten",
+            "imageAlt": "Bauen Sie Unternehmenskredit auf illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Häufig gestellte Fragen",
+        "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+        "ctaText": "Alle Fragen ansehen",
+        "questionIds": [
+          "q70",
+          "q71",
+          "q72"
+        ]
+      }
+    },
+    "business": {
+      "advantages": {
+        "title": "diBoaS Business | diBoaS",
+        "description": "Dein Unternehmen verdient Finanzen, die so einfach wie effizient sind.",
+        "hero": {
+          "title": "Dein Unternehmen verdient Finanzen, die so einfach wie effizient sind. Entdecke diBoas Business.",
+          "description": "",
+          "cta": "Jetzt starten"
+        },
+        "benefitsCards": {
+          "title": "Dein Unternehmen verdient das Beste",
+          "description": "Business-Finanzen einfach gemacht.",
+          "cards": {
+            "everythingIntegratedForBusiness": {
+              "iconAlt": "Integration icon",
+              "title": "Alles integriert für dein Business",
+              "description": "Konto, Zahlungen, Investments, Kredit.\nKomplettes Finanzmanagement.\nFokus auf das Wichtige: Wachsen."
+            },
+            "noBankingBureaucracy": {
+              "iconAlt": "No bureaucracy icon",
+              "title": "Keine Banking-Bürokratie",
+              "description": "100% digitales Onboarding.\nKeine Warteschlangen, kein Papierkram.\nIn Stunden einsatzbereit."
+            },
+            "yourCapitalAlwaysEarning": {
+              "iconAlt": "Earning capital icon",
+              "title": "Dein Kapital verdient immer",
+              "description": "Ungenutzter Cashflow? Nie wieder.\nAutomatische Renditen während du arbeitest.\nIntelligente Treasury."
+            },
+            "totalControlVisibility": {
+              "iconAlt": "Dashboard icon",
+              "title": "Volle Kontrolle und Sichtbarkeit",
+              "description": "Komplettes Dashboard der Finanzgesundheit.\nAutomatisierte Berichte.\nEntscheidungen basierend auf echten Daten."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Ihr Unternehmen verdient mehr.",
+          "subtitle": "Finanzlösungen die mit Ihrem Unternehmen wachsen.",
+          "cards": {
+            "completeBusinessBanking": {
+              "title": "Komplettes Business Banking",
+              "description": "Konto, Zahlungen, Inkasso.\nAlles integriert, alles einfach.\nIhr Business, weniger Bürokratie.",
+              "imageAlt": "Komplettes Business Banking illustration"
+            },
+            "capitalWorkingTwentyFourSeven": {
+              "title": "Kapital arbeitet 24/7",
+              "description": "Intelligente Treasury mit Renditen.\nIhr ruhendes Kapital generiert jetzt Einnahmen.\nJeder Euro zählt.",
+              "imageAlt": "Kapital arbeitet 24/7 illustration"
+            },
+            "creditToGrow": {
+              "title": "Kredit zum Wachsen",
+              "description": "P2P-Kredit zwischen Unternehmen.\nFaire Zinsen, schnelle Prozesse.\nWachstum ohne Bankketten.",
+              "imageAlt": "Kredit zum Wachsen illustration"
+            },
+            "simplifiedManagement": {
+              "title": "Vereinfachtes Management",
+              "description": "Cashflow, Zahlungen, Investments.\nAlles sichtbar in einem Dashboard.\nFokus auf das Wichtige: Wachstum.",
+              "imageAlt": "Vereinfachtes Management illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Unternehmensbanking neu gedacht",
+              "description": "Konten, Zahlungen, Treasury und Kredit.\nAlles, was Ihr Unternehmen braucht.\nAlles auf einer leistungsstarken Plattform.",
+              "ctaText": "Jetzt starten",
+              "imageAlt": "Unternehmensbanking neu gedacht illustration"
+            },
+            "simplicity": {
+              "title": "In 10 Minuten eröffnet",
+              "description": "✓ Kein Filialbesuch nötig\n✓ Kostenloses Geschäftskonto\n✓ Sofortige Genehmigungen\nFühren Sie Ihr Geschäft, nicht Ihre Bank.",
+              "ctaText": "Jetzt starten",
+              "imageAlt": "In 10 Minuten eröffnet illustration"
+            },
+            "rewards": {
+              "title": "Sparen Sie Tausende an Gebühren",
+              "description": "Keine monatlichen Kontoführungsgebühren.\nKostenlose Überweisungen und Zahlungen.\nMehr Kapital für Wachstum, weniger für Banken.",
+              "ctaText": "Jetzt starten",
+              "imageAlt": "Sparen Sie Tausende an Gebühren illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Häufig gestellte Fragen",
+          "subtitle": "Hier findest du Antworten auf die wichtigsten Fragen.\nNicht gefunden? Unser Chat antwortet in Minuten.",
+          "ctaText": "Alle Fragen ansehen",
+          "questionIds": [
+            "q52",
+            "q53",
+            "q54"
+          ]
+        }
+      }
+    }
+  }
+}

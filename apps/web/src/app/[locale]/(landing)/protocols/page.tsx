@@ -110,8 +110,8 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'common', 'waitlist', 'landing-b2c']);
+  // Load page-specific namespaces (common + waitlist already provided by landing layout)
+  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'landing-b2c']);
 
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({

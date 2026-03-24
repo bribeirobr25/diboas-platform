@@ -371,25 +371,25 @@
   color: var(--color-amber-500);
 }
 
-/* Path color variants — unique to PreDream UI, no matching tokens */
-.pathSafetyBg { background: #eff6ff; }
-.pathSafetyBorder { border-color: #bfdbfe; }
-.pathSafetyText { color: #2563eb; }
-.pathSafetyIconBg { background: #dbeafe; }
+/* Path color variants — mapped to design tokens */
+.pathSafetyBg { background: var(--path-safety-bg); }
+.pathSafetyBorder { border-color: var(--path-safety-border); }
+.pathSafetyText { color: var(--path-safety-text); }
+.pathSafetyIconBg { background: var(--path-safety-icon-bg); }
 
-.pathBalanceBg { background: #f5f3ff; }
-.pathBalanceBorder { border-color: #c4b5fd; }
-.pathBalanceText { color: #7c3aed; }
-.pathBalanceIconBg { background: #ede9fe; }
+.pathBalanceBg { background: var(--path-balance-bg); }
+.pathBalanceBorder { border-color: var(--path-balance-border); }
+.pathBalanceText { color: var(--path-balance-text); }
+.pathBalanceIconBg { background: var(--path-balance-icon-bg); }
 
-.pathGrowthBg { background: #fef2f2; }
-.pathGrowthBorder { border-color: #fca5a5; }
-.pathGrowthText { color: #dc2626; }
-.pathGrowthIconBg { background: #fee2e2; }
+.pathGrowthBg { background: var(--path-growth-bg); }
+.pathGrowthBorder { border-color: var(--path-growth-border); }
+.pathGrowthText { color: var(--path-growth-text); }
+.pathGrowthIconBg { background: var(--path-growth-icon-bg); }
 
-.pathRiskBadge.pathSafetyText { background: #dbeafe; color: #1d4ed8; }
-.pathRiskBadge.pathBalanceText { background: #ede9fe; color: #6d28d9; }
-.pathRiskBadge.pathGrowthText { background: #fee2e2; color: #dc2626; }
+.pathRiskBadge.pathSafetyText { background: var(--path-safety-icon-bg); color: var(--path-safety-badge-text); }
+.pathRiskBadge.pathBalanceText { background: var(--path-balance-icon-bg); color: var(--path-balance-badge-text); }
+.pathRiskBadge.pathGrowthText { background: var(--path-growth-icon-bg); color: var(--path-growth-text); }
 
 /* Slider Cards */
 .inputGroup {
@@ -784,8 +784,8 @@
   align-items: center;
   gap: var(--spacing-md-minus);
   padding: var(--spacing-md);
-  background: linear-gradient(to right, #ecfdf5, var(--color-teal-50));
-  border: 1px solid #a7f3d0;
+  background: linear-gradient(to right, var(--difference-success-bg), var(--color-teal-50));
+  border: 1px solid var(--difference-success-border);
   border-radius: var(--radius-xl);
   margin-bottom: var(--spacing-md);
 }
@@ -793,7 +793,7 @@
 .differenceIcon {
   width: var(--spacing-4xl);
   height: var(--spacing-4xl);
-  background: #d1fae5;
+  background: var(--difference-success-icon-bg);
   border-radius: var(--radius-lg-extra);
   display: flex;
   align-items: center;

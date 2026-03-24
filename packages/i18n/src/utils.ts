@@ -69,7 +69,7 @@ export async function loadMessages(
  */
 export async function loadAllMessages(
   locale: SupportedLocale,
-  namespaces: string[] = ['common', 'marketing']
+  namespaces: string[] = ['common']
 ): Promise<Record<string, any>> {
   const messagesArray = await Promise.all(
     namespaces.map(namespace => loadMessages(locale, namespace))

@@ -163,12 +163,12 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
         <div className={styles.confirmTotal}>
           <span>{t(keys.receive)}</span>
           {pending.type === 'buy' && pending.asset && cryptoQuantity > 0 ? (
-            <div style={{ textAlign: 'right' }}>
+            <div className={styles.textRight}>
               <span className={styles.confirmTotalAmount}>
                 {cryptoQuantity.toFixed(8)} {pending.asset.symbol}
               </span>
               <br />
-              <span style={{ fontSize: 12, color: '#94a3b8' }}>
+              <span className={styles.confirmApproxLabel}>
                 {t('preDemo.transaction.approximate')} {formatCurrency(pending.netAmount, 2, locale)}
               </span>
             </div>

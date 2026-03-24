@@ -108,8 +108,8 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['strategies', 'waitlist', 'share', 'common', 'landing-b2c']);
+  // Load page-specific namespaces (common + waitlist already provided by landing layout)
+  const pageMessages = await loadPageNamespaces(locale, ['strategies', 'share', 'landing-b2c']);
 
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({

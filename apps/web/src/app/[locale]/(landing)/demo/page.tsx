@@ -42,7 +42,8 @@ export default async function DemoPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['common', 'preDemo', 'preDream', 'share']);
+  // common already provided by landing layout
+  const pageMessages = await loadPageNamespaces(locale, ['preDemo', 'preDream', 'share']);
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

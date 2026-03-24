@@ -12,7 +12,13 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import { createPortal } from 'react-dom';
 import { APP_URL } from '@/config/env';
 import { WaitingListContextValue } from '@/lib/waitingList/types';
-import { WaitingListModal } from './WaitingListModal';
+import dynamic from 'next/dynamic';
+
+// Lazy-load WaitingListModal — only shown after user clicks a waitlist CTA
+const WaitingListModal = dynamic(
+  () => import('./WaitingListModal').then(m => ({ default: m.WaitingListModal })),
+  { ssr: false, loading: () => null }
+);
 import { analyticsService } from '@/lib/analytics';
 
 const WaitingListContext = createContext<WaitingListContextValue | null>(null);

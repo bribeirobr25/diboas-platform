@@ -44,7 +44,8 @@ export default async function DailyMarketPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['common', 'landing-b2c']);
+  // common already provided by landing layout
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c']);
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [

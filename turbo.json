@@ -6,6 +6,7 @@
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
       "env": [
         "DATABASE_URL",
+        "DATABASE_URL_UNPOOLED",
         "ENCRYPTION_KEY",
         "HMAC_KEY",
         "RESEND_API_KEY",

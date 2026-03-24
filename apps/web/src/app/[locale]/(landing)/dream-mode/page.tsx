@@ -42,8 +42,8 @@ export default async function DreamModePage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces (including common for accessibility translations)
-  const pageMessages = await loadPageNamespaces(locale, ['common', 'dreamMode', 'waitlist', 'share', 'landing-b2c']);
+  // Load page-specific namespaces (common + waitlist already provided by landing layout)
+  const pageMessages = await loadPageNamespaces(locale, ['dreamMode', 'share', 'landing-b2c']);
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

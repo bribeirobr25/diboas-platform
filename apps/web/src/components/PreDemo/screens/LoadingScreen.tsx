@@ -39,7 +39,7 @@ export function LoadingScreen({ title, subtitle, checkmarks, showAvatar = false 
     <div className={styles.screen}>
       <DemoHeader showAvatar={showAvatar} />
 
-      <div className={styles.screenCenter} style={{ flex: 1 }}>
+      <div className={`${styles.screenCenter} ${styles.screenCenterFlex}`}>
         <div className={styles.screenCard}>
           {/* Spinner */}
           <div className={styles.spinnerContainer}>

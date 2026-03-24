@@ -90,7 +90,8 @@ export default async function SecurityPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['security', 'common', 'waitlist', 'landing-b2c']);
+  // common + waitlist already provided by landing layout
+  const pageMessages = await loadPageNamespaces(locale, ['security', 'landing-b2c']);
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },

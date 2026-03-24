@@ -261,6 +261,26 @@
   --error-button-secondary: #6b7280;
   --error-button-secondary-hover: #4b5563;
 
+  /* PreDream Path Colors */
+  --path-safety-bg: #eff6ff;
+  --path-safety-border: #bfdbfe;
+  --path-safety-text: #2563eb;
+  --path-safety-icon-bg: #dbeafe;
+  --path-safety-badge-text: #1d4ed8;
+  --path-balance-bg: #f5f3ff;
+  --path-balance-border: #c4b5fd;
+  --path-balance-text: #7c3aed;
+  --path-balance-icon-bg: #ede9fe;
+  --path-balance-badge-text: #6d28d9;
+  --path-growth-bg: #fef2f2;
+  --path-growth-border: #fca5a5;
+  --path-growth-text: #dc2626;
+  --path-growth-icon-bg: #fee2e2;
+  /* Difference Highlight */
+  --difference-success-bg: #ecfdf5;
+  --difference-success-border: #a7f3d0;
+  --difference-success-icon-bg: #d1fae5;
+
   /* Card Rendering Colors */
   --card-bank-comparison: #ef4444;
   --card-watermark-amber: rgba(245, 158, 11, 0.8);

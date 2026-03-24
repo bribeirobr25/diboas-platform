@@ -1753,6 +1753,27 @@
   font-weight: var(--font-weight-normal);
 }
 
+/* ==================== Extracted Inline Styles ==================== */
+.textRight {
+  text-align: right;
+}
+
+.confirmApproxLabel {
+  font-size: 12px;
+  color: var(--color-slate-400);
+}
+
+.svgIconInline {
+  opacity: 0.8;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.alertIconInline {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 /* ==================== Investments Expansion ==================== */
 .investmentsRow {
   display: flex;

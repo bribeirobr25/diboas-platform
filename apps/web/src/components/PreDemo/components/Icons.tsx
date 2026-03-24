@@ -5,6 +5,8 @@
  * to eliminate icon duplication across the PreDemo feature.
  */
 
+import styles from '../PreDemo.module.css';
+
 /* ================================
    Utility / UI Icons
    ================================ */
@@ -30,7 +32,7 @@ export function KeyIcon({ size = 14 }: { size?: number }) {
 /** Alert / info circle icon for warning boxes */
 export function AlertIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ flexShrink: 0, marginTop: 2 }}>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" className={styles.alertIconInline}>
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   );

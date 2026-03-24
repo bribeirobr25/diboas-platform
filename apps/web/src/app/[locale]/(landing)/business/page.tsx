@@ -129,7 +129,8 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2b', 'waitlist']);
+  // waitlist already provided by landing layout
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2b']);
 
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS for Business',

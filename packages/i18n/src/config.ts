@@ -103,7 +103,7 @@ export const DOMAIN_CONFIGS: Record<string, DomainI18nConfig> = {
     domain: 'diboas.com',
     defaultLocale: 'en',
     locales: ['en', 'pt-BR', 'es', 'de'],
-    namespace: 'marketing',
+    namespace: 'marketing-common',
     fallbackNamespace: 'common',
   },
   app: {

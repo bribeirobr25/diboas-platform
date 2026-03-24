@@ -1,0 +1,290 @@
+{
+  "pages": {
+    "securityAuditReports": {
+      "title": "Auditorias & Relatórios | diBoaS",
+      "description": "Transparência total.",
+      "hero": {
+        "title": "Transparência total. Auditorias independentes e relatórios públicos sobre nossa segurança.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "Transparência total",
+        "description": "Auditorias independentes e públicas.",
+        "cards": {
+          "quarterlyAudits": {
+            "iconAlt": "Audit icon",
+            "title": "Auditorias Trimestrais",
+            "description": "Empresas independentes verificam tudo.\nRelatórios públicos e acessíveis.\nConfiança baseada em fatos."
+          },
+          "proofOfReserves": {
+            "iconAlt": "Proof of reserves icon",
+            "title": "Proof of Reserves",
+            "description": "Demonstração que ativos existem.\nSem fracionamento escondido.\nSolvência verificável."
+          },
+          "regulatoryCompliance": {
+            "iconAlt": "Compliance icon",
+            "title": "Compliance Regulatório",
+            "description": "Certificações de todas jurisdições.\nMiCA (EU), BSA (US), Banco Central (BR).\nLegal em todos os lugares."
+          },
+          "bugBountyProgram": {
+            "iconAlt": "Bug bounty icon",
+            "title": "Bug Bounty Program",
+            "description": "Hackers éticos testam nossa segurança.\nRecompensas por encontrar falhas.\nSegurança colaborativa."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Transparência como política.",
+        "subtitle": "Todos os relatórios, todas as auditorias, públicos.",
+        "cards": {
+          "independentAudits": {
+            "title": "Auditorias Independentes",
+            "description": "Empresas externas verificam tudo.\nSmart contracts, infraestrutura, processos.\nConfiança verificável.",
+            "imageAlt": "Auditorias Independentes illustration"
+          },
+          "publicReports": {
+            "title": "Relatórios Públicos",
+            "description": "Todas as auditorias disponíveis para consulta.\nTransparência total sobre segurança.\nNada escondido.",
+            "imageAlt": "Relatórios Públicos illustration"
+          },
+          "bugBountyProgram": {
+            "title": "Bug Bounty Program",
+            "description": "Recompensamos quem encontra vulnerabilidades.\nComunidade nos ajuda a ser mais seguro.\nSegurança colaborativa.",
+            "imageAlt": "Bug Bounty Program illustration"
+          },
+          "complianceReports": {
+            "title": "Compliance Reports",
+            "description": "Relatórios regulatórios atualizados.\nSOC 2, ISO 27001, MiCA.\nCertificações que provam.",
+            "imageAlt": "Compliance Reports illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Transparência Que Você Confia",
+            "description": "Auditorias independentes de segurança.\nRelatórios públicos, sem segredos.\nPrestação de contas no nosso DNA.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Transparência Que Você Confia illustration"
+          },
+          "simplicity": {
+            "title": "Acesse Todos os Relatórios",
+            "description": "✓ Auditorias de segurança regulares\n✓ Divulgações de saúde financeira\n✓ Certificações de compliance\nTudo público, nada escondido.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Acesse Todos os Relatórios illustration"
+          },
+          "rewards": {
+            "title": "Excelência em Segurança Certificada",
+            "description": "Certificações ISO 27001 e SOC 2.\nPadrões de segurança líderes da indústria.\nSua confiança, nossa maior prioridade.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Excelência em Segurança Certificada illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q97",
+          "q98",
+          "q99"
+        ]
+      }
+    },
+    "securitySafetyGuide": {
+      "title": "Guia de Segurança | diBoaS",
+      "description": "Aprenda a se proteger.",
+      "hero": {
+        "title": "Aprenda a se proteger. Dicas práticas e ferramentas para manter suas finanças seguras.",
+        "description": "",
+        "cta": "Começar Agora"
+      },
+      "benefitsCards": {
+        "title": "Aprenda a se proteger",
+        "description": "Dicas práticas de segurança financeira.",
+        "cards": {
+          "recognizeCommonScams": {
+            "iconAlt": "Scam awareness icon",
+            "title": "Reconheça Golpes Comuns",
+            "description": "Phishing, fake apps, engenharia social.\nComo identificar e evitar.\nConhecimento que protege."
+          },
+          "passwordManagement": {
+            "iconAlt": "Password icon",
+            "title": "Gerenciamento de Senhas",
+            "description": "Crie senhas fortes.\nUse gerenciadores confiáveis.\nNunca repita senhas."
+          },
+          "twoFactorVerification": {
+            "iconAlt": "2FA icon",
+            "title": "Verificação em Duas Etapas",
+            "description": "Como configurar 2FA.\nPor que é essencial.\nProteção que demora 2 minutos."
+          },
+          "whatNeverToShare": {
+            "iconAlt": "Privacy icon",
+            "title": "O Que Nunca Compartilhar",
+            "description": "Senha, códigos, chaves privadas.\ndiBoaS nunca pede essas informações.\nRegras claras de segurança."
+          }
+        }
+      },
+      "stickyFeaturesNav": {
+        "title": "Aprenda a se proteger.",
+        "subtitle": "Ferramentas e conhecimento para sua segurança.",
+        "cards": {
+          "antiScamGuide": {
+            "title": "Guia Anti-Golpes",
+            "description": "Reconheça tentativas de phishing.\nEvite scams comuns.\nConhecimento é sua primeira defesa.",
+            "imageAlt": "Guia Anti-Golpes illustration"
+          },
+          "mandatoryTwoFa": {
+            "title": "2FA Obrigatório",
+            "description": "Autenticação de dois fatores em tudo.\nCamada extra de segurança sempre.\nProteção reforçada.",
+            "imageAlt": "2FA Obrigatório illustration"
+          },
+          "smartAlerts": {
+            "title": "Alertas Inteligentes",
+            "description": "Notificação de qualquer atividade suspeita.\nBloqueio automático se necessário.\nIA protegendo você 24/7.",
+            "imageAlt": "Alertas Inteligentes illustration"
+          },
+          "safeMode": {
+            "title": "Modo Seguro",
+            "description": "Restrições extras quando em redes públicas.\nProteção aumentada em ambientes de risco.\nSegurança adaptativa.",
+            "imageAlt": "Modo Seguro illustration"
+          }
+        }
+      },
+      "featureShowcase": {
+        "slides": {
+          "unification": {
+            "title": "Conhecimento É Proteção",
+            "description": "Dicas de segurança, alertas de golpes, melhores práticas.\nCapacite-se contra ameaças.\nUsuários educados são usuários seguros.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Conhecimento É Proteção illustration"
+          },
+          "simplicity": {
+            "title": "Hábitos Simples de Segurança",
+            "description": "✓ Melhores práticas de senha\n✓ Guias de reconhecimento de phishing\n✓ Checklists de segurança de dispositivos\nPassos fáceis, proteção poderosa.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Hábitos Simples de Segurança illustration"
+          },
+          "rewards": {
+            "title": "Suporte de Segurança 24/7",
+            "description": "Ajuda instantânea quando precisar.\nTime dedicado de segurança.\nPaz de espírito, o tempo todo.",
+            "ctaText": "Começar Agora",
+            "imageAlt": "Suporte de Segurança 24/7 illustration"
+          }
+        }
+      },
+      "faqAccordion": {
+        "sectionTitle": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+        "ctaText": "Ver Todas as Perguntas",
+        "questionIds": [
+          "q100",
+          "q101",
+          "q102"
+        ]
+      }
+    },
+    "security": {
+      "protection": {
+        "title": "diBoaS Protection | diBoaS",
+        "description": "Seu dinheiro protegido com segurança institucional.",
+        "hero": {
+          "title": "Seu dinheiro protegido com segurança institucional. Você mantém o controle, nós garantimos a proteção.",
+          "description": "",
+          "cta": "Começar Agora"
+        },
+        "benefitsCards": {
+          "title": "Segurança nível institucional",
+          "description": "Seu dinheiro protegido, sempre.",
+          "cards": {
+            "endToEndEncryption": {
+              "iconAlt": "Encryption icon",
+              "title": "Criptografia Ponta a Ponta",
+              "description": "Seus dados protegidos em todo trajeto.\nTecnologia usada por bancos globais.\nSegurança que você não vê, mas sente."
+            },
+            "multiFactorAuthentication": {
+              "iconAlt": "MFA icon",
+              "title": "Autenticação Multi-Fator",
+              "description": "Biometria, códigos, dispositivos confiáveis.\nMúltiplas camadas de proteção.\nAcesso só de quem deve ter."
+            },
+            "monitoring247": {
+              "iconAlt": "Monitoring icon",
+              "title": "Monitoramento 24/7",
+              "description": "IA detecta atividades suspeitas.\nAlertas instantâneos para você.\nResposta rápida a ameaças."
+            },
+            "segregatedCustody": {
+              "iconAlt": "Custody icon",
+              "title": "Custódia Segregada",
+              "description": "Seus ativos separados dos da empresa.\nProteção mesmo em cenário improvável.\nTranquilidade regulatória."
+            },
+            "assetInsurance": {
+              "iconAlt": "Insurance icon",
+              "title": "Seguro de Ativos",
+              "description": "Cobertura contra eventos extremos.\nParceria com seguradoras confiáveis.\nProteção adicional que importa."
+            }
+          }
+        },
+        "stickyFeaturesNav": {
+          "title": "Segurança sem concessões.",
+          "subtitle": "Proteção institucional, controle seu, transparência total.",
+          "cards": {
+            "militaryGradeEncryption": {
+              "title": "Criptografia AES-256-GCM",
+              "description": "Mesma tecnologia que protege governos.\nSeus dados e ativos totalmente seguros.\nNada menos que o melhor.",
+              "imageAlt": "Criptografia AES-256-GCM illustration"
+            },
+            "youReTheOwner": {
+              "title": "Você É o Dono",
+              "description": "Carteiras não-custodiais.\nSó você tem acesso aos seus ativos.\nNós nunca tocamos no seu dinheiro.",
+              "imageAlt": "Você É o Dono illustration"
+            },
+            "multiJurisdictionCompliant": {
+              "title": "Multi-Jurisdição Compliant",
+              "description": "Regulamentação EUA, UE, Brasil.\nAuditorias independentes constantes.\nCompliance não é opcional.",
+              "imageAlt": "Multi-Jurisdição Compliant illustration"
+            },
+            "twentyFourSevenSupport": {
+              "title": "Suporte 24/7",
+              "description": "Time de segurança disponível sempre.\nResposta imediata a qualquer incidente.\nVocê nunca está sozinho.",
+              "imageAlt": "Suporte 24/7 illustration"
+            }
+          }
+        },
+        "featureShowcase": {
+          "slides": {
+            "unification": {
+              "title": "Segurança em Primeiro Lugar, Sempre",
+              "description": "Criptografia e monitoramento bancários.\nProteção em múltiplas camadas pros seus ativos.\nSeu dinheiro, seguro nível fortaleza.",
+              "ctaText": "Começar Agora",
+              "imageAlt": "Segurança em Primeiro Lugar, Sempre illustration"
+            },
+            "simplicity": {
+              "title": "Protegido Sem Complicação",
+              "description": "✓ Autenticação biométrica\n✓ Detecção de fraude em tempo real\n✓ Congelamento instantâneo de conta\nSegurança que não atrapalha.",
+              "ctaText": "Começar Agora",
+              "imageAlt": "Protegido Sem Complicação illustration"
+            },
+            "rewards": {
+              "title": "Você Sempre no Comando",
+              "description": "Personalize preferências de segurança.\nAlertas em tempo real pra tudo.\nNenhuma transação sem você saber.",
+              "ctaText": "Começar Agora",
+              "imageAlt": "Você Sempre no Comando illustration"
+            }
+          }
+        },
+        "faqAccordion": {
+          "sectionTitle": "Perguntas Frequentes",
+          "subtitle": "Encontre respostas para suas principais dúvidas.\nSe não encontrar aqui, nosso chat responde em minutos.",
+          "ctaText": "Ver Todas as Perguntas",
+          "questionIds": [
+            "q94",
+            "q95",
+            "q96"
+          ]
+        }
+      }
+    }
+  }
+}

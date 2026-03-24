@@ -73,11 +73,10 @@ export default async function HelpPage({ params }: LocalePageProps) {
     notFound();
   }
 
+  // common + waitlist already provided by landing layout
   const pageMessages = await loadPageNamespaces(locale, [
-    'common',
     'landing-help',
     'landing-b2c',
-    'waitlist',
   ]);
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(

@@ -49,7 +49,7 @@ export default async function MainPage({ params }: LocalePageProps) {
   }
 
   // Load page-specific namespaces (home + shared FAQ)
-  const pageMessages = await loadPageNamespaces(locale, ['home', 'faq']);
+  const pageMessages = await loadPageNamespaces(locale, ['home', 'faq', 'marketing-common']);
 
   // Generate structured data for the home page
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
