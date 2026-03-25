@@ -15,7 +15,6 @@ import { Logger } from '@/lib/monitoring/Logger';
 import {
   setConsentCookie,
   getConsentFromRequest,
-  hasAnalyticsConsent,
   clearConsentCookie,
   CookieConfig,
 } from '@/lib/security/cookies';

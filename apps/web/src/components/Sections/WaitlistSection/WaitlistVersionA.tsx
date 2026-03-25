@@ -47,7 +47,7 @@ export function WaitlistVersionA({
   source,
   stats,
   isLoading,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
 }: WaitlistVersionAProps) {
   const intl = useTranslation();
   const [signupData, setSignupData] = useState<SignupData | null>(null);

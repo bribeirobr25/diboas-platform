@@ -53,10 +53,10 @@ export function ProductCarousel({
   priority = false,
   backgroundColor,
   autoPlay = true,
-  onNavigate,
-  onSlideChange,
-  onCTAClick,
-  onPlayPause
+  onNavigate: _onNavigate,
+  onSlideChange: _onSlideChange,
+  onCTAClick: _onCTAClick,
+  onPlayPause: _onPlayPause
 }: ProductCarouselProps) {
   const config = (PRODUCT_CAROUSEL_CONFIGS as Record<string, unknown>)[variant];
 

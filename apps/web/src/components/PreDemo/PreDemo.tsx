@@ -33,7 +33,7 @@ const PreDream = dynamic(
 );
 import { useTranslation } from '@diboas/i18n/client';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
-import { useScreenTransitionSequence, type TransitionStep } from './hooks';
+import { useScreenTransitionSequence } from './hooks';
 import styles from './PreDemo.module.css';
 
 interface PreDemoProps {

@@ -7,7 +7,7 @@
  * DRY Principles: Uses centralized ROUTES configuration for all links
  */
 
-import { APP_URL, BUSINESS_URL, LEARN_URL } from './env';
+import { APP_URL, BUSINESS_URL } from './env';
 import { ROUTES } from './routes';
 
 export interface FooterSection {

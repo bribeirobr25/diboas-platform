@@ -16,7 +16,7 @@ interface ExpandableSectionProps {
 
 export const ExpandableSection = memo(function ExpandableSection({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
   children,
 }: ExpandableSectionProps) {

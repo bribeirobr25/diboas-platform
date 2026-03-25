@@ -106,7 +106,7 @@ export function FeatureShowcaseDefault({
     goToSlide,
     goToNext,
     goToPrev,
-    handleKeyDown
+    handleKeyDown: _handleKeyDown
   } = useCarousel({
     totalSlides: slides.length,
     autoPlay: false, // Manual navigation only
@@ -150,8 +150,8 @@ export function FeatureShowcaseDefault({
           variant: config.variant,
           timestamp: new Date().toISOString()
         });
-      } catch (error) {
-        // Analytics tracking failed silently:  showcase CTA click:', error);
+      } catch {
+        // Analytics tracking failed silently
       }
     }
     

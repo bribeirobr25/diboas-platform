@@ -342,7 +342,7 @@ describe('rateLimiter', () => {
       // when initializeRedis() creates the Ratelimit instance
       mockLimitFn = vi.fn().mockRejectedValue(new Error('Redis connection failed'));
 
-      const { checkRateLimit, isRedisEnabled } = await importModule();
+      const { checkRateLimit } = await importModule();
 
       // Trigger initialization by calling checkRateLimit, then check
       // if Logger.error was called (indicating Redis tried and failed)

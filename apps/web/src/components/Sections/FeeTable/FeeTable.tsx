@@ -26,7 +26,7 @@ interface TranslatedRow {
 
 export const FeeTable = memo(function FeeTable({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
 }: FeeTableProps) {
   const translated = useConfigTranslation(config);

@@ -45,7 +45,6 @@ import {
   addTags,
   getCurrentPositionCounter,
   getFoundingMemberCount,
-  type AddEntryInput,
 } from '../store';
 
 // Helper to create a mock row

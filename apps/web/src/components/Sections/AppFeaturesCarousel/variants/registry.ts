@@ -7,7 +7,6 @@
  * Maintenance: Single place to manage all variations
  */
 
-import dynamic from 'next/dynamic';
 import type { AppFeaturesCarouselVariantRegistry, AppFeaturesCarouselVariantComponent } from './types';
 
 // Static imports for critical variants

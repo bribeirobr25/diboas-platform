@@ -30,7 +30,7 @@ interface WaitlistModalSuccessProps {
 }
 
 export function WaitlistModalSuccess({
-  submittedEmail,
+  submittedEmail: _submittedEmail,
   onClose,
   labels,
   className = '',

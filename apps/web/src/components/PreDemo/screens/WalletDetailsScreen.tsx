@@ -14,7 +14,6 @@ import { BackIcon } from '../components/Icons';
 import {
   CHAIN_ORDER,
   ASSET_PRICES,
-  SOL_GAS_RESERVE,
   WALLET_ADDRESSES,
   type ChainId,
 } from '@/lib/pre-demo';

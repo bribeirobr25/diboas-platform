@@ -41,7 +41,7 @@ import styles from './BgHighlightDefault.module.css';
 export function BgHighlightDefault({
   config,
   className = '',
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   priority = false
 }: BgHighlightVariantProps) {
   const intl = useTranslation();

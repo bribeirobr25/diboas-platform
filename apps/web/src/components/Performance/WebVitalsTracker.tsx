@@ -148,9 +148,10 @@ export function WebVitalsTracker({ debug = false, sampleRate = 1.0 }: WebVitalsT
 
     loadWebVitals();
 
+    const trackedMetricsRef = trackedMetrics.current;
     return () => {
       isTracking.current = false;
-      trackedMetrics.current.clear();
+      trackedMetricsRef.clear();
     };
   }, [pathname, debug, sampleRate, hasConsent]);
 

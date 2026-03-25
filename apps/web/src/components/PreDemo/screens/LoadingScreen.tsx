@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslation } from '@diboas/i18n/client';
 import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import styles from '../PreDemo.module.css';
@@ -19,8 +18,6 @@ interface LoadingScreenProps {
 }
 
 export function LoadingScreen({ title, subtitle, checkmarks, showAvatar = false }: LoadingScreenProps) {
-  const intl = useTranslation();
-  const t = (key: string) => intl.formatMessage({ id: key });
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {

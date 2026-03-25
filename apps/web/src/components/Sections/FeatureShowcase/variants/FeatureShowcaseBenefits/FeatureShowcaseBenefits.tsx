@@ -102,8 +102,8 @@ export function FeatureShowcaseBenefits({
           variant: config.variant,
           timestamp: new Date().toISOString()
         });
-      } catch (error) {
-        // Analytics tracking failed silently:  showcase CTA click:', error);
+      } catch {
+        // Analytics tracking failed silently
       }
     }
     

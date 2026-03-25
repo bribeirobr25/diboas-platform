@@ -13,7 +13,7 @@
 
 import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
-import { PRODUCT_CAROUSEL_CONFIGS, type ProductCarouselVariantConfig, type ProductCarouselVariant } from '@/config/productCarousel';
+import { PRODUCT_CAROUSEL_CONFIGS, type ProductCarouselVariantConfig } from '@/config/productCarousel';
 import { analyticsService } from '@/lib/analytics';
 import { getProductCarouselVariant, validateProductCarouselVariant } from './variants/registry';
 import type { ProductCarouselVariantProps } from './variants/types';
@@ -88,8 +88,8 @@ export function ProductCarousel({
       }
 
       return finalConfig;
-    } catch (error) {
-      Logger.warn('Failed to resolve ProductCarousel configuration:', { error: error instanceof Error ? error.message : String(error) });
+    } catch {
+      Logger.warn('Failed to resolve ProductCarousel configuration');
       return PRODUCT_CAROUSEL_CONFIGS.default;
     }
   }, [variant, customConfig]);
@@ -113,8 +113,8 @@ export function ProductCarousel({
         page: window.location.pathname,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  carousel navigation:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -129,8 +129,8 @@ export function ProductCarousel({
         variant: resolvedConfig.variant,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  carousel slide change:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -149,10 +149,8 @@ export function ProductCarousel({
 
       // Navigate to CTA link
       window.location.href = ctaHref;
-    } catch (error) {
-      // Analytics tracking failed silently:  carousel CTA click:', error);
-      
-      // Still navigate even if analytics fails
+    } catch {
+      // Analytics tracking failed silently — still navigate
       window.location.href = ctaHref;
     }
   }, [enableAnalytics, resolvedConfig]);
@@ -166,8 +164,8 @@ export function ProductCarousel({
         variant: resolvedConfig.variant,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  carousel play/pause:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -188,8 +186,8 @@ export function ProductCarousel({
   // Error Handling: Fallback if variant component fails to load
   try {
     return <VariantComponent {...variantProps} />;
-  } catch (error) {
-    Logger.error(`Failed to render product carousel variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+  } catch {
+    Logger.error(`Failed to render product carousel variant '${variant}'`);
 
     // Fallback to default variant
     const DefaultVariant = getProductCarouselVariant('default');

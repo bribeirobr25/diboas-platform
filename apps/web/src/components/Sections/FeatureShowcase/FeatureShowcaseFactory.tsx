@@ -99,8 +99,8 @@ export function FeatureShowcase({
         page: window.location.pathname,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  showcase navigation:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -115,8 +115,8 @@ export function FeatureShowcase({
         variant: resolvedConfig.variant,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  showcase slide change:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -140,10 +140,8 @@ export function FeatureShowcase({
       } else {
         window.location.href = ctaHref;
       }
-    } catch (error) {
-      // Analytics tracking failed silently:  showcase CTA click:', error);
-      
-      // Still navigate even if analytics fails
+    } catch {
+      // Analytics tracking failed silently — still navigate
       const slide = resolvedConfig.slides?.find(s => s.id === slideId);
       if (slide?.content.ctaTarget === '_blank') {
         window.open(ctaHref, '_blank', 'noopener,noreferrer');
@@ -168,8 +166,8 @@ export function FeatureShowcase({
   // Error Handling: Fallback if variant component fails to load
   try {
     return <VariantComponent {...variantProps} />;
-  } catch (error) {
-    Logger.error(`Failed to render feature showcase variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+  } catch {
+    Logger.error(`Failed to render feature showcase variant '${variant}'`);
 
     // Fallback to default variant
     const DefaultVariant = getFeatureShowcaseVariant('default');

@@ -31,7 +31,7 @@ interface HeroImageProps {
 export function HeroDefault({ 
   config, 
   className = '', 
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   priority = true,
   onCTAClick 
 }: HeroVariantProps) {

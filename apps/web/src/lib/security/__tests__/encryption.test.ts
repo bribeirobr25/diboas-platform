@@ -370,10 +370,8 @@ describe('encryption module', () => {
       setEnv('NODE_ENV', 'production');
 
       const originalFrom = Buffer.from;
-      let callCount = 0;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       vi.spyOn(Buffer, 'from').mockImplementation((...args: any[]) => {
-        callCount++;
         if (args[0] === 'trigger-throw' && args[1] === 'base64') {
           throw new Error('Simulated Buffer.from failure');
         }

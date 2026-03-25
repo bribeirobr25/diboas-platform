@@ -47,7 +47,7 @@ function scrollToWaitlist() {
 
 export const DemoLauncher = memo(function DemoLauncher({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
 }: DemoLauncherProps) {
   const translated = useConfigTranslation(config);
   const [showPreDream, setShowPreDream] = useState(false);

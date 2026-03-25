@@ -10,7 +10,6 @@ import { HERO_PAGE_CONFIGS } from '@/config/hero-pages';
 import { getBenefitsCardsConfig } from '@/config/benefitsCards-pages';
 import { ROUTES } from '@/config/routes';
 import { STICKY_FEATURES_NAV_PAGE_CONFIGS } from '@/config/stickyFeaturesNav-pages';
-import { FEATURE_SHOWCASE_PAGE_CONFIGS } from '@/config/featureShowcase-pages';
 import { FAQ_ACCORDION_PAGE_CONFIGS } from '@/config/faqAccordion-pages';
 import type { Metadata } from 'next';
 import { PageI18nProvider } from '@/components/Providers';

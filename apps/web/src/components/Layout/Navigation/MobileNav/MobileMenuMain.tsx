@@ -6,12 +6,9 @@
  * Main menu with highlights, sections, and additional items
  */
 
-import { Button } from '@diboas/ui';
-import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { ChevronRightIcon, LocaleLink } from '@/components/UI';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { useTranslation } from '@diboas/i18n/client';
-import Link from 'next/link';
 import type { NavigationConfig } from '@/types/navigation';
 
 interface MobileMenuMainProps {

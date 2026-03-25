@@ -12,7 +12,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { SUPPORTED_LOCALES, LOCALE_CONFIG, type SupportedLocale } from '@diboas/i18n/server';
+import { SUPPORTED_LOCALES, LOCALE_CONFIG } from '@diboas/i18n/server';
 import { Globe } from '@/components/UI/LucideIcon';
 import { ChevronIcon, CheckmarkIcon, FlagIcon } from './LanguageSwitcherIcons';
 import { useLanguageSwitcher } from './useLanguageSwitcher';
@@ -37,6 +37,7 @@ export function LanguageSwitcher({
   const { isOpen, dropdownRef, toggleDropdown, switchLocale, handleMenuKeyDown } = useLanguageSwitcher();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: isMounted prevents SSR/client mismatch for locale-dependent rendering
     setIsMounted(true);
   }, []);
 

@@ -13,7 +13,6 @@ import { ROUTES } from './routes';
 import {
   DEFAULT_FAQ_ACCORDION_SETTINGS,
   type FAQAccordionVariantConfig,
-  type FAQItem,
   type FAQQuestionId
 } from './faqAccordion';
 

@@ -145,8 +145,8 @@ export function StickyFeaturesNavFactory({
   // Error Handling: Fallback if variant component fails to load
   try {
     return <VariantComponent {...variantProps} />;
-  } catch (error) {
-    Logger.error(`Failed to render StickyFeaturesNav variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+  } catch {
+    Logger.error(`Failed to render StickyFeaturesNav variant '${variant}'`);
 
     // Fallback to default variant
     const DefaultVariant = getStickyFeaturesNavVariant('default');

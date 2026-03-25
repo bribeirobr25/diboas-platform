@@ -68,6 +68,7 @@ export default function NotFound() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: detectLanguage() reads navigator.languages (client-only), mounted prevents hydration mismatch
     setLocale(detectLanguage());
     setMounted(true);
   }, []);

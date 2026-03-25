@@ -17,9 +17,8 @@ import { FeatureShowcaseDefault } from './FeatureShowcaseDefault/FeatureShowcase
 const FeatureShowcaseBenefits = dynamic(
   () => import('./FeatureShowcaseBenefits/FeatureShowcaseBenefits')
     .then(mod => ({ default: mod.FeatureShowcaseBenefits }))
-    .catch((error) => {
-      // Dev error: 'Failed to load FeatureShowcaseBenefits variant:', error);
-      // Fallback to default variant
+    .catch(() => {
+      // Fallback to default variant if dynamic import fails
       return { default: FeatureShowcaseDefault };
     }),
   {

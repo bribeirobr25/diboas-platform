@@ -123,7 +123,7 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
         parameters: { platform },
       });
     }
-  }, [getShareText, result.defiBalance, result.growthPercentage]);
+  }, [getShareText, result.defiBalance, result.growthPercentage, locale]);
 
   return (
     <div className={styles.shareSection}>

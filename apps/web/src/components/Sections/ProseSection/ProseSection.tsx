@@ -15,7 +15,7 @@ interface ProseSectionProps {
 
 export const ProseSection = memo(function ProseSection({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
 }: ProseSectionProps) {
   const translated = useConfigTranslation(config);

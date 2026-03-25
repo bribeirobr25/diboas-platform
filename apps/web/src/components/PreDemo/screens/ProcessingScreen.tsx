@@ -1,6 +1,5 @@
 'use client';
 
-import { useTranslation } from '@diboas/i18n/client';
 import { DemoFooter } from '../components/DemoFooter';
 import styles from '../PreDemo.module.css';
 
@@ -11,8 +10,6 @@ interface ProcessingScreenProps {
 }
 
 export function ProcessingScreen({ variant, title, subtitle }: ProcessingScreenProps) {
-  const intl = useTranslation();
-  const t = (key: string) => intl.formatMessage({ id: key });
 
   return (
     <div className={styles.screen}>

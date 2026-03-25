@@ -20,7 +20,7 @@ interface LoginScreenProps {
   runSequence: (steps: TransitionStep[]) => void;
 }
 
-export function LoginScreen({ onExit, runSequence }: LoginScreenProps) {
+export function LoginScreen({ onExit: _onExit, runSequence }: LoginScreenProps) {
   const intl = useTranslation();
 
   const t = (key: string) => intl.formatMessage({ id: key });

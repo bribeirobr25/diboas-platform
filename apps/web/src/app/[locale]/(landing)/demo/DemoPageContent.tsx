@@ -7,7 +7,7 @@
  * Wrapped in SectionErrorBoundary for resilience
  */
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
@@ -25,7 +25,7 @@ interface DemoPageContentProps {
 
 export function DemoPageContent({ locale }: DemoPageContentProps) {
   const router = useRouter();
-  const [hasTrackedEntry, setHasTrackedEntry] = useState(false);
+  const hasTrackedEntryRef = useRef(false);
 
   // Lock body scroll while demo is active — prevents the underlying
   // layout from intercepting touch events on the fixed overlay (iOS)
@@ -37,9 +37,10 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
     };
   }, []);
 
-  // Track demo entry
+  // Track demo entry (fire-once via ref — no re-render needed)
   useEffect(() => {
-    if (!hasTrackedEntry) {
+    if (!hasTrackedEntryRef.current) {
+      hasTrackedEntryRef.current = true;
       analyticsService.track({
         name: 'pre_demo_entry',
         parameters: {
@@ -47,9 +48,8 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
           locale,
         },
       });
-      setHasTrackedEntry(true);
     }
-  }, [hasTrackedEntry, locale]);
+  }, [locale]);
 
   const handleExit = useCallback(() => {
     router.push(`/${locale}#social-proof`);

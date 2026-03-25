@@ -17,6 +17,7 @@ export default function Navigation() {
   // Close navigation on route change
   useEffect(() => {
     navigationState.closeMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally only re-run on pathname change; navigationState.closeMenu is stable but the object reference changes each render
   }, [pathname]);
 
   // Prevent body scroll when mobile menu is open

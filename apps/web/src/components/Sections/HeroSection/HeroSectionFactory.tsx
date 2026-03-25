@@ -13,7 +13,6 @@
 
 import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
-import Link from 'next/link';
 import { HERO_CONFIGS, type HeroVariantConfig, type HeroVariant } from '@/config/hero';
 import { analyticsService } from '@/lib/analytics';
 import { getHeroVariant, validateHeroVariant } from './variants/registry';
@@ -110,10 +109,9 @@ export function HeroSection({
         // Use Next.js navigation for internal links
         window.location.href = resolvedConfig.content.ctaHref;
       }
-    } catch (error) {
+    } catch {
       // Error Handling: Don't let analytics failures break user experience
-      // Analytics tracking failed silently:  hero CTA click:', error);
-      
+
       // Still navigate even if analytics fails
       if (resolvedConfig.content.ctaTarget === '_blank') {
         window.open(resolvedConfig.content.ctaHref, '_blank', 'noopener,noreferrer');
@@ -136,8 +134,8 @@ export function HeroSection({
   // Error Handling: Fallback if variant component fails to load
   try {
     return <VariantComponent {...variantProps} />;
-  } catch (error) {
-    Logger.error(`Failed to render hero variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+  } catch {
+    Logger.error(`Failed to render hero variant '${variant}'`);
 
     // Fallback to default variant
     const DefaultVariant = getHeroVariant('default');

@@ -15,7 +15,7 @@ interface FounderSectionProps {
 
 export const FounderSection = memo(function FounderSection({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
 }: FounderSectionProps) {
   const translated = useConfigTranslation(config);

@@ -10,7 +10,7 @@
  * Code Reusability: Single source of truth for transaction processing
  */
 
-import type { Asset, FeeItem, PendingTransaction } from './types';
+import type { Asset, PendingTransaction } from './types';
 import {
   calculateDepositFees,
   calculateSendFees,

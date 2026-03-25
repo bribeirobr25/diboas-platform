@@ -126,7 +126,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
     );
 
     return unsubscribe;
-  }, []);
+  }, [cacheKey, source]);
 
   return { stats, isLoading };
 }

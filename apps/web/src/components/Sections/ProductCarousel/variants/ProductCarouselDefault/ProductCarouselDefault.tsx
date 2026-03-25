@@ -12,7 +12,7 @@
 
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Play, Pause } from '@/components/UI/LucideIcon';
 import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
@@ -29,7 +29,7 @@ import carouselControls from '@/styles/shared/carousel-controls.module.css';
 export function ProductCarouselDefault({ 
   config, 
   className = '', 
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   priority = false,
   backgroundColor,
   autoPlay = true,
@@ -42,7 +42,7 @@ export function ProductCarouselDefault({
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const slides = config.content.slides || [];
+  const slides = useMemo(() => config.content.slides || [], [config.content.slides]);
 
   // Detect images that failed before React hydration (SSR timing)
   useEffect(() => {
@@ -159,7 +159,7 @@ export function ProductCarouselDefault({
   const {
     handleImageLoad,
     handleImageError,
-    isLoaded
+    isLoaded: _isLoaded
   } = useImageLoading({
     totalImages: slides.length
   });

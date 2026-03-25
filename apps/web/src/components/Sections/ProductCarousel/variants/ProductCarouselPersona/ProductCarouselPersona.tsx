@@ -10,7 +10,7 @@
 
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { CarouselDots } from '@/components/UI';
 import { useCarousel } from '@/hooks/useCarousel';
@@ -26,7 +26,7 @@ export function ProductCarouselPersona({
   onCTAClick,
 }: ProductCarouselVariantProps) {
   const translated = useConfigTranslation(config);
-  const slides = translated.content.slides || [];
+  const slides = useMemo(() => translated.content.slides || [], [translated.content.slides]);
 
   const handleSlideChange = useCallback(
     (index: number) => {

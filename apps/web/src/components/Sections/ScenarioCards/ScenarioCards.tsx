@@ -15,7 +15,7 @@ interface ScenarioCardsProps {
 
 export const ScenarioCards = memo(function ScenarioCards({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
 }: ScenarioCardsProps) {
   const translated = useConfigTranslation(config);

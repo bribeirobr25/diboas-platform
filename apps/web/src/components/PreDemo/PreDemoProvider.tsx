@@ -23,7 +23,7 @@ interface PreDemoProviderProps {
 }
 
 // TODO: Wire feeRateOverrides through context → transactionService when analytics API ships
-export function PreDemoProvider({ children, onExit, feeRateOverrides }: PreDemoProviderProps) {
+export function PreDemoProvider({ children, onExit, feeRateOverrides: _feeRateOverrides }: PreDemoProviderProps) {
   const [state, dispatch] = useReducer(preDemoReducer, initialPreDemoState);
 
   // setScreen is stable (no dependencies on state) — dispatch is stable by React guarantee

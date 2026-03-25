@@ -9,7 +9,7 @@
 
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronRight, Play, Pause } from '@/components/UI/LucideIcon';
@@ -26,7 +26,7 @@ import carouselControls from '@/styles/shared/carousel-controls.module.css';
 export function AppFeaturesCarouselDefault({ 
   config, 
   className = '', 
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   priority = false,
   backgroundColor,
   autoPlay = true,
@@ -35,7 +35,7 @@ export function AppFeaturesCarouselDefault({
   onCTAClick,
   onPlayPause
 }: AppFeaturesCarouselVariantProps) {
-  const cards = config.cards || [];
+  const cards = useMemo(() => config.cards || [], [config.cards]);
   const autoRotateMs = config.settings?.autoRotateMs || 4000;
 
   // Custom slide change handler with logging

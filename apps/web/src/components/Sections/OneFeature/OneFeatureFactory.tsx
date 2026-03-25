@@ -107,10 +107,8 @@ export function OneFeature({
       } else {
         window.location.href = href;
       }
-    } catch (error) {
-      // Analytics tracking failed silently:  feature click:', error);
-      
-      // Still navigate even if analytics fails
+    } catch {
+      // Analytics tracking failed silently — still navigate
       if (href.startsWith('http')) {
         window.open(href, '_blank', 'noopener,noreferrer');
       } else {
@@ -137,10 +135,8 @@ export function OneFeature({
       } else {
         window.location.href = href;
       }
-    } catch (error) {
-      // Analytics tracking failed silently:  CTA click:', error);
-      
-      // Still navigate even if analytics fails
+    } catch {
+      // Analytics tracking failed silently — still navigate
       if (href.startsWith('http')) {
         window.open(href, '_blank', 'noopener,noreferrer');
       } else {
@@ -163,8 +159,8 @@ export function OneFeature({
   // Error Handling: Fallback if variant component fails to load
   try {
     return <VariantComponent {...variantProps} />;
-  } catch (error) {
-    Logger.error(`Failed to render one feature variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+  } catch {
+    Logger.error(`Failed to render one feature variant '${variant}'`);
 
     // Fallback to default variant
     const DefaultVariant = getOneFeatureVariant('default');
