@@ -8,6 +8,7 @@
 'use client';
 
 import { useIntl, type IntlShape } from 'react-intl';
+import type { MessageFormatValues } from './types';
 
 /**
  * Hook for accessing translation functions
@@ -30,7 +31,7 @@ export function useMessage(id: string, defaultMessage?: string): string {
  */
 export function useMessageWithValues(
   id: string,
-  values?: Record<string, any>,
+  values?: MessageFormatValues,
   defaultMessage?: string
 ): string {
   const intl = useIntl();
@@ -43,7 +44,7 @@ export function useMessageWithValues(
 export function usePluralMessage(
   id: string,
   count: number,
-  values?: Record<string, any>
+  values?: MessageFormatValues
 ): string {
   const intl = useIntl();
   return intl.formatMessage({ id }, { count, ...values });

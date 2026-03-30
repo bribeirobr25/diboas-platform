@@ -68,4 +68,25 @@ export function registerEventSubscribers(): void {
       // PostHog + PerformanceMonitor init are already handled by MonitoringInit.tsx
     },
   );
+
+  // 4. SHARE_COMPLETED → track share_completed
+  applicationEventBus.on(ApplicationEventType.SHARE_COMPLETED, (data) => {
+    import('@/lib/analytics/service')
+      .then((mod) => mod.analyticsService.track({ name: 'share_completed', parameters: data.metadata }))
+      .catch(() => Logger.warn('Failed to load analytics for share_completed subscriber'));
+  });
+
+  // 5. PRE_DEMO_STARTED → track pre_demo_started
+  applicationEventBus.on(ApplicationEventType.PRE_DEMO_STARTED, (data) => {
+    import('@/lib/analytics/service')
+      .then((mod) => mod.analyticsService.track({ name: 'pre_demo_started', parameters: data.metadata }))
+      .catch(() => Logger.warn('Failed to load analytics for pre_demo_started subscriber'));
+  });
+
+  // 6. PRE_DREAM_STARTED → track pre_dream_started
+  applicationEventBus.on(ApplicationEventType.PRE_DREAM_STARTED, (data) => {
+    import('@/lib/analytics/service')
+      .then((mod) => mod.analyticsService.track({ name: 'pre_dream_started', parameters: data.metadata }))
+      .catch(() => Logger.warn('Failed to load analytics for pre_dream_started subscriber'));
+  });
 }

@@ -1,16 +1,23 @@
 /**
  * Webpack Performance Plugin
- * 
+ *
  * Domain-Driven Design: Build-time performance monitoring domain
  * Monitoring & Observability: Bundle analysis and performance tracking
  * Error Handling & System Recovery: Graceful performance validation
  * File Decoupling & Organization: Dedicated build-time monitoring
+ *
+ * Note: Intentionally kept as .js — this is a webpack plugin loaded via require()
+ * in next.config.js. Converting to .ts would require a ts-node compilation step.
  */
+
+/** @typedef {import('webpack').Compiler} Compiler */
+/** @typedef {import('webpack').Stats} Stats */
 
 const fs = require('fs');
 const path = require('path');
 
 class WebpackPerformancePlugin {
+  /** @param {Partial<{ outputPath: string, budgets: { maxAssetSize: number, maxEntrypointSize: number, maxTotalSize: number, maxAssets: number }, logLevel: string, failOnBudgetExceeded: boolean }>} options */
   constructor(options = {}) {
     this.options = {
       outputPath: '.next/performance-report.json',
@@ -26,6 +33,7 @@ class WebpackPerformancePlugin {
     };
   }
 
+  /** @param {Compiler} compiler */
   apply(compiler) {
     compiler.hooks.done.tap('WebpackPerformancePlugin', (stats) => {
       try {

@@ -3,12 +3,16 @@
  *
  * Pure functions for calculating dream simulation results.
  * Uses standard compound interest + annuity formula via shared futureValue().
+ *
+ * For locales with exchange rate config (e.g., pt-BR), the diBoaS side uses
+ * futureValueWithCurrencyHedge() to model: local → USD → earn yield → reconvert.
+ * Bank side always uses standard futureValue() in local currency.
  */
 
 import type { PreDreamPath, PreDreamTimeframe, PreDreamResult } from './types';
 import { PRE_DREAM_PATHS, PRE_DREAM_TIMEFRAMES } from './constants';
-import { futureValue, apyToMonthlyRate } from '@/lib/utils/financialMath';
-import { BANK_RATE_SOURCES, DEFAULT_BANK_RATE_SOURCE } from '@/lib/dream-mode/constants';
+import { futureValue, apyToMonthlyRate, futureValueWithCurrencyHedge } from '@/lib/utils/financialMath';
+import { BANK_RATE_SOURCES, DEFAULT_BANK_RATE_SOURCE, type ExchangeRateConfig } from '@/lib/dream-mode/constants';
 
 /**
  * Resolve bank rate config for a locale.
@@ -18,7 +22,7 @@ export function resolveBankRate(locale: string, apyOverride?: number) {
   const source = BANK_RATE_SOURCES[locale] ?? DEFAULT_BANK_RATE_SOURCE;
   return {
     apy: typeof apyOverride === 'number' && apyOverride >= 0 ? apyOverride : source.rate,
-    currencyDepreciation: source.currencyDepreciation,
+    exchangeRate: source.exchangeRate,
     source: source.source,
     translationKey: source.translationKey,
   };
@@ -43,8 +47,9 @@ export function resolveStrategyApy(path: PreDreamPath, overrides?: StrategyApyOv
 /**
  * Calculate PreDream simulation result.
  *
- * Uses FV = S * (1+r)^n + PMT * ((1+r)^n - 1) / r for both DeFi and bank.
- * Optionally applies currency depreciation to bank interest (e.g., BRL vs USD).
+ * - Bank side: always futureValue() in local currency (unchanged across locales)
+ * - diBoaS side: if locale has exchangeRate config → futureValueWithCurrencyHedge()
+ *                otherwise → standard futureValue() (USD/EUR locales)
  */
 export function calculatePreDreamResult(
   path: PreDreamPath,
@@ -52,7 +57,7 @@ export function calculatePreDreamResult(
   initialAmount: number,
   monthlyContribution: number,
   bankApy: number,
-  currencyDepreciation: number = 0,
+  exchangeRate?: ExchangeRateConfig,
   defiApy?: number
 ): PreDreamResult {
   const timeframeConfig = PRE_DREAM_TIMEFRAMES[timeframe];
@@ -61,21 +66,33 @@ export function calculatePreDreamResult(
 
   const totalInvestment = initialAmount + (monthlyContribution * months);
 
-  // DeFi balance — correct compound interest + annuity formula
-  const defiRate = apyToMonthlyRate(resolvedDefiApy);
-  const defiBalance = futureValue(initialAmount, monthlyContribution, defiRate, months);
-  const defiInterest = defiBalance - totalInvestment;
-
-  // Bank balance — same formula with bank APY
+  // Bank balance — always standard compound interest in local currency
   const bankRate = apyToMonthlyRate(bankApy);
-  let bankBalance = futureValue(initialAmount, monthlyContribution, bankRate, months);
-  let bankInterest = bankBalance - totalInvestment;
+  const bankBalance = futureValue(initialAmount, monthlyContribution, bankRate, months);
+  const bankInterest = bankBalance - totalInvestment;
 
-  // Apply currency depreciation (Brazil: 6% annual BRL depreciation vs USD)
-  if (currencyDepreciation > 0) {
-    const depreciationFactor = Math.pow(1 - currencyDepreciation, timeframeConfig.years);
-    bankInterest = bankInterest * depreciationFactor;
-    bankBalance = totalInvestment + bankInterest;
+  // DeFi balance — currency hedge for locales with exchange rate config
+  let defiBalance: number;
+  let defiInterest: number;
+  let diboasYieldBalance: number | undefined;
+  let projectedRate: number | undefined;
+
+  if (exchangeRate) {
+    const hedge = futureValueWithCurrencyHedge(
+      initialAmount,
+      monthlyContribution,
+      resolvedDefiApy,
+      months,
+      exchangeRate
+    );
+    defiBalance = hedge.localBalance;
+    defiInterest = defiBalance - totalInvestment;
+    diboasYieldBalance = hedge.yieldBalance;
+    projectedRate = hedge.projectedRate;
+  } else {
+    const defiRate = apyToMonthlyRate(resolvedDefiApy);
+    defiBalance = futureValue(initialAmount, monthlyContribution, defiRate, months);
+    defiInterest = defiBalance - totalInvestment;
   }
 
   const difference = defiBalance - bankBalance;
@@ -93,5 +110,7 @@ export function calculatePreDreamResult(
     growthPercentage,
     pathApy: resolvedDefiApy,
     bankApy,
+    diboasYieldBalance,
+    projectedExchangeRate: projectedRate,
   };
 }

@@ -74,3 +74,9 @@ export {
   sanitizeHtml,
   type SanitizeHtmlOptions,
 } from './htmlSanitizer';
+
+// URL Validation
+export {
+  isValidUrl,
+  sanitizeUrl,
+} from './urlValidator';

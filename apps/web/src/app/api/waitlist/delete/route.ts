@@ -25,6 +25,8 @@ import { sql } from '@/lib/database/client';
 import { encrypt, decrypt, hmacHash } from '@/lib/security/encryption';
 import { isValidEmail } from '@/lib/waitingList/helpers';
 import { Logger } from '@/lib/monitoring/Logger';
+import { logAuditEvent } from '@/lib/audit/AuditService';
+import { logGdprDeletion } from '@/lib/audit/GdprDeletionLogger';
 import { sendEmailAsync } from '@/lib/email/sendEmail';
 import {
   applicationEventBus,
@@ -133,8 +135,17 @@ export async function POST(request: Request): Promise<NextResponse> {
 
       Logger.info('[GDPR] Deletion requested for email, token generated');
 
-      // Emit deletion requested event for audit trail
+      // Audit trail (fire-and-forget)
       const correlationId = nextReq.headers.get('x-request-id') || undefined;
+      logAuditEvent({
+        eventType: 'gdpr.deletion.request',
+        entityType: 'waitlist_entry',
+        actorIp: nextReq.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+        actorUserAgent: nextReq.headers.get('user-agent') ?? undefined,
+        correlationId,
+      });
+
+      // Emit deletion requested event for audit trail
       applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_REQUESTED, {
         source: 'waitlist',
         timestamp: Date.now(),
@@ -243,6 +254,25 @@ export async function DELETE(request: Request): Promise<NextResponse> {
 
     if (deleted) {
       Logger.info('[GDPR] Data deleted successfully');
+
+      // Audit trail (fire-and-forget)
+      logAuditEvent({
+        eventType: 'gdpr.deletion.completed',
+        entityType: 'waitlist_entry',
+        actorIp: nextReq.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+        actorUserAgent: nextReq.headers.get('user-agent') ?? undefined,
+        correlationId: nextReq.headers.get('x-request-id') || undefined,
+        details: { method: 'token_confirmation' },
+      });
+
+      // GDPR deletion log (fire-and-forget)
+      logGdprDeletion({
+        entityType: 'waitlist_entry',
+        deletedBy: 'user_request',
+        reason: 'gdpr_article_17',
+        correlationId: nextReq.headers.get('x-request-id') || undefined,
+        metadata: { method: 'token_confirmation' },
+      });
 
       // Emit deletion completed event for audit trail
       applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {

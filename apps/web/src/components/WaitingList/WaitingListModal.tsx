@@ -92,7 +92,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
         <div className={styles.imageSection}>
           <div className={styles.imageWrapper}>
             <Image
-              src={ASSET_PATHS.IMAGES.PHONE_BANNER}
+              src={ASSET_PATHS.IMAGES.HERO}
               alt={t('imageAlt')}
               fill
               priority

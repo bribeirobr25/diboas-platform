@@ -30,8 +30,8 @@ export const SECURITY_HERO_CONFIG: HeroVariantConfig = {
     ctaTarget: '_self',
   },
   backgroundAssets: {
-    backgroundImage: '/assets/images/hand-bright2.avif',
-    backgroundImageMobile: '/assets/images/hand-bright2.avif',
+    backgroundImage: '/assets/images/private-control.avif',
+    backgroundImageMobile: '/assets/images/private-control.avif',
     overlayOpacity: 0.3,
   },
   seo: {

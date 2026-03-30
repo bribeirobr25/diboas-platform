@@ -31,7 +31,7 @@ export const ASSET_PATHS = {
 
   // General Images
   IMAGES: {
-    PHONE_BANNER: `${ASSETS_BASE}/images/phone-banner.avif`
+    HERO: `${ASSETS_BASE}/images/defiant-bloom.avif`
   },
 
   // SEO Assets

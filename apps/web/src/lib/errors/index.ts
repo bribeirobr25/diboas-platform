@@ -2,6 +2,15 @@
  * Errors Module - Public API
  */
 
+// Domain error classes (DDD typed errors)
+export {
+  DomainError,
+  DuplicateEntryError,
+  ConcurrencyConflictError,
+  EncryptionUnavailableError,
+  RateLimitExceededError,
+} from './domainErrors';
+
 // Error types and enums
 export * from './errorTypes';
 

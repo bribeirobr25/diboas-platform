@@ -1,193 +1,185 @@
 {
   "hero": {
-    "headline": "O sistema financeiro não está quebrado. Só não foi feito para você.",
-    "subheadline": "Envie dinheiro na diBoaS, na hora, de graça. E faça ele crescer do seu jeito.",
-    "cta": "Veja seu dinheiro em ação"
+    "headline": "O sistema financeiro não está quebrado. Só não foi feito pra você.",
+    "subheadline": "Veja o que R$1.000 fazem em um ano quando seu dinheiro trabalha em dólar.",
+    "cta": "Me mostra",
+    "phoneMockupLabel": "Prévia. Em breve"
   },
-  "goalCalculator": {
-    "header": "O que você tá construindo?",
-    "subtitle": "Escolha uma meta. Vamos te mostrar um caminho.",
-    "stepIndicator": "Passo {current} de {total}:",
-    "goalDescriptions": {
-      "christmas": "Construa seu bônus de fim de ano automaticamente",
-      "emergency": "Crie uma reserva para o inesperado",
-      "vacation": "Economize para a viagem que você merece"
+  "comparison": {
+    "heading": "R$1.000. 1 ano. Você decide.",
+    "columns": {
+      "bank": "Poupança",
+      "neobanks": "CDB/LCI",
+      "treasuries": "Tesouro Direto",
+      "diboas": "diBoaS"
     },
-    "suggested": "Sugerido: {amount}/mês",
-    "override": "Alterar",
-    "startSmaller": "Mais do que esperava? Comece com {amount}/mês",
-    "expectedReturn": "{rate}% retorno esperado",
-    "back": "Voltar",
-    "next": "Próximo",
-    "simulationLabel": "Calculando seu plano de {goal}...",
-    "tryDifferent": "Tentar um objetivo diferente",
-    "tabs": {
-      "christmas": "13º Salário",
-      "emergency": "Reserva de Emergência",
-      "vacation": "Dinheiro pra Viagem"
+    "rates": {
+      "bank": "7,50%",
+      "neobanks": "10,50%",
+      "treasuries": "11,00%",
+      "diboas": "~7%"
     },
-    "fields": {
-      "christmas": {
-        "label": "Quanto você ganha por ano?",
-        "helper": "Bruto tá ótimo. A gente não guarda esse dado."
+    "returns": {
+      "bank": "+R$75",
+      "neobanks": "+R$105",
+      "treasuries": "+R$110",
+      "diboas": "~+R$198"
+    },
+    "diboasSubtext": "em dólares",
+    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros, março 2026. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital. Valor do diBoaS considera conversão para dólar digital e projeção baseada na depreciação média do real frente ao dólar nos últimos 2 anos (~12% a.a.). Projeção de câmbio limitada a 3 anos para períodos maiores."
+  },
+  "goalExamples": {
+    "heading": "Vamos simplificar.",
+    "cards": {
+      "retirement": {
+        "title": "Aposentadoria",
+        "titleSummary": "~R$36k mais",
+        "subtitle": "Considerando salário bruto = R$41.600/ano e contribuição de R$100/mês durante 30 anos. Em dólares digitais.",
+        "diboasApy": "~7%",
+        "diboasResult": "R$164.300",
+        "diboasGain": "em valor equivalente em dólar",
+        "diboasTime": "",
+        "bankApy": "7,50%",
+        "bankResult": "R$128.289",
+        "bankGain": "em reais",
+        "bankTime": "",
+        "difference": "Seu dinheiro rendeu em dólar e voltou valendo mais.",
+        "tagline": "Proteger o valor do que você guarda é tão importante quanto quanto ele rende.",
+        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026. Câmbio ilustrativo.",
+        "seeAnother": "Veja outra meta",
+        "howPossible": "Como isso é possível?"
       },
       "emergency": {
-        "label": "Quanto você gasta por mês?",
-        "helper": "Aluguel, comida, contas — um número aproximado tá bom."
+        "title": "Reserva de Emergência",
+        "titleSummary": "~1 ano menos",
+        "subtitle": "Considerando gastos mensais = R$2.700, reserva pra 6 meses (R$16.200), e contribuição de R$270/mês. Em dólares digitais.",
+        "diboasApy": "~7%",
+        "diboasResult": "R$27.007",
+        "diboasTime": "em 5 anos",
+        "bankApy": "7,50%",
+        "bankResult": "R$19.458",
+        "bankTime": "em 5 anos",
+        "difference": "Proteção cambial faz a diferença no longo prazo.",
+        "tagline": "Pra quem viaja, compra importado ou pensa no longo prazo, reserva em dólar faz diferença.",
+        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026.",
+        "seeAnother": "Veja outra meta",
+        "howPossible": "Como isso é possível?"
       },
-      "vacation": {
-        "label": "Quanto você quer guardar?",
-        "helper": "Pensa numa viagem de verdade, não só um feriado prolongado."
+      "christmas": {
+        "title": "Décimo Terceiro",
+        "titleSummary": "~R$503 mais",
+        "subtitle": "Considerando salário bruto = R$41.600/ano, poupando R$345/mês durante 12 meses. Em dólares digitais.",
+        "diboasApy": "~7%",
+        "diboasResult": "R$4.784",
+        "diboasGain": "em valor equivalente em dólar",
+        "diboasTime": "",
+        "bankApy": "7,50%",
+        "bankResult": "R$4.280",
+        "bankGain": "em reais",
+        "bankTime": "",
+        "difference": "Rendimento em dólar + proteção cambial.",
+        "tagline": "Mesmo dinheiro. Moeda diferente. Proteção real.",
+        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026.",
+        "seeAnother": "Veja outra meta",
+        "howPossible": "Como isso é possível?"
       },
-      "initialDeposit": {
-        "label": "Com quanto você pode começar?",
-        "helper": "Você pode mudar isso depois."
+      "wealthy": {
+        "title": "A Regra dos 10%",
+        "titleSummary": "~R$7,5k mais",
+        "subtitle": "Com salário líquido de R$2.700/mês, investindo 10% (R$270/mês) por 5 anos. Em dólares digitais.",
+        "diboasApy": "~7%",
+        "diboasResult": "R$27.007",
+        "diboasGain": "em valor equivalente em dólar",
+        "diboasTime": "",
+        "bankApy": "7,50%",
+        "bankResult": "R$19.458",
+        "bankGain": "em reais",
+        "bankTime": "",
+        "difference": "Proteção em dólar + rendimento",
+        "tagline": "Uma abordagem popular para poupar a longo prazo: sempre separe 10% da sua renda, não importa o quê.",
+        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026. Câmbio ilustrativo.",
+        "seeAnother": "Veja outra meta",
+        "howPossible": "Como isso é possível?"
       },
-      "monthlyDeposit": {
-        "label": "Quanto você pode colocar todo mês?",
-        "helper": "A gente sugere um valor baseado no seu objetivo."
-      },
-      "riskTier": {
-        "label": "Quanta movimentação tá ok pra você?"
+      "custom": {
+        "title": "Suas metas são únicas.",
+        "subtitle": "O diBoaS também.",
+        "cta": "Garanta seu acesso"
       }
     },
-    "coverage": {
-      "label": "Quantos meses de cobertura?",
-      "months3": "3 meses",
-      "months4": "4 meses",
-      "months6": "6 meses"
-    },
-    "timeline": {
-      "label": "Em quanto tempo você quer construir?",
-      "months6": "6 meses",
-      "months9": "9 meses",
-      "months12": "12 meses",
-      "months18": "18 meses"
-    },
-    "vacationDate": {
-      "label": "Quando é a sua viagem?"
-    },
-    "tiers": {
-      "careful": "Prefiro ir com cuidado",
-      "moderate": "Um pouco mais de chance",
-      "aggressive": "Aguento as oscilações"
-    },
-    "cta": "Me mostra o plano",
-    "result": {
-      "christmasHeadline": "Seu 13º Salário: {value} até 30 de novembro.",
-      "emergencyHeadline": "Sua Reserva de Emergência: {value} — {months} meses de tranquilidade.",
-      "vacationHeadline": "Seu Fundo de Viagem: {value} até {date}.",
-      "planLine": "Guarde {monthly} por mês a partir de hoje. Seu dinheiro trabalha enquanto você espera.",
-      "scenarioGood": "Se as coisas forem bem",
-      "scenarioExpected": "Esperado",
-      "scenarioBad": "Num ano ruim",
-      "badCaseLoss": "Num ano ruim, você pode perder parte do que colocou. Esse é o preço de buscar mais crescimento.",
-      "disclaimer": "A gente tá te mostrando uma faixa, não uma promessa.",
-      "startSmallerToggle": "Vê o que acontece com R$ 100 por mês",
-      "startSmallerPrompt": "{monthly} por mês é muito?",
-      "startSmallerPartial": "Com R$ 100 por mês, você chega a uns {value} até {date}. Isso é {percent}% do seu objetivo. Você pode aumentar depois quando quiser.",
-      "primaryCta": "Começar esse objetivo",
-      "secondaryHow": "Como funciona?",
-      "secondaryRisks": "Quais são os riscos?",
-      "demoLink": "Quer experimentar antes? Demo com dinheiro de mentira →"
-    },
-    "helpers": {
-      "bigCommitment": "Esse é um valor alto. Você pode começar menor e ajustar depois.",
-      "oneMonthWarning": "Com só 1 mês, a gente recomenda a opção mais cuidadosa.",
-      "christmasRollover": "Seu próximo 13º: 30 de novembro de {year}.",
-      "vacationDateMinimum": "Escolhe uma data com pelo menos 3 meses pra frente, pra seu dinheiro ter tempo de trabalhar."
-    },
-    "microcopy": "A partir de R$ 10. Mude seu plano quando quiser."
+    "withDiboas": "Com diBoaS",
+    "yourBank": "Na Poupança:",
+    "more": "MAIS com diBoaS",
+    "less": "MENOS com diBoaS"
+  },
+  "sidePocket": {
+    "text": "Isso é sobre a parte do seu dinheiro que poderia estar fazendo mais."
   },
   "origin": {
-    "transitionHook": "Por que construir a diBoaS",
+    "transitionHook": "Por isso a gente existe.",
     "header": "O nome dela era Adelaide.",
     "paragraphs": {
-      "p1": "Minha avó nunca teve acesso às ferramentas financeiras que poderiam ter mudado a vida dela.",
-      "p2": "O sistema funcionava e ainda funciona exatamente como foi projetado.\nSó que não pra gente como ela. Como eu. Como você.",
-      "p3": "O acesso está trancado atrás de valores mínimos altos, palavras complicadas e grandes instituições financeiras que não se importavam e ainda não se importam com quem tem pouca economia.",
-      "p4": "R$50.000 pra abrir uma conta de investimento. R$30 por mês só pra manter uma conta corrente. Esse era o preço do acesso.",
-      "p5": "A tecnologia nova tornou possível passar por cima de quem controlava tudo.\nEu só precisava construir a porta.",
-      "p6": "Eu dei o nome dela."
+      "p1": "A avó do nosso fundador guardou metade de tudo que ganhou a vida inteira. O banco dela pagou quase nada por isso.",
+      "p2": "Ela não sabia que existiam opções melhores. Ninguém contou pra ela. A linguagem era complicada demais. Os valores mínimos, altos demais. As instituições não se importavam com quem tinha pouca economia.",
+      "p3": "R$50.000 pra abrir uma conta de investimento. R$30 por mês só pra manter uma conta corrente. Esse era o preço do acesso.",
+      "p4": "Ela nunca teve uma ferramenta que mostrasse pra ela, em 30 segundos, o que o dinheiro dela poderia se tornar.",
+      "p5": "Você acabou de usar essa ferramenta.",
+      "p6": "A tecnologia nova tornou possível passar por cima de quem controlava tudo. A gente só precisava construir a porta.",
+      "p7": "A gente deu o nome dela."
     }
-  },
-  "personas": {
-    "transitionHook": "Eu construí pra você.",
-    "header": "Eu construí pra você.",
-    "slide1": {
-      "headline": "Sua mãe precisa agora. Não no \"horário comercial\".",
-      "subtext": "Envie dinheiro pra qualquer pessoa no diBoaS. Em qualquer lugar do mundo. Em segundos. De graça.",
-      "cta": "Veja seu dinheiro em ação"
-    },
-    "slide2": {
-      "headline": "Você paga centenas de reais por ano em taxas que nem vê.",
-      "subtext": "Sem mensalidade. Sem taxas escondidas. Sem letras miúdas. Só o seu dinheiro, trabalhando pra você.",
-      "cta": "Veja seu dinheiro em ação"
-    },
-    "slide3": {
-      "headline": "Sua poupança tá rendendo quase nada. Você sabe disso.",
-      "subtext": "Escolha o que combina com sua vida, do mais seguro ao mais aventureiro. A partir de R$10. Adelaide cuida do seu dinheiro pra você não ter que se preocupar.",
-      "cta": "Veja seu dinheiro em ação"
-    }
-  },
-  "scenarios": {
-    "transitionHook": "E é assim que funciona na prática.",
-    "header": "Gente de verdade. Momentos de verdade.",
-    "card1": {
-      "title": "Enviando dólares pro seu irmão em Portugal",
-      "description": "Ele tá do outro lado do oceano. Você manda. Chega antes de você guardar o celular.",
-      "imageAlt": "Amigos dividindo o jantar"
-    },
-    "card2": {
-      "title": "Pagando um freelancer na Argentina",
-      "description": "Ele tá na América do Sul. Você tá no Brasil. O dinheiro chega antes do café esfriar.",
-      "imageAlt": "Enviando pagamento internacional"
-    },
-    "card3": {
-      "title": "Dinheiro urgente pra mãe",
-      "description": "3 da manhã. Ela precisa agora. Não no \"próximo dia útil\".",
-      "imageAlt": "Transferência de emergência para a família"
-    },
-    "clarificationLine": "Use o diBoaS só pra transferências gratuitas. Quando você quiser mais, tá aqui!",
-    "footnote": ""
   },
   "howItWorks": {
-    "transitionHook": "Veja como funciona.",
+    "transitionHook": "Você viu o que é possível. Aqui vai o que acontece por baixo do capô.",
     "header": "Dinheiro que se move como mensagem.",
     "step1": {
       "title": "Enviar e Receber",
-      "description": "Envie dinheiro pra qualquer pessoa no diBoaS. Em qualquer lugar do mundo. Em segundos. De graça. Saque quando quiser.",
-      "quote": "\"Mandei R$500 pro meu irmão. Chegou antes de eu guardar o celular.\"",
+      "description": "Mande dinheiro pra qualquer pessoa no diBoaS. Em qualquer lugar do mundo. Em segundos. De graça. Saque quando quiser.",
       "imageAlt": "Enviar e receber dinheiro"
     },
     "step2": {
       "title": "Investir e Crescer",
       "description": "Escolha entre 10 formas de fazer seu dinheiro crescer. Seu dinheiro trabalha enquanto você dorme.",
-      "quote": "\"Eu tinha R$500 parado na conta sem render nada. Agora tá rendendo mais do que a poupança rendeu em 5 anos.\"",
       "imageAlt": "Investir e fazer seu dinheiro crescer"
     },
     "step3": {
       "title": "Acompanhar e Aprender",
-      "description": "O que tá acontecendo. O que significa. O que você pode fazer. Linguagem clara, sem jargão.",
-      "quote": "\"Adelaide cuida do meu dinheiro pra eu não ter que me preocupar. Olho uma vez por dia. Menos estresse. Mais vida.\"",
+      "description": "O que se moveu. O que significa. O que você pode fazer. Adelaide, sua guia de IA, explica tudo em linguagem clara, sem jargão.",
       "imageAlt": "Acompanhar e aprender sobre suas finanças"
     },
     "step4": {
       "title": "Comprar e Guardar",
       "description": "Compre ativos digitais e guarde na sua própria carteira. Começando com BTC, ETH e SOL. Ações e Ouro em breve.",
-      "quote": "\"Seus ativos. Sua carteira. Seu tempo. Compre o que quiser, venda quando quiser.\"",
       "imageAlt": "Comprar e manter ativos digitais"
+    }
+  },
+  "howItWorksDetailed": {
+    "transitionHook": "Você viu o que é possível. Aqui vai o que acontece por baixo do capô.",
+    "header": "Como funciona.",
+    "card1": {
+      "title": "De onde vem o crescimento?",
+      "p1": "Seu dinheiro trabalha enquanto você dorme. As estratégias que você escolhe colocam seu dinheiro em sistemas financeiros estabelecidos que geram rendimento, em dólar. Você vê tudo na sua moeda. Pode pegar de volta a qualquer hora.",
+      "p2": "Esse crescimento não é mágica. É o seu dinheiro fazendo o que os bancos fazem com ele, mas você fica com a maior parte do lucro em vez deles. E em moeda forte."
     },
-    "microDisclosure": "Exemplos mostrados são ilustrativos e não representam usuários reais."
+    "card2": {
+      "title": "O que acontece com o seu dinheiro?",
+      "p1": "Seu dinheiro vive como dólares digitais numa carteira que é sua, não nossa.",
+      "p2": "Não é um saldo que a gente pode congelar. Não é um fundo que a gente pode emprestar. Não é algo que desaparece se o diBoaS desaparecer.",
+      "p3": "Dinheiro disponível e dinheiro investido aparecem separados, pra você sempre saber o que tá pronto e o que tá trabalhando."
+    },
+    "card3": {
+      "title": "E se algo der errado?",
+      "p1": "Você pode perder dinheiro. Dinheiro de verdade. Por isso os exemplos de metas mostraram uma comparação, pra você ver a diferença antes de decidir, não depois.",
+      "p2": "Você sempre tem o controle. Pause depósitos quando quiser. Pegue seu dinheiro de volta quando precisar. Escolha estratégias mais seguras ou mais ousadas dependendo da sua meta."
+    }
   },
   "fees": {
-    "transitionHook": "Agora vamos falar de dinheiro.",
+    "transitionHook": "Você viu os números. Aqui vai o custo.",
     "title": "Quanto Custa. Tudo.",
     "subtitle": "",
-    "painIntro": "O brasileiro médio paga centenas de reais por ano em tarifas bancárias, taxas de transferência e custos escondidos. Veja como fica com a gente.",
+    "painIntro": "",
     "disclaimer": "*Taxa diBoaS mostrada. Taxas de rede de terceiros podem se aplicar (geralmente menos de R$0,05).",
-    "example": "Um investimento de R$100 custa R$0 no diBoaS. Vender custa 39 centavos.",
-    "expandableToggle": "Enviar dinheiro, comprar e investir é grátis. Mas temos taxas. Veja todas as taxas.",
+    "example": "",
+    "expandableToggle": "",
     "footerLine": "Cada taxa. Na mesa. Nada mais.",
     "headers": {
       "action": "Ação",
@@ -208,7 +200,7 @@
         "action": "Adicionar Dinheiro",
         "diboas": "0,48% (mín R$0,25, máx R$25)",
         "competitors": "0 a 1,5%",
-        "difference": "Mais barato que a maioria dos apps cobra pra adicionar dinheiro",
+        "difference": "Mais barato que a maioria",
         "example": "Adicione R$500: custa R$2,40"
       },
       "sending": {
@@ -221,14 +213,14 @@
       "buying": {
         "action": "Comprar / Investir",
         "diboas": "GRÁTIS",
-        "competitors": "1,5 a 2,5% (corretoras)",
-        "difference": "Economiza R$1,50 a R$2,50 por R$100",
+        "competitors": "1,5 a 2,5%",
+        "difference": "Economize R$1,50 a R$2,50 por R$100",
         "example": "Investir R$100: custa menos de um centavo"
       },
       "selling": {
         "action": "Vender / Encerrar",
         "diboas": "0,39% (mín R$0,25, máx R$25)",
-        "competitors": "1,5 a 2,5% (corretoras)",
+        "competitors": "1,5 a 2,5%",
         "difference": "Economize R$1,11 a R$2,11 a cada R$100",
         "example": "Venda R$100: custa R$0,39"
       },
@@ -243,7 +235,7 @@
         "action": "Crescer (Estratégias)",
         "diboas": "Grátis pra entrar, 0,39% pra sair",
         "competitors": "N/A",
-        "difference": "Opções de crescimento que seu banco não oferece",
+        "difference": "Crescimento em dólar que seu banco não oferece",
         "example": "Começar uma estratégia de R$100: R$0. Sair custa 39 centavos."
       },
       "cashout": {
@@ -258,48 +250,59 @@
   "catch": {
     "header": "Qual é a pegadinha?",
     "paragraphs": {
-      "p1": "Pergunta justa. Aqui vai a resposta de verdade:",
-      "p2": "Investir é grátis. Quando você vende, a gente cobra 0,39%. Se você vender R$100, a gente ganha 39 centavos. A única forma de ganhar mais é se seu dinheiro crescer. E a taxa nunca passa de R$25. Nossos incentivos estão alinhados com os seus.",
-      "p3": "Sem mensalidade. Sem cobranças surpresa. Sem multa pra sacar.",
-      "p4": "Como? Tecnologia nova eliminou as agências, os executivos e os custos antigos. A gente repassa essa economia pra você.",
-      "p5": "Tem risco? Tem. Seu dinheiro não tá num banco. Ele tá trabalhando com tecnologia nova. Isso quer dizer que pode crescer mais, mas também tem risco real. A gente monitora 24 horas por dia e testa toda estratégia contra crises passadas, mas não dá pra garantir retorno, e quem disser que dá tá mentindo.",
-      "p6": "A gente ganha quando você ganha. A gente te mostra os dois lados, as oportunidades E os riscos, sempre."
+      "p1": "Pergunta justa. Todo mundo faz.",
+      "p2": "Seu dinheiro não fica parado no banco. Eles trabalham com ele. Geram retornos reais. O que devolvem pra você? A Poupança rende 7,50%. Parece ok. Mas o real perdeu quase metade do valor frente ao dólar nos últimos anos. Então seu rendimento sobe em reais, mas seu poder de compra em moeda forte cai.",
+      "p3": "O diBoaS fecha essa lacuna de um jeito diferente: seu dinheiro rende EM DÓLAR. Se o real se desvalorizar, seu dinheiro no diBoaS vale mais quando você traz de volta.",
+      "p4": "Investir é grátis. Quando você vende, o diBoaS cobra 0,39%. Você vende R$100, o diBoaS ganha 39 centavos. Só isso. A gente só ganha mais se o seu dinheiro crescer primeiro. A taxa nunca passa de R$25.",
+      "p5": "Sem mensalidade. Sem cobrança surpresa. Sem multa pra sacar.",
+      "p6": "Como? Tecnologia nova eliminou agências, executivos e custos antigos. A gente repassa essa economia pra você.",
+      "p7": "Tem risco? Tem. A gente precisa ser honesto com você sobre isso.",
+      "p8": "Seu dinheiro não tá num banco. Tá trabalhando com tecnologia financeira nova. E é em dólar, então além do risco do rendimento, tem o risco do câmbio. Se o dólar cair frente ao real, seu dinheiro pode valer menos quando voltar. Esse é o trade-off.",
+      "p9": "O que a gente faz sobre isso:",
+      "p10": "A gente só usa sistemas que sobreviveram a cada grande crise desde 2020, incluindo COVID, FTX e Terra. A gente distribui seu dinheiro em múltiplos sistemas independentes. Monitora tudo, 24 horas por dia. Testa toda estratégia contra desastres passados antes de você ver.",
+      "p11": "Não dá pra garantir retorno. Ninguém pode. E quem disser que pode tá mentindo.",
+      "p12": "A gente ganha quando você ganha. A gente te mostra os dois lados, as oportunidades e os riscos. Sempre.",
+      "p13": ""
     }
   },
   "underTheHood": {
-    "toggleLabel": "Quer os detalhes técnicos?",
+    "toggleLabel": "Quer saber como funciona de verdade?",
+    "trustBadge": "Suas chaves, seu dinheiro.",
     "paragraphs": {
-      "p1": "Arquitetura: o diBoaS é construído sobre infraestrutura de código aberto e descentralizada. Isso significa que cada transação é verificável, cada sistema é auditável, e seu dinheiro se move sem intermediários.",
-      "p2": "Sua carteira: cada usuário recebe sua própria carteira pessoal com sua própria chave de segurança pessoal. O diBoaS nunca vê, guarda ou tem acesso à sua chave. Se o diBoaS desaparecesse amanhã, seu dinheiro continuaria sendo seu.",
-      "p3": "Segurança: sua carteira é protegida de forma que ninguém, incluindo o diBoaS, possa acessar seus fundos. Só você pode autorizar transações. Usamos apenas protocolos auditados e estabelecidos. Toda estratégia é testada contra crises históricas do mercado antes de ser oferecida aos usuários. Monitoramos todas as posições 24 horas por dia. A assinatura de transações sempre vai exigir sua aprovação.",
-      "p4": "Transparência: todas as taxas são divulgadas antecipadamente. Todos os riscos são declarados de forma clara. Sem mecanismos escondidos."
+      "p1": "Arquitetura: O diBoaS é construído sobre infraestrutura financeira aberta. Cada transação é registrada publicamente. Cada sistema é auditável. Seu dinheiro se move sem intermediários ficando com uma parte.",
+      "p2": "Sua carteira: Quando você se cadastra, você ganha sua própria carteira com sua própria chave. O diBoaS nunca vê. Nunca guarda. Não tem como acessar. Se o diBoaS desaparecesse amanhã, seu dinheiro continuaria sendo seu. Isso não é uma funcionalidade que a gente adicionou. É como o sistema inteiro foi construído.",
+      "p3": "Segurança: Ninguém pode mexer no seu dinheiro sem sua permissão. Nem hacker. Nem funcionário. Nem a gente. Toda estratégia é testada contra crises históricas antes de você ver. Toda transação precisa da sua aprovação.",
+      "p4": "Perdeu o celular? Você recupera sua carteira. Sem seed phrase, sem pânico.",
+      "p5": "Transparência: Toda taxa é mostrada antes de você pagar. Todo risco é declarado claramente. Sem mecanismos escondidos. Sem surpresa nas letras miúdas."
     },
-    "linkText": "Veja a documentação técnica completa"
+    "linkText": "Ver documentação técnica completa"
   },
   "demo": {
     "transitionHook": "Não acredite só na nossa palavra.",
-    "header": "O que seus R$100 fariam aqui?",
-    "subtext": "Sem cadastro. Sem dinheiro de verdade. Só a prova.",
-    "ctaPrimary": "Teste agora a Demo Completa",
-    "ctaSecondary": "Veja no que o seu eu do futuro pode se transformar."
+    "header": "Não acredite só na nossa palavra.",
+    "subtext": "O que seu dinheiro faria aqui?",
+    "ctaPrimary": "Testar a Demo",
+    "ctaSecondary": "Sem cadastro. Sem dinheiro de verdade. Só a prova."
   },
   "socialProof": {
     "header": "Os primeiros 1.200.",
-    "subtext": "Estamos começando pequeno pra poder cuidar de cada pessoa que entra.",
+    "subtext": "A gente tá começando pequeno de propósito.\n\nQueremos conhecer cada pessoa que entra cedo. Queremos ouvir o que funciona e o que não funciona. Queremos construir isso com você, não só pra você.\n\nVocê ganha 5 convites. Escolha as pessoas que você acha que merecem tá aqui.",
     "stats": {
       "waitlist": "{count} membros fundadores",
       "countries": "{countries} países"
     },
-    "cta": "Garantir minha vaga"
+    "cta": "Fazer parte dos primeiros 1.200",
+    "zeroState": "Seja um dos primeiros."
   },
   "founder": {
-    "header": "Construído por BAR",
+    "header": "Construído por Bar",
     "paragraphs": {
-      "p1": "Eu cresci vendo minha avó Adelaide navegar um sistema financeiro que não foi feito pra ela. Ela merecia ferramentas melhores. Todo mundo como ela também merece.",
-      "p2": "O diBoaS está sendo criado em Berlim, Alemanha, construído pra pessoas nos EUA, na Europa, no Brasil, com planos de expandir pra mais mercados. Eu tenho mais de 20 anos trabalhando com Produtos e TI no Brasil, nos EUA, no Japão e na Alemanha. Agora estou construindo a ferramenta financeira que eu queria que minha avó tivesse.",
-      "p3": "Vamos nos conectar."
+      "p1": "Eu cresci vendo minha avó Adelaide navegar um sistema financeiro que não foi feito pra ela.",
+      "p2": "Ela merecia ferramentas melhores. Todo mundo como ela também merece.",
+      "p3": "Passei 20 anos construindo produtos pra empresas dos outros. Em São Paulo, Nova York, Tóquio, Berlim. Agora tô construindo a única coisa que eu queria que tivesse existido pra ela.",
+      "p4": "Eu leio cada email. bar@diboas.com"
     },
-    "emailText": "hello@diboas.com",
+    "emailText": "bar@diboas.com",
     "social": {
       "linkedin": "LinkedIn",
       "x": "X",
@@ -307,26 +310,39 @@
     }
   },
   "waitlist": {
-    "header": "Faça parte do movimento",
+    "header": "Faz parte.",
     "description": "Acesso aberto e oportunidades justas pra todo mundo.",
     "emailPlaceholder": "Seu email",
     "submitButton": "Garantir minha vaga",
-    "privacyNote": "Sem spam. Só seu convite quando estivermos prontos.",
+    "privacyNote": "Sem spam. Só uma mensagem quando for sua vez.",
+    "privacyConsent": "Ao se cadastrar, você concorda com nossa Política de Privacidade.",
     "benefits": {
       "badge": "Selo permanente de Membro Fundador (#47 de 1.200)",
       "wall": "Seu nome no Mural dos Fundadores",
       "invites": "5 convites pessoais",
       "exclusive": "Benefícios exclusivos futuros só pra Membros Fundadores"
     },
-    "spotsCounter": "{count} vagas de membros fundadores restantes",
+    "spotsCounter": "{count} vagas de membro fundador restantes",
     "noSpam": "",
-    "privacyCheckbox": "Concordo com a Política de Privacidade",
+    "privacyCheckbox": "",
     "versionB": {
       "header": "As vagas de fundador esgotaram.",
       "description": "Tem um código de convite? Você entra como Membro Pioneiro, com seu próprio selo e 5 convites.\nSem código? Entre na lista prioritária. Vamos abrir mais vagas em breve.",
       "inviteCodePlaceholder": "Digite seu código de convite",
       "inviteSubmit": "Entrar com meu convite",
       "prioritySubmit": "Entrar na lista prioritária"
+    },
+    "confirmation": {
+      "headline": "Bem-vindo.",
+      "position": "Sua posição: #{position}",
+      "shareHeading": "Convide seus amigos",
+      "shareSubtext": "Compartilhe pra ajudar amigos a ter acesso antecipado",
+      "dreamModeCta": "Testar o Dream Mode"
+    },
+    "tiers": {
+      "founding": "Você tá entre os primeiros 1.200. Compartilhe seu link. Você tem 5 convites pra dar status de Membro Fundador.",
+      "early": "Convidado por um Membro Fundador. Compartilhe seu link pra ajudar amigos a ter acesso antecipado.",
+      "priority": "Você tá na lista de espera prioritária. Compartilhe seu link pra avançar e ajudar amigos."
     }
   },
   "faq": {
@@ -334,43 +350,71 @@
     "items": {
       "isBank": {
         "question": "O diBoaS é um banco?",
-        "answer": "Não. O diBoaS é uma plataforma que te ajuda a se conectar com oportunidades financeiras. A gente não gerencia seu dinheiro e não toma decisões sobre seus fundos. Sua carteira é protegida de forma que só VOCÊ pode autorizar transações. A gente oferece as ferramentas, você toma as decisões."
+        "answer": "Não. O diBoaS é uma plataforma que te conecta com oportunidades financeiras, em dólar. A gente não gerencia seu dinheiro e não toma decisões sobre seus fundos. Sua carteira é protegida de forma que só VOCÊ pode autorizar transações. A gente oferece as ferramentas. Você toma as decisões."
       },
       "isForEveryone": {
         "question": "O diBoaS é pra todo mundo?",
-        "answer": "Não. Se você quer que outra pessoa tome decisões financeiras por você, não somos nós. Se você quer um banco tradicional com agência e extrato de papel, também não somos nós.\n\nO diBoaS é pra quem quer controle sobre o próprio dinheiro, transparência sobre custos e acesso a oportunidades que antes exigiam R$50.000 de entrada. Você não precisa entender tudo agora, é pra isso que a gente tá aqui. Você só precisa estar disposto a aprender."
+        "answer": "Não.\n\nSe você quer que outra pessoa tome decisões financeiras por você, não somos nós. Se você quer um banco tradicional com agência e extrato de papel, também não.\n\nO diBoaS é pra quem quer ver pra onde o dinheiro vai. Quem quer taxas honestas. Quem acha que R$50.000 de entrada mínima faz parte do problema.\n\nVocê não precisa entender tudo agora. É pra isso que a gente tá aqui. Você só precisa tá disposto a aprender."
       },
-      "withdraw": {
-        "question": "Posso sacar meu dinheiro a qualquer hora?",
-        "answer": "Sim. Seu dinheiro é seu. Saque pra sua conta bancária quando quiser. A taxa é 0,48%, então sacar R$100 custa R$0,48. Não tem período de carência e não tem multa. A gente processa seu saque na hora. O tempo de transferência bancária pode variar."
-      },
-      "safety": {
-        "question": "Meu dinheiro está seguro?",
-        "answer": "Seu dinheiro é protegido por você. Só você tem as chaves. Ninguém mais pode acessar seus fundos sem sua permissão.\n\nDito isso, isso não é conta bancária. Criptoativos não são cobertos por esquemas de garantia de depósitos. O valor dos seus ativos pode variar, e você pode perder parte ou todo o seu investimento.\n\nA gente te mostra os dois lados, as oportunidades e os riscos, sempre."
-      },
-      "howPossible": {
-        "question": "Como isso é possível sem taxas altas?",
-        "answer": "Eliminando os intermediários, as agências, os executivos, os custos antigos. Tecnologia nova faz o mesmo trabalho por uma fração do preço. A gente repassa essa economia pra você. Esse é o modelo inteiro."
+      "whatKindOfMoney": {
+        "question": "Qual tipo de dinheiro devo usar pra começar?",
+        "answer": "Comece com dinheiro que você quer colocar pra trabalhar. Não seu aluguel. Não o dinheiro que você precisa na semana que vem. Comece com um valor pequeno e uma meta clara."
       },
       "minimum": {
         "question": "Qual o valor mínimo pra começar?",
         "answer": "R$10. O preço de um cafezinho. A maioria das plataformas de investimento exige R$500 a R$50.000 só pra abrir a porta. A gente acha que isso faz parte do problema."
       },
+      "whatIsBalance": {
+        "question": "O que é meu saldo, afinal?",
+        "answer": "Seu dinheiro disponível vive como dólares digitais, mostrado em reais dentro do diBoaS. Dinheiro disponível e investido aparecem separados, pra você sempre saber o que tá pronto e o que tá trabalhando."
+      },
+      "sendMoney": {
+        "question": "Posso mandar dinheiro pra qualquer pessoa?",
+        "answer": "Hoje, você pode mandar dinheiro na hora e de graça pra qualquer usuário do diBoaS. Quanto mais a rede cresce, mais gente você alcança."
+      },
       "justTransfers": {
-        "question": "Posso usar o diBoaS só pra transferências?",
-        "answer": "Sim. Com certeza. Você pode usar o diBoaS só pra enviar e receber dinheiro, grátis, instantâneo, mundial. As funções de investimento e crescimento estão lá quando e se você quiser. Sem pressão. Sem pacote."
+        "question": "Posso usar o diBoaS só pra transferências internacionais?",
+        "answer": "Sim. Com certeza. Você pode usar o diBoaS só pra mandar e receber dinheiro em dólar. De graça, instantâneo, mundial. As funções de investimento e crescimento tão aí quando e se você quiser. Sem pressão."
       },
       "understanding": {
         "question": "E se eu não entendo de investimento?",
         "answer": "É exatamente pra você que a gente construiu isso. Nosso objetivo é fazer tão simples que qualquer pessoa consiga. Sem jargão. Sem decisões complicadas. Só opções claras e informações transparentes. Comece com R$10. Explore. Aprenda. A gente tá aqui em cada passo."
       },
-      "whatIfWrong": {
-        "question": "E se algo der errado?",
-        "answer": "A tecnologia que a gente usa tem risco real. Retornos podem subir ou descer. Os sistemas não são perfeitos, nenhum sistema é. A gente monitora 24 horas por dia e testa toda estratégia contra crises passadas (COVID, FTX, Terra) antes de oferecer. A gente sempre vai te dizer o que tá acontecendo. Mas não dá pra eliminar todo risco, e quem disser que dá tá mentindo."
+      "lostPhone": {
+        "question": "E se eu perder meu celular?",
+        "answer": "Sua carteira usa segurança de chave avançada. Uma parte fica no seu aparelho. Outra parte é guardada separadamente de forma segura.\n\nSe você perder o celular, você recupera a carteira. Sem seed phrase. Sem 24 palavras pra anotar. Sem pânico.\n\nSeu dinheiro não desaparece porque seu celular desapareceu."
+      },
+      "withdraw": {
+        "question": "Posso sacar meu dinheiro a qualquer hora?",
+        "answer": "Sim. Seu dinheiro é seu. Saque quando quiser. A taxa é 0,48%, então sacar R$100 custa R$0,48. Sem carência. Sem multa."
+      },
+      "safety": {
+        "question": "Meu dinheiro tá seguro?",
+        "answer": "Seu dinheiro é protegido por você. Só você tem as chaves. Ninguém mais pode acessar seus fundos sem sua permissão.\n\nDito isso: isso não é conta bancária. Criptoativos não são cobertos por esquemas de garantia de depósitos. O valor dos seus ativos pode variar, e você pode perder parte ou todo o seu investimento. Além disso, como seu dinheiro tá em dólar, variações no câmbio afetam o valor em reais.\n\nA gente te mostra os dois lados, as oportunidades e os riscos. Sempre."
+      },
+      "howPossible": {
+        "question": "Como isso é possível sem taxas altas?",
+        "answer": "Eliminando intermediários. Agências, executivos, custos antigos. Tecnologia nova faz o mesmo trabalho por uma fração do preço. A gente repassa essa economia pra você. Esse é o modelo inteiro."
+      },
+      "pixFaq": {
+        "question": "Posso usar PIX no diBoaS?",
+        "answer": "Não. O diBoaS trabalha com dólares digitais, não com reais. Seu dinheiro é protegido contra a desvalorização do real. Pra transferências domésticas em reais, o PIX já é excelente, e a gente não tenta competir com ele. O diBoaS é pro dinheiro que você quer guardar em dólar e mandar pro exterior."
+      },
+      "whySaveDollar": {
+        "question": "Por que poupar em dólar e não na Poupança?",
+        "answer": "A Poupança rende 7,50% ao ano. É bom. Mas o real perdeu quase metade do valor frente ao dólar nos últimos 5 anos. Então enquanto seu saldo sobe em reais, seu poder de compra em moeda forte cai.\n\nPoupar em dólar no diBoaS não é pra substituir a Poupança. É pra proteger uma parte do seu dinheiro em moeda forte. Quem viaja, compra importado, manda dinheiro pra fora ou simplesmente pensa no longo prazo, pra essa pessoa, ter parte do dinheiro em dólar faz diferença."
+      },
+      "micaRegulated": {
+        "question": "O diBoaS é regulamentado pela MiCA?",
+        "answer": "A MiCA é uma regulamentação da União Europeia. O diBoaS é uma plataforma não-custodial. Carteiras não-custodiais estão fora do escopo regulatório da MiCA porque não custodiam fundos de clientes."
       },
       "shutdown": {
         "question": "O que acontece com meu dinheiro se o diBoaS fechar?",
-        "answer": "Seu dinheiro tá na SUA carteira. Não na nossa. Se o diBoaS desaparecesse amanhã, você ainda teria seus fundos, acessíveis pelas suas chaves de carteira. A gente nunca guarda seu dinheiro. Nunca pode. Isso não é uma funcionalidade que a gente adicionou. É como o sistema inteiro foi construído."
+        "answer": "Seu dinheiro tá na SUA carteira. Não na nossa.\n\nSe o diBoaS desaparecesse amanhã, você ainda teria seus fundos, acessíveis pelas suas chaves.\n\nA gente nunca guarda seu dinheiro. Nunca pode. Isso não é uma funcionalidade que a gente adicionou. É como o sistema inteiro foi construído."
+      },
+      "whatIfWrong": {
+        "question": "E se algo der errado?",
+        "answer": "Sim, você pode perder dinheiro. A gente cobriu isso honestamente na seção acima. Resumo: a gente testa toda estratégia contra crises passadas, monitora 24 horas por dia e sempre vai te dizer o que tá acontecendo. Mas não dá pra eliminar todo risco, e a gente não vai fingir que dá."
       },
       "audited": {
         "question": "O diBoaS já foi auditado?",
@@ -382,9 +426,59 @@
       }
     }
   },
-  "midPageCta": {
-    "heading": "Pronto para experimentar?",
-    "cta": "Entrar na lista de espera"
+  "nav": {
+    "ctaDesktop": "Entrar na lista",
+    "ctaMobile": "Entrar na lista de espera"
+  },
+  "cookie": {
+    "consent": "Usamos cookies pra análise.",
+    "accept": "Aceitar",
+    "decline": "Recusar",
+    "policyLink": "Política de Cookies"
+  },
+  "sections": {
+    "comparison": {
+      "ariaLabel": "Tabela comparativa de rendimentos entre poupança, CDB, Tesouro Direto e diBoaS"
+    },
+    "goalExamples": {
+      "ariaLabel": "Exemplos de metas com possíveis resultados de economia"
+    },
+    "sidePocket": {
+      "ariaLabel": "Pausa visual"
+    },
+    "originStory": {
+      "ariaLabel": "História de origem, por que o diBoaS existe"
+    },
+    "howItWorks": {
+      "ariaLabel": "Como o diBoaS funciona, 4 cards de funcionalidades"
+    },
+    "howItWorksDetailed": {
+      "ariaLabel": "Explicação detalhada de como o diBoaS funciona"
+    },
+    "feeTable": {
+      "ariaLabel": "Tabela completa de transparência de taxas"
+    },
+    "honestCatch": {
+      "ariaLabel": "Qual é a pegadinha, transparência honesta"
+    },
+    "techDetails": {
+      "ariaLabel": "Detalhes técnicos da arquitetura do diBoaS"
+    },
+    "demo": {
+      "ariaLabel": "Seção de demonstração interativa"
+    },
+    "socialProof": {
+      "ariaLabel": "Membros fundadores prova social"
+    },
+    "founder": {
+      "ariaLabel": "Sobre o fundador do diBoaS"
+    },
+    "waitlist": {
+      "ariaLabel": "Seção de cadastro na lista de espera"
+    },
+    "faq": {
+      "ariaLabel": "Perguntas frequentes"
+    }
   },
   "footer": {
     "tagline": "Acesso aberto e oportunidades justas para todos.",
@@ -398,55 +492,22 @@
       "protocols": "Protocolos"
     },
     "disclosures": {
-      "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento.",
+      "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento. Rentabilidade passada não é garantia de rentabilidade futura.",
       "crypto": "O valor dos criptoativos pode flutuar. Você pode perder parte ou a totalidade do seu dinheiro. Criptoativos não são protegidos por sistemas de garantia de depósito.",
-      "stories": "Depoimentos nesta página são exemplos ilustrativos e não representam usuários reais.",
       "ai": "Parte do conteúdo desta plataforma, incluindo análises de mercado e materiais educacionais, é gerado ou assistido por inteligência artificial. Conteúdo gerado por IA pode conter erros ou limitações. Usuários devem verificar informações de forma independente antes de tomar decisões financeiras.",
       "mica": "",
       "micaArticle7": "",
-      "cvm": "Retornos passados não são garantia de retorno futuro. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
+      "cvm": "Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos e podem ensejar perdas, inclusive da totalidade do capital investido. Percentuais prospectivos refletem apenas a opinião do autor, com base em informações disponíveis à época e consideradas confiáveis.",
       "bcb": "A diBoaS não é uma instituição financeira autorizada pelo Banco Central do Brasil.",
       "us": "",
       "closing": "Você decide o que é melhor pra sua situação."
     },
     "copyright": "© 2026 diBoaS. Todos os direitos reservados."
   },
-  "sections": {
-    "goalCalculator": {
-      "ariaLabel": "Calculadora de economia por objetivos"
-    },
-    "originStory": {
-      "ariaLabel": "História de origem, por que o diBoaS existe"
-    },
-    "personaCarousel": {
-      "ariaLabel": "Carrossel de pessoas, para quem o diBoaS é feito"
-    },
-    "scenarioCards": {
-      "ariaLabel": "Cenários reais onde o diBoaS ajuda"
-    },
-    "feeTable": {
-      "ariaLabel": "Tabela completa de transparência de taxas"
-    },
-    "honestCatch": {
-      "ariaLabel": "Qual é o truque, transparência honesta"
-    },
-    "techDetails": {
-      "ariaLabel": "Detalhes técnicos da arquitetura do diBoaS"
-    },
-    "demo": {
-      "ariaLabel": "Seção de demonstração interativa"
-    },
-    "founder": {
-      "ariaLabel": "Sobre o fundador do diBoaS"
-    },
-    "faq": {
-      "ariaLabel": "Perguntas frequentes"
-    }
-  },
   "seo": {
     "title": "diBoaS | O Sistema Não Foi Feito Pra Você. A Gente Tá Mudando Isso.",
-    "description": "Envie dinheiro na diBoaS em segundos. De graça. Depois, faça ele crescer enquanto você dorme. Conheça a diBoaS.",
-    "ogTitle": "O sistema não está quebrado. Ele funciona exatamente como foi projetado. Só que não pra você.",
-    "ogDescription": "Começou com minha avó Adelaide. Eu aprendi o que os bancos não contam. Por isso estou construindo a diBoaS."
+    "description": "Veja o que R$1.000 fazem em um ano, em dólar, protegido contra a desvalorização. A partir de R$10. Cada real é seu.",
+    "ogTitle": "O sistema financeiro não está quebrado. Só não foi feito pra você.",
+    "ogDescription": "Veja o que seu dinheiro pode fazer quando trabalha em dólar, com acesso aberto e justo."
   }
 }

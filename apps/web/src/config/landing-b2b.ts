@@ -25,18 +25,18 @@ import type { ScenarioCardsConfig } from './scenarioCards';
  * B2B Landing Page Image Paths
  */
 const B2B_IMAGES = {
-  hero: '/assets/images/card-dark2.avif',
-  twoWorldsPayments: '/assets/images/payment-dark.avif',
-  twoWorldsTreasury: '/assets/images/phone-features3.avif',
-  originStory: '/assets/images/table-sunlight.avif',
-  featureGetPaid: '/assets/images/phone-transfer.avif',
-  featurePayAnyone: '/assets/images/global-jp-canada.avif',
-  featureAdelaide: '/assets/images/phone-features2.avif',
-  carouselConnect: '/assets/images/phone-account.avif',
-  carouselRules: '/assets/images/phone-balance.avif',
-  carouselWorks: '/assets/images/phone-grow.avif',
-  carouselAccess: '/assets/images/global.avif',
-  founderPhoto: '/assets/images/hand-bright.avif',
+  hero: '/assets/images/above-the-noise.avif',
+  twoWorldsPayments: '/assets/images/seamless-exchange.avif',
+  twoWorldsTreasury: '/assets/images/money-simplified.avif',
+  originStory: '/assets/images/hands-of-hope.avif',
+  featureGetPaid: '/assets/images/seamless-pay.avif',
+  featurePayAnyone: '/assets/images/points-of-connection.avif',
+  featureAdelaide: '/assets/images/brewed-focus.avif',
+  carouselConnect: '/assets/images/digital-nearness.avif',
+  carouselRules: '/assets/images/private-control.avif',
+  carouselWorks: '/assets/images/quiet-growth.avif',
+  carouselAccess: '/assets/images/moments-we-share.avif',
+  founderPhoto: '/assets/images/power-of-us.avif',
 } as const;
 
 // ─── Section 1: Hero ─────────────────────────────────────────

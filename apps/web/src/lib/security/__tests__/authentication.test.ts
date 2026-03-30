@@ -126,7 +126,7 @@ describe('authentication', () => {
 
       const validRequest = createRequest({ 'x-api-key': TEST_API_KEY });
       const invalidRequest = createRequest({
-        'x-api-key': TEST_API_KEY.slice(0, -1) + 'X',
+        'x-api-key': `${TEST_API_KEY.slice(0, -1)  }X`,
       });
 
       expect(validateApiKey(validRequest).authenticated).toBe(true);

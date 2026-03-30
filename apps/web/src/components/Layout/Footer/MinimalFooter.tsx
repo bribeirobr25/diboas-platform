@@ -14,7 +14,7 @@
 
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { Instagram, Twitter, Youtube, Linkedin } from '@/components/UI/LucideIcon';
+import { InstagramIcon, XIcon, YoutubeIcon, LinkedinIcon } from '@/components/UI/SocialIcons';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { LocaleLink } from '@/components/UI';
 import { FOOTER_CONFIG } from '@/config/footer';
@@ -48,10 +48,10 @@ const LEGAL_LINKS = [
 ] as const;
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Instagram,
-  Twitter,
-  Youtube,
-  Linkedin,
+  Instagram: InstagramIcon,
+  X: XIcon,
+  Youtube: YoutubeIcon,
+  Linkedin: LinkedinIcon,
 };
 
 interface NavLink {

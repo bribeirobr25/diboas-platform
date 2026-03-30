@@ -46,6 +46,7 @@ import {
   getCurrentPositionCounter,
   getFoundingMemberCount,
 } from '../store';
+import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 
 // Helper to create a mock row
 function mockRow(overrides: Record<string, unknown> = {}) {
@@ -65,6 +66,7 @@ function mockRow(overrides: Record<string, unknown> = {}) {
     gdpr_accepted: true,
     tier: 'founding_member',
     country: null,
+    version: 1,
     created_at: '2024-01-01T00:00:00.000Z',
     updated_at: '2024-01-01T00:00:00.000Z',
     ...overrides,
@@ -329,10 +331,10 @@ describe('Waitlist Store', () => {
         email: 'duplicate@example.com',
         referralCode: 'REFDUPE01',
         locale: 'en',
-      })).rejects.toThrow('Email already exists');
+      })).rejects.toThrow(DuplicateEntryError);
     });
 
-    it('should throw "Email already exists" on concurrent INSERT race (23505)', async () => {
+    it('should throw DuplicateEntryError on concurrent INSERT race (23505)', async () => {
       // Mock: duplicate check passes
       mockSql.mockResolvedValueOnce([]);
       // Mock: tryClaimFoundingSlot
@@ -350,7 +352,7 @@ describe('Waitlist Store', () => {
         email: 'race@example.com',
         referralCode: 'REFRACE01',
         locale: 'en',
-      })).rejects.toThrow('Email already exists');
+      })).rejects.toThrow(DuplicateEntryError);
     });
 
     it('should re-throw non-unique-violation DB errors', async () => {

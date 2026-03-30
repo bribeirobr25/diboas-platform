@@ -46,4 +46,8 @@ export interface PreDreamResult {
   readonly growthPercentage: number;
   readonly pathApy: number;
   readonly bankApy: number;
+  /** USD balance before reconversion (only for currency-hedge locales like pt-BR) */
+  readonly diboasYieldBalance?: number;
+  /** Projected exchange rate used for reconversion (only for currency-hedge locales) */
+  readonly projectedExchangeRate?: number;
 }

@@ -1,0 +1,33 @@
+/**
+ * SidePocketStrip Styles
+ * Full-width breathing strip with brand background.
+ */
+
+.strip {
+  width: 100%;
+  background-color: var(--section-bg-brand);
+  padding: 48px var(--spacing-lg);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .strip {
+    padding: 64px var(--spacing-lg);
+  }
+}
+
+.text {
+  font-family: var(--font-family-primary);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-heading);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .text {
+    font-size: 28px;
+  }
+}

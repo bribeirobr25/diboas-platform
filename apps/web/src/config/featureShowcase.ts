@@ -104,7 +104,7 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/images/phone-features.avif'
+      primaryImage: '/assets/images/pocket-clarity.avif'
     },
     seo: {
       imageAlt: 'diBoaS mobile app showing dashboard overview interface'
@@ -120,7 +120,7 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/images/phone-transfer.avif'
+      primaryImage: '/assets/images/seamless-exchange.avif'
     },
     seo: {
       imageAlt: 'diBoaS mobile app showing financial activities tracking interface'
@@ -136,7 +136,7 @@ export const DEFAULT_FEATURE_SHOWCASE_SLIDES: readonly FeatureShowcaseSlide[] = 
       ctaTarget: '_blank'
     },
     assets: {
-      primaryImage: '/assets/images/phone-features2.avif'
+      primaryImage: '/assets/images/brewed-focus.avif'
     },
     seo: {
       imageAlt: 'diBoaS mobile app showing rewards and loyalty program interface'
@@ -198,7 +198,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           ctaTarget: '_self'
         },
         assets: {
-          primaryImage: '/assets/images/phone-features3.avif'
+          primaryImage: '/assets/images/pocket-clarity.avif'
         },
         seo: {
           imageAlt: 'diBoaS learning platform showing educational courses interface'
@@ -235,7 +235,7 @@ export const PAGE_FEATURE_SHOWCASE_CONFIGS = {
           ctaTarget: '_self'
         },
         assets: {
-          primaryImage: '/assets/images/phone-grow.avif'
+          primaryImage: '/assets/images/quiet-growth.avif'
         },
         seo: {
           imageAlt: 'diBoaS business platform showing enterprise financial tools'

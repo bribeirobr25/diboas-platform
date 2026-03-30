@@ -12,7 +12,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef, useMemo, KeyboardEvent } from 'react';
-import DOMPurify from 'dompurify';
+import { sanitizeHtml } from '@/lib/security/htmlSanitizer';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import type { FAQAccordionVariantProps } from '../types';
 import styles from './FAQAccordionDefault.module.css';
@@ -28,10 +28,7 @@ function FAQAnswer({ answer, className }: { answer: string; className: string })
   const containsHtml = useMemo(() => HTML_TAG_REGEX.test(answer), [answer]);
 
   if (containsHtml) {
-    const sanitized = DOMPurify.sanitize(answer, {
-      ALLOWED_TAGS: ['strong', 'em', 'br', 'p', 'a', 'ul', 'li', 'ol'],
-      ALLOWED_ATTR: ['href', 'target', 'rel'],
-    });
+    const sanitized = sanitizeHtml(answer);
     return (
       <div
         className={className}

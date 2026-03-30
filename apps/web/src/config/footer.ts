@@ -97,7 +97,7 @@ export const FOOTER_CONFIG: FooterConfig = {
       id: 'twitter',
       label: 'common.footer.social.twitter',
       href: 'https://x.com/diBoaSFi',
-      icon: 'Twitter'
+      icon: 'X'
     },
     {
       id: 'youtube',

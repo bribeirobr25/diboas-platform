@@ -135,13 +135,9 @@ pids
 ehthumbs.db
 Thumbs.db
 
-# Custom folders to ignore
-# Note: docs/ and docs/tech/ are committed. Internal/sensitive subdirectories are excluded.
-docs/audit/
-docs/post-launch/
-docs/skills-commands/
-docs/revenue/
-docs/full-view/
+# Documentation: only docs/tech/ is committed. All other docs/ subdirectories are local-only.
+docs/*
+!docs/tech/
 /images/
 
 # Test artifacts and screenshots

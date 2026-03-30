@@ -14,7 +14,7 @@
     "validate:design-tokens": "node scripts/validate-design-tokens.js",
     "generate:design-tokens": "echo 'DISABLED: Generator destroys 2500+ lines of hand-maintained CSS. See CRIT-1 in docs/audit/code/full-codebase-audit-20260309.md' && exit 1",
     "dev:web": "turbo run dev --filter=web",
-    "dev:clean": "lsof -ti:3000 | xargs kill 2>/dev/null; pnpm -w run dev:web",
+    "dev:clean": "npx --yes kill-port 3000 2>/dev/null; pnpm -w run dev:web",
     "dev:reset": "rm -rf apps/web/.next .turbo && pnpm -w run dev:web",
     "dev:fresh": "rm -rf apps/web/.next .turbo && pnpm --filter @diboas/i18n build && pnpm -w run dev:web",
     "performance:audit": "turbo run lighthouse",
@@ -39,7 +39,7 @@
     "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.0.0",
     "pnpm": ">=8.0.0"
   },
   "pnpm": {

@@ -34,6 +34,7 @@ import {
   applicationEventBus,
   ApplicationEventType,
 } from '@/lib/events/ApplicationEventBus';
+import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -186,13 +187,13 @@ export class WaitlistApplicationService {
         timestamp: Date.now(),
         metadata: {
           errorType:
-            error instanceof Error && error.message === 'Email already exists'
+            error instanceof DuplicateEntryError
               ? 'duplicate'
               : 'unknown',
         },
       });
 
-      if (error instanceof Error && error.message === 'Email already exists') {
+      if (error instanceof DuplicateEntryError) {
         return { ok: false, error: { code: 'PROCESSING_ERROR' } };
       }
 

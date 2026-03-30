@@ -136,7 +136,7 @@ export const BankingFeatures: Story = createCarouselStory('default', {
         chipLabel: 'AI Insights',
       },
       assets: {
-        image: '/assets/images/street-bright.avif',
+        image: '/assets/images/defiant-bloom.avif',
       },
       seo: {
         imageAlt: 'AI-powered financial insights dashboard',
@@ -153,7 +153,7 @@ export const BankingFeatures: Story = createCarouselStory('default', {
         chipLabel: 'Instant',
       },
       assets: {
-        image: '/assets/images/garden.avif',
+        image: '/assets/images/future-in-hand.avif',
       },
       seo: {
         imageAlt: 'Person making instant money transfers',
@@ -170,7 +170,7 @@ export const BankingFeatures: Story = createCarouselStory('default', {
         chipLabel: 'Invest',
       },
       assets: {
-        image: '/assets/images/life-morning.avif',
+        image: '/assets/images/veil-of-dawn.avif',
       },
       seo: {
         imageAlt: 'Investment portfolio management interface',
@@ -187,7 +187,7 @@ export const BankingFeatures: Story = createCarouselStory('default', {
         chipLabel: 'Secure',
       },
       assets: {
-        image: '/assets/images/global.avif',
+        image: '/assets/images/points-of-connection.avif',
       },
       seo: {
         imageAlt: 'Advanced security features protecting financial data',
@@ -254,7 +254,7 @@ export const SingleCard: Story = createCarouselStory('default', {
         chipLabel: 'Complete',
       },
       assets: {
-        image: '/assets/images/street-bright.avif',
+        image: '/assets/images/defiant-bloom.avif',
       },
       seo: {
         imageAlt: 'Complete financial platform overview',

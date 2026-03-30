@@ -107,6 +107,7 @@ export default function MobileNav({
 
       {/* Mobile Menu */}
       <div
+        id="mobile-nav-menu"
         ref={mobileMenuRef}
         className={`mobile-menu-overlay ${activeSubmenu ? 'z-50' : 'z-40'}`}
         role="dialog"

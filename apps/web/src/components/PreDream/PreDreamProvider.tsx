@@ -75,7 +75,7 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
       state.initialAmount,
       state.monthlyContribution,
       bankRate.apy,
-      bankRate.currencyDepreciation,
+      bankRate.exchangeRate,
       defiApy
     );
 

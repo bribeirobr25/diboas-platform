@@ -66,6 +66,8 @@ export function MobileNavHeader({
           onClick={toggleMenu}
           className="mobile-toggle-button"
           aria-label={UI_CONSTANTS.TEXT.TOGGLE_MENU}
+          aria-expanded={isOpen}
+          aria-controls="mobile-nav-menu"
         >
           <NavigationToggle isOpen={isOpen} />
         </button>

@@ -9,7 +9,7 @@
  * - Visual feedback on copy
  */
 
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
@@ -48,6 +48,11 @@ export function ReferralLink({
   const { locale } = useLocale();
   const inputId = useId();
   const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => {
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+  }, []);
 
   // Translation helper
   const t = (key: string, values?: Record<string, string | number>) => {
@@ -63,7 +68,8 @@ export function ReferralLink({
 
     if (success) {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
 
       analyticsService.track({
         name: WAITING_LIST_EVENTS.REFERRAL_LINK_COPIED,

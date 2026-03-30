@@ -54,7 +54,7 @@ export {
 // Card Renderer
 export { CardRenderer, cardRenderer } from './CardRenderer';
 
-// Share Manager
+// Social Share Service
 export {
   SocialShareService,
   shareManager,
@@ -64,7 +64,7 @@ export {
   getHashtags,
   buildShareUrl,
   truncateForPlatform,
-} from './ShareManager';
+} from './SocialShareService';
 
 // UTM Utilities
 export type { UtmSource, UtmMedium, UtmParams } from './utm';

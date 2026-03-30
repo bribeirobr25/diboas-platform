@@ -26,8 +26,8 @@ export const HELP_HERO_CONFIG: HeroVariantConfig = {
     ctaTarget: '_self',
   },
   backgroundAssets: {
-    backgroundImage: '/assets/images/hand-bright2.avif',
-    backgroundImageMobile: '/assets/images/hand-bright2.avif',
+    backgroundImage: '/assets/images/soft-arrival.avif',
+    backgroundImageMobile: '/assets/images/soft-arrival.avif',
     overlayOpacity: 0.3,
   },
   seo: {

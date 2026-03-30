@@ -87,6 +87,7 @@
     "shareTitle": "Compartir mi sueño",
     "shareCopied": "¡Copiado!",
     "shareText": "Mi simulación en Dream Mode convertiría {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo tú mismo:",
+    "yieldCurrencyValue": "Valor en dólares digitales: {amount}",
     "bankSource": "Basado en una tasa de ahorro promedio de {rate}%. Fuente: Estadísticas del BCE, enero 2026.",
     "bankComparison": "vs tu banco al {rate}% APY",
     "tryDifferent": "Probar Otros Números",

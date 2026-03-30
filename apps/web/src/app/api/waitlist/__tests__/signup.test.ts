@@ -12,6 +12,7 @@ import { NextRequest } from 'next/server';
 import { POST, GET } from '../signup/route';
 import * as store from '@/lib/waitingList/store';
 import * as security from '@/lib/security';
+import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 
 // Mock the store module
 vi.mock('@/lib/waitingList/store', () => ({
@@ -417,7 +418,7 @@ describe('POST /api/waitlist/signup', () => {
       // First check says email doesn't exist
       (store.exists as Mock).mockResolvedValue(false);
       // But addEntry throws because another request added it
-      (store.addEntry as Mock).mockRejectedValue(new Error('Email already exists'));
+      (store.addEntry as Mock).mockRejectedValue(new DuplicateEntryError());
 
       const request = createMockRequest({
         email: 'race@example.com',

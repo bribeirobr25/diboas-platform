@@ -1,8 +1,12 @@
+'use client';
+
 /**
  * Export Key Modal — explains key export in a demo context
  * Extracted from WalletDetailsScreen for file decoupling (≤150 lines).
  */
 
+import { useRef, useCallback } from 'react';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { CloseIcon, ExternalLinkIcon, AlertIcon } from '../components/Icons';
 import styles from '../styles/ExportModal.module.css';
 
@@ -12,9 +16,27 @@ interface ExportKeyModalProps {
 }
 
 export function ExportKeyModal({ onClose, t }: ExportKeyModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap(modalRef, true, { returnFocus: true });
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  }, [onClose]);
+
   return (
-    <div className={styles.exportModalOverlay} onClick={onClose}>
-      <div className={styles.exportModalContent} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.exportModalOverlay} onClick={onClose} role="presentation">
+      <div
+        ref={modalRef}
+        className={styles.exportModalContent}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('preDemo.wallet.exportModalTitle')}
+        onKeyDown={handleKeyDown}
+      >
         <div className={styles.exportModalHeader}>
           <h2 className={styles.exportModalTitle}>{t('preDemo.wallet.exportModalTitle')}</h2>
           <button onClick={onClose} className={styles.exportModalClose} aria-label={t('preDemo.common.back')}>

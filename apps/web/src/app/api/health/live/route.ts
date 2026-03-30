@@ -12,16 +12,24 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, RateLimitPresets, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const ip = getClientIP(request);
-  const { limit, windowMs } = RateLimitPresets.lenient;
-  const rateLimitResult = await checkRateLimit(`health-live:${ip}`, limit, windowMs);
+  try {
+    const ip = getClientIP(request);
+    const { limit, windowMs } = RateLimitPresets.lenient;
+    const rateLimitResult = await checkRateLimit(`health-live:${ip}`, limit, windowMs);
 
-  if (!rateLimitResult.success) {
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Too many requests' },
+        { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      );
+    }
+
+    return NextResponse.json({ status: 'alive' });
+  } catch (error) {
+    console.error('[health/live] Liveness probe error:', error);
     return NextResponse.json(
-      { error: 'Too many requests' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      { status: 'error', message: 'Liveness check failed' },
+      { status: 503 }
     );
   }
-
-  return NextResponse.json({ status: 'alive' });
 }

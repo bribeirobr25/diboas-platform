@@ -1,0 +1,1 @@
+export { HowItWorksGrid } from './HowItWorksGrid';

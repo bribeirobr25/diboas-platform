@@ -108,6 +108,20 @@ export function dispatchConsentEvent(consent: CookieConsentValue): void {
   window.dispatchEvent(new CustomEvent('cookie-consent-changed', {
     detail: consent
   }));
+
+  // Emit on ApplicationEventBus for React consumers
+  applicationEventBus.emit(
+    consent.analytics
+      ? ApplicationEventType.CONSENT_GIVEN
+      : ApplicationEventType.CONSENT_WITHDRAWN,
+    {
+      source: 'consent',
+      timestamp: Date.now(),
+      consentType: 'analytics',
+      newState: consent.analytics,
+      metadata: { trigger: 'cookie_consent_banner' },
+    }
+  );
 }
 
 /**

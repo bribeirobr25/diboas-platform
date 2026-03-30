@@ -159,8 +159,8 @@ export const SingleSlide: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/images/phone-features.avif',
-        secondaryImage: '/assets/images/phone-transfer.avif',
+        primaryImage: '/assets/images/pocket-clarity.avif',
+        secondaryImage: '/assets/images/seamless-exchange.avif',
       },
       seo: {
         imageAlt: {
@@ -221,8 +221,8 @@ export const MultipleSlides: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/images/phone-account.avif',
-        secondaryImage: '/assets/images/phone-transfer.avif',
+        primaryImage: '/assets/images/digital-nearness.avif',
+        secondaryImage: '/assets/images/seamless-exchange.avif',
       },
       seo: {
         imageAlt: {
@@ -242,8 +242,8 @@ export const MultipleSlides: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/images/phone-grow.avif',
-        secondaryImage: '/assets/images/phone-grow2.avif',
+        primaryImage: '/assets/images/quiet-growth.avif',
+        secondaryImage: '/assets/images/quiet-growth.avif',
       },
       seo: {
         imageAlt: {
@@ -263,8 +263,8 @@ export const MultipleSlides: Story = createShowcaseStory('default', {
         ctaTarget: '_self',
       },
       assets: {
-        primaryImage: '/assets/images/phone-diboas.avif',
-        secondaryImage: '/assets/images/phone-balance.avif',
+        primaryImage: '/assets/images/quiet-horizon.avif',
+        secondaryImage: '/assets/images/money-simplified.avif',
       },
       seo: {
         imageAlt: {

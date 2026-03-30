@@ -40,7 +40,9 @@ import {
   type WaitlistTier,
 } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
+import { logAuditEvent } from '@/lib/audit/AuditService';
 import { sendEmailAsync } from '@/lib/email/sendEmail';
+import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -93,6 +95,14 @@ interface SignupResponse {
   errorCode?: string;
 }
 
+function validationError(error: string, errorCode: string): NextResponse<SignupResponse> {
+  return NextResponse.json({ success: false, error, errorCode }, { status: 400 });
+}
+
+function successResponse(entry: { position: number; referralCode: string; tier: WaitlistTier }, referralUrl: string): SignupResponse {
+  return { success: true, position: entry.position, referralCode: entry.referralCode, referralUrl, tier: entry.tier };
+}
+
 export async function POST(request: NextRequest): Promise<NextResponse<SignupResponse>> {
   const startTime = logRequestStart('POST', '/api/waitlist/signup');
 
@@ -112,58 +122,18 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     const body = await request.json() as SignupRequestBody;
 
     // Validate required fields
-    if (!body.email) {
-      return NextResponse.json(
-        { success: false, error: 'Email is required', errorCode: 'EMAIL_REQUIRED' },
-        { status: 400 }
-      );
-    }
+    if (!body.email) return validationError('Email is required', 'EMAIL_REQUIRED');
 
-    // Sanitize and validate email
     const email = validateEmail(body.email);
-    if (!email) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid email address', errorCode: 'INVALID_EMAIL' },
-        { status: 400 }
-      );
-    }
+    if (!email) return validationError('Invalid email address', 'INVALID_EMAIL');
 
-    // Check for consent
-    if (!body.gdprAccepted) {
-      return NextResponse.json(
-        { success: false, error: 'Consent is required', errorCode: 'CONSENT_REQUIRED' },
-        { status: 400 }
-      );
-    }
+    if (!body.gdprAccepted) return validationError('Consent is required', 'CONSENT_REQUIRED');
 
     // Validate optional fields
-    if (body.locale && !isValidLocale(body.locale)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid locale', errorCode: 'INVALID_LOCALE' },
-        { status: 400 }
-      );
-    }
-
-    if (body.source && !isValidSource(body.source)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid source', errorCode: 'INVALID_SOURCE' },
-        { status: 400 }
-      );
-    }
-
-    if (body.tags && !isValidTags(body.tags)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid tags', errorCode: 'INVALID_TAGS' },
-        { status: 400 }
-      );
-    }
-
-    if (body.name && !isValidName(body.name)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid name', errorCode: 'INVALID_NAME' },
-        { status: 400 }
-      );
-    }
+    if (body.locale && !isValidLocale(body.locale)) return validationError('Invalid locale', 'INVALID_LOCALE');
+    if (body.source && !isValidSource(body.source)) return validationError('Invalid source', 'INVALID_SOURCE');
+    if (body.tags && !isValidTags(body.tags)) return validationError('Invalid tags', 'INVALID_TAGS');
+    if (body.name && !isValidName(body.name)) return validationError('Invalid name', 'INVALID_NAME');
 
     // Check for existing signup - return same response structure to prevent email enumeration
     // Security: Attackers cannot distinguish between new and existing signups
@@ -171,15 +141,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       const existing = await getByEmail(email);
       if (existing) {
         const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, existing.referralCode);
-
-        // Return identical response structure as new signup (prevents enumeration)
-        return NextResponse.json({
-          success: true,
-          position: existing.position,
-          referralCode: existing.referralCode,
-          referralUrl,
-          tier: existing.tier,
-        });
+        return NextResponse.json(successResponse(existing, referralUrl));
       }
     }
 
@@ -195,6 +157,9 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     // Detect country from CDN geo-IP headers (optional, for Founders Wall)
     const country = detectCountry(request);
 
+    // Extract correlation ID early so it can be reused for audit logging
+    const correlationId = request.headers.get('x-request-id') || undefined;
+
     // Add entry to store (tier determination + referrer lookup happens inside addEntry)
     const entry = await addEntry({
       email,
@@ -205,6 +170,17 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       source: body.source || (referredBy ? 'referral' : 'direct'),
       tags: body.tags || [],
       country,
+    });
+
+    // Audit trail (fire-and-forget)
+    logAuditEvent({
+      eventType: 'waitlist.signup',
+      entityType: 'waitlist_entry',
+      entityId: String(entry.id),
+      actorIp: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+      actorUserAgent: request.headers.get('user-agent') ?? undefined,
+      correlationId,
+      details: { locale: body.locale || 'en', source: body.source || 'direct', hasReferral: !!referredBy },
     });
 
     // Credit the referrer's invite count + notify them
@@ -259,7 +235,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     });
 
     // Emit signup completed event for analytics and audit trail
-    const correlationId = request.headers.get('x-request-id') || undefined;
     applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {
       source: 'waitlist',
       timestamp: Date.now(),
@@ -275,13 +250,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       },
     });
 
-    const responseBody = {
-      success: true,
-      position: entry.position,
-      referralCode: entry.referralCode,
-      referralUrl,
-      tier: entry.tier,
-    };
+    const responseBody = successResponse(entry, referralUrl);
     await cacheIdempotentResponse(idempotencyKey, 200, responseBody);
 
     logRequestEnd('POST', '/api/waitlist/signup', 200, startTime);
@@ -296,7 +265,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       timestamp: Date.now(),
       correlationId: request.headers.get('x-request-id') || undefined,
       metadata: {
-        errorType: error instanceof Error && error.message === 'Email already exists'
+        errorType: error instanceof DuplicateEntryError
           ? 'duplicate'
           : 'unknown',
       },
@@ -307,7 +276,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
 
     // Handle duplicate email error from store (race condition)
     // Return generic error to prevent email enumeration
-    if (error instanceof Error && error.message === 'Email already exists') {
+    if (error instanceof DuplicateEntryError) {
       return NextResponse.json(
         { success: false, error: 'Unable to process request. Please try again.', errorCode: 'PROCESSING_ERROR' },
         { status: 500 }

@@ -26,11 +26,12 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
   const result = state.result;
 
-  // Bank display values come from the calculation layer (locale-aware, depreciation-adjusted)
+  // Bank display values come from the calculation layer (locale-aware)
   const bankSource = BANK_RATE_SOURCES[locale] || BANK_RATE_SOURCES['en'];
   const bankBalance = result?.bankBalance ?? 0;
   const bankInterest = result?.bankInterest ?? 0;
   const difference = result?.difference ?? 0;
+  const hasCurrencyHedge = Boolean(result?.diboasYieldBalance);
 
   // Track pre_dream_completed when results are shown
   useEffect(() => {
@@ -76,6 +77,11 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
             <div className={styles.comparisonValues}>
               <p className={styles.comparisonAmount}>{formatCurrency(result.defiBalance, 2, locale)}</p>
               <p className={styles.comparisonGain}>+{formatCurrency(result.defiInterest, 2, locale)}</p>
+              {hasCurrencyHedge && result.diboasYieldBalance != null && (
+                <p className={styles.comparisonGainMuted}>
+                  {t('yieldCurrencyValue', { amount: formatCurrency(result.diboasYieldBalance, 2, 'en') })}
+                </p>
+              )}
             </div>
           </div>
           <div className={styles.progressBarBg}>

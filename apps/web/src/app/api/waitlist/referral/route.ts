@@ -17,6 +17,7 @@ import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
 import { isValidReferralCode } from '@/lib/waitingList/helpers';
 import { getByReferralCode } from '@/lib/waitingList/store';
 import { applyRateLimit, handleRouteError } from '@/lib/api/routeHelpers';
+import { Logger } from '@/lib/monitoring/Logger';
 
 /**
  * Response types
@@ -72,6 +73,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
       },
     });
   } catch (error) {
+    Logger.error('Referral lookup error', {}, error instanceof Error ? error : undefined);
     return handleRouteError(error, 'waitlist', 'referral_lookup', 'Referral lookup error') as NextResponse<ReferralLookupResponse>;
   }
 }

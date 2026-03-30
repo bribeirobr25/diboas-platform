@@ -33,6 +33,7 @@ export default function DeleteConfirmPage() {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token }),
+        signal: AbortSignal.timeout(10000),
       });
 
       const data = await response.json();

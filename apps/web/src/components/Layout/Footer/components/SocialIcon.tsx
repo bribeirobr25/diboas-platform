@@ -3,23 +3,24 @@
 /**
  * Social Icon Component
  *
- * Uses centralized LucideIcon exports — no direct lucide-react imports.
+ * Uses custom SVG social icons — brand icons were permanently removed
+ * from lucide-react due to trademark concerns.
  */
 
+import React from 'react';
 import {
-  Instagram,
-  Twitter,
-  Youtube,
-  Linkedin,
-  type LucideIconType,
-} from '@/components/UI/LucideIcon';
+  InstagramIcon,
+  XIcon,
+  YoutubeIcon,
+  LinkedinIcon,
+} from '@/components/UI/SocialIcons';
 import styles from '../SiteFooter.module.css';
 
-const IconComponents: Record<string, LucideIconType> = {
-  Instagram,
-  Twitter,
-  Youtube,
-  Linkedin,
+const IconComponents: Record<string, React.ComponentType<{ className?: string }>> = {
+  Instagram: InstagramIcon,
+  X: XIcon,
+  Youtube: YoutubeIcon,
+  Linkedin: LinkedinIcon,
 };
 
 interface SocialIconProps {

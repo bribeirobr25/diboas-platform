@@ -11,7 +11,7 @@ import styles from './DemoLauncher.module.css';
 
 const PreDream = dynamic(
   () => import('@/components/PreDream').then(m => ({ default: m.PreDream })),
-  { ssr: false }
+  { ssr: false, loading: () => null }
 );
 
 interface DemoLauncherConfig {

@@ -1,0 +1,219 @@
+/**
+ * ComparisonTable Section Styles
+ * Desktop: 5-column HTML table. Mobile: horizontal scroll-snap cards.
+ */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heading {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  margin: 0 0 var(--spacing-3xl) 0;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+/* Monospace numbers */
+.mono {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Desktop table ---- */
+.tableWrapper {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .tableWrapper {
+    display: block;
+    margin-bottom: var(--spacing-3xl);
+    overflow-x: auto;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.th {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 2px solid var(--color-slate-200);
+}
+
+.thHighlight {
+  background-color: var(--cta-bg-primary);
+  color: #ffffff;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.tdLabel {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-heading);
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: left;
+}
+
+.td {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-body);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.tdHighlight {
+  background-color: var(--cta-bg-primary);
+  color: #ffffff;
+  font-weight: var(--font-weight-bold);
+}
+
+.row:last-child .tdHighlight {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* ---- Mobile stacked rows ---- */
+.mobileStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-3xl);
+}
+
+@media (min-width: 768px) {
+  .mobileStack {
+    display: none;
+  }
+}
+
+.mobileRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--section-bg-white);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.mobileRowHighlight {
+  background-color: var(--cta-bg-primary);
+  color: #ffffff;
+  border-color: var(--cta-bg-primary);
+}
+
+.mobileRowName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex: 1;
+  text-align: left;
+}
+
+.mobileRowRate {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  flex: 0 0 auto;
+  min-width: 56px;
+  text-align: center;
+}
+
+.mobileRowReturn {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  flex: 0 0 auto;
+  min-width: 72px;
+  text-align: right;
+}
+
+/* diBoaS extra info (PT-BR: dollar context) */
+.diboasSubtext {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  opacity: 0.85;
+  margin-top: var(--spacing-xs);
+}
+
+.diboasDollarReturn {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  opacity: 0.85;
+}
+
+/* Mobile: expanded diBoaS row (PT-BR) */
+.mobileRowHighlightExpanded {
+  background-color: var(--cta-bg-primary);
+  color: #ffffff;
+  border-color: var(--cta-bg-primary);
+  flex-wrap: wrap;
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.mobileRowExpandedTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: var(--spacing-xs);
+}
+
+.mobileRowExpandedBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mobileRowSubtext {
+  font-size: var(--font-size-xs);
+  opacity: 0.85;
+}
+
+.mobileRowDollarReturn {
+  font-size: var(--font-size-sm);
+  opacity: 0.85;
+}
+
+/* Footnote */
+.footnote {
+  font-size: var(--font-size-xs-plus);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+

@@ -66,7 +66,7 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
                 {skipText}
               </a>
               <MinimalNavigation />
-              <main id="main-content" className="main-content flex-1">
+              <main id="main-content" className="main-content main-content-landing flex-1">
                 {children}
               </main>
               <CookieConsent />

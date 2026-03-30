@@ -6,6 +6,7 @@
  */
 
 import type { SupportedLocale } from './config';
+import type { IntlMessages } from './types';
 import { getTranslations, hasRegisteredNamespace } from './translations-map';
 
 /**
@@ -19,7 +20,7 @@ import { getTranslations, hasRegisteredNamespace } from './translations-map';
 export async function loadMessages(
   locale: SupportedLocale,
   namespace: string = 'common'
-): Promise<Record<string, any>> {
+): Promise<IntlMessages> {
   // Use registered namespace loaders first (covers all common namespaces)
   if (hasRegisteredNamespace(locale, namespace) || hasRegisteredNamespace('en', namespace)) {
     const translations = await getTranslations(locale, namespace);
@@ -70,13 +71,13 @@ export async function loadMessages(
 export async function loadAllMessages(
   locale: SupportedLocale,
   namespaces: string[] = ['common']
-): Promise<Record<string, any>> {
+): Promise<IntlMessages> {
   const messagesArray = await Promise.all(
     namespaces.map(namespace => loadMessages(locale, namespace))
   );
 
   // Merge all messages into a single object
-  return messagesArray.reduce((acc, messages) => ({ ...acc, ...messages }), {});
+  return messagesArray.reduce<IntlMessages>((acc, messages) => ({ ...acc, ...messages }), {});
 }
 
 /**
@@ -84,7 +85,7 @@ export async function loadAllMessages(
  * Converts { common: { hello: "Hello" } } to { "common.hello": "Hello" }
  */
 export function flattenMessages(
-  nestedMessages: Record<string, any>,
+  nestedMessages: IntlMessages,
   prefix = ''
 ): Record<string, string> {
   return Object.keys(nestedMessages).reduce((messages: Record<string, string>, key) => {

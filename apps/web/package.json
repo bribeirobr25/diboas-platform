@@ -21,6 +21,12 @@
     "db:migrate": "tsx src/lib/database/migrate.ts",
     "db:status": "tsx -e \"require('./src/lib/database/migrate').getMigrationStatus().then(s => console.log(JSON.stringify(s, null, 2)))\""
   },
+  "//dependencies-notes": [
+    "lucide-react: ^0.544.0 — 0.x semver allows breaking minor bumps, but only stable core icons (Menu, ChevronRight, etc.) are used; brand icons replaced with custom SVGs. Acceptable risk.",
+    "@sentry/nextjs: ^10.43.0 — stable within major version; breaking changes only in major bumps.",
+    "posthog-js: ^1.313.0 — 1.x has no known breaking minor changes; consent-gated lazy import reduces surface.",
+    "dompurify: ^3.3.3 — 3.x is stable semver; all usage goes through htmlSanitizer abstraction."
+  ],
   "dependencies": {
     "@diboas/email": "workspace:*",
     "@diboas/i18n": "workspace:*",
@@ -30,7 +36,7 @@
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.36.0",
     "dompurify": "^3.3.3",
-    "lucide-react": "0.544.0",
+    "lucide-react": "^0.544.0",
     "next": "16.1.7",
     "posthog-js": "^1.313.0",
     "react": "^18.3.1",

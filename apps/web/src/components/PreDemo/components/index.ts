@@ -7,7 +7,6 @@ export { BalanceCard } from './BalanceCard';
 export { ChainSvgIcon, L2ChainIcon } from './ChainIcons';
 export { DemoFooter } from './DemoFooter';
 export { DemoHeader } from './DemoHeader';
-export { ExportKeyModal } from './ExportKeyModal';
 export { FeeBreakdown } from './FeeBreakdown';
 export {
   CopyIcon,

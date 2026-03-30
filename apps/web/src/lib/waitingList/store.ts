@@ -21,7 +21,13 @@
 import { sql } from '@/lib/database/client';
 import { encrypt, decrypt, hmacHash } from '@/lib/security/encryption';
 import { Logger } from '@/lib/monitoring/Logger';
+import { logAuditEvent } from '@/lib/audit/AuditService';
 import { ApplicationEventType } from '@/lib/events/applicationEventTypes';
+import {
+  DuplicateEntryError,
+  ConcurrencyConflictError,
+  EncryptionUnavailableError,
+} from '@/lib/errors/domainErrors';
 
 /**
  * Lazily emit an application event via dynamic import to avoid circular dependencies.
@@ -119,13 +125,55 @@ function emailHash(email: string): string | null {
   return hmacHash(email.toLowerCase().trim());
 }
 
+/**
+ * Validate that a raw DB row has the required fields and correct types
+ * for a WaitlistEntryRow. Throws a descriptive error on failure.
+ */
+function validateRow(row: unknown): WaitlistEntryRow {
+  if (!row || typeof row !== 'object') {
+    throw new Error(`validateRow: expected an object, got ${  typeof row}`);
+  }
+  const r = row as Record<string, unknown>;
+
+  const requiredStrings = ['id', 'email', 'email_hash', 'referral_code', 'locale', 'source', 'tier', 'created_at', 'updated_at'] as const;
+  for (const field of requiredStrings) {
+    if (typeof r[field] !== 'string') {
+      throw new Error(`validateRow: expected string for "${field}", got ${typeof r[field]}`);
+    }
+  }
+
+  const requiredNumbers = ['position', 'original_position', 'referral_count', 'version'] as const;
+  for (const field of requiredNumbers) {
+    if (typeof r[field] !== 'number') {
+      throw new Error(`validateRow: expected number for "${field}", got ${typeof r[field]}`);
+    }
+  }
+
+  if (!Array.isArray(r.tags)) {
+    throw new Error(`validateRow: expected array for "tags", got ${typeof r.tags}`);
+  }
+
+  if (typeof r.gdpr_accepted !== 'boolean') {
+    throw new Error(`validateRow: expected boolean for "gdpr_accepted", got ${typeof r.gdpr_accepted}`);
+  }
+
+  return r as unknown as WaitlistEntryRow;
+}
+
+/**
+ * Validate an array of raw DB rows.
+ */
+function validateRows(rows: unknown[]): WaitlistEntryRow[] {
+  return rows.map(validateRow);
+}
+
 // ---------------------------------------------------------------------------
 // Public API — same signatures as before, but async
 // ---------------------------------------------------------------------------
 
 export async function getAllEntries(): Promise<WaitlistEntry[]> {
   const rows = await sql`SELECT * FROM waitlist_entries ORDER BY position`;
-  return (rows as unknown as WaitlistEntryRow[]).map(rowToEntry);
+  return validateRows(rows).map(rowToEntry);
 }
 
 export async function getByEmail(email: string): Promise<WaitlistEntry | undefined> {
@@ -136,7 +184,7 @@ export async function getByEmail(email: string): Promise<WaitlistEntry | undefin
     SELECT * FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1
   `;
   if (rows.length === 0) return undefined;
-  return rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  return rowToEntry(validateRow(rows[0]));
 }
 
 export async function getById(id: string): Promise<WaitlistEntry | undefined> {
@@ -144,7 +192,7 @@ export async function getById(id: string): Promise<WaitlistEntry | undefined> {
     SELECT * FROM waitlist_entries WHERE id = ${id} LIMIT 1
   `;
   if (rows.length === 0) return undefined;
-  return rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  return rowToEntry(validateRow(rows[0]));
 }
 
 export async function getByReferralCode(referralCode: string): Promise<WaitlistEntry | undefined> {
@@ -153,7 +201,7 @@ export async function getByReferralCode(referralCode: string): Promise<WaitlistE
     SELECT * FROM waitlist_entries WHERE referral_code = ${code} LIMIT 1
   `;
   if (rows.length === 0) return undefined;
-  return rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  return rowToEntry(validateRow(rows[0]));
 }
 
 export async function exists(email: string): Promise<boolean> {
@@ -183,13 +231,13 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
   const emailEnc = encrypt(emailNorm);
   const nameEnc = input.name ? encrypt(input.name) : null;
 
-  if (!hash || !emailEnc) throw new Error('Encryption unavailable');
+  if (!hash || !emailEnc) throw new EncryptionUnavailableError();
 
   // Check duplicate via blind index
   const dup = await sql`
     SELECT 1 FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1
   `;
-  if (dup.length > 0) throw new Error('Email already exists');
+  if (dup.length > 0) throw new DuplicateEntryError();
 
   // Look up referrer if invite code provided
   let referrer: WaitlistEntry | undefined;
@@ -220,7 +268,7 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
   } catch (error: unknown) {
     // Handle concurrent INSERT race: UNIQUE constraint on email_hash (PostgreSQL 23505)
     const pgError = error as { code?: string };
-    if (pgError.code === '23505') throw new Error('Email already exists', { cause: error });
+    if (pgError.code === '23505') throw new DuplicateEntryError('Entry already exists');
     throw error;
   }
 
@@ -244,6 +292,31 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
   };
 }
 
+/**
+ * Execute an UPDATE with optional optimistic locking.
+ * If currentVersion is provided and no row matches, checks whether the row exists
+ * to distinguish "not found" from "version mismatch".
+ */
+async function executeOptimisticUpdate(
+  hash: string,
+  sqlQuery: ReturnType<typeof sql>,
+  currentVersion: number | undefined,
+  concurrencyErrorMsg: string,
+  extraWhereCheck?: ReturnType<typeof sql>
+): Promise<WaitlistEntryRow | undefined> {
+  const rows = await sqlQuery;
+  if (rows.length > 0) return validateRow(rows[0]);
+
+  if (currentVersion !== undefined) {
+    const existsQuery = extraWhereCheck ?? sql`SELECT 1 FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1`;
+    const existsRows = await existsQuery;
+    if (existsRows.length > 0) {
+      throw new ConcurrencyConflictError(concurrencyErrorMsg);
+    }
+  }
+  return undefined;
+}
+
 export async function updateEntry(
   email: string,
   updates: Partial<Omit<WaitlistEntry, 'id' | 'email' | 'originalPosition' | 'createdAt' | 'tier'>>,
@@ -253,60 +326,43 @@ export async function updateEntry(
   if (!hash) return undefined;
 
   const now = new Date().toISOString();
+  const nameEnc = updates.name !== undefined ? encrypt(updates.name) : null;
 
-  // If currentVersion is provided, use optimistic locking
-  if (currentVersion !== undefined) {
-    const rows = await sql`
-      UPDATE waitlist_entries SET
-        position = COALESCE(${updates.position ?? null}::integer, position),
-        referral_count = COALESCE(${updates.referralCount ?? null}::integer, referral_count),
-        tags = COALESCE(${updates.tags ?? null}::text[], tags),
-        locale = COALESCE(${updates.locale ?? null}::text, locale),
-        source = COALESCE(${updates.source ?? null}::text, source),
-        name = COALESCE(${updates.name !== undefined ? encrypt(updates.name) : null}::text, name),
-        country = COALESCE(${updates.country ?? null}::text, country),
-        version = version + 1,
-        updated_at = ${now}
-      WHERE email_hash = ${hash}
-        AND version = ${currentVersion}
-      RETURNING *
-    `;
+  const query = currentVersion !== undefined
+    ? sql`
+        UPDATE waitlist_entries SET
+          position = COALESCE(${updates.position ?? null}::integer, position),
+          referral_count = COALESCE(${updates.referralCount ?? null}::integer, referral_count),
+          tags = COALESCE(${updates.tags ?? null}::text[], tags),
+          locale = COALESCE(${updates.locale ?? null}::text, locale),
+          source = COALESCE(${updates.source ?? null}::text, source),
+          name = COALESCE(${nameEnc}::text, name),
+          country = COALESCE(${updates.country ?? null}::text, country),
+          version = version + 1,
+          updated_at = ${now}
+        WHERE email_hash = ${hash} AND version = ${currentVersion}
+        RETURNING *`
+    : sql`
+        UPDATE waitlist_entries SET
+          position = COALESCE(${updates.position ?? null}::integer, position),
+          referral_count = COALESCE(${updates.referralCount ?? null}::integer, referral_count),
+          tags = COALESCE(${updates.tags ?? null}::text[], tags),
+          locale = COALESCE(${updates.locale ?? null}::text, locale),
+          source = COALESCE(${updates.source ?? null}::text, source),
+          name = COALESCE(${nameEnc}::text, name),
+          country = COALESCE(${updates.country ?? null}::text, country),
+          version = version + 1,
+          updated_at = ${now}
+        WHERE email_hash = ${hash}
+        RETURNING *`;
 
-    if (rows.length === 0) {
-      // Check if the row exists at all to distinguish "not found" from "version mismatch"
-      const existsRows = await sql`
-        SELECT 1 FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1
-      `;
-      if (existsRows.length > 0) {
-        throw new Error('Concurrent modification detected: entry was updated by another request');
-      }
-      return undefined;
-    }
-    const updatedEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
-    emitStoreEvent(ApplicationEventType.WAITLIST_POSITION_UPDATED, {
-      metadata: { entryId: updatedEntry.id, hasPositionChange: updates.position !== undefined },
-    });
-    return updatedEntry;
-  }
+  const row = await executeOptimisticUpdate(
+    hash, query, currentVersion,
+    'Concurrent modification detected: entry was updated by another request'
+  );
+  if (!row) return undefined;
 
-  // No version provided — update without optimistic locking (backward compatible)
-  const rows = await sql`
-    UPDATE waitlist_entries SET
-      position = COALESCE(${updates.position ?? null}::integer, position),
-      referral_count = COALESCE(${updates.referralCount ?? null}::integer, referral_count),
-      tags = COALESCE(${updates.tags ?? null}::text[], tags),
-      locale = COALESCE(${updates.locale ?? null}::text, locale),
-      source = COALESCE(${updates.source ?? null}::text, source),
-      name = COALESCE(${updates.name !== undefined ? encrypt(updates.name) : null}::text, name),
-      country = COALESCE(${updates.country ?? null}::text, country),
-      version = version + 1,
-      updated_at = ${now}
-    WHERE email_hash = ${hash}
-    RETURNING *
-  `;
-
-  if (rows.length === 0) return undefined;
-  const updatedEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  const updatedEntry = rowToEntry(row);
   emitStoreEvent(ApplicationEventType.WAITLIST_POSITION_UPDATED, {
     metadata: { entryId: updatedEntry.id, hasPositionChange: updates.position !== undefined },
   });
@@ -329,58 +385,56 @@ export async function processReferral(
   const hash = emailHash(referrerEmail);
   if (!hash) return undefined;
 
-  // If currentVersion is provided, use optimistic locking
-  if (currentVersion !== undefined) {
-    const rows = await sql`
-      UPDATE waitlist_entries SET
-        referral_count = referral_count + 1,
-        version = version + 1,
-        updated_at = ${new Date().toISOString()}
-      WHERE email_hash = ${hash}
-        AND tier IN ('founding_member', 'early_member')
-        AND referral_count < ${INVITE_LIMIT}
-        AND version = ${currentVersion}
-      RETURNING *
-    `;
+  const now = new Date().toISOString();
 
-    if (rows.length === 0) {
-      // Check if the row exists and matches tier/count criteria
-      const existsRows = await sql`
-        SELECT 1 FROM waitlist_entries
+  const query = currentVersion !== undefined
+    ? sql`
+        UPDATE waitlist_entries SET
+          referral_count = referral_count + 1,
+          version = version + 1,
+          updated_at = ${now}
         WHERE email_hash = ${hash}
           AND tier IN ('founding_member', 'early_member')
           AND referral_count < ${INVITE_LIMIT}
-        LIMIT 1
-      `;
-      if (existsRows.length > 0) {
-        throw new Error('Concurrent modification detected: referral entry was updated by another request');
-      }
-      return undefined;
-    }
-    const referralEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
-    emitStoreEvent(ApplicationEventType.WAITLIST_REFERRAL_USED, {
-      metadata: { referrerId: referralEntry.id, referralCount: referralEntry.referralCount },
-    });
-    return referralEntry;
-  }
+          AND version = ${currentVersion}
+        RETURNING *`
+    : sql`
+        UPDATE waitlist_entries SET
+          referral_count = referral_count + 1,
+          version = version + 1,
+          updated_at = ${now}
+        WHERE email_hash = ${hash}
+          AND tier IN ('founding_member', 'early_member')
+          AND referral_count < ${INVITE_LIMIT}
+        RETURNING *`;
 
-  // No version provided — update without optimistic locking (backward compatible)
-  const rows = await sql`
-    UPDATE waitlist_entries SET
-      referral_count = referral_count + 1,
-      version = version + 1,
-      updated_at = ${new Date().toISOString()}
+  const tierCheck = sql`
+    SELECT 1 FROM waitlist_entries
     WHERE email_hash = ${hash}
       AND tier IN ('founding_member', 'early_member')
       AND referral_count < ${INVITE_LIMIT}
-    RETURNING *
-  `;
+    LIMIT 1`;
 
-  if (rows.length === 0) return undefined;
-  const referralEntry = rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  const row = await executeOptimisticUpdate(
+    hash, query, currentVersion,
+    'Concurrent modification detected: referral entry was updated by another request',
+    tierCheck
+  );
+  if (!row) return undefined;
+
+  const referralEntry = rowToEntry(row);
   emitStoreEvent(ApplicationEventType.WAITLIST_REFERRAL_USED, {
     metadata: { referrerId: referralEntry.id, referralCount: referralEntry.referralCount },
   });
+
+  // Audit trail (fire-and-forget)
+  logAuditEvent({
+    eventType: 'waitlist.referral.processed',
+    entityType: 'waitlist_entry',
+    entityId: referralEntry.id,
+    details: { referralCount: referralEntry.referralCount, tier: referralEntry.tier },
+  });
+
   return referralEntry;
 }
 
@@ -399,26 +453,26 @@ export async function getCurrentPositionCounter(): Promise<number> {
   return typeof row?.value === 'number' ? row.value : 0;
 }
 
-export async function getTotalCount(source?: WaitlistSource): Promise<number> {
-  if (source) {
-    const rows = await sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries WHERE source = ${source}`;
-    const row = rows[0] as Record<string, unknown> | undefined;
-    return typeof row?.count === 'number' ? row.count : 0;
-  }
-  const rows = await sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries`;
+async function extractCount(query: ReturnType<typeof sql>): Promise<number> {
+  const rows = await query;
   const row = rows[0] as Record<string, unknown> | undefined;
   return typeof row?.count === 'number' ? row.count : 0;
 }
 
+export async function getTotalCount(source?: WaitlistSource): Promise<number> {
+  return extractCount(
+    source
+      ? sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries WHERE source = ${source}`
+      : sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries`
+  );
+}
+
 export async function getDistinctCountryCount(source?: WaitlistSource): Promise<number> {
-  if (source) {
-    const rows = await sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL AND source = ${source}`;
-    const row = rows[0] as Record<string, unknown> | undefined;
-    return typeof row?.count === 'number' ? row.count : 0;
-  }
-  const rows = await sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL`;
-  const row = rows[0] as Record<string, unknown> | undefined;
-  return typeof row?.count === 'number' ? row.count : 0;
+  return extractCount(
+    source
+      ? sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL AND source = ${source}`
+      : sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL`
+  );
 }
 
 export async function addTags(email: string, newTags: string[]): Promise<WaitlistEntry | undefined> {
@@ -436,7 +490,7 @@ export async function addTags(email: string, newTags: string[]): Promise<Waitlis
   `;
 
   if (rows.length === 0) return undefined;
-  return rowToEntry(rows[0] as unknown as WaitlistEntryRow);
+  return rowToEntry(validateRow(rows[0]));
 }
 
 export async function deleteByEmail(email: string): Promise<boolean> {

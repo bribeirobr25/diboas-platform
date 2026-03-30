@@ -21,6 +21,7 @@ import {
 import { sanitizeEmail } from '@/lib/utils/sanitize';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
 import { applyRateLimit, applyCsrf, handleRouteError } from '@/lib/api/routeHelpers';
+import { Logger } from '@/lib/monitoring/Logger';
 import {
   getByEmail,
   updateEntry,
@@ -98,6 +99,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
     applicationEventBus.emit(ApplicationEventType.WAITLIST_POSITION_CHECKED, {
       source: 'waitlist',
       timestamp: Date.now(),
+      correlationId: request.headers.get('x-request-id') || undefined,
       metadata: {
         hasReferrals: userData.referralCount > 0,
       },
@@ -112,6 +114,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
     });
 
   } catch (error) {
+    Logger.error('Position lookup error', {}, error instanceof Error ? error : undefined);
     return handleRouteError(error, 'waitlist', 'position_lookup', 'Position lookup error') as NextResponse<PositionResponse>;
   }
 }
@@ -176,6 +179,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
     });
 
   } catch (error) {
+    Logger.error('Position update error', {}, error instanceof Error ? error : undefined);
     return handleRouteError(error, 'waitlist', 'position_update', 'Position update error') as NextResponse<PositionResponse>;
   }
 }

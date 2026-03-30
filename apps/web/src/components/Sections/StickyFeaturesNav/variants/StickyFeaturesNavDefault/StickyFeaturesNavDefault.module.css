@@ -204,7 +204,7 @@
    ACCESSIBILITY
    ================================ */
 
-/* Reduced motion support */
+/* a11y: reduced-motion override — !important is justified to guarantee animation removal */
 @media (prefers-reduced-motion: reduce) {
   .image {
     transition: none !important;

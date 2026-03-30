@@ -126,7 +126,9 @@ export const FeeTable = memo(function FeeTable({
         </div>
 
         <p className={styles.disclaimer}>{translated.content.disclaimer}</p>
-        <p className={styles.example}>{translated.content.example}</p>
+        {translated.content.example ? (
+          <p className={styles.example}>{translated.content.example}</p>
+        ) : null}
         {translated.content.footerLine ? (
           <p className={styles.footerLine}>{translated.content.footerLine}</p>
         ) : null}

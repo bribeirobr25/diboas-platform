@@ -17,10 +17,6 @@ import {
   Users,
   Globe,
   Award,
-  Instagram,
-  Twitter,
-  Youtube,
-  Linkedin,
   Lock,
   TrendingUp,
   Send,
@@ -41,6 +37,7 @@ import {
  * Default strokeWidth for all Lucide icons is 2 (the library default).
  */
 export {
+  Menu,
   ChevronRight,
   ChevronLeft,
   ChevronDown,
@@ -54,10 +51,6 @@ export {
   Users,
   Globe,
   Award,
-  Instagram,
-  Twitter,
-  Youtube,
-  Linkedin,
   Lock,
   TrendingUp,
   Send,
@@ -74,7 +67,7 @@ export {
 export type { LucideIconType };
 
 interface LucideIconProps {
-  icon: LucideIconType;
+  icon: LucideIconType | null | undefined;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
 }
@@ -101,6 +94,15 @@ export function LucideIcon({
   className,
   ...props
 }: LucideIconProps & React.ComponentProps<'svg'>) {
+  if (!Icon) {
+    return (
+      <span
+        className={cn(sizeClasses[size], 'inline-block bg-current opacity-20 rounded', className)}
+        aria-hidden="true"
+        title="Icon unavailable"
+      />
+    );
+  }
   return (
     <Icon
       className={cn(sizeClasses[size], className)}

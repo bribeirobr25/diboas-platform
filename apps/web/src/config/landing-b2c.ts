@@ -6,27 +6,28 @@
  * Configuration Management: Centralized landing page content
  * No Hardcoded Values: All values from design tokens and i18n keys
  *
- * 12-Section Layout (CMO Final Copy):
- * 1. Hero
- * 2. Scenarios (ProductCarousel default variant)
- * 2.5. Persona Carousel (ProductCarousel persona variant)
- * 3. Origin Story (ProseSection)
- * 4. How It Works (AppFeaturesCarousel) — 4 steps
- * 5. Fees (FeeTable) — moved up from 6
- * 6. What's the Catch? (ProseSection) — moved up from 7
- * 6.5. Under the Hood (ExpandableSection)
- * 7. Demo (DemoLauncher) — moved up from 8
- * 8. Social Proof — moved up from 9
- * 8.5. About the Founder (FounderSection)
- * 9. Waitlist (Version A/B)
- * 10. FAQ (expanded 5→12)
- * 11. Footer (MinimalFooter)
+ * 15-Section Layout + Footer (Visual Overhaul v2):
+ * 1.  Hero — Dark bg with headline and CTA
+ * 2.  ComparisonTable — Rate comparison (NEW)
+ * 3.  GoalExampleCards — Expandable goal cards (NEW)
+ * 4.  SidePocketStrip — Brand-tinted breathing strip (NEW)
+ * 5.  Adelaide Story (ProseSection) — warm bg
+ * 6.  How It Works Detailed — 3-card static grid (NEW)
+ * 7.  Money That Moves (AppFeaturesCarousel) — 4 feature cards
+ * 8.  Fee Table — Transparent fee table
+ * 9.  What's the Catch? (ProseSection) — dark bg
+ * 10. Under the Hood (ExpandableSection)
+ * 11. Demo (DemoLauncher)
+ * 12. Founding Members (NEW wrapper)
+ * 13. Built by Bar (FounderSection)
+ * 14. Waitlist — dark bg
+ * 15. FAQ (expanded 12→19)
+ * —  Footer (MinimalFooter)
  */
 
 import { ROUTES } from './routes';
 import type { FAQAccordionVariantConfig, FAQItem } from './faqAccordion';
 import type { HeroVariantConfig } from './hero';
-import type { ProductCarouselVariantConfig } from './productCarousel';
 import type { AppFeaturesCarouselVariantConfig } from './appFeaturesCarousel';
 import type { ProseSectionConfig } from './proseSection';
 import type { FeeTableConfig } from './feeTable';
@@ -37,23 +38,21 @@ import type { FounderSectionConfig } from './founderSection';
  * Handoff naming convention: /assets/images/{section}-{name}.avif
  */
 const B2C_IMAGES = {
-  hero: '/assets/images/phone-banner.avif',
-  heroMobile: '/assets/images/phone-banner.avif',
-  step1: '/assets/images/payment-bright.avif',
-  step2: '/assets/images/phone-grow.avif',
-  step3: '/assets/images/phone-features3.avif',
-  scenarioDinner: '/assets/images/friends-dinner.avif',
-  scenarioGlobal: '/assets/images/global2.avif',
-  scenarioEmergency: '/assets/images/bed-dark3.avif',
-  featureSend: '/assets/images/global-rio-sweden.avif',
-  featureGoals: '/assets/images/phone-features.avif',
-  featureAlwaysOn: '/assets/images/bed-bright.avif',
-  originStory: '/assets/images/hand-bright2.avif',
-  catchSection: '/assets/images/phone-diboas.avif',
+  hero: '/assets/images/defiant-bloom.avif',
+  heroMobile: '/assets/images/defiant-bloom.avif',
+  step1: '/assets/images/seamless-pay.avif',
+  step2: '/assets/images/quiet-growth.avif',
+  step3: '/assets/images/pocket-clarity.avif',
+  featureSend: '/assets/images/points-of-connection.avif',
+  featureGoals: '/assets/images/brewed-focus.avif',
+  featureAlwaysOn: '/assets/images/moment-of-ease.avif',
+  originStory: '/assets/images/saved-through-time.avif',
+  catchSection: '/assets/images/quiet-horizon.avif',
 } as const;
 
 /**
  * Section 1: Hero Configuration
+ * CTA scrolls to #comparison (first proof section)
  */
 export const B2C_HERO_CONFIG: HeroVariantConfig = {
   variant: 'fullBackground',
@@ -61,7 +60,7 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
     title: 'landing-b2c.hero.headline',
     description: 'landing-b2c.hero.subheadline',
     ctaText: 'landing-b2c.hero.cta',
-    ctaHref: '#demo',
+    ctaHref: '#comparison',
     ctaTarget: '_self'
   },
   backgroundAssets: {
@@ -82,8 +81,8 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
 } as const;
 
 /**
- * Section 2: Origin Story Configuration (ProseSection)
- * "Her name was Adelaide.", warm background, 6 paragraphs + transition hook
+ * Section 5: Adelaide Story Configuration (ProseSection)
+ * "Her name was Adelaide.", warm background, paragraphs + transition hook
  */
 export const B2C_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
   content: {
@@ -116,70 +115,15 @@ export const B2C_ORIGIN_STORY_CONFIG: ProseSectionConfig = {
 } as const;
 
 /**
- * Section 2.5: Persona Carousel Configuration (ProductCarousel persona variant)
- * 3 persona slides with headline, subtext, CTA
- */
-export const B2C_PERSONA_CAROUSEL_CONFIG: ProductCarouselVariantConfig = {
-  variant: 'persona',
-  content: {
-    heading: 'landing-b2c.personas.header',
-    slides: [
-      {
-        id: 'persona-urgent-transfer',
-        title: 'landing-b2c.personas.slide1.headline',
-        subtitle: 'landing-b2c.personas.slide1.subtext',
-        imageAlt: '',
-        ctaText: 'landing-b2c.personas.slide1.cta',
-        ctaHref: '#demo',
-      },
-      {
-        id: 'persona-hidden-fees',
-        title: 'landing-b2c.personas.slide2.headline',
-        subtitle: 'landing-b2c.personas.slide2.subtext',
-        imageAlt: '',
-        ctaText: 'landing-b2c.personas.slide2.cta',
-        ctaHref: '#demo',
-      },
-      {
-        id: 'persona-savings',
-        title: 'landing-b2c.personas.slide3.headline',
-        subtitle: 'landing-b2c.personas.slide3.subtext',
-        imageAlt: '',
-        ctaText: 'landing-b2c.personas.slide3.cta',
-        ctaHref: '#demo',
-      },
-    ],
-  },
-  settings: {
-    autoPlay: true,
-    autoPlayInterval: 5000,
-    transitionDuration: 500,
-    pauseOnHover: true,
-    enableKeyboard: true,
-    enableTouch: true,
-    enableDots: true,
-    enablePlayPause: false,
-  },
-  seo: {
-    headingTag: 'h2',
-    ariaLabel: 'landing-b2c.sections.personaCarousel.ariaLabel',
-  },
-  analytics: {
-    trackingPrefix: 'persona_carousel_b2c',
-    enabled: true,
-  },
-};
-
-/**
- * Section 4: How It Works Configuration (AppFeaturesCarousel)
- * 4 steps with images
+ * Section 7: Money That Moves Configuration (AppFeaturesCarousel)
+ * 4 feature cards: Send, Invest, Track, Buy
  */
 export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
   variant: 'default',
   sectionTitle: 'landing-b2c.howItWorks.header',
   cards: [
     {
-      id: 'step-1-deposit',
+      id: 'step-1-send-receive',
       content: {
         title: 'landing-b2c.howItWorks.step1.title',
         description: 'landing-b2c.howItWorks.step1.description',
@@ -192,7 +136,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       },
     },
     {
-      id: 'step-2-earn',
+      id: 'step-2-invest-grow',
       content: {
         title: 'landing-b2c.howItWorks.step2.title',
         description: 'landing-b2c.howItWorks.step2.description',
@@ -205,7 +149,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
       },
     },
     {
-      id: 'step-3-withdraw',
+      id: 'step-3-track-learn',
       content: {
         title: 'landing-b2c.howItWorks.step3.title',
         description: 'landing-b2c.howItWorks.step3.description',
@@ -224,7 +168,7 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
         description: 'landing-b2c.howItWorks.step4.description',
       },
       assets: {
-        image: '/assets/images/garden.avif',
+        image: '/assets/images/future-in-hand.avif',
       },
       seo: {
         imageAlt: 'landing-b2c.howItWorks.step4.imageAlt',
@@ -239,74 +183,22 @@ export const B2C_HOW_IT_WORKS_CONFIG: AppFeaturesCarouselVariantConfig = {
     transitionDuration: 300,
   },
   analytics: {
-    trackingPrefix: 'how_it_works_b2c',
+    trackingPrefix: 'money_that_moves_b2c',
     enabled: true,
   },
 };
 
 /**
- * Section 3: Scenarios Configuration (ProductCarousel default variant)
- * 3 real-life scenario slides with background images
- */
-export const B2C_SCENARIOS_CONFIG: ProductCarouselVariantConfig = {
-  variant: 'default',
-  content: {
-    heading: 'landing-b2c.scenarios.header',
-    slides: [
-      {
-        id: 'scenario-dinner',
-        title: 'landing-b2c.scenarios.card1.title',
-        subtitle: 'landing-b2c.scenarios.card1.description',
-        image: B2C_IMAGES.scenarioDinner,
-        imageAlt: 'landing-b2c.scenarios.card1.imageAlt',
-      },
-      {
-        id: 'scenario-global',
-        title: 'landing-b2c.scenarios.card2.title',
-        subtitle: 'landing-b2c.scenarios.card2.description',
-        image: B2C_IMAGES.scenarioGlobal,
-        imageAlt: 'landing-b2c.scenarios.card2.imageAlt',
-      },
-      {
-        id: 'scenario-emergency',
-        title: 'landing-b2c.scenarios.card3.title',
-        subtitle: 'landing-b2c.scenarios.card3.description',
-        image: B2C_IMAGES.scenarioEmergency,
-        imageAlt: 'landing-b2c.scenarios.card3.imageAlt',
-      },
-    ],
-  },
-  settings: {
-    autoPlay: false,
-    autoPlayInterval: 5000,
-    transitionDuration: 500,
-    pauseOnHover: true,
-    enableKeyboard: true,
-    enableTouch: true,
-    enableDots: true,
-    enablePlayPause: false,
-  },
-  seo: {
-    headingTag: 'h2',
-    ariaLabel: 'landing-b2c.sections.scenarioCards.ariaLabel',
-  },
-  analytics: {
-    trackingPrefix: 'scenarios_b2c',
-    enabled: true,
-  },
-} as const;
-
-/**
- * Section 5: Fees Configuration (FeeTable)
- * 8 fee rows, 5-column comparison layout with examples
+ * Section 8: Fees Configuration (FeeTable)
+ * 8 fee rows, 5-column comparison layout with examples — UNCHANGED
  */
 export const B2C_FEES_CONFIG: FeeTableConfig = {
   content: {
     transitionHook: 'landing-b2c.fees.transitionHook',
     title: 'landing-b2c.fees.title',
-    painIntro: 'landing-b2c.fees.painIntro',
+    painIntro: '',
     disclaimer: 'landing-b2c.fees.disclaimer',
-    example: 'landing-b2c.fees.example',
+    example: '',
     footerLine: 'landing-b2c.fees.footerLine',
     headers: {
       action: 'landing-b2c.fees.headers.action',
@@ -402,8 +294,8 @@ export const B2C_FEES_CONFIG: FeeTableConfig = {
 } as const;
 
 /**
- * Section 6: What's the Catch? Configuration (ProseSection)
- * Warm background, 6 paragraphs, no emphasis line
+ * Section 9: What's the Catch? Configuration (ProseSection)
+ * Dark background, honest transparency
  */
 export const B2C_CATCH_CONFIG: ProseSectionConfig = {
   content: {
@@ -423,7 +315,7 @@ export const B2C_CATCH_CONFIG: ProseSectionConfig = {
     position: 'left',
   },
   style: {
-    backgroundColor: 'var(--section-bg-warm)',
+    backgroundColor: 'var(--section-bg-dark)',
     verticalPadding: 'standard',
     headerStyle: 'centered',
   },
@@ -437,7 +329,7 @@ export const B2C_CATCH_CONFIG: ProseSectionConfig = {
 } as const;
 
 /**
- * Section 6.5: Under the Hood Configuration (ExpandableSection)
+ * Section 10: Under the Hood Configuration (ExpandableSection)
  * Collapsible technical details
  */
 export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
@@ -463,7 +355,7 @@ export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
 
 
 /**
- * Section 7: Demo Configuration
+ * Section 11: Demo Configuration
  */
 export const B2C_DEMO_CONFIG = {
   content: {
@@ -484,11 +376,12 @@ export const B2C_DEMO_CONFIG = {
 } as const;
 
 /**
- * Section 9: Waitlist Configuration
+ * Section 14: Waitlist Configuration
+ * Dark background variant
  */
 export const B2C_WAITLIST_CONFIG = {
   sectionId: 'waitlist-section-b2c',
-  backgroundColor: 'var(--section-bg-brand)',
+  backgroundColor: 'var(--section-bg-dark)',
   headline: 'landing-b2c.waitlist.header',
   subheadline: 'landing-b2c.waitlist.description',
   hideBenefits: true,
@@ -497,7 +390,7 @@ export const B2C_WAITLIST_CONFIG = {
 } as const;
 
 /**
- * Section 8.5: About the Founder Configuration (FounderSection)
+ * Section 13: Built by Bar Configuration (FounderSection)
  * Circular photo + bio paragraphs + contact
  */
 export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
@@ -526,8 +419,8 @@ export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
 } as const;
 
 /**
- * Section 10: FAQ Items for B2C Landing Page
- * 12 CMO-approved items
+ * Section 15: FAQ Items for B2C Landing Page
+ * 19 items — expanded from 12 with new entries
  */
 export const B2C_FAQ_ITEMS: FAQItem[] = [
   {
@@ -543,27 +436,27 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     category: 'general'
   },
   {
-    id: 'withdraw',
-    question: 'landing-b2c.faq.items.withdraw.question',
-    answer: 'landing-b2c.faq.items.withdraw.answer',
-    category: 'fees'
-  },
-  {
-    id: 'safety',
-    question: 'landing-b2c.faq.items.safety.question',
-    answer: 'landing-b2c.faq.items.safety.answer',
-    category: 'security'
-  },
-  {
-    id: 'howPossible',
-    question: 'landing-b2c.faq.items.howPossible.question',
-    answer: 'landing-b2c.faq.items.howPossible.answer',
-    category: 'fees'
+    id: 'whatKindOfMoney',
+    question: 'landing-b2c.faq.items.whatKindOfMoney.question',
+    answer: 'landing-b2c.faq.items.whatKindOfMoney.answer',
+    category: 'getting-started'
   },
   {
     id: 'minimum',
     question: 'landing-b2c.faq.items.minimum.question',
     answer: 'landing-b2c.faq.items.minimum.answer',
+    category: 'getting-started'
+  },
+  {
+    id: 'whatIsBalance',
+    question: 'landing-b2c.faq.items.whatIsBalance.question',
+    answer: 'landing-b2c.faq.items.whatIsBalance.answer',
+    category: 'getting-started'
+  },
+  {
+    id: 'sendMoney',
+    question: 'landing-b2c.faq.items.sendMoney.question',
+    answer: 'landing-b2c.faq.items.sendMoney.answer',
     category: 'getting-started'
   },
   {
@@ -577,6 +470,30 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     question: 'landing-b2c.faq.items.understanding.question',
     answer: 'landing-b2c.faq.items.understanding.answer',
     category: 'getting-started'
+  },
+  {
+    id: 'withdraw',
+    question: 'landing-b2c.faq.items.withdraw.question',
+    answer: 'landing-b2c.faq.items.withdraw.answer',
+    category: 'fees'
+  },
+  {
+    id: 'howPossible',
+    question: 'landing-b2c.faq.items.howPossible.question',
+    answer: 'landing-b2c.faq.items.howPossible.answer',
+    category: 'fees'
+  },
+  {
+    id: 'safety',
+    question: 'landing-b2c.faq.items.safety.question',
+    answer: 'landing-b2c.faq.items.safety.answer',
+    category: 'security'
+  },
+  {
+    id: 'lostPhone',
+    question: 'landing-b2c.faq.items.lostPhone.question',
+    answer: 'landing-b2c.faq.items.lostPhone.answer',
+    category: 'security'
   },
   {
     id: 'whatIfWrong',
@@ -597,6 +514,24 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     category: 'security'
   },
   {
+    id: 'micaRegulated',
+    question: 'landing-b2c.faq.items.micaRegulated.question',
+    answer: 'landing-b2c.faq.items.micaRegulated.answer',
+    category: 'security'
+  },
+  {
+    id: 'pixFaq',
+    question: 'landing-b2c.faq.items.pixFaq.question',
+    answer: 'landing-b2c.faq.items.pixFaq.answer',
+    category: 'getting-started'
+  },
+  {
+    id: 'whySaveDollar',
+    question: 'landing-b2c.faq.items.whySaveDollar.question',
+    answer: 'landing-b2c.faq.items.whySaveDollar.answer',
+    category: 'getting-started'
+  },
+  {
     id: 'afterSignup',
     question: 'landing-b2c.faq.items.afterSignup.question',
     answer: 'landing-b2c.faq.items.afterSignup.answer',
@@ -605,7 +540,7 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
 ];
 
 /**
- * Section 10: FAQ Section Configuration
+ * Section 15: FAQ Section Configuration
  */
 export const B2C_FAQ_CONFIG: FAQAccordionVariantConfig = {
   variant: 'default',
@@ -634,7 +569,7 @@ export const B2C_FAQ_CONFIG: FAQAccordionVariantConfig = {
 };
 
 /**
- * Section 11: Footer disclaimer key
+ * Footer disclaimer key
  */
 export const B2C_DISCLAIMER_KEY = 'landing-b2c.footer.disclosures.general';
 

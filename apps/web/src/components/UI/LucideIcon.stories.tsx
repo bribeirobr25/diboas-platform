@@ -7,6 +7,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import {
   LucideIcon,
+  Menu,
   MenuIcon,
   CloseIcon,
   ChevronRightIcon,
@@ -14,7 +15,6 @@ import {
   SparklesIcon,
   NavigationToggle,
 } from './LucideIcon';
-import { Menu } from 'lucide-react';
 
 const meta: Meta<typeof LucideIcon> = {
   title: 'UI/LucideIcon',

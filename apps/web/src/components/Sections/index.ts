@@ -28,6 +28,11 @@ export { FeeTable } from './FeeTable';
 export { DemoLauncher } from './DemoLauncher';
 export { ExpandableSection } from './ExpandableSection';
 export { FounderSection } from './FounderSection';
+export { ComparisonTable } from './ComparisonTable';
+export { GoalExampleCards } from './GoalExampleCards';
+export { SidePocketStrip } from './SidePocketStrip';
+export { FoundingMembersSection } from './FoundingMembersSection';
+export { HowItWorksGrid } from './HowItWorksGrid';
 
 // B2B Landing Page Sections
 export { CalculatorFactory } from './CalculatorFactory';

@@ -18,6 +18,7 @@ import {
   clearConsentCookie,
   CookieConfig,
 } from '@/lib/security/cookies';
+import { logAuditEvent } from '@/lib/audit/AuditService';
 import { applyRateLimit, applyCsrf, emitErrorEvent } from '@/lib/api/routeHelpers';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import {
@@ -94,6 +95,16 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
       metadata: {
         version: CookieConfig.version,
       },
+    });
+
+    // Audit trail (fire-and-forget)
+    logAuditEvent({
+      eventType: body.analytics ? 'consent.given' : 'consent.withdrawn',
+      entityType: 'consent',
+      actorIp: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+      actorUserAgent: request.headers.get('user-agent') ?? undefined,
+      correlationId: request.headers.get('x-request-id') || undefined,
+      details: { consentType: 'analytics', previousState: previousState, newState: body.analytics },
     });
 
     logRequestEnd('POST', '/api/consent', 200, startTime);

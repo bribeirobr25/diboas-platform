@@ -3,7 +3,7 @@
  */
 
 // Financial math
-export { futureValue, apyToMonthlyRate } from './financialMath';
+export { futureValue, apyToMonthlyRate, projectedExchangeRate, futureValueWithCurrencyHedge } from './financialMath';
 
 // Fetch with retry
 export { fetchWithRetry } from './fetchWithRetry';
@@ -17,3 +17,12 @@ export * from './RaceConditionPrevention';
 // Circuit breaker
 export { CircuitBreaker, CircuitBreakerState, CircuitBreakerError } from './CircuitBreaker';
 export type { CircuitBreakerOptions } from './CircuitBreaker';
+
+// Marketing page builder
+export { buildMarketingMetadata, prepareMarketingPage } from './marketingPageBuilder';
+export type {
+  MarketingPageConfig,
+  MarketingPageData,
+  BreadcrumbEntry,
+  ServiceDataConfig,
+} from './marketingPageBuilder';

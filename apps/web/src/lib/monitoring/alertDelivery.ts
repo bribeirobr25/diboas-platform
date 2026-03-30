@@ -7,6 +7,11 @@
 import { AlertCategory, type Alert } from './alertTypes';
 import { MONITORING_CONFIG } from '@/config/monitoring';
 import { getSlackColor, getSlackEmoji, formatDuration, EMAIL_SEVERITY_COLORS } from './alertUtils';
+import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
+
+/** Circuit breakers for alert delivery channels — open after 3 failures, reset after 60s */
+const slackCircuit = new CircuitBreaker({ failureThreshold: 3, resetTimeout: 60_000 });
+const emailCircuit = new CircuitBreaker({ failureThreshold: 3, resetTimeout: 60_000 });
 
 type SlackConfig = NonNullable<typeof MONITORING_CONFIG.alerts.channels.slack>;
 type EmailConfig = NonNullable<typeof MONITORING_CONFIG.alerts.channels.email>;
@@ -37,7 +42,7 @@ export async function deliverAlert(alert: Alert): Promise<void> {
     const { slack } = MONITORING_CONFIG.alerts.channels;
     if ((alert.category === AlertCategory.PERFORMANCE && slack.enablePerformanceAlerts) ||
         (alert.category === AlertCategory.ERROR && slack.enableErrorAlerts)) {
-      promises.push(sendToSlack(alert, slack));
+      promises.push(slackCircuit.execute(() => sendToSlack(alert, slack)));
     }
   }
 
@@ -46,7 +51,7 @@ export async function deliverAlert(alert: Alert): Promise<void> {
     const { email } = MONITORING_CONFIG.alerts.channels;
     if ((alert.category === AlertCategory.PERFORMANCE && email.enablePerformanceAlerts) ||
         (alert.category === AlertCategory.ERROR && email.enableErrorAlerts)) {
-      promises.push(sendToEmail(alert, email));
+      promises.push(emailCircuit.execute(() => sendToEmail(alert, email)));
     }
   }
 

@@ -18,8 +18,9 @@
  */
 
 import type { SupportedLocale } from './config';
+import type { IntlMessages } from './types';
 
-type LazyLoader = () => Promise<Record<string, any>>;
+type LazyLoader = () => Promise<IntlMessages>;
 type NamespaceLoaders = Record<string, LazyLoader>;
 
 const resolveDefault = (m: any) => m.default || m;
@@ -31,7 +32,6 @@ const resolveDefault = (m: any) => m.default || m;
 const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
   en: {
     common: () => import(/* webpackChunkName: "i18n-en-common" */ '../translations/en/common.json').then(resolveDefault),
-    calculator: () => import(/* webpackChunkName: "i18n-en-calculator" */ '../translations/en/calculator.json').then(resolveDefault),
     dreamMode: () => import(/* webpackChunkName: "i18n-en-dreamMode" */ '../translations/en/dreamMode.json').then(resolveDefault),
     waitlist: () => import(/* webpackChunkName: "i18n-en-waitlist" */ '../translations/en/waitlist.json').then(resolveDefault),
     share: () => import(/* webpackChunkName: "i18n-en-share" */ '../translations/en/share.json').then(resolveDefault),
@@ -57,7 +57,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
   },
   de: {
     common: () => import(/* webpackChunkName: "i18n-de-common" */ '../translations/de/common.json').then(resolveDefault),
-    calculator: () => import(/* webpackChunkName: "i18n-de-calculator" */ '../translations/de/calculator.json').then(resolveDefault),
     dreamMode: () => import(/* webpackChunkName: "i18n-de-dreamMode" */ '../translations/de/dreamMode.json').then(resolveDefault),
     waitlist: () => import(/* webpackChunkName: "i18n-de-waitlist" */ '../translations/de/waitlist.json').then(resolveDefault),
     share: () => import(/* webpackChunkName: "i18n-de-share" */ '../translations/de/share.json').then(resolveDefault),
@@ -83,7 +82,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
   },
   es: {
     common: () => import(/* webpackChunkName: "i18n-es-common" */ '../translations/es/common.json').then(resolveDefault),
-    calculator: () => import(/* webpackChunkName: "i18n-es-calculator" */ '../translations/es/calculator.json').then(resolveDefault),
     dreamMode: () => import(/* webpackChunkName: "i18n-es-dreamMode" */ '../translations/es/dreamMode.json').then(resolveDefault),
     waitlist: () => import(/* webpackChunkName: "i18n-es-waitlist" */ '../translations/es/waitlist.json').then(resolveDefault),
     share: () => import(/* webpackChunkName: "i18n-es-share" */ '../translations/es/share.json').then(resolveDefault),
@@ -109,7 +107,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
   },
   'pt-BR': {
     common: () => import(/* webpackChunkName: "i18n-pt-BR-common" */ '../translations/pt-BR/common.json').then(resolveDefault),
-    calculator: () => import(/* webpackChunkName: "i18n-pt-BR-calculator" */ '../translations/pt-BR/calculator.json').then(resolveDefault),
     dreamMode: () => import(/* webpackChunkName: "i18n-pt-BR-dreamMode" */ '../translations/pt-BR/dreamMode.json').then(resolveDefault),
     waitlist: () => import(/* webpackChunkName: "i18n-pt-BR-waitlist" */ '../translations/pt-BR/waitlist.json').then(resolveDefault),
     share: () => import(/* webpackChunkName: "i18n-pt-BR-share" */ '../translations/pt-BR/share.json').then(resolveDefault),
@@ -146,7 +143,7 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
 export async function getTranslations(
   locale: SupportedLocale,
   namespace: string
-): Promise<Record<string, any>> {
+): Promise<IntlMessages> {
   const localeLoaders = NAMESPACE_LOADERS[locale];
   const loader = localeLoaders?.[namespace];
 

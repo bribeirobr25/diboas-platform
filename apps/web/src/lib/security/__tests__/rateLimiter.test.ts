@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Shared mock state for Ratelimit — allows tests to control the limit() behavior
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 let mockLimitFn: (...args: any[]) => any = vi.fn();
 
 vi.mock('@upstash/ratelimit', () => {
