@@ -47,7 +47,7 @@ export function ScenarioCards({
               </span>
             ) : null}
             {isHighlighted ? (
-              <span className={styles.scenarioCardBadge} aria-label="likely scenario">
+              <span className={styles.scenarioCardBadge} aria-hidden="true">
                 {likelyBadge}
               </span>
             ) : null}

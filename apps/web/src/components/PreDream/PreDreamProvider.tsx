@@ -13,6 +13,7 @@ import { calculatePreDreamResult, resolveBankRate, resolveStrategyApy, type Stra
 import { preDreamReducer, initialPreDreamState } from './preDreamReducer';
 import { analyticsService } from '@/lib/analytics';
 import { useLocale } from '@/components/Providers';
+import { useMarketData } from '@/hooks/useMarketData';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -30,6 +31,7 @@ interface PreDreamProviderProps {
 export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrides }: PreDreamProviderProps) {
   const [state, dispatch] = useReducer(preDreamReducer, initialPreDreamState);
   const { locale } = useLocale();
+  const { data: marketData } = useMarketData();
 
   const acceptDisclaimer = useCallback(() => {
     analyticsService.track({
@@ -66,8 +68,8 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
   const startSimulation = useCallback(() => {
     if (state.isAnimating || !state.selectedPath) return;
 
-    const bankRate = resolveBankRate(locale, bankApyOverride);
-    const defiApy = resolveStrategyApy(state.selectedPath, strategyApyOverrides);
+    const bankRate = resolveBankRate(locale, marketData, bankApyOverride);
+    const defiApy = resolveStrategyApy(state.selectedPath, marketData, strategyApyOverrides);
 
     const result = calculatePreDreamResult(
       state.selectedPath,
@@ -75,7 +77,8 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
       state.initialAmount,
       state.monthlyContribution,
       bankRate.apy,
-      bankRate.exchangeRate,
+      locale,
+      marketData,
       defiApy
     );
 
@@ -91,7 +94,7 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
     });
 
     dispatch({ type: 'START_SIMULATION', result });
-  }, [state.isAnimating, state.selectedPath, state.selectedTimeframe, state.initialAmount, state.monthlyContribution, locale, bankApyOverride, strategyApyOverrides]);
+  }, [state.isAnimating, state.selectedPath, state.selectedTimeframe, state.initialAmount, state.monthlyContribution, locale, marketData, bankApyOverride, strategyApyOverrides]);
 
   const goToScreen = useCallback((screen: PreDreamScreen) => {
     dispatch({ type: 'GO_TO_SCREEN', screen });

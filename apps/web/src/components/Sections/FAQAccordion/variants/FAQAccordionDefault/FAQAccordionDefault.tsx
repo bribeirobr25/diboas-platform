@@ -192,7 +192,7 @@ export function FAQAccordionDefault({
         </div>
 
         {/* Right Panel: Accordion Items */}
-        <div className={styles.accordionPanel} role="region" aria-label="FAQ items">
+        <div className={styles.accordionPanel} role="region" aria-label={config.seo.ariaLabel}>
           {resolvedItems.map((item, index) => {
             const isExpanded = expandedId === item.id;
             const contentId = `faq-content-${item.id}`;

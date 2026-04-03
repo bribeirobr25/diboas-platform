@@ -26,7 +26,7 @@ export function RouteGroupLoading() {
           animation: 'spin 0.8s linear infinite',
         }}
         role="status"
-        aria-label="Loading page"
+        aria-busy="true"
       />
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>

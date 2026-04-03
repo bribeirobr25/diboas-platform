@@ -1,12 +1,18 @@
 'use client';
 
 import { memo, useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { analyticsService } from '@/lib/analytics';
 import { setCtaSource } from '@/lib/analytics/ctaAttribution';
 import { GoalExampleCard } from './GoalExampleCard';
 import styles from './GoalExampleCards.module.css';
+
+const PreDream = dynamic(
+  () => import('@/components/PreDream').then(m => ({ default: m.PreDream })),
+  { ssr: false, loading: () => null }
+);
 
 interface GoalExampleCardsProps {
   enableAnalytics?: boolean;
@@ -21,6 +27,7 @@ export const GoalExampleCards = memo(function GoalExampleCards({
 }: GoalExampleCardsProps) {
   const intl = useTranslation();
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [showPreDream, setShowPreDream] = useState(false);
 
   const handleToggle = useCallback((key: string) => {
     setExpandedCard((prev) => (prev === key ? null : key));
@@ -28,6 +35,20 @@ export const GoalExampleCards = memo(function GoalExampleCards({
 
   const handleCollapse = useCallback(() => {
     setExpandedCard(null);
+  }, []);
+
+  const handleTryWithNumbers = useCallback(() => {
+    setShowPreDream(true);
+    if (enableAnalytics) {
+      analyticsService.track({
+        name: 'goal_card_try_numbers_click',
+        parameters: { locale: intl.locale },
+      });
+    }
+  }, [enableAnalytics, intl.locale]);
+
+  const handlePreDreamClose = useCallback(() => {
+    setShowPreDream(false);
   }, []);
 
   const handleCustomClick = useCallback(() => {
@@ -47,32 +68,42 @@ export const GoalExampleCards = memo(function GoalExampleCards({
   const customSubtitle = intl.formatMessage({ id: 'landing-b2c.goalExamples.cards.custom.subtitle' });
 
   return (
-    <SectionContainer
-      variant="standard"
-      padding="standard"
-      ariaLabel={ariaLabel}
-      className={className}
-    >
-      <h2 className={styles.heading}>{heading}</h2>
-      <div className={styles.grid}>
-        {CARD_KEYS.map((key) => (
-          <GoalExampleCard
-            key={key}
-            cardKey={key}
-            isExpanded={expandedCard === key}
-            onToggle={handleToggle}
-            onCollapse={handleCollapse}
-            enableAnalytics={enableAnalytics}
-          />
-        ))}
-      </div>
-      <p className={styles.customLink}>
-        {customTitle}{' '}
-        <button type="button" className={styles.customLinkButton} onClick={handleCustomClick}>
-          {customSubtitle}
-        </button>
-      </p>
-    </SectionContainer>
+    <>
+      <SectionContainer
+        variant="standard"
+        padding="standard"
+        ariaLabel={ariaLabel}
+        className={className}
+      >
+        <h2 className={styles.heading}>{heading}</h2>
+        <div className={styles.grid}>
+          {CARD_KEYS.map((key) => (
+            <GoalExampleCard
+              key={key}
+              cardKey={key}
+              isExpanded={expandedCard === key}
+              onToggle={handleToggle}
+              onCollapse={handleCollapse}
+              onTryWithNumbers={handleTryWithNumbers}
+              enableAnalytics={enableAnalytics}
+            />
+          ))}
+        </div>
+        <p className={styles.customLink}>
+          {customTitle}{' '}
+          <button type="button" className={styles.customLinkButton} onClick={handleCustomClick}>
+            {customSubtitle}
+          </button>
+        </p>
+      </SectionContainer>
+
+      {showPreDream ? (
+        <PreDream
+          onClose={handlePreDreamClose}
+          onBackToHome={handlePreDreamClose}
+        />
+      ) : null}
+    </>
   );
 });
 

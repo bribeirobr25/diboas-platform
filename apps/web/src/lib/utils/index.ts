@@ -3,7 +3,7 @@
  */
 
 // Financial math
-export { futureValue, apyToMonthlyRate, projectedExchangeRate, futureValueWithCurrencyHedge } from './financialMath';
+export { futureValue, apyToMonthlyRate } from './financialMath';
 
 // Fetch with retry
 export { fetchWithRetry } from './fetchWithRetry';

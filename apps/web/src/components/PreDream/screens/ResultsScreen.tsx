@@ -5,7 +5,8 @@ import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
 import { ShareDreamSection } from '../components/ShareDreamSection';
 import { formatCurrency } from '@/lib/pre-dream';
-import { BANK_RATE_SOURCES } from '@/lib/dream-mode/constants';
+import { useMarketData } from '@/hooks/useMarketData';
+import type { SupportedLocale } from '@/lib/market-data';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDream.module.css';
@@ -26,8 +27,10 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
   const result = state.result;
 
-  // Bank display values come from the calculation layer (locale-aware)
-  const bankSource = BANK_RATE_SOURCES[locale] || BANK_RATE_SOURCES['en'];
+  // Bank display values from market data (locale-aware)
+  const { data: marketData } = useMarketData();
+  const localeKey = (locale in marketData.rates.bankRates ? locale : 'en') as SupportedLocale;
+  const bankRates = marketData.rates.bankRates[localeKey];
   const bankBalance = result?.bankBalance ?? 0;
   const bankInterest = result?.bankInterest ?? 0;
   const difference = result?.difference ?? 0;
@@ -94,7 +97,7 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
           <div className={styles.comparisonHeader}>
             <div>
               <p className={styles.comparisonLabelMuted}>{t('bankWouldGive')}</p>
-              <p className={styles.comparisonApyMuted}>{bankSource.rate}% APY</p>
+              <p className={styles.comparisonApyMuted}>{bankRates.savings}% APY</p>
             </div>
             <div className={styles.comparisonValues}>
               <p className={styles.comparisonAmountMuted}>{formatCurrency(bankBalance, 2, locale)}</p>
@@ -110,7 +113,7 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
       {/* Difference Highlight */}
       <div className={styles.differenceHighlight}>
         <div className={styles.differenceIcon}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
             <polyline points="17 6 23 6 23 12" />
           </svg>
@@ -128,16 +131,16 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
       {/* Bank Source */}
       <p className={styles.bankSource}>
-        {intl.formatMessage({ id: bankSource.translationKey })}
+        {intl.formatMessage({ id: localeKey === 'pt-BR' ? 'dreamMode.results.bank_source_br' : localeKey === 'en' ? 'dreamMode.results.bank_source_us' : 'dreamMode.results.bank_source_eu' })}
       </p>
 
       {/* Actions */}
       <div className={styles.resultActions}>
-        <button onClick={reset} className={styles.primaryButton}>
+        <button type="button" onClick={reset} className={styles.primaryButton}>
           {t('tryDifferent')}
         </button>
         {onBackToHome && (
-          <button onClick={onBackToHome} className={styles.secondaryButton}>
+          <button type="button" onClick={onBackToHome} className={styles.secondaryButton}>
             {t('backToHome')}
           </button>
         )}

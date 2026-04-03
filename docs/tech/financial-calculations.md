@@ -1,24 +1,14 @@
-# Financial Calculations — Bug History & Reference Values
+# Financial Calculations — Formulas, Model & Reference Values
 
-**Last updated:** 2026-03-30
+**Last updated:** 2026-04-03
 
-This document records financial calculation bugs found and fixed in the diBoaS platform, the correct formulas, and verified reference values. It exists to prevent the same class of error from being reintroduced.
+This document describes the financial calculation model used across the diBoaS platform (comparison table, goal cards, PreDream, calculators). All formulas are implemented in `lib/market-data/formulas.ts`. The canonical specification is `docs/audit/PREPARING_FOR_ANALYTICS_DATA.md` (Sections 14-17).
 
 ---
 
-## The Lump-Sum Multiplier Bug
+## Core Formula
 
-### What went wrong
-
-Multiple components used an incorrect formula that treats all monthly contributions as if they were invested on day 1:
-
-```typescript
-// WRONG — lump-sum multiplier applied to total contributions
-const balance = totalInvestment * Math.pow(1 + apy / 100, years);
-// Example: $100/mo × 12 months = $1,200, then $1,200 × 1.07 = $1,284
-```
-
-The correct formula accounts for the fact that each monthly payment compounds only for its remaining duration:
+All financial calculations use the standard compound interest + annuity formula:
 
 ```
 FV = S × (1+r)^n + PMT × ((1+r)^n - 1) / r
@@ -27,158 +17,126 @@ FV = S × (1+r)^n + PMT × ((1+r)^n - 1) / r
 Where:
 - **S** = initial lump sum
 - **PMT** = monthly contribution
-- **r** = monthly interest rate (converted from APY via geometric conversion)
+- **r** = monthly interest rate (converted from APY via geometric conversion, never `r/12`)
 - **n** = total months
 
-```typescript
-// CORRECT — shared utility at lib/utils/financialMath.ts
-export function futureValue(
-  initialAmount: number,
-  monthlyPayment: number,
-  monthlyRate: number,
-  months: number
-): number {
-  if (months <= 0) return initialAmount;
-  if (monthlyRate === 0) return initialAmount + monthlyPayment * months;
-  const compoundFactor = Math.pow(1 + monthlyRate, months);
-  return initialAmount * compoundFactor + monthlyPayment * ((compoundFactor - 1) / monthlyRate);
-}
+**Implementation:** `futureValue()` in `lib/utils/financialMath.ts` and `calculateMonthlyContributions()` in `lib/market-data/formulas.ts`.
 
-export function apyToMonthlyRate(apyPercent: number): number {
-  return Math.pow(1 + apyPercent / 100, 1 / 12) - 1;
-}
-```
-
-### Where it appeared
-
-| Location | Impact | Fix Date |
-|----------|--------|----------|
-| **PreDream simulation** (`lib/pre-dream/calculations.ts`) | Overstated returns by up to 38% (diBoaS 7% APY, $100/mo, 10yr: showed $23,606 instead of correct $17,105) | 2026-03-20 |
-| **Goal card 2: Emergency Fund** (CMO copy) | Off by $140 ($7,259.84 shown vs $7,119.59 correct) | 2026-03-24 |
-| **Goal card 3: Christmas Bonus** (CMO copy) | Advantage overstated 2.2× ($78.60 shown vs $35.56 correct). Used `$1,200 × 1.07 = $1,284` instead of monthly compounding → $1,238.03 | 2026-03-24 |
-| **CashFlow calculator** | Same formula class — 3.7% overstatement | 2026-03-20 |
-
-### Root cause
-
-AI-generated copy applied `total × (1 + APY)` — a lump-sum formula — to scenarios with monthly contributions. This was not caught because the numbers "looked reasonable" without cross-checking against the compound interest formula.
+**Rate conversion:** `annualToMonthlyRate(r) = (1 + r)^(1/12) - 1` — takes decimal (0.07 for 7%).
 
 ---
 
-## Verified Reference Values
+## Data Source
 
-All values computed with `futureValue()` from `lib/utils/financialMath.ts`. These are the canonical values for translation files and marketing copy.
+All market rates come from `MarketDataService` (`lib/market-data/service.ts`), which reads from `FALLBACK_MARKET_DATA` in `lib/market-data/constants.ts`. All rates are **5-year averages (2021-2025)** per Strategy Board decision. Full year-by-year breakdown with sources in `docs/audit/YIELD_INFLATION_FX.md`.
 
-### PreDream Simulation (Safety 7% APY, $0 initial, $100/month)
+### Bank / Savings Rates
 
-| Duration | diBoaS 7% | US Bank 0.45% | Difference |
-|----------|-----------|---------------|------------|
-| 1 year | $1,238.03 | $1,202.47 | $35.56 |
-| 5 years | $7,119.59 | $6,135.75 | $983.84 |
-| 10 years | $17,105.17 | $12,271.18 | $4,833.99 |
-| 30 years | $116,945.26 | $38,529.97 | $78,415.29 |
+| Locale | Product | Rate | Source |
+|--------|---------|:----:|--------|
+| US | FDIC Avg Savings | 0.32% | FRED SNDR |
+| Brazil | Poupanca | 6.83% | BCB |
+| Spain | Bank Savings | 0.14% | ECB MFI |
+| Germany | Tagesgeld | 1.22% | Bundesbank |
 
-### Goal Cards (used in B2C landing page)
+Brazil rates are **NET** (after 22.5% IR tax). diBoaS rates are **gross** (before platform fees and user-specific tax). See `docs/audit/PREPARING_FOR_ANALYTICS_DATA.md` Section 13 for rationale.
 
-**Card 1: Retirement** ($100/mo, 30 years)
-- diBoaS 7%: **$116,945.26**
-- Bank 0.45%: **$38,529.97**
-- Difference: **$78,415.29**
+### diBoaS Strategy Rates
 
-**Card 2: Emergency Fund** ($100/mo, target ~$7,200)
-- diBoaS 7% in 5yr: **$7,119.59**
-- Bank 0.45% in 6yr: **$7,296.49**
-- Framing: 1 year less with diBoaS
-
-**Card 3: Christmas Bonus** ($100/mo, 1 year)
-- diBoaS 7%: **$1,238.03**
-- Bank 0.45%: **$1,202.47**
-- Difference: **$35.56**
-
-### Bank Rates by Locale
-
-| Locale | Benchmark | Rate | Source |
-|--------|-----------|:----:|--------|
-| en (US) | FDIC National Average Savings | 0.45% | FDIC |
-| pt-BR (Brazil) | Poupança (Selic-linked) | 7.50% | Banco Central do Brasil |
-| es (Spain/LatAm) | ECB Deposit Facility Rate | 3.25% | European Central Bank |
-| de (Germany) | ECB Deposit Facility Rate | 3.25% | European Central Bank |
-
-**Important:** At 7.50%, Brazilian Poupança outperforms the Safety strategy (7% APY) in nominal BRL terms. The PT-BR comparison uses the currency hedge model (below) to show the BRL→USD→yield→BRL advantage.
+| Path | APY |
+|------|:---:|
+| Safety | 7% |
+| Balance | 12% |
+| Growth | 18% |
 
 ---
 
-## Currency Hedge Model (PT-BR and future locales)
+## Currency Hedge Model (Non-US Locales)
 
-### Problem
-diBoaS converts local currency (BRL) to USDC, earns yield in USD, then reconverts. A simple comparison of nominal BRL interest vs USD interest is misleading because it ignores exchange rate depreciation.
+diBoaS earns yield in USD. For non-US locales, users benefit from local currency depreciation when converting back. The **effective rate model** computes:
 
-### Solution: `futureValueWithCurrencyHedge()`
-
-Located in `lib/utils/financialMath.ts`. Currency-agnostic — accepts exchange rate config as a parameter, never references BRL specifically.
-
-**Flow:**
-1. Convert local currency → yield currency at current exchange rate
-2. Apply `futureValue()` in yield currency at strategy APY
-3. Convert yield currency → local currency at **projected** exchange rate
-
-**Capped depreciation formula:**
 ```
-effectiveYears = min(investmentYears, maxDepreciationYears)
-projectedRate = currentRate × (1 + annualDepreciation)^effectiveYears
+effectiveLocalAPY = (1 + usdYield) × (1 + localDepreciation) - 1
 ```
 
-With 12% annual depreciation and 3-year cap:
-- 1yr → rate × 1.12¹ = rate × 1.12
-- 3yr → rate × 1.12³ = rate × 1.4049
-- 5yr → rate × 1.12³ = rate × 1.4049 (capped)
-- 30yr → rate × 1.12³ = rate × 1.4049 (capped)
-
-**Why cap at 3 years?** Without a cap, 30yr at 12% → rate × 29.96, producing a projected rate of ~157 BRL/USD — absurd and misleading. The 3-year cap keeps short-term projections honest while preventing speculative long-term projections.
+Then standard annuity formula applies at the effective rate. This is simpler and more conservative than the old explicit conversion model (which assumed all future deposits convert at today's spot rate).
 
 ### Exchange Rate Config
 
-Stored in `BANK_RATE_SOURCES` (`lib/dream-mode/constants.ts`) as an optional `exchangeRate` field:
+| Currency | Depreciation | Cap | Basis |
+|----------|:----------:|:---:|-------|
+| BRL/USD | 3.00% | Uncapped | 20-year historical avg (6-8%), adjusted conservative |
+| EUR/USD | 0.90% | Uncapped | 5-year average |
 
-```typescript
-exchangeRate: {
-  localCurrency: 'BRL',
-  yieldCurrency: 'USD',
-  currentRate: 5.2546,       // 1 USD = 5.2546 BRL (BCB, 2026-03-15)
-  annualDepreciation: 0.12,  // 12% — 2-year BRL/USD average
-  maxDepreciationYears: 3,   // Cap depreciation projection
-  rateDate: '2026-03-15',
-  depreciationBasis: '2-year average BRL/USD',
-}
-```
+**All non-US locales use the currency hedge** — not just PT-BR. Germany and Spain also benefit from EUR depreciation vs USD.
 
-EN, DE, ES locales have no `exchangeRate` — their yield currency matches local currency, so standard `futureValue()` is used.
+### Effective APYs by Locale
 
-### Monthly contributions simplification
-All monthly BRL contributions convert at the current exchange rate. This is conservative (later months would convert at a slightly worse rate), transparent, and avoids false precision. Footnotes state "Câmbio ilustrativo."
+| Locale | diBoaS Safety | Bank | Advantage |
+|--------|:----------:|:----:|:---------:|
+| US | 7.00% | 0.32% | +6.68 pp |
+| Brazil | 10.21% (7% + 3% BRL dep.) | 6.83% | +3.38 pp |
+| Spain | 7.96% (7% + 0.9% EUR dep.) | 0.14% | +7.82 pp |
+| Germany | 7.96% (7% + 0.9% EUR dep.) | 1.22% | +6.74 pp |
 
-### PT-BR Reference Values (computed with `futureValueWithCurrencyHedge()`)
+**Implementation:** `calculateMonthlyWithCurrencyHedge()` in `lib/market-data/formulas.ts`.
 
-Parameters: rate=5.2546, depreciation=12%, cap=3yr, APY=7%, bank=7.5% (Poupança)
+---
 
-| Scenario | Params | USD FV | Proj. Rate | BRL (diBoaS) | BRL (Bank) | Advantage |
-|----------|--------|--------|------------|-------------|------------|-----------|
-| Comparison table | R$1,000 lump, 1yr | $203.63 | 5.8852 | R$1,198 | R$1,075 | ~+R$198 |
-| Christmas | R$200/mo, 12mo | $471.22 | 5.8852 | R$2,773 | R$2,481 | ~R$290 |
-| Wealthy | R$400/mo, 60mo | $5,420 | 7.3823 | R$40,010 | R$28,826 | ~R$11k |
-| Retirement | R$100/mo, 360mo | $22,256 | 7.3823 | R$164,300 | R$128,289 | ~R$36k |
-| Emergency | R$300/mo, 60mo | $4,065 | 7.3823 | R$30,008 | R$21,620 | time-based |
+## Inflation Model
 
-### Future expansion (JPY, MXN, ARS)
-Add a new locale entry in `BANK_RATE_SOURCES` with its own `exchangeRate` config. The calculation functions are currency-agnostic.
+| Locale | Current (2025) | 5-Year Avg | Rule |
+|--------|:-----------:|:----------:|------|
+| US | 2.60% | 4.50% | Goals ≤24 months → current; >24 months → 5yr avg |
+| Brazil | 4.26% | 5.90% | Same rule |
+| Spain | 2.70% | 4.10% | Same rule |
+| Germany | 2.20% | 4.10% | Same rule |
+
+**Implementation:** `selectInflationRate()` in `lib/market-data/formulas.ts`. Never hand-pick inflation in callers.
+
+---
+
+## Consumers
+
+All three financial display components read from the same `MarketDataService`:
+
+| Component | What it computes | Bank rate used |
+|-----------|------------------|----------------|
+| **ComparisonTable** | 1-year lump-sum returns for 4 products | `bankRates[locale].savings` |
+| **GoalExampleCards** | Monthly contribution scenarios (retirement, emergency, christmas, 10% rule) | `bankRates[locale].savings` |
+| **PreDream** | Interactive simulation with user-configurable inputs | `bankRates[locale].savings` |
+
+The `ComparisonTable` uses `calculateLumpSum()` and `calculateWithCurrencyHedge()`. The `GoalExampleCards` uses `calculateMonthlyContributions()` and `calculateMonthlyWithCurrencyHedge()` via the `useGoalCardData` hook. Emergency fund timing uses `monthsToInflationAdjustedTarget()`.
+
+---
+
+## Bug History
+
+### The Lump-Sum Multiplier Bug (Fixed 2026-03-20)
+
+Multiple components used `totalInvestment × (1 + APY)` — a lump-sum formula — for monthly contribution scenarios. This overstated returns by up to 38%.
+
+**Root cause:** AI-generated copy applied lump-sum formula to monthly scenarios.
+
+**Fix:** All calculations now use `futureValue()` with proper monthly compounding.
+
+### The Explicit Conversion Model (Replaced 2026-04-02)
+
+The old `futureValueWithCurrencyHedge()` in `financialMath.ts` converted each payment BRL→USD at today's rate, compounded in USD, then reconverted at a projected rate. This produced ~7% higher results on 5-year horizons and ~32% higher on 30-year horizons compared to the effective rate model.
+
+**Why replaced:** The old model implicitly assumed future deposits convert at today's spot rate — unrealistic. The effective rate model is more conservative and mathematically cleaner.
+
+**Old functions removed:** `projectedExchangeRate()` and `futureValueWithCurrencyHedge()` from `financialMath.ts`. Replaced by `calculateMonthlyWithCurrencyHedge()` and `calculateWithCurrencyHedge()` in `lib/market-data/formulas.ts`.
 
 ---
 
 ## Prevention Rules
 
-1. **All financial calculations must use `futureValue()` from `lib/utils/financialMath.ts`** — never inline a formula.
-2. **Any marketing copy containing dollar amounts must be cross-checked** against `futureValue()` (or `futureValueWithCurrencyHedge()` for hedge locales) before publishing.
-3. **Never apply a lump-sum multiplier** (`total × (1 + rate)`) to monthly contribution scenarios.
-4. **Bank rates must be locale-aware** — use `BANK_RATE_SOURCES` constant, not a hardcoded global rate.
-5. **Test edge cases:** 0 months, 0 rate, 0 initial amount, 0 monthly payment — all must return sensible values.
-6. **Currency hedge locales (PT-BR etc.) must use `futureValueWithCurrencyHedge()`** — never apply depreciation to bank interest or compute yield in local currency directly.
-7. **PT-BR translation values must be generated by running the actual function** — zero tolerance for pre-calculated estimates.
+1. **All calculations use `lib/market-data/formulas.ts`** — never inline a formula.
+2. **All rates come from `MarketDataService`** — never hardcode rates in components or translations.
+3. **Never apply a lump-sum multiplier** to monthly contribution scenarios.
+4. **Bank rates are locale-aware** — read from `marketData.rates.bankRates[locale]`.
+5. **Non-US locales use currency hedge** — `calculateMonthlyWithCurrencyHedge()` for monthly, `calculateWithCurrencyHedge()` for lump sum.
+6. **Inflation uses `selectInflationRate()`** — never pick ad hoc in callers.
+7. **Emergency fund uses `monthsToInflationAdjustedTarget()`** — not the static target function.
+8. **All displayed rate text must match the rates used in formulas** — bankSource strings must reference the same rate as `marketData.rates.bankRates[locale].savings`.

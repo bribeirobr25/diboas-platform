@@ -33,6 +33,16 @@ function PreDreamContent({ onClose, onBackToHome }: PreDreamProps) {
   const { state } = usePreDream();
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Lock body scroll while dream mode is active — prevents underlying
+  // page from intercepting touch events on the fixed overlay (iOS)
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, []);
+
   // WCAG 2.4.3: Trap focus within dream mode overlay
   useFocusTrap(containerRef, true, { returnFocus: true });
 

@@ -9,96 +9,49 @@
     "heading": "R$1.000. 1 ano. Você decide.",
     "columns": {
       "bank": "Poupança",
-      "neobanks": "CDB/LCI",
+      "neobanks": "Bancos Digitais",
       "treasuries": "Tesouro Direto",
       "diboas": "diBoaS"
     },
-    "rates": {
-      "bank": "7,50%",
-      "neobanks": "10,50%",
-      "treasuries": "11,00%",
-      "diboas": "~7%"
+    "rows": {
+      "apy": "Taxa anual",
+      "return": "Rendimento em 1 ano"
     },
-    "returns": {
-      "bank": "+R$75",
-      "neobanks": "+R$105",
-      "treasuries": "+R$110",
-      "diboas": "~+R$198"
-    },
-    "diboasSubtext": "em dólares",
-    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros, março 2026. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital. Valor do diBoaS considera conversão para dólar digital e projeção baseada na depreciação média do real frente ao dólar nos últimos 2 anos (~12% a.a.). Projeção de câmbio limitada a 3 anos para períodos maiores."
+    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital."
   },
   "goalExamples": {
     "heading": "Vamos simplificar.",
     "cards": {
       "retirement": {
         "title": "Aposentadoria",
-        "titleSummary": "~R$36k mais",
-        "subtitle": "Considerando salário bruto = R$41.600/ano e contribuição de R$100/mês durante 30 anos. Em dólares digitais.",
-        "diboasApy": "~7%",
-        "diboasResult": "R$164.300",
-        "diboasGain": "em valor equivalente em dólar",
-        "diboasTime": "",
-        "bankApy": "7,50%",
-        "bankResult": "R$128.289",
-        "bankGain": "em reais",
-        "bankTime": "",
-        "difference": "Seu dinheiro rendeu em dólar e voltou valendo mais.",
+        "subtitle": "Considerando salário de R$3.467/mês e contribuição de R$100/mês durante 30 anos. Em dólares digitais.",
         "tagline": "Proteger o valor do que você guarda é tão importante quanto quanto ele rende.",
-        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026. Câmbio ilustrativo.",
-        "seeAnother": "Veja outra meta",
+        "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
+        "seeAnother": "Simule com seus números",
         "howPossible": "Como isso é possível?"
       },
       "emergency": {
         "title": "Reserva de Emergência",
-        "titleSummary": "~1 ano menos",
         "subtitle": "Considerando gastos mensais = R$2.700, reserva pra 6 meses (R$16.200), e contribuição de R$270/mês. Em dólares digitais.",
-        "diboasApy": "~7%",
-        "diboasResult": "R$27.007",
-        "diboasTime": "em 5 anos",
-        "bankApy": "7,50%",
-        "bankResult": "R$19.458",
-        "bankTime": "em 5 anos",
-        "difference": "Proteção cambial faz a diferença no longo prazo.",
-        "tagline": "Pra quem viaja, compra importado ou pensa no longo prazo, reserva em dólar faz diferença.",
-        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026.",
-        "seeAnother": "Veja outra meta",
+        "tagline": "Mesmo esforço. Menos tempo esperando.",
+        "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
+        "seeAnother": "Simule com seus números",
         "howPossible": "Como isso é possível?"
       },
       "christmas": {
         "title": "Décimo Terceiro",
-        "titleSummary": "~R$503 mais",
-        "subtitle": "Considerando salário bruto = R$41.600/ano, poupando R$345/mês durante 12 meses. Em dólares digitais.",
-        "diboasApy": "~7%",
-        "diboasResult": "R$4.784",
-        "diboasGain": "em valor equivalente em dólar",
-        "diboasTime": "",
-        "bankApy": "7,50%",
-        "bankResult": "R$4.280",
-        "bankGain": "em reais",
-        "bankTime": "",
-        "difference": "Rendimento em dólar + proteção cambial.",
+        "subtitle": "Considerando salário de R$3.467/mês, poupando R$345/mês durante 12 meses. Em dólares digitais.",
         "tagline": "Mesmo dinheiro. Moeda diferente. Proteção real.",
-        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026.",
-        "seeAnother": "Veja outra meta",
+        "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
+        "seeAnother": "Simule com seus números",
         "howPossible": "Como isso é possível?"
       },
       "wealthy": {
         "title": "A Regra dos 10%",
-        "titleSummary": "~R$7,5k mais",
-        "subtitle": "Com salário líquido de R$2.700/mês, investindo 10% (R$270/mês) por 5 anos. Em dólares digitais.",
-        "diboasApy": "~7%",
-        "diboasResult": "R$27.007",
-        "diboasGain": "em valor equivalente em dólar",
-        "diboasTime": "",
-        "bankApy": "7,50%",
-        "bankResult": "R$19.458",
-        "bankGain": "em reais",
-        "bankTime": "",
-        "difference": "Proteção em dólar + rendimento",
+        "subtitle": "Com salário de R$2.700/mês, investindo 10% (R$270/mês) por 5 anos. Em dólares digitais.",
         "tagline": "Uma abordagem popular para poupar a longo prazo: sempre separe 10% da sua renda, não importa o quê.",
-        "bankSource": "Taxas: Poupança 7,50% ao ano. Fonte: Banco Central do Brasil, janeiro 2026. Câmbio ilustrativo.",
-        "seeAnother": "Veja outra meta",
+        "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
+        "seeAnother": "Simule com seus números",
         "howPossible": "Como isso é possível?"
       },
       "custom": {
@@ -282,7 +235,7 @@
     "header": "Não acredite só na nossa palavra.",
     "subtext": "O que seu dinheiro faria aqui?",
     "ctaPrimary": "Testar a Demo",
-    "ctaSecondary": "Sem cadastro. Sem dinheiro de verdade. Só a prova."
+    "ctaSecondary": "Simule Suas Metas"
   },
   "socialProof": {
     "header": "Os primeiros 1.200.",

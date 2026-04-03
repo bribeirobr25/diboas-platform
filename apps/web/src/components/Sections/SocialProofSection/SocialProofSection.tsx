@@ -84,14 +84,6 @@ export function SocialProofSection({
       style={backgroundColor ? { backgroundColor } : undefined}
     >
       <div className={styles.container}>
-        {/* Section Header */}
-        <header className={styles.header}>
-          <h2 className={styles.title}>{t('header')}</h2>
-          {t('subtext') ? (
-            <p className={styles.subtext}>{t('subtext')}</p>
-          ) : null}
-        </header>
-
         {/* Stats Cards */}
         <div className={styles.cardsGrid}>
           {/* Waitlist Count Card */}

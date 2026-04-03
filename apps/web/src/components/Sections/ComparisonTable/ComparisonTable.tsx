@@ -1,9 +1,21 @@
 'use client';
 
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { useLocale } from '@/components/Providers';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { analyticsService } from '@/lib/analytics';
+import { useMarketData } from '@/hooks/useMarketData';
+import {
+  calculateLumpSum,
+  calculateWithCurrencyHedge,
+  formatRate,
+  formatApproxRate,
+  formatGain,
+  type SupportedLocale,
+} from '@/lib/market-data';
+import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
+import { COMPARISON_TABLE_INPUTS } from '@/config/comparisonTable';
 import styles from './ComparisonTable.module.css';
 
 interface ComparisonTableProps {
@@ -13,11 +25,63 @@ interface ComparisonTableProps {
 
 const COLUMN_KEYS = ['bank', 'neobanks', 'treasuries', 'diboas'] as const;
 
+/** Compute rates and returns from market data at render time */
+function useComparisonData(locale: SupportedLocale) {
+  const { data: marketData } = useMarketData();
+
+  return useMemo(() => {
+    const bankRates = marketData.rates.bankRates[locale];
+    const inputs = COMPARISON_TABLE_INPUTS[locale];
+    const principal = inputs.principal;
+    const currency = LOCALE_CURRENCY[locale];
+    const depreciation = currency && currency !== 'USD'
+      ? marketData.exchangeRates.rates[currency]?.annualDepreciation ?? 0
+      : 0;
+    const diboasApy = marketData.rates.strategyApys.safety;
+
+    // Rates for display
+    const rates = {
+      bank: formatRate(bankRates.savings, locale),
+      neobanks: formatRate(bankRates.neobank, locale),
+      treasuries: formatRate(bankRates.treasury, locale),
+      diboas: formatApproxRate(diboasApy, locale),
+    };
+
+    // 1-year returns computed from rates
+    const bankReturn = calculateLumpSum(principal, bankRates.savings / 100, 0, 1).nominalGain;
+    const neobankReturn = calculateLumpSum(principal, bankRates.neobank / 100, 0, 1).nominalGain;
+    const treasuryReturn = calculateLumpSum(principal, bankRates.treasury / 100, 0, 1).nominalGain;
+
+    let diboasReturn: number;
+    if (depreciation > 0) {
+      diboasReturn = calculateWithCurrencyHedge(
+        principal, diboasApy / 100, depreciation, 0, 1
+      ).nominalGain;
+    } else {
+      diboasReturn = calculateLumpSum(principal, diboasApy / 100, 0, 1).nominalGain;
+    }
+
+    const returns = {
+      bank: formatGain(bankReturn, locale),
+      neobanks: formatGain(neobankReturn, locale),
+      treasuries: formatGain(treasuryReturn, locale),
+      diboas: formatGain(diboasReturn, locale),
+    };
+
+    // diBoaS subtext — show "em dolares" for PT-BR, empty for others
+    const diboasSubtext = locale === 'pt-BR' ? 'em d\u00F3lares' : '';
+
+    return { rates, returns, diboasSubtext };
+  }, [marketData, locale]);
+}
+
 export const ComparisonTable = memo(function ComparisonTable({
   enableAnalytics = true,
   className = '',
 }: ComparisonTableProps) {
   const intl = useTranslation();
+  const { locale: rawLocale } = useLocale();
+  const locale = (rawLocale || 'en') as SupportedLocale;
   const sectionRef = useRef<HTMLDivElement>(null);
   const hasFiredRef = useRef(false);
 
@@ -27,9 +91,7 @@ export const ComparisonTable = memo(function ComparisonTable({
   const tSection = (key: string) =>
     intl.formatMessage({ id: `landing-b2c.sections.comparison.${key}` });
 
-  const diboasSubtextRaw = t('diboasSubtext');
-  // react-intl returns the key itself for empty-string translations — treat as absent
-  const diboasSubtext = diboasSubtextRaw.includes('.') ? '' : diboasSubtextRaw;
+  const { rates, returns, diboasSubtext } = useComparisonData(locale);
   const hasExtraDiboasInfo = diboasSubtext.length > 0;
 
   // Analytics: fire once when section enters viewport
@@ -85,13 +147,13 @@ export const ComparisonTable = memo(function ComparisonTable({
             </thead>
             <tbody>
               <tr className={styles.row}>
-                <td className={styles.tdLabel}>APY</td>
+                <td className={styles.tdLabel}>{t('rows.apy')}</td>
                 {COLUMN_KEYS.map((col) => (
                   <td
                     key={col}
                     className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
                   >
-                    {t(`rates.${col}`)}
+                    {rates[col]}
                     {col === 'diboas' && hasExtraDiboasInfo ? (
                       <div className={styles.diboasSubtext}>{diboasSubtext}</div>
                     ) : null}
@@ -99,13 +161,13 @@ export const ComparisonTable = memo(function ComparisonTable({
                 ))}
               </tr>
               <tr className={styles.row}>
-                <td className={styles.tdLabel}>1-Year Return</td>
+                <td className={styles.tdLabel}>{t('rows.return')}</td>
                 {COLUMN_KEYS.map((col) => (
                   <td
                     key={col}
                     className={`${styles.td} ${styles.mono} ${col === 'diboas' ? styles.tdHighlight : ''}`}
                   >
-                    {t(`returns.${col}`)}
+                    {returns[col]}
                   </td>
                 ))}
               </tr>
@@ -122,12 +184,12 @@ export const ComparisonTable = memo(function ComparisonTable({
             >
               <span className={styles.mobileRowName}>{t(`columns.${col}`)}</span>
               <span className={`${styles.mobileRowRate} ${styles.mono}`}>
-                {t(`rates.${col}`)}
+                {rates[col]}
                 {col === 'diboas' && hasExtraDiboasInfo ? (
                   <span className={styles.mobileRowSubtext}>{diboasSubtext}</span>
                 ) : null}
               </span>
-              <span className={`${styles.mobileRowReturn} ${styles.mono}`}>{t(`returns.${col}`)}</span>
+              <span className={`${styles.mobileRowReturn} ${styles.mono}`}>{returns[col]}</span>
             </div>
           ))}
         </div>

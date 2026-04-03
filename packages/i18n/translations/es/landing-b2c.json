@@ -13,92 +13,45 @@
       "treasuries": "Bonos del Estado",
       "diboas": "diBoaS"
     },
-    "rates": {
-      "bank": "3,25%",
-      "neobanks": "4,75%",
-      "treasuries": "4,50%",
-      "diboas": "~7%"
+    "rows": {
+      "apy": "Tasa anual",
+      "return": "Rendimiento a 1 año"
     },
-    "returns": {
-      "bank": "+33 €",
-      "neobanks": "+47 €",
-      "treasuries": "+45 €",
-      "diboas": "+70 €"
-    },
-    "diboasSubtext": "",
-    "footnote": "Tasas comparativas basadas en datos públicos de la UE, marzo 2026. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos de criptoactivos implican riesgo, incluida la posible pérdida del capital."
+    "footnote": "Tasas comparativas basadas en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital."
   },
   "goalExamples": {
     "heading": "Hagámoslo sencillo.",
     "cards": {
       "retirement": {
         "title": "Plan de Jubilación",
-        "titleSummary": "€57k más",
-        "subtitle": "Considerando salario bruto = 35.000 €/año y una aportación de 100 €/mes durante 30 años.",
-        "diboasApy": "~7%",
-        "diboasResult": "116.945 €",
-        "diboasGain": "+80.945 €",
-        "diboasTime": "",
-        "bankApy": "3,25%",
-        "bankResult": "60.340 €",
-        "bankGain": "+24.340 €",
-        "bankTime": "",
-        "difference": "56.605 €",
+        "subtitle": "Considerando salario = 35.000 €/año y una aportación de 100 €/mes durante 30 años.",
         "tagline": "El mismo dinero. Diferente lugar. Gran diferencia.",
-        "bankSource": "Basado en tasa de ahorro promedio del 3,25%. Fuente: Estadísticas del BCE, enero 2026.",
-        "seeAnother": "Ver otra meta",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
       "emergency": {
         "title": "Fondo de Emergencia",
-        "titleSummary": "~4 meses antes",
         "subtitle": "Considerando gastos mensuales = 1.500 €, fondo de emergencia para 6 meses (9.000 €), y una aportación de 150 €/mes.",
-        "diboasApy": "~7%",
-        "diboasResult": "9.038 €",
-        "diboasTime": "en ~4,3 años",
-        "bankApy": "3,25%",
-        "bankResult": "9.047 €",
-        "bankTime": "en ~4,7 años",
-        "difference": "~4 meses antes",
         "tagline": "Mismo esfuerzo. Menos tiempo esperando.",
-        "bankSource": "Basado en tasa de ahorro promedio del 3,25%. Fuente: Estadísticas del BCE, enero 2026.",
-        "seeAnother": "Ver otra meta",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
       "christmas": {
         "title": "Paga Extra",
-        "titleSummary": "€59 más",
-        "subtitle": "Considerando salario bruto = 35.000 €/año, ahorrando 290 €/mes durante 12 meses.",
-        "diboasApy": "~7%",
-        "diboasResult": "3.590 €",
-        "diboasGain": "+110 €",
-        "diboasTime": "",
-        "bankApy": "3,25%",
-        "bankResult": "3.532 €",
-        "bankGain": "+52 €",
-        "bankTime": "",
-        "difference": "59 €",
-        "tagline": "Mismo sueldo. Diferente estrategia. 59 € más en tu bolsillo.",
-        "bankSource": "Basado en tasa de ahorro promedio del 3,25%. Fuente: Estadísticas del BCE, enero 2026.",
-        "seeAnother": "Ver otra meta",
+        "subtitle": "Considerando salario = 35.000 €/año, ahorrando 290 €/mes durante 12 meses.",
+        "tagline": "Mismo sueldo. Diferente estrategia. 58 € más en tu bolsillo.",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
       "wealthy": {
         "title": "La Regla del 10%",
-        "titleSummary": "€1,1k más",
-        "subtitle": "Con un salario neto de 1.700 €/mes, invirtiendo el 10% (170 €/mes) durante 5 años.",
-        "diboasApy": "~7%",
-        "diboasResult": "12.103 €",
-        "diboasGain": "+1.903 €",
-        "diboasTime": "",
-        "bankApy": "3,25%",
-        "bankResult": "11.046 €",
-        "bankGain": "+846 €",
-        "bankTime": "",
-        "difference": "1.057 €",
+        "subtitle": "Con un salario de 1.700 €/mes, invirtiendo el 10% (170 €/mes) durante 5 años.",
         "tagline": "Un enfoque popular para el ahorro a largo plazo: siempre aparta el 10% de tus ingresos, pase lo que pase.",
-        "bankSource": "Basado en tasa de ahorro promedio del 3,25%. Fuente: Estadísticas del BCE, enero 2026.",
-        "seeAnother": "Ver otra meta",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
       "custom": {
@@ -282,7 +235,7 @@
     "header": "No te fíes solo de nuestra palabra.",
     "subtext": "¿Qué haría tu dinero aquí?",
     "ctaPrimary": "Probar la Demo",
-    "ctaSecondary": "Sin registro. Sin dinero real. Solo la prueba."
+    "ctaSecondary": "Simula Tus Metas"
   },
   "socialProof": {
     "header": "Los primeros 1.200.",

@@ -13,92 +13,45 @@
       "treasuries": "Treasuries",
       "diboas": "diBoaS"
     },
-    "rates": {
-      "bank": "0.45%",
-      "neobanks": "4.75%",
-      "treasuries": "4.50%",
-      "diboas": "~7%"
+    "rows": {
+      "apy": "APY",
+      "return": "1-Year Return"
     },
-    "returns": {
-      "bank": "+$5",
-      "neobanks": "+$47",
-      "treasuries": "+$45",
-      "diboas": "+$70"
-    },
-    "diboasSubtext": "",
-    "footnote": "Comparison rates based on publicly available US data as of March 2026. Yield rates are subject to change and may vary across products. Crypto yields involve risk, including potential loss of principal."
+    "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal."
   },
   "goalExamples": {
     "heading": "Let's make it simple.",
     "cards": {
       "retirement": {
         "title": "Retirement Plan",
-        "titleSummary": "$78k more",
-        "subtitle": "On a $60,000/year gross salary, putting aside $100/month for 30 years.",
-        "diboasApy": "~7%",
-        "diboasResult": "$116,945",
-        "diboasGain": "+$80,945",
-        "diboasTime": "",
-        "bankApy": "0.45%",
-        "bankResult": "$38,530",
-        "bankGain": "+$2,530",
-        "bankTime": "",
-        "difference": "$78,415",
+        "subtitle": "On a $60,000/year salary, putting aside $100/month for 30 years.",
         "tagline": "Same money. Different place. Big difference.",
-        "bankSource": "Based on 0.45% average savings rate. Source: FDIC National Average, January 2026.",
-        "seeAnother": "See another goal",
+        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
       "emergency": {
         "title": "Emergency Fund",
-        "titleSummary": "~7 months less",
         "subtitle": "If you spend $2,900/month and want 6 months saved ($17,400), putting aside $300/month.",
-        "diboasApy": "~7%",
-        "diboasResult": "$17,677",
-        "diboasTime": "in ~4 years",
-        "bankApy": "0.45%",
-        "bankResult": "$17,587",
-        "bankTime": "in ~5 years",
-        "difference": "~7 months LESS",
-        "tagline": "Same effort. Months less waiting.",
-        "bankSource": "Based on 0.45% average savings rate. Source: FDIC National Average, January 2026.",
-        "seeAnother": "See another goal",
+        "tagline": "Same effort. Less waiting.",
+        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
       "christmas": {
         "title": "Christmas Bonus",
-        "titleSummary": "$178 more",
-        "subtitle": "On a $60,000/year gross salary, saving $500/month for 12 months.",
-        "diboasApy": "~7%",
-        "diboasResult": "$6,190",
-        "diboasGain": "+$190",
-        "diboasTime": "",
-        "bankApy": "0.45%",
-        "bankResult": "$6,012",
-        "bankGain": "+$12",
-        "bankTime": "",
-        "difference": "$178",
+        "subtitle": "On a $60,000/year salary, saving $500/month for 12 months.",
         "tagline": "Every dollar matters when you start small.",
-        "bankSource": "Based on 0.45% average savings rate. Source: FDIC National Average, January 2026.",
-        "seeAnother": "See another goal",
+        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
       "wealthy": {
         "title": "The 10% Rule",
-        "titleSummary": "$4.8k more",
-        "subtitle": "On a $4,600 NET monthly salary, investing 10% ($460/month) for 5 years.",
-        "diboasApy": "~7%",
-        "diboasResult": "$32,750",
-        "diboasGain": "+$5,150",
-        "diboasTime": "",
-        "bankApy": "0.45%",
-        "bankResult": "$27,907",
-        "bankGain": "+$307",
-        "bankTime": "",
-        "difference": "$4,843",
+        "subtitle": "On a $4,600 monthly salary, investing 10% ($460/month) for 5 years.",
         "tagline": "A popular approach to long-term saving: always set aside 10% of your income, no matter what.",
-        "bankSource": "Based on 0.45% average savings rate. Source: FDIC National Average, January 2026.",
-        "seeAnother": "See another goal",
+        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
       "custom": {
@@ -282,7 +235,7 @@
     "header": "Don't take our word for it.",
     "subtext": "What would your money do here?",
     "ctaPrimary": "Try the Demo",
-    "ctaSecondary": "No signup. No real money. Just proof."
+    "ctaSecondary": "Try Your Goals"
   },
   "socialProof": {
     "header": "The first 1,200.",
@@ -299,7 +252,7 @@
     "paragraphs": {
       "p1": "I grew up watching my grandmother Adelaide navigate a financial system that wasn't designed for her.",
       "p2": "She deserved better tools. So does everyone like her.",
-      "p3": "I spent 20 years building products for other people's companies. In S\u00e3o Paulo, New York, Tokyo, Berlin. Now I'm building the one thing I wish had existed for her.",
+      "p3": "I spent 20 years building products for other people's companies. In São Paulo, New York, Tokyo, Berlin. Now I'm building the one thing I wish had existed for her.",
       "p4": "I read every email. bar@diboas.com"
     },
     "emailText": "bar@diboas.com",
@@ -502,11 +455,11 @@
       "us": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
       "closing": "You decide what's best for your situation."
     },
-    "copyright": "\u00a9 2026 diBoaS. All rights reserved."
+    "copyright": "© 2026 diBoaS. All rights reserved."
   },
   "seo": {
     "title": "diBoaS | The System Wasn't Built for You. We're Changing That.",
-    "description": "See what $1,000 becomes in a year \u2014 your bank vs. diBoaS. Start from $5. You own every dollar.",
+    "description": "See what $1,000 becomes in a year — your bank vs. diBoaS. Start from $5. You own every dollar.",
     "ogTitle": "The money system isn't broken. It just wasn't built for you.",
     "ogDescription": "See what your money can do when the access is open and fair to everyone."
   }
