@@ -3,11 +3,13 @@
 /**
  * Protocols Hero Section
  *
- * Hero section for the protocols page
+ * Uses shared PageHeroSection for the hero, with trustLine below.
+ * Same pattern as StrategiesHeroSection.
  */
 
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
+import { PageHeroSection } from '@/components/Sections/PageHeroSection';
 import styles from './ProtocolsHeroSection.module.css';
 
 const I18N_PREFIX = 'protocols';
@@ -23,19 +25,14 @@ export function ProtocolsHeroSection() {
       enableReporting={true}
       context={{ page: 'protocols', variant: 'centered' }}
     >
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <h1 className={styles.title}>
-            {t('hero.h1')}
-          </h1>
-          <p className={styles.subtitle}>
-            {t('hero.subtitle')}
-          </p>
-          <p className={styles.trustLine}>
-            {t('hero.trustLine')}
-          </p>
-        </div>
-      </section>
+      <PageHeroSection
+        headline={t('hero.h1')}
+        subheadline={t('hero.subtitle')}
+        align="center"
+      />
+      <p className={styles.trustLine}>
+        {t('hero.trustLine')}
+      </p>
     </SectionErrorBoundary>
   );
 }

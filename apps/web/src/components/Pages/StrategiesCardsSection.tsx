@@ -3,19 +3,17 @@
 /**
  * StrategiesCardsSection
  *
- * Renders all 10 strategy cards in matrix order (stable-then-growth per row).
- * Uses config-driven optional fields map to avoid calling t() for missing keys.
+ * Renders all 10 strategy cards using the shared ExpandableCard pattern.
+ * Cards show name + badge + key stat in collapsed state.
+ * Multi-expand: users can expand multiple cards to compare side by side.
  */
 
 import { useTranslation } from '@diboas/i18n/client';
-import { StrategyCard } from '@/components/UI';
+import { ExpandableCard, ExpandableCardGrid } from '@/components/UI/ExpandableCard';
 import styles from './StrategiesPageContent.module.css';
 
 const I18N_PREFIX = 'marketing.pages.strategies';
 
-/**
- * Card render order follows matrix sequence: top-to-bottom, stable-then-growth.
- */
 const STRATEGY_ORDER = [
   'safeHarbor',
   'stableGrowth',
@@ -42,10 +40,6 @@ const GROWTH_EXPOSURE: Record<string, number> = {
   fullThrottle: 85,
 };
 
-/**
- * Config-driven map of which optional fields each strategy has.
- * Verified against FINAL EN copy.
- */
 const STRATEGY_OPTIONAL_FIELDS: Record<string, {
   hasNote?: boolean;
   hasWarning?: boolean;
@@ -67,44 +61,97 @@ const STRATEGY_OPTIONAL_FIELDS: Record<string, {
 export function StrategiesCardsSection() {
   const intl = useTranslation();
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+  const expandLabel = intl.formatMessage({ id: 'common.expandable.showMore' });
+  const collapseLabel = intl.formatMessage({ id: 'common.expandable.showLess' });
+
   return (
     <>
       <h2 className={styles.sectionTitle}>
         {t('allStrategiesHeader')}
       </h2>
 
-      <div className={styles.cardsGrid}>
-        {STRATEGY_ORDER.map((strategyId) => {
-          const optionals = STRATEGY_OPTIONAL_FIELDS[strategyId] || {};
-          return (
-            <StrategyCard
-              key={strategyId}
-              strategyId={strategyId}
-              name={t(`strategies.${strategyId}.name`)}
-              badge={t(`strategies.${strategyId}.badge`)}
-              tagline={t(`strategies.${strategyId}.tagline`)}
-              growthExposure={GROWTH_EXPOSURE[strategyId]}
-              growthBadgeLabel={t('growthBadge')}
-              description={t(`strategies.${strategyId}.description`)}
-              description2={optionals.hasDescription2 ? t(`strategies.${strategyId}.description2`) : undefined}
-              allocation={t(`strategies.${strategyId}.allocation`)}
-              allocationNote={t(`strategies.${strategyId}.allocationNote`)}
-              commonUseCase={t(`strategies.${strategyId}.commonUseCase`)}
-              note={optionals.hasNote ? t(`strategies.${strategyId}.note`) : undefined}
-              warning={optionals.hasWarning ? t(`strategies.${strategyId}.warning`) : undefined}
-              accessRequirements={optionals.hasAccessRequirements ? t(`strategies.${strategyId}.accessRequirements`) : undefined}
-              showMoreLabel={t('card.showMore')}
-              showLessLabel={t('card.showLess')}
-              stats={[
-                { label: t('statsLabels.lossChance'), value: t(`strategies.${strategyId}.stats.lossChance`) },
-                { label: t('statsLabels.typicalReturn'), value: t(`strategies.${strategyId}.stats.typicalReturn`) },
-                { label: t('statsLabels.bumpiness'), value: t(`strategies.${strategyId}.stats.bumpiness`) },
-                { label: t('statsLabels.riskLevel'), value: t(`strategies.${strategyId}.riskLevel`) },
-              ]}
-            />
-          );
-        })}
-      </div>
+      <ExpandableCardGrid multiExpand={true} className={styles.cardsGrid}>
+        {({ isExpanded, onToggle }) => (
+          <>
+            {STRATEGY_ORDER.map((strategyId) => {
+              const optionals = STRATEGY_OPTIONAL_FIELDS[strategyId] || {};
+              const growth = GROWTH_EXPOSURE[strategyId];
+              const typicalReturn = t(`strategies.${strategyId}.stats.typicalReturn`);
+              const badge = t(`strategies.${strategyId}.badge`);
+
+              return (
+                <ExpandableCard
+                  key={strategyId}
+                  id={strategyId}
+                  title={t(`strategies.${strategyId}.name`)}
+                  titleSummary={typicalReturn}
+                  expandLabel={expandLabel}
+                  collapseLabel={collapseLabel}
+                  isExpanded={isExpanded(strategyId)}
+                  onToggle={onToggle}
+                >
+                  {/* Badge + Tagline */}
+                  <p className={styles.strategyBadge}>{badge}</p>
+                  <p className={styles.strategyTagline}>{t(`strategies.${strategyId}.tagline`)}</p>
+
+                  {/* Growth exposure */}
+                  {growth > 0 ? (
+                    <p className={styles.strategyGrowth}>
+                      {growth}% {t('growthBadge')}
+                    </p>
+                  ) : null}
+
+                  {/* Stats grid */}
+                  <div className={styles.strategyStats}>
+                    <div className={styles.strategyStat}>
+                      <span className={styles.strategyStatLabel}>{t('statsLabels.lossChance')}:</span>
+                      <span className={styles.strategyStatValue}>{t(`strategies.${strategyId}.stats.lossChance`)}</span>
+                    </div>
+                    <div className={styles.strategyStat}>
+                      <span className={styles.strategyStatLabel}>{t('statsLabels.typicalReturn')}:</span>
+                      <span className={styles.strategyStatValue}>{typicalReturn}</span>
+                    </div>
+                    <div className={styles.strategyStat}>
+                      <span className={styles.strategyStatLabel}>{t('statsLabels.bumpiness')}:</span>
+                      <span className={styles.strategyStatValue}>{t(`strategies.${strategyId}.stats.bumpiness`)}</span>
+                    </div>
+                    <div className={styles.strategyStat}>
+                      <span className={styles.strategyStatLabel}>{t('statsLabels.riskLevel')}:</span>
+                      <span className={styles.strategyStatValue}>{t(`strategies.${strategyId}.riskLevel`)}</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className={styles.strategyDescription}>{t(`strategies.${strategyId}.description`)}</p>
+                  {optionals.hasDescription2 ? (
+                    <p className={styles.strategyDescription}>{t(`strategies.${strategyId}.description2`)}</p>
+                  ) : null}
+
+                  {/* Allocation */}
+                  <div className={styles.strategyAllocation}>
+                    <p className={styles.strategyAllocationText}>{t(`strategies.${strategyId}.allocation`)}</p>
+                    <p className={styles.strategyAllocationNote}>{t(`strategies.${strategyId}.allocationNote`)}</p>
+                  </div>
+
+                  {/* Common use case */}
+                  <p className={styles.strategyUseCase}>{t(`strategies.${strategyId}.commonUseCase`)}</p>
+
+                  {/* Optional: Note, Warning, Access Requirements */}
+                  {optionals.hasNote ? (
+                    <p className={styles.strategyNote}>{t(`strategies.${strategyId}.note`)}</p>
+                  ) : null}
+                  {optionals.hasWarning ? (
+                    <div className={styles.strategyWarning}>{t(`strategies.${strategyId}.warning`)}</div>
+                  ) : null}
+                  {optionals.hasAccessRequirements ? (
+                    <div className={styles.strategyAccess}>{t(`strategies.${strategyId}.accessRequirements`)}</div>
+                  ) : null}
+                </ExpandableCard>
+              );
+            })}
+          </>
+        )}
+      </ExpandableCardGrid>
 
       <p className={styles.honestLimitation}>
         {t('allCardsHonestLimitation')}

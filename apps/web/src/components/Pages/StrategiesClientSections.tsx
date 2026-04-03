@@ -10,9 +10,9 @@
  */
 
 import { useTranslation } from '@diboas/i18n/client';
-import { PageHeroSection, SectionContainer } from '@/components/Sections';
+import { PageHeroSection } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
-import { StrategyDisclaimers } from './StrategyDisclaimers';
+// StrategyDisclaimers import removed — wrapper was dead code
 import styles from './StrategiesPageContent.module.css';
 
 const I18N_PREFIX = 'marketing.pages.strategies';
@@ -50,17 +50,4 @@ export function StrategiesTransitionHook({ hookKey }: { hookKey: string }) {
   return <p className={styles.transitionHook}>{text}</p>;
 }
 
-// ─── Footer Disclaimers Wrapper ──────────────────────────────
-
-export function StrategiesDisclaimersWrapper() {
-  return (
-    <SectionContainer
-      variant="standard"
-      padding="none"
-      backgroundColor="var(--section-bg-neutral)"
-      className={styles.disclaimer}
-    >
-      <StrategyDisclaimers />
-    </SectionContainer>
-  );
-}
+// NOTE: StrategiesDisclaimersWrapper removed (dead code — never imported by any page)

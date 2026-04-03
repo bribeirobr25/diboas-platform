@@ -351,5 +351,9 @@
     "loadingPage": "Cargando página",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú"
+  },
+  "expandable": {
+    "showMore": "Ver más",
+    "showLess": "Ver menos"
   }
 }

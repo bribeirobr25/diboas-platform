@@ -33,10 +33,6 @@ export const GoalExampleCards = memo(function GoalExampleCards({
     setExpandedCard((prev) => (prev === key ? null : key));
   }, []);
 
-  const handleCollapse = useCallback(() => {
-    setExpandedCard(null);
-  }, []);
-
   const handleTryWithNumbers = useCallback(() => {
     setShowPreDream(true);
     if (enableAnalytics) {
@@ -83,7 +79,6 @@ export const GoalExampleCards = memo(function GoalExampleCards({
               cardKey={key}
               isExpanded={expandedCard === key}
               onToggle={handleToggle}
-              onCollapse={handleCollapse}
               onTryWithNumbers={handleTryWithNumbers}
               enableAnalytics={enableAnalytics}
             />

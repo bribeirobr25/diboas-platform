@@ -62,20 +62,108 @@
   margin: 0 0 var(--spacing-3xl) 0;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-2xl);
+/* ================================
+   PROTOCOL EXPANDABLE CARD CONTENT
+   ================================ */
+
+.badgeWarning,
+.badgeSuccess {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 2px var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--spacing-sm);
 }
 
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.badgeWarning {
+  color: var(--color-amber-700);
+  background: var(--color-amber-50);
 }
 
-@media (min-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.badgeSuccess {
+  color: var(--color-emerald-700);
+  background: var(--color-emerald-50);
+}
+
+.badgeIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.protocolDescription {
+  font-size: var(--font-size-sm-plus);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.exceptionNote {
+  font-size: var(--font-size-xs);
+  color: var(--color-amber-700);
+  background: var(--color-amber-50);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-amber-500);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.usedInStrategies {
+  font-size: var(--font-size-xs);
+  color: var(--cta-bg-primary);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.protocolDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-sm) 0;
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--color-slate-200);
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-md);
+}
+
+.detailLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.detailValue {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-heading);
+  text-align: right;
+}
+
+.protocolLinks {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.protocolLink {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--cta-bg-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.protocolLink:hover {
+  color: var(--brand-primary);
+}
+
+.protocolLink:focus-visible {
+  outline: 2px solid var(--cta-bg-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
 }

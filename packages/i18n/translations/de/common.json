@@ -351,5 +351,9 @@
     "loadingPage": "Seite wird geladen",
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen"
+  },
+  "expandable": {
+    "showMore": "Mehr anzeigen",
+    "showLess": "Weniger anzeigen"
   }
 }

@@ -468,3 +468,120 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ================================
+   STRATEGY EXPANDABLE CARD CONTENT
+   ================================ */
+
+.strategyBadge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--cta-bg-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.strategyTagline {
+  font-size: var(--font-size-sm-plus);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.strategyGrowth {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-teal-700);
+  background: var(--color-teal-50);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  display: inline-block;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.strategyStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xs) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--color-slate-200);
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.strategyStat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.strategyStatLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.strategyStatValue {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-heading);
+}
+
+.strategyDescription {
+  font-size: var(--font-size-sm-plus);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.strategyAllocation {
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-sm);
+  background: var(--section-bg-neutral);
+  border-radius: var(--radius-md);
+}
+
+.strategyAllocationText {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.strategyAllocationNote {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.strategyUseCase {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  font-style: italic;
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.strategyNote {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin: var(--spacing-sm) 0 0 0;
+}
+
+.strategyWarning {
+  font-size: var(--font-size-xs);
+  color: var(--color-amber-700);
+  background: var(--color-amber-50);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-amber-500);
+  margin: var(--spacing-sm) 0 0 0;
+}
+
+.strategyAccess {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background: var(--section-bg-neutral);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-sm) 0 0 0;
+}
