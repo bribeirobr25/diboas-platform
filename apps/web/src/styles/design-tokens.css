@@ -2215,6 +2215,22 @@
   --theme-focus-ring: var(--theme-interactive-primary);
   --theme-selection-bg: rgba(79, 209, 199, 0.2);
   --theme-selection-text: var(--theme-text-primary);
+
+  /* ── Component-level overrides for WCAG compliance ──
+     These override the semantic text color tokens used by
+     ProseSection, WaitlistSection, FAQAccordion, etc.
+     when rendered on dark backgrounds (--section-bg-dark).
+     Contrast ratios verified against #0f172a background:
+       #ffffff = 17.9:1 (AAA), #e2e8f0 = 14.5:1 (AAA),
+       #cbd5e1 = 12.0:1 (AAA), #5eead4 = 12.1:1 (AA)   */
+  --color-text-heading: #ffffff;
+  --color-text-body: #e2e8f0;
+  --color-text-secondary: #cbd5e1;
+  --color-section-title: #ffffff;
+  --text-primary-accessible: #5eead4;
+  --cta-bg-primary: #5eead4;
+  --cta-color-primary: #0f172a;
+  --color-slate-200: #e2e8f0;
 }
 
 /* ================================
