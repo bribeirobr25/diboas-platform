@@ -78,8 +78,9 @@ export function SocialProofSection({
   }, [enableAnalytics, intl.locale]);
 
   return (
-    <section
+    <div
       className={`${styles.section} ${className}`}
+      role="region"
       aria-label={intl.formatMessage({ id: 'common.aria.socialProof' })}
       style={backgroundColor ? { backgroundColor } : undefined}
     >
@@ -151,7 +152,7 @@ export function SocialProofSection({
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 'use client';
 
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import dynamic from 'next/dynamic';
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
@@ -28,6 +29,13 @@ export const GoalExampleCards = memo(function GoalExampleCards({
   const intl = useTranslation();
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const [showPreDream, setShowPreDream] = useState(false);
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+
+  // Portal target for PreDream — must render outside ScrollReveal's transform
+  // stacking context to allow position:fixed to work relative to viewport
+  useEffect(() => {
+    setPortalContainer(document.body);
+  }, []);
 
   const handleToggle = useCallback((key: string) => {
     setExpandedCard((prev) => (prev === key ? null : key));
@@ -92,11 +100,12 @@ export const GoalExampleCards = memo(function GoalExampleCards({
         </p>
       </SectionContainer>
 
-      {showPreDream ? (
+      {showPreDream && portalContainer ? createPortal(
         <PreDream
           onClose={handlePreDreamClose}
           onBackToHome={handlePreDreamClose}
-        />
+        />,
+        portalContainer
       ) : null}
     </>
   );

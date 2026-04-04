@@ -204,7 +204,9 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
             enableReporting={true}
             context={{ page: 'landing-b2c' }}
           >
-            <SidePocketStrip />
+            <div data-section-id="sidepocket-section-b2c">
+              <SidePocketStrip />
+            </div>
           </SectionErrorBoundary>
         </ScrollReveal>
 
@@ -328,7 +330,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
             enableReporting={true}
             context={{ page: 'landing-b2c' }}
           >
-            <div style={{ backgroundColor: 'var(--section-bg-white)' }}>
+            <div id="social-proof" data-section-id="founding-members-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
               <FoundingMembersSection enableAnalytics={true} />
             </div>
           </SectionErrorBoundary>

@@ -11,14 +11,23 @@
 
 .hero {
   background: linear-gradient(to bottom, var(--color-slate-900), var(--color-slate-800));
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  /* Compensate for fixed navigation height (60px mobile, 80px desktop)
+     plus standard section padding for visual breathing room */
+  padding-top: calc(60px + var(--padding-section-mobile-y));
+  padding-bottom: var(--padding-section-mobile-y);
 }
 
 @media (min-width: 768px) {
   .hero {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: calc(80px + var(--padding-section-tablet-y));
+    padding-bottom: var(--padding-section-tablet-y);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-top: calc(80px + var(--padding-section-desktop-y));
+    padding-bottom: var(--padding-section-desktop-y);
   }
 }
 

@@ -134,34 +134,46 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
         <CvmBanner namespace={PROTOCOLS_I18N_PREFIX} />
 
         {/* Section 1: Hero */}
-        <ProtocolsHeroSection />
+        <div data-section-id="hero-section-protocols">
+          <ProtocolsHeroSection />
+        </div>
 
         {/* Transition 1 */}
         <ProtocolsTransitionHook hookKey="transitions.t1" />
 
         {/* Section 2: Why This Page Exists */}
-        <ProtocolsIntroSection />
+        <div data-section-id="intro-section-protocols">
+          <ProtocolsIntroSection />
+        </div>
 
         {/* Section 3: Protocol Grid */}
-        <ProtocolsGridSection />
+        <div id="protocols" data-section-id="grid-section-protocols">
+          <ProtocolsGridSection />
+        </div>
 
         {/* Transition 2 */}
         <ProtocolsTransitionHook hookKey="transitions.t2" />
 
         {/* Section 4: Selection Process */}
-        <ProtocolsSelectionSection />
+        <div data-section-id="selection-section-protocols">
+          <ProtocolsSelectionSection />
+        </div>
 
         {/* Transition 3 */}
         <ProtocolsTransitionHook hookKey="transitions.t3" variant="pivotal" />
 
         {/* Section 5: TVL */}
-        <ProtocolsTvlSection />
+        <div data-section-id="tvl-section-protocols">
+          <ProtocolsTvlSection />
+        </div>
 
         {/* Transition 4 */}
         <ProtocolsTransitionHook hookKey="transitions.t4" variant="pivotal" />
 
         {/* Section 6: What This Page Is Not */}
-        <ProtocolsNotIsSection />
+        <div data-section-id="notis-section-protocols">
+          <ProtocolsNotIsSection />
+        </div>
 
         {/* Transition 5 */}
         <ProtocolsTransitionHook hookKey="transitions.t5" />
@@ -173,7 +185,9 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
           enableReporting
           context={{ page: 'protocols' }}
         >
-          <FAQAccordion config={PROTOCOLS_FAQ_CONFIG} />
+          <div id="faq" data-section-id="faq-section-protocols">
+            <FAQAccordion config={PROTOCOLS_FAQ_CONFIG} />
+          </div>
         </SectionErrorBoundary>
 
         {/* CTA Transition */}
@@ -186,7 +200,7 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
           enableReporting
           context={{ page: 'protocols' }}
         >
-          <div id="waitlist">
+          <div id="waitlist" data-section-id="waitlist-section-protocols">
             <WaitlistSection config={PROTOCOLS_WAITLIST_CONFIG} enableAnalytics />
           </div>
         </SectionErrorBoundary>

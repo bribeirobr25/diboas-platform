@@ -138,59 +138,71 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
 
         {/* Section 2: Strategy Matrix */}
         <SectionErrorBoundary sectionId="matrix-section-strategies" sectionType="StrategyMatrix" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
-            <StrategiesMatrixSection />
-          </SectionContainer>
+          <div data-section-id="matrix-section-strategies">
+            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+              <StrategiesMatrixSection />
+            </SectionContainer>
+          </div>
         </SectionErrorBoundary>
 
         <StrategiesTransitionHook hookKey="matrix.transition" />
 
         {/* Section 3: Strategy Cards */}
         <SectionErrorBoundary sectionId="cards-section-strategies" sectionType="StrategyCards" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
-            <StrategiesCardsSection />
-          </SectionContainer>
+          <div id="strategies" data-section-id="cards-section-strategies">
+            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
+              <StrategiesCardsSection />
+            </SectionContainer>
+          </div>
         </SectionErrorBoundary>
 
         <StrategiesTransitionHook hookKey="cardsTransition" />
 
         {/* Section 4: Protocol Table */}
         <SectionErrorBoundary sectionId="protocols-section-strategies" sectionType="ProtocolTable" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
-            <StrategiesProtocolTable />
-          </SectionContainer>
+          <div data-section-id="protocols-section-strategies">
+            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+              <StrategiesProtocolTable />
+            </SectionContainer>
+          </div>
         </SectionErrorBoundary>
 
         <StrategiesTransitionHook hookKey="protocols.transition" />
 
         {/* Section 5: Fee Table */}
         <SectionErrorBoundary sectionId="fees-section-strategies" sectionType="FeeTable" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
-            <StrategyFeeTable />
-          </SectionContainer>
+          <div id="fees" data-section-id="fees-section-strategies">
+            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
+              <StrategyFeeTable />
+            </SectionContainer>
+          </div>
         </SectionErrorBoundary>
 
         <StrategiesTransitionHook hookKey="fees.transition" />
 
         {/* Section 6: How to Choose */}
         <SectionErrorBoundary sectionId="how-to-choose-section" sectionType="HowToChoose" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="narrow" padding="standard" backgroundColor="var(--section-bg-neutral)">
-            <StrategiesHowToChoose />
-          </SectionContainer>
+          <div data-section-id="how-to-choose-section">
+            <SectionContainer variant="narrow" padding="standard" backgroundColor="var(--section-bg-neutral)">
+              <StrategiesHowToChoose />
+            </SectionContainer>
+          </div>
         </SectionErrorBoundary>
 
         <StrategiesTransitionHook hookKey="howToChoose.transition" />
 
         {/* Section 7: FAQ */}
         <SectionErrorBoundary sectionId="faq-section-strategies" sectionType="FAQAccordion" enableReporting context={{ page: 'strategies' }}>
-          <FAQAccordion config={STRATEGIES_FAQ_CONFIG} />
+          <div id="faq" data-section-id="faq-section-strategies">
+            <FAQAccordion config={STRATEGIES_FAQ_CONFIG} />
+          </div>
         </SectionErrorBoundary>
 
         <StrategiesTransitionHook hookKey="faq.transition" />
 
         {/* Section 8: Waitlist / CTA */}
         <SectionErrorBoundary sectionId="waitlist-section-strategies" sectionType="WaitlistSection" enableReporting context={{ page: 'strategies' }}>
-          <div id="waitlist">
+          <div id="waitlist" data-section-id="waitlist-section-strategies">
             <WaitlistSection config={STRATEGIES_WAITLIST_CONFIG} enableAnalytics />
           </div>
         </SectionErrorBoundary>
