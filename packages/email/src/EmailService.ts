@@ -25,17 +25,19 @@ export function createEmailService(
 ): IEmailService {
   const config = getEmailConfig();
 
-  function buildPayload(to: string, subject: string, html: string, tags: string[]): EmailPayload {
+  function buildPayload(to: string, subject: string, html: string, tags: string[], unsubscribeUrl?: string): EmailPayload {
+    const headers: Record<string, string> = {};
+    if (unsubscribeUrl) {
+      headers['List-Unsubscribe'] = `<${unsubscribeUrl}>`;
+      headers['List-Unsubscribe-Post'] = 'List-Unsubscribe=One-Click';
+    }
     return {
       to,
       subject,
       html,
       replyTo: config.replyTo,
       tags,
-      headers: {
-        'List-Unsubscribe': `<${config.unsubscribeUrl}?email=${encodeURIComponent(to)}>`,
-        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
-      },
+      headers: Object.keys(headers).length > 0 ? headers : undefined,
     };
   }
 
@@ -44,14 +46,15 @@ export function createEmailService(
 
     sendWelcome: (to, data) => {
       const { subject, html } = renderWelcome(data);
-      return provider.send(buildPayload(to, subject, html, ['welcome', 'waitlist']));
+      return provider.send(buildPayload(to, subject, html, ['welcome', 'waitlist'], data.unsubscribeApiUrl));
     },
 
     sendReferralSuccess: (to, data) => {
       const { subject, html } = renderReferralSuccess(data);
-      return provider.send(buildPayload(to, subject, html, ['referral-success', 'waitlist']));
+      return provider.send(buildPayload(to, subject, html, ['referral-success', 'waitlist'], data.unsubscribeApiUrl));
     },
 
+    // Deletion emails: NO unsubscribe — transactional security emails, always delivered
     sendDeletionConfirmation: (to, data) => {
       const { subject, html } = renderDeletionConfirmation(data);
       return provider.send(buildPayload(to, subject, html, ['deletion-confirmation', 'gdpr']));

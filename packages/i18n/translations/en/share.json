@@ -43,16 +43,13 @@
     "benefit": "Share to help friends get early access",
     "copied": "Link copied to clipboard!"
   },
-  "waitlistPosition": {
-    "twitter": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us: {referralUrl} @diboasfi",
-    "whatsapp": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us: {referralUrl}",
-    "facebook": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us.",
-    "linkedin": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us: {referralUrl}"
-  },
   "timeframes": {
     "1week": "1 week",
     "1month": "1 month",
     "1year": "1 year",
     "5years": "5 years"
+  },
+  "waitlist": {
+    "text": "Money should move like messages, free and instant. Access to grow should be fair and open to everyone. If you believe, join us:"
   }
 }

@@ -6,7 +6,6 @@ export function getEmailConfig(): EmailServiceConfig {
     fromAddress: process.env.EMAIL_FROM_ADDRESS || 'hello@diboas.com',
     fromName: process.env.EMAIL_FROM_NAME || 'diBoaS',
     replyTo: process.env.EMAIL_REPLY_TO || 'support@diboas.com',
-    unsubscribeUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com'}/api/email/unsubscribe`,
   };
 }
 

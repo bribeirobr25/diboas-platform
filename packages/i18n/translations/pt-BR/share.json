@@ -43,16 +43,13 @@
     "benefit": "Compartilhe para ajudar amigos a ter acesso antecipado",
     "copied": "Link copiado!"
   },
-  "waitlistPosition": {
-    "twitter": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente: {referralUrl} @diboasfi",
-    "whatsapp": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente: {referralUrl}",
-    "facebook": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente.",
-    "linkedin": "Dinheiro deveria se mover como mensagem, de graça e na hora. Acesso pra crescer deveria ser justo e aberto pra todos. Se você acredita, vem com a gente: {referralUrl}"
-  },
   "timeframes": {
     "1week": "1 semana",
     "1month": "1 mês",
     "1year": "1 ano",
     "5years": "5 anos"
+  },
+  "waitlist": {
+    "text": "O dinheiro deveria circular como mensagens, livre e instantâneo. O acesso ao crescimento deveria ser justo e aberto a todos. Se você acredita, junte-se a nós:"
   }
 }

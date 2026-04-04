@@ -36,12 +36,15 @@ import {
   getByReferralCode,
   processReferral,
   getFoundingMemberCount,
+  checkEmailOptOut,
   type WaitlistSource,
   type WaitlistTier,
 } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
 import { logAuditEvent } from '@/lib/audit/AuditService';
 import { sendEmailAsync } from '@/lib/email/sendEmail';
+import { buildUnsubscribeUrls } from '@/lib/email/unsubscribeUrl';
+import { hmacHash } from '@/lib/security/encryption';
 import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 import {
   applicationEventBus,
@@ -190,49 +193,65 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
         const updatedReferrer = await processReferral(referrer.email);
         // Notify referrer (fire-and-forget, matching sendWelcomeEmail pattern)
         if (updatedReferrer) {
-          sendEmailAsync({
-            method: 'sendReferralSuccess',
-            recipient: referrer.email,
-            template: 'referral-success',
-            subject: 'Someone used your invite!',
-            locale: body.locale || 'en',
-            data: {
-              locale: body.locale || 'en',
-              name: updatedReferrer.name,
-              referralCount: updatedReferrer.referralCount,
-              tier: updatedReferrer.tier,
-              invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
-            },
-          });
+          const referrerHash = hmacHash(referrer.email);
+          const referrerOptedOut = referrerHash ? await checkEmailOptOut(referrerHash) : false;
+          if (!referrerOptedOut) {
+            const referrerLocale = updatedReferrer.locale || referrer.locale || 'en';
+            const referrerUnsubUrls = buildUnsubscribeUrls(referrer.email, referrerLocale);
+            sendEmailAsync({
+              method: 'sendReferralSuccess',
+              recipient: referrer.email,
+              template: 'referral-success',
+              subject: 'Someone used your invite!',
+              locale: referrerLocale,
+              data: {
+                locale: referrerLocale,
+                name: updatedReferrer.name,
+                referralCount: updatedReferrer.referralCount,
+                tier: updatedReferrer.tier,
+                invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
+                unsubscribeUrl: referrerUnsubUrls?.pageUrl,
+                unsubscribeApiUrl: referrerUnsubUrls?.apiUrl,
+              },
+            });
+          }
         }
       }
     }
 
     const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referralCode);
 
-    // Send welcome email (non-blocking)
+    // Send welcome email (non-blocking, respects opt-out)
     const welcomeLocale = body.locale || 'en';
-    sendEmailAsync({
-      method: 'sendWelcome',
-      recipient: email,
-      template: 'welcome',
-      subject: 'Welcome to diBoaS',
-      locale: welcomeLocale,
-      data: {
-        position: entry.position,
-        referralCode,
-        referralUrl,
+    const emailHash = hmacHash(email);
+    const isOptedOut = emailHash ? await checkEmailOptOut(emailHash) : false;
+
+    if (!isOptedOut) {
+      const unsubUrls = buildUnsubscribeUrls(email, welcomeLocale);
+      sendEmailAsync({
+        method: 'sendWelcome',
+        recipient: email,
+        template: 'welcome',
+        subject: 'Welcome to diBoaS',
         locale: welcomeLocale,
-        name: body.name ? sanitizeUserName(body.name) : undefined,
-        tier: entry.tier,
-      },
-      enrichData: async () => {
-        const foundingMember = await getFoundingMemberCount();
-        return {
-          foundingMemberSpotsRemaining: Math.max(0, foundingMember.cap - foundingMember.count),
-        };
-      },
-    });
+        data: {
+          position: entry.position,
+          referralCode,
+          referralUrl,
+          locale: welcomeLocale,
+          name: body.name ? sanitizeUserName(body.name) : undefined,
+          tier: entry.tier,
+          unsubscribeUrl: unsubUrls?.pageUrl,
+          unsubscribeApiUrl: unsubUrls?.apiUrl,
+        },
+        enrichData: async () => {
+          const foundingMember = await getFoundingMemberCount();
+          return {
+            foundingMemberSpotsRemaining: Math.max(0, foundingMember.cap - foundingMember.count),
+          };
+        },
+      });
+    }
 
     // Emit signup completed event for analytics and audit trail
     applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {

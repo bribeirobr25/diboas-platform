@@ -1,0 +1,107 @@
+/**
+ * EmailPreferences page styles
+ * Follows delete-confirm pattern, uses design tokens
+ */
+
+.container {
+  max-width: 480px;
+  margin: var(--spacing-7xl) auto;
+  padding: 0 var(--spacing-2xl);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.titleSuccess {
+  composes: title;
+  color: var(--cta-bg-primary);
+}
+
+.titleError {
+  composes: title;
+  color: var(--theme-status-error);
+}
+
+.bodyText {
+  color: var(--color-slate-600);
+  margin-bottom: var(--spacing-3xl);
+  line-height: 1.6;
+}
+
+.statusText {
+  color: var(--color-slate-600);
+}
+
+.primaryButton {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto var(--spacing-md);
+  padding: 14px 32px;
+  background-color: var(--cta-bg-primary);
+  color: var(--cta-color-primary);
+  border: none;
+  border-radius: 50px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.primaryButton:hover {
+  background-color: var(--cta-bg-hover);
+}
+
+.primaryButton:focus-visible {
+  outline: 2px solid var(--cta-focus-color);
+  outline-offset: 2px;
+}
+
+.secondaryButton {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  padding: 12px 32px;
+  background: none;
+  color: var(--color-text-secondary);
+  border: none;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.secondaryButton:hover {
+  color: var(--color-text-heading);
+}
+
+.changedMind {
+  margin-top: var(--spacing-3xl);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: var(--cta-bg-primary);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-size: inherit;
+  padding: 0;
+}
+
+.linkButton:hover {
+  color: var(--cta-bg-hover);
+}
+
+.linkButton:focus-visible {
+  outline: 2px solid var(--cta-focus-color);
+  outline-offset: 2px;
+}

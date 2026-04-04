@@ -112,10 +112,10 @@ export function middleware(request: NextRequest): NextResponse {
       return response;
     }
 
-    // Root path "/" also uses locale detection
+    // Root path "/" also uses locale detection — preserve query params (UTM, ref)
     if (pathname === '/') {
       const detectedLocale = detectLocale(request);
-      const redirectUrl = new URL(`/${detectedLocale}`, request.url);
+      const redirectUrl = new URL(`/${detectedLocale}${search}`, request.url);
       const response = NextResponse.redirect(redirectUrl);
       response.headers.set('Content-Security-Policy', csp);
       response.headers.set('x-nonce', nonce);

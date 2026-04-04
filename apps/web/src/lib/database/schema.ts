@@ -21,6 +21,7 @@ export interface WaitlistEntryRow {
   tier: string;
   country: string | null;
   version: number;
+  email_opted_out: boolean;
   created_at: string;
   updated_at: string;
 }

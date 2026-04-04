@@ -17,23 +17,13 @@ export {
 
 // Helpers
 export {
-  generateSubmissionId,
   isValidEmail,
-  isValidXAccount,
-  isValidName,
-  normalizeXAccount,
-  createConsentTimestamp,
-  formatSubmissionDate,
-  isStorageAvailable,
-  truncateString,
   generateReferralCode,
   isValidReferralCode,
-  extractReferralFromUrl,
   generateReferralUrl,
   formatPosition,
   setReferralStorage,
   getReferralFromStorage,
-  clearReferralStorage,
 } from './helpers';
 
 // Store

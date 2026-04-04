@@ -1,20 +1,14 @@
 /**
  * Waiting List Helpers
  *
- * Utility functions for waiting list operations
- * Following DRY principles
+ * Utility functions for waiting list operations.
+ * Dead code removed 2026-04-04: generateSubmissionId, isValidXAccount,
+ * isValidName (shadowed by api/validators), normalizeXAccount,
+ * createConsentTimestamp, formatSubmissionDate, isStorageAvailable,
+ * truncateString, extractReferralFromUrl, clearReferralStorage.
  */
 
 import { VALIDATION_PATTERNS } from './constants';
-
-/**
- * Generates a unique submission ID
- */
-export const generateSubmissionId = (): string => {
-  const timestamp = Date.now();
-  const random = Math.random().toString(36).substring(2, 9);
-  return `wl_${timestamp}_${random}`;
-};
 
 /**
  * Validates email format
@@ -24,77 +18,16 @@ export const isValidEmail = (email: string): boolean => {
 };
 
 /**
- * Validates X (Twitter) account format
- */
-export const isValidXAccount = (xAccount: string): boolean => {
-  if (!xAccount) return true; // Optional field
-  const cleaned = xAccount.startsWith('@') ? xAccount.slice(1) : xAccount;
-  return VALIDATION_PATTERNS.xAccount.test(`@${cleaned}`);
-};
-
-/**
- * Validates name format
- */
-export const isValidName = (name: string): boolean => {
-  if (!name) return true; // Optional field
-  return VALIDATION_PATTERNS.name.test(name.trim());
-};
-
-/**
- * Normalizes X account (ensures @ prefix)
- */
-export const normalizeXAccount = (xAccount: string): string => {
-  if (!xAccount) return '';
-  const trimmed = xAccount.trim();
-  return trimmed.startsWith('@') ? trimmed : `@${trimmed}`;
-};
-
-/**
- * Creates ISO timestamp for consent tracking
- */
-export const createConsentTimestamp = (): Date => {
-  return new Date();
-};
-
-/**
- * Formats date for display
- */
-export const formatSubmissionDate = (date: Date): string => {
-  return date.toISOString();
-};
-
-/**
- * Checks if storage is available (client-side only)
- */
-export const isStorageAvailable = (): boolean => {
-  if (typeof window === 'undefined') return false;
-  try {
-    const test = '__storage_test__';
-    localStorage.setItem(test, test);
-    localStorage.removeItem(test);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-/**
- * Truncates string to max length
- */
-export const truncateString = (str: string, maxLength: number): string => {
-  if (str.length <= maxLength) return str;
-  return str.substring(0, maxLength);
-};
-
-/**
- * Generates a unique referral code
+ * Generates a unique referral code using cryptographic randomness.
  * Format: REF + 6 alphanumeric characters (e.g., REF847ABC)
  */
 export const generateReferralCode = (prefix: string = 'REF', length: number = 6): string => {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Avoiding confusing chars (0, O, 1, I)
+  const randomBytes = new Uint8Array(length);
+  crypto.getRandomValues(randomBytes);
   let code = '';
   for (let i = 0; i < length; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
+    code += chars.charAt(randomBytes[i] % chars.length);
   }
   return `${prefix}${code}`;
 };
@@ -106,18 +39,6 @@ export const isValidReferralCode = (code: string, prefix: string = 'REF'): boole
   if (!code) return false;
   const pattern = new RegExp(`^${prefix}[A-Z0-9]{4,8}$`, 'i');
   return pattern.test(code);
-};
-
-/**
- * Extracts referral code from URL query params
- */
-export const extractReferralFromUrl = (url: string): string | null => {
-  try {
-    const urlObj = new URL(url);
-    return urlObj.searchParams.get('ref') || null;
-  } catch {
-    return null;
-  }
 };
 
 /**
@@ -158,17 +79,5 @@ export const getReferralFromStorage = (key: string): string | null => {
     return sessionStorage.getItem(key);
   } catch {
     return null;
-  }
-};
-
-/**
- * Clears referral code from sessionStorage.
- */
-export const clearReferralStorage = (key: string): void => {
-  if (typeof window === 'undefined') return;
-  try {
-    sessionStorage.removeItem(key);
-  } catch {
-    // sessionStorage unavailable
   }
 };

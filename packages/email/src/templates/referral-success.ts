@@ -60,5 +60,5 @@ export function renderReferralSuccess(data: ReferralSuccessEmailData): { subject
     <p style="margin:0;font-size:14px;color:#475569;text-align:center;">${t.cta}</p>
   `;
 
-  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale }) };
+  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale, unsubscribeUrl: data.unsubscribeUrl }) };
 }

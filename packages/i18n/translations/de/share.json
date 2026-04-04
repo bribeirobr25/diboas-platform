@@ -43,16 +43,13 @@
     "benefit": "Teilen, um Freunden frühzeitigen Zugang zu ermöglichen",
     "copied": "Link in die Zwischenablage kopiert!"
   },
-  "waitlistPosition": {
-    "twitter": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu: {referralUrl} @diboasfi",
-    "whatsapp": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu: {referralUrl}",
-    "facebook": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu.",
-    "linkedin": "Geld sollte sich wie Nachrichten bewegen, kostenlos und sofort. Zugang zum Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, komm dazu: {referralUrl}"
-  },
   "timeframes": {
     "1week": "1 Woche",
     "1month": "1 Monat",
     "1year": "1 Jahr",
     "5years": "5 Jahren"
+  },
+  "waitlist": {
+    "text": "Geld sollte sich wie Nachrichten bewegen, frei und sofort. Der Zugang zu Wachstum sollte fair und offen für alle sein. Wenn du daran glaubst, mach mit:"
   }
 }

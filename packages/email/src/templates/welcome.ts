@@ -192,5 +192,5 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
     <p style="margin:0;font-size:14px;color:#475569;">${t.whatNextBody}</p>
   `;
 
-  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale }) };
+  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale, unsubscribeUrl: data.unsubscribeUrl }) };
 }

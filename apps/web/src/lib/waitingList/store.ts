@@ -515,6 +515,20 @@ export async function deleteByEmail(email: string): Promise<boolean> {
 /**
  * Clear store (for testing only)
  */
+/**
+ * Check if a user has opted out of emails.
+ * Used before sending marketing emails (welcome, referral-success).
+ * Opt-out status is query-only — not part of the WaitlistEntry domain model.
+ */
+export async function checkEmailOptOut(emailHash: string): Promise<boolean> {
+  const rows = await sql`
+    SELECT 1 FROM waitlist_entries
+    WHERE email_hash = ${emailHash} AND email_opted_out = TRUE
+    LIMIT 1
+  `;
+  return rows.length > 0;
+}
+
 export async function clearStore(): Promise<void> {
   await sql`DELETE FROM waitlist_entries`;
   await sql`UPDATE waitlist_counters SET value = 0 WHERE key = 'position'`;

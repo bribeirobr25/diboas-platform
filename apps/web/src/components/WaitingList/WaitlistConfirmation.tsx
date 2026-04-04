@@ -131,8 +131,6 @@ export function WaitlistConfirmation({
         <ReferralLink
           referralCode={referralCode}
           referralUrl={referralUrl}
-          position={position}
-          tier={tier}
           onShare={onShareClick}
         />
 

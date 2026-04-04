@@ -22,6 +22,7 @@ vi.mock('@/lib/waitingList/store', () => ({
   getByReferralCode: vi.fn(),
   processReferral: vi.fn(),
   getFoundingMemberCount: vi.fn().mockResolvedValue({ count: 100, cap: 1200 }),
+  checkEmailOptOut: vi.fn().mockResolvedValue(false),
 }));
 
 // Mock security barrel (rate limiter, CSRF, idempotency)
@@ -50,6 +51,21 @@ vi.mock('@/lib/waitingList/helpers', () => ({
   generateReferralUrl: vi.fn().mockReturnValue('https://diboas.com/ref/REFTEST01'),
   isValidEmail: vi.fn((email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)),
   isValidReferralCode: vi.fn().mockReturnValue(true),
+}));
+
+// Mock unsubscribe URL builder
+vi.mock('@/lib/email/unsubscribeUrl', () => ({
+  buildUnsubscribeUrls: vi.fn().mockReturnValue({
+    pageUrl: 'https://diboas.com/en/email-preferences?id=hash&token=tok',
+    apiUrl: 'https://diboas.com/api/email/unsubscribe?id=hash&token=tok',
+  }),
+}));
+
+// Mock encryption (hmacHash used for opt-out check)
+vi.mock('@/lib/security/encryption', () => ({
+  hmacHash: vi.fn().mockReturnValue('test-hash'),
+  encrypt: vi.fn((v: string) => v),
+  decrypt: vi.fn((v: string) => v),
 }));
 
 // Mock Logger

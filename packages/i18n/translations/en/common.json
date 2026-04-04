@@ -355,5 +355,20 @@
   "expandable": {
     "showMore": "Show more",
     "showLess": "Show less"
+  },
+  "emailPreferences": {
+    "title": "Email Preferences",
+    "heading": "Manage your emails",
+    "description": "You will be unsubscribed from diBoaS emails. Your waitlist position and referral credits are preserved.",
+    "unsubscribeButton": "Unsubscribe",
+    "staySubscribedButton": "Stay subscribed",
+    "successUnsubscribed": "You have been unsubscribed from diBoaS emails.",
+    "successResubscribed": "You have been re-subscribed to diBoaS emails.",
+    "positionPreserved": "Your waitlist position is preserved.",
+    "changedMind": "Changed your mind?",
+    "resubscribeButton": "Re-subscribe",
+    "invalidLink": "This link is invalid or has expired.",
+    "error": "Something went wrong. Please try again.",
+    "processing": "Processing..."
   }
 }

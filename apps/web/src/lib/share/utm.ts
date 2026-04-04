@@ -6,6 +6,7 @@
  */
 
 import type { SharePlatform, CardType } from './types';
+import { APP_URL } from '@/config/env';
 
 /**
  * UTM source types
@@ -60,11 +61,8 @@ export const UTM_CONFIGS: Record<CardType, Omit<UtmParams, 'utm_content'>> = {
 export const UTM_CONTENT_BY_PLATFORM: Record<SharePlatform, string> = {
   twitter: 'twitter',
   whatsapp: 'whatsapp',
-  instagram: 'instagram',
-  facebook: 'facebook',
   linkedin: 'linkedin',
   telegram: 'telegram',
-  download: 'download',
   copy: 'link_copy',
 } as const;
 
@@ -110,13 +108,16 @@ export function buildUtmUrl(
 export function getShareUrl(
   cardType: CardType = 'dream',
   platform?: SharePlatform,
-  referralCode?: string
+  referralCode?: string,
+  locale?: string
 ): string {
-  const baseUrl = 'https://diboas.com';
+  // Include locale to avoid root redirect (which could lose params)
+  // and to land the recipient on the sharer's locale version
+  const localePath = locale ? `/${locale}` : '';
+  const baseUrl = `${APP_URL}${localePath}`;
 
   let url = buildUtmUrl(baseUrl, cardType, platform);
 
-  // Add referral code if provided
   if (referralCode) {
     url += `&ref=${encodeURIComponent(referralCode)}`;
   }

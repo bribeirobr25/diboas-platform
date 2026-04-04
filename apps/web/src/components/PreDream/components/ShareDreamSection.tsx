@@ -13,6 +13,13 @@ import { useTranslation } from '@diboas/i18n/client';
 import { formatCurrency, type PreDreamResult } from '@/lib/pre-dream';
 import { useLocale } from '@/components/Providers';
 import { getShareUrl, type SharePlatform } from '@/lib/share';
+import {
+  getTwitterShareUrl,
+  getWhatsAppShareUrl,
+  getLinkedInShareUrl,
+  openShareWindow,
+  copyToClipboard,
+} from '@/lib/share/platformUrls';
 import { Logger } from '@/lib/monitoring/Logger';
 import { analyticsService } from '@/lib/analytics';
 import {
@@ -55,7 +62,7 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
     const shareText = getShareText();
     const amount = formatCurrency(result.defiBalance, 0, locale);
     const growth = `${result.growthPercentage.toFixed(0)}%`;
-    const baseShareUrl = getShareUrl('dream', platform as SharePlatform);
+    const baseShareUrl = getShareUrl('dream', platform as SharePlatform, undefined, locale);
     // Append dream result params so the landing page can render OG metadata
     // via /api/og/dream?amount=...&growth=...
     const shareUrl = `${baseShareUrl}&dream_amount=${encodeURIComponent(amount)}&dream_growth=${encodeURIComponent(growth)}`;
@@ -74,37 +81,28 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
     try {
       switch (platform) {
         case 'whatsapp':
-          window.open(
-            `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
-            '_blank',
-            'width=600,height=400,noopener,noreferrer'
-          );
+          openShareWindow(getWhatsAppShareUrl(shareText, shareUrl));
           break;
         case 'twitter':
-          window.open(
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
-            '_blank',
-            'width=600,height=400,noopener,noreferrer'
-          );
+          openShareWindow(getTwitterShareUrl(shareText, shareUrl));
           break;
         case 'linkedin':
           try {
-            await navigator.clipboard.writeText(shareText);
+            await copyToClipboard(shareText);
           } catch (err) {
             Logger.warn('Clipboard write failed for LinkedIn share', { error: err instanceof Error ? err.message : String(err) });
           }
-          window.open(
-            `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
-            '_blank',
-            'width=600,height=400,noopener,noreferrer'
-          );
+          openShareWindow(getLinkedInShareUrl(shareUrl));
           break;
-        case 'copy':
-          await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
-          setCopied(true);
-          clearTimeout(copyTimerRef.current);
-          copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
+        case 'copy': {
+          const success = await copyToClipboard(`${shareText} ${shareUrl}`);
+          if (success) {
+            setCopied(true);
+            clearTimeout(copyTimerRef.current);
+            copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
+          }
           break;
+        }
       }
 
       analyticsService.track({

@@ -27,7 +27,6 @@ export interface EmailServiceConfig {
   fromAddress: string;
   fromName: string;
   replyTo?: string;
-  unsubscribeUrl: string;
 }
 
 export interface WelcomeEmailData {
@@ -38,6 +37,10 @@ export interface WelcomeEmailData {
   locale: string;
   tier: WaitlistTier;
   foundingMemberSpotsRemaining?: number;
+  /** Branded page URL for email footer link */
+  unsubscribeUrl?: string;
+  /** API URL for List-Unsubscribe header (RFC 8058) */
+  unsubscribeApiUrl?: string;
 }
 
 export interface ReferralSuccessEmailData {
@@ -46,6 +49,10 @@ export interface ReferralSuccessEmailData {
   tier: WaitlistTier;
   invitesRemaining: number;
   locale: string;
+  /** Branded page URL for email footer link */
+  unsubscribeUrl?: string;
+  /** API URL for List-Unsubscribe header (RFC 8058) */
+  unsubscribeApiUrl?: string;
 }
 
 export interface DeletionConfirmationEmailData {
