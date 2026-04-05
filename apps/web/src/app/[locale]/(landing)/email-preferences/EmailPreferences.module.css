@@ -5,7 +5,7 @@
 
 .container {
   max-width: 480px;
-  margin: var(--spacing-7xl) auto;
+  margin: var(--spacing-8xl) auto var(--spacing-7xl);
   padding: 0 var(--spacing-2xl);
   text-align: center;
 }
@@ -33,6 +33,12 @@
 
 .statusText {
   color: var(--color-slate-600);
+}
+
+.redirectText {
+  color: var(--color-slate-600);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-md);
 }
 
 .primaryButton {
@@ -77,31 +83,4 @@
 
 .secondaryButton:hover {
   color: var(--color-text-heading);
-}
-
-.changedMind {
-  margin-top: var(--spacing-3xl);
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-.linkButton {
-  background: none;
-  border: none;
-  color: var(--cta-bg-primary);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  font-size: inherit;
-  padding: 0;
-}
-
-.linkButton:hover {
-  color: var(--cta-bg-hover);
-}
-
-.linkButton:focus-visible {
-  outline: 2px solid var(--cta-focus-color);
-  outline-offset: 2px;
 }

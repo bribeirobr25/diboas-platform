@@ -18,11 +18,4 @@ export * from './RaceConditionPrevention';
 export { CircuitBreaker, CircuitBreakerState, CircuitBreakerError } from './CircuitBreaker';
 export type { CircuitBreakerOptions } from './CircuitBreaker';
 
-// Marketing page builder
-export { buildMarketingMetadata, prepareMarketingPage } from './marketingPageBuilder';
-export type {
-  MarketingPageConfig,
-  MarketingPageData,
-  BreadcrumbEntry,
-  ServiceDataConfig,
-} from './marketingPageBuilder';
+// Marketing page builder removed (2026-04-04 — marketing pages deleted)

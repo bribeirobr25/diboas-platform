@@ -15,6 +15,8 @@
  *
  * Webpack magic comments (webpackChunkName) produce deterministic chunk names
  * for better caching and debugging (Task 71).
+ *
+ * Marketing page namespaces removed 2026-04-04 (marketing pages deleted).
  */
 
 import type { SupportedLocale } from './config';
@@ -37,18 +39,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     share: () => import(/* webpackChunkName: "i18n-en-share" */ '../translations/en/share.json').then(resolveDefault),
     'landing-b2c': () => import(/* webpackChunkName: "i18n-en-landing-b2c" */ '../translations/en/landing-b2c.json').then(resolveDefault),
     'landing-b2b': () => import(/* webpackChunkName: "i18n-en-landing-b2b" */ '../translations/en/landing-b2b.json').then(resolveDefault),
-
     strategies: () => import(/* webpackChunkName: "i18n-en-strategies" */ '../translations/en/strategies.json').then(resolveDefault),
     faq: () => import(/* webpackChunkName: "i18n-en-faq" */ '../translations/en/faq.json').then(resolveDefault),
-    'marketing-personal': () => import(/* webpackChunkName: "i18n-en-marketing-personal" */ '../translations/en/marketing-personal.json').then(resolveDefault),
-    'marketing-business': () => import(/* webpackChunkName: "i18n-en-marketing-business" */ '../translations/en/marketing-business.json').then(resolveDefault),
-    'marketing-learn': () => import(/* webpackChunkName: "i18n-en-marketing-learn" */ '../translations/en/marketing-learn.json').then(resolveDefault),
-    'marketing-rewards': () => import(/* webpackChunkName: "i18n-en-marketing-rewards" */ '../translations/en/marketing-rewards.json').then(resolveDefault),
-    'marketing-security': () => import(/* webpackChunkName: "i18n-en-marketing-security" */ '../translations/en/marketing-security.json').then(resolveDefault),
-    'marketing-help': () => import(/* webpackChunkName: "i18n-en-marketing-help" */ '../translations/en/marketing-help.json').then(resolveDefault),
-    'marketing-other': () => import(/* webpackChunkName: "i18n-en-marketing-other" */ '../translations/en/marketing-other.json').then(resolveDefault),
-    'marketing-common': () => import(/* webpackChunkName: "i18n-en-marketing-common" */ '../translations/en/marketing-common.json').then(resolveDefault),
-    home: () => import(/* webpackChunkName: "i18n-en-home" */ '../translations/en/home.json').then(resolveDefault),
     about: () => import(/* webpackChunkName: "i18n-en-about" */ '../translations/en/about.json').then(resolveDefault),
     protocols: () => import(/* webpackChunkName: "i18n-en-protocols" */ '../translations/en/protocols.json').then(resolveDefault),
     preDemo: () => import(/* webpackChunkName: "i18n-en-preDemo" */ '../translations/en/preDemo.json').then(resolveDefault),
@@ -62,18 +54,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     share: () => import(/* webpackChunkName: "i18n-de-share" */ '../translations/de/share.json').then(resolveDefault),
     'landing-b2c': () => import(/* webpackChunkName: "i18n-de-landing-b2c" */ '../translations/de/landing-b2c.json').then(resolveDefault),
     'landing-b2b': () => import(/* webpackChunkName: "i18n-de-landing-b2b" */ '../translations/de/landing-b2b.json').then(resolveDefault),
-
     strategies: () => import(/* webpackChunkName: "i18n-de-strategies" */ '../translations/de/strategies.json').then(resolveDefault),
     faq: () => import(/* webpackChunkName: "i18n-de-faq" */ '../translations/de/faq.json').then(resolveDefault),
-    'marketing-personal': () => import(/* webpackChunkName: "i18n-de-marketing-personal" */ '../translations/de/marketing-personal.json').then(resolveDefault),
-    'marketing-business': () => import(/* webpackChunkName: "i18n-de-marketing-business" */ '../translations/de/marketing-business.json').then(resolveDefault),
-    'marketing-learn': () => import(/* webpackChunkName: "i18n-de-marketing-learn" */ '../translations/de/marketing-learn.json').then(resolveDefault),
-    'marketing-rewards': () => import(/* webpackChunkName: "i18n-de-marketing-rewards" */ '../translations/de/marketing-rewards.json').then(resolveDefault),
-    'marketing-security': () => import(/* webpackChunkName: "i18n-de-marketing-security" */ '../translations/de/marketing-security.json').then(resolveDefault),
-    'marketing-help': () => import(/* webpackChunkName: "i18n-de-marketing-help" */ '../translations/de/marketing-help.json').then(resolveDefault),
-    'marketing-other': () => import(/* webpackChunkName: "i18n-de-marketing-other" */ '../translations/de/marketing-other.json').then(resolveDefault),
-    'marketing-common': () => import(/* webpackChunkName: "i18n-de-marketing-common" */ '../translations/de/marketing-common.json').then(resolveDefault),
-    home: () => import(/* webpackChunkName: "i18n-de-home" */ '../translations/de/home.json').then(resolveDefault),
     about: () => import(/* webpackChunkName: "i18n-de-about" */ '../translations/de/about.json').then(resolveDefault),
     protocols: () => import(/* webpackChunkName: "i18n-de-protocols" */ '../translations/de/protocols.json').then(resolveDefault),
     preDemo: () => import(/* webpackChunkName: "i18n-de-preDemo" */ '../translations/de/preDemo.json').then(resolveDefault),
@@ -87,18 +69,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     share: () => import(/* webpackChunkName: "i18n-es-share" */ '../translations/es/share.json').then(resolveDefault),
     'landing-b2c': () => import(/* webpackChunkName: "i18n-es-landing-b2c" */ '../translations/es/landing-b2c.json').then(resolveDefault),
     'landing-b2b': () => import(/* webpackChunkName: "i18n-es-landing-b2b" */ '../translations/es/landing-b2b.json').then(resolveDefault),
-
     strategies: () => import(/* webpackChunkName: "i18n-es-strategies" */ '../translations/es/strategies.json').then(resolveDefault),
     faq: () => import(/* webpackChunkName: "i18n-es-faq" */ '../translations/es/faq.json').then(resolveDefault),
-    'marketing-personal': () => import(/* webpackChunkName: "i18n-es-marketing-personal" */ '../translations/es/marketing-personal.json').then(resolveDefault),
-    'marketing-business': () => import(/* webpackChunkName: "i18n-es-marketing-business" */ '../translations/es/marketing-business.json').then(resolveDefault),
-    'marketing-learn': () => import(/* webpackChunkName: "i18n-es-marketing-learn" */ '../translations/es/marketing-learn.json').then(resolveDefault),
-    'marketing-rewards': () => import(/* webpackChunkName: "i18n-es-marketing-rewards" */ '../translations/es/marketing-rewards.json').then(resolveDefault),
-    'marketing-security': () => import(/* webpackChunkName: "i18n-es-marketing-security" */ '../translations/es/marketing-security.json').then(resolveDefault),
-    'marketing-help': () => import(/* webpackChunkName: "i18n-es-marketing-help" */ '../translations/es/marketing-help.json').then(resolveDefault),
-    'marketing-other': () => import(/* webpackChunkName: "i18n-es-marketing-other" */ '../translations/es/marketing-other.json').then(resolveDefault),
-    'marketing-common': () => import(/* webpackChunkName: "i18n-es-marketing-common" */ '../translations/es/marketing-common.json').then(resolveDefault),
-    home: () => import(/* webpackChunkName: "i18n-es-home" */ '../translations/es/home.json').then(resolveDefault),
     about: () => import(/* webpackChunkName: "i18n-es-about" */ '../translations/es/about.json').then(resolveDefault),
     protocols: () => import(/* webpackChunkName: "i18n-es-protocols" */ '../translations/es/protocols.json').then(resolveDefault),
     preDemo: () => import(/* webpackChunkName: "i18n-es-preDemo" */ '../translations/es/preDemo.json').then(resolveDefault),
@@ -112,18 +84,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     share: () => import(/* webpackChunkName: "i18n-pt-BR-share" */ '../translations/pt-BR/share.json').then(resolveDefault),
     'landing-b2c': () => import(/* webpackChunkName: "i18n-pt-BR-landing-b2c" */ '../translations/pt-BR/landing-b2c.json').then(resolveDefault),
     'landing-b2b': () => import(/* webpackChunkName: "i18n-pt-BR-landing-b2b" */ '../translations/pt-BR/landing-b2b.json').then(resolveDefault),
-
     strategies: () => import(/* webpackChunkName: "i18n-pt-BR-strategies" */ '../translations/pt-BR/strategies.json').then(resolveDefault),
     faq: () => import(/* webpackChunkName: "i18n-pt-BR-faq" */ '../translations/pt-BR/faq.json').then(resolveDefault),
-    'marketing-personal': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-personal" */ '../translations/pt-BR/marketing-personal.json').then(resolveDefault),
-    'marketing-business': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-business" */ '../translations/pt-BR/marketing-business.json').then(resolveDefault),
-    'marketing-learn': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-learn" */ '../translations/pt-BR/marketing-learn.json').then(resolveDefault),
-    'marketing-rewards': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-rewards" */ '../translations/pt-BR/marketing-rewards.json').then(resolveDefault),
-    'marketing-security': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-security" */ '../translations/pt-BR/marketing-security.json').then(resolveDefault),
-    'marketing-help': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-help" */ '../translations/pt-BR/marketing-help.json').then(resolveDefault),
-    'marketing-other': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-other" */ '../translations/pt-BR/marketing-other.json').then(resolveDefault),
-    'marketing-common': () => import(/* webpackChunkName: "i18n-pt-BR-marketing-common" */ '../translations/pt-BR/marketing-common.json').then(resolveDefault),
-    home: () => import(/* webpackChunkName: "i18n-pt-BR-home" */ '../translations/pt-BR/home.json').then(resolveDefault),
     about: () => import(/* webpackChunkName: "i18n-pt-BR-about" */ '../translations/pt-BR/about.json').then(resolveDefault),
     protocols: () => import(/* webpackChunkName: "i18n-pt-BR-protocols" */ '../translations/pt-BR/protocols.json').then(resolveDefault),
     preDemo: () => import(/* webpackChunkName: "i18n-pt-BR-preDemo" */ '../translations/pt-BR/preDemo.json').then(resolveDefault),

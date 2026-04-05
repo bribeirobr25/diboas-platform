@@ -112,16 +112,8 @@ export function middleware(request: NextRequest): NextResponse {
       return response;
     }
 
-    // Root path "/" also uses locale detection — preserve query params (UTM, ref)
-    if (pathname === '/') {
-      const detectedLocale = detectLocale(request);
-      const redirectUrl = new URL(`/${detectedLocale}${search}`, request.url);
-      const response = NextResponse.redirect(redirectUrl);
-      response.headers.set('Content-Security-Policy', csp);
-      response.headers.set('x-nonce', nonce);
-      response.headers.set('x-request-id', requestId);
-      return response;
-    }
+    // Root "/" redirect is handled by app/page.tsx (preserves query params).
+    // Next.js 16 routes "/" to the page component before this middleware block executes.
 
     // Set nonce and request ID in request headers for downstream use (layout.tsx)
     const requestHeaders = new Headers(request.headers);

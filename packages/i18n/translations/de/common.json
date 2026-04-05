@@ -363,10 +363,8 @@
     "unsubscribeButton": "Abmelden",
     "staySubscribedButton": "Angemeldet bleiben",
     "successUnsubscribed": "Du wurdest von diBoaS-E-Mails abgemeldet.",
-    "successResubscribed": "Du hast dich wieder für diBoaS-E-Mails angemeldet.",
     "positionPreserved": "Deine Wartelistenposition wurde beibehalten.",
-    "changedMind": "Meinung geändert?",
-    "resubscribeButton": "Wieder anmelden",
+    "redirectingHome": "Weiterleitung zur Startseite...",
     "invalidLink": "Dieser Link ist ungültig oder abgelaufen.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     "processing": "Wird verarbeitet..."

@@ -12,7 +12,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { ExpandableCard, ExpandableCardGrid } from '@/components/UI/ExpandableCard';
 import styles from './StrategiesPageContent.module.css';
 
-const I18N_PREFIX = 'marketing.pages.strategies';
+const I18N_PREFIX = 'strategies';
 
 const STRATEGY_ORDER = [
   'safeHarbor',

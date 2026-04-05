@@ -10,7 +10,7 @@
 import { useTranslation } from '@diboas/i18n/client';
 import styles from './StrategiesPageContent.module.css';
 
-const I18N_PREFIX = 'marketing.pages.strategies';
+const I18N_PREFIX = 'strategies';
 
 export function StrategyFeeTable() {
   const intl = useTranslation();

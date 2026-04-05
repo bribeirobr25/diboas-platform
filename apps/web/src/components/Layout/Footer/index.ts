@@ -1,10 +1,7 @@
 /**
  * Footer Components Barrel Export
- *
- * File Decoupling & Organization: Clean component exports
- * Code Reusability: Centralized footer exports
+ * SiteFooter removed with marketing pages (2026-04-04)
  */
 
-export { SiteFooter } from './SiteFooter';
 export { MinimalFooter } from './MinimalFooter';
 export type { FooterConfig, FooterSection, FooterLink, SocialLink } from '@/config/footer';

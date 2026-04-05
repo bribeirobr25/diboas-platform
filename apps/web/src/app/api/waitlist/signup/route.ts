@@ -37,6 +37,7 @@ import {
   processReferral,
   getFoundingMemberCount,
   checkEmailOptOut,
+  resetEmailOptOut,
   type WaitlistSource,
   type WaitlistTier,
 } from '@/lib/waitingList/store';
@@ -143,6 +144,22 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     if (await exists(email)) {
       const existing = await getByEmail(email);
       if (existing) {
+        // If user previously unsubscribed, re-submitting = explicit consent to re-subscribe (GDPR Art. 7)
+        const hash = hmacHash(email);
+        if (hash) {
+          const wasOptedOut = await checkEmailOptOut(hash);
+          if (wasOptedOut) {
+            const didReset = await resetEmailOptOut(hash);
+            if (didReset) {
+              logAuditEvent({
+                eventType: 'EMAIL_RESUBSCRIBED',
+                entityType: 'waitlist_entry',
+                entityId: existing.id,
+                details: { method: 'waitlist_re_signup', locale: body.locale || 'en' },
+              });
+            }
+          }
+        }
         const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, existing.referralCode);
         return NextResponse.json(successResponse(existing, referralUrl));
       }

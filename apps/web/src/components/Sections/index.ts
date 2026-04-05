@@ -1,29 +1,21 @@
 /**
- * Unified Sections Barrel Export with Dynamic Loading
+ * Unified Sections Barrel Export
  *
- * File Decoupling & Organization: Centralized section component exports with variant support
- * Code Reusability & DRY: Easy imports for all unified reusable sections
- * Domain-Driven Design: Single section domains with configurable variants
- * Performance & SEO Optimization: Dynamic imports for better bundle splitting
+ * File Decoupling & Organization: Centralized section component exports
+ * Code Reusability & DRY: Easy imports for all reusable sections
+ *
+ * Marketing-only components removed 2026-04-04:
+ * FeatureShowcase, ProductCarousel, OneFeature, StickyFeaturesNav, BgHighlight, StepGuide
  */
 
-
-// Static exports for critical sections (above-the-fold and frequently used)
+// Core sections
 export { HeroSection } from './HeroSection';
-export { ProductCarousel } from './ProductCarousel';
-export { FeatureShowcase } from './FeatureShowcase';
 export { AppFeaturesCarousel } from './AppFeaturesCarousel';
-
-export { OneFeature } from './OneFeature';
 export { FAQAccordion } from './FAQAccordion/FAQAccordionFactory';
-export { StickyFeaturesNav } from './StickyFeaturesNav';
-
-// Unified Section Container Component
 export { SectionContainer } from './SectionContainer';
 
-// New B2C Landing Page Sections
+// B2C Landing Page Sections
 export { ProseSection } from './ProseSection';
-export { ScenarioCards } from './ScenarioCards';
 export { FeeTable } from './FeeTable';
 export { DemoLauncher } from './DemoLauncher';
 export { ExpandableSection } from './ExpandableSection';
@@ -35,6 +27,7 @@ export { FoundingMembersSection } from './FoundingMembersSection';
 export { HowItWorksGrid } from './HowItWorksGrid';
 
 // B2B Landing Page Sections
+export { ScenarioCards } from './ScenarioCards';
 export { CalculatorFactory } from './CalculatorFactory';
 export { TwoWorldsSection } from './TwoWorldsSection';
 export { CashflowExplainerSection } from './CashflowExplainerSection';
@@ -42,78 +35,25 @@ export { CashflowExplainerSection } from './CashflowExplainerSection';
 // Page-level Sections
 export { PageHeroSection, type PageHeroSectionProps } from './PageHeroSection';
 
-
-// Re-export unified types for convenience
-export type { 
-  HeroConfig, 
-  HeroVariantConfig,
-  HeroContent, 
-  HeroVisualAssets,
-  HeroBackgroundAssets,
-  HeroSEO,
-  HeroVariant
+// Types
+export type {
+  HeroConfig, HeroVariantConfig, HeroContent, HeroVisualAssets,
+  HeroBackgroundAssets, HeroSEO, HeroVariant
 } from './HeroSection';
 
 export type {
-  ProductCarouselConfig,
-  ProductCarouselVariantConfig,
-  ProductCarouselContent,
-  ProductCarouselSlide,
-  ProductCarouselSettings,
-  ProductCarouselSEO,
-  ProductCarouselVariant
-} from './ProductCarousel';
-
-export type {
-  FeatureShowcaseConfig,
-  FeatureShowcaseVariantConfig,
-  FeatureShowcaseSlide,
-  FeatureShowcaseContent,
-  FeatureShowcaseAssets,
-  FeatureShowcaseSEO,
-  FeatureShowcaseVariant
-} from './FeatureShowcase';
-
-export type {
-  AppFeaturesCarouselConfig,
-  AppFeaturesCarouselVariantConfig,
-  AppFeatureCard,
-  AppFeatureContent,
-  AppFeatureAssets,
-  AppFeatureSEO,
+  AppFeaturesCarouselConfig, AppFeaturesCarouselVariantConfig,
+  AppFeatureCard, AppFeatureContent, AppFeatureAssets, AppFeatureSEO,
   AppFeaturesCarouselVariant
 } from './AppFeaturesCarousel';
 
-export type {
-  OneFeatureProps,
-  FeatureItem
-} from './OneFeature';
+export type { FAQAccordionVariantProps } from './FAQAccordion/FAQAccordionFactory';
 
 export type {
-  FAQAccordionVariantProps
-} from './FAQAccordion/FAQAccordionFactory';
-
-export type {
-  FAQAccordionConfig,
-  FAQAccordionVariantConfig,
-  FAQAccordionContent,
-  FAQItem,
-  FAQAccordionSettings,
-  FAQAccordionSEO,
-  FAQAccordionVariant
+  FAQAccordionConfig, FAQAccordionVariantConfig, FAQAccordionContent,
+  FAQItem, FAQAccordionSettings, FAQAccordionSEO, FAQAccordionVariant
 } from '@/config/faqAccordion';
 
 export type {
-  StickyFeaturesNavVariantConfig,
-  FeatureCategory,
-  FeatureItem as StickyFeatureItem,
-  StickyFeaturesNavSettings,
-  StickyFeaturesNavVariant
-} from './StickyFeaturesNav';
-
-export type {
-  SectionContainerProps,
-  ContainerVariant,
-  PaddingVariant,
-  SectionElement
+  SectionContainerProps, ContainerVariant, PaddingVariant, SectionElement
 } from './SectionContainer';

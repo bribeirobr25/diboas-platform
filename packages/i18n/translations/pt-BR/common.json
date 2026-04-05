@@ -363,10 +363,8 @@
     "unsubscribeButton": "Cancelar inscrição",
     "staySubscribedButton": "Manter inscrição",
     "successUnsubscribed": "Você foi descadastrado dos emails do diBoaS.",
-    "successResubscribed": "Você foi re-inscrito nos emails do diBoaS.",
     "positionPreserved": "Sua posição na lista de espera foi preservada.",
-    "changedMind": "Mudou de ideia?",
-    "resubscribeButton": "Re-inscrever",
+    "redirectingHome": "Redirecionando para a página inicial...",
     "invalidLink": "Este link é inválido ou expirou.",
     "error": "Algo deu errado. Tente novamente.",
     "processing": "Processando..."

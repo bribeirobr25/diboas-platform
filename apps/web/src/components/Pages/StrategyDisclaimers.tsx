@@ -11,7 +11,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import styles from './StrategiesPageContent.module.css';
 
-const I18N_PREFIX = 'marketing.pages.strategies';
+const I18N_PREFIX = 'strategies';
 
 /**
  * Returns the ordered list of footer disclaimer keys for the current locale.

@@ -113,7 +113,7 @@ export const DEFAULT_FAQ_ACCORDION_CONTENT: FAQAccordionContent = {
   title: 'marketing.faq.title',
   description: 'marketing.faq.description',
   ctaText: 'marketing.faq.ctaText',
-  ctaHref: ROUTES.HELP.FAQ,
+  ctaHref: ROUTES.HELP,
   ctaTarget: '_self',
   items: DEFAULT_FAQ_ITEMS
 } as const;

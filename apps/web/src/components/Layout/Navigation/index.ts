@@ -1,4 +1,2 @@
-// Purpose: Public API only - Clean imports for consumers
-
-export { default as Navigation } from './Navigation';
+// Public API — MinimalNavigation only (full Navigation removed with marketing pages)
 export { default as MinimalNavigation } from './MinimalNavigation';

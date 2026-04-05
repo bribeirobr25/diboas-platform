@@ -106,11 +106,10 @@ describe('middleware', () => {
       expect(location).toBe('http://localhost:3000/en/strategies?q=1');
     });
 
-    it('should redirect root path / to detected locale', () => {
+    it('should pass through root path / (page.tsx handles redirect)', () => {
       const response = middleware(makeRequest('/'));
-      expect(response.status).toBe(307);
-      const location = response.headers.get('Location');
-      expect(location).toBe('http://localhost:3000/en');
+      // Root "/" redirect is handled by app/page.tsx, not middleware
+      expect(response.status).toBe(200);
     });
 
     it('should detect pt-BR locale', () => {
@@ -174,10 +173,10 @@ describe('middleware', () => {
       expect(response.headers.get('Location')).toBe('http://localhost:3000/en/about');
     });
 
-    it('should redirect root / using cookie locale', () => {
+    it('should pass through root / even with cookie locale (page.tsx handles redirect)', () => {
       const response = middleware(makeRequest('/', { localeCookie: 'pt-BR' }));
-      expect(response.status).toBe(307);
-      expect(response.headers.get('Location')).toBe('http://localhost:3000/pt-BR');
+      // Root "/" redirect is handled by app/page.tsx, not middleware
+      expect(response.status).toBe(200);
     });
 
     it('should ignore invalid cookie locale values', () => {

@@ -12,6 +12,7 @@ export function getEmailConfig(): EmailServiceConfig {
 export const BRAND = {
   name: 'diBoaS',
   primaryColor: '#14b8a6',
+  headerColor: '#0f172a',
   textColor: '#0f172a',
   bgColor: '#ffffff',
   footerBg: '#f8fafc',

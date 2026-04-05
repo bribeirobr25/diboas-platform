@@ -1,1 +1,0 @@
-export { OneFeatureDefault } from './OneFeatureDefault';

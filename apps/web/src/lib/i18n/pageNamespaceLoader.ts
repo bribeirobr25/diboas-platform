@@ -1,33 +1,18 @@
 /**
  * Server-side utility for loading page-specific translation namespaces
  * Optimizes performance by loading only required translations per page
+ *
+ * Marketing page namespace logic removed 2026-04-04 (marketing pages deleted).
  */
 
 import { loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
 
 /**
- * Convert kebab-case path to flattened camelCase
- * Flattens directory structure and converts kebab-case to camelCase
- * @example 'personal/defi-strategies' -> 'personalDefiStrategies'
- * @example 'business/credit-solutions' -> 'businessCreditSolutions'
- * @example 'defi-strategies' -> 'defiStrategies'
- */
-function pathToCamel(str: string): string {
-  // Remove slashes and hyphens, capitalize the letter after each
-  return str
-    .replace(/[-/](.)/g, (_, letter) => letter.toUpperCase());  // -a or /a -> A
-}
-
-/**
  * Load and flatten multiple namespaces for a page
  *
  * @param locale - The locale to load
- * @param namespaces - Array of namespace paths (e.g., ['home'], ['personal/account'])
+ * @param namespaces - Array of namespace paths
  * @returns Flattened messages object ready for PageI18nProvider
- *
- * @example
- * const messages = await loadPageNamespaces(locale, ['home']);
- * const messages = await loadPageNamespaces(locale, ['personal/account', 'faq']);
  */
 export async function loadPageNamespaces(
   locale: SupportedLocale,
@@ -38,37 +23,8 @@ export async function loadPageNamespaces(
   for (const namespace of namespaces) {
     const namespaceMessages = await loadMessages(locale, namespace);
 
-    // Determine prefix based on namespace path, converting kebab-case to camelCase
-    // 'home' -> 'marketing.pages.home'
-    // 'personal/defi-strategies' -> 'marketing.pages.personal.defiStrategies'
-    // 'business/credit-solutions' -> 'marketing.pages.business.creditSolutions'
-    // 'faq' -> 'marketing.faq'
-    // 'landing-b2c' -> 'landing-b2c' (landing pages use their own prefix)
-    // 'landing-b2b' -> 'landing-b2b' (landing pages use their own prefix)
-    let prefix: string;
-    if (namespace === 'faq') {
-      prefix = 'marketing.faq';
-    } else if (namespace.startsWith('landing-')) {
-      // Landing pages use their namespace name as prefix directly
-      prefix = namespace;
-    } else if (namespace === 'marketing-common') {
-      // Marketing common (shared aria labels, faq registry) uses 'marketing' prefix
-      // so keys become marketing.shared.* and marketing.faq.*
-      prefix = 'marketing';
-    } else if (namespace.startsWith('marketing-')) {
-      // Domain-specific marketing splits use 'marketing' prefix
-      // so keys become marketing.pages.*
-      prefix = 'marketing';
-    } else if (namespace === 'common' || namespace === 'calculator' || namespace === 'waitlist' || namespace === 'share' || namespace === 'dreamMode' || namespace === 'preDemo' || namespace === 'preDream' || namespace === 'about' || namespace === 'protocols' || namespace === 'security') {
-      // Common and feature namespaces use their namespace name as prefix directly
-      prefix = namespace;
-    } else if (namespace.startsWith('legal/')) {
-      // Legal namespaces use their namespace path as prefix (with slash)
-      prefix = namespace;
-    } else {
-      prefix = `marketing.pages.${pathToCamel(namespace)}`;
-    }
-
+    // Each namespace uses its name as the prefix for flattened keys
+    const prefix = namespace;
     const flattened = flattenMessages(namespaceMessages, prefix);
     Object.assign(allMessages, flattened);
   }

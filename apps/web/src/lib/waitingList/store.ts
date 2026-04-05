@@ -135,6 +135,13 @@ function validateRow(row: unknown): WaitlistEntryRow {
   }
   const r = row as Record<string, unknown>;
 
+  // Neon driver returns TIMESTAMPTZ as Date objects — normalize to ISO strings
+  for (const ts of ['created_at', 'updated_at'] as const) {
+    if (r[ts] instanceof Date) {
+      r[ts] = (r[ts] as Date).toISOString();
+    }
+  }
+
   const requiredStrings = ['id', 'email', 'email_hash', 'referral_code', 'locale', 'source', 'tier', 'created_at', 'updated_at'] as const;
   for (const field of requiredStrings) {
     if (typeof r[field] !== 'string') {
@@ -525,6 +532,23 @@ export async function checkEmailOptOut(emailHash: string): Promise<boolean> {
     SELECT 1 FROM waitlist_entries
     WHERE email_hash = ${emailHash} AND email_opted_out = TRUE
     LIMIT 1
+  `;
+  return rows.length > 0;
+}
+
+/**
+ * Reset email opt-out for a user who re-submits their email to the waitlist.
+ * Re-submitting is explicit consent to receive emails (GDPR Art. 7).
+ * Only updates if currently opted out, to avoid unnecessary writes.
+ * Idempotent: concurrent calls are safe (WHERE guard prevents double-update).
+ */
+export async function resetEmailOptOut(emailHash: string): Promise<boolean> {
+  const now = new Date().toISOString();
+  const rows = await sql`
+    UPDATE waitlist_entries
+    SET email_opted_out = FALSE, updated_at = ${now}
+    WHERE email_hash = ${emailHash} AND email_opted_out = TRUE
+    RETURNING id
   `;
   return rows.length > 0;
 }

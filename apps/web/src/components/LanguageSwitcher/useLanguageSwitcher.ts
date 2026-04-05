@@ -67,8 +67,9 @@ export function useLanguageSwitcher(): UseLanguageSwitcherReturn {
       segments.shift();
     }
 
-    // Build new path with new locale
-    const newPath = `/${newLocale}${segments.length > 0 ? `/${segments.join('/')}` : ''}`;
+    // Build new path with new locale, preserving query params (ref, UTM, etc.)
+    const search = typeof window !== 'undefined' ? window.location.search : '';
+    const newPath = `/${newLocale}${segments.length > 0 ? `/${segments.join('/')}` : ''}${search}`;
 
     setIsOpen(false);
     router.push(newPath);

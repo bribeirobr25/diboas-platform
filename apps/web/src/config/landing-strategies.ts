@@ -16,7 +16,7 @@ import { DEFAULT_FAQ_ACCORDION_SETTINGS, type FAQAccordionVariantConfig, type FA
 // ─── i18n Prefix (Pattern B: dynamic components) ────────────
 
 /** Base i18n prefix for all Strategies page translation keys. */
-export const STRATEGIES_I18N_PREFIX = 'marketing.pages.strategies' as const;
+export const STRATEGIES_I18N_PREFIX = 'strategies' as const;
 
 // ─── Wallet Architecture A/B Toggle ─────────────────────────
 
@@ -62,7 +62,7 @@ export const STRATEGIES_FAQ_CONFIG: FAQAccordionVariantConfig = {
   },
   settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
   seo: {
-    ariaLabel: 'marketing.pages.strategies.sections.faq.ariaLabel',
+    ariaLabel: 'strategies.sections.faq.ariaLabel',
     region: 'faq',
   },
 };
@@ -72,10 +72,10 @@ export const STRATEGIES_FAQ_CONFIG: FAQAccordionVariantConfig = {
 /** Waitlist section config for the Strategies page. */
 export const STRATEGIES_WAITLIST_CONFIG = {
   sectionId: 'strategies-waitlist',
-  headline: 'marketing.pages.strategies.waitlist.header',
-  subheadline: 'marketing.pages.strategies.waitlist.body',
-  belowCta: 'marketing.pages.strategies.waitlist.belowCta',
-  belowCheckbox: 'marketing.pages.strategies.waitlist.belowCheckbox',
+  headline: 'strategies.waitlist.header',
+  subheadline: 'strategies.waitlist.body',
+  belowCta: 'strategies.waitlist.belowCta',
+  belowCheckbox: 'strategies.waitlist.belowCheckbox',
   hideBenefits: true,
   hideNoSpam: true,
 } as const;

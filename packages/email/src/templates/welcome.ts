@@ -11,6 +11,7 @@ interface TierTranslations {
   tierMessage: Record<WaitlistTier, string>;
   foundingMemberBenefits: string[];
   referralCta: string;
+  demoCta: string;
   whatNext: string;
   whatNextBody: string;
   spotsRemaining: string;
@@ -36,12 +37,13 @@ const translations: Record<string, TierTranslations> = {
       standard: "You're on the waitlist! Share your link to help friends get early access.",
     },
     foundingMemberBenefits: [
-      'Permanent Founding Member badge (#47 of 1,200)',
+      'Permanent Founding Member badge (#{position} of 1,200)',
       'Your name on the Founders Wall',
       '5 personal invites',
       'Future exclusive benefits for Founding Members only',
     ],
     referralCta: 'Copy your referral link',
+    demoCta: 'Try the Interactive Demo',
     whatNext: "What's next?",
     whatNextBody: "We'll keep you posted on our progress and let you know when it's your turn.",
     spotsRemaining: '{spots} founding member spots remaining',
@@ -65,12 +67,13 @@ const translations: Record<string, TierTranslations> = {
       standard: 'Você está na lista de espera! Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
     },
     foundingMemberBenefits: [
-      'Selo permanente de Membro Fundador (#47 de 1.200)',
+      'Selo permanente de Membro Fundador (#{position} de 1.200)',
       'Seu nome no Mural dos Fundadores',
       '5 convites pessoais',
       'Benefícios exclusivos futuros só pra Membros Fundadores',
     ],
     referralCta: 'Copie seu link de indicação',
+    demoCta: 'Experimente a Demo Interativa',
     whatNext: 'Próximos passos',
     whatNextBody: 'Manteremos você informado sobre nosso progresso e avisaremos quando for sua vez.',
     spotsRemaining: '{spots} vagas de membro fundador restantes',
@@ -94,12 +97,13 @@ const translations: Record<string, TierTranslations> = {
       standard: '¡Estás en la lista de espera! Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
     },
     foundingMemberBenefits: [
-      'Insignia permanente de Miembro Fundador (#47 de 1.200)',
+      'Insignia permanente de Miembro Fundador (#{position} de 1.200)',
       'Tu nombre en el Muro de los Fundadores',
       '5 invitaciones personales',
       'Beneficios exclusivos futuros solo para Miembros Fundadores',
     ],
     referralCta: 'Copia tu enlace de referencia',
+    demoCta: 'Prueba la Demo Interactiva',
     whatNext: '¿Qué sigue?',
     whatNextBody: 'Te mantendremos informado y te avisaremos cuando sea tu turno.',
     spotsRemaining: '{spots} lugares de miembro fundador restantes',
@@ -123,12 +127,13 @@ const translations: Record<string, TierTranslations> = {
       standard: 'Du bist auf der Warteliste! Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
     },
     foundingMemberBenefits: [
-      'Permanentes Gründungsmitglied-Abzeichen (#47 von 1.200)',
+      'Permanentes Gründungsmitglied-Abzeichen (#{position} von 1.200)',
       'Dein Name auf der Gründerwand',
       '5 persönliche Einladungen',
       'Zukünftige exklusive Vorteile nur für Gründungsmitglieder',
     ],
     referralCta: 'Empfehlungslink kopieren',
+    demoCta: 'Interaktive Demo ausprobieren',
     whatNext: 'Wie geht es weiter?',
     whatNextBody: 'Wir halten dich auf dem Laufenden und informieren dich, wenn du an der Reihe bist.',
     spotsRemaining: '{spots} Gründungsmitglied-Plätze verbleibend',
@@ -166,9 +171,16 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
 
   const benefitsSection = data.tier === 'founding_member'
     ? `<ul style="margin:0 0 16px;padding:0;list-style:none;">${t.foundingMemberBenefits.map(
-        (b) => `<li style="margin:0 0 8px;font-size:14px;color:#475569;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#0d9488;">&#10003;</span>${b}</li>`,
+        (b) => `<li style="margin:0 0 8px;font-size:14px;color:#475569;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#0d9488;">&#10003;</span>${b.replace('{position}', String(data.position))}</li>`,
       ).join('')}</ul>`
     : '';
+
+  const demoUrl = `${BRAND.url}/${data.locale}/demo?utm_source=email&utm_medium=transactional&utm_campaign=welcome_email&utm_content=predemo_cta`;
+  const demoSection = `
+    <div style="text-align:center;margin:24px 0;">
+      <a href="${demoUrl}" style="display:inline-block;padding:14px 32px;background-color:${BRAND.headerColor};color:#ffffff;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;">${t.demoCta}</a>
+    </div>
+  `;
 
   const content = `
     <h1 style="margin:0 0 8px;font-size:24px;color:${BRAND.textColor};">${greeting}</h1>
@@ -187,6 +199,8 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
     <div style="padding:12px 16px;background-color:#f1f5f9;border-radius:8px;margin-bottom:24px;word-break:break-all;">
       <p style="margin:0;font-size:13px;color:${BRAND.primaryColor};font-weight:600;">${data.referralUrl}</p>
     </div>
+
+    ${demoSection}
 
     <h2 style="margin:0 0 8px;font-size:18px;color:${BRAND.textColor};">${t.whatNext}</h2>
     <p style="margin:0;font-size:14px;color:#475569;">${t.whatNextBody}</p>

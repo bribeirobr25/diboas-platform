@@ -363,10 +363,8 @@
     "unsubscribeButton": "Unsubscribe",
     "staySubscribedButton": "Stay subscribed",
     "successUnsubscribed": "You have been unsubscribed from diBoaS emails.",
-    "successResubscribed": "You have been re-subscribed to diBoaS emails.",
     "positionPreserved": "Your waitlist position is preserved.",
-    "changedMind": "Changed your mind?",
-    "resubscribeButton": "Re-subscribe",
+    "redirectingHome": "Redirecting you to the homepage...",
     "invalidLink": "This link is invalid or has expired.",
     "error": "Something went wrong. Please try again.",
     "processing": "Processing..."

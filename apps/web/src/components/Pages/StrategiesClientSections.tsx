@@ -15,7 +15,7 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 // StrategyDisclaimers import removed — wrapper was dead code
 import styles from './StrategiesPageContent.module.css';
 
-const I18N_PREFIX = 'marketing.pages.strategies';
+const I18N_PREFIX = 'strategies';
 
 // ─── Hero Section ────────────────────────────────────────────
 
