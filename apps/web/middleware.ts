@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { detectLocaleFromPath, detectPreferredLocale } from '@diboas/i18n/config';
 
 /**
  * Middleware: CSP nonce generation + i18n locale detection
@@ -8,72 +9,13 @@ import { NextRequest, NextResponse } from 'next/server';
  * read it and pass it to <Script> components.
  *
  * Locale detection chain: cookie (NEXT_LOCALE) → Accept-Language → default (en)
+ * Uses shared detectPreferredLocale from @diboas/i18n (single source of truth).
+ *
+ * Root "/" redirect is handled by app/page.tsx — Next.js 16 routes "/" to
+ * the page component before middleware can intercept it.
  */
 
-const SUPPORTED_LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
-const DEFAULT_LOCALE = 'en';
 const LOCALE_COOKIE = 'NEXT_LOCALE';
-
-function detectLocaleFromPath(pathname: string): string | null {
-  const segments = pathname.split('/').filter(Boolean);
-  const firstSegment = segments[0];
-  if (firstSegment && (SUPPORTED_LOCALES as readonly string[]).includes(firstSegment)) {
-    return firstSegment;
-  }
-  return null;
-}
-
-/**
- * Parse Accept-Language header and return best matching supported locale.
- * Handles q-factor weighting (e.g. "en-US,en;q=0.9,pt-BR;q=0.8,de;q=0.7").
- */
-function matchAcceptLanguage(acceptLanguage: string | null): string | null {
-  if (!acceptLanguage) return null;
-
-  const parsed = acceptLanguage
-    .split(',')
-    .map((entry) => {
-      const [lang, ...params] = entry.trim().split(';');
-      const qParam = params.find((p) => p.trim().startsWith('q='));
-      const q = qParam ? parseFloat(qParam.trim().slice(2)) : 1;
-      return { lang: lang.trim(), q: Number.isNaN(q) ? 0 : q };
-    })
-    .sort((a, b) => b.q - a.q);
-
-  for (const { lang } of parsed) {
-    // Exact match (e.g. "pt-BR")
-    if ((SUPPORTED_LOCALES as readonly string[]).includes(lang)) {
-      return lang;
-    }
-    // Language-only match (e.g. "pt" → "pt-BR", "de-AT" → "de")
-    const langPrefix = lang.split('-')[0];
-    const match = SUPPORTED_LOCALES.find(
-      (l) => l === langPrefix || l.startsWith(`${langPrefix}-`)
-    );
-    if (match) return match;
-  }
-
-  return null;
-}
-
-/**
- * Detect locale from: cookie → Accept-Language → default
- */
-function detectLocale(request: NextRequest): string {
-  // 1. Cookie preference (set when user selects a language)
-  const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
-  if (cookieLocale && (SUPPORTED_LOCALES as readonly string[]).includes(cookieLocale)) {
-    return cookieLocale;
-  }
-
-  // 2. Accept-Language header
-  const acceptLang = request.headers.get('Accept-Language');
-  const matched = matchAcceptLanguage(acceptLang);
-  if (matched) return matched;
-
-  // 3. Default
-  return DEFAULT_LOCALE;
-}
 
 export function middleware(request: NextRequest): NextResponse {
   try {
@@ -103,7 +45,9 @@ export function middleware(request: NextRequest): NextResponse {
     // If no locale in path, redirect using detection chain
     const localeInPath = detectLocaleFromPath(pathname);
     if (!localeInPath && pathname !== '/') {
-      const detectedLocale = detectLocale(request);
+      const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value;
+      const acceptLang = request.headers.get('Accept-Language');
+      const detectedLocale = detectPreferredLocale(cookieLocale, acceptLang);
       const redirectUrl = new URL(`/${detectedLocale}${pathname}${search}`, request.url);
       const response = NextResponse.redirect(redirectUrl);
       response.headers.set('Content-Security-Policy', csp);

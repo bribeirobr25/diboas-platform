@@ -5,8 +5,10 @@
  * All user-supplied data must pass through these before processing.
  */
 
-/** Supported locales — must stay in sync with @diboas/i18n */
-const SUPPORTED_LOCALES = new Set(['en', 'pt-BR', 'es', 'de']);
+import { SUPPORTED_LOCALES } from '@diboas/i18n/config';
+
+/** Supported locales — single source of truth from @diboas/i18n */
+const SUPPORTED_LOCALES_SET = new Set<string>(SUPPORTED_LOCALES);
 
 /** Known waitlist sources — must stay in sync with WaitlistSource type */
 const KNOWN_SOURCES = new Set([
@@ -27,7 +29,7 @@ const MAX_NAME_LENGTH = 100;
  * Validate locale against supported list.
  */
 export function isValidLocale(locale: string): boolean {
-  return typeof locale === 'string' && SUPPORTED_LOCALES.has(locale);
+  return typeof locale === 'string' && SUPPORTED_LOCALES_SET.has(locale);
 }
 
 /**

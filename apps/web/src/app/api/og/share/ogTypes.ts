@@ -12,9 +12,9 @@ import { diBoasColors } from '@/lib/colors';
 export type ShareType = 'waitlist' | 'calculator' | 'dream';
 
 /**
- * Supported locales for OG image translations
+ * Supported locales for OG image translations — single source of truth from @diboas/i18n
  */
-export type SupportedLocale = 'en' | 'pt-BR' | 'es' | 'de';
+export type { SupportedLocale } from '@diboas/i18n/config';
 
 /**
  * OG Image specific colors - using design system tokens

@@ -102,10 +102,9 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
   },
 };
 
-/**
- * Supported locale list
- */
-export const SUPPORTED_LOCALES: SupportedLocale[] = ['en', 'pt-BR', 'es', 'de'];
+import { SUPPORTED_LOCALES } from '@diboas/i18n/config';
+// Re-export for consumers
+export { SUPPORTED_LOCALES };
 
 /**
  * Get translations for a locale with fallback to English

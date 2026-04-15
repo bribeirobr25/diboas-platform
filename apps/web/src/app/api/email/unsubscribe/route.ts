@@ -12,6 +12,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { detectPreferredLocale } from '@diboas/i18n/config';
 import { hmacHash } from '@/lib/security/encryption';
 import { decodeUnsubToken } from '@/lib/email/unsubscribeUrl';
 import { applyRateLimit } from '@/lib/api/routeHelpers';
@@ -83,10 +84,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Detect locale from Accept-Language header for a localized experience
-  const acceptLang = request.headers.get('Accept-Language')?.split(',')[0]?.trim().toLowerCase() || '';
-  const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
-  const locale = LOCALES.find(l => acceptLang.startsWith(l.toLowerCase()) || acceptLang.startsWith(l.split('-')[0]))
-    || 'en';
+  const locale = detectPreferredLocale(null, request.headers.get('Accept-Language'));
 
   // Re-encode as `t` param for the redirect
   const t = Buffer.from(`${params.id}:${params.token}`).toString('base64url');

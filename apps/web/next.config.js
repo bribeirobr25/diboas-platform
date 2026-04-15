@@ -19,7 +19,6 @@ const nextConfig = {
       
       // Internationalization
       'react-intl',
-      '@formatjs/intl-localematcher',
       
       // React Aria (used by @diboas/ui)
       '@react-aria/button',
@@ -249,7 +248,7 @@ const nextConfig = {
           
           // Internationalization libraries
           i18n: {
-            test: /[\\/]node_modules[\\/](@formatjs|react-intl|negotiator)[\\/]/,
+            test: /[\\/]node_modules[\\/](@formatjs|react-intl)[\\/]/,
             name: 'i18n',
             priority: 32,
             reuseExistingChunk: true,
