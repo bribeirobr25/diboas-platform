@@ -301,18 +301,6 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         website: 'https://jup.ag',
         twitter: 'https://x.com/JupiterExchange',
       },
-      {
-        id: 'drift',
-        name: 'Drift Protocol',
-        description: 'Full-featured trading platform on Solana. Perpetuals, spot trading, and lending in one system. Real-time risk monitoring dashboard is public.',
-        founded: '2021',
-        tvl: '~$850 million',
-        blockchains: 'Solana',
-        audits: '3+ audits by Trail of Bits, OtterSec',
-        regulatory: 'Open-source code. Public risk monitoring.',
-        website: 'https://drift.trade',
-        twitter: 'https://x.com/DriftProtocol',
-      },
     ],
   },
   {

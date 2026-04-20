@@ -64,6 +64,9 @@ export const UTM_CONTENT_BY_PLATFORM: Record<SharePlatform, string> = {
   linkedin: 'linkedin',
   telegram: 'telegram',
   copy: 'link_copy',
+  facebook: 'facebook',
+  instagram: 'instagram',
+  substack: 'substack',
 } as const;
 
 /**

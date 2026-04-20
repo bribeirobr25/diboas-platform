@@ -70,7 +70,7 @@
   },
   "origin": {
     "transitionHook": "Por eso existimos.",
-    "header": "Se llamaba Adelaide.",
+    "header": "¿Por qué estamos construyendo esto?",
     "paragraphs": {
       "p1": "La abuela de nuestro fundador ahorró la mitad de todo lo que ganó durante toda su vida. Su banco le pagó casi nada por ello.",
       "p2": "No sabía que había mejores opciones. Nadie se lo dijo. El lenguaje era demasiado complicado. Los mínimos demasiado altos. A las instituciones no les importaba la gente con pocos ahorros.",
@@ -82,8 +82,8 @@
     }
   },
   "howItWorks": {
-    "transitionHook": "Has visto lo que es posible. Aquí va lo que pasa bajo el capó.",
-    "header": "Dinero que se mueve como mensajes.",
+    "transitionHook": "",
+    "header": "Toma el Control y Libera tu Dinero",
     "step1": {
       "title": "Enviar y Recibir",
       "description": "Envía dinero a cualquiera en diBoaS. En cualquier lugar del mundo. En segundos. Gratis. Retíralo cuando quieras.",
@@ -106,12 +106,12 @@
     }
   },
   "howItWorksDetailed": {
-    "transitionHook": "Has visto lo que es posible. Aquí va lo que pasa bajo el capó.",
+    "transitionHook": "",
     "header": "Cómo funciona.",
     "card1": {
       "title": "¿De dónde viene el crecimiento?",
-      "p1": "Tu dinero trabaja mientras duermes. Las estrategias que eliges ponen tu dinero en sistemas financieros establecidos que generan rendimiento. Tú lo ves todo en tu moneda. Puedes recuperarlo en cualquier momento.",
-      "p2": "Ese crecimiento no es magia. Es tu dinero haciendo lo que los bancos hacen con él, pero tú te quedas con la mayor parte del beneficio en lugar de ellos."
+      "p1": "El crecimiento no es magia. Es tu dinero haciendo lo que los bancos hacen con él, pero con diBoaS, tú te quedas con la mayor parte de las ganancias.",
+      "p2": ""
     },
     "card2": {
       "title": "¿Qué pasa con tu dinero?",
@@ -121,8 +121,8 @@
     },
     "card3": {
       "title": "¿Y si algo sale mal?",
-      "p1": "Puedes perder dinero. Dinero real. Por eso los ejemplos de metas te mostraron una comparación con tu banco, para que puedas ver la diferencia antes de comprometerte, no después.",
-      "p2": "Siempre tienes el control. Pausa las aportaciones cuando quieras. Recupera tu dinero cuando lo necesites. Elige estrategias más seguras o más atrevidas según tu meta."
+      "p1": "Puedes perder dinero. Dinero real. Sin embargo, siempre tienes el control. Pausa las aportaciones cuando quieras. Retira tu dinero cuando lo necesites. Elige estrategias más seguras o atrevidas según tu meta.",
+      "p2": ""
     }
   },
   "fees": {
@@ -231,20 +231,20 @@
     "linkText": "Ver la documentación técnica completa"
   },
   "demo": {
-    "transitionHook": "No te fíes solo de nuestra palabra.",
+    "transitionHook": "",
     "header": "No te fíes solo de nuestra palabra.",
     "subtext": "¿Qué haría tu dinero aquí?",
     "ctaPrimary": "Probar la Demo",
     "ctaSecondary": "Simula Tus Metas"
   },
   "socialProof": {
-    "header": "Los primeros 1.200.",
-    "subtext": "Empezamos pequeños a propósito.\n\nQueremos conocer a cada persona que se una pronto. Queremos escuchar qué funciona y qué no. Queremos construir esto contigo, no solo para ti.\n\nTienes 5 invitaciones. Elige a las personas que creas que merecen estar aquí.",
+    "header": "¡Únete al Movimiento!",
+    "subtext": "Muchos ya están aprovechando la oportunidad de liberar su dinero y tener acceso justo. Suscríbete a nuestra lista de espera.",
     "stats": {
-      "waitlist": "{count} miembros fundadores",
+      "waitlist": "{count} usuarios",
       "countries": "{countries} países"
     },
-    "cta": "Estar entre los primeros 1.200",
+    "cta": "Unirse a la lista de espera",
     "zeroState": "Sé de los primeros."
   },
   "founder": {

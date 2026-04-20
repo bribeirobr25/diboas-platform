@@ -86,7 +86,7 @@
     "differenceSubtext": "El mismo dinero. Diferente lugar. Gran diferencia.",
     "shareTitle": "Compartir mi sueño",
     "shareCopied": "¡Copiado!",
-    "shareText": "Mi simulación en Dream Mode convertiría {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo tú mismo:",
+    "shareText": "Esta simulación orientada a metas es la forma más fácil y efectiva de construir riqueza. Convirtió {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo:",
     "yieldCurrencyValue": "Valor en dólares digitales: {amount}",
     "bankSource": "Basado en una tasa de ahorro promedio de {rate}%. Fuente: Estadísticas del BCE, enero 2026.",
     "bankComparison": "vs tu banco al {rate}% APY",

@@ -14,7 +14,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
-import { CopyIcon, CheckIcon, WhatsAppIcon, TwitterIcon, LinkedInIcon } from './ReferralIcons';
+import { CopyIcon, CheckIcon, WhatsAppIcon, TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, SubstackIcon } from './ReferralIcons';
 import { type SharePlatform, shareToPlatform, copyToClipboard } from './shareUtils';
 import styles from './ReferralLink.module.css';
 
@@ -99,6 +99,9 @@ export function ReferralLink({
       onLinkedInCopy: () => {
         alert(intl.formatMessage({ id: 'share.toast.linkedInCopied' }));
       },
+      onClipboardCopy: () => {
+        alert(intl.formatMessage({ id: 'share.toast.linkCopied' }));
+      },
     });
   };
 
@@ -155,6 +158,27 @@ export function ReferralLink({
             aria-label={st('platform.linkedin')}
           >
             <LinkedInIcon />
+          </button>
+          <button
+            onClick={() => handleShare('facebook')}
+            className={`${styles.shareButton} ${styles.facebook}`}
+            aria-label={st('platform.facebook')}
+          >
+            <FacebookIcon />
+          </button>
+          <button
+            onClick={() => handleShare('instagram')}
+            className={`${styles.shareButton} ${styles.instagram}`}
+            aria-label={st('platform.instagram')}
+          >
+            <InstagramIcon />
+          </button>
+          <button
+            onClick={() => handleShare('substack')}
+            className={`${styles.shareButton} ${styles.substack}`}
+            aria-label={st('platform.substack')}
+          >
+            <SubstackIcon />
           </button>
         </div>
       ) : null}

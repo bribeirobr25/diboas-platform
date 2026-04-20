@@ -70,7 +70,7 @@
   },
   "origin": {
     "transitionHook": "Darum gibt es uns.",
-    "header": "Ihr Name war Adelaide.",
+    "header": "Warum wir das bauen",
     "paragraphs": {
       "p1": "Die Großmutter unseres Gründers hat ihr ganzes Leben lang die Hälfte von allem gespart, was sie verdient hat. Ihre Bank hat ihr dafür fast nichts gegeben.",
       "p2": "Sie wusste nicht, dass es bessere Möglichkeiten gab. Niemand hat es ihr gesagt. Die Sprache war zu kompliziert. Die Mindestbeträge zu hoch. Die Institutionen haben sich nicht für Menschen mit kleinen Ersparnissen interessiert.",
@@ -82,8 +82,8 @@
     }
   },
   "howItWorks": {
-    "transitionHook": "Du hast gesehen, was möglich ist. Hier ist, was unter der Haube passiert.",
-    "header": "Geld, das sich bewegt wie Nachrichten.",
+    "transitionHook": "",
+    "header": "Übernimm die Kontrolle und befreie dein Geld",
     "step1": {
       "title": "Senden und Empfangen",
       "description": "Sende Geld an jeden auf diBoaS. Überall auf der Welt. In Sekunden. Kostenlos. Jederzeit abheben.",
@@ -106,12 +106,12 @@
     }
   },
   "howItWorksDetailed": {
-    "transitionHook": "Du hast gesehen, was möglich ist. Hier ist, was unter der Haube passiert.",
+    "transitionHook": "",
     "header": "So funktioniert es.",
     "card1": {
       "title": "Woher kommt das Wachstum?",
-      "p1": "Dein Geld arbeitet, während du schläfst. Die Strategien, die du wählst, investieren dein Geld in etablierte Finanzsysteme, die Rendite erwirtschaften. Du siehst alles in deiner Währung. Du kannst es jederzeit zurückholen.",
-      "p2": "Dieses Wachstum ist keine Magie. Es ist dein Geld, das das tut, was Banken damit machen, aber du behältst den Großteil des Gewinns statt sie."
+      "p1": "Das Wachstum ist keine Magie. Es ist dein Geld, das tut, was Banken damit tun, aber bei diBoaS behältst du den Großteil des Gewinns.",
+      "p2": ""
     },
     "card2": {
       "title": "Was passiert mit deinem Geld?",
@@ -121,8 +121,8 @@
     },
     "card3": {
       "title": "Was, wenn etwas schiefgeht?",
-      "p1": "Du kannst Geld verlieren. Echtes Geld. Deshalb haben die Ziel-Beispiele dir einen Bankvergleich gezeigt, damit du den Unterschied sehen kannst, bevor du dich entscheidest, nicht danach.",
-      "p2": "Du hast immer die Kontrolle. Einzahlungen jederzeit pausieren. Geld zurückholen, wenn du es brauchst. Sicherere oder mutigere Strategien wählen, je nach deinem Ziel."
+      "p1": "Du kannst Geld verlieren. Echtes Geld. Aber du behältst immer die Kontrolle. Pausiere Einzahlungen jederzeit. Hole dein Geld zurück, wenn du es brauchst. Wähle sicherere oder mutigere Strategien je nach deinem Ziel.",
+      "p2": ""
     }
   },
   "fees": {
@@ -231,20 +231,20 @@
     "linkText": "Vollständige technische Dokumentation ansehen"
   },
   "demo": {
-    "transitionHook": "Glaub uns nicht einfach.",
+    "transitionHook": "",
     "header": "Glaub uns nicht einfach.",
     "subtext": "Was würde dein Geld hier machen?",
     "ctaPrimary": "Demo testen",
     "ctaSecondary": "Simuliere deine Ziele"
   },
   "socialProof": {
-    "header": "Die ersten 1.200.",
-    "subtext": "Wir fangen bewusst klein an.\n\nWir wollen jede Person kennen, die früh dazukommt. Wir wollen hören, was funktioniert und was nicht. Wir wollen das hier mit dir bauen, nicht nur für dich.\n\nDu bekommst 5 Einladungen. Wähle die Menschen, die es verdient haben, dabei zu sein.",
+    "header": "Werde Teil der Bewegung!",
+    "subtext": "Viele nutzen bereits die Möglichkeit, ihr Geld zu befreien und faire Chancen zu bekommen. Trag dich in unsere Warteliste ein.",
     "stats": {
-      "waitlist": "{count} Gründungsmitglieder",
+      "waitlist": "{count} Nutzer",
       "countries": "{countries} Länder"
     },
-    "cta": "Zu den ersten 1.200 gehören",
+    "cta": "Zur Warteliste",
     "zeroState": "Gehöre zu den Ersten."
   },
   "founder": {

@@ -355,11 +355,10 @@ export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
 
 
 /**
- * Section 11: Demo Configuration
+ * Section 7: Demo Configuration
  */
 export const B2C_DEMO_CONFIG = {
   content: {
-    transitionHook: 'landing-b2c.demo.transitionHook',
     header: 'landing-b2c.demo.header',
     subtext: 'landing-b2c.demo.subtext',
     ctaPrimary: 'landing-b2c.demo.ctaPrimary',

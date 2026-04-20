@@ -178,22 +178,7 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
         {/* Transition 5 */}
         <ProtocolsTransitionHook hookKey="transitions.t5" />
 
-        {/* Section 7: FAQ */}
-        <SectionErrorBoundary
-          sectionId="faq-section-protocols"
-          sectionType="FAQAccordion"
-          enableReporting
-          context={{ page: 'protocols' }}
-        >
-          <div id="faq" data-section-id="faq-section-protocols">
-            <FAQAccordion config={PROTOCOLS_FAQ_CONFIG} />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* CTA Transition */}
-        <ProtocolsTransitionHook hookKey="cta.transition" />
-
-        {/* Section 8: Waitlist */}
+        {/* Section 7: Waitlist */}
         <SectionErrorBoundary
           sectionId="waitlist-section-protocols"
           sectionType="WaitlistSection"
@@ -202,6 +187,18 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
         >
           <div id="waitlist" data-section-id="waitlist-section-protocols">
             <WaitlistSection config={PROTOCOLS_WAITLIST_CONFIG} enableAnalytics />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 8: FAQ */}
+        <SectionErrorBoundary
+          sectionId="faq-section-protocols"
+          sectionType="FAQAccordion"
+          enableReporting
+          context={{ page: 'protocols' }}
+        >
+          <div id="faq" data-section-id="faq-section-protocols">
+            <FAQAccordion config={PROTOCOLS_FAQ_CONFIG} />
           </div>
         </SectionErrorBoundary>
 

@@ -22,8 +22,14 @@ export const HowItWorksGrid = memo(function HowItWorksGrid({
   const sectionRef = useRef<HTMLDivElement>(null);
   const hasFiredRef = useRef(false);
 
+  const prefix = 'landing-b2c.howItWorksDetailed';
   const t = (key: string) =>
-    intl.formatMessage({ id: `landing-b2c.howItWorksDetailed.${key}` });
+    intl.formatMessage({ id: `${prefix}.${key}` });
+  const hasMessage = (key: string): boolean => {
+    const id = `${prefix}.${key}`;
+    const value = (intl.messages as Record<string, string>)?.[id];
+    return typeof value === 'string' && value.length > 0;
+  };
 
   const tSection = (key: string) =>
     intl.formatMessage({ id: `landing-b2c.sections.howItWorksDetailed.${key}` });
@@ -60,7 +66,6 @@ export const HowItWorksGrid = memo(function HowItWorksGrid({
       className={className}
     >
       <div ref={sectionRef} className={styles.container}>
-        <p className={styles.transitionHook}>{t('transitionHook')}</p>
         <h2 className={styles.heading}>{t('header')}</h2>
 
         <div className={styles.grid}>
@@ -71,7 +76,7 @@ export const HowItWorksGrid = memo(function HowItWorksGrid({
               </div>
               <h3 className={styles.cardTitle}>{t(`${key}.title`)}</h3>
               <p className={styles.cardText}>{t(`${key}.p1`)}</p>
-              <p className={styles.cardText}>{t(`${key}.p2`)}</p>
+              {hasMessage(`${key}.p2`) ? <p className={styles.cardText}>{t(`${key}.p2`)}</p> : null}
             </article>
           ))}
         </div>

@@ -227,6 +227,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
                 referralCount: updatedReferrer.referralCount,
                 tier: updatedReferrer.tier,
                 invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
+                referralCode: referrer.referralCode,
+                referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referrer.referralCode),
                 unsubscribeUrl: referrerUnsubUrls?.pageUrl,
                 unsubscribeApiUrl: referrerUnsubUrls?.apiUrl,
               },

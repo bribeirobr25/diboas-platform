@@ -108,18 +108,18 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  * 15-section layout + footer:
  * 1.  Hero — Full dark background with headline and CTA
  * 2.  ComparisonTable — "$1,000. 1 year. You decide." rate comparison
- * 3.  GoalExampleCards — "Let's make it simple." expandable goal cards
- * 4.  SidePocketStrip — Brand-tinted breathing strip
- * 5.  Adelaide Story — "Her name was Adelaide." (ProseSection)
+ * 3.  SidePocketStrip — Brand-tinted breathing strip
+ * 4.  GoalExampleCards — "Let's make it simple." expandable goal cards
+ * 5.  Adelaide Story — "Why we are building this?" (ProseSection)
  * 6.  How It Works (Detailed) — 3-card static grid explaining the mechanism
- * 7.  Money That Moves — 4-card AppFeaturesCarousel (Send, Invest, Track, Buy)
- * 8.  Fee Table — Transparent fee table (5 columns)
- * 9.  What's the Catch? — Honest transparency (ProseSection, dark background)
- * 10. Under the Hood — Expandable technical details
- * 11. Demo — Interactive demo embed
+ * 7.  Demo — Interactive demo embed
+ * 8.  Take Control — 4-card AppFeaturesCarousel (Send, Invest, Track, Buy)
+ * 9.  Fee Table — Transparent fee table (5 columns)
+ * 10. What's the Catch? — Honest transparency (ProseSection, dark background)
+ * 11. Under the Hood — Expandable technical details
  * 12. Founding Members — Social proof wrapper with zero-state logic
- * 13. Built by Bar — Founder story + contact
- * 14. Waitlist — Email signup (dark background)
+ * 13. Waitlist — Email signup (dark background)
+ * 14. Built by Bar — Founder story + contact
  * 15. FAQ — 16+ CLO-approved Q&A items
  *     Footer — Tagline, nav, disclosures
  */
@@ -182,21 +182,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         </ScrollReveal>
 
-        {/* Section 3: Goal Example Cards — white bg */}
-        <ScrollReveal>
-          <SectionErrorBoundary
-            sectionId="goals-section-b2c"
-            sectionType="GoalExampleCards"
-            enableReporting={true}
-            context={{ page: 'landing-b2c' }}
-          >
-            <div id="goals" data-section-id="goals-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
-              <GoalExampleCards enableAnalytics={true} />
-            </div>
-          </SectionErrorBoundary>
-        </ScrollReveal>
-
-        {/* Section 4: Side-Pocket Strip — brand bg */}
+        {/* Section 3: Side-Pocket Strip — brand bg */}
         <ScrollReveal>
           <SectionErrorBoundary
             sectionId="sidepocket-section-b2c"
@@ -210,7 +196,35 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         </ScrollReveal>
 
-        {/* Section 5: Adelaide Story — warm bg (set via config) */}
+        {/* Section 4: Goal Example Cards — white bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="goals-section-b2c"
+            sectionType="GoalExampleCards"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="goals" data-section-id="goals-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+              <GoalExampleCards enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
+
+        {/* Section 5: Join the Movement — white bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="founding-members-section-b2c"
+            sectionType="FoundingMembersSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="social-proof" data-section-id="founding-members-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+              <FoundingMembersSection enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
+
+        {/* Section 6: Adelaide Story — warm bg (set via config) */}
         <ScrollReveal>
           <SectionErrorBoundary
             sectionId="origin-story-section-b2c"
@@ -241,7 +255,21 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         </ScrollReveal>
 
-        {/* Section 7: Money That Moves — neutral bg (set via component token) */}
+        {/* Section 7: Demo — brand bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="demo-section-b2c"
+            sectionType="DemoLauncher"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="demo" data-section-id="demo-section-b2c" style={{ backgroundColor: 'var(--section-bg-brand)' }}>
+              <DemoLauncher config={B2C_DEMO_CONFIG} enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
+
+        {/* Section 8: Take Control and Free your Money — neutral bg (set via component token) */}
         <ScrollReveal>
           <SectionErrorBoundary
             sectionId="how-it-works-section-b2c"
@@ -258,7 +286,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         </ScrollReveal>
 
-        {/* Section 8: Fees — neutral bg */}
+        {/* Section 9: Fees — neutral bg */}
         <ScrollReveal>
           <SectionErrorBoundary
             sectionId="fees-section-b2c"
@@ -275,7 +303,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         </ScrollReveal>
 
-        {/* Section 9: What's the Catch? — dark bg (set via config) */}
+        {/* Section 10: What's the Catch? — dark bg (set via config) */}
         <ScrollReveal>
           <SectionErrorBoundary
             sectionId="catch-section-b2c"
@@ -292,7 +320,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         </ScrollReveal>
 
-        {/* Section 10: Under the Hood — white bg */}
+        {/* Section 11: Under the Hood — white bg */}
         <ScrollReveal>
           <SectionErrorBoundary
             sectionId="under-the-hood-section-b2c"
@@ -308,51 +336,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         </ScrollReveal>
 
-        {/* Section 11: Demo — brand bg */}
-        <ScrollReveal>
-          <SectionErrorBoundary
-            sectionId="demo-section-b2c"
-            sectionType="DemoLauncher"
-            enableReporting={true}
-            context={{ page: 'landing-b2c' }}
-          >
-            <div id="demo" data-section-id="demo-section-b2c" style={{ backgroundColor: 'var(--section-bg-brand)' }}>
-              <DemoLauncher config={B2C_DEMO_CONFIG} enableAnalytics={true} />
-            </div>
-          </SectionErrorBoundary>
-        </ScrollReveal>
-
-        {/* Section 12: Founding Members — white bg */}
-        <ScrollReveal>
-          <SectionErrorBoundary
-            sectionId="founding-members-section-b2c"
-            sectionType="FoundingMembersSection"
-            enableReporting={true}
-            context={{ page: 'landing-b2c' }}
-          >
-            <div id="social-proof" data-section-id="founding-members-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
-              <FoundingMembersSection enableAnalytics={true} />
-            </div>
-          </SectionErrorBoundary>
-        </ScrollReveal>
-
-        {/* Section 13: Built by Bar — warm bg */}
-        <ScrollReveal>
-          <SectionErrorBoundary
-            sectionId="founder-section-b2c"
-            sectionType="FounderSection"
-            enableReporting={true}
-            context={{ page: 'landing-b2c' }}
-          >
-            <div id="founder" data-section-id="founder-section-b2c" style={{ backgroundColor: 'var(--section-bg-warm)' }}>
-              <FounderSection
-                config={B2C_FOUNDER_CONFIG}
-              />
-            </div>
-          </SectionErrorBoundary>
-        </ScrollReveal>
-
-        {/* Section 14: Waitlist — dark bg (set via config) */}
+        {/* Section 12: Waitlist — dark bg (set via config) */}
         <ScrollReveal>
           <SectionErrorBoundary
             sectionId="waitlist-section-b2c"
@@ -372,6 +356,22 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
                   hideNoSpam: B2C_WAITLIST_CONFIG.hideNoSpam,
                   source: B2C_WAITLIST_CONFIG.source,
                 }}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
+
+        {/* Section 14: Built by Bar — warm bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="founder-section-b2c"
+            sectionType="FounderSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="founder" data-section-id="founder-section-b2c" style={{ backgroundColor: 'var(--section-bg-warm)' }}>
+              <FounderSection
+                config={B2C_FOUNDER_CONFIG}
               />
             </div>
           </SectionErrorBoundary>

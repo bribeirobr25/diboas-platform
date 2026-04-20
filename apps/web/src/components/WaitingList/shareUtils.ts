@@ -5,20 +5,23 @@
  * Handles per-platform share config (Twitter mention, LinkedIn clipboard).
  */
 
+import type { SharePlatform } from '@/lib/share/types';
 import {
   getTwitterShareUrl,
   getWhatsAppShareUrl,
   getLinkedInShareUrl,
+  getFacebookShareUrl,
   openShareWindow,
   copyToClipboard,
 } from '@/lib/share/platformUrls';
 
-export type SharePlatform = 'twitter' | 'whatsapp' | 'linkedin' | 'copy';
+export type { SharePlatform };
 
 interface ShareConfig {
   referralUrl: string;
   shareText: string;
   onLinkedInCopy: () => void;
+  onClipboardCopy?: () => void;
 }
 
 /**
@@ -29,7 +32,7 @@ export function shareToPlatform(
   platform: SharePlatform,
   config: ShareConfig
 ): void {
-  const { referralUrl, shareText, onLinkedInCopy } = config;
+  const { referralUrl, shareText, onLinkedInCopy, onClipboardCopy } = config;
 
   switch (platform) {
     case 'twitter': {
@@ -44,6 +47,15 @@ export function shareToPlatform(
       copyToClipboard(`${shareText} ${referralUrl}`).then(() => {
         onLinkedInCopy();
         openShareWindow(getLinkedInShareUrl(referralUrl));
+      });
+      break;
+    case 'facebook':
+      openShareWindow(getFacebookShareUrl(shareText, referralUrl));
+      break;
+    case 'instagram':
+    case 'substack':
+      copyToClipboard(`${shareText} ${referralUrl}`).then(() => {
+        onClipboardCopy?.();
       });
       break;
   }

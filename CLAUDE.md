@@ -31,7 +31,14 @@ diboas-platform/
   packages/investing/  # @diboas/investing - Investment domain (Phase 2+ stub)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
-  docs/                # Project documentation
+  docs/                # Project documentation (only docs/tech/ is git-tracked)
+    tech/              # Technical guides (committed)
+    audit/             # Audit tracking (local-only)
+    full-view/         # Product & business docs (local-only)
+    post-launch/       # Post-launch planning (local-only)
+    revenue/           # Fee modeling reference (local-only)
+    roadmap/           # Phase 2+ architecture planning (local-only)
+    skills-commands/   # Framework & kit playbooks (local-only)
 ```
 
 ### App Router Structure
@@ -300,7 +307,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-All 33 Phase 1 audit findings have been resolved. Comprehensive 25-category audit completed March 2026 — 153/158 checks pass (96.8%). See `docs/audit/AUDIT_RESULTS_2026-03-27.md` for full results and `docs/audit/COMPREHENSIVE_AUDIT_PLAN.md` for the reusable audit framework.
+All 33 Phase 1 audit findings have been resolved. Comprehensive 25-category audit completed March 2026 — 153/158 checks pass (96.8%). Remaining pending items tracked in `docs/audit/PENDING.md`.
 
 ## Visual Development — Human-First Design Workflow
 

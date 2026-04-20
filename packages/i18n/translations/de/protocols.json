@@ -1,14 +1,14 @@
 {
   "seo": {
     "title": "Wo dein Geld arbeitet | diBoaS Protokolle",
-    "description": "26 Protokolle. 7 Kategorien. Volle Transparenz über jedes System, das dein Geld berührt. Sieh genau, wohin dein Geld geht.",
+    "description": "25 Protokolle. 7 Kategorien. Volle Transparenz über jedes System, das dein Geld berührt. Sieh genau, wohin dein Geld geht.",
     "ogTitle": "Wo dein Geld arbeitet | diBoaS Protokolle",
     "ogDescription": "Jedes System. Jeder Name. Nichts versteckt. Sieh genau, welche DeFi-Protokolle diBoaS nutzt und warum."
   },
   "hero": {
     "h1": "Wo dein Geld arbeitet",
     "subtitle": "Jedes System. Jeder Name. Nichts versteckt.",
-    "trustLine": "26 Protokolle. 7 Kategorien. Volle Transparenz über jedes System, das dein Geld berührt."
+    "trustLine": "25 Protokolle. 7 Kategorien. Volle Transparenz über jedes System, das dein Geld berührt."
   },
   "transitions": {
     "t1": "Warum wir diese Seite gebaut haben.",
@@ -22,11 +22,11 @@
     "text1": "Frag deine Bank, wohin dein Erspartes fließt. Sie werden es dir nicht sagen.",
     "text2": "Wir schon. Jedes System auf dieser Seite ist eines, das dein Geld berühren kann, wenn du eine diBoaS-Strategie nutzt. Wir veröffentlichen die Namen, die Erfolgsbilanz, die Sicherheitsprüfungen und die Dinge, die schiefgelaufen sind. Weil du es wissen solltest.",
     "text3": "Jedes Protokoll auf dieser Seite hat seinen Platz verdient. Wir haben geprüft, wie lange es läuft, wer den Code auditiert hat, wie es mit Problemen umgegangen ist und ob echte Menschen ihm echtes Geld anvertrauen. Was nicht bestanden hat, steht nicht hier.",
-    "scope": "Wir listen hier 26 Protokolle. Unsere Strategien nutzen aktuell 6 davon. Die übrigen sind Protokolle, die wir recherchiert und freigegeben haben. Sie können in zukünftige Strategien aufgenommen werden, wenn wir expandieren.",
+    "scope": "Wir listen hier 25 Protokolle. Unsere Strategien nutzen aktuell 6 davon. Die übrigen sind Protokolle, die wir recherchiert und freigegeben haben. Sie können in zukünftige Strategien aufgenommen werden, wenn wir expandieren.",
     "warningBox": "Wichtig: Auf dieser Seite gelistet zu sein bedeutet nicht null Risiko. Es bedeutet, dass wir unsere Hausaufgaben gemacht haben und ehrlich darüber sind, was wir gefunden haben. Jedes System auf dieser Seite trägt technisches Risiko, Marktrisiko und die Möglichkeit von Verlusten."
   },
   "grid": {
-    "h2": "Die 26 Protokolle",
+    "h2": "Die 25 Protokolle",
     "subtitle": "Sortiert nach Funktion. Klicke auf eine Karte für Details.",
     "tvlFreshness": "Alle TVL-Zahlen sind Näherungswerte, stammen von DeFiLlama und sind aktuell per Februar 2026. Die Werte schwanken täglich."
   },
@@ -310,17 +310,6 @@
         "regulatory": "Über 137 Mio. USD an Liquiditätsanbieter ausgezahlt von Januar bis Oktober 2024, basierend auf Dune-Analytics-Gebührendaten (75% von 183 Mio. USD Gesamtgebühren). Quelle: SolanaFloor / Dune Analytics (Oktober 2024). Die Zahl ist zum Zeitpunkt der Veröffentlichung wahrscheinlich deutlich höher."
       },
       "usedInStrategies": "Balanced Builder, Wealth Accelerator, Full Throttle"
-    },
-    "drift": {
-      "name": "Drift Protocol",
-      "description": "Umfassende Handelsplattform auf Solana. Perpetuals, Spothandel und Kreditvergabe in einem System. Das Echtzeit-Risikomonitoring-Dashboard ist öffentlich einsehbar.",
-      "details": {
-        "founded": "2021",
-        "tvl": "~850 Millionen USD",
-        "blockchains": "Solana",
-        "audits": "3+ Audits von Trail of Bits, OtterSec",
-        "regulatory": "Open-Source-Code. Öffentliches Risikomonitoring."
-      }
     },
     "raydium": {
       "name": "Raydium",

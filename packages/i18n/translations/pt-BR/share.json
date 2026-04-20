@@ -18,6 +18,7 @@
     "facebook": "Facebook",
     "linkedin": "LinkedIn",
     "telegram": "Telegram",
+    "substack": "Substack",
     "download": "Baixar imagem",
     "copy": "Copiar link",
     "copyLink": "Copiar link",
@@ -50,6 +51,6 @@
     "5years": "5 anos"
   },
   "waitlist": {
-    "text": "O dinheiro deveria circular como mensagens, livre e instantâneo. O acesso ao crescimento deveria ser justo e aberto a todos. Se você acredita, junte-se a nós:"
+    "text": "Acabei de encontrar um jeito fácil e justo de fazer o dinheiro crescer e se mover. É tão bom que preciso compartilhar"
   }
 }

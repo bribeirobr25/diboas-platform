@@ -8,7 +8,7 @@
   "hero": {
     "h1": "Where Your Money Works",
     "subtitle": "Every system. Every name. Nothing hidden.",
-    "trustLine": "26 protocols. 7 categories. Full transparency about every system your money touches."
+    "trustLine": "25 protocols. 7 categories. Full transparency about every system your money touches."
   },
   "transitions": {
     "t1": "Here's why we built this page.",
@@ -22,11 +22,11 @@
     "text1": "Ask your bank where your savings go. They won't tell you.",
     "text2": "We will. Every system listed on this page is one your money may touch when you use a diBoaS strategy. We publish the names, the track records, the security audits, and the things that went wrong. Because you should know.",
     "text3": "Every protocol on this page earned its spot. We checked how long it has been running, who audited the code, how it handled problems, and whether real people actually trust it with real money. If it did not pass, it is not here.",
-    "scope": "We list 26 protocols here. Our strategies currently use 6 of them. The rest are protocols we have researched and approved, and they may be included in future strategies as we expand.",
+    "scope": "We list 25 protocols here. Our strategies currently use 6 of them. The rest are protocols we have researched and approved, and they may be included in future strategies as we expand.",
     "warningBox": "Important: Being listed here does not mean zero risk. It means we did our homework and we are being honest about what we found. Every system on this page carries technical risk, market risk, and the possibility of loss."
   },
   "grid": {
-    "h2": "The 26 Protocols",
+    "h2": "The 25 Protocols",
     "subtitle": "Organized by what they do. Click any card for details.",
     "tvlFreshness": "All TVL figures are approximate, sourced from DeFiLlama, and current as of February 2026. Values fluctuate daily."
   },
@@ -310,17 +310,6 @@
         "regulatory": "Over $137M paid to liquidity providers from January to October 2024, based on Dune Analytics fee data (75% of $183M total fees). Source: SolanaFloor / Dune Analytics (October 2024). Figure is likely significantly higher at time of publication."
       },
       "usedInStrategies": "Balanced Builder, Wealth Accelerator, Full Throttle"
-    },
-    "drift": {
-      "name": "Drift Protocol",
-      "description": "Full-featured trading platform on Solana. Perpetuals, spot trading, and lending in one system. Real-time risk monitoring dashboard is public.",
-      "details": {
-        "founded": "2021",
-        "tvl": "~$850 million",
-        "blockchains": "Solana",
-        "audits": "3+ audits by Trail of Bits, OtterSec",
-        "regulatory": "Open-source code. Public risk monitoring."
-      }
     },
     "raydium": {
       "name": "Raydium",

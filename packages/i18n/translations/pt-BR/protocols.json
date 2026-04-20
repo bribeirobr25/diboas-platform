@@ -8,7 +8,7 @@
   "hero": {
     "h1": "Onde seu dinheiro trabalha",
     "subtitle": "Cada sistema. Cada nome. Nada escondido.",
-    "trustLine": "26 protocolos. 7 categorias. Transparência total sobre cada sistema que toca o seu dinheiro."
+    "trustLine": "25 protocolos. 7 categorias. Transparência total sobre cada sistema que toca o seu dinheiro."
   },
   "transitions": {
     "t1": "Por isso a gente criou essa página.",
@@ -22,11 +22,11 @@
     "text1": "Pergunta pro seu banco onde o seu dinheiro da poupança vai. Eles não vão te contar.",
     "text2": "A gente conta. Cada sistema listado nessa página é um que o seu dinheiro pode tocar quando você usa uma estratégia do diBoaS. A gente publica os nomes, o histórico, as auditorias de segurança e as coisas que deram errado. Porque você merece saber.",
     "text3": "Cada protocolo nessa página conquistou seu lugar. Verificamos há quanto tempo está rodando, quem auditou o código, como lidou com problemas e se pessoas reais confiam nele com dinheiro de verdade. Se não passou, não está aqui.",
-    "scope": "Listamos 26 protocolos aqui. Nossas estratégias usam atualmente 6 deles. Os demais são protocolos que pesquisamos e aprovamos, e podem ser incluidos em estratégias futuras conforme expandimos.",
+    "scope": "Listamos 25 protocolos aqui. Nossas estratégias usam atualmente 6 deles. Os demais são protocolos que pesquisamos e aprovamos, e podem ser incluidos em estratégias futuras conforme expandimos.",
     "warningBox": "Importante: Estar listado aqui não significa risco zero. Significa que fizemos nosso dever de casa e somos honestos sobre o que encontramos. Todo sistema nessa página carrega risco técnico, risco de mercado é a possibilidade de perdas."
   },
   "grid": {
-    "h2": "Os 26 protocolos",
+    "h2": "Os 25 protocolos",
     "subtitle": "Organizados pelo que fazem. Clique em qualquer card pra ver detalhes.",
     "tvlFreshness": "Todos os valores de TVL são aproximados, vindos do DeFiLlama, e atualizados em fevereiro de 2026. Os valores variam diariamente."
   },
@@ -310,17 +310,6 @@
         "regulatory": "Mais de US$137 milhoes pagos a provedores de liquidez de janeiro a outubro de 2024, baseado em dados de taxas do Dune Analytics (75% de US$183 milhoes em taxas totais). Fonte: SolanaFloor / Dune Analytics (outubro 2024). O número e provavelmente significativamente maior na data de publicacao."
       },
       "usedInStrategies": "Balanced Builder, Wealth Accelerator, Full Throttle"
-    },
-    "drift": {
-      "name": "Drift Protocol",
-      "description": "Plataforma de trading completa na Solana. Perpetuos, trading spot e empréstimos num so sistema. O painel de monitoramento de riscos em tempo real e público.",
-      "details": {
-        "founded": "2021",
-        "tvl": "~US$850 milhoes",
-        "blockchains": "Solana",
-        "audits": "3+ auditorias da Trail of Bits, OtterSec",
-        "regulatory": "Código open-source. Monitoramento de riscos público."
-      }
     },
     "raydium": {
       "name": "Raydium",

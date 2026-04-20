@@ -49,6 +49,8 @@ export interface ReferralSuccessEmailData {
   tier: WaitlistTier;
   invitesRemaining: number;
   locale: string;
+  referralUrl: string;
+  referralCode: string;
   /** Branded page URL for email footer link */
   unsubscribeUrl?: string;
   /** API URL for List-Unsubscribe header (RFC 8058) */

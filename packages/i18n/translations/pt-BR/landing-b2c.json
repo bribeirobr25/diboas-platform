@@ -70,7 +70,7 @@
   },
   "origin": {
     "transitionHook": "Por isso a gente existe.",
-    "header": "O nome dela era Adelaide.",
+    "header": "Por que estamos construindo isso?",
     "paragraphs": {
       "p1": "A avó do nosso fundador guardou metade de tudo que ganhou a vida inteira. O banco dela pagou quase nada por isso.",
       "p2": "Ela não sabia que existiam opções melhores. Ninguém contou pra ela. A linguagem era complicada demais. Os valores mínimos, altos demais. As instituições não se importavam com quem tinha pouca economia.",
@@ -82,8 +82,8 @@
     }
   },
   "howItWorks": {
-    "transitionHook": "Você viu o que é possível. Aqui vai o que acontece por baixo do capô.",
-    "header": "Dinheiro que se move como mensagem.",
+    "transitionHook": "",
+    "header": "Assuma o Controle e Liberte seu Dinheiro",
     "step1": {
       "title": "Enviar e Receber",
       "description": "Mande dinheiro pra qualquer pessoa no diBoaS. Em qualquer lugar do mundo. Em segundos. De graça. Saque quando quiser.",
@@ -106,12 +106,12 @@
     }
   },
   "howItWorksDetailed": {
-    "transitionHook": "Você viu o que é possível. Aqui vai o que acontece por baixo do capô.",
+    "transitionHook": "",
     "header": "Como funciona.",
     "card1": {
       "title": "De onde vem o crescimento?",
-      "p1": "Seu dinheiro trabalha enquanto você dorme. As estratégias que você escolhe colocam seu dinheiro em sistemas financeiros estabelecidos que geram rendimento, em dólar. Você vê tudo na sua moeda. Pode pegar de volta a qualquer hora.",
-      "p2": "Esse crescimento não é mágica. É o seu dinheiro fazendo o que os bancos fazem com ele, mas você fica com a maior parte do lucro em vez deles. E em moeda forte."
+      "p1": "O crescimento não é mágica. É o seu dinheiro fazendo o que os bancos fazem com ele, mas com o diBoaS, você fica com a maior parte do lucro.",
+      "p2": ""
     },
     "card2": {
       "title": "O que acontece com o seu dinheiro?",
@@ -121,8 +121,8 @@
     },
     "card3": {
       "title": "E se algo der errado?",
-      "p1": "Você pode perder dinheiro. Dinheiro de verdade. Por isso os exemplos de metas mostraram uma comparação, pra você ver a diferença antes de decidir, não depois.",
-      "p2": "Você sempre tem o controle. Pause depósitos quando quiser. Pegue seu dinheiro de volta quando precisar. Escolha estratégias mais seguras ou mais ousadas dependendo da sua meta."
+      "p1": "Você pode perder dinheiro. Dinheiro de verdade. No entanto, você está sempre no controle. Pause depósitos quando quiser. Retire quando precisar. Escolha estratégias mais seguras ou ousadas dependendo do seu objetivo.",
+      "p2": ""
     }
   },
   "fees": {
@@ -231,20 +231,20 @@
     "linkText": "Ver documentação técnica completa"
   },
   "demo": {
-    "transitionHook": "Não acredite só na nossa palavra.",
+    "transitionHook": "",
     "header": "Não acredite só na nossa palavra.",
     "subtext": "O que seu dinheiro faria aqui?",
     "ctaPrimary": "Testar a Demo",
     "ctaSecondary": "Simule Suas Metas"
   },
   "socialProof": {
-    "header": "Os primeiros 1.200.",
-    "subtext": "A gente tá começando pequeno de propósito.\n\nQueremos conhecer cada pessoa que entra cedo. Queremos ouvir o que funciona e o que não funciona. Queremos construir isso com você, não só pra você.\n\nVocê ganha 5 convites. Escolha as pessoas que você acha que merecem tá aqui.",
+    "header": "Faça Parte do Movimento!",
+    "subtext": "Muitos já estão aproveitando a oportunidade de libertar seu dinheiro e ter acesso justo. Inscreva-se na nossa lista de espera.",
     "stats": {
-      "waitlist": "{count} membros fundadores",
+      "waitlist": "{count} usuários",
       "countries": "{countries} países"
     },
-    "cta": "Fazer parte dos primeiros 1.200",
+    "cta": "Entrar na lista de espera",
     "zeroState": "Seja um dos primeiros."
   },
   "founder": {

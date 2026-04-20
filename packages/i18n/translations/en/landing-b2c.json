@@ -70,7 +70,7 @@
   },
   "origin": {
     "transitionHook": "Here's why this exists.",
-    "header": "Her name was Adelaide.",
+    "header": "Why we are building this?",
     "paragraphs": {
       "p1": "Our founder's grandmother saved half of everything she earned her entire life. Her bank paid her almost nothing.",
       "p2": "She didn't know there were better options. Nobody told her. The language was too complicated. The minimums were too high. The institutions didn't care about people with small savings.",
@@ -82,8 +82,8 @@
     }
   },
   "howItWorks": {
-    "transitionHook": "You saw what's possible. Here's what happens under the hood.",
-    "header": "Money that moves like messages.",
+    "transitionHook": "",
+    "header": "Take Control and Free your Money",
     "step1": {
       "title": "Send and Receive",
       "description": "Send money to anyone on diBoaS. Anywhere in the world. In seconds. Free. Withdraw it anytime.",
@@ -106,12 +106,12 @@
     }
   },
   "howItWorksDetailed": {
-    "transitionHook": "You saw what's possible. Here's what happens under the hood.",
+    "transitionHook": "",
     "header": "How it works.",
     "card1": {
       "title": "Where does the growth come from?",
-      "p1": "Your money works while you sleep. The strategies you choose put your money into established financial systems that generate yield. You see everything in your currency. You can take it back anytime.",
-      "p2": "That growth isn't magic. It's your money doing what banks do with it, but you keep most of the profit instead of them."
+      "p1": "The growth isn't magic. It's your money doing what banks do with it, but with diBoaS, you keep most of the profit instead of them.",
+      "p2": ""
     },
     "card2": {
       "title": "What happens to your money?",
@@ -121,8 +121,8 @@
     },
     "card3": {
       "title": "What if something goes wrong?",
-      "p1": "You can lose money. Real money. That's why the goal examples showed you a bank comparison, so you could see the difference before committing, not after.",
-      "p2": "You're always in control. Pause deposits anytime. Pull money back when you need it. Choose safer or bolder strategies depending on your goal."
+      "p1": "You can lose money. Real money. However, you're always in control. Pause deposits anytime. Pull money back when you need it. Choose safer or bolder strategies depending on your goal.",
+      "p2": ""
     }
   },
   "fees": {
@@ -231,20 +231,20 @@
     "linkText": "See full technical documentation"
   },
   "demo": {
-    "transitionHook": "Don't take our word for it.",
+    "transitionHook": "",
     "header": "Don't take our word for it.",
     "subtext": "What would your money do here?",
     "ctaPrimary": "Try the Demo",
     "ctaSecondary": "Try Your Goals"
   },
   "socialProof": {
-    "header": "The first 1,200.",
-    "subtext": "We're starting small on purpose.\n\nWe want to know every person who joins early. We want to hear what works and what doesn't. We want to build this with you, not just for you.\n\nYou get 5 invites. Choose the people you think deserve to be here.",
+    "header": "Join the Movement!",
+    "subtext": "Many are joining the opportunity to free their money and get fair opportunities. Subscribe to our waitlist.",
     "stats": {
-      "waitlist": "{count} founding members",
+      "waitlist": "{count} users",
       "countries": "{countries} countries"
     },
-    "cta": "Join the first 1,200",
+    "cta": "Join the waitlist",
     "zeroState": "Be among the first."
   },
   "founder": {

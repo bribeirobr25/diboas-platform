@@ -11,6 +11,7 @@ interface TierTranslations {
   tierMessage: Record<WaitlistTier, string>;
   foundingMemberBenefits: string[];
   referralCta: string;
+  shareText: string;
   demoCta: string;
   whatNext: string;
   whatNextBody: string;
@@ -43,6 +44,7 @@ const translations: Record<string, TierTranslations> = {
       'Future exclusive benefits for Founding Members only',
     ],
     referralCta: 'Copy your referral link',
+    shareText: 'I just found an easy and fair access to grow and move money. It is so good, that I have to share it',
     demoCta: 'Try the Interactive Demo',
     whatNext: "What's next?",
     whatNextBody: "We'll keep you posted on our progress and let you know when it's your turn.",
@@ -73,6 +75,7 @@ const translations: Record<string, TierTranslations> = {
       'Benefícios exclusivos futuros só pra Membros Fundadores',
     ],
     referralCta: 'Copie seu link de indicação',
+    shareText: 'Acabei de encontrar um jeito fácil e justo de fazer o dinheiro crescer e se mover. É tão bom que preciso compartilhar',
     demoCta: 'Experimente a Demo Interativa',
     whatNext: 'Próximos passos',
     whatNextBody: 'Manteremos você informado sobre nosso progresso e avisaremos quando for sua vez.',
@@ -103,6 +106,7 @@ const translations: Record<string, TierTranslations> = {
       'Beneficios exclusivos futuros solo para Miembros Fundadores',
     ],
     referralCta: 'Copia tu enlace de referencia',
+    shareText: 'Acabo de encontrar una forma fácil y justa de hacer crecer y mover mi dinero. Es tan bueno que tengo que compartirlo',
     demoCta: 'Prueba la Demo Interactiva',
     whatNext: '¿Qué sigue?',
     whatNextBody: 'Te mantendremos informado y te avisaremos cuando sea tu turno.',
@@ -133,6 +137,7 @@ const translations: Record<string, TierTranslations> = {
       'Zukünftige exklusive Vorteile nur für Gründungsmitglieder',
     ],
     referralCta: 'Empfehlungslink kopieren',
+    shareText: 'Ich habe einen einfachen und fairen Weg gefunden, Geld wachsen zu lassen und zu bewegen. Es ist so gut, dass ich es teilen muss',
     demoCta: 'Interaktive Demo ausprobieren',
     whatNext: 'Wie geht es weiter?',
     whatNextBody: 'Wir halten dich auf dem Laufenden und informieren dich, wenn du an der Reihe bist.',
@@ -140,6 +145,33 @@ const translations: Record<string, TierTranslations> = {
     memberNumber: '#{position} von 1.200',
   },
 };
+
+/**
+ * Render social share buttons for email (table-based for email client compatibility).
+ * Supports WhatsApp, X/Twitter, Facebook, LinkedIn.
+ */
+function renderSocialShareButtons(shareText: string, referralUrl: string): string {
+  const encodedText = encodeURIComponent(shareText);
+  const encodedUrl = encodeURIComponent(referralUrl);
+  const twitterText = encodeURIComponent(`${shareText} @diboasfi`);
+
+  const platforms = [
+    { name: 'WhatsApp', color: '#25D366', href: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${referralUrl}`)}` },
+    { name: 'X', color: '#0f172a', href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${shareText} @diboasfi ${referralUrl}`)}` },
+    { name: 'Facebook', color: '#1877F2', href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}` },
+    { name: 'LinkedIn', color: '#0A66C2', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  ];
+
+  const buttons = platforms.map(p =>
+    `<td style="padding:0 6px;"><a href="${p.href}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 16px;background-color:${p.color};color:#ffffff;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;min-width:60px;text-align:center;">${p.name}</a></td>`
+  ).join('');
+
+  return `
+    <table role="presentation" style="margin:16px auto 24px;border-spacing:0;">
+      <tr>${buttons}</tr>
+    </table>
+  `;
+}
 
 function renderTierBadge(tier: WaitlistTier, label: string): string {
   const colors: Record<WaitlistTier, { bg: string; text: string }> = {
@@ -196,9 +228,11 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
 
     <p style="margin:0 0 16px;font-size:14px;color:#475569;">${tierMessage}</p>
 
-    <div style="padding:12px 16px;background-color:#f1f5f9;border-radius:8px;margin-bottom:24px;word-break:break-all;">
+    <div style="padding:12px 16px;background-color:#f1f5f9;border-radius:8px;margin-bottom:16px;word-break:break-all;">
       <p style="margin:0;font-size:13px;color:${BRAND.primaryColor};font-weight:600;">${data.referralUrl}</p>
     </div>
+
+    ${renderSocialShareButtons(t.shareText, data.referralUrl)}
 
     ${demoSection}
 

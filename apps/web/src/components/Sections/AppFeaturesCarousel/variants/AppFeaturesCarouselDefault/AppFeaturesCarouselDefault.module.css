@@ -226,35 +226,95 @@
 }
 
 /* ================================
-   CARD DESCRIPTION STYLES
+   MOBILE NAVIGATION ARROWS
    ================================ */
 
-/* Card Description - Mobile-first: 90% width, center aligned */
-.cardDescription {
-  position: relative;
-  max-width: var(--afc-description-width-mobile); /* 90% */
-  width: var(--percent-100);
+.mobileArrow {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
-  padding-top: var(--spacing-lg);
-  transition: all var(--afc-transition-duration) var(--afc-transition-easing);
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--section-bg-white, #fff);
+  border: 1px solid var(--color-slate-200, #e2e8f0);
+  cursor: pointer;
+  flex-shrink: 0;
+  z-index: 2;
+  transition: background-color var(--animation-duration-fast) ease,
+              box-shadow var(--animation-duration-fast) ease;
 }
 
-/* Tablet: Constrain to 490px width below card */
+.mobileArrow:hover {
+  background-color: var(--section-bg-neutral, #fafafa);
+  box-shadow: var(--shadow-sm);
+}
+
+.mobileArrow:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+}
+
+.mobileArrowIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-secondary);
+}
+
+/* Hide arrows on desktop — all cards visible, click to select */
+@media (min-width: 1024px) {
+  .mobileArrow {
+    display: none;
+  }
+}
+
+/* ================================
+   CARD DESCRIPTION STYLES (stable height via CSS grid overlay)
+   ================================ */
+
+/* Grid overlay: all descriptions occupy the same grid cell (row 1, col 1).
+   The tallest description naturally determines the container height.
+   Only the active description is visible — zero layout shift on card switch. */
+.descriptionsGrid {
+  display: grid;
+  width: var(--percent-100);
+  max-width: var(--afc-description-width-mobile); /* 90% */
+  margin: 0 auto;
+  padding-top: var(--spacing-lg);
+}
+
 @media (min-width: 768px) {
-  .cardDescription {
+  .descriptionsGrid {
     max-width: var(--afc-description-width-tablet); /* 490px */
   }
 }
 
-/* Responsive: Desktop - Constrain to 416px width below active card, center aligned */
+/* Desktop: align left edge to active card, fixed width from design token */
 @media (min-width: 1024px) {
-  .cardDescription {
-    max-width: var(--afc-description-width-desktop); /* 416px */
-    align-items: center; /* Center align items */
+  .descriptionsGrid {
+    margin: 0;
+    max-width: var(--afc-image-active-width-desktop);
+    transform: translateX(var(--desc-offset, 0px));
+    transition: transform var(--afc-transition-duration) var(--afc-transition-easing);
   }
+}
+
+/* Every description sits in grid row 1 / col 1, stacked on top of each other */
+.cardDescription {
+  grid-row: 1;
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--afc-transition-duration) var(--afc-transition-easing);
+}
+
+.cardDescription.descriptionActive {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Card Title - Bold title above description */

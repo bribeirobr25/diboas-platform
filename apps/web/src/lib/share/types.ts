@@ -6,7 +6,7 @@
  */
 
 /** Supported share platforms */
-export type SharePlatform = 'twitter' | 'whatsapp' | 'linkedin' | 'telegram' | 'copy';
+export type SharePlatform = 'twitter' | 'whatsapp' | 'linkedin' | 'telegram' | 'copy' | 'facebook' | 'instagram' | 'substack';
 
 /** Card types for UTM tracking */
 export type CardType = 'dream' | 'waitlist' | 'referral' | 'milestone';

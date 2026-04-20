@@ -218,6 +218,8 @@ export class WaitlistApplicationService {
           referralCount: updatedReferrer.referralCount,
           tier: updatedReferrer.tier,
           invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
+          referralCode: referrer.referralCode,
+          referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referrer.referralCode),
         });
       })
       .catch((err) => {
@@ -283,6 +285,8 @@ export class WaitlistApplicationService {
       referralCount: number;
       tier: WaitlistTier;
       invitesRemaining: number;
+      referralUrl: string;
+      referralCode: string;
     },
   ): void {
     import('@diboas/email')
@@ -295,6 +299,8 @@ export class WaitlistApplicationService {
             referralCount: data.referralCount,
             tier: data.tier as 'founding_member' | 'early_member' | 'priority_waitlist' | 'standard',
             invitesRemaining: data.invitesRemaining,
+            referralUrl: data.referralUrl,
+            referralCode: data.referralCode,
           });
 
           if (result.success) {

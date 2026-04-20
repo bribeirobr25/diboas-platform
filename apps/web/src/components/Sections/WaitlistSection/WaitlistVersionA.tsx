@@ -110,14 +110,6 @@ export function WaitlistVersionA({
           belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}
         />
 
-        {!isLoading && stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining > 0 ? (
-          <p className={styles.counterRow}>
-            {t('spotsCounter', {
-              count: <span key="count" className={styles.spotsHighlight}>{stats.foundingMemberSpotsRemaining}</span>,
-            })}
-          </p>
-        ) : null}
-
         {config?.hideNoSpam ? null : (() => {
           const noSpamText = t('noSpam');
           return noSpamText ? <p className={styles.noSpam}>{noSpamText}</p> : null;

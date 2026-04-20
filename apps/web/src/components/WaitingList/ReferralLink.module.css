@@ -131,6 +131,21 @@
   border-color: var(--social-linkedin);
 }
 
+.shareButton.facebook:hover {
+  color: #1877f2;
+  border-color: #1877f2;
+}
+
+.shareButton.instagram:hover {
+  color: #e4405f;
+  border-color: #e4405f;
+}
+
+.shareButton.substack:hover {
+  color: #ff6719;
+  border-color: #ff6719;
+}
+
 /* Mobile: hide copy button text, show only icon */
 .copyButton span {
   display: none;

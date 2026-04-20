@@ -36,6 +36,17 @@ export function getLinkedInShareUrl(url: string): string {
 }
 
 /**
+ * Build a Facebook share URL.
+ */
+export function getFacebookShareUrl(text: string, url: string): string {
+  const params = new URLSearchParams({
+    u: url,
+    quote: text,
+  });
+  return `https://www.facebook.com/sharer/sharer.php?${params.toString()}`;
+}
+
+/**
  * Build a Telegram share URL.
  */
 export function getTelegramShareUrl(text: string, url: string): string {
