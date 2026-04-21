@@ -28,9 +28,8 @@ export { HowItWorksGrid } from './HowItWorksGrid';
 
 // B2B Landing Page Sections
 export { ScenarioCards } from './ScenarioCards';
-export { CalculatorFactory } from './CalculatorFactory';
+
 export { TwoWorldsSection } from './TwoWorldsSection';
-export { CashflowExplainerSection } from './CashflowExplainerSection';
 
 // Page-level Sections
 export { PageHeroSection, type PageHeroSectionProps } from './PageHeroSection';

@@ -31,94 +31,47 @@
       "imageAlt": "Treasury-Management auf dem Smartphone"
     }
   },
-  "cashflowCalculator": {
-    "header": "Mit und Ohne diBoaS",
-    "todayTitle": "Wie ist es Heute? Ohne uns?",
-    "tomorrowTitle": "Wie es sein sollte? Nur mit diBoaS",
-    "fields": {
-      "dailyRevenue": "Deine täglichen Kartenumsätze",
-      "currentFee": "Deine aktuelle Verarbeitungsgebühr"
-    },
-    "periodToggle": {
-      "month": "1 Monat",
-      "sixMonths": "6 Monate",
-      "year": "1 Jahr"
-    },
-    "disclaimer": "Diese Projektionen sind illustrativ. Die tatsächlichen Ergebnisse können höher oder niedriger ausfallen. Vergangene Wertentwicklung ist kein zuverlässiger Indikator für künftige Ergebnisse.",
-    "results": {
-      "step1Label": "Du verlierst bei Gebühren",
-      "step2Label": "Du kannst deine Ersparnisse wachsen lassen",
-      "savingsLabel": "Du sparst bei Gebühren",
-      "scenarios": {
-        "conservative": "Konservativ",
-        "historical": "Moderat",
-        "optimistic": "Optimistisch"
+  "b2bGoals": {
+    "heading": "Machen wir es einfach.",
+    "ariaLabel": "Geschäftliche Einsparungsvergleiche",
+    "withDiboas": "Mit diBoaS",
+    "yourBank": "Deine Bank:",
+    "more": "MEHR mit diBoaS",
+    "cards": {
+      "paymentFees": {
+        "title": "Zahlungsgebühren",
+        "titleSummary": "11.500 €/Jahr mehr",
+        "subtitle": "Bei 1.000 € täglichem Kartenumsatz und durchschnittlich 2,5% Bearbeitungsgebühr verliert dein Unternehmen 750 €/Monat oder über 9.000 € im Jahr.",
+        "diboasResult": "9.630 €",
+        "bankResult": "",
+        "difference": "9.600 €/Jahr",
+        "tagline": "Du hast die Chance, nicht nur Kosten zu senken, sondern daraus eine neue Einnahmequelle zu machen.",
+        "source": "Beispiel basierend auf 1.000 €/Tag Kartenumsatz bei 2,5% Gebühr, mit Ersparnissen investiert bei 7% durchschnittlicher Jahresrendite. Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
+        "howPossible": "Wie ist das möglich?"
       },
-      "likelyBadge": "← wahrscheinlich"
-    },
-    "sliderLabel": "Erwartete Jahresrendite (historischer Durchschnitt: 7%)",
-    "belowResults": "",
-    "customRateTemplate": "Bei {rate} % Jahresrendite: {amount}",
-    "cta": "Sprich mit uns",
-    "transitionHook": "Zahlungsgebühren-Simulator. Ungenutztes-Kapital-Simulator",
-    "a11y": {
-      "timePeriodLabel": "Zeitraum",
-      "resultsLabel": "Rechnerergebnisse"
-    }
-  },
-  "calculator": {
-    "header": "Heute ohne uns V.S. Morgen mit diBoaS",
-    "todayTitle": "Wie ist es Heute? Ohne uns?",
-    "tomorrowTitle": "Wie es sein sollte? Nur mit diBoaS",
-    "fields": {
-      "cashOnHand": "Verfügbares Kapital",
-      "currentRate": "Aktueller Zinssatz"
-    },
-    "periodToggle": {
-      "month": "1 Monat",
-      "sixMonths": "6 Monate",
-      "year": "1 Jahr"
-    },
-    "disclaimer": "Diese Projektionen sind illustrativ. Die tatsächlichen Ergebnisse können höher oder niedriger ausfallen. Vergangene Wertentwicklung ist kein zuverlässiger Indikator für künftige Ergebnisse. Dein Kapital ist einem Risiko ausgesetzt.",
-    "results": {
-      "step1Label": "Was deine Bank dir gibt",
-      "step2Label": "Du kannst dein ungenutztes Kapital wachsen lassen",
-      "savingsLabel": "Was du mit diBoaS behältst",
-      "scenarios": {
-        "conservative": "Konservativ",
-        "historical": "Historischer Durchschnitt",
-        "optimistic": "Optimistisch"
-      },
-      "likelyBadge": "← wahrscheinlich"
-    },
-    "sliderLabel": "Erwartete Jahresrendite (historischer Durchschnitt: 7%)",
-    "belowResults": "",
-    "customRateTemplate": "Bei {rate} % Jahresrendite: {amount}",
-    "cta": "Sprich mit uns",
-    "transitionHook": "Ungenutztes-Kapital-Simulator",
-    "a11y": {
-      "timePeriodLabel": "Zeitraum",
-      "resultsLabel": "Rechnerergebnisse"
-    },
-    "toggle": {
-      "paymentFees": "Gebühren-Simulator",
-      "idleCash": "Kapitalsimulator"
+      "idleCash": {
+        "title": "Ungenutztes Kapital",
+        "titleSummary": "3.500 €/Jahr mehr",
+        "subtitle": "Bei 100.000 € ungenutztem Kapital auf deinem Geschäftskonto.",
+        "diboasResult": "7.000 €",
+        "bankResult": "3.500 €",
+        "difference": "3.500 €/Jahr",
+        "tagline": "Du hast die Chance, deine Rendite zu verdoppeln oder mehr und dabei die volle Kontrolle über dein Geld zu behalten.",
+        "source": "Beispiel basierend auf 100.000 € ungenutztem Kapital bei einem durchschnittlichen Sparzins von 3,5% der letzten 5 Jahre. Quelle: EZB. Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
+        "howPossible": "Wie ist das möglich?"
+      }
     }
   },
   "origin": {
-    "header": "Ihr Name war Adelaide.",
-    "paragraphs": [
-      "Meine Großmutter hat ihr ganzes Leben lang gespart. Die Hälfte von allem, was sie verdient hat. Alles richtig gemacht.",
-      "Es hat trotzdem nicht gereicht.",
-      "Die Bank hat mit ihren Ersparnissen Rendite erwirtschaftet und ihr fast nichts davon zurückgegeben.",
-      "Ich habe dasselbe bei Unternehmen gesehen. Cafés, die 8.000 EUR im Jahr an Kartengebühren verlieren. Startups mit einer halben Million auf dem Konto, die weniger als 200 EUR im Monat an Zinsen bekommen.",
-      "Das System war nicht für Menschen wie sie gebaut. Es war auch nicht für Unternehmen wie deines gebaut.",
-      "Aber jetzt? Die Technologie hat es möglich gemacht, die Mittelsmänner auszuschalten. Ich musste nur die Tür bauen.",
-      "Ich habe sie nach ihr benannt."
-    ],
-    "signature": "Bar, Gründer",
-    "imageAlt": "diBoaS Gründer",
-    "transitionHook": "Warum diBoaS bauen"
+    "transitionHook": "",
+    "header": "Warum wir das bauen",
+    "paragraphs": {
+      "0": "Die Großmutter unseres Gründers hat ihr ganzes Leben lang die Hälfte von allem gespart. Ihre Bank hat ihr dafür fast nichts gegeben.",
+      "1": "Sie wusste nicht, dass es bessere Möglichkeiten gab. Niemand hat es ihr gesagt. Die Sprache war zu kompliziert. Die Mindestbeträge zu hoch. Die Institutionen haben sich nicht für Menschen mit kleinen Ersparnissen interessiert.",
+      "2": "Wir haben dasselbe bei Unternehmen gesehen. Cafés, die 10.000 € pro Jahr an Kartengebühren verlieren. Startups mit einer halben Million auf der Bank, die weniger als 200 € im Monat an Zinsen verdienen.",
+      "3": "Du hast es gerade gesehen.",
+      "4": "Neue Technologie machte es möglich, die Torwächter zu umgehen. Wir mussten nur die Tür bauen."
+    }
   },
   "howItWorks": {
     "header": "Vier Schritte. Zwei Minuten.",
@@ -166,23 +119,6 @@
       }
     },
     "transitionHook": "Aber jetzt kommt der Teil, den sonst niemand macht."
-  },
-  "cashflowInvesting": {
-    "header": "Cashflow-Investieren.",
-    "subheader": "Zwei Vorteile durch eine Veränderung.",
-    "saveIt": {
-      "title": "Spare es.",
-      "body": "Jeder 100 EUR Kartenumsatz kostet dich 2 bis 3 EUR Gebühren. Mit diBoaS: 0 EUR. Ein Café mit 1.000 EUR Tagesumsatz? Über 10.000 EUR im Jahr zurück."
-    },
-    "growIt": {
-      "title": "Lass es wachsen.",
-      "body": "Die Ersparnis gehört dir, egal ob du investierst oder nicht. Aber wenn du sie arbeiten lässt, wird aus Kostensenkung eine mögliche neue Einnahmequelle."
-    },
-    "microExample": "Spare 8.568 EUR an Gebühren. Investiere es. Beende das Jahr mit 8.911 bis 9.425 EUR, je nach Marktbedingungen. Eine neue Einnahmequelle.",
-    "limitation": "Die Ersparnisse sind sicher. Das Wachstum nicht. Das ist die ehrliche Rechnung.",
-    "brandPromise": "Wir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
-    "cta": "Rechne es durch",
-    "microDisclosure": "Beispiel basierend auf 1.000 EUR/Tag Kartenumsatz bei 2,5% Verarbeitungsgebühr, mit Ersparnissen investiert zu einer Bandbreite von 4% bis 10% Jahresrendite. Projizierte Renditen sind illustrativ. Die tatsächlichen Ergebnisse können abweichen."
   },
   "fees": {
     "header": "Was es kostet. Alles.",
@@ -327,18 +263,20 @@
       "alternative": "Oder schreib an hello@diboas.com"
     }
   },
-  "socialProof": {
-    "header": "Die ersten 24 Unternehmen.",
-    "subtext": "Wir starten klein, damit wir jedes Unternehmen gut betreuen können.",
-    "stats": {
-      "waitlist": "{count} Gründungsunternehmen",
-      "countries": "{countries} Länder"
-    }
-  },
   "waitlist": {
     "header": "Werde Teil dieser Bewegung, gemeinsam mit anderen Unternehmen.",
     "description": "Offener Zugang und faire Möglichkeiten. Lass uns reden.",
     "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend"
+  },
+  "socialProof": {
+    "header": "Werde Teil der Bewegung!",
+    "subtext": "Unternehmen nutzen bereits die Möglichkeit, Kosten zu senken und ihr ungenutztes Kapital arbeiten zu lassen. Trag dich in unsere Warteliste ein.",
+    "stats": {
+      "waitlist": "{count} Unternehmen",
+      "countries": "{countries} Länder"
+    },
+    "cta": "Zur Warteliste",
+    "zeroState": "Gehöre zu den Ersten."
   },
   "faq": {
     "header": "Bevor du dich entscheidest.",
@@ -387,12 +325,8 @@
       }
     }
   },
-  "midPageCta": {
-    "heading": "Bereit, dein Kapital arbeiten zu lassen?",
-    "cta": "Warteliste beitreten"
-  },
   "footer": {
-    "copyright": "\u00a9 2026 diBoaS. Alle Rechte vorbehalten.",
+    "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten.",
     "riskDisclaimer": "diBoaS verbindet dich mit dezentralen Finanzsystemen. Renditen sind nicht garantiert. Vergangene Wertentwicklung sagt keine künftigen Ergebnisse voraus. Es bestehen Risiken, darunter Code-Schwachstellen, Marktschwankungen und Zugangsherausforderungen. Verwende nur Mittel, deren Verlust du dir leisten kannst. diBoaS ist keine Bank. Es gilt keine Einlagensicherung.",
     "micaArticle68": "Der Wert von Kryptowerten kann schwanken. Du kannst dein gesamtes investiertes Geld oder einen Teil davon verlieren. Kryptowerte sind nicht durch Einlagensicherungssysteme gedeckt.",
     "micaArticle7": "Diese Marketingmitteilung zu Kryptowerten wurde von keiner zuständigen Behörde eines Mitgliedstaats der Europäischen Union überprüft oder genehmigt. Der Anbieter des Kryptowerts ist allein für den Inhalt dieser Marketingmitteilung zu Kryptowerten verantwortlich.",

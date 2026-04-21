@@ -12,17 +12,26 @@ import styles from './FoundingMembersSection.module.css';
 interface FoundingMembersSectionProps {
   enableAnalytics?: boolean;
   className?: string;
+  /** Translation namespace (default: 'landing-b2c.socialProof') */
+  namespace?: string;
+  /** Waitlist source filter (default: 'landing_b2c') */
+  source?: 'landing_b2c' | 'landing_b2b';
+  /** Background color CSS value (default: 'var(--section-bg-white)') */
+  backgroundColor?: string;
 }
 
 export const FoundingMembersSection = memo(function FoundingMembersSection({
   enableAnalytics = true,
   className = '',
+  namespace = 'landing-b2c.socialProof',
+  source = 'landing_b2c',
+  backgroundColor = 'var(--section-bg-white)',
 }: FoundingMembersSectionProps) {
   const intl = useTranslation();
-  const { stats } = useWaitlistStats({ source: 'landing_b2c' });
+  const { stats } = useWaitlistStats({ source });
 
   const t = (key: string) =>
-    intl.formatMessage({ id: `landing-b2c.socialProof.${key}` });
+    intl.formatMessage({ id: `${namespace}.${key}` });
 
   const ariaLabel = intl.formatMessage({ id: 'landing-b2c.sections.socialProof.ariaLabel' });
 
@@ -43,7 +52,7 @@ export const FoundingMembersSection = memo(function FoundingMembersSection({
     <SectionContainer
       variant="standard"
       padding="standard"
-      backgroundColor="var(--section-bg-white)"
+      backgroundColor={backgroundColor}
       ariaLabel={ariaLabel}
       className={className}
     >
@@ -53,9 +62,9 @@ export const FoundingMembersSection = memo(function FoundingMembersSection({
 
         {hasCount ? (
           <SocialProofSection
-            namespace="landing-b2c.socialProof"
+            namespace={namespace}
             enableAnalytics={enableAnalytics}
-            source="landing_b2c"
+            source={source}
             ctaText="cta"
           />
         ) : (

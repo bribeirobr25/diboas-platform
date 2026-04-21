@@ -78,6 +78,19 @@
   outline-offset: 2px;
 }
 
+/* Dark background theme — light text for WCAG contrast */
+:global([data-theme="dark"]) .heading {
+  color: var(--color-text-on-dark, #f1f5f9);
+}
+
+:global([data-theme="dark"]) .description {
+  color: var(--color-text-on-dark-secondary, #cbd5e1);
+}
+
+:global([data-theme="dark"]) .zeroText {
+  color: var(--color-text-on-dark, #f1f5f9);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cta {
     transition: none;

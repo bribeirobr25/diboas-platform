@@ -38,8 +38,8 @@ import type { FounderSectionConfig } from './founderSection';
  * Handoff naming convention: /assets/images/{section}-{name}.avif
  */
 const B2C_IMAGES = {
-  hero: '/assets/images/defiant-bloom.avif',
-  heroMobile: '/assets/images/defiant-bloom.avif',
+  hero: '/assets/images/soft-arrival.avif',
+  heroMobile: '/assets/images/soft-arrival.avif',
   step1: '/assets/images/seamless-pay.avif',
   step2: '/assets/images/quiet-growth.avif',
   step3: '/assets/images/pocket-clarity.avif',

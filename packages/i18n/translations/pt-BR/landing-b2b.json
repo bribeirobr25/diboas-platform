@@ -5,9 +5,15 @@
     "cta": "Veja o que voce esta perdendo",
     "imageAlt": "Ilustracao de gestao de tesouraria empresarial",
     "trustBadges": {
-      "wallet": { "label": "Seu dinheiro, seu controle" },
-      "reporting": { "label": "Relatorios prontos pro conselho" },
-      "audited": { "label": "Construido sobre sistemas auditados" }
+      "wallet": {
+        "label": "Seu dinheiro, seu controle"
+      },
+      "reporting": {
+        "label": "Relatorios prontos pro conselho"
+      },
+      "audited": {
+        "label": "Construido sobre sistemas auditados"
+      }
     }
   },
   "twoWorlds": {
@@ -25,86 +31,47 @@
       "imageAlt": "Gestao de tesouraria no celular"
     }
   },
-  "cashflowCalculator": {
-    "header": "Com e Sem diBoaS",
-    "todayTitle": "Como e Hoje? Sem nos?",
-    "tomorrowTitle": "Como deveria ser? So com diBoaS",
-    "fields": {
-      "dailyRevenue": "Suas vendas diarias no cartao",
-      "currentFee": "Sua taxa atual da maquininha"
-    },
-    "periodToggle": { "month": "1 mes", "sixMonths": "6 meses", "year": "1 ano" },
-    "disclaimer": "Estas projecoes sao ilustrativas. Os resultados reais podem ser maiores ou menores. Desempenho passado nao garante resultados futuros.",
-    "results": {
-      "step1Label": "Voce perde em taxas",
-      "step2Label": "Voce pode fazer sua economia render",
-      "savingsLabel": "Voce economiza em taxas",
-      "scenarios": {
-        "conservative": "Conservador",
-        "historical": "Moderado",
-        "optimistic": "Otimista"
+  "b2bGoals": {
+    "heading": "Vamos simplificar.",
+    "ariaLabel": "Comparação de economia empresarial",
+    "withDiboas": "Com diBoaS",
+    "yourBank": "Seu banco:",
+    "more": "MAIS com diBoaS",
+    "cards": {
+      "paymentFees": {
+        "title": "Taxas de Pagamento",
+        "titleSummary": "R$57.500/ano a mais",
+        "subtitle": "Com R$5.000 em vendas diárias no cartão e taxa média de 4%, seu negócio perde R$6.000/mês ou mais de R$72.000 por ano.",
+        "diboasResult": "R$77.040",
+        "bankResult": "",
+        "difference": "R$77.000/ano",
+        "tagline": "Você tem a chance não só de cortar custos, mas de transformar isso em uma nova linha de receita.",
+        "source": "Exemplo baseado em R$5.000/dia em vendas no cartão com taxa de 4%, com economia investida a 7% de retorno médio anual. Retornos projetados são ilustrativos. Resultados reais podem variar.",
+        "howPossible": "Como isso é possível?"
       },
-      "likelyBadge": "← provável"
-    },
-    "sliderLabel": "Retorno anual esperado (media historica: 7%)",
-    "belowResults": "",
-    "customRateTemplate": "Com {rate}% de retorno anual: {amount}",
-    "cta": "Fale conosco",
-    "transitionHook": "Simulador de taxas de pagamento. Simulador de caixa parado",
-    "a11y": {
-      "timePeriodLabel": "Período de tempo",
-      "resultsLabel": "Resultados da calculadora"
-    }
-  },
-  "calculator": {
-    "header": "Hoje sem nos V.S. Amanha com diBoaS",
-    "todayTitle": "Como e Hoje? Sem nos?",
-    "tomorrowTitle": "Como deveria ser? So com diBoaS",
-    "fields": {
-      "cashOnHand": "Capital disponivel",
-      "currentRate": "Taxa de juros atual"
-    },
-    "periodToggle": { "month": "1 mes", "sixMonths": "6 meses", "year": "1 ano" },
-    "disclaimer": "Estas projecoes sao ilustrativas. Os resultados reais podem ser maiores ou menores. Desempenho passado nao garante resultados futuros. Seu capital esta em risco.",
-    "results": {
-      "step1Label": "O que seu banco te da",
-      "step2Label": "Voce pode fazer seu caixa parado render",
-      "savingsLabel": "O que voce fica com diBoaS",
-      "scenarios": {
-        "conservative": "Conservador",
-        "historical": "Media historica",
-        "optimistic": "Otimista"
-      },
-      "likelyBadge": "← provável"
-    },
-    "sliderLabel": "Retorno anual esperado (media historica: 7%)",
-    "belowResults": "",
-    "customRateTemplate": "Com {rate}% de retorno anual: {amount}",
-    "cta": "Fale conosco",
-    "transitionHook": "Simulador de caixa parado",
-    "a11y": {
-      "timePeriodLabel": "Período de tempo",
-      "resultsLabel": "Resultados da calculadora"
-    },
-    "toggle": {
-      "paymentFees": "Simulador de Taxas",
-      "idleCash": "Simulador de Caixa"
+      "idleCash": {
+        "title": "Caixa Parado",
+        "titleSummary": "R$17.500/ano a mais",
+        "subtitle": "Com R$500.000 de caixa parado na conta da empresa.",
+        "diboasResult": "R$35.000",
+        "bankResult": "R$17.500",
+        "difference": "R$17.500/ano",
+        "tagline": "Você tem a chance de dobrar ou mais seus rendimentos e manter controle total do seu dinheiro.",
+        "source": "Exemplo baseado em R$500.000 de caixa parado com taxa média de poupança de 3,5% nos últimos 5 anos. Fonte: Banco Central. Retornos projetados são ilustrativos. Resultados reais podem variar.",
+        "howPossible": "Como isso é possível?"
+      }
     }
   },
   "origin": {
-    "header": "O nome dela era Adelaide.",
-    "paragraphs": [
-      "Minha avo economizou a vida inteira. Metade de tudo que ganhou. Fez tudo certo.",
-      "Nao foi suficiente.",
-      "O banco lucrou com as economias dela e devolveu quase nada.",
-      "Eu ja vi a mesma coisa acontecer com negocios. Padarias perdendo R$50.000 por ano em taxas de maquininha. Startups com R$2 milhoes no banco recebendo menos de R$1.000 por mes de rendimento.",
-      "O sistema nao foi feito pra pessoas como ela. Tambem nao foi feito pra negocios como o seu.",
-      "Mas agora? A tecnologia tornou possivel eliminar os intermediarios. Eu so precisava construir a porta.",
-      "Dei o nome dela."
-    ],
-    "signature": "Bar, Fundador",
-    "transitionHook": "Por que construir o diBoaS",
-    "imageAlt": "Fundador do diBoaS"
+    "transitionHook": "",
+    "header": "Por que estamos construindo isso?",
+    "paragraphs": {
+      "0": "A avó do nosso fundador guardou metade de tudo que ganhou a vida inteira. O banco dela pagou quase nada por isso.",
+      "1": "Ela não sabia que existiam opções melhores. Ninguém contou pra ela. A linguagem era complicada demais. Os valores mínimos, altos demais. As instituições não se importavam com quem tinha pouca economia.",
+      "2": "Vimos a mesma coisa acontecer com empresas. Cafeterias perdendo R$50.000 por ano em taxas de cartão. Startups com meio milhão no banco rendendo menos de R$1.000 por mês.",
+      "3": "Você acabou de ver isso.",
+      "4": "A tecnologia nova tornou possível passar por cima de quem controlava tudo. A gente só precisava construir a porta."
+    }
   },
   "howItWorks": {
     "header": "Quatro passos. Dois minutos.",
@@ -153,36 +120,73 @@
     },
     "transitionHook": "Mas aqui vem a parte que ninguem mais esta fazendo."
   },
-  "cashflowInvesting": {
-    "header": "Investimento de fluxo.",
-    "subheader": "Dois ganhos com uma so mudanca.",
-    "saveIt": {
-      "title": "Economize.",
-      "body": "A cada R$100 em vendas no cartao, voce paga de R$2 a R$5 em taxas. Com diBoaS, paga R$0. Uma cafeteria com R$5.000/dia? Sao R$69.000+ por ano de volta."
-    },
-    "growIt": {
-      "title": "Faca render.",
-      "body": "A economia e sua, investindo ou nao. Mas se voce decidir colocar pra trabalhar, deixa de ser corte de custos e vira uma possivel nova linha de receita."
-    },
-    "microExample": "Economize R$69.840 em taxas. Invista. Termine o ano com R$72.634 a R$76.824. Nao e corte de custos. E uma nova linha de receita.",
-    "limitation": "A economia e certa. O crescimento nao. Essa e a conta honesta.",
-    "brandPromise": "Mostramos os dois lados, as oportunidades e os riscos, sempre.",
-    "cta": "Faca as contas",
-    "microDisclosure": "Exemplo baseado em R$5.000/dia de vendas no cartao a 4% de taxa, com economias investidas a uma faixa de 4% a 10% de retorno anual. Projecoes de retorno sao ilustrativas. Os resultados reais podem variar."
-  },
   "fees": {
     "header": "Quanto custa. Tudo.",
     "subtitle": "Sem taxas escondidas. Sem saldo minimo. Sem mensalidade. Aqui esta cada taxa, na mesa.",
-    "headers": { "action": "Acao", "diboas": "diBoaS", "competitors": "Provedores tipicos", "difference": "Diferença", "example": "Exemplo" },
+    "headers": {
+      "action": "Acao",
+      "diboas": "diBoaS",
+      "competitors": "Provedores tipicos",
+      "difference": "Diferença",
+      "example": "Exemplo"
+    },
     "rows": {
-      "account": { "action": "Conta empresarial", "diboas": "Gratis pra sempre", "competitors": "R$50 a R$250/mes", "difference": "Economize R$600 a R$3.000/ano", "example": "Sua conta: R$0. Sempre." },
-      "receive": { "action": "Receber pagamentos", "diboas": "GRATIS", "competitors": "2 a 5% (maquininha)", "difference": "Economize R$20 a R$50 por R$1.000", "example": "Receber R$5.000: custa R$0. Outros cobram R$100 a R$250." },
-      "send": { "action": "Enviar / Pagar", "diboas": "GRATIS", "competitors": "R$7,50 a R$250 (SWIFT)", "difference": "Economize R$7,50 a R$250 por transferência", "example": "Pagar um fornecedor R$2.500: R$0" },
-      "add": { "action": "Adicionar dinheiro", "diboas": "0,48% (mín R$0,25, máx R$25)", "competitors": "0 a 1,5%", "difference": "Comparável com a maioria dos provedores", "example": "Adicionar R$50.000: custa R$240" },
-      "invest": { "action": "Investir / Crescer", "diboas": "GRATIS", "competitors": "0,5 a 2% (assessores, plataformas)", "difference": "Economize R$250 a R$1.000 por R$50.000", "example": "Investir R$10.000: R$0. Gratis pra comecar." },
-      "sell": { "action": "Vender / Fechar", "diboas": "0,39% (mín R$0,25, máx R$25)", "competitors": "0,5 a 2%", "difference": "Economize R$55 a R$805 por R$50.000", "example": "Vender R$50.000: custa R$195" },
-      "swap": { "action": "Trocar", "diboas": "GRATIS", "competitors": "0,5 a 2% spread", "difference": "Economize R$250 a R$1.000 por R$50.000", "example": "Trocar R$50.000: R$0" },
-      "cashOut": { "action": "Sacar", "diboas": "0,48% (mín R$0,25, máx R$25)", "competitors": "1 a 3% + atrasos", "difference": "Economize R$260 a R$1.260 por R$50.000", "example": "Sacar R$50.000: custa R$240" }
+      "account": {
+        "action": "Conta empresarial",
+        "diboas": "Gratis pra sempre",
+        "competitors": "R$50 a R$250/mes",
+        "difference": "Economize R$600 a R$3.000/ano",
+        "example": "Sua conta: R$0. Sempre."
+      },
+      "receive": {
+        "action": "Receber pagamentos",
+        "diboas": "GRATIS",
+        "competitors": "2 a 5% (maquininha)",
+        "difference": "Economize R$20 a R$50 por R$1.000",
+        "example": "Receber R$5.000: custa R$0. Outros cobram R$100 a R$250."
+      },
+      "send": {
+        "action": "Enviar / Pagar",
+        "diboas": "GRATIS",
+        "competitors": "R$7,50 a R$250 (SWIFT)",
+        "difference": "Economize R$7,50 a R$250 por transferência",
+        "example": "Pagar um fornecedor R$2.500: R$0"
+      },
+      "add": {
+        "action": "Adicionar dinheiro",
+        "diboas": "0,48% (mín R$0,25, máx R$25)",
+        "competitors": "0 a 1,5%",
+        "difference": "Comparável com a maioria dos provedores",
+        "example": "Adicionar R$50.000: custa R$240"
+      },
+      "invest": {
+        "action": "Investir / Crescer",
+        "diboas": "GRATIS",
+        "competitors": "0,5 a 2% (assessores, plataformas)",
+        "difference": "Economize R$250 a R$1.000 por R$50.000",
+        "example": "Investir R$10.000: R$0. Gratis pra comecar."
+      },
+      "sell": {
+        "action": "Vender / Fechar",
+        "diboas": "0,39% (mín R$0,25, máx R$25)",
+        "competitors": "0,5 a 2%",
+        "difference": "Economize R$55 a R$805 por R$50.000",
+        "example": "Vender R$50.000: custa R$195"
+      },
+      "swap": {
+        "action": "Trocar",
+        "diboas": "GRATIS",
+        "competitors": "0,5 a 2% spread",
+        "difference": "Economize R$250 a R$1.000 por R$50.000",
+        "example": "Trocar R$50.000: R$0"
+      },
+      "cashOut": {
+        "action": "Sacar",
+        "diboas": "0,48% (mín R$0,25, máx R$25)",
+        "competitors": "1 a 3% + atrasos",
+        "difference": "Economize R$260 a R$1.260 por R$50.000",
+        "example": "Sacar R$50.000: custa R$240"
+      }
     },
     "disclaimer": "*Taxa diBoaS mostrada. Taxas de rede de terceiros podem se aplicar (normalmente menos de R$0,05).",
     "pricingNote": "Comparacoes de precos baseadas em tarifas publicas de fevereiro de 2026. As faixas refletem precos comuns entre os principais provedores. O preco real de cada concorrente varia por provedor, volume e condicoes contratuais.",
@@ -259,18 +263,20 @@
       "alternative": "Ou escreva pra hello@diboas.com"
     }
   },
-  "socialProof": {
-    "header": "As primeiras 24 empresas.",
-    "subtext": "Estamos começando pequeno para cuidar de cada empresa que entra.",
-    "stats": {
-      "waitlist": "{count} empresas fundadoras",
-      "countries": "{countries} países"
-    }
-  },
   "waitlist": {
     "header": "Junte-se a outras empresas neste movimento.",
     "description": "Acesso aberto e oportunidades justas. Vamos conversar.",
     "spotsCounter": "{count} vagas de membros fundadores restantes"
+  },
+  "socialProof": {
+    "header": "Faça Parte do Movimento!",
+    "subtext": "Empresas já estão aproveitando a oportunidade de cortar custos e fazer o caixa parado render. Inscreva-se na nossa lista de espera.",
+    "stats": {
+      "waitlist": "{count} empresas",
+      "countries": "{countries} países"
+    },
+    "cta": "Entrar na lista de espera",
+    "zeroState": "Seja um dos primeiros."
   },
   "faq": {
     "header": "Antes de decidir.",
@@ -319,12 +325,8 @@
       }
     }
   },
-  "midPageCta": {
-    "heading": "Pronto para colocar seu capital para trabalhar?",
-    "cta": "Entrar na lista de espera"
-  },
   "footer": {
-    "copyright": "\u00a9 2026 diBoaS. Todos os direitos reservados.",
+    "copyright": "© 2026 diBoaS. Todos os direitos reservados.",
     "riskDisclaimer": "A diBoaS conecta voce a sistemas de financas descentralizadas. Retornos nao sao garantidos. Desempenho passado nao preve resultados futuros. Envolve riscos incluindo vulnerabilidades de codigo, flutuacoes de mercado e desafios de acesso. Use apenas fundos que voce pode se dar ao luxo de arriscar. A diBoaS nao e um banco. Nao se aplica seguro de depositos ou cobertura do FGC.",
     "micaArticle68": "",
     "micaArticle7": "",
