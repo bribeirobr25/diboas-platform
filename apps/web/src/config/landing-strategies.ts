@@ -26,19 +26,14 @@ const safeAnswerKey = WALLET_ARCH === 'mpc' ? 'answerB' : 'answerA';
 // ─── FAQ Item IDs ───────────────────────────────────────────
 
 const FAQ_ITEM_IDS = [
-  'switch',
-  'multiple',
-  'rebalancing',
   'guaranteed',
-  'systemProblem',
-  'whereMoneyGoes',
-  'fullThrottleReqs',
   'safe',
+  'switch',
+  'whereMoneyGoes',
   'loseEverything',
-  'bankDifference',
 ] as const;
 
-// ─── Section: FAQ (10 items) ────────────────────────────────
+// ─── Section: FAQ (5 items) — top questions; full FAQ at /help ──
 
 const STRATEGIES_FAQ_ITEMS: FAQItem[] = FAQ_ITEM_IDS.map((itemId) => ({
   id: `faq-${itemId}`,
@@ -50,7 +45,7 @@ const STRATEGIES_FAQ_ITEMS: FAQItem[] = FAQ_ITEM_IDS.map((itemId) => ({
   category: 'general' as const,
 }));
 
-/** FAQ Accordion config for the Strategies page — 10 items with A/B wallet-architecture answer for "safe". */
+/** FAQ Accordion config for the Strategies page — 5 items with A/B wallet-architecture answer for "safe". Full FAQ at /help. */
 export const STRATEGIES_FAQ_CONFIG: FAQAccordionVariantConfig = {
   variant: 'default',
   content: {
@@ -67,15 +62,3 @@ export const STRATEGIES_FAQ_CONFIG: FAQAccordionVariantConfig = {
   },
 };
 
-// ─── Section: Waitlist / CTA ────────────────────────────────
-
-/** Waitlist section config for the Strategies page. */
-export const STRATEGIES_WAITLIST_CONFIG = {
-  sectionId: 'strategies-waitlist',
-  headline: 'strategies.waitlist.header',
-  subheadline: 'strategies.waitlist.body',
-  belowCta: 'strategies.waitlist.belowCta',
-  belowCheckbox: 'strategies.waitlist.belowCheckbox',
-  hideBenefits: true,
-  hideNoSpam: true,
-} as const;

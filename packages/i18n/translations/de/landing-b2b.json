@@ -21,13 +21,13 @@
     "cardA": {
       "headline": "Wenn du Kartenzahlungen akzeptierst",
       "body": "Jedes Mal, wenn ein Kunde mit Karte zahlt, verlierst du 1,5 bis 3%.\n\nBei 1.000 EUR Tagesumsatz sind das 450 bis 900 EUR im Monat. Weg. Und dann dauert es 1 bis 5 Werktage, bis das Geld auf deinem Konto ist. Dein Geld, in der Tasche eines anderen, wo es für die arbeitet.\n\nWas wäre, wenn du alles behalten könntest?",
-      "cta": "Berechne, was du verlierst",
+      "cta": "Sieh, was du verlierst",
       "imageAlt": "Zahlungsabwicklung für Unternehmen"
     },
     "cardB": {
       "headline": "Wenn dein Unternehmen Geld auf dem Konto liegen hat",
       "body": "Du hast Kapital aufgenommen. Du gibst es bedacht aus. Aber das Geld, das du gerade nicht brauchst? Deine Bank legt es an, erwirtschaftet Rendite und zahlt dir fast nichts davon.\n\nBei 500.000 EUR, die auf dem Konto liegen, könnte die Differenz zwischen dem, was deine Bank dir zahlt, und dem, was möglich wäre, Zehntausende Euro pro Jahr betragen.\n\nWas wäre, wenn dieses Geld für dich arbeiten würde?",
-      "cta": "Berechne, was deine Bank behält",
+      "cta": "Sieh, was deine Bank behält",
       "imageAlt": "Treasury-Management auf dem Smartphone"
     }
   },
@@ -40,7 +40,7 @@
     "cards": {
       "paymentFees": {
         "title": "Zahlungsgebühren",
-        "titleSummary": "11.500 €/Jahr mehr",
+        "titleSummary": "es sind nicht nur 3%",
         "subtitle": "Bei 1.000 € täglichem Kartenumsatz und durchschnittlich 2,5% Bearbeitungsgebühr verliert dein Unternehmen 750 €/Monat oder über 9.000 € im Jahr.",
         "diboasResult": "9.630 €",
         "bankResult": "",
@@ -51,7 +51,7 @@
       },
       "idleCash": {
         "title": "Ungenutztes Kapital",
-        "titleSummary": "3.500 €/Jahr mehr",
+        "titleSummary": "erhalte, was fair ist",
         "subtitle": "Bei 100.000 € ungenutztem Kapital auf deinem Geschäftskonto.",
         "diboasResult": "7.000 €",
         "bankResult": "3.500 €",
@@ -74,7 +74,7 @@
     }
   },
   "howItWorks": {
-    "header": "Vier Schritte. Zwei Minuten.",
+    "header": "Alles, was dein Unternehmen tun kann",
     "steps": {
       "connect": {
         "title": "Verbinde dein Unternehmen",

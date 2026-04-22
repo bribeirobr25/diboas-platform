@@ -1,11 +1,10 @@
 /**
  * Help Page Configuration
  *
- * 4-section layout using reusable section components:
+ * 3-section layout using reusable section components:
  * 1. Hero (HeroSection centered)
  * 2. FAQ Topics (multiple FAQAccordion sections grouped by topic)
- * 3. Waitlist (WaitlistSection)
- * 4. Footer (MinimalFooter)
+ * 3. Footer (MinimalFooter)
  *
  * Domain-Driven Design: Help page domain configuration
  * Service Agnostic Abstraction: Decoupled content from presentation
@@ -54,6 +53,7 @@ export const HELP_TOPIC_IDS = [
   'feesCosts',
   'investingStrategies',
   'forBusinesses',
+  'protocolsTransparency',
 ] as const;
 
 export type HelpTopicId = (typeof HELP_TOPIC_IDS)[number];
@@ -63,11 +63,12 @@ export type HelpTopicId = (typeof HELP_TOPIC_IDS)[number];
  * Must match the q1..qN keys in landing-help.json for each topic.
  */
 const TOPIC_QUESTION_COUNTS: Record<HelpTopicId, number> = {
-  gettingStarted: 4,
-  moneySafety: 4,
+  gettingStarted: 9,
+  moneySafety: 10,
   feesCosts: 3,
-  investingStrategies: 2,
-  forBusinesses: 3,
+  investingStrategies: 8,
+  forBusinesses: 5,
+  protocolsTransparency: 8,
 };
 
 /**
@@ -79,6 +80,7 @@ const TOPIC_ARIA_LABELS: Record<HelpTopicId, string> = {
   feesCosts: 'Fees & Costs',
   investingStrategies: 'Investing & Strategies',
   forBusinesses: 'For Businesses',
+  protocolsTransparency: 'Protocols & Transparency',
 };
 
 /**
@@ -90,6 +92,7 @@ const TOPIC_CATEGORIES: Record<HelpTopicId, FAQItem['category']> = {
   feesCosts: 'fees',
   investingStrategies: 'general',
   forBusinesses: 'operations',
+  protocolsTransparency: 'general',
 };
 
 /**
@@ -152,14 +155,3 @@ export const HELP_TOPIC_CONFIGS: Record<HelpTopicId, FAQAccordionVariantConfig> 
     HELP_TOPIC_IDS.map((id) => [id, buildTopicConfig(id)])
   ) as Record<HelpTopicId, FAQAccordionVariantConfig>;
 
-// ─── Section 3: Waitlist ─────────────────────────────────────
-
-export const HELP_WAITLIST_CONFIG = {
-  sectionId: 'waitlist-section-help',
-  backgroundColor: 'var(--section-bg-brand)',
-  headline: 'landing-help.waitlist.header',
-  subheadline: 'landing-help.waitlist.description',
-  hideBenefits: true,
-  hideNoSpam: true,
-  source: 'help' as const,
-} as const;

@@ -11,8 +11,7 @@
 
 'use client';
 
-import { memo, useCallback, useRef } from 'react';
-import type { ReactNode, ComponentType } from 'react';
+import { memo, useCallback, useRef, type ReactNode, type ComponentType } from 'react';
 import styles from './ExpandableCard.module.css';
 
 export interface ExpandableCardProps {

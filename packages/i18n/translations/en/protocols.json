@@ -12,13 +12,13 @@
   },
   "transitions": {
     "t1": "Here's why we built this page.",
-    "t2": "How did these 26 make the list?",
+    "t2": "How did these 25 make the list?",
     "t3": "So how much real money is in these systems?",
     "t4": "Before you go further, something important.",
     "t5": "You probably still have questions. Good."
   },
   "why": {
-    "h2": "Why This Page Exists",
+    "h2": "Transparency",
     "text1": "Ask your bank where your savings go. They won't tell you.",
     "text2": "We will. Every system listed on this page is one your money may touch when you use a diBoaS strategy. We publish the names, the track records, the security audits, and the things that went wrong. Because you should know.",
     "text3": "Every protocol on this page earned its spot. We checked how long it has been running, who audited the code, how it handled problems, and whether real people actually trust it with real money. If it did not pass, it is not here.",
@@ -28,7 +28,8 @@
   "grid": {
     "h2": "The 25 Protocols",
     "subtitle": "Organized by what they do. Click any card for details.",
-    "tvlFreshness": "All TVL figures are approximate, sourced from DeFiLlama, and current as of February 2026. Values fluctuate daily."
+    "tvlFreshness": "All TVL figures are approximate, sourced from DeFiLlama, and current as of February 2026. Values fluctuate daily.",
+    "defiLlamaLink": "Verify on DeFiLlama"
   },
   "categories": {
     "lending": {
@@ -377,7 +378,7 @@
     "source": "Combined TVL sourced from DeFiLlama. Last verified: January 2026. Values fluctuate daily."
   },
   "notIs": {
-    "h2": "What This Page Is Not",
+    "h2": "Attention",
     "text": "This is not a recommendation to use any of these protocols directly.\n\ndiBoaS strategies are built on top of these systems, and our team handles the complexity. You do not need to interact with any protocol yourself. This page exists so you can see exactly where your money goes and verify everything we say.\n\nEvery protocol here carries risk. Smart contracts can have bugs. Markets can crash. Stablecoins can lose their peg. Systems that have operated safely for years can still face problems tomorrow. We monitor these systems continuously, but we cannot eliminate risk. No one can.\n\nIf you are unsure whether this is right for you, consult a licensed financial advisor before making any investment decisions.",
     "warmLine": "This page exists because we believe you deserve to know. Not because you need to act on it."
   },
@@ -385,7 +386,7 @@
     "h2": "Questions About Our Protocols",
     "q1": {
       "question": "Why don't you list every DeFi protocol?",
-      "answer": "There are thousands of DeFi protocols. We would rather list 26 we have thoroughly researched than 200 we have not."
+      "answer": "There are thousands of DeFi protocols. We would rather list 25 we have thoroughly researched than 200 we have not."
     },
     "q2": {
       "question": "How often do you update this list?",
@@ -415,9 +416,6 @@
       "question": "Do I need to interact with these protocols myself?",
       "answer": "No. diBoaS handles all protocol interactions on your behalf when you choose a strategy. You do not need to create accounts with any protocol, manage wallets on different blockchains, or understand the technical details. This page is here for transparency, not because you need to do anything with it."
     }
-  },
-  "cta": {
-    "transition": "Satisfied with what you see? Join the waitlist."
   },
   "cvmWarnings": {
     "warning1": "",

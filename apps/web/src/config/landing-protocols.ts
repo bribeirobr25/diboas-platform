@@ -21,7 +21,7 @@ export const PROTOCOLS_I18N_PREFIX = 'protocols' as const;
 
 // ─── FAQ Configuration ──────────────────────────────────────
 
-const PROTOCOLS_FAQ_ITEM_IDS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'] as const;
+const PROTOCOLS_FAQ_ITEM_IDS = ['q1', 'q5', 'q7', 'q8', 'q4'] as const;
 
 const PROTOCOLS_FAQ_ITEMS: FAQItem[] = PROTOCOLS_FAQ_ITEM_IDS.map((itemId) => ({
   id: `faq-${itemId}`,
@@ -33,8 +33,7 @@ const PROTOCOLS_FAQ_ITEMS: FAQItem[] = PROTOCOLS_FAQ_ITEM_IDS.map((itemId) => ({
 /**
  * FAQ Accordion config for the Protocols page.
  *
- * 8 questions covering protocol selection, due diligence,
- * TVL interpretation, and regulatory context.
+ * 5 top questions — full FAQ at /help (Protocols & Transparency topic).
  */
 export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
   variant: 'default',
@@ -55,13 +54,6 @@ export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
     enabled: true,
   },
 };
-
-// ─── Waitlist Configuration ─────────────────────────────────
-
-export const PROTOCOLS_WAITLIST_CONFIG = {
-  sectionId: 'protocols-waitlist',
-  hideNoSpam: true,
-} as const;
 
 // ─── Footer Disclaimer Keys (locale-conditional) ────────────
 

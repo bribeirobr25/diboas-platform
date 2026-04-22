@@ -1,6 +1,7 @@
 import { wrapInLayout } from './layout';
 import type { ReferralSuccessEmailData } from '../types';
 import { BRAND } from '../config';
+import { escapeHtml } from '../utils';
 
 const translations: Record<string, Record<string, string>> = {
   en: {
@@ -68,7 +69,7 @@ function renderSocialShareButtons(shareText: string, referralUrl: string): strin
 
 export function renderReferralSuccess(data: ReferralSuccessEmailData): { subject: string; html: string } {
   const t = translations[data.locale] || translations.en;
-  const namePart = data.name ? `, ${data.name}` : '';
+  const namePart = data.name ? `, ${escapeHtml(data.name)}` : '';
   const greeting = t.greeting.replace('{name}', namePart);
 
   const content = `

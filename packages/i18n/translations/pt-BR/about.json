@@ -6,56 +6,49 @@
     "ogDescription": "O diBoaS foi construido porque uma avo merecia mais. Agora todo mundo merece. Transferencias gratis, opcoes reais de crescimento, a partir de R$10."
   },
   "hero": {
-    "title": "Sobre o diBoaS",
-    "subtitle": "Uma avo. Um problema. Uma plataforma."
+    "title": "Uma avó. Um problema. Uma plataforma.",
+    "subtitle": "Acesso aberto e oportunidades justas para todos."
   },
   "transitions": {
     "t1": "Deixa eu te contar uma historia.",
     "t2": "Isso aqui e o que eu construi.",
-    "t3": "E nao e so pra pessoa fisica.",
+    "t3": "E não e so pra pessoa fisica.",
     "t4": "Quer conversar? To aqui."
   },
   "story": {
     "header": "O nome dela era Adelaide.",
     "paragraph1": "Minha avo viveu a vida inteira no Rio de Janeiro. Ela me ensinou a economizar. Ela dizia que eu deveria tentar guardar metade de tudo que eu ganhasse. Ela mesma tentou isso. A vida inteira.",
     "paragraph2": "Trabalhar duro. Comprar so o basico. Tentar guardar.",
-    "paragraph3": "Mesmo assim nao deu.",
-    "gapExplanation": "O que ninguem contou pra ela: o banco dela pagava quase nada enquanto ganhava rendimentos de verdade com o dinheiro dela. Essa diferenca, entre o que os bancos ganham e o que eles repassam, e o sistema funcionando exatamente como foi feito. So que nao pra gente como ela.",
-    "accessLocked": "O acesso tava trancado atras de valores minimos altos, palavras complicadas e instituicoes que nao se importavam com quem tinha pouca economia.",
-    "turning": "Em 2024, eu perdi meu emprego e decidi fazer alguma coisa sobre esse problema. Tecnologia nova tornou possivel passar por cima de quem controlava o acesso. Eu so precisava construir a porta.",
-    "namedAfterHer": "Eu dei o nome dela."
-  },
-  "whatWeDo": {
-    "header": "O que o diBoaS faz",
-    "transfers": "Primeiro, o basico. Mande dinheiro pra qualquer pessoa no diBoaS. Em qualquer lugar do mundo. Em segundos. De graca. Sem formulario, sem taxa, sem esperar tres dias uteis. Dinheiro deveria se mover como uma mensagem. Agora se move.",
-    "transfersDisclaimer": "Transferencias gratuitas entre usuarios do diBoaS. Tempos de transferencia sao tipicos e podem variar. Sujeito a sancoes aplicaveis e requisitos de conformidade.",
-    "growth": "Depois, crescimento. Escolha entre 10 formas de fazer seu dinheiro crescer, da opcao mais segura ate a mais aventureira. A partir de R$10. Seu dinheiro trabalha por meio de sistemas financeiros confiaveis que ja protegeram bilhoes em ativos. O mesmo tipo de sistema que as instituicoes usam, agora aberto pra voce.",
-    "adelaide": "E a Adelaide cuida de tudo. Batizada com o nome da avo que inspirou isso tudo, Adelaide e a sua inteligencia financeira pessoal. O que ta se movendo. O que significa. O que voce pode fazer. Linguagem clara, sem jargao."
+    "paragraph3": "Mesmo assim não deu.",
+    "gapExplanation": "O que ninguem contou pra ela: o banco dela pagava quase nada enquanto ganhava rendimentos de verdade com o dinheiro dela. Essa diferenca, entre o que os bancos ganham e o que eles repassam, e o sistema funcionando exatamente como foi feito. So que não pra gente como ela.",
+    "accessLocked": "O acesso tava trancado atras de valores minimos altos, palavras complicadas e instituicoes que não se importavam com quem tinha pouca economia.",
+    "turning": "Em 2024, decidi fazer algo sobre esse problema. Nova tecnologia tornou possivel contornar os intermediarios. Eu so precisava construir a porta.",
+    "namedAfterHer": "BAR o fundador."
   },
   "beliefs": {
     "header": "No que a gente acredita",
     "money": {
-      "title": "Seu dinheiro deveria trabalhar pra voce.",
-      "description": "Nao pro seu banco. Nao pra um intermediario. Pra voce. A diferenca entre o que os bancos ganham com o seu dinheiro e o que eles te devolvem e real. A gente fecha essa diferenca."
+      "title": "Seu dinheiro deveria trabalhar pra você.",
+      "description": "Não pro seu banco. Não pra um intermediario. Pra você."
     },
     "honesty": {
       "title": "Honestidade acima de promessa.",
-      "description": "A gente nao promete retorno garantido porque ninguem pode. O que a gente oferece: dados reais, explicacoes claras e um Centro de Aprendizado pra voce entender o que ta fazendo antes de fazer. Os dois lados, sempre."
+      "description": "A gente não promete retorno garantido porque ninguem pode. O que a gente oferece: dados reais, explicacoes claras. Você entende o que ta fazendo antes de fazer."
     },
     "startSmall": {
       "title": "Comece com R$10. Aprenda no caminho.",
-      "description": "Voce nao precisa de R$50.000 pra comecar. Comece com o que voce se sentir confortavel. Veja como funciona. Depois decide se e pra voce. Sem pressao, sem pacote, sem amarra."
+      "description": "Acesso aberto pra construir patrimonio. A gente construiu a porta pra você acessar as melhores oportunidades, construir seu patrimonio e manter o controle do seu dinheiro."
     }
   },
   "mission": {
     "header": "A Missao",
     "story": "Adelaide nunca teve escolha. Valores minimos altos, taxas escondidas e palavras complicadas mantiveram a porta fechada.",
     "statement": "A gente ta construindo a porta que ela nunca teve.",
-    "pillars": "Dinheiro que se move de graca. Opcoes reais de crescimento. Transparencia total. A partir de R$10. Em quatro idiomas. Pra todo mundo."
+    "pillars": "Dinheiro que se move de graca. Opcoes reais de crescimento. Transparencia total. Pra todo mundo."
   },
   "business": {
     "header": "Pra Empresas",
-    "description": "Se voce aceita pagamento com cartao, as taxas de processamento comem cada transacao. Se tem dinheiro parado na conta da empresa, seu banco ta ganhando com ele e te pagando quase nada. O mesmo sistema que nao serviu pra minha avo ta sentado em cima das reservas da sua empresa.",
+    "description": "Se você aceita pagamento com cartao, as taxas de processamento comem cada transacao. Se tem dinheiro parado na conta da empresa, seu banco ta ganhando com ele e te pagando quase nada. O mesmo sistema que não serviu pra minha avo ta sentado em cima das reservas da sua empresa.",
     "pitch": "diBoaS for Business ajuda empresas a ficar com mais do que ganham, com liquidez no mesmo dia, relatorios prontos pra diretoria, e acesso aos mesmos sistemas confiaveis que movem nossa plataforma pessoal.",
     "cta": "Saiba mais sobre o diBoaS for Business"
   },
@@ -68,7 +61,12 @@
     "email": "Email:",
     "emailValue": "hello@diboas.com",
     "personal": "Perguntas? Eu leio todos os emails.",
-    "personalEmail": "hello@diboas.com"
+    "personalEmail": "hello@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X (Twitter)",
+      "substack": "Substack"
+    }
   },
   "footer": {
     "general": "Este conteúdo é apenas para fins educativos e não constitui aconselhamento de investimento, aconselhamento financeiro ou qualquer outro tipo de aconselhamento.",
@@ -85,9 +83,6 @@
   "sections": {
     "story": {
       "ariaLabel": "A história, o nome dela era Adelaide"
-    },
-    "whatWeDo": {
-      "ariaLabel": "O que o diBoaS faz"
     },
     "beliefs": {
       "ariaLabel": "No que acreditamos"

@@ -118,3 +118,28 @@
 .socialLink:hover {
   color: var(--color-brand-primary-hover, #0f766e);
 }
+
+/* Dark background theme — light text for WCAG contrast */
+:global([data-theme="dark"]) .header {
+  color: var(--color-text-on-dark, #f1f5f9);
+}
+
+:global([data-theme="dark"]) .paragraph {
+  color: var(--color-text-on-dark-secondary, #cbd5e1);
+}
+
+:global([data-theme="dark"]) .emailLink {
+  color: var(--color-teal-300, #5eead4);
+}
+
+:global([data-theme="dark"]) .emailLink:hover {
+  color: var(--color-teal-200, #99f6e4);
+}
+
+:global([data-theme="dark"]) .socialLink {
+  color: var(--color-teal-300, #5eead4);
+}
+
+:global([data-theme="dark"]) .socialLink:hover {
+  color: var(--color-teal-200, #99f6e4);
+}

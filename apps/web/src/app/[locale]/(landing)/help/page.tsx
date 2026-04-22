@@ -5,7 +5,6 @@ import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { HeroSection, FAQAccordion } from '@/components/Sections';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
@@ -13,7 +12,6 @@ import {
   HELP_HERO_CONFIG,
   HELP_TOPIC_IDS,
   HELP_TOPIC_CONFIGS,
-  HELP_WAITLIST_CONFIG,
 } from '@/config/landing-help';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -59,11 +57,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 /**
  * Help Page
  *
- * 4-section layout:
+ * 3-section layout:
  * 1. Hero — title + subtitle
  * 2. FAQ Topics — collapsible accordion sections grouped by topic
- * 3. Waitlist — CTA to join
- * 4. Footer — MinimalFooter with B2C disclosures
+ * 3. Footer — MinimalFooter with B2C disclosures
  */
 export default async function HelpPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -127,28 +124,6 @@ export default async function HelpPage({ params }: LocalePageProps) {
           </SectionErrorBoundary>
         ))}
 
-        {/* Section 3: Waitlist */}
-        <SectionErrorBoundary
-          sectionId="waitlist-section-help"
-          sectionType="WaitlistSection"
-          enableReporting={true}
-          context={{ page: 'help' }}
-        >
-          <div id="waitlist" data-section-id="waitlist-section-help">
-            <WaitlistSection
-              enableAnalytics={true}
-              config={{
-                sectionId: HELP_WAITLIST_CONFIG.sectionId,
-                backgroundColor: HELP_WAITLIST_CONFIG.backgroundColor,
-                headline: HELP_WAITLIST_CONFIG.headline,
-                subheadline: HELP_WAITLIST_CONFIG.subheadline,
-                hideBenefits: HELP_WAITLIST_CONFIG.hideBenefits,
-                hideNoSpam: HELP_WAITLIST_CONFIG.hideNoSpam,
-                source: HELP_WAITLIST_CONFIG.source,
-              }}
-            />
-          </div>
-        </SectionErrorBoundary>
       </div>
 
       {/* Section 4: Footer */}

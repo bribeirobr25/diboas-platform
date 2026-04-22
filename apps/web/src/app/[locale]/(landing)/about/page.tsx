@@ -10,22 +10,18 @@ import {
   FounderSection,
 } from '@/components/Sections';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
 import {
   ABOUT_HERO_CONFIG,
   ABOUT_STORY_CONFIG,
-  ABOUT_WHAT_WE_DO_CONFIG,
   ABOUT_BELIEFS_CONFIG,
   ABOUT_MISSION_CONFIG,
   ABOUT_BUSINESS_CONFIG,
   ABOUT_FOUNDER_CONFIG,
-  ABOUT_WAITLIST_CONFIG,
-  ABOUT_FOOTER_DISCLOSURES,
 } from '@/config/landing-about';
-import { B2C_FOOTER_NAV } from '@/config/landing-b2c';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -89,13 +85,11 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  * Reusable section composition pattern:
  * 1. Hero — HeroSection fullBackground
  * 2. Story — ProseSection (Adelaide narrative)
- * 3. What We Do — ProseSection (product capabilities)
+ * 3. Mission — ProseSection (mission statement)
  * 4. What We Believe — BenefitsCardsSection (3 cards)
- * 5. Mission — ProseSection (mission statement)
- * 6. Business CTA — ProseSection (B2B pitch)
- * 7. Founder / Contact — FounderSection
- * 8. Waitlist — WaitlistSection
- * 9. Footer — MinimalFooter
+ * 5. Business CTA — ProseSection (B2B pitch)
+ * 6. Founder / Contact — FounderSection (dark background)
+ * 7. Footer — MinimalFooter
  */
 export default async function AboutPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -157,16 +151,16 @@ export default async function AboutPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 3: What diBoaS Does */}
+        {/* Section 3: The Mission */}
         <SectionErrorBoundary
-          sectionId="what-we-do-section-about"
+          sectionId="mission-section-about"
           sectionType="ProseSection"
           enableReporting={true}
           context={{ page: 'about' }}
         >
-          <div id="what-we-do" data-section-id="what-we-do-section-about">
+          <div id="mission" data-section-id="mission-section-about">
             <ProseSection
-              config={ABOUT_WHAT_WE_DO_CONFIG}
+              config={ABOUT_MISSION_CONFIG}
               enableAnalytics={true}
             />
           </div>
@@ -188,22 +182,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 5: The Mission */}
-        <SectionErrorBoundary
-          sectionId="mission-section-about"
-          sectionType="ProseSection"
-          enableReporting={true}
-          context={{ page: 'about' }}
-        >
-          <div id="mission" data-section-id="mission-section-about">
-            <ProseSection
-              config={ABOUT_MISSION_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 6: For Businesses */}
+        {/* Section 5: For Businesses */}
         <SectionErrorBoundary
           sectionId="business-section-about"
           sectionType="ProseSection"
@@ -218,7 +197,7 @@ export default async function AboutPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: Founder / Contact */}
+        {/* Section 6: Founder / Contact */}
         <SectionErrorBoundary
           sectionId="founder-section-about"
           sectionType="FounderSection"
@@ -231,31 +210,14 @@ export default async function AboutPage({ params }: LocalePageProps) {
             />
           </div>
         </SectionErrorBoundary>
-
-        {/* Section 8: Waitlist */}
-        <SectionErrorBoundary
-          sectionId="waitlist-section-about"
-          sectionType="WaitlistSection"
-          enableReporting={true}
-          context={{ page: 'about' }}
-        >
-          <div id="waitlist" data-section-id="waitlist-section-about">
-            <WaitlistSection
-              enableAnalytics={true}
-              config={{
-                sectionId: ABOUT_WAITLIST_CONFIG.sectionId,
-                backgroundColor: ABOUT_WAITLIST_CONFIG.backgroundColor,
-                hideBenefits: ABOUT_WAITLIST_CONFIG.hideBenefits,
-                hideNoSpam: ABOUT_WAITLIST_CONFIG.hideNoSpam,
-                source: ABOUT_WAITLIST_CONFIG.source,
-              }}
-            />
-          </div>
-        </SectionErrorBoundary>
       </div>
 
       {/* Footer */}
-      <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={ABOUT_FOOTER_DISCLOSURES} />
+      <MinimalFooter
+        taglineKey="landing-b2c.footer.tagline"
+        navLinks={B2C_FOOTER_NAV}
+        disclosureKeys={B2C_FOOTER_DISCLOSURES}
+      />
     </PageI18nProvider>
   );
 }

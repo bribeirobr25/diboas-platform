@@ -1,6 +1,7 @@
 import { wrapInLayout } from './layout';
 import type { WelcomeEmailData, WaitlistTier } from '../types';
 import { BRAND } from '../config';
+import { escapeHtml } from '../utils';
 
 interface TierTranslations {
   subject: string;
@@ -187,23 +188,24 @@ function renderTierBadge(tier: WaitlistTier, label: string): string {
 export function renderWelcome(data: WelcomeEmailData): { subject: string; html: string } {
   const t = translations[data.locale] || translations.en;
   const greeting = data.name
-    ? t.greeting.replace('{name}', data.name)
+    ? t.greeting.replace('{name}', escapeHtml(data.name))
     : t.greetingNoName;
 
   const tierBadge = renderTierBadge(data.tier, t.tierBadge[data.tier]);
   const tierMessage = t.tierMessage[data.tier];
 
+  const safePosition = escapeHtml(String(data.position));
   const positionLine = data.tier === 'founding_member'
-    ? `<p style="margin:8px 0 0;font-size:14px;font-weight:600;color:#115e59;">${t.memberNumber.replace('{position}', String(data.position))}</p>`
+    ? `<p style="margin:8px 0 0;font-size:14px;font-weight:600;color:#115e59;">${t.memberNumber.replace('{position}', safePosition)}</p>`
     : '';
 
   const spotsSection = data.tier === 'founding_member' && data.foundingMemberSpotsRemaining != null
-    ? `<p style="margin:8px 0 0;font-size:13px;color:#94a3b8;">${t.spotsRemaining.replace('{spots}', String(data.foundingMemberSpotsRemaining))}</p>`
+    ? `<p style="margin:8px 0 0;font-size:13px;color:#94a3b8;">${t.spotsRemaining.replace('{spots}', escapeHtml(String(data.foundingMemberSpotsRemaining)))}</p>`
     : '';
 
   const benefitsSection = data.tier === 'founding_member'
     ? `<ul style="margin:0 0 16px;padding:0;list-style:none;">${t.foundingMemberBenefits.map(
-        (b) => `<li style="margin:0 0 8px;font-size:14px;color:#475569;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#0d9488;">&#10003;</span>${b.replace('{position}', String(data.position))}</li>`,
+        (b) => `<li style="margin:0 0 8px;font-size:14px;color:#475569;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#0d9488;">&#10003;</span>${b.replace('{position}', safePosition)}</li>`,
       ).join('')}</ul>`
     : '';
 

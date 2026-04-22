@@ -19,7 +19,9 @@
 /* Default: subtle narrative bridge */
 .transitionDefault {
   font-size: 1.125rem;
-  color: var(--color-slate-500);
+  color: var(--color-slate-600);
+  background-color: var(--section-bg-brand);
+  padding: var(--spacing-2xl) var(--spacing-lg);
 }
 
 /* Pivotal: draws slightly more attention for key turning points */

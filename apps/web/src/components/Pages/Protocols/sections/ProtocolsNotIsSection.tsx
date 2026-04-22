@@ -31,7 +31,7 @@ export function ProtocolsNotIsSection() {
       <SectionContainer
         variant="standard"
         padding="standard"
-        backgroundColor="var(--section-bg-neutral)"
+        backgroundColor="var(--section-bg-warm)"
       >
         <div className={styles.content}>
           <h2 className={styles.title}>{t('notIs.h2')}</h2>

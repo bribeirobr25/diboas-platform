@@ -38,6 +38,7 @@ import {
  */
 export {
   Menu,
+  X,
   ChevronRight,
   ChevronLeft,
   ChevronDown,

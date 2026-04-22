@@ -35,19 +35,9 @@ export function StrategiesHeroSection() {
         subheadline={t('hero.subheadline')}
         align="center"
       />
-      <p className={styles.trustLine}>{t('hero.trustLine')}</p>
-      <p className={styles.microText}>{t('hero.honestLimitation')}</p>
     </SectionErrorBoundary>
   );
 }
 
-// ─── Transition Hook ─────────────────────────────────────────
-
-export function StrategiesTransitionHook({ hookKey }: { hookKey: string }) {
-  const intl = useTranslation();
-  const text = intl.formatMessage({ id: `${I18N_PREFIX}.${hookKey}` });
-
-  return <p className={styles.transitionHook}>{text}</p>;
-}
-
 // NOTE: StrategiesDisclaimersWrapper removed (dead code — never imported by any page)
+// NOTE: StrategiesTransitionHook removed — transition hooks deleted in cleanup

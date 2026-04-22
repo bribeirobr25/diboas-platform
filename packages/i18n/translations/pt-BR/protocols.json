@@ -12,13 +12,13 @@
   },
   "transitions": {
     "t1": "Por isso a gente criou essa página.",
-    "t2": "Como esses 26 entraram na lista?",
+    "t2": "Como esses 25 entraram na lista?",
     "t3": "Quanto dinheiro de verdade tem nesses sistemas?",
     "t4": "Antes de continuar, algo importante.",
     "t5": "Provavelmente você ainda tem perguntas. Ótimo."
   },
   "why": {
-    "h2": "Por que esta página existe",
+    "h2": "Transparência",
     "text1": "Pergunta pro seu banco onde o seu dinheiro da poupança vai. Eles não vão te contar.",
     "text2": "A gente conta. Cada sistema listado nessa página é um que o seu dinheiro pode tocar quando você usa uma estratégia do diBoaS. A gente publica os nomes, o histórico, as auditorias de segurança e as coisas que deram errado. Porque você merece saber.",
     "text3": "Cada protocolo nessa página conquistou seu lugar. Verificamos há quanto tempo está rodando, quem auditou o código, como lidou com problemas e se pessoas reais confiam nele com dinheiro de verdade. Se não passou, não está aqui.",
@@ -28,7 +28,8 @@
   "grid": {
     "h2": "Os 25 protocolos",
     "subtitle": "Organizados pelo que fazem. Clique em qualquer card pra ver detalhes.",
-    "tvlFreshness": "Todos os valores de TVL são aproximados, vindos do DeFiLlama, e atualizados em fevereiro de 2026. Os valores variam diariamente."
+    "tvlFreshness": "Todos os valores de TVL são aproximados, vindos do DeFiLlama, e atualizados em fevereiro de 2026. Os valores variam diariamente.",
+    "defiLlamaLink": "Verificar no DeFiLlama"
   },
   "categories": {
     "lending": {
@@ -341,7 +342,7 @@
         "tvl": "~US$258 milhoes (pos-exploit; era ~US$775M antes de novembro 2025)",
         "blockchains": "Ethereum, Arbitrum, Polygon",
         "audits": "11+ auditorias independentes",
-        "regulatory": "3 de novembro de 2025: exploit de US$128 milhoes afetando pools V2 em Ethereum, Polygon, Base, Arbitrum e outras cadeias. Vulnerabilidade de erro de arredondamento em contratos ComposableStablePool. Aproximadamente US$28 milhoes recuperados atraves de operações whitehat e intervencoes do protocolo. A maioria dos fundos (~US$100 milhoes) permanece sem recuperação em fevereiro de 2026. Balancer DAO aprovou bounty de recuperação de 10% (BIP-908, fevereiro 2026). V3 (versao atual) NAO foi afetada por este exploit. As estratégias do diBoaS usam exclusivamente V3. Fontes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
+        "regulatory": "3 de novembro de 2025: exploit de US$128 milhoes afetando pools V2 em Ethereum, Polygon, Base, Arbitrum e outras cadeias. Vulnerabilidade de erro de arredondamento em contratos ComposableStablePool. Aproximadamente US$28 milhoes recuperados atraves de operações whitehat e intervencoes do protocolo. A maioria dos fundos (~US$100 milhoes) permanece sem recuperação em fevereiro de 2026. Balancer DAO aprovou bounty de recuperação de 10% (BIP-908, fevereiro 2026). V3 (versao atual) NÃO foi afetada por este exploit. As estratégias do diBoaS usam exclusivamente V3. Fontes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
       }
     },
     "huma": {
@@ -377,7 +378,7 @@
     "source": "TVL combinado obtido do DeFiLlama. Ultima verificação: janeiro 2026. Os valores variam diariamente."
   },
   "notIs": {
-    "h2": "O que esta página não e",
+    "h2": "Atenção",
     "text": "Isso não é uma recomendacao pra usar qualquer um desses protocolos diretamente.\n\nAs estratégias do diBoaS são construidas em cima desses sistemas, e nosso time cuida da complexidade. Você não precisa interagir com nenhum protocolo. Essa página existe pra que você possa ver exatamente pra onde o seu dinheiro vai e verificar tudo que a gente diz.\n\nTodo protocolo aqui tem risco. Smart contracts podem ter bugs. Mercados podem desabar. Stablecoins podem perder o lastro. Sistemas que operam com segurança há anos podem ter problemas amanha. Monitoramos esses sistemas continuamente, mas não conseguimos eliminar o risco. Ninguem consegue.\n\nEssa página existe porque acreditamos que você merece saber. Não porque você precisa fazer algo com ela.",
     "warmLine": "Se você não tem certeza se isso e certo pra você, consulte um assessor de investimentos antes de tomar decisoes."
   },
@@ -385,7 +386,7 @@
     "h2": "Perguntas sobre nossos protocolos",
     "q1": {
       "question": "Por que voces não listam todos os protocolos DeFi?",
-      "answer": "Existem milhares de protocolos DeFi. Preferimos listar 26 que pesquisamos a fundo do que 200 que não conhecemos."
+      "answer": "Existem milhares de protocolos DeFi. Preferimos listar 25 que pesquisamos a fundo do que 200 que não conhecemos."
     },
     "q2": {
       "question": "Com que frequência voces atualizam essa lista?",
@@ -415,9 +416,6 @@
       "question": "Preciso interagir com esses protocolos pessoalmente?",
       "answer": "Não. O diBoaS cuida de todas as interacoes com os protocolos quando você escolhe uma estratégia. Você não precisa criar contas em nenhum protocolo, gerenciar wallets em diferentes blockchains ou entender os detalhes tecnicos. Essa página existe pela transparência, não porque você precisa fazer algo com ela."
     }
-  },
-  "cta": {
-    "transition": "Gostou do que viu? Entra na lista de espera."
   },
   "cvmWarnings": {
     "warning1": "As operações com criptoativos envolvem riscos. Esses ativos podem aumentar ou diminuir de valor e podem perder todo o seu valor. Não há garantia de que os ativos digitais possam ser convertidos para a moeda de referência.",

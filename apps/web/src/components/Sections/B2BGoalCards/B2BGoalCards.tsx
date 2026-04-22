@@ -8,7 +8,7 @@
  * all values are pre-computed from fixed business scenarios.
  */
 
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { BarChart3, TrendingUp } from '@/components/UI/LucideIcon';
@@ -39,6 +39,17 @@ export const B2BGoalCards = memo(function B2BGoalCards({
 
   const handleToggle = useCallback((key: string) => {
     setExpandedCard((prev) => (prev === key ? null : key));
+  }, []);
+
+  // Auto-expand card when navigating via URL hash (e.g., from TwoWorlds CTA)
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'paymentFees' || hash === 'idleCash') {
+      setExpandedCard(hash);
+      requestAnimationFrame(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
   }, []);
 
   const handleHowPossible = useCallback((e: React.MouseEvent) => {

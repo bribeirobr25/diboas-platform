@@ -20,10 +20,10 @@
     "footnote": "Comparison rates based on publicly available US data as a last 5 years average. Yield rates are subject to change and may vary across products. Digital dollar yields involve risk, including potential loss of principal."
   },
   "goalExamples": {
-    "heading": "Let's make it simple.",
+    "heading": "Build wealth using your Goals.",
     "cards": {
       "retirement": {
-        "title": "Retirement Plan",
+        "title": "Goal: Retirement Plan",
         "subtitle": "On a $60,000/year salary, putting aside $100/month for 30 years.",
         "tagline": "Same money. Different place. Big difference.",
         "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
@@ -31,7 +31,7 @@
         "howPossible": "How is this possible?"
       },
       "emergency": {
-        "title": "Emergency Fund",
+        "title": "Goal: Emergency Fund",
         "subtitle": "If you spend $2,900/month and want 6 months saved ($17,400), putting aside $300/month.",
         "tagline": "Same effort. Less waiting.",
         "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
@@ -39,7 +39,7 @@
         "howPossible": "How is this possible?"
       },
       "christmas": {
-        "title": "Christmas Bonus",
+        "title": "Goal: Christmas Bonus",
         "subtitle": "On a $60,000/year salary, saving $500/month for 12 months.",
         "tagline": "Every dollar matters when you start small.",
         "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
@@ -47,7 +47,7 @@
         "howPossible": "How is this possible?"
       },
       "wealthy": {
-        "title": "The 10% Rule",
+        "title": "Goal: The 10% Rule",
         "subtitle": "On a $4,600 monthly salary, investing 10% ($460/month) for 5 years.",
         "tagline": "A popular approach to long-term saving: always set aside 10% of your income, no matter what.",
         "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
@@ -107,7 +107,7 @@
   },
   "howItWorksDetailed": {
     "transitionHook": "",
-    "header": "How it works.",
+    "header": "More than Goals",
     "card1": {
       "title": "Where does the growth come from?",
       "p1": "The growth isn't magic. It's your money doing what banks do with it, but with diBoaS, you keep most of the profit instead of them.",

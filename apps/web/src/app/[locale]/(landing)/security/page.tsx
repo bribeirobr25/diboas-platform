@@ -8,7 +8,6 @@ import {
   HeroSection,
   ProseSection,
 } from '@/components/Sections';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import {
@@ -18,10 +17,8 @@ import {
   SECURITY_TECHNOLOGY_CONFIG,
   SECURITY_WHAT_WE_DONT_DO_CONFIG,
   SECURITY_TRANSPARENCY_CONFIG,
-  SECURITY_WAITLIST_CONFIG,
-  SECURITY_FOOTER_DISCLOSURES,
 } from '@/config/landing-security';
-import { B2C_FOOTER_NAV } from '@/config/landing-b2c';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -79,8 +76,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  * 4. The Technology — ProseSection
  * 5. What We Don't Do — ProseSection
  * 6. Transparency — ProseSection
- * 7. Waitlist — WaitlistSection
- * 8. Footer — MinimalFooter
+ * 7. Footer — MinimalFooter
  */
 export default async function SecurityPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -195,30 +191,14 @@ export default async function SecurityPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: Waitlist */}
-        <SectionErrorBoundary
-          sectionId="waitlist-section-security"
-          sectionType="WaitlistSection"
-          enableReporting={true}
-          context={{ page: 'security' }}
-        >
-          <div id="waitlist" data-section-id="waitlist-section-security">
-            <WaitlistSection
-              enableAnalytics={true}
-              config={{
-                sectionId: SECURITY_WAITLIST_CONFIG.sectionId,
-                backgroundColor: SECURITY_WAITLIST_CONFIG.backgroundColor,
-                hideBenefits: SECURITY_WAITLIST_CONFIG.hideBenefits,
-                hideNoSpam: SECURITY_WAITLIST_CONFIG.hideNoSpam,
-                source: SECURITY_WAITLIST_CONFIG.source,
-              }}
-            />
-          </div>
-        </SectionErrorBoundary>
       </div>
 
       {/* Footer */}
-      <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={SECURITY_FOOTER_DISCLOSURES} />
+      <MinimalFooter
+        taglineKey="landing-b2c.footer.tagline"
+        navLinks={B2C_FOOTER_NAV}
+        disclosureKeys={B2C_FOOTER_DISCLOSURES}
+      />
     </PageI18nProvider>
   );
 }

@@ -12,13 +12,13 @@
   },
   "transitions": {
     "t1": "Warum wir diese Seite gebaut haben.",
-    "t2": "Wie haben es diese 26 auf die Liste geschafft?",
+    "t2": "Wie haben es diese 25 auf die Liste geschafft?",
     "t3": "Wie viel echtes Geld steckt also in diesen Systemen?",
     "t4": "Bevor du weiter gehst, etwas Wichtiges.",
     "t5": "Du hast wahrscheinlich noch Fragen. Gut so."
   },
   "why": {
-    "h2": "Warum es diese Seite gibt",
+    "h2": "Transparenz",
     "text1": "Frag deine Bank, wohin dein Erspartes fließt. Sie werden es dir nicht sagen.",
     "text2": "Wir schon. Jedes System auf dieser Seite ist eines, das dein Geld berühren kann, wenn du eine diBoaS-Strategie nutzt. Wir veröffentlichen die Namen, die Erfolgsbilanz, die Sicherheitsprüfungen und die Dinge, die schiefgelaufen sind. Weil du es wissen solltest.",
     "text3": "Jedes Protokoll auf dieser Seite hat seinen Platz verdient. Wir haben geprüft, wie lange es läuft, wer den Code auditiert hat, wie es mit Problemen umgegangen ist und ob echte Menschen ihm echtes Geld anvertrauen. Was nicht bestanden hat, steht nicht hier.",
@@ -28,7 +28,8 @@
   "grid": {
     "h2": "Die 25 Protokolle",
     "subtitle": "Sortiert nach Funktion. Klicke auf eine Karte für Details.",
-    "tvlFreshness": "Alle TVL-Zahlen sind Näherungswerte, stammen von DeFiLlama und sind aktuell per Februar 2026. Die Werte schwanken täglich."
+    "tvlFreshness": "Alle TVL-Zahlen sind Näherungswerte, stammen von DeFiLlama und sind aktuell per Februar 2026. Die Werte schwanken täglich.",
+    "defiLlamaLink": "Auf DeFiLlama verifizieren"
   },
   "categories": {
     "lending": {
@@ -377,7 +378,7 @@
     "source": "Gesamt-TVL von DeFiLlama. Letzte Überprüfung: Januar 2026. Die Werte schwanken täglich."
   },
   "notIs": {
-    "h2": "Was diese Seite nicht ist",
+    "h2": "Achtung",
     "text": "Dies ist keine Empfehlung, eines dieser Protokolle direkt zu nutzen.\n\ndiBoaS-Strategien bauen auf diesen Systemen auf, und unser Team handhabt die Komplexität. Du musst mit keinem Protokoll selbst interagieren. Diese Seite existiert, damit du genau sehen kannst, wohin dein Geld geht, und alles überprüfen kannst, was wir sagen.\n\nJedes Protokoll hier trägt Risiko. Smart Contracts können Fehler haben. Märkte können abstürzen. Stablecoins können ihre Bindung verlieren. Systeme, die seit Jahren sicher laufen, können morgen trotzdem Probleme bekommen. Wir überwachen diese Systeme kontinuierlich, aber wir können das Risiko nicht eliminieren. Niemand kann das.\n\nWenn du unsicher bist, ob das Richtige für dich dabei ist, konsultiere einen zugelassenen Finanzberater, bevor du Anlageentscheidungen triffst.",
     "warmLine": "Diese Seite existiert, weil wir glauben, dass du es verdienst, es zu wissen. Nicht weil du etwas tun musst."
   },
@@ -385,7 +386,7 @@
     "h2": "Fragen zu unseren Protokollen",
     "q1": {
       "question": "Warum listet ihr nicht jedes DeFi-Protokoll?",
-      "answer": "Es gibt Tausende von DeFi-Protokollen. Wir listen lieber 26, die wir gründlich recherchiert haben, als 200, die wir nicht kennen."
+      "answer": "Es gibt Tausende von DeFi-Protokollen. Wir listen lieber 25, die wir gründlich recherchiert haben, als 200, die wir nicht kennen."
     },
     "q2": {
       "question": "Wie oft aktualisiert ihr diese Liste?",
@@ -415,9 +416,6 @@
       "question": "Muss ich mit diesen Protokollen selbst interagieren?",
       "answer": "Nein. diBoaS übernimmt alle Protokoll-Interaktionen in deinem Namen, wenn du eine Strategie wählst. Du musst bei keinem Protokoll ein Konto erstellen, Wallets auf verschiedenen Blockchains verwalten oder die technischen Details verstehen. Diese Seite dient der Transparenz, nicht weil du etwas damit tun musst."
     }
-  },
-  "cta": {
-    "transition": "Zufrieden mit dem, was du siehst? Trag dich in die Warteliste ein."
   },
   "cvmWarnings": {
     "warning1": "",

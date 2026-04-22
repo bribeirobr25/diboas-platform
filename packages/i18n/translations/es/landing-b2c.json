@@ -20,10 +20,10 @@
     "footnote": "Tasas comparativas basadas en datos públicos de la UE como promedio de los últimos 5 años. Los rendimientos pueden cambiar y variar según el producto. Los rendimientos en dólares digitales implican riesgo, incluida la posible pérdida del capital."
   },
   "goalExamples": {
-    "heading": "Hagámoslo sencillo.",
+    "heading": "Construye riqueza usando tus Metas.",
     "cards": {
       "retirement": {
-        "title": "Plan de Jubilación",
+        "title": "Meta: Plan de Jubilación",
         "subtitle": "Considerando salario = 35.000 €/año y una aportación de 100 €/mes durante 30 años.",
         "tagline": "El mismo dinero. Diferente lugar. Gran diferencia.",
         "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
@@ -31,7 +31,7 @@
         "howPossible": "¿Cómo es posible?"
       },
       "emergency": {
-        "title": "Fondo de Emergencia",
+        "title": "Meta: Fondo de Emergencia",
         "subtitle": "Considerando gastos mensuales = 1.500 €, fondo de emergencia para 6 meses (9.000 €), y una aportación de 150 €/mes.",
         "tagline": "Mismo esfuerzo. Menos tiempo esperando.",
         "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
@@ -39,7 +39,7 @@
         "howPossible": "¿Cómo es posible?"
       },
       "christmas": {
-        "title": "Paga Extra",
+        "title": "Meta: Paga Extra",
         "subtitle": "Considerando salario = 35.000 €/año, ahorrando 290 €/mes durante 12 meses.",
         "tagline": "Mismo sueldo. Diferente estrategia. 58 € más en tu bolsillo.",
         "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
@@ -47,7 +47,7 @@
         "howPossible": "¿Cómo es posible?"
       },
       "wealthy": {
-        "title": "La Regla del 10%",
+        "title": "Meta: La Regla del 10%",
         "subtitle": "Con un salario de 1.700 €/mes, invirtiendo el 10% (170 €/mes) durante 5 años.",
         "tagline": "Un enfoque popular para el ahorro a largo plazo: siempre aparta el 10% de tus ingresos, pase lo que pase.",
         "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
@@ -107,7 +107,7 @@
   },
   "howItWorksDetailed": {
     "transitionHook": "",
-    "header": "Cómo funciona.",
+    "header": "Más que Metas",
     "card1": {
       "title": "¿De dónde viene el crecimiento?",
       "p1": "El crecimiento no es magia. Es tu dinero haciendo lo que los bancos hacen con él, pero con diBoaS, tú te quedas con la mayor parte de las ganancias.",

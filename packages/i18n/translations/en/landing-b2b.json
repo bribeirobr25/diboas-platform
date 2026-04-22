@@ -21,13 +21,13 @@
     "cardA": {
       "headline": "If you accept card payments",
       "body": "Every time a customer pays with a card, you lose 2 to 3%.\n\nOn $1,000 a day in sales, that's $600 to $900 a month. Gone. Then the money takes 3 to 5 business days to reach your account. Your money, sitting in someone else's pocket, earning them interest.\n\nWhat if you kept all of it?",
-      "cta": "Calculate what you're losing",
+      "cta": "See what you are losing",
       "imageAlt": "Business payment processing"
     },
     "cardB": {
       "headline": "If your company has cash sitting idle",
       "body": "You raised money. You're spending it carefully. But the cash you're not using right now? Your bank puts it to work, earns returns, and pays you almost nothing.\n\nOn $500,000 idle, the gap between what your bank pays and what's possible could be tens of thousands a year.\n\nWhat if that money worked for you instead?",
-      "cta": "Calculate what your bank is keeping",
+      "cta": "See what your bank is keeping",
       "imageAlt": "Treasury management on phone"
     }
   },
@@ -40,7 +40,7 @@
     "cards": {
       "paymentFees": {
         "title": "Payment Fees",
-        "titleSummary": "$11,500/year more",
+        "titleSummary": "it is not just 3%",
         "subtitle": "On a $1,000 daily card sales, average 3% processing fee. It costs your business $900/month or more than $10,000 in one year.",
         "diboasResult": "$11,556",
         "bankResult": "",
@@ -51,7 +51,7 @@
       },
       "idleCash": {
         "title": "Idle Cash",
-        "titleSummary": "$3,500/year more",
+        "titleSummary": "get what is fair",
         "subtitle": "On a $100,000 idle cash sitting in your business account.",
         "diboasResult": "$7,000",
         "bankResult": "$3,500",
@@ -74,7 +74,7 @@
     }
   },
   "howItWorks": {
-    "header": "Four steps. Two minutes.",
+    "header": "All your Business can do",
     "steps": {
       "connect": {
         "title": "Connect your business",

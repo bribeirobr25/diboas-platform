@@ -1,15 +1,14 @@
 /**
  * Security Page Configuration
  *
- * 7-section layout using reusable section components:
+ * 6-section layout using reusable section components:
  * 1. Hero (HeroSection fullBackground)
  * 2. Your Wallet, Your Keys (ProseSection)
  * 3. How We Protect Your Funds (ProseSection)
  * 4. The Technology (ProseSection)
  * 5. What We Don't Do (ProseSection)
  * 6. Transparency (ProseSection)
- * 7. Waitlist (WaitlistSection)
- * 8. Footer (MinimalFooter)
+ * 7. Footer (MinimalFooter)
  *
  * Domain-Driven Design: Security page domain configuration
  * Service Agnostic Abstraction: Decoupled content from presentation
@@ -168,25 +167,4 @@ export const SECURITY_TRANSPARENCY_CONFIG: ProseSectionConfig = {
     sectionId: 'transparency-security',
     category: 'security',
   },
-} as const;
-
-// ─── Waitlist ────────────────────────────────────────────────
-
-export const SECURITY_WAITLIST_CONFIG = {
-  sectionId: 'waitlist-section-security',
-  backgroundColor: 'var(--section-bg-brand)',
-  hideBenefits: true,
-  hideNoSpam: true,
-  source: 'security' as const,
-} as const;
-
-// ─── Footer Disclosures ─────────────────────────────────────
-
-export const SECURITY_FOOTER_DISCLOSURES = {
-  general: 'security.footer.general',
-  crypto: 'security.footer.crypto',
-  mica: 'security.footer.mica',
-  micaArticle7: 'security.footer.micaArticle7',
-  us: 'security.footer.us',
-  closing: 'security.footer.closing',
 } as const;

@@ -55,3 +55,11 @@
   max-width: var(--dimension-600);
   margin: var(--spacing-sm) auto 0;
 }
+
+/* Dark theme overrides */
+:global([data-theme="dark"]) .title,
+:global([data-theme="dark"]) .paragraph,
+:global([data-theme="dark"]) .context,
+:global([data-theme="dark"]) .source {
+  color: var(--color-white);
+}

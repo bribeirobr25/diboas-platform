@@ -76,7 +76,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       headline: 'landing-b2b.twoWorlds.cardA.headline',
       body: 'landing-b2b.twoWorlds.cardA.body',
       cta: 'landing-b2b.twoWorlds.cardA.cta',
-      ctaHref: '#cashflow-calculator',
+      ctaHref: '#paymentFees',
       image: B2B_IMAGES.twoWorldsPayments,
       imageAlt: 'landing-b2b.twoWorlds.cardA.imageAlt'
     },
@@ -84,7 +84,7 @@ export const B2B_TWO_WORLDS_CONFIG: TwoWorldsSectionConfig = {
       headline: 'landing-b2b.twoWorlds.cardB.headline',
       body: 'landing-b2b.twoWorlds.cardB.body',
       cta: 'landing-b2b.twoWorlds.cardB.cta',
-      ctaHref: '#treasury-calculator',
+      ctaHref: '#idleCash',
       image: B2B_IMAGES.twoWorldsTreasury,
       imageAlt: 'landing-b2b.twoWorlds.cardB.imageAlt'
     }
@@ -417,7 +417,7 @@ export const B2B_WAITLIST_CONFIG = {
   source: 'landing_b2b' as const,
 } as const;
 
-// ─── Section 13: FAQ (10 items) ──────────────────────────────
+// ─── Section 13: FAQ (5 items) — top questions; full FAQ at /help ─
 
 export const B2B_FAQ_ITEMS: FAQItem[] = [
   {
@@ -427,22 +427,10 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
     category: 'general'
   },
   {
-    id: 'smbOrStartup',
-    question: 'landing-b2b.faq.items.smbOrStartup.question',
-    answer: 'landing-b2b.faq.items.smbOrStartup.answer',
-    category: 'general'
-  },
-  {
     id: 'safety',
     question: 'landing-b2b.faq.items.safety.question',
     answer: 'landing-b2b.faq.items.safety.answerA',
     category: 'security'
-  },
-  {
-    id: 'liquidity',
-    question: 'landing-b2b.faq.items.liquidity.question',
-    answer: 'landing-b2b.faq.items.liquidity.answer',
-    category: 'operations'
   },
   {
     id: 'payments',
@@ -457,28 +445,10 @@ export const B2B_FAQ_ITEMS: FAQItem[] = [
     category: 'compliance'
   },
   {
-    id: 'whereMoneyGoes',
-    question: 'landing-b2b.faq.items.whereMoneyGoes.question',
-    answer: 'landing-b2b.faq.items.whereMoneyGoes.answer',
-    category: 'security'
-  },
-  {
-    id: 'whyCantTouch',
-    question: 'landing-b2b.faq.items.whyCantTouch.question',
-    answer: 'landing-b2b.faq.items.whyCantTouch.answerA',
-    category: 'security'
-  },
-  {
     id: 'risk',
     question: 'landing-b2b.faq.items.risk.question',
     answer: 'landing-b2b.faq.items.risk.answer',
     category: 'security'
-  },
-  {
-    id: 'audited',
-    question: 'landing-b2b.faq.items.audited.question',
-    answer: 'landing-b2b.faq.items.audited.answer',
-    category: 'compliance'
   }
 ];
 
@@ -507,36 +477,3 @@ export const B2B_FAQ_CONFIG: FAQAccordionVariantConfig = {
     enabled: true
   }
 };
-
-// ─── Section 14: Footer navigation & disclosures ────────────
-
-export const B2B_FOOTER_NAV = [
-  { id: 'forYou', labelKey: 'landing-b2b.footer.nav.forYou', href: '/' },
-  { id: 'forBusiness', labelKey: 'landing-b2b.footer.nav.forBusiness', href: '/business' },
-  { id: 'adelaideDaily', labelKey: 'landing-b2b.footer.nav.adelaideDaily', href: '/daily-market' },
-  { id: 'about', labelKey: 'landing-b2b.footer.nav.about', href: '/about' },
-  { id: 'strategies', labelKey: 'landing-b2b.footer.nav.strategies', href: '/strategies' },
-  { id: 'protocols', labelKey: 'landing-b2b.footer.nav.protocols', href: '/protocols' },
-  { id: 'help', labelKey: 'landing-b2b.footer.nav.help', href: '/help' },
-] as const;
-
-/**
- * Locale-conditional footer disclosures.
- * Uses the same interface as MinimalFooter's disclosureKeys prop.
- *
- * MiCA Art. 68: DE, ES only
- * MiCA Art. 7: EN, DE, ES
- * CVM 3-warning: PT-BR only
- * US disclosure: EN only
- */
-export const B2B_FOOTER_DISCLOSURES = {
-  general: 'landing-b2b.footer.riskDisclaimer',
-  stories: 'landing-b2b.footer.fictionalResults',
-  ai: 'landing-b2b.footer.aiDisclosure',
-  mica: 'landing-b2b.footer.micaArticle68',
-  micaArticle7: 'landing-b2b.footer.micaArticle7',
-  cvm: 'landing-b2b.footer.cvmWarning',
-  us: 'landing-b2b.footer.usDisclosure',
-  crypto: 'landing-b2b.footer.cryptoDisclosure',
-  closing: 'landing-b2b.footer.closing',
-} as const;

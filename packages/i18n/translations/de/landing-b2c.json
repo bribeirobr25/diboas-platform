@@ -20,10 +20,10 @@
     "footnote": "Vergleichszinsen basieren auf öffentlich verfügbaren EU-Daten als Durchschnitt der letzten 5 Jahre. Renditen können sich ändern und je nach Produkt variieren. Renditen in digitalen Dollar beinhalten Risiken, einschließlich eines möglichen Totalverlusts."
   },
   "goalExamples": {
-    "heading": "Machen wir es konkret.",
+    "heading": "Baue Vermögen auf mit deinen Zielen.",
     "cards": {
       "retirement": {
-        "title": "Altersvorsorge",
+        "title": "Ziel: Altersvorsorge",
         "subtitle": "Angenommen Gehalt = 50.000 €/Jahr und ein monatlicher Beitrag von 100 € über 30 Jahre.",
         "tagline": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
         "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
@@ -31,7 +31,7 @@
         "howPossible": "Wie ist das möglich?"
       },
       "emergency": {
-        "title": "Notgroschen",
+        "title": "Ziel: Notgroschen",
         "subtitle": "Angenommen monatliche Ausgaben = 2.000 €, Notgroschen für 6 Monate (12.000 €), und ein monatlicher Beitrag von 200 €.",
         "tagline": "Gleicher Einsatz. Weniger warten.",
         "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
@@ -39,7 +39,7 @@
         "howPossible": "Wie ist das möglich?"
       },
       "christmas": {
-        "title": "Weihnachtsgeld",
+        "title": "Ziel: Weihnachtsgeld",
         "subtitle": "Angenommen Gehalt = 50.000 €/Jahr, 415 €/Monat über 12 Monate sparen.",
         "tagline": "Gleiches Gehalt. Andere Strategie. 84 € mehr in deiner Tasche.",
         "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
@@ -47,7 +47,7 @@
         "howPossible": "Wie ist das möglich?"
       },
       "wealthy": {
-        "title": "Die 10%-Regel",
+        "title": "Ziel: Die 10%-Regel",
         "subtitle": "Bei 2.200 €/Monat, 10% (220 €/Monat) über 5 Jahre investieren.",
         "tagline": "Ein bewährter Ansatz für langfristiges Sparen: Lege immer 10% deines Einkommens zur Seite, egal was passiert.",
         "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
@@ -107,7 +107,7 @@
   },
   "howItWorksDetailed": {
     "transitionHook": "",
-    "header": "So funktioniert es.",
+    "header": "Mehr als Ziele",
     "card1": {
       "title": "Woher kommt das Wachstum?",
       "p1": "Das Wachstum ist keine Magie. Es ist dein Geld, das tut, was Banken damit tun, aber bei diBoaS behältst du den Großteil des Gewinns.",

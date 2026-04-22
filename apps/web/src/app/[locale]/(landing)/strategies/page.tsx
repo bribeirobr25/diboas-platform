@@ -6,23 +6,17 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { SectionContainer } from '@/components/Sections';
 import { FAQAccordion } from '@/components/Sections/FAQAccordion/FAQAccordionFactory';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { CvmBanner } from '@/components/Pages/CvmBanner';
 import { StrategiesMatrixSection } from '@/components/Pages/StrategiesMatrixSection';
-import { StrategiesCardsSection } from '@/components/Pages/StrategiesCardsSection';
 import { StrategiesProtocolTable } from '@/components/Pages/StrategiesProtocolTable';
 import { StrategyFeeTable } from '@/components/Pages/StrategyFeeTable';
 import { StrategiesHowToChoose } from '@/components/Pages/StrategiesHowToChoose';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
-import {
-  StrategiesHeroSection,
-  StrategiesTransitionHook,
-} from '@/components/Pages/StrategiesClientSections';
+import { StrategiesHeroSection } from '@/components/Pages/StrategiesClientSections';
 import {
   STRATEGIES_I18N_PREFIX,
   STRATEGIES_FAQ_CONFIG,
-  STRATEGIES_WAITLIST_CONFIG,
 } from '@/config/landing-strategies';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
@@ -134,8 +128,6 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
         {/* Section 1: Hero */}
         <StrategiesHeroSection />
 
-        <StrategiesTransitionHook hookKey="hero.transition" />
-
         {/* Section 2: Strategy Matrix */}
         <SectionErrorBoundary sectionId="matrix-section-strategies" sectionType="StrategyMatrix" enableReporting context={{ page: 'strategies' }}>
           <div data-section-id="matrix-section-strategies">
@@ -145,18 +137,7 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        <StrategiesTransitionHook hookKey="matrix.transition" />
-
-        {/* Section 3: Strategy Cards */}
-        <SectionErrorBoundary sectionId="cards-section-strategies" sectionType="StrategyCards" enableReporting context={{ page: 'strategies' }}>
-          <div id="strategies" data-section-id="cards-section-strategies">
-            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
-              <StrategiesCardsSection />
-            </SectionContainer>
-          </div>
-        </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="cardsTransition" />
+        {/* Strategy cards section hidden — awaiting redesign */}
 
         {/* Section 4: Protocol Table */}
         <SectionErrorBoundary sectionId="protocols-section-strategies" sectionType="ProtocolTable" enableReporting context={{ page: 'strategies' }}>
@@ -167,8 +148,6 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        <StrategiesTransitionHook hookKey="protocols.transition" />
-
         {/* Section 5: Fee Table */}
         <SectionErrorBoundary sectionId="fees-section-strategies" sectionType="FeeTable" enableReporting context={{ page: 'strategies' }}>
           <div id="fees" data-section-id="fees-section-strategies">
@@ -177,8 +156,6 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
             </SectionContainer>
           </div>
         </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="fees.transition" />
 
         {/* Section 6: How to Choose */}
         <SectionErrorBoundary sectionId="how-to-choose-section" sectionType="HowToChoose" enableReporting context={{ page: 'strategies' }}>
@@ -189,8 +166,6 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        <StrategiesTransitionHook hookKey="howToChoose.transition" />
-
         {/* Section 7: FAQ */}
         <SectionErrorBoundary sectionId="faq-section-strategies" sectionType="FAQAccordion" enableReporting context={{ page: 'strategies' }}>
           <div id="faq" data-section-id="faq-section-strategies">
@@ -198,17 +173,12 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        <StrategiesTransitionHook hookKey="faq.transition" />
-
-        {/* Section 8: Waitlist / CTA */}
-        <SectionErrorBoundary sectionId="waitlist-section-strategies" sectionType="WaitlistSection" enableReporting context={{ page: 'strategies' }}>
-          <div id="waitlist" data-section-id="waitlist-section-strategies">
-            <WaitlistSection config={STRATEGIES_WAITLIST_CONFIG} enableAnalytics />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 9: Footer */}
-        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+        {/* Section 8: Footer */}
+        <MinimalFooter
+          taglineKey="landing-b2c.footer.tagline"
+          navLinks={B2C_FOOTER_NAV}
+          disclosureKeys={B2C_FOOTER_DISCLOSURES}
+        />
       </main>
     </PageI18nProvider>
   );

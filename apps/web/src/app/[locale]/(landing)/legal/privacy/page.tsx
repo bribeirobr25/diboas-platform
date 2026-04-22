@@ -95,7 +95,11 @@ export default async function LegalPrivacyPage({ params }: LocalePageProps) {
         >
           <PrivacyPolicyContent />
         </SectionErrorBoundary>
-        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+        <MinimalFooter
+          taglineKey="landing-b2c.footer.tagline"
+          navLinks={B2C_FOOTER_NAV}
+          disclosureKeys={B2C_FOOTER_DISCLOSURES}
+        />
       </main>
     </PageI18nProvider>
   );

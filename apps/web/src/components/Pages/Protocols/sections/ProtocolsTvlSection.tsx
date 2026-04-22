@@ -27,7 +27,7 @@ export function ProtocolsTvlSection() {
       <SectionContainer
         variant="standard"
         padding="standard"
-        backgroundColor="var(--bc-color-section-bg)"
+        backgroundColor="var(--section-bg-dark)"
       >
         <div className={styles.container}>
           <h2 className={styles.title}>{t('tvl.h2')}</h2>

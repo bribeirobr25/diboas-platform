@@ -147,20 +147,23 @@
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .content {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.10) 100%);
+    border-radius: var(--radius-xl);
     padding-left: var(--spacing-5xl);
     padding-right: var(--spacing-5xl);
+    margin: var(--spacing-lg);
     gap: var(--spacing-xl);
-    background: none;
-    border-radius: 0;
-    margin: 0;
   }
 }
 
 /* Responsive: Desktop */
 @media (min-width: 1024px) {
   .content {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.08) 100%);
+    border-radius: var(--radius-xl);
     padding-left: var(--spacing-6xl);
     padding-right: var(--spacing-6xl);
+    margin: var(--spacing-xl);
     gap: var(--spacing-2xl);
   }
 }
@@ -265,10 +268,10 @@
 
 /* CTA Button - UNIFIED DESIGN TOKENS - Enhanced visibility on overlay */
 .ctaButton {
-  /* Dimensions - Mobile */
+  /* Dimensions - Mobile (hero-specific: larger than default CTA) */
   min-width: var(--cta-min-width-mobile);
-  min-height: var(--cta-min-height-mobile);
-  padding: var(--cta-padding-mobile);
+  min-height: 56px;
+  padding: var(--spacing-md) var(--spacing-3xl);
 
   /* Visual Styling - Enhanced shadow for overlay visibility */
   border-radius: var(--cta-border-radius);
@@ -278,7 +281,7 @@
   box-shadow: var(--shadow-lg);
 
   /* Typography */
-  font-size: var(--cta-font-size-mobile);
+  font-size: var(--font-size-md);
   font-weight: var(--cta-font-weight);
   line-height: var(--cta-line-height);
 
@@ -305,8 +308,8 @@
   .ctaButton {
     min-width: var(--cta-min-width-tablet);
     min-height: var(--cta-min-height-tablet);
-    padding: var(--cta-padding-tablet);
-    font-size: var(--cta-font-size-tablet);
+    padding: var(--spacing-md-plus) var(--spacing-4xl);
+    font-size: var(--font-size-lg);
   }
 }
 
@@ -315,8 +318,8 @@
   .ctaButton {
     min-width: var(--cta-min-width-desktop);
     min-height: var(--cta-min-height-desktop);
-    padding: var(--cta-padding-desktop);
-    font-size: var(--cta-font-size-desktop);
+    padding: var(--spacing-md-plus) var(--spacing-4xl);
+    font-size: var(--font-size-lg);
   }
 }
 

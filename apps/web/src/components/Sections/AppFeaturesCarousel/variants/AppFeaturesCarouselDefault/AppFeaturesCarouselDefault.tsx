@@ -165,18 +165,13 @@ export function AppFeaturesCarouselDefault({
           {config.sectionTitle || 'App Features'}
         </h2>
 
-        {/* Cards Grid with descriptions inside each card wrapper */}
-        <div
-          ref={gridRef}
-          className={styles.cardsGrid}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* Mobile prev arrow */}
+        {/* Cards area: relative wrapper so arrows can be absolutely positioned inside */}
+        <div className={styles.cardsContainer}>
+          {/* Mobile prev arrow — absolutely positioned at left edge of image area */}
           {cards.length > 1 ? (
             <button
               type="button"
-              className={styles.mobileArrow}
+              className={`${styles.mobileArrow} ${styles.mobileArrowPrev}`}
               onClick={goToPrev}
               aria-label="Previous card"
             >
@@ -184,43 +179,51 @@ export function AppFeaturesCarouselDefault({
             </button>
           ) : null}
 
-          {cards.map((card, index) => (
-            <div
-              key={card.id}
-              ref={(el) => { cardRefs.current[index] = el; }}
-              className={`${styles.cardWrapper} ${index === currentSlideIndex ? styles.active : ''}`}
-            >
+          {/* Cards Grid with descriptions inside each card wrapper */}
+          <div
+            ref={gridRef}
+            className={styles.cardsGrid}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {cards.map((card, index) => (
               <div
-                onClick={() => goToSlide(index)}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-                tabIndex={0}
-                role="button"
-                aria-label={`View ${card.content.title} feature`}
-                className={styles.cardClickArea}
+                key={card.id}
+                ref={(el) => { cardRefs.current[index] = el; }}
+                className={`${styles.cardWrapper} ${index === currentSlideIndex ? styles.active : ''}`}
               >
-                <div className={styles.card}>
-                  <Image
-                    src={card.assets.image}
-                    alt={card.seo.imageAlt}
-                    width={index === currentSlideIndex ? 416 : 195}
-                    height={500}
-                    priority={priority && index === 0}
-                    className={styles.cardImage}
-                    onLoad={() => handleImageLoad(card.id)}
-                    sizes="(max-width: 767px) 90vw, (max-width: 1023px) 490px, (min-width: 1024px) 416px"
-                  />
+                <div
+                  onClick={() => goToSlide(index)}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View ${card.content.title} feature`}
+                  className={styles.cardClickArea}
+                >
+                  <div className={styles.card}>
+                    <Image
+                      src={card.assets.image}
+                      alt={card.seo.imageAlt}
+                      width={index === currentSlideIndex ? 416 : 195}
+                      height={500}
+                      priority={priority && index === 0}
+                      className={styles.cardImage}
+                      onLoad={() => handleImageLoad(card.id)}
+                      sizes="(max-width: 767px) 90vw, (max-width: 1023px) 490px, (min-width: 1024px) 416px"
+                    />
+                  </div>
                 </div>
+
               </div>
+            ))}
+          </div>
 
-            </div>
-          ))}
-
-          {/* Mobile next arrow */}
+          {/* Mobile next arrow — absolutely positioned at right edge of image area */}
           {cards.length > 1 ? (
             <button
               type="button"
-              className={styles.mobileArrow}
+              className={`${styles.mobileArrow} ${styles.mobileArrowNext}`}
               onClick={goToNext}
               aria-label="Next card"
             >

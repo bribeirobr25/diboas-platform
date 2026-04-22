@@ -10,6 +10,7 @@
 
 import { useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { LocaleLink } from '@/components/UI';
 import styles from './StrategiesPageContent.module.css';
 
 const I18N_PREFIX = 'strategies';
@@ -138,22 +139,9 @@ export function StrategiesProtocolTable() {
                   {t(`protocols.items.${protocolId}.summary`)}
                 </p>
                 <div className={styles.protocolLinks}>
-                  <a
-                    href={safeHttpsUrl(t(`protocols.items.${protocolId}.verifyUrl`))}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.protocolExternalLink}
-                  >
-                    {t('protocols.verifyOnSite')} &#8599;
-                  </a>
-                  <a
-                    href={safeHttpsUrl(t(`protocols.items.${protocolId}.defillamaUrl`))}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.protocolExternalLink}
-                  >
-                    {t('protocols.verifyOnDefillama')} &#8599;
-                  </a>
+                  <LocaleLink href="/protocols" className={styles.protocolExternalLink}>
+                    {t('protocols.checkProtocolsPage')}
+                  </LocaleLink>
                 </div>
               </div>
             </div>
@@ -217,22 +205,9 @@ function ProtocolDesktopRow({
               {t(`protocols.items.${protocolId}.summary`)}
             </p>
             <div className={styles.protocolLinks}>
-              <a
-                href={t(`protocols.items.${protocolId}.verifyUrl`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.protocolExternalLink}
-              >
-                {t('protocols.verifyOnSite')} &#8599;
-              </a>
-              <a
-                href={t(`protocols.items.${protocolId}.defillamaUrl`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.protocolExternalLink}
-              >
-                {t('protocols.verifyOnDefillama')} &#8599;
-              </a>
+              <LocaleLink href="/protocols" className={styles.protocolExternalLink}>
+                {t('protocols.checkProtocolsPage')}
+              </LocaleLink>
             </div>
           </div>
         </td>

@@ -6,8 +6,8 @@
     "ogDescription": "diBoaS was built because one grandmother deserved better. Now everyone does. Free transfers, real growth options, starting at $5."
   },
   "hero": {
-    "title": "About diBoaS",
-    "subtitle": "One grandmother. One problem. One platform."
+    "title": "One grandmother. One problem. One platform.",
+    "subtitle": "Open access and fair opportunities for everyone."
   },
   "transitions": {
     "t1": "Let me tell you a story.",
@@ -22,36 +22,29 @@
     "paragraph3": "It still didn't work.",
     "gapExplanation": "Here's what no one told her: her bank paid her almost nothing while earning real returns with her money. That gap, between what banks earn and what they share, is the system working as designed. Just not for people like her.",
     "accessLocked": "Access was locked behind high minimums, complicated words, and institutions that didn't care about people with small savings.",
-    "turning": "In 2024, I lost my job and I decided to do something about this problem. New technology made it possible to bypass the gatekeepers. I just had to build the door.",
-    "namedAfterHer": "I named it after her."
-  },
-  "whatWeDo": {
-    "header": "What diBoaS Does",
-    "transfers": "First, the basics. Send money to anyone on diBoaS. Anywhere in the world. In seconds. Free. No forms, no fees, no waiting three business days. Money should move like a message. Now it does.",
-    "transfersDisclaimer": "Free transfers between diBoaS users. Transfer times are typical and may vary. Subject to applicable sanctions and compliance requirements.",
-    "growth": "Then, growth. Choose from 10 ways to grow your money, from the safest option to the most adventurous. Starting at $5. Your money works through trusted financial systems that have collectively secured billions in assets. The same kind of systems institutions use, now open to you.",
-    "adelaide": "And Adelaide watches over it all. Named after the grandmother who inspired this, Adelaide is your personal financial intelligence. What's moving. What it means. What you could do. Clear language, not jargon."
+    "turning": "In 2024, I decided to do something about this problem. New technology made it possible to bypass the gatekeepers. I just had to build the door.",
+    "namedAfterHer": "BAR the founder."
   },
   "beliefs": {
     "header": "What We Believe",
     "money": {
       "title": "Your money should work for you.",
-      "description": "Not for your bank. Not for a middleman. For you. The gap between what banks earn with your money and what they give back is real. We close that gap."
+      "description": "Not for your bank. Not for a middleman. For you."
     },
     "honesty": {
       "title": "Honesty over hype.",
-      "description": "We don't promise guaranteed returns because nobody can. What we offer: real data, clear explanations, and a Learn Center so you understand what you're doing before you do it. Both sides, always."
+      "description": "We don't promise guaranteed returns because nobody can. What we offer: real data, clear explanations. You understand what you're doing before you do it."
     },
     "startSmall": {
       "title": "Start with $5. Learn as you go.",
-      "description": "You don't need $10,000 to begin. Start with what you're comfortable with. Watch how it works. Then decide if it's right for you. No pressure, no package deals, no locked-in commitments."
+      "description": "Open access to Wealth Building. We built the door for you to access the best opportunities and be able to build your wealth and keep control of your money."
     }
   },
   "mission": {
     "header": "The Mission",
     "story": "Adelaide never had a choice. High minimums, hidden fees, and complicated words kept the door closed.",
     "statement": "We're building the door she never got.",
-    "pillars": "Free money movement. Real growth options. Full transparency. Starting at $5. In four languages. For everyone."
+    "pillars": "Free money movement. Real growth options. Full transparency. For everyone."
   },
   "business": {
     "header": "For Businesses",
@@ -68,7 +61,12 @@
     "email": "Email:",
     "emailValue": "hello@diboas.com",
     "personal": "Questions? I read every email.",
-    "personalEmail": "hello@diboas.com"
+    "personalEmail": "hello@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X (Twitter)",
+      "substack": "Substack"
+    }
   },
   "footer": {
     "general": "This content is for educational purposes only and does not constitute investment advice, financial advice, or any other type of advice. Past performance is not indicative of future results. Any historical data or simulations are hypothetical and not guarantees.",
@@ -85,9 +83,6 @@
   "sections": {
     "story": {
       "ariaLabel": "The Story, her name was Adelaide"
-    },
-    "whatWeDo": {
-      "ariaLabel": "What diBoaS does"
     },
     "beliefs": {
       "ariaLabel": "What we believe"

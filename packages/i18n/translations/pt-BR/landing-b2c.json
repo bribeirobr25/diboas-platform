@@ -20,10 +20,10 @@
     "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. Rendimentos podem mudar. Dólares digitais envolvem riscos, incluindo possível perda do capital."
   },
   "goalExamples": {
-    "heading": "Vamos simplificar.",
+    "heading": "Construa riqueza usando seus Objetivos.",
     "cards": {
       "retirement": {
-        "title": "Aposentadoria",
+        "title": "Meta: Aposentadoria",
         "subtitle": "Considerando salário de R$3.467/mês e contribuição de R$100/mês durante 30 anos. Em dólares digitais.",
         "tagline": "Proteger o valor do que você guarda é tão importante quanto quanto ele rende.",
         "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
@@ -31,7 +31,7 @@
         "howPossible": "Como isso é possível?"
       },
       "emergency": {
-        "title": "Reserva de Emergência",
+        "title": "Meta: Reserva de Emergência",
         "subtitle": "Considerando gastos mensais = R$2.700, reserva pra 6 meses (R$16.200), e contribuição de R$270/mês. Em dólares digitais.",
         "tagline": "Mesmo esforço. Menos tempo esperando.",
         "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
@@ -39,7 +39,7 @@
         "howPossible": "Como isso é possível?"
       },
       "christmas": {
-        "title": "Décimo Terceiro",
+        "title": "Meta: Décimo Terceiro",
         "subtitle": "Considerando salário de R$3.467/mês, poupando R$345/mês durante 12 meses. Em dólares digitais.",
         "tagline": "Mesmo dinheiro. Moeda diferente. Proteção real.",
         "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
@@ -47,7 +47,7 @@
         "howPossible": "Como isso é possível?"
       },
       "wealthy": {
-        "title": "A Regra dos 10%",
+        "title": "Meta: A Regra dos 10%",
         "subtitle": "Com salário de R$2.700/mês, investindo 10% (R$270/mês) por 5 anos. Em dólares digitais.",
         "tagline": "Uma abordagem popular para poupar a longo prazo: sempre separe 10% da sua renda, não importa o quê.",
         "bankSource": "Baseado em taxa de poupança média dos últimos 5 anos de 6,83%. Fonte: Banco Central do Brasil.",
@@ -107,7 +107,7 @@
   },
   "howItWorksDetailed": {
     "transitionHook": "",
-    "header": "Como funciona.",
+    "header": "Mais do que Metas",
     "card1": {
       "title": "De onde vem o crescimento?",
       "p1": "O crescimento não é mágica. É o seu dinheiro fazendo o que os bancos fazem com ele, mas com o diBoaS, você fica com a maior parte do lucro.",

@@ -9,8 +9,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { marketDataService } from '@/lib/market-data';
-import type { MarketDataSnapshot } from '@/lib/market-data';
+import { marketDataService, type MarketDataSnapshot } from '@/lib/market-data';
 
 interface UseMarketDataResult {
   data: MarketDataSnapshot;

@@ -31,6 +31,7 @@ export function ProtocolsGridSection() {
     regulatory: t('protocolLabels.regulatory'),
     websiteLink: t('protocolLabels.websiteLink'),
     twitterLink: t('protocolLabels.twitterLink'),
+    defiLlamaLink: t('grid.defiLlamaLink'),
   };
 
   const getI18n = (id: string) => ({
@@ -149,6 +150,11 @@ export function ProtocolsGridSection() {
                             <a href={protocol.twitter} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
                               {labels.twitterLink}
                             </a>
+                            {protocol.defiLlamaUrl ? (
+                              <a href={protocol.defiLlamaUrl} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
+                                {labels.defiLlamaLink}
+                              </a>
+                            ) : null}
                           </div>
                         </ExpandableCard>
                       );

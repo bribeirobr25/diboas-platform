@@ -6,8 +6,8 @@
     "ogDescription": "diBoaS se construyo porque una abuela merecia algo mejor. Ahora todos lo merecen. Transferencias gratis, opciones reales de crecimiento, desde 5 EUR."
   },
   "hero": {
-    "title": "Sobre diBoaS",
-    "subtitle": "Una abuela. Un problema. Una plataforma."
+    "title": "Una abuela. Un problema. Una plataforma.",
+    "subtitle": "Acceso abierto y oportunidades justas para todos."
   },
   "transitions": {
     "t1": "Dejame contarte una historia.",
@@ -22,36 +22,29 @@
     "paragraph3": "Aun asi no fue suficiente.",
     "gapExplanation": "Lo que nadie le dijo: su banco le pagaba casi nada mientras ganaba rendimientos reales con su dinero. Esa diferencia, entre lo que los bancos ganan y lo que comparten, es el sistema funcionando como fue disenado. Solo que no para gente como ella.",
     "accessLocked": "El acceso estaba bloqueado detras de importes minimos altos, palabras complicadas e instituciones a las que no les importaba la gente con pocos ahorros.",
-    "turning": "En 2024, perdi mi trabajo y decidi hacer algo con este problema. La nueva tecnologia hizo posible esquivar a los que controlaban el acceso. Solo tenia que construir la puerta.",
-    "namedAfterHer": "Le puse su nombre."
-  },
-  "whatWeDo": {
-    "header": "Que hace diBoaS",
-    "transfers": "Primero, lo basico. Envia dinero a cualquier persona en diBoaS. En cualquier parte del mundo. En segundos. Gratis. Sin formularios, sin comisiones, sin esperar tres dias habiles. El dinero deberia moverse como un mensaje. Ahora lo hace.",
-    "transfersDisclaimer": "Transferencias gratuitas entre usuarios de diBoaS. Los tiempos de transferencia son tipicos y pueden variar. Sujeto a sanciones aplicables y requisitos de cumplimiento normativo.",
-    "growth": "Despues, crecimiento. Elige entre 10 formas de hacer crecer tu dinero, desde la opcion mas segura hasta la mas aventurera. Desde 5 EUR. Tu dinero trabaja a traves de sistemas financieros de confianza que han asegurado colectivamente miles de millones en activos. El mismo tipo de sistemas que usan las instituciones, ahora abiertos para ti.",
-    "adelaide": "Y Adelaide vigila todo. Llamada asi por la abuela que inspiro todo esto, Adelaide es tu inteligencia financiera personal. Que se mueve. Que significa. Que podrias hacer. Lenguaje claro, sin jerga."
+    "turning": "En 2024, decidí hacer algo al respecto. La nueva tecnología hizo posible eludir a los intermediarios. Solo tenía que construir la puerta.",
+    "namedAfterHer": "BAR el fundador."
   },
   "beliefs": {
     "header": "En que creemos",
     "money": {
       "title": "Tu dinero deberia trabajar para ti.",
-      "description": "No para tu banco. No para un intermediario. Para ti. La diferencia entre lo que los bancos ganan con tu dinero y lo que te devuelven es real. Nosotros cerramos esa brecha."
+      "description": "No para tu banco. No para un intermediario. Para ti."
     },
     "honesty": {
       "title": "Honestidad antes que bombo.",
-      "description": "No prometemos rendimientos garantizados porque nadie puede. Lo que ofrecemos: datos reales, explicaciones claras y un Centro de Aprendizaje para que entiendas lo que haces antes de hacerlo. Ambos lados, siempre."
+      "description": "No prometemos rendimientos garantizados porque nadie puede. Lo que ofrecemos: datos reales, explicaciones claras. Entiendes lo que haces antes de hacerlo."
     },
     "startSmall": {
       "title": "Empieza con 5 EUR. Aprende sobre la marcha.",
-      "description": "No necesitas 10.000 EUR para empezar. Empieza con lo que te resulte comodo. Mira como funciona. Despues decide si es para ti. Sin presion, sin paquetes, sin ataduras."
+      "description": "Acceso abierto para construir patrimonio. Construimos la puerta para que accedas a las mejores oportunidades, puedas crear tu patrimonio y mantengas el control de tu dinero."
     }
   },
   "mission": {
     "header": "La Mision",
     "story": "Adelaide nunca tuvo eleccion. Importes minimos altos, comisiones ocultas y palabras complicadas mantuvieron la puerta cerrada.",
     "statement": "Estamos construyendo la puerta que ella nunca tuvo.",
-    "pillars": "Movimiento de dinero gratuito. Opciones reales de crecimiento. Transparencia total. Desde 5 EUR. En cuatro idiomas. Para todos."
+    "pillars": "Movimiento de dinero gratuito. Opciones reales de crecimiento. Transparencia total. Para todos."
   },
   "business": {
     "header": "Para Empresas",
@@ -68,13 +61,18 @@
     "email": "Email:",
     "emailValue": "hello@diboas.com",
     "personal": "Preguntas? Leo cada email.",
-    "personalEmail": "hello@diboas.com"
+    "personalEmail": "hello@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X (Twitter)",
+      "substack": "Substack"
+    }
   },
   "footer": {
     "general": "Este contenido es solo para fines educativos y no constituye asesoramiento de inversión, asesoramiento financiero ni ningún otro tipo de asesoramiento. La rentabilidad pasada no es un indicador fiable de resultados futuros. Los datos históricos y las simulaciones son hipotéticos y no constituyen garantías.",
     "crypto": "El valor de los criptoactivos puede fluctuar. Puede perder parte o la totalidad de su dinero. Los criptoactivos no están cubiertos por los sistemas de garantía de depósitos.",
     "stories": "Los testimonios en esta página son ejemplos ilustrativos y no representan usuarios reales.",
-    "ai": "Cierto contenido de esta plataforma, incluidos análisis de mercado y materiales educativos, es generado o asistido por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
+    "ai": "Cierto contenido de esta plataforma, incluidos análisis de mercado y materiales educativos, es generado o asistido por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independente antes de tomar decisiones financieras.",
     "closing": "Tú decides lo que es mejor para tu situación.",
     "mica": "",
     "micaArticle7": "Esta comunicación comercial sobre criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningún Estado miembro de la Unión Europea. El oferente de los criptoactivos es el único responsable del contenido de esta comunicación comercial sobre criptoactivos.",
@@ -85,9 +83,6 @@
   "sections": {
     "story": {
       "ariaLabel": "La historia, su nombre era Adelaide"
-    },
-    "whatWeDo": {
-      "ariaLabel": "Lo que hace diBoaS"
     },
     "beliefs": {
       "ariaLabel": "En lo que creemos"

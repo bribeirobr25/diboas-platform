@@ -45,8 +45,8 @@ interface WaitlistVersionAProps {
 export function WaitlistVersionA({
   config,
   source,
-  stats,
-  isLoading,
+  stats: _stats,
+  isLoading: _isLoading,
   enableAnalytics: _enableAnalytics = true,
 }: WaitlistVersionAProps) {
   const intl = useTranslation();

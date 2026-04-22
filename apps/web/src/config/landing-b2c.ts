@@ -21,7 +21,7 @@
  * 12. Founding Members (NEW wrapper)
  * 13. Built by Bar (FounderSection)
  * 14. Waitlist — dark bg
- * 15. FAQ (expanded 12→19)
+ * 15. FAQ (top 5; full FAQ at /help)
  * —  Footer (MinimalFooter)
  */
 
@@ -66,7 +66,7 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
   backgroundAssets: {
     backgroundImage: B2C_IMAGES.hero,
     backgroundImageMobile: B2C_IMAGES.heroMobile,
-    overlayOpacity: 0.1
+    overlayOpacity: 0.3
   },
   seo: {
     titleTag: 'diBoaS - Make Your Money Work',
@@ -419,7 +419,7 @@ export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
 
 /**
  * Section 15: FAQ Items for B2C Landing Page
- * 19 items — expanded from 12 with new entries
+ * 5 items — top questions; full FAQ available at /help
  */
 export const B2C_FAQ_ITEMS: FAQItem[] = [
   {
@@ -429,52 +429,10 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     category: 'general'
   },
   {
-    id: 'isForEveryone',
-    question: 'landing-b2c.faq.items.isForEveryone.question',
-    answer: 'landing-b2c.faq.items.isForEveryone.answer',
-    category: 'general'
-  },
-  {
-    id: 'whatKindOfMoney',
-    question: 'landing-b2c.faq.items.whatKindOfMoney.question',
-    answer: 'landing-b2c.faq.items.whatKindOfMoney.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'minimum',
-    question: 'landing-b2c.faq.items.minimum.question',
-    answer: 'landing-b2c.faq.items.minimum.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'whatIsBalance',
-    question: 'landing-b2c.faq.items.whatIsBalance.question',
-    answer: 'landing-b2c.faq.items.whatIsBalance.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'sendMoney',
-    question: 'landing-b2c.faq.items.sendMoney.question',
-    answer: 'landing-b2c.faq.items.sendMoney.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'justTransfers',
-    question: 'landing-b2c.faq.items.justTransfers.question',
-    answer: 'landing-b2c.faq.items.justTransfers.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'understanding',
-    question: 'landing-b2c.faq.items.understanding.question',
-    answer: 'landing-b2c.faq.items.understanding.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'withdraw',
-    question: 'landing-b2c.faq.items.withdraw.question',
-    answer: 'landing-b2c.faq.items.withdraw.answer',
-    category: 'fees'
+    id: 'safety',
+    question: 'landing-b2c.faq.items.safety.question',
+    answer: 'landing-b2c.faq.items.safety.answer',
+    category: 'security'
   },
   {
     id: 'howPossible',
@@ -483,52 +441,10 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     category: 'fees'
   },
   {
-    id: 'safety',
-    question: 'landing-b2c.faq.items.safety.question',
-    answer: 'landing-b2c.faq.items.safety.answer',
-    category: 'security'
-  },
-  {
-    id: 'lostPhone',
-    question: 'landing-b2c.faq.items.lostPhone.question',
-    answer: 'landing-b2c.faq.items.lostPhone.answer',
-    category: 'security'
-  },
-  {
-    id: 'whatIfWrong',
-    question: 'landing-b2c.faq.items.whatIfWrong.question',
-    answer: 'landing-b2c.faq.items.whatIfWrong.answer',
-    category: 'security'
-  },
-  {
-    id: 'shutdown',
-    question: 'landing-b2c.faq.items.shutdown.question',
-    answer: 'landing-b2c.faq.items.shutdown.answer',
-    category: 'security'
-  },
-  {
-    id: 'audited',
-    question: 'landing-b2c.faq.items.audited.question',
-    answer: 'landing-b2c.faq.items.audited.answer',
-    category: 'security'
-  },
-  {
-    id: 'micaRegulated',
-    question: 'landing-b2c.faq.items.micaRegulated.question',
-    answer: 'landing-b2c.faq.items.micaRegulated.answer',
-    category: 'security'
-  },
-  {
-    id: 'pixFaq',
-    question: 'landing-b2c.faq.items.pixFaq.question',
-    answer: 'landing-b2c.faq.items.pixFaq.answer',
-    category: 'getting-started'
-  },
-  {
-    id: 'whySaveDollar',
-    question: 'landing-b2c.faq.items.whySaveDollar.question',
-    answer: 'landing-b2c.faq.items.whySaveDollar.answer',
-    category: 'getting-started'
+    id: 'withdraw',
+    question: 'landing-b2c.faq.items.withdraw.question',
+    answer: 'landing-b2c.faq.items.withdraw.answer',
+    category: 'fees'
   },
   {
     id: 'afterSignup',

@@ -4,7 +4,7 @@
  * Demonstrates collapsed/expanded states, single-expand grid, and multi-expand grid.
  */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import { ExpandableCard } from './ExpandableCard';
 import { ExpandableCardGrid } from './ExpandableCardGrid';
 import { Target, ShieldCheck, Gift } from '@/components/UI/LucideIcon';

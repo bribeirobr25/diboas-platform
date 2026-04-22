@@ -11,6 +11,7 @@ import {
   FounderSection,
   TwoWorldsSection,
   FoundingMembersSection,
+  ComparisonTable,
 } from '@/components/Sections';
 import { B2BGoalCards } from '@/components/Sections/B2BGoalCards';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
@@ -32,9 +33,8 @@ import {
   B2B_FOUNDER_CONFIG,
   B2B_WAITLIST_CONFIG,
   B2B_FAQ_CONFIG,
-  B2B_FOOTER_NAV,
-  B2B_FOOTER_DISCLOSURES,
 } from '@/config/landing-b2b';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -123,7 +123,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2b']);
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2b', 'landing-b2c']);
 
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS for Business',
@@ -159,7 +159,19 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 2: Two Worlds */}
+        {/* Section 2: Comparison Table — neutral bg */}
+        <SectionErrorBoundary
+          sectionId="comparison-section-b2b"
+          sectionType="ComparisonTable"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <div id="comparison" data-section-id="comparison-section-b2b" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
+            <ComparisonTable enableAnalytics={true} />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 3: Two Worlds */}
         <SectionErrorBoundary
           sectionId="two-worlds-section-b2b"
           sectionType="TwoWorldsSection"
@@ -335,10 +347,9 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
 
       {/* Footer */}
       <MinimalFooter
-        taglineKey="landing-b2b.footer.tagline"
-        copyrightKey="landing-b2b.footer.copyright"
-        navLinks={B2B_FOOTER_NAV}
-        disclosureKeys={B2B_FOOTER_DISCLOSURES}
+        taglineKey="landing-b2c.footer.tagline"
+        navLinks={B2C_FOOTER_NAV}
+        disclosureKeys={B2C_FOOTER_DISCLOSURES}
       />
     </PageI18nProvider>
   );

@@ -21,13 +21,13 @@
     "cardA": {
       "headline": "Si aceptas pagos con tarjeta",
       "body": "Cada vez que un cliente paga con tarjeta, pierdes entre un 1,5% y un 3%.\n\nCon 1.000 EUR al dia en ventas, son entre 450 y 900 EUR al mes. Desaparecidos. Y encima, el dinero tarda de 1 a 5 dias laborables en llegar a tu cuenta. Tu dinero, en el bolsillo de otro, generando intereses para ellos.\n\nY si te quedaras con todo?",
-      "cta": "Calcula lo que estas perdiendo",
+      "cta": "Mira lo que estás perdiendo",
       "imageAlt": "Procesamiento de pagos empresariales"
     },
     "cardB": {
       "headline": "Si tu empresa tiene efectivo parado",
       "body": "Has levantado capital. Lo estas gastando con cuidado. Pero el dinero que no estas usando ahora mismo? Tu banco lo pone a trabajar, genera beneficios y a ti te paga casi nada.\n\nCon 500.000 EUR parados, la diferencia entre lo que tu banco te paga y lo que es posible podria ser de decenas de miles de euros al ano.\n\nY si ese dinero trabajara para ti?",
-      "cta": "Calcula lo que tu banco se queda",
+      "cta": "Mira lo que tu banco se está quedando",
       "imageAlt": "Gestion de tesoreria en el movil"
     }
   },
@@ -40,7 +40,7 @@
     "cards": {
       "paymentFees": {
         "title": "Comisiones de Pago",
-        "titleSummary": "11.500 €/año más",
+        "titleSummary": "no es solo el 3%",
         "subtitle": "Con 1.000 € en ventas diarias con tarjeta y una comisión media del 2,5%, tu negocio pierde 750 €/mes o más de 9.000 € al año.",
         "diboasResult": "9.630 €",
         "bankResult": "",
@@ -51,7 +51,7 @@
       },
       "idleCash": {
         "title": "Capital Parado",
-        "titleSummary": "3.500 €/año más",
+        "titleSummary": "obtén lo que es justo",
         "subtitle": "Con 100.000 € de capital parado en la cuenta de tu empresa.",
         "diboasResult": "7.000 €",
         "bankResult": "3.500 €",
@@ -74,7 +74,7 @@
     }
   },
   "howItWorks": {
-    "header": "Cuatro pasos. Dos minutos.",
+    "header": "Todo lo que tu Negocio puede hacer",
     "steps": {
       "connect": {
         "title": "Conecta tu negocio",

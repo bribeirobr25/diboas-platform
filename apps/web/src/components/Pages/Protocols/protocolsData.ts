@@ -30,6 +30,7 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         usedInStrategies: ['safeHarbor', 'goalKeeper', 'patientBuilder', 'steadyCompounder', 'yieldMaximizer'],
         website: 'https://aave.com',
         twitter: 'https://x.com/AaveAave',
+        defiLlamaUrl: 'https://defillama.com/protocol/aave-v3',
       },
       {
         id: 'compoundV3',
@@ -43,6 +44,7 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         usedInStrategies: ['safeHarbor', 'goalKeeper', 'patientBuilder', 'steadyCompounder', 'yieldMaximizer'],
         website: 'https://compound.finance',
         twitter: 'https://x.com/compoundfinance',
+        defiLlamaUrl: 'https://defillama.com/protocol/compound-v3',
       },
       {
         id: 'kamino',
@@ -134,6 +136,7 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         usedInStrategies: ['fullThrottle'],
         website: 'https://jito.network',
         twitter: 'https://x.com/jikitonetwork',
+        defiLlamaUrl: 'https://defillama.com/protocol/jito',
       },
       {
         id: 'marinade',
@@ -160,6 +163,7 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         usedInStrategies: ['stableGrowth', 'steadyProgress', 'balancedBuilder', 'wealthAccelerator', 'fullThrottle'],
         website: 'https://sanctum.so',
         twitter: 'https://x.com/sanctumso',
+        defiLlamaUrl: 'https://defillama.com/protocol/sanctum',
       },
       {
         id: 'eigenLayer',
@@ -190,6 +194,7 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         usedInStrategies: ['safeHarbor', 'stableGrowth', 'goalKeeper', 'steadyProgress', 'patientBuilder', 'balancedBuilder', 'steadyCompounder', 'wealthAccelerator', 'yieldMaximizer', 'fullThrottle'],
         website: 'https://sky.money',
         twitter: 'https://x.com/SkyEcosystem',
+        defiLlamaUrl: 'https://defillama.com/protocol/sky',
       },
       {
         id: 'ethena',
@@ -300,6 +305,7 @@ export const PROTOCOL_DATA: ProtocolCategory[] = [
         usedInStrategies: ['balancedBuilder', 'wealthAccelerator', 'fullThrottle'],
         website: 'https://jup.ag',
         twitter: 'https://x.com/JupiterExchange',
+        defiLlamaUrl: 'https://defillama.com/protocol/jupiter-perpetual-exchange',
       },
     ],
   },
