@@ -86,8 +86,10 @@
     "differenceSubtext": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
     "shareTitle": "Meine Projektion teilen",
     "shareCopied": "Kopiert!",
-    "shareText": "Meine Dream Mode Simulation würde {start} in {end} verwandeln, das sind {difference} mehr als meine Bank mir geben würde. Probieren Sie es selbst:",
-    "bankSource": "Basierend auf {rate}% durchschnittlichem Sparzins. Quelle: FDIC National Average, Januar 2026.",
+    "shareText": "Diese zielorientierte Simulation ist der einfachste und beste Weg, Vermögen aufzubauen. Sie hat {start} in {end} verwandelt, das sind {difference} mehr als meine Bank mir geben würde. Probier es selbst:",
+    "yieldCurrencyValue": "Digitaler Dollarwert: {amount}",
+    "bankSource": "Basierend auf {rate}% durchschnittlichem Sparzins. Quelle: EZB-Statistik, Januar 2026.",
+    "bankComparison": "vs deine Bank bei {rate}% APY",
     "tryDifferent": "Andere Beträge ausprobieren",
     "backToHome": "Zurück zur Startseite"
   },

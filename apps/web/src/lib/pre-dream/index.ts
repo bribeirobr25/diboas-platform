@@ -12,7 +12,6 @@ export type {
 } from './types';
 
 export {
-  PRE_DREAM_BANK_APY,
   PRE_DREAM_PATHS,
   PRE_DREAM_TIMEFRAMES,
   PRE_DREAM_INITIAL_AMOUNT_CONFIG,
@@ -20,6 +19,6 @@ export {
   PRE_DREAM_SIMULATION_CONFIG,
 } from './constants';
 
-export { calculatePreDreamResult } from './calculations';
+export { calculatePreDreamResult, resolveBankRate, resolveStrategyApy, type StrategyApyOverrides } from './calculations';
 
 export { formatCurrency } from './format';

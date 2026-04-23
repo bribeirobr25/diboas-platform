@@ -8,8 +8,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
-import { useRef, useState, type RefObject } from 'react';
+import { renderHook } from '@testing-library/react';
+import { useRef, type RefObject } from 'react';
 import { useFocusTrap } from '../useFocusTrap';
 
 // Helper: render the hook with a real DOM container

@@ -68,7 +68,7 @@ export const DEFAULT_BENEFITS_CARDS_CONFIG: BenefitsCardsConfig = {
   /** SEO and accessibility metadata */
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'Benefits of using Diboas financial platform'
+    ariaLabel: 'marketing.shared.benefitsCards.ariaLabel'
   },
 
   /** Analytics configuration */

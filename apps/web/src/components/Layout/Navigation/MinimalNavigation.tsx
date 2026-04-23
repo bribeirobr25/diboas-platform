@@ -77,11 +77,11 @@ export default function MinimalNavigation() {
   }, []);
 
   return (
-    <nav className="minimal-navigation-bar" aria-label="Main navigation">
+    <nav className="minimal-navigation-bar nav-solid" aria-label={intl.formatMessage({ id: 'common.accessibility.mainNavigation' })}>
       <Container>
         <FlexBetween className="minimal-navigation-content">
           {/* Logo */}
-          <LocaleLink href="/" className="brand-logo" aria-label={`${BRAND_CONFIG.NAME} Home`}>
+          <LocaleLink href="/" className="brand-logo" aria-label={intl.formatMessage({ id: 'common.accessibility.homeLink' }, { brand: BRAND_CONFIG.NAME })}>
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt={BRAND_CONFIG.NAME}
@@ -114,7 +114,7 @@ export default function MinimalNavigation() {
                 trackable={DEFAULT_CTA_PROPS.trackable}
                 className="minimal-nav-cta"
               >
-                {intl.formatMessage({ id: 'common.navigation.actions.demo' })}
+                {intl.formatMessage({ id: 'common.navigation.landing.tryDemo' })}
               </Button>
             </LocaleLink>
           </div>
@@ -129,7 +129,7 @@ export default function MinimalNavigation() {
                 trackable={DEFAULT_CTA_PROPS.trackable}
                 className="minimal-nav-cta"
               >
-                {intl.formatMessage({ id: 'common.navigation.actions.demo' })}
+                {intl.formatMessage({ id: 'common.navigation.landing.tryDemo' })}
               </Button>
             </LocaleLink>
 

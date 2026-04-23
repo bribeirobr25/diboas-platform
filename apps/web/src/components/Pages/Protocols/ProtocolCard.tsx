@@ -8,7 +8,8 @@
 'use client';
 
 import { useState } from 'react';
-import { AlertTriangle, CheckCircle } from 'lucide-react';
+import { useTranslation } from '@diboas/i18n/client';
+import { AlertTriangle, CheckCircle } from '@/components/UI/LucideIcon';
 import type { Protocol, ProtocolLabels, ProtocolI18nContent } from './types';
 import styles from './ProtocolCard.module.css';
 
@@ -25,6 +26,7 @@ const LONG_REGULATORY_THRESHOLD = 200;
 export function ProtocolCard({ protocol, labels, i18nContent, exceptionNote, usedInStrategiesText }: ProtocolCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const intl = useTranslation();
   const regulatoryClass = protocol.badge === 'warning'
     ? styles.regulatoryWarning
     : protocol.badge === 'success'
@@ -38,12 +40,12 @@ export function ProtocolCard({ protocol, labels, i18nContent, exceptionNote, use
       <div className={styles.header}>
         <h4 className={styles.title}>{i18nContent.name}</h4>
         {protocol.badge === 'warning' ? (
-          <span className={styles.badgeWarning} aria-label="Warning badge">
+          <span className={styles.badgeWarning} aria-label={intl.formatMessage({ id: 'common.accessibility.warningBadge' })}>
             <AlertTriangle className={styles.badgeIcon} aria-hidden="true" />
           </span>
         ) : null}
         {protocol.badge === 'success' ? (
-          <span className={styles.badgeSuccess} aria-label="Compliance badge">
+          <span className={styles.badgeSuccess} aria-label={intl.formatMessage({ id: 'common.accessibility.complianceBadge' })}>
             <CheckCircle className={styles.badgeIcon} aria-hidden="true" />
           </span>
         ) : null}

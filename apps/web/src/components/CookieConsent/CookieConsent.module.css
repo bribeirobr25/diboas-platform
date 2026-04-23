@@ -113,7 +113,7 @@
   border: none;
   cursor: pointer;
   transition: all var(--animation-duration-fast) ease;
-  white-space: nowrap;
+  overflow-wrap: break-word;
   font-family: inherit;
 }
 

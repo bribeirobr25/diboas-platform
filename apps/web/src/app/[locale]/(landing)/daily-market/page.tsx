@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -44,9 +44,10 @@ export default async function DailyMarketPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['common', 'landing-b2c']);
+  // common already provided by landing layout
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c']);
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs(
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
       { name: 'Home', url: '/' },
       { name: 'Adelaide Daily', url: ROUTES.DAILY_MARKET },
@@ -82,13 +83,13 @@ export default async function DailyMarketPage({ params }: LocalePageProps) {
             >
               {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).title}
             </h1>
-            <p style={{ fontSize: 18, color: '#64748b', marginBottom: 32 }}>
+            <p style={{ fontSize: 18, color: 'var(--color-slate-500)', marginBottom: 32 }}>
               {(PLACEHOLDER_TRANSLATIONS[locale] || PLACEHOLDER_TRANSLATIONS.en).comingSoon}
             </p>
             <a
               href={`/${locale}`}
               style={{
-                color: '#0d9488',
+                color: 'var(--color-teal-600)',
                 fontWeight: 600,
                 textDecoration: 'underline',
                 textUnderlineOffset: 3,

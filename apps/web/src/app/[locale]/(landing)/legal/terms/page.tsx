@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { ROUTES } from '@/config/routes';
 import type { Metadata } from 'next';
@@ -78,7 +78,7 @@ export default async function LegalTermsPage({ params }: LocalePageProps) {
   // Load legal/terms namespace
   const pageMessages = await loadPageNamespaces(locale, ['legal/terms', 'landing-b2c']);
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Terms of Use', url: ROUTES.LEGAL.TERMS }
   ], locale);
@@ -95,7 +95,11 @@ export default async function LegalTermsPage({ params }: LocalePageProps) {
         >
           <TermsOfUseContent />
         </SectionErrorBoundary>
-        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+        <MinimalFooter
+          taglineKey="landing-b2c.footer.tagline"
+          navLinks={B2C_FOOTER_NAV}
+          disclosureKeys={B2C_FOOTER_DISCLOSURES}
+        />
       </main>
     </PageI18nProvider>
   );

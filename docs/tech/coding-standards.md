@@ -2,6 +2,8 @@
 
 > **The 12 Principles of Excellence for building robust, maintainable fintech applications**
 
+**Note:** These principles apply across all phases. Examples use Phase 2+ domain names (Banking, Investing, DeFi) for illustration. In Phase 1 (pre-launch), apply the same patterns to the waitlist, marketing, and i18n domains. See CLAUDE.md for the canonical Phase 1 implementation reference.
+
 ## Core Principles
 
 ### 1. Domain-Driven Design (DDD)

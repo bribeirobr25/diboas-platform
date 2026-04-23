@@ -27,7 +27,11 @@ export function useScrollDepthTracking(config: ScrollDepthConfig = {}) {
   } = config;
   const viewedSections = useRef<Set<string>>(new Set());
   const localeRef = useRef(locale);
-  localeRef.current = locale;
+
+  // Sync ref with latest locale in effect (not during render) for stable observer callback
+  useEffect(() => {
+    localeRef.current = locale;
+  }, [locale]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

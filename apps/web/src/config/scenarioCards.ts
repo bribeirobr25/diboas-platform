@@ -19,6 +19,9 @@ export interface ScenarioCardsConfig {
     readonly imageAlt: string;
     readonly costComparison?: string;
   }[];
+  readonly style?: {
+    readonly backgroundColor?: string;
+  };
   readonly seo: {
     readonly headingLevel: 'h2';
     readonly ariaLabel: string;

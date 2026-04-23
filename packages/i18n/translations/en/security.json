@@ -1,0 +1,72 @@
+{
+  "seo": {
+    "title": "Security | diBoaS",
+    "description": "How diBoaS protects your money. Your wallet, your keys. Non-custodial architecture. 24/7 monitoring.",
+    "ogTitle": "Security | diBoaS",
+    "ogDescription": "Your wallet, your keys. How diBoaS protects your money with non-custodial architecture and 24/7 monitoring."
+  },
+  "hero": {
+    "title": "Security",
+    "subtitle": "How we protect your money."
+  },
+  "sections": {
+    "wallet": {
+      "ariaLabel": "Your wallet, your keys",
+      "title": "Your Wallet, Your Keys",
+      "paragraphs": [
+        "Every user gets their own wallet with their own private key.",
+        "diBoaS never sees, holds, or has access to your key.",
+        "If diBoaS disappeared tomorrow, your money would still be yours."
+      ]
+    },
+    "protection": {
+      "ariaLabel": "How we protect your funds",
+      "title": "How We Protect Your Funds",
+      "paragraphs": [
+        "No one, including diBoaS, can access your funds.",
+        "Only you can authorize transactions.",
+        "Transaction signing always requires your approval.",
+        "We monitor all positions 24/7."
+      ]
+    },
+    "technology": {
+      "ariaLabel": "The technology behind diBoaS",
+      "title": "The Technology",
+      "paragraphs": [
+        "Built on open-source and decentralized financial infrastructure.",
+        "Every transaction is verifiable, every system is auditable.",
+        "We only use audited and established protocols.",
+        "Every strategy is tested against historical market crashes."
+      ]
+    },
+    "whatWeDontDo": {
+      "ariaLabel": "What diBoaS does not do",
+      "title": "What We Don't Do",
+      "paragraphs": [
+        "We never hold your private keys.",
+        "We never make transactions without your approval.",
+        "We never store your funds on our servers.",
+        "We are not a bank and your funds are not insured."
+      ]
+    },
+    "transparency": {
+      "ariaLabel": "Transparency at diBoaS",
+      "title": "Transparency",
+      "paragraphs": [
+        "All fees disclosed upfront.",
+        "All risks stated plainly.",
+        "No hidden mechanics."
+      ],
+      "cta": "See all protocols we use",
+      "ctaHref": "/protocols"
+    }
+  },
+  "footer": {
+    "general": "This content is for educational purposes only and does not constitute investment advice, financial advice, or any other type of advice.",
+    "crypto": "The value of crypto-assets may fluctuate. You may lose some or all of your money. Crypto-assets are not covered by deposit guarantee schemes.",
+    "mica": "",
+    "micaArticle7": "This crypto-asset marketing communication has not been reviewed or approved by any competent authority in any Member State of the European Union. The offeror of the crypto-asset is solely responsible for the content of this crypto-asset marketing communication.",
+    "us": "diBoaS is a non-custodial interface providing access to decentralized finance protocols. diBoaS is not registered with the SEC, CFTC, FinCEN, or any state regulatory agency. US regulatory treatment of DeFi is evolving. You are responsible for determining whether your use of this interface complies with applicable laws.",
+    "closing": "You decide what's best for your situation."
+  }
+}

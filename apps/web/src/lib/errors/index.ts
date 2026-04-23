@@ -1,30 +1,64 @@
 /**
- * Error Handling - Public API
- *
- * Exports for section error boundary and utilities
+ * Errors Module - Public API
  */
 
-// Main error boundary
-export { SectionErrorBoundary } from './SectionErrorBoundary';
-export type { SectionErrorTranslations, SectionErrorFallbackProps } from './SectionErrorBoundary';
+// Domain error classes (DDD typed errors)
+export {
+  DomainError,
+  DuplicateEntryError,
+  ConcurrencyConflictError,
+  EncryptionUnavailableError,
+  RateLimitExceededError,
+} from './domainErrors';
 
-// Default fallback component (for customization)
-export { DefaultSectionErrorFallback } from './DefaultSectionErrorFallback';
+// Error types and enums
+export * from './errorTypes';
 
-// Types
-export type {
-  SectionErrorBoundaryProps,
-  SectionErrorBoundaryState,
-  ErrorSeverity,
-} from './types';
+// Error configuration
+export { DEFAULT_ERROR_CONFIG, SENSITIVE_KEYS } from './errorConfig';
 
-// Constants
-export { MAX_RETRY_COUNT, RETRY_DELAY_BASE, DEFAULT_SECTION_TRANSLATIONS } from './constants';
-
-// Utilities
+// Error utilities
 export {
   generateErrorId,
   determineSeverity,
   shouldAttemptRecovery,
   calculateRetryDelay,
 } from './errorUtils';
+
+// Error inference utilities
+export {
+  mapSeverity,
+  inferSeverity,
+  inferCategory,
+  inferRecoverability,
+  generateFingerprint,
+  sanitizeContext,
+  buildTags,
+  generateSessionId,
+} from './errorInference';
+
+// Breadcrumb manager
+export { BreadcrumbManager } from './breadcrumbManager';
+
+// Occurrence tracker
+export { OccurrenceTracker } from './occurrenceTracker';
+
+// Error reporter interface
+export type { IErrorReporter } from './errorReporterInterface';
+
+// Error reporting service
+export {
+  ErrorReportingService,
+  errorReportingService,
+} from './ErrorReportingService';
+
+// Section error boundary types
+export type {
+  SectionErrorTranslations,
+  SectionErrorBoundaryProps,
+  SectionErrorBoundaryState,
+  SectionErrorFallbackProps,
+} from './types';
+
+// Section error boundary constants
+export { MAX_RETRY_COUNT, RETRY_DELAY_BASE, DEFAULT_SECTION_TRANSLATIONS } from './constants';

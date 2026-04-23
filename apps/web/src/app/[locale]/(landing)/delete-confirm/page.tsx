@@ -10,6 +10,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from '@diboas/i18n/client';
+import styles from './DeleteConfirm.module.css';
 
 type DeletionState = 'idle' | 'confirming' | 'success' | 'expired' | 'error';
 
@@ -32,6 +33,7 @@ export default function DeleteConfirmPage() {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token }),
+        signal: AbortSignal.timeout(10000),
       });
 
       const data = await response.json();
@@ -49,53 +51,44 @@ export default function DeleteConfirmPage() {
   };
 
   return (
-    <div style={{ maxWidth: 480, margin: '80px auto', padding: '0 24px', textAlign: 'center' }}>
-      {state === 'idle' && (
+    <div className={styles.container}>
+      {state === 'idle' ? (
         <>
-          <h1 style={{ fontSize: 24, marginBottom: 16 }}>{t('confirmTitle')}</h1>
-          <p style={{ color: '#475569', marginBottom: 32 }}>{t('confirmBody')}</p>
+          <h1 className={styles.title}>{t('confirmTitle')}</h1>
+          <p className={styles.bodyText}>{t('confirmBody')}</p>
           <button
             onClick={handleConfirm}
-            style={{
-              padding: '14px 32px',
-              backgroundColor: '#ef4444',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
+            className={styles.confirmButton}
           >
             {t('confirmButton')}
           </button>
         </>
-      )}
+      ) : null}
 
-      {state === 'confirming' && (
-        <p style={{ color: '#475569' }}>{t('confirming')}</p>
-      )}
+      {state === 'confirming' ? (
+        <p className={styles.statusText}>{t('confirming')}</p>
+      ) : null}
 
-      {state === 'success' && (
+      {state === 'success' ? (
         <>
-          <h1 style={{ fontSize: 24, marginBottom: 16, color: '#16a34a' }}>{t('success')}</h1>
-          <p style={{ color: '#475569' }}>{t('successBody')}</p>
+          <h1 className={styles.titleSuccess}>{t('success')}</h1>
+          <p className={styles.statusText}>{t('successBody')}</p>
         </>
-      )}
+      ) : null}
 
-      {state === 'expired' && (
+      {state === 'expired' ? (
         <>
-          <h1 style={{ fontSize: 24, marginBottom: 16, color: '#f59e0b' }}>{t('expired')}</h1>
-          <p style={{ color: '#475569' }}>{t('expiredBody')}</p>
+          <h1 className={styles.titleExpired}>{t('expired')}</h1>
+          <p className={styles.statusText}>{t('expiredBody')}</p>
         </>
-      )}
+      ) : null}
 
-      {state === 'error' && (
+      {state === 'error' ? (
         <>
-          <h1 style={{ fontSize: 24, marginBottom: 16, color: '#ef4444' }}>{t('error')}</h1>
-          <p style={{ color: '#475569' }}>{t('errorBody')}</p>
+          <h1 className={styles.titleError}>{t('error')}</h1>
+          <p className={styles.statusText}>{t('errorBody')}</p>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

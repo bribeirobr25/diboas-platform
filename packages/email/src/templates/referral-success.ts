@@ -1,6 +1,7 @@
 import { wrapInLayout } from './layout';
 import type { ReferralSuccessEmailData } from '../types';
 import { BRAND } from '../config';
+import { escapeHtml } from '../utils';
 
 const translations: Record<string, Record<string, string>> = {
   en: {
@@ -10,6 +11,7 @@ const translations: Record<string, Record<string, string>> = {
     invitesUsedLabel: 'Invites used',
     invitesRemainingLabel: 'Remaining',
     cta: 'Keep sharing to help friends get early access!',
+    referralShareText: 'My friends are already joining. Join us! Free your money and make it grow.',
   },
   'pt-BR': {
     subject: 'Um amigo acabou de entrar pelo seu link!',
@@ -18,6 +20,7 @@ const translations: Record<string, Record<string, string>> = {
     invitesUsedLabel: 'Convites usados',
     invitesRemainingLabel: 'Restantes',
     cta: 'Continue compartilhando para ajudar amigos a ter acesso antecipado!',
+    referralShareText: 'Meus amigos já estão entrando. Junte-se a nós! Liberte seu dinheiro e faça-o crescer.',
   },
   es: {
     subject: '¡Un amigo se unió con tu enlace!',
@@ -26,6 +29,7 @@ const translations: Record<string, Record<string, string>> = {
     invitesUsedLabel: 'Invitaciones usadas',
     invitesRemainingLabel: 'Restantes',
     cta: '¡Sigue compartiendo para ayudar a amigos a tener acceso anticipado!',
+    referralShareText: 'Mis amigos ya se están uniendo. ¡Únete! Libera tu dinero y hazlo crecer.',
   },
   de: {
     subject: 'Ein Freund ist über deinen Link beigetreten!',
@@ -34,12 +38,38 @@ const translations: Record<string, Record<string, string>> = {
     invitesUsedLabel: 'Einladungen genutzt',
     invitesRemainingLabel: 'Verbleibend',
     cta: 'Teile weiter, um Freunden frühzeitigen Zugang zu ermöglichen!',
+    referralShareText: 'Meine Freunde sind schon dabei. Mach mit! Befreie dein Geld und lass es wachsen.',
   },
 };
 
+/**
+ * Render social share buttons for email (table-based for email client compatibility).
+ */
+function renderSocialShareButtons(shareText: string, referralUrl: string): string {
+  const encodedText = encodeURIComponent(shareText);
+  const encodedUrl = encodeURIComponent(referralUrl);
+
+  const platforms = [
+    { name: 'WhatsApp', color: '#25D366', href: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${referralUrl}`)}` },
+    { name: 'X', color: '#0f172a', href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${shareText} @diboasfi ${referralUrl}`)}` },
+    { name: 'Facebook', color: '#1877F2', href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}` },
+    { name: 'LinkedIn', color: '#0A66C2', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  ];
+
+  const buttons = platforms.map(p =>
+    `<td style="padding:0 6px;"><a href="${p.href}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 16px;background-color:${p.color};color:#ffffff;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;min-width:60px;text-align:center;">${p.name}</a></td>`
+  ).join('');
+
+  return `
+    <table role="presentation" style="margin:16px auto 24px;border-spacing:0;">
+      <tr>${buttons}</tr>
+    </table>
+  `;
+}
+
 export function renderReferralSuccess(data: ReferralSuccessEmailData): { subject: string; html: string } {
   const t = translations[data.locale] || translations.en;
-  const namePart = data.name ? `, ${data.name}` : '';
+  const namePart = data.name ? `, ${escapeHtml(data.name)}` : '';
   const greeting = t.greeting.replace('{name}', namePart);
 
   const content = `
@@ -57,8 +87,14 @@ export function renderReferralSuccess(data: ReferralSuccessEmailData): { subject
       </div>
     </div>
 
-    <p style="margin:0;font-size:14px;color:#475569;text-align:center;">${t.cta}</p>
+    <p style="margin:0 0 16px;font-size:14px;color:#475569;text-align:center;">${t.cta}</p>
+
+    <div style="padding:12px 16px;background-color:#f1f5f9;border-radius:8px;margin-bottom:16px;word-break:break-all;">
+      <p style="margin:0;font-size:13px;color:${BRAND.primaryColor};font-weight:600;">${data.referralUrl}</p>
+    </div>
+
+    ${renderSocialShareButtons(t.referralShareText, data.referralUrl)}
   `;
 
-  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale }) };
+  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale, unsubscribeUrl: data.unsubscribeUrl }) };
 }

@@ -16,10 +16,10 @@
   width: 100%;
   padding: 16px;
   background: none;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-slate-200);
   border-radius: var(--border-radius-md, 8px);
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--animation-duration-fast) ease;
 }
 
 .toggle:hover {
@@ -33,7 +33,7 @@
 
 .toggleText {
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
 }
@@ -42,7 +42,7 @@
   width: 20px;
   height: 20px;
   color: var(--color-text-secondary);
-  transition: transform 0.3s ease;
+  transition: transform var(--animation-duration-normal) ease;
   flex-shrink: 0;
 }
 
@@ -54,7 +54,7 @@
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
+  transition: max-height var(--animation-duration-slow) ease, opacity var(--animation-duration-normal) ease;
 }
 
 .contentOpen {
@@ -68,7 +68,7 @@
 
 .paragraph {
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-normal);
   line-height: 1.7;
   color: var(--color-text-body);
@@ -83,7 +83,7 @@
   display: inline-block;
   margin-top: 16px;
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-brand-primary, #0d9488);
   text-decoration: underline;

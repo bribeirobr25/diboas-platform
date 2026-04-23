@@ -45,9 +45,9 @@ interface WaitlistVersionAProps {
 export function WaitlistVersionA({
   config,
   source,
-  stats,
-  isLoading,
-  enableAnalytics = true,
+  stats: _stats,
+  isLoading: _isLoading,
+  enableAnalytics: _enableAnalytics = true,
 }: WaitlistVersionAProps) {
   const intl = useTranslation();
   const [signupData, setSignupData] = useState<SignupData | null>(null);
@@ -109,14 +109,6 @@ export function WaitlistVersionA({
           belowCta={config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined}
           belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}
         />
-
-        {!isLoading && stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining > 0 ? (
-          <p className={styles.counterRow}>
-            {t('spotsCounter', {
-              count: <span key="count" className={styles.spotsHighlight}>{stats.foundingMemberSpotsRemaining}</span>,
-            })}
-          </p>
-        ) : null}
 
         {config?.hideNoSpam ? null : (() => {
           const noSpamText = t('noSpam');

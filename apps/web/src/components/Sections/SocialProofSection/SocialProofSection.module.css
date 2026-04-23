@@ -15,6 +15,11 @@
   background-color: var(--section-bg-neutral);
 }
 
+/* Compact mode: no cards, reduced height, transparent bg */
+.sectionCompact {
+  background-color: transparent;
+}
+
 /* ================================
    CONTAINER & LAYOUT
    ================================ */
@@ -35,6 +40,18 @@
 @media (min-width: 1024px) {
   .container {
     padding: var(--padding-section-desktop-y) var(--padding-section-desktop-x);
+  }
+}
+
+.containerCompact {
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .containerCompact {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
   }
 }
 
@@ -78,7 +95,7 @@
 }
 
 /* ================================
-   CARDS GRID - Centered layout (max 3 columns)
+   CARDS GRID - Centered 2-column layout
    ================================ */
 
 .cardsGrid {
@@ -86,20 +103,13 @@
   grid-template-columns: 1fr;
   gap: var(--spacing-2xl);
   width: var(--percent-100);
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .cardsGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-3xl);
-  }
-}
-
-@media (min-width: 1024px) {
-  .cardsGrid {
-    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-3xl);
   }
 }
@@ -143,8 +153,8 @@
    ================================ */
 
 .iconWrapper {
-  width: var(--icon-size-mobile);
-  height: var(--icon-size-mobile);
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,8 +163,8 @@
 
 @media (min-width: 1024px) {
   .iconWrapper {
-    width: var(--icon-size-desktop);
-    height: var(--icon-size-desktop);
+    width: 28px;
+    height: 28px;
   }
 }
 

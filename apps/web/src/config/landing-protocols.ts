@@ -12,8 +12,7 @@
  * Service Agnostic Abstraction: Decoupled content from presentation
  */
 
-import { DEFAULT_FAQ_ACCORDION_SETTINGS } from '@/config/faqAccordion';
-import type { FAQAccordionVariantConfig, FAQItem } from '@/config/faqAccordion';
+import { DEFAULT_FAQ_ACCORDION_SETTINGS, type FAQAccordionVariantConfig, type FAQItem } from '@/config/faqAccordion';
 
 // ─── i18n Prefix (Pattern B: dynamic components) ────────────
 
@@ -22,7 +21,7 @@ export const PROTOCOLS_I18N_PREFIX = 'protocols' as const;
 
 // ─── FAQ Configuration ──────────────────────────────────────
 
-const PROTOCOLS_FAQ_ITEM_IDS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'] as const;
+const PROTOCOLS_FAQ_ITEM_IDS = ['q1', 'q5', 'q7', 'q8', 'q4'] as const;
 
 const PROTOCOLS_FAQ_ITEMS: FAQItem[] = PROTOCOLS_FAQ_ITEM_IDS.map((itemId) => ({
   id: `faq-${itemId}`,
@@ -34,8 +33,7 @@ const PROTOCOLS_FAQ_ITEMS: FAQItem[] = PROTOCOLS_FAQ_ITEM_IDS.map((itemId) => ({
 /**
  * FAQ Accordion config for the Protocols page.
  *
- * 8 questions covering protocol selection, due diligence,
- * TVL interpretation, and regulatory context.
+ * 5 top questions — full FAQ at /help (Protocols & Transparency topic).
  */
 export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
   variant: 'default',
@@ -48,7 +46,7 @@ export const PROTOCOLS_FAQ_CONFIG: FAQAccordionVariantConfig = {
   },
   settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
   seo: {
-    ariaLabel: 'Protocol frequently asked questions',
+    ariaLabel: 'protocols.sections.faq.ariaLabel',
     region: 'faq',
   },
   analytics: {

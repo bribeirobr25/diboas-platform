@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { Check } from 'lucide-react';
+import { Check } from '@/components/UI/LucideIcon';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { FeeTableConfig } from '@/config/feeTable';
@@ -26,7 +26,7 @@ interface TranslatedRow {
 
 export const FeeTable = memo(function FeeTable({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
 }: FeeTableProps) {
   const translated = useConfigTranslation(config);
@@ -126,7 +126,9 @@ export const FeeTable = memo(function FeeTable({
         </div>
 
         <p className={styles.disclaimer}>{translated.content.disclaimer}</p>
-        <p className={styles.example}>{translated.content.example}</p>
+        {translated.content.example ? (
+          <p className={styles.example}>{translated.content.example}</p>
+        ) : null}
         {translated.content.footerLine ? (
           <p className={styles.footerLine}>{translated.content.footerLine}</p>
         ) : null}

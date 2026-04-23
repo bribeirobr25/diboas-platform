@@ -1,33 +1,33 @@
 {
   "sectionTitle": "Auf die Warteliste setzen",
   "headline": "Frühen Zugang sichern?",
-  "subheadline": "Wir öffnen diBoaS zunächst für eine kleine Gruppe. Tragen Sie sich in die Warteliste ein und gehören Sie zu den Ersten.",
+  "subheadline": "Wir öffnen diBoaS zunächst für eine kleine Gruppe. Trag dich in die Warteliste ein und gehöre zu den Ersten.",
   "header": "Frühen Zugang sichern?",
-  "subheader": "Wir öffnen diBoaS zunächst für eine kleine Gruppe. Tragen Sie sich in die Warteliste ein und gehören Sie zu den Ersten.",
+  "subheader": "Wir öffnen diBoaS zunächst für eine kleine Gruppe. Trag dich in die Warteliste ein und gehöre zu den Ersten.",
   "form": {
-    "emailPlaceholder": "Ihre E-Mail-Adresse",
+    "emailPlaceholder": "Deine E-Mail-Adresse",
     "emailLabel": "E-Mail-Adresse",
     "cta": "Warteliste beitreten",
     "submitting": "Wird hinzugefügt...",
-    "privacyNote": "Wir werden Sie nie mit Spam belästigen. Nur Updates, wann Sie loslegen können.",
+    "privacyNote": "Wir werden dich nie mit Spam belästigen. Nur Updates, wann du loslegen kannst.",
     "legendText": "Anmeldung zur Warteliste"
   },
   "error": {
-    "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
-    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-    "consentRequired": "Bitte aktivieren Sie das Kontrollkästchen, um fortzufahren.",
-    "alreadyRegistered": "Sie sind bereits auf der Warteliste!",
-    "network": "Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung."
+    "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut.",
+    "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
+    "consentRequired": "Bitte aktiviere das Kontrollkästchen, um fortzufahren.",
+    "alreadyRegistered": "Du bist bereits auf der Warteliste!",
+    "network": "Verbindungsfehler. Bitte überprüfe deine Internetverbindung."
   },
   "confirmation": {
     "headline": "Willkommen in der Bewegung.",
     "subhead": "",
-    "positionIntro": "Ihre Position:",
+    "positionIntro": "Deine Position:",
     "positionFormat": "#{position}",
-    "shareIntro": "Laden Sie Ihre Freunde ein",
+    "shareIntro": "Lade deine Freunde ein",
     "shareBenefit": "Teilen, um Freunden frühzeitigen Zugang zu ermöglichen",
     "shareExplanation": "Je früher wir starten, desto eher wird das Realität.",
-    "referralLinkLabel": "Ihr persönlicher Link:",
+    "referralLinkLabel": "Dein persönlicher Link:",
     "copy": "Link kopieren",
     "copied": "Kopiert!",
     "dreamModeCta": "Dream Mode ausprobieren →"
@@ -38,13 +38,13 @@
     "priorityWaitlist": "Prioritäts-Warteliste",
     "standard": "Warteliste",
     "badge": {
-      "foundingMember": "Sie sind Gründungsmitglied!",
-      "earlyMember": "Sie sind ein Early Member!"
+      "foundingMember": "Du bist Gründungsmitglied!",
+      "earlyMember": "Du bist ein Early Member!"
     },
     "explanation": {
-      "foundingMember": "Sie gehören zu den ersten 1.200. Teilen Sie Ihren Link — Sie haben 5 Einladungen für den Gründungsmitglied-Status.",
-      "earlyMember": "Eingeladen von einem Gründungsmitglied. Teilen Sie Ihren Link, um Freunden frühen Zugang zu ermöglichen.",
-      "priorityWaitlist": "Sie sind auf der prioritären Warteliste. Teilen Sie Ihren Link, um aufzusteigen und Freunden zu helfen."
+      "foundingMember": "Du gehörst zu den ersten 1.200. Teile deinen Link — du hast 5 Einladungen für den Gründungsmitglied-Status.",
+      "earlyMember": "Eingeladen von einem Gründungsmitglied. Teile deinen Link, um Freunden frühen Zugang zu ermöglichen.",
+      "priorityWaitlist": "Du bist auf der prioritären Warteliste. Teile deinen Link, um aufzusteigen und Freunden zu helfen."
     },
     "spotsRemaining": "{spots} Plätze verbleibend"
   },
@@ -55,30 +55,30 @@
     "friendJoined": "Ein Freund ist gerade beigetreten!",
     "invitesUsed": "{count} von 5 Einladungen genutzt",
     "invitesRemaining": "{remaining} Einladungen verbleibend",
-    "keepSharing": "Teilen Sie weiter, um Freunden frühzeitigen Zugang zu ermöglichen!",
+    "keepSharing": "Teile weiter, um Freunden frühzeitigen Zugang zu ermöglichen!",
     "thanks": "Danke fürs Weitersagen.",
-    "notificationTitle": "Jemand hat Ihren Link verwendet!",
+    "notificationTitle": "Jemand hat deinen Link verwendet!",
     "invitedIndicator": "Von einem Freund eingeladen"
   },
   "returningUser": {
     "welcomeBack": "Willkommen zurück!",
-    "currentPosition": "Sie sind aktuell #{position} auf der Warteliste",
-    "referralCount": "Sie haben {count} Personen empfohlen",
-    "keepSharing": "Teilen Sie weiter, um Freunden frühzeitigen Zugang zu ermöglichen!"
+    "currentPosition": "Du bist aktuell #{position} auf der Warteliste",
+    "referralCount": "Du hast {count} Personen empfohlen",
+    "keepSharing": "Teile weiter, um Freunden frühzeitigen Zugang zu ermöglichen!"
   },
   "deletion": {
     "confirmTitle": "Datenlöschung bestätigen",
-    "confirmBody": "Klicken Sie auf den Button unten, um alle Ihre Daten dauerhaft von der diBoaS-Warteliste zu löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "confirmBody": "Klicke auf den Button unten, um alle deine Daten dauerhaft von der diBoaS-Warteliste zu löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
     "confirmButton": "Löschung bestätigen",
-    "confirming": "Ihre Daten werden gelöscht...",
+    "confirming": "Deine Daten werden gelöscht...",
     "success": "Daten gelöscht",
-    "successBody": "Alle Ihre persönlichen Daten wurden dauerhaft aus unserem System entfernt.",
+    "successBody": "Alle deine persönlichen Daten wurden dauerhaft aus unserem System entfernt.",
     "expired": "Link abgelaufen",
-    "expiredBody": "Dieser Löschungslink ist abgelaufen. Bitte senden Sie eine neue Löschungsanfrage.",
+    "expiredBody": "Dieser Löschungslink ist abgelaufen. Bitte sende eine neue Löschungsanfrage.",
     "error": "Etwas ist schiefgelaufen",
-    "errorBody": "Wir konnten Ihre Anfrage nicht verarbeiten. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
+    "errorBody": "Wir konnten deine Anfrage nicht verarbeiten. Bitte versuch es erneut oder kontaktiere den Support."
   },
   "email": {
-    "welcome": "Willkommen bei diBoaS, Sie sind #{position}"
+    "welcome": "Willkommen bei diBoaS, du bist #{position}"
   }
 }

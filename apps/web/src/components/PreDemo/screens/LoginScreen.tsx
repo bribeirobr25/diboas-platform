@@ -1,40 +1,50 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@diboas/i18n/client';
 import { ASSET_PATHS } from '@/config/assets';
-import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { GoogleIcon, XIcon, MetaMaskIcon } from '../components/Icons';
 import { analyticsService } from '@/lib/analytics';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+} from '@/lib/events/ApplicationEventBus';
+import type { TransitionStep } from '../hooks';
 import styles from '../PreDemo.module.css';
 
-export function LoginScreen({ onExit }: { onExit?: () => void }) {
+interface LoginScreenProps {
+  onExit?: () => void;
+  runSequence: (steps: TransitionStep[]) => void;
+}
+
+export function LoginScreen({ onExit: _onExit, runSequence }: LoginScreenProps) {
   const intl = useTranslation();
-  const { setScreen } = usePreDemo();
-  const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
+  // Login flow timer sequence — owned by PreDemoContent via runSequence
+  // so timers survive LoginScreen unmount when screen changes to 'creating-account'
   const handleProceed = useCallback(() => {
     analyticsService.track({ name: 'pre_demo_login_start', parameters: {} });
-    timerRef.current.forEach(clearTimeout);
-    timerRef.current = [];
 
-    setScreen('creating-account');
-
-    const t1 = setTimeout(() => {
-      setScreen('creating-wallet');
-    }, 2000);
-    timerRef.current.push(t1);
-
-    const t2 = setTimeout(() => {
-      setScreen('home');
-    }, 4000);
-    timerRef.current.push(t2);
-  }, [setScreen]);
+    runSequence([
+      { screen: 'creating-account', delayMs: 0 },
+      { screen: 'creating-wallet', delayMs: 2000 },
+      {
+        screen: 'home',
+        delayMs: 4000,
+        onReach: () => {
+          applicationEventBus.emit(ApplicationEventType.PRE_DEMO_STARTED, {
+            source: 'preDemo',
+            timestamp: Date.now(),
+          });
+        },
+      },
+    ]);
+  }, [runSequence]);
 
   return (
     <div className={styles.screen}>

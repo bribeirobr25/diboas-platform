@@ -4,6 +4,8 @@
 
 diBoaS (Digital Bank of Autonomous Services) is a unified financial services platform combining traditional banking, cryptocurrency, and DeFi strategies. Currently in **pre-launch/waitlist** phase. The web app is a marketing and onboarding site with waitlist functionality - no production banking features are live yet.
 
+**Current phase:** Pre-launch marketing site with waitlist functionality. Domain packages, application services, and full DDD are Phase 2+ requirements.
+
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router, Turbopack)
@@ -14,18 +16,29 @@ diBoaS (Digital Bank of Autonomous Services) is a unified financial services pla
 - **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
 - **Monitoring:** Sentry (error tracking), PostHog (analytics), web-vitals
 - **Security:** DOMPurify, Upstash Redis rate limiting, AES-256-GCM encryption
-- **Component dev:** Storybook 9
+- **Component dev:** Storybook 10
 
 ## Architecture
 
 ```
 diboas-platform/
   apps/web/            # Next.js web application (only app)
+  packages/email/      # @diboas/email - Email service (Resend)
   packages/i18n/       # @diboas/i18n - Internationalization
   packages/ui/         # @diboas/ui - Design system components
+  packages/banking/    # @diboas/banking - Banking domain (Phase 2+ stub)
+  packages/defi/       # @diboas/defi - DeFi strategies (Phase 2+ stub)
+  packages/investing/  # @diboas/investing - Investment domain (Phase 2+ stub)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
-  docs/                # Project documentation
+  docs/                # Project documentation (only docs/tech/ is git-tracked)
+    tech/              # Technical guides (committed)
+    audit/             # Audit tracking (local-only)
+    full-view/         # Product & business docs (local-only)
+    post-launch/       # Post-launch planning (local-only)
+    revenue/           # Fee modeling reference (local-only)
+    roadmap/           # Phase 2+ architecture planning (local-only)
+    skills-commands/   # Framework & kit playbooks (local-only)
 ```
 
 ### App Router Structure
@@ -33,9 +46,34 @@ diboas-platform/
 ```
 apps/web/src/app/
   [locale]/
-    (marketing)/       # Marketing pages (personal, business, learn, security, rewards, etc.)
-    (landing)/         # Landing pages (about, demo, strategies, dream-mode, legal, etc.)
-  api/                 # API routes (waitlist, consent, health, og, webhooks)
+    (marketing)/           # Marketing pages
+      business/            # Business banking
+      careers/             # Careers
+      help/                # Help center
+      investors/           # Investor relations
+      learn/               # Educational content
+      main/                # Main marketing page
+      personal/            # Personal banking
+      rewards/             # Rewards program
+      security/            # Security information
+      why-diboas/          # Why diBoaS
+    (landing)/             # Landing pages
+      about/               # About us
+      daily-market/        # Daily market updates
+      delete-confirm/      # Account deletion confirmation
+      demo/                # Interactive demo
+      dream-mode/          # Dream mode experience
+      legal/               # Legal pages
+      protocols/           # Protocol information
+      security/            # Security landing
+      share/               # Social sharing
+      strategies/          # Investment strategies
+  api/                     # API routes
+    consent/               # Cookie/privacy consent
+    health/                # Health check endpoint
+    og/                    # Open Graph image generation
+    waitlist/              # Waitlist signup
+    webhooks/              # Webhook handlers
 ```
 
 ### Source Organization (apps/web/src/)
@@ -46,7 +84,6 @@ apps/web/src/app/
 - `lib/` - Utilities, security, services
 - `styles/` - Global CSS, design tokens CSS
 - `types/` - TypeScript type definitions
-- `stories/` - Storybook stories
 - `test/` - Test setup and utilities
 
 ## Commands
@@ -56,6 +93,7 @@ apps/web/src/app/
 pnpm dev:web          # Start web app dev server
 pnpm dev:fresh        # Clean rebuild + dev server
 pnpm dev:clean        # Kill port 3000 + restart
+pnpm dev:reset        # Clean build cache (.next, .turbo) + restart dev server
 ```
 
 ### Quality
@@ -74,12 +112,47 @@ pnpm validate:translations     # Check translation key parity across locales
 pnpm check:dead-code           # Dead code detection (knip)
 ```
 
+### Formatting
+```bash
+pnpm format                    # Prettier format all files
+pnpm format:check              # Check formatting (CI)
+```
+
+### Testing (web app)
+```bash
+pnpm --filter web test:watch   # Watch mode testing
+pnpm --filter web test:coverage # Coverage report
+```
+
+### Storybook
+```bash
+pnpm --filter web storybook        # Start Storybook dev server (port 6006)
+pnpm --filter web build-storybook  # Build Storybook for deployment
+```
+
+### Database
+```bash
+pnpm --filter web db:migrate   # Run database migrations
+pnpm --filter web db:status    # Check migration status
+```
+
+### Production
+```bash
+pnpm --filter web start        # Start production server
+```
+
 ### Audits
 ```bash
 pnpm audit:full                # 15-point pre-launch audit
+pnpm audit:ci                  # CI-friendly audit (non-interactive)
 pnpm security:audit            # pnpm audit for vulnerabilities
 pnpm performance:audit         # Lighthouse CI
 pnpm accessibility:audit       # pa11y WCAG2AA
+```
+
+### Analytics
+```bash
+pnpm analytics:report          # Generate analytics report
 ```
 
 ## Coding Standards
@@ -168,24 +241,25 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 
 - Documented in `apps/web/.env.example`
 - `NEXT_PUBLIC_*` prefix for client-side variables
-- Key categories: App URL, Kit.com, Cal.com, Analytics (GA4, Sentry, PostHog), Security, Rate limiting, Feature flags
+- Key categories: App URL, Cal.com, Analytics (GA4, Sentry, PostHog), Security (encryption, HMAC), Rate limiting (Upstash), Email (Resend), Database (Neon)
 
 ## Dependencies Between Packages
 
-- `apps/web` depends on `@diboas/i18n` and `@diboas/ui`
+- `apps/web` depends on `@diboas/i18n`, `@diboas/ui`, and `@diboas/email`
 - `@diboas/i18n` must be built before `apps/web` dev/build (`pnpm dev:fresh` handles this)
 - Turborepo handles build ordering via `turbo.json` task dependencies
+- **Dependency pinning strategy:** `next` is pinned exact (16.1.7). Other deps use caret ranges — `pnpm-lock.yaml` (committed) ensures reproducible builds. Do not delete or gitignore the lockfile.
 
 ## 12 Principles of Excellence
 
-Condensed reference from `docs/coding-standards.md`:
+Condensed reference from `docs/tech/coding-standards.md`:
 
 1. **Domain-Driven Design** — Organize around business domains, clear boundaries, events for cross-domain
 2. **Event-Driven Architecture** — All state changes emit events (eventId, type, timestamp, correlationId)
 3. **Service Agnostic Abstraction** — Interface-based, swappable providers, factory pattern
 4. **Code Reusability & DRY** — Write once, shared packages, no duplication
 5. **Semantic Naming** — [Domain][Entity][Action]Service, SCREAMING_SNAKE_CASE constants
-6. **File Decoupling** — Single responsibility, Services ≤200 lines, Components ≤150, Utils ≤100
+6. **File Decoupling** — Single responsibility. Target file sizes: Services ~200 lines, Components ~150, Utils ~100. Files exceeding 2x these targets require justification or should be split
 7. **Error Handling & Recovery** — Never crash, retry with backoff, circuit breakers, fallbacks
 8. **Security & Audit** — Input validation, output encoding, rate limiting, encryption, PII masking
 9. **Performance & SEO** — Code splitting, lazy loading, LCP <2.5s, FID <100ms, CLS <0.1
@@ -231,40 +305,77 @@ Condensed reference from `docs/coding-standards.md`:
 - Tools: Vitest + @testing-library/react
 - Environment: node (default); add jsdom as dev dependency for DOM-based component tests
 
-## Audit Tracker
+## Audit Status
 
-| ID | Phase | Finding | Status |
-|----|-------|---------|--------|
-| 1 | 1 | CookieConsent setTimeout cleanup | Done |
-| 2 | 1 | CalEmbed script listener cleanup | Done |
-| 3 | 1 | ErrorReportingService bound handler cleanup | Done |
-| 4 | 1 | MonitoringService bound handler cleanup | Done |
-| 5 | 1 | ThemeManager bound handler cleanup | Done |
-| 6 | 1 | web-vitals beforeunload cleanup | Done |
-| 7 | 1 | ShareModal isRendering race condition | Done |
-| 8 | 1 | PostHogProvider isInitialized race condition | Done |
-| 9 | 2 | CSP nonce-based in middleware | Done |
-| 10 | 2 | PostHog lazy-load behind consent | Done |
-| 11 | 3 | Route group loading.tsx files | Done |
-| 12 | 3 | Route group error.tsx files | Done |
-| 13 | 3 | fetchWithRetry utility + useWaitlistForm | Done |
-| 14 | 3 | Deduplicate global error handlers | Done |
-| 15 | 4 | DreamMode useFocusTrap | Done |
-| 16 | 4 | Native buttons (HomeScreen, BalanceCard) | Done |
-| 17 | 4 | Aria labels (ShareableCard, InputScreen) | Done |
-| 18 | 4 | LanguageSwitcher escape focus return | Done |
-| 19 | 4 | WCAG AA contrast (text-gray-500) | Done |
-| 20 | 4 | WaitlistForm fieldset + legend | Done |
-| 21 | 4 | MobileNav useFocusTrap | Done |
-| 22 | 5 | Remove 'use client' from SectionContainer | Done |
-| 23 | 5 | Dynamic imports (DreamMode, PreDemo) | Done |
-| 24 | 5 | SocialProofSection sessionStorage cache | Done |
-| 25 | 5 | next/image for PreDemo logos | Done |
-| 26 | 5 | logo-icon.png compression | Done (replaced with logo-icon.avif) |
-| 27 | 6 | usePerformanceMonitor useEffect deps comment | Done |
-| 28 | 6 | Stable keys (CarouselDots, LoadingScreen) | Done |
-| 29 | 6 | Typed gtag + PerformanceMemory interface | Done |
-| 30 | 6 | usePerformanceMonitor @ts-expect-error removal | Done |
-| 31 | 6 | Extract ChainIcons from WalletDetailsScreen | Done |
-| 32 | 6 | CSS module classes for inline styles | Done |
-| 33 | 8 | SetHtmlLang component for locale | Done |
+All 33 Phase 1 audit findings have been resolved. Comprehensive 25-category audit completed March 2026 — 153/158 checks pass (96.8%). Remaining pending items tracked in `docs/audit/PENDING.md`.
+
+## Visual Development — Human-First Design Workflow
+
+### Design document precedence
+
+When working on any frontend UI, use design tokens as the source of truth:
+- `apps/web/src/styles/design-tokens.css` — canonical token values for colors, spacing, typography
+- Anti-slop defaults below — canonical anti-pattern list and review criteria
+
+### Anti-slop defaults
+
+Avoid these patterns in all frontend work unless brand rules explicitly allow them:
+- Default purple/blue startup gradients or shiny AI orbs
+- Gradient profile circles with initials as decoration
+- Pure black (#000) or pure white (#FFF) — use palette-derived neutrals
+- Repeated KPI strips showing the same data in multiple places
+- Card soup — too many cards with equal visual weight and no hierarchy
+- Mixed icon families or inconsistent icon weights
+- Emoji used as core UI icons
+- Empty charts or decorative analytics that communicate nothing real
+- Too much border-radius on everything with no variation
+- Hierarchy created only by colored boxes instead of typography + spacing
+- Generic SaaS layout templates repeated across screens
+- Fake metrics, fake workflows, fake pricing, or hallucinated features
+- Lorem ipsum or "Acme Inc" placeholder copy in any deliverable
+- Legacy fee figures (0.75%, 0.12%, 0.09%, subscription tiers) — current fees in `docs/full-view/FEES.md`
+
+### Quick visual check (after every frontend change)
+
+**IMMEDIATELY** after implementing any front-end change:
+1. Start the dev server (`pnpm dev:web`) and wait for it to be ready
+2. Install the browser if needed (`mcp__MCP_DOCKER__browser_install`)
+3. Get the machine's network IP (`ifconfig en0 | grep "inet "`) — Docker MCP browser cannot reach `localhost`, use `http://<NETWORK_IP>:3000` instead
+4. Navigate to affected pages using `mcp__MCP_DOCKER__browser_navigate`
+5. Use `mcp__MCP_DOCKER__browser_snapshot` to discover all sections on the page
+6. **Screenshot EACH section individually** by element ref — not just one viewport-level screenshot (spacing and sizing issues are invisible at full-page zoom)
+7. Resize viewport with `mcp__MCP_DOCKER__browser_resize` — test at desktop (1440×900) and mobile (375×812)
+8. For interactive components (wizards, carousels, accordions): **click through ALL steps/states** and screenshot each — do not only check the initial view
+9. Check console for errors using `mcp__MCP_DOCKER__browser_console_messages`
+10. For each section, verify: spacing consistency, button sizing harmony within button groups, icon usage (no emoji as UI icons), content density
+11. Test German locale at mobile viewport (375px) — screenshot each section for text overflow and verify no hardcoded English strings leak through
+12. Fix visual and interaction issues before declaring done
+
+**Important:** The Playwright browser runs inside Docker MCP, not on the host machine. Always use the network IP (e.g., `http://192.168.x.x:3000`), never `localhost` or `127.0.0.1`.
+
+If Docker MCP browser tools are NOT available: explicitly say "I could not visually verify this — browser tooling is not available." Never imply visual verification was performed when it was not.
+
+### Comprehensive design review
+
+Invoke `@agent design-reviewer` for thorough design validation when:
+- Completing significant UI/UX features
+- Before finalizing PRs with visual changes
+- Needing comprehensive accessibility and responsiveness testing
+- Running `/mydesign review` or `/review-ui`
+
+### Slash commands available
+
+- `/mydesign` — unified design workflow (build, review, audit, explore, tweak)
+- `/build-ui` — focused build workflow with interactive context gathering
+- `/review-ui` — focused review workflow against anti-slop checklist
+
+### Build rules for UI work
+
+- Always use existing design tokens from `apps/web/src/styles/design-tokens.css` — never hardcode colors, spacing, or font sizes
+- Always use the project's `LucideIcon` component (`@/components/UI/LucideIcon`) — never import `lucide-react` directly or other external icon libraries
+- Never invent product claims, fee figures, or capabilities — use only confirmed data from existing translations and configs
+- All new user-facing strings must be added to all 4 locales (en, pt-BR, es, de)
+- German text is ~30% longer than English — verify components handle text expansion
+- Regulatory disclaimers (MiCA for EU, CVM 3-warning for BR, FTC for US) have required text per locale — check translation files
+- Use Factory pattern with variants for all new components
+- Motion must respect `prefers-reduced-motion` (already in Accessibility Standards above)

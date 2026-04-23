@@ -7,6 +7,7 @@ import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
 import { UtmCapture } from '@/components/Layout/UtmCapture';
+import { PageViewTracker } from '@/components/Performance/PageViewTracker';
 
 interface LandingLayoutProps {
   children: React.ReactNode;
@@ -50,6 +51,8 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
     ...flattenMessages(waitlistMessages, 'waitlist'),
   };
 
+  const skipText = (commonMessages as Record<string, Record<string, string>>).accessibility?.skipToMain ?? 'Skip to main content';
+
   return (
     <LocaleProvider initialLocale={locale}>
       <I18nProvider locale={locale} messages={allMessages}>
@@ -60,15 +63,16 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
             <div className="min-h-screen flex flex-col">
               {/* Skip Navigation Link for Accessibility */}
               <a href="#main-content" className="skip-link">
-                Skip to main content
+                {skipText}
               </a>
               <MinimalNavigation />
-              <main id="main-content" className="main-content flex-1">
+              <main id="main-content" className="main-content main-content-landing flex-1">
                 {children}
               </main>
               <CookieConsent />
               <ScrollDepthTracker />
               <UtmCapture />
+              <PageViewTracker />
             </div>
           </WaitingListProvider>
         </PageErrorBoundary>

@@ -10,7 +10,8 @@
       "about": "Acerca de",
       "protocols": "Protocolos",
       "adelaideDaily": "Adelaide Daily",
-      "joinWaitlist": "Unirse a la Lista"
+      "joinWaitlist": "Unirse a la Lista",
+      "tryDemo": "Probar Demo"
     },
     "diboas": {
       "label": "diBoaS",
@@ -141,7 +142,22 @@
     "nextSlide": "Siguiente diapositiva",
     "changeLanguage": "Cambiar idioma",
     "switchTo": "Cambiar a {language}",
-    "emailLabel": "Dirección de correo electrónico"
+    "emailLabel": "Dirección de correo electrónico",
+    "scrollDown": "Desplazar hacia abajo",
+    "exampleCalculation": "Cálculo de ejemplo",
+    "siteFooter": "Pie de página",
+    "productNavigation": "Navegación de producto",
+    "legalPages": "Páginas legales",
+    "mainNavigation": "Navegación principal",
+    "dreamMode": "Dream Mode",
+    "closeDreamMode": "Cerrar Dream Mode",
+    "copyToClipboard": "Copiar texto al portapapeles",
+    "shareOnX": "Compartir en X",
+    "homeLink": "Inicio de {brand}",
+    "openMenuFor": "Abrir menú de {menu}",
+    "warningBadge": "Insignia de advertencia",
+    "complianceBadge": "Insignia de cumplimiento",
+    "mobileMenu": "Menú de navegación móvil"
   },
   "languageSwitcher": {
     "label": "Idioma",
@@ -335,5 +351,22 @@
     "loadingPage": "Cargando página",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú"
+  },
+  "expandable": {
+    "showMore": "Ver más",
+    "showLess": "Ver menos"
+  },
+  "emailPreferences": {
+    "title": "Preferencias de Email",
+    "heading": "Gestiona tus emails",
+    "description": "Serás dado de baja de los emails de diBoaS. Tu posición en la lista de espera y créditos de referencia se conservarán.",
+    "unsubscribeButton": "Cancelar suscripción",
+    "staySubscribedButton": "Mantener suscripción",
+    "successUnsubscribed": "Has sido dado de baja de los emails de diBoaS.",
+    "positionPreserved": "Tu posición en la lista de espera se ha conservado.",
+    "redirectingHome": "Redirigiendo a la página principal...",
+    "invalidLink": "Este enlace es inválido o ha expirado.",
+    "error": "Algo salió mal. Inténtalo de nuevo.",
+    "processing": "Procesando..."
   }
 }

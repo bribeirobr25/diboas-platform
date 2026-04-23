@@ -6,7 +6,7 @@
  * Manages locale switching and dropdown state
  */
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 
@@ -15,6 +15,7 @@ interface UseLanguageSwitcherReturn {
   dropdownRef: React.RefObject<HTMLDivElement>;
   toggleDropdown: () => void;
   switchLocale: (newLocale: SupportedLocale) => void;
+  handleMenuKeyDown: (event: React.KeyboardEvent) => void;
 }
 
 export function useLanguageSwitcher(): UseLanguageSwitcherReturn {
@@ -66,8 +67,9 @@ export function useLanguageSwitcher(): UseLanguageSwitcherReturn {
       segments.shift();
     }
 
-    // Build new path with new locale
-    const newPath = `/${newLocale}${segments.length > 0 ? `/${segments.join('/')}` : ''}`;
+    // Build new path with new locale, preserving query params (ref, UTM, etc.)
+    const search = typeof window !== 'undefined' ? window.location.search : '';
+    const newPath = `/${newLocale}${segments.length > 0 ? `/${segments.join('/')}` : ''}${search}`;
 
     setIsOpen(false);
     router.push(newPath);
@@ -77,10 +79,51 @@ export function useLanguageSwitcher(): UseLanguageSwitcherReturn {
     setIsOpen(!isOpen);
   };
 
+  /**
+   * Keyboard navigation for dropdown menu items.
+   * ArrowDown/ArrowUp: move focus between menu items
+   * Home/End: jump to first/last menu item
+   */
+  const handleMenuKeyDown = useCallback((event: React.KeyboardEvent) => {
+    const menu = dropdownRef.current?.querySelector<HTMLElement>('[role="menu"]');
+    if (!menu) return;
+
+    const items = Array.from(menu.querySelectorAll<HTMLElement>('[role="menuitem"]'));
+    if (items.length === 0) return;
+
+    const currentIndex = items.findIndex((item) => item === document.activeElement);
+
+    switch (event.key) {
+      case 'ArrowDown': {
+        event.preventDefault();
+        const nextIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        items[nextIndex]?.focus();
+        break;
+      }
+      case 'ArrowUp': {
+        event.preventDefault();
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        items[prevIndex]?.focus();
+        break;
+      }
+      case 'Home': {
+        event.preventDefault();
+        items[0]?.focus();
+        break;
+      }
+      case 'End': {
+        event.preventDefault();
+        items[items.length - 1]?.focus();
+        break;
+      }
+    }
+  }, []);
+
   return {
     isOpen,
     dropdownRef: dropdownRef as React.RefObject<HTMLDivElement>,
     toggleDropdown,
     switchLocale,
+    handleMenuKeyDown,
   };
 }

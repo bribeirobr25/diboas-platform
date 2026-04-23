@@ -12,7 +12,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef, useMemo, KeyboardEvent } from 'react';
-import DOMPurify from 'dompurify';
+import { sanitizeHtml } from '@/lib/security/htmlSanitizer';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import type { FAQAccordionVariantProps } from '../types';
 import styles from './FAQAccordionDefault.module.css';
@@ -28,13 +28,11 @@ function FAQAnswer({ answer, className }: { answer: string; className: string })
   const containsHtml = useMemo(() => HTML_TAG_REGEX.test(answer), [answer]);
 
   if (containsHtml) {
-    const sanitized = DOMPurify.sanitize(answer, {
-      ALLOWED_TAGS: ['strong', 'em', 'br', 'p', 'a', 'ul', 'li', 'ol'],
-      ALLOWED_ATTR: ['href', 'target', 'rel'],
-    });
+    const sanitized = sanitizeHtml(answer);
     return (
       <div
         className={className}
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: sanitized }}
       />
     );
@@ -46,7 +44,7 @@ function FAQAnswer({ answer, className }: { answer: string; className: string })
     return (
       <div className={className}>
         {paragraphs.map((p, i) => (
-          <p key={i} style={{ marginBottom: i < paragraphs.length - 1 ? '0.75em' : 0 }}>
+          <p key={i} className={styles.answerParagraph}>
             {p}
           </p>
         ))}
@@ -71,6 +69,12 @@ export function FAQAccordionDefault({
 }: FAQAccordionVariantProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const scrollTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // Clear scroll timer on unmount
+  useEffect(() => {
+    return () => clearTimeout(scrollTimerRef.current);
+  }, []);
 
   // Get FAQ items from direct items array (landing pages use this mode)
   // Config is pre-translated by useConfigTranslation in the factory
@@ -104,7 +108,8 @@ export function FAQAccordionDefault({
       if (newExpandedId && config.settings.scrollIntoView) {
         const button = itemRefs.current.get(id);
         if (button) {
-          setTimeout(() => {
+          clearTimeout(scrollTimerRef.current);
+          scrollTimerRef.current = setTimeout(() => {
             button.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }, 100);
         }
@@ -118,7 +123,7 @@ export function FAQAccordionDefault({
     if (!config.settings.enableKeyboardNav) return;
 
     const items = Array.from(itemRefs.current.keys());
-    let targetIndex = index;
+    let targetIndex;
 
     switch (event.key) {
       case 'ArrowDown':
@@ -149,17 +154,18 @@ export function FAQAccordionDefault({
     }
   }, [config.settings.enableKeyboardNav]);
 
-  // Track analytics on expansion
+  // Track analytics on expansion (consent-gated via analyticsService)
   useEffect(() => {
     if (expandedId && enableAnalytics && config.analytics?.enabled) {
-      // Analytics tracking
-      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params: Record<string, unknown>) => void };
-      if (typeof window !== 'undefined' && windowWithGtag.gtag) {
-        windowWithGtag.gtag('event', 'faq_expand', {
-          event_category: config.analytics.trackingPrefix,
-          event_label: expandedId
+      import('@/lib/analytics').then(({ analyticsService }) => {
+        analyticsService.track({
+          name: 'faq_expand',
+          parameters: {
+            event_category: config.analytics!.trackingPrefix,
+            event_label: expandedId,
+          },
         });
-      }
+      }).catch(() => {});
     }
   }, [expandedId, enableAnalytics, config.analytics]);
 
@@ -170,12 +176,12 @@ export function FAQAccordionDefault({
       backgroundColor={backgroundColor}
       className={className}
       containerClassName={styles.container}
-      ariaLabelledBy="faq-heading"
+      ariaLabelledBy={`faq-heading-${config.seo.region}`}
       ariaLabel={config.seo.ariaLabel}
     >
       {/* Left Panel: Intro Content - values are pre-translated */}
         <div className={styles.introPanel}>
-          <h2 id="faq-heading" className={styles.heading}>
+          <h2 id={`faq-heading-${config.seo.region}`} className={styles.heading}>
             {config.content.title}
           </h2>
           {config.content.description ? (
@@ -186,7 +192,7 @@ export function FAQAccordionDefault({
         </div>
 
         {/* Right Panel: Accordion Items */}
-        <div className={styles.accordionPanel} role="region" aria-label="FAQ items">
+        <div className={styles.accordionPanel} role="region" aria-label={config.seo.ariaLabel}>
           {resolvedItems.map((item, index) => {
             const isExpanded = expandedId === item.id;
             const contentId = `faq-content-${item.id}`;
@@ -228,9 +234,7 @@ export function FAQAccordionDefault({
                       d="M12 4v16m8-8H4"
                     />
                   </svg>
-                  <span className={styles.srOnly}>
-                    {isExpanded ? 'Collapse' : 'Expand'} question
-                  </span>
+                  {/* aria-expanded on the button already communicates state to screen readers */}
                 </button>
                 <div
                   id={contentId}

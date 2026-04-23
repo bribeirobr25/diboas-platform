@@ -1,47 +1,17 @@
 /**
  * PreDream Domain Constants
  *
- * Path multipliers, timeframe configs, and slider ranges
- * Multipliers match the reference demo exactly
+ * Path configs, timeframe configs, and slider ranges.
+ * Calculations use futureValue() from lib/utils/financialMath — no multipliers needed.
  */
 
 import type { PreDreamPath, PreDreamPathConfig, PreDreamTimeframe, PreDreamTimeframeConfig } from './types';
 
-/** Bank APY rate for comparison (FDIC National Average) */
-export const PRE_DREAM_BANK_APY = 0.5; // 0.5%
-
-/** Path configurations with multipliers for 1/3/5/10 year timeframes */
+/** Path configurations — APY only, futureValue() computes from APY directly */
 export const PRE_DREAM_PATHS: Record<PreDreamPath, PreDreamPathConfig> = {
-  safety: {
-    id: 'safety',
-    apy: 7,
-    multipliers: {
-      '1year': 1.07,
-      '3years': 1.2250,
-      '5years': 1.4026,
-      '10years': 1.9672,
-    },
-  },
-  balance: {
-    id: 'balance',
-    apy: 12,
-    multipliers: {
-      '1year': 1.12,
-      '3years': 1.4049,
-      '5years': 1.7623,
-      '10years': 3.1058,
-    },
-  },
-  growth: {
-    id: 'growth',
-    apy: 18,
-    multipliers: {
-      '1year': 1.18,
-      '3years': 1.6430,
-      '5years': 2.2878,
-      '10years': 5.2338,
-    },
-  },
+  safety: { id: 'safety', apy: 7 },
+  balance: { id: 'balance', apy: 12 },
+  growth: { id: 'growth', apy: 18 },
 } as const;
 
 /** Timeframe configurations */

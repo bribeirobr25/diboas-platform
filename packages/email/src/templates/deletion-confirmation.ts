@@ -1,6 +1,7 @@
 import { wrapInLayout } from './layout';
 import type { DeletionConfirmationEmailData } from '../types';
 import { BRAND } from '../config';
+import { escapeHtml } from '../utils';
 
 const translations: Record<string, Record<string, string>> = {
   en: {
@@ -49,7 +50,7 @@ export function renderDeletionConfirmation(data: DeletionConfirmationEmailData):
   const t = translations[data.locale] || translations.en;
 
   const greeting = data.name
-    ? t.greeting.replace('{name}', ` ${data.name}`)
+    ? t.greeting.replace('{name}', ` ${escapeHtml(data.name)}`)
     : t.greetingNoName;
 
   const content = `

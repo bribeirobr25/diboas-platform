@@ -74,7 +74,7 @@
 
 .paragraph {
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-normal);
   line-height: var(--prose-line-height, 1.7);
   color: var(--color-text-body);
@@ -87,7 +87,7 @@
 
 .signature {
   font-family: var(--font-family-primary);
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   line-height: var(--prose-line-height, 1.7);
   color: var(--text-primary-accessible);
@@ -96,7 +96,7 @@
 
 .emphasis {
   font-family: var(--font-family-primary);
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   line-height: var(--prose-line-height, 1.7);
   color: var(--text-primary-accessible);
@@ -105,7 +105,7 @@
 
 .transitionHook {
   font-family: var(--font-family-primary);
-  font-size: 22px;
+  font-size: var(--font-size-subtitle-desktop);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary-accessible);
   text-align: center;
@@ -168,7 +168,7 @@
 .sectionImage {
   width: 100%;
   height: auto;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   object-fit: cover;
 }
 

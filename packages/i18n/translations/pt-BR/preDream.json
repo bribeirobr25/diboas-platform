@@ -86,8 +86,10 @@
     "differenceSubtext": "Mesmo dinheiro. Lugar diferente. Grande diferença.",
     "shareTitle": "Compartilhar meu sonho",
     "shareCopied": "Copiado!",
-    "shareText": "Minha simulação no Dream Mode transformaria {start} em {end}, isso é {difference} a mais do que meu banco me daria. Experimenta você também:",
-    "bankSource": "Baseado em taxa média de poupança de {rate}%. Fonte: FDIC National Average, janeiro de 2026.",
+    "shareText": "Esta simulação orientada por metas é a forma mais fácil e eficaz de construir riqueza. Transformou {start} em {end}, isso é {difference} a mais do que meu banco daria. Experimente:",
+    "bankSource": "Baseado em taxa média de poupança de {rate}%. Fonte: Banco Central do Brasil, janeiro de 2026.",
+    "bankComparison": "vs poupança a {rate}% ao ano",
+    "yieldCurrencyValue": "Valor em dólares digitais: {amount}",
     "tryDifferent": "Tentar Outros Valores",
     "backToHome": "Voltar para o Início"
   },

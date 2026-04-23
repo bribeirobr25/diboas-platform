@@ -1,7 +1,12 @@
-export { DemoHeader } from './DemoHeader';
-export { BalanceCard } from './BalanceCard';
-export { QuickActions } from './QuickActions';
+/**
+ * PreDemo Components - Public API
+ */
+
 export { ActivityFeed } from './ActivityFeed';
+export { BalanceCard } from './BalanceCard';
+export { ChainSvgIcon, L2ChainIcon } from './ChainIcons';
+export { DemoFooter } from './DemoFooter';
+export { DemoHeader } from './DemoHeader';
 export { FeeBreakdown } from './FeeBreakdown';
 export {
   CopyIcon,
@@ -17,3 +22,4 @@ export {
   SendIcon,
   InvestIcon,
 } from './Icons';
+export { QuickActions } from './QuickActions';

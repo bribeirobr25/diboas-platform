@@ -126,7 +126,7 @@ describe('authentication', () => {
 
       const validRequest = createRequest({ 'x-api-key': TEST_API_KEY });
       const invalidRequest = createRequest({
-        'x-api-key': TEST_API_KEY.slice(0, -1) + 'X',
+        'x-api-key': `${TEST_API_KEY.slice(0, -1)  }X`,
       });
 
       expect(validateApiKey(validRequest).authenticated).toBe(true);
@@ -289,9 +289,52 @@ describe('authentication', () => {
     it('should return false when token is slightly modified', () => {
       const token = generateDeletionToken();
       const hash = hashToken(token);
-      const modifiedToken = token.slice(0, -1) + '0';
+      // Ensure the modification actually changes the token
+      const lastChar = token.charAt(token.length - 1);
+      const replacement = lastChar === '0' ? '1' : '0';
+      const modifiedToken = token.slice(0, -1) + replacement;
 
       expect(verifyToken(modifiedToken, hash)).toBe(false);
+    });
+
+    it('should return false when timingSafeEqual throws due to different buffer lengths', () => {
+      // verifyToken internally hashes both inputs to the same length,
+      // so we test the underlying timingSafeEqual catch path via validateApiKey
+      // with keys of different lengths, which produces buffers of different lengths
+      process.env.INTERNAL_API_KEY = TEST_API_KEY;
+
+      // A key of completely different length will cause bufA.length !== bufB.length
+      // The implementation handles this by comparing bufA with bufA (constant time) and returning false
+      const request = createRequest({ 'x-api-key': 'x' });
+      const result = validateApiKey(request);
+
+      expect(result.authenticated).toBe(false);
+      expect(result.error).toBe('Invalid API key');
+    });
+  });
+
+  describe('timingSafeEqual catch block', () => {
+    it('should return false when Buffer.from throws on invalid input', () => {
+      process.env.INTERNAL_API_KEY = TEST_API_KEY;
+
+      // Mock Buffer.from to throw, exercising the catch block at line 92-93
+      const originalFrom = Buffer.from;
+      vi.spyOn(Buffer, 'from').mockImplementation((...args: Parameters<typeof Buffer.from>) => {
+        // Throw only for the timingSafeEqual usage (string arguments)
+        if (typeof args[0] === 'string') {
+          throw new Error('Buffer.from failed');
+        }
+        return originalFrom(...(args as [string]));
+      });
+
+      const request = createRequest({ 'x-api-key': TEST_API_KEY });
+      const result = validateApiKey(request);
+
+      // The catch block in timingSafeEqual returns false
+      expect(result.authenticated).toBe(false);
+      expect(result.error).toBe('Invalid API key');
+
+      vi.restoreAllMocks();
     });
   });
 });

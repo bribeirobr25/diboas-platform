@@ -24,6 +24,9 @@ export interface BenefitCard {
 
   /** Benefit description */
   description: string;
+
+  /** Whether this card should be visually emphasized (featured) */
+  featured?: boolean;
 }
 
 /**

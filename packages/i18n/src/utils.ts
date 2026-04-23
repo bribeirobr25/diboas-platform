@@ -6,11 +6,12 @@
  */
 
 import type { SupportedLocale } from './config';
-import { getStaticTranslations, TRANSLATIONS_MAP } from './translations-map';
+import type { IntlMessages } from './types';
+import { getTranslations, hasRegisteredNamespace } from './translations-map';
 
 /**
  * Load translation messages for a specific locale and namespace
- * Uses static imports for reliable loading across all bundlers
+ * Uses lazy dynamic imports for optimal bundle splitting
  *
  * @param locale - The locale to load messages for
  * @param namespace - The namespace path (e.g., 'common', 'home', 'dreamMode')
@@ -19,14 +20,17 @@ import { getStaticTranslations, TRANSLATIONS_MAP } from './translations-map';
 export async function loadMessages(
   locale: SupportedLocale,
   namespace: string = 'common'
-): Promise<Record<string, any>> {
-  // Use static translations map for common namespaces (most reliable)
-  const staticTranslations = getStaticTranslations(locale, namespace);
-  if (Object.keys(staticTranslations).length > 0) {
-    return staticTranslations;
+): Promise<IntlMessages> {
+  // Use registered namespace loaders first (covers all common namespaces)
+  if (hasRegisteredNamespace(locale, namespace) || hasRegisteredNamespace('en', namespace)) {
+    const translations = await getTranslations(locale, namespace);
+    if (Object.keys(translations).length > 0) {
+      return translations;
+    }
   }
 
-  // Fallback to dynamic import for namespaces not in the static map
+  // Fallback to dynamic import for namespaces not in the registry
+  // (e.g., hierarchical paths like 'personal/credit', 'legal/terms')
   try {
     const messages = await import(`../translations/${locale}/${namespace}.json`);
     return messages.default || messages;
@@ -66,14 +70,14 @@ export async function loadMessages(
  */
 export async function loadAllMessages(
   locale: SupportedLocale,
-  namespaces: string[] = ['common', 'marketing']
-): Promise<Record<string, any>> {
+  namespaces: string[] = ['common']
+): Promise<IntlMessages> {
   const messagesArray = await Promise.all(
     namespaces.map(namespace => loadMessages(locale, namespace))
   );
 
   // Merge all messages into a single object
-  return messagesArray.reduce((acc, messages) => ({ ...acc, ...messages }), {});
+  return messagesArray.reduce<IntlMessages>((acc, messages) => ({ ...acc, ...messages }), {});
 }
 
 /**
@@ -81,7 +85,7 @@ export async function loadAllMessages(
  * Converts { common: { hello: "Hello" } } to { "common.hello": "Hello" }
  */
 export function flattenMessages(
-  nestedMessages: Record<string, any>,
+  nestedMessages: IntlMessages,
   prefix = ''
 ): Record<string, string> {
   return Object.keys(nestedMessages).reduce((messages: Record<string, string>, key) => {

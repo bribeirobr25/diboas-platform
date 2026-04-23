@@ -1,15 +1,37 @@
 /**
  * PreDemo Fee Calculations
  *
- * Pure functions for calculating deposit, send, and buy fees
- * All formulas match the reference demo exactly
+ * Pure functions for calculating deposit, send, and buy fees.
+ * All functions accept an optional fee rates parameter for analytics API override.
+ * Fallback: hardcoded FEE_RATES constants.
  */
 
 import type { FeeItem } from './types';
 import { FEE_RATES, ASSET_PRICES } from './constants';
 
+/** Fee rate override type — partial overrides merged with defaults */
+export type FeeRateOverrides = Partial<{
+  deposit: Partial<typeof FEE_RATES.deposit>;
+  send: Partial<typeof FEE_RATES.send>;
+  buy: Partial<typeof FEE_RATES.buy>;
+}>;
+
+/**
+ * Resolve fee rates with optional overrides.
+ * Fallback chain: override value → hardcoded FEE_RATES constant.
+ * Future: diBoaS analytics API provides live fee rates.
+ */
+export function resolveFeeRates(overrides?: FeeRateOverrides): typeof FEE_RATES {
+  if (!overrides) return FEE_RATES;
+  return {
+    deposit: { ...FEE_RATES.deposit, ...overrides.deposit },
+    send: { ...FEE_RATES.send, ...overrides.send },
+    buy: { ...FEE_RATES.buy, ...overrides.buy },
+  };
+}
+
 /** Deposit fee calculation */
-export function calculateDepositFees(grossAmount: number): {
+export function calculateDepositFees(grossAmount: number, rates = FEE_RATES): {
   processorFee: number;
   networkFee: number;
   diboasFee: number;
@@ -17,11 +39,11 @@ export function calculateDepositFees(grossAmount: number): {
   netAmount: number;
   feeItems: Record<string, FeeItem>;
 } {
-  const processorFee = grossAmount * FEE_RATES.deposit.paymentProcessor;
-  const networkFee = grossAmount * FEE_RATES.deposit.network;
-  const rawDiboasFee = grossAmount * FEE_RATES.deposit.diboas;
+  const processorFee = grossAmount * rates.deposit.paymentProcessor;
+  const networkFee = grossAmount * rates.deposit.network;
+  const rawDiboasFee = grossAmount * rates.deposit.diboas;
   const diboasFee = grossAmount > 0
-    ? Math.min(FEE_RATES.deposit.diboasMax, Math.max(FEE_RATES.deposit.diboasMin, rawDiboasFee))
+    ? Math.min(rates.deposit.diboasMax, Math.max(rates.deposit.diboasMin, rawDiboasFee))
     : 0;
   const totalFees = processorFee + networkFee + diboasFee;
   const netAmount = grossAmount - totalFees;
@@ -41,7 +63,7 @@ export function calculateDepositFees(grossAmount: number): {
 }
 
 /** Send fee calculation */
-export function calculateSendFees(grossAmount: number): {
+export function calculateSendFees(grossAmount: number, rates = FEE_RATES): {
   networkFee: number;
   priorityFee: number;
   diboasFee: number;
@@ -49,9 +71,9 @@ export function calculateSendFees(grossAmount: number): {
   netAmount: number;
   feeItems: Record<string, FeeItem>;
 } {
-  const networkFee = grossAmount * FEE_RATES.send.network;
-  const priorityFee = FEE_RATES.send.priority;
-  const diboasFee = grossAmount * FEE_RATES.send.diboas;
+  const networkFee = grossAmount * rates.send.network;
+  const priorityFee = rates.send.priority;
+  const diboasFee = grossAmount * rates.send.diboas;
   const totalFees = networkFee + priorityFee + diboasFee;
   const netAmount = grossAmount - totalFees;
 
@@ -70,7 +92,7 @@ export function calculateSendFees(grossAmount: number): {
 }
 
 /** Buy fee calculation - dynamic based on asset */
-export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
+export function calculateBuyFees(grossAmount: number, assetSymbol: string, rates = FEE_RATES): {
   totalFees: number;
   netAmount: number;
   feeItems: Record<string, FeeItem>;
@@ -79,9 +101,9 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
   const isGold = assetSymbol === 'XAUT';
 
   if (isBitcoin) {
-    const swapFee = grossAmount * FEE_RATES.buy.btcSwap;
-    const minerFee = grossAmount * FEE_RATES.buy.btcMinerRate;
-    const diboasFee = grossAmount * FEE_RATES.buy.btcDiboas;
+    const swapFee = grossAmount * rates.buy.btcSwap;
+    const minerFee = grossAmount * rates.buy.btcMinerRate;
+    const diboasFee = grossAmount * rates.buy.btcDiboas;
     const totalFees = swapFee + minerFee + diboasFee;
 
     return {
@@ -96,10 +118,10 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
   }
 
   if (isGold) {
-    const issuerFee = grossAmount * FEE_RATES.buy.xautIssuer;
-    const swapGas = FEE_RATES.buy.xautSwapGas;
-    const lpFee = grossAmount * FEE_RATES.buy.xautLp;
-    const diboasFee = grossAmount * FEE_RATES.buy.xautDiboas;
+    const issuerFee = grossAmount * rates.buy.xautIssuer;
+    const swapGas = rates.buy.xautSwapGas;
+    const lpFee = grossAmount * rates.buy.xautLp;
+    const diboasFee = grossAmount * rates.buy.xautDiboas;
     const totalFees = issuerFee + swapGas + lpFee + diboasFee;
 
     return {
@@ -115,8 +137,8 @@ export function calculateBuyFees(grossAmount: number, assetSymbol: string): {
   }
 
   // Default for disabled assets
-  const defaultFee = grossAmount * FEE_RATES.buy.defaultRate;
-  const rawDiboasFee = grossAmount * FEE_RATES.buy.diboas;
+  const defaultFee = grossAmount * rates.buy.defaultRate;
+  const rawDiboasFee = grossAmount * rates.buy.diboas;
   const diboasFee = grossAmount > 0
     ? Math.min(25, Math.max(0.25, rawDiboasFee))
     : 0;

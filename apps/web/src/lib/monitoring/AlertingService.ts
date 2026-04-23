@@ -47,7 +47,7 @@ export { DEFAULT_ALERT_THRESHOLDS } from './alertConfig';
 /**
  * Centralized Alerting Service
  */
-export class AlertingService {
+export class MonitoringAlertService {
   private alerts: Map<string, Alert> = new Map();
   private suppressedAlerts = new Set<string>();
   private thresholds: AlertThresholds;
@@ -223,6 +223,21 @@ export class AlertingService {
   }
 
   /**
+   * Check a single metric against critical/warning thresholds
+   */
+  private checkMetricThreshold(
+    name: string,
+    value: number,
+    thresholds: { critical: number; warning: number }
+  ): void {
+    if (value > thresholds.critical) {
+      this.sendPerformanceAlert(name, value, thresholds.critical, AlertSeverity.CRITICAL);
+    } else if (value > thresholds.warning) {
+      this.sendPerformanceAlert(name, value, thresholds.warning, AlertSeverity.WARNING);
+    }
+  }
+
+  /**
    * Check performance metrics against thresholds
    */
   checkPerformanceThresholds(metrics: {
@@ -232,43 +247,12 @@ export class AlertingService {
     errorRate?: number;
   }): void {
     const { renderTime, memoryUsage, pageLoadTime, errorRate } = metrics;
+    const perf = this.thresholds.performance;
 
-    // Check render time
-    if (renderTime !== undefined) {
-      if (renderTime > this.thresholds.performance.renderTimeMs.critical) {
-        this.sendPerformanceAlert('Render Time', renderTime, this.thresholds.performance.renderTimeMs.critical, AlertSeverity.CRITICAL);
-      } else if (renderTime > this.thresholds.performance.renderTimeMs.warning) {
-        this.sendPerformanceAlert('Render Time', renderTime, this.thresholds.performance.renderTimeMs.warning, AlertSeverity.WARNING);
-      }
-    }
-
-    // Check memory usage
-    if (memoryUsage !== undefined) {
-      const memoryMB = memoryUsage / (1024 * 1024);
-      if (memoryMB > this.thresholds.performance.memoryUsageMB.critical) {
-        this.sendPerformanceAlert('Memory Usage', memoryMB, this.thresholds.performance.memoryUsageMB.critical, AlertSeverity.CRITICAL);
-      } else if (memoryMB > this.thresholds.performance.memoryUsageMB.warning) {
-        this.sendPerformanceAlert('Memory Usage', memoryMB, this.thresholds.performance.memoryUsageMB.warning, AlertSeverity.WARNING);
-      }
-    }
-
-    // Check page load time
-    if (pageLoadTime !== undefined) {
-      if (pageLoadTime > this.thresholds.performance.pageLoadTimeMs.critical) {
-        this.sendPerformanceAlert('Page Load Time', pageLoadTime, this.thresholds.performance.pageLoadTimeMs.critical, AlertSeverity.CRITICAL);
-      } else if (pageLoadTime > this.thresholds.performance.pageLoadTimeMs.warning) {
-        this.sendPerformanceAlert('Page Load Time', pageLoadTime, this.thresholds.performance.pageLoadTimeMs.warning, AlertSeverity.WARNING);
-      }
-    }
-
-    // Check error rate
-    if (errorRate !== undefined) {
-      if (errorRate > this.thresholds.performance.errorRate.critical) {
-        this.sendPerformanceAlert('Error Rate', errorRate, this.thresholds.performance.errorRate.critical, AlertSeverity.CRITICAL);
-      } else if (errorRate > this.thresholds.performance.errorRate.warning) {
-        this.sendPerformanceAlert('Error Rate', errorRate, this.thresholds.performance.errorRate.warning, AlertSeverity.WARNING);
-      }
-    }
+    if (renderTime !== undefined) this.checkMetricThreshold('Render Time', renderTime, perf.renderTimeMs);
+    if (memoryUsage !== undefined) this.checkMetricThreshold('Memory Usage', memoryUsage / (1024 * 1024), perf.memoryUsageMB);
+    if (pageLoadTime !== undefined) this.checkMetricThreshold('Page Load Time', pageLoadTime, perf.pageLoadTimeMs);
+    if (errorRate !== undefined) this.checkMetricThreshold('Error Rate', errorRate, perf.errorRate);
   }
 
   /**
@@ -348,11 +332,11 @@ export class AlertingService {
 }
 
 // Singleton instance
-export const alertingService = new AlertingService();
+export const alertingService = new MonitoringAlertService();
 
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
-    (window as Window & { alertingService?: AlertingService }).alertingService = alertingService;
+    (window as Window & { alertingService?: MonitoringAlertService }).alertingService = alertingService;
   }
 }

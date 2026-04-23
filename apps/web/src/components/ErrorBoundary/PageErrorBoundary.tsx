@@ -10,6 +10,7 @@
 import React, { Component, ReactNode } from 'react';
 import { Button } from '@diboas/ui';
 import { monitoringService } from '@/lib/monitoring';
+import { Logger } from '@/lib/monitoring/Logger';
 
 /**
  * Translation strings for the error boundary
@@ -53,7 +54,7 @@ export class PageErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('PageErrorBoundary caught an error:', error, errorInfo);
+    Logger.error('PageErrorBoundary caught an error', { error: error.message, componentStack: errorInfo.componentStack });
 
     // Track error with monitoring service
     monitoringService.trackError(error, {

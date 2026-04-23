@@ -86,8 +86,10 @@
     "differenceSubtext": "Same money. Different place. Big difference.",
     "shareTitle": "Share my dream",
     "shareCopied": "Copied!",
-    "shareText": "My Dream Mode simulation would turn {start} into {end}, that is {difference} more than my bank would give me. Try it yourself:",
+    "shareText": "This Goal-Driven simulation is the easiest and best way to build wealth. It turned {start} into {end}, that is {difference} more than my bank would give me. Try it yourself:",
     "bankSource": "Based on {rate}% average savings rate. Source: FDIC National Average, January 2026.",
+    "bankComparison": "vs your bank at {rate}% APY",
+    "yieldCurrencyValue": "Digital dollar value: {amount}",
     "tryDifferent": "Try Different Numbers",
     "backToHome": "Back to Home"
   },

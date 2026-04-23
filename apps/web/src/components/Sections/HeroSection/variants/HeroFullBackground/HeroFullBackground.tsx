@@ -12,6 +12,8 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { Button } from '@diboas/ui';
+import { useTranslation } from '@diboas/i18n/client';
+import { ChevronDown } from '@/components/UI/LucideIcon';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import type { HeroVariantProps } from '../types';
 import styles from './HeroFullBackground.module.css';
@@ -22,6 +24,7 @@ export function HeroFullBackground({
   backgroundColor,
   onCTAClick
 }: HeroVariantProps) {
+  const intl = useTranslation();
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
 
   const handleCTAClick = useCallback(() => {
@@ -95,15 +98,25 @@ export function HeroFullBackground({
           )}
 
           <div className={styles.ctaWrapper}>
-            <Button
-              variant={DEFAULT_CTA_PROPS.variant}
-              size={DEFAULT_CTA_PROPS.size}
-              trackable={DEFAULT_CTA_PROPS.trackable}
-              className={styles.ctaButton}
-              onClick={handleCTAClick}
-            >
-              {config.content.ctaText}
-            </Button>
+            {config.content.ctaText ? (
+              <Button
+                variant={DEFAULT_CTA_PROPS.variant}
+                size={DEFAULT_CTA_PROPS.size}
+                trackable={DEFAULT_CTA_PROPS.trackable}
+                className={styles.ctaButton}
+                onClick={handleCTAClick}
+              >
+                {config.content.ctaText}
+              </Button>
+            ) : config.content.ctaHref ? (
+              <a
+                href={config.content.ctaHref}
+                className={styles.scrollIndicator}
+                aria-label={intl.formatMessage({ id: 'common.accessibility.scrollDown' })}
+              >
+                <ChevronDown size={24} strokeWidth={2} />
+              </a>
+            ) : null}
           </div>
         </div>
       </div>

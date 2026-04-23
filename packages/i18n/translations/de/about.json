@@ -1,18 +1,18 @@
 {
   "seo": {
-    "title": "Ueber diBoaS | Gebaut fuer die, die Banken vergessen haben",
+    "title": "Über diBoaS | Gebaut für die, die Banken vergessen haben",
     "description": "diBoaS wurde gebaut, weil eine Grossmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Ueberweisungen, echte Wachstumsoptionen, ab 5 EUR.",
-    "ogTitle": "Ueber diBoaS | Gebaut fuer die, die Banken vergessen haben",
+    "ogTitle": "Über diBoaS | Gebaut für die, die Banken vergessen haben",
     "ogDescription": "diBoaS wurde gebaut, weil eine Grossmutter etwas Besseres verdient hat. Jetzt alle. Kostenlose Ueberweisungen, echte Wachstumsoptionen, ab 5 EUR."
   },
   "hero": {
-    "title": "Ueber diBoaS",
-    "subtitle": "Eine Grossmutter. Ein Problem. Eine Plattform."
+    "title": "Eine Großmutter. Ein Problem. Eine Plattform.",
+    "subtitle": "Offener Zugang und faire Chancen für alle."
   },
   "transitions": {
     "t1": "Lass mich dir eine Geschichte erzaehlen.",
     "t2": "Das hier habe ich gebaut.",
-    "t3": "Und das gilt nicht nur fuer Privatpersonen.",
+    "t3": "Und das gilt nicht nur für Privatpersonen.",
     "t4": "Du willst reden? Ich bin hier."
   },
   "story": {
@@ -20,44 +20,37 @@
     "paragraph1": "Meine Grossmutter hat ihr ganzes Leben in Rio de Janeiro gelebt. Sie hat mir beigebracht zu sparen. Sie sagte, ich solle versuchen, die Haelfte von allem zu sparen, was ich verdiene. Sie selbst hat das auch versucht. Ihr ganzes Leben lang.",
     "paragraph2": "Hart arbeiten. Nur das Noetigste kaufen. Versuchen zu sparen.",
     "paragraph3": "Es hat trotzdem nicht gereicht.",
-    "gapExplanation": "Was ihr niemand gesagt hat: Ihre Bank hat ihr fast nichts gezahlt, waehrend sie mit ihrem Geld echte Renditen erwirtschaftet hat. Diese Luecke, zwischen dem, was Banken verdienen, und dem, was sie weitergeben, ist kein Fehler im System. Das System funktioniert genau so. Nur nicht fuer Menschen wie sie.",
+    "gapExplanation": "Was ihr niemand gesagt hat: Ihre Bank hat ihr fast nichts gezahlt, waehrend sie mit ihrem Geld echte Renditen erwirtschaftet hat. Diese Luecke, zwischen dem, was Banken verdienen, und dem, was sie weitergeben, ist kein Fehler im System. Das System funktioniert genau so. Nur nicht für Menschen wie sie.",
     "accessLocked": "Der Zugang war versperrt hinter hohen Mindestbetraegen, komplizierten Woertern und Institutionen, denen Menschen mit kleinen Ersparnissen egal waren.",
-    "turning": "2024 habe ich meinen Job verloren und beschlossen, etwas an diesem Problem zu aendern. Neue Technologie machte es moeglich, die Torwaechter zu umgehen. Ich musste nur die Tuer bauen.",
-    "namedAfterHer": "Ich habe sie nach ihr benannt."
-  },
-  "whatWeDo": {
-    "header": "Was diBoaS macht",
-    "transfers": "Zuerst das Wichtigste. Sende Geld an jeden auf diBoaS. Ueberall auf der Welt. In Sekunden. Kostenlos. Keine Formulare, keine Gebuehren, kein Warten auf drei Bankarbeitstage. Geld sollte sich wie eine Nachricht bewegen. Jetzt tut es das.",
-    "transfersDisclaimer": "Kostenlose Ueberweisungen zwischen diBoaS-Nutzern. Ueberweisungszeiten sind typisch und koennen variieren. Vorbehaltlich geltender Sanktionen und Compliance-Anforderungen.",
-    "growth": "Dann Wachstum. Waehle aus 10 Moeglichkeiten, dein Geld wachsen zu lassen, von der sichersten Option bis zur abenteuerlichsten. Ab 5 EUR. Dein Geld arbeitet ueber vertrauenswuerdige Finanzsysteme, die zusammen Milliarden an Vermoegenswerten gesichert haben. Die gleiche Art von Systemen, die Institutionen nutzen, jetzt offen fuer dich.",
-    "adelaide": "Und Adelaide ueberwacht das Ganze. Benannt nach der Grossmutter, die das hier inspiriert hat, ist Adelaide deine persoenliche Finanzintelligenz. Was sich bewegt. Was es bedeutet. Was du tun koenntest. Klare Sprache, kein Fachjargon."
+    "turning": "2024 entschied ich mich, etwas dagegen zu tun. Neue Technologie machte es möglich, die Torwächter zu umgehen. Ich musste nur die Tür bauen.",
+    "namedAfterHer": "BAR der Gründer."
   },
   "beliefs": {
     "header": "Woran wir glauben",
     "money": {
-      "title": "Dein Geld sollte fuer dich arbeiten.",
-      "description": "Nicht fuer deine Bank. Nicht fuer einen Mittelsmann. Fuer dich. Die Luecke zwischen dem, was Banken mit deinem Geld verdienen, und dem, was sie dir davon zurueckgeben, ist real. Wir schliessen diese Luecke."
+      "title": "Dein Geld sollte für dich arbeiten.",
+      "description": "Nicht für deine Bank. Nicht für einen Mittelsmann. Für dich."
     },
     "honesty": {
       "title": "Ehrlichkeit statt Hype.",
-      "description": "Wir versprechen keine garantierten Renditen, denn das kann niemand. Was wir bieten: echte Daten aus fast 4 Jahren historischer Analyse, klare Erklaerungen, wie jede Option funktioniert, und ein Lernzentrum, damit du verstehst, was du tust, bevor du es tust. Wir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
+      "description": "Wir versprechen keine garantierten Renditen, denn das kann niemand. Was wir bieten: echte Daten, klare Erklaerungen. Du verstehst, was du tust, bevor du es tust."
     },
     "startSmall": {
       "title": "Starte mit 5 EUR. Lerne dabei.",
-      "description": "Du brauchst keine 10.000 EUR, um anzufangen. Starte mit dem, was sich fuer dich gut anfuehlt. Schau, wie es funktioniert. Dann entscheide, ob es zu dir passt. Kein Druck, keine Paketangebote, keine langfristigen Bindungen."
+      "description": "Offener Zugang zum Vermögensaufbau. Wir haben die Tür gebaut, damit du die besten Möglichkeiten nutzen, dein Vermögen aufbauen und die Kontrolle über dein Geld behalten kannst."
     }
   },
   "mission": {
     "header": "Die Mission",
     "story": "Adelaide hatte nie eine Wahl. Hohe Mindestbetraege, versteckte Gebuehren und komplizierte Woerter hielten die Tuer verschlossen.",
     "statement": "Wir bauen die Tuer, die sie nie bekommen hat.",
-    "pillars": "Kostenloser Geldtransfer. Echte Wachstumsoptionen. Volle Transparenz. Ab 5 EUR. In vier Sprachen. Fuer alle."
+    "pillars": "Kostenloser Geldtransfer. Echte Wachstumsoptionen. Volle Transparenz. Für alle."
   },
   "business": {
-    "header": "Fuer Unternehmen",
-    "description": "Wenn du Kartenzahlungen akzeptierst, fressen Bearbeitungsgebuehren an jeder Transaktion. Wenn Geld auf deinem Geschaeftskonto liegt, verdient deine Bank damit, waehrend du fast nichts davon siehst. Das gleiche System, das meiner Grossmutter nicht geholfen hat, sitzt auf den Ruecklagen deines Unternehmens.",
-    "pitch": "diBoaS for Business hilft Unternehmen, mehr von dem zu behalten, was sie verdienen, mit taggleicher Liquiditaet, Berichten fuer die Geschaeftsfuehrung und Zugang zu den gleichen vertrauenswuerdigen Systemen, die unsere Plattform fuer Privatkunden antreiben.",
-    "cta": "Mehr erfahren ueber diBoaS for Business"
+    "header": "Für Unternehmen",
+    "description": "Wenn du Kartenzahlungen akzeptierst, fressen Bearbeitungsgebuehren an jeder Transaktion. Wenn Geld auf deinem Geschäftskonto liegt, verdient deine Bank damit, waehrend du fast nichts davon siehst. Das gleiche System, das meiner Grossmutter nicht geholfen hat, sitzt auf den Ruecklagen deines Unternehmens.",
+    "pitch": "diBoaS for Business hilft Unternehmen, mehr von dem zu behalten, was sie verdienen, mit taggleicher Liquiditaet, Berichten für die Geschäftsfuehrung und Zugang zu den gleichen vertrauenswuerdigen Systemen, die unsere Plattform für Privatkunden antreiben.",
+    "cta": "Mehr erfahren über diBoaS for Business"
   },
   "contact": {
     "header": "Kontakt",
@@ -68,7 +61,12 @@
     "email": "E-Mail:",
     "emailValue": "hello@diboas.com",
     "personal": "Fragen? Ich lese jede E-Mail.",
-    "personalEmail": "hello@diboas.com"
+    "personalEmail": "hello@diboas.com",
+    "social": {
+      "linkedin": "LinkedIn",
+      "x": "X (Twitter)",
+      "substack": "Substack"
+    }
   },
   "footer": {
     "general": "Dieser Inhalt dient ausschließlich Bildungszwecken und stellt keine Anlageberatung, Finanzberatung oder sonstige Beratung dar. Die Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für die zukünftige Wertentwicklung. Historische Daten und Simulationen sind hypothetisch und keine Garantien.",
@@ -76,10 +74,24 @@
     "stories": "Die Erfahrungsberichte auf dieser Seite sind illustrative Beispiele und stellen keine echten Nutzer dar.",
     "ai": "Bestimmte Inhalte auf dieser Plattform, einschließlich Marktanalysen und Bildungsmaterialien, werden durch künstliche Intelligenz generiert oder unterstützt. KI-generierte Inhalte können Fehler oder Einschränkungen enthalten. Nutzer sollten Informationen unabhängig überprüfen, bevor sie finanzielle Entscheidungen treffen.",
     "closing": "Du entscheidest, was für deine Situation das Beste ist.",
-    "mica": "Der Wert von Kryptowerten kann schwanken. Sie können Ihr gesamtes investiertes Geld oder einen Teil davon verlieren. Kryptowerte sind nicht durch Einlagensicherungssysteme gedeckt.",
+    "mica": "",
     "micaArticle7": "Diese Marketingmitteilung für Kryptowerte wurde von keiner zuständigen Behörde eines Mitgliedstaats der Europäischen Union überprüft oder genehmigt. Der Anbieter der Kryptowerte ist allein für den Inhalt dieser Marketingmitteilung für Kryptowerte verantwortlich.",
     "cvm": "",
     "bcb": "",
     "us": ""
+  },
+  "sections": {
+    "story": {
+      "ariaLabel": "Die Geschichte, ihr Name war Adelaide"
+    },
+    "beliefs": {
+      "ariaLabel": "Woran wir glauben"
+    },
+    "mission": {
+      "ariaLabel": "Unsere Mission"
+    },
+    "contact": {
+      "ariaLabel": "Kontakt- und Gründerinformationen"
+    }
   }
 }

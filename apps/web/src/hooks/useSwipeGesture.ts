@@ -56,9 +56,9 @@ export interface UseSwipeGestureReturn {
   handleTouchEnd: (e: React.TouchEvent) => void;
 
   /**
-   * Current touch position (for debugging/advanced use)
+   * Current touch position ref (for debugging/advanced use)
    */
-  touchStart: number;
+  touchStartRef: React.RefObject<number>;
 
   /**
    * Reset touch state
@@ -149,7 +149,7 @@ export function useSwipeGesture({
   return {
     handleTouchStart,
     handleTouchEnd,
-    touchStart: touchStartRef.current,
+    touchStartRef,
     reset
   };
 }

@@ -10,7 +10,8 @@
       "about": "About",
       "protocols": "Protocols",
       "adelaideDaily": "Adelaide Daily",
-      "joinWaitlist": "Join Waitlist"
+      "joinWaitlist": "Join Waitlist",
+      "tryDemo": "Try Demo"
     },
     "diboas": {
       "label": "diBoaS",
@@ -141,7 +142,22 @@
     "nextSlide": "Next slide",
     "changeLanguage": "Change language",
     "switchTo": "Switch to {language}",
-    "emailLabel": "Email address"
+    "emailLabel": "Email address",
+    "scrollDown": "Scroll down",
+    "exampleCalculation": "Example calculation",
+    "siteFooter": "Site footer",
+    "productNavigation": "Product navigation",
+    "legalPages": "Legal pages",
+    "mainNavigation": "Main navigation",
+    "dreamMode": "Dream Mode",
+    "closeDreamMode": "Close Dream Mode",
+    "copyToClipboard": "Copy share text to clipboard",
+    "shareOnX": "Share on X",
+    "homeLink": "{brand} Home",
+    "openMenuFor": "Open {menu} menu",
+    "warningBadge": "Warning badge",
+    "complianceBadge": "Compliance badge",
+    "mobileMenu": "Mobile navigation menu"
   },
   "languageSwitcher": {
     "label": "Language",
@@ -335,5 +351,22 @@
     "loadingPage": "Loading page",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
+  },
+  "expandable": {
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "emailPreferences": {
+    "title": "Email Preferences",
+    "heading": "Manage your emails",
+    "description": "You will be unsubscribed from diBoaS emails. Your waitlist position and referral credits are preserved.",
+    "unsubscribeButton": "Unsubscribe",
+    "staySubscribedButton": "Stay subscribed",
+    "successUnsubscribed": "You have been unsubscribed from diBoaS emails.",
+    "positionPreserved": "Your waitlist position is preserved.",
+    "redirectingHome": "Redirecting you to the homepage...",
+    "invalidLink": "This link is invalid or has expired.",
+    "error": "Something went wrong. Please try again.",
+    "processing": "Processing..."
   }
 }

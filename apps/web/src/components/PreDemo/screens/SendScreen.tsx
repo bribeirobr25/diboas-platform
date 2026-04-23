@@ -8,8 +8,7 @@ import { DemoFooter } from '../components/DemoFooter';
 import { BalanceCard } from '../components/BalanceCard';
 import { FeeBreakdown } from '../components/FeeBreakdown';
 import {
-  calculateSendFees,
-  checkInsufficientFunds,
+  processSend,
   SEND_QUICK_AMOUNTS,
   RECIPIENT_OPTIONS,
   formatCurrency,
@@ -29,10 +28,11 @@ export function SendScreen() {
   const t = (key: string) => intl.formatMessage({ id: key });
 
   const amount = parseFloat(state.sendAmount) || 0;
-  const fees = useMemo(() => calculateSendFees(amount), [amount]);
-  const insufficientFunds = checkInsufficientFunds(
-    amount, fees.totalFees, fees.diboasFee, state.cashBalance, state.solBalance,
+  const sendResult = useMemo(
+    () => processSend(amount, state.selectedRecipient, state.cashBalance, state.solBalance),
+    [amount, state.selectedRecipient, state.cashBalance, state.solBalance],
   );
+  const insufficientFunds = sendResult.errorCode === 'INSUFFICIENT_FUNDS';
 
   const handleAmountChange = useCallback(
     (value: string) => {
@@ -59,22 +59,15 @@ export function SendScreen() {
   );
 
   const handleProceed = useCallback(() => {
-    if (amount <= 0 || insufficientFunds) return;
+    if (!sendResult.isValid) return;
 
     dispatch({
       type: 'SET_PENDING_TRANSACTION',
-      transaction: {
-        type: 'send',
-        grossAmount: amount,
-        netAmount: fees.netAmount,
-        totalFees: fees.totalFees,
-        fees: fees.feeItems,
-        recipient: state.selectedRecipient,
-      },
+      transaction: sendResult.pending,
     });
 
     setScreen('send-confirm');
-  }, [amount, insufficientFunds, fees, state.selectedRecipient, dispatch, setScreen]);
+  }, [sendResult, dispatch, setScreen]);
 
   return (
     <div className={styles.screen}>
@@ -171,13 +164,13 @@ export function SendScreen() {
         </div>
 
         {/* Fee breakdown */}
-        {amount > 0 && <FeeBreakdown feeItems={fees.feeItems} totalFees={fees.totalFees} />}
+        {amount > 0 && <FeeBreakdown feeItems={sendResult.pending.fees} totalFees={sendResult.pending.totalFees} />}
 
         {/* They'll receive row */}
         {amount > 0 && !insufficientFunds && (
           <div className={styles.receiveRow}>
             <span className={styles.receiveLabel}>{t('preDemo.transaction.theyReceive')}</span>
-            <span className={styles.receiveAmount}>{formatCurrency(fees.netAmount, 2, locale)}</span>
+            <span className={styles.receiveAmount}>{formatCurrency(sendResult.pending.netAmount, 2, locale)}</span>
           </div>
         )}
 

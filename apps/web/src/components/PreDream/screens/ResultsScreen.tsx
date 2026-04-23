@@ -4,8 +4,9 @@ import { useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDream } from '../PreDreamProvider';
 import { ShareDreamSection } from '../components/ShareDreamSection';
-import { PRE_DREAM_TIMEFRAMES, formatCurrency } from '@/lib/pre-dream';
-import { BANK_RATE_SOURCES } from '@/lib/dream-mode/constants';
+import { formatCurrency } from '@/lib/pre-dream';
+import { useMarketData } from '@/hooks/useMarketData';
+import type { SupportedLocale } from '@/lib/market-data';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDream.module.css';
@@ -26,20 +27,14 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
   const result = state.result;
 
-  // Locale-specific bank rate (matching DreamMode pattern)
-  const bankSource = BANK_RATE_SOURCES[locale] || BANK_RATE_SOURCES['en'];
-  const bankApy = bankSource.rate / 100;
-  const years = result ? PRE_DREAM_TIMEFRAMES[state.selectedTimeframe].years : 1;
-  const bankMultiplier = Math.pow(1 + bankApy, years);
-  const localeBankBalance = result ? result.totalInvestment * bankMultiplier : 0;
-  const localeBankInterest = result ? localeBankBalance - result.totalInvestment : 0;
-
-  // Brazil currency depreciation (6% annual, matching DreamMode)
-  const currencyDepreciation = locale === 'pt-BR' ? 0.06 : 0;
-  const depreciationFactor = currencyDepreciation > 0 ? Math.pow(1 - currencyDepreciation, years) : 1;
-  const adjustedBankInterest = localeBankInterest * depreciationFactor;
-  const adjustedBankBalance = result ? result.totalInvestment + adjustedBankInterest : 0;
-  const localeDifference = result ? result.defiBalance - adjustedBankBalance : 0;
+  // Bank display values from market data (locale-aware)
+  const { data: marketData } = useMarketData();
+  const localeKey = (locale in marketData.rates.bankRates ? locale : 'en') as SupportedLocale;
+  const bankRates = marketData.rates.bankRates[localeKey];
+  const bankBalance = result?.bankBalance ?? 0;
+  const bankInterest = result?.bankInterest ?? 0;
+  const difference = result?.difference ?? 0;
+  const hasCurrencyHedge = Boolean(result?.diboasYieldBalance);
 
   // Track pre_dream_completed when results are shown
   useEffect(() => {
@@ -52,17 +47,17 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
           timeframe: state.selectedTimeframe,
           initial_amount: result.totalInvestment,
           defi_balance: result.defiBalance,
-          bank_balance: adjustedBankBalance,
-          difference: localeDifference,
+          bank_balance: bankBalance,
+          difference: difference,
         },
       });
     }
-  }, [result, state.selectedPath, state.selectedTimeframe, adjustedBankBalance, localeDifference]);
+  }, [result, state.selectedPath, state.selectedTimeframe, bankBalance, difference]);
 
   if (!result) return null;
 
   const bankBarWidth = result.defiBalance > 0
-    ? (adjustedBankBalance / result.defiBalance) * 100
+    ? (bankBalance / result.defiBalance) * 100
     : 0;
 
   return (
@@ -85,6 +80,11 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
             <div className={styles.comparisonValues}>
               <p className={styles.comparisonAmount}>{formatCurrency(result.defiBalance, 2, locale)}</p>
               <p className={styles.comparisonGain}>+{formatCurrency(result.defiInterest, 2, locale)}</p>
+              {hasCurrencyHedge && result.diboasYieldBalance != null && (
+                <p className={styles.comparisonGainMuted}>
+                  {t('yieldCurrencyValue', { amount: formatCurrency(result.diboasYieldBalance, 2, 'en') })}
+                </p>
+              )}
             </div>
           </div>
           <div className={styles.progressBarBg}>
@@ -97,11 +97,11 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
           <div className={styles.comparisonHeader}>
             <div>
               <p className={styles.comparisonLabelMuted}>{t('bankWouldGive')}</p>
-              <p className={styles.comparisonApyMuted}>{bankSource.rate}% APY</p>
+              <p className={styles.comparisonApyMuted}>{bankRates.savings}% APY</p>
             </div>
             <div className={styles.comparisonValues}>
-              <p className={styles.comparisonAmountMuted}>{formatCurrency(adjustedBankBalance, 2, locale)}</p>
-              <p className={styles.comparisonGainMuted}>+{formatCurrency(adjustedBankInterest, 2, locale)}</p>
+              <p className={styles.comparisonAmountMuted}>{formatCurrency(bankBalance, 2, locale)}</p>
+              <p className={styles.comparisonGainMuted}>+{formatCurrency(bankInterest, 2, locale)}</p>
             </div>
           </div>
           <div className={styles.progressBarBgMuted}>
@@ -113,34 +113,34 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
       {/* Difference Highlight */}
       <div className={styles.differenceHighlight}>
         <div className={styles.differenceIcon}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
             <polyline points="17 6 23 6 23 12" />
           </svg>
         </div>
         <div>
           <p className={styles.differenceText}>
-            {t('differenceMore', { amount: formatCurrency(localeDifference, 2, locale) })}
+            {t('differenceMore', { amount: formatCurrency(difference, 2, locale) })}
           </p>
           <p className={styles.differenceSubtext}>{t('differenceSubtext')}</p>
         </div>
       </div>
 
       {/* Share Section */}
-      <ShareDreamSection result={result} localeDifference={localeDifference} />
+      <ShareDreamSection result={result} difference={difference} />
 
       {/* Bank Source */}
       <p className={styles.bankSource}>
-        {intl.formatMessage({ id: bankSource.translationKey })}
+        {intl.formatMessage({ id: localeKey === 'pt-BR' ? 'dreamMode.results.bank_source_br' : localeKey === 'en' ? 'dreamMode.results.bank_source_us' : 'dreamMode.results.bank_source_eu' })}
       </p>
 
       {/* Actions */}
       <div className={styles.resultActions}>
-        <button onClick={reset} className={styles.primaryButton}>
+        <button type="button" onClick={reset} className={styles.primaryButton}>
           {t('tryDifferent')}
         </button>
         {onBackToHome && (
-          <button onClick={onBackToHome} className={styles.secondaryButton}>
+          <button type="button" onClick={onBackToHome} className={styles.secondaryButton}>
             {t('backToHome')}
           </button>
         )}

@@ -103,7 +103,7 @@ export const DOMAIN_CONFIGS: Record<string, DomainI18nConfig> = {
     domain: 'diboas.com',
     defaultLocale: 'en',
     locales: ['en', 'pt-BR', 'es', 'de'],
-    namespace: 'marketing',
+    namespace: 'marketing-common',
     fallbackNamespace: 'common',
   },
   app: {
@@ -139,10 +139,55 @@ export function getSafeLocale(locale: string | null | undefined): SupportedLocal
 
 // Performance: Locale detection utilities
 export function detectLocaleFromPath(pathname: string): SupportedLocale | null {
-  const segments = pathname.split('/');
-  const potentialLocale = segments[1];
-  
-  return isValidLocale(potentialLocale) ? potentialLocale : null;
+  const segments = pathname.split('/').filter(Boolean);
+  const potentialLocale = segments[0];
+
+  return potentialLocale && isValidLocale(potentialLocale) ? potentialLocale : null;
+}
+
+/**
+ * Parse Accept-Language header and return best matching supported locale.
+ * Handles q-factor weighting (e.g., "en-US,en;q=0.9,pt-BR;q=0.8,de;q=0.7").
+ */
+export function matchAcceptLanguage(acceptLanguage: string | null): SupportedLocale | null {
+  if (!acceptLanguage) return null;
+
+  const parsed = acceptLanguage
+    .split(',')
+    .map((entry) => {
+      const [lang, ...params] = entry.trim().split(';');
+      const qParam = params.find((p) => p.trim().startsWith('q='));
+      const q = qParam ? parseFloat(qParam.trim().slice(2)) : 1;
+      return { lang: lang.trim(), q: Number.isNaN(q) ? 0 : q };
+    })
+    .sort((a, b) => b.q - a.q);
+
+  for (const { lang } of parsed) {
+    // Exact match (e.g., "pt-BR")
+    if (isValidLocale(lang)) return lang;
+    // Language-only match (e.g., "pt" → "pt-BR", "de-AT" → "de")
+    const langPrefix = lang.split('-')[0];
+    const match = SUPPORTED_LOCALES.find(
+      (l) => l === langPrefix || l.startsWith(`${langPrefix}-`)
+    );
+    if (match) return match;
+  }
+
+  return null;
+}
+
+/**
+ * Detect preferred locale from cookie value and Accept-Language header.
+ * Chain: cookie → Accept-Language → DEFAULT_LOCALE
+ */
+export function detectPreferredLocale(
+  cookieLocale: string | null | undefined,
+  acceptLanguage: string | null | undefined
+): SupportedLocale {
+  if (cookieLocale && isValidLocale(cookieLocale)) return cookieLocale;
+  const matched = matchAcceptLanguage(acceptLanguage ?? null);
+  if (matched) return matched;
+  return DEFAULT_LOCALE;
 }
 
 // SEO: Generate alternate language URLs

@@ -44,7 +44,9 @@ function isTranslationKey(value: string): boolean {
     (value.startsWith('marketing.') && value.indexOf('.', 10) > 0) ||
     (value.startsWith('landing-') && value.indexOf('.', value.indexOf('-') + 1) > 0) ||
     (value.startsWith('about.') && value.indexOf('.', 6) > 0) ||
-    (value.startsWith('protocols.') && value.indexOf('.', 10) > 0)
+    (value.startsWith('protocols.') && value.indexOf('.', 10) > 0) ||
+    (value.startsWith('security.') && value.indexOf('.', 9) > 0) ||
+    (value.startsWith('strategies.') && value.indexOf('.', 11) > 0)
   );
 }
 

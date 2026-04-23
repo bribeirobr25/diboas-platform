@@ -8,6 +8,23 @@
 import { neon, type NeonQueryFunction } from '@neondatabase/serverless';
 import { Logger } from '@/lib/monitoring/Logger';
 
+/**
+ * IDatabaseClient — abstraction over the SQL tagged-template query function.
+ *
+ * Allows swapping the concrete driver (Neon, pg, PlanetScale, etc.)
+ * without changing consumer code.
+ */
+export interface IDatabaseClient {
+  sql(
+    strings: TemplateStringsArray,
+    ...values: unknown[]
+  ): Promise<Record<string, unknown>[]>;
+
+  rawSql(query: string): Promise<Record<string, unknown>[]>;
+
+  pingDatabase(): Promise<boolean>;
+}
+
 let _sql: NeonQueryFunction<false, false> | null = null;
 
 function getSql(): NeonQueryFunction<false, false> {
@@ -50,7 +67,12 @@ export async function rawSql(query: string): Promise<Record<string, unknown>[]> 
 export async function pingDatabase(): Promise<boolean> {
   try {
     const db = getSql();
-    await db`SELECT 1`;
+    await Promise.race([
+      db`SELECT 1`,
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Database ping timeout')), 5000)
+      ),
+    ]);
     return true;
   } catch (error) {
     Logger.error('[Database] Ping failed', {}, error instanceof Error ? error : undefined);

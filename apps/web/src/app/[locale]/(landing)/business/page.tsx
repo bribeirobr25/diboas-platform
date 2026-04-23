@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
@@ -10,10 +10,10 @@ import {
   FeeTable,
   FounderSection,
   TwoWorldsSection,
-  CashflowExplainerSection,
+  FoundingMembersSection,
+  ComparisonTable,
 } from '@/components/Sections';
-import { CalculatorToggleSection } from '@/components/Sections/CalculatorToggleSection';
-import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
+import { B2BGoalCards } from '@/components/Sections/B2BGoalCards';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
@@ -25,20 +25,16 @@ import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import {
   B2B_HERO_CONFIG,
   B2B_TWO_WORLDS_CONFIG,
-  B2B_CASHFLOW_CALCULATOR_CONFIG,
-  B2B_CALCULATOR_CONFIG,
   B2B_ORIGIN_STORY_CONFIG,
   B2B_HOW_IT_WORKS_CONFIG,
   B2B_FEATURES_CONFIG,
-  B2B_CASHFLOW_INVESTING_CONFIG,
   B2B_FEES_CONFIG,
   B2B_FIT_ASSESSMENT_CONFIG,
   B2B_FOUNDER_CONFIG,
   B2B_WAITLIST_CONFIG,
   B2B_FAQ_CONFIG,
-  B2B_FOOTER_NAV,
-  B2B_FOOTER_DISCLOSURES,
 } from '@/config/landing-b2b';
+import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -103,22 +99,21 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 }
 
 /**
- * B2B Landing Page — 14-section layout
+ * B2B Landing Page — 12-section layout
  *
- * 1. Hero
- * 2. Two Worlds (self-selection cards)
- * 3. Calculator Toggle (cashflow + treasury with tab switch)
- * 4. Cashflow Investing (Save it + Grow it)
- * 5. How It Works (4 steps)
- * 6. Three Features (3 cards)
- * 7. Origin Story (Adelaide / Grandmother)
- * 8. Fee Transparency (FeeTable)
- * 9. Fit Assessment (Good Fit / Not a Fit)
- * 10. About the Founder
- * 11. Social Proof (waitlist stats)
- * 12. Waitlist (email signup)
- * 13. FAQ (10 items)
- * 14. Footer (MinimalFooter)
+ * 1.  Hero
+ * 2.  Two Worlds (self-selection cards)
+ * 3.  B2B Goal Cards (Payment Fees + Idle Cash)
+ * 4.  Cashflow Investing (Save it + Grow it)
+ * 5.  Origin Story (Adelaide / Grandmother)
+ * 6.  Three Features (3 cards)
+ * 7.  How It Works (4 steps carousel)
+ * 8.  Fee Transparency (FeeTable)
+ * 9.  Fit Assessment (Good Fit / Not a Fit)
+ * 10. Waitlist (email signup)
+ * 11. About the Founder
+ * 12. FAQ
+ *     Footer (MinimalFooter)
  */
 export default async function B2BLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -128,15 +123,15 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2b', 'waitlist']);
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2b', 'landing-b2c']);
 
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS for Business',
     description: 'Stop overpaying on fees and idle cash. Free payments, instant transfers, and your idle cash working for you.',
     category: 'Financial Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Business', url: '/business' }
   ], locale);
@@ -164,7 +159,19 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 2: Two Worlds */}
+        {/* Section 2: Comparison Table — neutral bg */}
+        <SectionErrorBoundary
+          sectionId="comparison-section-b2b"
+          sectionType="ComparisonTable"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <div id="comparison" data-section-id="comparison-section-b2b" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
+            <ComparisonTable enableAnalytics={true} />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 3: Two Worlds */}
         <SectionErrorBoundary
           sectionId="two-worlds-section-b2b"
           sectionType="TwoWorldsSection"
@@ -179,47 +186,45 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 3: Calculator Toggle (cashflow + treasury) */}
+        {/* Section 3: B2B Goal Cards — Payment Fees + Idle Cash */}
         <SectionErrorBoundary
-          sectionId="calculator-section-b2b"
-          sectionType="CalculatorToggleSection"
+          sectionId="goals-section-b2b"
+          sectionType="B2BGoalCards"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <div id="cashflow-calculator" data-section-id="calculator-section-b2b">
-            <CalculatorToggleSection
-              cashflowConfig={B2B_CASHFLOW_CALCULATOR_CONFIG}
-              treasuryConfig={B2B_CALCULATOR_CONFIG}
+          <div id="goals" data-section-id="goals-section-b2b" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+            <B2BGoalCards enableAnalytics={true} />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 4: Join the Movement (Social Proof — B2B users only) */}
+        <SectionErrorBoundary
+          sectionId="founding-members-section-b2b"
+          sectionType="FoundingMembersSection"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <div id="social-proof" data-section-id="founding-members-section-b2b">
+            <FoundingMembersSection
               enableAnalytics={true}
+              namespace="landing-b2b.socialProof"
+              source="landing_b2b"
+              backgroundColor="var(--section-bg-dark)"
             />
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 4: Cashflow Investing */}
+        {/* Section 5: Origin Story */}
         <SectionErrorBoundary
-          sectionId="cashflow-investing-section-b2b"
-          sectionType="CashflowExplainerSection"
+          sectionId="origin-story-section-b2b"
+          sectionType="ProseSection"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <div id="cashflow-investing" data-section-id="cashflow-investing-section-b2b">
-            <CashflowExplainerSection
-              config={B2B_CASHFLOW_INVESTING_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 5: How It Works */}
-        <SectionErrorBoundary
-          sectionId="how-it-works-section-b2b"
-          sectionType="AppFeaturesCarousel"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div id="how-it-works" data-section-id="how-it-works-section-b2b">
-            <AppFeaturesCarousel
-              config={B2B_HOW_IT_WORKS_CONFIG}
+          <div id="origin-story" data-section-id="origin-story-section-b2b">
+            <ProseSection
+              config={B2B_ORIGIN_STORY_CONFIG}
               enableAnalytics={true}
             />
           </div>
@@ -240,22 +245,22 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 7: Origin Story */}
+        {/* Section 7: How It Works */}
         <SectionErrorBoundary
-          sectionId="origin-story-section-b2b"
-          sectionType="ProseSection"
+          sectionId="how-it-works-section-b2b"
+          sectionType="AppFeaturesCarousel"
           enableReporting={true}
           context={{ page: 'landing-b2b' }}
         >
-          <div id="origin-story" data-section-id="origin-story-section-b2b">
-            <ProseSection
-              config={B2B_ORIGIN_STORY_CONFIG}
+          <div id="how-it-works" data-section-id="how-it-works-section-b2b">
+            <AppFeaturesCarousel
+              config={B2B_HOW_IT_WORKS_CONFIG}
               enableAnalytics={true}
             />
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 8: Fee Transparency (expandable) */}
+        {/* Section 8: Fee Transparency */}
         <SectionErrorBoundary
           sectionId="fees-section-b2b"
           sectionType="FeeTable"
@@ -286,38 +291,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 10: About the Founder */}
-        <SectionErrorBoundary
-          sectionId="founder-section-b2b"
-          sectionType="FounderSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div id="founder" data-section-id="founder-section-b2b">
-            <FounderSection
-              config={B2B_FOUNDER_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 11: Social Proof */}
-        <SectionErrorBoundary
-          sectionId="social-proof-section-b2b"
-          sectionType="SocialProofSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2b' }}
-        >
-          <div data-section-id="social-proof-section-b2b">
-            <SocialProofSection
-              namespace="landing-b2b.socialProof"
-              enableAnalytics={true}
-              source="landing_b2b"
-            />
-          </div>
-        </SectionErrorBoundary>
-
-        {/* Section 12: Waitlist */}
+        {/* Section 10: Waitlist */}
         <SectionErrorBoundary
           sectionId="waitlist-section-b2b"
           sectionType="WaitlistSection"
@@ -342,7 +316,21 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 13: FAQ */}
+        {/* Section 11: About the Founder */}
+        <SectionErrorBoundary
+          sectionId="founder-section-b2b"
+          sectionType="FounderSection"
+          enableReporting={true}
+          context={{ page: 'landing-b2b' }}
+        >
+          <div id="founder" data-section-id="founder-section-b2b" style={{ backgroundColor: 'var(--section-bg-warm)' }}>
+            <FounderSection
+              config={B2B_FOUNDER_CONFIG}
+            />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 12: FAQ */}
         <SectionErrorBoundary
           sectionId="faq-section-b2b"
           sectionType="FAQAccordion"
@@ -357,12 +345,11 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
         </SectionErrorBoundary>
       </div>
 
-      {/* Section 14: Footer */}
+      {/* Footer */}
       <MinimalFooter
-        taglineKey="landing-b2b.footer.tagline"
-        copyrightKey="landing-b2b.footer.copyright"
-        navLinks={B2B_FOOTER_NAV}
-        disclosureKeys={B2B_FOOTER_DISCLOSURES}
+        taglineKey="landing-b2c.footer.tagline"
+        navLinks={B2C_FOOTER_NAV}
+        disclosureKeys={B2C_FOOTER_DISCLOSURES}
       />
     </PageI18nProvider>
   );

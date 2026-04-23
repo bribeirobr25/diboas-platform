@@ -8,8 +8,28 @@
  * GET /api/health/live
  */
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { checkRateLimit, RateLimitPresets, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
 
-export function GET(): NextResponse {
-  return NextResponse.json({ status: 'alive' });
+export async function GET(request: NextRequest): Promise<NextResponse> {
+  try {
+    const ip = getClientIP(request);
+    const { limit, windowMs } = RateLimitPresets.lenient;
+    const rateLimitResult = await checkRateLimit(`health-live:${ip}`, limit, windowMs);
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Too many requests' },
+        { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      );
+    }
+
+    return NextResponse.json({ status: 'alive' });
+  } catch (error) {
+    console.error('[health/live] Liveness probe error:', error);
+    return NextResponse.json(
+      { status: 'error', message: 'Liveness check failed' },
+      { status: 503 }
+    );
+  }
 }

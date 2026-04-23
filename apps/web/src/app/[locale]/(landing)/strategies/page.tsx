@@ -1,28 +1,22 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { SectionContainer } from '@/components/Sections';
 import { FAQAccordion } from '@/components/Sections/FAQAccordion/FAQAccordionFactory';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { CvmBanner } from '@/components/Pages/CvmBanner';
 import { StrategiesMatrixSection } from '@/components/Pages/StrategiesMatrixSection';
-import { StrategiesCardsSection } from '@/components/Pages/StrategiesCardsSection';
 import { StrategiesProtocolTable } from '@/components/Pages/StrategiesProtocolTable';
 import { StrategyFeeTable } from '@/components/Pages/StrategyFeeTable';
 import { StrategiesHowToChoose } from '@/components/Pages/StrategiesHowToChoose';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
-import {
-  StrategiesHeroSection,
-  StrategiesTransitionHook,
-} from '@/components/Pages/StrategiesClientSections';
+import { StrategiesHeroSection } from '@/components/Pages/StrategiesClientSections';
 import {
   STRATEGIES_I18N_PREFIX,
   STRATEGIES_FAQ_CONFIG,
-  STRATEGIES_WAITLIST_CONFIG,
 } from '@/config/landing-strategies';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
@@ -108,17 +102,17 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['strategies', 'waitlist', 'share', 'common']);
+  // Load page-specific namespaces (common + waitlist already provided by landing layout)
+  const pageMessages = await loadPageNamespaces(locale, ['strategies', 'share', 'landing-b2c']);
 
   // Generate structured data
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Investment Strategies',
     description: '10 investment strategies from conservative to aggressive for different financial goals',
     category: 'Investment Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Strategies', url: '/strategies' }
   ], locale);
@@ -134,69 +128,57 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
         {/* Section 1: Hero */}
         <StrategiesHeroSection />
 
-        <StrategiesTransitionHook hookKey="hero.transition" />
-
         {/* Section 2: Strategy Matrix */}
         <SectionErrorBoundary sectionId="matrix-section-strategies" sectionType="StrategyMatrix" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
-            <StrategiesMatrixSection />
-          </SectionContainer>
-        </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="matrix.transition" />
-
-        {/* Section 3: Strategy Cards */}
-        <SectionErrorBoundary sectionId="cards-section-strategies" sectionType="StrategyCards" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
-            <StrategiesCardsSection />
-          </SectionContainer>
-        </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="cardsTransition" />
-
-        {/* Section 4: Protocol Table */}
-        <SectionErrorBoundary sectionId="protocols-section-strategies" sectionType="ProtocolTable" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
-            <StrategiesProtocolTable />
-          </SectionContainer>
-        </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="protocols.transition" />
-
-        {/* Section 5: Fee Table */}
-        <SectionErrorBoundary sectionId="fees-section-strategies" sectionType="FeeTable" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
-            <StrategyFeeTable />
-          </SectionContainer>
-        </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="fees.transition" />
-
-        {/* Section 6: How to Choose */}
-        <SectionErrorBoundary sectionId="how-to-choose-section" sectionType="HowToChoose" enableReporting context={{ page: 'strategies' }}>
-          <SectionContainer variant="narrow" padding="standard" backgroundColor="var(--section-bg-neutral)">
-            <StrategiesHowToChoose />
-          </SectionContainer>
-        </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="howToChoose.transition" />
-
-        {/* Section 7: FAQ */}
-        <SectionErrorBoundary sectionId="faq-section-strategies" sectionType="FAQAccordion" enableReporting context={{ page: 'strategies' }}>
-          <FAQAccordion config={STRATEGIES_FAQ_CONFIG} />
-        </SectionErrorBoundary>
-
-        <StrategiesTransitionHook hookKey="faq.transition" />
-
-        {/* Section 8: Waitlist / CTA */}
-        <SectionErrorBoundary sectionId="waitlist-section-strategies" sectionType="WaitlistSection" enableReporting context={{ page: 'strategies' }}>
-          <div id="waitlist">
-            <WaitlistSection config={STRATEGIES_WAITLIST_CONFIG} enableAnalytics />
+          <div data-section-id="matrix-section-strategies">
+            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+              <StrategiesMatrixSection />
+            </SectionContainer>
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 9: Footer */}
-        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+        {/* Strategy cards section hidden — awaiting redesign */}
+
+        {/* Section 4: Protocol Table */}
+        <SectionErrorBoundary sectionId="protocols-section-strategies" sectionType="ProtocolTable" enableReporting context={{ page: 'strategies' }}>
+          <div data-section-id="protocols-section-strategies">
+            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+              <StrategiesProtocolTable />
+            </SectionContainer>
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 5: Fee Table */}
+        <SectionErrorBoundary sectionId="fees-section-strategies" sectionType="FeeTable" enableReporting context={{ page: 'strategies' }}>
+          <div id="fees" data-section-id="fees-section-strategies">
+            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
+              <StrategyFeeTable />
+            </SectionContainer>
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 6: How to Choose */}
+        <SectionErrorBoundary sectionId="how-to-choose-section" sectionType="HowToChoose" enableReporting context={{ page: 'strategies' }}>
+          <div data-section-id="how-to-choose-section">
+            <SectionContainer variant="narrow" padding="standard" backgroundColor="var(--section-bg-neutral)">
+              <StrategiesHowToChoose />
+            </SectionContainer>
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 7: FAQ */}
+        <SectionErrorBoundary sectionId="faq-section-strategies" sectionType="FAQAccordion" enableReporting context={{ page: 'strategies' }}>
+          <div id="faq" data-section-id="faq-section-strategies">
+            <FAQAccordion config={STRATEGIES_FAQ_CONFIG} />
+          </div>
+        </SectionErrorBoundary>
+
+        {/* Section 8: Footer */}
+        <MinimalFooter
+          taglineKey="landing-b2c.footer.tagline"
+          navLinks={B2C_FOOTER_NAV}
+          disclosureKeys={B2C_FOOTER_DISCLOSURES}
+        />
       </main>
     </PageI18nProvider>
   );

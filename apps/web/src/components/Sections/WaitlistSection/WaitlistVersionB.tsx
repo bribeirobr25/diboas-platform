@@ -40,7 +40,7 @@ interface WaitlistVersionBProps {
 export function WaitlistVersionB({
   config,
   source,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
 }: WaitlistVersionBProps) {
   const intl = useTranslation();
   const [inviteCode, setInviteCode] = useState('');

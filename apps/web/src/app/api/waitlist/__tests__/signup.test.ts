@@ -12,6 +12,7 @@ import { NextRequest } from 'next/server';
 import { POST, GET } from '../signup/route';
 import * as store from '@/lib/waitingList/store';
 import * as security from '@/lib/security';
+import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 
 // Mock the store module
 vi.mock('@/lib/waitingList/store', () => ({
@@ -21,6 +22,7 @@ vi.mock('@/lib/waitingList/store', () => ({
   getByReferralCode: vi.fn(),
   processReferral: vi.fn(),
   getFoundingMemberCount: vi.fn().mockResolvedValue({ count: 100, cap: 1200 }),
+  checkEmailOptOut: vi.fn().mockResolvedValue(false),
 }));
 
 // Mock security barrel (rate limiter, CSRF, idempotency)
@@ -33,8 +35,8 @@ vi.mock('@/lib/security', () => ({
     standard: { limit: 20, windowMs: 60000 },
   },
   csrfProtection: vi.fn(),
-  getIdempotentResponse: vi.fn().mockReturnValue(null),
-  cacheIdempotentResponse: vi.fn(),
+  getIdempotentResponse: vi.fn().mockResolvedValue(null),
+  cacheIdempotentResponse: vi.fn().mockResolvedValue(undefined),
 }));
 
 // Mock sanitize utilities
@@ -49,6 +51,21 @@ vi.mock('@/lib/waitingList/helpers', () => ({
   generateReferralUrl: vi.fn().mockReturnValue('https://diboas.com/ref/REFTEST01'),
   isValidEmail: vi.fn((email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)),
   isValidReferralCode: vi.fn().mockReturnValue(true),
+}));
+
+// Mock unsubscribe URL builder
+vi.mock('@/lib/email/unsubscribeUrl', () => ({
+  buildUnsubscribeUrls: vi.fn().mockReturnValue({
+    pageUrl: 'https://diboas.com/en/email-preferences?id=hash&token=tok',
+    apiUrl: 'https://diboas.com/api/email/unsubscribe?id=hash&token=tok',
+  }),
+}));
+
+// Mock encryption (hmacHash used for opt-out check)
+vi.mock('@/lib/security/encryption', () => ({
+  hmacHash: vi.fn().mockReturnValue('test-hash'),
+  encrypt: vi.fn((v: string) => v),
+  decrypt: vi.fn((v: string) => v),
 }));
 
 // Mock Logger
@@ -342,7 +359,7 @@ describe('POST /api/waitlist/signup', () => {
       expect(response.status).toBe(429);
       expect(data.success).toBe(false);
       expect(data.errorCode).toBe('RATE_LIMITED');
-      expect(data.error).toContain('Too many signup attempts');
+      expect(data.error).toContain('Too many requests');
     });
 
     it('should use correct rate limit preset for signup', async () => {
@@ -417,7 +434,7 @@ describe('POST /api/waitlist/signup', () => {
       // First check says email doesn't exist
       (store.exists as Mock).mockResolvedValue(false);
       // But addEntry throws because another request added it
-      (store.addEntry as Mock).mockRejectedValue(new Error('Email already exists'));
+      (store.addEntry as Mock).mockRejectedValue(new DuplicateEntryError());
 
       const request = createMockRequest({
         email: 'race@example.com',

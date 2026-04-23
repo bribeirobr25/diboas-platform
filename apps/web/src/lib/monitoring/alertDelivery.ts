@@ -7,9 +7,29 @@
 import { AlertCategory, type Alert } from './alertTypes';
 import { MONITORING_CONFIG } from '@/config/monitoring';
 import { getSlackColor, getSlackEmoji, formatDuration, EMAIL_SEVERITY_COLORS } from './alertUtils';
+import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
+
+/** Circuit breakers for alert delivery channels — open after 3 failures, reset after 60s */
+const slackCircuit = new CircuitBreaker({ failureThreshold: 3, resetTimeout: 60_000 });
+const emailCircuit = new CircuitBreaker({ failureThreshold: 3, resetTimeout: 60_000 });
 
 type SlackConfig = NonNullable<typeof MONITORING_CONFIG.alerts.channels.slack>;
 type EmailConfig = NonNullable<typeof MONITORING_CONFIG.alerts.channels.email>;
+
+/**
+ * Retry a fetch once on 5xx server errors with a 1s delay.
+ */
+async function fetchWithSingleRetry(
+  input: RequestInfo | URL,
+  init: RequestInit
+): Promise<Response> {
+  const response = await fetch(input, init);
+  if (response.status >= 500) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return fetch(input, init);
+  }
+  return response;
+}
 
 /**
  * Deliver alert to all configured channels
@@ -22,7 +42,7 @@ export async function deliverAlert(alert: Alert): Promise<void> {
     const { slack } = MONITORING_CONFIG.alerts.channels;
     if ((alert.category === AlertCategory.PERFORMANCE && slack.enablePerformanceAlerts) ||
         (alert.category === AlertCategory.ERROR && slack.enableErrorAlerts)) {
-      promises.push(sendToSlack(alert, slack));
+      promises.push(slackCircuit.execute(() => sendToSlack(alert, slack)));
     }
   }
 
@@ -31,7 +51,7 @@ export async function deliverAlert(alert: Alert): Promise<void> {
     const { email } = MONITORING_CONFIG.alerts.channels;
     if ((alert.category === AlertCategory.PERFORMANCE && email.enablePerformanceAlerts) ||
         (alert.category === AlertCategory.ERROR && email.enableErrorAlerts)) {
-      promises.push(sendToEmail(alert, email));
+      promises.push(emailCircuit.execute(() => sendToEmail(alert, email)));
     }
   }
 
@@ -70,10 +90,11 @@ export async function sendToSlack(alert: Alert, config: SlackConfig): Promise<vo
     }]
   };
 
-  const response = await fetch(config.webhookUrl, {
+  const response = await fetchWithSingleRetry(config.webhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(5000)
   });
 
   if (!response.ok) {
@@ -92,10 +113,11 @@ export async function sendToEmail(alert: Alert, config: EmailConfig): Promise<vo
     from: 'alerts@diboas.com'
   };
 
-  const response = await fetch(config.endpoint, {
+  const response = await fetchWithSingleRetry(config.endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(5000)
   });
 
   if (!response.ok) {
@@ -177,9 +199,10 @@ export async function sendResolutionNotification(
     }]
   };
 
-  await fetch(config.webhookUrl, {
+  await fetchWithSingleRetry(config.webhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(5000)
   });
 }

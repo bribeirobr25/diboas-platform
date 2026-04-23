@@ -5,6 +5,7 @@ import { Inter, Geist } from "next/font/google";
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
+import { MonitoringInit } from '@/components/Performance/MonitoringInit';
 import { PostHogProvider } from '@/components/Providers';
 import "./globals.css";
 
@@ -140,6 +141,7 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         <PostHogProvider>
+          <MonitoringInit />
           <WebVitalsTracker
             debug={process.env.NODE_ENV === 'development'}
             sampleRate={process.env.NODE_ENV === 'production' ? 0.1 : 0.1}

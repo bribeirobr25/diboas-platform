@@ -13,7 +13,7 @@
 
 import React, { useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import { Users, Globe, Award } from 'lucide-react';
+import { Users, Globe } from '@/components/UI/LucideIcon';
 import { analyticsService } from '@/lib/analytics';
 import { setCtaSource } from '@/lib/analytics/ctaAttribution';
 import { useWaitlistStats } from '@/hooks/useWaitlistStats';
@@ -58,8 +58,9 @@ export function SocialProofSection({
     return intl.formatMessage({ id: fullKey }, values);
   };
 
-  const formattedCount = formatNumber(stats.count, intl.locale);
-  const formattedCountries = formatNumber(stats.countries, intl.locale);
+  // Use placeholder while loading to avoid flashing "0" before real data arrives
+  const formattedCount = isLoading ? '—' : formatNumber(stats.count, intl.locale);
+  const formattedCountries = isLoading ? '—' : formatNumber(stats.countries, intl.locale);
 
   // Wrap numbers in highlight span for styling
   const highlightedCount = <span key="count" className={styles.highlight}>{formattedCount}</span>;
@@ -76,77 +77,18 @@ export function SocialProofSection({
     document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
   }, [enableAnalytics, intl.locale]);
 
+  const showCards = stats.count > 100;
+
   return (
-    <section
-      className={`${styles.section} ${className}`}
+    <div
+      className={`${styles.section} ${!showCards ? styles.sectionCompact : ''} ${className}`}
+      role="region"
       aria-label={intl.formatMessage({ id: 'common.aria.socialProof' })}
-      style={backgroundColor ? { backgroundColor } : undefined}
+      style={backgroundColor && showCards ? { backgroundColor } : undefined}
     >
-      <div className={styles.container}>
-        {/* Section Header */}
-        <header className={styles.header}>
-          <h2 className={styles.title}>{t('header')}</h2>
-          {t('subtext') ? (
-            <p className={styles.subtext}>{t('subtext')}</p>
-          ) : null}
-        </header>
-
-        {/* Stats Cards */}
-        <div className={styles.cardsGrid}>
-          {/* Waitlist Count Card */}
-          <article className={styles.card}>
-            <div className={styles.iconWrapper}>
-              <Users className={styles.icon} aria-hidden="true" />
-            </div>
-            <div className={styles.cardContent}>
-              <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
-                {t('stats.waitlist', { count: highlightedCount })}
-              </p>
-            </div>
-          </article>
-
-          {/* Countries Card */}
-          <article className={styles.card}>
-            <div className={styles.iconWrapper}>
-              <Globe className={styles.icon} aria-hidden="true" />
-            </div>
-            <div className={styles.cardContent}>
-              <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
-                {t('stats.countries', { countries: highlightedCountries })}
-              </p>
-            </div>
-          </article>
-
-          {/* Founding Member Spots Card */}
-          {stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining > 0 ? (
-            <article className={styles.card}>
-              <div className={styles.iconWrapper}>
-                <Award className={styles.icon} aria-hidden="true" />
-              </div>
-              <div className={styles.cardContent}>
-                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
-                  {intl.formatMessage(
-                    { id: 'waitlist.tier.spotsRemaining' },
-                    { spots: <span key="spots" className={styles.highlight}>{formatNumber(stats.foundingMemberSpotsRemaining, intl.locale)}</span> }
-                  )}
-                </p>
-              </div>
-            </article>
-          ) : stats.foundingMemberSpotsRemaining != null && stats.foundingMemberSpotsRemaining === 0 ? (
-            <article className={styles.card}>
-              <div className={styles.iconWrapper}>
-                <Award className={styles.icon} aria-hidden="true" />
-              </div>
-              <div className={styles.cardContent}>
-                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
-                  {intl.formatMessage({ id: 'waitlist.stats.foundingMembersFull' })}
-                </p>
-              </div>
-            </article>
-          ) : null}
-        </div>
-
-        {ctaText && (
+      <div className={`${styles.container} ${!showCards ? styles.containerCompact : ''}`}>
+        {/* CTA at top when cards are hidden */}
+        {!showCards && ctaText ? (
           <div className={styles.ctaWrapper}>
             <button
               className={styles.ctaButton}
@@ -156,9 +98,51 @@ export function SocialProofSection({
               {t(ctaText)}
             </button>
           </div>
-        )}
+        ) : null}
+
+        {/* Stats Cards — only shown after 100 users */}
+        {showCards ? (
+          <div className={styles.cardsGrid}>
+            {/* Waitlist Count Card */}
+            <div role="group" className={styles.card}>
+              <div className={styles.iconWrapper}>
+                <Users className={styles.icon} aria-hidden="true" />
+              </div>
+              <div className={styles.cardContent}>
+                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
+                  {t('stats.waitlist', { count: highlightedCount })}
+                </p>
+              </div>
+            </div>
+
+            {/* Countries Card */}
+            <div role="group" className={styles.card}>
+              <div className={styles.iconWrapper}>
+                <Globe className={styles.icon} aria-hidden="true" />
+              </div>
+              <div className={styles.cardContent}>
+                <p className={`${styles.statText} ${isLoading ? styles.loading : ''}`}>
+                  {t('stats.countries', { countries: highlightedCountries })}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {/* CTA at bottom when cards are shown */}
+        {showCards && ctaText ? (
+          <div className={styles.ctaWrapper}>
+            <button
+              className={styles.ctaButton}
+              onClick={handleCtaClick}
+              type="button"
+            >
+              {t(ctaText)}
+            </button>
+          </div>
+        ) : null}
       </div>
-    </section>
+    </div>
   );
 }
 

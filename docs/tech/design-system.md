@@ -11,7 +11,7 @@
 - Use for: primary buttons, links, brand elements, progress
 
 ### Secondary Colors
-- **Purple** (Mystic): `#a855f7` - Investing & strategy contexts
+- **Purple**: `#a855f7` - Investing & strategy contexts
 - **Coral**: `#ef4444` - DeFi & innovation elements
 
 ### Neutral Grays
@@ -26,23 +26,6 @@
 - Warning: `#f59e0b`
 - Error: `#ef4444`
 - Info: `#3b82f6`
-
-## Mascot System
-
-### Acqua (Beginner - Aqua)
-**Usage**: Banking, basic investing, onboarding, welcome
-- Emotions: waving, happy, explaining, celebrating
-- Contexts: Homepage hero, banking operations, beginner help
-
-### Mystic (Intermediate - Purple)
-**Usage**: Advanced investing, strategy, portfolio management
-- Emotions: analytical, focused, successful, contemplative
-- Contexts: Investment pages, market insights, DeFi strategy
-
-### Coral (Advanced - Coral)
-**Usage**: Advanced DeFi, complex strategies, curated content
-- Emotions: innovative, adventurous, tech-forward, pioneering
-- Contexts: Advanced DeFi, expert features, community curation
 
 ## Typography
 
@@ -150,7 +133,7 @@ App components: Dashboard, TransactionWizard, BalanceCards
 - **fadeIn**: Opacity 0 → 1
 - **slideUp**: translateY 20px → 0
 - **scaleIn**: Scale 0.95 → 1
-- **float**: Gentle up/down for mascots
+- **float**: Gentle up/down movement
 - **pulse**: Subtle scale for attention
 
 ## Subdomain-Specific Adaptations
@@ -208,7 +191,7 @@ App components: Dashboard, TransactionWizard, BalanceCards
 ### Must Be Consistent
 - Logo placement and sizing
 - Primary brand colors (exact hex)
-- Mascot personalities
+
 - Core typography (font families)
 - Icon library and style
 
@@ -233,8 +216,7 @@ App components: Dashboard, TransactionWizard, BalanceCards
 3. **Performance** - Optimize images and fonts
 4. **Consistency** - Use design tokens
 5. **Simplicity** - Clear, Nubank-inspired UI
-6. **Personality** - Mascots add warmth
-7. **Trust** - Professional yet approachable
+6. **Trust** - Professional yet approachable
 
 ---
 

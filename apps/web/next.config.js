@@ -19,7 +19,6 @@ const nextConfig = {
       
       // Internationalization
       'react-intl',
-      '@formatjs/intl-localematcher',
       
       // React Aria (used by @diboas/ui)
       '@react-aria/button',
@@ -195,10 +194,10 @@ const nextConfig = {
         config.plugins.push(new WebpackPerformancePlugin({
           outputPath: '.next/performance-report.json',
           budgets: {
-            maxAssetSize: 300 * 1024, // 300KB
-            maxEntrypointSize: 800 * 1024, // 800KB
-            maxTotalSize: 4 * 1024 * 1024, // 4MB
-            maxAssets: 40
+            maxAssetSize: 300 * 1024, // 300KB (source maps excluded)
+            maxEntrypointSize: 800 * 1024, // 800KB (source maps excluded)
+            maxTotalSize: 4 * 1024 * 1024, // 4MB (source maps excluded)
+            maxAssets: 300 // 4 locales × ~60 namespaces + framework chunks
           },
           logLevel: 'warn',
           failOnBudgetExceeded: false // Never fail builds
@@ -210,12 +209,13 @@ const nextConfig = {
     
     // Advanced bundle optimization for production
     if (!dev && !isServer) {
-      // Enable native webpack performance budget warnings
+      // Enable native webpack performance budget warnings (source maps excluded)
       config.performance = {
         ...config.performance,
         hints: 'warning',
         maxAssetSize: 300 * 1024,      // 300KB — matches custom plugin budget
         maxEntrypointSize: 800 * 1024,  // 800KB — matches custom plugin budget
+        assetFilter: (name) => !name.endsWith('.map'), // Exclude source maps from size warnings
       };
 
       config.optimization.splitChunks = {
@@ -248,7 +248,7 @@ const nextConfig = {
           
           // Internationalization libraries
           i18n: {
-            test: /[\\/]node_modules[\\/](@formatjs|react-intl|negotiator)[\\/]/,
+            test: /[\\/]node_modules[\\/](@formatjs|react-intl)[\\/]/,
             name: 'i18n',
             priority: 32,
             reuseExistingChunk: true,

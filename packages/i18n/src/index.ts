@@ -1,6 +1,9 @@
 // @diboas/i18n - Internationalization Package
 // DRY Principle: Re-export everything from a single import point
 
+// Type exports
+export type { IntlMessages, FlatIntlMessages, MessageFormatValues } from './types';
+
 // Configuration exports (server-safe)
 export * from './config';
 

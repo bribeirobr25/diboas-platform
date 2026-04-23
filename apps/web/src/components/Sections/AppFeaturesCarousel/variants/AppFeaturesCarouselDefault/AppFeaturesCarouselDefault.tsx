@@ -9,10 +9,10 @@
 
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo, useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronRight, Play, Pause } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Play, Pause } from '@/components/UI/LucideIcon';
 import { CarouselDots } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useCarousel } from '@/hooks/useCarousel';
@@ -26,7 +26,7 @@ import carouselControls from '@/styles/shared/carousel-controls.module.css';
 export function AppFeaturesCarouselDefault({ 
   config, 
   className = '', 
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   priority = false,
   backgroundColor,
   autoPlay = true,
@@ -35,7 +35,7 @@ export function AppFeaturesCarouselDefault({
   onCTAClick,
   onPlayPause
 }: AppFeaturesCarouselVariantProps) {
-  const cards = config.cards || [];
+  const cards = useMemo(() => config.cards || [], [config.cards]);
   const autoRotateMs = config.settings?.autoRotateMs || 4000;
 
   // Custom slide change handler with logging
@@ -109,6 +109,45 @@ export function AppFeaturesCarouselDefault({
     onCTAClick?.(slideId, ctaHref);
   }, [onCTAClick]);
 
+  // Track the active card's left-edge position so the description
+  // aligns below it on desktop. Width uses the fixed design token
+  // to avoid layout shifts from measurement timing during transitions.
+  const gridRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [descOffset, setDescOffset] = useState<number>(0);
+
+  useEffect(() => {
+    const measure = () => {
+      const grid = gridRef.current;
+      const activeCard = cardRefs.current[currentSlideIndex];
+      if (!grid || !activeCard) return;
+
+      const gridRect = grid.getBoundingClientRect();
+      const cardRect = activeCard.getBoundingClientRect();
+      setDescOffset(cardRect.left - gridRect.left);
+    };
+
+    // Measure after the card width CSS transition completes (300ms token)
+    const activeCard = cardRefs.current[currentSlideIndex];
+    const onTransitionEnd = (e: TransitionEvent) => {
+      if (e.propertyName === 'width') measure();
+    };
+
+    if (activeCard) {
+      activeCard.addEventListener('transitionend', onTransitionEnd);
+    }
+
+    // Fallback for initial render and prefers-reduced-motion
+    const fallbackTimer = setTimeout(measure, 350);
+
+    window.addEventListener('resize', measure);
+    return () => {
+      activeCard?.removeEventListener('transitionend', onTransitionEnd);
+      clearTimeout(fallbackTimer);
+      window.removeEventListener('resize', measure);
+    };
+  }, [currentSlideIndex]);
+
   if (!currentCard) return null;
 
   return (
@@ -126,77 +165,120 @@ export function AppFeaturesCarouselDefault({
           {config.sectionTitle || 'App Features'}
         </h2>
 
-        {/* Cards Grid with Descriptions */}
+        {/* Cards area: relative wrapper so arrows can be absolutely positioned inside */}
+        <div className={styles.cardsContainer}>
+          {/* Mobile prev arrow — absolutely positioned at left edge of image area */}
+          {cards.length > 1 ? (
+            <button
+              type="button"
+              className={`${styles.mobileArrow} ${styles.mobileArrowPrev}`}
+              onClick={goToPrev}
+              aria-label="Previous card"
+            >
+              <ChevronLeft className={styles.mobileArrowIcon} />
+            </button>
+          ) : null}
+
+          {/* Cards Grid with descriptions inside each card wrapper */}
+          <div
+            ref={gridRef}
+            className={styles.cardsGrid}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {cards.map((card, index) => (
+              <div
+                key={card.id}
+                ref={(el) => { cardRefs.current[index] = el; }}
+                className={`${styles.cardWrapper} ${index === currentSlideIndex ? styles.active : ''}`}
+              >
+                <div
+                  onClick={() => goToSlide(index)}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View ${card.content.title} feature`}
+                  className={styles.cardClickArea}
+                >
+                  <div className={styles.card}>
+                    <Image
+                      src={card.assets.image}
+                      alt={card.seo.imageAlt}
+                      width={index === currentSlideIndex ? 416 : 195}
+                      height={500}
+                      priority={priority && index === 0}
+                      className={styles.cardImage}
+                      onLoad={() => handleImageLoad(card.id)}
+                      sizes="(max-width: 767px) 90vw, (max-width: 1023px) 490px, (min-width: 1024px) 416px"
+                    />
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile next arrow — absolutely positioned at right edge of image area */}
+          {cards.length > 1 ? (
+            <button
+              type="button"
+              className={`${styles.mobileArrow} ${styles.mobileArrowNext}`}
+              onClick={goToNext}
+              aria-label="Next card"
+            >
+              <ChevronRight className={styles.mobileArrowIcon} />
+            </button>
+          ) : null}
+        </div>
+
+        {/* Descriptions — CSS grid overlay: all descriptions occupy the same cell,
+            tallest one sets the height. Only active is visible. Zero layout shift.
+            On desktop, slides horizontally to stay below the active card. */}
         <div
-          className={styles.cardsGrid}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          className={styles.descriptionsGrid}
+          style={{ '--desc-offset': `${descOffset}px` } as React.CSSProperties}
         >
           {cards.map((card, index) => (
             <div
               key={card.id}
-              className={`${styles.cardWrapper} ${index === currentSlideIndex ? styles.active : ''}`}
+              className={`${styles.cardDescription} ${index === currentSlideIndex ? styles.descriptionActive : ''}`}
+              aria-hidden={index !== currentSlideIndex}
             >
-              <div
-                onClick={() => goToSlide(index)}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-                tabIndex={0}
-                role="button"
-                aria-label={`View ${card.content.title} feature`}
-                className={styles.cardClickArea}
-              >
-                <div className={styles.card}>
-                  <Image
-                    src={card.assets.image}
-                    alt={card.seo.imageAlt}
-                    width={index === currentSlideIndex ? 416 : 195}
-                    height={500}
-                    priority={priority && index === 0}
-                    className={styles.cardImage}
-                    onLoad={() => handleImageLoad(card.id)}
-                    sizes="(max-width: 767px) 90vw, (max-width: 1023px) 490px, (min-width: 1024px) 416px"
-                  />
-                </div>
-              </div>
+              <h3 className={styles.cardTitle}>
+                {card.content.title}
+              </h3>
+              <p className={styles.description}>
+                {card.content.description}
+              </p>
 
-              {/* Description below each card - visible only when active */}
-              {index === currentSlideIndex && (
-                <div className={styles.cardDescription}>
-                  <h3 className={styles.cardTitle}>
-                    {card.content.title}
-                  </h3>
-                  <p className={styles.description}>
-                    {card.content.description}
-                  </p>
-
-                  {card.content.ctaText && card.content.ctaHref && (
-                    <div className={styles.ctaWrapper}>
-                      {card.content.ctaTarget === '_blank' ? (
-                        <a
-                          href={card.content.ctaHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.ctaLink}
-                          onClick={() => handleCTAClick(card.id, card.content.ctaHref!)}
-                        >
-                          {card.content.ctaText}
-                          <ChevronRight className={styles.ctaIcon} />
-                        </a>
-                      ) : (
-                        <Link
-                          href={card.content.ctaHref}
-                          className={styles.ctaLink}
-                          onClick={() => handleCTAClick(card.id, card.content.ctaHref!)}
-                        >
-                          {card.content.ctaText}
-                          <ChevronRight className={styles.ctaIcon} />
-                        </Link>
-                      )}
-                    </div>
+              {card.content.ctaText && card.content.ctaHref ? (
+                <div className={styles.ctaWrapper}>
+                  {card.content.ctaTarget === '_blank' ? (
+                    <a
+                      href={card.content.ctaHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.ctaLink}
+                      onClick={() => handleCTAClick(card.id, card.content.ctaHref!)}
+                      tabIndex={index === currentSlideIndex ? 0 : -1}
+                    >
+                      {card.content.ctaText}
+                      <ChevronRight className={styles.ctaIcon} />
+                    </a>
+                  ) : (
+                    <Link
+                      href={card.content.ctaHref}
+                      className={styles.ctaLink}
+                      onClick={() => handleCTAClick(card.id, card.content.ctaHref!)}
+                      tabIndex={index === currentSlideIndex ? 0 : -1}
+                    >
+                      {card.content.ctaText}
+                      <ChevronRight className={styles.ctaIcon} />
+                    </Link>
                   )}
                 </div>
-              )}
+              ) : null}
             </div>
           ))}
         </div>

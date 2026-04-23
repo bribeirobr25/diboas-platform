@@ -31,12 +31,12 @@ export const ASSET_PATHS = {
 
   // General Images
   IMAGES: {
-    PHONE_BANNER: `${ASSETS_BASE}/images/phone-banner.avif`
+    HERO: `${ASSETS_BASE}/images/defiant-bloom.avif`
   },
 
   // SEO Assets
   SEO: {
-    DEFAULT_OG: `${ASSETS_BASE}/seo/og-default.png` /* TODO: Replace with actual OG image when design provides one */
+    DEFAULT_OG: `${ASSETS_BASE}/seo/og-default.png` /* Placeholder — replace when design provides branded OG image */
   },
   
   // Social Media Assets - Real Images (Categorized)

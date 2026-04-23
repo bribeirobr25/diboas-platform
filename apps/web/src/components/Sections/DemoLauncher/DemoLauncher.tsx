@@ -1,6 +1,7 @@
 'use client';
 
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import dynamic from 'next/dynamic';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LocaleLink } from '@/components/UI';
@@ -11,7 +12,7 @@ import styles from './DemoLauncher.module.css';
 
 const PreDream = dynamic(
   () => import('@/components/PreDream').then(m => ({ default: m.PreDream })),
-  { ssr: false }
+  { ssr: false, loading: () => null }
 );
 
 interface DemoLauncherConfig {
@@ -47,10 +48,15 @@ function scrollToWaitlist() {
 
 export const DemoLauncher = memo(function DemoLauncher({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
 }: DemoLauncherProps) {
   const translated = useConfigTranslation(config);
   const [showPreDream, setShowPreDream] = useState(false);
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPortalContainer(document.body);
+  }, []);
 
   const handlePreDreamClose = useCallback(() => {
     setShowPreDream(false);
@@ -91,11 +97,12 @@ export const DemoLauncher = memo(function DemoLauncher({
         </div>
       </SectionContainer>
 
-      {showPreDream ? (
+      {showPreDream && portalContainer ? createPortal(
         <PreDream
           onClose={handlePreDreamClose}
           onBackToHome={handlePreDreamClose}
-        />
+        />,
+        portalContainer
       ) : null}
     </>
   );

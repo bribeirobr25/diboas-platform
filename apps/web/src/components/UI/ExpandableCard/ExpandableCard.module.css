@@ -1,0 +1,137 @@
+/**
+ * ExpandableCard Styles
+ *
+ * Shared expand/collapse pattern used by GoalExampleCards, StrategyCards,
+ * and ProtocolCards. Uses design tokens for consistency.
+ */
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+  }
+}
+
+/* Card base */
+.card {
+  background: var(--section-bg-white);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-lg);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  outline: none;
+}
+
+.card:hover {
+  border-color: var(--brand-primary, #14b8a6);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.card:focus-within {
+  outline: 2px solid var(--cta-bg-primary);
+  outline-offset: 2px;
+}
+
+/* Card header — clickable toggle */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md-minus);
+  cursor: pointer;
+  margin-bottom: 0;
+  outline: none;
+}
+
+.cardHeader:focus-visible {
+  outline: 2px solid var(--cta-bg-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.cardExpanded .cardHeader {
+  margin-bottom: var(--spacing-sm);
+}
+
+.cardIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--cta-bg-primary);
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-heading);
+  margin: 0;
+  flex: 1;
+}
+
+/* Title summary (teal accent text) */
+.titleSummary {
+  font-size: inherit;
+  font-weight: var(--font-weight-semibold);
+  color: var(--cta-bg-primary);
+  margin-left: var(--spacing-xs);
+}
+
+.expandIndicator {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+/* Expandable section */
+.expandable {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 400ms ease, opacity 200ms ease;
+}
+
+.cardExpanded .expandable {
+  max-height: 800px;
+  opacity: 1;
+}
+
+.expandableInner {
+  padding-top: var(--spacing-md);
+}
+
+/* Screen reader only */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .expandable {
+    transition: none;
+  }
+}

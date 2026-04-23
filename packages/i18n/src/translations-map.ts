@@ -1,184 +1,143 @@
 /**
- * Static Translation Imports Map
+ * Lazy Translation Loaders
  *
- * This provides reliable translation loading that works across all bundlers.
- * Dynamic imports with template literals can fail in certain bundler configurations.
+ * Instead of statically importing ALL translations for ALL locales upfront
+ * (which bundles ~2.8MB into every chunk), each locale+namespace pair is
+ * loaded on-demand via dynamic import(). This means:
+ *
+ * - Only the requested locale's translations are loaded
+ * - Only the requested namespace is loaded
+ * - Bundle size drops from ~2.8MB to near-zero for the i18n module itself
+ * - Translations are resolved at request time (server components) via await
+ *
+ * Explicit import paths (not template literals) ensure bundler compatibility
+ * across webpack, Turbopack, and esbuild.
+ *
+ * Webpack magic comments (webpackChunkName) produce deterministic chunk names
+ * for better caching and debugging (Task 71).
+ *
+ * Marketing page namespaces removed 2026-04-04 (marketing pages deleted).
  */
-
-// English translations
-import en_common from '../translations/en/common.json';
-import en_calculator from '../translations/en/calculator.json';
-import en_dreamMode from '../translations/en/dreamMode.json';
-import en_waitlist from '../translations/en/waitlist.json';
-import en_share from '../translations/en/share.json';
-import en_landingB2c from '../translations/en/landing-b2c.json';
-import en_landingB2b from '../translations/en/landing-b2b.json';
-import en_futureYou from '../translations/en/future-you.json';
-import en_strategies from '../translations/en/strategies.json';
-import en_faq from '../translations/en/faq.json';
-import en_marketing from '../translations/en/marketing.json';
-import en_home from '../translations/en/home.json';
-import en_about from '../translations/en/about.json';
-import en_protocols from '../translations/en/protocols.json';
-import en_preDemo from '../translations/en/preDemo.json';
-import en_preDream from '../translations/en/preDream.json';
-
-// German translations
-import de_common from '../translations/de/common.json';
-import de_calculator from '../translations/de/calculator.json';
-import de_dreamMode from '../translations/de/dreamMode.json';
-import de_waitlist from '../translations/de/waitlist.json';
-import de_share from '../translations/de/share.json';
-import de_landingB2c from '../translations/de/landing-b2c.json';
-import de_landingB2b from '../translations/de/landing-b2b.json';
-import de_futureYou from '../translations/de/future-you.json';
-import de_strategies from '../translations/de/strategies.json';
-import de_faq from '../translations/de/faq.json';
-import de_marketing from '../translations/de/marketing.json';
-import de_home from '../translations/de/home.json';
-import de_about from '../translations/de/about.json';
-import de_protocols from '../translations/de/protocols.json';
-import de_preDemo from '../translations/de/preDemo.json';
-import de_preDream from '../translations/de/preDream.json';
-
-// Spanish translations
-import es_common from '../translations/es/common.json';
-import es_calculator from '../translations/es/calculator.json';
-import es_dreamMode from '../translations/es/dreamMode.json';
-import es_waitlist from '../translations/es/waitlist.json';
-import es_share from '../translations/es/share.json';
-import es_landingB2c from '../translations/es/landing-b2c.json';
-import es_landingB2b from '../translations/es/landing-b2b.json';
-import es_futureYou from '../translations/es/future-you.json';
-import es_strategies from '../translations/es/strategies.json';
-import es_faq from '../translations/es/faq.json';
-import es_marketing from '../translations/es/marketing.json';
-import es_home from '../translations/es/home.json';
-import es_about from '../translations/es/about.json';
-import es_protocols from '../translations/es/protocols.json';
-import es_preDemo from '../translations/es/preDemo.json';
-import es_preDream from '../translations/es/preDream.json';
-
-// Portuguese (Brazil) translations
-import ptBR_common from '../translations/pt-BR/common.json';
-import ptBR_calculator from '../translations/pt-BR/calculator.json';
-import ptBR_dreamMode from '../translations/pt-BR/dreamMode.json';
-import ptBR_waitlist from '../translations/pt-BR/waitlist.json';
-import ptBR_share from '../translations/pt-BR/share.json';
-import ptBR_landingB2c from '../translations/pt-BR/landing-b2c.json';
-import ptBR_landingB2b from '../translations/pt-BR/landing-b2b.json';
-import ptBR_futureYou from '../translations/pt-BR/future-you.json';
-import ptBR_strategies from '../translations/pt-BR/strategies.json';
-import ptBR_faq from '../translations/pt-BR/faq.json';
-import ptBR_marketing from '../translations/pt-BR/marketing.json';
-import ptBR_home from '../translations/pt-BR/home.json';
-import ptBR_about from '../translations/pt-BR/about.json';
-import ptBR_protocols from '../translations/pt-BR/protocols.json';
-import ptBR_preDemo from '../translations/pt-BR/preDemo.json';
-import ptBR_preDream from '../translations/pt-BR/preDream.json';
 
 import type { SupportedLocale } from './config';
+import type { IntlMessages } from './types';
 
-type TranslationMap = Record<string, Record<string, any>>;
+type LazyLoader = () => Promise<IntlMessages>;
+type NamespaceLoaders = Record<string, LazyLoader>;
+
+const resolveDefault = (m: any) => m.default || m;
 
 /**
- * Static map of all translations by locale and namespace
+ * Per-locale, per-namespace dynamic import loaders.
+ * Each loader is a zero-cost function reference until called.
  */
-export const TRANSLATIONS_MAP: Record<SupportedLocale, TranslationMap> = {
+const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
   en: {
-    common: en_common,
-    calculator: en_calculator,
-    dreamMode: en_dreamMode,
-    waitlist: en_waitlist,
-    share: en_share,
-    'landing-b2c': en_landingB2c,
-    'landing-b2b': en_landingB2b,
-    'future-you': en_futureYou,
-    strategies: en_strategies,
-    faq: en_faq,
-    marketing: en_marketing,
-    home: en_home,
-    about: en_about,
-    protocols: en_protocols,
-    preDemo: en_preDemo,
-    preDream: en_preDream,
+    common: () => import(/* webpackChunkName: "i18n-en-common" */ '../translations/en/common.json').then(resolveDefault),
+    dreamMode: () => import(/* webpackChunkName: "i18n-en-dreamMode" */ '../translations/en/dreamMode.json').then(resolveDefault),
+    waitlist: () => import(/* webpackChunkName: "i18n-en-waitlist" */ '../translations/en/waitlist.json').then(resolveDefault),
+    share: () => import(/* webpackChunkName: "i18n-en-share" */ '../translations/en/share.json').then(resolveDefault),
+    'landing-b2c': () => import(/* webpackChunkName: "i18n-en-landing-b2c" */ '../translations/en/landing-b2c.json').then(resolveDefault),
+    'landing-b2b': () => import(/* webpackChunkName: "i18n-en-landing-b2b" */ '../translations/en/landing-b2b.json').then(resolveDefault),
+    strategies: () => import(/* webpackChunkName: "i18n-en-strategies" */ '../translations/en/strategies.json').then(resolveDefault),
+    faq: () => import(/* webpackChunkName: "i18n-en-faq" */ '../translations/en/faq.json').then(resolveDefault),
+    about: () => import(/* webpackChunkName: "i18n-en-about" */ '../translations/en/about.json').then(resolveDefault),
+    protocols: () => import(/* webpackChunkName: "i18n-en-protocols" */ '../translations/en/protocols.json').then(resolveDefault),
+    preDemo: () => import(/* webpackChunkName: "i18n-en-preDemo" */ '../translations/en/preDemo.json').then(resolveDefault),
+    preDream: () => import(/* webpackChunkName: "i18n-en-preDream" */ '../translations/en/preDream.json').then(resolveDefault),
+    security: () => import(/* webpackChunkName: "i18n-en-security" */ '../translations/en/security.json').then(resolveDefault),
   },
   de: {
-    common: de_common,
-    calculator: de_calculator,
-    dreamMode: de_dreamMode,
-    waitlist: de_waitlist,
-    share: de_share,
-    'landing-b2c': de_landingB2c,
-    'landing-b2b': de_landingB2b,
-    'future-you': de_futureYou,
-    strategies: de_strategies,
-    faq: de_faq,
-    marketing: de_marketing,
-    home: de_home,
-    about: de_about,
-    protocols: de_protocols,
-    preDemo: de_preDemo,
-    preDream: de_preDream,
+    common: () => import(/* webpackChunkName: "i18n-de-common" */ '../translations/de/common.json').then(resolveDefault),
+    dreamMode: () => import(/* webpackChunkName: "i18n-de-dreamMode" */ '../translations/de/dreamMode.json').then(resolveDefault),
+    waitlist: () => import(/* webpackChunkName: "i18n-de-waitlist" */ '../translations/de/waitlist.json').then(resolveDefault),
+    share: () => import(/* webpackChunkName: "i18n-de-share" */ '../translations/de/share.json').then(resolveDefault),
+    'landing-b2c': () => import(/* webpackChunkName: "i18n-de-landing-b2c" */ '../translations/de/landing-b2c.json').then(resolveDefault),
+    'landing-b2b': () => import(/* webpackChunkName: "i18n-de-landing-b2b" */ '../translations/de/landing-b2b.json').then(resolveDefault),
+    strategies: () => import(/* webpackChunkName: "i18n-de-strategies" */ '../translations/de/strategies.json').then(resolveDefault),
+    faq: () => import(/* webpackChunkName: "i18n-de-faq" */ '../translations/de/faq.json').then(resolveDefault),
+    about: () => import(/* webpackChunkName: "i18n-de-about" */ '../translations/de/about.json').then(resolveDefault),
+    protocols: () => import(/* webpackChunkName: "i18n-de-protocols" */ '../translations/de/protocols.json').then(resolveDefault),
+    preDemo: () => import(/* webpackChunkName: "i18n-de-preDemo" */ '../translations/de/preDemo.json').then(resolveDefault),
+    preDream: () => import(/* webpackChunkName: "i18n-de-preDream" */ '../translations/de/preDream.json').then(resolveDefault),
+    security: () => import(/* webpackChunkName: "i18n-de-security" */ '../translations/de/security.json').then(resolveDefault),
   },
   es: {
-    common: es_common,
-    calculator: es_calculator,
-    dreamMode: es_dreamMode,
-    waitlist: es_waitlist,
-    share: es_share,
-    'landing-b2c': es_landingB2c,
-    'landing-b2b': es_landingB2b,
-    'future-you': es_futureYou,
-    strategies: es_strategies,
-    faq: es_faq,
-    marketing: es_marketing,
-    home: es_home,
-    about: es_about,
-    protocols: es_protocols,
-    preDemo: es_preDemo,
-    preDream: es_preDream,
+    common: () => import(/* webpackChunkName: "i18n-es-common" */ '../translations/es/common.json').then(resolveDefault),
+    dreamMode: () => import(/* webpackChunkName: "i18n-es-dreamMode" */ '../translations/es/dreamMode.json').then(resolveDefault),
+    waitlist: () => import(/* webpackChunkName: "i18n-es-waitlist" */ '../translations/es/waitlist.json').then(resolveDefault),
+    share: () => import(/* webpackChunkName: "i18n-es-share" */ '../translations/es/share.json').then(resolveDefault),
+    'landing-b2c': () => import(/* webpackChunkName: "i18n-es-landing-b2c" */ '../translations/es/landing-b2c.json').then(resolveDefault),
+    'landing-b2b': () => import(/* webpackChunkName: "i18n-es-landing-b2b" */ '../translations/es/landing-b2b.json').then(resolveDefault),
+    strategies: () => import(/* webpackChunkName: "i18n-es-strategies" */ '../translations/es/strategies.json').then(resolveDefault),
+    faq: () => import(/* webpackChunkName: "i18n-es-faq" */ '../translations/es/faq.json').then(resolveDefault),
+    about: () => import(/* webpackChunkName: "i18n-es-about" */ '../translations/es/about.json').then(resolveDefault),
+    protocols: () => import(/* webpackChunkName: "i18n-es-protocols" */ '../translations/es/protocols.json').then(resolveDefault),
+    preDemo: () => import(/* webpackChunkName: "i18n-es-preDemo" */ '../translations/es/preDemo.json').then(resolveDefault),
+    preDream: () => import(/* webpackChunkName: "i18n-es-preDream" */ '../translations/es/preDream.json').then(resolveDefault),
+    security: () => import(/* webpackChunkName: "i18n-es-security" */ '../translations/es/security.json').then(resolveDefault),
   },
   'pt-BR': {
-    common: ptBR_common,
-    calculator: ptBR_calculator,
-    dreamMode: ptBR_dreamMode,
-    waitlist: ptBR_waitlist,
-    share: ptBR_share,
-    'landing-b2c': ptBR_landingB2c,
-    'landing-b2b': ptBR_landingB2b,
-    'future-you': ptBR_futureYou,
-    strategies: ptBR_strategies,
-    faq: ptBR_faq,
-    marketing: ptBR_marketing,
-    home: ptBR_home,
-    about: ptBR_about,
-    protocols: ptBR_protocols,
-    preDemo: ptBR_preDemo,
-    preDream: ptBR_preDream,
+    common: () => import(/* webpackChunkName: "i18n-pt-BR-common" */ '../translations/pt-BR/common.json').then(resolveDefault),
+    dreamMode: () => import(/* webpackChunkName: "i18n-pt-BR-dreamMode" */ '../translations/pt-BR/dreamMode.json').then(resolveDefault),
+    waitlist: () => import(/* webpackChunkName: "i18n-pt-BR-waitlist" */ '../translations/pt-BR/waitlist.json').then(resolveDefault),
+    share: () => import(/* webpackChunkName: "i18n-pt-BR-share" */ '../translations/pt-BR/share.json').then(resolveDefault),
+    'landing-b2c': () => import(/* webpackChunkName: "i18n-pt-BR-landing-b2c" */ '../translations/pt-BR/landing-b2c.json').then(resolveDefault),
+    'landing-b2b': () => import(/* webpackChunkName: "i18n-pt-BR-landing-b2b" */ '../translations/pt-BR/landing-b2b.json').then(resolveDefault),
+    strategies: () => import(/* webpackChunkName: "i18n-pt-BR-strategies" */ '../translations/pt-BR/strategies.json').then(resolveDefault),
+    faq: () => import(/* webpackChunkName: "i18n-pt-BR-faq" */ '../translations/pt-BR/faq.json').then(resolveDefault),
+    about: () => import(/* webpackChunkName: "i18n-pt-BR-about" */ '../translations/pt-BR/about.json').then(resolveDefault),
+    protocols: () => import(/* webpackChunkName: "i18n-pt-BR-protocols" */ '../translations/pt-BR/protocols.json').then(resolveDefault),
+    preDemo: () => import(/* webpackChunkName: "i18n-pt-BR-preDemo" */ '../translations/pt-BR/preDemo.json').then(resolveDefault),
+    preDream: () => import(/* webpackChunkName: "i18n-pt-BR-preDream" */ '../translations/pt-BR/preDream.json').then(resolveDefault),
+    security: () => import(/* webpackChunkName: "i18n-pt-BR-security" */ '../translations/pt-BR/security.json').then(resolveDefault),
   },
 };
 
 /**
- * Get translations for a specific locale and namespace using static imports
- * This is more reliable than dynamic imports across different bundlers
+ * Load translations for a specific locale and namespace on-demand.
+ * Falls back to English if the requested locale/namespace is unavailable.
+ *
+ * @param locale - Target locale
+ * @param namespace - Translation namespace (e.g., 'common', 'landing-b2c')
+ * @returns Translation messages object, or empty object if not found
  */
-export function getStaticTranslations(
+export async function getTranslations(
   locale: SupportedLocale,
   namespace: string
-): Record<string, any> {
-  const localeTranslations = TRANSLATIONS_MAP[locale];
-  if (!localeTranslations) {
-    console.warn(`No translations found for locale: ${locale}`);
-    return TRANSLATIONS_MAP.en[namespace] || {};
+): Promise<IntlMessages> {
+  const localeLoaders = NAMESPACE_LOADERS[locale];
+  const loader = localeLoaders?.[namespace];
+
+  if (loader) {
+    try {
+      return await loader();
+    } catch (error) {
+      console.warn(`Failed to load translations for ${locale}/${namespace}:`, error);
+    }
   }
 
-  const namespaceTranslations = localeTranslations[namespace];
-  if (!namespaceTranslations) {
-    console.warn(`No translations found for namespace: ${namespace} in locale: ${locale}`);
-    // Fallback to English
-    return TRANSLATIONS_MAP.en[namespace] || {};
+  // Fallback to English
+  if (locale !== 'en') {
+    const enLoader = NAMESPACE_LOADERS.en[namespace];
+    if (enLoader) {
+      try {
+        return await enLoader();
+      } catch {
+        // Silent fallback
+      }
+    }
   }
 
-  return namespaceTranslations;
+  return {};
+}
+
+/**
+ * Check if a namespace has a registered loader for the given locale.
+ */
+export function hasRegisteredNamespace(
+  locale: SupportedLocale,
+  namespace: string
+): boolean {
+  return !!NAMESPACE_LOADERS[locale]?.[namespace];
 }

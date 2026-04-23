@@ -1,11 +1,10 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { FAQAccordion } from '@/components/Sections/FAQAccordion/FAQAccordionFactory';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { CvmBanner } from '@/components/Pages/CvmBanner';
 import {
@@ -89,18 +88,16 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
  * - CVM Banner (PT-BR only, before Hero)
  * - Section 1: Hero with headline
  * - t1: Transition hook
- * - Section 2: Why This Page Exists
- * - Section 3: Protocol Grid (26 protocols in categories)
- * - t2: Transition hook
- * - Section 4: Our Selection Process
- * - t3: Transition hook
- * - Section 5: Total TVL
- * - t4: Transition hook
- * - Section 6: What This Page Is Not
- * - t5: Transition hook
+ * - Section 2: Transparency (intro / why this page exists)
+ * - t3: Transition hook (pivotal) — "So how much real money is in these systems?"
+ * - Section 3: Total TVL (dark theme)
+ * - t2: Transition hook — "How did these 26 make the list?"
+ * - Section 4: Protocol Grid (25 protocols in categories)
+ * - Section 5: Our Selection Process
+ * - t4: Transition hook (pivotal) — "Before you go further, something important."
+ * - Section 6: Attention (What This Page Is Not, warm bg)
  * - Section 7: FAQ (8 items)
- * - Section 8: Waitlist
- * - Section 9: Footer Disclaimers (locale-conditional)
+ * - Section 8: Footer Disclaimers (locale-conditional)
  */
 export default async function ProtocolsPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -110,17 +107,17 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'common', 'waitlist', 'landing-b2c']);
+  // Load page-specific namespaces (common + waitlist already provided by landing layout)
+  const pageMessages = await loadPageNamespaces(locale, ['protocols', 'landing-b2c']);
 
   // Generate structured data
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Protocol Transparency',
     description: 'Complete list of DeFi protocols used by diBoaS with security audits and regulatory information',
     category: 'Financial Technology'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' },
     { name: 'Protocols', url: '/protocols' }
   ], locale);
@@ -134,37 +131,46 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
         <CvmBanner namespace={PROTOCOLS_I18N_PREFIX} />
 
         {/* Section 1: Hero */}
-        <ProtocolsHeroSection />
+        <div data-section-id="hero-section-protocols">
+          <ProtocolsHeroSection />
+        </div>
 
         {/* Transition 1 */}
         <ProtocolsTransitionHook hookKey="transitions.t1" />
 
-        {/* Section 2: Why This Page Exists */}
-        <ProtocolsIntroSection />
+        {/* Section 2: Transparency (intro / why this page exists) */}
+        <div data-section-id="intro-section-protocols">
+          <ProtocolsIntroSection />
+        </div>
 
-        {/* Section 3: Protocol Grid */}
-        <ProtocolsGridSection />
+        {/* Transition 3 (pivotal) — "So how much real money is in these systems?" */}
+        <ProtocolsTransitionHook hookKey="transitions.t3" variant="pivotal" />
 
-        {/* Transition 2 */}
+        {/* Section 3: TVL (dark theme) */}
+        <div data-section-id="tvl-section-protocols">
+          <ProtocolsTvlSection />
+        </div>
+
+        {/* Transition 2 — "How did these 26 make the list?" */}
         <ProtocolsTransitionHook hookKey="transitions.t2" />
 
-        {/* Section 4: Selection Process */}
-        <ProtocolsSelectionSection />
+        {/* Section 4: Protocol Grid */}
+        <div id="protocols" data-section-id="grid-section-protocols">
+          <ProtocolsGridSection />
+        </div>
 
-        {/* Transition 3 */}
-        <ProtocolsTransitionHook hookKey="transitions.t3" />
+        {/* Section 5: Selection Process */}
+        <div data-section-id="selection-section-protocols">
+          <ProtocolsSelectionSection />
+        </div>
 
-        {/* Section 5: TVL */}
-        <ProtocolsTvlSection />
+        {/* Transition 4 (pivotal) — "Before you go further, something important." */}
+        <ProtocolsTransitionHook hookKey="transitions.t4" variant="pivotal" />
 
-        {/* Transition 4 */}
-        <ProtocolsTransitionHook hookKey="transitions.t4" />
-
-        {/* Section 6: What This Page Is Not */}
-        <ProtocolsNotIsSection />
-
-        {/* Transition 5 */}
-        <ProtocolsTransitionHook hookKey="transitions.t5" />
+        {/* Section 6: Attention (What This Page Is Not, warm bg) */}
+        <div data-section-id="notis-section-protocols">
+          <ProtocolsNotIsSection />
+        </div>
 
         {/* Section 7: FAQ */}
         <SectionErrorBoundary
@@ -173,26 +179,17 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
           enableReporting
           context={{ page: 'protocols' }}
         >
-          <FAQAccordion config={PROTOCOLS_FAQ_CONFIG} />
-        </SectionErrorBoundary>
-
-        {/* CTA Transition */}
-        <ProtocolsTransitionHook hookKey="cta.transition" />
-
-        {/* Section 8: Waitlist */}
-        <SectionErrorBoundary
-          sectionId="waitlist-section-protocols"
-          sectionType="WaitlistSection"
-          enableReporting
-          context={{ page: 'protocols' }}
-        >
-          <div id="waitlist">
-            <WaitlistSection enableAnalytics />
+          <div id="faq" data-section-id="faq-section-protocols">
+            <FAQAccordion config={PROTOCOLS_FAQ_CONFIG} />
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 9: Footer */}
-        <MinimalFooter navLinks={B2C_FOOTER_NAV} disclosureKeys={B2C_FOOTER_DISCLOSURES} />
+        {/* Section 8: Footer */}
+        <MinimalFooter
+          taglineKey="landing-b2c.footer.tagline"
+          navLinks={B2C_FOOTER_NAV}
+          disclosureKeys={B2C_FOOTER_DISCLOSURES}
+        />
       </main>
     </PageI18nProvider>
   );

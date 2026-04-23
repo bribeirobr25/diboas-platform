@@ -5,14 +5,11 @@
   },
   "hero": {
     "headline": "O acesso que eles guardavam. Agora é você quem escolhe.",
-    "subheadline": "10 estratégias. Objetivos diferentes. Níveis de risco diferentes. Nenhuma é \"a melhor\". A melhor é a que combina com onde você está e onde quer chegar.",
-    "subheadline2": "",
-    "trustLine": "Testadas com quase 4 anos de dados reais. Crises, recuperações, tudo. Construídas em sistemas que já protegeram bilhões em ativos (verificável no DeFiLlama).",
-    "honestLimitation": "Desempenho passado não garante resultados futuros. Todas as estratégias envolvem risco.",
-    "transition": "Veja como encontrar a sua."
+    "subheadline": "Diferentes objetivos. Diferentes níveis de risco. Diferentes necessidades",
+    "subheadline2": ""
   },
   "matrix": {
-    "header": "Escolha sua estratégia",
+    "header": "Escolha ou Crie seu Objetivo",
     "instructions": "Seu objetivo na esquerda. Sua tolerância a risco na direita.",
     "columns": {
       "goal": "Seu Objetivo",
@@ -26,33 +23,32 @@
         "growth": ""
       },
       "beatInflation": {
-        "goal": "Ganhar Acima da Inflação",
+        "goal": "Regra dos 10%",
         "stable": "",
         "growth": "Stable Growth"
       },
       "shortTerm": {
-        "goal": "Curto Prazo (< 2 anos)",
+        "goal": "Bônus de Natal",
         "stable": "Goal Keeper",
         "growth": "Steady Progress"
       },
       "mediumTerm": {
-        "goal": "Médio Prazo (2-5 anos)",
+        "goal": "Viagem dos Sonhos",
         "stable": "Patient Builder",
         "growth": "Balanced Builder"
       },
       "longTerm": {
-        "goal": "Longo Prazo (5-10 anos)",
+        "goal": "Comprar uma Casa",
         "stable": "Steady Compounder",
         "growth": "Wealth Accelerator"
       },
       "wealthBuilding": {
-        "goal": "Construção de Patrimônio (10+ anos)",
+        "goal": "Aposentadoria",
         "stable": "Yield Maximizer",
         "growth": "Full Throttle"
       }
     },
-    "note": "Não sabe por onde começar? Comece pelo Safe Harbor. Aprenda primeiro. Troque quando quiser. Sem multas.",
-    "transition": "Veja o que cada uma faz."
+    "note": "Não sabe por onde começar? Comece pelo Safe Harbor. Aprenda primeiro. Troque quando quiser. Sem multas."
   },
   "strategies": {
     "safeHarbor": {
@@ -240,7 +236,6 @@
   },
   "allStrategiesHeader": "Todas as 10 Estratégias",
   "allCardsHonestLimitation": "Todas as estatísticas são baseadas em análise histórica (maio 2022 - dezembro 2025) e milhares de simulações Monte Carlo. Para protocolos mais recentes, os retornos de períodos anteriores são estimados usando proxies validados baseados em sistemas similares. O que aconteceu no passado pode não acontecer de novo. Esses números ajudam você a comparar estratégias, não a prever o futuro.",
-  "cardsTransition": "Agora você sabe o que cada estratégia faz. Veja onde seu dinheiro realmente vai.",
   "growthBadge": "Crescimento",
   "card": {
     "showMore": "Mais detalhes",
@@ -325,11 +320,11 @@
         "defillamaUrl": "https://defillama.com/protocol/jito"
       }
     },
-    "belowTable": "Jito é usado apenas no Full Throttle. Todos os outros protocolos aparecem em múltiplas estratégias. Os nomes dos protocolos são usados por transparência. Sua inclusão não implica endosso do diBoaS por esses protocolos. Para protocolos em operação há menos de 4 anos, retornos de períodos anteriores são estimados usando metodologias proxy validadas baseadas em sistemas similares.",
-    "honestLimitation": "Código aberto e auditado não significa livre de risco. Código pode ter vulnerabilidades não descobertas. Nós reduzimos esse risco distribuindo seu dinheiro entre múltiplos protocolos independentes, mas não podemos eliminá-lo.",
-    "transition": "Você conhece as estratégias. Conhece os protocolos. Veja quanto custa.",
+    "belowTable": "Os nomes dos protocolos são usados por transparência. Sua inclusão não implica endosso do diBoaS por esses protocolos. Para protocolos em operação há menos de 4 anos, retornos de períodos anteriores são estimados usando metodologias proxy validadas baseadas em sistemas similares.",
+    "honestLimitation": "Código aberto e auditado não significa livre de risco. Código pode ter vulnerabilidades não descobertas. Seu risco é reduzido distribuindo seu dinheiro entre múltiplos protocolos independentes, mas não podemos eliminá-lo.",
     "verifyOnDefillama": "Verificar no DeFiLlama",
-    "verifyOnSite": "Visitar site do protocolo"
+    "verifyOnSite": "Visitar site do protocolo",
+    "checkProtocolsPage": "Confira a Página de Protocolos"
   },
   "fees": {
     "header": "Quanto custa",
@@ -351,9 +346,8 @@
         "example": "Resgata R$1.000: custa R$3,90"
       }
     },
-    "belowTable": "Sem taxa mensal. Sem taxa de administração. Sem taxa de performance. Sem cobranças escondidas.\n\nColocar dinheiro em uma estratégia não custa nada. Nós só cobramos quando você resgata. Se seu dinheiro está em uma estratégia rendendo, nós não ganhamos nada até você sair.",
-    "microText": "Taxas de rede de terceiros podem se aplicar (normalmente menos de R$0,05). Para a tabela completa de taxas incluindo transferências e saques, veja nossa página de taxas.",
-    "transition": "Não sabe qual escolher? Comece aqui."
+    "belowTable": "Nada mais. Sem spreads ou cobranças ocultas.\n\nColocar dinheiro em uma estratégia não custa nada. Nós só cobramos quando você resgata. Se seu dinheiro está em uma estratégia rendendo, nós não ganhamos nada até você sair.",
+    "microText": "Taxas de rede de terceiros podem se aplicar (normalmente menos de R$0,05). Para a tabela completa de taxas incluindo transferências e saques, veja nossa página de taxas."
   },
   "howToChoose": {
     "header": "Comece aqui",
@@ -385,8 +379,7 @@
       }
     },
     "brandPromise": "Nós mostramos os dois lados, as oportunidades e os riscos, sempre.",
-    "goldenRule": "Na dúvida, comece no seguro. Você sempre pode subir depois. Considere consultar um consultor financeiro licenciado se não tiver certeza de qual abordagem se encaixa na sua situação.",
-    "transition": "Tem perguntas? Ótimo."
+    "goldenRule": "Na dúvida, comece no seguro. Você sempre pode subir depois. Considere consultar um consultor financeiro licenciado se não tiver certeza de qual abordagem se encaixa na sua situação."
   },
   "faq": {
     "header": "Antes de decidir",
@@ -432,14 +425,7 @@
         "question": "Qual a diferença pra uma poupança?",
         "answer": "A caderneta de poupança é protegida pelo FGC (até R$250.000 por instituição). Seu dinheiro rende uma taxa fixa. O banco controla tudo.\n\nAs estratégias do diBoaS usam sistemas automatizados de empréstimo e staking. Os retornos são variáveis. Seu dinheiro não é segurado. Você controla através da sua própria carteira.\n\nA troca: retornos potencialmente maiores, mas você aceita o risco que vem com um tipo diferente de sistema."
       }
-    },
-    "transition": "Ainda aqui depois de todos esses avisos de risco? Ótimo. Você pesquisou mais do que a maioria."
-  },
-  "waitlist": {
-    "header": "Gostou do que viu?",
-    "body": "Você vai escolher sua estratégia quando lançarmos. Por enquanto, deixe seu email e garanta sua vaga.",
-    "belowCta": "Sem spam. Apenas seu convite quando estivermos prontos.",
-    "belowCheckbox": "Gratuito. Sem compromisso. Escolha sua estratégia quando lançarmos."
+    }
   },
   "cvmWarnings": {
     "warning1": "As operações com criptoativos envolvem riscos. Esses ativos podem aumentar ou diminuir de valor e podem perder todo o seu valor. Não há garantia de que os ativos digitais possam ser convertidos para a moeda de referência.",
@@ -454,5 +440,10 @@
     "micaArticle7": "",
     "usDisclosure": "",
     "professionalAdvice": "As informações nesta página são apenas para fins educacionais e informativos. Não constituem aconselhamento de investimento, aconselhamento financeiro, nem qualquer outra forma de aconselhamento profissional. Considere consultar um consultor financeiro licenciado antes de tomar decisões de investimento."
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Perguntas frequentes sobre estratégias"
+    }
   }
 }

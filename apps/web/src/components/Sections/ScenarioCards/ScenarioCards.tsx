@@ -15,7 +15,7 @@ interface ScenarioCardsProps {
 
 export const ScenarioCards = memo(function ScenarioCards({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
 }: ScenarioCardsProps) {
   const translated = useConfigTranslation(config);
@@ -24,6 +24,7 @@ export const ScenarioCards = memo(function ScenarioCards({
     <SectionContainer
       variant="standard"
       padding="standard"
+      backgroundColor={config.style?.backgroundColor}
       ariaLabel={translated.seo.ariaLabel}
       className={className}
     >

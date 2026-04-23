@@ -85,14 +85,20 @@ a:focus-visible {
   @apply min-h-screen bg-gray-50;
 }
 
-/* Offset anchor-scroll targets by the fixed nav height (h-20 = 80px)
-   so scrollIntoView / hash navigation doesn't hide content behind the bar */
-.main-page-wrapper > [id] {
-  scroll-margin-top: 80px;
+/* Offset anchor-scroll targets by the fixed nav height (h-20 = 80px) + breathing room
+   so scrollIntoView / hash navigation doesn't hide content behind the bar.
+   Uses descendant selector (not >) because section IDs are nested inside ScrollReveal wrappers. */
+.main-page-wrapper [id] {
+  scroll-margin-top: 96px;
 }
 
 .main-content {
   @apply pt-14 md:pt-20;
+}
+
+/* Landing pages with full-bleed hero: remove top padding so hero extends behind transparent nav */
+.main-content-landing {
+  padding-top: 0;
 }
 
 .content-container {
@@ -1242,4 +1248,100 @@ a:focus-visible {
   padding: var(--spacing-xl);
   display: flex;
   justify-content: center;
+}
+
+/* =================================================================== */
+/* SCROLL REVEAL ANIMATION */
+/* =================================================================== */
+
+.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* =================================================================== */
+/* STICKY MOBILE CTA BAR */
+/* =================================================================== */
+
+/* Hide on desktop viewports (768px+) */
+@media (min-width: 768px) {
+  .sticky-mobile-cta {
+    display: none !important;
+  }
+}
+
+/* Disable slide animation for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sticky-mobile-cta {
+    transition: none !important;
+  }
+}
+
+/* =================================================================== */
+/* NAVIGATION — TRANSPARENT VARIANT (Landing Pages) */
+/* =================================================================== */
+
+/* Transparent state — over hero section */
+.minimal-navigation-bar.nav-transparent {
+  background-color: transparent;
+  box-shadow: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .minimal-navigation-bar.nav-transparent {
+    background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.minimal-navigation-bar.nav-transparent .minimal-nav-link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.minimal-navigation-bar.nav-transparent .minimal-nav-link:hover {
+  color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.minimal-navigation-bar.nav-transparent .minimal-nav-hamburger {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.minimal-navigation-bar.nav-transparent .minimal-nav-hamburger:hover {
+  color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Scrolled/solid state — smooth transition back */
+.minimal-navigation-bar.nav-solid {
+  background-color: rgb(249, 250, 251);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .minimal-navigation-bar.nav-solid {
+    background-color: rgba(249, 250, 251, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+.minimal-navigation-bar.nav-solid .minimal-nav-link {
+  color: var(--color-slate-600);
+}
+
+.minimal-navigation-bar.nav-solid .minimal-nav-link:hover {
+  color: var(--color-teal-600);
+  background-color: var(--color-slate-50);
+}
+
+/* Reduced motion — no transition */
+@media (prefers-reduced-motion: reduce) {
+  .minimal-navigation-bar.nav-transparent,
+  .minimal-navigation-bar.nav-solid {
+    transition: none;
+  }
 }

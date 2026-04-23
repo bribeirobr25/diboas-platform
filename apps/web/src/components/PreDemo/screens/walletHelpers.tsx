@@ -5,30 +5,18 @@ import {
   type TokenBalance,
   type Investments,
 } from '@/lib/pre-demo';
+import {
+  CHAIN_BG_COLORS,
+  CHAIN_TEXT_COLORS,
+} from '@/lib/constants/crypto-colors';
 import styles from '../PreDemo.module.css';
+
+export { CHAIN_BG_COLORS, CHAIN_TEXT_COLORS };
 
 export function truncateAddress(address: string): string {
   if (address.length <= 12) return address;
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
-
-/** Background colors per chain for icon containers */
-export const CHAIN_BG_COLORS: Record<ChainId, string> = {
-  SOL: '#f5f3ff',
-  BTC: '#fff7ed',
-  ETH: '#eff6ff',
-  SUI: '#ecfeff',
-  TRX: '#fff5f5',
-};
-
-/** Text colors per chain for fiat totals */
-export const CHAIN_TEXT_COLORS: Record<ChainId, string> = {
-  SOL: '#9945FF',
-  BTC: '#F7931A',
-  ETH: '#627EEA',
-  SUI: '#4DA2FF',
-  TRX: '#FF0013',
-};
 
 export function getWalletTokens(
   chain: ChainId,

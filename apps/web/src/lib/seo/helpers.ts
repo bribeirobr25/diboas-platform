@@ -3,7 +3,7 @@
  * Code Reusability: Common SEO utilities
  */
 
-import { MetadataFactory } from './metadata-factory';
+import { SEOMetadataFactory } from './metadata-factory';
 import { PAGE_SEO_CONFIG } from './constants';
 import type { SupportedLocale } from '@diboas/i18n/server';
 import type { Metadata } from 'next';
@@ -15,7 +15,7 @@ export async function generateStaticPageMetadata(
   pageKey: keyof typeof PAGE_SEO_CONFIG,
   locale: SupportedLocale
 ): Promise<Metadata> {
-  return MetadataFactory.generateStaticPageMetadata(pageKey, locale);
+  return SEOMetadataFactory.generateStaticPageMetadata(pageKey, locale);
 }
 
 /**
@@ -27,7 +27,7 @@ export async function generateDynamicPageMetadata(
   path: string,
   locale: SupportedLocale
 ): Promise<Metadata> {
-  return MetadataFactory.generateDynamicPageMetadata(title, description, path, locale);
+  return SEOMetadataFactory.generateDynamicPageMetadata(title, description, path, locale);
 }
 
 /**
@@ -35,5 +35,5 @@ export async function generateDynamicPageMetadata(
  * DRY Principle: Single source for generateStaticParams across pages
  */
 export function generateLocaleStaticParams() {
-  return MetadataFactory.generateLocaleStaticParams();
+  return SEOMetadataFactory.generateLocaleStaticParams();
 }

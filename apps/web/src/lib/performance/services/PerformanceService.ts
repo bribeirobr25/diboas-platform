@@ -48,7 +48,7 @@ const ALERT_THRESHOLDS = {
   INP: { warning: 200, critical: 500 },
 } as const;
 
-export class PerformanceServiceImpl implements PerformanceDomainService {
+export class PerformanceMetricsService implements PerformanceDomainService {
   private readonly metrics: Map<string, PerformanceMetric[]> = new Map();
   private readonly eventBus: ((event: PerformanceEvent) => void)[] = [];
   private readonly budgets: PerformanceBudget[] = PERFORMANCE_BUDGETS;
@@ -326,7 +326,7 @@ export class PerformanceServiceImpl implements PerformanceDomainService {
 
 // Service Factory - DRY Principle & Service Abstraction
 export const createPerformanceService = (): PerformanceDomainService => {
-  return new PerformanceServiceImpl();
+  return new PerformanceMetricsService();
 };
 
 // Default service instance

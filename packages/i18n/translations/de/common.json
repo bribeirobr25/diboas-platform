@@ -10,7 +10,8 @@
       "about": "Über uns",
       "protocols": "Protokolle",
       "adelaideDaily": "Adelaide Daily",
-      "joinWaitlist": "Auf die Warteliste"
+      "joinWaitlist": "Auf die Warteliste",
+      "tryDemo": "Demo testen"
     },
     "diboas": {
       "label": "diBoaS",
@@ -141,7 +142,22 @@
     "nextSlide": "Nächste Folie",
     "changeLanguage": "Sprache ändern",
     "switchTo": "Zu {language} wechseln",
-    "emailLabel": "E-Mail-Adresse"
+    "emailLabel": "E-Mail-Adresse",
+    "scrollDown": "Nach unten scrollen",
+    "exampleCalculation": "Beispielrechnung",
+    "siteFooter": "Seitenfußzeile",
+    "productNavigation": "Produktnavigation",
+    "legalPages": "Rechtliche Seiten",
+    "mainNavigation": "Hauptnavigation",
+    "dreamMode": "Dream Mode",
+    "closeDreamMode": "Dream Mode schließen",
+    "copyToClipboard": "Text in die Zwischenablage kopieren",
+    "shareOnX": "Auf X teilen",
+    "homeLink": "{brand} Startseite",
+    "openMenuFor": "{menu}-Menü öffnen",
+    "warningBadge": "Warnhinweis",
+    "complianceBadge": "Compliance-Kennzeichen",
+    "mobileMenu": "Mobiles Navigationsmenü"
   },
   "languageSwitcher": {
     "label": "Sprache",
@@ -335,5 +351,22 @@
     "loadingPage": "Seite wird geladen",
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen"
+  },
+  "expandable": {
+    "showMore": "Mehr anzeigen",
+    "showLess": "Weniger anzeigen"
+  },
+  "emailPreferences": {
+    "title": "E-Mail-Einstellungen",
+    "heading": "Verwalte deine E-Mails",
+    "description": "Du wirst von diBoaS-E-Mails abgemeldet. Deine Wartelistenposition und Empfehlungsguthaben bleiben erhalten.",
+    "unsubscribeButton": "Abmelden",
+    "staySubscribedButton": "Angemeldet bleiben",
+    "successUnsubscribed": "Du wurdest von diBoaS-E-Mails abgemeldet.",
+    "positionPreserved": "Deine Wartelistenposition wurde beibehalten.",
+    "redirectingHome": "Weiterleitung zur Startseite...",
+    "invalidLink": "Dieser Link ist ungültig oder abgelaufen.",
+    "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "processing": "Wird verarbeitet..."
   }
 }

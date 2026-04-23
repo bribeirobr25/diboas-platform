@@ -91,6 +91,7 @@ export function WaitlistConfirmation({
     }, stepTime);
 
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- animatedPosition is intentionally excluded; it's the value being animated, including it would restart the animation on every frame
   }, [position]);
 
   return (
@@ -130,8 +131,6 @@ export function WaitlistConfirmation({
         <ReferralLink
           referralCode={referralCode}
           referralUrl={referralUrl}
-          position={position}
-          tier={tier}
           onShare={onShareClick}
         />
 

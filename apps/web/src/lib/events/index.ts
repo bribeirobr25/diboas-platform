@@ -21,6 +21,9 @@ export {
   type EventListener
 } from './SectionEventBus';
 
+// Event Subscribers
+export { registerEventSubscribers } from './eventSubscribers';
+
 // Application Event Bus (Service/Domain events)
 export {
   ApplicationEventBus,
@@ -29,9 +32,8 @@ export {
   type ApplicationEventPayload,
   type WaitlistSignupEventPayload,
   type WaitlistDeletionEventPayload,
-  type WaitlistReferralEventPayload,
   type ShareEventPayload,
-  type DreamModeEventPayload,
+  type ConsentEventPayload,
   type ApplicationErrorEventPayload,
   type AppEventPayload,
   type AppEventListener

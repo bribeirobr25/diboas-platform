@@ -1,6 +1,6 @@
 /**
  * Centralized Logging System
- * 
+ *
  * Monitoring & Observability: Comprehensive logging with structured data
  * Error Handling & System Recovery: Error tracking and recovery logging
  * Security & Audit Standards: Audit trail and secure logging
@@ -8,6 +8,9 @@
  * No Hard Coded Values: Configurable log levels and destinations
  * Domain-Driven Design: Domain-specific logging contexts
  */
+
+import { sanitizeContext } from './logRedactor';
+import { StorageLogDestination } from './storageLogDestination';
 
 // Log levels following standard practices
 export enum LogLevel {
@@ -54,11 +57,10 @@ export class Logger {
     remoteEndpoint: process.env.NEXT_PUBLIC_LOGGING_ENDPOINT
   };
 
-  private static logBuffer: LogEntry[] = [];
+  private static storageDestination = new StorageLogDestination(
+    Logger.config.maxStorageEntries
+  );
   private static sessionId = this.generateSessionId();
-  private static storageFlushTimer: ReturnType<typeof setTimeout> | null = null;
-  private static pendingStorageWrite = false;
-  private static readonly STORAGE_FLUSH_INTERVAL_MS = 5000;
 
   /**
    * Debug level logging
@@ -101,9 +103,9 @@ export class Logger {
    * Security: Sanitizes sensitive data
    */
   private static log(
-    level: LogLevel, 
-    message: string, 
-    context?: Record<string, unknown>, 
+    level: LogLevel,
+    message: string,
+    context?: Record<string, unknown>,
     error?: Error
   ): void {
     // Check log level
@@ -116,7 +118,7 @@ export class Logger {
       timestamp: Date.now(),
       level,
       message,
-      context: this.sanitizeContext(context),
+      context: sanitizeContext(context),
       error,
       source: this.getCallSource(),
       sessionId: this.sessionId
@@ -129,7 +131,7 @@ export class Logger {
 
     // Storage logging
     if (this.config.enableStorage) {
-      this.logToStorage(logEntry);
+      this.storageDestination.add(logEntry);
     }
 
     // Remote logging (batched for performance)
@@ -164,61 +166,6 @@ export class Logger {
   }
 
   /**
-   * Circular-reference-safe JSON serialization
-   * Error Handling: Prevents cascading failures from non-serializable objects (e.g. DOM elements, React events)
-   */
-  private static safeStringify(obj: unknown): string {
-    const seen = new WeakSet();
-    return JSON.stringify(obj, (_key, value) => {
-      if (typeof value === 'object' && value !== null) {
-        if (seen.has(value)) return '[Circular]';
-        seen.add(value);
-      }
-      return value;
-    });
-  }
-
-  /**
-   * Local storage logging for debugging
-   * Performance: Batches localStorage writes on a 5s timer to avoid
-   * JSON.stringify + setItem on every single log call.
-   */
-  private static logToStorage(entry: LogEntry): void {
-    try {
-      this.logBuffer.push(entry);
-
-      if (this.logBuffer.length > this.config.maxStorageEntries) {
-        this.logBuffer = this.logBuffer.slice(-this.config.maxStorageEntries);
-      }
-
-      // Schedule a batched write instead of writing on every call
-      if (!this.pendingStorageWrite) {
-        this.pendingStorageWrite = true;
-        this.storageFlushTimer = setTimeout(() => {
-          this.flushToStorage();
-        }, this.STORAGE_FLUSH_INTERVAL_MS);
-      }
-    } catch (error) {
-      console.warn('Failed to log to storage:', error);
-    }
-  }
-
-  /**
-   * Flush buffered logs to localStorage
-   */
-  private static flushToStorage(): void {
-    this.pendingStorageWrite = false;
-    this.storageFlushTimer = null;
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        localStorage.setItem('diboas_logs', this.safeStringify(this.logBuffer.slice(-100)));
-      }
-    } catch {
-      // Silently fail to prevent logging loops
-    }
-  }
-
-  /**
    * Remote logging for production monitoring
    * Performance: Batched and non-blocking
    */
@@ -234,41 +181,12 @@ export class Logger {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(entry)
+        body: JSON.stringify(entry),
+        signal: AbortSignal.timeout(5000)
       }).catch(() => {
         // Silently fail to prevent logging loops
       });
     }, 0);
-  }
-
-  /**
-   * Sanitize context to remove sensitive data
-   * Security: Prevents logging of sensitive information
-   */
-  private static readonly EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-
-  private static sanitizeContext(context?: Record<string, unknown>): Record<string, unknown> | undefined {
-    if (!context) return undefined;
-
-    const sensitiveKeys = ['password', 'token', 'key', 'secret', 'auth', 'credential', 'email', 'ssn'];
-    const sanitized = { ...context };
-
-    for (const key of Object.keys(sanitized)) {
-      // Redact by key name
-      if (sensitiveKeys.some(sensitive => key.toLowerCase().includes(sensitive))) {
-        sanitized[key] = '[REDACTED]';
-        continue;
-      }
-      // Redact string values matching email patterns
-      if (typeof sanitized[key] === 'string') {
-        sanitized[key] = (sanitized[key] as string).replace(
-          this.EMAIL_PATTERN,
-          '[EMAIL_REDACTED]'
-        );
-      }
-    }
-
-    return sanitized;
   }
 
   /**
@@ -304,25 +222,14 @@ export class Logger {
    * Get logs for debugging
    */
   static getLogs(level?: LogLevel): LogEntry[] {
-    if (level !== undefined) {
-      return this.logBuffer.filter(entry => entry.level >= level);
-    }
-    return [...this.logBuffer];
+    return this.storageDestination.getAll(level);
   }
 
   /**
    * Clear logs
    */
   static clearLogs(): void {
-    this.logBuffer = [];
-    if (this.storageFlushTimer) {
-      clearTimeout(this.storageFlushTimer);
-      this.storageFlushTimer = null;
-      this.pendingStorageWrite = false;
-    }
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem('diboas_logs');
-    }
+    this.storageDestination.clear();
   }
 
   /**

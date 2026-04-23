@@ -1,20 +1,23 @@
 'use client';
 
-import { useCallback, useMemo, useRef } from 'react';
+/**
+ * ConfirmationScreen — transaction review and confirmation
+ * Transaction sequences extracted to TransactionSequences.tsx
+ */
+
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { FeeBreakdown } from '../components/FeeBreakdown';
 import { DepositIcon, SendIcon, InvestIcon, BackIcon } from '../components/Icons';
-import { PROCESSING_TIMING, formatCurrency } from '@/lib/pre-demo';
+import { formatCurrency } from '@/lib/pre-demo';
 import { useLocale } from '@/components/Providers';
 import { getIntlLocale } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { buildDepositSequence, buildSendSequence, buildBuySequence } from './TransactionSequences';
+import type { TransitionStep } from '../hooks';
 import styles from '../PreDemo.module.css';
 
 /** Type icon — delegates to shared Icon components */
@@ -36,17 +39,20 @@ const METHOD_KEYS: Record<string, string> = {
   mobile: 'preDemo.confirm.methodMobile',
 };
 
-export function ConfirmationScreen() {
+interface ConfirmationScreenProps {
+  runSequence: (steps: TransitionStep[]) => void;
+}
+
+export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
   const intl = useTranslation();
   const { state, dispatch, setScreen } = usePreDemo();
   const { locale } = useLocale();
-  const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const t = (key: string) => intl.formatMessage({ id: key });
 
   const pending = state.pendingTransaction;
 
-  // Calculate crypto quantity for buy (hook must be called unconditionally)
+  // Calculate crypto quantity for buy
   const cryptoQuantity = useMemo(() => {
     if (!pending || pending.type !== 'buy' || !pending.asset?.price || pending.netAmount <= 0) return 0;
     return pending.netAmount / pending.asset.price;
@@ -55,180 +61,26 @@ export function ConfirmationScreen() {
   const handleConfirm = useCallback(() => {
     if (!pending) return;
 
-    // Clear any existing timers
-    timerRef.current.forEach(clearTimeout);
-    timerRef.current = [];
+    const intlLocale = getIntlLocale(locale);
 
-    const processingPrefix = pending.type;
-
-    // Start processing flow
-    setScreen(`${processingPrefix}-processing` as Parameters<typeof setScreen>[0]);
-
-    // Approved step (only deposit has explicit approved)
     if (pending.type === 'deposit') {
-      const t1 = setTimeout(() => {
-        setScreen('deposit-approved');
-      }, PROCESSING_TIMING.processingDelay);
-      timerRef.current.push(t1);
-
-      const t2 = setTimeout(() => {
-        setScreen('deposit-complete');
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay);
-      timerRef.current.push(t2);
-
-      const t3 = setTimeout(() => {
-        dispatch({
-          type: 'COMPLETE_DEPOSIT',
-          netAmount: pending.netAmount,
-          grossAmount: pending.grossAmount,
-          totalFees: pending.totalFees,
-          feeDetails: pending.fees,
-          intlLocale: getIntlLocale(locale),
-        });
-
-        analyticsService.track({
-          name: 'pre_demo_transaction_completed',
-          parameters: {
-            type: 'deposit',
-            amount: pending.grossAmount,
-            net_amount: pending.netAmount,
-            fees: pending.totalFees,
-          },
-        });
-
-        applicationEventBus.emit(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, {
-          source: 'preDemo',
-          timestamp: Date.now(),
-          metadata: { amount: pending.grossAmount },
-        });
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay + PROCESSING_TIMING.completeDelay);
-      timerRef.current.push(t3);
+      runSequence(buildDepositSequence(pending, dispatch, intlLocale));
     } else if (pending.type === 'send') {
-      const t1 = setTimeout(() => {
-        setScreen('send-complete');
-      }, PROCESSING_TIMING.processingDelay);
-      timerRef.current.push(t1);
-
-      const t2 = setTimeout(() => {
-        dispatch({
-          type: 'COMPLETE_SEND',
-          grossAmount: pending.grossAmount,
-          netAmount: pending.netAmount,
-          totalFees: pending.totalFees,
-          recipient: pending.recipient || '',
-          feeDetails: pending.fees,
-          intlLocale: getIntlLocale(locale),
-        });
-
-        analyticsService.track({
-          name: 'pre_demo_transaction_completed',
-          parameters: {
-            type: 'send',
-            amount: pending.grossAmount,
-            net_amount: pending.netAmount,
-            fees: pending.totalFees,
-            recipient: pending.recipient,
-          },
-        });
-
-        applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
-          source: 'preDemo',
-          timestamp: Date.now(),
-          metadata: { amount: pending.grossAmount, recipient: pending.recipient },
-        });
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay);
-      timerRef.current.push(t2);
+      runSequence(buildSendSequence(pending, dispatch, intlLocale));
     } else {
-      // buy
-      const t1 = setTimeout(() => {
-        setScreen('buy-complete');
-      }, PROCESSING_TIMING.processingDelay);
-      timerRef.current.push(t1);
-
-      const t2 = setTimeout(() => {
-        dispatch({
-          type: 'COMPLETE_BUY',
-          grossAmount: pending.grossAmount,
-          netAmount: pending.netAmount,
-          totalFees: pending.totalFees,
-          asset: pending.asset
-            ? { symbol: pending.asset.symbol, name: pending.asset.name }
-            : { symbol: '', name: '' },
-          feeDetails: pending.fees,
-          intlLocale: getIntlLocale(locale),
-        });
-
-        analyticsService.track({
-          name: 'pre_demo_transaction_completed',
-          parameters: {
-            type: 'buy',
-            amount: pending.grossAmount,
-            net_amount: pending.netAmount,
-            fees: pending.totalFees,
-            asset: pending.asset?.symbol,
-          },
-        });
-
-        applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {
-          source: 'preDemo',
-          timestamp: Date.now(),
-          metadata: {
-            amount: pending.grossAmount,
-            asset: pending.asset?.symbol,
-          },
-        });
-      }, PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.completeDelay);
-      timerRef.current.push(t2);
+      runSequence(buildBuySequence(pending, dispatch, intlLocale));
     }
-  }, [pending, dispatch, setScreen]);
+  }, [pending, dispatch, locale, runSequence]);
 
   if (!pending) return null;
 
-  // Title by type
-  const titleKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.titleDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.titleSend'
-        : 'preDemo.confirm.titleBuy';
-
-  // Type label
-  const typeLabelKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.typeDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.typeSend'
-        : 'preDemo.confirm.typeBuy';
-
-  // Back navigation
-  const backScreen =
-    pending.type === 'deposit'
-      ? 'deposit'
-      : pending.type === 'send'
-        ? 'send'
-        : 'buy';
-
-  // "You'll receive" vs "They'll receive"
-  const receiveKey =
-    pending.type === 'send'
-      ? 'preDemo.confirm.theyReceive'
-      : 'preDemo.confirm.youReceive';
-
-  // Terms text key
-  const termsKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.termsDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.termsSend'
-        : 'preDemo.confirm.termsBuy';
-
-  // Confirm button text — type-specific
-  const confirmButtonKey =
-    pending.type === 'deposit'
-      ? 'preDemo.confirm.confirmDeposit'
-      : pending.type === 'send'
-        ? 'preDemo.confirm.confirmTransfer'
-        : 'preDemo.confirm.confirmPurchase';
+  // Derived keys based on transaction type
+  const typeKeys = {
+    deposit: { title: 'preDemo.confirm.titleDeposit', typeLabel: 'preDemo.confirm.typeDeposit', back: 'deposit', receive: 'preDemo.confirm.youReceive', terms: 'preDemo.confirm.termsDeposit', confirm: 'preDemo.confirm.confirmDeposit' },
+    send: { title: 'preDemo.confirm.titleSend', typeLabel: 'preDemo.confirm.typeSend', back: 'send', receive: 'preDemo.confirm.theyReceive', terms: 'preDemo.confirm.termsSend', confirm: 'preDemo.confirm.confirmTransfer' },
+    buy: { title: 'preDemo.confirm.titleBuy', typeLabel: 'preDemo.confirm.typeBuy', back: 'buy', receive: 'preDemo.confirm.youReceive', terms: 'preDemo.confirm.termsBuy', confirm: 'preDemo.confirm.confirmPurchase' },
+  } as const;
+  const keys = typeKeys[pending.type];
 
   return (
     <div className={styles.screen}>
@@ -239,7 +91,7 @@ export function ConfirmationScreen() {
         <button
           onClick={() => {
             dispatch({ type: 'CLEAR_PENDING' });
-            setScreen(backScreen as Parameters<typeof setScreen>[0]);
+            setScreen(keys.back as Parameters<typeof setScreen>[0]);
           }}
           className={styles.backButton}
         >
@@ -248,7 +100,7 @@ export function ConfirmationScreen() {
         </button>
 
         {/* Title + subtitle */}
-        <h2 className={styles.sectionTitle}>{t(titleKey)}</h2>
+        <h2 className={styles.sectionTitle}>{t(keys.title)}</h2>
         <p className={styles.sectionSubtitle}>{t('preDemo.confirm.subtitle')}</p>
 
         {/* Transaction details card */}
@@ -258,7 +110,7 @@ export function ConfirmationScreen() {
               <TypeIcon type={pending.type} />
             </div>
             <div>
-              <div className={styles.confirmTypeLabel}>{t(typeLabelKey)}</div>
+              <div className={styles.confirmTypeLabel}>{t(keys.typeLabel)}</div>
               {pending.paymentMethod && (
                 <div className={styles.confirmMethod}>
                   {t(METHOD_KEYS[pending.paymentMethod] || 'preDemo.confirm.methodCard')}
@@ -300,23 +152,23 @@ export function ConfirmationScreen() {
           </div>
         </div>
 
-        {/* Fee breakdown (always expanded, negative amounts) */}
+        {/* Fee breakdown */}
         <FeeBreakdown
           feeItems={pending.fees}
           totalFees={pending.totalFees}
           alwaysExpanded
         />
 
-        {/* Net amount — crypto format for buy, fiat for others */}
+        {/* Net amount */}
         <div className={styles.confirmTotal}>
-          <span>{t(receiveKey)}</span>
+          <span>{t(keys.receive)}</span>
           {pending.type === 'buy' && pending.asset && cryptoQuantity > 0 ? (
-            <div style={{ textAlign: 'right' }}>
+            <div className={styles.textRight}>
               <span className={styles.confirmTotalAmount}>
                 {cryptoQuantity.toFixed(8)} {pending.asset.symbol}
               </span>
               <br />
-              <span style={{ fontSize: 12, color: '#94a3b8' }}>
+              <span className={styles.confirmApproxLabel}>
                 {t('preDemo.transaction.approximate')} {formatCurrency(pending.netAmount, 2, locale)}
               </span>
             </div>
@@ -327,7 +179,7 @@ export function ConfirmationScreen() {
           )}
         </div>
 
-        {/* Terms checkbox with colored border */}
+        {/* Terms checkbox */}
         <div className={styles.termsCardHighlighted}>
           <label className={styles.checkboxLabel}>
             <input
@@ -339,17 +191,17 @@ export function ConfirmationScreen() {
               }}
               className={styles.checkbox}
             />
-            <span className={styles.checkboxText}>{t(termsKey)}</span>
+            <span className={styles.checkboxText}>{t(keys.terms)}</span>
           </label>
         </div>
 
-        {/* Confirm button — type-specific text */}
+        {/* Confirm button */}
         <button
           onClick={handleConfirm}
           disabled={!state.termsAccepted}
           className={styles.primaryButton}
         >
-          {t(confirmButtonKey)}
+          {t(keys.confirm)}
         </button>
       </div>
 

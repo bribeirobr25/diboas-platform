@@ -40,7 +40,7 @@ export function wrapInLayout(content: string, options?: { unsubscribeUrl?: strin
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:${BRAND.bgColor};border-radius:12px;overflow:hidden;">
           <!-- Header -->
           <tr>
-            <td style="padding:32px 40px 24px;text-align:center;background-color:${BRAND.primaryColor};">
+            <td style="padding:32px 40px 24px;text-align:center;background-color:${BRAND.headerColor};">
               <span style="font-size:28px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">${BRAND.name}</span>
             </td>
           </tr>
@@ -62,10 +62,10 @@ export function wrapInLayout(content: string, options?: { unsubscribeUrl?: strin
                 <a href="${BRAND.termsUrl}" style="color:#94a3b8;text-decoration:underline;">Terms of Service</a>
                 ${unsubscribeUrl ? `&nbsp;&bull;&nbsp;<a href="${unsubscribeUrl}" style="color:#94a3b8;text-decoration:underline;">Unsubscribe</a>` : ''}
               </p>
-              <p style="margin:0 0 8px;font-size:11px;color:#cbd5e1;text-align:center;">
+              <p style="margin:0 0 8px;font-size:11px;color:#64748b;text-align:center;">
                 ${disclaimer}
               </p>
-              <p style="margin:0;font-size:11px;color:#cbd5e1;text-align:center;">
+              <p style="margin:0;font-size:11px;color:#64748b;text-align:center;">
                 This is a transactional email related to your diBoaS waitlist membership.
               </p>
             </td>

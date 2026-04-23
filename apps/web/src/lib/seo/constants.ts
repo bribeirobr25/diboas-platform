@@ -64,220 +64,66 @@ export const SEO_DEFAULTS = {
   }
 } as const;
 
-// Page-specific SEO configurations
+/**
+ * Page-specific SEO configurations
+ * Only includes pages that exist in the (landing) route group.
+ * Marketing pages removed 2026-04-04.
+ */
 export const PAGE_SEO_CONFIG = {
   home: {
     title: 'Financial Freedom Made Simple',
     description: 'Complete financial ecosystem with banking, investing, and DeFi in one secure platform.',
     keywords: ['digital banking', 'crypto platform', 'DeFi services']
   },
-  // Main Pages
-  'why-diboas': {
-    title: 'Why Choose diBoaS - Complete Financial Freedom',
-    description: 'Discover the advantages of managing your finances with diBoaS. Zero fees, instant transfers, and AI-powered insights.',
-    keywords: ['why diboas', 'financial advantages', 'zero fees', 'complete financial solution']
-  },
-
-  // Personal Products
-  'personal/account': {
-    title: 'Personal Account - Your Financial Hub',
-    description: 'Open your diBoaS personal account and access banking, investing, and DeFi services in one platform.',
-    keywords: ['personal account', 'digital account', 'financial account', 'online banking account']
-  },
-  'personal/banking': {
-    title: 'Personal Banking - Modern Banking Solutions',
-    description: 'Experience next-generation personal banking with zero fees, instant transfers, and smart budgeting tools.',
-    keywords: ['personal banking', 'digital banking', 'online banking', 'smart banking']
-  },
-  'personal/investing': {
-    title: 'Personal Investing - Smart Crypto Investing',
-    description: 'Access cryptocurrencies and traditional assets with AI-powered portfolio management.',
-    keywords: ['personal investing', 'investment platform', 'portfolio management']
-  },
-  'personal/cryptocurrency': {
-    title: 'Personal Crypto - Secure Crypto Platform',
-    description: 'Trade cryptocurrencies with advanced security, low fees, and institutional-grade infrastructure.',
-    keywords: ['personal cryptocurrency', 'crypto trading', 'bitcoin', 'ethereum']
-  },
-  'personal/defi-strategies': {
-    title: 'Personal DeFi - Decentralized Finance',
-    description: 'Earn yields and access DeFi protocols with enterprise-grade security and expert strategies.',
-    keywords: ['personal defi', 'yield farming', 'decentralized finance', 'liquidity mining']
-  },
-  'personal/credit': {
-    title: 'Personal Credit - Smart Lending Solutions',
-    description: 'Access personal credit and lending solutions with competitive rates and flexible terms.',
-    keywords: ['personal credit', 'personal loans', 'lending', 'financing']
-  },
-  // Learn Center
-  'learn/overview': {
-    title: 'Learn Center - Financial Education Hub',
-    description: 'Comprehensive financial education resources to master banking, investing, and DeFi.',
-    keywords: ['financial education', 'learn finance', 'money management', 'learning center']
-  },
-  'learn/financial-basics': {
-    title: 'Financial Basics - Foundation Course',
-    description: 'Master the fundamentals of personal finance, budgeting, and money management.',
-    keywords: ['financial basics', 'personal finance', 'budgeting', 'money management']
-  },
-  'learn/money-management': {
-    title: 'Money Management - Advanced Strategies',
-    description: 'Learn advanced money management techniques and build lasting wealth.',
-    keywords: ['money management', 'wealth building', 'financial planning']
-  },
-  'learn/investment-guide': {
-    title: 'Investment Guide - Smart Investing',
-    description: 'Complete guide to investing in traditional and digital assets with proven strategies.',
-    keywords: ['investment guide', 'investing basics', 'portfolio management']
-  },
-  'learn/cryptocurrency-guide': {
-    title: 'Crypto A-Z - Complete Cryptocurrency Guide',
-    description: 'Everything you need to know about cryptocurrency, blockchain, and digital assets.',
-    keywords: ['cryptocurrency guide', 'blockchain education', 'crypto basics']
-  },
-  'learn/defi-explained': {
-    title: 'DeFi Explained - Decentralized Finance Guide',
-    description: 'Understanding DeFi protocols, yield farming, and decentralized finance opportunities.',
-    keywords: ['DeFi guide', 'decentralized finance', 'yield farming', 'liquidity pools']
-  },
-  'learn/special-content': {
-    title: 'Special Content - Expert Insights',
-    description: 'Exclusive financial content, market analysis, and expert insights for advanced users.',
-    keywords: ['financial insights', 'market analysis', 'expert content']
-  },
-  // Business Pages
-  'business/advantages': {
-    title: 'Business Advantages - Enterprise Financial Solutions',
-    description: 'Discover how diBoaS empowers businesses with comprehensive financial services and tools.',
-    keywords: ['business advantages', 'enterprise finance', 'business solutions']
-  },
-  'business/account': {
-    title: 'Business Account - Corporate Banking',
-    description: 'Open a business account with advanced features for modern enterprises and startups.',
-    keywords: ['business account', 'corporate banking', 'business banking']
-  },
-  'business/banking': {
-    title: 'Business Banking - Enterprise Financial Services',
-    description: 'Full-service business banking with multi-currency support and global reach.',
-    keywords: ['business banking', 'corporate finance', 'enterprise banking']
-  },
-  'business/payments': {
-    title: 'Business Payments - Global Payment Solutions',
-    description: 'Streamline business payments with fast, secure, and cost-effective solutions.',
-    keywords: ['business payments', 'corporate payments', 'payment processing']
-  },
-  'business/treasury': {
-    title: 'Treasury Management - Corporate Treasury',
-    description: 'Advanced treasury management tools for cash flow optimization and risk management.',
-    keywords: ['treasury management', 'cash management', 'corporate treasury']
-  },
-  'business/yield-strategies': {
-    title: 'Cash Flow Yield - Business Investment Strategies',
-    description: 'Maximize business cash flow with institutional-grade yield strategies and investments.',
-    keywords: ['cash flow yield', 'business investments', 'corporate yield']
-  },
-  'business/credit-solutions': {
-    title: 'P2P Credit - Business Lending Solutions',
-    description: 'Access peer-to-peer credit and alternative financing for business growth.',
-    keywords: ['business credit', 'P2P lending', 'business financing']
-  },
-  // Rewards Pages
-  'rewards/overview': {
-    title: 'diBoaS Rewards - Loyalty Program Overview',
-    description: 'Earn rewards for every transaction and unlock exclusive benefits with diBoaS Rewards.',
-    keywords: ['rewards overview', 'loyalty program', 'cashback rewards']
-  },
-  'rewards/ai-guides': {
-    title: 'AI Mascot Guides - Personalized Financial Assistant',
-    description: 'Meet your AI financial assistant that provides personalized guidance and insights.',
-    keywords: ['AI financial assistant', 'AI guides', 'financial AI']
-  },
-  'rewards/referral-program': {
-    title: 'Referral Program - Earn by Sharing',
-    description: 'Refer friends and earn rewards when they join the diBoaS financial ecosystem.',
-    keywords: ['referral program', 'earn rewards', 'invite friends']
-  },
-  'rewards/points-system': {
-    title: 'Points System - Earn and Redeem Points',
-    description: 'Earn points for every action and redeem them for exclusive rewards and benefits.',
-    keywords: ['points system', 'loyalty points', 'rewards points']
-  },
-  'rewards/badges-leaderboard': {
-    title: 'Badges & Leaderboard - Community Recognition',
-    description: 'Earn badges for achievements and compete on leaderboards with the diBoaS community.',
-    keywords: ['badges', 'leaderboard', 'community rewards']
-  },
-  'rewards/campaigns': {
-    title: 'Campaigns - Special Reward Events',
-    description: 'Participate in special campaigns and limited-time events for bonus rewards.',
-    keywords: ['reward campaigns', 'special events', 'bonus rewards']
-  },
-  'rewards/token-airdrop': {
-    title: 'Token & Airdrop - Crypto Rewards',
-    description: 'Participate in token airdrops and earn cryptocurrency rewards for platform usage.',
-    keywords: ['token airdrop', 'crypto rewards', 'cryptocurrency earnings']
-  },
-  // Security Pages
-  'security/protection': {
-    title: 'diBoaS Protection - Security Benefits',
-    description: 'Learn about our comprehensive security measures and protection benefits.',
-    keywords: ['financial protection', 'security benefits', 'secure banking']
-  },
-  'security/audit-reports': {
-    title: 'Audit & Reports - Security Transparency',
-    description: 'Access our security audit reports and transparency documentation.',
-    keywords: ['security audit', 'audit reports', 'security transparency']
-  },
-  'security/safety-guide': {
-    title: 'Stay Safe - Security Best Practices',
-    description: 'Essential security tips and best practices to protect your financial accounts.',
-    keywords: ['security guide', 'safety tips', 'financial security']
-  },
-  // Help & Company Pages
-  'help/faq': {
-    title: 'FAQ - Frequently Asked Questions',
-    description: 'Find answers to common questions about diBoaS services and features.',
-    keywords: ['FAQ', 'help', 'support', 'questions']
-  },
-  'help/contact': {
-    title: 'Contact Us - Get in Touch',
-    description: 'Contact diBoaS support team for assistance with your account and services.',
-    keywords: ['contact', 'support', 'help', 'customer service']
-  },
-  'help/getting-started': {
-    title: 'Getting Started - Quick Start Guide',
-    description: 'Get started with diBoaS in minutes. Learn how to open an account and start managing your finances.',
-    keywords: ['getting started', 'quick start', 'onboarding', 'tutorial']
-  },
-  'help/troubleshooting': {
-    title: 'Troubleshooting - Common Issues',
-    description: 'Find solutions to common issues and problems with your diBoaS account.',
-    keywords: ['troubleshooting', 'problems', 'issues', 'solutions']
-  },
-  'help/support': {
-    title: 'Support - Customer Support Center',
-    description: 'Access diBoaS customer support resources and contact options.',
-    keywords: ['support', 'customer service', 'help desk', 'assistance']
-  },
   about: {
     title: 'About diBoaS - Our Mission and Vision',
     description: 'Learn about diBoaS mission to democratize financial services and empower global communities.',
     keywords: ['about diBoaS', 'company mission', 'financial innovation']
   },
-  careers: {
-    title: 'Careers - Join Our Team',
-    description: 'Join the diBoaS team and help build the future of financial services.',
-    keywords: ['careers', 'jobs', 'join team', 'fintech careers']
+  business: {
+    title: 'diBoaS for Business - Enterprise Financial Solutions',
+    description: 'Discover how diBoaS empowers businesses with comprehensive financial services and tools.',
+    keywords: ['business solutions', 'enterprise finance', 'corporate banking']
   },
-  docs: {
-    title: 'Documentation - Developer Resources',
-    description: 'Comprehensive API documentation and developer resources for building with diBoaS.',
-    keywords: ['documentation', 'API docs', 'developer resources']
+  'daily-market': {
+    title: 'Daily Market Updates - Adelaide Market Intelligence',
+    description: 'Stay informed with daily market updates and financial insights from Adelaide.',
+    keywords: ['daily market', 'market updates', 'financial news']
   },
-  investors: {
-    title: 'Investors - Investment Opportunities',
-    description: 'Learn about investment opportunities and our vision for the future of finance.',
-    keywords: ['investors', 'investment opportunities', 'fintech investment']
+  demo: {
+    title: 'Interactive Demo - Experience diBoaS',
+    description: 'Try the diBoaS platform with our interactive demo and see your financial potential.',
+    keywords: ['demo', 'interactive demo', 'try diBoaS']
+  },
+  'dream-mode': {
+    title: 'Dream Mode - Visualize Your Financial Future',
+    description: 'See how your savings can grow with diBoaS Dream Mode calculator.',
+    keywords: ['dream mode', 'savings calculator', 'financial goals']
+  },
+  help: {
+    title: 'Help Center - Support & Resources',
+    description: 'Find answers and support resources for your diBoaS experience.',
+    keywords: ['help', 'support', 'FAQ', 'customer service']
+  },
+  protocols: {
+    title: 'Protocols - DeFi Strategy Details',
+    description: 'Learn about the DeFi protocols and strategies powering diBoaS yield products.',
+    keywords: ['DeFi protocols', 'yield strategies', 'blockchain']
+  },
+  security: {
+    title: 'Security - How We Protect Your Assets',
+    description: 'Learn about the security measures protecting your accounts and assets on diBoaS.',
+    keywords: ['security', 'asset protection', 'secure banking']
+  },
+  strategies: {
+    title: 'Investment Strategies - Smart Yield Optimization',
+    description: 'Explore diBoaS investment strategies for optimizing your portfolio returns.',
+    keywords: ['investment strategies', 'yield optimization', 'portfolio management']
+  },
+  share: {
+    title: 'Share diBoaS - Invite Friends',
+    description: 'Share diBoaS with friends and family and earn rewards together.',
+    keywords: ['share', 'referral', 'invite friends']
   },
   'legal/terms': {
     title: 'Legal & Compliance - Terms and Conditions',

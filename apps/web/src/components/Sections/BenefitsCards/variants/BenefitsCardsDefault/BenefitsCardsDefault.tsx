@@ -9,7 +9,7 @@
 
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   TrendingUp,
   Send,
@@ -17,8 +17,8 @@ import {
   Target,
   CheckCircle2,
   XCircle,
-  type LucideIcon
-} from 'lucide-react';
+  type LucideIconType as LucideIcon
+} from '@/components/UI/LucideIcon';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { BenefitsCardsVariantProps, BenefitCard } from '../../types';
 import styles from './BenefitsCardsDefault.module.css';
@@ -67,7 +67,7 @@ function BenefitCardItem({ card }: BenefitCardItemProps) {
   const IconComponent = getIconComponent(card.icon);
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${card.featured ? styles.cardFeatured : ''}`}>
       {/* Icon */}
       <div className={styles.iconWrapper}>
         <IconComponent className={styles.icon} aria-hidden="true" />

@@ -11,10 +11,11 @@
 import { IntlProvider as ReactIntlProvider } from 'react-intl';
 import type { ReactNode } from 'react';
 import type { SupportedLocale } from './config';
+import type { FlatIntlMessages } from './types';
 
 export interface I18nProviderProps {
   locale: SupportedLocale;
-  messages: Record<string, any>;
+  messages: FlatIntlMessages;
   children: ReactNode;
   onError?: (err: Error) => void;
 }

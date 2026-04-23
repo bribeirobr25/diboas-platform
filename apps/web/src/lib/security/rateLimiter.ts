@@ -15,6 +15,19 @@ import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { RATE_LIMIT_CONFIG, IS_PRODUCTION } from '@/config/env';
 
+/**
+ * Rate limiter interface — Service Agnostic Abstraction.
+ * The existing Upstash/in-memory implementation satisfies this contract.
+ * Consumers can depend on the interface for testing or alternative backends.
+ */
+export interface IRateLimiter {
+  checkRateLimit(
+    key: string,
+    limit?: number,
+    windowMs?: number,
+  ): Promise<RateLimitResult>;
+}
+
 // In-memory fallback store
 const inMemoryStore = new Map<string, { count: number; resetAt: number }>();
 
@@ -77,7 +90,12 @@ export async function pingRedis(): Promise<boolean> {
   initializeRedis();
   if (!redis) return false;
   try {
-    const result = await redis.ping();
+    const result = await Promise.race([
+      redis.ping(),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Redis ping timeout')), 5000)
+      ),
+    ]);
     return result === 'PONG';
   } catch {
     return false;

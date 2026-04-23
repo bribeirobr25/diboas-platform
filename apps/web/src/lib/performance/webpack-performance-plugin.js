@@ -1,24 +1,31 @@
 /**
  * Webpack Performance Plugin
- * 
+ *
  * Domain-Driven Design: Build-time performance monitoring domain
  * Monitoring & Observability: Bundle analysis and performance tracking
  * Error Handling & System Recovery: Graceful performance validation
  * File Decoupling & Organization: Dedicated build-time monitoring
+ *
+ * Note: Intentionally kept as .js — this is a webpack plugin loaded via require()
+ * in next.config.js. Converting to .ts would require a ts-node compilation step.
  */
+
+/** @typedef {import('webpack').Compiler} Compiler */
+/** @typedef {import('webpack').Stats} Stats */
 
 const fs = require('fs');
 const path = require('path');
 
 class WebpackPerformancePlugin {
+  /** @param {Partial<{ outputPath: string, budgets: { maxAssetSize: number, maxEntrypointSize: number, maxTotalSize: number, maxAssets: number }, logLevel: string, failOnBudgetExceeded: boolean }>} options */
   constructor(options = {}) {
     this.options = {
       outputPath: '.next/performance-report.json',
       budgets: {
-        maxAssetSize: 500 * 1024, // 500KB
-        maxEntrypointSize: 1024 * 1024, // 1MB
-        maxTotalSize: 5 * 1024 * 1024, // 5MB
-        maxAssets: 50
+        maxAssetSize: 300 * 1024, // 300KB (source maps excluded from count)
+        maxEntrypointSize: 800 * 1024, // 800KB (source maps excluded from count)
+        maxTotalSize: 4 * 1024 * 1024, // 4MB (source maps excluded from count)
+        maxAssets: 300 // Raised from 40 — 4 locales × ~60 namespaces + framework chunks
       },
       logLevel: 'warn',
       failOnBudgetExceeded: false,
@@ -26,6 +33,7 @@ class WebpackPerformancePlugin {
     };
   }
 
+  /** @param {Compiler} compiler */
   apply(compiler) {
     compiler.hooks.done.tap('WebpackPerformancePlugin', (stats) => {
       try {
@@ -66,29 +74,34 @@ class WebpackPerformancePlugin {
     const assetSizes = assets.map(asset => ({
       name: asset.name,
       size: asset.source?.size() || 0,
-      type: this.getAssetType(asset.name)
+      type: this.getAssetType(asset.name),
+      isSourceMap: asset.name.endsWith('.map')
     }));
+
+    // Exclude source maps from budget-relevant metrics (they're never served to users)
+    const userFacingAssets = assetSizes.filter(a => !a.isSourceMap);
 
     const entrypointSizes = entrypoints.map(entrypoint => ({
       name: entrypoint.name,
       size: entrypoint.getFiles().reduce((total, file) => {
+        if (file.endsWith('.map')) return total; // Exclude source maps from entrypoint size
         const asset = assets.find(a => a.name === file);
         return total + (asset?.source?.size() || 0);
       }, 0),
-      files: entrypoint.getFiles()
+      files: entrypoint.getFiles().filter(f => !f.endsWith('.map'))
     }));
 
-    const totalSize = assetSizes.reduce((total, asset) => total + asset.size, 0);
+    const totalSize = userFacingAssets.reduce((total, asset) => total + asset.size, 0);
 
     return {
       totalSize,
-      assetCount: assetSizes.length,
-      assets: assetSizes,
+      assetCount: userFacingAssets.length,
+      assets: userFacingAssets,
       entrypoints: entrypointSizes,
-      largestAssets: assetSizes
+      largestAssets: userFacingAssets
         .sort((a, b) => b.size - a.size)
         .slice(0, 10),
-      assetsByType: this.groupAssetsByType(assetSizes)
+      assetsByType: this.groupAssetsByType(userFacingAssets)
     };
   }
 

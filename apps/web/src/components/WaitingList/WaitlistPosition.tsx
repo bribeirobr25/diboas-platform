@@ -73,8 +73,8 @@ export function WaitlistPosition({
     return formatPosition(position, locale);
   }, [position, locale]);
 
-  // Generate referral URL
-  const referralUrl = useMemo(() => {
+  // Generate referral URL (used by future share functionality)
+  const _referralUrl = useMemo(() => {
     const base = REFERRAL_CONFIG.referralBaseUrl;
     return `${base}?ref=${referralCode}`;
   }, [referralCode]);

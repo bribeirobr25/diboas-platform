@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { MetadataFactory } from '@/lib/seo';
+import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
@@ -10,9 +10,12 @@ import {
   DemoLauncher,
   ExpandableSection,
   FounderSection,
+  ComparisonTable,
+  GoalExampleCards,
+  SidePocketStrip,
+  FoundingMembersSection,
+  HowItWorksGrid,
 } from '@/components/Sections';
-import { SocialProofSection } from '@/components/Sections/SocialProofSection/SocialProofSection';
-import { ProductCarouselFactory } from '@/components/Sections/ProductCarousel';
 import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
 import { WaitlistSection } from '@/components/Sections/WaitlistSection';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
@@ -20,11 +23,11 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { ScrollReveal, StickyMobileCTA } from '@/components/UI';
 import {
   B2C_HERO_CONFIG,
   B2C_ORIGIN_STORY_CONFIG,
   B2C_HOW_IT_WORKS_CONFIG,
-  B2C_SCENARIOS_CONFIG,
   B2C_FEES_CONFIG,
   B2C_CATCH_CONFIG,
   B2C_UNDER_THE_HOOD_CONFIG,
@@ -102,20 +105,23 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 /**
  * B2C Landing Page
  *
- * 11-section layout:
- * 1.   Hero — Full background with headline and CTA
- * 2.   Scenarios — Real-life scenario slides (ProductCarousel)
- * 3.   Origin Story — "Her name was Adelaide." (ProseSection)
- * 4.   How It Works — 4-step AppFeaturesCarousel
- * 5.   Fees — Transparent fee table (5 columns)
- * 6.   What's the Catch? — Honest transparency (ProseSection)
- * 6.5  Under the Hood — Expandable technical details
- * 7.   Demo — Interactive demo embed
- * 8.   Social Proof — Waitlist counter + country stats
- * 8.5  About the Founder — Founder story + contact
- * 9.   Waitlist — Version A/B email signup
- * 10.  FAQ — 12 CLO-approved Q&A items
- * 11.  Footer — Tagline, nav, disclosures
+ * 15-section layout + footer:
+ * 1.  Hero — Full dark background with headline and CTA
+ * 2.  ComparisonTable — "$1,000. 1 year. You decide." rate comparison
+ * 3.  SidePocketStrip — Brand-tinted breathing strip
+ * 4.  GoalExampleCards — "Let's make it simple." expandable goal cards
+ * 5.  Adelaide Story — "Why we are building this?" (ProseSection)
+ * 6.  How It Works (Detailed) — 3-card static grid explaining the mechanism
+ * 7.  Demo — Interactive demo embed
+ * 8.  Take Control — 4-card AppFeaturesCarousel (Send, Invest, Track, Buy)
+ * 9.  Fee Table — Transparent fee table (5 columns)
+ * 10. What's the Catch? — Honest transparency (ProseSection, dark background)
+ * 11. Under the Hood — Expandable technical details
+ * 12. Founding Members — Social proof wrapper with zero-state logic
+ * 13. Waitlist — Email signup (dark background)
+ * 14. Built by Bar — Founder story + contact
+ * 15. FAQ — 16+ CLO-approved Q&A items
+ *     Footer — Tagline, nav, disclosures
  */
 export default async function B2CLandingPage({ params }: LocalePageProps) {
   const { locale: localeParam } = await params;
@@ -125,17 +131,17 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c', 'calculator', 'waitlist', 'share', 'dreamMode', 'preDemo', 'preDream']);
+  // Load page-specific namespaces (waitlist already provided by landing layout)
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c', 'share', 'dreamMode', 'preDemo', 'preDream']);
 
   // Generate structured data
-  const organizationData = MetadataFactory.generateServiceStructuredData({
+  const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',
     description: 'Turn your idle money into real growth with DeFi yields',
     category: 'Financial Services'
   });
 
-  const breadcrumbData = MetadataFactory.generateBreadcrumbs([
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
     { name: 'Home', url: '/' }
   ], locale);
 
@@ -145,7 +151,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
       <ScrollToHash />
 
       <div className="main-page-wrapper">
-        {/* Section 1: Hero */}
+        {/* Section 1: Hero — dark bg, NO scroll reveal (visible on load) */}
         <SectionErrorBoundary
           sectionId="hero-section-b2c"
           sectionType="HeroSection"
@@ -162,182 +168,241 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 2: Scenarios — Real People, Real Moments (ProductCarousel) */}
-        <SectionErrorBoundary
-          sectionId="scenarios-section-b2c"
-          sectionType="ProductCarousel"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="scenarios" data-section-id="scenarios-section-b2c">
-            <ProductCarouselFactory
-              config={B2C_SCENARIOS_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 2: Comparison Table — neutral bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="comparison-section-b2c"
+            sectionType="ComparisonTable"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="comparison" data-section-id="comparison-section-b2c" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
+              <ComparisonTable enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 3: Origin Story — "Her name was Adelaide." */}
-        <SectionErrorBoundary
-          sectionId="origin-story-section-b2c"
-          sectionType="ProseSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="our-story" data-section-id="origin-story-section-b2c">
-            <ProseSection
-              config={B2C_ORIGIN_STORY_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 3: Side-Pocket Strip — brand bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="sidepocket-section-b2c"
+            sectionType="SidePocketStrip"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div data-section-id="sidepocket-section-b2c">
+              <SidePocketStrip />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 4: How It Works — 4 Steps (AppFeaturesCarousel) */}
-        <SectionErrorBoundary
-          sectionId="how-it-works-section-b2c"
-          sectionType="AppFeaturesCarousel"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="how-it-works" data-section-id="how-it-works-section-b2c">
-            <AppFeaturesCarousel
-              config={B2C_HOW_IT_WORKS_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 4: Goal Example Cards — white bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="goals-section-b2c"
+            sectionType="GoalExampleCards"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="goals" data-section-id="goals-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+              <GoalExampleCards enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 5: Fees — Transparent Pricing */}
-        <SectionErrorBoundary
-          sectionId="fees-section-b2c"
-          sectionType="FeeTable"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="fees" data-section-id="fees-section-b2c">
-            <FeeTable
-              config={B2C_FEES_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 5: Join the Movement — white bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="founding-members-section-b2c"
+            sectionType="FoundingMembersSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="social-proof" data-section-id="founding-members-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+              <FoundingMembersSection enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 6: What's the Catch? */}
-        <SectionErrorBoundary
-          sectionId="catch-section-b2c"
-          sectionType="ProseSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="the-catch" data-section-id="catch-section-b2c">
-            <ProseSection
-              config={B2C_CATCH_CONFIG}
-              enableAnalytics={true}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 6: Adelaide Story — warm bg (set via config) */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="origin-story-section-b2c"
+            sectionType="ProseSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="our-story" data-section-id="origin-story-section-b2c">
+              <ProseSection
+                config={B2C_ORIGIN_STORY_CONFIG}
+                enableAnalytics={true}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 6.5: Under the Hood — Expandable technical details */}
-        <SectionErrorBoundary
-          sectionId="under-the-hood-section-b2c"
-          sectionType="ExpandableSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="under-the-hood" data-section-id="under-the-hood-section-b2c">
-            <ExpandableSection
-              config={B2C_UNDER_THE_HOOD_CONFIG}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 6: How It Works (Detailed) — white bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="how-it-works-detailed-section-b2c"
+            sectionType="HowItWorksGrid"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="how-it-works" data-section-id="how-it-works-detailed-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+              <HowItWorksGrid enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 7: Demo */}
-        <SectionErrorBoundary
-          sectionId="demo-section-b2c"
-          sectionType="DemoLauncher"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="demo" data-section-id="demo-section-b2c">
-            <DemoLauncher config={B2C_DEMO_CONFIG} enableAnalytics={true} />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 7: Demo — brand bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="demo-section-b2c"
+            sectionType="DemoLauncher"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="demo" data-section-id="demo-section-b2c" style={{ backgroundColor: 'var(--section-bg-brand)' }}>
+              <DemoLauncher config={B2C_DEMO_CONFIG} enableAnalytics={true} />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 8: Social Proof */}
-        <SectionErrorBoundary
-          sectionId="social-proof-section-b2c"
-          sectionType="SocialProofSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div data-section-id="social-proof-section-b2c">
-            <SocialProofSection
-              namespace="landing-b2c.socialProof"
-              enableAnalytics={true}
-              ctaText="cta"
-              source="landing_b2c"
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 8: Take Control and Free your Money — neutral bg (set via component token) */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="how-it-works-section-b2c"
+            sectionType="AppFeaturesCarousel"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="money-that-moves" data-section-id="how-it-works-section-b2c">
+              <AppFeaturesCarousel
+                config={B2C_HOW_IT_WORKS_CONFIG}
+                enableAnalytics={true}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 8.5: About the Founder */}
-        <SectionErrorBoundary
-          sectionId="founder-section-b2c"
-          sectionType="FounderSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="founder" data-section-id="founder-section-b2c">
-            <FounderSection
-              config={B2C_FOUNDER_CONFIG}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 9: Fees — neutral bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="fees-section-b2c"
+            sectionType="FeeTable"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="fees" data-section-id="fees-section-b2c" style={{ backgroundColor: 'var(--section-bg-neutral)' }}>
+              <FeeTable
+                config={B2C_FEES_CONFIG}
+                enableAnalytics={true}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 9: Waitlist */}
-        <SectionErrorBoundary
-          sectionId="waitlist-section-b2c"
-          sectionType="WaitlistSection"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="waitlist" data-section-id="waitlist-section-b2c">
-            <WaitlistSection
-              enableAnalytics={true}
-              config={{
-                sectionId: B2C_WAITLIST_CONFIG.sectionId,
-                backgroundColor: B2C_WAITLIST_CONFIG.backgroundColor,
-                headline: B2C_WAITLIST_CONFIG.headline,
-                subheadline: B2C_WAITLIST_CONFIG.subheadline,
-                hideBenefits: B2C_WAITLIST_CONFIG.hideBenefits,
-                hideNoSpam: B2C_WAITLIST_CONFIG.hideNoSpam,
-                source: B2C_WAITLIST_CONFIG.source,
-              }}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 10: What's the Catch? — dark bg (set via config) */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="catch-section-b2c"
+            sectionType="ProseSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="the-catch" data-section-id="catch-section-b2c">
+              <ProseSection
+                config={B2C_CATCH_CONFIG}
+                enableAnalytics={true}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
 
-        {/* Section 10: FAQ */}
-        <SectionErrorBoundary
-          sectionId="faq-section-b2c"
-          sectionType="FAQAccordion"
-          enableReporting={true}
-          context={{ page: 'landing-b2c' }}
-        >
-          <div id="faq" data-section-id="faq-section-b2c">
-            <FAQAccordion
-              config={B2C_FAQ_CONFIG}
-            />
-          </div>
-        </SectionErrorBoundary>
+        {/* Section 11: Under the Hood — white bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="under-the-hood-section-b2c"
+            sectionType="ExpandableSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="under-the-hood" data-section-id="under-the-hood-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+              <ExpandableSection
+                config={B2C_UNDER_THE_HOOD_CONFIG}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
+
+        {/* Section 12: Waitlist — dark bg (set via config) */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="waitlist-section-b2c"
+            sectionType="WaitlistSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="waitlist" data-section-id="waitlist-section-b2c">
+              <WaitlistSection
+                enableAnalytics={true}
+                config={{
+                  sectionId: B2C_WAITLIST_CONFIG.sectionId,
+                  backgroundColor: B2C_WAITLIST_CONFIG.backgroundColor,
+                  headline: B2C_WAITLIST_CONFIG.headline,
+                  subheadline: B2C_WAITLIST_CONFIG.subheadline,
+                  hideBenefits: B2C_WAITLIST_CONFIG.hideBenefits,
+                  hideNoSpam: B2C_WAITLIST_CONFIG.hideNoSpam,
+                  source: B2C_WAITLIST_CONFIG.source,
+                }}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
+
+        {/* Section 14: Built by Bar — warm bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="founder-section-b2c"
+            sectionType="FounderSection"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="founder" data-section-id="founder-section-b2c" style={{ backgroundColor: 'var(--section-bg-warm)' }}>
+              <FounderSection
+                config={B2C_FOUNDER_CONFIG}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
+
+        {/* Section 15: FAQ — white bg */}
+        <ScrollReveal>
+          <SectionErrorBoundary
+            sectionId="faq-section-b2c"
+            sectionType="FAQAccordion"
+            enableReporting={true}
+            context={{ page: 'landing-b2c' }}
+          >
+            <div id="faq" data-section-id="faq-section-b2c" style={{ backgroundColor: 'var(--section-bg-white)' }}>
+              <FAQAccordion
+                config={B2C_FAQ_CONFIG}
+              />
+            </div>
+          </SectionErrorBoundary>
+        </ScrollReveal>
       </div>
 
-      {/* Section 11: Footer */}
+      {/* Footer */}
       <MinimalFooter
         taglineKey="landing-b2c.footer.tagline"
         navLinks={B2C_FOOTER_NAV}
         disclosureKeys={B2C_FOOTER_DISCLOSURES}
       />
+
+      {/* Sticky Mobile CTA — appears after hero, hides at waitlist */}
+      <StickyMobileCTA />
     </PageI18nProvider>
   );
 }

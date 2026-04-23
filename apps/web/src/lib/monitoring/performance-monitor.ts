@@ -63,6 +63,8 @@ export class PerformanceMonitor {
   private observers: ObserverMap = {};
   private startTime = performance.now();
   private isEnabled = false;
+  private flushIntervalId: ReturnType<typeof setInterval> | null = null;
+  private boundBeforeUnload: (() => void) | null = null;
 
   private constructor(config: Partial<PerformanceConfig> = {}) {
     this.config = createPerformanceConfig(config);
@@ -196,16 +198,15 @@ export class PerformanceMonitor {
    * Setup periodic metric flushing
    */
   private setupPeriodicFlush(): void {
-    setInterval(() => {
+    this.flushIntervalId = setInterval(() => {
       if (this.metricsBuffer.length > 0) {
         this.flushMetrics();
       }
     }, this.config.flushInterval);
 
     // Flush on page unload
-    window.addEventListener('beforeunload', () => {
-      this.flushMetrics();
-    });
+    this.boundBeforeUnload = () => this.flushMetrics();
+    window.addEventListener('beforeunload', this.boundBeforeUnload);
   }
 
   /**
@@ -228,7 +229,8 @@ export class PerformanceMonitor {
           session: getSessionId(),
           timestamp: Date.now()
         }),
-        keepalive: true // Ensure delivery on page unload
+        keepalive: true, // Ensure delivery on page unload
+        signal: AbortSignal.timeout(5000),
       });
 
       Logger.info('Performance metrics flushed', { count: metrics.length });
@@ -309,6 +311,18 @@ export class PerformanceMonitor {
     try {
       // Flush remaining metrics
       this.flushMetrics();
+
+      // Clear periodic flush interval
+      if (this.flushIntervalId) {
+        clearInterval(this.flushIntervalId);
+        this.flushIntervalId = null;
+      }
+
+      // Remove beforeunload listener
+      if (this.boundBeforeUnload) {
+        window.removeEventListener('beforeunload', this.boundBeforeUnload);
+        this.boundBeforeUnload = null;
+      }
 
       // Disconnect observers
       disconnectObservers(this.observers);

@@ -21,6 +21,7 @@ export interface Protocol {
   hasExceptionNote?: boolean;
   website: string;
   twitter: string;
+  defiLlamaUrl?: string;
 }
 
 /**

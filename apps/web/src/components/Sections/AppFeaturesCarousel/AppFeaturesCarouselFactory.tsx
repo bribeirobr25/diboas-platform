@@ -88,8 +88,8 @@ export function AppFeaturesCarousel({
       }
 
       return finalConfig;
-    } catch (error) {
-      Logger.warn('Failed to resolve AppFeaturesCarousel configuration:', { error: error instanceof Error ? error.message : String(error) });
+    } catch {
+      Logger.warn('Failed to resolve AppFeaturesCarousel configuration');
       return APP_FEATURES_CAROUSEL_CONFIGS.default;
     }
   }, [variant, customConfig]);
@@ -113,8 +113,8 @@ export function AppFeaturesCarousel({
         page: window.location.pathname,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  app features carousel navigation:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -129,8 +129,8 @@ export function AppFeaturesCarousel({
         variant: resolvedConfig.variant,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  app features carousel slide change:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -154,10 +154,8 @@ export function AppFeaturesCarousel({
       } else {
         window.location.href = ctaHref;
       }
-    } catch (error) {
-      // Analytics tracking failed silently:  app features carousel CTA click:', error);
-      
-      // Still navigate even if analytics fails
+    } catch {
+      // Analytics tracking failed silently — still navigate
       const card = resolvedConfig.cards?.find(c => c.id === slideId);
       if (card?.content.ctaTarget === '_blank') {
         window.open(ctaHref, '_blank', 'noopener,noreferrer');
@@ -176,8 +174,8 @@ export function AppFeaturesCarousel({
         variant: resolvedConfig.variant,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      // Analytics tracking failed silently:  app features carousel play/pause:', error);
+    } catch {
+      // Analytics tracking failed silently
     }
   }, [enableAnalytics, resolvedConfig]);
 
@@ -198,8 +196,8 @@ export function AppFeaturesCarousel({
   // Error Handling: Fallback if variant component fails to load
   try {
     return <VariantComponent {...variantProps} />;
-  } catch (error) {
-    Logger.error(`Failed to render app features carousel variant '${variant}'`, {}, error instanceof Error ? error : undefined);
+  } catch {
+    Logger.error(`Failed to render app features carousel variant '${variant}'`);
 
     // Fallback to default variant
     const DefaultVariant = getAppFeaturesCarouselVariant('default');

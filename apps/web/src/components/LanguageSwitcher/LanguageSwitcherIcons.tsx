@@ -116,7 +116,7 @@ function ESFlag({ size = 24 }: FlagIconProps) {
 function DEFlag({ size = 24 }: FlagIconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 18" fill="none" aria-hidden="true">
-      <rect width="24" height="6" y="0" rx="2" ry="2" fill="#000" />
+      <rect width="24" height="6" y="0" rx="2" ry="2" fill="#0f172a" />
       <rect width="24" height="6" y="6" fill="#DD0000" />
       <rect width="24" height="6" y="12" rx="2" ry="2" fill="#FFCC00" />
     </svg>

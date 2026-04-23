@@ -8,27 +8,28 @@
   "hero": {
     "h1": "Where Your Money Works",
     "subtitle": "Every system. Every name. Nothing hidden.",
-    "trustLine": "26 protocols. 7 categories. Full transparency about every system your money touches."
+    "trustLine": "25 protocols. 7 categories. Full transparency about every system your money touches."
   },
   "transitions": {
     "t1": "Here's why we built this page.",
-    "t2": "How did these 26 make the list?",
+    "t2": "How did these 25 make the list?",
     "t3": "So how much real money is in these systems?",
     "t4": "Before you go further, something important.",
     "t5": "You probably still have questions. Good."
   },
   "why": {
-    "h2": "Why This Page Exists",
+    "h2": "Transparency",
     "text1": "Ask your bank where your savings go. They won't tell you.",
     "text2": "We will. Every system listed on this page is one your money may touch when you use a diBoaS strategy. We publish the names, the track records, the security audits, and the things that went wrong. Because you should know.",
     "text3": "Every protocol on this page earned its spot. We checked how long it has been running, who audited the code, how it handled problems, and whether real people actually trust it with real money. If it did not pass, it is not here.",
-    "scope": "We list 26 protocols here. Our strategies currently use 6 of them. The rest are protocols we have researched and approved, and they may be included in future strategies as we expand.",
+    "scope": "We list 25 protocols here. Our strategies currently use 6 of them. The rest are protocols we have researched and approved, and they may be included in future strategies as we expand.",
     "warningBox": "Important: Being listed here does not mean zero risk. It means we did our homework and we are being honest about what we found. Every system on this page carries technical risk, market risk, and the possibility of loss."
   },
   "grid": {
-    "h2": "The 26 Protocols",
+    "h2": "The 25 Protocols",
     "subtitle": "Organized by what they do. Click any card for details.",
-    "tvlFreshness": "All TVL figures are approximate, sourced from DeFiLlama, and current as of February 2026. Values fluctuate daily."
+    "tvlFreshness": "All TVL figures are approximate, sourced from DeFiLlama, and current as of February 2026. Values fluctuate daily.",
+    "defiLlamaLink": "Verify on DeFiLlama"
   },
   "categories": {
     "lending": {
@@ -70,7 +71,7 @@
     "showLess": "Show less",
     "showMore": "Read more",
     "websiteLink": "Website →",
-    "twitterLink": "@Twitter"
+    "twitterLink": "@X"
   },
   "cards": {
     "aaveV3": {
@@ -311,17 +312,6 @@
       },
       "usedInStrategies": "Balanced Builder, Wealth Accelerator, Full Throttle"
     },
-    "drift": {
-      "name": "Drift Protocol",
-      "description": "Full-featured trading platform on Solana. Perpetuals, spot trading, and lending in one system. Real-time risk monitoring dashboard is public.",
-      "details": {
-        "founded": "2021",
-        "tvl": "~$850 million",
-        "blockchains": "Solana",
-        "audits": "3+ audits by Trail of Bits, OtterSec",
-        "regulatory": "Open-source code. Public risk monitoring."
-      }
-    },
     "raydium": {
       "name": "Raydium",
       "description": "Solana's main decentralized exchange. Automated market making, concentrated liquidity, and token launches.",
@@ -388,7 +378,7 @@
     "source": "Combined TVL sourced from DeFiLlama. Last verified: January 2026. Values fluctuate daily."
   },
   "notIs": {
-    "h2": "What This Page Is Not",
+    "h2": "Attention",
     "text": "This is not a recommendation to use any of these protocols directly.\n\ndiBoaS strategies are built on top of these systems, and our team handles the complexity. You do not need to interact with any protocol yourself. This page exists so you can see exactly where your money goes and verify everything we say.\n\nEvery protocol here carries risk. Smart contracts can have bugs. Markets can crash. Stablecoins can lose their peg. Systems that have operated safely for years can still face problems tomorrow. We monitor these systems continuously, but we cannot eliminate risk. No one can.\n\nIf you are unsure whether this is right for you, consult a licensed financial advisor before making any investment decisions.",
     "warmLine": "This page exists because we believe you deserve to know. Not because you need to act on it."
   },
@@ -396,7 +386,7 @@
     "h2": "Questions About Our Protocols",
     "q1": {
       "question": "Why don't you list every DeFi protocol?",
-      "answer": "There are thousands of DeFi protocols. We would rather list 26 we have thoroughly researched than 200 we have not."
+      "answer": "There are thousands of DeFi protocols. We would rather list 25 we have thoroughly researched than 200 we have not."
     },
     "q2": {
       "question": "How often do you update this list?",
@@ -427,9 +417,6 @@
       "answer": "No. diBoaS handles all protocol interactions on your behalf when you choose a strategy. You do not need to create accounts with any protocol, manage wallets on different blockchains, or understand the technical details. This page is here for transparency, not because you need to do anything with it."
     }
   },
-  "cta": {
-    "transition": "Satisfied with what you see? Join the waitlist."
-  },
   "cvmWarnings": {
     "warning1": "",
     "warning2": "",
@@ -446,5 +433,10 @@
     "externalLinks": "External links on this page lead to third-party websites not controlled by diBoaS. We are not responsible for their content, privacy practices, or availability.",
     "professionalAdvice": "Consider consulting a licensed financial advisor before making investment decisions.",
     "copyright": "© 2026 diBoaS. All rights reserved."
+  },
+  "sections": {
+    "faq": {
+      "ariaLabel": "Protocol frequently asked questions"
+    }
   }
 }

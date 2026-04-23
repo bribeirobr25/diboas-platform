@@ -1,37 +1,19 @@
-/**
- * Configuration - Public API
- *
- * Selective barrel exports for commonly used configs.
- * Import specific config files directly for page-specific configs.
- */
+// Barrel export for config module
+//
+// Note: Not all config files are re-exported here due to naming conflicts
+// between modules (e.g., FeatureItem in oneFeature and stickyFeaturesNav).
+// Import specific config files directly when needed.
 
-// Core configuration
-export { ENV, APP_URL, IS_PRODUCTION, IS_DEVELOPMENT } from './env';
-export { ROUTES } from './routes';
-export { BRAND_CONFIG } from './brand';
-
-// Formatting
-export {
-  formatCurrency,
-  formatLocaleCurrency,
-  formatLargeNumber,
-  formatDisplayDate,
-  getCurrencyForLocale,
-  getIntlLocale,
-  CURRENCY_CONFIG,
-  DATE_FORMATS,
-  NUMBER_FORMATS,
-} from './formats';
-
-// Navigation
-export { navigationConfig } from './navigation';
-
-// Monitoring
-export { MONITORING_CONFIG } from './monitoring';
-
-// Performance
-export { WEB_VITALS_THRESHOLDS } from './performance-thresholds';
-
-// Security
-export { buildCSP, getAdditionalSecurityHeaders } from './security';
-export type { CSPDirective, SecurityHeaders } from './security';
+export * from './env';
+export * from './routes';
+export * from './navigation';
+export * from './assets';
+export * from './monitoring';
+export * from './formats';
+export * from './footer';
+export * from './brand';
+export * from './cta';
+export * from './design-system';
+export * from './ui-constants';
+export * from './performance-thresholds';
+export * from './waitlist-stats';

@@ -52,7 +52,7 @@ validateProductionSecrets();
 /**
  * Base application URL
  */
-export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com';
+export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com';
 
 /**
  * Base domain (without protocol)

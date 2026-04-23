@@ -1,8 +1,8 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import { memo, useId, useState, useCallback } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { memo, useId, useState, useCallback, type ReactNode } from 'react';
+import { ChevronDown } from '@/components/UI/LucideIcon';
+import { LocaleLink } from '@/components/UI';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import type { ExpandableSectionConfig } from '@/config/expandableSection';
@@ -17,7 +17,7 @@ interface ExpandableSectionProps {
 
 export const ExpandableSection = memo(function ExpandableSection({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
   children,
 }: ExpandableSectionProps) {
@@ -69,14 +69,14 @@ export const ExpandableSection = memo(function ExpandableSection({
                   <p key={index} className={styles.paragraph}>{paragraph}</p>
                 ))}
                 {translated.content.linkText && translated.content.linkHref ? (
-                  <a
+                  <LocaleLink
                     href={translated.content.linkHref}
                     className={styles.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {translated.content.linkText}
-                  </a>
+                  </LocaleLink>
                 ) : null}
               </>
             )}

@@ -10,7 +10,8 @@
       "about": "Sobre",
       "protocols": "Protocolos",
       "adelaideDaily": "Adelaide Daily",
-      "joinWaitlist": "Entrar na Lista"
+      "joinWaitlist": "Entrar na Lista",
+      "tryDemo": "Testar Demo"
     },
     "diboas": {
       "label": "diBoaS",
@@ -141,7 +142,22 @@
     "nextSlide": "Próximo slide",
     "changeLanguage": "Alterar idioma",
     "switchTo": "Mudar para {language}",
-    "emailLabel": "Endereço de e-mail"
+    "emailLabel": "Endereço de e-mail",
+    "scrollDown": "Rolar para baixo",
+    "exampleCalculation": "Cálculo de exemplo",
+    "siteFooter": "Rodapé do site",
+    "productNavigation": "Navegação de produto",
+    "legalPages": "Páginas legais",
+    "mainNavigation": "Navegação principal",
+    "dreamMode": "Dream Mode",
+    "closeDreamMode": "Fechar Dream Mode",
+    "copyToClipboard": "Copiar texto para a área de transferência",
+    "shareOnX": "Compartilhar no X",
+    "homeLink": "Página inicial {brand}",
+    "openMenuFor": "Abrir menu {menu}",
+    "warningBadge": "Aviso",
+    "complianceBadge": "Selo de conformidade",
+    "mobileMenu": "Menu de navegação móvel"
   },
   "languageSwitcher": {
     "label": "Idioma",
@@ -335,5 +351,22 @@
     "loadingPage": "Carregando página",
     "openMenu": "Abrir menu",
     "closeMenu": "Fechar menu"
+  },
+  "expandable": {
+    "showMore": "Ver mais",
+    "showLess": "Ver menos"
+  },
+  "emailPreferences": {
+    "title": "Preferências de Email",
+    "heading": "Gerencie seus emails",
+    "description": "Você será descadastrado dos emails do diBoaS. Sua posição na lista de espera e créditos de indicação serão preservados.",
+    "unsubscribeButton": "Cancelar inscrição",
+    "staySubscribedButton": "Manter inscrição",
+    "successUnsubscribed": "Você foi descadastrado dos emails do diBoaS.",
+    "positionPreserved": "Sua posição na lista de espera foi preservada.",
+    "redirectingHome": "Redirecionando para a página inicial...",
+    "invalidLink": "Este link é inválido ou expirou.",
+    "error": "Algo deu errado. Tente novamente.",
+    "processing": "Processando..."
   }
 }

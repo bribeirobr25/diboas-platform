@@ -78,6 +78,9 @@ export const SectionContainer = memo(function SectionContainer({
     ...(backgroundColor && { backgroundColor })
   };
 
+  // Detect dark background for automatic text color inversion (WCAG compliance)
+  const isDarkBg = backgroundColor?.includes('section-bg-dark') ?? false;
+
   return (
     <Element
       id={id}
@@ -87,6 +90,7 @@ export const SectionContainer = memo(function SectionContainer({
       aria-labelledby={ariaLabelledBy}
       role={role}
       data-testid={testId}
+      {...(isDarkBg ? { 'data-theme': 'dark' } : {})}
     >
       <div className={containerClasses}>
         {children}

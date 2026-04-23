@@ -16,7 +16,7 @@
 
 .inputGroup {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-md);
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
@@ -28,6 +28,7 @@
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: stretch;
+    gap: var(--spacing-lg);
   }
 }
 
@@ -35,7 +36,7 @@
   flex: 2;
   width: var(--percent-100);
   min-height: var(--cta-min-height-mobile); /* WCAG 2.2 minimum touch target */
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md-minus, 12px) var(--spacing-lg);
   font-size: var(--font-size-md);
   border: 1px solid var(--color-slate-200);
   border-radius: var(--radius-lg);
@@ -85,9 +86,9 @@
   border-radius: var(--cta-border-radius);
   cursor: pointer;
   transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
-  white-space: nowrap;
+  overflow-wrap: break-word;
   width: var(--percent-80);
-  max-width: var(--dimension-280);
+  min-width: 200px;
   min-height: var(--cta-min-height-mobile);
   display: flex;
   align-items: center;

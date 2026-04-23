@@ -15,17 +15,12 @@ import { Logger } from '@/lib/monitoring/Logger';
 import {
   setConsentCookie,
   getConsentFromRequest,
-  hasAnalyticsConsent,
   clearConsentCookie,
   CookieConfig,
 } from '@/lib/security/cookies';
-import {
-  checkRateLimit,
-  getClientIP,
-  createRateLimitHeaders,
-  RateLimitPresets,
-  csrfProtection,
-} from '@/lib/security';
+import { logAuditEvent } from '@/lib/audit/AuditService';
+import { applyRateLimit, applyCsrf, emitErrorEvent } from '@/lib/api/routeHelpers';
+import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -50,27 +45,13 @@ interface ConsentResponse {
  * Set consent preferences via HttpOnly cookie.
  */
 export async function POST(request: NextRequest): Promise<NextResponse<ConsentResponse>> {
-  // CSRF protection
-  const csrfError = csrfProtection(request);
-  if (csrfError) {
-    return csrfError as NextResponse<ConsentResponse>;
-  }
+  const startTime = logRequestStart('POST', '/api/consent');
 
-  const clientIP = getClientIP(request);
+  const csrfError = applyCsrf(request);
+  if (csrfError) return csrfError as NextResponse<ConsentResponse>;
 
-  // Rate limiting
-  const rateLimitResult = await checkRateLimit(
-    `consent:${clientIP}`,
-    RateLimitPresets.standard.limit,
-    RateLimitPresets.standard.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-    );
-  }
+  const rateLimited = await applyRateLimit(request, 'consent', 'standard');
+  if (rateLimited) return rateLimited as NextResponse<ConsentResponse>;
 
   try {
     const body = await request.json() as ConsentRequest;
@@ -107,6 +88,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
     applicationEventBus.emit(eventType, {
       source: 'consent',
       timestamp: Date.now(),
+      correlationId: request.headers.get('x-request-id') || undefined,
       consentType: 'analytics',
       previousState,
       newState: body.analytics,
@@ -115,20 +97,22 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
       },
     });
 
-    return response;
-  } catch (error) {
-    // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'consent',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'medium',
-      context: {
-        operation: 'consent_set',
-      },
+    // Audit trail (fire-and-forget)
+    logAuditEvent({
+      eventType: body.analytics ? 'consent.given' : 'consent.withdrawn',
+      entityType: 'consent',
+      actorIp: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+      actorUserAgent: request.headers.get('user-agent') ?? undefined,
+      correlationId: request.headers.get('x-request-id') || undefined,
+      details: { consentType: 'analytics', previousState: previousState, newState: body.analytics },
     });
 
+    logRequestEnd('POST', '/api/consent', 200, startTime);
+    return response;
+  } catch (error) {
+    emitErrorEvent('consent', 'consent_set', error, 'medium');
     Logger.error('[Consent] Error setting consent:', { error: error instanceof Error ? error.message : String(error) });
+    logRequestEnd('POST', '/api/consent', 500, startTime);
     return NextResponse.json(
       { success: false, error: 'Failed to set consent' },
       { status: 500 }
@@ -142,21 +126,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
  * Check current consent status from HttpOnly cookie.
  */
 export async function GET(request: NextRequest): Promise<NextResponse<ConsentResponse>> {
-  const clientIP = getClientIP(request);
-
-  // Rate limiting
-  const rateLimitResult = await checkRateLimit(
-    `consent-check:${clientIP}`,
-    RateLimitPresets.lenient.limit,
-    RateLimitPresets.lenient.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-    );
-  }
+  const rateLimited = await applyRateLimit(request, 'consent-check', 'lenient');
+  if (rateLimited) return rateLimited as NextResponse<ConsentResponse>;
 
   try {
     const consent = getConsentFromRequest(request);
@@ -177,16 +148,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<ConsentRes
     });
   } catch (error) {
     // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'consent',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'low',
-      context: {
-        operation: 'consent_check',
-      },
-    });
-
+    emitErrorEvent('consent', 'consent_check', error, 'low');
     Logger.error('[Consent] Error checking consent:', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json(
       { success: false, error: 'Failed to check consent' },
@@ -201,27 +163,11 @@ export async function GET(request: NextRequest): Promise<NextResponse<ConsentRes
  * Clear consent cookie (withdraw consent).
  */
 export async function DELETE(request: NextRequest): Promise<NextResponse<ConsentResponse>> {
-  // CSRF protection
-  const csrfError = csrfProtection(request);
-  if (csrfError) {
-    return csrfError as NextResponse<ConsentResponse>;
-  }
+  const csrfError = applyCsrf(request);
+  if (csrfError) return csrfError as NextResponse<ConsentResponse>;
 
-  const clientIP = getClientIP(request);
-
-  // Rate limiting
-  const rateLimitResult = await checkRateLimit(
-    `consent-delete:${clientIP}`,
-    RateLimitPresets.standard.limit,
-    RateLimitPresets.standard.windowMs
-  );
-
-  if (!rateLimitResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.' },
-      { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
-    );
-  }
+  const rateLimited = await applyRateLimit(request, 'consent-delete', 'standard');
+  if (rateLimited) return rateLimited as NextResponse<ConsentResponse>;
 
   try {
     // Get previous consent state for audit trail
@@ -237,6 +183,7 @@ export async function DELETE(request: NextRequest): Promise<NextResponse<Consent
     applicationEventBus.emit(ApplicationEventType.CONSENT_WITHDRAWN, {
       source: 'consent',
       timestamp: Date.now(),
+      correlationId: request.headers.get('x-request-id') || undefined,
       consentType: 'all',
       previousState: previousConsent?.analytics,
       newState: false,
@@ -248,16 +195,7 @@ export async function DELETE(request: NextRequest): Promise<NextResponse<Consent
     return response;
   } catch (error) {
     // Emit application error for monitoring
-    applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
-      source: 'consent',
-      timestamp: Date.now(),
-      error: error instanceof Error ? error : new Error(String(error)),
-      severity: 'medium',
-      context: {
-        operation: 'consent_clear',
-      },
-    });
-
+    emitErrorEvent('consent', 'consent_clear', error, 'medium');
     Logger.error('[Consent] Error clearing consent:', { error: error instanceof Error ? error.message : String(error) });
     return NextResponse.json(
       { success: false, error: 'Failed to clear consent' },

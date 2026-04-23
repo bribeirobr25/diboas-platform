@@ -3,13 +3,15 @@
 /**
  * Protocols Grid Section
  *
- * Displays all protocols organized by category
+ * Displays all protocols organized by category using ExpandableCard pattern.
+ * Multi-expand: users can expand multiple protocols to compare.
  */
 
 import { useTranslation } from '@diboas/i18n/client';
+import { AlertTriangle, CheckCircle } from '@/components/UI/LucideIcon';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
-import { ProtocolCard } from '../ProtocolCard';
+import { ExpandableCard, ExpandableCardGrid } from '@/components/UI/ExpandableCard';
 import { PROTOCOL_DATA } from '../protocolsData';
 import styles from './ProtocolsGridSection.module.css';
 
@@ -18,54 +20,44 @@ const I18N_PREFIX = 'protocols';
 export function ProtocolsGridSection() {
   const intl = useTranslation();
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
+  const expandLabel = intl.formatMessage({ id: 'common.expandable.showMore' });
+  const collapseLabel = intl.formatMessage({ id: 'common.expandable.showLess' });
 
-  // Protocol labels for card rendering
   const labels = {
     founded: t('protocolLabels.founded'),
     tvl: t('protocolLabels.tvl'),
     blockchains: t('protocolLabels.blockchains'),
     audits: t('protocolLabels.audits'),
     regulatory: t('protocolLabels.regulatory'),
-    showLess: t('protocolLabels.showLess'),
-    showMore: t('protocolLabels.showMore'),
     websiteLink: t('protocolLabels.websiteLink'),
     twitterLink: t('protocolLabels.twitterLink'),
+    defiLlamaLink: t('grid.defiLlamaLink'),
   };
 
-  // Resolve translated content for a protocol card
-  const getI18nContent = (protocolId: string) => ({
-    name: t(`cards.${protocolId}.name`),
-    description: t(`cards.${protocolId}.description`),
-    founded: t(`cards.${protocolId}.details.founded`),
-    tvl: t(`cards.${protocolId}.details.tvl`),
-    blockchains: t(`cards.${protocolId}.details.blockchains`),
-    audits: t(`cards.${protocolId}.details.audits`),
-    regulatory: t(`cards.${protocolId}.details.regulatory`),
+  const getI18n = (id: string) => ({
+    name: t(`cards.${id}.name`),
+    description: t(`cards.${id}.description`),
+    founded: t(`cards.${id}.details.founded`),
+    tvl: t(`cards.${id}.details.tvl`),
+    blockchains: t(`cards.${id}.details.blockchains`),
+    audits: t(`cards.${id}.details.audits`),
+    regulatory: t(`cards.${id}.details.regulatory`),
   });
 
-  // Category translation helpers
-  const getCategoryTitle = (categoryId: string) => t(`categories.${categoryId}.title`);
-  const getCategoryDescription = (categoryId: string) => t(`categories.${categoryId}.description`);
-
-  // Exception note getter — only protocols with hasExceptionNote in protocolsData.ts
   const getExceptionNote = (protocolId: string): string | undefined => {
-    const allProtocols = PROTOCOL_DATA.flatMap((cat) => cat.protocols);
-    const protocol = allProtocols.find((p) => p.id === protocolId);
-    if (protocol?.hasExceptionNote) {
-      return t(`cards.${protocolId}.exceptionNote`);
-    }
-    return undefined;
+    const all = PROTOCOL_DATA.flatMap((cat) => cat.protocols);
+    const p = all.find((x) => x.id === protocolId);
+    return p?.hasExceptionNote ? t(`cards.${protocolId}.exceptionNote`) : undefined;
   };
 
-  // Used-in-strategies getter — only protocols with usedInStrategies in protocolsData.ts
   const getUsedInStrategies = (protocolId: string): string | undefined => {
-    const allProtocols = PROTOCOL_DATA.flatMap((cat) => cat.protocols);
-    const protocol = allProtocols.find((p) => p.id === protocolId);
-    if (protocol?.usedInStrategies && protocol.usedInStrategies.length > 0) {
-      return t(`cards.${protocolId}.usedInStrategies`);
-    }
-    return undefined;
+    const all = PROTOCOL_DATA.flatMap((cat) => cat.protocols);
+    const p = all.find((x) => x.id === protocolId);
+    return p?.usedInStrategies?.length ? t(`cards.${protocolId}.usedInStrategies`) : undefined;
   };
+
+  const getCategoryTitle = (id: string) => t(`categories.${id}.title`);
+  const getCategoryDescription = (id: string) => t(`categories.${id}.description`);
 
   return (
     <SectionErrorBoundary
@@ -80,37 +72,96 @@ export function ProtocolsGridSection() {
         backgroundColor="var(--bc-color-section-bg)"
       >
         <div className={styles.content}>
-          <h2 className={styles.sectionTitle}>
-            {t('grid.h2')}
-          </h2>
-          <p className={styles.sectionSubtitle}>
-            {t('grid.subtitle')}
-          </p>
-          <p className={styles.tvlFreshness}>
-            {t('grid.tvlFreshness')}
-          </p>
+          <h2 className={styles.sectionTitle}>{t('grid.h2')}</h2>
+          <p className={styles.sectionSubtitle}>{t('grid.subtitle')}</p>
+          <p className={styles.tvlFreshness}>{t('grid.tvlFreshness')}</p>
 
           {PROTOCOL_DATA.map((category) => (
             <div key={category.id} className={styles.categoryGroup}>
-              <h3 className={styles.categoryTitle}>
-                {getCategoryTitle(category.id)}
-              </h3>
-              <p className={styles.categoryDescription}>
-                {getCategoryDescription(category.id)}
-              </p>
+              <h3 className={styles.categoryTitle}>{getCategoryTitle(category.id)}</h3>
+              <p className={styles.categoryDescription}>{getCategoryDescription(category.id)}</p>
 
-              <div className={styles.grid}>
-                {category.protocols.map((protocol) => (
-                  <ProtocolCard
-                    key={protocol.id}
-                    protocol={protocol}
-                    labels={labels}
-                    i18nContent={getI18nContent(protocol.id)}
-                    exceptionNote={getExceptionNote(protocol.id)}
-                    usedInStrategiesText={getUsedInStrategies(protocol.id)}
-                  />
-                ))}
-              </div>
+              <ExpandableCardGrid multiExpand={true}>
+                {({ isExpanded, onToggle }) => (
+                  <>
+                    {category.protocols.map((protocol) => {
+                      const i18n = getI18n(protocol.id);
+                      const exceptionNote = getExceptionNote(protocol.id);
+                      const usedInStrategies = getUsedInStrategies(protocol.id);
+
+                      return (
+                        <ExpandableCard
+                          key={protocol.id}
+                          id={protocol.id}
+                          title={i18n.name}
+                          titleSummary={i18n.tvl}
+                          expandLabel={expandLabel}
+                          collapseLabel={collapseLabel}
+                          isExpanded={isExpanded(protocol.id)}
+                          onToggle={onToggle}
+                        >
+                          {/* Badge */}
+                          {protocol.badge === 'warning' ? (
+                            <span className={styles.badgeWarning}>
+                              <AlertTriangle className={styles.badgeIcon} aria-hidden="true" />
+                            </span>
+                          ) : null}
+                          {protocol.badge === 'success' ? (
+                            <span className={styles.badgeSuccess}>
+                              <CheckCircle className={styles.badgeIcon} aria-hidden="true" />
+                            </span>
+                          ) : null}
+
+                          {/* Description */}
+                          <p className={styles.protocolDescription}>{i18n.description}</p>
+
+                          {exceptionNote ? (
+                            <p className={styles.exceptionNote}>{exceptionNote}</p>
+                          ) : null}
+                          {usedInStrategies ? (
+                            <p className={styles.usedInStrategies}>{usedInStrategies}</p>
+                          ) : null}
+
+                          {/* Details */}
+                          <div className={styles.protocolDetails}>
+                            <div className={styles.detailRow}>
+                              <span className={styles.detailLabel}>{labels.founded}</span>
+                              <span className={styles.detailValue}>{i18n.founded}</span>
+                            </div>
+                            <div className={styles.detailRow}>
+                              <span className={styles.detailLabel}>{labels.blockchains}</span>
+                              <span className={styles.detailValue}>{i18n.blockchains}</span>
+                            </div>
+                            <div className={styles.detailRow}>
+                              <span className={styles.detailLabel}>{labels.audits}</span>
+                              <span className={styles.detailValue}>{i18n.audits}</span>
+                            </div>
+                            <div className={styles.detailRow}>
+                              <span className={styles.detailLabel}>{labels.regulatory}</span>
+                              <span className={styles.detailValue}>{i18n.regulatory}</span>
+                            </div>
+                          </div>
+
+                          {/* Links */}
+                          <div className={styles.protocolLinks}>
+                            <a href={protocol.website} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
+                              {labels.websiteLink}
+                            </a>
+                            <a href={protocol.twitter} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
+                              {labels.twitterLink}
+                            </a>
+                            {protocol.defiLlamaUrl ? (
+                              <a href={protocol.defiLlamaUrl} target="_blank" rel="noopener noreferrer" className={styles.protocolLink}>
+                                {labels.defiLlamaLink}
+                              </a>
+                            ) : null}
+                          </div>
+                        </ExpandableCard>
+                      );
+                    })}
+                  </>
+                )}
+              </ExpandableCardGrid>
             </div>
           ))}
         </div>

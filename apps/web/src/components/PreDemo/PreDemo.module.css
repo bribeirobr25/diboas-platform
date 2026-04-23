@@ -9,7 +9,7 @@
 .container {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: var(--z-index-modal);
   background: var(--section-bg-white, #f9fafb);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -23,7 +23,7 @@
 }
 
 .screenContainer > div {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn var(--animation-duration-normal) ease-out;
 }
 
 @keyframes fadeIn {
@@ -45,14 +45,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: var(--spacing-lg) var(--spacing-md);
 }
 
 .screenContent {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: var(--spacing-md);
   max-width: 448px;
   margin: 0 auto;
   width: 100%;
@@ -64,12 +64,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: var(--spacing-lg);
 }
 
 .screenTitle {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-heading);
   line-height: 1.3;
   margin: 0;
@@ -77,9 +77,9 @@
 }
 
 .screenSubtitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
   text-align: center;
 }
 
@@ -87,7 +87,7 @@
 .demoHeader {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-index-sticky);
   background: var(--section-bg-white);
   border-bottom: 1px solid var(--color-slate-200);
 }
@@ -96,7 +96,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: var(--spacing-md-minus) var(--spacing-md);
   max-width: 672px;
   margin: 0 auto;
   position: relative;
@@ -105,13 +105,13 @@
 .demoHeaderLeft {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .demoHeaderLogoButton {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -121,13 +121,13 @@
 .demoHeaderLogoImage {
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   object-fit: cover;
 }
 
 .demoHeaderLogo {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-heading);
 }
 
@@ -136,12 +136,12 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-amber-600, #d97706);
   background: var(--color-amber-50, #fffbeb);
   border: 1px solid var(--color-amber-200, #fde68a);
-  padding: 5px 12px;
-  border-radius: 9999px;
+  padding: 5px var(--spacing-md-minus);
+  border-radius: var(--radius-pill);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -149,7 +149,7 @@
 .demoHeaderRight {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .exitButton {
@@ -158,12 +158,12 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   background: transparent;
   border: 1px solid var(--color-slate-200);
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .exitButton:hover {
@@ -175,7 +175,7 @@
 .userAvatar {
   width: 36px;
   height: 36px;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   background: var(--section-bg-brand);
   display: flex;
   align-items: center;
@@ -193,41 +193,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
 }
 
 .loginCard {
   width: 100%;
   background: var(--section-bg-white);
   border: 1px solid var(--color-gray-100, #f3f4f6);
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow-xs);
 }
 
 .inputGroup {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .inputLabel {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-600);
 }
 
 .inputField {
   width: 100%;
-  padding: 12px 14px;
+  padding: var(--spacing-md-minus) 14px;
   border: 1px solid var(--color-slate-200);
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: var(--radius-lg-plus);
+  font-size: var(--font-size-sm);
   color: var(--color-text-heading);
   background: var(--color-slate-50);
   outline: none;
@@ -239,17 +239,17 @@
 }
 
 .onChainNote {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--brand-primary-dark);
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
 }
 
 .selectField {
   width: 100%;
-  padding: 12px 14px;
+  padding: var(--spacing-md-minus) 14px;
   border: 1px solid var(--color-slate-200);
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: var(--radius-lg-plus);
+  font-size: var(--font-size-sm);
   color: var(--color-text-heading);
   background: var(--section-bg-white);
   outline: none;
@@ -260,7 +260,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 .divider::before,
@@ -272,7 +272,7 @@
 }
 
 .dividerText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   white-space: nowrap;
   text-transform: uppercase;
@@ -281,17 +281,17 @@
 
 .oauthGrid {
   display: flex;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   width: 100%;
 }
 
 .oauthButton {
   flex: 1;
-  padding: 12px 10px;
+  padding: var(--spacing-md-minus) var(--spacing-sm-plus);
   border: 1px solid var(--color-slate-200);
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 500;
+  border-radius: var(--radius-lg-plus);
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-400);
   background: var(--section-bg-white);
   cursor: not-allowed;
@@ -299,19 +299,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
   opacity: 0.5;
 }
 
 .logoImage {
   width: 100%;
   height: 100%;
-  border-radius: 14px;
+  border-radius: var(--radius-xl-minus);
   object-fit: cover;
 }
 
 .disclaimerText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   text-align: center;
   line-height: 1.5;
@@ -319,14 +319,14 @@
 }
 
 .backToHomeLink {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 8px 16px;
-  transition: color 0.15s ease;
+  padding: var(--spacing-sm) var(--spacing-md);
+  transition: color var(--animation-duration-fast) ease;
 }
 
 .backToHomeLink:hover {
@@ -345,7 +345,7 @@
   height: 48px;
   border: 3px solid var(--color-slate-200);
   border-top-color: var(--brand-primary-dark);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   animation: spin 0.8s linear infinite;
 }
 
@@ -356,19 +356,19 @@
 .checkmarkList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
   width: 100%;
-  margin-top: 8px;
+  margin-top: var(--spacing-sm);
 }
 
 .checkmarkItem {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
   color: var(--color-slate-700);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity var(--animation-duration-normal) ease, transform var(--animation-duration-normal) ease;
 }
 
 .checkmarkHidden {
@@ -389,14 +389,14 @@
   width: 20px;
   height: 20px;
   background: var(--section-bg-brand);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 
 .successIcon {
   width: 64px;
   height: 64px;
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   background: var(--section-bg-brand);
   display: flex;
   align-items: center;
@@ -408,8 +408,8 @@
 .balanceCard {
   width: 100%;
   background: linear-gradient(135deg, var(--brand-primary-dark), var(--text-primary-accessible));
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
   color: var(--color-white);
 }
 
@@ -433,30 +433,30 @@
 }
 
 .balanceLabel {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   opacity: 0.85;
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
 }
 
 .balanceAmount {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
   font-variant-numeric: tabular-nums;
 }
 
 .balanceBreakdown {
   display: flex;
-  gap: 24px;
-  margin-top: 12px;
-  padding: 12px 4px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md-minus);
+  padding: var(--spacing-md-minus) var(--spacing-xs) 0;
+  border-top: 1px solid var(--glass-border-light);
 }
 
 .balanceBreakdownItem {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
 }
 
 .balanceBreakdownLabel {
@@ -471,15 +471,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
   width: 100%;
-  margin-top: 12px;
-  padding-top: 10px;
+  margin-top: var(--spacing-md-minus);
+  padding-top: var(--spacing-sm-plus);
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid var(--glass-surface-subtle);
   background: none;
   font: inherit;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: inherit;
   opacity: 0.8;
   cursor: pointer;
@@ -496,20 +496,20 @@
 }
 
 .compactCard {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .compactCard .balanceCard {
-  padding: 14px 16px;
+  padding: var(--spacing-md-plus) var(--spacing-md);
 }
 
 .compactCard .balanceAmount {
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
 }
 
 .compactCard .balanceBreakdown {
-  margin-top: 8px;
-  padding-top: 8px;
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
 }
 
 .compactCard .balanceTapToView {
@@ -518,18 +518,18 @@
 
 /* ==================== Quick Actions ==================== */
 .quickActionsHeading {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
-  margin: 16px 0 0;
+  margin: var(--spacing-md) 0 0;
 }
 
 .quickActionsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   width: 100%;
-  margin: 16px 0;
+  margin: var(--spacing-md) 0;
 }
 
 .quickActionButton {
@@ -538,13 +538,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 20px 12px;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xl) var(--spacing-md-minus);
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .quickActionButton:hover:not(:disabled) {
@@ -570,12 +570,12 @@
   position: absolute;
   top: -8px;
   right: -4px;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--font-size-xs-minus);
+  font-weight: var(--font-weight-bold);
   color: var(--color-white);
   background: var(--brand-primary-dark);
-  padding: 2px 8px;
-  border-radius: 9999px;
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-pill);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -583,12 +583,12 @@
 .quickActionIcon {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   background: var(--color-slate-100);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   color: var(--color-slate-600);
 }
 
@@ -598,8 +598,8 @@
 }
 
 .quickActionLabel {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-700);
 }
 
@@ -611,77 +611,77 @@
 
 .quickActionCheck {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
   color: var(--text-success-accessible);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
 }
 
 /* ==================== Activity Feed ==================== */
 .activityFeed {
   width: 100%;
-  margin-top: 16px;
+  margin-top: var(--spacing-md);
 }
 
 .activityTitle {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
-  margin: 0 0 12px;
+  margin: 0 0 var(--spacing-md-minus);
 }
 
 .activityEmpty {
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
-  padding: 24px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-lg);
   text-align: center;
 }
 
 .activityEmptyIcon {
   color: var(--color-slate-300, #cbd5e1);
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .activityEmptyText {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   margin: 0;
 }
 
 .activityEmptySubtext {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-400);
-  margin: 4px 0 0;
+  margin: var(--spacing-xs) 0 0;
 }
 
 .activityList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .activityItem {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md-plus);
 }
 
 .activityIcon {
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
   flex-shrink: 0;
 }
 
@@ -706,14 +706,14 @@
 }
 
 .activityDescription {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-heading);
   display: block;
 }
 
 .activityDate {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   display: block;
   margin-top: 2px;
@@ -725,8 +725,8 @@
 }
 
 .activityAmount {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   display: block;
 }
 
@@ -751,22 +751,22 @@
   gap: 0;
   width: 100%;
   background: var(--color-slate-100);
-  border-radius: 12px;
-  padding: 4px;
-  margin-bottom: 16px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
 }
 
 .tab {
   flex: 1;
-  padding: 10px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: var(--spacing-sm-plus);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   background: transparent;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .tabActive {
@@ -782,35 +782,35 @@
 
 /* ==================== Field Labels ==================== */
 .fieldLabel {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-600);
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 }
 
 /* ==================== Method Selector ==================== */
 .methodRow {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .methodButton {
   flex: 1;
-  padding: 10px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: var(--spacing-sm-plus);
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   border: 1px solid var(--color-slate-200);
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   background: var(--section-bg-white);
   color: var(--color-slate-600);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .methodActive {
@@ -830,11 +830,11 @@
   align-items: center;
   background: var(--section-bg-white);
   border: 2px solid var(--color-slate-200);
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 12px;
+  border-radius: var(--radius-xl-minus);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md-minus);
   width: 100%;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--animation-duration-fast) ease;
 }
 
 .amountInputContainer:focus-within {
@@ -842,16 +842,16 @@
 }
 
 .amountPrefix {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-400);
-  margin-right: 4px;
+  margin-right: var(--spacing-xs);
 }
 
 .amountInput {
   flex: 1;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
   border: none;
   outline: none;
@@ -866,23 +866,23 @@
 /* ==================== Quick Amounts ==================== */
 .quickAmounts {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .quickAmountButton {
   flex: 1;
-  padding: 8px;
+  padding: var(--spacing-sm);
   min-height: 44px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   border: 1px solid var(--color-slate-200);
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   background: var(--section-bg-white);
   color: var(--color-slate-600);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .quickAmountButton:hover {
@@ -900,9 +900,9 @@
   width: 100%;
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   overflow: hidden;
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .feeToggle {
@@ -910,7 +910,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px;
+  padding: var(--spacing-md-plus) var(--spacing-md);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -918,29 +918,29 @@
 }
 
 .feeToggleLabel {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 .feeToggleAmount {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 600;
+  gap: var(--spacing-xs-plus);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
 }
 
 .feeToggleChevron {
-  font-size: 10px;
+  font-size: var(--font-size-xs-minus);
   color: var(--color-slate-400);
 }
 
 .feeRows {
-  padding: 0 16px 14px;
+  padding: 0 var(--spacing-md) 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-sm-plus);
 }
 
 .feeRow {
@@ -954,11 +954,11 @@
 .feeRowLeft {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-xs-plus);
 }
 
 .feeLabel {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-text-secondary);
 }
 
@@ -970,7 +970,7 @@
   border: none;
   color: var(--color-slate-400);
   cursor: pointer;
-  padding: 2px;
+  padding: var(--spacing-2xs);
 }
 
 .feeInfoButton:hover {
@@ -978,55 +978,55 @@
 }
 
 .feeAmount {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-heading);
 }
 
 .feeAmountFree {
   color: var(--text-success-accessible);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .feeTooltip {
   width: 100%;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   background: var(--color-slate-50);
-  padding: 8px 12px;
-  border-radius: 8px;
-  margin-top: 4px;
+  padding: var(--spacing-sm) var(--spacing-md-minus);
+  border-radius: var(--radius-lg);
+  margin-top: var(--spacing-xs);
   line-height: 1.4;
 }
 
 .feeTotalRow {
-  padding-top: 10px;
+  padding-top: var(--spacing-sm-plus);
   border-top: 1px solid var(--color-slate-200);
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
 }
 
 .feeTotalLabel {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
 }
 
 .feeTotalAmount {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-heading);
 }
 
 /* ==================== Warning Banner ==================== */
 .warningBanner {
   width: 100%;
-  padding: 12px 16px;
+  padding: var(--spacing-md-minus) var(--spacing-md);
   background: var(--error-bg-light);
   border: 1px solid var(--color-red-300, #fca5a5);
-  border-radius: 10px;
-  font-size: 13px;
+  border-radius: var(--radius-lg-plus);
+  font-size: var(--font-size-xs-plus);
   color: var(--text-error-accessible);
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-md-minus);
 }
 
 /* ==================== Category Tabs ==================== */
@@ -1035,25 +1035,25 @@
   gap: 0;
   width: 100%;
   background: var(--color-slate-100);
-  border-radius: 12px;
-  padding: 4px;
-  margin-bottom: 16px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
   overflow-x: auto;
 }
 
 .categoryTab {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--spacing-sm) var(--spacing-md-minus);
   min-height: 44px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-medium);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   background: transparent;
   color: var(--color-text-secondary);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .categoryTabActive {
@@ -1066,21 +1066,21 @@
 .assetList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .assetItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
+  padding: var(--spacing-md-plus) var(--spacing-md);
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--animation-duration-fast) ease;
   width: 100%;
   text-align: left;
 }
@@ -1102,19 +1102,19 @@
 .assetInfoRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-sm-plus);
 }
 
 .assetIcon {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-white);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
   flex-shrink: 0;
 }
 
@@ -1125,79 +1125,79 @@
 }
 
 .assetSymbol {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
 }
 
 .assetName {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
 }
 
 .assetPrice {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-heading);
 }
 
 .comingSoon {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   font-style: italic;
 }
 
 /* ==================== Confirmation ==================== */
 .sectionTitle {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-heading);
-  margin: 0 0 4px;
+  margin: 0 0 var(--spacing-xs);
 }
 
 .sectionSubtitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
-  margin: 0 0 16px;
+  margin: 0 0 var(--spacing-md);
 }
 
 .confirmCard {
   width: 100%;
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 16px;
+  border-radius: var(--radius-xl-minus);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-md);
 }
 
 .confirmHeader {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--spacing-md-minus);
+  margin-bottom: var(--spacing-md);
 }
 
 .confirmIcon {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   background: var(--section-bg-brand);
   color: var(--brand-primary-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
 }
 
 .confirmTypeLabel {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
 }
 
 .confirmMethod {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   margin-top: 2px;
 }
@@ -1205,18 +1205,18 @@
 .confirmDetail {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: var(--spacing-sm-plus) 0;
   border-top: 1px solid var(--color-slate-100);
 }
 
 .confirmDetailLabel {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
 
 .confirmDetailValue {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-heading);
 }
 
@@ -1225,19 +1225,19 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 16px;
+  padding: var(--spacing-md);
   background: var(--section-bg-brand);
   border: 1px solid var(--color-teal-200, #99f6e4);
-  border-radius: 12px;
-  margin-bottom: 16px;
-  font-size: 15px;
-  font-weight: 500;
+  border-radius: var(--radius-lg-extra);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-heading);
 }
 
 .confirmTotalAmount {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
   color: var(--brand-primary-dark);
 }
 
@@ -1246,24 +1246,24 @@
   width: 100%;
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .termsCardHighlighted {
   width: 100%;
   background: var(--color-amber-50, #fffbeb);
   border: 1px solid var(--color-amber-500, #f59e0b);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
 .checkboxLabel {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   cursor: pointer;
 }
 
@@ -1271,13 +1271,13 @@
   width: 20px;
   height: 20px;
   margin-top: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   accent-color: var(--brand-primary-dark);
   flex-shrink: 0;
 }
 
 .checkboxText {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-700);
   line-height: 1.5;
 }
@@ -1285,15 +1285,15 @@
 /* ==================== Buttons ==================== */
 .primaryButton {
   width: 100%;
-  padding: 14px;
+  padding: var(--spacing-md-plus);
   background: var(--brand-primary-dark);
   color: var(--color-white);
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm-plus);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background var(--animation-duration-fast) ease;
 }
 
 .primaryButton:hover {
@@ -1309,17 +1309,17 @@
 .backButton {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 10px 0;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm-plus) 0;
   min-height: 44px;
   color: var(--color-text-secondary);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color 0.15s ease;
-  margin-bottom: 8px;
+  transition: color var(--animation-duration-fast) ease;
+  margin-bottom: var(--spacing-sm);
 }
 
 .backButton:hover {
@@ -1330,42 +1330,42 @@
 .portfolioCard {
   width: 100%;
   background: linear-gradient(135deg, var(--brand-primary-dark), var(--text-primary-accessible));
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
   color: var(--color-white);
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-xl);
 }
 
 .portfolioLabel {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   opacity: 0.85;
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
 }
 
 .portfolioAmount {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
   font-variant-numeric: tabular-nums;
 }
 
 .portfolioBreakdown {
   display: flex;
-  gap: 24px;
-  margin-top: 16px;
-  padding: 16px 4px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-xs) 0;
+  border-top: 1px solid var(--glass-border-light);
 }
 
 .portfolioBreakdownItem {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .portfolioBreakdownLabel {
   opacity: 0.7;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
@@ -1374,35 +1374,35 @@
 .walletList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .walletCard {
   background: var(--section-bg-white);
   border: 1px solid var(--color-slate-200);
-  border-radius: 14px;
-  padding: 16px;
+  border-radius: var(--radius-xl-minus);
+  padding: var(--spacing-md);
 }
 
 .walletHeader {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: var(--spacing-md-minus);
+  margin-bottom: var(--spacing-md-minus);
 }
 
 .chainIcon {
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-white);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
   flex-shrink: 0;
 }
 
@@ -1412,29 +1412,29 @@
 }
 
 .walletName {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
 }
 
 .walletAddress {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-family-mono);
   margin-top: 2px;
 }
 
 .copyButton {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--brand-primary-dark);
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 2px;
+  padding: var(--spacing-2xs);
   font-family: inherit;
   display: flex;
   align-items: center;
@@ -1447,21 +1447,21 @@
 .tokenList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md-minus);
 }
 
 .tokenItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
+  padding: var(--spacing-sm) 0;
   border-top: 1px solid var(--color-slate-100);
 }
 
 .tokenSymbol {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-slate-600);
 }
 
@@ -1470,33 +1470,33 @@
 }
 
 .tokenAmount {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-text-heading);
   display: block;
   font-variant-numeric: tabular-nums;
 }
 
 .tokenUsd {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   display: block;
 }
 
 .exportKeyButton {
   width: 100%;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: var(--spacing-sm-plus) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-600);
   background: var(--color-slate-50);
   border: 1px solid var(--color-slate-200);
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  transition: all 0.15s ease;
+  gap: var(--spacing-sm);
+  transition: all var(--animation-duration-fast) ease;
 }
 
 .exportKeyButton:hover {
@@ -1507,24 +1507,24 @@
 .copiedText {
   color: var(--text-success-accessible);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .selfCustodyNotice {
   width: 100%;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 16px;
+  gap: var(--spacing-md-minus);
+  padding: var(--spacing-md);
   background: var(--section-bg-brand);
   border: 1px solid var(--color-teal-200, #99f6e4);
-  border-radius: 14px;
+  border-radius: var(--radius-xl-minus);
 }
 
 .selfCustodyIcon {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   background: var(--teal-overlay-light, #ccfbf1);
   display: flex;
   align-items: center;
@@ -1534,14 +1534,14 @@
 }
 
 .selfCustodyTitle {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
 }
 
 .selfCustodyText {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-600);
   line-height: 1.5;
 }
@@ -1550,28 +1550,28 @@
 .exportModalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--overlay-subtle);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  z-index: 50;
+  z-index: var(--z-index-modal-backdrop);
   padding: 0;
 }
 
 .exportModalContent {
   background: var(--section-bg-white);
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   max-width: 100%;
   width: 100%;
   max-height: 90vh;
   max-height: 90dvh;
   overflow-y: auto;
-  padding: 24px;
-  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  padding: var(--spacing-lg);
+  padding-bottom: max(var(--spacing-lg), env(safe-area-inset-bottom));
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-md);
 }
 
 .exportModalHeader {
@@ -1581,28 +1581,28 @@
   position: sticky;
   top: 0;
   background: var(--section-bg-white);
-  padding-bottom: 8px;
+  padding-bottom: var(--spacing-sm);
   z-index: 1;
 }
 
 .exportModalTitle {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-heading);
   margin: 0;
 }
 
 .exportModalClose {
-  padding: 4px;
+  padding: var(--spacing-xs);
   background: transparent;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
   color: var(--color-text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease;
+  transition: background var(--animation-duration-fast) ease;
 }
 
 .exportModalClose:hover {
@@ -1612,11 +1612,11 @@
 .exportModalBody {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-md-minus);
 }
 
 .exportModalText {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-slate-600);
   margin: 0;
   line-height: 1.5;
@@ -1625,67 +1625,67 @@
 .exportModalAmberBox {
   background: var(--color-amber-50, #fffbeb);
   border: 1px solid var(--color-amber-200, #fde68a);
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md);
 }
 
 .exportModalAmberTitle {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-amber-800, #92400e);
   margin: 0;
 }
 
 .exportModalSteps {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-amber-700, #a16207);
-  margin: 8px 0 0;
-  padding-left: 20px;
+  margin: var(--spacing-sm) 0 0;
+  padding-left: var(--spacing-xl);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .exportModalRedBox {
   background: var(--error-bg-light);
   border: 1px solid var(--color-red-200, #fecaca);
-  border-radius: 12px;
-  padding: 12px;
+  border-radius: var(--radius-lg-extra);
+  padding: var(--spacing-md-minus);
 }
 
 .exportModalWarningText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-red-700, #b91c1c);
   margin: 0;
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: var(--spacing-sm);
   line-height: 1.4;
 }
 
 .exportModalButton {
   width: 100%;
-  padding: 12px;
+  padding: var(--spacing-md-minus);
   background: var(--brand-primary-dark);
   color: var(--color-white);
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm-plus);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 .exportModalButtonDemo {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   opacity: 0.7;
 }
 
 .exportModalFooter {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   text-align: center;
   margin: 0;
@@ -1693,21 +1693,21 @@
 
 /* ==================== Footer ==================== */
 .footer {
-  padding: 16px;
+  padding: var(--spacing-md);
   text-align: center;
   border-top: 1px solid var(--color-slate-100);
   margin-top: auto;
 }
 
 .footerText {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-slate-400);
   margin: 0;
 }
 
 /* ==================== Demo Footer (shared) ==================== */
 .demoFooter {
-  padding: 16px;
+  padding: var(--spacing-md);
   text-align: center;
   margin-top: auto;
   border-top: 1px solid var(--color-slate-100);
@@ -1716,7 +1716,7 @@
 .demoFooterDisclaimer {
   font-size: 11px;
   color: var(--color-slate-400);
-  margin: 0 0 4px;
+  margin: 0 0 var(--spacing-xs);
   line-height: 1.5;
 }
 
@@ -1731,26 +1731,47 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
+  padding: var(--spacing-md-minus) 0;
   border-top: 1px solid var(--color-slate-200);
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .receiveLabel {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
 }
 
 .receiveAmount {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: var(--font-size-sm-plus);
+  font-weight: var(--font-weight-bold);
   color: var(--brand-primary-dark);
 }
 
 .receiveAmountSub {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-400);
+  font-weight: var(--font-weight-normal);
+}
+
+/* ==================== Extracted Inline Styles ==================== */
+.textRight {
+  text-align: right;
+}
+
+.confirmApproxLabel {
   font-size: 12px;
   color: var(--color-slate-400);
-  font-weight: 400;
+}
+
+.svgIconInline {
+  opacity: 0.8;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.alertIconInline {
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 /* ==================== Investments Expansion ==================== */
@@ -1764,7 +1785,7 @@
 .investmentsChevron {
   display: inline-flex;
   align-items: center;
-  margin-left: 4px;
+  margin-left: var(--spacing-xs);
   transition: transform 0.2s ease;
 }
 
@@ -1775,17 +1796,17 @@
 .investmentsBreakdown {
   margin-top: 6px;
   padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--glass-border-dark);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .investmentAssetRow {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
-  font-size: 12px;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xs);
   opacity: 0.85;
 }
 
@@ -1795,33 +1816,33 @@
 }
 
 .walletHeaderTotal {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   margin-left: auto;
 }
 
 .soonBadge {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   background: var(--color-slate-100);
-  padding: 2px 8px;
-  border-radius: 9999px;
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-pill);
   margin-left: auto;
 }
 
 .noTokensText {
-  font-size: 13px;
+  font-size: var(--font-size-xs-plus);
   color: var(--color-slate-400);
   font-style: italic;
-  padding: 8px 0;
+  padding: var(--spacing-sm) 0;
 }
 
 /* ==================== L2 Chain Section ==================== */
 .l2Section {
   border-top: 1px solid var(--color-slate-100);
-  margin-top: 4px;
-  margin-bottom: 12px;
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-md-minus);
 }
 
 .l2Header {
@@ -1829,7 +1850,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 10px 0;
+  padding: var(--spacing-sm-plus) 0;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -1837,8 +1858,8 @@
 }
 
 .l2HeaderLabel {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1858,36 +1879,36 @@
 .l2Content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-bottom: 4px;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
 }
 
 .l2ChainItem {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 10px 12px;
+  gap: var(--spacing-xs-plus);
+  padding: var(--spacing-sm-plus) var(--spacing-md-minus);
   background: var(--color-slate-50);
-  border-radius: 10px;
+  border-radius: var(--radius-lg-plus);
   border: 1px solid var(--color-slate-100);
 }
 
 .l2ChainInfo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .l2ChainName {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-size-xs-plus);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-heading);
 }
 
 .l2ChainAddress {
   font-size: 11px;
   color: var(--color-slate-400);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-family-mono);
   margin-left: auto;
 }
 
@@ -1913,30 +1934,30 @@
   }
 
   .portfolioAmount {
-    font-size: 36px;
+    font-size: var(--font-size-4xl);
   }
 
   .amountPrefix,
   .amountInput {
-    font-size: 24px;
+    font-size: var(--font-size-2xl);
   }
 
   .confirmTotalAmount {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
   }
 
   /* Export Key Modal — centered dialog on desktop */
   .exportModalOverlay {
     align-items: center;
-    padding: 16px;
+    padding: var(--spacing-md);
   }
 
   .exportModalContent {
     max-width: 384px;
-    border-radius: 16px;
+    border-radius: var(--radius-xl);
     max-height: none;
     overflow-y: visible;
-    padding-bottom: 24px;
+    padding-bottom: var(--spacing-lg);
     -webkit-overflow-scrolling: auto;
   }
 
@@ -1987,7 +2008,7 @@
 
 .iconMuted {
   opacity: 0.8;
-  margin-right: 4px;
+  margin-right: var(--spacing-xs);
   flex-shrink: 0;
 }
 
@@ -2001,7 +2022,7 @@
 }
 
 .chainIconBox {
-  border-radius: 12px;
+  border-radius: var(--radius-lg-extra);
   width: 40px;
   height: 40px;
 }
@@ -2020,5 +2041,5 @@
 }
 
 .subtitleClose {
-  margin-top: 4px;
+  margin-top: var(--spacing-xs);
 }

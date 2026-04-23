@@ -14,7 +14,7 @@
 
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { Instagram, Twitter, Youtube, Linkedin } from 'lucide-react';
+import { InstagramIcon, XIcon, YoutubeIcon, LinkedinIcon } from '@/components/UI/SocialIcons';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { LocaleLink } from '@/components/UI';
 import { FOOTER_CONFIG } from '@/config/footer';
@@ -48,10 +48,10 @@ const LEGAL_LINKS = [
 ] as const;
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Instagram,
-  Twitter,
-  Youtube,
-  Linkedin,
+  Instagram: InstagramIcon,
+  X: XIcon,
+  Youtube: YoutubeIcon,
+  Linkedin: LinkedinIcon,
 };
 
 interface NavLink {
@@ -99,7 +99,9 @@ function getDisclosureKeysForLocale(
   const result: string[] = [];
 
   if (keys.general) result.push(keys.general);
-  if (keys.crypto) result.push(keys.crypto);
+
+  // Generic crypto disclaimer: only for locales that don't receive MiCA (which covers the same ground)
+  if (keys.crypto && !['de', 'es'].includes(locale)) result.push(keys.crypto);
 
   // MiCA Article 68: DE, ES only (not PT-BR, they use CVM)
   if (keys.mica && ['de', 'es'].includes(locale)) {
@@ -141,7 +143,7 @@ export function MinimalFooter({
     : [];
 
   return (
-    <footer aria-label="Site footer" className={styles.footer}>
+    <footer aria-label={intl.formatMessage({ id: 'common.accessibility.siteFooter' })} className={styles.footer}>
       <div className={styles.container}>
         {/* Tagline */}
         {taglineKey && (
@@ -152,7 +154,7 @@ export function MinimalFooter({
 
         {/* Product Nav Links */}
         {navLinks && navLinks.length > 0 && (
-          <nav className={styles.productNav} aria-label="Product navigation">
+          <nav className={styles.productNav} aria-label={intl.formatMessage({ id: 'common.accessibility.productNavigation' })}>
             {navLinks.map((link) => (
               <LocaleLink
                 key={link.id}
@@ -198,7 +200,7 @@ export function MinimalFooter({
         )}
 
         {/* Legal Links Section */}
-        <nav className={styles.legalLinks} aria-label="Legal pages">
+        <nav className={styles.legalLinks} aria-label={intl.formatMessage({ id: 'common.accessibility.legalPages' })}>
           {LEGAL_LINKS.map((link) => (
             <LocaleLink
               key={link.id}

@@ -524,7 +524,7 @@
 
   .sectionTitle {
     page-break-after: avoid;
-    border-bottom-color: #000;
+    border-bottom-color: var(--color-slate-900);
   }
 
   .tableWrapper {

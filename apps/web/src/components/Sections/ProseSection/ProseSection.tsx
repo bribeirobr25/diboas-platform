@@ -15,7 +15,7 @@ interface ProseSectionProps {
 
 export const ProseSection = memo(function ProseSection({
   config,
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   className = '',
 }: ProseSectionProps) {
   const translated = useConfigTranslation(config);
@@ -36,7 +36,9 @@ export const ProseSection = memo(function ProseSection({
       className={`${styles.prose} ${isGenerous ? styles.generous : ''}`}
       style={hasImage ? undefined : { maxWidth: translated.style.maxWidth || '680px' }}
     >
-      {translated.content.transitionHook ? (
+      {/* Only render transitionHook here when there is no image.
+          With an image, standaloneHeader (mobile) / centeredHeader (desktop) handles it. */}
+      {!hasImage && translated.content.transitionHook ? (
         <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
       ) : null}
 

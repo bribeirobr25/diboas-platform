@@ -8,9 +8,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import { getWaitlistStatsFromEnv } from '@/config/waitlist-stats';
-import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
-import type { ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType, type ApplicationEventPayload } from '@/lib/events/ApplicationEventBus';
 
 interface WaitlistStats {
   count: number;
@@ -20,7 +20,7 @@ interface WaitlistStats {
 
 interface UseWaitlistStatsOptions {
   /** Filter stats by waitlist source (e.g., 'landing_b2b' for B2B-specific counters) */
-  source?: 'landing_b2c' | 'landing_b2b' | 'about';
+  source?: 'landing_b2c' | 'landing_b2b' | 'about' | 'security' | 'help';
 }
 
 interface UseWaitlistStatsReturn {
@@ -61,7 +61,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
       }
 
       try {
-        const response = await fetch(url, { signal: controller.signal });
+        const response = await fetchWithRetry(url, { signal: controller.signal });
         if (response.ok) {
           const data = await response.json();
           const statsData: WaitlistStats = {
@@ -126,7 +126,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
     );
 
     return unsubscribe;
-  }, []);
+  }, [cacheKey, source]);
 
   return { stats, isLoading };
 }

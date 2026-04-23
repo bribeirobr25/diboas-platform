@@ -18,6 +18,7 @@
     "facebook": "Facebook",
     "linkedin": "LinkedIn",
     "telegram": "Telegram",
+    "substack": "Substack",
     "download": "Descargar imagen",
     "copy": "Copiar enlace",
     "copyLink": "Copiar enlace",
@@ -43,16 +44,13 @@
     "benefit": "Comparte para ayudar a amigos a tener acceso anticipado",
     "copied": "¡Enlace copiado!"
   },
-  "waitlistPosition": {
-    "twitter": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete: {referralUrl} @diboasfi",
-    "whatsapp": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete: {referralUrl}",
-    "facebook": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete.",
-    "linkedin": "El dinero debería moverse como los mensajes, gratis y al instante. El acceso al crecimiento debería ser justo y abierto para todos. Si crees en eso, únete: {referralUrl}"
-  },
   "timeframes": {
     "1week": "1 semana",
     "1month": "1 mes",
     "1year": "1 año",
     "5years": "5 años"
+  },
+  "waitlist": {
+    "text": "Acabo de encontrar una forma fácil y justa de hacer crecer y mover mi dinero. Es tan bueno que tengo que compartirlo"
   }
 }

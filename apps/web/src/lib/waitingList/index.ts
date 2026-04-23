@@ -1,34 +1,39 @@
 /**
- * Waiting List - Public API
- *
- * Exports domain types, services, and utilities
- * Following clean architecture principles
+ * WaitingList Module - Public API
  */
 
-// Domain Layer
-export * from './domain/WaitingListDomain';
-
-// Types (including presentation types)
+// Types
 export * from './types';
 
 // Constants
 export {
   WAITING_LIST_CONFIG,
+  REFERRAL_CONFIG,
+  POSITION_STORAGE_KEYS,
   VALIDATION_PATTERNS,
   ERROR_CODES,
   WAITING_LIST_EVENTS,
-  SANITIZATION_CONFIG,
 } from './constants';
 
 // Helpers
 export {
-  generateSubmissionId,
   isValidEmail,
-  isValidXAccount,
-  isValidName,
-  normalizeXAccount,
-  createConsentTimestamp,
-  formatSubmissionDate,
-  isStorageAvailable,
-  truncateString,
+  generateReferralCode,
+  isValidReferralCode,
+  generateReferralUrl,
+  formatPosition,
+  setReferralStorage,
+  getReferralFromStorage,
 } from './helpers';
+
+// Store
+export * from './store';
+
+// Application Service
+export {
+  WaitlistApplicationService,
+  waitlistApplicationService,
+  type SignupInput,
+  type SignupResult,
+  type SignupError,
+} from './WaitlistApplicationService';

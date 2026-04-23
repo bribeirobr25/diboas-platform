@@ -6,6 +6,7 @@
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
       "env": [
         "DATABASE_URL",
+        "DATABASE_URL_UNPOOLED",
         "ENCRYPTION_KEY",
         "HMAC_KEY",
         "RESEND_API_KEY",
@@ -19,15 +20,15 @@
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^lint"],
+      "dependsOn": ["^build"],
       "outputs": []
     },
     "type-check": {
-      "dependsOn": ["^type-check"],
+      "dependsOn": ["^build"],
       "outputs": []
     },
     "test": {
-      "dependsOn": ["^test"],
+      "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
     "clean": {

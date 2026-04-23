@@ -21,7 +21,7 @@
 /* Default: White background with shadow */
 .variantDefault {
   background-color: var(--color-white);
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
+  box-shadow: var(--shadow-sm);
 }
 
 /* Muted: Slate background, no shadow */
@@ -48,7 +48,7 @@
 
 .title {
   font-size: 1.25rem; /* text-xl */
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   margin-bottom: 1rem;
 }

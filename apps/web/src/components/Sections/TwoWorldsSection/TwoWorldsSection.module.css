@@ -72,7 +72,7 @@
 
 .cardHeadline {
   font-size: var(--font-size-xl, 1.25rem);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-4);
   color: var(--text-primary, #111827);
 }
@@ -81,7 +81,7 @@
   font-size: var(--font-size-base, 1rem);
   line-height: 1.7;
   color: var(--text-secondary, #4b5563);
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-xl);
   flex: 1;
   white-space: pre-line;
 }
@@ -90,7 +90,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: var(--spacing-4);
+  margin-top: var(--spacing-lg);
   min-width: var(--cta-min-width-mobile);
   min-height: var(--cta-min-height-mobile);
   padding: var(--cta-padding-mobile);

@@ -71,7 +71,7 @@
 
 .paragraph {
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-normal);
   line-height: var(--prose-line-height, 1.7);
   color: var(--color-text-body);
@@ -86,7 +86,7 @@
   display: inline-block;
   margin-top: 20px;
   font-family: var(--font-family-primary);
-  font-size: 18px;
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--color-brand-primary, #0d9488);
   text-decoration: underline;
@@ -108,7 +108,7 @@
   display: inline-flex;
   align-items: center;
   font-family: var(--font-family-primary);
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-brand-primary, #0d9488);
   text-decoration: underline;
@@ -117,4 +117,29 @@
 
 .socialLink:hover {
   color: var(--color-brand-primary-hover, #0f766e);
+}
+
+/* Dark background theme — light text for WCAG contrast */
+:global([data-theme="dark"]) .header {
+  color: var(--color-text-on-dark, #f1f5f9);
+}
+
+:global([data-theme="dark"]) .paragraph {
+  color: var(--color-text-on-dark-secondary, #cbd5e1);
+}
+
+:global([data-theme="dark"]) .emailLink {
+  color: var(--color-teal-300, #5eead4);
+}
+
+:global([data-theme="dark"]) .emailLink:hover {
+  color: var(--color-teal-200, #99f6e4);
+}
+
+:global([data-theme="dark"]) .socialLink {
+  color: var(--color-teal-300, #5eead4);
+}
+
+:global([data-theme="dark"]) .socialLink:hover {
+  color: var(--color-teal-200, #99f6e4);
 }

@@ -24,3 +24,7 @@ export {
 // Service exports
 export { analyticsService } from './service';
 export { initializeWebVitals, getMetricRating } from './web-vitals';
+
+// Backend abstraction
+export type { IAnalyticsBackend } from './backends';
+export { GA4Backend, PostHogBackend } from './backends';

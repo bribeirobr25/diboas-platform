@@ -21,9 +21,14 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
 
   const scrollTo = (href: string) => {
     const id = href.replace('#', '');
+    window.history.replaceState(null, '', href);
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
+      if (!el.hasAttribute('tabindex')) {
+        el.setAttribute('tabindex', '-1');
+      }
+      el.focus({ preventScroll: true });
     }
   };
 

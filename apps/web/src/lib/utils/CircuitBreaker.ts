@@ -1,77 +1,82 @@
 /**
- * Circuit Breaker
+ * Circuit Breaker (Task 61)
  *
- * Protects external service calls from cascading failures.
- * States: CLOSED (normal) → OPEN (failing) → HALF_OPEN (testing recovery).
+ * Error Handling & Recovery: Prevents cascading failures by tracking
+ * consecutive errors and temporarily disabling calls to failing services.
  *
- * Usage:
- *   const breaker = new CircuitBreaker({ name: 'kit-api' });
- *   const response = await breaker.execute(() => fetch(url));
+ * States:
+ *   CLOSED    — normal operation, requests pass through
+ *   OPEN      — too many failures, requests are rejected immediately
+ *   HALF_OPEN — after resetTimeout, a limited number of probe requests are allowed
  */
 
-import { Logger } from '@/lib/monitoring/Logger';
-
-export enum CircuitState {
-  CLOSED = 'closed',
-  OPEN = 'open',
-  HALF_OPEN = 'half-open',
+export enum CircuitBreakerState {
+  CLOSED = 'CLOSED',
+  OPEN = 'OPEN',
+  HALF_OPEN = 'HALF_OPEN',
 }
 
 export interface CircuitBreakerOptions {
-  /** Identifier for logging */
-  name: string;
-  /** Failures before opening circuit (default: 5) */
+  /** Number of consecutive failures before opening the circuit */
   failureThreshold?: number;
-  /** Milliseconds before attempting recovery (default: 30000) */
-  resetTimeoutMs?: number;
-  /** Successes in half-open before closing (default: 2) */
-  successThreshold?: number;
+  /** Milliseconds to wait before transitioning from OPEN to HALF_OPEN */
+  resetTimeout?: number;
+  /** Max requests allowed in HALF_OPEN before deciding to close or re-open */
+  halfOpenMaxAttempts?: number;
 }
 
-export class CircuitBreakerOpenError extends Error {
-  constructor(name: string) {
-    super(`Circuit breaker "${name}" is open — request rejected`);
-    this.name = 'CircuitBreakerOpenError';
+const DEFAULT_FAILURE_THRESHOLD = 5;
+const DEFAULT_RESET_TIMEOUT = 30_000;
+const DEFAULT_HALF_OPEN_MAX = 1;
+
+export class CircuitBreakerError extends Error {
+  constructor(message = 'Circuit breaker is OPEN — request rejected') {
+    super(message);
+    this.name = 'CircuitBreakerError';
   }
 }
 
 export class CircuitBreaker {
-  private state = CircuitState.CLOSED;
+  private state: CircuitBreakerState = CircuitBreakerState.CLOSED;
   private failureCount = 0;
-  private successCount = 0;
-  private lastFailureTime = 0;
+  private halfOpenAttempts = 0;
+  private nextAttemptAt = 0;
 
-  private readonly name: string;
   private readonly failureThreshold: number;
-  private readonly resetTimeoutMs: number;
-  private readonly successThreshold: number;
+  private readonly resetTimeout: number;
+  private readonly halfOpenMaxAttempts: number;
 
-  constructor(options: CircuitBreakerOptions) {
-    this.name = options.name;
-    this.failureThreshold = options.failureThreshold ?? 5;
-    this.resetTimeoutMs = options.resetTimeoutMs ?? 30_000;
-    this.successThreshold = options.successThreshold ?? 2;
-  }
-
-  getState(): CircuitState {
-    return this.state;
+  constructor(options: CircuitBreakerOptions = {}) {
+    this.failureThreshold = options.failureThreshold ?? DEFAULT_FAILURE_THRESHOLD;
+    this.resetTimeout = options.resetTimeout ?? DEFAULT_RESET_TIMEOUT;
+    this.halfOpenMaxAttempts = options.halfOpenMaxAttempts ?? DEFAULT_HALF_OPEN_MAX;
   }
 
   /**
-   * Execute a function through the circuit breaker.
-   * Throws CircuitBreakerOpenError if the circuit is open and recovery timeout hasn't elapsed.
+   * Execute an async operation through the circuit breaker.
+   * Throws CircuitBreakerError when the circuit is OPEN.
    */
   async execute<T>(fn: () => Promise<T>): Promise<T> {
-    if (this.state === CircuitState.OPEN) {
-      if (Date.now() - this.lastFailureTime >= this.resetTimeoutMs) {
-        this.transitionTo(CircuitState.HALF_OPEN);
+    // Evaluate state transitions based on time
+    if (this.state === CircuitBreakerState.OPEN) {
+      if (Date.now() >= this.nextAttemptAt) {
+        this.transitionTo(CircuitBreakerState.HALF_OPEN);
       } else {
-        throw new CircuitBreakerOpenError(this.name);
+        throw new CircuitBreakerError();
       }
     }
 
+    if (this.state === CircuitBreakerState.HALF_OPEN && this.halfOpenAttempts >= this.halfOpenMaxAttempts) {
+      throw new CircuitBreakerError('Circuit breaker is HALF_OPEN — max probe attempts reached');
+    }
+
     try {
+      if (this.state === CircuitBreakerState.HALF_OPEN) {
+        this.halfOpenAttempts++;
+      }
+
       const result = await fn();
+
       this.onSuccess();
       return result;
     } catch (error) {
@@ -80,41 +85,52 @@ export class CircuitBreaker {
     }
   }
 
+  /** Current circuit state */
+  getState(): CircuitBreakerState {
+    return this.state;
+  }
+
+  /** Manually reset to CLOSED */
+  reset(): void {
+    this.transitionTo(CircuitBreakerState.CLOSED);
+  }
+
+  // ─── Private ────────────────────────────────────────────────────────
+
   private onSuccess(): void {
-    if (this.state === CircuitState.HALF_OPEN) {
-      this.successCount++;
-      if (this.successCount >= this.successThreshold) {
-        this.transitionTo(CircuitState.CLOSED);
-      }
-    } else {
-      this.failureCount = 0;
-    }
+    // A successful call in HALF_OPEN means the service recovered
+    this.transitionTo(CircuitBreakerState.CLOSED);
   }
 
   private onFailure(): void {
     this.failureCount++;
-    this.lastFailureTime = Date.now();
 
-    if (this.state === CircuitState.HALF_OPEN) {
-      this.transitionTo(CircuitState.OPEN);
-    } else if (this.failureCount >= this.failureThreshold) {
-      this.transitionTo(CircuitState.OPEN);
+    if (this.state === CircuitBreakerState.HALF_OPEN) {
+      // Probe failed — re-open
+      this.transitionTo(CircuitBreakerState.OPEN);
+      return;
+    }
+
+    if (this.failureCount >= this.failureThreshold) {
+      this.transitionTo(CircuitBreakerState.OPEN);
     }
   }
 
-  private transitionTo(newState: CircuitState): void {
-    const previousState = this.state;
+  private transitionTo(newState: CircuitBreakerState): void {
     this.state = newState;
 
-    if (newState === CircuitState.CLOSED) {
-      this.failureCount = 0;
-      this.successCount = 0;
-    } else if (newState === CircuitState.HALF_OPEN) {
-      this.successCount = 0;
+    switch (newState) {
+      case CircuitBreakerState.CLOSED:
+        this.failureCount = 0;
+        this.halfOpenAttempts = 0;
+        break;
+      case CircuitBreakerState.OPEN:
+        this.nextAttemptAt = Date.now() + this.resetTimeout;
+        this.halfOpenAttempts = 0;
+        break;
+      case CircuitBreakerState.HALF_OPEN:
+        this.halfOpenAttempts = 0;
+        break;
     }
-
-    Logger.info(`CircuitBreaker [${this.name}] ${previousState} → ${newState}`, {
-      failureCount: this.failureCount,
-    });
   }
 }

@@ -9,48 +9,69 @@ import { AnalyticsService, AnalyticsEvent, AnalyticsConfig, WebVitalsMetric } fr
 import { ANALYTICS_DEFAULTS, ANALYTICS_CONSTANTS } from './constants';
 import { Logger } from '@/lib/monitoring/Logger';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
+import {
+  RetryQueue,
+  DEFAULT_RETRY_CONFIG,
+  logAnalyticsError,
+  type RetryConfig,
+  type AnalyticsError,
+} from './retryQueue';
+import { ConnectionMonitor } from './connectionMonitor';
+import { type IAnalyticsBackend, GA4Backend, PostHogBackend } from './backends';
+import { hasAnalyticsConsent } from '@/components/CookieConsent';
 
-interface RetryConfig {
-  maxRetries: number;
-  baseDelay: number;
-  maxDelay: number;
-  backoffMultiplier: number;
+const UTM_STORAGE_KEY = 'diboas-utm-params';
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
+
+/**
+ * Read UTM params from sessionStorage (non-destructive).
+ * Returns only the keys that are present, or empty object.
+ */
+function getUtmEnrichment(): Record<string, string> {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = sessionStorage.getItem(UTM_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw) as Record<string, string>;
+    const result: Record<string, string> = {};
+    for (const key of UTM_KEYS) {
+      if (parsed[key]) {
+        result[key] = parsed[key];
+      }
+    }
+    return result;
+  } catch {
+    return {};
+  }
 }
 
-interface AnalyticsError extends Error {
-  code?: string;
-  retryable?: boolean;
-  timestamp: Date;
-}
-
-const DEFAULT_RETRY_CONFIG: RetryConfig = {
-  maxRetries: 3,
-  baseDelay: ANALYTICS_CONSTANTS.BASE_RETRY_DELAY,
-  maxDelay: ANALYTICS_CONSTANTS.MAX_RETRY_DELAY,
-  backoffMultiplier: ANALYTICS_CONSTANTS.BACKOFF_MULTIPLIER,
-};
-
-class AnalyticsServiceImpl implements AnalyticsService {
+class AnalyticsTrackingService implements AnalyticsService {
   private config: AnalyticsConfig;
   private eventQueue: AnalyticsEvent[] = [];
-  private failedEvents: AnalyticsEvent[] = [];
   private userId?: string;
   private sessionId?: string;
   private flushTimer?: NodeJS.Timeout;
-  private retryTimeoutId: NodeJS.Timeout | null = null;
-  private isOnline = true;
-  private boundOnline: (() => void) | null = null;
-  private boundOffline: (() => void) | null = null;
+  private retryQueue = new RetryQueue();
+  private connectionMonitor = new ConnectionMonitor();
+  private backends: IAnalyticsBackend[] = [];
 
   constructor(config: AnalyticsConfig = ANALYTICS_DEFAULTS) {
     this.config = config;
+
+    // Register default backends
+    this.backends.push(new GA4Backend(), new PostHogBackend());
 
     // SSR guard: skip browser-only initialization on server
     if (typeof window === 'undefined') return;
 
     this.initializeSession();
     this.startAutoFlush();
-    this.initializeConnectionMonitoring();
+    this.listenForConsentWithdrawal();
+    this.connectionMonitor.initialize(() => {
+      if (this.retryQueue.hasPendingEvents()) {
+        this.retryFailedEvents();
+      }
+    });
   }
 
   /**
@@ -59,6 +80,9 @@ class AnalyticsServiceImpl implements AnalyticsService {
    */
   track(event: AnalyticsEvent): void {
     if (!this.config.enabled) return;
+    if (!hasAnalyticsConsent()) return;
+
+    const utmParams = getUtmEnrichment();
 
     const enrichedEvent: AnalyticsEvent = {
       ...event,
@@ -72,6 +96,7 @@ class AnalyticsServiceImpl implements AnalyticsService {
           viewport: `${window.innerWidth}x${window.innerHeight}`,
           language: navigator.language,
         } : {}),
+        ...utmParams,
       },
     };
 
@@ -105,9 +130,9 @@ class AnalyticsServiceImpl implements AnalyticsService {
 
     try {
       this.track(event);
-      await this.executeWithRetry(event, config);
+      await this.retryQueue.executeWithRetry(event, config);
     } catch (error) {
-      this.handleTrackEventError(error as AnalyticsError, event, config);
+      this.handleTrackEventError(error as AnalyticsError, event);
     }
   }
 
@@ -178,6 +203,10 @@ class AnalyticsServiceImpl implements AnalyticsService {
   async flush(): Promise<void> {
     if (this.eventQueue.length === 0) return;
     if (typeof window === 'undefined') return;
+    if (!hasAnalyticsConsent()) {
+      this.eventQueue = []; // Discard queued events if consent was withdrawn
+      return;
+    }
 
     const events = [...this.eventQueue];
     this.eventQueue = [];
@@ -187,26 +216,17 @@ class AnalyticsServiceImpl implements AnalyticsService {
         Logger.debug('Flushing analytics events', { count: events.length, events });
       }
 
-      // Send to Google Analytics 4
-      const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
-      if (windowWithGtag.gtag) {
-        const gtag = windowWithGtag.gtag;
-        events.forEach(event => {
-          gtag('event', event.name, event.parameters);
-        });
-      }
-
-      // Send to PostHog (lazy-loaded behind consent)
-      try {
-        const posthog = (await import('posthog-js')).default;
-        if (posthog.__loaded) {
-          events.forEach(event => {
-            posthog.capture(event.name, event.parameters);
+      // Dispatch to all registered backends
+      const backendResults = this.backends.map(async (backend) => {
+        try {
+          await backend.sendEvents(events);
+        } catch (err) {
+          Logger.error(`Analytics backend "${backend.name}" failed:`, {
+            error: err instanceof Error ? err.message : String(err),
           });
         }
-      } catch {
-        // PostHog not available or not consented — silently skip
-      }
+      });
+      await Promise.all(backendResults);
 
       // Send to custom analytics endpoint (with retry for resilience)
       if (process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT) {
@@ -244,61 +264,40 @@ class AnalyticsServiceImpl implements AnalyticsService {
   }
 
   /**
+   * Register an additional analytics backend.
+   * Service Agnostic Abstraction: extend analytics without modifying core logic.
+   */
+  registerBackend(backend: IAnalyticsBackend): void {
+    this.backends.push(backend);
+  }
+
+  /**
    * Cleanup resources
    */
   destroy(): void {
     if (this.flushTimer) {
       clearInterval(this.flushTimer);
     }
-    if (this.retryTimeoutId) {
-      clearTimeout(this.retryTimeoutId);
-      this.retryTimeoutId = null;
-    }
-    if (typeof window !== 'undefined') {
-      if (this.boundOnline) {
-        window.removeEventListener('online', this.boundOnline);
-      }
-      if (this.boundOffline) {
-        window.removeEventListener('offline', this.boundOffline);
-      }
-    }
+    this.retryQueue.destroy();
+    this.connectionMonitor.destroy();
     this.flush(); // Final flush
   }
 
-  // ─── Private: Retry & Resilience ────────────────────────────────────
-
   /**
-   * Execute analytics call with retry for gtag availability
+   * Listen for consent withdrawal to stop tracking and clear queues.
+   * GDPR: When consent is withdrawn, discard all pending events immediately.
    */
-  private async executeWithRetry(
-    event: AnalyticsEvent,
-    config: RetryConfig,
-    attempt: number = 0
-  ): Promise<void> {
-    if (typeof window === 'undefined') return;
-
-    const windowWithGtag = window as Window & { gtag?: (command: string, action: string, params?: Record<string, unknown>) => void };
-
-    if (!windowWithGtag.gtag) {
-      if (attempt >= config.maxRetries) {
-        throw this.createAnalyticsError('Google Analytics not loaded', 'GTAG_UNAVAILABLE', true);
-      }
-
-      const delay = Math.min(
-        config.baseDelay * Math.pow(config.backoffMultiplier, attempt),
-        config.maxDelay
-      );
-      const jitteredDelay = delay + Math.random() * ANALYTICS_CONSTANTS.JITTER_MAX;
-
-      await new Promise(resolve => setTimeout(resolve, jitteredDelay));
-      return this.executeWithRetry(event, config, attempt + 1);
-    }
-
-    // If we had failed events and gtag is now available, retry them
-    if (this.failedEvents.length > 0) {
-      this.scheduleRetryFailedEvents();
-    }
+  private listenForConsentWithdrawal(): void {
+    import('@/lib/events/ApplicationEventBus').then(({ applicationEventBus, ApplicationEventType }) => {
+      applicationEventBus.on(ApplicationEventType.CONSENT_WITHDRAWN, () => {
+        this.eventQueue = [];
+        this.retryQueue.clear();
+        Logger.info('Analytics: consent withdrawn — queues cleared');
+      });
+    }).catch(() => {});
   }
+
+  // ─── Private: Error Handling ───────────────────────────────────────
 
   /**
    * Handle errors from trackEvent with appropriate strategies
@@ -306,139 +305,31 @@ class AnalyticsServiceImpl implements AnalyticsService {
   private handleTrackEventError(
     error: AnalyticsError,
     event: AnalyticsEvent,
-    config: RetryConfig
   ): void {
-    this.logAnalyticsError(error, event);
-
-    if (this.isRetryableError(error)) {
-      this.queueFailedEvent(event);
-      this.scheduleRetryFailedEvents();
-    } else {
-      Logger.warn('Analytics: Non-retryable error for event', { event: event.name });
-    }
-
+    logAnalyticsError(error, event);
+    this.retryQueue.queueFailedEvent(event);
+    this.retryQueue.scheduleRetry(() => this.retryFailedEvents());
     // Don't throw - analytics failures should not break user experience
-  }
-
-  /**
-   * Queue failed events for retry (bounded to prevent memory leaks)
-   */
-  private queueFailedEvent(event: AnalyticsEvent): void {
-    if (this.failedEvents.length >= ANALYTICS_CONSTANTS.MAX_QUEUE_SIZE) {
-      this.failedEvents.shift();
-    }
-    this.failedEvents.push(event);
-  }
-
-  /**
-   * Schedule retry of failed events
-   */
-  private scheduleRetryFailedEvents(): void {
-    if (this.retryTimeoutId || this.failedEvents.length === 0) return;
-
-    this.retryTimeoutId = setTimeout(async () => {
-      this.retryTimeoutId = null;
-      await this.retryFailedEvents();
-    }, ANALYTICS_CONSTANTS.RETRY_DELAY);
   }
 
   /**
    * Retry failed events
    */
   private async retryFailedEvents(): Promise<void> {
-    if (!this.isOnline) return;
+    if (!this.connectionMonitor.getIsOnline()) return;
 
-    const eventsToRetry = [...this.failedEvents];
-    this.failedEvents = [];
+    const eventsToRetry = this.retryQueue.drainFailedEvents();
 
     for (const event of eventsToRetry) {
       try {
-        await this.executeWithRetry(event, DEFAULT_RETRY_CONFIG);
+        await this.retryQueue.executeWithRetry(event, DEFAULT_RETRY_CONFIG);
       } catch (error) {
-        this.handleTrackEventError(error as AnalyticsError, event, DEFAULT_RETRY_CONFIG);
+        this.handleTrackEventError(error as AnalyticsError, event);
       }
     }
   }
 
-  /**
-   * Check if error is retryable
-   */
-  private isRetryableError(error: AnalyticsError): boolean {
-    const retryableErrors = [
-      'GTAG_UNAVAILABLE',
-      'NETWORK_ERROR',
-      'TIMEOUT',
-      'TEMPORARILY_UNAVAILABLE'
-    ];
-
-    return error.retryable !== false && (
-      retryableErrors.includes(error.code || '') ||
-      error.message.toLowerCase().includes('network') ||
-      error.message.toLowerCase().includes('timeout') ||
-      error.message.toLowerCase().includes('temporarily')
-    );
-  }
-
-  /**
-   * Create analytics error with proper typing
-   */
-  private createAnalyticsError(
-    message: string,
-    code: string,
-    retryable: boolean
-  ): AnalyticsError {
-    const error = new Error(message) as AnalyticsError;
-    error.code = code;
-    error.retryable = retryable;
-    error.timestamp = new Date();
-    return error;
-  }
-
-  /**
-   * Log analytics errors for monitoring
-   */
-  private logAnalyticsError(error: AnalyticsError, event: AnalyticsEvent): void {
-    if (process.env.NODE_ENV === 'development') {
-      if (error.code !== 'GTAG_UNAVAILABLE') {
-        Logger.warn('Analytics Error:', {
-          error: error.message,
-          code: error.code,
-          event: event.name,
-          retryable: error.retryable,
-          timestamp: error.timestamp
-        });
-      }
-    }
-
-    if (process.env.NODE_ENV === 'production') {
-      this.sendToMonitoring({
-        type: 'analytics_error',
-        error: error.message,
-        code: error.code,
-        event: event.name,
-        timestamp: error.timestamp
-      });
-    }
-  }
-
-  /**
-   * Send error to monitoring service (non-blocking)
-   */
-  private sendToMonitoring(data: Record<string, unknown>): void {
-    const monitoringEndpoint = process.env.NEXT_PUBLIC_MONITORING_ENDPOINT;
-    if (!monitoringEndpoint) return;
-
-    fetch(monitoringEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-      signal: AbortSignal.timeout(ANALYTICS_CONSTANTS.MONITORING_TIMEOUT)
-    }).catch(() => {
-      // Fail silently
-    });
-  }
-
-  // ─── Private: Initialization ────────────────────────────────────────
+  // ─── Private: Initialization ───────────────────────────────────────
 
   /**
    * Initialize session
@@ -463,27 +354,7 @@ class AnalyticsServiceImpl implements AnalyticsService {
       this.flush();
     }, this.config.flushInterval);
   }
-
-  /**
-   * Initialize connection monitoring for offline resilience
-   */
-  private initializeConnectionMonitoring(): void {
-    if (typeof window === 'undefined') return;
-
-    this.boundOnline = () => {
-      this.isOnline = true;
-      this.scheduleRetryFailedEvents();
-    };
-
-    this.boundOffline = () => {
-      this.isOnline = false;
-    };
-
-    window.addEventListener('online', this.boundOnline);
-    window.addEventListener('offline', this.boundOffline);
-    this.isOnline = navigator.onLine;
-  }
 }
 
 // Export singleton instance (SSR-safe: constructor guards all browser APIs)
-export const analyticsService = new AnalyticsServiceImpl();
+export const analyticsService = new AnalyticsTrackingService();

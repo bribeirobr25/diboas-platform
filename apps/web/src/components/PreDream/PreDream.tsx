@@ -8,6 +8,8 @@
  */
 
 import React, { useEffect, useRef, useCallback } from 'react';
+import { useTranslation } from '@diboas/i18n/client';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { PreDreamProvider, usePreDream } from './PreDreamProvider';
 import {
   DisclaimerScreen,
@@ -27,8 +29,22 @@ interface PreDreamProps {
 }
 
 function PreDreamContent({ onClose, onBackToHome }: PreDreamProps) {
+  const intl = useTranslation();
   const { state } = usePreDream();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Lock body scroll while dream mode is active — prevents underlying
+  // page from intercepting touch events on the fixed overlay (iOS)
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, []);
+
+  // WCAG 2.4.3: Trap focus within dream mode overlay
+  useFocusTrap(containerRef, true, { returnFocus: true });
 
   // Track screen views
   useEffect(() => {
@@ -86,12 +102,12 @@ function PreDreamContent({ onClose, onBackToHome }: PreDreamProps) {
       className={styles.container}
       role="dialog"
       aria-modal="true"
-      aria-label="Dream Mode"
+      aria-label={intl.formatMessage({ id: 'common.accessibility.dreamMode' })}
       onKeyDown={handleKeyDown}
     >
       {/* Close button */}
       {onClose && (
-        <button onClick={onClose} className={styles.closeButton} aria-label="Close Dream Mode">
+        <button onClick={onClose} className={styles.closeButton} aria-label={intl.formatMessage({ id: 'common.accessibility.closeDreamMode' })}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />

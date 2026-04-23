@@ -4,7 +4,8 @@
     "description": "Erleben Sie diBoaS in unserer interaktiven Demo. Einzahlen, senden, investieren und Ihre finanzielle Zukunft entdecken."
   },
   "common": {
-    "back": "Zurück"
+    "back": "Zurück",
+    "demoTitle": "Interaktive Banking-Demo"
   },
   "header": {
     "demoBadge": "Demo",

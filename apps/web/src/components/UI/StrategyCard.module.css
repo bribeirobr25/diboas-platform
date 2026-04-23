@@ -50,14 +50,14 @@
 
 .name {
   font-size: 1.25rem; /* text-xl */
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--color-slate-900);
   margin: 0;
 }
 
 .growthBadge {
   font-size: 0.75rem; /* text-xs */
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   background-color: var(--color-slate-100);
   color: var(--color-slate-600);
   padding: 0.25rem 0.5rem;
@@ -78,7 +78,7 @@
 
 .tagline {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-700);
   margin: 0 0 1rem 0;
 }
@@ -103,8 +103,8 @@
 
 .allocation {
   font-size: 0.875rem;
-  font-weight: 500;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-mono);
   color: var(--color-slate-700);
   margin: 0 0 0.25rem 0;
 }
@@ -140,7 +140,7 @@
 }
 
 .statValue {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: var(--color-slate-900);
   text-align: right;
 }
@@ -238,7 +238,7 @@
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.3s ease, opacity 0.2s ease;
+  transition: max-height var(--animation-duration-normal) ease, opacity var(--animation-duration-fast) ease;
 }
 
 .expandableContentOpen {

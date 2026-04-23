@@ -6,10 +6,10 @@
 
 import { Metadata } from 'next';
 import { SEO_DEFAULTS } from './constants';
-import { PageSEOConfig, SEOService, BreadcrumbList, WebPage } from './types';
+import { PageSEOConfig, SEOService } from './types';
 import { SUPPORTED_LOCALES, type SupportedLocale } from '@diboas/i18n/server';
 
-class SEOServiceImpl implements SEOService {
+class SEOMetadataService implements SEOService {
   /**
    * Generate Next.js metadata from SEO configuration
    * DRY Principle: Reusable metadata generation
@@ -205,4 +205,4 @@ class SEOServiceImpl implements SEOService {
 }
 
 // Export singleton instance (Service Pattern)
-export const seoService = new SEOServiceImpl();
+export const seoService = new SEOMetadataService();

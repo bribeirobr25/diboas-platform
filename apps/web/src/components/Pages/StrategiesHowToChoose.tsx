@@ -11,7 +11,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { ContentCard } from '@/components/UI';
 import styles from './StrategiesPageContent.module.css';
 
-const I18N_PREFIX = 'marketing.pages.strategies';
+const I18N_PREFIX = 'strategies';
 
 export function StrategiesHowToChoose() {
   const intl = useTranslation();

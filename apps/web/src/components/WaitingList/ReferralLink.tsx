@@ -5,17 +5,17 @@
  *
  * Displays referral link with:
  * - Copy to clipboard functionality
- * - Share buttons for different platforms
+ * - Share buttons (WhatsApp, Twitter, LinkedIn)
  * - Visual feedback on copy
  */
 
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
-import { CopyIcon, CheckIcon, WhatsAppIcon, TwitterIcon, LinkedInIcon } from './ReferralIcons';
-import { type SharePlatform, shareToplatform, copyToClipboard } from './shareUtils';
+import { CopyIcon, CheckIcon, WhatsAppIcon, TwitterIcon, LinkedInIcon, FacebookIcon, InstagramIcon, SubstackIcon } from './ReferralIcons';
+import { type SharePlatform, shareToPlatform, copyToClipboard } from './shareUtils';
 import styles from './ReferralLink.module.css';
 
 interface ReferralLinkProps {
@@ -23,10 +23,6 @@ interface ReferralLinkProps {
   referralCode: string;
   /** Full referral URL */
   referralUrl: string;
-  /** User's position on the waitlist */
-  position?: number;
-  /** User's tier */
-  tier?: string;
   /** Callback when share button is clicked */
   onShare?: (platform: string) => void;
   /** Show compact version */
@@ -38,8 +34,6 @@ interface ReferralLinkProps {
 export function ReferralLink({
   referralCode,
   referralUrl,
-  position,
-  tier: _tier,
   onShare,
   compact = false,
   className = '',
@@ -48,8 +42,12 @@ export function ReferralLink({
   const { locale } = useLocale();
   const inputId = useId();
   const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
-  // Translation helper
+  useEffect(() => () => {
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+  }, []);
+
   const t = (key: string, values?: Record<string, string | number>) => {
     return intl.formatMessage({ id: `waitlist.${key}` }, values);
   };
@@ -59,11 +57,12 @@ export function ReferralLink({
   };
 
   const handleCopy = async () => {
-    const success = await copyToClipboard(referralUrl, inputId);
+    const success = await copyToClipboard(referralUrl);
 
     if (success) {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
 
       analyticsService.track({
         name: WAITING_LIST_EVENTS.REFERRAL_LINK_COPIED,
@@ -91,33 +90,17 @@ export function ReferralLink({
 
     onShare?.(platform);
 
-    // Format position for display
-    const formattedPosition = position
-      ? new Intl.NumberFormat(locale).format(position)
-      : '---';
+    // Single unified share text — Twitter mention appended by shareToPlatform()
+    const shareText = intl.formatMessage({ id: 'share.waitlist.text' });
 
-    const shareText = intl.formatMessage(
-      { id: 'share.waitlistPosition.whatsapp' },
-      { position: formattedPosition, referralUrl }
-    );
-
-    const twitterText = intl.formatMessage(
-      { id: 'share.waitlistPosition.twitter' },
-      { position: formattedPosition, referralUrl }
-    );
-
-    const linkedInText = intl.formatMessage(
-      { id: 'share.waitlistPosition.linkedin' },
-      { position: formattedPosition, referralUrl }
-    );
-
-    shareToplatform(platform, {
+    shareToPlatform(platform, {
       referralUrl,
       shareText,
-      twitterText,
-      linkedInText,
       onLinkedInCopy: () => {
         alert(intl.formatMessage({ id: 'share.toast.linkedInCopied' }));
+      },
+      onClipboardCopy: () => {
+        alert(intl.formatMessage({ id: 'share.toast.linkCopied' }));
       },
     });
   };
@@ -153,7 +136,7 @@ export function ReferralLink({
         </button>
       </div>
 
-      {!compact && (
+      {!compact ? (
         <div className={styles.shareButtons}>
           <button
             onClick={() => handleShare('whatsapp')}
@@ -176,8 +159,29 @@ export function ReferralLink({
           >
             <LinkedInIcon />
           </button>
+          <button
+            onClick={() => handleShare('facebook')}
+            className={`${styles.shareButton} ${styles.facebook}`}
+            aria-label={st('platform.facebook')}
+          >
+            <FacebookIcon />
+          </button>
+          <button
+            onClick={() => handleShare('instagram')}
+            className={`${styles.shareButton} ${styles.instagram}`}
+            aria-label={st('platform.instagram')}
+          >
+            <InstagramIcon />
+          </button>
+          <button
+            onClick={() => handleShare('substack')}
+            className={`${styles.shareButton} ${styles.substack}`}
+            aria-label={st('platform.substack')}
+          >
+            <SubstackIcon />
+          </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

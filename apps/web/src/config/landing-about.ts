@@ -1,16 +1,14 @@
 /**
  * About Page Configuration
  *
- * 8-section layout using reusable section components:
+ * 7-section layout using reusable section components:
  * 1. Hero (HeroSection centered)
  * 2. Story (ProseSection — Adelaide narrative)
- * 3. What We Do (ProseSection — product capabilities)
+ * 3. Mission (ProseSection — mission statement)
  * 4. What We Believe (BenefitsCardsSection — 3 cards)
- * 5. Mission (ProseSection — mission statement)
- * 6. Business CTA (ProseSection — B2B pitch)
- * 7. Founder / Contact (FounderSection)
- * 8. Waitlist (WaitlistSection)
- * 9. Footer (MinimalFooter)
+ * 5. Business CTA (ProseSection — B2B pitch)
+ * 6. Founder / Contact (FounderSection)
+ * 7. Footer (MinimalFooter)
  *
  * Domain-Driven Design: About page domain configuration
  * Service Agnostic Abstraction: Decoupled content from presentation
@@ -33,8 +31,8 @@ export const ABOUT_HERO_CONFIG: HeroVariantConfig = {
     ctaTarget: '_self',
   },
   backgroundAssets: {
-    backgroundImage: '/assets/images/hand-bright2.avif',
-    backgroundImageMobile: '/assets/images/hand-bright2.avif',
+    backgroundImage: '/assets/images/soft-arrival.avif',
+    backgroundImageMobile: '/assets/images/soft-arrival.avif',
     overlayOpacity: 0.3,
   },
   seo: {
@@ -70,7 +68,7 @@ export const ABOUT_STORY_CONFIG: ProseSectionConfig = {
     verticalPadding: 'standard',
   },
   seo: {
-    ariaLabel: 'The Story, her name was Adelaide',
+    ariaLabel: 'about.sections.story.ariaLabel',
   },
   analytics: {
     sectionId: 'story-about',
@@ -78,28 +76,27 @@ export const ABOUT_STORY_CONFIG: ProseSectionConfig = {
   },
 } as const;
 
-// ─── Section 3: What diBoaS Does ────────────────────────────
+// ─── Section 3: The Mission ─────────────────────────────────
 
-export const ABOUT_WHAT_WE_DO_CONFIG: ProseSectionConfig = {
+export const ABOUT_MISSION_CONFIG: ProseSectionConfig = {
   content: {
-    transitionHook: 'about.transitions.t2',
-    header: 'about.whatWeDo.header',
+    header: 'about.mission.header',
     paragraphs: [
-      'about.whatWeDo.transfers',
-      'about.whatWeDo.transfersDisclaimer',
-      'about.whatWeDo.growth',
-      'about.whatWeDo.adelaide',
+      'about.mission.story',
+      'about.mission.statement',
+      'about.mission.pillars',
     ],
   },
   style: {
     backgroundColor: 'var(--section-bg-neutral)',
     verticalPadding: 'standard',
+    headerStyle: 'centered',
   },
   seo: {
-    ariaLabel: 'What diBoaS does',
+    ariaLabel: 'about.sections.mission.ariaLabel',
   },
   analytics: {
-    sectionId: 'what-we-do-about',
+    sectionId: 'mission-about',
     category: 'about',
   },
 } as const;
@@ -136,7 +133,7 @@ export const ABOUT_BELIEFS_CONFIG: BenefitsCardsConfig = {
   ],
   seo: {
     headingLevel: 'h2',
-    ariaLabel: 'What we believe',
+    ariaLabel: 'about.sections.beliefs.ariaLabel',
   },
   analytics: {
     sectionId: 'beliefs-about',
@@ -144,32 +141,7 @@ export const ABOUT_BELIEFS_CONFIG: BenefitsCardsConfig = {
   },
 };
 
-// ─── Section 5: The Mission ─────────────────────────────────
-
-export const ABOUT_MISSION_CONFIG: ProseSectionConfig = {
-  content: {
-    header: 'about.mission.header',
-    paragraphs: [
-      'about.mission.story',
-      'about.mission.statement',
-      'about.mission.pillars',
-    ],
-  },
-  style: {
-    backgroundColor: 'var(--section-bg-neutral)',
-    verticalPadding: 'standard',
-    headerStyle: 'centered',
-  },
-  seo: {
-    ariaLabel: 'Our mission',
-  },
-  analytics: {
-    sectionId: 'mission-about',
-    category: 'about',
-  },
-} as const;
-
-// ─── Section 6: For Businesses (CTA) ────────────────────────
+// ─── Section 5: For Businesses (CTA) ────────────────────────
 
 export const ABOUT_BUSINESS_CONFIG: ProseSectionConfig = {
   content: {
@@ -194,7 +166,7 @@ export const ABOUT_BUSINESS_CONFIG: ProseSectionConfig = {
   },
 } as const;
 
-// ─── Section 7: Founder / Contact ────────────────────────────
+// ─── Section 6: Founder / Contact ────────────────────────────
 
 export const ABOUT_FOUNDER_CONFIG: FounderSectionConfig = {
   content: {
@@ -205,39 +177,19 @@ export const ABOUT_FOUNDER_CONFIG: FounderSectionConfig = {
     emailText: 'about.contact.emailValue',
     emailHref: 'hello@diboas.com',
     socialLinks: [
-      { label: 'about.contact.personalEmail', href: 'mailto:hello@diboas.com', icon: 'email' },
+      { label: 'about.contact.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
+      { label: 'about.contact.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },
+      { label: 'about.contact.social.substack', href: 'https://bribeirobr.substack.com/', icon: 'substack' },
     ],
   },
+  style: {
+    backgroundColor: 'var(--section-bg-dark)',
+  },
   seo: {
-    ariaLabel: 'Contact and founder information',
+    ariaLabel: 'about.sections.contact.ariaLabel',
   },
   analytics: {
     sectionId: 'founder-about',
     category: 'about',
   },
-} as const;
-
-// ─── Waitlist ────────────────────────────────────────────────
-
-export const ABOUT_WAITLIST_CONFIG = {
-  sectionId: 'waitlist-section-about',
-  backgroundColor: 'var(--section-bg-brand)',
-  hideBenefits: true,
-  hideNoSpam: true,
-  source: 'about' as const,
-} as const;
-
-// ─── Footer Disclosures ─────────────────────────────────────
-
-export const ABOUT_FOOTER_DISCLOSURES = {
-  general: 'about.footer.general',
-  crypto: 'about.footer.crypto',
-  stories: 'about.footer.stories',
-  ai: 'about.footer.ai',
-  closing: 'about.footer.closing',
-  mica: 'about.footer.mica',
-  micaArticle7: 'about.footer.micaArticle7',
-  cvm: 'about.footer.cvm',
-  bcb: 'about.footer.bcb',
-  us: 'about.footer.us',
 } as const;

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslation } from '@diboas/i18n/client';
+import { Check } from '@/components/UI/LucideIcon';
 import { usePreDream } from '../PreDreamProvider';
 import styles from '../PreDream.module.css';
 
@@ -24,15 +25,15 @@ export function WelcomeScreen() {
 
         <div className={styles.featureList}>
           <div className={styles.featureItem}>
-            <span className={styles.featureCheck}>✓</span>
+            <span className={styles.featureCheck}><Check size={16} strokeWidth={2} /></span>
             <span>{t('features.strategies')}</span>
           </div>
           <div className={styles.featureItem}>
-            <span className={styles.featureCheck}>✓</span>
+            <span className={styles.featureCheck}><Check size={16} strokeWidth={2} /></span>
             <span>{t('features.projections')}</span>
           </div>
           <div className={styles.featureItem}>
-            <span className={styles.featureCheck}>✓</span>
+            <span className={styles.featureCheck}><Check size={16} strokeWidth={2} /></span>
             <span>{t('features.comparison')}</span>
           </div>
         </div>

@@ -31,7 +31,7 @@ interface HeroImageProps {
 export function HeroDefault({ 
   config, 
   className = '', 
-  enableAnalytics = true,
+  enableAnalytics: _enableAnalytics = true,
   priority = true,
   onCTAClick 
 }: HeroVariantProps) {
@@ -139,9 +139,7 @@ export function HeroDefault({
                   onLoad={handleImageLoad}
                 />
               ) : (
-                <div className={styles.phoneFallback} aria-hidden="true">
-                  <span>📱</span>
-                </div>
+                <div className={styles.phoneFallback} aria-hidden="true" />
               )}
             </div>
 
@@ -158,9 +156,7 @@ export function HeroDefault({
                   onLoad={handleImageLoad}
                 />
               ) : (
-                <div className={styles.mascotFallback} aria-hidden="true">
-                  <span>🤖</span>
-                </div>
+                <div className={styles.mascotFallback} aria-hidden="true" />
               )}
             </div>
           </div>

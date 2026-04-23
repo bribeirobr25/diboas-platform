@@ -1,17 +1,23 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-// Mock external dependencies before any imports
-vi.mock('@upstash/ratelimit', () => ({
-  Ratelimit: vi.fn().mockImplementation(() => ({
-    limit: vi.fn(),
-  })),
-}));
+// Shared mock state for Ratelimit — allows tests to control the limit() behavior
+ 
+let mockLimitFn: (...args: any[]) => any = vi.fn();
 
-vi.mock('@upstash/redis', () => ({
-  Redis: vi.fn().mockImplementation(() => ({
-    ping: vi.fn(),
-  })),
-}));
+vi.mock('@upstash/ratelimit', () => {
+  class MockRatelimit {
+    limit(...args: unknown[]) { return mockLimitFn(...args); }
+    static slidingWindow() { return 'mock-limiter'; }
+  }
+  return { Ratelimit: MockRatelimit };
+});
+
+vi.mock('@upstash/redis', () => {
+  class MockRedis {
+    ping() { return Promise.resolve('PONG'); }
+  }
+  return { Redis: MockRedis };
+});
 
 vi.mock('@/lib/monitoring/Logger', () => ({
   Logger: {
@@ -323,6 +329,83 @@ describe('rateLimiter', () => {
 
       const result = await pingRedis();
       expect(result).toBe(false);
+    });
+  });
+
+  describe('Redis error fallback', () => {
+    it('should fall back to in-memory limiter when Redis limit() throws', async () => {
+      // Set up Redis env vars so Redis path is taken
+      process.env.UPSTASH_REDIS_REST_URL = 'https://redis.example.com';
+      process.env.UPSTASH_REDIS_REST_TOKEN = 'fake-token';
+
+      // Configure the shared mockLimitFn to reject — this will be used
+      // when initializeRedis() creates the Ratelimit instance
+      mockLimitFn = vi.fn().mockRejectedValue(new Error('Redis connection failed'));
+
+      const { checkRateLimit } = await importModule();
+
+      // Trigger initialization by calling checkRateLimit, then check
+      // if Logger.error was called (indicating Redis tried and failed)
+      const { Logger } = await import('@/lib/monitoring/Logger');
+
+      const result = await checkRateLimit('redis-fail-user', 5, 60000);
+
+      // Should succeed via in-memory fallback
+      expect(result.success).toBe(true);
+      expect(result.remaining).toBe(4);
+      expect(result.limit).toBe(5);
+
+      // Verify the Redis error fallback path was exercised (line 122)
+      expect(Logger.error).toHaveBeenCalledWith(
+        '[RateLimiter] Redis rate limit failed, using fallback:',
+        expect.objectContaining({ error: 'Redis connection failed' })
+      );
+
+      // Reset for other tests
+      mockLimitFn = vi.fn();
+    });
+  });
+
+  describe('cleanupInMemoryStore', () => {
+    it('should clean up expired entries when Math.random triggers cleanup', async () => {
+      vi.useFakeTimers();
+      const { checkRateLimit } = await importModule();
+
+      // Create entries that will expire
+      await checkRateLimit('cleanup-user-1', 5, 1000);
+      await checkRateLimit('cleanup-user-2', 5, 1000);
+
+      // Advance time past the window so entries are expired
+      vi.advanceTimersByTime(2000);
+
+      // Mock Math.random to trigger cleanup (< 0.01)
+      const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.001);
+
+      // This call triggers cleanupInMemoryStore via the random check
+      const result = await checkRateLimit('cleanup-user-3', 5, 60000);
+
+      expect(result.success).toBe(true);
+      randomSpy.mockRestore();
+    });
+
+    it('should not clean up non-expired entries', async () => {
+      vi.useFakeTimers();
+      const { checkRateLimit } = await importModule();
+
+      // Create an entry with a long window
+      await checkRateLimit('active-user', 5, 60000);
+
+      // Mock Math.random to trigger cleanup
+      const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.001);
+
+      // Make another request (triggers cleanup but entry is still valid)
+      await checkRateLimit('active-user', 5, 60000);
+
+      // Entry should still be tracked (count should be 2, remaining 3)
+      randomSpy.mockRestore();
+      const result = await checkRateLimit('active-user', 5, 60000);
+      expect(result.success).toBe(true);
+      expect(result.remaining).toBe(2); // 3rd request
     });
   });
 });

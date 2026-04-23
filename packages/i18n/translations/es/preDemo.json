@@ -4,7 +4,8 @@
     "description": "Conoce diBoaS con nuestra demo interactiva. Deposita, envia, invierte y descubre tu futuro financiero."
   },
   "common": {
-    "back": "Volver"
+    "back": "Volver",
+    "demoTitle": "Demo bancaria interactiva"
   },
   "header": {
     "demoBadge": "Demo",

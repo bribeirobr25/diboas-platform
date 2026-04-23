@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { type SupportedLocale } from '@diboas/i18n/server';
 
 interface LocaleContextType {
@@ -22,8 +22,13 @@ export function LocaleProvider({ children, initialLocale }: LocaleProviderProps)
     setIsHydrated(true);
   }, []);
 
+  const value = useMemo<LocaleContextType>(
+    () => ({ locale: initialLocale, isHydrated }),
+    [initialLocale, isHydrated],
+  );
+
   return (
-    <LocaleContext.Provider value={{ locale: initialLocale, isHydrated }}>
+    <LocaleContext.Provider value={value}>
       {children}
     </LocaleContext.Provider>
   );

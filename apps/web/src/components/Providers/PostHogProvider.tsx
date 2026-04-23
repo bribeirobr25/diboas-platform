@@ -11,6 +11,11 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { POSTHOG_CONFIG } from '@/config/env';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+  type ConsentEventPayload,
+} from '@/lib/events/ApplicationEventBus';
 
 // Lazy-loaded PostHog types
 type PostHogInstance = { opt_out_capturing: () => void; debug: (enabled: boolean) => void; init: (...args: unknown[]) => void };
@@ -61,18 +66,28 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
 
     initPostHog();
 
-    const handleConsentChange = (event: CustomEvent) => {
-      if (event.detail?.analytics) {
-        initPostHog();
-      } else if (isInitializedRef.current && posthogRef.current) {
-        posthogRef.current.opt_out_capturing();
+    // Listen for consent changes via ApplicationEventBus
+    const unsubGiven = applicationEventBus.on<ConsentEventPayload>(
+      ApplicationEventType.CONSENT_GIVEN,
+      (payload) => {
+        if (payload.consentType === 'analytics' || payload.consentType === 'all') {
+          initPostHog();
+        }
       }
-    };
+    );
 
-    window.addEventListener('cookie-consent-changed', handleConsentChange as EventListener);
+    const unsubWithdrawn = applicationEventBus.on<ConsentEventPayload>(
+      ApplicationEventType.CONSENT_WITHDRAWN,
+      () => {
+        if (isInitializedRef.current && posthogRef.current) {
+          posthogRef.current.opt_out_capturing();
+        }
+      }
+    );
 
     return () => {
-      window.removeEventListener('cookie-consent-changed', handleConsentChange as EventListener);
+      unsubGiven();
+      unsubWithdrawn();
     };
   }, []);
 
