@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'Investment Strategies | diBoaS';
   const description = seo.description || '10 strategies. Different goals. Different timelines. Different risk levels.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   return {
     title,
@@ -60,6 +60,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@diboasfi',
+      creator: '@bribeiro_br',
       title: seo.ogTitle || 'Find the Strategy That Fits Your Life | diBoaS',
       description: seo.ogDescription || description,
       images: [`${siteUrl}/api/og/strategies`],
@@ -70,7 +72,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
         'en': `${siteUrl}/en/strategies`,
         'de': `${siteUrl}/de/strategies`,
         'es': `${siteUrl}/es/strategies`,
-        'pt-BR': `${siteUrl}/pt-BR/strategies`,
+        'pt-br': `${siteUrl}/pt-BR/strategies`,
         'x-default': `${siteUrl}/en/strategies`,
       },
     },

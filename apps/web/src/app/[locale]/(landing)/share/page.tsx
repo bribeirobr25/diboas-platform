@@ -44,7 +44,8 @@ export async function generateMetadata({
   ogParams.set('type', type);
 
   if (type === 'waitlist') {
-    const position = search.position || '1';
+    const rawPosition = parseInt(search.position || '1', 10);
+    const position = String(Number.isFinite(rawPosition) && rawPosition > 0 ? rawPosition : 1);
     const name = search.name;
 
     ogParams.set('position', position);

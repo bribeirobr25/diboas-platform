@@ -1,23 +1,26 @@
 import { notFound } from 'next/navigation';
+import nextDynamic from 'next/dynamic';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
-  FAQAccordion,
   ProseSection,
-  FeeTable,
-  DemoLauncher,
-  ExpandableSection,
-  FounderSection,
   ComparisonTable,
   GoalExampleCards,
   SidePocketStrip,
   FoundingMembersSection,
   HowItWorksGrid,
 } from '@/components/Sections';
-import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
+
+// Below-fold sections: code-split via dynamic imports to reduce initial JS bundle
+const FAQAccordion = nextDynamic(() => import('@/components/Sections/FAQAccordion/FAQAccordionFactory').then(m => ({ default: m.FAQAccordion })));
+const FeeTable = nextDynamic(() => import('@/components/Sections/FeeTable').then(m => ({ default: m.FeeTable })));
+const DemoLauncher = nextDynamic(() => import('@/components/Sections/DemoLauncher').then(m => ({ default: m.DemoLauncher })));
+const ExpandableSection = nextDynamic(() => import('@/components/Sections/ExpandableSection').then(m => ({ default: m.ExpandableSection })));
+const FounderSection = nextDynamic(() => import('@/components/Sections/FounderSection').then(m => ({ default: m.FounderSection })));
+const AppFeaturesCarousel = nextDynamic(() => import('@/components/Sections/AppFeaturesCarousel').then(m => ({ default: m.AppFeaturesCarousel })));
+const WaitlistSection = nextDynamic(() => import('@/components/Sections/WaitlistSection').then(m => ({ default: m.WaitlistSection })));
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
@@ -48,7 +51,7 @@ export const dynamic = 'auto';
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   // Load translations for SEO metadata
   const messages = await loadMessages(locale as SupportedLocale, 'landing-b2c');
@@ -62,14 +65,14 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   return {
     title,
     description,
-    keywords: ['yield', 'savings', 'DeFi', 'stablecoin', 'earn interest', 'passive income', 'finance app'],
+    keywords: ['goal-driven investing', 'wealth building', 'earn interest on savings', 'free money transfers', 'non-custodial wallet', 'finance app'],
     alternates: {
       canonical: `${baseUrl}/${locale}`,
       languages: {
         'en': `${baseUrl}/en`,
         'de': `${baseUrl}/de`,
         'es': `${baseUrl}/es`,
-        'pt-BR': `${baseUrl}/pt-BR`,
+        'pt-br': `${baseUrl}/pt-BR`,
         'x-default': `${baseUrl}/en`,
       },
     },
@@ -91,6 +94,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@diboasfi',
+      creator: '@bribeiro_br',
       title: ogTitle,
       description: ogDescription,
       images: [`${baseUrl}/api/og/b2c`],
@@ -145,9 +150,23 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
     { name: 'Home', url: '/' }
   ], locale);
 
+  const appStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'diBoaS',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description: 'Goal-driven wealth building starting at $5. Your money, your wallet, your control.',
+  };
+
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={[organizationData, breadcrumbData]} />
+      <StructuredData data={[organizationData, breadcrumbData, appStructuredData]} />
       <ScrollToHash />
 
       <div className="main-page-wrapper">
@@ -315,6 +334,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
               <ProseSection
                 config={B2C_CATCH_CONFIG}
                 enableAnalytics={true}
+                headingLevel="h3"
               />
             </div>
           </SectionErrorBoundary>

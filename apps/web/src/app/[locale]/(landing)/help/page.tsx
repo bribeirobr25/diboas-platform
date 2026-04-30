@@ -24,7 +24,7 @@ export const dynamic = 'auto';
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   const messages = await loadMessages(validLocale, 'landing-help');
   const seo = messages?.seo || {};
@@ -43,9 +43,23 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
         en: `${siteUrl}/en/help`,
         de: `${siteUrl}/de/help`,
         es: `${siteUrl}/es/help`,
-        'pt-BR': `${siteUrl}/pt-BR/help`,
+        'pt-br': `${siteUrl}/pt-BR/help`,
         'x-default': `${siteUrl}/en/help`,
       },
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      images: [{ url: `${siteUrl}/api/og/help`, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@diboasfi',
+      creator: '@bribeiro_br',
+      title,
+      description,
+      images: [`${siteUrl}/api/og/help`],
     },
     robots: {
       index: true,
@@ -84,9 +98,42 @@ export default async function HelpPage({ params }: LocalePageProps) {
     locale,
   );
 
+  const helpMessages = pageMessages['landing-help'] as unknown as Record<string, unknown> | undefined;
+  const topics = (helpMessages?.topics ?? {}) as Record<string, { questions?: Record<string, { question?: string; answer?: string }> }>;
+
+  const getFAQEntry = (topicId: string, qKey: string) => {
+    const q = topics[topicId]?.questions?.[qKey];
+    if (!q?.question || !q?.answer) return null;
+    return {
+      '@type': 'Question',
+      name: q.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: q.answer,
+      },
+    };
+  };
+
+  const faqEntries = [
+    getFAQEntry('gettingStarted', 'q1'),
+    getFAQEntry('gettingStarted', 'q3'),
+    getFAQEntry('moneySafety', 'q1'),
+    getFAQEntry('moneySafety', 'q2'),
+    getFAQEntry('moneySafety', 'q3'),
+    getFAQEntry('feesCosts', 'q1'),
+    getFAQEntry('feesCosts', 'q2'),
+    getFAQEntry('investingStrategies', 'q1'),
+  ].filter(Boolean);
+
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqEntries,
+  };
+
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={[breadcrumbData]} />
+      <StructuredData data={[breadcrumbData, faqStructuredData]} />
 
       <div className="main-page-wrapper">
         {/* Section 1: Hero */}

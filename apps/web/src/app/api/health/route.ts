@@ -35,10 +35,10 @@ interface HealthStatus {
 // Track server start time for uptime calculation
 const serverStartTime = Date.now();
 
-export async function GET(request: NextRequest): Promise<NextResponse<HealthStatus | { error: string }>> {
+export async function GET(request: NextRequest): Promise<NextResponse<HealthStatus | { status: string } | { error: string }>> {
   try {
     const rateLimited = await applyRateLimit(request, 'health', 'lenient');
-    if (rateLimited) return rateLimited as NextResponse<HealthStatus | { error: string }>;
+    if (rateLimited) return rateLimited as NextResponse<HealthStatus | { status: string } | { error: string }>;
 
     const [redisHealthy, dbHealthy, memoryUsage] = await Promise.all([
       pingRedis(),
@@ -58,26 +58,38 @@ export async function GET(request: NextRequest): Promise<NextResponse<HealthStat
       status = 'degraded';
     }
 
+    const httpStatus = status === 'unhealthy' ? 503 : 200;
+
+    // Only return detailed system info when authenticated with internal API key.
+    // Public requests get status-only (prevents infrastructure fingerprinting).
+    const authHeader = request.headers.get('authorization');
+    const internalKey = process.env.INTERNAL_API_KEY;
+    const isAuthorized = internalKey && authHeader === `Bearer ${internalKey}`;
+
+    if (!isAuthorized) {
+      return NextResponse.json(
+        { status },
+        { status: httpStatus, headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' } },
+      );
+    }
+
     const healthStatus: HealthStatus = {
       status,
       timestamp: new Date().toISOString(),
       version: process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
       environment: process.env.NODE_ENV || 'development',
-      uptime: Math.floor((Date.now() - serverStartTime) / 1000), // seconds
+      uptime: Math.floor((Date.now() - serverStartTime) / 1000),
       checks: {
         server: true,
         redis: redisHealthy,
         database: dbHealthy,
         memory: {
-          used: Math.round(heapUsed / 1024 / 1024), // MB
-          total: Math.round(heapTotal / 1024 / 1024), // MB
+          used: Math.round(heapUsed / 1024 / 1024),
+          total: Math.round(heapTotal / 1024 / 1024),
           percentage: memoryPercentage,
         },
       },
     };
-
-    // Return 503 for unhealthy status (helps load balancers)
-    const httpStatus = status === 'unhealthy' ? 503 : 200;
 
     return NextResponse.json(healthStatus, {
       status: httpStatus,

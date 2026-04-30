@@ -47,8 +47,8 @@
         }
       },
       "analytics": {
-        "title": "Analyse-Cookies (Optional)",
-        "description": "Diese Cookies helfen uns zu verstehen, wie Besucher unsere Website nutzen. Alle Daten werden anonymisiert.",
+        "title": "Analyse-Cookies (Nur Nach Ihrer Zustimmung)",
+        "description": "Diese Cookies werden erst gesetzt, nachdem Sie im Zustimmungsbanner auf Akzeptieren klicken. Vor der Zustimmung existieren keine Analyse-Cookies auf Ihrem Gerät. Wir verwenden Google Analytics und PostHog, um zu verstehen, wie Besucher unsere Website nutzen. Alle Daten werden anonymisiert und es werden keine persönlichen Informationen erfasst.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -58,13 +58,18 @@
           "rows": [
             {
               "cookie": "_ga",
-              "purpose": "Google Analytics - unterscheidet Benutzer",
+              "purpose": "Google Analytics — unterscheidet Benutzer (nur nach Zustimmung)",
               "duration": "2 Jahre"
             },
             {
               "cookie": "_gid",
-              "purpose": "Google Analytics - unterscheidet Benutzer",
+              "purpose": "Google Analytics — Sitzungskennung (nur nach Zustimmung)",
               "duration": "24 Stunden"
+            },
+            {
+              "cookie": "ph_*",
+              "purpose": "PostHog Analyse — Sitzungsverfolgung (nur nach Zustimmung)",
+              "duration": "12 Monate"
             }
           ]
         }

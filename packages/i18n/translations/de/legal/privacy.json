@@ -38,7 +38,7 @@
       "automatic": {
         "title": "Automatisch erhobene Informationen:",
         "items": [
-          "IP-Adresse (für Analysen anonymisiert)",
+          "IP-Adresse (für Sicherheits-Ratenbegrenzung verwendet; nicht an Analysedienste gesendet)",
           "Browsertyp und -version",
           "Geräteinformationen",
           "Besuchte Seiten und Verweildauer",
@@ -89,7 +89,7 @@
       "intro": "Wir verkaufen Ihre personenbezogenen Daten nicht. Wir können Daten teilen mit:",
       "serviceProviders": {
         "title": "Dienstleister:",
-        "content": "E-Mail-Dienste (zum Versand von Mitteilungen), Hosting-Anbieter, Analysetools"
+        "content": "Resend (E-Mail-Zustellung), Vercel (Hosting), Sentry (Fehlerüberwachung), Google Analytics und PostHog (Analyse, nur nach Ihrer Zustimmung), Upstash (Sicherheits-Ratenbegrenzung)"
       },
       "legal": {
         "title": "Rechtliche Anforderungen:",

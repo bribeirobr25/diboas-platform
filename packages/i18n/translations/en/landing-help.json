@@ -70,7 +70,7 @@
         },
         "q5": {
           "question": "What if I lose my phone?",
-          "answer": "Your wallet uses advanced key security. One part stays on your device. Another part is kept safe separately.\n\nIf you lose your phone, you recover your wallet. No seed phrases. No 24 words to write down. No panic.\n\nYour money doesn't disappear because your phone did."
+          "answer": "When diBoaS launches its app, your wallet will use advanced key security to protect against device loss. Our architecture is designed for wallet recovery without seed phrases or 24-word backups. Your money won't disappear because your phone did."
         },
         "q6": {
           "question": "What is my balance actually?",

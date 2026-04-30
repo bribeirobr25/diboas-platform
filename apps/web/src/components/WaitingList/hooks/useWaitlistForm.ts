@@ -89,10 +89,13 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
   const isSubmittingRef = useRef(false);
   // AbortController for cancelling in-flight requests on unmount
   const abortControllerRef = useRef<AbortController | null>(null);
+  // Mounted flag — prevents setState after unmount (defensive best practice)
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     setHasReferral(!!referredByOverride || getReferralCode() !== null);
     return () => {
+      mountedRef.current = false;
       abortControllerRef.current?.abort();
     };
   }, [referredByOverride]);
@@ -238,6 +241,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
       });
 
     } catch (error) {
+      if (!mountedRef.current) return;
       setError(t('error.network'));
       onError?.('Network error');
 

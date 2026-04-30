@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'About diBoaS | Built for the People Banks Forgot';
   const description = seo.description || 'diBoaS was built because one grandmother deserved better. Now everyone does.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   return {
     title,
@@ -62,6 +62,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@diboasfi',
+      creator: '@bribeiro_br',
       title: seo.ogTitle || title,
       description: seo.ogDescription || description,
       images: [`${siteUrl}/api/og/about`],
@@ -72,7 +74,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
         'en': `${siteUrl}/en/about`,
         'de': `${siteUrl}/de/about`,
         'es': `${siteUrl}/es/about`,
-        'pt-BR': `${siteUrl}/pt-BR/about`,
+        'pt-br': `${siteUrl}/pt-BR/about`,
         'x-default': `${siteUrl}/en/about`,
       },
     },

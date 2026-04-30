@@ -10,37 +10,37 @@
   "header": {
     "title": "Termos de Uso",
     "lastUpdated": "Ultima Atualizacao: 3 de Janeiro de 2026",
-    "intro": "Bem-vindo ao diBoaS. Ao acessar nosso site, voce concorda com estes Termos de Uso."
+    "intro": "Bem-vindo ao diBoaS. Ao acessar nosso site, você concorda com estes Termos de Uso."
   },
   "sections": {
     "aboutDiboas": {
       "title": "1. Sobre o diBoaS",
       "content": "O diBoaS e uma plataforma de tecnologia financeira atualmente em fase de pre-lancamento. Nosso site oferece:",
       "items": [
-        "Informacoes sobre nossos servicos futuros",
+        "Informações sobre nossos serviços futuros",
         "Uma lista de espera para acesso antecipado",
-        "Ferramenta de simulacao Dream Mode",
-        "Calculadora Voce do Futuro"
+        "Ferramenta de simulação Dream Mode",
+        "Calculadora Você do Futuro"
       ],
-      "important": "Importante: O diBoaS NAO esta atualmente oferecendo servicos financeiros. O site de pre-lancamento e apenas para fins informativos e educacionais."
+      "important": "Importante: O diBoaS NÃO esta atualmente oferecendo serviços financeiros. O site de pre-lancamento e apenas para fins informativos e educacionais."
     },
     "acceptance": {
       "title": "2. Aceitacao dos Termos",
-      "intro": "Ao utilizar nosso site, voce confirma que:",
+      "intro": "Ao utilizar nosso site, você confirma que:",
       "items": [
-        "Voce tem pelo menos 18 anos de idade",
-        "Voce nao esta localizado em uma jurisdicao restrita (atualmente: Estados Unidos, Brasil)",
-        "Voce concorda com estes Termos de Uso"
+        "Você tem pelo menos 18 anos de idade",
+        "Você não esta localizado em uma jurisdicao restrita (atualmente: Estados Unidos, Brasil)",
+        "Você concorda com estes Termos de Uso"
       ]
     },
     "preLaunchLimitations": {
       "title": "3. Limitacoes do Pre-Lancamento",
       "simulationTools": {
-        "title": "Dream Mode e Calculadora Voce do Futuro:",
+        "title": "Dream Mode e Calculadora Você do Futuro:",
         "items": [
-          "Estas ferramentas fornecem apenas simulacoes, nao aconselhamento financeiro",
-          "Os resultados sao baseados em dados historicos e premissas",
-          "Desempenho passado nao garante resultados futuros",
+          "Estas ferramentas fornecem apenas simulacoes, não aconselhamento financeiro",
+          "Os resultados são baseados em dados historicos e premissas",
+          "Desempenho passado não garante resultados futuros",
           "Retornos simulados podem diferir significativamente dos retornos reais"
         ]
       },
@@ -48,7 +48,7 @@
         "title": "Sem Aconselhamento Financeiro:",
         "items": [
           "Nada neste site constitui aconselhamento financeiro, de investimento, tributario ou juridico",
-          "Voce deve consultar profissionais qualificados antes de tomar decisoes financeiras"
+          "Você deve consultar profissionais qualificados antes de tomar decisões financeiras"
         ]
       }
     },
@@ -59,39 +59,39 @@
     },
     "intellectualProperty": {
       "title": "5. Propriedade Intelectual",
-      "intro": "Todo o conteudo deste site, incluindo texto, graficos, logos e software, e de propriedade do diBoaS ou de seus licenciadores. Voce nao pode:",
+      "intro": "Todo o conteúdo deste site, incluindo texto, graficos, logos e software, e de propriedade do diBoaS ou de seus licenciadores. Você não pode:",
       "items": [
-        "Copiar, modificar ou distribuir nosso conteudo sem permissao",
-        "Usar nossas marcas registradas sem autorizacao",
+        "Copiar, modificar ou distribuir nosso conteúdo sem permissão",
+        "Usar nossas marcas registradas sem autorização",
         "Fazer engenharia reversa de nosso software"
       ]
     },
     "userConduct": {
       "title": "6. Conduta do Usuario",
-      "intro": "Voce concorda em nao:",
+      "intro": "Você concorda em não:",
       "items": [
         "Usar o site para qualquer finalidade ilegal",
-        "Tentar obter acesso nao autorizado aos nossos sistemas",
+        "Tentar obter acesso não autorizado aos nossos sistemas",
         "Interferir no acesso de outros usuarios ao site",
-        "Enviar informacoes falsas ou enganosas"
+        "Enviar informações falsas ou enganosas"
       ]
     },
     "disclaimer": {
       "title": "7. Isencao de Garantias",
-      "content": "O SITE E FORNECIDO \"NO ESTADO EM QUE SE ENCONTRA\" SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLICITAS. NAO GARANTIMOS QUE:",
+      "content": "O SITE E FORNECIDO \"NO ESTADO EM QUE SE ENCONTRA\" SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLICITAS. NÃO GARANTIMOS QUE:",
       "items": [
-        "O site estara disponivel em todos os momentos",
-        "As informacoes serao precisas ou completas",
+        "O site estara disponível em todos os momentos",
+        "As informações serao precisas ou completas",
         "O site estara livre de erros ou virus"
       ]
     },
     "limitation": {
       "title": "8. Limitacao de Responsabilidade",
-      "content": "NA MAXIMA EXTENSAO PERMITIDA POR LEI, O DIBOAS NAO SERA RESPONSAVEL POR:",
+      "content": "NA MAXIMA EXTENSAO PERMITIDA POR LEI, O DIBOAS NÃO SERA RESPONSAVEL POR:",
       "items": [
         "Danos indiretos, incidentais ou consequenciais",
         "Perda de lucros, dados ou fundo de comercio",
-        "Danos decorrentes do uso de ferramentas de simulacao"
+        "Danos decorrentes do uso de ferramentas de simulação"
       ]
     },
     "changes": {
@@ -100,7 +100,7 @@
     },
     "governingLaw": {
       "title": "10. Lei Aplicavel",
-      "content": "Estes Termos sao regidos pelas leis da Uniao Europeia. Disputas serao resolvidas de acordo com os regulamentos aplicaveis da UE. Para usuarios brasileiros, aplicam-se tambem as disposicoes do Codigo de Defesa do Consumidor (Lei n. 8.078/1990) e demais legislacoes aplicaveis."
+      "content": "Estes Termos são regidos pelas leis da Uniao Europeia. Disputas serao resolvidas de acordo com os regulamentos aplicaveis da UE. Para usuarios brasileiros, aplicam-se também as disposicoes do Codigo de Defesa do Consumidor (Lei n. 8.078/1990) e demais legislacoes aplicaveis."
     },
     "brazilNote": {
       "title": "Nota para Usuários Brasileiros",

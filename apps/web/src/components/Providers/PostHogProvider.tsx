@@ -36,6 +36,9 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
     const initPostHog = async () => {
       if (!posthogKey || typeof window === 'undefined' || !hasAnalyticsConsent() || isInitializedRef.current) return;
 
+      // Set flag BEFORE async to prevent concurrent initialization race
+      isInitializedRef.current = true;
+
       try {
         const [posthogModule, reactModule] = await Promise.all([
           import('posthog-js'),
@@ -57,10 +60,10 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
         });
 
         posthogRef.current = posthog as unknown as PostHogInstance;
-        isInitializedRef.current = true;
         setPHWrapper({ Provider: reactModule.PostHogProvider as React.ComponentType<{ client: PostHogInstance; children: ReactNode }> });
       } catch {
-        // PostHog load failed — analytics will be unavailable
+        // Reset flag on failure so retry is possible
+        isInitializedRef.current = false;
       }
     };
 

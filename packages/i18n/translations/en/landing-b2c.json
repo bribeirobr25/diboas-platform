@@ -66,7 +66,7 @@
     "less": "LESS with diBoaS"
   },
   "sidePocket": {
-    "text": "This is about the part of your money that could be doing more."
+    "text": "This is not about investing. It is about you, for the first time, having the opportunity to change the game in your favor."
   },
   "origin": {
     "transitionHook": "Here's why this exists.",
@@ -239,7 +239,7 @@
   },
   "socialProof": {
     "header": "Join the Movement!",
-    "subtext": "Many are joining the opportunity to free their money and get fair opportunities. Subscribe to our waitlist.",
+    "subtext": "Be part of the change. Many are experiencing fair access for the first time. Subscribe to our waitlist.",
     "stats": {
       "waitlist": "{count} users",
       "countries": "{countries} countries"
@@ -335,7 +335,7 @@
       },
       "lostPhone": {
         "question": "What if I lose my phone?",
-        "answer": "Your wallet uses advanced key security. One part stays on your device. Another part is kept safe separately.\n\nIf you lose your phone, you recover your wallet. No seed phrases. No 24 words to write down. No panic.\n\nYour money doesn't disappear because your phone did."
+        "answer": "When diBoaS launches its app, your wallet will use advanced key security to protect against device loss. Our architecture is designed for wallet recovery without seed phrases or 24-word backups. Your money won't disappear because your phone did."
       },
       "withdraw": {
         "question": "Can I withdraw my money anytime?",
@@ -458,8 +458,8 @@
     "copyright": "© 2026 diBoaS. All rights reserved."
   },
   "seo": {
-    "title": "diBoaS | The System Wasn't Built for You. We're Changing That.",
-    "description": "See what $1,000 becomes in a year — your bank vs. diBoaS. Start from $5. You own every dollar.",
+    "title": "diBoaS | Open Access. Fair Opportunities.",
+    "description": "The money system wasn't built for you. diBoaS changes that. Send money free, invest and grow with goal-driven strategies, track with AI guidance, and buy digital assets.",
     "ogTitle": "The money system isn't broken. It just wasn't built for you.",
     "ogDescription": "See what your money can do when the access is open and fair to everyone."
   }

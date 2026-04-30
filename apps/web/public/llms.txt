@@ -1,0 +1,26 @@
+# diBoaS
+
+> Goal-driven wealth building platform. Open access and fair opportunities for everyone.
+
+diBoaS is a financial platform that helps people send, save, invest, and manage money through goal-driven strategies. Currently in pre-launch waitlist phase at diboas.com.
+
+## Core Features
+
+- Send and receive money globally, free and instant
+- Goal-driven investment strategies (stable, balanced, growth)
+- AI-powered financial guidance (Adelaide)
+- Buy and hold digital assets (BTC, ETH, SOL)
+- Transparent fees with no monthly charges
+
+## Pages
+
+- [Home](https://www.diboas.com/en): Main landing page with waitlist
+- [About](https://www.diboas.com/en/about): Founder story and mission
+- [Strategies](https://www.diboas.com/en/strategies): Investment strategy details
+- [Protocols](https://www.diboas.com/en/protocols): Protocol transparency
+- [Help](https://www.diboas.com/en/help): FAQ and support
+- [Security](https://www.diboas.com/en/security): Security information
+
+## Languages
+
+Available in English, Portuguese (Brazil), Spanish, and German.

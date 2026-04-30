@@ -193,16 +193,10 @@ export function AppFeaturesCarousel({
     onPlayPause: handlePlayPause
   };
 
-  // Error Handling: Fallback if variant component fails to load
-  try {
-    return <VariantComponent {...variantProps} />;
-  } catch {
-    Logger.error(`Failed to render app features carousel variant '${variant}'`);
-
-    // Fallback to default variant
-    const DefaultVariant = getAppFeaturesCarouselVariant('default');
-    return <DefaultVariant {...variantProps} />;
-  }
+  // Rendering errors are caught by SectionErrorBoundary (parent layer).
+  // React component rendering is asynchronous — try/catch around JSX
+  // does not catch render-time errors. See: react-hooks/error-boundaries rule.
+  return <VariantComponent {...variantProps} />;
 }
 
 // Export for backward compatibility

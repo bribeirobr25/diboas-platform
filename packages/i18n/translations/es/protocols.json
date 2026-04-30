@@ -231,7 +231,7 @@
         "tvl": "~6.500 millones USD",
         "blockchains": "Ethereum + 23 cadenas",
         "audits": "7+ auditorías independientes",
-        "regulatory": "BaFin (Alemania) rechazo la solicitud de autorizacion MiCA en marzo de 2025, citando \"deficiencias significativas\" en la estructura organizativa y el cumplimiento de reservas. BaFin ordeno detener la emisión/reembolso de USDe y congelo los activos de reserva. Ethena GmbH acepto liquidar las operaciones en Alemania (abril 2025). Toda la actividad opera ahora a través de Ethena (BVI) Limited, una entidad de las Islas Virgenes Britanicas. BaFin también expreso preocupaciones de que sUSDe pueda constituir un valor no registrado bajo la ley alemana. Fuentes: aviso oficial de BaFin (21 de marzo de 2025); Decrypt, The Block, CoinTelegraph, Ledger Insights."
+        "regulatory": "BaFin (Alemania) rechazo la solicitud de autorización MiCA en marzo de 2025, citando \"deficiencias significativas\" en la estructura organizativa y el cumplimiento de reservas. BaFin ordeno detener la emisión/reembolso de USDe y congelo los activos de reserva. Ethena GmbH acepto liquidar las operaciones en Alemania (abril 2025). Toda la actividad opera ahora a través de Ethena (BVI) Limited, una entidad de las Islas Virgenes Britanicas. BaFin también expreso preocupaciones de que sUSDe pueda constituir un valor no registrado bajo la ley alemana. Fuentes: aviso oficial de BaFin (21 de marzo de 2025); Decrypt, The Block, CoinTelegraph, Ledger Insights."
       }
     },
     "ondo": {
@@ -342,7 +342,7 @@
         "tvl": "~258 millones USD (después del exploit; era ~775M USD antes de noviembre 2025)",
         "blockchains": "Ethereum, Arbitrum, Polygon",
         "audits": "11+ auditorías independientes",
-        "regulatory": "3 de noviembre de 2025: exploit de 128 millones USD que afecto a pools V2 en Ethereum, Polygon, Base, Arbitrum y otras cadenas. Vulnerabilidad de error de redondeo en contratos ComposableStablePool. Aproximadamente 28 millones USD recuperados a través de operaciones whitehat e intervenciones del protocolo. La mayoria de los fondos (~100 millones USD) permanecen sin recuperar a febrero de 2026. Balancer DAO aprobó bounty de recuperacion del 10% (BIP-908, febrero 2026). V3 (version actual) NO fue afectada por este exploit. Las estrategias de diBoaS usan exclusivamente V3. Fuentes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
+        "regulatory": "3 de noviembre de 2025: exploit de 128 millones USD que afecto a pools V2 en Ethereum, Polygon, Base, Arbitrum y otras cadenas. Vulnerabilidad de error de redondeo en contratos ComposableStablePool. Aproximadamente 28 millones USD recuperados a través de operaciones whitehat e intervenciones del protocolo. La mayoria de los fondos (~100 millones USD) permanecen sin recuperar a febrero de 2026. Balancer DAO aprobó bounty de recuperacion del 10% (BIP-908, febrero 2026). V3 (versión actual) NO fue afectada por este exploit. Las estrategias de diBoaS usan exclusivamente V3. Fuentes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
       }
     },
     "huma": {
@@ -363,7 +363,7 @@
     "criteria": {
       "1": "Al menos 1 ano de operación continua. Hacemos excepciones para protocolos construidos por equipos con largo historial, pero lo indicamos claramente.",
       "2": "Auditorias de seguridad profesionales de firmas reconocidas. No solo una. Buscamos multiples auditorías independientes.",
-      "3": "Sin exploits no resueltos que afecten a la version que usamos donde los fondos de usuarios se perdieron permanentemente. Los incidentes pasados y exploits específicos de version se divulgan en cada tarjeta con un badge de advertencia.",
+      "3": "Sin exploits no resueltos que afecten a la versión que usamos donde los fondos de usuarios se perdieron permanentemente. Los incidentes pasados y exploits específicos de versión se divulgan en cada tarjeta con un badge de advertencia.",
       "4": "Operaciones transparentes. Podemos verificar como funciona el protocolo. Se prefiere el código open-source.",
       "5": "Uso real. Usuarios reales depositando dinero real. No solo hype, no solo un precio de token."
     },
@@ -379,7 +379,7 @@
   },
   "notIs": {
     "h2": "Atención",
-    "text": "Esto no es una recomendacion de usar ninguno de estos protocolos directamente.\n\nLas estrategias de diBoaS están construidas sobre estos sistemas, y nuestro equipo maneja la complejidad. No necesitas interactuar con ningun protocolo tu mismo. Esta página existe para que puedas ver exactamente donde va tu dinero y verificar todo lo que decimos.\n\nCada protocolo aquí conlleva riesgo. Los smart contracts pueden tener bugs. Los mercados pueden desplomarse. Las stablecoins pueden perder su vinculacion. Sistemas que han operado de forma segura durante anos pueden enfrentar problemas manana. Monitorizamos estos sistemas de forma continua, pero no podemos eliminar el riesgo. Nadie puede.\n\nEsta página existe porque creemos que mereces saberlo. No porque tengas que hacer nada con ella.",
+    "text": "Esto no es una recomendación de usar ninguno de estos protocolos directamente.\n\nLas estrategias de diBoaS están construidas sobre estos sistemas, y nuestro equipo maneja la complejidad. No necesitas interactuar con ningun protocolo tu mismo. Esta página existe para que puedas ver exactamente donde va tu dinero y verificar todo lo que decimos.\n\nCada protocolo aquí conlleva riesgo. Los smart contracts pueden tener bugs. Los mercados pueden desplomarse. Las stablecoins pueden perder su vinculacion. Sistemas que han operado de forma segura durante anos pueden enfrentar problemas manana. Monitorizamos estos sistemas de forma continua, pero no podemos eliminar el riesgo. Nadie puede.\n\nEsta página existe porque creemos que mereces saberlo. No porque tengas que hacer nada con ella.",
     "warmLine": "Si no estas seguro de si esto es adecuado para ti, consulta a un asesor financiero autorizado antes de tomar decisiones de inversion."
   },
   "faq": {
@@ -398,11 +398,11 @@
     },
     "q4": {
       "question": "Estar listado aquí significa que diBoaS recomienda estos protocolos?",
-      "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningun protocolo. Su inclusion no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendacion de usarlos directamente."
+      "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningun protocolo. Su inclusion no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendación de usarlos directamente."
     },
     "q5": {
       "question": "Que pasa si un protocolo es hackeado?",
-      "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rapidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afecto a una version anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de seleccion arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
+      "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rapidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afecto a una versión anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de seleccion arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
     },
     "q6": {
       "question": "Por que algunos protocolos tienen badges de advertencia?",
@@ -425,7 +425,7 @@
   "footer": {
     "lastUpdated": "Ultima actualizacion: febrero de 2026",
     "dataSources": "Fuentes de datos: DeFiLlama (TVL), documentacion oficial de protocolos, informes de auditorías de seguridad publicados, SEC EDGAR (presentaciones regulatorias), CoinGecko y comunicaciones directas con protocolos.",
-    "mainDisclaimer": "La información en esta página es unicamente con fines educativos y de transparencia. No constituye asesoramiento de inversion, asesoramiento financiero ni una recomendacion de usar ningun protocolo listado. La inclusion de protocolos refleja nuestra investigación y no implica respaldo por ni afiliacion con ningun protocolo listado. Todos los protocolos DeFi conllevan riesgo técnico, riesgo de smart contracts, riesgo de mercado, riesgo de liquidez y riesgo de desvinculacion de stablecoins. El rendimiento, TVL y estado regulatorio de los protocolos pueden cambiar en cualquier momento. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados.",
+    "mainDisclaimer": "La información en esta página es unicamente con fines educativos y de transparencia. No constituye asesoramiento de inversion, asesoramiento financiero ni una recomendación de usar ningun protocolo listado. La inclusion de protocolos refleja nuestra investigación y no implica respaldo por ni afiliacion con ningun protocolo listado. Todos los protocolos DeFi conllevan riesgo técnico, riesgo de smart contracts, riesgo de mercado, riesgo de liquidez y riesgo de desvinculacion de stablecoins. El rendimiento, TVL y estado regulatorio de los protocolos pueden cambiar en cualquier momento. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados.",
     "micaArt68": "El valor de los criptoactivos puede fluctuar. Puede perder la totalidad o parte de su dinero invertido. Los criptoactivos no están cubiertos por los sistemas de garantia de depósitos.",
     "micaArt7": "Esta comunicación comercial relativa a criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningun Estado miembro de la Union Europea. El emisor del criptoactivo es el único responsable del contenido de esta comunicación comercial relativa a criptoactivos.",
     "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo analisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",

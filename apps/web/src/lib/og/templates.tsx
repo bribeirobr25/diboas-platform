@@ -5,7 +5,7 @@
 
 import { diBoasColors } from '@/lib/colors';
 
-export type OGPageType = 'default' | 'b2c' | 'b2b' | 'strategies';
+export type OGPageType = 'default' | 'b2c' | 'b2b' | 'strategies' | 'about' | 'protocols' | 'help' | 'security';
 
 interface OGTemplateConfig {
   title: string;
@@ -17,7 +17,7 @@ interface OGTemplateConfig {
 const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   default: {
     title: 'diBoaS',
-    subtitle: 'Financial Freedom Made Simple',
+    subtitle: 'Open access and fair opportunities for everyone',
     theme: 'teal',
   },
   b2c: {
@@ -28,7 +28,7 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   },
   b2b: {
     title: 'diBoaS for Business',
-    subtitle: 'Corporate Treasury & Yield Solutions',
+    subtitle: 'Stop Overpaying. Start Earning.',
     badge: 'Business',
     theme: 'coral',
   },
@@ -37,6 +37,26 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     subtitle: '10 Strategies. Different Goals. Different Risk Levels.',
     badge: 'Strategies',
     theme: 'teal',
+  },
+  about: {
+    title: 'diBoaS',
+    subtitle: 'One grandmother. One problem. One platform.',
+    theme: 'teal',
+  },
+  protocols: {
+    title: 'diBoaS',
+    subtitle: 'Where Your Money Works. Full Transparency.',
+    theme: 'teal',
+  },
+  help: {
+    title: 'diBoaS',
+    subtitle: 'Clear Answers. No Jargon.',
+    theme: 'teal',
+  },
+  security: {
+    title: 'diBoaS',
+    subtitle: 'Your Wallet. Your Keys. Your Money.',
+    theme: 'dark',
   },
 };
 
@@ -204,5 +224,5 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
  * Check if a page type is valid
  */
 export function isValidPageType(page: string): page is OGPageType {
-  return ['default', 'b2c', 'b2b', 'strategies'].includes(page);
+  return ['default', 'b2c', 'b2b', 'strategies', 'about', 'protocols', 'help', 'security'].includes(page);
 }

@@ -89,39 +89,6 @@ export const LOCALE_CONFIG: Record<SupportedLocale, LocaleConfig> = {
   },
 };
 
-// Domain-specific configuration for different applications
-export interface DomainI18nConfig {
-  domain: string;
-  defaultLocale: SupportedLocale;
-  locales: SupportedLocale[];
-  namespace: string;
-  fallbackNamespace?: string;
-}
-
-export const DOMAIN_CONFIGS: Record<string, DomainI18nConfig> = {
-  marketing: {
-    domain: 'diboas.com',
-    defaultLocale: 'en',
-    locales: ['en', 'pt-BR', 'es', 'de'],
-    namespace: 'marketing-common',
-    fallbackNamespace: 'common',
-  },
-  app: {
-    domain: 'app.diboas.com',
-    defaultLocale: 'en',
-    locales: ['en', 'pt-BR', 'es', 'de'],
-    namespace: 'app',
-    fallbackNamespace: 'common',
-  },
-  business: {
-    domain: 'business.diboas.com',
-    defaultLocale: 'en',
-    locales: ['en', 'pt-BR', 'es', 'de'],
-    namespace: 'business',
-    fallbackNamespace: 'common',
-  },
-};
-
 // Security: Validate and sanitize locale input
 export function isValidLocale(locale: string): locale is SupportedLocale {
   return SUPPORTED_LOCALES.includes(locale as SupportedLocale);

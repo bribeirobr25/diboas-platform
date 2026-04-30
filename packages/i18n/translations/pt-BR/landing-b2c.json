@@ -66,7 +66,7 @@
     "less": "MENOS com diBoaS"
   },
   "sidePocket": {
-    "text": "Isso é sobre a parte do seu dinheiro que poderia estar fazendo mais."
+    "text": "Isso não é sobre investir. É sobre você, pela primeira vez, ter a oportunidade de mudar o jogo a seu favor."
   },
   "origin": {
     "transitionHook": "Por isso a gente existe.",
@@ -239,7 +239,7 @@
   },
   "socialProof": {
     "header": "Faça Parte do Movimento!",
-    "subtext": "Muitos já estão aproveitando a oportunidade de libertar seu dinheiro e ter acesso justo. Inscreva-se na nossa lista de espera.",
+    "subtext": "Faça parte da mudança. Muitos estão experimentando acesso justo pela primeira vez. Inscreva-se na nossa lista de espera.",
     "stats": {
       "waitlist": "{count} usuários",
       "countries": "{countries} países"
@@ -335,7 +335,7 @@
       },
       "lostPhone": {
         "question": "E se eu perder meu celular?",
-        "answer": "Sua carteira usa segurança de chave avançada. Uma parte fica no seu aparelho. Outra parte é guardada separadamente de forma segura.\n\nSe você perder o celular, você recupera a carteira. Sem seed phrase. Sem 24 palavras pra anotar. Sem pânico.\n\nSeu dinheiro não desaparece porque seu celular desapareceu."
+        "answer": "Quando o diBoaS lançar seu aplicativo, sua carteira usará segurança avançada de chaves para proteger contra perda do dispositivo. Nossa arquitetura é projetada para recuperação de carteira sem frases-semente ou backups de 24 palavras. Seu dinheiro não vai desaparecer porque seu celular sumiu."
       },
       "withdraw": {
         "question": "Posso sacar meu dinheiro a qualquer hora?",
@@ -458,8 +458,8 @@
     "copyright": "© 2026 diBoaS. Todos os direitos reservados."
   },
   "seo": {
-    "title": "diBoaS | O Sistema Não Foi Feito Pra Você. A Gente Tá Mudando Isso.",
-    "description": "Veja o que R$1.000 fazem em um ano, em dólar, protegido contra a desvalorização. A partir de R$10. Cada real é seu.",
+    "title": "diBoaS | Acesso Aberto. Oportunidades Justas.",
+    "description": "O sistema financeiro não foi feito pra você. O diBoaS muda isso. Envie dinheiro grátis, invista com estratégias por metas, acompanhe com IA e compre ativos digitais.",
     "ogTitle": "O sistema financeiro não está quebrado. Só não foi feito pra você.",
     "ogDescription": "Veja o que seu dinheiro pode fazer quando trabalha em dólar, com acesso aberto e justo."
   }

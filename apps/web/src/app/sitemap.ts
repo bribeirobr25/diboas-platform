@@ -11,11 +11,26 @@ import { MetadataRoute } from 'next';
 import { SUPPORTED_LOCALES } from '@diboas/i18n/server';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 
+const NOINDEX_PAGES = new Set(['demo', 'dream-mode', 'daily-market', 'share']);
+
+const PAGE_PRIORITIES: Record<string, number> = {
+  '/': 1.0,
+  '/business': 0.9,
+  '/strategies': 0.9,
+  '/about': 0.8,
+  '/protocols': 0.8,
+  '/help': 0.7,
+  '/security': 0.7,
+  '/legal/terms': 0.3,
+  '/legal/privacy': 0.3,
+  '/legal/cookies': 0.3,
+};
+
 function getAllUrls(): string[] {
   const urls: string[] = ['/'];
 
   Object.keys(PAGE_SEO_CONFIG).forEach(pageKey => {
-    if (pageKey !== 'home') {
+    if (pageKey !== 'home' && !NOINDEX_PAGES.has(pageKey)) {
       urls.push(`/${pageKey}`);
     }
   });
@@ -39,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: fullUrl,
         lastModified: currentDate,
         changeFrequency: url === '/' ? 'daily' : 'weekly',
-        priority: url === '/' ? 1.0 : 0.8,
+        priority: PAGE_PRIORITIES[url] ?? 0.5,
         alternates: {
           languages: SUPPORTED_LOCALES.reduce((acc, lang) => {
             const langPath = lang === 'en' ? '' : `/${lang}`;

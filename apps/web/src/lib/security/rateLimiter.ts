@@ -137,8 +137,19 @@ export async function checkRateLimit(
         reset: Math.ceil(result.reset / 1000),
       };
     } catch (error) {
-      Logger.error('[RateLimiter] Redis rate limit failed, using fallback:', { error: error instanceof Error ? error.message : String(error) });
-      // Fall through to in-memory
+      Logger.error('[RateLimiter] Redis rate limit failed, using in-memory fallback', { error: error instanceof Error ? error.message : String(error) });
+
+      // Alert: Redis fallback means rate limiting is per-instance only
+      try {
+        const { applicationEventBus, ApplicationEventType } = await import('@/lib/events/ApplicationEventBus');
+        applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+          source: 'rateLimiter',
+          timestamp: Date.now(),
+          metadata: { operation: 'redis_fallback_activated', severity: 'high' },
+        });
+      } catch {
+        // Event bus unavailable — already logged above
+      }
     }
   }
 

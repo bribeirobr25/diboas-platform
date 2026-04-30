@@ -18,7 +18,7 @@
   "story": {
     "header": "Se llamaba Adelaide.",
     "paragraph1": "Mi abuela vivio toda su vida en Rio de Janeiro. Me enseno a ahorrar. Me dijo que intentara ahorrar la mitad de todo lo que ganara. Ella misma lo intento. Toda su vida.",
-    "paragraph2": "Trabajar duro. Comprar solo lo basico. Intentar ahorrar.",
+    "paragraph2": "Trabajar duro. Comprar solo lo básico. Intentar ahorrar.",
     "paragraph3": "Aun asi no fue suficiente.",
     "gapExplanation": "Lo que nadie le dijo: su banco le pagaba casi nada mientras ganaba rendimientos reales con su dinero. Esa diferencia, entre lo que los bancos ganan y lo que comparten, es el sistema funcionando como fue disenado. Solo que no para gente como ella.",
     "accessLocked": "El acceso estaba bloqueado detras de importes minimos altos, palabras complicadas e instituciones a las que no les importaba la gente con pocos ahorros.",
@@ -48,7 +48,7 @@
   },
   "business": {
     "header": "Para Empresas",
-    "description": "Si aceptas pagos con tarjeta, las comisiones de procesamiento se comen cada transaccion. Si tienes dinero parado en la cuenta de empresa, tu banco esta ganando con el y a ti te paga casi nada. El mismo sistema que le fallo a mi abuela esta sentado sobre las reservas de tu empresa.",
+    "description": "Si aceptas pagos con tarjeta, las comisiones de procesamiento se comen cada transacción. Si tienes dinero parado en la cuenta de empresa, tu banco esta ganando con el y a ti te paga casi nada. El mismo sistema que le fallo a mi abuela esta sentado sobre las reservas de tu empresa.",
     "pitch": "diBoaS for Business ayuda a las empresas a quedarse con mas de lo que ganan, con liquidez en el mismo dia, informes listos para direccion, y acceso a los mismos sistemas de confianza que impulsan nuestra plataforma personal.",
     "cta": "Saber mas sobre diBoaS for Business"
   },

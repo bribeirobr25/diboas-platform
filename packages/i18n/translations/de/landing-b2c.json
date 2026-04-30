@@ -66,7 +66,7 @@
     "less": "WENIGER mit diBoaS"
   },
   "sidePocket": {
-    "text": "Das hier dreht sich um den Teil deines Geldes, der mehr tun könnte."
+    "text": "Es geht nicht ums Investieren. Es geht um dich, zum ersten Mal die Chance zu haben, das Spiel zu deinen Gunsten zu verändern."
   },
   "origin": {
     "transitionHook": "Darum gibt es uns.",
@@ -239,7 +239,7 @@
   },
   "socialProof": {
     "header": "Werde Teil der Bewegung!",
-    "subtext": "Viele nutzen bereits die Möglichkeit, ihr Geld zu befreien und faire Chancen zu bekommen. Trag dich in unsere Warteliste ein.",
+    "subtext": "Sei Teil der Veränderung. Viele erleben zum ersten Mal fairen Zugang. Trage dich in unsere Warteliste ein.",
     "stats": {
       "waitlist": "{count} Nutzer",
       "countries": "{countries} Länder"
@@ -335,7 +335,7 @@
       },
       "lostPhone": {
         "question": "Was, wenn ich mein Handy verliere?",
-        "answer": "Deine Wallet nutzt fortgeschrittene Schlüsselsicherheit. Ein Teil bleibt auf deinem Gerät. Ein anderer Teil wird sicher separat aufbewahrt.\n\nWenn du dein Handy verlierst, stellst du deine Wallet wieder her. Keine Seed Phrases. Keine 24 Wörter zum Aufschreiben. Keine Panik.\n\nDein Geld verschwindet nicht, nur weil dein Handy es getan hat."
+        "answer": "Wenn diBoaS seine App startet, wird Ihre Wallet fortschrittliche Schlüsselsicherheit verwenden, um vor Geräteverlust zu schützen. Unsere Architektur ist für die Wallet-Wiederherstellung ohne Seed-Phrasen oder 24-Wort-Backups konzipiert. Ihr Geld verschwindet nicht, weil Ihr Telefon es getan hat."
       },
       "withdraw": {
         "question": "Kann ich mein Geld jederzeit abheben?",
@@ -458,8 +458,8 @@
     "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten."
   },
   "seo": {
-    "title": "diBoaS | Das System wurde nicht für dich gebaut. Wir ändern das.",
-    "description": "Sieh, was aus 1.000 € in einem Jahr wird, deine Bank vs. diBoaS. Ab 5 €. Jeder Euro gehört dir.",
+    "title": "diBoaS | Offener Zugang. Faire Chancen.",
+    "description": "Das Geldsystem wurde nicht für dich gebaut. diBoaS ändert das. Sende Geld kostenlos, investiere mit zielbasierten Strategien, lerne mit KI und kaufe digitale Assets.",
     "ogTitle": "Das Geldsystem ist nicht kaputt. Es wurde nur nicht für dich gebaut.",
     "ogDescription": "Sieh, was dein Geld tun kann, wenn der Zugang endlich offen und fair ist."
   }

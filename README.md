@@ -1,383 +1,154 @@
 # diBoaS Platform
 
-Unified Financial Services Platform - A comprehensive solution for banking, investing, and DeFi management.
+Goal-driven wealth building platform. Open access and fair opportunities for everyone.
 
 ## Overview
 
-diBoaS Platform is a modern financial services application built with Next.js 15, React 18, and TypeScript. It provides an integrated experience for users to manage traditional banking, investments, and decentralized finance (DeFi) in one place.
+diBoaS is a pre-launch marketing site with waitlist functionality, interactive demo, and goal calculator. Live at [diboas.com](https://diboas.com) in 4 languages.
 
-## Features
-
-- **Multi-language Support**: English, Portuguese (BR), Spanish, and German
-- **Banking Services**: Traditional banking features and account management
-- **Investment Tools**: Stock trading, portfolio management, and investment strategies
-- **Cryptocurrency & DeFi**: Crypto trading and DeFi strategy management
-- **Educational Content**: Financial literacy and learning resources
-- **Rewards Program**: User engagement and loyalty rewards
-- **Business Solutions**: B2B financial services
+**Current phase:** Pre-launch waitlist. Live since March 11, 2026.
 
 ## Tech Stack
 
-- **Framework**: Next.js 16.1.1 (App Router with Turbopack)
-- **UI Library**: React 19.0.0
-- **Language**: TypeScript 5.2.2
-- **Styling**: Tailwind CSS 4.1.8, CSS Custom Properties
-- **Monorepo**: Turborepo 2.6.3
-- **Package Manager**: pnpm 8.15.0
-- **Internationalization**: react-intl 7.1.9
-- **Component Development**: Storybook 9.1.17
-- **UI Components**: Radix UI, React Aria
-- **Monitoring**: Sentry 10.32.1
+- **Framework:** Next.js 16.1.7 (App Router, Turbopack)
+- **Language:** TypeScript ~5.9.3 (strict mode)
+- **UI:** React 18.3.1, Tailwind CSS 3.4.17
+- **Monorepo:** Turborepo 2.8.15 + pnpm 8.15.0
+- **i18n:** react-intl 6.4.7 (4 locales: en, pt-BR, es, de)
+- **Testing:** Vitest 4.1.5, @vitest/coverage-v8, Lighthouse CI, pa11y
+- **Monitoring:** Sentry 10.49.0 (errors + session replay), PostHog (product analytics), GA4 (traffic), web-vitals
+- **Security:** DOMPurify 3.4.1, Upstash Redis (rate limiting), AES-256-GCM encryption, HMAC blind indexing
+- **Email:** Resend (transactional email with circuit breaker)
+- **Database:** Neon PostgreSQL (serverless)
+- **Component dev:** Storybook 10.3.5
+- **Hosting:** Vercel (auto-deploy from main branch)
+- **DNS:** Cloudflare (DNS-only mode)
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
-
-- **Node.js**: >= 18.0.0 ([Download](https://nodejs.org/))
-- **pnpm**: >= 8.0.0
-
-### Installing pnpm
-
-If you don't have pnpm installed:
+- **Node.js:** >= 18.0.0
+- **pnpm:** >= 8.0.0
 
 ```bash
-# Using npm
-npm install -g pnpm
-
-# Using Homebrew (macOS)
-brew install pnpm
-
-# Using Corepack (recommended)
+# Install pnpm via Corepack (recommended)
 corepack enable
 corepack prepare pnpm@8.15.0 --activate
 ```
 
 ## Installation
 
-### 1. Clone the Repository
-
 ```bash
 git clone <repository-url>
 cd diboas-platform
-```
-
-### 2. Install Dependencies
-
-Install all dependencies for the monorepo:
-
-```bash
 pnpm install
-```
-
-This will install dependencies for:
-- The root workspace
-- The web application (`apps/web`)
-- Shared packages (`@diboas/i18n`, `@diboas/ui`)
-
-### 3. Generate Design Tokens
-
-Generate CSS variables from design tokens:
-
-```bash
-pnpm run generate:design-tokens
 ```
 
 ## Development
 
-### Start Development Server
-
-Run the entire monorepo in development mode:
-
 ```bash
-pnpm run dev
+pnpm dev:web          # Start web app dev server
+pnpm dev:fresh        # Clean rebuild + dev server (use after package changes)
+pnpm dev:reset        # Clean build cache + restart
 ```
 
-Or run specific applications:
-
-```bash
-# Web application only
-pnpm run dev:web
-
-# Web app on specific port
-cd apps/web
-pnpm dev
-```
-
-The application will be available at:
-- **Local**: http://localhost:3000
-- **Default locale**: http://localhost:3000/en
-
-### Available Locales
-
-- `/en` - English
-- `/pt-BR` - Portuguese (Brazil)
-- `/es` - Spanish
-- `/de` - German
+The app is available at http://localhost:3000. Locale routes: `/en`, `/pt-BR`, `/es`, `/de`.
 
 ## Project Structure
 
 ```
 diboas-platform/
-├── apps/
-│   └── web/                 # Next.js web application
-│       ├── src/
-│       │   ├── app/         # Next.js App Router
-│       │   ├── components/  # React components
-│       │   ├── config/      # Configuration files
-│       │   ├── lib/         # Utilities and services
-│       │   └── styles/      # Global styles
-│       └── public/          # Static assets
-├── packages/
-│   ├── i18n/               # Internationalization package
-│   └── ui/                 # Design system components
-├── config/
-│   └── design-tokens.json  # Design token definitions
-├── images/                 # Image assets
-├── docs/                   # Documentation
-└── scripts/                # Build scripts
+  apps/web/              # Next.js web application
+    src/
+      app/               # App Router (pages, API routes, layouts)
+      components/        # UI components (Factory pattern with variants)
+      config/            # Feature configs, page configs, navigation
+      hooks/             # Custom React hooks
+      lib/               # Utilities, security, services, analytics
+      styles/            # Global CSS, design tokens
+      types/             # TypeScript type definitions
+    public/              # Static assets (images, logos, favicon)
+  packages/
+    email/               # @diboas/email — Transactional email (Resend)
+    i18n/                # @diboas/i18n — Internationalization (4 locales)
+    ui/                  # @diboas/ui — Design system components
+    banking/             # @diboas/banking — Phase 2+ stub
+    defi/                # @diboas/defi — Phase 2+ stub
+    investing/           # @diboas/investing — Phase 2+ stub
+  config/                # Design tokens JSON + schema
+  scripts/               # Build/validation scripts
+  docs/                  # Documentation
 ```
 
-## Available Scripts
-
-### Root Level
+## Commands
 
 ```bash
 # Development
-pnpm run dev              # Start all apps in dev mode
-pnpm run dev:web          # Start web app only
-pnpm run dev:app          # Start mobile app (future)
-pnpm run dev:business     # Start business app (future)
+pnpm dev:web                   # Start web app
+pnpm dev:fresh                 # Clean rebuild + start
 
-# Building
-pnpm run build            # Build all apps
-pnpm run type-check       # Type check all packages
+# Quality
+pnpm type-check                # TypeScript checking
+pnpm lint                      # ESLint
+pnpm test                      # Vitest (485 tests)
+pnpm build                     # Production build
 
-# Linting & Testing
-pnpm run lint             # Lint all packages
-pnpm run test             # Run tests
+# Validation
+pnpm validate:all              # Full pipeline
+pnpm validate:translations     # Translation key parity (4 locales)
+pnpm validate:design-tokens    # Design tokens schema
+pnpm check:dead-code           # Dead code detection (knip)
 
-# Design Tokens
-pnpm run validate:design-tokens   # Validate token schema
-pnpm run generate:design-tokens   # Generate CSS from tokens
-
-# Quality Assurance
-pnpm run performance:audit        # Run Lighthouse audits
-pnpm run accessibility:audit      # Run accessibility tests
-pnpm run security:audit           # Run security audit
-pnpm run audit:full               # Run comprehensive pre-launch audit
-pnpm run audit:ci                 # Run audit in CI mode (fails on issues)
-```
-
-### Web Application
-
-```bash
-cd apps/web
-
-# Development
-pnpm dev                  # Start dev server
-pnpm build                # Build for production
-pnpm start                # Start production server
-
-# Code Quality
-pnpm lint                 # Lint code
-pnpm type-check           # Type check
-
-# Bundle Analysis
-pnpm run analyze          # Analyze bundle size
-pnpm run analyze-server   # Analyze server bundle
-pnpm run analyze-browser  # Analyze browser bundle
-
-# Component Development
-pnpm run storybook        # Start Storybook
-pnpm run build-storybook  # Build Storybook
+# Audits
+pnpm audit:full                # 15-point pre-launch audit
+pnpm security:audit            # pnpm audit (production deps)
+pnpm performance:audit         # Lighthouse CI
+pnpm accessibility:audit       # pa11y WCAG2AA
 ```
 
 ## Environment Variables
 
-Copy the example file and configure your environment:
+Copy `.env.example` and configure:
 
 ```bash
-cd apps/web
-cp .env.example .env.local
+cp apps/web/.env.example apps/web/.env.local
 ```
 
-Key configuration categories in `.env.example`:
-- **Application**: URLs, domain, environment
-- **Kit.com Integration**: Email marketing API keys
-- **Cal.com Integration**: Booking calendar links
-- **Analytics & Monitoring**: GA4, Sentry, PostHog
-- **Security**: Encryption keys, CSRF, rate limiting
-- **Feature Flags**: Enable/disable integrations
-- **Brand & Company**: Business identity configuration
+Required for production: `NEXT_PUBLIC_BASE_URL`, `DATABASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`, `ENCRYPTION_KEY`, `HMAC_KEY`, `INTERNAL_API_KEY`, `CSP_NONCE_SECRET`, `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_POSTHOG_KEY`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`.
 
-See `apps/web/.env.example` for the complete list of 50+ configuration options.
+Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
-## Component Development
+## Pages
 
-This project uses Storybook for component development:
+| Route | Description |
+|-------|-------------|
+| `/` | B2C landing page (waitlist, comparison table, goals, demo) |
+| `/business` | B2B landing page |
+| `/about` | About page (founder story, mission, beliefs) |
+| `/strategies` | Investment strategies |
+| `/protocols` | Protocol transparency |
+| `/help` | Help center (6 FAQ topics) |
+| `/security` | Security information |
+| `/demo` | Interactive financial demo |
+| `/dream-mode` | Goal calculator simulation |
+| `/legal/*` | Terms, Privacy, Cookies |
 
-```bash
-cd apps/web
-pnpm run storybook
-```
+All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 
-Open http://localhost:6006 to view the component library.
+## Architecture Highlights
 
-## Design System
-
-The project uses a design token system for consistent styling:
-
-1. **Define tokens**: Edit `config/design-tokens.json`
-2. **Validate tokens**: `pnpm run validate:design-tokens`
-3. **Generate CSS**: `pnpm run generate:design-tokens`
-4. **Use tokens**: CSS variables are available in `apps/web/src/styles/design-tokens.css`
-
-## Architecture
-
-### Monorepo Structure
-
-This is a Turborepo monorepo with workspace packages:
-
-- **apps/web**: Main Next.js application
-- **packages/i18n**: Shared internationalization utilities
-- **packages/ui**: Shared UI component library
-
-### Component Patterns
-
-Components follow the **Factory Pattern** with variants:
-
-```
-HeroSection/
-├── HeroSectionFactory.tsx    # Factory for dynamic loading
-├── HeroSection.stories.tsx   # Storybook stories
-├── index.ts                  # Public API
-└── variants/                 # Different implementations
-    ├── FullBackgroundVariant.tsx
-    └── SplitLayoutVariant.tsx
-```
-
-### Routing
-
-The app uses Next.js App Router with internationalization:
-
-- **Root redirect**: `/` → `/en`
-- **Locale routes**: `/[locale]/(marketing)/...`
-- **Route groups**: `(marketing)` groups pages without affecting URLs
-
-## Testing
-
-```bash
-# Run all tests
-pnpm run test
-
-# Type checking
-pnpm run type-check
-
-# Accessibility audit
-pnpm run accessibility:audit
-
-# Performance audit
-pnpm run performance:audit
-```
-
-## Deployment
-
-### Build for Production
-
-```bash
-pnpm run build
-```
-
-### Deploy to Vercel
-
-The easiest deployment option:
-
-1. Push your code to GitHub
-2. Import project to [Vercel](https://vercel.com)
-3. Vercel auto-detects Next.js and configures build settings
-
-### Manual Deployment
-
-```bash
-# Build
-cd apps/web
-pnpm build
-
-# Start production server
-pnpm start
-```
-
-## Troubleshooting
-
-### Port Already in Use
-
-If port 3000 is already in use:
-
-```bash
-# Kill process on port 3000
-lsof -ti:3000 | xargs kill -9
-
-# Or use a different port
-cd apps/web
-pnpm dev -- -p 3001
-```
-
-### pnpm Install Issues
-
-```bash
-# Clear pnpm cache
-pnpm store prune
-
-# Remove node_modules and reinstall
-rm -rf node_modules apps/*/node_modules packages/*/node_modules
-pnpm install
-```
-
-### Type Errors
-
-```bash
-# Rebuild packages
-pnpm run build
-
-# Check types
-pnpm run type-check
-```
+- **Factory pattern** with variants for components
+- **4-layer error boundaries:** global > app > locale > route group + per-section
+- **Nonce-based CSP** generated per-request (no `unsafe-inline` for scripts)
+- **GDPR consent-gated analytics:** GA4 + PostHog only after "Accept"
+- **PII encryption:** AES-256-GCM with HMAC blind indexing
+- **Distributed rate limiting:** Upstash Redis with in-memory fallback
+- **Email circuit breaker:** 3-layer resilience (retry + client error detection + circuit breaker)
+- **Database query timeouts:** 8s timeout prevents hung serverless functions
 
 ## Documentation
 
-Comprehensive documentation is available in the `/docs` directory:
-
-- [Architecture](docs/architecture.md)
-- [Component Patterns](docs/component-architecture-pattern.md)
-- [Design System](docs/design-system.md)
-- [Coding Standards](docs/coding-standards.md)
-- [Security](docs/security.md)
-
-## Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Run tests and linting
-4. Submit a pull request
-
-### Code Standards
-
-- Use TypeScript for type safety
-- Follow ESLint configuration
-- Write meaningful commit messages
-- Add Storybook stories for new components
-- Update documentation as needed
-
-## License
-
-[Your License Here]
-
-## Support
-
-For issues and questions:
-- Create an issue in the repository
-- Contact the development team
-
----
-
-Built with ❤️ using Next.js and React
+- `CLAUDE.md` — Coding standards, architectural principles, conventions
+- `docs/tech/` — Technical guides (design system, coding standards)
+- `docs/monitoring/INFRASTRUCTURE_GUIDE.md` — Service overview, events tracked, GDPR compliance
+- `docs/audit/` — Audit results, fix plans, security reviews
+- `docs/full-view/` — Product bible, business model, brand positioning, fees

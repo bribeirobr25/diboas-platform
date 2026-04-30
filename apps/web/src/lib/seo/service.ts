@@ -151,7 +151,7 @@ class SEOMetadataService implements SEOService {
   generateCanonicalUrl(path: string, locale?: string): string {
     const baseUrl = SEO_DEFAULTS.siteUrl;
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    const localePath = locale && locale !== 'en' ? `/${locale}` : '';
+    const localePath = locale ? `/${locale}` : '';
 
     return `${baseUrl}${localePath}${cleanPath}`.replace(/\/+$/, '');
   }

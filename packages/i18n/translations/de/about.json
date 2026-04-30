@@ -20,7 +20,7 @@
     "paragraph1": "Meine Grossmutter hat ihr ganzes Leben in Rio de Janeiro gelebt. Sie hat mir beigebracht zu sparen. Sie sagte, ich solle versuchen, die Haelfte von allem zu sparen, was ich verdiene. Sie selbst hat das auch versucht. Ihr ganzes Leben lang.",
     "paragraph2": "Hart arbeiten. Nur das Noetigste kaufen. Versuchen zu sparen.",
     "paragraph3": "Es hat trotzdem nicht gereicht.",
-    "gapExplanation": "Was ihr niemand gesagt hat: Ihre Bank hat ihr fast nichts gezahlt, waehrend sie mit ihrem Geld echte Renditen erwirtschaftet hat. Diese Luecke, zwischen dem, was Banken verdienen, und dem, was sie weitergeben, ist kein Fehler im System. Das System funktioniert genau so. Nur nicht für Menschen wie sie.",
+    "gapExplanation": "Was ihr niemand gesagt hat: Ihre Bank hat ihr fast nichts gezahlt, während sie mit ihrem Geld echte Renditen erwirtschaftet hat. Diese Luecke, zwischen dem, was Banken verdienen, und dem, was sie weitergeben, ist kein Fehler im System. Das System funktioniert genau so. Nur nicht für Menschen wie sie.",
     "accessLocked": "Der Zugang war versperrt hinter hohen Mindestbetraegen, komplizierten Woertern und Institutionen, denen Menschen mit kleinen Ersparnissen egal waren.",
     "turning": "2024 entschied ich mich, etwas dagegen zu tun. Neue Technologie machte es möglich, die Torwächter zu umgehen. Ich musste nur die Tür bauen.",
     "namedAfterHer": "BAR der Gründer."
@@ -42,13 +42,13 @@
   },
   "mission": {
     "header": "Die Mission",
-    "story": "Adelaide hatte nie eine Wahl. Hohe Mindestbetraege, versteckte Gebuehren und komplizierte Woerter hielten die Tuer verschlossen.",
+    "story": "Adelaide hatte nie eine Wahl. Hohe Mindestbetraege, versteckte Gebühren und komplizierte Woerter hielten die Tuer verschlossen.",
     "statement": "Wir bauen die Tuer, die sie nie bekommen hat.",
     "pillars": "Kostenloser Geldtransfer. Echte Wachstumsoptionen. Volle Transparenz. Für alle."
   },
   "business": {
     "header": "Für Unternehmen",
-    "description": "Wenn du Kartenzahlungen akzeptierst, fressen Bearbeitungsgebuehren an jeder Transaktion. Wenn Geld auf deinem Geschäftskonto liegt, verdient deine Bank damit, waehrend du fast nichts davon siehst. Das gleiche System, das meiner Grossmutter nicht geholfen hat, sitzt auf den Ruecklagen deines Unternehmens.",
+    "description": "Wenn du Kartenzahlungen akzeptierst, fressen Bearbeitungsgebuehren an jeder Transaktion. Wenn Geld auf deinem Geschäftskonto liegt, verdient deine Bank damit, während du fast nichts davon siehst. Das gleiche System, das meiner Grossmutter nicht geholfen hat, sitzt auf den Ruecklagen deines Unternehmens.",
     "pitch": "diBoaS for Business hilft Unternehmen, mehr von dem zu behalten, was sie verdienen, mit taggleicher Liquiditaet, Berichten für die Geschäftsfuehrung und Zugang zu den gleichen vertrauenswuerdigen Systemen, die unsere Plattform für Privatkunden antreiben.",
     "cta": "Mehr erfahren über diBoaS for Business"
   },

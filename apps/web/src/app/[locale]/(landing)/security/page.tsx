@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'Security | diBoaS';
   const description = seo.description || 'How diBoaS protects your money. Your wallet, your keys. Non-custodial architecture. 24/7 monitoring.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   return {
     title,
@@ -47,11 +47,15 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       description: seo.ogDescription || description,
       type: 'website',
       locale: validLocale,
+      images: [{ url: `${siteUrl}/api/og/security`, width: 1200, height: 630, alt: seo.ogTitle || title }],
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@diboasfi',
+      creator: '@bribeiro_br',
       title: seo.ogTitle || title,
       description: seo.ogDescription || description,
+      images: [`${siteUrl}/api/og/security`],
     },
     alternates: {
       canonical: `${siteUrl}/${validLocale}/security`,
@@ -59,7 +63,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
         'en': `${siteUrl}/en/security`,
         'de': `${siteUrl}/de/security`,
         'es': `${siteUrl}/es/security`,
-        'pt-BR': `${siteUrl}/pt-BR/security`,
+        'pt-br': `${siteUrl}/pt-BR/security`,
         'x-default': `${siteUrl}/en/security`,
       },
     },

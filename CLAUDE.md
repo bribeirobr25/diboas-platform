@@ -2,9 +2,9 @@
 
 ## Overview
 
-diBoaS (Digital Bank of Autonomous Services) is a unified financial services platform combining traditional banking, cryptocurrency, and DeFi strategies. Currently in **pre-launch/waitlist** phase. The web app is a marketing and onboarding site with waitlist functionality - no production banking features are live yet.
+diBoaS is a goal-driven wealth building platform — your side-pocket for wealth creation powered by the digital dollar. Currently **live in pre-launch/waitlist** phase at [diboas.com](https://diboas.com). The web app is a marketing and onboarding site with waitlist, interactive demo, and goal calculator — no production financial features are live yet.
 
-**Current phase:** Pre-launch marketing site with waitlist functionality. Domain packages, application services, and full DDD are Phase 2+ requirements.
+**Current phase:** Pre-launch marketing site with waitlist functionality. Live since March 11, 2026. Domain packages, application services, and full DDD are Phase 2+ requirements.
 
 ## Tech Stack
 
@@ -14,8 +14,10 @@ diBoaS (Digital Bank of Autonomous Services) is a unified financial services pla
 - **Monorepo:** Turborepo + pnpm 8.15 workspaces
 - **i18n:** react-intl (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
-- **Monitoring:** Sentry (error tracking), PostHog (analytics), web-vitals
-- **Security:** DOMPurify, Upstash Redis rate limiting, AES-256-GCM encryption
+- **Monitoring:** Sentry (error tracking + session replay), PostHog (product analytics), GA4 (traffic analytics), web-vitals
+- **Security:** DOMPurify, Upstash Redis rate limiting, AES-256-GCM encryption, HMAC blind indexing
+- **Email:** Resend (transactional email with circuit breaker)
+- **Database:** Neon PostgreSQL (serverless)
 - **Component dev:** Storybook 10
 
 ## Architecture
@@ -34,11 +36,13 @@ diboas-platform/
   docs/                # Project documentation (only docs/tech/ is git-tracked)
     tech/              # Technical guides (committed)
     audit/             # Audit tracking (local-only)
+    monitoring/        # Infrastructure & monitoring guide (local-only)
     full-view/         # Product & business docs (local-only)
     post-launch/       # Post-launch planning (local-only)
     revenue/           # Fee modeling reference (local-only)
     roadmap/           # Phase 2+ architecture planning (local-only)
     skills-commands/   # Framework & kit playbooks (local-only)
+    video-storyboards/ # Marketing video prompts (local-only)
 ```
 
 ### App Router Structure
@@ -46,34 +50,29 @@ diboas-platform/
 ```
 apps/web/src/app/
   [locale]/
-    (marketing)/           # Marketing pages
-      business/            # Business banking
-      careers/             # Careers
-      help/                # Help center
-      investors/           # Investor relations
-      learn/               # Educational content
-      main/                # Main marketing page
-      personal/            # Personal banking
-      rewards/             # Rewards program
-      security/            # Security information
-      why-diboas/          # Why diBoaS
-    (landing)/             # Landing pages
-      about/               # About us
-      daily-market/        # Daily market updates
-      delete-confirm/      # Account deletion confirmation
-      demo/                # Interactive demo
-      dream-mode/          # Dream mode experience
+    (landing)/             # All user-facing pages (single route group)
+      about/               # About us — founder story, mission, beliefs
+      business/            # B2B landing page
+      daily-market/        # Adelaide Daily — market updates (placeholder)
+      delete-confirm/      # GDPR account deletion confirmation
+      demo/                # Interactive financial demo (noindex)
+      dream-mode/          # Goal calculator simulation (noindex)
+      email-preferences/   # Email unsubscribe preferences
+      help/                # Help center — FAQ by topic (6 topics)
       legal/               # Legal pages
-      protocols/           # Protocol information
-      security/            # Security landing
-      share/               # Social sharing
+        cookies/           # Cookie policy
+        privacy/           # Privacy policy
+        terms/             # Terms of use
+      protocols/           # Protocol transparency page
+      security/            # Security information
+      share/               # Social sharing redirect (OG metadata)
       strategies/          # Investment strategies
   api/                     # API routes
-    consent/               # Cookie/privacy consent
-    health/                # Health check endpoint
-    og/                    # Open Graph image generation
-    waitlist/              # Waitlist signup
-    webhooks/              # Webhook handlers
+    consent/               # Cookie/privacy consent (POST/DELETE)
+    email/unsubscribe/     # RFC 8058 email unsubscribe
+    health/                # Health check (liveness + readiness)
+    og/                    # Dynamic Open Graph image generation
+    waitlist/              # Waitlist (signup, delete, position, referral, stats)
 ```
 
 ### Source Organization (apps/web/src/)
@@ -224,7 +223,7 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- Namespaced JSON files (common, marketing, personal, business, learn, etc.)
+- Namespaced JSON files: about, common, dreamMode, faq, landing-b2b, landing-b2c, landing-help, preDemo, preDream, protocols, security, share, strategies, waitlist + legal/ subdirectory (cookies, privacy, terms)
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 
@@ -241,7 +240,8 @@ Prioritized by real-world impact (ref: Vercel React Best Practices).
 
 - Documented in `apps/web/.env.example`
 - `NEXT_PUBLIC_*` prefix for client-side variables
-- Key categories: App URL, Cal.com, Analytics (GA4, Sentry, PostHog), Security (encryption, HMAC), Rate limiting (Upstash), Email (Resend), Database (Neon)
+- Key categories: App URL, Analytics (GA4, Sentry, PostHog), Security (encryption, HMAC, CSRF, CSP), Rate limiting (Upstash Redis), Email (Resend), Database (Neon)
+- Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`
 
 ## Dependencies Between Packages
 
@@ -289,7 +289,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Error Handling Patterns
 
-- Error boundaries: 3 layers — Root (`global-error.tsx`) > Route group (`(marketing)/error.tsx`, `(landing)/error.tsx`) > Page
+- Error boundaries: 4 layers — Root (`global-error.tsx`) > App (`error.tsx`) > Locale (`[locale]/error.tsx`) > Route group (`(landing)/error.tsx`) + per-section (`SectionErrorBoundary`)
 - Loading states: `loading.tsx` in every route group for Suspense
 - API calls: use `fetchWithRetry` for user-facing operations (2 retries, exponential backoff)
 - Third-party scripts: always dynamic `import()` with fallback (never static import for analytics)
@@ -307,7 +307,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 
 ## Audit Status
 
-All 33 Phase 1 audit findings have been resolved. Comprehensive 25-category audit completed March 2026 — 153/158 checks pass (96.8%). Remaining pending items tracked in `docs/audit/PENDING.md`.
+All Phase 1 audit findings resolved (March 2026). Architecture compliance audit completed April 2026 — 12/12 principles fully compliant (P4 DRY violation fixed April 30). SEO external tools audit completed and fixes applied (domain standardization, robots.txt, meta tags, heading hierarchy, dynamic imports for PageSpeed). Pre-production security, stability, SEO, and analytics audits all passed. 485 tests passing. Remaining pending items tracked in `docs/audit/PENDING_ALL.md`.
 
 ## Visual Development — Human-First Design Workflow
 
