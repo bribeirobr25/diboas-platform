@@ -1,22 +1,25 @@
 import { notFound } from 'next/navigation';
+import nextDynamic from 'next/dynamic';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
-  FAQAccordion,
   ProseSection,
   ScenarioCards,
-  FeeTable,
-  FounderSection,
   TwoWorldsSection,
   FoundingMembersSection,
   ComparisonTable,
 } from '@/components/Sections';
 import { B2BGoalCards } from '@/components/Sections/B2BGoalCards';
-import { WaitlistSection } from '@/components/Sections/WaitlistSection';
-import { AppFeaturesCarousel } from '@/components/Sections/AppFeaturesCarousel';
 import { BenefitsCardsSection } from '@/components/Sections/BenefitsCards';
+
+// Below-fold sections: code-split via dynamic imports
+const FAQAccordion = nextDynamic(() => import('@/components/Sections/FAQAccordion/FAQAccordionFactory').then(m => ({ default: m.FAQAccordion })));
+const FeeTable = nextDynamic(() => import('@/components/Sections/FeeTable').then(m => ({ default: m.FeeTable })));
+const FounderSection = nextDynamic(() => import('@/components/Sections/FounderSection').then(m => ({ default: m.FounderSection })));
+const AppFeaturesCarousel = nextDynamic(() => import('@/components/Sections/AppFeaturesCarousel').then(m => ({ default: m.AppFeaturesCarousel })));
+const WaitlistSection = nextDynamic(() => import('@/components/Sections/WaitlistSection').then(m => ({ default: m.WaitlistSection })));
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
@@ -45,7 +48,7 @@ export const dynamic = 'auto';
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   const messages = await loadMessages(locale as SupportedLocale, 'landing-b2b');
   const seo = messages.seo || {};
@@ -65,7 +68,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
         'en': `${baseUrl}/en/business`,
         'de': `${baseUrl}/de/business`,
         'es': `${baseUrl}/es/business`,
-        'pt-BR': `${baseUrl}/pt-BR/business`,
+        'pt-br': `${baseUrl}/pt-BR/business`,
         'x-default': `${baseUrl}/en/business`,
       },
     },
@@ -87,6 +90,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@diboasfi',
+      creator: '@bribeiro_br',
       title: ogTitle,
       description: ogDescription,
       images: [`${baseUrl}/api/og/b2b`],

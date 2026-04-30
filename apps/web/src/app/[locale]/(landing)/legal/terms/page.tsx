@@ -16,7 +16,7 @@ export const dynamic = 'auto';
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   // Load translations for SEO metadata
   const messages = await loadMessages(locale as SupportedLocale, 'legal/terms');
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
         'en': `${baseUrl}/en/legal/terms`,
         'de': `${baseUrl}/de/legal/terms`,
         'es': `${baseUrl}/es/legal/terms`,
-        'pt-BR': `${baseUrl}/pt-BR/legal/terms`,
+        'pt-br': `${baseUrl}/pt-BR/legal/terms`,
         'x-default': `${baseUrl}/en/legal/terms`,
       },
     },

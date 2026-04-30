@@ -15,41 +15,41 @@
   "sections": {
     "whoWeAre": {
       "title": "Quem Somos",
-      "content": "O diBoaS e uma plataforma de tecnologia financeira. Somos o controlador de dados pessoais coletados atraves do nosso site e servicos.",
+      "content": "O diBoaS e uma plataforma de tecnologia financeira. Somos o controlador de dados pessoais coletados atraves do nosso site e serviços.",
       "contact": {
         "label": "Contato:",
         "email": "privacy@diboas.com",
         "dpo": "dpo@diboas.com",
         "emailLabel": "E-mail:",
-        "dpoLabel": "Protecao de Dados:"
+        "dpoLabel": "Proteção de Dados:"
       }
     },
     "whatDataWeCollect": {
       "title": "Quais Dados Coletamos",
       "provided": {
-        "title": "Informacoes Que Voce Fornece:",
+        "title": "Informações Que Você Fornece:",
         "items": [
           "Endereco de e-mail (ao entrar na lista de espera)",
           "Nome (opcional)",
           "Preferencia de idioma",
-          "Preferencias de comunicacao"
+          "Preferencias de comunicação"
         ]
       },
       "automatic": {
-        "title": "Informacoes Coletadas Automaticamente:",
+        "title": "Informações Coletadas Automaticamente:",
         "items": [
-          "Endereco IP (anonimizado para analise)",
-          "Tipo e versao do navegador",
-          "Informacoes do dispositivo",
+          "Endereço IP (usado para limitação de taxa de segurança; não enviado para serviços de análise)",
+          "Tipo e versão do navegador",
+          "Informações do dispositivo",
           "Paginas visitadas e tempo de permanencia",
-          "Fonte de referencia"
+          "Fonte de referência"
         ]
       },
       "dreamMode": {
         "title": "Dados do Dream Mode:",
         "items": [
-          "Entradas de simulacao (valor do deposito, selecao de estrategia)",
-          "Estes dados sao armazenados localmente em seu dispositivo, nao em nossos servidores"
+          "Entradas de simulação (valor do depósito, selecao de estrategia)",
+          "Estes dados são armazenados localmente em seu dispositivo, não em nossos servidores"
         ]
       }
     },
@@ -67,18 +67,18 @@
           },
           {
             "purpose": "Enviar atualizacoes sobre o lancamento do diBoaS",
-            "legalBasis": "Interesse legitimo (com opcao de exclusao)"
+            "legalBasis": "Interesse legítimo (com opcao de exclusão)"
           },
           {
-            "purpose": "Melhorar nosso site e servicos",
-            "legalBasis": "Interesse legitimo"
+            "purpose": "Melhorar nosso site e serviços",
+            "legalBasis": "Interesse legítimo"
           },
           {
             "purpose": "Responder as suas solicitacoes",
             "legalBasis": "Execucao de contrato"
           },
           {
-            "purpose": "Cumprir obrigacoes legais",
+            "purpose": "Cumprir obrigações legais",
             "legalBasis": "Exigencia legal"
           }
         ]
@@ -86,41 +86,41 @@
     },
     "whoWeShareWith": {
       "title": "Com Quem Compartilhamos Dados",
-      "intro": "Nao vendemos seus dados pessoais. Podemos compartilhar dados com:",
+      "intro": "Não vendemos seus dados pessoais. Podemos compartilhar dados com:",
       "serviceProviders": {
-        "title": "Prestadores de Servicos:",
-        "content": "Servicos de e-mail (para enviar comunicacoes), provedores de hospedagem, ferramentas de analise"
+        "title": "Prestadores de Serviços:",
+        "content": "Resend (envio de e-mail), Vercel (hospedagem), Sentry (monitoramento de erros), Google Analytics e PostHog (análise, somente após seu consentimento), Upstash (limitação de taxa de segurança)"
       },
       "legal": {
         "title": "Exigencias Legais:",
         "content": "Quando exigido por lei ou para proteger nossos direitos"
       },
-      "note": "Todos os prestadores de servicos estao contratualmente obrigados a proteger seus dados."
+      "note": "Todos os prestadores de serviços estao contratualmente obrigados a proteger seus dados."
     },
     "internationalTransfers": {
       "title": "Transferencias Internacionais",
-      "content": "Seus dados podem ser transferidos para paises fora do Espaco Economico Europeu (EEE) ou do Brasil. Garantimos salvaguardas apropriadas atraves de Clausulas Contratuais Padrao ou decisoes de adequacao."
+      "content": "Seus dados podem ser transferidos para paises fora do Espaco Economico Europeu (EEE) ou do Brasil. Garantimos salvaguardas apropriadas atraves de Clausulas Contratuais Padrao ou decisões de adequacao."
     },
     "dataRetention": {
       "title": "Retencao de Dados",
       "items": [
         {
           "type": "Dados da lista de espera:",
-          "duration": "Ate voce cancelar a inscricao ou 2 anos apos a ultima interacao"
+          "duration": "Ate você cancelar a inscricao ou 2 anos apos a ultima interacao"
         },
         {
-          "type": "Dados de analise:",
+          "type": "Dados de análise:",
           "duration": "26 meses (anonimizados)"
         },
         {
-          "type": "Registros de comunicacao:",
+          "type": "Registros de comunicação:",
           "duration": "3 anos"
         }
       ]
     },
     "yourRights": {
       "title": "Seus Direitos (LGPD e GDPR)",
-      "intro": "Voce tem o direito de:",
+      "intro": "Você tem o direito de:",
       "table": {
         "headers": {
           "right": "Direito",
@@ -137,7 +137,7 @@
           },
           {
             "right": "Exclusao",
-            "description": "Solicitar a exclusao dos seus dados"
+            "description": "Solicitar a exclusão dos seus dados"
           },
           {
             "right": "Restricao",
@@ -149,7 +149,7 @@
           },
           {
             "right": "Oposicao",
-            "description": "Opor-se ao processamento baseado em interesse legitimo"
+            "description": "Opor-se ao processamento baseado em interesse legítimo"
           },
           {
             "right": "Revogar Consentimento",
@@ -157,7 +157,7 @@
           },
           {
             "right": "Revisao de Decisoes Automatizadas",
-            "description": "Solicitar revisao humana de decisoes automatizadas (LGPD)"
+            "description": "Solicitar revisão humana de decisões automatizadas (LGPD)"
           }
         ]
       },
@@ -165,24 +165,24 @@
     },
     "complaints": {
       "title": "Reclamacoes",
-      "content": "Se voce acredita que violamos seus direitos de privacidade, pode registrar uma reclamacao junto a sua autoridade local de protecao de dados. No Brasil, a autoridade competente e a ANPD (Autoridade Nacional de Protecao de Dados)."
+      "content": "Se você acredita que violamos seus direitos de privacidade, pode registrar uma reclamacao junto a sua autoridade local de proteção de dados. No Brasil, a autoridade competente e a ANPD (Autoridade Nacional de Proteção de Dados)."
     },
     "security": {
-      "title": "Seguranca",
+      "title": "Segurança",
       "intro": "Implementamos medidas tecnicas e organizacionais apropriadas para proteger seus dados, incluindo:",
       "measures": [
         "Criptografia em transito (HTTPS)",
         "Controles de acesso",
-        "Revisoes de seguranca regulares"
+        "Revisoes de segurança regulares"
       ]
     },
     "childrenPrivacy": {
       "title": "Privacidade de Menores",
-      "content": "O diBoaS nao e destinado a menores de 18 anos. Nao coletamos intencionalmente dados de menores."
+      "content": "O diBoaS não e destinado a menores de 18 anos. Não coletamos intencionalmente dados de menores."
     },
     "brazilNote": {
       "title": "Nota para Usuarios Brasileiros",
-      "content": "Este site esta disponivel para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o servico for lancado no Brasil, sujeito as aprovacoes regulatorias da ANPD (Autoridade Nacional de Protecao de Dados). O tratamento de dados pessoais de usuarios brasileiros seguira integralmente a Lei Geral de Protecao de Dados (LGPD - Lei n. 13.709/2018)."
+      "content": "Este site esta disponível para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o serviço for lancado no Brasil, sujeito as aprovacoes regulatorias da ANPD (Autoridade Nacional de Proteção de Dados). O tratamento de dados pessoais de usuarios brasileiros seguira integralmente a Lei Geral de Proteção de Dados (LGPD - Lei n. 13.709/2018)."
     },
     "changes": {
       "title": "Alteracoes Nesta Politica",

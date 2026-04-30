@@ -78,12 +78,12 @@
     "steps": {
       "connect": {
         "title": "Conecta tu negocio",
-        "description": "Vincula tu cuenta empresarial. Dos minutos de configuracion. Sin integracion tecnica. Sin desarrollador. Sin interrupciones. Lo haces mientras te tomas el cafe de la manana.",
+        "description": "Vincula tu cuenta empresarial. Dos minutos de configuración. Sin integracion tecnica. Sin desarrollador. Sin interrupciones. Lo haces mientras te tomas el cafe de la manana.",
         "imageAlt": "Conecta tu cuenta empresarial"
       },
       "rules": {
         "title": "Tu pones las reglas",
-        "description": "Dinos tu minimo. \"Siempre tener 50.000 EUR disponibles.\" Todo lo que este por encima? A trabajar. Tu pones las reglas. Las cambias cuando quieras.",
+        "description": "Dinos tu mínimo. \"Siempre tener 50.000 EUR disponibles.\" Todo lo que este por encima? A trabajar. Tu pones las reglas. Las cambias cuando quieras.",
         "imageAlt": "Define tus reglas y limites"
       },
       "works": {
@@ -283,7 +283,7 @@
     "items": {
       "catch": {
         "question": "Cual es la trampa?",
-        "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posicion. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
+        "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posición. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
       },
       "smbOrStartup": {
         "question": "Es esto para pequenas empresas o startups?",
@@ -291,12 +291,12 @@
       },
       "safety": {
         "question": "Esta seguro mi dinero?",
-        "answerA": "Tu dinero esta asegurado por ti. Tu cartera, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorizacion.\n\nDicho esto, no es una cuenta bancaria. Tus fondos funcionan a traves de nueva tecnologia. El valor puede fluctuar y podrias perder parte o la totalidad de tu inversion. No hay seguro de depositos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
-        "answerB": "Tu dinero esta protegido por seguridad multipartita. Tu autorizacion es necesaria para cada transaccion. DiBoaS tiene una parte parcial de la clave para recuperacion, pero no puede mover tus fondos unilateralmente.\n\nDicho esto, no es una cuenta bancaria. Tus fondos funcionan a traves de nueva tecnologia. El valor puede fluctuar y podrias perder parte o la totalidad de tu inversion. No hay seguro de depositos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
+        "answerA": "Tu dinero esta asegurado por ti. Tu cartera, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, no es una cuenta bancaria. Tus fondos funcionan a traves de nueva tecnologia. El valor puede fluctuar y podrias perder parte o la totalidad de tu inversion. No hay seguro de depositos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
+        "answerB": "Tu dinero esta protegido por seguridad multipartita. Tu autorización es necesaria para cada transacción. DiBoaS tiene una parte parcial de la clave para recuperacion, pero no puede mover tus fondos unilateralmente.\n\nDicho esto, no es una cuenta bancaria. Tus fondos funcionan a traves de nueva tecnologia. El valor puede fluctuar y podrias perder parte o la totalidad de tu inversion. No hay seguro de depositos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
       },
       "liquidity": {
         "question": "Puedo acceder a mi dinero en cualquier momento?",
-        "answer": "Si. Sin bloqueos. Tu pones el minimo: \"siempre tener 50.000 EUR liquidos.\" Solo ponemos a trabajar lo que esta por encima.\n\nNecesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
+        "answer": "Si. Sin bloqueos. Tu pones el mínimo: \"siempre tener 50.000 EUR liquidos.\" Solo ponemos a trabajar lo que esta por encima.\n\nNecesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
       },
       "payments": {
         "question": "Como funcionan los pagos instantaneos?",
@@ -312,8 +312,8 @@
       },
       "whyCantTouch": {
         "question": "Por que diBoaS no puede tocar mi dinero?",
-        "answerA": "Ese es precisamente el punto de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transaccion requiere tu aprobacion.\n\nMas control para ti. Menos riesgo nuestro.",
-        "answerB": "Esto es una parte fundamental de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero esta protegido por seguridad multipartita. Tenemos una parte parcial de la clave para recuperacion de cuenta, pero cada transaccion requiere tu aprobacion explicita. No podemos mover tus fondos unilateralmente.\n\nSi diBoaS tiene problemas, tus fondos permanecen protegidos por el sistema de seguridad multipartita. Cada transaccion requiere tu autorizacion.\n\nMas proteccion para ti. Menos riesgo nuestro."
+        "answerA": "Ese es precisamente el punto de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transacción requiere tu aprobacion.\n\nMas control para ti. Menos riesgo nuestro.",
+        "answerB": "Esto es una parte fundamental de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero esta protegido por seguridad multipartita. Tenemos una parte parcial de la clave para recuperacion de cuenta, pero cada transacción requiere tu aprobacion explicita. No podemos mover tus fondos unilateralmente.\n\nSi diBoaS tiene problemas, tus fondos permanecen protegidos por el sistema de seguridad multipartita. Cada transacción requiere tu autorización.\n\nMas protección para ti. Menos riesgo nuestro."
       },
       "risk": {
         "question": "Cual es el riesgo real?",
@@ -329,8 +329,8 @@
     "copyright": "© 2026 diBoaS. Todos los derechos reservados.",
     "riskDisclaimer": "diBoaS te conecta a sistemas de finanzas descentralizadas. Los retornos no estan garantizados. El rendimiento pasado no predice resultados futuros. Implica riesgos incluyendo vulnerabilidades de codigo, fluctuaciones de mercado y desafios de acceso. Usa solo fondos que puedas permitirte arriesgar. diBoaS no es un banco. No se aplica seguro de depositos.",
     "micaArticle68": "El valor de los criptoactivos puede fluctuar. Puede perder parte o la totalidad de su dinero. Los criptoactivos no estan cubiertos por los sistemas de garantia de depositos.",
-    "micaArticle7": "Esta comunicacion de marketing sobre criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningun Estado miembro de la Union Europea. El oferente del criptoactivo es el unico responsable del contenido de esta comunicacion de marketing sobre criptoactivos.",
-    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo analisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la informacion de forma independiente antes de tomar decisiones financieras.",
+    "micaArticle7": "Esta comunicacion de marketing sobre criptoactivos no ha sido revisada ni aprobada por ninguna autoridad competente de ningun Estado miembro de la Union Europea. El oferente del criptoactivo es el único responsable del contenido de esta comunicacion de marketing sobre criptoactivos.",
+    "aiDisclosure": "Ciertos contenidos de esta plataforma, incluyendo analisis de mercado y materiales educativos, son generados o asistidos por inteligencia artificial. El contenido generado por IA puede contener errores o limitaciones. Los usuarios deben verificar la información de forma independiente antes de tomar decisiones financieras.",
     "usDisclosure": "",
     "cvmWarning": "",
     "fictionalResults": "Los ejemplos en esta pagina son ilustrativos y no representan negocios reales ni resultados reales. Las proyecciones de las calculadoras se basan en escenarios hipoteticos y medias historicas. Los resultados reales variaran.",

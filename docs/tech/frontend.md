@@ -161,12 +161,12 @@ Additional component-scoped hooks exist in `WaitingList/hooks/` (`useWaitlistFor
 ### Error Boundaries (3 layers)
 
 1. **Root:** `global-error.tsx` catches unhandled errors app-wide.
-2. **Route group:** `(landing)/error.tsx` and `(marketing)/error.tsx` catch errors within their route groups.
+2. **Route group:** `(landing)/error.tsx` catches errors within the landing route group.
 3. **Page/component:** `PageErrorBoundary` and `NavigationErrorBoundary` wrap specific UI sections.
 
 ### Loading States
 
-- `[locale]/loading.tsx`, `(landing)/loading.tsx`, `(marketing)/loading.tsx` provide Suspense fallbacks per route group.
+- `[locale]/loading.tsx`, `(landing)/loading.tsx` provide Suspense fallbacks per route group.
 - `RouteGroupLoading` component provides consistent loading UI.
 
 ### API Resilience

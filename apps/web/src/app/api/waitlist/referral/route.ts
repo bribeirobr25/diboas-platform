@@ -53,11 +53,16 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
 
     // Validate format
     if (!isValidReferralCode(code, REFERRAL_CONFIG.codePrefix)) {
+      // Artificial delay prevents timing-based enumeration of valid code formats
+      await new Promise((resolve) => setTimeout(resolve, 50 + Math.random() * 150));
       return NextResponse.json({ success: true, valid: false });
     }
 
     // Find referrer
     const referrer = await getByReferralCode(code);
+
+    // Artificial delay prevents timing-based distinction between valid/invalid codes
+    await new Promise((resolve) => setTimeout(resolve, 50 + Math.random() * 150));
 
     if (!referrer) {
       return NextResponse.json({ success: true, valid: false });

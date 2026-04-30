@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'Where Your Money Works | The Protocols We Trust | diBoaS';
   const description = seo.description || 'diBoaS connects you to established decentralized finance protocols. See exactly where your money goes with full transparency.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
 
   return {
     title,
@@ -62,6 +62,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@diboasfi',
+      creator: '@bribeiro_br',
       title: seo.ogTitle || title,
       description: seo.ogDescription || description,
       images: [`${siteUrl}/api/og/protocols`],
@@ -72,7 +74,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
         'en': `${siteUrl}/en/protocols`,
         'de': `${siteUrl}/de/protocols`,
         'es': `${siteUrl}/es/protocols`,
-        'pt-BR': `${siteUrl}/pt-BR/protocols`,
+        'pt-br': `${siteUrl}/pt-BR/protocols`,
         'x-default': `${siteUrl}/en/protocols`,
       },
     },

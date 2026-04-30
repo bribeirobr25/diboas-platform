@@ -8,8 +8,8 @@ export const BRAND_CONFIG = {
   // Core Brand Identity
   NAME: process.env.NEXT_PUBLIC_BRAND_NAME || 'diBoaS',
   FULL_NAME: process.env.NEXT_PUBLIC_BRAND_FULL_NAME || 'diBoaS Platform',
-  TAGLINE: process.env.NEXT_PUBLIC_BRAND_TAGLINE || 'Financial Freedom Made Simple',
-  DESCRIPTION: process.env.NEXT_PUBLIC_BRAND_DESCRIPTION || 'Manage your banking, investing, and DeFi assets all in one secure platform.',
+  TAGLINE: process.env.NEXT_PUBLIC_BRAND_TAGLINE || 'Open access and fair opportunities for everyone',
+  DESCRIPTION: process.env.NEXT_PUBLIC_BRAND_DESCRIPTION || 'Goal-driven wealth building starting at $5. Your money, your wallet, your control.',
 
   // Company Information
   LEGAL_NAME: process.env.NEXT_PUBLIC_COMPANY_LEGAL_NAME || 'diBoaS',
@@ -17,7 +17,7 @@ export const BRAND_CONFIG = {
   FOUNDING_DATE: process.env.NEXT_PUBLIC_FOUNDING_DATE || '2025',
 
   // Contact Information
-  SUPPORT_PHONE: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+1-800-DIBOAS',
+  SUPPORT_PHONE: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '',
   SUPPORT_EMAIL: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'support@diboas.com',
 
   // Social Media

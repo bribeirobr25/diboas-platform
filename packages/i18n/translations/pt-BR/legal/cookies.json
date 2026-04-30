@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Politica de Cookies | diBoaS",
-    "description": "Saiba como o diBoaS utiliza cookies para melhorar sua experiencia e analisar o trafego do site."
+    "description": "Saiba como o diBoaS utiliza cookies para melhorar sua experiência e analisar o trafego do site."
   },
   "toc": {
     "title": "Conteúdo"
@@ -13,14 +13,14 @@
   },
   "sections": {
     "whatAreCookies": {
-      "title": "O Que Sao Cookies?",
-      "content": "Cookies sao pequenos arquivos de texto armazenados em seu dispositivo quando voce visita nosso site. Eles nos ajudam a lembrar suas preferencias e entender como voce interage com o diBoaS."
+      "title": "O Que São Cookies?",
+      "content": "Cookies são pequenos arquivos de texto armazenados em seu dispositivo quando você visita nosso site. Eles nos ajudam a lembrar suas preferencias e entender como você interage com o diBoaS."
     },
     "cookiesWeUse": {
       "title": "Cookies Que Utilizamos",
       "essential": {
         "title": "Cookies Essenciais (Obrigatorios)",
-        "description": "Estes cookies sao necessarios para o funcionamento do site. Voce nao pode desativa-los.",
+        "description": "Estes cookies são necessarios para o funcionamento do site. Você não pode desativa-los.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -30,7 +30,7 @@
           "rows": [
             {
               "cookie": "session_id",
-              "purpose": "Mantem sua sessao ativa",
+              "purpose": "Mantem sua sessão ativa",
               "duration": "Sessao"
             },
             {
@@ -47,8 +47,8 @@
         }
       },
       "analytics": {
-        "title": "Cookies de Analise (Opcionais)",
-        "description": "Estes cookies nos ajudam a entender como os visitantes utilizam nosso site. Todos os dados sao anonimizados.",
+        "title": "Cookies de Análise (Somente Após Seu Consentimento)",
+        "description": "Estes cookies só são definidos após você clicar em Aceitar no banner de consentimento. Antes do consentimento, nenhum cookie de análise existe no seu dispositivo. Usamos Google Analytics e PostHog para entender como os visitantes usam nosso site. Todos os dados são anonimizados e nenhuma informação pessoal é coletada.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -58,13 +58,18 @@
           "rows": [
             {
               "cookie": "_ga",
-              "purpose": "Google Analytics - distingue usuarios",
+              "purpose": "Google Analytics — distingue usuários (somente após consentimento)",
               "duration": "2 anos"
             },
             {
               "cookie": "_gid",
-              "purpose": "Google Analytics - distingue usuarios",
+              "purpose": "Google Analytics — identificador de sessão (somente após consentimento)",
               "duration": "24 horas"
+            },
+            {
+              "cookie": "ph_*",
+              "purpose": "PostHog análise — rastreamento de sessão (somente após consentimento)",
+              "duration": "12 meses"
             }
           ]
         }
@@ -86,7 +91,7 @@
             },
             {
               "cookie": "dream_mode_data",
-              "purpose": "Armazena seus dados de simulacao do Dream Mode localmente",
+              "purpose": "Armazena seus dados de simulação do Dream Mode localmente",
               "duration": "Sessao"
             }
           ]
@@ -95,13 +100,13 @@
     },
     "yourChoices": {
       "title": "Suas Escolhas",
-      "content": "Voce pode gerenciar cookies atraves de:",
+      "content": "Você pode gerenciar cookies atraves de:",
       "options": [
         "Nosso banner de consentimento de cookies (aparece na primeira visita)",
         "Configuracoes do seu navegador",
         "O link \"Configuracoes de Cookies\" no rodape do site"
       ],
-      "deleteNote": "Para excluir cookies existentes, utilize as configuracoes do seu navegador."
+      "deleteNote": "Para excluir cookies existentes, utilize as configurações do seu navegador."
     },
     "changes": {
       "title": "Alteracoes Nesta Politica",
@@ -109,7 +114,7 @@
     },
     "brazilNote": {
       "title": "Nota para Usuarios Brasileiros",
-      "content": "Este site esta disponivel para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o servico for lancado no Brasil, sujeito as aprovacoes regulatorias da ANPD (Autoridade Nacional de Protecao de Dados)."
+      "content": "Este site esta disponível para visualizacao informativa. A lista de espera e recursos interativos estarao disponiveis quando o serviço for lancado no Brasil, sujeito as aprovacoes regulatorias da ANPD (Autoridade Nacional de Proteção de Dados)."
     },
     "contact": {
       "title": "Fale Conosco",

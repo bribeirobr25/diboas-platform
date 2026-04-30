@@ -50,7 +50,7 @@
     },
     "perpetuals": {
       "title": "Exchanges perpetuos e de trading",
-      "description": "Traders usam esses sistemas pra apostar em movimentos de preco. Você ganha retornos fornecendo a liquidez contra a qual eles operam."
+      "description": "Traders usam esses sistemas pra apostar em movimentos de preço. Você ganha retornos fornecendo a liquidez contra a qual eles operam."
     },
     "dex": {
       "title": "Exchanges descentralizados",
@@ -100,7 +100,7 @@
     },
     "kamino": {
       "name": "Kamino",
-      "description": "Plataforma tudo-em-um de empréstimos e liquidez da Solana. Combina empréstimos, gestão automatizada de liquidez e alavancagem num so sistema. Você ganha juros emprestando ativos a tomadores, parecido com Aave e Compound.",
+      "description": "Plataforma tudo-em-um de empréstimos e liquidez da Solana. Combina empréstimos, gestão automatizada de liquidez e alavancagem num só sistema. Você ganha juros emprestando ativos a tomadores, parecido com Aave e Compound.",
       "details": {
         "founded": "2022",
         "tvl": "~US$2,5 bilhoes",
@@ -145,13 +145,13 @@
     },
     "lido": {
       "name": "Lido Finance",
-      "description": "Faca staking do seu ETH e receba um token (stETH) que você pode usar em outros lugares enquanto continua ganhando recompensas de staking. O maior servico de staking em crypto.",
+      "description": "Faca staking do seu ETH e receba um token (stETH) que você pode usar em outros lugares enquanto continua ganhando recompensas de staking. O maior serviço de staking em crypto.",
       "details": {
         "founded": "2020",
         "tvl": "~US$27 bilhoes",
         "blockchains": "Ethereum, Polygon",
         "audits": "20+ auditorias independentes",
-        "regulatory": "Declaracao da Divisao de Financas Corporativas da SEC (5 de agosto de 2025): tokens de recebimento de liquid staking, incluindo stETH, não são valores mobiliarios sob o Securities Act de 1933 ou o Exchange Act de 1934. Parte da iniciativa \"Project Crypto\" do presidente da SEC, Atkins. Fonte: declaracao em SEC.gov; reportado por CoinDesk, Decrypt, CCN."
+        "regulatory": "Declaracao da Divisão de Finanças Corporativas da SEC (5 de agosto de 2025): tokens de recebimento de liquid staking, incluindo stETH, não são valores mobiliarios sob o Securities Act de 1933 ou o Exchange Act de 1934. Parte da iniciativa \"Project Crypto\" do presidente da SEC, Atkins. Fonte: declaracao em SEC.gov; reportado por CoinDesk, Decrypt, CCN."
       }
     },
     "rocketPool": {
@@ -202,7 +202,7 @@
     },
     "eigenLayer": {
       "name": "EigenLayer",
-      "description": "Restaking: use seu ETH já em staking pra apoiar outros servicos construidos no Ethereum e ganhar recompensas extras sobre seu rendimento base de staking. Você ganha recompensas de staking mais bonus dos servicos que ajuda a proteger.",
+      "description": "Restaking: use seu ETH já em staking pra apoiar outros serviços construidos no Ethereum e ganhar recompensas extras sobre seu rendimento base de staking. Você ganha recompensas de staking mais bonus dos serviços que ajuda a proteger.",
       "details": {
         "founded": "2023",
         "tvl": "~US$12 bilhoes",
@@ -231,7 +231,7 @@
         "tvl": "~US$6,5 bilhoes",
         "blockchains": "Ethereum + 23 cadeias",
         "audits": "7+ auditorias independentes",
-        "regulatory": "BaFin (Alemanha) rejeitou a solicitacao de autorizacao MiCA em marco de 2025, citando \"deficiencias significativas\" na estrutura organizacional e cumprimento de reservas. BaFin ordenou a interrupcao da emissão/resgate de USDe e congelou ativos de reserva. Ethena GmbH concordou em encerrar operações na Alemanha (abril 2025). Todas as atividades agora operam via Ethena (BVI) Limited, uma entidade das Ilhas Virgens Britanicas. BaFin também levantou preocupacoes de que sUSDe possa constituir um valor mobiliario não registrado sob a lei alema. Fontes: aviso oficial da BaFin (21 de marco de 2025); Decrypt, The Block, CoinTelegraph, Ledger Insights."
+        "regulatory": "BaFin (Alemanha) rejeitou a solicitação de autorização MiCA em marco de 2025, citando \"deficiencias significativas\" na estrutura organizacional e cumprimento de reservas. BaFin ordenou a interrupcao da emissão/resgate de USDe e congelou ativos de reserva. Ethena GmbH concordou em encerrar operações na Alemanha (abril 2025). Todas as atividades agora operam via Ethena (BVI) Limited, uma entidade das Ilhas Virgens Britanicas. BaFin também levantou preocupacoes de que sUSDe possa constituir um valor mobiliario não registrado sob a lei alema. Fontes: aviso oficial da BaFin (21 de marco de 2025); Decrypt, The Block, CoinTelegraph, Ledger Insights."
       }
     },
     "ondo": {
@@ -269,7 +269,7 @@
     },
     "curve": {
       "name": "Curve Finance",
-      "description": "Exchange especializada em stablecoins e ativos similares. Projetada pra impacto mínimo no preco ao trocar entre ativos de valor similar.",
+      "description": "Exchange especializada em stablecoins e ativos similares. Projetada pra impacto mínimo no preço ao trocar entre ativos de valor similar.",
       "details": {
         "founded": "2020",
         "tvl": "~US$2,2 bilhoes",
@@ -339,10 +339,10 @@
       "description": "Pools de liquidez programaveis que podem conter multiplos tokens em proporcoes customizadas. Mais flexível que pools de exchange padrão. Você fornece tokens pro pool e ganha uma parte das taxas de trading.",
       "details": {
         "founded": "2020",
-        "tvl": "~US$258 milhoes (pos-exploit; era ~US$775M antes de novembro 2025)",
+        "tvl": "~US$258 milhoes (pós-exploit; era ~US$775M antes de novembro 2025)",
         "blockchains": "Ethereum, Arbitrum, Polygon",
         "audits": "11+ auditorias independentes",
-        "regulatory": "3 de novembro de 2025: exploit de US$128 milhoes afetando pools V2 em Ethereum, Polygon, Base, Arbitrum e outras cadeias. Vulnerabilidade de erro de arredondamento em contratos ComposableStablePool. Aproximadamente US$28 milhoes recuperados atraves de operações whitehat e intervencoes do protocolo. A maioria dos fundos (~US$100 milhoes) permanece sem recuperação em fevereiro de 2026. Balancer DAO aprovou bounty de recuperação de 10% (BIP-908, fevereiro 2026). V3 (versao atual) NÃO foi afetada por este exploit. As estratégias do diBoaS usam exclusivamente V3. Fontes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
+        "regulatory": "3 de novembro de 2025: exploit de US$128 milhoes afetando pools V2 em Ethereum, Polygon, Base, Arbitrum e outras cadeias. Vulnerabilidade de erro de arredondamento em contratos ComposableStablePool. Aproximadamente US$28 milhoes recuperados atraves de operações whitehat e intervencoes do protocolo. A maioria dos fundos (~US$100 milhoes) permanece sem recuperação em fevereiro de 2026. Balancer DAO aprovou bounty de recuperação de 10% (BIP-908, fevereiro 2026). V3 (versão atual) NÃO foi afetada por este exploit. As estratégias do diBoaS usam exclusivamente V3. Fontes: Check Point Research, CoinJournal, The Defiant, DL News, Halborn."
       }
     },
     "huma": {
@@ -363,9 +363,9 @@
     "criteria": {
       "1": "Pelo menos 1 ano de operação continua. Fazemos excecoes pra protocolos construidos por times com histórico longo, mas indicamos isso claramente.",
       "2": "Auditorias de segurança profissionais de firmas reconhecidas. Não apenas uma. Procuramos multiplas auditorias independentes.",
-      "3": "Nenhum exploit não resolvido afetando a versao que usamos onde fundos de usuarios foram perdidos permanentemente. Incidentes passados e exploits especificos de versao são divulgados em cada card com um badge de alerta.",
+      "3": "Nenhum exploit não resolvido afetando a versão que usamos onde fundos de usuarios foram perdidos permanentemente. Incidentes passados e exploits especificos de versão são divulgados em cada card com um badge de alerta.",
       "4": "Operacoes transparentes. Conseguimos verificar como o protocolo funciona. Código open-source e preferido.",
-      "5": "Uso real. Usuarios reais depositando dinheiro de verdade. Não so hype, não so preco de token."
+      "5": "Uso real. Usuarios reais depositando dinheiro de verdade. Não só hype, não só preço de token."
     },
     "belowCriteria": "Quando protocolos tiveram incidentes de segurança, indicamos no card com um alerta ambar. Transparência funciona nos dois sentidos. Mostramos o bom é o ruim."
   },
@@ -380,17 +380,17 @@
   "notIs": {
     "h2": "Atenção",
     "text": "Isso não é uma recomendacao pra usar qualquer um desses protocolos diretamente.\n\nAs estratégias do diBoaS são construidas em cima desses sistemas, e nosso time cuida da complexidade. Você não precisa interagir com nenhum protocolo. Essa página existe pra que você possa ver exatamente pra onde o seu dinheiro vai e verificar tudo que a gente diz.\n\nTodo protocolo aqui tem risco. Smart contracts podem ter bugs. Mercados podem desabar. Stablecoins podem perder o lastro. Sistemas que operam com segurança há anos podem ter problemas amanha. Monitoramos esses sistemas continuamente, mas não conseguimos eliminar o risco. Ninguem consegue.\n\nEssa página existe porque acreditamos que você merece saber. Não porque você precisa fazer algo com ela.",
-    "warmLine": "Se você não tem certeza se isso e certo pra você, consulte um assessor de investimentos antes de tomar decisoes."
+    "warmLine": "Se você não tem certeza se isso e certo pra você, consulte um assessor de investimentos antes de tomar decisões."
   },
   "faq": {
     "h2": "Perguntas sobre nossos protocolos",
     "q1": {
-      "question": "Por que voces não listam todos os protocolos DeFi?",
+      "question": "Por que vocês não listam todos os protocolos DeFi?",
       "answer": "Existem milhares de protocolos DeFi. Preferimos listar 25 que pesquisamos a fundo do que 200 que não conhecemos."
     },
     "q2": {
-      "question": "Com que frequência voces atualizam essa lista?",
-      "answer": "Monitoramos todos os protocolos listados continuamente. Se um protocolo tem um incidente de segurança, mudanca regulatoria ou problema operacional significativo, atualizamos essa página. Também revisamos a lista completa trimestralmente pra decidir se adicionamos ou removemos protocolos."
+      "question": "Com que frequência vocês atualizam essa lista?",
+      "answer": "Monitoramos todos os protocolos listados continuamente. Se um protocolo tem um incidente de segurança, mudança regulatoria ou problema operacional significativo, atualizamos essa página. Também revisamos a lista completa trimestralmente pra decidir se adicionamos ou removemos protocolos."
     },
     "q3": {
       "question": "Posso sugerir um protocolo pra ser adicionado?",
@@ -398,11 +398,11 @@
     },
     "q4": {
       "question": "Estar listado aqui significa que o diBoaS recomenda esses protocolos?",
-      "answer": "Não. Estar listado significa que pesquisamos, eles cumprem nossos criterios e os usamos em nossas estratégias. Não somos afiliados a nenhum protocolo. A inclusao deles não implica que eles endossam o diBoaS, e nossa listagem não constitui uma recomendacao de usa-los diretamente."
+      "answer": "Não. Estar listado significa que pesquisamos, eles cumprem nossos criterios e os usamos em nossas estratégias. Não somos afiliados a nenhum protocolo. A inclusão deles não implica que eles endossam o diBoaS, e nossa listagem não constitui uma recomendacao de usa-los diretamente."
     },
     "q5": {
       "question": "O que acontece se um protocolo for hackeado?",
-      "answer": "Depende da gravidade. Pra incidentes menores resolvidos rapidamente, podemos manter o protocolo listado com uma nota de alerta atualizada. Pra exploits graves onde fundos de usuarios são perdidos permanentemente, removemos o protocolo da nossa lista e ajustamos estratégias afetadas. Se o exploit afetou uma versao anterior que não usamos, podemos manter o protocolo listado com um alerta claro. Veja nossos criterios de selecao acima pra detalhes. Sempre comunicaremos mudancas aos nossos usuarios."
+      "answer": "Depende da gravidade. Pra incidentes menores resolvidos rapidamente, podemos manter o protocolo listado com uma nota de alerta atualizada. Pra exploits graves onde fundos de usuarios são perdidos permanentemente, removemos o protocolo da nossa lista e ajustamos estratégias afetadas. Se o exploit afetou uma versão anterior que não usamos, podemos manter o protocolo listado com um alerta claro. Veja nossos criterios de selecao acima pra detalhes. Sempre comunicaremos mudancas aos nossos usuarios."
     },
     "q6": {
       "question": "Por que alguns protocolos tem badges de alerta?",
@@ -424,14 +424,14 @@
   },
   "footer": {
     "lastUpdated": "Ultima atualizacao: fevereiro de 2026",
-    "dataSources": "Fontes de dados: DeFiLlama (TVL), documentacao oficial de protocolos, relatorios de auditoria de segurança publicados, SEC EDGAR (registros regulatorios), CoinGecko e comunicacoes diretas com protocolos.",
-    "mainDisclaimer": "As informações nesta página são exclusivamente para fins educacionais e de transparência. Não constituem assessoria de investimentos, assessoria financeira ou recomendacao de uso de qualquer protocolo listado. A inclusao de protocolos reflete nossa pesquisa e não implica endosso por ou afiliacao com qualquer protocolo listado. Todos os protocolos DeFi carregam risco técnico, risco de smart contract, risco de mercado, risco de liquidez e risco de perda de lastro de stablecoins. Performance, TVL e status regulatorio dos protocolos podem mudar a qualquer momento. Use apenas dinheiro que você pode perder. diBoaS não é um banco e seus fundos não são segurados.",
+    "dataSources": "Fontes de dados: DeFiLlama (TVL), documentação oficial de protocolos, relatorios de auditoria de segurança publicados, SEC EDGAR (registros regulatorios), CoinGecko e comunicacoes diretas com protocolos.",
+    "mainDisclaimer": "As informações nesta página são exclusivamente para fins educacionais e de transparência. Não constituem assessoria de investimentos, assessoria financeira ou recomendacao de uso de qualquer protocolo listado. A inclusão de protocolos reflete nossa pesquisa e não implica endosso por ou afiliacao com qualquer protocolo listado. Todos os protocolos DeFi carregam risco técnico, risco de smart contract, risco de mercado, risco de liquidez e risco de perda de lastro de stablecoins. Performance, TVL e status regulatorio dos protocolos podem mudar a qualquer momento. Use apenas dinheiro que você pode perder. diBoaS não é um banco e seus fundos não são segurados.",
     "micaArt68": "",
     "micaArt7": "",
-    "aiDisclosure": "Determinados conteudos nesta plataforma, incluindo analises de mercado e materiais educacionais, são gerados ou assistidos por inteligencia artificial. Conteudo gerado por IA pode conter erros ou limitacoes. Usuarios devem verificar informações de forma independente antes de tomar decisoes financeiras.",
+    "aiDisclosure": "Determinados conteudos nesta plataforma, incluindo analises de mercado e materiais educacionais, são gerados ou assistidos por inteligencia artificial. Conteudo gerado por IA pode conter erros ou limitacoes. Usuarios devem verificar informações de forma independente antes de tomar decisões financeiras.",
     "usDisclosure": "",
-    "externalLinks": "Links externos nesta página levam a sites de terceiros não controlados pelo diBoaS. Não somos responsaveis pelo conteudo, praticas de privacidade ou disponibilidade desses sites.",
-    "professionalAdvice": "Considere consultar um assessor de investimentos antes de tomar decisoes financeiras.",
+    "externalLinks": "Links externos nesta página levam a sites de terceiros não controlados pelo diBoaS. Não somos responsaveis pelo conteúdo, praticas de privacidade ou disponibilidade desses sites.",
+    "professionalAdvice": "Considere consultar um assessor de investimentos antes de tomar decisões financeiras.",
     "copyright": "© 2026 diBoaS. Todos os direitos reservados."
   },
   "sections": {

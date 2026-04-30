@@ -85,9 +85,9 @@ export function WaitlistVersionA({
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.header}>
-          <h2 className={styles.headline}>
+          <h3 className={styles.headline}>
             {intl.formatMessage({ id: config?.headline || 'landing-b2c.waitlist.header' })}
-          </h2>
+          </h3>
           <p className={styles.subheadline}>
             {intl.formatMessage({ id: config?.subheadline || 'landing-b2c.waitlist.description' })}
           </p>

@@ -37,7 +37,7 @@ For the full architecture diagram and App Router structure, see `CLAUDE.md` > Ar
 
 ## Key Architecture Decisions
 
-- **App Router with route groups**: `(marketing)` and `(landing)` organize pages under `[locale]/`
+- **App Router with route group**: `(landing)` organizes pages under `[locale]/`
 - **i18n**: react-intl with 4 locales (en, pt-BR, es, de). Reference locale is `en`
 - **Design tokens**: CSS custom properties in `apps/web/src/styles/design-tokens.css`
 - **Component pattern**: Factory pattern with variant directories (see `CLAUDE.md` > Component Pattern)

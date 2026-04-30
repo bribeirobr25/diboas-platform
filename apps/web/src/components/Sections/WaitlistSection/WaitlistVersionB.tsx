@@ -99,7 +99,7 @@ export function WaitlistVersionB({
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <div className={styles.header}>
-          <h2 className={styles.headline}>{t('header')}</h2>
+          <h3 className={styles.headline}>{t('header')}</h3>
           <p className={styles.subheadline}>{t('description')}</p>
         </div>
 

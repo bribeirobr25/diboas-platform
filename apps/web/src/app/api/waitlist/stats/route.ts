@@ -40,10 +40,13 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
     : CACHE_HEADERS;
 
   // Optional source filter for audience-specific stats (e.g., ?source=landing_b2b)
-  const sourceParam = request.nextUrl.searchParams.get('source') as
-    | 'landing_b2c'
-    | 'landing_b2b'
-    | null;
+  const VALID_SOURCES = ['landing_b2c', 'landing_b2b'] as const;
+  type ValidSource = typeof VALID_SOURCES[number];
+  const rawSource = request.nextUrl.searchParams.get('source');
+  const sourceParam: ValidSource | null =
+    rawSource && (VALID_SOURCES as readonly string[]).includes(rawSource)
+      ? (rawSource as ValidSource)
+      : null;
 
   // Rate limiting (lenient preset for read-only endpoint)
   const clientIP = getClientIP(request);

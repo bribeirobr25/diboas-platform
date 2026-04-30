@@ -70,7 +70,7 @@
         },
         "q5": {
           "question": "Was, wenn ich mein Handy verliere?",
-          "answer": "Deine Wallet nutzt fortgeschrittene Schlüsselsicherheit. Ein Teil bleibt auf deinem Gerät. Ein anderer Teil wird sicher separat aufbewahrt.\n\nWenn du dein Handy verlierst, stellst du deine Wallet wieder her. Keine Seed Phrases. Keine 24 Wörter zum Aufschreiben. Keine Panik.\n\nDein Geld verschwindet nicht, nur weil dein Handy es getan hat."
+          "answer": "Wenn diBoaS seine App startet, wird Ihre Wallet fortschrittliche Schlüsselsicherheit verwenden, um vor Geräteverlust zu schützen. Unsere Architektur ist für die Wallet-Wiederherstellung ohne Seed-Phrasen oder 24-Wort-Backups konzipiert. Ihr Geld verschwindet nicht, weil Ihr Telefon es getan hat."
         },
         "q6": {
           "question": "Was ist mein Guthaben eigentlich?",

@@ -70,7 +70,7 @@
         },
         "q5": {
           "question": "¿Y si pierdo mi móvil?",
-          "answer": "Tu cartera usa seguridad de claves avanzada. Una parte queda en tu dispositivo. Otra parte se guarda por separado de forma segura.\n\nSi pierdes tu móvil, recuperas tu cartera. Sin frases semilla. Sin 24 palabras que apuntar. Sin pánico.\n\nTu dinero no desaparece porque tu móvil lo haya hecho."
+          "answer": "Cuando diBoaS lance su aplicación, tu billetera usará seguridad avanzada de claves para proteger contra la pérdida del dispositivo. Nuestra arquitectura está diseñada para la recuperación de billetera sin frases semilla ni respaldos de 24 palabras. Tu dinero no desaparecerá porque tu teléfono lo hizo."
         },
         "q6": {
           "question": "¿Qué es mi saldo realmente?",
@@ -78,11 +78,11 @@
         },
         "q7": {
           "question": "Puedo acceder a mi dinero en cualquier momento?",
-          "answer": "Si. Sin bloqueos. Tu pones el minimo: \"siempre tener 50.000 EUR liquidos.\" Solo ponemos a trabajar lo que esta por encima.\n\nNecesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
+          "answer": "Si. Sin bloqueos. Tu pones el mínimo: \"siempre tener 50.000 EUR liquidos.\" Solo ponemos a trabajar lo que esta por encima.\n\nNecesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
         },
         "q8": {
           "question": "Por que diBoaS no puede tocar mi dinero?",
-          "answer": "Ese es precisamente el punto de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transaccion requiere tu aprobacion.\n\nMas control para ti. Menos riesgo nuestro."
+          "answer": "Ese es precisamente el punto de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transacción requiere tu aprobacion.\n\nMas control para ti. Menos riesgo nuestro."
         },
         "q9": {
           "question": "Cual es el riesgo real?",
@@ -103,7 +103,7 @@
         },
         "q2": {
           "question": "Cual es la trampa?",
-          "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posicion. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
+          "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posición. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
         },
         "q3": {
           "question": "¿Puedo usar diBoaS solo para transferencias?",
@@ -190,11 +190,11 @@
         },
         "q4": {
           "question": "Estar listado aquí significa que diBoaS recomienda estos protocolos?",
-          "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningun protocolo. Su inclusion no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendacion de usarlos directamente."
+          "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningun protocolo. Su inclusion no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendación de usarlos directamente."
         },
         "q5": {
           "question": "Que pasa si un protocolo es hackeado?",
-          "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rapidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afecto a una version anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de seleccion arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
+          "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rapidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afecto a una versión anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de seleccion arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
         },
         "q6": {
           "question": "Por que algunos protocolos tienen badges de advertencia?",

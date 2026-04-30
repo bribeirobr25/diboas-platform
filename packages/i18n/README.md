@@ -223,7 +223,6 @@ Full TypeScript support with exported types:
 import type {
   SupportedLocale,
   LocaleConfig,
-  DomainI18nConfig,
   I18nProviderProps
 } from '@diboas/i18n';
 ```

@@ -79,7 +79,7 @@ export const DemoLauncher = memo(function DemoLauncher({
           {translated.content.transitionHook ? (
             <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
           ) : null}
-          <h2 className={styles.title}>{translated.content.header}</h2>
+          <h3 className={styles.title}>{translated.content.header}</h3>
           <p className={styles.description}>{translated.content.subtext}</p>
 
           <div className={styles.ctaGroup}>

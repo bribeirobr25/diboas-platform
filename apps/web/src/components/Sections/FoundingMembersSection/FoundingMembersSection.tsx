@@ -57,7 +57,7 @@ export const FoundingMembersSection = memo(function FoundingMembersSection({
       className={className}
     >
       <div className={styles.container}>
-        <h2 className={styles.heading}>{t('header')}</h2>
+        <h3 className={styles.heading}>{t('header')}</h3>
         <p className={styles.description}>{t('subtext')}</p>
 
         {hasCount ? (

@@ -95,6 +95,7 @@ class AnalyticsTrackingService implements AnalyticsService {
           user_agent: navigator.userAgent,
           viewport: `${window.innerWidth}x${window.innerHeight}`,
           language: navigator.language,
+          locale: this.getLocaleFromPath(),
         } : {}),
         ...utmParams,
       },
@@ -338,6 +339,17 @@ class AnalyticsTrackingService implements AnalyticsService {
     if (!this.sessionId) {
       this.sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2)}`;
     }
+  }
+
+  /**
+   * Derive locale from the current URL path segment.
+   * Falls back to 'en' on the server or when no supported locale is found.
+   */
+  private getLocaleFromPath(): string {
+    if (typeof window === 'undefined') return 'en';
+    const pathParts = window.location.pathname.split('/');
+    const supportedLocales = ['en', 'pt-BR', 'es', 'de'];
+    return supportedLocales.find(l => pathParts[1] === l) || 'en';
   }
 
   /**

@@ -83,7 +83,8 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       // Fallback to a simple hash if HMAC key is unavailable
       const hashHex = hash || sanitizedEmail.split('').reduce((acc, c) => acc + c.charCodeAt(0).toString(16), '').slice(0, 16);
       const hashInt = parseInt(hashHex.slice(0, 8), 16);
-      const dummyPosition = (hashInt % 500) + 100;
+      // Range 1-10000 overlaps with real positions to prevent range-based enumeration
+      const dummyPosition = (hashInt % 10000) + 1;
       const dummyCode = `${REFERRAL_CONFIG.codePrefix}${hashHex.slice(0, 6).toUpperCase()}`;
 
       return NextResponse.json({

@@ -124,7 +124,7 @@ export const FullBackground: Story = createHeroStory('fullBackground');
 export const CustomContent: Story = createHeroStory('default', {
   content: {
     title: 'Welcome to the Future of Finance',
-    description: 'Experience seamless banking, investing, and DeFi management in one powerful platform. Join thousands of users who trust diBoaS.',
+    description: 'See what your money can do when the access is open and fair to everyone.',
     ctaText: 'Start Your Journey',
     ctaHref: '#custom-cta',
     ctaTarget: '_self',

@@ -38,7 +38,7 @@
       "automatic": {
         "title": "Información Recopilada Automáticamente:",
         "items": [
-          "Dirección IP (anonimizada para análisis)",
+          "Dirección IP (utilizada para limitación de tasa de seguridad; no enviada a servicios de análisis)",
           "Tipo y versión del navegador",
           "Información del dispositivo",
           "Páginas visitadas y tiempo de permanencia",
@@ -89,7 +89,7 @@
       "intro": "No vendemos tus datos personales. Podemos compartir datos con:",
       "serviceProviders": {
         "title": "Proveedores de Servicios:",
-        "content": "Servicios de email (para enviar comunicaciones), proveedores de alojamiento, herramientas de análisis"
+        "content": "Resend (envío de correo), Vercel (alojamiento), Sentry (monitoreo de errores), Google Analytics y PostHog (análisis, solo después de su consentimiento), Upstash (limitación de tasa de seguridad)"
       },
       "legal": {
         "title": "Requisitos Legales:",

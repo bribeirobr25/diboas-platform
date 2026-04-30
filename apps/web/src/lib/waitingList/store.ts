@@ -240,7 +240,7 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
 
   if (!hash || !emailEnc) throw new EncryptionUnavailableError();
 
-  // Check duplicate via blind index
+  // Early duplicate check via blind index (fast path — avoids counter allocation for known duplicates)
   const dup = await sql`
     SELECT 1 FROM waitlist_entries WHERE email_hash = ${hash} LIMIT 1
   `;
@@ -255,6 +255,11 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
   // Determine tier based on referrer context, cap, and source audience
   const tier = await determineTier(referrer, input.source);
 
+  // Counter allocation — atomic per-counter but consumed before INSERT.
+  // KNOWN TRADE-OFF: If a concurrent duplicate slips past the SELECT above
+  // and hits the UNIQUE constraint below, the position is wasted (gap).
+  // This is acceptable: gaps don't affect functionality, and the idempotency
+  // layer + rate limiting make concurrent duplicates rare in practice.
   const [id, position] = await Promise.all([nextEntryId(), nextPosition()]);
   const now = new Date().toISOString();
   const source = input.source || 'direct';
@@ -274,8 +279,12 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
     `;
   } catch (error: unknown) {
     // Handle concurrent INSERT race: UNIQUE constraint on email_hash (PostgreSQL 23505)
+    // Position gap is logged for monitoring — see STABILITY_AUDIT_2026-04-26.md Finding 1
     const pgError = error as { code?: string };
-    if (pgError.code === '23505') throw new DuplicateEntryError('Entry already exists');
+    if (pgError.code === '23505') {
+      Logger.info('[Waitlist] Concurrent duplicate detected after counter allocation', { position });
+      throw new DuplicateEntryError('Entry already exists');
+    }
     throw error;
   }
 

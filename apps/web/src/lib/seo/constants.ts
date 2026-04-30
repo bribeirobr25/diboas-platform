@@ -11,23 +11,23 @@ import { DATE_FORMATS, CURRENCY_CONFIG } from '@/config/formats';
 export const SEO_DEFAULTS = {
   // Site-wide defaults
   siteName: BRAND_CONFIG.NAME,
-  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN || 'diboas.com'}`,
+  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || `https://www.${process.env.NEXT_PUBLIC_SITE_DOMAIN || 'diboas.com'}`,
   defaultImage: ASSET_PATHS.SEO.DEFAULT_OG,
   twitterHandle: BRAND_CONFIG.TWITTER_HANDLE,
 
   // Default metadata
   defaultTitle: `${BRAND_CONFIG.NAME} - ${BRAND_CONFIG.TAGLINE}`,
   titleTemplate: `%s | ${BRAND_CONFIG.NAME}`,
-  defaultDescription: `Complete financial ecosystem with banking, investing, and DeFi in one secure platform. Join 50,000+ users managing their financial future with ${BRAND_CONFIG.NAME}.`,
+  defaultDescription: `Open access and fair opportunities for everyone. Goal-driven wealth building starting at $5. Your money, your wallet, your control.`,
   defaultKeywords: [
-    'digital banking',
-    'cryptocurrency',
-    'DeFi',
-    'investment platform',
-    'financial services',
-    'fintech',
-    'secure banking',
-    'crypto investing'
+    'goal-driven investing',
+    'wealth building',
+    'digital dollar savings',
+    'free money transfers',
+    'non-custodial wallet',
+    'financial platform',
+    'earn more than bank',
+    'side-pocket savings',
   ],
 
   // Technical SEO
@@ -52,7 +52,7 @@ export const SEO_DEFAULTS = {
       addressCountry: BRAND_CONFIG.ADDRESS.COUNTRY
     },
     contactPoint: {
-      telephone: BRAND_CONFIG.SUPPORT_PHONE,
+      ...(BRAND_CONFIG.SUPPORT_PHONE ? { telephone: BRAND_CONFIG.SUPPORT_PHONE } : {}),
       contactType: 'customer service',
       availableLanguage: ['English', 'Portuguese', 'Spanish', 'German']
     },
@@ -72,23 +72,23 @@ export const SEO_DEFAULTS = {
 export const PAGE_SEO_CONFIG = {
   home: {
     title: 'Financial Freedom Made Simple',
-    description: 'Complete financial ecosystem with banking, investing, and DeFi in one secure platform.',
-    keywords: ['digital banking', 'crypto platform', 'DeFi services']
+    description: 'See what $1,000 becomes in a year when you have access to fair opportunities. Start from $5.',
+    keywords: ['goal-driven investing', 'wealth building', 'earn interest on savings']
   },
   about: {
     title: 'About diBoaS - Our Mission and Vision',
-    description: 'Learn about diBoaS mission to democratize financial services and empower global communities.',
-    keywords: ['about diBoaS', 'company mission', 'financial innovation']
+    description: 'Built because one grandmother deserved better. Now everyone does. Free transfers, real growth, starting at $5.',
+    keywords: ['about diBoaS', 'financial inclusion', 'fair access wealth building']
   },
   business: {
     title: 'diBoaS for Business - Enterprise Financial Solutions',
-    description: 'Discover how diBoaS empowers businesses with comprehensive financial services and tools.',
-    keywords: ['business solutions', 'enterprise finance', 'corporate banking']
+    description: 'Stop losing 2-3% on every card payment. Put idle cash to work. Free payments, instant transfers.',
+    keywords: ['business treasury', 'reduce card fees', 'idle cash yield']
   },
   'daily-market': {
     title: 'Daily Market Updates - Adelaide Market Intelligence',
     description: 'Stay informed with daily market updates and financial insights from Adelaide.',
-    keywords: ['daily market', 'market updates', 'financial news']
+    keywords: ['daily market', 'market updates', 'financial insights']
   },
   demo: {
     title: 'Interactive Demo - Experience diBoaS',
@@ -98,27 +98,27 @@ export const PAGE_SEO_CONFIG = {
   'dream-mode': {
     title: 'Dream Mode - Visualize Your Financial Future',
     description: 'See how your savings can grow with diBoaS Dream Mode calculator.',
-    keywords: ['dream mode', 'savings calculator', 'financial goals']
+    keywords: ['savings calculator', 'financial goals', 'goal planning']
   },
   help: {
     title: 'Help Center - Support & Resources',
-    description: 'Find answers and support resources for your diBoaS experience.',
-    keywords: ['help', 'support', 'FAQ', 'customer service']
+    description: 'Everything you need to know about diBoaS — how it works, fees, safety, and getting started. Clear answers, no jargon.',
+    keywords: ['help', 'support', 'FAQ', 'getting started']
   },
   protocols: {
-    title: 'Protocols - DeFi Strategy Details',
-    description: 'Learn about the DeFi protocols and strategies powering diBoaS yield products.',
-    keywords: ['DeFi protocols', 'yield strategies', 'blockchain']
+    title: 'Protocols - Strategy Details',
+    description: 'See exactly where your money works. Full transparency about every system we use and why we trust them.',
+    keywords: ['protocol transparency', 'where money works', 'audited financial systems']
   },
   security: {
     title: 'Security - How We Protect Your Assets',
-    description: 'Learn about the security measures protecting your accounts and assets on diBoaS.',
-    keywords: ['security', 'asset protection', 'secure banking']
+    description: 'Your money stays in your wallet, not ours. Non-custodial architecture, advanced key security, and 24/7 monitoring.',
+    keywords: ['non-custodial security', 'your keys your money', 'wallet protection']
   },
   strategies: {
     title: 'Investment Strategies - Smart Yield Optimization',
-    description: 'Explore diBoaS investment strategies for optimizing your portfolio returns.',
-    keywords: ['investment strategies', 'yield optimization', 'portfolio management']
+    description: 'Different goals. Different risk levels. Find the approach that matches where you are and where you want to be.',
+    keywords: ['goal-based investing', 'savings strategies', 'emergency fund plan']
   },
   share: {
     title: 'Share diBoaS - Invite Friends',
@@ -128,17 +128,17 @@ export const PAGE_SEO_CONFIG = {
   'legal/terms': {
     title: 'Legal & Compliance - Terms and Conditions',
     description: 'Read our terms of service, privacy policy, and compliance information.',
-    keywords: ['legal', 'compliance', 'terms of service', 'privacy policy']
+    keywords: ['terms of use', 'user agreement', 'legal terms']
   },
   'legal/privacy': {
     title: 'Privacy Policy - Data Protection and Privacy',
     description: 'Learn how we protect your privacy and handle your personal data.',
-    keywords: ['privacy policy', 'data protection', 'privacy rights', 'data security']
+    keywords: ['privacy policy', 'data protection', 'privacy rights']
   },
   'legal/cookies': {
     title: 'Cookie Policy - Cookie Usage and Preferences',
     description: 'Information about how we use cookies and how to manage your cookie preferences.',
-    keywords: ['cookie policy', 'cookies', 'tracking preferences', 'privacy settings']
+    keywords: ['cookie policy', 'cookies', 'tracking preferences']
   }
 } as const;
 

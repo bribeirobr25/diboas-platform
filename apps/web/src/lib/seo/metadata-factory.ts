@@ -54,7 +54,7 @@ export class SEOMetadataFactory {
           sameAs: [...SEO_DEFAULTS.organization.sameAs],
           contactPoint: {
             '@type': 'ContactPoint',
-            telephone: SEO_DEFAULTS.organization.contactPoint.telephone,
+            ...(SEO_DEFAULTS.organization.contactPoint.telephone ? { telephone: SEO_DEFAULTS.organization.contactPoint.telephone } : {}),
             contactType: SEO_DEFAULTS.organization.contactPoint.contactType,
             availableLanguage: [...SEO_DEFAULTS.organization.contactPoint.availableLanguage]
           }

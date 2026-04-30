@@ -12,15 +12,15 @@
 | UI | React + Tailwind CSS | 18.3.x / 3.4.x |
 | Monorepo | Turborepo + pnpm | 2.8.x / 8.15.0 |
 | i18n | react-intl (en, pt-BR, es, de) | 6.4.x |
-| Testing | Vitest + @vitest/coverage-v8 | 4.0.x |
-| Component dev | Storybook | 10.2.x |
+| Testing | Vitest + @vitest/coverage-v8 | 4.1.x |
+| Component dev | Storybook | 10.3.x |
 | Database | Neon PostgreSQL (@neondatabase/serverless) | 1.0.x |
 | Email | Resend (@diboas/email) | workspace |
-| Error tracking | Sentry (@sentry/nextjs) | 10.43.x |
+| Error tracking | Sentry (@sentry/nextjs) | 10.49.x |
 | Analytics | PostHog (consent-gated, lazy-loaded) | 1.313.x |
 | Rate limiting | Upstash Redis (@upstash/ratelimit + @upstash/redis) | 2.0.x / 1.36.x |
 | Performance | web-vitals | 5.1.x |
-| Sanitization | DOMPurify | 3.3.x |
+| Sanitization | DOMPurify | 3.4.x |
 
 Single web application (`apps/web`). No backend services, no microservices, no message queues.
 
@@ -71,7 +71,7 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 ## 7. Monitoring
 
 ### Sentry (error tracking)
-- **Package:** `@sentry/nextjs` 10.43.x.
+- **Package:** `@sentry/nextjs` 10.49.x.
 - **Config:** `instrumentation-client.ts` (client-side), server instrumentation via Sentry Next.js plugin.
 - **Env vars:** `NEXT_PUBLIC_SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_ORG`, `NEXT_PUBLIC_SENTRY_PROJECT`.
 

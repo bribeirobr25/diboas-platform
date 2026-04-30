@@ -70,7 +70,7 @@
         },
         "q5": {
           "question": "E se eu perder meu celular?",
-          "answer": "Sua carteira usa segurança de chave avançada. Uma parte fica no seu aparelho. Outra parte é guardada separadamente de forma segura.\n\nSe você perder o celular, você recupera a carteira. Sem seed phrase. Sem 24 palavras pra anotar. Sem pânico.\n\nSeu dinheiro não desaparece porque seu celular desapareceu."
+          "answer": "Quando o diBoaS lançar seu aplicativo, sua carteira usará segurança avançada de chaves para proteger contra perda do dispositivo. Nossa arquitetura é projetada para recuperação de carteira sem frases-semente ou backups de 24 palavras. Seu dinheiro não vai desaparecer porque seu celular sumiu."
         },
         "q6": {
           "question": "O que é meu saldo, afinal?",
@@ -78,15 +78,15 @@
         },
         "q7": {
           "question": "Posso acessar meu dinheiro a qualquer momento?",
-          "answer": "Sim. Sem bloqueios. Você define o minimo: \"sempre manter R$250.000 liquidos.\" So colocamos pra trabalhar o que esta acima disso.\n\nPrecisa de dinheiro? Um toque. Processamos na hora. Tempos de transferencia bancaria podem variar. Sem multas. Sem perguntas."
+          "answer": "Sim. Sem bloqueios. Você define o mínimo: \"sempre manter R$250.000 liquidos.\" So colocamos pra trabalhar o que esta acima disso.\n\nPrecisa de dinheiro? Um toque. Processamos na hora. Tempos de transferencia bancaria podem variar. Sem multas. Sem perguntas."
         },
         "q8": {
           "question": "Por que a diBoaS não pode tocar no meu dinheiro?",
-          "answer": "Esse e exatamente o ponto da nossa arquitetura.\n\nFinancas tradicionais: você deposita dinheiro, vira dinheiro do banco, e eles te devem um saldo.\n\ndiBoaS: seu dinheiro fica na sua propria carteira. Fornecemos o software que te ajuda a colocar ele em sistemas que geram retorno. Mas nunca temos acesso pra movimenta-lo.\n\nSe a diBoaS falir, seu dinheiro continua sendo seu. Ninguem na diBoaS pode movimentar seus fundos. Cada transacao precisa da sua aprovacao.\n\nMais controle pra você. Menos risco nosso."
+          "answer": "Esse e exatamente o ponto da nossa arquitetura.\n\nFinanças tradicionais: você deposita dinheiro, vira dinheiro do banco, e eles te devem um saldo.\n\ndiBoaS: seu dinheiro fica na sua própria carteira. Fornecemos o software que te ajuda a colocar ele em sistemas que geram retorno. Mas nunca temos acesso pra movimenta-lo.\n\nSe a diBoaS falir, seu dinheiro continua sendo seu. Ninguem na diBoaS pode movimentar seus fundos. Cada transação precisa da sua aprovacao.\n\nMais controle pra você. Menos risco nosso."
         },
         "q9": {
           "question": "Qual e o risco real?",
-          "answer": "Vamos ser honestos.\n\nOs sistemas onde seu dinheiro e colocado sao construidos com codigo. Codigo pode ter vulnerabilidades. Reduzimos isso usando apenas sistemas com valor total significativo sob gestao, multiplas auditorias de seguranca independentes, anos de historico atraves de eventos de mercado, e distribuindo seu dinheiro entre multiplos sistemas independentes.\n\nRisco zero? Não. Nada e, incluindo o seu banco.\n\nA pergunta real: vale a pena um perfil de risco diferente em troca de retornos melhores? Pra alguns negocios, sim. Pra outros, não. As duas respostas sao validas."
+          "answer": "Vamos ser honestos.\n\nOs sistemas onde seu dinheiro e colocado são construidos com codigo. Codigo pode ter vulnerabilidades. Reduzimos isso usando apenas sistemas com valor total significativo sob gestao, multiplas auditorias de segurança independentes, anos de histórico atraves de eventos de mercado, e distribuindo seu dinheiro entre multiplos sistemas independentes.\n\nRisco zero? Não. Nada e, incluindo o seu banco.\n\nA pergunta real: vale a pena um perfil de risco diferente em troca de retornos melhores? Pra alguns negocios, sim. Pra outros, não. As duas respostas são validas."
         },
         "q10": {
           "question": "Posso perder tudo?",
@@ -103,7 +103,7 @@
         },
         "q2": {
           "question": "Qual e a pegadinha?",
-          "answer": "Cobramos taxas pequenas quando o dinheiro se move. Gratis quando você recebe pagamentos. Gratis quando você investe. 0,39% quando você vende ou fecha uma posicao. 0,48% quando você saca.\n\nSe você recebe R$50.000 em pagamentos, ficamos com R$0. Se você investe R$50.000, a gente fica com R$0. Se você vende R$50.000, ficamos com R$195. Se você não ganha nada e não envia nada, a gente não ganha nada.\n\nSem taxas escondidas. Sem saldo minimo. Sem mensalidade. Sem pegadinha."
+          "answer": "Cobramos taxas pequenas quando o dinheiro se move. Gratis quando você recebe pagamentos. Gratis quando você investe. 0,39% quando você vende ou fecha uma posição. 0,48% quando você saca.\n\nSe você recebe R$50.000 em pagamentos, ficamos com R$0. Se você investe R$50.000, a gente fica com R$0. Se você vende R$50.000, ficamos com R$195. Se você não ganha nada e não envia nada, a gente não ganha nada.\n\nSem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Sem pegadinha."
         },
         "q3": {
           "question": "Posso usar o diBoaS só pra transferências internacionais?",
@@ -153,7 +153,7 @@
       "questions": {
         "q1": {
           "question": "E pra pequenas empresas ou startups?",
-          "answer": "Pras duas. Se você tem uma padaria perdendo 4% em cada venda no cartao, ajudamos você a ficar com esse dinheiro. Se você e uma startup com R$2 milhoes parados no banco rendendo CDI, ajudamos a render mais.\n\nAs ferramentas sao as mesmas. So os numeros que mudam."
+          "answer": "Pras duas. Se você tem uma padaria perdendo 4% em cada venda no cartao, ajudamos você a ficar com esse dinheiro. Se você e uma startup com R$2 milhoes parados no banco rendendo CDI, ajudamos a render mais.\n\nAs ferramentas são as mesmas. So os numeros que mudam."
         },
         "q2": {
           "question": "Como funcionam os pagamentos instantaneos?",
@@ -161,7 +161,7 @@
         },
         "q3": {
           "question": "E quanto a compliance e impostos?",
-          "answer": "Construimos a diBoaS pra negocios reais com necessidades reais de compliance.\n\nExtratos mensais formatados pro seu software contabil. Historico de transacoes com trilha de auditoria completa. Documentacao fiscal no final do ano. Relatorios prontos pro conselho que seu CFO realmente vai entender.\n\nSabemos que uma hora você vai ser auditado. Garantimos que você esteja preparado."
+          "answer": "Construimos a diBoaS pra negocios reais com necessidades reais de compliance.\n\nExtratos mensais formatados pro seu software contábil. Historico de transações com trilha de auditoria completa. Documentacao fiscal no final do ano. Relatorios prontos pro conselho que seu CFO realmente vai entender.\n\nSabemos que uma hora você vai ser auditado. Garantimos que você esteja preparado."
         },
         "q4": {
           "question": "Posso mandar dinheiro pra qualquer pessoa?",
@@ -169,7 +169,7 @@
         },
         "q5": {
           "question": "Pra onde vai meu dinheiro exatamente?",
-          "answer": "Seu dinheiro e colocado em sistemas financeiros estabelecidos que operam ha mais de 3 anos, sobreviveram a multiplas quedas de mercado e sao auditados de forma independente em seguranca.\n\nTodos os detalhes, incluindo nomes, historico e nossos criterios de selecao, estao publicados na nossa pagina de Estrategias. Sem necessidade de cadastro.\n\nEscolhemos esses sistemas porque sao transparentes, testados em batalha, e você pode ver exatamente onde seus fundos estao a qualquer momento."
+          "answer": "Seu dinheiro e colocado em sistemas financeiros estabelecidos que operam ha mais de 3 anos, sobreviveram a multiplas quedas de mercado e são auditados de forma independente em segurança.\n\nTodos os detalhes, incluindo nomes, histórico e nossos criterios de selecao, estao publicados na nossa pagina de Estrategias. Sem necessidade de cadastro.\n\nEscolhemos esses sistemas porque são transparentes, testados em batalha, e você pode ver exatamente onde seus fundos estao a qualquer momento."
         }
       }
     },
@@ -177,12 +177,12 @@
       "title": "Protocolos e Transparência",
       "questions": {
         "q1": {
-          "question": "Por que voces não listam todos os protocolos DeFi?",
+          "question": "Por que vocês não listam todos os protocolos DeFi?",
           "answer": "Existem milhares de protocolos DeFi. Preferimos listar 25 que pesquisamos a fundo do que 200 que não conhecemos."
         },
         "q2": {
-          "question": "Com que frequência voces atualizam essa lista?",
-          "answer": "Monitoramos todos os protocolos listados continuamente. Se um protocolo tem um incidente de segurança, mudanca regulatoria ou problema operacional significativo, atualizamos essa página. Também revisamos a lista completa trimestralmente pra decidir se adicionamos ou removemos protocolos."
+          "question": "Com que frequência vocês atualizam essa lista?",
+          "answer": "Monitoramos todos os protocolos listados continuamente. Se um protocolo tem um incidente de segurança, mudança regulatoria ou problema operacional significativo, atualizamos essa página. Também revisamos a lista completa trimestralmente pra decidir se adicionamos ou removemos protocolos."
         },
         "q3": {
           "question": "Posso sugerir um protocolo pra ser adicionado?",
@@ -190,11 +190,11 @@
         },
         "q4": {
           "question": "Estar listado aqui significa que o diBoaS recomenda esses protocolos?",
-          "answer": "Não. Estar listado significa que pesquisamos, eles cumprem nossos criterios e os usamos em nossas estratégias. Não somos afiliados a nenhum protocolo. A inclusao deles não implica que eles endossam o diBoaS, e nossa listagem não constitui uma recomendacao de usa-los diretamente."
+          "answer": "Não. Estar listado significa que pesquisamos, eles cumprem nossos criterios e os usamos em nossas estratégias. Não somos afiliados a nenhum protocolo. A inclusão deles não implica que eles endossam o diBoaS, e nossa listagem não constitui uma recomendacao de usa-los diretamente."
         },
         "q5": {
           "question": "O que acontece se um protocolo for hackeado?",
-          "answer": "Depende da gravidade. Pra incidentes menores resolvidos rapidamente, podemos manter o protocolo listado com uma nota de alerta atualizada. Pra exploits graves onde fundos de usuarios são perdidos permanentemente, removemos o protocolo da nossa lista e ajustamos estratégias afetadas. Se o exploit afetou uma versao anterior que não usamos, podemos manter o protocolo listado com um alerta claro. Veja nossos criterios de selecao acima pra detalhes. Sempre comunicaremos mudancas aos nossos usuarios."
+          "answer": "Depende da gravidade. Pra incidentes menores resolvidos rapidamente, podemos manter o protocolo listado com uma nota de alerta atualizada. Pra exploits graves onde fundos de usuarios são perdidos permanentemente, removemos o protocolo da nossa lista e ajustamos estratégias afetadas. Se o exploit afetou uma versão anterior que não usamos, podemos manter o protocolo listado com um alerta claro. Veja nossos criterios de selecao acima pra detalhes. Sempre comunicaremos mudancas aos nossos usuarios."
         },
         "q6": {
           "question": "Por que alguns protocolos tem badges de alerta?",

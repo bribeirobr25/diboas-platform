@@ -51,7 +51,7 @@ export const FounderSection = memo(function FounderSection({
         ) : null}
 
         <div className={styles.textColumn}>
-          <h2 className={styles.header}>{translated.content.header}</h2>
+          <h3 className={styles.header}>{translated.content.header}</h3>
 
           {translated.content.paragraphs.map((paragraph: string, index: number) => (
             <p key={index} className={styles.paragraph}>{paragraph}</p>

@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from 'react';
 import { marketDataService, type MarketDataSnapshot } from '@/lib/market-data';
+import { Logger } from '@/lib/monitoring/Logger';
 
 interface UseMarketDataResult {
   data: MarketDataSnapshot;
@@ -25,11 +26,17 @@ export function useMarketData(): UseMarketDataResult {
   useEffect(() => {
     let mounted = true;
 
-    marketDataService.get().then((data) => {
-      if (mounted) {
-        setSnapshot(data);
-      }
-    });
+    marketDataService.get()
+      .then((data) => {
+        if (mounted) {
+          setSnapshot(data);
+        }
+      })
+      .catch((error) => {
+        if (mounted) {
+          Logger.error('Failed to fetch market data', {}, error);
+        }
+      });
 
     return () => {
       mounted = false;

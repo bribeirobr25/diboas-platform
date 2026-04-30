@@ -183,10 +183,10 @@
   justify-content: center;
 }
 
-/* Card Image — mobile-first: fills container */
+/* Card Image — mobile-first: fills container, maintains aspect ratio */
 .cardImage {
   width: var(--percent-100);
-  height: var(--percent-100);
+  height: auto;
   object-fit: cover;
   transition:
     filter var(--transition-slow) ease-in-out,

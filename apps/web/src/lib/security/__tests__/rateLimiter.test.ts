@@ -357,7 +357,7 @@ describe('rateLimiter', () => {
 
       // Verify the Redis error fallback path was exercised (line 122)
       expect(Logger.error).toHaveBeenCalledWith(
-        '[RateLimiter] Redis rate limit failed, using fallback:',
+        '[RateLimiter] Redis rate limit failed, using in-memory fallback',
         expect.objectContaining({ error: 'Redis connection failed' })
       );
 

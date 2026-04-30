@@ -47,8 +47,8 @@
         }
       },
       "analytics": {
-        "title": "Analytics Cookies (Optional)",
-        "description": "These cookies help us understand how visitors use our site. All data is anonymized.",
+        "title": "Analytics Cookies (Only After Your Consent)",
+        "description": "These cookies are only set after you click Accept on the consent banner. Before consent, no analytics cookies exist on your device. We use Google Analytics and PostHog to understand how visitors use our site. All data is anonymized and no personal information is collected.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -58,13 +58,18 @@
           "rows": [
             {
               "cookie": "_ga",
-              "purpose": "Google Analytics - distinguishes users",
+              "purpose": "Google Analytics — distinguishes users (only after consent)",
               "duration": "2 years"
             },
             {
               "cookie": "_gid",
-              "purpose": "Google Analytics - distinguishes users",
+              "purpose": "Google Analytics — session identifier (only after consent)",
               "duration": "24 hours"
+            },
+            {
+              "cookie": "ph_*",
+              "purpose": "PostHog analytics — session tracking (only after consent)",
+              "duration": "12 months"
             }
           ]
         }

@@ -10,3 +10,4 @@ export { SEOMetadataFactory } from './metadata-factory';
 
 // Convenience exports for common use cases
 export { generateStaticPageMetadata, generateDynamicPageMetadata, generateLocaleStaticParams } from './helpers';
+export { getTwitterMeta } from './twitter';

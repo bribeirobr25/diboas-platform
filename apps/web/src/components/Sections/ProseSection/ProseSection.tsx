@@ -11,12 +11,14 @@ interface ProseSectionProps {
   config: ProseSectionConfig;
   enableAnalytics?: boolean;
   className?: string;
+  headingLevel?: 'h2' | 'h3';
 }
 
 export const ProseSection = memo(function ProseSection({
   config,
   enableAnalytics: _enableAnalytics = true,
   className = '',
+  headingLevel: Heading = 'h2',
 }: ProseSectionProps) {
   const translated = useConfigTranslation(config);
   const [imgFailed, setImgFailed] = useState(false);
@@ -43,9 +45,9 @@ export const ProseSection = memo(function ProseSection({
       ) : null}
 
       {translated.content.header && !(hasImage && isCenteredHeader) && (
-        <h2 className={`${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}>
+        <Heading className={`${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}>
           {translated.content.header}
-        </h2>
+        </Heading>
       )}
 
       {translated.content.paragraphs.map((paragraph: string, index: number) => (
@@ -90,9 +92,9 @@ export const ProseSection = memo(function ProseSection({
         {translated.content.transitionHook ? (
           <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
         ) : null}
-        <h2 className={`${styles.header} ${styles.headerCentered}`}>
+        <Heading className={`${styles.header} ${styles.headerCentered}`}>
           {translated.content.header}
-        </h2>
+        </Heading>
       </>
     ) : null;
 
@@ -102,9 +104,9 @@ export const ProseSection = memo(function ProseSection({
         {translated.content.transitionHook ? (
           <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
         ) : null}
-        <h2 className={`${styles.header} ${styles.headerWithImage}`}>
+        <Heading className={`${styles.header} ${styles.headerWithImage}`}>
           {translated.content.header}
-        </h2>
+        </Heading>
       </div>
     ) : null;
 
