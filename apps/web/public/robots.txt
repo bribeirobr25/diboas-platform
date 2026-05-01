@@ -15,4 +15,4 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
 
-Sitemap: https://www.diboas.com/sitemap.xml
+Sitemap: https://diboas.com/sitemap.xml

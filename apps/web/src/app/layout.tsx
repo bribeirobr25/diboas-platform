@@ -69,7 +69,7 @@ export default async function RootLayout({
         <meta name="description" content={BRAND_CONFIG.DESCRIPTION} />
         {/* Google Fonts removed for GDPR compliance - using next/font/google self-hosted */}
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
-        <link rel="dns-prefetch" href="https://www.diboas.com" />
+        <link rel="dns-prefetch" href="https://diboas.com" />
         <link rel="dns-prefetch" href="https://cdn.diboas.com" />
         <script
           type="application/ld+json"
@@ -80,8 +80,8 @@ export default async function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'diBoaS',
-              url: 'https://www.diboas.com',
-              logo: 'https://www.diboas.com/assets/logos/logo-icon.avif'
+              url: 'https://diboas.com',
+              logo: 'https://diboas.com/assets/logos/logo-icon.avif'
             })
           }}
         />

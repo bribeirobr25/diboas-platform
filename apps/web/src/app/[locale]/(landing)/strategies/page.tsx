@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'Investment Strategies | diBoaS';
   const description = seo.description || '10 strategies. Different goals. Different timelines. Different risk levels.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   return {
     title,

@@ -40,10 +40,28 @@ export function setConsentCookie(
     timestamp: Date.now(),
   };
 
+  const cookieValue = JSON.stringify(value);
+
+  // HttpOnly — server-side source of truth (XSS-protected)
   response.cookies.set({
     name: CONSENT_COOKIE_NAME,
-    value: JSON.stringify(value),
+    value: cookieValue,
     httpOnly: true,
+    secure: IS_PRODUCTION,
+    sameSite: 'strict',
+    maxAge: COOKIE_MAX_AGE,
+    path: '/',
+  });
+
+  // Non-HttpOnly shadow — client-readable mirror for banner suppression
+  // P8 Security: Server uses HttpOnly version for consent enforcement.
+  // P9 Performance: Client reads shadow cookie synchronously (no API call).
+  // GDPR Article 7: Even if XSS flips the shadow cookie, the server-side
+  // HttpOnly record remains the source of truth for consent state.
+  response.cookies.set({
+    name: `${CONSENT_COOKIE_NAME}_js`,
+    value: cookieValue,
+    httpOnly: false,
     secure: IS_PRODUCTION,
     sameSite: 'strict',
     maxAge: COOKIE_MAX_AGE,
@@ -120,6 +138,7 @@ export function hasAnalyticsConsent(consent: ConsentValue | null): boolean {
  */
 export function clearConsentCookie(response: NextResponse): NextResponse {
   response.cookies.delete(CONSENT_COOKIE_NAME);
+  response.cookies.delete(`${CONSENT_COOKIE_NAME}_js`);
   return response;
 }
 

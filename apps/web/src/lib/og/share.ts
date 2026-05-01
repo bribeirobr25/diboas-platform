@@ -41,7 +41,7 @@ export function getWaitlistOGUrl(params: WaitlistOGParams): string {
  * Generate full OG image URL for waitlist position (with domain)
  *
  * @example
- * getWaitlistOGUrlFull({ position: 247 }, 'https://www.diboas.com')
+ * getWaitlistOGUrlFull({ position: 247 }, 'https://diboas.com')
  * // => 'https://diboas.com/api/og/share?type=waitlist&position=247'
  */
 export function getWaitlistOGUrlFull(
@@ -79,7 +79,7 @@ export function getCalculatorOGUrl(params: CalculatorOGParams): string {
  * Generate full OG image URL for calculator results (with domain)
  *
  * @example
- * getCalculatorOGUrlFull({ futureAmount: 125000, years: 10 }, 'https://www.diboas.com')
+ * getCalculatorOGUrlFull({ futureAmount: 125000, years: 10 }, 'https://diboas.com')
  * // => 'https://diboas.com/api/og/share?type=calculator&amount=125000&years=10'
  */
 export function getCalculatorOGUrlFull(
@@ -94,7 +94,7 @@ export function getCalculatorOGUrlFull(
  * This URL has dynamic OG metadata for social sharing
  *
  * @example
- * getWaitlistSharePageUrl({ position: 247 }, 'en', 'https://www.diboas.com')
+ * getWaitlistSharePageUrl({ position: 247 }, 'en', 'https://diboas.com')
  * // => 'https://diboas.com/en/share?type=waitlist&position=247'
  */
 export function getWaitlistSharePageUrl(
@@ -118,7 +118,7 @@ export function getWaitlistSharePageUrl(
  * This URL has dynamic OG metadata for social sharing
  *
  * @example
- * getCalculatorSharePageUrl({ futureAmount: 125000, years: 10 }, 'en', 'https://www.diboas.com')
+ * getCalculatorSharePageUrl({ futureAmount: 125000, years: 10 }, 'en', 'https://diboas.com')
  * // => 'https://diboas.com/en/share?type=calculator&amount=125000&years=10'
  */
 export function getCalculatorSharePageUrl(

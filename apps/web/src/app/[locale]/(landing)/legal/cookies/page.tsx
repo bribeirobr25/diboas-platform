@@ -16,7 +16,7 @@ export const dynamic = 'auto';
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   // Load translations for SEO metadata
   const messages = await loadMessages(locale as SupportedLocale, 'legal/cookies');

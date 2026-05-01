@@ -206,7 +206,7 @@ export function AppFeaturesCarouselDefault({
                       src={card.assets.image}
                       alt={card.seo.imageAlt}
                       width={416}
-                      height={554}
+                      height={500}
                       priority={priority && index === 0}
                       className={styles.cardImage}
                       onLoad={() => handleImageLoad(card.id)}

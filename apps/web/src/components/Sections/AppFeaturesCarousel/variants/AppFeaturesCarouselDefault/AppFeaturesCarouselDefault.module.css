@@ -193,7 +193,7 @@
     transform var(--transition-slow) ease-in-out;
 }
 
-/* Tablet: Image maintains 500px height */
+/* Tablet: Image maintains 500px height, width auto for aspect ratio */
 @media (min-width: 768px) {
   .cardImage {
     height: var(--afc-image-height-tablet); /* 500px */

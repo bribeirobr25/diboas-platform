@@ -97,40 +97,6 @@ export class ErrorReportingService implements IErrorReporter {
   }
 
   /**
-   * Handle global JavaScript errors
-   */
-  private handleGlobalError(event: ErrorEvent): void {
-    const error = event.error || new Error(event.message);
-
-    this.reportError(error, {
-      severity: ErrorSeverity.HIGH,
-      category: ErrorCategory.JAVASCRIPT,
-      context: {
-        url: event.filename,
-        customData: {
-          lineNumber: event.lineno,
-          columnNumber: event.colno
-        }
-      }
-    });
-  }
-
-  /**
-   * Handle unhandled promise rejections
-   */
-  private handleUnhandledRejection(event: PromiseRejectionEvent): void {
-    const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
-
-    this.reportError(error, {
-      severity: ErrorSeverity.HIGH,
-      category: ErrorCategory.JAVASCRIPT,
-      context: {
-        customData: { rejectionType: 'unhandled_promise_rejection' }
-      }
-    });
-  }
-
-  /**
    * Handle resource loading errors
    */
   private handleResourceError(event: Event): void {
