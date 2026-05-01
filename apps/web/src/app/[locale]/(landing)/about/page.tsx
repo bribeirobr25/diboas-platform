@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'About diBoaS | Built for the People Banks Forgot';
   const description = seo.description || 'diBoaS was built because one grandmother deserved better. Now everyone does.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   return {
     title,

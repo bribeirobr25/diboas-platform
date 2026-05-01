@@ -23,7 +23,7 @@ const PLACEHOLDER_TRANSLATIONS: Record<string, { title: string; comingSoon: stri
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
   const t = PLACEHOLDER_TRANSLATIONS[validLocale] || PLACEHOLDER_TRANSLATIONS.en;
 
   return {

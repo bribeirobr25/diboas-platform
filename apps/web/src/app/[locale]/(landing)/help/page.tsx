@@ -24,7 +24,7 @@ export const dynamic = 'auto';
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   const messages = await loadMessages(validLocale, 'landing-help');
   const seo = messages?.seo || {};

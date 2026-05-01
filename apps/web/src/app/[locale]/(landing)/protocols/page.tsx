@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const title = seo.title || 'Where Your Money Works | The Protocols We Trust | diBoaS';
   const description = seo.description || 'diBoaS connects you to established decentralized finance protocols. See exactly where your money goes with full transparency.';
 
-  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   return {
     title,

@@ -11,7 +11,7 @@ import { DATE_FORMATS, CURRENCY_CONFIG } from '@/config/formats';
 export const SEO_DEFAULTS = {
   // Site-wide defaults
   siteName: BRAND_CONFIG.NAME,
-  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || `https://www.${process.env.NEXT_PUBLIC_SITE_DOMAIN || 'diboas.com'}`,
+  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN || 'diboas.com'}`,
   defaultImage: ASSET_PATHS.SEO.DEFAULT_OG,
   twitterHandle: BRAND_CONFIG.TWITTER_HANDLE,
 

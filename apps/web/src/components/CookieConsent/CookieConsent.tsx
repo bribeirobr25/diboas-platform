@@ -19,11 +19,12 @@ import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
 import {
   syncConsentToApi,
-  checkConsentFromApi,
+  checkConsentFromApiOnce,
   saveConsentToStorage,
   createConsentValue,
   dispatchConsentEvent,
   getStoredConsent,
+  getConsentFromShadowCookie,
   isConsentVersionCurrent,
 } from './consentUtils';
 import {
@@ -55,36 +56,41 @@ export function CookieConsent() {
     const timers: ReturnType<typeof setTimeout>[] = [];
 
     async function checkConsent() {
+      // 1. Check localStorage (fastest, synchronous)
       const stored = getStoredConsent();
-
-      if (!stored) {
-        const apiConsent = await checkConsentFromApi();
-        if (!mounted) return;
-
-        if (apiConsent) {
-          const localConsent = createConsentValue(apiConsent.analytics);
-          saveConsentToStorage(localConsent);
-          return;
-        }
-
-        timers.push(setTimeout(() => {
-          if (!mounted) return;
-          setShowBanner(true);
-          timers.push(setTimeout(() => {
-            if (!mounted) return;
-            setIsVisible(true);
-          }, 100));
-        }, 1500));
-      } else {
+      if (stored) {
         if (!isConsentVersionCurrent(stored)) {
           if (!mounted) return;
           setShowBanner(true);
-          timers.push(setTimeout(() => {
-            if (!mounted) return;
-            setIsVisible(true);
-          }, 100));
+          timers.push(setTimeout(() => { if (mounted) setIsVisible(true); }, 100));
         }
+        return;
       }
+
+      // 2. Check shadow cookie (synchronous, no API call — P9 Performance)
+      const shadowConsent = getConsentFromShadowCookie();
+      if (shadowConsent) {
+        const localConsent = createConsentValue(shadowConsent.analytics);
+        saveConsentToStorage(localConsent);
+        return;
+      }
+
+      // 3. Fallback: Check API (migration period — users without shadow cookie)
+      const apiConsent = await checkConsentFromApiOnce();
+      if (!mounted) return;
+
+      if (apiConsent) {
+        const localConsent = createConsentValue(apiConsent.analytics);
+        saveConsentToStorage(localConsent);
+        return;
+      }
+
+      // 4. No consent found — show banner after delay
+      timers.push(setTimeout(() => {
+        if (!mounted) return;
+        setShowBanner(true);
+        timers.push(setTimeout(() => { if (mounted) setIsVisible(true); }, 100));
+      }, 1500));
     }
 
     checkConsent();

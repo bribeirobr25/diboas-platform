@@ -14,12 +14,12 @@ diBoaS is a financial platform that helps people send, save, invest, and manage 
 
 ## Pages
 
-- [Home](https://www.diboas.com/en): Main landing page with waitlist
-- [About](https://www.diboas.com/en/about): Founder story and mission
-- [Strategies](https://www.diboas.com/en/strategies): Investment strategy details
-- [Protocols](https://www.diboas.com/en/protocols): Protocol transparency
-- [Help](https://www.diboas.com/en/help): FAQ and support
-- [Security](https://www.diboas.com/en/security): Security information
+- [Home](https://diboas.com/en): Main landing page with waitlist
+- [About](https://diboas.com/en/about): Founder story and mission
+- [Strategies](https://diboas.com/en/strategies): Investment strategy details
+- [Protocols](https://diboas.com/en/protocols): Protocol transparency
+- [Help](https://diboas.com/en/help): FAQ and support
+- [Security](https://diboas.com/en/security): Security information
 
 ## Languages
 

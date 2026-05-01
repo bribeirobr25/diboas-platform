@@ -14,6 +14,7 @@ import { Logger } from '@/lib/monitoring/Logger';
 
 const CONSENT_KEY = COOKIE_CONFIG.consentLocalStorageKey;
 const CONSENT_VERSION = COOKIE_CONFIG.consentVersion;
+const CONSENT_COOKIE_NAME = COOKIE_CONFIG.consentCookieName;
 
 export interface CookieConsentValue {
   analytics: boolean;
@@ -50,9 +51,53 @@ export async function syncConsentToApi(analytics: boolean): Promise<boolean> {
 }
 
 /**
+ * Read consent from the non-HttpOnly shadow cookie.
+ * P9 Performance: synchronous read, no API call needed.
+ * Returns null if shadow cookie doesn't exist (migration: user set consent before shadow cookie was added).
+ */
+export function getConsentFromShadowCookie(): { analytics: boolean; version: string } | null {
+  if (typeof document === 'undefined') return null;
+  const name = `${CONSENT_COOKIE_NAME}_js=`;
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const trimmed = cookie.trim();
+    if (trimmed.startsWith(name)) {
+      try {
+        return JSON.parse(decodeURIComponent(trimmed.substring(name.length)));
+      } catch {
+        return null;
+      }
+    }
+  }
+  return null;
+}
+
+/** Bot detection pattern — bots don't need consent checks */
+const BOT_PATTERN = /bot|crawl|spider|slurp|facebookexternalhit|linkedinbot|twitterbot|whatsapp|telegram|googlebot|bingbot|yandex|baidu|duckduck/i;
+
+/** Module-level cache — prevents duplicate API calls during same page session (P11 Concurrency) */
+let _consentCheckPromise: Promise<{ analytics: boolean; version: string } | null> | null = null;
+
+/**
+ * Deduplicated wrapper for checkConsentFromApi.
+ * P11 Concurrency: prevents duplicate calls on React Strict Mode double-mount.
+ */
+export function checkConsentFromApiOnce(): Promise<{ analytics: boolean; version: string } | null> {
+  if (!_consentCheckPromise) {
+    _consentCheckPromise = checkConsentFromApi();
+  }
+  return _consentCheckPromise;
+}
+
+/**
  * Check consent from HttpOnly cookie API
  */
 export async function checkConsentFromApi(): Promise<{ analytics: boolean; version: string } | null> {
+  // Skip API call for bots — they don't need consent checks
+  if (typeof navigator !== 'undefined' && BOT_PATTERN.test(navigator.userAgent)) {
+    return null;
+  }
+
   try {
     const response = await fetchWithRetry('/api/consent');
     if (!response.ok) return null;

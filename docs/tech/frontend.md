@@ -66,7 +66,7 @@ All components reference design tokens via CSS custom properties rather than har
 
 ### Implemented
 
-- **Skip navigation:** Both `(landing)` and `(marketing)` layouts include a skip-to-main-content link, localized via `common.json` translations.
+- **Skip navigation:** The `(landing)` layout includes a skip-to-main-content link, localized via `common.json` translations.
 - **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MobileNav`, `WaitingListModal`, `ExportKeyModal`, `PreDemo`, `PreDream`).
 - **Keyboard navigation:** `LanguageSwitcher` handles Escape key with focus return. `useCarousel` handles Arrow keys, Home, End, and Space for play/pause.
 - **ARIA attributes:** 124+ usages of `aria-label`, `aria-describedby`, and `aria-live` across 65 files.

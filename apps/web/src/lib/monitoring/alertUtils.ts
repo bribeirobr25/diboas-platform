@@ -27,7 +27,7 @@ export function generateFingerprint(alert: Omit<Alert, 'id' | 'timestamp'>): str
  * Generate action URL for an alert
  */
 export function generateActionUrl(type: string, params: Record<string, unknown>): string {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.diboas.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
   const query = new URLSearchParams(Object.entries(params).map(([k, v]) => [k, String(v)]));
   return `${baseUrl}/admin/monitoring/${type}?${query}`;
 }
