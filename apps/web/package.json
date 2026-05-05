@@ -45,7 +45,7 @@
     "@upstash/ratelimit": "^2.0.7",
     "@upstash/redis": "^1.36.0",
     "dompurify": "^3.4.1",
-    "lucide-react": "^0.544.0",
+    "lucide-react": "^1.14.0",
     "next": "16.1.7",
     "posthog-js": "^1.313.0",
     "react": "^18.3.1",
