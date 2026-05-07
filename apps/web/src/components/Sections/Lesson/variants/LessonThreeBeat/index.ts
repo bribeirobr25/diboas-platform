@@ -1,0 +1,1 @@
+export { LessonThreeBeat } from './LessonThreeBeat';

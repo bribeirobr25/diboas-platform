@@ -1,0 +1,102 @@
+.lesson {
+  display: flex;
+  flex-direction: column;
+}
+
+.beat {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.beatTitle {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  margin: 0 0 8px;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@media (min-width: 768px) {
+  .beatTitle { font-size: var(--font-size-section-title-tablet); }
+}
+@media (min-width: 1024px) {
+  .beatTitle { font-size: var(--font-size-section-title-desktop); }
+}
+
+.beatBody {
+  font-family: var(--font-family-primary);
+  font-size: 17px;
+  line-height: var(--prose-line-height);
+  color: var(--color-slate-700);
+  margin: 0;
+}
+
+.beatBody strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+}
+
+.beatBody em {
+  font-style: italic;
+}
+
+.habitsLine {
+  font-family: var(--font-family-display);
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--color-slate-900);
+  font-weight: var(--font-weight-semibold);
+  margin: 8px 0;
+}
+
+.brandCallback {
+  font-family: var(--font-family-display);
+  font-size: 20px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-teal-700);
+  text-align: center;
+  margin: 24px 0;
+}
+
+.afterCalculator {
+  font-family: var(--font-family-display);
+  font-size: 22px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+  margin: 16px 0 0;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-slate-200);
+}
+
+.ctaNote {
+  font-size: 13px;
+  color: var(--color-slate-500);
+  margin: 0;
+  text-align: center;
+}
+
+.ctaSecondary {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  color: var(--color-teal-700);
+  text-decoration: none;
+  margin-top: 12px;
+}
+
+.ctaSecondary:hover,
+.ctaSecondary:focus-visible {
+  text-decoration: underline;
+}

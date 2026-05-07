@@ -1,0 +1,58 @@
+.figure {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-family-primary);
+}
+
+.gridLine {
+  stroke: var(--color-slate-200);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.axisLabel {
+  fill: var(--color-slate-500);
+  font-size: 12px;
+  font-family: var(--font-family-primary);
+}
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 1500; }
+  to { stroke-dashoffset: 0; }
+}
+
+.pathAnimated {
+  stroke-dasharray: 1500;
+  animation: drawLine 1.2s ease-out forwards;
+}
+
+.pathStatic {
+  stroke-dasharray: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pathAnimated {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}
+
+.srOnlyTable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

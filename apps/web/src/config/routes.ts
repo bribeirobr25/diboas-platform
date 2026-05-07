@@ -27,6 +27,10 @@ export const ROUTES = {
   HELP: '/help',
   SHARE: '/share',
 
+  // Learn Center
+  LEARN: '/learn',
+  LEARN_COMPOUND_INTEREST: '/learn/compound-interest',
+
   // Legal
   LEGAL: {
     TERMS: '/legal/terms',

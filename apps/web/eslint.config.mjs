@@ -119,6 +119,15 @@ const eslintConfig = [
       "react/jsx-key": "error",
       "react/no-array-index-key": "warn",
 
+      // Security: prevent reverse-tabnabbing via target="_blank" without rel.
+      // Audit fix A1 (2026-05-07): catches cases where Next.js <Link>, raw <a>,
+      // or any other element opens a new tab without rel="noopener noreferrer".
+      "react/jsx-no-target-blank": ["error", {
+        "allowReferrer": false,
+        "enforceDynamicLinks": "always",
+        "warnOnSpreadAttributes": true
+      }],
+
       // Semantic Naming Conventions for components
       "react/function-component-definition": ["warn", {
         "namedComponents": "function-declaration",

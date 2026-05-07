@@ -1,0 +1,94 @@
+{
+  "lesson": {
+    "h1": "How Money Really Grows",
+    "readTime": "~5 min read",
+    "lastUpdated": {
+      "label": "Last updated:",
+      "date": "May 2026"
+    }
+  },
+  "beat1": {
+    "title": "Saving is half of the story.",
+    "body": [
+      "Difficult. Necessary. The first step. But on its own, never life-changing.",
+      "$1,000 saved is $1,000 in six months. In one year. In forty years.",
+      "But that same $1,000 could be **~$2,252 in 12 years.**",
+      "How?",
+      "Doing what every bank and every Wall Street firm has been doing for centuries. Using compound interest.",
+      "The banks know this. The funds know this. They've been using it on your money — and paying you almost nothing back.",
+      "Now it's your turn."
+    ]
+  },
+  "beat2": {
+    "title": "The system's secret engine.",
+    "intro": [
+      "You might be thinking — *how am I supposed to find money to invest?*",
+      "Don't worry. We won't lecture you about the old 50/30/20 rule. That worked when housing prices weren't skyrocketing, when inflation was under control, when groceries didn't cost an arm and a leg.",
+      "That world is gone. We live in this one.",
+      "So let's talk about something simpler. Small things you already spend on without thinking."
+    ],
+    "habitsLine": "Your daily latte. Your Friday takeout. Your monthly streaming bundle.",
+    "vignettesIntro": "If just one of those went to work instead of away — at the same 7% historical compound rate — here's what 12 years looks like:",
+    "vignettes": [
+      { "habit": "Daily latte ($5)", "yearly": "$1,800", "twelveYear": "~$32,840" },
+      { "habit": "Friday takeout ($40)", "yearly": "$2,080", "twelveYear": "~$37,930" },
+      { "habit": "Streaming bundle ($25/mo)", "yearly": "$300", "twelveYear": "~$5,470" }
+    ],
+    "vignettesTableHeaders": {
+      "habit": "Habit",
+      "yearly": "Yearly cost",
+      "twelveYear": "Could become in 12 years"
+    },
+    "vignettesOutro": "Same money. Different job.",
+    "vignettesDisclaimer": "Illustrative figures based on 7% historical compound rate. Past performance does not guarantee future results.",
+    "habitsRecap": "Nobody is asking you to give up your latte. Or your Friday takeout. Or your streaming. Keep what makes life good.",
+    "outro": [
+      "But if even one of these — just one — went to work for you instead of disappearing every month, the math you saw above is what happens.",
+      "This is what the banks have been doing. With your money. For decades.",
+      "Now it's your turn."
+    ]
+  },
+  "beat3": {
+    "title": "Now use it yourself.",
+    "intro": [
+      "The math above used a daily latte, a Friday takeout, a monthly streaming bundle. Those are examples. Your life is yours.",
+      "So plug in your own numbers.",
+      "What do you spend on, every day or every week or every month, that you wouldn't really miss if it went to work for you instead?",
+      "Your weekly takeout. Your monthly subscription stack. The few dollars you spend on the way to work without thinking. Whatever it is — type it in below.",
+      "The chart will show you what 12 years looks like. At three different rates. Compared against what your bank is paying you right now."
+    ],
+    "calculatorTagline": "Same money. Different job.",
+    "afterCalculator": "Numbers landed?",
+    "wrap": [
+      "This is what diBoaS is for. The part of your money you can set aside, working at a rate the system has been keeping for itself.",
+      "Your bank stays where it is — for spending, bills, and daily life. diBoaS is for money with a goal."
+    ],
+    "cta": {
+      "primary": "Join the Waitlist",
+      "primaryNote": "Joining doesn't move your money. You decide later.",
+      "secondary": "More lessons coming →"
+    }
+  },
+  "calculator": {
+    "amountLabel": "Amount",
+    "amountAriaLabel": "Amount per period",
+    "cadenceLabel": "How often",
+    "cadenceOptions": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
+    "yearsLabel": "Years",
+    "yearsTooltip": "Daily uses 365 days; weekly uses 52 weeks; monthly is unchanged.",
+    "outputBank": "Your bank",
+    "outputConservative": "Conservative (4%)",
+    "outputHistorical": "Historical (7%)",
+    "outputOptimistic": "Optimistic (10%)",
+    "summaryHeader": "In {years} years, your monthly {amount} could become…",
+    "chartAriaLabel": "Compound growth chart comparing your bank rate against three scenario rates over time.",
+    "tableHeaderScenario": "Scenario",
+    "tableHeaderRate": "Annual rate",
+    "tableHeaderTotal": "After {years} years",
+    "loadingState": "Calculating…"
+  }
+}

@@ -139,6 +139,16 @@ export const PAGE_SEO_CONFIG = {
     title: 'Cookie Policy - Cookie Usage and Preferences',
     description: 'Information about how we use cookies and how to manage your cookie preferences.',
     keywords: ['cookie policy', 'cookies', 'tracking preferences']
+  },
+  learn: {
+    title: 'Learn how money actually works | diBoaS',
+    description: "Short, honest lessons on the financial system — written for people the system wasn't built for.",
+    keywords: ['compound interest', 'financial literacy', 'how money grows', 'learn investing']
+  },
+  'learn/compound-interest': {
+    title: 'How Money Really Grows | Compound Interest Explained | diBoaS',
+    description: "Learn how compound interest works — the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like.",
+    keywords: ['compound interest calculator', 'how money grows', 'compound interest explained', 'savings vs investing']
   }
 } as const;
 

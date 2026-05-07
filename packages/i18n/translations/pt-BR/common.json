@@ -10,6 +10,7 @@
       "about": "Sobre",
       "protocols": "Protocolos",
       "adelaideDaily": "Adelaide Daily",
+      "learn": "Aprender",
       "joinWaitlist": "Entrar na Lista",
       "tryDemo": "Testar Demo"
     },
@@ -368,5 +369,8 @@
     "invalidLink": "Este link é inválido ou expirou.",
     "error": "Algo deu errado. Tente novamente.",
     "processing": "Processando..."
+  },
+  "disclaimers": {
+    "educationalProjection": "Valores ilustrativos baseados em premissas históricas de juros compostos. Desempenho passado não garante resultados futuros. Use apenas dinheiro que você pode perder. O diBoaS não é um banco e seus fundos não são segurados."
   }
 }

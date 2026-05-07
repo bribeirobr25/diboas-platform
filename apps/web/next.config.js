@@ -193,14 +193,23 @@ const nextConfig = {
         
         config.plugins.push(new WebpackPerformancePlugin({
           outputPath: '.next/performance-report.json',
+          // Budgets recalibrated 2026-05-07 from measured production baseline.
+          // The plugin sums *webpack entrypoint* chunk sizes (framework + vendor +
+          // locale + page chunks for every route). This is a different metric
+          // from Next.js's user-facing "First Load JS" (per-route incremental
+          // cost after HTTP/2 parallel delivery + shared-chunk caching). The
+          // ceiling here is "no worse than 2026-05-07 baseline" — meant to
+          // catch regressions (a new 500 KB library, accidental de-optimisation),
+          // not to model real-world user payload. A First-Load-JS-aware budget
+          // is tracked as a Phase 2 improvement in PENDING_ALL.md.
           budgets: {
-            maxAssetSize: 300 * 1024, // 300KB (source maps excluded)
-            maxEntrypointSize: 800 * 1024, // 800KB (source maps excluded)
-            maxTotalSize: 4 * 1024 * 1024, // 4MB (source maps excluded)
-            maxAssets: 300 // 4 locales × ~60 namespaces + framework chunks
+            maxAssetSize: 300 * 1024, // 300KB per individual asset (current peak ~194KB)
+            maxEntrypointSize: 3100 * 1024, // 3.1MB (peak 2.69MB + ~15% headroom)
+            maxTotalSize: 8 * 1024 * 1024, // 8MB (current 6.71MB + ~19% headroom)
+            maxAssets: 300 // 4 locales × ~60 namespaces + framework chunks (current 278)
           },
           logLevel: 'warn',
-          failOnBudgetExceeded: false // Never fail builds
+          failOnBudgetExceeded: true // M3 audit fix 2026-05-07: catch regressions in CI
         }));
       } catch (error) {
         console.warn('Failed to load performance plugin:', error.message);
@@ -209,14 +218,11 @@ const nextConfig = {
     
     // Advanced bundle optimization for production
     if (!dev && !isServer) {
-      // Enable native webpack performance budget warnings (source maps excluded)
-      config.performance = {
-        ...config.performance,
-        hints: 'warning',
-        maxAssetSize: 300 * 1024,      // 300KB — matches custom plugin budget
-        maxEntrypointSize: 800 * 1024,  // 800KB — matches custom plugin budget
-        assetFilter: (name) => !name.endsWith('.map'), // Exclude source maps from size warnings
-      };
+      // Native webpack `config.performance` block intentionally NOT set here.
+      // Budget enforcement lives in WebpackPerformancePlugin above (single
+      // source of truth). The native block was removed 2026-05-07 to avoid
+      // two parallel budget systems with different thresholds emitting
+      // contradictory warnings — see audit/A.0.1 + CTO feedback.
 
       config.optimization.splitChunks = {
         chunks: 'all',

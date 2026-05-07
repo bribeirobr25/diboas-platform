@@ -19,6 +19,8 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/strategies': 0.9,
   '/about': 0.8,
   '/protocols': 0.8,
+  '/learn': 0.8,
+  '/learn/compound-interest': 0.8,
   '/help': 0.7,
   '/security': 0.7,
   '/legal/terms': 0.3,

@@ -43,6 +43,11 @@ const LANDING_NAV_LINKS = [
     href: ROUTES.DAILY_MARKET,
   },
   {
+    id: 'learn',
+    labelKey: 'common.navigation.landing.learn',
+    href: ROUTES.LEARN,
+  },
+  {
     id: 'about',
     labelKey: 'common.navigation.landing.about',
     href: ROUTES.ABOUT,

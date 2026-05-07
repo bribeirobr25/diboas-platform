@@ -181,6 +181,7 @@ export function WaitlistModalForm({
             <Link
               href={WAITING_LIST_CONFIG.privacyPolicyUrl}
               target="_blank"
+              rel="noopener noreferrer"
               className={styles.privacyLink}
             >
               {labels.privacyPolicy}

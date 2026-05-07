@@ -19,7 +19,8 @@
         "next.config.*",
         "postcss.config.*",
         "tailwind.config.*",
-        "sentry.*.config.*"
+        "sentry.*.config.*",
+        "eslint.config.mjs"
       ],
       "project": ["src/**/*.{ts,tsx,js,jsx}"],
       "ignore": [

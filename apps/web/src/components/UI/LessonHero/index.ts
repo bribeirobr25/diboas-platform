@@ -1,0 +1,1 @@
+export { LessonHero } from './LessonHero';
