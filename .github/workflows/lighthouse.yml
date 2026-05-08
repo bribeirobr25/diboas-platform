@@ -1,0 +1,72 @@
+name: Lighthouse CI
+
+# Phase 4.3.a (audit/2026-05-08): warn-only Core Web Vitals + Lighthouse
+# category checks on every PR. Thresholds calibrated for mobile per
+# Google's "Good" Core Web Vitals boundaries:
+#   LCP <2.5s · CLS <0.1 · TBT <300ms · all categories ≥0.9.
+#
+# Strictness plan:
+#   - Today (warn-only): visible in PR checks, never blocks merge.
+#   - +2 weeks: flip "warn" → "error" in lighthouserc.json once we've
+#     calibrated the thresholds against actual CI-runner performance.
+#
+# Run locally: `pnpm --filter web lighthouse`
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build production bundle
+        run: pnpm --filter web build
+        env:
+          # Stub out env vars that the build path validates but that we
+          # don't need to talk to real services for performance auditing.
+          # See `apps/web/src/config/env.ts` for the validation rules.
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
+
+      - name: Start production server (background) and wait for ready
+        # Same pattern as the accessibility workflow — explicit readiness
+        # check via curl is more reliable than lhci's startServerCommand
+        # + startServerReadyPattern because Next.js's "Ready in N ms"
+        # output races slightly ahead of full route availability.
+        run: |
+          pnpm --filter web start &
+          for i in {1..60}; do
+            if curl -sf http://localhost:3000/en > /dev/null; then
+              echo "Server ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Server did not start within 60s"
+          exit 1
+        env:
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
+
+      - name: Run Lighthouse CI (warn-only)
+        run: pnpm --filter web lighthouse
+        # `lhci autorun` exits 0 when only warnings are emitted (per
+        # lighthouserc.json's `["warn", ...]` assertions). It exits
+        # non-zero only on `error`-level assertion failures, which we
+        # currently have none of.
+        continue-on-error: true

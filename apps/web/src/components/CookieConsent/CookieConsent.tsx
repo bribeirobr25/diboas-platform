@@ -108,6 +108,7 @@ export function CookieConsent() {
 
     // Emit consent given event (local fallback - API also emits on success)
     applicationEventBus.emit(ApplicationEventType.CONSENT_GIVEN, {
+      domain: 'consent',
       source: 'consent',
       timestamp: Date.now(),
       consentType: 'analytics',
@@ -129,6 +130,7 @@ export function CookieConsent() {
 
     // Emit consent withdrawn event (local fallback - API also emits on success)
     applicationEventBus.emit(ApplicationEventType.CONSENT_WITHDRAWN, {
+      domain: 'consent',
       source: 'consent',
       timestamp: Date.now(),
       consentType: 'analytics',

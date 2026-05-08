@@ -12,6 +12,19 @@ import { Logger } from '@/lib/monitoring/Logger';
 export interface BaseEventPayload {
   timestamp: number;
   eventId?: string;
+  correlationId?: string;
+}
+
+/**
+ * Generate a UUID-ish identifier. Uses crypto.randomUUID() when available
+ * (Node 14+, modern browsers), falls back to a timestamp+random combo
+ * for older runtimes (e.g. iOS Safari < 16.4).
+ */
+function generateId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
 
 /** Generic event listener */
@@ -43,7 +56,7 @@ export interface EventBusConfig {
  */
 export class EventBus<
   TEventType extends string,
-  TPayload extends { timestamp: number; eventId?: string },
+  TPayload extends { timestamp: number; eventId?: string; correlationId?: string },
 > {
   private listeners = new Map<TEventType, Set<GenericEventListener<TPayload>>>();
   private eventHistory: Array<{ type: TEventType; payload: TPayload; timestamp: number }> = [];
@@ -99,9 +112,13 @@ export class EventBus<
 
       const enriched = {
         ...payload,
-        eventId: payload.eventId || (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-        ? crypto.randomUUID()
-        : `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`),
+        eventId: payload.eventId || generateId(),
+        // Phase 2 M1 (2026-05-08): correlationId is auto-filled with a fresh UUID if
+        // the caller didn't pass one. Callers in Node-runtime API routes that want
+        // x-request-id propagation should pass it explicitly via getCorrelationId(req)
+        // (see lib/api/routeHelpers.ts) — this fallback exists only so client-side
+        // emitters and tests don't have to invent IDs themselves.
+        correlationId: payload.correlationId || generateId(),
         timestamp: payload.timestamp || Date.now(),
       };
 

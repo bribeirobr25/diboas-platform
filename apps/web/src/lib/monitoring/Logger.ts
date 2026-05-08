@@ -7,6 +7,23 @@
  * Performance & SEO Optimization: Performance-conscious logging
  * No Hard Coded Values: Configurable log levels and destinations
  * Domain-Driven Design: Domain-specific logging contexts
+ *
+ * Runtime safety
+ * --------------
+ * This Logger is safe to import from **all three Next.js runtimes**:
+ *
+ *   - **Browser**:   reads `<meta name="x-request-id">`, batches to localStorage,
+ *                    posts to a remote endpoint when configured.
+ *   - **Node.js**:   prints to console + posts to remote endpoint.
+ *   - **Edge**:      prints to console + posts to remote endpoint. Storage is
+ *                    automatically disabled (`enableStorage` gates on
+ *                    `typeof window !== 'undefined'`), and `StorageLogDestination`
+ *                    only references `localStorage` inside method bodies (never
+ *                    at module scope) so the static import is harmless.
+ *
+ * Phase 3 L3 (audit/2026-05-08): documented the Edge-runtime safety contract
+ * after replacing `console.error` in `app/api/health/live/route.ts`. New code
+ * should call `Logger.*` rather than `console.*` regardless of runtime.
  */
 
 import { sanitizeContext } from './logRedactor';
@@ -30,6 +47,16 @@ export interface LogEntry {
   error?: Error;
   source?: string;
   sessionId?: string;
+  /**
+   * Server↔client correlation ID — sourced from `x-request-id` set by
+   * middleware on the initial render, embedded as a `<meta>` tag, and
+   * read by Logger.initFromMeta() on first client mount.
+   *
+   * Phase 2 L1 (audit/2026-05-08): closes the audit gap where Sentry
+   * events on the client weren't traceable back to the originating
+   * server request.
+   */
+  requestId?: string;
 }
 
 // Logger configuration
@@ -61,6 +88,32 @@ export class Logger {
     Logger.config.maxStorageEntries
   );
   private static sessionId = this.generateSessionId();
+  private static requestId: string | undefined;
+
+  /**
+   * Read x-request-id from the server-rendered `<meta>` tag on first
+   * client mount. Subsequent fetches can refresh this via setRequestId().
+   *
+   * Phase 2 L1 (audit/2026-05-08).
+   */
+  static initFromMeta(): void {
+    if (typeof document === 'undefined') return;
+    if (this.requestId) return;
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="x-request-id"]');
+    if (meta?.content) {
+      this.requestId = meta.content;
+    }
+  }
+
+  /** Override the current correlation ID (e.g. after a route transition). */
+  static setRequestId(id: string | undefined): void {
+    this.requestId = id;
+  }
+
+  /** Read the current correlation ID — primarily for outbound fetch headers. */
+  static getRequestId(): string | undefined {
+    return this.requestId;
+  }
 
   /**
    * Debug level logging
@@ -121,7 +174,8 @@ export class Logger {
       context: sanitizeContext(context),
       error,
       source: this.getCallSource(),
-      sessionId: this.sessionId
+      sessionId: this.sessionId,
+      requestId: this.requestId,
     };
 
     // Console logging

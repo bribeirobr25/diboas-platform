@@ -7,7 +7,7 @@ import { SEOMetadataFactory } from '@/lib/seo';
 import { LearnIndex } from '@/components/Sections/LearnIndex';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
-import { generateLearnIndexMetadata } from '@/lib/learn';
+import { generateLearnIndexMetadata, buildLearnIndexStructuredData } from '@/lib/learn';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -38,9 +38,21 @@ export default async function LearnIndexPage({ params }: LocalePageProps) {
     locale,
   );
 
+  const indexStructuredData = buildLearnIndexStructuredData({
+    locale,
+    lessonTitles: {
+      'compound-interest':
+        pageMessages['learn.lessons.compoundInterest.cardTitle'] ?? 'How Money Really Grows',
+    },
+  });
+
+  const structuredDataItems = indexStructuredData
+    ? [breadcrumbData, indexStructuredData]
+    : [breadcrumbData];
+
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={[breadcrumbData]} />
+      <StructuredData data={structuredDataItems} />
       <ScrollToHash />
 
       <div className="main-page-wrapper">

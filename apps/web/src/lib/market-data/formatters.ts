@@ -20,10 +20,10 @@ const LOCALE_MAP: Record<SupportedLocale, { intlLocale: string; currency: string
  */
 export function formatRate(rate: number, locale: SupportedLocale): string {
   const { intlLocale } = LOCALE_MAP[locale];
-  return new Intl.NumberFormat(intlLocale, {
+  return `${new Intl.NumberFormat(intlLocale, {
     minimumFractionDigits: rate % 1 === 0 ? 0 : 2,
     maximumFractionDigits: 2,
-  }).format(rate) + '%';
+  }).format(rate)  }%`;
 }
 
 /**
@@ -31,7 +31,7 @@ export function formatRate(rate: number, locale: SupportedLocale): string {
  * e.g. 7 → "~7%" (en), "~7%" (de)
  */
 export function formatApproxRate(rate: number, locale: SupportedLocale): string {
-  return '~' + formatRate(rate, locale);
+  return `~${  formatRate(rate, locale)}`;
 }
 
 /**
@@ -54,7 +54,7 @@ export function formatCurrency(amount: number, locale: SupportedLocale): string 
  */
 export function formatGain(amount: number, locale: SupportedLocale): string {
   const formatted = formatCurrency(Math.abs(amount), locale);
-  return amount >= 0 ? '+' + formatted : '-' + formatted;
+  return amount >= 0 ? `+${  formatted}` : `-${  formatted}`;
 }
 
 /**
@@ -77,8 +77,8 @@ export function formatCompactCurrency(amount: number, locale: SupportedLocale): 
   if (abs >= 1000) {
     const k = abs / 1000;
     const formatted = k >= 10
-      ? Math.round(k).toString() + 'k'
-      : k.toFixed(1).replace(/\.0$/, '') + 'k';
+      ? `${Math.round(k).toString()  }k`
+      : `${k.toFixed(1).replace(/\.0$/, '')  }k`;
     return symbol + formatted;
   }
 

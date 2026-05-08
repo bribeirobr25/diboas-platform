@@ -75,6 +75,7 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
     const shareUrl = `${baseShareUrl}&dream_amount=${encodeURIComponent(amount)}&dream_growth=${encodeURIComponent(growth)}`;
 
     applicationEventBus.emit(ApplicationEventType.PRE_DREAM_SHARE_INITIATED, {
+      domain: 'preDream',
       source: 'preDream',
       timestamp: Date.now(),
       metadata: { platform },
@@ -131,6 +132,7 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
       });
 
       applicationEventBus.emit(ApplicationEventType.PRE_DREAM_SHARE_COMPLETED, {
+        domain: 'preDream',
         source: 'preDream',
         timestamp: Date.now(),
         metadata: { platform },

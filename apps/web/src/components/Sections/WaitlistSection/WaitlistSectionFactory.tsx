@@ -13,6 +13,7 @@
 
 import { memo, useEffect, useRef } from 'react';
 import { useWaitlistStats } from '@/hooks/useWaitlistStats';
+import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { analyticsService } from '@/lib/analytics';
 import { WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { SectionContainer } from '../SectionContainer/SectionContainer';
@@ -67,20 +68,31 @@ export const WaitlistSection = memo(function WaitlistSection({
     }
   }, [isLoading, showVersionB, enableAnalytics, source]);
 
+  // Phase 3 L11 (audit/2026-05-08): impression event for waitlist-funnel
+  // entry. Uses a wrapping <div> because SectionContainer doesn't forward
+  // refs, and adding ref-forwarding there is out of scope for L11.
+  const impressionRef = useImpressionTracking<HTMLDivElement>({
+    eventName: 'waitlist_section_impression',
+    parameters: { source: source || 'landing_b2c' },
+    enabled: enableAnalytics,
+  });
+
   return (
-    <SectionContainer
-      variant="standard"
-      padding="standard"
-      backgroundColor={config?.backgroundColor || 'var(--color-surface-elevated)'}
-      ariaLabel="Waitlist signup"
-      data-testid={config?.sectionId || 'waitlist-section'}
-    >
-      {showVersionB ? (
-        <WaitlistVersionB config={config} source={source} enableAnalytics={enableAnalytics} />
-      ) : (
-        <WaitlistVersionA config={config} source={source} stats={stats} isLoading={isLoading} enableAnalytics={enableAnalytics} />
-      )}
-    </SectionContainer>
+    <div ref={impressionRef}>
+      <SectionContainer
+        variant="standard"
+        padding="standard"
+        backgroundColor={config?.backgroundColor || 'var(--color-surface-elevated)'}
+        ariaLabel="Waitlist signup"
+        data-testid={config?.sectionId || 'waitlist-section'}
+      >
+        {showVersionB ? (
+          <WaitlistVersionB config={config} source={source} enableAnalytics={enableAnalytics} />
+        ) : (
+          <WaitlistVersionA config={config} source={source} stats={stats} isLoading={isLoading} enableAnalytics={enableAnalytics} />
+        )}
+      </SectionContainer>
+    </div>
   );
 });
 

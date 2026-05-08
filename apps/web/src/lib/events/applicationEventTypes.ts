@@ -8,7 +8,6 @@
 // Application Event Types following Domain-Driven Design
 export enum ApplicationEventType {
   // Waitlist Events
-  WAITLIST_SIGNUP_SUCCESS = 'waitlist:signup:success',
   WAITLIST_SIGNUP_COMPLETED = 'waitlist:signupCompleted',
   WAITLIST_SIGNUP_FAILED = 'waitlist:signupFailed',
   WAITLIST_DELETION_REQUESTED = 'waitlist:deletionRequested',
@@ -43,17 +42,46 @@ export enum ApplicationEventType {
   FEATURE_USED = 'feature:used'
 }
 
-// Base event payload interface
+/**
+ * Application event domain — the bounded context the event belongs to (per
+ * coding-standards §1 / §2). Required on every event payload as of Phase 2 M1.
+ */
+export type ApplicationDomain =
+  | 'waitlist'
+  | 'share'
+  | 'consent'
+  | 'preDemo'
+  | 'preDream'
+  | 'analytics'
+  | 'monitoring'
+  | 'application';
+
+/**
+ * Base event payload interface.
+ *
+ * Phase 2 M1 (audit/2026-05-08): `domain` is required at the call site;
+ * `eventId` and `correlationId` are optional at the call site and auto-filled
+ * by EventBus.emit before validation + dispatch (so listeners receive a
+ * payload where all three are present).
+ */
 export interface ApplicationEventPayload {
+  /** Required — bounded context this event belongs to */
+  domain: ApplicationDomain;
+  /** Required — epoch ms when the event occurred */
   timestamp: number;
+  /** Required — component/module that emitted */
   source: string;
+  /** Optional at call site; EventBus.emit auto-fills with crypto.randomUUID() */
   eventId?: string;
+  /** Optional at call site; EventBus.emit pulls from x-request-id / AsyncLocalStorage / fallback UUID */
   correlationId?: string;
+  /** Optional domain-specific structured data */
   metadata?: Record<string, unknown>;
 }
 
 // Waitlist Event Payloads
 export interface WaitlistSignupEventPayload extends ApplicationEventPayload {
+  domain: 'waitlist';
   source: 'waitlist';
   submissionId: string;
   locale: string;
@@ -63,6 +91,7 @@ export interface WaitlistSignupEventPayload extends ApplicationEventPayload {
 }
 
 export interface WaitlistDeletionEventPayload extends ApplicationEventPayload {
+  domain: 'waitlist';
   source: 'waitlist';
   email?: string; // Only included for internal audit, not exposed
   reason?: 'user_request' | 'gdpr' | 'admin';
@@ -70,6 +99,7 @@ export interface WaitlistDeletionEventPayload extends ApplicationEventPayload {
 
 // Share Event Payloads
 export interface ShareEventPayload extends ApplicationEventPayload {
+  domain: 'share';
   source: 'share';
   platform: string;
   cardType?: string;
@@ -81,6 +111,7 @@ export interface ShareEventPayload extends ApplicationEventPayload {
 
 // Consent Event Payloads
 export interface ConsentEventPayload extends ApplicationEventPayload {
+  domain: 'consent';
   source: 'consent';
   consentType: 'analytics' | 'marketing' | 'all';
   previousState?: boolean;
@@ -109,29 +140,32 @@ export type AppEventListener<T extends AppEventPayload = AppEventPayload> = (
   payload: T
 ) => void | Promise<void>;
 
-// Event validation schema — required fields per event type
+// Event validation schema — required fields per event type.
+// Phase 2 M1 (audit/2026-05-08): `domain` is universally required;
+// `eventId`, `correlationId`, `timestamp` are auto-filled by EventBus.emit
+// before validation runs, so they don't need to appear in the per-event
+// required-fields list (the EventBus enriches before validating).
 export const EVENT_VALIDATION_SCHEMA: Record<ApplicationEventType, string[]> = {
-  [ApplicationEventType.WAITLIST_SIGNUP_SUCCESS]: ['source'],
-  [ApplicationEventType.WAITLIST_SIGNUP_COMPLETED]: ['source', 'submissionId', 'locale'],
-  [ApplicationEventType.WAITLIST_SIGNUP_FAILED]: ['source'],
-  [ApplicationEventType.WAITLIST_DELETION_REQUESTED]: ['source'],
-  [ApplicationEventType.WAITLIST_DELETION_COMPLETED]: ['source'],
-  [ApplicationEventType.WAITLIST_POSITION_UPDATED]: ['source'],
-  [ApplicationEventType.WAITLIST_REFERRAL_USED]: ['source'],
-  [ApplicationEventType.WAITLIST_POSITION_CHECKED]: ['source'],
-  [ApplicationEventType.SHARE_INITIATED]: ['source', 'platform', 'locale'],
-  [ApplicationEventType.SHARE_COMPLETED]: ['source', 'platform', 'locale'],
-  [ApplicationEventType.SHARE_FAILED]: ['source', 'platform', 'locale'],
-  [ApplicationEventType.SHARE_CANCELLED]: ['source', 'platform', 'locale'],
-  [ApplicationEventType.CONSENT_GIVEN]: ['source', 'consentType', 'newState'],
-  [ApplicationEventType.CONSENT_WITHDRAWN]: ['source', 'consentType', 'newState'],
-  [ApplicationEventType.PRE_DEMO_STARTED]: ['source'],
-  [ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED]: ['source'],
-  [ApplicationEventType.PRE_DEMO_SEND_COMPLETED]: ['source'],
-  [ApplicationEventType.PRE_DEMO_BUY_COMPLETED]: ['source'],
-  [ApplicationEventType.PRE_DREAM_STARTED]: ['source'],
-  [ApplicationEventType.PRE_DREAM_SHARE_INITIATED]: ['source'],
-  [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: ['source'],
-  [ApplicationEventType.APPLICATION_ERROR]: ['source', 'error', 'severity'],
-  [ApplicationEventType.FEATURE_USED]: ['source']
+  [ApplicationEventType.WAITLIST_SIGNUP_COMPLETED]: ['domain', 'source'],
+  [ApplicationEventType.WAITLIST_SIGNUP_FAILED]: ['domain', 'source'],
+  [ApplicationEventType.WAITLIST_DELETION_REQUESTED]: ['domain', 'source'],
+  [ApplicationEventType.WAITLIST_DELETION_COMPLETED]: ['domain', 'source'],
+  [ApplicationEventType.WAITLIST_POSITION_UPDATED]: ['domain', 'source'],
+  [ApplicationEventType.WAITLIST_REFERRAL_USED]: ['domain', 'source'],
+  [ApplicationEventType.WAITLIST_POSITION_CHECKED]: ['domain', 'source'],
+  [ApplicationEventType.SHARE_INITIATED]: ['domain', 'source', 'platform', 'locale'],
+  [ApplicationEventType.SHARE_COMPLETED]: ['domain', 'source', 'platform', 'locale'],
+  [ApplicationEventType.SHARE_FAILED]: ['domain', 'source', 'platform', 'locale'],
+  [ApplicationEventType.SHARE_CANCELLED]: ['domain', 'source', 'platform', 'locale'],
+  [ApplicationEventType.CONSENT_GIVEN]: ['domain', 'source', 'consentType', 'newState'],
+  [ApplicationEventType.CONSENT_WITHDRAWN]: ['domain', 'source', 'consentType', 'newState'],
+  [ApplicationEventType.PRE_DEMO_STARTED]: ['domain', 'source'],
+  [ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED]: ['domain', 'source'],
+  [ApplicationEventType.PRE_DEMO_SEND_COMPLETED]: ['domain', 'source'],
+  [ApplicationEventType.PRE_DEMO_BUY_COMPLETED]: ['domain', 'source'],
+  [ApplicationEventType.PRE_DREAM_STARTED]: ['domain', 'source'],
+  [ApplicationEventType.PRE_DREAM_SHARE_INITIATED]: ['domain', 'source'],
+  [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: ['domain', 'source'],
+  [ApplicationEventType.APPLICATION_ERROR]: ['domain', 'source', 'error', 'severity'],
+  [ApplicationEventType.FEATURE_USED]: ['domain', 'source']
 };

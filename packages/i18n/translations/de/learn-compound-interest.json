@@ -1,94 +1,94 @@
 {
   "lesson": {
-    "h1": "How Money Really Grows",
-    "readTime": "~5 min read",
+    "h1": "Wie Geld wirklich wächst",
+    "readTime": "~5 Min Lesezeit",
     "lastUpdated": {
-      "label": "Last updated:",
-      "date": "May 2026"
+      "label": "Zuletzt aktualisiert:",
+      "date": "Mai 2026"
     }
   },
   "beat1": {
-    "title": "Saving is half of the story.",
+    "title": "Sparen ist nur die halbe Wahrheit.",
     "body": [
-      "Difficult. Necessary. The first step. But on its own, never life-changing.",
-      "$1,000 saved is $1,000 in six months. In one year. In forty years.",
-      "But that same $1,000 could be **~$2,252 in 12 years.**",
-      "How?",
-      "Doing what every bank and every Wall Street firm has been doing for centuries. Using compound interest.",
-      "The banks know this. The funds know this. They've been using it on your money — and paying you almost nothing back.",
-      "Now it's your turn."
+      "Schwierig. Notwendig. Der erste Schritt. Aber für sich genommen verändert es dein Leben nicht.",
+      "1.000 € gespart sind 1.000 € — in sechs Monaten. In einem Jahr. In vierzig Jahren.",
+      "Dieselben 1.000 € könnten aber **~2.252 € in 12 Jahren** sein.",
+      "Wie?",
+      "Indem du machst, was jede Bank und jeder Wall-Street-Fonds seit Jahrhunderten macht. Zinseszins.",
+      "Die Banken wissen das. Die Fonds wissen das. Sie nutzen es seit Jahrzehnten mit deinem Geld — und zahlen dir fast nichts dafür zurück.",
+      "Jetzt bist du dran."
     ]
   },
   "beat2": {
-    "title": "The system's secret engine.",
+    "title": "Der unsichtbare Motor des Systems.",
     "intro": [
-      "You might be thinking — *how am I supposed to find money to invest?*",
-      "Don't worry. We won't lecture you about the old 50/30/20 rule. That worked when housing prices weren't skyrocketing, when inflation was under control, when groceries didn't cost an arm and a leg.",
-      "That world is gone. We live in this one.",
-      "So let's talk about something simpler. Small things you already spend on without thinking."
+      "Du denkst vielleicht — *woher soll ich denn das Geld zum Investieren nehmen?*",
+      "Keine Sorge. Wir kommen dir nicht mit der alten 50/30/20-Regel. Die hat funktioniert, als Mieten noch bezahlbar waren, als die Inflation unter Kontrolle war, als der Wocheneinkauf nicht ein halbes Vermögen gekostet hat.",
+      "Diese Welt ist vorbei. Wir leben in dieser hier.",
+      "Reden wir also über etwas Einfacheres. Kleine Dinge, für die du Geld ausgibst, ohne darüber nachzudenken."
     ],
     "habitsLine": "Dein Bäckerei-Frühstück morgens. Das Restaurant am Wochenende. Streaming und Fitnessstudio jeden Monat.",
-    "vignettesIntro": "If just one of those went to work instead of away — at the same 7% historical compound rate — here's what 12 years looks like:",
+    "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen — beim gleichen historischen Zinssatz von 7 % — dann sehen 12 Jahre so aus:",
     "vignettes": [
-      { "habit": "Bäckerei breakfast (€4/Tag)", "yearly": "€1.040", "twelveYear": "~€26.270" },
-      { "habit": "Restaurant am Wochenende (€35/Wo)", "yearly": "€1.820", "twelveYear": "~€33.190" },
-      { "habit": "Streaming + Fitnessstudio (€40/Mo)", "yearly": "€480", "twelveYear": "~€8.750" }
+      { "habit": "Bäckerei-Frühstück (4 €/Tag werktags)", "yearly": "1.040 €", "twelveYear": "~19.200 €" },
+      { "habit": "Restaurant am Wochenende (35 €/Woche)", "yearly": "1.820 €", "twelveYear": "~33.190 €" },
+      { "habit": "Streaming + Fitnessstudio (40 €/Monat)", "yearly": "480 €", "twelveYear": "~8.750 €" }
     ],
     "vignettesTableHeaders": {
-      "habit": "Habit",
-      "yearly": "Yearly cost",
-      "twelveYear": "Could become in 12 years"
+      "habit": "Gewohnheit",
+      "yearly": "Pro Jahr",
+      "twelveYear": "Könnte in 12 Jahren werden"
     },
-    "vignettesOutro": "Same money. Different job.",
-    "vignettesDisclaimer": "Illustrative figures based on 7% historical compound rate. Past performance does not guarantee future results.",
-    "habitsRecap": "Nobody is asking you to give up your latte. Or your Friday takeout. Or your streaming. Keep what makes life good.",
+    "vignettesOutro": "Dasselbe Geld. Andere Aufgabe.",
+    "vignettesDisclaimer": "Illustrative Zahlen auf Basis eines historischen Zinssatzes von 7 %. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse.",
+    "habitsRecap": "Niemand verlangt von dir, das Frühstück zu streichen. Oder das Restaurant. Oder das Streaming. Behalte, was dein Leben besser macht.",
     "outro": [
-      "But if even one of these — just one — went to work for you instead of disappearing every month, the math you saw above is what happens.",
-      "This is what the banks have been doing. With your money. For decades.",
-      "Now it's your turn."
+      "Aber wenn nur eines davon — nur eines — für dich arbeiten würde, statt jeden Monat zu verschwinden, dann passiert genau die Mathematik, die du oben gesehen hast.",
+      "Genau das machen die Banken. Mit deinem Geld. Seit Jahrzehnten.",
+      "Jetzt bist du dran."
     ]
   },
   "beat3": {
-    "title": "Now use it yourself.",
+    "title": "Jetzt benutze es selbst.",
     "intro": [
-      "The math above used a daily latte, a Friday takeout, a monthly streaming bundle. Those are examples. Your life is yours.",
-      "So plug in your own numbers.",
-      "What do you spend on, every day or every week or every month, that you wouldn't really miss if it went to work for you instead?",
-      "Your weekly takeout. Your monthly subscription stack. The few dollars you spend on the way to work without thinking. Whatever it is — type it in below.",
-      "The chart will show you what 12 years looks like. At three different rates. Compared against what your bank is paying you right now."
+      "Die Rechnung oben war mit Bäckerei, Restaurant und Streaming. Das sind Beispiele. Dein Leben ist deins.",
+      "Setz also deine eigenen Zahlen ein.",
+      "Wofür gibst du täglich, wöchentlich oder monatlich Geld aus, das du nicht wirklich vermissen würdest, wenn es stattdessen für dich arbeiten würde?",
+      "Das wöchentliche Essengehen. Die Abos, die sich angesammelt haben. Die paar Euro, die jeden Tag auf dem Weg zur Arbeit verschwinden. Was auch immer es ist — gib es unten ein.",
+      "Die Grafik zeigt dir, wie 12 Jahre aussehen. Bei drei verschiedenen Zinssätzen. Verglichen mit dem, was deine Bank dir gerade zahlt."
     ],
-    "calculatorTagline": "Same money. Different job.",
-    "afterCalculator": "Numbers landed?",
+    "calculatorTagline": "Dasselbe Geld. Andere Aufgabe.",
+    "afterCalculator": "Zahlen verstanden?",
     "wrap": [
-      "This is what diBoaS is for. The part of your money you can set aside, working at a rate the system has been keeping for itself.",
-      "Your bank stays where it is — for spending, bills, and daily life. diBoaS is for money with a goal."
+      "Genau dafür ist diBoaS da. Der Teil deines Geldes, den du zur Seite legen kannst, der zu einem Zinssatz arbeitet, den sich das System bisher selbst behalten hat.",
+      "Deine Bank bleibt, wo sie ist — für Ausgaben, Rechnungen und den Alltag. diBoaS ist für Geld mit einem Ziel."
     ],
     "cta": {
-      "primary": "Join the Waitlist",
-      "primaryNote": "Joining doesn't move your money. You decide later.",
-      "secondary": "More lessons coming →"
+      "primary": "Auf die Warteliste",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "secondary": "Weitere Lektionen folgen →"
     }
   },
   "calculator": {
-    "amountLabel": "Amount",
-    "amountAriaLabel": "Amount per period",
-    "cadenceLabel": "How often",
+    "amountLabel": "Betrag",
+    "amountAriaLabel": "Betrag pro Periode",
+    "cadenceLabel": "Wie oft",
     "cadenceOptions": {
-      "daily": "Daily",
-      "weekly": "Weekly",
-      "monthly": "Monthly"
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich"
     },
-    "yearsLabel": "Years",
-    "yearsTooltip": "Daily uses 365 days; weekly uses 52 weeks; monthly is unchanged.",
-    "outputBank": "Your bank",
-    "outputConservative": "Conservative (4%)",
-    "outputHistorical": "Historical (7%)",
-    "outputOptimistic": "Optimistic (10%)",
-    "summaryHeader": "In {years} years, your monthly {amount} could become…",
-    "chartAriaLabel": "Compound growth chart comparing your bank rate against three scenario rates over time.",
-    "tableHeaderScenario": "Scenario",
-    "tableHeaderRate": "Annual rate",
-    "tableHeaderTotal": "After {years} years",
-    "loadingState": "Calculating…"
+    "yearsLabel": "Jahre",
+    "yearsTooltip": "Täglich nutzt 365 Tage; wöchentlich 52 Wochen; monatlich bleibt unverändert.",
+    "outputBank": "Deine Bank",
+    "outputConservative": "Konservativ (4 %)",
+    "outputHistorical": "Historisch (7 %)",
+    "outputOptimistic": "Optimistisch (10 %)",
+    "summaryHeader": "Aus deinen monatlichen {amount} könnten in {years} Jahren werden…",
+    "chartAriaLabel": "Zinseszins-Grafik, die deine Bankrate mit drei Szenarien über die Zeit vergleicht.",
+    "tableHeaderScenario": "Szenario",
+    "tableHeaderRate": "Jahreszins",
+    "tableHeaderTotal": "Nach {years} Jahren",
+    "loadingState": "Wird berechnet…"
   }
 }

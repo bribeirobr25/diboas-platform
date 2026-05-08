@@ -31,8 +31,11 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Ensure portal is mounted on client
+  // One-time hydration gate for portal rendering. setState-in-effect is
+  // the canonical React pattern for "render only after hydration"; the
+  // lint rule is overly strict for this single-use case.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

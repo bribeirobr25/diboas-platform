@@ -139,19 +139,22 @@ export function LegalTable({ headers, rows, caption }: LegalTableProps) {
         )}
         <thead>
           <tr>
-            {headers.map((header, index) => (
-              <th key={index} scope="col">{header}</th>
+            {headers.map((header) => (
+              <th key={header} scope="col">{header}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, cellIndex) => (
-                <td key={cellIndex}>{cell}</td>
-              ))}
-            </tr>
-          ))}
+          {rows.map((row) => {
+            const rowKey = row.join('|');
+            return (
+              <tr key={rowKey}>
+                {row.map((cell, cellIndex) => (
+                  <td key={`${rowKey}-c${cellIndex}`}>{cell}</td>
+                ))}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -172,8 +175,8 @@ export function LegalList({ items, ordered = false }: LegalListProps) {
 
   return (
     <ListTag className={styles.list}>
-      {items.map((item, index) => (
-        <li key={index}>{item}</li>
+      {items.map((item) => (
+        <li key={item}>{item}</li>
       ))}
     </ListTag>
   );
@@ -223,8 +226,8 @@ interface LegalRetentionListProps {
 export function LegalRetentionList({ items }: LegalRetentionListProps) {
   return (
     <ul className={styles.retentionList}>
-      {items.map((item, index) => (
-        <li key={index}>
+      {items.map((item) => (
+        <li key={item.type}>
           <strong>{item.type}</strong>
           <span>{item.duration}</span>
         </li>

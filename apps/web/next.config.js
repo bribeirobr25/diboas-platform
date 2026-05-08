@@ -42,8 +42,11 @@ const nextConfig = {
   // Enable compression
   compress: true,
   
-  // Output optimization (standalone only for production builds)
-  output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
+  // `output: 'standalone'` removed 2026-05-08 (Phase 4 W6): Vercel
+  // handles bundling for its own runtime; standalone is only needed for
+  // self-hosted Docker deployments. Leaving it on caused `next start`
+  // to print a warning every CI run ("does not work with output:
+  // standalone configuration"), polluting the workflow logs.
   
   // Image optimization
   images: {
@@ -224,6 +227,13 @@ const nextConfig = {
       // two parallel budget systems with different thresholds emitting
       // contradictory warnings — see audit/A.0.1 + CTO feedback.
 
+      // Phase 4 W1 (audit/2026-05-08): every cacheGroup now scopes
+      // `type: 'javascript/auto'`. Without this filter, webpack registered
+      // the Inter+Geist font CSS file under `manifest.rootMainFiles`,
+      // which Next.js's HTML renderer iterates as `<script>` tags — the
+      // browser then refused to execute the CSS as JS ("MIME type
+      // 'text/css' is not executable"). Restricting cacheGroups to JS
+      // modules keeps CSS in Next.js's dedicated style pipeline.
       config.optimization.splitChunks = {
         chunks: 'all',
         minSize: 20000,
@@ -237,73 +247,81 @@ const nextConfig = {
           framework: {
             test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
             name: 'framework',
+            type: 'javascript/auto',
             priority: 40,
             enforce: true,
             reuseExistingChunk: true,
             chunks: 'all',
           },
-          
+
           // UI Component libraries
           uiLibs: {
             test: /[\\/]node_modules[\\/](@radix-ui|lucide-react|class-variance-authority|clsx|tailwind-merge)[\\/]/,
             name: 'ui-libs',
+            type: 'javascript/auto',
             priority: 35,
             reuseExistingChunk: true,
             chunks: 'all',
           },
-          
+
           // Internationalization libraries
           i18n: {
             test: /[\\/]node_modules[\\/](@formatjs|react-intl)[\\/]/,
             name: 'i18n',
+            type: 'javascript/auto',
             priority: 32,
             reuseExistingChunk: true,
             chunks: 'all',
           },
-          
+
           // Section Components (our heaviest code)
           sections: {
             test: /[\\/]src[\\/]components[\\/]Sections[\\/]/,
             name: 'sections',
+            type: 'javascript/auto',
             priority: 30,
             reuseExistingChunk: true,
             chunks: 'all',
             minSize: 30000,
           },
-          
+
           // Design System & Config
           designSystem: {
             test: /[\\/]src[\\/](config|styles|lib)[\\/]/,
-            name: 'design-system', 
+            name: 'design-system',
+            type: 'javascript/auto',
             priority: 25,
             reuseExistingChunk: true,
             chunks: 'all',
             minSize: 20000,
           },
-          
+
           // Shared Components
           components: {
             test: /[\\/]src[\\/]components[\\/](?!Sections)/,
             name: 'components',
+            type: 'javascript/auto',
             priority: 20,
             reuseExistingChunk: true,
             chunks: 'all',
             minSize: 15000,
           },
-          
+
           // Remaining vendor libraries
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendor',
+            type: 'javascript/auto',
             priority: 10,
             reuseExistingChunk: true,
             chunks: 'all',
             maxSize: 150000, // Smaller vendor chunks
           },
-          
+
           // Common code between pages
           common: {
             name: 'common',
+            type: 'javascript/auto',
             minChunks: 2,
             priority: 5,
             reuseExistingChunk: true,

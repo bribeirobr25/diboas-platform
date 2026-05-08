@@ -37,6 +37,7 @@ export async function syncConsentToApi(analytics: boolean): Promise<boolean> {
   } catch (error) {
     // Emit error event for monitoring (API handles success events)
     applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      domain: 'consent',
       source: 'consent',
       timestamp: Date.now(),
       error: error instanceof Error ? error : new Error('Consent sync failed'),
@@ -107,6 +108,7 @@ export async function checkConsentFromApi(): Promise<{ analytics: boolean; versi
   } catch (error) {
     // Emit error event for monitoring (low severity - read-only check)
     applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+      domain: 'consent',
       source: 'consent',
       timestamp: Date.now(),
       error: error instanceof Error ? error : new Error('Consent check failed'),
@@ -160,6 +162,7 @@ export function dispatchConsentEvent(consent: CookieConsentValue): void {
       ? ApplicationEventType.CONSENT_GIVEN
       : ApplicationEventType.CONSENT_WITHDRAWN,
     {
+      domain: 'consent',
       source: 'consent',
       timestamp: Date.now(),
       consentType: 'analytics',

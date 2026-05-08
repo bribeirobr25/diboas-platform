@@ -86,6 +86,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
       : ApplicationEventType.CONSENT_WITHDRAWN;
 
     applicationEventBus.emit(eventType, {
+      domain: 'consent',
       source: 'consent',
       timestamp: Date.now(),
       correlationId: request.headers.get('x-request-id') || undefined,
@@ -181,6 +182,7 @@ export async function DELETE(request: NextRequest): Promise<NextResponse<Consent
 
     // Emit consent withdrawn event for audit trail
     applicationEventBus.emit(ApplicationEventType.CONSENT_WITHDRAWN, {
+      domain: 'consent',
       source: 'consent',
       timestamp: Date.now(),
       correlationId: request.headers.get('x-request-id') || undefined,

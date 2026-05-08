@@ -42,6 +42,7 @@ export function buildDepositSequence(
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, {
+          domain: 'preDemo',
           source: 'preDemo',
           timestamp: Date.now(),
           metadata: { amount: pending.grossAmount },
@@ -79,6 +80,7 @@ export function buildSendSequence(
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
+          domain: 'preDemo',
           source: 'preDemo',
           timestamp: Date.now(),
           metadata: { amount: pending.grossAmount, recipient: pending.recipient },
@@ -118,6 +120,7 @@ export function buildBuySequence(
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {
+          domain: 'preDemo',
           source: 'preDemo',
           timestamp: Date.now(),
           metadata: { amount: pending.grossAmount, asset: pending.asset?.symbol },

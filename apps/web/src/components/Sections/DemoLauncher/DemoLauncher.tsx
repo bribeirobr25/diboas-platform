@@ -8,6 +8,7 @@ import { LocaleLink } from '@/components/UI';
 import { ROUTES } from '@/config/routes';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
 import { setCtaSource } from '@/lib/analytics/ctaAttribution';
+import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import styles from './DemoLauncher.module.css';
 
 const PreDream = dynamic(
@@ -67,35 +68,43 @@ export const DemoLauncher = memo(function DemoLauncher({
     setShowPreDream(true);
   }, []);
 
+  // Phase 3 L11 (audit/2026-05-08): impression event for demo-funnel entry.
+  // Wrapping <div> because SectionContainer doesn't forward refs.
+  const impressionRef = useImpressionTracking<HTMLDivElement>({
+    eventName: 'demo_launcher_impression',
+  });
+
   return (
     <>
-      <SectionContainer
-        variant="narrow"
-        padding="standard"
-        backgroundColor="var(--section-bg-neutral)"
-        ariaLabel={translated.seo.ariaLabel}
-      >
-        <div className={styles.wrapper}>
-          {translated.content.transitionHook ? (
-            <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
-          ) : null}
-          <h3 className={styles.title}>{translated.content.header}</h3>
-          <p className={styles.description}>{translated.content.subtext}</p>
+      <div ref={impressionRef}>
+        <SectionContainer
+          variant="narrow"
+          padding="standard"
+          backgroundColor="var(--section-bg-neutral)"
+          ariaLabel={translated.seo.ariaLabel}
+        >
+          <div className={styles.wrapper}>
+            {translated.content.transitionHook ? (
+              <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+            ) : null}
+            <h3 className={styles.title}>{translated.content.header}</h3>
+            <p className={styles.description}>{translated.content.subtext}</p>
 
-          <div className={styles.ctaGroup}>
-            <LocaleLink href={ROUTES.DEMO} className={styles.ctaPrimary}>
-              {translated.content.ctaPrimary}
-            </LocaleLink>
-            <button
-              type="button"
-              className={styles.ctaSecondary}
-              onClick={handleSecondaryClick}
-            >
-              {translated.content.ctaSecondary}
-            </button>
+            <div className={styles.ctaGroup}>
+              <LocaleLink href={ROUTES.DEMO} className={styles.ctaPrimary}>
+                {translated.content.ctaPrimary}
+              </LocaleLink>
+              <button
+                type="button"
+                className={styles.ctaSecondary}
+                onClick={handleSecondaryClick}
+              >
+                {translated.content.ctaSecondary}
+              </button>
+            </div>
           </div>
-        </div>
-      </SectionContainer>
+        </SectionContainer>
+      </div>
 
       {showPreDream && portalContainer ? createPortal(
         <PreDream

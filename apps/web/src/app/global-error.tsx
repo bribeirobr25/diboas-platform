@@ -15,6 +15,28 @@
 import { useEffect } from 'react';
 import { errorReportingService } from '@/lib/errors/ErrorReportingService';
 
+/**
+ * Self-documented design tokens for the global error fallback.
+ *
+ * These values are duplicated inline (rather than read from
+ * design-tokens.css) because global-error renders when the global
+ * stylesheet may have failed to load. Source of truth:
+ * apps/web/src/styles/design-tokens.css.
+ *
+ * Phase 1.8 (audit/L10, 2026-05-08): added the TOKENS map so future
+ * readers know the hex values are not arbitrary — they mirror the
+ * design system's neutral-950 / neutral-50 / semantic-error / etc.
+ */
+const TOKENS = {
+  bgPrimary:    '#0a0a0a', // var(--color-neutral-950)
+  textPrimary:  '#ffffff', // var(--color-white)
+  textMuted:    '#a1a1aa', // var(--color-neutral-400)
+  textFaint:    '#71717a', // var(--color-neutral-500)
+  errorAccent:  '#ef4444', // var(--color-semantic-error)
+  ctaBg:        '#3b82f6', // var(--color-semantic-info)
+  borderMuted:  '#3f3f46', // var(--color-neutral-700)
+} as const;
+
 interface GlobalErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
@@ -40,8 +62,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#0a0a0a',
-            color: '#ffffff',
+            backgroundColor: TOKENS.bgPrimary,
+            color: TOKENS.textPrimary,
             fontFamily: 'system-ui, -apple-system, sans-serif',
           }}
         >
@@ -57,14 +79,14 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                 fontSize: '1.5rem',
                 fontWeight: 'bold',
                 marginBottom: '1rem',
-                color: '#ef4444',
+                color: TOKENS.errorAccent,
               }}
             >
               Something went wrong
             </h1>
             <p
               style={{
-                color: '#a1a1aa',
+                color: TOKENS.textMuted,
                 marginBottom: '2rem',
                 lineHeight: '1.6',
               }}
@@ -83,8 +105,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
               <button
                 onClick={reset}
                 style={{
-                  backgroundColor: '#3b82f6',
-                  color: '#ffffff',
+                  backgroundColor: TOKENS.ctaBg,
+                  color: TOKENS.textPrimary,
                   border: 'none',
                   borderRadius: '0.5rem',
                   padding: '0.75rem 1.5rem',
@@ -99,8 +121,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                 onClick={() => (window.location.href = '/')}
                 style={{
                   backgroundColor: 'transparent',
-                  color: '#a1a1aa',
-                  border: '1px solid #3f3f46',
+                  color: TOKENS.textMuted,
+                  border: `1px solid ${TOKENS.borderMuted}`,
                   borderRadius: '0.5rem',
                   padding: '0.75rem 1.5rem',
                   fontSize: '1rem',
@@ -116,7 +138,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                 style={{
                   marginTop: '2rem',
                   fontSize: '0.75rem',
-                  color: '#71717a',
+                  color: TOKENS.textFaint,
                 }}
               >
                 Error ID: {error.digest}

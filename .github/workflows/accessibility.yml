@@ -1,0 +1,57 @@
+name: Accessibility (pa11y)
+
+# Phase 4.3.b (audit/2026-05-08): WCAG 2.1 AA scan against the three
+# pages with the highest exposure: home, B2B landing, and the lesson
+# page (the only page with a stand-alone interactive component beyond
+# the hero/waitlist pattern).
+#
+# Run locally: `pnpm --filter web pa11y` (the script in
+# apps/web/package.json points at the same three URLs).
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  pa11y:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build production bundle
+        run: pnpm --filter web build
+        env:
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
+
+      - name: Start production server (background)
+        # `pnpm --filter web start` runs `next start` on port 3000.
+        # We background it and wait for the port to come up before
+        # running pa11y against it.
+        run: |
+          pnpm --filter web start &
+          # Wait for the server to be ready (max 60s).
+          for i in {1..60}; do
+            if curl -sf http://localhost:3000/en > /dev/null; then
+              echo "Server ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Server did not start within 60s"
+          exit 1
+
+      - name: Run pa11y on critical 3 pages
+        run: pnpm --filter web pa11y

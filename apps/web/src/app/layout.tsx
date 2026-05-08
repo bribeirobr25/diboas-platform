@@ -61,12 +61,17 @@ export default async function RootLayout({
 }>) {
   const headersList = await headers();
   const nonce = headersList.get('x-nonce') ?? undefined;
+  // Phase 2 L1 (audit/2026-05-08): expose x-request-id to the client
+  // Logger via a meta tag, so Sentry/Logger events on the client can
+  // be correlated back to the originating server request.
+  const requestId = headersList.get('x-request-id') ?? undefined;
 
   return (
     <html lang={UI_LAYOUT_CONSTANTS.DEFAULT_LOCALE} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="description" content={BRAND_CONFIG.DESCRIPTION} />
+        {requestId && <meta name="x-request-id" content={requestId} />}
         {/* Google Fonts removed for GDPR compliance - using next/font/google self-hosted */}
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
         <link rel="dns-prefetch" href="https://diboas.com" />
@@ -111,7 +116,12 @@ export default async function RootLayout({
                   }
                 } catch(e) {}
 
-                // Listen for consent changes
+                // Listen for consent changes — registered on \`window\`, intentionally
+                // without a corresponding removeEventListener: this is an inline
+                // bootstrap script (not a React component), so the listener is
+                // tied to the document lifecycle. GA4 needs to receive every
+                // consent toggle for as long as the page is open. Phase 3 L12
+                // (audit/2026-05-08): documented to silence the parity-rule heuristic.
                 window.addEventListener('cookie-consent-changed', function(e) {
                   if (e.detail && e.detail.analytics) {
                     gtag('consent', 'update', { 'analytics_storage': 'granted' });

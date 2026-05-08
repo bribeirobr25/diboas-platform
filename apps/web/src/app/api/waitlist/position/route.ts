@@ -98,6 +98,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
 
     // Emit position checked event for analytics (only when user exists)
     applicationEventBus.emit(ApplicationEventType.WAITLIST_POSITION_CHECKED, {
+      domain: 'waitlist',
       source: 'waitlist',
       timestamp: Date.now(),
       correlationId: request.headers.get('x-request-id') || undefined,

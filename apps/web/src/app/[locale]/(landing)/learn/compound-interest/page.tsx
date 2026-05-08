@@ -7,7 +7,7 @@ import { SEOMetadataFactory } from '@/lib/seo';
 import { LessonFactory } from '@/components/Sections/Lesson';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
-import { generateLessonMetadata } from '@/lib/learn';
+import { generateLessonMetadata, buildLessonStructuredData } from '@/lib/learn';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -33,18 +33,35 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
     'learn-compound-interest',
   ]);
 
+  const lessonTitle =
+    pageMessages['learn-compound-interest.lesson.h1'] ?? 'How Money Really Grows';
+  const lessonDescription =
+    pageMessages['learn.lessons.compoundInterest.cardDescription'] ??
+    "The math the banks have been using for centuries. Now it's your turn.";
+
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
       { name: 'Home', url: '/' },
       { name: 'Learn', url: '/learn' },
-      { name: 'How Money Really Grows', url: '/learn/compound-interest' },
+      { name: lessonTitle, url: '/learn/compound-interest' },
     ],
     locale,
   );
 
+  const lessonStructuredData = buildLessonStructuredData({
+    lessonId: 'compound-interest',
+    locale,
+    title: lessonTitle,
+    description: lessonDescription,
+  });
+
+  const structuredDataItems = lessonStructuredData
+    ? [breadcrumbData, lessonStructuredData]
+    : [breadcrumbData];
+
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={[breadcrumbData]} />
+      <StructuredData data={structuredDataItems} />
       <ScrollToHash />
 
       <div className="main-page-wrapper">

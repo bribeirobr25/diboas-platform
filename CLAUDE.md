@@ -259,7 +259,7 @@ Condensed reference from `docs/tech/coding-standards.md`:
 3. **Service Agnostic Abstraction** — Interface-based, swappable providers, factory pattern
 4. **Code Reusability & DRY** — Write once, shared packages, no duplication
 5. **Semantic Naming** — [Domain][Entity][Action]Service, SCREAMING_SNAKE_CASE constants
-6. **File Decoupling** — Single responsibility. Target file sizes: Services ~200 lines, Components ~150, Utils ~100. Files exceeding 2x these targets require justification or should be split
+6. **File Decoupling** — Single responsibility. Recommended file sizes: Services ~200 lines, Components ~150, Utils ~100. These are guidelines to encourage DRY and reusability, not hard limits. Consistency is the priority — a larger file that stays consistent and respects DRY is better than a forced split that creates duplication or breaks cohesion. Split when it improves clarity; don't split just to meet a line count
 7. **Error Handling & Recovery** — Never crash, retry with backoff, circuit breakers, fallbacks
 8. **Security & Audit** — Input validation, output encoding, rate limiting, encryption, PII masking
 9. **Performance & SEO** — Code splitting, lazy loading, LCP <2.5s, FID <100ms, CLS <0.1

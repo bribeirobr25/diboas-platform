@@ -12,6 +12,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { timingSafeEqual } from 'crypto';
 import { detectPreferredLocale } from '@diboas/i18n/config';
 import { hmacHash } from '@/lib/security/encryption';
 import { decodeUnsubToken } from '@/lib/email/unsubscribeUrl';
@@ -21,17 +22,21 @@ import { Logger } from '@/lib/monitoring/Logger';
 import { sql } from '@/lib/database/client';
 
 /**
- * Verify the HMAC token matches the email hash.
+ * Verify the HMAC token matches the email hash using a constant-time
+ * comparison (prevents timing attacks). Length-mismatch leaks the length
+ * but not the contents — and HMAC outputs are always the same length, so
+ * any length mismatch is a malformed input, not a useful signal.
+ *
+ * Phase 1.6 (audit/L2, 2026-05-08): replaced the manual constant-time
+ * loop with the canonical `crypto.timingSafeEqual` for audit-friendliness.
  */
 function verifyToken(emailHash: string, token: string): boolean {
   const expected = hmacHash(emailHash);
   if (!expected) return false;
-  if (expected.length !== token.length) return false;
-  let diff = 0;
-  for (let i = 0; i < expected.length; i++) {
-    diff |= expected.charCodeAt(i) ^ token.charCodeAt(i);
-  }
-  return diff === 0;
+  const a = Buffer.from(expected, 'utf8');
+  const b = Buffer.from(token, 'utf8');
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }
 
 /**
@@ -135,7 +140,7 @@ export async function POST(request: NextRequest) {
       details: { action },
     });
 
-    Logger.info(`Email ${eventType.toLowerCase()}`, { emailHash: id.substring(0, 8) + '...' });
+    Logger.info(`Email ${eventType.toLowerCase()}`, { emailHash: `${id.substring(0, 8)  }...` });
 
     const message = optOut
       ? 'You have been unsubscribed. Your waitlist position is preserved.'

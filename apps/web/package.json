@@ -13,7 +13,7 @@
     "test:coverage": "vitest run --coverage",
     "perf-test": "npm run build",
     "lighthouse": "lhci autorun",
-    "pa11y": "pa11y --standard WCAG2AA --runner axe http://localhost:3000/en && pa11y --standard WCAG2AA --runner axe http://localhost:3000/en/about && pa11y --standard WCAG2AA --runner axe http://localhost:3000/en/personal/banking",
+    "pa11y": "pa11y --standard WCAG2AA --runner axe http://localhost:3000/en && pa11y --standard WCAG2AA --runner axe http://localhost:3000/en/business && pa11y --standard WCAG2AA --runner axe http://localhost:3000/en/learn/compound-interest",
     "bundle-size": "npm run build && du -sh .next",
     "optimize": "npm run perf-test && echo 'Check .next/performance-report.json for optimization suggestions'",
     "storybook": "storybook dev -p 6006",
