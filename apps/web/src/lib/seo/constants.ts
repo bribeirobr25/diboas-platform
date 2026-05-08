@@ -140,13 +140,19 @@ export const PAGE_SEO_CONFIG = {
     description: 'Information about how we use cookies and how to manage your cookie preferences.',
     keywords: ['cookie policy', 'cookies', 'tracking preferences']
   },
+  // V4 (audit/2026-05-08 visual review): titles intentionally omit
+  // `| diBoaS` — the `titleTemplate: \`%s | ${BRAND_CONFIG.NAME}\`` at
+  // line 20 already appends it. Including it here produced
+  // `... | diBoaS | diBoaS` in the rendered <title>. These English
+  // strings act as the fallback only — V2 wires per-locale lookups in
+  // `lib/learn/lessonMetadata.ts` that take precedence.
   learn: {
-    title: 'Learn how money actually works | diBoaS',
+    title: 'Learn how money actually works',
     description: "Short, honest lessons on the financial system — written for people the system wasn't built for.",
     keywords: ['compound interest', 'financial literacy', 'how money grows', 'learn investing']
   },
   'learn/compound-interest': {
-    title: 'How Money Really Grows | Compound Interest Explained | diBoaS',
+    title: 'How Money Really Grows — Compound Interest Explained',
     description: "Learn how compound interest works — the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like.",
     keywords: ['compound interest calculator', 'how money grows', 'compound interest explained', 'savings vs investing']
   }

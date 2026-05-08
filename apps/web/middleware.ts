@@ -67,6 +67,12 @@ export function middleware(request: NextRequest): NextResponse {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-nonce', nonce);
     requestHeaders.set('x-request-id', requestId);
+    // V3 (audit/2026-05-08 visual review): expose detected locale to the
+    // root layout so SSR can emit `<html lang={locale}>` per request.
+    // Falls back to 'en' for the root '/' path (which redirects).
+    if (localeInPath) {
+      requestHeaders.set('x-locale', localeInPath);
+    }
 
     const response = NextResponse.next({
       request: { headers: requestHeaders },

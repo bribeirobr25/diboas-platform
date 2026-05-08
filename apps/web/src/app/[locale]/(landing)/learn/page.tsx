@@ -12,7 +12,11 @@ import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
-export const dynamic = 'auto';
+// V3 (audit/2026-05-08 visual review): force-dynamic so the root
+// layout's `headers().get('x-locale')` lookup runs per request rather
+// than once at build time. Otherwise prerender caches `<html lang="en">`
+// for every locale variant.
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -28,7 +32,9 @@ export default async function LearnIndexPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['learn']);
+  // V1 (audit/2026-05-08 visual review): include 'landing-b2c' so the
+  // shared MinimalFooter's `landing-b2c.footer.*` keys resolve.
+  const pageMessages = await loadPageNamespaces(locale, ['learn', 'landing-b2c']);
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
