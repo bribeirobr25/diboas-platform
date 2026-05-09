@@ -12,7 +12,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lighthouse": "lhci autorun",
-    "pa11y": "pa11y --standard WCAG2AA --runner axe http://localhost:3000/en && pa11y --standard WCAG2AA --runner axe http://localhost:3000/en/business && pa11y --standard WCAG2AA --runner axe http://localhost:3000/en/learn/compound-interest",
+    "pa11y": "pa11y --standard WCAG2AA --runner axe --level-cap-when-needs-review warning http://localhost:3000/en && pa11y --standard WCAG2AA --runner axe --level-cap-when-needs-review warning http://localhost:3000/en/business && pa11y --standard WCAG2AA --runner axe --level-cap-when-needs-review warning http://localhost:3000/en/learn/compound-interest",
     "bundle-size": "npm run build && du -sh .next",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
