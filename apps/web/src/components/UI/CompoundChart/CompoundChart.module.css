@@ -19,7 +19,13 @@
 }
 
 .axisLabel {
-  fill: var(--color-slate-500);
+  /* W2 (audit/2026-05-08): slate-500 (#64748b) is 4.58:1 on white — passing
+   * AA on paper but axe flags it because the chart background is rendered
+   * inside a section with subtle gradient/tint, dropping the effective ratio.
+   * slate-600 (#475569) is 7.55:1 on white and clears every chart-area
+   * background we use. ~9 of the 16 pa11y errors on /learn/compound-interest
+   * trace to these axis labels. */
+  fill: var(--color-slate-600);
   font-size: 12px;
   font-family: var(--font-family-primary);
 }

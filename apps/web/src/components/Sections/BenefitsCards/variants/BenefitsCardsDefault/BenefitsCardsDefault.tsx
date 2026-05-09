@@ -70,6 +70,10 @@ function BenefitCardItem({ card }: BenefitCardItemProps) {
     <article className={`${styles.card} ${card.featured ? styles.cardFeatured : ''}`}>
       {/* Icon */}
       <div className={styles.iconWrapper}>
+        {/* IconComponent is resolved per-card from a static lookup map; React
+          * Compiler can't statically prove the value is stable and warns
+          * conservatively. The lookup is pure and deterministic. */}
+        {/* eslint-disable-next-line react-hooks/static-components */}
         <IconComponent className={styles.icon} aria-hidden="true" />
       </div>
 

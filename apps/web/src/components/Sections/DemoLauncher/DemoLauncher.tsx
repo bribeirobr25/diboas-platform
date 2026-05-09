@@ -56,6 +56,8 @@ export const DemoLauncher = memo(function DemoLauncher({
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
+    // Portal target needs document.body (client-only); SSR renders portalContainer=null.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalContainer(document.body);
   }, []);
 

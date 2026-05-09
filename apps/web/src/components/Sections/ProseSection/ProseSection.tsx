@@ -51,6 +51,8 @@ export const ProseSection = memo(function ProseSection({
       )}
 
       {translated.content.paragraphs.map((paragraph: string, index: number) => (
+        // Stable: paragraphs come from translation file, never reorder.
+        // eslint-disable-next-line react/no-array-index-key
         <React.Fragment key={index}>
           <p className={styles.paragraph}>
             {paragraph}

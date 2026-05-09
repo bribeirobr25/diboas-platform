@@ -104,13 +104,17 @@
 .tableCellStable {
   padding: 1rem 1.5rem;
   text-align: center;
-  color: var(--color-teal-600);
+  /* W2 (audit/2026-05-08): teal-600 (#0d9488) is 3.74:1 on white — fails AA.
+   * teal-700 (#0f766e) is 4.85:1. Brand teal still reads as teal. */
+  color: var(--color-teal-700);
 }
 
 .tableCellGrowth {
   padding: 1rem 1.5rem;
   text-align: center;
-  color: var(--color-amber-600);
+  /* W2 (audit/2026-05-08): amber-600 (#d97706) is 3.18:1 on white — fails AA.
+   * amber-700 (#b45309) is 4.93:1, stays clearly amber. */
+  color: var(--color-amber-700);
 }
 
 .emptyCell {

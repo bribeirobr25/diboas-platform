@@ -41,9 +41,18 @@ export function LearnIndex({ enableAnalytics = true }: LearnIndexProps) {
 
       <SectionContainer variant="standard" padding="standard" as="section">
         <div className={styles.lessonsBlock}>
+          {/* W7 (audit/2026-05-08): prefetch={false} so Next.js doesn't
+            * preemptively load the lesson page's ~11KB CSS bundle
+            * (LessonThreeBeat / CalculatorDefault / CompoundChart) on
+            * /learn. The trigger was mobile viewport rendering this card
+            * in-viewport early, firing prefetch before the user could
+            * click. The lesson page is the user's destination not a
+            * transient stop, so paying for CSS on click rather than
+            * preemptively is the right trade. */}
           <LocaleLink
             href="/learn/compound-interest"
             className={styles.activeCard}
+            prefetch={false}
           >
             <span className={styles.activeCardKicker}>
               {t('lessons.compoundInterest.cardReadTime')}

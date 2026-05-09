@@ -11,7 +11,6 @@
 
 'use client';
 
-import { Logger } from '@/lib/monitoring/Logger';
 import { useCallback, useMemo } from 'react';
 import { HERO_CONFIGS, type HeroVariantConfig, type HeroVariant } from '@/config/hero';
 import { analyticsService } from '@/lib/analytics';
@@ -131,16 +130,14 @@ export function HeroSection({
     onCTAClick: handleCTAClick
   };
 
-  // Error Handling: Fallback if variant component fails to load
-  try {
-    return <VariantComponent {...variantProps} />;
-  } catch {
-    Logger.error(`Failed to render hero variant '${variant}'`);
-
-    // Fallback to default variant
-    const DefaultVariant = getHeroVariant('default');
-    return <DefaultVariant {...variantProps} />;
-  }
+  // Rendering errors are caught by SectionErrorBoundary (parent layer).
+  // React component rendering is asynchronous — try/catch around JSX
+  // does not catch render-time errors. See: react-hooks/error-boundaries rule.
+  // (Mirrors AppFeaturesCarouselFactory.tsx pattern; the previous try/catch
+  // here was futile because it could only catch synchronous throws during
+  // JSX construction, not during the React render phase.)
+  // eslint-disable-next-line react-hooks/static-components
+  return <VariantComponent {...variantProps} />;
 }
 
 // Export for backward compatibility

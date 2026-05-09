@@ -56,7 +56,6 @@ const eslintConfig = [
       // Utility scripts using CommonJS
       "analyze-*.js",
       "scripts/**/*.js",
-      "src/lib/performance/webpack-performance-plugin.js",
       // Storybook config (development tool)
       ".storybook/**"
     ],

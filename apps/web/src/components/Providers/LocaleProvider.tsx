@@ -19,6 +19,10 @@ export function LocaleProvider({ children, initialLocale }: LocaleProviderProps)
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    // Standard hydration-detection pattern: SSR renders with isHydrated=false;
+    // after first client mount we flip to true so consumers can show
+    // hydration-only UI. The cascade is intentional (one re-render on mount).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsHydrated(true);
   }, []);
 

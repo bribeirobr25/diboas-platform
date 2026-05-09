@@ -192,10 +192,14 @@ ComponentName/
 Prioritized by real-world impact (ref: Vercel React Best Practices).
 
 #### Already in place (do not regress)
-- **Bundle optimization:** `optimizePackageImports` for 17+ packages, 9-group webpack splitChunks, 300KB asset budget (`next.config.js`)
-- **Analytics deferral:** GA4 `afterInteractive`, PostHog consent-gated lazy init, web-vitals dynamic `import()` with sample rate
-- **Production compiler:** `removeConsole`, `reactRemoveProperties` enabled
-- **SSR-safe localStorage:** All reads wrapped in try-catch inside `useEffect` (never in `useState` initializer for SSR components)
+- **Bundle optimization:** `experimental.optimizePackageImports` for 17 packages in `next.config.js` (Turbopack-aware tree-shaking).
+- **Bundler:** `next build` uses Turbopack by default in Next.js 16 (do not pass `--webpack` — silently drops middleware, see B1 audit fix). The webpack `splitChunks` config + `WebpackPerformancePlugin` were removed in F1 audit (2026-05-08) — they were dead code under Turbopack. Restore from git history if you ever flip back to webpack mode.
+- **Prefetch hygiene (W7 audit/2026-05-08):** Secondary `<LocaleLink>` / `<Link>` to other top-level routes use `prefetch={false}` to avoid the "preloaded but not used" browser warning. The pattern is: high-intent CTAs (waitlist, demo, brand-logo home) prefetch by default; secondary nav (Business / Adelaide Daily / Learn / About) and exploratory cards (LessonRoadmap active card → lesson page) opt out. Trade: marginally slower navigation on those clicks; gain: clean console + ~2.5KB less wasted bandwidth per page.
+- **Color contrast (W2 audit/2026-05-08):** All clickable brand-colored text uses `--text-brand-accessible` (teal-700, 4.85:1 on white) NOT `--color-teal-600`. Success-tinted text uses `--text-success-accessible` (emerald-700, 5.53:1) NOT `--color-emerald-600`. Muted-on-light text uses `--color-slate-600` (7.55:1) NOT `--color-slate-400` (2.56:1, fails AA). Muted-on-dark uses `--color-text-on-dark-muted` at 0.95 alpha (was 0.85). Verified across 263 axe runs (static + `:hover` + `:focus-visible` + `:disabled` + mobile + demo flow), 0 violations.
+- **Analytics deferral:** GA4 `afterInteractive`, PostHog consent-gated lazy init, web-vitals dynamic `import()` with sample rate.
+- **Production compiler:** `removeConsole`, `reactRemoveProperties` enabled.
+- **SSR-safe localStorage:** All reads wrapped in try-catch inside `useEffect` (never in `useState` initializer for SSR components).
+- **Lint:** 0 warnings, 0 errors. `react/no-array-index-key` and `react-hooks/*` strict-Compiler warnings have targeted `eslint-disable-next-line` directives where the code is correct (factory variants, hydration patterns, event-handler `Date.now()`, seeded `useMemo` randomness). The directive must be on the line immediately before the offending expression — for multi-line JSX, that's the `key={…}` attribute line, not the opening tag.
 
 #### Apply now (all new code)
 - **Defer `await` until needed:** Move `await` inside conditional branches — don't block on fetches that may not be used

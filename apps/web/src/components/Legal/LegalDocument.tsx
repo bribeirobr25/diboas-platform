@@ -150,6 +150,9 @@ export function LegalTable({ headers, rows, caption }: LegalTableProps) {
             return (
               <tr key={rowKey}>
                 {row.map((cell, cellIndex) => (
+                  // Stable: cells within a row never reorder; rowKey already
+                  // gives row identity, cellIndex disambiguates within the row.
+                  // eslint-disable-next-line react/no-array-index-key
                   <td key={`${rowKey}-c${cellIndex}`}>{cell}</td>
                 ))}
               </tr>

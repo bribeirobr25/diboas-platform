@@ -202,11 +202,19 @@ export function AppFeaturesCarouselDefault({
                   className={styles.cardClickArea}
                 >
                   <div className={styles.card}>
+                    {/* Phase 5.5 (audit/2026-05-09): switched from fixed
+                      * width/height (416×500) to fill mode. The previous CSS
+                      * applied `min-width: 100%` over `width: auto` at tablet+,
+                      * which stretched the image to `containerWidth × 500px` —
+                      * a non-intrinsic ratio Next.js correctly warned about.
+                      * `.card` is already `position: relative` (line 173 of
+                      * the module CSS), and `object-fit: cover` on `.cardImage`
+                      * crops without distortion at every breakpoint.
+                      * `sizes` retained for srcset selection. */}
                     <Image
                       src={card.assets.image}
                       alt={card.seo.imageAlt}
-                      width={416}
-                      height={500}
+                      fill
                       priority={priority && index === 0}
                       className={styles.cardImage}
                       onLoad={() => handleImageLoad(card.id)}

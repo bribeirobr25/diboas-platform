@@ -32,6 +32,13 @@ export function middleware(request: NextRequest): NextResponse {
     const csp = [
       `default-src 'self'`,
       `script-src ${scriptSrc}`,
+      // Phase 5.1.a (audit/2026-05-09): Sentry session-replay spawns a worker
+      // from a `blob:` URL. Without an explicit `worker-src` directive, the
+      // browser falls back to `script-src` (which excludes `blob:`) and
+      // blocks the worker — net effect: replay never captures sessions in
+      // production. `'self' blob:` keeps the scope narrow (workers only,
+      // not scripts) and the source is trusted (Sentry SDK code).
+      `worker-src 'self' blob:`,
       `style-src 'self' 'unsafe-inline'`,
       `img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com${isDev ? ' http://localhost:* https://localhost:*' : ''}`,
       `font-src 'self' data:`,

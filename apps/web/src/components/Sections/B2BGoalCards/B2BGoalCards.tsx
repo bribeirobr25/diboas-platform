@@ -41,10 +41,14 @@ export const B2BGoalCards = memo(function B2BGoalCards({
     setExpandedCard((prev) => (prev === key ? null : key));
   }, []);
 
-  // Auto-expand card when navigating via URL hash (e.g., from TwoWorlds CTA)
+  // Auto-expand card when navigating via URL hash (e.g., from TwoWorlds CTA).
+  // Reads window/location which is only available client-side, so this MUST
+  // run after mount in an effect. The setState here is intentional —
+  // navigating to /#paymentFees pre-opens the matching card.
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
     if (hash === 'paymentFees' || hash === 'idleCash') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setExpandedCard(hash);
       requestAnimationFrame(() => {
         document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });

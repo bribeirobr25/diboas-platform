@@ -48,7 +48,9 @@
 
 .tooltip {
   cursor: help;
-  color: var(--color-slate-400);
+  /* W2 (audit/2026-05-08): slate-400 (#94a3b8) is 2.56:1 on white — fails.
+   * slate-600 (#475569) is 7.55:1, well above AA. */
+  color: var(--color-slate-600);
   font-size: 12px;
 }
 
@@ -131,8 +133,11 @@
 }
 
 .radioLabel[data-checked="true"] {
-  background: var(--color-teal-500);
-  border-color: var(--color-teal-500);
+  /* W2 (audit/2026-05-08): teal-500 (#14b8a6) gave white text 2.48:1.
+   * teal-700 (#0f766e) is 4.85:1, AA-compliant for the calculator's
+   * Daily/Weekly/Monthly active pill. Matches the .btn-gradient palette. */
+  background: var(--color-teal-700);
+  border-color: var(--color-teal-700);
   color: var(--color-white);
 }
 
@@ -239,7 +244,8 @@
 .lastUpdated {
   display: inline-block;
   margin-top: 4px;
-  color: var(--color-slate-400);
+  /* W2 (audit/2026-05-08): slate-400 → slate-600 (2.56:1 → 7.55:1 on white). */
+  color: var(--color-slate-600);
 }
 
 .vignettesTable {

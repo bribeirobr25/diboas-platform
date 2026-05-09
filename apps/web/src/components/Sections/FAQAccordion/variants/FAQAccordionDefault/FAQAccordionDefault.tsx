@@ -44,6 +44,8 @@ function FAQAnswer({ answer, className }: { answer: string; className: string })
     return (
       <div className={className}>
         {paragraphs.map((p, i) => (
+          // Stable: paragraphs come from a static FAQ answer string split on \n\n.
+          // eslint-disable-next-line react/no-array-index-key
           <p key={i} className={styles.answerParagraph}>
             {p}
           </p>

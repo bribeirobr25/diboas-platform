@@ -50,7 +50,12 @@ export function BuyScreen() {
   );
   const insufficientFunds = buyResult.errorCode === 'INSUFFICIENT_FUNDS';
 
-  // Calculate crypto quantity from net amount
+  // Calculate crypto quantity from net amount. React Compiler emits
+  // "Compilation Skipped: Existing memoization could not be preserved" here
+  // because it can't statically prove the optional chain (`currentAsset?.price`)
+  // is invariant across renders. The manual useMemo is correct and produces
+  // the right behavior; the warning is informational, not an error.
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const cryptoQuantity = useMemo(() => {
     if (buyResult.pending.netAmount <= 0 || !currentAsset?.price) return 0;
     return buyResult.pending.netAmount / currentAsset.price;

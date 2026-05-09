@@ -74,7 +74,13 @@
   z-index: 2;
   padding: var(--spacing-lg);
   width: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  /* W2 (audit/2026-05-08): bottom stop bumped 0.7 → 0.85 and the upper
+   * stop set to a non-zero darken so the cardTitle/cardDescription pair
+   * always lands on a dark-enough zone. The previous gradient went to
+   * fully transparent at the top, exposing whatever the underlying card
+   * image renders there — when that image contained sky/light areas,
+   * white text dropped well below 4.5:1. */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 100%);
 }
 
 @media (min-width: 768px) {

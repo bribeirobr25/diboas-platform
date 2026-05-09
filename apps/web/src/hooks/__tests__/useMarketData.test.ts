@@ -54,7 +54,7 @@ describe('useMarketData', () => {
     const mounted = true;
     await (
       mockGet()
-        .then((data: unknown) => {
+        .then((_data: unknown) => {
           if (mounted) {
             // Would call setSnapshot(data)
           }
@@ -82,7 +82,7 @@ describe('useMarketData', () => {
     // Simulate unmount before promise resolves
     let mounted = true;
     const promise = mockGet()
-      .then((data: unknown) => {
+      .then((_data: unknown) => {
         if (mounted) { /* setSnapshot */ }
       })
       .catch((error: unknown) => {

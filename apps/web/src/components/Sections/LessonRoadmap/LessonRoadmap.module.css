@@ -31,7 +31,11 @@
   border-radius: 12px;
   background: var(--color-slate-50);
   border: 1px dashed var(--color-slate-300);
-  opacity: var(--cta-opacity-disabled);
+  /* W2 (audit/2026-05-08): removed `opacity: var(--cta-opacity-disabled)` —
+   * the 0.5 dim was multiplying through to badge / title / description,
+   * dragging contrast to 2.39:1 / 3.36:1 / 2.59:1. The dashed border +
+   * slate-50 background + the explicit "Coming soon" badge already signal
+   * disabled state without compromising readability. */
   cursor: var(--cta-cursor-disabled);
   width: 100%;
   font-family: var(--font-family-primary);

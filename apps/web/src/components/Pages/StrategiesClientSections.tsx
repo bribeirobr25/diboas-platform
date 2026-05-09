@@ -13,7 +13,8 @@ import { useTranslation } from '@diboas/i18n/client';
 import { PageHeroSection } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 // StrategyDisclaimers import removed — wrapper was dead code
-import styles from './StrategiesPageContent.module.css';
+// styles import removed 2026-05-08 (lint cleanup) — was unused after the
+// StrategyDisclaimers wrapper deletion.
 
 const I18N_PREFIX = 'strategies';
 

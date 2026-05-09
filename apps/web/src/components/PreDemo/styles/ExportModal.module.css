@@ -145,7 +145,8 @@
 
 .exportModalFooter {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  /* W2 (audit/2026-05-08, deeper sweep): slate-400 → slate-600 (2.56:1 → 7.55:1). */
+  color: var(--color-slate-600);
   text-align: center;
   margin: 0;
 }
@@ -175,6 +176,8 @@
 /* ==================== Accessibility ==================== */
 .exportModalClose:focus-visible,
 .exportModalButton:focus-visible {
-  outline: 2px solid var(--brand-primary);
+  /* W2 (audit/2026-05-08, deeper sweep): outline color teal-500 → teal-700
+   * for WCAG 1.4.11 non-text contrast (3:1 minimum) against light backgrounds. */
+  outline: 2px solid var(--text-primary-accessible);
   outline-offset: 2px;
 }
