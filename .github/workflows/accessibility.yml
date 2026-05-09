@@ -69,4 +69,12 @@ jobs:
           exit 1
 
       - name: Run pa11y on critical 3 pages
+        # pa11y bundles puppeteer-core@24.37.5 which strictly looks for
+        # Chrome at ~/.cache/puppeteer (not bundled, not auto-fetched).
+        # GH Actions ubuntu-latest has Chrome pre-installed at
+        # /usr/bin/google-chrome; pointing puppeteer-core at it via the
+        # standard env var avoids needing to download Chrome separately.
+        # (First-CI-run bug fix, 2026-05-09.)
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
         run: pnpm --filter web pa11y
