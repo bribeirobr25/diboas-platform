@@ -12,7 +12,9 @@
         "RESEND_API_KEY",
         "EMAIL_FROM_ADDRESS",
         "INTERNAL_API_KEY",
-        "CSP_NONCE_SECRET"
+        "CSP_NONCE_SECRET",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN"
       ]
     },
     "dev": {
