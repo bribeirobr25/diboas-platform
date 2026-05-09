@@ -32,7 +32,11 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Build production bundle
-        run: pnpm --filter web build
+        # `pnpm build` from root → `turbo run build`. The web app imports
+        # from workspace packages (@diboas/i18n, @diboas/ui, @diboas/email)
+        # which must be built first; `pnpm --filter web build` skips them
+        # and fails with Module not found. (First-CI-run bug fix, 2026-05-09.)
+        run: pnpm build
         env:
           NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
           NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
