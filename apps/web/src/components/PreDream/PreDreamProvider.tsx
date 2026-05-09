@@ -83,6 +83,7 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
     );
 
     applicationEventBus.emit(ApplicationEventType.PRE_DREAM_STARTED, {
+      domain: 'preDream',
       source: 'preDream',
       timestamp: Date.now(),
       metadata: {

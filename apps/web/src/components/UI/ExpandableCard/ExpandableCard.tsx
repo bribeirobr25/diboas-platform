@@ -11,14 +11,14 @@
 
 'use client';
 
-import { memo, useCallback, useRef, type ReactNode, type ComponentType } from 'react';
+import { memo, useCallback, useEffect, useRef, type ReactNode, type ComponentType } from 'react';
 import styles from './ExpandableCard.module.css';
 
 export interface ExpandableCardProps {
   /** Unique card identifier */
   readonly id: string;
   /** Optional icon component rendered before the title */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   readonly icon?: ComponentType<any>;
   /** Card title (always visible) */
   readonly title: string;
@@ -51,7 +51,25 @@ export const ExpandableCard = memo(function ExpandableCard({
   className = '',
 }: ExpandableCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const expandableRef = useRef<HTMLDivElement>(null);
   const contentId = `expandable-content-${id}`;
+
+  // Phase 4 W3 (audit/2026-05-08): React 18 doesn't recognise `inert` as
+  // a JSX attribute and strips it before render, so we apply it via DOM
+  // ref. axe's `aria-hidden-focus` rule (correctly) flags focusable
+  // children inside an aria-hidden wrapper because keyboard users can
+  // still tab into them; `inert` removes focusability AND AT visibility
+  // in one declarative attribute. Drop this effect once the project
+  // upgrades to React 19, where `inert` ships as a typed prop.
+  useEffect(() => {
+    const el = expandableRef.current;
+    if (!el) return;
+    if (isExpanded) {
+      el.removeAttribute('inert');
+    } else {
+      el.setAttribute('inert', '');
+    }
+  }, [isExpanded]);
 
   const handleToggle = useCallback(() => {
     onToggle(id);
@@ -94,8 +112,11 @@ export const ExpandableCard = memo(function ExpandableCard({
         </span>
       </div>
 
-      {/* Expandable content */}
+      {/* Expandable content. `inert` is applied via the effect above
+          (React 18 strips unknown JSX attrs); aria-hidden remains for
+          older AT that doesn't yet honour `inert`. */}
       <div
+        ref={expandableRef}
         id={contentId}
         className={styles.expandable}
         aria-hidden={!isExpanded}

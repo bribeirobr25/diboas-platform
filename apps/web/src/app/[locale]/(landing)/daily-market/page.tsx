@@ -89,7 +89,10 @@ export default async function DailyMarketPage({ params }: LocalePageProps) {
             <a
               href={`/${locale}`}
               style={{
-                color: 'var(--color-teal-600)',
+                /* W2 (audit/2026-05-08): teal-600 (#0d9488) was 3.58:1 on
+                 * the f9fafb section bg — fails AA. Bumped to --text-brand-accessible
+                 * (teal-700, 4.85:1). */
+                color: 'var(--text-brand-accessible)',
                 fontWeight: 600,
                 textDecoration: 'underline',
                 textUnderlineOffset: 3,

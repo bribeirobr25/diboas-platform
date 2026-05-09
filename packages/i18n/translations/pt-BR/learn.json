@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "Aprenda como o dinheiro funciona de verdade",
+    "description": "Lições curtas e honestas sobre o sistema financeiro — escritas para quem o sistema não foi feito."
+  },
+  "nav": {
+    "label": "Aprender"
+  },
+  "index": {
+    "h1": "Aprenda como o dinheiro funciona de verdade.",
+    "subhead": "Lições curtas e honestas sobre o sistema financeiro — escritas para quem o sistema não foi feito.",
+    "footerLine": "Mais lições em breve. A gente publica uma a cada poucos meses — devagar, com cuidado, bem escrita."
+  },
+  "lessons": {
+    "compoundInterest": {
+      "cardTitle": "Como o Dinheiro Realmente Cresce",
+      "cardDescription": "A matemática que os bancos vêm usando há séculos. Agora é a sua vez.",
+      "cardReadTime": "~5 min de leitura",
+      "cardCta": "Ler lição"
+    }
+  },
+  "roadmap": {
+    "comingSoon": "Em breve",
+    "lessons": {
+      "inflation": {
+        "title": "Inflação: o imposto silencioso",
+        "description": "Por que o seu dinheiro perde valor todo ano — e o que dá pra fazer."
+      },
+      "savingsVsInvesting": {
+        "title": "Poupar vs. Investir",
+        "description": "Parecem iguais. Não são. Aqui está onde a diferença aparece."
+      },
+      "currencyDepreciation": {
+        "title": "Desvalorização da moeda",
+        "description": "Quando guardar o seu dinheiro local é o risco maior — e não investir."
+      }
+    }
+  }
+}

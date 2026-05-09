@@ -38,12 +38,17 @@ export function SimulationScreen() {
     id: `preDream.timeframe.options.${state.selectedTimeframe}.label`,
   });
 
-  // Pre-compute random X positions for particles (stable across re-renders)
+  // Pre-compute random X positions for particles. The seeded values are
+  // captured ONCE via useMemo with [] deps so they're stable across re-renders;
+  // the randomness is intentional (visual variety) and runs in a memo callback
+  // not in render.
   const particlePositions = useMemo(
+    // eslint-disable-next-line react-hooks/purity
     () => Array.from({ length: PARTICLE_COUNT }, () => Math.random() * 100),
     [],
   );
   const particleDelays = useMemo(
+    // eslint-disable-next-line react-hooks/purity
     () => Array.from({ length: PARTICLE_COUNT }, () => Math.random() * 4),
     [],
   );
@@ -90,8 +95,11 @@ export function SimulationScreen() {
     <div className={`${styles.screenCenter} ${styles.simulationScreen}`}>
       {/* Floating particles */}
       <div className={styles.particles}>
+        {/* Stable: particlePositions is a fixed-length seeded array, never
+          * reorders. Index is the stable identity. */}
         {particlePositions.map((x, i) => (
           <div
+            // eslint-disable-next-line react/no-array-index-key
             key={i}
             className={styles.particle}
             style={{

@@ -143,7 +143,12 @@ export function MinimalFooter({
     : [];
 
   return (
-    <footer aria-label={intl.formatMessage({ id: 'common.accessibility.siteFooter' })} className={styles.footer}>
+    // Phase 4 W4 (audit/2026-05-08): removed `aria-label` — `<footer>` at
+    // landmark scope has implicit role="contentinfo", and axe's
+    // `aria-prohibited-attr` rule flags `aria-label` here as redundant.
+    // Screen readers announce "footer" / "content information" without
+    // the label, which is appropriate for our single-footer pages.
+    <footer className={styles.footer}>
       <div className={styles.container}>
         {/* Tagline */}
         {taglineKey && (
@@ -173,11 +178,11 @@ export function MinimalFooter({
         {/* Locale-conditional Disclosures */}
         {disclosures.length > 0 && (
           <div className={styles.disclosures}>
-            {disclosures.map((key, index) => {
-              const text = intl.formatMessage({ id: key });
-              if (!text || text === key) return null;
+            {disclosures.map((disclosureKey) => {
+              const text = intl.formatMessage({ id: disclosureKey });
+              if (!text || text === disclosureKey) return null;
               return (
-                <p key={index} className={styles.disclosureText}>
+                <p key={disclosureKey} className={styles.disclosureText}>
                   {text}
                 </p>
               );

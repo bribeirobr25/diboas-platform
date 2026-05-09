@@ -144,6 +144,8 @@ docs/*
 screenshots/
 test-results/
 .lighthouseci/
+playwright-report/
+playwright/.cache/
 
 # Database and backup files
 *.sql

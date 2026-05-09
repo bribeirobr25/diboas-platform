@@ -91,7 +91,7 @@ export function useWaitlistStats(options?: UseWaitlistStatsOptions): UseWaitlist
   // Listen for real-time signup events
   useEffect(() => {
     const unsubscribe = applicationEventBus.on<ApplicationEventPayload>(
-      ApplicationEventType.WAITLIST_SIGNUP_SUCCESS,
+      ApplicationEventType.WAITLIST_SIGNUP_COMPLETED,
       (event) => {
         const position = (event.metadata as { position?: number } | undefined)?.position;
         if (typeof position === 'number') {

@@ -77,7 +77,11 @@
 .gateDescription {
   margin: 0 0 var(--spacing-3xl);
   font-size: var(--font-size-sm);
-  color: var(--text-dark-secondary);
+  /* W2 (audit/2026-05-08): the previous --text-dark-secondary token was
+   * undefined and falling through to body's slate-900 (#111827), giving
+   * 1.3:1 against the dark gateCard background — essentially unreadable.
+   * The gate sits on a dark gradient, so it needs an on-dark text token. */
+  color: var(--color-text-on-dark-muted);
   line-height: var(--line-height-relaxed);
 }
 
@@ -89,7 +93,9 @@
 .gateBack {
   padding: var(--spacing-sm) var(--spacing-lg);
   font-size: var(--font-size-sm);
-  color: var(--text-dark-muted);
+  /* W2 (audit/2026-05-08): same fix as .gateDescription — was inheriting
+   * dark slate-900 against a dark background. */
+  color: var(--color-text-on-dark-muted);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -97,7 +103,7 @@
 }
 
 .gateBack:hover {
-  color: var(--text-dark-secondary);
+  color: var(--color-text-on-dark);
 }
 
 /* Dream Mode Container */

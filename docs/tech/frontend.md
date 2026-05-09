@@ -79,12 +79,12 @@ All components reference design tokens via CSS custom properties rather than har
 
 ### Build-Time Optimization (`next.config.js`)
 
-- **`optimizePackageImports`:** Tree-shaking for 14 packages including `lucide-react`, `react-intl`, `@radix-ui/*`, `@diboas/ui`, `@diboas/i18n`.
-- **Webpack `splitChunks`:** Production builds split into named cache groups: `framework` (React/Next.js), `uiLibs` (Radix, Lucide, CVA), plus additional groups. 200KB max chunk size.
-- **Asset budgets:** 300KB per asset, 800KB per entrypoint (warnings only, builds never fail).
+- **Bundler:** Turbopack — `next build` in Next.js 16 uses Turbopack by default. Do not pass `--webpack` (silently drops middleware; see B1 audit fix). Chunk splitting follows Turbopack's defaults.
+- **`experimental.optimizePackageImports`:** Tree-shaking for 17 packages including `lucide-react`, `react-intl`, `@radix-ui/*`, `@diboas/ui`, `@diboas/i18n`.
+- **Asset budgets:** Turbopack-aware bundle-budget gate (`scripts/check-bundle-budget.mjs`, run via `pnpm check:budget` after `pnpm build`). Walks `apps/web/.next/static/chunks/*.{js,css}` post-build and fails CI on regression — caps: 650 KB peak asset, 3.7 MB total JS, 500 KB total CSS, 200 JS chunks. Replaced the original webpack-plugin enforcement (was inert under Turbopack — F1 audit 2026-05-08, M3 reworked 2026-05-09).
 - **Compiler:** `removeConsole` and `reactRemoveProperties` enabled in production.
 - **Compression:** `compress: true` in Next.js config.
-- **Standalone output:** Production builds use `output: 'standalone'`.
+- **Standalone output:** Removed 2026-05-08 (W6 audit fix). Vercel handles its own bundling; standalone is for self-hosted Docker only.
 
 ### Image Optimization
 

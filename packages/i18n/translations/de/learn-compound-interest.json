@@ -1,0 +1,98 @@
+{
+  "seo": {
+    "title": "Wie Geld wirklich wächst — Zinseszins erklärt",
+    "description": "Verstehe, wie Zinseszins funktioniert — die Mathematik, die Banken und die Wall Street seit Jahrzehnten nutzen. Gib deine eigenen Zahlen ein und sieh, wie 12 Jahre aussehen."
+  },
+  "lesson": {
+    "h1": "Wie Geld wirklich wächst",
+    "readTime": "~5 Min Lesezeit",
+    "lastUpdated": {
+      "label": "Zuletzt aktualisiert:",
+      "date": "Mai 2026"
+    }
+  },
+  "beat1": {
+    "title": "Sparen ist nur die halbe Wahrheit.",
+    "body": [
+      "Schwierig. Notwendig. Der erste Schritt. Aber für sich genommen verändert es dein Leben nicht.",
+      "1.000 € gespart sind 1.000 € — in sechs Monaten. In einem Jahr. In vierzig Jahren.",
+      "Dieselben 1.000 € könnten aber **~2.252 € in 12 Jahren** sein.",
+      "Wie?",
+      "Indem du machst, was jede Bank und jeder Wall-Street-Fonds seit Jahrhunderten macht. Zinseszins.",
+      "Die Banken wissen das. Die Fonds wissen das. Sie nutzen es seit Jahrzehnten mit deinem Geld — und zahlen dir fast nichts dafür zurück.",
+      "Jetzt bist du dran."
+    ]
+  },
+  "beat2": {
+    "title": "Der unsichtbare Motor des Systems.",
+    "intro": [
+      "Du denkst vielleicht — *woher soll ich denn das Geld zum Investieren nehmen?*",
+      "Keine Sorge. Wir kommen dir nicht mit der alten 50/30/20-Regel. Die hat funktioniert, als Mieten noch bezahlbar waren, als die Inflation unter Kontrolle war, als der Wocheneinkauf nicht ein halbes Vermögen gekostet hat.",
+      "Diese Welt ist vorbei. Wir leben in dieser hier.",
+      "Reden wir also über etwas Einfacheres. Kleine Dinge, für die du Geld ausgibst, ohne darüber nachzudenken."
+    ],
+    "habitsLine": "Dein Bäckerei-Frühstück morgens. Das Restaurant am Wochenende. Streaming und Fitnessstudio jeden Monat.",
+    "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen — beim gleichen historischen Zinssatz von 7 % — dann sehen 12 Jahre so aus:",
+    "vignettes": [
+      { "habit": "Bäckerei-Frühstück (4 €/Tag werktags)", "yearly": "1.040 €", "twelveYear": "~19.200 €" },
+      { "habit": "Restaurant am Wochenende (35 €/Woche)", "yearly": "1.820 €", "twelveYear": "~33.190 €" },
+      { "habit": "Streaming + Fitnessstudio (40 €/Monat)", "yearly": "480 €", "twelveYear": "~8.750 €" }
+    ],
+    "vignettesTableHeaders": {
+      "habit": "Gewohnheit",
+      "yearly": "Pro Jahr",
+      "twelveYear": "Könnte in 12 Jahren werden"
+    },
+    "vignettesOutro": "Dasselbe Geld. Andere Aufgabe.",
+    "vignettesDisclaimer": "Illustrative Zahlen auf Basis eines historischen Zinssatzes von 7 %. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse.",
+    "habitsRecap": "Niemand verlangt von dir, das Frühstück zu streichen. Oder das Restaurant. Oder das Streaming. Behalte, was dein Leben besser macht.",
+    "outro": [
+      "Aber wenn nur eines davon — nur eines — für dich arbeiten würde, statt jeden Monat zu verschwinden, dann passiert genau die Mathematik, die du oben gesehen hast.",
+      "Genau das machen die Banken. Mit deinem Geld. Seit Jahrzehnten.",
+      "Jetzt bist du dran."
+    ]
+  },
+  "beat3": {
+    "title": "Jetzt benutze es selbst.",
+    "intro": [
+      "Die Rechnung oben war mit Bäckerei, Restaurant und Streaming. Das sind Beispiele. Dein Leben ist deins.",
+      "Setz also deine eigenen Zahlen ein.",
+      "Wofür gibst du täglich, wöchentlich oder monatlich Geld aus, das du nicht wirklich vermissen würdest, wenn es stattdessen für dich arbeiten würde?",
+      "Das wöchentliche Essengehen. Die Abos, die sich angesammelt haben. Die paar Euro, die jeden Tag auf dem Weg zur Arbeit verschwinden. Was auch immer es ist — gib es unten ein.",
+      "Die Grafik zeigt dir, wie 12 Jahre aussehen. Bei drei verschiedenen Zinssätzen. Verglichen mit dem, was deine Bank dir gerade zahlt."
+    ],
+    "calculatorTagline": "Dasselbe Geld. Andere Aufgabe.",
+    "afterCalculator": "Zahlen verstanden?",
+    "wrap": [
+      "Genau dafür ist diBoaS da. Der Teil deines Geldes, den du zur Seite legen kannst, der zu einem Zinssatz arbeitet, den sich das System bisher selbst behalten hat.",
+      "Deine Bank bleibt, wo sie ist — für Ausgaben, Rechnungen und den Alltag. diBoaS ist für Geld mit einem Ziel."
+    ],
+    "cta": {
+      "primary": "Auf die Warteliste",
+      "primaryNote": "Du musst kein Geld bewegen, um auf die Warteliste zu kommen. Du entscheidest später.",
+      "secondary": "Weitere Lektionen folgen →"
+    }
+  },
+  "calculator": {
+    "amountLabel": "Betrag",
+    "amountAriaLabel": "Betrag pro Periode",
+    "cadenceLabel": "Wie oft",
+    "cadenceOptions": {
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich"
+    },
+    "yearsLabel": "Jahre",
+    "yearsTooltip": "Täglich nutzt 365 Tage; wöchentlich 52 Wochen; monatlich bleibt unverändert.",
+    "outputBank": "Deine Bank",
+    "outputConservative": "Konservativ (4 %)",
+    "outputHistorical": "Historisch (7 %)",
+    "outputOptimistic": "Optimistisch (10 %)",
+    "summaryHeader": "Aus deinen monatlichen {amount} könnten in {years} Jahren werden…",
+    "chartAriaLabel": "Zinseszins-Grafik, die deine Bankrate mit drei Szenarien über die Zeit vergleicht.",
+    "tableHeaderScenario": "Szenario",
+    "tableHeaderRate": "Jahreszins",
+    "tableHeaderTotal": "Nach {years} Jahren",
+    "loadingState": "Wird berechnet…"
+  }
+}

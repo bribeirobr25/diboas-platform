@@ -62,12 +62,8 @@ export function useGoalCardData(cardKey: GoalCardKey, locale: SupportedLocale): 
       const bankMonths = monthsToInflationAdjustedTarget(target, pmt, bankApy, inflation);
       const diff = bankMonths - diboasMonths;
 
-      const monthsLabel: Record<SupportedLocale, string> = {
-        en: 'months',
-        'pt-BR': 'meses',
-        es: 'meses',
-        de: 'Monate',
-      };
+      // monthsLabel removed 2026-05-08 (lint cleanup) — was assigned but never
+      // referenced; the card now expresses "X years to target" via yearsLabel.
       const inLabel: Record<SupportedLocale, string> = {
         en: 'in',
         'pt-BR': 'em',

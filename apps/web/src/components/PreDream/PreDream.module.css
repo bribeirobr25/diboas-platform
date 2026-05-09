@@ -127,7 +127,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-teal-600);
+  color: var(--color-teal-700);
 }
 
 /* Disclaimer */
@@ -198,7 +198,7 @@
 .primaryButton {
   width: 100%;
   padding: 14px; /* no exact token */
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   color: var(--color-white);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-sm-plus);
@@ -214,7 +214,7 @@
 
 .primaryButton:disabled {
   background: var(--color-slate-200);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   cursor: not-allowed;
 }
 
@@ -285,7 +285,7 @@
 }
 
 .featureCheck {
-  color: var(--color-teal-600);
+  color: var(--color-teal-700);
   font-weight: var(--font-weight-bold);
 }
 
@@ -427,7 +427,7 @@
 }
 
 .currencySymbol {
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
 }
 
 .sliderNumberInput {
@@ -458,7 +458,7 @@
   width: var(--spacing-lg);
   height: var(--spacing-lg);
   border-radius: 50%;
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   cursor: pointer;
   box-shadow: 0 2px 4px var(--shadow-black-heavy);
 }
@@ -467,7 +467,7 @@
   width: var(--spacing-lg);
   height: var(--spacing-lg);
   border-radius: 50%;
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 4px var(--shadow-black-heavy);
@@ -477,7 +477,7 @@
   display: flex;
   justify-content: space-between;
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin-top: var(--spacing-xs);
 }
 
@@ -509,13 +509,13 @@
 }
 
 .timeframeIcon {
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: 0 auto var(--spacing-sm);
   display: block;
 }
 
 .timeframeIconSelected {
-  color: var(--color-teal-600);
+  color: var(--color-teal-700);
   margin: 0 auto var(--spacing-sm);
   display: block;
 }
@@ -564,7 +564,7 @@
   border-radius: var(--radius-md-plus);
   font-size: 11px; /* no exact token */
   font-weight: var(--font-weight-bold);
-  color: var(--color-amber-600);
+  color: var(--color-amber-700);
   letter-spacing: 1px;
   z-index: calc(var(--z-index-modal, 1000) + 2);
 }
@@ -584,7 +584,7 @@
 .simulationValue {
   font-size: clamp(40px, 10vw, 64px);
   font-weight: var(--font-weight-bold);
-  color: var(--color-teal-600);
+  color: var(--color-teal-700);
   font-variant-numeric: tabular-nums;
 }
 
@@ -616,7 +616,7 @@
   transform: translate(-50%, -50%);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-teal-600);
+  color: var(--color-teal-700);
   font-variant-numeric: tabular-nums;
 }
 
@@ -707,13 +707,13 @@
 
 .comparisonApy {
   font-size: var(--font-size-xs-plus);
-  color: var(--color-teal-600);
+  color: var(--color-teal-700);
   margin: 0;
 }
 
 .comparisonApyMuted {
   font-size: var(--font-size-xs-plus);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: 0;
 }
 
@@ -731,7 +731,7 @@
 .comparisonAmountMuted {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: 0;
 }
 
@@ -743,7 +743,7 @@
 
 .comparisonGainMuted {
   font-size: var(--font-size-xs-plus);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: 0;
 }
 
@@ -863,7 +863,7 @@
 /* Bank Source */
 .bankSource {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   text-align: center;
   margin: 0 0 var(--spacing-md);
 }

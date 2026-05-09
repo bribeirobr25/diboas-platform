@@ -31,8 +31,10 @@ export const GoalExampleCards = memo(function GoalExampleCards({
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   // Portal target for PreDream — must render outside ScrollReveal's transform
-  // stacking context to allow position:fixed to work relative to viewport
+  // stacking context to allow position:fixed to work relative to viewport.
+  // SSR renders portalContainer=null; client mount flips it to document.body.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalContainer(document.body);
   }, []);
 

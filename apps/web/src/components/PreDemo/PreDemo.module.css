@@ -137,7 +137,10 @@
   transform: translateX(-50%);
   font-size: 11px;
   font-weight: var(--font-weight-semibold);
-  color: var(--color-amber-600, #d97706);
+  /* W2 (audit/2026-05-08): amber-600 on amber-50 was 3.07:1 — fails AA.
+   * amber-700 (#b45309) on amber-50 is 5.67:1. Border + bg unchanged so the
+   * badge still reads as amber. */
+  color: var(--color-amber-700, #b45309);
   background: var(--color-amber-50, #fffbeb);
   border: 1px solid var(--color-amber-200, #fde68a);
   padding: 5px var(--spacing-md-minus);
@@ -234,7 +237,7 @@
 }
 
 .inputField:disabled {
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   cursor: not-allowed;
 }
 
@@ -273,7 +276,7 @@
 
 .dividerText {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -292,7 +295,7 @@
   border-radius: var(--radius-lg-plus);
   font-size: var(--font-size-xs-plus);
   font-weight: var(--font-weight-medium);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   background: var(--section-bg-white);
   cursor: not-allowed;
   display: flex;
@@ -312,7 +315,7 @@
 
 .disclaimerText {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   text-align: center;
   line-height: 1.5;
   margin: 0;
@@ -573,7 +576,10 @@
   font-size: var(--font-size-xs-minus);
   font-weight: var(--font-weight-bold);
   color: var(--color-white);
-  background: var(--brand-primary-dark);
+  /* W2 (audit/2026-05-08, demo flow): --brand-primary-dark is teal-600
+   * (#0d9488), giving white badge text 3.74:1 — fails AA. Switched to
+   * --text-primary-accessible (teal-700) for 4.85:1. */
+  background: var(--text-primary-accessible);
   padding: var(--spacing-2xs) var(--spacing-sm);
   border-radius: var(--radius-pill);
   letter-spacing: 0.5px;
@@ -605,7 +611,7 @@
 
 .quickActionSubtitle {
   font-size: 11px;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin-top: -4px;
 }
 
@@ -653,7 +659,7 @@
 
 .activityEmptySubtext {
   font-size: var(--font-size-xs-plus);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: var(--spacing-xs) 0 0;
 }
 
@@ -714,7 +720,7 @@
 
 .activityDate {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   display: block;
   margin-top: 2px;
 }
@@ -740,7 +746,7 @@
 
 .activityFees {
   font-size: 11px;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   display: block;
   margin-top: 2px;
 }
@@ -814,9 +820,14 @@
 }
 
 .methodActive {
+  /* W2 (audit/2026-05-08, demo flow): --brand-primary-dark text (teal-600)
+   * on the teal-50 section bg gave 3.59:1 — fails AA. teal-700 is 4.85:1
+   * on teal-50. Border keeps the brighter teal-500 for visual emphasis
+   * (border contrast is 1.4.11 territory; teal-500 on teal-50 is 3.04:1
+   * which still meets the 3:1 non-text minimum). */
   border-color: var(--brand-primary);
   background: var(--section-bg-brand);
-  color: var(--brand-primary-dark);
+  color: var(--text-primary-accessible);
 }
 
 .methodDisabled {
@@ -844,7 +855,7 @@
 .amountPrefix {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin-right: var(--spacing-xs);
 }
 
@@ -933,7 +944,7 @@
 
 .feeToggleChevron {
   font-size: var(--font-size-xs-minus);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
 }
 
 .feeRows {
@@ -968,7 +979,7 @@
   justify-content: center;
   background: transparent;
   border: none;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   cursor: pointer;
   padding: var(--spacing-2xs);
 }
@@ -1143,7 +1154,7 @@
 
 .comingSoon {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   font-style: italic;
 }
 
@@ -1286,7 +1297,10 @@
 .primaryButton {
   width: 100%;
   padding: var(--spacing-md-plus);
-  background: var(--brand-primary-dark);
+  /* W2 (audit/2026-05-08): --brand-primary-dark is teal-600 (#0d9488), giving
+   * white text only 3.74:1. Bumped to --text-primary-accessible (teal-700,
+   * #0f766e, 4.85:1) for AA compliance. Matches .btn-gradient elsewhere. */
+  background: var(--text-primary-accessible);
   color: var(--color-white);
   font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-sm-plus);
@@ -1302,7 +1316,7 @@
 
 .primaryButton:disabled {
   background: var(--color-slate-200);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   cursor: not-allowed;
 }
 
@@ -1478,7 +1492,7 @@
 
 .tokenUsd {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   display: block;
 }
 
@@ -1686,7 +1700,7 @@
 
 .exportModalFooter {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   text-align: center;
   margin: 0;
 }
@@ -1701,7 +1715,7 @@
 
 .footerText {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: 0;
 }
 
@@ -1715,14 +1729,14 @@
 
 .demoFooterDisclaimer {
   font-size: 11px;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: 0 0 var(--spacing-xs);
   line-height: 1.5;
 }
 
 .demoFooterCopyright {
   font-size: 11px;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   margin: 0;
 }
 
@@ -1749,7 +1763,7 @@
 
 .receiveAmountSub {
   font-size: var(--font-size-xs);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   font-weight: var(--font-weight-normal);
 }
 
@@ -1760,7 +1774,7 @@
 
 .confirmApproxLabel {
   font-size: 12px;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
 }
 
 .svgIconInline {
@@ -1833,7 +1847,7 @@
 
 .noTokensText {
   font-size: var(--font-size-xs-plus);
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   font-style: italic;
   padding: var(--spacing-sm) 0;
 }
@@ -1868,7 +1882,7 @@
 .l2Chevron {
   width: 16px;
   height: 16px;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   transition: transform 0.2s ease;
 }
 
@@ -1907,7 +1921,7 @@
 
 .l2ChainAddress {
   font-size: 11px;
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
   font-family: var(--font-family-mono);
   margin-left: auto;
 }
@@ -2013,7 +2027,7 @@
 }
 
 .textMuted {
-  color: var(--color-slate-400);
+  color: var(--color-slate-600);
 }
 
 .copyFailedText {

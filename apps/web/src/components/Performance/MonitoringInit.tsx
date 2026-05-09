@@ -13,6 +13,7 @@
 import { useEffect, useRef } from 'react';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { registerEventSubscribers } from '@/lib/events/eventSubscribers';
+import { Logger } from '@/lib/monitoring/Logger';
 import {
   applicationEventBus,
   ApplicationEventType,
@@ -26,6 +27,11 @@ export function MonitoringInit() {
   useEffect(() => {
     if (initializedRef.current) return;
     initializedRef.current = true;
+
+    // Phase 2 L1 (audit/2026-05-08): hydrate the client Logger with the
+    // x-request-id from the server's <meta> tag so all subsequent
+    // Logger entries can be correlated to the originating server request.
+    Logger.initFromMeta();
 
     // Event subscribers: wire up cross-cutting event listeners
     registerEventSubscribers();

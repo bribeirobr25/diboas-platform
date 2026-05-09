@@ -43,7 +43,15 @@ export const metadata: Metadata = {
     template: `${UI_LAYOUT_CONSTANTS.TITLE_TEMPLATE} | ${BRAND_CONFIG.NAME}`,
     default: `${BRAND_CONFIG.NAME} - ${BRAND_CONFIG.TAGLINE}`
   },
-  description: BRAND_CONFIG.DESCRIPTION,
+  // V2 (audit/2026-05-08 visual review): the root-level `description`
+  // here was rendering as a SECOND `<meta name="description">` tag in
+  // every locale, BEFORE the per-page localized description. Search
+  // crawlers picked up the first (English brand default), making every
+  // localized page appear as English to Google. Page-level
+  // generateMetadata already provides a description for each route, so
+  // removing this root default has no fallback impact for production
+  // pages.
+  // description: BRAND_CONFIG.DESCRIPTION,
   manifest: '/manifest.json',
   icons: {
     icon: [
@@ -61,12 +69,31 @@ export default async function RootLayout({
 }>) {
   const headersList = await headers();
   const nonce = headersList.get('x-nonce') ?? undefined;
+  // Phase 2 L1 (audit/2026-05-08): expose x-request-id to the client
+  // Logger via a meta tag, so Sentry/Logger events on the client can
+  // be correlated back to the originating server request.
+  const requestId = headersList.get('x-request-id') ?? undefined;
+  // V3 (audit/2026-05-08 visual review): middleware sets `x-locale`
+  // based on the URL prefix; we read it here so SSR `<html lang>`
+  // matches the actual locale being served. Was previously hard-coded
+  // to DEFAULT_LOCALE, which gave Google + screen readers `en` for
+  // every locale. Falls back to DEFAULT_LOCALE for the root redirect
+  // and for any request middleware didn't tag.
+  const htmlLang = headersList.get('x-locale') ?? UI_LAYOUT_CONSTANTS.DEFAULT_LOCALE;
 
   return (
-    <html lang={UI_LAYOUT_CONSTANTS.DEFAULT_LOCALE} suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <meta name="description" content={BRAND_CONFIG.DESCRIPTION} />
+        {/*
+          V2 (audit/2026-05-08 visual review): hardcoded `<meta name="description">`
+          removed — Next.js's metadata API renders one from
+          `export const metadata.description` below, plus per-page overrides
+          from each route's `generateMetadata`. Having both produced two
+          `<meta name="description">` tags in the rendered HTML, with the
+          hardcoded brand default winning over the localized per-page text.
+        */}
+        {requestId && <meta name="x-request-id" content={requestId} />}
         {/* Google Fonts removed for GDPR compliance - using next/font/google self-hosted */}
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
         <link rel="dns-prefetch" href="https://diboas.com" />
@@ -111,7 +138,12 @@ export default async function RootLayout({
                   }
                 } catch(e) {}
 
-                // Listen for consent changes
+                // Listen for consent changes — registered on \`window\`, intentionally
+                // without a corresponding removeEventListener: this is an inline
+                // bootstrap script (not a React component), so the listener is
+                // tied to the document lifecycle. GA4 needs to receive every
+                // consent toggle for as long as the page is open. Phase 3 L12
+                // (audit/2026-05-08): documented to silence the parity-rule heuristic.
                 window.addEventListener('cookie-consent-changed', function(e) {
                   if (e.detail && e.detail.analytics) {
                     gtag('consent', 'update', { 'analytics_storage': 'granted' });

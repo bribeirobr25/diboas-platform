@@ -66,6 +66,8 @@ export const ExpandableSection = memo(function ExpandableSection({
             {children ?? (
               <>
                 {translated.content.paragraphs?.map((paragraph: string, index: number) => (
+                  // Stable: paragraphs come from translation file, never reorder.
+                  // eslint-disable-next-line react/no-array-index-key
                   <p key={index} className={styles.paragraph}>{paragraph}</p>
                 ))}
                 {translated.content.linkText && translated.content.linkHref ? (

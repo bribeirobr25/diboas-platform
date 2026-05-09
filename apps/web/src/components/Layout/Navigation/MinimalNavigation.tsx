@@ -43,6 +43,11 @@ const LANDING_NAV_LINKS = [
     href: ROUTES.DAILY_MARKET,
   },
   {
+    id: 'learn',
+    labelKey: 'common.navigation.landing.learn',
+    href: ROUTES.LEARN,
+  },
+  {
     id: 'about',
     labelKey: 'common.navigation.landing.about',
     href: ROUTES.ABOUT,
@@ -93,12 +98,21 @@ export default function MinimalNavigation() {
           </LocaleLink>
 
           {/* Desktop Navigation Links */}
+          {/* W7 (audit/2026-05-08): prefetch={false} so Next.js doesn't
+            * preemptively load CSS for routes that secondary-nav users
+            * rarely click. The LearnIndex CSS in particular was flagged by
+            * the browser as "preloaded but not used within a few seconds"
+            * because every page rendered the nav and prefetched /learn.
+            * Trade: marginally slower navigation when these links are
+            * actually clicked; gain: no spurious browser console warnings
+            * and ~2.5KB less wasted bandwidth per page load. */}
           <div className="minimal-nav-links">
             {LANDING_NAV_LINKS.map((link) => (
               <LocaleLink
                 key={link.id}
                 href={link.href}
                 className="minimal-nav-link"
+                prefetch={false}
               >
                 {intl.formatMessage({ id: link.labelKey })}
               </LocaleLink>
@@ -164,6 +178,7 @@ export default function MinimalNavigation() {
                   href={link.href}
                   className="minimal-nav-mobile-link"
                   onClick={handleLinkClick}
+                  prefetch={false}
                 >
                   {intl.formatMessage({ id: link.labelKey })}
                 </LocaleLink>

@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "Lerne, wie Geld wirklich funktioniert",
+    "description": "Kurze, ehrliche Lektionen über das Finanzsystem — geschrieben für die Menschen, für die das System nicht gemacht wurde."
+  },
+  "nav": {
+    "label": "Lernen"
+  },
+  "index": {
+    "h1": "Lerne, wie Geld wirklich funktioniert.",
+    "subhead": "Kurze, ehrliche Lektionen über das Finanzsystem — geschrieben für die Menschen, für die das System nicht gemacht wurde.",
+    "footerLine": "Weitere Lektionen folgen. Wir veröffentlichen alle paar Monate eine — langsam, sorgfältig, gut geschrieben."
+  },
+  "lessons": {
+    "compoundInterest": {
+      "cardTitle": "Wie Geld wirklich wächst",
+      "cardDescription": "Die Mathematik, die Banken seit Jahrhunderten nutzen. Jetzt bist du dran.",
+      "cardReadTime": "~5 Min Lesezeit",
+      "cardCta": "Lektion lesen"
+    }
+  },
+  "roadmap": {
+    "comingSoon": "Demnächst",
+    "lessons": {
+      "inflation": {
+        "title": "Inflation: Die stille Steuer",
+        "description": "Warum dein Geld jedes Jahr an Wert verliert — und was du dagegen tun kannst."
+      },
+      "savingsVsInvesting": {
+        "title": "Sparen vs. Investieren",
+        "description": "Klingt ähnlich. Ist es nicht. Hier zeigt sich der Unterschied."
+      },
+      "currencyDepreciation": {
+        "title": "Währungsabwertung",
+        "description": "Wann es riskanter ist, dein lokales Geld zu halten, als zu investieren."
+      }
+    }
+  }
+}

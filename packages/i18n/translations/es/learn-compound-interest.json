@@ -1,0 +1,98 @@
+{
+  "seo": {
+    "title": "Cómo Crece el Dinero de Verdad — El interés compuesto explicado",
+    "description": "Aprende cómo funciona el interés compuesto — las matemáticas que los bancos y Wall Street han usado durante décadas. Introduce tus propios números y mira cómo se ven 12 años."
+  },
+  "lesson": {
+    "h1": "Cómo Crece el Dinero de Verdad",
+    "readTime": "~5 min de lectura",
+    "lastUpdated": {
+      "label": "Última actualización:",
+      "date": "Mayo 2026"
+    }
+  },
+  "beat1": {
+    "title": "Ahorrar es solo la mitad de la historia.",
+    "body": [
+      "Difícil. Necesario. El primer paso. Pero, por sí solo, nunca cambia la vida.",
+      "1.000 € ahorrados siguen siendo 1.000 € dentro de seis meses. Dentro de un año. Dentro de cuarenta años.",
+      "Pero esos mismos 1.000 € podrían ser **~2.252 € en 12 años.**",
+      "¿Cómo?",
+      "Haciendo lo que cada banco y cada gran fondo lleva siglos haciendo. Usando el interés compuesto.",
+      "Los bancos lo saben. Los fondos lo saben. Llevan décadas usándolo con tu dinero — y pagándote casi nada a cambio.",
+      "Ahora te toca a ti."
+    ]
+  },
+  "beat2": {
+    "title": "El motor secreto del sistema.",
+    "intro": [
+      "A lo mejor estás pensando — *¿de dónde se supone que voy a sacar dinero para invertir?*",
+      "Tranquilo. No te vamos a soltar la vieja regla del 50/30/20. Eso funcionaba cuando los pisos no estaban por las nubes, cuando la inflación estaba controlada, cuando hacer la compra no costaba un riñón.",
+      "Ese mundo ya pasó. Vivimos en este.",
+      "Así que hablemos de algo más sencillo. Pequeñas cosas en las que ya gastas sin pensar."
+    ],
+    "habitsLine": "El café con tostada de cada mañana. Las cañas con amigos del finde. El streaming y el gimnasio cada mes.",
+    "vignettesIntro": "Si solo uno de esos se pusiera a trabajar para ti en vez de irse — al mismo 7 % de rentabilidad histórica — así se verían 12 años:",
+    "vignettes": [
+      { "habit": "Café con tostada (3 €/día)", "yearly": "780 €", "twelveYear": "~14.400 €" },
+      { "habit": "Cañas con amigos (25 €/semana)", "yearly": "1.300 €", "twelveYear": "~23.710 €" },
+      { "habit": "Streaming + gimnasio (40 €/mes)", "yearly": "480 €", "twelveYear": "~8.750 €" }
+    ],
+    "vignettesTableHeaders": {
+      "habit": "Hábito",
+      "yearly": "Coste al año",
+      "twelveYear": "Podría convertirse en 12 años"
+    },
+    "vignettesOutro": "Mismo dinero. Otro trabajo.",
+    "vignettesDisclaimer": "Cifras ilustrativas basadas en un 7 % de interés compuesto histórico. Rentabilidades pasadas no garantizan resultados futuros.",
+    "habitsRecap": "Nadie te está pidiendo que dejes el café. Ni las cañas. Ni el streaming. Quédate con lo que hace que la vida valga la pena.",
+    "outro": [
+      "Pero si solo uno de ellos — solo uno — trabajara para ti en vez de desaparecer cada mes, lo que pasa es justo la cuenta que acabas de ver arriba.",
+      "Esto es lo que los bancos llevan haciendo. Con tu dinero. Durante décadas.",
+      "Ahora te toca a ti."
+    ]
+  },
+  "beat3": {
+    "title": "Ahora úsalo tú.",
+    "intro": [
+      "Las cuentas de arriba usan café, cañas y streaming. Son ejemplos. Tu vida es tuya.",
+      "Así que pon tus propios números.",
+      "¿En qué gastas, cada día, cada semana o cada mes, que no echarías de menos si trabajara para ti?",
+      "Esa cena de los viernes. Las suscripciones que se han ido acumulando. Los pocos euros que se van cada mañana de camino al trabajo. Lo que sea — escríbelo abajo.",
+      "El gráfico te enseñará cómo se ven 12 años. A tres tipos de interés diferentes. Comparado con lo que tu banco te está pagando ahora mismo."
+    ],
+    "calculatorTagline": "Mismo dinero. Otro trabajo.",
+    "afterCalculator": "¿Te ha cuadrado la cuenta?",
+    "wrap": [
+      "Para esto está diBoaS. La parte de tu dinero que puedes apartar, trabajando a un ritmo que el sistema se venía guardando solo para él.",
+      "Tu banco se queda donde está — para gastos, recibos y el día a día. diBoaS es para el dinero con un objetivo."
+    ],
+    "cta": {
+      "primary": "Apuntarme a la lista de espera",
+      "primaryNote": "Apuntarte no mueve tu dinero. Tú decides después.",
+      "secondary": "Más lecciones próximamente →"
+    }
+  },
+  "calculator": {
+    "amountLabel": "Cantidad",
+    "amountAriaLabel": "Cantidad por período",
+    "cadenceLabel": "Con qué frecuencia",
+    "cadenceOptions": {
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "monthly": "Mensual"
+    },
+    "yearsLabel": "Años",
+    "yearsTooltip": "Diario usa 365 días; semanal usa 52 semanas; mensual no cambia.",
+    "outputBank": "Tu banco",
+    "outputConservative": "Conservador (4 %)",
+    "outputHistorical": "Histórico (7 %)",
+    "outputOptimistic": "Optimista (10 %)",
+    "summaryHeader": "En {years} años, tus {amount} mensuales podrían convertirse en…",
+    "chartAriaLabel": "Gráfico de interés compuesto que compara la tasa de tu banco con tres escenarios a lo largo del tiempo.",
+    "tableHeaderScenario": "Escenario",
+    "tableHeaderRate": "Tipo anual",
+    "tableHeaderTotal": "Después de {years} años",
+    "loadingState": "Calculando…"
+  }
+}

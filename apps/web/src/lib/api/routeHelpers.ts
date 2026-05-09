@@ -24,6 +24,23 @@ import {
 type RateLimitPreset = keyof typeof RateLimitPresets;
 
 /**
+ * Read the request's `x-request-id` header (set by middleware) for use as
+ * the `correlationId` on emitted events. Falls back to a fresh UUID if the
+ * header is missing — but this should not happen in normal flow because
+ * `apps/web/middleware.ts` always sets it.
+ *
+ * Phase 2 M1 (audit/2026-05-08): unified entry point for distributed tracing.
+ */
+export function getCorrelationId(request: NextRequest): string {
+  const fromHeader = request.headers.get('x-request-id');
+  if (fromHeader) return fromHeader;
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+}
+
+/**
  * Apply rate limiting. Returns a 429 response if limited, null otherwise.
  */
 export async function applyRateLimit(
@@ -73,9 +90,11 @@ export function emitErrorEvent(
   source: string,
   operation: string,
   error: unknown,
-  severity: 'low' | 'medium' | 'high' | 'critical' = 'high'
+  severity: 'low' | 'medium' | 'high' | 'critical' = 'high',
+  domain: 'waitlist' | 'consent' | 'share' | 'preDemo' | 'preDream' | 'analytics' | 'monitoring' | 'application' = 'application'
 ): void {
   applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+    domain,
     source,
     timestamp: Date.now(),
     error: error instanceof Error ? error : new Error(String(error)),

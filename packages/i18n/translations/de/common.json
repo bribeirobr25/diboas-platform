@@ -10,6 +10,7 @@
       "about": "Über uns",
       "protocols": "Protokolle",
       "adelaideDaily": "Adelaide Daily",
+      "learn": "Lernen",
       "joinWaitlist": "Auf die Warteliste",
       "tryDemo": "Demo testen"
     },
@@ -368,5 +369,8 @@
     "invalidLink": "Dieser Link ist ungültig oder abgelaufen.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     "processing": "Wird verarbeitet..."
+  },
+  "disclaimers": {
+    "educationalProjection": "Veranschaulichende Zahlen basierend auf historischen Annahmen zum Zinseszins. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse. Verwende nur Geld, das du verlieren kannst. diBoaS ist keine Bank und deine Gelder sind nicht versichert."
   }
 }

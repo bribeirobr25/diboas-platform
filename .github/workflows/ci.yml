@@ -14,7 +14,10 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Phase 4.2 (audit/2026-05-08): bumped from 20 → 24 ahead of the
+          # 2026-06-02 deprecation deadline for the older runner-bundled
+          # Node. Vercel's runtime has already moved to Node 24 LTS.
+          node-version: 24
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm type-check
@@ -23,3 +26,9 @@ jobs:
       - run: pnpm validate:translations
       - run: pnpm validate:design-tokens
       - run: pnpm build
+      # Phase 5.2 (audit/2026-05-09): Turbopack-aware bundle-budget gate.
+      # Replaces the original webpack-plugin enforcement (was inert under
+      # Turbopack — see F1 audit). Walks `.next/static/chunks` for size /
+      # count regressions. Fails CI if peak asset, total, or count exceed
+      # baseline + headroom recorded in scripts/check-bundle-budget.mjs.
+      - run: pnpm check:budget

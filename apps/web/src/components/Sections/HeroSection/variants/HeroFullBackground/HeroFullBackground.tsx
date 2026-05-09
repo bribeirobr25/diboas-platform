@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { Button } from '@diboas/ui';
 import { useTranslation } from '@diboas/i18n/client';
 import { ChevronDown } from '@/components/UI/LucideIcon';
+import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import type { HeroVariantProps } from '../types';
 import styles from './HeroFullBackground.module.css';
@@ -45,8 +46,18 @@ export function HeroFullBackground({
   const hasSeparateMobileImage = backgroundImageMobile && backgroundImageMobile !== backgroundImage;
   const overlayOpacity = config.backgroundAssets?.overlayOpacity || 0.3;
 
+  // Phase 3 L11 (audit/2026-05-08): see HeroDefault for context.
+  const impressionRef = useImpressionTracking<HTMLElement>({
+    eventName: 'hero_impression',
+    parameters: { variant: 'fullBackground' },
+  });
+
   return (
-    <section className={`${styles.section} ${className}`} aria-labelledby="hero-title">
+    <section
+      ref={impressionRef}
+      className={`${styles.section} ${className}`}
+      aria-labelledby="hero-title"
+    >
       {/* Background Layer — uses next/image for optimization */}
       {hasBackgroundAssets && backgroundImage && (
         <div className={styles.backgroundLayer} aria-hidden="true">

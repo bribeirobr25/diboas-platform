@@ -1,0 +1,118 @@
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.h1 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-title-mobile);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+  color: var(--color-section-title);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@media (min-width: 768px) { .h1 { font-size: var(--font-size-title-tablet); } }
+@media (min-width: 1024px) { .h1 { font-size: var(--font-size-title-desktop); } }
+
+.subhead {
+  font-family: var(--font-family-primary);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-slate-700);
+  margin: 0;
+}
+
+.lessonsBlock {
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.activeCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--color-white);
+  border: 1px solid var(--color-slate-200);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.activeCard:hover,
+.activeCard:focus-visible {
+  border-color: var(--color-teal-500);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(20, 184, 166, 0.12);
+}
+
+.activeCard:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activeCard,
+  .activeCard:hover,
+  .activeCard:focus-visible {
+    transition: none;
+    transform: none;
+  }
+}
+
+.activeCardKicker {
+  font-size: 13px;
+  color: var(--color-slate-500);
+  font-family: var(--font-family-primary);
+}
+
+.activeCardTitle {
+  font-family: var(--font-family-display);
+  font-size: 26px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  color: var(--color-slate-900);
+  margin: 4px 0 0;
+}
+
+.activeCardDescription {
+  font-size: 16px;
+  color: var(--color-slate-700);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.activeCardCta {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-teal-700);
+  margin-top: 8px;
+}
+
+.roadmapBlock {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footerLine {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-slate-500);
+  margin: 0;
+}

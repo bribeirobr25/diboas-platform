@@ -23,13 +23,15 @@
     "analytics:report": "turbo run analytics-report",
     "validate:translations": "node packages/i18n/scripts/validate-translations.js",
     "check:dead-code": "knip",
-    "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run validate:design-tokens && pnpm run validate:translations",
+    "check:budget": "node scripts/check-bundle-budget.mjs",
+    "validate:all": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run check:budget && pnpm run validate:design-tokens && pnpm run validate:translations",
     "audit:full": "bash scripts/pre-launch-audit.sh",
     "audit:ci": "bash scripts/pre-launch-audit.sh --ci",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/node": "^25.4.0",
     "ajv": "^8.18.0",
     "eslint": "^9.39.4",

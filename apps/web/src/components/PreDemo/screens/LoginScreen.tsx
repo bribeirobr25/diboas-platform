@@ -38,6 +38,7 @@ export function LoginScreen({ onExit: _onExit, runSequence }: LoginScreenProps) 
         delayMs: 4000,
         onReach: () => {
           applicationEventBus.emit(ApplicationEventType.PRE_DEMO_STARTED, {
+            domain: 'preDemo',
             source: 'preDemo',
             timestamp: Date.now(),
           });

@@ -33,7 +33,12 @@ export * from './store';
 export {
   WaitlistApplicationService,
   waitlistApplicationService,
-  type SignupInput,
-  type SignupResult,
-  type SignupError,
+  type SubmitSignupInput,
+  type SubmitSignupResult,
+  type SubmitSignupSuccess,
+  type SubmitSignupError,
+  type RequestDeletionInput,
+  type RequestDeletionResult,
+  type ConfirmDeletionInput,
+  type ConfirmDeletionResult,
 } from './WaitlistApplicationService';

@@ -1,0 +1,64 @@
+.figure {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-family-primary);
+}
+
+.gridLine {
+  stroke: var(--color-slate-200);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.axisLabel {
+  /* W2 (audit/2026-05-08): slate-500 (#64748b) is 4.58:1 on white — passing
+   * AA on paper but axe flags it because the chart background is rendered
+   * inside a section with subtle gradient/tint, dropping the effective ratio.
+   * slate-600 (#475569) is 7.55:1 on white and clears every chart-area
+   * background we use. ~9 of the 16 pa11y errors on /learn/compound-interest
+   * trace to these axis labels. */
+  fill: var(--color-slate-600);
+  font-size: 12px;
+  font-family: var(--font-family-primary);
+}
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 1500; }
+  to { stroke-dashoffset: 0; }
+}
+
+.pathAnimated {
+  stroke-dasharray: 1500;
+  animation: drawLine 1.2s ease-out forwards;
+}
+
+.pathStatic {
+  stroke-dasharray: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pathAnimated {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}
+
+.srOnlyTable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

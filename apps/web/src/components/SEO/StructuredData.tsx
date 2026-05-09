@@ -14,8 +14,12 @@ export function StructuredData({ data }: StructuredDataProps) {
 
   return (
     <>
+      {/* Stable: structured-data items are emitted once per render, never
+        * reordered or sliced. Using index avoids JSON.stringify-keying each
+        * payload (which is up to a few KB per JSON-LD document). */}
       {dataArray.map((item, index) => (
         <script
+          // eslint-disable-next-line react/no-array-index-key
           key={index}
           type="application/ld+json"
           dangerouslySetInnerHTML={{

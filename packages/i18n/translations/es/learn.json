@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "Aprende cómo funciona el dinero de verdad",
+    "description": "Lecciones cortas y honestas sobre el sistema financiero — escritas para quienes el sistema no se diseñó."
+  },
+  "nav": {
+    "label": "Aprender"
+  },
+  "index": {
+    "h1": "Aprende cómo funciona el dinero de verdad.",
+    "subhead": "Lecciones cortas y honestas sobre el sistema financiero — escritas para quienes el sistema no se diseñó.",
+    "footerLine": "Más lecciones próximamente. Publicamos una cada pocos meses — despacio, con cuidado, bien escritas."
+  },
+  "lessons": {
+    "compoundInterest": {
+      "cardTitle": "Cómo Crece el Dinero de Verdad",
+      "cardDescription": "Las matemáticas que los bancos llevan siglos usando. Ahora te toca a ti.",
+      "cardReadTime": "~5 min de lectura",
+      "cardCta": "Leer lección"
+    }
+  },
+  "roadmap": {
+    "comingSoon": "Próximamente",
+    "lessons": {
+      "inflation": {
+        "title": "La inflación: el impuesto silencioso",
+        "description": "Por qué tu dinero pierde valor cada año — y qué puedes hacer."
+      },
+      "savingsVsInvesting": {
+        "title": "Ahorrar vs. Invertir",
+        "description": "Suenan parecido. No lo son. Aquí está donde aparece la diferencia."
+      },
+      "currencyDepreciation": {
+        "title": "Devaluación de la moneda",
+        "description": "Cuándo tener tu dinero local es más arriesgado que invertirlo."
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "seo": {
+    "title": "Como o Dinheiro Realmente Cresce — Juros compostos explicados",
+    "description": "Entenda como os juros compostos funcionam — a matemática que bancos e Wall Street usam há décadas. Coloque seus próprios números e veja como ficam 12 anos."
+  },
+  "lesson": {
+    "h1": "Como o Dinheiro Realmente Cresce",
+    "readTime": "~5 min de leitura",
+    "lastUpdated": {
+      "label": "Última atualização:",
+      "date": "Maio 2026"
+    }
+  },
+  "beat1": {
+    "title": "Poupar é só metade da história.",
+    "body": [
+      "Difícil. Necessário. O primeiro passo. Mas, sozinho, nunca vai mudar a sua vida.",
+      "R$ 1.000 guardados continuam sendo R$ 1.000 daqui a seis meses. Daqui a um ano. Daqui a quarenta anos.",
+      "Mas esses mesmos R$ 1.000 poderiam virar **~R$ 2.252 em 12 anos.**",
+      "Como?",
+      "Fazendo o que todo banco e toda Wall Street vêm fazendo há séculos. Usando juros compostos.",
+      "Os bancos sabem disso. Os fundos sabem disso. Eles vêm usando isso com o seu dinheiro — e te pagando quase nada em troca.",
+      "Agora é a sua vez."
+    ]
+  },
+  "beat2": {
+    "title": "A engrenagem secreta do sistema.",
+    "intro": [
+      "Você deve estar pensando — *e de onde eu vou tirar dinheiro pra investir?*",
+      "Pode ficar tranquilo. A gente não vai vir com a velha regra dos 50/30/20. Aquilo funcionava quando o aluguel não estava nas alturas, quando a inflação estava sob controle, quando o mercado não doía no bolso toda semana.",
+      "Esse mundo já era. A gente vive nesse aqui.",
+      "Então vamos falar de algo mais simples. Coisas pequenas que você já gasta sem pensar."
+    ],
+    "habitsLine": "Aquele iFood do almoço. O cinema com pipoca de sábado. O combo de streaming todo mês.",
+    "vignettesIntro": "Se só um desses fosse trabalhar pra você em vez de ir embora — no mesmo rendimento histórico de 7% ao ano — olha como ficam 12 anos:",
+    "vignettes": [
+      { "habit": "iFood no almoço (R$ 25/dia útil)", "yearly": "R$ 6.500", "twelveYear": "~R$ 120.000" },
+      { "habit": "Cinema com pipoca (R$ 80/semana)", "yearly": "R$ 4.160", "twelveYear": "~R$ 75.830" },
+      { "habit": "Combo de streaming (R$ 80/mês)", "yearly": "R$ 960", "twelveYear": "~R$ 17.510" }
+    ],
+    "vignettesTableHeaders": {
+      "habit": "Hábito",
+      "yearly": "Custo por ano",
+      "twelveYear": "Poderia virar em 12 anos"
+    },
+    "vignettesOutro": "Mesmo dinheiro. Outro trabalho.",
+    "vignettesDisclaimer": "Valores ilustrativos baseados em 7% de juros compostos históricos. Desempenho passado não garante resultados futuros.",
+    "habitsRecap": "Ninguém está te pedindo pra cortar o iFood. Nem o cinema. Nem o streaming. Mantém o que faz a vida valer a pena.",
+    "outro": [
+      "Mas se só um deles — só um — fosse trabalhar pra você em vez de sumir todo mês, é a conta que você acabou de ver lá em cima.",
+      "É isso que os bancos vêm fazendo. Com o seu dinheiro. Há décadas.",
+      "Agora é a sua vez."
+    ]
+  },
+  "beat3": {
+    "title": "Agora é a sua vez de usar.",
+    "intro": [
+      "A conta lá em cima usou iFood, cinema e streaming. São só exemplos. A sua vida é sua.",
+      "Então coloca os seus próprios números.",
+      "No que você gasta, todo dia, toda semana ou todo mês, que você nem sentiria falta se fosse trabalhar pra você?",
+      "Aquele rolê semanal. As assinaturas que se acumularam. Os trocados que somem todo dia no caminho do trabalho. Seja o que for — coloca aí embaixo.",
+      "O gráfico vai te mostrar como ficam 12 anos. Em três cenários diferentes. Comparado com o que o seu banco está te pagando agora."
+    ],
+    "calculatorTagline": "Mesmo dinheiro. Outro trabalho.",
+    "afterCalculator": "As contas fizeram sentido?",
+    "wrap": [
+      "É pra isso que existe a diBoaS. A parte do seu dinheiro que você pode separar, rendendo num ritmo que o sistema vinha guardando só pra ele.",
+      "O seu banco continua onde está — pra gastos, contas e o dia a dia. A diBoaS é pra dinheiro com um objetivo."
+    ],
+    "cta": {
+      "primary": "Entrar na lista de espera",
+      "primaryNote": "Entrar na lista não mexe no seu dinheiro. Você decide depois.",
+      "secondary": "Mais lições em breve →"
+    }
+  },
+  "calculator": {
+    "amountLabel": "Valor",
+    "amountAriaLabel": "Valor por período",
+    "cadenceLabel": "Com que frequência",
+    "cadenceOptions": {
+      "daily": "Diário",
+      "weekly": "Semanal",
+      "monthly": "Mensal"
+    },
+    "yearsLabel": "Anos",
+    "yearsTooltip": "Diário usa 365 dias; semanal usa 52 semanas; mensal não muda.",
+    "outputBank": "Seu banco",
+    "outputConservative": "Conservador (4%)",
+    "outputHistorical": "Histórico (7%)",
+    "outputOptimistic": "Otimista (10%)",
+    "summaryHeader": "Em {years} anos, seu mensal de {amount} poderia virar…",
+    "chartAriaLabel": "Gráfico de juros compostos comparando a taxa do seu banco com três cenários ao longo do tempo.",
+    "tableHeaderScenario": "Cenário",
+    "tableHeaderRate": "Taxa anual",
+    "tableHeaderTotal": "Após {years} anos",
+    "loadingState": "Calculando…"
+  }
+}

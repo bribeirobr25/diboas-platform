@@ -72,7 +72,8 @@ export function WaitlistVersionB({
 
   const handleSuccess = useCallback((data: SignupData) => {
     setSignupData(data);
-    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_SUCCESS, {
+    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {
+      domain: 'waitlist',
       source: 'waitlist',
       timestamp: Date.now(),
       metadata: { position: data.position },

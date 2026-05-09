@@ -3,139 +3,69 @@
  *
  * Domain-Driven Design: Reusable carousel state and navigation management
  * Code Reusability & DRY: Eliminates duplicated carousel logic across 4 components
- * Error Handling: Gracefully handles edge cases (single slide, invalid indices)
  * Concurrency Prevention: Uses StateMachine, MutexLock, and SafeInterval
  *
  * Used by: ProductCarousel, AppFeaturesCarousel, FeatureShowcase (2 variants)
+ *
+ * Phase 3.2.c (audit/2026-05-08): Split from a 365-LoC monolith into three
+ * focused sub-modules. This file owns navigation state (`currentSlideIndex`,
+ * `isTransitioning`) and the goToSlide/goToNext/goToPrev primitives; auto-
+ * play and keyboard handling live in `./carousel/useCarouselAutoplay.ts`
+ * and `./carousel/useCarouselKeyboard.ts` respectively. The public hook
+ * surface is unchanged.
  */
 
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { SafeInterval, SafeTimer, CleanupManager, MutexLock, StateMachine } from '@/lib/utils/RaceConditionPrevention';
+import {
+  SafeTimer,
+  CleanupManager,
+  MutexLock,
+  StateMachine,
+} from '@/lib/utils/RaceConditionPrevention';
+import { useCarouselAutoplay, type CarouselState } from './carousel/useCarouselAutoplay';
+import { useCarouselKeyboard } from './carousel/useCarouselKeyboard';
 
 export interface UseCarouselOptions {
-  /**
-   * Total number of slides in the carousel
-   */
+  /** Total number of slides in the carousel */
   totalSlides: number;
-
-  /**
-   * Enable automatic slide rotation
-   * @default true
-   */
+  /** Enable automatic slide rotation (default: true) */
   autoPlay?: boolean;
-
-  /**
-   * Auto-play interval in milliseconds
-   * @default 4000
-   */
+  /** Auto-play interval in milliseconds (default: 4000) */
   autoPlayInterval?: number;
-
-  /**
-   * Slide transition duration in milliseconds
-   * @default 500
-   */
+  /** Slide transition duration in milliseconds (default: 500) */
   transitionDuration?: number;
-
-  /**
-   * Pause auto-play on hover
-   * @default true
-   */
+  /** Pause auto-play on hover (default: true) */
   pauseOnHover?: boolean;
-
-  /**
-   * Enable keyboard navigation (arrow keys)
-   * @default true
-   */
+  /** Enable keyboard navigation (arrow keys) (default: true) */
   enableKeyboard?: boolean;
-
-  /**
-   * Component name for logging and debugging
-   */
+  /** Component name for logging and debugging */
   componentName: string;
-
-  /**
-   * Callback when slide changes
-   * @param index - The new slide index
-   * @param source - Whether the change was triggered by auto-play or user interaction
-   */
+  /** Callback when slide changes (with source: 'auto' or 'user') */
   onSlideChange?: (index: number, source: 'auto' | 'user') => void;
-
-  /**
-   * Callback when user navigates (next/prev)
-   */
+  /** Callback when user navigates (next/prev) */
   onNavigate?: (direction: 'next' | 'prev') => void;
-
-  /**
-   * Callback when play/pause state changes
-   */
+  /** Callback when play/pause state changes */
   onPlayPause?: (isPlaying: boolean) => void;
-
-  /**
-   * Initial slide index
-   * @default 0
-   */
+  /** Initial slide index (default: 0) */
   initialSlide?: number;
 }
 
 export interface UseCarouselReturn {
-  /**
-   * Current active slide index
-   */
   currentSlideIndex: number;
-
-  /**
-   * Whether carousel is currently transitioning
-   */
   isTransitioning: boolean;
-
-  /**
-   * Whether carousel is auto-playing
-   */
   isAutoPlaying: boolean;
-
-  /**
-   * Navigate to specific slide
-   */
   goToSlide: (index: number) => void;
-
-  /**
-   * Navigate to next slide
-   */
   goToNext: () => void;
-
-  /**
-   * Navigate to previous slide
-   */
   goToPrev: () => void;
-
-  /**
-   * Keyboard event handler
-   * Attach to onKeyDown prop
-   */
+  /** Attach to onKeyDown */
   handleKeyDown: (e: React.KeyboardEvent) => void;
-
-  /**
-   * Mouse enter handler for pause on hover
-   * Attach to onMouseEnter prop
-   */
+  /** Attach to onMouseEnter (pause on hover) */
   handleMouseEnter: () => void;
-
-  /**
-   * Mouse leave handler for pause on hover
-   * Attach to onMouseLeave prop
-   */
+  /** Attach to onMouseLeave (resume on hover exit) */
   handleMouseLeave: () => void;
-
-  /**
-   * Toggle play/pause state
-   */
   togglePlayPause: () => void;
-
-  /**
-   * Reset carousel to initial state
-   */
   reset: () => void;
 }
 
@@ -150,187 +80,113 @@ export function useCarousel({
   onSlideChange,
   onNavigate,
   onPlayPause,
-  initialSlide = 0
+  initialSlide = 0,
 }: UseCarouselOptions): UseCarouselReturn {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(initialSlide);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  // Auto-play state lives in the parent so `goToSlide` can include it in
+  // its dependency array — this preserves the original closure-snapshot
+  // semantics where the in-flight transition timer reads the autoplay
+  // value captured at click time, not the latest value.
+  const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
   const [wasAutoPlayingBeforeHover, setWasAutoPlayingBeforeHover] = useState(false);
 
   const cleanupManagerRef = useRef(new CleanupManager(componentName));
   const mutexRef = useRef(new MutexLock(componentName));
-  const intervalRef = useRef<SafeInterval | null>(null);
   const timerRef = useRef<SafeTimer | null>(null);
 
-  // State machine for carousel states
   const carouselStateRef = useRef(
-    new StateMachine('idle', {
-      idle: ['playing', 'paused'],
-      playing: ['paused', 'transitioning'],
-      paused: ['playing'],
-      transitioning: ['playing', 'paused', 'idle']
-    }, componentName)
+    new StateMachine<CarouselState>(
+      'idle',
+      {
+        idle: ['playing', 'paused'],
+        playing: ['paused', 'transitioning'],
+        paused: ['playing'],
+        transitioning: ['playing', 'paused', 'idle'],
+      },
+      componentName,
+    ),
   );
 
   /**
-   * Navigate to specific slide with race condition prevention
+   * Navigate to a specific slide with race-condition prevention.
+   * Returns void; rejects negative / out-of-range / current-index calls.
    */
-  const goToSlide = useCallback(async (index: number, source: 'auto' | 'user' = 'user') => {
-    if (index < 0 || index >= totalSlides || index === currentSlideIndex) return;
+  const goToSlide = useCallback(
+    async (index: number, source: 'auto' | 'user' = 'user') => {
+      if (index < 0 || index >= totalSlides || index === currentSlideIndex) return;
 
-    const acquired = await mutexRef.current.acquire();
-    if (!acquired) return;
+      const acquired = await mutexRef.current.acquire();
+      if (!acquired) return;
 
-    try {
-      setIsTransitioning(true);
-      carouselStateRef.current.transitionTo('transitioning');
+      try {
+        setIsTransitioning(true);
+        carouselStateRef.current.transitionTo('transitioning');
 
-      setCurrentSlideIndex(index);
-      onSlideChange?.(index, source);
+        setCurrentSlideIndex(index);
+        onSlideChange?.(index, source);
 
-      // Schedule transition end
-      timerRef.current = new SafeTimer(componentName);
-      timerRef.current.set(() => {
-        setIsTransitioning(false);
-        carouselStateRef.current.transitionTo(isAutoPlaying ? 'playing' : 'paused');
-      }, transitionDuration);
+        timerRef.current = new SafeTimer(componentName);
+        timerRef.current.set(() => {
+          setIsTransitioning(false);
+          carouselStateRef.current.transitionTo(isAutoPlaying ? 'playing' : 'paused');
+        }, transitionDuration);
+      } finally {
+        mutexRef.current.release();
+      }
+    },
+    [totalSlides, currentSlideIndex, componentName, onSlideChange, transitionDuration, isAutoPlaying],
+  );
 
-    } finally {
-      mutexRef.current.release();
-    }
-  }, [totalSlides, currentSlideIndex, componentName, onSlideChange, transitionDuration, isAutoPlaying]);
-
-  /**
-   * Navigate to next slide (safe to pass as onClick / onSwipeLeft handler)
-   */
   const goToNext = useCallback(() => {
     const nextIndex = (currentSlideIndex + 1) % totalSlides;
     goToSlide(nextIndex, 'user');
     onNavigate?.('next');
   }, [currentSlideIndex, totalSlides, goToSlide, onNavigate]);
 
-  /**
-   * Navigate to previous slide (safe to pass as onClick / onSwipeRight handler)
-   */
   const goToPrev = useCallback(() => {
     const prevIndex = currentSlideIndex === 0 ? totalSlides - 1 : currentSlideIndex - 1;
     goToSlide(prevIndex, 'user');
     onNavigate?.('prev');
   }, [currentSlideIndex, totalSlides, goToSlide, onNavigate]);
 
-  /**
-   * Internal auto-advance (not exposed — skips onNavigate, marks source as 'auto')
-   */
-  const autoAdvance = useCallback(() => {
+  // Internal auto-advance — fed to the auto-play sub-hook. Skips
+  // `onNavigate` and tags the slide change as 'auto'.
+  const goToSlideAuto = useCallback(() => {
     const nextIndex = (currentSlideIndex + 1) % totalSlides;
     goToSlide(nextIndex, 'auto');
   }, [currentSlideIndex, totalSlides, goToSlide]);
 
-  /**
-   * Auto-rotation logic with race condition prevention
-   */
-  useEffect(() => {
-    if (!isAutoPlaying || totalSlides <= 1) return;
+  const {
+    togglePlayPause,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useCarouselAutoplay({
+    totalSlides,
+    autoPlayInterval,
+    pauseOnHover,
+    componentName,
+    isAutoPlaying,
+    setIsAutoPlaying,
+    wasAutoPlayingBeforeHover,
+    setWasAutoPlayingBeforeHover,
+    carouselStateRef,
+    mutexRef,
+    cleanupManagerRef,
+    goToSlideAuto,
+    onPlayPause,
+  });
 
-    const startAutoRotation = async () => {
-      const acquired = await mutexRef.current.acquire();
-      if (!acquired) return;
+  const { handleKeyDown } = useCarouselKeyboard({
+    enableKeyboard,
+    isTransitioning,
+    totalSlides,
+    goToPrev,
+    goToNext,
+    goToSlide,
+    togglePlayPause,
+  });
 
-      try {
-        intervalRef.current = new SafeInterval(componentName);
-        intervalRef.current.set(() => {
-          if (carouselStateRef.current.canTransitionTo('transitioning')) {
-            autoAdvance();
-          }
-        }, autoPlayInterval);
-
-        cleanupManagerRef.current.add(() => {
-          intervalRef.current?.clear();
-        });
-
-        carouselStateRef.current.transitionTo('playing');
-      } finally {
-        mutexRef.current.release();
-      }
-    };
-
-    startAutoRotation();
-
-    return () => {
-      intervalRef.current?.clear();
-    };
-  }, [isAutoPlaying, totalSlides, autoPlayInterval, componentName, autoAdvance]);
-
-  /**
-   * Toggle play/pause state
-   */
-  const togglePlayPause = useCallback(() => {
-    setIsAutoPlaying(prev => {
-      const newValue = !prev;
-      onPlayPause?.(newValue);
-      carouselStateRef.current.transitionTo(newValue ? 'playing' : 'paused');
-      return newValue;
-    });
-  }, [onPlayPause]);
-
-  /**
-   * Keyboard navigation handler
-   */
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (!enableKeyboard || isTransitioning) return;
-
-    switch (e.key) {
-      case 'ArrowLeft':
-        e.preventDefault();
-        goToPrev();
-        break;
-      case 'ArrowRight':
-        e.preventDefault();
-        goToNext();
-        break;
-      case ' ':
-      case 'Spacebar':
-        e.preventDefault();
-        togglePlayPause();
-        break;
-      case 'Home':
-        e.preventDefault();
-        goToSlide(0);
-        break;
-      case 'End':
-        e.preventDefault();
-        goToSlide(totalSlides - 1);
-        break;
-      default:
-        break;
-    }
-  }, [enableKeyboard, isTransitioning, goToPrev, goToNext, togglePlayPause, goToSlide, totalSlides]);
-
-  /**
-   * Mouse enter handler for pause on hover
-   */
-  const handleMouseEnter = useCallback(() => {
-    if (pauseOnHover && isAutoPlaying) {
-      setWasAutoPlayingBeforeHover(true);
-      setIsAutoPlaying(false);
-      carouselStateRef.current.transitionTo('paused');
-    }
-  }, [pauseOnHover, isAutoPlaying]);
-
-  /**
-   * Mouse leave handler for resume on hover exit
-   */
-  const handleMouseLeave = useCallback(() => {
-    if (pauseOnHover && wasAutoPlayingBeforeHover) {
-      setIsAutoPlaying(true);
-      setWasAutoPlayingBeforeHover(false);
-      carouselStateRef.current.transitionTo('playing');
-    }
-  }, [pauseOnHover, wasAutoPlayingBeforeHover]);
-
-  /**
-   * Reset carousel to initial state
-   */
   const reset = useCallback(() => {
     setCurrentSlideIndex(initialSlide);
     setIsAutoPlaying(autoPlay);
@@ -339,9 +195,7 @@ export function useCarousel({
     carouselStateRef.current.transitionTo('idle');
   }, [initialSlide, autoPlay]);
 
-  /**
-   * Cleanup on unmount
-   */
+  // Cleanup on unmount.
   useEffect(() => {
     const cleanup = cleanupManagerRef.current;
     return () => {
@@ -360,6 +214,6 @@ export function useCarousel({
     handleMouseEnter,
     handleMouseLeave,
     togglePlayPause,
-    reset
+    reset,
   };
 }

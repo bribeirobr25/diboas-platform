@@ -134,6 +134,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
 
     // Emit feature used event for audit trail
     applicationEventBus.emit(ApplicationEventType.FEATURE_USED, {
+      domain: 'waitlist',
       source: 'waitlist',
       timestamp: Date.now(),
       metadata: {
@@ -256,6 +257,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
 
       // Emit application error for monitoring
       applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+        domain: 'waitlist',
         source: 'waitlist',
         timestamp: Date.now(),
         error: error instanceof Error ? error : new Error('Network error'),

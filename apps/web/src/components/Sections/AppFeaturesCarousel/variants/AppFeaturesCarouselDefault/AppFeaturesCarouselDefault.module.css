@@ -183,32 +183,17 @@
   justify-content: center;
 }
 
-/* Card Image — mobile-first: fills container, maintains aspect ratio */
+/* Card Image — Phase 5.5 (audit/2026-05-09): now uses Next.js Image `fill`
+ * mode. Next.js sets `position: absolute; inset: 0; width: 100%; height: 100%`
+ * automatically. `.card` parent has `position: relative` and well-defined
+ * dimensions (mobile: aspect-ratio 3:4 / height auto; tablet+: 500px height).
+ * `object-fit: cover` crops to fill without distortion. The previous explicit
+ * width/height + `min-width: 100%` stretched images at tablet/desktop. */
 .cardImage {
-  width: var(--percent-100);
-  height: auto;
   object-fit: cover;
   transition:
     filter var(--transition-slow) ease-in-out,
     transform var(--transition-slow) ease-in-out;
-}
-
-/* Tablet: Image maintains 500px height, width auto for aspect ratio */
-@media (min-width: 768px) {
-  .cardImage {
-    height: var(--afc-image-height-tablet); /* 500px */
-    width: auto;
-    min-width: var(--percent-100);
-  }
-}
-
-/* Desktop: Image maintains 500px height, width auto (cropped if exceeds container) */
-@media (min-width: 1024px) {
-  .cardImage {
-    height: var(--afc-image-active-height-desktop); /* 500px */
-    width: auto;
-    min-width: var(--percent-100);
-  }
 }
 
 /* ================================

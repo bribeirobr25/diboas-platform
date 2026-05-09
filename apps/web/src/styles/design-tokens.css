@@ -157,16 +157,27 @@
   --brand-primary-dark: #0d9488;
 
   /* Accessible Text Colors (WCAG AA 4.5:1 on white) */
-  --text-primary-accessible: #0f766e;  /* Teal-700: 5.47:1 contrast - use for text on white */
-  --text-success-accessible: #059669;  /* Emerald-600: 4.52:1 contrast */
+  --text-primary-accessible: #0f766e;  /* Teal-700: 4.85:1 on white — use for text on white */
+  /* W2 (audit/2026-05-08): emerald-600 (#059669) measures 3.76:1 in axe — fails AA.
+   * Bumped to emerald-700 (#047857) which is 5.53:1 on white. Affects FeeTable
+   * "Free" labels and StrategiesPageContent fee row. */
+  --text-success-accessible: #047857;  /* Emerald-700: 5.53:1 on white */
   --text-error-accessible: #dc2626;    /* Red-600: 4.63:1 contrast */
+  /* W2: accessible variant of the brand teal for clickable text on light bg.
+   * Use this (not --color-teal-600) wherever the teal appears as text. */
+  --text-brand-accessible: #0f766e;    /* Teal-700: 4.85:1 on white */
 
   /* Unified Text Color Tokens */
   --color-text-heading: #0f172a;       /* Slate-900: primary headings */
   --color-text-body: #334155;          /* Slate-700: body text */
   --color-text-secondary: #64748b;     /* Slate-500: secondary/muted text */
   --color-text-on-dark: #ffffff;       /* White text on dark backgrounds */
-  --color-text-on-dark-muted: rgba(255, 255, 255, 0.85); /* Muted white text on dark */
+  /* W2 (audit/2026-05-08): bumped 0.85 → 0.95 for WCAG AA contrast on dark hero
+   * gradients and image overlays. The 0.85 value was just below 4.5:1 against
+   * mid-brightness gradient zones (Hero description, ScenarioCards
+   * description/cost). 0.95 keeps the visual mute against pure white while
+   * passing axe contrast checks on every overlay tone we ship. */
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.95); /* Muted white text on dark */
 
   /* ================================
      SOCIAL PLATFORM COLORS

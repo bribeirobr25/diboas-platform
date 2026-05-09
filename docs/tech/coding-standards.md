@@ -48,6 +48,15 @@
 - Pattern: `/api/v{version}/{domain}/{resource}/{action}`
 - Examples: `/api/v1/banking/transactions/deposit`, `/api/v1/investing/portfolio/summary`
 
+> **Phase 1 deviation (intentional, 2026-05-08):**
+> Pre-launch routes use `/api/{domain}/{action}` (no version prefix) because there
+> are zero external API consumers. The migration to `/api/v1/{domain}/{action}`
+> is a hard prerequisite before onboarding any external integrator (Phase 2
+> banking, DeFi, or partner APIs). Tracking: `docs/audit/PENDING_ALL.md` → MIG-7.
+>
+> Health endpoints (`/api/health/*`) remain intentionally unversioned per
+> Kubernetes/Vercel/load-balancer convention.
+
 **Database**:
 - Tables: `domain_entity` (plural)
 - Columns: `snake_case`
@@ -55,10 +64,11 @@
 
 ### 6. File Decoupling & Organization
 - Single responsibility per file
-- Services: Max 200 lines (prefer 100-150)
-- Components: Max 150 lines (prefer 80-120)
-- Utilities: Max 100 lines per file
-- Break large files into focused modules
+- Recommended sizes: Services ~200 lines, Components ~150, Utilities ~100
+- These are guidelines to encourage DRY and reusability, not hard limits
+- **Consistency is the priority** — a larger file that stays consistent and respects DRY is better than a forced split that creates duplication or breaks cohesion
+- Split when it genuinely improves clarity or reuse; don't split just to meet a line count
+- Break large files into focused modules only when natural domain boundaries exist
 
 ### 7. Error Handling & System Recovery
 - Never let the system crash

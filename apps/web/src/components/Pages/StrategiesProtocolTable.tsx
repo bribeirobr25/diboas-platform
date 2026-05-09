@@ -15,18 +15,9 @@ import styles from './StrategiesPageContent.module.css';
 
 const I18N_PREFIX = 'strategies';
 
-/**
- * Validate that a URL uses the https:// scheme.
- * Returns the URL unchanged if valid, or '#' as a safe fallback.
- */
-function safeHttpsUrl(url: string): string {
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === 'https:' ? url : '#';
-  } catch {
-    return '#';
-  }
-}
+// safeHttpsUrl() helper removed 2026-05-08 (lint cleanup) — was defined but
+// never called. Re-add if/when external protocol URLs become user-supplied
+// (currently all PROTOCOL URLs are hardcoded in translation files).
 
 const PROTOCOL_IDS = [
   'skySsr',

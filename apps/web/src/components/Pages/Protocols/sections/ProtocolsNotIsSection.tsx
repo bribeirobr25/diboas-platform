@@ -37,6 +37,8 @@ export function ProtocolsNotIsSection() {
           <h2 className={styles.title}>{t('notIs.h2')}</h2>
           <div className={styles.body}>
             {paragraphs.map((paragraph, index) => (
+              // Stable: paragraphs come from translation file, never reorder.
+              // eslint-disable-next-line react/no-array-index-key
               <p key={index}>{paragraph}</p>
             ))}
           </div>

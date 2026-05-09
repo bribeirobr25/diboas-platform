@@ -66,12 +66,16 @@
 }
 
 .tocLink:hover {
-  color: var(--brand-primary);
+  /* W2 (audit/2026-05-08, deeper sweep): --brand-primary is teal-500
+   * (#14b8a6), giving 2.5:1 against the f0f4f8 sidebar bg — fails AA.
+   * --text-primary-accessible is teal-700 (#0f766e), 4.85:1.
+   * Same swap applied to .contactLink and the focus-visible outlines. */
+  color: var(--text-primary-accessible);
   transform: translateX(var(--spacing-xs));
 }
 
 .tocLink:focus-visible {
-  outline: var(--focus-ring-width) solid var(--brand-primary);
+  outline: var(--focus-ring-width) solid var(--text-primary-accessible);
   outline-offset: var(--focus-ring-offset);
   border-radius: var(--radius-sm);
 }
@@ -316,12 +320,13 @@
 }
 
 .contactLink:hover {
-  color: var(--brand-primary);
+  /* W2: same fix as .tocLink:hover — accessible teal-700 instead of teal-500. */
+  color: var(--text-primary-accessible);
   text-decoration: underline;
 }
 
 .contactLink:focus-visible {
-  outline: var(--focus-ring-width) solid var(--brand-primary);
+  outline: var(--focus-ring-width) solid var(--text-primary-accessible);
   outline-offset: var(--focus-ring-offset);
   border-radius: var(--radius-sm);
 }
@@ -395,7 +400,9 @@
 }
 
 .backToTop:focus-visible {
-  outline: var(--focus-ring-width) solid var(--brand-primary);
+  /* W2: outline color teal-500 → teal-700 for 1.4.11 non-text contrast
+   * (3:1 minimum) against the cream/slate background. */
+  outline: var(--focus-ring-width) solid var(--text-primary-accessible);
   outline-offset: var(--focus-ring-offset);
 }
 

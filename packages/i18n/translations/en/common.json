@@ -10,6 +10,7 @@
       "about": "About",
       "protocols": "Protocols",
       "adelaideDaily": "Adelaide Daily",
+      "learn": "Learn",
       "joinWaitlist": "Join Waitlist",
       "tryDemo": "Try Demo"
     },
@@ -368,5 +369,8 @@
     "invalidLink": "This link is invalid or has expired.",
     "error": "Something went wrong. Please try again.",
     "processing": "Processing..."
+  },
+  "disclaimers": {
+    "educationalProjection": "Illustrative figures based on historical compound interest assumptions. Past performance does not guarantee future results. Use only money you can afford to lose. diBoaS is not a bank and your funds are not insured."
   }
 }

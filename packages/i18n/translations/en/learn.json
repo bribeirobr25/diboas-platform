@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "Learn how money actually works",
+    "description": "Short, honest lessons on the financial system — written for people the system wasn't built for."
+  },
+  "nav": {
+    "label": "Learn"
+  },
+  "index": {
+    "h1": "Learn how money actually works.",
+    "subhead": "Short, honest lessons on the financial system — written for people the system wasn't built for.",
+    "footerLine": "More lessons coming. We ship one every few months — slowly, carefully, properly written."
+  },
+  "lessons": {
+    "compoundInterest": {
+      "cardTitle": "How Money Really Grows",
+      "cardDescription": "The math the banks have been using for centuries. Now it's your turn.",
+      "cardReadTime": "~5 min read",
+      "cardCta": "Read lesson"
+    }
+  },
+  "roadmap": {
+    "comingSoon": "Coming soon",
+    "lessons": {
+      "inflation": {
+        "title": "Inflation: The Silent Tax",
+        "description": "Why your money loses ground every year — and what to do about it."
+      },
+      "savingsVsInvesting": {
+        "title": "Savings vs. Investing",
+        "description": "They sound similar. They aren't. Here's where the difference shows up."
+      },
+      "currencyDepreciation": {
+        "title": "Currency Depreciation",
+        "description": "When holding your local money is the bigger risk than not investing."
+      }
+    }
+  }
+}

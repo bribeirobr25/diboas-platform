@@ -108,7 +108,12 @@ export function CookieConsent() {
 
     // Emit consent given event (local fallback - API also emits on success)
     applicationEventBus.emit(ApplicationEventType.CONSENT_GIVEN, {
+      domain: 'consent',
       source: 'consent',
+      // Date.now() runs in handleAccept (an event handler), not during render.
+      // React Compiler flags it conservatively because the handler is recreated
+      // on every render; the call itself is deferred until user interaction.
+      // eslint-disable-next-line react-hooks/purity
       timestamp: Date.now(),
       consentType: 'analytics',
       newState: true,
@@ -129,7 +134,11 @@ export function CookieConsent() {
 
     // Emit consent withdrawn event (local fallback - API also emits on success)
     applicationEventBus.emit(ApplicationEventType.CONSENT_WITHDRAWN, {
+      domain: 'consent',
       source: 'consent',
+      // Date.now() runs in handleDecline (event handler), not during render.
+      // Same pattern as handleAccept above.
+      // eslint-disable-next-line react-hooks/purity
       timestamp: Date.now(),
       consentType: 'analytics',
       newState: false,

@@ -13,6 +13,7 @@ import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@diboas/ui';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
+import { useImpressionTracking } from '@/hooks/useImpressionTracking';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import type { HeroVariantProps} from '../types';
 import styles from './HeroDefault.module.css';
@@ -77,8 +78,19 @@ export function HeroDefault({
 
   const isImagesLoaded = imageLoadingState.loaded >= imageLoadingState.total;
 
+  // Phase 3 L11 (audit/2026-05-08): fires once when ≥50% of the hero is
+  // visible. Funnel analytics use this as the entry point.
+  const impressionRef = useImpressionTracking<HTMLElement>({
+    eventName: 'hero_impression',
+    parameters: { variant: 'default' },
+  });
+
   return (
-    <section className={`${styles.section} ${className}`} aria-labelledby="hero-title">
+    <section
+      ref={impressionRef}
+      className={`${styles.section} ${className}`}
+      aria-labelledby="hero-title"
+    >
       <div className={styles.container}>
         {/* Text Content */}
         <div className={styles.textContent}>

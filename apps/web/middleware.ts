@@ -32,9 +32,20 @@ export function middleware(request: NextRequest): NextResponse {
     const csp = [
       `default-src 'self'`,
       `script-src ${scriptSrc}`,
+      // Phase 5.1.a (audit/2026-05-09): Sentry session-replay spawns a worker
+      // from a `blob:` URL. Without an explicit `worker-src` directive, the
+      // browser falls back to `script-src` (which excludes `blob:`) and
+      // blocks the worker — net effect: replay never captures sessions in
+      // production. `'self' blob:` keeps the scope narrow (workers only,
+      // not scripts) and the source is trusted (Sentry SDK code).
+      `worker-src 'self' blob:`,
       `style-src 'self' 'unsafe-inline'`,
       `img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com${isDev ? ' http://localhost:* https://localhost:*' : ''}`,
       `font-src 'self' data:`,
+      // Added 2026-05-07 (audit/A.0.5) so Phase A.3's video player can fetch
+      // from cdn.diboas.com. Without this directive, <video src="..."> falls
+      // back to default-src 'self' and CDN URLs are blocked.
+      `media-src 'self' https://cdn.diboas.com${isDev ? ' http://localhost:* https://localhost:*' : ''}`,
       `connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com https://app.posthog.com https://*.posthog.com https://*.google-analytics.com https://*.googletagmanager.com https://*.doubleclick.net${isDev ? ' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*' : ''}`,
       `frame-ancestors 'none'`,
       `object-src 'none'`,
@@ -63,6 +74,12 @@ export function middleware(request: NextRequest): NextResponse {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-nonce', nonce);
     requestHeaders.set('x-request-id', requestId);
+    // V3 (audit/2026-05-08 visual review): expose detected locale to the
+    // root layout so SSR can emit `<html lang={locale}>` per request.
+    // Falls back to 'en' for the root '/' path (which redirects).
+    if (localeInPath) {
+      requestHeaders.set('x-locale', localeInPath);
+    }
 
     const response = NextResponse.next({
       request: { headers: requestHeaders },

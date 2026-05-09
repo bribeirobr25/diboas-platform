@@ -196,6 +196,10 @@ export function AppFeaturesCarousel({
   // Rendering errors are caught by SectionErrorBoundary (parent layer).
   // React component rendering is asynchronous — try/catch around JSX
   // does not catch render-time errors. See: react-hooks/error-boundaries rule.
+  // VariantComponent is resolved per-variant from a static lookup map
+  // (Factory pattern); React Compiler can't statically prove the value is
+  // stable and warns conservatively.
+  // eslint-disable-next-line react-hooks/static-components
   return <VariantComponent {...variantProps} />;
 }
 
