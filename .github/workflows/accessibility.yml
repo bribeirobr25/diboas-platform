@@ -43,7 +43,18 @@ jobs:
       - name: Start production server (background)
         # `pnpm --filter web start` runs `next start` on port 3000.
         # We background it and wait for the port to come up before
-        # running pa11y against it.
+        # running pa11y against it. The env block stubs out the
+        # production-secrets validator in apps/web/src/config/env.ts,
+        # which throws on missing values — same pattern E2E uses.
+        # (First-CI-run bug fix, 2026-05-09.)
+        env:
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
+          ENCRYPTION_KEY: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa='
+          DATABASE_URL: 'postgresql://stub:stub@localhost:5432/stub'
+          INTERNAL_API_KEY: 'ci-stub-key'
+          RESEND_API_KEY: 're_ci_stub'
+          HMAC_KEY: 'ci-stub-hmac-key-32-chars-padding-here'
         run: |
           pnpm --filter web start &
           # Wait for the server to be ready (max 60s).
@@ -58,4 +69,12 @@ jobs:
           exit 1
 
       - name: Run pa11y on critical 3 pages
+        # pa11y bundles puppeteer-core@24.37.5 which strictly looks for
+        # Chrome at ~/.cache/puppeteer (not bundled, not auto-fetched).
+        # GH Actions ubuntu-latest has Chrome pre-installed at
+        # /usr/bin/google-chrome; pointing puppeteer-core at it via the
+        # standard env var avoids needing to download Chrome separately.
+        # (First-CI-run bug fix, 2026-05-09.)
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
         run: pnpm --filter web pa11y

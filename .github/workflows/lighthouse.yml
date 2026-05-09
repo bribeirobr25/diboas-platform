@@ -52,6 +52,16 @@ jobs:
         # check via curl is more reliable than lhci's startServerCommand
         # + startServerReadyPattern because Next.js's "Ready in N ms"
         # output races slightly ahead of full route availability.
+        # Full stub env block needed because next start runs env.ts
+        # production-secrets validator. (First-CI-run bug fix, 2026-05-09.)
+        env:
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
+          ENCRYPTION_KEY: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa='
+          DATABASE_URL: 'postgresql://stub:stub@localhost:5432/stub'
+          INTERNAL_API_KEY: 'ci-stub-key'
+          RESEND_API_KEY: 're_ci_stub'
+          HMAC_KEY: 'ci-stub-hmac-key-32-chars-padding-here'
         run: |
           pnpm --filter web start &
           for i in {1..60}; do
@@ -63,9 +73,6 @@ jobs:
           done
           echo "Server did not start within 60s"
           exit 1
-        env:
-          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
-          NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
 
       - name: Run Lighthouse CI (warn-only)
         run: pnpm --filter web lighthouse
