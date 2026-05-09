@@ -1,0 +1,20 @@
+{
+  "seo": {
+    "title": "Compound Interest Calculator — see what your money could become",
+    "description": "Free compound interest calculator. Pick an amount, a cadence, and a timeframe. See bank vs diBoaS side-by-side."
+  },
+  "hero": {
+    "kicker": "Compound interest calculator",
+    "headline": "Same money. Different job.",
+    "subtitle": "Plug in your numbers. See 12 years at three different rates."
+  },
+  "landing": {
+    "cardTitle": "Compound Interest",
+    "cardTagline": "What does $1,000 become in 12 years?"
+  },
+  "lessonLink": {
+    "label": "Want to know how it works?",
+    "href": "/learn/compound-interest",
+    "linkText": "Read the lesson: How money really grows"
+  }
+}

@@ -15,6 +15,7 @@ export type PreDreamTimeframe = '1year' | '3years' | '5years' | '10years';
 export type PreDreamScreen =
   | 'disclaimer'
   | 'welcome'
+  | 'goalStrategy'
   | 'pathSelect'
   | 'input'
   | 'timeframe'

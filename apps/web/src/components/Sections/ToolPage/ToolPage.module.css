@@ -1,0 +1,127 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+.hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding-bottom: var(--spacing-md);
+}
+
+.kicker {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-brand-accessible);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.headline {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: var(--font-size-md);
+  color: var(--color-slate-600);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 560px;
+  align-self: center;
+}
+
+.calculatorSection {
+  width: 100%;
+}
+
+.vignette {
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, var(--color-teal-50), var(--color-emerald-50));
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.vignetteSubtitle {
+  font-size: var(--font-size-md);
+  color: var(--color-slate-700);
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.disclaimer {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+}
+
+.lessonCallout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background: var(--color-teal-50);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.lessonCalloutLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-700);
+}
+
+.lessonCalloutLink {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-brand-accessible);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.lessonCalloutLink:hover {
+  text-decoration-thickness: 2px;
+}
+
+.footer {
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-slate-200);
+  font-size: var(--font-size-sm);
+}
+
+.footerLink {
+  color: var(--text-brand-accessible);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--spacing-xl) var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+
+  .headline {
+    font-size: var(--font-size-2xl);
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

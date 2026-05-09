@@ -5,7 +5,23 @@
 
 import { diBoasColors } from '@/lib/colors';
 
-export type OGPageType = 'default' | 'b2c' | 'b2b' | 'strategies' | 'about' | 'protocols' | 'help' | 'security';
+export type OGPageType =
+  | 'default'
+  | 'b2c'
+  | 'b2b'
+  | 'strategies'
+  | 'about'
+  | 'protocols'
+  | 'help'
+  | 'security'
+  // Phase 6F.2 — Money Tools OG keys (one per tool URL + landing).
+  // v1 reuses the teal-themed default body with tool-specific copy; bespoke
+  // per-tool art is a CMO iteration tracked in PHASE_6_PLAN §6F.2.
+  | 'tools'
+  | 'tools-compound-interest'
+  | 'tools-retirement'
+  | 'tools-emergency-fund'
+  | 'tools-goal-savings';
 
 interface OGTemplateConfig {
   title: string;
@@ -57,6 +73,37 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     title: 'diBoaS',
     subtitle: 'Your Wallet. Your Keys. Your Money.',
     theme: 'dark',
+  },
+  // Phase 6F.2 — Money Tools (Tier 1)
+  tools: {
+    title: 'Money Tools',
+    subtitle: 'Free calculators by diBoaS — see what your money could do.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-compound-interest': {
+    title: 'Compound Interest Calculator',
+    subtitle: 'Same money. Different job. See 12 years at three different rates.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-retirement': {
+    title: 'Retirement Calculator',
+    subtitle: 'Plan a future where work is optional.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-emergency-fund': {
+    title: 'Emergency Fund Calculator',
+    subtitle: 'See how fast you can build 6 months of expenses.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-goal-savings': {
+    title: 'Goal-Based Savings Calculator',
+    subtitle: 'Plan toward any number. Compare bank vs diBoaS.',
+    badge: 'Tools',
+    theme: 'teal',
   },
 };
 
@@ -224,5 +271,19 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
  * Check if a page type is valid
  */
 export function isValidPageType(page: string): page is OGPageType {
-  return ['default', 'b2c', 'b2b', 'strategies', 'about', 'protocols', 'help', 'security'].includes(page);
+  return [
+    'default',
+    'b2c',
+    'b2b',
+    'strategies',
+    'about',
+    'protocols',
+    'help',
+    'security',
+    'tools',
+    'tools-compound-interest',
+    'tools-retirement',
+    'tools-emergency-fund',
+    'tools-goal-savings',
+  ].includes(page);
 }

@@ -1,0 +1,20 @@
+{
+  "seo": {
+    "title": "Calculadora de juros compostos — veja no que seu dinheiro pode virar",
+    "description": "Calculadora de juros compostos gratuita. Escolha valor, frequência e prazo. Compare banco vs diBoaS lado a lado."
+  },
+  "hero": {
+    "kicker": "Calculadora de juros compostos",
+    "headline": "Mesmo dinheiro. Outro trabalho.",
+    "subtitle": "Coloque seus números. Veja 12 anos em três taxas diferentes."
+  },
+  "landing": {
+    "cardTitle": "Juros compostos",
+    "cardTagline": "No que R$1.000 viram em 12 anos?"
+  },
+  "lessonLink": {
+    "label": "Quer saber como funciona?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia a lição: Como o dinheiro cresce de verdade"
+  }
+}

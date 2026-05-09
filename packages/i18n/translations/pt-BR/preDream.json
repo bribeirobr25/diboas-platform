@@ -21,6 +21,28 @@
     },
     "exploreButton": "Bora explorar"
   },
+  "goalStrategy": {
+    "title": "Com qual meta você está sonhando?",
+    "subtitle": "Escolha uma — vamos adaptar a simulação a ela.",
+    "options": {
+      "retirement": {
+        "label": "Meta Aposentadoria",
+        "caption": "Um futuro em que trabalhar é uma escolha"
+      },
+      "christmas": {
+        "label": "Meta Natal",
+        "caption": "Guardar para o que importa"
+      },
+      "emergency": {
+        "label": "Meta Emergência",
+        "caption": "Tranquilidade quando a vida surpreende"
+      },
+      "wealthy": {
+        "label": "Meta Crescimento 10%",
+        "caption": "Construir riqueza passo a passo"
+      }
+    }
+  },
   "pathSelect": {
     "title": "Como você se sente em relação a risco?",
     "subtitle": "Não existe resposta errada, só caminhos diferentes.",
@@ -80,11 +102,13 @@
   },
   "results": {
     "titlePrefix": "Seus {amount} poderiam virar...",
+    "titleWithGoal": "Sua {goalName} poderia ser:",
     "withDiboas": "Com o diBoaS",
     "bankWouldGive": "Seu banco te daria:",
     "differenceMore": "São {amount} A MAIS com o diBoaS",
     "differenceSubtext": "Mesmo dinheiro. Lugar diferente. Grande diferença.",
     "shareTitle": "Compartilhar meu sonho",
+    "shareTitleWithGoal": "Compartilhar minha {goalName}",
     "shareCopied": "Copiado!",
     "shareText": "Esta simulação orientada por metas é a forma mais fácil e eficaz de construir riqueza. Transformou {start} em {end}, isso é {difference} a mais do que meu banco daria. Experimente:",
     "bankSource": "Baseado em taxa média de poupança de {rate}%. Fonte: Banco Central do Brasil, janeiro de 2026.",

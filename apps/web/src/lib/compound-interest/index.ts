@@ -3,7 +3,7 @@
  */
 
 export { calculateCompoundProjection } from './calculator';
-export { convertCadenceToMonthly } from './cadence';
+export { convertCadenceToMonthly, isOneTime } from './cadence';
 export { SCENARIO_RATES, type ScenarioKey } from './scenarios';
 export { formatCurrency, formatPercent, getCurrencyCode } from './format';
 export {

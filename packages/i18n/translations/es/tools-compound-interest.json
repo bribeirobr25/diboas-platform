@@ -1,0 +1,20 @@
+{
+  "seo": {
+    "title": "Calculadora de interés compuesto — ve en qué puede convertirse tu dinero",
+    "description": "Calculadora gratuita de interés compuesto. Elige cantidad, frecuencia y plazo. Compara banco vs diBoaS lado a lado."
+  },
+  "hero": {
+    "kicker": "Calculadora de interés compuesto",
+    "headline": "El mismo dinero. Otro trabajo.",
+    "subtitle": "Pon tus números. Ve 12 años a tres tasas distintas."
+  },
+  "landing": {
+    "cardTitle": "Interés compuesto",
+    "cardTagline": "¿En qué se convierten 1.000 € en 12 años?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres saber cómo funciona?",
+    "href": "/learn/compound-interest",
+    "linkText": "Lee la lección: Cómo crece el dinero de verdad"
+  }
+}

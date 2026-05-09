@@ -289,6 +289,64 @@
   font-weight: var(--font-weight-bold);
 }
 
+/* Goal Strategy Grid (6B) */
+.goalGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.goalCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-lg) var(--spacing-md);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  font-family: inherit;
+}
+
+.goalCard:hover {
+  border-color: var(--text-brand-accessible);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.08);
+}
+
+.goalCard:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+  border-color: var(--text-brand-accessible);
+}
+
+.goalCardIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--color-teal-50);
+  color: var(--text-brand-accessible);
+}
+
+.goalCardLabel {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+}
+
+.goalCardCaption {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-600);
+  line-height: 1.35;
+}
+
 /* Path Cards */
 .pathList {
   width: 100%;

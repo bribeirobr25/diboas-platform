@@ -8,12 +8,23 @@
 import type { SupportedLocale } from '@diboas/i18n/config';
 import type { ScenarioKey } from './scenarios';
 
-export type Cadence = 'daily' | 'weekly' | 'monthly';
+export type Cadence =
+  | 'oneTime'
+  | 'daily'
+  | 'weekly'
+  | 'monthly'
+  | 'quarterly'
+  | 'semiAnnual'
+  | 'yearly';
 
 export type SeriesKey = ScenarioKey | 'bank';
 
 export interface CalculatorInput {
-  /** Amount per cadence period in the user's locale currency. */
+  /**
+   * For recurring cadences (daily/weekly/monthly/quarterly/semiAnnual/yearly):
+   * amount per cadence period in the user's locale currency.
+   * For oneTime: principal of the single deposit at t=0.
+   */
   amount: number;
   cadence: Cadence;
   /** 1–40 inclusive. Default 12 in the lesson defaults table. */

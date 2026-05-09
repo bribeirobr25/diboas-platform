@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Retirement Calculator — see what your savings could become",
+    "description": "Plug in your monthly savings and see what your retirement could become. Free retirement calculator from diBoaS."
+  },
+  "hero": {
+    "kicker": "Retirement calculator",
+    "headline": "Plan a future where work is optional.",
+    "subtitle": "Pick a monthly amount. See what 25 years could become."
+  },
+  "vignette": {
+    "headline": "{monthly}/month for {years} years could become {result}",
+    "subtitle": "That's what diBoaS could give you, vs your bank's near-zero yield."
+  },
+  "landing": {
+    "cardTitle": "Retirement",
+    "cardTagline": "What does your savings become at 65?"
+  },
+  "lessonLink": {
+    "label": "Want to learn how this works?",
+    "href": "/learn/compound-interest",
+    "linkText": "Read: How money really grows"
+  }
+}

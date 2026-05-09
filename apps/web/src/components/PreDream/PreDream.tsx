@@ -14,6 +14,7 @@ import { PreDreamProvider, usePreDream } from './PreDreamProvider';
 import {
   DisclaimerScreen,
   WelcomeScreen,
+  GoalStrategyScreen,
   PathSelectorScreen,
   InputScreen,
   TimeframeScreen,
@@ -81,6 +82,8 @@ function PreDreamContent({ onClose, onBackToHome }: PreDreamProps) {
         return <DisclaimerScreen />;
       case 'welcome':
         return <WelcomeScreen />;
+      case 'goalStrategy':
+        return <GoalStrategyScreen />;
       case 'pathSelect':
         return <PathSelectorScreen />;
       case 'input':

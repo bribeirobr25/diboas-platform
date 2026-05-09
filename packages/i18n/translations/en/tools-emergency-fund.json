@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Emergency Fund Calculator — see how fast you can save",
+    "description": "Plug in your monthly expenses and savings rate. See how long until your emergency fund is ready. Free calculator from diBoaS."
+  },
+  "hero": {
+    "kicker": "Emergency fund calculator",
+    "headline": "Peace of mind, faster.",
+    "subtitle": "Build 6 months of expenses. See how much sooner you get there with diBoaS."
+  },
+  "inputs": {
+    "monthlyExpensesLabel": "Monthly expenses",
+    "monthlyExpensesHelp": "What you spend in a typical month",
+    "monthlySavingsLabel": "Monthly savings",
+    "monthlySavingsHelp": "What you can set aside each month",
+    "targetMultiplierLabel": "Months of expenses to save",
+    "targetMultiplierHelp": "6 months is a common target"
+  },
+  "output": {
+    "withDiboas": "With diBoaS",
+    "withBank": "With your bank",
+    "monthsLabel": "{months} months",
+    "yearsLabel": "{years} years",
+    "saved": "Time saved",
+    "targetLabel": "Target: {amount}",
+    "noResult": "Increase your monthly savings to reach the goal."
+  },
+  "vignette": {
+    "headline": "{target} fund in {time}",
+    "bankHeadline": "vs {bankTime} with your bank",
+    "subtitle": "Same effort. Less waiting."
+  },
+  "landing": {
+    "cardTitle": "Emergency Fund",
+    "cardTagline": "How fast can I save 6 months?"
+  },
+  "lessonLink": {
+    "label": "Want to learn the math?",
+    "href": "/learn/compound-interest",
+    "linkText": "Read: How money really grows"
+  }
+}

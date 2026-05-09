@@ -1,0 +1,60 @@
+{
+  "landing": {
+    "seo": {
+      "title": "Money Tools — calculators by diBoaS",
+      "description": "Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS."
+    },
+    "hero": {
+      "kicker": "Money tools",
+      "headline": "What could your money do?",
+      "subtitle": "A small set of free calculators. Plug in your numbers, see what's possible."
+    },
+    "sections": {
+      "grow": {
+        "title": "Grow what you have",
+        "question": "If I save $X, what does it become?"
+      },
+      "protect": {
+        "title": "Don't lose to inflation",
+        "question": "What is sitting in cash actually costing me?"
+      },
+      "target": {
+        "title": "Hit a target",
+        "question": "When do I get there?"
+      },
+      "business": {
+        "title": "For your business",
+        "question": "What's my company leaving on the table?"
+      }
+    },
+    "filterChip": {
+      "all": "All tools",
+      "business": "For business"
+    }
+  },
+  "actions": {
+    "tryWithNumbers": "Try with your numbers",
+    "reset": "Reset",
+    "share": "Share"
+  },
+  "scenarios": {
+    "bank": "Your bank",
+    "conservative": "Conservative (4%)",
+    "historical": "Historical (7%)",
+    "optimistic": "Optimistic (10%)"
+  },
+  "labels": {
+    "initialDeposit": "Initial deposit",
+    "monthlyContribution": "Monthly contribution",
+    "amount": "Amount",
+    "years": "Years",
+    "cadence": "How often"
+  },
+  "footer": {
+    "wantLesson": "Want to learn more?",
+    "readLesson": "Read the lesson",
+    "tryOtherTools": "Try other money tools",
+    "adelaideAttribution": "Money tools by Adelaide"
+  },
+  "disclaimer": "Educational projection only. Not financial advice. Past performance does not guarantee future results."
+}

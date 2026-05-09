@@ -4,7 +4,12 @@
       "url": [
         "http://localhost:3000/en",
         "http://localhost:3000/en/business",
-        "http://localhost:3000/en/learn/compound-interest"
+        "http://localhost:3000/en/learn/compound-interest",
+        "http://localhost:3000/en/tools",
+        "http://localhost:3000/en/tools/compound-interest",
+        "http://localhost:3000/en/tools/retirement",
+        "http://localhost:3000/en/tools/emergency-fund",
+        "http://localhost:3000/en/tools/goal-savings"
       ],
       "numberOfRuns": 1,
       "settings": {

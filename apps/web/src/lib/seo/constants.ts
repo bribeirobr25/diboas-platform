@@ -155,6 +155,34 @@ export const PAGE_SEO_CONFIG = {
     title: 'How Money Really Grows — Compound Interest Explained',
     description: "Learn how compound interest works — the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like.",
     keywords: ['compound interest calculator', 'how money grows', 'compound interest explained', 'savings vs investing']
+  },
+  // Phase 6C — Money Tools (Tier 1): purpose-grouped landing + 4 calculators.
+  // Per-locale titles/descriptions resolve via each route's `generateMetadata`
+  // (tools-shared.json + tools-{slug}.json); these English strings are fallback only.
+  tools: {
+    title: 'Money Tools — calculators by diBoaS',
+    description: 'Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS.',
+    keywords: ['money tools', 'financial calculators', 'savings calculator']
+  },
+  'tools/compound-interest': {
+    title: 'Compound Interest Calculator',
+    description: 'Free compound interest calculator. Pick an amount, a cadence, and a timeframe. See bank vs diBoaS side-by-side.',
+    keywords: ['compound interest calculator', 'savings calculator', 'investment growth']
+  },
+  'tools/retirement': {
+    title: 'Retirement Calculator',
+    description: 'See what your monthly savings could become at 65. Free retirement calculator from diBoaS.',
+    keywords: ['retirement calculator', 'retirement savings', 'retirement planning']
+  },
+  'tools/emergency-fund': {
+    title: 'Emergency Fund Calculator',
+    description: 'See how fast you can save 6 months of expenses. Free emergency fund calculator from diBoaS.',
+    keywords: ['emergency fund calculator', 'savings goal', 'rainy day fund']
+  },
+  'tools/goal-savings': {
+    title: 'Goal-Based Savings Calculator',
+    description: 'Plan toward any number. Pick a goal and timeframe; see bank vs diBoaS side-by-side.',
+    keywords: ['savings goal calculator', 'goal-based savings', 'savings planner']
   }
 } as const;
 

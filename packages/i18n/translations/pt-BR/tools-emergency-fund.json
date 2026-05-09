@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Calculadora de reserva de emergência — quão rápido você guarda",
+    "description": "Coloque seus gastos mensais e sua taxa de poupança. Veja em quanto tempo a reserva de emergência fica pronta. Calculadora gratuita do diBoaS."
+  },
+  "hero": {
+    "kicker": "Calculadora de reserva de emergência",
+    "headline": "Tranquilidade, mais rápido.",
+    "subtitle": "Junte 6 meses de gastos. Veja quanto antes você chega lá com o diBoaS."
+  },
+  "inputs": {
+    "monthlyExpensesLabel": "Gastos mensais",
+    "monthlyExpensesHelp": "O que você gasta em um mês comum",
+    "monthlySavingsLabel": "Poupança mensal",
+    "monthlySavingsHelp": "O que você consegue guardar por mês",
+    "targetMultiplierLabel": "Meses de gastos para guardar",
+    "targetMultiplierHelp": "6 meses é uma meta comum"
+  },
+  "output": {
+    "withDiboas": "Com o diBoaS",
+    "withBank": "Com seu banco",
+    "monthsLabel": "{months} meses",
+    "yearsLabel": "{years} anos",
+    "saved": "Tempo economizado",
+    "targetLabel": "Meta: {amount}",
+    "noResult": "Aumente sua poupança mensal para alcançar a meta."
+  },
+  "vignette": {
+    "headline": "{target} de reserva em {time}",
+    "bankHeadline": "vs {bankTime} com seu banco",
+    "subtitle": "Mesmo esforço. Menos espera."
+  },
+  "landing": {
+    "cardTitle": "Reserva de emergência",
+    "cardTagline": "Em quanto tempo guardo 6 meses?"
+  },
+  "lessonLink": {
+    "label": "Quer entender a matemática?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia: Como o dinheiro cresce de verdade"
+  }
+}

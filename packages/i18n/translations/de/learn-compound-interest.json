@@ -63,6 +63,8 @@
     ],
     "calculatorTagline": "Dasselbe Geld. Andere Aufgabe.",
     "afterCalculator": "Zahlen verstanden?",
+    "toolDeepLink": "Willst du diesen Rechner allein? {link}",
+    "toolDeepLinkText": "Zum eigenständigen Zinseszins-Rechner",
     "wrap": [
       "Genau dafür ist diBoaS da. Der Teil deines Geldes, den du zur Seite legen kannst, der zu einem Zinssatz arbeitet, den sich das System bisher selbst behalten hat.",
       "Deine Bank bleibt, wo sie ist — für Ausgaben, Rechnungen und den Alltag. diBoaS ist für Geld mit einem Ziel."
@@ -75,20 +77,26 @@
   },
   "calculator": {
     "amountLabel": "Betrag",
+    "oneTimeAmountLabel": "Einmalige Einlage",
     "amountAriaLabel": "Betrag pro Periode",
     "cadenceLabel": "Wie oft",
     "cadenceOptions": {
+      "oneTime": "Einmalig",
       "daily": "Täglich",
       "weekly": "Wöchentlich",
-      "monthly": "Monatlich"
+      "monthly": "Monatlich",
+      "quarterly": "Vierteljährlich",
+      "semiAnnual": "Halbjährlich",
+      "yearly": "Jährlich"
     },
     "yearsLabel": "Jahre",
-    "yearsTooltip": "Täglich nutzt 365 Tage; wöchentlich 52 Wochen; monatlich bleibt unverändert.",
+    "yearsTooltip": "Einmalig = einzelne Einlage zu Beginn. Täglich nutzt 365 Tage; wöchentlich 52; monatlich 12; vierteljährlich 4; halbjährlich 2; jährlich 1.",
     "outputBank": "Deine Bank",
     "outputConservative": "Konservativ (4 %)",
     "outputHistorical": "Historisch (7 %)",
     "outputOptimistic": "Optimistisch (10 %)",
     "summaryHeader": "Aus deinen monatlichen {amount} könnten in {years} Jahren werden…",
+    "oneTimeSummaryHeader": "Aus deiner Einlage von {amount} könnten in {years} Jahren werden…",
     "chartAriaLabel": "Zinseszins-Grafik, die deine Bankrate mit drei Szenarien über die Zeit vergleicht.",
     "tableHeaderScenario": "Szenario",
     "tableHeaderRate": "Jahreszins",

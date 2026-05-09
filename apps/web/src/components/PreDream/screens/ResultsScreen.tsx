@@ -60,11 +60,17 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
     ? (bankBalance / result.defiBalance) * 100
     : 0;
 
+  const goalName = state.selectedGoal
+    ? intl.formatMessage({ id: `preDream.goalStrategy.options.${state.selectedGoal}.label` })
+    : null;
+
   return (
     <div className={styles.screenContent}>
       <div className={styles.screenHeader}>
         <h1 className={styles.screenTitle}>
-          {t('titlePrefix', { amount: formatCurrency(result.totalInvestment, 0, locale) })}
+          {goalName
+            ? t('titleWithGoal', { goalName })
+            : t('titlePrefix', { amount: formatCurrency(result.totalInvestment, 0, locale) })}
         </h1>
       </div>
 

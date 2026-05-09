@@ -1,0 +1,60 @@
+{
+  "landing": {
+    "seo": {
+      "title": "Ferramentas financeiras — calculadoras do diBoaS",
+      "description": "Calculadoras gratuitas para planejar sua aposentadoria, reserva de emergência e metas de poupança. Do diBoaS."
+    },
+    "hero": {
+      "kicker": "Ferramentas financeiras",
+      "headline": "O que seu dinheiro poderia fazer?",
+      "subtitle": "Um conjunto pequeno de calculadoras gratuitas. Coloque seus números, veja o que é possível."
+    },
+    "sections": {
+      "grow": {
+        "title": "Fazer crescer o que você tem",
+        "question": "Se eu poupar X, no que vira?"
+      },
+      "protect": {
+        "title": "Não perder pra inflação",
+        "question": "Quanto me custa o dinheiro parado?"
+      },
+      "target": {
+        "title": "Atingir uma meta",
+        "question": "Quando eu chego lá?"
+      },
+      "business": {
+        "title": "Para sua empresa",
+        "question": "O que minha empresa está deixando na mesa?"
+      }
+    },
+    "filterChip": {
+      "all": "Todas as ferramentas",
+      "business": "Para empresas"
+    }
+  },
+  "actions": {
+    "tryWithNumbers": "Simule com seus números",
+    "reset": "Reiniciar",
+    "share": "Compartilhar"
+  },
+  "scenarios": {
+    "bank": "Seu banco",
+    "conservative": "Conservador (4%)",
+    "historical": "Histórico (7%)",
+    "optimistic": "Otimista (10%)"
+  },
+  "labels": {
+    "initialDeposit": "Depósito inicial",
+    "monthlyContribution": "Aporte mensal",
+    "amount": "Valor",
+    "years": "Anos",
+    "cadence": "Com que frequência"
+  },
+  "footer": {
+    "wantLesson": "Quer saber mais?",
+    "readLesson": "Ler a lição",
+    "tryOtherTools": "Experimentar outras ferramentas",
+    "adelaideAttribution": "Ferramentas da Adelaide"
+  },
+  "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Resultados passados não garantem resultados futuros."
+}

@@ -63,6 +63,8 @@
     ],
     "calculatorTagline": "Mismo dinero. Otro trabajo.",
     "afterCalculator": "¿Te ha cuadrado la cuenta?",
+    "toolDeepLink": "¿Quieres esta calculadora por separado? {link}",
+    "toolDeepLinkText": "Abre la calculadora de interés compuesto",
     "wrap": [
       "Para esto está diBoaS. La parte de tu dinero que puedes apartar, trabajando a un ritmo que el sistema se venía guardando solo para él.",
       "Tu banco se queda donde está — para gastos, recibos y el día a día. diBoaS es para el dinero con un objetivo."
@@ -75,20 +77,26 @@
   },
   "calculator": {
     "amountLabel": "Cantidad",
+    "oneTimeAmountLabel": "Depósito inicial",
     "amountAriaLabel": "Cantidad por período",
     "cadenceLabel": "Con qué frecuencia",
     "cadenceOptions": {
+      "oneTime": "Una sola vez",
       "daily": "Diario",
       "weekly": "Semanal",
-      "monthly": "Mensual"
+      "monthly": "Mensual",
+      "quarterly": "Cada 3 meses",
+      "semiAnnual": "Cada 6 meses",
+      "yearly": "Una vez al año"
     },
     "yearsLabel": "Años",
-    "yearsTooltip": "Diario usa 365 días; semanal usa 52 semanas; mensual no cambia.",
+    "yearsTooltip": "Una sola vez = depósito único al inicio. Diario usa 365 días; semanal 52; mensual 12; trimestral 4; semestral 2; anual 1.",
     "outputBank": "Tu banco",
     "outputConservative": "Conservador (4 %)",
     "outputHistorical": "Histórico (7 %)",
     "outputOptimistic": "Optimista (10 %)",
     "summaryHeader": "En {years} años, tus {amount} mensuales podrían convertirse en…",
+    "oneTimeSummaryHeader": "En {years} años, tu depósito inicial de {amount} podría convertirse en…",
     "chartAriaLabel": "Gráfico de interés compuesto que compara la tasa de tu banco con tres escenarios a lo largo del tiempo.",
     "tableHeaderScenario": "Escenario",
     "tableHeaderRate": "Tipo anual",

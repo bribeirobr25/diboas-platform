@@ -21,6 +21,12 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/protocols': 0.8,
   '/learn': 0.8,
   '/learn/compound-interest': 0.8,
+  // Phase 6C — Money Tools (Tier 1)
+  '/tools': 0.8,
+  '/tools/compound-interest': 0.8,
+  '/tools/retirement': 0.8,
+  '/tools/emergency-fund': 0.8,
+  '/tools/goal-savings': 0.8,
   '/help': 0.7,
   '/security': 0.7,
   '/legal/terms': 0.3,
@@ -46,6 +52,15 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   '/protocols': 'protocols',
   '/help': 'help',
   '/security': 'security',
+  // Phase 6C — Money Tools. Each tool gets a dedicated OG image key under
+  // `/api/og/<key>`. v1 falls back to `default` until 6F.2 ships per-tool art;
+  // these stable keys ensure the sitemap is correct now and the renderer can
+  // attach bespoke art later without sitemap churn.
+  '/tools': 'tools',
+  '/tools/compound-interest': 'tools-compound-interest',
+  '/tools/retirement': 'tools-retirement',
+  '/tools/emergency-fund': 'tools-emergency-fund',
+  '/tools/goal-savings': 'tools-goal-savings',
 };
 
 function getAllUrls(): string[] {

@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Calculadora de fondo de emergencia — qué tan rápido lo ahorras",
+    "description": "Pon tus gastos mensuales y tu tasa de ahorro. Ve cuánto tardarás en tener listo tu fondo de emergencia. Calculadora gratuita de diBoaS."
+  },
+  "hero": {
+    "kicker": "Calculadora de fondo de emergencia",
+    "headline": "Tranquilidad, más rápido.",
+    "subtitle": "Ahorra 6 meses de gastos. Ve cuánto antes llegas con diBoaS."
+  },
+  "inputs": {
+    "monthlyExpensesLabel": "Gastos mensuales",
+    "monthlyExpensesHelp": "Lo que gastas en un mes típico",
+    "monthlySavingsLabel": "Ahorro mensual",
+    "monthlySavingsHelp": "Lo que puedes apartar cada mes",
+    "targetMultiplierLabel": "Meses de gastos a ahorrar",
+    "targetMultiplierHelp": "6 meses es un objetivo común"
+  },
+  "output": {
+    "withDiboas": "Con diBoaS",
+    "withBank": "Con tu banco",
+    "monthsLabel": "{months} meses",
+    "yearsLabel": "{years} años",
+    "saved": "Tiempo ahorrado",
+    "targetLabel": "Meta: {amount}",
+    "noResult": "Aumenta tu ahorro mensual para alcanzar la meta."
+  },
+  "vignette": {
+    "headline": "{target} de fondo en {time}",
+    "bankHeadline": "vs {bankTime} con tu banco",
+    "subtitle": "Mismo esfuerzo. Menos espera."
+  },
+  "landing": {
+    "cardTitle": "Fondo de emergencia",
+    "cardTagline": "¿Cuánto tardo en ahorrar 6 meses?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres entender la matemática?",
+    "href": "/learn/compound-interest",
+    "linkText": "Lee: Cómo crece el dinero de verdad"
+  }
+}
