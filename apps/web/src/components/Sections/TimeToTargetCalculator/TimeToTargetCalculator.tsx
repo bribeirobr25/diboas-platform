@@ -1,0 +1,251 @@
+'use client';
+
+/**
+ * Time-to-Target Calculator (Tier-2 tool, 6D.2).
+ *
+ * Inverse of compound interest: "When will I reach $X?". Outputs years
+ * across 4 scenarios (bank, conservative 4%, historical 7%, optimistic 10%)
+ * given target + initial deposit + recurring contribution + cadence.
+ *
+ * Math: `monthsToInflationAdjustedTarget` from market-data formulas with
+ * inflation hard-locked to 0 (this tool is "nominal time-to-target",
+ * inflation-adjusted variant lives in Emergency Fund tool 6C).
+ */
+
+import { useId, useMemo, useState } from 'react';
+import { useTranslation } from '@diboas/i18n/client';
+import { useLocale } from '@/components/Providers';
+import {
+  calculateLumpSum,
+  marketDataService,
+  monthsToInflationAdjustedTarget,
+  type SupportedLocale,
+} from '@/lib/market-data';
+import {
+  convertCadenceToMonthly,
+  isOneTime,
+  formatCurrency,
+  type Cadence,
+} from '@/lib/compound-interest';
+import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
+import { TIME_TO_TARGET_DEFAULTS } from '@/lib/tools';
+import styles from './TimeToTargetCalculator.module.css';
+
+const CADENCE_OPTIONS: readonly Cadence[] = [
+  'oneTime',
+  'daily',
+  'weekly',
+  'monthly',
+  'quarterly',
+  'semiAnnual',
+  'yearly',
+];
+
+const SCENARIO_KEYS = ['bank', 'conservative', 'historical', 'optimistic'] as const;
+type ScenarioKey = (typeof SCENARIO_KEYS)[number];
+
+interface FormState {
+  target: number;
+  initialAmount: number;
+  contribution: number;
+  cadence: Cadence;
+}
+
+export function TimeToTargetCalculator() {
+  const intl = useTranslation();
+  const { locale } = useLocale();
+  const baseId = useId();
+  const localeKey = (locale ?? 'en') as SupportedLocale;
+
+  const t = (key: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `tools-time-to-target.${key}` }, values);
+  const tShared = (key: string) => intl.formatMessage({ id: `tools-shared.${key}` });
+  const tCadence = (cadence: Cadence) =>
+    intl.formatMessage({ id: `learn-compound-interest.calculator.cadenceOptions.${cadence}` });
+
+  const initial = useMemo<FormState>(
+    () => ({
+      target: TIME_TO_TARGET_DEFAULTS.target[localeKey],
+      initialAmount: TIME_TO_TARGET_DEFAULTS.initialAmount[localeKey],
+      contribution: TIME_TO_TARGET_DEFAULTS.contribution[localeKey],
+      cadence: TIME_TO_TARGET_DEFAULTS.cadence,
+    }),
+    [localeKey],
+  );
+  const [form, setForm] = useState<FormState>(initial);
+
+  const bankRate = marketDataService.getSync().rates.bankRates[localeKey]?.savings ?? 0;
+
+  const scenarioRates: Record<ScenarioKey, number> = {
+    bank: bankRate,
+    conservative: SCENARIO_RATES.conservative,
+    historical: SCENARIO_RATES.historical,
+    optimistic: SCENARIO_RATES.optimistic,
+  };
+
+  const monthlyContribution = isOneTime(form.cadence)
+    ? 0
+    : convertCadenceToMonthly(form.contribution, form.cadence);
+
+  const results: Record<ScenarioKey, number | null> = useMemo(() => {
+    const out = {} as Record<ScenarioKey, number | null>;
+    for (const key of SCENARIO_KEYS) {
+      out[key] = computeMonthsToTarget({
+        target: form.target,
+        initialAmount: form.initialAmount,
+        monthlyContribution,
+        annualRate: scenarioRates[key] / 100,
+      });
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form, monthlyContribution, bankRate]);
+
+  const formatTime = (months: number | null) => {
+    if (months === null) return t('output.cannotReach');
+    if (months < 12) return t('output.monthsLabel', { months });
+    return t('output.yearsLabel', { years: (months / 12).toFixed(1) });
+  };
+
+  const handleChange = (field: keyof FormState, value: number | Cadence) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
+
+  return (
+    <div className={styles.calculator}>
+      <div className={styles.inputsRow}>
+        <div className={styles.field}>
+          <label htmlFor={`${baseId}-target`} className={styles.label}>
+            {t('inputs.targetLabel')}
+          </label>
+          <input
+            id={`${baseId}-target`}
+            type="number"
+            inputMode="decimal"
+            min={0}
+            step={1000}
+            value={form.target}
+            onChange={(e) => handleChange('target', clamp(Number(e.target.value), 0, 100_000_000))}
+            className={styles.numberInput}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor={`${baseId}-initial`} className={styles.label}>
+            {tShared('labels.initialDeposit')}
+          </label>
+          <input
+            id={`${baseId}-initial`}
+            type="number"
+            inputMode="decimal"
+            min={0}
+            step={100}
+            value={form.initialAmount}
+            onChange={(e) => handleChange('initialAmount', clamp(Number(e.target.value), 0, 100_000_000))}
+            className={styles.numberInput}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor={`${baseId}-contribution`} className={styles.label}>
+            {t('inputs.contributionLabel')}
+          </label>
+          <input
+            id={`${baseId}-contribution`}
+            type="number"
+            inputMode="decimal"
+            min={0}
+            step={50}
+            value={form.contribution}
+            onChange={(e) => handleChange('contribution', clamp(Number(e.target.value), 0, 1_000_000))}
+            className={styles.numberInput}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor={`${baseId}-cadence`} className={styles.label}>
+            {tShared('labels.cadence')}
+          </label>
+          <select
+            id={`${baseId}-cadence`}
+            value={form.cadence}
+            onChange={(e) => handleChange('cadence', e.target.value as Cadence)}
+            className={styles.select}
+          >
+            {CADENCE_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>
+                {tCadence(opt)}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <p className={styles.targetLine}>
+        {t('output.targetLine', {
+          target: formatCurrency(form.target, localeKey, { maximumFractionDigits: 0 }),
+        })}
+      </p>
+
+      <div className={styles.resultsGrid}>
+        {SCENARIO_KEYS.map((key) => (
+          <div
+            key={key}
+            className={key === 'historical' ? styles.resultCardHighlight : styles.resultCard}
+          >
+            <p className={styles.resultLabel}>{tShared(`scenarios.${key}`)}</p>
+            <p
+              className={
+                key === 'historical' ? styles.resultValue : styles.resultValueMuted
+              }
+            >
+              {formatTime(results[key])}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Compute months to reach `target` given starting principal + recurring monthly
+ * contribution + annual rate. Reuses the canonical `monthsToInflationAdjustedTarget`
+ * helper (with annualInflation=0 for nominal time-to-target). Lump-sum-only
+ * path uses `calculateLumpSum` since it has a closed-form alternative.
+ */
+function computeMonthsToTarget(args: {
+  target: number;
+  initialAmount: number;
+  monthlyContribution: number;
+  annualRate: number;
+}): number | null {
+  const { target, initialAmount, monthlyContribution, annualRate } = args;
+  if (target <= initialAmount) return 0;
+  if (monthlyContribution <= 0) {
+    // Lump-sum-only path: solve year-by-year against `calculateLumpSum`.
+    // The recurring helper requires monthlyPayment > 0 OR initialAmount > 0,
+    // and would still need the loop, so doing it inline here is clearer.
+    if (initialAmount <= 0 || annualRate <= 0) return null;
+    for (let years = 1; years <= 100; years++) {
+      const fv = calculateLumpSum(initialAmount, annualRate, 0, years).nominalFV;
+      if (fv >= target) return years * 12;
+    }
+    return null;
+  }
+  try {
+    return monthsToInflationAdjustedTarget(
+      target,
+      monthlyContribution,
+      annualRate,
+      0,
+      'end',
+      initialAmount,
+    );
+  } catch {
+    return null;
+  }
+}
+
+function clamp(n: number, min: number, max: number): number {
+  if (!Number.isFinite(n)) return min;
+  return Math.min(Math.max(n, min), max);
+}
+
+export default TimeToTargetCalculator;

@@ -183,6 +183,22 @@ export const PAGE_SEO_CONFIG = {
     title: 'Goal-Based Savings Calculator',
     description: 'Plan toward any number. Pick a goal and timeframe; see bank vs diBoaS side-by-side.',
     keywords: ['savings goal calculator', 'goal-based savings', 'savings planner']
+  },
+  // Phase 6D — Money Tools (Tier 2)
+  'tools/inflation-impact': {
+    title: 'Inflation Impact Calculator',
+    description: 'See what your cash loses to inflation each year — and what it could become if it worked instead. Free calculator from diBoaS.',
+    keywords: ['inflation calculator', 'purchasing power calculator', 'inflation impact']
+  },
+  'tools/time-to-target': {
+    title: 'Time-to-Target Calculator',
+    description: 'When will you reach your savings goal? See years to target across bank, conservative, historical, and optimistic yields.',
+    keywords: ['time to target calculator', 'savings goal calculator', 'when will I reach']
+  },
+  'tools/currency-depreciation': {
+    title: 'Currency Depreciation Calculator',
+    description: 'See what your local currency really earns. Compare cash, bank, and USDC at 7% historical yield.',
+    keywords: ['currency depreciation calculator', 'inflation hedge', 'USD vs local currency']
   }
 } as const;
 

@@ -1,0 +1,43 @@
+{
+  "seo": {
+    "title": "Inflation Impact Calculator — see what cash quietly costs you",
+    "description": "Free inflation impact calculator. See how much your cash loses to inflation each year, and what it could become if it worked instead."
+  },
+  "hero": {
+    "kicker": "Inflation impact calculator",
+    "headline": "What is sitting in cash actually costing you?",
+    "subtitle": "Inflation eats cash quietly. Here's how much, in your country, over the years that matter."
+  },
+  "inputs": {
+    "amountLabel": "Amount today",
+    "amountHelp": "How much you're holding in cash now",
+    "yearsLabel": "Years from now",
+    "yearsHelp": "Inflation: ~{rate}% / year",
+    "countryLabel": "Country",
+    "countryHelp": "Affects the inflation rate used",
+    "countryOptions": {
+      "en": "United States (USD)",
+      "pt-BR": "Brazil (BRL)",
+      "es": "Spain (EUR)",
+      "de": "Germany (EUR)"
+    }
+  },
+  "output": {
+    "ifYouKeepCash": "If you keep it in cash",
+    "ifYouInvest": "If you put it to work",
+    "lostToInflation": "−{amount} lost to inflation",
+    "investedNote": "At {rate}% historical yield"
+  },
+  "vignette": {
+    "subtitle": "Same money. Different ending. The choice is yours."
+  },
+  "landing": {
+    "cardTitle": "Inflation Impact",
+    "cardTagline": "What is cash quietly costing me?"
+  },
+  "lessonLink": {
+    "label": "Want to learn the math?",
+    "href": "/learn/compound-interest",
+    "linkText": "Read: How money really grows"
+  }
+}

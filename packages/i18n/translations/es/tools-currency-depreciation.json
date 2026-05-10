@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Calculadora de depreciación monetaria — qué gana realmente tu moneda",
+    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en USDC al 7% de rendimiento histórico."
+  },
+  "hero": {
+    "kicker": "Calculadora de depreciación monetaria",
+    "headline": "¿Qué gana realmente tu moneda?",
+    "subtitle": "Compara efectivo, banco y USDC con el tiempo, considerando la depreciación."
+  },
+  "inputs": {
+    "currencyLabel": "Moneda",
+    "amountLabel": "Cantidad en {currency}",
+    "yearsLabel": "Años a partir de ahora",
+    "depreciationHelp": "El {currency} se deprecia ~{rate}% al año vs USD"
+  },
+  "output": {
+    "usdLocaleNote": "Esta calculadora es más útil para monedas distintas al USD. Para tenedores de USD, la depreciación se establece en 0.",
+    "cashLabel": "Si lo dejas en efectivo",
+    "cashUsdEquivalent": "Equivalente en USD tras {rate}% / año de drift",
+    "bankLabel": "Rendimiento bancario",
+    "bankRateNote": "{rate}% tasa local",
+    "diboasLabel": "USDC en diBoaS",
+    "diboasNote": "{rate}% rendimiento histórico, cubierto vía USD"
+  },
+  "vignette": {
+    "subtitle": "Dónde guardas tu dinero importa. La moneda en la que rinde, importa más."
+  },
+  "landing": {
+    "cardTitle": "Depreciación monetaria",
+    "cardTagline": "¿Qué gana realmente mi moneda?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres saber más?",
+    "href": "/learn/compound-interest",
+    "linkText": "Lee: Cómo crece el dinero de verdad"
+  }
+}

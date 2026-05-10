@@ -4,7 +4,10 @@
 
 export type {
   CompoundToolDefaults,
+  CurrencyDepreciationDefaults,
   EmergencyFundDefaults,
+  InflationImpactDefaults,
+  TimeToTargetDefaults,
   ToolDescriptor,
   ToolKey,
   ToolSectionKey,
@@ -12,7 +15,10 @@ export type {
 
 export {
   COMPOUND_TOOL_DEFAULTS,
+  CURRENCY_DEPRECIATION_DEFAULTS,
   EMERGENCY_FUND_DEFAULTS,
+  INFLATION_IMPACT_DEFAULTS,
+  TIME_TO_TARGET_DEFAULTS,
   TOOL_DESCRIPTORS,
 } from './constants';
 

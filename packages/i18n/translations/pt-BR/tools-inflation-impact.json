@@ -1,0 +1,43 @@
+{
+  "seo": {
+    "title": "Calculadora de impacto da inflação — quanto o dinheiro parado custa em silêncio",
+    "description": "Calculadora gratuita de impacto da inflação. Veja quanto seu dinheiro perde por ano e no que poderia virar se trabalhasse."
+  },
+  "hero": {
+    "kicker": "Calculadora de impacto da inflação",
+    "headline": "Quanto o dinheiro parado te custa em silêncio?",
+    "subtitle": "A inflação come o dinheiro parado sem avisar. Aqui está quanto, no seu país, ao longo dos anos que importam."
+  },
+  "inputs": {
+    "amountLabel": "Valor hoje",
+    "amountHelp": "O quanto você guarda em dinheiro hoje",
+    "yearsLabel": "Anos a partir de agora",
+    "yearsHelp": "Inflação: ~{rate}% / ano",
+    "countryLabel": "País",
+    "countryHelp": "Define a taxa de inflação usada",
+    "countryOptions": {
+      "en": "Estados Unidos (USD)",
+      "pt-BR": "Brasil (BRL)",
+      "es": "Espanha (EUR)",
+      "de": "Alemanha (EUR)"
+    }
+  },
+  "output": {
+    "ifYouKeepCash": "Se ficar em dinheiro",
+    "ifYouInvest": "Se for posto pra trabalhar",
+    "lostToInflation": "−{amount} perdidos pra inflação",
+    "investedNote": "A {rate}% de rendimento histórico"
+  },
+  "vignette": {
+    "subtitle": "Mesmo dinheiro. Outro final. Você escolhe."
+  },
+  "landing": {
+    "cardTitle": "Impacto da inflação",
+    "cardTagline": "Quanto me custa o dinheiro parado?"
+  },
+  "lessonLink": {
+    "label": "Quer entender a matemática?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia: Como o dinheiro cresce de verdade"
+  }
+}

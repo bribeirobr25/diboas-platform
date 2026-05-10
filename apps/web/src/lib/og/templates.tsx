@@ -21,7 +21,10 @@ export type OGPageType =
   | 'tools-compound-interest'
   | 'tools-retirement'
   | 'tools-emergency-fund'
-  | 'tools-goal-savings';
+  | 'tools-goal-savings'
+  | 'tools-inflation-impact'
+  | 'tools-time-to-target'
+  | 'tools-currency-depreciation';
 
 interface OGTemplateConfig {
   title: string;
@@ -102,6 +105,25 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
   'tools-goal-savings': {
     title: 'Goal-Based Savings Calculator',
     subtitle: 'Plan toward any number. Compare bank vs diBoaS.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  // Phase 6D — Money Tools (Tier 2)
+  'tools-inflation-impact': {
+    title: 'Inflation Impact Calculator',
+    subtitle: 'See what cash quietly costs you.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-time-to-target': {
+    title: 'Time-to-Target Calculator',
+    subtitle: 'When will you reach your goal? Across four yields.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-currency-depreciation': {
+    title: 'Currency Depreciation Calculator',
+    subtitle: 'See what your local currency really earns over time.',
     badge: 'Tools',
     theme: 'teal',
   },
@@ -285,5 +307,8 @@ export function isValidPageType(page: string): page is OGPageType {
     'tools-retirement',
     'tools-emergency-fund',
     'tools-goal-savings',
+    'tools-inflation-impact',
+    'tools-time-to-target',
+    'tools-currency-depreciation',
   ].includes(page);
 }

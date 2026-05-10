@@ -13,6 +13,9 @@ import {
   ShieldCheck,
   TrendingUp,
   LineChart,
+  AlertTriangle,
+  Globe,
+  Target,
 } from '@/components/UI/LucideIcon';
 import { TOOL_DESCRIPTORS, type ToolKey, type ToolSectionKey } from '@/lib/tools';
 import styles from './ToolsIndex.module.css';
@@ -41,6 +44,9 @@ const ICON_MAP = {
   retirement: Palmtree,
   emergency: ShieldCheck,
   goal: TrendingUp,
+  inflation: AlertTriangle,
+  timeToTarget: Target,
+  currencyDepreciation: Globe,
 } as const;
 
 export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexProps) {

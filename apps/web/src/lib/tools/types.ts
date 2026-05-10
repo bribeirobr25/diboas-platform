@@ -11,15 +11,17 @@ import type { SupportedLocale } from '@diboas/i18n/config';
 import type { Cadence } from '@/lib/compound-interest';
 
 /**
- * The 4 Tier-1 tools shipped in 6C.
- * Tier-2/3 tools (inflation, time-to-target, currency-depreciation,
- * card-fees, idle-cash) extend this union in 6D and 6E.
+ * 4 Tier-1 tools shipped in 6C + 3 Tier-2 tools shipped in 6D.
+ * Tier-3 B2B tools (card-fees, idle-cash) extend this union in 6E.
  */
 export type ToolKey =
   | 'compound-interest'
   | 'retirement'
   | 'emergency-fund'
-  | 'goal-savings';
+  | 'goal-savings'
+  | 'inflation-impact'
+  | 'time-to-target'
+  | 'currency-depreciation';
 
 /** Section grouping shown on the /tools landing (per Q9 — Option B). */
 export type ToolSectionKey = 'grow' | 'protect' | 'target' | 'business';
@@ -39,11 +41,38 @@ export interface EmergencyFundDefaults {
   readonly targetMultiplier: number;
 }
 
+/** Input config for the Inflation Impact calculator (6D.1). */
+export interface InflationImpactDefaults {
+  readonly amount: Record<SupportedLocale, number>;
+  readonly years: number;
+}
+
+/** Input config for the Time-to-Target calculator (6D.2). */
+export interface TimeToTargetDefaults {
+  readonly target: Record<SupportedLocale, number>;
+  readonly initialAmount: Record<SupportedLocale, number>;
+  readonly contribution: Record<SupportedLocale, number>;
+  readonly cadence: Cadence;
+}
+
+/** Input config for the Currency Depreciation calculator (6D.3). */
+export interface CurrencyDepreciationDefaults {
+  readonly amount: Record<SupportedLocale, number>;
+  readonly years: number;
+}
+
 export interface ToolDescriptor {
   readonly key: ToolKey;
   readonly section: ToolSectionKey;
   readonly slug: string;
   readonly i18nNamespace: string;
-  readonly icon: 'compound' | 'retirement' | 'emergency' | 'goal';
+  readonly icon:
+    | 'compound'
+    | 'retirement'
+    | 'emergency'
+    | 'goal'
+    | 'inflation'
+    | 'timeToTarget'
+    | 'currencyDepreciation';
   readonly forBusiness: boolean;
 }

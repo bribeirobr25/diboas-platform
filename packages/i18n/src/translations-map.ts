@@ -53,6 +53,9 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-retirement': () => import(/* webpackChunkName: "i18n-en-tools-retirement" */ '../translations/en/tools-retirement.json').then(resolveDefault),
     'tools-emergency-fund': () => import(/* webpackChunkName: "i18n-en-tools-emergency-fund" */ '../translations/en/tools-emergency-fund.json').then(resolveDefault),
     'tools-goal-savings': () => import(/* webpackChunkName: "i18n-en-tools-goal-savings" */ '../translations/en/tools-goal-savings.json').then(resolveDefault),
+    'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-en-tools-inflation-impact" */ '../translations/en/tools-inflation-impact.json').then(resolveDefault),
+    'tools-time-to-target': () => import(/* webpackChunkName: "i18n-en-tools-time-to-target" */ '../translations/en/tools-time-to-target.json').then(resolveDefault),
+    'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-en-tools-currency-depreciation" */ '../translations/en/tools-currency-depreciation.json').then(resolveDefault),
   },
   de: {
     common: () => import(/* webpackChunkName: "i18n-de-common" */ '../translations/de/common.json').then(resolveDefault),
@@ -75,6 +78,9 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-retirement': () => import(/* webpackChunkName: "i18n-de-tools-retirement" */ '../translations/de/tools-retirement.json').then(resolveDefault),
     'tools-emergency-fund': () => import(/* webpackChunkName: "i18n-de-tools-emergency-fund" */ '../translations/de/tools-emergency-fund.json').then(resolveDefault),
     'tools-goal-savings': () => import(/* webpackChunkName: "i18n-de-tools-goal-savings" */ '../translations/de/tools-goal-savings.json').then(resolveDefault),
+    'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-de-tools-inflation-impact" */ '../translations/de/tools-inflation-impact.json').then(resolveDefault),
+    'tools-time-to-target': () => import(/* webpackChunkName: "i18n-de-tools-time-to-target" */ '../translations/de/tools-time-to-target.json').then(resolveDefault),
+    'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-de-tools-currency-depreciation" */ '../translations/de/tools-currency-depreciation.json').then(resolveDefault),
   },
   es: {
     common: () => import(/* webpackChunkName: "i18n-es-common" */ '../translations/es/common.json').then(resolveDefault),
@@ -97,6 +103,9 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-retirement': () => import(/* webpackChunkName: "i18n-es-tools-retirement" */ '../translations/es/tools-retirement.json').then(resolveDefault),
     'tools-emergency-fund': () => import(/* webpackChunkName: "i18n-es-tools-emergency-fund" */ '../translations/es/tools-emergency-fund.json').then(resolveDefault),
     'tools-goal-savings': () => import(/* webpackChunkName: "i18n-es-tools-goal-savings" */ '../translations/es/tools-goal-savings.json').then(resolveDefault),
+    'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-es-tools-inflation-impact" */ '../translations/es/tools-inflation-impact.json').then(resolveDefault),
+    'tools-time-to-target': () => import(/* webpackChunkName: "i18n-es-tools-time-to-target" */ '../translations/es/tools-time-to-target.json').then(resolveDefault),
+    'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-es-tools-currency-depreciation" */ '../translations/es/tools-currency-depreciation.json').then(resolveDefault),
   },
   'pt-BR': {
     common: () => import(/* webpackChunkName: "i18n-pt-BR-common" */ '../translations/pt-BR/common.json').then(resolveDefault),
@@ -119,6 +128,9 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-retirement': () => import(/* webpackChunkName: "i18n-pt-BR-tools-retirement" */ '../translations/pt-BR/tools-retirement.json').then(resolveDefault),
     'tools-emergency-fund': () => import(/* webpackChunkName: "i18n-pt-BR-tools-emergency-fund" */ '../translations/pt-BR/tools-emergency-fund.json').then(resolveDefault),
     'tools-goal-savings': () => import(/* webpackChunkName: "i18n-pt-BR-tools-goal-savings" */ '../translations/pt-BR/tools-goal-savings.json').then(resolveDefault),
+    'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-pt-BR-tools-inflation-impact" */ '../translations/pt-BR/tools-inflation-impact.json').then(resolveDefault),
+    'tools-time-to-target': () => import(/* webpackChunkName: "i18n-pt-BR-tools-time-to-target" */ '../translations/pt-BR/tools-time-to-target.json').then(resolveDefault),
+    'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-pt-BR-tools-currency-depreciation" */ '../translations/pt-BR/tools-currency-depreciation.json').then(resolveDefault),
   },
 };
 

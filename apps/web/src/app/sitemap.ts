@@ -27,6 +27,10 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/tools/retirement': 0.8,
   '/tools/emergency-fund': 0.8,
   '/tools/goal-savings': 0.8,
+  // Phase 6D — Money Tools (Tier 2)
+  '/tools/inflation-impact': 0.8,
+  '/tools/time-to-target': 0.8,
+  '/tools/currency-depreciation': 0.8,
   '/help': 0.7,
   '/security': 0.7,
   '/legal/terms': 0.3,
@@ -61,6 +65,10 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   '/tools/retirement': 'tools-retirement',
   '/tools/emergency-fund': 'tools-emergency-fund',
   '/tools/goal-savings': 'tools-goal-savings',
+  // Phase 6D — Tier 2 OG keys
+  '/tools/inflation-impact': 'tools-inflation-impact',
+  '/tools/time-to-target': 'tools-time-to-target',
+  '/tools/currency-depreciation': 'tools-currency-depreciation',
 };
 
 function getAllUrls(): string[] {

@@ -18,10 +18,15 @@ interface ToolsPageProps extends LocalePageProps {
 }
 
 const SHIPPED_TOOLS: ReadonlyArray<ToolKey> = [
+  // Tier 1 (6C)
   'compound-interest',
   'retirement',
   'goal-savings',
+  // Tier 2 (6D)
+  'inflation-impact',
+  'currency-depreciation',
   'emergency-fund',
+  'time-to-target',
 ];
 
 const SECTIONS: ReadonlyArray<ToolSectionKey> = ['grow', 'protect', 'target', 'business'];
@@ -57,12 +62,12 @@ export default async function ToolsLandingPage({ params, searchParams }: ToolsPa
   const sp = (await searchParams) ?? {};
   const audienceFilter = sp.for === 'business' ? 'business' : null;
 
+  // Load every shipped tool's namespace so the cards on the landing render
+  // their titles + taglines. Forgetting one here yields icon-only cards on
+  // the landing — verified during 6D audit.
   const pageMessages = await loadPageNamespaces(locale, [
     'tools-shared',
-    'tools-compound-interest',
-    'tools-retirement',
-    'tools-goal-savings',
-    'tools-emergency-fund',
+    ...SHIPPED_TOOLS.map((toolKey) => `tools-${toolKey}`),
     'landing-b2c',
   ]);
 

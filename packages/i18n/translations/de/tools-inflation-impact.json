@@ -1,0 +1,43 @@
+{
+  "seo": {
+    "title": "Inflations-Rechner — was Bargeld wirklich kostet",
+    "description": "Kostenloser Inflationsrechner. Sieh, wie viel dein Bargeld jährlich an Wert verliert und was es werden könnte, wenn es arbeiten würde."
+  },
+  "hero": {
+    "kicker": "Inflations-Rechner",
+    "headline": "Was kostet dich Bargeld eigentlich?",
+    "subtitle": "Inflation frisst Bargeld leise. Hier ist, wie viel — in deinem Land, über die Jahre, die zählen."
+  },
+  "inputs": {
+    "amountLabel": "Betrag heute",
+    "amountHelp": "Wie viel du jetzt in Bargeld hältst",
+    "yearsLabel": "Jahre ab heute",
+    "yearsHelp": "Inflation: ~{rate}% / Jahr",
+    "countryLabel": "Land",
+    "countryHelp": "Bestimmt die genutzte Inflationsrate",
+    "countryOptions": {
+      "en": "USA (USD)",
+      "pt-BR": "Brasilien (BRL)",
+      "es": "Spanien (EUR)",
+      "de": "Deutschland (EUR)"
+    }
+  },
+  "output": {
+    "ifYouKeepCash": "Wenn du es bar hältst",
+    "ifYouInvest": "Wenn du es arbeiten lässt",
+    "lostToInflation": "−{amount} durch Inflation verloren",
+    "investedNote": "Bei {rate}% historischer Rendite"
+  },
+  "vignette": {
+    "subtitle": "Gleiches Geld. Anderes Ende. Du entscheidest."
+  },
+  "landing": {
+    "cardTitle": "Inflations-Impact",
+    "cardTagline": "Was kostet mich Bargeld?"
+  },
+  "lessonLink": {
+    "label": "Mehr zur Mathematik?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

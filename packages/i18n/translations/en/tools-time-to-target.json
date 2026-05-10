@@ -1,0 +1,33 @@
+{
+  "seo": {
+    "title": "Time-to-Target Calculator — when will I reach my goal?",
+    "description": "Free time-to-target calculator. Pick a goal and a savings cadence; see how many years it takes at bank, conservative, historical, and optimistic yields."
+  },
+  "hero": {
+    "kicker": "Time-to-target calculator",
+    "headline": "When do I get there?",
+    "subtitle": "Pick a goal and a cadence. See years to target across bank, conservative, historical, and optimistic yields."
+  },
+  "inputs": {
+    "targetLabel": "Goal amount",
+    "contributionLabel": "Contribution"
+  },
+  "output": {
+    "targetLine": "Reaching {target}…",
+    "monthsLabel": "{months} months",
+    "yearsLabel": "{years} years",
+    "cannotReach": "—"
+  },
+  "vignette": {
+    "subtitle": "Same goal. Four different timelines. Pick the one you like."
+  },
+  "landing": {
+    "cardTitle": "Time-to-Target",
+    "cardTagline": "When do I get to my number?"
+  },
+  "lessonLink": {
+    "label": "Want to learn the math?",
+    "href": "/learn/compound-interest",
+    "linkText": "Read: How money really grows"
+  }
+}
