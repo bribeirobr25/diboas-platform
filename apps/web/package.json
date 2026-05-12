@@ -67,7 +67,7 @@
     "autoprefixer": "^10.4.24",
     "eslint-config-next": "^16.1.6",
     "eslint-plugin-storybook": "^10.3.5",
-    "happy-dom": "^20.8.3",
+    "happy-dom": "^20.9.0",
     "jsdom": "^28.1.0",
     "pa11y": "^9.1.0",
     "postcss": "^8.5.6",
