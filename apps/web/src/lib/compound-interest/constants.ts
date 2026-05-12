@@ -11,7 +11,10 @@ import type { Cadence } from './types';
 import type { SupportedLocale } from '@diboas/i18n/config';
 
 export const INPUT_BOUNDS = {
-  amount: { min: 0.01, max: 10_000 },
+  // max bumped 2026-05-12 (Phase 6E.2) to accommodate B2B Idle Cash Yield
+  // tool's business-context defaults (~$100K). Slider UI still caps at smaller
+  // typical values; numeric input + engine accept up to this ceiling.
+  amount: { min: 0.01, max: 10_000_000 },
   years: { min: 1, max: 40 },
 } as const;
 

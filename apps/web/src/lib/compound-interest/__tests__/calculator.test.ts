@@ -118,7 +118,7 @@ describe('calculateCompoundProjection — boundaries', () => {
     expect(out.series).toHaveLength(4);
   });
 
-  it('should accept the maximum amount of 10,000', () => {
+  it('should accept the maximum amount (INPUT_BOUNDS.amount.max)', () => {
     const out = calculateCompoundProjection({ ...baseInput, amount: INPUT_BOUNDS.amount.max });
     expect(out.series).toHaveLength(4);
   });
@@ -143,7 +143,7 @@ describe('calculateCompoundProjection — validation errors', () => {
 
   it('should throw InvalidCalculatorInputError when amount is above the maximum', () => {
     expect(() =>
-      calculateCompoundProjection({ ...baseInput, amount: 10_001 }),
+      calculateCompoundProjection({ ...baseInput, amount: INPUT_BOUNDS.amount.max + 1 }),
     ).toThrow(InvalidCalculatorInputError);
   });
 

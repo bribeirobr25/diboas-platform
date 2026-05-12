@@ -40,6 +40,40 @@
   align-self: center;
 }
 
+.filterChips {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filterChip,
+.filterChipActive {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.filterChip {
+  border: 1px solid var(--color-slate-300);
+  color: var(--color-slate-700);
+  background: var(--color-white);
+}
+
+.filterChip:hover {
+  border-color: var(--text-brand-accessible);
+  color: var(--text-brand-accessible);
+}
+
+.filterChipActive {
+  border: 1px solid var(--text-brand-accessible);
+  background: var(--text-brand-accessible);
+  color: var(--color-white);
+}
+
 .sections {
   display: flex;
   flex-direction: column;

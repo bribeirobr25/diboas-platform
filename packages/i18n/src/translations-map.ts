@@ -56,6 +56,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-en-tools-inflation-impact" */ '../translations/en/tools-inflation-impact.json').then(resolveDefault),
     'tools-time-to-target': () => import(/* webpackChunkName: "i18n-en-tools-time-to-target" */ '../translations/en/tools-time-to-target.json').then(resolveDefault),
     'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-en-tools-currency-depreciation" */ '../translations/en/tools-currency-depreciation.json').then(resolveDefault),
+    'tools-card-fees': () => import(/* webpackChunkName: "i18n-en-tools-card-fees" */ '../translations/en/tools-card-fees.json').then(resolveDefault),
+    'tools-idle-cash': () => import(/* webpackChunkName: "i18n-en-tools-idle-cash" */ '../translations/en/tools-idle-cash.json').then(resolveDefault),
   },
   de: {
     common: () => import(/* webpackChunkName: "i18n-de-common" */ '../translations/de/common.json').then(resolveDefault),
@@ -81,6 +83,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-de-tools-inflation-impact" */ '../translations/de/tools-inflation-impact.json').then(resolveDefault),
     'tools-time-to-target': () => import(/* webpackChunkName: "i18n-de-tools-time-to-target" */ '../translations/de/tools-time-to-target.json').then(resolveDefault),
     'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-de-tools-currency-depreciation" */ '../translations/de/tools-currency-depreciation.json').then(resolveDefault),
+    'tools-card-fees': () => import(/* webpackChunkName: "i18n-de-tools-card-fees" */ '../translations/de/tools-card-fees.json').then(resolveDefault),
+    'tools-idle-cash': () => import(/* webpackChunkName: "i18n-de-tools-idle-cash" */ '../translations/de/tools-idle-cash.json').then(resolveDefault),
   },
   es: {
     common: () => import(/* webpackChunkName: "i18n-es-common" */ '../translations/es/common.json').then(resolveDefault),
@@ -106,6 +110,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-es-tools-inflation-impact" */ '../translations/es/tools-inflation-impact.json').then(resolveDefault),
     'tools-time-to-target': () => import(/* webpackChunkName: "i18n-es-tools-time-to-target" */ '../translations/es/tools-time-to-target.json').then(resolveDefault),
     'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-es-tools-currency-depreciation" */ '../translations/es/tools-currency-depreciation.json').then(resolveDefault),
+    'tools-card-fees': () => import(/* webpackChunkName: "i18n-es-tools-card-fees" */ '../translations/es/tools-card-fees.json').then(resolveDefault),
+    'tools-idle-cash': () => import(/* webpackChunkName: "i18n-es-tools-idle-cash" */ '../translations/es/tools-idle-cash.json').then(resolveDefault),
   },
   'pt-BR': {
     common: () => import(/* webpackChunkName: "i18n-pt-BR-common" */ '../translations/pt-BR/common.json').then(resolveDefault),
@@ -131,6 +137,8 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     'tools-inflation-impact': () => import(/* webpackChunkName: "i18n-pt-BR-tools-inflation-impact" */ '../translations/pt-BR/tools-inflation-impact.json').then(resolveDefault),
     'tools-time-to-target': () => import(/* webpackChunkName: "i18n-pt-BR-tools-time-to-target" */ '../translations/pt-BR/tools-time-to-target.json').then(resolveDefault),
     'tools-currency-depreciation': () => import(/* webpackChunkName: "i18n-pt-BR-tools-currency-depreciation" */ '../translations/pt-BR/tools-currency-depreciation.json').then(resolveDefault),
+    'tools-card-fees': () => import(/* webpackChunkName: "i18n-pt-BR-tools-card-fees" */ '../translations/pt-BR/tools-card-fees.json').then(resolveDefault),
+    'tools-idle-cash': () => import(/* webpackChunkName: "i18n-pt-BR-tools-idle-cash" */ '../translations/pt-BR/tools-idle-cash.json').then(resolveDefault),
   },
 };
 

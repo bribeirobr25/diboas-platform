@@ -24,7 +24,9 @@ export type OGPageType =
   | 'tools-goal-savings'
   | 'tools-inflation-impact'
   | 'tools-time-to-target'
-  | 'tools-currency-depreciation';
+  | 'tools-currency-depreciation'
+  | 'tools-card-fees'
+  | 'tools-idle-cash';
 
 interface OGTemplateConfig {
   title: string;
@@ -126,6 +128,19 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     subtitle: 'See what your local currency really earns over time.',
     badge: 'Tools',
     theme: 'teal',
+  },
+  // Phase 6E — Money Tools (Tier 3 B2B) — coral theme to differentiate from B2C tools
+  'tools-card-fees': {
+    title: 'Card Fee Savings Calculator',
+    subtitle: 'See what card processors are quietly taking from your business.',
+    badge: 'Business Tools',
+    theme: 'coral',
+  },
+  'tools-idle-cash': {
+    title: 'Idle Cash Yield Calculator',
+    subtitle: 'What your business cash could earn while it sits.',
+    badge: 'Business Tools',
+    theme: 'coral',
   },
 };
 
@@ -310,5 +325,7 @@ export function isValidPageType(page: string): page is OGPageType {
     'tools-inflation-impact',
     'tools-time-to-target',
     'tools-currency-depreciation',
+    'tools-card-fees',
+    'tools-idle-cash',
   ].includes(page);
 }

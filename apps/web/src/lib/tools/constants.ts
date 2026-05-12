@@ -8,9 +8,11 @@
  */
 
 import type {
+  CardFeesDefaults,
   CompoundToolDefaults,
   CurrencyDepreciationDefaults,
   EmergencyFundDefaults,
+  IdleCashDefaults,
   InflationImpactDefaults,
   TimeToTargetDefaults,
   ToolDescriptor,
@@ -76,6 +78,23 @@ export const TOOL_DESCRIPTORS: Record<ToolKey, ToolDescriptor> = {
     icon: 'currencyDepreciation',
     forBusiness: false,
   },
+  // Phase 6E — Tier 3 B2B
+  'card-fees': {
+    key: 'card-fees',
+    section: 'business',
+    slug: 'card-fees',
+    i18nNamespace: 'tools-card-fees',
+    icon: 'cardFees',
+    forBusiness: true,
+  },
+  'idle-cash': {
+    key: 'idle-cash',
+    section: 'business',
+    slug: 'idle-cash',
+    i18nNamespace: 'tools-idle-cash',
+    icon: 'idleCash',
+    forBusiness: true,
+  },
 };
 
 /**
@@ -136,4 +155,22 @@ export const TIME_TO_TARGET_DEFAULTS: TimeToTargetDefaults = {
 export const CURRENCY_DEPRECIATION_DEFAULTS: CurrencyDepreciationDefaults = {
   amount: { en: 10000, 'pt-BR': 50000, es: 10000, de: 10000 },
   years: 5,
+};
+
+/** Default inputs for the Card Fee Savings calculator (6E.1).
+ *  Processor fee rates are locale-typical blended rates (interchange + scheme + acquirer):
+ *   - en (US/global): ~2.9% (Stripe/Square North-American blended)
+ *   - pt-BR: ~3.0% (Brazilian adquirentes — Cielo/Stone/Rede typical card-not-present)
+ *   - es / de (EU SEPA): ~1.75% (post-Interchange Fee Regulation cap of 0.3% credit + scheme fees + acquirer margin) */
+export const CARD_FEES_DEFAULTS: CardFeesDefaults = {
+  monthlyVolume: { en: 50000, 'pt-BR': 250000, es: 40000, de: 40000 },
+  processorFeeRate: { en: 0.029, 'pt-BR': 0.03, es: 0.0175, de: 0.0175 },
+  avgTransactionAmount: { en: 75, 'pt-BR': 250, es: 60, de: 60 },
+};
+
+/** Default inputs for the Idle Cash Yield calculator (6E.2).
+ *  Reuses CompoundInterestCalculator under the hood — same pattern as retirement / goal-savings. */
+export const IDLE_CASH_DEFAULTS: IdleCashDefaults = {
+  idleCash: { en: 100000, 'pt-BR': 500000, es: 80000, de: 80000 },
+  years: 3,
 };

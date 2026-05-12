@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Calculadora de comisiones de tarjeta — ve qué se llevan los procesadores",
+    "description": "Calculadora B2B gratuita de comisiones de tarjeta. Ve cuánto paga tu negocio al año a procesadores — y cuánto podría ahorrar diBoaS."
+  },
+  "hero": {
+    "kicker": "Calculadora de comisiones de tarjeta",
+    "headline": "¿Qué se llevan los procesadores de tu negocio?",
+    "subtitle": "La mayoría de comercios pagan 2,5–3% en cada cobro. Ve cuánto suma al año."
+  },
+  "inputs": {
+    "monthlyVolumeLabel": "Volumen mensual con tarjeta",
+    "monthlyVolumeHelp": "Ingresos por tarjeta que tu negocio procesa al mes",
+    "processorFeeLabel": "Comisión actual (%)",
+    "processorFeeHelp": "Tasa media típica en Europa ~1,5–2%",
+    "avgTxLabel": "Ticket medio (opcional)",
+    "avgTxHelp": "Se usa para calcular la comisión por transacción"
+  },
+  "output": {
+    "monthlyFee": "A procesadores al mes",
+    "annualFee": "A procesadores al año",
+    "annualSavings": "Podrías ahorrar con diBoaS",
+    "perTxLabel": "Comisión por transacción",
+    "caveat": "El ahorro real depende de tu mezcla de clientes; es una estimación superior."
+  },
+  "vignette": {
+    "subtitle": "Mismos ingresos. Otro procesador. Gran diferencia."
+  },
+  "landing": {
+    "cardTitle": "Ahorro en comisiones",
+    "cardTagline": "¿Qué se llevan los procesadores?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres saber más?",
+    "href": "/business",
+    "linkText": "Ver diBoaS para empresas"
+  }
+}

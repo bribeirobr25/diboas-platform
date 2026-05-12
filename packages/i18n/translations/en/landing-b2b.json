@@ -268,6 +268,11 @@
     "description": "Open access and fair opportunities. Let's talk.",
     "spotsCounter": "{count} founding members spots remaining"
   },
+  "toolsCallout": {
+    "label": "Want to put numbers to your business?",
+    "cardFeesLink": "Card Fee Savings calculator",
+    "idleCashLink": "Idle Cash Yield calculator"
+  },
   "socialProof": {
     "header": "Join the Movement!",
     "subtext": "Businesses are already joining the opportunity to cut costs and grow their idle cash. Subscribe to our waitlist.",

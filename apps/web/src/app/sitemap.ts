@@ -31,6 +31,9 @@ const PAGE_PRIORITIES: Record<string, number> = {
   '/tools/inflation-impact': 0.8,
   '/tools/time-to-target': 0.8,
   '/tools/currency-depreciation': 0.8,
+  // Phase 6E — Money Tools (Tier 3 B2B)
+  '/tools/card-fees': 0.8,
+  '/tools/idle-cash': 0.8,
   '/help': 0.7,
   '/security': 0.7,
   '/legal/terms': 0.3,
@@ -69,6 +72,9 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   '/tools/inflation-impact': 'tools-inflation-impact',
   '/tools/time-to-target': 'tools-time-to-target',
   '/tools/currency-depreciation': 'tools-currency-depreciation',
+  // Phase 6E — Tier 3 B2B OG keys
+  '/tools/card-fees': 'tools-card-fees',
+  '/tools/idle-cash': 'tools-idle-cash',
 };
 
 function getAllUrls(): string[] {

@@ -1,0 +1,37 @@
+{
+  "seo": {
+    "title": "Calculadora de rendimiento de efectivo ocioso — qué gana el cash de tu empresa",
+    "description": "Calculadora B2B gratuita de rendimiento de efectivo ocioso. Compara qué gana el efectivo de tu empresa en el banco vs en diBoaS conservador."
+  },
+  "hero": {
+    "kicker": "Calculadora de efectivo ocioso",
+    "headline": "¿Qué gana el efectivo de tu empresa mientras descansa?",
+    "subtitle": "Las cuentas de empresa rinden casi nada. Mira lo que añadiría un rendimiento conservador."
+  },
+  "inputs": {
+    "idleCashLabel": "Efectivo de empresa parado",
+    "idleCashHelp": "Efectivo que hoy descansa en tu cuenta de empresa",
+    "bankYieldLabel": "Rendimiento bancario actual (%)",
+    "bankYieldHelp": "Predeterminado del locale: {rate}%. Ajusta al tuyo.",
+    "yearsLabel": "Años"
+  },
+  "output": {
+    "bankLabel": "En tu banco",
+    "bankNote": "{rate}% de rendimiento durante {years} años",
+    "diboasLabel": "En diBoaS",
+    "diboasNote": "{rate}% de rendimiento conservador durante {years} años",
+    "differenceHighlight": "Tus {cash} ganan {difference} más en diBoaS durante {years} años."
+  },
+  "vignette": {
+    "subtitle": "El efectivo parado no gana. El que trabaja, sí. Tú eliges."
+  },
+  "landing": {
+    "cardTitle": "Rendimiento de efectivo",
+    "cardTagline": "¿Qué deja sin ganar mi efectivo?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres saber más?",
+    "href": "/business",
+    "linkText": "Ver diBoaS para empresas"
+  }
+}

@@ -268,6 +268,11 @@
     "description": "Offener Zugang und faire Möglichkeiten. Lass uns reden.",
     "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend"
   },
+  "toolsCallout": {
+    "label": "Willst du Zahlen für dein Unternehmen sehen?",
+    "cardFeesLink": "Kartengebühren-Rechner",
+    "idleCashLink": "Liquiditäts-Rendite-Rechner"
+  },
   "socialProof": {
     "header": "Werde Teil der Bewegung!",
     "subtext": "Unternehmen nutzen bereits die Möglichkeit, Kosten zu senken und ihr ungenutztes Kapital arbeiten zu lassen. Trag dich in unsere Warteliste ein.",

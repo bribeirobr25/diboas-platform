@@ -12,7 +12,9 @@
         "http://localhost:3000/en/tools/goal-savings",
         "http://localhost:3000/en/tools/inflation-impact",
         "http://localhost:3000/en/tools/time-to-target",
-        "http://localhost:3000/en/tools/currency-depreciation"
+        "http://localhost:3000/en/tools/currency-depreciation",
+        "http://localhost:3000/en/tools/card-fees",
+        "http://localhost:3000/en/tools/idle-cash"
       ],
       "numberOfRuns": 1,
       "settings": {

@@ -199,6 +199,17 @@ export const PAGE_SEO_CONFIG = {
     title: 'Currency Depreciation Calculator',
     description: 'See what your local currency really earns. Compare cash, bank, and USDC at 7% historical yield.',
     keywords: ['currency depreciation calculator', 'inflation hedge', 'USD vs local currency']
+  },
+  // Phase 6E — Money Tools (Tier 3 B2B)
+  'tools/card-fees': {
+    title: 'Card Fee Savings Calculator',
+    description: 'Free B2B card fee savings calculator. See how much your business pays processors per year.',
+    keywords: ['card processing fee calculator', 'business card fees', 'merchant fee calculator']
+  },
+  'tools/idle-cash': {
+    title: 'Idle Cash Yield Calculator',
+    description: 'Free B2B idle cash yield calculator. Compare what your business cash earns at the bank vs at diBoaS.',
+    keywords: ['idle cash calculator', 'business cash yield', 'corporate treasury yield']
   }
 } as const;
 

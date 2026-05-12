@@ -11,8 +11,7 @@ import type { SupportedLocale } from '@diboas/i18n/config';
 import type { Cadence } from '@/lib/compound-interest';
 
 /**
- * 4 Tier-1 tools shipped in 6C + 3 Tier-2 tools shipped in 6D.
- * Tier-3 B2B tools (card-fees, idle-cash) extend this union in 6E.
+ * 4 Tier-1 (6C) + 3 Tier-2 (6D) + 2 Tier-3 B2B (6E) = 9 tools total.
  */
 export type ToolKey =
   | 'compound-interest'
@@ -21,7 +20,9 @@ export type ToolKey =
   | 'goal-savings'
   | 'inflation-impact'
   | 'time-to-target'
-  | 'currency-depreciation';
+  | 'currency-depreciation'
+  | 'card-fees'
+  | 'idle-cash';
 
 /** Section grouping shown on the /tools landing (per Q9 — Option B). */
 export type ToolSectionKey = 'grow' | 'protect' | 'target' | 'business';
@@ -61,6 +62,19 @@ export interface CurrencyDepreciationDefaults {
   readonly years: number;
 }
 
+/** Input config for the B2B Card Fee Savings calculator (6E.1). */
+export interface CardFeesDefaults {
+  readonly monthlyVolume: Record<SupportedLocale, number>;
+  readonly processorFeeRate: Record<SupportedLocale, number>;
+  readonly avgTransactionAmount: Record<SupportedLocale, number>;
+}
+
+/** Input config for the B2B Idle Cash Yield calculator (6E.2). */
+export interface IdleCashDefaults {
+  readonly idleCash: Record<SupportedLocale, number>;
+  readonly years: number;
+}
+
 export interface ToolDescriptor {
   readonly key: ToolKey;
   readonly section: ToolSectionKey;
@@ -73,6 +87,8 @@ export interface ToolDescriptor {
     | 'goal'
     | 'inflation'
     | 'timeToTarget'
-    | 'currencyDepreciation';
+    | 'currencyDepreciation'
+    | 'cardFees'
+    | 'idleCash';
   readonly forBusiness: boolean;
 }

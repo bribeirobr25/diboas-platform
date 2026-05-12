@@ -1,0 +1,37 @@
+{
+  "seo": {
+    "title": "Calculadora de rendimento de caixa ocioso — o que o caixa da sua empresa rende",
+    "description": "Calculadora B2B gratuita de rendimento de caixa ocioso. Compare o que o caixa da sua empresa rende no banco vs no diBoaS conservador."
+  },
+  "hero": {
+    "kicker": "Calculadora de caixa ocioso",
+    "headline": "O que o caixa da sua empresa está rendendo enquanto fica parado?",
+    "subtitle": "A maioria das contas empresariais rende quase nada. Veja o que rendimento conservador somaria."
+  },
+  "inputs": {
+    "idleCashLabel": "Caixa empresarial parado",
+    "idleCashHelp": "Caixa que hoje fica parado na conta da sua empresa",
+    "bankYieldLabel": "Rendimento bancário atual (%)",
+    "bankYieldHelp": "Padrão do locale: {rate}%. Ajuste ao seu.",
+    "yearsLabel": "Anos"
+  },
+  "output": {
+    "bankLabel": "No seu banco",
+    "bankNote": "{rate}% de rendimento ao longo de {years} anos",
+    "diboasLabel": "No diBoaS",
+    "diboasNote": "{rate}% de rendimento conservador ao longo de {years} anos",
+    "differenceHighlight": "Seus {cash} rendem {difference} a mais no diBoaS ao longo de {years} anos."
+  },
+  "vignette": {
+    "subtitle": "Caixa parado não rende. Caixa que trabalha, sim. Você escolhe."
+  },
+  "landing": {
+    "cardTitle": "Rendimento do caixa",
+    "cardTagline": "O que meu caixa parado deixa de render?"
+  },
+  "lessonLink": {
+    "label": "Quer saber mais?",
+    "href": "/business",
+    "linkText": "Ver diBoaS para empresas"
+  }
+}

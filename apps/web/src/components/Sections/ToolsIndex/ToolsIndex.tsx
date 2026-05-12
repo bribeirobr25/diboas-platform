@@ -16,6 +16,8 @@ import {
   AlertTriangle,
   Globe,
   Target,
+  BarChart3,
+  Award,
 } from '@/components/UI/LucideIcon';
 import { TOOL_DESCRIPTORS, type ToolKey, type ToolSectionKey } from '@/lib/tools';
 import styles from './ToolsIndex.module.css';
@@ -34,6 +36,8 @@ interface ToolsIndexProps {
     sections: Record<ToolSectionKey, { title: string; question: string }>;
     /** Per-tool card copy keyed by ToolKey. */
     cards: Partial<Record<ToolKey, { title: string; tagline: string }>>;
+    /** Filter chip labels (Phase 6E.tools-page-integration). */
+    filterChip: { all: string; business: string };
   };
 }
 
@@ -47,6 +51,8 @@ const ICON_MAP = {
   inflation: AlertTriangle,
   timeToTarget: Target,
   currencyDepreciation: Globe,
+  cardFees: BarChart3,
+  idleCash: Award,
 } as const;
 
 export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexProps) {
@@ -55,6 +61,10 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
     return shippedTools.some((key) => TOOL_DESCRIPTORS[key].section === section);
   });
 
+  const hasBusinessTools = shippedTools.some(
+    (key) => TOOL_DESCRIPTORS[key].section === 'business',
+  );
+
   return (
     <main className={styles.page}>
       <header className={styles.hero}>
@@ -62,6 +72,31 @@ export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexPro
         <h1 className={styles.headline}>{copy.heroHeadline}</h1>
         <p className={styles.subtitle}>{copy.heroSubtitle}</p>
       </header>
+
+      {hasBusinessTools && (
+        <nav className={styles.filterChips} aria-label="Filter tools by audience">
+          <LocaleLink
+            href="/tools"
+            className={
+              audienceFilter === null ? styles.filterChipActive : styles.filterChip
+            }
+            prefetch={false}
+            aria-current={audienceFilter === null ? 'page' : undefined}
+          >
+            {copy.filterChip.all}
+          </LocaleLink>
+          <LocaleLink
+            href="/tools?for=business"
+            className={
+              audienceFilter === 'business' ? styles.filterChipActive : styles.filterChip
+            }
+            prefetch={false}
+            aria-current={audienceFilter === 'business' ? 'page' : undefined}
+          >
+            {copy.filterChip.business}
+          </LocaleLink>
+        </nav>
+      )}
 
       <div className={styles.sections}>
         {visibleSections.map((section) => {

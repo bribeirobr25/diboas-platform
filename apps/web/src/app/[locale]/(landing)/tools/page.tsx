@@ -27,6 +27,9 @@ const SHIPPED_TOOLS: ReadonlyArray<ToolKey> = [
   'currency-depreciation',
   'emergency-fund',
   'time-to-target',
+  // Tier 3 B2B (6E)
+  'card-fees',
+  'idle-cash',
 ];
 
 const SECTIONS: ReadonlyArray<ToolSectionKey> = ['grow', 'protect', 'target', 'business'];
@@ -117,6 +120,10 @@ export default async function ToolsLandingPage({ params, searchParams }: ToolsPa
           heroSubtitle: get('tools-shared.landing.hero.subtitle'),
           sections,
           cards,
+          filterChip: {
+            all: get('tools-shared.landing.filterChip.all'),
+            business: get('tools-shared.landing.filterChip.business'),
+          },
         }}
       />
       <MinimalFooter

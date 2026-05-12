@@ -268,6 +268,11 @@
     "description": "Acceso abierto y oportunidades justas. Hablemos.",
     "spotsCounter": "{count} plazas de miembros fundadores restantes"
   },
+  "toolsCallout": {
+    "label": "¿Quieres ponerle números a tu negocio?",
+    "cardFeesLink": "Calculadora de comisiones de tarjeta",
+    "idleCashLink": "Calculadora de rendimiento de efectivo ocioso"
+  },
   "socialProof": {
     "header": "¡Únete al Movimiento!",
     "subtext": "Las empresas ya están aprovechando la oportunidad de reducir costes y hacer rendir su capital parado. Suscríbete a nuestra lista de espera.",

@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Card Fee Savings Calculator — see what processors are taking",
+    "description": "Free B2B card fee savings calculator. See how much your business pays processors per year — and how much diBoaS could save."
+  },
+  "hero": {
+    "kicker": "Card fee savings calculator",
+    "headline": "What are card processors taking from your business?",
+    "subtitle": "Most merchants pay 2.5–3% on every card transaction. See what that adds up to."
+  },
+  "inputs": {
+    "monthlyVolumeLabel": "Monthly card-payment volume",
+    "monthlyVolumeHelp": "Total card revenue your business processes per month",
+    "processorFeeLabel": "Current processor fee %",
+    "processorFeeHelp": "Typical North American blended rate is ~2.9%",
+    "avgTxLabel": "Average transaction (optional)",
+    "avgTxHelp": "Used to compute per-transaction fee"
+  },
+  "output": {
+    "monthlyFee": "Going to processors monthly",
+    "annualFee": "Going to processors per year",
+    "annualSavings": "Could save with diBoaS",
+    "perTxLabel": "Fee per transaction",
+    "caveat": "Real savings depend on your customer mix; this is an upper-bound estimate."
+  },
+  "vignette": {
+    "subtitle": "Same revenue. Different processor. Big difference."
+  },
+  "landing": {
+    "cardTitle": "Card Fee Savings",
+    "cardTagline": "What are processors taking?"
+  },
+  "lessonLink": {
+    "label": "Want to learn more?",
+    "href": "/business",
+    "linkText": "See diBoaS for Business"
+  }
+}
