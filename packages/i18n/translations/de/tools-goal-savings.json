@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Zielsparen-Rechner — plane jede Zahl",
+    "description": "Wähle einen Zielbetrag und einen Zeitrahmen. Sieh, was du monatlich sparen musst — und was diBoaS hinzufügen könnte. Kostenloser Rechner von diBoaS."
+  },
+  "hero": {
+    "kicker": "Zielsparen-Rechner",
+    "headline": "Plane jede Zahl.",
+    "subtitle": "Wähle, was und bis wann. Vergleiche Bank vs. diBoaS Seite an Seite."
+  },
+  "vignette": {
+    "headline": "{monthly}/Monat für {years} Jahre könnten {result} werden",
+    "subtitle": "Wähle die Frequenz und den Betrag, der zu deinem Leben passt."
+  },
+  "landing": {
+    "cardTitle": "Zielsparen",
+    "cardTagline": "Wie erreiche ich meine Zahl?"
+  },
+  "lessonLink": {
+    "label": "Mehr zur Mathematik?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

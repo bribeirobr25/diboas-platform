@@ -19,6 +19,7 @@ import {
   calculateMonthlyWithCurrencyHedge,
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
+  purchasingPower,
   calculateFee,
   applyPlatformFees,
 } from '../formulas';
@@ -267,5 +268,77 @@ describe('calculateWithCurrencyHedge', () => {
   it('should handle negative inflation (deflation)', () => {
     const result = calculateWithCurrencyHedge(1000, 0.07, 0.03, -0.01, 1);
     expect(result.realFV).toBeGreaterThan(result.nominalFV);
+  });
+});
+
+// ─── purchasingPower (Phase 6D.1) ──────────────────────────────────────
+
+describe('purchasingPower', () => {
+  it('should return amount unchanged at year 0', () => {
+    expect(purchasingPower(1000, 0, 0.045)).toBeCloseTo(1000, 5);
+  });
+
+  it('should erode amount by ~36% over 10y at 4.5% inflation', () => {
+    // 1000 / (1.045)^10 ≈ 643.93
+    expect(purchasingPower(1000, 10, 0.045)).toBeCloseTo(643.93, 1);
+  });
+
+  it('should erode amount by ~26% over 10y at 3.0% inflation (BR-style)', () => {
+    // 1000 / (1.03)^10 ≈ 744.09
+    expect(purchasingPower(1000, 10, 0.03)).toBeCloseTo(744.09, 1);
+  });
+
+  it('should be unchanged when inflation is 0', () => {
+    expect(purchasingPower(1000, 25, 0)).toBe(1000);
+  });
+
+  it('should grow amount when inflation is negative (deflation)', () => {
+    expect(purchasingPower(1000, 5, -0.02)).toBeGreaterThan(1000);
+  });
+
+  it('should throw when years is negative', () => {
+    expect(() => purchasingPower(1000, -1, 0.045)).toThrow();
+  });
+
+  it('should be inverse of compound growth (round-trip identity)', () => {
+    const principal = 1000;
+    const rate = 0.07;
+    const years = 10;
+    const fv = principal * Math.pow(1 + rate, years);
+    expect(purchasingPower(fv, years, rate)).toBeCloseTo(principal, 5);
+  });
+});
+
+// ─── monthsToInflationAdjustedTarget — initialAmount path (Phase 6D.2) ──
+
+describe('monthsToInflationAdjustedTarget — initialAmount support', () => {
+  it('should return 0 when initialAmount already meets target', () => {
+    expect(monthsToInflationAdjustedTarget(1000, 100, 0.07, 0, 'end', 1500)).toBe(0);
+    expect(monthsToInflationAdjustedTarget(1000, 100, 0.07, 0, 'end', 1000)).toBe(0);
+  });
+
+  it('should reach target faster with non-zero initialAmount', () => {
+    const withSeed = monthsToInflationAdjustedTarget(10000, 100, 0.07, 0, 'end', 5000);
+    const withoutSeed = monthsToInflationAdjustedTarget(10000, 100, 0.07, 0, 'end', 0);
+    expect(withSeed).toBeLessThan(withoutSeed);
+  });
+
+  it('should default initialAmount to 0 when not provided (backwards-compat)', () => {
+    const a = monthsToInflationAdjustedTarget(10000, 200, 0.07, 0);
+    const b = monthsToInflationAdjustedTarget(10000, 200, 0.07, 0, 'end', 0);
+    expect(a).toBe(b);
+  });
+
+  it('should throw when both monthlyPayment and initialAmount are 0', () => {
+    expect(() => monthsToInflationAdjustedTarget(1000, 0, 0.07, 0, 'end', 0)).toThrow();
+  });
+
+  it('should still work with monthlyPayment=0 if initialAmount can grow to target', () => {
+    // No regression on the original guard: monthlyPayment <= 0 used to throw
+    // unconditionally. Now it's allowed when initialAmount > 0.
+    const months = monthsToInflationAdjustedTarget(2000, 0, 0.07, 0, 'end', 1000);
+    // 1000 * 1.00566^months ≥ 2000  → ~123 months ≈ 10.3 years
+    expect(months).toBeGreaterThan(110);
+    expect(months).toBeLessThan(140);
   });
 });

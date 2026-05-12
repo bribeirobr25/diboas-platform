@@ -133,6 +133,9 @@ export function calculateMonthlyContributions(
  * Canonical emergency-fund timing. The target itself grows with inflation
  * each month, so the function returns the first month at which the
  * accumulated balance meets or exceeds the inflation-adjusted target.
+ *
+ * Optional `initialAmount` (default 0) lets callers seed the balance with a
+ * lump-sum starting principal — used by Phase 6D.2 Time-to-Target tool.
  */
 export function monthsToInflationAdjustedTarget(
   targetToday: number,
@@ -140,16 +143,20 @@ export function monthsToInflationAdjustedTarget(
   annualRate: number,
   annualInflation: number,
   timing: DepositTiming = 'end',
+  initialAmount: number = 0,
 ): number {
-  if (monthlyPayment <= 0) {
-    throw new Error('monthlyPayment must be greater than 0');
+  if (monthlyPayment <= 0 && initialAmount <= 0) {
+    throw new Error('monthlyPayment must be greater than 0 when initialAmount is 0');
   }
 
   const i = annualToMonthlyRate(annualRate);
   const j = annualToMonthlyRate(annualInflation);
 
-  let balance = 0;
+  let balance = initialAmount;
   let month = 0;
+
+  // Already at or above today's target — no time needed.
+  if (balance >= targetToday) return 0;
 
   while (month < 1200) {
     month += 1;
@@ -170,6 +177,21 @@ export function monthsToInflationAdjustedTarget(
   }
 
   throw new Error('Target not reached within 1200 months');
+}
+
+/**
+ * Future-value purchasing power of a today-amount after `years`, given an
+ * annual inflation rate. Used by Phase 6D.1 — Inflation Impact Calculator.
+ *
+ *   purchasingPower = amount / (1 + annualInflation) ** years
+ */
+export function purchasingPower(
+  amount: number,
+  years: number,
+  annualInflation: number,
+): number {
+  if (years < 0) throw new Error('years must be >= 0');
+  return amount / Math.pow(1 + annualInflation, years);
 }
 
 /**

@@ -71,6 +71,19 @@
   margin: 16px 0 0;
 }
 
+.toolDeepLink {
+  font-size: 14px;
+  color: var(--color-slate-600);
+  margin: 8px 0 0;
+}
+
+.toolDeepLink a {
+  color: var(--text-brand-accessible);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: var(--font-weight-medium);
+}
+
 .ctaGroup {
   display: flex;
   flex-direction: column;

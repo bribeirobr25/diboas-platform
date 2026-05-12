@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Calculadora de ahorro por metas — planifica cualquier cifra",
+    "description": "Elige una meta y un plazo. Ve cuánto necesitas ahorrar al mes — y lo que diBoaS podría sumar. Calculadora gratuita de diBoaS."
+  },
+  "hero": {
+    "kicker": "Calculadora de ahorro por metas",
+    "headline": "Planifica cualquier cifra.",
+    "subtitle": "Elige qué quieres y para cuándo. Compara banco vs diBoaS lado a lado."
+  },
+  "vignette": {
+    "headline": "{monthly}/mes durante {years} años podrían convertirse en {result}",
+    "subtitle": "Elige la frecuencia y la cantidad que se ajusten a tu vida."
+  },
+  "landing": {
+    "cardTitle": "Ahorro por metas",
+    "cardTagline": "¿Qué me lleva a mi cifra?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres entender la matemática?",
+    "href": "/learn/compound-interest",
+    "linkText": "Lee: Cómo crece el dinero de verdad"
+  }
+}

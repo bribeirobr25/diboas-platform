@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Currency Depreciation Calculator — see what your local currency really earns",
+    "description": "Free currency depreciation calculator. Compare your local currency in cash, in your bank, and in USDC at 7% historical yield."
+  },
+  "hero": {
+    "kicker": "Currency depreciation calculator",
+    "headline": "What does your local currency really earn?",
+    "subtitle": "Compare cash, bank, and USDC over time — accounting for currency depreciation."
+  },
+  "inputs": {
+    "currencyLabel": "Currency",
+    "amountLabel": "Amount in {currency}",
+    "yearsLabel": "Years from now",
+    "depreciationHelp": "{currency} depreciates ~{rate}% per year vs USD"
+  },
+  "output": {
+    "usdLocaleNote": "This calculator is most useful for non-USD currencies. For USD holders, depreciation defaults to 0.",
+    "cashLabel": "If kept in cash",
+    "cashUsdEquivalent": "USD-equivalent after {rate}% / year drift",
+    "bankLabel": "Bank yield",
+    "bankRateNote": "{rate}% local bank rate",
+    "diboasLabel": "USDC at diBoaS",
+    "diboasNote": "{rate}% historical-yield, hedged via USD"
+  },
+  "vignette": {
+    "subtitle": "Where you hold your money matters. The currency it earns in matters more."
+  },
+  "landing": {
+    "cardTitle": "Currency Depreciation",
+    "cardTagline": "What does my currency really earn?"
+  },
+  "lessonLink": {
+    "label": "Want to learn more?",
+    "href": "/learn/compound-interest",
+    "linkText": "Read: How money really grows"
+  }
+}

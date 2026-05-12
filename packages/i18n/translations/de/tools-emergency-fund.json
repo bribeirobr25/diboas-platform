@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Notgroschen-Rechner — wie schnell sparst du den Puffer",
+    "description": "Trag deine monatlichen Ausgaben und Sparrate ein. Sieh, wie schnell dein Notgroschen bereitsteht. Kostenloser Rechner von diBoaS."
+  },
+  "hero": {
+    "kicker": "Notgroschen-Rechner",
+    "headline": "Ruhe schneller erreichen.",
+    "subtitle": "Spare 6 Monate Ausgaben. Sieh, wie viel früher du das mit diBoaS schaffst."
+  },
+  "inputs": {
+    "monthlyExpensesLabel": "Monatliche Ausgaben",
+    "monthlyExpensesHelp": "Was du in einem normalen Monat ausgibst",
+    "monthlySavingsLabel": "Monatliche Ersparnis",
+    "monthlySavingsHelp": "Was du jeden Monat zur Seite legen kannst",
+    "targetMultiplierLabel": "Monate Ausgaben sparen",
+    "targetMultiplierHelp": "6 Monate sind ein üblicher Zielwert"
+  },
+  "output": {
+    "withDiboas": "Mit diBoaS",
+    "withBank": "Mit deiner Bank",
+    "monthsLabel": "{months} Monate",
+    "yearsLabel": "{years} Jahre",
+    "saved": "Eingesparte Zeit",
+    "targetLabel": "Ziel: {amount}",
+    "noResult": "Erhöhe deine monatliche Ersparnis, um das Ziel zu erreichen."
+  },
+  "vignette": {
+    "headline": "{target} Notgroschen in {time}",
+    "bankHeadline": "vs. {bankTime} mit deiner Bank",
+    "subtitle": "Gleicher Einsatz. Weniger warten."
+  },
+  "landing": {
+    "cardTitle": "Notgroschen",
+    "cardTagline": "Wie schnell spare ich 6 Monate?"
+  },
+  "lessonLink": {
+    "label": "Mehr zur Mathematik?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

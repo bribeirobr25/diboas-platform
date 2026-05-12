@@ -1,0 +1,33 @@
+{
+  "seo": {
+    "title": "Calculadora de tempo até a meta — quando eu chego lá?",
+    "description": "Calculadora gratuita de tempo até a meta. Escolha uma meta e um ritmo de poupança; veja quantos anos leva nas taxas do banco, conservadora, histórica e otimista."
+  },
+  "hero": {
+    "kicker": "Calculadora de tempo até a meta",
+    "headline": "Quando eu chego lá?",
+    "subtitle": "Escolha meta e frequência. Veja os anos até a meta em quatro taxas diferentes."
+  },
+  "inputs": {
+    "targetLabel": "Meta",
+    "contributionLabel": "Aporte"
+  },
+  "output": {
+    "targetLine": "Chegando a {target}…",
+    "monthsLabel": "{months} meses",
+    "yearsLabel": "{years} anos",
+    "cannotReach": "—"
+  },
+  "vignette": {
+    "subtitle": "Mesma meta. Quatro linhas do tempo diferentes. Escolha a que cabe na sua vida."
+  },
+  "landing": {
+    "cardTitle": "Tempo até a meta",
+    "cardTagline": "Quando eu chego à minha meta?"
+  },
+  "lessonLink": {
+    "label": "Quer entender a matemática?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia: Como o dinheiro cresce de verdade"
+  }
+}

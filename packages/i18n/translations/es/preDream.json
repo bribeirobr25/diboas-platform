@@ -21,6 +21,28 @@
     },
     "exploreButton": "Vamos a explorar"
   },
+  "goalStrategy": {
+    "title": "¿Con qué meta estás soñando?",
+    "subtitle": "Elige una — adaptaremos la simulación a ella.",
+    "options": {
+      "retirement": {
+        "label": "Meta Jubilación",
+        "caption": "Un futuro donde trabajar sea opcional"
+      },
+      "christmas": {
+        "label": "Meta Navidad",
+        "caption": "Reservar para lo que importa"
+      },
+      "emergency": {
+        "label": "Meta Emergencia",
+        "caption": "Tranquilidad cuando la vida sorprende"
+      },
+      "wealthy": {
+        "label": "Meta Crecimiento 10%",
+        "caption": "Construir riqueza paso a paso"
+      }
+    }
+  },
   "pathSelect": {
     "title": "¿Qué tanto riesgo te acomoda?",
     "subtitle": "No hay respuesta incorrecta, solo caminos diferentes.",
@@ -80,11 +102,13 @@
   },
   "results": {
     "titlePrefix": "Tus {amount} podrían convertirse en...",
+    "titleWithGoal": "Tu {goalName} podría ser:",
     "withDiboas": "Con diBoaS",
     "bankWouldGive": "Tu banco te daría:",
     "differenceMore": "Eso es {amount} MÁS con diBoaS",
     "differenceSubtext": "El mismo dinero. Diferente lugar. Gran diferencia.",
     "shareTitle": "Compartir mi sueño",
+    "shareTitleWithGoal": "Compartir mi {goalName}",
     "shareCopied": "¡Copiado!",
     "shareText": "Esta simulación orientada a metas es la forma más fácil y efectiva de construir riqueza. Convirtió {start} en {end}, eso es {difference} más de lo que mi banco me daría. Pruébalo:",
     "yieldCurrencyValue": "Valor en dólares digitales: {amount}",

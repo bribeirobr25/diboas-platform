@@ -1,0 +1,37 @@
+{
+  "seo": {
+    "title": "Liquiditäts-Rendite-Rechner — was dein Firmenguthaben verdient",
+    "description": "Kostenloser B2B-Rechner für Liquiditätsrendite. Vergleiche, was dein Firmenguthaben bei der Bank vs. bei diBoaS konservativer Rendite verdient."
+  },
+  "hero": {
+    "kicker": "Liquiditäts-Rendite-Rechner",
+    "headline": "Was verdient dein Firmenguthaben, während es liegt?",
+    "subtitle": "Die meisten Geschäftskonten zahlen kaum Zinsen. Sieh, was konservative Rendite hinzufügen könnte."
+  },
+  "inputs": {
+    "idleCashLabel": "Liegendes Firmenguthaben",
+    "idleCashHelp": "Bargeld, das heute auf deinem Geschäftskonto liegt",
+    "bankYieldLabel": "Aktueller Bank-Zins (%)",
+    "bankYieldHelp": "Locale-Standard: {rate}%. Überschreib, falls anders.",
+    "yearsLabel": "Jahre"
+  },
+  "output": {
+    "bankLabel": "Bei deiner Bank",
+    "bankNote": "{rate}% Rendite über {years} Jahre",
+    "diboasLabel": "Bei diBoaS",
+    "diboasNote": "{rate}% konservative Rendite über {years} Jahre",
+    "differenceHighlight": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre."
+  },
+  "vignette": {
+    "subtitle": "Liegendes Geld verdient nichts. Arbeitendes Geld zinst. Du wählst."
+  },
+  "landing": {
+    "cardTitle": "Liquiditätsrendite",
+    "cardTagline": "Was lässt mein Guthaben liegen?"
+  },
+  "lessonLink": {
+    "label": "Mehr erfahren?",
+    "href": "/business",
+    "linkText": "diBoaS für Unternehmen ansehen"
+  }
+}

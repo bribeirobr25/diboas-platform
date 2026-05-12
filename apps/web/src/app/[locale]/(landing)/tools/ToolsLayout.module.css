@@ -1,0 +1,14 @@
+.attributionStrip {
+  background: var(--color-teal-50);
+  padding: 8px var(--spacing-md);
+  text-align: center;
+  border-bottom: 1px solid var(--color-teal-100);
+}
+
+.attributionText {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-brand-accessible);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Calculadora de jubilación — ve en qué pueden convertirse tus ahorros",
+    "description": "Pon tu ahorro mensual y ve en qué puede convertirse tu jubilación. Calculadora gratuita de diBoaS."
+  },
+  "hero": {
+    "kicker": "Calculadora de jubilación",
+    "headline": "Planifica un futuro donde trabajar sea opcional.",
+    "subtitle": "Elige una cantidad mensual. Ve en qué se pueden convertir 25 años."
+  },
+  "vignette": {
+    "headline": "{monthly}/mes durante {years} años podrían convertirse en {result}",
+    "subtitle": "Eso es lo que diBoaS podría darte, frente al rendimiento casi nulo de tu banco."
+  },
+  "landing": {
+    "cardTitle": "Jubilación",
+    "cardTagline": "¿En qué se convierten tus ahorros a los 65?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres aprender cómo funciona?",
+    "href": "/learn/compound-interest",
+    "linkText": "Lee: Cómo crece el dinero de verdad"
+  }
+}

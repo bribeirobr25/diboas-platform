@@ -4,7 +4,11 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const nextConfig = {
   // Performance optimizations
   experimental: {
-    optimizeCss: true,
+    // `optimizeCss` removed 2026-05-12 (Sentry errors 102736586 / 102736587).
+    // It requires `critters` to be installed, which it isn't, and the feature
+    // is a webpack-only post-processor — inert under Turbopack (same F1-audit
+    // precedent that removed dead `splitChunks` config). Was throwing on the
+    // dev `_error` fallback path when pages-router error rendering kicked in.
     optimizePackageImports: [
       // Icon libraries for tree shaking
       'lucide-react',

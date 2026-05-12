@@ -155,6 +155,61 @@ export const PAGE_SEO_CONFIG = {
     title: 'How Money Really Grows — Compound Interest Explained',
     description: "Learn how compound interest works — the math banks and Wall Street have used for decades. Plug in your own numbers and see what 12 years looks like.",
     keywords: ['compound interest calculator', 'how money grows', 'compound interest explained', 'savings vs investing']
+  },
+  // Phase 6C — Money Tools (Tier 1): purpose-grouped landing + 4 calculators.
+  // Per-locale titles/descriptions resolve via each route's `generateMetadata`
+  // (tools-shared.json + tools-{slug}.json); these English strings are fallback only.
+  tools: {
+    title: 'Money Tools — calculators by diBoaS',
+    description: 'Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS.',
+    keywords: ['money tools', 'financial calculators', 'savings calculator']
+  },
+  'tools/compound-interest': {
+    title: 'Compound Interest Calculator',
+    description: 'Free compound interest calculator. Pick an amount, a cadence, and a timeframe. See bank vs diBoaS side-by-side.',
+    keywords: ['compound interest calculator', 'savings calculator', 'investment growth']
+  },
+  'tools/retirement': {
+    title: 'Retirement Calculator',
+    description: 'See what your monthly savings could become at 65. Free retirement calculator from diBoaS.',
+    keywords: ['retirement calculator', 'retirement savings', 'retirement planning']
+  },
+  'tools/emergency-fund': {
+    title: 'Emergency Fund Calculator',
+    description: 'See how fast you can save 6 months of expenses. Free emergency fund calculator from diBoaS.',
+    keywords: ['emergency fund calculator', 'savings goal', 'rainy day fund']
+  },
+  'tools/goal-savings': {
+    title: 'Goal-Based Savings Calculator',
+    description: 'Plan toward any number. Pick a goal and timeframe; see bank vs diBoaS side-by-side.',
+    keywords: ['savings goal calculator', 'goal-based savings', 'savings planner']
+  },
+  // Phase 6D — Money Tools (Tier 2)
+  'tools/inflation-impact': {
+    title: 'Inflation Impact Calculator',
+    description: 'See what your cash loses to inflation each year — and what it could become if it worked instead. Free calculator from diBoaS.',
+    keywords: ['inflation calculator', 'purchasing power calculator', 'inflation impact']
+  },
+  'tools/time-to-target': {
+    title: 'Time-to-Target Calculator',
+    description: 'When will you reach your savings goal? See years to target across bank, conservative, historical, and optimistic yields.',
+    keywords: ['time to target calculator', 'savings goal calculator', 'when will I reach']
+  },
+  'tools/currency-depreciation': {
+    title: 'Currency Depreciation Calculator',
+    description: 'See what your local currency really earns. Compare cash, bank, and USDC at 7% historical yield.',
+    keywords: ['currency depreciation calculator', 'inflation hedge', 'USD vs local currency']
+  },
+  // Phase 6E — Money Tools (Tier 3 B2B)
+  'tools/card-fees': {
+    title: 'Card Fee Savings Calculator',
+    description: 'Free B2B card fee savings calculator. See how much your business pays processors per year.',
+    keywords: ['card processing fee calculator', 'business card fees', 'merchant fee calculator']
+  },
+  'tools/idle-cash': {
+    title: 'Idle Cash Yield Calculator',
+    description: 'Free B2B idle cash yield calculator. Compare what your business cash earns at the bank vs at diBoaS.',
+    keywords: ['idle cash calculator', 'business cash yield', 'corporate treasury yield']
   }
 } as const;
 

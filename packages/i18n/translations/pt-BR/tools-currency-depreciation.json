@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Calculadora de desvalorização cambial — o que sua moeda realmente rende",
+    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em USDC ao rendimento histórico de 7%."
+  },
+  "hero": {
+    "kicker": "Calculadora de desvalorização cambial",
+    "headline": "O que sua moeda realmente rende?",
+    "subtitle": "Compare dinheiro, banco e USDC ao longo dos anos — considerando a desvalorização."
+  },
+  "inputs": {
+    "currencyLabel": "Moeda",
+    "amountLabel": "Valor em {currency}",
+    "yearsLabel": "Anos a partir de agora",
+    "depreciationHelp": "{currency} desvaloriza ~{rate}% ao ano frente ao USD"
+  },
+  "output": {
+    "usdLocaleNote": "Esta calculadora é mais útil para moedas que não o USD. Para quem usa USD, a desvalorização é 0.",
+    "cashLabel": "Se ficar em dinheiro",
+    "cashUsdEquivalent": "Equivalente em USD após {rate}% / ano de drift",
+    "bankLabel": "Rendimento do banco",
+    "bankRateNote": "{rate}% taxa local",
+    "diboasLabel": "USDC no diBoaS",
+    "diboasNote": "{rate}% rendimento histórico, lastreado em USD"
+  },
+  "vignette": {
+    "subtitle": "Onde você guarda seu dinheiro importa. A moeda em que ele rende, importa mais."
+  },
+  "landing": {
+    "cardTitle": "Desvalorização cambial",
+    "cardTagline": "O que minha moeda realmente rende?"
+  },
+  "lessonLink": {
+    "label": "Quer saber mais?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia: Como o dinheiro cresce de verdade"
+  }
+}

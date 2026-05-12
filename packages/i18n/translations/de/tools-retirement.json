@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Rentenrechner — was deine Ersparnisse werden könnten",
+    "description": "Trag deinen monatlichen Sparbetrag ein und sieh, was dein Ruhestand werden könnte. Kostenloser Rentenrechner von diBoaS."
+  },
+  "hero": {
+    "kicker": "Rentenrechner",
+    "headline": "Plane eine Zukunft, in der Arbeit optional ist.",
+    "subtitle": "Wähle einen monatlichen Betrag. Sieh, was 25 Jahre werden könnten."
+  },
+  "vignette": {
+    "headline": "{monthly}/Monat für {years} Jahre könnten {result} werden",
+    "subtitle": "Das bietet diBoaS — vs. der nahezu null Rendite deiner Bank."
+  },
+  "landing": {
+    "cardTitle": "Ruhestand",
+    "cardTagline": "Was werden deine Ersparnisse mit 65?"
+  },
+  "lessonLink": {
+    "label": "Mehr erfahren?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

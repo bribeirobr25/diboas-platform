@@ -12,6 +12,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { formatCurrency, type PreDreamResult } from '@/lib/pre-dream';
 import { useLocale } from '@/components/Providers';
+import { usePreDream } from '../PreDreamProvider';
 import { getShareUrl, type SharePlatform } from '@/lib/share';
 import {
   getTwitterShareUrl,
@@ -46,6 +47,7 @@ interface ShareDreamSectionProps {
 export function ShareDreamSection({ result, difference: differenceProp }: ShareDreamSectionProps) {
   const intl = useTranslation();
   const copyTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const { state } = usePreDream();
 
   // Clear copy feedback timer on unmount
   useEffect(() => {
@@ -55,6 +57,13 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
   const [copied, setCopied] = useState(false);
 
   const t = (key: string) => intl.formatMessage({ id: `preDream.results.${key}` });
+
+  const goalName = state.selectedGoal
+    ? intl.formatMessage({ id: `preDream.goalStrategy.options.${state.selectedGoal}.label` })
+    : null;
+  const shareTitleText = goalName
+    ? intl.formatMessage({ id: 'preDream.results.shareTitleWithGoal' }, { goalName })
+    : t('shareTitle');
 
   const getShareText = useCallback((): string => {
     const start = formatCurrency(result.totalInvestment, 0, locale);
@@ -147,7 +156,7 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
 
   return (
     <div className={styles.shareSection}>
-      <p className={styles.shareTitle}>{t('shareTitle')}</p>
+      <p className={styles.shareTitle}>{shareTitleText}</p>
       <div className={styles.shareButtons}>
         <button
           onClick={() => handleShare('whatsapp')}

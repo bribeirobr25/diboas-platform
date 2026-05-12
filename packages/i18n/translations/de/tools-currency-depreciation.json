@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Währungs-Wertverlust-Rechner — was deine Währung wirklich verdient",
+    "description": "Kostenloser Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und in USDC bei 7% historischer Rendite."
+  },
+  "hero": {
+    "kicker": "Währungs-Wertverlust-Rechner",
+    "headline": "Was verdient deine Währung wirklich?",
+    "subtitle": "Vergleiche bar, Bank und USDC über die Jahre — unter Berücksichtigung des Wertverlusts."
+  },
+  "inputs": {
+    "currencyLabel": "Währung",
+    "amountLabel": "Betrag in {currency}",
+    "yearsLabel": "Jahre ab heute",
+    "depreciationHelp": "{currency} verliert ~{rate}% pro Jahr gegenüber dem USD"
+  },
+  "output": {
+    "usdLocaleNote": "Dieser Rechner ist am nützlichsten für Nicht-USD-Währungen. Für USD-Halter ist der Wertverlust standardmäßig 0.",
+    "cashLabel": "Wenn bar gehalten",
+    "cashUsdEquivalent": "USD-Äquivalent nach {rate}% / Jahr Drift",
+    "bankLabel": "Bank-Rendite",
+    "bankRateNote": "{rate}% lokale Bankrate",
+    "diboasLabel": "USDC bei diBoaS",
+    "diboasNote": "{rate}% historische Rendite, USD-gehedged"
+  },
+  "vignette": {
+    "subtitle": "Wo dein Geld liegt, zählt. Die Währung, in der es verdient, zählt mehr."
+  },
+  "landing": {
+    "cardTitle": "Währungs-Wertverlust",
+    "cardTagline": "Was verdient meine Währung wirklich?"
+  },
+  "lessonLink": {
+    "label": "Mehr erfahren?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

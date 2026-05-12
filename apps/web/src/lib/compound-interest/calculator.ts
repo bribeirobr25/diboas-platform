@@ -13,12 +13,13 @@
  * underlying formula call (same rationale as the hedge exclusion).
  */
 
-import { calculateMonthlyContributions } from '@/lib/market-data/formulas';
+import { calculateLumpSum, calculateMonthlyContributions } from '@/lib/market-data/formulas';
 import { marketDataService } from '@/lib/market-data/service';
-import { convertCadenceToMonthly } from './cadence';
+import { convertCadenceToMonthly, isOneTime } from './cadence';
 import { SCENARIO_RATES } from './scenarios';
 import { INPUT_BOUNDS } from './constants';
 import {
+  type Cadence,
   type CalculatorInput,
   type CalculatorOutput,
   type ScenarioSeries,
@@ -37,10 +38,10 @@ export function calculateCompoundProjection(input: CalculatorInput): CalculatorO
     marketDataService.getSync().rates.bankRates[input.locale]?.savings ?? 0;
 
   const series: ScenarioSeries[] = [
-    buildSeries('bank', bankRate, monthlyEquivalent, input.years),
-    buildSeries('conservative', SCENARIO_RATES.conservative, monthlyEquivalent, input.years),
-    buildSeries('historical', SCENARIO_RATES.historical, monthlyEquivalent, input.years),
-    buildSeries('optimistic', SCENARIO_RATES.optimistic, monthlyEquivalent, input.years),
+    buildSeries('bank', bankRate, input.amount, monthlyEquivalent, input.cadence, input.years),
+    buildSeries('conservative', SCENARIO_RATES.conservative, input.amount, monthlyEquivalent, input.cadence, input.years),
+    buildSeries('historical', SCENARIO_RATES.historical, input.amount, monthlyEquivalent, input.cadence, input.years),
+    buildSeries('optimistic', SCENARIO_RATES.optimistic, input.amount, monthlyEquivalent, input.cadence, input.years),
   ];
 
   return {
@@ -55,9 +56,25 @@ export function calculateCompoundProjection(input: CalculatorInput): CalculatorO
 function buildSeries(
   scenario: SeriesKey,
   annualRatePercent: number,
+  amount: number,
   monthlyContribution: number,
+  cadence: Cadence,
   years: number,
 ): ScenarioSeries {
+  if (isOneTime(cadence)) {
+    const yearlyValues: number[] = [amount];
+    for (let y = 1; y <= years; y++) {
+      const result = calculateLumpSum(amount, annualRatePercent / 100, 0, y);
+      yearlyValues.push(result.nominalFV);
+    }
+    return {
+      scenario,
+      rate: annualRatePercent,
+      yearlyValues,
+      finalValue: yearlyValues[yearlyValues.length - 1] ?? 0,
+    };
+  }
+
   const yearlyValues: number[] = [0];
   for (let y = 1; y <= years; y++) {
     const result = calculateMonthlyContributions(

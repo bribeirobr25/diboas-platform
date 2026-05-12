@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Calculadora de poupança por metas — planeje qualquer número",
+    "description": "Escolha uma meta e um prazo. Veja quanto precisa poupar por mês — e o que o diBoaS pode somar. Calculadora gratuita do diBoaS."
+  },
+  "hero": {
+    "kicker": "Calculadora de poupança por metas",
+    "headline": "Planeje qualquer número.",
+    "subtitle": "Escolha o que você quer e até quando. Compare banco vs diBoaS lado a lado."
+  },
+  "vignette": {
+    "headline": "{monthly}/mês por {years} anos podem virar {result}",
+    "subtitle": "Escolha a frequência e o valor que cabem na sua vida."
+  },
+  "landing": {
+    "cardTitle": "Poupança por metas",
+    "cardTagline": "O que me leva à minha meta?"
+  },
+  "lessonLink": {
+    "label": "Quer entender a matemática?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia: Como o dinheiro cresce de verdade"
+  }
+}

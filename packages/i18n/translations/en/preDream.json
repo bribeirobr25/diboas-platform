@@ -21,6 +21,28 @@
     },
     "exploreButton": "Let's explore"
   },
+  "goalStrategy": {
+    "title": "What goal are you dreaming about?",
+    "subtitle": "Pick one — we'll tailor the simulation to it.",
+    "options": {
+      "retirement": {
+        "label": "Retirement Goal",
+        "caption": "A future where work is optional"
+      },
+      "christmas": {
+        "label": "Christmas Goal",
+        "caption": "Set aside for what matters"
+      },
+      "emergency": {
+        "label": "Emergency Goal",
+        "caption": "Peace of mind when life surprises you"
+      },
+      "wealthy": {
+        "label": "10% Growth Goal",
+        "caption": "Build long-term wealth one paycheck at a time"
+      }
+    }
+  },
   "pathSelect": {
     "title": "How do you feel about risk?",
     "subtitle": "There's no wrong answer, just different paths.",
@@ -80,11 +102,13 @@
   },
   "results": {
     "titlePrefix": "Your {amount} could become...",
+    "titleWithGoal": "Your {goalName} could be:",
     "withDiboas": "With diBoaS",
     "bankWouldGive": "Your bank would give you:",
     "differenceMore": "That's {amount} MORE with diBoaS",
     "differenceSubtext": "Same money. Different place. Big difference.",
     "shareTitle": "Share my dream",
+    "shareTitleWithGoal": "Share my {goalName}",
     "shareCopied": "Copied!",
     "shareText": "This Goal-Driven simulation is the easiest and best way to build wealth. It turned {start} into {end}, that is {difference} more than my bank would give me. Try it yourself:",
     "bankSource": "Based on {rate}% average savings rate. Source: FDIC National Average, January 2026.",

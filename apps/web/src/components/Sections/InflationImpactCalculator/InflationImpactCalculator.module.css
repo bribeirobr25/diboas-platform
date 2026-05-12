@@ -1,0 +1,126 @@
+.calculator {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: var(--color-white);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-xl);
+}
+
+.inputsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 880px) {
+  .inputsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .inputsRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+}
+
+.numberInput,
+.select {
+  padding: 10px 14px;
+  border: 1px solid var(--color-slate-300);
+  border-radius: 8px;
+  font-family: var(--font-family-mono);
+  font-size: 14px;
+  color: var(--color-slate-900);
+  background: var(--color-white);
+}
+
+.select {
+  font-family: var(--font-family-primary);
+  cursor: pointer;
+}
+
+.numberInput:focus-visible,
+.select:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+}
+
+.help {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 640px) {
+  .resultsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.resultCardCash,
+.resultCardInvested {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resultCardCash {
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+}
+
+.resultCardInvested {
+  background: var(--color-teal-50);
+  border: 1px solid var(--text-brand-accessible);
+}
+
+.resultLabel {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-slate-600);
+  margin: 0;
+}
+
+.resultValue {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-brand-accessible);
+  margin: 0;
+}
+
+.resultValueMuted {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-700);
+  margin: 0;
+}
+
+.resultRate {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  margin: 0;
+  line-height: 1.4;
+}

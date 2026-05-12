@@ -1,0 +1,33 @@
+{
+  "seo": {
+    "title": "Zielerreichungs-Rechner — wann erreiche ich mein Ziel?",
+    "description": "Kostenloser Zielerreichungs-Rechner. Wähle ein Ziel und einen Sparrhythmus; sieh, wie viele Jahre es bei Bank-, konservativem, historischem und optimistischem Ertrag dauert."
+  },
+  "hero": {
+    "kicker": "Zielerreichungs-Rechner",
+    "headline": "Wann komme ich an?",
+    "subtitle": "Wähle Ziel und Frequenz. Sieh die Jahre bis zum Ziel über vier Renditesätze."
+  },
+  "inputs": {
+    "targetLabel": "Zielbetrag",
+    "contributionLabel": "Sparbetrag"
+  },
+  "output": {
+    "targetLine": "{target} erreichen…",
+    "monthsLabel": "{months} Monate",
+    "yearsLabel": "{years} Jahre",
+    "cannotReach": "—"
+  },
+  "vignette": {
+    "subtitle": "Gleiches Ziel. Vier verschiedene Zeitachsen. Wähl, welche dir passt."
+  },
+  "landing": {
+    "cardTitle": "Zielerreichung",
+    "cardTagline": "Wann erreiche ich meine Zahl?"
+  },
+  "lessonLink": {
+    "label": "Mehr zur Mathematik?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

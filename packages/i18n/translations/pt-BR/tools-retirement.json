@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Calculadora de aposentadoria — veja no que sua poupança pode virar",
+    "description": "Coloque seu aporte mensal e veja no que sua aposentadoria pode virar. Calculadora gratuita do diBoaS."
+  },
+  "hero": {
+    "kicker": "Calculadora de aposentadoria",
+    "headline": "Planeje um futuro em que trabalhar é uma escolha.",
+    "subtitle": "Escolha um valor mensal. Veja no que 25 anos podem virar."
+  },
+  "vignette": {
+    "headline": "{monthly}/mês por {years} anos podem virar {result}",
+    "subtitle": "Isso é o que o diBoaS pode te dar — vs. o rendimento quase zero do seu banco."
+  },
+  "landing": {
+    "cardTitle": "Aposentadoria",
+    "cardTagline": "No que sua poupança vira aos 65?"
+  },
+  "lessonLink": {
+    "label": "Quer entender como funciona?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia: Como o dinheiro cresce de verdade"
+  }
+}

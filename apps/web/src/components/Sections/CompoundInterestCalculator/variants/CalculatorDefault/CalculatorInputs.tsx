@@ -5,6 +5,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import {
   INPUT_BOUNDS,
   formatCurrency,
+  isOneTime,
   type Cadence,
   type CalculatorInput,
 } from '@/lib/compound-interest';
@@ -15,14 +16,29 @@ interface CalculatorInputsProps {
   onChange: (next: CalculatorInput) => void;
 }
 
-const CADENCE_OPTIONS: readonly Cadence[] = ['daily', 'weekly', 'monthly'];
+const CADENCE_OPTIONS: readonly Cadence[] = [
+  'oneTime',
+  'daily',
+  'weekly',
+  'monthly',
+  'quarterly',
+  'semiAnnual',
+  'yearly',
+];
+
+const RANGE_MAX_RECURRING = 250;
+const RANGE_MAX_ONETIME = 5000;
 
 export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
   const intl = useTranslation();
   const baseId = useId();
 
+  const oneTime = isOneTime(value.cadence);
+
   const labelAmount = intl.formatMessage({
-    id: 'learn-compound-interest.calculator.amountLabel',
+    id: oneTime
+      ? 'learn-compound-interest.calculator.oneTimeAmountLabel'
+      : 'learn-compound-interest.calculator.amountLabel',
   });
   const ariaAmount = intl.formatMessage({
     id: 'learn-compound-interest.calculator.amountAriaLabel',
@@ -37,6 +53,8 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
     id: 'learn-compound-interest.calculator.yearsTooltip',
   });
 
+  const rangeMax = oneTime ? RANGE_MAX_ONETIME : RANGE_MAX_RECURRING;
+
   const setAmount = (n: number) =>
     onChange({ ...value, amount: clamp(n, INPUT_BOUNDS.amount.min, INPUT_BOUNDS.amount.max) });
   const setCadence = (c: Cadence) => onChange({ ...value, cadence: c });
@@ -45,7 +63,8 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
 
   return (
     <div className={styles.inputs}>
-      {/* Amount: numeric input + slider, both bound to value.amount */}
+      {/* Amount: numeric input + slider, both bound to value.amount.
+          Label switches to "Initial deposit" when cadence is oneTime. */}
       <div className={styles.field}>
         <label htmlFor={`${baseId}-amount`} className={styles.label}>
           {labelAmount}
@@ -66,9 +85,9 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
           <input
             type="range"
             min={INPUT_BOUNDS.amount.min}
-            max={250}
+            max={rangeMax}
             step={1}
-            value={Math.min(value.amount, 250)}
+            value={Math.min(value.amount, rangeMax)}
             onChange={(e) => setAmount(Number(e.target.value))}
             aria-label={ariaAmount}
             aria-valuetext={formatCurrency(value.amount, value.locale, { maximumFractionDigits: 0 })}
@@ -77,33 +96,26 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
         </div>
       </div>
 
-      {/* Cadence: native fieldset/legend with radio buttons */}
-      <fieldset className={styles.field}>
-        <legend className={styles.label}>{labelCadence}</legend>
-        <div className={styles.radioGroup} role="radiogroup">
-          {CADENCE_OPTIONS.map((opt) => {
-            const optLabel = intl.formatMessage({
-              id: `learn-compound-interest.calculator.cadenceOptions.${opt}`,
-            });
-            const id = `${baseId}-cadence-${opt}`;
-            const checked = value.cadence === opt;
-            return (
-              <label key={opt} htmlFor={id} className={styles.radioLabel} data-checked={checked}>
-                <input
-                  id={id}
-                  type="radio"
-                  name={`${baseId}-cadence`}
-                  value={opt}
-                  checked={checked}
-                  onChange={() => setCadence(opt)}
-                  className={styles.radioInput}
-                />
-                <span>{optLabel}</span>
-              </label>
-            );
-          })}
-        </div>
-      </fieldset>
+      {/* Cadence: native <select> (v1 — see PHASE_6_PLAN.md §6A.2 ADR).
+          7 options exceeds comfortable horizontal radio-group width on mobile. */}
+      <div className={styles.field}>
+        <label htmlFor={`${baseId}-cadence`} className={styles.label}>
+          {labelCadence}
+        </label>
+        <select
+          id={`${baseId}-cadence`}
+          name={`${baseId}-cadence`}
+          value={value.cadence}
+          onChange={(e) => setCadence(e.target.value as Cadence)}
+          className={styles.select}
+        >
+          {CADENCE_OPTIONS.map((opt) => (
+            <option key={opt} value={opt}>
+              {intl.formatMessage({ id: `learn-compound-interest.calculator.cadenceOptions.${opt}` })}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Years: slider + tooltip */}
       <div className={styles.field}>

@@ -5,7 +5,28 @@
 
 import { diBoasColors } from '@/lib/colors';
 
-export type OGPageType = 'default' | 'b2c' | 'b2b' | 'strategies' | 'about' | 'protocols' | 'help' | 'security';
+export type OGPageType =
+  | 'default'
+  | 'b2c'
+  | 'b2b'
+  | 'strategies'
+  | 'about'
+  | 'protocols'
+  | 'help'
+  | 'security'
+  // Phase 6F.2 — Money Tools OG keys (one per tool URL + landing).
+  // v1 reuses the teal-themed default body with tool-specific copy; bespoke
+  // per-tool art is a CMO iteration tracked in PHASE_6_PLAN §6F.2.
+  | 'tools'
+  | 'tools-compound-interest'
+  | 'tools-retirement'
+  | 'tools-emergency-fund'
+  | 'tools-goal-savings'
+  | 'tools-inflation-impact'
+  | 'tools-time-to-target'
+  | 'tools-currency-depreciation'
+  | 'tools-card-fees'
+  | 'tools-idle-cash';
 
 interface OGTemplateConfig {
   title: string;
@@ -57,6 +78,69 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     title: 'diBoaS',
     subtitle: 'Your Wallet. Your Keys. Your Money.',
     theme: 'dark',
+  },
+  // Phase 6F.2 — Money Tools (Tier 1)
+  tools: {
+    title: 'Money Tools',
+    subtitle: 'Free calculators by diBoaS — see what your money could do.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-compound-interest': {
+    title: 'Compound Interest Calculator',
+    subtitle: 'Same money. Different job. See 12 years at three different rates.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-retirement': {
+    title: 'Retirement Calculator',
+    subtitle: 'Plan a future where work is optional.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-emergency-fund': {
+    title: 'Emergency Fund Calculator',
+    subtitle: 'See how fast you can build 6 months of expenses.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-goal-savings': {
+    title: 'Goal-Based Savings Calculator',
+    subtitle: 'Plan toward any number. Compare bank vs diBoaS.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  // Phase 6D — Money Tools (Tier 2)
+  'tools-inflation-impact': {
+    title: 'Inflation Impact Calculator',
+    subtitle: 'See what cash quietly costs you.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-time-to-target': {
+    title: 'Time-to-Target Calculator',
+    subtitle: 'When will you reach your goal? Across four yields.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  'tools-currency-depreciation': {
+    title: 'Currency Depreciation Calculator',
+    subtitle: 'See what your local currency really earns over time.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  // Phase 6E — Money Tools (Tier 3 B2B) — coral theme to differentiate from B2C tools
+  'tools-card-fees': {
+    title: 'Card Fee Savings Calculator',
+    subtitle: 'See what card processors are quietly taking from your business.',
+    badge: 'Business Tools',
+    theme: 'coral',
+  },
+  'tools-idle-cash': {
+    title: 'Idle Cash Yield Calculator',
+    subtitle: 'What your business cash could earn while it sits.',
+    badge: 'Business Tools',
+    theme: 'coral',
   },
 };
 
@@ -224,5 +308,24 @@ export function getOGTemplate(pageType: OGPageType): React.ReactElement {
  * Check if a page type is valid
  */
 export function isValidPageType(page: string): page is OGPageType {
-  return ['default', 'b2c', 'b2b', 'strategies', 'about', 'protocols', 'help', 'security'].includes(page);
+  return [
+    'default',
+    'b2c',
+    'b2b',
+    'strategies',
+    'about',
+    'protocols',
+    'help',
+    'security',
+    'tools',
+    'tools-compound-interest',
+    'tools-retirement',
+    'tools-emergency-fund',
+    'tools-goal-savings',
+    'tools-inflation-impact',
+    'tools-time-to-target',
+    'tools-currency-depreciation',
+    'tools-card-fees',
+    'tools-idle-cash',
+  ].includes(page);
 }

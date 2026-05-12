@@ -1,0 +1,60 @@
+{
+  "landing": {
+    "seo": {
+      "title": "Geld-Tools — Rechner von diBoaS",
+      "description": "Kostenlose Rechner für Ruhestand, Notgroschen und Sparziele. Von diBoaS."
+    },
+    "hero": {
+      "kicker": "Geld-Tools",
+      "headline": "Was könnte dein Geld erreichen?",
+      "subtitle": "Eine kleine Auswahl kostenloser Rechner. Trag deine Zahlen ein, sieh, was möglich ist."
+    },
+    "sections": {
+      "grow": {
+        "title": "Vermögen aufbauen",
+        "question": "Wenn ich X € spare, was wird daraus?"
+      },
+      "protect": {
+        "title": "Inflation entgegenwirken",
+        "question": "Was kostet mich Bargeld eigentlich?"
+      },
+      "target": {
+        "title": "Ein Ziel erreichen",
+        "question": "Wann komme ich an?"
+      },
+      "business": {
+        "title": "Für dein Unternehmen",
+        "question": "Was lässt mein Unternehmen liegen?"
+      }
+    },
+    "filterChip": {
+      "all": "Alle Tools",
+      "business": "Für Unternehmen"
+    }
+  },
+  "actions": {
+    "tryWithNumbers": "Mit deinen Zahlen ausprobieren",
+    "reset": "Zurücksetzen",
+    "share": "Teilen"
+  },
+  "scenarios": {
+    "bank": "Deine Bank",
+    "conservative": "Konservativ (4%)",
+    "historical": "Historisch (7%)",
+    "optimistic": "Optimistisch (10%)"
+  },
+  "labels": {
+    "initialDeposit": "Einmalige Einlage",
+    "monthlyContribution": "Monatlicher Beitrag",
+    "amount": "Betrag",
+    "years": "Jahre",
+    "cadence": "Wie oft"
+  },
+  "footer": {
+    "wantLesson": "Mehr erfahren?",
+    "readLesson": "Zur Lektion",
+    "tryOtherTools": "Weitere Geld-Tools ausprobieren",
+    "adelaideAttribution": "Geld-Tools von Adelaide"
+  },
+  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Vergangene Renditen sind keine Garantie für zukünftige Ergebnisse."
+}

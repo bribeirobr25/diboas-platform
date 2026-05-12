@@ -1,0 +1,43 @@
+{
+  "seo": {
+    "title": "Calculadora de impacto de la inflación — qué te cuesta el efectivo en silencio",
+    "description": "Calculadora gratuita de impacto de la inflación. Mira cuánto pierde tu efectivo cada año, y en qué se convertiría si lo pusieras a trabajar."
+  },
+  "hero": {
+    "kicker": "Calculadora de impacto de la inflación",
+    "headline": "¿Qué te cuesta el efectivo en silencio?",
+    "subtitle": "La inflación se come el efectivo sin avisar. Aquí tienes cuánto, en tu país, en los años que importan."
+  },
+  "inputs": {
+    "amountLabel": "Cantidad hoy",
+    "amountHelp": "Lo que tienes en efectivo ahora",
+    "yearsLabel": "Años a partir de ahora",
+    "yearsHelp": "Inflación: ~{rate}% / año",
+    "countryLabel": "País",
+    "countryHelp": "Afecta la tasa de inflación utilizada",
+    "countryOptions": {
+      "en": "Estados Unidos (USD)",
+      "pt-BR": "Brasil (BRL)",
+      "es": "España (EUR)",
+      "de": "Alemania (EUR)"
+    }
+  },
+  "output": {
+    "ifYouKeepCash": "Si lo dejas en efectivo",
+    "ifYouInvest": "Si lo pones a trabajar",
+    "lostToInflation": "−{amount} perdidos por la inflación",
+    "investedNote": "A {rate}% de rendimiento histórico"
+  },
+  "vignette": {
+    "subtitle": "El mismo dinero. Otro final. La elección es tuya."
+  },
+  "landing": {
+    "cardTitle": "Impacto de la inflación",
+    "cardTagline": "¿Qué me cuesta tener efectivo?"
+  },
+  "lessonLink": {
+    "label": "¿Quieres entender la matemática?",
+    "href": "/learn/compound-interest",
+    "linkText": "Lee: Cómo crece el dinero de verdad"
+  }
+}

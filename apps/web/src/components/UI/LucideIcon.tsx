@@ -28,6 +28,7 @@ import {
   Plane,
   Zap,
   BarChart3,
+  Palmtree,
   type LucideIcon as LucideIconType
 } from 'lucide-react';
 
@@ -63,6 +64,7 @@ export {
   Plane,
   Zap,
   BarChart3,
+  Palmtree,
 };
 
 export type { LucideIconType };

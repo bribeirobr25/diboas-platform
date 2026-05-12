@@ -63,6 +63,8 @@
     ],
     "calculatorTagline": "Same money. Different job.",
     "afterCalculator": "Numbers landed?",
+    "toolDeepLink": "Want this calculator on its own? {link}",
+    "toolDeepLinkText": "Open the standalone Compound Interest tool",
     "wrap": [
       "This is what diBoaS is for. The part of your money you can set aside, working at a rate the system has been keeping for itself.",
       "Your bank stays where it is — for spending, bills, and daily life. diBoaS is for money with a goal."
@@ -75,20 +77,26 @@
   },
   "calculator": {
     "amountLabel": "Amount",
+    "oneTimeAmountLabel": "Initial deposit",
     "amountAriaLabel": "Amount per period",
     "cadenceLabel": "How often",
     "cadenceOptions": {
+      "oneTime": "One time",
       "daily": "Daily",
       "weekly": "Weekly",
-      "monthly": "Monthly"
+      "monthly": "Monthly",
+      "quarterly": "Every 3 months",
+      "semiAnnual": "Every 6 months",
+      "yearly": "Once a year"
     },
     "yearsLabel": "Years",
-    "yearsTooltip": "Daily uses 365 days; weekly uses 52 weeks; monthly is unchanged.",
+    "yearsTooltip": "One time = single deposit at the start. Daily uses 365 days; weekly 52; monthly 12; quarterly 4; semi-annual 2; yearly 1.",
     "outputBank": "Your bank",
     "outputConservative": "Conservative (4%)",
     "outputHistorical": "Historical (7%)",
     "outputOptimistic": "Optimistic (10%)",
     "summaryHeader": "In {years} years, your monthly {amount} could become…",
+    "oneTimeSummaryHeader": "In {years} years, your initial deposit of {amount} could become…",
     "chartAriaLabel": "Compound growth chart comparing your bank rate against three scenario rates over time.",
     "tableHeaderScenario": "Scenario",
     "tableHeaderRate": "Annual rate",

@@ -7,7 +7,7 @@ import styles from '../PreDream.module.css';
 
 export function WelcomeScreen() {
   const intl = useTranslation();
-  const { goToScreen } = usePreDream();
+  const { goToGoalStrategy } = usePreDream();
 
   const t = (key: string) => intl.formatMessage({ id: `preDream.welcome.${key}` });
 
@@ -39,7 +39,7 @@ export function WelcomeScreen() {
         </div>
 
         <button
-          onClick={() => goToScreen('pathSelect')}
+          onClick={goToGoalStrategy}
           className={styles.primaryButton}
         >
           {t('exploreButton')}

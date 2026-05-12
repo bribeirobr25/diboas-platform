@@ -21,6 +21,7 @@ export {
   calculateMonthlyContributions,
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
+  purchasingPower,
   calculateFee,
   applyPlatformFees,
   type LumpSumResult,

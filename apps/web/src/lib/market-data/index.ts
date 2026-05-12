@@ -44,6 +44,7 @@ export {
   calculateMonthlyWithCurrencyHedge,
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
+  purchasingPower,
   calculateFee,
   applyPlatformFees,
 } from './formulas';

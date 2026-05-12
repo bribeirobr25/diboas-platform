@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Kartengebühren-Rechner — was Zahlungsdienstleister wirklich kosten",
+    "description": "Kostenloser B2B-Kartengebühren-Rechner. Sieh, wie viel dein Unternehmen jährlich an Zahlungsdienstleister zahlt — und wie viel diBoaS sparen könnte."
+  },
+  "hero": {
+    "kicker": "Kartengebühren-Rechner",
+    "headline": "Was nehmen Zahlungsdienstleister deinem Unternehmen weg?",
+    "subtitle": "Die meisten Händler zahlen 2,5–3% pro Kartenzahlung. Sieh, was das im Jahr ausmacht."
+  },
+  "inputs": {
+    "monthlyVolumeLabel": "Monatliches Kartenzahlungs-Volumen",
+    "monthlyVolumeHelp": "Gesamtumsatz aus Kartenzahlungen pro Monat",
+    "processorFeeLabel": "Aktuelle Gebühr (%)",
+    "processorFeeHelp": "Üblicher Mischsatz in Europa ~1,5–2%",
+    "avgTxLabel": "Durchschnittliche Transaktion (optional)",
+    "avgTxHelp": "Wird genutzt, um die Pro-Transaktions-Gebühr zu berechnen"
+  },
+  "output": {
+    "monthlyFee": "Monatlich an Anbieter",
+    "annualFee": "Pro Jahr an Anbieter",
+    "annualSavings": "Mit diBoaS sparen",
+    "perTxLabel": "Gebühr pro Transaktion",
+    "caveat": "Tatsächliche Einsparungen hängen von deiner Kundenmischung ab; dies ist eine obere Schätzgrenze."
+  },
+  "vignette": {
+    "subtitle": "Gleicher Umsatz. Anderer Anbieter. Großer Unterschied."
+  },
+  "landing": {
+    "cardTitle": "Kartengebühren sparen",
+    "cardTagline": "Was nehmen Anbieter dir weg?"
+  },
+  "lessonLink": {
+    "label": "Mehr erfahren?",
+    "href": "/business",
+    "linkText": "diBoaS für Unternehmen ansehen"
+  }
+}

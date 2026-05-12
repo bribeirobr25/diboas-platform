@@ -268,6 +268,11 @@
     "description": "Acesso aberto e oportunidades justas. Vamos conversar.",
     "spotsCounter": "{count} vagas de membros fundadores restantes"
   },
+  "toolsCallout": {
+    "label": "Quer colocar números no seu negócio?",
+    "cardFeesLink": "Calculadora de taxas de cartão",
+    "idleCashLink": "Calculadora de caixa ocioso"
+  },
   "socialProof": {
     "header": "Faça Parte do Movimento!",
     "subtext": "Empresas já estão aproveitando a oportunidade de cortar custos e fazer o caixa parado render. Inscreva-se na nossa lista de espera.",

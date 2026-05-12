@@ -25,6 +25,7 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { B2BToolsCallout } from '@/components/Sections/B2BToolsCallout';
 import {
   B2B_HERO_CONFIG,
   B2B_TWO_WORLDS_CONFIG,
@@ -200,6 +201,8 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
         >
           <div id="goals" data-section-id="goals-section-b2b" style={{ backgroundColor: 'var(--section-bg-white)' }}>
             <B2BGoalCards enableAnalytics={true} />
+            {/* Phase 6E — inline callout linking to the 2 B2B calculators */}
+            <B2BToolsCallout />
           </div>
         </SectionErrorBoundary>
 

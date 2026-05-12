@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "title": "Calculadora de taxas de cartão — veja o que adquirentes levam",
+    "description": "Calculadora B2B gratuita de taxas de cartão. Veja quanto seu negócio paga por ano a adquirentes — e quanto o diBoaS poderia economizar."
+  },
+  "hero": {
+    "kicker": "Calculadora de taxas de cartão",
+    "headline": "Quanto adquirentes estão tirando do seu negócio?",
+    "subtitle": "A maioria dos lojistas paga 2,5–3% em cada venda. Veja quanto isso soma no ano."
+  },
+  "inputs": {
+    "monthlyVolumeLabel": "Volume mensal em cartão",
+    "monthlyVolumeHelp": "Receita em cartão que seu negócio processa por mês",
+    "processorFeeLabel": "Taxa atual (%)",
+    "processorFeeHelp": "Taxa média no Brasil ~3,0% (D+30)",
+    "avgTxLabel": "Ticket médio (opcional)",
+    "avgTxHelp": "Usado para calcular a taxa por transação"
+  },
+  "output": {
+    "monthlyFee": "Para adquirentes por mês",
+    "annualFee": "Para adquirentes por ano",
+    "annualSavings": "Poderia economizar com diBoaS",
+    "perTxLabel": "Taxa por transação",
+    "caveat": "A economia real depende do seu mix de clientes; é uma estimativa de teto."
+  },
+  "vignette": {
+    "subtitle": "Mesmo faturamento. Outro adquirente. Grande diferença."
+  },
+  "landing": {
+    "cardTitle": "Economia em taxas",
+    "cardTagline": "Quanto adquirentes levam?"
+  },
+  "lessonLink": {
+    "label": "Quer saber mais?",
+    "href": "/business",
+    "linkText": "Ver diBoaS para empresas"
+  }
+}

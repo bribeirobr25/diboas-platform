@@ -4,6 +4,7 @@ import { InvalidCalculatorInputError } from '../types';
 import { SCENARIO_RATES } from '../scenarios';
 import { INPUT_BOUNDS } from '../constants';
 import { FALLBACK_MARKET_DATA } from '@/lib/market-data/constants';
+import { calculateLumpSum } from '@/lib/market-data/formulas';
 
 const baseInput = {
   amount: 5,
@@ -117,7 +118,7 @@ describe('calculateCompoundProjection — boundaries', () => {
     expect(out.series).toHaveLength(4);
   });
 
-  it('should accept the maximum amount of 10,000', () => {
+  it('should accept the maximum amount (INPUT_BOUNDS.amount.max)', () => {
     const out = calculateCompoundProjection({ ...baseInput, amount: INPUT_BOUNDS.amount.max });
     expect(out.series).toHaveLength(4);
   });
@@ -142,7 +143,7 @@ describe('calculateCompoundProjection — validation errors', () => {
 
   it('should throw InvalidCalculatorInputError when amount is above the maximum', () => {
     expect(() =>
-      calculateCompoundProjection({ ...baseInput, amount: 10_001 }),
+      calculateCompoundProjection({ ...baseInput, amount: INPUT_BOUNDS.amount.max + 1 }),
     ).toThrow(InvalidCalculatorInputError);
   });
 
@@ -184,5 +185,79 @@ describe('calculateCompoundProjection — validation errors', () => {
       expect(e).toBeInstanceOf(InvalidCalculatorInputError);
       expect((e as InvalidCalculatorInputError).field).toBe('amount');
     }
+  });
+});
+
+describe('calculateCompoundProjection — extended cadences', () => {
+  it.each([
+    ['quarterly', 4 / 12],
+    ['semiAnnual', 2 / 12],
+    ['yearly', 1 / 12],
+  ] as const)('should compute monthlyEquivalent for %s as amount * %d', (cadence, factor) => {
+    const out = calculateCompoundProjection({ ...baseInput, cadence, amount: 120 });
+    expect(out.monthlyEquivalent).toBeCloseTo(120 * factor, 5);
+    expect(out.series).toHaveLength(4);
+  });
+
+  it.each(['quarterly', 'semiAnnual', 'yearly'] as const)(
+    'should preserve bank < conservative < historical < optimistic ordering for %s cadence',
+    (cadence) => {
+      const out = calculateCompoundProjection({ ...baseInput, cadence, amount: 100 });
+      const fv = (k: string) => out.series.find((s) => s.scenario === k)!.finalValue;
+      expect(fv('bank')).toBeLessThan(fv('conservative'));
+      expect(fv('conservative')).toBeLessThan(fv('historical'));
+      expect(fv('historical')).toBeLessThan(fv('optimistic'));
+    },
+  );
+});
+
+describe('calculateCompoundProjection — oneTime cadence (lump sum)', () => {
+  const oneTimeInput = {
+    amount: 1000,
+    cadence: 'oneTime' as const,
+    years: 10,
+    locale: 'en' as const,
+  };
+
+  it('should produce monthlyEquivalent = 0 (no recurring contributions)', () => {
+    const out = calculateCompoundProjection(oneTimeInput);
+    expect(out.monthlyEquivalent).toBe(0);
+  });
+
+  it('should seed yearlyValues[0] with the principal (not 0)', () => {
+    const out = calculateCompoundProjection(oneTimeInput);
+    out.series.forEach((s) => {
+      expect(s.yearlyValues[0]).toBe(oneTimeInput.amount);
+    });
+  });
+
+  it('should match calculateLumpSum nominalFV exactly per scenario per year', () => {
+    const out = calculateCompoundProjection(oneTimeInput);
+    out.series.forEach((s) => {
+      for (let y = 1; y <= oneTimeInput.years; y++) {
+        const expected = calculateLumpSum(
+          oneTimeInput.amount,
+          s.rate / 100,
+          0,
+          y,
+        ).nominalFV;
+        expect(s.yearlyValues[y]).toBeCloseTo(expected, 5);
+      }
+    });
+  });
+
+  it('should preserve bank < conservative < historical < optimistic ordering', () => {
+    const out = calculateCompoundProjection(oneTimeInput);
+    const fv = (k: string) => out.series.find((s) => s.scenario === k)!.finalValue;
+    expect(fv('bank')).toBeLessThan(fv('conservative'));
+    expect(fv('conservative')).toBeLessThan(fv('historical'));
+    expect(fv('historical')).toBeLessThan(fv('optimistic'));
+  });
+
+  it('should produce $1000 at 7% for 10 years close to ~$1967 (sanity)', () => {
+    const out = calculateCompoundProjection(oneTimeInput);
+    const historical = out.series.find((s) => s.scenario === 'historical')!;
+    expect(historical.finalValue).toBeGreaterThan(1900);
+    expect(historical.finalValue).toBeLessThan(2050);
   });
 });

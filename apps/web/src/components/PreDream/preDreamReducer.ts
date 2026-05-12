@@ -2,7 +2,7 @@
  * PreDream Reducer
  *
  * State management for PreDream navigation and data
- * Flow: disclaimer → welcome → pathSelect → input → timeframe → simulation → results
+ * Flow: disclaimer → welcome → goalStrategy → pathSelect → input → timeframe → simulation → results
  */
 
 import type { PreDreamState, PreDreamAction } from './types';
@@ -10,6 +10,7 @@ import type { PreDreamState, PreDreamAction } from './types';
 export const initialPreDreamState: PreDreamState = {
   screen: 'disclaimer',
   disclaimerAccepted: false,
+  selectedGoal: null,
   selectedPath: null,
   initialAmount: 1000,
   monthlyContribution: 100,
@@ -25,6 +26,12 @@ export function preDreamReducer(state: PreDreamState, action: PreDreamAction): P
 
     case 'GO_TO_WELCOME':
       return { ...state, screen: 'welcome' };
+
+    case 'GO_TO_GOAL_STRATEGY':
+      return { ...state, screen: 'goalStrategy' };
+
+    case 'SELECT_GOAL':
+      return { ...state, selectedGoal: action.goal, screen: 'pathSelect' };
 
     case 'SELECT_PATH':
       return { ...state, selectedPath: action.path, screen: 'input' };
@@ -56,10 +63,12 @@ export function preDreamReducer(state: PreDreamState, action: PreDreamAction): P
       return { ...state, screen: action.screen };
 
     case 'RESET':
+      // Restart at goalStrategy (post-disclaimer) so the goal step isn't skipped.
+      // selectedGoal explicitly clears via spread of initialPreDreamState.
       return {
         ...initialPreDreamState,
         disclaimerAccepted: state.disclaimerAccepted,
-        screen: state.disclaimerAccepted ? 'pathSelect' : 'disclaimer',
+        screen: state.disclaimerAccepted ? 'goalStrategy' : 'disclaimer',
       };
 
     default:

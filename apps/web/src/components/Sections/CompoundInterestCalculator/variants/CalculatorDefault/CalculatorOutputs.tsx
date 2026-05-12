@@ -3,6 +3,7 @@
 import { useTranslation } from '@diboas/i18n/client';
 import {
   formatCurrency,
+  isOneTime,
   type CalculatorOutput,
   type SeriesKey,
 } from '@/lib/compound-interest';
@@ -22,11 +23,20 @@ export function CalculatorOutputs({ output, reducedMotion }: CalculatorOutputsPr
     id: 'learn-compound-interest.calculator.chartAriaLabel',
   });
 
+  const oneTime = isOneTime(inputEcho.cadence);
   const summary = intl.formatMessage(
-    { id: 'learn-compound-interest.calculator.summaryHeader' },
+    {
+      id: oneTime
+        ? 'learn-compound-interest.calculator.oneTimeSummaryHeader'
+        : 'learn-compound-interest.calculator.summaryHeader',
+    },
     {
       years: inputEcho.years,
-      amount: formatCurrency(monthlyEquivalent, inputEcho.locale, { maximumFractionDigits: 0 }),
+      amount: formatCurrency(
+        oneTime ? inputEcho.amount : monthlyEquivalent,
+        inputEcho.locale,
+        { maximumFractionDigits: 0 },
+      ),
     },
   );
 

@@ -1,0 +1,20 @@
+{
+  "seo": {
+    "title": "Zinseszins-Rechner — was dein Geld werden könnte",
+    "description": "Kostenloser Zinseszins-Rechner. Wähle Betrag, Frequenz und Zeitraum. Vergleiche Bank vs. diBoaS Seite an Seite."
+  },
+  "hero": {
+    "kicker": "Zinseszins-Rechner",
+    "headline": "Gleiches Geld. Anderer Job.",
+    "subtitle": "Trag deine Zahlen ein. Sieh 12 Jahre bei drei verschiedenen Zinssätzen."
+  },
+  "landing": {
+    "cardTitle": "Zinseszins",
+    "cardTagline": "Was werden 1.000 € in 12 Jahren?"
+  },
+  "lessonLink": {
+    "label": "Wissen, wie es funktioniert?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

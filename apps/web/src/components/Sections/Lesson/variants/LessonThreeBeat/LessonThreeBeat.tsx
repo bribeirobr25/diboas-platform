@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { useTranslation } from '@diboas/i18n/client';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { analyticsService } from '@/lib/analytics';
@@ -16,12 +17,18 @@ import { LessonProgressBar } from '@/components/UI/LessonProgressBar';
 import { DisclaimerNote } from '@/components/UI/DisclaimerNote';
 import { CTAButtonLink } from '@/components/UI/CTAButtonLink';
 import { LocaleLink } from '@/components/UI/LocaleLink';
-import {
-  CompoundInterestCalculator,
-  CalculatorVignettes,
-} from '@/components/Sections/CompoundInterestCalculator';
+import { CalculatorVignettes } from '@/components/Sections/CompoundInterestCalculator';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from './LessonThreeBeat.module.css';
+
+// Lazy-load the interactive calculator. SSR is intentionally disabled — the
+// calculator has no SEO value (it's interactive-only) and the lesson's hero +
+// Beat 1 + Beat 2 already render server-side. Keeps every tool page that reuses
+// this calculator (6C+) within bundle budget caps.
+const CompoundInterestCalculator = dynamic(
+  () => import('@/components/Sections/CompoundInterestCalculator'),
+  { ssr: false },
+);
 
 interface LessonThreeBeatProps {
   lessonId: LessonId;
@@ -166,6 +173,21 @@ export function LessonThreeBeat({
 
             <p className={styles.brandCallback}>{t('beat3.calculatorTagline')}</p>
             <p className={styles.afterCalculator}>{t('beat3.afterCalculator')}</p>
+
+            <p className={styles.toolDeepLink}>
+              {intl.formatMessage(
+                { id: 'learn-compound-interest.beat3.toolDeepLink' },
+                {
+                  link: (
+                    <LocaleLink href="/tools/compound-interest" prefetch={false}>
+                      {intl.formatMessage({
+                        id: 'learn-compound-interest.beat3.toolDeepLinkText',
+                      })}
+                    </LocaleLink>
+                  ),
+                },
+              )}
+            </p>
 
             {beat3Wrap.map((p) => (
               <p key={p} className={styles.beatBody}>{p}</p>

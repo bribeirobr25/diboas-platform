@@ -3,13 +3,20 @@
 import { memo, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { Target, ShieldCheck, Gift, TrendingUp } from '@/components/UI/LucideIcon';
+import { Palmtree, ShieldCheck, Gift, TrendingUp } from '@/components/UI/LucideIcon';
 import { ExpandableCard } from '@/components/UI/ExpandableCard';
+import { LocaleLink } from '@/components/UI/LocaleLink';
 import { analyticsService } from '@/lib/analytics';
 import type { SupportedLocale } from '@/lib/market-data';
 import type { GoalCardKey } from '@/config/goalCards';
 import { useGoalCardData } from './useGoalCardData';
 import styles from './GoalExampleCards.module.css';
+
+/** Goal cards that have a dedicated standalone tool page (Phase 6C). */
+const TOOL_LINK_BY_GOAL: Partial<Record<GoalCardKey, string>> = {
+  retirement: '/tools/retirement',
+  emergency: '/tools/emergency-fund',
+};
 
 interface GoalExampleCardProps {
   cardKey: GoalCardKey;
@@ -20,7 +27,7 @@ interface GoalExampleCardProps {
 }
 
 const ICON_MAP = {
-  retirement: Target,
+  retirement: Palmtree,
   emergency: ShieldCheck,
   christmas: Gift,
   wealthy: TrendingUp,
@@ -128,6 +135,15 @@ export const GoalExampleCard = memo(function GoalExampleCard({
         >
           {t('howPossible')}
         </button>
+        {TOOL_LINK_BY_GOAL[cardKey] && (
+          <LocaleLink
+            href={TOOL_LINK_BY_GOAL[cardKey]!}
+            className={styles.link}
+            prefetch={false}
+          >
+            {tShared('openStandaloneTool')}
+          </LocaleLink>
+        )}
       </div>
     </ExpandableCard>
   );

@@ -9,6 +9,7 @@
 
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
 import type { PreDreamContextValue } from './types';
+import type { GoalCardKey } from '@/config/goalCards';
 import { calculatePreDreamResult, resolveBankRate, resolveStrategyApy, type StrategyApyOverrides, type PreDreamPath, type PreDreamTimeframe, type PreDreamScreen } from '@/lib/pre-dream';
 import { preDreamReducer, initialPreDreamState } from './preDreamReducer';
 import { analyticsService } from '@/lib/analytics';
@@ -39,6 +40,18 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
       parameters: { timestamp: Date.now() },
     });
     dispatch({ type: 'ACCEPT_DISCLAIMER' });
+  }, []);
+
+  const goToGoalStrategy = useCallback(() => {
+    dispatch({ type: 'GO_TO_GOAL_STRATEGY' });
+  }, []);
+
+  const selectGoal = useCallback((goal: GoalCardKey) => {
+    analyticsService.track({
+      name: 'pre_dream_goal_selected',
+      parameters: { goal },
+    });
+    dispatch({ type: 'SELECT_GOAL', goal });
   }, []);
 
   const selectPath = useCallback((path: PreDreamPath) => {
@@ -109,6 +122,8 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
     () => ({
       state,
       acceptDisclaimer,
+      goToGoalStrategy,
+      selectGoal,
       selectPath,
       setInitialAmount,
       setMonthlyContribution,
@@ -118,7 +133,7 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
       goToScreen,
       reset,
     }),
-    [state, acceptDisclaimer, selectPath, setInitialAmount, setMonthlyContribution, goToTimeframe, selectTimeframe, startSimulation, goToScreen, reset]
+    [state, acceptDisclaimer, goToGoalStrategy, selectGoal, selectPath, setInitialAmount, setMonthlyContribution, goToTimeframe, selectTimeframe, startSimulation, goToScreen, reset]
   );
 
   return <PreDreamContext.Provider value={value}>{children}</PreDreamContext.Provider>;
