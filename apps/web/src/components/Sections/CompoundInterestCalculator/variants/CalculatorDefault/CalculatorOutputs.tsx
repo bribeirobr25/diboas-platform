@@ -7,15 +7,22 @@ import {
   type CalculatorOutput,
   type SeriesKey,
 } from '@/lib/compound-interest';
+import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { CompoundChart } from '@/components/UI/CompoundChart';
 import styles from './CalculatorDefault.module.css';
 
 interface CalculatorOutputsProps {
   output: CalculatorOutput;
   reducedMotion?: boolean;
+  /**
+   * When 'tool' AND locale is non-USD, appends the "digital dollar" suffix
+   * from `tools-shared.json` to the diBoaS scenario labels per Q2(A).
+   * Default 'lesson' keeps labels pristine for educational use.
+   */
+  engine?: 'lesson' | 'tool';
 }
 
-export function CalculatorOutputs({ output, reducedMotion }: CalculatorOutputsProps) {
+export function CalculatorOutputs({ output, reducedMotion, engine = 'lesson' }: CalculatorOutputsProps) {
   const intl = useTranslation();
   const { series, highlightedScenario, monthlyEquivalent, inputEcho } = output;
 
@@ -40,11 +47,26 @@ export function CalculatorOutputs({ output, reducedMotion }: CalculatorOutputsPr
     },
   );
 
+  // Phase-7 Q2(A) + plan §5.2 — append "digital dollar" suffix to non-USD
+  // diBoaS scenarios when this calculator is in tool context. Lesson stays
+  // pristine (no suffix) per Q7(a) + R2 — lesson is educational math demo,
+  // not real-world projection.
+  const digitalDollarSuffix =
+    engine === 'tool' && LOCALE_CURRENCY[inputEcho.locale] !== 'USD'
+      ? intl.formatMessage({ id: 'tools-shared.scenarios.digitalDollarSuffix' })
+      : '';
+
   const scenarioLabels: Readonly<Record<SeriesKey, string>> = {
     bank: intl.formatMessage({ id: 'learn-compound-interest.calculator.outputBank' }),
-    conservative: intl.formatMessage({ id: 'learn-compound-interest.calculator.outputConservative' }),
-    historical: intl.formatMessage({ id: 'learn-compound-interest.calculator.outputHistorical' }),
-    optimistic: intl.formatMessage({ id: 'learn-compound-interest.calculator.outputOptimistic' }),
+    conservative:
+      intl.formatMessage({ id: 'learn-compound-interest.calculator.outputConservative' }) +
+      digitalDollarSuffix,
+    historical:
+      intl.formatMessage({ id: 'learn-compound-interest.calculator.outputHistorical' }) +
+      digitalDollarSuffix,
+    optimistic:
+      intl.formatMessage({ id: 'learn-compound-interest.calculator.outputOptimistic' }) +
+      digitalDollarSuffix,
   };
 
   return (

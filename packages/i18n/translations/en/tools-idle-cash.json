@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Idle Cash Yield Calculator — what your business cash could earn",
-    "description": "Free B2B idle cash yield calculator. Compare what your business cash earns at the bank vs at diBoaS conservative-yield."
+    "description": "Free B2B idle cash yield calculator. Compare what your business cash earns at the bank vs at diBoaS conservative return."
   },
   "hero": {
     "kicker": "Idle cash yield calculator",
     "headline": "What's your business cash earning while it sits?",
-    "subtitle": "Most business accounts pay near-zero on cash balances. See what conservative-yield could add."
+    "subtitle": "Most business accounts pay near-zero on cash balances. See what conservative return could add."
   },
   "inputs": {
     "idleCashLabel": "Idle business cash",
@@ -19,7 +19,7 @@
     "bankLabel": "In your bank",
     "bankNote": "{rate}% yield over {years} years",
     "diboasLabel": "At diBoaS",
-    "diboasNote": "{rate}% conservative-yield over {years} years",
+    "diboasNote": "{rate}% conservative return over {years} years",
     "differenceHighlight": "Your {cash} earns {difference} more at diBoaS over {years} years."
   },
   "vignette": {

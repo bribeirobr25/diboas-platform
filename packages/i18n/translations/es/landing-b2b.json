@@ -42,22 +42,22 @@
         "title": "Comisiones de Pago",
         "titleSummary": "no es solo el 3%",
         "subtitle": "Con 1.000 € en ventas diarias con tarjeta y una comisión media del 2,5%, tu negocio pierde 750 €/mes o más de 9.000 € al año.",
-        "diboasResult": "9.630 €",
+        "diboasResult": "9.900 €",
         "bankResult": "",
-        "difference": "9.600 €/año",
+        "difference": "9.900 €/año",
         "tagline": "Tienes la oportunidad no solo de reducir costes, sino de convertirlo en una nueva línea de ingresos.",
-        "source": "Ejemplo basado en 1.000 €/día en ventas con tarjeta al 2,5% de comisión, con ahorro invertido al 7% de retorno medio anual. Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
+        "source": "Ejemplo basado en 1.000 €/día en ventas con tarjeta al 2,5% de comisión, con ahorro invertido al 10% de retorno medio anual (derivado el 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
         "howPossible": "¿Cómo es posible?"
       },
       "idleCash": {
         "title": "Capital Parado",
         "titleSummary": "obtén lo que es justo",
         "subtitle": "Con 100.000 € de capital parado en la cuenta de tu empresa.",
-        "diboasResult": "7.000 €",
-        "bankResult": "3.500 €",
-        "difference": "3.500 €/año",
-        "tagline": "Tienes la oportunidad de duplicar o más tus rendimientos y mantener el control total de tu dinero.",
-        "source": "Ejemplo basado en 100.000 € de capital parado con una tasa media de ahorro del 3,5% en los últimos 5 años. Fuente: BCE. Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
+        "diboasResult": "7.963 €",
+        "bankResult": "140 €",
+        "difference": "7.823 €/año",
+        "tagline": "En dólar digital, tu capital rinde más — porque el dólar tiende a apreciarse frente al euro con el tiempo.",
+        "source": "Ejemplo basado en 100.000 € de capital parado con tasa media de ahorro del 0,14% (BCE/Tesoro media 5 años) vs diBoaS Conservador 7% en dólar digital, con efecto cambiario anual del 0,9% (derivado el 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
         "howPossible": "¿Cómo es posible?"
       }
     }

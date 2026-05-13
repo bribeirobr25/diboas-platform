@@ -11,6 +11,8 @@ import { FALLBACK_MARKET_DATA } from '@/lib/market-data/constants';
 
 export type { ScenarioKey };
 
-/** { conservative: 4, historical: 7, optimistic: 10 } — values are percentages. */
+/** { conservative: 7, historical: 10, optimistic: 14 } — values are percentages.
+ *  Updated 2026-05-12 to reflect digital-dollar (USDC) yield envelope across
+ *  Solana-first DeFi stack — see lib/market-data/constants.ts header for sourcing. */
 export const SCENARIO_RATES: Readonly<Record<ScenarioKey, number>> =
   FALLBACK_MARKET_DATA.rates.scenarioRates;

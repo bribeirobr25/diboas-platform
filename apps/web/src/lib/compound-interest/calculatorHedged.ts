@@ -1,26 +1,31 @@
 /**
- * Compound Interest Calculator engine — non-hedged variant (LESSON).
+ * Compound Interest Calculator — currency-hedged variant.
  *
- * Composes calculateMonthlyContributions() from lib/market-data/formulas.ts —
- * never re-implements compound math (CLAUDE.md prevention rule #1).
+ * Per Phase-7 Q7(a) — the educational lesson at /learn/compound-interest uses
+ * the non-hedged `calculateCompoundProjection` (calculator.ts). The three tool
+ * pages (/tools/compound-interest, /tools/retirement, /tools/goal-savings)
+ * use this hedged variant for non-USD locales so the diBoaS scenarios reflect
+ * digital-dollar yield realistically converted to the user's local currency.
  *
- * Educational scope: scenarioRates only + locale bank rate.
- * No diBoaS Safety/Balance/Growth APYs — those are product-marketing
- * claims and intentionally kept off the educational tool (GTM Playbook §6.7).
+ * Math (effective-rate model — canonical per `docs/tech/financial-calculations.md`):
+ *   effectiveLocalAPY = (1 + usdYield) × (1 + localDepreciation) − 1
  *
- * No currency hedge: this is a "how compound interest works" lesson, not
- * a real-purchasing-power projection. annualInflation is always 0 in the
- * underlying formula call (same rationale as the hedge exclusion).
+ * For USD locales the depreciation is 0 so this collapses to the non-hedge
+ * behavior — output is byte-identical to `calculateCompoundProjection` for en.
  *
- * Consumed by `/learn/compound-interest` lesson. The three /tools/ pages
- * (compound-interest, retirement, goal-savings) use the hedged variant
- * `calculateCompoundProjectionHedged` (calculatorHedged.ts) per Phase-7 Q7(a).
- * The two functions are intentionally separate — do NOT consolidate with a
- * `hedge: boolean` flag (Phase-7 audit CC2 / R1 discipline).
+ * Bank scenario stays at the locale savings rate WITHOUT hedge adjustment
+ * because the user's bank pays in local currency, not USD.
+ *
+ * NEVER consolidate this with `calculateCompoundProjection` via a `hedge`
+ * boolean flag — two distinct named functions per Q7(a) discipline.
  */
 
-import { calculateLumpSum, calculateMonthlyContributions } from '@/lib/market-data/formulas';
+import {
+  calculateLumpSum,
+  calculateMonthlyContributions,
+} from '@/lib/market-data/formulas';
 import { marketDataService } from '@/lib/market-data/service';
+import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { convertCadenceToMonthly, isOneTime } from './cadence';
 import { SCENARIO_RATES } from './scenarios';
 import { INPUT_BOUNDS } from './constants';
@@ -35,19 +40,54 @@ import {
 
 const HIGHLIGHTED_DEFAULT = 'historical' as const;
 
-export function calculateCompoundProjection(input: CalculatorInput): CalculatorOutput {
+export function calculateCompoundProjectionHedged(
+  input: CalculatorInput,
+): CalculatorOutput {
   validateInput(input);
 
   const monthlyEquivalent = convertCadenceToMonthly(input.amount, input.cadence);
+  const snapshot = marketDataService.getSync();
+  const bankRate = snapshot.rates.bankRates[input.locale]?.savings ?? 0;
 
-  const bankRate =
-    marketDataService.getSync().rates.bankRates[input.locale]?.savings ?? 0;
+  const currency = LOCALE_CURRENCY[input.locale];
+  const depreciation =
+    currency && currency !== 'USD'
+      ? snapshot.exchangeRates.rates[currency]?.annualDepreciation ?? 0
+      : 0;
+
+  const hedgedScenarioRate = (usdRatePercent: number): number => {
+    if (depreciation === 0) return usdRatePercent;
+    const usdYield = usdRatePercent / 100;
+    const effective = (1 + usdYield) * (1 + depreciation) - 1;
+    return effective * 100;
+  };
 
   const series: ScenarioSeries[] = [
     buildSeries('bank', bankRate, input.amount, monthlyEquivalent, input.cadence, input.years),
-    buildSeries('conservative', SCENARIO_RATES.conservative, input.amount, monthlyEquivalent, input.cadence, input.years),
-    buildSeries('historical', SCENARIO_RATES.historical, input.amount, monthlyEquivalent, input.cadence, input.years),
-    buildSeries('optimistic', SCENARIO_RATES.optimistic, input.amount, monthlyEquivalent, input.cadence, input.years),
+    buildSeries(
+      'conservative',
+      hedgedScenarioRate(SCENARIO_RATES.conservative),
+      input.amount,
+      monthlyEquivalent,
+      input.cadence,
+      input.years,
+    ),
+    buildSeries(
+      'historical',
+      hedgedScenarioRate(SCENARIO_RATES.historical),
+      input.amount,
+      monthlyEquivalent,
+      input.cadence,
+      input.years,
+    ),
+    buildSeries(
+      'optimistic',
+      hedgedScenarioRate(SCENARIO_RATES.optimistic),
+      input.amount,
+      monthlyEquivalent,
+      input.cadence,
+      input.years,
+    ),
   ];
 
   return {

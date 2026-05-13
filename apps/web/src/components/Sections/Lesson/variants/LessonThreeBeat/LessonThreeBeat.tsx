@@ -178,11 +178,17 @@ export function LessonThreeBeat({
               {intl.formatMessage(
                 { id: 'learn-compound-interest.beat3.toolDeepLink' },
                 {
-                  link: (
-                    <LocaleLink href="/tools/compound-interest" prefetch={false}>
-                      {intl.formatMessage({
-                        id: 'learn-compound-interest.beat3.toolDeepLinkText',
-                      })}
+                  // react-intl rich-text chunks callback. The callback's return
+                  // element needs an explicit `key` because react-intl appends
+                  // the result to a children array without auto-keying (v6.4.7
+                  // behavior — confirmed warning gone with this key).
+                  link: (chunks: React.ReactNode) => (
+                    <LocaleLink
+                      key="tool-deep-link"
+                      href="/tools/compound-interest"
+                      prefetch={false}
+                    >
+                      {chunks}
                     </LocaleLink>
                   ),
                 },

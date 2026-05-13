@@ -39,9 +39,10 @@
   },
   "scenarios": {
     "bank": "Deine Bank",
-    "conservative": "Konservativ (4%)",
-    "historical": "Historisch (7%)",
-    "optimistic": "Optimistisch (10%)"
+    "conservative": "Konservativ (7%)",
+    "historical": "Historisch (10%)",
+    "optimistic": "Optimistisch (14%)",
+    "digitalDollarSuffix": " im Digital-Dollar"
   },
   "labels": {
     "initialDeposit": "Einmalige Einlage",
@@ -56,5 +57,5 @@
     "tryOtherTools": "Weitere Geld-Tools ausprobieren",
     "adelaideAttribution": "Geld-Tools von Adelaide"
   },
-  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Vergangene Renditen sind keine Garantie für zukünftige Ergebnisse."
+  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Vergangene Renditen sind keine Garantie für zukünftige Ergebnisse. diBoaS-Renditen werden im Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert die Dollar-Rendite mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar."
 }

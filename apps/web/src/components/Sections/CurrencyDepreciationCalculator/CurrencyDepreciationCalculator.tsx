@@ -6,7 +6,7 @@
  * Compares 3 outcomes for a today-amount held in a non-USD currency:
  *   - Cash idle (full hit from local-currency depreciation)
  *   - Local bank rate (partial hedge — yield offsets some depreciation)
- *   - USDC at 7% historical-yield (full hedge via `calculateWithCurrencyHedge`)
+ *   - Digital dollar at Historical rate (full hedge via `calculateWithCurrencyHedge`)
  *
  * Math: `calculateWithCurrencyHedge` and `calculateLumpSum` from market-data
  * formulas. Depreciation rate per locale-currency comes from
@@ -14,7 +14,7 @@
  *
  * For en (USD) where there's no foreign-currency depreciation to model, the
  * tool still works — depreciation defaults to 0 and the comparison reduces
- * to bank yield vs USDC 7%.
+ * to bank yield vs digital dollar at Historical rate (10%).
  */
 
 import { useId, useMemo, useState } from 'react';

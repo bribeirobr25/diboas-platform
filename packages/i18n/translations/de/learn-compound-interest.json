@@ -32,11 +32,11 @@
       "Reden wir also über etwas Einfacheres. Kleine Dinge, für die du Geld ausgibst, ohne darüber nachzudenken."
     ],
     "habitsLine": "Dein Bäckerei-Frühstück morgens. Das Restaurant am Wochenende. Streaming und Fitnessstudio jeden Monat.",
-    "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen — beim gleichen historischen Zinssatz von 7 % — dann sehen 12 Jahre so aus:",
+    "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen — beim gleichen historischen Zinssatz von 10 % — dann sehen 12 Jahre so aus:",
     "vignettes": [
-      { "habit": "Bäckerei-Frühstück (4 €/Tag werktags)", "yearly": "1.040 €", "twelveYear": "~19.200 €" },
-      { "habit": "Restaurant am Wochenende (35 €/Woche)", "yearly": "1.820 €", "twelveYear": "~33.190 €" },
-      { "habit": "Streaming + Fitnessstudio (40 €/Monat)", "yearly": "480 €", "twelveYear": "~8.750 €" }
+      { "habit": "Bäckerei-Frühstück (4 €/Tag werktags)", "yearly": "1.040 €", "yearlyAmount": "1040" },
+      { "habit": "Restaurant am Wochenende (35 €/Woche)", "yearly": "1.820 €", "yearlyAmount": "1820" },
+      { "habit": "Streaming + Fitnessstudio (40 €/Monat)", "yearly": "480 €", "yearlyAmount": "480" }
     ],
     "vignettesTableHeaders": {
       "habit": "Gewohnheit",
@@ -44,7 +44,7 @@
       "twelveYear": "Könnte in 12 Jahren werden"
     },
     "vignettesOutro": "Dasselbe Geld. Andere Aufgabe.",
-    "vignettesDisclaimer": "Illustrative Zahlen auf Basis eines historischen Zinssatzes von 7 %. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse.",
+    "vignettesDisclaimer": "Illustrative Zahlen auf Basis eines historischen Zinssatzes von 10 % (Digital-Dollar-Renditeumschlag). Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse.",
     "habitsRecap": "Niemand verlangt von dir, das Frühstück zu streichen. Oder das Restaurant. Oder das Streaming. Behalte, was dein Leben besser macht.",
     "outro": [
       "Aber wenn nur eines davon — nur eines — für dich arbeiten würde, statt jeden Monat zu verschwinden, dann passiert genau die Mathematik, die du oben gesehen hast.",
@@ -63,8 +63,7 @@
     ],
     "calculatorTagline": "Dasselbe Geld. Andere Aufgabe.",
     "afterCalculator": "Zahlen verstanden?",
-    "toolDeepLink": "Willst du diesen Rechner allein? {link}",
-    "toolDeepLinkText": "Zum eigenständigen Zinseszins-Rechner",
+    "toolDeepLink": "Willst du diesen Rechner allein? <link>Zum eigenständigen Zinseszins-Rechner</link>",
     "wrap": [
       "Genau dafür ist diBoaS da. Der Teil deines Geldes, den du zur Seite legen kannst, der zu einem Zinssatz arbeitet, den sich das System bisher selbst behalten hat.",
       "Deine Bank bleibt, wo sie ist — für Ausgaben, Rechnungen und den Alltag. diBoaS ist für Geld mit einem Ziel."
@@ -92,9 +91,9 @@
     "yearsLabel": "Jahre",
     "yearsTooltip": "Einmalig = einzelne Einlage zu Beginn. Täglich nutzt 365 Tage; wöchentlich 52; monatlich 12; vierteljährlich 4; halbjährlich 2; jährlich 1.",
     "outputBank": "Deine Bank",
-    "outputConservative": "Konservativ (4 %)",
-    "outputHistorical": "Historisch (7 %)",
-    "outputOptimistic": "Optimistisch (10 %)",
+    "outputConservative": "Konservativ (7 %)",
+    "outputHistorical": "Historisch (10 %)",
+    "outputOptimistic": "Optimistisch (14 %)",
     "summaryHeader": "Aus deinen monatlichen {amount} könnten in {years} Jahren werden…",
     "oneTimeSummaryHeader": "Aus deiner Einlage von {amount} könnten in {years} Jahren werden…",
     "chartAriaLabel": "Zinseszins-Grafik, die deine Bankrate mit drei Szenarien über die Zeit vergleicht.",

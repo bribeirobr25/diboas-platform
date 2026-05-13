@@ -45,6 +45,7 @@ export default async function GoalSavingsToolPage({ params }: LocalePageProps) {
       <StructuredData data={[structuredData]} />
       <ToolPage toolKey="goal-savings" pageMessages={pageMessages}>
         <CompoundInterestCalculator
+          engine="tool"
           initialInput={{
             amount: defaults.amount[locale],
             cadence: defaults.cadence,

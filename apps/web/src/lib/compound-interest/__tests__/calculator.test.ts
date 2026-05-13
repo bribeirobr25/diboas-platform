@@ -45,12 +45,14 @@ describe('calculateCompoundProjection — happy path', () => {
     expect(out.computedAt).toBeGreaterThan(0);
   });
 
-  it('should produce historical-scenario output close to the en vignette ($5/day → ~$33k at 7%/12y)', () => {
+  it('should produce historical-scenario output close to the en vignette ($5/day → ~$42k at 10%/12y)', () => {
     const out = calculateCompoundProjection(baseInput);
     const historical = out.series.find((s) => s.scenario === 'historical')!;
-    // CMO en vignette: ~$32,840. Formula at 7% with monthly geometric compounding.
-    expect(historical.finalValue).toBeGreaterThan(30_000);
-    expect(historical.finalValue).toBeLessThan(36_000);
+    // At 10% with monthly geometric compounding: $152.08/mo × 144 months ≈ $42,030.
+    // Lesson Beat 2 vignettes still cite the 7%-era numbers — they're
+    // queued for refresh in PRE_PHASE_7_TOOLS_POLISH.md.
+    expect(historical.finalValue).toBeGreaterThan(40_000);
+    expect(historical.finalValue).toBeLessThan(44_000);
   });
 
   it('should rank finalValue strictly bank < conservative < historical < optimistic', () => {
@@ -254,10 +256,11 @@ describe('calculateCompoundProjection — oneTime cadence (lump sum)', () => {
     expect(fv('historical')).toBeLessThan(fv('optimistic'));
   });
 
-  it('should produce $1000 at 7% for 10 years close to ~$1967 (sanity)', () => {
+  it('should produce $1000 at 10% for 10 years close to ~$2594 (sanity)', () => {
     const out = calculateCompoundProjection(oneTimeInput);
     const historical = out.series.find((s) => s.scenario === 'historical')!;
-    expect(historical.finalValue).toBeGreaterThan(1900);
-    expect(historical.finalValue).toBeLessThan(2050);
+    // 1000 × 1.10^10 = 2593.74 (annual compounding via calculateLumpSum).
+    expect(historical.finalValue).toBeGreaterThan(2500);
+    expect(historical.finalValue).toBeLessThan(2700);
   });
 });

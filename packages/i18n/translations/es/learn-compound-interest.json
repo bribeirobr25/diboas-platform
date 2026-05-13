@@ -32,11 +32,11 @@
       "Así que hablemos de algo más sencillo. Pequeñas cosas en las que ya gastas sin pensar."
     ],
     "habitsLine": "El café con tostada de cada mañana. Las cañas con amigos del finde. El streaming y el gimnasio cada mes.",
-    "vignettesIntro": "Si solo uno de esos se pusiera a trabajar para ti en vez de irse — al mismo 7 % de rentabilidad histórica — así se verían 12 años:",
+    "vignettesIntro": "Si solo uno de esos se pusiera a trabajar para ti en vez de irse — al mismo 10 % de rentabilidad histórica — así se verían 12 años:",
     "vignettes": [
-      { "habit": "Café con tostada (3 €/día)", "yearly": "780 €", "twelveYear": "~14.400 €" },
-      { "habit": "Cañas con amigos (25 €/semana)", "yearly": "1.300 €", "twelveYear": "~23.710 €" },
-      { "habit": "Streaming + gimnasio (40 €/mes)", "yearly": "480 €", "twelveYear": "~8.750 €" }
+      { "habit": "Café con tostada (3 €/día)", "yearly": "780 €", "yearlyAmount": "780" },
+      { "habit": "Cañas con amigos (25 €/semana)", "yearly": "1.300 €", "yearlyAmount": "1300" },
+      { "habit": "Streaming + gimnasio (40 €/mes)", "yearly": "480 €", "yearlyAmount": "480" }
     ],
     "vignettesTableHeaders": {
       "habit": "Hábito",
@@ -44,7 +44,7 @@
       "twelveYear": "Podría convertirse en 12 años"
     },
     "vignettesOutro": "Mismo dinero. Otro trabajo.",
-    "vignettesDisclaimer": "Cifras ilustrativas basadas en un 7 % de interés compuesto histórico. Rentabilidades pasadas no garantizan resultados futuros.",
+    "vignettesDisclaimer": "Cifras ilustrativas basadas en un 10 % de interés compuesto histórico (envolvente de rentabilidad en dólar digital). Rentabilidades pasadas no garantizan resultados futuros.",
     "habitsRecap": "Nadie te está pidiendo que dejes el café. Ni las cañas. Ni el streaming. Quédate con lo que hace que la vida valga la pena.",
     "outro": [
       "Pero si solo uno de ellos — solo uno — trabajara para ti en vez de desaparecer cada mes, lo que pasa es justo la cuenta que acabas de ver arriba.",
@@ -63,8 +63,7 @@
     ],
     "calculatorTagline": "Mismo dinero. Otro trabajo.",
     "afterCalculator": "¿Te ha cuadrado la cuenta?",
-    "toolDeepLink": "¿Quieres esta calculadora por separado? {link}",
-    "toolDeepLinkText": "Abre la calculadora de interés compuesto",
+    "toolDeepLink": "¿Quieres esta calculadora por separado? <link>Abre la calculadora de interés compuesto</link>",
     "wrap": [
       "Para esto está diBoaS. La parte de tu dinero que puedes apartar, trabajando a un ritmo que el sistema se venía guardando solo para él.",
       "Tu banco se queda donde está — para gastos, recibos y el día a día. diBoaS es para el dinero con un objetivo."
@@ -92,9 +91,9 @@
     "yearsLabel": "Años",
     "yearsTooltip": "Una sola vez = depósito único al inicio. Diario usa 365 días; semanal 52; mensual 12; trimestral 4; semestral 2; anual 1.",
     "outputBank": "Tu banco",
-    "outputConservative": "Conservador (4 %)",
-    "outputHistorical": "Histórico (7 %)",
-    "outputOptimistic": "Optimista (10 %)",
+    "outputConservative": "Conservador (7 %)",
+    "outputHistorical": "Histórico (10 %)",
+    "outputOptimistic": "Optimista (14 %)",
     "summaryHeader": "En {years} años, tus {amount} mensuales podrían convertirse en…",
     "oneTimeSummaryHeader": "En {years} años, tu depósito inicial de {amount} podría convertirse en…",
     "chartAriaLabel": "Gráfico de interés compuesto que compara la tasa de tu banco con tres escenarios a lo largo del tiempo.",

@@ -42,22 +42,22 @@
         "title": "Taxas de Pagamento",
         "titleSummary": "não é só 3%",
         "subtitle": "Com R$5.000 em vendas diárias no cartão e taxa média de 4%, seu negócio perde R$6.000/mês ou mais de R$72.000 por ano.",
-        "diboasResult": "R$77.040",
+        "diboasResult": "R$79.200",
         "bankResult": "",
-        "difference": "R$77.000/ano",
+        "difference": "R$79.200/ano",
         "tagline": "Você tem a chance não só de cortar custos, mas de transformar isso em uma nova linha de receita.",
-        "source": "Exemplo baseado em R$5.000/dia em vendas no cartão com taxa de 4%, com economia investida a 7% de retorno médio anual. Retornos projetados são ilustrativos. Resultados reais podem variar.",
+        "source": "Exemplo baseado em R$5.000/dia em vendas no cartão com taxa de 4%, com economia investida a 10% de retorno médio anual (derivado em 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Retornos projetados são ilustrativos. Resultados reais podem variar.",
         "howPossible": "Como isso é possível?"
       },
       "idleCash": {
         "title": "Caixa Parado",
         "titleSummary": "receba o que é justo",
         "subtitle": "Com R$500.000 de caixa parado na conta da empresa.",
-        "diboasResult": "R$35.000",
-        "bankResult": "R$17.500",
-        "difference": "R$17.500/ano",
-        "tagline": "Você tem a chance de dobrar ou mais seus rendimentos e manter controle total do seu dinheiro.",
-        "source": "Exemplo baseado em R$500.000 de caixa parado com taxa média de poupança de 3,5% nos últimos 5 anos. Fonte: Banco Central. Retornos projetados são ilustrativos. Resultados reais podem variar.",
+        "diboasResult": "R$51.050",
+        "bankResult": "R$34.150",
+        "difference": "R$16.900/ano",
+        "tagline": "Em dólar digital, seu caixa rende mais — porque o dólar tende a se valorizar contra o real ao longo do tempo.",
+        "source": "Exemplo baseado em R$500.000 de caixa parado com taxa de poupança líquida de 6,83% (BCB/B3 média 5 anos) vs diBoaS Conservador 7% em dólar digital, com efeito de valorização cambial de 3% ao ano (derivado em 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Retornos projetados são ilustrativos. Resultados reais podem variar.",
         "howPossible": "Como isso é possível?"
       }
     }

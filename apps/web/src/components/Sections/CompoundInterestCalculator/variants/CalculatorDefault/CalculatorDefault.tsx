@@ -5,6 +5,7 @@ import { useTranslation } from '@diboas/i18n/client';
 import { analyticsService } from '@/lib/analytics';
 import {
   calculateCompoundProjection,
+  calculateCompoundProjectionHedged,
   CALCULATOR_EVENTS,
   DEBOUNCE_MS,
   DEFAULT_INPUT_BY_LOCALE,
@@ -22,6 +23,13 @@ interface CalculatorDefaultProps {
   enableAnalytics?: boolean;
   reducedMotion?: boolean;
   className?: string;
+  /**
+   * Which engine variant to use (Phase-7 Q7(a)).
+   *   'lesson' (default) — non-hedged, for `/learn/compound-interest`.
+   *   'tool' — currency-hedged for non-USD locales, for `/tools/*` pages.
+   * The two engines are intentionally separate at the lib layer per R1 discipline.
+   */
+  engine?: 'lesson' | 'tool';
 }
 
 export function CalculatorDefault({
@@ -29,6 +37,7 @@ export function CalculatorDefault({
   enableAnalytics = true,
   reducedMotion,
   className,
+  engine = 'lesson',
 }: CalculatorDefaultProps) {
   const intl = useTranslation();
   const locale: SupportedLocale = isValidLocale(intl.locale) ? intl.locale : 'en';
@@ -41,8 +50,11 @@ export function CalculatorDefault({
   // render; the underlying formula is fast enough that debouncing the COMPUTE
   // would add latency without saving CPU.
   const liveOutput: CalculatorOutput = useMemo(
-    () => calculateCompoundProjection(input),
-    [input],
+    () =>
+      engine === 'tool'
+        ? calculateCompoundProjectionHedged(input)
+        : calculateCompoundProjection(input),
+    [input, engine],
   );
 
   // Debounced *display* state — what the UI actually shows. Smooths out
@@ -104,7 +116,7 @@ export function CalculatorDefault({
   return (
     <div className={`${styles.calculator} ${className ?? ''}`}>
       <CalculatorInputs value={input} onChange={setInput} />
-      <CalculatorOutputs output={displayedOutput} reducedMotion={reducedMotion} />
+      <CalculatorOutputs output={displayedOutput} reducedMotion={reducedMotion} engine={engine} />
       <p className={styles.disclaimer}>
         {disclaimer}{' '}
         <span className={styles.lastUpdated}>

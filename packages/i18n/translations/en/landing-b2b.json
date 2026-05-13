@@ -42,11 +42,11 @@
         "title": "Payment Fees",
         "titleSummary": "it is not just 3%",
         "subtitle": "On a $1,000 daily card sales, average 3% processing fee. It costs your business $900/month or more than $10,000 in one year.",
-        "diboasResult": "$11,556",
+        "diboasResult": "$11,880",
         "bankResult": "",
-        "difference": "$11,500/year",
+        "difference": "$11,880/year",
         "tagline": "You have the chance not only to cut costs, but to transform it into a new revenue line.",
-        "source": "Example based on $1,000/day in card sales at 3% processing fee, with savings invested at a 7% average in annual return. Projected returns are illustrative. Actual results may vary.",
+        "source": "Example based on $1,000/day in card sales at 3% processing fee, with savings invested at a 10% average in annual return (derived 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projected returns are illustrative. Actual results may vary.",
         "howPossible": "How is this possible?"
       },
       "idleCash": {
@@ -57,7 +57,7 @@
         "bankResult": "$3,500",
         "difference": "$3,500/year",
         "tagline": "You have the chance to double or more your returns and fully control your money.",
-        "source": "Example based on $100,000 idle cash with a 3.5% last 5 years average savings rate. Source: FDIC National Average. Projected returns are illustrative. Actual results may vary.",
+        "source": "Example based on $100,000 idle cash with a 3.5% high-yield business savings rate (Bankrate) vs diBoaS Conservative 7% in digital dollar (derived 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projected returns are illustrative. Actual results may vary.",
         "howPossible": "How is this possible?"
       }
     }

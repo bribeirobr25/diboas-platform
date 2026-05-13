@@ -47,6 +47,7 @@ export default async function CompoundInterestToolPage({ params }: LocalePagePro
       <StructuredData data={[structuredData]} />
       <ToolPage toolKey="compound-interest" pageMessages={pageMessages}>
         <CompoundInterestCalculator
+          engine="tool"
           initialInput={{
             amount: defaults.amount[locale],
             cadence: defaults.cadence,

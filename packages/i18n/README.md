@@ -68,43 +68,47 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale and namespace:
+Translation files are organized by locale × namespace (29 namespaces per locale as of 2026-05-13):
 
 ```
-packages/i18n/translations/
-├── en/
-│   ├── common.json      # Navigation, buttons, forms, etc.
-│   └── marketing.json   # Hero, domains, mascots, trust content
-├── pt-BR/
-│   ├── common.json
-│   └── marketing.json
-├── es/
-│   ├── common.json
-│   └── marketing.json
-└── de/
-    ├── common.json
-    └── marketing.json
+packages/i18n/translations/{en, pt-BR, es, de}/
+├── about.json                          # About page
+├── common.json                         # Navigation, buttons, forms
+├── dreamMode.json                      # Dream-mode goal simulator
+├── faq.json                            # FAQ content
+├── landing-b2b.json                    # B2B landing page (incl. goal cards)
+├── landing-b2c.json                    # B2C landing page
+├── landing-help.json                   # Help center
+├── learn.json                          # Learn center landing
+├── learn-compound-interest.json        # Lesson 01 + Beat 2 vignettes + calculator
+├── preDemo.json                        # Demo onboarding
+├── preDream.json                       # Dream-mode onboarding
+├── protocols.json                      # Protocol transparency
+├── security.json                       # Security page
+├── share.json                          # Social sharing
+├── strategies.json                     # Investment strategies
+├── waitlist.json                       # Waitlist signup
+├── tools-shared.json                   # Cross-tool common copy (scenarios, disclaimer, currency-hedge note)
+├── tools-card-fees.json                # B2B Card Fees calculator
+├── tools-compound-interest.json        # Compound Interest tool page
+├── tools-currency-depreciation.json    # Currency Depreciation tool
+├── tools-emergency-fund.json           # Emergency Fund tool
+├── tools-goal-savings.json             # Goal Savings tool
+├── tools-idle-cash.json                # B2B Idle Cash tool
+├── tools-inflation-impact.json         # Inflation Impact tool
+├── tools-retirement.json               # Retirement tool
+├── tools-time-to-target.json           # Time-to-Target tool
+└── legal/
+    ├── cookies.json                    # Cookie policy
+    ├── privacy.json                    # Privacy policy
+    └── terms.json                      # Terms of use
 ```
 
-## Translation Structure
+Namespace parity across the 4 locales is enforced by `scripts/validate-translations.js` (run via `pnpm validate:translations`).
 
-### common.json
+**`tools-shared` (Phase 6C):** cross-tool common copy — scenario captions (Conservative/Historical/Optimistic), action buttons, default disclaimer. The `disclaimer` key carries the Q5(B) Phase-7 currency-hedge sentence (4 locales). `scenarios.digitalDollarSuffix` is the Phase-7 §5.2 suffix appended to diBoaS scenario labels on tool surfaces for non-USD locales.
 
-- `navigation` - Menu items and links
-- `buttons` - CTA buttons and actions
-- `common` - Universal words (and, or, yes, no)
-- `forms` - Form validation messages
-- `accessibility` - ARIA labels and skip links
-- `seo` - Default SEO metadata
-- `footer` - Footer content
-
-### marketing.json
-
-- `hero` - Hero section content
-- `domains` - Banking, Investing, DeFi content
-- `mascots` - Acqua, Mystic, Coral descriptions
-- `trust` - Security and trust indicators
-- `pages` - Page-specific hero content
+**Banned-term grep gate (Phase 7 Q4):** body copy must not contain `stablecoin`, `USDC`, `DeFi`, `tokenized`, `yield farming`, `liquidity pool`, `blockchain`, or `APY`/`APR` outside regulatory disclosure keys (`*.disclosure*`, `*.regulatoryFootnote*`, `*.tilaDisclosure*`, `*.usDisclosure*`). See `docs/audit/PRE_PHASE_7_TOOLS_POLISH.md` §5.3 for the bash gate.
 
 ## API Reference
 

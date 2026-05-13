@@ -42,22 +42,22 @@
         "title": "Zahlungsgebühren",
         "titleSummary": "es sind nicht nur 3%",
         "subtitle": "Bei 1.000 € täglichem Kartenumsatz und durchschnittlich 2,5% Bearbeitungsgebühr verliert dein Unternehmen 750 €/Monat oder über 9.000 € im Jahr.",
-        "diboasResult": "9.630 €",
+        "diboasResult": "9.900 €",
         "bankResult": "",
-        "difference": "9.600 €/Jahr",
+        "difference": "9.900 €/Jahr",
         "tagline": "Du hast die Chance, nicht nur Kosten zu senken, sondern daraus eine neue Einnahmequelle zu machen.",
-        "source": "Beispiel basierend auf 1.000 €/Tag Kartenumsatz bei 2,5% Gebühr, mit Ersparnissen investiert bei 7% durchschnittlicher Jahresrendite. Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
+        "source": "Beispiel basierend auf 1.000 €/Tag Kartenumsatz bei 2,5% Gebühr, mit Ersparnissen investiert bei 10% durchschnittlicher Jahresrendite (abgeleitet 2026-05-13 via scripts/derive-b2b-card-numbers.mjs). Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
         "howPossible": "Wie ist das möglich?"
       },
       "idleCash": {
         "title": "Ungenutztes Kapital",
         "titleSummary": "erhalte, was fair ist",
         "subtitle": "Bei 100.000 € ungenutztem Kapital auf deinem Geschäftskonto.",
-        "diboasResult": "7.000 €",
-        "bankResult": "3.500 €",
-        "difference": "3.500 €/Jahr",
-        "tagline": "Du hast die Chance, deine Rendite zu verdoppeln oder mehr und dabei die volle Kontrolle über dein Geld zu behalten.",
-        "source": "Beispiel basierend auf 100.000 € ungenutztem Kapital bei einem durchschnittlichen Sparzins von 3,5% der letzten 5 Jahre. Quelle: EZB. Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
+        "diboasResult": "7.963 €",
+        "bankResult": "1.220 €",
+        "difference": "6.743 €/Jahr",
+        "tagline": "Im Digital-Dollar arbeitet dein Kapital härter — weil der Dollar tendenziell gegenüber dem Euro an Wert gewinnt.",
+        "source": "Beispiel basierend auf 100.000 € ungenutztem Kapital bei 1,22% durchschnittlichem Sparzins (Bundesbank/EZB 5-Jahres-Durchschnitt) vs diBoaS Konservativ 7% in Digital-Dollar, mit jährlichem Wechselkurseffekt von 0,9% (abgeleitet 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; siehe docs/tech/financial-calculations.md §Currency Hedge Model). Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
         "howPossible": "Wie ist das möglich?"
       }
     }
