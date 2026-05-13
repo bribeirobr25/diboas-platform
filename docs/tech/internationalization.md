@@ -2,6 +2,10 @@
 
 > **Complete internationalization implementation following DRY principles and project architecture standards**
 
+**Last updated:** 2026-05-13
+
+**⚠️ Drift notice:** the "Translation Files" + "File Structure" sections below describe the pre-Phase-6 state (2 namespaces per locale: `common.json`, `marketing.json`). The current state has **29 namespaces per locale** (incl. tools, learn, landing, legal). See `packages/i18n/README.md` for the up-to-date namespace inventory + Phase-7 Q4 banned-term grep gate. The architecture / DRY / API / detection sections below remain accurate.
+
 ## Overview
 
 The diBoaS platform now has **complete internationalization support** for 4 locales with automatic browser language detection, translation integration throughout the application, and a reusable translation system that follows the project's DRY principles.

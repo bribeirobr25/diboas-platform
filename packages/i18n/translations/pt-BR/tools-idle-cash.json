@@ -19,7 +19,7 @@
     "bankLabel": "No seu banco",
     "bankNote": "{rate}% de rendimento ao longo de {years} anos",
     "diboasLabel": "No diBoaS",
-    "diboasNote": "{rate}% de rendimento conservador ao longo de {years} anos",
+    "diboasNote": "{rate}% de rendimento conservador em dólar digital ao longo de {years} anos",
     "differenceHighlight": "Seus {cash} rendem {difference} a mais no diBoaS ao longo de {years} anos."
   },
   "vignette": {

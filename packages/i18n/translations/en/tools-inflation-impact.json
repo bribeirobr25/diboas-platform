@@ -26,7 +26,7 @@
     "ifYouKeepCash": "If you keep it in cash",
     "ifYouInvest": "If you put it to work",
     "lostToInflation": "−{amount} lost to inflation",
-    "investedNote": "At {rate}% historical yield"
+    "investedNote": "At {rate}% historical return"
   },
   "vignette": {
     "subtitle": "Same money. Different ending. The choice is yours."

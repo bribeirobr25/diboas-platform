@@ -18,15 +18,17 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import {
   calculateLumpSum,
+  calculateWithCurrencyHedge,
   marketDataService,
   type SupportedLocale,
 } from '@/lib/market-data';
+import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { formatCurrency } from '@/lib/compound-interest';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import { IDLE_CASH_DEFAULTS } from '@/lib/tools';
 import styles from './IdleCashCalculator.module.css';
 
-const CONSERVATIVE_RATE = SCENARIO_RATES.conservative; // 4
+const CONSERVATIVE_RATE = SCENARIO_RATES.conservative; // 7
 
 interface FormState {
   idleCash: number;
@@ -44,8 +46,16 @@ export function IdleCashCalculator() {
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-idle-cash.${key}` }, values);
 
-  const defaultBankYieldPct =
-    marketDataService.getSync().rates.bankRates[localeKey]?.savings ?? 0.32;
+  const snapshot = marketDataService.getSync();
+  const defaultBankYieldPct = snapshot.rates.bankRates[localeKey]?.savings ?? 0.32;
+  // Phase-7 NF1 — currency-hedge math for non-USD locales (precedent:
+  // ComparisonTable.tsx:36-58). en stays nominal; pt-BR/de/es use
+  // calculateWithCurrencyHedge with locale depreciation.
+  const localeCurrency = LOCALE_CURRENCY[localeKey];
+  const depreciation =
+    localeCurrency && localeCurrency !== 'USD'
+      ? snapshot.exchangeRates.rates[localeCurrency]?.annualDepreciation ?? 0
+      : 0;
 
   const initial = useMemo<FormState>(
     () => ({
@@ -60,18 +70,29 @@ export function IdleCashCalculator() {
 
   const result = useMemo(() => {
     if (form.idleCash <= 0 || form.years <= 0) return null;
+    // Bank stays nominal in local currency (no hedge — bank pays in BRL/EUR/USD).
     const bankFV = calculateLumpSum(
       form.idleCash,
       form.bankYieldPct / 100,
       0,
       form.years,
     ).nominalFV;
-    const diboasFV = calculateLumpSum(
-      form.idleCash,
-      CONSERVATIVE_RATE / 100,
-      0,
-      form.years,
-    ).nominalFV;
+    // diBoaS uses canonical effective-rate hedge for non-USD locales.
+    const diboasFV =
+      depreciation > 0
+        ? calculateWithCurrencyHedge(
+            form.idleCash,
+            CONSERVATIVE_RATE / 100,
+            depreciation,
+            0,
+            form.years,
+          ).nominalFV
+        : calculateLumpSum(
+            form.idleCash,
+            CONSERVATIVE_RATE / 100,
+            0,
+            form.years,
+          ).nominalFV;
     return {
       bankFV,
       bankGain: bankFV - form.idleCash,
@@ -79,7 +100,7 @@ export function IdleCashCalculator() {
       diboasGain: diboasFV - form.idleCash,
       difference: diboasFV - bankFV,
     };
-  }, [form]);
+  }, [form, depreciation]);
 
   const handleChange = (field: keyof FormState, value: number) =>
     setForm((prev) => ({ ...prev, [field]: clamp(value, 0, 1_000_000_000) }));

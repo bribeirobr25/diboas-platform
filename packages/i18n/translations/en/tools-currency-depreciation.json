@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Currency Depreciation Calculator — see what your local currency really earns",
-    "description": "Free currency depreciation calculator. Compare your local currency in cash, in your bank, and in USDC at 7% historical yield."
+    "description": "Free currency depreciation calculator. Compare your local currency in cash, in your bank, and in digital dollar at 10% historical return."
   },
   "hero": {
     "kicker": "Currency depreciation calculator",
     "headline": "What does your local currency really earn?",
-    "subtitle": "Compare cash, bank, and USDC over time — accounting for currency depreciation."
+    "subtitle": "Compare cash, bank, and digital dollar over time — accounting for currency depreciation."
   },
   "inputs": {
     "currencyLabel": "Currency",
@@ -20,8 +20,8 @@
     "cashUsdEquivalent": "USD-equivalent after {rate}% / year drift",
     "bankLabel": "Bank yield",
     "bankRateNote": "{rate}% local bank rate",
-    "diboasLabel": "USDC at diBoaS",
-    "diboasNote": "{rate}% historical-yield, hedged via USD"
+    "diboasLabel": "Digital dollar at diBoaS",
+    "diboasNote": "{rate}% historical return, held in digital dollar"
   },
   "vignette": {
     "subtitle": "Where you hold your money matters. The currency it earns in matters more."

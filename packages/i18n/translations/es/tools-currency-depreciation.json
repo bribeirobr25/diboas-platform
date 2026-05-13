@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Calculadora de depreciación monetaria — qué gana realmente tu moneda",
-    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en USDC al 7% de rendimiento histórico."
+    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en dólar digital al 10% de rendimiento histórico."
   },
   "hero": {
     "kicker": "Calculadora de depreciación monetaria",
     "headline": "¿Qué gana realmente tu moneda?",
-    "subtitle": "Compara efectivo, banco y USDC con el tiempo, considerando la depreciación."
+    "subtitle": "Compara efectivo, banco y dólar digital con el tiempo, considerando la depreciación."
   },
   "inputs": {
     "currencyLabel": "Moneda",
@@ -20,8 +20,8 @@
     "cashUsdEquivalent": "Equivalente en USD tras {rate}% / año de drift",
     "bankLabel": "Rendimiento bancario",
     "bankRateNote": "{rate}% tasa local",
-    "diboasLabel": "USDC en diBoaS",
-    "diboasNote": "{rate}% rendimiento histórico, cubierto vía USD"
+    "diboasLabel": "Dólar digital en diBoaS",
+    "diboasNote": "{rate}% rendimiento histórico, guardado en dólar digital"
   },
   "vignette": {
     "subtitle": "Dónde guardas tu dinero importa. La moneda en la que rinde, importa más."

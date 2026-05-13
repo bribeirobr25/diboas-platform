@@ -45,6 +45,7 @@ export default async function RetirementToolPage({ params }: LocalePageProps) {
       <StructuredData data={[structuredData]} />
       <ToolPage toolKey="retirement" pageMessages={pageMessages}>
         <CompoundInterestCalculator
+          engine="tool"
           initialInput={{
             amount: defaults.amount[locale],
             cadence: defaults.cadence,

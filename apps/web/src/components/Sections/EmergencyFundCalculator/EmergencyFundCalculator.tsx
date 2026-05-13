@@ -21,6 +21,7 @@ import {
   type SupportedLocale,
 } from '@/lib/market-data';
 import { marketDataService } from '@/lib/market-data/service';
+import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { formatCurrency } from '@/lib/compound-interest';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import { EMERGENCY_FUND_DEFAULTS } from '@/lib/tools';
@@ -56,8 +57,23 @@ export function EmergencyFundCalculator() {
   const [form, setForm] = useState<FormState>(initial);
 
   const snapshot = marketDataService.getSync();
-  const bankRate = snapshot.rates.bankRates[localeKey]?.savings ?? 0;
+  const bankApy = (snapshot.rates.bankRates[localeKey]?.savings ?? 0) / 100;
+  // Phase-7 service-agnostic — inflation IS already decimal in
+  // FALLBACK_MARKET_DATA.inflationRates (e.g., 0.045 = 4.5%). Per
+  // useGoalCardData.ts:54 precedent.
   const inflation = snapshot.inflationRates.rates[localeKey]?.average5y ?? 0;
+
+  // Phase-7 NF1/CC2 — currency-hedge math for non-USD locales (precedent:
+  // useGoalCardData.ts:57-61). For USD locales depreciation is 0 so the
+  // effective APY collapses to the raw USD yield (no hedge applied).
+  const currency = LOCALE_CURRENCY[localeKey];
+  const depreciation =
+    currency && currency !== 'USD'
+      ? snapshot.exchangeRates.rates[currency]?.annualDepreciation ?? 0
+      : 0;
+  const diboasUsdApy = HISTORICAL_RATE / 100;
+  const diboasEffective =
+    depreciation > 0 ? (1 + diboasUsdApy) * (1 + depreciation) - 1 : diboasUsdApy;
 
   const target = form.monthlyExpenses * form.targetMultiplier;
   const result = useMemo(() => {
@@ -66,20 +82,20 @@ export function EmergencyFundCalculator() {
       const diboasMonths = monthsToInflationAdjustedTarget(
         target,
         form.monthlySavings,
-        HISTORICAL_RATE / 100,
-        inflation / 100,
+        diboasEffective,
+        inflation,
       );
       const bankMonths = monthsToInflationAdjustedTarget(
         target,
         form.monthlySavings,
-        bankRate / 100,
-        inflation / 100,
+        bankApy,
+        inflation,
       );
       return { diboasMonths, bankMonths, savedMonths: bankMonths - diboasMonths };
     } catch {
       return null;
     }
-  }, [target, form.monthlySavings, bankRate, inflation]);
+  }, [target, form.monthlySavings, bankApy, diboasEffective, inflation]);
 
   const formatMonths = (m: number): string => {
     if (m < 12) return t('output.monthsLabel', { months: m });
@@ -153,12 +169,15 @@ export function EmergencyFundCalculator() {
           <div className={styles.resultCardDiboas}>
             <p className={styles.resultLabel}>{t('output.withDiboas')}</p>
             <p className={styles.resultValue}>{formatMonths(result.diboasMonths)}</p>
-            <p className={styles.resultRate}>{tShared('scenarios.historical')}</p>
+            <p className={styles.resultRate}>
+              {tShared('scenarios.historical')}
+              {depreciation > 0 ? tShared('scenarios.digitalDollarSuffix') : ''}
+            </p>
           </div>
           <div className={styles.resultCardBank}>
             <p className={styles.resultLabel}>{t('output.withBank')}</p>
             <p className={styles.resultValueMuted}>{formatMonths(result.bankMonths)}</p>
-            <p className={styles.resultRate}>{tShared('scenarios.bank')} ({bankRate}%)</p>
+            <p className={styles.resultRate}>{tShared('scenarios.bank')} ({(bankApy * 100).toFixed(2)}%)</p>
           </div>
           {result.savedMonths > 0 && (
             <div className={styles.savedHighlight}>

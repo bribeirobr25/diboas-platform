@@ -19,7 +19,7 @@
     "bankLabel": "Bei deiner Bank",
     "bankNote": "{rate}% Rendite über {years} Jahre",
     "diboasLabel": "Bei diBoaS",
-    "diboasNote": "{rate}% konservative Rendite über {years} Jahre",
+    "diboasNote": "{rate}% konservative Rendite im Digital-Dollar über {years} Jahre",
     "differenceHighlight": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre."
   },
   "vignette": {

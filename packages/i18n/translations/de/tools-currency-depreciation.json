@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Währungs-Wertverlust-Rechner — was deine Währung wirklich verdient",
-    "description": "Kostenloser Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und in USDC bei 7% historischer Rendite."
+    "description": "Kostenloser Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und im Digital-Dollar bei 10% historischer Rendite."
   },
   "hero": {
     "kicker": "Währungs-Wertverlust-Rechner",
     "headline": "Was verdient deine Währung wirklich?",
-    "subtitle": "Vergleiche bar, Bank und USDC über die Jahre — unter Berücksichtigung des Wertverlusts."
+    "subtitle": "Vergleiche bar, Bank und Digital-Dollar über die Jahre — unter Berücksichtigung des Wertverlusts."
   },
   "inputs": {
     "currencyLabel": "Währung",
@@ -20,8 +20,8 @@
     "cashUsdEquivalent": "USD-Äquivalent nach {rate}% / Jahr Drift",
     "bankLabel": "Bank-Rendite",
     "bankRateNote": "{rate}% lokale Bankrate",
-    "diboasLabel": "USDC bei diBoaS",
-    "diboasNote": "{rate}% historische Rendite, USD-gehedged"
+    "diboasLabel": "Digital-Dollar bei diBoaS",
+    "diboasNote": "{rate}% historische Rendite, in Digital-Dollar gehalten"
   },
   "vignette": {
     "subtitle": "Wo dein Geld liegt, zählt. Die Währung, in der es verdient, zählt mehr."

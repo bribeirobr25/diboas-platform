@@ -4,13 +4,15 @@ The main web application for the diBoaS unified financial services platform.
 
 ## Tech Stack
 
-- **Next.js 16.1.1** with App Router and Turbopack
-- **React 19.0.0** with Server Components
-- **TypeScript 5.2.2**
-- **Tailwind CSS 4.1.8**
-- **react-intl 7.1.9** for internationalization
-- **Storybook 9.1.17** for component development
-- **Sentry 10.32.1** for error monitoring
+(See root `README.md` for the canonical version list — kept in sync there.)
+
+- **Next.js 16.1.7** with App Router and Turbopack
+- **React 18.3.1** with Server Components
+- **TypeScript ~5.9.3** (strict mode)
+- **Tailwind CSS 3.4.17**
+- **react-intl 6.4.7** for internationalization (4 locales: en, pt-BR, es, de)
+- **Storybook 10.3.5** for component development
+- **Sentry 10.49.0** for error monitoring + session replay
 
 ## Installation
 
@@ -56,23 +58,43 @@ The app uses locale-based routing:
 
 Main pages:
 - `/[locale]` - Home page (B2C landing)
-- `/[locale]/business` - B2B landing page
-- `/[locale]/about` - About page
+- `/[locale]/business` - B2B landing page (Payment Fees + Idle Cash goal cards)
+- `/[locale]/about` - About page (founder story, mission, beliefs)
 - `/[locale]/strategies` - Investment strategies
-- `/[locale]/future-you` - Financial future calculator
-- `/[locale]/dream-mode` - Interactive dream simulator
-- `/[locale]/share` - Social sharing page
-- `/[locale]/benefits` - Benefits page
-- `/[locale]/banking-services` - Banking services
-- `/[locale]/investing` - Investment features
-- `/[locale]/cryptocurrency` - Crypto trading
-- `/[locale]/learn` - Educational content
-- `/[locale]/rewards` - Rewards program
+- `/[locale]/protocols` - Protocol transparency
+- `/[locale]/help` - Help center (6 FAQ topics)
+- `/[locale]/security` - Security information
+- `/[locale]/daily-market` - Adelaide Daily — market updates (placeholder)
+- `/[locale]/demo` - Interactive financial demo (noindex)
+- `/[locale]/dream-mode` - Goal calculator simulation (noindex)
+- `/[locale]/share` - Social sharing redirect (OG metadata)
+
+Learning surface:
+- `/[locale]/learn` - Learn center landing
+- `/[locale]/learn/compound-interest` - Lesson 01 — How Money Really Grows (3-beat lesson + embedded calculator)
+
+Money tools (9 calculators):
+- `/[locale]/tools` - Tools landing — purpose-grouped (Grow / Protect / Target / Business)
+- `/[locale]/tools/compound-interest` - Compound interest calculator (currency-hedge for non-USD locales)
+- `/[locale]/tools/retirement` - Retirement planning
+- `/[locale]/tools/goal-savings` - Goal savings
+- `/[locale]/tools/emergency-fund` - Emergency fund time-to-target
+- `/[locale]/tools/inflation-impact` - Inflation impact (inflation-only — no hedge per Q3a)
+- `/[locale]/tools/time-to-target` - Time-to-target solver
+- `/[locale]/tools/currency-depreciation` - Currency depreciation (with hedge math)
+- `/[locale]/tools/card-fees` - B2B card fee savings
+- `/[locale]/tools/idle-cash` - B2B idle cash yield (currency-hedge for non-USD locales)
+
+Account / form pages:
+- `/[locale]/delete-confirm` - GDPR account deletion confirmation
+- `/[locale]/email-preferences` - Email unsubscribe preferences
 
 Legal pages:
-- `/[locale]/privacy` - Privacy policy
-- `/[locale]/terms` - Terms of service
-- `/[locale]/cookies` - Cookie policy
+- `/[locale]/legal/privacy` - Privacy policy
+- `/[locale]/legal/terms` - Terms of service
+- `/[locale]/legal/cookies` - Cookie policy
+
+> Routes that were listed in earlier revisions (`/future-you`, `/benefits`, `/banking-services`, `/investing`, `/cryptocurrency`, `/rewards`) do not exist in the current app — they belong to Phase 2+ product roadmap and are tracked in `docs/full-view/FUTURE_FEATURES_PLATFORM.md`.
 
 ## Project Structure
 

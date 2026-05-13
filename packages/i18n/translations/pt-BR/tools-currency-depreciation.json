@@ -1,12 +1,12 @@
 {
   "seo": {
     "title": "Calculadora de desvalorização cambial — o que sua moeda realmente rende",
-    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em USDC ao rendimento histórico de 7%."
+    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em dólar digital ao rendimento histórico de 10%."
   },
   "hero": {
     "kicker": "Calculadora de desvalorização cambial",
     "headline": "O que sua moeda realmente rende?",
-    "subtitle": "Compare dinheiro, banco e USDC ao longo dos anos — considerando a desvalorização."
+    "subtitle": "Compare dinheiro, banco e dólar digital ao longo dos anos — considerando a desvalorização."
   },
   "inputs": {
     "currencyLabel": "Moeda",
@@ -20,8 +20,8 @@
     "cashUsdEquivalent": "Equivalente em USD após {rate}% / ano de drift",
     "bankLabel": "Rendimento do banco",
     "bankRateNote": "{rate}% taxa local",
-    "diboasLabel": "USDC no diBoaS",
-    "diboasNote": "{rate}% rendimento histórico, lastreado em USD"
+    "diboasLabel": "Dólar digital no diBoaS",
+    "diboasNote": "{rate}% rendimento histórico, mantido em dólar digital"
   },
   "vignette": {
     "subtitle": "Onde você guarda seu dinheiro importa. A moeda em que ele rende, importa mais."

@@ -4,7 +4,7 @@
  * Time-to-Target Calculator (Tier-2 tool, 6D.2).
  *
  * Inverse of compound interest: "When will I reach $X?". Outputs years
- * across 4 scenarios (bank, conservative 4%, historical 7%, optimistic 10%)
+ * across 4 scenarios (bank, conservative 7%, historical 10%, optimistic 14%)
  * given target + initial deposit + recurring contribution + cadence.
  *
  * Math: `monthsToInflationAdjustedTarget` from market-data formulas with
@@ -21,6 +21,7 @@ import {
   monthsToInflationAdjustedTarget,
   type SupportedLocale,
 } from '@/lib/market-data';
+import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import {
   convertCadenceToMonthly,
   isOneTime,
@@ -74,13 +75,28 @@ export function TimeToTargetCalculator() {
   );
   const [form, setForm] = useState<FormState>(initial);
 
-  const bankRate = marketDataService.getSync().rates.bankRates[localeKey]?.savings ?? 0;
+  const snapshot = marketDataService.getSync();
+  const bankRate = snapshot.rates.bankRates[localeKey]?.savings ?? 0;
+
+  // Phase-7 currency-hedge layer (precedent: useGoalCardData.ts:57-61).
+  // For non-USD locales, scenario rates use the canonical effective-rate model
+  // `(1 + usdYield) × (1 + localDep) − 1`. Bank scenario stays at locale
+  // savings rate (no hedge — bank pays in local currency, not USD).
+  const currency = LOCALE_CURRENCY[localeKey];
+  const depreciation =
+    currency && currency !== 'USD'
+      ? snapshot.exchangeRates.rates[currency]?.annualDepreciation ?? 0
+      : 0;
+  const hedge = (usdRatePercent: number): number => {
+    if (depreciation === 0) return usdRatePercent;
+    return ((1 + usdRatePercent / 100) * (1 + depreciation) - 1) * 100;
+  };
 
   const scenarioRates: Record<ScenarioKey, number> = {
     bank: bankRate,
-    conservative: SCENARIO_RATES.conservative,
-    historical: SCENARIO_RATES.historical,
-    optimistic: SCENARIO_RATES.optimistic,
+    conservative: hedge(SCENARIO_RATES.conservative),
+    historical: hedge(SCENARIO_RATES.historical),
+    optimistic: hedge(SCENARIO_RATES.optimistic),
   };
 
   const monthlyContribution = isOneTime(form.cadence)
@@ -189,7 +205,10 @@ export function TimeToTargetCalculator() {
             key={key}
             className={key === 'historical' ? styles.resultCardHighlight : styles.resultCard}
           >
-            <p className={styles.resultLabel}>{tShared(`scenarios.${key}`)}</p>
+            <p className={styles.resultLabel}>
+              {tShared(`scenarios.${key}`)}
+              {key !== 'bank' && depreciation > 0 ? tShared('scenarios.digitalDollarSuffix') : ''}
+            </p>
             <p
               className={
                 key === 'historical' ? styles.resultValue : styles.resultValueMuted

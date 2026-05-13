@@ -56,25 +56,25 @@ describe('formulas.ts contract', () => {
     expect(calculateMonthlyContributionsMock.mock.calls.length).toBeGreaterThan(0);
 
     const historicalCall = calculateMonthlyContributionsMock.mock.calls.find(
-      (c) => c[1] === 0.07,
+      (c) => c[1] === 0.1,
     );
     expect(historicalCall).toBeDefined();
-    expect(historicalCall![1]).toBe(0.07);
+    expect(historicalCall![1]).toBe(0.1);
     expect(historicalCall![2]).toBe(0);
     expect(historicalCall![3]).toBe(12);
   });
 
-  it('should pass conservative rate as 0.04 decimal', () => {
+  it('should pass conservative rate as 0.07 decimal', () => {
     calculateCompoundProjection({ amount: 5, cadence: 'daily', years: 1, locale: 'en' });
     expect(
-      calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.04),
+      calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.07),
     ).toBeDefined();
   });
 
-  it('should pass optimistic rate as 0.10 decimal', () => {
+  it('should pass optimistic rate as 0.14 decimal', () => {
     calculateCompoundProjection({ amount: 5, cadence: 'daily', years: 1, locale: 'en' });
     expect(
-      calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.1),
+      calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.14),
     ).toBeDefined();
   });
 

@@ -31,8 +31,8 @@ Examples: `HeroSection`, `FAQAccordion`, `BenefitsCards`, `FeatureShowcase`, `On
 
 | Directory | Purpose |
 |-----------|---------|
-| `Sections/` | Page sections (30+ components) with Factory pattern |
-| `UI/` | Primitives: `CTAButtonLink`, `Container`, `CarouselDots`, `ContentCard`, `CurrencyInput`, `FlexBetween`, `LocaleLink`, `LucideIcon`, `ScrollReveal`, `SocialIcons`, `StickyMobileCTA`, `StrategyCard` |
+| `Sections/` | Page sections (30+ components) with Factory pattern — including the 9-tool calculator suite (`CompoundInterestCalculator`, `EmergencyFundCalculator`, `TimeToTargetCalculator`, `IdleCashCalculator`, `InflationImpactCalculator`, `CurrencyDepreciationCalculator`, `CardFeesCalculator`, plus `Lesson` for `/learn/compound-interest`) |
+| `UI/` | Primitives: `CTAButtonLink`, `Container`, `CarouselDots`, `ContentCard`, `CurrencyInput`, `FlexBetween`, `LocaleLink`, `LucideIcon`, `ScrollReveal`, `SocialIcons`, `StickyMobileCTA`, `StrategyCard`, `LessonHero`, `LessonProgressBar`, `CompoundChart`, `DisclaimerNote` |
 | `Layout/` | `Footer` (Minimal + Site), `Navigation` (Desktop + Mobile), `ScrollDepthTracker`, `ScrollToHash`, `UtmCapture` |
 | `Providers/` | `I18nProvider`, `LocaleProvider`, `PageI18nProvider`, `PostHogProvider`, `SetHtmlLang` |
 | `WaitingList/` | Waitlist form, modal, confirmation, referral link, position display |
@@ -48,7 +48,7 @@ Examples: `HeroSection`, `FAQAccordion`, `BenefitsCards`, `FeatureShowcase`, `On
 
 ### Server vs Client Components
 
-`SectionContainer` is a server component (no `'use client'` directive). Most interactive components are client components. Heavy client-only experiences (`PreDemo`, `PreDream`) use `next/dynamic` with `ssr: false`.
+`SectionContainer` is a server component (no `'use client'` directive). Most interactive components are client components. Heavy client-only experiences (`PreDemo`, `PreDream`) use `next/dynamic` with `ssr: false`. The `CompoundInterestCalculator` factory accepts an `engine='lesson' | 'tool'` prop (Phase 7 Q7a) — `'lesson'` is the default and uses non-hedged math for `/learn/compound-interest`; tool pages pass `'tool'` to opt into `calculateCompoundProjectionHedged()` for non-USD locale currency hedging.
 
 ## 3. Styling
 

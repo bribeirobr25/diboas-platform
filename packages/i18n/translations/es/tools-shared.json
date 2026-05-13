@@ -39,9 +39,10 @@
   },
   "scenarios": {
     "bank": "Tu banco",
-    "conservative": "Conservador (4%)",
-    "historical": "Histórico (7%)",
-    "optimistic": "Optimista (10%)"
+    "conservative": "Conservador (7%)",
+    "historical": "Histórico (10%)",
+    "optimistic": "Optimista (14%)",
+    "digitalDollarSuffix": " en dólar digital"
   },
   "labels": {
     "initialDeposit": "Depósito inicial",
@@ -56,5 +57,5 @@
     "tryOtherTools": "Probar otras herramientas",
     "adelaideAttribution": "Herramientas de Adelaide"
   },
-  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. El rendimiento pasado no garantiza resultados futuros."
+  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. El rendimiento pasado no garantiza resultados futuros. Los rendimientos de diBoaS se muestran en dólar digital; para monedas distintas al dólar estadounidense, el total en moneda local combina el rendimiento del dólar con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo."
 }

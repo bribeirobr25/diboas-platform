@@ -2,11 +2,21 @@
  * Market Data Fallback Constants
  *
  * Canonical fallback values used when diboas-analytics API is unavailable.
- * All rates are 5-year averages (2021-2025) per Strategy Board decision.
- * Sources documented in docs/audit/YIELD_INFLATION_FX.md.
  *
- * Brazil rates are NET (after 22.5% IR tax).
- * diBoaS strategy rates are gross (before platform fees and user-specific tax).
+ * Brazil bank rates are NET (after 22.5% IR tax). FDIC/FRED/BCB/B3/ECB/Tesoro
+ * bank rates are 5-year averages (2021-2025) per Strategy Board decision.
+ *
+ * diBoaS scenarioRates were updated 2026-05-12 from 4/7/10 → 7/10/14 to
+ * reflect the actual digital-dollar yield envelope diBoaS delivers via the
+ * Solana-first DeFi stack (Sky, Aave, Compound, Jito, Jupiter):
+ *   - Conservative 7%: top-tier passive (Aave/Compound high-utilization,
+ *     Morpho curated vaults, Kamino JLP). Sources: Aavescan, Compound V3,
+ *     Sky SSR (3.75-4.5% base + Solana premium).
+ *   - Historical 10%: blended active across base + Solana mid-tier strategies.
+ *   - Optimistic 14%: curated/looped strategies via diversified Solana yield routes.
+ * Substantiation tracked in `docs/audit/YIELD_INFLATION_FX.md`. Rates are
+ * gross (before platform fees and user-specific tax). Regulatory disclaimers
+ * (MiCA / FTC / CVM) remain in the relevant locale translation files.
  */
 
 import type { MarketDataSnapshot } from './types';
@@ -20,7 +30,7 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
       de: { savings: 1.22, neobank: 2.83, treasury: 1.62, source: 'Bundesbank/ECB', sourceDate: '5yr avg 2021-2025' },
     },
     strategyApys: { safety: 7, balance: 12, growth: 18 },
-    scenarioRates: { conservative: 4, historical: 7, optimistic: 10 },
+    scenarioRates: { conservative: 7, historical: 10, optimistic: 14 },
   },
   assetPrices: {
     crypto: { BTC: 97250, ETH: 2650, SOL: 195.40, SUI: 3.85, TRX: 0.27 },

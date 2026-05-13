@@ -32,11 +32,11 @@
       "So let's talk about something simpler. Small things you already spend on without thinking."
     ],
     "habitsLine": "Your daily latte. Your Friday takeout. Your monthly streaming bundle.",
-    "vignettesIntro": "If just one of those went to work instead of away — at the same 7% historical compound rate — here's what 12 years looks like:",
+    "vignettesIntro": "If just one of those went to work instead of away — at the same 10% historical compound rate — here's what 12 years looks like:",
     "vignettes": [
-      { "habit": "Daily latte ($5)", "yearly": "$1,800", "twelveYear": "~$32,840" },
-      { "habit": "Friday takeout ($40)", "yearly": "$2,080", "twelveYear": "~$37,930" },
-      { "habit": "Streaming bundle ($25/mo)", "yearly": "$300", "twelveYear": "~$5,470" }
+      { "habit": "Daily latte ($5)", "yearly": "$1,800", "yearlyAmount": "1800" },
+      { "habit": "Friday takeout ($40)", "yearly": "$2,080", "yearlyAmount": "2080" },
+      { "habit": "Streaming bundle ($25/mo)", "yearly": "$300", "yearlyAmount": "300" }
     ],
     "vignettesTableHeaders": {
       "habit": "Habit",
@@ -44,7 +44,7 @@
       "twelveYear": "Could become in 12 years"
     },
     "vignettesOutro": "Same money. Different job.",
-    "vignettesDisclaimer": "Illustrative figures based on 7% historical compound rate. Past performance does not guarantee future results.",
+    "vignettesDisclaimer": "Illustrative figures based on 10% historical compound rate (digital dollar yield envelope). Past performance does not guarantee future results.",
     "habitsRecap": "Nobody is asking you to give up your latte. Or your Friday takeout. Or your streaming. Keep what makes life good.",
     "outro": [
       "But if even one of these — just one — went to work for you instead of disappearing every month, the math you saw above is what happens.",
@@ -63,8 +63,7 @@
     ],
     "calculatorTagline": "Same money. Different job.",
     "afterCalculator": "Numbers landed?",
-    "toolDeepLink": "Want this calculator on its own? {link}",
-    "toolDeepLinkText": "Open the standalone Compound Interest tool",
+    "toolDeepLink": "Want this calculator on its own? <link>Open the standalone Compound Interest tool</link>",
     "wrap": [
       "This is what diBoaS is for. The part of your money you can set aside, working at a rate the system has been keeping for itself.",
       "Your bank stays where it is — for spending, bills, and daily life. diBoaS is for money with a goal."
@@ -92,9 +91,9 @@
     "yearsLabel": "Years",
     "yearsTooltip": "One time = single deposit at the start. Daily uses 365 days; weekly 52; monthly 12; quarterly 4; semi-annual 2; yearly 1.",
     "outputBank": "Your bank",
-    "outputConservative": "Conservative (4%)",
-    "outputHistorical": "Historical (7%)",
-    "outputOptimistic": "Optimistic (10%)",
+    "outputConservative": "Conservative (7%)",
+    "outputHistorical": "Historical (10%)",
+    "outputOptimistic": "Optimistic (14%)",
     "summaryHeader": "In {years} years, your monthly {amount} could become…",
     "oneTimeSummaryHeader": "In {years} years, your initial deposit of {amount} could become…",
     "chartAriaLabel": "Compound growth chart comparing your bank rate against three scenario rates over time.",
