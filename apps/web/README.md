@@ -64,7 +64,7 @@ Main pages:
 - `/[locale]/protocols` - Protocol transparency
 - `/[locale]/help` - Help center (6 FAQ topics)
 - `/[locale]/security` - Security information
-- `/[locale]/daily-market` - Adelaide Daily — market updates (placeholder)
+- `/[locale]/market` - Adelaide Daily — market updates (placeholder)
 - `/[locale]/demo` - Interactive financial demo (noindex)
 - `/[locale]/dream-mode` - Goal calculator simulation (noindex)
 - `/[locale]/share` - Social sharing redirect (OG metadata)

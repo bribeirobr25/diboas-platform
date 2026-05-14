@@ -24,6 +24,22 @@
     {
       "url": "http://localhost:3000/en/personal/banking",
       "screenCapture": "./pa11y-screenshots/personal-banking.png"
+    },
+    {
+      "url": "http://localhost:3000/en/market",
+      "screenCapture": "./pa11y-screenshots/market-en.png"
+    },
+    {
+      "url": "http://localhost:3000/pt-BR/market",
+      "screenCapture": "./pa11y-screenshots/market-ptBR.png"
+    },
+    {
+      "url": "http://localhost:3000/es/market",
+      "screenCapture": "./pa11y-screenshots/market-es.png"
+    },
+    {
+      "url": "http://localhost:3000/de/market",
+      "screenCapture": "./pa11y-screenshots/market-de.png"
     }
   ]
 }

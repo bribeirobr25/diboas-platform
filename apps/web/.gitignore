@@ -35,6 +35,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# Template file should be tracked so engineers see new env vars (e.g.,
+# NEXT_PUBLIC_MARKET_INDEXABLE added 2026-05-13 for the /market route).
+# Mirrors the root .gitignore's `!.env.example` negation pattern.
+!.env.example
 
 # vercel
 .vercel

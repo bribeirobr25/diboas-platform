@@ -11,7 +11,13 @@ import { MetadataRoute } from 'next';
 import { SUPPORTED_LOCALES } from '@diboas/i18n/server';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 
-const NOINDEX_PAGES = new Set(['demo', 'dream-mode', 'daily-market', 'share']);
+// 2026-05-13: `daily-market` renamed to `market`. The page stays noindex while
+// iterations 1-3 ship placeholder + manually-curated content; iteration 4 of
+// the market integration plan removes `'market'` from this set AND adds
+// matching entries to PAGE_PRIORITIES (line ~16) + PATH_TO_OG_KEY (line ~54).
+// Do not flip noindex without those two adds — silent default priority + OG
+// fallback otherwise.
+const NOINDEX_PAGES = new Set(['demo', 'dream-mode', 'market', 'share']);
 
 const PAGE_PRIORITIES: Record<string, number> = {
   '/': 1.0,

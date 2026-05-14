@@ -1,0 +1,89 @@
+/**
+ * /market route placeholder styling (iteration 1 of MARKET_INTEGRATION_PLAN_2026-05-13.md)
+ *
+ * All values reference design tokens from styles/design-tokens.css or
+ * Tailwind utility classes — no hardcoded colors, spacing, or sizes.
+ *
+ * Iterations 2-5 (mock SDK, manual curation, calm-audit, real swap) replace
+ * the coming-soon section with the actual dashboard view. Until then this
+ * file is the canonical placeholder styling.
+ */
+
+.comingSoonSection {
+  /* The (landing) layout sets `.main-content-landing { padding-top: 0 }`
+   * because most landing pages have full-bleed heroes. The MinimalNavigation
+   * is `position: fixed; top: 0` (80px tall). So the section's `padding-top`
+   * must clear the nav + provide breathing room — `clamp(6rem, 16vw, 8rem)`
+   * gives 96px min on mobile (80px nav + 16px breathing) and scales up to
+   * 8rem (128px) on desktop. Bottom padding can be tighter since there's
+   * no fixed element below. */
+  padding-top: clamp(6rem, 16vw, 8rem);
+  padding-bottom: clamp(4rem, 12vw, 7.5rem);
+  /* Horizontal padding handled by the wrapping <Container size="sm"> via
+   * `.content-container` utility (px-4 sm:px-6 lg:px-8). */
+  text-align: center;
+}
+
+.comingSoonTitle {
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  /* Semantic token (resolves to slate-900 light / slate-50 dark) — preferred
+   * over the primitive `--color-slate-900` per W2 audit token discipline. */
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .comingSoonTitle {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .comingSoonTitle {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.comingSoonBody {
+  font-size: var(--font-size-description-mobile);
+  line-height: 1.6;
+  /* W2 audit (2026-05-08): semantic muted-on-light token (resolves to
+   * slate-600 = 7.55:1 light / slate-300 dark) — NOT primitive
+   * `--color-slate-500` (4.83:1, borderline) nor `--color-slate-600`
+   * (semantic-over-primitive rule per W2 audit M4 finding). */
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  /* Constrain reading width even within the sm container. */
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .comingSoonBody {
+    font-size: var(--font-size-description-tablet);
+  }
+}
+
+.backHomeLink {
+  display: inline-block;
+  /* W2 audit: brand-accessible token (teal-700, 4.85:1) — NOT `--color-teal-600`
+   * (3.58:1, fails AA on the section background). */
+  color: var(--text-brand-accessible);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 150ms ease-out;
+}
+
+.backHomeLink:hover,
+.backHomeLink:focus-visible {
+  color: var(--color-teal-800);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backHomeLink {
+    transition: none;
+  }
+}

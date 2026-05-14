@@ -1,0 +1,17 @@
+{
+  "seo": {
+    "title": "Adelaide Daily",
+    "description": "Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.",
+    "ogTitle": "Adelaide Daily",
+    "ogDescription": "Calm macro intelligence for Bitcoin. Understand the environment, not the next candle."
+  },
+  "hero": {
+    "title": "Adelaide Daily",
+    "subtitle": "Calm macro intelligence for Bitcoin."
+  },
+  "comingSoon": {
+    "title": "Coming soon.",
+    "body": "Adelaide Daily is being built. It will help you understand the Bitcoin macro environment without the noise.",
+    "backHome": "Back to Home"
+  }
+}

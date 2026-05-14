@@ -76,13 +76,30 @@ const nextConfig = {
     ],
   },
   
-  // Redirects for favicon fallback
+  // Redirects
   async redirects() {
     return [
       {
         source: '/favicon.ico',
         destination: '/favicon.avif',
         permanent: false,
+      },
+      // 2026-05-13: `/daily-market` renamed to `/market`. Locale-prefixed
+      // redirect covers the path after middleware has already prefixed the
+      // locale (the standard navigation path).
+      {
+        source: '/:locale(en|pt-BR|es|de)/daily-market',
+        destination: '/:locale/market',
+        permanent: true,
+      },
+      // Bare path (no locale prefix). Without this rule, `/daily-market`
+      // would go through middleware first → 307 to `/en/daily-market` → then
+      // the rule above → 301 to `/en/market`. That's a two-hop chain. The
+      // direct rule avoids it for direct bookmarks/external links.
+      {
+        source: '/daily-market',
+        destination: '/market',
+        permanent: true,
       },
     ]
   },

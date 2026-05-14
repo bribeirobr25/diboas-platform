@@ -142,6 +142,7 @@ docs/*
 
 # Test artifacts and screenshots
 screenshots/
+pa11y-screenshots/
 test-results/
 .lighthouseci/
 playwright-report/

@@ -1,0 +1,17 @@
+{
+  "seo": {
+    "title": "Adelaide Daily",
+    "description": "Inteligencia macro serena para Bitcoin. Entiende el entorno, no la próxima vela.",
+    "ogTitle": "Adelaide Daily",
+    "ogDescription": "Inteligencia macro serena para Bitcoin. Entiende el entorno, no la próxima vela."
+  },
+  "hero": {
+    "title": "Adelaide Daily",
+    "subtitle": "Inteligencia macro serena para Bitcoin."
+  },
+  "comingSoon": {
+    "title": "Próximamente.",
+    "body": "Adelaide Daily se está construyendo. Te ayudará a entender el entorno macro de Bitcoin sin el ruido.",
+    "backHome": "Volver al Inicio"
+  }
+}

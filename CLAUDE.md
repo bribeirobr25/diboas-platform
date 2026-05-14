@@ -53,7 +53,7 @@ apps/web/src/app/
     (landing)/             # All user-facing pages (single route group)
       about/               # About us — founder story, mission, beliefs
       business/            # B2B landing page
-      daily-market/        # Adelaide Daily — market updates (placeholder)
+      market/        # Adelaide Daily — market updates (placeholder)
       delete-confirm/      # GDPR account deletion confirmation
       demo/                # Interactive financial demo (noindex)
       dream-mode/          # Goal calculator simulation (noindex)

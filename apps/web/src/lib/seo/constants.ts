@@ -85,10 +85,17 @@ export const PAGE_SEO_CONFIG = {
     description: 'Stop losing 2-3% on every card payment. Put idle cash to work. Free payments, instant transfers.',
     keywords: ['business treasury', 'reduce card fees', 'idle cash yield']
   },
-  'daily-market': {
-    title: 'Daily Market Updates - Adelaide Market Intelligence',
-    description: 'Stay informed with daily market updates and financial insights from Adelaide.',
-    keywords: ['daily market', 'market updates', 'financial insights']
+  // 2026-05-13: renamed from 'daily-market' to 'market' (route + key parity).
+  // Title is intentionally bare (no `| diBoaS` suffix) — see V4 comment around
+  // line 143 below: the `titleTemplate` at line 20 already appends the brand,
+  // so including it here would render `... | diBoaS | diBoaS`. Per-locale
+  // override happens via the `market.seo.*` translation namespace; this
+  // English string is the fallback when generateMetadata cannot resolve the
+  // translation (e.g., SSR boundary or missing namespace).
+  market: {
+    title: 'Adelaide Daily',
+    description: 'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.',
+    keywords: ['adelaide daily', 'bitcoin macro', 'macro regime', 'btc environment', 'calm finance']
   },
   demo: {
     title: 'Interactive Demo - Experience diBoaS',
