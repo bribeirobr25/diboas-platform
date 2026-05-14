@@ -1,0 +1,173 @@
+{
+  "_comment": "Score 10/14 CONSTRUCTIVE band but with DELAYED + UNAVAILABLE sources. Storybook fixture for stale-data variant of RegimeCard / DataFreshnessIndicator.",
+  "score": 10,
+  "max_score": 14,
+  "regime_code": "CONSTRUCTIVE",
+  "regime_label": "Constructive",
+  "environment_bias": "CONSTRUCTIVE",
+  "last_updated_at": "2026-05-12T00:35:00Z",
+  "summary": {
+    "en": {
+      "short": "Conditions remain constructive based on the latest available data.",
+      "detailed": "Bitcoin structure remains supportive based on most recent observations. Some upstream feeds are delayed, so confidence in the overall reading is reduced.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "BTC remains above long-term structure"
+      ],
+      "key_headwinds": [
+        "Some upstream data is delayed"
+      ]
+    },
+    "pt-BR": {
+      "short": "As condições permanecem construtivas com base nos dados mais recentes.",
+      "detailed": "A estrutura do Bitcoin permanece favorável com base nas observações mais recentes. Algumas fontes estão atrasadas, então a confiança na leitura geral está reduzida.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "O BTC permanece acima da estrutura de longo prazo"
+      ],
+      "key_headwinds": [
+        "Algumas fontes upstream estão atrasadas"
+      ]
+    },
+    "es": {
+      "short": "Las condiciones se mantienen constructivas con los datos más recientes.",
+      "detailed": "La estructura de Bitcoin se mantiene favorable según las observaciones más recientes. Algunas fuentes están retrasadas, por lo que la confianza en la lectura general es menor.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "BTC se mantiene sobre la estructura de largo plazo"
+      ],
+      "key_headwinds": [
+        "Algunas fuentes upstream están retrasadas"
+      ]
+    },
+    "de": {
+      "short": "Die Bedingungen bleiben konstruktiv auf Basis der zuletzt verfügbaren Daten.",
+      "detailed": "Die Bitcoin-Struktur bleibt auf Basis der jüngsten Beobachtungen stützend. Einige Datenquellen sind verzögert, daher ist die Konfidenz der Gesamteinschätzung reduziert.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "BTC bleibt oberhalb der langfristigen Struktur"
+      ],
+      "key_headwinds": [
+        "Einige Datenquellen sind verzögert"
+      ]
+    }
+  },
+  "signal_groups": [
+    {
+      "id": "btc_structure",
+      "category": "BTC_STRUCTURE",
+      "title": {
+        "en": "BTC Structure",
+        "pt-BR": "Estrutura do BTC",
+        "es": "Estructura del BTC",
+        "de": "BTC-Struktur"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 5,
+      "max_points": 6,
+      "summary": {
+        "en": "Bitcoin structure remains supportive.",
+        "pt-BR": "A estrutura do Bitcoin continua favorável.",
+        "es": "La estructura de Bitcoin se mantiene favorable.",
+        "de": "Die Bitcoin-Struktur bleibt stützend."
+      }
+    },
+    {
+      "id": "macro_environment",
+      "category": "MACRO_ENVIRONMENT",
+      "title": {
+        "en": "Macro Environment",
+        "pt-BR": "Ambiente macro",
+        "es": "Entorno macro",
+        "de": "Makro-Umfeld"
+      },
+      "status": "MIXED",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Macro conditions remain mixed.",
+        "pt-BR": "As condições macro permanecem mistas.",
+        "es": "Las condiciones macro siguen mixtas.",
+        "de": "Die Makro-Bedingungen bleiben gemischt."
+      }
+    },
+    {
+      "id": "institutional_demand",
+      "category": "INSTITUTIONAL_DEMAND",
+      "title": {
+        "en": "Institutional Demand",
+        "pt-BR": "Demanda institucional",
+        "es": "Demanda institucional",
+        "de": "Institutionelle Nachfrage"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
+      "max_points": 2,
+      "summary": {
+        "en": "Institutional demand remains supportive.",
+        "pt-BR": "A demanda institucional continua favorável.",
+        "es": "La demanda institucional se mantiene favorable.",
+        "de": "Die institutionelle Nachfrage bleibt stützend."
+      }
+    },
+    {
+      "id": "relative_strength",
+      "category": "RELATIVE_STRENGTH",
+      "title": {
+        "en": "Relative Strength",
+        "pt-BR": "Força relativa",
+        "es": "Fortaleza relativa",
+        "de": "Relative Stärke"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
+      "max_points": 3,
+      "summary": {
+        "en": "Relative strength is improving.",
+        "pt-BR": "A força relativa está melhorando.",
+        "es": "La fortaleza relativa está mejorando.",
+        "de": "Die relative Stärke verbessert sich."
+      }
+    }
+  ],
+  "data_status": {
+    "overall_confidence": "MODERATE",
+    "last_successful_update_at": "2026-05-12T00:35:00Z",
+    "sources": [
+      {
+        "source": "CoinGecko",
+        "status": "FRESH",
+        "last_updated_at": "2026-05-14T00:05:00Z",
+        "expected_next_update_at": "2026-05-15T00:05:00Z",
+        "stale_after": "2026-05-16T00:05:00Z",
+        "message": null
+      },
+      {
+        "source": "FRED:M2SL",
+        "status": "DELAYED",
+        "last_updated_at": "2026-04-20T00:00:00Z",
+        "expected_next_update_at": "2026-05-20T00:00:00Z",
+        "stale_after": "2026-06-04T00:00:00Z",
+        "message": "Liquidity data reflects the latest available monthly release."
+      },
+      {
+        "source": "FRED:DGS10",
+        "status": "UNAVAILABLE",
+        "last_updated_at": "2026-05-08T00:00:00Z",
+        "expected_next_update_at": "2026-05-15T00:00:00Z",
+        "stale_after": "2026-05-22T00:00:00Z",
+        "message": "10-year yield feed is temporarily unavailable; previous reading is shown."
+      }
+    ],
+    "delayed_sources": [
+      "FRED:M2SL"
+    ],
+    "unavailable_sources": [
+      "FRED:DGS10"
+    ]
+  }
+}

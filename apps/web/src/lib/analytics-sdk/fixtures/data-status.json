@@ -1,0 +1,49 @@
+{
+  "_comment": "Per-source freshness map used by DataFreshnessIndicator. Matches doc 07 §26 DataStatus schema.",
+  "overall_confidence": "HIGH",
+  "last_successful_update_at": "2026-05-14T00:35:00Z",
+  "sources": [
+    {
+      "source": "CoinGecko",
+      "status": "FRESH",
+      "last_updated_at": "2026-05-14T00:05:00Z",
+      "expected_next_update_at": "2026-05-15T00:05:00Z",
+      "stale_after": "2026-05-16T00:05:00Z",
+      "message": null
+    },
+    {
+      "source": "FRED:M2SL",
+      "status": "DELAYED",
+      "last_updated_at": "2026-04-20T00:00:00Z",
+      "expected_next_update_at": "2026-05-20T00:00:00Z",
+      "stale_after": "2026-06-04T00:00:00Z",
+      "message": "Liquidity data reflects the latest available monthly release."
+    },
+    {
+      "source": "FRED:DGS10",
+      "status": "FRESH",
+      "last_updated_at": "2026-05-13T20:00:00Z",
+      "expected_next_update_at": "2026-05-14T20:00:00Z",
+      "stale_after": "2026-05-16T20:00:00Z",
+      "message": null
+    },
+    {
+      "source": "FRED:DXY",
+      "status": "FRESH",
+      "last_updated_at": "2026-05-13T20:00:00Z",
+      "expected_next_update_at": "2026-05-14T20:00:00Z",
+      "stale_after": "2026-05-16T20:00:00Z",
+      "message": null
+    },
+    {
+      "source": "Farside:ETFFlows",
+      "status": "FRESH",
+      "last_updated_at": "2026-05-13T22:00:00Z",
+      "expected_next_update_at": "2026-05-14T22:00:00Z",
+      "stale_after": "2026-05-16T22:00:00Z",
+      "message": null
+    }
+  ],
+  "delayed_sources": ["FRED:M2SL"],
+  "unavailable_sources": []
+}

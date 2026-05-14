@@ -1,0 +1,149 @@
+{
+  "_comment": "Score 4/14 = DEFENSIVE band. Storybook fixture.",
+  "score": 4,
+  "max_score": 14,
+  "regime_code": "DEFENSIVE",
+  "regime_label": "Defensive",
+  "environment_bias": "DEFENSIVE",
+  "last_updated_at": "2026-05-14T00:35:00Z",
+  "summary": {
+    "en": {
+      "short": "Conditions favor patience and capital preservation.",
+      "detailed": "Bitcoin structure has weakened while macro conditions remain restrictive. Institutional participation is muted. Current conditions favor patience and gradual confirmation rather than aggressive positioning.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": false,
+      "key_supportive_factors": [],
+      "key_headwinds": [
+        "BTC structure has weakened",
+        "Macro conditions remain restrictive"
+      ]
+    },
+    "pt-BR": {
+      "short": "As condições favorecem paciência e preservação de capital.",
+      "detailed": "A estrutura do Bitcoin enfraqueceu enquanto as condições macro permanecem restritivas. A participação institucional está reduzida. As condições atuais favorecem paciência e confirmação gradual ao invés de posicionamento agressivo.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": false,
+      "key_supportive_factors": [],
+      "key_headwinds": [
+        "A estrutura do BTC enfraqueceu",
+        "As condições macro permanecem restritivas"
+      ]
+    },
+    "es": {
+      "short": "Las condiciones favorecen paciencia y preservación de capital.",
+      "detailed": "La estructura de Bitcoin se ha debilitado mientras las condiciones macro siguen restrictivas. La participación institucional está reducida. Las condiciones actuales favorecen paciencia y confirmación gradual antes que posicionamiento agresivo.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": false,
+      "key_supportive_factors": [],
+      "key_headwinds": [
+        "La estructura de BTC se ha debilitado",
+        "Las condiciones macro siguen restrictivas"
+      ]
+    },
+    "de": {
+      "short": "Die Bedingungen sprechen für Geduld und Kapitalerhalt.",
+      "detailed": "Die Bitcoin-Struktur hat sich abgeschwächt, während die Makro-Bedingungen restriktiv bleiben. Die institutionelle Beteiligung ist gedämpft. Die aktuellen Bedingungen sprechen für Geduld und schrittweise Bestätigung statt aggressiver Positionierung.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": false,
+      "key_supportive_factors": [],
+      "key_headwinds": [
+        "Die BTC-Struktur hat sich abgeschwächt",
+        "Die Makro-Bedingungen bleiben restriktiv"
+      ]
+    }
+  },
+  "signal_groups": [
+    {
+      "id": "btc_structure",
+      "category": "BTC_STRUCTURE",
+      "title": {
+        "en": "BTC Structure",
+        "pt-BR": "Estrutura do BTC",
+        "es": "Estructura del BTC",
+        "de": "BTC-Struktur"
+      },
+      "status": "WEAK",
+      "points_awarded": 2,
+      "max_points": 6,
+      "summary": {
+        "en": "Bitcoin structure has weakened.",
+        "pt-BR": "A estrutura do Bitcoin enfraqueceu.",
+        "es": "La estructura de Bitcoin se ha debilitado.",
+        "de": "Die Bitcoin-Struktur hat sich abgeschwächt."
+      }
+    },
+    {
+      "id": "macro_environment",
+      "category": "MACRO_ENVIRONMENT",
+      "title": {
+        "en": "Macro Environment",
+        "pt-BR": "Ambiente macro",
+        "es": "Entorno macro",
+        "de": "Makro-Umfeld"
+      },
+      "status": "WEAK",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Macro conditions remain restrictive.",
+        "pt-BR": "As condições macro permanecem restritivas.",
+        "es": "Las condiciones macro siguen restrictivas.",
+        "de": "Die Makro-Bedingungen bleiben restriktiv."
+      }
+    },
+    {
+      "id": "institutional_demand",
+      "category": "INSTITUTIONAL_DEMAND",
+      "title": {
+        "en": "Institutional Demand",
+        "pt-BR": "Demanda institucional",
+        "es": "Demanda institucional",
+        "de": "Institutionelle Nachfrage"
+      },
+      "status": "WEAK",
+      "points_awarded": 0,
+      "max_points": 2,
+      "summary": {
+        "en": "Institutional participation is weak.",
+        "pt-BR": "A participação institucional está fraca.",
+        "es": "La participación institucional es débil.",
+        "de": "Die institutionelle Beteiligung ist schwach."
+      }
+    },
+    {
+      "id": "relative_strength",
+      "category": "RELATIVE_STRENGTH",
+      "title": {
+        "en": "Relative Strength",
+        "pt-BR": "Força relativa",
+        "es": "Fortaleza relativa",
+        "de": "Relative Stärke"
+      },
+      "status": "WEAK",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Relative strength is mostly weak.",
+        "pt-BR": "A força relativa está majoritariamente fraca.",
+        "es": "La fortaleza relativa es mayormente débil.",
+        "de": "Die relative Stärke ist überwiegend schwach."
+      }
+    }
+  ],
+  "data_status": {
+    "overall_confidence": "MODERATE",
+    "last_successful_update_at": "2026-05-14T00:35:00Z",
+    "sources": [
+      {
+        "source": "CoinGecko",
+        "status": "FRESH",
+        "last_updated_at": "2026-05-14T00:05:00Z",
+        "expected_next_update_at": "2026-05-15T00:05:00Z",
+        "stale_after": "2026-05-16T00:05:00Z",
+        "message": null
+      }
+    ],
+    "delayed_sources": [],
+    "unavailable_sources": []
+  }
+}

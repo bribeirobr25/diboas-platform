@@ -7,11 +7,62 @@
   },
   "hero": {
     "title": "Adelaide Daily",
-    "subtitle": "Inteligência macro serena para Bitcoin."
+    "subtitle": "Inteligência macro serena para Bitcoin.",
+    "kicker": "Score do ambiente macro"
   },
   "comingSoon": {
     "title": "Em breve.",
     "body": "Adelaide Daily está sendo construído. Vai te ajudar a entender o ambiente macro do Bitcoin sem o ruído.",
     "backHome": "Voltar ao Início"
+  },
+  "dashboard": {
+    "scoreAriaLabel": "Score atual do ambiente macro",
+    "confidence": {
+      "HIGH": "Confiança alta",
+      "MODERATE": "Confiança moderada",
+      "LOW": "Confiança baixa"
+    },
+    "regimeLabels": {
+      "VERY_FAVORABLE": "Muito favorável",
+      "CONSTRUCTIVE": "Construtivo",
+      "NEUTRAL_MIXED": "Neutro / Misto",
+      "DEFENSIVE": "Defensivo",
+      "HOSTILE": "Hostil"
+    },
+    "signalsSectionTitle": "Grupos de sinais",
+    "signalsSectionLead": "Quatro grupos compõem o score de 14 pontos. Expanda um cartão para ver os sinais.",
+    "signalsExpand": "Mostrar sinais",
+    "signalsCollapse": "Ocultar sinais",
+    "signalsPoints": "pts",
+    "historicalTitle": "Score ao longo do tempo",
+    "historicalLead": "Onde o ambiente esteve no último ano.",
+    "historicalAriaLabel": "Score do ambiente macro nos últimos 12 meses",
+    "historicalTableDate": "Data",
+    "historicalTableScore": "Score",
+    "historicalTableRegime": "Regime",
+    "dataStatusTitle": "Fontes de dados",
+    "dataStatusLead": "Confiança ao vivo por fonte upstream.",
+    "freshness": {
+      "FRESH": "Atual",
+      "DELAYED": "Atrasado",
+      "STALE": "Defasado",
+      "UNAVAILABLE": "Indisponível"
+    },
+    "methodologyTitle": "Como isso é calculado",
+    "methodologyLead": "Cada sinal, limite e peso está documentado no diBoaS Analytics.",
+    "methodologyLinkLabel": "Ler a metodologia",
+    "poweredByLabel": "Provido por",
+    "poweredByProduct": "diBoaS Analytics"
+  },
+  "fallback": {
+    "outageTitle": "Dados ao vivo temporariamente indisponíveis",
+    "outageBody": "Estamos restabelecendo a conexão com nossas fontes de dados. A metodologia e o histórico permanecem disponíveis.",
+    "partialOutageTitle": "Algumas fontes de dados estão atrasadas",
+    "partialOutageBody": "A maioria dos sinais está atual. Uma ou mais fontes upstream estão se atualizando; a confiança pode estar mais baixa do que o habitual."
+  },
+  "disclaimer": {
+    "host": {
+      "regulatory": "A diBoaS não fornece aconselhamento de investimento. O framework nesta página resume o ambiente macro e estrutural do Bitcoin apenas para fins educacionais. Valores de criptoativos são altamente voláteis e seu capital está em risco. As informações destinam-se a residentes da UE, EUA, Reino Unido e Brasil, onde a distribuição local é permitida; nada aqui constitui solicitação em qualquer outra jurisdição."
+    }
   }
 }

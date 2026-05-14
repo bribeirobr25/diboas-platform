@@ -1,0 +1,153 @@
+{
+  "_comment": "Score 13/14 = VERY_FAVORABLE band. Storybook fixture; full text quality awaits translator review per doc 03 §16.",
+  "score": 13,
+  "max_score": 14,
+  "regime_code": "VERY_FAVORABLE",
+  "regime_label": "Very Favorable",
+  "environment_bias": "STRONG_ALIGNMENT",
+  "last_updated_at": "2026-05-14T00:35:00Z",
+  "summary": {
+    "en": {
+      "short": "Macro and structural conditions are broadly aligned.",
+      "detailed": "Bitcoin structure remains strong while liquidity, institutional demand, and relative strength are broadly supportive. This reflects a rare environment of strong macro alignment.",
+      "confidence_level": "HIGH",
+      "mixed_signals": false,
+      "key_supportive_factors": [
+        "BTC structure is strong",
+        "ETF flows remain positive",
+        "Relative strength is improving"
+      ],
+      "key_headwinds": []
+    },
+    "pt-BR": {
+      "short": "As condições macro e estruturais estão amplamente alinhadas.",
+      "detailed": "A estrutura do Bitcoin permanece forte enquanto liquidez, demanda institucional e força relativa apresentam suporte amplo. Esse é um ambiente raro de forte alinhamento macro.",
+      "confidence_level": "HIGH",
+      "mixed_signals": false,
+      "key_supportive_factors": [
+        "A estrutura do BTC está forte",
+        "Os fluxos de ETF permanecem positivos",
+        "A força relativa está melhorando"
+      ],
+      "key_headwinds": []
+    },
+    "es": {
+      "short": "Las condiciones macro y estructurales están ampliamente alineadas.",
+      "detailed": "La estructura de Bitcoin se mantiene fuerte mientras la liquidez, la demanda institucional y la fortaleza relativa apoyan ampliamente. Es un entorno poco común de fuerte alineación macro.",
+      "confidence_level": "HIGH",
+      "mixed_signals": false,
+      "key_supportive_factors": [
+        "La estructura de BTC es sólida",
+        "Los flujos de ETF siguen siendo positivos",
+        "La fortaleza relativa está mejorando"
+      ],
+      "key_headwinds": []
+    },
+    "de": {
+      "short": "Die Makro- und strukturellen Bedingungen sind weitgehend im Einklang.",
+      "detailed": "Die Bitcoin-Struktur bleibt stark, während Liquidität, institutionelle Nachfrage und relative Stärke breit unterstützen. Dies ist ein seltenes Umfeld starker Makro-Ausrichtung.",
+      "confidence_level": "HIGH",
+      "mixed_signals": false,
+      "key_supportive_factors": [
+        "Die BTC-Struktur ist stark",
+        "Die ETF-Mittelflüsse bleiben positiv",
+        "Die relative Stärke verbessert sich"
+      ],
+      "key_headwinds": []
+    }
+  },
+  "signal_groups": [
+    {
+      "id": "btc_structure",
+      "category": "BTC_STRUCTURE",
+      "title": {
+        "en": "BTC Structure",
+        "pt-BR": "Estrutura do BTC",
+        "es": "Estructura del BTC",
+        "de": "BTC-Struktur"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 6,
+      "max_points": 6,
+      "summary": {
+        "en": "Bitcoin structure remains supportive.",
+        "pt-BR": "A estrutura do Bitcoin continua favorável.",
+        "es": "La estructura de Bitcoin se mantiene favorable.",
+        "de": "Die Bitcoin-Struktur bleibt stützend."
+      }
+    },
+    {
+      "id": "macro_environment",
+      "category": "MACRO_ENVIRONMENT",
+      "title": {
+        "en": "Macro Environment",
+        "pt-BR": "Ambiente macro",
+        "es": "Entorno macro",
+        "de": "Makro-Umfeld"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 3,
+      "max_points": 3,
+      "summary": {
+        "en": "Macro conditions support risk assets.",
+        "pt-BR": "As condições macro apoiam ativos de risco.",
+        "es": "Las condiciones macro apoyan los activos de riesgo.",
+        "de": "Die Makro-Bedingungen stützen Risikoanlagen."
+      }
+    },
+    {
+      "id": "institutional_demand",
+      "category": "INSTITUTIONAL_DEMAND",
+      "title": {
+        "en": "Institutional Demand",
+        "pt-BR": "Demanda institucional",
+        "es": "Demanda institucional",
+        "de": "Institutionelle Nachfrage"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
+      "max_points": 2,
+      "summary": {
+        "en": "Institutional demand remains supportive.",
+        "pt-BR": "A demanda institucional continua favorável.",
+        "es": "La demanda institucional se mantiene favorable.",
+        "de": "Die institutionelle Nachfrage bleibt stützend."
+      }
+    },
+    {
+      "id": "relative_strength",
+      "category": "RELATIVE_STRENGTH",
+      "title": {
+        "en": "Relative Strength",
+        "pt-BR": "Força relativa",
+        "es": "Fortaleza relativa",
+        "de": "Relative Stärke"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
+      "max_points": 3,
+      "summary": {
+        "en": "Relative strength is improving.",
+        "pt-BR": "A força relativa está melhorando.",
+        "es": "La fortaleza relativa está mejorando.",
+        "de": "Die relative Stärke verbessert sich."
+      }
+    }
+  ],
+  "data_status": {
+    "overall_confidence": "HIGH",
+    "last_successful_update_at": "2026-05-14T00:35:00Z",
+    "sources": [
+      {
+        "source": "CoinGecko",
+        "status": "FRESH",
+        "last_updated_at": "2026-05-14T00:05:00Z",
+        "expected_next_update_at": "2026-05-15T00:05:00Z",
+        "stale_after": "2026-05-16T00:05:00Z",
+        "message": null
+      }
+    ],
+    "delayed_sources": [],
+    "unavailable_sources": []
+  }
+}

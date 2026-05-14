@@ -20,3 +20,5 @@ export {
 export { CookiePolicyContent } from './CookiePolicyContent';
 export { PrivacyPolicyContent } from './PrivacyPolicyContent';
 export { TermsOfUseContent } from './TermsOfUseContent';
+
+export { HostRegulatoryDisclaimer } from './HostRegulatoryDisclaimer';

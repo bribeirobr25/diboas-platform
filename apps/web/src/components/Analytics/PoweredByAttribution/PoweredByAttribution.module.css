@@ -1,0 +1,19 @@
+.attribution {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.link {
+  color: var(--text-brand-accessible);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: var(--font-weight-medium);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}

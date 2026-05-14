@@ -29,6 +29,8 @@ import {
   Zap,
   BarChart3,
   Palmtree,
+  Clock,
+  AlertCircle,
   type LucideIcon as LucideIconType
 } from 'lucide-react';
 
@@ -65,6 +67,8 @@ export {
   Zap,
   BarChart3,
   Palmtree,
+  Clock,
+  AlertCircle,
 };
 
 export type { LucideIconType };

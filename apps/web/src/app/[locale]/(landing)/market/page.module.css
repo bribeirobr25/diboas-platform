@@ -1,89 +1,137 @@
 /**
- * /market route placeholder styling (iteration 1 of MARKET_INTEGRATION_PLAN_2026-05-13.md)
+ * /market route styling (iteration 2 of MARKET_INTEGRATION_PLAN_2026-05-13.md)
  *
- * All values reference design tokens from styles/design-tokens.css or
- * Tailwind utility classes — no hardcoded colors, spacing, or sizes.
+ * Iteration 1 placeholder block (.comingSoon*) replaced by dashboard
+ * composition styles. The dashboard view is built from SDK component
+ * primitives (RegimeScore, CalmSummary, SignalCardsGrid, etc.) — those carry
+ * their own visual treatment via per-component CSS modules. This file owns
+ * the page-level layout (hero, section spacing, container width).
  *
- * Iterations 2-5 (mock SDK, manual curation, calm-audit, real swap) replace
- * the coming-soon section with the actual dashboard view. Until then this
- * file is the canonical placeholder styling.
+ * All values reference design tokens from styles/design-tokens.css.
  */
 
-.comingSoonSection {
-  /* The (landing) layout sets `.main-content-landing { padding-top: 0 }`
-   * because most landing pages have full-bleed heroes. The MinimalNavigation
-   * is `position: fixed; top: 0` (80px tall). So the section's `padding-top`
-   * must clear the nav + provide breathing room — `clamp(6rem, 16vw, 8rem)`
-   * gives 96px min on mobile (80px nav + 16px breathing) and scales up to
-   * 8rem (128px) on desktop. Bottom padding can be tighter since there's
-   * no fixed element below. */
+.hero {
   padding-top: clamp(6rem, 16vw, 8rem);
-  padding-bottom: clamp(4rem, 12vw, 7.5rem);
-  /* Horizontal padding handled by the wrapping <Container size="sm"> via
-   * `.content-container` utility (px-4 sm:px-6 lg:px-8). */
-  text-align: center;
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.comingSoonTitle {
+.heroKicker {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.heroTitle {
+  margin: 0;
   font-size: var(--font-size-section-title-mobile);
   font-weight: var(--font-weight-semibold);
-  line-height: 1.2;
-  /* Semantic token (resolves to slate-900 light / slate-50 dark) — preferred
-   * over the primitive `--color-slate-900` per W2 audit token discipline. */
+  line-height: 1.15;
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
-  .comingSoonTitle {
+  .heroTitle {
     font-size: var(--font-size-section-title-tablet);
   }
 }
 
 @media (min-width: 1024px) {
-  .comingSoonTitle {
+  .heroTitle {
     font-size: var(--font-size-section-title-desktop);
   }
 }
 
-.comingSoonBody {
+.heroSubtitle {
+  margin: 0;
   font-size: var(--font-size-description-mobile);
   line-height: 1.6;
-  /* W2 audit (2026-05-08): semantic muted-on-light token (resolves to
-   * slate-600 = 7.55:1 light / slate-300 dark) — NOT primitive
-   * `--color-slate-500` (4.83:1, borderline) nor `--color-slate-600`
-   * (semantic-over-primitive rule per W2 audit M4 finding). */
   color: var(--color-text-secondary);
-  margin-bottom: 2rem;
-  /* Constrain reading width even within the sm container. */
-  max-width: 36rem;
-  margin-inline: auto;
+  max-width: 50ch;
 }
 
 @media (min-width: 768px) {
-  .comingSoonBody {
+  .heroSubtitle {
     font-size: var(--font-size-description-tablet);
   }
 }
 
-.backHomeLink {
-  display: inline-block;
-  /* W2 audit: brand-accessible token (teal-700, 4.85:1) — NOT `--color-teal-600`
-   * (3.58:1, fails AA on the section background). */
-  color: var(--text-brand-accessible);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 150ms ease-out;
+.regimeBand {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem 0 2rem;
+  border-bottom: 1px solid var(--color-slate-200);
 }
 
-.backHomeLink:hover,
-.backHomeLink:focus-visible {
-  color: var(--color-teal-800);
+.regimeBandMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .backHomeLink {
-    transition: none;
+.regimeBandBadges {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .regimeBand {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
+}
+
+.section {
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.sectionLead {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  max-width: 60ch;
+}
+
+.dataStatusList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footerSection {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid var(--color-slate-200);
 }
