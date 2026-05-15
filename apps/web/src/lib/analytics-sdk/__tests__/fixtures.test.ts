@@ -20,6 +20,15 @@ import dataStatus from '../fixtures/data-status.json';
 import methodology from '../fixtures/methodology.json';
 import productDisclaimer from '../fixtures/product-disclaimer.json';
 
+// Iteration 3 editorial dataset (apps/web/data/market/). Imported via the
+// same `@/../data/market/...` path the server fetcher uses (mock-client.server.ts).
+import editorialRegime from '@/../data/market/regime.json';
+import editorialHistorical from '@/../data/market/historical.json';
+import editorialSignals from '@/../data/market/signals.json';
+import editorialDataStatus from '@/../data/market/data-status.json';
+import editorialMethodology from '@/../data/market/methodology.json';
+import editorialProductDisclaimer from '@/../data/market/product-disclaimer.json';
+
 const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
 const REGIME_CODES = [
   'VERY_FAVORABLE',
@@ -228,5 +237,134 @@ describe('analytics-sdk fixtures — product-disclaimer schema drift guard', () 
   it('should provide disclaimer text in all 4 locales', () => {
     const d = productDisclaimer as AnyRecord;
     expect(hasLocalizedText(d.text)).toBe(true);
+  });
+});
+
+// ============================================================================
+// Iteration 3 — editorial dataset drift guard (apps/web/data/market/)
+//
+// The editorial dataset is the live data source for `/market`. It starts
+// byte-identical to the iter-2 fixtures (per §3.1 copy-not-move) and diverges
+// as editorial owners update the live copy via PR. These tests prevent an
+// editorial PR from shipping a malformed JSON that would break the page.
+// Staleness gate (regime.last_updated_at within 14 days) catches the "we
+// forgot for a month" failure mode without being so tight that a 1-week
+// vacation triggers CI red.
+// ============================================================================
+
+describe('editorial dataset — regime schema drift guard', () => {
+  it('should match canonical regime schema', () => {
+    expect(isValidRegime(editorialRegime)).toBe(true);
+  });
+
+  it('should keep regime_code within the canonical 5-band set', () => {
+    expect(REGIME_CODES).toContain((editorialRegime as AnyRecord).regime_code);
+  });
+
+  it('should keep score within [0, 14]', () => {
+    const score = (editorialRegime as AnyRecord).score as number;
+    expect(score).toBeGreaterThanOrEqual(0);
+    expect(score).toBeLessThanOrEqual(14);
+  });
+
+  it('should provide all 4 locale summaries', () => {
+    expect(hasLocalizedSummary((editorialRegime as AnyRecord).summary)).toBe(true);
+  });
+
+  it('should expose last_updated_at within 14 days of CI run (staleness gate)', () => {
+    const updatedAt = new Date((editorialRegime as AnyRecord).last_updated_at as string).getTime();
+    expect(Number.isFinite(updatedAt)).toBe(true);
+    const ageDays = (Date.now() - updatedAt) / (1000 * 60 * 60 * 24);
+    expect(ageDays).toBeLessThan(14);
+  });
+});
+
+describe('editorial dataset — historical schema drift guard', () => {
+  it('should expose snapshots array on historical fixture', () => {
+    expect(isObject(editorialHistorical)).toBe(true);
+    expect(Array.isArray((editorialHistorical as AnyRecord).snapshots)).toBe(true);
+  });
+
+  it('should provide >= 50 weekly snapshots', () => {
+    const snaps = (editorialHistorical as AnyRecord).snapshots as unknown[];
+    expect(snaps.length).toBeGreaterThanOrEqual(50);
+  });
+
+  it('should expose date/score/regime_code on every snapshot', () => {
+    const snaps = (editorialHistorical as AnyRecord).snapshots as AnyRecord[];
+    snaps.forEach((s) => {
+      expect(typeof s.date).toBe('string');
+      expect(typeof s.score).toBe('number');
+      expect(REGIME_CODES).toContain(s.regime_code);
+    });
+  });
+});
+
+describe('editorial dataset — signals schema drift guard', () => {
+  it('should expose groups array on signals fixture', () => {
+    expect(isObject(editorialSignals)).toBe(true);
+    expect(Array.isArray((editorialSignals as AnyRecord).groups)).toBe(true);
+  });
+
+  it('should cover all 4 canonical signal categories', () => {
+    const groups = (editorialSignals as AnyRecord).groups as AnyRecord[];
+    const categories = new Set(groups.map((g) => g.category));
+    SIGNAL_CATEGORIES.forEach((cat) => expect(categories).toContain(cat));
+  });
+
+  it('should keep group.points_awarded within [0, max_points]', () => {
+    const groups = (editorialSignals as AnyRecord).groups as AnyRecord[];
+    groups.forEach((g) => {
+      const awarded = g.points_awarded as number;
+      const max = g.max_points as number;
+      expect(awarded).toBeGreaterThanOrEqual(0);
+      expect(awarded).toBeLessThanOrEqual(max);
+    });
+  });
+
+  it('should provide localized summaries on every signal', () => {
+    const groups = (editorialSignals as AnyRecord).groups as AnyRecord[];
+    groups.forEach((g) => {
+      const inner = g.signals as AnyRecord[];
+      inner.forEach((s) => expect(hasLocalizedText(s.summary)).toBe(true));
+    });
+  });
+});
+
+describe('editorial dataset — data-status schema drift guard', () => {
+  it('should match canonical DataStatus schema', () => {
+    expect(isValidDataStatus(editorialDataStatus)).toBe(true);
+  });
+
+  it('should declare overall_confidence in the canonical set', () => {
+    const conf = (editorialDataStatus as AnyRecord).overall_confidence;
+    expect(CONFIDENCE_LEVELS).toContain(conf);
+  });
+});
+
+describe('editorial dataset — methodology schema drift guard', () => {
+  it('should expose canonical methodology fields', () => {
+    const m = editorialMethodology as AnyRecord;
+    expect(typeof m.version).toBe('string');
+    expect(typeof m.methodology_url).toBe('string');
+    expect((m.methodology_url as string).startsWith('https://diboas-analytics.com')).toBe(true);
+    expect(m.max_score).toBe(14);
+    expect(Array.isArray(m.score_bands)).toBe(true);
+    expect((m.score_bands as unknown[]).length).toBe(5);
+  });
+});
+
+describe('editorial dataset — product-disclaimer schema drift guard', () => {
+  it('should provide disclaimer text in all 4 locales', () => {
+    const d = editorialProductDisclaimer as AnyRecord;
+    expect(hasLocalizedText(d.text)).toBe(true);
+  });
+});
+
+describe('editorial dataset — parity with iter-2 fixture shape', () => {
+  it('should keep editorial regime.json top-level keys aligned with iter-2 regime-constructive.json', () => {
+    const editorialKeys = Object.keys(editorialRegime as AnyRecord).filter((k) => !k.startsWith('_')).sort();
+    const fixtureKeys = Object.keys(constructive as AnyRecord).filter((k) => !k.startsWith('_')).sort();
+    expect(editorialKeys).toEqual(fixtureKeys);
   });
 });

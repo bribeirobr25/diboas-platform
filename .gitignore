@@ -135,9 +135,13 @@ pids
 ehthumbs.db
 Thumbs.db
 
-# Documentation: only docs/tech/ is committed. All other docs/ subdirectories are local-only.
+# Documentation: only docs/tech/ + the editorial handoff doc are committed.
+# All other docs/ subdirectories are local-only.
 docs/*
 !docs/tech/
+!docs/integrations/
+docs/integrations/*
+!docs/integrations/market-editorial.md
 /images/
 
 # Test artifacts and screenshots

@@ -1,9 +1,24 @@
 /**
- * Mock SDK — server-only fetchers. Used by the /market RSC to read fixtures,
- * flatten locale-keyed text, and produce `AnalyticsInitialData` for the
+ * Mock SDK — server-only fetchers. Used by the /market RSC to read editorial
+ * JSON, flatten locale-keyed text, and produce `AnalyticsInitialData` for the
  * client Provider per NF5.
  *
- * Iteration 5 swap: replace fixture reads with `@analytics-platform/client`
+ * Iteration 3: editorial data lives at `apps/web/data/market/` so a
+ * non-engineering content owner can update the regime score and signals via
+ * PR without touching engineering-owned SDK code. The iter-2 fixtures at
+ * `./fixtures/` remain in place for Storybook stories + the iter-2 fixture
+ * drift test; they are NOT consumed by this server fetcher anymore.
+ *
+ * The `@/../data/market/...` import path resolves to `apps/web/data/market/`
+ * under the project's `moduleResolution: "bundler"` tsconfig — verified via
+ * L4 POC during iter-3 §3.2 execution.
+ *
+ * Build-time inlining: Next.js + Turbopack treats these static JSON imports
+ * as build-time constants (resolveJsonModule). Editorial PRs reach
+ * production via Vercel auto-deploy (which rebuilds the bundle with the new
+ * inlined JSON), NOT via runtime disk reads.
+ *
+ * Iteration 5 swap: replace these imports with `@analytics-platform/client`
  * server fetchers. The function names below match the future SDK contract.
  */
 
@@ -20,12 +35,12 @@ import type {
   SignalGroup,
 } from './types';
 
-import constructiveJson from './fixtures/regime-constructive.json';
-import dataStatusJson from './fixtures/data-status.json';
-import historicalJson from './fixtures/historical-regimes-1y.json';
-import methodologyJson from './fixtures/methodology.json';
-import productDisclaimerJson from './fixtures/product-disclaimer.json';
-import signalsJson from './fixtures/signals.json';
+import currentRegimeJson from '@/../data/market/regime.json';
+import dataStatusJson from '@/../data/market/data-status.json';
+import historicalJson from '@/../data/market/historical.json';
+import methodologyJson from '@/../data/market/methodology.json';
+import productDisclaimerJson from '@/../data/market/product-disclaimer.json';
+import signalsJson from '@/../data/market/signals.json';
 
 type LocalizedRegimeSummary = Record<SupportedLocale, RegimeSummary>;
 type LocalizedText = Record<SupportedLocale, string>;
@@ -82,7 +97,7 @@ function flattenRegime(raw: RawRegimeFixture, locale: SupportedLocale): RegimeDa
 }
 
 export async function fetchRegime(locale: SupportedLocale): Promise<RegimeData> {
-  return flattenRegime(constructiveJson as unknown as RawRegimeFixture, locale);
+  return flattenRegime(currentRegimeJson as unknown as RawRegimeFixture, locale);
 }
 
 export async function fetchHistoricalRegimes(): Promise<HistoricalRegimes> {

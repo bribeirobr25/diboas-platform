@@ -1,0 +1,167 @@
+{
+  "_comment": "Generated 2026-05-14 against docs/mvp/platform/07_api_contract_response_schema.md §26. Default fixture for /market page placeholder phase. Iteration 3 replaces with versioned data/market/current.json; iteration 5 deletes when real API ships. Score 10/14 = CONSTRUCTIVE band. All localized text keyed by locale code; mock-client.server.ts flattens to per-request locale.",
+  "score": 10,
+  "max_score": 14,
+  "regime_code": "CONSTRUCTIVE",
+  "regime_label": "Constructive",
+  "environment_bias": "CONSTRUCTIVE",
+  "last_updated_at": "2026-05-14T00:35:00Z",
+  "summary": {
+    "en": {
+      "short": "Conditions remain constructive for Bitcoin, although confirmation is not complete.",
+      "detailed": "Bitcoin structure remains healthy while institutional demand continues to support the broader environment. Some macro indicators remain mixed, limiting full confirmation.",
+      "confidence_level": "HIGH",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "Bitcoin remains above long-term trend levels",
+        "ETF flows remain positive"
+      ],
+      "key_headwinds": [
+        "Macro confirmation remains incomplete"
+      ]
+    },
+    "pt-BR": {
+      "short": "As condições permanecem construtivas para o Bitcoin, embora a confirmação ainda não esteja completa.",
+      "detailed": "A estrutura do Bitcoin continua saudável enquanto a demanda institucional segue sustentando o ambiente mais amplo. Alguns indicadores macro permanecem mistos, limitando uma confirmação completa.",
+      "confidence_level": "HIGH",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "O Bitcoin permanece acima dos níveis de tendência de longo prazo",
+        "Os fluxos de ETF seguem positivos"
+      ],
+      "key_headwinds": [
+        "A confirmação macro permanece incompleta"
+      ]
+    },
+    "es": {
+      "short": "Las condiciones se mantienen constructivas para Bitcoin, aunque la confirmación no está completa.",
+      "detailed": "La estructura de Bitcoin se mantiene saludable mientras la demanda institucional sigue sustentando el entorno más amplio. Algunos indicadores macro siguen mixtos, limitando una confirmación completa.",
+      "confidence_level": "HIGH",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "Bitcoin se mantiene por encima de los niveles de tendencia de largo plazo",
+        "Los flujos de ETF siguen siendo positivos"
+      ],
+      "key_headwinds": [
+        "La confirmación macro sigue siendo incompleta"
+      ]
+    },
+    "de": {
+      "short": "Die Bedingungen bleiben konstruktiv für Bitcoin, auch wenn die Bestätigung noch nicht vollständig ist.",
+      "detailed": "Die Bitcoin-Struktur bleibt gesund, während die institutionelle Nachfrage das breitere Umfeld weiter stützt. Einige Makro-Indikatoren bleiben gemischt und begrenzen eine vollständige Bestätigung.",
+      "confidence_level": "HIGH",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "Bitcoin bleibt oberhalb der langfristigen Trendniveaus",
+        "Die ETF-Mittelflüsse bleiben positiv"
+      ],
+      "key_headwinds": [
+        "Die Makro-Bestätigung bleibt unvollständig"
+      ]
+    }
+  },
+  "signal_groups": [
+    {
+      "id": "btc_structure",
+      "category": "BTC_STRUCTURE",
+      "title": {
+        "en": "BTC Structure",
+        "pt-BR": "Estrutura do BTC",
+        "es": "Estructura del BTC",
+        "de": "BTC-Struktur"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 6,
+      "max_points": 6,
+      "summary": {
+        "en": "Bitcoin structure remains supportive.",
+        "pt-BR": "A estrutura do Bitcoin continua favorável.",
+        "es": "La estructura de Bitcoin se mantiene favorable.",
+        "de": "Die Bitcoin-Struktur bleibt stützend."
+      }
+    },
+    {
+      "id": "macro_environment",
+      "category": "MACRO_ENVIRONMENT",
+      "title": {
+        "en": "Macro Environment",
+        "pt-BR": "Ambiente macro",
+        "es": "Entorno macro",
+        "de": "Makro-Umfeld"
+      },
+      "status": "MIXED",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Macro conditions remain mixed.",
+        "pt-BR": "As condições macro permanecem mistas.",
+        "es": "Las condiciones macro siguen mixtas.",
+        "de": "Die Makro-Bedingungen bleiben gemischt."
+      }
+    },
+    {
+      "id": "institutional_demand",
+      "category": "INSTITUTIONAL_DEMAND",
+      "title": {
+        "en": "Institutional Demand",
+        "pt-BR": "Demanda institucional",
+        "es": "Demanda institucional",
+        "de": "Institutionelle Nachfrage"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
+      "max_points": 2,
+      "summary": {
+        "en": "Institutional demand remains supportive.",
+        "pt-BR": "A demanda institucional continua favorável.",
+        "es": "La demanda institucional se mantiene favorable.",
+        "de": "Die institutionelle Nachfrage bleibt stützend."
+      }
+    },
+    {
+      "id": "relative_strength",
+      "category": "RELATIVE_STRENGTH",
+      "title": {
+        "en": "Relative Strength",
+        "pt-BR": "Força relativa",
+        "es": "Fortaleza relativa",
+        "de": "Relative Stärke"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Relative strength is improving.",
+        "pt-BR": "A força relativa está melhorando.",
+        "es": "La fortaleza relativa está mejorando.",
+        "de": "Die relative Stärke verbessert sich."
+      }
+    }
+  ],
+  "data_status": {
+    "overall_confidence": "HIGH",
+    "last_successful_update_at": "2026-05-14T00:35:00Z",
+    "sources": [
+      {
+        "source": "CoinGecko",
+        "status": "FRESH",
+        "last_updated_at": "2026-05-14T00:05:00Z",
+        "expected_next_update_at": "2026-05-15T00:05:00Z",
+        "stale_after": "2026-05-16T00:05:00Z",
+        "message": null
+      },
+      {
+        "source": "FRED:M2SL",
+        "status": "DELAYED",
+        "last_updated_at": "2026-04-20T00:00:00Z",
+        "expected_next_update_at": "2026-05-20T00:00:00Z",
+        "stale_after": "2026-06-04T00:00:00Z",
+        "message": "Liquidity data reflects the latest available monthly release."
+      }
+    ],
+    "delayed_sources": [
+      "FRED:M2SL"
+    ],
+    "unavailable_sources": []
+  }
+}

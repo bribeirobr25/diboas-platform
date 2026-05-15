@@ -1,14 +1,23 @@
 /**
  * `/market` feature-domain shared code (Adelaide Daily dashboard).
  *
- * NOTE (rev-3 NF7): NOT the same as `apps/web/src/lib/market-data/` — that
- * directory carries the host's market-rate data service (bank rates, exchange
- * rates, inflation rates per locale, used across the calculator suite). This
- * directory carries `/market` route-specific concerns (analytics event
- * constants, anything else iter-2+ adds for the dashboard surface).
+ * Three adjacent `market`-named locations exist in this codebase. Pick:
  *
- * IDE autocomplete users: pick `lib/market/` for `/market` route work,
- * `lib/market-data/` for market-rate fetching.
+ *   • `apps/web/src/lib/market/` (HERE) — TypeScript event constants and
+ *     `/market` route-specific code. Owned by engineering.
+ *
+ *   • `apps/web/src/lib/market-data/` — host's market-rate data service
+ *     (bank rates, exchange rates, inflation per locale). Used across the
+ *     calculator suite. Owned by engineering.
+ *
+ *   • `apps/web/data/market/` — editorial JSON for the Adelaide Daily
+ *     dashboard (regime score, signals, historical chart, etc.). Owned by
+ *     editorial via the workflow in `docs/integrations/market-editorial.md`.
+ *     Iteration 5 deletes this directory when the real
+ *     `@analytics-platform/client` ships.
+ *
+ * IDE autocomplete users: this directory is for `/market` route TypeScript
+ * code.
  */
 
 export * from './constants';
