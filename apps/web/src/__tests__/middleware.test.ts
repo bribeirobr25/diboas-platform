@@ -81,6 +81,24 @@ describe('middleware', () => {
       const csp = response.headers.get('Content-Security-Policy') ?? '';
       expect(csp).toContain("base-uri 'self'");
     });
+
+    // 2026-05-14 (iter-2 CC5): the analytics product API must be in the
+    // connect-src allowlist so the SDK swap in iteration 5 doesn't ship with
+    // a broken CSP. Staging origin only in non-prod; production CSP stays
+    // minimal.
+    it('should include api.diboas-analytics.com in connect-src', () => {
+      const response = middleware(makeRequest('/en'));
+      const csp = response.headers.get('Content-Security-Policy') ?? '';
+      expect(csp).toMatch(/connect-src[^;]*https:\/\/api\.diboas-analytics\.com/);
+    });
+
+    it('should include staging.api.diboas-analytics.com in connect-src when in dev', () => {
+      // NODE_ENV is 'test' in Vitest, which evaluates `isDev = process.env.NODE_ENV !== 'production'`
+      // to TRUE — same path as development. Staging origin should be present.
+      const response = middleware(makeRequest('/en'));
+      const csp = response.headers.get('Content-Security-Policy') ?? '';
+      expect(csp).toMatch(/connect-src[^;]*https:\/\/staging\.api\.diboas-analytics\.com/);
+    });
   });
 
   // ── Locale detection & redirect ───────────────────────────────────

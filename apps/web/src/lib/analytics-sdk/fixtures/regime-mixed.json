@@ -1,0 +1,157 @@
+{
+  "_comment": "Score 7/14 = NEUTRAL_MIXED band. Storybook fixture.",
+  "score": 7,
+  "max_score": 14,
+  "regime_code": "NEUTRAL_MIXED",
+  "regime_label": "Neutral / Mixed",
+  "environment_bias": "MIXED",
+  "last_updated_at": "2026-05-14T00:35:00Z",
+  "summary": {
+    "en": {
+      "short": "The environment remains mixed.",
+      "detailed": "Bitcoin structure remains stable, but macro confirmation is incomplete. Liquidity conditions are improving slowly while institutional demand has softened.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "BTC remains above long-term structure"
+      ],
+      "key_headwinds": [
+        "ETF flows have weakened",
+        "Macro confirmation remains incomplete"
+      ]
+    },
+    "pt-BR": {
+      "short": "O ambiente permanece misto.",
+      "detailed": "A estrutura do Bitcoin permanece estável, mas a confirmação macro está incompleta. As condições de liquidez estão melhorando lentamente enquanto a demanda institucional enfraqueceu.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "O BTC permanece acima da estrutura de longo prazo"
+      ],
+      "key_headwinds": [
+        "Os fluxos de ETF enfraqueceram",
+        "A confirmação macro permanece incompleta"
+      ]
+    },
+    "es": {
+      "short": "El entorno se mantiene mixto.",
+      "detailed": "La estructura de Bitcoin se mantiene estable, pero la confirmación macro es incompleta. Las condiciones de liquidez mejoran lentamente mientras la demanda institucional se ha debilitado.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "BTC se mantiene sobre la estructura de largo plazo"
+      ],
+      "key_headwinds": [
+        "Los flujos de ETF se han debilitado",
+        "La confirmación macro sigue incompleta"
+      ]
+    },
+    "de": {
+      "short": "Das Umfeld bleibt gemischt.",
+      "detailed": "Die Bitcoin-Struktur bleibt stabil, doch die Makro-Bestätigung ist unvollständig. Die Liquiditätsbedingungen verbessern sich langsam, während die institutionelle Nachfrage nachgelassen hat.",
+      "confidence_level": "MODERATE",
+      "mixed_signals": true,
+      "key_supportive_factors": [
+        "BTC bleibt oberhalb der langfristigen Struktur"
+      ],
+      "key_headwinds": [
+        "Die ETF-Mittelflüsse haben sich abgeschwächt",
+        "Die Makro-Bestätigung bleibt unvollständig"
+      ]
+    }
+  },
+  "signal_groups": [
+    {
+      "id": "btc_structure",
+      "category": "BTC_STRUCTURE",
+      "title": {
+        "en": "BTC Structure",
+        "pt-BR": "Estrutura do BTC",
+        "es": "Estructura del BTC",
+        "de": "BTC-Struktur"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 4,
+      "max_points": 6,
+      "summary": {
+        "en": "Bitcoin structure remains supportive.",
+        "pt-BR": "A estrutura do Bitcoin continua favorável.",
+        "es": "La estructura de Bitcoin se mantiene favorable.",
+        "de": "Die Bitcoin-Struktur bleibt stützend."
+      }
+    },
+    {
+      "id": "macro_environment",
+      "category": "MACRO_ENVIRONMENT",
+      "title": {
+        "en": "Macro Environment",
+        "pt-BR": "Ambiente macro",
+        "es": "Entorno macro",
+        "de": "Makro-Umfeld"
+      },
+      "status": "MIXED",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Macro conditions remain mixed.",
+        "pt-BR": "As condições macro permanecem mistas.",
+        "es": "Las condiciones macro siguen mixtas.",
+        "de": "Die Makro-Bedingungen bleiben gemischt."
+      }
+    },
+    {
+      "id": "institutional_demand",
+      "category": "INSTITUTIONAL_DEMAND",
+      "title": {
+        "en": "Institutional Demand",
+        "pt-BR": "Demanda institucional",
+        "es": "Demanda institucional",
+        "de": "Institutionelle Nachfrage"
+      },
+      "status": "MIXED",
+      "points_awarded": 1,
+      "max_points": 2,
+      "summary": {
+        "en": "Institutional demand has softened.",
+        "pt-BR": "A demanda institucional enfraqueceu.",
+        "es": "La demanda institucional se ha debilitado.",
+        "de": "Die institutionelle Nachfrage hat sich abgeschwächt."
+      }
+    },
+    {
+      "id": "relative_strength",
+      "category": "RELATIVE_STRENGTH",
+      "title": {
+        "en": "Relative Strength",
+        "pt-BR": "Força relativa",
+        "es": "Fortaleza relativa",
+        "de": "Relative Stärke"
+      },
+      "status": "MIXED",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Relative strength is uneven.",
+        "pt-BR": "A força relativa está desigual.",
+        "es": "La fortaleza relativa es desigual.",
+        "de": "Die relative Stärke ist uneinheitlich."
+      }
+    }
+  ],
+  "data_status": {
+    "overall_confidence": "MODERATE",
+    "last_successful_update_at": "2026-05-14T00:35:00Z",
+    "sources": [
+      {
+        "source": "CoinGecko",
+        "status": "FRESH",
+        "last_updated_at": "2026-05-14T00:05:00Z",
+        "expected_next_update_at": "2026-05-15T00:05:00Z",
+        "stale_after": "2026-05-16T00:05:00Z",
+        "message": null
+      }
+    ],
+    "delayed_sources": [],
+    "unavailable_sources": []
+  }
+}

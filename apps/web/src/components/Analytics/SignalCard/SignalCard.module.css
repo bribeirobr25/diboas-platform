@@ -1,0 +1,109 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-slate-200);
+  background-color: var(--color-surface-elevated);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.points {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-family: var(--font-family-primary);
+  font-feature-settings: 'tnum';
+}
+
+.pointsValue {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.pointsMax {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.pointsLabel {
+  margin-left: 0.25rem;
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+
+.summary {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: 1.55;
+  color: var(--color-text-primary);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  padding: 0.5rem 0;
+  margin-top: 0.25rem;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-brand-accessible);
+  cursor: pointer;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.signals {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid var(--color-slate-200);
+  padding-top: 0.75rem;
+}
+
+.signal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.signalTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.signalSummary {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}

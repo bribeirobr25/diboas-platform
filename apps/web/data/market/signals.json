@@ -1,0 +1,349 @@
+{
+  "_comment": "11 canonical signals, organized into 4 groups matching the 14-point methodology in doc 03 §3. Bilingual short summary on each. Storybook fixture for SignalCard / SignalGroup variants.",
+  "groups": [
+    {
+      "id": "btc_structure",
+      "category": "BTC_STRUCTURE",
+      "title": {
+        "en": "BTC Structure",
+        "pt-BR": "Estrutura do BTC",
+        "es": "Estructura del BTC",
+        "de": "BTC-Struktur"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 6,
+      "max_points": 6,
+      "summary": {
+        "en": "Bitcoin structure remains supportive.",
+        "pt-BR": "A estrutura do Bitcoin continua favorável.",
+        "es": "La estructura de Bitcoin se mantiene favorable.",
+        "de": "Die Bitcoin-Struktur bleibt stützend."
+      },
+      "signals": [
+        {
+          "id": "btc_price_vs_long_term_ma",
+          "category": "BTC_STRUCTURE",
+          "title": {
+            "en": "BTC vs. long-term moving average",
+            "pt-BR": "BTC vs. média móvel de longo prazo",
+            "es": "BTC vs. media móvil de largo plazo",
+            "de": "BTC vs. langfristiger gleitender Durchschnitt"
+          },
+          "state": "ABOVE_LONG_TERM_MA",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Bitcoin remains above its long-term moving average.",
+            "pt-BR": "O Bitcoin permanece acima da sua média móvel de longo prazo.",
+            "es": "Bitcoin se mantiene sobre su media móvel de largo plazo.",
+            "de": "Bitcoin bleibt oberhalb seines langfristigen gleitenden Durchschnitts."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "btc_drawdown_from_ath",
+          "category": "BTC_STRUCTURE",
+          "title": {
+            "en": "BTC drawdown from ATH",
+            "pt-BR": "Drawdown do BTC desde a máxima histórica",
+            "es": "Caída del BTC desde su máximo histórico",
+            "de": "BTC-Rückgang vom Allzeithoch"
+          },
+          "state": "SHALLOW_DRAWDOWN",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Bitcoin sits within a shallow drawdown from its all-time high.",
+            "pt-BR": "O Bitcoin opera com correção rasa em relação ao topo histórico.",
+            "es": "Bitcoin opera con una corrección leve respecto a su máximo histórico.",
+            "de": "Bitcoin notiert in einem flachen Rückgang gegenüber dem Allzeithoch."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "btc_trend_slope",
+          "category": "BTC_STRUCTURE",
+          "title": {
+            "en": "BTC trend slope",
+            "pt-BR": "Inclinação da tendência do BTC",
+            "es": "Pendiente de la tendencia del BTC",
+            "de": "BTC-Trendsteigung"
+          },
+          "state": "POSITIVE_SLOPE",
+          "points_awarded": 2,
+          "max_points": 2,
+          "summary": {
+            "en": "The medium-term trend slope remains positive.",
+            "pt-BR": "A inclinação da tendência de médio prazo permanece positiva.",
+            "es": "La pendiente de la tendencia de mediano plazo se mantiene positiva.",
+            "de": "Die mittelfristige Trendsteigung bleibt positiv."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "btc_volatility",
+          "category": "BTC_STRUCTURE",
+          "title": {
+            "en": "BTC volatility",
+            "pt-BR": "Volatilidade do BTC",
+            "es": "Volatilidad del BTC",
+            "de": "BTC-Volatilität"
+          },
+          "state": "NORMAL_RANGE",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Realized volatility sits within its long-term range.",
+            "pt-BR": "A volatilidade realizada está dentro da sua faixa de longo prazo.",
+            "es": "La volatilidad realizada está dentro de su rango de largo plazo.",
+            "de": "Die realisierte Volatilität liegt in ihrem langfristigen Bereich."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "btc_market_breadth",
+          "category": "BTC_STRUCTURE",
+          "title": {
+            "en": "BTC market breadth",
+            "pt-BR": "Amplitude do mercado BTC",
+            "es": "Amplitud del mercado BTC",
+            "de": "BTC-Marktbreite"
+          },
+          "state": "BROADLY_PARTICIPATING",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Most large-cap assets are participating with Bitcoin.",
+            "pt-BR": "A maioria dos ativos de grande capitalização acompanha o Bitcoin.",
+            "es": "La mayoría de los activos de gran capitalización acompaña a Bitcoin.",
+            "de": "Die meisten Werte mit hoher Marktkapitalisierung bewegen sich im Einklang mit Bitcoin."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        }
+      ]
+    },
+    {
+      "id": "macro_environment",
+      "category": "MACRO_ENVIRONMENT",
+      "title": {
+        "en": "Macro Environment",
+        "pt-BR": "Ambiente macro",
+        "es": "Entorno macro",
+        "de": "Makro-Umfeld"
+      },
+      "status": "MIXED",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Macro conditions remain mixed.",
+        "pt-BR": "As condições macro permanecem mistas.",
+        "es": "Las condiciones macro siguen mixtas.",
+        "de": "Die Makro-Bedingungen bleiben gemischt."
+      },
+      "signals": [
+        {
+          "id": "dxy_dollar_index",
+          "category": "MACRO_ENVIRONMENT",
+          "title": {
+            "en": "US dollar index",
+            "pt-BR": "Índice do dólar",
+            "es": "Índice del dólar",
+            "de": "US-Dollar-Index"
+          },
+          "state": "FLAT",
+          "points_awarded": 0,
+          "max_points": 1,
+          "summary": {
+            "en": "The dollar index remains range-bound.",
+            "pt-BR": "O índice do dólar permanece em faixa estreita.",
+            "es": "El índice del dólar se mantiene en rango estrecho.",
+            "de": "Der Dollarindex bleibt in einer engen Spanne."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "us_10y_yield",
+          "category": "MACRO_ENVIRONMENT",
+          "title": {
+            "en": "US 10-year yield",
+            "pt-BR": "Taxa de 10 anos dos EUA",
+            "es": "Tasa a 10 años de EE. UU.",
+            "de": "US 10-jährige Rendite"
+          },
+          "state": "ELEVATED",
+          "points_awarded": 0,
+          "max_points": 1,
+          "summary": {
+            "en": "The 10-year yield remains elevated.",
+            "pt-BR": "A taxa de 10 anos permanece elevada.",
+            "es": "La tasa a 10 años se mantiene elevada.",
+            "de": "Die 10-jährige Rendite bleibt erhöht."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "global_liquidity_m2",
+          "category": "MACRO_ENVIRONMENT",
+          "title": {
+            "en": "Global liquidity (M2)",
+            "pt-BR": "Liquidez global (M2)",
+            "es": "Liquidez global (M2)",
+            "de": "Globale Liquidität (M2)"
+          },
+          "state": "EXPANDING",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Global liquidity continues to expand slowly.",
+            "pt-BR": "A liquidez global continua se expandindo lentamente.",
+            "es": "La liquidez global continúa expandiéndose lentamente.",
+            "de": "Die globale Liquidität expandiert weiterhin langsam."
+          },
+          "last_updated_at": "2026-04-20T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "institutional_demand",
+      "category": "INSTITUTIONAL_DEMAND",
+      "title": {
+        "en": "Institutional Demand",
+        "pt-BR": "Demanda institucional",
+        "es": "Demanda institucional",
+        "de": "Institutionelle Nachfrage"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 2,
+      "max_points": 2,
+      "summary": {
+        "en": "Institutional demand remains supportive.",
+        "pt-BR": "A demanda institucional continua favorável.",
+        "es": "La demanda institucional se mantiene favorable.",
+        "de": "Die institutionelle Nachfrage bleibt stützend."
+      },
+      "signals": [
+        {
+          "id": "etf_net_flows",
+          "category": "INSTITUTIONAL_DEMAND",
+          "title": {
+            "en": "Spot BTC ETF net flows",
+            "pt-BR": "Fluxos líquidos de ETFs de BTC à vista",
+            "es": "Flujos netos de ETFs de BTC al contado",
+            "de": "Spot-BTC-ETF-Nettomittelflüsse"
+          },
+          "state": "POSITIVE_FLOWS",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Spot BTC ETFs continue to attract net positive flows.",
+            "pt-BR": "Os ETFs de BTC à vista seguem atraindo fluxos líquidos positivos.",
+            "es": "Los ETFs de BTC al contado siguen atrayendo flujos netos positivos.",
+            "de": "Spot-BTC-ETFs verzeichnen weiterhin positive Nettomittelzuflüsse."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "stablecoin_supply",
+          "category": "INSTITUTIONAL_DEMAND",
+          "title": {
+            "en": "Aggregate digital dollar supply",
+            "pt-BR": "Oferta agregada de dólar digital",
+            "es": "Oferta agregada de dólar digital",
+            "de": "Aggregierte Digital-Dollar-Versorgung"
+          },
+          "state": "EXPANDING",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Aggregate digital dollar supply continues to expand.",
+            "pt-BR": "A oferta agregada de dólar digital continua se expandindo.",
+            "es": "La oferta agregada de dólar digital continúa expandiéndose.",
+            "de": "Das aggregierte Angebot an Digital-Dollar wächst weiter."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        }
+      ]
+    },
+    {
+      "id": "relative_strength",
+      "category": "RELATIVE_STRENGTH",
+      "title": {
+        "en": "Relative Strength",
+        "pt-BR": "Força relativa",
+        "es": "Fortaleza relativa",
+        "de": "Relative Stärke"
+      },
+      "status": "CONSTRUCTIVE",
+      "points_awarded": 1,
+      "max_points": 3,
+      "summary": {
+        "en": "Relative strength is improving.",
+        "pt-BR": "A força relativa está melhorando.",
+        "es": "La fortaleza relativa está mejorando.",
+        "de": "Die relative Stärke verbessert sich."
+      },
+      "signals": [
+        {
+          "id": "btc_vs_spx",
+          "category": "RELATIVE_STRENGTH",
+          "title": {
+            "en": "BTC vs. S&P 500",
+            "pt-BR": "BTC vs. S&P 500",
+            "es": "BTC vs. S&P 500",
+            "de": "BTC vs. S&P 500"
+          },
+          "state": "OUTPERFORMING",
+          "points_awarded": 1,
+          "max_points": 1,
+          "summary": {
+            "en": "Bitcoin is outperforming the S&P 500 on a trailing basis.",
+            "pt-BR": "O Bitcoin supera o S&P 500 em base de retornos passados.",
+            "es": "Bitcoin supera al S&P 500 en base de rendimientos pasados.",
+            "de": "Bitcoin entwickelt sich besser als der S&P 500 im rückblickenden Vergleich."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "btc_vs_gold",
+          "category": "RELATIVE_STRENGTH",
+          "title": {
+            "en": "BTC vs. gold",
+            "pt-BR": "BTC vs. ouro",
+            "es": "BTC vs. oro",
+            "de": "BTC vs. Gold"
+          },
+          "state": "UNDERPERFORMING",
+          "points_awarded": 0,
+          "max_points": 1,
+          "summary": {
+            "en": "Bitcoin is underperforming gold on a trailing basis.",
+            "pt-BR": "O Bitcoin tem desempenho inferior ao ouro em base de retornos passados.",
+            "es": "Bitcoin tiene desempeño inferior al oro en base de rendimientos pasados.",
+            "de": "Bitcoin entwickelt sich schwächer als Gold im rückblickenden Vergleich."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        },
+        {
+          "id": "btc_dominance",
+          "category": "RELATIVE_STRENGTH",
+          "title": {
+            "en": "BTC dominance",
+            "pt-BR": "Dominância do BTC",
+            "es": "Dominancia del BTC",
+            "de": "BTC-Dominanz"
+          },
+          "state": "STABLE",
+          "points_awarded": 0,
+          "max_points": 1,
+          "summary": {
+            "en": "BTC dominance remains stable in its recent range.",
+            "pt-BR": "A dominância do BTC permanece estável em sua faixa recente.",
+            "es": "La dominancia de BTC se mantiene estable en su rango reciente.",
+            "de": "Die BTC-Dominanz bleibt in ihrer jüngsten Spanne stabil."
+          },
+          "last_updated_at": "2026-05-14T00:05:00Z"
+        }
+      ]
+    }
+  ]
+}

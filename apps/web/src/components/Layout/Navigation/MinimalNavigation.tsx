@@ -40,7 +40,8 @@ const LANDING_NAV_LINKS = [
   {
     id: 'adelaide-daily',
     labelKey: 'common.navigation.landing.adelaideDaily',
-    href: ROUTES.DAILY_MARKET,
+    // 2026-05-13: route renamed to `/market`; label "Adelaide Daily" stays.
+    href: ROUTES.MARKET,
   },
   {
     id: 'learn',

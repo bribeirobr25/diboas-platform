@@ -1,0 +1,10 @@
+{
+  "_comment": "Product-side disclaimer text from diboas-analytics per NF4. Host adds its own regulatory disclaimer separately via components/Legal/HostRegulatoryDisclaimer. Text mirrors the language on diboas-analytics.com /methodology — DO NOT edit to host-specific regulatory framing.",
+  "version": "1.0.0",
+  "text": {
+    "en": "diBoaS Analytics is a publisher of educational market commentary. The framework summarizes the macro and structural environment for Bitcoin but does not constitute financial, investment, legal, or tax advice. Past observations are not predictive of future returns. Always make decisions based on your own circumstances.",
+    "pt-BR": "diBoaS Analytics é uma publicadora de comentários educativos de mercado. O framework resume o ambiente macro e estrutural para o Bitcoin, mas não constitui aconselhamento financeiro, de investimento, jurídico ou fiscal. Observações passadas não são preditivas de retornos futuros. Sempre tome decisões com base nas suas próprias circunstâncias.",
+    "es": "diBoaS Analytics es un publicador de comentarios educativos de mercado. El framework resume el entorno macro y estructural para Bitcoin, pero no constituye asesoramiento financiero, de inversión, legal o fiscal. Las observaciones pasadas no predicen rendimientos futuros. Siempre tome decisiones según sus propias circunstancias.",
+    "de": "diBoaS Analytics ist ein Herausgeber edukativer Marktkommentare. Das Framework fasst das makroökonomische und strukturelle Umfeld für Bitcoin zusammen, stellt jedoch keine Finanz-, Anlage-, Rechts- oder Steuerberatung dar. Vergangene Beobachtungen sind nicht prädiktiv für zukünftige Renditen. Treffen Sie Entscheidungen stets auf Basis Ihrer eigenen Umstände."
+  }
+}

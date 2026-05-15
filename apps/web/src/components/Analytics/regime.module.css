@@ -1,0 +1,44 @@
+/* Shared regime-palette utilities for SDK components. Maps regime_code to the
+   semantic accessible tokens registered in lib/analytics-sdk/theme.ts (W2 audit
+   contrast-safe). Values resolve via the theme bridge so iteration-5 can swap
+   to real SDK tokens without touching component files. */
+
+.regimeColorVERY_FAVORABLE {
+  color: var(--text-success-accessible);
+}
+
+.regimeColorCONSTRUCTIVE {
+  color: var(--text-brand-accessible);
+}
+
+.regimeColorNEUTRAL_MIXED {
+  color: var(--color-text-secondary);
+}
+
+.regimeColorDEFENSIVE {
+  color: var(--color-amber-700);
+}
+
+.regimeColorHOSTILE {
+  color: var(--text-error-accessible);
+}
+
+.regimeFillVERY_FAVORABLE {
+  background-color: color-mix(in srgb, var(--text-success-accessible) 12%, transparent);
+}
+
+.regimeFillCONSTRUCTIVE {
+  background-color: color-mix(in srgb, var(--text-brand-accessible) 12%, transparent);
+}
+
+.regimeFillNEUTRAL_MIXED {
+  background-color: color-mix(in srgb, var(--color-text-secondary) 10%, transparent);
+}
+
+.regimeFillDEFENSIVE {
+  background-color: color-mix(in srgb, var(--color-amber-700) 12%, transparent);
+}
+
+.regimeFillHOSTILE {
+  background-color: color-mix(in srgb, var(--text-error-accessible) 12%, transparent);
+}

@@ -1,0 +1,137 @@
+/**
+ * /market route styling (iteration 2 of MARKET_INTEGRATION_PLAN_2026-05-13.md)
+ *
+ * Iteration 1 placeholder block (.comingSoon*) replaced by dashboard
+ * composition styles. The dashboard view is built from SDK component
+ * primitives (RegimeScore, CalmSummary, SignalCardsGrid, etc.) — those carry
+ * their own visual treatment via per-component CSS modules. This file owns
+ * the page-level layout (hero, section spacing, container width).
+ *
+ * All values reference design tokens from styles/design-tokens.css.
+ */
+
+.hero {
+  padding-top: clamp(6rem, 16vw, 8rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.heroKicker {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: var(--font-size-section-title-mobile);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--font-size-section-title-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroTitle {
+    font-size: var(--font-size-section-title-desktop);
+  }
+}
+
+.heroSubtitle {
+  margin: 0;
+  font-size: var(--font-size-description-mobile);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 50ch;
+}
+
+@media (min-width: 768px) {
+  .heroSubtitle {
+    font-size: var(--font-size-description-tablet);
+  }
+}
+
+.regimeBand {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem 0 2rem;
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.regimeBandMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.regimeBandBadges {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .regimeBand {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.section {
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.sectionLead {
+  margin: 0;
+  font-size: var(--font-size-md);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  max-width: 60ch;
+}
+
+.dataStatusList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footerSection {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid var(--color-slate-200);
+}

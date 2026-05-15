@@ -1,0 +1,68 @@
+{
+  "seo": {
+    "title": "Adelaide Daily",
+    "description": "Inteligencia macro serena para Bitcoin. Entiende el entorno, no la próxima vela.",
+    "ogTitle": "Adelaide Daily",
+    "ogDescription": "Inteligencia macro serena para Bitcoin. Entiende el entorno, no la próxima vela."
+  },
+  "hero": {
+    "title": "Adelaide Daily",
+    "subtitle": "Inteligencia macro serena para Bitcoin.",
+    "kicker": "Score del entorno macro"
+  },
+  "comingSoon": {
+    "title": "Próximamente.",
+    "body": "Adelaide Daily se está construyendo. Te ayudará a entender el entorno macro de Bitcoin sin el ruido.",
+    "backHome": "Volver al Inicio"
+  },
+  "dashboard": {
+    "scoreAriaLabel": "Score actual del entorno macro",
+    "confidence": {
+      "HIGH": "Alta confianza",
+      "MODERATE": "Confianza moderada",
+      "LOW": "Confianza baja"
+    },
+    "regimeLabels": {
+      "VERY_FAVORABLE": "Muy favorable",
+      "CONSTRUCTIVE": "Constructivo",
+      "NEUTRAL_MIXED": "Neutral / Mixto",
+      "DEFENSIVE": "Defensivo",
+      "HOSTILE": "Hostil"
+    },
+    "signalsSectionTitle": "Grupos de señales",
+    "signalsSectionLead": "Cuatro grupos componen el score de 14 puntos. Expande una tarjeta para ver las señales.",
+    "signalsExpand": "Mostrar señales",
+    "signalsCollapse": "Ocultar señales",
+    "signalsPoints": "pts",
+    "historicalTitle": "Score a lo largo del tiempo",
+    "historicalLead": "Dónde estuvo el entorno durante el último año.",
+    "historicalAriaLabel": "Score del entorno macro en los últimos 12 meses",
+    "historicalTableDate": "Fecha",
+    "historicalTableScore": "Score",
+    "historicalTableRegime": "Régimen",
+    "dataStatusTitle": "Fuentes de datos",
+    "dataStatusLead": "Confianza en vivo por fuente upstream.",
+    "freshness": {
+      "FRESH": "Actual",
+      "DELAYED": "Retrasado",
+      "STALE": "Obsoleto",
+      "UNAVAILABLE": "No disponible"
+    },
+    "methodologyTitle": "Cómo se calcula esto",
+    "methodologyLead": "Cada señal, umbral y peso está documentado en diBoaS Analytics.",
+    "methodologyLinkLabel": "Leer la metodología",
+    "poweredByLabel": "Provisto por",
+    "poweredByProduct": "diBoaS Analytics"
+  },
+  "fallback": {
+    "outageTitle": "Datos en vivo temporalmente no disponibles",
+    "outageBody": "Estamos restableciendo la conexión con nuestras fuentes de datos. La metodología y el histórico permanecen disponibles.",
+    "partialOutageTitle": "Algunas fuentes de datos están retrasadas",
+    "partialOutageBody": "La mayoría de las señales están actualizadas. Una o más fuentes upstream se están poniendo al día; la confianza puede ser menor de lo habitual."
+  },
+  "disclaimer": {
+    "host": {
+      "regulatory": "diBoaS no proporciona asesoramiento de inversión. El framework de esta página resume el entorno macro y estructural de Bitcoin únicamente con fines educativos. Los precios de los criptoactivos son altamente volátiles y tu capital está en riesgo. La información está dirigida a residentes de la UE, EE. UU., Reino Unido y Brasil, donde se permite la distribución local; nada aquí constituye una solicitud en otra jurisdicción."
+    }
+  }
+}

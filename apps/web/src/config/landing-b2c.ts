@@ -494,7 +494,8 @@ export const B2C_DISCLAIMER_KEY = 'landing-b2c.footer.disclosures.general';
 export const B2C_FOOTER_NAV = [
   { id: 'forYou', labelKey: 'landing-b2c.footer.nav.forYou', href: ROUTES.HOME },
   { id: 'forBusiness', labelKey: 'landing-b2c.footer.nav.forBusiness', href: ROUTES.BUSINESS_LANDING },
-  { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.DAILY_MARKET },
+  // 2026-05-13: route renamed to `/market`; label "Adelaide Daily" stays.
+  { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.MARKET },
   { id: 'about', labelKey: 'landing-b2c.footer.nav.about', href: ROUTES.ABOUT },
   { id: 'strategies', labelKey: 'landing-b2c.footer.nav.strategies', href: ROUTES.STRATEGIES },
   { id: 'protocols', labelKey: 'landing-b2c.footer.nav.protocols', href: ROUTES.PROTOCOLS },

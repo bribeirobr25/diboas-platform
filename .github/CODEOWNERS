@@ -1,0 +1,18 @@
+# CODEOWNERS — auto-request reviews on path-scoped PRs.
+#
+# Reference: docs/audit/MARKET_INTEGRATION_ITERATION_3_PLAN_2026-05-14.md §3.5.
+# Format: <path> <@github-user-or-team>
+#
+# Pre-flight requirement (L6 round-3): handles listed below MUST have
+# collaborator-level access to this repo. GitHub silently no-ops the
+# auto-request if a handle lacks repo access. Verify via GitHub UI's
+# "Manage access" panel before relying on this file.
+
+# Editorial-owned: regime scoring, signals, historical chart data, market
+# commentary, methodology metadata, product disclaimer. Updating any file
+# under this path requires editorial reviewer approval.
+/apps/web/data/market/  @bribeirobr25
+
+# Engineering-owned defaults (everything else): standard PR review.
+# (No explicit entry — GitHub falls back to the repository's default
+# reviewer set.)

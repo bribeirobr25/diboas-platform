@@ -1,0 +1,21 @@
+{
+  "_comment": "Canonical methodology metadata returned by /methodology endpoint per doc 07 §26. Versioned by SemVer; methodology_url always points to diboas-analytics.com.",
+  "version": "1.0.0",
+  "published_at": "2026-05-01T00:00:00Z",
+  "methodology_url": "https://diboas-analytics.com/methodology",
+  "framework_name": "diBoaS Bitcoin Environment Framework",
+  "max_score": 14,
+  "score_bands": [
+    { "code": "HOSTILE", "label": "Hostile", "min_score": 0, "max_score": 3 },
+    { "code": "DEFENSIVE", "label": "Defensive", "min_score": 4, "max_score": 5 },
+    { "code": "NEUTRAL_MIXED", "label": "Neutral / Mixed", "min_score": 6, "max_score": 8 },
+    { "code": "CONSTRUCTIVE", "label": "Constructive", "min_score": 9, "max_score": 11 },
+    { "code": "VERY_FAVORABLE", "label": "Very Favorable", "min_score": 12, "max_score": 14 }
+  ],
+  "groups": [
+    { "id": "btc_structure", "title": "BTC Structure", "max_points": 6, "weight_label": "primary" },
+    { "id": "macro_environment", "title": "Macro Environment", "max_points": 3, "weight_label": "supporting" },
+    { "id": "institutional_demand", "title": "Institutional Demand", "max_points": 2, "weight_label": "supporting" },
+    { "id": "relative_strength", "title": "Relative Strength", "max_points": 3, "weight_label": "supporting" }
+  ]
+}
