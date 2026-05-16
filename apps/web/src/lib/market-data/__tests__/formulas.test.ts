@@ -342,3 +342,77 @@ describe('monthsToInflationAdjustedTarget — initialAmount support', () => {
     expect(months).toBeLessThan(140);
   });
 });
+
+// ─── Phase A (2026-05-16) — calibration: historical anchor fields ──────
+
+describe('Phase A — exchange-rate historical anchors', () => {
+  it('BRL.historicalCagr matches research-verified 6.71% within 0.1pp', () => {
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.historicalCagr).toBeCloseTo(0.0671, 3);
+  });
+
+  it('EUR.historicalCagr matches research-verified 1.45% within 0.1pp', () => {
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.historicalCagr).toBeCloseTo(0.0145, 3);
+  });
+
+  it('BRL historical anchors span Jan 2010 → May 2026', () => {
+    const brl = FALLBACK_MARKET_DATA.exchangeRates.rates.BRL;
+    expect(brl.historicalAnchorStart).toBe('2010-01-01');
+    expect(brl.historicalAnchorEnd).toBe('2026-05-15');
+    expect(brl.historicalRateStart).toBeCloseTo(1.78, 2);
+    expect(brl.historicalRateEnd).toBeCloseTo(5.50, 2);
+  });
+
+  it('EUR historical anchors span Jan 2010 → May 2026', () => {
+    const eur = FALLBACK_MARKET_DATA.exchangeRates.rates.EUR;
+    expect(eur.historicalAnchorStart).toBe('2010-01-01');
+    expect(eur.historicalAnchorEnd).toBe('2026-05-15');
+    expect(eur.historicalRateStart).toBeCloseTo(1.43, 2);
+    expect(eur.historicalRateEnd).toBeCloseTo(1.13, 2);
+  });
+
+  it('forward annualDepreciation unchanged (no regression for existing calculators)', () => {
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation).toBe(0.03);
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.annualDepreciation).toBe(0.009);
+  });
+});
+
+describe('Phase A — inflation cumulative-since-2010 fields', () => {
+  it('US cumulative inflation 2010→2026 matches BLS CPI-U 52.3%', () => {
+    expect(FALLBACK_MARKET_DATA.inflationRates.rates.en.cumulativeSince2010).toBeCloseTo(0.523, 3);
+  });
+
+  it('Brazil cumulative inflation 2010→2026 matches IBGE IPCA 145%', () => {
+    expect(FALLBACK_MARKET_DATA.inflationRates.rates['pt-BR'].cumulativeSince2010).toBeCloseTo(1.45, 2);
+  });
+
+  it('Germany cumulative inflation 2010→2026 matches Destatis 41%', () => {
+    expect(FALLBACK_MARKET_DATA.inflationRates.rates.de.cumulativeSince2010).toBeCloseTo(0.41, 2);
+  });
+
+  it('Spain cumulative inflation 2010→2026 matches INE 41%', () => {
+    expect(FALLBACK_MARKET_DATA.inflationRates.rates.es.cumulativeSince2010).toBeCloseTo(0.41, 2);
+  });
+
+  it('forward current + average5y unchanged (no regression)', () => {
+    const en = FALLBACK_MARKET_DATA.inflationRates.rates.en;
+    expect(en.current).toBe(0.026);
+    expect(en.average5y).toBe(0.045);
+  });
+
+  it('average16y is geometric average of cumulativeSince2010 over 16.33 years', () => {
+    // (1 + cumulative)^(1/16.33) − 1
+    const en = FALLBACK_MARKET_DATA.inflationRates.rates.en;
+    const derived = Math.pow(1 + (en.cumulativeSince2010 ?? 0), 1 / 16.33) - 1;
+    expect(en.average16y).toBeCloseTo(derived, 3);
+  });
+});
+
+describe('Phase A — asset prices refreshed to May 2026', () => {
+  it('BTC spot matches research May 2026 anchor (~$80k)', () => {
+    expect(FALLBACK_MARKET_DATA.assetPrices.crypto.BTC).toBe(80000);
+  });
+
+  it('updatedAt stamp reflects May 2026 refresh (not stale March)', () => {
+    expect(FALLBACK_MARKET_DATA.assetPrices.updatedAt).toBe('2026-05-15T00:00:00Z');
+  });
+});

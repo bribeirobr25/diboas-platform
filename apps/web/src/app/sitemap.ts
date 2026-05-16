@@ -11,13 +11,13 @@ import { MetadataRoute } from 'next';
 import { SUPPORTED_LOCALES } from '@diboas/i18n/server';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 
-// 2026-05-13: `daily-market` renamed to `market`. The page stays noindex while
-// iterations 1-3 ship placeholder + manually-curated content; iteration 4 of
-// the market integration plan removes `'market'` from this set AND adds
-// matching entries to PAGE_PRIORITIES (line ~16) + PATH_TO_OG_KEY (line ~54).
-// Do not flip noindex without those two adds — silent default priority + OG
-// fallback otherwise.
-const NOINDEX_PAGES = new Set(['demo', 'dream-mode', 'market', 'share']);
+// Iteration 4 §3.6 (2026-05-15): `'market'` removed. Companion edits made
+// below in PAGE_PRIORITIES + PATH_TO_OG_KEY. Page-level `noindex` meta is
+// still gated by `NEXT_PUBLIC_MARKET_INDEXABLE` env var per iter-1 design;
+// production flip happens in §3.8 of the iter-4 plan after calm-audit
+// sign-off. Until that env-var flip, Google sees /market in sitemap but
+// fetches it with `noindex` meta → no indexing.
+const NOINDEX_PAGES = new Set(['demo', 'dream-mode', 'share']);
 
 const PAGE_PRIORITIES: Record<string, number> = {
   '/': 1.0,
@@ -40,6 +40,10 @@ const PAGE_PRIORITIES: Record<string, number> = {
   // Phase 6E — Money Tools (Tier 3 B2B)
   '/tools/card-fees': 0.8,
   '/tools/idle-cash': 0.8,
+  // Iteration 4 (2026-05-15) — Adelaide Daily (/market)
+  // Priority 0.7 places it alongside primary user destinations (/help,
+  // /security) but below feature-tree roots (0.8 tools, 0.9 b2b).
+  '/market': 0.7,
   '/help': 0.7,
   '/security': 0.7,
   '/legal/terms': 0.3,
@@ -81,6 +85,10 @@ const PATH_TO_OG_KEY: Record<string, string> = {
   // Phase 6E — Tier 3 B2B OG keys
   '/tools/card-fees': 'tools-card-fees',
   '/tools/idle-cash': 'tools-idle-cash',
+  // Iteration 4 §3.6 — Adelaide Daily. Path B static OG (§6.3 locked):
+  // registered in `lib/og/templates.tsx` PAGE_CONFIGS.market; renders via
+  // the shared `/api/og/[page]/route.tsx` (zero new chunks).
+  '/market': 'market',
 };
 
 function getAllUrls(): string[] {

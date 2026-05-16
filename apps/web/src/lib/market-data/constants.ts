@@ -32,11 +32,17 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
     strategyApys: { safety: 7, balance: 12, growth: 18 },
     scenarioRates: { conservative: 7, historical: 10, optimistic: 14 },
   },
+  // Phase A (2026-05-16): asset spot prices refreshed to mid-May 2026
+  // readings per the calibration plan §3.1. The previous Mar-2026 stamp
+  // conflicted with the research doc's May-2026 anchor (e.g. BTC 97.25k vs
+  // 80k) — without this refresh, Phase E's asset-history tool would show
+  // "BTC May 2026 = $80,000" while the comparison-table surfaces would
+  // show "BTC current = $97,250" on the same site.
   assetPrices: {
-    crypto: { BTC: 97250, ETH: 2650, SOL: 195.40, SUI: 3.85, TRX: 0.27 },
-    etfs: { SPYx: 592.45, QQQx: 518.23, IWMon: 224.67 },
-    commodities: { XAUT: 2945 },
-    updatedAt: '2026-03-15T00:00:00Z',
+    crypto: { BTC: 80000, ETH: 2300, SOL: 152, SUI: 2.85, TRX: 0.21 },
+    etfs: { SPYx: 740, QQQx: 711, IWMon: 234 },
+    commodities: { XAUT: 4700 },
+    updatedAt: '2026-05-15T00:00:00Z',
   },
   exchangeRates: {
     rates: {
@@ -44,22 +50,40 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
         rateToUsd: 5.2546,
         annualDepreciation: 0.03,
         rateDate: '2026-03-15',
-        depreciationBasis: '20-year historical average (6-8%), adjusted conservative',
+        // Phase A: kept forward 3% conservative; added historical fields
+        // for retrospective consumers (asset-history tool, /tools/goal-savings
+        // path-dependent mode). Forward planning uses annualDepreciation;
+        // retrospective uses historicalCagr.
+        depreciationBasis: 'forward: conservative 3%; historical: 6.71% Jan 2010→May 2026 per docs/researches/btc-vs-assets-inflation-fx-final-analysis.md',
+        historicalCagr: 0.0671,
+        historicalAnchorStart: '2010-01-01',
+        historicalAnchorEnd: '2026-05-15',
+        historicalRateStart: 1.78,
+        historicalRateEnd: 5.50,
       },
       EUR: {
         rateToUsd: 0.92,
         annualDepreciation: 0.009,
         rateDate: '2026-03-15',
-        depreciationBasis: '5-year average',
+        depreciationBasis: 'forward: 5y avg 0.9%; historical: 1.45% Jan 2010→May 2026',
+        historicalCagr: 0.0145,
+        historicalAnchorStart: '2010-01-01',
+        historicalAnchorEnd: '2026-05-15',
+        historicalRateStart: 1.43,
+        historicalRateEnd: 1.13,
       },
     },
   },
+  // Phase A additions: cumulativeSince2010 + average16y per locale, per
+  // BLS CPI-U (US 52.3%), IBGE IPCA (Brazil 145%), Destatis (Germany 41%),
+  // INE (Spain 41%). cumulativeSince2010 is a decimal (0.523 = 52.3%).
+  // average16y is the geometric average: (1 + cumulative)^(1/16.33) − 1.
   inflationRates: {
     rates: {
-      en: { current: 0.026, average5y: 0.045 },
-      'pt-BR': { current: 0.0426, average5y: 0.059 },
-      de: { current: 0.022, average5y: 0.041 },
-      es: { current: 0.027, average5y: 0.041 },
+      en: { current: 0.026, average5y: 0.045, cumulativeSince2010: 0.523, average16y: 0.0262 },
+      'pt-BR': { current: 0.0426, average5y: 0.059, cumulativeSince2010: 1.45, average16y: 0.0565 },
+      de: { current: 0.022, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
+      es: { current: 0.027, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
     },
   },
   platformFees: {

@@ -41,6 +41,15 @@ export interface CurrencyRate {
   readonly annualDepreciation: number;
   readonly rateDate: string;
   readonly depreciationBasis: string;
+  // Phase A additions (2026-05-16): long-window historical anchors per
+  // docs/researches/btc-vs-assets-inflation-fx-final-analysis.md. Optional so
+  // partial-ship scenarios (SDK without history) and SupportedLocale rows
+  // without a historical research source remain valid.
+  readonly historicalCagr?: number;
+  readonly historicalAnchorStart?: string;
+  readonly historicalAnchorEnd?: string;
+  readonly historicalRateStart?: number;
+  readonly historicalRateEnd?: number;
 }
 
 /** Exchange rates for all non-USD currencies */
@@ -52,6 +61,10 @@ export interface ExchangeRates {
 export interface InflationData {
   readonly current: number;
   readonly average5y: number;
+  // Phase A additions (2026-05-16): long-window cumulative inflation
+  // 2010→2026 per BLS/IBGE/Destatis/INE. Optional for partial-ship.
+  readonly cumulativeSince2010?: number;
+  readonly average16y?: number;
 }
 
 /** Inflation rates for all locales */
