@@ -32,3 +32,9 @@ jobs:
       # count regressions. Fails CI if peak asset, total, or count exceed
       # baseline + headroom recorded in scripts/check-bundle-budget.mjs.
       - run: pnpm check:budget
+      # Phase 3B (audit/2026-05-18): build-storybook gate. Storybook stories
+      # are EXCLUDED from `tsc --noEmit` per `apps/web/tsconfig.json:40-41`
+      # (L13 audit lock), so story-file TypeScript errors are only caught by
+      # `build-storybook`. Run after build:budget so we don't double-pay for
+      # an early failure when the production build itself broke.
+      - run: pnpm --filter web build-storybook

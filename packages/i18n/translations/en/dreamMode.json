@@ -99,10 +99,10 @@
       "1year": "1 year",
       "5years": "5 years"
     },
-    "bank_source": "Based on 0.4% average savings rate. Source: FDIC National Average, January 2026.",
-    "bank_source_us": "Based on 0.4% average savings rate. Source: FDIC National Average, January 2026.",
-    "bank_source_eu": "Based on 0.4% average savings rate. Source: ECB Statistics, January 2026.",
-    "bank_source_br": "Based on 6.5% Selic-based savings rate. Source: Banco Central do Brasil.",
+    "bank_source": "Based on {rate} average savings rate. Source: FDIC National Average.",
+    "bank_source_us": "Based on {rate} average savings rate. Source: FDIC National Average.",
+    "bank_source_eu": "Based on {rate} average savings rate. Source: ECB Statistics.",
+    "bank_source_br": "Based on {rate} Selic-based savings rate. Source: Banco Central do Brasil.",
     "back": "Try another path",
     "shareResults": "Share my dream",
     "disclaimer": "This is a projection. Past performance does not guarantee future results."

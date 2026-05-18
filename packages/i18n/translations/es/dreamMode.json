@@ -99,10 +99,10 @@
       "1year": "1 año",
       "5years": "5 años"
     },
-    "bank_source": "Basado en 0.4% de tasa de ahorro promedio. Fuente: FDIC National Average, Enero 2026.",
-    "bank_source_us": "Basado en 0.4% de tasa de ahorro promedio. Fuente: FDIC National Average, Enero 2026.",
-    "bank_source_eu": "Basado en 0.4% de tasa de ahorro promedio. Fuente: Estadísticas del BCE, Enero 2026.",
-    "bank_source_br": "Basado en 6.5% de tasa de ahorro Selic. Fuente: Banco Central do Brasil.",
+    "bank_source": "Basado en {rate} de tasa de ahorro promedio. Fuente: FDIC National Average.",
+    "bank_source_us": "Basado en {rate} de tasa de ahorro promedio. Fuente: FDIC National Average.",
+    "bank_source_eu": "Basado en {rate} de tasa de ahorro promedio. Fuente: Estadísticas del BCE.",
+    "bank_source_br": "Basado en {rate} de tasa de ahorro Selic. Fuente: Banco Central do Brasil.",
     "back": "Probar otro camino",
     "shareResults": "Compartir mi sueño",
     "disclaimer": "Esto es una proyección. Los resultados pasados no garantizan resultados futuros."

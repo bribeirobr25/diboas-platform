@@ -7,6 +7,7 @@ import { ShareDreamSection } from '../components/ShareDreamSection';
 import { formatCurrency } from '@/lib/pre-dream';
 import { useMarketData } from '@/hooks/useMarketData';
 import type { SupportedLocale } from '@/lib/market-data';
+import { formatRate } from '@/lib/market-data/formatters';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import styles from '../PreDream.module.css';
@@ -137,7 +138,19 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
       {/* Bank Source */}
       <p className={styles.bankSource}>
-        {intl.formatMessage({ id: localeKey === 'pt-BR' ? 'dreamMode.results.bank_source_br' : localeKey === 'en' ? 'dreamMode.results.bank_source_us' : 'dreamMode.results.bank_source_eu' })}
+        {/* Phase 7 PR-2 (2026-05-18): bank rate sourced from marketDataService
+            single source of truth, NOT a translation-string literal. */}
+        {intl.formatMessage(
+          {
+            id:
+              localeKey === 'pt-BR'
+                ? 'dreamMode.results.bank_source_br'
+                : localeKey === 'en'
+                  ? 'dreamMode.results.bank_source_us'
+                  : 'dreamMode.results.bank_source_eu',
+          },
+          { rate: formatRate(bankRates.savings, localeKey) },
+        )}
       </p>
 
       {/* Actions */}

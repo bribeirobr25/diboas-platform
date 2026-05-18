@@ -26,7 +26,7 @@
         "title": "Goal: Retirement Plan",
         "subtitle": "On a $60,000/year salary, putting aside $100/month for 30 years.",
         "tagline": "Same money. Different place. Big difference.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
@@ -34,7 +34,7 @@
         "title": "Goal: Emergency Fund",
         "subtitle": "If you spend $2,900/month and want 6 months saved ($17,400), putting aside $300/month.",
         "tagline": "Same effort. Less waiting.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
@@ -42,7 +42,7 @@
         "title": "Goal: Christmas Bonus",
         "subtitle": "On a $60,000/year salary, saving $500/month for 12 months.",
         "tagline": "Every dollar matters when you start small.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
@@ -50,7 +50,7 @@
         "title": "Goal: The 10% Rule",
         "subtitle": "On a $4,600 monthly salary, investing 10% ($460/month) for 5 years.",
         "tagline": "A popular approach to long-term saving: always set aside 10% of your income, no matter what.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
