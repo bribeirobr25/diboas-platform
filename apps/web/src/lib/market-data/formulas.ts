@@ -32,6 +32,9 @@ export {
 export {
   calculateWithCurrencyHedge,
   calculateMonthlyWithCurrencyHedge,
+  calculateMonthlyPathDependentHedge,
   type CurrencyHedgeResult,
   type MonthlyHedgeResult,
+  type PathDependentHedgeArgs,
+  type PathDependentHedgeResult,
 } from './formulas/currencyHedge';

@@ -2,6 +2,7 @@
 
 import { useMemo, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { Select } from '@diboas/ui';
 import { usePreDemo } from '../PreDemoProvider';
 import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
@@ -105,10 +106,9 @@ export function SendScreen() {
           <label className={styles.inputLabel}>
             {t('preDemo.send.recipientLabel')}
           </label>
-          <select
+          <Select
             value={state.selectedRecipient}
             onChange={(e) => handleRecipientChange(e.target.value)}
-            className={styles.selectField}
             aria-label={t('preDemo.send.recipientLabel')}
           >
             {RECIPIENT_OPTIONS.map((recipient) => (
@@ -116,7 +116,7 @@ export function SendScreen() {
                 {recipient.handle} - {recipient.name}
               </option>
             ))}
-          </select>
+          </Select>
           <span className={styles.onChainNote}>
             {t('preDemo.send.onChainTransfer')}
           </span>

@@ -37,6 +37,12 @@
     "reset": "Reiniciar",
     "share": "Compartilhar"
   },
+  "calculatorMode": {
+    "ariaLabel": "Modo da calculadora",
+    "forward": "Para frente",
+    "retrospective": "Desde 2010",
+    "retrospectiveHint": "O modo retrospectivo percorre o caminho real do câmbio em até {years} anos. O cenário do banco permanece na moeda local."
+  },
   "scenarios": {
     "bank": "Seu banco",
     "conservative": "Conservador (7%)",

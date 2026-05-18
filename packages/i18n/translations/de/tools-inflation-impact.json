@@ -8,9 +8,16 @@
     "headline": "Was kostet dich Bargeld eigentlich?",
     "subtitle": "Inflation frisst Bargeld leise. Hier ist, wie viel — in deinem Land, über die Jahre, die zählen."
   },
+  "mode": {
+    "ariaLabel": "Modus des Rechners",
+    "forward": "Vorwärts",
+    "retrospective": "Seit 2010"
+  },
   "inputs": {
     "amountLabel": "Betrag heute",
+    "amountLabel2010": "Betrag im Jahr 2010",
     "amountHelp": "Wie viel du jetzt in Bargeld hältst",
+    "amountHelp2010": "Wie viel du damals in Bargeld hieltest",
     "yearsLabel": "Jahre ab heute",
     "yearsHelp": "Inflation: ~{rate}% / Jahr",
     "countryLabel": "Land",
@@ -26,7 +33,9 @@
     "ifYouKeepCash": "Wenn du es bar hältst",
     "ifYouInvest": "Wenn du es arbeiten lässt",
     "lostToInflation": "−{amount} durch Inflation verloren",
-    "investedNote": "Bei {rate}% historischer Rendite"
+    "investedNote": "Bei {rate}% historischer Rendite",
+    "retrospectiveLabel": "Heutige Kaufkraft",
+    "retrospectiveDetail": "Inflation seit 2010: ~{cumulative}%. Das gleiche Geld kauft heute ungefähr {percent}% weniger ({lost} an Kaufkraft verloren)."
   },
   "vignette": {
     "subtitle": "Gleiches Geld. Anderes Ende. Du entscheidest."

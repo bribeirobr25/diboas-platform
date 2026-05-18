@@ -37,6 +37,12 @@
     "reset": "Reset",
     "share": "Share"
   },
+  "calculatorMode": {
+    "ariaLabel": "Calculator mode",
+    "forward": "Forward",
+    "retrospective": "Since 2010",
+    "retrospectiveHint": "Retrospective mode walks the actual FX path back up to {years} years. Bank scenario stays in local currency."
+  },
   "scenarios": {
     "bank": "Your bank",
     "conservative": "Conservative (7%)",

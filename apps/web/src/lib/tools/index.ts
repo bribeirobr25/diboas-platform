@@ -3,6 +3,10 @@
  */
 
 export type {
+  AssetHistoryAssetKey,
+  AssetHistoryDefaults,
+  AssetHistoryMode,
+  AssetHistoryStartYear,
   CardFeesDefaults,
   CompoundToolDefaults,
   CurrencyDepreciationDefaults,
@@ -16,6 +20,7 @@ export type {
 } from './types';
 
 export {
+  ASSET_HISTORY_DEFAULTS,
   CARD_FEES_DEFAULTS,
   COMPOUND_TOOL_DEFAULTS,
   CURRENCY_DEPRECIATION_DEFAULTS,

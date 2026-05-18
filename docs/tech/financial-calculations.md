@@ -99,6 +99,37 @@ For the educational tools (Conservative 7% / Historical 10% / Optimistic 14% in 
 
 ---
 
+## Path-Dependent FX Hedge (Added 2026-05-16)
+
+Forward-projection calculators (`/tools/compound-interest`, `/tools/retirement`, `/tools/goal-savings`) use the smoothed `calculateCompoundProjectionHedged()` with `effectiveLocalAPY = (1 + usdYield)(1 + localDepreciation) − 1`. This is correct for FORWARD projections — you cannot bucket-walk a future you do not have data for.
+
+For RETROSPECTIVE contexts (the asset-history tool plus retrospective modes in `/tools/inflation-impact`, `/tools/currency-depreciation`, and `/tools/goal-savings`), the smoothed CAGR model under-estimates outcomes over multi-year DCA windows when the FX path is non-uniform. Each monthly DCA contribution sees a different FX rate in reality; the smoothed CAGR treats them uniformly. For BRL 2010→2026 (CAGR ~6.7% over 16 yr with extended weak-BRL stretches in 2014-2016 and 2020-2022), the smoothed model under-counts DCA terminal value by ~10-15% vs bucket-walked. EUR's smoother path makes the gap ~2-3%.
+
+### When to use which
+
+- **Forward projection:** `calculateMonthlyWithCurrencyHedge()` (smoothed annuity) plus `calculateCompoundProjectionHedged()`. Smoothed CAGR is correct.
+- **Retrospective DCA:** `calculateMonthlyPathDependentHedge()` (Phase B, new). Bucket-walked FX is correct. Per-tool methodology lock at `docs/audit/HISTORICAL_PERFORMANCE_CALIBRATION_PLAN_2026-05-16.md` §6.4.1.
+
+### R1 discipline at the methodology axis
+
+The retrospective and forward variants ship as **separate named functions** — there is no `pathDependent: boolean` flag on the smoothed function. This is the same R1 discipline applied earlier to the lesson-vs-tools split (`calculateCompoundProjection` vs `calculateCompoundProjectionHedged`). Two named functions, never a flag.
+
+### Validation
+
+Cross-validated against `docs/researches/btc-vs-assets-inflation-fx-final-analysis.md` Part 5 (Brazilian R$100/mo × 196 months Jan 2010 → May 2026) for the three USD-yield scenarios:
+
+| Scenario | Research target | Tolerance |
+|---|---|---|
+| 5% USD | R$57,400 | ±5% |
+| 7% USD | R$69,160 | ±5% |
+| 10% USD | R$94,765 | ±5% |
+
+All three pass within tolerance. Scenario A (15% BRL nominal) is BRL-native and uses the existing `calculateMonthlyContributions()` — not in path-dependent scope.
+
+**Implementation:** `calculateMonthlyPathDependentHedge()` in `lib/market-data/formulas/currencyHedge.ts`. Bucket type: `FxBucket` in `lib/market-data/types.ts` (date-range shape supports coarse 5-year and annual buckets without schema change).
+
+---
+
 ## Inflation Model
 
 | Locale | Current (2025) | 5-Year Avg | Rule |

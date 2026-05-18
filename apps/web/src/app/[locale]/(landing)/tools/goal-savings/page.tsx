@@ -46,6 +46,7 @@ export default async function GoalSavingsToolPage({ params }: LocalePageProps) {
       <ToolPage toolKey="goal-savings" pageMessages={pageMessages}>
         <CompoundInterestCalculator
           engine="tool"
+          enablePathDependent
           initialInput={{
             amount: defaults.amount[locale],
             cadence: defaults.cadence,

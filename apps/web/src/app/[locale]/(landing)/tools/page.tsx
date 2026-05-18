@@ -30,6 +30,8 @@ const SHIPPED_TOOLS: ReadonlyArray<ToolKey> = [
   // Tier 3 B2B (6E)
   'card-fees',
   'idle-cash',
+  // Phase E (2026-05-16) — Asset history retrospective tool
+  'asset-history',
 ];
 
 const SECTIONS: ReadonlyArray<ToolSectionKey> = ['grow', 'protect', 'target', 'business'];

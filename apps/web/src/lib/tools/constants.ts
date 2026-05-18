@@ -8,6 +8,7 @@
  */
 
 import type {
+  AssetHistoryDefaults,
   CardFeesDefaults,
   CompoundToolDefaults,
   CurrencyDepreciationDefaults,
@@ -95,6 +96,18 @@ export const TOOL_DESCRIPTORS: Record<ToolKey, ToolDescriptor> = {
     icon: 'idleCash',
     forBusiness: true,
   },
+  // Phase E (2026-05-16) — Asset History retrospective tool. Section 'grow'
+  // because it lives next to the projection-oriented tools but tells a
+  // retrospective story (what already happened to BTC/stocks/gold since
+  // 2010 or 2016).
+  'asset-history': {
+    key: 'asset-history',
+    section: 'grow',
+    slug: 'asset-history',
+    i18nNamespace: 'tools-asset-history',
+    icon: 'assetHistory',
+    forBusiness: false,
+  },
 };
 
 /**
@@ -173,4 +186,15 @@ export const CARD_FEES_DEFAULTS: CardFeesDefaults = {
 export const IDLE_CASH_DEFAULTS: IdleCashDefaults = {
   idleCash: { en: 100000, 'pt-BR': 500000, es: 80000, de: 80000 },
   years: 3,
+};
+
+/** Default inputs for the Asset History calculator (Phase E, 2026-05-16).
+ *  Default asset varies per locale: BTC for everyone (the headline question),
+ *  start year 2016 (more recent + less LOW-confidence anchor noise than 2010),
+ *  DCA mode (the educational ask is "monthly DCA over the past decade"). */
+export const ASSET_HISTORY_DEFAULTS: AssetHistoryDefaults = {
+  asset: { en: 'BTC', 'pt-BR': 'BTC', es: 'BTC', de: 'BTC' },
+  startYear: 2016,
+  mode: 'monthlyDca',
+  contribution: { en: 100, 'pt-BR': 500, es: 100, de: 100 },
 };

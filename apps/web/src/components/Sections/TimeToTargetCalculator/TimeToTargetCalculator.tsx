@@ -14,6 +14,7 @@
 
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
 import {
   calculateLumpSum,
@@ -178,18 +179,17 @@ export function TimeToTargetCalculator() {
           <label htmlFor={`${baseId}-cadence`} className={styles.label}>
             {tShared('labels.cadence')}
           </label>
-          <select
+          <Select
             id={`${baseId}-cadence`}
             value={form.cadence}
             onChange={(e) => handleChange('cadence', e.target.value as Cadence)}
-            className={styles.select}
           >
             {CADENCE_OPTIONS.map((opt) => (
               <option key={opt} value={opt}>
                 {tCadence(opt)}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
       </div>
 

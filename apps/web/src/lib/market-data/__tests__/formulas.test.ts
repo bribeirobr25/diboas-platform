@@ -17,12 +17,14 @@ import {
   calculateMonthlyContributions,
   calculateWithCurrencyHedge,
   calculateMonthlyWithCurrencyHedge,
+  calculateMonthlyPathDependentHedge,
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
   purchasingPower,
   calculateFee,
   applyPlatformFees,
 } from '../formulas';
+import type { FxBucket } from '../types';
 import { FALLBACK_MARKET_DATA } from '../constants';
 
 // ─── annualToMonthlyRate ───────────────────────────────────────────────
@@ -414,5 +416,167 @@ describe('Phase A — asset prices refreshed to May 2026', () => {
 
   it('updatedAt stamp reflects May 2026 refresh (not stale March)', () => {
     expect(FALLBACK_MARKET_DATA.assetPrices.updatedAt).toBe('2026-05-15T00:00:00Z');
+  });
+});
+
+// ─── Phase B (2026-05-16) — path-dependent currency hedge ──────────────
+
+/**
+ * Brazilian DCA reference buckets — sourced from
+ * docs/researches/btc-vs-assets-inflation-fx-final-analysis.md §Part 5
+ * Methodology. 4 coarse buckets covering Jan 2010 → May 2026 inclusive.
+ * Phase C will ship these same bucket values to historical.ts; for now the
+ * test embeds them so Phase B is self-contained per §6.2 PR-2 vs PR-3.
+ */
+const BRL_RESEARCH_BUCKETS: readonly FxBucket[] = [
+  { avgRate: 2.0, startDate: '2010-01-01', endDate: '2014-12-31' },
+  { avgRate: 3.5, startDate: '2015-01-01', endDate: '2019-12-31' },
+  { avgRate: 5.2, startDate: '2020-01-01', endDate: '2024-12-31' },
+  { avgRate: 5.65, startDate: '2025-01-01', endDate: '2026-05-31' },
+] as const;
+
+describe('Phase B — calculateMonthlyPathDependentHedge (research Part 5 cross-validation)', () => {
+  // Research Part 5: R$100/mo × 196 months, end-of-month timing, USD-yield
+  // scenarios, FX bucket walk, reconverted at endRate 5.50 (May 2026 spot).
+  const baseArgs = {
+    monthlyContributionLocal: 100,
+    startDate: '2010-01-01',
+    months: 196,
+    buckets: BRL_RESEARCH_BUCKETS,
+    endRate: 5.50,
+  };
+
+  it('Scenario D (10% USD): matches research R$94,765 ± 5%', () => {
+    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.10 });
+    expect(result.finalBalanceLocal).toBeGreaterThan(94765 * 0.95);
+    expect(result.finalBalanceLocal).toBeLessThan(94765 * 1.05);
+  });
+
+  it('Scenario C (7% USD): matches research R$69,160 ± 5%', () => {
+    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.07 });
+    expect(result.finalBalanceLocal).toBeGreaterThan(69160 * 0.95);
+    expect(result.finalBalanceLocal).toBeLessThan(69160 * 1.05);
+  });
+
+  it('Scenario B (5% USD): matches research R$57,400 ± 5%', () => {
+    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.05 });
+    expect(result.finalBalanceLocal).toBeGreaterThan(57400 * 0.95);
+    expect(result.finalBalanceLocal).toBeLessThan(57400 * 1.05);
+  });
+
+  it('totalContributedLocal = monthlyContribution × months across all scenarios', () => {
+    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.07 });
+    expect(result.totalContributedLocal).toBe(19600);
+  });
+
+  it('reports a positive effectiveLocalCagr when finalBalance exceeds contributions', () => {
+    const result = calculateMonthlyPathDependentHedge({ ...baseArgs, usdAnnualYield: 0.10 });
+    // Scenario D 10% USD ≈ 16-17% effective BRL (FX tailwind on top of USD yield)
+    expect(result.effectiveLocalCagr).toBeGreaterThan(0.13);
+    expect(result.effectiveLocalCagr).toBeLessThan(0.20);
+  });
+});
+
+describe('Phase B — path-dependent hedge edge cases', () => {
+  it('1-bucket window (no path variation) approximates the smoothed model', () => {
+    // 5-year window, single bucket with constant rate. The path-dependent
+    // and smoothed-CAGR models converge when there is no FX path variation
+    // within the window (no bucket-walk gain to capture).
+    const buckets: FxBucket[] = [
+      { avgRate: 5.50, startDate: '2021-01-01', endDate: '2026-05-31' },
+    ];
+    const pathResult = calculateMonthlyPathDependentHedge({
+      monthlyContributionLocal: 100,
+      usdAnnualYield: 0.07,
+      startDate: '2021-01-01',
+      months: 60,
+      buckets,
+      endRate: 5.50,
+    });
+    // Smoothed model with 0% depreciation (single bucket → no path bias)
+    const smoothedResult = calculateMonthlyWithCurrencyHedge(
+      100, // local-currency contribution per month
+      0.07, // USD yield
+      0,    // no depreciation within the bucket
+      0,    // ignore inflation for this convergence test
+      60,
+    );
+    // Smoothed nominalFV is in local-currency assuming initial conversion at
+    // rate 1; we compare USD-equivalent slices. Path result's finalBalanceUsd
+    // should match smoothed's nominalFV / 5.50 (since 100 BRL = 100/5.50 USD
+    // every month under the constant-rate bucket).
+    const expectedUsd = smoothedResult.nominalFV / 5.50;
+    expect(pathResult.finalBalanceUsd).toBeCloseTo(expectedUsd, 1);
+  });
+
+  it('throws when buckets array is empty', () => {
+    expect(() =>
+      calculateMonthlyPathDependentHedge({
+        monthlyContributionLocal: 100,
+        usdAnnualYield: 0.07,
+        startDate: '2020-01-01',
+        months: 12,
+        buckets: [],
+        endRate: 5.50,
+      }),
+    ).toThrow(/at least one FxBucket/);
+  });
+
+  it('throws when a month falls outside all bucket windows', () => {
+    const buckets: FxBucket[] = [
+      { avgRate: 5.20, startDate: '2020-01-01', endDate: '2020-12-31' },
+    ];
+    expect(() =>
+      calculateMonthlyPathDependentHedge({
+        monthlyContributionLocal: 100,
+        usdAnnualYield: 0.07,
+        startDate: '2020-01-01',
+        months: 24, // month 13 = Jan 2021 — uncovered
+        buckets,
+        endRate: 5.50,
+      }),
+    ).toThrow(/No FxBucket covers/);
+  });
+
+  it('throws on non-positive months', () => {
+    expect(() =>
+      calculateMonthlyPathDependentHedge({
+        monthlyContributionLocal: 100,
+        usdAnnualYield: 0.07,
+        startDate: '2020-01-01',
+        months: 0,
+        buckets: BRL_RESEARCH_BUCKETS,
+        endRate: 5.50,
+      }),
+    ).toThrow(/months must be > 0/);
+  });
+
+  it('throws on non-positive endRate', () => {
+    expect(() =>
+      calculateMonthlyPathDependentHedge({
+        monthlyContributionLocal: 100,
+        usdAnnualYield: 0.07,
+        startDate: '2020-01-01',
+        months: 12,
+        buckets: BRL_RESEARCH_BUCKETS,
+        endRate: 0,
+      }),
+    ).toThrow(/endRate must be > 0/);
+  });
+
+  it('throws on bucket with non-positive avgRate', () => {
+    const buckets: FxBucket[] = [
+      { avgRate: 0, startDate: '2020-01-01', endDate: '2020-12-31' },
+    ];
+    expect(() =>
+      calculateMonthlyPathDependentHedge({
+        monthlyContributionLocal: 100,
+        usdAnnualYield: 0.07,
+        startDate: '2020-01-01',
+        months: 6,
+        buckets,
+        endRate: 5.50,
+      }),
+    ).toThrow(/avgRate must be > 0/);
   });
 });

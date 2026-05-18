@@ -8,6 +8,49 @@
   border-radius: var(--radius-xl);
 }
 
+/* Phase D.1 — mode toggle (forward / retrospective) */
+.modeToggle {
+  display: inline-flex;
+  background: var(--color-slate-100);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  gap: 2px;
+  align-self: flex-start;
+}
+
+.modeButton {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: calc(var(--radius-lg) - 4px);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+}
+
+.modeButtonActive {
+  background: var(--color-white);
+  color: var(--color-slate-900);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.modeButton:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+}
+
+/* Retrospective result block */
+.retrospectiveCard {
+  padding: var(--spacing-md);
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .inputsRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -38,8 +81,7 @@
   color: var(--color-slate-900);
 }
 
-.numberInput,
-.select {
+.numberInput {
   padding: 10px 14px;
   border: 1px solid var(--color-slate-300);
   border-radius: 8px;
@@ -49,13 +91,7 @@
   background: var(--color-white);
 }
 
-.select {
-  font-family: var(--font-family-primary);
-  cursor: pointer;
-}
-
-.numberInput:focus-visible,
-.select:focus-visible {
+.numberInput:focus-visible {
   outline: 2px solid var(--text-brand-accessible);
   outline-offset: 2px;
 }

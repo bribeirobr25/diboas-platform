@@ -4,6 +4,7 @@
 
 export { calculateCompoundProjection } from './calculator';
 export { calculateCompoundProjectionHedged } from './calculatorHedged';
+export { calculateCompoundProjectionPathDependent } from './calculatorPathDependent';
 export { convertCadenceToMonthly, isOneTime } from './cadence';
 export { SCENARIO_RATES, type ScenarioKey } from './scenarios';
 export { formatCurrency, formatPercent, getCurrencyCode } from './format';

@@ -8,20 +8,33 @@
     "headline": "¿Qué gana realmente tu moneda?",
     "subtitle": "Compara efectivo, banco y dólar digital con el tiempo, considerando la depreciación."
   },
+  "mode": {
+    "ariaLabel": "Modo de la calculadora",
+    "forward": "Hacia adelante",
+    "retrospective": "Desde 2010"
+  },
   "inputs": {
     "currencyLabel": "Moneda",
     "amountLabel": "Cantidad en {currency}",
+    "amountLabel2010": "Cantidad en {currency} (ene 2010)",
     "yearsLabel": "Años a partir de ahora",
     "depreciationHelp": "El {currency} se deprecia ~{rate}% al año vs USD"
   },
   "output": {
     "usdLocaleNote": "Esta calculadora es más útil para monedas distintas al USD. Para tenedores de USD, la depreciación se establece en 0.",
+    "usdRetrospectiveNote": "Elige BRL o EUR para ver cómo tu moneda local se ha comportado frente al USD desde 2010.",
     "cashLabel": "Si lo dejas en efectivo",
     "cashUsdEquivalent": "Equivalente en USD tras {rate}% / año de drift",
     "bankLabel": "Rendimiento bancario",
     "bankRateNote": "{rate}% tasa local",
     "diboasLabel": "Dólar digital en diBoaS",
-    "diboasNote": "{rate}% rendimiento histórico, guardado en dólar digital"
+    "diboasNote": "{rate}% rendimiento histórico, guardado en dólar digital",
+    "retrospectiveThenLabel": "Entonces (ene 2010)",
+    "retrospectiveThenNote": "1 USD = {rate} {currency}",
+    "retrospectiveNowLabel": "Ahora (may 2026)",
+    "retrospectiveNowNote": "1 USD = {rate} {currency}",
+    "retrospectiveLossLabel": "Cambio del poder de compra en USD",
+    "retrospectiveLossNote": "El {currency} se debilitó {cagr}% al año frente al USD durante 16 años"
   },
   "vignette": {
     "subtitle": "Dónde guardas tu dinero importa. La moneda en la que rinde, importa más."

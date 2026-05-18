@@ -247,18 +247,6 @@
   margin-top: var(--spacing-xs);
 }
 
-.selectField {
-  width: 100%;
-  padding: var(--spacing-md-minus) 14px;
-  border: 1px solid var(--color-slate-200);
-  border-radius: var(--radius-lg-plus);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-heading);
-  background: var(--section-bg-white);
-  outline: none;
-  cursor: pointer;
-}
-
 .divider {
   width: 100%;
   display: flex;
@@ -2011,7 +1999,6 @@
 
 .amountInput:focus-visible,
 .inputField:focus-visible,
-.selectField:focus-visible,
 .checkbox:focus-visible {
   outline: 2px solid var(--brand-primary);
   outline-offset: 2px;

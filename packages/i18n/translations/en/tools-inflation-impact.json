@@ -8,9 +8,16 @@
     "headline": "What is sitting in cash actually costing you?",
     "subtitle": "Inflation eats cash quietly. Here's how much, in your country, over the years that matter."
   },
+  "mode": {
+    "ariaLabel": "Calculator mode",
+    "forward": "Forward",
+    "retrospective": "Since 2010"
+  },
   "inputs": {
     "amountLabel": "Amount today",
+    "amountLabel2010": "Amount in 2010",
     "amountHelp": "How much you're holding in cash now",
+    "amountHelp2010": "How much you held in cash back then",
     "yearsLabel": "Years from now",
     "yearsHelp": "Inflation: ~{rate}% / year",
     "countryLabel": "Country",
@@ -26,7 +33,9 @@
     "ifYouKeepCash": "If you keep it in cash",
     "ifYouInvest": "If you put it to work",
     "lostToInflation": "−{amount} lost to inflation",
-    "investedNote": "At {rate}% historical return"
+    "investedNote": "At {rate}% historical return",
+    "retrospectiveLabel": "Today's purchasing power",
+    "retrospectiveDetail": "Inflation since 2010: ~{cumulative}%. Same money buys about {percent}% less ({lost} of purchasing power gone)."
   },
   "vignette": {
     "subtitle": "Same money. Different ending. The choice is yours."

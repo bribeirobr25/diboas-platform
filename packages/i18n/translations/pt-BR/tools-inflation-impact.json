@@ -8,9 +8,16 @@
     "headline": "Quanto o dinheiro parado te custa em silêncio?",
     "subtitle": "A inflação come o dinheiro parado sem avisar. Aqui está quanto, no seu país, ao longo dos anos que importam."
   },
+  "mode": {
+    "ariaLabel": "Modo da calculadora",
+    "forward": "Para frente",
+    "retrospective": "Desde 2010"
+  },
   "inputs": {
     "amountLabel": "Valor hoje",
+    "amountLabel2010": "Valor em 2010",
     "amountHelp": "O quanto você guarda em dinheiro hoje",
+    "amountHelp2010": "O quanto você tinha em dinheiro lá atrás",
     "yearsLabel": "Anos a partir de agora",
     "yearsHelp": "Inflação: ~{rate}% / ano",
     "countryLabel": "País",
@@ -26,7 +33,9 @@
     "ifYouKeepCash": "Se ficar em dinheiro",
     "ifYouInvest": "Se for posto pra trabalhar",
     "lostToInflation": "−{amount} perdidos pra inflação",
-    "investedNote": "A {rate}% de rendimento histórico"
+    "investedNote": "A {rate}% de rendimento histórico",
+    "retrospectiveLabel": "Poder de compra hoje",
+    "retrospectiveDetail": "Inflação desde 2010: ~{cumulative}%. O mesmo dinheiro compra cerca de {percent}% a menos ({lost} de poder de compra evaporados)."
   },
   "vignette": {
     "subtitle": "Mesmo dinheiro. Outro final. Você escolhe."

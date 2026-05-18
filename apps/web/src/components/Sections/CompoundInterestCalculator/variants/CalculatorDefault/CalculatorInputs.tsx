@@ -2,6 +2,7 @@
 
 import { useId } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
+import { Select } from '@diboas/ui';
 import {
   INPUT_BOUNDS,
   formatCurrency,
@@ -96,25 +97,24 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
         </div>
       </div>
 
-      {/* Cadence: native <select> (v1 — see PHASE_6_PLAN.md §6A.2 ADR).
+      {/* Cadence: styled Select primitive (Phase 1 PR-1B, 2026-05-18).
           7 options exceeds comfortable horizontal radio-group width on mobile. */}
       <div className={styles.field}>
         <label htmlFor={`${baseId}-cadence`} className={styles.label}>
           {labelCadence}
         </label>
-        <select
+        <Select
           id={`${baseId}-cadence`}
           name={`${baseId}-cadence`}
           value={value.cadence}
           onChange={(e) => setCadence(e.target.value as Cadence)}
-          className={styles.select}
         >
           {CADENCE_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>
               {intl.formatMessage({ id: `learn-compound-interest.calculator.cadenceOptions.${opt}` })}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
 
       {/* Years: slider + tooltip */}

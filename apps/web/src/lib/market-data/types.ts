@@ -57,6 +57,71 @@ export interface ExchangeRates {
   readonly rates: Record<string, CurrencyRate>;
 }
 
+/**
+ * FX bucket — local/USD average rate over a date-range window.
+ *
+ * Phase B (2026-05-16): consumed by `calculateMonthlyPathDependentHedge` for
+ * retrospective DCA over multi-year windows where the underlying FX path is
+ * non-uniform. Date ranges are inclusive at both ends, format ISO YYYY-MM-DD.
+ *
+ * The date-range shape supports both coarse (5-year) buckets per research
+ * Part 5 methodology and annual buckets without schema change. Phase C
+ * populates concrete bucket data on `MarketDataSnapshot.historicalAnchors`
+ * (NOT on `CurrencyRate.historicalBuckets` — historical data lives in its
+ * own snapshot slice per the §3.3.5 lock).
+ */
+export interface FxBucket {
+  readonly avgRate: number;
+  readonly startDate: string;
+  readonly endDate: string;
+}
+
+// ---------------------------------------------------------------------------
+// Phase C — historical anchor types (data populated in `./historical.ts`)
+// ---------------------------------------------------------------------------
+
+export type AssetCode =
+  | 'BTC'
+  | 'SP500'
+  | 'QQQ'
+  | 'MSCI_WORLD'
+  | 'GOLD'
+  | 'TLT'
+  | 'IBOVESPA'
+  | 'DAX';
+
+/** M8 round-2: 2020 dropped — research doc has no 2020 anchor table. */
+export type AnchorYear = 2010 | 2016 | 2026;
+
+export type AnchorConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
+
+export interface AssetAnchor {
+  readonly asset: AssetCode;
+  readonly year: AnchorYear;
+  /** 1 = January, 3 = March, 5 = May, 7 = July (BTC Mt.Gox launch anchor) */
+  readonly monthIndicative: number;
+  readonly price: number;
+  readonly currency: 'USD' | 'BRL' | 'EUR';
+  readonly confidence: AnchorConfidence;
+  readonly source: string;
+}
+
+/**
+ * Phase C+ — historical-anchor snapshot slice (L1 round-1 lock).
+ * Lives on `MarketDataSnapshot.historicalAnchors` as an optional field so
+ * partial-ship scenarios (SDK without history) remain valid. Consumers
+ * (Phase D + E) MUST route through `marketDataService.getSync().historicalAnchors`
+ * — direct imports from `./historical.ts` are §6.10-prohibited outside `lib/market-data/`.
+ */
+export interface HistoricalAnchorsData {
+  readonly anchors: readonly AssetAnchor[];
+  readonly fxBuckets: {
+    readonly BRL: readonly FxBucket[];
+    readonly EUR: readonly FxBucket[];
+  };
+  readonly lastResearchUpdate: string;
+}
+
 /** Per-locale inflation data */
 export interface InflationData {
   readonly current: number;
@@ -132,6 +197,9 @@ export interface MarketDataSnapshot {
   readonly networkGas: NetworkGas;
   readonly protocolData: ProtocolData;
   readonly metadata: MarketDataMetadata;
+  // Phase C+ (2026-05-16): optional so partial-ship scenarios (SDK without
+  // history, or pre-Phase-C+ consumers) remain valid.
+  readonly historicalAnchors?: HistoricalAnchorsData;
 }
 
 /** Provider interface — swappable (Principle P3: Service Agnostic) */

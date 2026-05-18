@@ -8,20 +8,33 @@
     "headline": "Was verdient deine Währung wirklich?",
     "subtitle": "Vergleiche bar, Bank und Digital-Dollar über die Jahre — unter Berücksichtigung des Wertverlusts."
   },
+  "mode": {
+    "ariaLabel": "Modus des Rechners",
+    "forward": "Vorwärts",
+    "retrospective": "Seit 2010"
+  },
   "inputs": {
     "currencyLabel": "Währung",
     "amountLabel": "Betrag in {currency}",
+    "amountLabel2010": "Betrag in {currency} (Jan 2010)",
     "yearsLabel": "Jahre ab heute",
     "depreciationHelp": "{currency} verliert ~{rate}% pro Jahr gegenüber dem USD"
   },
   "output": {
     "usdLocaleNote": "Dieser Rechner ist am nützlichsten für Nicht-USD-Währungen. Für USD-Halter ist der Wertverlust standardmäßig 0.",
+    "usdRetrospectiveNote": "Wähle BRL oder EUR, um zu sehen, wie sich deine lokale Währung seit 2010 gegenüber dem USD entwickelt hat.",
     "cashLabel": "Wenn bar gehalten",
     "cashUsdEquivalent": "USD-Äquivalent nach {rate}% / Jahr Drift",
     "bankLabel": "Bank-Rendite",
     "bankRateNote": "{rate}% lokale Bankrate",
     "diboasLabel": "Digital-Dollar bei diBoaS",
-    "diboasNote": "{rate}% historische Rendite, in Digital-Dollar gehalten"
+    "diboasNote": "{rate}% historische Rendite, in Digital-Dollar gehalten",
+    "retrospectiveThenLabel": "Damals (Jan 2010)",
+    "retrospectiveThenNote": "1 USD = {rate} {currency}",
+    "retrospectiveNowLabel": "Heute (Mai 2026)",
+    "retrospectiveNowNote": "1 USD = {rate} {currency}",
+    "retrospectiveLossLabel": "Veränderung der USD-Kaufkraft",
+    "retrospectiveLossNote": "{currency} hat über 16 Jahre {cagr}% pro Jahr gegenüber dem USD verloren"
   },
   "vignette": {
     "subtitle": "Wo dein Geld liegt, zählt. Die Währung, in der es verdient, zählt mehr."

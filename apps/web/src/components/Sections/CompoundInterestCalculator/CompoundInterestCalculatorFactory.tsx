@@ -14,6 +14,13 @@ interface CompoundInterestCalculatorProps {
    * `/learn/compound-interest`; tool pages pass 'tool' for currency-hedge math.
    */
   engine?: 'lesson' | 'tool';
+  /**
+   * Phase D.3 — opt-in retrospective DCA mode toggle. Only `/tools/goal-savings`
+   * passes `true`; other tool surfaces stay smoothed-hedge only. When `true`,
+   * surfaces a Forward / Retrospective tab toggle that activates the
+   * path-dependent engine via a separate named function (R1 discipline).
+   */
+  enablePathDependent?: boolean;
 }
 
 export function CompoundInterestCalculator({

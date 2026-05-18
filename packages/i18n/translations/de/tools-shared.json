@@ -37,6 +37,12 @@
     "reset": "Zurücksetzen",
     "share": "Teilen"
   },
+  "calculatorMode": {
+    "ariaLabel": "Modus des Rechners",
+    "forward": "Vorwärts",
+    "retrospective": "Seit 2010",
+    "retrospectiveHint": "Der Rückblick-Modus folgt dem tatsächlichen Wechselkurspfad bis zu {years} Jahre zurück. Das Bank-Szenario bleibt in Lokalwährung."
+  },
   "scenarios": {
     "bank": "Deine Bank",
     "conservative": "Konservativ (7%)",

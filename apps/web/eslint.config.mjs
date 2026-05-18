@@ -26,6 +26,13 @@ const newReactHooksRules = [
   "react-hooks/refs",
 ];
 
+// ESLint v9 flat config scopes plugin lookups per-config-object. The
+// `@typescript-eslint` plugin is registered inside `nextConfig`'s blocks via
+// the `typescript-eslint` meta-package; rule references outside those blocks
+// cannot resolve it. So instead of re-registering the plugin (which raises
+// "Cannot redefine plugin"), we overlay our custom `@typescript-eslint/no-
+// unused-vars` options directly onto the existing nextConfig rule
+// registration via this map. (2026-05-18 fix.)
 const adjustedNextConfig = nextConfig.map(config => {
   if (!config.rules) return config;
   const overrides = {};
@@ -33,6 +40,15 @@ const adjustedNextConfig = nextConfig.map(config => {
     if (config.rules[rule]) {
       overrides[rule] = "warn";
     }
+  }
+  // Overlay underscore-prefix ignore pattern on the existing no-unused-vars
+  // rule (nextConfig registers it as plain "warn"; we want the project-
+  // standard underscore-prefix convention for "intentionally unused" args).
+  if (config.rules['@typescript-eslint/no-unused-vars']) {
+    overrides['@typescript-eslint/no-unused-vars'] = ['warn', {
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+    }];
   }
   if (Object.keys(overrides).length === 0) return config;
   return { ...config, rules: { ...config.rules, ...overrides } };
@@ -56,8 +72,14 @@ const eslintConfig = [
       // Utility scripts using CommonJS
       "analyze-*.js",
       "scripts/**/*.js",
-      // Storybook config (development tool)
-      ".storybook/**"
+      // Storybook config (development tool) + build output
+      ".storybook/**",
+      "storybook-static/**",
+      // pa11y screenshot output (binary; only present locally)
+      "pa11y-screenshots/**",
+      // Playwright test report output (CI artifact)
+      "playwright-report/**",
+      "test-results/**"
     ],
   },
   // JavaScript recommended rules
@@ -71,7 +93,11 @@ const eslintConfig = [
       "no-undef": "off",
     },
   },
-  // Custom rules for architectural compliance
+  // Custom rules for architectural compliance.
+  // Note: `@typescript-eslint/*` rules cannot be added here in flat config
+  // (plugin scope is per-config-object; `eslint-config-next` already owns
+  // the registration). The `no-unused-vars` argument pattern is overlaid in
+  // `adjustedNextConfig.map` above.
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
     rules: {
@@ -88,11 +114,7 @@ const eslintConfig = [
       // Error Handling & System Recovery
       "no-empty": "warn",
       "no-unreachable": "error",
-      "no-unused-vars": "off", // Handled by TypeScript
-      "@typescript-eslint/no-unused-vars": ["warn", {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
-      }],
+      "no-unused-vars": "off", // Handled by TypeScript / @typescript-eslint (overlaid in adjustedNextConfig)
 
       // Performance & SEO Optimization
       "prefer-template": "warn",
@@ -134,13 +156,15 @@ const eslintConfig = [
       }],
     },
   },
-  // Configuration files
+  // Configuration files — allow require() and undefined globals.
+  // `@typescript-eslint/no-var-requires` is not configurable here (plugin
+  // scope owned by nextConfig); `.config.{js,mjs,ts}` files are already
+  // ignored by nextConfig's own ignore patterns, so this acts as defense
+  // in depth for any project-specific config file that escapes those.
   {
     files: ["**/*.config.{js,mjs,ts}", "**/next.config.js"],
     rules: {
-      // Allow require() in config files
-      "@typescript-eslint/no-var-requires": "off",
-      "no-undef": "off"
+      "no-undef": "off",
     },
   },
   ...storybook.configs["flat/recommended"],

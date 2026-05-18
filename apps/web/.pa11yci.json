@@ -13,33 +13,24 @@
     }
   },
   "urls": [
-    {
-      "url": "http://localhost:3000/en",
-      "screenCapture": "./pa11y-screenshots/home.png"
-    },
-    {
-      "url": "http://localhost:3000/en/about",
-      "screenCapture": "./pa11y-screenshots/about.png"
-    },
-    {
-      "url": "http://localhost:3000/en/personal/banking",
-      "screenCapture": "./pa11y-screenshots/personal-banking.png"
-    },
-    {
-      "url": "http://localhost:3000/en/market",
-      "screenCapture": "./pa11y-screenshots/market-en.png"
-    },
-    {
-      "url": "http://localhost:3000/pt-BR/market",
-      "screenCapture": "./pa11y-screenshots/market-ptBR.png"
-    },
-    {
-      "url": "http://localhost:3000/es/market",
-      "screenCapture": "./pa11y-screenshots/market-es.png"
-    },
-    {
-      "url": "http://localhost:3000/de/market",
-      "screenCapture": "./pa11y-screenshots/market-de.png"
-    }
+    { "url": "http://localhost:3000/en", "screenCapture": "./pa11y-screenshots/home.png" },
+    { "url": "http://localhost:3000/en/about", "screenCapture": "./pa11y-screenshots/about.png" },
+    { "url": "http://localhost:3000/en/business", "screenCapture": "./pa11y-screenshots/business.png" },
+    { "url": "http://localhost:3000/en/learn/compound-interest", "screenCapture": "./pa11y-screenshots/learn-compound-interest.png" },
+    { "url": "http://localhost:3000/en/tools", "screenCapture": "./pa11y-screenshots/tools.png" },
+    { "url": "http://localhost:3000/en/tools/compound-interest", "screenCapture": "./pa11y-screenshots/tools-compound-interest.png" },
+    { "url": "http://localhost:3000/en/tools/retirement", "screenCapture": "./pa11y-screenshots/tools-retirement.png" },
+    { "url": "http://localhost:3000/en/tools/emergency-fund", "screenCapture": "./pa11y-screenshots/tools-emergency-fund.png" },
+    { "url": "http://localhost:3000/en/tools/goal-savings", "screenCapture": "./pa11y-screenshots/tools-goal-savings.png" },
+    { "url": "http://localhost:3000/en/tools/inflation-impact", "screenCapture": "./pa11y-screenshots/tools-inflation-impact.png" },
+    { "url": "http://localhost:3000/en/tools/time-to-target", "screenCapture": "./pa11y-screenshots/tools-time-to-target.png" },
+    { "url": "http://localhost:3000/en/tools/currency-depreciation", "screenCapture": "./pa11y-screenshots/tools-currency-depreciation.png" },
+    { "url": "http://localhost:3000/en/tools/card-fees", "screenCapture": "./pa11y-screenshots/tools-card-fees.png" },
+    { "url": "http://localhost:3000/en/tools/idle-cash", "screenCapture": "./pa11y-screenshots/tools-idle-cash.png" },
+    { "url": "http://localhost:3000/en/tools/asset-history", "screenCapture": "./pa11y-screenshots/tools-asset-history.png" },
+    { "url": "http://localhost:3000/en/market", "screenCapture": "./pa11y-screenshots/market-en.png" },
+    { "url": "http://localhost:3000/pt-BR/market", "screenCapture": "./pa11y-screenshots/market-ptBR.png" },
+    { "url": "http://localhost:3000/es/market", "screenCapture": "./pa11y-screenshots/market-es.png" },
+    { "url": "http://localhost:3000/de/market", "screenCapture": "./pa11y-screenshots/market-de.png" }
   ]
 }

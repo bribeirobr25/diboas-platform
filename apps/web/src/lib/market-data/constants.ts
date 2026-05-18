@@ -20,6 +20,7 @@
  */
 
 import type { MarketDataSnapshot } from './types';
+import { ANCHOR_PRICES, BRL_USD_BUCKETS, EUR_USD_BUCKETS, LAST_RESEARCH_UPDATE } from './historical';
 
 export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   rates: {
@@ -27,6 +28,13 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
       en: { savings: 0.32, neobank: 3.35, treasury: 3.32, source: 'FDIC/FRED', sourceDate: '5yr avg 2021-2025' },
       'pt-BR': { savings: 6.83, neobank: 8.53, treasury: 8.53, source: 'BCB/B3', sourceDate: '5yr avg 2021-2025' },
       es: { savings: 0.14, neobank: 2.10, treasury: 1.77, source: 'ECB/Tesoro', sourceDate: '5yr avg 2021-2025' },
+      // de.savings (1.22%) is the realistic best-available Tagesgeld offer (5yr
+      // avg of top-3 retail neobank rates: Bundesbank MFI deposit series + cross-
+      // checked vs Verivox/Tagesgeldvergleich monthly leaderboards). It is NOT
+      // the Bundesbank-published household average, which sits at ~0.26% over
+      // the same window. Used here because users comparing diBoaS against "what
+      // they could realistically get" expect the realistic comparable, not the
+      // population-weighted mean (pending CEO confirmation — see PENDING_ALL D4).
       de: { savings: 1.22, neobank: 2.83, treasury: 1.62, source: 'Bundesbank/ECB', sourceDate: '5yr avg 2021-2025' },
     },
     strategyApys: { safety: 7, balance: 12, growth: 18 },
@@ -108,15 +116,35 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
     ethGasGwei: 30,
     solPriorityFee: 0.009,
   },
+  // Phase I (2026-05-16): populate the existing `protocolData.tvl` field
+  // (CC2 round-1 correction — extend, do not parallel). v1 ships the combined
+  // summary only; per-protocol card values still flow from i18n until a future
+  // refactor migrates them through this same field. Refresh cadence: monthly
+  // manual until iter-5 SDK swap delivers daily via DeFiLlama-equivalent.
   protocolData: {
-    tvl: {},
-    updatedAt: '2026-03-15T00:00:00Z',
+    tvl: {
+      combined: '$120 billion',
+    },
+    updatedAt: '2026-05-15T00:00:00Z',
   },
   metadata: {
     fetchedAt: '2026-03-15T00:00:00Z',
     source: 'fallback',
     stale: false,
     ttl: 0,
+  },
+  // Phase C+ (2026-05-16): historicalAnchors slice populated from
+  // ./historical.ts (research-derived, annual refresh cadence). Consumers
+  // (Phase D + E) route through `marketDataService.getSync().historicalAnchors`
+  // — direct imports from `./historical` outside `lib/market-data/` are
+  // §6.10-prohibited and enforced by the §3.13 pre-merge grep gate.
+  historicalAnchors: {
+    anchors: ANCHOR_PRICES,
+    fxBuckets: {
+      BRL: BRL_USD_BUCKETS,
+      EUR: EUR_USD_BUCKETS,
+    },
+    lastResearchUpdate: LAST_RESEARCH_UPDATE,
   },
 };
 
