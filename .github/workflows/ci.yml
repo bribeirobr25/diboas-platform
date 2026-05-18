@@ -10,9 +10,9 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
           # Phase 4.2 (audit/2026-05-08): bumped from 20 → 24 ahead of the
           # 2026-06-02 deprecation deadline for the older runner-bundled
