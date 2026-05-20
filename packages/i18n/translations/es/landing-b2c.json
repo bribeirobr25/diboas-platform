@@ -152,7 +152,7 @@
       },
       "adding": {
         "action": "Añadir Dinero",
-        "diboas": "0,48% (mín 0,25 €, máx 25 €)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "0 a 1,5%",
         "difference": "Más barato que la mayoría",
         "example": "Añade 100 €: te cuesta 48 céntimos"
@@ -173,7 +173,7 @@
       },
       "selling": {
         "action": "Vender / Cerrar",
-        "diboas": "0,39% (mín 0,25 €, máx 25 €)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "1,5 a 2,5%",
         "difference": "Ahorra 1,11 a 2,11 € por 100 €",
         "example": "Vende 100 €: te cuesta 39 céntimos"
@@ -187,14 +187,14 @@
       },
       "strategies": {
         "action": "Crecer (Estrategias)",
-        "diboas": "Gratis para empezar, 0,39% al salir",
+        "diboas": "Gratis para empezar, {exitRate} al salir",
         "competitors": "N/A",
         "difference": "Opciones que tu banco no ofrece",
         "example": "Inicia una estrategia de 100 €: 0 €. Salir cuesta 39 céntimos."
       },
       "cashout": {
         "action": "Retirar",
-        "diboas": "0,48%",
+        "diboas": "{rate}",
         "competitors": "1 a 3% + retrasos",
         "difference": "Ahorra hasta 2,52 € por 100 €",
         "example": "Retira 100 €: te cuesta 48 céntimos"
@@ -208,7 +208,7 @@
       "p2": "Tu dinero no se queda quieto en tu banco. Lo ponen a trabajar. Generan rendimientos reales con él. ¿Qué te devuelven a ti? Casi nada.",
       "p3": "La diferencia entre lo que ganan y lo que te pagan es todo su modelo de negocio.",
       "p4": "Nosotros cerramos esa brecha. Con diBoaS, los rendimientos van para ti. No para directivos. No para sucursales. Para ti.",
-      "p5": "Invertir es gratis. Cuando vendes, diBoaS cobra el 0,39%. Vendes 100 €, diBoaS gana 39 céntimos. Eso es todo. diBoaS solo gana más si tu dinero crece primero. La comisión nunca supera los 25 €.",
+      "p5": "Invertir es gratis. Cuando vendes, diBoaS cobra el {sellRate}. Vendes 100 €, diBoaS gana 39 céntimos. Eso es todo. diBoaS solo gana más si tu dinero crece primero. La comisión nunca supera los {maxFee}.",
       "p6": "Sin cuotas mensuales. Sin cargos sorpresa. Sin penalizaciones por retirar.",
       "p7": "¿Cómo es posible? No construimos sucursales bancarias. No contratamos directivos. No heredamos los costes de un sistema construido en 1950. La nueva tecnología hace el mismo trabajo. Te pasamos el ahorro a ti.",
       "p8": "¿Hay riesgo? Sí. Tenemos que ser directos contigo sobre esto.",

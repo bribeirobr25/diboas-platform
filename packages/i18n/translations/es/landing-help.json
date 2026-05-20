@@ -58,7 +58,7 @@
         },
         "q2": {
           "question": "¿Puedo retirar mi dinero en cualquier momento?",
-          "answer": "Sí. Tu dinero es tuyo. Retíralo cuando quieras. La comisión es del 0,48%, así que retirar 100 € te cuesta 48 céntimos. Sin periodos de permanencia. Sin penalizaciones."
+          "answer": "Sí. Tu dinero es tuyo. Retíralo cuando quieras. La comisión es del {rate}, así que retirar 100 € te cuesta 48 céntimos. Sin periodos de permanencia. Sin penalizaciones."
         },
         "q3": {
           "question": "¿Qué pasa con mi dinero si diBoaS cierra?",
@@ -103,7 +103,7 @@
         },
         "q2": {
           "question": "Cual es la trampa?",
-          "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posición. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
+          "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. {sellRate} cuando vendes o cierras una posición. {cashOutRate} cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
         },
         "q3": {
           "question": "¿Puedo usar diBoaS solo para transferencias?",

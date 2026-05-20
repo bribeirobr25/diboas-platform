@@ -152,7 +152,7 @@
       },
       "adding": {
         "action": "Adicionar Dinheiro",
-        "diboas": "0,48% (mín R$0,25, máx R$25)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "0 a 1,5%",
         "difference": "Mais barato que a maioria",
         "example": "Adicione R$500: custa R$2,40"
@@ -173,7 +173,7 @@
       },
       "selling": {
         "action": "Vender / Encerrar",
-        "diboas": "0,39% (mín R$0,25, máx R$25)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "1,5 a 2,5%",
         "difference": "Economize R$1,11 a R$2,11 a cada R$100",
         "example": "Venda R$100: custa R$0,39"
@@ -187,14 +187,14 @@
       },
       "strategies": {
         "action": "Crescer (Estratégias)",
-        "diboas": "Grátis pra entrar, 0,39% pra sair",
+        "diboas": "Grátis pra entrar, {exitRate} pra sair",
         "competitors": "N/A",
         "difference": "Crescimento em dólar que seu banco não oferece",
         "example": "Começar uma estratégia de R$100: R$0. Sair custa 39 centavos."
       },
       "cashout": {
         "action": "Sacar",
-        "diboas": "0,48%",
+        "diboas": "{rate}",
         "competitors": "1 a 3% + demora",
         "difference": "Economize até R$2,52 a cada R$100",
         "example": "Saque R$100: custa R$0,48"

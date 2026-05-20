@@ -1,9 +1,12 @@
 'use client';
 
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useState, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { useLocale } from '@/components/Providers';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
+import { marketDataService } from '@/lib/market-data';
+import { buildAllFeeValues } from '@/lib/market-data/feeComparisonValues';
 import type { ProseSectionConfig } from '@/config/proseSection';
 import styles from './ProseSection.module.css';
 
@@ -20,7 +23,12 @@ export const ProseSection = memo(function ProseSection({
   className = '',
   headingLevel: Heading = 'h2',
 }: ProseSectionProps) {
-  const translated = useConfigTranslation(config);
+  const { locale } = useLocale();
+  const valuesByKey = useMemo(
+    () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
+    [locale],
+  );
+  const translated = useConfigTranslation(config, undefined, valuesByKey);
   const [imgFailed, setImgFailed] = useState(false);
 
   const handleImageError = useCallback(() => {

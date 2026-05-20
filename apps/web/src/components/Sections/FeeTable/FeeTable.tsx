@@ -1,9 +1,12 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Check } from '@/components/UI/LucideIcon';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { useLocale } from '@/components/Providers';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
+import { marketDataService } from '@/lib/market-data';
+import { buildAllFeeValues } from '@/lib/market-data/feeComparisonValues';
 import type { FeeTableConfig } from '@/config/feeTable';
 import styles from './FeeTable.module.css';
 
@@ -29,7 +32,12 @@ export const FeeTable = memo(function FeeTable({
   enableAnalytics: _enableAnalytics = true,
   className = '',
 }: FeeTableProps) {
-  const translated = useConfigTranslation(config);
+  const { locale } = useLocale();
+  const valuesByKey = useMemo(
+    () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
+    [locale],
+  );
+  const translated = useConfigTranslation(config, undefined, valuesByKey);
 
   return (
     <SectionContainer

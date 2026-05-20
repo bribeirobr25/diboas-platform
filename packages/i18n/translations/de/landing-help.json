@@ -58,7 +58,7 @@
         },
         "q2": {
           "question": "Kann ich mein Geld jederzeit abheben?",
-          "answer": "Ja. Dein Geld gehört dir. Hebe ab, wann du willst. Die Gebühr beträgt 0,48%, eine Auszahlung von 100 € kostet dich also 48 Cent. Keine Sperrfristen. Keine Strafgebühren."
+          "answer": "Ja. Dein Geld gehört dir. Hebe ab, wann du willst. Die Gebühr beträgt {rate}, eine Auszahlung von 100 € kostet dich also 48 Cent. Keine Sperrfristen. Keine Strafgebühren."
         },
         "q3": {
           "question": "Was passiert mit meinem Geld, wenn diBoaS schließt?",
@@ -103,7 +103,7 @@
         },
         "q2": {
           "question": "Wo ist der Haken?",
-          "answer": "Wir berechnen kleine Gebühren, wenn Geld bewegt wird. Kostenlos wenn du Zahlungen empfängst. Kostenlos wenn du investierst. 0,39% wenn du verkaufst oder eine Position schließt. 0,48% wenn du auszahlst.\n\nWenn du 10.000 EUR an Zahlungen empfängst, behalten wir 0 EUR. Wenn du 10.000 EUR investierst, behalten wir 0 EUR. Wenn du 10.000 EUR verkaufst, behalten wir 39 EUR. Wenn du nichts verdienst und nichts sendest, verdienen wir nichts.\n\nKeine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Kein Haken."
+          "answer": "Wir berechnen kleine Gebühren, wenn Geld bewegt wird. Kostenlos wenn du Zahlungen empfängst. Kostenlos wenn du investierst. {sellRate} wenn du verkaufst oder eine Position schließt. {cashOutRate} wenn du auszahlst.\n\nWenn du 10.000 EUR an Zahlungen empfängst, behalten wir 0 EUR. Wenn du 10.000 EUR investierst, behalten wir 0 EUR. Wenn du 10.000 EUR verkaufst, behalten wir 39 EUR. Wenn du nichts verdienst und nichts sendest, verdienen wir nichts.\n\nKeine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Kein Haken."
         },
         "q3": {
           "question": "Kann ich diBoaS nur für Überweisungen nutzen?",

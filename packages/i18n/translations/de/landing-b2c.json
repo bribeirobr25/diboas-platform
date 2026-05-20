@@ -152,7 +152,7 @@
       },
       "adding": {
         "action": "Geld einzahlen",
-        "diboas": "0,48% (min 0,25 €, max 25 €)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0 bis 1,5%",
         "difference": "Günstiger als die meisten Apps",
         "example": "100 € einzahlen: kostet dich 48 Cent"
@@ -173,7 +173,7 @@
       },
       "selling": {
         "action": "Verkaufen / Schließen",
-        "diboas": "0,39% (min 0,25 €, max 25 €)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "1,5 bis 2,5%",
         "difference": "Spare 1,11 bis 2,11 € pro 100 €",
         "example": "100 € verkaufen: kostet dich 39 Cent"
@@ -187,14 +187,14 @@
       },
       "strategies": {
         "action": "Wachsen (Strategien)",
-        "diboas": "Kostenlos starten, 0,39% beim Ausstieg",
+        "diboas": "Kostenlos starten, {exitRate} beim Ausstieg",
         "competitors": "N/A",
         "difference": "Wachstumsmöglichkeiten, die deine Bank nicht bietet",
         "example": "100-€-Strategie starten: 0 €. Ausstieg kostet 39 Cent."
       },
       "cashout": {
         "action": "Auszahlen",
-        "diboas": "0,48%",
+        "diboas": "{rate}",
         "competitors": "1 bis 3% plus Verzögerungen",
         "difference": "Spare bis zu 2,52 € pro 100 €",
         "example": "100 € auszahlen: kostet dich 48 Cent"
@@ -208,7 +208,7 @@
       "p2": "Dein Geld sitzt nicht einfach bei deiner Bank rum. Sie arbeiten damit. Sie erwirtschaften damit echte Renditen. Was geben sie dir davon zurück? Fast nichts.",
       "p3": "Die Differenz zwischen dem, was sie verdienen und dem, was sie dir zahlen, das ist ihr gesamtes Geschäftsmodell.",
       "p4": "Wir schließen diese Lücke. Bei diBoaS gehen die Erträge an dich. Nicht an Vorstände. Nicht an Filialen. An dich.",
-      "p5": "Investieren ist kostenlos. Wenn du verkaufst, nimmt diBoaS 0,39%. Du verkaufst 100 €, diBoaS verdient 39 Cent. Das ist alles. diBoaS verdient nur dann mehr, wenn dein Geld zuerst wächst. Die Gebühr übersteigt nie 25 €.",
+      "p5": "Investieren ist kostenlos. Wenn du verkaufst, nimmt diBoaS {sellRate}. Du verkaufst 100 €, diBoaS verdient 39 Cent. Das ist alles. diBoaS verdient nur dann mehr, wenn dein Geld zuerst wächst. Die Gebühr übersteigt nie {maxFee}.",
       "p6": "Keine monatlichen Gebühren. Keine überraschenden Kosten. Keine Strafgebühren beim Auszahlen.",
       "p7": "Wie geht das? Wir haben keine Bankfilialen gebaut. Wir haben keine Vorstände eingestellt. Wir haben nicht die Kosten eines Systems geerbt, das 1950 gebaut wurde. Neue Technologie erledigt die gleiche Arbeit. Wir geben die Ersparnis an dich weiter.",
       "p8": "Gibt es Risiken? Ja. Wir müssen ehrlich mit dir darüber sein.",

@@ -152,7 +152,7 @@
       },
       "adding": {
         "action": "Add Money",
-        "diboas": "0.48% (min $0.25, max $25)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0 to 1.5%",
         "difference": "Cheaper than most apps charge to add money",
         "example": "Add $100: costs you 48 cents"
@@ -173,7 +173,7 @@
       },
       "selling": {
         "action": "Sell / Close",
-        "diboas": "0.39% (min $0.25, max $25)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "1.5 to 2.5%",
         "difference": "Save $1.11 to $2.11 per $100",
         "example": "Sell $100: costs you 39 cents"
@@ -187,14 +187,14 @@
       },
       "strategies": {
         "action": "Grow (Strategies)",
-        "diboas": "Free to start, 0.39% to exit",
+        "diboas": "Free to start, {exitRate} to exit",
         "competitors": "N/A",
         "difference": "Growth options your bank doesn't offer",
         "example": "Start a $100 strategy: $0. Closing costs 39 cents."
       },
       "cashout": {
         "action": "Cash Out",
-        "diboas": "0.48%",
+        "diboas": "{rate}",
         "competitors": "1 to 3% plus delays",
         "difference": "Save up to $2.52 per $100",
         "example": "Cash out $100: costs you 48 cents"
@@ -208,7 +208,7 @@
       "p2": "Your money doesn't sit still at your bank. They put it to work. They earn real returns on it. What do they give you back? Almost nothing.",
       "p3": "The gap between what they earn and what they pay you is their entire business model.",
       "p4": "We close that gap. With diBoaS, the returns go to you. Not to executives. Not to branches. To you.",
-      "p5": "Investing is free. When you sell, diBoaS takes 0.39%. You sell $100, diBoaS makes 39 cents. That's it. The only way diBoaS earns more is if your money grows first. The fee never goes above $25.",
+      "p5": "Investing is free. When you sell, diBoaS takes {sellRate}. You sell $100, diBoaS makes 39 cents. That's it. The only way diBoaS earns more is if your money grows first. The fee never goes above {maxFee}.",
       "p6": "No monthly charges. No surprise fees. No penalties for leaving.",
       "p7": "How is that possible? We didn't build bank branches. We didn't hire executives. We didn't inherit the costs of a system built in 1950. New technology does the same job. We pass the savings to you.",
       "p8": "Is there risk? Yes. We need to be straight with you about this.",

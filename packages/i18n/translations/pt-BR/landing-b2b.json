@@ -57,7 +57,7 @@
         "bankResult": "R$34.150",
         "difference": "R$16.900/ano",
         "tagline": "Em dólar digital, seu caixa rende mais — porque o dólar tende a se valorizar contra o real ao longo do tempo.",
-        "source": "Exemplo baseado em R$500.000 de caixa parado com taxa de poupança líquida de 6,83% (BCB/B3 média 5 anos) vs diBoaS Conservador 7% em dólar digital, com efeito de valorização cambial de 3% ao ano (derivado em 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Retornos projetados são ilustrativos. Resultados reais podem variar.",
+        "source": "Exemplo baseado em R$500.000 de caixa parado com taxa de poupança líquida de {rate} (BCB/B3 média 5 anos) vs diBoaS Conservador 7% em dólar digital, com efeito de valorização cambial de 3% ao ano (derivado em 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Retornos projetados são ilustrativos. Resultados reais podem variar.",
         "howPossible": "Como isso é possível?"
       }
     }
@@ -154,7 +154,7 @@
       },
       "add": {
         "action": "Adicionar dinheiro",
-        "diboas": "0,48% (mín R$0,25, máx R$25)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "0 a 1,5%",
         "difference": "Comparável com a maioria dos provedores",
         "example": "Adicionar R$50.000: custa R$240"
@@ -168,7 +168,7 @@
       },
       "sell": {
         "action": "Vender / Fechar",
-        "diboas": "0,39% (mín R$0,25, máx R$25)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "0,5 a 2%",
         "difference": "Economize R$55 a R$805 por R$50.000",
         "example": "Vender R$50.000: custa R$195"
@@ -182,7 +182,7 @@
       },
       "cashOut": {
         "action": "Sacar",
-        "diboas": "0,48% (mín R$0,25, máx R$25)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "1 a 3% + atrasos",
         "difference": "Economize R$260 a R$1.260 por R$50.000",
         "example": "Sacar R$50.000: custa R$240"
@@ -190,7 +190,7 @@
     },
     "disclaimer": "*Taxa diBoaS mostrada. Taxas de rede de terceiros podem se aplicar (normalmente menos de R$0,05).",
     "pricingNote": "Comparacoes de precos baseadas em tarifas publicas de fevereiro de 2026. As faixas refletem precos comuns entre os principais provedores. O preço real de cada concorrente varia por provedor, volume e condições contratuais.",
-    "example": "Receba R$5.000 em pagamentos: você fica com R$5.000 na sua conta diBoaS. Saque para o banco: R$4.976 (apos 0,48% de taxa de saque). Ainda muito mais barato que os R$4.750 a R$4.900 que uma maquininha deixa pra você.",
+    "example": "Receba R$5.000 em pagamentos: você fica com R$5.000 na sua conta diBoaS. Saque para o banco: R$4.976 (apos {cashOutRate} de taxa de saque). Ainda muito mais barato que os R$4.750 a R$4.900 que uma maquininha deixa pra você.",
     "expandableToggle": "Sem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Veja todas as taxas.",
     "footerLine": "Cada taxa. Na mesa. Nada mais.",
     "transitionHook": "Ainda lendo? Otimo. Vamos ver se isso encaixa pro seu negocio."
