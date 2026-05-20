@@ -97,5 +97,16 @@ export function buildAllFeeValues(
     cashOutRate: formatRate(fees.cashOut.rate * 100, locale),
   });
 
+  // Landing-page FAQ items (PR-5 — rendered via B2C_FAQ_ITEMS + B2B_FAQ_ITEMS).
+  // Worked-example numerics ($100/$10,000/$39 etc.) stay literal — see §9
+  // carry-forward for full worked-example parameterization.
+  map.set('landing-b2c.faq.items.withdraw.answer', {
+    rate: formatRate(fees.cashOut.rate * 100, locale),
+  });
+  map.set('landing-b2b.faq.items.catch.answer', {
+    sellRate: formatRate(fees.sell.rate * 100, locale),
+    cashOutRate: formatRate(fees.cashOut.rate * 100, locale),
+  });
+
   return map;
 }

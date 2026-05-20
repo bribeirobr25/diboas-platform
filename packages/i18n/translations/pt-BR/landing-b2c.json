@@ -340,7 +340,7 @@
       },
       "withdraw": {
         "question": "Posso sacar meu dinheiro a qualquer hora?",
-        "answer": "Sim. Seu dinheiro é seu. Saque quando quiser. A taxa é 0,48%, então sacar R$100 custa R$0,48. Sem carência. Sem multa."
+        "answer": "Sim. Seu dinheiro é seu. Saque quando quiser. A taxa é {rate}, então sacar R$100 custa R$0,48. Sem carência. Sem multa."
       },
       "safety": {
         "question": "Meu dinheiro tá seguro?",

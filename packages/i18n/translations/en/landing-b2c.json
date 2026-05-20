@@ -340,7 +340,7 @@
       },
       "withdraw": {
         "question": "Can I withdraw my money anytime?",
-        "answer": "Yes. Your money is yours. Withdraw whenever you want. The fee is 0.48%, so cashing out $100 costs you 48 cents. No lock-up periods. No penalties."
+        "answer": "Yes. Your money is yours. Withdraw whenever you want. The fee is {rate}, so cashing out $100 costs you 48 cents. No lock-up periods. No penalties."
       },
       "safety": {
         "question": "Is my money safe?",

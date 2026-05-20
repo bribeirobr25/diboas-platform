@@ -288,7 +288,7 @@
     "items": {
       "catch": {
         "question": "Cual es la trampa?",
-        "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posición. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
+        "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. {sellRate} cuando vendes o cierras una posición. {cashOutRate} cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
       },
       "smbOrStartup": {
         "question": "Es esto para pequenas empresas o startups?",

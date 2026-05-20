@@ -52,11 +52,31 @@ All translation files have been created and populated with complete translations
 **Purpose**: Reusable translation resolution system for config-driven components
 
 **Features**:
-- `useConfigTranslation<T>()` - Recursively translates config objects
+- `useConfigTranslation<T>()` - Recursively translates config objects (supports optional `valuesByKey` map for ICU `{slot}` injection — see §2.1)
 - `useTranslate()` - Simple one-off translations
 - `useTranslateWithValues()` - Translations with interpolation
 - `useNamespacedTranslation()` - Scoped translations for cleaner code
-- `withTranslations()` - Higher-order function for translation-aware configs
+- `withTranslations()` - Higher-order function for translation-aware configs (mirrors `useConfigTranslation` signature — same optional `valuesByKey` arg)
+
+#### 2.1 `valuesByKey` extension (Phase 7 Followup, 2026-05-20)
+
+`useConfigTranslation` and `withTranslations` accept an optional 3rd-positional `valuesByKey: Map<string, Record<string, string | number | boolean | Date>>` parameter. The map keys are fully-qualified translation ids (e.g. `'landing-b2c.fees.rows.adding.diboas'`); the values are slot-name → slot-value records (e.g. `{ rate: '0.48%', min: '$0.25', max: '$25' }`). When the recursion resolves a translation key matched in `valuesByKey`, the corresponding values are passed to `intl.formatMessage` for ICU `{slot}` substitution.
+
+```ts
+const valuesByKey = new Map([
+  ['landing-b2c.fees.rows.adding.diboas', { rate: '0.48%', min: '$0.25', max: '$25' }],
+  ['landing-b2c.fees.rows.cashout.diboas', { rate: '0.48%' }],
+]);
+const translated = useConfigTranslation(config, undefined, valuesByKey);
+```
+
+**Canonical builder pattern (omnibus map):** `apps/web/src/lib/market-data/feeComparisonValues.ts` exports `buildAllFeeValues(fees, locale)` which returns a single `Map<string, Record<string, string>>` covering all migrated landing-page rate-citation keys (13 entries as of 2026-05-20). Consumers wrap it in `useMemo([locale])` and pass to `useConfigTranslation`. Verified consumers: `FeeTable`, `ProseSection`, `FAQAccordionFactory` (Option A threading). Direct `intl.formatMessage` consumers with their own local `t` helpers (e.g., `B2BGoalCards`, `GoalExampleCard`) extend the local helper with an optional `values?` parameter instead — no omnibus-map dependency.
+
+**Import-path constraint:** the builder imports `formatRate` from `@/lib/market-data/formatters` and `formatCurrency` from `@/lib/compound-interest` — these MUST stay split. The market-data barrel re-exports a 2-arg `formatCurrency` that hardcodes 0 decimals + `Math.round()`, which would silently break minFee rendering ($0.25 → "$0"). The 3-arg `Intl.NumberFormatOptions`-aware version lives in `lib/compound-interest`.
+
+**Dev-mode safety:** the recursion includes a `NODE_ENV === 'development'` warning that scans the resolved ICU template (via `intl.messages[resolvedKey]`) for `{slot}` markers and logs `console.warn` if any are missing from the values record. Stripped from production builds by `removeConsole`.
+
+**Backward compatibility:** the 3rd arg is optional. Existing call sites (`useConfigTranslation(config)` or `useConfigTranslation(config, translationKeyMap)`) work unchanged. Migration audit trail: `docs/audit/PHASE_7_FOLLOWUP_PLAN.md` v1.6 + `docs/audit/AUDIT_PHASE_7_FOLLOWUP.md` (10 audit rounds).
 
 **Benefits**:
 - **DRY Principle**: Single translation system for all components

@@ -340,7 +340,7 @@
       },
       "withdraw": {
         "question": "Kann ich mein Geld jederzeit abheben?",
-        "answer": "Ja. Dein Geld gehört dir. Hebe ab, wann du willst. Die Gebühr beträgt 0,48%, eine Auszahlung von 100 € kostet dich also 48 Cent. Keine Sperrfristen. Keine Strafgebühren."
+        "answer": "Ja. Dein Geld gehört dir. Hebe ab, wann du willst. Die Gebühr beträgt {rate}, eine Auszahlung von 100 € kostet dich also 48 Cent. Keine Sperrfristen. Keine Strafgebühren."
       },
       "safety": {
         "question": "Ist mein Geld sicher?",

@@ -340,7 +340,7 @@
       },
       "withdraw": {
         "question": "¿Puedo retirar mi dinero en cualquier momento?",
-        "answer": "Sí. Tu dinero es tuyo. Retíralo cuando quieras. La comisión es del 0,48%, así que retirar 100 € te cuesta 48 céntimos. Sin periodos de permanencia. Sin penalizaciones."
+        "answer": "Sí. Tu dinero es tuyo. Retíralo cuando quieras. La comisión es del {rate}, así que retirar 100 € te cuesta 48 céntimos. Sin periodos de permanencia. Sin penalizaciones."
       },
       "safety": {
         "question": "¿Está seguro mi dinero?",

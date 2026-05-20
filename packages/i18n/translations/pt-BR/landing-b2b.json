@@ -288,7 +288,7 @@
     "items": {
       "catch": {
         "question": "Qual e a pegadinha?",
-        "answer": "Cobramos taxas pequenas quando o dinheiro se move. Gratis quando você recebe pagamentos. Gratis quando você investe. 0,39% quando você vende ou fecha uma posição. 0,48% quando você saca.\n\nSe você recebe R$50.000 em pagamentos, ficamos com R$0. Se você investe R$50.000, a gente fica com R$0. Se você vende R$50.000, ficamos com R$195. Se você não ganha nada e não envia nada, a gente não ganha nada.\n\nSem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Sem pegadinha."
+        "answer": "Cobramos taxas pequenas quando o dinheiro se move. Gratis quando você recebe pagamentos. Gratis quando você investe. {sellRate} quando você vende ou fecha uma posição. {cashOutRate} quando você saca.\n\nSe você recebe R$50.000 em pagamentos, ficamos com R$0. Se você investe R$50.000, a gente fica com R$0. Se você vende R$50.000, ficamos com R$195. Se você não ganha nada e não envia nada, a gente não ganha nada.\n\nSem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Sem pegadinha."
       },
       "smbOrStartup": {
         "question": "E pra pequenas empresas ou startups?",

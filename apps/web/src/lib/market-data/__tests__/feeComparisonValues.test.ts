@@ -90,6 +90,17 @@ describe('buildAllFeeValues', () => {
     expect(adding.max).not.toMatch(/\$/);
   });
 
+  it('should include landing-page FAQ keys (PR-5: B2C withdraw + B2B catch)', () => {
+    const map = buildAllFeeValues(fees, 'en');
+    expect(map.get('landing-b2c.faq.items.withdraw.answer')).toEqual({
+      rate: '0.48%',
+    });
+    expect(map.get('landing-b2b.faq.items.catch.answer')).toEqual({
+      sellRate: '0.39%',
+      cashOutRate: '0.48%',
+    });
+  });
+
   it('should include landing-help keys for moneySafety.q2 (single rate) and feesCosts.q2 (multi-rate)', () => {
     const map = buildAllFeeValues(fees, 'en');
     expect(map.get('landing-help.topics.moneySafety.questions.q2.answer')).toEqual({
