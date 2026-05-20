@@ -99,7 +99,6 @@
       "1year": "1 Jahr",
       "5years": "5 Jahren"
     },
-    "bank_source": "Basierend auf {rate} durchschnittlichem Sparzins. Quelle: EZB-Statistik.",
     "bank_source_us": "Basierend auf {rate} durchschnittlichem Sparzins. Quelle: FDIC National Average.",
     "bank_source_eu": "Basierend auf {rate} durchschnittlichem Sparzins. Quelle: EZB-Statistik.",
     "bank_source_br": "Basierend auf {rate} Selic-basiertem Sparzins. Quelle: Banco Central do Brasil.",

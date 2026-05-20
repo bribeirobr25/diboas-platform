@@ -88,6 +88,7 @@ export default async function HelpPage({ params }: LocalePageProps) {
   const pageMessages = await loadPageNamespaces(locale, [
     'landing-help',
     'landing-b2c',
+    'faq',
   ]);
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(

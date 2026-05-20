@@ -418,36 +418,40 @@ export const B2B_WAITLIST_CONFIG = {
 } as const;
 
 // ─── Section 13: FAQ (5 items) — top questions; full FAQ at /help ─
+// All FAQ content is sourced from the canonical `faq.json` namespace
+// (Phase 8 Item A consolidation — single source of truth for /help, /, /business).
+// `safetyBusiness` is the B2B-tailored variant of `safety` (B2C/help use the
+// consumer-friendly variant); per-surface variants preserve audience tone.
 
 export const B2B_FAQ_ITEMS: FAQItem[] = [
   {
     id: 'catch',
-    question: 'landing-b2b.faq.items.catch.question',
-    answer: 'landing-b2b.faq.items.catch.answer',
+    question: 'faq.items.catch.question',
+    answer: 'faq.items.catch.answer',
     category: 'general'
   },
   {
     id: 'safety',
-    question: 'landing-b2b.faq.items.safety.question',
-    answer: 'landing-b2b.faq.items.safety.answerA',
+    question: 'faq.items.safetyBusiness.question',
+    answer: 'faq.items.safetyBusiness.answer',
     category: 'security'
   },
   {
     id: 'payments',
-    question: 'landing-b2b.faq.items.payments.question',
-    answer: 'landing-b2b.faq.items.payments.answer',
+    question: 'faq.items.payments.question',
+    answer: 'faq.items.payments.answer',
     category: 'operations'
   },
   {
     id: 'compliance',
-    question: 'landing-b2b.faq.items.compliance.question',
-    answer: 'landing-b2b.faq.items.compliance.answer',
+    question: 'faq.items.compliance.question',
+    answer: 'faq.items.compliance.answer',
     category: 'compliance'
   },
   {
     id: 'risk',
-    question: 'landing-b2b.faq.items.risk.question',
-    answer: 'landing-b2b.faq.items.risk.answer',
+    question: 'faq.items.risk.question',
+    answer: 'faq.items.risk.answer',
     category: 'security'
   }
 ];

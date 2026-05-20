@@ -79,31 +79,20 @@ export const DEPOSIT_QUICK_AMOUNTS = ['10', '25', '100'] as const;
 export const SEND_QUICK_AMOUNTS = ['5', '10', '50'] as const;
 export const BUY_QUICK_AMOUNTS = ['5', '10', '50'] as const;
 
-/** Fee rates */
-export const FEE_RATES = {
-  deposit: {
-    paymentProcessor: 0.01, // 1% payment processor fee
-    network: 0.00001,       // 0.001%
-    diboas: 0.0048,         // 0.48% — canonical ramp fee
-    diboasMin: 0.25,        // $0.25 minimum
-    diboasMax: 25,          // $25.00 maximum
-  },
-  send: {
-    network: 0.00001,  // 0.001%
-    priority: 0.009,   // Fixed ~$0.009
-    diboas: 0,         // Send is FREE
-  },
-  buy: {
-    btcSwap: 0.003,    // Cross-chain swap ~0.30%
-    btcMinerRate: 0.02, // BTC miner fee: 2%
-    xautIssuer: 0.0025, // 0.25%
-    xautSwapGas: 0.09,  // Fixed ~$0.09
-    xautLp: 0.001,      // ~0.10%
-    defaultRate: 0.0006,
-    diboas: 0.0039,    // 0.39% — canonical execution fee (used for default assets only)
-    btcDiboas: 0,      // BTC: only charge on selling, not buying
-    xautDiboas: 0,     // Gold: only charge on selling, not buying
-  },
+/**
+ * Pre-demo-specific buy scenario constants without a `marketDataService`
+ * equivalent. Kept local because they're demo-specific values, not platform-wide
+ * fees (Phase 8 Item E carry-forward: extend `thirdPartyFees` schema if these
+ * grow into real platform constants).
+ *
+ * All other fee rates (deposit/send/buy parameters mapped 1:1 to `platformFees`
+ * + `thirdPartyFees` + `networkGas`) are now derived inside
+ * `calculations.ts` via `resolveFeeRates()` from `marketDataService.getSync()`.
+ */
+export const PRE_DEMO_BUY_EXTRAS = {
+  xautSwapGas: 0.09,   // Fixed ~$0.09 ETH swap gas (demo-specific)
+  xautLp: 0.001,       // ~0.10% DEX LP fee (no `thirdPartyFees.dexLpFee` schema field; deferred)
+  defaultRate: 0.0006, // Default scenario rate for non-BTC/non-XAUT assets
 } as const;
 
 /** Chain order for wallet display */

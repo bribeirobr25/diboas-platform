@@ -6,7 +6,11 @@
  * (comparison tables, goal cards, calculators, PreDream, PreDemo, fee tables).
  */
 
-export type SupportedLocale = 'en' | 'pt-BR' | 'de' | 'es';
+// Phase 8 carry-forward #5 (2026-05-20): single source of truth.
+// Canonical type lives in `@diboas/i18n/config`. Imported here + re-exported so
+// existing market-data consumers (~8 files) keep working without changing imports.
+import type { SupportedLocale } from '@diboas/i18n/config';
+export type { SupportedLocale };
 export type StrategyPath = 'safety' | 'balance' | 'growth';
 export type ScenarioKey = 'conservative' | 'historical' | 'optimistic';
 export type DepositTiming = 'end' | 'beginning';

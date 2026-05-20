@@ -13,6 +13,17 @@ export interface ProseSectionConfig {
     readonly signatureLine?: string;
     readonly emphasisLine?: string;
     readonly earlyEmphasisLine?: string;
+    /**
+     * Phase 8 Item B (CC8 closeout): optional fee-paragraph injection.
+     * `feeParagraph` is a translation key whose ICU template carries
+     * `{sellRate}` / `{maxFee}` / `{exampleFee}` slots resolved via the
+     * omnibus map. It REPLACES `paragraphs[feeParagraphAt[locale]]` at
+     * render time, allowing each locale to position the fee citation
+     * at its narrative-appropriate index (pt-BR uses index 3 due to
+     * BRL framing in earlier paragraphs; en/es/de use index 4).
+     */
+    readonly feeParagraph?: string;
+    readonly feeParagraphAt?: Partial<Record<'en' | 'pt-BR' | 'es' | 'de', number>>;
   };
   readonly image?: {
     readonly src: string;

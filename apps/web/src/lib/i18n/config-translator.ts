@@ -46,7 +46,8 @@ function isTranslationKey(value: string): boolean {
     (value.startsWith('about.') && value.indexOf('.', 6) > 0) ||
     (value.startsWith('protocols.') && value.indexOf('.', 10) > 0) ||
     (value.startsWith('security.') && value.indexOf('.', 9) > 0) ||
-    (value.startsWith('strategies.') && value.indexOf('.', 11) > 0)
+    (value.startsWith('strategies.') && value.indexOf('.', 11) > 0) ||
+    (value.startsWith('faq.') && value.indexOf('.', 4) > 0)
   );
 }
 

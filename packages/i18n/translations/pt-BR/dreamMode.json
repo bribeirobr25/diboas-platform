@@ -99,7 +99,6 @@
       "1year": "1 ano",
       "5years": "5 anos"
     },
-    "bank_source": "Baseado em {rate} de rendimento da poupança. Fonte: Banco Central do Brasil.",
     "bank_source_us": "Baseado em {rate} de rendimento médio da poupança. Fonte: Federal Reserve.",
     "bank_source_eu": "Baseado em {rate} de rendimento médio da poupança. Fonte: Estatísticas do BCE.",
     "bank_source_br": "Baseado em {rate} de rendimento da poupança (Selic). Fonte: Banco Central do Brasil.",

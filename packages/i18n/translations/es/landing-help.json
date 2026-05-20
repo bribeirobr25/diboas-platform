@@ -9,206 +9,22 @@
   },
   "topics": {
     "gettingStarted": {
-      "title": "Primeros Pasos",
-      "questions": {
-        "q1": {
-          "question": "¿Es diBoaS un banco?",
-          "answer": "No. diBoaS es una plataforma que te conecta con oportunidades financieras. No gestionamos tu dinero ni tomamos decisiones sobre tus fondos. Tu cartera está protegida de forma que solo tú puedes autorizar transacciones. Nosotros damos las herramientas. Tú tomas las decisiones."
-        },
-        "q2": {
-          "question": "¿Es diBoaS para todo el mundo?",
-          "answer": "No.\n\nSi quieres que otra persona tome decisiones financieras por ti, no somos nosotros. Si quieres un banco tradicional con sucursales y extractos de papel, tampoco.\n\ndiBoaS es para quien quiere ver adónde va su dinero. Quien quiere comisiones honestas. Quien piensa que los 10.000 € de mínimo son parte del problema.\n\nNo necesitas entenderlo todo hoy. Para eso estamos. Solo necesitas estar dispuesto a aprender."
-        },
-        "q3": {
-          "question": "¿Cuál es el importe mínimo para empezar?",
-          "answer": "5 €. El precio de un café. La mayoría de las plataformas de inversión exigen 500 a 10.000 € solo para abrirte la puerta. Creemos que eso es parte del problema."
-        },
-        "q4": {
-          "question": "¿Qué pasa después de registrarme?",
-          "answer": "Recibirás un email con tu insignia y número de Miembro Fundador, tu enlace personal de invitación (5 invitaciones para compartir) e instrucciones para empezar.\n\nA partir de ahí, configuras tu cartera, añades fondos y ya estás dentro."
-        },
-        "q5": {
-          "question": "¿Con qué tipo de dinero debería empezar?",
-          "answer": "Empieza con dinero que quieras poner a trabajar. No tu alquiler. No el dinero que necesitas la semana que viene. Empieza con una cantidad pequeña y una meta clara."
-        },
-        "q6": {
-          "question": "¿Y si no entiendo de inversiones?",
-          "answer": "Para eso exactamente lo hemos construido. Nuestro objetivo es hacerlo tan sencillo que cualquiera pueda hacerlo. Sin jerga. Sin decisiones complicadas. Solo opciones claras e información transparente. Empieza con 5 €. Explora. Aprende. Estamos aquí en cada paso."
-        },
-        "q7": {
-          "question": "¿Es diBoaS compatible con MiCA?",
-          "answer": "diBoaS es una plataforma de custodia propia. Según el Reglamento europeo sobre los Mercados de Criptoactivos (MiCA), las carteras de custodia propia no entran en el ámbito regulatorio porque no custodian fondos de los usuarios. Esto significa: ningún bloqueo de cuenta por parte de la plataforma. Tu dinero permanece bajo tu control. Consulta el aviso MiCA completo en nuestro pie de página."
-        },
-        "q8": {
-          "question": "¿Puedo usar PIX con diBoaS?",
-          "answer": "No. diBoaS trabaja con dólares digitales, no con moneda local. Para transferencias domésticas, usa tu sistema de pago local."
-        },
-        "q9": {
-          "question": "¿Por qué ahorrar en dólares?",
-          "answer": "Porque el dólar, como moneda de reserva global, es más estable a largo plazo. Con diBoaS, tu dinero se mantiene en dólares digitales, protegido contra la devaluación de la moneda local."
-        }
-      }
+      "title": "Primeros Pasos"
     },
     "moneySafety": {
-      "title": "Dinero y Seguridad",
-      "questions": {
-        "q1": {
-          "question": "¿Está seguro mi dinero?",
-          "answer": "Tu dinero está protegido por ti. Solo tú tienes las claves. Nadie más puede acceder a tus fondos sin tu permiso.\n\nDicho esto, esto no es una cuenta bancaria. Los criptoactivos no están cubiertos por los esquemas de garantía de depósitos. El valor de tus activos puede fluctuar, y podrías perder parte o la totalidad de tu inversión.\n\nTe mostramos ambos lados, las oportunidades y los riesgos. Siempre."
-        },
-        "q2": {
-          "question": "¿Puedo retirar mi dinero en cualquier momento?",
-          "answer": "Sí. Tu dinero es tuyo. Retíralo cuando quieras. La comisión es del {rate}, así que retirar 100 € te cuesta 48 céntimos. Sin periodos de permanencia. Sin penalizaciones."
-        },
-        "q3": {
-          "question": "¿Qué pasa con mi dinero si diBoaS cierra?",
-          "answer": "Tu dinero está en tu cartera. No en la nuestra.\n\nSi diBoaS desapareciera mañana, tu dinero seguiría ahí. Accesible con tus claves.\n\ndiBoaS nunca guarda tu dinero. Nunca puede. Eso no es algo que añadimos. Es cómo se construyó todo el sistema."
-        },
-        "q4": {
-          "question": "¿Y si algo sale mal?",
-          "answer": "Sí, puedes perder dinero. Lo cubrimos honestamente en la sección anterior. En resumen: probamos cada estrategia contra crisis pasadas, monitorizamos las 24 horas y siempre te diremos qué está pasando. Pero no podemos eliminar todo el riesgo, y no vamos a fingir que podemos."
-        },
-        "q5": {
-          "question": "¿Y si pierdo mi móvil?",
-          "answer": "Cuando diBoaS lance su aplicación, tu billetera usará seguridad avanzada de claves para proteger contra la pérdida del dispositivo. Nuestra arquitectura está diseñada para la recuperación de billetera sin frases semilla ni respaldos de 24 palabras. Tu dinero no desaparecerá porque tu teléfono lo hizo."
-        },
-        "q6": {
-          "question": "¿Qué es mi saldo realmente?",
-          "answer": "Tu dinero disponible vive como dólares digitales, mostrado en tu moneda local dentro de diBoaS. El dinero disponible y el invertido se muestran por separado, para que siempre sepas qué está listo y qué está trabajando."
-        },
-        "q7": {
-          "question": "Puedo acceder a mi dinero en cualquier momento?",
-          "answer": "Si. Sin bloqueos. Tu pones el mínimo: \"siempre tener 50.000 EUR liquidos.\" Solo ponemos a trabajar lo que esta por encima.\n\nNecesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
-        },
-        "q8": {
-          "question": "Por que diBoaS no puede tocar mi dinero?",
-          "answer": "Ese es precisamente el punto de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transacción requiere tu aprobacion.\n\nMas control para ti. Menos riesgo nuestro."
-        },
-        "q9": {
-          "question": "Cual es el riesgo real?",
-          "answer": "Seamos honestos.\n\nLos sistemas donde va tu dinero estan construidos con codigo. El codigo puede tener vulnerabilidades. Reducimos esto usando solo sistemas con un valor total asegurado significativo, multiples auditorias de seguridad independientes, anos de historial a traves de eventos de mercado, y distribuyendo tu dinero entre multiples sistemas independientes.\n\nRiesgo cero? No. Nada lo es, incluido tu banco.\n\nLa pregunta real: merece la pena un perfil de riesgo diferente a cambio de mejores retornos? Para algunos negocios, si. Para otros, no. Ambas respuestas son validas."
-        },
-        "q10": {
-          "question": "¿Puedo perderlo todo?",
-          "answer": "En las estrategias estables (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): la probabilidad de pérdida total es extremadamente baja. En casi 4 años de pruebas y miles de simulaciones, no ocurrió. Pero \"extremadamente baja\" no es cero.\n\nEn las estrategias de crecimiento: cuanto mayor el porcentaje de crecimiento, más amplio el rango de resultados posibles. Full Throttle con un 85% de exposición a crecimiento ha registrado caídas simuladas superiores al 78%.\n\nEl riesgo es real. No lo minimizamos. Te ayudamos a elegir el nivel que encaja con lo que puedes asumir."
-        }
-      }
+      "title": "Dinero y Seguridad"
     },
     "feesCosts": {
-      "title": "Comisiones y Costes",
-      "questions": {
-        "q1": {
-          "question": "¿Cómo es posible sin comisiones altas?",
-          "answer": "Eliminando a los intermediarios. Las sucursales, los ejecutivos, los costes heredados. La nueva tecnología hace el mismo trabajo por una fracción del precio. Te pasamos ese ahorro a ti. Ese es todo el modelo."
-        },
-        "q2": {
-          "question": "Cual es la trampa?",
-          "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. {sellRate} cuando vendes o cierras una posición. {cashOutRate} cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
-        },
-        "q3": {
-          "question": "¿Puedo usar diBoaS solo para transferencias?",
-          "answer": "Sí. Absolutamente. Puedes usar diBoaS solo para enviar y recibir dinero. Gratis, instantáneo, mundial. Las funciones de inversión y crecimiento están ahí cuando y si las quieras. Sin presión. Sin paquetes."
-        }
-      }
+      "title": "Comisiones y Costes"
     },
     "investingStrategies": {
-      "title": "Inversión y Estrategias",
-      "questions": {
-        "q1": {
-          "question": "¿Ha sido diBoaS auditado?",
-          "answer": "Somos una plataforma en pre-lanzamiento. Nuestras estrategias se prueban contra crisis históricas y escenarios reales, y usamos protocolos auditados y establecidos. A medida que crezcamos, buscaremos auditorías independientes de terceros. Para detalles completos, visita nuestras páginas de Estrategias y Protocolos."
-        },
-        "q2": {
-          "question": "¿Puedo cambiar de estrategia?",
-          "answer": "Sí, en cualquier momento. Sin penalizaciones. Sin preguntas.\n\nAlgo a tener en cuenta: si cambias durante una caída del mercado, podrías materializar una pérdida temporal. El mejor momento para cambiar es cuando tus objetivos cambian, no cuando el mercado se mueve."
-        },
-        "q3": {
-          "question": "¿Puedo usar varias estrategias a la vez?",
-          "answer": "Sí. Mucha gente lo hace.\n\nPiensa en ello como diferentes cuentas para diferentes propósitos: fondo de emergencia en Safe Harbor, ahorro para vacaciones en Goal Keeper, patrimonio a largo plazo en Balanced Builder."
-        },
-        "q4": {
-          "question": "¿Cómo funciona el rebalanceo?",
-          "answer": "Cuando los movimientos del mercado empujan tu asignación fuera del objetivo (más del 10% de desviación), te avisamos. Por ejemplo, si tu objetivo es 60% estable y 40% crecimiento, y los movimientos del mercado lo llevan a algo como 55/45 o más lejos, te lo hacemos saber.\n\nVerás exactamente qué cambió y por qué. Luego tú decides: apruebas el rebalanceo o lo dejas como está.\n\nNunca movemos tu dinero sin tu aprobación."
-        },
-        "q5": {
-          "question": "¿Están garantizados estos retornos?",
-          "answer": "No. Y cualquiera que te garantice retornos te está mintiendo.\n\nLo que podemos decirte: hemos probado cada estrategia con casi 4 años de datos reales de mercado (mayo 2022 - diciembre 2025). Los números se basan en lo que realmente ocurrió y en miles de simulaciones Monte Carlo.\n\nEstos números te ayudan a comparar estrategias y entender el rango de resultados posibles. No predicen el futuro. Empieza con lo que puedas permitirte aprender."
-        },
-        "q6": {
-          "question": "¿Dónde va realmente mi dinero?",
-          "answer": "Los protocolos detrás de cada estrategia están listados en esta página con sus nombres, redes, tipos de activo e historial. Sin necesidad de registrarte. Sin información oculta.\n\nSky SSR, Aave V3 y Compound V3 gestionan los retornos estables. Sanctum INF, Jupiter JLP y Jito gestionan el crecimiento. Cada estrategia es una combinación específica de estos protocolos con porcentajes exactos mostrados en cada tarjeta de estrategia.\n\nElegimos estos protocolos porque son transparentes, están probados en batalla, y puedes verificar todo tú mismo."
-        },
-        "q7": {
-          "question": "¿Y si uno de los sistemas tiene un problema?",
-          "answer": "Es un riesgo real. Estos sistemas están construidos sobre código, y el código puede tener vulnerabilidades.\n\nReducimos este riesgo usando solo sistemas que han protegido miles de millones de euros durante años, distribuyendo tu dinero entre múltiples sistemas independientes, y monitorizando continuamente cualquier actividad inusual.\n\nNo podemos eliminar este riesgo. Nadie puede. Pero podemos ser honestos al respecto."
-        },
-        "q8": {
-          "question": "¿En qué se diferencia de una cuenta de ahorro?",
-          "answer": "Una cuenta de ahorro bancaria está asegurada por el Fondo de Garantía de Depósitos (hasta 100.000 EUR por entidad). Tu dinero genera un tipo fijo. El banco lo controla.\n\nLas estrategias de diBoaS usan sistemas automatizados de préstamo y staking. Los retornos son variables. Tu dinero no está asegurado. Tú lo controlas a través de tu propio monedero.\n\nLa contrapartida: retornos potencialmente mayores, pero aceptas el riesgo que conlleva un tipo de sistema diferente."
-        }
-      }
+      "title": "Inversión y Estrategias"
     },
     "forBusinesses": {
-      "title": "Para Empresas",
-      "questions": {
-        "q1": {
-          "question": "Es esto para pequenas empresas o startups?",
-          "answer": "Para ambas. Si tienes un bar que pierde un 2,5% en cada pago con tarjeta, te ayudamos a quedarte con ese dinero. Si eres una startup con 500.000 EUR parados en el banco ganando un 0,5%, ayudamos a que generen mas.\n\nLas herramientas son las mismas. Solo cambian los numeros."
-        },
-        "q2": {
-          "question": "Como funcionan los pagos instantaneos?",
-          "answer": "Las transferencias tradicionales pasan por bancos corresponsales. Tu banco, su banco, quiza otro banco, y luego el banco del receptor. Cada paso lleva tiempo y cobra comisiones.\n\nCon diBoaS, los pagos van directos. De tu cartera a la suya. Hecho.\n\nTu freelancer en Buenos Aires cobra en segundos, al tipo de cambio real, gratis. No 15 a 50 EUR y 3 dias laborables."
-        },
-        "q3": {
-          "question": "Que pasa con el cumplimiento normativo y los impuestos?",
-          "answer": "Construimos diBoaS para negocios reales con necesidades de cumplimiento reales.\n\nExtractos mensuales formateados para tu software contable. Historial de transacciones con rastro de auditoria completo. Documentacion fiscal a final de ano. Informes listos para tu consejo que tu CFO realmente entendera.\n\nSabemos que en algun momento te van a auditar. Nos aseguramos de que estes preparado."
-        },
-        "q4": {
-          "question": "¿Puedo enviar dinero a cualquier persona?",
-          "answer": "Hoy, puedes enviar dinero al instante y gratis a cualquier usuario de diBoaS. A medida que la red crece, más personas podrás alcanzar."
-        },
-        "q5": {
-          "question": "A donde va mi dinero exactamente?",
-          "answer": "Tu dinero se coloca en sistemas financieros establecidos que llevan operando mas de 3 anos, han sobrevivido a multiples caidas de mercado y son auditados de forma independiente en seguridad.\n\nTodos los detalles, incluyendo nombres, historial y nuestros criterios de seleccion, estan publicados en nuestra pagina de Estrategias. Sin necesidad de registro.\n\nElegimos estos sistemas porque son transparentes, probados en batalla, y puedes ver exactamente donde estan tus fondos en todo momento."
-        }
-      }
+      "title": "Para Empresas"
     },
     "protocolsTransparency": {
-      "title": "Protocolos y Transparencia",
-      "questions": {
-        "q1": {
-          "question": "Por que no listais todos los protocolos DeFi?",
-          "answer": "Hay miles de protocolos DeFi. Preferimos listar 25 que hemos investigado a fondo a 200 que no conocemos."
-        },
-        "q2": {
-          "question": "Con que frecuencia actualizais esta lista?",
-          "answer": "Monitorizamos todos los protocolos listados de forma continua. Si un protocolo tiene un incidente de seguridad, cambio regulatorio o problema operativo significativo, actualizamos esta página. También revisamos la lista completa trimestralmente para decidir si anadir o eliminar protocolos."
-        },
-        "q3": {
-          "question": "Puedo solicitar que se anade un protocolo?",
-          "answer": "Si. Escribe a hello@diboas.com con tu sugerencia y por que crees que debería incluirse. Revisamos cada solicitud según nuestros criterios de seleccion."
-        },
-        "q4": {
-          "question": "Estar listado aquí significa que diBoaS recomienda estos protocolos?",
-          "answer": "No. Estar listado significa que los hemos investigado, cumplen nuestros criterios y los usamos en nuestras estrategias. No estamos afiliados con ningun protocolo. Su inclusion no implica que ellos respalden a diBoaS, y nuestra lista no constituye una recomendación de usarlos directamente."
-        },
-        "q5": {
-          "question": "Que pasa si un protocolo es hackeado?",
-          "answer": "Depende de la gravedad. Para incidentes menores que se resuelven rapidamente, podemos mantener el protocolo listado con una nota de advertencia actualizada. Para exploits graves donde los fondos de usuarios se pierden permanentemente, eliminamos el protocolo de nuestra lista y ajustamos las estrategias afectadas. Si el exploit afecto a una versión anterior que no usamos, podemos mantener el protocolo listado con una advertencia clara. Consulta nuestros criterios de seleccion arriba para detalles. Siempre comunicaremos los cambios a nuestros usuarios."
-        },
-        "q6": {
-          "question": "Por que algunos protocolos tienen badges de advertencia?",
-          "answer": "El badge de advertencia ambar significa que el protocolo ha tenido un incidente de seguridad notable, problema regulatorio o un perfil de riesgo elevado comparado con sus pares. Incluimos estos protocolos porque siguen cumpliendo nuestros criterios generales, pero queremos que veas el panorama completo. Los detalles están en cada tarjeta."
-        },
-        "q7": {
-          "question": "Que es TVL y por que importa?",
-          "answer": "TVL significa Total Value Locked (Valor Total Bloqueado). Es la cantidad total de dinero depositada en un protocolo por todos los usuarios a nivel mundial. Un TVL más alto generalmente significa que más personas confian en el sistema con dinero real. No es garantia de seguridad, pero es una senal que tenemos en cuenta."
-        },
-        "q8": {
-          "question": "Necesito interactuar con estos protocolos yo mismo?",
-          "answer": "No. diBoaS gestiona todas las interacciones con los protocolos en tu nombre cuando eliges una estrategia. No necesitas crear cuentas en ningun protocolo, gestionar wallets en diferentes blockchains ni entender los detalles técnicos. Esta página existe por transparencia, no porque necesites hacer nada con ella."
-        }
-      }
+      "title": "Protocolos y Transparencia"
     }
   }
 }

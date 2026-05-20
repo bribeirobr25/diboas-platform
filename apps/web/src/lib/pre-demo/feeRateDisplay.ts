@@ -2,16 +2,14 @@
  * PreDemo fee-rate display helper (Phase 7 PR-1, 2026-05-18).
  *
  * Sources the rate values rendered in `FeeBreakdown` fee labels from
- * `marketDataService` (canonical) rather than the locally-duplicated
- * `FEE_RATES` constants in `lib/pre-demo/constants.ts`.
+ * `marketDataService` (canonical). Phase 8 Item E (2026-05-20) closed the
+ * remaining duplication on the calculation side — `calculations.ts` now
+ * also derives fee values from `marketDataService.getSync()` via
+ * `resolveFeeRates()`. Display + calculation pipelines now share the same
+ * canonical source. Pre-demo-specific scenario constants (xautSwapGas,
+ * xautLp, defaultRate) remain local in `PRE_DEMO_BUY_EXTRAS`.
  *
- * **Why the duplication remains:** `FEE_RATES` is used for CALCULATING
- * fee amounts (deposit/send/buy flows); this module is for DISPLAYING the
- * rate to the user inside the i18n message. Both should agree by design,
- * but PR-1 only consolidates the display side (P4-9 is consumer-side
- * migration; `FEE_RATES` calculation-side consolidation is a future PR).
- *
- * Audit trail: `docs/audit/PHASE_7_AUDIT.md` PR-1 + carry-forward #3.
+ * Audit trail: `docs/audit/PHASE_7_AUDIT.md` PR-1 + Phase 8 Followup Item E.
  */
 
 import { marketDataService } from '@/lib/market-data';

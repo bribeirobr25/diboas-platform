@@ -3,8 +3,10 @@
  *
  * Resolves the ICU slot values consumed by:
  *   - FeeTable (B2C `fees.rows.*` + B2B `fees.rows.*` rows)
- *   - ProseSection (B2C `catch.paragraphs.p5` — en/es/de only; pt-BR deferred)
- *   - FAQAccordionFactory (PR-3: landing-help; PR-5: landing-b2c + landing-b2b FAQ)
+ *   - ProseSection (B2C `catch.feeParagraph` — uniform across 4 locales; Phase 8 Item B)
+ *   - FAQAccordionFactory (canonical `faq.items.*` keys — single source of truth
+ *     per Phase 8 Item A; consumed by B2C/B2B landing + /help)
+ *   - Phase 8 Item C: worked-example `{exampleFee}` slot in FAQ + catch paragraphs
  *
  * Backed by `marketDataService.getSync().platformFees` — values flow live from the
  * canonical service, so a future rate change propagates without translation edits.
@@ -38,6 +40,52 @@ function fmtRowValues(
     max: formatCurrency(fee.maxFee, locale, { maximumFractionDigits: 0 }),
   };
 }
+
+/**
+ * Phase 8 Item C — worked-example parameterization (carry-forward #4).
+ *
+ * Format a sub-unit fee for B2C $100-principal worked examples. Preserves
+ * each locale's editorial convention:
+ *   - en / es / de use sub-unit naming ("48 cents" / "48 céntimos" / "48 Cent")
+ *   - pt-BR uses canonical BRL ("R$ 0,48") — matches existing literal style
+ *
+ * Inputs:
+ *   principalUnits = 100 (B2C scenario uses $100 / R$100 / 100 € uniformly)
+ *   rateDecimal    = e.g. 0.0048 for cashOut
+ */
+function formatSubUnitFee(principalUnits: number, rateDecimal: number, locale: SupportedLocale): string {
+  const subUnits = Math.round(principalUnits * rateDecimal * 100); // 100 * 0.0048 * 100 = 48
+  switch (locale) {
+    case 'en': return `${subUnits} cents`;
+    case 'es': return `${subUnits} céntimos`;
+    case 'de': return `${subUnits} Cent`;
+    case 'pt-BR': return formatCurrency(principalUnits * rateDecimal, 'pt-BR', { maximumFractionDigits: 2 });
+  }
+}
+
+/**
+ * Phase 8 Item C — worked-example parameterization (carry-forward #4).
+ *
+ * Format a whole-unit currency fee for B2B $10k-principal worked examples.
+ * Uses canonical Intl currency formatting (no decimals).
+ */
+function formatWholeUnitFee(principalUnits: number, rateDecimal: number, locale: SupportedLocale): string {
+  return formatCurrency(principalUnits * rateDecimal, locale, { maximumFractionDigits: 0 });
+}
+
+/**
+ * Locale-specific principal amounts for B2B worked examples.
+ * pt-BR uses R$50.000 (≈ USD 10k purchasing power in Brazil); other locales
+ * use 10,000 of their local currency. These principals are EDITORIAL choices
+ * — they stay literal in the translation template; only the derived fee
+ * value gets parameterized.
+ */
+const B2B_EXAMPLE_PRINCIPAL_UNITS: Record<SupportedLocale, number> = {
+  en: 10000,
+  'pt-BR': 50000,
+  es: 10000,
+  de: 10000,
+};
 
 /**
  * Resolve all fee-citation slot values for the given locale.
@@ -79,33 +127,37 @@ export function buildAllFeeValues(
     cashOutRate: formatRate(fees.cashOut.rate * 100, locale),
   });
 
-  // B2C catch.paragraphs.p5 (en/es/de only; pt-BR p4 carries the fee citation
-  // and stays hardcoded — see CC8 Option C carry-forward).
-  if (locale !== 'pt-BR') {
-    map.set('landing-b2c.catch.paragraphs.p5', {
-      sellRate: formatRate(fees.sell.rate * 100, locale),
-      maxFee: formatCurrency(fees.sell.maxFee, locale, { maximumFractionDigits: 0 }),
-    });
-  }
-
-  // landing-help FAQ paragraphs (PR-3 — rendered via /help topics).
-  map.set('landing-help.topics.moneySafety.questions.q2.answer', {
-    rate: formatRate(fees.cashOut.rate * 100, locale),
-  });
-  map.set('landing-help.topics.feesCosts.questions.q2.answer', {
+  // B2C catch.feeParagraph (Phase 8 Item B — CC8 closeout). Uniform across
+  // all 4 locales (no pt-BR exclusion). ProseSection injects this key at the
+  // locale-specific narrative position via `feeParagraphAt`.
+  map.set('landing-b2c.catch.feeParagraph', {
     sellRate: formatRate(fees.sell.rate * 100, locale),
-    cashOutRate: formatRate(fees.cashOut.rate * 100, locale),
+    maxFee: formatCurrency(fees.sell.maxFee, locale, { maximumFractionDigits: 0 }),
+    exampleFee: formatSubUnitFee(100, fees.sell.rate, locale),
   });
 
-  // Landing-page FAQ items (PR-5 — rendered via B2C_FAQ_ITEMS + B2B_FAQ_ITEMS).
-  // Worked-example numerics ($100/$10,000/$39 etc.) stay literal — see §9
-  // carry-forward for full worked-example parameterization.
-  map.set('landing-b2c.faq.items.withdraw.answer', {
+  // Phase 8 Item C (worked-example parameterization). Pre-compute fee values
+  // for the $100 / $10k worked examples so a future rate change auto-recomputes
+  // the displayed fee instead of leaving the literal `$0.48` / `$39` stale.
+  const cashOutExampleFee = formatSubUnitFee(100, fees.cashOut.rate, locale);
+  const sellB2BExampleFee = formatWholeUnitFee(
+    B2B_EXAMPLE_PRINCIPAL_UNITS[locale],
+    fees.sell.rate,
+    locale,
+  );
+
+  // Canonical FAQ items (Phase 8 Item A — single source of truth in faq.json).
+  // Both render on multiple surfaces: `faq.items.withdraw.answer` flows to
+  // both B2C_FAQ_ITEMS and /help moneySafety; `faq.items.catch.answer` flows
+  // to B2B_FAQ_ITEMS and /help feesCosts. Single key, multiple consumers.
+  map.set('faq.items.withdraw.answer', {
     rate: formatRate(fees.cashOut.rate * 100, locale),
+    exampleFee: cashOutExampleFee,
   });
-  map.set('landing-b2b.faq.items.catch.answer', {
+  map.set('faq.items.catch.answer', {
     sellRate: formatRate(fees.sell.rate * 100, locale),
     cashOutRate: formatRate(fees.cashOut.rate * 100, locale),
+    sellExampleFee: sellB2BExampleFee,
   });
 
   return map;

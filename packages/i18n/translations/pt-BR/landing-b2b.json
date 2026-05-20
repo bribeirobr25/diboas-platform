@@ -284,51 +284,7 @@
     "zeroState": "Seja um dos primeiros."
   },
   "faq": {
-    "header": "Antes de decidir.",
-    "items": {
-      "catch": {
-        "question": "Qual e a pegadinha?",
-        "answer": "Cobramos taxas pequenas quando o dinheiro se move. Gratis quando você recebe pagamentos. Gratis quando você investe. {sellRate} quando você vende ou fecha uma posição. {cashOutRate} quando você saca.\n\nSe você recebe R$50.000 em pagamentos, ficamos com R$0. Se você investe R$50.000, a gente fica com R$0. Se você vende R$50.000, ficamos com R$195. Se você não ganha nada e não envia nada, a gente não ganha nada.\n\nSem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Sem pegadinha."
-      },
-      "smbOrStartup": {
-        "question": "E pra pequenas empresas ou startups?",
-        "answer": "Pras duas. Se você tem uma padaria perdendo 4% em cada venda no cartao, ajudamos você a ficar com esse dinheiro. Se você e uma startup com R$2 milhoes parados no banco rendendo CDI, ajudamos a render mais.\n\nAs ferramentas são as mesmas. So os numeros que mudam."
-      },
-      "safety": {
-        "question": "Meu dinheiro esta seguro?",
-        "answerA": "Seu dinheiro e protegido por você. Sua carteira, suas chaves. Ninguem na diBoaS pode acessar seus fundos sem sua autorização.\n\nDito isso, não e uma conta bancaria. Seu dinheiro funciona atraves de tecnologia nova. O valor pode oscilar e você pode perder parte ou todo o seu investimento. Não existe cobertura do FGC.\n\nMostramos os dois lados, as oportunidades e os riscos, sempre.",
-        "answerB": "Seu dinheiro e protegido por segurança multipartidaria. Sua autorização e necessária para cada transação. A diBoaS possui uma parte parcial da chave para recuperação, mas não pode movimentar seus fundos unilateralmente.\n\nDito isso, não e uma conta bancaria. Seu dinheiro funciona atraves de tecnologia nova. O valor pode oscilar e você pode perder parte ou todo o seu investimento. Não existe cobertura do FGC.\n\nMostramos os dois lados, as oportunidades e os riscos, sempre."
-      },
-      "liquidity": {
-        "question": "Posso acessar meu dinheiro a qualquer momento?",
-        "answer": "Sim. Sem bloqueios. Você define o mínimo: \"sempre manter R$250.000 liquidos.\" So colocamos pra trabalhar o que esta acima disso.\n\nPrecisa de dinheiro? Um toque. Processamos na hora. Tempos de transferencia bancaria podem variar. Sem multas. Sem perguntas."
-      },
-      "payments": {
-        "question": "Como funcionam os pagamentos instantaneos?",
-        "answer": "Transferencias tradicionais passam por bancos correspondentes. Seu banco, o banco deles, talvez outro banco, e ai o banco do destinatario. Cada etapa leva tempo e cobra taxas.\n\nCom diBoaS, os pagamentos vao direto. Da sua carteira pra carteira deles. Pronto.\n\nSeu freelancer em Miami recebe em segundos, pelo cambio real, gratis. Não R$75 a R$250 e 3 dias uteis."
-      },
-      "compliance": {
-        "question": "E quanto a compliance e impostos?",
-        "answer": "Construimos a diBoaS pra negocios reais com necessidades reais de compliance.\n\nExtratos mensais formatados pro seu software contábil. Historico de transações com trilha de auditoria completa. Documentacao fiscal no final do ano. Relatorios prontos pro conselho que seu CFO realmente vai entender.\n\nSabemos que uma hora você vai ser auditado. Garantimos que você esteja preparado."
-      },
-      "whereMoneyGoes": {
-        "question": "Pra onde vai meu dinheiro exatamente?",
-        "answer": "Seu dinheiro e colocado em sistemas financeiros estabelecidos que operam ha mais de 3 anos, sobreviveram a multiplas quedas de mercado e são auditados de forma independente em segurança.\n\nTodos os detalhes, incluindo nomes, histórico e nossos criterios de selecao, estao publicados na nossa pagina de Estrategias. Sem necessidade de cadastro.\n\nEscolhemos esses sistemas porque são transparentes, testados em batalha, e você pode ver exatamente onde seus fundos estao a qualquer momento."
-      },
-      "whyCantTouch": {
-        "question": "Por que a diBoaS não pode tocar no meu dinheiro?",
-        "answerA": "Esse e exatamente o ponto da nossa arquitetura.\n\nFinanças tradicionais: você deposita dinheiro, vira dinheiro do banco, e eles te devem um saldo.\n\ndiBoaS: seu dinheiro fica na sua própria carteira. Fornecemos o software que te ajuda a colocar ele em sistemas que geram retorno. Mas nunca temos acesso pra movimenta-lo.\n\nSe a diBoaS falir, seu dinheiro continua sendo seu. Ninguem na diBoaS pode movimentar seus fundos. Cada transação precisa da sua aprovacao.\n\nMais controle pra você. Menos risco nosso.",
-        "answerB": "Isso e parte fundamental de como somos construidos.\n\nFinanças tradicionais: você deposita dinheiro, vira dinheiro do banco, e eles te devem um saldo.\n\ndiBoaS: seu dinheiro e protegido por segurança multipartidaria. Possuimos uma parte parcial da chave para recuperação de conta, mas cada transação requer sua aprovacao explicita. Não podemos movimentar seus fundos unilateralmente.\n\nSe a diBoaS tiver problemas, seus fundos permanecem protegidos pelo sistema de segurança multipartidaria. Cada transação requer sua autorização.\n\nMais proteção pra você. Menos risco nosso."
-      },
-      "risk": {
-        "question": "Qual e o risco real?",
-        "answer": "Vamos ser honestos.\n\nOs sistemas onde seu dinheiro e colocado são construidos com codigo. Codigo pode ter vulnerabilidades. Reduzimos isso usando apenas sistemas com valor total significativo sob gestao, multiplas auditorias de segurança independentes, anos de histórico atraves de eventos de mercado, e distribuindo seu dinheiro entre multiplos sistemas independentes.\n\nRisco zero? Não. Nada e, incluindo o seu banco.\n\nA pergunta real: vale a pena um perfil de risco diferente em troca de retornos melhores? Pra alguns negocios, sim. Pra outros, não. As duas respostas são validas."
-      },
-      "audited": {
-        "question": "A diBoaS foi auditada?",
-        "answer": "Somos uma plataforma em fase de pre-lancamento. Nossas estrategias são testadas contra quedas historicas e cenarios reais, e usamos sistemas auditados e estabelecidos. Conforme crescermos, planejamos realizar auditorias independentes de terceiros.\n\nPara todos os detalhes sobre os sistemas e a tecnologia por tras de cada estrategia, visite nossas paginas de Estrategias e Protocolos."
-      }
-    }
+    "header": "Antes de decidir."
   },
   "footer": {
     "copyright": "© 2026 diBoaS. Todos os direitos reservados.",
