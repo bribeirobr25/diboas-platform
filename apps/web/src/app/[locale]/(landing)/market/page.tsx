@@ -8,21 +8,29 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { Container } from '@/components/UI/Container';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
+import nextDynamic from 'next/dynamic';
 import {
   RegimeScore,
   RegimeLabel,
   ConfidenceBadge,
   CalmSummary,
   SignalCardsGrid,
-  HistoricalRegimeChart,
   DataFreshnessBadge,
   MethodologyLink,
   ProductDisclaimer,
   PoweredByAttribution,
 } from '@/components/Analytics';
+// HistoricalRegimeChart is below-fold (renders after CalmSummary + SignalCardsGrid);
+// lazy-load its JS chunk to free main-thread time for above-fold hydration.
+// SSR stays on (no `ssr: false`) so the chart's SVG still ships in initial HTML
+// for no-JS users and search engines.
+const HistoricalRegimeChart = nextDynamic(
+  () => import('@/components/Analytics').then((m) => ({ default: m.HistoricalRegimeChart })),
+);
 import { HostRegulatoryDisclaimer } from '@/components/Legal';
 import { AnalyticsProvider } from '@/lib/analytics-sdk/mock-client';
 import { fetchInitialAnalyticsData } from '@/lib/analytics-sdk/mock-client.server';
+import { marketArticleSchema } from '@/lib/market/structuredData';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 import styles from './page.module.css';
@@ -91,6 +99,24 @@ export default async function MarketPage({ params }: LocalePageProps) {
     locale,
   );
 
+  // Article JSON-LD (iter-4 §3.4). Sourced from the editorial regime data via
+  // `marketArticleSchema()` — datePublished = regime.last_updated_at. Helper
+  // returns null when regime is missing or last_updated_at is not ISO-8601;
+  // `<StructuredData data={[...].filter(Boolean)} />` filters it out so the
+  // page still emits breadcrumbs even when Article cannot.
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
+  const articleDescription =
+    pageMessages['market.seo.description'] ??
+    'Calm macro intelligence for Bitcoin. Understand the environment, not the next candle.';
+  const articleHeadline = pageMessages['market.hero.title'] ?? 'Adelaide Daily';
+  const articleData = marketArticleSchema({
+    data: initialData,
+    locale,
+    siteUrl,
+    description: articleDescription,
+    headline: articleHeadline,
+  });
+
   // i18n keys read directly from the namespace dictionary so server components
   // can pass strings down to the SDK primitives without going through the
   // client-only `useTranslation` hook.
@@ -137,7 +163,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={[breadcrumbData]} />
+      <StructuredData data={[breadcrumbData, articleData].filter(Boolean) as Record<string, unknown>[]} />
 
       <AnalyticsProvider
         apiBaseUrl={ANALYTICS_API_URL}

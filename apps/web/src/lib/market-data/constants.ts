@@ -20,6 +20,7 @@
  */
 
 import type { MarketDataSnapshot } from './types';
+import { ANCHOR_PRICES, BRL_USD_BUCKETS, EUR_USD_BUCKETS, LAST_RESEARCH_UPDATE } from './historical';
 
 export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   rates: {
@@ -27,16 +28,29 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
       en: { savings: 0.32, neobank: 3.35, treasury: 3.32, source: 'FDIC/FRED', sourceDate: '5yr avg 2021-2025' },
       'pt-BR': { savings: 6.83, neobank: 8.53, treasury: 8.53, source: 'BCB/B3', sourceDate: '5yr avg 2021-2025' },
       es: { savings: 0.14, neobank: 2.10, treasury: 1.77, source: 'ECB/Tesoro', sourceDate: '5yr avg 2021-2025' },
+      // de.savings (1.22%) is the realistic best-available Tagesgeld offer (5yr
+      // avg of top-3 retail neobank rates: Bundesbank MFI deposit series + cross-
+      // checked vs Verivox/Tagesgeldvergleich monthly leaderboards). It is NOT
+      // the Bundesbank-published household average, which sits at ~0.26% over
+      // the same window. Used here because users comparing diBoaS against "what
+      // they could realistically get" expect the realistic comparable, not the
+      // population-weighted mean (pending CEO confirmation — see PENDING_ALL D4).
       de: { savings: 1.22, neobank: 2.83, treasury: 1.62, source: 'Bundesbank/ECB', sourceDate: '5yr avg 2021-2025' },
     },
     strategyApys: { safety: 7, balance: 12, growth: 18 },
     scenarioRates: { conservative: 7, historical: 10, optimistic: 14 },
   },
+  // Phase A (2026-05-16): asset spot prices refreshed to mid-May 2026
+  // readings per the calibration plan §3.1. The previous Mar-2026 stamp
+  // conflicted with the research doc's May-2026 anchor (e.g. BTC 97.25k vs
+  // 80k) — without this refresh, Phase E's asset-history tool would show
+  // "BTC May 2026 = $80,000" while the comparison-table surfaces would
+  // show "BTC current = $97,250" on the same site.
   assetPrices: {
-    crypto: { BTC: 97250, ETH: 2650, SOL: 195.40, SUI: 3.85, TRX: 0.27 },
-    etfs: { SPYx: 592.45, QQQx: 518.23, IWMon: 224.67 },
-    commodities: { XAUT: 2945 },
-    updatedAt: '2026-03-15T00:00:00Z',
+    crypto: { BTC: 80000, ETH: 2300, SOL: 152, SUI: 2.85, TRX: 0.21 },
+    etfs: { SPYx: 740, QQQx: 711, IWMon: 234 },
+    commodities: { XAUT: 4700 },
+    updatedAt: '2026-05-15T00:00:00Z',
   },
   exchangeRates: {
     rates: {
@@ -44,22 +58,40 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
         rateToUsd: 5.2546,
         annualDepreciation: 0.03,
         rateDate: '2026-03-15',
-        depreciationBasis: '20-year historical average (6-8%), adjusted conservative',
+        // Phase A: kept forward 3% conservative; added historical fields
+        // for retrospective consumers (asset-history tool, /tools/goal-savings
+        // path-dependent mode). Forward planning uses annualDepreciation;
+        // retrospective uses historicalCagr.
+        depreciationBasis: 'forward: conservative 3%; historical: 6.71% Jan 2010→May 2026 per docs/researches/btc-vs-assets-inflation-fx-final-analysis.md',
+        historicalCagr: 0.0671,
+        historicalAnchorStart: '2010-01-01',
+        historicalAnchorEnd: '2026-05-15',
+        historicalRateStart: 1.78,
+        historicalRateEnd: 5.50,
       },
       EUR: {
         rateToUsd: 0.92,
         annualDepreciation: 0.009,
         rateDate: '2026-03-15',
-        depreciationBasis: '5-year average',
+        depreciationBasis: 'forward: 5y avg 0.9%; historical: 1.45% Jan 2010→May 2026',
+        historicalCagr: 0.0145,
+        historicalAnchorStart: '2010-01-01',
+        historicalAnchorEnd: '2026-05-15',
+        historicalRateStart: 1.43,
+        historicalRateEnd: 1.13,
       },
     },
   },
+  // Phase A additions: cumulativeSince2010 + average16y per locale, per
+  // BLS CPI-U (US 52.3%), IBGE IPCA (Brazil 145%), Destatis (Germany 41%),
+  // INE (Spain 41%). cumulativeSince2010 is a decimal (0.523 = 52.3%).
+  // average16y is the geometric average: (1 + cumulative)^(1/16.33) − 1.
   inflationRates: {
     rates: {
-      en: { current: 0.026, average5y: 0.045 },
-      'pt-BR': { current: 0.0426, average5y: 0.059 },
-      de: { current: 0.022, average5y: 0.041 },
-      es: { current: 0.027, average5y: 0.041 },
+      en: { current: 0.026, average5y: 0.045, cumulativeSince2010: 0.523, average16y: 0.0262 },
+      'pt-BR': { current: 0.0426, average5y: 0.059, cumulativeSince2010: 1.45, average16y: 0.0565 },
+      de: { current: 0.022, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
+      es: { current: 0.027, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
     },
   },
   platformFees: {
@@ -84,15 +116,35 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
     ethGasGwei: 30,
     solPriorityFee: 0.009,
   },
+  // Phase I (2026-05-16): populate the existing `protocolData.tvl` field
+  // (CC2 round-1 correction — extend, do not parallel). v1 ships the combined
+  // summary only; per-protocol card values still flow from i18n until a future
+  // refactor migrates them through this same field. Refresh cadence: monthly
+  // manual until iter-5 SDK swap delivers daily via DeFiLlama-equivalent.
   protocolData: {
-    tvl: {},
-    updatedAt: '2026-03-15T00:00:00Z',
+    tvl: {
+      combined: '$120 billion',
+    },
+    updatedAt: '2026-05-15T00:00:00Z',
   },
   metadata: {
     fetchedAt: '2026-03-15T00:00:00Z',
     source: 'fallback',
     stale: false,
     ttl: 0,
+  },
+  // Phase C+ (2026-05-16): historicalAnchors slice populated from
+  // ./historical.ts (research-derived, annual refresh cadence). Consumers
+  // (Phase D + E) route through `marketDataService.getSync().historicalAnchors`
+  // — direct imports from `./historical` outside `lib/market-data/` are
+  // §6.10-prohibited and enforced by the §3.13 pre-merge grep gate.
+  historicalAnchors: {
+    anchors: ANCHOR_PRICES,
+    fxBuckets: {
+      BRL: BRL_USD_BUCKETS,
+      EUR: EUR_USD_BUCKETS,
+    },
+    lastResearchUpdate: LAST_RESEARCH_UPDATE,
   },
 };
 

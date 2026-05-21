@@ -100,6 +100,7 @@
     "tableHeaderScenario": "Scenario",
     "tableHeaderRate": "Annual rate",
     "tableHeaderTotal": "After {years} years",
-    "loadingState": "Calculating…"
+    "loadingState": "Calculating…",
+    "calibrationNote": "What the rates mean. Conservative 7% lines up with what the digital-dollar yield envelope delivers via the Solana-first DeFi stack. Historical 10% sits in the middle of the long-run blended range. Optimistic 14% reflects curated/looped strategies. Independently — the S&P 500 total return averaged ~15.5% per year from 2010 to 2026, gold ~9% per year, and a Brazilian saver in BRL underperformed a Brazilian saver who held the digital dollar over the same window (full numbers in our research notes)."
   }
 }

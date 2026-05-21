@@ -1,9 +1,12 @@
 'use client';
 
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useState, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { useLocale } from '@/components/Providers';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
+import { marketDataService } from '@/lib/market-data';
+import { buildAllFeeValues } from '@/lib/market-data/feeComparisonValues';
 import type { ProseSectionConfig } from '@/config/proseSection';
 import styles from './ProseSection.module.css';
 
@@ -20,7 +23,12 @@ export const ProseSection = memo(function ProseSection({
   className = '',
   headingLevel: Heading = 'h2',
 }: ProseSectionProps) {
-  const translated = useConfigTranslation(config);
+  const { locale } = useLocale();
+  const valuesByKey = useMemo(
+    () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
+    [locale],
+  );
+  const translated = useConfigTranslation(config, undefined, valuesByKey);
   const [imgFailed, setImgFailed] = useState(false);
 
   const handleImageError = useCallback(() => {
@@ -50,18 +58,26 @@ export const ProseSection = memo(function ProseSection({
         </Heading>
       )}
 
-      {translated.content.paragraphs.map((paragraph: string, index: number) => (
-        // Stable: paragraphs come from translation file, never reorder.
-        // eslint-disable-next-line react/no-array-index-key
-        <React.Fragment key={index}>
-          <p className={styles.paragraph}>
-            {paragraph}
-          </p>
-          {index === 0 && translated.content.earlyEmphasisLine ? (
-            <p className={styles.emphasis}>{translated.content.earlyEmphasisLine}</p>
-          ) : null}
-        </React.Fragment>
-      ))}
+      {translated.content.paragraphs.map((paragraph: string, index: number) => {
+        // Phase 8 Item B (CC8 closeout): when `feeParagraph` is configured
+        // and `feeParagraphAt[locale]` matches this index, REPLACE the
+        // positional paragraph with the parameterized fee citation.
+        const feeIndex = translated.content.feeParagraphAt?.[locale];
+        const showFeeHere = translated.content.feeParagraph && feeIndex === index;
+        const renderedText = showFeeHere ? translated.content.feeParagraph! : paragraph;
+        return (
+          // Stable: paragraphs come from translation file, never reorder.
+          // eslint-disable-next-line react/no-array-index-key
+          <React.Fragment key={index}>
+            <p className={styles.paragraph}>
+              {renderedText}
+            </p>
+            {index === 0 && translated.content.earlyEmphasisLine ? (
+              <p className={styles.emphasis}>{translated.content.earlyEmphasisLine}</p>
+            ) : null}
+          </React.Fragment>
+        );
+      })}
 
       {translated.content.signatureLine && (
         <p className={styles.signature}>{translated.content.signatureLine}</p>

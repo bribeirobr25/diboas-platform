@@ -503,8 +503,10 @@ track(event: AnalyticsEvent): void {
 | Dream Mode | `src/lib/dream-mode/constants.ts` | `DREAM_MODE_EVENTS` |
 | Waitlist | `src/lib/waitingList/constants.ts` | `WAITING_LIST_EVENTS` |
 | Share | `src/lib/share/constants.ts` | `SHARE_EVENTS` |
-| Calculator | `src/lib/calculator/constants.ts` | `CALCULATOR_EVENTS` |
+| Calculator | `src/lib/compound-interest/constants.ts` | `CALCULATOR_EVENTS` |
+| Lesson | `src/lib/learn/constants.ts` | `LESSON_EVENTS` |
+| Market | `src/lib/market/constants.ts` | `MARKET_EVENTS` |
 
 ---
 
-*Last updated: January 2026*
+*Last updated: May 2026*

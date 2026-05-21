@@ -204,8 +204,8 @@ export const PAGE_SEO_CONFIG = {
   },
   'tools/currency-depreciation': {
     title: 'Currency Depreciation Calculator',
-    description: 'See what your local currency really earns. Compare cash, bank, and USDC at 7% historical yield.',
-    keywords: ['currency depreciation calculator', 'inflation hedge', 'USD vs local currency']
+    description: 'See what your local currency really earns. Compare cash, bank, and digital dollar at historical rate (10%).',
+    keywords: ['currency depreciation calculator', 'inflation hedge', 'local currency vs digital dollar']
   },
   // Phase 6E — Money Tools (Tier 3 B2B)
   'tools/card-fees': {
@@ -217,6 +217,12 @@ export const PAGE_SEO_CONFIG = {
     title: 'Idle Cash Yield Calculator',
     description: 'Free B2B idle cash yield calculator. Compare what your business cash earns at the bank vs at diBoaS.',
     keywords: ['idle cash calculator', 'business cash yield', 'corporate treasury yield']
+  },
+  // Phase E (2026-05-16) — Asset history retrospective tool
+  'tools/asset-history': {
+    title: 'Asset History Calculator',
+    description: 'See how Bitcoin, stocks, gold, and bonds actually performed since 2010 or 2016 — lump sum and monthly DCA.',
+    keywords: ['asset history calculator', 'BTC vs stocks', 'historical performance calculator', 'retrospective DCA']
   }
 } as const;
 

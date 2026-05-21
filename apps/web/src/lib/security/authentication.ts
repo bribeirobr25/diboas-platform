@@ -27,7 +27,10 @@ export interface AuthResult {
  */
 export function validateApiKey(
   request: Request,
-  requireAdmin: boolean = false  // eslint-disable-line @typescript-eslint/no-unused-vars -- kept for future admin-level auth gating
+  // eslint reports parameter as unused; signature is part of the public
+  // contract (callers pass options.requireAdmin) — current implementation
+  // doesn't branch on it yet (kept for future admin-level auth gating).
+  _requireAdmin: boolean = false,
 ): AuthResult {
   const apiKey = request.headers.get('x-api-key');
   const internalApiKey = process.env.INTERNAL_API_KEY;

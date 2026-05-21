@@ -26,7 +26,13 @@ export type OGPageType =
   | 'tools-time-to-target'
   | 'tools-currency-depreciation'
   | 'tools-card-fees'
-  | 'tools-idle-cash';
+  | 'tools-idle-cash'
+  // Phase E (2026-05-16) — Asset history retrospective tool.
+  | 'tools-asset-history'
+  // Iteration 4 §3.5 — Adelaide Daily (/market). Static OG via Path B
+  // (NF1 round-3 lock). v1 reuses the teal-themed default body with brand
+  // + title; dynamic OG with regime score is iter-4.5 / post-launch.
+  | 'market';
 
 interface OGTemplateConfig {
   title: string;
@@ -141,6 +147,22 @@ const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     subtitle: 'What your business cash could earn while it sits.',
     badge: 'Business Tools',
     theme: 'coral',
+  },
+  // Phase E (2026-05-16) — Asset History retrospective tool.
+  'tools-asset-history': {
+    title: 'Asset History Calculator',
+    subtitle: 'BTC, stocks, gold — how they actually performed.',
+    badge: 'Tools',
+    theme: 'teal',
+  },
+  // Iteration 4 §3.5 — Adelaide Daily (/market). Path B static template
+  // (NF1 round-3 lock). v1 reuses the teal-themed body with brand + title;
+  // dynamic OG with regime score is iter-4.5 / post-launch.
+  market: {
+    title: 'Adelaide Daily',
+    subtitle: 'Calm macro intelligence for Bitcoin.',
+    badge: 'Market',
+    theme: 'teal',
   },
 };
 
@@ -327,5 +349,9 @@ export function isValidPageType(page: string): page is OGPageType {
     'tools-currency-depreciation',
     'tools-card-fees',
     'tools-idle-cash',
+    // Phase E (2026-05-16) — Asset history retrospective tool.
+    'tools-asset-history',
+    // Iteration 4 §3.5 — Adelaide Daily. NF1 round-3 Path B (static OG).
+    'market',
   ].includes(page);
 }

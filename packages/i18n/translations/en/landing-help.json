@@ -9,206 +9,22 @@
   },
   "topics": {
     "gettingStarted": {
-      "title": "Getting Started",
-      "questions": {
-        "q1": {
-          "question": "Is diBoaS a bank?",
-          "answer": "No. diBoaS is a platform that connects you with financial opportunities. We don't manage your money or make decisions about your funds. Your wallet is secured so that only you can authorize transactions. We provide the tools. You make the decisions."
-        },
-        "q2": {
-          "question": "Is diBoaS for everyone?",
-          "answer": "No.\n\nIf you want someone else to make financial decisions for you, this isn't the right place. If you want a traditional bank with branches and paper statements, that's not what we built.\n\ndiBoaS is for people who want to see where their money goes. Who want honest fees. Who think $10,000 minimums are part of the problem.\n\nYou don't need to understand everything today. That's what Adelaide is for. You just need to be willing to learn."
-        },
-        "q3": {
-          "question": "What's the minimum amount to start?",
-          "answer": "$5. That's a coffee. Most investment platforms require $500 to $10,000 just to open the door. We think that's part of the problem."
-        },
-        "q4": {
-          "question": "What happens after I sign up?",
-          "answer": "You'll receive an email with your Founding Member badge and number, your personal invite link (5 invites to share), and instructions to get started.\n\nFrom there, you set up your wallet, add funds, and you're in."
-        },
-        "q5": {
-          "question": "What kind of money should I start with?",
-          "answer": "Start with money you want to put to work. Not your rent. Not the cash you need next week. Start with one small pocket and one clear goal."
-        },
-        "q6": {
-          "question": "What if I don't understand investing?",
-          "answer": "That's exactly who we built this for. The goal is to make it so simple that anyone can do it. No jargon. No complicated decisions. Just clear options and transparent information. Start with $5. Explore. Learn. We're here every step."
-        },
-        "q7": {
-          "question": "Is diBoaS MiCA-regulated?",
-          "answer": "diBoaS is a non-custodial platform. Under the EU Markets in Crypto-Assets Regulation (MiCA), non-custodial wallets fall outside the regulatory scope because they do not hold customer funds. This means: no account freezing by the platform. Your money stays under your control. See the full MiCA notice in our footer."
-        },
-        "q8": {
-          "question": "Can I use PIX with diBoaS?",
-          "answer": "No. diBoaS works with digital dollars, not reais. Your money is protected against BRL depreciation. For domestic transfers in reais, PIX is already excellent, and we don't try to compete with it. diBoaS is for the money you want to save in dollars and send abroad."
-        },
-        "q9": {
-          "question": "Why save in dollars instead of a savings account?",
-          "answer": "Because the real loses value every year against the dollar. Even when your savings account pays 7-8%, inflation and currency depreciation can eat most of that return. With diBoaS, your money is in digital dollars, protected against BRL depreciation. When you withdraw, you get more reais than you put in, not just from yield, but from the exchange rate working in your favor."
-        }
-      }
+      "title": "Getting Started"
     },
     "moneySafety": {
-      "title": "Money & Safety",
-      "questions": {
-        "q1": {
-          "question": "Is my money safe?",
-          "answer": "Your money is secured by you. Only you hold the keys. Nobody else can access your funds without your permission.\n\nThat said, this isn't a bank account. Crypto-assets aren't covered by deposit guarantee schemes. The value of your assets can fluctuate, and you could lose some or all of your investment.\n\nWe show you both sides, the opportunities and the risks. Always."
-        },
-        "q2": {
-          "question": "Can I withdraw my money anytime?",
-          "answer": "Yes. Your money is yours. Withdraw whenever you want. The fee is 0.48%, so cashing out $100 costs you 48 cents. No lock-up periods. No penalties."
-        },
-        "q3": {
-          "question": "What happens to my money if diBoaS shuts down?",
-          "answer": "Your money is in your wallet. Not ours.\n\nIf diBoaS shut down tomorrow, your money would still be there. Accessible through your keys.\n\ndiBoaS never holds your money. diBoaS never can. That's not something we added as a feature. It's how we built the entire system."
-        },
-        "q4": {
-          "question": "What if something goes wrong?",
-          "answer": "Yes, you can lose money. We covered this honestly in the section above. The short version: we test every strategy against past crashes, we monitor 24/7, and we'll always tell you what's happening. But we can't eliminate all risk, and we won't pretend we can."
-        },
-        "q5": {
-          "question": "What if I lose my phone?",
-          "answer": "When diBoaS launches its app, your wallet will use advanced key security to protect against device loss. Our architecture is designed for wallet recovery without seed phrases or 24-word backups. Your money won't disappear because your phone did."
-        },
-        "q6": {
-          "question": "What is my balance actually?",
-          "answer": "Your available money lives as digital dollars, shown in your local currency inside diBoaS. Available money and invested money are shown separately, so you always know what's ready and what's working."
-        },
-        "q7": {
-          "question": "Can I access my money anytime?",
-          "answer": "Yes. No lock-ups. You set the floor: \"always keep $50,000 liquid.\" We only deploy what's above that.\n\nNeed cash? One tap. We process it instantly. Bank transfer times may vary. No penalties. No questions."
-        },
-        "q8": {
-          "question": "Why can't diBoaS touch my money?",
-          "answer": "This is the whole point of how we're built.\n\nTraditional finance: you deposit money, it becomes the bank's money, and they owe you a balance.\n\ndiBoaS: your money stays in your own wallet. We provide the software that helps you deploy it to earning systems. But we never have access to move it ourselves.\n\nIf diBoaS goes bankrupt, your money is still yours. No one at diBoaS can move your funds. Every transaction requires your approval.\n\nMore control for you. Less risk from us."
-        },
-        "q9": {
-          "question": "What's the actual risk?",
-          "answer": "Let's be honest.\n\nThe systems your money goes into are built on code. Code can have vulnerabilities. We reduce this by only using systems with significant total value secured, multiple independent security audits, years of track record through market events, and by spreading your money across multiple independent systems.\n\nZero risk? No. Nothing is, including your bank.\n\nThe real question: are better returns worth a different risk profile? For some businesses, yes. For others, no. Both are valid."
-        },
-        "q10": {
-          "question": "Can I lose everything?",
-          "answer": "In stable strategies (Safe Harbor, Goal Keeper, Patient Builder, Steady Compounder, Yield Maximizer): the chance of total loss is extremely low. In nearly 4 years of testing and thousands of simulations, it didn't happen. But \"extremely low\" is not zero.\n\nIn growth strategies: the higher the growth percentage, the wider the range of outcomes. Full Throttle at 85% growth exposure has seen simulated drops exceeding 78%.\n\nThe risk is real. We don't minimize it. We help you choose the level that matches what you can handle."
-        }
-      }
+      "title": "Money & Safety"
     },
     "feesCosts": {
-      "title": "Fees & Costs",
-      "questions": {
-        "q1": {
-          "question": "How is this possible without high fees?",
-          "answer": "By cutting out the middlemen. The branches, the executives, the legacy costs. New financial technology does the same job at a fraction of the price. We pass those savings to you. That's the entire model."
-        },
-        "q2": {
-          "question": "What's the catch?",
-          "answer": "We charge small fees when money moves. Free when you receive payments. Free when you invest. 0.39% when you sell or close a position. 0.48% when you cash out.\n\nIf you receive $10,000 in payments, we keep $0. If you invest $10,000, we keep $0. If you sell $10,000, we keep $39. If you earn nothing and send nothing, we earn nothing.\n\nNo hidden fees. No minimum balances. No monthly charges. No catch."
-        },
-        "q3": {
-          "question": "Can I just use diBoaS for transfers?",
-          "answer": "Yes. Absolutely. You can use diBoaS only for sending and receiving money. Free, instant, worldwide. The investing and growth features are there when and if you ever want them. No pressure. No package deals."
-        }
-      }
+      "title": "Fees & Costs"
     },
     "investingStrategies": {
-      "title": "Investing & Strategies",
-      "questions": {
-        "q1": {
-          "question": "Has diBoaS been audited?",
-          "answer": "We're a pre-launch platform. Our strategies are stress-tested against historical crashes and real-world scenarios, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits. For full details on the protocols and technology behind each strategy, visit our Strategies and Protocols pages."
-        },
-        "q2": {
-          "question": "Can I switch strategies?",
-          "answer": "Yes, anytime. No penalties. No questions asked.\n\nHere's something to keep in mind: if you switch during a market dip, you might lock in a temporary loss. The best time to switch is when your goals change, not when the market moves."
-        },
-        "q3": {
-          "question": "Can I use multiple strategies at once?",
-          "answer": "Yes. Many people do.\n\nThink of it like different accounts for different purposes: emergency fund in Safe Harbor, vacation savings in Goal Keeper, long-term wealth in Balanced Builder."
-        },
-        "q4": {
-          "question": "How does rebalancing work?",
-          "answer": "When market movements push your allocation off target (more than 10% drift), we notify you. For example, if your target is 60% stable and 40% growth, and market movements push it to around 55/45 or further, we let you know.\n\nYou'll see exactly what changed and why. Then you decide: approve the rebalance, or leave it as is.\n\nWe never move your money without your approval."
-        },
-        "q5": {
-          "question": "Are these returns guaranteed?",
-          "answer": "No. And anyone who guarantees returns is lying to you.\n\nWhat we can tell you: we tested every strategy across nearly 4 years of real market data (May 2022 - December 2025). The numbers are based on what actually happened and thousands of Monte Carlo simulations.\n\nThese numbers help you compare strategies and understand the range of outcomes. They don't predict the future. Start with what you can afford to learn with."
-        },
-        "q6": {
-          "question": "Where does my money actually go?",
-          "answer": "The protocols behind every strategy are listed on this page with their names, chains, asset types, and track records. No signup required. No hidden information.\n\nSky SSR, Aave V3, and Compound V3 handle stable returns. Sanctum INF, Jupiter JLP, and Jito handle growth. Every strategy is a specific combination of these protocols with exact percentages shown on each strategy card above.\n\nWe chose these protocols because they're transparent, battle-tested, and you can verify everything yourself."
-        },
-        "q7": {
-          "question": "What if one of the systems has a problem?",
-          "answer": "This is a real risk. These systems are built on code, and code can have vulnerabilities.\n\nWe reduce this risk by only using systems that have secured billions of dollars for years, spreading your money across multiple independent systems, and monitoring for unusual activity continuously.\n\nWe can't eliminate this risk. No one can. But we can be honest about it."
-        },
-        "q8": {
-          "question": "How is this different from a bank savings account?",
-          "answer": "A bank savings account is insured by the government (up to limits). Your money earns a fixed rate. The bank controls it.\n\ndiBoaS strategies use automated lending and staking systems. Returns are variable. Your money is not insured. You control it through your own wallet.\n\nThe trade-off: potentially higher returns, but you accept the risk that comes with a different kind of system."
-        }
-      }
+      "title": "Investing & Strategies"
     },
     "forBusinesses": {
-      "title": "For Businesses",
-      "questions": {
-        "q1": {
-          "question": "Is this for small businesses or startups?",
-          "answer": "Both. If you're a coffee shop losing 3% on every card payment, we help you keep that money. If you're a startup with $500,000 idle in the bank earning 0.5%, we help it earn more.\n\nThe tools are the same. The math just looks different."
-        },
-        "q2": {
-          "question": "How do instant payments work?",
-          "answer": "Traditional wire transfers go through correspondent banks. Your bank, their bank, maybe another bank, then the recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, payments go direct. Your wallet to their wallet. Done.\n\nYour freelancer in Buenos Aires gets paid in seconds, at the real exchange rate, for free. Not $25 to $50 and 3 business days."
-        },
-        "q3": {
-          "question": "What about compliance and tax reporting?",
-          "answer": "We built diBoaS for real businesses with real compliance needs.\n\nMonthly statements formatted for your accounting software. Transaction history with full audit trail. Tax documentation at year end. Board-ready reports your CFO will actually understand.\n\nWe know you're going to get audited eventually. We make sure you're ready."
-        },
-        "q4": {
-          "question": "Can I send money to anyone?",
-          "answer": "Today, you can send money instantly and free to any diBoaS user. As the network grows, so does who you can reach."
-        },
-        "q5": {
-          "question": "Where does my money actually go?",
-          "answer": "Your money is placed into established financial systems that have operated for 3+ years, survived multiple market crashes, and are independently audited for security.\n\nFull details, including names, track records, and our selection criteria, are published on our Strategies page. No signup required.\n\nWe chose these systems because they're transparent, battle-tested, and you can see exactly where your funds are at any time."
-        }
-      }
+      "title": "For Businesses"
     },
     "protocolsTransparency": {
-      "title": "Protocols & Transparency",
-      "questions": {
-        "q1": {
-          "question": "Why don't you list every DeFi protocol?",
-          "answer": "There are thousands of DeFi protocols. We would rather list 25 we have thoroughly researched than 200 we have not."
-        },
-        "q2": {
-          "question": "How often do you update this list?",
-          "answer": "We monitor all listed protocols continuously. If a protocol has a security incident, regulatory change, or significant operational issue, we update this page. We also review the full list quarterly to decide whether to add or remove protocols."
-        },
-        "q3": {
-          "question": "Can I request a protocol to be added?",
-          "answer": "Yes. Email hello@diboas.com with your suggestion and why you think it should be included. We review every request against our selection criteria."
-        },
-        "q4": {
-          "question": "Does being listed here mean diBoaS endorses these protocols?",
-          "answer": "No. Being listed means we have researched them, they meet our criteria, and we use them in our strategies. We are not affiliated with any protocol. Their inclusion does not imply they endorse diBoaS, and our listing does not constitute an endorsement or recommendation to use them directly."
-        },
-        "q5": {
-          "question": "What happens if a protocol gets hacked?",
-          "answer": "It depends on the severity. For minor incidents that are resolved quickly, we may keep the protocol listed with an updated warning note. For serious exploits where user funds are permanently lost, we remove the protocol from our list and adjust any affected strategies. If the exploit affected an older version that we do not use, we may keep the protocol listed with a clear warning. See our selection criteria above for details. We will always communicate changes to our users."
-        },
-        "q6": {
-          "question": "Why do some protocols have warning badges?",
-          "answer": "The amber warning badge means the protocol has had a notable security incident, regulatory issue, or carries an elevated risk profile compared to peers. We include these protocols because they still meet our overall criteria, but we want you to see the full picture. The details are on each card."
-        },
-        "q7": {
-          "question": "What is TVL and why does it matter?",
-          "answer": "TVL stands for Total Value Locked. It is the total amount of money deposited in a protocol by all users worldwide. Higher TVL generally means more people trust the system with real money. It is not a guarantee of safety, but it is one signal we look at."
-        },
-        "q8": {
-          "question": "Do I need to interact with these protocols myself?",
-          "answer": "No. diBoaS handles all protocol interactions on your behalf when you choose a strategy. You do not need to create accounts with any protocol, manage wallets on different blockchains, or understand the technical details. This page is here for transparency, not because you need to do anything with it."
-        }
-      }
+      "title": "Protocols & Transparency"
     }
   }
 }

@@ -8,6 +8,38 @@
   border-radius: var(--radius-xl);
 }
 
+/* Phase D.2 — mode toggle (forward / retrospective). Mirrors D.1 InflationImpact. */
+.modeToggle {
+  display: inline-flex;
+  background: var(--color-slate-100);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  gap: 2px;
+  align-self: flex-start;
+}
+
+.modeButton {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: calc(var(--radius-lg) - 4px);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+}
+
+.modeButtonActive {
+  background: var(--color-white);
+  color: var(--color-slate-900);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.modeButton:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+}
+
 .usdNote {
   padding: var(--spacing-sm) var(--spacing-md);
   background: var(--color-amber-50);
@@ -48,8 +80,7 @@
   color: var(--color-slate-900);
 }
 
-.numberInput,
-.select {
+.numberInput {
   padding: 10px 14px;
   border: 1px solid var(--color-slate-300);
   border-radius: 8px;
@@ -59,13 +90,7 @@
   background: var(--color-white);
 }
 
-.select {
-  font-family: var(--font-family-primary);
-  cursor: pointer;
-}
-
-.numberInput:focus-visible,
-.select:focus-visible {
+.numberInput:focus-visible {
   outline: 2px solid var(--text-brand-accessible);
   outline-offset: 2px;
 }

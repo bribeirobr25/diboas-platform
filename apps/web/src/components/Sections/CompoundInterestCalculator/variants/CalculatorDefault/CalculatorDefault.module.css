@@ -8,6 +8,57 @@
   border: 1px solid var(--color-slate-200);
 }
 
+/* Phase D.3 — opt-in mode toggle for /tools/goal-savings retrospective DCA. */
+.modeToggle {
+  display: inline-flex;
+  background: var(--color-slate-100);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  gap: 2px;
+  align-self: flex-start;
+}
+
+.modeButton {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: calc(var(--radius-lg) - 4px);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+}
+
+.modeButtonActive {
+  background: var(--color-white);
+  color: var(--color-slate-900);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.modeButton:focus-visible {
+  outline: 2px solid var(--text-brand-accessible);
+  outline-offset: 2px;
+}
+
+.modeHint {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-500);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Phase H — lesson-only calibration note. Subtle, non-distracting. */
+.calibrationNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  line-height: 1.6;
+  margin: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-slate-50);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--text-brand-accessible);
+}
+
 @media (max-width: 768px) {
   .calculator {
     gap: var(--padding-card-mobile);
@@ -109,29 +160,6 @@
 .range:focus-visible::-webkit-slider-thumb {
   outline: 2px solid var(--color-teal-700);
   outline-offset: 2px;
-}
-
-.select {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--color-slate-300);
-  border-radius: 8px;
-  background: var(--color-white);
-  font-family: var(--font-family-primary);
-  font-size: 14px;
-  color: var(--color-slate-900);
-  cursor: pointer;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
-}
-
-.select:hover {
-  border-color: var(--color-slate-400);
-}
-
-.select:focus-visible {
-  outline: 2px solid var(--color-teal-700);
-  outline-offset: 2px;
-  border-color: var(--color-teal-700);
 }
 
 .yearsRow {

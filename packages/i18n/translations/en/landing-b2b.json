@@ -154,7 +154,7 @@
       },
       "add": {
         "action": "Add Money",
-        "diboas": "0.48% (min $0.25, max $25)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0 to 1.5%",
         "difference": "Comparable to most providers",
         "example": "Add $10,000: costs $48"
@@ -168,7 +168,7 @@
       },
       "sell": {
         "action": "Sell / Close",
-        "diboas": "0.39% (min $0.25, max $25)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0.5 to 2%",
         "difference": "Save $11 to $161 per $10,000",
         "example": "Sell $10,000: costs $39"
@@ -182,7 +182,7 @@
       },
       "cashOut": {
         "action": "Cash Out",
-        "diboas": "0.48% (min $0.25, max $25)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "1 to 3% plus delays",
         "difference": "Save $52 to $252 per $10,000",
         "example": "Cash out $10,000: costs $48"
@@ -190,7 +190,7 @@
     },
     "disclaimer": "*diBoaS fee shown. Third-party network fees may apply (typically less than $0.01).",
     "pricingNote": "Pricing comparisons based on publicly available rates as of February 2026. Ranges reflect common pricing across major providers. Actual competitor pricing varies by provider, volume, and agreement terms.",
-    "example": "Receive $1,000 in payments: you keep $1,000 in your diBoaS account. Cash out to your bank: $995.20 (after 0.48% cash-out fee). Still cheaper than the $970 to $980 a card processor leaves you.",
+    "example": "Receive $1,000 in payments: you keep $1,000 in your diBoaS account. Cash out to your bank: $995.20 (after {cashOutRate} cash-out fee). Still cheaper than the $970 to $980 a card processor leaves you.",
     "expandableToggle": "No hidden fees. No minimum balances. No monthly charges. See all fees.",
     "footerLine": "Every fee. On the table. Nothing else.",
     "transitionHook": "Still reading? Good. Let's make sure this actually fits."
@@ -284,51 +284,7 @@
     "zeroState": "Be among the first."
   },
   "faq": {
-    "header": "Before you decide.",
-    "items": {
-      "catch": {
-        "question": "What's the catch?",
-        "answer": "We charge small fees when money moves. Free when you receive payments. Free when you invest. 0.39% when you sell or close a position. 0.48% when you cash out.\n\nIf you receive $10,000 in payments, we keep $0. If you invest $10,000, we keep $0. If you sell $10,000, we keep $39. If you earn nothing and send nothing, we earn nothing.\n\nNo hidden fees. No minimum balances. No monthly charges. No catch."
-      },
-      "smbOrStartup": {
-        "question": "Is this for small businesses or startups?",
-        "answer": "Both. If you're a coffee shop losing 3% on every card payment, we help you keep that money. If you're a startup with $500,000 idle in the bank earning 0.5%, we help it earn more.\n\nThe tools are the same. The math just looks different."
-      },
-      "safety": {
-        "question": "Is my money safe?",
-        "answerA": "Your money is secured by you. Your wallet, your keys. No one at diBoaS can access your funds without your authorization.\n\nThat said, this isn't a bank account. Your funds work through new technology. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always.",
-        "answerB": "Your money is protected by multi-party security. Your authorization is required for every transaction. DiBoaS holds a partial key share for recovery purposes, but cannot unilaterally move your funds.\n\nThat said, this isn't a bank account. Your funds work through new technology. The value can fluctuate, and you could lose some or all of your investment. There is no deposit insurance.\n\nWe show you both sides, the opportunities and the risks, always."
-      },
-      "liquidity": {
-        "question": "Can I access my money anytime?",
-        "answer": "Yes. No lock-ups. You set the floor: \"always keep $50,000 liquid.\" We only deploy what's above that.\n\nNeed cash? One tap. We process it instantly. Bank transfer times may vary. No penalties. No questions."
-      },
-      "payments": {
-        "question": "How do instant payments work?",
-        "answer": "Traditional wire transfers go through correspondent banks. Your bank, their bank, maybe another bank, then the recipient's bank. Each step takes time and charges fees.\n\nWith diBoaS, payments go direct. Your wallet to their wallet. Done.\n\nYour freelancer in Buenos Aires gets paid in seconds, at the real exchange rate, for free. Not $25 to $50 and 3 business days."
-      },
-      "compliance": {
-        "question": "What about compliance and tax reporting?",
-        "answer": "We built diBoaS for real businesses with real compliance needs.\n\nMonthly statements formatted for your accounting software. Transaction history with full audit trail. Tax documentation at year end. Board-ready reports your CFO will actually understand.\n\nWe know you're going to get audited eventually. We make sure you're ready."
-      },
-      "whereMoneyGoes": {
-        "question": "Where does my money actually go?",
-        "answer": "Your money is placed into established financial systems that have operated for 3+ years, survived multiple market crashes, and are independently audited for security.\n\nFull details, including names, track records, and our selection criteria, are published on our Strategies page. No signup required.\n\nWe chose these systems because they're transparent, battle-tested, and you can see exactly where your funds are at any time."
-      },
-      "whyCantTouch": {
-        "question": "Why can't diBoaS touch my money?",
-        "answerA": "This is the whole point of how we're built.\n\nTraditional finance: you deposit money, it becomes the bank's money, and they owe you a balance.\n\ndiBoaS: your money stays in your own wallet. We provide the software that helps you deploy it to earning systems. But we never have access to move it ourselves.\n\nIf diBoaS goes bankrupt, your money is still yours. No one at diBoaS can move your funds. Every transaction requires your approval.\n\nMore control for you. Less risk from us.",
-        "answerB": "This is a core part of how we're built.\n\nTraditional finance: you deposit money, it becomes the bank's money, and they owe you a balance.\n\ndiBoaS: your money is protected by multi-party security. We hold a partial key share for account recovery purposes, but every transaction requires your explicit approval. We cannot unilaterally move your funds.\n\nIf diBoaS experiences issues, your funds remain protected by the multi-party security system. Every transaction requires your authorization.\n\nMore protection for you. Less risk from us."
-      },
-      "risk": {
-        "question": "What's the actual risk?",
-        "answer": "Let's be honest.\n\nThe systems your money goes into are built on code. Code can have vulnerabilities. We reduce this by only using systems with significant total value secured, multiple independent security audits, years of track record through market events, and by spreading your money across multiple independent systems.\n\nZero risk? No. Nothing is, including your bank.\n\nThe real question: are better returns worth a different risk profile? For some businesses, yes. For others, no. Both are valid."
-      },
-      "audited": {
-        "question": "Has diBoaS been audited?",
-        "answer": "We're a pre-launch platform. Our strategies are stress-tested against historical crashes and real-world scenarios, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits.\n\nFor full details on the systems and technology behind each strategy, visit our Strategies and Protocols pages."
-      }
-    }
+    "header": "Before you decide."
   },
   "footer": {
     "copyright": "© 2026 diBoaS. All rights reserved.",

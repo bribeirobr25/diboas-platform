@@ -16,14 +16,6 @@ export const ROUTES = {
   CALCULATOR: '/#calculator',
   STRATEGIES: '/strategies',
   MARKET: '/market',
-  /**
-   * @deprecated 2026-05-13 — renamed to `MARKET` (`/market`). Kept only so
-   * any in-flight branches can finish their merges without a constant-undefined
-   * compile error. The `next.config.js` 301 redirect catches user traffic.
-   * Slated for deletion in iteration 4 of the `/market` integration plan
-   * (`docs/audit/MARKET_INTEGRATION_PLAN_2026-05-13.md`).
-   */
-  DAILY_MARKET: '/daily-market',
 
   // Landing Page Links
   BUSINESS_LANDING: '/business',

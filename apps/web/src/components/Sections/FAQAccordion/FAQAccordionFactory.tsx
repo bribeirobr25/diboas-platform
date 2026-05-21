@@ -12,9 +12,12 @@
 
 'use client';
 
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Logger } from '@/lib/monitoring/Logger';
+import { useLocale } from '@/components/Providers';
 import { useConfigTranslation } from '@/lib/i18n/config-translator';
+import { marketDataService } from '@/lib/market-data';
+import { buildAllFeeValues } from '@/lib/market-data/feeComparisonValues';
 import type { FAQAccordionVariantProps, FAQAccordionVariantMap } from './variants/types';
 import { FAQAccordionDefault } from './variants/FAQAccordionDefault/FAQAccordionDefault';
 
@@ -46,7 +49,12 @@ export const FAQAccordion = memo(function FAQAccordion(props: FAQAccordionVarian
   const variant = config.variant || 'default';
 
   // Internationalization: Translate config using translation keys
-  const translatedConfig = useConfigTranslation(config);
+  const { locale } = useLocale();
+  const valuesByKey = useMemo(
+    () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
+    [locale],
+  );
+  const translatedConfig = useConfigTranslation(config, undefined, valuesByKey);
 
   // Get the variant component from the registry
   const VariantComponent = VARIANT_MAP[variant];

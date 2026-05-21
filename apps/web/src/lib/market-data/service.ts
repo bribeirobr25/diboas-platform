@@ -11,7 +11,7 @@
  * - P12 Monitoring: Logger warnings on fallback
  */
 
-import type { MarketDataSnapshot, IMarketDataProvider } from './types';
+import type { MarketDataSnapshot, IMarketDataProvider, HistoricalAnchorsData } from './types';
 import { FALLBACK_MARKET_DATA } from './constants';
 import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
 
@@ -76,6 +76,19 @@ class MarketDataServiceImpl {
     this.provider = provider;
     this.cache = null;
     this.cacheExpiry = 0;
+  }
+
+  /**
+   * Phase C+ (2026-05-16): convenience accessor for the historical anchor
+   * slice. Equivalent to `getSync().historicalAnchors`; provided as a single
+   * named method per L1 round-1 lock (no parallel 5-method surface).
+   *
+   * Returns `undefined` if the active snapshot lacks historical data
+   * (partial-ship scenarios, SDK provider without history). Consumers MUST
+   * handle the undefined case.
+   */
+  getHistoricalAnchors(): HistoricalAnchorsData | undefined {
+    return this.getSync().historicalAnchors;
   }
 
   private getStaleSnapshot(): MarketDataSnapshot {

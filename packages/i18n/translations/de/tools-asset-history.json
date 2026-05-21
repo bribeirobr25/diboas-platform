@@ -1,0 +1,58 @@
+{
+  "seo": {
+    "title": "Vermögensverlauf-Rechner — was seit 2010 wirklich geschah",
+    "description": "Kostenloser Rechner für die Wertentwicklung von Vermögenswerten. Wähle BTC, Aktien, Gold oder Anleihen — sieh, was eine einmalige Anlage oder 100 €/Monat seit 2010 oder 2016 geleistet hätte."
+  },
+  "hero": {
+    "kicker": "Vermögensverlauf-Rechner",
+    "headline": "Was ist tatsächlich passiert?",
+    "subtitle": "Wähle einen Vermögenswert, ein Startjahr und einen Modus. Sieh den realen Weg, den dein Geld genommen hätte — mit ehrlichen Unsicherheitsmargen an den verrauschten Stellen."
+  },
+  "inputs": {
+    "assetLabel": "Vermögenswert",
+    "startYearLabel": "Startjahr",
+    "modeLabel": "Modus",
+    "contributionLabel": "{mode, select, lumpSum {Einmalbetrag} other {Monatlicher Beitrag}}",
+    "assetOptions": {
+      "BTC": "Bitcoin",
+      "SP500": "S&P 500 (Kurs)",
+      "QQQ": "QQQ (NASDAQ-100)",
+      "MSCI_WORLD": "MSCI World",
+      "GOLD": "Gold",
+      "TLT": "TLT (US-Staatsanleihen 20+ J.)",
+      "IBOVESPA": "Ibovespa (BRL)",
+      "DAX": "DAX (EUR)"
+    },
+    "modeOptions": {
+      "lumpSum": "Einmalbetrag",
+      "monthlyDca": "Monatliche Einzahlung"
+    }
+  },
+  "output": {
+    "summaryLumpSum": "{amount} im {startMonth} {startYear} wären heute wert…",
+    "summaryDca": "{amount}/Monat ab {startMonth} {startYear} wären heute wert…",
+    "terminalValue": "{value}",
+    "terminalRange": "zwischen {low} und {high}",
+    "contributedOverMonths": "{total} eingezahlt über {months} Monate",
+    "startingPrincipal": "{total} Anfangskapital",
+    "confidenceHigh": "Hohe Konfidenz (±5%)",
+    "confidenceMedium": "Mittlere Konfidenz — siehe Unsicherheitshinweis",
+    "confidenceLow": "Niedrige Konfidenz — nur Bandbreite",
+    "uncertaintyMedium": "Der Ankerwert {asset} {year} ist näherungsweise (±30%). Wir nutzen {used}.",
+    "uncertaintyLow": "Öffentliche DCA-Rechner weichen in diesem Fenster um ±50% ab. Wir zeigen eine Bandbreite, keine einzelne Zahl.",
+    "comparisonHeader": "vs S&P 500 im gleichen Zeitraum",
+    "btcDcaRangeNote": "Für BTC ab 2010 hängt der DCA-Endwert stark vom genauen monatlichen Einstiegspfad ab. Öffentliche Rechner weichen um ±50% ab."
+  },
+  "vignette": {
+    "subtitle": "Die Vergangenheit ist passiert. Die Zukunft entscheidest du jetzt."
+  },
+  "landing": {
+    "cardTitle": "Vermögensverlauf",
+    "cardTagline": "Was ist seit 2010 wirklich passiert?"
+  },
+  "lessonLink": {
+    "label": "Methodik gewünscht?",
+    "href": "/learn/compound-interest",
+    "linkText": "Zur Lektion: Wie Geld wirklich wächst"
+  }
+}

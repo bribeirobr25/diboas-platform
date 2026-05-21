@@ -10,9 +10,9 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
           # Phase 4.2 (audit/2026-05-08): bumped from 20 → 24 ahead of the
           # 2026-06-02 deprecation deadline for the older runner-bundled
@@ -32,3 +32,9 @@ jobs:
       # count regressions. Fails CI if peak asset, total, or count exceed
       # baseline + headroom recorded in scripts/check-bundle-budget.mjs.
       - run: pnpm check:budget
+      # Phase 3B (audit/2026-05-18): build-storybook gate. Storybook stories
+      # are EXCLUDED from `tsc --noEmit` per `apps/web/tsconfig.json:40-41`
+      # (L13 audit lock), so story-file TypeScript errors are only caught by
+      # `build-storybook`. Run after build:budget so we don't double-pay for
+      # an early failure when the production build itself broke.
+      - run: pnpm --filter web build-storybook

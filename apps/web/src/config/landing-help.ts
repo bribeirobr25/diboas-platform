@@ -59,16 +59,59 @@ export const HELP_TOPIC_IDS = [
 export type HelpTopicId = (typeof HELP_TOPIC_IDS)[number];
 
 /**
- * Number of questions per topic (for building FAQItem arrays).
- * Must match the q1..qN keys in landing-help.json for each topic.
+ * Semantic-ID lists per topic — references entries in the canonical `faq.json`
+ * namespace (Phase 8 Item A consolidation, 2026-05-20). Order matters: items
+ * render top-to-bottom in the help accordion in the order listed here.
+ *
+ * To add a question to /help: add the semantic ID to the relevant topic list
+ * (or coin a new ID + add the entry to `packages/i18n/translations/{locale}/faq.json`).
  */
-const TOPIC_QUESTION_COUNTS: Record<HelpTopicId, number> = {
-  gettingStarted: 9,
-  moneySafety: 10,
-  feesCosts: 3,
-  investingStrategies: 8,
-  forBusinesses: 5,
-  protocolsTransparency: 8,
+const TOPIC_FAQ_IDS: Record<HelpTopicId, readonly string[]> = {
+  gettingStarted: [
+    'isBank',
+    'isForEveryone',
+    'minimum',
+    'afterSignup',
+    'whatKindOfMoney',
+    'understanding',
+    'micaRegulated',
+    'pixFaq',
+    'whySaveDollar',
+  ],
+  moneySafety: [
+    'safety',
+    'withdraw',
+    'shutdown',
+    'whatIfWrong',
+    'lostPhone',
+    'whatIsBalance',
+    'liquidity',
+    'whyCantTouch',
+    'risk',
+    'canLoseEverything',
+  ],
+  feesCosts: ['howPossible', 'catch', 'justTransfers'],
+  investingStrategies: [
+    'audited',
+    'canSwitchStrategies',
+    'multipleStrategies',
+    'rebalancing',
+    'returnsGuaranteed',
+    'whereMoneyGoesProtocols',
+    'protocolProblems',
+    'vsBankSavings',
+  ],
+  forBusinesses: ['smbOrStartup', 'payments', 'compliance', 'sendMoney', 'whereMoneyGoes'],
+  protocolsTransparency: [
+    'protocolsListLimit',
+    'protocolsUpdateFrequency',
+    'protocolsRequest',
+    'protocolsEndorsement',
+    'protocolHacked',
+    'protocolsWarningBadges',
+    'tvlMeaning',
+    'protocolsDirectInteraction',
+  ],
 };
 
 /**
@@ -100,20 +143,13 @@ const TOPIC_CATEGORIES: Record<HelpTopicId, FAQItem['category']> = {
  * Returns items with translation keys that will be resolved by useConfigTranslation.
  */
 function buildTopicItems(topicId: HelpTopicId): FAQItem[] {
-  const count = TOPIC_QUESTION_COUNTS[topicId];
   const category = TOPIC_CATEGORIES[topicId];
-  const items: FAQItem[] = [];
-
-  for (let i = 1; i <= count; i++) {
-    items.push({
-      id: `${topicId}-q${i}`,
-      question: `landing-help.topics.${topicId}.questions.q${i}.question`,
-      answer: `landing-help.topics.${topicId}.questions.q${i}.answer`,
-      category,
-    });
-  }
-
-  return items;
+  return TOPIC_FAQ_IDS[topicId].map((faqId) => ({
+    id: `${topicId}-${faqId}`,
+    question: `faq.items.${faqId}.question`,
+    answer: `faq.items.${faqId}.answer`,
+    category,
+  }));
 }
 
 /**

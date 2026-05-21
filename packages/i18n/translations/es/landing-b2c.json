@@ -26,7 +26,7 @@
         "title": "Meta: Plan de Jubilación",
         "subtitle": "Considerando salario = 35.000 €/año y una aportación de 100 €/mes durante 30 años.",
         "tagline": "El mismo dinero. Diferente lugar. Gran diferencia.",
-        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del {rate}. Fuente: BCE/Banco de España.",
         "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
@@ -34,7 +34,7 @@
         "title": "Meta: Fondo de Emergencia",
         "subtitle": "Considerando gastos mensuales = 1.500 €, fondo de emergencia para 6 meses (9.000 €), y una aportación de 150 €/mes.",
         "tagline": "Mismo esfuerzo. Menos tiempo esperando.",
-        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del {rate}. Fuente: BCE/Banco de España.",
         "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
@@ -42,7 +42,7 @@
         "title": "Meta: Paga Extra",
         "subtitle": "Considerando salario = 35.000 €/año, ahorrando 290 €/mes durante 12 meses.",
         "tagline": "Mismo sueldo. Diferente estrategia. 58 € más en tu bolsillo.",
-        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del {rate}. Fuente: BCE/Banco de España.",
         "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
@@ -50,7 +50,7 @@
         "title": "Meta: La Regla del 10%",
         "subtitle": "Con un salario de 1.700 €/mes, invirtiendo el 10% (170 €/mes) durante 5 años.",
         "tagline": "Un enfoque popular para el ahorro a largo plazo: siempre aparta el 10% de tus ingresos, pase lo que pase.",
-        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del 0,14%. Fuente: BCE/Banco de España.",
+        "bankSource": "Basado en tasa de ahorro promedio de los últimos 5 años del {rate}. Fuente: BCE/Banco de España.",
         "seeAnother": "Simula con tus números",
         "howPossible": "¿Cómo es posible?"
       },
@@ -152,7 +152,7 @@
       },
       "adding": {
         "action": "Añadir Dinero",
-        "diboas": "0,48% (mín 0,25 €, máx 25 €)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "0 a 1,5%",
         "difference": "Más barato que la mayoría",
         "example": "Añade 100 €: te cuesta 48 céntimos"
@@ -173,7 +173,7 @@
       },
       "selling": {
         "action": "Vender / Cerrar",
-        "diboas": "0,39% (mín 0,25 €, máx 25 €)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "1,5 a 2,5%",
         "difference": "Ahorra 1,11 a 2,11 € por 100 €",
         "example": "Vende 100 €: te cuesta 39 céntimos"
@@ -187,14 +187,14 @@
       },
       "strategies": {
         "action": "Crecer (Estrategias)",
-        "diboas": "Gratis para empezar, 0,39% al salir",
+        "diboas": "Gratis para empezar, {exitRate} al salir",
         "competitors": "N/A",
         "difference": "Opciones que tu banco no ofrece",
         "example": "Inicia una estrategia de 100 €: 0 €. Salir cuesta 39 céntimos."
       },
       "cashout": {
         "action": "Retirar",
-        "diboas": "0,48%",
+        "diboas": "{rate}",
         "competitors": "1 a 3% + retrasos",
         "difference": "Ahorra hasta 2,52 € por 100 €",
         "example": "Retira 100 €: te cuesta 48 céntimos"
@@ -203,6 +203,7 @@
   },
   "catch": {
     "header": "¿Cuál es la trampa?",
+    "feeParagraph": "Invertir es gratis. Cuando vendes, diBoaS cobra el {sellRate}. Vendes 100 €, diBoaS gana {exampleFee}. Eso es todo. diBoaS solo gana más si tu dinero crece primero. La comisión nunca supera los {maxFee}.",
     "paragraphs": {
       "p1": "Buena pregunta. Nos la hacen todos.",
       "p2": "Tu dinero no se queda quieto en tu banco. Lo ponen a trabajar. Generan rendimientos reales con él. ¿Qué te devuelven a ti? Casi nada.",
@@ -300,85 +301,7 @@
     }
   },
   "faq": {
-    "header": "Antes de que decidas.",
-    "items": {
-      "isBank": {
-        "question": "¿Es diBoaS un banco?",
-        "answer": "No. diBoaS es una plataforma que te conecta con oportunidades financieras. No gestionamos tu dinero ni tomamos decisiones sobre tus fondos. Tu cartera está protegida de forma que solo tú puedes autorizar transacciones. Nosotros damos las herramientas. Tú tomas las decisiones."
-      },
-      "isForEveryone": {
-        "question": "¿Es diBoaS para todo el mundo?",
-        "answer": "No.\n\nSi quieres que otra persona tome decisiones financieras por ti, no somos nosotros. Si quieres un banco tradicional con sucursales y extractos de papel, tampoco.\n\ndiBoaS es para quien quiere ver adónde va su dinero. Quien quiere comisiones honestas. Quien piensa que los 10.000 € de mínimo son parte del problema.\n\nNo necesitas entenderlo todo hoy. Para eso estamos. Solo necesitas estar dispuesto a aprender."
-      },
-      "whatKindOfMoney": {
-        "question": "¿Con qué tipo de dinero debería empezar?",
-        "answer": "Empieza con dinero que quieras poner a trabajar. No tu alquiler. No el dinero que necesitas la semana que viene. Empieza con una cantidad pequeña y una meta clara."
-      },
-      "minimum": {
-        "question": "¿Cuál es el importe mínimo para empezar?",
-        "answer": "5 €. El precio de un café. La mayoría de las plataformas de inversión exigen 500 a 10.000 € solo para abrirte la puerta. Creemos que eso es parte del problema."
-      },
-      "whatIsBalance": {
-        "question": "¿Qué es mi saldo realmente?",
-        "answer": "Tu dinero disponible vive como dólares digitales, mostrado en tu moneda local dentro de diBoaS. El dinero disponible y el invertido se muestran por separado, para que siempre sepas qué está listo y qué está trabajando."
-      },
-      "sendMoney": {
-        "question": "¿Puedo enviar dinero a cualquier persona?",
-        "answer": "Hoy, puedes enviar dinero al instante y gratis a cualquier usuario de diBoaS. A medida que la red crece, más personas podrás alcanzar."
-      },
-      "justTransfers": {
-        "question": "¿Puedo usar diBoaS solo para transferencias?",
-        "answer": "Sí. Absolutamente. Puedes usar diBoaS solo para enviar y recibir dinero. Gratis, instantáneo, mundial. Las funciones de inversión y crecimiento están ahí cuando y si las quieras. Sin presión. Sin paquetes."
-      },
-      "understanding": {
-        "question": "¿Y si no entiendo de inversiones?",
-        "answer": "Para eso exactamente lo hemos construido. Nuestro objetivo es hacerlo tan sencillo que cualquiera pueda hacerlo. Sin jerga. Sin decisiones complicadas. Solo opciones claras e información transparente. Empieza con 5 €. Explora. Aprende. Estamos aquí en cada paso."
-      },
-      "lostPhone": {
-        "question": "¿Y si pierdo mi móvil?",
-        "answer": "Cuando diBoaS lance su aplicación, tu billetera usará seguridad avanzada de claves para proteger contra la pérdida del dispositivo. Nuestra arquitectura está diseñada para la recuperación de billetera sin frases semilla ni respaldos de 24 palabras. Tu dinero no desaparecerá porque tu teléfono lo hizo."
-      },
-      "withdraw": {
-        "question": "¿Puedo retirar mi dinero en cualquier momento?",
-        "answer": "Sí. Tu dinero es tuyo. Retíralo cuando quieras. La comisión es del 0,48%, así que retirar 100 € te cuesta 48 céntimos. Sin periodos de permanencia. Sin penalizaciones."
-      },
-      "safety": {
-        "question": "¿Está seguro mi dinero?",
-        "answer": "Tu dinero está protegido por ti. Solo tú tienes las claves. Nadie más puede acceder a tus fondos sin tu permiso.\n\nDicho esto, esto no es una cuenta bancaria. Los criptoactivos no están cubiertos por los esquemas de garantía de depósitos. El valor de tus activos puede fluctuar, y podrías perder parte o la totalidad de tu inversión.\n\nTe mostramos ambos lados, las oportunidades y los riesgos. Siempre."
-      },
-      "howPossible": {
-        "question": "¿Cómo es posible sin comisiones altas?",
-        "answer": "Eliminando a los intermediarios. Las sucursales, los ejecutivos, los costes heredados. La nueva tecnología hace el mismo trabajo por una fracción del precio. Te pasamos ese ahorro a ti. Ese es todo el modelo."
-      },
-      "micaRegulated": {
-        "question": "¿Es diBoaS compatible con MiCA?",
-        "answer": "diBoaS es una plataforma de custodia propia. Según el Reglamento europeo sobre los Mercados de Criptoactivos (MiCA), las carteras de custodia propia no entran en el ámbito regulatorio porque no custodian fondos de los usuarios. Esto significa: ningún bloqueo de cuenta por parte de la plataforma. Tu dinero permanece bajo tu control. Consulta el aviso MiCA completo en nuestro pie de página."
-      },
-      "shutdown": {
-        "question": "¿Qué pasa con mi dinero si diBoaS cierra?",
-        "answer": "Tu dinero está en tu cartera. No en la nuestra.\n\nSi diBoaS desapareciera mañana, tu dinero seguiría ahí. Accesible con tus claves.\n\ndiBoaS nunca guarda tu dinero. Nunca puede. Eso no es algo que añadimos. Es cómo se construyó todo el sistema."
-      },
-      "whatIfWrong": {
-        "question": "¿Y si algo sale mal?",
-        "answer": "Sí, puedes perder dinero. Lo cubrimos honestamente en la sección anterior. En resumen: probamos cada estrategia contra crisis pasadas, monitorizamos las 24 horas y siempre te diremos qué está pasando. Pero no podemos eliminar todo el riesgo, y no vamos a fingir que podemos."
-      },
-      "audited": {
-        "question": "¿Ha sido diBoaS auditado?",
-        "answer": "Somos una plataforma en pre-lanzamiento. Nuestras estrategias se prueban contra crisis históricas y escenarios reales, y usamos protocolos auditados y establecidos. A medida que crezcamos, buscaremos auditorías independientes de terceros. Para detalles completos, visita nuestras páginas de Estrategias y Protocolos."
-      },
-      "afterSignup": {
-        "question": "¿Qué pasa después de registrarme?",
-        "answer": "Recibirás un email con tu insignia y número de Miembro Fundador, tu enlace personal de invitación (5 invitaciones para compartir) e instrucciones para empezar.\n\nA partir de ahí, configuras tu cartera, añades fondos y ya estás dentro."
-      },
-      "pixFaq": {
-        "question": "¿Puedo usar PIX con diBoaS?",
-        "answer": "No. diBoaS trabaja con dólares digitales, no con moneda local. Para transferencias domésticas, usa tu sistema de pago local."
-      },
-      "whySaveDollar": {
-        "question": "¿Por qué ahorrar en dólares?",
-        "answer": "Porque el dólar, como moneda de reserva global, es más estable a largo plazo. Con diBoaS, tu dinero se mantiene en dólares digitales, protegido contra la devaluación de la moneda local."
-      }
-    }
+    "header": "Antes de que decidas."
   },
   "nav": {
     "ctaDesktop": "Unirse a la lista",

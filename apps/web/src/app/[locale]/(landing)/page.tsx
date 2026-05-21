@@ -137,7 +137,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
   }
 
   // Load page-specific namespaces (waitlist already provided by landing layout)
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c', 'share', 'dreamMode', 'preDemo', 'preDream']);
+  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c', 'faq', 'share', 'dreamMode', 'preDemo', 'preDream']);
 
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({

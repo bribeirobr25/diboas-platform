@@ -277,6 +277,15 @@ describe('editorial dataset — regime schema drift guard', () => {
     const ageDays = (Date.now() - updatedAt) / (1000 * 60 * 60 * 24);
     expect(ageDays).toBeLessThan(14);
   });
+
+  it('should expose last_updated_at in ISO-8601 format (JSON-LD datePublished coupling, iter-4 §3.4)', () => {
+    // Schema.org Article#datePublished requires ISO-8601 specifically — a
+    // parseable Date is insufficient (e.g., `new Date("01/15/2026")` parses
+    // but is not ISO-8601). The staleness gate above proves parseability +
+    // recency; this assertion adds the FORMAT check.
+    const raw = (editorialRegime as AnyRecord).last_updated_at as string;
+    expect(raw).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/);
+  });
 });
 
 describe('editorial dataset — historical schema drift guard', () => {

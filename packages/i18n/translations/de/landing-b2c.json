@@ -26,7 +26,7 @@
         "title": "Ziel: Altersvorsorge",
         "subtitle": "Angenommen Gehalt = 50.000 €/Jahr und ein monatlicher Beitrag von 100 € über 30 Jahre.",
         "tagline": "Gleiches Geld. Anderer Ort. Großer Unterschied.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
+        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
         "seeAnother": "Simuliere mit deinen Zahlen",
         "howPossible": "Wie ist das möglich?"
       },
@@ -34,7 +34,7 @@
         "title": "Ziel: Notgroschen",
         "subtitle": "Angenommen monatliche Ausgaben = 2.000 €, Notgroschen für 6 Monate (12.000 €), und ein monatlicher Beitrag von 200 €.",
         "tagline": "Gleicher Einsatz. Weniger warten.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
+        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
         "seeAnother": "Simuliere mit deinen Zahlen",
         "howPossible": "Wie ist das möglich?"
       },
@@ -42,7 +42,7 @@
         "title": "Ziel: Weihnachtsgeld",
         "subtitle": "Angenommen Gehalt = 50.000 €/Jahr, 415 €/Monat über 12 Monate sparen.",
         "tagline": "Gleiches Gehalt. Andere Strategie. 84 € mehr in deiner Tasche.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
+        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
         "seeAnother": "Simuliere mit deinen Zahlen",
         "howPossible": "Wie ist das möglich?"
       },
@@ -50,7 +50,7 @@
         "title": "Ziel: Die 10%-Regel",
         "subtitle": "Bei 2.200 €/Monat, 10% (220 €/Monat) über 5 Jahre investieren.",
         "tagline": "Ein bewährter Ansatz für langfristiges Sparen: Lege immer 10% deines Einkommens zur Seite, egal was passiert.",
-        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von 1,22%. Quelle: Bundesbank/EZB.",
+        "bankSource": "Basierend auf dem Durchschnittssparzins der letzten 5 Jahre von {rate}. Quelle: Bundesbank/EZB.",
         "seeAnother": "Simuliere mit deinen Zahlen",
         "howPossible": "Wie ist das möglich?"
       },
@@ -152,7 +152,7 @@
       },
       "adding": {
         "action": "Geld einzahlen",
-        "diboas": "0,48% (min 0,25 €, max 25 €)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0 bis 1,5%",
         "difference": "Günstiger als die meisten Apps",
         "example": "100 € einzahlen: kostet dich 48 Cent"
@@ -173,7 +173,7 @@
       },
       "selling": {
         "action": "Verkaufen / Schließen",
-        "diboas": "0,39% (min 0,25 €, max 25 €)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "1,5 bis 2,5%",
         "difference": "Spare 1,11 bis 2,11 € pro 100 €",
         "example": "100 € verkaufen: kostet dich 39 Cent"
@@ -187,14 +187,14 @@
       },
       "strategies": {
         "action": "Wachsen (Strategien)",
-        "diboas": "Kostenlos starten, 0,39% beim Ausstieg",
+        "diboas": "Kostenlos starten, {exitRate} beim Ausstieg",
         "competitors": "N/A",
         "difference": "Wachstumsmöglichkeiten, die deine Bank nicht bietet",
         "example": "100-€-Strategie starten: 0 €. Ausstieg kostet 39 Cent."
       },
       "cashout": {
         "action": "Auszahlen",
-        "diboas": "0,48%",
+        "diboas": "{rate}",
         "competitors": "1 bis 3% plus Verzögerungen",
         "difference": "Spare bis zu 2,52 € pro 100 €",
         "example": "100 € auszahlen: kostet dich 48 Cent"
@@ -203,6 +203,7 @@
   },
   "catch": {
     "header": "Wo ist der Haken?",
+    "feeParagraph": "Investieren ist kostenlos. Wenn du verkaufst, nimmt diBoaS {sellRate}. Du verkaufst 100 €, diBoaS verdient {exampleFee}. Das ist alles. diBoaS verdient nur dann mehr, wenn dein Geld zuerst wächst. Die Gebühr übersteigt nie {maxFee}.",
     "paragraphs": {
       "p1": "Berechtigte Frage. Die stellen uns alle.",
       "p2": "Dein Geld sitzt nicht einfach bei deiner Bank rum. Sie arbeiten damit. Sie erwirtschaften damit echte Renditen. Was geben sie dir davon zurück? Fast nichts.",
@@ -300,85 +301,7 @@
     }
   },
   "faq": {
-    "header": "Bevor du dich entscheidest.",
-    "items": {
-      "isBank": {
-        "question": "Ist diBoaS eine Bank?",
-        "answer": "Nein. diBoaS ist eine Plattform, die dich mit finanziellen Möglichkeiten verbindet. Wir verwalten dein Geld nicht und treffen keine Entscheidungen über deine Mittel. Deine Wallet ist so gesichert, dass nur du Transaktionen autorisieren kannst. Wir liefern die Werkzeuge. Du triffst die Entscheidungen."
-      },
-      "isForEveryone": {
-        "question": "Ist diBoaS für jeden?",
-        "answer": "Nein.\n\nWenn du willst, dass jemand anderes finanzielle Entscheidungen für dich trifft, sind wir nicht die Richtigen. Wenn du eine traditionelle Bank mit Filialen und Papierauszügen willst, haben wir das nicht gebaut.\n\ndiBoaS ist für Menschen, die sehen wollen, wohin ihr Geld fließt. Die ehrliche Gebühren wollen. Die finden, dass 10.000 € Mindesteinlage Teil des Problems sind.\n\nDu musst nicht alles heute verstehen. Dafür sind wir da. Du musst nur bereit sein zu lernen."
-      },
-      "whatKindOfMoney": {
-        "question": "Welches Geld sollte ich einsetzen?",
-        "answer": "Fang mit Geld an, das du für dich arbeiten lassen willst. Nicht deine Miete. Nicht das Geld, das du nächste Woche brauchst. Fang mit einem kleinen Betrag und einem klaren Ziel an."
-      },
-      "minimum": {
-        "question": "Was ist der Mindestbetrag zum Anfangen?",
-        "answer": "5 €. Der Preis eines Kaffees. Die meisten Investmentplattformen verlangen 500 bis 10.000 €, nur um die Tür zu öffnen. Wir finden, das ist Teil des Problems."
-      },
-      "whatIsBalance": {
-        "question": "Was ist mein Guthaben eigentlich?",
-        "answer": "Dein verfügbares Geld lebt als digitale Dollars und wird in deiner lokalen Währung in diBoaS angezeigt. Verfügbares Geld und investiertes Geld werden getrennt angezeigt, damit du immer weißt, was bereit ist und was arbeitet."
-      },
-      "sendMoney": {
-        "question": "Kann ich Geld an jeden senden?",
-        "answer": "Heute kannst du Geld sofort und kostenlos an jeden diBoaS-Nutzer senden. Je mehr das Netzwerk wächst, desto mehr Leute erreichst du."
-      },
-      "justTransfers": {
-        "question": "Kann ich diBoaS nur für Überweisungen nutzen?",
-        "answer": "Ja. Absolut. Du kannst diBoaS nur zum Senden und Empfangen von Geld nutzen. Kostenlos, sofort, weltweit. Die Investitions- und Wachstumsfunktionen sind da, wenn und falls du sie jemals nutzen möchtest. Kein Druck. Kein Paketverkauf."
-      },
-      "understanding": {
-        "question": "Was, wenn ich nichts von Investitionen verstehe?",
-        "answer": "Genau dafür haben wir das gebaut. Unser Ziel ist es, es so einfach zu machen, dass es jeder kann. Kein Fachjargon. Keine komplizierten Entscheidungen. Nur klare Optionen und transparente Informationen. Fang mit 5 € an. Entdecke. Lerne. Wir sind bei jedem Schritt dabei."
-      },
-      "lostPhone": {
-        "question": "Was, wenn ich mein Handy verliere?",
-        "answer": "Wenn diBoaS seine App startet, wird Ihre Wallet fortschrittliche Schlüsselsicherheit verwenden, um vor Geräteverlust zu schützen. Unsere Architektur ist für die Wallet-Wiederherstellung ohne Seed-Phrasen oder 24-Wort-Backups konzipiert. Ihr Geld verschwindet nicht, weil Ihr Telefon es getan hat."
-      },
-      "withdraw": {
-        "question": "Kann ich mein Geld jederzeit abheben?",
-        "answer": "Ja. Dein Geld gehört dir. Hebe ab, wann du willst. Die Gebühr beträgt 0,48%, eine Auszahlung von 100 € kostet dich also 48 Cent. Keine Sperrfristen. Keine Strafgebühren."
-      },
-      "safety": {
-        "question": "Ist mein Geld sicher?",
-        "answer": "Dein Geld wird von dir gesichert. Nur du hast die Schlüssel. Niemand sonst kann ohne deine Erlaubnis auf deine Mittel zugreifen.\n\nDas gesagt: Das ist kein Bankkonto. Kryptowerte sind nicht durch Einlagensicherungssysteme abgedeckt. Der Wert deiner Anlagen kann schwanken, und du könntest einen Teil oder deine gesamte Investition verlieren.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken. Immer."
-      },
-      "howPossible": {
-        "question": "Wie ist das ohne hohe Gebühren möglich?",
-        "answer": "Indem wir die Zwischenhändler eliminieren. Die Filialen, die Vorstände, die alten Kostenstrukturen. Neue Technologie erledigt die gleiche Arbeit für einen Bruchteil des Preises. Wir geben diese Ersparnis an dich weiter. Das ist das gesamte Modell."
-      },
-      "micaRegulated": {
-        "question": "Ist diBoaS MiCA-reguliert?",
-        "answer": "diBoaS ist eine nicht-verwahrende Plattform. Gemäß der EU-Verordnung über Märkte für Kryptowerte (MiCA) fallen nicht-verwahrende Wallets nicht in den regulatorischen Geltungsbereich, da sie keine Kundengelder verwahren. Das bedeutet: Kein Kontoeinfrieren durch die Plattform. Dein Geld bleibt unter deiner Kontrolle. Siehe den vollständigen MiCA-Hinweis in unserer Fußzeile."
-      },
-      "shutdown": {
-        "question": "Was passiert mit meinem Geld, wenn diBoaS schließt?",
-        "answer": "Dein Geld ist in deiner Wallet. Nicht in unserer.\n\nWenn diBoaS morgen verschwinden würde, wäre dein Geld immer noch da. Zugänglich über deine Schlüssel.\n\ndiBoaS verwahrt dein Geld nie. diBoaS kann das nie. Das ist keine Funktion, die wir hinzugefügt haben. So wurde das gesamte System gebaut."
-      },
-      "whatIfWrong": {
-        "question": "Was, wenn etwas schiefgeht?",
-        "answer": "Ja, du kannst Geld verlieren. Das haben wir im Abschnitt oben ehrlich erklärt. Kurzfassung: Wir testen jede Strategie gegen vergangene Krisen, überwachen rund um die Uhr und sagen dir immer, was passiert. Aber wir können nicht jedes Risiko eliminieren, und wir werden nicht so tun, als könnten wir das."
-      },
-      "audited": {
-        "question": "Wurde diBoaS auditiert?",
-        "answer": "Wir sind eine Plattform vor dem Launch. Unsere Strategien werden gegen historische Krisen und reale Szenarien getestet, und wir nutzen auditierte, etablierte Protokolle. Wenn wir wachsen, planen wir unabhängige Drittanbieter-Audits. Für vollständige Details zu den Protokollen und der Technologie hinter jeder Strategie besuche unsere Strategien- und Protokoll-Seiten."
-      },
-      "afterSignup": {
-        "question": "Was passiert nach der Anmeldung?",
-        "answer": "Du erhältst eine E-Mail mit deinem Gründungsmitglied-Abzeichen und deiner Nummer, deinem persönlichen Einladungslink (5 Einladungen zum Teilen) und Anweisungen zum Starten.\n\nVon dort aus richtest du deine Wallet ein, zahlst Geld ein und bist dabei."
-      },
-      "pixFaq": {
-        "question": "Kann ich PIX bei diBoaS nutzen?",
-        "answer": "Nein. diBoaS arbeitet mit digitalen Dollar, nicht mit lokaler Währung. Für inländische Überweisungen nutze dein lokales Zahlungssystem."
-      },
-      "whySaveDollar": {
-        "question": "Warum in Dollar sparen?",
-        "answer": "Weil der Dollar als globale Reservewährung langfristig stabiler ist. Mit diBoaS wird dein Geld in digitalen Dollar gehalten, geschützt vor lokaler Währungsabwertung."
-      }
-    }
+    "header": "Bevor du dich entscheidest."
   },
   "nav": {
     "ctaDesktop": "Warteliste beitreten",

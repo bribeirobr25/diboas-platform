@@ -11,9 +11,12 @@
 import { memo, useState, useCallback, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
+import { useLocale } from '@/components/Providers';
 import { BarChart3, TrendingUp } from '@/components/UI/LucideIcon';
 import { ExpandableCard } from '@/components/UI/ExpandableCard';
 import { analyticsService } from '@/lib/analytics';
+import { marketDataService, type SupportedLocale } from '@/lib/market-data';
+import { formatRate } from '@/lib/market-data/formatters';
 import styles from '../GoalExampleCards/GoalExampleCards.module.css';
 
 type B2BCardKey = 'paymentFees' | 'idleCash';
@@ -35,6 +38,8 @@ export const B2BGoalCards = memo(function B2BGoalCards({
   className = '',
 }: B2BGoalCardsProps) {
   const intl = useTranslation();
+  const { locale: rawLocale } = useLocale();
+  const locale = (rawLocale || 'en') as SupportedLocale;
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
   const handleToggle = useCallback((key: string) => {
@@ -68,8 +73,11 @@ export const B2BGoalCards = memo(function B2BGoalCards({
 
   const prefix = 'landing-b2b.b2bGoals';
 
-  const t = (cardKey: B2BCardKey, suffix: string) =>
-    intl.formatMessage({ id: `${prefix}.cards.${cardKey}.${suffix}` });
+  const t = (
+    cardKey: B2BCardKey,
+    suffix: string,
+    values?: Record<string, string | number | boolean | Date>,
+  ) => intl.formatMessage({ id: `${prefix}.cards.${cardKey}.${suffix}` }, values);
 
   const hasValue = (cardKey: B2BCardKey, suffix: string): boolean => {
     const id = `${prefix}.cards.${cardKey}.${suffix}`;
@@ -129,7 +137,16 @@ export const B2BGoalCards = memo(function B2BGoalCards({
             </div>
 
             <p className={styles.tagline}>{t(cardKey, 'tagline')}</p>
-            <p className={styles.bankSource}>{t(cardKey, 'source')}</p>
+            <p className={styles.bankSource}>
+              {/* Phase 7 Followup PR-4 (2026-05-19): idleCash.source's
+                  bank-savings rate sourced live from marketDataService for
+                  pt-BR/es/de (literals match `bankRates.{locale}.savings`).
+                  EN's `3.5%` literal cites a different metric (Bankrate
+                  high-yield) and is not migrated — see §9 carry-forward. */}
+              {t(cardKey, 'source', {
+                rate: formatRate(marketDataService.getSync().rates.bankRates[locale].savings, locale),
+              })}
+            </p>
 
             <div className={styles.links}>
               <button

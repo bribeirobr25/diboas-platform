@@ -100,6 +100,7 @@
     "tableHeaderScenario": "Szenario",
     "tableHeaderRate": "Jahreszins",
     "tableHeaderTotal": "Nach {years} Jahren",
-    "loadingState": "Wird berechnet…"
+    "loadingState": "Wird berechnet…",
+    "calibrationNote": "Was die Raten bedeuten. Die konservativen 7% entsprechen dem Digital-Dollar-Rendite-Korridor über den Solana-zentrierten DeFi-Stack. Die historischen 10% liegen in der Mitte des langfristig gemischten Bereichs. Die optimistischen 14% spiegeln kuratierte oder gehebelte Strategien wider. Unabhängig davon — der S&P 500 erzielte von 2010 bis 2026 im Schnitt ~15,5% pro Jahr Gesamtrendite, Gold ~9% pro Jahr, und ein brasilianischer Sparer in BRL schnitt schlechter ab als einer, der im gleichen Zeitraum den Digital-Dollar hielt (vollständige Zahlen in unseren Recherchenotizen)."
   }
 }

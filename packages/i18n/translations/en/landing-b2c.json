@@ -26,7 +26,7 @@
         "title": "Goal: Retirement Plan",
         "subtitle": "On a $60,000/year salary, putting aside $100/month for 30 years.",
         "tagline": "Same money. Different place. Big difference.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
@@ -34,7 +34,7 @@
         "title": "Goal: Emergency Fund",
         "subtitle": "If you spend $2,900/month and want 6 months saved ($17,400), putting aside $300/month.",
         "tagline": "Same effort. Less waiting.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
@@ -42,7 +42,7 @@
         "title": "Goal: Christmas Bonus",
         "subtitle": "On a $60,000/year salary, saving $500/month for 12 months.",
         "tagline": "Every dollar matters when you start small.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
@@ -50,7 +50,7 @@
         "title": "Goal: The 10% Rule",
         "subtitle": "On a $4,600 monthly salary, investing 10% ($460/month) for 5 years.",
         "tagline": "A popular approach to long-term saving: always set aside 10% of your income, no matter what.",
-        "bankSource": "Based on 0.32% last 5 years average savings rate. Source: FDIC National Average.",
+        "bankSource": "Based on {rate} last 5 years average savings rate. Source: FDIC National Average.",
         "seeAnother": "Try with your numbers",
         "howPossible": "How is this possible?"
       },
@@ -152,7 +152,7 @@
       },
       "adding": {
         "action": "Add Money",
-        "diboas": "0.48% (min $0.25, max $25)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0 to 1.5%",
         "difference": "Cheaper than most apps charge to add money",
         "example": "Add $100: costs you 48 cents"
@@ -173,7 +173,7 @@
       },
       "selling": {
         "action": "Sell / Close",
-        "diboas": "0.39% (min $0.25, max $25)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "1.5 to 2.5%",
         "difference": "Save $1.11 to $2.11 per $100",
         "example": "Sell $100: costs you 39 cents"
@@ -187,14 +187,14 @@
       },
       "strategies": {
         "action": "Grow (Strategies)",
-        "diboas": "Free to start, 0.39% to exit",
+        "diboas": "Free to start, {exitRate} to exit",
         "competitors": "N/A",
         "difference": "Growth options your bank doesn't offer",
         "example": "Start a $100 strategy: $0. Closing costs 39 cents."
       },
       "cashout": {
         "action": "Cash Out",
-        "diboas": "0.48%",
+        "diboas": "{rate}",
         "competitors": "1 to 3% plus delays",
         "difference": "Save up to $2.52 per $100",
         "example": "Cash out $100: costs you 48 cents"
@@ -203,6 +203,7 @@
   },
   "catch": {
     "header": "What's the catch?",
+    "feeParagraph": "Investing is free. When you sell, diBoaS takes {sellRate}. You sell $100, diBoaS makes {exampleFee}. That's it. The only way diBoaS earns more is if your money grows first. The fee never goes above {maxFee}.",
     "paragraphs": {
       "p1": "Fair question. We get it every time.",
       "p2": "Your money doesn't sit still at your bank. They put it to work. They earn real returns on it. What do they give you back? Almost nothing.",
@@ -300,85 +301,7 @@
     }
   },
   "faq": {
-    "header": "Before you decide.",
-    "items": {
-      "isBank": {
-        "question": "Is diBoaS a bank?",
-        "answer": "No. diBoaS is a platform that connects you with financial opportunities. We don't manage your money or make decisions about your funds. Your wallet is secured so that only you can authorize transactions. We provide the tools. You make the decisions."
-      },
-      "isForEveryone": {
-        "question": "Is diBoaS for everyone?",
-        "answer": "No.\n\nIf you want someone else to make financial decisions for you, this isn't the right place. If you want a traditional bank with branches and paper statements, that's not what we built.\n\ndiBoaS is for people who want to see where their money goes. Who want honest fees. Who think $10,000 minimums are part of the problem.\n\nYou don't need to understand everything today. That's what Adelaide is for. You just need to be willing to learn."
-      },
-      "whatKindOfMoney": {
-        "question": "What kind of money should I start with?",
-        "answer": "Start with money you want to put to work. Not your rent. Not the cash you need next week. Start with one small pocket and one clear goal."
-      },
-      "minimum": {
-        "question": "What's the minimum amount to start?",
-        "answer": "$5. That's a coffee. Most investment platforms require $500 to $10,000 just to open the door. We think that's part of the problem."
-      },
-      "whatIsBalance": {
-        "question": "What is my balance actually?",
-        "answer": "Your available money lives as digital dollars, shown in your local currency inside diBoaS. Available money and invested money are shown separately, so you always know what's ready and what's working."
-      },
-      "sendMoney": {
-        "question": "Can I send money to anyone?",
-        "answer": "Today, you can send money instantly and free to any diBoaS user. As the network grows, so does who you can reach."
-      },
-      "justTransfers": {
-        "question": "Can I just use diBoaS for transfers?",
-        "answer": "Yes. Absolutely. You can use diBoaS only for sending and receiving money. Free, instant, worldwide. The investing and growth features are there when and if you ever want them. No pressure. No package deals."
-      },
-      "understanding": {
-        "question": "What if I don't understand investing?",
-        "answer": "That's exactly who we built this for. The goal is to make it so simple that anyone can do it. No jargon. No complicated decisions. Just clear options and transparent information. Start with $5. Explore. Learn. We're here every step."
-      },
-      "lostPhone": {
-        "question": "What if I lose my phone?",
-        "answer": "When diBoaS launches its app, your wallet will use advanced key security to protect against device loss. Our architecture is designed for wallet recovery without seed phrases or 24-word backups. Your money won't disappear because your phone did."
-      },
-      "withdraw": {
-        "question": "Can I withdraw my money anytime?",
-        "answer": "Yes. Your money is yours. Withdraw whenever you want. The fee is 0.48%, so cashing out $100 costs you 48 cents. No lock-up periods. No penalties."
-      },
-      "safety": {
-        "question": "Is my money safe?",
-        "answer": "Your money is secured by you. Only you hold the keys. Nobody else can access your funds without your permission.\n\nThat said, this isn't a bank account. Crypto-assets aren't covered by deposit guarantee schemes. The value of your assets can fluctuate, and you could lose some or all of your investment.\n\nWe show you both sides, the opportunities and the risks. Always."
-      },
-      "howPossible": {
-        "question": "How is this possible without high fees?",
-        "answer": "By cutting out the middlemen. The branches, the executives, the legacy costs. New financial technology does the same job at a fraction of the price. We pass those savings to you. That's the entire model."
-      },
-      "shutdown": {
-        "question": "What happens to my money if diBoaS shuts down?",
-        "answer": "Your money is in your wallet. Not ours.\n\nIf diBoaS shut down tomorrow, your money would still be there. Accessible through your keys.\n\ndiBoaS never holds your money. diBoaS never can. That's not something we added as a feature. It's how we built the entire system."
-      },
-      "whatIfWrong": {
-        "question": "What if something goes wrong?",
-        "answer": "Yes, you can lose money. We covered this honestly in the section above. The short version: we test every strategy against past crashes, we monitor 24/7, and we'll always tell you what's happening. But we can't eliminate all risk, and we won't pretend we can."
-      },
-      "audited": {
-        "question": "Has diBoaS been audited?",
-        "answer": "We're a pre-launch platform. Our strategies are stress-tested against historical crashes and real-world scenarios, and we use audited, established protocols. As we grow, we plan to pursue independent third-party audits. For full details on the protocols and technology behind each strategy, visit our Strategies and Protocols pages."
-      },
-      "afterSignup": {
-        "question": "What happens after I sign up?",
-        "answer": "You'll receive an email with your Founding Member badge and number, your personal invite link (5 invites to share), and instructions to get started.\n\nFrom there, you set up your wallet, add funds, and you're in."
-      },
-      "micaRegulated": {
-        "question": "Is diBoaS MiCA-regulated?",
-        "answer": "diBoaS is a non-custodial platform. Under the EU Markets in Crypto-Assets Regulation (MiCA), non-custodial wallets fall outside the regulatory scope because they do not hold customer funds. This means: no account freezing by the platform. Your money stays under your control. See the full MiCA notice in our footer."
-      },
-      "pixFaq": {
-        "question": "Can I use PIX with diBoaS?",
-        "answer": "No. diBoaS works with digital dollars, not reais. Your money is protected against BRL depreciation. For domestic transfers in reais, PIX is already excellent, and we don't try to compete with it. diBoaS is for the money you want to save in dollars and send abroad."
-      },
-      "whySaveDollar": {
-        "question": "Why save in dollars instead of a savings account?",
-        "answer": "Because the real loses value every year against the dollar. Even when your savings account pays 7-8%, inflation and currency depreciation can eat most of that return. With diBoaS, your money is in digital dollars, protected against BRL depreciation. When you withdraw, you get more reais than you put in, not just from yield, but from the exchange rate working in your favor."
-      }
-    }
+    "header": "Before you decide."
   },
   "nav": {
     "ctaDesktop": "Join Waitlist",

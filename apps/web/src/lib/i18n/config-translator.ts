@@ -46,57 +46,104 @@ function isTranslationKey(value: string): boolean {
     (value.startsWith('about.') && value.indexOf('.', 6) > 0) ||
     (value.startsWith('protocols.') && value.indexOf('.', 10) > 0) ||
     (value.startsWith('security.') && value.indexOf('.', 9) > 0) ||
-    (value.startsWith('strategies.') && value.indexOf('.', 11) > 0)
+    (value.startsWith('strategies.') && value.indexOf('.', 11) > 0) ||
+    (value.startsWith('faq.') && value.indexOf('.', 4) > 0)
   );
 }
 
 /**
+ * Slot values passed to ICU message templates.
+ * Matches react-intl's accepted value types.
+ */
+export type SlotValues = Record<string, string | number | boolean | Date>;
+
+/**
+ * Map from fully-qualified translation id to its slot values.
+ * E.g. `'landing-b2c.fees.rows.adding.diboas' → { rate: "0.48%", min: "$0.25", max: "$25" }`.
+ */
+export type ValuesByKey = Map<string, SlotValues>;
+
+/**
  * Recursively translate values in a config object using the provided intl instance.
  * Shared implementation used by both useConfigTranslation and withTranslations.
+ *
+ * The optional `valuesByKey` map injects ICU slot values into matched translation
+ * keys. Lookup is by the RESOLVED translation id (the value itself when matched via
+ * `isTranslationKey`, or the mapped target when matched via `translationKeyMap`).
  */
 function translateValue(
   value: unknown,
   intl: IntlShape,
-  translationKeyMap?: Map<string, string>
+  translationKeyMap?: Map<string, string>,
+  valuesByKey?: ValuesByKey
 ): unknown {
   if (value == null) return value;
 
   if (Array.isArray(value)) {
-    return value.map(item => translateValue(item, intl, translationKeyMap));
+    return value.map(item => translateValue(item, intl, translationKeyMap, valuesByKey));
   }
 
   if (typeof value === 'object' && value !== null) {
     const translatedObj: Record<string, unknown> = {};
     for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
-      translatedObj[key] = translateValue(val, intl, translationKeyMap);
+      translatedObj[key] = translateValue(val, intl, translationKeyMap, valuesByKey);
     }
     return translatedObj;
   }
 
   if (typeof value === 'string') {
+    // Resolve the translation id (either the value itself or via the keyMap).
+    // Unified resolution so the dev warning below works for both branches.
+    let resolvedKey: string | undefined;
     if (isTranslationKey(value)) {
-      return intl.formatMessage({ id: value, defaultMessage: value });
+      resolvedKey = value;
+    } else if (translationKeyMap?.has(value)) {
+      resolvedKey = translationKeyMap.get(value);
+    }
+    if (resolvedKey === undefined) return value;
+
+    const slotValues = valuesByKey?.get(resolvedKey);
+
+    // Dev-only warning when a key has values mapped but the ICU template is
+    // missing one of those slots — likely a misnamed slot. Stripped in production
+    // by `removeConsole` + `NODE_ENV` gate.
+    if (process.env.NODE_ENV === 'development' && slotValues) {
+      const template = (intl.messages as Record<string, string | undefined>)[resolvedKey];
+      if (typeof template === 'string') {
+        const provided = Object.keys(slotValues);
+        const slots = (template.match(/\{(\w+)\}/g) ?? []).map(s => s.slice(1, -1));
+        const missing = slots.filter(s => !provided.includes(s));
+        if (missing.length > 0) {
+          console.warn(
+            `[config-translator] Missing values for key "${resolvedKey}": ${missing.join(', ')}`
+          );
+        }
+      }
     }
 
-    if (translationKeyMap && translationKeyMap.has(value)) {
-      const key = translationKeyMap.get(value)!;
-      return intl.formatMessage({ id: key, defaultMessage: value });
-    }
+    return intl.formatMessage({ id: resolvedKey, defaultMessage: value }, slotValues);
   }
 
   return value;
 }
 
 /**
- * Hook to translate configuration objects
- * Recursively resolves all translation keys in a config object
+ * Hook to translate configuration objects.
+ * Recursively resolves all translation keys in a config object.
+ *
+ * @param config - Config object containing translation keys to resolve.
+ * @param translationKeyMap - Optional map from non-key strings to translation ids
+ *   (used for migrating literal-string configs).
+ * @param valuesByKey - Optional map from translation id to ICU slot values, for
+ *   keys whose templates contain `{slot}` placeholders.
  */
 export function useConfigTranslation<T extends object>(
   config: T,
-  translationKeyMap?: Map<string, string>
+  translationKeyMap?: Map<string, string>,
+  valuesByKey?: ValuesByKey
 ): T {
   const intl = useTranslation();
-  return translateValue(config, intl, translationKeyMap) as T;
+  return translateValue(config, intl, translationKeyMap, valuesByKey) as T;
 }
 
 /**
@@ -150,14 +197,19 @@ export function useNamespacedTranslation(namespace: string) {
 }
 
 /**
- * Higher-order function to create translation-aware config
- * Use this to wrap config objects at runtime
+ * Higher-order function to create translation-aware config.
+ * Use this to wrap config objects at runtime (outside React context).
+ *
+ * Mirrors `useConfigTranslation`'s signature so both surfaces can pass
+ * `translationKeyMap` and `valuesByKey` consistently.
  */
 export function withTranslations<T extends object>(
   intl: IntlShape,
-  config: T
+  config: T,
+  translationKeyMap?: Map<string, string>,
+  valuesByKey?: ValuesByKey
 ): T {
-  return translateValue(config, intl) as T;
+  return translateValue(config, intl, translationKeyMap, valuesByKey) as T;
 }
 
 /**

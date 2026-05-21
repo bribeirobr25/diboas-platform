@@ -1,6 +1,7 @@
 // @diboas/ui - Design System Exports
 // Export all primitives
 export { Button, type ButtonProps, buttonVariants } from './primitives/Button';
+export { Select, type SelectProps, selectVariants } from './primitives/Select';
 
 // Export utilities
 export { cn } from './utils/cn';

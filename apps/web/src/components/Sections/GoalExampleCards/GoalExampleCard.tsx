@@ -7,7 +7,8 @@ import { Palmtree, ShieldCheck, Gift, TrendingUp } from '@/components/UI/LucideI
 import { ExpandableCard } from '@/components/UI/ExpandableCard';
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { analyticsService } from '@/lib/analytics';
-import type { SupportedLocale } from '@/lib/market-data';
+import { marketDataService, type SupportedLocale } from '@/lib/market-data';
+import { formatRate } from '@/lib/market-data/formatters';
 import type { GoalCardKey } from '@/config/goalCards';
 import { useGoalCardData } from './useGoalCardData';
 import styles from './GoalExampleCards.module.css';
@@ -44,8 +45,8 @@ export const GoalExampleCard = memo(function GoalExampleCard({
   const { locale: rawLocale } = useLocale();
   const locale = (rawLocale || 'en') as SupportedLocale;
 
-  const t = (suffix: string) =>
-    intl.formatMessage({ id: `landing-b2c.goalExamples.cards.${cardKey}.${suffix}` });
+  const t = (suffix: string, values?: Record<string, string | number>) =>
+    intl.formatMessage({ id: `landing-b2c.goalExamples.cards.${cardKey}.${suffix}` }, values);
 
   const tShared = (key: string) =>
     intl.formatMessage({ id: `landing-b2c.goalExamples.${key}` });
@@ -118,7 +119,11 @@ export const GoalExampleCard = memo(function GoalExampleCard({
       </div>
 
       <p className={styles.tagline}>{t('tagline')}</p>
-      <p className={styles.bankSource}>{t('bankSource')}</p>
+      <p className={styles.bankSource}>
+        {/* Phase 7 PR-2 (2026-05-18): bank rate sourced from marketDataService
+            single source of truth, NOT a translation-string literal. */}
+        {t('bankSource', { rate: formatRate(marketDataService.getSync().rates.bankRates[locale].savings, locale) })}
+      </p>
 
       <div className={styles.links}>
         <button

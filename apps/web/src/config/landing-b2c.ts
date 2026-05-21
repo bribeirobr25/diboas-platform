@@ -308,6 +308,14 @@ export const B2C_CATCH_CONFIG: ProseSectionConfig = {
       'landing-b2c.catch.paragraphs.p5',
       'landing-b2c.catch.paragraphs.p6',
     ],
+    // Phase 8 Item B (CC8 closeout): inject the parameterized fee citation
+    // at locale-specific narrative position. pt-BR's BRL framing in p2-p3
+    // shifts the fee citation forward (replacing p4 = index 3) compared to
+    // en/es/de (replacing p5 = index 4). The literal `p4`/`p5` text in JSON
+    // remains as dead-data for translation parity but is REPLACED at render
+    // time by `feeParagraph` whose values come from buildAllFeeValues.
+    feeParagraph: 'landing-b2c.catch.feeParagraph',
+    feeParagraphAt: { en: 4, es: 4, de: 4, 'pt-BR': 3 },
   },
   image: {
     src: B2C_IMAGES.catchSection,
@@ -419,37 +427,39 @@ export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
 
 /**
  * Section 15: FAQ Items for B2C Landing Page
- * 5 items — top questions; full FAQ available at /help
+ * 5 items — top questions; full FAQ available at /help.
+ * All FAQ content is sourced from the canonical `faq.json` namespace
+ * (Phase 8 Item A consolidation — single source of truth for /help, /, /business).
  */
 export const B2C_FAQ_ITEMS: FAQItem[] = [
   {
     id: 'isBank',
-    question: 'landing-b2c.faq.items.isBank.question',
-    answer: 'landing-b2c.faq.items.isBank.answer',
+    question: 'faq.items.isBank.question',
+    answer: 'faq.items.isBank.answer',
     category: 'general'
   },
   {
     id: 'safety',
-    question: 'landing-b2c.faq.items.safety.question',
-    answer: 'landing-b2c.faq.items.safety.answer',
+    question: 'faq.items.safety.question',
+    answer: 'faq.items.safety.answer',
     category: 'security'
   },
   {
     id: 'howPossible',
-    question: 'landing-b2c.faq.items.howPossible.question',
-    answer: 'landing-b2c.faq.items.howPossible.answer',
+    question: 'faq.items.howPossible.question',
+    answer: 'faq.items.howPossible.answer',
     category: 'fees'
   },
   {
     id: 'withdraw',
-    question: 'landing-b2c.faq.items.withdraw.question',
-    answer: 'landing-b2c.faq.items.withdraw.answer',
+    question: 'faq.items.withdraw.question',
+    answer: 'faq.items.withdraw.answer',
     category: 'fees'
   },
   {
     id: 'afterSignup',
-    question: 'landing-b2c.faq.items.afterSignup.question',
-    answer: 'landing-b2c.faq.items.afterSignup.answer',
+    question: 'faq.items.afterSignup.question',
+    answer: 'faq.items.afterSignup.answer',
     category: 'getting-started'
   }
 ];

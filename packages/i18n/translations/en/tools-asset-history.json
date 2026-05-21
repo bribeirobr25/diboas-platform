@@ -1,0 +1,58 @@
+{
+  "seo": {
+    "title": "Asset History Calculator — what actually happened since 2010",
+    "description": "Free asset history calculator. Pick BTC, stocks, gold, or bonds; see what $100 lump sum or $100/month would have done since 2010 or 2016."
+  },
+  "hero": {
+    "kicker": "Asset history calculator",
+    "headline": "What actually happened?",
+    "subtitle": "Pick an asset, a start year, and a mode. See the real path your money would have taken — with the honest uncertainty bars on the noisy parts."
+  },
+  "inputs": {
+    "assetLabel": "Asset",
+    "startYearLabel": "Start year",
+    "modeLabel": "Mode",
+    "contributionLabel": "{mode, select, lumpSum {Lump-sum amount} other {Monthly contribution}}",
+    "assetOptions": {
+      "BTC": "Bitcoin",
+      "SP500": "S&P 500 (price)",
+      "QQQ": "QQQ (NASDAQ-100)",
+      "MSCI_WORLD": "MSCI World",
+      "GOLD": "Gold",
+      "TLT": "TLT (US 20+ yr Treasuries)",
+      "IBOVESPA": "Ibovespa (BRL)",
+      "DAX": "DAX (EUR)"
+    },
+    "modeOptions": {
+      "lumpSum": "Lump sum",
+      "monthlyDca": "Monthly DCA"
+    }
+  },
+  "output": {
+    "summaryLumpSum": "{amount} in {startMonth} {startYear} would be worth…",
+    "summaryDca": "{amount}/month from {startMonth} {startYear} would be worth…",
+    "terminalValue": "{value}",
+    "terminalRange": "between {low} and {high}",
+    "contributedOverMonths": "{total} contributed over {months} months",
+    "startingPrincipal": "{total} starting principal",
+    "confidenceHigh": "High confidence (±5%)",
+    "confidenceMedium": "Medium confidence — see uncertainty note",
+    "confidenceLow": "Low confidence — range only",
+    "uncertaintyMedium": "{asset} {year} anchor is approximate (±30%). We used {used}.",
+    "uncertaintyLow": "Public DCA calculators differ by ±50% on this window. We show a range, not a single number.",
+    "comparisonHeader": "vs S&P 500 over the same window",
+    "btcDcaRangeNote": "For BTC starting in 2010, the DCA terminal value depends heavily on the exact monthly entry path. Public calculators differ by ±50%."
+  },
+  "vignette": {
+    "subtitle": "Past is what already happened. Future is what you decide next."
+  },
+  "landing": {
+    "cardTitle": "Asset History",
+    "cardTagline": "What actually happened since 2010?"
+  },
+  "lessonLink": {
+    "label": "Want the methodology?",
+    "href": "/learn/compound-interest",
+    "linkText": "Read: How money really grows"
+  }
+}

@@ -8,10 +8,11 @@
  * In confirmation mode (alwaysExpanded): shows fees as negative, "Free" capitalized
  */
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
-import { formatCurrency, type FeeItem } from '@/lib/pre-demo';
+import { formatCurrency, getPreDemoFeeRateValues, type FeeItem } from '@/lib/pre-demo';
 import { useLocale } from '@/components/Providers';
+import type { SupportedLocale } from '@/lib/market-data/types';
 import styles from '../PreDemo.module.css';
 
 interface FeeBreakdownProps {
@@ -20,13 +21,38 @@ interface FeeBreakdownProps {
   alwaysExpanded?: boolean;
 }
 
+/**
+ * Phase 7 PR-1 (2026-05-18): map i18n label/tooltip keys to the values
+ * (rate / min / max) that should be interpolated. Values are sourced live
+ * from `marketDataService` via `getPreDemoFeeRateValues()` — single source
+ * of truth for the displayed fee rate. Keys not in this map render
+ * unchanged (no interpolation values passed).
+ */
+function buildLabelValuesMap(locale: SupportedLocale): Record<string, Record<string, string>> {
+  const v = getPreDemoFeeRateValues(locale);
+  return {
+    'preDemo.fees.paymentProcessor': v.paymentProcessor,
+    'preDemo.fees.networkFee': v.networkFee,
+    'preDemo.fees.crossChainSwap': v.crossChainSwap,
+    'preDemo.fees.btcMinerFee': v.btcMinerFee,
+    'preDemo.fees.issuerMintRedemption': v.issuerMintRedemption,
+    'preDemo.fees.tooltips.diboasFeeDeposit': v.diboasFeeDeposit,
+    'preDemo.fees.tooltips.btcMinerFee': v.btcMinerFee,
+  };
+}
+
 export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdownProps) {
   const intl = useTranslation();
   const { locale } = useLocale();
   const [isExpanded, setIsExpanded] = useState(alwaysExpanded || false);
   const [tooltipKey, setTooltipKey] = useState<string | null>(null);
 
-  const t = (key: string) => intl.formatMessage({ id: key });
+  const labelValues = useMemo(
+    () => buildLabelValuesMap(locale as SupportedLocale),
+    [locale],
+  );
+  const t = (key: string) =>
+    intl.formatMessage({ id: key }, labelValues[key] ?? undefined);
 
   return (
     <div className={styles.feeBreakdown}>

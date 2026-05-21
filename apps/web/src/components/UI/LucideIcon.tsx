@@ -31,6 +31,7 @@ import {
   Palmtree,
   Clock,
   AlertCircle,
+  History,
   type LucideIcon as LucideIconType
 } from 'lucide-react';
 
@@ -69,6 +70,7 @@ export {
   Palmtree,
   Clock,
   AlertCircle,
+  History,
 };
 
 export type { LucideIconType };

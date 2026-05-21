@@ -8,9 +8,16 @@
     "headline": "¿Qué te cuesta el efectivo en silencio?",
     "subtitle": "La inflación se come el efectivo sin avisar. Aquí tienes cuánto, en tu país, en los años que importan."
   },
+  "mode": {
+    "ariaLabel": "Modo de la calculadora",
+    "forward": "Hacia adelante",
+    "retrospective": "Desde 2010"
+  },
   "inputs": {
     "amountLabel": "Cantidad hoy",
+    "amountLabel2010": "Cantidad en 2010",
     "amountHelp": "Lo que tienes en efectivo ahora",
+    "amountHelp2010": "Lo que tenías en efectivo entonces",
     "yearsLabel": "Años a partir de ahora",
     "yearsHelp": "Inflación: ~{rate}% / año",
     "countryLabel": "País",
@@ -26,7 +33,9 @@
     "ifYouKeepCash": "Si lo dejas en efectivo",
     "ifYouInvest": "Si lo pones a trabajar",
     "lostToInflation": "−{amount} perdidos por la inflación",
-    "investedNote": "A {rate}% de rendimiento histórico"
+    "investedNote": "A {rate}% de rendimiento histórico",
+    "retrospectiveLabel": "Poder de compra hoy",
+    "retrospectiveDetail": "Inflación desde 2010: ~{cumulative}%. El mismo dinero compra alrededor de {percent}% menos ({lost} de poder de compra perdidos)."
   },
   "vignette": {
     "subtitle": "El mismo dinero. Otro final. La elección es tuya."

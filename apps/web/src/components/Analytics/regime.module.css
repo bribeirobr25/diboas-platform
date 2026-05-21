@@ -23,22 +23,26 @@
   color: var(--text-error-accessible);
 }
 
+/* Background alpha lowered from 12% → 8% (iter-4 §3.1 pa11y fix):
+   same-hue text on same-hue tinted background needs lighter background
+   to maintain WCAG-AA 4.5:1 contrast. Matches the ConfidenceBadge pattern
+   established in iter-2 (same accessibility audit class). */
 .regimeFillVERY_FAVORABLE {
-  background-color: color-mix(in srgb, var(--text-success-accessible) 12%, transparent);
+  background-color: color-mix(in srgb, var(--text-success-accessible) 8%, transparent);
 }
 
 .regimeFillCONSTRUCTIVE {
-  background-color: color-mix(in srgb, var(--text-brand-accessible) 12%, transparent);
+  background-color: color-mix(in srgb, var(--text-brand-accessible) 8%, transparent);
 }
 
 .regimeFillNEUTRAL_MIXED {
-  background-color: color-mix(in srgb, var(--color-text-secondary) 10%, transparent);
+  background-color: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
 }
 
 .regimeFillDEFENSIVE {
-  background-color: color-mix(in srgb, var(--color-amber-700) 12%, transparent);
+  background-color: color-mix(in srgb, var(--color-amber-700) 8%, transparent);
 }
 
 .regimeFillHOSTILE {
-  background-color: color-mix(in srgb, var(--text-error-accessible) 12%, transparent);
+  background-color: color-mix(in srgb, var(--text-error-accessible) 8%, transparent);
 }

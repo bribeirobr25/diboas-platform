@@ -100,6 +100,7 @@
     "tableHeaderScenario": "Cenário",
     "tableHeaderRate": "Taxa anual",
     "tableHeaderTotal": "Após {years} anos",
-    "loadingState": "Calculando…"
+    "loadingState": "Calculando…",
+    "calibrationNote": "O que as taxas significam. Os 7% conservadores estão alinhados com o envelope de rendimento do dólar digital via stack DeFi com foco em Solana. Os 10% históricos ficam no meio da faixa mista de longo prazo. Os 14% otimistas refletem estratégias selecionadas ou alavancadas. De forma independente — o S&P 500 retornou ~15,5% ao ano em média de 2010 a 2026, o ouro ~9% ao ano, e um poupador brasileiro em BRL teve desempenho inferior a um que manteve dólar digital na mesma janela (números completos nas nossas notas de pesquisa)."
   }
 }

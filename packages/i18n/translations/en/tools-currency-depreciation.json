@@ -8,20 +8,33 @@
     "headline": "What does your local currency really earn?",
     "subtitle": "Compare cash, bank, and digital dollar over time — accounting for currency depreciation."
   },
+  "mode": {
+    "ariaLabel": "Calculator mode",
+    "forward": "Forward",
+    "retrospective": "Since 2010"
+  },
   "inputs": {
     "currencyLabel": "Currency",
     "amountLabel": "Amount in {currency}",
+    "amountLabel2010": "Amount in {currency} (Jan 2010)",
     "yearsLabel": "Years from now",
     "depreciationHelp": "{currency} depreciates ~{rate}% per year vs USD"
   },
   "output": {
     "usdLocaleNote": "This calculator is most useful for non-USD currencies. For USD holders, depreciation defaults to 0.",
+    "usdRetrospectiveNote": "Pick BRL or EUR to see how your local currency tracked against USD since 2010.",
     "cashLabel": "If kept in cash",
     "cashUsdEquivalent": "USD-equivalent after {rate}% / year drift",
     "bankLabel": "Bank yield",
     "bankRateNote": "{rate}% local bank rate",
     "diboasLabel": "Digital dollar at diBoaS",
-    "diboasNote": "{rate}% historical return, held in digital dollar"
+    "diboasNote": "{rate}% historical return, held in digital dollar",
+    "retrospectiveThenLabel": "Then (Jan 2010)",
+    "retrospectiveThenNote": "1 USD = {rate} {currency}",
+    "retrospectiveNowLabel": "Now (May 2026)",
+    "retrospectiveNowNote": "1 USD = {rate} {currency}",
+    "retrospectiveLossLabel": "USD-purchasing-power change",
+    "retrospectiveLossNote": "{currency} weakened {cagr}% / year against USD over 16 years"
   },
   "vignette": {
     "subtitle": "Where you hold your money matters. The currency it earns in matters more."

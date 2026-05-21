@@ -18,6 +18,7 @@ import {
   Target,
   BarChart3,
   Award,
+  History,
 } from '@/components/UI/LucideIcon';
 import { TOOL_DESCRIPTORS, type ToolKey, type ToolSectionKey } from '@/lib/tools';
 import styles from './ToolsIndex.module.css';
@@ -53,6 +54,7 @@ const ICON_MAP = {
   currencyDepreciation: Globe,
   cardFees: BarChart3,
   idleCash: Award,
+  assetHistory: History,
 } as const;
 
 export function ToolsIndex({ shippedTools, audienceFilter, copy }: ToolsIndexProps) {

@@ -2,36 +2,110 @@
  * PreDemo Fee Calculations
  *
  * Pure functions for calculating deposit, send, and buy fees.
- * All functions accept an optional fee rates parameter for analytics API override.
- * Fallback: hardcoded FEE_RATES constants.
+ *
+ * Phase 8 Item E (carry-forward #7 closeout): fee rates derived from
+ * `marketDataService.getSync()` at call time instead of the static
+ * `FEE_RATES` constant. Pre-demo-specific scenario values (xautSwapGas,
+ * xautLp, defaultRate) stay local in `PRE_DEMO_BUY_EXTRAS` — they don't
+ * have a `marketDataService` equivalent.
+ *
+ * Optional fee-rate overrides remain supported for the analytics-API
+ * override pathway.
  */
 
 import type { FeeItem } from './types';
-import { FEE_RATES, ASSET_PRICES } from './constants';
+import { marketDataService } from '@/lib/market-data';
+import { ASSET_PRICES, PRE_DEMO_BUY_EXTRAS } from './constants';
 
-/** Fee rate override type — partial overrides merged with defaults */
-export type FeeRateOverrides = Partial<{
-  deposit: Partial<typeof FEE_RATES.deposit>;
-  send: Partial<typeof FEE_RATES.send>;
-  buy: Partial<typeof FEE_RATES.buy>;
-}>;
+/** Concrete shape of resolved fee rates, consumed by all calculation functions. */
+export interface FeeRates {
+  readonly deposit: {
+    paymentProcessor: number;
+    network: number;
+    diboas: number;
+    diboasMin: number;
+    diboasMax: number;
+  };
+  readonly send: {
+    network: number;
+    priority: number;
+    diboas: number;
+  };
+  readonly buy: {
+    btcSwap: number;
+    btcMinerRate: number;
+    xautIssuer: number;
+    xautSwapGas: number;
+    xautLp: number;
+    defaultRate: number;
+    diboas: number;
+    btcDiboas: number;
+    xautDiboas: number;
+  };
+}
+
+/** Fee rate override type — partial overrides merged with service-derived defaults. */
+export type FeeRateOverrides = {
+  deposit?: Partial<FeeRates['deposit']>;
+  send?: Partial<FeeRates['send']>;
+  buy?: Partial<FeeRates['buy']>;
+};
 
 /**
- * Resolve fee rates with optional overrides.
- * Fallback chain: override value → hardcoded FEE_RATES constant.
- * Future: diBoaS analytics API provides live fee rates.
+ * Resolve fee rates from `marketDataService` (canonical source) merged with
+ * optional caller overrides. Phase 8 Item E: replaces previous static
+ * `FEE_RATES` lookup; future live-data flows transparently through here.
+ *
+ * Mapping (11 of 14 fields service-backed):
+ *   platformFees.deposit.{rate,minFee,maxFee} → deposit.{diboas,diboasMin,diboasMax}
+ *   platformFees.send.rate                    → send.diboas
+ *   platformFees.sell.rate                    → buy.diboas (buy execution fee = sell rate)
+ *   thirdPartyFees.{paymentProcessor,networkFee,crossChainSwap,btcMiner,xautIssuer}
+ *                                             → deposit.paymentProcessor + network,
+ *                                               send.network, buy.{btcSwap,btcMinerRate,xautIssuer}
+ *   networkGas.solPriorityFee                 → send.priority
+ *
+ * Local (PRE_DEMO_BUY_EXTRAS):
+ *   buy.{xautSwapGas, xautLp, defaultRate}    — demo-specific, no service field
+ *   buy.{btcDiboas, xautDiboas} = 0           — BTC/Gold buy is FREE by design
  */
-export function resolveFeeRates(overrides?: FeeRateOverrides): typeof FEE_RATES {
-  if (!overrides) return FEE_RATES;
+export function resolveFeeRates(overrides?: FeeRateOverrides): FeeRates {
+  const { platformFees, thirdPartyFees, networkGas } = marketDataService.getSync();
+  const base: FeeRates = {
+    deposit: {
+      paymentProcessor: thirdPartyFees.paymentProcessor,
+      network: thirdPartyFees.networkFee,
+      diboas: platformFees.deposit.rate,
+      diboasMin: platformFees.deposit.minFee,
+      diboasMax: platformFees.deposit.maxFee,
+    },
+    send: {
+      network: thirdPartyFees.networkFee,
+      priority: networkGas.solPriorityFee,
+      diboas: platformFees.send.rate,
+    },
+    buy: {
+      btcSwap: thirdPartyFees.crossChainSwap,
+      btcMinerRate: thirdPartyFees.btcMiner,
+      xautIssuer: thirdPartyFees.xautIssuer,
+      xautSwapGas: PRE_DEMO_BUY_EXTRAS.xautSwapGas,
+      xautLp: PRE_DEMO_BUY_EXTRAS.xautLp,
+      defaultRate: PRE_DEMO_BUY_EXTRAS.defaultRate,
+      diboas: platformFees.sell.rate,
+      btcDiboas: 0,
+      xautDiboas: 0,
+    },
+  };
+  if (!overrides) return base;
   return {
-    deposit: { ...FEE_RATES.deposit, ...overrides.deposit },
-    send: { ...FEE_RATES.send, ...overrides.send },
-    buy: { ...FEE_RATES.buy, ...overrides.buy },
+    deposit: { ...base.deposit, ...overrides.deposit },
+    send: { ...base.send, ...overrides.send },
+    buy: { ...base.buy, ...overrides.buy },
   };
 }
 
 /** Deposit fee calculation */
-export function calculateDepositFees(grossAmount: number, rates = FEE_RATES): {
+export function calculateDepositFees(grossAmount: number, rates: FeeRates = resolveFeeRates()): {
   processorFee: number;
   networkFee: number;
   diboasFee: number;
@@ -63,7 +137,7 @@ export function calculateDepositFees(grossAmount: number, rates = FEE_RATES): {
 }
 
 /** Send fee calculation */
-export function calculateSendFees(grossAmount: number, rates = FEE_RATES): {
+export function calculateSendFees(grossAmount: number, rates: FeeRates = resolveFeeRates()): {
   networkFee: number;
   priorityFee: number;
   diboasFee: number;
@@ -92,7 +166,7 @@ export function calculateSendFees(grossAmount: number, rates = FEE_RATES): {
 }
 
 /** Buy fee calculation - dynamic based on asset */
-export function calculateBuyFees(grossAmount: number, assetSymbol: string, rates = FEE_RATES): {
+export function calculateBuyFees(grossAmount: number, assetSymbol: string, rates: FeeRates = resolveFeeRates()): {
   totalFees: number;
   netAmount: number;
   feeItems: Record<string, FeeItem>;

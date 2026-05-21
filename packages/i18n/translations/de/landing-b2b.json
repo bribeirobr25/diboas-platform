@@ -57,7 +57,7 @@
         "bankResult": "1.220 €",
         "difference": "6.743 €/Jahr",
         "tagline": "Im Digital-Dollar arbeitet dein Kapital härter — weil der Dollar tendenziell gegenüber dem Euro an Wert gewinnt.",
-        "source": "Beispiel basierend auf 100.000 € ungenutztem Kapital bei 1,22% durchschnittlichem Sparzins (Bundesbank/EZB 5-Jahres-Durchschnitt) vs diBoaS Konservativ 7% in Digital-Dollar, mit jährlichem Wechselkurseffekt von 0,9% (abgeleitet 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; siehe docs/tech/financial-calculations.md §Currency Hedge Model). Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
+        "source": "Beispiel basierend auf 100.000 € ungenutztem Kapital bei {rate} durchschnittlichem Sparzins (Bundesbank/EZB 5-Jahres-Durchschnitt) vs diBoaS Konservativ 7% in Digital-Dollar, mit jährlichem Wechselkurseffekt von 0,9% (abgeleitet 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; siehe docs/tech/financial-calculations.md §Currency Hedge Model). Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
         "howPossible": "Wie ist das möglich?"
       }
     }
@@ -154,7 +154,7 @@
       },
       "add": {
         "action": "Geld einzahlen",
-        "diboas": "0,48% (min 0,25 EUR, max 25 EUR)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0 bis 1,5%",
         "difference": "Vergleichbar mit den meisten Anbietern",
         "example": "10.000 EUR einzahlen: kostet 48 EUR"
@@ -168,7 +168,7 @@
       },
       "sell": {
         "action": "Verkaufen / Schließen",
-        "diboas": "0,39% (min 0,25 EUR, max 25 EUR)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "0,5 bis 2%",
         "difference": "Spare 11 bis 161 EUR pro 10.000 EUR",
         "example": "10.000 EUR verkaufen: kostet 39 EUR"
@@ -182,7 +182,7 @@
       },
       "cashOut": {
         "action": "Auszahlen",
-        "diboas": "0,48% (min 0,25 EUR, max 25 EUR)",
+        "diboas": "{rate} (min {min}, max {max})",
         "competitors": "1 bis 3% + Verzögerungen",
         "difference": "Spare 52 bis 252 EUR pro 10.000 EUR",
         "example": "10.000 EUR auszahlen: kostet 48 EUR"
@@ -190,7 +190,7 @@
     },
     "disclaimer": "*Angezeigte diBoaS-Gebühr. Netzwerkgebühren Dritter können anfallen (typischerweise unter 0,01 EUR).",
     "pricingNote": "Preisvergleiche basieren auf öffentlich verfügbaren Tarifen, Stand Februar 2026. Die Spannen spiegeln gängige Preise bei großen Anbietern wider. Die tatsächlichen Preise variieren je nach Anbieter, Volumen und Vertragsbedingungen.",
-    "example": "Du empfängst 1.000 EUR an Zahlungen: Du behältst 1.000 EUR in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto: 995,20 EUR (nach 0,48% Auszahlungsgebühr). Immer noch günstiger als die 970 bis 980 EUR, die ein Kartenzahlungsdienstleister übrig lässt.",
+    "example": "Du empfängst 1.000 EUR an Zahlungen: Du behältst 1.000 EUR in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto: 995,20 EUR (nach {cashOutRate} Auszahlungsgebühr). Immer noch günstiger als die 970 bis 980 EUR, die ein Kartenzahlungsdienstleister übrig lässt.",
     "expandableToggle": "Keine versteckten Gebühren. Kein Mindestguthaben. Keine monatlichen Kosten. Alle Gebühren anzeigen.",
     "footerLine": "Jede Gebühr. Auf dem Tisch. Sonst nichts.",
     "transitionHook": "Du liest noch? Gut. Schauen wir, ob es zu deinem Unternehmen passt."
@@ -284,51 +284,7 @@
     "zeroState": "Gehöre zu den Ersten."
   },
   "faq": {
-    "header": "Bevor du dich entscheidest.",
-    "items": {
-      "catch": {
-        "question": "Wo ist der Haken?",
-        "answer": "Wir berechnen kleine Gebühren, wenn Geld bewegt wird. Kostenlos wenn du Zahlungen empfängst. Kostenlos wenn du investierst. 0,39% wenn du verkaufst oder eine Position schließt. 0,48% wenn du auszahlst.\n\nWenn du 10.000 EUR an Zahlungen empfängst, behalten wir 0 EUR. Wenn du 10.000 EUR investierst, behalten wir 0 EUR. Wenn du 10.000 EUR verkaufst, behalten wir 39 EUR. Wenn du nichts verdienst und nichts sendest, verdienen wir nichts.\n\nKeine versteckten Gebühren. Keine Mindestguthaben. Keine monatlichen Kosten. Kein Haken."
-      },
-      "smbOrStartup": {
-        "question": "Ist das für kleine Unternehmen oder Startups?",
-        "answer": "Für beide. Wenn du ein Café führst und 2,5% bei jeder Kartenzahlung verlierst, helfen wir dir, das Geld zu behalten. Wenn du ein Startup bist mit 500.000 EUR auf dem Konto, die 0,5% verdienen, helfen wir, mehr daraus zu machen.\n\nDie Werkzeuge sind die gleichen. Nur die Zahlen sehen anders aus."
-      },
-      "safety": {
-        "question": "Ist mein Geld sicher?",
-        "answerA": "Dein Geld wird von dir gesichert. Dein Wallet, deine Schlüssel. Niemand bei diBoaS kann ohne deine Genehmigung auf dein Geld zugreifen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet über neue Technologie. Der Wert kann schwanken, und du könntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer.",
-        "answerB": "Dein Geld ist durch Multi-Party-Sicherheit geschützt. Deine Genehmigung ist für jede Transaktion erforderlich. DiBoaS hält einen teilweisen Schlüsselanteil für Wiederherstellungszwecke, kann dein Geld aber nicht einseitig bewegen.\n\nDas gesagt: Das ist kein Bankkonto. Dein Geld arbeitet über neue Technologie. Der Wert kann schwanken, und du könntest einen Teil oder dein gesamtes Investment verlieren. Es gibt keine Einlagensicherung.\n\nWir zeigen dir beide Seiten, die Chancen und die Risiken, immer."
-      },
-      "liquidity": {
-        "question": "Kann ich jederzeit auf mein Geld zugreifen?",
-        "answer": "Ja. Keine Sperrfristen. Du legst die Untergrenze fest: \"Immer 50.000 EUR liquide halten.\" Wir setzen nur ein, was darüber liegt.\n\nDu brauchst Bargeld? Ein Tipp. Wir verarbeiten es sofort. Banktransferzeiten können variieren. Keine Strafen. Keine Fragen."
-      },
-      "payments": {
-        "question": "Wie funktionieren sofortige Zahlungen?",
-        "answer": "Traditionelle Überweisungen laufen über Korrespondenzbanken. Deine Bank, deren Bank, vielleicht noch eine Bank, dann die Bank des Empfängers. Jeder Schritt kostet Zeit und Gebühren.\n\nMit diBoaS gehen Zahlungen direkt. Dein Wallet zu deren Wallet. Fertig.\n\nDein Freelancer in Lissabon wird in Sekunden bezahlt, zum echten Wechselkurs, kostenlos. Nicht 15 bis 50 EUR und 3 Werktage."
-      },
-      "compliance": {
-        "question": "Was ist mit Compliance und Steuern?",
-        "answer": "Wir haben diBoaS für echte Unternehmen mit echten Compliance-Anforderungen gebaut.\n\nMonatliche Auszüge, formatiert für deine Buchhaltungssoftware. Transaktionsverlauf mit vollständigem Audit-Trail. Steuerunterlagen zum Jahresende. Berichte für den Vorstand, die dein CFO wirklich versteht.\n\nWir wissen, dass du irgendwann geprüft wirst. Wir sorgen dafür, dass du vorbereitet bist."
-      },
-      "whereMoneyGoes": {
-        "question": "Wo geht mein Geld genau hin?",
-        "answer": "Dein Geld wird in etablierte Finanzsysteme platziert, die seit über 3 Jahren in Betrieb sind, mehrere Markteinbrüche überstanden haben und unabhängig auf Sicherheit geprüft werden.\n\nAlle Details, einschließlich Namen, Erfolgsbilanzen und unserer Auswahlkriterien, sind auf unserer Strategien-Seite veröffentlicht. Ohne Anmeldung einsehbar.\n\nWir haben diese Systeme gewählt, weil sie transparent und kampferprobt sind, und du jederzeit genau sehen kannst, wo dein Geld ist."
-      },
-      "whyCantTouch": {
-        "question": "Warum kann diBoaS mein Geld nicht anfassen?",
-        "answerA": "Genau das ist der Sinn unserer Architektur.\n\nTraditionelle Finanzen: Du zahlst Geld ein, es wird das Geld der Bank, und sie schulden dir einen Kontostand.\n\ndiBoaS: Dein Geld bleibt in deinem eigenen Wallet. Wir liefern die Software, die dir hilft, es in renditeerzeugende Systeme einzusetzen. Aber wir haben niemals Zugriff, es selbst zu bewegen.\n\nWenn diBoaS bankrott geht, ist dein Geld immer noch deins. Niemand bei diBoaS kann dein Geld bewegen. Jede Transaktion erfordert deine Genehmigung.\n\nMehr Kontrolle für dich. Weniger Risiko durch uns.",
-        "answerB": "Das ist ein Kernbestandteil unserer Architektur.\n\nTraditionelle Finanzen: Du zahlst Geld ein, es wird das Geld der Bank, und sie schulden dir einen Kontostand.\n\ndiBoaS: Dein Geld ist durch Multi-Party-Sicherheit geschützt. Wir halten einen teilweisen Schlüsselanteil für die Kontowiederherstellung, aber jede Transaktion erfordert deine ausdrückliche Genehmigung. Wir können dein Geld nicht einseitig bewegen.\n\nWenn diBoaS Probleme hat, bleiben deine Gelder durch das Multi-Party-Sicherheitssystem geschützt. Jede Transaktion erfordert deine Autorisierung.\n\nMehr Schutz für dich. Weniger Risiko durch uns."
-      },
-      "risk": {
-        "question": "Was ist das tatsächliche Risiko?",
-        "answer": "Seien wir ehrlich.\n\nDie Systeme, in die dein Geld fließt, basieren auf Code. Code kann Schwachstellen haben. Wir reduzieren das, indem wir nur Systeme verwenden mit signifikantem Gesamtwert unter Verwaltung, mehreren unabhängigen Sicherheitsprüfungen, Jahren an Erfolgsgeschichte durch Marktereignisse hindurch, und indem wir dein Geld auf mehrere unabhängige Systeme verteilen.\n\nNull Risiko? Nein. Das gibt es nirgendwo, auch nicht bei deiner Bank.\n\nDie eigentliche Frage: Sind bessere Renditen ein anderes Risikoprofil wert? Für manche Unternehmen ja. Für andere nein. Beides ist valide."
-      },
-      "audited": {
-        "question": "Wurde diBoaS auditiert?",
-        "answer": "Wir sind eine Plattform vor dem Launch. Unsere Strategien sind gegen historische Einbrüche und reale Szenarien getestet, und wir nutzen auditierte, etablierte Systeme. Mit unserem Wachstum planen wir unabhängige Prüfungen durch Dritte.\n\nFür alle Details über die Systeme und Technologie hinter jeder Strategie, besuche unsere Strategien- und Protokoll-Seiten."
-      }
-    }
+    "header": "Bevor du dich entscheidest."
   },
   "footer": {
     "copyright": "© 2026 diBoaS. Alle Rechte vorbehalten.",

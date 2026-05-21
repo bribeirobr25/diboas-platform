@@ -57,7 +57,7 @@
         "bankResult": "140 €",
         "difference": "7.823 €/año",
         "tagline": "En dólar digital, tu capital rinde más — porque el dólar tiende a apreciarse frente al euro con el tiempo.",
-        "source": "Ejemplo basado en 100.000 € de capital parado con tasa media de ahorro del 0,14% (BCE/Tesoro media 5 años) vs diBoaS Conservador 7% en dólar digital, con efecto cambiario anual del 0,9% (derivado el 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
+        "source": "Ejemplo basado en 100.000 € de capital parado con tasa media de ahorro del {rate} (BCE/Tesoro media 5 años) vs diBoaS Conservador 7% en dólar digital, con efecto cambiario anual del 0,9% (derivado el 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
         "howPossible": "¿Cómo es posible?"
       }
     }
@@ -154,7 +154,7 @@
       },
       "add": {
         "action": "Anadir dinero",
-        "diboas": "0,48% (mín 0,25 EUR, máx 25 EUR)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "0 a 1,5%",
         "difference": "Comparable con la mayoría de proveedores",
         "example": "Anadir 10.000 EUR: cuesta 48 EUR"
@@ -168,7 +168,7 @@
       },
       "sell": {
         "action": "Vender / Cerrar",
-        "diboas": "0,39% (mín 0,25 EUR, máx 25 EUR)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "0,5 a 2%",
         "difference": "Ahorra 11 a 161 EUR por cada 10.000 EUR",
         "example": "Vender 10.000 EUR: cuesta 39 EUR"
@@ -182,7 +182,7 @@
       },
       "cashOut": {
         "action": "Retirar",
-        "diboas": "0,48% (mín 0,25 EUR, máx 25 EUR)",
+        "diboas": "{rate} (mín {min}, máx {max})",
         "competitors": "1 a 3% + retrasos",
         "difference": "Ahorra 52 a 252 EUR por cada 10.000 EUR",
         "example": "Retirar 10.000 EUR: cuesta 48 EUR"
@@ -190,7 +190,7 @@
     },
     "disclaimer": "*Comision diBoaS mostrada. Pueden aplicarse comisiones de red de terceros (normalmente menos de 0,01 EUR).",
     "pricingNote": "Comparaciones de precios basadas en tarifas publicas a febrero de 2026. Los rangos reflejan precios comunes entre los principales proveedores. El precio real de cada competidor varia segun proveedor, volumen y condiciones contractuales.",
-    "example": "Recibes 1.000 EUR en pagos: te quedas con 1.000 EUR en tu cuenta diBoaS. Retiras a tu banco: 995,20 EUR (tras 0,48% de comision de retirada). Aun asi mas barato que los 970 a 980 EUR que te deja un procesador de tarjetas.",
+    "example": "Recibes 1.000 EUR en pagos: te quedas con 1.000 EUR en tu cuenta diBoaS. Retiras a tu banco: 995,20 EUR (tras {cashOutRate} de comision de retirada). Aun asi mas barato que los 970 a 980 EUR que te deja un procesador de tarjetas.",
     "expandableToggle": "Sin comisiones ocultas. Sin saldo mínimo. Sin cargos mensuales. Ver todas las comisiones.",
     "footerLine": "Cada comision. Sobre la mesa. Nada mas.",
     "transitionHook": "Sigues leyendo? Bien. Veamos si esto encaja con tu negocio."
@@ -284,51 +284,7 @@
     "zeroState": "Sé de los primeros."
   },
   "faq": {
-    "header": "Antes de decidir.",
-    "items": {
-      "catch": {
-        "question": "Cual es la trampa?",
-        "answer": "Cobramos comisiones pequenas cuando el dinero se mueve. Gratis cuando recibes pagos. Gratis cuando inviertes. 0,39% cuando vendes o cierras una posición. 0,48% cuando retiras.\n\nSi recibes 10.000 EUR en pagos, retenemos 0 EUR. Si inviertes 10.000 EUR, retenemos 0 EUR. Si vendes 10.000 EUR, retenemos 39 EUR. Si no ganas nada y no envias nada, nosotros no ganamos nada.\n\nSin comisiones ocultas. Sin saldos minimos. Sin cargos mensuales. Sin trampa."
-      },
-      "smbOrStartup": {
-        "question": "Es esto para pequenas empresas o startups?",
-        "answer": "Para ambas. Si tienes un bar que pierde un 2,5% en cada pago con tarjeta, te ayudamos a quedarte con ese dinero. Si eres una startup con 500.000 EUR parados en el banco ganando un 0,5%, ayudamos a que generen mas.\n\nLas herramientas son las mismas. Solo cambian los numeros."
-      },
-      "safety": {
-        "question": "Esta seguro mi dinero?",
-        "answerA": "Tu dinero esta asegurado por ti. Tu cartera, tus claves. Nadie en diBoaS puede acceder a tus fondos sin tu autorización.\n\nDicho esto, no es una cuenta bancaria. Tus fondos funcionan a traves de nueva tecnologia. El valor puede fluctuar y podrias perder parte o la totalidad de tu inversion. No hay seguro de depositos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre.",
-        "answerB": "Tu dinero esta protegido por seguridad multipartita. Tu autorización es necesaria para cada transacción. DiBoaS tiene una parte parcial de la clave para recuperacion, pero no puede mover tus fondos unilateralmente.\n\nDicho esto, no es una cuenta bancaria. Tus fondos funcionan a traves de nueva tecnologia. El valor puede fluctuar y podrias perder parte o la totalidad de tu inversion. No hay seguro de depositos.\n\nTe mostramos las dos caras, las oportunidades y los riesgos, siempre."
-      },
-      "liquidity": {
-        "question": "Puedo acceder a mi dinero en cualquier momento?",
-        "answer": "Si. Sin bloqueos. Tu pones el mínimo: \"siempre tener 50.000 EUR liquidos.\" Solo ponemos a trabajar lo que esta por encima.\n\nNecesitas efectivo? Un toque. Lo procesamos al instante. Los tiempos de transferencia bancaria pueden variar. Sin penalizaciones. Sin preguntas."
-      },
-      "payments": {
-        "question": "Como funcionan los pagos instantaneos?",
-        "answer": "Las transferencias tradicionales pasan por bancos corresponsales. Tu banco, su banco, quiza otro banco, y luego el banco del receptor. Cada paso lleva tiempo y cobra comisiones.\n\nCon diBoaS, los pagos van directos. De tu cartera a la suya. Hecho.\n\nTu freelancer en Buenos Aires cobra en segundos, al tipo de cambio real, gratis. No 15 a 50 EUR y 3 dias laborables."
-      },
-      "compliance": {
-        "question": "Que pasa con el cumplimiento normativo y los impuestos?",
-        "answer": "Construimos diBoaS para negocios reales con necesidades de cumplimiento reales.\n\nExtractos mensuales formateados para tu software contable. Historial de transacciones con rastro de auditoria completo. Documentacion fiscal a final de ano. Informes listos para tu consejo que tu CFO realmente entendera.\n\nSabemos que en algun momento te van a auditar. Nos aseguramos de que estes preparado."
-      },
-      "whereMoneyGoes": {
-        "question": "A donde va mi dinero exactamente?",
-        "answer": "Tu dinero se coloca en sistemas financieros establecidos que llevan operando mas de 3 anos, han sobrevivido a multiples caidas de mercado y son auditados de forma independiente en seguridad.\n\nTodos los detalles, incluyendo nombres, historial y nuestros criterios de seleccion, estan publicados en nuestra pagina de Estrategias. Sin necesidad de registro.\n\nElegimos estos sistemas porque son transparentes, probados en batalla, y puedes ver exactamente donde estan tus fondos en todo momento."
-      },
-      "whyCantTouch": {
-        "question": "Por que diBoaS no puede tocar mi dinero?",
-        "answerA": "Ese es precisamente el punto de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero se queda en tu propia cartera. Proporcionamos el software que te ayuda a desplegarlo en sistemas que generan retornos. Pero nunca tenemos acceso para moverlo nosotros mismos.\n\nSi diBoaS quiebra, tu dinero sigue siendo tuyo. Nadie en diBoaS puede mover tus fondos. Cada transacción requiere tu aprobacion.\n\nMas control para ti. Menos riesgo nuestro.",
-        "answerB": "Esto es una parte fundamental de como estamos construidos.\n\nFinanzas tradicionales: depositas dinero, pasa a ser del banco, y te deben un saldo.\n\ndiBoaS: tu dinero esta protegido por seguridad multipartita. Tenemos una parte parcial de la clave para recuperacion de cuenta, pero cada transacción requiere tu aprobacion explicita. No podemos mover tus fondos unilateralmente.\n\nSi diBoaS tiene problemas, tus fondos permanecen protegidos por el sistema de seguridad multipartita. Cada transacción requiere tu autorización.\n\nMas protección para ti. Menos riesgo nuestro."
-      },
-      "risk": {
-        "question": "Cual es el riesgo real?",
-        "answer": "Seamos honestos.\n\nLos sistemas donde va tu dinero estan construidos con codigo. El codigo puede tener vulnerabilidades. Reducimos esto usando solo sistemas con un valor total asegurado significativo, multiples auditorias de seguridad independientes, anos de historial a traves de eventos de mercado, y distribuyendo tu dinero entre multiples sistemas independientes.\n\nRiesgo cero? No. Nada lo es, incluido tu banco.\n\nLa pregunta real: merece la pena un perfil de riesgo diferente a cambio de mejores retornos? Para algunos negocios, si. Para otros, no. Ambas respuestas son validas."
-      },
-      "audited": {
-        "question": "Ha sido auditada diBoaS?",
-        "answer": "Somos una plataforma en fase de pre-lanzamiento. Nuestras estrategias estan testeadas contra caidas historicas y escenarios reales, y usamos protocolos auditados y establecidos. A medida que crezcamos, planeamos realizar auditorias independientes de terceros.\n\nPara todos los detalles sobre los sistemas y la tecnologia detras de cada estrategia, visita nuestras paginas de Estrategias y Protocolos."
-      }
-    }
+    "header": "Antes de decidir."
   },
   "footer": {
     "copyright": "© 2026 diBoaS. Todos los derechos reservados.",

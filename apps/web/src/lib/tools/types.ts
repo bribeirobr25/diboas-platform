@@ -11,7 +11,7 @@ import type { SupportedLocale } from '@diboas/i18n/config';
 import type { Cadence } from '@/lib/compound-interest';
 
 /**
- * 4 Tier-1 (6C) + 3 Tier-2 (6D) + 2 Tier-3 B2B (6E) = 9 tools total.
+ * 4 Tier-1 (6C) + 3 Tier-2 (6D) + 2 Tier-3 B2B (6E) + 1 retrospective (Phase E) = 10 tools total.
  */
 export type ToolKey =
   | 'compound-interest'
@@ -22,7 +22,8 @@ export type ToolKey =
   | 'time-to-target'
   | 'currency-depreciation'
   | 'card-fees'
-  | 'idle-cash';
+  | 'idle-cash'
+  | 'asset-history';
 
 /** Section grouping shown on the /tools landing (per Q9 — Option B). */
 export type ToolSectionKey = 'grow' | 'protect' | 'target' | 'business';
@@ -75,6 +76,34 @@ export interface IdleCashDefaults {
   readonly years: number;
 }
 
+/**
+ * Asset codes for the Phase E asset-history tool. Re-exported from
+ * `@/lib/market-data` so the tool type system is locale-aware without
+ * coupling the marketing layer to the data layer's internal naming.
+ */
+export type AssetHistoryAssetKey =
+  | 'BTC'
+  | 'SP500'
+  | 'QQQ'
+  | 'MSCI_WORLD'
+  | 'GOLD'
+  | 'TLT'
+  | 'IBOVESPA'
+  | 'DAX';
+
+export type AssetHistoryStartYear = 2010 | 2016;
+
+export type AssetHistoryMode = 'lumpSum' | 'monthlyDca';
+
+/** Input config for the Asset History calculator (Phase E, 2026-05-16). */
+export interface AssetHistoryDefaults {
+  readonly asset: Record<SupportedLocale, AssetHistoryAssetKey>;
+  readonly startYear: AssetHistoryStartYear;
+  readonly mode: AssetHistoryMode;
+  /** Contribution amount per locale — applied to both lump-sum principal and monthly-DCA amount. */
+  readonly contribution: Record<SupportedLocale, number>;
+}
+
 export interface ToolDescriptor {
   readonly key: ToolKey;
   readonly section: ToolSectionKey;
@@ -89,6 +118,7 @@ export interface ToolDescriptor {
     | 'timeToTarget'
     | 'currencyDepreciation'
     | 'cardFees'
-    | 'idleCash';
+    | 'idleCash'
+    | 'assetHistory';
   readonly forBusiness: boolean;
 }

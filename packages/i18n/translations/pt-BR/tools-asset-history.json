@@ -1,0 +1,58 @@
+{
+  "seo": {
+    "title": "Histórico de ativos — o que realmente aconteceu desde 2010",
+    "description": "Calculadora gratuita de histórico de ativos. Escolha BTC, ações, ouro ou títulos; veja o que R$100 únicos ou R$100/mês teriam feito desde 2010 ou 2016."
+  },
+  "hero": {
+    "kicker": "Calculadora de histórico de ativos",
+    "headline": "O que realmente aconteceu?",
+    "subtitle": "Escolha um ativo, um ano de início e um modo. Veja o caminho real que seu dinheiro teria tomado — com as barras honestas de incerteza nos trechos mais ruidosos."
+  },
+  "inputs": {
+    "assetLabel": "Ativo",
+    "startYearLabel": "Ano inicial",
+    "modeLabel": "Modo",
+    "contributionLabel": "{mode, select, lumpSum {Valor único} other {Aporte mensal}}",
+    "assetOptions": {
+      "BTC": "Bitcoin",
+      "SP500": "S&P 500 (preço)",
+      "QQQ": "QQQ (NASDAQ-100)",
+      "MSCI_WORLD": "MSCI World",
+      "GOLD": "Ouro",
+      "TLT": "TLT (Tesouro EUA 20+ anos)",
+      "IBOVESPA": "Ibovespa (BRL)",
+      "DAX": "DAX (EUR)"
+    },
+    "modeOptions": {
+      "lumpSum": "Valor único",
+      "monthlyDca": "Aporte mensal"
+    }
+  },
+  "output": {
+    "summaryLumpSum": "{amount} em {startMonth} de {startYear} valeria…",
+    "summaryDca": "{amount}/mês a partir de {startMonth} de {startYear} valeria…",
+    "terminalValue": "{value}",
+    "terminalRange": "entre {low} e {high}",
+    "contributedOverMonths": "{total} aportados ao longo de {months} meses",
+    "startingPrincipal": "{total} de principal inicial",
+    "confidenceHigh": "Alta confiança (±5%)",
+    "confidenceMedium": "Confiança média — veja a nota de incerteza",
+    "confidenceLow": "Baixa confiança — apenas faixa",
+    "uncertaintyMedium": "Âncora {asset} {year} é aproximada (±30%). Usamos {used}.",
+    "uncertaintyLow": "Calculadoras públicas de DCA divergem em ±50% nessa janela. Mostramos uma faixa, não um único número.",
+    "comparisonHeader": "vs S&P 500 no mesmo período",
+    "btcDcaRangeNote": "Pra BTC começando em 2010, o valor terminal do DCA depende muito do caminho exato de entrada mensal. Calculadoras públicas divergem em ±50%."
+  },
+  "vignette": {
+    "subtitle": "Passado é o que já aconteceu. Futuro é o que você decide agora."
+  },
+  "landing": {
+    "cardTitle": "Histórico de ativos",
+    "cardTagline": "O que realmente aconteceu desde 2010?"
+  },
+  "lessonLink": {
+    "label": "Quer a metodologia?",
+    "href": "/learn/compound-interest",
+    "linkText": "Leia: Como o dinheiro cresce de verdade"
+  }
+}
