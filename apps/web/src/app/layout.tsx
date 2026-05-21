@@ -96,6 +96,8 @@ export default async function RootLayout({
         {requestId && <meta name="x-request-id" content={requestId} />}
         {/* Google Fonts removed for GDPR compliance - using next/font/google self-hosted */}
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://region1.google-analytics.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://diboas.com" />
         <link rel="dns-prefetch" href="https://cdn.diboas.com" />
         <script

@@ -8,18 +8,25 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { Container } from '@/components/UI/Container';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
+import nextDynamic from 'next/dynamic';
 import {
   RegimeScore,
   RegimeLabel,
   ConfidenceBadge,
   CalmSummary,
   SignalCardsGrid,
-  HistoricalRegimeChart,
   DataFreshnessBadge,
   MethodologyLink,
   ProductDisclaimer,
   PoweredByAttribution,
 } from '@/components/Analytics';
+// HistoricalRegimeChart is below-fold (renders after CalmSummary + SignalCardsGrid);
+// lazy-load its JS chunk to free main-thread time for above-fold hydration.
+// SSR stays on (no `ssr: false`) so the chart's SVG still ships in initial HTML
+// for no-JS users and search engines.
+const HistoricalRegimeChart = nextDynamic(
+  () => import('@/components/Analytics').then((m) => ({ default: m.HistoricalRegimeChart })),
+);
 import { HostRegulatoryDisclaimer } from '@/components/Legal';
 import { AnalyticsProvider } from '@/lib/analytics-sdk/mock-client';
 import { fetchInitialAnalyticsData } from '@/lib/analytics-sdk/mock-client.server';
