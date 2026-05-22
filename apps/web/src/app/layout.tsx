@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { headers } from "next/headers";
 import { Inter, Geist } from "next/font/google";
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
 import { MonitoringInit } from '@/components/Performance/MonitoringInit';
-import { PostHogProvider } from '@/components/Providers';
+import { PostHogProvider, GoogleAnalyticsLoader } from '@/components/Providers';
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -156,17 +155,12 @@ export default async function RootLayout({
               `,
               }}
             />
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-              strategy="afterInteractive"
-              nonce={nonce}
-            />
-            <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
-              {`
-                gtag('js', new Date());
-                gtag('config', '${GA_MEASUREMENT_ID}');
-              `}
-            </Script>
+            {/* GA4 script (gtag/js) loads only AFTER consent — defers ~67 KB.
+                The inline Consent Mode v2 bootstrap above keeps the contract
+                with Google (default-denied + DOM-event listener for that
+                pre-hydration script). The script-loading gate is here in a
+                React component subscribing to applicationEventBus. */}
+            <GoogleAnalyticsLoader measurementId={GA_MEASUREMENT_ID!} nonce={nonce} />
           </>
         )}
       </head>
