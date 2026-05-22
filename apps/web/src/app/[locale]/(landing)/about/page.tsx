@@ -138,6 +138,14 @@ export default async function AboutPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
+        {/* Sections 2-6 below: each wrapper carries `content-visibility: auto`
+            + `contain-intrinsic-size` (Perf F.1.d, 2026-05-22). Off-screen
+            sections skip layout/paint until scrolled into view. Hero (Section
+            1) above stays default-render. The 700px intrinsic height covers
+            the typical ProseSection / BenefitsCards / FounderSection layouts
+            on mobile; in-page anchor scrolling preserved via `scroll-margin-
+            top` already set in each component's CSS module. */}
+
         {/* Section 2: The Story — "Her name was Adelaide." */}
         <SectionErrorBoundary
           sectionId="story-section-about"
@@ -145,7 +153,11 @@ export default async function AboutPage({ params }: LocalePageProps) {
           enableReporting={true}
           context={{ page: 'about' }}
         >
-          <div id="story" data-section-id="story-section-about">
+          <div
+            id="story"
+            data-section-id="story-section-about"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
+          >
             <ProseSection
               config={ABOUT_STORY_CONFIG}
               enableAnalytics={true}
@@ -160,7 +172,11 @@ export default async function AboutPage({ params }: LocalePageProps) {
           enableReporting={true}
           context={{ page: 'about' }}
         >
-          <div id="mission" data-section-id="mission-section-about">
+          <div
+            id="mission"
+            data-section-id="mission-section-about"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
+          >
             <ProseSection
               config={ABOUT_MISSION_CONFIG}
               enableAnalytics={true}
@@ -175,7 +191,11 @@ export default async function AboutPage({ params }: LocalePageProps) {
           enableReporting={true}
           context={{ page: 'about' }}
         >
-          <div id="beliefs" data-section-id="beliefs-section-about">
+          <div
+            id="beliefs"
+            data-section-id="beliefs-section-about"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
+          >
             <BenefitsCardsSection
               config={ABOUT_BELIEFS_CONFIG}
               variant="default"
@@ -191,7 +211,11 @@ export default async function AboutPage({ params }: LocalePageProps) {
           enableReporting={true}
           context={{ page: 'about' }}
         >
-          <div id="business" data-section-id="business-section-about">
+          <div
+            id="business"
+            data-section-id="business-section-about"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
+          >
             <ProseSection
               config={ABOUT_BUSINESS_CONFIG}
               enableAnalytics={true}
@@ -206,7 +230,11 @@ export default async function AboutPage({ params }: LocalePageProps) {
           enableReporting={true}
           context={{ page: 'about' }}
         >
-          <div id="contact" data-section-id="founder-section-about">
+          <div
+            id="contact"
+            data-section-id="founder-section-about"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 700px' }}
+          >
             <FounderSection
               config={ABOUT_FOUNDER_CONFIG}
             />
