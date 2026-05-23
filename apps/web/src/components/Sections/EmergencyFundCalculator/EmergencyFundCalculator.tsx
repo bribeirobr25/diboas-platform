@@ -26,6 +26,7 @@ import { resolveHorizonMatchedDepreciation } from '@/lib/market-data/formulas';
 import { formatCurrency } from '@/lib/compound-interest';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import { EMERGENCY_FUND_DEFAULTS } from '@/lib/tools';
+import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './EmergencyFundCalculator.module.css';
 
 const HISTORICAL_RATE = SCENARIO_RATES.historical;
@@ -146,7 +147,14 @@ export function EmergencyFundCalculator() {
             onChange={(e) => handleChange('monthlySavings', Number(e.target.value))}
             className={styles.numberInput}
           />
-          <span className={styles.help}>{t('inputs.monthlySavingsHelp')}</span>
+          <span className={styles.help}>
+            {t('inputs.monthlySavingsHelp')}
+            <UsdEquivalentBadge
+              amount={form.monthlySavings}
+              locale={localeKey}
+              className={styles.usdEquivalent}
+            />
+          </span>
         </div>
         <div className={styles.field}>
           <label htmlFor={`${baseId}-multiplier`} className={styles.label}>

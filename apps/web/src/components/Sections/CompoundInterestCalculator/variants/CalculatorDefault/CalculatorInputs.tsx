@@ -10,6 +10,7 @@ import {
   type Cadence,
   type CalculatorInput,
 } from '@/lib/compound-interest';
+import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './CalculatorDefault.module.css';
 
 interface CalculatorInputsProps {
@@ -93,6 +94,11 @@ export function CalculatorInputs({ value, onChange }: CalculatorInputsProps) {
             aria-label={ariaAmount}
             aria-valuetext={formatCurrency(value.amount, value.locale, { maximumFractionDigits: 0 })}
             className={styles.range}
+          />
+          <UsdEquivalentBadge
+            amount={value.amount}
+            locale={value.locale}
+            className={styles.usdEquivalent}
           />
         </div>
       </div>

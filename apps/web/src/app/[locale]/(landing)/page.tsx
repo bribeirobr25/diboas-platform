@@ -24,8 +24,9 @@ const WaitlistSection = nextDynamic(() => import('@/components/Sections/Waitlist
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
-import { PageI18nProvider } from '@/components/Providers';
+import { PageI18nProvider, MarketDataProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { marketDataService } from '@/lib/market-data';
 import { ScrollReveal, StickyMobileCTA } from '@/components/UI';
 import {
   B2C_HERO_CONFIG,
@@ -136,8 +137,14 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  // Load page-specific namespaces (waitlist already provided by landing layout)
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2c', 'faq', 'share', 'dreamMode', 'preDemo', 'preDream']);
+  // Load page-specific namespaces + market snapshot in parallel.
+  // A8 fix (2026-05-23): pre-fetch the snapshot server-side so ComparisonTable
+  // + GoalExampleCards render with live data on first paint instead of
+  // flipping from static fallback after hydration. See TOOLS_IMPROVEMENT.md A8.
+  const [pageMessages, snapshot] = await Promise.all([
+    loadPageNamespaces(locale, ['landing-b2c', 'faq', 'share', 'dreamMode', 'preDemo', 'preDream']),
+    marketDataService.get(),
+  ]);
 
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
@@ -166,6 +173,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
+      <MarketDataProvider initialSnapshot={snapshot}>
       <StructuredData data={[organizationData, breadcrumbData, appStructuredData]} />
       <ScrollToHash />
 
@@ -423,6 +431,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
 
       {/* Sticky Mobile CTA — appears after hero, hides at waitlist */}
       <StickyMobileCTA />
+      </MarketDataProvider>
     </PageI18nProvider>
   );
 }

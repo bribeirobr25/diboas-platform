@@ -4,6 +4,166 @@ Re-audit cycles after Bundle v1.0 (2026-05-23). Each entry is a self-contained d
 
 ---
 
+## v1.5 — 2026-05-23 (Asset History cross-currency FX path + TLT UX + forward-tool USD parenthetical)
+
+**Audience:** future auditors + product reviewers.
+**Context:** User-observed UX issues prompted three concurrent improvements: (1) TLT 2016 DCA appeared to produce a loss without explanation, (2) Asset History numbers for non-USD locales were labeled with local currency symbol but computed in USD (cross-currency rendering bug), (3) forward-projecting tools didn't surface the dollar dimension implicit in the effective-rate hedge model.
+
+### Asset History — proper FX-path math for non-USD locales (real bug fix)
+
+The DCA replay and lump-sum calculators previously treated `args.amount` as if it were in the asset's native currency, then labeled the output with the user's locale currency symbol. For a pt-BR user investing in BTC, "R$500/month" was being treated as $500 USD, and the $1.3M USD terminal was labeled "R$1.3M" — wrong magnitude (you'd actually accumulate R$1.84M after FX path) and wrong unit (the math wasn't in BRL at all).
+
+**Fix:** introduced a new `displayCurrency` arg (USD/BRL/EUR). When non-USD AND different from the asset's native currency:
+- Each month's contribution is converted from `displayCurrency` to asset-native at THAT month's historical FX close rate (via `monthlyFx`)
+- The unit math runs in asset-native units
+- The terminal asset-native value is converted back to `displayCurrency` at the end-month's FX rate
+
+This is the **path-dependent retrospective FX model**, which is appropriate here because historical FX rates are known. It does NOT violate the CLAUDE.md prohibition on the explicit forward-projection FX model — that prohibition is about projecting unknown future FX rates, which doesn't apply to retrospective tools.
+
+**Native pricing currency per asset** (now documented in §6.7):
+
+| Native USD | Native BRL | Native EUR |
+|---|---|---|
+| BTC, SP500, QQQ, MSCI_WORLD, GOLD, TLT | IBOVESPA | DAX |
+
+Cross-rates derive via USD (e.g., BRL→EUR = BRL→USD × USD→EUR). When the requested month's FX rate isn't in `monthlyFx` (e.g., EUR data lags asset-price data by 1 month), the lookup forward-fills with the latest available earlier month — standard end-of-window handling.
+
+**Magnitude of impact (pt-BR BTC 2016 DCA R$500/mo, illustrative):**
+- Pre-v1.5: R$1,306,011 (USD math, R$ label)
+- Post-v1.5: R$1,842,885 (real BRL value after the BRL depreciation tailwind)
+- Difference is the value of the BRL depreciation against USD over the window (~6%/yr)
+
+**PT gates impact:** all unchanged. PT1/PT3 use Retirement (calculatorHedged, no asset-history FX), PT2/BTC_RECON use locale-less (USD-default) scenarios, PA1 is a constants-level gate.
+
+### TLT UX wins (no math change)
+
+- **Per-asset description tooltips** on the asset selector explain each asset's character. The TLT description specifically notes its long duration and the 2022-2023 Fed-hike crush — addressing user confusion about why TLT produces a loss for 2016-2026 DCA (it's historically accurate: 10-year US Treasury yields rose from ~0.5% Aug 2020 to ~5% Oct 2023; long-duration bonds lost roughly 50% peak-to-trough)
+- **Gain/loss percentage badge** next to the terminal value: green `+N%` for gains, red `−N%` for losses. Computed as `(terminalValue / totalContributed) - 1`
+
+### USD-equivalent parenthetical on forward tools (presentation only)
+
+For non-USD locales, the user's amount input on Compound Interest / Retirement / Goal Savings / Emergency Fund / Time-to-Target / Idle Cash now displays "≈ $X USD today" next to the input. Computed from `marketDataService.getSync().exchangeRates.rates[currency].rateToUsd`. Makes the dollar dimension visible without changing any math — the underlying calculations continue to use the currency-hedged effective-rate model (`(1+usdYield)(1+depreciation)−1`) per the Phase 7 architectural decision.
+
+**Tools intentionally NOT receiving the parenthetical:**
+- Inflation Impact (purely about purchasing-power loss in the user's currency; no USD step is meaningful)
+- Currency Depreciation (explicitly an FX tool with its own currency selector)
+- Card Fees (% math; no FX step)
+
+### Quality gates (post-v1.5)
+
+- 863 tests passing
+- TypeScript strict-mode clean
+- ESLint 0 warnings / 0 errors
+- All 5 PT gates reproduce exactly against the regenerated v2 vectors
+- All 4 locales × 31 translation files synced via `validate:translations`
+- F2 invariant (rangeLow ≤ terminalValue ≤ rangeHigh) holds for all 32 (asset × startYear × basis) combinations after FX-path integration
+
+### Files refreshed in this delta
+
+```
+docs/tech/audit-bundle/CHANGELOG.md                                    (this entry)
+docs/tech/audit-bundle/FUNCTIONAL_SPECIFICATION.md                     (§6.7 native-currency table)
+docs/tech/audit-bundle/TEST_VECTORS.json                               (assetHistory locale scenarios regenerated)
+apps/web/src/lib/asset-history/calculator.ts                           (displayCurrency arg + buildFxLookup)
+apps/web/src/components/Sections/AssetHistoryCalculator/...            (UI wiring + tooltips + gain badge)
+apps/web/src/components/UI/UsdEquivalentBadge.tsx                      (new reusable component)
+apps/web/src/components/Sections/{Compound,Idle,Emergency,TimeToTarget}Calculator/...  (badge wiring)
+apps/web/scripts/tools-stress-test.mjs                                 (mirror of calculator FX logic)
+packages/i18n/translations/{en,pt-BR,es,de}/tools-asset-history.json   (8 asset descriptions + gain-badge tooltip)
+packages/i18n/translations/{en,pt-BR,es,de}/tools-shared.json          (usdEquivalent label)
+```
+
+---
+
+## v1.4 — 2026-05-23 (BTC pre-2014 backfill + MSCI World floor documented)
+
+**Audience:** future auditors + product-owner.
+**Context:** User-reported observation that Asset History could not show BTC results before 2014-09 nor MSCI World results before 2012-01. Investigation confirmed this was an upstream data-source limitation (Yahoo Finance's BTC-USD starts 2014-09; URTH ETF launched 2012-01), not a calculation bug. Decision: backfill BTC with an alternate free source (CoinMetrics) where the data is uncontroversially available; leave MSCI World's 2012-01 floor in place because pre-inception MSCI World index data is gated and proxy substitution would introduce methodology drift.
+
+### BTC backfilled 2010-07 → 2014-08 via CoinMetrics
+
+50 months of monthly OHLC prepended to the BTC series. Source: CoinMetrics community-tier API (`PriceUSD` daily, aggregated to monthly OHLC). Splice point validated: 2014-08-31 CoinMetrics close $478.51 → 2014-09-01 Yahoo open $465.86 (2.6% day-to-day drop, within normal BTC volatility — no continuity break). Fetcher script `apps/web/scripts/data-fetchers/fetch-btc-coinmetrics.mjs` allows future re-runs.
+
+**Validation outcome:** BTC 2010 DCA $100/mo now produces a real terminal value:
+- 191 months, $19,100 contributed
+- Terminal value: **$534M**
+- Range (best/worst entry): $462M – $718M
+- Confidence: LOW (per spec §6.6 — BTC 2010-2012 startYear is calm-framed LOW)
+- **Independently validates the legacy anchor path's $500M–$1.5B research-anchored range** — the new live-data terminal sits inside that envelope.
+
+### MSCI World 2010-07 → 2011-12 gap intentionally not backfilled
+
+The MSCI World index pre-URTH-inception (Jan 2012) is gated behind MSCI Inc's licensed data feed (not free-programmatically accessible). Substituting a different free instrument (e.g. ACWI, which includes ~12% emerging markets) would introduce a ~1-2pp annual return drift for this 19-month window. Decision: keep the 2012-01 data floor; document it explicitly in §6.7. Calculator behavior unchanged — `startYear ∈ {2010, 2011}` for MSCI_WORLD throws `AssetHistoryDataError` per the §6.10 below-data-floor rule, which the UI catches and renders no result panel.
+
+### Spec changes
+
+- §6.7 Asset codes table — added "Data coverage" column; BTC now lists CoinMetrics + Yahoo splice; MSCI_WORLD documents the 2012-01 floor as intentional.
+- §6.7 prose — added BTC backfill paragraph (sources, splice validation, range) and MSCI World gap rationale.
+- §6.10 (below-data-floor handling) is unchanged — same rule applies to all assets, the table just looks different now (BTC: zero rows error; MSCI_WORLD: 2010, 2011 error).
+
+### Quality gates (post-v1.4)
+
+- 863 tests passing
+- TypeScript strict-mode clean
+- ESLint 0 warnings / 0 errors
+- All 5 PT gates reproduce exactly against the regenerated vectors (BTC_RECON $261,202, PT1 R$7,336,100, PT2 18.33%, PT3 €608,815, PA1 BRL CAGR 0.0621 — all unchanged because the backfill only added pre-2016 data; all PT gates use 2016+ startYears).
+- New BTC 2010 / 2011 / 2012 / 2013 / 2014 scenarios now have real expected outputs instead of error sentinels.
+
+### Files refreshed in this delta
+
+```
+docs/tech/audit-bundle/CHANGELOG.md                      (this entry appended)
+docs/tech/audit-bundle/FUNCTIONAL_SPECIFICATION.md       (§6.7 expanded)
+docs/tech/audit-bundle/TEST_VECTORS.json                 (BTC pre-2014 scenarios now have outputs)
+docs/tech/audit-bundle/data/monthlyPrices.json           (50 months prepended to BTC)
+apps/web/src/lib/market-data/data/monthlyPrices.json     (production mirror)
+apps/web/scripts/data-fetchers/fetch-btc-coinmetrics.mjs (new — fetcher script)
+```
+
+---
+
+## v1.3 — 2026-05-23 (F6 schema landed + Bar re-ack tracking)
+
+**Audience:** future auditors + product-owner re-ack flow.
+**Context:** v1.2 closed all consistency drift from v1.1. v1.3 lands the F6 schema split that v1.1/v1.2 deferred, and replaces an inaccurate "Bar has been notified" attestation with explicit re-ack-pending tracking. No new auditor findings.
+
+### F6 — `assetHistory` mode-comparison schema split
+
+The `mode-comparison` scenario in `TEST_VECTORS.json` previously carried `{ amount: 12200 }` covering BOTH the lumpSum leg AND the DCA leg, with a `note` explaining that the DCA leg actually used $100/mo. An auditor passing `amount=12200` uniformly to both legs would produce an incorrect DCA terminal (Auditor 4 F6 finding).
+
+Schema bumped from `tools-test-vectors-v1` → `tools-test-vectors-v2`:
+
+- `mode-comparison` scenario's `input` now carries explicit `lumpSumAmount: 12200` + `dcaAmount: 100` fields (replacing the single `amount` field).
+- All other 139 scenarios are byte-identical to v1.2.
+- §6.8 Input Contract documents the split.
+
+Auditor 1's v1.0 Python harness (if ever returned) would need to re-key against v2; per cover-note communication, Auditor 1 is no longer in cycle.
+
+### BTC_RECON re-ack tracking
+
+The v1.1 entry stated *"Bar has been notified of the gate update"* without basis. Replaced with explicit tracking: `productTruthGates.BTC_RECON.note` now ends with *"Product-owner (Bar) re-ack pending for the updated point estimate; within originally-accepted $200k–$280k research-anchored envelope."* No code change — only metadata transparency.
+
+### Quality gates (post-v1.3)
+
+- 863 tests passing
+- TypeScript strict-mode clean
+- ESLint 0 warnings / 0 errors
+- All 5 PT gates reproduce exactly against v2 vectors.
+
+### Files refreshed in this delta
+
+```
+docs/tech/audit-bundle/AUDIT_BUNDLE_MANIFEST.md      (version bump to 1.3)
+docs/tech/audit-bundle/CHANGELOG.md                  (this entry appended)
+docs/tech/audit-bundle/FUNCTIONAL_SPECIFICATION.md   (§6.8 documents compound input)
+docs/tech/audit-bundle/TEST_VECTORS.json             (schema v1 → v2; assetHistory_16 input split; BTC_RECON note updated)
+apps/web/scripts/tools-stress-test.mjs               (mode-comparison input shape v2)
+```
+
+All other bundle artifacts (`GLOSSARY_AND_LIMITATIONS.md`, `REGULATORY_CROSSWALK.md`, `data/`) are byte-identical to v1.2.
+
+---
+
 ## v1.2 — 2026-05-23 (consistency clean-up after v1.1 audit)
 
 **Audience:** Auditor 3 (PwC Brazil) and Auditor 4 (independent quantitative reviewer).
@@ -67,7 +227,7 @@ Yahoo Finance's `interval=1mo` endpoint returns BOTH an aggregated full-month ba
 | Data | 7 duplicate rows removed from `data/monthlyPrices.json` via dedupe-by-`ym` (first occurrence kept = aggregated row with wider OHLC range). |
 | Harvester | `pull-all-assets.mjs` now dedupes by `ym` before writing — future pulls bug-proof. |
 | Invariant | Stress-test simulator asserts `len(months) == len(set(ym))` at load time; throws on regression. |
-| **Numerical impact** | **BTC_RECON gate value changed from $254,188 → $261,202** (+$7,014, +2.76%). The prior value was biased by the bug; the new value is correct. Other PT gates unchanged or within tolerance. |
+| **Numerical impact** | **BTC_RECON gate value changed from $254,188 → $261,202** (+$7,014, +2.76%). The prior value was biased by the bug; the new value is correct. The change is within Bar's originally-accepted $200k–$280k research-anchored range, so the principle of the sign-off still holds. **Product-owner re-ack pending** for the specific point estimate. Other PT gates unchanged or within tolerance. |
 
 **F2 — Range inversion in `calculateAssetHistoryDcaReplay` (Auditor 4, MEDIUM).**
 

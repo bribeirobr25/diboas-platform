@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { PageI18nProvider } from '@/components/Providers';
+import { PageI18nProvider, MarketDataProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
+import { marketDataService } from '@/lib/market-data';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { SEOMetadataFactory } from '@/lib/seo';
 import { LessonFactory } from '@/components/Sections/Lesson';
@@ -31,10 +32,11 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
 
   // V1 (audit/2026-05-08 visual review): include 'landing-b2c' so the
   // shared MinimalFooter's `landing-b2c.footer.*` keys resolve.
-  const pageMessages = await loadPageNamespaces(locale, [
-    'learn',
-    'learn-compound-interest',
-    'landing-b2c',
+  // A8 fix (2026-05-23): pre-fetch market snapshot for the embedded Beat 2
+  // calculator vignettes + the lesson's CompoundInterestCalculator.
+  const [pageMessages, snapshot] = await Promise.all([
+    loadPageNamespaces(locale, ['learn', 'learn-compound-interest', 'landing-b2c']),
+    marketDataService.get(),
   ]);
 
   const lessonTitle =
@@ -65,22 +67,24 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={structuredDataItems} />
-      <ScrollToHash />
+      <MarketDataProvider initialSnapshot={snapshot}>
+        <StructuredData data={structuredDataItems} />
+        <ScrollToHash />
 
-      <div className="main-page-wrapper">
-        <LessonFactory
-          lessonId="compound-interest"
-          primaryCtaHref="/#waitlist"
-          secondaryCtaHref="/learn"
-        />
+        <div className="main-page-wrapper">
+          <LessonFactory
+            lessonId="compound-interest"
+            primaryCtaHref="/#waitlist"
+            secondaryCtaHref="/learn"
+          />
 
-        <MinimalFooter
-          taglineKey="landing-b2c.footer.tagline"
-          navLinks={B2C_FOOTER_NAV}
-          disclosureKeys={B2C_FOOTER_DISCLOSURES}
-        />
-      </div>
+          <MinimalFooter
+            taglineKey="landing-b2c.footer.tagline"
+            navLinks={B2C_FOOTER_NAV}
+            disclosureKeys={B2C_FOOTER_DISCLOSURES}
+          />
+        </div>
+      </MarketDataProvider>
     </PageI18nProvider>
   );
 }

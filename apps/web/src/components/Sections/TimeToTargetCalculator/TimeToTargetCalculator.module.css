@@ -142,3 +142,12 @@
   font-size: var(--font-size-sm);
   line-height: 1.5;
 }
+
+/* USD-equivalent inline badge (Phase I extension, 2026-05-23). */
+.usdEquivalent {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.85em;
+  color: var(--color-slate-600);
+  font-style: italic;
+}

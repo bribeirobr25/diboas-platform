@@ -1,14 +1,15 @@
 # Tools Suite — External Audit Bundle Manifest
 
-**Document version:** 1.2 (2026-05-23 — consistency clean-up after v1.1 audit)
+**Document version:** 1.5 (2026-05-23 — Asset History cross-currency FX path + TLT UX + forward-tool USD parenthetical)
 **Audit scope:** All 10 calculators at `https://diboas.com/{locale}/tools` + 1 supporting formula (Brazil poupança regime switch).
 **Locales in scope:** `en` (US), `pt-BR` (Brazil), `es` (Spain), `de` (Germany).
-**Code snapshot:** Pre-commit at parent commit `325a247b06a65ae222f99dbeba500ca75d9cb8be` (2026-05-22) + uncommitted files in working tree (see §6).
+**Test-vector schema:** `tools-test-vectors-v2` (bumped from v1 in this release per F6).
+**Code snapshot:** Pre-commit at the audit cycle's working tree (see §6 for file inventory).
 **Audit entry point:** this document. Read it first, then `CHANGELOG.md` for the version delta you need, then follow the file references in numbered order.
 
-**For re-auditors of v1.1:** read `CHANGELOG.md` entry "v1.2" — only 4 small consistency fixes (N1/N2/N2a/N3/F6-note). Vectors byte-identical to v1.1 except PT2 gate (18.76 → 18.33) and assetHistory_16 note. Lightweight re-confirmation, not full re-execution.
+**For re-auditors of v1.2:** read `CHANGELOG.md` entry "v1.3" — schema v1 → v2 (assetHistory_16 input now carries `lumpSumAmount` + `dcaAmount` instead of single `amount`). 139 of 140 scenarios byte-identical to v1.2. BTC_RECON metadata clarified to track product-owner re-ack as pending.
 
-**For re-auditors of v1.0:** read `CHANGELOG.md` entries "v1.1" then "v1.2" for the cumulative delta. F1 / F2 bugs fixed; F3 / F4 / F5 documentation gaps closed; F6 deferred (with explicit scenario note); N1 / N2 / N3 v1.1 consistency drift closed; BTC_RECON gate value updated from $254,188 → $261,202.
+**For re-auditors of v1.0/v1.1:** read `CHANGELOG.md` entries cumulatively. F1 / F2 bugs fixed; F3 / F4 / F5 documentation gaps closed; F6 landed in v1.3 with v2 schema; N1 / N2 / N3 v1.1 consistency drift closed; BTC_RECON gate value updated from $254,188 → $261,202.
 
 ---
 

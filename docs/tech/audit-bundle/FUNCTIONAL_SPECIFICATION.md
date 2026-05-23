@@ -368,18 +368,22 @@ Output a confidence label per the M6 calm-framing principle:
 
 ### 6.7 Asset codes (the 8 assets in scope)
 
-| AssetCode | Underlying | Data source ticker |
-|---|---|---|
-| `BTC` | Bitcoin spot | BTC-USD (Yahoo Finance) |
-| `SP500` | S&P 500 total return | SPY adjusted close |
-| `QQQ` | NASDAQ-100 total return | QQQ adjusted close |
-| `MSCI_WORLD` | MSCI World total return | URTH adjusted close |
-| `GOLD` | Gold spot | GLD ETF (Yahoo Finance) |
-| `TLT` | 20+ year Treasuries total return | TLT adjusted close |
-| `IBOVESPA` | B3 Brazilian equity native TR | ^BVSP |
-| `DAX` | Deutsche Börse native TR | ^GDAXI |
+| AssetCode | Underlying | Data source ticker | Data coverage |
+|---|---|---|---|
+| `BTC` | Bitcoin spot | CoinMetrics PriceUSD (2010-07 → 2014-08) + BTC-USD Yahoo Finance (2014-09 → 2026-05) | 2010-07 onwards |
+| `SP500` | S&P 500 total return | SPY adjusted close | 2010-07 onwards |
+| `QQQ` | NASDAQ-100 total return | QQQ adjusted close | 2010-07 onwards |
+| `MSCI_WORLD` | MSCI World total return | URTH adjusted close | 2012-01 onwards (URTH inception) |
+| `GOLD` | Gold spot | GLD ETF (Yahoo Finance) | 2010-07 onwards |
+| `TLT` | 20+ year Treasuries total return | TLT adjusted close | 2010-07 onwards |
+| `IBOVESPA` | B3 Brazilian equity native TR | ^BVSP | 2010-07 onwards |
+| `DAX` | Deutsche Börse native TR | ^GDAXI | 2010-06 onwards |
 
 The PT2 toggle (`returnsBasis = 'price_only'`) only meaningfully affects the 4 ETF-proxy assets (SP500/QQQ/MSCI_WORLD/TLT) — BTC/GOLD have no dividends and IBOVESPA/DAX are natively total-return.
+
+**BTC backfill (2026-05-23):** the BTC series is spliced — monthly OHLC for 2010-07 → 2014-08 derived from CoinMetrics community-tier daily `PriceUSD` (`open` = first day of month, `close` = last day of month, `high` = max daily, `low` = min daily); from 2014-09 onwards the source is Yahoo Finance BTC-USD as before. Splice point validated: 2014-08-31 CoinMetrics close $478.51 → 2014-09-01 Yahoo open $465.86 (2.6% day-to-day drop, within normal BTC volatility). BTC 2010 DCA $100/mo now produces a real terminal value (~$534M) which sits inside the research-anchored $500M–$1.5B range used by the legacy anchor path — that anchor's order of magnitude is now independently validated.
+
+**MSCI World 2010-07 → 2011-12 gap (intentional, not backfilled):** URTH (the MSCI World ETF tracker) launched January 2012. Pre-2012 MSCI World index data is gated behind MSCI Inc's licensed feed. Substituting a different free instrument (e.g. ACWI, which includes emerging markets) would introduce a meaningful methodology drift in this 19-month window for cosmetic completeness. Decision (2026-05-23): leave MSCI_WORLD with a 2012-01 floor; calculator throws `AssetHistoryDataError` for `startYear ∈ {2010, 2011}` with this asset per the §6.10 below-floor rule.
 
 ### 6.8 Input contract
 
@@ -390,6 +394,8 @@ The PT2 toggle (`returnsBasis = 'price_only'`) only meaningfully affects the 4 E
 | `mode` | enum | monthlyDca | {lumpSum, monthlyDca} |
 | `amount` | positive real | en:100, pt-BR:500, es/de:100 | [0, 1,000,000] |
 | `returnsBasis` | enum | total_return | {total_return, price_only} |
+
+**Test-vector compound scenarios (F6, v2 schema, 2026-05-23).** The `mode-comparison` scenario in `TEST_VECTORS.json` exercises BOTH lumpSum and monthlyDca legs simultaneously to validate the same-total-contributed comparison. To eliminate ambiguity, that scenario's `input` carries explicit `lumpSumAmount` (one-time at startYear close) AND `dcaAmount` (per-month contribution) — NOT a single `amount` field. Auditor implementations MUST key into each leg via its explicit field; passing one number uniformly to both legs produces a wrong DCA result. All other scenarios continue to use the single `amount` field per the table above.
 
 ### 6.9 Specific verifiable outputs
 

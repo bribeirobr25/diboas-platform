@@ -32,6 +32,7 @@ import {
 } from '@/lib/compound-interest';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import { TIME_TO_TARGET_DEFAULTS } from '@/lib/tools';
+import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './TimeToTargetCalculator.module.css';
 
 const CADENCE_OPTIONS: readonly Cadence[] = [
@@ -183,6 +184,11 @@ export function TimeToTargetCalculator() {
             value={form.contribution}
             onChange={(e) => handleChange('contribution', clamp(Number(e.target.value), 0, 1_000_000))}
             className={styles.numberInput}
+          />
+          <UsdEquivalentBadge
+            amount={form.contribution}
+            locale={localeKey}
+            className={styles.usdEquivalent}
           />
         </div>
         <div className={styles.field}>

@@ -104,6 +104,16 @@ export function AssetHistoryCalculatorDefault() {
     };
   }, []);
 
+  // The user's display currency (BRL for pt-BR, EUR for es/de, USD for en).
+  // Drives both the calculator's FX-path conversion AND the output formatting
+  // below. Replaces the prior asset-driven `currencyLocale` heuristic, which
+  // mislabeled cross-currency cases (e.g. pt-BR user viewing SP500 in USD).
+  const displayCurrency: 'USD' | 'BRL' | 'EUR' = useMemo(() => {
+    if (localeKey === 'pt-BR') return 'BRL';
+    if (localeKey === 'es' || localeKey === 'de') return 'EUR';
+    return 'USD';
+  }, [localeKey]);
+
   const result = useMemo(() => {
     if (!seriesLoaded || form.amount <= 0) return null;
     try {
@@ -112,6 +122,7 @@ export function AssetHistoryCalculatorDefault() {
         startYear: form.startYear,
         amount: form.amount,
         returnsBasis: form.returnsBasis,
+        displayCurrency,
       };
       return form.mode === 'lumpSum'
         ? calculateAssetHistoryLumpSum(args)
@@ -120,7 +131,7 @@ export function AssetHistoryCalculatorDefault() {
       if (err instanceof AssetHistoryDataError) return null;
       throw err;
     }
-  }, [form, seriesLoaded]);
+  }, [form, seriesLoaded, displayCurrency]);
 
   const handleAmount = (value: number) =>
     setForm((prev) => ({ ...prev, amount: clamp(value, 0, 1_000_000) }));
@@ -132,12 +143,16 @@ export function AssetHistoryCalculatorDefault() {
   const handleReturnsBasis = (returnsBasis: ReturnsBasis) =>
     setForm((prev) => ({ ...prev, returnsBasis }));
 
-  // Currency locale: IBOVESPA prices are BRL; DAX prices are EUR; everything else USD.
+  // Currency locale: now driven by the user's display currency (which is in
+  // turn driven by the user's locale). For en → 'en' (USD), pt-BR → 'pt-BR' (BRL),
+  // es/de → 'de' (EUR). The cross-currency math happens inside the calculator
+  // via `displayCurrency` and the historical FX path; the UI just formats the
+  // pre-converted result in the user's currency.
   const currencyLocale: SupportedLocale = useMemo(() => {
-    if (form.asset === 'IBOVESPA') return 'pt-BR';
-    if (form.asset === 'DAX') return 'de';
+    if (displayCurrency === 'BRL') return 'pt-BR';
+    if (displayCurrency === 'EUR') return 'de';
     return 'en';
-  }, [form.asset]);
+  }, [displayCurrency]);
 
   const showBasisToggle = TR_TOGGLE_ASSETS.has(form.asset);
 
@@ -163,6 +178,16 @@ export function AssetHistoryCalculatorDefault() {
         <div className={styles.field}>
           <label htmlFor={`${baseId}-asset`} className={styles.label}>
             {t('inputs.assetLabel')}
+            <span
+              className={styles.tooltip}
+              title={t(`inputs.assetDescriptions.${form.asset}`)}
+              aria-label={t(`inputs.assetDescriptions.${form.asset}`)}
+              role="note"
+              tabIndex={0}
+            >
+              {' '}
+              <sup>?</sup>
+            </span>
           </label>
           <Select
             id={`${baseId}-asset`}
@@ -258,6 +283,24 @@ export function AssetHistoryCalculatorDefault() {
               <>
                 <p className={styles.terminalValue}>
                   {formatCurrency(result.terminalValue, currencyLocale, { maximumFractionDigits: 0 })}
+                  {(() => {
+                    const contributed = result.totalContributed;
+                    if (!contributed || contributed <= 0) return null;
+                    const gainPct = (result.terminalValue / contributed - 1) * 100;
+                    const isGain = gainPct >= 0;
+                    const sign = isGain ? '+' : '';
+                    return (
+                      <span
+                        className={styles.gainBadge}
+                        data-direction={isGain ? 'gain' : 'loss'}
+                        title={t('inputs.gainBadgeTooltip')}
+                        aria-label={t('inputs.gainBadgeTooltip')}
+                      >
+                        {' '}
+                        {sign}{gainPct.toFixed(1)}%
+                      </span>
+                    );
+                  })()}
                 </p>
                 {isDcaResult && result.confidence !== 'LOW' && (
                   <p className={styles.rangeSubtle}>

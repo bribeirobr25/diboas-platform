@@ -13,3 +13,5 @@ export { StrategyCard, type StrategyCardProps, type StrategyStatItem } from './S
 export { ScrollReveal } from './ScrollReveal';
 export { StickyMobileCTA } from './StickyMobileCTA';
 // LanguageSwitcher is exported from @/components/LanguageSwitcher
+// Phase I extension (2026-05-23) — USD equivalent badge on forward tools
+export { UsdEquivalentBadge } from './UsdEquivalentBadge';

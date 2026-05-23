@@ -145,17 +145,55 @@ function cadenceToMonthly(amount, cadence) {
   }
 }
 
-// Asset history monthly replay
-function assetHistoryDcaReplay(asset, startYear, amount, basis = 'total_return') {
+// Asset native currency map (mirror of calculator.ts ASSET_NATIVE_CURRENCY).
+const ASSET_NATIVE_CCY = {
+  BTC: 'USD', SP500: 'USD', QQQ: 'USD', MSCI_WORLD: 'USD',
+  GOLD: 'USD', TLT: 'USD',
+  IBOVESPA: 'BRL', DAX: 'EUR',
+};
+
+// Forward-fill FX lookup (mirror of calculator.ts buildFxLookup).
+function buildFxLookup(fromCcy, toCcy) {
+  if (fromCcy === toCcy) return () => 1;
+  if (fromCcy !== 'USD' && toCcy !== 'USD') {
+    const toUsd = buildFxLookup(fromCcy, 'USD');
+    const fromUsd = buildFxLookup('USD', toCcy);
+    return (ym) => toUsd(ym) * fromUsd(ym);
+  }
+  const seriesCcy = fromCcy === 'USD' ? toCcy : fromCcy;
+  const series = monthlyFx[seriesCcy];
+  if (!series || !series.months.length) {
+    throw new Error(`monthlyFx[${seriesCcy}] required for cross-currency calc`);
+  }
+  const sortedYms = series.months.map(b => b.ym).sort();
+  const map = new Map(series.months.map(b => [b.ym, b.closeLocalPerUsd]));
+  const direction = fromCcy === 'USD' ? 'mul' : 'div';
+  return (ym) => {
+    let v = map.get(ym);
+    if (v === undefined) {
+      // Binary forward-fill: largest ym <= requested
+      let lo = 0, hi = sortedYms.length - 1, found = -1;
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        if (sortedYms[mid] <= ym) { found = mid; lo = mid + 1; } else { hi = mid - 1; }
+      }
+      if (found === -1) throw new Error(`monthlyFx[${seriesCcy}] no usable rate for ${ym}`);
+      v = map.get(sortedYms[found]);
+    }
+    return direction === 'mul' ? v : 1 / v;
+  };
+}
+
+// Asset history monthly replay (cross-currency aware as of 2026-05-23).
+function assetHistoryDcaReplay(asset, startYear, amount, basis = 'total_return', displayCurrency = 'USD') {
   const series = monthlyPrices[asset]?.months;
   if (!series) return null;
-  // A2 fix (2026-05-23): data-driven first-month lookup; mirror of calculator.ts.
   const startIdx = series.findIndex(m => parseInt(m.ym.slice(0, 4), 10) === startYear);
   if (startIdx === -1) return { error: `no data for ${asset} in ${startYear}` };
   const window = series.slice(startIdx);
-  // F2 fix (2026-05-23): factor-adjust raw high/low into TR space when
-  // basis='total_return' on assets with a closePriceOnly overlay (the 4 TR-adj
-  // assets: SP500, QQQ, MSCI_WORLD, TLT). Mirror of calculator.ts logic.
+  const assetCcy = ASSET_NATIVE_CCY[asset];
+  const fxIn = displayCurrency === assetCcy ? null : buildFxLookup(displayCurrency, assetCcy);
+  const fxOut = displayCurrency === assetCcy ? null : buildFxLookup(assetCcy, displayCurrency);
   let unitsClose = 0, unitsLow = 0, unitsHigh = 0;
   for (const m of window) {
     const usePriceOnly = basis === 'price_only' && m.closePriceOnly != null;
@@ -168,45 +206,55 @@ function assetHistoryDcaReplay(asset, startYear, amount, basis = 'total_return')
       effLow = m.low * factor;
     }
     if (close <= 0 || effLow <= 0 || effHigh <= 0) continue;
-    unitsClose += amount / close;
-    unitsLow += amount / effLow;
-    unitsHigh += amount / effHigh;
+    const amountInAssetCcy = fxIn ? amount * fxIn(m.ym) : amount;
+    unitsClose += amountInAssetCcy / close;
+    unitsLow += amountInAssetCcy / effLow;
+    unitsHigh += amountInAssetCcy / effHigh;
   }
   const final = window[window.length - 1];
   const finalUsePriceOnly = basis === 'price_only' && final.closePriceOnly != null;
   const finalPrice = finalUsePriceOnly ? final.closePriceOnly : final.close;
+  const fxBack = fxOut ? fxOut(final.ym) : 1;
   const confidence = asset === 'BTC' ? (startYear <= 2012 ? 'LOW' : 'MEDIUM') : 'HIGH';
   return {
     months: window.length,
     totalContributed: amount * window.length,
-    terminalValue: Math.round(unitsClose * finalPrice),
-    rangeLow: Math.round(unitsHigh * finalPrice),
-    rangeHigh: Math.round(unitsLow * finalPrice),
+    terminalValue: Math.round(unitsClose * finalPrice * fxBack),
+    rangeLow: Math.round(unitsHigh * finalPrice * fxBack),
+    rangeHigh: Math.round(unitsLow * finalPrice * fxBack),
     confidence,
     basis,
+    displayCurrency,
     startYm: window[0].ym,
     endYm: final.ym,
   };
 }
 
-function assetHistoryLumpSum(asset, startYear, amount, basis = 'total_return') {
+function assetHistoryLumpSum(asset, startYear, amount, basis = 'total_return', displayCurrency = 'USD') {
   const series = monthlyPrices[asset]?.months;
   if (!series) return null;
-  // A2 fix mirror.
   const startIdx = series.findIndex(m => parseInt(m.ym.slice(0, 4), 10) === startYear);
   if (startIdx === -1) return { error: `no data for ${asset} in ${startYear}` };
   const start = series[startIdx];
   const final = series[series.length - 1];
   const startPrice = basis === 'price_only' && start.closePriceOnly != null ? start.closePriceOnly : start.close;
   const finalPrice = basis === 'price_only' && final.closePriceOnly != null ? final.closePriceOnly : final.close;
+  // Cross-currency lump-sum (2026-05-23): convert at start FX → grow → convert back at end FX.
+  const assetCcy = ASSET_NATIVE_CCY[asset];
+  const fxStart = displayCurrency === assetCcy ? 1 : buildFxLookup(displayCurrency, assetCcy)(start.ym);
+  const fxEnd = displayCurrency === assetCcy ? 1 : buildFxLookup(assetCcy, displayCurrency)(final.ym);
+  const amountInAssetCcy = amount * fxStart;
+  const terminalInAssetCcy = amountInAssetCcy * (finalPrice / startPrice);
+  const terminalInDisplay = terminalInAssetCcy * fxEnd;
   return {
     months: series.length - startIdx,
     totalContributed: amount,
-    terminalValue: Math.round(amount * (finalPrice / startPrice)),
+    terminalValue: Math.round(terminalInDisplay),
     startYm: start.ym,
     endYm: final.ym,
     confidence: asset === 'BTC' && startYear <= 2012 ? 'LOW' : asset === 'BTC' ? 'MEDIUM' : 'HIGH',
     basis,
+    displayCurrency,
   };
 }
 
@@ -451,13 +499,17 @@ function runTimeToTarget() {
 
 function runAssetHistory() {
   const scenarios = [];
-  // Defaults
+  // Helper: map locale → displayCurrency (mirror of Default.tsx logic).
+  const localeToCcy = (l) => l === 'pt-BR' ? 'BRL' : (l === 'es' || l === 'de') ? 'EUR' : 'USD';
+  // Defaults — each locale now does the FX-path conversion (BRL/EUR users
+  // get results in their local currency, not USD numbers with foreign symbol).
   for (const loc of LOCALES) {
-    const r = assetHistoryDcaReplay('BTC', 2016, loc === 'pt-BR' ? 500 : 100);
+    const ccy = localeToCcy(loc);
+    const r = assetHistoryDcaReplay('BTC', 2016, loc === 'pt-BR' ? 500 : 100, 'total_return', ccy);
     scenarios.push({
       category: 'default',
       label: `BTC 2016 DCA default ${loc}`,
-      input: { asset: 'BTC', startYear: 2016, mode: 'monthlyDca', amount: loc === 'pt-BR' ? 500 : 100, locale: loc },
+      input: { asset: 'BTC', startYear: 2016, mode: 'monthlyDca', amount: loc === 'pt-BR' ? 500 : 100, locale: loc, displayCurrency: ccy },
       output: r,
     });
   }
@@ -494,15 +546,16 @@ function runAssetHistory() {
       deltaPct: trCase && priceCase ? Math.round((trCase.terminalValue / priceCase.terminalValue - 1) * 100 * 100) / 100 : null,
     },
   });
-  // Lump sum vs DCA
+  // Lump sum vs DCA (F6 landed v2 schema 2026-05-23: input carries
+  // explicit `lumpSumAmount` + `dcaAmount`; `amount` field removed).
   const lump = assetHistoryLumpSum('BTC', 2016, 12200);
   const dca = assetHistoryDcaReplay('BTC', 2016, 100);
   scenarios.push({
     category: 'mode-comparison',
     label: 'BTC 2016 lump $12,200 vs DCA $100/mo (same contributed)',
-    input: { asset: 'BTC', startYear: 2016, amount: 12200 },
+    input: { asset: 'BTC', startYear: 2016, lumpSumAmount: 12200, dcaAmount: 100 },
     output: { lumpSum: lump?.terminalValue, dca: dca?.terminalValue },
-    note: 'F6-pending compound input: lumpSum leg = $12,200 (one-time at 2016-01-01 close); DCA leg = $100/mo × 125 months ($12,500 total contributed). Auditor implementations must NOT pass amount=12200 uniformly to both legs. Schema split into separate lumpSumAmount + dcaAmount fields deferred to v1.2 / v2 vectors per Auditor 4 F6 caveat.',
+    note: 'Compound input: lumpSum leg uses lumpSumAmount (one-time at 2016-01-01 close); DCA leg uses dcaAmount per month × 125 months. Auditor implementations key into each leg via the explicit fields. F6 schema split landed 2026-05-23 v2 vectors per Auditor 4 finding.',
   });
   // 2026 start — only 6 months
   scenarios.push({

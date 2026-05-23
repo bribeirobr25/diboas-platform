@@ -29,6 +29,17 @@
       "IBOVESPA": "Ibovespa (BRL)",
       "DAX": "DAX (EUR)"
     },
+    "assetDescriptions": {
+      "BTC": "Spot Bitcoin price (USD). High volatility, no dividends. Data spliced: CoinMetrics for 2010-2014, Yahoo Finance afterwards.",
+      "SP500": "S&P 500 large-cap US stocks via SPY ETF. Total-return basis includes reinvested dividends.",
+      "QQQ": "NASDAQ-100 large-cap US tech via QQQ ETF. Total-return basis includes reinvested dividends.",
+      "MSCI_WORLD": "MSCI World developed-markets equity via URTH ETF. Total-return basis includes reinvested dividends. Data begins January 2012 (ETF inception).",
+      "GOLD": "Gold spot via GLD ETF. No yield — return is purely from price changes.",
+      "TLT": "20+ year US Treasury bonds via TLT ETF. Long duration (~17 years) makes this asset highly sensitive to interest-rate changes. Lost roughly 50% peak-to-trough during the 2022-2023 Federal Reserve rate-hike cycle.",
+      "IBOVESPA": "Ibovespa, the B3 Brazilian equity index. Native total return.",
+      "DAX": "DAX, the Deutsche Börse German equity index. Native total return."
+    },
+    "gainBadgeTooltip": "Total gain (or loss) on the contributed amount, including any dividends or coupons. Green for a gain; red for a loss.",
     "modeOptions": {
       "lumpSum": "Lump sum",
       "monthlyDca": "Monthly DCA"

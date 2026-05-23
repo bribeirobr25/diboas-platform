@@ -29,6 +29,17 @@
       "IBOVESPA": "Ibovespa (BRL)",
       "DAX": "DAX (EUR)"
     },
+    "assetDescriptions": {
+      "BTC": "Preço spot do Bitcoin (em USD). Alta volatilidade, sem dividendos. Dados combinados: CoinMetrics para 2010-2014 e Yahoo Finance a partir daí.",
+      "SP500": "S&P 500 — ações large-cap dos EUA via ETF SPY. Base de retorno total inclui dividendos reinvestidos.",
+      "QQQ": "NASDAQ-100 — tecnologia large-cap dos EUA via ETF QQQ. Base de retorno total inclui dividendos reinvestidos.",
+      "MSCI_WORLD": "MSCI World — ações de mercados desenvolvidos via ETF URTH. Base de retorno total inclui dividendos reinvestidos. Dados desde janeiro de 2012 (data de início do ETF).",
+      "GOLD": "Ouro spot via ETF GLD. Sem rendimento — o retorno vem puramente das variações de preço.",
+      "TLT": "Títulos do Tesouro dos EUA com vencimento acima de 20 anos via ETF TLT. A duração longa (~17 anos) torna este ativo altamente sensível a mudanças nas taxas de juros. Perdeu cerca de 50% do pico ao vale durante o ciclo de alta de juros do Federal Reserve em 2022-2023.",
+      "IBOVESPA": "Ibovespa, o índice da bolsa B3 do Brasil. Retorno total nativo.",
+      "DAX": "DAX, o índice de ações da Deutsche Börse alemã. Retorno total nativo."
+    },
+    "gainBadgeTooltip": "Ganho (ou perda) total sobre o valor contribuído, incluindo dividendos ou cupons. Verde indica ganho; vermelho indica perda.",
     "modeOptions": {
       "lumpSum": "Valor único",
       "monthlyDca": "Aporte mensal"

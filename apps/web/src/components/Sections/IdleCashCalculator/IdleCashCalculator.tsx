@@ -27,6 +27,7 @@ import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { formatCurrency } from '@/lib/compound-interest';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import { IDLE_CASH_DEFAULTS } from '@/lib/tools';
+import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './IdleCashCalculator.module.css';
 
 const CONSERVATIVE_RATE = SCENARIO_RATES.conservative; // 7
@@ -123,7 +124,10 @@ export function IdleCashCalculator() {
             onChange={(e) => handleChange('idleCash', Number(e.target.value))}
             className={styles.numberInput}
           />
-          <span className={styles.help}>{t('inputs.idleCashHelp')}</span>
+          <span className={styles.help}>
+            {t('inputs.idleCashHelp')}
+            <UsdEquivalentBadge amount={form.idleCash} locale={localeKey} className={styles.usdEquivalent} />
+          </span>
         </div>
         <div className={styles.field}>
           <label htmlFor={`${baseId}-yield`} className={styles.label}>

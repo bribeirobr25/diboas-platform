@@ -55,7 +55,30 @@ export interface AssetHistoryDcaReplayArgs {
   amount: number;
   /** PT2 (2026-05-23): UI toggle for SP500/QQQ/MSCI_WORLD/TLT. */
   returnsBasis?: ReturnsBasis;
+  /**
+   * Currency the `amount` is denominated in AND the terminal value should be
+   * reported in. Defaults to USD. When set to BRL / EUR (etc.) and the asset's
+   * native currency differs, the calculator does month-by-month FX conversion
+   * along the actual historical FX path — converting each contribution into
+   * the asset's native currency at THAT month's FX rate, running the unit math,
+   * then converting the final terminal back to `displayCurrency` at the
+   * end-month's FX rate. This is the correct retrospective math for
+   * cross-currency cases (e.g. pt-BR user investing R$ into a USD-priced ETF).
+   */
+  displayCurrency?: 'USD' | 'BRL' | 'EUR';
 }
+
+/** Native pricing currency of each asset's underlying instrument. */
+const ASSET_NATIVE_CURRENCY: Record<AssetCode, 'USD' | 'BRL' | 'EUR'> = {
+  BTC: 'USD',
+  SP500: 'USD',
+  QQQ: 'USD',
+  MSCI_WORLD: 'USD',
+  GOLD: 'USD',
+  TLT: 'USD',
+  IBOVESPA: 'BRL',
+  DAX: 'EUR',
+};
 
 export interface AssetHistoryResult {
   startAnchor: AssetAnchor;
@@ -125,6 +148,18 @@ export function calculateAssetHistoryDcaReplay(
   const window = series.months.slice(startIdx);
   const basis: ReturnsBasis = args.returnsBasis ?? 'total_return';
 
+  // Cross-currency FX-path setup (2026-05-23): when the user's display currency
+  // differs from the asset's native pricing currency, each contribution is
+  // converted to asset-native at THAT month's FX rate, the unit math runs in
+  // asset-native units, and the final terminal is converted back to display
+  // currency at the end-month FX rate. This is path-dependent retrospective FX
+  // (NOT the forward-projection smoothed model prohibited by CLAUDE.md).
+  const displayCcy = args.displayCurrency ?? 'USD';
+  const assetCcy = ASSET_NATIVE_CURRENCY[args.asset];
+  const fxByYm = displayCcy === assetCcy
+    ? null
+    : buildFxLookup(monthlySeries.fx, displayCcy, assetCcy, args.asset);
+
   // F2 fix (2026-05-23): basis-consistent OHLC.
   //
   // For TR-adjusted assets (SP500, QQQ, MSCI_WORLD, TLT — where `close` is the
@@ -160,25 +195,105 @@ export function calculateAssetHistoryDcaReplay(
     }
 
     if (close <= 0 || effLow <= 0 || effHigh <= 0) continue;
-    unitsByClose += args.amount / close;
-    unitsByLow += args.amount / effLow;
-    unitsByHigh += args.amount / effHigh;
+    // Convert this month's contribution from display-currency to asset-native.
+    const amountInAssetCcy = fxByYm ? args.amount * fxByYm(m.ym) : args.amount;
+    unitsByClose += amountInAssetCcy / close;
+    unitsByLow += amountInAssetCcy / effLow;
+    unitsByHigh += amountInAssetCcy / effHigh;
   }
 
   const finalBar = window[window.length - 1];
   const finalUsePriceOnly = basis === 'price_only' && finalBar.closePriceOnly != null;
   const finalPrice = finalUsePriceOnly ? finalBar.closePriceOnly! : finalBar.close;
 
+  // Convert terminal asset-native value back to display currency at end-month FX.
+  // For same-currency cases, fxBack = 1 (no-op).
+  const fxBackByYm = displayCcy === assetCcy
+    ? null
+    : buildFxLookup(monthlySeries.fx, assetCcy, displayCcy, args.asset);
+  const fxBack = fxBackByYm ? fxBackByYm(finalBar.ym) : 1;
+
   return {
     totalContributed: args.amount * window.length,
     confidence: confidenceForDcaReplay(args.asset, args.startYear),
-    terminalValue: unitsByClose * finalPrice,
-    rangeLow: unitsByHigh * finalPrice,    // worst-entry timing yields fewest units
-    rangeHigh: unitsByLow * finalPrice,    // best-entry timing yields most units
+    terminalValue: unitsByClose * finalPrice * fxBack,
+    rangeLow: unitsByHigh * finalPrice * fxBack,    // worst-entry timing yields fewest units
+    rangeHigh: unitsByLow * finalPrice * fxBack,    // best-entry timing yields most units
     months: window.length,
     startYm: window[0].ym,
     endYm: finalBar.ym,
     returnsBasis: basis,
+  };
+}
+
+/**
+ * Build a memoized FX converter: returns a function `(ym: string) => number`
+ * that gives the multiplier to convert 1 unit of `fromCcy` to `toCcy` at the
+ * close FX rate of month `ym`. Cross-rates derive via USD.
+ *
+ * Returns identity if from === to.
+ *
+ * Throws AssetHistoryDataError if the FX data isn't available for the entire
+ * asset's window (so callers can surface a clear error rather than producing
+ * nonsense numbers).
+ */
+function buildFxLookup(
+  fx: NonNullable<ReturnType<typeof marketDataService.getMonthlySeries>>['fx'],
+  fromCcy: 'USD' | 'BRL' | 'EUR',
+  toCcy: 'USD' | 'BRL' | 'EUR',
+  assetForError: AssetCode,
+): (ym: string) => number {
+  if (fromCcy === toCcy) return () => 1;
+  // Find the series whose `closeLocalPerUsd` we need; direction handled below.
+  const seriesCcy: 'USD' | 'BRL' | 'EUR' = fromCcy === 'USD' ? toCcy : fromCcy;
+  if (fromCcy !== 'USD' && toCcy !== 'USD') {
+    // Cross-rate via USD: compose two single-leg lookups.
+    const toUsd = buildFxLookup(fx, fromCcy, 'USD', assetForError);
+    const fromUsd = buildFxLookup(fx, 'USD', toCcy, assetForError);
+    return (ym: string) => toUsd(ym) * fromUsd(ym);
+  }
+  const series = fx?.[seriesCcy];
+  if (!series || !series.months.length) {
+    throw new AssetHistoryDataError(
+      `monthlyFx[${seriesCcy}] required for ${assetForError} cross-currency calc`,
+    );
+  }
+  // Build a sorted-by-ym list once so forward-fill is O(log n) per lookup.
+  const sortedYms = series.months.map((b) => b.ym).sort();
+  const map = new Map(series.months.map((b) => [b.ym, b.closeLocalPerUsd]));
+
+  // Forward-fill helper: if exact ym not present, use the LATEST available
+  // month with ym <= requested. Handles end-of-window gaps (e.g. ECB EUR
+  // data lagging asset price data by 1 month). Returns undefined if no
+  // earlier month exists either.
+  const lookupWithForwardFill = (ym: string): number | undefined => {
+    if (map.has(ym)) return map.get(ym);
+    // Binary search for largest ym <= requested.
+    let lo = 0;
+    let hi = sortedYms.length - 1;
+    let foundIdx = -1;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (sortedYms[mid] <= ym) {
+        foundIdx = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    if (foundIdx === -1) return undefined;
+    return map.get(sortedYms[foundIdx]);
+  };
+
+  const direction: 'mul' | 'div' = fromCcy === 'USD' ? 'mul' : 'div';
+  return (ym: string) => {
+    const v = lookupWithForwardFill(ym);
+    if (v === undefined || v <= 0) {
+      throw new AssetHistoryDataError(
+        `monthlyFx[${seriesCcy}] has no usable rate for ${ym} or earlier (asset ${assetForError})`,
+      );
+    }
+    return direction === 'mul' ? v : 1 / v;
   };
 }
 
@@ -202,10 +317,27 @@ export function calculateAssetHistoryLumpSum(
   const finalBar = series.months[series.months.length - 1];
   const startPrice = basis === 'price_only' && startBar.closePriceOnly != null ? startBar.closePriceOnly : startBar.close;
   const finalPrice = basis === 'price_only' && finalBar.closePriceOnly != null ? finalBar.closePriceOnly : finalBar.close;
+
+  // Cross-currency lump-sum (2026-05-23): user puts in `args.amount` in
+  // `displayCurrency` at startBar.ym; we convert to asset-native to buy at
+  // startPrice, hold to finalBar.ym, then convert terminal back to
+  // displayCurrency. For same-currency cases, the factors are 1 (identity).
+  const displayCcy = args.displayCurrency ?? 'USD';
+  const assetCcy = ASSET_NATIVE_CURRENCY[args.asset];
+  const fxStart = displayCcy === assetCcy
+    ? 1
+    : buildFxLookup(monthlySeries.fx, displayCcy, assetCcy, args.asset)(startBar.ym);
+  const fxEnd = displayCcy === assetCcy
+    ? 1
+    : buildFxLookup(monthlySeries.fx, assetCcy, displayCcy, args.asset)(finalBar.ym);
+  const amountInAssetCcy = args.amount * fxStart;
+  const terminalInAssetCcy = amountInAssetCcy * (finalPrice / startPrice);
+  const terminalInDisplay = terminalInAssetCcy * fxEnd;
+
   return {
     totalContributed: args.amount,
     confidence: replay.confidence,
-    terminalValue: args.amount * (finalPrice / startPrice),
+    terminalValue: terminalInDisplay,
     months: series.months.length - startIdx,
     startYm: startBar.ym,
     endYm: finalBar.ym,

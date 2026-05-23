@@ -104,6 +104,19 @@ class MarketDataServiceImpl {
   }
 
   /**
+   * A8 fix (2026-05-23): synchronously prime the client-side cache from a
+   * server-pre-fetched snapshot. Used by `MarketDataProvider` during client
+   * hydration to eliminate the SSR-to-client depreciation flip on the landing
+   * page AND ensure tool pages actually use the live `monthlySeries` data
+   * (instead of staying on the static fallback because nothing triggers
+   * `get()`). Idempotent — calling twice with the same data is a no-op.
+   */
+  primeCache(snapshot: MarketDataSnapshot): void {
+    this.cache = snapshot;
+    this.cacheExpiry = Date.now() + (snapshot.metadata?.ttl || 300_000);
+  }
+
+  /**
    * Phase C+ (2026-05-16): convenience accessor for the historical anchor
    * slice. Equivalent to `getSync().historicalAnchors`; provided as a single
    * named method per L1 round-1 lock (no parallel 5-method surface).

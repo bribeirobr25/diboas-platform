@@ -59,7 +59,8 @@
     "monthlyContribution": "Monthly contribution",
     "amount": "Amount",
     "years": "Years",
-    "cadence": "How often"
+    "cadence": "How often",
+    "usdEquivalent": "≈ {usd} USD today"
   },
   "footer": {
     "wantLesson": "Want to learn more?",

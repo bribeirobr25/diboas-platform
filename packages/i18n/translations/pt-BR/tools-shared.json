@@ -59,7 +59,8 @@
     "monthlyContribution": "Aporte mensal",
     "amount": "Valor",
     "years": "Anos",
-    "cadence": "Com que frequência"
+    "cadence": "Com que frequência",
+    "usdEquivalent": "≈ {usd} USD hoje"
   },
   "footer": {
     "wantLesson": "Quer saber mais?",

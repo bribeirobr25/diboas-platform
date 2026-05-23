@@ -123,7 +123,24 @@ For RETROSPECTIVE contexts (the asset-history tool plus retrospective modes in `
 ### When to use which
 
 - **Forward projection:** `calculateMonthlyWithCurrencyHedge()` (smoothed annuity) plus `calculateCompoundProjectionHedged()`. Smoothed CAGR is correct.
-- **Retrospective DCA:** `calculateMonthlyPathDependentHedge()` (Phase B, new). Bucket-walked FX is correct. Per-tool methodology lock at `docs/audit/HISTORICAL_PERFORMANCE_CALIBRATION_PLAN_2026-05-16.md` §6.4.1.
+- **Retrospective DCA, compound-interest family** (Goal Savings retrospective): `calculateMonthlyPathDependentHedge()` (Phase B, 2026-05-16). Walks 5-year `FxBucket` averages from `historicalAnchors.fxBuckets[CURRENCY]`. Coarser granularity is acceptable here because compound-interest's contribution stream is uniform (same monthly amount; bucket-average FX captures the macro path).
+- **Retrospective DCA, asset-history** (`/tools/asset-history` for cross-currency cases): monthly-precision FX via `buildFxLookup()` in `lib/asset-history/calculator.ts` (added 2026-05-23). Each month's contribution is converted to asset-native currency at THAT month's close-of-month FX rate from `monthlySeries.fx[CURRENCY]`; the unit math runs in asset-native; terminal is converted back at the end-month's FX rate. Finer granularity than the bucket walk — necessary because asset-history's DCA buys real units at real prices and any FX smoothing biases the unit count.
+
+### Asset-history monthly-precision FX path — design notes (2026-05-23)
+
+The `buildFxLookup(fx, fromCcy, toCcy, asset)` helper composes single-leg lookups via USD:
+- `from === to`: identity (factor = 1).
+- One side is USD: read `closeLocalPerUsd` from the non-USD currency's monthly FX series; multiply (USD → local) or invert (local → USD).
+- Neither side is USD: cross-rate = `fromCcy → USD × USD → toCcy`.
+
+**Asset native currency map** (`ASSET_NATIVE_CURRENCY` in `lib/asset-history/calculator.ts`):
+- USD: BTC, SP500, QQQ, MSCI_WORLD, GOLD, TLT
+- BRL: IBOVESPA
+- EUR: DAX
+
+**Forward-fill for end-of-window gaps:** when the requested month is not in the FX series (e.g., ECB EUR data lags the asset price series by 1 month), the lookup returns the latest available month with `ym ≤ requested` via binary search. Standard end-of-window handling; throws only if no earlier month exists either.
+
+**`displayCurrency` arg** (USD / BRL / EUR; defaults to USD): when set and ≠ asset native, triggers the FX path. When omitted or equal to asset native, the calculator runs in single-currency mode (no FX conversion) — preserves backwards compatibility with the pre-2026-05-23 USD-only tests.
 
 ### R1 discipline at the methodology axis
 
