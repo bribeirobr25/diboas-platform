@@ -105,7 +105,7 @@ class MarketDataServiceImpl {
 
   /**
    * A8 fix (2026-05-23): synchronously prime the client-side cache from a
-   * server-pre-fetched snapshot. Used by `MarketDataProvider` during client
+   * server-pre-fetched snapshot. Used by `MarketDataContextProvider` during client
    * hydration to eliminate the SSR-to-client depreciation flip on the landing
    * page AND ensure tool pages actually use the live `monthlySeries` data
    * (instead of staying on the static fallback because nothing triggers

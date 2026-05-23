@@ -1,6 +1,6 @@
 # Financial Calculations — Formulas, Model & Reference Values
 
-**Last updated:** 2026-05-13
+**Last updated:** 2026-05-23 (added §"Asset-history monthly-precision FX path — design notes" documenting the `buildFxLookup` + `ASSET_NATIVE_CURRENCY` + forward-fill pattern landed alongside the v1.5 Asset History cross-currency work)
 
 This document describes the financial calculation model used across the diBoaS platform (comparison table, goal cards, PreDream, 9-tool calculator suite, lesson). All formulas are implemented in `lib/market-data/formulas/` (split into `core.ts` and `currencyHedge.ts`). The canonical specification is `docs/audit/PREPARING_FOR_ANALYTICS_DATA.md` (Sections 14-17).
 

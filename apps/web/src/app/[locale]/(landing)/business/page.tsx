@@ -23,7 +23,7 @@ const WaitlistSection = nextDynamic(() => import('@/components/Sections/Waitlist
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
-import { PageI18nProvider, MarketDataProvider } from '@/components/Providers';
+import { PageI18nProvider, MarketDataContextProvider } from '@/components/Providers';
 import { marketDataService } from '@/lib/market-data';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { B2BToolsCallout } from '@/components/Sections/B2BToolsCallout';
@@ -149,7 +149,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <MarketDataProvider initialSnapshot={snapshot}>
+      <MarketDataContextProvider initialSnapshot={snapshot}>
       <StructuredData data={[organizationData, breadcrumbData]} />
       <ScrollToHash />
 
@@ -365,7 +365,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
         navLinks={B2C_FOOTER_NAV}
         disclosureKeys={B2C_FOOTER_DISCLOSURES}
       />
-      </MarketDataProvider>
+      </MarketDataContextProvider>
     </PageI18nProvider>
   );
 }

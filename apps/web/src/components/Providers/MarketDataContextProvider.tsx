@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * MarketDataProvider — A8 fix (TOOLS_IMPROVEMENT.md, 2026-05-23).
+ * MarketDataContextProvider — A8 fix (TOOLS_IMPROVEMENT.md, 2026-05-23).
  *
  * Server components pre-fetch `marketDataService.get()` and pass the resolved
  * snapshot to this provider via the `initialSnapshot` prop. The provider
@@ -24,12 +24,12 @@
 import { type ReactNode } from 'react';
 import { marketDataService, type MarketDataSnapshot } from '@/lib/market-data';
 
-interface MarketDataProviderProps {
+interface MarketDataContextProviderProps {
   initialSnapshot: MarketDataSnapshot;
   children: ReactNode;
 }
 
-export function MarketDataProvider({ initialSnapshot, children }: MarketDataProviderProps) {
+export function MarketDataContextProvider({ initialSnapshot, children }: MarketDataContextProviderProps) {
   // Prime synchronously on first render so descendants reading
   // `marketDataService.getSync()` see the live snapshot.
   // (Wrapping in a check avoids re-priming on every render.)

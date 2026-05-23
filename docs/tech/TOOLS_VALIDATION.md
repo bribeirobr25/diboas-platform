@@ -313,7 +313,7 @@ Iterative loop: `balance = balance × (1+r) + monthlySavings; target *= (1+inflM
 | es (2.0% vs 4.1%) | ❌ no | **INF** | 125 |
 | de (2.3% vs 4.1%) | ❌ no | 316 | 125 |
 
-**Critical finding:** en/es bank cannot reach the 12-month target because the savings rate is below inflation — the target inflates faster than the balance grows. Production renders "won't reach this goal at the bank's rate" copy (Phase I deferred — copy currently generic "cannot reach"; could improve with the "inflation outpaces" wording per Decision M2).
+**Critical finding:** en/es bank cannot reach the 12-month target because the savings rate is below inflation — the target inflates faster than the balance grows. **Phase I.2 shipped 2026-05-23**: production now renders `tools-emergency-fund.output.unreachable` = "At this savings rate, inflation outpaces your bank's return." in all 4 locales (replaces the prior generic "cannot reach this goal at the bank's rate.").
 
 ### Edge: very high savings (1-month reach) × 4 locales
 
@@ -570,7 +570,7 @@ The `selectInflationRate` formula switches between `.current` (≤24mo) and `.av
 | es | 3.50% ($933.51) | 4.10% | +60 bp jump |
 | de | 2.90% ($944.43) | 4.10% | +120 bp jump |
 
-**This is a documented design choice** (per `lib/market-data/formulas/core.ts:selectInflationRate`), but it produces a visible step in the output when users slide horizon from 24→25mo. Per CLAUDE.md "Don't add backwards-compatibility hacks" — accepted as-is. Phase I could add a UX note explaining the convention.
+**This is a documented design choice** (per `lib/market-data/formulas/core.ts:selectInflationRate`), but it produces a visible step in the output when users slide horizon from 24→25mo. Per CLAUDE.md "Don't add backwards-compatibility hacks" — accepted as-is. Possible future UX improvement: add a footnote explaining the trailing-window convention. Not blocking.
 
 ### Edge: 30-year horizon × 4 locales
 
@@ -874,14 +874,14 @@ The discontinuity at Selic=8.5% boundary is documented and intentional (it's the
 **Tools affected:** `/tools/compound-interest`, retirement, goal-savings, etc. — anywhere with very short horizon and non-USD locale.
 **Symptom:** A 1-year horizon pulls only the trailing 12 months of FX data. For BRL, May 2025 → May 2026 was approximately flat (USD/BRL stayed near 5.0). The horizon-matched CAGR returns ~0.05% — a faithful reflection of the data but counter-intuitive given the 16-year trend.
 **Severity:** Low. Mathematically correct per v1.1 §6.1; just feels like a discontinuity to users who change from 1y to 25y horizons.
-**Recommended fix:** Phase I could add a tooltip on the rate label explaining the trailing-window derivation, or apply a MIN_CAGR_WINDOW = 36 months floor (would compute over min 3y even at 1y forward horizon). Not blocking; documentation suffices.
+**Recommended fix:** **Phase I.4 partially addresses this** (2026-05-23) — scenario tooltips on Conservative/Historical/Optimistic explain the rate envelopes. A separate tooltip on the trailing-window CAGR derivation, or a MIN_CAGR_WINDOW = 36 months floor, remains a possible future improvement. Not blocking; documentation suffices.
 
 ### D-3 [Low] — Inflation Impact 24/25-month boundary discontinuity
 
 **Tools affected:** `/tools/inflation-impact`.
 **Symptom:** Sliding the horizon from 2y → 3y triggers a discrete jump in inflation rate used (e.g., en: 3.8% → 4.5% = 70bp swing).
 **Severity:** Low. Documented behavior per `selectInflationRate` design.
-**Recommended fix:** Phase I could surface this as a footnote ("short-horizon projection uses current inflation; longer horizons use 5-year average — better captures structural inflation").
+**Recommended fix:** possible future improvement — surface this as a footnote ("short-horizon projection uses current inflation; longer horizons use 5-year average — better captures structural inflation"). Not addressed by Phase I (which closed 2026-05-23 with confidence-stratification + warnings + tooltips + unreachable copy). Not blocking.
 
 ### D-4 [Informational] — `monthlySeries.inflation` is a stub
 

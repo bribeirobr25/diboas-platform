@@ -11,4 +11,4 @@ export { PageI18nProvider } from './PageI18nProvider';
 export { PostHogProvider } from './PostHogProvider';
 export { GoogleAnalyticsLoader } from './GoogleAnalyticsLoader';
 export { SetHtmlLang } from './SetHtmlLang';
-export { MarketDataProvider } from './MarketDataProvider';
+export { MarketDataContextProvider } from './MarketDataContextProvider';

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
-import { PageI18nProvider, MarketDataProvider } from '@/components/Providers';
+import { PageI18nProvider, MarketDataContextProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { marketDataService } from '@/lib/market-data';
 import { StructuredData } from '@/components/SEO/StructuredData';
@@ -67,7 +67,7 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <MarketDataProvider initialSnapshot={snapshot}>
+      <MarketDataContextProvider initialSnapshot={snapshot}>
         <StructuredData data={structuredDataItems} />
         <ScrollToHash />
 
@@ -84,7 +84,7 @@ export default async function CompoundInterestLessonPage({ params }: LocalePageP
             disclosureKeys={B2C_FOOTER_DISCLOSURES}
           />
         </div>
-      </MarketDataProvider>
+      </MarketDataContextProvider>
     </PageI18nProvider>
   );
 }
