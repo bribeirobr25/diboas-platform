@@ -1,0 +1,67 @@
+{
+  "en": {
+    "source": "PENDING",
+    "note": "FRED CPIAUCSL monthly YoY — Phase B incremental. Existing FALLBACK_MARKET_DATA.inflationRates.rates.en.current = 0.038 (April 2026 BLS) is the current Provider-driven value; this monthly series will populate when harvester runs.",
+    "months": []
+  },
+  "pt-BR": {
+    "source": "PENDING",
+    "note": "IBGE SIDRA agregado 7060 — Phase B incremental.",
+    "months": []
+  },
+  "de": {
+    "source": "PENDING",
+    "note": "Eurostat prc_hicp_minr DE — Phase B incremental. NOTE: COICOP 2018 series break Feb 2026 requires chain-index linking.",
+    "months": []
+  },
+  "es": {
+    "source": "PENDING",
+    "note": "Eurostat prc_hicp_minr ES — Phase B incremental. Same COICOP 2018 series break.",
+    "months": []
+  },
+  "GBP": {
+    "source": "PENDING",
+    "note": "ONS series D7G7 (CPI annual rate) — Phase B incremental.",
+    "months": []
+  },
+  "JPY": {
+    "source": "PENDING",
+    "note": "Stat-Japan CPI all-items YoY — Phase B incremental.",
+    "months": []
+  },
+  "MXN": {
+    "source": "PENDING",
+    "note": "INEGI INPC — Phase B incremental.",
+    "months": []
+  },
+  "CAD": {
+    "source": "PENDING",
+    "note": "Statistics Canada series v41690973 (CPI) — Phase B incremental.",
+    "months": []
+  },
+  "AUD": {
+    "source": "PENDING",
+    "note": "ABS CPI quarterly converted to monthly — Phase B incremental.",
+    "months": []
+  },
+  "CHF": {
+    "source": "PENDING",
+    "note": "SFSO LIK CPI — Phase B incremental.",
+    "months": []
+  },
+  "ARS": {
+    "source": "PENDING",
+    "note": "INDEC IPC — Phase B incremental. WARNING: 200%+ cumulative inflation since 2010; UI handles via ARS extreme-case factual calm framing (Decision BD1).",
+    "months": []
+  },
+  "CLP": {
+    "source": "PENDING",
+    "note": "INE Chile IPC — Phase B incremental.",
+    "months": []
+  },
+  "COP": {
+    "source": "PENDING",
+    "note": "DANE IPC — Phase B incremental.",
+    "months": []
+  }
+}

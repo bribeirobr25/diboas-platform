@@ -23,7 +23,8 @@
     "yearsLabel": "{years} years",
     "saved": "Time saved",
     "targetLabel": "Target: {amount}",
-    "noResult": "Increase your monthly savings to reach the goal."
+    "noResult": "Increase your monthly savings to reach the goal.",
+    "unreachable": "At this savings rate, inflation outpaces your bank's return."
   },
   "vignette": {
     "headline": "{target} fund in {time}",

@@ -91,7 +91,11 @@ export type AssetHistoryAssetKey =
   | 'IBOVESPA'
   | 'DAX';
 
-export type AssetHistoryStartYear = 2010 | 2016;
+// Phase E v2 (TOOLS_IMPROVEMENT.md, 2026-05-23): expanded from {2010, 2016} to
+// the full 17-year range. 2010 floors at July (data start); 2011+ start in January.
+export type AssetHistoryStartYear =
+  | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017
+  | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026;
 
 export type AssetHistoryMode = 'lumpSum' | 'monthlyDca';
 

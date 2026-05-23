@@ -52,8 +52,10 @@ describe('annualToMonthlyRate', () => {
 
 describe('selectInflationRate', () => {
   it('should use current inflation for <= 24 months', () => {
-    expect(selectInflationRate('en', 12, FALLBACK_MARKET_DATA.inflationRates)).toBe(0.026);
-    expect(selectInflationRate('en', 24, FALLBACK_MARKET_DATA.inflationRates)).toBe(0.026);
+    // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): en.current updated to 0.038
+    // (April 2026 BLS CPI-U live).
+    expect(selectInflationRate('en', 12, FALLBACK_MARKET_DATA.inflationRates)).toBe(0.038);
+    expect(selectInflationRate('en', 24, FALLBACK_MARKET_DATA.inflationRates)).toBe(0.038);
   });
 
   it('should use 5-year avg for > 24 months', () => {
@@ -347,34 +349,41 @@ describe('monthsToInflationAdjustedTarget — initialAmount support', () => {
 
 // ─── Phase A (2026-05-16) — calibration: historical anchor fields ──────
 
-describe('Phase A — exchange-rate historical anchors', () => {
-  it('BRL.historicalCagr matches research-verified 6.71% within 0.1pp', () => {
-    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.historicalCagr).toBeCloseTo(0.0671, 3);
+describe('Phase A (2026-05-16) / Phase C (2026-05-23 TOOLS_IMPROVEMENT) — exchange-rate historical anchors', () => {
+  it('BRL.historicalCagr matches Phase A live BCB PTAX full-series CAGR (6.21%)', () => {
+    // Phase C: refreshed from research-narrative 6.71% to live full-series
+    // CAGR Jan 2010 → May 2026 = 6.21% (Phase A measurement).
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.historicalCagr).toBeCloseTo(0.0621, 3);
   });
 
-  it('EUR.historicalCagr matches research-verified 1.45% within 0.1pp', () => {
-    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.historicalCagr).toBeCloseTo(0.0145, 3);
+  it('EUR.historicalCagr matches Phase A live ECB EXR full-series CAGR (1.23%)', () => {
+    // Phase C: refreshed from research-narrative 1.45% to live full-series
+    // EUR-depreciation CAGR Jan 2010 → Apr 2026 = 1.23% (sign-corrected per
+    // Phase A; ECB EXR inverted to EUR_per_USD canonical form).
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.historicalCagr).toBeCloseTo(0.0123, 3);
   });
 
-  it('BRL historical anchors span Jan 2010 → May 2026', () => {
+  it('BRL historical anchors span Jan 2010 → May 2026 (Phase A live)', () => {
     const brl = FALLBACK_MARKET_DATA.exchangeRates.rates.BRL;
     expect(brl.historicalAnchorStart).toBe('2010-01-01');
-    expect(brl.historicalAnchorEnd).toBe('2026-05-15');
-    expect(brl.historicalRateStart).toBeCloseTo(1.78, 2);
-    expect(brl.historicalRateEnd).toBeCloseTo(5.50, 2);
+    expect(brl.historicalAnchorEnd).toBe('2026-05-22');
+    expect(brl.historicalRateStart).toBeCloseTo(1.874, 2);
+    expect(brl.historicalRateEnd).toBeCloseTo(5.0134, 2);
   });
 
-  it('EUR historical anchors span Jan 2010 → May 2026', () => {
+  it('EUR historical anchors span Jan 2010 → Apr 2026 (Phase A live)', () => {
     const eur = FALLBACK_MARKET_DATA.exchangeRates.rates.EUR;
     expect(eur.historicalAnchorStart).toBe('2010-01-01');
-    expect(eur.historicalAnchorEnd).toBe('2026-05-15');
-    expect(eur.historicalRateStart).toBeCloseTo(1.43, 2);
-    expect(eur.historicalRateEnd).toBeCloseTo(1.13, 2);
+    expect(eur.historicalAnchorEnd).toBe('2026-04-30');
+    expect(eur.historicalRateStart).toBeCloseTo(1.4272, 2);
+    expect(eur.historicalRateEnd).toBeCloseTo(1.1706, 2);
   });
 
-  it('forward annualDepreciation unchanged (no regression for existing calculators)', () => {
-    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation).toBe(0.03);
-    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.annualDepreciation).toBe(0.009);
+  it('forward annualDepreciation matches horizon-matched live data per Phase A/PT1/PT3', () => {
+    // Phase C update per Bar acceptance 2026-05-23: BRL 0.0621 (live full-series),
+    // EUR 0.0123 (live full-series sign-corrected).
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation).toBeCloseTo(0.0621, 4);
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.annualDepreciation).toBeCloseTo(0.0123, 4);
   });
 });
 
@@ -395,9 +404,12 @@ describe('Phase A — inflation cumulative-since-2010 fields', () => {
     expect(FALLBACK_MARKET_DATA.inflationRates.rates.es.cumulativeSince2010).toBeCloseTo(0.41, 2);
   });
 
-  it('forward current + average5y unchanged (no regression)', () => {
+  it('forward current matches Phase C live April 2026 BLS print; average5y stays quarterly-refreshed', () => {
+    // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): `current` refreshed to live
+    // April 2026 print (0.038); `average5y` stays at 0.045 per Decision F2
+    // until next quarterly refresh (Decision X1).
     const en = FALLBACK_MARKET_DATA.inflationRates.rates.en;
-    expect(en.current).toBe(0.026);
+    expect(en.current).toBe(0.038);
     expect(en.average5y).toBe(0.045);
   });
 
@@ -409,13 +421,15 @@ describe('Phase A — inflation cumulative-since-2010 fields', () => {
   });
 });
 
-describe('Phase A — asset prices refreshed to May 2026', () => {
-  it('BTC spot matches research May 2026 anchor (~$80k)', () => {
-    expect(FALLBACK_MARKET_DATA.assetPrices.crypto.BTC).toBe(80000);
+describe('Phase A (2026-05-16) / Phase C (2026-05-23) — asset prices refreshed', () => {
+  it('BTC spot matches Phase C live May 22 2026 anchor (Fortune $77,262)', () => {
+    // Phase C: refreshed from $80,000 (Phase A May 15 anchor) to $77,262
+    // (Fortune May 21 09:15 ET — Phase A reconciliation reference).
+    expect(FALLBACK_MARKET_DATA.assetPrices.crypto.BTC).toBe(77262);
   });
 
-  it('updatedAt stamp reflects May 2026 refresh (not stale March)', () => {
-    expect(FALLBACK_MARKET_DATA.assetPrices.updatedAt).toBe('2026-05-15T00:00:00Z');
+  it('updatedAt stamp reflects Phase C 2026-05-22 refresh', () => {
+    expect(FALLBACK_MARKET_DATA.assetPrices.updatedAt).toBe('2026-05-22T00:00:00Z');
   });
 });
 

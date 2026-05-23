@@ -11,11 +11,17 @@
   "inputs": {
     "assetLabel": "Ativo",
     "startYearLabel": "Ano inicial",
+    "startYear2010Label": "2010 (a partir de julho)",
     "modeLabel": "Modo",
     "contributionLabel": "{mode, select, lumpSum {Valor único} other {Aporte mensal}}",
+    "returnsBasisLabel": "Base de retorno",
+    "returnsBasisOptions": {
+      "totalReturn": "Com dividendos reinvestidos",
+      "priceOnly": "Apenas preço"
+    },
     "assetOptions": {
       "BTC": "Bitcoin",
-      "SP500": "S&P 500 (preço)",
+      "SP500": "S&P 500",
       "QQQ": "QQQ (NASDAQ-100)",
       "MSCI_WORLD": "MSCI World",
       "GOLD": "Ouro",
@@ -33,13 +39,18 @@
     "summaryDca": "{amount}/mês a partir de {startMonth} de {startYear} valeria…",
     "terminalValue": "{value}",
     "terminalRange": "entre {low} e {high}",
+    "terminalRangeSubtle": "Faixa com base no melhor vs pior timing de entrada mensal: {low} – {high}",
+    "startMonth": {
+      "jul": "julho",
+      "jan": "janeiro"
+    },
     "contributedOverMonths": "{total} aportados ao longo de {months} meses",
     "startingPrincipal": "{total} de principal inicial",
     "confidenceHigh": "Alta confiança (±5%)",
     "confidenceMedium": "Confiança média — veja a nota de incerteza",
     "confidenceLow": "Baixa confiança — apenas faixa",
-    "uncertaintyMedium": "Âncora {asset} {year} é aproximada (±30%). Usamos {used}.",
-    "uncertaintyLow": "Calculadoras públicas de DCA divergem em ±50% nessa janela. Mostramos uma faixa, não um único número.",
+    "uncertaintyMedium": "A volatilidade faz com que o timing mensal de entrada altere significativamente o resultado. A faixa acima mostra o melhor vs pior timing.",
+    "uncertaintyLow": "A volatilidade do Bitcoin no início da década significa que aportes de R$100/mês entre 2010 e 2012 poderiam terminar de formas muito diferentes dependendo do timing exato. Mostramos uma faixa, não um único número.",
     "comparisonHeader": "vs S&P 500 no mesmo período",
     "btcDcaRangeNote": "Pra BTC começando em 2010, o valor terminal do DCA depende muito do caminho exato de entrada mensal. Calculadoras públicas divergem em ±50%."
   },

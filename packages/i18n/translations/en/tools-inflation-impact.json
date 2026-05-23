@@ -35,7 +35,9 @@
     "lostToInflation": "−{amount} lost to inflation",
     "investedNote": "At {rate}% historical return",
     "retrospectiveLabel": "Today's purchasing power",
-    "retrospectiveDetail": "Inflation since 2010: ~{cumulative}%. Same money buys about {percent}% less ({lost} of purchasing power gone)."
+    "retrospectiveDetail": "Inflation since 2010: ~{cumulative}%. Same money buys about {percent}% less ({lost} of purchasing power gone).",
+    "uncertaintyMedium": "Brazil's inflation has been variable over this window — actual purchasing-power loss for a specific household basket can diverge from the headline CPI by 1–3 percentage points per year.",
+    "uncertaintyLow": "Argentina's inflation regime over this window is structurally volatile — point estimates are illustrative; actual household experience can differ materially."
   },
   "vignette": {
     "subtitle": "Same money. Different ending. The choice is yours."

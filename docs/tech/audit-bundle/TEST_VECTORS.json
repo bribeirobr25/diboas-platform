@@ -1,0 +1,4215 @@
+{
+  "schema": "tools-test-vectors-v1",
+  "generatedAt": "2026-05-23T13:30:34.675Z",
+  "description": "Audit test vectors for diBoaS /tools suite. Each scenario has explicit input, expectedOutput, and per-field tolerance. Auditor implementations should match expectedOutput within the tolerance.",
+  "tolerancesGlossary": {
+    "currency": {
+      "absolute": 1,
+      "unit": "currency units",
+      "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+    },
+    "smallCurrency": {
+      "absolute": 0.01,
+      "unit": "currency units",
+      "note": "For monthlyEquivalent and other sub-$100 outputs"
+    },
+    "veryLargeCurrency": {
+      "relative": 0.0001,
+      "unit": "fraction",
+      "note": "0.01% relative tolerance for FVs ≥ $1B (where absolute $1 is negligible)"
+    },
+    "months": {
+      "absolute": 0,
+      "unit": "months",
+      "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+    },
+    "percentage": {
+      "absolute": 0.0001,
+      "unit": "decimal",
+      "note": "±0.01 percentage points; e.g., 7.0001% within tolerance of 7%"
+    },
+    "date": {
+      "absolute": 0,
+      "unit": "ISO date",
+      "note": "Exact string match (e.g., \"2016-01-01\")"
+    },
+    "integer": {
+      "absolute": 0,
+      "unit": "integer",
+      "note": "Exact match (e.g., months count, totalContributed if integer)"
+    },
+    "rate": {
+      "absolute": 0.0001,
+      "unit": "decimal",
+      "note": "Effective rate / depreciation rate tolerance ±0.01%"
+    }
+  },
+  "inputDataSources": {
+    "constants": "docs/tech/audit-bundle/data/FALLBACK_MARKET_DATA.json",
+    "constantsMetadata": "docs/tech/audit-bundle/data/FALLBACK_MARKET_DATA_METADATA.json",
+    "monthlyAssetPrices": "docs/tech/audit-bundle/data/monthlyPrices.json",
+    "monthlyFx": "docs/tech/audit-bundle/data/monthlyFx.json",
+    "monthlyInflation": "docs/tech/audit-bundle/data/monthlyInflation.json"
+  },
+  "productTruthGates": {
+    "PT1": {
+      "tool": "retirement",
+      "input": {
+        "amount": 2000,
+        "years": 25,
+        "locale": "pt-BR"
+      },
+      "expectedHistorical": 7336100,
+      "tolerance": {
+        "absolute": 200,
+        "unit": "currency units"
+      },
+      "note": "pt-BR Retirement Bar-signed acceptance (2026-05-23)"
+    },
+    "PT2": {
+      "tool": "assetHistory",
+      "toggleDeltaTest": {
+        "asset": "SP500",
+        "startYear": 2010,
+        "mode": "monthlyDca",
+        "amount": 100
+      },
+      "expectedDeltaPct": 18.33,
+      "tolerance": {
+        "absolute": 2,
+        "unit": "percentage points"
+      },
+      "note": "SP500 2010 DCA total_return vs price_only delta. Updated 2026-05-23 v1.2 from 18.76 → 18.33 after F1 dedup (Auditor 4 N1). Still within Bar-signed ±2pp envelope."
+    },
+    "PT3": {
+      "tool": "retirement",
+      "input": {
+        "amount": 400,
+        "years": 25,
+        "locale": "de"
+      },
+      "expectedHistorical": 608815,
+      "tolerance": {
+        "absolute": 20,
+        "unit": "currency units"
+      },
+      "note": "de Retirement Bar-signed acceptance (sign-corrected EUR depreciation)"
+    },
+    "PA1": {
+      "gate": "BRL full-series CAGR (Jan 2010 → May 2026)",
+      "expectedBrlFullSeriesCagr": 0.0621,
+      "tolerance": {
+        "absolute": 0.005,
+        "unit": "decimal"
+      },
+      "note": "BRL full-series geometric CAGR Jan 2010 → May 2026 from BCB PTAX OData (192 monthly observations). Tolerance ±0.5%. Auditor 4 rename — was \"BRL 16y CAGR\", which was ambiguous about endpoint choice."
+    },
+    "BTC_RECON": {
+      "tool": "assetHistory",
+      "input": {
+        "asset": "BTC",
+        "startYear": 2016,
+        "mode": "monthlyDca",
+        "amount": 100
+      },
+      "expectedTerminal": 261202,
+      "tolerance": {
+        "absolute": 50,
+        "unit": "currency units"
+      },
+      "note": "Phase A BTC reconciliation. Updated 2026-05-23 from $254,188 → $261,202 after F1 dedup fix (Yahoo partial-trailing-bar duplicates removed; finalPrice now reflects full-month May 2026 close $77,539 not partial $75,427). Jan-2016 start per v1.1 UX spec."
+    }
+  },
+  "scenarios": {
+    "compoundInterest": [
+      {
+        "id": "compoundInterest_1_default",
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "amount": 5,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 152.08,
+          "bank": 22402,
+          "conservative": 33681,
+          "historical": 40784,
+          "optimistic": 52887
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "bank": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "conservative": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "optimistic": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_2_default",
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "amount": 25,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "monthlyEq": 760.42,
+          "bank": 166607,
+          "conservative": 275935,
+          "historical": 341152,
+          "optimistic": 453780
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "bank": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "conservative": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "optimistic": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_3_default",
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "amount": 3,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "monthlyEq": 91.25,
+          "bank": 14820,
+          "conservative": 22147,
+          "historical": 26931,
+          "optimistic": 35104
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "bank": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "conservative": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "optimistic": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_4_default",
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "amount": 4,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "monthlyEq": 121.67,
+          "bank": 20124,
+          "conservative": 29529,
+          "historical": 35908,
+          "optimistic": 46806
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "bank": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "conservative": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "optimistic": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_5_happy-cadence",
+        "category": "happy-cadence",
+        "label": "cadence=oneTime",
+        "input": {
+          "amount": 10000,
+          "cadence": "oneTime",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 0,
+          "historical": 25937
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_6_happy-cadence",
+        "category": "happy-cadence",
+        "label": "cadence=daily",
+        "input": {
+          "amount": 200,
+          "cadence": "daily",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 6083.33,
+          "historical": 1215838
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_7_happy-cadence",
+        "category": "happy-cadence",
+        "label": "cadence=weekly",
+        "input": {
+          "amount": 200,
+          "cadence": "weekly",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 866.67,
+          "historical": 173215
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_8_happy-cadence",
+        "category": "happy-cadence",
+        "label": "cadence=monthly",
+        "input": {
+          "amount": 200,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 200,
+          "historical": 39973
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_9_happy-cadence",
+        "category": "happy-cadence",
+        "label": "cadence=quarterly",
+        "input": {
+          "amount": 200,
+          "cadence": "quarterly",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 66.67,
+          "historical": 13324
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_10_happy-cadence",
+        "category": "happy-cadence",
+        "label": "cadence=semiAnnual",
+        "input": {
+          "amount": 200,
+          "cadence": "semiAnnual",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 33.33,
+          "historical": 6662
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_11_happy-cadence",
+        "category": "happy-cadence",
+        "label": "cadence=yearly",
+        "input": {
+          "amount": 200,
+          "cadence": "yearly",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyEq": 16.67,
+          "historical": 3331
+        },
+        "tolerance": {
+          "monthlyEq": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_12_edge-min",
+        "category": "edge-min",
+        "label": "en: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historical": 0.13,
+          "effRate": "10%"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_13_edge-min",
+        "category": "edge-min",
+        "label": "pt-BR: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "historical": 0.12,
+          "effRate": "0.29%"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_14_edge-min",
+        "category": "edge-min",
+        "label": "es: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "historical": 0.12,
+          "effRate": "5.62%"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_15_edge-min",
+        "category": "edge-min",
+        "label": "de: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "historical": 0.12,
+          "effRate": "5.62%"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_16_edge-max",
+        "category": "edge-max",
+        "label": "en: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "lumpSumFV_optimistic": 188883513857.7815,
+          "effRate": "14%"
+        },
+        "tolerance": {
+          "lumpSumFV_optimistic": {
+            "relative": 0.0001,
+            "unit": "fraction",
+            "note": "0.01% relative tolerance for FVs ≥ $1B (where absolute $1 is negligible)"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_17_edge-max",
+        "category": "edge-max",
+        "label": "pt-BR: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "lumpSumFV_optimistic": 2102794129195.9868,
+          "effRate": "21.08%"
+        },
+        "tolerance": {
+          "lumpSumFV_optimistic": {
+            "relative": 0.0001,
+            "unit": "fraction",
+            "note": "0.01% relative tolerance for FVs ≥ $1B (where absolute $1 is negligible)"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_18_edge-max",
+        "category": "edge-max",
+        "label": "es: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "lumpSumFV_optimistic": 307641770402.8922,
+          "effRate": "15.4%"
+        },
+        "tolerance": {
+          "lumpSumFV_optimistic": {
+            "relative": 0.0001,
+            "unit": "fraction",
+            "note": "0.01% relative tolerance for FVs ≥ $1B (where absolute $1 is negligible)"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_19_edge-max",
+        "category": "edge-max",
+        "label": "de: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "lumpSumFV_optimistic": 307641770402.8922,
+          "effRate": "15.4%"
+        },
+        "tolerance": {
+          "lumpSumFV_optimistic": {
+            "relative": 0.0001,
+            "unit": "fraction",
+            "note": "0.01% relative tolerance for FVs ≥ $1B (where absolute $1 is negligible)"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_20_PT-acceptance",
+        "category": "PT-acceptance",
+        "label": "pt-BR R$2000/mo × 25y (PT1 Bar-signed)",
+        "input": {
+          "amount": 2000,
+          "cadence": "monthly",
+          "years": 25,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "historical": 7336100
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_21_PT-acceptance",
+        "category": "PT-acceptance",
+        "label": "de €400/mo × 25y (PT3 Bar-signed)",
+        "input": {
+          "amount": 400,
+          "cadence": "monthly",
+          "years": 25,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "historical": 608815
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_22_negative-zero",
+        "category": "negative-zero",
+        "label": "en: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_23_negative-zero",
+        "category": "negative-zero",
+        "label": "pt-BR: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_24_negative-zero",
+        "category": "negative-zero",
+        "label": "es: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "compoundInterest_25_negative-zero",
+        "category": "negative-zero",
+        "label": "de: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      }
+    ],
+    "retirement": [
+      {
+        "id": "retirement_1_default",
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "amount": 500,
+          "years": 25,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historical": 616662
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "retirement_2_default",
+        "category": "default",
+        "label": "default pt-BR (PT1 Bar-signed)",
+        "input": {
+          "amount": 2000,
+          "years": 25,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "historical": 7336100
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "retirement_3_default",
+        "category": "default",
+        "label": "default de (PT3 Bar-signed)",
+        "input": {
+          "amount": 400,
+          "years": 25,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "historical": 608815
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "retirement_4_default",
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "amount": 400,
+          "years": 25,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "historical": 608815
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "retirement_5_edge-young",
+        "category": "edge-young",
+        "label": "$100/mo × 40y starting young",
+        "input": {
+          "amount": 100,
+          "years": 40,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historical": 555035
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "retirement_6_edge-shorter",
+        "category": "edge-shorter",
+        "label": "$1000/mo × 10y",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historical": 199864
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      }
+    ],
+    "goalSavings": [
+      {
+        "id": "goalSavings_1_default",
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "amount": 200,
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historical": 39973
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "goalSavings_2_default",
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "historical": 260817
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "goalSavings_3_longer-horizon",
+        "category": "longer-horizon",
+        "label": "en 20y",
+        "input": {
+          "amount": 200,
+          "years": 20,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historical": 143652
+        },
+        "tolerance": {
+          "historical": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      }
+    ],
+    "emergencyFund": [
+      {
+        "id": "emergencyFund_1_default",
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "exp": 2900,
+          "sav": 300,
+          "mult": 6,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "target": 17400,
+          "diboasMonths": 57,
+          "bankMonths": 76
+        },
+        "tolerance": {
+          "target": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_2_default",
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "exp": 2700,
+          "sav": 270,
+          "mult": 6,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "target": 16200,
+          "diboasMonths": 63,
+          "bankMonths": 69
+        },
+        "tolerance": {
+          "target": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_3_default",
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "exp": 1500,
+          "sav": 150,
+          "mult": 6,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "target": 9000,
+          "diboasMonths": 57,
+          "bankMonths": 72
+        },
+        "tolerance": {
+          "target": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_4_default",
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "exp": 2000,
+          "sav": 200,
+          "mult": 6,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "target": 12000,
+          "diboasMonths": 57,
+          "bankMonths": 72
+        },
+        "tolerance": {
+          "target": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_5_edge-bank-vs-inflation",
+        "category": "edge-bank-vs-inflation",
+        "label": "en: bank 0.38% vs infl 4.5%, target 15000 sav 100/mo",
+        "input": {
+          "exp": 1250,
+          "sav": 100,
+          "mult": 12,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "bankBeatsInflation": false,
+          "bankMonths": "INF",
+          "diboasMonths": 138
+        },
+        "tolerance": {
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_6_edge-bank-vs-inflation",
+        "category": "edge-bank-vs-inflation",
+        "label": "pt-BR: bank 6.83% vs infl 5.9%, target 30000 sav 500/mo",
+        "input": {
+          "exp": 2500,
+          "sav": 500,
+          "mult": 12,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "bankBeatsInflation": true,
+          "bankMonths": 69,
+          "diboasMonths": 63
+        },
+        "tolerance": {
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_7_edge-bank-vs-inflation",
+        "category": "edge-bank-vs-inflation",
+        "label": "es: bank 2.00% vs infl 4.1%, target 15000 sav 100/mo",
+        "input": {
+          "exp": 1250,
+          "sav": 100,
+          "mult": 12,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "bankBeatsInflation": false,
+          "bankMonths": "INF",
+          "diboasMonths": 125
+        },
+        "tolerance": {
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_8_edge-bank-vs-inflation",
+        "category": "edge-bank-vs-inflation",
+        "label": "de: bank 2.30% vs infl 4.1%, target 15000 sav 100/mo",
+        "input": {
+          "exp": 1250,
+          "sav": 100,
+          "mult": 12,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "bankBeatsInflation": false,
+          "bankMonths": 316,
+          "diboasMonths": 125
+        },
+        "tolerance": {
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_9_edge-fast",
+        "category": "edge-fast",
+        "label": "en: exp small sav large (fast)",
+        "input": {
+          "exp": 1000,
+          "sav": 5000,
+          "mult": 3,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "diboasMonths": 1
+        },
+        "tolerance": {
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_10_edge-fast",
+        "category": "edge-fast",
+        "label": "pt-BR: exp small sav large (fast)",
+        "input": {
+          "exp": 5000,
+          "sav": 25000,
+          "mult": 3,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "diboasMonths": 1
+        },
+        "tolerance": {
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_11_edge-fast",
+        "category": "edge-fast",
+        "label": "es: exp small sav large (fast)",
+        "input": {
+          "exp": 1000,
+          "sav": 5000,
+          "mult": 3,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "diboasMonths": 1
+        },
+        "tolerance": {
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_12_edge-fast",
+        "category": "edge-fast",
+        "label": "de: exp small sav large (fast)",
+        "input": {
+          "exp": 1000,
+          "sav": 5000,
+          "mult": 3,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "diboasMonths": 1
+        },
+        "tolerance": {
+          "diboasMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "emergencyFund_13_negative-zero",
+        "category": "negative-zero",
+        "label": "en: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        },
+        "tolerance": null
+      },
+      {
+        "id": "emergencyFund_14_negative-zero",
+        "category": "negative-zero",
+        "label": "pt-BR: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        },
+        "tolerance": null
+      },
+      {
+        "id": "emergencyFund_15_negative-zero",
+        "category": "negative-zero",
+        "label": "es: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        },
+        "tolerance": null
+      },
+      {
+        "id": "emergencyFund_16_negative-zero",
+        "category": "negative-zero",
+        "label": "de: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        },
+        "tolerance": null
+      }
+    ],
+    "timeToTarget": [
+      {
+        "id": "timeToTarget_1_default",
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "target": 50000,
+          "contribution": 250,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "bankMonths": 194,
+          "conservativeMonths": 135,
+          "historicalMonths": 121,
+          "optimisticMonths": 107
+        },
+        "tolerance": {
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "conservativeMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "optimisticMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_2_default",
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "target": 250000,
+          "contribution": 1000,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "bankMonths": 158,
+          "conservativeMonths": 123,
+          "historicalMonths": 112,
+          "optimisticMonths": 102
+        },
+        "tolerance": {
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "conservativeMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "optimisticMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_3_default",
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "target": 40000,
+          "contribution": 200,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "bankMonths": 173,
+          "conservativeMonths": 128,
+          "historicalMonths": 115,
+          "optimisticMonths": 103
+        },
+        "tolerance": {
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "conservativeMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "optimisticMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_4_default",
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "target": 40000,
+          "contribution": 200,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "bankMonths": 170,
+          "conservativeMonths": 128,
+          "historicalMonths": 115,
+          "optimisticMonths": 103
+        },
+        "tolerance": {
+          "bankMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "conservativeMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "optimisticMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_5_edge-growth-only",
+        "category": "edge-growth-only",
+        "label": "en: contrib=0 initial=10000 USD target=20000",
+        "input": {
+          "target": 20000,
+          "initialAmount": 10000,
+          "contribution": 0,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historicalMonths": 88
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_6_edge-growth-only",
+        "category": "edge-growth-only",
+        "label": "pt-BR: contrib=0 initial=50000 BRL target=100000",
+        "input": {
+          "target": 100000,
+          "initialAmount": 50000,
+          "contribution": 0,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "historicalMonths": 60
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_7_edge-growth-only",
+        "category": "edge-growth-only",
+        "label": "es: contrib=0 initial=10000 EUR target=20000",
+        "input": {
+          "target": 20000,
+          "initialAmount": 10000,
+          "contribution": 0,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "historicalMonths": 91
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_8_edge-growth-only",
+        "category": "edge-growth-only",
+        "label": "de: contrib=0 initial=10000 EUR target=20000",
+        "input": {
+          "target": 20000,
+          "initialAmount": 10000,
+          "contribution": 0,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "historicalMonths": 91
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_9_edge-unreachable",
+        "category": "edge-unreachable",
+        "label": "en: target=10000000 contrib=100/mo",
+        "input": {
+          "target": 10000000,
+          "contribution": 100,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "historicalMonths": 842,
+          "note": "1200-month cap → Infinity"
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_10_edge-unreachable",
+        "category": "edge-unreachable",
+        "label": "pt-BR: target=50000000 contrib=100/mo",
+        "input": {
+          "target": 50000000,
+          "contribution": 100,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "historicalMonths": 678,
+          "note": "1200-month cap → Infinity"
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_11_edge-unreachable",
+        "category": "edge-unreachable",
+        "label": "es: target=10000000 contrib=100/mo",
+        "input": {
+          "target": 10000000,
+          "contribution": 100,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "historicalMonths": 760,
+          "note": "1200-month cap → Infinity"
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      },
+      {
+        "id": "timeToTarget_12_edge-unreachable",
+        "category": "edge-unreachable",
+        "label": "de: target=10000000 contrib=100/mo",
+        "input": {
+          "target": 10000000,
+          "contribution": 100,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "historicalMonths": 760,
+          "note": "1200-month cap → Infinity"
+        },
+        "tolerance": {
+          "historicalMonths": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          }
+        }
+      }
+    ],
+    "assetHistory": [
+      {
+        "id": "assetHistory_1_default",
+        "category": "default",
+        "label": "BTC 2016 DCA default en",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 261202,
+          "rangeLow": 237914,
+          "rangeHigh": 305010,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_2_default",
+        "category": "default",
+        "label": "BTC 2016 DCA default pt-BR",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 500,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 62500,
+          "terminalValue": 1306011,
+          "rangeLow": 1189572,
+          "rangeHigh": 1525051,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_3_default",
+        "category": "default",
+        "label": "BTC 2016 DCA default es",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 261202,
+          "rangeLow": 237914,
+          "rangeHigh": 305010,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_4_default",
+        "category": "default",
+        "label": "BTC 2016 DCA default de",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 261202,
+          "rangeLow": 237914,
+          "rangeHigh": 305010,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_5_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "BTC 2016 DCA $100/mo",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 261202,
+          "rangeLow": 237914,
+          "rangeHigh": 305010,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_6_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "SP500 2016 DCA $100/mo",
+        "input": {
+          "asset": "SP500",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 29638,
+          "rangeLow": 28926,
+          "rangeHigh": 30948,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_7_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "QQQ 2016 DCA $100/mo",
+        "input": {
+          "asset": "QQQ",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 40284,
+          "rangeLow": 39099,
+          "rangeHigh": 42511,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_8_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "MSCI_WORLD 2016 DCA $100/mo",
+        "input": {
+          "asset": "MSCI_WORLD",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 26621,
+          "rangeLow": 25960,
+          "rangeHigh": 27732,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_9_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "GOLD 2016 DCA $100/mo",
+        "input": {
+          "asset": "GOLD",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 32438,
+          "rangeLow": 31554,
+          "rangeHigh": 33515,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_10_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "TLT 2016 DCA $100/mo",
+        "input": {
+          "asset": "TLT",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 10632,
+          "rangeLow": 10352,
+          "rangeHigh": 10962,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_11_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "IBOVESPA 2016 DCA $100/mo",
+        "input": {
+          "asset": "IBOVESPA",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 23429,
+          "rangeLow": 22540,
+          "rangeHigh": 24813,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_12_happy-asset-sweep",
+        "category": "happy-asset-sweep",
+        "label": "DAX 2016 DCA $100/mo",
+        "input": {
+          "asset": "DAX",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 21995,
+          "rangeLow": 21305,
+          "rangeHigh": 23011,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_13_M6-low-confidence",
+        "category": "M6-low-confidence",
+        "label": "BTC 2010 DCA $100/mo",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2010,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "error": "no data for BTC in 2010"
+        },
+        "tolerance": null,
+        "note": "expected: error (BTC Yahoo data starts Sep 2014); 2010 BTC handled by legacy path with research-anchored range"
+      },
+      {
+        "id": "assetHistory_14_edge-data-floor",
+        "category": "edge-data-floor",
+        "label": "BTC 2014 DCA $100/mo (Sep 2014 first available BTC month)",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2014,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 141,
+          "totalContributed": 14100,
+          "terminalValue": 699814,
+          "rangeLow": 616651,
+          "rangeHigh": 806670,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "startYm": "2014-09-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_15_PT2-toggle",
+        "category": "PT2-toggle",
+        "label": "SP500 2010 DCA $100/mo — TR vs price-only delta",
+        "input": {
+          "asset": "SP500",
+          "startYear": 2010,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "totalReturn": 69602,
+          "priceOnly": 58820,
+          "deltaPct": 18.33
+        },
+        "tolerance": {
+          "totalReturn": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "priceOnly": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "deltaPct": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_16_mode-comparison",
+        "category": "mode-comparison",
+        "label": "BTC 2016 lump $12,200 vs DCA $100/mo (same contributed)",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "amount": 12200
+        },
+        "expectedOutput": {
+          "lumpSum": 2565246,
+          "dca": 261202
+        },
+        "tolerance": {
+          "lumpSum": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "dca": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        },
+        "note": "F6-pending compound input: lumpSum leg = $12,200 (one-time at 2016-01-01 close); DCA leg = $100/mo × 125 months ($12,500 total contributed). Auditor implementations must NOT pass amount=12200 uniformly to both legs. Schema split into separate lumpSumAmount + dcaAmount fields deferred to v1.2 / v2 vectors per Auditor 4 F6 caveat."
+      },
+      {
+        "id": "assetHistory_17_edge-recent",
+        "category": "edge-recent",
+        "label": "SP500 2026 DCA $100/mo (only 6 months)",
+        "input": {
+          "asset": "SP500",
+          "startYear": 2026,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "months": 5,
+          "totalContributed": 500,
+          "terminalValue": 534,
+          "rangeLow": 524,
+          "rangeHigh": 558,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "startYm": "2026-01-01",
+          "endYm": "2026-05-01"
+        },
+        "tolerance": {
+          "months": {
+            "absolute": 0,
+            "unit": "months",
+            "note": "Exact integer match required; sentinel \"INF\" indicates 1200-month cap exceeded"
+          },
+          "totalContributed": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "terminalValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeLow": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "rangeHigh": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "assetHistory_18_negative-bad-asset",
+        "category": "negative-bad-asset",
+        "label": "invalid asset \"FOO\"",
+        "input": {
+          "asset": "FOO",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "expectedOutput": {
+          "error": "AssetHistoryDataError: no monthly series for FOO"
+        },
+        "tolerance": null
+      }
+    ],
+    "inflationImpact": [
+      {
+        "id": "inflationImpact_1_default",
+        "category": "default",
+        "label": "en forward default",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "cashRealValue": 644,
+          "loss": 356,
+          "investedNominal": 2594,
+          "investedReal": 1670
+        },
+        "tolerance": {
+          "cashRealValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "loss": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedNominal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedReal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_2_default",
+        "category": "default",
+        "label": "pt-BR forward default",
+        "input": {
+          "amount": 5000,
+          "years": 10,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "cashRealValue": 2818,
+          "loss": 2182,
+          "investedNominal": 12969,
+          "investedReal": 7310
+        },
+        "tolerance": {
+          "cashRealValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "loss": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedNominal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedReal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_3_default",
+        "category": "default",
+        "label": "es forward default",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "cashRealValue": 669,
+          "loss": 331,
+          "investedNominal": 2594,
+          "investedReal": 1735
+        },
+        "tolerance": {
+          "cashRealValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "loss": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedNominal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedReal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_4_default",
+        "category": "default",
+        "label": "de forward default",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "cashRealValue": 669,
+          "loss": 331,
+          "investedNominal": 2594,
+          "investedReal": 1735
+        },
+        "tolerance": {
+          "cashRealValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "loss": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedNominal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "investedReal": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_5_retrospective",
+        "category": "retrospective",
+        "label": "en since 2010",
+        "input": {
+          "amount": 1000,
+          "locale": "en",
+          "mode": "retrospective"
+        },
+        "expectedOutput": {
+          "equivalentToday": 1523,
+          "purchasingPowerLost": 343
+        },
+        "tolerance": {
+          "equivalentToday": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "purchasingPowerLost": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_6_retrospective",
+        "category": "retrospective",
+        "label": "pt-BR since 2010",
+        "input": {
+          "amount": 5000,
+          "locale": "pt-BR",
+          "mode": "retrospective"
+        },
+        "expectedOutput": {
+          "equivalentToday": 12250,
+          "purchasingPowerLost": 2959
+        },
+        "tolerance": {
+          "equivalentToday": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "purchasingPowerLost": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_7_retrospective",
+        "category": "retrospective",
+        "label": "es since 2010",
+        "input": {
+          "amount": 1000,
+          "locale": "es",
+          "mode": "retrospective"
+        },
+        "expectedOutput": {
+          "equivalentToday": 1410,
+          "purchasingPowerLost": 291
+        },
+        "tolerance": {
+          "equivalentToday": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "purchasingPowerLost": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_8_retrospective",
+        "category": "retrospective",
+        "label": "de since 2010",
+        "input": {
+          "amount": 1000,
+          "locale": "de",
+          "mode": "retrospective"
+        },
+        "expectedOutput": {
+          "equivalentToday": 1410,
+          "purchasingPowerLost": 291
+        },
+        "tolerance": {
+          "equivalentToday": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "purchasingPowerLost": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_9_edge-boundary-24mo",
+        "category": "edge-boundary-24mo",
+        "label": "en: 2y uses .current 3.80%; 3y uses .average5y 4.50%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "inflRateAt24mo": 0.038,
+          "inflRateAt25mo": 0.045,
+          "cashRealValueAt2y": 928.12
+        },
+        "tolerance": {
+          "inflRateAt24mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "inflRateAt25mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "cashRealValueAt2y": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_10_edge-boundary-24mo",
+        "category": "edge-boundary-24mo",
+        "label": "pt-BR: 2y uses .current 4.39%; 3y uses .average5y 5.90%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "inflRateAt24mo": 0.0439,
+          "inflRateAt25mo": 0.059,
+          "cashRealValueAt2y": 917.66
+        },
+        "tolerance": {
+          "inflRateAt24mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "inflRateAt25mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "cashRealValueAt2y": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_11_edge-boundary-24mo",
+        "category": "edge-boundary-24mo",
+        "label": "es: 2y uses .current 3.50%; 3y uses .average5y 4.10%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "inflRateAt24mo": 0.035,
+          "inflRateAt25mo": 0.041,
+          "cashRealValueAt2y": 933.51
+        },
+        "tolerance": {
+          "inflRateAt24mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "inflRateAt25mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "cashRealValueAt2y": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_12_edge-boundary-24mo",
+        "category": "edge-boundary-24mo",
+        "label": "de: 2y uses .current 2.90%; 3y uses .average5y 4.10%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "inflRateAt24mo": 0.029,
+          "inflRateAt25mo": 0.041,
+          "cashRealValueAt2y": 944.43
+        },
+        "tolerance": {
+          "inflRateAt24mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "inflRateAt25mo": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          },
+          "cashRealValueAt2y": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_13_edge-long",
+        "category": "edge-long",
+        "label": "en: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "realValue": 267,
+          "purchasingPowerLossPct": "73.3%"
+        },
+        "tolerance": {
+          "realValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_14_edge-long",
+        "category": "edge-long",
+        "label": "pt-BR: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "realValue": 179,
+          "purchasingPowerLossPct": "82.09%"
+        },
+        "tolerance": {
+          "realValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_15_edge-long",
+        "category": "edge-long",
+        "label": "es: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "realValue": 300,
+          "purchasingPowerLossPct": "70.04%"
+        },
+        "tolerance": {
+          "realValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "inflationImpact_16_edge-long",
+        "category": "edge-long",
+        "label": "de: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "realValue": 300,
+          "purchasingPowerLossPct": "70.04%"
+        },
+        "tolerance": {
+          "realValue": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      }
+    ],
+    "currencyDepreciation": [
+      {
+        "id": "currencyDepreciation_1_default",
+        "category": "default",
+        "label": "en forward default",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "USD",
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "cashIdle": 10000,
+          "bankFV": 10191,
+          "diboasFV": 16105,
+          "depreciationRate": "0%"
+        },
+        "tolerance": {
+          "cashIdle": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "currencyDepreciation_2_default",
+        "category": "default",
+        "label": "pt-BR forward default",
+        "input": {
+          "amount": 50000,
+          "years": 5,
+          "currency": "BRL",
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "cashIdle": 50000,
+          "bankFV": 69572,
+          "diboasFV": 80719,
+          "depreciationRate": "0.05%"
+        },
+        "tolerance": {
+          "cashIdle": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "currencyDepreciation_3_default",
+        "category": "default",
+        "label": "es forward default",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "EUR",
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "cashIdle": 10000,
+          "bankFV": 11041,
+          "diboasFV": 16720,
+          "depreciationRate": "0.75%"
+        },
+        "tolerance": {
+          "cashIdle": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "currencyDepreciation_4_default",
+        "category": "default",
+        "label": "de forward default",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "EUR",
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "cashIdle": 10000,
+          "bankFV": 11204,
+          "diboasFV": 16720,
+          "depreciationRate": "0.75%"
+        },
+        "tolerance": {
+          "cashIdle": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "currencyDepreciation_5_PT1-context",
+        "category": "PT1-context",
+        "label": "pt-BR R$50k × 10y (longer horizon → higher dep)",
+        "input": {
+          "amount": 50000,
+          "years": 10,
+          "currency": "BRL",
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "diboasFV": 203358
+        },
+        "tolerance": {
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "currencyDepreciation_6_edge-usd",
+        "category": "edge-usd",
+        "label": "USD selected (no depreciation)",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "USD",
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "diboasFV": 16105,
+          "depreciationRate": "0%"
+        },
+        "tolerance": {
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      }
+    ],
+    "cardFees": [
+      {
+        "id": "cardFees_1_default",
+        "category": "default",
+        "label": "default en (Phase H fees)",
+        "input": {
+          "monthlyVolume": 50000,
+          "processorFeePct": 2.9000000000000004,
+          "avgTx": 75,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyFee": 1450,
+          "annualFee": 17400,
+          "diboasSavings": 17400,
+          "perTxFee": 2.18
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "perTxFee": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "cardFees_2_default",
+        "category": "default",
+        "label": "default pt-BR (Phase H fees)",
+        "input": {
+          "monthlyVolume": 250000,
+          "processorFeePct": 3,
+          "avgTx": 250,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "monthlyFee": 7500,
+          "annualFee": 90000,
+          "diboasSavings": 90000,
+          "perTxFee": 7.5
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "perTxFee": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "cardFees_3_default",
+        "category": "default",
+        "label": "default es (Phase H fees)",
+        "input": {
+          "monthlyVolume": 40000,
+          "processorFeePct": 0.8,
+          "avgTx": 60,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "monthlyFee": 320,
+          "annualFee": 3840,
+          "diboasSavings": 3840,
+          "perTxFee": 0.48
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "perTxFee": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "cardFees_4_default",
+        "category": "default",
+        "label": "default de (Phase H fees)",
+        "input": {
+          "monthlyVolume": 40000,
+          "processorFeePct": 0.8,
+          "avgTx": 60,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "monthlyFee": 320,
+          "annualFee": 3840,
+          "diboasSavings": 3840,
+          "perTxFee": 0.48
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "perTxFee": {
+            "absolute": 0.01,
+            "unit": "currency units",
+            "note": "For monthlyEquivalent and other sub-$100 outputs"
+          }
+        }
+      },
+      {
+        "id": "cardFees_5_edge-zero",
+        "category": "edge-zero",
+        "label": "en: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 2.9000000000000004,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_6_edge-zero",
+        "category": "edge-zero",
+        "label": "pt-BR: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 3,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_7_edge-zero",
+        "category": "edge-zero",
+        "label": "es: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 0.8,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_8_edge-zero",
+        "category": "edge-zero",
+        "label": "de: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 0.8,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_9_edge-large",
+        "category": "edge-large",
+        "label": "en: 1,000,000/mo × 2.9000000000000004%",
+        "input": {
+          "monthlyVolume": 1000000,
+          "processorFeePct": 2.9000000000000004,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "monthlyFee": 29000,
+          "annualFee": 348000,
+          "diboasSavings": 348000,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_10_edge-large",
+        "category": "edge-large",
+        "label": "pt-BR: 5,000,000/mo × 3%",
+        "input": {
+          "monthlyVolume": 5000000,
+          "processorFeePct": 3,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "monthlyFee": 150000,
+          "annualFee": 1800000,
+          "diboasSavings": 1800000,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_11_edge-large",
+        "category": "edge-large",
+        "label": "es: 1,000,000/mo × 0.8%",
+        "input": {
+          "monthlyVolume": 1000000,
+          "processorFeePct": 0.8,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "monthlyFee": 8000,
+          "annualFee": 96000,
+          "diboasSavings": 96000,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_12_edge-large",
+        "category": "edge-large",
+        "label": "de: 1,000,000/mo × 0.8%",
+        "input": {
+          "monthlyVolume": 1000000,
+          "processorFeePct": 0.8,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "monthlyFee": 8000,
+          "annualFee": 96000,
+          "diboasSavings": 96000,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_13_phase-h-IFR",
+        "category": "phase-h-IFR",
+        "label": "EU IFR effective MSC vs US Stripe rate — same volume",
+        "input": {
+          "monthlyVolume": 50000,
+          "note": "ES/DE 0.008 vs en 0.029"
+        },
+        "expectedOutput": {
+          "US_annual": 17400,
+          "ES_DE_annual": 4800,
+          "diBoaSSavingsDelta": 12600
+        },
+        "tolerance": {
+          "US_annual": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "ES_DE_annual": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diBoaSSavingsDelta": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "cardFees_14_edge-no-fee",
+        "category": "edge-no-fee",
+        "label": "processorFee=0% (e.g., debit-only with US Durbin cap fully absorbed)",
+        "input": {
+          "monthlyVolume": 50000,
+          "processorFeePct": 0
+        },
+        "expectedOutput": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        },
+        "tolerance": {
+          "monthlyFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "annualFee": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasSavings": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      }
+    ],
+    "idleCash": [
+      {
+        "id": "idleCash_1_default",
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "idleCash": 100000,
+          "years": 3,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "bankFV": 101144,
+          "diboasFV": 122504,
+          "diboasEffectiveAPY": "7%",
+          "deltaOverHorizon": 21360
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "deltaOverHorizon": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_2_default",
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "idleCash": 500000,
+          "years": 3,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "bankFV": 609607,
+          "diboasFV": 638006,
+          "diboasEffectiveAPY": "8.46%",
+          "deltaOverHorizon": 28399
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "deltaOverHorizon": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_3_default",
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "idleCash": 80000,
+          "years": 3,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "bankFV": 84897,
+          "diboasFV": 90787,
+          "diboasEffectiveAPY": "4.31%",
+          "deltaOverHorizon": 5891
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "deltaOverHorizon": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_4_default",
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "idleCash": 80000,
+          "years": 3,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "bankFV": 85648,
+          "diboasFV": 90787,
+          "diboasEffectiveAPY": "4.31%",
+          "deltaOverHorizon": 5139
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "deltaOverHorizon": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_5_edge-zero",
+        "category": "edge-zero",
+        "label": "en: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_6_edge-zero",
+        "category": "edge-zero",
+        "label": "pt-BR: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_7_edge-zero",
+        "category": "edge-zero",
+        "label": "es: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_8_edge-zero",
+        "category": "edge-zero",
+        "label": "de: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_9_edge-long",
+        "category": "edge-long",
+        "label": "en: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 100000,
+          "years": 10,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "bankFV": 103866,
+          "diboasFV": 196715,
+          "delta": 92849
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "delta": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_10_edge-long",
+        "category": "edge-long",
+        "label": "pt-BR: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 500000,
+          "years": 10,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "bankFV": 968060,
+          "diboasFV": 1542309,
+          "delta": 574249
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "delta": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_11_edge-long",
+        "category": "edge-long",
+        "label": "es: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 80000,
+          "years": 10,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "bankFV": 97520,
+          "diboasFV": 152014,
+          "delta": 54495
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "delta": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_12_edge-long",
+        "category": "edge-long",
+        "label": "de: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 80000,
+          "years": 10,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "bankFV": 100426,
+          "diboasFV": 152014,
+          "delta": 51588
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "delta": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_13_happy-hysa",
+        "category": "happy-hysa",
+        "label": "en $100k × 5y, user override 4.10% HYSA",
+        "input": {
+          "idleCash": 100000,
+          "years": 5,
+          "bankYieldPct": 4.1,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "bankFV": 122251,
+          "diboasFV": 140255
+        },
+        "tolerance": {
+          "bankFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          },
+          "diboasFV": {
+            "absolute": 1,
+            "unit": "currency units",
+            "note": "Tolerance for FV/FA/balance outputs ≥ $1000; sub-cent precision required for amounts < $100"
+          }
+        }
+      },
+      {
+        "id": "idleCash_14_negative",
+        "category": "negative",
+        "label": "en: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "expectedOutput": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        },
+        "tolerance": null
+      },
+      {
+        "id": "idleCash_15_negative",
+        "category": "negative",
+        "label": "pt-BR: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "expectedOutput": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        },
+        "tolerance": null
+      },
+      {
+        "id": "idleCash_16_negative",
+        "category": "negative",
+        "label": "es: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "expectedOutput": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        },
+        "tolerance": null
+      },
+      {
+        "id": "idleCash_17_negative",
+        "category": "negative",
+        "label": "de: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "expectedOutput": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        },
+        "tolerance": null
+      }
+    ],
+    "brazilPoupanca": [
+      {
+        "id": "brazilPoupanca_1_current-regime",
+        "category": "current-regime",
+        "label": "Selic 14.50% + TR 0",
+        "input": {
+          "selic": 14.5,
+          "tr": 0
+        },
+        "expectedOutput": {
+          "rate": 0.06167781186449828
+        },
+        "tolerance": {
+          "rate": {
+            "absolute": 0.0001,
+            "unit": "decimal",
+            "note": "Effective rate / depreciation rate tolerance ±0.01%"
+          }
+        }
+      },
+      {
+        "id": "brazilPoupanca_2_edge-threshold",
+        "category": "edge-threshold",
+        "label": "Selic 8.5% (boundary, low regime)",
+        "input": {
+          "selic": 8.5,
+          "tr": 0
+        },
+        "expectedOutput": {
+          "rate": 0.0595
+        },
+        "tolerance": {
+          "rate": {
+            "absolute": 0.0001,
+            "unit": "decimal",
+            "note": "Effective rate / depreciation rate tolerance ±0.01%"
+          }
+        }
+      },
+      {
+        "id": "brazilPoupanca_3_edge-threshold",
+        "category": "edge-threshold",
+        "label": "Selic 8.51% (just above, high regime)",
+        "input": {
+          "selic": 8.51,
+          "tr": 0
+        },
+        "expectedOutput": {
+          "rate": 0.06167781186449828
+        },
+        "tolerance": {
+          "rate": {
+            "absolute": 0.0001,
+            "unit": "decimal",
+            "note": "Effective rate / depreciation rate tolerance ±0.01%"
+          }
+        }
+      },
+      {
+        "id": "brazilPoupanca_4_low-regime",
+        "category": "low-regime",
+        "label": "Selic 6% + TR 0 (low regime)",
+        "input": {
+          "selic": 6,
+          "tr": 0
+        },
+        "expectedOutput": {
+          "rate": 0.041999999999999996
+        },
+        "tolerance": {
+          "rate": {
+            "absolute": 0.0001,
+            "unit": "decimal",
+            "note": "Effective rate / depreciation rate tolerance ±0.01%"
+          }
+        }
+      },
+      {
+        "id": "brazilPoupanca_5_edge-tr-nonzero",
+        "category": "edge-tr-nonzero",
+        "label": "Selic 14.5% + TR 0.05%/mo",
+        "input": {
+          "selic": 14.5,
+          "tr": 0.05
+        },
+        "expectedOutput": {
+          "rate": 0.06803355946764555
+        },
+        "tolerance": {
+          "rate": {
+            "absolute": 0.0001,
+            "unit": "decimal",
+            "note": "Effective rate / depreciation rate tolerance ±0.01%"
+          }
+        }
+      },
+      {
+        "id": "brazilPoupanca_6_negative",
+        "category": "negative",
+        "label": "Selic = -1 (invalid)",
+        "input": {
+          "selic": -1,
+          "tr": 0
+        },
+        "expectedOutput": {
+          "rate": 0
+        },
+        "tolerance": {
+          "rate": {
+            "absolute": 0.0001,
+            "unit": "decimal",
+            "note": "Effective rate / depreciation rate tolerance ±0.01%"
+          }
+        }
+      },
+      {
+        "id": "brazilPoupanca_7_negative",
+        "category": "negative",
+        "label": "Selic = NaN",
+        "input": {
+          "selic": "INF",
+          "tr": 0
+        },
+        "expectedOutput": {
+          "rate": 0
+        },
+        "tolerance": {
+          "rate": {
+            "absolute": 0.0001,
+            "unit": "decimal",
+            "note": "Effective rate / depreciation rate tolerance ±0.01%"
+          }
+        }
+      }
+    ]
+  }
+}

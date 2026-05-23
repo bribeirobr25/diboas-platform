@@ -11,11 +11,17 @@
   "inputs": {
     "assetLabel": "Asset",
     "startYearLabel": "Start year",
+    "startYear2010Label": "2010 (from July)",
     "modeLabel": "Mode",
     "contributionLabel": "{mode, select, lumpSum {Lump-sum amount} other {Monthly contribution}}",
+    "returnsBasisLabel": "Returns basis",
+    "returnsBasisOptions": {
+      "totalReturn": "With dividends reinvested",
+      "priceOnly": "Price only"
+    },
     "assetOptions": {
       "BTC": "Bitcoin",
-      "SP500": "S&P 500 (price)",
+      "SP500": "S&P 500",
       "QQQ": "QQQ (NASDAQ-100)",
       "MSCI_WORLD": "MSCI World",
       "GOLD": "Gold",
@@ -33,13 +39,18 @@
     "summaryDca": "{amount}/month from {startMonth} {startYear} would be worth…",
     "terminalValue": "{value}",
     "terminalRange": "between {low} and {high}",
+    "terminalRangeSubtle": "Range based on best vs worst monthly entry timing: {low} – {high}",
+    "startMonth": {
+      "jul": "July",
+      "jan": "January"
+    },
     "contributedOverMonths": "{total} contributed over {months} months",
     "startingPrincipal": "{total} starting principal",
     "confidenceHigh": "High confidence (±5%)",
     "confidenceMedium": "Medium confidence — see uncertainty note",
     "confidenceLow": "Low confidence — range only",
-    "uncertaintyMedium": "{asset} {year} anchor is approximate (±30%). We used {used}.",
-    "uncertaintyLow": "Public DCA calculators differ by ±50% on this window. We show a range, not a single number.",
+    "uncertaintyMedium": "Volatility means monthly entry timing materially shifts the outcome. The range above shows best vs worst timing.",
+    "uncertaintyLow": "Bitcoin's early-decade volatility means $100/mo entries from 2010–2012 could have ended very differently depending on exact timing. We show a range, not a single number.",
     "comparisonHeader": "vs S&P 500 over the same window",
     "btcDcaRangeNote": "For BTC starting in 2010, the DCA terminal value depends heavily on the exact monthly entry path. Public calculators differ by ±50%."
   },

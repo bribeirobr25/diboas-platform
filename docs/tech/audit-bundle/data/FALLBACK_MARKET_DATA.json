@@ -1,0 +1,186 @@
+{
+  "FALLBACK_MARKET_DATA": {
+    "rates": {
+      "bankRates": {
+        "en": {
+          "savings": 0.38,
+          "savingsHighYield": 4.1,
+          "neobank": 3.35,
+          "treasury": 3.32,
+          "source": "FDIC/FRED",
+          "sourceDate": "2026-04 (current); HYSA NerdWallet 2026-05"
+        },
+        "pt-BR": {
+          "savings": 6.83,
+          "savingsCurrent": 6.17,
+          "selicAnnualPct": 14.5,
+          "trMonthlyPct": 0,
+          "neobank": 8.53,
+          "treasury": 8.53,
+          "source": "BCB SGS 195/1178/7811",
+          "sourceDate": "2026-05"
+        },
+        "es": {
+          "savings": 2,
+          "neobank": 2.1,
+          "treasury": 1.77,
+          "source": "Rankia / ECB MIR",
+          "sourceDate": "2026-05"
+        },
+        "de": {
+          "savings": 2.3,
+          "neobank": 2.83,
+          "treasury": 1.62,
+          "source": "Verivox / Bundesbank MFI",
+          "sourceDate": "2026-05"
+        }
+      },
+      "strategyApys": {
+        "safety": 7,
+        "balance": 12,
+        "growth": 18
+      },
+      "scenarioRates": {
+        "conservative": 7,
+        "historical": 10,
+        "optimistic": 14
+      }
+    },
+    "assetPrices": {
+      "crypto": {
+        "BTC": 77262,
+        "ETH": 2300,
+        "SOL": 152,
+        "SUI": 2.85,
+        "TRX": 0.21
+      },
+      "etfs": {
+        "SPYx": 745,
+        "QQQx": 717,
+        "IWMon": 234
+      },
+      "commodities": {
+        "XAUT": 4524
+      },
+      "updatedAt": "2026-05-22T00:00:00Z"
+    },
+    "exchangeRates": {
+      "rates": {
+        "BRL": {
+          "rateToUsd": 5.0134,
+          "annualDepreciation": 0.0621,
+          "rateDate": "2026-05-22",
+          "depreciationBasis": "live full-series CAGR Jan 2010 → May 2026 (BCB PTAX); horizon-matched at runtime via monthlySeries.fx[BRL]",
+          "historicalCagr": 0.0621,
+          "historicalAnchorStart": "2010-01-01",
+          "historicalAnchorEnd": "2026-05-22",
+          "historicalRateStart": 1.874,
+          "historicalRateEnd": 5.0134
+        },
+        "EUR": {
+          "rateToUsd": 0.8542,
+          "annualDepreciation": 0.0123,
+          "rateDate": "2026-04-30",
+          "depreciationBasis": "live full-series CAGR Jan 2010 → Apr 2026 (ECB EXR, inverted to EUR_per_USD); horizon-matched at runtime",
+          "historicalCagr": 0.0123,
+          "historicalAnchorStart": "2010-01-01",
+          "historicalAnchorEnd": "2026-04-30",
+          "historicalRateStart": 1.4272,
+          "historicalRateEnd": 1.1706
+        }
+      }
+    },
+    "inflationRates": {
+      "rates": {
+        "en": {
+          "current": 0.038,
+          "average5y": 0.045,
+          "cumulativeSince2010": 0.523,
+          "average16y": 0.0262
+        },
+        "pt-BR": {
+          "current": 0.0439,
+          "average5y": 0.059,
+          "cumulativeSince2010": 1.45,
+          "average16y": 0.0565
+        },
+        "de": {
+          "current": 0.029,
+          "average5y": 0.041,
+          "cumulativeSince2010": 0.41,
+          "average16y": 0.0212
+        },
+        "es": {
+          "current": 0.035,
+          "average5y": 0.041,
+          "cumulativeSince2010": 0.41,
+          "average16y": 0.0212
+        }
+      }
+    },
+    "platformFees": {
+      "deposit": {
+        "rate": 0.0048,
+        "minFee": 0.25,
+        "maxFee": 25
+      },
+      "sell": {
+        "rate": 0.0039,
+        "minFee": 0.25,
+        "maxFee": 25
+      },
+      "send": {
+        "rate": 0,
+        "minFee": 0,
+        "maxFee": 0
+      },
+      "receive": {
+        "rate": 0,
+        "minFee": 0,
+        "maxFee": 0
+      },
+      "swap": {
+        "rate": 0,
+        "minFee": 0,
+        "maxFee": 0
+      },
+      "strategyEntry": {
+        "rate": 0,
+        "minFee": 0,
+        "maxFee": 0
+      },
+      "strategyExit": {
+        "rate": 0.0039,
+        "minFee": 0.25,
+        "maxFee": 25
+      },
+      "cashOut": {
+        "rate": 0.0048,
+        "minFee": 0.25,
+        "maxFee": 25
+      }
+    }
+  },
+  "LOCALE_CURRENCY": {
+    "en": "USD",
+    "pt-BR": "BRL",
+    "de": "EUR",
+    "es": "EUR"
+  },
+  "INPUT_BOUNDS": {
+    "amount": {
+      "min": 0.01,
+      "max": 1000000000
+    },
+    "years": {
+      "min": 1,
+      "max": 40
+    }
+  },
+  "SCENARIO_RATES": {
+    "conservative": 7,
+    "historical": 10,
+    "optimistic": 14
+  },
+  "snapshotDate": "2026-05-23"
+}

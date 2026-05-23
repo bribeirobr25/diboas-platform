@@ -34,7 +34,9 @@
     "retrospectiveNowLabel": "Heute (Mai 2026)",
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "Veränderung der USD-Kaufkraft",
-    "retrospectiveLossNote": "{currency} hat über 16 Jahre {cagr}% pro Jahr gegenüber dem USD verloren"
+    "retrospectiveLossNote": "{currency} hat über 16 Jahre {cagr}% pro Jahr gegenüber dem USD verloren",
+    "uncertaintyMedium": "Diese Währung hatte im Zeitraum mäßige Volatilität — die punktuelle CAGR spiegelt das durchschnittliche Verhalten wider; die kumulative Bewegung war von Jahr zu Jahr ungleichmäßig.",
+    "uncertaintyLow": "Diese Währung durchlief Perioden struktureller Volatilität oder Regimewechsel — eine einzelne CAGR glättet sehr unterschiedliche Teilzeiträume erheblich. Verwende das Ergebnis als Richtwert, nicht als Prognose."
   },
   "vignette": {
     "subtitle": "Wo dein Geld liegt, zählt. Die Währung, in der es verdient, zählt mehr."

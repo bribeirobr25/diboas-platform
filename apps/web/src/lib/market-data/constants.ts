@@ -21,21 +21,47 @@
 
 import type { MarketDataSnapshot } from './types';
 import { ANCHOR_PRICES, BRL_USD_BUCKETS, EUR_USD_BUCKETS, LAST_RESEARCH_UPDATE } from './historical';
+import { derivePoupancaRate } from './formulas/brazilPoupanca';
 
 export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   rates: {
+    // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): per Decision C1/C2/C3, en/pt-BR
+    // gain optional `savingsCurrent` + `savingsHighYield` toggle pairs; ES/DE
+    // `savings` raised to typical-remunerated-account values per Decision C3.
+    // pt-BR `selicAnnualPct` + `trMonthlyPct` added for Phase G regime switch.
     bankRates: {
-      en: { savings: 0.32, neobank: 3.35, treasury: 3.32, source: 'FDIC/FRED', sourceDate: '5yr avg 2021-2025' },
-      'pt-BR': { savings: 6.83, neobank: 8.53, treasury: 8.53, source: 'BCB/B3', sourceDate: '5yr avg 2021-2025' },
-      es: { savings: 0.14, neobank: 2.10, treasury: 1.77, source: 'ECB/Tesoro', sourceDate: '5yr avg 2021-2025' },
-      // de.savings (1.22%) is the realistic best-available Tagesgeld offer (5yr
-      // avg of top-3 retail neobank rates: Bundesbank MFI deposit series + cross-
-      // checked vs Verivox/Tagesgeldvergleich monthly leaderboards). It is NOT
-      // the Bundesbank-published household average, which sits at ~0.26% over
-      // the same window. Used here because users comparing diBoaS against "what
-      // they could realistically get" expect the realistic comparable, not the
-      // population-weighted mean (pending CEO confirmation — see PENDING_ALL D4).
-      de: { savings: 1.22, neobank: 2.83, treasury: 1.62, source: 'Bundesbank/ECB', sourceDate: '5yr avg 2021-2025' },
+      en: {
+        savings: 0.38,              // Live FDIC national avg April 2026 (was 0.32 5y-avg)
+        savingsHighYield: 4.10,     // NerdWallet HYSA top-1% May 2026 (NEW Phase C)
+        neobank: 3.35,
+        treasury: 3.32,
+        source: 'FDIC/FRED',
+        sourceDate: '2026-04 (current); HYSA NerdWallet 2026-05',
+      },
+      'pt-BR': {
+        savings: 6.83,              // 5y avg poupança 2021-2025 (kept as default toggle baseline)
+        savingsCurrent: 6.17,       // Live poupança under Selic > 8.5% rule (NEW Phase C)
+        selicAnnualPct: 14.50,      // Live Selic after April 29, 2026 Copom (NEW Phase G)
+        trMonthlyPct: 0.0,          // Near-zero in current high-Selic regime
+        neobank: 8.53,
+        treasury: 8.53,
+        source: 'BCB SGS 195/1178/7811',
+        sourceDate: '2026-05',
+      },
+      es: {
+        savings: 2.0,               // Typical cuenta remunerada (was 0.14% ECB overnight)
+        neobank: 2.10,
+        treasury: 1.77,
+        source: 'Rankia / ECB MIR',
+        sourceDate: '2026-05',
+      },
+      de: {
+        savings: 2.3,               // Typical Tagesgeld 2026 (was 1.22%, refreshed per Decision C3)
+        neobank: 2.83,
+        treasury: 1.62,
+        source: 'Verivox / Bundesbank MFI',
+        sourceDate: '2026-05',
+      },
     },
     strategyApys: { safety: 7, balance: 12, growth: 18 },
     scenarioRates: { conservative: 7, historical: 10, optimistic: 14 },
@@ -46,39 +72,46 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   // 80k) — without this refresh, Phase E's asset-history tool would show
   // "BTC May 2026 = $80,000" while the comparison-table surfaces would
   // show "BTC current = $97,250" on the same site.
+  // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): refreshed to May-21/22 live spots
+  // per Phase A authoritative numbers (Fortune BTC, TradingEconomics gold/TLT).
   assetPrices: {
-    crypto: { BTC: 80000, ETH: 2300, SOL: 152, SUI: 2.85, TRX: 0.21 },
-    etfs: { SPYx: 740, QQQx: 711, IWMon: 234 },
-    commodities: { XAUT: 4700 },
-    updatedAt: '2026-05-15T00:00:00Z',
+    crypto: { BTC: 77262, ETH: 2300, SOL: 152, SUI: 2.85, TRX: 0.21 },  // BTC was 80000
+    etfs: { SPYx: 745, QQQx: 717, IWMon: 234 },                          // SPY/QQQ updated to Yahoo May close
+    commodities: { XAUT: 4524 },                                          // Gold was 4700
+    updatedAt: '2026-05-22T00:00:00Z',
   },
   exchangeRates: {
     rates: {
       BRL: {
-        rateToUsd: 5.2546,
-        annualDepreciation: 0.03,
-        rateDate: '2026-03-15',
-        // Phase A: kept forward 3% conservative; added historical fields
-        // for retrospective consumers (asset-history tool, /tools/goal-savings
-        // path-dependent mode). Forward planning uses annualDepreciation;
-        // retrospective uses historicalCagr.
-        depreciationBasis: 'forward: conservative 3%; historical: 6.71% Jan 2010→May 2026 per docs/researches/btc-vs-assets-inflation-fx-final-analysis.md',
-        historicalCagr: 0.0671,
+        rateToUsd: 5.0134,
+        // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23, Decision PT1 ACCEPTED):
+        // raised to live full-series CAGR per Phase A — 6.21%/yr USD/BRL
+        // depreciation Jan 2010 → May 2026 (BCB PTAX). The Phase D
+        // horizon-matched-CAGR helper recomputes from monthlySeries.fx[BRL]
+        // at runtime; this constant is the data-unavailable fallback.
+        annualDepreciation: 0.0621,
+        rateDate: '2026-05-22',
+        depreciationBasis: 'live full-series CAGR Jan 2010 → May 2026 (BCB PTAX); horizon-matched at runtime via monthlySeries.fx[BRL]',
+        historicalCagr: 0.0621,
         historicalAnchorStart: '2010-01-01',
-        historicalAnchorEnd: '2026-05-15',
-        historicalRateStart: 1.78,
-        historicalRateEnd: 5.50,
+        historicalAnchorEnd: '2026-05-22',
+        historicalRateStart: 1.874,
+        historicalRateEnd: 5.0134,
       },
       EUR: {
-        rateToUsd: 0.92,
-        annualDepreciation: 0.009,
-        rateDate: '2026-03-15',
-        depreciationBasis: 'forward: 5y avg 0.9%; historical: 1.45% Jan 2010→May 2026',
-        historicalCagr: 0.0145,
+        rateToUsd: 0.8542,
+        // Phase C (Decision PT3 ACCEPTED sign-corrected 2026-05-23):
+        // 1.227%/yr EUR depreciation full-series Jan 2010 → Apr 2026 (ECB EXR
+        // inverted to EUR_per_USD). Decision G's literal "set to 0" is
+        // superseded by live data showing genuine EUR depreciation.
+        annualDepreciation: 0.0123,
+        rateDate: '2026-04-30',
+        depreciationBasis: 'live full-series CAGR Jan 2010 → Apr 2026 (ECB EXR, inverted to EUR_per_USD); horizon-matched at runtime',
+        historicalCagr: 0.0123,
         historicalAnchorStart: '2010-01-01',
-        historicalAnchorEnd: '2026-05-15',
-        historicalRateStart: 1.43,
-        historicalRateEnd: 1.13,
+        historicalAnchorEnd: '2026-04-30',
+        historicalRateStart: 1.4272,
+        historicalRateEnd: 1.1706,
       },
     },
   },
@@ -86,12 +119,18 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   // BLS CPI-U (US 52.3%), IBGE IPCA (Brazil 145%), Destatis (Germany 41%),
   // INE (Spain 41%). cumulativeSince2010 is a decimal (0.523 = 52.3%).
   // average16y is the geometric average: (1 + cumulative)^(1/16.33) − 1.
+  // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23, Decision F1 ACCEPTED): live
+  // April 2026 YoY prints — BLS CPI-U 3.8% (en), IBGE IPCA 4.39% (pt-BR),
+  // Destatis HICP 2.9% (de), Eurostat HICP 3.5% (es). The Iran-war energy
+  // shock in April 2026 elevated all four readings vs pre-shock January
+  // values; `average5y` stays at the prior 5y rolling-mean per Decision F2
+  // (quarterly refresh cadence per Decision X1).
   inflationRates: {
     rates: {
-      en: { current: 0.026, average5y: 0.045, cumulativeSince2010: 0.523, average16y: 0.0262 },
-      'pt-BR': { current: 0.0426, average5y: 0.059, cumulativeSince2010: 1.45, average16y: 0.0565 },
-      de: { current: 0.022, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
-      es: { current: 0.027, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
+      en: { current: 0.038, average5y: 0.045, cumulativeSince2010: 0.523, average16y: 0.0262 },
+      'pt-BR': { current: 0.0439, average5y: 0.059, cumulativeSince2010: 1.45, average16y: 0.0565 },
+      de: { current: 0.029, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
+      es: { current: 0.035, average5y: 0.041, cumulativeSince2010: 0.41, average16y: 0.0212 },
     },
   },
   platformFees: {
@@ -148,6 +187,27 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   },
 };
 
+// A3 fix (2026-05-23): wire `derivePoupancaRate` to production. The pt-BR
+// `savingsCurrent` value is now ALWAYS computed from `selicAnnualPct +
+// trMonthlyPct` via the BCB regime-switch formula (Lei nº 12.703/2012) — the
+// hardcoded literal is overwritten here at module load and becomes a one-time
+// visual reference for review only. Single source of truth = the formula, not
+// the constant. When Selic crosses 8.5%, the formula auto-switches regime; no
+// manual recompute needed. (Cast through `unknown` because the type is marked
+// readonly for consumer safety; this constructor-time override is the only
+// allowed write.)
+(() => {
+  const ptBR = FALLBACK_MARKET_DATA.rates.bankRates['pt-BR'] as unknown as {
+    selicAnnualPct?: number;
+    trMonthlyPct?: number;
+    savingsCurrent?: number;
+  };
+  if (typeof ptBR.selicAnnualPct === 'number') {
+    const derived = derivePoupancaRate(ptBR.selicAnnualPct, ptBR.trMonthlyPct ?? 0);
+    ptBR.savingsCurrent = +(derived * 100).toFixed(2);
+  }
+})();
+
 /** Currency code for each supported locale */
 export const LOCALE_CURRENCY: Record<string, string> = {
   en: 'USD',
@@ -155,3 +215,68 @@ export const LOCALE_CURRENCY: Record<string, string> = {
   de: 'EUR',
   es: 'EUR',
 };
+
+/**
+ * Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23, Decision R2): per-field
+ * `last_verified` audit-trail timestamps for the Hardcoded subset of
+ * FALLBACK_MARKET_DATA. Consumers don't read this directly; it's the
+ * audit lineage record for the K.3 weekly manual update runbook.
+ *
+ * Format: ISO 8601 date strings. Source notes per field.
+ */
+export const FALLBACK_MARKET_DATA_METADATA = {
+  rates: {
+    bankRates: {
+      en: {
+        savings: { last_verified: '2026-05-22', source: 'FDIC National Rates and Rate Caps, April 2026' },
+        savingsHighYield: { last_verified: '2026-05-22', source: 'NerdWallet HYSA top-1% May 2026' },
+      },
+      'pt-BR': {
+        savings: { last_verified: '2026-05-22', source: 'Computed 5y avg from BCB SGS 195 2021-2025' },
+        savingsCurrent: { last_verified: '2026-05-22', source: 'BCB SGS 195 (poupança under Selic > 8.5% rule)' },
+        selicAnnualPct: { last_verified: '2026-05-22', source: 'BCB Copom April 29, 2026 decision' },
+        trMonthlyPct: { last_verified: '2026-05-22', source: 'BCB SGS 7811 (near-zero current regime)' },
+      },
+      es: { savings: { last_verified: '2026-05-22', source: 'Rankia / Kelisto cuentas remuneradas typical May 2026' } },
+      de: { savings: { last_verified: '2026-05-22', source: 'Verivox / Finanztip Tagesgeld typical May 2026' } },
+    },
+    scenarioRates: { last_verified: '2026-05-12', source: 'CLAUDE.md Phase 6E.2 lock (decoupled from DeFi per Decision D2)' },
+    strategyApys: { last_verified: '2026-05-12', source: 'diBoaS internal product config' },
+  },
+  assetPrices: {
+    crypto: {
+      BTC: { last_verified: '2026-05-22', source: 'Fortune May 21 09:15 ET (Phase A reconciliation reference)' },
+    },
+    commodities: {
+      XAUT: { last_verified: '2026-05-22', source: 'TradingEconomics LBMA spot May 22 2026' },
+    },
+  },
+  exchangeRates: {
+    BRL: {
+      annualDepreciation: { last_verified: '2026-05-22', source: 'BCB PTAX OData full-series CAGR Jan 2010 → May 2026 (Phase A)' },
+      historicalCagr: { last_verified: '2026-05-22', source: 'Same series; identical methodology' },
+    },
+    EUR: {
+      annualDepreciation: { last_verified: '2026-05-22', source: 'ECB EXR M.USD.EUR.SP00.A full-series CAGR Jan 2010 → Apr 2026 (Phase A, sign-corrected)' },
+    },
+  },
+  inflationRates: {
+    en: {
+      current: { last_verified: '2026-05-22', source: 'BLS USDL-26-0721 (April 2026 CPI-U, released May 12)' },
+      average5y: { last_verified: '2026-Q2', source: 'Quarterly refresh per Decision X1' },
+      cumulativeSince2010: { last_verified: '2026-05-16', source: 'Phase A research stamp (Hardcoded; annual refresh)' },
+      average16y: { last_verified: '2026-05-16', source: 'Same' },
+    },
+    'pt-BR': {
+      current: { last_verified: '2026-05-22', source: 'IBGE press release May 12, 2026 (April 2026 IPCA)' },
+    },
+    de: { current: { last_verified: '2026-05-22', source: 'Destatis PE26_161 / Eurostat flash April 2026' } },
+    es: { current: { last_verified: '2026-05-22', source: 'INE / Eurostat flash April 2026' } },
+  },
+  platformFees: { last_verified: '2026-04-10', source: 'docs/full-view/FEES.md (Hardcoded; never provider-driven per iter5-sdk-migration-map)' },
+  monthlySeries: {
+    assets: { last_verified: '2026-05-23', source: 'Yahoo Finance v8 chart API (Phase A pull)' },
+    fx: { last_verified: '2026-05-23', source: 'BCB PTAX (BRL); ECB EXR cross-via-EUR (8 other currencies); 3 PENDING (ARS/CLP/COP)' },
+    inflation: { last_verified: '2026-05-23-PENDING', source: 'Stub; 12 series pending per Phase B.3 incremental work' },
+  },
+} as const;

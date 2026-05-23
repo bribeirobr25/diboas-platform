@@ -20,6 +20,7 @@ import {
   calculateLumpSum,
   calculateWithCurrencyHedge,
   marketDataService,
+  resolveHorizonMatchedDepreciation,
   type SupportedLocale,
 } from '@/lib/market-data';
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
@@ -48,14 +49,10 @@ export function IdleCashCalculator() {
 
   const snapshot = marketDataService.getSync();
   const defaultBankYieldPct = snapshot.rates.bankRates[localeKey]?.savings ?? 0.32;
-  // Phase-7 NF1 — currency-hedge math for non-USD locales (precedent:
-  // ComparisonTable.tsx:36-58). en stays nominal; pt-BR/de/es use
-  // calculateWithCurrencyHedge with locale depreciation.
+  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched depreciation
+  // resolved INSIDE the useMemo below (depends on form.years). Phase-7 NF1
+  // precedent: ComparisonTable.tsx:36-58.
   const localeCurrency = LOCALE_CURRENCY[localeKey];
-  const depreciation =
-    localeCurrency && localeCurrency !== 'USD'
-      ? snapshot.exchangeRates.rates[localeCurrency]?.annualDepreciation ?? 0
-      : 0;
 
   const initial = useMemo<FormState>(
     () => ({
@@ -70,6 +67,8 @@ export function IdleCashCalculator() {
 
   const result = useMemo(() => {
     if (form.idleCash <= 0 || form.years <= 0) return null;
+    // Phase D: horizon-matched depreciation matched to user's chosen years.
+    const depreciation = resolveHorizonMatchedDepreciation(snapshot, localeCurrency, form.years);
     // Bank stays nominal in local currency (no hedge — bank pays in BRL/EUR/USD).
     const bankFV = calculateLumpSum(
       form.idleCash,
@@ -100,7 +99,7 @@ export function IdleCashCalculator() {
       diboasGain: diboasFV - form.idleCash,
       difference: diboasFV - bankFV,
     };
-  }, [form, depreciation]);
+  }, [form, snapshot, localeCurrency]);
 
   const handleChange = (field: keyof FormState, value: number) =>
     setForm((prev) => ({ ...prev, [field]: clamp(value, 0, 1_000_000_000) }));

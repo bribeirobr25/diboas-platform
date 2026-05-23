@@ -1,28 +1,31 @@
 'use client';
 
 /**
- * Asset History Calculator — retrospective tool (Phase E, 2026-05-16).
+ * Asset History Calculator — retrospective tool.
  *
- * 8 assets × 2 start years × 2 modes = 32 combos. Renders confidence-stratified
- * output per audit M6:
- *   - HIGH:   single terminal number ±5%
- *   - MEDIUM: single number with explicit ± uncertainty note
- *   - LOW:    RANGE display, NOT a single number — calm-framing
+ * Phase E original (2026-05-16): 8 assets × 2 start years × 2 modes = 32 combos.
+ * Phase E v2 (TOOLS_IMPROVEMENT.md, 2026-05-23): expanded to 17 start years
+ * (2010–2026) via monthly OHLC replay (`calculateAssetHistoryDcaReplay`).
+ * Adds PT2 toggle "Returns basis: with dividends / price only" for the 4
+ * TR-affected assets (SP500/QQQ/MSCI_WORLD/TLT). Preserves audit M6 calm-framing
+ * confidence stratification (BTC 2010–2012 LOW, BTC 2013+ MEDIUM, others HIGH).
  *
- * Math: `calculateAssetHistory()` from `lib/asset-history/`, which reads the
- * Phase C anchor table via `marketDataService.getHistoricalAnchors()`. No
- * direct imports from `historical.ts` outside `lib/market-data/` (§6.10).
+ * Math: `calculateAssetHistoryDcaReplay()` / `calculateAssetHistoryLumpSum()`
+ * from `lib/asset-history/`, which reads `marketDataService.getMonthlySeries()`.
+ * No direct imports from data/*.json outside `lib/market-data/` (§6.10).
  */
 
-import { useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
 import {
-  calculateAssetHistory,
+  calculateAssetHistoryDcaReplay,
+  calculateAssetHistoryLumpSum,
   AssetHistoryDataError,
-  type AssetHistoryArgs,
+  type ReturnsBasis,
 } from '@/lib/asset-history';
+import { marketDataService } from '@/lib/market-data';
 import {
   ASSET_HISTORY_DEFAULTS,
   type AssetHistoryAssetKey,
@@ -43,20 +46,25 @@ const ASSET_OPTIONS: ReadonlyArray<AssetHistoryAssetKey> = [
   'IBOVESPA',
   'DAX',
 ];
-const START_YEAR_OPTIONS: ReadonlyArray<AssetHistoryStartYear> = [2010, 2016];
+
+// Phase E v2 (TOOLS_IMPROVEMENT.md): 17-year start-year picker (2010–2026).
+// 2010 floors at July (data start) — labeled "2010 (from July)" in UI per Decision BF1.
+const START_YEAR_OPTIONS: ReadonlyArray<AssetHistoryStartYear> = [
+  2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017,
+  2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026,
+];
 const MODE_OPTIONS: ReadonlyArray<AssetHistoryMode> = ['lumpSum', 'monthlyDca'];
 
-function localizedMonthName(monthIndicative: number, locale: string): string {
-  // monthIndicative is 1-based; Date months are 0-based.
-  const date = new Date(Date.UTC(2000, monthIndicative - 1, 1));
-  return new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC' }).format(date);
-}
+// Phase E v2 PT2: only these 4 assets have a meaningful TR / price-only divergence.
+// BTC/GOLD have no dividends; IBOVESPA/DAX are native total-return by construction.
+const TR_TOGGLE_ASSETS: ReadonlySet<AssetHistoryAssetKey> = new Set(['SP500', 'QQQ', 'MSCI_WORLD', 'TLT']);
 
 interface FormState {
   asset: AssetHistoryAssetKey;
   startYear: AssetHistoryStartYear;
   mode: AssetHistoryMode;
   amount: number;
+  returnsBasis: ReturnsBasis;
 }
 
 export function AssetHistoryCalculatorDefault() {
@@ -74,26 +82,45 @@ export function AssetHistoryCalculatorDefault() {
       startYear: ASSET_HISTORY_DEFAULTS.startYear,
       mode: ASSET_HISTORY_DEFAULTS.mode,
       amount: ASSET_HISTORY_DEFAULTS.contribution[localeKey],
+      returnsBasis: 'total_return',
     }),
     [localeKey],
   );
   const [form, setForm] = useState<FormState>(initial);
 
+  // Phase E v2: monthlySeries lazy-loads via the async path. Trigger the load
+  // on mount so subsequent sync getSync() inside the calculator has data.
+  const [seriesLoaded, setSeriesLoaded] = useState(false);
+  useEffect(() => {
+    let mounted = true;
+    marketDataService.get().then(() => {
+      if (mounted) setSeriesLoaded(true);
+    }).catch(() => {
+      // FallbackProvider can't actually fail; this is defensive only.
+      if (mounted) setSeriesLoaded(true);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   const result = useMemo(() => {
-    if (form.amount <= 0) return null;
+    if (!seriesLoaded || form.amount <= 0) return null;
     try {
-      const args: AssetHistoryArgs = {
+      const args = {
         asset: form.asset,
         startYear: form.startYear,
-        mode: form.mode,
         amount: form.amount,
+        returnsBasis: form.returnsBasis,
       };
-      return calculateAssetHistory(args);
+      return form.mode === 'lumpSum'
+        ? calculateAssetHistoryLumpSum(args)
+        : calculateAssetHistoryDcaReplay(args);
     } catch (err) {
       if (err instanceof AssetHistoryDataError) return null;
       throw err;
     }
-  }, [form]);
+  }, [form, seriesLoaded]);
 
   const handleAmount = (value: number) =>
     setForm((prev) => ({ ...prev, amount: clamp(value, 0, 1_000_000) }));
@@ -102,27 +129,30 @@ export function AssetHistoryCalculatorDefault() {
   const handleStartYear = (startYear: AssetHistoryStartYear) =>
     setForm((prev) => ({ ...prev, startYear }));
   const handleMode = (mode: AssetHistoryMode) => setForm((prev) => ({ ...prev, mode }));
+  const handleReturnsBasis = (returnsBasis: ReturnsBasis) =>
+    setForm((prev) => ({ ...prev, returnsBasis }));
 
-  const startMonth = result?.startAnchor.monthIndicative ?? 7;
-  const startMonthName = localizedMonthName(startMonth, localeKey);
-
+  // Currency locale: IBOVESPA prices are BRL; DAX prices are EUR; everything else USD.
   const currencyLocale: SupportedLocale = useMemo(() => {
-    if (!result) return localeKey;
-    if (result.endAnchor.currency === 'BRL') return 'pt-BR';
-    if (result.endAnchor.currency === 'EUR') return 'de';
+    if (form.asset === 'IBOVESPA') return 'pt-BR';
+    if (form.asset === 'DAX') return 'de';
     return 'en';
-  }, [result, localeKey]);
+  }, [form.asset]);
+
+  const showBasisToggle = TR_TOGGLE_ASSETS.has(form.asset);
+
+  const isDcaResult = result && 'rangeLow' in result && result.rangeLow !== undefined;
 
   const summary = result
     ? form.mode === 'lumpSum'
       ? t('output.summaryLumpSum', {
           amount: formatCurrency(form.amount, currencyLocale, { maximumFractionDigits: 0 }),
-          startMonth: startMonthName,
+          startMonth: t(`output.startMonth.${form.startYear === 2010 ? 'jul' : 'jan'}`),
           startYear: form.startYear,
         })
       : t('output.summaryDca', {
           amount: formatCurrency(form.amount, currencyLocale, { maximumFractionDigits: 0 }),
-          startMonth: startMonthName,
+          startMonth: t(`output.startMonth.${form.startYear === 2010 ? 'jul' : 'jan'}`),
           startYear: form.startYear,
         })
     : '';
@@ -157,7 +187,7 @@ export function AssetHistoryCalculatorDefault() {
           >
             {START_YEAR_OPTIONS.map((y) => (
               <option key={y} value={y}>
-                {y}
+                {y === 2010 ? t('inputs.startYear2010Label') : String(y)}
               </option>
             ))}
           </Select>
@@ -193,27 +223,52 @@ export function AssetHistoryCalculatorDefault() {
             className={styles.numberInput}
           />
         </div>
+        {showBasisToggle && (
+          <div className={styles.field}>
+            <label htmlFor={`${baseId}-basis`} className={styles.label}>
+              {t('inputs.returnsBasisLabel')}
+            </label>
+            <Select
+              id={`${baseId}-basis`}
+              value={form.returnsBasis}
+              onChange={(e) => handleReturnsBasis(e.target.value as ReturnsBasis)}
+            >
+              <option value="total_return">{t('inputs.returnsBasisOptions.totalReturn')}</option>
+              <option value="price_only">{t('inputs.returnsBasisOptions.priceOnly')}</option>
+            </Select>
+          </div>
+        )}
       </div>
 
       {result && (
         <>
           <p className={styles.summary}>{summary}</p>
           <div className={styles.terminalCard}>
-            {result.confidence === 'LOW' && result.rangeLow !== undefined && result.rangeHigh !== undefined ? (
+            {result.confidence === 'LOW' && isDcaResult ? (
               <>
                 <p className={styles.terminalRange}>
                   {t('output.terminalRange', {
-                    low: formatCurrency(result.rangeLow, currencyLocale, { maximumFractionDigits: 0 }),
-                    high: formatCurrency(result.rangeHigh, currencyLocale, { maximumFractionDigits: 0 }),
+                    low: formatCurrency(result.rangeLow!, currencyLocale, { maximumFractionDigits: 0 }),
+                    high: formatCurrency(result.rangeHigh!, currencyLocale, { maximumFractionDigits: 0 }),
                   })}
                 </p>
                 <p className={styles.uncertaintyNote}>{t('output.uncertaintyLow')}</p>
               </>
-            ) : result.terminalValue !== null ? (
-              <p className={styles.terminalValue}>
-                {formatCurrency(result.terminalValue, currencyLocale, { maximumFractionDigits: 0 })}
-              </p>
-            ) : null}
+            ) : (
+              <>
+                <p className={styles.terminalValue}>
+                  {formatCurrency(result.terminalValue, currencyLocale, { maximumFractionDigits: 0 })}
+                </p>
+                {isDcaResult && result.confidence !== 'LOW' && (
+                  <p className={styles.rangeSubtle}>
+                    {t('output.terminalRangeSubtle', {
+                      low: formatCurrency(result.rangeLow!, currencyLocale, { maximumFractionDigits: 0 }),
+                      high: formatCurrency(result.rangeHigh!, currencyLocale, { maximumFractionDigits: 0 }),
+                    })}
+                  </p>
+                )}
+              </>
+            )}
             <p className={styles.totalContributed}>
               {form.mode === 'monthlyDca'
                 ? t('output.contributedOverMonths', {
@@ -229,13 +284,7 @@ export function AssetHistoryCalculatorDefault() {
             </span>
             {result.confidence === 'MEDIUM' && (
               <p className={styles.uncertaintyNote}>
-                {t('output.uncertaintyMedium', {
-                  asset: t(`inputs.assetOptions.${result.startAnchor.asset}`),
-                  year: result.startAnchor.year,
-                  used: formatCurrency(result.startAnchor.price, currencyLocale, {
-                    maximumFractionDigits: result.startAnchor.price < 10 ? 2 : 0,
-                  }),
-                })}
+                {t('output.uncertaintyMedium')}
               </p>
             )}
           </div>

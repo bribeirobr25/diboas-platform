@@ -49,6 +49,21 @@ Status legend: **Hardcoded** (project config — stays in code) · **Provider-dr
 | `historicalAnchors.anchors` | Hardcoded | Research doc Parts 1+2 | Annual | 24 entries (8 assets × 3 windows). Phase C/C+. |
 | `historicalAnchors.fxBuckets.BRL` / `EUR` | Hardcoded | Research doc Part 4/5 | Annual | Coarse path-dependent windows. |
 | `historicalAnchors.lastResearchUpdate` | Hardcoded | Manual stamp | Per refresh | Drives 365-day staleness gate (`historical.test.ts`). |
+| `monthlySeries.assets[asset]` | **Hardcoded** | Yahoo Finance v8 chart API (`SPY`/`QQQ`/`URTH`/`TLT` adjusted-close = total return; raw close for price-only overlay) | **Weekly** (manual K.3 runbook) | Phase B/E (TOOLS_IMPROVEMENT.md, 2026-05-23). 8 assets × ~142–192 months. `closePriceOnly` overlay populated only for the 4 TR-eligible assets (SP500/QQQ/MSCI_WORLD/TLT) per PT2 toggle. SDK does NOT populate — research data, same category as `historicalAnchors`. |
+| `monthlySeries.fx[currency]` | **Hardcoded** | BCB PTAX OData (BRL); ECB EXR cross-via-EUR (8 other currencies) | **Weekly** (manual K.3 runbook) | Phase B (TOOLS_IMPROVEMENT.md). 8 currencies populated; ARS/CLP/COP pending national-bank APIs. Stores both `closeUsdPerLocal` and canonical `closeLocalPerUsd`. |
+| `monthlySeries.inflation[locale]` | **Hardcoded** | BLS/IBGE/Eurostat per locale | Monthly (manual until harvester) | Phase B (TOOLS_IMPROVEMENT.md). Stub; 12 series pending population. |
+| `rates.bankRates.en.savingsHighYield` | Provider-driven | NerdWallet HYSA top-1% aggregator | Daily (post-iter-5) | Phase C (TOOLS_IMPROVEMENT.md). Phase C constant `4.10` is the fallback; SDK populates live post-iter-5. |
+| `rates.bankRates['pt-BR'].savingsCurrent` | Provider-driven | BCB SGS 195 (poupança monthly return) | Monthly (post-iter-5) | Phase C (TOOLS_IMPROVEMENT.md). The live-rate toggle alternative to the 5y-avg `savings` field. |
+| `rates.bankRates['pt-BR'].selicAnnualPct` | Provider-driven | BCB SGS 1178 (Selic annualized) | Daily after Copom decisions | Phase G (TOOLS_IMPROVEMENT.md). Drives the poupança regime-switch formula. |
+| `rates.bankRates['pt-BR'].trMonthlyPct` | Provider-driven | BCB SGS 7811 (TR monthly) | Monthly | Phase G. Near-zero in current high-Selic regime; non-zero when Selic falls. |
+| `exchangeRates.rates.{GBP,JPY,MXN,CAD,AUD,CHF,ARS,CLP,COP}.rateToUsd` | Provider-driven | ECB EXR / Banxico / BCRA / etc. | Daily | Phase F (Currency Depreciation 12-currency expansion). |
+| `FALLBACK_MARKET_DATA_METADATA.last_verified` | Hybrid | Computed by harvester when SDK serves; manual stamp during weekly runbook | Per-refresh | Phase C (TOOLS_IMPROVEMENT.md). Per-field audit-trail timestamps for the Hardcoded subset. Consumers don't read directly; surfaced via optional disclosure copy. |
+
+---
+
+## Phase D forward-projection methodology (TOOLS_IMPROVEMENT.md, 2026-05-23)
+
+`exchangeRates.rates.*.annualDepreciation` is still **Hardcoded** (research-anchored) but the calculator layer now derives a horizon-matched CAGR from `monthlySeries.fx[currency]` at runtime via `resolveHorizonMatchedDepreciation` (lib/market-data/formulas/horizonMatchedCagr.ts). The constant is the data-unavailable fallback. The SDK does NOT populate the depreciation rate itself — that derivation lives in the calculator code, consuming the Hardcoded monthly FX series.
 
 ---
 

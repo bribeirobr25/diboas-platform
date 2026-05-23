@@ -22,6 +22,7 @@ import {
 } from '@/lib/market-data';
 import { marketDataService } from '@/lib/market-data/service';
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
+import { resolveHorizonMatchedDepreciation } from '@/lib/market-data/formulas';
 import { formatCurrency } from '@/lib/compound-interest';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import { EMERGENCY_FUND_DEFAULTS } from '@/lib/tools';
@@ -63,14 +64,15 @@ export function EmergencyFundCalculator() {
   // useGoalCardData.ts:54 precedent.
   const inflation = snapshot.inflationRates.rates[localeKey]?.average5y ?? 0;
 
-  // Phase-7 NF1/CC2 — currency-hedge math for non-USD locales (precedent:
-  // useGoalCardData.ts:57-61). For USD locales depreciation is 0 so the
-  // effective APY collapses to the raw USD yield (no hedge applied).
+  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched depreciation
+  // policy helper. For this months-to-target tool, the effective horizon is
+  // derived from the target ÷ monthly savings (a rough estimate of years).
+  // Phase-7 NF1/CC2 precedent: useGoalCardData.ts:57-61.
   const currency = LOCALE_CURRENCY[localeKey];
-  const depreciation =
-    currency && currency !== 'USD'
-      ? snapshot.exchangeRates.rates[currency]?.annualDepreciation ?? 0
-      : 0;
+  const estimatedHorizonYears = form.monthlySavings > 0
+    ? Math.max(1, (form.monthlyExpenses * form.targetMultiplier) / (form.monthlySavings * 12))
+    : 5;
+  const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
   const diboasUsdApy = HISTORICAL_RATE / 100;
   const diboasEffective =
     depreciation > 0 ? (1 + diboasUsdApy) * (1 + depreciation) - 1 : diboasUsdApy;
@@ -78,30 +80,35 @@ export function EmergencyFundCalculator() {
   const target = form.monthlyExpenses * form.targetMultiplier;
   const result = useMemo(() => {
     if (form.monthlySavings <= 0) return null;
-    try {
-      const diboasMonths = monthsToInflationAdjustedTarget(
-        target,
-        form.monthlySavings,
-        diboasEffective,
-        inflation,
-      );
-      const bankMonths = monthsToInflationAdjustedTarget(
-        target,
-        form.monthlySavings,
-        bankApy,
-        inflation,
-      );
-      return { diboasMonths, bankMonths, savedMonths: bankMonths - diboasMonths };
-    } catch {
-      return null;
-    }
+    // Phase I.2 (2026-05-23): try each scenario independently so a bank-only
+    // unreachable case can be surfaced distinctly from a fully-unreachable one.
+    const tryMonths = (rate: number): number | null => {
+      try {
+        return monthsToInflationAdjustedTarget(target, form.monthlySavings, rate, inflation);
+      } catch {
+        return null;
+      }
+    };
+    const diboasMonths = tryMonths(diboasEffective);
+    const bankMonths = tryMonths(bankApy);
+    if (diboasMonths === null && bankMonths === null) return null;
+    const savedMonths =
+      diboasMonths !== null && bankMonths !== null ? bankMonths - diboasMonths : 0;
+    return { diboasMonths, bankMonths, savedMonths };
   }, [target, form.monthlySavings, bankApy, diboasEffective, inflation]);
 
-  const formatMonths = (m: number): string => {
+  const formatMonths = (m: number | null): string => {
+    if (m === null) return t('output.unreachable');
     if (m < 12) return t('output.monthsLabel', { months: m });
     const years = (m / 12).toFixed(1);
     return t('output.yearsLabel', { years });
   };
+
+  // Phase I.3 (2026-05-23): over-30-years stop-condition warning.
+  const showOver30Warning =
+    result !== null &&
+    ((result.diboasMonths !== null && result.diboasMonths > 360) ||
+      (result.bankMonths !== null && result.bankMonths > 360));
 
   const handleChange = (field: keyof FormState, value: number) =>
     setForm((prev) => ({ ...prev, [field]: clamp(value, 0, 1_000_000) }));
@@ -172,6 +179,16 @@ export function EmergencyFundCalculator() {
             <p className={styles.resultRate}>
               {tShared('scenarios.historical')}
               {depreciation > 0 ? tShared('scenarios.digitalDollarSuffix') : ''}
+              <span
+                className={styles.tooltip}
+                title={tShared('scenarios.historicalTooltip')}
+                aria-label={tShared('scenarios.historicalTooltip')}
+                role="note"
+                tabIndex={0}
+              >
+                {' '}
+                <sup>?</sup>
+              </span>
             </p>
           </div>
           <div className={styles.resultCardBank}>
@@ -188,6 +205,12 @@ export function EmergencyFundCalculator() {
         </div>
       ) : (
         <p className={styles.noResult}>{t('output.noResult')}</p>
+      )}
+
+      {showOver30Warning && (
+        <p className={styles.warningCallout} role="status">
+          {tShared('warnings.over30Years')}
+        </p>
       )}
     </div>
   );

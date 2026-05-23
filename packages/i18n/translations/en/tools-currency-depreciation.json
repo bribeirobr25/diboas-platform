@@ -34,7 +34,9 @@
     "retrospectiveNowLabel": "Now (May 2026)",
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "USD-purchasing-power change",
-    "retrospectiveLossNote": "{currency} weakened {cagr}% / year against USD over 16 years"
+    "retrospectiveLossNote": "{currency} weakened {cagr}% / year against USD over 16 years",
+    "uncertaintyMedium": "This currency had moderate volatility over the window — point CAGR reflects average behavior; cumulative movement was uneven year-to-year.",
+    "uncertaintyLow": "This currency went through periods of structural volatility or regime change — a single CAGR materially smooths over very different sub-periods. Use the result as a directional reference, not a forecast."
   },
   "vignette": {
     "subtitle": "Where you hold your money matters. The currency it earns in matters more."

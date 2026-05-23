@@ -23,7 +23,8 @@
     "yearsLabel": "{years} años",
     "saved": "Tiempo ahorrado",
     "targetLabel": "Meta: {amount}",
-    "noResult": "Aumenta tu ahorro mensual para alcanzar la meta."
+    "noResult": "Aumenta tu ahorro mensual para alcanzar la meta.",
+    "unreachable": "A este ritmo de ahorro, la inflación supera el rendimiento de tu banco."
   },
   "vignette": {
     "headline": "{target} de fondo en {time}",

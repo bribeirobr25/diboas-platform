@@ -165,3 +165,37 @@
   margin: 0;
   line-height: 1.4;
 }
+
+/* Phase I.1 (2026-05-23): confidence stratification badge. Mirror of
+ * AssetHistoryCalculator + InflationImpactCalculator patterns. */
+.confidenceBadge {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.confidenceHigh {
+  background: var(--color-emerald-50, #ecfdf5);
+  color: var(--text-success-accessible, #047857);
+}
+
+.confidenceMedium {
+  background: var(--color-amber-50, #fffbeb);
+  color: var(--color-amber-700, #b45309);
+}
+
+.confidenceLow {
+  background: var(--color-rose-50, #fff1f2);
+  color: var(--color-rose-700, #be123c);
+}
+
+.uncertaintyNote {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  line-height: 1.5;
+}

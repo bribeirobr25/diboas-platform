@@ -29,6 +29,7 @@ import {
   calculateLumpSum,
   calculateWithCurrencyHedge,
   marketDataService,
+  resolveHorizonMatchedDepreciation,
   type SupportedLocale,
 } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
@@ -66,6 +67,7 @@ export function CurrencyDepreciationCalculator() {
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-currency-depreciation.${key}` }, values);
+  const tShared = (key: string) => intl.formatMessage({ id: `tools-shared.${key}` });
 
   const initial = useMemo<FormState>(
     () => ({
@@ -82,8 +84,12 @@ export function CurrencyDepreciationCalculator() {
   const snapshot = marketDataService.getSync();
   const bankSourceLocale = CURRENCY_TO_LOCALE[currency] ?? localeKey;
   const bankRate = snapshot.rates.bankRates[bankSourceLocale]?.savings ?? 0;
+  // `currencyRate` retained for retrospective mode's anchor-pair (historicalRateStart/End).
   const currencyRate = currency === 'USD' ? undefined : snapshot.exchangeRates.rates[currency];
-  const depreciation = currencyRate?.annualDepreciation ?? 0;
+  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched depreciation for
+  // forward mode (uses form.years). Retrospective mode below uses the locked
+  // anchor pair from `currencyRate`, not this horizon-matched derivation.
+  const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, form.years);
 
   const forwardResult = useMemo(() => {
     if (mode !== 'forward' || form.amount <= 0 || form.years <= 0) return null;
@@ -307,6 +313,38 @@ export function CurrencyDepreciationCalculator() {
                 cagr: (retrospectiveResult.historicalCagr * 100).toFixed(2),
               })}
             </p>
+            {/* Phase I.1 (2026-05-23): currency-specific confidence — LOW for
+                ARS/CLP/COP (LATAM hyperinflation tail); MEDIUM for BRL/MXN
+                (moderate-volatility); HIGH for G10 stable currencies. */}
+            {(() => {
+              const confidence: 'HIGH' | 'MEDIUM' | 'LOW' =
+                ['ARS', 'CLP', 'COP'].includes(currency)
+                  ? 'LOW'
+                  : ['BRL', 'MXN'].includes(currency)
+                    ? 'MEDIUM'
+                    : 'HIGH';
+              return (
+                <>
+                  <span
+                    className={`${styles.confidenceBadge} ${
+                      confidence === 'HIGH'
+                        ? styles.confidenceHigh
+                        : confidence === 'MEDIUM'
+                          ? styles.confidenceMedium
+                          : styles.confidenceLow
+                    }`}
+                  >
+                    {tShared(`confidence.${confidence.toLowerCase()}`)}
+                  </span>
+                  {confidence === 'MEDIUM' && (
+                    <p className={styles.uncertaintyNote}>{t('output.uncertaintyMedium')}</p>
+                  )}
+                  {confidence === 'LOW' && (
+                    <p className={styles.uncertaintyNote}>{t('output.uncertaintyLow')}</p>
+                  )}
+                </>
+              );
+            })()}
           </div>
         </div>
       )}

@@ -84,18 +84,33 @@ Then standard annuity formula applies at the effective rate. This is simpler and
 
 ### Effective APYs by Locale
 
-For the Strategies product surface (Safety APY 7%, Balance 12%, Growth 18%):
+Updated 2026-05-23 (TOOLS_IMPROVEMENT.md Phase C, Decisions PT1/PT3 Bar-signed): bank rates refreshed to Phase A live values; depreciation rates refreshed to live BCB PTAX / ECB EXR full-series CAGRs. For the Strategies product surface (Safety APY 7%, Balance 12%, Growth 18%):
 
 | Locale | diBoaS Safety | Bank | Advantage |
 |--------|:----------:|:----:|:---------:|
-| US | 7.00% | 0.32% | +6.68 pp |
-| Brazil | 10.21% (7% + 3% BRL dep.) | 6.83% | +3.38 pp |
-| Spain | 7.96% (7% + 0.9% EUR dep.) | 0.14% | +7.82 pp |
-| Germany | 7.96% (7% + 0.9% EUR dep.) | 1.22% | +6.74 pp |
+| US | 7.00% | 0.38% (FDIC live) | +6.62 pp |
+| Brazil | 13.65% (7% + 6.21% BRL dep.) | 6.83% (5y avg poupança) / 6.17% (live) | +6.82 to +7.48 pp |
+| Spain | 8.32% (7% + 1.23% EUR dep.) | 2.00% (cuenta remunerada typical) | +6.32 pp |
+| Germany | 8.32% (7% + 1.23% EUR dep.) | 2.30% (Tagesgeld typical) | +6.02 pp |
 
 For the educational tools (Conservative 7% / Historical 10% / Optimistic 14% in USD), the same effective-rate model applies — multiply `(1 + 0.07)(1 + dep) − 1`, `(1 + 0.10)(1 + dep) − 1`, `(1 + 0.14)(1 + dep) − 1` to get the per-locale effective APY shown in tool surfaces.
 
-**Implementation:** `calculateMonthlyWithCurrencyHedge()` and `calculateWithCurrencyHedge()` in `lib/market-data/formulas/currencyHedge.ts`.
+**Implementation (Phase C+D updated 2026-05-23):** `calculateMonthlyWithCurrencyHedge()` and `calculateWithCurrencyHedge()` in `lib/market-data/formulas/currencyHedge.ts`. Forward projections now route through `resolveHorizonMatchedDepreciation()` (lib/market-data/formulas/horizonMatchedCagr.ts) which prefers a horizon-matched CAGR from `monthlySeries.fx[currency]` when available; falls back to the static constant when monthly data is absent. The constant values above are the data-unavailable fallback.
+
+### Horizon-Matched Forward Projection (Added 2026-05-23, Phase D)
+
+Per TOOLS_IMPROVEMENT.md plan v1.1 §6.1 (CTO Review H1): forward-projection FX depreciation is derived from `monthlySeries.fx[currency]` using a CONTINUOUS trailing-N-year window:
+
+```
+windowMonths = min(horizonYears × 12, totalAvailableMonths)
+CAGR = (endCloseLocalPerUsd / startCloseLocalPerUsd)^(1/years) − 1
+```
+
+A 5y horizon uses the trailing 60 months; a 7y horizon uses the trailing 84 months; a 16y+ horizon saturates at the full available series. **No step-function discontinuity** at any horizon boundary. Sentinel `0` returned when series has < 12 months (P7 graceful fallback; calculator degrades to non-hedged).
+
+For pt-BR Retirement at 25y horizon: window saturates at 197 months → full-series BRL CAGR = 6.21%/yr → effective Historical APY = 16.83% → R$7.34M FV at R$2,000/mo (Phase A authoritative, Bar-signed PT1).
+
+For DE/ES Retirement at 25y horizon: window saturates at 196 months → full-series EUR CAGR = 1.23%/yr → effective Historical APY = 11.35% → €608,815 FV at €400/mo (Bar-signed PT3).
 
 ---
 

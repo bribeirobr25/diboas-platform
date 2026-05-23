@@ -11,11 +11,17 @@
   "inputs": {
     "assetLabel": "Activo",
     "startYearLabel": "Año de inicio",
+    "startYear2010Label": "2010 (desde julio)",
     "modeLabel": "Modo",
     "contributionLabel": "{mode, select, lumpSum {Cantidad única} other {Aportación mensual}}",
+    "returnsBasisLabel": "Base de retorno",
+    "returnsBasisOptions": {
+      "totalReturn": "Con dividendos reinvertidos",
+      "priceOnly": "Solo precio"
+    },
     "assetOptions": {
       "BTC": "Bitcoin",
-      "SP500": "S&P 500 (precio)",
+      "SP500": "S&P 500",
       "QQQ": "QQQ (NASDAQ-100)",
       "MSCI_WORLD": "MSCI World",
       "GOLD": "Oro",
@@ -33,13 +39,18 @@
     "summaryDca": "{amount}/mes desde {startMonth} de {startYear} valdrían…",
     "terminalValue": "{value}",
     "terminalRange": "entre {low} y {high}",
+    "terminalRangeSubtle": "Rango basado en el mejor vs peor momento de entrada mensual: {low} – {high}",
+    "startMonth": {
+      "jul": "julio",
+      "jan": "enero"
+    },
     "contributedOverMonths": "{total} aportados durante {months} meses",
     "startingPrincipal": "{total} de capital inicial",
     "confidenceHigh": "Confianza alta (±5%)",
     "confidenceMedium": "Confianza media — consulta la nota de incertidumbre",
     "confidenceLow": "Confianza baja — solo rango",
-    "uncertaintyMedium": "El ancla {asset} {year} es aproximada (±30%). Usamos {used}.",
-    "uncertaintyLow": "Las calculadoras públicas de DCA difieren ±50% en esta ventana. Mostramos un rango, no un único número.",
+    "uncertaintyMedium": "La volatilidad hace que el momento mensual de entrada altere significativamente el resultado. El rango anterior muestra el mejor vs peor momento.",
+    "uncertaintyLow": "La volatilidad de Bitcoin a principios de la década significa que aportaciones de 100/mes entre 2010 y 2012 podrían haber terminado de formas muy diferentes según el momento exacto. Mostramos un rango, no un único número.",
     "comparisonHeader": "vs S&P 500 en el mismo periodo",
     "btcDcaRangeNote": "Para BTC empezando en 2010, el valor terminal del DCA depende mucho del camino mensual exacto de entrada. Las calculadoras públicas difieren ±50%."
   },

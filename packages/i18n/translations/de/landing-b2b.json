@@ -53,9 +53,9 @@
         "title": "Ungenutztes Kapital",
         "titleSummary": "erhalte, was fair ist",
         "subtitle": "Bei 100.000 € ungenutztem Kapital auf deinem Geschäftskonto.",
-        "diboasResult": "7.963 €",
-        "bankResult": "1.220 €",
-        "difference": "6.743 €/Jahr",
+        "diboasResult": "8.316 €",
+        "bankResult": "2.300 €",
+        "difference": "6.016 €/Jahr",
         "tagline": "Im Digital-Dollar arbeitet dein Kapital härter — weil der Dollar tendenziell gegenüber dem Euro an Wert gewinnt.",
         "source": "Beispiel basierend auf 100.000 € ungenutztem Kapital bei {rate} durchschnittlichem Sparzins (Bundesbank/EZB 5-Jahres-Durchschnitt) vs diBoaS Konservativ 7% in Digital-Dollar, mit jährlichem Wechselkurseffekt von 0,9% (abgeleitet 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; siehe docs/tech/financial-calculations.md §Currency Hedge Model). Projizierte Renditen sind illustrativ. Tatsächliche Ergebnisse können abweichen.",
         "howPossible": "Wie ist das möglich?"
