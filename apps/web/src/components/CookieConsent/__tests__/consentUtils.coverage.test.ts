@@ -184,6 +184,60 @@ describe('consentUtils — additional coverage', () => {
       expect(event.type).toBe('cookie-consent-changed');
       expect(event.detail).toEqual(consent);
     });
+
+    /*
+     * Schema-drift guard — Lighthouse Remediation Plan §8 risk #9 + CTO Board #8.
+     *
+     * The ApplicationEventBus is constructed with `rethrowErrors: false`, so a
+     * payload missing a field required by EVENT_VALIDATION_SCHEMA is silently
+     * swallowed (logged but not thrown). If `dispatchConsentEvent()` ever drops
+     * `consentType` or `newState`, Sentry Replay (Workstream B) and GA4 loader
+     * (Workstream D) will silently never initialize after consent — no error
+     * surface to user or smoke test.
+     *
+     * These tests assert `dispatchConsentEvent` PASSES a payload to
+     * `applicationEventBus.emit()` that satisfies the required-fields contract.
+     * (The bus is mocked at the top of this file; we inspect mock.calls rather
+     * than registering a real listener.)
+     */
+    it('emits CONSENT_GIVEN with schema-required fields when analytics granted', () => {
+      const consent = createConsentValue(true);
+      dispatchConsentEvent(consent);
+
+      const emit = vi.mocked(applicationEventBus.emit);
+      // dispatchConsentEvent may emit other event types under some paths;
+      // find the CONSENT_GIVEN emit specifically.
+      const givenCall = emit.mock.calls.find(
+        ([type]) => type === ApplicationEventType.CONSENT_GIVEN,
+      );
+      expect(givenCall).toBeDefined();
+
+      const payload = givenCall![1] as unknown as Record<string, unknown>;
+      // Required fields per EVENT_VALIDATION_SCHEMA[CONSENT_GIVEN]
+      for (const field of ['domain', 'source', 'consentType', 'newState']) {
+        expect(payload).toHaveProperty(field);
+      }
+      expect(payload.consentType).toBe('analytics');
+      expect(payload.newState).toBe(true);
+    });
+
+    it('emits CONSENT_WITHDRAWN with schema-required fields when analytics revoked', () => {
+      const consent = createConsentValue(false);
+      dispatchConsentEvent(consent);
+
+      const emit = vi.mocked(applicationEventBus.emit);
+      const withdrawnCall = emit.mock.calls.find(
+        ([type]) => type === ApplicationEventType.CONSENT_WITHDRAWN,
+      );
+      expect(withdrawnCall).toBeDefined();
+
+      const payload = withdrawnCall![1] as unknown as Record<string, unknown>;
+      for (const field of ['domain', 'source', 'consentType', 'newState']) {
+        expect(payload).toHaveProperty(field);
+      }
+      expect(payload.consentType).toBe('analytics');
+      expect(payload.newState).toBe(false);
+    });
   });
 
   describe('syncConsentToApi', () => {

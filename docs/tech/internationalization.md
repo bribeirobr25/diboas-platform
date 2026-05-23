@@ -2,9 +2,33 @@
 
 > **Complete internationalization implementation following DRY principles and project architecture standards**
 
-**Last updated:** 2026-05-13
+**Last updated:** 2026-05-23 (Phase I + Audit-followup keys added to `tools-shared` + `tools-asset-history` — see "Recent additions" below)
 
-**⚠️ Drift notice:** the "Translation Files" + "File Structure" sections below describe the pre-Phase-6 state (2 namespaces per locale: `common.json`, `marketing.json`). The current state has **29 namespaces per locale** (incl. tools, learn, landing, legal). See `packages/i18n/README.md` for the up-to-date namespace inventory + Phase-7 Q4 banned-term grep gate. The architecture / DRY / API / detection sections below remain accurate.
+**⚠️ Drift notice:** the "Translation Files" + "File Structure" sections below describe the pre-Phase-6 state (2 namespaces per locale: `common.json`, `marketing.json`). The current state has **31 namespaces per locale** (incl. all 10 tools + learn + landing + legal + asset-history — added 2026-05-23). See `packages/i18n/README.md` for the up-to-date namespace inventory + Phase-7 Q4 banned-term grep gate. The architecture / DRY / API / detection sections below remain accurate.
+
+## Recent additions (2026-05-23)
+
+Phase I + audit-followup work added the following keys across all 4 locales (en, pt-BR, es, de). Translation parity verified via `pnpm validate:translations`.
+
+**`tools-shared.json`:**
+- `scenarios.conservativeTooltip` / `historicalTooltip` / `optimisticTooltip` — scenario-rate explainer (Phase I.4)
+- `scenarios.tooltipLabel` — accessibility label for the `?` trigger
+- `warnings.over30Years` — >360-month stop-condition advisory (Phase I.3)
+- `confidence.high` / `medium` / `low` — confidence-stratification badge labels (Phase I.1)
+- `labels.usdEquivalent` — "≈ {usd} USD today" parenthetical on forward tools (Audit follow-up Part 3)
+
+**`tools-asset-history.json`:**
+- `inputs.assetDescriptions.{BTC,SP500,QQQ,MSCI_WORLD,GOLD,TLT,IBOVESPA,DAX}` — per-asset hover tooltip explaining each asset's character (v1.5 TLT UX work)
+- `inputs.gainBadgeTooltip` — explanation of the `(+N%)` / `(−N%)` gain/loss badge next to the terminal value
+
+**`tools-emergency-fund.json`:**
+- `output.unreachable` — "At this savings rate, inflation outpaces your bank's return" (Phase I.2)
+
+**`tools-time-to-target.json`:**
+- `output.cannotReach` value rewritten from "—" to explicit "Out of reach at this contribution…" sentence (Phase I.2)
+
+**`tools-inflation-impact.json`, `tools-currency-depreciation.json`:**
+- `output.uncertaintyMedium` / `uncertaintyLow` — confidence-stratification per-tool footnotes (Phase I.1)
 
 ## Overview
 

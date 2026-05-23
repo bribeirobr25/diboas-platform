@@ -35,7 +35,9 @@
     "lostToInflation": "−{amount} perdidos pra inflação",
     "investedNote": "A {rate}% de rendimento histórico",
     "retrospectiveLabel": "Poder de compra hoje",
-    "retrospectiveDetail": "Inflação desde 2010: ~{cumulative}%. O mesmo dinheiro compra cerca de {percent}% a menos ({lost} de poder de compra evaporados)."
+    "retrospectiveDetail": "Inflação desde 2010: ~{cumulative}%. O mesmo dinheiro compra cerca de {percent}% a menos ({lost} de poder de compra evaporados).",
+    "uncertaintyMedium": "A inflação no Brasil foi variável nesta janela — a perda real de poder de compra para uma cesta específica pode divergir do IPCA em 1–3 pontos percentuais por ano.",
+    "uncertaintyLow": "O regime inflacionário argentino nesta janela é estruturalmente volátil — estimativas pontuais são ilustrativas; a experiência real pode diferir materialmente."
   },
   "vignette": {
     "subtitle": "Mesmo dinheiro. Outro final. Você escolhe."

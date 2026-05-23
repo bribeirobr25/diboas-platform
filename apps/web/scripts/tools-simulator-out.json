@@ -1,0 +1,195 @@
+{
+  "generatedAt": "2026-05-23T00:44:49.325Z",
+  "schema": "tools-simulator-v1",
+  "retirement": [
+    {
+      "variant": "default",
+      "locale": "en",
+      "monthlyContrib": 500,
+      "years": 25,
+      "effectiveAPY": 0.10000000000000009,
+      "bankFV": 157316.83423414844,
+      "diboasHistFV": 616662.4497695523
+    },
+    {
+      "variant": "modA_double_contrib",
+      "locale": "en",
+      "monthlyContrib": 1000,
+      "years": 25,
+      "effectiveAPY": 0.10000000000000009,
+      "bankFV": 314633.6684682969,
+      "diboasHistFV": 1233324.8995391047
+    },
+    {
+      "variant": "modB_longer_horizon",
+      "locale": "en",
+      "monthlyContrib": 500,
+      "years": 35,
+      "effectiveAPY": 0.10000000000000009,
+      "bankFV": 224540.8398435349,
+      "diboasHistFV": 1699395.5078735927
+    },
+    {
+      "variant": "default",
+      "locale": "pt-BR",
+      "monthlyContrib": 2000,
+      "years": 25,
+      "effectiveAPY": 0.16830908191235272,
+      "bankFV": 1527257.045054126,
+      "diboasHistFV": 7336100.282339203
+    },
+    {
+      "variant": "modA_double_contrib",
+      "locale": "pt-BR",
+      "monthlyContrib": 4000,
+      "years": 25,
+      "effectiveAPY": 0.16830908191235272,
+      "bankFV": 3054514.090108252,
+      "diboasHistFV": 14672200.564678406
+    },
+    {
+      "variant": "modB_longer_horizon",
+      "locale": "pt-BR",
+      "monthlyContrib": 2000,
+      "years": 35,
+      "effectiveAPY": 0.16830908191235272,
+      "bankFV": 3296071.579233986,
+      "diboasHistFV": 35329993.87733952
+    },
+    {
+      "variant": "default",
+      "locale": "es",
+      "monthlyContrib": 400,
+      "years": 25,
+      "effectiveAPY": 0.11349678227541293,
+      "bankFV": 155149.73285782506,
+      "diboasHistFV": 608814.5921742788
+    },
+    {
+      "variant": "modA_double_contrib",
+      "locale": "es",
+      "monthlyContrib": 800,
+      "years": 25,
+      "effectiveAPY": 0.11349678227541293,
+      "bankFV": 310299.4657156501,
+      "diboasHistFV": 1217629.1843485576
+    },
+    {
+      "variant": "modB_longer_horizon",
+      "locale": "es",
+      "monthlyContrib": 400,
+      "years": 35,
+      "effectiveAPY": 0.11349678227541293,
+      "bankFV": 242165.38453177374,
+      "diboasHistFV": 1869710.9666654356
+    },
+    {
+      "variant": "default",
+      "locale": "de",
+      "monthlyContrib": 400,
+      "years": 25,
+      "effectiveAPY": 0.11349678227541293,
+      "bankFV": 161453.52938291608,
+      "diboasHistFV": 608814.5921742788
+    },
+    {
+      "variant": "modA_double_contrib",
+      "locale": "de",
+      "monthlyContrib": 800,
+      "years": 25,
+      "effectiveAPY": 0.11349678227541293,
+      "bankFV": 322907.05876583216,
+      "diboasHistFV": 1217629.1843485576
+    },
+    {
+      "variant": "modB_longer_horizon",
+      "locale": "de",
+      "monthlyContrib": 400,
+      "years": 35,
+      "effectiveAPY": 0.11349678227541293,
+      "bankFV": 256521.4492296092,
+      "diboasHistFV": 1869710.9666654356
+    }
+  ],
+  "compoundInterest": [
+    {
+      "variant": "default",
+      "locale": "en",
+      "monthlyContrib": 152,
+      "years": 12,
+      "bankFV": 22390.20539023949,
+      "conservativeFV": 33662.58001536642,
+      "historicalFV": 40761.899813479744,
+      "optimisticFV": 52858.12535296581
+    },
+    {
+      "variant": "default",
+      "locale": "pt-BR",
+      "monthlyContrib": 760,
+      "years": 12,
+      "bankFV": 166515.50988965857,
+      "conservativeFV": 275783.6678246183,
+      "historicalFV": 340965.38190517604,
+      "optimisticFV": 453531.8379977337
+    },
+    {
+      "variant": "default",
+      "locale": "es",
+      "monthlyContrib": 91,
+      "years": 12,
+      "bankFV": 14779.776979075727,
+      "conservativeFV": 22086.382020786583,
+      "historicalFV": 26856.988921837532,
+      "optimisticFV": 35008.07409158696
+    },
+    {
+      "variant": "default",
+      "locale": "de",
+      "monthlyContrib": 91,
+      "years": 12,
+      "bankFV": 15051.947780535807,
+      "conservativeFV": 22086.382020786583,
+      "historicalFV": 26856.988921837532,
+      "optimisticFV": 35008.07409158696
+    }
+  ],
+  "idleCash": [
+    {
+      "variant": "default",
+      "locale": "en",
+      "principal": 100000,
+      "years": 3,
+      "bankFV": 101144.3374872,
+      "diboasFV": 122504.30000000003
+    },
+    {
+      "variant": "default",
+      "locale": "pt-BR",
+      "principal": 500000,
+      "years": 3,
+      "bankFV": 609606.6409935,
+      "diboasFV": 638005.7229322941
+    },
+    {
+      "variant": "default",
+      "locale": "es",
+      "principal": 80000,
+      "years": 3,
+      "bankFV": 84896.64000000001,
+      "diboasFV": 90787.2935705041
+    },
+    {
+      "variant": "default",
+      "locale": "de",
+      "principal": 80000,
+      "years": 3,
+      "bankFV": 85647.93335999998,
+      "diboasFV": 90787.2935705041
+    }
+  ],
+  "brazilPoupanca": {
+    "selic_14_50": 0.06167781186449828,
+    "selic_8_0": 0.055999999999999994,
+    "selic_at_threshold_8_5": 0.0595
+  }
+}

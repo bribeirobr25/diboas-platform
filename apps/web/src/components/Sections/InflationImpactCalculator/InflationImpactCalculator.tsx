@@ -51,6 +51,7 @@ export function InflationImpactCalculator() {
 
   const t = (key: string, values?: Record<string, string | number>) =>
     intl.formatMessage({ id: `tools-inflation-impact.${key}` }, values);
+  const tShared = (key: string) => intl.formatMessage({ id: `tools-shared.${key}` });
 
   const initial = useMemo<FormState>(
     () => ({
@@ -213,21 +214,39 @@ export function InflationImpactCalculator() {
         </div>
       )}
 
-      {mode === 'retrospective' && retrospectiveResult && (
-        <div className={styles.retrospectiveCard}>
-          <p className={styles.resultLabel}>{t('output.retrospectiveLabel')}</p>
-          <p className={styles.resultValueMuted}>
-            {formatCurrency(retrospectiveResult.todayPurchasingPower, localeKey, { maximumFractionDigits: 0 })}
-          </p>
-          <p className={styles.resultRate}>
-            {t('output.retrospectiveDetail', {
-              percent: retrospectiveResult.percentLoss.toFixed(0),
-              lost: formatCurrency(retrospectiveResult.lostToInflation, localeKey, { maximumFractionDigits: 0 }),
-              cumulative: (retrospectiveResult.cumulative * 100).toFixed(0),
-            })}
-          </p>
-        </div>
-      )}
+      {mode === 'retrospective' && retrospectiveResult && (() => {
+        // Phase I.1 (2026-05-23): confidence stratification on retrospective.
+        // HIGH = stable inflation regime; MEDIUM = pt-BR (variable IPCA over
+        // window). LOW reserved for future ARS / hyperinflation locale —
+        // `uncertaintyLow` translation key exists in all 4 locales; wire up
+        // when ARS is added to SupportedLocale.
+        const confidence: 'HIGH' | 'MEDIUM' = form.country === 'pt-BR' ? 'MEDIUM' : 'HIGH';
+        return (
+          <div className={styles.retrospectiveCard}>
+            <p className={styles.resultLabel}>{t('output.retrospectiveLabel')}</p>
+            <p className={styles.resultValueMuted}>
+              {formatCurrency(retrospectiveResult.todayPurchasingPower, localeKey, { maximumFractionDigits: 0 })}
+            </p>
+            <p className={styles.resultRate}>
+              {t('output.retrospectiveDetail', {
+                percent: retrospectiveResult.percentLoss.toFixed(0),
+                lost: formatCurrency(retrospectiveResult.lostToInflation, localeKey, { maximumFractionDigits: 0 }),
+                cumulative: (retrospectiveResult.cumulative * 100).toFixed(0),
+              })}
+            </p>
+            <span
+              className={`${styles.confidenceBadge} ${
+                confidence === 'HIGH' ? styles.confidenceHigh : styles.confidenceMedium
+              }`}
+            >
+              {tShared(`confidence.${confidence.toLowerCase()}`)}
+            </span>
+            {confidence === 'MEDIUM' && (
+              <p className={styles.uncertaintyNote}>{t('output.uncertaintyMedium')}</p>
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 }

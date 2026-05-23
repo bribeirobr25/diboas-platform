@@ -16,7 +16,7 @@
     "targetLine": "Llegando a {target}…",
     "monthsLabel": "{months} meses",
     "yearsLabel": "{years} años",
-    "cannotReach": "—"
+    "cannotReach": "Fuera de alcance con esta contribución — prueba un monto mensual mayor o una meta más pequeña."
   },
   "vignette": {
     "subtitle": "Misma meta. Cuatro líneas de tiempo distintas. Elige la que te funcione."

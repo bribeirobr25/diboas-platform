@@ -11,10 +11,13 @@ import type { Cadence } from './types';
 import type { SupportedLocale } from '@diboas/i18n/config';
 
 export const INPUT_BOUNDS = {
-  // max bumped 2026-05-12 (Phase 6E.2) to accommodate B2B Idle Cash Yield
-  // tool's business-context defaults (~$100K). Slider UI still caps at smaller
-  // typical values; numeric input + engine accept up to this ceiling.
-  amount: { min: 0.01, max: 10_000_000 },
+  // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23, Decision S3): max bumped to 1B
+  // for live B2B users with $50M–$500M idle cash. Formatter test at
+  // max × Optimistic 14% × 40y = $1B × 188.88 = $188.88B verified to fit in
+  // Number.MAX_SAFE_INTEGER (9.0 × 10^15) and render via Intl.NumberFormat
+  // without overflow (Phase J.1b formatter test).
+  // Previous: 10_000_000 (2026-05-12 Phase 6E.2 for ~$100K B2B Idle Cash).
+  amount: { min: 0.01, max: 1_000_000_000 },
   years: { min: 1, max: 40 },
 } as const;
 

@@ -23,6 +23,7 @@
 import {
   calculateLumpSum,
   calculateMonthlyContributions,
+  resolveHorizonMatchedDepreciation,
 } from '@/lib/market-data/formulas';
 import { marketDataService } from '@/lib/market-data/service';
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
@@ -49,11 +50,11 @@ export function calculateCompoundProjectionHedged(
   const snapshot = marketDataService.getSync();
   const bankRate = snapshot.rates.bankRates[input.locale]?.savings ?? 0;
 
+  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched continuous-window
+  // CAGR via `resolveHorizonMatchedDepreciation` policy helper (prefers monthly
+  // FX series, falls back to static `annualDepreciation` constant).
   const currency = LOCALE_CURRENCY[input.locale];
-  const depreciation =
-    currency && currency !== 'USD'
-      ? snapshot.exchangeRates.rates[currency]?.annualDepreciation ?? 0
-      : 0;
+  const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, input.years);
 
   const hedgedScenarioRate = (usdRatePercent: number): number => {
     if (depreciation === 0) return usdRatePercent;

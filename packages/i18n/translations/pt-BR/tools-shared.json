@@ -48,14 +48,19 @@
     "conservative": "Conservador (7%)",
     "historical": "Histórico (10%)",
     "optimistic": "Otimista (14%)",
-    "digitalDollarSuffix": " em dólar digital"
+    "digitalDollarSuffix": " em dólar digital",
+    "conservativeTooltip": "Faixa conservadora de rendimento em dólar digital de longo prazo, refletindo as taxas passivas de primeira linha disponíveis em 2026.",
+    "historicalTooltip": "Faixa da estratégia diBoaS multi-ativos baseada no CAGR de retorno total do S&P 500 de longo prazo (1928–2024).",
+    "optimisticTooltip": "Faixa da estratégia diBoaS multi-ativos dos últimos 10 anos, refletindo as condições de mercado pós-2014.",
+    "tooltipLabel": "Mais informações"
   },
   "labels": {
     "initialDeposit": "Depósito inicial",
     "monthlyContribution": "Aporte mensal",
     "amount": "Valor",
     "years": "Anos",
-    "cadence": "Com que frequência"
+    "cadence": "Com que frequência",
+    "usdEquivalent": "≈ {usd} USD hoje"
   },
   "footer": {
     "wantLesson": "Quer saber mais?",
@@ -63,5 +68,13 @@
     "tryOtherTools": "Experimentar outras ferramentas",
     "adelaideAttribution": "Ferramentas da Adelaide"
   },
-  "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Resultados passados não garantem resultados futuros. Rendimentos do diBoaS são mostrados em dólar digital; para moedas diferentes do dólar americano, o total em moeda local combina o rendimento do dólar com o movimento típico da sua moeda frente ao dólar americano ao longo do tempo."
+  "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Resultados passados não garantem resultados futuros. Rendimentos do diBoaS são mostrados em dólar digital; para moedas diferentes do dólar americano, o total em moeda local combina o rendimento do dólar com o movimento típico da sua moeda frente ao dólar americano ao longo do tempo.",
+  "warnings": {
+    "over30Years": "Esta meta leva mais de 30 anos com sua contribuição atual. Considere aumentar o valor mensal ou estender o prazo."
+  },
+  "confidence": {
+    "high": "Alta confiança (±5%)",
+    "medium": "Confiança média — veja a nota de incerteza",
+    "low": "Baixa confiança — janela de alta volatilidade"
+  }
 }

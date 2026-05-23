@@ -154,7 +154,17 @@ export default async function HelpPage({ params }: LocalePageProps) {
           </div>
         </SectionErrorBoundary>
 
-        {/* Section 2: FAQ Topics */}
+        {/* Section 2: FAQ Topics
+            Perf F.1.b (2026-05-22): each topic wrapper carries
+            `content-visibility: auto` + `contain-intrinsic-size` so off-screen
+            FAQ accordions skip layout/paint until scrolled into view, while
+            preserving the reserved height (prevents CLS on scroll-in).
+            In-page find (Ctrl-F) + anchor-link scrolling both continue to
+            work — content remains in the DOM and is indexable; modern browsers
+            (Chrome 100+, Firefox 125+) materialize hidden content on match.
+            The 700px height estimate covers the largest topic (moneySafety,
+            10 items × ~60px collapsed + heading); over-estimating is safer
+            than under-estimating per the CSS Containment spec. */}
         {HELP_TOPIC_IDS.map((topicId) => (
           <SectionErrorBoundary
             key={topicId}
@@ -166,6 +176,10 @@ export default async function HelpPage({ params }: LocalePageProps) {
             <div
               id={topicId.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}
               data-section-id={`faq-${topicId}-section-help`}
+              style={{
+                contentVisibility: 'auto',
+                containIntrinsicSize: '1px 700px',
+              }}
             >
               <FAQAccordion config={HELP_TOPIC_CONFIGS[topicId]} />
             </div>

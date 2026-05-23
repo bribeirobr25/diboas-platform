@@ -16,7 +16,7 @@
     "targetLine": "{target} erreichen…",
     "monthsLabel": "{months} Monate",
     "yearsLabel": "{years} Jahre",
-    "cannotReach": "—"
+    "cannotReach": "Mit dieser Sparrate nicht erreichbar — versuche einen höheren monatlichen Betrag oder ein kleineres Ziel."
   },
   "vignette": {
     "subtitle": "Gleiches Ziel. Vier verschiedene Zeitachsen. Wähl, welche dir passt."

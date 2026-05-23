@@ -35,7 +35,11 @@ export function ToolPage({ toolKey, pageMessages, children }: ToolPageProps) {
   const vignetteSubtitle = get(`${namespace}.vignette.subtitle`);
 
   return (
-    <main className={styles.page} data-tool={toolKey}>
+    // A1 (2026-05-23): use <article> not <main>. The parent (landing) layout
+    // already provides <main id="main-content">, and HTML5 only permits one
+    // <main> per document. Was producing a WCAG 1.3.1 structural violation
+    // on every /tools/* route.
+    <article className={styles.page} data-tool={toolKey}>
       <header className={styles.hero}>
         <p className={styles.kicker}>{get(`${namespace}.hero.kicker`)}</p>
         <h1 className={styles.headline}>{get(`${namespace}.hero.headline`)}</h1>
@@ -69,6 +73,6 @@ export function ToolPage({ toolKey, pageMessages, children }: ToolPageProps) {
           {get('tools-shared.footer.tryOtherTools')}
         </LocaleLink>
       </footer>
-    </main>
+    </article>
   );
 }

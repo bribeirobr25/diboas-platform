@@ -48,14 +48,19 @@
     "conservative": "Conservative (7%)",
     "historical": "Historical (10%)",
     "optimistic": "Optimistic (14%)",
-    "digitalDollarSuffix": ""
+    "digitalDollarSuffix": "",
+    "conservativeTooltip": "Long-run conservative digital-dollar yield envelope, reflecting top-tier passive rates available in 2026.",
+    "historicalTooltip": "Multi-asset diBoaS strategy envelope based on the long-run 1928–2024 S&P 500 total-return CAGR.",
+    "optimisticTooltip": "Trailing 10-year multi-asset strategy envelope reflecting post-2014 market conditions.",
+    "tooltipLabel": "More info"
   },
   "labels": {
     "initialDeposit": "Initial deposit",
     "monthlyContribution": "Monthly contribution",
     "amount": "Amount",
     "years": "Years",
-    "cadence": "How often"
+    "cadence": "How often",
+    "usdEquivalent": "≈ {usd} USD today"
   },
   "footer": {
     "wantLesson": "Want to learn more?",
@@ -63,5 +68,13 @@
     "tryOtherTools": "Try other money tools",
     "adelaideAttribution": "Money tools by Adelaide"
   },
-  "disclaimer": "Educational projection only. Not financial advice. Past performance does not guarantee future results. diBoaS returns are shown in digital dollar; for non-US currencies, the local-currency total combines the dollar return with how your local currency typically moves against the US dollar over time."
+  "disclaimer": "Educational projection only. Not financial advice. Past performance does not guarantee future results. diBoaS returns are shown in digital dollar; for non-US currencies, the local-currency total combines the dollar return with how your local currency typically moves against the US dollar over time.",
+  "warnings": {
+    "over30Years": "This target takes more than 30 years to reach at your current contribution. Consider increasing your monthly amount or extending your timeline."
+  },
+  "confidence": {
+    "high": "High confidence (±5%)",
+    "medium": "Medium confidence — see uncertainty note",
+    "low": "Low confidence — high-volatility window"
+  }
 }

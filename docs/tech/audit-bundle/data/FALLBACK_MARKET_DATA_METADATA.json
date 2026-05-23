@@ -1,0 +1,142 @@
+{
+  "rates": {
+    "bankRates": {
+      "en": {
+        "savings": {
+          "last_verified": "2026-05-22",
+          "source": "FDIC National Rates and Rate Caps, April 2026"
+        },
+        "savingsHighYield": {
+          "last_verified": "2026-05-22",
+          "source": "NerdWallet HYSA top-1% May 2026"
+        }
+      },
+      "pt-BR": {
+        "savings": {
+          "last_verified": "2026-05-22",
+          "source": "Computed 5y avg from BCB SGS 195 2021-2025"
+        },
+        "savingsCurrent": {
+          "last_verified": "2026-05-22",
+          "source": "BCB SGS 195 (poupança under Selic > 8.5% rule)"
+        },
+        "selicAnnualPct": {
+          "last_verified": "2026-05-22",
+          "source": "BCB Copom April 29, 2026 decision"
+        },
+        "trMonthlyPct": {
+          "last_verified": "2026-05-22",
+          "source": "BCB SGS 7811 (near-zero current regime)"
+        }
+      },
+      "es": {
+        "savings": {
+          "last_verified": "2026-05-22",
+          "source": "Rankia / Kelisto cuentas remuneradas typical May 2026"
+        }
+      },
+      "de": {
+        "savings": {
+          "last_verified": "2026-05-22",
+          "source": "Verivox / Finanztip Tagesgeld typical May 2026"
+        }
+      }
+    },
+    "scenarioRates": {
+      "last_verified": "2026-05-12",
+      "source": "CLAUDE.md Phase 6E.2 lock (decoupled from DeFi per Decision D2)"
+    },
+    "strategyApys": {
+      "last_verified": "2026-05-12",
+      "source": "diBoaS internal product config"
+    }
+  },
+  "assetPrices": {
+    "crypto": {
+      "BTC": {
+        "last_verified": "2026-05-22",
+        "source": "Fortune May 21 09:15 ET (Phase A reconciliation reference)"
+      }
+    },
+    "commodities": {
+      "XAUT": {
+        "last_verified": "2026-05-22",
+        "source": "TradingEconomics LBMA spot May 22 2026"
+      }
+    }
+  },
+  "exchangeRates": {
+    "BRL": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-22",
+        "source": "BCB PTAX OData full-series CAGR Jan 2010 → May 2026 (Phase A)"
+      },
+      "historicalCagr": {
+        "last_verified": "2026-05-22",
+        "source": "Same series; identical methodology"
+      }
+    },
+    "EUR": {
+      "annualDepreciation": {
+        "last_verified": "2026-05-22",
+        "source": "ECB EXR M.USD.EUR.SP00.A full-series CAGR Jan 2010 → Apr 2026 (Phase A, sign-corrected)"
+      }
+    }
+  },
+  "inflationRates": {
+    "en": {
+      "current": {
+        "last_verified": "2026-05-22",
+        "source": "BLS USDL-26-0721 (April 2026 CPI-U, released May 12)"
+      },
+      "average5y": {
+        "last_verified": "2026-Q2",
+        "source": "Quarterly refresh per Decision X1"
+      },
+      "cumulativeSince2010": {
+        "last_verified": "2026-05-16",
+        "source": "Phase A research stamp (Hardcoded; annual refresh)"
+      },
+      "average16y": {
+        "last_verified": "2026-05-16",
+        "source": "Same"
+      }
+    },
+    "pt-BR": {
+      "current": {
+        "last_verified": "2026-05-22",
+        "source": "IBGE press release May 12, 2026 (April 2026 IPCA)"
+      }
+    },
+    "de": {
+      "current": {
+        "last_verified": "2026-05-22",
+        "source": "Destatis PE26_161 / Eurostat flash April 2026"
+      }
+    },
+    "es": {
+      "current": {
+        "last_verified": "2026-05-22",
+        "source": "INE / Eurostat flash April 2026"
+      }
+    }
+  },
+  "platformFees": {
+    "last_verified": "2026-04-10",
+    "source": "docs/full-view/FEES.md (Hardcoded; never provider-driven per iter5-sdk-migration-map)"
+  },
+  "monthlySeries": {
+    "assets": {
+      "last_verified": "2026-05-23",
+      "source": "Yahoo Finance v8 chart API (Phase A pull)"
+    },
+    "fx": {
+      "last_verified": "2026-05-23",
+      "source": "BCB PTAX (BRL); ECB EXR cross-via-EUR (8 other currencies); 3 PENDING (ARS/CLP/COP)"
+    },
+    "inflation": {
+      "last_verified": "2026-05-23-PENDING",
+      "source": "Stub; 12 series pending per Phase B.3 incremental work"
+    }
+  }
+}

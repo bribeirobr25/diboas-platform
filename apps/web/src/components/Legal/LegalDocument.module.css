@@ -107,6 +107,19 @@
 .section {
   margin-bottom: var(--spacing-5xl);
   scroll-margin-top: var(--dimension-100);
+
+  /* Perf F.1.c (2026-05-22): off-screen legal sections skip layout/paint
+     until scrolled into view. Each legal page (Privacy / Terms / Cookies) has
+     5-17 sections; only the first 1-2 are above the fold. `content-visibility:
+     auto` defers the rest until needed. `contain-intrinsic-size: 1px 500px`
+     reserves a conservative height so the scroll position + anchor links
+     remain stable (prevents CLS when sections materialize). The 500px figure
+     covers most sections; the few that exceed it (sections with embedded
+     tables) re-flow when in view, which is acceptable since the section is
+     scrolled to that exact area. In-page find + anchor scrolling preserved:
+     content is in the DOM, modern browsers materialize on match. */
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
 }
 
 .section:last-of-type {

@@ -14,16 +14,17 @@
  */
 
 // ─── canonical references (kept in sync with FALLBACK_MARKET_DATA) ───
+// Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): refreshed to Phase A live values.
 const SCENARIO_CONSERVATIVE_PCT = 7;
 const BANK_RATES_PCT = {
-  en: 0.32,    // FDIC/FRED 5yr avg savings (US)
-  'pt-BR': 6.83, // BCB/B3 5yr avg NET (after 22.5% IR tax)
-  de: 1.22,    // Bundesbank/ECB 5yr avg
-  es: 0.14,    // ECB/Tesoro 5yr avg
+  en: 0.38,    // FDIC live April 2026 (was 0.32 5y avg)
+  'pt-BR': 6.83, // 5yr avg poupança baseline (live savingsCurrent 6.17 is separate toggle)
+  de: 2.3,     // Tagesgeld typical May 2026 (was 1.22)
+  es: 2.0,     // Cuenta remunerada typical May 2026 (was 0.14)
 };
 const DEPRECIATION_DECIMAL = {
-  BRL: 0.03,
-  EUR: 0.009,
+  BRL: 0.0621,  // Phase A live full-series CAGR Jan 2010 → May 2026 (was 0.03)
+  EUR: 0.0123,  // Phase A live full-series CAGR Jan 2010 → Apr 2026, sign-corrected (was 0.009)
 };
 const LOCALE_CURRENCY = { en: 'USD', 'pt-BR': 'BRL', de: 'EUR', es: 'EUR' };
 

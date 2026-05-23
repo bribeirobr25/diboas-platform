@@ -177,7 +177,13 @@ export const CURRENCY_DEPRECIATION_DEFAULTS: CurrencyDepreciationDefaults = {
  *   - es / de (EU SEPA): ~1.75% (post-Interchange Fee Regulation cap of 0.3% credit + scheme fees + acquirer margin) */
 export const CARD_FEES_DEFAULTS: CardFeesDefaults = {
   monthlyVolume: { en: 50000, 'pt-BR': 250000, es: 40000, de: 40000 },
-  processorFeeRate: { en: 0.029, 'pt-BR': 0.03, es: 0.0175, de: 0.0175 },
+  // Phase C+H (TOOLS_IMPROVEMENT.md, 2026-05-23, Decision Q3): ES/DE lowered to
+  // effective MSC (~0.8%) post-IFR caps. EU Regulation 2015/751 caps consumer
+  // interchange at 0.2% debit / 0.3% credit; total effective merchant fees
+  // average 0.44-1.0% across acquirers and card mixes. Previous 1.75% was the
+  // "blended typical published rate" — replaced with the "what merchants
+  // actually pay" effective MSC per Decision Q3.
+  processorFeeRate: { en: 0.029, 'pt-BR': 0.03, es: 0.008, de: 0.008 },
   avgTransactionAmount: { en: 75, 'pt-BR': 250, es: 60, de: 60 },
 };
 

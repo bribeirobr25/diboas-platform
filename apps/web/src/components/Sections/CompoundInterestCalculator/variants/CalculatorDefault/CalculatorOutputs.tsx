@@ -69,6 +69,16 @@ export function CalculatorOutputs({ output, reducedMotion, engine = 'lesson' }: 
       digitalDollarSuffix,
   };
 
+  // Phase I.4 (2026-05-23): scenario rate tooltips. Bank scenario has no
+  // tooltip (rate is the user's actual locale-specific bank rate, not a
+  // diBoaS scenario envelope). Tooltips render only on the visible legend
+  // (chart's internal table consumes scenarioLabels as plain strings).
+  const scenarioTooltips: Partial<Record<SeriesKey, string>> = {
+    conservative: intl.formatMessage({ id: 'tools-shared.scenarios.conservativeTooltip' }),
+    historical: intl.formatMessage({ id: 'tools-shared.scenarios.historicalTooltip' }),
+    optimistic: intl.formatMessage({ id: 'tools-shared.scenarios.optimisticTooltip' }),
+  };
+
   return (
     <div className={styles.outputs}>
       <p className={styles.summary} role="status" aria-live="polite">
@@ -94,13 +104,30 @@ export function CalculatorOutputs({ output, reducedMotion, engine = 'lesson' }: 
 
       {/* Visible legend table — keeps users without JS-aware screen reader context */}
       <ul className={styles.legend}>
-        {series.map((s) => (
-          <li key={s.scenario} className={styles.legendItem} data-scenario={s.scenario}>
-            <span className={styles.legendSwatch} data-scenario={s.scenario} aria-hidden="true" />
-            <span className={styles.legendLabel}>{scenarioLabels[s.scenario]}</span>
-            <span className={styles.legendValue}>{formatCurrency(s.finalValue, inputEcho.locale)}</span>
-          </li>
-        ))}
+        {series.map((s) => {
+          const tip = scenarioTooltips[s.scenario];
+          return (
+            <li key={s.scenario} className={styles.legendItem} data-scenario={s.scenario}>
+              <span className={styles.legendSwatch} data-scenario={s.scenario} aria-hidden="true" />
+              <span className={styles.legendLabel}>
+                {scenarioLabels[s.scenario]}
+                {tip && (
+                  <span
+                    className={styles.tooltip}
+                    title={tip}
+                    aria-label={tip}
+                    role="note"
+                    tabIndex={0}
+                  >
+                    {' '}
+                    <sup>?</sup>
+                  </span>
+                )}
+              </span>
+              <span className={styles.legendValue}>{formatCurrency(s.finalValue, inputEcho.locale)}</span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

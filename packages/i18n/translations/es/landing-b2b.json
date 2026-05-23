@@ -53,9 +53,9 @@
         "title": "Capital Parado",
         "titleSummary": "obtén lo que es justo",
         "subtitle": "Con 100.000 € de capital parado en la cuenta de tu empresa.",
-        "diboasResult": "7.963 €",
-        "bankResult": "140 €",
-        "difference": "7.823 €/año",
+        "diboasResult": "8.316 €",
+        "bankResult": "2.000 €",
+        "difference": "6.316 €/año",
         "tagline": "En dólar digital, tu capital rinde más — porque el dólar tiende a apreciarse frente al euro con el tiempo.",
         "source": "Ejemplo basado en 100.000 € de capital parado con tasa media de ahorro del {rate} (BCE/Tesoro media 5 años) vs diBoaS Conservador 7% en dólar digital, con efecto cambiario anual del 0,9% (derivado el 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Las proyecciones son ilustrativas. Los resultados reales pueden variar.",
         "howPossible": "¿Cómo es posible?"

@@ -124,17 +124,44 @@ Features:
 
 Consent is stored in an HttpOnly cookie (`sameSite: 'strict'`, `secure` in production). The cookie contains a JSON payload with `analytics` boolean, consent version, and timestamp. Version mismatch invalidates prior consent (for re-consent on policy changes).
 
+### Consent-event channels
+
+Two parallel channels for consent propagation, by deliberate design:
+
+- **`applicationEventBus` `CONSENT_GIVEN` / `CONSENT_WITHDRAWN`** — the canonical channel for **all React components and JS modules**. `ConsentEventPayload` includes `consentType: 'analytics' | 'marketing' | 'all'` + `newState: boolean`. Subscribers filter on `consentType === 'analytics' || consentType === 'all'` to enable analytics behaviour.
+- **`window.dispatchEvent(new CustomEvent('cookie-consent-changed', ...))`** — a DOM-event fallback that exists *only* for the GA4 inline bootstrap in `apps/web/src/app/layout.tsx`. That script runs pre-hydration and has no access to the React module graph. **No other consumer should listen to this DOM event** — `consentUtils.ts -> dispatchConsentEvent` documents the rule explicitly.
+
+Both channels are emitted by `dispatchConsentEvent()` in `apps/web/src/components/CookieConsent/consentUtils.ts`. A schema-drift guard test (`__tests__/consentUtils.coverage.test.ts`) asserts the bus payload matches `EVENT_VALIDATION_SCHEMA[CONSENT_GIVEN]` / `[CONSENT_WITHDRAWN]` required fields, so a future refactor that drops `consentType` or `newState` surfaces as a test failure rather than silently disabling analytics across the codebase (Lighthouse Remediation Plan §8 risk #9).
+
 ### PostHog consent gating
 **File:** `apps/web/src/components/Providers/PostHogProvider.tsx`
 
 PostHog is never statically imported. The provider:
 1. Checks `hasAnalyticsConsent()` before loading
 2. Dynamically imports `posthog-js` only after consent is confirmed
-3. Listens for `CONSENT_GIVEN` events to initialize if consent arrives after mount
-4. Calls `opt_out_capturing()` on `CONSENT_WITHDRAWN` events
+3. Listens for `applicationEventBus` `CONSENT_GIVEN` events to initialize if consent arrives after mount
+4. Calls `opt_out_capturing()` on `applicationEventBus` `CONSENT_WITHDRAWN` events
 5. Sets `respect_dnt: true` to honor Do Not Track headers
 
-GA4 uses Next.js `afterInteractive` strategy and is also gated behind consent.
+### GA4 consent gating
+**File:** `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx` (2026-05-22 — Lighthouse Remediation Plan Workstream D)
+
+The GA4 `gtag/js` script (~67 KB) does NOT download until the user grants analytics consent. The flow has two layers:
+
+1. **Consent Mode v2 bootstrap (inline in `layout.tsx`)** — sets `analytics_storage: 'denied'` by default. Listens to the `cookie-consent-changed` DOM event (the pre-hydration channel) to update Google's consent state and flush buffered events after grant.
+2. **Script-loading gate (`GoogleAnalyticsLoader`)** — a `'use client'` component that subscribes to `applicationEventBus` `CONSENT_GIVEN`. Only after consent is granted does it mount the `<Script src=".../gtag/js?id=...">` tags. Honors existing consent on cold start via `hasAnalyticsConsent()`.
+
+The two layers are complementary: Consent Mode v2 handles the *data-send* contract with Google (legally required for EU); `GoogleAnalyticsLoader` handles the *script-loading* gate (perf optimisation).
+
+### Sentry consent gating
+**File:** `apps/web/src/instrumentation-client.ts` (2026-05-22 — Lighthouse Remediation Plan Workstream B)
+
+Sentry runs in two distinct modes:
+
+1. **Error capture** — initialises unconditionally if `NEXT_PUBLIC_SENTRY_DSN` is set. Lawful basis: GDPR Article 6(1)(f) legitimate interest (site reliability + security). PII is scrubbed in `beforeSend` (user.email, user.username, user.ip_address; emails in `event.extra` and breadcrumb data replaced with `[EMAIL_REDACTED]`).
+2. **Session Replay** — OFF at init (`replaysSessionSampleRate: 0`, empty `integrations`). Enabled via `client.addIntegration(Sentry.replayIntegration({maskAllText: true, blockAllMedia: true}))` **only after** `applicationEventBus` `CONSENT_GIVEN` arrives. On `CONSENT_WITHDRAWN`, `Sentry.getReplay()?.stop()` halts the active recording.
+
+This closes the CTO Board GDPR finding from 2026-05-21 (Replay was previously recording 10% of all sessions pre-consent).
 
 ## 9. Security Headers
 

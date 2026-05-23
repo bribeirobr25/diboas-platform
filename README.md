@@ -139,6 +139,7 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 | `/tools/inflation-impact` | Inflation impact calculator |
 | `/tools/time-to-target` | Time-to-target calculator |
 | `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math) |
+| `/tools/asset-history` | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency) |
 | `/tools/card-fees` | B2B card fee savings calculator |
 | `/tools/idle-cash` | B2B idle cash yield calculator |
 | `/legal/*` | Terms, Privacy, Cookies |

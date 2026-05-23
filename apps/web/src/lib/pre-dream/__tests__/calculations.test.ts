@@ -170,11 +170,12 @@ describe('calculatePreDreamResult', () => {
   // PT-BR with currency hedge
   it('should use currency hedge for PT-BR locale', () => {
     const result = calculatePreDreamResult('safety', '1year', 1000, 0, BR_BANK_APY, "pt-BR", TEST_MARKET_DATA);
-    // diBoaS uses effective rate model: (1.07)(1.03)-1 = 10.21%
-    // R$1000 × 1.1021 = R$1102.10
+    // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): BRL annualDepreciation updated to 0.0621
+    // (live full-series CAGR per Phase A). diBoaS uses effective rate model:
+    // (1.07)(1.0621) − 1 = 13.6447%. R$1000 × 1.136447 = R$1136.45.
     expect(result.diboasYieldBalance).toBeDefined();
-    expect(result.defiBalance).toBeCloseTo(1102, 0);
-    // Bank stays in BRL: R$1000 × (1 + 0.0683) = R$1068.30
+    expect(result.defiBalance).toBeCloseTo(1136, 0);
+    // Bank stays in BRL: R$1000 × (1 + 0.0683) = R$1068.30 (unchanged)
     expect(result.bankBalance).toBeCloseTo(1068, 0);
     expect(result.defiBalance).toBeGreaterThan(result.bankBalance);
   });
@@ -247,9 +248,13 @@ describe('resolveBankRate', () => {
     expect(rate.apy).toBe(5.0);
   });
 
-  it('should return US FDIC rate for en locale', () => {
+  // Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): bank-rate constants refreshed to
+  // live April-May 2026 values. en 0.32 → 0.38 (FDIC live); de 1.22 → 2.3
+  // (Tagesgeld typical); es 0.14 → 2.0 (cuenta remunerada typical); pt-BR 6.83
+  // unchanged (still 5y avg poupança). See TOOLS_IMPROVEMENT.md §Phase C.1.
+  it('should return US FDIC live rate for en locale', () => {
     const rate = resolveBankRate('en', TEST_MARKET_DATA);
-    expect(rate.apy).toBe(0.32); // 5yr avg
+    expect(rate.apy).toBe(0.38); // Phase C: FDIC April 2026 live
   });
 
   it('should return Poupanca rate for pt-BR locale', () => {
@@ -259,22 +264,22 @@ describe('resolveBankRate', () => {
 
   it('should return Tagesgeld rate for de locale', () => {
     const rate = resolveBankRate('de', TEST_MARKET_DATA);
-    expect(rate.apy).toBe(1.22); // 5yr avg
+    expect(rate.apy).toBe(2.3); // Phase C: typical Tagesgeld May 2026
   });
 
   it('should return Bank Savings rate for es locale', () => {
     const rate = resolveBankRate('es', TEST_MARKET_DATA);
-    expect(rate.apy).toBe(0.14); // 5yr avg
+    expect(rate.apy).toBe(2.0); // Phase C: typical cuenta remunerada May 2026
   });
 
   it('should return US default for unknown locale', () => {
     const rate = resolveBankRate('ja', TEST_MARKET_DATA);
-    expect(rate.apy).toBe(0.32); // falls back to 'en'
+    expect(rate.apy).toBe(0.38); // falls back to 'en' (Phase C live)
   });
 
   it('should ignore negative override and use locale rate', () => {
     const rate = resolveBankRate('en', TEST_MARKET_DATA, -1);
-    expect(rate.apy).toBe(0.32);
+    expect(rate.apy).toBe(0.38);
   });
 });
 

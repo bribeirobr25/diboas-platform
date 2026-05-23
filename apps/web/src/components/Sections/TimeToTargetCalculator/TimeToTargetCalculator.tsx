@@ -23,6 +23,7 @@ import {
   type SupportedLocale,
 } from '@/lib/market-data';
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
+import { resolveHorizonMatchedDepreciation } from '@/lib/market-data/formulas';
 import {
   convertCadenceToMonthly,
   isOneTime,
@@ -31,6 +32,7 @@ import {
 } from '@/lib/compound-interest';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import { TIME_TO_TARGET_DEFAULTS } from '@/lib/tools';
+import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './TimeToTargetCalculator.module.css';
 
 const CADENCE_OPTIONS: readonly Cadence[] = [
@@ -79,15 +81,16 @@ export function TimeToTargetCalculator() {
   const snapshot = marketDataService.getSync();
   const bankRate = snapshot.rates.bankRates[localeKey]?.savings ?? 0;
 
-  // Phase-7 currency-hedge layer (precedent: useGoalCardData.ts:57-61).
-  // For non-USD locales, scenario rates use the canonical effective-rate model
-  // `(1 + usdYield) × (1 + localDep) − 1`. Bank scenario stays at locale
-  // savings rate (no hedge — bank pays in local currency, not USD).
+  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched depreciation
+  // helper. For time-to-target, horizon is unknown a priori — use a rough
+  // estimate from the target ÷ contribution. Phase-7 currency-hedge precedent:
+  // useGoalCardData.ts:57-61. Bank scenario stays at locale savings rate
+  // (no hedge — bank pays in local currency, not USD).
   const currency = LOCALE_CURRENCY[localeKey];
-  const depreciation =
-    currency && currency !== 'USD'
-      ? snapshot.exchangeRates.rates[currency]?.annualDepreciation ?? 0
-      : 0;
+  const estimatedHorizonYears = form.contribution > 0
+    ? Math.max(1, Math.min(40, form.target / (form.contribution * 12)))
+    : 10;
+  const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
   const hedge = (usdRatePercent: number): number => {
     if (depreciation === 0) return usdRatePercent;
     return ((1 + usdRatePercent / 100) * (1 + depreciation) - 1) * 100;
@@ -123,6 +126,14 @@ export function TimeToTargetCalculator() {
     if (months < 12) return t('output.monthsLabel', { months });
     return t('output.yearsLabel', { years: (months / 12).toFixed(1) });
   };
+
+  // Phase I.3 (2026-05-23): over-30-years stop-condition warning. Fires when
+  // ANY scenario takes > 360 months. The 1200-month-cap → null case is shown
+  // separately via t('output.cannotReach'); over30Years is the "long but
+  // finite" advisory.
+  const showOver30Warning = SCENARIO_KEYS.some(
+    (k) => results[k] !== null && (results[k] as number) > 360,
+  );
 
   const handleChange = (field: keyof FormState, value: number | Cadence) =>
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -174,6 +185,11 @@ export function TimeToTargetCalculator() {
             onChange={(e) => handleChange('contribution', clamp(Number(e.target.value), 0, 1_000_000))}
             className={styles.numberInput}
           />
+          <UsdEquivalentBadge
+            amount={form.contribution}
+            locale={localeKey}
+            className={styles.usdEquivalent}
+          />
         </div>
         <div className={styles.field}>
           <label htmlFor={`${baseId}-cadence`} className={styles.label}>
@@ -200,25 +216,46 @@ export function TimeToTargetCalculator() {
       </p>
 
       <div className={styles.resultsGrid}>
-        {SCENARIO_KEYS.map((key) => (
-          <div
-            key={key}
-            className={key === 'historical' ? styles.resultCardHighlight : styles.resultCard}
-          >
-            <p className={styles.resultLabel}>
-              {tShared(`scenarios.${key}`)}
-              {key !== 'bank' && depreciation > 0 ? tShared('scenarios.digitalDollarSuffix') : ''}
-            </p>
-            <p
-              className={
-                key === 'historical' ? styles.resultValue : styles.resultValueMuted
-              }
+        {SCENARIO_KEYS.map((key) => {
+          const tooltip = key !== 'bank' ? tShared(`scenarios.${key}Tooltip`) : null;
+          return (
+            <div
+              key={key}
+              className={key === 'historical' ? styles.resultCardHighlight : styles.resultCard}
             >
-              {formatTime(results[key])}
-            </p>
-          </div>
-        ))}
+              <p className={styles.resultLabel}>
+                {tShared(`scenarios.${key}`)}
+                {key !== 'bank' && depreciation > 0 ? tShared('scenarios.digitalDollarSuffix') : ''}
+                {tooltip && (
+                  <span
+                    className={styles.tooltip}
+                    title={tooltip}
+                    aria-label={tooltip}
+                    role="note"
+                    tabIndex={0}
+                  >
+                    {' '}
+                    <sup>?</sup>
+                  </span>
+                )}
+              </p>
+              <p
+                className={
+                  key === 'historical' ? styles.resultValue : styles.resultValueMuted
+                }
+              >
+                {formatTime(results[key])}
+              </p>
+            </div>
+          );
+        })}
       </div>
+
+      {showOver30Warning && (
+        <p className={styles.warningCallout} role="status">
+          {tShared('warnings.over30Years')}
+        </p>
+      )}
     </div>
   );
 }

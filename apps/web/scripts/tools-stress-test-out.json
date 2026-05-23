@@ -1,0 +1,2185 @@
+{
+  "generatedAt": "2026-05-23T17:11:46.909Z",
+  "schema": "tools-stress-test-v1",
+  "inputData": {
+    "bankRates": {
+      "en": {
+        "savings": 0.38,
+        "savingsHighYield": 4.1
+      },
+      "pt-BR": {
+        "savings": 6.83,
+        "savingsCurrent": 6.17,
+        "selicAnnualPct": 14.5,
+        "trMonthlyPct": 0
+      },
+      "es": {
+        "savings": 2
+      },
+      "de": {
+        "savings": 2.3
+      }
+    },
+    "scenarioRates": {
+      "conservative": 7,
+      "historical": 10,
+      "optimistic": 14
+    },
+    "inflationRates": {
+      "en": {
+        "current": 0.038,
+        "average5y": 0.045,
+        "cumulativeSince2010": 0.523,
+        "average16y": 0.0262
+      },
+      "pt-BR": {
+        "current": 0.0439,
+        "average5y": 0.059,
+        "cumulativeSince2010": 1.45,
+        "average16y": 0.0565
+      },
+      "de": {
+        "current": 0.029,
+        "average5y": 0.041,
+        "cumulativeSince2010": 0.41,
+        "average16y": 0.0212
+      },
+      "es": {
+        "current": 0.035,
+        "average5y": 0.041,
+        "cumulativeSince2010": 0.41,
+        "average16y": 0.0212
+      }
+    },
+    "exchangeRates": {
+      "BRL": {
+        "annualDepreciation": 0.0621
+      },
+      "EUR": {
+        "annualDepreciation": 0.0123
+      }
+    },
+    "horizonMatchedDepreciations": {
+      "BRL_5y": 0.0004793961738009944,
+      "BRL_10y": 0.046011261713237106,
+      "BRL_25y": 0.06209916537486593,
+      "EUR_5y": 0.007524418895517249,
+      "EUR_25y": 0.012269802068557212
+    }
+  },
+  "scenarios": {
+    "compoundInterest": [
+      {
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "amount": 5,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 152.08,
+          "bank": 22402,
+          "conservative": 33681,
+          "historical": 40784,
+          "optimistic": 52887
+        }
+      },
+      {
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "amount": 25,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "monthlyEq": 760.42,
+          "bank": 166607,
+          "conservative": 275935,
+          "historical": 341152,
+          "optimistic": 453780
+        }
+      },
+      {
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "amount": 3,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "es"
+        },
+        "output": {
+          "monthlyEq": 91.25,
+          "bank": 14820,
+          "conservative": 22147,
+          "historical": 26931,
+          "optimistic": 35104
+        }
+      },
+      {
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "amount": 4,
+          "cadence": "daily",
+          "years": 12,
+          "locale": "de"
+        },
+        "output": {
+          "monthlyEq": 121.67,
+          "bank": 20124,
+          "conservative": 29529,
+          "historical": 35908,
+          "optimistic": 46806
+        }
+      },
+      {
+        "category": "happy-cadence",
+        "label": "cadence=oneTime",
+        "input": {
+          "amount": 10000,
+          "cadence": "oneTime",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 0,
+          "historical": 25937
+        }
+      },
+      {
+        "category": "happy-cadence",
+        "label": "cadence=daily",
+        "input": {
+          "amount": 200,
+          "cadence": "daily",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 6083.33,
+          "historical": 1215838
+        }
+      },
+      {
+        "category": "happy-cadence",
+        "label": "cadence=weekly",
+        "input": {
+          "amount": 200,
+          "cadence": "weekly",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 866.67,
+          "historical": 173215
+        }
+      },
+      {
+        "category": "happy-cadence",
+        "label": "cadence=monthly",
+        "input": {
+          "amount": 200,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 200,
+          "historical": 39973
+        }
+      },
+      {
+        "category": "happy-cadence",
+        "label": "cadence=quarterly",
+        "input": {
+          "amount": 200,
+          "cadence": "quarterly",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 66.67,
+          "historical": 13324
+        }
+      },
+      {
+        "category": "happy-cadence",
+        "label": "cadence=semiAnnual",
+        "input": {
+          "amount": 200,
+          "cadence": "semiAnnual",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 33.33,
+          "historical": 6662
+        }
+      },
+      {
+        "category": "happy-cadence",
+        "label": "cadence=yearly",
+        "input": {
+          "amount": 200,
+          "cadence": "yearly",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyEq": 16.67,
+          "historical": 3331
+        }
+      },
+      {
+        "category": "edge-min",
+        "label": "en: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "en"
+        },
+        "output": {
+          "historical": 0.13,
+          "effRate": "10%"
+        }
+      },
+      {
+        "category": "edge-min",
+        "label": "pt-BR: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "historical": 0.12,
+          "effRate": "0.29%"
+        }
+      },
+      {
+        "category": "edge-min",
+        "label": "es: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "es"
+        },
+        "output": {
+          "historical": 0.12,
+          "effRate": "5.62%"
+        }
+      },
+      {
+        "category": "edge-min",
+        "label": "de: amount=0.01 × 1y monthly",
+        "input": {
+          "amount": 0.01,
+          "cadence": "monthly",
+          "years": 1,
+          "locale": "de"
+        },
+        "output": {
+          "historical": 0.12,
+          "effRate": "5.62%"
+        }
+      },
+      {
+        "category": "edge-max",
+        "label": "en: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "en"
+        },
+        "output": {
+          "lumpSumFV_optimistic": 188883513857.7815,
+          "effRate": "14%"
+        }
+      },
+      {
+        "category": "edge-max",
+        "label": "pt-BR: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "lumpSumFV_optimistic": 2102794129195.9868,
+          "effRate": "21.08%"
+        }
+      },
+      {
+        "category": "edge-max",
+        "label": "es: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "es"
+        },
+        "output": {
+          "lumpSumFV_optimistic": 307641770402.8922,
+          "effRate": "15.4%"
+        }
+      },
+      {
+        "category": "edge-max",
+        "label": "de: INPUT_BOUNDS.amount.max × 14% × 40y oneTime",
+        "input": {
+          "amount": 1000000000,
+          "cadence": "oneTime",
+          "years": 40,
+          "locale": "de"
+        },
+        "output": {
+          "lumpSumFV_optimistic": 307641770402.8922,
+          "effRate": "15.4%"
+        }
+      },
+      {
+        "category": "PT-acceptance",
+        "label": "pt-BR R$2000/mo × 25y (PT1 Bar-signed)",
+        "input": {
+          "amount": 2000,
+          "cadence": "monthly",
+          "years": 25,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "historical": 7336100
+        }
+      },
+      {
+        "category": "PT-acceptance",
+        "label": "de €400/mo × 25y (PT3 Bar-signed)",
+        "input": {
+          "amount": 400,
+          "cadence": "monthly",
+          "years": 25,
+          "locale": "de"
+        },
+        "output": {
+          "historical": 608815
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "en: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "pt-BR: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "es: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "es"
+        },
+        "output": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "de: amount=0",
+        "input": {
+          "amount": 0,
+          "cadence": "monthly",
+          "years": 10,
+          "locale": "de"
+        },
+        "output": {
+          "historical": 0,
+          "note": "calculator validates >0; engine returns 0 FV"
+        }
+      }
+    ],
+    "retirement": [
+      {
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "amount": 500,
+          "years": 25,
+          "locale": "en"
+        },
+        "output": {
+          "historical": 616662
+        }
+      },
+      {
+        "category": "default",
+        "label": "default pt-BR (PT1 Bar-signed)",
+        "input": {
+          "amount": 2000,
+          "years": 25,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "historical": 7336100
+        }
+      },
+      {
+        "category": "default",
+        "label": "default de (PT3 Bar-signed)",
+        "input": {
+          "amount": 400,
+          "years": 25,
+          "locale": "de"
+        },
+        "output": {
+          "historical": 608815
+        }
+      },
+      {
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "amount": 400,
+          "years": 25,
+          "locale": "es"
+        },
+        "output": {
+          "historical": 608815
+        }
+      },
+      {
+        "category": "edge-young",
+        "label": "$100/mo × 40y starting young",
+        "input": {
+          "amount": 100,
+          "years": 40,
+          "locale": "en"
+        },
+        "output": {
+          "historical": 555035
+        }
+      },
+      {
+        "category": "edge-shorter",
+        "label": "$1000/mo × 10y",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "historical": 199864
+        }
+      }
+    ],
+    "goalSavings": [
+      {
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "amount": 200,
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "historical": 39973
+        }
+      },
+      {
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "historical": 260817
+        }
+      },
+      {
+        "category": "longer-horizon",
+        "label": "en 20y",
+        "input": {
+          "amount": 200,
+          "years": 20,
+          "locale": "en"
+        },
+        "output": {
+          "historical": 143652
+        }
+      }
+    ],
+    "emergencyFund": [
+      {
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "exp": 2900,
+          "sav": 300,
+          "mult": 6,
+          "locale": "en"
+        },
+        "output": {
+          "target": 17400,
+          "diboasMonths": 57,
+          "bankMonths": 76
+        }
+      },
+      {
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "exp": 2700,
+          "sav": 270,
+          "mult": 6,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "target": 16200,
+          "diboasMonths": 63,
+          "bankMonths": 69
+        }
+      },
+      {
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "exp": 1500,
+          "sav": 150,
+          "mult": 6,
+          "locale": "es"
+        },
+        "output": {
+          "target": 9000,
+          "diboasMonths": 57,
+          "bankMonths": 72
+        }
+      },
+      {
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "exp": 2000,
+          "sav": 200,
+          "mult": 6,
+          "locale": "de"
+        },
+        "output": {
+          "target": 12000,
+          "diboasMonths": 57,
+          "bankMonths": 72
+        }
+      },
+      {
+        "category": "edge-bank-vs-inflation",
+        "label": "en: bank 0.38% vs infl 4.5%, target 15000 sav 100/mo",
+        "input": {
+          "exp": 1250,
+          "sav": 100,
+          "mult": 12,
+          "locale": "en"
+        },
+        "output": {
+          "bankBeatsInflation": false,
+          "bankMonths": "INF",
+          "diboasMonths": 138
+        }
+      },
+      {
+        "category": "edge-bank-vs-inflation",
+        "label": "pt-BR: bank 6.83% vs infl 5.9%, target 30000 sav 500/mo",
+        "input": {
+          "exp": 2500,
+          "sav": 500,
+          "mult": 12,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "bankBeatsInflation": true,
+          "bankMonths": 69,
+          "diboasMonths": 63
+        }
+      },
+      {
+        "category": "edge-bank-vs-inflation",
+        "label": "es: bank 2.00% vs infl 4.1%, target 15000 sav 100/mo",
+        "input": {
+          "exp": 1250,
+          "sav": 100,
+          "mult": 12,
+          "locale": "es"
+        },
+        "output": {
+          "bankBeatsInflation": false,
+          "bankMonths": "INF",
+          "diboasMonths": 125
+        }
+      },
+      {
+        "category": "edge-bank-vs-inflation",
+        "label": "de: bank 2.30% vs infl 4.1%, target 15000 sav 100/mo",
+        "input": {
+          "exp": 1250,
+          "sav": 100,
+          "mult": 12,
+          "locale": "de"
+        },
+        "output": {
+          "bankBeatsInflation": false,
+          "bankMonths": 316,
+          "diboasMonths": 125
+        }
+      },
+      {
+        "category": "edge-fast",
+        "label": "en: exp small sav large (fast)",
+        "input": {
+          "exp": 1000,
+          "sav": 5000,
+          "mult": 3,
+          "locale": "en"
+        },
+        "output": {
+          "diboasMonths": 1
+        }
+      },
+      {
+        "category": "edge-fast",
+        "label": "pt-BR: exp small sav large (fast)",
+        "input": {
+          "exp": 5000,
+          "sav": 25000,
+          "mult": 3,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "diboasMonths": 1
+        }
+      },
+      {
+        "category": "edge-fast",
+        "label": "es: exp small sav large (fast)",
+        "input": {
+          "exp": 1000,
+          "sav": 5000,
+          "mult": 3,
+          "locale": "es"
+        },
+        "output": {
+          "diboasMonths": 1
+        }
+      },
+      {
+        "category": "edge-fast",
+        "label": "de: exp small sav large (fast)",
+        "input": {
+          "exp": 1000,
+          "sav": 5000,
+          "mult": 3,
+          "locale": "de"
+        },
+        "output": {
+          "diboasMonths": 1
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "en: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "en"
+        },
+        "output": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "pt-BR: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "es: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "es"
+        },
+        "output": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        }
+      },
+      {
+        "category": "negative-zero",
+        "label": "de: sav=0 → unreachable",
+        "input": {
+          "exp": 2900,
+          "sav": 0,
+          "mult": 6,
+          "locale": "de"
+        },
+        "output": {
+          "diboasMonths": "INF",
+          "note": "calculator returns null/blank"
+        }
+      }
+    ],
+    "timeToTarget": [
+      {
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "target": 50000,
+          "contribution": 250,
+          "locale": "en"
+        },
+        "output": {
+          "bankMonths": 194,
+          "conservativeMonths": 135,
+          "historicalMonths": 121,
+          "optimisticMonths": 107
+        }
+      },
+      {
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "target": 250000,
+          "contribution": 1000,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "bankMonths": 158,
+          "conservativeMonths": 123,
+          "historicalMonths": 112,
+          "optimisticMonths": 102
+        }
+      },
+      {
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "target": 40000,
+          "contribution": 200,
+          "locale": "es"
+        },
+        "output": {
+          "bankMonths": 173,
+          "conservativeMonths": 128,
+          "historicalMonths": 115,
+          "optimisticMonths": 103
+        }
+      },
+      {
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "target": 40000,
+          "contribution": 200,
+          "locale": "de"
+        },
+        "output": {
+          "bankMonths": 170,
+          "conservativeMonths": 128,
+          "historicalMonths": 115,
+          "optimisticMonths": 103
+        }
+      },
+      {
+        "category": "edge-growth-only",
+        "label": "en: contrib=0 initial=10000 USD target=20000",
+        "input": {
+          "target": 20000,
+          "initialAmount": 10000,
+          "contribution": 0,
+          "locale": "en"
+        },
+        "output": {
+          "historicalMonths": 88
+        }
+      },
+      {
+        "category": "edge-growth-only",
+        "label": "pt-BR: contrib=0 initial=50000 BRL target=100000",
+        "input": {
+          "target": 100000,
+          "initialAmount": 50000,
+          "contribution": 0,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "historicalMonths": 60
+        }
+      },
+      {
+        "category": "edge-growth-only",
+        "label": "es: contrib=0 initial=10000 EUR target=20000",
+        "input": {
+          "target": 20000,
+          "initialAmount": 10000,
+          "contribution": 0,
+          "locale": "es"
+        },
+        "output": {
+          "historicalMonths": 91
+        }
+      },
+      {
+        "category": "edge-growth-only",
+        "label": "de: contrib=0 initial=10000 EUR target=20000",
+        "input": {
+          "target": 20000,
+          "initialAmount": 10000,
+          "contribution": 0,
+          "locale": "de"
+        },
+        "output": {
+          "historicalMonths": 91
+        }
+      },
+      {
+        "category": "edge-unreachable",
+        "label": "en: target=10000000 contrib=100/mo",
+        "input": {
+          "target": 10000000,
+          "contribution": 100,
+          "locale": "en"
+        },
+        "output": {
+          "historicalMonths": 842,
+          "note": "1200-month cap → Infinity"
+        }
+      },
+      {
+        "category": "edge-unreachable",
+        "label": "pt-BR: target=50000000 contrib=100/mo",
+        "input": {
+          "target": 50000000,
+          "contribution": 100,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "historicalMonths": 678,
+          "note": "1200-month cap → Infinity"
+        }
+      },
+      {
+        "category": "edge-unreachable",
+        "label": "es: target=10000000 contrib=100/mo",
+        "input": {
+          "target": 10000000,
+          "contribution": 100,
+          "locale": "es"
+        },
+        "output": {
+          "historicalMonths": 760,
+          "note": "1200-month cap → Infinity"
+        }
+      },
+      {
+        "category": "edge-unreachable",
+        "label": "de: target=10000000 contrib=100/mo",
+        "input": {
+          "target": 10000000,
+          "contribution": 100,
+          "locale": "de"
+        },
+        "output": {
+          "historicalMonths": 760,
+          "note": "1200-month cap → Infinity"
+        }
+      }
+    ],
+    "assetHistory": [
+      {
+        "category": "default",
+        "label": "BTC 2016 DCA default en",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100,
+          "locale": "en",
+          "displayCurrency": "USD"
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 261202,
+          "rangeLow": 237914,
+          "rangeHigh": 305010,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "default",
+        "label": "BTC 2016 DCA default pt-BR",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 500,
+          "locale": "pt-BR",
+          "displayCurrency": "BRL"
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 62500,
+          "terminalValue": 1842885,
+          "rangeLow": 1682010,
+          "rangeHigh": 2157162,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "displayCurrency": "BRL",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "default",
+        "label": "BTC 2016 DCA default es",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100,
+          "locale": "es",
+          "displayCurrency": "EUR"
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 247837,
+          "rangeLow": 225706,
+          "rangeHigh": 289571,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "displayCurrency": "EUR",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "default",
+        "label": "BTC 2016 DCA default de",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100,
+          "locale": "de",
+          "displayCurrency": "EUR"
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 247837,
+          "rangeLow": 225706,
+          "rangeHigh": 289571,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "displayCurrency": "EUR",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "BTC 2016 DCA $100/mo",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 261202,
+          "rangeLow": 237914,
+          "rangeHigh": 305010,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "SP500 2016 DCA $100/mo",
+        "input": {
+          "asset": "SP500",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 29638,
+          "rangeLow": 28926,
+          "rangeHigh": 30948,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "QQQ 2016 DCA $100/mo",
+        "input": {
+          "asset": "QQQ",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 40284,
+          "rangeLow": 39099,
+          "rangeHigh": 42511,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "MSCI_WORLD 2016 DCA $100/mo",
+        "input": {
+          "asset": "MSCI_WORLD",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 26621,
+          "rangeLow": 25960,
+          "rangeHigh": 27732,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "GOLD 2016 DCA $100/mo",
+        "input": {
+          "asset": "GOLD",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 32438,
+          "rangeLow": 31554,
+          "rangeHigh": 33515,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "TLT 2016 DCA $100/mo",
+        "input": {
+          "asset": "TLT",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 10632,
+          "rangeLow": 10352,
+          "rangeHigh": 10962,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "IBOVESPA 2016 DCA $100/mo",
+        "input": {
+          "asset": "IBOVESPA",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 20577,
+          "rangeLow": 19766,
+          "rangeHigh": 21766,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "happy-asset-sweep",
+        "label": "DAX 2016 DCA $100/mo",
+        "input": {
+          "asset": "DAX",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 125,
+          "totalContributed": 12500,
+          "terminalValue": 22983,
+          "rangeLow": 22261,
+          "rangeHigh": 24054,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2016-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "M6-low-confidence",
+        "label": "BTC 2010 DCA $100/mo",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2010,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 191,
+          "totalContributed": 19100,
+          "terminalValue": 534529757,
+          "rangeLow": 461501201,
+          "rangeHigh": 718288426,
+          "confidence": "LOW",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2010-07-01",
+          "endYm": "2026-05-01"
+        },
+        "note": "expected: error (BTC Yahoo data starts Sep 2014); 2010 BTC handled by legacy path with research-anchored range"
+      },
+      {
+        "category": "edge-data-floor",
+        "label": "BTC 2014 DCA $100/mo (Sep 2014 first available BTC month)",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2014,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 149,
+          "totalContributed": 14900,
+          "terminalValue": 811847,
+          "rangeLow": 709487,
+          "rangeHigh": 931927,
+          "confidence": "MEDIUM",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2014-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "PT2-toggle",
+        "label": "SP500 2010 DCA $100/mo — TR vs price-only delta",
+        "input": {
+          "asset": "SP500",
+          "startYear": 2010,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "totalReturn": 69602,
+          "priceOnly": 58820,
+          "deltaPct": 18.33
+        }
+      },
+      {
+        "category": "mode-comparison",
+        "label": "BTC 2016 lump $12,200 vs DCA $100/mo (same contributed)",
+        "input": {
+          "asset": "BTC",
+          "startYear": 2016,
+          "lumpSumAmount": 12200,
+          "dcaAmount": 100
+        },
+        "output": {
+          "lumpSum": 2565246,
+          "dca": 261202
+        },
+        "note": "Compound input: lumpSum leg uses lumpSumAmount (one-time at 2016-01-01 close); DCA leg uses dcaAmount per month × 125 months. Auditor implementations key into each leg via the explicit fields. F6 schema split landed 2026-05-23 v2 vectors per Auditor 4 finding."
+      },
+      {
+        "category": "edge-recent",
+        "label": "SP500 2026 DCA $100/mo (only 6 months)",
+        "input": {
+          "asset": "SP500",
+          "startYear": 2026,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "months": 5,
+          "totalContributed": 500,
+          "terminalValue": 534,
+          "rangeLow": 524,
+          "rangeHigh": 558,
+          "confidence": "HIGH",
+          "basis": "total_return",
+          "displayCurrency": "USD",
+          "startYm": "2026-01-01",
+          "endYm": "2026-05-01"
+        }
+      },
+      {
+        "category": "negative-bad-asset",
+        "label": "invalid asset \"FOO\"",
+        "input": {
+          "asset": "FOO",
+          "startYear": 2016,
+          "mode": "monthlyDca",
+          "amount": 100
+        },
+        "output": {
+          "error": "AssetHistoryDataError: no monthly series for FOO"
+        }
+      }
+    ],
+    "inflationImpact": [
+      {
+        "category": "default",
+        "label": "en forward default",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "en"
+        },
+        "output": {
+          "cashRealValue": 644,
+          "loss": 356,
+          "investedNominal": 2594,
+          "investedReal": 1670
+        }
+      },
+      {
+        "category": "default",
+        "label": "pt-BR forward default",
+        "input": {
+          "amount": 5000,
+          "years": 10,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "cashRealValue": 2818,
+          "loss": 2182,
+          "investedNominal": 12969,
+          "investedReal": 7310
+        }
+      },
+      {
+        "category": "default",
+        "label": "es forward default",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "es"
+        },
+        "output": {
+          "cashRealValue": 669,
+          "loss": 331,
+          "investedNominal": 2594,
+          "investedReal": 1735
+        }
+      },
+      {
+        "category": "default",
+        "label": "de forward default",
+        "input": {
+          "amount": 1000,
+          "years": 10,
+          "locale": "de"
+        },
+        "output": {
+          "cashRealValue": 669,
+          "loss": 331,
+          "investedNominal": 2594,
+          "investedReal": 1735
+        }
+      },
+      {
+        "category": "retrospective",
+        "label": "en since 2010",
+        "input": {
+          "amount": 1000,
+          "locale": "en",
+          "mode": "retrospective"
+        },
+        "output": {
+          "equivalentToday": 1523,
+          "purchasingPowerLost": 343
+        }
+      },
+      {
+        "category": "retrospective",
+        "label": "pt-BR since 2010",
+        "input": {
+          "amount": 5000,
+          "locale": "pt-BR",
+          "mode": "retrospective"
+        },
+        "output": {
+          "equivalentToday": 12250,
+          "purchasingPowerLost": 2959
+        }
+      },
+      {
+        "category": "retrospective",
+        "label": "es since 2010",
+        "input": {
+          "amount": 1000,
+          "locale": "es",
+          "mode": "retrospective"
+        },
+        "output": {
+          "equivalentToday": 1410,
+          "purchasingPowerLost": 291
+        }
+      },
+      {
+        "category": "retrospective",
+        "label": "de since 2010",
+        "input": {
+          "amount": 1000,
+          "locale": "de",
+          "mode": "retrospective"
+        },
+        "output": {
+          "equivalentToday": 1410,
+          "purchasingPowerLost": 291
+        }
+      },
+      {
+        "category": "edge-boundary-24mo",
+        "label": "en: 2y uses .current 3.80%; 3y uses .average5y 4.50%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "en"
+        },
+        "output": {
+          "inflRateAt24mo": 0.038,
+          "inflRateAt25mo": 0.045,
+          "cashRealValueAt2y": 928.12
+        }
+      },
+      {
+        "category": "edge-boundary-24mo",
+        "label": "pt-BR: 2y uses .current 4.39%; 3y uses .average5y 5.90%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "inflRateAt24mo": 0.0439,
+          "inflRateAt25mo": 0.059,
+          "cashRealValueAt2y": 917.66
+        }
+      },
+      {
+        "category": "edge-boundary-24mo",
+        "label": "es: 2y uses .current 3.50%; 3y uses .average5y 4.10%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "es"
+        },
+        "output": {
+          "inflRateAt24mo": 0.035,
+          "inflRateAt25mo": 0.041,
+          "cashRealValueAt2y": 933.51
+        }
+      },
+      {
+        "category": "edge-boundary-24mo",
+        "label": "de: 2y uses .current 2.90%; 3y uses .average5y 4.10%",
+        "input": {
+          "amount": 1000,
+          "years": 2,
+          "locale": "de"
+        },
+        "output": {
+          "inflRateAt24mo": 0.029,
+          "inflRateAt25mo": 0.041,
+          "cashRealValueAt2y": 944.43
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "en: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "en"
+        },
+        "output": {
+          "realValue": 267,
+          "purchasingPowerLossPct": "73.3%"
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "pt-BR: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "realValue": 179,
+          "purchasingPowerLossPct": "82.09%"
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "es: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "es"
+        },
+        "output": {
+          "realValue": 300,
+          "purchasingPowerLossPct": "70.04%"
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "de: 30y at average5y inflation",
+        "input": {
+          "amount": 1000,
+          "years": 30,
+          "locale": "de"
+        },
+        "output": {
+          "realValue": 300,
+          "purchasingPowerLossPct": "70.04%"
+        }
+      }
+    ],
+    "currencyDepreciation": [
+      {
+        "category": "default",
+        "label": "en forward default",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "USD",
+          "locale": "en"
+        },
+        "output": {
+          "cashIdle": 10000,
+          "bankFV": 10191,
+          "diboasFV": 16105,
+          "depreciationRate": "0%"
+        }
+      },
+      {
+        "category": "default",
+        "label": "pt-BR forward default",
+        "input": {
+          "amount": 50000,
+          "years": 5,
+          "currency": "BRL",
+          "locale": "pt-BR"
+        },
+        "output": {
+          "cashIdle": 50000,
+          "bankFV": 69572,
+          "diboasFV": 80719,
+          "depreciationRate": "0.05%"
+        }
+      },
+      {
+        "category": "default",
+        "label": "es forward default",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "EUR",
+          "locale": "es"
+        },
+        "output": {
+          "cashIdle": 10000,
+          "bankFV": 11041,
+          "diboasFV": 16720,
+          "depreciationRate": "0.75%"
+        }
+      },
+      {
+        "category": "default",
+        "label": "de forward default",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "EUR",
+          "locale": "de"
+        },
+        "output": {
+          "cashIdle": 10000,
+          "bankFV": 11204,
+          "diboasFV": 16720,
+          "depreciationRate": "0.75%"
+        }
+      },
+      {
+        "category": "PT1-context",
+        "label": "pt-BR R$50k × 10y (longer horizon → higher dep)",
+        "input": {
+          "amount": 50000,
+          "years": 10,
+          "currency": "BRL",
+          "locale": "pt-BR"
+        },
+        "output": {
+          "diboasFV": 203358
+        }
+      },
+      {
+        "category": "edge-usd",
+        "label": "USD selected (no depreciation)",
+        "input": {
+          "amount": 10000,
+          "years": 5,
+          "currency": "USD",
+          "locale": "en"
+        },
+        "output": {
+          "diboasFV": 16105,
+          "depreciationRate": "0%"
+        }
+      }
+    ],
+    "cardFees": [
+      {
+        "category": "default",
+        "label": "default en (Phase H fees)",
+        "input": {
+          "monthlyVolume": 50000,
+          "processorFeePct": 2.9000000000000004,
+          "avgTx": 75,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyFee": 1450,
+          "annualFee": 17400,
+          "diboasSavings": 17400,
+          "perTxFee": 2.18
+        }
+      },
+      {
+        "category": "default",
+        "label": "default pt-BR (Phase H fees)",
+        "input": {
+          "monthlyVolume": 250000,
+          "processorFeePct": 3,
+          "avgTx": 250,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "monthlyFee": 7500,
+          "annualFee": 90000,
+          "diboasSavings": 90000,
+          "perTxFee": 7.5
+        }
+      },
+      {
+        "category": "default",
+        "label": "default es (Phase H fees)",
+        "input": {
+          "monthlyVolume": 40000,
+          "processorFeePct": 0.8,
+          "avgTx": 60,
+          "locale": "es"
+        },
+        "output": {
+          "monthlyFee": 320,
+          "annualFee": 3840,
+          "diboasSavings": 3840,
+          "perTxFee": 0.48
+        }
+      },
+      {
+        "category": "default",
+        "label": "default de (Phase H fees)",
+        "input": {
+          "monthlyVolume": 40000,
+          "processorFeePct": 0.8,
+          "avgTx": 60,
+          "locale": "de"
+        },
+        "output": {
+          "monthlyFee": 320,
+          "annualFee": 3840,
+          "diboasSavings": 3840,
+          "perTxFee": 0.48
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "en: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 2.9000000000000004,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "pt-BR: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 3,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "es: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 0.8,
+          "locale": "es"
+        },
+        "output": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "de: monthlyVolume=0",
+        "input": {
+          "monthlyVolume": 0,
+          "processorFeePct": 0.8,
+          "locale": "de"
+        },
+        "output": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "edge-large",
+        "label": "en: 1,000,000/mo × 2.9000000000000004%",
+        "input": {
+          "monthlyVolume": 1000000,
+          "processorFeePct": 2.9000000000000004,
+          "locale": "en"
+        },
+        "output": {
+          "monthlyFee": 29000,
+          "annualFee": 348000,
+          "diboasSavings": 348000,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "edge-large",
+        "label": "pt-BR: 5,000,000/mo × 3%",
+        "input": {
+          "monthlyVolume": 5000000,
+          "processorFeePct": 3,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "monthlyFee": 150000,
+          "annualFee": 1800000,
+          "diboasSavings": 1800000,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "edge-large",
+        "label": "es: 1,000,000/mo × 0.8%",
+        "input": {
+          "monthlyVolume": 1000000,
+          "processorFeePct": 0.8,
+          "locale": "es"
+        },
+        "output": {
+          "monthlyFee": 8000,
+          "annualFee": 96000,
+          "diboasSavings": 96000,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "edge-large",
+        "label": "de: 1,000,000/mo × 0.8%",
+        "input": {
+          "monthlyVolume": 1000000,
+          "processorFeePct": 0.8,
+          "locale": "de"
+        },
+        "output": {
+          "monthlyFee": 8000,
+          "annualFee": 96000,
+          "diboasSavings": 96000,
+          "perTxFee": null
+        }
+      },
+      {
+        "category": "phase-h-IFR",
+        "label": "EU IFR effective MSC vs US Stripe rate — same volume",
+        "input": {
+          "monthlyVolume": 50000,
+          "note": "ES/DE 0.008 vs en 0.029"
+        },
+        "output": {
+          "US_annual": 17400,
+          "ES_DE_annual": 4800,
+          "diBoaSSavingsDelta": 12600
+        }
+      },
+      {
+        "category": "edge-no-fee",
+        "label": "processorFee=0% (e.g., debit-only with US Durbin cap fully absorbed)",
+        "input": {
+          "monthlyVolume": 50000,
+          "processorFeePct": 0
+        },
+        "output": {
+          "monthlyFee": 0,
+          "annualFee": 0,
+          "diboasSavings": 0,
+          "perTxFee": null
+        }
+      }
+    ],
+    "idleCash": [
+      {
+        "category": "default",
+        "label": "default en",
+        "input": {
+          "idleCash": 100000,
+          "years": 3,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "output": {
+          "bankFV": 101144,
+          "diboasFV": 122504,
+          "diboasEffectiveAPY": "7%",
+          "deltaOverHorizon": 21360
+        }
+      },
+      {
+        "category": "default",
+        "label": "default pt-BR",
+        "input": {
+          "idleCash": 500000,
+          "years": 3,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "bankFV": 609607,
+          "diboasFV": 638006,
+          "diboasEffectiveAPY": "8.46%",
+          "deltaOverHorizon": 28399
+        }
+      },
+      {
+        "category": "default",
+        "label": "default es",
+        "input": {
+          "idleCash": 80000,
+          "years": 3,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "output": {
+          "bankFV": 84897,
+          "diboasFV": 90787,
+          "diboasEffectiveAPY": "4.31%",
+          "deltaOverHorizon": 5891
+        }
+      },
+      {
+        "category": "default",
+        "label": "default de",
+        "input": {
+          "idleCash": 80000,
+          "years": 3,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "output": {
+          "bankFV": 85648,
+          "diboasFV": 90787,
+          "diboasEffectiveAPY": "4.31%",
+          "deltaOverHorizon": 5139
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "en: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "output": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "pt-BR: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "es: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "output": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        }
+      },
+      {
+        "category": "edge-zero",
+        "label": "de: idleCash=0",
+        "input": {
+          "idleCash": 0,
+          "years": 3,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "output": {
+          "bankFV": 0,
+          "diboasFV": 0,
+          "note": "calculator returns null when idle <= 0"
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "en: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 100000,
+          "years": 10,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "output": {
+          "bankFV": 103866,
+          "diboasFV": 196715,
+          "delta": 92849
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "pt-BR: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 500000,
+          "years": 10,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "bankFV": 968060,
+          "diboasFV": 1542309,
+          "delta": 574249
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "es: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 80000,
+          "years": 10,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "output": {
+          "bankFV": 97520,
+          "diboasFV": 152014,
+          "delta": 54495
+        }
+      },
+      {
+        "category": "edge-long",
+        "label": "de: idleCash 10y at conservative+hedge",
+        "input": {
+          "idleCash": 80000,
+          "years": 10,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "output": {
+          "bankFV": 100426,
+          "diboasFV": 152014,
+          "delta": 51588
+        }
+      },
+      {
+        "category": "happy-hysa",
+        "label": "en $100k × 5y, user override 4.10% HYSA",
+        "input": {
+          "idleCash": 100000,
+          "years": 5,
+          "bankYieldPct": 4.1,
+          "locale": "en"
+        },
+        "output": {
+          "bankFV": 122251,
+          "diboasFV": 140255
+        }
+      },
+      {
+        "category": "negative",
+        "label": "en: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 0.38,
+          "locale": "en"
+        },
+        "output": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        }
+      },
+      {
+        "category": "negative",
+        "label": "pt-BR: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 6.83,
+          "locale": "pt-BR"
+        },
+        "output": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        }
+      },
+      {
+        "category": "negative",
+        "label": "es: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 2,
+          "locale": "es"
+        },
+        "output": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        }
+      },
+      {
+        "category": "negative",
+        "label": "de: idleCash=-1000 (invalid)",
+        "input": {
+          "idleCash": -1000,
+          "years": 3,
+          "bankYieldPct": 2.3,
+          "locale": "de"
+        },
+        "output": {
+          "note": "calculator clamps to 0 via handleChange; engine rejects negative"
+        }
+      }
+    ],
+    "brazilPoupanca": [
+      {
+        "category": "current-regime",
+        "label": "Selic 14.50% + TR 0",
+        "input": {
+          "selic": 14.5,
+          "tr": 0
+        },
+        "output": {
+          "rate": 0.06167781186449828
+        }
+      },
+      {
+        "category": "edge-threshold",
+        "label": "Selic 8.5% (boundary, low regime)",
+        "input": {
+          "selic": 8.5,
+          "tr": 0
+        },
+        "output": {
+          "rate": 0.0595
+        }
+      },
+      {
+        "category": "edge-threshold",
+        "label": "Selic 8.51% (just above, high regime)",
+        "input": {
+          "selic": 8.51,
+          "tr": 0
+        },
+        "output": {
+          "rate": 0.06167781186449828
+        }
+      },
+      {
+        "category": "low-regime",
+        "label": "Selic 6% + TR 0 (low regime)",
+        "input": {
+          "selic": 6,
+          "tr": 0
+        },
+        "output": {
+          "rate": 0.041999999999999996
+        }
+      },
+      {
+        "category": "edge-tr-nonzero",
+        "label": "Selic 14.5% + TR 0.05%/mo",
+        "input": {
+          "selic": 14.5,
+          "tr": 0.05
+        },
+        "output": {
+          "rate": 0.06803355946764555
+        }
+      },
+      {
+        "category": "negative",
+        "label": "Selic = -1 (invalid)",
+        "input": {
+          "selic": -1,
+          "tr": 0
+        },
+        "output": {
+          "rate": 0
+        }
+      },
+      {
+        "category": "negative",
+        "label": "Selic = NaN",
+        "input": {
+          "selic": "INF",
+          "tr": 0
+        },
+        "output": {
+          "rate": 0
+        }
+      }
+    ]
+  }
+}

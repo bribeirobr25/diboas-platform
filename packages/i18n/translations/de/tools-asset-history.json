@@ -11,11 +11,17 @@
   "inputs": {
     "assetLabel": "Vermögenswert",
     "startYearLabel": "Startjahr",
+    "startYear2010Label": "2010 (ab Juli)",
     "modeLabel": "Modus",
     "contributionLabel": "{mode, select, lumpSum {Einmalbetrag} other {Monatlicher Beitrag}}",
+    "returnsBasisLabel": "Renditebasis",
+    "returnsBasisOptions": {
+      "totalReturn": "Mit reinvestierten Dividenden",
+      "priceOnly": "Nur Kurs"
+    },
     "assetOptions": {
       "BTC": "Bitcoin",
-      "SP500": "S&P 500 (Kurs)",
+      "SP500": "S&P 500",
       "QQQ": "QQQ (NASDAQ-100)",
       "MSCI_WORLD": "MSCI World",
       "GOLD": "Gold",
@@ -23,6 +29,17 @@
       "IBOVESPA": "Ibovespa (BRL)",
       "DAX": "DAX (EUR)"
     },
+    "assetDescriptions": {
+      "BTC": "Bitcoin Spot-Preis (in USD). Hohe Volatilität, keine Dividenden. Daten verbunden: CoinMetrics für 2010-2014 und Yahoo Finance ab dann.",
+      "SP500": "S&P 500 — US-Large-Cap-Aktien via SPY ETF. Total-Return-Basis enthält reinvestierte Dividenden.",
+      "QQQ": "NASDAQ-100 — US-Large-Cap-Tech via QQQ ETF. Total-Return-Basis enthält reinvestierte Dividenden.",
+      "MSCI_WORLD": "MSCI World — Aktien aus Industrieländern via URTH ETF. Total-Return-Basis enthält reinvestierte Dividenden. Daten seit Januar 2012 (ETF-Auflage).",
+      "GOLD": "Gold Spot via GLD ETF. Keine laufende Rendite — der Ertrag stammt rein aus Preisänderungen.",
+      "TLT": "US-Staatsanleihen mit 20+ Jahren Laufzeit via TLT ETF. Die lange Duration (~17 Jahre) macht diesen Wert besonders zinssensitiv. Verlor während des Fed-Zinserhöhungszyklus 2022-2023 etwa 50% vom Höchst- zum Tiefststand.",
+      "IBOVESPA": "Ibovespa, der brasilianische Aktienindex der B3. Nativer Gesamtertrag.",
+      "DAX": "DAX, der deutsche Aktienindex der Deutschen Börse. Nativer Gesamtertrag."
+    },
+    "gainBadgeTooltip": "Gesamtgewinn (oder -verlust) auf den eingezahlten Betrag, einschließlich Dividenden oder Kupons. Grün bei Gewinn; rot bei Verlust.",
     "modeOptions": {
       "lumpSum": "Einmalbetrag",
       "monthlyDca": "Monatliche Einzahlung"
@@ -33,13 +50,18 @@
     "summaryDca": "{amount}/Monat ab {startMonth} {startYear} wären heute wert…",
     "terminalValue": "{value}",
     "terminalRange": "zwischen {low} und {high}",
+    "terminalRangeSubtle": "Spanne basierend auf bestem vs schlechtestem monatlichen Einstiegszeitpunkt: {low} – {high}",
+    "startMonth": {
+      "jul": "Juli",
+      "jan": "Januar"
+    },
     "contributedOverMonths": "{total} eingezahlt über {months} Monate",
     "startingPrincipal": "{total} Anfangskapital",
     "confidenceHigh": "Hohe Konfidenz (±5%)",
     "confidenceMedium": "Mittlere Konfidenz — siehe Unsicherheitshinweis",
     "confidenceLow": "Niedrige Konfidenz — nur Bandbreite",
-    "uncertaintyMedium": "Der Ankerwert {asset} {year} ist näherungsweise (±30%). Wir nutzen {used}.",
-    "uncertaintyLow": "Öffentliche DCA-Rechner weichen in diesem Fenster um ±50% ab. Wir zeigen eine Bandbreite, keine einzelne Zahl.",
+    "uncertaintyMedium": "Die Volatilität bewirkt, dass das monatliche Einstiegstiming das Ergebnis wesentlich verschiebt. Die Spanne oben zeigt das beste vs schlechteste Timing.",
+    "uncertaintyLow": "Bitcoins Volatilität zu Beginn des Jahrzehnts bedeutet, dass €100/Monat Einzahlungen zwischen 2010 und 2012 je nach Timing sehr unterschiedlich enden konnten. Wir zeigen eine Spanne, keine einzelne Zahl.",
     "comparisonHeader": "vs S&P 500 im gleichen Zeitraum",
     "btcDcaRangeNote": "Für BTC ab 2010 hängt der DCA-Endwert stark vom genauen monatlichen Einstiegspfad ab. Öffentliche Rechner weichen um ±50% ab."
   },

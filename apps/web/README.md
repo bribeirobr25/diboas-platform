@@ -73,7 +73,7 @@ Learning surface:
 - `/[locale]/learn` - Learn center landing
 - `/[locale]/learn/compound-interest` - Lesson 01 — How Money Really Grows (3-beat lesson + embedded calculator)
 
-Money tools (9 calculators):
+Money tools (10 calculators):
 - `/[locale]/tools` - Tools landing — purpose-grouped (Grow / Protect / Target / Business)
 - `/[locale]/tools/compound-interest` - Compound interest calculator (currency-hedge for non-USD locales)
 - `/[locale]/tools/retirement` - Retirement planning
@@ -82,6 +82,7 @@ Money tools (9 calculators):
 - `/[locale]/tools/inflation-impact` - Inflation impact (inflation-only — no hedge per Q3a)
 - `/[locale]/tools/time-to-target` - Time-to-target solver
 - `/[locale]/tools/currency-depreciation` - Currency depreciation (with hedge math)
+- `/[locale]/tools/asset-history` - Retrospective asset DCA replay (8 assets — BTC, SP500, QQQ, MSCI World, Gold, TLT, Ibovespa, DAX; monthly-precision FX path for cross-currency locales)
 - `/[locale]/tools/card-fees` - B2B card fee savings
 - `/[locale]/tools/idle-cash` - B2B idle cash yield (currency-hedge for non-USD locales)
 

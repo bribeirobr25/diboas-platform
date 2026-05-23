@@ -16,7 +16,7 @@
     "targetLine": "Reaching {target}…",
     "monthsLabel": "{months} months",
     "yearsLabel": "{years} years",
-    "cannotReach": "—"
+    "cannotReach": "Out of reach at this contribution — try a larger monthly amount or a smaller target."
   },
   "vignette": {
     "subtitle": "Same goal. Four different timelines. Pick the one you like."

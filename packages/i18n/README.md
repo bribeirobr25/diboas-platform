@@ -68,7 +68,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (29 namespaces per locale as of 2026-05-13):
+Translation files are organized by locale × namespace (31 namespaces per locale as of 2026-05-23 — added `tools-asset-history.json` for the asset-history calculator):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -88,7 +88,8 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── share.json                          # Social sharing
 ├── strategies.json                     # Investment strategies
 ├── waitlist.json                       # Waitlist signup
-├── tools-shared.json                   # Cross-tool common copy (scenarios, disclaimer, currency-hedge note)
+├── tools-shared.json                   # Cross-tool common copy (scenarios, disclaimer, hedge note, warnings, confidence labels)
+├── tools-asset-history.json            # Asset History calculator (8 assets, per-asset descriptions, gain badge)
 ├── tools-card-fees.json                # B2B Card Fees calculator
 ├── tools-compound-interest.json        # Compound Interest tool page
 ├── tools-currency-depreciation.json    # Currency Depreciation tool

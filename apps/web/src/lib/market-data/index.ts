@@ -35,6 +35,15 @@ export type {
   MarketDataMetadata,
   MarketDataSnapshot,
   IMarketDataProvider,
+  // Phase B (TOOLS_IMPROVEMENT.md, 2026-05-23)
+  MonthlyAssetBar,
+  MonthlyAssetSeries,
+  MonthlyFxBar,
+  MonthlyFxSeries,
+  MonthlyInflationBar,
+  MonthlyInflationSeries,
+  MonthlySeriesData,
+  AssetReturnBasis,
 } from './types';
 
 // Constants
@@ -49,6 +58,10 @@ export {
   calculateWithCurrencyHedge,
   calculateMonthlyWithCurrencyHedge,
   calculateMonthlyPathDependentHedge,
+  deriveHorizonMatchedCAGR,
+  resolveHorizonMatchedDepreciation,
+  derivePoupancaRate,
+  BRAZIL_POUPANCA_SELIC_THRESHOLD,
   monthsToInflationAdjustedTarget,
   monthsToStaticTarget,
   purchasingPower,

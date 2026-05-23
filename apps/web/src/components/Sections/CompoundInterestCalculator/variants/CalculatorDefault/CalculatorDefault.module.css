@@ -103,6 +103,16 @@
    * slate-600 (#475569) is 7.55:1, well above AA. */
   color: var(--color-slate-600);
   font-size: 12px;
+  outline: none;
+}
+
+/* Phase I.4 (2026-05-23): keyboard-visible focus ring so Tab-navigation
+ * reveals the tooltip target. `title=` attribute is hover-only on most
+ * browsers — focus ring is the keyboard-discoverable signal. */
+.tooltip:focus-visible {
+  outline: 2px solid var(--color-teal-600);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .amountRow {
@@ -287,4 +297,13 @@
 .vignetteHighlight {
   font-weight: var(--font-weight-semibold);
   color: var(--color-slate-900);
+}
+
+/* USD-equivalent inline badge (Phase I extension, 2026-05-23). */
+.usdEquivalent {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.85em;
+  color: var(--color-slate-600);
+  font-style: italic;
 }

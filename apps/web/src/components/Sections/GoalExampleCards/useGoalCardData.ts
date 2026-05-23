@@ -13,6 +13,7 @@ import {
   calculateMonthlyContributions,
   calculateMonthlyWithCurrencyHedge,
   monthsToInflationAdjustedTarget,
+  resolveHorizonMatchedDepreciation,
   selectInflationRate,
   formatCurrency,
   formatCompactCurrency,
@@ -41,11 +42,15 @@ export function useGoalCardData(cardKey: GoalCardKey, locale: SupportedLocale): 
     const bankApy = bankRates.savings / 100;
     const diboasApy = marketData.rates.strategyApys.safety / 100;
     const currency = LOCALE_CURRENCY[locale];
-    const depreciation = currency && currency !== 'USD'
-      ? marketData.exchangeRates.rates[currency]?.annualDepreciation ?? 0
-      : 0;
     const pmt = inputs.monthlyContribution[locale];
     const months = inputs.months;
+    // A4 fix (2026-05-23): horizon-matched depreciation matches the goal
+    // window (Phase D policy helper). Replaces the prior static
+    // `annualDepreciation` constant — same source-of-truth as Emergency Fund /
+    // Idle Cash / Time-to-Target / hedged Compound. ComparisonTable stays on
+    // the static constant (its 1y fixed projection benefits from full-series
+    // stability over a noisy 12-month trailing window).
+    const depreciation = resolveHorizonMatchedDepreciation(marketData, currency, months / 12);
 
     // Emergency fund: time-based comparison
     if (cardKey === 'emergency' && inputs.spendReference && inputs.targetMultiplier) {

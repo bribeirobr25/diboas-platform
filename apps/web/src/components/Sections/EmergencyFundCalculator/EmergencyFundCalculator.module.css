@@ -146,3 +146,40 @@
   text-align: center;
   margin: 0;
 }
+
+/* Phase I.4 (2026-05-23): scenario rate tooltip. Mirror of TimeToTarget. */
+.tooltip {
+  cursor: help;
+  color: var(--color-slate-600);
+  font-size: 12px;
+  outline: none;
+}
+
+.tooltip:focus-visible {
+  outline: 2px solid var(--color-teal-600);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Phase I.3 (2026-05-23): over-30-years stop-condition callout. Muted-but-visible
+ * advisory tone — not error red. Uses amber palette for "consider adjusting"
+ * signal per design-system advisory pattern. */
+.warningCallout {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-amber-50, #fffbeb);
+  border-left: 4px solid var(--color-amber-500, #f59e0b);
+  border-radius: 6px;
+  color: var(--color-slate-700);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+/* USD-equivalent inline badge (Phase I extension, 2026-05-23). */
+.usdEquivalent {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.85em;
+  color: var(--color-slate-600);
+  font-style: italic;
+}

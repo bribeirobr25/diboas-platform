@@ -35,7 +35,9 @@
     "lostToInflation": "−{amount} durch Inflation verloren",
     "investedNote": "Bei {rate}% historischer Rendite",
     "retrospectiveLabel": "Heutige Kaufkraft",
-    "retrospectiveDetail": "Inflation seit 2010: ~{cumulative}%. Das gleiche Geld kauft heute ungefähr {percent}% weniger ({lost} an Kaufkraft verloren)."
+    "retrospectiveDetail": "Inflation seit 2010: ~{cumulative}%. Das gleiche Geld kauft heute ungefähr {percent}% weniger ({lost} an Kaufkraft verloren).",
+    "uncertaintyMedium": "Die Inflation in Brasilien war in diesem Zeitraum schwankend — der reale Kaufkraftverlust für einen spezifischen Warenkorb kann vom Verbraucherpreisindex um 1–3 Prozentpunkte pro Jahr abweichen.",
+    "uncertaintyLow": "Argentiniens Inflationsregime in diesem Zeitraum ist strukturell volatil — Punktschätzungen sind illustrativ; die tatsächliche Erfahrung kann erheblich abweichen."
   },
   "vignette": {
     "subtitle": "Gleiches Geld. Anderes Ende. Du entscheidest."

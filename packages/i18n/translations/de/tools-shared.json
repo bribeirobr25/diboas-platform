@@ -48,14 +48,19 @@
     "conservative": "Konservativ (7%)",
     "historical": "Historisch (10%)",
     "optimistic": "Optimistisch (14%)",
-    "digitalDollarSuffix": " im Digital-Dollar"
+    "digitalDollarSuffix": " im Digital-Dollar",
+    "conservativeTooltip": "Konservative Digital-Dollar-Renditebandbreite über lange Zeiträume, basierend auf den besten verfügbaren passiven Zinssätzen in 2026.",
+    "historicalTooltip": "diBoaS Multi-Asset-Strategiebandbreite basierend auf der langfristigen S&P-500-Gesamtrendite-CAGR von 1928–2024.",
+    "optimisticTooltip": "diBoaS Multi-Asset-Strategiebandbreite der letzten 10 Jahre unter Berücksichtigung der Marktbedingungen nach 2014.",
+    "tooltipLabel": "Mehr Infos"
   },
   "labels": {
     "initialDeposit": "Einmalige Einlage",
     "monthlyContribution": "Monatlicher Beitrag",
     "amount": "Betrag",
     "years": "Jahre",
-    "cadence": "Wie oft"
+    "cadence": "Wie oft",
+    "usdEquivalent": "≈ {usd} USD heute"
   },
   "footer": {
     "wantLesson": "Mehr erfahren?",
@@ -63,5 +68,13 @@
     "tryOtherTools": "Weitere Geld-Tools ausprobieren",
     "adelaideAttribution": "Geld-Tools von Adelaide"
   },
-  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Vergangene Renditen sind keine Garantie für zukünftige Ergebnisse. diBoaS-Renditen werden im Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert die Dollar-Rendite mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar."
+  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Vergangene Renditen sind keine Garantie für zukünftige Ergebnisse. diBoaS-Renditen werden im Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert die Dollar-Rendite mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar.",
+  "warnings": {
+    "over30Years": "Dieses Ziel dauert mit deiner aktuellen Sparrate mehr als 30 Jahre. Erhöhe deinen monatlichen Betrag oder verlängere den Zeitraum."
+  },
+  "confidence": {
+    "high": "Hohe Konfidenz (±5%)",
+    "medium": "Mittlere Konfidenz — siehe Unsicherheitshinweis",
+    "low": "Niedrige Konfidenz — Fenster mit hoher Volatilität"
+  }
 }

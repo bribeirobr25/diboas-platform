@@ -5,9 +5,28 @@
  * Replaces the legacy sentry.client.config.ts for Turbopack compatibility.
  * https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation
  * https://docs.sentry.io/platforms/javascript/guides/nextjs/
+ *
+ * Consent-gating model (Lighthouse Remediation Plan Workstream B, 2026-05-22):
+ *   - Error capture initialises unconditionally if SENTRY_DSN is set. Error
+ *     events don't carry PII (scrubbed in beforeSend below). Lawful basis:
+ *     GDPR Article 6(1)(f) legitimate interest (site reliability + security).
+ *   - Session Replay is OFF by default (replaysSessionSampleRate: 0, no Replay
+ *     integration at init). It is added via client.addIntegration() only after
+ *     receiving a CONSENT_GIVEN event from applicationEventBus.
+ *   - On CONSENT_WITHDRAWN, Sentry.getReplay()?.stop() halts active recording.
+ *   - Subscribes to applicationEventBus (NOT the cookie-consent-changed DOM
+ *     event). The DOM event is a pre-hydration fallback for the inline GA4
+ *     bootstrap only — see consentUtils.ts -> dispatchConsentEvent docstring
+ *     and the verified PostHogProvider precedent.
  */
 
 import * as Sentry from '@sentry/nextjs';
+import {
+  applicationEventBus,
+  ApplicationEventType,
+  type ConsentEventPayload,
+} from '@/lib/events/ApplicationEventBus';
+import { hasAnalyticsConsent } from '@/components/CookieConsent/consentUtils';
 
 const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
@@ -23,11 +42,10 @@ if (SENTRY_DSN) {
     // Capture 10% of transactions in production, 100% in development
     tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
 
-    // Session Replay (captures user interactions for debugging)
-    // Capture 10% of sessions in production
-    replaysSessionSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 0,
-    // Capture 100% of sessions with errors
-    replaysOnErrorSampleRate: 1.0,
+    // Session Replay sample rates are 0 at init — Replay is added later only
+    // after CONSENT_GIVEN. See enableReplay() below.
+    replaysSessionSampleRate: 0,
+    replaysOnErrorSampleRate: 0,
 
     // Debug mode disabled to reduce log noise
     debug: false,
@@ -93,16 +111,75 @@ if (SENTRY_DSN) {
       return event;
     },
 
-    // Integrations
-    integrations: [
-      Sentry.replayIntegration({
-        // Mask all text content for privacy
-        maskAllText: true,
-        // Block all media (images, videos) for privacy
-        blockAllMedia: true,
-      }),
-    ],
+    // Integrations: empty at init. Replay added via addIntegration() after
+    // CONSENT_GIVEN (see below). The error-capture path uses Sentry's built-in
+    // default integrations automatically.
+    integrations: [],
   });
+
+  // Consent-driven Sentry Replay activation.
+  //
+  // Subscriptions live for the document lifetime — this module is not a React
+  // component and there is no unmount. This is correct here; applicationEventBus
+  // is a module singleton. The pattern mirrors the inline GA4 bootstrap's
+  // un-removed listener documented in apps/web/src/app/layout.tsx (Phase 3 L12).
+  if (typeof window !== 'undefined') {
+    let replayActive = false;
+
+    const enableReplay = () => {
+      if (replayActive) return;
+      const client = Sentry.getClient();
+      if (!client) return;
+      client.addIntegration(
+        Sentry.replayIntegration({
+          maskAllText: true,
+          blockAllMedia: true,
+        }),
+      );
+      replayActive = true;
+    };
+
+    const stopReplay = () => {
+      if (!replayActive) return;
+      const replay = Sentry.getReplay();
+      if (replay && typeof replay.stop === 'function') {
+        // Fire-and-forget — replay.stop() returns a Promise that flushes
+        // the final segment. We don't await because the listener can be sync.
+        void replay.stop();
+      }
+      replayActive = false;
+    };
+
+    // Honor existing consent on cold start (user accepted on a prior visit).
+    // hasAnalyticsConsent() is SSR-safe (guarded by typeof window check) and
+    // returns false if storage is unavailable.
+    if (hasAnalyticsConsent()) {
+      enableReplay();
+    }
+
+    // Subscribe to runtime consent events via ApplicationEventBus.
+    // (NOT the cookie-consent-changed DOM event — that channel is for the
+    // pre-hydration GA4 inline bootstrap only; React/module consumers use
+    // the bus per consentUtils.ts docstring + PostHogProvider precedent.)
+    applicationEventBus.on<ConsentEventPayload>(
+      ApplicationEventType.CONSENT_GIVEN,
+      (payload) => {
+        // Accept 'analytics' or 'all'; explicitly reject 'marketing' alone.
+        // Filter on type, not on current dispatchConsentEvent emit behaviour —
+        // future marketing-consent feature must not silently activate Replay.
+        if (payload.consentType === 'analytics' || payload.consentType === 'all') {
+          enableReplay();
+        }
+      },
+    );
+
+    applicationEventBus.on<ConsentEventPayload>(
+      ApplicationEventType.CONSENT_WITHDRAWN,
+      () => {
+        stopReplay();
+      },
+    );
+  }
 }
 
 /**

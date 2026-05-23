@@ -22,6 +22,27 @@ export interface LocaleBankRates {
   readonly treasury: number;
   readonly source: string;
   readonly sourceDate: string;
+  /**
+   * Phase C (TOOLS_IMPROVEMENT.md, 2026-05-23): optional "live current" rate
+   * for locales where the live rate diverges from the 5y-average `savings`.
+   *  - en: FDIC national average ~0.38% (live April 2026 vs 0.32% 5y avg)
+   *  - pt-BR: poupança under Selic > 8.5% rule ~6.17% (live vs 6.83% 5y avg)
+   * UI toggle decisions C1 + C2 from TOOLS_IMPROVEMENT decision register.
+   */
+  readonly savingsCurrent?: number;
+  /**
+   * Phase C: optional top-1% high-yield savings tier. Currently only `en`
+   * (NerdWallet top-1% HYSA ~4.10% May 2026). Surfaced as a secondary toggle
+   * per Decision C1.
+   */
+  readonly savingsHighYield?: number;
+  /**
+   * Phase G (TOOLS_IMPROVEMENT.md): Brazil-specific Selic + TR for the
+   * poupança regime-switch formula (0.5%/mo + TR when Selic > 8.5%; else
+   * 70% × Selic + TR). Only populated on the `pt-BR` row.
+   */
+  readonly selicAnnualPct?: number;
+  readonly trMonthlyPct?: number;
 }
 
 /** Market APY/yield rates */
@@ -190,6 +211,90 @@ export interface MarketDataMetadata {
   readonly ttl: number;
 }
 
+/**
+ * Monthly asset price OHLC series — Phase B (TOOLS_IMPROVEMENT.md).
+ * Stored as Hardcoded research data per iter5-sdk-migration-map.md taxonomy.
+ * `basis` distinguishes total-return (ETF adjusted close) from price-only
+ * series (BTC, gold) and natively-total-return indices (DAX, Ibovespa).
+ */
+export interface MonthlyAssetBar {
+  /** First-of-month ISO date (YYYY-MM-01) for natural sort and new Date() interop. */
+  readonly ym: string;
+  readonly open: number;
+  readonly high: number;
+  readonly low: number;
+  /**
+   * Primary close. For assets where Phase B picked `total_return` basis
+   * (SP500/QQQ/MSCI_WORLD/TLT), this is the adjusted close (dividends
+   * reinvested). For native_total_return assets (DAX/Ibovespa) and price_only
+   * assets (BTC/GOLD), this is just the close.
+   */
+  readonly close: number;
+  /**
+   * Phase E (TOOLS_IMPROVEMENT.md, 2026-05-23, PT2 Bar acceptance): when the
+   * primary close is total-return-adjusted, `closePriceOnly` carries the
+   * unadjusted close (dividends NOT reinvested). The Asset History UI toggle
+   * "Returns basis: with dividends / price only" reads `close` for TR and
+   * `closePriceOnly` for price-only. Only populated for the 4 TR-eligible
+   * assets (SP500/QQQ/MSCI_WORLD/TLT); absent for BTC/GOLD/IBOVESPA/DAX.
+   */
+  readonly closePriceOnly?: number;
+}
+export type AssetReturnBasis = 'price_only' | 'total_return' | 'native_total_return';
+export interface MonthlyAssetSeries {
+  readonly basis: AssetReturnBasis;
+  readonly source: string;
+  readonly note: string;
+  readonly months: ReadonlyArray<MonthlyAssetBar>;
+  /** Present when source upstream failed at ingestion. */
+  readonly error?: string;
+}
+
+/**
+ * Monthly FX series for non-USD currencies.
+ * Stores both representations: `closeUsdPerLocal` (e.g., $1.17 per EUR) and
+ * `closeLocalPerUsd` (e.g., 0.85 EUR per USD). Canonical "local depreciation"
+ * math uses `closeLocalPerUsd` — rising = local currency depreciating.
+ */
+export interface MonthlyFxBar {
+  readonly ym: string;
+  readonly closeUsdPerLocal: number;
+  readonly closeLocalPerUsd: number;
+}
+export interface MonthlyFxSeries {
+  readonly source: string;
+  readonly basis: string;
+  readonly note: string;
+  readonly months: ReadonlyArray<MonthlyFxBar>;
+  readonly error?: string;
+}
+
+/** Monthly inflation YoY + cumulative since 2010 (Hardcoded research data). */
+export interface MonthlyInflationBar {
+  readonly ym: string;
+  readonly yoyPct: number;
+  readonly cumulativeSinceStartPct: number;
+}
+export interface MonthlyInflationSeries {
+  readonly source: string;
+  readonly note: string;
+  readonly months: ReadonlyArray<MonthlyInflationBar>;
+}
+
+/**
+ * Monthly time-series slice — Phase B addition.
+ * Per iter5-sdk-migration-map.md: this is Hardcoded research data ("The SDK
+ * does not populate them"). Updated by the K.3 weekly manual runbook.
+ * Asset keys reuse the canonical `AssetCode` type (not the live-price
+ * `assetPrices.*` codes); FX/inflation keys are ISO 4217 currency codes
+ * (with locale codes en/pt-BR/de/es for inflation where a locale exists).
+ */
+export interface MonthlySeriesData {
+  readonly assets: Partial<Record<AssetCode, MonthlyAssetSeries>>;
+  readonly fx: Partial<Record<string, MonthlyFxSeries>>;
+  readonly inflation: Partial<Record<string, MonthlyInflationSeries>>;
+}
+
 /** Complete market data snapshot — single source of truth */
 export interface MarketDataSnapshot {
   readonly rates: MarketRates;
@@ -204,6 +309,10 @@ export interface MarketDataSnapshot {
   // Phase C+ (2026-05-16): optional so partial-ship scenarios (SDK without
   // history, or pre-Phase-C+ consumers) remain valid.
   readonly historicalAnchors?: HistoricalAnchorsData;
+  // Phase B (TOOLS_IMPROVEMENT.md, 2026-05-23): monthly OHLC/FX/inflation
+  // time-series for horizon-matched CAGR + path-dependent retrospective math.
+  // Optional for same partial-ship reasons.
+  readonly monthlySeries?: MonthlySeriesData;
 }
 
 /** Provider interface — swappable (Principle P3: Service Agnostic) */

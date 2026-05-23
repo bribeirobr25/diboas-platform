@@ -23,7 +23,8 @@ const WaitlistSection = nextDynamic(() => import('@/components/Sections/Waitlist
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
-import { PageI18nProvider } from '@/components/Providers';
+import { PageI18nProvider, MarketDataContextProvider } from '@/components/Providers';
+import { marketDataService } from '@/lib/market-data';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { B2BToolsCallout } from '@/components/Sections/B2BToolsCallout';
 import {
@@ -129,7 +130,11 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
     notFound();
   }
 
-  const pageMessages = await loadPageNamespaces(locale, ['landing-b2b', 'landing-b2c', 'faq']);
+  // A8 fix (2026-05-23): pre-fetch market snapshot for ComparisonTable.
+  const [pageMessages, snapshot] = await Promise.all([
+    loadPageNamespaces(locale, ['landing-b2b', 'landing-b2c', 'faq']),
+    marketDataService.get(),
+  ]);
 
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS for Business',
@@ -144,6 +149,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
+      <MarketDataContextProvider initialSnapshot={snapshot}>
       <StructuredData data={[organizationData, breadcrumbData]} />
       <ScrollToHash />
 
@@ -359,6 +365,7 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
         navLinks={B2C_FOOTER_NAV}
         disclosureKeys={B2C_FOOTER_DISCLOSURES}
       />
+      </MarketDataContextProvider>
     </PageI18nProvider>
   );
 }

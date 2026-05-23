@@ -1,6 +1,6 @@
 # Financial Calculations — Formulas, Model & Reference Values
 
-**Last updated:** 2026-05-13
+**Last updated:** 2026-05-23 (added §"Asset-history monthly-precision FX path — design notes" documenting the `buildFxLookup` + `ASSET_NATIVE_CURRENCY` + forward-fill pattern landed alongside the v1.5 Asset History cross-currency work)
 
 This document describes the financial calculation model used across the diBoaS platform (comparison table, goal cards, PreDream, 9-tool calculator suite, lesson). All formulas are implemented in `lib/market-data/formulas/` (split into `core.ts` and `currencyHedge.ts`). The canonical specification is `docs/audit/PREPARING_FOR_ANALYTICS_DATA.md` (Sections 14-17).
 
@@ -84,18 +84,33 @@ Then standard annuity formula applies at the effective rate. This is simpler and
 
 ### Effective APYs by Locale
 
-For the Strategies product surface (Safety APY 7%, Balance 12%, Growth 18%):
+Updated 2026-05-23 (TOOLS_IMPROVEMENT.md Phase C, Decisions PT1/PT3 Bar-signed): bank rates refreshed to Phase A live values; depreciation rates refreshed to live BCB PTAX / ECB EXR full-series CAGRs. For the Strategies product surface (Safety APY 7%, Balance 12%, Growth 18%):
 
 | Locale | diBoaS Safety | Bank | Advantage |
 |--------|:----------:|:----:|:---------:|
-| US | 7.00% | 0.32% | +6.68 pp |
-| Brazil | 10.21% (7% + 3% BRL dep.) | 6.83% | +3.38 pp |
-| Spain | 7.96% (7% + 0.9% EUR dep.) | 0.14% | +7.82 pp |
-| Germany | 7.96% (7% + 0.9% EUR dep.) | 1.22% | +6.74 pp |
+| US | 7.00% | 0.38% (FDIC live) | +6.62 pp |
+| Brazil | 13.65% (7% + 6.21% BRL dep.) | 6.83% (5y avg poupança) / 6.17% (live) | +6.82 to +7.48 pp |
+| Spain | 8.32% (7% + 1.23% EUR dep.) | 2.00% (cuenta remunerada typical) | +6.32 pp |
+| Germany | 8.32% (7% + 1.23% EUR dep.) | 2.30% (Tagesgeld typical) | +6.02 pp |
 
 For the educational tools (Conservative 7% / Historical 10% / Optimistic 14% in USD), the same effective-rate model applies — multiply `(1 + 0.07)(1 + dep) − 1`, `(1 + 0.10)(1 + dep) − 1`, `(1 + 0.14)(1 + dep) − 1` to get the per-locale effective APY shown in tool surfaces.
 
-**Implementation:** `calculateMonthlyWithCurrencyHedge()` and `calculateWithCurrencyHedge()` in `lib/market-data/formulas/currencyHedge.ts`.
+**Implementation (Phase C+D updated 2026-05-23):** `calculateMonthlyWithCurrencyHedge()` and `calculateWithCurrencyHedge()` in `lib/market-data/formulas/currencyHedge.ts`. Forward projections now route through `resolveHorizonMatchedDepreciation()` (lib/market-data/formulas/horizonMatchedCagr.ts) which prefers a horizon-matched CAGR from `monthlySeries.fx[currency]` when available; falls back to the static constant when monthly data is absent. The constant values above are the data-unavailable fallback.
+
+### Horizon-Matched Forward Projection (Added 2026-05-23, Phase D)
+
+Per TOOLS_IMPROVEMENT.md plan v1.1 §6.1 (CTO Review H1): forward-projection FX depreciation is derived from `monthlySeries.fx[currency]` using a CONTINUOUS trailing-N-year window:
+
+```
+windowMonths = min(horizonYears × 12, totalAvailableMonths)
+CAGR = (endCloseLocalPerUsd / startCloseLocalPerUsd)^(1/years) − 1
+```
+
+A 5y horizon uses the trailing 60 months; a 7y horizon uses the trailing 84 months; a 16y+ horizon saturates at the full available series. **No step-function discontinuity** at any horizon boundary. Sentinel `0` returned when series has < 12 months (P7 graceful fallback; calculator degrades to non-hedged).
+
+For pt-BR Retirement at 25y horizon: window saturates at 197 months → full-series BRL CAGR = 6.21%/yr → effective Historical APY = 16.83% → R$7.34M FV at R$2,000/mo (Phase A authoritative, Bar-signed PT1).
+
+For DE/ES Retirement at 25y horizon: window saturates at 196 months → full-series EUR CAGR = 1.23%/yr → effective Historical APY = 11.35% → €608,815 FV at €400/mo (Bar-signed PT3).
 
 ---
 
@@ -108,7 +123,24 @@ For RETROSPECTIVE contexts (the asset-history tool plus retrospective modes in `
 ### When to use which
 
 - **Forward projection:** `calculateMonthlyWithCurrencyHedge()` (smoothed annuity) plus `calculateCompoundProjectionHedged()`. Smoothed CAGR is correct.
-- **Retrospective DCA:** `calculateMonthlyPathDependentHedge()` (Phase B, new). Bucket-walked FX is correct. Per-tool methodology lock at `docs/audit/HISTORICAL_PERFORMANCE_CALIBRATION_PLAN_2026-05-16.md` §6.4.1.
+- **Retrospective DCA, compound-interest family** (Goal Savings retrospective): `calculateMonthlyPathDependentHedge()` (Phase B, 2026-05-16). Walks 5-year `FxBucket` averages from `historicalAnchors.fxBuckets[CURRENCY]`. Coarser granularity is acceptable here because compound-interest's contribution stream is uniform (same monthly amount; bucket-average FX captures the macro path).
+- **Retrospective DCA, asset-history** (`/tools/asset-history` for cross-currency cases): monthly-precision FX via `buildFxLookup()` in `lib/asset-history/calculator.ts` (added 2026-05-23). Each month's contribution is converted to asset-native currency at THAT month's close-of-month FX rate from `monthlySeries.fx[CURRENCY]`; the unit math runs in asset-native; terminal is converted back at the end-month's FX rate. Finer granularity than the bucket walk — necessary because asset-history's DCA buys real units at real prices and any FX smoothing biases the unit count.
+
+### Asset-history monthly-precision FX path — design notes (2026-05-23)
+
+The `buildFxLookup(fx, fromCcy, toCcy, asset)` helper composes single-leg lookups via USD:
+- `from === to`: identity (factor = 1).
+- One side is USD: read `closeLocalPerUsd` from the non-USD currency's monthly FX series; multiply (USD → local) or invert (local → USD).
+- Neither side is USD: cross-rate = `fromCcy → USD × USD → toCcy`.
+
+**Asset native currency map** (`ASSET_NATIVE_CURRENCY` in `lib/asset-history/calculator.ts`):
+- USD: BTC, SP500, QQQ, MSCI_WORLD, GOLD, TLT
+- BRL: IBOVESPA
+- EUR: DAX
+
+**Forward-fill for end-of-window gaps:** when the requested month is not in the FX series (e.g., ECB EUR data lags the asset price series by 1 month), the lookup returns the latest available month with `ym ≤ requested` via binary search. Standard end-of-window handling; throws only if no earlier month exists either.
+
+**`displayCurrency` arg** (USD / BRL / EUR; defaults to USD): when set and ≠ asset native, triggers the FX path. When omitted or equal to asset native, the calculator runs in single-currency mode (no FX conversion) — preserves backwards compatibility with the pre-2026-05-23 USD-only tests.
 
 ### R1 discipline at the methodology axis
 

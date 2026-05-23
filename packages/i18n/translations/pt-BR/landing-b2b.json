@@ -53,9 +53,9 @@
         "title": "Caixa Parado",
         "titleSummary": "receba o que é justo",
         "subtitle": "Com R$500.000 de caixa parado na conta da empresa.",
-        "diboasResult": "R$51.050",
+        "diboasResult": "R$68.224",
         "bankResult": "R$34.150",
-        "difference": "R$16.900/ano",
+        "difference": "R$34.074/ano",
         "tagline": "Em dólar digital, seu caixa rende mais — porque o dólar tende a se valorizar contra o real ao longo do tempo.",
         "source": "Exemplo baseado em R$500.000 de caixa parado com taxa de poupança líquida de {rate} (BCB/B3 média 5 anos) vs diBoaS Conservador 7% em dólar digital, com efeito de valorização cambial de 3% ao ano (derivado em 2026-05-13 via scripts/derive-b2b-card-numbers.mjs; ver docs/tech/financial-calculations.md §Currency Hedge Model). Retornos projetados são ilustrativos. Resultados reais podem variar.",
         "howPossible": "Como isso é possível?"

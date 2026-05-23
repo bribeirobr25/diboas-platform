@@ -48,14 +48,19 @@
     "conservative": "Conservador (7%)",
     "historical": "Histórico (10%)",
     "optimistic": "Optimista (14%)",
-    "digitalDollarSuffix": " en dólar digital"
+    "digitalDollarSuffix": " en dólar digital",
+    "conservativeTooltip": "Rango conservador de rendimiento en dólar digital a largo plazo, basado en las tasas pasivas de primer nivel disponibles en 2026.",
+    "historicalTooltip": "Rango de la estrategia diBoaS multi-activos basado en la CAGR de retorno total del S&P 500 a largo plazo (1928–2024).",
+    "optimisticTooltip": "Rango de la estrategia diBoaS multi-activos de los últimos 10 años, reflejando las condiciones del mercado posteriores a 2014.",
+    "tooltipLabel": "Más información"
   },
   "labels": {
     "initialDeposit": "Depósito inicial",
     "monthlyContribution": "Aportación mensual",
     "amount": "Cantidad",
     "years": "Años",
-    "cadence": "Con qué frecuencia"
+    "cadence": "Con qué frecuencia",
+    "usdEquivalent": "≈ {usd} USD hoy"
   },
   "footer": {
     "wantLesson": "¿Quieres aprender más?",
@@ -63,5 +68,13 @@
     "tryOtherTools": "Probar otras herramientas",
     "adelaideAttribution": "Herramientas de Adelaide"
   },
-  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. El rendimiento pasado no garantiza resultados futuros. Los rendimientos de diBoaS se muestran en dólar digital; para monedas distintas al dólar estadounidense, el total en moneda local combina el rendimiento del dólar con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo."
+  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. El rendimiento pasado no garantiza resultados futuros. Los rendimientos de diBoaS se muestran en dólar digital; para monedas distintas al dólar estadounidense, el total en moneda local combina el rendimiento del dólar con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo.",
+  "warnings": {
+    "over30Years": "Esta meta lleva más de 30 años con tu contribución actual. Considera aumentar el monto mensual o extender el plazo."
+  },
+  "confidence": {
+    "high": "Alta confianza (±5%)",
+    "medium": "Confianza media — ver nota de incertidumbre",
+    "low": "Baja confianza — ventana de alta volatilidad"
+  }
 }
