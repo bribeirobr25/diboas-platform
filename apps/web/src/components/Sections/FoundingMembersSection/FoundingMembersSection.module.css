@@ -69,9 +69,10 @@
   border-radius: var(--cta-border-radius);
   cursor: pointer;
   box-shadow: var(--cta-shadow-default);
-  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
-              box-shadow var(--cta-transition-duration) var(--cta-transition-easing),
-              background-color var(--cta-transition-duration) var(--cta-transition-easing);
+  transition:
+    transform var(--cta-transition-duration) var(--cta-transition-easing),
+    box-shadow var(--cta-transition-duration) var(--cta-transition-easing),
+    background-color var(--cta-transition-duration) var(--cta-transition-easing);
 }
 
 @media (min-width: 768px) {
@@ -99,15 +100,15 @@
 }
 
 /* Dark background theme — light text for WCAG contrast */
-:global([data-theme="dark"]) .heading {
+:global([data-theme='dark']) .heading {
   color: var(--color-text-on-dark, #f1f5f9);
 }
 
-:global([data-theme="dark"]) .description {
+:global([data-theme='dark']) .description {
   color: var(--color-text-on-dark-secondary, #cbd5e1);
 }
 
-:global([data-theme="dark"]) .zeroText {
+:global([data-theme='dark']) .zeroText {
   color: var(--color-text-on-dark, #f1f5f9);
 }
 

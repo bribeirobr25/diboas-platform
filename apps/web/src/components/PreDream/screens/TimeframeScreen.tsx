@@ -30,11 +30,21 @@ export function TimeframeScreen() {
               onClick={() => selectTimeframe(key)}
               className={`${styles.timeframeCard} ${isSelected ? styles.timeframeCardSelected : ''}`}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={isSelected ? styles.timeframeIconSelected : styles.timeframeIcon}>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className={isSelected ? styles.timeframeIconSelected : styles.timeframeIcon}
+              >
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />
               </svg>
-              <p className={`${styles.timeframeLabel} ${isSelected ? styles.timeframeLabelSelected : ''}`}>
+              <p
+                className={`${styles.timeframeLabel} ${isSelected ? styles.timeframeLabelSelected : ''}`}
+              >
                 {tf.label}
               </p>
               <p className={styles.timeframeDays}>
@@ -46,16 +56,10 @@ export function TimeframeScreen() {
       </div>
 
       <div className={styles.buttonRow}>
-        <button
-          onClick={() => goToScreen('input')}
-          className={styles.secondaryButton}
-        >
+        <button onClick={() => goToScreen('input')} className={styles.secondaryButton}>
           {t('back')}
         </button>
-        <button
-          onClick={startSimulation}
-          className={styles.primaryButton}
-        >
+        <button onClick={startSimulation} className={styles.primaryButton}>
           {t('simulateButton')}
         </button>
       </div>

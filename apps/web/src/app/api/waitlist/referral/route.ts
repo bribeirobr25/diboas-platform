@@ -79,6 +79,11 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReferralLo
     });
   } catch (error) {
     Logger.error('Referral lookup error', {}, error instanceof Error ? error : undefined);
-    return handleRouteError(error, 'waitlist', 'referral_lookup', 'Referral lookup error') as NextResponse<ReferralLookupResponse>;
+    return handleRouteError(
+      error,
+      'waitlist',
+      'referral_lookup',
+      'Referral lookup error'
+    ) as NextResponse<ReferralLookupResponse>;
   }
 }

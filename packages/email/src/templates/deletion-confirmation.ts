@@ -12,7 +12,8 @@ const translations: Record<string, Record<string, string>> = {
     body: 'We received a request to permanently delete your data from the diBoaS waitlist. Click the button below to confirm.',
     ctaButton: 'Confirm deletion',
     expiry: 'This link expires in {minutes} minutes.',
-    safety: "If you didn't request this, you can safely ignore this email. No data will be deleted.",
+    safety:
+      "If you didn't request this, you can safely ignore this email. No data will be deleted.",
   },
   'pt-BR': {
     subject: 'Confirme sua solicitação de exclusão de dados',
@@ -22,7 +23,8 @@ const translations: Record<string, Record<string, string>> = {
     body: 'Recebemos uma solicitação para excluir permanentemente seus dados da lista de espera do diBoaS. Clique no botão abaixo para confirmar.',
     ctaButton: 'Confirmar exclusão',
     expiry: 'Este link expira em {minutes} minutos.',
-    safety: 'Se você não fez esta solicitação, pode ignorar este email com segurança. Nenhum dado será excluído.',
+    safety:
+      'Se você não fez esta solicitação, pode ignorar este email com segurança. Nenhum dado será excluído.',
   },
   es: {
     subject: 'Confirma tu solicitud de eliminación de datos',
@@ -42,11 +44,15 @@ const translations: Record<string, Record<string, string>> = {
     body: 'Wir haben eine Anfrage erhalten, deine Daten dauerhaft von der diBoaS-Warteliste zu löschen. Klicke auf den Button unten, um zu bestätigen.',
     ctaButton: 'Löschung bestätigen',
     expiry: 'Dieser Link läuft in {minutes} Minuten ab.',
-    safety: 'Wenn du dies nicht angefordert hast, kannst du diese E-Mail ignorieren. Es werden keine Daten gelöscht.',
+    safety:
+      'Wenn du dies nicht angefordert hast, kannst du diese E-Mail ignorieren. Es werden keine Daten gelöscht.',
   },
 };
 
-export function renderDeletionConfirmation(data: DeletionConfirmationEmailData): { subject: string; html: string } {
+export function renderDeletionConfirmation(data: DeletionConfirmationEmailData): {
+  subject: string;
+  html: string;
+} {
   const t = translations[data.locale] || translations.en;
 
   const greeting = data.name

@@ -1,7 +1,7 @@
 {
-  "schema": "tools-test-vectors-v2",
-  "generatedAt": "2026-05-23T17:11:46.969Z",
-  "description": "Audit test vectors for diBoaS /tools suite. Each scenario has explicit input, expectedOutput, and per-field tolerance. Auditor implementations should match expectedOutput within the tolerance. v2 (2026-05-23): F6 — assetHistory mode-comparison scenario now uses explicit `lumpSumAmount` + `dcaAmount` input fields (replaces single `amount: 12200` from v1). All other scenarios unchanged.",
+  "schema": "tools-test-vectors-v3",
+  "generatedAt": "2026-05-26T00:00:00.000Z",
+  "description": "Audit test vectors for diBoaS /tools suite. Each scenario has explicit input, expectedOutput, and per-field tolerance. Auditor implementations should match expectedOutput within the tolerance. v3 (2026-05-26): FX-16 adoption D1+D8 — EUR `annualDepreciation` 1.23% → 0.55% (D1 field-placement fix per Bar 2026-05-26 decision register); EUR-bearing scenarios regenerated from live engine post-update; PT3' €541,891 supersedes prior PT3 €608,815; 14 new currencies added to `exchangeRates.rates`. Schema bump prevents auditors from comparing new code against stale v2 vectors. v2 (2026-05-23): F6 — assetHistory mode-comparison scenario uses explicit `lumpSumAmount` + `dcaAmount` input fields.",
   "tolerancesGlossary": {
     "currency": {
       "absolute": 1,
@@ -88,12 +88,12 @@
         "years": 25,
         "locale": "de"
       },
-      "expectedHistorical": 608815,
+      "expectedHistorical": 541891,
       "tolerance": {
         "absolute": 20,
         "unit": "currency units"
       },
-      "note": "de Retirement Bar-signed acceptance (sign-corrected EUR depreciation)"
+      "note": "PT3' Bar-signed re-acceptance 2026-05-26 (FX-16 adoption D1+D2). Retired prior PT3 €608,815 which reflected the now-corrected EUR field-placement error (annualDepreciation was carrying a retrospective endpoint-pair CAGR 1.23% misplaced in the forward field; now carries the locked forward calibration assumption 0.55%)."
     },
     "PA1": {
       "gate": "BRL full-series CAGR (Jan 2010 → May 2026)",
@@ -180,9 +180,9 @@
         "expectedOutput": {
           "monthlyEq": 760.42,
           "bank": 166607,
-          "conservative": 275935,
-          "historical": 341152,
-          "optimistic": 453780
+          "conservative": 258355,
+          "historical": 318613,
+          "optimistic": 422512
         },
         "tolerance": {
           "monthlyEq": {
@@ -225,9 +225,9 @@
         "expectedOutput": {
           "monthlyEq": 91.25,
           "bank": 14820,
-          "conservative": 22147,
-          "historical": 26931,
-          "optimistic": 35104
+          "conservative": 20976,
+          "historical": 25444,
+          "optimistic": 33065
         },
         "tolerance": {
           "monthlyEq": {
@@ -270,9 +270,9 @@
         "expectedOutput": {
           "monthlyEq": 121.67,
           "bank": 20124,
-          "conservative": 29529,
-          "historical": 35908,
-          "optimistic": 46806
+          "conservative": 27968,
+          "historical": 33925,
+          "optimistic": 44086
         },
         "tolerance": {
           "monthlyEq": {
@@ -524,8 +524,8 @@
           "locale": "pt-BR"
         },
         "expectedOutput": {
-          "historical": 0.12,
-          "effRate": "0.29%"
+          "historical": 0.13,
+          "effRate": "16.83%"
         },
         "tolerance": {
           "historical": {
@@ -546,8 +546,8 @@
           "locale": "es"
         },
         "expectedOutput": {
-          "historical": 0.12,
-          "effRate": "5.62%"
+          "historical": 0.13,
+          "effRate": "10.61%"
         },
         "tolerance": {
           "historical": {
@@ -568,8 +568,8 @@
           "locale": "de"
         },
         "expectedOutput": {
-          "historical": 0.12,
-          "effRate": "5.62%"
+          "historical": 0.13,
+          "effRate": "10.61%"
         },
         "tolerance": {
           "historical": {
@@ -612,7 +612,7 @@
           "locale": "pt-BR"
         },
         "expectedOutput": {
-          "lumpSumFV_optimistic": 2102794129195.9868,
+          "lumpSumFV_optimistic": 2102860227420.454,
           "effRate": "21.08%"
         },
         "tolerance": {
@@ -634,8 +634,8 @@
           "locale": "es"
         },
         "expectedOutput": {
-          "lumpSumFV_optimistic": 307641770402.8922,
-          "effRate": "15.4%"
+          "lumpSumFV_optimistic": 235221519304.07422,
+          "effRate": "14.63%"
         },
         "tolerance": {
           "lumpSumFV_optimistic": {
@@ -656,8 +656,8 @@
           "locale": "de"
         },
         "expectedOutput": {
-          "lumpSumFV_optimistic": 307641770402.8922,
-          "effRate": "15.4%"
+          "lumpSumFV_optimistic": 235221519304.07422,
+          "effRate": "14.63%"
         },
         "tolerance": {
           "lumpSumFV_optimistic": {
@@ -678,7 +678,7 @@
           "locale": "pt-BR"
         },
         "expectedOutput": {
-          "historical": 7336100
+          "historical": 7336210
         },
         "tolerance": {
           "historical": {
@@ -699,7 +699,7 @@
           "locale": "de"
         },
         "expectedOutput": {
-          "historical": 608815
+          "historical": 541891
         },
         "tolerance": {
           "historical": {
@@ -829,7 +829,7 @@
           "locale": "pt-BR"
         },
         "expectedOutput": {
-          "historical": 7336100
+          "historical": 7336210
         },
         "tolerance": {
           "historical": {
@@ -849,7 +849,7 @@
           "locale": "de"
         },
         "expectedOutput": {
-          "historical": 608815
+          "historical": 541891
         },
         "tolerance": {
           "historical": {
@@ -869,7 +869,7 @@
           "locale": "es"
         },
         "expectedOutput": {
-          "historical": 608815
+          "historical": 541891
         },
         "tolerance": {
           "historical": {
@@ -951,7 +951,7 @@
           "locale": "pt-BR"
         },
         "expectedOutput": {
-          "historical": 260817
+          "historical": 286478
         },
         "tolerance": {
           "historical": {
@@ -1028,7 +1028,7 @@
         },
         "expectedOutput": {
           "target": 16200,
-          "diboasMonths": 63,
+          "diboasMonths": 54,
           "bankMonths": 69
         },
         "tolerance": {
@@ -1151,7 +1151,7 @@
         "expectedOutput": {
           "bankBeatsInflation": true,
           "bankMonths": 69,
-          "diboasMonths": 63
+          "diboasMonths": 54
         },
         "tolerance": {
           "bankMonths": {
@@ -1179,7 +1179,7 @@
         "expectedOutput": {
           "bankBeatsInflation": false,
           "bankMonths": "INF",
-          "diboasMonths": 125
+          "diboasMonths": 129
         },
         "tolerance": {
           "diboasMonths": {
@@ -1202,7 +1202,7 @@
         "expectedOutput": {
           "bankBeatsInflation": false,
           "bankMonths": 316,
-          "diboasMonths": 125
+          "diboasMonths": 129
         },
         "tolerance": {
           "bankMonths": {
@@ -1454,9 +1454,9 @@
         },
         "expectedOutput": {
           "bankMonths": 173,
-          "conservativeMonths": 128,
-          "historicalMonths": 115,
-          "optimisticMonths": 103
+          "conservativeMonths": 132,
+          "historicalMonths": 118,
+          "optimisticMonths": 105
         },
         "tolerance": {
           "bankMonths": {
@@ -1492,9 +1492,9 @@
         },
         "expectedOutput": {
           "bankMonths": 170,
-          "conservativeMonths": 128,
-          "historicalMonths": 115,
-          "optimisticMonths": 103
+          "conservativeMonths": 132,
+          "historicalMonths": 118,
+          "optimisticMonths": 105
         },
         "tolerance": {
           "bankMonths": {
@@ -1551,7 +1551,7 @@
           "locale": "pt-BR"
         },
         "expectedOutput": {
-          "historicalMonths": 60
+          "historicalMonths": 54
         },
         "tolerance": {
           "historicalMonths": {
@@ -1572,7 +1572,7 @@
           "locale": "es"
         },
         "expectedOutput": {
-          "historicalMonths": 91
+          "historicalMonths": 83
         },
         "tolerance": {
           "historicalMonths": {
@@ -1593,7 +1593,7 @@
           "locale": "de"
         },
         "expectedOutput": {
-          "historicalMonths": 91
+          "historicalMonths": 83
         },
         "tolerance": {
           "historicalMonths": {
@@ -1655,7 +1655,7 @@
           "locale": "es"
         },
         "expectedOutput": {
-          "historicalMonths": 760,
+          "historicalMonths": 803,
           "note": "1200-month cap → Infinity"
         },
         "tolerance": {
@@ -1676,7 +1676,7 @@
           "locale": "de"
         },
         "expectedOutput": {
-          "historicalMonths": 760,
+          "historicalMonths": 803,
           "note": "1200-month cap → Infinity"
         },
         "tolerance": {
@@ -2351,7 +2351,7 @@
       {
         "id": "assetHistory_14_edge-data-floor",
         "category": "edge-data-floor",
-        "label": "BTC 2014 DCA $100/mo (Sep 2014 first available BTC month)",
+        "label": "BTC 2014 DCA $100/mo (starts 2014-01 post-v1.4 CoinMetrics backfill)",
         "input": {
           "asset": "BTC",
           "startYear": 2014,
@@ -3043,8 +3043,8 @@
         "expectedOutput": {
           "cashIdle": 50000,
           "bankFV": 69572,
-          "diboasFV": 80719,
-          "depreciationRate": "0.05%"
+          "diboasFV": 108833,
+          "depreciationRate": "6.21%"
         },
         "tolerance": {
           "cashIdle": {
@@ -3077,8 +3077,8 @@
         "expectedOutput": {
           "cashIdle": 10000,
           "bankFV": 11041,
-          "diboasFV": 16720,
-          "depreciationRate": "0.75%"
+          "diboasFV": 16553,
+          "depreciationRate": "0.55%"
         },
         "tolerance": {
           "cashIdle": {
@@ -3111,8 +3111,8 @@
         "expectedOutput": {
           "cashIdle": 10000,
           "bankFV": 11204,
-          "diboasFV": 16720,
-          "depreciationRate": "0.75%"
+          "diboasFV": 16553,
+          "depreciationRate": "0.55%"
         },
         "tolerance": {
           "cashIdle": {
@@ -3143,7 +3143,7 @@
           "locale": "pt-BR"
         },
         "expectedOutput": {
-          "diboasFV": 203358
+          "diboasFV": 236892
         },
         "tolerance": {
           "diboasFV": {
@@ -3708,9 +3708,9 @@
         },
         "expectedOutput": {
           "bankFV": 609607,
-          "diboasFV": 638006,
-          "diboasEffectiveAPY": "8.46%",
-          "deltaOverHorizon": 28399
+          "diboasFV": 733867,
+          "diboasEffectiveAPY": "13.64%",
+          "deltaOverHorizon": 124261
         },
         "tolerance": {
           "bankFV": {
@@ -3742,9 +3742,9 @@
         },
         "expectedOutput": {
           "bankFV": 84897,
-          "diboasFV": 90787,
-          "diboasEffectiveAPY": "4.31%",
-          "deltaOverHorizon": 5891
+          "diboasFV": 99629,
+          "diboasEffectiveAPY": "7.59%",
+          "deltaOverHorizon": 14733
         },
         "tolerance": {
           "bankFV": {
@@ -3776,9 +3776,9 @@
         },
         "expectedOutput": {
           "bankFV": 85648,
-          "diboasFV": 90787,
-          "diboasEffectiveAPY": "4.31%",
-          "deltaOverHorizon": 5139
+          "diboasFV": 99629,
+          "diboasEffectiveAPY": "7.59%",
+          "deltaOverHorizon": 13981
         },
         "tolerance": {
           "bankFV": {
@@ -3955,8 +3955,8 @@
         },
         "expectedOutput": {
           "bankFV": 968060,
-          "diboasFV": 1542309,
-          "delta": 574249
+          "diboasFV": 1796643,
+          "delta": 828583
         },
         "tolerance": {
           "bankFV": {
@@ -3988,8 +3988,8 @@
         },
         "expectedOutput": {
           "bankFV": 97520,
-          "diboasFV": 152014,
-          "delta": 54495
+          "diboasFV": 166245,
+          "delta": 68725
         },
         "tolerance": {
           "bankFV": {
@@ -4021,8 +4021,8 @@
         },
         "expectedOutput": {
           "bankFV": 100426,
-          "diboasFV": 152014,
-          "delta": 51588
+          "diboasFV": 166245,
+          "delta": 65819
         },
         "tolerance": {
           "bankFV": {

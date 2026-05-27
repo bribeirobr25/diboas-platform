@@ -8,10 +8,7 @@ import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { GoogleIcon, XIcon, MetaMaskIcon } from '../components/Icons';
 import { analyticsService } from '@/lib/analytics';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import type { TransitionStep } from '../hooks';
 import styles from '../PreDemo.module.css';
 
@@ -66,9 +63,7 @@ export function LoginScreen({ onExit: _onExit, runSequence }: LoginScreenProps) 
 
           {/* Title + Subtitle with reduced gap */}
           <div className={styles.textCenter}>
-            <h1 className={styles.screenTitle}>
-              {t('preDemo.login.title')}
-            </h1>
+            <h1 className={styles.screenTitle}>{t('preDemo.login.title')}</h1>
             <p className={`${styles.screenSubtitle} ${styles.subtitleClose}`}>
               {t('preDemo.login.subtitle')}
             </p>
@@ -78,35 +73,19 @@ export function LoginScreen({ onExit: _onExit, runSequence }: LoginScreenProps) 
           <div className={styles.loginCard}>
             {/* Email input (pre-filled, disabled) */}
             <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>
-                {t('preDemo.login.emailLabel')}
-              </label>
-              <input
-                type="email"
-                value="guest@diboas.com"
-                disabled
-                className={styles.inputField}
-              />
+              <label className={styles.inputLabel}>{t('preDemo.login.emailLabel')}</label>
+              <input type="email" value="guest@diboas.com" disabled className={styles.inputField} />
             </div>
 
             {/* Password input (pre-filled, disabled) */}
             <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>
-                {t('preDemo.login.passwordLabel')}
-              </label>
-              <input
-                type="password"
-                value="123456"
-                disabled
-                className={styles.inputField}
-              />
+              <label className={styles.inputLabel}>{t('preDemo.login.passwordLabel')}</label>
+              <input type="password" value="123456" disabled className={styles.inputField} />
             </div>
 
             {/* Divider */}
             <div className={styles.divider}>
-              <span className={styles.dividerText}>
-                {t('preDemo.login.orContinueWith')}
-              </span>
+              <span className={styles.dividerText}>{t('preDemo.login.orContinueWith')}</span>
             </div>
 
             {/* OAuth buttons with branded icons */}
@@ -126,15 +105,10 @@ export function LoginScreen({ onExit: _onExit, runSequence }: LoginScreenProps) 
             </div>
 
             {/* Start Demo button (inside card) */}
-            <button
-              onClick={handleProceed}
-              className={styles.primaryButton}
-              data-autofocus
-            >
+            <button onClick={handleProceed} className={styles.primaryButton} data-autofocus>
               {t('preDemo.login.startDemo')}
             </button>
           </div>
-
         </div>
       </div>
 

@@ -7,10 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import {
-  derivePoupancaRate,
-  BRAZIL_POUPANCA_SELIC_THRESHOLD,
-} from '../formulas/brazilPoupanca';
+import { derivePoupancaRate, BRAZIL_POUPANCA_SELIC_THRESHOLD } from '../formulas/brazilPoupanca';
 
 describe('derivePoupancaRate', () => {
   it('threshold constant matches BCB rule (8.5%)', () => {

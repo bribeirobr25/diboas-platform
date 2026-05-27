@@ -13,7 +13,12 @@
 import { describe, it, expect } from 'vitest';
 import { marketDataService } from '../service';
 import { FALLBACK_MARKET_DATA } from '../constants';
-import { ANCHOR_PRICES, BRL_USD_BUCKETS, EUR_USD_BUCKETS, LAST_RESEARCH_UPDATE } from '../historical';
+import {
+  ANCHOR_PRICES,
+  BRL_USD_BUCKETS,
+  EUR_USD_BUCKETS,
+  LAST_RESEARCH_UPDATE,
+} from '../historical';
 
 describe('marketDataService — Phase C+ historicalAnchors snapshot slice', () => {
   it('FALLBACK_MARKET_DATA.historicalAnchors is populated from historical.ts', () => {

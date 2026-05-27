@@ -18,6 +18,9 @@
     "yearsLabel": "{years} Jahre",
     "cannotReach": "Mit dieser Sparrate nicht erreichbar — versuche einen höheren monatlichen Betrag oder ein kleineres Ziel."
   },
+  "guidance": {
+    "oneTimeNeedsInitial": "Gib einen Startbetrag ein, um zu sehen, wann du dein Ziel erreichst."
+  },
   "vignette": {
     "subtitle": "Gleiches Ziel. Vier verschiedene Zeitachsen. Wähl, welche dir passt."
   },

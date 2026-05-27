@@ -11,7 +11,11 @@
  * Service Agnostic Abstraction: Decoupled content from presentation
  */
 
-import { DEFAULT_FAQ_ACCORDION_SETTINGS, type FAQAccordionVariantConfig, type FAQItem } from '@/config/faqAccordion';
+import {
+  DEFAULT_FAQ_ACCORDION_SETTINGS,
+  type FAQAccordionVariantConfig,
+  type FAQItem,
+} from '@/config/faqAccordion';
 
 // ─── i18n Prefix (Pattern B: dynamic components) ────────────
 
@@ -25,13 +29,7 @@ const safeAnswerKey = WALLET_ARCH === 'mpc' ? 'answerB' : 'answerA';
 
 // ─── FAQ Item IDs ───────────────────────────────────────────
 
-const FAQ_ITEM_IDS = [
-  'guaranteed',
-  'safe',
-  'switch',
-  'whereMoneyGoes',
-  'loseEverything',
-] as const;
+const FAQ_ITEM_IDS = ['guaranteed', 'safe', 'switch', 'whereMoneyGoes', 'loseEverything'] as const;
 
 // ─── Section: FAQ (5 items) — top questions; full FAQ at /help ──
 
@@ -61,4 +59,3 @@ export const STRATEGIES_FAQ_CONFIG: FAQAccordionVariantConfig = {
     region: 'faq',
   },
 };
-

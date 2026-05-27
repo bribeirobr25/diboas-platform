@@ -15,11 +15,7 @@
       "source": "diBoaS Analytics",
       "period": "1,334 days (May 2022 - Dec 2025)",
       "methodology": "Historical backtesting with DCA",
-      "events_captured": [
-        "Terra/Luna collapse",
-        "FTX crash",
-        "USDC depeg"
-      ]
+      "events_captured": ["Terra/Luna collapse", "FTX crash", "USDC depeg"]
     },
     "monte_carlo": {
       "source": "diBoaS Analytics",

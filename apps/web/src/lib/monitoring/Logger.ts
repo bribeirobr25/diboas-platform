@@ -35,7 +35,7 @@ export enum LogLevel {
   INFO = 1,
   WARN = 2,
   ERROR = 3,
-  CRITICAL = 4
+  CRITICAL = 4,
 }
 
 // Log entry structure
@@ -81,12 +81,10 @@ export class Logger {
     enableStorage: typeof window !== 'undefined',
     maxStorageEntries: 1000,
     enableRemoteLogging: process.env.NODE_ENV === 'production',
-    remoteEndpoint: process.env.NEXT_PUBLIC_LOGGING_ENDPOINT
+    remoteEndpoint: process.env.NEXT_PUBLIC_LOGGING_ENDPOINT,
   };
 
-  private static storageDestination = new StorageLogDestination(
-    Logger.config.maxStorageEntries
-  );
+  private static storageDestination = new StorageLogDestination(Logger.config.maxStorageEntries);
   private static sessionId = this.generateSessionId();
   private static requestId: string | undefined;
 
@@ -233,10 +231,10 @@ export class Logger {
       fetch(this.config.remoteEndpoint!, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(entry),
-        signal: AbortSignal.timeout(5000)
+        signal: AbortSignal.timeout(5000),
       }).catch(() => {
         // Silently fail to prevent logging loops
       });

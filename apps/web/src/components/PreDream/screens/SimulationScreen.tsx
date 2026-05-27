@@ -45,12 +45,12 @@ export function SimulationScreen() {
   const particlePositions = useMemo(
     // eslint-disable-next-line react-hooks/purity
     () => Array.from({ length: PARTICLE_COUNT }, () => Math.random() * 100),
-    [],
+    []
   );
   const particleDelays = useMemo(
     // eslint-disable-next-line react-hooks/purity
     () => Array.from({ length: PARTICLE_COUNT }, () => Math.random() * 4),
-    [],
+    []
   );
 
   // requestAnimationFrame loop with ease-out-cubic
@@ -96,16 +96,18 @@ export function SimulationScreen() {
       {/* Floating particles */}
       <div className={styles.particles}>
         {/* Stable: particlePositions is a fixed-length seeded array, never
-          * reorders. Index is the stable identity. */}
+         * reorders. Index is the stable identity. */}
         {particlePositions.map((x, i) => (
           <div
             // eslint-disable-next-line react/no-array-index-key
             key={i}
             className={styles.particle}
-            style={{
-              '--x': `${x}%`,
-              '--delay': `${particleDelays[i]}s`,
-            } as React.CSSProperties}
+            style={
+              {
+                '--x': `${x}%`,
+                '--delay': `${particleDelays[i]}s`,
+              } as React.CSSProperties
+            }
           />
         ))}
       </div>
@@ -116,9 +118,7 @@ export function SimulationScreen() {
         <p className={styles.simulationLabel}>{t('title')}</p>
 
         <div className={styles.valueDisplay}>
-          <span className={styles.simulationValue}>
-            {formatCurrency(displayValue, 2, locale)}
-          </span>
+          <span className={styles.simulationValue}>{formatCurrency(displayValue, 2, locale)}</span>
         </div>
 
         {/* Progress ring */}
@@ -145,9 +145,7 @@ export function SimulationScreen() {
               transform="rotate(-90 60 60)"
             />
           </svg>
-          <span className={styles.progressText}>
-            {Math.round(progress)}%
-          </span>
+          <span className={styles.progressText}>{Math.round(progress)}%</span>
         </div>
 
         {/* Time indicator */}
@@ -162,7 +160,14 @@ export function SimulationScreen() {
 
 function ClockIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>

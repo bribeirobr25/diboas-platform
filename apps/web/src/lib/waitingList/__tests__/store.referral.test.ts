@@ -18,7 +18,7 @@ vi.mock('@/lib/database/client', () => ({
 
 vi.mock('@/lib/security/encryption', () => ({
   encrypt: (value: string) => `enc_${value}`,
-  decrypt: (value: string) => value.startsWith('enc_') ? value.slice(4) : null,
+  decrypt: (value: string) => (value.startsWith('enc_') ? value.slice(4) : null),
   hmacHash: (value: string) => `hash_${value}`,
 }));
 

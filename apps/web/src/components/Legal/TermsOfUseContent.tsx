@@ -116,17 +116,12 @@ export function TermsOfUseContent() {
         as="article"
         ariaLabel="Terms of Use content"
       >
-        <LegalTableOfContents
-          items={tocItems}
-          title={t('toc.title')}
-        />
+        <LegalTableOfContents items={tocItems} title={t('toc.title')} />
 
         <LegalContentSection title={t('sections.aboutDiboas.title')} id="about-diboas">
           <LegalParagraph>{t('sections.aboutDiboas.content')}</LegalParagraph>
           <LegalList items={aboutItems} />
-          <ContentCard variant="highlight">
-            {t('sections.aboutDiboas.important')}
-          </ContentCard>
+          <ContentCard variant="highlight">{t('sections.aboutDiboas.important')}</ContentCard>
         </LegalContentSection>
 
         <LegalContentSection title={t('sections.acceptance.title')} id="acceptance-of-terms">
@@ -134,7 +129,10 @@ export function TermsOfUseContent() {
           <LegalList items={acceptanceItems} />
         </LegalContentSection>
 
-        <LegalContentSection title={t('sections.preLaunchLimitations.title')} id="pre-launch-limitations">
+        <LegalContentSection
+          title={t('sections.preLaunchLimitations.title')}
+          id="pre-launch-limitations"
+        >
           <LegalSubsection title={t('sections.preLaunchLimitations.simulationTools.title')}>
             <LegalList items={simulationToolsItems} />
           </LegalSubsection>
@@ -144,12 +142,18 @@ export function TermsOfUseContent() {
           </LegalSubsection>
         </LegalContentSection>
 
-        <LegalContentSection title={t('sections.geographicRestrictions.title')} id="geographic-restrictions">
+        <LegalContentSection
+          title={t('sections.geographicRestrictions.title')}
+          id="geographic-restrictions"
+        >
           <LegalParagraph>{t('sections.geographicRestrictions.intro')}</LegalParagraph>
           <LegalParagraph>{t('sections.geographicRestrictions.note')}</LegalParagraph>
         </LegalContentSection>
 
-        <LegalContentSection title={t('sections.intellectualProperty.title')} id="intellectual-property">
+        <LegalContentSection
+          title={t('sections.intellectualProperty.title')}
+          id="intellectual-property"
+        >
           <LegalParagraph>{t('sections.intellectualProperty.intro')}</LegalParagraph>
           <LegalList items={ipItems} />
         </LegalContentSection>

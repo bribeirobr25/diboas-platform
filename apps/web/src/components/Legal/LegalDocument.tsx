@@ -45,7 +45,9 @@ export function LegalTableOfContents({ items, title = 'Contents' }: LegalTableOf
 
   return (
     <nav className={styles.tableOfContents} aria-labelledby="toc-title">
-      <h2 className={styles.tocTitle} id="toc-title">{title}</h2>
+      <h2 className={styles.tocTitle} id="toc-title">
+        {title}
+      </h2>
       <ol className={styles.tocList}>
         {items.map((item, index) => (
           <li key={item.id} className={styles.tocItem}>
@@ -71,14 +73,19 @@ interface LegalContentSectionProps {
 }
 
 export function LegalContentSection({ title, children, id }: LegalContentSectionProps) {
-  const sectionId = id || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  const sectionId =
+    id ||
+    title
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, '');
 
   return (
     <section className={styles.section} id={sectionId} aria-labelledby={`${sectionId}-title`}>
-      <h2 className={styles.sectionTitle} id={`${sectionId}-title`}>{title}</h2>
-      <div className={styles.sectionContent}>
-        {children}
-      </div>
+      <h2 className={styles.sectionTitle} id={`${sectionId}-title`}>
+        {title}
+      </h2>
+      <div className={styles.sectionContent}>{children}</div>
     </section>
   );
 }
@@ -96,9 +103,7 @@ export function LegalSubsection({ title, children }: LegalSubsectionProps) {
   return (
     <div className={styles.subsection}>
       <h3 className={styles.subsectionTitle}>{title}</h3>
-      <div className={styles.subsectionContent}>
-        {children}
-      </div>
+      <div className={styles.subsectionContent}>{children}</div>
     </div>
   );
 }
@@ -140,7 +145,9 @@ export function LegalTable({ headers, rows, caption }: LegalTableProps) {
         <thead>
           <tr>
             {headers.map((header) => (
-              <th key={header} scope="col">{header}</th>
+              <th key={header} scope="col">
+                {header}
+              </th>
             ))}
           </tr>
         </thead>
@@ -200,18 +207,22 @@ export function LegalContactInfo({
   email,
   dpoEmail,
   emailLabel = 'Email:',
-  dpoLabel = 'Data Protection:'
+  dpoLabel = 'Data Protection:',
 }: LegalContactInfoProps) {
   return (
     <address className={styles.contactInfo}>
       <div className={styles.contactItem}>
         <span className={styles.contactLabel}>{emailLabel}</span>
-        <a href={`mailto:${email}`} className={styles.contactLink}>{email}</a>
+        <a href={`mailto:${email}`} className={styles.contactLink}>
+          {email}
+        </a>
       </div>
       {dpoEmail && (
         <div className={styles.contactItem}>
           <span className={styles.contactLabel}>{dpoLabel}</span>
-          <a href={`mailto:${dpoEmail}`} className={styles.contactLink}>{dpoEmail}</a>
+          <a href={`mailto:${dpoEmail}`} className={styles.contactLink}>
+            {dpoEmail}
+          </a>
         </div>
       )}
     </address>
@@ -254,12 +265,7 @@ export function LegalBackToTop({ label = 'Back to top' }: LegalBackToTopProps) {
   };
 
   return (
-    <a
-      href="#top"
-      className={styles.backToTop}
-      onClick={handleClick}
-      aria-label={label}
-    >
+    <a href="#top" className={styles.backToTop} onClick={handleClick} aria-label={label}>
       <svg
         width="16"
         height="16"
@@ -269,10 +275,9 @@ export function LegalBackToTop({ label = 'Back to top' }: LegalBackToTopProps) {
         strokeWidth="2"
         aria-hidden="true"
       >
-        <path d="M18 15l-6-6-6 6"/>
+        <path d="M18 15l-6-6-6 6" />
       </svg>
       {label}
     </a>
   );
 }
-

@@ -16,10 +16,7 @@ import {
 import { sanitizeText } from '@/lib/utils/sanitize';
 import { isValidEmail } from '@/lib/waitingList/helpers';
 import { Logger } from '@/lib/monitoring/Logger';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 type RateLimitPreset = keyof typeof RateLimitPresets;
 
@@ -50,15 +47,15 @@ export async function applyRateLimit(
 ): Promise<NextResponse | null> {
   const clientIP = getClientIP(request);
   const config = RateLimitPresets[preset];
-  const result = await checkRateLimit(
-    `${operationKey}:${clientIP}`,
-    config.limit,
-    config.windowMs
-  );
+  const result = await checkRateLimit(`${operationKey}:${clientIP}`, config.limit, config.windowMs);
 
   if (!result.success) {
     return NextResponse.json(
-      { success: false, error: 'Too many requests. Please try again later.', errorCode: 'RATE_LIMITED' },
+      {
+        success: false,
+        error: 'Too many requests. Please try again later.',
+        errorCode: 'RATE_LIMITED',
+      },
       { status: 429, headers: createRateLimitHeaders(result) }
     );
   }
@@ -91,7 +88,15 @@ export function emitErrorEvent(
   operation: string,
   error: unknown,
   severity: 'low' | 'medium' | 'high' | 'critical' = 'high',
-  domain: 'waitlist' | 'consent' | 'share' | 'preDemo' | 'preDream' | 'analytics' | 'monitoring' | 'application' = 'application'
+  domain:
+    | 'waitlist'
+    | 'consent'
+    | 'share'
+    | 'preDemo'
+    | 'preDream'
+    | 'analytics'
+    | 'monitoring'
+    | 'application' = 'application'
 ): void {
   applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
     domain,
@@ -124,10 +129,7 @@ export function successResponse<T extends Record<string, unknown>>(
   data: T,
   status: number = 200
 ): NextResponse {
-  return NextResponse.json(
-    { success: true, ...data },
-    { status }
-  );
+  return NextResponse.json({ success: true, ...data }, { status });
 }
 
 /**

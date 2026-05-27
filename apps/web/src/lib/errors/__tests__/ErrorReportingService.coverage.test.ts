@@ -208,9 +208,11 @@ describe('ErrorReportingService — additional coverage', () => {
       svc.reportError(new Error('Callback test'));
 
       expect(onError).toHaveBeenCalledTimes(1);
-      expect(onError).toHaveBeenCalledWith(expect.objectContaining({
-        id: 'err-cov-001',
-      }));
+      expect(onError).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: 'err-cov-001',
+        })
+      );
       svc.destroy();
     });
   });

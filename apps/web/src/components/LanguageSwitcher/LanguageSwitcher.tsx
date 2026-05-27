@@ -29,12 +29,13 @@ export function LanguageSwitcher({
   variant = 'dropdown',
   size = 'md',
   theme = 'light',
-  className = ''
+  className = '',
 }: LanguageSwitcherProps) {
   const intl = useTranslation();
   const { locale: currentLocale, isHydrated } = useLocale();
   const [isMounted, setIsMounted] = useState(false);
-  const { isOpen, dropdownRef, toggleDropdown, switchLocale, handleMenuKeyDown } = useLanguageSwitcher();
+  const { isOpen, dropdownRef, toggleDropdown, switchLocale, handleMenuKeyDown } =
+    useLanguageSwitcher();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard: isMounted prevents SSR/client mismatch for locale-dependent rendering
@@ -46,7 +47,7 @@ export function LanguageSwitcher({
   }
 
   const currentLanguageLabel = intl.formatMessage({
-    id: `common.languageSwitcher.languages.${currentLocale}`
+    id: `common.languageSwitcher.languages.${currentLocale}`,
   });
 
   if (variant === 'inline') {
@@ -59,7 +60,7 @@ export function LanguageSwitcher({
             className={`${styles.inlineButton} ${locale === currentLocale ? styles.active : ''}`}
             aria-current={locale === currentLocale ? 'page' : undefined}
             aria-label={intl.formatMessage({
-              id: `common.languageSwitcher.languages.${locale}`
+              id: `common.languageSwitcher.languages.${locale}`,
             })}
           >
             <span className={styles.flagIcon}>

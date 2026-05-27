@@ -16,16 +16,25 @@ export interface IEmailService {
   send(payload: EmailPayload): Promise<DeliveryResult>;
   sendWelcome(to: string, data: WelcomeEmailData): Promise<DeliveryResult>;
   sendReferralSuccess(to: string, data: ReferralSuccessEmailData): Promise<DeliveryResult>;
-  sendDeletionConfirmation(to: string, data: DeletionConfirmationEmailData): Promise<DeliveryResult>;
+  sendDeletionConfirmation(
+    to: string,
+    data: DeletionConfirmationEmailData
+  ): Promise<DeliveryResult>;
   sendDeletionComplete(to: string, data: DeletionCompleteEmailData): Promise<DeliveryResult>;
 }
 
-export function createEmailService(
-  provider: { send: (payload: EmailPayload) => Promise<DeliveryResult> }
-): IEmailService {
+export function createEmailService(provider: {
+  send: (payload: EmailPayload) => Promise<DeliveryResult>;
+}): IEmailService {
   const config = getEmailConfig();
 
-  function buildPayload(to: string, subject: string, html: string, tags: string[], unsubscribeUrl?: string): EmailPayload {
+  function buildPayload(
+    to: string,
+    subject: string,
+    html: string,
+    tags: string[],
+    unsubscribeUrl?: string
+  ): EmailPayload {
     const headers: Record<string, string> = {};
     if (unsubscribeUrl) {
       headers['List-Unsubscribe'] = `<${unsubscribeUrl}>`;
@@ -46,12 +55,16 @@ export function createEmailService(
 
     sendWelcome: (to, data) => {
       const { subject, html } = renderWelcome(data);
-      return provider.send(buildPayload(to, subject, html, ['welcome', 'waitlist'], data.unsubscribeApiUrl));
+      return provider.send(
+        buildPayload(to, subject, html, ['welcome', 'waitlist'], data.unsubscribeApiUrl)
+      );
     },
 
     sendReferralSuccess: (to, data) => {
       const { subject, html } = renderReferralSuccess(data);
-      return provider.send(buildPayload(to, subject, html, ['referral-success', 'waitlist'], data.unsubscribeApiUrl));
+      return provider.send(
+        buildPayload(to, subject, html, ['referral-success', 'waitlist'], data.unsubscribeApiUrl)
+      );
     },
 
     // Deletion emails: NO unsubscribe — transactional security emails, always delivered

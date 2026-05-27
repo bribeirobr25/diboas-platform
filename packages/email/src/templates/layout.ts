@@ -11,7 +11,8 @@ import { BRAND } from '../config';
  * - en: US SEC/FINRA standard disclaimer
  */
 const REGULATORY_DISCLAIMERS: Record<string, string> = {
-  'pt-BR': 'Investimentos envolvem riscos. Rentabilidade passada não garante rentabilidade futura. Serviços regulados conforme CVM e BCB.',
+  'pt-BR':
+    'Investimentos envolvem riscos. Rentabilidade passada não garante rentabilidade futura. Serviços regulados conforme CVM e BCB.',
   de: 'Investitionen sind mit Risiken verbunden. Vergangene Renditen garantieren keine zukünftigen Ergebnisse. Krypto-Assets unterliegen der MiCA-Verordnung (EU) 2023/1114.',
   es: 'Las inversiones implican riesgos. El rendimiento pasado no garantiza resultados futuros.',
   en: 'Investments involve risk. Past performance does not guarantee future results. Not FDIC insured.',
@@ -21,7 +22,10 @@ function getDisclaimer(locale: string): string {
   return REGULATORY_DISCLAIMERS[locale] || REGULATORY_DISCLAIMERS['en'];
 }
 
-export function wrapInLayout(content: string, options?: { unsubscribeUrl?: string; locale?: string }): string {
+export function wrapInLayout(
+  content: string,
+  options?: { unsubscribeUrl?: string; locale?: string }
+): string {
   const unsubscribeUrl = options?.unsubscribeUrl;
   const locale = options?.locale || 'en';
   const disclaimer = getDisclaimer(locale);

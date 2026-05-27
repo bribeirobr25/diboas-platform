@@ -57,9 +57,7 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
 
   if (!result) return null;
 
-  const bankBarWidth = result.defiBalance > 0
-    ? (bankBalance / result.defiBalance) * 100
-    : 0;
+  const bankBarWidth = result.defiBalance > 0 ? (bankBalance / result.defiBalance) * 100 : 0;
 
   const goalName = state.selectedGoal
     ? intl.formatMessage({ id: `preDream.goalStrategy.options.${state.selectedGoal}.label` })
@@ -85,11 +83,17 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
               <p className={styles.comparisonApy}>{result.pathApy}% APY</p>
             </div>
             <div className={styles.comparisonValues}>
-              <p className={styles.comparisonAmount}>{formatCurrency(result.defiBalance, 2, locale)}</p>
-              <p className={styles.comparisonGain}>+{formatCurrency(result.defiInterest, 2, locale)}</p>
+              <p className={styles.comparisonAmount}>
+                {formatCurrency(result.defiBalance, 2, locale)}
+              </p>
+              <p className={styles.comparisonGain}>
+                +{formatCurrency(result.defiInterest, 2, locale)}
+              </p>
               {hasCurrencyHedge && result.diboasYieldBalance != null && (
                 <p className={styles.comparisonGainMuted}>
-                  {t('yieldCurrencyValue', { amount: formatCurrency(result.diboasYieldBalance, 2, 'en') })}
+                  {t('yieldCurrencyValue', {
+                    amount: formatCurrency(result.diboasYieldBalance, 2, 'en'),
+                  })}
                 </p>
               )}
             </div>
@@ -107,8 +111,12 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
               <p className={styles.comparisonApyMuted}>{bankRates.savings}% APY</p>
             </div>
             <div className={styles.comparisonValues}>
-              <p className={styles.comparisonAmountMuted}>{formatCurrency(bankBalance, 2, locale)}</p>
-              <p className={styles.comparisonGainMuted}>+{formatCurrency(bankInterest, 2, locale)}</p>
+              <p className={styles.comparisonAmountMuted}>
+                {formatCurrency(bankBalance, 2, locale)}
+              </p>
+              <p className={styles.comparisonGainMuted}>
+                +{formatCurrency(bankInterest, 2, locale)}
+              </p>
             </div>
           </div>
           <div className={styles.progressBarBgMuted}>
@@ -120,7 +128,15 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
       {/* Difference Highlight */}
       <div className={styles.differenceHighlight}>
         <div className={styles.differenceIcon}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
+          >
             <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
             <polyline points="17 6 23 6 23 12" />
           </svg>
@@ -149,7 +165,7 @@ export function ResultsScreen({ onBackToHome }: ResultsScreenProps) {
                   ? 'dreamMode.results.bank_source_us'
                   : 'dreamMode.results.bank_source_eu',
           },
-          { rate: formatRate(bankRates.savings, localeKey) },
+          { rate: formatRate(bankRates.savings, localeKey) }
         )}
       </p>
 

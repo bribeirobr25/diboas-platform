@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const { locale: _locale } = await params;
   return {
     title: 'Dream Mode - diBoaS',
-    description: 'Visualize your financial future. See what different strategies could do for your money over time.',
+    description:
+      'Visualize your financial future. See what different strategies could do for your money over time.',
     robots: {
       index: false, // Don't index this page
       follow: false,

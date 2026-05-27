@@ -8,7 +8,8 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Data deletion complete',
     body: 'As requested, we have permanently deleted all your personal data from the diBoaS waitlist.',
     deletedTitle: 'What was deleted:',
-    deletedItems: 'Email address, name, waitlist position, referral data, and all associated records.',
+    deletedItems:
+      'Email address, name, waitlist position, referral data, and all associated records.',
     contact: 'If you have questions or believe this was done in error, please contact us at',
     farewell: 'We wish you all the best.',
   },
@@ -17,8 +18,10 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Exclusão de dados concluída',
     body: 'Conforme solicitado, excluímos permanentemente todos os seus dados pessoais da lista de espera do diBoaS.',
     deletedTitle: 'O que foi excluído:',
-    deletedItems: 'Endereço de e-mail, nome, posição na lista, dados de indicação e todos os registros associados.',
-    contact: 'Se tiver dúvidas ou acreditar que isso foi feito por engano, entre em contato conosco em',
+    deletedItems:
+      'Endereço de e-mail, nome, posição na lista, dados de indicação e todos os registros associados.',
+    contact:
+      'Se tiver dúvidas ou acreditar que isso foi feito por engano, entre em contato conosco em',
     farewell: 'Desejamos tudo de bom.',
   },
   es: {
@@ -26,7 +29,8 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Eliminación de datos completada',
     body: 'Como solicitaste, hemos eliminado permanentemente todos tus datos personales de la lista de espera de diBoaS.',
     deletedTitle: 'Lo que se eliminó:',
-    deletedItems: 'Dirección de correo, nombre, posición, datos de referidos y todos los registros asociados.',
+    deletedItems:
+      'Dirección de correo, nombre, posición, datos de referidos y todos los registros asociados.',
     contact: 'Si tienes preguntas o crees que fue un error, contáctanos en',
     farewell: 'Te deseamos lo mejor.',
   },
@@ -35,13 +39,17 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Datenlöschung abgeschlossen',
     body: 'Wie gewünscht haben wir alle deine persönlichen Daten dauerhaft von der diBoaS-Warteliste gelöscht.',
     deletedTitle: 'Was gelöscht wurde:',
-    deletedItems: 'E-Mail-Adresse, Name, Wartelistenposition, Empfehlungsdaten und alle zugehörigen Einträge.',
+    deletedItems:
+      'E-Mail-Adresse, Name, Wartelistenposition, Empfehlungsdaten und alle zugehörigen Einträge.',
     contact: 'Bei Fragen oder wenn dies irrtümlich geschah, kontaktiere uns unter',
     farewell: 'Wir wünschen dir alles Gute.',
   },
 };
 
-export function renderDeletionComplete(data: DeletionCompleteEmailData): { subject: string; html: string } {
+export function renderDeletionComplete(data: DeletionCompleteEmailData): {
+  subject: string;
+  html: string;
+} {
   const t = translations[data.locale] || translations.en;
 
   const content = `

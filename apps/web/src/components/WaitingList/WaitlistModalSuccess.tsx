@@ -43,11 +43,7 @@ export function WaitlistModalSuccess({
       <h2 className={styles.successTitle}>{labels.title}</h2>
       <p className={styles.successMessage}>{labels.message}</p>
       <p className={styles.successEmail}>{labels.emailSent}</p>
-      <button
-        className={styles.closeModalButton}
-        onClick={onClose}
-        type="button"
-      >
+      <button className={styles.closeModalButton} onClick={onClose} type="button">
         {labels.closeButton}
       </button>
     </div>

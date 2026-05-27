@@ -91,7 +91,7 @@ export const StrategyCard = memo(function StrategyCard({
   showMoreLabel,
   showLessLabel,
   className = '',
-  'data-testid': testId
+  'data-testid': testId,
 }: StrategyCardProps) {
   const isStable = growthExposure === 0;
   const borderClass = isStable ? styles.borderStable : styles.borderGrowth;
@@ -99,16 +99,11 @@ export const StrategyCard = memo(function StrategyCard({
   const detailsId = `strategy-details-${strategyId}`;
 
   return (
-    <div
-      className={cn(styles.card, borderClass, className)}
-      data-testid={testId}
-    >
+    <div className={cn(styles.card, borderClass, className)} data-testid={testId}>
       {/* ALWAYS VISIBLE */}
       {/* Header with name and growth badge */}
       <div className={styles.header}>
-        <h3 className={styles.name}>
-          {name}
-        </h3>
+        <h3 className={styles.name}>{name}</h3>
         {growthExposure > 0 ? (
           <span className={styles.growthBadge}>
             {growthExposure}% {growthBadgeLabel}
@@ -126,13 +121,10 @@ export const StrategyCard = memo(function StrategyCard({
           const isRiskLevel = index === stats.length - 1;
           return (
             <div key={stat.label} className={styles.statRow}>
-              <span className={styles.statLabel}>
-                {stat.label}:
-              </span>
-              <span className={cn(
-                styles.statValue,
-                isRiskLevel && getRiskLevelClass(growthExposure)
-              )}>
+              <span className={styles.statLabel}>{stat.label}:</span>
+              <span
+                className={cn(styles.statValue, isRiskLevel && getRiskLevelClass(growthExposure))}
+              >
                 {stat.value}
               </span>
             </div>
@@ -144,7 +136,7 @@ export const StrategyCard = memo(function StrategyCard({
       <button
         type="button"
         className={styles.expandToggle}
-        onClick={() => setIsExpanded(prev => !prev)}
+        onClick={() => setIsExpanded((prev) => !prev)}
         aria-expanded={isExpanded}
         aria-controls={detailsId}
       >

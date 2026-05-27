@@ -166,11 +166,7 @@
     "security": {
       "title": "Security",
       "intro": "We implement appropriate technical and organizational measures to protect your data, including:",
-      "measures": [
-        "Encryption in transit (HTTPS)",
-        "Access controls",
-        "Regular security reviews"
-      ]
+      "measures": ["Encryption in transit (HTTPS)", "Access controls", "Regular security reviews"]
     },
     "childrenPrivacy": {
       "title": "Children's Privacy",

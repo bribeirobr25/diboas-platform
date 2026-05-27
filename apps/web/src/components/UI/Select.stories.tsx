@@ -101,9 +101,15 @@ export const Ghost: Story = {
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-      <Select aria-label="Small" size="sm">{sampleOptions}</Select>
-      <Select aria-label="Default" size="default">{sampleOptions}</Select>
-      <Select aria-label="Large" size="lg">{sampleOptions}</Select>
+      <Select aria-label="Small" size="sm">
+        {sampleOptions}
+      </Select>
+      <Select aria-label="Default" size="default">
+        {sampleOptions}
+      </Select>
+      <Select aria-label="Large" size="lg">
+        {sampleOptions}
+      </Select>
     </div>
   ),
 };

@@ -20,7 +20,9 @@ export function generateAlertId(): string {
  */
 export function generateFingerprint(alert: Omit<Alert, 'id' | 'timestamp'>): string {
   const components = [alert.title, alert.category, alert.source].join('|');
-  return btoa(components).replace(/[^a-zA-Z0-9]/g, '').substr(0, 16);
+  return btoa(components)
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .substr(0, 16);
 }
 
 /**
@@ -37,11 +39,16 @@ export function generateActionUrl(type: string, params: Record<string, unknown>)
  */
 export function getLogLevel(severity: AlertSeverity): keyof typeof LoggerType {
   switch (severity) {
-    case AlertSeverity.INFO: return 'info';
-    case AlertSeverity.WARNING: return 'warn';
-    case AlertSeverity.ERROR: return 'error';
-    case AlertSeverity.CRITICAL: return 'critical';
-    default: return 'info';
+    case AlertSeverity.INFO:
+      return 'info';
+    case AlertSeverity.WARNING:
+      return 'warn';
+    case AlertSeverity.ERROR:
+      return 'error';
+    case AlertSeverity.CRITICAL:
+      return 'critical';
+    default:
+      return 'info';
   }
 }
 
@@ -50,11 +57,16 @@ export function getLogLevel(severity: AlertSeverity): keyof typeof LoggerType {
  */
 export function getSlackColor(severity: AlertSeverity): string {
   switch (severity) {
-    case AlertSeverity.INFO: return 'good';
-    case AlertSeverity.WARNING: return 'warning';
-    case AlertSeverity.ERROR: return 'danger';
-    case AlertSeverity.CRITICAL: return '#990000';
-    default: return 'good';
+    case AlertSeverity.INFO:
+      return 'good';
+    case AlertSeverity.WARNING:
+      return 'warning';
+    case AlertSeverity.ERROR:
+      return 'danger';
+    case AlertSeverity.CRITICAL:
+      return '#990000';
+    default:
+      return 'good';
   }
 }
 
@@ -63,11 +75,16 @@ export function getSlackColor(severity: AlertSeverity): string {
  */
 export function getSlackEmoji(severity: AlertSeverity): string {
   switch (severity) {
-    case AlertSeverity.INFO: return 'i';
-    case AlertSeverity.WARNING: return '!';
-    case AlertSeverity.ERROR: return 'x';
-    case AlertSeverity.CRITICAL: return '!!';
-    default: return 'i';
+    case AlertSeverity.INFO:
+      return 'i';
+    case AlertSeverity.WARNING:
+      return '!';
+    case AlertSeverity.ERROR:
+      return 'x';
+    case AlertSeverity.CRITICAL:
+      return '!!';
+    default:
+      return 'i';
   }
 }
 
@@ -107,5 +124,5 @@ export const EMAIL_SEVERITY_COLORS: Record<AlertSeverity, string> = {
   [AlertSeverity.INFO]: '#0066cc',
   [AlertSeverity.WARNING]: '#ff9900',
   [AlertSeverity.ERROR]: '#cc0000',
-  [AlertSeverity.CRITICAL]: '#990000'
+  [AlertSeverity.CRITICAL]: '#990000',
 };

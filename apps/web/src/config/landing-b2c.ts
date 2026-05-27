@@ -61,23 +61,23 @@ export const B2C_HERO_CONFIG: HeroVariantConfig = {
     description: 'landing-b2c.hero.subheadline',
     ctaText: 'landing-b2c.hero.cta',
     ctaHref: '#comparison',
-    ctaTarget: '_self'
+    ctaTarget: '_self',
   },
   backgroundAssets: {
     backgroundImage: B2C_IMAGES.hero,
     backgroundImageMobile: B2C_IMAGES.heroMobile,
-    overlayOpacity: 0.3
+    overlayOpacity: 0.3,
   },
   seo: {
     titleTag: 'diBoaS - Make Your Money Work',
     imageAlt: {
-      background: 'Financial growth background illustration'
-    }
+      background: 'Financial growth background illustration',
+    },
   },
   analytics: {
     trackingPrefix: 'hero_b2c_landing',
-    enabled: true
-  }
+    enabled: true,
+  },
 } as const;
 
 /**
@@ -361,7 +361,6 @@ export const B2C_UNDER_THE_HOOD_CONFIG: ExpandableSectionConfig = {
   },
 } as const;
 
-
 /**
  * Section 7: Demo Configuration
  */
@@ -411,9 +410,17 @@ export const B2C_FOUNDER_CONFIG: FounderSectionConfig = {
     emailText: 'landing-b2c.founder.emailText',
     emailHref: 'hello@diboas.com',
     socialLinks: [
-      { label: 'landing-b2c.founder.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
+      {
+        label: 'landing-b2c.founder.social.linkedin',
+        href: 'https://www.linkedin.com/in/bribeirobr/',
+        icon: 'linkedin',
+      },
       { label: 'landing-b2c.founder.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },
-      { label: 'landing-b2c.founder.social.substack', href: 'https://bribeirobr.substack.com/', icon: 'substack' },
+      {
+        label: 'landing-b2c.founder.social.substack',
+        href: 'https://bribeirobr.substack.com/',
+        icon: 'substack',
+      },
     ],
   },
   seo: {
@@ -436,32 +443,32 @@ export const B2C_FAQ_ITEMS: FAQItem[] = [
     id: 'isBank',
     question: 'faq.items.isBank.question',
     answer: 'faq.items.isBank.answer',
-    category: 'general'
+    category: 'general',
   },
   {
     id: 'safety',
     question: 'faq.items.safety.question',
     answer: 'faq.items.safety.answer',
-    category: 'security'
+    category: 'security',
   },
   {
     id: 'howPossible',
     question: 'faq.items.howPossible.question',
     answer: 'faq.items.howPossible.answer',
-    category: 'fees'
+    category: 'fees',
   },
   {
     id: 'withdraw',
     question: 'faq.items.withdraw.question',
     answer: 'faq.items.withdraw.answer',
-    category: 'fees'
+    category: 'fees',
   },
   {
     id: 'afterSignup',
     question: 'faq.items.afterSignup.question',
     answer: 'faq.items.afterSignup.answer',
-    category: 'getting-started'
-  }
+    category: 'getting-started',
+  },
 ];
 
 /**
@@ -474,23 +481,23 @@ export const B2C_FAQ_CONFIG: FAQAccordionVariantConfig = {
     description: '',
     ctaText: '',
     ctaHref: '',
-    items: B2C_FAQ_ITEMS
+    items: B2C_FAQ_ITEMS,
   },
   settings: {
     enableAnimations: true,
     animationDuration: 400,
     autoClose: true,
     enableKeyboardNav: true,
-    scrollIntoView: true
+    scrollIntoView: true,
   },
   seo: {
     ariaLabel: 'landing-b2c.sections.faq.ariaLabel',
-    region: 'faq'
+    region: 'faq',
   },
   analytics: {
     trackingPrefix: 'faq_b2c_landing',
-    enabled: true
-  }
+    enabled: true,
+  },
 };
 
 /**
@@ -503,7 +510,11 @@ export const B2C_DISCLAIMER_KEY = 'landing-b2c.footer.disclosures.general';
  */
 export const B2C_FOOTER_NAV = [
   { id: 'forYou', labelKey: 'landing-b2c.footer.nav.forYou', href: ROUTES.HOME },
-  { id: 'forBusiness', labelKey: 'landing-b2c.footer.nav.forBusiness', href: ROUTES.BUSINESS_LANDING },
+  {
+    id: 'forBusiness',
+    labelKey: 'landing-b2c.footer.nav.forBusiness',
+    href: ROUTES.BUSINESS_LANDING,
+  },
   // 2026-05-13: route renamed to `/market`; label "Adelaide Daily" stays.
   { id: 'adelaideDaily', labelKey: 'landing-b2c.footer.nav.adelaideDaily', href: ROUTES.MARKET },
   { id: 'about', labelKey: 'landing-b2c.footer.nav.about', href: ROUTES.ABOUT },

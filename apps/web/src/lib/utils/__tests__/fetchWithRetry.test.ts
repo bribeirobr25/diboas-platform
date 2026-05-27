@@ -43,7 +43,7 @@ describe('fetchWithRetry', () => {
 
       expect(mockFetch).toHaveBeenCalledWith(
         'https://example.com/api',
-        expect.objectContaining({ method: 'POST' }),
+        expect.objectContaining({ method: 'POST' })
       );
     });
   });
@@ -156,9 +156,9 @@ describe('fetchWithRetry', () => {
         .mockRejectedValueOnce(new TypeError('Failed to fetch'));
 
       // Start the assertion before advancing timers to ensure the rejection is caught
-      const assertionPromise = expect(
-        fetchWithRetry('https://example.com/api'),
-      ).rejects.toThrow('Failed to fetch');
+      const assertionPromise = expect(fetchWithRetry('https://example.com/api')).rejects.toThrow(
+        'Failed to fetch'
+      );
 
       await vi.runAllTimersAsync();
       await assertionPromise;
@@ -174,7 +174,7 @@ describe('fetchWithRetry', () => {
       controller.abort();
 
       await expect(
-        fetchWithRetry('https://example.com/api', { signal: controller.signal }),
+        fetchWithRetry('https://example.com/api', { signal: controller.signal })
       ).rejects.toThrow();
 
       expect(mockFetch).toHaveBeenCalledTimes(1);

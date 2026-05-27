@@ -49,14 +49,15 @@ export function WaitlistVersionB({
   const [signupData, setSignupData] = useState<SignupData | null>(null);
 
   const ns = config?.namespace ?? 'landing-b2c.waitlist.versionB';
-  const t = (key: string) =>
-    intl.formatMessage({ id: `${ns}.${key}` });
+  const t = (key: string) => intl.formatMessage({ id: `${ns}.${key}` });
 
   const handleValidateCode = useCallback(async () => {
     if (!inviteCode.trim()) return;
     setIsValidating(true);
     try {
-      const res = await fetchWithRetry(`/api/waitlist/referral?code=${encodeURIComponent(inviteCode.trim())}`);
+      const res = await fetchWithRetry(
+        `/api/waitlist/referral?code=${encodeURIComponent(inviteCode.trim())}`
+      );
       if (res.ok) {
         const data = await res.json();
         setInviteValid(data.valid && data.referrer?.remainingInvites > 0);
@@ -111,7 +112,10 @@ export function WaitlistVersionB({
               <input
                 type="text"
                 value={inviteCode}
-                onChange={e => { setInviteCode(e.target.value); setInviteValid(null); }}
+                onChange={(e) => {
+                  setInviteCode(e.target.value);
+                  setInviteValid(null);
+                }}
                 placeholder={t('inviteCodePlaceholder')}
                 className={styles.inviteCodeInput}
                 aria-label={t('inviteCodePlaceholder')}
@@ -132,8 +136,14 @@ export function WaitlistVersionB({
                 referredBy={inviteCode.trim()}
                 source={source}
                 className={styles.form}
-                belowCta={config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined}
-                belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}
+                belowCta={
+                  config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined
+                }
+                belowCheckbox={
+                  config?.belowCheckbox
+                    ? intl.formatMessage({ id: config.belowCheckbox })
+                    : undefined
+                }
               />
             ) : inviteValid === false ? (
               <p className={styles.inviteError}>
@@ -149,7 +159,9 @@ export function WaitlistVersionB({
               source={source}
               className={styles.form}
               belowCta={config?.belowCta ? intl.formatMessage({ id: config.belowCta }) : undefined}
-              belowCheckbox={config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined}
+              belowCheckbox={
+                config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined
+              }
             />
           </div>
         </div>

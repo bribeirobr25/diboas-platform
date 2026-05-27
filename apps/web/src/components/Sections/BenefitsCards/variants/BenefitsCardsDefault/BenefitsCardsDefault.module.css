@@ -148,8 +148,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-lg);
-  transition: transform var(--animation-duration-fast) ease,
-              box-shadow var(--animation-duration-fast) ease;
+  transition:
+    transform var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
 }
 
 @media (min-width: 768px) {

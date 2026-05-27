@@ -41,7 +41,8 @@ const DEFAULT_CONFIG: ScenarioCardsConfig = {
     {
       id: 'freelancer',
       title: 'The freelancer who gets paid late',
-      description: 'You finished the project. The invoice is out. But the money won\'t land for 30 days.',
+      description:
+        "You finished the project. The invoice is out. But the money won't land for 30 days.",
       backgroundImage: '/assets/images/morning-pause.avif',
       imageAlt: 'Freelancer working on laptop',
       costComparison: 'Bank wire: $25 + 3 days. diBoaS: $0 + instant.',
@@ -56,7 +57,7 @@ const DEFAULT_CONFIG: ScenarioCardsConfig = {
     {
       id: 'traveler',
       title: 'The traveler who hates FX fees',
-      description: 'Every time you swipe abroad, 3% vanishes. On a $5,000 trip, that\'s $150 gone.',
+      description: "Every time you swipe abroad, 3% vanishes. On a $5,000 trip, that's $150 gone.",
       backgroundImage: '/assets/images/seamless-exchange.avif',
       imageAlt: 'Traveler at airport',
       costComparison: 'Traditional bank: 3% FX markup. diBoaS: real rate.',

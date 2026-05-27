@@ -104,7 +104,7 @@ export class StateMachine<T extends string> {
       Logger.debug(`Invalid state transition in ${this.label}`, {
         from: this.currentState,
         to: newState,
-        validTransitions: validNextStates
+        validTransitions: validNextStates,
       });
       return false;
     }
@@ -114,7 +114,7 @@ export class StateMachine<T extends string> {
 
     Logger.debug(`State transition in ${this.label}`, {
       from: oldState,
-      to: newState
+      to: newState,
     });
 
     this.onStateChange?.(oldState, newState);

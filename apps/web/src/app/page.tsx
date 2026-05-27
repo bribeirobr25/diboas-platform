@@ -24,7 +24,7 @@ export default async function RootPage({
 
   const locale = detectPreferredLocale(
     cookieStore.get('NEXT_LOCALE')?.value,
-    headersList.get('Accept-Language'),
+    headersList.get('Accept-Language')
   );
 
   const query = new URLSearchParams();

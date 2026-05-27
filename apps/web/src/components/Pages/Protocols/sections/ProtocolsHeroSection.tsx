@@ -25,14 +25,8 @@ export function ProtocolsHeroSection() {
       enableReporting={true}
       context={{ page: 'protocols', variant: 'centered' }}
     >
-      <PageHeroSection
-        headline={t('hero.h1')}
-        subheadline={t('hero.subtitle')}
-        align="center"
-      />
-      <p className={styles.trustLine}>
-        {t('hero.trustLine')}
-      </p>
+      <PageHeroSection headline={t('hero.h1')} subheadline={t('hero.subtitle')} align="center" />
+      <p className={styles.trustLine}>{t('hero.trustLine')}</p>
     </SectionErrorBoundary>
   );
 }

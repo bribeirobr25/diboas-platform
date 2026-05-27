@@ -172,12 +172,10 @@ export async function generateMetadata({
   // Default metadata
   return {
     title: 'diBoaS - Financial Freedom Made Simple',
-    description:
-      'Your money. Your future. One platform. Join the waitlist today.',
+    description: 'Your money. Your future. One platform. Join the waitlist today.',
     openGraph: {
       title: 'diBoaS - Financial Freedom Made Simple',
-      description:
-        'Your money. Your future. One platform. Join the waitlist today.',
+      description: 'Your money. Your future. One platform. Join the waitlist today.',
       type: 'website',
       url: `${baseUrl}/${locale}`,
       siteName: 'diBoaS',

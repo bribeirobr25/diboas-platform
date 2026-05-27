@@ -12,6 +12,7 @@
     "headline": "{monthly}/mes durante {years} años podrían convertirse en {result}",
     "subtitle": "Eso es lo que diBoaS podría darte, frente al rendimiento casi nulo de tu banco."
   },
+  "disclaimer": "Esta herramienta proyecta la acumulación de ahorros para la jubilación. No modela retiros, longevidad ni cuál sería un ingreso de jubilación sostenible — esos son temas distintos que merecen su propia planificación.",
   "landing": {
     "cardTitle": "Jubilación",
     "cardTagline": "¿En qué se convierten tus ahorros a los 65?"

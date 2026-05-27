@@ -40,8 +40,10 @@ export async function deliverAlert(alert: Alert): Promise<void> {
   // Slack delivery
   if (MONITORING_CONFIG.alerts.channels.slack) {
     const { slack } = MONITORING_CONFIG.alerts.channels;
-    if ((alert.category === AlertCategory.PERFORMANCE && slack.enablePerformanceAlerts) ||
-        (alert.category === AlertCategory.ERROR && slack.enableErrorAlerts)) {
+    if (
+      (alert.category === AlertCategory.PERFORMANCE && slack.enablePerformanceAlerts) ||
+      (alert.category === AlertCategory.ERROR && slack.enableErrorAlerts)
+    ) {
       promises.push(slackCircuit.execute(() => sendToSlack(alert, slack)));
     }
   }
@@ -49,8 +51,10 @@ export async function deliverAlert(alert: Alert): Promise<void> {
   // Email delivery
   if (MONITORING_CONFIG.alerts.channels.email) {
     const { email } = MONITORING_CONFIG.alerts.channels;
-    if ((alert.category === AlertCategory.PERFORMANCE && email.enablePerformanceAlerts) ||
-        (alert.category === AlertCategory.ERROR && email.enableErrorAlerts)) {
+    if (
+      (alert.category === AlertCategory.PERFORMANCE && email.enablePerformanceAlerts) ||
+      (alert.category === AlertCategory.ERROR && email.enableErrorAlerts)
+    ) {
       promises.push(emailCircuit.execute(() => sendToEmail(alert, email)));
     }
   }
@@ -70,31 +74,37 @@ export async function sendToSlack(alert: Alert, config: SlackConfig): Promise<vo
     channel: config.channel,
     username: 'diBoaS Monitoring',
     icon_emoji: ':warning:',
-    attachments: [{
-      color,
-      title: `${emoji} ${alert.title}`,
-      text: alert.message,
-      fields: [
-        { title: 'Severity', value: alert.severity.toUpperCase(), short: true },
-        { title: 'Category', value: alert.category, short: true },
-        { title: 'Source', value: alert.source, short: true },
-        { title: 'Time', value: new Date(alert.timestamp).toISOString(), short: true }
-      ],
-      actions: alert.actionUrl ? [{
-        type: 'button',
-        text: 'View Details',
-        url: alert.actionUrl
-      }] : undefined,
-      footer: 'diBoaS Monitoring',
-      ts: Math.floor(alert.timestamp / 1000)
-    }]
+    attachments: [
+      {
+        color,
+        title: `${emoji} ${alert.title}`,
+        text: alert.message,
+        fields: [
+          { title: 'Severity', value: alert.severity.toUpperCase(), short: true },
+          { title: 'Category', value: alert.category, short: true },
+          { title: 'Source', value: alert.source, short: true },
+          { title: 'Time', value: new Date(alert.timestamp).toISOString(), short: true },
+        ],
+        actions: alert.actionUrl
+          ? [
+              {
+                type: 'button',
+                text: 'View Details',
+                url: alert.actionUrl,
+              },
+            ]
+          : undefined,
+        footer: 'diBoaS Monitoring',
+        ts: Math.floor(alert.timestamp / 1000),
+      },
+    ],
   };
 
   const response = await fetchWithSingleRetry(config.webhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(5000)
+    signal: AbortSignal.timeout(5000),
   });
 
   if (!response.ok) {
@@ -110,14 +120,14 @@ export async function sendToEmail(alert: Alert, config: EmailConfig): Promise<vo
     to: config.recipients,
     subject: `[${alert.severity.toUpperCase()}] ${alert.title}`,
     html: generateEmailHTML(alert),
-    from: 'alerts@diboas.com'
+    from: 'alerts@diboas.com',
   };
 
   const response = await fetchWithSingleRetry(config.endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(5000)
+    signal: AbortSignal.timeout(5000),
   });
 
   if (!response.ok) {
@@ -177,10 +187,7 @@ export function generateEmailHTML(alert: Alert): string {
 /**
  * Send resolution notification to Slack
  */
-export async function sendResolutionNotification(
-  alert: Alert,
-  resolvedBy?: string
-): Promise<void> {
+export async function sendResolutionNotification(alert: Alert, resolvedBy?: string): Promise<void> {
   const config = MONITORING_CONFIG.alerts.channels.slack;
   if (!config) return;
 
@@ -189,20 +196,22 @@ export async function sendResolutionNotification(
     username: 'diBoaS Monitoring',
     icon_emoji: ':white_check_mark:',
     text: `Alert resolved: ${alert.title}`,
-    attachments: [{
-      color: 'good',
-      fields: [
-        { title: 'Alert ID', value: alert.id, short: true },
-        { title: 'Resolved By', value: resolvedBy || 'System', short: true },
-        { title: 'Duration', value: formatDuration(Date.now() - alert.timestamp), short: true }
-      ]
-    }]
+    attachments: [
+      {
+        color: 'good',
+        fields: [
+          { title: 'Alert ID', value: alert.id, short: true },
+          { title: 'Resolved By', value: resolvedBy || 'System', short: true },
+          { title: 'Duration', value: formatDuration(Date.now() - alert.timestamp), short: true },
+        ],
+      },
+    ],
   };
 
   await fetchWithSingleRetry(config.webhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(5000)
+    signal: AbortSignal.timeout(5000),
   });
 }

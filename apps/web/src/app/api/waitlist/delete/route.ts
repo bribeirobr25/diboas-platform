@@ -55,18 +55,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     const { email } = body;
 
     if (!email || typeof email !== 'string') {
-      return NextResponse.json(
-        { success: false, error: 'Email is required' },
-        { status: 400 },
-      );
+      return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 });
     }
 
     const normalizedEmail = email.toLowerCase().trim();
     if (!isValidEmail(normalizedEmail)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid email format' },
-        { status: 400 },
-      );
+      return NextResponse.json({ success: false, error: 'Invalid email format' }, { status: 400 });
     }
 
     const result = await waitlistApplicationService.requestDeletion({
@@ -79,7 +73,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       logRequestEnd('POST', '/api/waitlist/delete', 500, startTime);
       return NextResponse.json(
         { success: false, error: 'Failed to process deletion request' },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -95,7 +89,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         message:
           'If this email exists in our system, you will receive deletion instructions via email.',
       },
-      { status: 202 },
+      { status: 202 }
     );
   } catch (error) {
     emitErrorEvent('waitlist', 'deletion_request', error);
@@ -105,7 +99,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     logRequestEnd('POST', '/api/waitlist/delete', 500, startTime);
     return NextResponse.json(
       { success: false, error: 'Failed to process deletion request' },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
@@ -132,7 +126,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     if (!token || typeof token !== 'string') {
       return NextResponse.json(
         { success: false, error: 'Deletion token is required' },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -145,14 +139,14 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       if (result.code === 'INVALID_TOKEN') {
         return NextResponse.json(
           { success: false, error: 'Invalid or expired deletion token' },
-          { status: 400 },
+          { status: 400 }
         );
       }
       emitErrorEvent('waitlist', 'deletion_confirmation', result.cause);
       logRequestEnd('DELETE', '/api/waitlist/delete', 500, startTime);
       return NextResponse.json(
         { success: false, error: 'Failed to process deletion' },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -164,7 +158,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
           ? 'Your data has been permanently deleted from our system.'
           : 'No data found to delete.',
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     emitErrorEvent('waitlist', 'deletion_confirmation', error);
@@ -174,7 +168,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     logRequestEnd('DELETE', '/api/waitlist/delete', 500, startTime);
     return NextResponse.json(
       { success: false, error: 'Failed to process deletion' },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

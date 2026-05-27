@@ -127,7 +127,10 @@ export const DarkTheme: Story = {
   },
   decorators: [
     (Story) => (
-      <div data-theme="dark" style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}>
+      <div
+        data-theme="dark"
+        style={{ minHeight: '100vh', backgroundColor: 'var(--color-gray-800, #1f2937)' }}
+      >
         <Story />
       </div>
     ),

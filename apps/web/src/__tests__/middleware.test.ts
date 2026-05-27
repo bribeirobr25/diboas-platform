@@ -2,12 +2,11 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { middleware, config } from '../../middleware';
 
-const UUID_REGEX =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function makeRequest(
   path: string,
-  options?: { acceptLanguage?: string; localeCookie?: string },
+  options?: { acceptLanguage?: string; localeCookie?: string }
 ): NextRequest {
   const url = new URL(path, 'http://localhost:3000');
   const headers = new Headers();
@@ -159,7 +158,9 @@ describe('middleware', () => {
     });
 
     it('should use Accept-Language when no cookie set', () => {
-      const response = middleware(makeRequest('/about', { acceptLanguage: 'pt-BR,pt;q=0.9,en;q=0.8' }));
+      const response = middleware(
+        makeRequest('/about', { acceptLanguage: 'pt-BR,pt;q=0.9,en;q=0.8' })
+      );
       expect(response.status).toBe(307);
       expect(response.headers.get('Location')).toBe('http://localhost:3000/pt-BR/about');
     });
@@ -177,10 +178,12 @@ describe('middleware', () => {
     });
 
     it('should prefer cookie over Accept-Language', () => {
-      const response = middleware(makeRequest('/about', {
-        localeCookie: 'es',
-        acceptLanguage: 'de,en;q=0.8',
-      }));
+      const response = middleware(
+        makeRequest('/about', {
+          localeCookie: 'es',
+          acceptLanguage: 'de,en;q=0.8',
+        })
+      );
       expect(response.status).toBe(307);
       expect(response.headers.get('Location')).toBe('http://localhost:3000/es/about');
     });
@@ -205,9 +208,11 @@ describe('middleware', () => {
     });
 
     it('should handle Accept-Language with q-factors correctly', () => {
-      const response = middleware(makeRequest('/about', {
-        acceptLanguage: 'en-US;q=0.5,es;q=0.9,de;q=0.7',
-      }));
+      const response = middleware(
+        makeRequest('/about', {
+          acceptLanguage: 'en-US;q=0.5,es;q=0.9,de;q=0.7',
+        })
+      );
       expect(response.status).toBe(307);
       // es has highest q-factor
       expect(response.headers.get('Location')).toBe('http://localhost:3000/es/about');

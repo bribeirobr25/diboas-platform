@@ -31,28 +31,19 @@ export const ContentCard = memo(function ContentCard({
   children,
   variant = 'default',
   className = '',
-  'data-testid': testId
+  'data-testid': testId,
 }: ContentCardProps) {
   const variantClass = {
     default: styles.variantDefault,
     muted: styles.variantMuted,
     highlight: styles.variantHighlight,
-    accent: styles.variantAccent
+    accent: styles.variantAccent,
   }[variant];
 
   return (
-    <div
-      className={cn(styles.card, variantClass, className)}
-      data-testid={testId}
-    >
-      {title && (
-        <h3 className={styles.title}>
-          {title}
-        </h3>
-      )}
-      <div className={styles.content}>
-        {children}
-      </div>
+    <div className={cn(styles.card, variantClass, className)} data-testid={testId}>
+      {title && <h3 className={styles.title}>{title}</h3>}
+      <div className={styles.content}>{children}</div>
     </div>
   );
 });

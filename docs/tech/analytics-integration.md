@@ -1,5 +1,19 @@
 # Analytics Integration Guide
 
+> ⚠️ **Drift notice (2026-05-25, updated 2026-05-26):** the event-table sections below were authored pre-Phase-6 and pre-PreDream refactor. The current event constants live at:
+>
+> - `apps/web/src/lib/compound-interest/constants.ts` → `CALCULATOR_EVENTS` (6 fields: `OPENED`, `AMOUNT_CHANGED`, `CADENCE_CHANGED`, `YEARS_CHANGED`, `SCENARIO_FOCUSED`, `COMPUTATION_COMPLETED`)
+> - `apps/web/src/lib/events/applicationEventTypes.ts` → `ApplicationEventType` enum (includes `PRE_DREAM_STARTED`, `PRE_DREAM_SHARE_INITIATED`, `PRE_DREAM_SHARE_COMPLETED` — the former `DREAM_MODE_EVENTS` were superseded by PreDream; `src/lib/dream-mode/constants.ts` no longer exists)
+> - `apps/web/src/lib/waitingList/constants.ts` → `WAITING_LIST_EVENTS` (includes the `SHARE_MODAL_OPENED`/`SHARE_INITIATED`/`SHARE_COMPLETED` nested keys — there is no separate `SHARE_EVENTS` constant or `src/lib/share/constants.ts`)
+>
+> **`ApplicationDomain` + `ApplicationEventType` additions (2026-05-26 — `TOOLS_41_DEFECTS_FIX_PLAN.md` v1.3 execution):**
+>
+> - **`ApplicationDomain` adds `'tools'`** — emitted by tool-suite components for tool-specific events.
+> - **`ApplicationEventType.CALCULATOR_UNEXPECTED_ERROR` (`'tools:calculatorUnexpectedError'`)** — emitted by `AssetHistoryCalculator` `Default.tsx` when an unexpected (non-`AssetHistoryDataError`) error escapes the engine. Routed via `applicationEventBus.emit(CALCULATOR_UNEXPECTED_ERROR, { domain: 'tools', source: 'asset-history', severity: 'high', context: {…PII-free…} })` + a parallel `errorReportingService.captureException(...)` for Sentry visibility. C21 close. Pattern is reusable for other tools' future unexpected-error reporting; the asset-history wiring is the canonical example.
+> - **`ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED` (`'tools:calculatorDepreciationClamped'`)** — emitted by `applyEffectiveRateClamp` in `lib/market-data/formulas/currencyHedge.ts` when an effective-rate computation `(1 + usdYield)(1 + d) - 1` would drop to ≤ -0.99 (catastrophic depreciation case, not reachable with current data but observable for future SDK responses). C3 close. Payload includes `originalEffectiveRate`, `clampedTo`, `usdYield`, `depreciation` for debugging. Five hedge sites emit this event under the same `source` discriminator (`calculateWithCurrencyHedge`, `calculateMonthlyWithCurrencyHedge`, `calculateCompoundProjectionHedged`, `calculateEmergencyFundTimeline`, `calculateTimeToTargetTimeline`).
+>
+> The Overview, Event Naming Conventions, How-to-Add-New-Events, Dashboard Locations, and Privacy & Consent sections remain accurate. A full rewrite of the event tables is tracked in `docs/audit/PENDING_ALL.md` Track 3 — until then, the source constants files are the authoritative event reference.
+
 This document provides comprehensive documentation for analytics tracking in the diBoaS platform.
 
 ## Table of Contents
@@ -44,52 +58,80 @@ The diBoaS platform uses a dual-layer analytics system:
 
 ### Key Files
 
-| File | Purpose |
-|------|---------|
-| `src/lib/analytics/service.ts` | Main analytics service implementation |
-| `src/lib/analytics/types.ts` | TypeScript interfaces for analytics |
+| File                                    | Purpose                                    |
+| --------------------------------------- | ------------------------------------------ |
+| `src/lib/analytics/service.ts`          | Main analytics service implementation      |
+| `src/lib/analytics/types.ts`            | TypeScript interfaces for analytics        |
 | `src/lib/events/ApplicationEventBus.ts` | Server-side event bus for audit/monitoring |
-| `src/lib/*/constants.ts` | Event name constants by feature |
+| `src/lib/*/constants.ts`                | Event name constants by feature            |
 
 ---
 
 ## Event Naming Conventions
 
-### Format
+The codebase uses **two parallel naming conventions** for two different layers of the analytics stack. Both are intentional — they target different audiences and tooling. Documented here side-by-side per `docs/audit/PHASE_1_7_ARCHITECTURE_AUDIT.md` D2 (2026-05-26).
 
-Events follow a `{feature}_{action}` naming pattern:
+### Format A — `analyticsService.track()` event names (`snake_case`)
 
-```
-{feature_area}_{specific_action}
-```
+Client-side analytics names that flow into Google Analytics 4 (which has tooling expectations around `snake_case` event names). Follows the pattern `{feature_area}_{specific_action}`:
 
 **Examples:**
+
 - `dream_mode_started`
 - `waitlist_form_submitted`
 - `calculator_input_changed`
 - `share_card_generated`
 
-### Rules
+**Rules:**
 
-1. **Lowercase with underscores** - All event names use `snake_case`
-2. **Feature prefix** - Start with the feature area (`dream_`, `waitlist_`, `calculator_`, `share_`)
-3. **Action suffix** - End with the action performed (`_started`, `_completed`, `_clicked`, `_changed`)
-4. **Past tense for completed actions** - Use `submitted`, `completed`, `clicked` (not `submit`, `complete`, `click`)
+1. **Lowercase with underscores** — All event names use `snake_case`
+2. **Feature prefix** — Start with the feature area (`dream_`, `waitlist_`, `calculator_`, `share_`)
+3. **Action suffix** — End with the action performed (`_started`, `_completed`, `_clicked`, `_changed`)
+4. **Past tense for completed actions** — Use `submitted`, `completed`, `clicked` (not `submit`, `complete`, `click`)
+
+### Format B — `ApplicationEventType` enum values (`[domain]:[entityAction]`)
+
+Internal server-side event bus names that feed audit logging + cross-component subscribers + future webhook integrations. Domain-scoped + camelCase action to match the `ApplicationDomain` typed contract:
+
+**Examples:**
+
+- `waitlist:signupCompleted`
+- `share:initiated`
+- `preDream:shareCompleted`
+- `application:error`
+- `tools:calculatorUnexpectedError`
+- `tools:calculatorDepreciationClamped`
+
+**Rules:**
+
+1. **Format is `{domain}:{entityAction}`** — colon separator, camelCase verb-phrase after the colon
+2. **`domain` must be one of `ApplicationDomain`** — `waitlist`, `share`, `consent`, `preDemo`, `preDream`, `analytics`, `monitoring`, `application`, `tools`
+3. **`entityAction` is past-tense camelCase** — e.g. `signupCompleted`, `shareInitiated`, `calculatorUnexpectedError`
+4. **Add to `EVENT_VALIDATION_SCHEMA`** when defining a new entry — required-fields list per event type
+
+### Which convention to use
+
+| Layer                                                       | Convention                           | When to use                                                                                     |
+| ----------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `analyticsService.track({ name: '…' })`                     | Format A (`snake_case`)              | User-behavior analytics destined for GA4 / custom analytics endpoint                            |
+| `applicationEventBus.emit(ApplicationEventType.X, payload)` | Format B (`[domain]:[entityAction]`) | Cross-component pub/sub, audit logging, error reporting via Sentry, future webhook integrations |
+
+The two layers are NOT mirrors of each other — a single user action may emit one, the other, or both. The `analyticsService` is what GA4 sees; the `applicationEventBus` is what the rest of the application reacts to.
 
 ### Common Action Suffixes
 
-| Suffix | When to Use |
-|--------|-------------|
-| `_started` | User initiates a flow or process |
-| `_completed` | User successfully finishes a flow |
-| `_failed` | An error occurred |
-| `_cancelled` | User explicitly cancelled an action |
-| `_clicked` | User clicked a button/link |
-| `_changed` | User modified an input value |
-| `_viewed` | User viewed a screen/section |
-| `_copied` | User copied content to clipboard |
-| `_shared` | User shared content to a platform |
-| `_downloaded` | User downloaded a file/image |
+| Suffix        | When to Use                         |
+| ------------- | ----------------------------------- |
+| `_started`    | User initiates a flow or process    |
+| `_completed`  | User successfully finishes a flow   |
+| `_failed`     | An error occurred                   |
+| `_cancelled`  | User explicitly cancelled an action |
+| `_clicked`    | User clicked a button/link          |
+| `_changed`    | User modified an input value        |
+| `_viewed`     | User viewed a screen/section        |
+| `_copied`     | User copied content to clipboard    |
+| `_shared`     | User shared content to a platform   |
+| `_downloaded` | User downloaded a file/image        |
 
 ---
 
@@ -97,67 +139,67 @@ Events follow a `{feature}_{action}` naming pattern:
 
 ### Dream Mode Events
 
-| Event Name | Constant | Description |
-|------------|----------|-------------|
-| `dream_mode_started` | `DREAM_MODE_EVENTS.STARTED` | User enters Dream Mode |
-| `dream_mode_screen_view` | - | User views a Dream Mode screen |
-| `dream_disclaimer_accepted` | `DREAM_MODE_EVENTS.DISCLAIMER_ACCEPTED` | User accepts CLO disclaimer |
-| `dream_path_selected` | `DREAM_MODE_EVENTS.PATH_SELECTED` | User selects investment path |
-| `dream_amount_set` | `DREAM_MODE_EVENTS.AMOUNT_SET` | User sets investment amount |
-| `dream_timeframe_changed` | `DREAM_MODE_EVENTS.TIMEFRAME_CHANGED` | User changes timeframe |
-| `dream_simulation_started` | `DREAM_MODE_EVENTS.SIMULATION_STARTED` | Simulation begins |
-| `dream_mode_simulation_started` | - | Alternative simulation start event |
-| `dream_simulation_completed` | `DREAM_MODE_EVENTS.SIMULATION_COMPLETED` | Simulation completes |
-| `dream_mode_share` | - | User initiates share from Dream Mode |
-| `dream_mode_try_again` | - | User clicks "Try Again" |
-| `dream_mode_completed` | `DREAM_MODE_EVENTS.COMPLETED` | User completes entire flow |
+| Event Name                      | Constant                                 | Description                          |
+| ------------------------------- | ---------------------------------------- | ------------------------------------ |
+| `dream_mode_started`            | `DREAM_MODE_EVENTS.STARTED`              | User enters Dream Mode               |
+| `dream_mode_screen_view`        | -                                        | User views a Dream Mode screen       |
+| `dream_disclaimer_accepted`     | `DREAM_MODE_EVENTS.DISCLAIMER_ACCEPTED`  | User accepts CLO disclaimer          |
+| `dream_path_selected`           | `DREAM_MODE_EVENTS.PATH_SELECTED`        | User selects investment path         |
+| `dream_amount_set`              | `DREAM_MODE_EVENTS.AMOUNT_SET`           | User sets investment amount          |
+| `dream_timeframe_changed`       | `DREAM_MODE_EVENTS.TIMEFRAME_CHANGED`    | User changes timeframe               |
+| `dream_simulation_started`      | `DREAM_MODE_EVENTS.SIMULATION_STARTED`   | Simulation begins                    |
+| `dream_mode_simulation_started` | -                                        | Alternative simulation start event   |
+| `dream_simulation_completed`    | `DREAM_MODE_EVENTS.SIMULATION_COMPLETED` | Simulation completes                 |
+| `dream_mode_share`              | -                                        | User initiates share from Dream Mode |
+| `dream_mode_try_again`          | -                                        | User clicks "Try Again"              |
+| `dream_mode_completed`          | `DREAM_MODE_EVENTS.COMPLETED`            | User completes entire flow           |
 
 ### Waitlist Events
 
-| Event Name | Constant | Description |
-|------------|----------|-------------|
-| `waiting_list_modal_opened` | `WAITING_LIST_EVENTS.MODAL_OPENED` | Waitlist modal opens |
-| `waiting_list_modal_closed` | `WAITING_LIST_EVENTS.MODAL_CLOSED` | Waitlist modal closes |
-| `waiting_list_form_submitted` | `WAITING_LIST_EVENTS.FORM_SUBMITTED` | Form submission started |
-| `waiting_list_submission_success` | `WAITING_LIST_EVENTS.SUBMISSION_SUCCESS` | Signup successful |
-| `waiting_list_submission_failure` | `WAITING_LIST_EVENTS.SUBMISSION_FAILURE` | Signup failed |
-| `waiting_list_signup_success` | - | Alternative success event |
-| `waiting_list_signup_error` | - | Signup error occurred |
-| `waitlist_referral_link_copied` | `WAITING_LIST_EVENTS.REFERRAL_LINK_COPIED` | User copies referral link |
-| `waitlist_referral_link_shared` | `WAITING_LIST_EVENTS.REFERRAL_LINK_SHARED` | User shares referral link |
-| `waitlist_share_modal_opened` | `WAITING_LIST_EVENTS.SHARE_MODAL_OPENED` | Share modal opens |
+| Event Name                        | Constant                                   | Description               |
+| --------------------------------- | ------------------------------------------ | ------------------------- |
+| `waiting_list_modal_opened`       | `WAITING_LIST_EVENTS.MODAL_OPENED`         | Waitlist modal opens      |
+| `waiting_list_modal_closed`       | `WAITING_LIST_EVENTS.MODAL_CLOSED`         | Waitlist modal closes     |
+| `waiting_list_form_submitted`     | `WAITING_LIST_EVENTS.FORM_SUBMITTED`       | Form submission started   |
+| `waiting_list_submission_success` | `WAITING_LIST_EVENTS.SUBMISSION_SUCCESS`   | Signup successful         |
+| `waiting_list_submission_failure` | `WAITING_LIST_EVENTS.SUBMISSION_FAILURE`   | Signup failed             |
+| `waiting_list_signup_success`     | -                                          | Alternative success event |
+| `waiting_list_signup_error`       | -                                          | Signup error occurred     |
+| `waitlist_referral_link_copied`   | `WAITING_LIST_EVENTS.REFERRAL_LINK_COPIED` | User copies referral link |
+| `waitlist_referral_link_shared`   | `WAITING_LIST_EVENTS.REFERRAL_LINK_SHARED` | User shares referral link |
+| `waitlist_share_modal_opened`     | `WAITING_LIST_EVENTS.SHARE_MODAL_OPENED`   | Share modal opens         |
 
 ### Share Events
 
-| Event Name | Constant | Description |
-|------------|----------|-------------|
-| `share_card_generated` | `SHARE_EVENTS.CARD_GENERATED` | Share card image generated |
-| `share_initiated` | `SHARE_EVENTS.SHARE_INITIATED` | User initiates share action |
-| `share_completed` | `SHARE_EVENTS.SHARE_COMPLETED` | Share completed successfully |
-| `share_failed` | `SHARE_EVENTS.SHARE_FAILED` | Share action failed |
-| `share_cancelled` | `SHARE_EVENTS.SHARE_CANCELLED` | User cancelled share |
-| `share_link_copied` | `SHARE_EVENTS.LINK_COPIED` | Link copied to clipboard |
-| `share_image_downloaded` | `SHARE_EVENTS.IMAGE_DOWNLOADED` | Image downloaded |
+| Event Name               | Constant                        | Description                  |
+| ------------------------ | ------------------------------- | ---------------------------- |
+| `share_card_generated`   | `SHARE_EVENTS.CARD_GENERATED`   | Share card image generated   |
+| `share_initiated`        | `SHARE_EVENTS.SHARE_INITIATED`  | User initiates share action  |
+| `share_completed`        | `SHARE_EVENTS.SHARE_COMPLETED`  | Share completed successfully |
+| `share_failed`           | `SHARE_EVENTS.SHARE_FAILED`     | Share action failed          |
+| `share_cancelled`        | `SHARE_EVENTS.SHARE_CANCELLED`  | User cancelled share         |
+| `share_link_copied`      | `SHARE_EVENTS.LINK_COPIED`      | Link copied to clipboard     |
+| `share_image_downloaded` | `SHARE_EVENTS.IMAGE_DOWNLOADED` | Image downloaded             |
 
 ### Calculator Events
 
-| Event Name | Constant | Description |
-|------------|----------|-------------|
-| `calculator_opened` | `CALCULATOR_EVENTS.CALCULATOR_OPENED` | Calculator component loads |
-| `calculator_input_changed` | `CALCULATOR_EVENTS.INPUT_CHANGED` | User changes input value |
-| `calculator_timeframe_changed` | `CALCULATOR_EVENTS.TIMEFRAME_CHANGED` | User changes timeframe |
-| `calculator_share_result` | `CALCULATOR_EVENTS.SHARE_RESULT` | User shares calculator result |
-| `calculator_cta_clicked` | `CALCULATOR_EVENTS.CTA_CLICKED` | User clicks CTA button |
+| Event Name                     | Constant                              | Description                   |
+| ------------------------------ | ------------------------------------- | ----------------------------- |
+| `calculator_opened`            | `CALCULATOR_EVENTS.CALCULATOR_OPENED` | Calculator component loads    |
+| `calculator_input_changed`     | `CALCULATOR_EVENTS.INPUT_CHANGED`     | User changes input value      |
+| `calculator_timeframe_changed` | `CALCULATOR_EVENTS.TIMEFRAME_CHANGED` | User changes timeframe        |
+| `calculator_share_result`      | `CALCULATOR_EVENTS.SHARE_RESULT`      | User shares calculator result |
+| `calculator_cta_clicked`       | `CALCULATOR_EVENTS.CTA_CLICKED`       | User clicks CTA button        |
 
 ### Navigation & System Events
 
-| Event Name | Description |
-|------------|-------------|
-| `page_view` | User views a page |
-| `page_performance` | Web Vitals metric recorded |
-| `navigation_interaction` | User interacts with navigation |
-| `navigation_error` | Navigation error occurred |
-| `section_interaction` | User interacts with a page section |
+| Event Name               | Description                        |
+| ------------------------ | ---------------------------------- |
+| `page_view`              | User views a page                  |
+| `page_performance`       | Web Vitals metric recorded         |
+| `navigation_interaction` | User interacts with navigation     |
+| `navigation_error`       | Navigation error occurred          |
+| `section_interaction`    | User interacts with a page section |
 
 ---
 
@@ -166,38 +208,53 @@ Events follow a `{feature}_{action}` naming pattern:
 ### Dream Mode Events
 
 #### `dream_mode_started`
+
 ```typescript
 analyticsService.track({
   name: 'dream_mode_started',
-  parameters: { source: 'component' }
+  parameters: { source: 'component' },
 });
 ```
 
 #### `dream_mode_screen_view`
+
 ```typescript
 analyticsService.track({
   name: 'dream_mode_screen_view',
-  parameters: { screen: 'disclaimer' | 'welcome' | 'pathSelect' | 'input' | 'timeframe' | 'simulation' | 'results' | 'share' }
+  parameters: {
+    screen:
+      'disclaimer' |
+      'welcome' |
+      'pathSelect' |
+      'input' |
+      'timeframe' |
+      'simulation' |
+      'results' |
+      'share',
+  },
 });
 ```
 
 #### `dream_disclaimer_accepted`
+
 ```typescript
 analyticsService.track({
   name: DREAM_MODE_EVENTS.DISCLAIMER_ACCEPTED,
-  parameters: { timestamp: new Date().toISOString() }
+  parameters: { timestamp: new Date().toISOString() },
 });
 ```
 
 #### `dream_path_selected`
+
 ```typescript
 analyticsService.track({
   name: DREAM_MODE_EVENTS.PATH_SELECTED,
-  parameters: { path: 'safety' | 'balance' | 'growth' }
+  parameters: { path: 'safety' | 'balance' | 'growth' },
 });
 ```
 
 #### `dream_mode_simulation_started`
+
 ```typescript
 analyticsService.track({
   name: 'dream_mode_simulation_started',
@@ -206,12 +263,13 @@ analyticsService.track({
     monthlyContribution: number,
     timeframe: '1week' | '1month' | '1year' | '5years',
     selectedPath: 'safety' | 'balance' | 'growth',
-    pathApy: number
-  }
+    pathApy: number,
+  },
 });
 ```
 
 #### `dream_mode_share`
+
 ```typescript
 analyticsService.track({
   name: 'dream_mode_share',
@@ -219,25 +277,27 @@ analyticsService.track({
     platform: string,
     initialAmount: number,
     defiResult: number,
-    timeframe: string
-  }
+    timeframe: string,
+  },
 });
 ```
 
 ### Waitlist Events
 
 #### `waiting_list_form_submitted`
+
 ```typescript
 analyticsService.track({
   name: WAITING_LIST_EVENTS.FORM_SUBMITTED,
   parameters: {
     locale: string,
-    timestamp: number
-  }
+    timestamp: number,
+  },
 });
 ```
 
 #### `waiting_list_submission_success`
+
 ```typescript
 analyticsService.track({
   name: WAITING_LIST_EVENTS.SUBMISSION_SUCCESS,
@@ -245,24 +305,26 @@ analyticsService.track({
     position: number,
     hasReferral: boolean,
     locale: string,
-    timestamp: number
-  }
+    timestamp: number,
+  },
 });
 ```
 
 #### `waitlist_referral_link_copied`
+
 ```typescript
 analyticsService.track({
   name: WAITING_LIST_EVENTS.REFERRAL_LINK_COPIED,
   parameters: {
     referralCode: string,
     locale: string,
-    timestamp: number
-  }
+    timestamp: number,
+  },
 });
 ```
 
 #### `waitlist_referral_link_shared`
+
 ```typescript
 analyticsService.track({
   name: WAITING_LIST_EVENTS.REFERRAL_LINK_SHARED,
@@ -270,62 +332,67 @@ analyticsService.track({
     platform: 'twitter' | 'whatsapp' | 'facebook' | 'telegram' | 'linkedin',
     referralCode: string,
     locale: string,
-    timestamp: number
-  }
+    timestamp: number,
+  },
 });
 ```
 
 ### Share Events
 
 #### `share_card_generated`
+
 ```typescript
 analyticsService.track({
   name: SHARE_EVENTS.CARD_GENERATED,
   parameters: {
     cardType: 'dream' | 'waitlist',
-    locale: string
-  }
+    locale: string,
+  },
 });
 ```
 
 #### `share_completed`
+
 ```typescript
 analyticsService.track({
   name: SHARE_EVENTS.SHARE_COMPLETED,
   parameters: {
     platform: string,
     cardType: string,
-    locale: string
-  }
+    locale: string,
+  },
 });
 ```
 
 ### Calculator Events
 
 #### `calculator_input_changed`
+
 ```typescript
 analyticsService.track({
   name: CALCULATOR_EVENTS.INPUT_CHANGED,
   parameters: {
     field: 'initialAmount' | 'monthlyContribution',
     value: number,
-    locale: string
-  }
+    locale: string,
+  },
 });
 ```
 
 #### `calculator_timeframe_changed`
+
 ```typescript
 analyticsService.track({
   name: CALCULATOR_EVENTS.TIMEFRAME_CHANGED,
   parameters: {
     timeframe: '5years' | '10years' | '20years',
-    locale: string
-  }
+    locale: string,
+  },
 });
 ```
 
 #### `calculator_share_result`
+
 ```typescript
 analyticsService.track({
   name: CALCULATOR_EVENTS.SHARE_RESULT,
@@ -334,8 +401,8 @@ analyticsService.track({
     initialAmount: number,
     monthlyContribution: number,
     defiProjection: number,
-    locale: string
-  }
+    locale: string,
+  },
 });
 ```
 
@@ -371,7 +438,7 @@ analyticsService.track({
     locale: 'en',
     timestamp: Date.now(),
     // Add relevant parameters
-  }
+  },
 });
 ```
 
@@ -380,10 +447,7 @@ analyticsService.track({
 For audit logging and server-side tracking:
 
 ```typescript
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 // 1. First, add the event type to ApplicationEventType enum if needed
 // src/lib/events/ApplicationEventBus.ts
@@ -395,7 +459,7 @@ applicationEventBus.emit(ApplicationEventType.FEATURE_USED, {
   metadata: {
     feature: 'my_feature_action',
     // ... additional data
-  }
+  },
 });
 ```
 
@@ -430,12 +494,12 @@ NEXT_PUBLIC_ANALYTICS_ENDPOINT=https://your-custom-endpoint.com/events
 
 **Reports to Monitor:**
 
-| Report | Path | Purpose |
-|--------|------|---------|
-| Real-time | Reports > Real-time | Live user activity |
-| Events | Reports > Engagement > Events | All event counts |
-| Conversions | Reports > Engagement > Conversions | Conversion funnel |
-| User Explorer | Explore > User Explorer | Individual user journeys |
+| Report        | Path                               | Purpose                  |
+| ------------- | ---------------------------------- | ------------------------ |
+| Real-time     | Reports > Real-time                | Live user activity       |
+| Events        | Reports > Engagement > Events      | All event counts         |
+| Conversions   | Reports > Engagement > Conversions | Conversion funnel        |
+| User Explorer | Explore > User Explorer            | Individual user journeys |
 
 ### Custom Event Dashboard (if configured)
 
@@ -498,15 +562,15 @@ track(event: AnalyticsEvent): void {
 
 ## Appendix: Event Constants Source Files
 
-| Feature | Constants File | Import |
-|---------|---------------|--------|
-| Dream Mode | `src/lib/dream-mode/constants.ts` | `DREAM_MODE_EVENTS` |
-| Waitlist | `src/lib/waitingList/constants.ts` | `WAITING_LIST_EVENTS` |
-| Share | `src/lib/share/constants.ts` | `SHARE_EVENTS` |
-| Calculator | `src/lib/compound-interest/constants.ts` | `CALCULATOR_EVENTS` |
-| Lesson | `src/lib/learn/constants.ts` | `LESSON_EVENTS` |
-| Market | `src/lib/market/constants.ts` | `MARKET_EVENTS` |
+| Feature    | Constants File                           | Import                |
+| ---------- | ---------------------------------------- | --------------------- |
+| Dream Mode | `src/lib/dream-mode/constants.ts`        | `DREAM_MODE_EVENTS`   |
+| Waitlist   | `src/lib/waitingList/constants.ts`       | `WAITING_LIST_EVENTS` |
+| Share      | `src/lib/share/constants.ts`             | `SHARE_EVENTS`        |
+| Calculator | `src/lib/compound-interest/constants.ts` | `CALCULATOR_EVENTS`   |
+| Lesson     | `src/lib/learn/constants.ts`             | `LESSON_EVENTS`       |
+| Market     | `src/lib/market/constants.ts`            | `MARKET_EVENTS`       |
 
 ---
 
-*Last updated: May 2026*
+_Last updated: May 2026_

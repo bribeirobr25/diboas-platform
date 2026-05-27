@@ -1,13 +1,16 @@
 /**
  * AppFeaturesCarousel Variant Registry
- * 
+ *
  * Domain-Driven Design: Centralized registry for all app features carousel variants
  * Service Agnostic Abstraction: Pluggable variant system
  * Code Reusability: Easy to add/remove variants without touching core component
  * Maintenance: Single place to manage all variations
  */
 
-import type { AppFeaturesCarouselVariantRegistry, AppFeaturesCarouselVariantComponent } from './types';
+import type {
+  AppFeaturesCarouselVariantRegistry,
+  AppFeaturesCarouselVariantComponent,
+} from './types';
 
 // Static imports for critical variants
 import { AppFeaturesCarouselDefault } from './AppFeaturesCarouselDefault/AppFeaturesCarouselDefault';
@@ -16,14 +19,14 @@ import { AppFeaturesCarouselDefault } from './AppFeaturesCarouselDefault/AppFeat
 
 /**
  * AppFeaturesCarousel Variant Registry
- * 
+ *
  * Performance: Critical variants are statically imported, others are lazy-loaded
  * Scalability: Easy to add new variants without touching existing code
  */
 export const APP_FEATURES_CAROUSEL_VARIANT_REGISTRY: AppFeaturesCarouselVariantRegistry = {
   // Core variants (static import for performance)
   default: AppFeaturesCarouselDefault,
-  
+
   // Future variants can be easily added here:
   // timeline: AppFeaturesCarouselTimeline,
   // tabs: AppFeaturesCarouselTabs,
@@ -34,17 +37,22 @@ export const APP_FEATURES_CAROUSEL_VARIANT_REGISTRY: AppFeaturesCarouselVariantR
 
 /**
  * Get an app features carousel variant component by name
- * 
+ *
  * @param variantName - The name of the variant to get
  * @returns The variant component or default if not found
  */
-export function getAppFeaturesCarouselVariant(variantName: string): AppFeaturesCarouselVariantComponent {
-  return APP_FEATURES_CAROUSEL_VARIANT_REGISTRY[variantName] || APP_FEATURES_CAROUSEL_VARIANT_REGISTRY.default;
+export function getAppFeaturesCarouselVariant(
+  variantName: string
+): AppFeaturesCarouselVariantComponent {
+  return (
+    APP_FEATURES_CAROUSEL_VARIANT_REGISTRY[variantName] ||
+    APP_FEATURES_CAROUSEL_VARIANT_REGISTRY.default
+  );
 }
 
 /**
  * Check if a variant exists in the registry
- * 
+ *
  * @param variantName - The name of the variant to check
  * @returns True if the variant exists
  */
@@ -54,7 +62,7 @@ export function hasAppFeaturesCarouselVariant(variantName: string): boolean {
 
 /**
  * Get all available app features carousel variant names
- * 
+ *
  * @returns Array of variant names
  */
 export function getAvailableAppFeaturesCarouselVariants(): string[] {

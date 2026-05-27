@@ -23,7 +23,7 @@ export function HeroFullBackground({
   config,
   className = '',
   backgroundColor,
-  onCTAClick
+  onCTAClick,
 }: HeroVariantProps) {
   const intl = useTranslation();
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
@@ -89,10 +89,7 @@ export function HeroFullBackground({
               onError={handleImageError}
             />
           )}
-          <div
-            className={styles.backgroundOverlay}
-            style={{ opacity: overlayOpacity }}
-          />
+          <div className={styles.backgroundOverlay} style={{ opacity: overlayOpacity }} />
         </div>
       )}
 
@@ -103,9 +100,7 @@ export function HeroFullBackground({
           </h1>
 
           {config.content.description && (
-            <p className={styles.description}>
-              {config.content.description}
-            </p>
+            <p className={styles.description}>{config.content.description}</p>
           )}
 
           <div className={styles.ctaWrapper}>

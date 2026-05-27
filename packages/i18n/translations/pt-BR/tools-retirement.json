@@ -12,6 +12,7 @@
     "headline": "{monthly}/mês por {years} anos podem virar {result}",
     "subtitle": "Isso é o que o diBoaS pode te dar — vs. o rendimento quase zero do seu banco."
   },
+  "disclaimer": "Esta ferramenta projeta acumulação de poupança para aposentadoria. Ela não modela retiradas, longevidade ou qual seria uma renda de aposentadoria sustentável — esses são temas distintos, que merecem seu próprio planejamento.",
   "landing": {
     "cardTitle": "Aposentadoria",
     "cardTagline": "No que sua poupança vira aos 65?"

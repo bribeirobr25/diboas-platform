@@ -28,14 +28,10 @@ export function LocaleProvider({ children, initialLocale }: LocaleProviderProps)
 
   const value = useMemo<LocaleContextType>(
     () => ({ locale: initialLocale, isHydrated }),
-    [initialLocale, isHydrated],
+    [initialLocale, isHydrated]
   );
 
-  return (
-    <LocaleContext.Provider value={value}>
-      {children}
-    </LocaleContext.Provider>
-  );
+  return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }
 
 export function useLocale() {

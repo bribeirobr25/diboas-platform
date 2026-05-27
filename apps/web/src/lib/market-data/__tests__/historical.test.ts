@@ -39,12 +39,21 @@ describe('ANCHOR_PRICES — structure invariants', () => {
   });
 
   const expectedAssets: readonly AssetCode[] = [
-    'BTC', 'SP500', 'QQQ', 'MSCI_WORLD', 'GOLD', 'TLT', 'IBOVESPA', 'DAX',
+    'BTC',
+    'SP500',
+    'QQQ',
+    'MSCI_WORLD',
+    'GOLD',
+    'TLT',
+    'IBOVESPA',
+    'DAX',
   ];
   const expectedYears: readonly AnchorYear[] = [2010, 2016, 2026];
 
   it.each(expectedAssets)('asset %s has all 3 anchor years (2010, 2016, 2026)', (asset) => {
-    const years = ANCHOR_PRICES.filter(a => a.asset === asset).map(a => a.year).sort();
+    const years = ANCHOR_PRICES.filter((a) => a.asset === asset)
+      .map((a) => a.year)
+      .sort();
     expect(years).toEqual([...expectedYears].sort());
   });
 
@@ -55,12 +64,12 @@ describe('ANCHOR_PRICES — structure invariants', () => {
   });
 
   it('BTC 2010 anchor is MEDIUM confidence (research ±30% range)', () => {
-    const anchor = ANCHOR_PRICES.find(a => a.asset === 'BTC' && a.year === 2010);
+    const anchor = ANCHOR_PRICES.find((a) => a.asset === 'BTC' && a.year === 2010);
     expect(anchor?.confidence).toBe('MEDIUM');
   });
 
   it('all May 2026 anchors are HIGH or MEDIUM (no LOW for endpoint)', () => {
-    const endpoints = ANCHOR_PRICES.filter(a => a.year === 2026);
+    const endpoints = ANCHOR_PRICES.filter((a) => a.year === 2026);
     for (const anchor of endpoints) {
       expect(['HIGH', 'MEDIUM']).toContain(anchor.confidence);
     }
@@ -111,7 +120,7 @@ describe('FX buckets — continuity and shape (Phase B `FxBucket` lock)', () => 
   });
 
   it('BRL Scenario D bucket averages match research Part 5 (2.0/3.5/5.2/5.65)', () => {
-    expect(BRL_USD_BUCKETS.map(b => b.avgRate)).toEqual([2.0, 3.5, 5.2, 5.65]);
+    expect(BRL_USD_BUCKETS.map((b) => b.avgRate)).toEqual([2.0, 3.5, 5.2, 5.65]);
   });
 });
 
@@ -154,32 +163,39 @@ describe('historical.ts helper lookups', () => {
 describe('ANCHOR_PRICES — research-doc parity (golden values)', () => {
   // Format: [asset, year, monthIndicative, expectedPrice, expectedCurrency, expectedConfidence]
   // Sourced 1:1 from docs/researches/btc-vs-assets-inflation-fx-final-analysis.md (Parts 1+2)
-  type ParityRow = readonly [AssetCode, AnchorYear, number, number, 'USD' | 'BRL' | 'EUR', 'HIGH' | 'MEDIUM' | 'LOW'];
+  type ParityRow = readonly [
+    AssetCode,
+    AnchorYear,
+    number,
+    number,
+    'USD' | 'BRL' | 'EUR',
+    'HIGH' | 'MEDIUM' | 'LOW',
+  ];
   const goldenAnchors: readonly ParityRow[] = [
-    ['BTC',        2010, 7, 0.07,    'USD', 'MEDIUM'],
-    ['BTC',        2016, 3, 416.73,  'USD', 'HIGH'],
-    ['BTC',        2026, 5, 80000,   'USD', 'HIGH'],
-    ['SP500',      2010, 7, 1030,    'USD', 'HIGH'],
-    ['SP500',      2016, 3, 2060,    'USD', 'HIGH'],
-    ['SP500',      2026, 5, 7400,    'USD', 'MEDIUM'],
-    ['QQQ',        2010, 7, 45.5,    'USD', 'HIGH'],
-    ['QQQ',        2016, 3, 108,     'USD', 'HIGH'],
-    ['QQQ',        2026, 5, 711,     'USD', 'MEDIUM'],
-    ['MSCI_WORLD', 2010, 7, 1180,    'USD', 'HIGH'],
-    ['MSCI_WORLD', 2016, 3, 1610,    'USD', 'HIGH'],
-    ['MSCI_WORLD', 2026, 5, 5540,    'USD', 'MEDIUM'],
-    ['GOLD',       2010, 7, 1200,    'USD', 'HIGH'],
-    ['GOLD',       2016, 3, 1235,    'USD', 'HIGH'],
-    ['GOLD',       2026, 5, 4700,    'USD', 'MEDIUM'],
-    ['TLT',        2010, 7, 98,      'USD', 'HIGH'],
-    ['TLT',        2016, 3, 94,      'USD', 'HIGH'],
-    ['TLT',        2026, 5, 85,      'USD', 'MEDIUM'],
-    ['IBOVESPA',   2010, 7, 67500,   'BRL', 'HIGH'],
-    ['IBOVESPA',   2016, 3, 50055,   'BRL', 'HIGH'],
-    ['IBOVESPA',   2026, 5, 177000,  'BRL', 'MEDIUM'],
-    ['DAX',        2010, 7, 6100,    'EUR', 'HIGH'],
-    ['DAX',        2016, 3, 9966,    'EUR', 'HIGH'],
-    ['DAX',        2026, 5, 24000,   'EUR', 'MEDIUM'],
+    ['BTC', 2010, 7, 0.07, 'USD', 'MEDIUM'],
+    ['BTC', 2016, 3, 416.73, 'USD', 'HIGH'],
+    ['BTC', 2026, 5, 80000, 'USD', 'HIGH'],
+    ['SP500', 2010, 7, 1030, 'USD', 'HIGH'],
+    ['SP500', 2016, 3, 2060, 'USD', 'HIGH'],
+    ['SP500', 2026, 5, 7400, 'USD', 'MEDIUM'],
+    ['QQQ', 2010, 7, 45.5, 'USD', 'HIGH'],
+    ['QQQ', 2016, 3, 108, 'USD', 'HIGH'],
+    ['QQQ', 2026, 5, 711, 'USD', 'MEDIUM'],
+    ['MSCI_WORLD', 2010, 7, 1180, 'USD', 'HIGH'],
+    ['MSCI_WORLD', 2016, 3, 1610, 'USD', 'HIGH'],
+    ['MSCI_WORLD', 2026, 5, 5540, 'USD', 'MEDIUM'],
+    ['GOLD', 2010, 7, 1200, 'USD', 'HIGH'],
+    ['GOLD', 2016, 3, 1235, 'USD', 'HIGH'],
+    ['GOLD', 2026, 5, 4700, 'USD', 'MEDIUM'],
+    ['TLT', 2010, 7, 98, 'USD', 'HIGH'],
+    ['TLT', 2016, 3, 94, 'USD', 'HIGH'],
+    ['TLT', 2026, 5, 85, 'USD', 'MEDIUM'],
+    ['IBOVESPA', 2010, 7, 67500, 'BRL', 'HIGH'],
+    ['IBOVESPA', 2016, 3, 50055, 'BRL', 'HIGH'],
+    ['IBOVESPA', 2026, 5, 177000, 'BRL', 'MEDIUM'],
+    ['DAX', 2010, 7, 6100, 'EUR', 'HIGH'],
+    ['DAX', 2016, 3, 9966, 'EUR', 'HIGH'],
+    ['DAX', 2026, 5, 24000, 'EUR', 'MEDIUM'],
   ];
 
   it.each(goldenAnchors)(
@@ -191,11 +207,11 @@ describe('ANCHOR_PRICES — research-doc parity (golden values)', () => {
       expect(anchor!.price).toBe(price);
       expect(anchor!.currency).toBe(currency);
       expect(anchor!.confidence).toBe(confidence);
-    },
+    }
   );
 
   it('EUR/USD bucket averages match research Part 4 inversion (0.78 / 0.88 / 0.89)', () => {
-    expect(EUR_USD_BUCKETS.map(b => b.avgRate)).toEqual([0.78, 0.88, 0.89]);
+    expect(EUR_USD_BUCKETS.map((b) => b.avgRate)).toEqual([0.78, 0.88, 0.89]);
   });
 });
 

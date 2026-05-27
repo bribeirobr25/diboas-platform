@@ -57,21 +57,15 @@ export function WaitlistForm({
     return intl.formatMessage({ id: `waitlist.${key}` }, values);
   };
 
-  const {
-    formState,
-    error,
-    isLoading,
-    hasReferral,
-    handleInputChange,
-    handleSubmit,
-  } = useWaitlistForm({
-    compact,
-    referredBy,
-    source,
-    onSuccess,
-    onError,
-    t,
-  });
+  const { formState, error, isLoading, hasReferral, handleInputChange, handleSubmit } =
+    useWaitlistForm({
+      compact,
+      referredBy,
+      source,
+      onSuccess,
+      onError,
+      t,
+    });
 
   return (
     <form
@@ -79,9 +73,7 @@ export function WaitlistForm({
       className={`${styles.form} ${compact ? styles.compact : ''} ${className}`}
     >
       {hasReferral ? (
-        <p className={styles.referralIndicator}>
-          {t('referral.invitedIndicator')}
-        </p>
+        <p className={styles.referralIndicator}>{t('referral.invitedIndicator')}</p>
       ) : null}
       <fieldset className={styles.inputGroup}>
         <legend className="sr-only">{t('form.legendText')}</legend>
@@ -136,18 +128,12 @@ export function WaitlistForm({
               disabled={isLoading}
               aria-required="true"
             />
-            <span className={styles.consentText}>
-              {t('form.privacyNote')}
-            </span>
+            <span className={styles.consentText}>{t('form.privacyNote')}</span>
           </label>
         </div>
       )}
 
-      {compact && (
-        <p className={styles.privacyNote}>
-          {t('form.privacyNote')}
-        </p>
-      )}
+      {compact && <p className={styles.privacyNote}>{t('form.privacyNote')}</p>}
 
       {belowCheckbox ? <p className={styles.belowCheckbox}>{belowCheckbox}</p> : null}
     </form>

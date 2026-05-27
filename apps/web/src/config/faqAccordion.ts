@@ -23,7 +23,14 @@ export interface FAQItem {
   readonly id: string;
   readonly question: string;
   readonly answer: string;
-  readonly category: 'getting-started' | 'guides' | 'security' | 'fees' | 'general' | 'compliance' | 'operations';
+  readonly category:
+    | 'getting-started'
+    | 'guides'
+    | 'security'
+    | 'fees'
+    | 'general'
+    | 'compliance'
+    | 'operations';
 }
 
 /**
@@ -76,34 +83,34 @@ export const DEFAULT_FAQ_ITEMS: FAQItem[] = [
     id: 'faq-1',
     question: 'marketing.faq.items.q1.question',
     answer: 'marketing.faq.items.q1.answer',
-    category: 'getting-started'
+    category: 'getting-started',
   },
   {
     id: 'faq-2',
     question: 'marketing.faq.items.q2.question',
     answer: 'marketing.faq.items.q2.answer',
-    category: 'getting-started'
+    category: 'getting-started',
   },
   {
     id: 'faq-3',
     question: 'marketing.faq.items.q3.question',
     answer: 'marketing.faq.items.q3.answer',
-    category: 'getting-started'
+    category: 'getting-started',
   },
   // About Your Guides
   {
     id: 'faq-4',
     question: 'marketing.faq.items.q4.question',
     answer: 'marketing.faq.items.q4.answer',
-    category: 'guides'
+    category: 'guides',
   },
   // Fees & Costs
   {
     id: 'faq-10',
     question: 'marketing.faq.items.q10.question',
     answer: 'marketing.faq.items.q10.answer',
-    category: 'fees'
-  }
+    category: 'fees',
+  },
 ];
 
 // Default content configuration
@@ -115,7 +122,7 @@ export const DEFAULT_FAQ_ACCORDION_CONTENT: FAQAccordionContent = {
   ctaText: 'marketing.faq.ctaText',
   ctaHref: ROUTES.HELP,
   ctaTarget: '_self',
-  items: DEFAULT_FAQ_ITEMS
+  items: DEFAULT_FAQ_ITEMS,
 } as const;
 
 // Default settings
@@ -124,7 +131,7 @@ export const DEFAULT_FAQ_ACCORDION_SETTINGS: FAQAccordionSettings = {
   animationDuration: 400,
   autoClose: true,
   enableKeyboardNav: true,
-  scrollIntoView: true
+  scrollIntoView: true,
 } as const;
 
 // Predefined variant configurations
@@ -135,13 +142,13 @@ export const FAQ_ACCORDION_CONFIGS = {
     settings: DEFAULT_FAQ_ACCORDION_SETTINGS,
     seo: {
       ariaLabel: 'marketing.shared.faqAccordion.ariaLabel',
-      region: 'faq'
+      region: 'faq',
     },
     analytics: {
       trackingPrefix: 'faq_accordion',
-      enabled: true
-    }
-  }
+      enabled: true,
+    },
+  },
 } as const;
 
 // Legacy compatibility

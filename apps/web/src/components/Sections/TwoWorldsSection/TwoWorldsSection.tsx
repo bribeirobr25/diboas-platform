@@ -56,12 +56,8 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
               />
             </div>
           ) : null}
-          <h3 className={styles.cardHeadline}>
-            {translated.content.cardA.headline}
-          </h3>
-          <p className={styles.cardBody}>
-            {translated.content.cardA.body}
-          </p>
+          <h3 className={styles.cardHeadline}>{translated.content.cardA.headline}</h3>
+          <p className={styles.cardBody}>{translated.content.cardA.body}</p>
           <button
             type="button"
             className={styles.cardCta}
@@ -84,12 +80,8 @@ export const TwoWorldsSection = memo(function TwoWorldsSection({
               />
             </div>
           ) : null}
-          <h3 className={styles.cardHeadline}>
-            {translated.content.cardB.headline}
-          </h3>
-          <p className={styles.cardBody}>
-            {translated.content.cardB.body}
-          </p>
+          <h3 className={styles.cardHeadline}>{translated.content.cardB.headline}</h3>
+          <p className={styles.cardBody}>{translated.content.cardB.body}</p>
           <button
             type="button"
             className={styles.cardCta}

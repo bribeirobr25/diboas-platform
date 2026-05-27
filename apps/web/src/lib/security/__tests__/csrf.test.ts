@@ -16,16 +16,10 @@ vi.mock('@/lib/monitoring/Logger', () => ({
 
 // Mock getCsrfAllowedOrigins
 vi.mock('@/config/env', () => ({
-  getCsrfAllowedOrigins: vi.fn(() => [
-    'http://localhost:3000',
-    'https://diboas.com',
-  ]),
+  getCsrfAllowedOrigins: vi.fn(() => ['http://localhost:3000', 'https://diboas.com']),
 }));
 
-function createRequest(
-  method: string,
-  headers: Record<string, string> = {}
-): NextRequest {
+function createRequest(method: string, headers: Record<string, string> = {}): NextRequest {
   return new NextRequest(new URL('http://localhost:3000/api/test'), {
     method,
     headers,

@@ -5,7 +5,12 @@
  * Calculations use futureValue() from lib/utils/financialMath — no multipliers needed.
  */
 
-import type { PreDreamPath, PreDreamPathConfig, PreDreamTimeframe, PreDreamTimeframeConfig } from './types';
+import type {
+  PreDreamPath,
+  PreDreamPathConfig,
+  PreDreamTimeframe,
+  PreDreamTimeframeConfig,
+} from './types';
 
 /** Path configurations — APY only, futureValue() computes from APY directly */
 export const PRE_DREAM_PATHS: Record<PreDreamPath, PreDreamPathConfig> = {

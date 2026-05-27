@@ -238,7 +238,9 @@
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height var(--animation-duration-normal) ease, opacity var(--animation-duration-fast) ease;
+  transition:
+    max-height var(--animation-duration-normal) ease,
+    opacity var(--animation-duration-fast) ease;
 }
 
 .expandableContentOpen {

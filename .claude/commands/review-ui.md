@@ -19,6 +19,7 @@ If the user specified a page or component, review that instead.
 If git diff is empty and user didn't specify, use ask_user_input:
 
 Question — "What should I review?"
+
 - type: single_select
 - Options adapted to the project. Examples:
   - "The page I just built"
@@ -28,6 +29,7 @@ Question — "What should I review?"
 ### 2. Section discovery and per-section screenshots
 
 Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`):
+
 1. Install browser: `mcp__MCP_DOCKER__browser_install`
 2. Start dev server: `pnpm dev:web`
 3. Get network IP: `ifconfig en0 | grep "inet "` — Docker browser cannot reach `localhost`
@@ -40,12 +42,14 @@ Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`):
 9. Use `mcp__MCP_DOCKER__browser_snapshot` for accessibility tree analysis
 
 If Docker MCP browser tools are NOT available:
+
 - State: "Browser tooling is not available — this review is code-only."
 - Ask the user for screenshots if visual validation matters.
 
 ### 3. Interaction and user flow testing
 
 **Don't just screenshot the initial state. Actively interact with every interactive component:**
+
 - Click through wizard/stepper flows — screenshot EVERY step (not just step 1)
 - Navigate carousels — verify all slides render
 - Expand accordions — verify content doesn't break layout
@@ -59,6 +63,7 @@ If Docker MCP browser tools are NOT available:
 ### 4. Section-level layout audit
 
 For EACH section identified in step 2:
+
 - **Vertical spacing:** Enough breathing room between elements? Too cramped or too sparse?
 - **Button consistency:** All buttons/CTAs in the section have harmonious sizing?
 - **Content density:** Appropriate for the section type? (Cards can be dense, prose needs air)
@@ -72,6 +77,7 @@ Check every item in `docs/anti-slop-checklist.md` — both visually AND via code
 For each item, state PASS or FAIL based on what you actually see in the rendered page.
 
 Mandatory code scans:
+
 ```bash
 # Emoji in component JSX
 grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
@@ -85,6 +91,7 @@ grep -r "from 'lucide-react'" apps/web/src/ | grep -v LucideIcon
 ### 6. Multi-locale testing (MANDATORY)
 
 After EN testing:
+
 1. Navigate to `/de` at mobile (375×812)
 2. Screenshot EACH section — check for:
    - Text overflow or truncation (German is ~30% longer)
@@ -104,6 +111,7 @@ After EN testing:
 ### 8. Check states
 
 For each major component or page reviewed:
+
 - Are empty states handled?
 - Are loading states contextual (not just a spinner)?
 - Are error states helpful (not just "Error")?
@@ -132,6 +140,7 @@ Format the review as:
 **Sections identified:** List all sections found on the page.
 
 **Issues found** (with per-section screenshot evidence):
+
 - P0 — Blocking (broken functionality, accessibility failures, fake product claims)
 - P1 — Should fix (anti-slop patterns, missing states, inconsistent styling, layout issues)
 - P2 — Nice to have (craft improvements, motion polish, human touch additions)

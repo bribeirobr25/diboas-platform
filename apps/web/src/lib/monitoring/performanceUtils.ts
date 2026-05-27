@@ -22,7 +22,10 @@ export function getThreshold(
   type: string,
   thresholds: PerformanceThresholds
 ): { good: number; needs_improvement: number } | null {
-  const thresholdsRecord = thresholds as unknown as Record<string, { good: number; needs_improvement: number } | undefined>;
+  const thresholdsRecord = thresholds as unknown as Record<
+    string,
+    { good: number; needs_improvement: number } | undefined
+  >;
   return thresholdsRecord[type] || null;
 }
 
@@ -68,11 +71,10 @@ export function getPerformanceSummary(): PerformanceSummary | null {
 
     return {
       loadTime: navigation ? navigation.loadEventEnd - navigation.startTime : null,
-      fcp: paint.find(p => p.name === 'first-contentful-paint')?.startTime || null,
+      fcp: paint.find((p) => p.name === 'first-contentful-paint')?.startTime || null,
       timestamp: Date.now(),
-      page: window.location.pathname
+      page: window.location.pathname,
     };
-
   } catch (error) {
     Logger.warn('Failed to get performance summary', { error });
     return null;
@@ -82,10 +84,7 @@ export function getPerformanceSummary(): PerformanceSummary | null {
 /**
  * Check if performance monitoring should be initialized
  */
-export function shouldInitializeMonitoring(
-  enabled: boolean,
-  sampleRate: number
-): boolean {
+export function shouldInitializeMonitoring(enabled: boolean, sampleRate: number): boolean {
   if (!enabled) return false;
   if (typeof window === 'undefined') return false;
   if (!('performance' in window)) return false;

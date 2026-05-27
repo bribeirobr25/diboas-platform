@@ -92,7 +92,7 @@ export class ErrorReportingService implements IErrorReporter {
     Logger.info('Error reporting service initialized', {
       environment: this.config.environment,
       enableReporting: this.config.enableReporting,
-      sessionId: this.sessionId
+      sessionId: this.sessionId,
     });
   }
 
@@ -111,14 +111,15 @@ export class ErrorReportingService implements IErrorReporter {
         context: {
           customData: {
             resourceType: target.tagName,
-            resourceSrc: 'src' in target
-              ? (target as HTMLImageElement | HTMLScriptElement).src
-              : 'href' in target
-                ? (target as HTMLAnchorElement | HTMLLinkElement).href
-                : undefined,
-            resourceLoadError: true
-          }
-        }
+            resourceSrc:
+              'src' in target
+                ? (target as HTMLImageElement | HTMLScriptElement).src
+                : 'href' in target
+                  ? (target as HTMLAnchorElement | HTMLLinkElement).href
+                  : undefined,
+            resourceLoadError: true,
+          },
+        },
       });
     }
   }
@@ -133,8 +134,8 @@ export class ErrorReportingService implements IErrorReporter {
       context: {
         sectionId: payload.sectionId,
         sectionType: payload.sectionType,
-        customData: { recoverable: payload.recoverable }
-      }
+        customData: { recoverable: payload.recoverable },
+      },
     });
   }
 
@@ -163,7 +164,7 @@ export class ErrorReportingService implements IErrorReporter {
         userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
         url: typeof window !== 'undefined' ? window.location.href : undefined,
         breadcrumbs: this.breadcrumbManager.getAll(),
-        ...options.context
+        ...options.context,
       };
 
       const sanitizedContext = sanitizeContext(context);
@@ -175,7 +176,7 @@ export class ErrorReportingService implements IErrorReporter {
           name: error.name,
           message: error.message,
           stack: error.stack,
-          cause: error.cause ? String(error.cause) : undefined
+          cause: error.cause ? String(error.cause) : undefined,
         },
         severity: options.severity || inferSeverity(error),
         category: options.category || inferCategory(error),
@@ -183,7 +184,7 @@ export class ErrorReportingService implements IErrorReporter {
         fingerprint,
         tags: buildTags(options.tags, context, this.config),
         isRecoverable: options.isRecoverable ?? inferRecoverability(error),
-        ...this.occurrenceTracker.getOccurrenceData(fingerprint)
+        ...this.occurrenceTracker.getOccurrenceData(fingerprint),
       };
 
       // Apply beforeSend hook
@@ -216,15 +217,14 @@ export class ErrorReportingService implements IErrorReporter {
         message: `Error reported: ${error.message}`,
         category: 'console',
         level: 'error',
-        data: { errorId, severity: report.severity }
+        data: { errorId, severity: report.severity },
       });
 
       return errorId;
-
     } catch (reportingError) {
       Logger.error('Failed to report error', {
         originalError: error.message,
-        reportingError
+        reportingError,
       });
       return 'error-reporting-failed';
     }
@@ -239,7 +239,7 @@ export class ErrorReportingService implements IErrorReporter {
       sectionId: report.context.sectionId,
       sectionType: report.context.sectionType,
       fingerprint: report.fingerprint,
-      occurrenceCount: report.occurrenceCount
+      occurrenceCount: report.occurrenceCount,
     };
 
     if (report.severity === ErrorSeverity.CRITICAL) {
@@ -275,9 +275,14 @@ export class ErrorReportingService implements IErrorReporter {
    * Log error locally
    */
   private logError(report: ErrorReport): void {
-    const logLevel = report.severity === ErrorSeverity.CRITICAL ? 'critical' :
-                    report.severity === ErrorSeverity.HIGH ? 'error' :
-                    report.severity === ErrorSeverity.MEDIUM ? 'warn' : 'info';
+    const logLevel =
+      report.severity === ErrorSeverity.CRITICAL
+        ? 'critical'
+        : report.severity === ErrorSeverity.HIGH
+          ? 'error'
+          : report.severity === ErrorSeverity.MEDIUM
+            ? 'warn'
+            : 'info';
 
     Logger[logLevel]('Error reported', {
       errorId: report.id,
@@ -286,7 +291,7 @@ export class ErrorReportingService implements IErrorReporter {
       category: report.category,
       sectionId: report.context.sectionId,
       sectionType: report.context.sectionType,
-      occurrenceCount: report.occurrenceCount
+      occurrenceCount: report.occurrenceCount,
     });
   }
 
@@ -304,10 +309,10 @@ export class ErrorReportingService implements IErrorReporter {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(this.config.apiKey && { 'Authorization': `Bearer ${this.config.apiKey}` })
+          ...(this.config.apiKey && { Authorization: `Bearer ${this.config.apiKey}` }),
         },
         body: JSON.stringify(report),
-        signal: AbortSignal.timeout(5000)
+        signal: AbortSignal.timeout(5000),
       });
 
       if (!response.ok) {
@@ -315,11 +320,10 @@ export class ErrorReportingService implements IErrorReporter {
       }
 
       Logger.debug('Error report sent successfully', { errorId: report.id });
-
     } catch (error) {
       Logger.warn('Failed to send error report', {
         errorId: report.id,
-        error: error instanceof Error ? error.message : String(error)
+        error: error instanceof Error ? error.message : String(error),
       });
     }
   }
@@ -337,14 +341,14 @@ export class ErrorReportingService implements IErrorReporter {
       totalErrors: this.occurrenceTracker.getTotalCount(),
       uniqueErrors: this.occurrenceTracker.getUniqueCount(),
       errorsByCategory: {} as Record<ErrorCategory, number>,
-      errorsBySeverity: {} as Record<ErrorSeverity, number>
+      errorsBySeverity: {} as Record<ErrorSeverity, number>,
     };
 
-    Object.values(ErrorCategory).forEach(category => {
+    Object.values(ErrorCategory).forEach((category) => {
       stats.errorsByCategory[category] = 0;
     });
 
-    Object.values(ErrorSeverity).forEach(severity => {
+    Object.values(ErrorSeverity).forEach((severity) => {
       stats.errorsBySeverity[severity] = 0;
     });
 
@@ -411,12 +415,13 @@ export class ErrorReportingService implements IErrorReporter {
 export const errorReportingService = new ErrorReportingService({
   enableReporting: process.env.NODE_ENV === 'production',
   reportingEndpoint: process.env.ERROR_REPORTING_ENDPOINT,
-  apiKey: process.env.ERROR_REPORTING_API_KEY
+  apiKey: process.env.ERROR_REPORTING_API_KEY,
 });
 
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
-    (window as Window & { errorReportingService?: ErrorReportingService }).errorReportingService = errorReportingService;
+    (window as Window & { errorReportingService?: ErrorReportingService }).errorReportingService =
+      errorReportingService;
   }
 }

@@ -79,11 +79,7 @@ export function WaitlistPosition({
     return `${base}?ref=${referralCode}`;
   }, [referralCode]);
 
-  const containerClasses = [
-    styles.container,
-    styles[`size-${size}`],
-    className,
-  ]
+  const containerClasses = [styles.container, styles[`size-${size}`], className]
     .filter(Boolean)
     .join(' ');
 

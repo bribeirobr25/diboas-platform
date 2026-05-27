@@ -17,7 +17,12 @@ interface LoadingScreenProps {
   showAvatar?: boolean;
 }
 
-export function LoadingScreen({ title, subtitle, checkmarks, showAvatar = false }: LoadingScreenProps) {
+export function LoadingScreen({
+  title,
+  subtitle,
+  checkmarks,
+  showAvatar = false,
+}: LoadingScreenProps) {
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
@@ -56,7 +61,16 @@ export function LoadingScreen({ title, subtitle, checkmarks, showAvatar = false 
                   className={`${styles.checkmarkItem} ${index < visibleCount ? styles.checkmarkVisible : styles.checkmarkHidden}`}
                 >
                   <span className={styles.checkmarkIcon}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </span>

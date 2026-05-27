@@ -59,10 +59,7 @@ export class OccurrenceTracker {
    * Get total error count across all fingerprints.
    */
   getTotalCount(): number {
-    return Array.from(this.reportedErrors.values()).reduce(
-      (sum, data) => sum + data.count,
-      0
-    );
+    return Array.from(this.reportedErrors.values()).reduce((sum, data) => sum + data.count, 0);
   }
 
   /**

@@ -12,10 +12,7 @@
 
 import React, { useId } from 'react';
 import Link from 'next/link';
-import type {
-  WaitingListFormData,
-  WaitingListFormErrors,
-} from '@/lib/waitingList/types';
+import type { WaitingListFormData, WaitingListFormErrors } from '@/lib/waitingList/types';
 import { WAITING_LIST_CONFIG } from '@/lib/waitingList/constants';
 import styles from './WaitingListModal.module.css';
 
@@ -200,11 +197,7 @@ export function WaitlistModalForm({
           className={styles.submitButton}
           disabled={isLoading || !formData.gdprAccepted}
         >
-          {isLoading ? (
-            <span className={styles.loadingSpinner} />
-          ) : (
-            labels.submit
-          )}
+          {isLoading ? <span className={styles.loadingSpinner} /> : labels.submit}
         </button>
       </form>
     </div>

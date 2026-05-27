@@ -42,20 +42,10 @@ import { logAuditEvent } from '@/lib/audit/AuditService';
 import { logGdprDeletion } from '@/lib/audit/GdprDeletionLogger';
 import { sendEmailAsync } from '@/lib/email/sendEmail';
 import { buildUnsubscribeUrls } from '@/lib/email/unsubscribeUrl';
-import {
-  hmacHash,
-  encrypt,
-  decrypt,
-} from '@/lib/security/encryption';
-import {
-  generateDeletionToken,
-  hashToken,
-} from '@/lib/security';
+import { hmacHash, encrypt, decrypt } from '@/lib/security/encryption';
+import { generateDeletionToken, hashToken } from '@/lib/security';
 import { sql } from '@/lib/database/client';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 
 // ---------------------------------------------------------------------------
@@ -154,7 +144,7 @@ export class WaitlistApplicationService {
           await this.handleResubscribe(existing.id, input.email, locale);
           const referralUrl = generateReferralUrl(
             REFERRAL_CONFIG.referralBaseUrl,
-            existing.referralCode,
+            existing.referralCode
           );
           return {
             ok: true,
@@ -170,17 +160,14 @@ export class WaitlistApplicationService {
 
       // --- Referral validation ------------------------------------------
       let referredBy: string | undefined;
-      if (
-        input.referredBy &&
-        isValidReferralCode(input.referredBy, REFERRAL_CONFIG.codePrefix)
-      ) {
+      if (input.referredBy && isValidReferralCode(input.referredBy, REFERRAL_CONFIG.codePrefix)) {
         referredBy = input.referredBy.toUpperCase();
       }
 
       // --- Insert the new entry -----------------------------------------
       const referralCode = generateReferralCode(
         REFERRAL_CONFIG.codePrefix,
-        REFERRAL_CONFIG.codeLength,
+        REFERRAL_CONFIG.codeLength
       );
 
       const entry = await addEntry({
@@ -218,10 +205,7 @@ export class WaitlistApplicationService {
         await this.creditReferrer(referredBy, locale);
       }
 
-      const referralUrl = generateReferralUrl(
-        REFERRAL_CONFIG.referralBaseUrl,
-        referralCode,
-      );
+      const referralUrl = generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referralCode);
 
       // --- Welcome email (opt-out aware, awaited check) ------------------
       // Same pattern as the original route: opt-out check is awaited
@@ -250,10 +234,7 @@ export class WaitlistApplicationService {
           enrichData: async () => {
             const foundingMember = await getFoundingMemberCount();
             return {
-              foundingMemberSpotsRemaining: Math.max(
-                0,
-                foundingMember.cap - foundingMember.count,
-              ),
+              foundingMemberSpotsRemaining: Math.max(0, foundingMember.cap - foundingMember.count),
             };
           },
         });
@@ -289,7 +270,7 @@ export class WaitlistApplicationService {
       Logger.error(
         'WaitlistApplicationService.submitSignup failed',
         {},
-        error instanceof Error ? error : undefined,
+        error instanceof Error ? error : undefined
       );
 
       applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_FAILED, {
@@ -338,17 +319,14 @@ export class WaitlistApplicationService {
         correlationId: input.correlationId,
       });
 
-      applicationEventBus.emit(
-        ApplicationEventType.WAITLIST_DELETION_REQUESTED,
-        {
-          domain: 'waitlist',
-          source: 'waitlist',
-          timestamp: Date.now(),
-          correlationId: input.correlationId,
-          reason: 'user_request',
-          metadata: { tokenExpiry: Date.now() + DELETION_TOKEN_TTL_MS },
-        },
-      );
+      applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_REQUESTED, {
+        domain: 'waitlist',
+        source: 'waitlist',
+        timestamp: Date.now(),
+        correlationId: input.correlationId,
+        reason: 'user_request',
+        metadata: { tokenExpiry: Date.now() + DELETION_TOKEN_TTL_MS },
+      });
 
       const locale = entry.locale || 'en';
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com';
@@ -370,10 +348,9 @@ export class WaitlistApplicationService {
 
       return { ok: true, entryExists: true };
     } catch (error) {
-      Logger.error(
-        '[GDPR] Deletion request error',
-        { error: error instanceof Error ? error.message : String(error) },
-      );
+      Logger.error('[GDPR] Deletion request error', {
+        error: error instanceof Error ? error.message : String(error),
+      });
       return { ok: false, code: 'SERVER_ERROR', cause: error };
     }
   }
@@ -414,17 +391,14 @@ export class WaitlistApplicationService {
           metadata: { method: 'token_confirmation' },
         });
 
-        applicationEventBus.emit(
-          ApplicationEventType.WAITLIST_DELETION_COMPLETED,
-          {
-            domain: 'waitlist',
-            source: 'waitlist',
-            timestamp: Date.now(),
-            correlationId: input.correlationId,
-            reason: 'gdpr',
-            metadata: { method: 'token_confirmation' },
-          },
-        );
+        applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {
+          domain: 'waitlist',
+          source: 'waitlist',
+          timestamp: Date.now(),
+          correlationId: input.correlationId,
+          reason: 'gdpr',
+          metadata: { method: 'token_confirmation' },
+        });
 
         sendEmailAsync({
           method: 'sendDeletionComplete',
@@ -438,10 +412,9 @@ export class WaitlistApplicationService {
 
       return { ok: true, deleted };
     } catch (error) {
-      Logger.error(
-        '[GDPR] Deletion confirmation error',
-        { error: error instanceof Error ? error.message : String(error) },
-      );
+      Logger.error('[GDPR] Deletion confirmation error', {
+        error: error instanceof Error ? error.message : String(error),
+      });
       return { ok: false, code: 'SERVER_ERROR', cause: error };
     }
   }
@@ -450,11 +423,7 @@ export class WaitlistApplicationService {
   // Private helpers
   // -------------------------------------------------------------------------
 
-  private async handleResubscribe(
-    entryId: string,
-    email: string,
-    locale: string,
-  ): Promise<void> {
+  private async handleResubscribe(entryId: string, email: string, locale: string): Promise<void> {
     const hash = hmacHash(email);
     if (!hash) return;
     const wasOptedOut = await checkEmailOptOut(hash);
@@ -483,9 +452,7 @@ export class WaitlistApplicationService {
     if (!updatedReferrer) return;
 
     const referrerHash = hmacHash(referrer.email);
-    const referrerOptedOut = referrerHash
-      ? await checkEmailOptOut(referrerHash)
-      : false;
+    const referrerOptedOut = referrerHash ? await checkEmailOptOut(referrerHash) : false;
     if (referrerOptedOut) return;
 
     const referrerLocale = updatedReferrer.locale || referrer.locale || locale;
@@ -504,10 +471,7 @@ export class WaitlistApplicationService {
         tier: updatedReferrer.tier,
         invitesRemaining: Math.max(0, 5 - updatedReferrer.referralCount),
         referralCode: referrer.referralCode,
-        referralUrl: generateReferralUrl(
-          REFERRAL_CONFIG.referralBaseUrl,
-          referrer.referralCode,
-        ),
+        referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, referrer.referralCode),
         unsubscribeUrl: referrerUnsubUrls?.pageUrl,
         unsubscribeApiUrl: referrerUnsubUrls?.apiUrl,
       },

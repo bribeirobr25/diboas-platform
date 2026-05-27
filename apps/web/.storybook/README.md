@@ -30,22 +30,27 @@ Storybook will be available at [http://localhost:6006](http://localhost:6006)
 ## Key Features
 
 ### Component Factory Pattern
+
 All components use the factory pattern for variant selection, providing:
+
 - Consistent API across all sections
 - Easy variant switching
 - Centralized configuration management
 
 ### Design System Integration
+
 - **Design Tokens**: All components use centralized design tokens
 - **Theme Support**: Light, dark, and high-contrast themes
 - **Responsive Design**: Mobile-first approach with breakpoint testing
 
 ### Accessibility & Performance
+
 - **WCAG AA Compliance**: All components meet accessibility standards
 - **Performance Monitoring**: Integrated render time tracking
 - **Image Optimization**: Next.js Image with responsive loading
 
 ### Interactive Testing
+
 - **Viewport Testing**: Mobile, tablet, and desktop breakpoints
 - **Theme Testing**: All theme variants available
 - **Analytics Simulation**: Performance monitoring examples
@@ -53,7 +58,9 @@ All components use the factory pattern for variant selection, providing:
 ## Development Guidelines
 
 ### Story Structure
+
 Each component includes:
+
 - **Default variants** - Standard implementations
 - **Custom content** - Customization examples
 - **Responsive tests** - Mobile/tablet/desktop views
@@ -62,6 +69,7 @@ Each component includes:
 - **Accessibility tests** - WCAG compliance demonstrations
 
 ### Best Practices
+
 - Use the **Controls** panel to test different configurations
 - Test **all viewport sizes** for responsive behavior
 - Verify **accessibility** with screen readers and keyboard navigation
@@ -71,6 +79,7 @@ Each component includes:
 ## Testing Checklist
 
 When adding new stories:
+
 - [ ] Include all component variants
 - [ ] Test mobile, tablet, and desktop viewports
 - [ ] Test all theme variants (light, dark, high-contrast)
@@ -82,10 +91,12 @@ When adding new stories:
 ## Configuration
 
 ### Main Configuration
+
 - **main.ts** - Storybook configuration with Next.js integration
 - **preview.ts** - Global parameters, themes, and decorators
 
 ### Addons
+
 - **Essentials** - Controls, docs, actions, viewport
 - **A11y** - Accessibility testing and auditing
 - **Viewport** - Responsive design testing
@@ -94,11 +105,13 @@ When adding new stories:
 ## Documentation Standards
 
 ### Story Naming
+
 - Use descriptive names that indicate the story purpose
 - Group related stories logically
 - Include context for business scenarios
 
 ### Documentation
+
 - Provide clear component descriptions
 - Document all props and configuration options
 - Include usage examples and best practices
@@ -107,17 +120,20 @@ When adding new stories:
 ## Quality Assurance
 
 ### Performance
+
 - All stories include performance monitoring examples
 - Bundle size impact is documented
 - Loading strategies are optimized
 
 ### Accessibility
+
 - WCAG AA compliance verified
 - Keyboard navigation tested
 - Screen reader compatibility confirmed
 - High contrast themes available
 
 ### Browser Compatibility
+
 - Modern browser support (ES2020+)
 - CSS custom properties for theming
 - Next.js Image optimization support
@@ -125,6 +141,7 @@ When adding new stories:
 ## Analytics Integration
 
 Stories demonstrate:
+
 - Performance monitoring setup
 - Analytics event tracking
 - Error boundary implementation
@@ -133,16 +150,18 @@ Stories demonstrate:
 ## Design System
 
 ### Tokens
+
 - **Colors** - Semantic color tokens with theme support
 - **Typography** - Responsive font scales
 - **Spacing** - Systematic spacing scale
 - **Breakpoints** - Mobile-first responsive breakpoints
 
 ### Components
+
 - **Factory Pattern** - Consistent variant selection
 - **Configuration Management** - Centralized content and settings
 - **Error Handling** - Graceful degradation and fallbacks
 
 ---
 
-*This Storybook instance is maintained alongside the component library. Please update stories when adding new variants or changing component APIs.*
+_This Storybook instance is maintained alongside the component library. Please update stories when adding new variants or changing component APIs._

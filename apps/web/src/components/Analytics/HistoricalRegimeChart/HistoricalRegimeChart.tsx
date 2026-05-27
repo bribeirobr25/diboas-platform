@@ -50,16 +50,17 @@ export function HistoricalRegimeChart({
 
   const xScale = (i: number) =>
     PADDING.left + (snapshots.length <= 1 ? CHART_W / 2 : (i / (snapshots.length - 1)) * CHART_W);
-  const yScale = (score: number) =>
-    PADDING.top + CHART_H - (score / MAX_SCORE) * CHART_H;
+  const yScale = (score: number) => PADDING.top + CHART_H - (score / MAX_SCORE) * CHART_H;
 
   const path = useMemo(
     () =>
       snapshots
-        .map((s, i) => `${i === 0 ? 'M' : 'L'} ${xScale(i).toFixed(2)} ${yScale(s.score).toFixed(2)}`)
+        .map(
+          (s, i) => `${i === 0 ? 'M' : 'L'} ${xScale(i).toFixed(2)} ${yScale(s.score).toFixed(2)}`
+        )
         .join(' '),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [snapshots],
+    [snapshots]
   );
 
   return (

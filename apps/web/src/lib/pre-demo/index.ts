@@ -47,11 +47,7 @@ export { formatCurrency } from './format';
 
 export { getPreDemoFeeRateValues, type PreDemoFeeRateValues } from './feeRateDisplay';
 
-export {
-  processDeposit,
-  processSend,
-  processBuy,
-} from './transactionService';
+export { processDeposit, processSend, processBuy } from './transactionService';
 
 export type {
   DepositProcessingResult,

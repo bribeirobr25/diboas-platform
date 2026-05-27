@@ -23,7 +23,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const seo = messages?.seo || {};
 
   const title = seo.title || 'Terms of Use | diBoaS';
-  const description = seo.description || 'Terms of Use for the diBoaS pre-launch website. Clear rules, serious commitments.';
+  const description =
+    seo.description ||
+    'Terms of Use for the diBoaS pre-launch website. Clear rules, serious commitments.';
 
   return {
     title,
@@ -31,9 +33,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     alternates: {
       canonical: `${baseUrl}/${locale}/legal/terms`,
       languages: {
-        'en': `${baseUrl}/en/legal/terms`,
-        'de': `${baseUrl}/de/legal/terms`,
-        'es': `${baseUrl}/es/legal/terms`,
+        en: `${baseUrl}/en/legal/terms`,
+        de: `${baseUrl}/de/legal/terms`,
+        es: `${baseUrl}/es/legal/terms`,
         'pt-br': `${baseUrl}/pt-BR/legal/terms`,
         'x-default': `${baseUrl}/en/legal/terms`,
       },
@@ -78,10 +80,13 @@ export default async function LegalTermsPage({ params }: LocalePageProps) {
   // Load legal/terms namespace
   const pageMessages = await loadPageNamespaces(locale, ['legal/terms', 'landing-b2c']);
 
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
-    { name: 'Home', url: '/' },
-    { name: 'Terms of Use', url: ROUTES.LEGAL.TERMS }
-  ], locale);
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
+    [
+      { name: 'Home', url: '/' },
+      { name: 'Terms of Use', url: ROUTES.LEGAL.TERMS },
+    ],
+    locale
+  );
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

@@ -23,9 +23,7 @@ describe('useWaitlistForm unmount safety', () => {
     const handleSubmit = async () => {
       try {
         // Simulate network request that fails
-        await new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Network error')), 10)
-        );
+        await new Promise((_, reject) => setTimeout(() => reject(new Error('Network error')), 10));
       } catch {
         if (!mountedRef.current) return;
         setError('error.network');
@@ -54,9 +52,7 @@ describe('useWaitlistForm unmount safety', () => {
 
     const handleSubmit = async () => {
       try {
-        await new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Network error')), 10)
-        );
+        await new Promise((_, reject) => setTimeout(() => reject(new Error('Network error')), 10));
       } catch {
         if (!mountedRef.current) return;
         setError('error.network');

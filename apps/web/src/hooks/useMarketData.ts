@@ -19,14 +19,13 @@ interface UseMarketDataResult {
 }
 
 export function useMarketData(): UseMarketDataResult {
-  const [snapshot, setSnapshot] = useState<MarketDataSnapshot>(
-    () => marketDataService.getSync()
-  );
+  const [snapshot, setSnapshot] = useState<MarketDataSnapshot>(() => marketDataService.getSync());
 
   useEffect(() => {
     let mounted = true;
 
-    marketDataService.get()
+    marketDataService
+      .get()
       .then((data) => {
         if (mounted) {
           setSnapshot(data);

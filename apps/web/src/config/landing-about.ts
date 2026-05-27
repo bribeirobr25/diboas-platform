@@ -81,11 +81,7 @@ export const ABOUT_STORY_CONFIG: ProseSectionConfig = {
 export const ABOUT_MISSION_CONFIG: ProseSectionConfig = {
   content: {
     header: 'about.mission.header',
-    paragraphs: [
-      'about.mission.story',
-      'about.mission.statement',
-      'about.mission.pillars',
-    ],
+    paragraphs: ['about.mission.story', 'about.mission.statement', 'about.mission.pillars'],
   },
   style: {
     backgroundColor: 'var(--section-bg-neutral)',
@@ -147,11 +143,7 @@ export const ABOUT_BUSINESS_CONFIG: ProseSectionConfig = {
   content: {
     transitionHook: 'about.transitions.t3',
     header: 'about.business.header',
-    paragraphs: [
-      'about.business.description',
-      'about.business.pitch',
-      'about.business.cta',
-    ],
+    paragraphs: ['about.business.description', 'about.business.pitch', 'about.business.cta'],
   },
   style: {
     backgroundColor: 'var(--section-bg-warm)',
@@ -171,15 +163,21 @@ export const ABOUT_BUSINESS_CONFIG: ProseSectionConfig = {
 export const ABOUT_FOUNDER_CONFIG: FounderSectionConfig = {
   content: {
     header: 'about.contact.header',
-    paragraphs: [
-      'about.contact.personal',
-    ],
+    paragraphs: ['about.contact.personal'],
     emailText: 'about.contact.emailValue',
     emailHref: 'hello@diboas.com',
     socialLinks: [
-      { label: 'about.contact.social.linkedin', href: 'https://www.linkedin.com/in/bribeirobr/', icon: 'linkedin' },
+      {
+        label: 'about.contact.social.linkedin',
+        href: 'https://www.linkedin.com/in/bribeirobr/',
+        icon: 'linkedin',
+      },
       { label: 'about.contact.social.x', href: 'https://x.com/bribeiro_br', icon: 'x' },
-      { label: 'about.contact.social.substack', href: 'https://bribeirobr.substack.com/', icon: 'substack' },
+      {
+        label: 'about.contact.social.substack',
+        href: 'https://bribeirobr.substack.com/',
+        icon: 'substack',
+      },
     ],
   },
   style: {

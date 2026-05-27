@@ -29,7 +29,10 @@ interface MarketDataContextProviderProps {
   children: ReactNode;
 }
 
-export function MarketDataContextProvider({ initialSnapshot, children }: MarketDataContextProviderProps) {
+export function MarketDataContextProvider({
+  initialSnapshot,
+  children,
+}: MarketDataContextProviderProps) {
   // Prime synchronously on first render so descendants reading
   // `marketDataService.getSync()` see the live snapshot.
   // (Wrapping in a check avoids re-priming on every render.)

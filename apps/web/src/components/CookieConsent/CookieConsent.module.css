@@ -20,7 +20,9 @@
   border-top: 1px solid var(--glass-border-dark);
   box-shadow: 0 -4px 24px var(--overlay-subtle);
   transform: translateY(100%);
-  transition: transform var(--animation-duration-normal) ease-out, opacity var(--animation-duration-normal) ease-out;
+  transition:
+    transform var(--animation-duration-normal) ease-out,
+    opacity var(--animation-duration-normal) ease-out;
   opacity: 0;
   padding: var(--spacing-lg);
 }

@@ -18,53 +18,54 @@ export function initializeWebVitals(): (() => void) | undefined {
   let beforeUnloadHandler: (() => void) | null = null;
 
   // Dynamic import to avoid SSR issues
-  import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
-    const vitalsQueue: WebVitalsMetric[] = [];
+  import('web-vitals')
+    .then(({ onCLS, onFCP, onLCP, onTTFB, onINP }) => {
+      const vitalsQueue: WebVitalsMetric[] = [];
 
-    // Track Core Web Vitals
-    onCLS(handleVital);
-    onFCP(handleVital);
-    onLCP(handleVital);
-    onTTFB(handleVital);
-    onINP(handleVital);
+      // Track Core Web Vitals
+      onCLS(handleVital);
+      onFCP(handleVital);
+      onLCP(handleVital);
+      onTTFB(handleVital);
+      onINP(handleVital);
 
-    function handleVital(metric: {
-      name: 'FCP' | 'LCP' | 'CLS' | 'TTFB' | 'INP';
-      value: number;
-      rating: 'good' | 'needs-improvement' | 'poor';
-      delta: number;
-      id: string;
-      navigationType?: string;
-    }) {
-      const webVital: WebVitalsMetric = {
-        name: metric.name,
-        value: metric.value,
-        rating: metric.rating,
-        delta: metric.delta,
-        id: metric.id,
-        navigationType: metric.navigationType || 'navigate'
+      function handleVital(metric: {
+        name: 'FCP' | 'LCP' | 'CLS' | 'TTFB' | 'INP';
+        value: number;
+        rating: 'good' | 'needs-improvement' | 'poor';
+        delta: number;
+        id: string;
+        navigationType?: string;
+      }) {
+        const webVital: WebVitalsMetric = {
+          name: metric.name,
+          value: metric.value,
+          rating: metric.rating,
+          delta: metric.delta,
+          id: metric.id,
+          navigationType: metric.navigationType || 'navigate',
+        };
+
+        vitalsQueue.push(webVital);
+
+        // Batch and send vitals
+        if (vitalsQueue.length >= 3) {
+          analyticsService.trackPerformance([...vitalsQueue]);
+          vitalsQueue.length = 0;
+        }
+      }
+
+      // Send remaining vitals on page unload
+      beforeUnloadHandler = () => {
+        if (vitalsQueue.length > 0) {
+          analyticsService.trackPerformance([...vitalsQueue]);
+        }
       };
-
-      vitalsQueue.push(webVital);
-
-      // Batch and send vitals
-      if (vitalsQueue.length >= 3) {
-        analyticsService.trackPerformance([...vitalsQueue]);
-        vitalsQueue.length = 0;
-      }
-    }
-
-    // Send remaining vitals on page unload
-    beforeUnloadHandler = () => {
-      if (vitalsQueue.length > 0) {
-        analyticsService.trackPerformance([...vitalsQueue]);
-      }
-    };
-    window.addEventListener('beforeunload', beforeUnloadHandler);
-
-  }).catch(error => {
-    Logger.warn('Failed to load web-vitals library:', error);
-  });
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+    })
+    .catch((error) => {
+      Logger.warn('Failed to load web-vitals library:', error);
+    });
 
   // Return cleanup function
   return () => {
@@ -78,14 +79,17 @@ export function initializeWebVitals(): (() => void) | undefined {
  * Get rating for a performance metric value
  * Performance: Classify metrics according to centralized Core Web Vitals thresholds
  */
-export function getMetricRating(name: string, value: number): 'good' | 'needs-improvement' | 'poor' {
+export function getMetricRating(
+  name: string,
+  value: number
+): 'good' | 'needs-improvement' | 'poor' {
   const thresholdMap: Record<string, keyof typeof WEB_VITALS_THRESHOLDS> = {
     FCP: 'FCP',
-    LCP: 'LCP', 
+    LCP: 'LCP',
     CLS: 'CLS',
     TTFB: 'TTFB',
     INP: 'INP',
-    FID: 'FID'
+    FID: 'FID',
   };
 
   const thresholdKey = thresholdMap[name];

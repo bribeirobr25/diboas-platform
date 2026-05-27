@@ -38,7 +38,7 @@ export function PageI18nProvider({ children, pageMessages }: PageI18nProviderPro
     // Page messages take precedence over parent messages
     return {
       ...parentMessages,
-      ...pageMessages
+      ...pageMessages,
     } as Record<string, string>;
   }, [parentIntl.messages, pageMessages]);
 

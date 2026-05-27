@@ -23,10 +23,34 @@ interface QuickAction {
 }
 
 const ACTIONS: QuickAction[] = [
-  { id: 'deposit', labelKey: 'preDemo.home.addMoney', subtitleKey: 'preDemo.home.addMoneySubtitle', screen: 'deposit', step: 'deposit' },
-  { id: 'send', labelKey: 'preDemo.home.send', subtitleKey: 'preDemo.home.sendSubtitle', screen: 'send', step: 'send' },
-  { id: 'buy', labelKey: 'preDemo.home.invest', subtitleKey: 'preDemo.home.investSubtitle', screen: 'buy', step: 'buy' },
-  { id: 'goals', labelKey: 'preDemo.home.goals', subtitleKey: 'preDemo.home.goalsSubtitle', screen: 'dream-mode', step: 'goals' },
+  {
+    id: 'deposit',
+    labelKey: 'preDemo.home.addMoney',
+    subtitleKey: 'preDemo.home.addMoneySubtitle',
+    screen: 'deposit',
+    step: 'deposit',
+  },
+  {
+    id: 'send',
+    labelKey: 'preDemo.home.send',
+    subtitleKey: 'preDemo.home.sendSubtitle',
+    screen: 'send',
+    step: 'send',
+  },
+  {
+    id: 'buy',
+    labelKey: 'preDemo.home.invest',
+    subtitleKey: 'preDemo.home.investSubtitle',
+    screen: 'buy',
+    step: 'buy',
+  },
+  {
+    id: 'goals',
+    labelKey: 'preDemo.home.goals',
+    subtitleKey: 'preDemo.home.goalsSubtitle',
+    screen: 'dream-mode',
+    step: 'goals',
+  },
 ];
 
 const STEP_ORDER: Array<'deposit' | 'send' | 'buy' | 'goals'> = ['deposit', 'send', 'buy', 'goals'];
@@ -36,7 +60,16 @@ function ActionIcon({ id }: { id: string }) {
   switch (id) {
     case 'deposit':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <circle cx="12" cy="12" r="10" />
           <line x1="12" y1="8" x2="12" y2="16" />
           <line x1="8" y1="12" x2="16" y2="12" />
@@ -44,21 +77,48 @@ function ActionIcon({ id }: { id: string }) {
       );
     case 'send':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <line x1="5" y1="12" x2="19" y2="12" />
           <polyline points="12 5 19 12 12 19" />
         </svg>
       );
     case 'buy':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
           <polyline points="17 6 23 6 23 12" />
         </svg>
       );
     case 'goals':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <rect x="3" y="3" width="7" height="7" />
           <rect x="14" y="3" width="7" height="7" />
           <rect x="14" y="14" width="7" height="7" />
@@ -83,7 +143,7 @@ export function QuickActions() {
 
   // Determine which actions are enabled
   // After deposit: send, buy, AND goals all unlock
-  const isActionEnabled = (step: typeof STEP_ORDER[number]) => {
+  const isActionEnabled = (step: (typeof STEP_ORDER)[number]) => {
     const isCompleted = state.completedSteps[step];
     if (isCompleted) return true;
     const stepIndex = STEP_ORDER.indexOf(step);
@@ -96,9 +156,7 @@ export function QuickActions() {
 
   return (
     <>
-      <h3 className={styles.quickActionsHeading}>
-        {t('preDemo.home.quickActions')}
-      </h3>
+      <h3 className={styles.quickActionsHeading}>{t('preDemo.home.quickActions')}</h3>
       <div className={styles.quickActionsGrid}>
         {ACTIONS.map((action) => {
           const isCompleted = state.completedSteps[action.step];
@@ -109,9 +167,10 @@ export function QuickActions() {
           // Badge text
           let badge: string | null = null;
           if (isHighlighted && !isCompleted) {
-            badge = firstUncompletedIndex === 0
-              ? t('preDemo.home.badgeStart')
-              : t('preDemo.home.badgeNext');
+            badge =
+              firstUncompletedIndex === 0
+                ? t('preDemo.home.badgeStart')
+                : t('preDemo.home.badgeNext');
           }
 
           return (
@@ -127,9 +186,7 @@ export function QuickActions() {
               {...(action.id === 'deposit' ? { 'data-autofocus': true } : {})}
             >
               {/* Badge */}
-              {badge && (
-                <span className={styles.quickActionBadge}>{badge}</span>
-              )}
+              {badge && <span className={styles.quickActionBadge}>{badge}</span>}
 
               {/* Icon */}
               <span className={styles.quickActionIcon}>
@@ -145,7 +202,16 @@ export function QuickActions() {
               {/* Completed indicator */}
               {isCompleted && (
                 <span className={styles.quickActionCheck}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </span>

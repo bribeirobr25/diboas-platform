@@ -20,6 +20,35 @@ import type {
   ToolKey,
 } from './types';
 
+/**
+ * Authoritative ordered list of shipped tools. Used by /tools landing for
+ * card ordering AND by metadata generation. The display order is set here
+ * (NOT in `TOOL_DESCRIPTORS`, which is a Record and unordered) — Tier 1
+ * (6C compound family) → Tier 2 (6D bespoke) → Tier 3 (6E B2B) → Phase E
+ * (asset-history retrospective).
+ *
+ * Phase 4 §4.2 (2026-05-25): consolidated from `app/[locale]/(landing)/tools/page.tsx`
+ * to `lib/tools/` so the sync test (`__tests__/registry.test.ts`) can pin
+ * `SHIPPED_TOOLS` ↔ `TOOL_DESCRIPTORS` parity without crossing the
+ * `app/` ↔ `lib/` boundary (C40 close).
+ */
+export const SHIPPED_TOOLS: ReadonlyArray<ToolKey> = [
+  // Tier 1 (6C)
+  'compound-interest',
+  'retirement',
+  'goal-savings',
+  // Tier 2 (6D)
+  'inflation-impact',
+  'currency-depreciation',
+  'emergency-fund',
+  'time-to-target',
+  // Tier 3 B2B (6E)
+  'card-fees',
+  'idle-cash',
+  // Phase E (2026-05-16) — Asset history retrospective tool
+  'asset-history',
+];
+
 /** Display order for /tools landing cards within each section. */
 export const TOOL_DESCRIPTORS: Record<ToolKey, ToolDescriptor> = {
   'compound-interest': {
@@ -127,18 +156,24 @@ export const COMPOUND_TOOL_DEFAULTS: Record<CompoundToolKey, CompoundToolDefault
     amount: { en: 5, 'pt-BR': 25, es: 3, de: 4 },
     cadence: 'daily',
     years: 12,
+    // compound-interest defaults are tiny ($5/day); 250 covers them with room.
+    recurringSliderMax: { en: 250, 'pt-BR': 250, es: 250, de: 250 },
   },
   retirement: {
     initialAmount: 0,
     amount: { en: 500, 'pt-BR': 2000, es: 400, de: 400 },
     cadence: 'monthly',
     years: 25,
+    // C6 close: pt-BR default 2000 needs 3000 ceiling (8× default 250 was useless).
+    recurringSliderMax: { en: 1000, 'pt-BR': 3000, es: 800, de: 800 },
   },
   'goal-savings': {
     initialAmount: 0,
     amount: { en: 200, 'pt-BR': 1000, es: 150, de: 150 },
     cadence: 'monthly',
     years: 10,
+    // Goal-savings defaults: en 200 → 500; pt-BR 1000 → 2000; es/de 150 → 500.
+    recurringSliderMax: { en: 500, 'pt-BR': 2000, es: 500, de: 500 },
   },
 };
 

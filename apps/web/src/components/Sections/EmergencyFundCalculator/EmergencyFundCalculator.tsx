@@ -3,33 +3,30 @@
 /**
  * Emergency Fund Calculator (Tier-1 tool, 6C.3).
  *
- * Computes time-to-target for the user's emergency fund using the canonical
- * `monthsToInflationAdjustedTarget` math from `lib/market-data/formulas/core`.
- * Output is "months to goal" with a bank-vs-diBoaS comparison — a different
- * shape than the future-value compound calculator.
- *
- * All numeric defaults flow from `lib/tools/constants.ts` (locale-keyed) and
- * yield/inflation rates come from `marketDataService.getSync()` per the §10
- * service-agnostic guardrail.
+ * Phase 2 §2.1 refactor (2026-05-25): all composition logic extracted to
+ * `lib/emergency-fund/calculator.ts`. This component is now a thin renderer
+ * that:
+ *   1. Manages form state.
+ *   2. Reads `marketDataService.getSync()` once per render.
+ *   3. Delegates math to `calculateEmergencyFundTimeline(input, snapshot)`.
+ *   4. Formats the result for display.
+ * The split mirrors the compound-interest family pattern. Closes C11.
  */
 
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import {
-  monthsToInflationAdjustedTarget,
-  type SupportedLocale,
-} from '@/lib/market-data';
+import type { SupportedLocale } from '@/lib/market-data';
 import { marketDataService } from '@/lib/market-data/service';
-import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
-import { resolveHorizonMatchedDepreciation } from '@/lib/market-data/formulas';
 import { formatCurrency } from '@/lib/compound-interest';
-import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
-import { EMERGENCY_FUND_DEFAULTS } from '@/lib/tools';
+import { calculateEmergencyFundTimeline } from '@/lib/emergency-fund';
+import {
+  EMERGENCY_FUND_DEFAULTS,
+  EMERGENCY_FUND_TARGET_MULTIPLIER_BOUNDS,
+  clampInput,
+} from '@/lib/tools';
 import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './EmergencyFundCalculator.module.css';
-
-const HISTORICAL_RATE = SCENARIO_RATES.historical;
 
 interface FormState {
   monthlyExpenses: number;
@@ -53,50 +50,29 @@ export function EmergencyFundCalculator() {
       monthlySavings: EMERGENCY_FUND_DEFAULTS.monthlySavings[localeKey],
       targetMultiplier: EMERGENCY_FUND_DEFAULTS.targetMultiplier,
     }),
-    [localeKey],
+    [localeKey]
   );
 
   const [form, setForm] = useState<FormState>(initial);
-
   const snapshot = marketDataService.getSync();
-  const bankApy = (snapshot.rates.bankRates[localeKey]?.savings ?? 0) / 100;
-  // Phase-7 service-agnostic — inflation IS already decimal in
-  // FALLBACK_MARKET_DATA.inflationRates (e.g., 0.045 = 4.5%). Per
-  // useGoalCardData.ts:54 precedent.
-  const inflation = snapshot.inflationRates.rates[localeKey]?.average5y ?? 0;
 
-  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched depreciation
-  // policy helper. For this months-to-target tool, the effective horizon is
-  // derived from the target ÷ monthly savings (a rough estimate of years).
-  // Phase-7 NF1/CC2 precedent: useGoalCardData.ts:57-61.
-  const currency = LOCALE_CURRENCY[localeKey];
-  const estimatedHorizonYears = form.monthlySavings > 0
-    ? Math.max(1, (form.monthlyExpenses * form.targetMultiplier) / (form.monthlySavings * 12))
-    : 5;
-  const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
-  const diboasUsdApy = HISTORICAL_RATE / 100;
-  const diboasEffective =
-    depreciation > 0 ? (1 + diboasUsdApy) * (1 + depreciation) - 1 : diboasUsdApy;
+  const result = useMemo(
+    () =>
+      calculateEmergencyFundTimeline(
+        {
+          monthlyExpenses: form.monthlyExpenses,
+          monthlySavings: form.monthlySavings,
+          targetMultiplier: form.targetMultiplier,
+          locale: localeKey,
+        },
+        snapshot
+      ),
+    [form, localeKey, snapshot]
+  );
 
   const target = form.monthlyExpenses * form.targetMultiplier;
-  const result = useMemo(() => {
-    if (form.monthlySavings <= 0) return null;
-    // Phase I.2 (2026-05-23): try each scenario independently so a bank-only
-    // unreachable case can be surfaced distinctly from a fully-unreachable one.
-    const tryMonths = (rate: number): number | null => {
-      try {
-        return monthsToInflationAdjustedTarget(target, form.monthlySavings, rate, inflation);
-      } catch {
-        return null;
-      }
-    };
-    const diboasMonths = tryMonths(diboasEffective);
-    const bankMonths = tryMonths(bankApy);
-    if (diboasMonths === null && bankMonths === null) return null;
-    const savedMonths =
-      diboasMonths !== null && bankMonths !== null ? bankMonths - diboasMonths : 0;
-    return { diboasMonths, bankMonths, savedMonths };
-  }, [target, form.monthlySavings, bankApy, diboasEffective, inflation]);
+  const bankApy = result?.bankApy ?? 0;
+  const hedged = result?.hedged ?? false;
 
   const formatMonths = (m: number | null): string => {
     if (m === null) return t('output.unreachable');
@@ -105,14 +81,20 @@ export function EmergencyFundCalculator() {
     return t('output.yearsLabel', { years });
   };
 
-  // Phase I.3 (2026-05-23): over-30-years stop-condition warning.
-  const showOver30Warning =
-    result !== null &&
-    ((result.diboasMonths !== null && result.diboasMonths > 360) ||
-      (result.bankMonths !== null && result.bankMonths > 360));
+  const showOver30Warning = result?.over30Years ?? false;
 
   const handleChange = (field: keyof FormState, value: number) =>
-    setForm((prev) => ({ ...prev, [field]: clamp(value, 0, 1_000_000) }));
+    setForm((prev) => {
+      if (field === 'targetMultiplier') {
+        // C14 close: real clamp matches UI <input min/max>, not the generic
+        // 0-1M ceiling that silently accepted out-of-range typos.
+        return {
+          ...prev,
+          targetMultiplier: clampInput(value, EMERGENCY_FUND_TARGET_MULTIPLIER_BOUNDS),
+        };
+      }
+      return { ...prev, [field]: clamp(value, 0, 1_000_000) };
+    });
 
   return (
     <div className={styles.calculator}>
@@ -164,8 +146,8 @@ export function EmergencyFundCalculator() {
             id={`${baseId}-multiplier`}
             type="number"
             inputMode="numeric"
-            min={1}
-            max={24}
+            min={EMERGENCY_FUND_TARGET_MULTIPLIER_BOUNDS.min}
+            max={EMERGENCY_FUND_TARGET_MULTIPLIER_BOUNDS.max}
             step={1}
             value={form.targetMultiplier}
             onChange={(e) => handleChange('targetMultiplier', Number(e.target.value))}
@@ -176,7 +158,9 @@ export function EmergencyFundCalculator() {
       </div>
 
       <p className={styles.targetLine}>
-        {t('output.targetLabel', { amount: formatCurrency(target, localeKey, { maximumFractionDigits: 0 }) })}
+        {t('output.targetLabel', {
+          amount: formatCurrency(target, localeKey, { maximumFractionDigits: 0 }),
+        })}
       </p>
 
       {result ? (
@@ -186,7 +170,7 @@ export function EmergencyFundCalculator() {
             <p className={styles.resultValue}>{formatMonths(result.diboasMonths)}</p>
             <p className={styles.resultRate}>
               {tShared('scenarios.historical')}
-              {depreciation > 0 ? tShared('scenarios.digitalDollarSuffix') : ''}
+              {hedged ? tShared('scenarios.digitalDollarSuffix') : ''}
               <span
                 className={styles.tooltip}
                 title={tShared('scenarios.historicalTooltip')}
@@ -202,7 +186,9 @@ export function EmergencyFundCalculator() {
           <div className={styles.resultCardBank}>
             <p className={styles.resultLabel}>{t('output.withBank')}</p>
             <p className={styles.resultValueMuted}>{formatMonths(result.bankMonths)}</p>
-            <p className={styles.resultRate}>{tShared('scenarios.bank')} ({(bankApy * 100).toFixed(2)}%)</p>
+            <p className={styles.resultRate}>
+              {tShared('scenarios.bank')} ({(bankApy * 100).toFixed(2)}%)
+            </p>
           </div>
           {result.savedMonths > 0 && (
             <div className={styles.savedHighlight}>

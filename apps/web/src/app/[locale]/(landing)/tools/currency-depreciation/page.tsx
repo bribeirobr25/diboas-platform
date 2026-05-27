@@ -28,8 +28,7 @@ export default async function CurrencyDepreciationToolPage({ params }: LocalePag
     toolKey: 'currency-depreciation',
     locale,
     name:
-      pageMessages['tools-currency-depreciation.seo.title'] ??
-      'Currency Depreciation Calculator',
+      pageMessages['tools-currency-depreciation.seo.title'] ?? 'Currency Depreciation Calculator',
     description:
       pageMessages['tools-currency-depreciation.seo.description'] ??
       'Free currency depreciation calculator from diBoaS.',

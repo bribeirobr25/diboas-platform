@@ -70,7 +70,7 @@ export interface UseImageLoadingReturn {
 
 export function useImageLoading({
   totalImages,
-  onAllLoaded
+  onAllLoaded,
 }: UseImageLoadingOptions = {}): UseImageLoadingReturn {
   const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
@@ -80,7 +80,7 @@ export function useImageLoading({
    * Mark an image as successfully loaded
    */
   const handleImageLoad = useCallback((imageId: string) => {
-    setImagesLoaded(prev => {
+    setImagesLoaded((prev) => {
       // Prevent duplicate updates
       if (prev[imageId]) return prev;
 
@@ -94,25 +94,34 @@ export function useImageLoading({
    * Mark an image as failed to load
    * Also counts as "loaded" to prevent blocking
    */
-  const handleImageError = useCallback((imageId: string) => {
-    setImageErrors(prev => new Set(prev).add(imageId));
-    // Count as loaded to prevent blocking
-    handleImageLoad(imageId);
-  }, [handleImageLoad]);
+  const handleImageError = useCallback(
+    (imageId: string) => {
+      setImageErrors((prev) => new Set(prev).add(imageId));
+      // Count as loaded to prevent blocking
+      handleImageLoad(imageId);
+    },
+    [handleImageLoad]
+  );
 
   /**
    * Check if an image has an error
    */
-  const hasError = useCallback((imageId: string) => {
-    return imageErrors.has(imageId);
-  }, [imageErrors]);
+  const hasError = useCallback(
+    (imageId: string) => {
+      return imageErrors.has(imageId);
+    },
+    [imageErrors]
+  );
 
   /**
    * Check if an image has loaded
    */
-  const isLoaded = useCallback((imageId: string) => {
-    return imagesLoaded[imageId] || false;
-  }, [imagesLoaded]);
+  const isLoaded = useCallback(
+    (imageId: string) => {
+      return imagesLoaded[imageId] || false;
+    },
+    [imagesLoaded]
+  );
 
   /**
    * Reset all state
@@ -144,6 +153,6 @@ export function useImageLoading({
     isLoaded,
     loadedCount,
     allLoaded,
-    reset
+    reset,
   };
 }

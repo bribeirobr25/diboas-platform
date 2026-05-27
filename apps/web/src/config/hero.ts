@@ -76,7 +76,7 @@ export const DEFAULT_HERO_CONTENT: HeroContent = {
   title: 'marketing.pages.home.hero.title',
   ctaText: 'common.buttons.getStarted',
   ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
-  ctaTarget: '_blank'
+  ctaTarget: '_blank',
 } as const;
 
 // Predefined hero configurations
@@ -90,13 +90,13 @@ export const HERO_CONFIGS = {
       imageAlt: {
         phone: 'diBoaS mobile application interface showing account dashboard',
         mascot: 'Acqua, the diBoaS financial assistant mascot',
-        background: 'Decorative teal circle background'
-      }
+        background: 'Decorative teal circle background',
+      },
     },
     analytics: {
       trackingPrefix: 'hero_default',
-      enabled: true
-    }
+      enabled: true,
+    },
   },
   fullBackground: {
     variant: 'fullBackground' as const,
@@ -105,14 +105,14 @@ export const HERO_CONFIGS = {
     seo: {
       titleTag: 'diBoaS - Complete Financial Ecosystem',
       imageAlt: {
-        background: 'Abstract diBoaS brand background illustration'
-      }
+        background: 'Abstract diBoaS brand background illustration',
+      },
     },
     analytics: {
       trackingPrefix: 'hero_fullbg',
-      enabled: true
-    }
-  }
+      enabled: true,
+    },
+  },
 } as const;
 
 // Legacy compatibility

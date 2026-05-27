@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const { locale: _locale } = await params;
   return {
     title: 'Interactive Demo - diBoaS',
-    description: 'Try the diBoaS interactive demo. Experience deposits, transfers, investments, and financial projections.',
+    description:
+      'Try the diBoaS interactive demo. Experience deposits, transfers, investments, and financial projections.',
     robots: {
       index: false,
       follow: false,

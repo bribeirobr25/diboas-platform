@@ -27,7 +27,7 @@ import styles from './LessonThreeBeat.module.css';
 // this calculator (6C+) within bundle budget caps.
 const CompoundInterestCalculator = dynamic(
   () => import('@/components/Sections/CompoundInterestCalculator'),
-  { ssr: false },
+  { ssr: false }
 );
 
 interface LessonThreeBeatProps {
@@ -60,8 +60,7 @@ export function LessonThreeBeat({
   const intl = useTranslation();
   const locale: SupportedLocale = isValidLocale(intl.locale) ? intl.locale : 'en';
 
-  const t = (key: string) =>
-    intl.formatMessage({ id: `learn-compound-interest.${key}` });
+  const t = (key: string) => intl.formatMessage({ id: `learn-compound-interest.${key}` });
 
   const tArray = (key: string, length: number): string[] =>
     Array.from({ length }, (_, i) => t(`${key}.${i}`));
@@ -130,7 +129,11 @@ export function LessonThreeBeat({
           <div id="beat1" className={styles.beat}>
             <h2 className={styles.beatTitle}>{t('beat1.title')}</h2>
             {beat1Body.map((p) => (
-              <p key={p} className={styles.beatBody} dangerouslySetInnerHTML={renderInlineEmphasis(p)} />
+              <p
+                key={p}
+                className={styles.beatBody}
+                dangerouslySetInnerHTML={renderInlineEmphasis(p)}
+              />
             ))}
           </div>
         </SectionContainer>
@@ -142,7 +145,11 @@ export function LessonThreeBeat({
           <div id="beat2" className={styles.beat}>
             <h2 className={styles.beatTitle}>{t('beat2.title')}</h2>
             {beat2Intro.map((p) => (
-              <p key={p} className={styles.beatBody} dangerouslySetInnerHTML={renderInlineEmphasis(p)} />
+              <p
+                key={p}
+                className={styles.beatBody}
+                dangerouslySetInnerHTML={renderInlineEmphasis(p)}
+              />
             ))}
             <p className={styles.habitsLine}>{t('beat2.habitsLine')}</p>
             <p className={styles.beatBody}>{t('beat2.vignettesIntro')}</p>
@@ -151,7 +158,9 @@ export function LessonThreeBeat({
             <p className={styles.brandCallback}>{t('beat2.vignettesOutro')}</p>
             <p className={styles.beatBody}>{t('beat2.habitsRecap')}</p>
             {beat2Outro.map((p) => (
-              <p key={p} className={styles.beatBody}>{p}</p>
+              <p key={p} className={styles.beatBody}>
+                {p}
+              </p>
             ))}
           </div>
         </SectionContainer>
@@ -163,13 +172,12 @@ export function LessonThreeBeat({
           <div id="beat3" className={styles.beat}>
             <h2 className={styles.beatTitle}>{t('beat3.title')}</h2>
             {beat3Intro.map((p) => (
-              <p key={p} className={styles.beatBody}>{p}</p>
+              <p key={p} className={styles.beatBody}>
+                {p}
+              </p>
             ))}
 
-            <CompoundInterestCalculator
-              variant="default"
-              enableAnalytics={enableAnalytics}
-            />
+            <CompoundInterestCalculator variant="default" enableAnalytics={enableAnalytics} />
 
             <p className={styles.brandCallback}>{t('beat3.calculatorTagline')}</p>
             <p className={styles.afterCalculator}>{t('beat3.afterCalculator')}</p>
@@ -191,12 +199,14 @@ export function LessonThreeBeat({
                       {chunks}
                     </LocaleLink>
                   ),
-                },
+                }
               )}
             </p>
 
             {beat3Wrap.map((p) => (
-              <p key={p} className={styles.beatBody}>{p}</p>
+              <p key={p} className={styles.beatBody}>
+                {p}
+              </p>
             ))}
 
             <div className={styles.ctaGroup}>
@@ -204,7 +214,11 @@ export function LessonThreeBeat({
                 {t('beat3.cta.primary')}
               </CTAButtonLink>
               <p className={styles.ctaNote}>{t('beat3.cta.primaryNote')}</p>
-              <LocaleLink href={secondaryCtaHref} className={styles.ctaSecondary} onClick={handleSecondaryCta}>
+              <LocaleLink
+                href={secondaryCtaHref}
+                className={styles.ctaSecondary}
+                onClick={handleSecondaryCta}
+              >
                 {t('beat3.cta.secondary')}
               </LocaleLink>
             </div>

@@ -67,7 +67,8 @@ export const BTC2016DCA: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default state by another name — BTC 2016 Monthly DCA. MEDIUM confidence with uncertainty note citing $417 anchor.',
+        story:
+          'Default state by another name — BTC 2016 Monthly DCA. MEDIUM confidence with uncertainty note citing $417 anchor.',
       },
     },
   },

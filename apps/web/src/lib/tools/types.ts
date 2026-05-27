@@ -34,6 +34,16 @@ export interface CompoundToolDefaults {
   readonly amount: Record<SupportedLocale, number>;
   readonly cadence: Cadence;
   readonly years: number;
+  /**
+   * Per-locale slider ceiling for the recurring `amount` input (C6 close,
+   * TOOLS_41_DEFECTS_FIX_PLAN.md §4.5, 2026-05-26). Pre-fix, the slider
+   * topped out at 250 for ALL locales, making pt-BR retirement's default
+   * R$2000 visually peg the slider to its right edge. This per-tool +
+   * per-locale ceiling lets the slider visually represent the default
+   * amount with headroom. Numeric input still accepts up to
+   * INPUT_BOUNDS.amount.max (1B); this is the visible affordance only.
+   */
+  readonly recurringSliderMax: Record<SupportedLocale, number>;
 }
 
 /** Input config for the Emergency Fund time-to-target calculator. */
@@ -94,8 +104,23 @@ export type AssetHistoryAssetKey =
 // Phase E v2 (TOOLS_IMPROVEMENT.md, 2026-05-23): expanded from {2010, 2016} to
 // the full 17-year range. 2010 floors at July (data start); 2011+ start in January.
 export type AssetHistoryStartYear =
-  | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017
-  | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026;
+  | 2010
+  | 2011
+  | 2012
+  | 2013
+  | 2014
+  | 2015
+  | 2016
+  | 2017
+  | 2018
+  | 2019
+  | 2020
+  | 2021
+  | 2022
+  | 2023
+  | 2024
+  | 2025
+  | 2026;
 
 export type AssetHistoryMode = 'lumpSum' | 'monthlyDca';
 

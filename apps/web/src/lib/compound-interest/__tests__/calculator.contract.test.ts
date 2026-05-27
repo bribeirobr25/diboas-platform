@@ -16,7 +16,7 @@ type CalculateMonthlyContributions = (
   monthlyPayment: number,
   annualRate: number,
   annualInflation: number,
-  months: number,
+  months: number
 ) => {
   totalDeposited: number;
   nominalFV: number;
@@ -55,9 +55,7 @@ describe('formulas.ts contract', () => {
     });
     expect(calculateMonthlyContributionsMock.mock.calls.length).toBeGreaterThan(0);
 
-    const historicalCall = calculateMonthlyContributionsMock.mock.calls.find(
-      (c) => c[1] === 0.1,
-    );
+    const historicalCall = calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.1);
     expect(historicalCall).toBeDefined();
     expect(historicalCall![1]).toBe(0.1);
     expect(historicalCall![2]).toBe(0);
@@ -66,16 +64,12 @@ describe('formulas.ts contract', () => {
 
   it('should pass conservative rate as 0.07 decimal', () => {
     calculateCompoundProjection({ amount: 5, cadence: 'daily', years: 1, locale: 'en' });
-    expect(
-      calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.07),
-    ).toBeDefined();
+    expect(calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.07)).toBeDefined();
   });
 
   it('should pass optimistic rate as 0.14 decimal', () => {
     calculateCompoundProjection({ amount: 5, cadence: 'daily', years: 1, locale: 'en' });
-    expect(
-      calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.14),
-    ).toBeDefined();
+    expect(calculateMonthlyContributionsMock.mock.calls.find((c) => c[1] === 0.14)).toBeDefined();
   });
 
   it('should never pass non-zero inflation when computing scenarios', () => {

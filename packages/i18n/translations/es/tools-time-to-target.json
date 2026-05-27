@@ -18,6 +18,9 @@
     "yearsLabel": "{years} años",
     "cannotReach": "Fuera de alcance con esta contribución — prueba un monto mensual mayor o una meta más pequeña."
   },
+  "guidance": {
+    "oneTimeNeedsInitial": "Introduce un importe inicial para ver cuándo alcanzarías tu meta."
+  },
   "vignette": {
     "subtitle": "Misma meta. Cuatro líneas de tiempo distintas. Elige la que te funcione."
   },

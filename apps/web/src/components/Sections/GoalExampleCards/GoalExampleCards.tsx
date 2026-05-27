@@ -10,7 +10,7 @@ import { GoalExampleCard } from './GoalExampleCard';
 import styles from './GoalExampleCards.module.css';
 
 const PreDream = dynamic(
-  () => import('@/components/PreDream').then(m => ({ default: m.PreDream })),
+  () => import('@/components/PreDream').then((m) => ({ default: m.PreDream })),
   { ssr: false, loading: () => null }
 );
 
@@ -82,13 +82,12 @@ export const GoalExampleCards = memo(function GoalExampleCards({
         </div>
       </SectionContainer>
 
-      {showPreDream && portalContainer ? createPortal(
-        <PreDream
-          onClose={handlePreDreamClose}
-          onBackToHome={handlePreDreamClose}
-        />,
-        portalContainer
-      ) : null}
+      {showPreDream && portalContainer
+        ? createPortal(
+            <PreDream onClose={handlePreDreamClose} onBackToHome={handlePreDreamClose} />,
+            portalContainer
+          )
+        : null}
     </>
   );
 });

@@ -26,7 +26,11 @@ export function usePerformanceTracking() {
         userAgent: navigator.userAgent,
       });
     } catch (error) {
-      Logger.error('Failed to track custom metric', { name }, error instanceof Error ? error : undefined);
+      Logger.error(
+        'Failed to track custom metric',
+        { name },
+        error instanceof Error ? error : undefined
+      );
     }
   };
 

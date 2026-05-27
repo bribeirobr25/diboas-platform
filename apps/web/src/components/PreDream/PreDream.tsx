@@ -56,11 +56,14 @@ function PreDreamContent({ onClose, onBackToHome }: PreDreamProps) {
   }, [state.screen]);
 
   // Escape key to close
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Escape' && onClose) {
-      onClose();
-    }
-  }, [onClose]);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape' && onClose) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   // Focus first element on screen change
   useEffect(() => {
@@ -110,8 +113,19 @@ function PreDreamContent({ onClose, onBackToHome }: PreDreamProps) {
     >
       {/* Close button */}
       {onClose && (
-        <button onClick={onClose} className={styles.closeButton} aria-label={intl.formatMessage({ id: 'common.accessibility.closeDreamMode' })}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <button
+          onClick={onClose}
+          className={styles.closeButton}
+          aria-label={intl.formatMessage({ id: 'common.accessibility.closeDreamMode' })}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>

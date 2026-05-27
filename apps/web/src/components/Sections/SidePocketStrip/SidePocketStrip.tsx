@@ -18,10 +18,7 @@ export const SidePocketStrip = memo(function SidePocketStrip({
   const ariaLabel = intl.formatMessage({ id: 'landing-b2c.sections.sidePocket.ariaLabel' });
 
   return (
-    <section
-      className={`${styles.strip} ${className}`}
-      aria-label={ariaLabel}
-    >
+    <section className={`${styles.strip} ${className}`} aria-label={ariaLabel}>
       <p className={styles.text}>{text}</p>
     </section>
   );

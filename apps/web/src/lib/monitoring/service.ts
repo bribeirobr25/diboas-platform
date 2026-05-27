@@ -5,7 +5,13 @@
  */
 
 import { Logger } from '@/lib/monitoring/Logger';
-import { MonitoringService, ErrorEvent, PerformanceIssue, SecurityEvent, MonitoringConfig } from './types';
+import {
+  MonitoringService,
+  ErrorEvent,
+  PerformanceIssue,
+  SecurityEvent,
+  MonitoringConfig,
+} from './types';
 import { MONITORING_DEFAULTS } from './constants';
 import { errorReportingService } from '@/lib/errors/ErrorReportingService';
 
@@ -26,14 +32,14 @@ class MonitoringCoordinatorService implements MonitoringService {
       filename: event.filename,
       lineno: event.lineno,
       colno: event.colno,
-      type: 'unhandled_error'
+      type: 'unhandled_error',
     });
     errorReportingService.handleError(error);
   };
   private boundHandleRejection = (event: PromiseRejectionEvent) => {
     const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
     this.trackError(error, {
-      type: 'unhandled_promise_rejection'
+      type: 'unhandled_promise_rejection',
     });
     errorReportingService.handleError(error);
   };
@@ -48,8 +54,8 @@ class MonitoringCoordinatorService implements MonitoringService {
       metadata: {
         blockedURI: event.blockedURI,
         violatedDirective: event.violatedDirective,
-        originalPolicy: event.originalPolicy
-      }
+        originalPolicy: event.originalPolicy,
+      },
     });
   };
 
@@ -80,8 +86,8 @@ class MonitoringCoordinatorService implements MonitoringService {
       category: this.classifyErrorCategory(error),
       metadata: {
         ...this.globalContext,
-        ...context
-      }
+        ...context,
+      },
     };
 
     this.errorQueue.push(errorEvent);
@@ -108,7 +114,7 @@ class MonitoringCoordinatorService implements MonitoringService {
     this.performanceQueue.push({
       ...issue,
       id: issue.id || this.generateId(),
-      timestamp: issue.timestamp || Date.now()
+      timestamp: issue.timestamp || Date.now(),
     });
   }
 
@@ -122,7 +128,7 @@ class MonitoringCoordinatorService implements MonitoringService {
     this.securityQueue.push({
       ...event,
       id: event.id || this.generateId(),
-      timestamp: event.timestamp || Date.now()
+      timestamp: event.timestamp || Date.now(),
     });
 
     // Log high/critical security events immediately
@@ -139,7 +145,7 @@ class MonitoringCoordinatorService implements MonitoringService {
   setUser(userId: string, metadata?: Record<string, unknown>): void {
     this.userContext = {
       userId,
-      ...metadata
+      ...metadata,
     };
   }
 
@@ -167,7 +173,7 @@ class MonitoringCoordinatorService implements MonitoringService {
       performance,
       security,
       timestamp: Date.now(),
-      context: this.globalContext
+      context: this.globalContext,
     };
 
     // Clear queues before send to prevent duplicate flush
@@ -182,7 +188,9 @@ class MonitoringCoordinatorService implements MonitoringService {
       this.errorQueue.unshift(...errors);
       this.performanceQueue.unshift(...performance);
       this.securityQueue.unshift(...security);
-      Logger.error('Failed to flush monitoring events:', { error: error instanceof Error ? error.message : String(error) });
+      Logger.error('Failed to flush monitoring events:', {
+        error: error instanceof Error ? error.message : String(error),
+      });
     }
   }
 
@@ -221,7 +229,9 @@ class MonitoringCoordinatorService implements MonitoringService {
   /**
    * Private: Classify error category
    */
-  private classifyErrorCategory(error: Error): 'javascript' | 'network' | 'security' | 'performance' | 'user' {
+  private classifyErrorCategory(
+    error: Error
+  ): 'javascript' | 'network' | 'security' | 'performance' | 'user' {
     const message = error.message.toLowerCase();
 
     if (message.includes('network') || message.includes('fetch') || message.includes('xhr')) {
@@ -250,9 +260,11 @@ class MonitoringCoordinatorService implements MonitoringService {
    * Private: Check if there are events to flush
    */
   private hasEventsToFlush(): boolean {
-    return this.errorQueue.length > 0 ||
+    return (
+      this.errorQueue.length > 0 ||
       this.performanceQueue.length > 0 ||
-      this.securityQueue.length > 0;
+      this.securityQueue.length > 0
+    );
   }
 
   /**
@@ -271,10 +283,10 @@ class MonitoringCoordinatorService implements MonitoringService {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(this.config.apiKey && { 'Authorization': `Bearer ${this.config.apiKey}` })
+        ...(this.config.apiKey && { Authorization: `Bearer ${this.config.apiKey}` }),
       },
       body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(5000)
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!response.ok) {

@@ -54,7 +54,7 @@ export const CTA_BUTTON_CONFIG: Record<CTAStyle, CTAButtonConfig> = {
     variant: designTokens.components.cta.button.subtle.variant as ButtonProps['variant'],
     size: designTokens.components.cta.button.subtle.size as ButtonProps['size'],
     trackable: true,
-  }
+  },
 } as const;
 
 /**

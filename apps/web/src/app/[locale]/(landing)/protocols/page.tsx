@@ -16,9 +16,7 @@ import {
   ProtocolsNotIsSection,
 } from '@/components/Pages/Protocols/sections';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
-import {
-  ProtocolsTransitionHook,
-} from '@/components/Pages/Protocols/ProtocolsClientSections';
+import { ProtocolsTransitionHook } from '@/components/Pages/Protocols/ProtocolsClientSections';
 import { PROTOCOLS_I18N_PREFIX, PROTOCOLS_FAQ_CONFIG } from '@/config/landing-protocols';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
@@ -32,14 +30,16 @@ export const dynamic = 'auto';
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
 
   // Load translations for metadata
   const messages = await loadMessages(validLocale, 'protocols');
   const seo = messages?.seo || {};
 
   const title = seo.title || 'Where Your Money Works | The Protocols We Trust | diBoaS';
-  const description = seo.description || 'diBoaS connects you to established decentralized finance protocols. See exactly where your money goes with full transparency.';
+  const description =
+    seo.description ||
+    'diBoaS connects you to established decentralized finance protocols. See exactly where your money goes with full transparency.';
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -71,9 +71,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     alternates: {
       canonical: `${siteUrl}/${validLocale}/protocols`,
       languages: {
-        'en': `${siteUrl}/en/protocols`,
-        'de': `${siteUrl}/de/protocols`,
-        'es': `${siteUrl}/es/protocols`,
+        en: `${siteUrl}/en/protocols`,
+        de: `${siteUrl}/de/protocols`,
+        es: `${siteUrl}/es/protocols`,
         'pt-br': `${siteUrl}/pt-BR/protocols`,
         'x-default': `${siteUrl}/en/protocols`,
       },
@@ -115,14 +115,18 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Protocol Transparency',
-    description: 'Complete list of DeFi protocols used by diBoaS with security audits and regulatory information',
-    category: 'Financial Technology'
+    description:
+      'Complete list of DeFi protocols used by diBoaS with security audits and regulatory information',
+    category: 'Financial Technology',
   });
 
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
-    { name: 'Home', url: '/' },
-    { name: 'Protocols', url: '/protocols' }
-  ], locale);
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
+    [
+      { name: 'Home', url: '/' },
+      { name: 'Protocols', url: '/protocols' },
+    ],
+    locale
+  );
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

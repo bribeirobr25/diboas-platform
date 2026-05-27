@@ -58,9 +58,11 @@ if (SENTRY_DSN) {
       }
 
       // Filter out browser extension errors
-      if (event.exception?.values?.[0]?.stacktrace?.frames?.some(
-        frame => frame.filename?.includes('extension')
-      )) {
+      if (
+        event.exception?.values?.[0]?.stacktrace?.frames?.some((frame) =>
+          frame.filename?.includes('extension')
+        )
+      ) {
         return null;
       }
 
@@ -80,8 +82,14 @@ if (SENTRY_DSN) {
           for (const key of Object.keys(event.extra)) {
             if (piiFields.includes(key.toLowerCase())) {
               event.extra[key] = '[REDACTED]';
-            } else if (typeof event.extra[key] === 'string' && emailPattern.test(event.extra[key] as string)) {
-              event.extra[key] = (event.extra[key] as string).replace(emailPattern, '[EMAIL_REDACTED]');
+            } else if (
+              typeof event.extra[key] === 'string' &&
+              emailPattern.test(event.extra[key] as string)
+            ) {
+              event.extra[key] = (event.extra[key] as string).replace(
+                emailPattern,
+                '[EMAIL_REDACTED]'
+              );
             }
           }
         }
@@ -96,8 +104,14 @@ if (SENTRY_DSN) {
               for (const key of Object.keys(breadcrumb.data)) {
                 if (piiDataFields.includes(key.toLowerCase())) {
                   breadcrumb.data[key] = '[REDACTED]';
-                } else if (typeof breadcrumb.data[key] === 'string' && emailPattern.test(breadcrumb.data[key] as string)) {
-                  breadcrumb.data[key] = (breadcrumb.data[key] as string).replace(emailPattern, '[EMAIL_REDACTED]');
+                } else if (
+                  typeof breadcrumb.data[key] === 'string' &&
+                  emailPattern.test(breadcrumb.data[key] as string)
+                ) {
+                  breadcrumb.data[key] = (breadcrumb.data[key] as string).replace(
+                    emailPattern,
+                    '[EMAIL_REDACTED]'
+                  );
                 }
               }
             }
@@ -134,7 +148,7 @@ if (SENTRY_DSN) {
         Sentry.replayIntegration({
           maskAllText: true,
           blockAllMedia: true,
-        }),
+        })
       );
       replayActive = true;
     };
@@ -161,24 +175,18 @@ if (SENTRY_DSN) {
     // (NOT the cookie-consent-changed DOM event — that channel is for the
     // pre-hydration GA4 inline bootstrap only; React/module consumers use
     // the bus per consentUtils.ts docstring + PostHogProvider precedent.)
-    applicationEventBus.on<ConsentEventPayload>(
-      ApplicationEventType.CONSENT_GIVEN,
-      (payload) => {
-        // Accept 'analytics' or 'all'; explicitly reject 'marketing' alone.
-        // Filter on type, not on current dispatchConsentEvent emit behaviour —
-        // future marketing-consent feature must not silently activate Replay.
-        if (payload.consentType === 'analytics' || payload.consentType === 'all') {
-          enableReplay();
-        }
-      },
-    );
+    applicationEventBus.on<ConsentEventPayload>(ApplicationEventType.CONSENT_GIVEN, (payload) => {
+      // Accept 'analytics' or 'all'; explicitly reject 'marketing' alone.
+      // Filter on type, not on current dispatchConsentEvent emit behaviour —
+      // future marketing-consent feature must not silently activate Replay.
+      if (payload.consentType === 'analytics' || payload.consentType === 'all') {
+        enableReplay();
+      }
+    });
 
-    applicationEventBus.on<ConsentEventPayload>(
-      ApplicationEventType.CONSENT_WITHDRAWN,
-      () => {
-        stopReplay();
-      },
-    );
+    applicationEventBus.on<ConsentEventPayload>(ApplicationEventType.CONSENT_WITHDRAWN, () => {
+      stopReplay();
+    });
   }
 }
 

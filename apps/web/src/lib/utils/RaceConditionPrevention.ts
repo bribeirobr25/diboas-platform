@@ -28,5 +28,5 @@ export {
 
   // Cleanup management
   CleanupManager,
-  useCleanupManager
+  useCleanupManager,
 } from './race-condition';

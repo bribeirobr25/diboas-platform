@@ -47,7 +47,7 @@ export interface BuyProcessingResult {
  */
 export function processDeposit(
   grossAmount: number,
-  paymentMethod: string = 'Credit Card',
+  paymentMethod: string = 'Credit Card'
 ): DepositProcessingResult {
   if (grossAmount < 0) {
     return {
@@ -89,7 +89,7 @@ export function processSend(
   grossAmount: number,
   recipient: string,
   cashBalance: number,
-  solBalance: number,
+  solBalance: number
 ): SendProcessingResult {
   if (grossAmount < 0) {
     return {
@@ -146,7 +146,7 @@ export function processBuy(
   grossAmount: number,
   asset: Asset,
   cashBalance: number,
-  solBalance: number,
+  solBalance: number
 ): BuyProcessingResult {
   if (grossAmount < 0) {
     return {

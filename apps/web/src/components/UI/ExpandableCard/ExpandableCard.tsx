@@ -18,7 +18,7 @@ export interface ExpandableCardProps {
   /** Unique card identifier */
   readonly id: string;
   /** Optional icon component rendered before the title */
-   
+
   readonly icon?: ComponentType<any>;
   /** Card title (always visible) */
   readonly title: string;
@@ -103,9 +103,7 @@ export const ExpandableCard = memo(function ExpandableCard({
         {Icon ? <Icon className={styles.cardIcon} aria-hidden={true} /> : null}
         <h3 className={styles.cardTitle}>
           {title}
-          {titleSummary ? (
-            <span className={styles.titleSummary}> {titleSummary}</span>
-          ) : null}
+          {titleSummary ? <span className={styles.titleSummary}> {titleSummary}</span> : null}
         </h3>
         <span className={styles.expandIndicator} aria-hidden="true">
           {isExpanded ? '\u2212' : '+'}
@@ -122,15 +120,11 @@ export const ExpandableCard = memo(function ExpandableCard({
         aria-hidden={!isExpanded}
         role="region"
       >
-        <div className={styles.expandableInner}>
-          {children}
-        </div>
+        <div className={styles.expandableInner}>{children}</div>
       </div>
 
       {/* Screen-reader-only toggle label */}
-      <span className={styles.srOnly}>
-        {isExpanded ? collapseLabel : expandLabel}
-      </span>
+      <span className={styles.srOnly}>{isExpanded ? collapseLabel : expandLabel}</span>
     </div>
   );
 });

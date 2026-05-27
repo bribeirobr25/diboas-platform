@@ -23,11 +23,13 @@ All security utilities live in `apps/web/src/lib/security/` and are re-exported 
 **File:** `apps/web/middleware.ts`
 
 A per-request nonce is generated via `crypto.randomUUID()` in Edge Middleware. The nonce is:
+
 - Embedded in the `script-src` directive so only scripts with the matching nonce execute
 - Forwarded to layout via the `x-nonce` request/response header
 - Applied to every non-static route via the middleware matcher
 
 Key directives:
+
 - `script-src 'self' 'nonce-{uuid}'` (production removes `'unsafe-eval'`)
 - `style-src 'self' 'unsafe-inline'` (CSS-in-JS requires inline styles)
 - `frame-ancestors 'none'` (equivalent to X-Frame-Options DENY)
@@ -40,16 +42,19 @@ The middleware fails open on error: if nonce generation fails, the request proce
 ## 3. Input Sanitization
 
 ### HTML sanitization
+
 **File:** `apps/web/src/lib/security/htmlSanitizer.ts`
 
 Uses DOMPurify with a restricted allowlist. Default allowed tags: `strong`, `em`, `br`, `p`, `a`, `ul`, `li`, `ol`. Default allowed attributes: `href`, `target`, `rel`. Used for CMS/rich-text content rendered with `dangerouslySetInnerHTML` (e.g., FAQ answers).
 
 ### Text and email sanitization
+
 **File:** `apps/web/src/lib/api/routeHelpers.ts`, `apps/web/src/lib/utils/sanitize.ts`
 
 API routes sanitize text inputs via `sanitizeText()` and validate emails with `isValidEmail()` before processing. User names are sanitized with `sanitizeUserName()`.
 
 ### URL validation
+
 **File:** `apps/web/src/lib/security/urlValidator.ts`
 
 `isValidUrl()` checks URLs against an allowed scheme list (`https:`, `http:`, `mailto:`, `tel:`). `sanitizeUrl()` returns `'#'` for invalid URLs.
@@ -61,6 +66,7 @@ API routes sanitize text inputs via `sanitizeText()` and validate emails with `i
 Uses `@upstash/ratelimit` with Upstash Redis for distributed sliding-window rate limiting. Falls back to an in-memory `Map`-based limiter when Redis credentials are not configured.
 
 Three presets (configured via environment variables):
+
 - **strict** -- for sensitive endpoints (waitlist signup)
 - **standard** -- for general API endpoints (position lookup, referral)
 - **lenient** -- for read-only endpoints
@@ -76,6 +82,7 @@ Client IP is extracted from `x-forwarded-for` or `x-real-ip` headers.
 Origin/Referer-based validation for all mutation (POST/PUT/DELETE) requests. Safe methods (GET, HEAD, OPTIONS) are exempt.
 
 Validation chain:
+
 1. Check `Origin` header against allowed origins (configured via `getCsrfAllowedOrigins()` from env)
 2. Fall back to `Referer` header if `Origin` is absent
 3. In production, reject requests missing both headers
@@ -90,9 +97,11 @@ Applied to waitlist mutation routes via `applyCsrf()` helper.
 **File:** `apps/web/src/lib/security/encryption.ts`
 
 ### AES-256-GCM encryption
+
 Used for PII at rest (waitlist email addresses, names). Each encryption generates a random 12-byte IV. Output format: base64-encoded `IV + ciphertext + authTag`.
 
 Key management:
+
 - `ENCRYPTION_KEY` env var: 32-byte base64-encoded key
 - In development without a key, plaintext passthrough for convenience
 - In production, missing key logs an error and returns `null`
@@ -100,9 +109,11 @@ Key management:
 Provides `encryptFields()` / `decryptFields()` helpers for encrypting specific object fields.
 
 ### HMAC-SHA256 blind index
+
 `hmacHash()` generates a deterministic hash for searchable encrypted fields (e.g., `email_hash` column for `WHERE email_hash = $1` queries). Uses a dedicated `HMAC_KEY` env var, separate from the encryption key for cryptographic separation. Falls back to `ENCRYPTION_KEY` in non-production environments.
 
 ### Deletion tokens
+
 `generateDeletionToken()` creates a 32-byte random hex token. `hashToken()` stores the SHA-256 hash. `verifyToken()` compares using timing-safe comparison.
 
 ## 7. Authentication
@@ -112,6 +123,7 @@ Provides `encryptFields()` / `decryptFields()` helpers for encrypting specific o
 API key authentication for internal/admin endpoints (e.g., waitlist position lookup). Validates `x-api-key` header against `INTERNAL_API_KEY` env var using `crypto.timingSafeEqual` to prevent timing attacks.
 
 Features:
+
 - Constant-time comparison even when key lengths differ (compares buffer with itself to maintain timing)
 - Auth failure logging with IP, path, user-agent, and timestamp
 - Development mode allows requests without a key for local testing
@@ -120,6 +132,7 @@ Features:
 ## 8. Analytics Consent (GDPR/ePrivacy)
 
 ### Cookie consent
+
 **File:** `apps/web/src/lib/security/cookies.ts`
 
 Consent is stored in an HttpOnly cookie (`sameSite: 'strict'`, `secure` in production). The cookie contains a JSON payload with `analytics` boolean, consent version, and timestamp. Version mismatch invalidates prior consent (for re-consent on policy changes).
@@ -129,14 +142,16 @@ Consent is stored in an HttpOnly cookie (`sameSite: 'strict'`, `secure` in produ
 Two parallel channels for consent propagation, by deliberate design:
 
 - **`applicationEventBus` `CONSENT_GIVEN` / `CONSENT_WITHDRAWN`** — the canonical channel for **all React components and JS modules**. `ConsentEventPayload` includes `consentType: 'analytics' | 'marketing' | 'all'` + `newState: boolean`. Subscribers filter on `consentType === 'analytics' || consentType === 'all'` to enable analytics behaviour.
-- **`window.dispatchEvent(new CustomEvent('cookie-consent-changed', ...))`** — a DOM-event fallback that exists *only* for the GA4 inline bootstrap in `apps/web/src/app/layout.tsx`. That script runs pre-hydration and has no access to the React module graph. **No other consumer should listen to this DOM event** — `consentUtils.ts -> dispatchConsentEvent` documents the rule explicitly.
+- **`window.dispatchEvent(new CustomEvent('cookie-consent-changed', ...))`** — a DOM-event fallback that exists _only_ for the GA4 inline bootstrap in `apps/web/src/app/layout.tsx`. That script runs pre-hydration and has no access to the React module graph. **No other consumer should listen to this DOM event** — `consentUtils.ts -> dispatchConsentEvent` documents the rule explicitly.
 
 Both channels are emitted by `dispatchConsentEvent()` in `apps/web/src/components/CookieConsent/consentUtils.ts`. A schema-drift guard test (`__tests__/consentUtils.coverage.test.ts`) asserts the bus payload matches `EVENT_VALIDATION_SCHEMA[CONSENT_GIVEN]` / `[CONSENT_WITHDRAWN]` required fields, so a future refactor that drops `consentType` or `newState` surfaces as a test failure rather than silently disabling analytics across the codebase (Lighthouse Remediation Plan §8 risk #9).
 
 ### PostHog consent gating
+
 **File:** `apps/web/src/components/Providers/PostHogProvider.tsx`
 
 PostHog is never statically imported. The provider:
+
 1. Checks `hasAnalyticsConsent()` before loading
 2. Dynamically imports `posthog-js` only after consent is confirmed
 3. Listens for `applicationEventBus` `CONSENT_GIVEN` events to initialize if consent arrives after mount
@@ -144,6 +159,7 @@ PostHog is never statically imported. The provider:
 5. Sets `respect_dnt: true` to honor Do Not Track headers
 
 ### GA4 consent gating
+
 **File:** `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx` (2026-05-22 — Lighthouse Remediation Plan Workstream D)
 
 The GA4 `gtag/js` script (~67 KB) does NOT download until the user grants analytics consent. The flow has two layers:
@@ -151,9 +167,10 @@ The GA4 `gtag/js` script (~67 KB) does NOT download until the user grants analyt
 1. **Consent Mode v2 bootstrap (inline in `layout.tsx`)** — sets `analytics_storage: 'denied'` by default. Listens to the `cookie-consent-changed` DOM event (the pre-hydration channel) to update Google's consent state and flush buffered events after grant.
 2. **Script-loading gate (`GoogleAnalyticsLoader`)** — a `'use client'` component that subscribes to `applicationEventBus` `CONSENT_GIVEN`. Only after consent is granted does it mount the `<Script src=".../gtag/js?id=...">` tags. Honors existing consent on cold start via `hasAnalyticsConsent()`.
 
-The two layers are complementary: Consent Mode v2 handles the *data-send* contract with Google (legally required for EU); `GoogleAnalyticsLoader` handles the *script-loading* gate (perf optimisation).
+The two layers are complementary: Consent Mode v2 handles the _data-send_ contract with Google (legally required for EU); `GoogleAnalyticsLoader` handles the _script-loading_ gate (perf optimisation).
 
 ### Sentry consent gating
+
 **File:** `apps/web/src/instrumentation-client.ts` (2026-05-22 — Lighthouse Remediation Plan Workstream B)
 
 Sentry runs in two distinct modes:
@@ -169,15 +186,15 @@ This closes the CTO Board GDPR finding from 2026-05-21 (Replay was previously re
 
 Applied to all routes via `next.config.js`:
 
-| Header | Value |
-|--------|-------|
-| `X-Frame-Options` | `DENY` |
-| `X-Content-Type-Options` | `nosniff` |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` |
-| `X-DNS-Prefetch-Control` | `on` |
-| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload` |
-| `X-XSS-Protection` | `1; mode=block` |
-| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), interest-cohort=()` |
+| Header                      | Value                                                          |
+| --------------------------- | -------------------------------------------------------------- |
+| `X-Frame-Options`           | `DENY`                                                         |
+| `X-Content-Type-Options`    | `nosniff`                                                      |
+| `Referrer-Policy`           | `strict-origin-when-cross-origin`                              |
+| `X-DNS-Prefetch-Control`    | `on`                                                           |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload`                 |
+| `X-XSS-Protection`          | `1; mode=block`                                                |
+| `Permissions-Policy`        | `camera=(), microphone=(), geolocation=(), interest-cohort=()` |
 
 CSP is excluded from `next.config.js` because it requires a per-request nonce and is set in middleware instead.
 
@@ -192,12 +209,15 @@ CSP is excluded from `next.config.js` because it requires a per-request nonce an
 ## Additional Patterns
 
 ### Email enumeration prevention
+
 The waitlist signup endpoint returns identical response structures for new and existing emails. The GET check endpoint adds an artificial random delay (100-300ms) and returns a generic message regardless of email existence.
 
 ### Idempotency
+
 **File:** `apps/web/src/lib/security/idempotency.ts`
 
 Mutation endpoints accept an `idempotency-key` header. Responses are cached in PostgreSQL (when `DATABASE_URL` is set) and in-memory (5-minute TTL, 10K entry cap). Duplicate requests receive the cached response.
 
 ### Request correlation
+
 Middleware generates a `x-request-id` UUID per request for end-to-end tracing through logs and audit events.

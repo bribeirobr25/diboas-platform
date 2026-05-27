@@ -21,6 +21,7 @@
  */
 
 import {
+  applyEffectiveRateClamp,
   calculateLumpSum,
   calculateMonthlyContributions,
   resolveHorizonMatchedDepreciation,
@@ -41,9 +42,7 @@ import {
 
 const HIGHLIGHTED_DEFAULT = 'historical' as const;
 
-export function calculateCompoundProjectionHedged(
-  input: CalculatorInput,
-): CalculatorOutput {
+export function calculateCompoundProjectionHedged(input: CalculatorInput): CalculatorOutput {
   validateInput(input);
 
   const monthlyEquivalent = convertCadenceToMonthly(input.amount, input.cadence);
@@ -56,10 +55,19 @@ export function calculateCompoundProjectionHedged(
   const currency = LOCALE_CURRENCY[input.locale];
   const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, input.years);
 
+  // C3 close (CTO-board v3 audit, 2026-05-26): every effective-rate site routes
+  // through `applyEffectiveRateClamp` — the original C3 implementation only
+  // covered the FV-shape and annuity-shape hedge functions, and this inline
+  // compute-engine site bypassed the clamp. One helper, one event, all sites.
   const hedgedScenarioRate = (usdRatePercent: number): number => {
     if (depreciation === 0) return usdRatePercent;
     const usdYield = usdRatePercent / 100;
-    const effective = (1 + usdYield) * (1 + depreciation) - 1;
+    const rawEffective = (1 + usdYield) * (1 + depreciation) - 1;
+    const effective = applyEffectiveRateClamp(rawEffective, {
+      source: 'calculateCompoundProjectionHedged',
+      usdYield,
+      depreciation,
+    });
     return effective * 100;
   };
 
@@ -71,7 +79,7 @@ export function calculateCompoundProjectionHedged(
       input.amount,
       monthlyEquivalent,
       input.cadence,
-      input.years,
+      input.years
     ),
     buildSeries(
       'historical',
@@ -79,7 +87,7 @@ export function calculateCompoundProjectionHedged(
       input.amount,
       monthlyEquivalent,
       input.cadence,
-      input.years,
+      input.years
     ),
     buildSeries(
       'optimistic',
@@ -87,7 +95,7 @@ export function calculateCompoundProjectionHedged(
       input.amount,
       monthlyEquivalent,
       input.cadence,
-      input.years,
+      input.years
     ),
   ];
 
@@ -106,7 +114,7 @@ function buildSeries(
   amount: number,
   monthlyContribution: number,
   cadence: Cadence,
-  years: number,
+  years: number
 ): ScenarioSeries {
   if (isOneTime(cadence)) {
     const yearlyValues: number[] = [amount];
@@ -128,7 +136,7 @@ function buildSeries(
       monthlyContribution,
       annualRatePercent / 100,
       0,
-      y * 12,
+      y * 12
     );
     yearlyValues.push(result.nominalFV);
   }
@@ -147,7 +155,7 @@ function validateInput(input: CalculatorInput): void {
   if (input.amount < INPUT_BOUNDS.amount.min || input.amount > INPUT_BOUNDS.amount.max) {
     throw new InvalidCalculatorInputError(
       'amount',
-      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`,
+      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`
     );
   }
   if (!Number.isFinite(input.years) || !Number.isInteger(input.years)) {
@@ -156,7 +164,7 @@ function validateInput(input: CalculatorInput): void {
   if (input.years < INPUT_BOUNDS.years.min || input.years > INPUT_BOUNDS.years.max) {
     throw new InvalidCalculatorInputError(
       'years',
-      `must be between ${INPUT_BOUNDS.years.min} and ${INPUT_BOUNDS.years.max}`,
+      `must be between ${INPUT_BOUNDS.years.min} and ${INPUT_BOUNDS.years.max}`
     );
   }
 }

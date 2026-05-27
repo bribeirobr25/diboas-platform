@@ -14,15 +14,21 @@ let mockLimitFn: (...args: any[]) => any = vi.fn();
 
 vi.mock('@upstash/ratelimit', () => {
   class MockRatelimit {
-    limit(...args: unknown[]) { return mockLimitFn(...args); }
-    static slidingWindow() { return 'mock-limiter'; }
+    limit(...args: unknown[]) {
+      return mockLimitFn(...args);
+    }
+    static slidingWindow() {
+      return 'mock-limiter';
+    }
   }
   return { Ratelimit: MockRatelimit };
 });
 
 vi.mock('@upstash/redis', () => {
   class MockRedis {
-    ping() { return Promise.resolve('PONG'); }
+    ping() {
+      return Promise.resolve('PONG');
+    }
   }
   return { Redis: MockRedis };
 });

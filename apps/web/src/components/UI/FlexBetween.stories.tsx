@@ -30,7 +30,11 @@ const meta: Meta<typeof FlexBetween> = {
 export default meta;
 type Story = StoryObj<typeof FlexBetween>;
 
-const BOX_STYLE = { background: 'var(--color-primary-100, #dbeafe)', padding: '0.5rem 1rem', borderRadius: '0.25rem' };
+const BOX_STYLE = {
+  background: 'var(--color-primary-100, #dbeafe)',
+  padding: '0.5rem 1rem',
+  borderRadius: '0.25rem',
+};
 
 /**
  * Default — center aligned
@@ -85,9 +89,16 @@ export const AllAlignments: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {(['start', 'center', 'end', 'stretch'] as const).map((align) => (
         <div key={align}>
-          <p style={{ margin: '0 0 0.25rem', fontSize: '0.75rem', color: '#666' }}>align=&quot;{align}&quot;</p>
-          <FlexBetween align={align} style={{ border: '1px dashed #ccc', padding: '0.5rem', minHeight: '60px' }}>
-            <span style={{ ...BOX_STYLE, height: align === 'stretch' ? 'auto' : '40px' }}>Left</span>
+          <p style={{ margin: '0 0 0.25rem', fontSize: '0.75rem', color: '#666' }}>
+            align=&quot;{align}&quot;
+          </p>
+          <FlexBetween
+            align={align}
+            style={{ border: '1px dashed #ccc', padding: '0.5rem', minHeight: '60px' }}
+          >
+            <span style={{ ...BOX_STYLE, height: align === 'stretch' ? 'auto' : '40px' }}>
+              Left
+            </span>
             <span style={{ ...BOX_STYLE, height: '20px' }}>Right</span>
           </FlexBetween>
         </div>

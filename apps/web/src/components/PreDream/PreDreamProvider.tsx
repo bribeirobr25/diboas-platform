@@ -10,15 +10,20 @@
 import React, { createContext, useContext, useReducer, useCallback, useMemo } from 'react';
 import type { PreDreamContextValue } from './types';
 import type { GoalCardKey } from '@/config/goalCards';
-import { calculatePreDreamResult, resolveBankRate, resolveStrategyApy, type StrategyApyOverrides, type PreDreamPath, type PreDreamTimeframe, type PreDreamScreen } from '@/lib/pre-dream';
+import {
+  calculatePreDreamResult,
+  resolveBankRate,
+  resolveStrategyApy,
+  type StrategyApyOverrides,
+  type PreDreamPath,
+  type PreDreamTimeframe,
+  type PreDreamScreen,
+} from '@/lib/pre-dream';
 import { preDreamReducer, initialPreDreamState } from './preDreamReducer';
 import { analyticsService } from '@/lib/analytics';
 import { useLocale } from '@/components/Providers';
 import { useMarketData } from '@/hooks/useMarketData';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 const PreDreamContext = createContext<PreDreamContextValue | null>(null);
 
@@ -29,7 +34,11 @@ interface PreDreamProviderProps {
   strategyApyOverrides?: StrategyApyOverrides;
 }
 
-export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrides }: PreDreamProviderProps) {
+export function PreDreamProvider({
+  children,
+  bankApyOverride,
+  strategyApyOverrides,
+}: PreDreamProviderProps) {
   const [state, dispatch] = useReducer(preDreamReducer, initialPreDreamState);
   const { locale } = useLocale();
   const { data: marketData } = useMarketData();
@@ -108,7 +117,17 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
     });
 
     dispatch({ type: 'START_SIMULATION', result });
-  }, [state.isAnimating, state.selectedPath, state.selectedTimeframe, state.initialAmount, state.monthlyContribution, locale, marketData, bankApyOverride, strategyApyOverrides]);
+  }, [
+    state.isAnimating,
+    state.selectedPath,
+    state.selectedTimeframe,
+    state.initialAmount,
+    state.monthlyContribution,
+    locale,
+    marketData,
+    bankApyOverride,
+    strategyApyOverrides,
+  ]);
 
   const goToScreen = useCallback((screen: PreDreamScreen) => {
     dispatch({ type: 'GO_TO_SCREEN', screen });
@@ -133,7 +152,20 @@ export function PreDreamProvider({ children, bankApyOverride, strategyApyOverrid
       goToScreen,
       reset,
     }),
-    [state, acceptDisclaimer, goToGoalStrategy, selectGoal, selectPath, setInitialAmount, setMonthlyContribution, goToTimeframe, selectTimeframe, startSimulation, goToScreen, reset]
+    [
+      state,
+      acceptDisclaimer,
+      goToGoalStrategy,
+      selectGoal,
+      selectPath,
+      setInitialAmount,
+      setMonthlyContribution,
+      goToTimeframe,
+      selectTimeframe,
+      startSimulation,
+      goToScreen,
+      reset,
+    ]
   );
 
   return <PreDreamContext.Provider value={value}>{children}</PreDreamContext.Provider>;

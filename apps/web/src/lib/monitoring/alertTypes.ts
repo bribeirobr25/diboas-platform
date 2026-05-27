@@ -8,7 +8,7 @@ export enum AlertSeverity {
   INFO = 'info',
   WARNING = 'warning',
   ERROR = 'error',
-  CRITICAL = 'critical'
+  CRITICAL = 'critical',
 }
 
 export enum AlertCategory {
@@ -16,7 +16,7 @@ export enum AlertCategory {
   ERROR = 'error',
   SECURITY = 'security',
   BUSINESS = 'business',
-  INFRASTRUCTURE = 'infrastructure'
+  INFRASTRUCTURE = 'infrastructure',
 }
 
 export interface Alert {

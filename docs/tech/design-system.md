@@ -5,16 +5,19 @@
 ## Brand Colors
 
 ### Primary (Turquoise/Aqua)
+
 - Main: `#14b8a6` (primary-500)
 - Light: `#ccfbf1` (primary-100)
 - Dark: `#0d9488` (primary-600)
 - Use for: primary buttons, links, brand elements, progress
 
 ### Secondary Colors
+
 - **Purple**: `#a855f7` - Investing & strategy contexts
 - **Coral**: `#ef4444` - DeFi & innovation elements
 
 ### Neutral Grays
+
 - Text primary: `neutral-900`
 - Text secondary: `neutral-600`
 - Text muted: `neutral-400`
@@ -22,6 +25,7 @@
 - Borders: `neutral-200` (default)
 
 ### Semantic Colors
+
 - Success: `#10b981`
 - Warning: `#f59e0b`
 - Error: `#ef4444`
@@ -30,10 +34,12 @@
 ## Typography
 
 ### Font Stack
+
 - Sans: `'Inter', sans-serif`
 - Mono: `'JetBrains Mono', monospace`
 
 ### Scale
+
 - `text-6xl`: 60px - Hero headings
 - `text-5xl`: 48px - Display headings
 - `text-4xl`: 36px - Large headings
@@ -46,6 +52,7 @@
 - `text-xs`: 12px - Captions
 
 ### Weights
+
 - Light: 300
 - Normal: 400
 - Medium: 500
@@ -56,25 +63,33 @@
 ## Component Reusability Hierarchy
 
 ### Level 1: Primitives (95% reuse)
+
 Shared across all apps: Button, Input, Card, Typography, Badge
+
 - Variants: primary, secondary, outline, ghost
 - Sizes: xs, sm, md, lg, xl
 - States: default, hover, active, disabled, loading
 
 ### Level 2: Patterns (85% reuse)
+
 Cross-domain patterns: Modal, Navigation, Footer, Breadcrumbs
+
 - Adaptable sizing and density
 - Customizable interactions
 - Responsive breakpoints
 
 ### Level 3: Marketing UI (80% reuse)
+
 Marketing components: Hero, FeaturePromotion, TrustBuilder
+
 - Content customization
 - CTA targeting
 - Trust signal selection
 
 ### Level 4: App-Specific (70% reuse)
+
 App components: Dashboard, TransactionWizard, BalanceCards
+
 - Domain-specific data
 - Workflow customization
 - Business logic integration
@@ -82,12 +97,14 @@ App components: Dashboard, TransactionWizard, BalanceCards
 ## Button System
 
 ### Variants
+
 - **Primary**: `bg-primary-500 text-white` - Main actions
 - **Secondary**: `bg-purple-500 text-white` - Secondary actions
 - **Outline**: `border-2 border-primary-500 text-primary-600` - Alternative actions
 - **Ghost**: `text-primary-600 bg-transparent` - Tertiary actions
 
 ### Sizes
+
 - xs: `px-2 py-1 text-xs`
 - sm: `px-3 py-1.5 text-sm`
 - md: `px-4 py-2 text-base`
@@ -97,12 +114,14 @@ App components: Dashboard, TransactionWizard, BalanceCards
 ## Card System
 
 ### Variants
+
 - **Default**: Subtle border, minimal shadow
 - **Elevated**: Enhanced shadow for prominence
 - **Gradient**: Colored background for emphasis
 - **Accent**: Light background with colored border
 
 ### Usage
+
 - Balance cards: Large numbers, domain colors
 - Transaction cards: Timeline with status indicators
 - Feature cards: Illustrations with CTAs
@@ -118,18 +137,21 @@ App components: Dashboard, TransactionWizard, BalanceCards
 ## Animation Principles
 
 ### Duration
+
 - Fast: 150ms - Hover, focus
 - Medium: 200ms - Standard transitions
 - Slow: 300ms - Complex animations
 - Slower: 500ms - Modals, pages
 
 ### Easing
+
 - `easeOut`: Default for most transitions
 - `easeIn`: Closing/exiting animations
 - `easeInOut`: Complex state changes
 - `bounce`: Playful interactions
 
 ### Common Animations
+
 - **fadeIn**: Opacity 0 → 1
 - **slideUp**: translateY 20px → 0
 - **scaleIn**: Scale 0.95 → 1
@@ -139,18 +161,21 @@ App components: Dashboard, TransactionWizard, BalanceCards
 ## Subdomain-Specific Adaptations
 
 ### Marketing (diboas.com)
+
 - Emphasis: Trust-building, brand recognition
 - Colors: Full spectrum, primary aqua emphasis
 - Typography: Expansive scale, varied weights
 - Components: Prominent CTAs, elevated cards
 
 ### Consumer App (app.diboas.com)
+
 - Emphasis: Functionality, information density
 - Colors: Aqua-focused, functional accents
 - Typography: Compact scale, data-focused
 - Components: Functional buttons, informative cards
 
 ### Business App (business.diboas.com)
+
 - Emphasis: Professional, enterprise
 - Colors: Muted brand colors, neutral emphasis
 - Typography: Professional scale, readable
@@ -159,18 +184,21 @@ App components: Dashboard, TransactionWizard, BalanceCards
 ## Accessibility
 
 ### Color Contrast
+
 - Normal text: 4.5:1 minimum (WCAG AA)
 - Large text: 3:1 minimum
 - UI elements: 3:1 minimum
 - Never rely on color alone
 
 ### Interaction
+
 - Focus indicators on all interactive elements
 - Minimum 44px touch targets
 - Keyboard navigation support
 - Screen reader labels
 
 ### Semantic Usage
+
 - Success: Green + checkmark
 - Error: Red + X icon
 - Warning: Amber + warning icon
@@ -178,17 +206,27 @@ App components: Dashboard, TransactionWizard, BalanceCards
 
 ## Package Structure
 
+**Current (Phase 1 pre-launch):** single shared UI package + app-level composition.
+
 ```
-@diboas/design-system     # Primitives (95% reuse)
-@diboas/shared-patterns   # Patterns (85% reuse)
-@diboas/marketing-ui      # Marketing (80% reuse)
-@diboas/app-ui            # Consumer app (70% reuse)
-@diboas/business-ui       # Business app (70% reuse)
+packages/
+  ui/        # @diboas/ui — primitives + design tokens
+  i18n/      # @diboas/i18n — translations + intl helpers
+  email/     # @diboas/email — Resend templates
+  banking/   # @diboas/banking — Phase 2+ stub
+  defi/      # @diboas/defi — Phase 2+ stub
+  investing/ # @diboas/investing — Phase 2+ stub
+apps/web/src/components/  # App-specific composition (Factory pattern variants)
 ```
+
+App-specific styling stays in `apps/web/src/components/`; cross-package primitives live in `@diboas/ui`. Canonical token source is `apps/web/src/styles/design-tokens.css` (generated from `config/design-tokens.json`). Accessibility-tuned variants — `--text-brand-accessible` (teal-700, 4.85:1), `--text-success-accessible` (emerald-700, 5.53:1), `--color-slate-600` (7.55:1) — are the required surface for clickable brand-colored text per the W2 audit.
+
+**Phase 2+ target architecture** (not yet built): the multi-package split (design-system / shared-patterns / marketing-ui / app-ui / business-ui) was an earlier aspirational scoping that has not been adopted. When the consumer app + business app subdomains exist, this section will be revisited.
 
 ## Consistency Framework
 
 ### Must Be Consistent
+
 - Logo placement and sizing
 - Primary brand colors (exact hex)
 
@@ -196,6 +234,7 @@ App components: Dashboard, TransactionWizard, BalanceCards
 - Icon library and style
 
 ### Can Be Adapted
+
 - Color emphasis per subdomain
 - Component sizing
 - Layout density
@@ -203,6 +242,7 @@ App components: Dashboard, TransactionWizard, BalanceCards
 - Content strategy
 
 ### Should Vary
+
 - CTA prominence
 - Trust signals
 - Navigation depth

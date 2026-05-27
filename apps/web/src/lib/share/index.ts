@@ -12,7 +12,13 @@ export type { SharePlatform, CardType } from './types';
 
 // UTM Utilities
 export type { UtmSource, UtmMedium, UtmParams } from './utm';
-export { UTM_CONFIGS, UTM_CONTENT_BY_PLATFORM, buildUtmUrl, getShareUrl, extractUtmParams } from './utm';
+export {
+  UTM_CONFIGS,
+  UTM_CONTENT_BY_PLATFORM,
+  buildUtmUrl,
+  getShareUrl,
+  extractUtmParams,
+} from './utm';
 
 // Platform URL Builders
 export {

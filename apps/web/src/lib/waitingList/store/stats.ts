@@ -8,10 +8,7 @@
  */
 
 import { sql } from '@/lib/database/client';
-import {
-  getFoundingMemberStatus,
-  sourceToAudience,
-} from '../counterManager';
+import { getFoundingMemberStatus, sourceToAudience } from '../counterManager';
 import type { WaitlistSource } from './types';
 
 // ---------------------------------------------------------------------------
@@ -19,7 +16,7 @@ import type { WaitlistSource } from './types';
 // ---------------------------------------------------------------------------
 
 export async function getFoundingMemberCount(
-  source?: WaitlistSource,
+  source?: WaitlistSource
 ): Promise<{ count: number; cap: number }> {
   return getFoundingMemberStatus(sourceToAudience(source));
 }
@@ -43,7 +40,7 @@ export async function getTotalCount(source?: WaitlistSource): Promise<number> {
   return extractCount(
     source
       ? sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries WHERE source = ${source}`
-      : sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries`,
+      : sql`SELECT COUNT(*)::integer AS count FROM waitlist_entries`
   );
 }
 
@@ -51,7 +48,7 @@ export async function getDistinctCountryCount(source?: WaitlistSource): Promise<
   return extractCount(
     source
       ? sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL AND source = ${source}`
-      : sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL`,
+      : sql`SELECT COUNT(DISTINCT country)::integer AS count FROM waitlist_entries WHERE country IS NOT NULL`
   );
 }
 

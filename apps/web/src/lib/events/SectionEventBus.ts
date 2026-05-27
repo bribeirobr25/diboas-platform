@@ -104,7 +104,7 @@ export class SectionEventBus extends EventBus<SectionEventType, EventPayload> {
             recoverable: true,
           } as ErrorEventPayload);
         }
-      },
+      }
     );
   }
 }
@@ -115,7 +115,6 @@ export const sectionEventBus = new SectionEventBus();
 // Development utilities
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
-    (window as Window & { sectionEventBus?: SectionEventBus }).sectionEventBus =
-      sectionEventBus;
+    (window as Window & { sectionEventBus?: SectionEventBus }).sectionEventBus = sectionEventBus;
   }
 }

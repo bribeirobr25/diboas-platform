@@ -34,9 +34,21 @@
     "habitsLine": "Dein Bäckerei-Frühstück morgens. Das Restaurant am Wochenende. Streaming und Fitnessstudio jeden Monat.",
     "vignettesIntro": "Wenn nur eines davon für dich arbeiten würde, statt einfach wegzufließen — beim gleichen historischen Zinssatz von 10 % — dann sehen 12 Jahre so aus:",
     "vignettes": [
-      { "habit": "Bäckerei-Frühstück (4 €/Tag werktags)", "yearly": "1.040 €", "yearlyAmount": "1040" },
-      { "habit": "Restaurant am Wochenende (35 €/Woche)", "yearly": "1.820 €", "yearlyAmount": "1820" },
-      { "habit": "Streaming + Fitnessstudio (40 €/Monat)", "yearly": "480 €", "yearlyAmount": "480" }
+      {
+        "habit": "Bäckerei-Frühstück (4 €/Tag werktags)",
+        "yearly": "1.040 €",
+        "yearlyAmount": "1040"
+      },
+      {
+        "habit": "Restaurant am Wochenende (35 €/Woche)",
+        "yearly": "1.820 €",
+        "yearlyAmount": "1820"
+      },
+      {
+        "habit": "Streaming + Fitnessstudio (40 €/Monat)",
+        "yearly": "480 €",
+        "yearlyAmount": "480"
+      }
     ],
     "vignettesTableHeaders": {
       "habit": "Gewohnheit",

@@ -52,8 +52,18 @@
     "terminalRange": "entre {low} y {high}",
     "terminalRangeSubtle": "Rango basado en el mejor vs peor momento de entrada mensual: {low} – {high}",
     "startMonth": {
+      "jan": "enero",
+      "feb": "febrero",
+      "mar": "marzo",
+      "apr": "abril",
+      "may": "mayo",
+      "jun": "junio",
       "jul": "julio",
-      "jan": "enero"
+      "aug": "agosto",
+      "sep": "septiembre",
+      "oct": "octubre",
+      "nov": "noviembre",
+      "dec": "diciembre"
     },
     "contributedOverMonths": "{total} aportados durante {months} meses",
     "startingPrincipal": "{total} de capital inicial",

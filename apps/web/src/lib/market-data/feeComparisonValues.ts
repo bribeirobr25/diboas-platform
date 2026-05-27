@@ -30,7 +30,7 @@ import { formatCurrency } from '@/lib/compound-interest';
 /** Per-row slot values for the `{rate} (min {min}, max {max})` template. */
 function fmtRowValues(
   fee: PlatformFees['deposit'],
-  locale: SupportedLocale,
+  locale: SupportedLocale
 ): { rate: string; min: string; max: string } {
   return {
     // platformFees.*.rate is stored as a decimal (e.g. 0.0048); formatRate
@@ -53,13 +53,21 @@ function fmtRowValues(
  *   principalUnits = 100 (B2C scenario uses $100 / R$100 / 100 € uniformly)
  *   rateDecimal    = e.g. 0.0048 for cashOut
  */
-function formatSubUnitFee(principalUnits: number, rateDecimal: number, locale: SupportedLocale): string {
+function formatSubUnitFee(
+  principalUnits: number,
+  rateDecimal: number,
+  locale: SupportedLocale
+): string {
   const subUnits = Math.round(principalUnits * rateDecimal * 100); // 100 * 0.0048 * 100 = 48
   switch (locale) {
-    case 'en': return `${subUnits} cents`;
-    case 'es': return `${subUnits} céntimos`;
-    case 'de': return `${subUnits} Cent`;
-    case 'pt-BR': return formatCurrency(principalUnits * rateDecimal, 'pt-BR', { maximumFractionDigits: 2 });
+    case 'en':
+      return `${subUnits} cents`;
+    case 'es':
+      return `${subUnits} céntimos`;
+    case 'de':
+      return `${subUnits} Cent`;
+    case 'pt-BR':
+      return formatCurrency(principalUnits * rateDecimal, 'pt-BR', { maximumFractionDigits: 2 });
   }
 }
 
@@ -69,7 +77,11 @@ function formatSubUnitFee(principalUnits: number, rateDecimal: number, locale: S
  * Format a whole-unit currency fee for B2B $10k-principal worked examples.
  * Uses canonical Intl currency formatting (no decimals).
  */
-function formatWholeUnitFee(principalUnits: number, rateDecimal: number, locale: SupportedLocale): string {
+function formatWholeUnitFee(
+  principalUnits: number,
+  rateDecimal: number,
+  locale: SupportedLocale
+): string {
   return formatCurrency(principalUnits * rateDecimal, locale, { maximumFractionDigits: 0 });
 }
 
@@ -102,7 +114,7 @@ const B2B_EXAMPLE_PRINCIPAL_UNITS: Record<SupportedLocale, number> = {
  */
 export function buildAllFeeValues(
   fees: PlatformFees,
-  locale: SupportedLocale,
+  locale: SupportedLocale
 ): Map<string, Record<string, string>> {
   const map = new Map<string, Record<string, string>>();
 
@@ -143,7 +155,7 @@ export function buildAllFeeValues(
   const sellB2BExampleFee = formatWholeUnitFee(
     B2B_EXAMPLE_PRINCIPAL_UNITS[locale],
     fees.sell.rate,
-    locale,
+    locale
   );
 
   // Canonical FAQ items (Phase 8 Item A — single source of truth in faq.json).

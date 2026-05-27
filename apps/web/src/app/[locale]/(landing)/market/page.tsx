@@ -24,8 +24,8 @@ import {
 // lazy-load its JS chunk to free main-thread time for above-fold hydration.
 // SSR stays on (no `ssr: false`) so the chart's SVG still ships in initial HTML
 // for no-JS users and search engines.
-const HistoricalRegimeChart = nextDynamic(
-  () => import('@/components/Analytics').then((m) => ({ default: m.HistoricalRegimeChart })),
+const HistoricalRegimeChart = nextDynamic(() =>
+  import('@/components/Analytics').then((m) => ({ default: m.HistoricalRegimeChart }))
 );
 import { HostRegulatoryDisclaimer } from '@/components/Legal';
 import { AnalyticsProvider } from '@/lib/analytics-sdk/mock-client';
@@ -72,9 +72,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     title,
     description,
     openGraph: { title: ogTitle, description: ogDescription },
-    robots: MARKET_INDEXABLE
-      ? { index: true, follow: true }
-      : { index: false, follow: false },
+    robots: MARKET_INDEXABLE ? { index: true, follow: true } : { index: false, follow: false },
     alternates: { canonical: `${siteUrl}/${validLocale}/market` },
   };
 }
@@ -96,7 +94,7 @@ export default async function MarketPage({ params }: LocalePageProps) {
       { name: 'Home', url: '/' },
       { name: pageMessages['market.hero.title'] ?? 'Adelaide Daily', url: '/market' },
     ],
-    locale,
+    locale
   );
 
   // Article JSON-LD (iter-4 §3.4). Sourced from the editorial regime data via
@@ -163,7 +161,9 @@ export default async function MarketPage({ params }: LocalePageProps) {
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
-      <StructuredData data={[breadcrumbData, articleData].filter(Boolean) as Record<string, unknown>[]} />
+      <StructuredData
+        data={[breadcrumbData, articleData].filter(Boolean) as Record<string, unknown>[]}
+      />
 
       <AnalyticsProvider
         apiBaseUrl={ANALYTICS_API_URL}
@@ -245,13 +245,19 @@ export default async function MarketPage({ params }: LocalePageProps) {
                       {t('dashboard.historicalTitle', 'Score over time')}
                     </h2>
                     <p className={styles.sectionLead}>
-                      {t('dashboard.historicalLead', 'Where the environment has been over the last year.')}
+                      {t(
+                        'dashboard.historicalLead',
+                        'Where the environment has been over the last year.'
+                      )}
                     </p>
                   </div>
                   <HistoricalRegimeChart
                     data={historical}
                     range="1Y"
-                    ariaLabel={t('dashboard.historicalAriaLabel', 'Macro environment score over the last 12 months')}
+                    ariaLabel={t(
+                      'dashboard.historicalAriaLabel',
+                      'Macro environment score over the last 12 months'
+                    )}
                     tableLabels={{
                       date: t('dashboard.historicalTableDate', 'Date'),
                       score: t('dashboard.historicalTableScore', 'Score'),
@@ -301,7 +307,10 @@ export default async function MarketPage({ params }: LocalePageProps) {
                     {t('dashboard.methodologyTitle', 'How this is calculated')}
                   </h2>
                   <p className={styles.sectionLead}>
-                    {t('dashboard.methodologyLead', 'Every signal, threshold, and weight is documented on diBoaS Analytics.')}
+                    {t(
+                      'dashboard.methodologyLead',
+                      'Every signal, threshold, and weight is documented on diBoaS Analytics.'
+                    )}
                   </p>
                   <MethodologyLink href={methodology.methodology_url}>
                     {t('dashboard.methodologyLinkLabel', 'Read the methodology')}
@@ -310,13 +319,15 @@ export default async function MarketPage({ params }: LocalePageProps) {
               )}
 
               {productDisclaimer && (
-                <ProductDisclaimer text={productDisclaimer.text[locale] ?? productDisclaimer.text.en} />
+                <ProductDisclaimer
+                  text={productDisclaimer.text[locale] ?? productDisclaimer.text.en}
+                />
               )}
 
               <HostRegulatoryDisclaimer
                 text={t(
                   'disclaimer.host.regulatory',
-                  'diBoaS does not provide investment advice. This page is educational only.',
+                  'diBoaS does not provide investment advice. This page is educational only.'
                 )}
               />
 

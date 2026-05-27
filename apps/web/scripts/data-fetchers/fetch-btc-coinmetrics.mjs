@@ -13,7 +13,8 @@
  */
 
 const API_BASE = 'https://community-api.coinmetrics.io/v4/timeseries/asset-metrics';
-const PARAMS = 'assets=btc&metrics=PriceUSD&start_time=2010-07-17&end_time=2014-08-31&frequency=1d&page_size=10000';
+const PARAMS =
+  'assets=btc&metrics=PriceUSD&start_time=2010-07-17&end_time=2014-08-31&frequency=1d&page_size=10000';
 
 async function fetchAll() {
   let url = `${API_BASE}?${PARAMS}`;
@@ -64,5 +65,7 @@ function aggregateMonthly(daily) {
 
 const daily = await fetchAll();
 const monthly = aggregateMonthly(daily);
-process.stderr.write(`Total months: ${monthly.length} (${monthly[0].ym} → ${monthly[monthly.length - 1].ym})\n`);
+process.stderr.write(
+  `Total months: ${monthly.length} (${monthly[0].ym} → ${monthly[monthly.length - 1].ym})\n`
+);
 process.stdout.write(JSON.stringify(monthly, null, 2));

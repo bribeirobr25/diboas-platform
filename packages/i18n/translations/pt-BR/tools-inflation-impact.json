@@ -20,6 +20,7 @@
     "amountHelp2010": "O quanto você tinha em dinheiro lá atrás",
     "yearsLabel": "Anos a partir de agora",
     "yearsHelp": "Inflação: ~{rate}% / ano",
+    "yearsTooltip": "Para horizontes de até 2 anos usamos a inflação atual (ano contra ano); acima de 2 anos usamos a média dos últimos 5 anos para suavizar picos de curto prazo.",
     "countryLabel": "País",
     "countryHelp": "Define a taxa de inflação usada",
     "countryOptions": {

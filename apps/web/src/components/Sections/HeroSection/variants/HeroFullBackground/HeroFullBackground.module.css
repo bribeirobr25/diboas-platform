@@ -147,7 +147,7 @@
 /* Responsive: Tablet */
 @media (min-width: 768px) {
   .content {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.10) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
     border-radius: var(--radius-xl);
     padding-left: var(--spacing-5xl);
     padding-right: var(--spacing-5xl);
@@ -294,8 +294,9 @@
   box-sizing: border-box;
 
   /* Animation */
-  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
-              box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
+  transition:
+    transform var(--cta-transition-duration) var(--cta-transition-easing),
+    box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
 }
 
 /* Override btn-content font size */
@@ -358,7 +359,9 @@
   color: var(--cta-color-primary);
   border: none;
   cursor: pointer;
-  transition: transform var(--animation-duration-normal) ease, box-shadow var(--animation-duration-normal) ease;
+  transition:
+    transform var(--animation-duration-normal) ease,
+    box-shadow var(--animation-duration-normal) ease;
   animation: bounceDown 2s ease-in-out infinite;
   text-decoration: none;
 }
@@ -374,8 +377,13 @@
 }
 
 @keyframes bounceDown {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -418,8 +426,12 @@
    ================================ */
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ================================
@@ -433,7 +445,7 @@
     animation: none;
     transition: none;
   }
-  
+
   .ctaButton:hover {
     transform: none;
   }
@@ -444,7 +456,8 @@
   .title,
   .description {
     color: var(--color-white);
-    text-shadow: var(--focus-ring-width) var(--focus-ring-width) var(--spacing-xs) var(--color-black);
+    text-shadow: var(--focus-ring-width) var(--focus-ring-width) var(--spacing-xs)
+      var(--color-black);
   }
 
   .ctaButton {

@@ -23,7 +23,7 @@ vi.mock('@/lib/database/client', () => ({
 // Mock encryption
 vi.mock('@/lib/security/encryption', () => ({
   encrypt: (value: string) => `enc_${value}`,
-  decrypt: (value: string) => value.startsWith('enc_') ? value.slice(4) : null,
+  decrypt: (value: string) => (value.startsWith('enc_') ? value.slice(4) : null),
   hmacHash: (value: string) => `hash_${value}`,
 }));
 
@@ -163,7 +163,7 @@ describe('Waitlist Store Concurrency', () => {
           locale: 'en',
           source: 'landing_b2c',
           referralCode: `REFPOS${String(i).padStart(3, '0')}`,
-        }).then(entry => {
+        }).then((entry) => {
           positions.push(entry.position);
           return entry;
         })
@@ -176,7 +176,7 @@ describe('Waitlist Store Concurrency', () => {
       expect(uniquePositions.size).toBe(10);
 
       // All entries should have unique IDs
-      const uniqueIds = new Set(results.map(r => r.id));
+      const uniqueIds = new Set(results.map((r) => r.id));
       expect(uniqueIds.size).toBe(10);
     });
   });

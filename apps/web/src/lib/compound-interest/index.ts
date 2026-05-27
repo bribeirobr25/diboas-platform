@@ -11,8 +11,9 @@ export { formatCurrency, formatPercent, getCurrencyCode } from './format';
 export {
   CALCULATOR_EVENTS,
   DEBOUNCE_MS,
-  DEFAULT_INPUT_BY_LOCALE,
+  LESSON_DEFAULT_INPUT_BY_LOCALE,
   INPUT_BOUNDS,
+  MAX_RETROSPECTIVE_YEARS,
   type CalculatorEventName,
 } from './constants';
 export {

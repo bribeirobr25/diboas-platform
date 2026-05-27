@@ -12,9 +12,11 @@
   /* ================================
      TYPOGRAPHY DESIGN SYSTEM
      ================================ */
-  
+
   /* Font Families - Single source of truth */
-  --font-family-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  --font-family-primary:
+    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', sans-serif;
   --font-family-display: var(--font-geist), 'Inter', system-ui, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -60,7 +62,7 @@
   /* UI Elements */
   --font-size-ui-link: 14px;
   --font-size-ui-button: 16px;
-  
+
   /* Line Heights */
   --line-height-title: 1.2;
   --line-height-subtitle: 1.3;
@@ -85,7 +87,7 @@
   /* ================================
      PADDING DESIGN SYSTEM
      ================================ */
-  
+
   /* Section Padding - Standard (all sections except Hero & Navigation) */
   --padding-section-desktop-y: 64px;
   --padding-section-desktop-x: 120px;
@@ -93,7 +95,7 @@
   --padding-section-tablet-x: 64px;
   --padding-section-mobile-y: 48px;
   --padding-section-mobile-x: 24px;
-  
+
   /* Hero & Navigation Padding - No padding */
   --padding-hero-nav-desktop-y: 0;
   --padding-hero-nav-desktop-x: 0;
@@ -101,7 +103,7 @@
   --padding-hero-nav-tablet-x: 0;
   --padding-hero-nav-mobile-y: 0;
   --padding-hero-nav-mobile-x: 0;
-  
+
   /* Component Internal Padding - Buttons, Cards, Panels */
   --padding-button-y: 12px;
   --padding-button-x: 24px;
@@ -157,21 +159,21 @@
   --brand-primary-dark: #0d9488;
 
   /* Accessible Text Colors (WCAG AA 4.5:1 on white) */
-  --text-primary-accessible: #0f766e;  /* Teal-700: 4.85:1 on white — use for text on white */
+  --text-primary-accessible: #0f766e; /* Teal-700: 4.85:1 on white — use for text on white */
   /* W2 (audit/2026-05-08): emerald-600 (#059669) measures 3.76:1 in axe — fails AA.
    * Bumped to emerald-700 (#047857) which is 5.53:1 on white. Affects FeeTable
    * "Free" labels and StrategiesPageContent fee row. */
-  --text-success-accessible: #047857;  /* Emerald-700: 5.53:1 on white */
-  --text-error-accessible: #dc2626;    /* Red-600: 4.63:1 contrast */
+  --text-success-accessible: #047857; /* Emerald-700: 5.53:1 on white */
+  --text-error-accessible: #dc2626; /* Red-600: 4.63:1 contrast */
   /* W2: accessible variant of the brand teal for clickable text on light bg.
    * Use this (not --color-teal-600) wherever the teal appears as text. */
-  --text-brand-accessible: #0f766e;    /* Teal-700: 4.85:1 on white */
+  --text-brand-accessible: #0f766e; /* Teal-700: 4.85:1 on white */
 
   /* Unified Text Color Tokens */
-  --color-text-heading: #0f172a;       /* Slate-900: primary headings */
-  --color-text-body: #334155;          /* Slate-700: body text */
-  --color-text-secondary: #64748b;     /* Slate-500: secondary/muted text */
-  --color-text-on-dark: #ffffff;       /* White text on dark backgrounds */
+  --color-text-heading: #0f172a; /* Slate-900: primary headings */
+  --color-text-body: #334155; /* Slate-700: body text */
+  --color-text-secondary: #64748b; /* Slate-500: secondary/muted text */
+  --color-text-on-dark: #ffffff; /* White text on dark backgrounds */
   /* W2 (audit/2026-05-08): bumped 0.85 → 0.95 for WCAG AA contrast on dark hero
    * gradients and image overlays. The 0.85 value was just below 4.5:1 against
    * mid-brightness gradient zones (Hero description, ScenarioCards
@@ -182,12 +184,19 @@
   /* ================================
      SOCIAL PLATFORM COLORS
      ================================ */
-  --social-whatsapp: #25D366;
+  --social-whatsapp: #25d366;
   --social-twitter: #000000; /* Twitter/X brand color — exception to no-pure-black rule */
-  --social-instagram: #E4405F;
-  --social-instagram-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  --social-linkedin: #0A66C2;
-  --social-facebook: #1877F2;
+  --social-instagram: #e4405f;
+  --social-instagram-gradient: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+  --social-linkedin: #0a66c2;
+  --social-facebook: #1877f2;
   --social-telegram: #0088cc;
   --social-copy: #64748b;
   --social-download: #0d9488;
@@ -413,22 +422,22 @@
   /* Navigation CTA States (same as section CTAs) */
   --nav-cta-opacity-disabled: var(--cta-opacity-disabled);
   --nav-cta-cursor-disabled: var(--cta-cursor-disabled);
-  
+
   /* ================================
      SECTION DIMENSIONS
      ================================ */
 
   /* Section Heights - Fixed heights for all section components */
   /* Hero Section - Dynamic min-height with responsive adjustments */
-  --section-min-height-hero-desktop: 632px;  /* Desktop: minimum 632px, dynamic based on content */
-  --section-min-height-hero-tablet: 550px;   /* Tablet: proportional scaling */
-  --section-min-height-hero-mobile: 480px;   /* Mobile: proportional scaling */
-  --section-hero-bottom-padding: 20px;       /* Additional bottom padding for dynamic height calculation */
+  --section-min-height-hero-desktop: 632px; /* Desktop: minimum 632px, dynamic based on content */
+  --section-min-height-hero-tablet: 550px; /* Tablet: proportional scaling */
+  --section-min-height-hero-mobile: 480px; /* Mobile: proportional scaling */
+  --section-hero-bottom-padding: 20px; /* Additional bottom padding for dynamic height calculation */
 
   /* Hero Section - Left Column Top Spacing (to show more background) */
-  --hs-left-column-offset-desktop: 300px;   /* Desktop: push content 100px down */
-  --hs-left-column-offset-tablet: 300px;    /* Tablet: push content 100px down */
-  --hs-left-column-offset-mobile: 300px;     /* Mobile: push content 60px down */
+  --hs-left-column-offset-desktop: 300px; /* Desktop: push content 100px down */
+  --hs-left-column-offset-tablet: 300px; /* Tablet: push content 100px down */
+  --hs-left-column-offset-mobile: 300px; /* Mobile: push content 60px down */
 
   /* AppFeaturesCarousel Heights (-90px from original 980px) */
   --section-height-app-features-carousel: 890px; /* Desktop: 980px - 90px */
@@ -449,92 +458,91 @@
   --section-height-carousel: 890px; /* Default to AppFeaturesCarousel height */
   --section-height-carousel-tablet: 836px;
   --section-height-carousel-mobile: 744px;
-  
+
   /* Section Widths - All sections are full width */
   --section-width-full: 100%;
 
   /* Container Max-Width System - Semantic Tokens */
-  --container-max-width-standard: 1200px;  /* Most common - ProductCarousel, AppFeaturesCarousel, HeroSection, FeatureShowcase */
-  --container-max-width-wide: 1400px;      /* Wide layout - FAQAccordion */
-  --container-max-width-narrow: 872px;     /* Narrow layout - StickyFeaturesNav */
+  --container-max-width-standard: 1200px; /* Most common - ProductCarousel, AppFeaturesCarousel, HeroSection, FeatureShowcase */
+  --container-max-width-wide: 1400px; /* Wide layout - FAQAccordion */
+  --container-max-width-narrow: 872px; /* Narrow layout - StickyFeaturesNav */
 
   /* Section Background System - Semantic Tokens */
-  --section-bg-white: #ffffff;             /* White backgrounds for cards/containers/panels */
-  --section-bg-neutral: #fafafa;           /* Primary neutral section background - FeatureShowcase, ProductCarousel, AppFeaturesCarousel, StickyFeaturesNav */
-  --section-bg-neutral-alt: #f8f9fa;       /* Alternative neutral section background - OneFeature, FAQAccordion */
-  --section-bg-warm: #f8f7f4;             /* Warm background - prose sections, story content */
-  --section-bg-brand: #f0fdfa;            /* Brand teal tint - waitlist, CTA sections */
-  --section-bg-dark: #0f172a;             /* Dark background - footer */
-  --section-bg-hover: #f7fafc;             /* Hover state backgrounds for interactive elements */
-  --section-bg-enterprise: #f0f4f8;        /* Light enterprise blue - subtle professional tone for B2B sections */
+  --section-bg-white: #ffffff; /* White backgrounds for cards/containers/panels */
+  --section-bg-neutral: #fafafa; /* Primary neutral section background - FeatureShowcase, ProductCarousel, AppFeaturesCarousel, StickyFeaturesNav */
+  --section-bg-neutral-alt: #f8f9fa; /* Alternative neutral section background - OneFeature, FAQAccordion */
+  --section-bg-warm: #f8f7f4; /* Warm background - prose sections, story content */
+  --section-bg-brand: #f0fdfa; /* Brand teal tint - waitlist, CTA sections */
+  --section-bg-dark: #0f172a; /* Dark background - footer */
+  --section-bg-hover: #f7fafc; /* Hover state backgrounds for interactive elements */
+  --section-bg-enterprise: #f0f4f8; /* Light enterprise blue - subtle professional tone for B2B sections */
 
   /* ================================
      PRODUCT CAROUSEL DIMENSIONS
      ================================ */
-  
+
   /* Product Carousel - Image Sizes */
   /* Desktop & Tablet Active Image */
   --pc-image-active-width-desktop: 310px;
   --pc-image-active-height-desktop: 467px;
-  
+
   /* Desktop & Tablet Inactive Images */
   --pc-image-inactive-width-desktop: 258px;
   --pc-image-inactive-height-desktop: 389px;
-  
+
   /* Mobile Active Image */
   --pc-image-active-width-mobile: 240px;
   --pc-image-active-height-mobile: 359px;
-  
+
   /* Mobile Inactive Images */
   --pc-image-inactive-width-mobile: 202px;
   --pc-image-inactive-height-mobile: 303px;
-  
+
   /* Product Carousel - Visibility Percentages */
   --pc-inactive-visibility-desktop: 90%;
   --pc-inactive-visibility-tablet: 40%;
   --pc-inactive-visibility-mobile: 10%;
-  
+
   /* Product Carousel - Animation */
   --pc-rotation-interval: 5s;
   --pc-rotation-interval-ms: 5000;
   --pc-transition-duration: 0.6s;
   --pc-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* Product Carousel - Z-Index */
   --pc-z-index-inactive: 1;
   --pc-z-index-active: 3;
-  
+
   /* Product Carousel - Positioning */
   --pc-position-center: 50%;
   --pc-transform-center: translate(-50%, -50%);
-  
+
   /* Product Carousel - Vertical Positioning */
   --pc-vertical-offset-active: -50%;
   --pc-vertical-offset-inactive-mobile: -50%;
   --pc-vertical-offset-inactive-tablet: -50%;
   --pc-vertical-offset-inactive-desktop: -50%; /* Keep centered vertically */
-  
+
   /* Product Carousel - Top Position for Inactive Cards */
   --pc-inactive-top-desktop: 50%; /* Position inactive cards higher */
-  
+
   /* Product Carousel - Layout */
   --pc-margin-auto: 0 auto;
   --pc-width-full: 100%;
   --pc-aspect-ratio: 3/4;
-  
+
   /* Product Carousel - Card Offsets (pre-calculated) */
   /* Desktop offsets */
   --pc-left-card-offset-desktop: -380px;
   --pc-right-card-offset-desktop: 120px;
-  
+
   /* Tablet offsets */
   --pc-left-card-offset-tablet: -300px;
   --pc-right-card-offset-tablet: 36px;
-  
+
   /* Mobile offsets */
   --pc-left-card-offset-mobile: -190px;
   --pc-right-card-offset-mobile: -13px;
-  
 
   /* Animation Tokens */
   --animation-duration-fast: 0.15s;
@@ -563,15 +571,15 @@
   --fs-primary-scale-mobile: 0.7;
   --fs-primary-scale-tablet: 0.8;
   --fs-primary-scale-desktop: 0.8;
-  
+
   --fs-secondary-scale-mobile: 0.7;
   --fs-secondary-scale-tablet: 0.8;
   --fs-secondary-scale-desktop: 0.8;
-  
+
   /* Image Base Dimensions */
   --fs-image-base-width: 280px;
   --fs-image-base-height: 360px;
-  
+
   /* Calculated Image Sizes - Primary */
   --fs-primary-image-width-mobile: 235px; /* 196px * 1.2 (20% bigger) */
   --fs-primary-image-height-mobile: 302px; /* 252px * 1.2 (20% bigger) */
@@ -579,7 +587,7 @@
   --fs-primary-image-height-tablet: 346px; /* 288px * 1.2 (20% bigger) */
   --fs-primary-image-width-desktop: 269px; /* 224px * 1.2 (20% bigger) */
   --fs-primary-image-height-desktop: 346px; /* 288px * 1.2 (20% bigger) */
-  
+
   /* Calculated Image Sizes - Secondary */
   --fs-secondary-image-width-mobile: 235px; /* 196px * 1.2 (20% bigger) */
   --fs-secondary-image-height-mobile: 302px; /* 252px * 1.2 (20% bigger) */
@@ -587,12 +595,12 @@
   --fs-secondary-image-height-tablet: 346px; /* 288px * 1.2 (20% bigger) */
   --fs-secondary-image-width-desktop: 269px; /* 224px * 1.2 (20% bigger) */
   --fs-secondary-image-height-desktop: 346px; /* 288px * 1.2 (20% bigger) */
-  
+
   /* Container Heights */
   --fs-container-height-mobile: 300px;
   --fs-container-height-tablet: 360px;
   --fs-container-height-desktop: 420px;
-  
+
   /* Primary Image Positioning */
   --fs-primary-position-x: -70%;
   --fs-primary-position-y: -50%;
@@ -600,7 +608,7 @@
   --fs-position-primary-left: 35%;
   --fs-transform-primary-tablet-x: -50%;
   --fs-transform-primary-desktop-x: -55%;
-  
+
   /* Secondary Image Positioning */
   --fs-secondary-position-x: 20%;
   --fs-secondary-position-y: 5%;
@@ -618,10 +626,10 @@
   --fs-color-nav-button-bg: var(--section-bg-white);
   --fs-color-nav-button-hover-bg: var(--section-bg-hover);
   --fs-color-transparent: transparent;
-  
+
   /* Surface Colors - Neutral Backgrounds */
   --surface-50: #fafafa;
-  
+
   /* Text Colors */
   --fs-color-title: #1a365d;
   --fs-color-description: #0f172a;
@@ -635,17 +643,17 @@
   --fs-panel-bg: var(--section-bg-white);
   --fs-panel-border-radius: 32px;
   --fs-panel-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  
+
   /* Image Rotations */
   --fs-primary-image-rotation: 10deg;
   --fs-secondary-image-rotation: -8deg;
-  
+
   /* Image Transforms and Z-Index */
   --fs-primary-image-translate-y: 12px;
   --fs-primary-image-scale-min: 0.88;
   --fs-primary-image-scale-max: 0.92;
   --fs-primary-image-scale: 0.9; /* Mid-range default */
-  --fs-secondary-image-scale: 1.0;
+  --fs-secondary-image-scale: 1;
   --fs-primary-image-z-index: 1;
   --fs-secondary-image-z-index: 2;
 
@@ -654,12 +662,12 @@
      ================================ */
   /* Container Specifications */
   --fs-container-max-width: var(--container-max-width-standard);
-  
+
   /* Grid Layout */
   --fs-grid-gap-desktop: 48px;
   --fs-text-column-ratio: 1fr;
   --fs-visual-column-ratio: 1.2fr;
-  
+
   /* ================================
      TYPOGRAPHY SPECIFICATIONS
      ================================ */
@@ -669,17 +677,17 @@
   --fs-title-mobile-min: 32px;
   --fs-title-mobile-max: 36px;
   --fs-title-line-height-tight: 1.1;
-  
+
   /* Description Typography */
   --fs-description-font-size-desktop: 18px;
   --fs-description-font-size-mobile: 16px;
   --fs-description-max-width: 520px;
   --fs-description-line-height: 1.5;
-  
+
   /* Navigation Buttons */
   --fs-nav-button-size: 40px;
   --fs-nav-button-style: ghost;
-  
+
   /* ================================
      ANIMATION & TRANSITION TOKENS
      ================================ */
@@ -688,21 +696,21 @@
   --fs-visual-transition-duration: 350ms;
   --fs-cross-fade-duration: 200ms;
   --fs-slide-duration: 300ms;
-  
+
   /* Animation Easings */
   --fs-easing-text: cubic-bezier(0.4, 0, 0.2, 1);
   --fs-easing-visual: cubic-bezier(0.16, 1, 0.3, 1);
-  
+
   /* Transform Properties */
   --fs-translate-distance: 16px;
   --fs-fade-opacity-start: 0;
   --fs-fade-opacity-end: 1;
-  
+
   /* Border Colors */
   --fs-color-border-primary: #e2e8f0;
   --fs-color-border-hover: #cbd5e0;
   --fs-color-accent: #38b2ac;
-  
+
   /* Gradient Colors */
   --fs-gradient-button: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
 
@@ -718,16 +726,15 @@
   --fs-gap-cta-mobile: 1rem;
   --fs-gap-cta-tablet: 1.25rem;
   --fs-gap-cta-desktop: 1.5rem;
-  
 
   /* Layout Dimensions */
   --fs-max-width-container: var(--container-max-width-standard);
   --fs-max-width-visual-desktop: 496px;
   --fs-max-width-visual-mobile: 400px;
   --fs-max-width-visual-tablet: 450px;
-  --fs-image-container-width: 1.0;
+  --fs-image-container-width: 1;
   --fs-image-container-width-percent: 100%;
-  
+
   /* Component Sizes */
   --fs-size-button: 40px;
   --fs-size-dot: 8px;
@@ -740,11 +747,10 @@
   /* Font Weights */
   --fs-font-weight-bold: 700;
   --fs-font-weight-semibold: 600;
-  
+
   /* Line Heights */
   --fs-line-height-title: 1.2;
   --fs-line-height-description: 1.6;
-  
 
   /* ================================
      BORDERS & SHAPES
@@ -755,7 +761,7 @@
   --fs-border-radius-dot-active: 4px;
   --fs-border-radius-image-primary: 24px;
   --fs-border-radius-image-secondary: 20px;
-  
+
   /* Border Widths */
   --fs-border-width-button: 2px;
   --fs-border-width-spinner: 3px;
@@ -767,7 +773,7 @@
   --fs-z-index-content: 2;
   --fs-z-index-secondary: 1;
   --fs-z-index-overlay: 10;
-  
+
   /* Opacity Levels */
   --fs-opacity-full: 1;
   --fs-opacity-content-exit: 0.3;
@@ -782,11 +788,11 @@
   --fs-transition-duration-fast: 200ms;
   --fs-transition-easing-smooth: ease-in-out;
   --fs-transition-easing-standard: ease;
-  
+
   /* Animation Properties */
   --fs-animation-duration-spinner: 600ms;
   --fs-animation-easing-linear: linear;
-  
+
   /* Transform Values */
   --fs-transform-center: translate(-50%, -50%);
   --fs-transform-hover-lift: translateY(-2px);
@@ -810,7 +816,7 @@
   /* ================================
      PC (PRODUCT CAROUSEL) DESIGN TOKENS
      ================================ */
-  
+
   /* ================================
      COLORS & THEMING
      ================================ */
@@ -821,7 +827,7 @@
   --pc-color-card-bg: transparent; /* Transparent so gradient fallback in .imageWrapper shows when image assets are missing */
   --pc-color-cta-bg: #0f766e;
   --pc-color-cta-text: #ffffff;
-  
+
   /* Navigation Controls */
   --pc-color-dot-inactive: #cbd5e0;
   --pc-color-dot-active: #0d9488;
@@ -830,13 +836,18 @@
   --pc-color-control-border-hover: #cbd5e0;
   --pc-color-control-icon: #4a5568;
   --pc-color-accent: #0d9488;
-  
+
   /* Overlay Effects */
   --pc-color-overlay-start: rgba(0, 0, 0, 0.95);
   --pc-color-overlay-mid: rgba(0, 0, 0, 0.92);
   --pc-color-overlay-end: transparent;
-  --pc-gradient-overlay: linear-gradient(180deg, var(--pc-color-overlay-end) 0%, var(--pc-color-overlay-mid) 60%, var(--pc-color-overlay-start) 100%);
-  
+  --pc-gradient-overlay: linear-gradient(
+    180deg,
+    var(--pc-color-overlay-end) 0%,
+    var(--pc-color-overlay-mid) 60%,
+    var(--pc-color-overlay-start) 100%
+  );
+
   /* ================================
      SPACING & LAYOUT
      ================================ */
@@ -845,30 +856,30 @@
   --pc-track-height-mobile: 400px;
   --pc-track-height-tablet: 420px;
   --pc-track-height-desktop: 520px;
-  
+
   /* 3-Card Layout Dimensions */
   --pc-card-width-desktop: 360px;
   --pc-card-height-desktop: 480px;
-  --pc-card-width-tablet: 306px;  /* 15% smaller */
-  --pc-card-height-tablet: 408px;  /* 15% smaller */
+  --pc-card-width-tablet: 306px; /* 15% smaller */
+  --pc-card-height-tablet: 408px; /* 15% smaller */
   --pc-card-width-mobile: 280px;
-  --pc-card-height-mobile: 373px;  /* Maintains 3:4 ratio */
-  
+  --pc-card-height-mobile: 373px; /* Maintains 3:4 ratio */
+
   /* Card Spacing & Peek */
   --pc-card-peek: 20px;
-  
+
   /* Legacy Slide Dimensions (backward compatibility) */
   --pc-slide-width-mobile: 70%;
   --pc-slide-max-width: 280px;
   --pc-subtitle-max-width: 490px;
   --pc-subtitle-min-height: 2.8em;
-  
+
   /* Spacing */
   --pc-heading-margin-mobile: 1rem;
   --pc-heading-margin-desktop: 2rem;
   --pc-subtitle-margin: 1rem auto 1.5rem;
   --pc-controls-gap: 1rem;
-  
+
   /* ================================
      TYPOGRAPHY
      ================================ */
@@ -890,21 +901,21 @@
   --pc-dot-border-radius: 50%;
   --pc-dot-active-border-radius: 5px;
   --pc-control-border-radius: 50%;
-  
+
   /* Border Widths */
   --pc-control-border-width: 2px;
-  
+
   /* ================================
      DEPTH & LAYERING
      ================================ */
   /* Shadows */
   --pc-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  
+
   /* Z-Index */
   --pc-z-index-controls: 10;
   --pc-z-index-overlay: 5;
   --pc-z-index-content: 1;
-  
+
   /* ================================
      ANIMATIONS & INTERACTIONS
      ================================ */
@@ -913,7 +924,7 @@
   --pc-transition-easing: ease-in-out;
   --pc-control-transition-duration: 200ms;
   --pc-control-transition-easing: ease;
-  
+
   /* Transform Values */
   /* 3-Card Layout Transforms & Opacity */
   --pc-transform-active-scale: var(--transform-scale-110);
@@ -923,44 +934,44 @@
   --pc-opacity-active: var(--opacity-100);
   --pc-opacity-side: var(--opacity-75);
   --pc-opacity-mobile-side: var(--opacity-60);
-  
+
   /* Touch & Swipe Interaction */
   --pc-swipe-threshold: var(--spacing-4xl); /* 40px */
   --pc-swipe-velocity-threshold: 0.3; /* px/ms */
-  
+
   /* Image Responsive Sizes */
   --pc-image-size-mobile: 280px;
-  --pc-image-size-tablet: 306px;  
+  --pc-image-size-tablet: 306px;
   --pc-image-size-desktop: 360px;
-  
+
   /* Image Sizes String for Next.js Image component */
   --pc-image-sizes: (max-width: 768px) 280px, (max-width: 1024px) 306px, 360px;
-  
+
   /* Z-index Values */
   --pc-z-index-active-card: 3;
   --pc-z-index-side-card: 2;
   --pc-z-index-hidden-card: 1;
-  
+
   /* Transform Values */
   --pc-subtitle-transform-in: translateY(var(--spacing-sm));
   --pc-subtitle-transform-out: translateY(0);
-  
+
   /* Mobile Layout */
   --pc-mobile-container-padding: var(--spacing-lg); /* 16px */
   --pc-mobile-card-max-width: 360px;
   --pc-card-max-width-mobile: 400px;
-  
+
   /* 3-Card Layout Positioning */
   --pc-card-active-left: 50%;
   --pc-card-active-top: 50%;
   --pc-card-side-desktop-offset: 15%;
   --pc-card-side-mobile-offset: 5%;
   --pc-transform-hover-lift: translateY(-2px);
-  
+
   /* Subtitle Animation */
   --pc-subtitle-transition-duration: 300ms;
   --pc-subtitle-transition-easing: ease-in-out;
-  
+
   /* ================================
      COMPONENT SIZES
      ================================ */
@@ -969,7 +980,7 @@
   --pc-dot-active-width: 18px;
   --pc-control-button-size: 40px;
   --pc-control-icon-size: 18px;
-  
+
   /* ================================
      RESPONSIVE BREAKPOINTS
      ================================ */
@@ -981,7 +992,7 @@
   /* ================================
      OF (ONE FEATURE) DESIGN TOKENS
      ================================ */
-  
+
   /* ================================
      COLORS & THEMING
      ================================ */
@@ -990,7 +1001,7 @@
   --of-color-container-bg: var(--section-bg-white);
   --of-color-card-bg: #f4f4f4;
   --of-color-cta-bg: #0f172a;
-  
+
   /* Text Colors */
   --of-color-title: #1a1a1a;
   --of-color-subtitle: #4a5568;
@@ -998,14 +1009,14 @@
   --of-color-feature-description: #6b7280;
   --of-color-cta-text: #ffffff;
   --of-color-icon: #6b7280;
-  
+
   /* Gradient Colors */
   --of-gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  
+
   /* Border Colors */
   --of-color-border-light: #e2e8f0;
   --of-color-border-medium: #cbd5e0;
-  
+
   /* ================================
      SPACING & LAYOUT
      ================================ */
@@ -1013,14 +1024,14 @@
   --of-container-margin-top: 96px;
   --of-container-gap: 32px;
   --of-container-gap-large: 40px;
-  
+
   /* Feature Grid */
   --of-features-gap: 32px;
   --of-feature-padding-large: 24px;
-  
+
   /* CTA Spacing - Component-specific spacing (not button styling) */
   --of-cta-margin-top: 40px;
-  
+
   /* ================================
      BORDERS & SHAPES
      ================================ */
@@ -1028,7 +1039,7 @@
   --of-border-radius-section: 30px;
   --of-border-radius-card: 20px;
   --of-border-radius-cta: 8px;
-  
+
   /* ================================
      EFFECTS & SHADOWS
      ================================ */
@@ -1037,7 +1048,7 @@
   --of-shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --of-shadow-cta: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
   --of-shadow-cta-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
-  
+
   /* ================================
      ANIMATIONS & INTERACTIONS
      ================================ */
@@ -1047,11 +1058,11 @@
   --of-transition-duration-slow: 600ms;
   --of-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
   --of-transition-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  
+
   /* Transform Values */
   --of-transform-hover-lift: translateY(-4px);
   --of-transform-scale-hover: scale(1.02);
-  
+
   /* ================================
      RESPONSIVE BREAKPOINTS
      ================================ */
@@ -1108,16 +1119,16 @@
   --afc-color-card-bg: var(--section-bg-white);
   --afc-color-overlay-start: rgba(0, 0, 0, 0.7);
   --afc-color-overlay-end: transparent;
-  
+
   /* Text Colors */
   --afc-color-title: #1a365d;
   --afc-color-description: #0f172a;
   --afc-color-chip-text: #ffffff;
-  
+
   /* Accent Colors */
   --afc-color-accent: #0f766e;
   --afc-color-accent-hover: #115e59;
-  
+
   /* Navigation Colors */
   --afc-color-dot-inactive: #cbd5e0;
   --afc-color-dot-hover: #a0aec0;
@@ -1126,7 +1137,7 @@
   --afc-color-control-hover-bg: var(--section-bg-hover);
   --afc-color-border: #e2e8f0;
   --afc-color-border-hover: #cbd5e0;
-  
+
   /* Text & Link Colors */
   --afc-color-text-primary: #1a365d;
   --afc-color-link: #38b2ac;
@@ -1135,57 +1146,62 @@
   --afc-color-indicator-active: #8b5cf6;
   --afc-color-muted: #9ca3af;
   --afc-color-bg-white: var(--section-bg-white);
-  
+
   /* Spinner & Loading Colors */
   --afc-color-spinner-border: #e5e7eb;
   --afc-color-spinner-active: #8b5cf6;
-  
+
   /* Gradient Fallbacks */
   --afc-gradient-fallback: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-  
+
   /* ================================
      SPACING & LAYOUT
      ================================ */
   /* Container Spacing */
   --afc-container-gap: 19px; /* Reduced by 40% from 32px */
   --afc-container-gap-desktop: 24px; /* Reduced by 40% from 40px */
-  
+
   /* Grid Layout */
   --afc-grid-gap: 16px;
   --afc-grid-gap-large: 20px;
-  
+
   /* Card Spacing */
   --afc-card-padding: 20px;
   --afc-card-gap: 12px;
-  
+
   /* ================================
      BORDERS & SHAPES
      ================================ */
   /* Border Radius */
   --afc-border-radius-card: 20px;
   --afc-border-radius-chip: 16px;
-  
+
   /* ================================
      EFFECTS & SHADOWS
      ================================ */
   /* Box Shadows */
   --afc-shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --afc-shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
+
   /* Gradient Overlays */
-  --afc-gradient-overlay: linear-gradient(to top, var(--afc-color-overlay-start) 0%, rgba(0, 0, 0, 0.4) 50%, var(--afc-color-overlay-end) 100%);
-  
+  --afc-gradient-overlay: linear-gradient(
+    to top,
+    var(--afc-color-overlay-start) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    var(--afc-color-overlay-end) 100%
+  );
+
   /* ================================
      ANIMATIONS & INTERACTIONS
      ================================ */
   /* Transition Properties */
   --afc-transition-duration: 300ms;
   --afc-transition-easing: ease-in-out;
-  
+
   /* Transform Values */
   --afc-transform-scale-active: 1.04;
   --afc-transform-scale-inactive: 0.98;
-  
+
   /* ================================
      RESPONSIVE BREAKPOINTS
      ================================ */
@@ -1197,14 +1213,14 @@
   /* ================================
      FSB (FEATURE SHOWCASE BENEFITS) DESIGN TOKENS
      ================================ */
-  
+
   /* Benefits-Specific Image Sizing */
   --fsb-image-container-width: 0.8;
   --fsb-image-container-width-percent: 80%;
-  
+
   /* Benefits-Specific Border Radius */
   --fsb-border-radius-image: 24px;
-  
+
   /* Benefits-Specific Shadows */
   --fsb-shadow-image: 0 8px 32px rgba(0, 0, 0, 0.1);
 
@@ -1559,45 +1575,46 @@
   --transition-slow: 500ms ease-in-out;
   --transition-transform: transform 300ms ease-in-out;
   --transition-opacity: opacity 300ms ease-in-out;
-  --transition-colors: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+  --transition-colors:
+    color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
 
   /* ================================
      THEME SYSTEM - SEMANTIC COLORS
      ================================ */
-  
+
   /* Light Theme (Default) */
   --theme-bg-primary: var(--color-white);
   --theme-bg-secondary: var(--color-gray-50);
   --theme-bg-tertiary: var(--color-gray-100);
   --theme-bg-accent: var(--color-gray-200);
-  
+
   --theme-text-primary: var(--color-gray-900);
   --theme-text-secondary: var(--color-gray-700);
   --theme-text-tertiary: var(--color-gray-600);
   --theme-text-muted: var(--color-gray-500);
   --theme-text-inverse: var(--color-white);
-  
+
   --theme-border-primary: var(--color-gray-200);
   --theme-border-secondary: var(--color-gray-300);
   --theme-border-accent: var(--color-gray-400);
-  
+
   --theme-surface-elevated: var(--color-white);
   --theme-surface-overlay: rgba(0, 0, 0, 0.5);
   --theme-surface-disabled: var(--color-gray-100);
-  
+
   /* Interactive States */
   --theme-interactive-primary: #0d9488;
   --theme-interactive-primary-hover: #0a7c74;
   --theme-interactive-primary-active: #2c7a7b;
   --theme-interactive-secondary: var(--color-gray-600);
   --theme-interactive-secondary-hover: var(--color-gray-700);
-  
+
   /* Status Colors */
   --theme-status-success: #10b981;
   --theme-status-warning: #f59e0b;
   --theme-status-error: #ef4444;
   --theme-status-info: #3b82f6;
-  
+
   /* Focus and Selection */
   --theme-focus-ring: var(--theme-interactive-primary);
   --theme-selection-bg: rgba(56, 178, 172, 0.1);
@@ -1608,7 +1625,7 @@
      ================================ */
   /* Mobile Viewport Height */
   --hs-mobile-visual-height: 75vh;
-  
+
   /* Background Circle Dimensions */
   --hs-circle-width-mobile: 100%;
   --hs-circle-height-mobile: 75vh;
@@ -1616,7 +1633,7 @@
   --hs-circle-height-tablet: calc(75vh * 0.75);
   --hs-circle-width-desktop: 400px;
   --hs-circle-height-desktop: 400px;
-  
+
   /* Phone Image Dimensions */
   --hs-phone-width-mobile: 110%;
   --hs-phone-height-mobile: 420px;
@@ -1624,7 +1641,7 @@
   --hs-phone-height-tablet: 315px;
   --hs-phone-width-desktop: 460px;
   --hs-phone-height-desktop: 480px;
-  
+
   /* Mascot Image Dimensions */
   --hs-mascot-width-mobile: 120px;
   --hs-mascot-height-mobile: 120px;
@@ -1632,45 +1649,45 @@
   --hs-mascot-height-tablet: 140px;
   --hs-mascot-width-desktop: 160px;
   --hs-mascot-height-desktop: 160px;
-  
+
   /* Mascot Positioning */
   --hs-mascot-offset-top: 50%;
   --hs-mascot-offset-right: -20px;
-  
+
   /* Content Spacing */
   --hs-content-gap-mobile: 24px;
   --hs-content-gap-desktop: 48px;
   --hs-content-padding-mobile: 48px 24px;
   --hs-content-padding-desktop: 64px 120px;
-  
+
   /* Section Configuration */
   --hs-section-max-height: none;
-  --hs-section-border-radius-bottom-left: 0px;   /* Mobile: No bottom left corner radius */
-  --hs-section-border-radius-bottom-right: 0px;  /* Mobile: No bottom right corner radius */
-  
+  --hs-section-border-radius-bottom-left: 0px; /* Mobile: No bottom left corner radius */
+  --hs-section-border-radius-bottom-right: 0px; /* Mobile: No bottom right corner radius */
+
   /* Typography Spacing */
   --hs-title-margin-bottom: 16px;
   --hs-description-margin-bottom: 24px;
   --hs-cta-margin-top-mobile: 24px;
   --hs-cta-margin-top-tablet: 32px;
   --hs-cta-margin-top-desktop: 32px;
-  
+
   /* Visual Scaling */
   --hs-tablet-visual-scale: 0.75;
-  
+
   /* Colors */
   --hs-color-title: #1a365d;
   --hs-color-loading-bg: rgba(255, 255, 255, 0.9);
   --hs-color-cta-focus: #3b82f6;
-  
+
   /* Gradients */
   --hs-gradient-bg: linear-gradient(135deg, #f7fefc 0%, #40c2aa 50%, #f0fdfa 100%);
   --hs-gradient-cta: linear-gradient(135deg, #0d9488 0%, #0a7c74 100%);
-  
+
   /* Shadows */
   --hs-shadow-image: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.1));
   --hs-shadow-cta-hover: 0 8px 25px rgba(56, 178, 172, 0.25);
-  
+
   /* Spinner */
   --hs-spinner-border-width: 3px;
   --hs-spinner-border-color: #e5e7eb;
@@ -1684,7 +1701,12 @@
   --hs-color-stats-text: #ffffff;
 
   /* Overlay Gradient (migrated from legacy hero block) */
-  --hs-gradient-overlay: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.92) 50%, rgba(0, 0, 0, 0.95) 100%);
+  --hs-gradient-overlay: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.92) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
 
   /* Calculated Visual Heights (migrated from legacy hero block) */
   --hs-visual-content-height-tablet: 56.25vh;
@@ -1861,16 +1883,16 @@
      COLORS & THEMING
      ================================ */
   /* Background Colors */
-  --bc-color-section-bg: var(--section-bg-neutral);  /* Section background (unified) */
-  --bc-color-card-bg: var(--section-bg-white);  /* White card backgrounds */
+  --bc-color-section-bg: var(--section-bg-neutral); /* Section background (unified) */
+  --bc-color-card-bg: var(--section-bg-white); /* White card backgrounds */
 
   /* Text Colors */
-  --bc-color-title: #1a365d;                    /* Main title color */
-  --bc-color-card-title: #1a1a1a;               /* Card title color */
-  --bc-color-card-description: #4a5568;         /* Card description color */
+  --bc-color-title: #1a365d; /* Main title color */
+  --bc-color-card-title: #1a1a1a; /* Card title color */
+  --bc-color-card-description: #4a5568; /* Card description color */
 
   /* Icon Colors */
-  --bc-color-icon-bg: transparent;              /* Icon background (transparent for minimal style) */
+  --bc-color-icon-bg: transparent; /* Icon background (transparent for minimal style) */
 
   /* ================================
      SPACING & LAYOUT
@@ -1879,36 +1901,36 @@
   --bc-container-max-width: var(--container-max-width-standard);
 
   /* Grid Layout - Desktop (staggered 3 + 2 cards layout) */
-  --bc-grid-columns-mobile: 1fr;                          /* 1 column on mobile */
-  --bc-grid-columns-tablet: 1fr;                          /* 1 column on tablet */
-  --bc-grid-columns-desktop: repeat(6, 1fr);              /* 6 columns for staggered layout on desktop */
-  --bc-grid-gap-desktop: 32px;                            /* Gap between cards on desktop */
-  --bc-grid-gap-tablet: 24px;                             /* Gap between cards on tablet */
-  --bc-grid-gap-mobile: 20px;                             /* Gap between cards on mobile */
+  --bc-grid-columns-mobile: 1fr; /* 1 column on mobile */
+  --bc-grid-columns-tablet: 1fr; /* 1 column on tablet */
+  --bc-grid-columns-desktop: repeat(6, 1fr); /* 6 columns for staggered layout on desktop */
+  --bc-grid-gap-desktop: 32px; /* Gap between cards on desktop */
+  --bc-grid-gap-tablet: 24px; /* Gap between cards on tablet */
+  --bc-grid-gap-mobile: 20px; /* Gap between cards on mobile */
 
   /* Grid Column Spans - Desktop Staggered Layout */
-  --bc-card-1-column-span: 1 / 3;                         /* Card 1: Columns 1-2 */
-  --bc-card-2-column-span: 3 / 5;                         /* Card 2: Columns 3-4 */
-  --bc-card-3-column-span: 5 / 7;                         /* Card 3: Columns 5-6 */
-  --bc-card-4-column-span: 2 / 4;                         /* Card 4: Columns 2-3 (offset between 1 & 2) */
-  --bc-card-5-column-span: 4 / 6;                         /* Card 5: Columns 4-5 (offset between 2 & 3) */
+  --bc-card-1-column-span: 1 / 3; /* Card 1: Columns 1-2 */
+  --bc-card-2-column-span: 3 / 5; /* Card 2: Columns 3-4 */
+  --bc-card-3-column-span: 5 / 7; /* Card 3: Columns 5-6 */
+  --bc-card-4-column-span: 2 / 4; /* Card 4: Columns 2-3 (offset between 1 & 2) */
+  --bc-card-5-column-span: 4 / 6; /* Card 5: Columns 4-5 (offset between 2 & 3) */
 
   /* Section Spacing */
-  --bc-section-title-margin-bottom: 48px;       /* Space below section title */
-  --bc-description-max-width: 600px;            /* Max width for section description */
+  --bc-section-title-margin-bottom: 48px; /* Space below section title */
+  --bc-description-max-width: 600px; /* Max width for section description */
 
   /* Card Spacing */
-  --bc-card-padding-desktop: 32px;              /* Card internal padding - desktop */
-  --bc-card-padding-tablet: 28px;               /* Card internal padding - tablet */
-  --bc-card-padding-mobile: 24px;               /* Card internal padding - mobile */
-  --bc-card-content-gap: 16px;                  /* Gap between icon, title, and description */
+  --bc-card-padding-desktop: 32px; /* Card internal padding - desktop */
+  --bc-card-padding-tablet: 28px; /* Card internal padding - tablet */
+  --bc-card-padding-mobile: 24px; /* Card internal padding - mobile */
+  --bc-card-content-gap: 16px; /* Gap between icon, title, and description */
 
   /* Icon Dimensions */
-  --bc-icon-size-desktop: 48px;                 /* Icon size - desktop */
-  --bc-icon-size-tablet: 44px;                  /* Icon size - tablet */
-  --bc-icon-size-mobile: 40px;                  /* Icon size - mobile */
-  --bc-icon-padding: 0;                         /* Icon background padding (0 for full fill) */
-  --bc-icon-color: #0f172a;                     /* Icon color - slate-900 */
+  --bc-icon-size-desktop: 48px; /* Icon size - desktop */
+  --bc-icon-size-tablet: 44px; /* Icon size - tablet */
+  --bc-icon-size-mobile: 40px; /* Icon size - mobile */
+  --bc-icon-padding: 0; /* Icon background padding (0 for full fill) */
+  --bc-icon-color: #0f172a; /* Icon color - slate-900 */
 
   /* ================================
      TYPOGRAPHY
@@ -1942,9 +1964,9 @@
   --bc-icon-border-radius: 12px;
 
   /* Border Widths */
-  --bc-border-width: 2px;                                     /* Standard border width */
-  --bc-outline-width: 2px;                                    /* Focus outline width */
-  --bc-outline-offset: 2px;                                   /* Focus outline offset */
+  --bc-border-width: 2px; /* Standard border width */
+  --bc-outline-width: 2px; /* Focus outline width */
+  --bc-outline-offset: 2px; /* Focus outline offset */
 
   /* ================================
      EFFECTS & SHADOWS
@@ -1979,32 +2001,32 @@
      SECTION DIMENSIONS
      ================================ */
   /* Section Height */
-  --bg-section-height-desktop: 700px;           /* Section height - desktop */
-  --bg-section-height-tablet: 500px;            /* Section height - tablet */
-  --bg-section-height-mobile: 400px;            /* Section height - mobile */
+  --bg-section-height-desktop: 700px; /* Section height - desktop */
+  --bg-section-height-tablet: 500px; /* Section height - tablet */
+  --bg-section-height-mobile: 400px; /* Section height - mobile */
 
   /* Section Width */
-  --bg-section-width: var(--percent-100);       /* Full width section */
+  --bg-section-width: var(--percent-100); /* Full width section */
 
   /* ================================
      CONTENT CONTAINER
      ================================ */
   /* Content Container Dimensions */
-  --bg-content-max-width: 640px;                /* Content container max width */
-  --bg-content-height: var(--percent-100);      /* Content container height */
+  --bg-content-max-width: 640px; /* Content container max width */
+  --bg-content-height: var(--percent-100); /* Content container height */
 
   /* Content Padding */
-  --bg-content-padding-top-desktop: 450px;      /* Top padding - desktop */
-  --bg-content-padding-top-tablet: 300px;       /* Top padding - tablet */
-  --bg-content-padding-top-mobile: 200px;       /* Top padding - mobile */
-  --bg-content-padding-bottom: 40px;            /* Bottom padding - all sizes */
-  --bg-content-padding-left-desktop: 120px;     /* Left padding - desktop */
-  --bg-content-padding-left-tablet: 64px;       /* Left padding - tablet */
-  --bg-content-padding-left-mobile: 24px;       /* Left padding - mobile */
-  --bg-content-padding-right: 0;                /* Right padding - no padding */
+  --bg-content-padding-top-desktop: 450px; /* Top padding - desktop */
+  --bg-content-padding-top-tablet: 300px; /* Top padding - tablet */
+  --bg-content-padding-top-mobile: 200px; /* Top padding - mobile */
+  --bg-content-padding-bottom: 40px; /* Bottom padding - all sizes */
+  --bg-content-padding-left-desktop: 120px; /* Left padding - desktop */
+  --bg-content-padding-left-tablet: 64px; /* Left padding - tablet */
+  --bg-content-padding-left-mobile: 24px; /* Left padding - mobile */
+  --bg-content-padding-right: 0; /* Right padding - no padding */
 
   /* Content Internal Spacing */
-  --bg-content-gap: var(--spacing-md);          /* Gap between title and description */
+  --bg-content-gap: var(--spacing-md); /* Gap between title and description */
 
   /* ================================
      TYPOGRAPHY
@@ -2027,8 +2049,8 @@
      COLORS & THEMING
      ================================ */
   /* Text Colors */
-  --bg-color-title: var(--section-bg-white);            /* Title color - white */
-  --bg-color-description: var(--section-bg-white);      /* Description color - white */
+  --bg-color-title: var(--section-bg-white); /* Title color - white */
+  --bg-color-description: var(--section-bg-white); /* Description color - white */
 
   /* Background Overlay */
   --bg-overlay-gradient: linear-gradient(
@@ -2036,7 +2058,7 @@
     rgba(0, 0, 0, 0.1) 0%,
     rgba(0, 0, 0, 0.09) 50%,
     rgba(0, 0, 0, 0.09) 100%
-  );                                                     /* Gradient overlay for text readability */
+  ); /* Gradient overlay for text readability */
 
   /* ================================
      RESPONSIVE BREAKPOINTS
@@ -2054,8 +2076,8 @@
      CONTAINER DIMENSIONS
      ================================ */
   /* Container Dimensions */
-  --sg-container-width: var(--percent-100);         /* Full width container */
-  --sg-container-min-height: 300px;                 /* Minimum container height */
+  --sg-container-width: var(--percent-100); /* Full width container */
+  --sg-container-min-height: 300px; /* Minimum container height */
 
   /* Container Padding */
   --sg-container-padding-desktop-y: var(--padding-section-desktop-y);
@@ -2069,24 +2091,24 @@
      CONTENT DIMENSIONS
      ================================ */
   /* Content Container */
-  --sg-content-width: var(--percent-100);           /* Full width of container */
-  --sg-content-max-width: 1200px;                   /* Maximum content width */
+  --sg-content-width: var(--percent-100); /* Full width of container */
+  --sg-content-max-width: 1200px; /* Maximum content width */
 
   /* Content Padding */
-  --sg-content-padding-left-desktop: 120px;         /* Left padding - desktop */
-  --sg-content-padding-right-desktop: 120px;        /* Right padding - desktop */
-  --sg-content-padding-left-tablet: 0;              /* Left padding - tablet (no padding) */
-  --sg-content-padding-right-tablet: 0;             /* Right padding - tablet (no padding) */
-  --sg-content-padding-left-mobile: 0;              /* Left padding - mobile (no padding) */
-  --sg-content-padding-right-mobile: 0;             /* Right padding - mobile (no padding) */
+  --sg-content-padding-left-desktop: 120px; /* Left padding - desktop */
+  --sg-content-padding-right-desktop: 120px; /* Right padding - desktop */
+  --sg-content-padding-left-tablet: 0; /* Left padding - tablet (no padding) */
+  --sg-content-padding-right-tablet: 0; /* Right padding - tablet (no padding) */
+  --sg-content-padding-left-mobile: 0; /* Left padding - mobile (no padding) */
+  --sg-content-padding-right-mobile: 0; /* Right padding - mobile (no padding) */
 
   /* ================================
      TITLE STYLES
      ================================ */
   /* Title Spacing */
-  --sg-title-margin-bottom-desktop: 48px;           /* Title bottom margin - desktop */
-  --sg-title-margin-bottom-tablet: 40px;            /* Title bottom margin - tablet */
-  --sg-title-margin-bottom-mobile: 32px;            /* Title bottom margin - mobile */
+  --sg-title-margin-bottom-desktop: 48px; /* Title bottom margin - desktop */
+  --sg-title-margin-bottom-tablet: 40px; /* Title bottom margin - tablet */
+  --sg-title-margin-bottom-mobile: 32px; /* Title bottom margin - mobile */
 
   /* Title Typography */
   --sg-title-font-size-desktop: var(--font-size-title-desktop);
@@ -2100,17 +2122,17 @@
      STEPS CONTAINER STYLES
      ================================ */
   /* Steps Container Dimensions */
-  --sg-steps-container-width: var(--percent-100);   /* Full width */
+  --sg-steps-container-width: var(--percent-100); /* Full width */
   --sg-steps-container-bg: var(--section-bg-white); /* White background */
-  --sg-steps-container-border-radius: 16px;         /* Rounded corners */
+  --sg-steps-container-border-radius: 16px; /* Rounded corners */
 
   /* Steps Container Padding */
-  --sg-steps-container-padding-desktop-y: 64px;     /* Top/bottom padding - desktop */
-  --sg-steps-container-padding-desktop-x: 64px;     /* Left/right padding - desktop */
-  --sg-steps-container-padding-tablet-y: 48px;      /* Top/bottom padding - tablet */
-  --sg-steps-container-padding-tablet-x: 48px;      /* Left/right padding - tablet */
-  --sg-steps-container-padding-mobile-y: 32px;      /* Top/bottom padding - mobile */
-  --sg-steps-container-padding-mobile-x: 24px;      /* Left/right padding - mobile */
+  --sg-steps-container-padding-desktop-y: 64px; /* Top/bottom padding - desktop */
+  --sg-steps-container-padding-desktop-x: 64px; /* Left/right padding - desktop */
+  --sg-steps-container-padding-tablet-y: 48px; /* Top/bottom padding - tablet */
+  --sg-steps-container-padding-tablet-x: 48px; /* Left/right padding - tablet */
+  --sg-steps-container-padding-mobile-y: 32px; /* Top/bottom padding - mobile */
+  --sg-steps-container-padding-mobile-x: 24px; /* Left/right padding - mobile */
 
   /* Steps Container Shadow */
   --sg-steps-container-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -2119,29 +2141,29 @@
      STEP ROW STYLES
      ================================ */
   /* Step Row Dimensions */
-  --sg-step-row-width: 90%;                         /* 90% of steps container width */
-  --sg-step-row-gap-desktop: 24px;                  /* Gap between number and text - desktop */
-  --sg-step-row-gap-tablet: 20px;                   /* Gap between number and text - tablet */
-  --sg-step-row-gap-mobile: 16px;                   /* Gap between number and text - mobile */
-  --sg-step-row-margin-bottom-desktop: 24px;        /* Margin between steps - desktop */
-  --sg-step-row-margin-bottom-tablet: 20px;         /* Margin between steps - tablet */
-  --sg-step-row-margin-bottom-mobile: 16px;         /* Margin between steps - mobile */
+  --sg-step-row-width: 90%; /* 90% of steps container width */
+  --sg-step-row-gap-desktop: 24px; /* Gap between number and text - desktop */
+  --sg-step-row-gap-tablet: 20px; /* Gap between number and text - tablet */
+  --sg-step-row-gap-mobile: 16px; /* Gap between number and text - mobile */
+  --sg-step-row-margin-bottom-desktop: 24px; /* Margin between steps - desktop */
+  --sg-step-row-margin-bottom-tablet: 20px; /* Margin between steps - tablet */
+  --sg-step-row-margin-bottom-mobile: 16px; /* Margin between steps - mobile */
 
   /* Step Row Border */
-  --sg-step-row-border-top-width: 1px;              /* Border width */
-  --sg-step-row-border-top-color: #e2e8f0;          /* Subtle border color */
+  --sg-step-row-border-top-width: 1px; /* Border width */
+  --sg-step-row-border-top-color: #e2e8f0; /* Subtle border color */
 
   /* ================================
      STEP NUMBER STYLES
      ================================ */
   /* Step Number Typography */
-  --sg-step-number-font-size-desktop: 24px;         /* Number font size - desktop */
-  --sg-step-number-font-size-tablet: 22px;          /* Number font size - tablet */
-  --sg-step-number-font-size-mobile: 20px;          /* Number font size - mobile */
+  --sg-step-number-font-size-desktop: 24px; /* Number font size - desktop */
+  --sg-step-number-font-size-tablet: 22px; /* Number font size - tablet */
+  --sg-step-number-font-size-mobile: 20px; /* Number font size - mobile */
   --sg-step-number-font-weight: var(--font-weight-bold);
   --sg-step-number-line-height: 1.4;
-  --sg-step-number-color: var(--color-primary);     /* Primary color for numbers */
-  --sg-step-number-min-width: 48px;                 /* Minimum width for alignment */
+  --sg-step-number-color: var(--color-primary); /* Primary color for numbers */
+  --sg-step-number-min-width: 48px; /* Minimum width for alignment */
 
   /* ================================
      STEP TEXT STYLES
@@ -2164,14 +2186,14 @@
   --demo-header-font-size-mobile: 20px;
 
   /* Subtext: "What your bank gave you this year:" - responsive sizes */
-  --demo-subtext-font-size-desktop: var(--font-size-md);   /* 16px */
-  --demo-subtext-font-size-tablet: var(--font-size-md);    /* 16px */
-  --demo-subtext-font-size-mobile: var(--font-size-sm);    /* 14px */
+  --demo-subtext-font-size-desktop: var(--font-size-md); /* 16px */
+  --demo-subtext-font-size-tablet: var(--font-size-md); /* 16px */
+  --demo-subtext-font-size-mobile: var(--font-size-sm); /* 14px */
 
   /* Hook: "What they made with it" - responsive sizes */
-  --demo-hook-font-size-desktop: var(--font-size-md);      /* 16px */
-  --demo-hook-font-size-tablet: var(--font-size-md);       /* 16px */
-  --demo-hook-font-size-mobile: var(--font-size-sm);       /* 14px */
+  --demo-hook-font-size-desktop: var(--font-size-md); /* 16px */
+  --demo-hook-font-size-tablet: var(--font-size-md); /* 16px */
+  --demo-hook-font-size-mobile: var(--font-size-sm); /* 14px */
 
   /* ================================
      RESPONSIVE BREAKPOINTS
@@ -2185,43 +2207,43 @@
    DARK THEME OVERRIDES
    ================================ */
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   /* Dark Theme Background Colors */
   --theme-bg-primary: var(--color-gray-900);
   --theme-bg-secondary: var(--color-gray-800);
   --theme-bg-tertiary: var(--color-gray-700);
   --theme-bg-accent: var(--color-gray-600);
-  
+
   /* Dark Theme Text Colors */
   --theme-text-primary: var(--color-gray-100);
   --theme-text-secondary: var(--color-gray-300);
   --theme-text-tertiary: var(--color-gray-400);
   --theme-text-muted: var(--color-gray-500);
   --theme-text-inverse: var(--color-gray-900);
-  
+
   /* Dark Theme Border Colors */
   --theme-border-primary: var(--color-gray-700);
   --theme-border-secondary: var(--color-gray-600);
   --theme-border-accent: var(--color-gray-500);
-  
+
   /* Dark Theme Surfaces */
   --theme-surface-elevated: var(--color-gray-800);
   --theme-surface-overlay: rgba(0, 0, 0, 0.8);
   --theme-surface-disabled: var(--color-gray-800);
-  
+
   /* Dark Theme Interactive States */
   --theme-interactive-primary: #4fd1c7;
   --theme-interactive-primary-hover: #38b2ac;
   --theme-interactive-primary-active: #319795;
   --theme-interactive-secondary: var(--color-gray-400);
   --theme-interactive-secondary-hover: var(--color-gray-300);
-  
+
   /* Dark Theme Status Colors */
   --theme-status-success: #34d399;
   --theme-status-warning: #fbbf24;
   --theme-status-error: #f87171;
   --theme-status-info: #60a5fa;
-  
+
   /* Dark Theme Focus and Selection */
   --theme-focus-ring: var(--theme-interactive-primary);
   --theme-selection-bg: rgba(79, 209, 199, 0.2);
@@ -2248,38 +2270,38 @@
    HIGH CONTRAST THEME
    ================================ */
 
-[data-theme="high-contrast"] {
+[data-theme='high-contrast'] {
   /* High Contrast Colors */
   --theme-bg-primary: var(--color-white);
   --theme-bg-secondary: var(--color-white);
   --theme-bg-tertiary: var(--color-white);
   --theme-bg-accent: var(--color-white);
-  
+
   --theme-text-primary: var(--color-black);
   --theme-text-secondary: var(--color-black);
   --theme-text-tertiary: var(--color-black);
   --theme-text-muted: var(--color-black);
   --theme-text-inverse: var(--color-white);
-  
+
   --theme-border-primary: var(--color-black);
   --theme-border-secondary: var(--color-black);
   --theme-border-accent: var(--color-black);
-  
+
   --theme-surface-elevated: var(--color-white);
   --theme-surface-overlay: rgba(0, 0, 0, 0.9);
   --theme-surface-disabled: var(--color-gray-300);
-  
+
   --theme-interactive-primary: var(--color-black);
   --theme-interactive-primary-hover: var(--color-black);
   --theme-interactive-primary-active: var(--color-black);
   --theme-interactive-secondary: var(--color-black);
   --theme-interactive-secondary-hover: var(--color-black);
-  
+
   --theme-status-success: var(--color-black);
   --theme-status-warning: var(--color-black);
   --theme-status-error: var(--color-black);
   --theme-status-info: var(--color-black);
-  
+
   --theme-focus-ring: var(--color-black);
   --theme-selection-bg: var(--color-gray-300);
   --theme-selection-text: var(--color-black);
@@ -2289,38 +2311,38 @@
    DARK HIGH CONTRAST THEME
    ================================ */
 
-[data-theme="dark-high-contrast"] {
+[data-theme='dark-high-contrast'] {
   /* Dark High Contrast Colors */
   --theme-bg-primary: var(--color-black);
   --theme-bg-secondary: var(--color-black);
   --theme-bg-tertiary: var(--color-black);
   --theme-bg-accent: var(--color-black);
-  
+
   --theme-text-primary: var(--color-white);
   --theme-text-secondary: var(--color-white);
   --theme-text-tertiary: var(--color-white);
   --theme-text-muted: var(--color-white);
   --theme-text-inverse: var(--color-black);
-  
+
   --theme-border-primary: var(--color-white);
   --theme-border-secondary: var(--color-white);
   --theme-border-accent: var(--color-white);
-  
+
   --theme-surface-elevated: var(--color-black);
   --theme-surface-overlay: rgba(255, 255, 255, 0.9);
   --theme-surface-disabled: var(--color-gray-700);
-  
+
   --theme-interactive-primary: var(--color-white);
   --theme-interactive-primary-hover: var(--color-white);
   --theme-interactive-primary-active: var(--color-white);
   --theme-interactive-secondary: var(--color-white);
   --theme-interactive-secondary-hover: var(--color-white);
-  
+
   --theme-status-success: var(--color-white);
   --theme-status-warning: var(--color-white);
   --theme-status-error: var(--color-white);
   --theme-status-info: var(--color-white);
-  
+
   --theme-focus-ring: var(--color-white);
   --theme-selection-bg: var(--color-gray-700);
   --theme-selection-text: var(--color-white);
@@ -2371,32 +2393,32 @@
     --theme-bg-secondary: var(--color-gray-800);
     --theme-bg-tertiary: var(--color-gray-700);
     --theme-bg-accent: var(--color-gray-600);
-    
+
     --theme-text-primary: var(--color-gray-100);
     --theme-text-secondary: var(--color-gray-300);
     --theme-text-tertiary: var(--color-gray-400);
     --theme-text-muted: var(--color-gray-500);
     --theme-text-inverse: var(--color-gray-900);
-    
+
     --theme-border-primary: var(--color-gray-700);
     --theme-border-secondary: var(--color-gray-600);
     --theme-border-accent: var(--color-gray-500);
-    
+
     --theme-surface-elevated: var(--color-gray-800);
     --theme-surface-overlay: rgba(0, 0, 0, 0.8);
     --theme-surface-disabled: var(--color-gray-800);
-    
+
     --theme-interactive-primary: #4fd1c7;
     --theme-interactive-primary-hover: #38b2ac;
     --theme-interactive-primary-active: #319795;
     --theme-interactive-secondary: var(--color-gray-400);
     --theme-interactive-secondary-hover: var(--color-gray-300);
-    
+
     --theme-status-success: #34d399;
     --theme-status-warning: #fbbf24;
     --theme-status-error: #f87171;
     --theme-status-info: #60a5fa;
-    
+
     --theme-focus-ring: var(--theme-interactive-primary);
     --theme-selection-bg: rgba(79, 209, 199, 0.2);
     --theme-selection-text: var(--theme-text-primary);
@@ -2410,14 +2432,14 @@
     --theme-border-primary: var(--color-black);
     --theme-border-secondary: var(--color-black);
     --theme-border-accent: var(--color-black);
-    
+
     --theme-text-primary: var(--color-black);
     --theme-text-secondary: var(--color-black);
-    
+
     --theme-interactive-primary: var(--color-black);
     --theme-interactive-primary-hover: var(--color-black);
     --theme-interactive-primary-active: var(--color-black);
-    
+
     --theme-focus-ring: var(--color-black);
   }
 }
@@ -2430,32 +2452,32 @@
     --theme-bg-secondary: var(--color-black);
     --theme-bg-tertiary: var(--color-black);
     --theme-bg-accent: var(--color-black);
-    
+
     --theme-text-primary: var(--color-white);
     --theme-text-secondary: var(--color-white);
     --theme-text-tertiary: var(--color-white);
     --theme-text-muted: var(--color-white);
     --theme-text-inverse: var(--color-black);
-    
+
     --theme-border-primary: var(--color-white);
     --theme-border-secondary: var(--color-white);
     --theme-border-accent: var(--color-white);
-    
+
     --theme-surface-elevated: var(--color-black);
     --theme-surface-overlay: rgba(255, 255, 255, 0.9);
     --theme-surface-disabled: var(--color-gray-700);
-    
+
     --theme-interactive-primary: var(--color-white);
     --theme-interactive-primary-hover: var(--color-white);
     --theme-interactive-primary-active: var(--color-white);
     --theme-interactive-secondary: var(--color-white);
     --theme-interactive-secondary-hover: var(--color-white);
-    
+
     --theme-status-success: var(--color-white);
     --theme-status-warning: var(--color-white);
     --theme-status-error: var(--color-white);
     --theme-status-info: var(--color-white);
-    
+
     --theme-focus-ring: var(--color-white);
     --theme-selection-bg: var(--color-gray-700);
     --theme-selection-text: var(--color-white);
@@ -2579,7 +2601,6 @@
   line-height: var(--line-height-text);
   font-size: var(--font-size-text-mobile);
 }
-
 
 /* Responsive Typography - Tablet */
 @media (min-width: 768px) {

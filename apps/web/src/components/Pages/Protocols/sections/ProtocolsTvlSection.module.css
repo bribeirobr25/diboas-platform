@@ -57,9 +57,9 @@
 }
 
 /* Dark theme overrides */
-:global([data-theme="dark"]) .title,
-:global([data-theme="dark"]) .paragraph,
-:global([data-theme="dark"]) .context,
-:global([data-theme="dark"]) .source {
+:global([data-theme='dark']) .title,
+:global([data-theme='dark']) .paragraph,
+:global([data-theme='dark']) .context,
+:global([data-theme='dark']) .source {
   color: var(--color-white);
 }

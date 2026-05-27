@@ -42,11 +42,15 @@ export interface CurrencyInputProps {
  */
 function getCurrencySymbol(currency: string): string {
   switch (currency) {
-    case 'EUR': return '€';
-    case 'BRL': return 'R$';
-    case 'GBP': return '£';
+    case 'EUR':
+      return '€';
+    case 'BRL':
+      return 'R$';
+    case 'GBP':
+      return '£';
     case 'USD':
-    default: return '$';
+    default:
+      return '$';
   }
 }
 
@@ -75,14 +79,20 @@ export function CurrencyInput({
   const effectiveSliderMax = sliderMax ?? max;
   const effectiveSliderStep = sliderStep ?? step;
 
-  const handleChange = useCallback((newValue: number) => {
-    const clamped = Math.min(Math.max(newValue, min), max);
-    onChange(clamped);
-  }, [onChange, min, max]);
+  const handleChange = useCallback(
+    (newValue: number) => {
+      const clamped = Math.min(Math.max(newValue, min), max);
+      onChange(clamped);
+    },
+    [onChange, min, max]
+  );
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(Number(e.target.value));
-  }, [handleChange]);
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange(Number(e.target.value));
+    },
+    [handleChange]
+  );
 
   return (
     <div className={`${styles.inputGroup} ${className}`}>

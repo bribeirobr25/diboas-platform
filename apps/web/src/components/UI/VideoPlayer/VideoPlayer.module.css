@@ -47,7 +47,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .playIcon { transition: none; }
+  .playIcon {
+    transition: none;
+  }
 }
 
 .video {

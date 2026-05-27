@@ -20,6 +20,7 @@
     "amountHelp2010": "How much you held in cash back then",
     "yearsLabel": "Years from now",
     "yearsHelp": "Inflation: ~{rate}% / year",
+    "yearsTooltip": "For horizons up to 2 years we use the current year-over-year inflation rate; beyond 2 years we use a 5-year average to smooth short-term spikes.",
     "countryLabel": "Country",
     "countryHelp": "Affects the inflation rate used",
     "countryOptions": {

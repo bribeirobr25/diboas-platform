@@ -28,13 +28,13 @@ import { errorReportingService } from '@/lib/errors/ErrorReportingService';
  * design system's neutral-950 / neutral-50 / semantic-error / etc.
  */
 const TOKENS = {
-  bgPrimary:    '#0a0a0a', // var(--color-neutral-950)
-  textPrimary:  '#ffffff', // var(--color-white)
-  textMuted:    '#a1a1aa', // var(--color-neutral-400)
-  textFaint:    '#71717a', // var(--color-neutral-500)
-  errorAccent:  '#ef4444', // var(--color-semantic-error)
-  ctaBg:        '#3b82f6', // var(--color-semantic-info)
-  borderMuted:  '#3f3f46', // var(--color-neutral-700)
+  bgPrimary: '#0a0a0a', // var(--color-neutral-950)
+  textPrimary: '#ffffff', // var(--color-white)
+  textMuted: '#a1a1aa', // var(--color-neutral-400)
+  textFaint: '#71717a', // var(--color-neutral-500)
+  errorAccent: '#ef4444', // var(--color-semantic-error)
+  ctaBg: '#3b82f6', // var(--color-semantic-info)
+  borderMuted: '#3f3f46', // var(--color-neutral-700)
 } as const;
 
 interface GlobalErrorProps {
@@ -91,8 +91,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                 lineHeight: '1.6',
               }}
             >
-              We apologize for the inconvenience. Our team has been notified and
-              is working to fix the issue.
+              We apologize for the inconvenience. Our team has been notified and is working to fix
+              the issue.
             </p>
             <div
               style={{

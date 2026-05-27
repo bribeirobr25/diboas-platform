@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 
 const [btc, macro, demand, rs] = signals.groups;
 
-function flat(group: typeof signals.groups[number]) {
+function flat(group: (typeof signals.groups)[number]) {
   return {
     ...group,
     title: group.title.en,

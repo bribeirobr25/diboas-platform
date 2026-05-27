@@ -12,14 +12,6 @@ export {
   handleRouteError,
 } from './routeHelpers';
 
-export {
-  isValidLocale,
-  isValidSource,
-  isValidTags,
-  isValidName,
-} from './validators';
+export { isValidLocale, isValidSource, isValidTags, isValidName } from './validators';
 
-export {
-  logRequestStart,
-  logRequestEnd,
-} from './requestLogger';
+export { logRequestStart, logRequestEnd } from './requestLogger';

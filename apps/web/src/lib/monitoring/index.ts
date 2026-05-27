@@ -5,12 +5,12 @@
  */
 
 // Type exports - only export what's actually used
-export type { 
-  ErrorEvent, 
-  PerformanceIssue, 
-  SecurityEvent, 
+export type {
+  ErrorEvent,
+  PerformanceIssue,
+  SecurityEvent,
   MonitoringConfig,
-  MonitoringService 
+  MonitoringService,
 } from './types';
 
 // Constant exports - only export what's needed

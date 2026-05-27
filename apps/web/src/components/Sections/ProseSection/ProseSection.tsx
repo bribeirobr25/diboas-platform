@@ -26,7 +26,7 @@ export const ProseSection = memo(function ProseSection({
   const { locale } = useLocale();
   const valuesByKey = useMemo(
     () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
-    [locale],
+    [locale]
   );
   const translated = useConfigTranslation(config, undefined, valuesByKey);
   const [imgFailed, setImgFailed] = useState(false);
@@ -53,7 +53,9 @@ export const ProseSection = memo(function ProseSection({
       ) : null}
 
       {translated.content.header && !(hasImage && isCenteredHeader) && (
-        <Heading className={`${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}>
+        <Heading
+          className={`${styles.header} ${hasImage ? `${styles.headerWithImage} ${styles.headerInline}` : ''}`}
+        >
           {translated.content.header}
         </Heading>
       )}
@@ -69,9 +71,7 @@ export const ProseSection = memo(function ProseSection({
           // Stable: paragraphs come from translation file, never reorder.
           // eslint-disable-next-line react/no-array-index-key
           <React.Fragment key={index}>
-            <p className={styles.paragraph}>
-              {renderedText}
-            </p>
+            <p className={styles.paragraph}>{renderedText}</p>
             {index === 0 && translated.content.earlyEmphasisLine ? (
               <p className={styles.emphasis}>{translated.content.earlyEmphasisLine}</p>
             ) : null}
@@ -105,28 +105,30 @@ export const ProseSection = memo(function ProseSection({
     );
 
     // Centered header renders above the two-column layout
-    const centeredHeader = isCenteredHeader && translated.content.header ? (
-      <>
-        {translated.content.transitionHook ? (
-          <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
-        ) : null}
-        <Heading className={`${styles.header} ${styles.headerCentered}`}>
-          {translated.content.header}
-        </Heading>
-      </>
-    ) : null;
+    const centeredHeader =
+      isCenteredHeader && translated.content.header ? (
+        <>
+          {translated.content.transitionHook ? (
+            <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+          ) : null}
+          <Heading className={`${styles.header} ${styles.headerCentered}`}>
+            {translated.content.header}
+          </Heading>
+        </>
+      ) : null;
 
     // Standalone header for mobile reorder (title → image → text) — only when not centered
-    const standaloneHeader = !isCenteredHeader && translated.content.header ? (
-      <div className={styles.headerStandalone}>
-        {translated.content.transitionHook ? (
-          <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
-        ) : null}
-        <Heading className={`${styles.header} ${styles.headerWithImage}`}>
-          {translated.content.header}
-        </Heading>
-      </div>
-    ) : null;
+    const standaloneHeader =
+      !isCenteredHeader && translated.content.header ? (
+        <div className={styles.headerStandalone}>
+          {translated.content.transitionHook ? (
+            <p className={styles.transitionHook}>{translated.content.transitionHook}</p>
+          ) : null}
+          <Heading className={`${styles.header} ${styles.headerWithImage}`}>
+            {translated.content.header}
+          </Heading>
+        </div>
+      ) : null;
 
     return (
       <SectionContainer

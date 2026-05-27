@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { projectCardFeeSavings } from '../cardFees';
+import { projectCardFeeSavings } from '../calculator';
 
 describe('projectCardFeeSavings', () => {
   it('should compute monthly and annual fees from volume × rate', () => {

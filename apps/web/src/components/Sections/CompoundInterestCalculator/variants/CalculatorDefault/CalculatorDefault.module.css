@@ -233,10 +233,18 @@
   border-radius: 2px;
 }
 
-.legendSwatch[data-scenario="bank"]         { background: var(--color-slate-500); }
-.legendSwatch[data-scenario="conservative"] { background: var(--color-teal-300); }
-.legendSwatch[data-scenario="historical"]   { background: var(--color-teal-500); }
-.legendSwatch[data-scenario="optimistic"]   { background: var(--color-teal-700); }
+.legendSwatch[data-scenario='bank'] {
+  background: var(--color-slate-500);
+}
+.legendSwatch[data-scenario='conservative'] {
+  background: var(--color-teal-300);
+}
+.legendSwatch[data-scenario='historical'] {
+  background: var(--color-teal-500);
+}
+.legendSwatch[data-scenario='optimistic'] {
+  background: var(--color-teal-700);
+}
 
 .legendLabel {
   color: var(--color-slate-700);

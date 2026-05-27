@@ -128,7 +128,9 @@ export const AllSizes: Story = {
         <CarouselDots totalSlides={5} currentIndex={2} size="sm" onDotClick={() => {}} />
       </div>
       <div>
-        <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem', color: '#666' }}>Medium (default)</p>
+        <p style={{ marginBottom: '0.5rem', fontSize: '0.875rem', color: '#666' }}>
+          Medium (default)
+        </p>
         <CarouselDots totalSlides={5} currentIndex={2} size="md" onDotClick={() => {}} />
       </div>
       <div>

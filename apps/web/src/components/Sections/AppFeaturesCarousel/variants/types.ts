@@ -1,6 +1,6 @@
 /**
  * AppFeaturesCarousel Variant Types
- * 
+ *
  * Domain-Driven Design: Clear type definitions for app features carousel variants
  * Service Agnostic Abstraction: Decoupled interfaces for different implementations
  * Type Safety: Comprehensive TypeScript interfaces
@@ -38,22 +38,22 @@ export interface AppFeaturesCarouselVariantProps {
    * Autoplay controls
    */
   autoPlay?: boolean;
-  
+
   /**
    * Navigation handlers
    */
   onNavigate?: (direction: 'prev' | 'next') => void;
-  
+
   /**
    * Slide change handler
    */
   onSlideChange?: (slideIndex: number) => void;
-  
+
   /**
    * CTA click handler
    */
   onCTAClick?: (slideId: string, ctaHref: string) => void;
-  
+
   /**
    * Play/pause handler
    */

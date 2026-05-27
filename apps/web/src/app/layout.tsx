@@ -1,18 +1,18 @@
-import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
-import { Inter, Geist } from "next/font/google";
+import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
+import { Inter, Geist } from 'next/font/google';
 import { BRAND_CONFIG } from '@/config/brand';
 import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
 import { MonitoringInit } from '@/components/Performance/MonitoringInit';
 import { PostHogProvider, GoogleAnalyticsLoader } from '@/components/Providers';
-import "./globals.css";
+import './globals.css';
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+  variable: '--font-inter',
+  subsets: ['latin'],
   display: 'swap',
   preload: true,
   adjustFontFallback: true,
@@ -20,8 +20,8 @@ const inter = Inter({
 });
 
 const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
+  variable: '--font-geist',
+  subsets: ['latin'],
   display: 'swap',
   preload: true,
   fallback: ['system-ui', 'arial'],
@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: {
     template: `${UI_LAYOUT_CONSTANTS.TITLE_TEMPLATE} | ${BRAND_CONFIG.NAME}`,
-    default: `${BRAND_CONFIG.NAME} - ${BRAND_CONFIG.TAGLINE}`
+    default: `${BRAND_CONFIG.NAME} - ${BRAND_CONFIG.TAGLINE}`,
   },
   // V2 (audit/2026-05-08 visual review): the root-level `description`
   // here was rendering as a SECOND `<meta name="description">` tag in
@@ -53,9 +53,7 @@ export const metadata: Metadata = {
   // description: BRAND_CONFIG.DESCRIPTION,
   manifest: '/manifest.json',
   icons: {
-    icon: [
-      { url: '/favicon.avif', type: 'image/avif' }
-    ],
+    icon: [{ url: '/favicon.avif', type: 'image/avif' }],
     shortcut: '/favicon.avif',
     apple: '/assets/logos/logo-icon.avif',
   },
@@ -96,7 +94,11 @@ export default async function RootLayout({
         {/* Google Fonts removed for GDPR compliance - using next/font/google self-hosted */}
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://region1.google-analytics.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://region1.google-analytics.com"
+          crossOrigin="anonymous"
+        />
         <link rel="dns-prefetch" href="https://diboas.com" />
         <link rel="dns-prefetch" href="https://cdn.diboas.com" />
         <script
@@ -109,8 +111,8 @@ export default async function RootLayout({
               '@type': 'Organization',
               name: 'diBoaS',
               url: 'https://diboas.com',
-              logo: 'https://diboas.com/assets/logos/logo-icon.avif'
-            })
+              logo: 'https://diboas.com/assets/logos/logo-icon.avif',
+            }),
           }}
         />
         {/* Google Analytics 4 with Consent Mode */}

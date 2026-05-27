@@ -1,6 +1,6 @@
 /**
  * Performance Service Implementation
- * 
+ *
  * Service Agnostic Abstraction: Clean performance monitoring layer
  * Error Handling & Recovery: Resilient performance tracking
  * Monitoring & Observability: Real-time performance insights
@@ -31,7 +31,7 @@ const PERFORMANCE_BUDGETS: PerformanceBudget[] = [
   { metric: 'CLS', budget: 0.1, warning: 0.05, isHard: true },
   { metric: 'TTFB', budget: 600, warning: 400, isHard: false },
   { metric: 'INP', budget: 200, warning: 150, isHard: false },
-  
+
   // Custom performance budgets
   { metric: 'bundle-size', budget: 500000, warning: 400000, isHard: true }, // 500KB
   { metric: 'image-load-time', budget: 3000, warning: 2000, isHard: false },
@@ -52,13 +52,13 @@ export class PerformanceMetricsService implements PerformanceDomainService {
   private readonly metrics: Map<string, PerformanceMetric[]> = new Map();
   private readonly eventBus: ((event: PerformanceEvent) => void)[] = [];
   private readonly budgets: PerformanceBudget[] = PERFORMANCE_BUDGETS;
-  
+
   // Concurrency Prevention: Mutex for metric storage
   private readonly metricLock = new Set<string>();
 
   constructor() {
     // Initialize metric storage
-    this.budgets.forEach(budget => {
+    this.budgets.forEach((budget) => {
       this.metrics.set(budget.metric, []);
     });
   }
@@ -71,28 +71,27 @@ export class PerformanceMetricsService implements PerformanceDomainService {
   public async trackWebVital(metric: WebVitalMetric): Promise<void> {
     try {
       await this.trackMetricSafely(metric);
-      
+
       // Check for alerts
       const alert = await this.createAlert(metric);
       if (alert) {
         this.emitEvent({
           type: 'alert-triggered',
           timestamp: new Date(),
-          data: { alert, metric: metric.name }
+          data: { alert, metric: metric.name },
         });
       }
 
       this.emitEvent({
         type: 'metric-tracked',
         timestamp: new Date(),
-        data: { 
-          metric: metric.name, 
-          value: metric.value, 
+        data: {
+          metric: metric.name,
+          value: metric.value,
           rating: metric.rating,
-          url: metric.url 
-        }
+          url: metric.url,
+        },
       });
-
     } catch (error) {
       throw new PerformanceTrackingError(
         `Failed to track Web Vital ${metric.name}: ${error instanceof Error ? error.message : 'Unknown error'}`,
@@ -104,13 +103,12 @@ export class PerformanceMetricsService implements PerformanceDomainService {
   public async trackCustomMetric(metric: PerformanceMetric): Promise<void> {
     try {
       await this.trackMetricSafely(metric);
-      
+
       this.emitEvent({
         type: 'metric-tracked',
         timestamp: new Date(),
-        data: { metric: metric.name, value: metric.value, url: metric.url }
+        data: { metric: metric.name, value: metric.value, url: metric.url },
       });
-
     } catch (error) {
       throw new PerformanceTrackingError(
         `Failed to track custom metric ${metric.name}: ${error instanceof Error ? error.message : 'Unknown error'}`,
@@ -125,7 +123,7 @@ export class PerformanceMetricsService implements PerformanceDomainService {
       const warnings: PerformanceBudgetViolation[] = [];
 
       for (const metric of metrics) {
-        const budget = this.budgets.find(b => b.metric === metric.name);
+        const budget = this.budgets.find((b) => b.metric === metric.name);
         if (!budget) continue;
 
         // Check budget violations
@@ -135,7 +133,7 @@ export class PerformanceMetricsService implements PerformanceDomainService {
             budgetValue: budget.budget,
             actualValue: metric.value,
             severity: 'error',
-            message: `${metric.name} (${metric.value}) exceeds budget (${budget.budget})`
+            message: `${metric.name} (${metric.value}) exceeds budget (${budget.budget})`,
           });
         } else if (metric.value > budget.warning) {
           warnings.push({
@@ -143,7 +141,7 @@ export class PerformanceMetricsService implements PerformanceDomainService {
             budgetValue: budget.warning,
             actualValue: metric.value,
             severity: 'warning',
-            message: `${metric.name} (${metric.value}) exceeds warning threshold (${budget.warning})`
+            message: `${metric.name} (${metric.value}) exceeds warning threshold (${budget.warning})`,
           });
         }
       }
@@ -151,13 +149,16 @@ export class PerformanceMetricsService implements PerformanceDomainService {
       // Calculate score (0-100)
       const totalBudgets = this.budgets.length;
       const violatedBudgets = violations.length;
-      const score = Math.max(0, Math.round(((totalBudgets - violatedBudgets) / totalBudgets) * 100));
+      const score = Math.max(
+        0,
+        Math.round(((totalBudgets - violatedBudgets) / totalBudgets) * 100)
+      );
 
       const result: PerformanceBudgetResult = {
         passed: violations.length === 0,
         violations,
         warnings,
-        score
+        score,
       };
 
       // Emit budget validation event
@@ -165,7 +166,7 @@ export class PerformanceMetricsService implements PerformanceDomainService {
         this.emitEvent({
           type: 'budget-violated',
           timestamp: new Date(),
-          data: { violations: violations.length, warnings: warnings.length, score }
+          data: { violations: violations.length, warnings: warnings.length, score },
         });
       }
 
@@ -182,18 +183,18 @@ export class PerformanceMetricsService implements PerformanceDomainService {
     try {
       const now = new Date();
       const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-      
+
       // Collect all metrics from the last 24 hours
       const allMetrics: PerformanceMetric[] = [];
       const webVitals: WebVitalMetric[] = [];
-      
+
       for (const [metricName, metricArray] of this.metrics.entries()) {
-        const recentMetrics = metricArray.filter(m => m.timestamp >= oneDayAgo);
+        const recentMetrics = metricArray.filter((m) => m.timestamp >= oneDayAgo);
         allMetrics.push(...recentMetrics);
-        
+
         // Separate Web Vitals
         if (['FCP', 'LCP', 'FID', 'CLS', 'TTFB', 'INP'].includes(metricName)) {
-          webVitals.push(...recentMetrics as WebVitalMetric[]);
+          webVitals.push(...(recentMetrics as WebVitalMetric[]));
         }
       }
 
@@ -209,17 +210,17 @@ export class PerformanceMetricsService implements PerformanceDomainService {
         webVitals,
         budgetStatus,
         trends: [], // POST-LAUNCH: Requires database for historical metrics storage
-        recommendations
+        recommendations,
       };
 
       this.emitEvent({
         type: 'report-generated',
         timestamp: new Date(),
-        data: { 
-          metricsCount: allMetrics.length, 
+        data: {
+          metricsCount: allMetrics.length,
           score: budgetStatus.score,
-          violations: budgetStatus.violations.length 
-        }
+          violations: budgetStatus.violations.length,
+        },
       });
 
       return report;
@@ -253,12 +254,14 @@ export class PerformanceMetricsService implements PerformanceDomainService {
         currentValue: metric.value,
         severity,
         timestamp: new Date(),
-        url: metric.url
+        url: metric.url,
       };
 
       return alert;
     } catch (error) {
-      Logger.error('Failed to create performance alert:', { error: error instanceof Error ? error.message : String(error) });
+      Logger.error('Failed to create performance alert:', {
+        error: error instanceof Error ? error.message : String(error),
+      });
       return null;
     }
   }
@@ -268,7 +271,7 @@ export class PerformanceMetricsService implements PerformanceDomainService {
   // Concurrency Prevention: Safe metric tracking with locking
   private async trackMetricSafely(metric: PerformanceMetric): Promise<void> {
     const lockKey = `${metric.name}-${metric.url}`;
-    
+
     // Prevent concurrent writes to the same metric
     if (this.metricLock.has(lockKey)) {
       throw new Error(`Concurrent metric tracking detected for ${lockKey}`);
@@ -276,24 +279,26 @@ export class PerformanceMetricsService implements PerformanceDomainService {
 
     try {
       this.metricLock.add(lockKey);
-      
+
       // Store metric
       const metricArray = this.metrics.get(metric.name) || [];
       metricArray.push(metric);
-      
+
       // Keep only last 1000 metrics per type for memory management
       if (metricArray.length > 1000) {
         metricArray.splice(0, metricArray.length - 1000);
       }
-      
+
       this.metrics.set(metric.name, metricArray);
-      
     } finally {
       this.metricLock.delete(lockKey);
     }
   }
 
-  private generateRecommendations(budgetStatus: PerformanceBudgetResult, webVitals: WebVitalMetric[]): string[] {
+  private generateRecommendations(
+    budgetStatus: PerformanceBudgetResult,
+    webVitals: WebVitalMetric[]
+  ): string[] {
     const recommendations: string[] = [];
 
     if (budgetStatus.violations.length > 0) {
@@ -301,24 +306,28 @@ export class PerformanceMetricsService implements PerformanceDomainService {
     }
 
     // Web Vitals specific recommendations
-    const poorWebVitals = webVitals.filter(wv => wv.rating === 'poor');
+    const poorWebVitals = webVitals.filter((wv) => wv.rating === 'poor');
     if (poorWebVitals.length > 0) {
       recommendations.push('Some Core Web Vitals need improvement for better user experience.');
     }
 
     if (budgetStatus.score < 80) {
-      recommendations.push('Overall performance score is below 80%. Consider optimization strategies.');
+      recommendations.push(
+        'Overall performance score is below 80%. Consider optimization strategies.'
+      );
     }
 
     return recommendations;
   }
 
   private emitEvent(event: PerformanceEvent): void {
-    this.eventBus.forEach(handler => {
+    this.eventBus.forEach((handler) => {
       try {
         handler(event);
       } catch (error) {
-        Logger.error('Performance event handler failed:', { error: error instanceof Error ? error.message : String(error) });
+        Logger.error('Performance event handler failed:', {
+          error: error instanceof Error ? error.message : String(error),
+        });
       }
     });
   }

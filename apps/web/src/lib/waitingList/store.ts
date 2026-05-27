@@ -16,12 +16,7 @@
  * barrel preserves the original public surface unchanged.
  */
 
-export type {
-  WaitlistEntry,
-  WaitlistTier,
-  WaitlistSource,
-  AddEntryInput,
-} from './store/types';
+export type { WaitlistEntry, WaitlistTier, WaitlistSource, AddEntryInput } from './store/types';
 
 export {
   getAllEntries,

@@ -11,10 +11,15 @@
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import { projectCardFeeSavings } from '@/lib/business';
+import { projectCardFeeSavings } from '@/lib/card-fees';
 import { type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
-import { CARD_FEES_DEFAULTS } from '@/lib/tools';
+import {
+  CARD_FEES_DEFAULTS,
+  CARD_FEES_PROCESSOR_FEE_PCT_BOUNDS,
+  clampInput,
+  exceedsSoftMaxWarning,
+} from '@/lib/tools';
 import styles from './CardFeesCalculator.module.css';
 
 interface FormState {
@@ -37,11 +42,10 @@ export function CardFeesCalculator() {
     () => ({
       monthlyVolume: CARD_FEES_DEFAULTS.monthlyVolume[localeKey],
       // `* 100` produces 2.9000000000000004 due to float precision; round to 2dp.
-      processorFeePct:
-        Math.round(CARD_FEES_DEFAULTS.processorFeeRate[localeKey] * 10000) / 100,
+      processorFeePct: Math.round(CARD_FEES_DEFAULTS.processorFeeRate[localeKey] * 10000) / 100,
       avgTransactionAmount: CARD_FEES_DEFAULTS.avgTransactionAmount[localeKey],
     }),
-    [localeKey],
+    [localeKey]
   );
   const [form, setForm] = useState<FormState>(initial);
 
@@ -50,12 +54,24 @@ export function CardFeesCalculator() {
     return projectCardFeeSavings(
       form.monthlyVolume,
       form.processorFeePct / 100,
-      form.avgTransactionAmount > 0 ? form.avgTransactionAmount : undefined,
+      form.avgTransactionAmount > 0 ? form.avgTransactionAmount : undefined
     );
   }, [form]);
 
   const handleChange = (field: keyof FormState, value: number) =>
-    setForm((prev) => ({ ...prev, [field]: clamp(value, 0, 1_000_000_000) }));
+    setForm((prev) => {
+      if (field === 'processorFeePct') {
+        // C34 close: cap at 20% matches UI <input max>. C35 soft warning
+        // surfaces below the field for values > 5% (catches `29` for `2.9`).
+        return { ...prev, processorFeePct: clampInput(value, CARD_FEES_PROCESSOR_FEE_PCT_BOUNDS) };
+      }
+      return { ...prev, [field]: clamp(value, 0, 1_000_000_000) };
+    });
+
+  const showFeeWarning = exceedsSoftMaxWarning(
+    form.processorFeePct,
+    CARD_FEES_PROCESSOR_FEE_PCT_BOUNDS
+  );
 
   return (
     <div className={styles.calculator}>
@@ -84,14 +100,25 @@ export function CardFeesCalculator() {
             id={`${baseId}-fee`}
             type="number"
             inputMode="decimal"
-            min={0}
-            max={20}
+            min={CARD_FEES_PROCESSOR_FEE_PCT_BOUNDS.min}
+            max={CARD_FEES_PROCESSOR_FEE_PCT_BOUNDS.max}
             step={0.1}
             value={form.processorFeePct}
             onChange={(e) => handleChange('processorFeePct', Number(e.target.value))}
+            aria-describedby={showFeeWarning ? `${baseId}-fee-warning` : undefined}
             className={styles.numberInput}
           />
           <span className={styles.help}>{t('inputs.processorFeeHelp')}</span>
+          {showFeeWarning && (
+            <span
+              id={`${baseId}-fee-warning`}
+              className={styles.warning}
+              role="status"
+              aria-live="polite"
+            >
+              {t('warnings.feeTooHigh')}
+            </span>
+          )}
         </div>
         <div className={styles.field}>
           <label htmlFor={`${baseId}-avg`} className={styles.label}>

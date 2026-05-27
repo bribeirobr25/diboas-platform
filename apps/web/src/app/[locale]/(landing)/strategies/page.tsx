@@ -14,10 +14,7 @@ import { StrategyFeeTable } from '@/components/Pages/StrategyFeeTable';
 import { StrategiesHowToChoose } from '@/components/Pages/StrategiesHowToChoose';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { StrategiesHeroSection } from '@/components/Pages/StrategiesClientSections';
-import {
-  STRATEGIES_I18N_PREFIX,
-  STRATEGIES_FAQ_CONFIG,
-} from '@/config/landing-strategies';
+import { STRATEGIES_I18N_PREFIX, STRATEGIES_FAQ_CONFIG } from '@/config/landing-strategies';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
@@ -30,14 +27,16 @@ export const dynamic = 'auto';
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
 
   // Load translations for metadata
   const messages = await loadMessages(validLocale, 'strategies');
   const seo = messages?.seo || {};
 
   const title = seo.title || 'Investment Strategies | diBoaS';
-  const description = seo.description || '10 strategies. Different goals. Different timelines. Different risk levels.';
+  const description =
+    seo.description ||
+    '10 strategies. Different goals. Different timelines. Different risk levels.';
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -69,9 +68,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     alternates: {
       canonical: `${siteUrl}/${validLocale}/strategies`,
       languages: {
-        'en': `${siteUrl}/en/strategies`,
-        'de': `${siteUrl}/de/strategies`,
-        'es': `${siteUrl}/es/strategies`,
+        en: `${siteUrl}/en/strategies`,
+        de: `${siteUrl}/de/strategies`,
+        es: `${siteUrl}/es/strategies`,
         'pt-br': `${siteUrl}/pt-BR/strategies`,
         'x-default': `${siteUrl}/en/strategies`,
       },
@@ -110,14 +109,18 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
   // Generate structured data
   const organizationData = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS Investment Strategies',
-    description: '10 investment strategies from conservative to aggressive for different financial goals',
-    category: 'Investment Services'
+    description:
+      '10 investment strategies from conservative to aggressive for different financial goals',
+    category: 'Investment Services',
   });
 
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
-    { name: 'Home', url: '/' },
-    { name: 'Strategies', url: '/strategies' }
-  ], locale);
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
+    [
+      { name: 'Home', url: '/' },
+      { name: 'Strategies', url: '/strategies' },
+    ],
+    locale
+  );
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
@@ -131,9 +134,18 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
         <StrategiesHeroSection />
 
         {/* Section 2: Strategy Matrix */}
-        <SectionErrorBoundary sectionId="matrix-section-strategies" sectionType="StrategyMatrix" enableReporting context={{ page: 'strategies' }}>
+        <SectionErrorBoundary
+          sectionId="matrix-section-strategies"
+          sectionType="StrategyMatrix"
+          enableReporting
+          context={{ page: 'strategies' }}
+        >
           <div data-section-id="matrix-section-strategies">
-            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+            <SectionContainer
+              variant="standard"
+              padding="standard"
+              backgroundColor="var(--section-bg-neutral)"
+            >
               <StrategiesMatrixSection />
             </SectionContainer>
           </div>
@@ -142,34 +154,66 @@ export default async function StrategiesPage({ params }: LocalePageProps) {
         {/* Strategy cards section hidden — awaiting redesign */}
 
         {/* Section 4: Protocol Table */}
-        <SectionErrorBoundary sectionId="protocols-section-strategies" sectionType="ProtocolTable" enableReporting context={{ page: 'strategies' }}>
+        <SectionErrorBoundary
+          sectionId="protocols-section-strategies"
+          sectionType="ProtocolTable"
+          enableReporting
+          context={{ page: 'strategies' }}
+        >
           <div data-section-id="protocols-section-strategies">
-            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--section-bg-neutral)">
+            <SectionContainer
+              variant="standard"
+              padding="standard"
+              backgroundColor="var(--section-bg-neutral)"
+            >
               <StrategiesProtocolTable />
             </SectionContainer>
           </div>
         </SectionErrorBoundary>
 
         {/* Section 5: Fee Table */}
-        <SectionErrorBoundary sectionId="fees-section-strategies" sectionType="FeeTable" enableReporting context={{ page: 'strategies' }}>
+        <SectionErrorBoundary
+          sectionId="fees-section-strategies"
+          sectionType="FeeTable"
+          enableReporting
+          context={{ page: 'strategies' }}
+        >
           <div id="fees" data-section-id="fees-section-strategies">
-            <SectionContainer variant="standard" padding="standard" backgroundColor="var(--bc-color-section-bg)">
+            <SectionContainer
+              variant="standard"
+              padding="standard"
+              backgroundColor="var(--bc-color-section-bg)"
+            >
               <StrategyFeeTable />
             </SectionContainer>
           </div>
         </SectionErrorBoundary>
 
         {/* Section 6: How to Choose */}
-        <SectionErrorBoundary sectionId="how-to-choose-section" sectionType="HowToChoose" enableReporting context={{ page: 'strategies' }}>
+        <SectionErrorBoundary
+          sectionId="how-to-choose-section"
+          sectionType="HowToChoose"
+          enableReporting
+          context={{ page: 'strategies' }}
+        >
           <div data-section-id="how-to-choose-section">
-            <SectionContainer variant="narrow" padding="standard" backgroundColor="var(--section-bg-neutral)">
+            <SectionContainer
+              variant="narrow"
+              padding="standard"
+              backgroundColor="var(--section-bg-neutral)"
+            >
               <StrategiesHowToChoose />
             </SectionContainer>
           </div>
         </SectionErrorBoundary>
 
         {/* Section 7: FAQ */}
-        <SectionErrorBoundary sectionId="faq-section-strategies" sectionType="FAQAccordion" enableReporting context={{ page: 'strategies' }}>
+        <SectionErrorBoundary
+          sectionId="faq-section-strategies"
+          sectionType="FAQAccordion"
+          enableReporting
+          context={{ page: 'strategies' }}
+        >
           <div id="faq" data-section-id="faq-section-strategies">
             <FAQAccordion config={STRATEGIES_FAQ_CONFIG} />
           </div>

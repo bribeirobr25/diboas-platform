@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 /**
  * diBoaS Brand Colors - Inlined for Turbopack compatibility
@@ -9,7 +9,7 @@ const diBoasColors = {
   brand: {
     logo: '#02c3cf',
     primary: '#14b8a6',
-    primaryDark: '#0d9488'
+    primaryDark: '#0d9488',
   },
   social: {
     whatsapp: '#25D366',
@@ -19,7 +19,7 @@ const diBoasColors = {
     facebook: '#1877F2',
     telegram: '#0088cc',
     copy: '#64748b',
-    download: '#0d9488'
+    download: '#0d9488',
   },
   primary: {
     50: '#f0fdfa',
@@ -31,7 +31,7 @@ const diBoasColors = {
     600: '#0d9488',
     700: '#0f766e',
     800: '#115e59',
-    900: '#134e4a'
+    900: '#134e4a',
   },
   secondary: {
     purple: {
@@ -44,7 +44,7 @@ const diBoasColors = {
       600: '#9333ea',
       700: '#7c3aed',
       800: '#6b21a8',
-      900: '#581c87'
+      900: '#581c87',
     },
     coral: {
       50: '#fef2f2',
@@ -56,8 +56,8 @@ const diBoasColors = {
       600: '#dc2626',
       700: '#b91c1c',
       800: '#991b1b',
-      900: '#7f1d1d'
-    }
+      900: '#7f1d1d',
+    },
   },
   neutral: {
     50: '#f8fafc',
@@ -69,33 +69,33 @@ const diBoasColors = {
     600: '#475569',
     700: '#334155',
     800: '#1e293b',
-    900: '#0f172a'
+    900: '#0f172a',
   },
   semantic: {
     success: '#10b981',
     warning: '#f59e0b',
     error: '#ef4444',
-    info: '#3b82f6'
-  }
+    info: '#3b82f6',
+  },
 } as const;
 
 export default {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/styles/**/*.css", // Include semantic CSS files
-    "../../packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/styles/**/*.css', // Include semantic CSS files
+    '../../packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       // Breakpoints aligned with design-tokens.css
       // Mobile: < 768px, Tablet: 768px-1023px, Desktop: >= 1024px
       screens: {
-        'sm': '640px',
-        'md': '1024px',  // Changed from 768px to 1024px to match --breakpoint-desktop
-        'lg': '1280px',  // Maps to --breakpoint-wide
-        'xl': '1440px',  // Maps to --breakpoint-ultra
+        sm: '640px',
+        md: '1024px', // Changed from 768px to 1024px to match --breakpoint-desktop
+        lg: '1280px', // Maps to --breakpoint-wide
+        xl: '1440px', // Maps to --breakpoint-ultra
         '2xl': '1536px',
       },
       colors: {
@@ -105,20 +105,20 @@ export default {
         semantic: diBoasColors.semantic,
         brand: diBoasColors.brand,
         social: diBoasColors.social,
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         'logo-aqua': diBoasColors.brand.logo, // Reference from design tokens
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'hero': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'display': ['2.5rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
-        'heading': ['2rem', { lineHeight: '1.3' }],
-        'subheading': ['1.5rem', { lineHeight: '1.4' }],
-        'body': ['1rem', { lineHeight: '1.6' }],
-        'caption': ['0.875rem', { lineHeight: '1.5' }],
+        hero: ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        display: ['2.5rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        heading: ['2rem', { lineHeight: '1.3' }],
+        subheading: ['1.5rem', { lineHeight: '1.4' }],
+        body: ['1rem', { lineHeight: '1.6' }],
+        caption: ['0.875rem', { lineHeight: '1.5' }],
       },
       spacing: {
         '18': '4.5rem',
@@ -126,16 +126,16 @@ export default {
         '112': '28rem',
       },
       borderRadius: {
-        'xl': '1rem',
+        xl: '1rem',
         '2xl': '1.5rem',
         '3xl': '2rem',
       },
       boxShadow: {
-        'base': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-        'md': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        'xl': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-        'glow': '0 0 20px rgb(20 184 166 / 0.3)',
+        base: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+        md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+        glow: '0 0 20px rgb(20 184 166 / 0.3)',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out forwards',

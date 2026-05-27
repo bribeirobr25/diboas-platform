@@ -17,12 +17,8 @@ export function StrategyFeeTable() {
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
   return (
     <>
-      <h2 className={styles.sectionTitle}>
-        {t('fees.header')}
-      </h2>
-      <p className={styles.sectionSubtitle}>
-        {t('fees.intro')}
-      </p>
+      <h2 className={styles.sectionTitle}>{t('fees.header')}</h2>
+      <p className={styles.sectionSubtitle}>{t('fees.intro')}</p>
 
       <div className={styles.tableWrapper}>
         <table className={styles.feeTable}>
@@ -36,7 +32,9 @@ export function StrategyFeeTable() {
           <tbody>
             <tr className={styles.tableRow}>
               <td className={styles.feeTableCell}>{t('fees.table.invest.action')}</td>
-              <td className={`${styles.feeTableCell} ${styles.feeRowFree}`}>{t('fees.table.invest.fee')}</td>
+              <td className={`${styles.feeTableCell} ${styles.feeRowFree}`}>
+                {t('fees.table.invest.fee')}
+              </td>
               <td className={styles.feeTableCell}>{t('fees.table.invest.example')}</td>
             </tr>
             <tr className={styles.tableRowLast}>
@@ -48,13 +46,9 @@ export function StrategyFeeTable() {
         </table>
       </div>
 
-      <p className={styles.belowTable}>
-        {t('fees.belowTable')}
-      </p>
+      <p className={styles.belowTable}>{t('fees.belowTable')}</p>
 
-      <p className={styles.microText}>
-        {t('fees.microText')}
-      </p>
+      <p className={styles.microText}>{t('fees.microText')}</p>
     </>
   );
 }

@@ -15,11 +15,7 @@ export { AssetIcon } from './AssetIcon';
 export { PortfolioCard } from './PortfolioCard';
 export { WalletCard } from './WalletCard';
 export { ExportKeyModal } from './ExportKeyModal';
-export {
-  buildDepositSequence,
-  buildSendSequence,
-  buildBuySequence,
-} from './TransactionSequences';
+export { buildDepositSequence, buildSendSequence, buildBuySequence } from './TransactionSequences';
 export {
   truncateAddress,
   getWalletTokens,

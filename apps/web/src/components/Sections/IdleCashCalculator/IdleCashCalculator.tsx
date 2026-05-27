@@ -16,21 +16,14 @@
 import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
-import {
-  calculateLumpSum,
-  calculateWithCurrencyHedge,
-  marketDataService,
-  resolveHorizonMatchedDepreciation,
-  type SupportedLocale,
-} from '@/lib/market-data';
-import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
+import { marketDataService, type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
-import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
-import { IDLE_CASH_DEFAULTS } from '@/lib/tools';
+import { calculateIdleCashYield, IDLE_CASH_SCENARIO_USD_PERCENT } from '@/lib/idle-cash';
+import { IDLE_CASH_BANK_YIELD_PCT_BOUNDS, IDLE_CASH_DEFAULTS, clampInput } from '@/lib/tools';
 import { UsdEquivalentBadge } from '@/components/UI';
 import styles from './IdleCashCalculator.module.css';
 
-const CONSERVATIVE_RATE = SCENARIO_RATES.conservative; // 7
+const CONSERVATIVE_RATE = IDLE_CASH_SCENARIO_USD_PERCENT;
 
 interface FormState {
   idleCash: number;
@@ -50,10 +43,6 @@ export function IdleCashCalculator() {
 
   const snapshot = marketDataService.getSync();
   const defaultBankYieldPct = snapshot.rates.bankRates[localeKey]?.savings ?? 0.32;
-  // Phase D (TOOLS_IMPROVEMENT.md, 2026-05-23): horizon-matched depreciation
-  // resolved INSIDE the useMemo below (depends on form.years). Phase-7 NF1
-  // precedent: ComparisonTable.tsx:36-58.
-  const localeCurrency = LOCALE_CURRENCY[localeKey];
 
   const initial = useMemo<FormState>(
     () => ({
@@ -62,48 +51,32 @@ export function IdleCashCalculator() {
       // Round to 2dp to avoid float-precision artifacts in the input field.
       bankYieldPct: Math.round(defaultBankYieldPct * 100) / 100,
     }),
-    [localeKey, defaultBankYieldPct],
+    [localeKey, defaultBankYieldPct]
   );
   const [form, setForm] = useState<FormState>(initial);
 
-  const result = useMemo(() => {
-    if (form.idleCash <= 0 || form.years <= 0) return null;
-    // Phase D: horizon-matched depreciation matched to user's chosen years.
-    const depreciation = resolveHorizonMatchedDepreciation(snapshot, localeCurrency, form.years);
-    // Bank stays nominal in local currency (no hedge — bank pays in BRL/EUR/USD).
-    const bankFV = calculateLumpSum(
-      form.idleCash,
-      form.bankYieldPct / 100,
-      0,
-      form.years,
-    ).nominalFV;
-    // diBoaS uses canonical effective-rate hedge for non-USD locales.
-    const diboasFV =
-      depreciation > 0
-        ? calculateWithCurrencyHedge(
-            form.idleCash,
-            CONSERVATIVE_RATE / 100,
-            depreciation,
-            0,
-            form.years,
-          ).nominalFV
-        : calculateLumpSum(
-            form.idleCash,
-            CONSERVATIVE_RATE / 100,
-            0,
-            form.years,
-          ).nominalFV;
-    return {
-      bankFV,
-      bankGain: bankFV - form.idleCash,
-      diboasFV,
-      diboasGain: diboasFV - form.idleCash,
-      difference: diboasFV - bankFV,
-    };
-  }, [form, snapshot, localeCurrency]);
+  const result = useMemo(
+    () =>
+      calculateIdleCashYield(
+        {
+          idleCash: form.idleCash,
+          years: form.years,
+          bankYieldPct: form.bankYieldPct,
+          locale: localeKey,
+        },
+        snapshot
+      ),
+    [form, localeKey, snapshot]
+  );
 
   const handleChange = (field: keyof FormState, value: number) =>
-    setForm((prev) => ({ ...prev, [field]: clamp(value, 0, 1_000_000_000) }));
+    setForm((prev) => {
+      if (field === 'bankYieldPct') {
+        // C36 close: 0-50% real clamp matches UI <input max>.
+        return { ...prev, bankYieldPct: clampInput(value, IDLE_CASH_BANK_YIELD_PCT_BOUNDS) };
+      }
+      return { ...prev, [field]: clamp(value, 0, 1_000_000_000) };
+    });
 
   const currency = formatCurrency(form.idleCash, localeKey, { maximumFractionDigits: 0 });
 
@@ -126,7 +99,11 @@ export function IdleCashCalculator() {
           />
           <span className={styles.help}>
             {t('inputs.idleCashHelp')}
-            <UsdEquivalentBadge amount={form.idleCash} locale={localeKey} className={styles.usdEquivalent} />
+            <UsdEquivalentBadge
+              amount={form.idleCash}
+              locale={localeKey}
+              className={styles.usdEquivalent}
+            />
           </span>
         </div>
         <div className={styles.field}>
@@ -137,8 +114,8 @@ export function IdleCashCalculator() {
             id={`${baseId}-yield`}
             type="number"
             inputMode="decimal"
-            min={0}
-            max={50}
+            min={IDLE_CASH_BANK_YIELD_PCT_BOUNDS.min}
+            max={IDLE_CASH_BANK_YIELD_PCT_BOUNDS.max}
             step={0.1}
             value={form.bankYieldPct}
             onChange={(e) => handleChange('bankYieldPct', Number(e.target.value))}
@@ -188,14 +165,32 @@ export function IdleCashCalculator() {
               </p>
             </div>
           </div>
+          {/* C37 close (TOOLS_41_DEFECTS_FIX_PLAN.md §6, 2026-05-26): branch
+              the headline copy on `sign(difference)`. Positive: diBoaS wins.
+              Zero: bank matches diBoaS. Negative: bank wins on yield (e.g.
+              Brazilian CDI ~14% beats diBoaS conservative 7% + EUR hedge).
+              The math returns the actual signed value (no Math.abs); the
+              copy now reflects what the math says instead of always assuming
+              positive framing. */}
           <p className={styles.differenceHighlight}>
-            {t('output.differenceHighlight', {
-              cash: currency,
-              years: form.years,
-              difference: formatCurrency(result.difference, localeKey, {
-                maximumFractionDigits: 0,
-              }),
-            })}
+            {(() => {
+              const abs = Math.abs(result.difference);
+              const formattedDiff = formatCurrency(abs, localeKey, { maximumFractionDigits: 0 });
+              if (result.difference > 0) {
+                return t('output.differencePositive', {
+                  cash: currency,
+                  years: form.years,
+                  difference: formattedDiff,
+                });
+              }
+              if (result.difference === 0) {
+                return t('output.differenceZero', { years: form.years });
+              }
+              return t('output.differenceNegative', {
+                bankRate: form.bankYieldPct.toFixed(2),
+                years: form.years,
+              });
+            })()}
           </p>
         </>
       )}

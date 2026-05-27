@@ -43,8 +43,7 @@ const buttonVariants = cva(
 
 // DRY Principle: Comprehensive button interface
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   // Accessibility: Required for screen readers
   'aria-label'?: string;
   'aria-describedby'?: string;
@@ -68,7 +67,7 @@ export interface ButtonProps
 
 /**
  * Accessible Button Component
- * 
+ *
  * Follows WCAG 2.1 AA standards and includes:
  * - Keyboard navigation support
  * - Screen reader compatibility
@@ -77,27 +76,29 @@ export interface ButtonProps
  * - Analytics tracking
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({
-    className,
-    variant,
-    size,
-    trackable,
-    // asChild = false,
-    trackingEvent,
-    trackingProps,
-    utmSource,
-    utmMedium,
-    utmCampaign,
-    loading = false,
-    loadingText,
-    disabled,
-    onClick,
-    children,
-    'aria-label': ariaLabel,
-    'aria-describedby': ariaDescribedBy,
-    ...props
-  }, ref) => {
-
+  (
+    {
+      className,
+      variant,
+      size,
+      trackable,
+      // asChild = false,
+      trackingEvent,
+      trackingProps,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+      loading = false,
+      loadingText,
+      disabled,
+      onClick,
+      children,
+      'aria-label': ariaLabel,
+      'aria-describedby': ariaDescribedBy,
+      ...props
+    },
+    ref
+  ) => {
     // Analytics: Track button interactions with error handling
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (trackingEvent && typeof window !== 'undefined') {
@@ -128,7 +129,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // Only add onClick if we have tracking or an existing onClick handler
     const needsClickHandler = trackingEvent || onClick;
     const clickHandler = needsClickHandler ? handleClick : undefined;
-
 
     const Comp = 'button';
 

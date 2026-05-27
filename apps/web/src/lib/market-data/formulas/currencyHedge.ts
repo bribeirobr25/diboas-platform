@@ -22,6 +22,57 @@ import {
   MONTHS_PER_YEAR,
   type MonthlyContributionResult,
 } from './core';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
+
+// ---------------------------------------------------------------------------
+// C3 close (TOOLS_41_DEFECTS_FIX_PLAN.md §3.3, 2026-05-26): boundary clamp
+// for the effective-rate model. `annualToMonthlyRate()` throws when its input
+// is ≤ -1 (geometric monthly conversion is undefined past -100% APY). The
+// effective-rate formula `(1+usdYield)(1+d)−1` reaches that boundary only if
+// `d ≤ -1` (local currency appreciating ≥ 100%) — not reachable with current
+// data (BRL/EUR historical CAGR positive). But unguarded data refreshes
+// could in principle expose the formula to a pathological value.
+//
+// Option C from Phase 0 §0.4: clamp the effective rate to -0.99 AND emit a
+// structured observability event when the clamp activates. Honest failure
+// beats silent rewrite — the event makes the clamp auditable.
+// ---------------------------------------------------------------------------
+
+/** Floor for the effective rate. -0.99 = -99% APY (still finite-defined geometric). */
+export const EFFECTIVE_RATE_FLOOR = -0.99;
+
+/**
+ * Boundary clamp for the canonical effective-rate model. Exported so all
+ * hedge sites (compound engine `calculatorHedged.ts`, the bespoke-math lib
+ * orchestrators emergency-fund/time-to-target, the FV-shape and annuity-shape
+ * functions below) route through ONE clamp + one observability event — not
+ * three or five different inline guards.
+ *
+ * Per CTO-board v3 audit (2026-05-26): the original C3 implementation
+ * (2026-05-26 morning) only covered `calculateWithCurrencyHedge` and
+ * `calculateMonthlyWithCurrencyHedge`. The compound engine's inline hedge in
+ * `calculatorHedged.ts:hedgedScenarioRate`, plus the bespoke-math orchestrators,
+ * bypassed the clamp. This export + the consumer-side wiring in those files
+ * closes that gap.
+ */
+export function applyEffectiveRateClamp(
+  rate: number,
+  context: { source: string; usdYield: number; depreciation: number }
+): number {
+  if (rate > EFFECTIVE_RATE_FLOOR) return rate;
+  applicationEventBus.emit(ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED, {
+    domain: 'tools',
+    source: context.source,
+    timestamp: Date.now(),
+    metadata: {
+      originalEffectiveRate: rate,
+      clampedTo: EFFECTIVE_RATE_FLOOR,
+      usdYield: context.usdYield,
+      depreciation: context.depreciation,
+    },
+  });
+  return EFFECTIVE_RATE_FLOOR;
+}
 
 // ---------------------------------------------------------------------------
 // Currency hedge — lump sum
@@ -45,9 +96,14 @@ export function calculateWithCurrencyHedge(
   usdYield: number,
   localDepreciation: number,
   localInflation: number,
-  years: number,
+  years: number
 ): CurrencyHedgeResult {
-  const effectiveLocalAPY = (1 + usdYield) * (1 + localDepreciation) - 1;
+  const rawEffective = (1 + usdYield) * (1 + localDepreciation) - 1;
+  const effectiveLocalAPY = applyEffectiveRateClamp(rawEffective, {
+    source: 'calculateWithCurrencyHedge',
+    usdYield,
+    depreciation: localDepreciation,
+  });
   const nominalFV = principal * Math.pow(1 + effectiveLocalAPY, years);
   const realFV = nominalFV / Math.pow(1 + localInflation, years);
   const estimatedUsdEquivalent = nominalFV / Math.pow(1 + localDepreciation, years);
@@ -78,16 +134,21 @@ export function calculateMonthlyWithCurrencyHedge(
   localDepreciation: number,
   localInflation: number,
   months: number,
-  timing: DepositTiming = 'end',
+  timing: DepositTiming = 'end'
 ): MonthlyHedgeResult {
-  const effectiveLocalAPY = (1 + usdYield) * (1 + localDepreciation) - 1;
+  const rawEffective = (1 + usdYield) * (1 + localDepreciation) - 1;
+  const effectiveLocalAPY = applyEffectiveRateClamp(rawEffective, {
+    source: 'calculateMonthlyWithCurrencyHedge',
+    usdYield,
+    depreciation: localDepreciation,
+  });
 
   const result = calculateMonthlyContributions(
     monthlyPayment,
     effectiveLocalAPY,
     localInflation,
     months,
-    timing,
+    timing
   );
 
   const years = months / MONTHS_PER_YEAR;
@@ -123,10 +184,10 @@ export interface PathDependentHedgeResult {
 export interface PathDependentHedgeArgs {
   monthlyContributionLocal: number;
   usdAnnualYield: number;
-  startDate: string;                          // ISO YYYY-MM-DD; month-1 anchor
-  months: number;                             // total contribution count
+  startDate: string; // ISO YYYY-MM-DD; month-1 anchor
+  months: number; // total contribution count
   buckets: readonly FxBucket[];
-  endRate: number;                            // local/USD at end-of-window
+  endRate: number; // local/USD at end-of-window
 }
 
 /**
@@ -155,7 +216,7 @@ export interface PathDependentHedgeArgs {
  * Part 5 (Brazilian R$100/mo DCA validation scenarios B/C/D).
  */
 export function calculateMonthlyPathDependentHedge(
-  args: PathDependentHedgeArgs,
+  args: PathDependentHedgeArgs
 ): PathDependentHedgeResult {
   const { monthlyContributionLocal, usdAnnualYield, startDate, months, buckets, endRate } = args;
 
@@ -186,11 +247,7 @@ export function calculateMonthlyPathDependentHedge(
   const finalBalanceUsd = usdBalance;
   const finalBalanceLocal = finalBalanceUsd * endRate;
   const totalContributedLocal = monthlyContributionLocal * months;
-  const effectiveLocalCagr = solveAnnuityCagr(
-    finalBalanceLocal,
-    monthlyContributionLocal,
-    months,
-  );
+  const effectiveLocalCagr = solveAnnuityCagr(finalBalanceLocal, monthlyContributionLocal, months);
 
   return {
     totalContributedLocal,
@@ -212,18 +269,16 @@ export function calculateMonthlyPathDependentHedge(
 function findBucketForMonth(
   windowStartDate: string,
   m: number,
-  buckets: readonly FxBucket[],
+  buckets: readonly FxBucket[]
 ): FxBucket {
   const anchor = new Date(`${windowStartDate}T00:00:00Z`);
-  const monthDate = new Date(
-    Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + (m - 1), 1),
-  );
+  const monthDate = new Date(Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth() + (m - 1), 1));
   const iso = monthDate.toISOString().slice(0, 10);
   for (const b of buckets) {
     if (iso >= b.startDate && iso <= b.endDate) return b;
   }
   throw new Error(
-    `No FxBucket covers month ${m} of DCA window (date ${iso}); buckets span [${buckets[0]?.startDate}, ${buckets[buckets.length - 1]?.endDate}]`,
+    `No FxBucket covers month ${m} of DCA window (date ${iso}); buckets span [${buckets[0]?.startDate}, ${buckets[buckets.length - 1]?.endDate}]`
   );
 }
 
@@ -246,7 +301,7 @@ function solveAnnuityCagr(fv: number, pmt: number, n: number): number {
   let hi = 1; // monthly rate of 100% → annualized 409600% — generous upper bound
   for (let i = 0; i < 60; i++) {
     const mid = (lo + hi) / 2;
-    const fvMid = mid === 0 ? pmt * n : pmt * (Math.pow(1 + mid, n) - 1) / mid;
+    const fvMid = mid === 0 ? pmt * n : (pmt * (Math.pow(1 + mid, n) - 1)) / mid;
     if (fvMid < fv) lo = mid;
     else hi = mid;
   }

@@ -30,18 +30,14 @@ export function ProtocolsIntroSection() {
         backgroundColor="var(--section-bg-neutral)"
       >
         <div className={styles.content}>
-          <h2 className={styles.title}>
-            {t('why.h2')}
-          </h2>
+          <h2 className={styles.title}>{t('why.h2')}</h2>
           <div className={styles.body}>
             <p>{t('why.text1')}</p>
             <p>{t('why.text2')}</p>
             <p>{t('why.text3')}</p>
             <p className={styles.scope}>{t('why.scope')}</p>
             <div className={styles.disclaimer}>
-              <p className={styles.disclaimerText}>
-                {t('why.warningBox')}
-              </p>
+              <p className={styles.disclaimerText}>{t('why.warningBox')}</p>
             </div>
           </div>
         </div>

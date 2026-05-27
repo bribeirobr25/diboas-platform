@@ -83,11 +83,21 @@ export default function MinimalNavigation() {
   }, []);
 
   return (
-    <nav className="minimal-navigation-bar nav-solid" aria-label={intl.formatMessage({ id: 'common.accessibility.mainNavigation' })}>
+    <nav
+      className="minimal-navigation-bar nav-solid"
+      aria-label={intl.formatMessage({ id: 'common.accessibility.mainNavigation' })}
+    >
       <Container>
         <FlexBetween className="minimal-navigation-content">
           {/* Logo */}
-          <LocaleLink href="/" className="brand-logo" aria-label={intl.formatMessage({ id: 'common.accessibility.homeLink' }, { brand: BRAND_CONFIG.NAME })}>
+          <LocaleLink
+            href="/"
+            className="brand-logo"
+            aria-label={intl.formatMessage(
+              { id: 'common.accessibility.homeLink' },
+              { brand: BRAND_CONFIG.NAME }
+            )}
+          >
             <Image
               src={ASSET_PATHS.LOGOS.ICON}
               alt={BRAND_CONFIG.NAME}
@@ -100,13 +110,13 @@ export default function MinimalNavigation() {
 
           {/* Desktop Navigation Links */}
           {/* W7 (audit/2026-05-08): prefetch={false} so Next.js doesn't
-            * preemptively load CSS for routes that secondary-nav users
-            * rarely click. The LearnIndex CSS in particular was flagged by
-            * the browser as "preloaded but not used within a few seconds"
-            * because every page rendered the nav and prefetched /learn.
-            * Trade: marginally slower navigation when these links are
-            * actually clicked; gain: no spurious browser console warnings
-            * and ~2.5KB less wasted bandwidth per page load. */}
+           * preemptively load CSS for routes that secondary-nav users
+           * rarely click. The LearnIndex CSS in particular was flagged by
+           * the browser as "preloaded but not used within a few seconds"
+           * because every page rendered the nav and prefetched /learn.
+           * Trade: marginally slower navigation when these links are
+           * actually clicked; gain: no spurious browser console warnings
+           * and ~2.5KB less wasted bandwidth per page load. */}
           <div className="minimal-nav-links">
             {LANDING_NAV_LINKS.map((link) => (
               <LocaleLink
@@ -160,7 +170,9 @@ export default function MinimalNavigation() {
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
-              aria-label={intl.formatMessage({ id: isMobileMenuOpen ? 'common.aria.closeMenu' : 'common.aria.openMenu' })}
+              aria-label={intl.formatMessage({
+                id: isMobileMenuOpen ? 'common.aria.closeMenu' : 'common.aria.openMenu',
+              })}
             >
               {isMobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
             </button>
@@ -202,7 +214,16 @@ export default function MinimalNavigation() {
  */
 function HamburgerIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="3" y1="6" x2="21" y2="6" />
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="18" x2="21" y2="18" />
@@ -215,7 +236,16 @@ function HamburgerIcon() {
  */
 function CloseIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>

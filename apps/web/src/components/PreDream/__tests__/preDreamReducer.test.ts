@@ -32,11 +32,14 @@ describe('preDreamReducer — goalStrategy step (6B)', () => {
   it.each(['retirement', 'christmas', 'emergency', 'wealthy'] as const)(
     'should set selectedGoal=%s and advance to pathSelect on SELECT_GOAL',
     (goal) => {
-      const goalStrategyState: PreDreamState = { ...acceptedDisclaimerState, screen: 'goalStrategy' };
+      const goalStrategyState: PreDreamState = {
+        ...acceptedDisclaimerState,
+        screen: 'goalStrategy',
+      };
       const next = preDreamReducer(goalStrategyState, { type: 'SELECT_GOAL', goal });
       expect(next.selectedGoal).toBe(goal);
       expect(next.screen).toBe('pathSelect');
-    },
+    }
   );
 
   it('should preserve selectedGoal when later transitions fire (path/timeframe/etc)', () => {

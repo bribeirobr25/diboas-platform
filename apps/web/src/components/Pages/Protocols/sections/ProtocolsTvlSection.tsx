@@ -44,8 +44,7 @@ export function ProtocolsTvlSection() {
         <div className={styles.container}>
           <h2 className={styles.title}>{t('tvl.h2')}</h2>
           <p className={styles.paragraph}>
-            {t('tvl.textBefore')}{' '}
-            <span className={styles.amount}>{tvlAmount}</span>{' '}
+            {t('tvl.textBefore')} <span className={styles.amount}>{tvlAmount}</span>{' '}
             {t('tvl.textAfter')}
           </p>
           <p className={styles.context}>{t('tvl.context')}</p>

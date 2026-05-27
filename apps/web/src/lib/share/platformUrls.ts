@@ -61,7 +61,11 @@ export function openShareWindow(url: string, name: string = 'share'): void {
   const height = 400;
   const left = Math.round(window.screenX + (window.innerWidth - width) / 2);
   const top = Math.round(window.screenY + (window.innerHeight - height) / 2);
-  window.open(url, name, `width=${width},height=${height},left=${left},top=${top},toolbar=no,menubar=no`);
+  window.open(
+    url,
+    name,
+    `width=${width},height=${height},left=${left},top=${top},toolbar=no,menubar=no`
+  );
 }
 
 /**

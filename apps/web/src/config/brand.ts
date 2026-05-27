@@ -8,8 +8,11 @@ export const BRAND_CONFIG = {
   // Core Brand Identity
   NAME: process.env.NEXT_PUBLIC_BRAND_NAME || 'diBoaS',
   FULL_NAME: process.env.NEXT_PUBLIC_BRAND_FULL_NAME || 'diBoaS Platform',
-  TAGLINE: process.env.NEXT_PUBLIC_BRAND_TAGLINE || 'Open access and fair opportunities for everyone',
-  DESCRIPTION: process.env.NEXT_PUBLIC_BRAND_DESCRIPTION || 'Goal-driven wealth building starting at $5. Your money, your wallet, your control.',
+  TAGLINE:
+    process.env.NEXT_PUBLIC_BRAND_TAGLINE || 'Open access and fair opportunities for everyone',
+  DESCRIPTION:
+    process.env.NEXT_PUBLIC_BRAND_DESCRIPTION ||
+    'Goal-driven wealth building starting at $5. Your money, your wallet, your control.',
 
   // Company Information
   LEGAL_NAME: process.env.NEXT_PUBLIC_COMPANY_LEGAL_NAME || 'diBoaS',
@@ -33,6 +36,6 @@ export const BRAND_CONFIG = {
     CITY: process.env.NEXT_PUBLIC_COMPANY_CITY || 'Berlin',
     STATE: process.env.NEXT_PUBLIC_COMPANY_STATE || 'BE',
     ZIP: process.env.NEXT_PUBLIC_COMPANY_ZIP || '10243',
-    COUNTRY: process.env.NEXT_PUBLIC_COMPANY_COUNTRY || 'DE'
-  }
+    COUNTRY: process.env.NEXT_PUBLIC_COMPANY_COUNTRY || 'DE',
+  },
 } as const;

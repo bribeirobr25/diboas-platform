@@ -17,8 +17,17 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { Logger } from '@/lib/monitoring/Logger';
-import { getTotalCount, getCurrentPositionCounter, getFoundingMemberCount, getDistinctCountryCount } from '@/lib/waitingList/store';
-import { WAITLIST_STATS_FALLBACK, WAITLIST_STATS_FALLBACK_B2B, type WaitlistStats } from '@/config/waitlist-stats';
+import {
+  getTotalCount,
+  getCurrentPositionCounter,
+  getFoundingMemberCount,
+  getDistinctCountryCount,
+} from '@/lib/waitingList/store';
+import {
+  WAITLIST_STATS_FALLBACK,
+  WAITLIST_STATS_FALLBACK_B2B,
+  type WaitlistStats,
+} from '@/config/waitlist-stats';
 import {
   checkRateLimit,
   getClientIP,
@@ -35,13 +44,11 @@ const CACHE_HEADERS = {
 export async function GET(request: NextRequest): Promise<NextResponse<WaitlistStats>> {
   // Support cache bypass for real-time accuracy after signup
   const noCache = request.nextUrl.searchParams.get('fresh') === '1';
-  const responseHeaders = noCache
-    ? { 'Cache-Control': 'no-store' }
-    : CACHE_HEADERS;
+  const responseHeaders = noCache ? { 'Cache-Control': 'no-store' } : CACHE_HEADERS;
 
   // Optional source filter for audience-specific stats (e.g., ?source=landing_b2b)
   const VALID_SOURCES = ['landing_b2c', 'landing_b2b'] as const;
-  type ValidSource = typeof VALID_SOURCES[number];
+  type ValidSource = (typeof VALID_SOURCES)[number];
   const rawSource = request.nextUrl.searchParams.get('source');
   const sourceParam: ValidSource | null =
     rawSource && (VALID_SOURCES as readonly string[]).includes(rawSource)
@@ -57,7 +64,8 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   );
 
   if (!rateLimitResult.success) {
-    const rlFallback = sourceParam === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
+    const rlFallback =
+      sourceParam === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
     return NextResponse.json(
       {
         count: rlFallback.count,
@@ -86,13 +94,16 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
     const envCountries = process.env.NEXT_PUBLIC_WAITLIST_COUNTRIES;
 
     if (envCount && envCountries) {
-      return NextResponse.json({
-        count: parseInt(envCount, 10),
-        countries: parseInt(envCountries, 10),
-        source: 'env',
-        lastUpdated: new Date().toISOString(),
-        ...foundingMemberFields,
-      }, { headers: responseHeaders });
+      return NextResponse.json(
+        {
+          count: parseInt(envCount, 10),
+          countries: parseInt(envCountries, 10),
+          source: 'env',
+          lastUpdated: new Date().toISOString(),
+          ...foundingMemberFields,
+        },
+        { headers: responseHeaders }
+      );
     }
 
     // Get live data from store (all async, parallel fetch)
@@ -108,31 +119,38 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
     const actualCount = Math.max(storeCount, positionCounter);
 
     if (actualCount > 0) {
-      return NextResponse.json({
-        count: actualCount,
-        // Countries: env override > live distinct count > fallback
-        countries: envCountries
-          ? parseInt(envCountries, 10)
-          : countryCount || WAITLIST_STATS_FALLBACK.countries,
-        source: 'store',
-        lastUpdated: new Date().toISOString(),
-        ...foundingMemberFields,
-      }, { headers: responseHeaders });
+      return NextResponse.json(
+        {
+          count: actualCount,
+          // Countries: env override > live distinct count > fallback
+          countries: envCountries
+            ? parseInt(envCountries, 10)
+            : countryCount || WAITLIST_STATS_FALLBACK.countries,
+          source: 'store',
+          lastUpdated: new Date().toISOString(),
+          ...foundingMemberFields,
+        },
+        { headers: responseHeaders }
+      );
     }
 
     // Fallback values
-    return NextResponse.json({
-      count: WAITLIST_STATS_FALLBACK.count,
-      countries: WAITLIST_STATS_FALLBACK.countries,
-      source: 'fallback',
-      lastUpdated: new Date().toISOString(),
-      ...foundingMemberFields,
-    }, { headers: responseHeaders });
+    return NextResponse.json(
+      {
+        count: WAITLIST_STATS_FALLBACK.count,
+        countries: WAITLIST_STATS_FALLBACK.countries,
+        source: 'fallback',
+        lastUpdated: new Date().toISOString(),
+        ...foundingMemberFields,
+      },
+      { headers: responseHeaders }
+    );
   } catch (error) {
     Logger.error('Error fetching waitlist stats', {}, error instanceof Error ? error : undefined);
 
     // Return fallback on error — include founding member fields so the 3rd social proof card renders
-    const fallback = sourceParam === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
+    const fallback =
+      sourceParam === 'landing_b2b' ? WAITLIST_STATS_FALLBACK_B2B : WAITLIST_STATS_FALLBACK;
     return NextResponse.json({
       count: fallback.count,
       countries: fallback.countries,

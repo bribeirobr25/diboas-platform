@@ -40,14 +40,34 @@ export function calculateCompoundProjection(input: CalculatorInput): CalculatorO
 
   const monthlyEquivalent = convertCadenceToMonthly(input.amount, input.cadence);
 
-  const bankRate =
-    marketDataService.getSync().rates.bankRates[input.locale]?.savings ?? 0;
+  const bankRate = marketDataService.getSync().rates.bankRates[input.locale]?.savings ?? 0;
 
   const series: ScenarioSeries[] = [
     buildSeries('bank', bankRate, input.amount, monthlyEquivalent, input.cadence, input.years),
-    buildSeries('conservative', SCENARIO_RATES.conservative, input.amount, monthlyEquivalent, input.cadence, input.years),
-    buildSeries('historical', SCENARIO_RATES.historical, input.amount, monthlyEquivalent, input.cadence, input.years),
-    buildSeries('optimistic', SCENARIO_RATES.optimistic, input.amount, monthlyEquivalent, input.cadence, input.years),
+    buildSeries(
+      'conservative',
+      SCENARIO_RATES.conservative,
+      input.amount,
+      monthlyEquivalent,
+      input.cadence,
+      input.years
+    ),
+    buildSeries(
+      'historical',
+      SCENARIO_RATES.historical,
+      input.amount,
+      monthlyEquivalent,
+      input.cadence,
+      input.years
+    ),
+    buildSeries(
+      'optimistic',
+      SCENARIO_RATES.optimistic,
+      input.amount,
+      monthlyEquivalent,
+      input.cadence,
+      input.years
+    ),
   ];
 
   return {
@@ -65,7 +85,7 @@ function buildSeries(
   amount: number,
   monthlyContribution: number,
   cadence: Cadence,
-  years: number,
+  years: number
 ): ScenarioSeries {
   if (isOneTime(cadence)) {
     const yearlyValues: number[] = [amount];
@@ -87,7 +107,7 @@ function buildSeries(
       monthlyContribution,
       annualRatePercent / 100,
       0,
-      y * 12,
+      y * 12
     );
     yearlyValues.push(result.nominalFV);
   }
@@ -106,7 +126,7 @@ function validateInput(input: CalculatorInput): void {
   if (input.amount < INPUT_BOUNDS.amount.min || input.amount > INPUT_BOUNDS.amount.max) {
     throw new InvalidCalculatorInputError(
       'amount',
-      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`,
+      `must be between ${INPUT_BOUNDS.amount.min} and ${INPUT_BOUNDS.amount.max}`
     );
   }
   if (!Number.isFinite(input.years) || !Number.isInteger(input.years)) {
@@ -115,7 +135,7 @@ function validateInput(input: CalculatorInput): void {
   if (input.years < INPUT_BOUNDS.years.min || input.years > INPUT_BOUNDS.years.max) {
     throw new InvalidCalculatorInputError(
       'years',
-      `must be between ${INPUT_BOUNDS.years.min} and ${INPUT_BOUNDS.years.max}`,
+      `must be between ${INPUT_BOUNDS.years.min} and ${INPUT_BOUNDS.years.max}`
     );
   }
 }

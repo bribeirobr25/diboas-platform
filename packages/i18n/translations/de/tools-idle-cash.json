@@ -20,7 +20,10 @@
     "bankNote": "{rate}% Rendite über {years} Jahre",
     "diboasLabel": "Bei diBoaS",
     "diboasNote": "{rate}% konservative Rendite im Digital-Dollar über {years} Jahre",
-    "differenceHighlight": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre."
+    "differenceHighlight": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre.",
+    "differencePositive": "Deine {cash} verdienen bei diBoaS {difference} mehr über {years} Jahre.",
+    "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years} Jahre gleichauf — und die Position wird im Digital-Dollar gehalten.",
+    "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years} Jahre. diBoaS bietet dir trotzdem eine Position im Digital-Dollar — der Vergleich ist hier nur die Rendite."
   },
   "vignette": {
     "subtitle": "Liegendes Geld verdient nichts. Arbeitendes Geld zinst. Du wählst."

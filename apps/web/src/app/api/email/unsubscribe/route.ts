@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
       details: { action },
     });
 
-    Logger.info(`Email ${eventType.toLowerCase()}`, { emailHash: `${id.substring(0, 8)  }...` });
+    Logger.info(`Email ${eventType.toLowerCase()}`, { emailHash: `${id.substring(0, 8)}...` });
 
     const message = optOut
       ? 'You have been unsubscribed. Your waitlist position is preserved.'
@@ -148,7 +148,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, message });
   } catch (error) {
-    Logger.error('Unsubscribe error', {}, error instanceof Error ? error : new Error(String(error)));
+    Logger.error(
+      'Unsubscribe error',
+      {},
+      error instanceof Error ? error : new Error(String(error))
+    );
     return NextResponse.json({ success: false, error: 'An error occurred' }, { status: 500 });
   }
 }

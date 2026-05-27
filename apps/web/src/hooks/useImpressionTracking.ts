@@ -84,7 +84,7 @@ export function useImpressionTracking<T extends HTMLElement>({
           return;
         }
       },
-      { threshold },
+      { threshold }
     );
 
     observer.observe(target);

@@ -7,10 +7,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import {
-  dbGetIdempotentResponse,
-  dbCacheIdempotentResponse,
-} from './DatabaseIdempotencyStore';
+import { dbGetIdempotentResponse, dbCacheIdempotentResponse } from './DatabaseIdempotencyStore';
 
 interface CachedResponse {
   status: number;

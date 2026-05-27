@@ -50,6 +50,39 @@
   line-height: 1.5;
 }
 
+/* C28 close: dual-source explanation note. Lower-key than usdNote — informative,
+ * not advisory. Slate neutrals; no border. */
+.depSourceNote {
+  padding: var(--spacing-2xs) 0;
+  color: var(--color-slate-600);
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* C30 close: USD-stability framing card. Brand-tone (teal), card surface. */
+.usdStabilityCard {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-teal-50, #f0fdfa);
+  border-left: 4px solid var(--text-brand-accessible, #0f766e);
+  border-radius: 6px;
+  margin: var(--spacing-md) 0;
+}
+.usdStabilityTitle {
+  margin: 0 0 var(--spacing-2xs) 0;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-slate-900);
+  line-height: 1.4;
+}
+.usdStabilityBody {
+  margin: 0;
+  color: var(--color-slate-700);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
 .inputsRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

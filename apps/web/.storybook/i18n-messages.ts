@@ -98,7 +98,7 @@ function buildLocale(
   toolsCardFees: Record<string, unknown>,
   toolsIdleCash: Record<string, unknown>,
   toolsAssetHistory: Record<string, unknown>,
-  learnCompoundInterest: Record<string, unknown>,
+  learnCompoundInterest: Record<string, unknown>
 ): Record<string, string> {
   return {
     // `common` namespace surfaces shared disclaimers + button labels referenced
@@ -133,7 +133,7 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     enToolsCardFees as Record<string, unknown>,
     enToolsIdleCash as Record<string, unknown>,
     enToolsAssetHistory as Record<string, unknown>,
-    enLearnCompoundInterest as Record<string, unknown>,
+    enLearnCompoundInterest as Record<string, unknown>
   ),
   'pt-BR': buildLocale(
     ptBRCommon as Record<string, unknown>,
@@ -148,7 +148,7 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     ptBRToolsCardFees as Record<string, unknown>,
     ptBRToolsIdleCash as Record<string, unknown>,
     ptBRToolsAssetHistory as Record<string, unknown>,
-    ptBRLearnCompoundInterest as Record<string, unknown>,
+    ptBRLearnCompoundInterest as Record<string, unknown>
   ),
   es: buildLocale(
     esCommon as Record<string, unknown>,
@@ -163,7 +163,7 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     esToolsCardFees as Record<string, unknown>,
     esToolsIdleCash as Record<string, unknown>,
     esToolsAssetHistory as Record<string, unknown>,
-    esLearnCompoundInterest as Record<string, unknown>,
+    esLearnCompoundInterest as Record<string, unknown>
   ),
   de: buildLocale(
     deCommon as Record<string, unknown>,
@@ -178,6 +178,6 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     deToolsCardFees as Record<string, unknown>,
     deToolsIdleCash as Record<string, unknown>,
     deToolsAssetHistory as Record<string, unknown>,
-    deLearnCompoundInterest as Record<string, unknown>,
+    deLearnCompoundInterest as Record<string, unknown>
   ),
 };

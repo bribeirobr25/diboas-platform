@@ -21,10 +21,18 @@ export const navigationConfig: NavigationConfig = {
       banner: ASSET_PATHS.NAVIGATION.ABOUT_BANNER,
       description: 'common.navigation.aboutMenu.description',
       subItems: [
-        { id: 'about-diboas', label: 'common.navigation.aboutMenu.subItems.about', href: createUrl(ROUTES.ABOUT) },
-        { id: 'protocols', label: 'common.navigation.aboutMenu.subItems.protocols', href: createUrl(ROUTES.PROTOCOLS) },
-      ]
-    }
+        {
+          id: 'about-diboas',
+          label: 'common.navigation.aboutMenu.subItems.about',
+          href: createUrl(ROUTES.ABOUT),
+        },
+        {
+          id: 'protocols',
+          label: 'common.navigation.aboutMenu.subItems.protocols',
+          href: createUrl(ROUTES.PROTOCOLS),
+        },
+      ],
+    },
   ],
 
   mobileHighlights: [],
@@ -35,12 +43,12 @@ export const navigationConfig: NavigationConfig = {
     primary: {
       label: 'common.navigation.actions.demo',
       href: ROUTES.DEMO,
-      variant: 'primary'
+      variant: 'primary',
     },
     secondary: {
       label: 'common.navigation.actions.secondary',
       href: BUSINESS_URL,
-      variant: 'secondary'
-    }
-  }
+      variant: 'secondary',
+    },
+  },
 };

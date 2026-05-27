@@ -5,10 +5,7 @@
 
 import { PROCESSING_TIMING, type PendingTransaction } from '@/lib/pre-demo';
 import { analyticsService } from '@/lib/analytics';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import type { PreDemoAction } from '../types';
 import type { TransitionStep } from '../hooks';
 
@@ -17,15 +14,21 @@ type Dispatch = React.Dispatch<PreDemoAction>;
 export function buildDepositSequence(
   pending: PendingTransaction,
   dispatch: Dispatch,
-  intlLocale: string,
+  intlLocale: string
 ): TransitionStep[] {
   return [
     { screen: 'deposit-processing', delayMs: 0 },
     { screen: 'deposit-approved', delayMs: PROCESSING_TIMING.processingDelay },
-    { screen: 'deposit-complete', delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay },
+    {
+      screen: 'deposit-complete',
+      delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay,
+    },
     {
       screen: 'home',
-      delayMs: PROCESSING_TIMING.processingDelay + PROCESSING_TIMING.approvedDelay + PROCESSING_TIMING.completeDelay,
+      delayMs:
+        PROCESSING_TIMING.processingDelay +
+        PROCESSING_TIMING.approvedDelay +
+        PROCESSING_TIMING.completeDelay,
       onReach: () => {
         dispatch({
           type: 'COMPLETE_DEPOSIT',
@@ -38,7 +41,12 @@ export function buildDepositSequence(
 
         analyticsService.track({
           name: 'pre_demo_transaction_completed',
-          parameters: { type: 'deposit', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees },
+          parameters: {
+            type: 'deposit',
+            amount: pending.grossAmount,
+            net_amount: pending.netAmount,
+            fees: pending.totalFees,
+          },
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, {
@@ -55,7 +63,7 @@ export function buildDepositSequence(
 export function buildSendSequence(
   pending: PendingTransaction,
   dispatch: Dispatch,
-  intlLocale: string,
+  intlLocale: string
 ): TransitionStep[] {
   return [
     { screen: 'send-processing', delayMs: 0 },
@@ -76,7 +84,13 @@ export function buildSendSequence(
 
         analyticsService.track({
           name: 'pre_demo_transaction_completed',
-          parameters: { type: 'send', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees, recipient: pending.recipient },
+          parameters: {
+            type: 'send',
+            amount: pending.grossAmount,
+            net_amount: pending.netAmount,
+            fees: pending.totalFees,
+            recipient: pending.recipient,
+          },
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
@@ -93,7 +107,7 @@ export function buildSendSequence(
 export function buildBuySequence(
   pending: PendingTransaction,
   dispatch: Dispatch,
-  intlLocale: string,
+  intlLocale: string
 ): TransitionStep[] {
   return [
     { screen: 'buy-processing', delayMs: 0 },
@@ -116,7 +130,13 @@ export function buildBuySequence(
 
         analyticsService.track({
           name: 'pre_demo_transaction_completed',
-          parameters: { type: 'buy', amount: pending.grossAmount, net_amount: pending.netAmount, fees: pending.totalFees, asset: pending.asset?.symbol },
+          parameters: {
+            type: 'buy',
+            amount: pending.grossAmount,
+            net_amount: pending.netAmount,
+            fees: pending.totalFees,
+            asset: pending.asset?.symbol,
+          },
         });
 
         applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {

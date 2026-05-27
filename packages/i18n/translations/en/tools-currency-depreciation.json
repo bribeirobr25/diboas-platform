@@ -11,7 +11,8 @@
   "mode": {
     "ariaLabel": "Calculator mode",
     "forward": "Forward",
-    "retrospective": "Since 2010"
+    "retrospective": "Since 2010",
+    "retrospectiveDisabledTooltip": "Retrospective mode is available for BRL and EUR. Expansion to other currencies needs anchor data we don't have yet."
   },
   "inputs": {
     "currencyLabel": "Currency",
@@ -23,8 +24,10 @@
   "output": {
     "usdLocaleNote": "This calculator is most useful for non-USD currencies. For USD holders, depreciation defaults to 0.",
     "usdRetrospectiveNote": "Pick BRL or EUR to see how your local currency tracked against USD since 2010.",
+    "usdStabilityFramingTitle": "The US dollar is the global reserve currency.",
+    "usdStabilityFramingBody": "For most stability questions, USD holders are already on the strong side. Switch the currency selector above to BRL or EUR to see what holding a weakening currency really costs over 5 years.",
     "cashLabel": "If kept in cash",
-    "cashUsdEquivalent": "USD-equivalent after {rate}% / year drift",
+    "cashEvolution": "USD-equivalent after {rate}% / year change vs the dollar. Negative numbers mean your local currency strengthened against USD.",
     "bankLabel": "Bank yield",
     "bankRateNote": "{rate}% local bank rate",
     "diboasLabel": "Digital dollar at diBoaS",
@@ -35,6 +38,9 @@
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "USD-purchasing-power change",
     "retrospectiveLossNote": "{currency} weakened {cagr}% / year against USD over 16 years",
+    "depSourceForward": "Forward depreciation: horizon-matched CAGR derived from the {years}-year trailing FX window.",
+    "depSourceRetrospective": "Retrospective: based on the actual {currency}/USD anchor pair Jan 2010 → today.",
+    "depSourcePeg": "{currency} is pegged to the US dollar by central-bank policy. FX change is 0 by design.",
     "uncertaintyMedium": "This currency had moderate volatility over the window — point CAGR reflects average behavior; cumulative movement was uneven year-to-year.",
     "uncertaintyLow": "This currency went through periods of structural volatility or regime change — a single CAGR materially smooths over very different sub-periods. Use the result as a directional reference, not a forecast."
   },

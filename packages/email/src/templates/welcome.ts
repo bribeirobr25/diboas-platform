@@ -34,9 +34,12 @@ const translations: Record<string, TierTranslations> = {
       standard: 'Waitlist',
     },
     tierMessage: {
-      founding_member: "You're a Founding Member! You're among the first 1,200. Share your link — you have 5 invites to give friends Founding Member status.",
-      early_member: "You're an Early Member! Invited by a Founding Member. Share your link to help friends get early access.",
-      priority_waitlist: "You're on the waitlist! Share your link to help friends get early access.",
+      founding_member:
+        "You're a Founding Member! You're among the first 1,200. Share your link — you have 5 invites to give friends Founding Member status.",
+      early_member:
+        "You're an Early Member! Invited by a Founding Member. Share your link to help friends get early access.",
+      priority_waitlist:
+        "You're on the waitlist! Share your link to help friends get early access.",
       standard: "You're on the waitlist! Share your link to help friends get early access.",
     },
     foundingMemberBenefits: [
@@ -46,7 +49,8 @@ const translations: Record<string, TierTranslations> = {
       'Future exclusive benefits for Founding Members only',
     ],
     referralCta: 'Copy your referral link',
-    shareText: 'I just found an easy and fair access to grow and move money. It is so good, that I have to share it',
+    shareText:
+      'I just found an easy and fair access to grow and move money. It is so good, that I have to share it',
     demoCta: 'Try the Interactive Demo',
     whatNext: "What's next?",
     whatNextBody: "We'll keep you posted on our progress and let you know when it's your turn.",
@@ -65,10 +69,14 @@ const translations: Record<string, TierTranslations> = {
       standard: 'Lista de Espera',
     },
     tierMessage: {
-      founding_member: 'Você é um Membro Fundador! Está entre os primeiros 1.200. Compartilhe seu link — você tem 5 convites para dar status de Membro Fundador aos seus amigos.',
-      early_member: 'Você é um Membro Antecipado! Convidado por um Membro Fundador. Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
-      priority_waitlist: 'Você está na lista de espera! Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
-      standard: 'Você está na lista de espera! Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
+      founding_member:
+        'Você é um Membro Fundador! Está entre os primeiros 1.200. Compartilhe seu link — você tem 5 convites para dar status de Membro Fundador aos seus amigos.',
+      early_member:
+        'Você é um Membro Antecipado! Convidado por um Membro Fundador. Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
+      priority_waitlist:
+        'Você está na lista de espera! Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
+      standard:
+        'Você está na lista de espera! Compartilhe seu link para ajudar amigos a ter acesso antecipado.',
     },
     foundingMemberBenefits: [
       'Selo permanente de Membro Fundador (#{position} de 1.200)',
@@ -77,10 +85,12 @@ const translations: Record<string, TierTranslations> = {
       'Benefícios exclusivos futuros só pra Membros Fundadores',
     ],
     referralCta: 'Copie seu link de indicação',
-    shareText: 'Acabei de encontrar um jeito fácil e justo de fazer o dinheiro crescer e se mover. É tão bom que preciso compartilhar',
+    shareText:
+      'Acabei de encontrar um jeito fácil e justo de fazer o dinheiro crescer e se mover. É tão bom que preciso compartilhar',
     demoCta: 'Experimente a Demo Interativa',
     whatNext: 'Próximos passos',
-    whatNextBody: 'Manteremos você informado sobre nosso progresso e avisaremos quando for sua vez.',
+    whatNextBody:
+      'Manteremos você informado sobre nosso progresso e avisaremos quando for sua vez.',
     spotsRemaining: '{spots} vagas de membro fundador restantes',
     memberNumber: '#{position} de 1.200',
   },
@@ -96,10 +106,14 @@ const translations: Record<string, TierTranslations> = {
       standard: 'Lista de Espera',
     },
     tierMessage: {
-      founding_member: '¡Eres Miembro Fundador! Estás entre los primeros 1,200. Comparte tu enlace — tienes 5 invitaciones para dar estatus de Miembro Fundador a tus amigos.',
-      early_member: '¡Eres Miembro Anticipado! Invitado por un Miembro Fundador. Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
-      priority_waitlist: '¡Estás en la lista de espera! Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
-      standard: '¡Estás en la lista de espera! Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
+      founding_member:
+        '¡Eres Miembro Fundador! Estás entre los primeros 1,200. Comparte tu enlace — tienes 5 invitaciones para dar estatus de Miembro Fundador a tus amigos.',
+      early_member:
+        '¡Eres Miembro Anticipado! Invitado por un Miembro Fundador. Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
+      priority_waitlist:
+        '¡Estás en la lista de espera! Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
+      standard:
+        '¡Estás en la lista de espera! Comparte tu enlace para ayudar a amigos a tener acceso anticipado.',
     },
     foundingMemberBenefits: [
       'Insignia permanente de Miembro Fundador (#{position} de 1.200)',
@@ -108,7 +122,8 @@ const translations: Record<string, TierTranslations> = {
       'Beneficios exclusivos futuros solo para Miembros Fundadores',
     ],
     referralCta: 'Copia tu enlace de referencia',
-    shareText: 'Acabo de encontrar una forma fácil y justa de hacer crecer y mover mi dinero. Es tan bueno que tengo que compartirlo',
+    shareText:
+      'Acabo de encontrar una forma fácil y justa de hacer crecer y mover mi dinero. Es tan bueno que tengo que compartirlo',
     demoCta: 'Prueba la Demo Interactiva',
     whatNext: '¿Qué sigue?',
     whatNextBody: 'Te mantendremos informado y te avisaremos cuando sea tu turno.',
@@ -127,10 +142,14 @@ const translations: Record<string, TierTranslations> = {
       standard: 'Warteliste',
     },
     tierMessage: {
-      founding_member: 'Du bist Gründungsmitglied! Du gehörst zu den ersten 1.200. Teile deinen Link — du hast 5 Einladungen, um Freunden den Gründungsmitglied-Status zu geben.',
-      early_member: 'Du bist ein Frühes Mitglied! Von einem Gründungsmitglied eingeladen. Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
-      priority_waitlist: 'Du bist auf der Warteliste! Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
-      standard: 'Du bist auf der Warteliste! Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
+      founding_member:
+        'Du bist Gründungsmitglied! Du gehörst zu den ersten 1.200. Teile deinen Link — du hast 5 Einladungen, um Freunden den Gründungsmitglied-Status zu geben.',
+      early_member:
+        'Du bist ein Frühes Mitglied! Von einem Gründungsmitglied eingeladen. Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
+      priority_waitlist:
+        'Du bist auf der Warteliste! Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
+      standard:
+        'Du bist auf der Warteliste! Teile deinen Link, um Freunden frühzeitigen Zugang zu ermöglichen.',
     },
     foundingMemberBenefits: [
       'Permanentes Gründungsmitglied-Abzeichen (#{position} von 1.200)',
@@ -139,10 +158,12 @@ const translations: Record<string, TierTranslations> = {
       'Zukünftige exklusive Vorteile nur für Gründungsmitglieder',
     ],
     referralCta: 'Empfehlungslink kopieren',
-    shareText: 'Ich habe einen einfachen und fairen Weg gefunden, Geld wachsen zu lassen und zu bewegen. Es ist so gut, dass ich es teilen muss',
+    shareText:
+      'Ich habe einen einfachen und fairen Weg gefunden, Geld wachsen zu lassen und zu bewegen. Es ist so gut, dass ich es teilen muss',
     demoCta: 'Interaktive Demo ausprobieren',
     whatNext: 'Wie geht es weiter?',
-    whatNextBody: 'Wir halten dich auf dem Laufenden und informieren dich, wenn du an der Reihe bist.',
+    whatNextBody:
+      'Wir halten dich auf dem Laufenden und informieren dich, wenn du an der Reihe bist.',
     spotsRemaining: '{spots} Gründungsmitglied-Plätze verbleibend',
     memberNumber: '#{position} von 1.200',
   },
@@ -169,19 +190,25 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
   const tierMessage = t.tierMessage[data.tier];
 
   const safePosition = escapeHtml(String(data.position));
-  const positionLine = data.tier === 'founding_member'
-    ? `<p style="margin:8px 0 0;font-size:14px;font-weight:600;color:#115e59;">${t.memberNumber.replace('{position}', safePosition)}</p>`
-    : '';
+  const positionLine =
+    data.tier === 'founding_member'
+      ? `<p style="margin:8px 0 0;font-size:14px;font-weight:600;color:#115e59;">${t.memberNumber.replace('{position}', safePosition)}</p>`
+      : '';
 
-  const spotsSection = data.tier === 'founding_member' && data.foundingMemberSpotsRemaining != null
-    ? `<p style="margin:8px 0 0;font-size:13px;color:#94a3b8;">${t.spotsRemaining.replace('{spots}', escapeHtml(String(data.foundingMemberSpotsRemaining)))}</p>`
-    : '';
+  const spotsSection =
+    data.tier === 'founding_member' && data.foundingMemberSpotsRemaining != null
+      ? `<p style="margin:8px 0 0;font-size:13px;color:#94a3b8;">${t.spotsRemaining.replace('{spots}', escapeHtml(String(data.foundingMemberSpotsRemaining)))}</p>`
+      : '';
 
-  const benefitsSection = data.tier === 'founding_member'
-    ? `<ul style="margin:0 0 16px;padding:0;list-style:none;">${t.foundingMemberBenefits.map(
-        (b) => `<li style="margin:0 0 8px;font-size:14px;color:#475569;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#0d9488;">&#10003;</span>${b.replace('{position}', safePosition)}</li>`,
-      ).join('')}</ul>`
-    : '';
+  const benefitsSection =
+    data.tier === 'founding_member'
+      ? `<ul style="margin:0 0 16px;padding:0;list-style:none;">${t.foundingMemberBenefits
+          .map(
+            (b) =>
+              `<li style="margin:0 0 8px;font-size:14px;color:#475569;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#0d9488;">&#10003;</span>${b.replace('{position}', safePosition)}</li>`
+          )
+          .join('')}</ul>`
+      : '';
 
   const demoUrl = `${BRAND.url}/${data.locale}/demo?utm_source=email&utm_medium=transactional&utm_campaign=welcome_email&utm_content=predemo_cta`;
   const demoSection = `
@@ -216,5 +243,8 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
     <p style="margin:0;font-size:14px;color:#475569;">${t.whatNextBody}</p>
   `;
 
-  return { subject: t.subject, html: wrapInLayout(content, { locale: data.locale, unsubscribeUrl: data.unsubscribeUrl }) };
+  return {
+    subject: t.subject,
+    html: wrapInLayout(content, { locale: data.locale, unsubscribeUrl: data.unsubscribeUrl }),
+  };
 }

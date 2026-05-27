@@ -41,13 +41,11 @@ describe('calculateCompoundProjectionHedged — pt-BR (BRL hedge)', () => {
     const out = calculateCompoundProjectionHedged(input);
     const dep = FALLBACK_MARKET_DATA.exchangeRates.rates.BRL!.annualDepreciation;
 
-    const expectedConservative =
-      ((1 + SCENARIO_RATES.conservative / 100) * (1 + dep) - 1) * 100;
+    const expectedConservative = ((1 + SCENARIO_RATES.conservative / 100) * (1 + dep) - 1) * 100;
     const conservative = out.series.find((s) => s.scenario === 'conservative')!;
     expect(conservative.rate).toBeCloseTo(expectedConservative, 5);
 
-    const expectedHistorical =
-      ((1 + SCENARIO_RATES.historical / 100) * (1 + dep) - 1) * 100;
+    const expectedHistorical = ((1 + SCENARIO_RATES.historical / 100) * (1 + dep) - 1) * 100;
     const historical = out.series.find((s) => s.scenario === 'historical')!;
     expect(historical.rate).toBeCloseTo(expectedHistorical, 5);
   });
@@ -61,7 +59,7 @@ describe('calculateCompoundProjectionHedged — pt-BR (BRL hedge)', () => {
     };
     const out = calculateCompoundProjectionHedged(input);
     expect(out.series.find((s) => s.scenario === 'bank')!.rate).toBe(
-      FALLBACK_MARKET_DATA.rates.bankRates['pt-BR']!.savings,
+      FALLBACK_MARKET_DATA.rates.bankRates['pt-BR']!.savings
     );
   });
 });
@@ -77,11 +75,10 @@ describe('calculateCompoundProjectionHedged — de (EUR hedge)', () => {
     const out = calculateCompoundProjectionHedged(input);
     const dep = FALLBACK_MARKET_DATA.exchangeRates.rates.EUR!.annualDepreciation;
 
-    const expectedConservative =
-      ((1 + SCENARIO_RATES.conservative / 100) * (1 + dep) - 1) * 100;
+    const expectedConservative = ((1 + SCENARIO_RATES.conservative / 100) * (1 + dep) - 1) * 100;
     expect(out.series.find((s) => s.scenario === 'conservative')!.rate).toBeCloseTo(
       expectedConservative,
-      5,
+      5
     );
   });
 });

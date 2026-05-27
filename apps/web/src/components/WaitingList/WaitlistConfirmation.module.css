@@ -177,7 +177,9 @@
   border: none;
   border-radius: var(--cta-border-radius);
   cursor: pointer;
-  transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+  transition:
+    transform var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
   margin-bottom: var(--spacing-sm);
   box-shadow: 0 4px 14px var(--teal-shadow);
   animation: slideUp var(--animation-duration-normal) ease-out 0.4s both;

@@ -80,14 +80,14 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       ctaText: 'marketing.pages.home.appFeatures.organizeMoney.ctaText',
       ctaHref: ROUTES.ABOUT,
       ctaTarget: '_self',
-      chipLabel: 'marketing.pages.home.appFeatures.organizeMoney.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.organizeMoney.chipLabel',
     },
     assets: {
-      image: getSocialRealAsset('LIFE_VISION')
+      image: getSocialRealAsset('LIFE_VISION'),
     },
     seo: {
-      imageAlt: 'Person in peaceful meditation pose representing organized financial life'
-    }
+      imageAlt: 'Person in peaceful meditation pose representing organized financial life',
+    },
   },
   {
     id: 'instant-payments',
@@ -97,14 +97,14 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       ctaText: 'marketing.pages.home.appFeatures.instantPayments.ctaText',
       ctaHref: ROUTES.DEMO,
       ctaTarget: '_self',
-      chipLabel: 'marketing.pages.home.appFeatures.instantPayments.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.instantPayments.chipLabel',
     },
     assets: {
-      image: getSocialRealAsset('LIFE_CHILL_MAN')
+      image: getSocialRealAsset('LIFE_CHILL_MAN'),
     },
     seo: {
-      imageAlt: 'Person relaxing while using mobile payment features'
-    }
+      imageAlt: 'Person relaxing while using mobile payment features',
+    },
   },
   {
     id: 'secure-purchases',
@@ -114,14 +114,14 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       ctaText: 'marketing.pages.home.appFeatures.securePurchases.ctaText',
       ctaHref: ROUTES.STRATEGIES,
       ctaTarget: '_self',
-      chipLabel: 'marketing.pages.home.appFeatures.securePurchases.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.securePurchases.chipLabel',
     },
     assets: {
-      image: getSocialRealAsset('LIFE_WALKING')
+      image: getSocialRealAsset('LIFE_WALKING'),
     },
     seo: {
-      imageAlt: 'Person confidently making secure purchases with mobile banking'
-    }
+      imageAlt: 'Person confidently making secure purchases with mobile banking',
+    },
   },
   {
     id: 'financial-goals',
@@ -131,15 +131,15 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       ctaText: 'marketing.pages.home.appFeatures.financialGoals.ctaText',
       ctaHref: ROUTES.STRATEGIES,
       ctaTarget: '_self',
-      chipLabel: 'marketing.pages.home.appFeatures.financialGoals.chipLabel'
+      chipLabel: 'marketing.pages.home.appFeatures.financialGoals.chipLabel',
     },
     assets: {
-      image: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN')
+      image: getSocialRealAsset('BUSINESS_STRATEGY_WOMAN'),
     },
     seo: {
-      imageAlt: 'Person planning and achieving travel dreams with financial planning tools'
-    }
-  }
+      imageAlt: 'Person planning and achieving travel dreams with financial planning tools',
+    },
+  },
 ] as const;
 
 // Predefined app features carousel configurations
@@ -152,15 +152,15 @@ export const APP_FEATURES_CAROUSEL_CONFIGS = {
     settings: DEFAULT_APP_FEATURES_CAROUSEL_SETTINGS,
     analytics: {
       trackingPrefix: 'app_features_carousel_default',
-      enabled: true
-    }
-  }
+      enabled: true,
+    },
+  },
 } as const;
 
 // Page-specific configurations
 export const PAGE_APP_FEATURES_CONFIGS = {
   // Homepage - Full app features showcase
-  HOME: APP_FEATURES_CAROUSEL_CONFIGS.default
+  HOME: APP_FEATURES_CAROUSEL_CONFIGS.default,
 } as const;
 
 // Legacy compatibility

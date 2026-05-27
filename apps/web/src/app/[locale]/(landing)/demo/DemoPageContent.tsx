@@ -11,10 +11,33 @@ import { useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
-const PreDemo = dynamic(() => import('@/components/PreDemo').then(m => ({ default: m.PreDemo })), {
-  ssr: false,
-  loading: () => <div style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div style={{ width: '2rem', height: '2rem', border: '2px solid #e0e7ff', borderTopColor: '#3b82f6', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /></div>,
-});
+const PreDemo = dynamic(
+  () => import('@/components/PreDemo').then((m) => ({ default: m.PreDemo })),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          minHeight: '50vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: '2rem',
+            height: '2rem',
+            border: '2px solid #e0e7ff',
+            borderTopColor: '#3b82f6',
+            borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite',
+          }}
+        />
+      </div>
+    ),
+  }
+);
 import { analyticsService } from '@/lib/analytics';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import styles from './DemoPage.module.css';
@@ -68,4 +91,3 @@ export function DemoPageContent({ locale }: DemoPageContentProps) {
     </div>
   );
 }
-

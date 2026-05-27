@@ -78,13 +78,38 @@ function USFlag({ size = 24 }: FlagIconProps) {
       <rect width="24" height="1.385" y="16.615" fill="#B22234" />
       <rect width="9.6" height="9.692" fill="#3C3B6E" />
       <g fill="#fff">
-        <circle cx="1.6" cy="1.2" r="0.5" /><circle cx="3.2" cy="1.2" r="0.5" /><circle cx="4.8" cy="1.2" r="0.5" /><circle cx="6.4" cy="1.2" r="0.5" /><circle cx="8" cy="1.2" r="0.5" />
-        <circle cx="2.4" cy="2.4" r="0.5" /><circle cx="4" cy="2.4" r="0.5" /><circle cx="5.6" cy="2.4" r="0.5" /><circle cx="7.2" cy="2.4" r="0.5" />
-        <circle cx="1.6" cy="3.6" r="0.5" /><circle cx="3.2" cy="3.6" r="0.5" /><circle cx="4.8" cy="3.6" r="0.5" /><circle cx="6.4" cy="3.6" r="0.5" /><circle cx="8" cy="3.6" r="0.5" />
-        <circle cx="2.4" cy="4.8" r="0.5" /><circle cx="4" cy="4.8" r="0.5" /><circle cx="5.6" cy="4.8" r="0.5" /><circle cx="7.2" cy="4.8" r="0.5" />
-        <circle cx="1.6" cy="6" r="0.5" /><circle cx="3.2" cy="6" r="0.5" /><circle cx="4.8" cy="6" r="0.5" /><circle cx="6.4" cy="6" r="0.5" /><circle cx="8" cy="6" r="0.5" />
-        <circle cx="2.4" cy="7.2" r="0.5" /><circle cx="4" cy="7.2" r="0.5" /><circle cx="5.6" cy="7.2" r="0.5" /><circle cx="7.2" cy="7.2" r="0.5" />
-        <circle cx="1.6" cy="8.4" r="0.5" /><circle cx="3.2" cy="8.4" r="0.5" /><circle cx="4.8" cy="8.4" r="0.5" /><circle cx="6.4" cy="8.4" r="0.5" /><circle cx="8" cy="8.4" r="0.5" />
+        <circle cx="1.6" cy="1.2" r="0.5" />
+        <circle cx="3.2" cy="1.2" r="0.5" />
+        <circle cx="4.8" cy="1.2" r="0.5" />
+        <circle cx="6.4" cy="1.2" r="0.5" />
+        <circle cx="8" cy="1.2" r="0.5" />
+        <circle cx="2.4" cy="2.4" r="0.5" />
+        <circle cx="4" cy="2.4" r="0.5" />
+        <circle cx="5.6" cy="2.4" r="0.5" />
+        <circle cx="7.2" cy="2.4" r="0.5" />
+        <circle cx="1.6" cy="3.6" r="0.5" />
+        <circle cx="3.2" cy="3.6" r="0.5" />
+        <circle cx="4.8" cy="3.6" r="0.5" />
+        <circle cx="6.4" cy="3.6" r="0.5" />
+        <circle cx="8" cy="3.6" r="0.5" />
+        <circle cx="2.4" cy="4.8" r="0.5" />
+        <circle cx="4" cy="4.8" r="0.5" />
+        <circle cx="5.6" cy="4.8" r="0.5" />
+        <circle cx="7.2" cy="4.8" r="0.5" />
+        <circle cx="1.6" cy="6" r="0.5" />
+        <circle cx="3.2" cy="6" r="0.5" />
+        <circle cx="4.8" cy="6" r="0.5" />
+        <circle cx="6.4" cy="6" r="0.5" />
+        <circle cx="8" cy="6" r="0.5" />
+        <circle cx="2.4" cy="7.2" r="0.5" />
+        <circle cx="4" cy="7.2" r="0.5" />
+        <circle cx="5.6" cy="7.2" r="0.5" />
+        <circle cx="7.2" cy="7.2" r="0.5" />
+        <circle cx="1.6" cy="8.4" r="0.5" />
+        <circle cx="3.2" cy="8.4" r="0.5" />
+        <circle cx="4.8" cy="8.4" r="0.5" />
+        <circle cx="6.4" cy="8.4" r="0.5" />
+        <circle cx="8" cy="8.4" r="0.5" />
       </g>
     </svg>
   );

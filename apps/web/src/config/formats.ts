@@ -14,16 +14,16 @@ export const DATE_FORMATS = {
   // ISO standard format
   ISO: 'YYYY-MM-DD',
   ISO_DATETIME: 'YYYY-MM-DDTHH:mm:ss.SSSZ',
-  
+
   // Display formats
   DISPLAY_SHORT: 'MMM D, YYYY',
   DISPLAY_LONG: 'MMMM D, YYYY',
   DISPLAY_WITH_TIME: 'MMM D, YYYY h:mm A',
-  
+
   // Locale-specific formats
   US_SHORT: 'MM/DD/YYYY',
   EU_SHORT: 'DD/MM/YYYY',
-  
+
   // Relative time units
   RELATIVE_TIME_UNITS: ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'] as const,
 } as const;
@@ -34,10 +34,10 @@ export const DATE_FORMATS = {
 export const CURRENCY_CONFIG = {
   // Default currency
   DEFAULT: process.env.NEXT_PUBLIC_DEFAULT_CURRENCY || 'USD',
-  
+
   // Supported currencies
   SUPPORTED: ['USD', 'EUR', 'GBP', 'JPY', 'BRL', 'BTC', 'ETH'] as const,
-  
+
   // Currency symbols
   SYMBOLS: {
     USD: '$',
@@ -46,9 +46,9 @@ export const CURRENCY_CONFIG = {
     JPY: '¥',
     BRL: 'R$',
     BTC: '₿',
-    ETH: 'Ξ'
+    ETH: 'Ξ',
   } as const,
-  
+
   // Decimal places per currency
   DECIMALS: {
     USD: 2,
@@ -57,7 +57,7 @@ export const CURRENCY_CONFIG = {
     JPY: 0,
     BRL: 2,
     BTC: 8,
-    ETH: 18
+    ETH: 18,
   } as const,
 } as const;
 
@@ -67,29 +67,29 @@ export const CURRENCY_CONFIG = {
 export const NUMBER_FORMATS = {
   // Decimal separators by locale
   DECIMAL_SEPARATOR: {
-    'en': '.',
+    en: '.',
     'pt-BR': ',',
-    'es': ',',
-    'de': ','
+    es: ',',
+    de: ',',
   } as const,
-  
+
   // Thousand separators by locale
   THOUSAND_SEPARATOR: {
-    'en': ',',
+    en: ',',
     'pt-BR': '.',
-    'es': '.',
-    'de': '.'
+    es: '.',
+    de: '.',
   } as const,
-  
+
   // Percentage display
   PERCENTAGE_DECIMALS: 1,
-  
+
   // Large number abbreviations
   ABBREVIATIONS: {
     THOUSAND: 'K',
     MILLION: 'M',
     BILLION: 'B',
-    TRILLION: 'T'
+    TRILLION: 'T',
   } as const,
 } as const;
 
@@ -98,9 +98,9 @@ export const NUMBER_FORMATS = {
  * EN (US) → USD, DE/ES (EU) → EUR, PT-BR (Brazil) → BRL
  */
 export const LOCALE_CURRENCY_MAP: Record<SupportedLocale, string> = {
-  'en': 'USD',
-  'de': 'EUR',
-  'es': 'EUR',
+  en: 'USD',
+  de: 'EUR',
+  es: 'EUR',
   'pt-BR': 'BRL',
 } as const;
 
@@ -109,9 +109,9 @@ export const LOCALE_CURRENCY_MAP: Record<SupportedLocale, string> = {
  * Maps our SupportedLocale to the BCP 47 locale tag used by Intl.NumberFormat
  */
 export const LOCALE_INTL_MAP: Record<SupportedLocale, string> = {
-  'en': 'en-US',
-  'de': 'de-DE',
-  'es': 'es-ES',
+  en: 'en-US',
+  de: 'de-DE',
+  es: 'es-ES',
   'pt-BR': 'pt-BR',
 } as const;
 
@@ -134,12 +134,12 @@ export function getIntlLocale(locale: SupportedLocale): string {
  */
 export function getDateFormatForLocale(locale: SupportedLocale): string {
   const formats: Record<SupportedLocale, string> = {
-    'en': DATE_FORMATS.US_SHORT,
+    en: DATE_FORMATS.US_SHORT,
     'pt-BR': DATE_FORMATS.EU_SHORT,
-    'es': DATE_FORMATS.EU_SHORT,
-    'de': DATE_FORMATS.EU_SHORT
+    es: DATE_FORMATS.EU_SHORT,
+    de: DATE_FORMATS.EU_SHORT,
   };
-  
+
   return formats[locale] || DATE_FORMATS.ISO;
 }
 
@@ -217,7 +217,7 @@ export function formatLocaleCurrency(
 export function formatLargeNumber(num: number, decimals: number = 1): string {
   const abs = Math.abs(num);
   const sign = num < 0 ? '-' : '';
-  
+
   if (abs >= 1e12) {
     return sign + (abs / 1e12).toFixed(decimals) + NUMBER_FORMATS.ABBREVIATIONS.TRILLION;
   }
@@ -230,7 +230,7 @@ export function formatLargeNumber(num: number, decimals: number = 1): string {
   if (abs >= 1e3) {
     return sign + (abs / 1e3).toFixed(decimals) + NUMBER_FORMATS.ABBREVIATIONS.THOUSAND;
   }
-  
+
   return num.toString();
 }
 
@@ -240,11 +240,11 @@ export function formatLargeNumber(num: number, decimals: number = 1): string {
 export function getNumberFormat(locale: SupportedLocale) {
   return {
     decimal: NUMBER_FORMATS.DECIMAL_SEPARATOR[locale] || '.',
-    thousand: NUMBER_FORMATS.THOUSAND_SEPARATOR[locale] || ','
+    thousand: NUMBER_FORMATS.THOUSAND_SEPARATOR[locale] || ',',
   };
 }
 
 // Export types
-export type DateFormat = typeof DATE_FORMATS[keyof typeof DATE_FORMATS];
-export type SupportedCurrency = typeof CURRENCY_CONFIG.SUPPORTED[number];
-export type CurrencySymbol = typeof CURRENCY_CONFIG.SYMBOLS[keyof typeof CURRENCY_CONFIG.SYMBOLS];
+export type DateFormat = (typeof DATE_FORMATS)[keyof typeof DATE_FORMATS];
+export type SupportedCurrency = (typeof CURRENCY_CONFIG.SUPPORTED)[number];
+export type CurrencySymbol = (typeof CURRENCY_CONFIG.SYMBOLS)[keyof typeof CURRENCY_CONFIG.SYMBOLS];

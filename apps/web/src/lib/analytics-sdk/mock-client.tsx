@@ -51,7 +51,7 @@ export function AnalyticsProvider({
       fallbackMessages: fallbackMessages ?? DEFAULT_FALLBACK,
       onError: onError ?? null,
     }),
-    [initialData, fallbackMessages, onError],
+    [initialData, fallbackMessages, onError]
   );
 
   return <AnalyticsContext.Provider value={value}>{children}</AnalyticsContext.Provider>;

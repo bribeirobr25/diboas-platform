@@ -58,6 +58,15 @@
   color: var(--color-slate-500);
 }
 
+/* C35 soft-validation warning. Uses warning token, design-token contrast. */
+.warning {
+  display: block;
+  margin-top: var(--spacing-2xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-amber-700, var(--color-slate-600));
+  line-height: 1.4;
+}
+
 .resultsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

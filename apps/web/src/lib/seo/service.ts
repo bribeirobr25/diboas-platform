@@ -39,17 +39,23 @@ class SEOMetadataService implements SEOService {
         url: openGraph?.url || canonicalUrl,
         siteName: openGraph?.siteName || SEO_DEFAULTS.siteName,
         locale: openGraph?.locale || this.getOGLocale(locale),
-        images: openGraph?.image ? [{
-          url: this.getAbsoluteUrl(openGraph.image),
-          width: 1200,
-          height: 630,
-          alt: openGraph?.title || metadata.title
-        }] : [{
-          url: this.getAbsoluteUrl(SEO_DEFAULTS.defaultImage),
-          width: 1200,
-          height: 630,
-          alt: SEO_DEFAULTS.siteName
-        }]
+        images: openGraph?.image
+          ? [
+              {
+                url: this.getAbsoluteUrl(openGraph.image),
+                width: 1200,
+                height: 630,
+                alt: openGraph?.title || metadata.title,
+              },
+            ]
+          : [
+              {
+                url: this.getAbsoluteUrl(SEO_DEFAULTS.defaultImage),
+                width: 1200,
+                height: 630,
+                alt: SEO_DEFAULTS.siteName,
+              },
+            ],
       },
 
       // Twitter Card
@@ -59,19 +65,22 @@ class SEOMetadataService implements SEOService {
         creator: twitter?.creator || SEO_DEFAULTS.twitterHandle,
         title: twitter?.title || metadata.title,
         description: twitter?.description || metadata.description,
-        images: twitter?.image ? [this.getAbsoluteUrl(twitter.image)] : undefined
+        images: twitter?.image ? [this.getAbsoluteUrl(twitter.image)] : undefined,
       },
 
       // Alternates for i18n SEO
       alternates: {
         canonical: canonicalUrl,
         languages: {
-          ...languages.reduce((acc, { lang, url }) => {
-            acc[lang] = url;
-            return acc;
-          }, {} as Record<string, string>),
-          'x-default': canonicalUrl
-        }
+          ...languages.reduce(
+            (acc, { lang, url }) => {
+              acc[lang] = url;
+              return acc;
+            },
+            {} as Record<string, string>
+          ),
+          'x-default': canonicalUrl,
+        },
       },
 
       // Other metadata
@@ -79,7 +88,7 @@ class SEOMetadataService implements SEOService {
       verification: {
         google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
         yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
-      }
+      },
     };
 
     return nextMetadata;
@@ -102,7 +111,7 @@ class SEOMetadataService implements SEOService {
         url: config.structuredData.organization.url,
         logo: config.structuredData.organization.logo,
         sameAs: config.structuredData.organization.sameAs,
-        contactPoint: config.structuredData.organization.contactPoint
+        contactPoint: config.structuredData.organization.contactPoint,
       });
     }
 
@@ -118,7 +127,7 @@ class SEOMetadataService implements SEOService {
         datePublished: webpage.datePublished,
         dateModified: webpage.dateModified || new Date().toISOString(),
         publisher: config.structuredData.organization,
-        breadcrumb: config.structuredData.breadcrumbs
+        breadcrumb: config.structuredData.breadcrumbs,
       });
     }
 
@@ -134,14 +143,14 @@ class SEOMetadataService implements SEOService {
 
     // Custom structured data
     if (config.structuredData?.custom) {
-      Object.values(config.structuredData.custom).forEach(data => {
+      Object.values(config.structuredData.custom).forEach((data) => {
         scripts.push(data);
       });
     }
 
-    return scripts.map(script =>
-      `<script type="application/ld+json">${JSON.stringify(script)}</script>`
-    ).join('\n');
+    return scripts
+      .map((script) => `<script type="application/ld+json">${JSON.stringify(script)}</script>`)
+      .join('\n');
   }
 
   /**
@@ -161,9 +170,9 @@ class SEOMetadataService implements SEOService {
    * SEO: Proper hreflang implementation
    */
   generateAlternateUrls(path: string): { lang: string; url: string }[] {
-    return SUPPORTED_LOCALES.map(locale => ({
+    return SUPPORTED_LOCALES.map((locale) => ({
       lang: this.getHreflangCode(locale),
-      url: this.generateCanonicalUrl(path, locale)
+      url: this.generateCanonicalUrl(path, locale),
     }));
   }
 
@@ -172,10 +181,10 @@ class SEOMetadataService implements SEOService {
    */
   private getOGLocale(locale?: string): string {
     const localeMap: Record<string, string> = {
-      'en': 'en_US',
+      en: 'en_US',
       'pt-BR': 'pt_BR',
-      'es': 'es_ES',
-      'de': 'de_DE'
+      es: 'es_ES',
+      de: 'de_DE',
     };
 
     return localeMap[locale || 'en'] || 'en_US';

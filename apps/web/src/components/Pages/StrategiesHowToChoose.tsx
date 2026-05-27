@@ -18,9 +18,7 @@ export function StrategiesHowToChoose() {
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
   return (
     <>
-      <h2 className={styles.sectionTitle}>
-        {t('howToChoose.header')}
-      </h2>
+      <h2 className={styles.sectionTitle}>{t('howToChoose.header')}</h2>
 
       <div className={styles.questionsList}>
         <ContentCard variant="muted" title={t('howToChoose.question1.title')}>
@@ -50,12 +48,8 @@ export function StrategiesHowToChoose() {
         </ContentCard>
 
         <ContentCard variant="highlight">
-          <p className={styles.brandPromise}>
-            {t('howToChoose.brandPromise')}
-          </p>
-          <p className={styles.goldenRule}>
-            {t('howToChoose.goldenRule')}
-          </p>
+          <p className={styles.brandPromise}>{t('howToChoose.brandPromise')}</p>
+          <p className={styles.goldenRule}>{t('howToChoose.goldenRule')}</p>
         </ContentCard>
       </div>
     </>

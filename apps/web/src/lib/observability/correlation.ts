@@ -35,7 +35,7 @@ const storage = new AsyncLocalStorage<CorrelationStore>();
  */
 export function withCorrelationId<T>(
   correlationId: string,
-  fn: () => T | Promise<T>,
+  fn: () => T | Promise<T>
 ): T | Promise<T> {
   return storage.run({ correlationId }, fn);
 }

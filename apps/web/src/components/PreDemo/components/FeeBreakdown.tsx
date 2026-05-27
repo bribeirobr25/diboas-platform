@@ -47,12 +47,8 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
   const [isExpanded, setIsExpanded] = useState(alwaysExpanded || false);
   const [tooltipKey, setTooltipKey] = useState<string | null>(null);
 
-  const labelValues = useMemo(
-    () => buildLabelValuesMap(locale as SupportedLocale),
-    [locale],
-  );
-  const t = (key: string) =>
-    intl.formatMessage({ id: key }, labelValues[key] ?? undefined);
+  const labelValues = useMemo(() => buildLabelValuesMap(locale as SupportedLocale), [locale]);
+  const t = (key: string) => intl.formatMessage({ id: key }, labelValues[key] ?? undefined);
 
   return (
     <div className={styles.feeBreakdown}>
@@ -62,15 +58,13 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
         className={styles.feeToggle}
         style={alwaysExpanded ? { cursor: 'default' } : undefined}
       >
-        <span className={styles.feeToggleLabel}>
-          {t('preDemo.fees.total')}
-        </span>
+        <span className={styles.feeToggleLabel}>{t('preDemo.fees.total')}</span>
         <span className={styles.feeToggleAmount}>
-          {alwaysExpanded ? `-${formatCurrency(totalFees, 2, locale)}` : formatCurrency(totalFees, 2, locale)}
+          {alwaysExpanded
+            ? `-${formatCurrency(totalFees, 2, locale)}`
+            : formatCurrency(totalFees, 2, locale)}
           {!alwaysExpanded && (
-            <span className={styles.feeToggleChevron}>
-              {isExpanded ? '\u25B2' : '\u25BC'}
-            </span>
+            <span className={styles.feeToggleChevron}>{isExpanded ? '\u25B2' : '\u25BC'}</span>
           )}
         </span>
       </button>
@@ -85,9 +79,7 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
                 {fee.tooltip && (
                   <button
                     className={styles.feeInfoButton}
-                    onClick={() =>
-                      setTooltipKey(tooltipKey === key ? null : key)
-                    }
+                    onClick={() => setTooltipKey(tooltipKey === key ? null : key)}
                     aria-label={t('preDemo.fees.tooltipAriaLabel')}
                   >
                     <svg
@@ -105,9 +97,7 @@ export function FeeBreakdown({ feeItems, totalFees, alwaysExpanded }: FeeBreakdo
                 )}
               </div>
               <span
-                className={`${styles.feeAmount} ${
-                  fee.amount === 0 ? styles.feeAmountFree : ''
-                }`}
+                className={`${styles.feeAmount} ${fee.amount === 0 ? styles.feeAmountFree : ''}`}
               >
                 {fee.amount === 0
                   ? formatCurrency(0, 2, locale)

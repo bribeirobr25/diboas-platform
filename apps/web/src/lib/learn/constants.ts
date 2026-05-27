@@ -16,7 +16,7 @@ export const LESSON_EVENTS = {
   CTA_SECONDARY_CLICKED: 'learn_cta_secondary_clicked',
 } as const;
 
-export type LessonEventName = typeof LESSON_EVENTS[keyof typeof LESSON_EVENTS];
+export type LessonEventName = (typeof LESSON_EVENTS)[keyof typeof LESSON_EVENTS];
 
 export const READ_TIME_MINUTES = {
   'compound-interest': 5,

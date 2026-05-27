@@ -76,7 +76,7 @@ export async function logAuditEvent(event: AuditEvent): Promise<void> {
     Logger.error(
       '[AuditService] Failed to log audit event',
       { eventType: event.eventType, entityType: event.entityType },
-      error instanceof Error ? error : undefined,
+      error instanceof Error ? error : undefined
     );
   }
 }

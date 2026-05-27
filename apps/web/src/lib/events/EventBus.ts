@@ -28,9 +28,7 @@ function generateId(): string {
 }
 
 /** Generic event listener */
-export type GenericEventListener<T = BaseEventPayload> = (
-  payload: T
-) => void | Promise<void>;
+export type GenericEventListener<T = BaseEventPayload> = (payload: T) => void | Promise<void>;
 
 /** Configuration for EventBus behavior */
 export interface EventBusConfig {
@@ -65,16 +63,13 @@ export class EventBus<
   constructor(
     private config: EventBusConfig,
     private validationSchema: Partial<Record<TEventType, string[]>>,
-    private onListenerError?: (eventType: TEventType, payload: TPayload, error: unknown) => void,
+    private onListenerError?: (eventType: TEventType, payload: TPayload, error: unknown) => void
   ) {}
 
   /**
    * Subscribe to events. Returns an unsubscribe function.
    */
-  on<T extends TPayload>(
-    eventType: TEventType,
-    listener: GenericEventListener<T>,
-  ): () => void {
+  on<T extends TPayload>(eventType: TEventType, listener: GenericEventListener<T>): () => void {
     if (typeof listener !== 'function') {
       throw new Error(`Invalid listener for event ${eventType}: must be a function`);
     }
@@ -184,7 +179,9 @@ export class EventBus<
     if (schema) {
       for (const field of schema) {
         if (!(field in payload)) {
-          throw new Error(`Invalid payload for event ${eventType}: missing required field ${field}`);
+          throw new Error(
+            `Invalid payload for event ${eventType}: missing required field ${field}`
+          );
         }
       }
     }
@@ -200,7 +197,7 @@ export class EventBus<
 
   /** Get event history, optionally filtered by type */
   getEventHistory(
-    eventType?: TEventType,
+    eventType?: TEventType
   ): Array<{ type: TEventType; payload: TPayload; timestamp: number }> {
     if (eventType) {
       return this.eventHistory.filter((e) => e.type === eventType);

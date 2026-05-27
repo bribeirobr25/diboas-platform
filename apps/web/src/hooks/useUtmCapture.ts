@@ -14,13 +14,7 @@ import { useEffect } from 'react';
 
 const UTM_STORAGE_KEY = 'diboas-utm-params';
 
-const UTM_KEYS = [
-  'utm_source',
-  'utm_medium',
-  'utm_campaign',
-  'utm_content',
-  'utm_term',
-] as const;
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 
 export type UtmData = Partial<Record<(typeof UTM_KEYS)[number], string>>;
 

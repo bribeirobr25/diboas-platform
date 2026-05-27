@@ -42,14 +42,13 @@ const VALID_REGIME = {
   },
 } as unknown as RegimeData;
 
-const buildArgs = (overrides: Partial<AnalyticsInitialData> = {}) =>
-  ({
-    data: { regime: VALID_REGIME, ...overrides },
-    locale: 'en' as const,
-    siteUrl: SITE_URL,
-    description: DESCRIPTION,
-    headline: HEADLINE,
-  });
+const buildArgs = (overrides: Partial<AnalyticsInitialData> = {}) => ({
+  data: { regime: VALID_REGIME, ...overrides },
+  locale: 'en' as const,
+  siteUrl: SITE_URL,
+  description: DESCRIPTION,
+  headline: HEADLINE,
+});
 
 describe('marketArticleSchema — inLanguage (BCP-47 per locale)', () => {
   it('should emit inLanguage = en-US for en locale', () => {

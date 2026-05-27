@@ -66,9 +66,13 @@ function delay(ms: number, signal?: AbortSignal | null): Promise<void> {
 
     const timer = setTimeout(resolve, ms);
 
-    signal?.addEventListener('abort', () => {
-      clearTimeout(timer);
-      reject(signal.reason);
-    }, { once: true });
+    signal?.addEventListener(
+      'abort',
+      () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      },
+      { once: true }
+    );
   });
 }

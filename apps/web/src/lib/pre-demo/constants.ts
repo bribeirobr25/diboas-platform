@@ -9,10 +9,10 @@ import type { Asset, AssetCategory, ChainId, ChainConfig, Recipient } from './ty
 
 /** Asset prices (snapshot) */
 export const ASSET_PRICES: Record<string, number> = {
-  BTC: 97250.00,
-  XAUT: 2945.00,
-  ETH: 2650.00,
-  SOL: 195.40,
+  BTC: 97250.0,
+  XAUT: 2945.0,
+  ETH: 2650.0,
+  SOL: 195.4,
   SUI: 3.85,
   TRX: 0.27,
 } as const;
@@ -27,12 +27,28 @@ export const CHAIN_CONFIG: Record<ChainId, ChainConfig> = {
     color: '#627EEA',
     tokens: ['XAUT', 'ETH'],
     l2Chains: {
-      ARB: { name: 'Arbitrum', color: '#28A0F0', address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F', token: 'ETH' },
-      BASE: { name: 'Base', color: '#0052FF', address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F', token: 'ETH' },
+      ARB: {
+        name: 'Arbitrum',
+        color: '#28A0F0',
+        address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+        token: 'ETH',
+      },
+      BASE: {
+        name: 'Base',
+        color: '#0052FF',
+        address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+        token: 'ETH',
+      },
     },
   },
   SUI: { name: 'SUI', fullName: 'SUI Wallet', color: '#4DA2FF', tokens: ['SUI'], comingSoon: true },
-  TRX: { name: 'TRON', fullName: 'TRON Wallet', color: '#FF0013', tokens: ['TRX'], comingSoon: true },
+  TRX: {
+    name: 'TRON',
+    fullName: 'TRON Wallet',
+    color: '#FF0013',
+    tokens: ['TRX'],
+    comingSoon: true,
+  },
 } as const;
 
 /** Wallet addresses (demo) */
@@ -59,19 +75,17 @@ export const ASSET_CATEGORIES: Record<AssetCategory, Asset[]> = {
     { symbol: 'IWMon', name: 'Russell 2000 ETF', price: 224.67 },
   ],
   Stocks: [
-    { symbol: 'TSLAx', name: 'Tesla', price: 248.50 },
-    { symbol: 'GOOGLx', name: 'Alphabet', price: 175.30 },
+    { symbol: 'TSLAx', name: 'Tesla', price: 248.5 },
+    { symbol: 'GOOGLx', name: 'Alphabet', price: 175.3 },
     { symbol: 'NVDAx', name: 'NVIDIA', price: 137.85 },
   ],
   Crypto: [
-    { symbol: 'BTC', name: 'Bitcoin', price: 97250.00 },
-    { symbol: 'ETH', name: 'Ethereum', price: 2650.00 },
-    { symbol: 'SOL', name: 'Solana', price: 195.40 },
+    { symbol: 'BTC', name: 'Bitcoin', price: 97250.0 },
+    { symbol: 'ETH', name: 'Ethereum', price: 2650.0 },
+    { symbol: 'SOL', name: 'Solana', price: 195.4 },
     { symbol: 'SUI', name: 'Sui', price: 3.85 },
   ],
-  Gold: [
-    { symbol: 'XAUT', name: 'Tether Gold', price: 2945.00 },
-  ],
+  Gold: [{ symbol: 'XAUT', name: 'Tether Gold', price: 2945.0 }],
 } as const;
 
 /** Quick amount presets */
@@ -90,8 +104,8 @@ export const BUY_QUICK_AMOUNTS = ['5', '10', '50'] as const;
  * `calculations.ts` via `resolveFeeRates()` from `marketDataService.getSync()`.
  */
 export const PRE_DEMO_BUY_EXTRAS = {
-  xautSwapGas: 0.09,   // Fixed ~$0.09 ETH swap gas (demo-specific)
-  xautLp: 0.001,       // ~0.10% DEX LP fee (no `thirdPartyFees.dexLpFee` schema field; deferred)
+  xautSwapGas: 0.09, // Fixed ~$0.09 ETH swap gas (demo-specific)
+  xautLp: 0.001, // ~0.10% DEX LP fee (no `thirdPartyFees.dexLpFee` schema field; deferred)
   defaultRate: 0.0006, // Default scenario rate for non-BTC/non-XAUT assets
 } as const;
 

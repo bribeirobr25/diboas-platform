@@ -59,14 +59,14 @@ export function BenefitsCardsSection({
   variant = 'default',
   className = '',
   enableAnalytics = true,
-  priority = false
+  priority = false,
 }: BenefitsCardsSectionProps) {
   // Internationalization: Translate config using translation keys
   const translatedConfig = useConfigTranslation(config);
 
   // Variant factory: Map variant names to components
   const variantComponents = {
-    default: BenefitsCardsDefault
+    default: BenefitsCardsDefault,
   };
 
   // Select the appropriate variant component

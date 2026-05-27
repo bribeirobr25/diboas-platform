@@ -26,12 +26,12 @@ diBoaS is a fintech platform currently in **pre-launch/waitlist** phase. The web
 
 The monorepo uses Turborepo + pnpm workspaces:
 
-| Workspace | Purpose |
-|-----------|---------|
-| `apps/web` | Next.js web application (the only app) |
-| `packages/i18n` | Internationalization (react-intl, 4 locales) |
-| `packages/ui` | Shared design system components |
-| `packages/email` | Email service (Resend) |
+| Workspace        | Purpose                                      |
+| ---------------- | -------------------------------------------- |
+| `apps/web`       | Next.js web application (the only app)       |
+| `packages/i18n`  | Internationalization (react-intl, 4 locales) |
+| `packages/ui`    | Shared design system components              |
+| `packages/email` | Email service (Resend)                       |
 
 For the full architecture diagram and App Router structure, see `CLAUDE.md` > Architecture.
 
@@ -55,17 +55,17 @@ For the full architecture diagram and App Router structure, see `CLAUDE.md` > Ar
 
 ## Where to Find Things
 
-| What | Where |
-|------|-------|
-| Page routes | `apps/web/src/app/[locale]/` |
-| Section components | `apps/web/src/components/Sections/` |
-| UI primitives | `apps/web/src/components/UI/` |
-| Page configs | `apps/web/src/config/` (e.g., `landing-b2c.ts`) |
-| Translation files | `packages/i18n/translations/{locale}/` |
-| Design tokens (CSS) | `apps/web/src/styles/design-tokens.css` |
-| API routes | `apps/web/src/app/api/` |
-| Hooks | `apps/web/src/hooks/` |
-| Utilities | `apps/web/src/lib/` |
+| What                | Where                                           |
+| ------------------- | ----------------------------------------------- |
+| Page routes         | `apps/web/src/app/[locale]/`                    |
+| Section components  | `apps/web/src/components/Sections/`             |
+| UI primitives       | `apps/web/src/components/UI/`                   |
+| Page configs        | `apps/web/src/config/` (e.g., `landing-b2c.ts`) |
+| Translation files   | `packages/i18n/translations/{locale}/`          |
+| Design tokens (CSS) | `apps/web/src/styles/design-tokens.css`         |
+| API routes          | `apps/web/src/app/api/`                         |
+| Hooks               | `apps/web/src/hooks/`                           |
+| Utilities           | `apps/web/src/lib/`                             |
 
 ## Common Tasks
 
@@ -115,13 +115,13 @@ Stories go alongside their component (e.g., `MySection.stories.tsx`). Use existi
 
 ## Quality Commands
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm type-check` | TypeScript strict mode check |
-| `pnpm lint` | ESLint across all workspaces |
-| `pnpm test` | Vitest across all workspaces |
-| `pnpm build` | Production build |
-| `pnpm format` | Prettier formatting |
+| Command             | Purpose                        |
+| ------------------- | ------------------------------ |
+| `pnpm type-check`   | TypeScript strict mode check   |
+| `pnpm lint`         | ESLint across all workspaces   |
+| `pnpm test`         | Vitest across all workspaces   |
+| `pnpm build`        | Production build               |
+| `pnpm format`       | Prettier formatting            |
 | `pnpm validate:all` | Full pipeline (run before PRs) |
 
 ## Further Reading

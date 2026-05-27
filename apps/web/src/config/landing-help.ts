@@ -187,7 +187,7 @@ function buildTopicConfig(topicId: HelpTopicId): FAQAccordionVariantConfig {
  * Pre-built configs for all help topics (avoids re-computation on each render).
  */
 export const HELP_TOPIC_CONFIGS: Record<HelpTopicId, FAQAccordionVariantConfig> =
-  Object.fromEntries(
-    HELP_TOPIC_IDS.map((id) => [id, buildTopicConfig(id)])
-  ) as Record<HelpTopicId, FAQAccordionVariantConfig>;
-
+  Object.fromEntries(HELP_TOPIC_IDS.map((id) => [id, buildTopicConfig(id)])) as Record<
+    HelpTopicId,
+    FAQAccordionVariantConfig
+  >;

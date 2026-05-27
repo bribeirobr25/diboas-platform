@@ -15,7 +15,11 @@ const meta: Meta<typeof ExpandableCard> = {
   component: ExpandableCard,
   parameters: {
     layout: 'padded',
-    docs: { description: { component: 'Shared expandable card pattern used for goal cards, strategies, and protocols.' } },
+    docs: {
+      description: {
+        component: 'Shared expandable card pattern used for goal cards, strategies, and protocols.',
+      },
+    },
   },
 };
 

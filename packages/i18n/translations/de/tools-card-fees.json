@@ -16,12 +16,15 @@
     "avgTxLabel": "Durchschnittliche Transaktion (optional)",
     "avgTxHelp": "Wird genutzt, um die Pro-Transaktions-Gebühr zu berechnen"
   },
+  "warnings": {
+    "feeTooHigh": "Diese Gebühr wirkt ungewöhnlich hoch. Echte Kartenakzeptanz-Gebühren liegen zwischen 0,3% und 3,5% — meinst du eine kleinere Zahl?"
+  },
   "output": {
     "monthlyFee": "Monatlich an Anbieter",
     "annualFee": "Pro Jahr an Anbieter",
     "annualSavings": "Mit diBoaS sparen",
     "perTxLabel": "Gebühr pro Transaktion",
-    "caveat": "Tatsächliche Einsparungen hängen von deiner Kundenmischung ab; dies ist eine obere Schätzgrenze."
+    "caveat": "Hier siehst du die maximalen Einsparungen — angenommen, 100% der Kartenzahlungen laufen über diBoaS. Die tatsächlichen Einsparungen wachsen mit der diBoaS-Adoption deiner Kunden — das ist eine obere Schätzgrenze."
   },
   "vignette": {
     "subtitle": "Gleicher Umsatz. Anderer Anbieter. Großer Unterschied."

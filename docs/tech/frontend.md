@@ -6,7 +6,7 @@
 
 The frontend is a single Next.js 16 application (App Router, Turbopack) deployed at `diboas.com`. It serves as a marketing and onboarding site with waitlist functionality. There are no consumer-app or business-app subdomains; all routes live under `apps/web/`.
 
-Key technologies: TypeScript (strict mode), React 18, Tailwind CSS 3, react-intl (4 locales: en, pt-BR, es, de), Sentry, PostHog (consent-gated), and Storybook 9 for component development.
+Key technologies: TypeScript (strict mode), React 18, Tailwind CSS 3, react-intl (4 locales: en, pt-BR, es, de), Sentry, PostHog (consent-gated), and Storybook 10 for component development.
 
 ## 2. Component Architecture
 
@@ -29,22 +29,22 @@ Examples: `HeroSection`, `FAQAccordion`, `BenefitsCards`, `FeatureShowcase`, `On
 
 ### Component Categories
 
-| Directory | Purpose |
-|-----------|---------|
-| `Sections/` | Page sections (30+ components) with Factory pattern — including the 9-tool calculator suite (`CompoundInterestCalculator`, `EmergencyFundCalculator`, `TimeToTargetCalculator`, `IdleCashCalculator`, `InflationImpactCalculator`, `CurrencyDepreciationCalculator`, `CardFeesCalculator`, plus `Lesson` for `/learn/compound-interest`) |
-| `UI/` | Primitives: `CTAButtonLink`, `Container`, `CarouselDots`, `ContentCard`, `CurrencyInput`, `FlexBetween`, `LocaleLink`, `LucideIcon`, `ScrollReveal`, `SocialIcons`, `StickyMobileCTA`, `StrategyCard`, `LessonHero`, `LessonProgressBar`, `CompoundChart`, `DisclaimerNote` |
-| `Layout/` | `Footer` (Minimal + Site), `Navigation` (Desktop + Mobile), `ScrollDepthTracker`, `ScrollToHash`, `UtmCapture` |
-| `Providers/` | `I18nProvider`, `LocaleProvider`, `PageI18nProvider`, `PostHogProvider`, `SetHtmlLang` |
-| `WaitingList/` | Waitlist form, modal, confirmation, referral link, position display |
-| `PreDemo/` | Interactive banking demo (client-only, dynamically imported) |
-| `PreDream/` | Future-you visualization experience (client-only, dynamically imported) |
-| `ErrorBoundary/` | `RouteGroupError`, `RouteGroupLoading`, `PageErrorBoundary`, `NavigationErrorBoundary` |
-| `SEO/` | `StructuredData` (JSON-LD injection) |
-| `CookieConsent/` | GDPR-compliant cookie consent banner |
-| `LanguageSwitcher/` | Locale selection with keyboard navigation |
-| `Performance/` | `MonitoringInit`, `WebVitalsTracker`, `PageViewTracker` |
-| `Legal/` | `LegalDocument`, privacy/cookie/terms content |
-| `Pages/` | Page-level compositions (Protocols, Strategies) |
+| Directory           | Purpose                                                                                                                                                                                                                                                                                                                                  |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Sections/`         | Page sections (30+ components) with Factory pattern — including the 9-tool calculator suite (`CompoundInterestCalculator`, `EmergencyFundCalculator`, `TimeToTargetCalculator`, `IdleCashCalculator`, `InflationImpactCalculator`, `CurrencyDepreciationCalculator`, `CardFeesCalculator`, plus `Lesson` for `/learn/compound-interest`) |
+| `UI/`               | Primitives: `CTAButtonLink`, `Container`, `CarouselDots`, `ContentCard`, `CurrencyInput`, `FlexBetween`, `LocaleLink`, `LucideIcon`, `ScrollReveal`, `SocialIcons`, `StickyMobileCTA`, `StrategyCard`, `LessonHero`, `LessonProgressBar`, `CompoundChart`, `DisclaimerNote`                                                              |
+| `Layout/`           | `Footer` (Minimal + Site), `Navigation` (Desktop + Mobile), `ScrollDepthTracker`, `ScrollToHash`, `UtmCapture`                                                                                                                                                                                                                           |
+| `Providers/`        | `I18nProvider`, `LocaleProvider`, `PageI18nProvider`, `PostHogProvider`, `SetHtmlLang`                                                                                                                                                                                                                                                   |
+| `WaitingList/`      | Waitlist form, modal, confirmation, referral link, position display                                                                                                                                                                                                                                                                      |
+| `PreDemo/`          | Interactive banking demo (client-only, dynamically imported)                                                                                                                                                                                                                                                                             |
+| `PreDream/`         | Future-you visualization experience (client-only, dynamically imported)                                                                                                                                                                                                                                                                  |
+| `ErrorBoundary/`    | `RouteGroupError`, `RouteGroupLoading`, `PageErrorBoundary`, `NavigationErrorBoundary`                                                                                                                                                                                                                                                   |
+| `SEO/`              | `StructuredData` (JSON-LD injection)                                                                                                                                                                                                                                                                                                     |
+| `CookieConsent/`    | GDPR-compliant cookie consent banner                                                                                                                                                                                                                                                                                                     |
+| `LanguageSwitcher/` | Locale selection with keyboard navigation                                                                                                                                                                                                                                                                                                |
+| `Performance/`      | `MonitoringInit`, `WebVitalsTracker`, `PageViewTracker`                                                                                                                                                                                                                                                                                  |
+| `Legal/`            | `LegalDocument`, privacy/cookie/terms content                                                                                                                                                                                                                                                                                            |
+| `Pages/`            | Page-level compositions (Protocols, Strategies)                                                                                                                                                                                                                                                                                          |
 
 ### Server vs Client Components
 
@@ -112,13 +112,13 @@ Tracked via `WebVitalsTracker` and `MonitoringInit` components.
 
 ### Breakpoints (from `design-tokens.css`)
 
-| Token | Width | Usage |
-|-------|-------|-------|
-| `--breakpoint-mobile` | 480px | Small phones |
-| `--breakpoint-tablet` | 768px | Tablets |
+| Token                  | Width  | Usage                           |
+| ---------------------- | ------ | ------------------------------- |
+| `--breakpoint-mobile`  | 480px  | Small phones                    |
+| `--breakpoint-tablet`  | 768px  | Tablets                         |
 | `--breakpoint-desktop` | 1024px | Laptops (navigation breakpoint) |
-| `--breakpoint-wide` | 1280px | Desktop |
-| `--breakpoint-ultra` | 1440px | Large displays |
+| `--breakpoint-wide`    | 1280px | Desktop                         |
+| `--breakpoint-ultra`   | 1440px | Large displays                  |
 
 ### Approach
 
@@ -144,25 +144,27 @@ No global state library (Redux, Zustand, etc.) is used. No server state fetching
 
 All hooks live in `apps/web/src/hooks/`:
 
-| Hook | Purpose |
-|------|---------|
-| `useCarousel` | Carousel state, auto-rotation, keyboard nav, pause-on-hover, swipe integration. Uses mutex locks and state machine for race condition prevention. |
-| `useFocusTrap` | Traps keyboard focus within modals/dialogs. Returns focus to trigger element on close. |
-| `useImageLoading` | Tracks image load states across multiple images. Fires callback when all images are loaded. |
-| `useNavigation` | Navigation open/close state, active menu/submenu tracking, mobile breakpoint detection. |
-| `useSwipeGesture` | Touch gesture detection (swipe left/right) for carousel components. Configurable threshold. |
-| `useUtmCapture` | Captures UTM parameters from URL on page load, persists to `sessionStorage` for attribution. |
-| `useWaitlistStats` | Fetches waitlist stats with `fetchWithRetry`, caches in `sessionStorage` (5-min TTL), listens for real-time updates via `ApplicationEventBus`. |
+| Hook               | Purpose                                                                                                                                           |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useCarousel`      | Carousel state, auto-rotation, keyboard nav, pause-on-hover, swipe integration. Uses mutex locks and state machine for race condition prevention. |
+| `useFocusTrap`     | Traps keyboard focus within modals/dialogs. Returns focus to trigger element on close.                                                            |
+| `useImageLoading`  | Tracks image load states across multiple images. Fires callback when all images are loaded.                                                       |
+| `useNavigation`    | Navigation open/close state, active menu/submenu tracking, mobile breakpoint detection.                                                           |
+| `useSwipeGesture`  | Touch gesture detection (swipe left/right) for carousel components. Configurable threshold.                                                       |
+| `useUtmCapture`    | Captures UTM parameters from URL on page load, persists to `sessionStorage` for attribution.                                                      |
+| `useWaitlistStats` | Fetches waitlist stats with `fetchWithRetry`, caches in `sessionStorage` (5-min TTL), listens for real-time updates via `ApplicationEventBus`.    |
 
 Additional component-scoped hooks exist in `WaitingList/hooks/` (`useWaitlistForm`, `useWaitlistModalForm`) and `PreDemo/hooks/` (`useScreenTransitionSequence`, `useTimerCleanup`).
 
 ## 9. Error Handling
 
-### Error Boundaries (3 layers)
+### Error Boundaries (4 layers + per-section)
 
-1. **Root:** `global-error.tsx` catches unhandled errors app-wide.
-2. **Route group:** `(landing)/error.tsx` catches errors within the landing route group.
-3. **Page/component:** `PageErrorBoundary` and `NavigationErrorBoundary` wrap specific UI sections.
+1. **Root:** `global-error.tsx` catches unhandled errors app-wide (Next.js global boundary).
+2. **App:** `app/error.tsx` for the top-level layout shell.
+3. **Locale:** `[locale]/error.tsx` for locale-scoped errors.
+4. **Route group:** `(landing)/error.tsx` catches errors within the landing route group.
+5. **Per-section:** `SectionErrorBoundary` (plus the React-component wrappers `PageErrorBoundary` / `NavigationErrorBoundary`) for granular UI fallback within a route.
 
 ### Loading States
 

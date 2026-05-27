@@ -31,11 +31,11 @@ describe('idempotency', () => {
     });
 
     it('should return null for uncached key', async () => {
-      expect(await getIdempotentResponse(`uncached-key-${  Math.random()}`)).toBeNull();
+      expect(await getIdempotentResponse(`uncached-key-${Math.random()}`)).toBeNull();
     });
 
     it('should return cached response for valid key', async () => {
-      const key = `test-get-${  Date.now()}`;
+      const key = `test-get-${Date.now()}`;
       await cacheIdempotentResponse(key, 200, { success: true });
 
       const result = await getIdempotentResponse(key);
@@ -43,7 +43,7 @@ describe('idempotency', () => {
     });
 
     it('should return null and evict expired entries', async () => {
-      const key = `test-expired-${  Date.now()}`;
+      const key = `test-expired-${Date.now()}`;
 
       // Cache a response
       const pastTime = Date.now() - 6 * 60 * 1000; // 6 minutes ago (beyond 5min TTL)
@@ -64,7 +64,7 @@ describe('idempotency', () => {
     });
 
     it('should cache and retrieve response with correct status and body', async () => {
-      const key = `test-cache-${  Date.now()}`;
+      const key = `test-cache-${Date.now()}`;
       const body = { message: 'created', id: 42 };
 
       await cacheIdempotentResponse(key, 201, body);
@@ -81,7 +81,7 @@ describe('idempotency', () => {
     });
 
     it('should overwrite existing cache entry for same key', async () => {
-      const key = `test-overwrite-${  Date.now()}`;
+      const key = `test-overwrite-${Date.now()}`;
 
       await cacheIdempotentResponse(key, 200, { version: 1 });
       await cacheIdempotentResponse(key, 200, { version: 2 });

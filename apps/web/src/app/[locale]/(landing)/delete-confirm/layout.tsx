@@ -4,10 +4,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function DeleteConfirmLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DeleteConfirmLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

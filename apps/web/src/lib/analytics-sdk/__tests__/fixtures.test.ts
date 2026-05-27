@@ -54,7 +54,9 @@ function isObject(v: unknown): v is AnyRecord {
 
 function hasLocalizedText(v: unknown): v is Record<string, string> {
   if (!isObject(v)) return false;
-  return LOCALES.every((locale) => typeof v[locale] === 'string' && (v[locale] as string).length > 0);
+  return LOCALES.every(
+    (locale) => typeof v[locale] === 'string' && (v[locale] as string).length > 0
+  );
 }
 
 function hasLocalizedSummary(v: unknown): boolean {
@@ -372,8 +374,12 @@ describe('editorial dataset — product-disclaimer schema drift guard', () => {
 
 describe('editorial dataset — parity with iter-2 fixture shape', () => {
   it('should keep editorial regime.json top-level keys aligned with iter-2 regime-constructive.json', () => {
-    const editorialKeys = Object.keys(editorialRegime as AnyRecord).filter((k) => !k.startsWith('_')).sort();
-    const fixtureKeys = Object.keys(constructive as AnyRecord).filter((k) => !k.startsWith('_')).sort();
+    const editorialKeys = Object.keys(editorialRegime as AnyRecord)
+      .filter((k) => !k.startsWith('_'))
+      .sort();
+    const fixtureKeys = Object.keys(constructive as AnyRecord)
+      .filter((k) => !k.startsWith('_'))
+      .sort();
     expect(editorialKeys).toEqual(fixtureKeys);
   });
 });

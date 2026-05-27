@@ -24,7 +24,7 @@ const INVITE_LIMIT = 5;
 
 export async function determineTier(
   referrer: WaitlistEntry | undefined,
-  source: WaitlistSource | undefined,
+  source: WaitlistSource | undefined
 ): Promise<WaitlistTier> {
   const audience = sourceToAudience(source);
 

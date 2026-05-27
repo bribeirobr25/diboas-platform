@@ -26,6 +26,8 @@ import {
   type ReturnsBasis,
 } from '@/lib/asset-history';
 import { marketDataService } from '@/lib/market-data';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
+import { errorReportingService } from '@/lib/errors/ErrorReportingService';
 import {
   ASSET_HISTORY_DEFAULTS,
   type AssetHistoryAssetKey,
@@ -50,14 +52,19 @@ const ASSET_OPTIONS: ReadonlyArray<AssetHistoryAssetKey> = [
 // Phase E v2 (TOOLS_IMPROVEMENT.md): 17-year start-year picker (2010–2026).
 // 2010 floors at July (data start) — labeled "2010 (from July)" in UI per Decision BF1.
 const START_YEAR_OPTIONS: ReadonlyArray<AssetHistoryStartYear> = [
-  2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017,
-  2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026,
+  2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+  2026,
 ];
 const MODE_OPTIONS: ReadonlyArray<AssetHistoryMode> = ['lumpSum', 'monthlyDca'];
 
 // Phase E v2 PT2: only these 4 assets have a meaningful TR / price-only divergence.
 // BTC/GOLD have no dividends; IBOVESPA/DAX are native total-return by construction.
-const TR_TOGGLE_ASSETS: ReadonlySet<AssetHistoryAssetKey> = new Set(['SP500', 'QQQ', 'MSCI_WORLD', 'TLT']);
+const TR_TOGGLE_ASSETS: ReadonlySet<AssetHistoryAssetKey> = new Set([
+  'SP500',
+  'QQQ',
+  'MSCI_WORLD',
+  'TLT',
+]);
 
 interface FormState {
   asset: AssetHistoryAssetKey;
@@ -66,6 +73,29 @@ interface FormState {
   amount: number;
   returnsBasis: ReturnsBasis;
 }
+
+/**
+ * Lookup table for the C22 close: maps the `result.startYm.slice(5, 7)` 2-digit
+ * month string ("01"–"12") to the i18n key used by `tools-asset-history.startMonth.*`.
+ * Hoisted to module scope per CLAUDE.md "Extract default non-primitive values"
+ * rule + P9 Performance — recreating this 12-entry record per render burns
+ * allocations the function component shouldn't pay (architecture audit V2,
+ * 2026-05-26).
+ */
+const MONTH_KEY_BY_NUMBER: Readonly<Record<string, string>> = {
+  '01': 'jan',
+  '02': 'feb',
+  '03': 'mar',
+  '04': 'apr',
+  '05': 'may',
+  '06': 'jun',
+  '07': 'jul',
+  '08': 'aug',
+  '09': 'sep',
+  '10': 'oct',
+  '11': 'nov',
+  '12': 'dec',
+};
 
 export function AssetHistoryCalculatorDefault() {
   const intl = useTranslation();
@@ -84,7 +114,7 @@ export function AssetHistoryCalculatorDefault() {
       amount: ASSET_HISTORY_DEFAULTS.contribution[localeKey],
       returnsBasis: 'total_return',
     }),
-    [localeKey],
+    [localeKey]
   );
   const [form, setForm] = useState<FormState>(initial);
 
@@ -93,12 +123,15 @@ export function AssetHistoryCalculatorDefault() {
   const [seriesLoaded, setSeriesLoaded] = useState(false);
   useEffect(() => {
     let mounted = true;
-    marketDataService.get().then(() => {
-      if (mounted) setSeriesLoaded(true);
-    }).catch(() => {
-      // FallbackProvider can't actually fail; this is defensive only.
-      if (mounted) setSeriesLoaded(true);
-    });
+    marketDataService
+      .get()
+      .then(() => {
+        if (mounted) setSeriesLoaded(true);
+      })
+      .catch(() => {
+        // FallbackProvider can't actually fail; this is defensive only.
+        if (mounted) setSeriesLoaded(true);
+      });
     return () => {
       mounted = false;
     };
@@ -114,8 +147,21 @@ export function AssetHistoryCalculatorDefault() {
     return 'USD';
   }, [localeKey]);
 
-  const result = useMemo(() => {
-    if (!seriesLoaded || form.amount <= 0) return null;
+  // C21 close (2026-05-25): the engine SHOULD only throw AssetHistoryDataError.
+  // Any other throw (NaN/TypeError from unexpected data, missing monthlySeries
+  // shape, non-positive finalBar.close) used to propagate out of the useMemo
+  // into the render path and crash the component with no error boundary. Now:
+  // catch widened to return null; useEffect below emits a structured event
+  // when an unexpected error is captured. Keeps the useMemo pure
+  // (react-hooks/purity) while still routing to applicationEventBus.
+  const computed = useMemo<{
+    result:
+      | ReturnType<typeof calculateAssetHistoryDcaReplay>
+      | ReturnType<typeof calculateAssetHistoryLumpSum>
+      | null;
+    unexpectedError: Error | null;
+  }>(() => {
+    if (!seriesLoaded || form.amount <= 0) return { result: null, unexpectedError: null };
     try {
       const args = {
         asset: form.asset,
@@ -124,19 +170,62 @@ export function AssetHistoryCalculatorDefault() {
         returnsBasis: form.returnsBasis,
         displayCurrency,
       };
-      return form.mode === 'lumpSum'
-        ? calculateAssetHistoryLumpSum(args)
-        : calculateAssetHistoryDcaReplay(args);
+      const r =
+        form.mode === 'lumpSum'
+          ? calculateAssetHistoryLumpSum(args)
+          : calculateAssetHistoryDcaReplay(args);
+      return { result: r, unexpectedError: null };
     } catch (err) {
-      if (err instanceof AssetHistoryDataError) return null;
-      throw err;
+      if (err instanceof AssetHistoryDataError) return { result: null, unexpectedError: null };
+      return {
+        result: null,
+        unexpectedError: err instanceof Error ? err : new Error(String(err)),
+      };
     }
   }, [form, seriesLoaded, displayCurrency]);
 
+  const result = computed.result;
+  useEffect(() => {
+    if (!computed.unexpectedError) return;
+    // C21 close (TOOLS_41_DEFECTS_FIX_PLAN.md §1.2): emit BOTH (a) the
+    // structured tool-specific event AND (b) Sentry capture via the
+    // errorReportingService abstraction. Two channels: applicationEventBus
+    // feeds in-app monitoring + future analytics dashboards; Sentry feeds
+    // production observability + alerts. CALCULATOR_UNEXPECTED_ERROR is
+    // distinct from APPLICATION_ERROR so the tools-suite slice is
+    // separable in dashboards (per ApplicationEventType v1.2 split).
+    const context = {
+      asset: form.asset,
+      startYear: form.startYear,
+      mode: form.mode,
+      returnsBasis: form.returnsBasis,
+      displayCurrency,
+    };
+    applicationEventBus.emit(ApplicationEventType.CALCULATOR_UNEXPECTED_ERROR, {
+      domain: 'tools',
+      source: 'asset-history',
+      timestamp: Date.now(),
+      error: computed.unexpectedError,
+      severity: 'high',
+      context,
+    });
+    errorReportingService.captureException(computed.unexpectedError, {
+      tags: { tool: 'asset-history', domain: 'tools' },
+      extra: context,
+      level: 'error',
+    });
+  }, [
+    computed.unexpectedError,
+    form.asset,
+    form.startYear,
+    form.mode,
+    form.returnsBasis,
+    displayCurrency,
+  ]);
+
   const handleAmount = (value: number) =>
     setForm((prev) => ({ ...prev, amount: clamp(value, 0, 1_000_000) }));
-  const handleAsset = (asset: AssetHistoryAssetKey) =>
-    setForm((prev) => ({ ...prev, asset }));
+  const handleAsset = (asset: AssetHistoryAssetKey) => setForm((prev) => ({ ...prev, asset }));
   const handleStartYear = (startYear: AssetHistoryStartYear) =>
     setForm((prev) => ({ ...prev, startYear }));
   const handleMode = (mode: AssetHistoryMode) => setForm((prev) => ({ ...prev, mode }));
@@ -158,16 +247,24 @@ export function AssetHistoryCalculatorDefault() {
 
   const isDcaResult = result && 'rangeLow' in result && result.rangeLow !== undefined;
 
+  // C22 close (2026-05-25): derive the start-month label from the engine's
+  // actual `result.startYm` instead of a hardcoded `startYear === 2010 ? 'jul'`
+  // heuristic. Pre-fix, DAX-2010 showed "Jul" while the engine correctly used
+  // June; SP500-2010 showed "Jul" while the data starts in July (correct by
+  // luck, not design). `result.startYm` is the source of truth.
+  const startMonthIso = result ? result.startYm.slice(5, 7) : '01';
+  const startMonthKey = MONTH_KEY_BY_NUMBER[startMonthIso] ?? 'jan';
+
   const summary = result
     ? form.mode === 'lumpSum'
       ? t('output.summaryLumpSum', {
           amount: formatCurrency(form.amount, currencyLocale, { maximumFractionDigits: 0 }),
-          startMonth: t(`output.startMonth.${form.startYear === 2010 ? 'jul' : 'jan'}`),
+          startMonth: t(`output.startMonth.${startMonthKey}`),
           startYear: form.startYear,
         })
       : t('output.summaryDca', {
           amount: formatCurrency(form.amount, currencyLocale, { maximumFractionDigits: 0 }),
-          startMonth: t(`output.startMonth.${form.startYear === 2010 ? 'jul' : 'jan'}`),
+          startMonth: t(`output.startMonth.${startMonthKey}`),
           startYear: form.startYear,
         })
     : '';
@@ -273,8 +370,12 @@ export function AssetHistoryCalculatorDefault() {
               <>
                 <p className={styles.terminalRange}>
                   {t('output.terminalRange', {
-                    low: formatCurrency(result.rangeLow!, currencyLocale, { maximumFractionDigits: 0 }),
-                    high: formatCurrency(result.rangeHigh!, currencyLocale, { maximumFractionDigits: 0 }),
+                    low: formatCurrency(result.rangeLow!, currencyLocale, {
+                      maximumFractionDigits: 0,
+                    }),
+                    high: formatCurrency(result.rangeHigh!, currencyLocale, {
+                      maximumFractionDigits: 0,
+                    }),
                   })}
                 </p>
                 <p className={styles.uncertaintyNote}>{t('output.uncertaintyLow')}</p>
@@ -282,7 +383,9 @@ export function AssetHistoryCalculatorDefault() {
             ) : (
               <>
                 <p className={styles.terminalValue}>
-                  {formatCurrency(result.terminalValue, currencyLocale, { maximumFractionDigits: 0 })}
+                  {formatCurrency(result.terminalValue, currencyLocale, {
+                    maximumFractionDigits: 0,
+                  })}
                   {(() => {
                     const contributed = result.totalContributed;
                     if (!contributed || contributed <= 0) return null;
@@ -297,7 +400,8 @@ export function AssetHistoryCalculatorDefault() {
                         aria-label={t('inputs.gainBadgeTooltip')}
                       >
                         {' '}
-                        {sign}{gainPct.toFixed(1)}%
+                        {sign}
+                        {gainPct.toFixed(1)}%
                       </span>
                     );
                   })()}
@@ -305,8 +409,12 @@ export function AssetHistoryCalculatorDefault() {
                 {isDcaResult && result.confidence !== 'LOW' && (
                   <p className={styles.rangeSubtle}>
                     {t('output.terminalRangeSubtle', {
-                      low: formatCurrency(result.rangeLow!, currencyLocale, { maximumFractionDigits: 0 }),
-                      high: formatCurrency(result.rangeHigh!, currencyLocale, { maximumFractionDigits: 0 }),
+                      low: formatCurrency(result.rangeLow!, currencyLocale, {
+                        maximumFractionDigits: 0,
+                      }),
+                      high: formatCurrency(result.rangeHigh!, currencyLocale, {
+                        maximumFractionDigits: 0,
+                      }),
                     })}
                   </p>
                 )}
@@ -315,20 +423,22 @@ export function AssetHistoryCalculatorDefault() {
             <p className={styles.totalContributed}>
               {form.mode === 'monthlyDca'
                 ? t('output.contributedOverMonths', {
-                    total: formatCurrency(result.totalContributed, currencyLocale, { maximumFractionDigits: 0 }),
+                    total: formatCurrency(result.totalContributed, currencyLocale, {
+                      maximumFractionDigits: 0,
+                    }),
                     months: result.months,
                   })
                 : t('output.startingPrincipal', {
-                    total: formatCurrency(result.totalContributed, currencyLocale, { maximumFractionDigits: 0 }),
+                    total: formatCurrency(result.totalContributed, currencyLocale, {
+                      maximumFractionDigits: 0,
+                    }),
                   })}
             </p>
             <span className={`${styles.confidenceBadge} ${confidenceClass(result.confidence)}`}>
               {t(`output.confidence${capitalize(result.confidence)}`)}
             </span>
             {result.confidence === 'MEDIUM' && (
-              <p className={styles.uncertaintyNote}>
-                {t('output.uncertaintyMedium')}
-              </p>
+              <p className={styles.uncertaintyNote}>{t('output.uncertaintyMedium')}</p>
             )}
           </div>
         </>

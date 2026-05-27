@@ -54,7 +54,8 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
 
   // Calculate crypto quantity for buy
   const cryptoQuantity = useMemo(() => {
-    if (!pending || pending.type !== 'buy' || !pending.asset?.price || pending.netAmount <= 0) return 0;
+    if (!pending || pending.type !== 'buy' || !pending.asset?.price || pending.netAmount <= 0)
+      return 0;
     return pending.netAmount / pending.asset.price;
   }, [pending]);
 
@@ -76,9 +77,30 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
 
   // Derived keys based on transaction type
   const typeKeys = {
-    deposit: { title: 'preDemo.confirm.titleDeposit', typeLabel: 'preDemo.confirm.typeDeposit', back: 'deposit', receive: 'preDemo.confirm.youReceive', terms: 'preDemo.confirm.termsDeposit', confirm: 'preDemo.confirm.confirmDeposit' },
-    send: { title: 'preDemo.confirm.titleSend', typeLabel: 'preDemo.confirm.typeSend', back: 'send', receive: 'preDemo.confirm.theyReceive', terms: 'preDemo.confirm.termsSend', confirm: 'preDemo.confirm.confirmTransfer' },
-    buy: { title: 'preDemo.confirm.titleBuy', typeLabel: 'preDemo.confirm.typeBuy', back: 'buy', receive: 'preDemo.confirm.youReceive', terms: 'preDemo.confirm.termsBuy', confirm: 'preDemo.confirm.confirmPurchase' },
+    deposit: {
+      title: 'preDemo.confirm.titleDeposit',
+      typeLabel: 'preDemo.confirm.typeDeposit',
+      back: 'deposit',
+      receive: 'preDemo.confirm.youReceive',
+      terms: 'preDemo.confirm.termsDeposit',
+      confirm: 'preDemo.confirm.confirmDeposit',
+    },
+    send: {
+      title: 'preDemo.confirm.titleSend',
+      typeLabel: 'preDemo.confirm.typeSend',
+      back: 'send',
+      receive: 'preDemo.confirm.theyReceive',
+      terms: 'preDemo.confirm.termsSend',
+      confirm: 'preDemo.confirm.confirmTransfer',
+    },
+    buy: {
+      title: 'preDemo.confirm.titleBuy',
+      typeLabel: 'preDemo.confirm.typeBuy',
+      back: 'buy',
+      receive: 'preDemo.confirm.youReceive',
+      terms: 'preDemo.confirm.termsBuy',
+      confirm: 'preDemo.confirm.confirmPurchase',
+    },
   } as const;
   const keys = typeKeys[pending.type];
 
@@ -122,9 +144,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
           {/* Recipient (send only) */}
           {pending.type === 'send' && pending.recipient && (
             <div className={styles.confirmDetail}>
-              <span className={styles.confirmDetailLabel}>
-                {t('preDemo.confirm.recipient')}
-              </span>
+              <span className={styles.confirmDetailLabel}>{t('preDemo.confirm.recipient')}</span>
               <span className={styles.confirmDetailValue}>{pending.recipient}</span>
             </div>
           )}
@@ -132,9 +152,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
           {/* Asset (buy only) */}
           {pending.type === 'buy' && pending.asset && (
             <div className={styles.confirmDetail}>
-              <span className={styles.confirmDetailLabel}>
-                {t('preDemo.confirm.asset')}
-              </span>
+              <span className={styles.confirmDetailLabel}>{t('preDemo.confirm.asset')}</span>
               <span className={styles.confirmDetailValue}>
                 {pending.asset.name} ({pending.asset.symbol})
               </span>
@@ -143,9 +161,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
 
           {/* Total amount */}
           <div className={styles.confirmDetail}>
-            <span className={styles.confirmDetailLabel}>
-              {t('preDemo.confirm.totalAmount')}
-            </span>
+            <span className={styles.confirmDetailLabel}>{t('preDemo.confirm.totalAmount')}</span>
             <span className={styles.confirmDetailValue}>
               {formatCurrency(pending.grossAmount, 2, locale)}
             </span>
@@ -153,11 +169,7 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
         </div>
 
         {/* Fee breakdown */}
-        <FeeBreakdown
-          feeItems={pending.fees}
-          totalFees={pending.totalFees}
-          alwaysExpanded
-        />
+        <FeeBreakdown feeItems={pending.fees} totalFees={pending.totalFees} alwaysExpanded />
 
         {/* Net amount */}
         <div className={styles.confirmTotal}>
@@ -169,7 +181,8 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
               </span>
               <br />
               <span className={styles.confirmApproxLabel}>
-                {t('preDemo.transaction.approximate')} {formatCurrency(pending.netAmount, 2, locale)}
+                {t('preDemo.transaction.approximate')}{' '}
+                {formatCurrency(pending.netAmount, 2, locale)}
               </span>
             </div>
           ) : (
@@ -186,7 +199,10 @@ export function ConfirmationScreen({ runSequence }: ConfirmationScreenProps) {
               type="checkbox"
               checked={state.termsAccepted}
               onChange={(e) => {
-                analyticsService.track({ name: 'pre_demo_terms_toggle', parameters: { type: pending.type, accepted: e.target.checked } });
+                analyticsService.track({
+                  name: 'pre_demo_terms_toggle',
+                  parameters: { type: pending.type, accepted: e.target.checked },
+                });
                 dispatch({ type: 'SET_TERMS_ACCEPTED', accepted: e.target.checked });
               }}
               className={styles.checkbox}

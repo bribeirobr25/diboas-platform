@@ -94,7 +94,7 @@ describe('useWaitlistForm validation logic', () => {
 
       expect(fetchWithRetry).toHaveBeenCalledWith(
         '/api/waitlist/signup',
-        expect.objectContaining({ method: 'POST' }),
+        expect.objectContaining({ method: 'POST' })
       );
       expect(data.position).toBe(42);
       expect(data.referralCode).toBe('ABC123');
@@ -147,9 +147,9 @@ describe('useWaitlistForm validation logic', () => {
     it('should handle network errors', async () => {
       vi.mocked(fetchWithRetry).mockRejectedValue(new TypeError('Failed to fetch'));
 
-      await expect(
-        fetchWithRetry('/api/waitlist/signup', { method: 'POST' }),
-      ).rejects.toThrow('Failed to fetch');
+      await expect(fetchWithRetry('/api/waitlist/signup', { method: 'POST' })).rejects.toThrow(
+        'Failed to fetch'
+      );
     });
   });
 

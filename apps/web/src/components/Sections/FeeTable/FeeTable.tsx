@@ -35,7 +35,7 @@ export const FeeTable = memo(function FeeTable({
   const { locale } = useLocale();
   const valuesByKey = useMemo(
     () => buildAllFeeValues(marketDataService.getSync().platformFees, locale),
-    [locale],
+    [locale]
   );
   const translated = useConfigTranslation(config, undefined, valuesByKey);
 
@@ -63,12 +63,22 @@ export const FeeTable = memo(function FeeTable({
           <table className={styles.table} role="table">
             <thead>
               <tr className={styles.tableHeaderRow}>
-                <th scope="col" className={styles.th}>{translated.content.headers.action}</th>
-                <th scope="col" className={styles.th}>{translated.content.headers.diboas}</th>
-                <th scope="col" className={styles.th}>{translated.content.headers.competitors}</th>
-                <th scope="col" className={styles.th}>{translated.content.headers.difference}</th>
+                <th scope="col" className={styles.th}>
+                  {translated.content.headers.action}
+                </th>
+                <th scope="col" className={styles.th}>
+                  {translated.content.headers.diboas}
+                </th>
+                <th scope="col" className={styles.th}>
+                  {translated.content.headers.competitors}
+                </th>
+                <th scope="col" className={styles.th}>
+                  {translated.content.headers.difference}
+                </th>
                 {translated.content.headers.example ? (
-                  <th scope="col" className={styles.th}>{translated.content.headers.example}</th>
+                  <th scope="col" className={styles.th}>
+                    {translated.content.headers.example}
+                  </th>
                 ) : null}
               </tr>
             </thead>
@@ -87,7 +97,9 @@ export const FeeTable = memo(function FeeTable({
                     )}
                   </td>
                   <td className={`${styles.td} ${styles.tdCompetitors}`}>{row.competitors}</td>
-                  <td className={`${styles.td} ${row.isHighlight ? styles.highlightDifference : ''}`}>
+                  <td
+                    className={`${styles.td} ${row.isHighlight ? styles.highlightDifference : ''}`}
+                  >
                     {row.difference}
                   </td>
                   {translated.content.headers.example ? (
@@ -106,8 +118,12 @@ export const FeeTable = memo(function FeeTable({
               <div className={styles.mobileCardAction}>{row.action}</div>
               <div className={styles.mobileCompareGrid}>
                 <div>
-                  <div className={styles.mobileCompareLabel}>{translated.content.headers.diboas}</div>
-                  <div className={`${styles.mobileCompareValue} ${row.isFree ? styles.freeText : ''}`}>
+                  <div className={styles.mobileCompareLabel}>
+                    {translated.content.headers.diboas}
+                  </div>
+                  <div
+                    className={`${styles.mobileCompareValue} ${row.isFree ? styles.freeText : ''}`}
+                  >
                     {row.isFree ? (
                       <span className={styles.freeLabel}>
                         <Check className={styles.checkIcon} aria-hidden="true" />
@@ -119,14 +135,16 @@ export const FeeTable = memo(function FeeTable({
                   </div>
                 </div>
                 <div>
-                  <div className={styles.mobileCompareLabel}>{translated.content.headers.competitors}</div>
+                  <div className={styles.mobileCompareLabel}>
+                    {translated.content.headers.competitors}
+                  </div>
                   <div className={styles.mobileCompareValue}>{row.competitors}</div>
                 </div>
               </div>
-              {row.example ? (
-                <div className={styles.mobileExample}>{row.example}</div>
-              ) : null}
-              <div className={`${styles.mobileDifference} ${row.isHighlight ? styles.highlightDifference : ''}`}>
+              {row.example ? <div className={styles.mobileExample}>{row.example}</div> : null}
+              <div
+                className={`${styles.mobileDifference} ${row.isHighlight ? styles.highlightDifference : ''}`}
+              >
                 {row.difference}
               </div>
             </div>

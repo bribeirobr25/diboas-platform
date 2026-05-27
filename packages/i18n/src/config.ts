@@ -1,6 +1,6 @@
 /**
  * Internationalization Configuration
- * 
+ *
  * Single Source of Truth for i18n across all applications
  * Security: Locale validation and sanitization
  * Performance: Optimized locale detection
@@ -10,7 +10,7 @@
 export const SUPPORTED_LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
 export const DEFAULT_LOCALE = 'en' as const;
 
-export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
+export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 // Semantic Naming: Clear locale configuration interface
 export interface LocaleConfig {
@@ -97,10 +97,10 @@ export function isValidLocale(locale: string): locale is SupportedLocale {
 // Error Handling: Safe locale resolution
 export function getSafeLocale(locale: string | null | undefined): SupportedLocale {
   if (!locale) return DEFAULT_LOCALE;
-  
+
   // Security: Sanitize input
   const sanitizedLocale = locale.replace(/[^a-zA-Z-]/g, '').slice(0, 10);
-  
+
   return isValidLocale(sanitizedLocale) ? sanitizedLocale : DEFAULT_LOCALE;
 }
 
@@ -134,9 +134,7 @@ export function matchAcceptLanguage(acceptLanguage: string | null): SupportedLoc
     if (isValidLocale(lang)) return lang;
     // Language-only match (e.g., "pt" → "pt-BR", "de-AT" → "de")
     const langPrefix = lang.split('-')[0];
-    const match = SUPPORTED_LOCALES.find(
-      (l) => l === langPrefix || l.startsWith(`${langPrefix}-`)
-    );
+    const match = SUPPORTED_LOCALES.find((l) => l === langPrefix || l.startsWith(`${langPrefix}-`));
     if (match) return match;
   }
 
@@ -159,15 +157,15 @@ export function detectPreferredLocale(
 
 // SEO: Generate alternate language URLs
 export function generateAlternateUrls(
-  basePath: string, 
+  basePath: string,
   domain: string,
   locales: SupportedLocale[] = [...SUPPORTED_LOCALES]
 ): Record<string, string> {
   const alternates: Record<string, string> = {};
-  
+
   for (const locale of locales) {
     alternates[locale] = `https://${domain}/${locale}${basePath}`;
   }
-  
+
   return alternates;
 }

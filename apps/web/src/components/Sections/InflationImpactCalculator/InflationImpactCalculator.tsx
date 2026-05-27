@@ -19,19 +19,15 @@ import { useId, useMemo, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Select } from '@diboas/ui';
 import { useLocale } from '@/components/Providers';
-import {
-  calculateLumpSum,
-  marketDataService,
-  purchasingPower,
-  selectInflationRate,
-  type SupportedLocale,
-} from '@/lib/market-data';
+import { marketDataService, type SupportedLocale } from '@/lib/market-data';
 import { formatCurrency } from '@/lib/compound-interest';
-import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
-import { INFLATION_IMPACT_DEFAULTS } from '@/lib/tools';
+import {
+  calculateInflationImpactForward,
+  calculateInflationImpactRetrospective,
+  INFLATION_IMPACT_SCENARIO_USD_PERCENT,
+} from '@/lib/inflation-impact';
+import { INFLATION_IMPACT_DEFAULTS, INFLATION_IMPACT_YEARS_BOUNDS, clampInput } from '@/lib/tools';
 import styles from './InflationImpactCalculator.module.css';
-
-const HISTORICAL_RATE = SCENARIO_RATES.historical;
 
 type Mode = 'forward' | 'retrospective';
 
@@ -59,51 +55,45 @@ export function InflationImpactCalculator() {
       years: INFLATION_IMPACT_DEFAULTS.years,
       country: localeKey,
     }),
-    [localeKey],
+    [localeKey]
   );
   const [form, setForm] = useState<FormState>(initial);
   const [mode, setMode] = useState<Mode>('forward');
 
   const snapshot = marketDataService.getSync();
-  const inflationRate = selectInflationRate(
-    form.country,
-    form.years * 12,
-    snapshot.inflationRates,
+
+  const forwardResult = useMemo(
+    () =>
+      mode === 'forward'
+        ? calculateInflationImpactForward(
+            { amount: form.amount, years: form.years, country: form.country },
+            snapshot
+          )
+        : null,
+    [mode, form, snapshot]
+  );
+  const inflationRate = forwardResult?.inflationRate ?? 0;
+
+  const retrospectiveResult = useMemo(
+    () =>
+      mode === 'retrospective'
+        ? calculateInflationImpactRetrospective(
+            { amount: form.amount, country: form.country },
+            snapshot
+          )
+        : null,
+    [mode, form.amount, form.country, snapshot]
   );
 
-  const forwardResult = useMemo(() => {
-    if (mode !== 'forward' || form.amount <= 0 || form.years <= 0) return null;
-    const cashValueReal = purchasingPower(form.amount, form.years, inflationRate);
-    const investedNominal = calculateLumpSum(
-      form.amount,
-      HISTORICAL_RATE / 100,
-      0,
-      form.years,
-    ).nominalFV;
-    const investedReal = purchasingPower(investedNominal, form.years, inflationRate);
-    return { cashValueReal, investedReal, lostToInflation: form.amount - cashValueReal };
-  }, [mode, form, inflationRate]);
-
-  // Retrospective math (Phase D.1): cumulativeSince2010 is a decimal stored on
-  // InflationData (Phase A). "Your $X from Jan 2010 has the purchasing power
-  // of $X / (1 + cumulative) today." We also expose the inverse — "$X today
-  // would have been worth $X × (1 + cumulative) in 2010 dollars" framing —
-  // because both readings are useful (purchasing-power loss vs nominal lift).
-  const retrospectiveResult = useMemo(() => {
-    if (mode !== 'retrospective' || form.amount <= 0) return null;
-    const localeInflation = snapshot.inflationRates.rates[form.country];
-    const cumulative = localeInflation.cumulativeSince2010;
-    if (cumulative === undefined) return null;
-    const todayPurchasingPower = form.amount / (1 + cumulative);
-    const lostToInflation = form.amount - todayPurchasingPower;
-    const percentLoss = (lostToInflation / form.amount) * 100;
-    return { cumulative, todayPurchasingPower, lostToInflation, percentLoss };
-  }, [mode, form.amount, form.country, snapshot]);
-
   const handleNumber = (field: 'amount' | 'years', value: number) =>
-    setForm((prev) => ({ ...prev, [field]: clamp(value, 0, 1_000_000) }));
-  const handleCountry = (country: SupportedLocale) =>
-    setForm((prev) => ({ ...prev, country }));
+    setForm((prev) => {
+      if (field === 'years') {
+        // C27 close: years <input min/max> now matches the actual clamp.
+        return { ...prev, years: clampInput(value, INFLATION_IMPACT_YEARS_BOUNDS) };
+      }
+      return { ...prev, amount: clamp(value, 0, 1_000_000) };
+    });
+  const handleCountry = (country: SupportedLocale) => setForm((prev) => ({ ...prev, country }));
 
   const showYearsInput = mode === 'forward';
 
@@ -158,15 +148,27 @@ export function InflationImpactCalculator() {
               id={`${baseId}-years`}
               type="number"
               inputMode="numeric"
-              min={1}
-              max={40}
+              min={INFLATION_IMPACT_YEARS_BOUNDS.min}
+              max={INFLATION_IMPACT_YEARS_BOUNDS.max}
               step={1}
               value={form.years}
               onChange={(e) => handleNumber('years', Math.round(Number(e.target.value)))}
               className={styles.numberInput}
             />
             <span className={styles.help}>
-              {t('inputs.yearsHelp', { rate: (inflationRate * 100).toFixed(1) })}
+              {t('inputs.yearsHelp', { rate: (inflationRate * 100).toFixed(1) })}{' '}
+              {/* C24 close (TOOLS_41_DEFECTS_FIX_PLAN.md §5.3, 2026-05-26):
+                  surface the invisible 24-month boundary where the rate
+                  switches from current YoY to 5-year average. */}
+              <span
+                className={styles.tooltip}
+                title={t('inputs.yearsTooltip')}
+                aria-label={t('inputs.yearsTooltip')}
+                role="note"
+                tabIndex={0}
+              >
+                <sup>?</sup>
+              </span>
             </span>
           </div>
         )}
@@ -194,59 +196,71 @@ export function InflationImpactCalculator() {
           <div className={styles.resultCardCash}>
             <p className={styles.resultLabel}>{t('output.ifYouKeepCash')}</p>
             <p className={styles.resultValueMuted}>
-              {formatCurrency(forwardResult.cashValueReal, localeKey, { maximumFractionDigits: 0 })}
+              {formatCurrency(forwardResult.cashValueReal, form.country, {
+                maximumFractionDigits: 0,
+              })}
             </p>
             <p className={styles.resultRate}>
               {t('output.lostToInflation', {
-                amount: formatCurrency(forwardResult.lostToInflation, localeKey, { maximumFractionDigits: 0 }),
+                amount: formatCurrency(forwardResult.lostToInflation, form.country, {
+                  maximumFractionDigits: 0,
+                }),
               })}
             </p>
           </div>
           <div className={styles.resultCardInvested}>
             <p className={styles.resultLabel}>{t('output.ifYouInvest')}</p>
             <p className={styles.resultValue}>
-              {formatCurrency(forwardResult.investedReal, localeKey, { maximumFractionDigits: 0 })}
+              {formatCurrency(forwardResult.investedReal, form.country, {
+                maximumFractionDigits: 0,
+              })}
             </p>
             <p className={styles.resultRate}>
-              {t('output.investedNote', { rate: HISTORICAL_RATE.toString() })}
+              {t('output.investedNote', { rate: INFLATION_IMPACT_SCENARIO_USD_PERCENT.toString() })}
             </p>
           </div>
         </div>
       )}
 
-      {mode === 'retrospective' && retrospectiveResult && (() => {
-        // Phase I.1 (2026-05-23): confidence stratification on retrospective.
-        // HIGH = stable inflation regime; MEDIUM = pt-BR (variable IPCA over
-        // window). LOW reserved for future ARS / hyperinflation locale —
-        // `uncertaintyLow` translation key exists in all 4 locales; wire up
-        // when ARS is added to SupportedLocale.
-        const confidence: 'HIGH' | 'MEDIUM' = form.country === 'pt-BR' ? 'MEDIUM' : 'HIGH';
-        return (
-          <div className={styles.retrospectiveCard}>
-            <p className={styles.resultLabel}>{t('output.retrospectiveLabel')}</p>
-            <p className={styles.resultValueMuted}>
-              {formatCurrency(retrospectiveResult.todayPurchasingPower, localeKey, { maximumFractionDigits: 0 })}
-            </p>
-            <p className={styles.resultRate}>
-              {t('output.retrospectiveDetail', {
-                percent: retrospectiveResult.percentLoss.toFixed(0),
-                lost: formatCurrency(retrospectiveResult.lostToInflation, localeKey, { maximumFractionDigits: 0 }),
-                cumulative: (retrospectiveResult.cumulative * 100).toFixed(0),
-              })}
-            </p>
-            <span
-              className={`${styles.confidenceBadge} ${
-                confidence === 'HIGH' ? styles.confidenceHigh : styles.confidenceMedium
-              }`}
-            >
-              {tShared(`confidence.${confidence.toLowerCase()}`)}
-            </span>
-            {confidence === 'MEDIUM' && (
-              <p className={styles.uncertaintyNote}>{t('output.uncertaintyMedium')}</p>
-            )}
-          </div>
-        );
-      })()}
+      {mode === 'retrospective' &&
+        retrospectiveResult &&
+        (() => {
+          // Phase I.1 (2026-05-23): confidence stratification on retrospective.
+          // HIGH = stable inflation regime; MEDIUM = pt-BR (variable IPCA over
+          // window). LOW reserved for future ARS / hyperinflation locale —
+          // `uncertaintyLow` translation key exists in all 4 locales; wire up
+          // when ARS is added to SupportedLocale.
+          const confidence: 'HIGH' | 'MEDIUM' = form.country === 'pt-BR' ? 'MEDIUM' : 'HIGH';
+          return (
+            <div className={styles.retrospectiveCard}>
+              <p className={styles.resultLabel}>{t('output.retrospectiveLabel')}</p>
+              <p className={styles.resultValueMuted}>
+                {formatCurrency(retrospectiveResult.todayPurchasingPower, form.country, {
+                  maximumFractionDigits: 0,
+                })}
+              </p>
+              <p className={styles.resultRate}>
+                {t('output.retrospectiveDetail', {
+                  percent: retrospectiveResult.percentLoss.toFixed(0),
+                  lost: formatCurrency(retrospectiveResult.lostToInflation, form.country, {
+                    maximumFractionDigits: 0,
+                  }),
+                  cumulative: (retrospectiveResult.cumulative * 100).toFixed(0),
+                })}
+              </p>
+              <span
+                className={`${styles.confidenceBadge} ${
+                  confidence === 'HIGH' ? styles.confidenceHigh : styles.confidenceMedium
+                }`}
+              >
+                {tShared(`confidence.${confidence.toLowerCase()}`)}
+              </span>
+              {confidence === 'MEDIUM' && (
+                <p className={styles.uncertaintyNote}>{t('output.uncertaintyMedium')}</p>
+              )}
+            </div>
+          );
+        })()}
     </div>
   );
 }

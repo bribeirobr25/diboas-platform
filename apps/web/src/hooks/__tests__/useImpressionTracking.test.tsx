@@ -63,16 +63,19 @@ function installIntersectionObserverMock(): void {
 
   // Cast through unknown to satisfy strict structural matching of the
   // browser's IntersectionObserver type.
-  (globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver =
-    MockIntersectionObserver as unknown as typeof IntersectionObserver;
+  (
+    globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }
+  ).IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
 }
 
 // ---- Helper to render the hook with a real DOM target -------------------
 
-function renderImpressionHook(options: {
-  enabled?: boolean;
-  parameters?: Record<string, unknown>;
-} = {}) {
+function renderImpressionHook(
+  options: {
+    enabled?: boolean;
+    parameters?: Record<string, unknown>;
+  } = {}
+) {
   const target = document.createElement('section');
   document.body.appendChild(target);
 
@@ -128,7 +131,7 @@ describe('useImpressionTracking', () => {
 
     lastObserver?.fire(true);
     lastObserver?.fire(false); // scroll out
-    lastObserver?.fire(true);  // scroll back in
+    lastObserver?.fire(true); // scroll back in
 
     expect(trackMock).toHaveBeenCalledTimes(1);
   });

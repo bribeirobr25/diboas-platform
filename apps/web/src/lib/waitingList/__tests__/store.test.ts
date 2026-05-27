@@ -16,7 +16,7 @@ vi.mock('@/lib/database/client', () => ({
 // Mock the encryption module
 vi.mock('@/lib/security/encryption', () => ({
   encrypt: (value: string) => `enc_${value}`,
-  decrypt: (value: string) => value.startsWith('enc_') ? value.slice(4) : null,
+  decrypt: (value: string) => (value.startsWith('enc_') ? value.slice(4) : null),
   hmacHash: (value: string) => `hash_${value}`,
 }));
 
@@ -222,10 +222,12 @@ describe('Waitlist Store', () => {
       // Mock: duplicate check
       mockSql.mockResolvedValueOnce([]);
       // Mock: getByReferralCode (referrer lookup)
-      mockSql.mockResolvedValueOnce([mockRow({
-        tier: 'founding_member',
-        referral_count: 2,
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          tier: 'founding_member',
+          referral_count: 2,
+        }),
+      ]);
       // Mock: tryClaimFoundingSlot — slot claimed
       mockSql.mockResolvedValueOnce([{ value: 50 }]);
       // Mock: nextEntryId
@@ -249,10 +251,12 @@ describe('Waitlist Store', () => {
       // Mock: duplicate check
       mockSql.mockResolvedValueOnce([]);
       // Mock: getByReferralCode (referrer lookup)
-      mockSql.mockResolvedValueOnce([mockRow({
-        tier: 'founding_member',
-        referral_count: 3,
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          tier: 'founding_member',
+          referral_count: 3,
+        }),
+      ]);
       // Mock: tryClaimFoundingSlot — cap full
       mockSql.mockResolvedValueOnce([]);
       // Mock: nextEntryId
@@ -276,10 +280,12 @@ describe('Waitlist Store', () => {
       // Mock: duplicate check
       mockSql.mockResolvedValueOnce([]);
       // Mock: getByReferralCode (referrer has 5 invites used)
-      mockSql.mockResolvedValueOnce([mockRow({
-        tier: 'founding_member',
-        referral_count: 5,
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          tier: 'founding_member',
+          referral_count: 5,
+        }),
+      ]);
       // No tryClaimFoundingSlot call — referrer is at limit
       // Mock: nextEntryId
       mockSql.mockResolvedValueOnce([{ value: 5 }]);
@@ -302,10 +308,12 @@ describe('Waitlist Store', () => {
       // Mock: duplicate check
       mockSql.mockResolvedValueOnce([]);
       // Mock: getByReferralCode (referrer is standard)
-      mockSql.mockResolvedValueOnce([mockRow({
-        tier: 'standard',
-        referral_count: 0,
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          tier: 'standard',
+          referral_count: 0,
+        }),
+      ]);
       // No tryClaimFoundingSlot call — standard referrer
       // Mock: nextEntryId
       mockSql.mockResolvedValueOnce([{ value: 6 }]);
@@ -327,11 +335,13 @@ describe('Waitlist Store', () => {
     it('should throw error for duplicate email', async () => {
       mockSql.mockResolvedValueOnce([{ '?column?': 1 }]);
 
-      await expect(addEntry({
-        email: 'duplicate@example.com',
-        referralCode: 'REFDUPE01',
-        locale: 'en',
-      })).rejects.toThrow(DuplicateEntryError);
+      await expect(
+        addEntry({
+          email: 'duplicate@example.com',
+          referralCode: 'REFDUPE01',
+          locale: 'en',
+        })
+      ).rejects.toThrow(DuplicateEntryError);
     });
 
     it('should throw DuplicateEntryError on concurrent INSERT race (23505)', async () => {
@@ -348,11 +358,13 @@ describe('Waitlist Store', () => {
       (pgError as unknown as { code: string }).code = '23505';
       mockSql.mockRejectedValueOnce(pgError);
 
-      await expect(addEntry({
-        email: 'race@example.com',
-        referralCode: 'REFRACE01',
-        locale: 'en',
-      })).rejects.toThrow(DuplicateEntryError);
+      await expect(
+        addEntry({
+          email: 'race@example.com',
+          referralCode: 'REFRACE01',
+          locale: 'en',
+        })
+      ).rejects.toThrow(DuplicateEntryError);
     });
 
     it('should re-throw non-unique-violation DB errors', async () => {
@@ -362,11 +374,13 @@ describe('Waitlist Store', () => {
       mockSql.mockResolvedValueOnce([{ value: 11 }]);
       mockSql.mockRejectedValueOnce(new Error('connection timeout'));
 
-      await expect(addEntry({
-        email: 'error@example.com',
-        referralCode: 'REFERROR1',
-        locale: 'en',
-      })).rejects.toThrow('connection timeout');
+      await expect(
+        addEntry({
+          email: 'error@example.com',
+          referralCode: 'REFERROR1',
+          locale: 'en',
+        })
+      ).rejects.toThrow('connection timeout');
     });
 
     it('should default source to "direct" if not provided', async () => {
@@ -388,11 +402,13 @@ describe('Waitlist Store', () => {
 
   describe('updateEntry', () => {
     it('should return updated entry on success', async () => {
-      mockSql.mockResolvedValueOnce([mockRow({
-        name: 'enc_Updated Name',
-        locale: 'pt-BR',
-        updated_at: '2024-01-02T00:00:00.000Z',
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          name: 'enc_Updated Name',
+          locale: 'pt-BR',
+          updated_at: '2024-01-02T00:00:00.000Z',
+        }),
+      ]);
 
       const updated = await updateEntry('update@example.com', {
         name: 'Updated Name',
@@ -415,10 +431,12 @@ describe('Waitlist Store', () => {
 
   describe('processReferral', () => {
     it('should increment count for founding_member with < 5 invites', async () => {
-      mockSql.mockResolvedValueOnce([mockRow({
-        tier: 'founding_member',
-        referral_count: 1,
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          tier: 'founding_member',
+          referral_count: 1,
+        }),
+      ]);
 
       const result = await processReferral('referrer@example.com');
 
@@ -427,10 +445,12 @@ describe('Waitlist Store', () => {
     });
 
     it('should increment count for early_member with < 5 invites', async () => {
-      mockSql.mockResolvedValueOnce([mockRow({
-        tier: 'early_member',
-        referral_count: 3,
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          tier: 'early_member',
+          referral_count: 3,
+        }),
+      ]);
 
       const result = await processReferral('earlyref@example.com');
 
@@ -475,9 +495,11 @@ describe('Waitlist Store', () => {
 
   describe('addTags', () => {
     it('should return updated entry with new tags', async () => {
-      mockSql.mockResolvedValueOnce([mockRow({
-        tags: ['initial', 'new-tag'],
-      })]);
+      mockSql.mockResolvedValueOnce([
+        mockRow({
+          tags: ['initial', 'new-tag'],
+        }),
+      ]);
 
       const updated = await addTags('tags@example.com', ['new-tag']);
 

@@ -27,10 +27,7 @@ import {
   getConsentFromShadowCookie,
   isConsentVersionCurrent,
 } from './consentUtils';
-import {
-  applicationEventBus,
-  ApplicationEventType,
-} from '@/lib/events/ApplicationEventBus';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import styles from './CookieConsent.module.css';
 
 // Re-export utilities for external use
@@ -62,7 +59,11 @@ export function CookieConsent() {
         if (!isConsentVersionCurrent(stored)) {
           if (!mounted) return;
           setShowBanner(true);
-          timers.push(setTimeout(() => { if (mounted) setIsVisible(true); }, 100));
+          timers.push(
+            setTimeout(() => {
+              if (mounted) setIsVisible(true);
+            }, 100)
+          );
         }
         return;
       }
@@ -86,11 +87,17 @@ export function CookieConsent() {
       }
 
       // 4. No consent found — show banner after delay
-      timers.push(setTimeout(() => {
-        if (!mounted) return;
-        setShowBanner(true);
-        timers.push(setTimeout(() => { if (mounted) setIsVisible(true); }, 100));
-      }, 1500));
+      timers.push(
+        setTimeout(() => {
+          if (!mounted) return;
+          setShowBanner(true);
+          timers.push(
+            setTimeout(() => {
+              if (mounted) setIsVisible(true);
+            }, 100)
+          );
+        }, 1500)
+      );
     }
 
     checkConsent();
@@ -172,19 +179,12 @@ export function CookieConsent() {
       <div className={styles.container}>
         <div className={styles.content}>
           <p id={descriptionId} className={styles.text}>
-            {intl.formatMessage({ id: 'common.cookieConsent.message' })}
-            {' '}
-            <Link
-              href={`/${locale}/legal/cookies`}
-              className={styles.link}
-            >
+            {intl.formatMessage({ id: 'common.cookieConsent.message' })}{' '}
+            <Link href={`/${locale}/legal/cookies`} className={styles.link}>
               {intl.formatMessage({ id: 'common.cookieConsent.cookiePolicy' })}
             </Link>
             {' · '}
-            <Link
-              href={`/${locale}/legal/privacy`}
-              className={styles.link}
-            >
+            <Link href={`/${locale}/legal/privacy`} className={styles.link}>
               {intl.formatMessage({ id: 'common.cookieConsent.privacyPolicy' })}
             </Link>
           </p>

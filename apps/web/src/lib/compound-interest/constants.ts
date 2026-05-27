@@ -21,6 +21,18 @@ export const INPUT_BOUNDS = {
   years: { min: 1, max: 40 },
 } as const;
 
+/**
+ * Hard cap for `calculateCompoundProjectionPathDependent` — bucket coverage is
+ * 16 years (2010–2026). The engine throws `InvalidCalculatorInputError` if
+ * `years > MAX_RETROSPECTIVE_YEARS`. This constant is the single source of
+ * truth; both the engine and the UI clamp import from here (was duplicated in
+ * `CalculatorDefault.tsx` and `calculatorPathDependent.ts` until C4/C7 fix,
+ * 2026-05-25). The UI clamp must apply at the state-setter layer — not just
+ * the slider's `max` attribute — so that future mutation paths (preset
+ * buttons, numeric inputs, programmatic state updates) cannot bypass it.
+ */
+export const MAX_RETROSPECTIVE_YEARS = 16;
+
 export const DEBOUNCE_MS = {
   /** Display update — perceived immediacy without slider-drag flicker. */
   display: 250,
@@ -37,8 +49,7 @@ export const CALCULATOR_EVENTS = {
   COMPUTATION_COMPLETED: 'calculator_computation_completed',
 } as const;
 
-export type CalculatorEventName =
-  typeof CALCULATOR_EVENTS[keyof typeof CALCULATOR_EVENTS];
+export type CalculatorEventName = (typeof CALCULATOR_EVENTS)[keyof typeof CALCULATOR_EVENTS];
 
 interface DefaultInput {
   amount: number;
@@ -46,7 +57,20 @@ interface DefaultInput {
   years: number;
 }
 
-export const DEFAULT_INPUT_BY_LOCALE: Readonly<Record<SupportedLocale, DefaultInput>> = {
+/**
+ * Lesson defaults — used ONLY by the `/learn/compound-interest` lesson (the
+ * `engine = 'lesson'` arm of `CalculatorDefault`). Tool pages use the
+ * `COMPOUND_TOOL_DEFAULTS` table in `lib/tools/constants.ts` (separate per-tool
+ * defaults; `COMPOUND_TOOL_DEFAULTS.compound-interest` mirrors these values).
+ *
+ * C2 close (TOOLS_41_DEFECTS_FIX_PLAN.md §4.6, 2026-05-26): renamed from
+ * `DEFAULT_INPUT_BY_LOCALE` → `LESSON_DEFAULT_INPUT_BY_LOCALE` to signal intent
+ * — there are intentionally two default tables (lesson vs tools, per R1
+ * discipline). The old name suggested a single source of truth and bred
+ * confusion ("which one wins?"). The rename makes the lesson-only scope
+ * visible at the import site.
+ */
+export const LESSON_DEFAULT_INPUT_BY_LOCALE: Readonly<Record<SupportedLocale, DefaultInput>> = {
   en: { amount: 5, cadence: 'daily', years: 12 },
   'pt-BR': { amount: 25, cadence: 'daily', years: 12 },
   es: { amount: 3, cadence: 'daily', years: 12 },

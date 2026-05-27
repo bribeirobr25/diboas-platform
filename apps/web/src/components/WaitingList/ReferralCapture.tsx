@@ -16,10 +16,7 @@ export function ReferralCapture() {
     const ref = params.get('ref');
 
     if (ref && isValidReferralCode(ref, REFERRAL_CONFIG.codePrefix)) {
-      setReferralStorage(
-        REFERRAL_CONFIG.referralCookieName,
-        ref.toUpperCase()
-      );
+      setReferralStorage(REFERRAL_CONFIG.referralCookieName, ref.toUpperCase());
     }
   }, []);
 

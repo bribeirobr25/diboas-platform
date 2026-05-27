@@ -15,8 +15,8 @@
  */
 
 export const BRAZIL_POUPANCA_SELIC_THRESHOLD = 8.5;
-export const BRAZIL_POUPANCA_HIGH_REGIME_MONTHLY = 0.005;  // 0.5%/month
-export const BRAZIL_POUPANCA_LOW_REGIME_SELIC_FRACTION = 0.7;  // 70% of Selic
+export const BRAZIL_POUPANCA_HIGH_REGIME_MONTHLY = 0.005; // 0.5%/month
+export const BRAZIL_POUPANCA_LOW_REGIME_SELIC_FRACTION = 0.7; // 70% of Selic
 
 /**
  * Derives the annualized poupança rate from Selic and TR per BCB regime-switch rule.
@@ -25,10 +25,7 @@ export const BRAZIL_POUPANCA_LOW_REGIME_SELIC_FRACTION = 0.7;  // 70% of Selic
  * @param trMonthlyPct TR (Taxa Referencial) as a monthly percent (e.g., 0 for current).
  * @returns Annualized poupança rate as a decimal (e.g., 0.0617 for 6.17%/yr).
  */
-export function derivePoupancaRate(
-  selicAnnualPct: number,
-  trMonthlyPct: number = 0,
-): number {
+export function derivePoupancaRate(selicAnnualPct: number, trMonthlyPct: number = 0): number {
   if (!Number.isFinite(selicAnnualPct) || selicAnnualPct < 0) return 0;
   const trMonthlyDecimal = (trMonthlyPct ?? 0) / 100;
 

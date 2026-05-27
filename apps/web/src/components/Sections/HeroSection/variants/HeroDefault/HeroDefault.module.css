@@ -80,7 +80,7 @@
   .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "text-column visual-column";
+    grid-template-areas: 'text-column visual-column';
     gap: var(--hs-content-gap-desktop);
     align-items: center;
   }
@@ -221,8 +221,9 @@
   cursor: pointer;
 
   /* Animation */
-  transition: transform var(--cta-transition-duration) var(--cta-transition-easing),
-              box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
+  transition:
+    transform var(--cta-transition-duration) var(--cta-transition-easing),
+    box-shadow var(--cta-transition-duration) var(--cta-transition-easing);
 }
 
 /* Responsive: Tablet */
@@ -514,8 +515,12 @@
    ================================ */
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ================================
@@ -531,7 +536,7 @@
     animation: none;
     transition: none;
   }
-  
+
   .phoneImage:hover,
   .mascotImage:hover,
   .ctaButton:hover {

@@ -15,10 +15,7 @@ import { sql } from '@/lib/database/client';
 import { encrypt } from '@/lib/security/encryption';
 import { Logger } from '@/lib/monitoring/Logger';
 import { ApplicationEventType } from '@/lib/events/applicationEventTypes';
-import {
-  DuplicateEntryError,
-  EncryptionUnavailableError,
-} from '@/lib/errors/domainErrors';
+import { DuplicateEntryError, EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 import { nextEntryId, nextPosition } from '../counterManager';
 import { determineTier } from '../tierDeterminer';
 import type { AddEntryInput, WaitlistEntry } from './types';
@@ -132,7 +129,9 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
     // Position gap is logged for monitoring — see STABILITY_AUDIT_2026-04-26.md F1.
     const pgError = error as { code?: string };
     if (pgError.code === '23505') {
-      Logger.info('[Waitlist] Concurrent duplicate detected after counter allocation', { position });
+      Logger.info('[Waitlist] Concurrent duplicate detected after counter allocation', {
+        position,
+      });
       throw new DuplicateEntryError('Entry already exists');
     }
     throw error;
@@ -161,7 +160,7 @@ export async function addEntry(input: AddEntryInput): Promise<WaitlistEntry> {
 export async function updateEntry(
   email: string,
   updates: Partial<Omit<WaitlistEntry, 'id' | 'email' | 'originalPosition' | 'createdAt' | 'tier'>>,
-  currentVersion?: number,
+  currentVersion?: number
 ): Promise<WaitlistEntry | undefined> {
   const hash = emailHash(email);
   if (!hash) return undefined;
@@ -169,8 +168,9 @@ export async function updateEntry(
   const now = new Date().toISOString();
   const nameEnc = updates.name !== undefined ? encrypt(updates.name) : null;
 
-  const query = currentVersion !== undefined
-    ? sql`
+  const query =
+    currentVersion !== undefined
+      ? sql`
         UPDATE waitlist_entries SET
           position = COALESCE(${updates.position ?? null}::integer, position),
           referral_count = COALESCE(${updates.referralCount ?? null}::integer, referral_count),
@@ -183,7 +183,7 @@ export async function updateEntry(
           updated_at = ${now}
         WHERE email_hash = ${hash} AND version = ${currentVersion}
         RETURNING *`
-    : sql`
+      : sql`
         UPDATE waitlist_entries SET
           position = COALESCE(${updates.position ?? null}::integer, position),
           referral_count = COALESCE(${updates.referralCount ?? null}::integer, referral_count),
@@ -198,8 +198,10 @@ export async function updateEntry(
         RETURNING *`;
 
   const row = await executeOptimisticUpdate(
-    hash, query, currentVersion,
-    'Concurrent modification detected: entry was updated by another request',
+    hash,
+    query,
+    currentVersion,
+    'Concurrent modification detected: entry was updated by another request'
   );
   if (!row) return undefined;
 
@@ -210,7 +212,10 @@ export async function updateEntry(
   return updatedEntry;
 }
 
-export async function addTags(email: string, newTags: string[]): Promise<WaitlistEntry | undefined> {
+export async function addTags(
+  email: string,
+  newTags: string[]
+): Promise<WaitlistEntry | undefined> {
   const hash = emailHash(email);
   if (!hash) return undefined;
 

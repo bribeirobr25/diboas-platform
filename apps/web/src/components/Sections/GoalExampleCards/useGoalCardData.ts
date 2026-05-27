@@ -33,7 +33,10 @@ export interface GoalCardComputedValues {
   isTimeBased: boolean;
 }
 
-export function useGoalCardData(cardKey: GoalCardKey, locale: SupportedLocale): GoalCardComputedValues {
+export function useGoalCardData(
+  cardKey: GoalCardKey,
+  locale: SupportedLocale
+): GoalCardComputedValues {
   const { data: marketData } = useMarketData();
 
   return useMemo(() => {
@@ -59,9 +62,8 @@ export function useGoalCardData(cardKey: GoalCardKey, locale: SupportedLocale): 
       const inflation = selectInflationRate(locale, 60, marketData.inflationRates); // >24mo → 5yr avg
 
       // diBoaS effective rate for non-US
-      const diboasEffective = depreciation > 0
-        ? (1 + diboasApy) * (1 + depreciation) - 1
-        : diboasApy;
+      const diboasEffective =
+        depreciation > 0 ? (1 + diboasApy) * (1 + depreciation) - 1 : diboasApy;
 
       const diboasMonths = monthsToInflationAdjustedTarget(target, pmt, diboasEffective, inflation);
       const bankMonths = monthsToInflationAdjustedTarget(target, pmt, bankApy, inflation);
@@ -83,8 +85,8 @@ export function useGoalCardData(cardKey: GoalCardKey, locale: SupportedLocale): 
         de: 'Jahren',
       };
 
-      const diboasYears = Math.round(diboasMonths / 12 * 10) / 10;
-      const bankYears = Math.round(bankMonths / 12 * 10) / 10;
+      const diboasYears = Math.round((diboasMonths / 12) * 10) / 10;
+      const bankYears = Math.round((bankMonths / 12) * 10) / 10;
 
       return {
         titleSummary: formatTimeDifference(diff, locale),
@@ -103,17 +105,17 @@ export function useGoalCardData(cardKey: GoalCardKey, locale: SupportedLocale): 
     let diboasNominal: number;
     if (depreciation > 0) {
       diboasNominal = calculateMonthlyWithCurrencyHedge(
-        pmt, diboasApy, depreciation, inflation, months
+        pmt,
+        diboasApy,
+        depreciation,
+        inflation,
+        months
       ).nominalFV;
     } else {
-      diboasNominal = calculateMonthlyContributions(
-        pmt, diboasApy, inflation, months
-      ).nominalFV;
+      diboasNominal = calculateMonthlyContributions(pmt, diboasApy, inflation, months).nominalFV;
     }
 
-    const bankNominal = calculateMonthlyContributions(
-      pmt, bankApy, inflation, months
-    ).nominalFV;
+    const bankNominal = calculateMonthlyContributions(pmt, bankApy, inflation, months).nominalFV;
 
     const diff = diboasNominal - bankNominal;
 

@@ -37,56 +37,54 @@ export function registerEventSubscribers(): void {
     async (payload) => {
       if (payload.severity === 'high' || payload.severity === 'critical') {
         try {
-          const { alertingService, AlertSeverity } = await import(
-            '@/lib/monitoring/AlertingService'
-          );
+          const { alertingService, AlertSeverity } =
+            await import('@/lib/monitoring/AlertingService');
           const errorObj =
-            payload.error instanceof Error
-              ? payload.error
-              : new Error(String(payload.error));
+            payload.error instanceof Error ? payload.error : new Error(String(payload.error));
           const severity =
-            payload.severity === 'critical'
-              ? AlertSeverity.CRITICAL
-              : AlertSeverity.ERROR;
+            payload.severity === 'critical' ? AlertSeverity.CRITICAL : AlertSeverity.ERROR;
           await alertingService.sendErrorAlert(errorObj, severity, payload.context);
         } catch {
           // Alerting is non-critical — silently degrade
         }
       }
-    },
+    }
   );
 
   // 3. CONSENT_GIVEN → log consent event
-  applicationEventBus.on<ConsentEventPayload>(
-    ApplicationEventType.CONSENT_GIVEN,
-    (payload) => {
-      Logger.info('Consent given', {
-        consentType: payload.consentType,
-        newState: payload.newState,
-        source: payload.source,
-      });
-      // PostHog + PerformanceMonitor init are already handled by MonitoringInit.tsx
-    },
-  );
+  applicationEventBus.on<ConsentEventPayload>(ApplicationEventType.CONSENT_GIVEN, (payload) => {
+    Logger.info('Consent given', {
+      consentType: payload.consentType,
+      newState: payload.newState,
+      source: payload.source,
+    });
+    // PostHog + PerformanceMonitor init are already handled by MonitoringInit.tsx
+  });
 
   // 4. SHARE_COMPLETED → track share_completed
   applicationEventBus.on(ApplicationEventType.SHARE_COMPLETED, (data) => {
     import('@/lib/analytics/service')
-      .then((mod) => mod.analyticsService.track({ name: 'share_completed', parameters: data.metadata }))
+      .then((mod) =>
+        mod.analyticsService.track({ name: 'share_completed', parameters: data.metadata })
+      )
       .catch(() => Logger.warn('Failed to load analytics for share_completed subscriber'));
   });
 
   // 5. PRE_DEMO_STARTED → track pre_demo_started
   applicationEventBus.on(ApplicationEventType.PRE_DEMO_STARTED, (data) => {
     import('@/lib/analytics/service')
-      .then((mod) => mod.analyticsService.track({ name: 'pre_demo_started', parameters: data.metadata }))
+      .then((mod) =>
+        mod.analyticsService.track({ name: 'pre_demo_started', parameters: data.metadata })
+      )
       .catch(() => Logger.warn('Failed to load analytics for pre_demo_started subscriber'));
   });
 
   // 6. PRE_DREAM_STARTED → track pre_dream_started
   applicationEventBus.on(ApplicationEventType.PRE_DREAM_STARTED, (data) => {
     import('@/lib/analytics/service')
-      .then((mod) => mod.analyticsService.track({ name: 'pre_dream_started', parameters: data.metadata }))
+      .then((mod) =>
+        mod.analyticsService.track({ name: 'pre_dream_started', parameters: data.metadata })
+      )
       .catch(() => Logger.warn('Failed to load analytics for pre_dream_started subscriber'));
   });
 }

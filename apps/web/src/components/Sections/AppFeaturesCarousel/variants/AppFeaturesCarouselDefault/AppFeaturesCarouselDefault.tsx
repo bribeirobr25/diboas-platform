@@ -1,6 +1,6 @@
 /**
  * AppFeaturesCarouselDefault Variant Component
- * 
+ *
  * Domain-Driven Design: Isolated default app features carousel variant
  * Service Agnostic Abstraction: Pure component focused on app feature showcase
  * Code Reusability: Can be composed into other carousel variants
@@ -23,9 +23,9 @@ import type { AppFeaturesCarouselVariantProps } from '../types';
 import styles from './AppFeaturesCarouselDefault.module.css';
 import carouselControls from '@/styles/shared/carousel-controls.module.css';
 
-export function AppFeaturesCarouselDefault({ 
-  config, 
-  className = '', 
+export function AppFeaturesCarouselDefault({
+  config,
+  className = '',
   enableAnalytics: _enableAnalytics = true,
   priority = false,
   backgroundColor,
@@ -33,31 +33,34 @@ export function AppFeaturesCarouselDefault({
   onNavigate,
   onSlideChange,
   onCTAClick,
-  onPlayPause
+  onPlayPause,
 }: AppFeaturesCarouselVariantProps) {
   const cards = useMemo(() => config.cards || [], [config.cards]);
   const autoRotateMs = config.settings?.autoRotateMs || 4000;
 
   // Custom slide change handler with logging
-  const handleSlideChange = useCallback((index: number, source: 'auto' | 'user') => {
-    // Call parent callback
-    onSlideChange?.(index);
+  const handleSlideChange = useCallback(
+    (index: number, source: 'auto' | 'user') => {
+      // Call parent callback
+      onSlideChange?.(index);
 
-    // Log at appropriate level: user interactions are INFO, auto-play is DEBUG
-    if (source === 'auto') {
-      Logger.debug('App features carousel auto-rotated', {
-        section: 'AppFeaturesCarousel',
-        slideIndex: index,
-        slideId: cards[index]?.id
-      });
-    } else {
-      Logger.info('App features carousel card changed', {
-        section: 'AppFeaturesCarousel',
-        slideIndex: index,
-        slideId: cards[index]?.id
-      });
-    }
-  }, [cards, onSlideChange]);
+      // Log at appropriate level: user interactions are INFO, auto-play is DEBUG
+      if (source === 'auto') {
+        Logger.debug('App features carousel auto-rotated', {
+          section: 'AppFeaturesCarousel',
+          slideIndex: index,
+          slideId: cards[index]?.id,
+        });
+      } else {
+        Logger.info('App features carousel card changed', {
+          section: 'AppFeaturesCarousel',
+          slideIndex: index,
+          slideId: cards[index]?.id,
+        });
+      }
+    },
+    [cards, onSlideChange]
+  );
 
   // Shared carousel hook
   const {
@@ -69,7 +72,7 @@ export function AppFeaturesCarouselDefault({
     goToPrev,
     handleMouseEnter,
     handleMouseLeave,
-    togglePlayPause
+    togglePlayPause,
   } = useCarousel({
     totalSlides: cards.length,
     autoPlay,
@@ -80,34 +83,32 @@ export function AppFeaturesCarouselDefault({
     componentName: 'AppFeaturesCarousel',
     onSlideChange: handleSlideChange,
     onNavigate,
-    onPlayPause
+    onPlayPause,
   });
 
   // Shared image loading hook
-  const {
-    handleImageLoad
-  } = useImageLoading({
-    totalImages: cards.length
+  const { handleImageLoad } = useImageLoading({
+    totalImages: cards.length,
   });
 
   // Shared swipe gesture hook
-  const {
-    handleTouchStart,
-    handleTouchEnd
-  } = useSwipeGesture({
+  const { handleTouchStart, handleTouchEnd } = useSwipeGesture({
     onSwipeLeft: goToNext,
     onSwipeRight: goToPrev,
     threshold: 50,
     velocityThreshold: 0.3,
-    enabled: true
+    enabled: true,
   });
 
   const currentCard = cards[currentSlideIndex];
 
   // CTA click handler
-  const handleCTAClick = useCallback((slideId: string, ctaHref: string) => {
-    onCTAClick?.(slideId, ctaHref);
-  }, [onCTAClick]);
+  const handleCTAClick = useCallback(
+    (slideId: string, ctaHref: string) => {
+      onCTAClick?.(slideId, ctaHref);
+    },
+    [onCTAClick]
+  );
 
   // Track the active card's left-edge position so the description
   // aligns below it on desktop. Width uses the fixed design token
@@ -159,7 +160,6 @@ export function AppFeaturesCarouselDefault({
       ariaLabelledBy="app-features-carousel-title"
     >
       <div className={styles.container}>
-
         {/* Section Title */}
         <h2 id="app-features-carousel-title" className={styles.title}>
           {config.sectionTitle || 'App Features'}
@@ -189,7 +189,9 @@ export function AppFeaturesCarouselDefault({
             {cards.map((card, index) => (
               <div
                 key={card.id}
-                ref={(el) => { cardRefs.current[index] = el; }}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
                 className={`${styles.cardWrapper} ${index === currentSlideIndex ? styles.active : ''}`}
               >
                 <div
@@ -203,14 +205,14 @@ export function AppFeaturesCarouselDefault({
                 >
                   <div className={styles.card}>
                     {/* Phase 5.5 (audit/2026-05-09): switched from fixed
-                      * width/height (416×500) to fill mode. The previous CSS
-                      * applied `min-width: 100%` over `width: auto` at tablet+,
-                      * which stretched the image to `containerWidth × 500px` —
-                      * a non-intrinsic ratio Next.js correctly warned about.
-                      * `.card` is already `position: relative` (line 173 of
-                      * the module CSS), and `object-fit: cover` on `.cardImage`
-                      * crops without distortion at every breakpoint.
-                      * `sizes` retained for srcset selection. */}
+                     * width/height (416×500) to fill mode. The previous CSS
+                     * applied `min-width: 100%` over `width: auto` at tablet+,
+                     * which stretched the image to `containerWidth × 500px` —
+                     * a non-intrinsic ratio Next.js correctly warned about.
+                     * `.card` is already `position: relative` (line 173 of
+                     * the module CSS), and `object-fit: cover` on `.cardImage`
+                     * crops without distortion at every breakpoint.
+                     * `sizes` retained for srcset selection. */}
                     <Image
                       src={card.assets.image}
                       alt={card.seo.imageAlt}
@@ -222,7 +224,6 @@ export function AppFeaturesCarouselDefault({
                     />
                   </div>
                 </div>
-
               </div>
             ))}
           </div>
@@ -253,12 +254,8 @@ export function AppFeaturesCarouselDefault({
               className={`${styles.cardDescription} ${index === currentSlideIndex ? styles.descriptionActive : ''}`}
               aria-hidden={index !== currentSlideIndex}
             >
-              <h3 className={styles.cardTitle}>
-                {card.content.title}
-              </h3>
-              <p className={styles.description}>
-                {card.content.description}
-              </p>
+              <h3 className={styles.cardTitle}>{card.content.title}</h3>
+              <p className={styles.description}>{card.content.description}</p>
 
               {card.content.ctaText && card.content.ctaHref ? (
                 <div className={styles.ctaWrapper}>

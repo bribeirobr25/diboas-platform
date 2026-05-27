@@ -18,6 +18,9 @@
     "yearsLabel": "{years} years",
     "cannotReach": "Out of reach at this contribution — try a larger monthly amount or a smaller target."
   },
+  "guidance": {
+    "oneTimeNeedsInitial": "Enter a starting amount to see when you'd reach your target."
+  },
   "vignette": {
     "subtitle": "Same goal. Four different timelines. Pick the one you like."
   },

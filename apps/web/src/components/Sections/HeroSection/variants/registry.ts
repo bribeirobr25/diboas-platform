@@ -1,6 +1,6 @@
 /**
  * Hero Variant Registry
- * 
+ *
  * Domain-Driven Design: Centralized registry for all hero variants
  * Service Agnostic Abstraction: Pluggable variant system
  * Code Reusability: Easy to add/remove variants without touching core component
@@ -15,7 +15,7 @@ import { HeroFullBackground } from './HeroFullBackground/HeroFullBackground';
 
 /**
  * Hero Variant Registry
- * 
+ *
  * Performance: Critical variants are statically imported, others are lazy-loaded
  * Scalability: Easy to add new variants without touching existing code
  */
@@ -23,7 +23,7 @@ export const HERO_VARIANT_REGISTRY: HeroVariantRegistry = {
   // Core variants (static import for performance)
   default: HeroDefault,
   fullBackground: HeroFullBackground,
-  
+
   // Future variants can be easily added here:
   // split: HeroSplit,
   // video: HeroVideo,
@@ -36,7 +36,7 @@ export const HERO_VARIANT_REGISTRY: HeroVariantRegistry = {
 
 /**
  * Get a hero variant component by name
- * 
+ *
  * @param variantName - The name of the variant to get
  * @returns The variant component or default if not found
  */
@@ -46,7 +46,7 @@ export function getHeroVariant(variantName: string): HeroVariantComponent {
 
 /**
  * Check if a variant exists in the registry
- * 
+ *
  * @param variantName - The name of the variant to check
  * @returns True if the variant exists
  */
@@ -56,7 +56,7 @@ export function hasHeroVariant(variantName: string): boolean {
 
 /**
  * Get all available hero variant names
- * 
+ *
  * @returns Array of variant names
  */
 export function getAvailableHeroVariants(): string[] {

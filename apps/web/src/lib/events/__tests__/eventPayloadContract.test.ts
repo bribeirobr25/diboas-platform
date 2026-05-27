@@ -39,7 +39,7 @@ describe('EventBus.emit — auto-fill', () => {
       ApplicationEventType.FEATURE_USED,
       (payload) => {
         received = payload;
-      },
+      }
     );
 
     await applicationEventBus.emit(ApplicationEventType.FEATURE_USED, {
@@ -66,7 +66,7 @@ describe('EventBus.emit — auto-fill', () => {
       ApplicationEventType.FEATURE_USED,
       (payload) => {
         received = payload;
-      },
+      }
     );
 
     await applicationEventBus.emit(ApplicationEventType.FEATURE_USED, {
@@ -87,7 +87,7 @@ describe('EventBus.emit — auto-fill', () => {
       ApplicationEventType.FEATURE_USED,
       (payload) => {
         received = payload;
-      },
+      }
     );
 
     await applicationEventBus.emit(ApplicationEventType.FEATURE_USED, {

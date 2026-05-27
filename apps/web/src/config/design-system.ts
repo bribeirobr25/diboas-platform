@@ -1,6 +1,6 @@
 /**
  * Design System Configuration
- * 
+ *
  * Domain-Driven Design: Central design tokens for diBoaS platform
  * DRY Principles: Single source of truth from JSON configuration
  * Security & Audit Standards: Type-safe imports with validation
@@ -36,8 +36,15 @@ function validateDesignTokens(tokens: unknown): tokens is DesignTokens {
   }
 
   const tokensObj = tokens as Record<string, unknown>;
-  const requiredSections = ['typography', 'spacing', 'layout', 'animation', 'zIndex', 'breakpoints'];
-  const missingSections = requiredSections.filter(section => !tokensObj[section]);
+  const requiredSections = [
+    'typography',
+    'spacing',
+    'layout',
+    'animation',
+    'zIndex',
+    'breakpoints',
+  ];
+  const missingSections = requiredSections.filter((section) => !tokensObj[section]);
 
   if (missingSections.length > 0) {
     Logger.error('Design tokens: Missing required sections', { missingSections });
@@ -65,41 +72,40 @@ function loadDesignTokens(): DesignTokens {
     }
 
     return designTokensJson;
-
   } catch (error) {
     Logger.error('Failed to load design tokens', {}, error instanceof Error ? error : undefined);
     Logger.warn('Using fallback configuration');
-    
+
     // Fallback configuration for error recovery
     return {
       version: 'fallback-1.0.0',
       metadata: {
         lastUpdated: new Date().toISOString(),
         author: 'System Fallback',
-        description: 'Fallback design tokens for error recovery'
+        description: 'Fallback design tokens for error recovery',
       },
       typography: {
         title: {
           hero: { desktop: 48, mobile: 34 },
-          section: { desktop: 40, mobile: 30 }
+          section: { desktop: 40, mobile: 30 },
         },
         body: {
           subtitle: 16,
-          description: 16
+          description: 16,
         },
         ui: {
           link: 14,
-          button: 12
-        }
+          button: 12,
+        },
       },
       spacing: {
         section: {
           desktop: { y: 64, x: 120 },
           tablet: { y: 48, x: 64 },
-          mobile: { y: 48, x: 24 }
+          mobile: { y: 48, x: 24 },
         },
         container: { padding: '1rem' },
-        card: { padding: '1.5rem' }
+        card: { padding: '1.5rem' },
       },
       layout: {
         navigation: {
@@ -108,38 +114,38 @@ function loadDesignTokens(): DesignTokens {
           dropdownHeight: '60vh',
           mobileSubmenuHeight: {
             mobile: '65vh',
-            tablet: '42vh'
-          }
+            tablet: '42vh',
+          },
         },
         spacing: {
-          dropdownMarginLeft: '150px'
-        }
+          dropdownMarginLeft: '150px',
+        },
       },
       animation: {
         duration: {
           fast: '0.15s',
           normal: '0.3s',
-          slow: '0.6s'
+          slow: '0.6s',
         },
         easing: {
           easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
           easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-          bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
-        }
+          bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        },
       },
       zIndex: {
         dropdown: 40,
         mobileMenu: 50,
         modal: 60,
-        toast: 70
+        toast: 70,
       },
       breakpoints: {
         sm: '640px',
         md: '768px',
         lg: '1024px',
         xl: '1280px',
-        xxl: '1536px'
-      }
+        xxl: '1536px',
+      },
     } as DesignTokens;
   }
 }
@@ -155,31 +161,34 @@ export const LAYOUT = {
     DESKTOP_HEIGHT: tokens.layout.navigation.desktopHeight,
     MOBILE_NAV_HEIGHT: tokens.layout.navigation.mobileNavHeight,
     DROPDOWN_HEIGHT: tokens.layout.navigation.dropdownHeight,
-    MOBILE_SUBMENU_HEIGHT: typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
-      ? tokens.layout.navigation.mobileSubmenuHeight
-      : tokens.layout.navigation.mobileSubmenuHeight.mobile, // Default to mobile for backward compatibility
-    MOBILE_SUBMENU_HEIGHT_MOBILE: typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
-      ? tokens.layout.navigation.mobileSubmenuHeight
-      : tokens.layout.navigation.mobileSubmenuHeight.mobile,
-    MOBILE_SUBMENU_HEIGHT_TABLET: typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
-      ? tokens.layout.navigation.mobileSubmenuHeight
-      : tokens.layout.navigation.mobileSubmenuHeight.tablet
+    MOBILE_SUBMENU_HEIGHT:
+      typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
+        ? tokens.layout.navigation.mobileSubmenuHeight
+        : tokens.layout.navigation.mobileSubmenuHeight.mobile, // Default to mobile for backward compatibility
+    MOBILE_SUBMENU_HEIGHT_MOBILE:
+      typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
+        ? tokens.layout.navigation.mobileSubmenuHeight
+        : tokens.layout.navigation.mobileSubmenuHeight.mobile,
+    MOBILE_SUBMENU_HEIGHT_TABLET:
+      typeof tokens.layout.navigation.mobileSubmenuHeight === 'string'
+        ? tokens.layout.navigation.mobileSubmenuHeight
+        : tokens.layout.navigation.mobileSubmenuHeight.tablet,
   },
   SPACING: {
-    DROPDOWN_MARGIN_LEFT: tokens.layout.spacing.dropdownMarginLeft
-  }
+    DROPDOWN_MARGIN_LEFT: tokens.layout.spacing.dropdownMarginLeft,
+  },
 };
 export const ANIMATION = {
   DURATION: {
     FAST: tokens.animation.duration.fast,
     NORMAL: tokens.animation.duration.normal,
-    SLOW: tokens.animation.duration.slow
+    SLOW: tokens.animation.duration.slow,
   },
   EASING: {
     EASE_OUT: tokens.animation.easing.easeOut,
     EASE_IN_OUT: tokens.animation.easing.easeInOut,
-    BOUNCE: tokens.animation.easing.bounce
-  }
+    BOUNCE: tokens.animation.easing.bounce,
+  },
 };
 export const Z_INDEX = tokens.zIndex;
 export const BREAKPOINTS = tokens.breakpoints;
@@ -196,8 +205,8 @@ export const DESIGN_SYSTEM = {
   metadata: {
     version: tokens.version,
     loadedAt: new Date().toISOString(),
-    source: 'config/design-tokens.json'
-  }
+    source: 'config/design-tokens.json',
+  },
 } as const;
 
 // Development utilities

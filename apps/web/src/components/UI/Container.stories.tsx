@@ -30,7 +30,13 @@ export default meta;
 type Story = StoryObj<typeof Container>;
 
 const PLACEHOLDER = (
-  <div style={{ background: 'var(--color-primary-100, #dbeafe)', padding: '2rem', borderRadius: '0.5rem' }}>
+  <div
+    style={{
+      background: 'var(--color-primary-100, #dbeafe)',
+      padding: '2rem',
+      borderRadius: '0.5rem',
+    }}
+  >
     <p style={{ margin: 0 }}>Container content area</p>
   </div>
 );
@@ -84,11 +90,19 @@ export const AllSizes: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1rem 0' }}>
       {(['sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
         <div key={size}>
-          <p style={{ padding: '0 1rem', margin: '0 0 0.25rem', fontSize: '0.75rem', color: '#666' }}>
+          <p
+            style={{ padding: '0 1rem', margin: '0 0 0.25rem', fontSize: '0.75rem', color: '#666' }}
+          >
             size=&quot;{size}&quot;
           </p>
           <Container size={size}>
-            <div style={{ background: 'var(--color-primary-100, #dbeafe)', padding: '1rem', borderRadius: '0.5rem' }}>
+            <div
+              style={{
+                background: 'var(--color-primary-100, #dbeafe)',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+              }}
+            >
               {size}
             </div>
           </Container>

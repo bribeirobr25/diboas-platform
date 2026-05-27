@@ -11,7 +11,8 @@
   "mode": {
     "ariaLabel": "Modus des Rechners",
     "forward": "Vorwärts",
-    "retrospective": "Seit 2010"
+    "retrospective": "Seit 2010",
+    "retrospectiveDisabledTooltip": "Der Retrospektiv-Modus ist für BRL und EUR verfügbar. Für andere Währungen fehlen uns noch die Ankerdaten."
   },
   "inputs": {
     "currencyLabel": "Währung",
@@ -23,8 +24,10 @@
   "output": {
     "usdLocaleNote": "Dieser Rechner ist am nützlichsten für Nicht-USD-Währungen. Für USD-Halter ist der Wertverlust standardmäßig 0.",
     "usdRetrospectiveNote": "Wähle BRL oder EUR, um zu sehen, wie sich deine lokale Währung seit 2010 gegenüber dem USD entwickelt hat.",
+    "usdStabilityFramingTitle": "Der US-Dollar ist die globale Reservewährung.",
+    "usdStabilityFramingBody": "Bei Stabilitätsfragen sind USD-Halter ohnehin auf der starken Seite. Wechsle die Währung oben auf BRL oder EUR, um zu sehen, was das Halten einer schwächer werdenden Währung über 5 Jahre wirklich kostet.",
     "cashLabel": "Wenn bar gehalten",
-    "cashUsdEquivalent": "USD-Äquivalent nach {rate}% / Jahr Drift",
+    "cashEvolution": "USD-Äquivalent nach {rate}% / Jahr Veränderung gegenüber dem Dollar. Negative Werte bedeuten, dass deine lokale Währung gegenüber dem USD stärker wurde.",
     "bankLabel": "Bank-Rendite",
     "bankRateNote": "{rate}% lokale Bankrate",
     "diboasLabel": "Digital-Dollar bei diBoaS",
@@ -35,6 +38,9 @@
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "Veränderung der USD-Kaufkraft",
     "retrospectiveLossNote": "{currency} hat über 16 Jahre {cagr}% pro Jahr gegenüber dem USD verloren",
+    "depSourceForward": "Vorwärts-Projektion: horizontangepasster CAGR aus dem {years}-jährigen Zeitfenster der FX-Serie.",
+    "depSourceRetrospective": "Retrospektiv: basiert auf den Ankerpunkten des {currency}/USD-Paares von Januar 2010 bis heute.",
+    "depSourcePeg": "{currency} ist durch die Geldpolitik der Zentralbank an den US-Dollar gekoppelt. Die Wechselkursveränderung ist konstruktionsbedingt 0.",
     "uncertaintyMedium": "Diese Währung hatte im Zeitraum mäßige Volatilität — die punktuelle CAGR spiegelt das durchschnittliche Verhalten wider; die kumulative Bewegung war von Jahr zu Jahr ungleichmäßig.",
     "uncertaintyLow": "Diese Währung durchlief Perioden struktureller Volatilität oder Regimewechsel — eine einzelne CAGR glättet sehr unterschiedliche Teilzeiträume erheblich. Verwende das Ergebnis als Richtwert, nicht als Prognose."
   },

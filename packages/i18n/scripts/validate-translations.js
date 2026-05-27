@@ -40,8 +40,8 @@ const LOCALE_SPECIFIC_KEYS = {
     'legal/privacy.json': ['sections.brazilNote'],
     'legal/terms.json': ['sections.brazilNote'],
     'strategies.json': ['footer.bcbDisclaimer'],
-    'waitlist.json': ['legal.bcbDisclaimer']
-  }
+    'waitlist.json': ['legal.bcbDisclaimer'],
+  },
 };
 
 /**
@@ -60,7 +60,7 @@ const LOCALE_SPECIFIC_SLOTS = {
   // (a) add `bankRates.en.businessHighYield: 3.5` field, or
   // (b) align EN literal with FDIC `0.32%`.
   'landing-b2b.json': {
-    'b2bGoals.cards.idleCash.source': ['pt-BR', 'es', 'de']
+    'b2bGoals.cards.idleCash.source': ['pt-BR', 'es', 'de'],
   },
   // Phase 7 Followup CC8 — CLOSED 2026-05-20 via Phase 8 Item B.
   // The `catch.feeParagraph` key now carries the fee citation uniformly across
@@ -190,12 +190,19 @@ function main() {
   }
 
   // Discover all locales
-  const allLocales = fs.readdirSync(TRANSLATIONS_DIR, { withFileTypes: true })
-    .filter(function (e) { return e.isDirectory(); })
-    .map(function (e) { return e.name; })
+  const allLocales = fs
+    .readdirSync(TRANSLATIONS_DIR, { withFileTypes: true })
+    .filter(function (e) {
+      return e.isDirectory();
+    })
+    .map(function (e) {
+      return e.name;
+    })
     .sort();
 
-  const targetLocales = allLocales.filter(function (l) { return l !== REFERENCE_LOCALE; });
+  const targetLocales = allLocales.filter(function (l) {
+    return l !== REFERENCE_LOCALE;
+  });
 
   console.log('Reference locale: ' + REFERENCE_LOCALE);
   console.log('Target locales:   ' + targetLocales.join(', '));
@@ -231,13 +238,17 @@ function main() {
     }
 
     // Compare key structures for shared files
-    const sharedFiles = refFiles.filter(function (f) { return localeFiles.indexOf(f) !== -1; });
+    const sharedFiles = refFiles.filter(function (f) {
+      return localeFiles.indexOf(f) !== -1;
+    });
     for (const file of sharedFiles) {
       var refContent, localeContent;
       try {
         refContent = JSON.parse(fs.readFileSync(path.join(refDir, file), 'utf8'));
       } catch (e) {
-        console.error('  ERROR: Failed to parse ' + REFERENCE_LOCALE + '/' + file + ': ' + e.message);
+        console.error(
+          '  ERROR: Failed to parse ' + REFERENCE_LOCALE + '/' + file + ': ' + e.message
+        );
         totalErrors++;
         continue;
       }
@@ -252,8 +263,11 @@ function main() {
       const refKeys = extractKeys(refContent);
       const localeKeys = extractKeys(localeContent);
 
-      const missing = refKeys.filter(function (k) { return localeKeys.indexOf(k) === -1; });
-      const localeExclusions = (LOCALE_SPECIFIC_KEYS[locale] && LOCALE_SPECIFIC_KEYS[locale][file]) || [];
+      const missing = refKeys.filter(function (k) {
+        return localeKeys.indexOf(k) === -1;
+      });
+      const localeExclusions =
+        (LOCALE_SPECIFIC_KEYS[locale] && LOCALE_SPECIFIC_KEYS[locale][file]) || [];
       const orphaned = localeKeys.filter(function (k) {
         if (refKeys.indexOf(k) !== -1) return false;
         // Check if this key matches any locale-specific exclusion prefix
@@ -278,7 +292,7 @@ function main() {
       const refLeaves = extractStringLeaves(refContent);
       const localeLeaves = extractStringLeaves(localeContent);
       const fileSlotMismatches = [];
-      const slotExclusions = (LOCALE_SPECIFIC_SLOTS[file]) || {};
+      const slotExclusions = LOCALE_SPECIFIC_SLOTS[file] || {};
       for (const [keyPath, refValue] of refLeaves) {
         const localeValue = localeLeaves.get(keyPath);
         if (typeof localeValue !== 'string') continue; // key absent / not a string in locale
@@ -300,11 +314,18 @@ function main() {
     }
 
     // Report for this locale
-    const localeErrors = missingFiles.length
-      + orphanedFiles.length
-      + Object.keys(missingKeys).reduce(function (sum, f) { return sum + missingKeys[f].length; }, 0)
-      + Object.keys(orphanedKeys).reduce(function (sum, f) { return sum + orphanedKeys[f].length; }, 0)
-      + Object.keys(slotMismatches).reduce(function (sum, f) { return sum + slotMismatches[f].length; }, 0);
+    const localeErrors =
+      missingFiles.length +
+      orphanedFiles.length +
+      Object.keys(missingKeys).reduce(function (sum, f) {
+        return sum + missingKeys[f].length;
+      }, 0) +
+      Object.keys(orphanedKeys).reduce(function (sum, f) {
+        return sum + orphanedKeys[f].length;
+      }, 0) +
+      Object.keys(slotMismatches).reduce(function (sum, f) {
+        return sum + slotMismatches[f].length;
+      }, 0);
 
     if (localeErrors === 0) {
       console.log('[' + locale + '] OK (' + sharedFiles.length + ' files, all keys match)');
@@ -313,29 +334,40 @@ function main() {
 
       if (missingFiles.length > 0) {
         console.log('  Missing files (' + missingFiles.length + '):');
-        missingFiles.forEach(function (f) { console.log('    - ' + f); });
+        missingFiles.forEach(function (f) {
+          console.log('    - ' + f);
+        });
       }
 
       if (orphanedFiles.length > 0) {
         console.log('  Orphaned files (' + orphanedFiles.length + '):');
-        orphanedFiles.forEach(function (f) { console.log('    - ' + f); });
+        orphanedFiles.forEach(function (f) {
+          console.log('    - ' + f);
+        });
       }
 
       for (var file in missingKeys) {
         console.log('  Missing keys in ' + file + ' (' + missingKeys[file].length + '):');
-        missingKeys[file].forEach(function (k) { console.log('    - ' + k); });
+        missingKeys[file].forEach(function (k) {
+          console.log('    - ' + k);
+        });
       }
 
       for (var file in orphanedKeys) {
         console.log('  Orphaned keys in ' + file + ' (' + orphanedKeys[file].length + '):');
-        orphanedKeys[file].forEach(function (k) { console.log('    - ' + k); });
+        orphanedKeys[file].forEach(function (k) {
+          console.log('    - ' + k);
+        });
       }
 
       for (var file in slotMismatches) {
-        console.log('  ICU slot-name mismatches in ' + file + ' (' + slotMismatches[file].length + '):');
+        console.log(
+          '  ICU slot-name mismatches in ' + file + ' (' + slotMismatches[file].length + '):'
+        );
         slotMismatches[file].forEach(function (m) {
           var parts = [];
-          if (m.missing.length > 0) parts.push('missing in ' + locale + ': ' + m.missing.join(', '));
+          if (m.missing.length > 0)
+            parts.push('missing in ' + locale + ': ' + m.missing.join(', '));
           if (m.extra.length > 0) parts.push('extra in ' + locale + ': ' + m.extra.join(', '));
           console.log('    - ' + m.key + ' (' + parts.join('; ') + ')');
         });

@@ -12,22 +12,15 @@
       "detailed": "Bitcoin structure remains stable, but macro confirmation is incomplete. Liquidity conditions are improving slowly while institutional demand has softened.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "BTC remains above long-term structure"
-      ],
-      "key_headwinds": [
-        "ETF flows have weakened",
-        "Macro confirmation remains incomplete"
-      ]
+      "key_supportive_factors": ["BTC remains above long-term structure"],
+      "key_headwinds": ["ETF flows have weakened", "Macro confirmation remains incomplete"]
     },
     "pt-BR": {
       "short": "O ambiente permanece misto.",
       "detailed": "A estrutura do Bitcoin permanece estável, mas a confirmação macro está incompleta. As condições de liquidez estão melhorando lentamente enquanto a demanda institucional enfraqueceu.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "O BTC permanece acima da estrutura de longo prazo"
-      ],
+      "key_supportive_factors": ["O BTC permanece acima da estrutura de longo prazo"],
       "key_headwinds": [
         "Os fluxos de ETF enfraqueceram",
         "A confirmação macro permanece incompleta"
@@ -38,9 +31,7 @@
       "detailed": "La estructura de Bitcoin se mantiene estable, pero la confirmación macro es incompleta. Las condiciones de liquidez mejoran lentamente mientras la demanda institucional se ha debilitado.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "BTC se mantiene sobre la estructura de largo plazo"
-      ],
+      "key_supportive_factors": ["BTC se mantiene sobre la estructura de largo plazo"],
       "key_headwinds": [
         "Los flujos de ETF se han debilitado",
         "La confirmación macro sigue incompleta"
@@ -51,9 +42,7 @@
       "detailed": "Die Bitcoin-Struktur bleibt stabil, doch die Makro-Bestätigung ist unvollständig. Die Liquiditätsbedingungen verbessern sich langsam, während die institutionelle Nachfrage nachgelassen hat.",
       "confidence_level": "MODERATE",
       "mixed_signals": true,
-      "key_supportive_factors": [
-        "BTC bleibt oberhalb der langfristigen Struktur"
-      ],
+      "key_supportive_factors": ["BTC bleibt oberhalb der langfristigen Struktur"],
       "key_headwinds": [
         "Die ETF-Mittelflüsse haben sich abgeschwächt",
         "Die Makro-Bestätigung bleibt unvollständig"

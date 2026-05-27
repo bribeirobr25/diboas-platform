@@ -8,12 +8,7 @@ import { DemoHeader } from '../components/DemoHeader';
 import { DemoFooter } from '../components/DemoFooter';
 import { BalanceCard } from '../components/BalanceCard';
 import { FeeBreakdown } from '../components/FeeBreakdown';
-import {
-  processSend,
-  SEND_QUICK_AMOUNTS,
-  RECIPIENT_OPTIONS,
-  formatCurrency,
-} from '@/lib/pre-demo';
+import { processSend, SEND_QUICK_AMOUNTS, RECIPIENT_OPTIONS, formatCurrency } from '@/lib/pre-demo';
 import { useLocale } from '@/components/Providers';
 import { getCurrencyForLocale, getCurrencySymbol } from '@/config/formats';
 import { analyticsService } from '@/lib/analytics';
@@ -31,7 +26,7 @@ export function SendScreen() {
   const amount = parseFloat(state.sendAmount) || 0;
   const sendResult = useMemo(
     () => processSend(amount, state.selectedRecipient, state.cashBalance, state.solBalance),
-    [amount, state.selectedRecipient, state.cashBalance, state.solBalance],
+    [amount, state.selectedRecipient, state.cashBalance, state.solBalance]
   );
   const insufficientFunds = sendResult.errorCode === 'INSUFFICIENT_FUNDS';
 
@@ -40,23 +35,29 @@ export function SendScreen() {
       const sanitized = value.replace(/[^0-9.]/g, '');
       dispatch({ type: 'SET_SEND_AMOUNT', amount: sanitized });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleQuickAmount = useCallback(
     (quickAmount: string) => {
-      analyticsService.track({ name: 'pre_demo_send_quick_amount', parameters: { amount: quickAmount } });
+      analyticsService.track({
+        name: 'pre_demo_send_quick_amount',
+        parameters: { amount: quickAmount },
+      });
       dispatch({ type: 'SET_SEND_AMOUNT', amount: quickAmount });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleRecipientChange = useCallback(
     (handle: string) => {
-      analyticsService.track({ name: 'pre_demo_send_recipient_change', parameters: { recipient: handle } });
+      analyticsService.track({
+        name: 'pre_demo_send_recipient_change',
+        parameters: { recipient: handle },
+      });
       dispatch({ type: 'SET_SELECTED_RECIPIENT', recipient: handle });
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleProceed = useCallback(() => {
@@ -76,11 +77,17 @@ export function SendScreen() {
 
       <div className={styles.screenContent}>
         {/* Back button */}
-        <button
-          onClick={() => setScreen('home')}
-          className={styles.backButton}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <button onClick={() => setScreen('home')} className={styles.backButton}>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polyline points="15 18 9 12 15 6" />
           </svg>
           {t('preDemo.common.back')}
@@ -93,9 +100,7 @@ export function SendScreen() {
 
         {/* Tabs */}
         <div className={styles.tabRow}>
-          <button className={`${styles.tab} ${styles.tabActive}`}>
-            {t('preDemo.send.send')}
-          </button>
+          <button className={`${styles.tab} ${styles.tabActive}`}>{t('preDemo.send.send')}</button>
           <button className={`${styles.tab} ${styles.tabDisabled}`} disabled>
             {t('preDemo.send.payment')}
           </button>
@@ -103,9 +108,7 @@ export function SendScreen() {
 
         {/* Recipient selector */}
         <div className={styles.inputGroup}>
-          <label className={styles.inputLabel}>
-            {t('preDemo.send.recipientLabel')}
-          </label>
+          <label className={styles.inputLabel}>{t('preDemo.send.recipientLabel')}</label>
           <Select
             value={state.selectedRecipient}
             onChange={(e) => handleRecipientChange(e.target.value)}
@@ -117,15 +120,11 @@ export function SendScreen() {
               </option>
             ))}
           </Select>
-          <span className={styles.onChainNote}>
-            {t('preDemo.send.onChainTransfer')}
-          </span>
+          <span className={styles.onChainNote}>{t('preDemo.send.onChainTransfer')}</span>
         </div>
 
         {/* Amount label */}
-        <div className={styles.fieldLabel}>
-          {t('preDemo.send.amountLabel')}
-        </div>
+        <div className={styles.fieldLabel}>{t('preDemo.send.amountLabel')}</div>
 
         {/* Amount input */}
         <div className={styles.amountInputContainer}>
@@ -143,9 +142,7 @@ export function SendScreen() {
 
         {/* Insufficient funds warning */}
         {insufficientFunds && amount > 0 && (
-          <div className={styles.warningBanner}>
-            {t('preDemo.send.insufficientFunds')}
-          </div>
+          <div className={styles.warningBanner}>{t('preDemo.send.insufficientFunds')}</div>
         )}
 
         {/* Quick amounts */}
@@ -158,19 +155,27 @@ export function SendScreen() {
                 state.sendAmount === qa ? styles.quickAmountActive : ''
               }`}
             >
-              {currencySymbol}{qa}
+              {currencySymbol}
+              {qa}
             </button>
           ))}
         </div>
 
         {/* Fee breakdown */}
-        {amount > 0 && <FeeBreakdown feeItems={sendResult.pending.fees} totalFees={sendResult.pending.totalFees} />}
+        {amount > 0 && (
+          <FeeBreakdown
+            feeItems={sendResult.pending.fees}
+            totalFees={sendResult.pending.totalFees}
+          />
+        )}
 
         {/* They'll receive row */}
         {amount > 0 && !insufficientFunds && (
           <div className={styles.receiveRow}>
             <span className={styles.receiveLabel}>{t('preDemo.transaction.theyReceive')}</span>
-            <span className={styles.receiveAmount}>{formatCurrency(sendResult.pending.netAmount, 2, locale)}</span>
+            <span className={styles.receiveAmount}>
+              {formatCurrency(sendResult.pending.netAmount, 2, locale)}
+            </span>
           </div>
         )}
 

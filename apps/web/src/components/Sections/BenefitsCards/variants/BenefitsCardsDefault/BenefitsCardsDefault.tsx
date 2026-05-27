@@ -17,7 +17,7 @@ import {
   Target,
   CheckCircle2,
   XCircle,
-  type LucideIconType as LucideIcon
+  type LucideIconType as LucideIcon,
 } from '@/components/UI/LucideIcon';
 import { usePerformanceMonitoring } from '@/lib/monitoring/performance-monitor';
 import type { BenefitsCardsVariantProps, BenefitCard } from '../../types';
@@ -29,9 +29,9 @@ import styles from './BenefitsCardsDefault.module.css';
  */
 const ICON_MAP: Record<string, LucideIcon> = {
   'trending-up': TrendingUp,
-  'send': Send,
+  send: Send,
   'line-chart': LineChart,
-  'target': Target,
+  target: Target,
   'check-circle': CheckCircle2,
   'x-circle': XCircle,
   // Fallbacks for legacy icon paths
@@ -55,7 +55,11 @@ function getIconComponent(iconPath: string): LucideIcon {
   }
 
   // Extract icon name from path (e.g., '/assets/icons/chart-growing.avif' -> 'chart-growing')
-  const fileName = iconPath.split('/').pop()?.replace(/\.(avif|png|svg)$/, '') || '';
+  const fileName =
+    iconPath
+      .split('/')
+      .pop()
+      ?.replace(/\.(avif|png|svg)$/, '') || '';
   return ICON_MAP[fileName] || TrendingUp; // Default fallback
 }
 
@@ -71,22 +75,16 @@ function BenefitCardItem({ card }: BenefitCardItemProps) {
       {/* Icon */}
       <div className={styles.iconWrapper}>
         {/* IconComponent is resolved per-card from a static lookup map; React
-          * Compiler can't statically prove the value is stable and warns
-          * conservatively. The lookup is pure and deterministic. */}
+         * Compiler can't statically prove the value is stable and warns
+         * conservatively. The lookup is pure and deterministic. */}
         {/* eslint-disable-next-line react-hooks/static-components */}
         <IconComponent className={styles.icon} aria-hidden="true" />
       </div>
 
       {/* Content - values are already translated */}
       <div className={styles.cardContent}>
-        <h3 className={styles.cardTitle}>
-          {card.title}
-        </h3>
-        {card.description && (
-          <p className={styles.cardDescription}>
-            {card.description}
-          </p>
-        )}
+        <h3 className={styles.cardTitle}>{card.title}</h3>
+        {card.description && <p className={styles.cardDescription}>{card.description}</p>}
       </div>
     </article>
   );
@@ -99,7 +97,7 @@ function BenefitCardItem({ card }: BenefitCardItemProps) {
 export function BenefitsCardsDefault({
   config,
   className = '',
-  enableAnalytics = true
+  enableAnalytics = true,
 }: BenefitsCardsVariantProps) {
   const { recordSectionRenderTime } = usePerformanceMonitoring();
 
@@ -146,10 +144,7 @@ export function BenefitsCardsDefault({
         {/* Cards Grid */}
         <div className={styles.cardsGrid}>
           {config.cards.map((card) => (
-            <BenefitCardItem
-              key={card.id}
-              card={card}
-            />
+            <BenefitCardItem key={card.id} card={card} />
           ))}
         </div>
       </div>

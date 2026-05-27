@@ -5,10 +5,7 @@ import {
   type TokenBalance,
   type Investments,
 } from '@/lib/pre-demo';
-import {
-  CHAIN_BG_COLORS,
-  CHAIN_TEXT_COLORS,
-} from '@/lib/constants/crypto-colors';
+import { CHAIN_BG_COLORS, CHAIN_TEXT_COLORS } from '@/lib/constants/crypto-colors';
 import styles from '../PreDemo.module.css';
 
 export { CHAIN_BG_COLORS, CHAIN_TEXT_COLORS };
@@ -22,7 +19,7 @@ export function getWalletTokens(
   chain: ChainId,
   cashBalance: number,
   investments: Investments,
-  solBalance: number,
+  solBalance: number
 ): TokenBalance[] {
   switch (chain) {
     case 'SOL': {
@@ -32,16 +29,20 @@ export function getWalletTokens(
       const extraSolUsd = extraSol * ASSET_PRICES.SOL;
       return [
         { symbol: 'USDC', amount: cashBalance, usdValue: cashBalance, decimals: 2 },
-        { symbol: 'SOL', label: 'solNetworkFees', amount: reservedSol, usdValue: reservedSolUsd, decimals: 4 },
+        {
+          symbol: 'SOL',
+          label: 'solNetworkFees',
+          amount: reservedSol,
+          usdValue: reservedSolUsd,
+          decimals: 4,
+        },
         { symbol: 'SOL', label: 'solExtra', amount: extraSol, usdValue: extraSolUsd, decimals: 4 },
       ];
     }
     case 'BTC': {
       const btcInvestment = investments.assets['BTC']?.amount || 0;
       const btcAmount = btcInvestment > 0 ? btcInvestment / ASSET_PRICES.BTC : 0;
-      return [
-        { symbol: 'BTC', amount: btcAmount, usdValue: btcInvestment, decimals: 8 },
-      ];
+      return [{ symbol: 'BTC', amount: btcAmount, usdValue: btcInvestment, decimals: 8 }];
     }
     case 'ETH': {
       const xautInvestment = investments.assets['XAUT']?.amount || 0;
@@ -52,13 +53,9 @@ export function getWalletTokens(
       ];
     }
     case 'SUI':
-      return [
-        { symbol: 'SUI', amount: 0, usdValue: 0, decimals: 4 },
-      ];
+      return [{ symbol: 'SUI', amount: 0, usdValue: 0, decimals: 4 }];
     case 'TRX':
-      return [
-        { symbol: 'TRX', amount: 0, usdValue: 0, decimals: 4 },
-      ];
+      return [{ symbol: 'TRX', amount: 0, usdValue: 0, decimals: 4 }];
     default:
       return [];
   }
@@ -78,7 +75,14 @@ export function ChevronIcon({ expanded }: { expanded: boolean }) {
       height="16"
       className={`${styles.l2Chevron} ${expanded ? styles.l2ChevronOpen : ''}`}
     >
-      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 6l4 4 4-4" />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4 6l4 4 4-4"
+      />
     </svg>
   );
 }

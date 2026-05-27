@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { analyticsService } from '@/lib/analytics';
 import {
@@ -9,7 +9,8 @@ import {
   calculateCompoundProjectionPathDependent,
   CALCULATOR_EVENTS,
   DEBOUNCE_MS,
-  DEFAULT_INPUT_BY_LOCALE,
+  LESSON_DEFAULT_INPUT_BY_LOCALE,
+  MAX_RETROSPECTIVE_YEARS,
   type CalculatorInput,
   type CalculatorOutput,
 } from '@/lib/compound-interest';
@@ -17,8 +18,6 @@ import { isValidLocale, type SupportedLocale } from '@diboas/i18n/config';
 import { CalculatorInputs } from './CalculatorInputs';
 import { CalculatorOutputs } from './CalculatorOutputs';
 import styles from './CalculatorDefault.module.css';
-
-const MAX_RETROSPECTIVE_YEARS = 16;
 
 interface CalculatorDefaultProps {
   /** Optional override for the initial state — useful for Storybook. */
@@ -41,6 +40,10 @@ interface CalculatorDefaultProps {
    * Default `false`: tool stays smoothed-hedge only.
    */
   enablePathDependent?: boolean;
+  /**
+   * C6 close (TOOLS_41_DEFECTS_FIX_PLAN.md §4.5, 2026-05-26): see factory prop.
+   */
+  recurringSliderMax?: number;
 }
 
 export function CalculatorDefault({
@@ -50,18 +53,39 @@ export function CalculatorDefault({
   className,
   engine = 'lesson',
   enablePathDependent = false,
+  recurringSliderMax,
 }: CalculatorDefaultProps) {
   const intl = useTranslation();
   const locale: SupportedLocale = isValidLocale(intl.locale) ? intl.locale : 'en';
 
   const [input, setInput] = useState<CalculatorInput>(
-    () => initialInput ?? { ...DEFAULT_INPUT_BY_LOCALE[locale], locale },
+    () => initialInput ?? { ...LESSON_DEFAULT_INPUT_BY_LOCALE[locale], locale }
   );
   const [retrospective, setRetrospective] = useState(false);
 
+  // C7 fix (2026-05-25): clamp `years` to MAX_RETROSPECTIVE_YEARS at the
+  // state-setter level whenever retrospective mode is active. This is the
+  // single chokepoint every mutation path passes through — the slider, future
+  // preset buttons, programmatic test updates. The slider's `max` attribute
+  // (via `maxYearsOverride` prop below) is the visible affordance; this
+  // setter is the correctness guarantee. Per CTO-board v1.1 M1.
+  const setInputClamped = useCallback(
+    (next: CalculatorInput | ((prev: CalculatorInput) => CalculatorInput)) => {
+      setInput((prev) => {
+        const candidate = typeof next === 'function' ? next(prev) : next;
+        if (retrospective && candidate.years > MAX_RETROSPECTIVE_YEARS) {
+          return { ...candidate, years: MAX_RETROSPECTIVE_YEARS };
+        }
+        return candidate;
+      });
+    },
+    [retrospective]
+  );
+
   // Event handler — toggling ON clamps years to the bucket coverage cap
-  // (path-dependent engine throws if years > 16; clamping at the UI layer
-  // makes the transition friendly rather than a thrown error).
+  // (path-dependent engine throws if years > 16). Belt-and-braces with the
+  // state-setter clamp above; this handles the case where retrospective flips
+  // on with years already > 16.
   const handleSetRetrospective = (value: boolean) => {
     setRetrospective(value);
     if (value && input.years > MAX_RETROSPECTIVE_YEARS) {
@@ -137,16 +161,19 @@ export function CalculatorDefault({
   const lastUpdatedDate = intl.formatMessage({
     id: 'learn-compound-interest.lesson.lastUpdated.date',
   });
-  const calibrationNote = engine === 'lesson'
-    ? intl.formatMessage({ id: 'learn-compound-interest.calculator.calibrationNote' })
-    : '';
+  const calibrationNote =
+    engine === 'lesson'
+      ? intl.formatMessage({ id: 'learn-compound-interest.calculator.calibrationNote' })
+      : '';
 
   const modeForwardLabel = intl.formatMessage({ id: 'tools-shared.calculatorMode.forward' });
-  const modeRetrospectiveLabel = intl.formatMessage({ id: 'tools-shared.calculatorMode.retrospective' });
+  const modeRetrospectiveLabel = intl.formatMessage({
+    id: 'tools-shared.calculatorMode.retrospective',
+  });
   const modeAriaLabel = intl.formatMessage({ id: 'tools-shared.calculatorMode.ariaLabel' });
   const modeRetrospectiveHint = intl.formatMessage(
     { id: 'tools-shared.calculatorMode.retrospectiveHint' },
-    { years: MAX_RETROSPECTIVE_YEARS },
+    { years: MAX_RETROSPECTIVE_YEARS }
   );
 
   return (
@@ -176,11 +203,14 @@ export function CalculatorDefault({
           {retrospective && <p className={styles.modeHint}>{modeRetrospectiveHint}</p>}
         </>
       )}
-      <CalculatorInputs value={input} onChange={setInput} />
+      <CalculatorInputs
+        value={input}
+        onChange={setInputClamped}
+        maxYearsOverride={retrospective ? MAX_RETROSPECTIVE_YEARS : undefined}
+        recurringSliderMax={recurringSliderMax}
+      />
       <CalculatorOutputs output={displayedOutput} reducedMotion={reducedMotion} engine={engine} />
-      {calibrationNote && (
-        <p className={styles.calibrationNote}>{calibrationNote}</p>
-      )}
+      {calibrationNote && <p className={styles.calibrationNote}>{calibrationNote}</p>}
       <p className={styles.disclaimer}>
         {disclaimer}{' '}
         <span className={styles.lastUpdated}>

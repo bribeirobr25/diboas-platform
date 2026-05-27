@@ -5,21 +5,18 @@
  */
 
 // Type exports - only export what's actually used
-export type { 
+export type {
   AnalyticsEvent,
   PageViewEvent,
   PerformanceEvent,
   NavigationEvent,
   AnalyticsConfig,
   AnalyticsService,
-  WebVitalsMetric
+  WebVitalsMetric,
 } from './types';
 
 // Constant exports - only export what's needed
-export {
-  ANALYTICS_DEFAULTS,
-  ANALYTICS_CONSTANTS
-} from './constants';
+export { ANALYTICS_DEFAULTS, ANALYTICS_CONSTANTS } from './constants';
 
 // Service exports
 export { analyticsService } from './service';

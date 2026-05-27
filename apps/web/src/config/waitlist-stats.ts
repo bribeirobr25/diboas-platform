@@ -37,7 +37,10 @@ export const WAITLIST_STATS_FALLBACK_B2B = {
   countries: 0,
   foundingMemberCount: 0,
   foundingMemberCap: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP_B2B || '24', 10),
-  foundingMemberSpotsRemaining: parseInt(process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP_B2B || '24', 10),
+  foundingMemberSpotsRemaining: parseInt(
+    process.env.NEXT_PUBLIC_FOUNDING_MEMBER_CAP_B2B || '24',
+    10
+  ),
 };
 
 /**

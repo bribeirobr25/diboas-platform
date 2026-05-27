@@ -7,9 +7,7 @@ interface AssetHistoryCalculatorProps {
   className?: string;
 }
 
-export function AssetHistoryCalculator({
-  variant = 'default',
-}: AssetHistoryCalculatorProps) {
+export function AssetHistoryCalculator({ variant = 'default' }: AssetHistoryCalculatorProps) {
   switch (variant) {
     case 'default':
     default:

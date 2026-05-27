@@ -1,6 +1,6 @@
 /**
  * Static Asset Optimization Configuration
- * 
+ *
  * Domain-Driven Design: Asset optimization domain configuration
  * Performance & SEO Optimization: Comprehensive asset optimization
  * Service Agnostic Abstraction: Environment-agnostic asset policies
@@ -20,25 +20,25 @@ export const ASSET_PATHS = {
     BUSINESS_BANNER: `${ASSETS_BASE}/navigation/business-banner.avif`,
     REWARDS_BANNER: `${ASSETS_BASE}/navigation/rewards-banner.avif`,
     SECURITY_BANNER: `${ASSETS_BASE}/navigation/security-banner.avif`,
-    ABOUT_BANNER: `${ASSETS_BASE}/navigation/about-banner.avif`
+    ABOUT_BANNER: `${ASSETS_BASE}/navigation/about-banner.avif`,
   },
-  
+
   // Logo Assets
   LOGOS: {
     ICON: `${ASSETS_BASE}/logos/logo-icon.avif`,
-    WORDMARK: `${ASSETS_BASE}/logos/logo-wordmark.avif`
+    WORDMARK: `${ASSETS_BASE}/logos/logo-wordmark.avif`,
   },
 
   // General Images
   IMAGES: {
-    HERO: `${ASSETS_BASE}/images/defiant-bloom.avif`
+    HERO: `${ASSETS_BASE}/images/defiant-bloom.avif`,
   },
 
   // SEO Assets
   SEO: {
-    DEFAULT_OG: `${ASSETS_BASE}/logos/logo-wordmark.avif`
+    DEFAULT_OG: `${ASSETS_BASE}/logos/logo-wordmark.avif`,
   },
-  
+
   // Social Media Assets - Real Images (Categorized)
   SOCIALS: {
     REAL: {
@@ -179,21 +179,21 @@ export const ASSET_PATHS = {
       WOMAN_AQUA: `${ASSETS_BASE}/socials/real/account_woman.avif`,
       WOMAN_CORAL: `${ASSETS_BASE}/socials/real/account_woman.avif`,
       WOMAN_CORAL_SHOPPING: `${ASSETS_BASE}/socials/real/life_shopping.avif`,
-      WOMAN_MYSTIC: `${ASSETS_BASE}/socials/real/account_woman.avif`
+      WOMAN_MYSTIC: `${ASSETS_BASE}/socials/real/account_woman.avif`,
     },
     DRAWING: {
       PHONE_ACTIVITIES: `${ASSETS_BASE}/socials/drawing/phone-dashboard.avif`,
       PHONE_DEPOSIT: `${ASSETS_BASE}/socials/drawing/phone-deposit.avif`,
       PHONE_GROW: `${ASSETS_BASE}/socials/drawing/phone-growing.avif`,
-      PHONE_WITHDRAW: `${ASSETS_BASE}/socials/drawing/phone-withdraw.avif`
-    }
+      PHONE_WITHDRAW: `${ASSETS_BASE}/socials/drawing/phone-withdraw.avif`,
+    },
   },
 
   // Mascot Assets
   MASCOTS: {
     ACQUA_BASIC: `${ASSETS_BASE}/mascots/acqua-basic.avif`,
-    MASCOT_ACQUA_FLYING: `${ASSETS_BASE}/mascots/mascot-acqua-flying.avif`
-  }
+    MASCOT_ACQUA_FLYING: `${ASSETS_BASE}/mascots/mascot-acqua-flying.avif`,
+  },
 } as const;
 
 /**
@@ -262,13 +262,9 @@ const PRODUCTION_IMAGE_CONFIG: ImageOptimizationConfig = {
   sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
   deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
   imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-  domains: [
-    'diboas.com',
-    'cdn.diboas.com',
-    'assets.diboas.com'
-  ],
+  domains: ['diboas.com', 'cdn.diboas.com', 'assets.diboas.com'],
   dangerouslyAllowSVG: false,
-  contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
+  contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 } as const;
 
 /**
@@ -279,7 +275,7 @@ const DEVELOPMENT_IMAGE_CONFIG: ImageOptimizationConfig = {
   ...PRODUCTION_IMAGE_CONFIG,
   quality: 75, // Lower quality for faster builds
   formats: ['image/webp'], // Fewer formats for speed
-  dangerouslyAllowSVG: true // Allow SVG in dev
+  dangerouslyAllowSVG: true, // Allow SVG in dev
 } as const;
 
 /**
@@ -287,12 +283,9 @@ const DEVELOPMENT_IMAGE_CONFIG: ImageOptimizationConfig = {
  * Performance & SEO Optimization: Optimal font loading
  */
 const FONT_OPTIMIZATION_CONFIG: FontOptimizationConfig = {
-  preload: [
-    '/fonts/inter-var.woff2',
-    '/fonts/inter-latin.woff2'
-  ],
+  preload: ['/fonts/inter-var.woff2', '/fonts/inter-latin.woff2'],
   display: 'swap',
-  subsets: ['latin', 'latin-ext']
+  subsets: ['latin', 'latin-ext'],
 } as const;
 
 /**
@@ -303,7 +296,7 @@ const COMPRESSION_CONFIG: CompressionConfig = {
   gzip: true,
   brotli: true,
   threshold: 1024, // Compress files larger than 1KB
-  compressionLevel: 9 // Maximum compression
+  compressionLevel: 9, // Maximum compression
 } as const;
 
 /**
@@ -313,16 +306,16 @@ const COMPRESSION_CONFIG: CompressionConfig = {
 const CACHING_CONFIG: CachingConfig = {
   staticAssets: {
     maxAge: 31536000, // 1 year
-    staleWhileRevalidate: 86400 // 24 hours
+    staleWhileRevalidate: 86400, // 24 hours
   },
   images: {
     maxAge: 31536000, // 1 year
-    staleWhileRevalidate: 86400 // 24 hours
+    staleWhileRevalidate: 86400, // 24 hours
   },
   fonts: {
     maxAge: 31536000, // 1 year
-    immutable: true
-  }
+    immutable: true,
+  },
 } as const;
 
 /**
@@ -336,28 +329,28 @@ export const ASSET_OPTIMIZATION_CONFIGS = {
     compression: {
       ...COMPRESSION_CONFIG,
       compressionLevel: 6, // Faster compression in dev
-      threshold: 10240 // Only compress larger files in dev
+      threshold: 10240, // Only compress larger files in dev
     },
     caching: {
       staticAssets: {
         maxAge: 0, // No caching in dev
-        staleWhileRevalidate: 0
+        staleWhileRevalidate: 0,
       },
       images: {
         maxAge: 3600, // 1 hour caching for images in dev
-        staleWhileRevalidate: 60
+        staleWhileRevalidate: 60,
       },
       fonts: {
         maxAge: 3600,
-        immutable: false
-      }
+        immutable: false,
+      },
     },
     minification: {
       html: false,
       css: false,
       js: false,
-      removeComments: false
-    }
+      removeComments: false,
+    },
   },
   production: {
     images: PRODUCTION_IMAGE_CONFIG,
@@ -368,9 +361,9 @@ export const ASSET_OPTIMIZATION_CONFIGS = {
       html: true,
       css: true,
       js: true,
-      removeComments: true
-    }
-  }
+      removeComments: true,
+    },
+  },
 } as const satisfies Record<string, AssetOptimizationConfig>;
 
 export type AssetEnvironment = keyof typeof ASSET_OPTIMIZATION_CONFIGS;
@@ -387,9 +380,9 @@ export function generateAssetHeaders(config: AssetOptimizationConfig) {
       headers: [
         {
           key: 'Cache-Control',
-          value: `public, max-age=${config.caching.staticAssets.maxAge}, stale-while-revalidate=${config.caching.staticAssets.staleWhileRevalidate}, immutable`
-        }
-      ]
+          value: `public, max-age=${config.caching.staticAssets.maxAge}, stale-while-revalidate=${config.caching.staticAssets.staleWhileRevalidate}, immutable`,
+        },
+      ],
     },
     // Images
     {
@@ -397,9 +390,9 @@ export function generateAssetHeaders(config: AssetOptimizationConfig) {
       headers: [
         {
           key: 'Cache-Control',
-          value: `public, max-age=${config.caching.images.maxAge}, stale-while-revalidate=${config.caching.images.staleWhileRevalidate}`
-        }
-      ]
+          value: `public, max-age=${config.caching.images.maxAge}, stale-while-revalidate=${config.caching.images.staleWhileRevalidate}`,
+        },
+      ],
     },
     // Fonts
     {
@@ -407,10 +400,10 @@ export function generateAssetHeaders(config: AssetOptimizationConfig) {
       headers: [
         {
           key: 'Cache-Control',
-          value: `public, max-age=${config.caching.fonts.maxAge}${config.caching.fonts.immutable ? ', immutable' : ''}`
-        }
-      ]
-    }
+          value: `public, max-age=${config.caching.fonts.maxAge}${config.caching.fonts.immutable ? ', immutable' : ''}`,
+        },
+      ],
+    },
   ];
 }
 
@@ -419,7 +412,9 @@ export function generateAssetHeaders(config: AssetOptimizationConfig) {
  * No Hardcoded Values: Environment-based configuration
  */
 export function getAssetOptimizationConfig(): AssetOptimizationConfig {
-  const environment = (process.env.NODE_ENV === 'production' ? 'production' : 'development') as AssetEnvironment;
+  const environment = (
+    process.env.NODE_ENV === 'production' ? 'production' : 'development'
+  ) as AssetEnvironment;
   return ASSET_OPTIMIZATION_CONFIGS[environment];
 }
 

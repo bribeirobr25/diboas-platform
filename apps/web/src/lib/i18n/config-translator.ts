@@ -80,7 +80,7 @@ function translateValue(
   if (value == null) return value;
 
   if (Array.isArray(value)) {
-    return value.map(item => translateValue(item, intl, translationKeyMap, valuesByKey));
+    return value.map((item) => translateValue(item, intl, translationKeyMap, valuesByKey));
   }
 
   if (typeof value === 'object' && value !== null) {
@@ -111,8 +111,8 @@ function translateValue(
       const template = (intl.messages as Record<string, string | undefined>)[resolvedKey];
       if (typeof template === 'string') {
         const provided = Object.keys(slotValues);
-        const slots = (template.match(/\{(\w+)\}/g) ?? []).map(s => s.slice(1, -1));
-        const missing = slots.filter(s => !provided.includes(s));
+        const slots = (template.match(/\{(\w+)\}/g) ?? []).map((s) => s.slice(1, -1));
+        const missing = slots.filter((s) => !provided.includes(s));
         if (missing.length > 0) {
           console.warn(
             `[config-translator] Missing values for key "${resolvedKey}": ${missing.join(', ')}`
@@ -150,9 +150,7 @@ export function useConfigTranslation<T extends object>(
  * Helper to create translation key mapping
  * Useful for migrating existing configs to use translation keys
  */
-export function createTranslationMap(
-  entries: Array<[string, string]>
-): Map<string, string> {
+export function createTranslationMap(entries: Array<[string, string]>): Map<string, string> {
   return new Map(entries);
 }
 
@@ -189,10 +187,14 @@ export function useNamespacedTranslation(namespace: string) {
       const fullKey = `${namespace}.${key}`;
       return intl.formatMessage({ id: fullKey, defaultMessage: defaultMessage || key });
     },
-    tv: (key: string, values: Record<string, string | number | boolean | Date>, defaultMessage?: string) => {
+    tv: (
+      key: string,
+      values: Record<string, string | number | boolean | Date>,
+      defaultMessage?: string
+    ) => {
       const fullKey = `${namespace}.${key}`;
       return intl.formatMessage({ id: fullKey, defaultMessage: defaultMessage || key }, values);
-    }
+    },
   };
 }
 

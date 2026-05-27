@@ -20,11 +20,14 @@ export function ExportKeyModal({ onClose, t }: ExportKeyModalProps) {
 
   useFocusTrap(modalRef, true, { returnFocus: true });
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onClose();
-    }
-  }, [onClose]);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   return (
     <div className={styles.exportModalOverlay} onClick={onClose} role="presentation">
@@ -39,7 +42,11 @@ export function ExportKeyModal({ onClose, t }: ExportKeyModalProps) {
       >
         <div className={styles.exportModalHeader}>
           <h2 className={styles.exportModalTitle}>{t('preDemo.wallet.exportModalTitle')}</h2>
-          <button onClick={onClose} className={styles.exportModalClose} aria-label={t('preDemo.common.back')}>
+          <button
+            onClick={onClose}
+            className={styles.exportModalClose}
+            aria-label={t('preDemo.common.back')}
+          >
             <CloseIcon />
           </button>
         </div>
@@ -83,12 +90,12 @@ export function ExportKeyModal({ onClose, t }: ExportKeyModalProps) {
         <button disabled className={styles.exportModalButton}>
           <ExternalLinkIcon />
           {t('preDemo.wallet.exportModalButton')}
-          <span className={styles.exportModalButtonDemo}>{t('preDemo.wallet.exportModalButtonDemo')}</span>
+          <span className={styles.exportModalButtonDemo}>
+            {t('preDemo.wallet.exportModalButtonDemo')}
+          </span>
         </button>
 
-        <p className={styles.exportModalFooter}>
-          {t('preDemo.wallet.exportModalFooter')}
-        </p>
+        <p className={styles.exportModalFooter}>{t('preDemo.wallet.exportModalFooter')}</p>
       </div>
     </div>
   );

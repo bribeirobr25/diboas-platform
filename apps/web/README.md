@@ -57,6 +57,7 @@ The app uses locale-based routing:
 - `/de` - German
 
 Main pages:
+
 - `/[locale]` - Home page (B2C landing)
 - `/[locale]/business` - B2B landing page (Payment Fees + Idle Cash goal cards)
 - `/[locale]/about` - About page (founder story, mission, beliefs)
@@ -70,10 +71,12 @@ Main pages:
 - `/[locale]/share` - Social sharing redirect (OG metadata)
 
 Learning surface:
+
 - `/[locale]/learn` - Learn center landing
 - `/[locale]/learn/compound-interest` - Lesson 01 — How Money Really Grows (3-beat lesson + embedded calculator)
 
 Money tools (10 calculators):
+
 - `/[locale]/tools` - Tools landing — purpose-grouped (Grow / Protect / Target / Business)
 - `/[locale]/tools/compound-interest` - Compound interest calculator (currency-hedge for non-USD locales)
 - `/[locale]/tools/retirement` - Retirement planning
@@ -87,15 +90,17 @@ Money tools (10 calculators):
 - `/[locale]/tools/idle-cash` - B2B idle cash yield (currency-hedge for non-USD locales)
 
 Account / form pages:
+
 - `/[locale]/delete-confirm` - GDPR account deletion confirmation
 - `/[locale]/email-preferences` - Email unsubscribe preferences
 
 Legal pages:
+
 - `/[locale]/legal/privacy` - Privacy policy
 - `/[locale]/legal/terms` - Terms of service
 - `/[locale]/legal/cookies` - Cookie policy
 
-> Routes that were listed in earlier revisions (`/future-you`, `/benefits`, `/banking-services`, `/investing`, `/cryptocurrency`, `/rewards`) do not exist in the current app — they belong to Phase 2+ product roadmap and are tracked in `docs/full-view/FUTURE_FEATURES_PLATFORM.md`.
+> Routes that were listed in earlier revisions (`/future-you`, `/benefits`, `/banking-services`, `/investing`, `/cryptocurrency`, `/rewards`) do not exist in the current app — they belong to Phase 2+ product roadmap. Phase 2+ planning artifacts live in `docs/roadmap/need-future-analysis/` and `docs/mvp/` (Adelaide Daily analytics) plus the CEO-confirmed architecture decisions captured in CLAUDE.md memory.
 
 ## Project Structure
 
@@ -255,16 +260,16 @@ cp .env.example .env.local
 
 The `.env.example` file contains 50+ configuration options organized by category:
 
-| Category | Description |
-|----------|-------------|
-| Application | Base URLs, domain, environment |
-| Kit.com | Email marketing integration |
-| Cal.com | Booking calendar integration |
-| Waitlist | Storage path, API keys |
-| Analytics | GA4, Sentry, PostHog |
-| Security | Encryption, CSRF, rate limiting |
-| Feature Flags | Toggle integrations on/off |
-| Brand | Company name, tagline, social links |
+| Category      | Description                         |
+| ------------- | ----------------------------------- |
+| Application   | Base URLs, domain, environment      |
+| Kit.com       | Email marketing integration         |
+| Cal.com       | Booking calendar integration        |
+| Waitlist      | Storage path, API keys              |
+| Analytics     | GA4, Sentry, PostHog                |
+| Security      | Encryption, CSRF, rate limiting     |
+| Feature Flags | Toggle integrations on/off          |
+| Brand         | Company name, tagline, social links |
 
 See `.env.example` for detailed documentation of each variable.
 
@@ -319,6 +324,7 @@ pnpm run storybook
 Open [http://localhost:6006](http://localhost:6006)
 
 Stories are co-located with components:
+
 - `HeroSection.stories.tsx`
 - `ProductCarousel.stories.tsx`
 - etc.

@@ -116,7 +116,7 @@ function createMockRequest(
     method,
     headers: {
       'Content-Type': 'application/json',
-      'Origin': 'http://localhost:3000',
+      Origin: 'http://localhost:3000',
     },
     body: method === 'POST' ? JSON.stringify(body) : undefined,
   });
@@ -382,7 +382,7 @@ describe('POST /api/waitlist/signup', () => {
       expect(security.checkRateLimit).toHaveBeenCalledWith(
         expect.stringContaining('signup:'),
         expect.any(Number), // strict limit
-        expect.any(Number)  // strict window
+        expect.any(Number) // strict window
       );
     });
 
@@ -453,10 +453,9 @@ describe('POST /api/waitlist/signup', () => {
 
   describe('CSRF Protection', () => {
     it('should reject requests failing CSRF check', async () => {
-      const csrfErrorResponse = new Response(
-        JSON.stringify({ error: 'CSRF validation failed' }),
-        { status: 403 }
-      );
+      const csrfErrorResponse = new Response(JSON.stringify({ error: 'CSRF validation failed' }), {
+        status: 403,
+      });
       (security.csrfProtection as Mock).mockReturnValue(csrfErrorResponse);
 
       const request = createMockRequest({
@@ -555,7 +554,9 @@ describe('Security Considerations', () => {
 
   it('should not expose internal error details', async () => {
     (store.exists as Mock).mockResolvedValue(false);
-    (store.addEntry as Mock).mockRejectedValue(new Error('Internal database constraint violation XYZ-123'));
+    (store.addEntry as Mock).mockRejectedValue(
+      new Error('Internal database constraint violation XYZ-123')
+    );
 
     const request = createMockRequest({
       email: 'error@example.com',

@@ -34,9 +34,10 @@ function useComparisonData(locale: SupportedLocale) {
     const inputs = COMPARISON_TABLE_INPUTS[locale];
     const principal = inputs.principal;
     const currency = LOCALE_CURRENCY[locale];
-    const depreciation = currency && currency !== 'USD'
-      ? marketData.exchangeRates.rates[currency]?.annualDepreciation ?? 0
-      : 0;
+    const depreciation =
+      currency && currency !== 'USD'
+        ? (marketData.exchangeRates.rates[currency]?.annualDepreciation ?? 0)
+        : 0;
     const diboasApy = marketData.rates.strategyApys.safety;
 
     // Rates for display
@@ -55,7 +56,11 @@ function useComparisonData(locale: SupportedLocale) {
     let diboasReturn: number;
     if (depreciation > 0) {
       diboasReturn = calculateWithCurrencyHedge(
-        principal, diboasApy / 100, depreciation, 0, 1
+        principal,
+        diboasApy / 100,
+        depreciation,
+        0,
+        1
       ).nominalGain;
     } else {
       diboasReturn = calculateLumpSum(principal, diboasApy / 100, 0, 1).nominalGain;
@@ -85,8 +90,7 @@ export const ComparisonTable = memo(function ComparisonTable({
   const sectionRef = useRef<HTMLDivElement>(null);
   const hasFiredRef = useRef(false);
 
-  const t = (key: string) =>
-    intl.formatMessage({ id: `landing-b2c.comparison.${key}` });
+  const t = (key: string) => intl.formatMessage({ id: `landing-b2c.comparison.${key}` });
 
   const tSection = (key: string) =>
     intl.formatMessage({ id: `landing-b2c.sections.comparison.${key}` });
@@ -133,7 +137,9 @@ export const ComparisonTable = memo(function ComparisonTable({
           <table className={styles.table}>
             <thead>
               <tr>
-                <th scope="col" className={styles.th}>&nbsp;</th>
+                <th scope="col" className={styles.th}>
+                  &nbsp;
+                </th>
                 {COLUMN_KEYS.map((col) => (
                   <th
                     key={col}

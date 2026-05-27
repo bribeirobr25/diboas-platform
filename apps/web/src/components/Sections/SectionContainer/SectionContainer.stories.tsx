@@ -36,7 +36,13 @@ export default meta;
 type Story = StoryObj<typeof SectionContainer>;
 
 const CONTENT = (
-  <div style={{ background: 'var(--color-primary-100, #dbeafe)', padding: '2rem', borderRadius: '0.5rem' }}>
+  <div
+    style={{
+      background: 'var(--color-primary-100, #dbeafe)',
+      padding: '2rem',
+      borderRadius: '0.5rem',
+    }}
+  >
     <p style={{ margin: 0 }}>Section content area</p>
   </div>
 );
@@ -104,8 +110,20 @@ export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {(['narrow', 'standard', 'wide'] as const).map((variant) => (
-        <SectionContainer key={variant} variant={variant} padding="standard" ariaLabel={`${variant} section`}>
-          <div style={{ background: 'var(--color-primary-100, #dbeafe)', padding: '1rem', borderRadius: '0.5rem', textAlign: 'center' }}>
+        <SectionContainer
+          key={variant}
+          variant={variant}
+          padding="standard"
+          ariaLabel={`${variant} section`}
+        >
+          <div
+            style={{
+              background: 'var(--color-primary-100, #dbeafe)',
+              padding: '1rem',
+              borderRadius: '0.5rem',
+              textAlign: 'center',
+            }}
+          >
             variant=&quot;{variant}&quot;
           </div>
         </SectionContainer>

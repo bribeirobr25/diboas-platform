@@ -23,7 +23,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const seo = messages?.seo || {};
 
   const title = seo.title || 'Privacy Policy | diBoaS';
-  const description = seo.description || 'Learn how diBoaS collects, uses, and protects your personal data. GDPR compliant.';
+  const description =
+    seo.description ||
+    'Learn how diBoaS collects, uses, and protects your personal data. GDPR compliant.';
 
   return {
     title,
@@ -31,9 +33,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     alternates: {
       canonical: `${baseUrl}/${locale}/legal/privacy`,
       languages: {
-        'en': `${baseUrl}/en/legal/privacy`,
-        'de': `${baseUrl}/de/legal/privacy`,
-        'es': `${baseUrl}/es/legal/privacy`,
+        en: `${baseUrl}/en/legal/privacy`,
+        de: `${baseUrl}/de/legal/privacy`,
+        es: `${baseUrl}/es/legal/privacy`,
         'pt-br': `${baseUrl}/pt-BR/legal/privacy`,
         'x-default': `${baseUrl}/en/legal/privacy`,
       },
@@ -78,10 +80,13 @@ export default async function LegalPrivacyPage({ params }: LocalePageProps) {
   // Load legal/privacy namespace
   const pageMessages = await loadPageNamespaces(locale, ['legal/privacy', 'landing-b2c']);
 
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
-    { name: 'Home', url: '/' },
-    { name: 'Privacy Policy', url: ROUTES.LEGAL.PRIVACY }
-  ], locale);
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
+    [
+      { name: 'Home', url: '/' },
+      { name: 'Privacy Policy', url: ROUTES.LEGAL.PRIVACY },
+    ],
+    locale
+  );
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

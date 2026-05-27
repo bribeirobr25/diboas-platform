@@ -4,10 +4,7 @@ import { SEOMetadataFactory } from '@/lib/seo';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
-import {
-  HeroSection,
-  ProseSection,
-} from '@/components/Sections';
+import { HeroSection, ProseSection } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import {
@@ -29,13 +26,15 @@ export const dynamic = 'auto';
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const validLocale = isValidLocale(locale) ? locale as SupportedLocale : 'en';
+  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
 
   const messages = await loadMessages(validLocale, 'security');
   const seo = messages?.seo || {};
 
   const title = seo.title || 'Security | diBoaS';
-  const description = seo.description || 'How diBoaS protects your money. Your wallet, your keys. Non-custodial architecture. 24/7 monitoring.';
+  const description =
+    seo.description ||
+    'How diBoaS protects your money. Your wallet, your keys. Non-custodial architecture. 24/7 monitoring.';
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
@@ -47,7 +46,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       description: seo.ogDescription || description,
       type: 'website',
       locale: validLocale,
-      images: [{ url: `${siteUrl}/api/og/security`, width: 1200, height: 630, alt: seo.ogTitle || title }],
+      images: [
+        { url: `${siteUrl}/api/og/security`, width: 1200, height: 630, alt: seo.ogTitle || title },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -60,9 +61,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     alternates: {
       canonical: `${siteUrl}/${validLocale}/security`,
       languages: {
-        'en': `${siteUrl}/en/security`,
-        'de': `${siteUrl}/de/security`,
-        'es': `${siteUrl}/es/security`,
+        en: `${siteUrl}/en/security`,
+        de: `${siteUrl}/de/security`,
+        es: `${siteUrl}/es/security`,
         'pt-br': `${siteUrl}/pt-BR/security`,
         'x-default': `${siteUrl}/en/security`,
       },
@@ -93,10 +94,13 @@ export default async function SecurityPage({ params }: LocalePageProps) {
   // common + waitlist already provided by landing layout
   const pageMessages = await loadPageNamespaces(locale, ['security', 'landing-b2c']);
 
-  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs([
-    { name: 'Home', url: '/' },
-    { name: 'Security', url: '/security' },
-  ], locale);
+  const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
+    [
+      { name: 'Home', url: '/' },
+      { name: 'Security', url: '/security' },
+    ],
+    locale
+  );
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
@@ -128,10 +132,7 @@ export default async function SecurityPage({ params }: LocalePageProps) {
           context={{ page: 'security' }}
         >
           <div id="wallet" data-section-id="wallet-section-security">
-            <ProseSection
-              config={SECURITY_WALLET_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={SECURITY_WALLET_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 
@@ -143,10 +144,7 @@ export default async function SecurityPage({ params }: LocalePageProps) {
           context={{ page: 'security' }}
         >
           <div id="protection" data-section-id="protection-section-security">
-            <ProseSection
-              config={SECURITY_PROTECTION_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={SECURITY_PROTECTION_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 
@@ -158,10 +156,7 @@ export default async function SecurityPage({ params }: LocalePageProps) {
           context={{ page: 'security' }}
         >
           <div id="technology" data-section-id="technology-section-security">
-            <ProseSection
-              config={SECURITY_TECHNOLOGY_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={SECURITY_TECHNOLOGY_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 
@@ -173,10 +168,7 @@ export default async function SecurityPage({ params }: LocalePageProps) {
           context={{ page: 'security' }}
         >
           <div id="what-we-dont-do" data-section-id="what-we-dont-do-section-security">
-            <ProseSection
-              config={SECURITY_WHAT_WE_DONT_DO_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={SECURITY_WHAT_WE_DONT_DO_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
 
@@ -188,13 +180,9 @@ export default async function SecurityPage({ params }: LocalePageProps) {
           context={{ page: 'security' }}
         >
           <div id="transparency" data-section-id="transparency-section-security">
-            <ProseSection
-              config={SECURITY_TRANSPARENCY_CONFIG}
-              enableAnalytics={true}
-            />
+            <ProseSection config={SECURITY_TRANSPARENCY_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
-
       </div>
 
       {/* Footer */}

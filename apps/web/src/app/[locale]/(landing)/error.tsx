@@ -14,11 +14,5 @@ interface ErrorProps {
 }
 
 export default function LandingError({ error, reset }: ErrorProps) {
-  return (
-    <RouteGroupError
-      error={error}
-      reset={reset}
-      errorBoundaryName="landing-route-group"
-    />
-  );
+  return <RouteGroupError error={error} reset={reset} errorBoundaryName="landing-route-group" />;
 }

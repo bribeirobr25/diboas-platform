@@ -9,7 +9,8 @@ import styles from '../PreDream.module.css';
 
 export function InputScreen() {
   const intl = useTranslation();
-  const { state, setInitialAmount, setMonthlyContribution, goToTimeframe, goToScreen } = usePreDream();
+  const { state, setInitialAmount, setMonthlyContribution, goToTimeframe, goToScreen } =
+    usePreDream();
 
   const { locale } = useLocale();
   const currencySymbol = getCurrencySymbol(getCurrencyForLocale(locale));
@@ -65,8 +66,14 @@ export function InputScreen() {
             aria-label={t('startingAmount')}
           />
           <div className={styles.sliderRange}>
-            <span>{currencySymbol}{PRE_DREAM_INITIAL_AMOUNT_CONFIG.min.toLocaleString(intlLocale)}</span>
-            <span>{currencySymbol}{PRE_DREAM_INITIAL_AMOUNT_CONFIG.max.toLocaleString(intlLocale)}</span>
+            <span>
+              {currencySymbol}
+              {PRE_DREAM_INITIAL_AMOUNT_CONFIG.min.toLocaleString(intlLocale)}
+            </span>
+            <span>
+              {currencySymbol}
+              {PRE_DREAM_INITIAL_AMOUNT_CONFIG.max.toLocaleString(intlLocale)}
+            </span>
           </div>
         </div>
 
@@ -95,23 +102,23 @@ export function InputScreen() {
             aria-label={t('monthlyContribution')}
           />
           <div className={styles.sliderRange}>
-            <span>{currencySymbol}{PRE_DREAM_MONTHLY_AMOUNT_CONFIG.min.toLocaleString(intlLocale)}</span>
-            <span>{currencySymbol}{PRE_DREAM_MONTHLY_AMOUNT_CONFIG.max.toLocaleString(intlLocale)}</span>
+            <span>
+              {currencySymbol}
+              {PRE_DREAM_MONTHLY_AMOUNT_CONFIG.min.toLocaleString(intlLocale)}
+            </span>
+            <span>
+              {currencySymbol}
+              {PRE_DREAM_MONTHLY_AMOUNT_CONFIG.max.toLocaleString(intlLocale)}
+            </span>
           </div>
         </div>
       </div>
 
       <div className={styles.buttonRow}>
-        <button
-          onClick={() => goToScreen('pathSelect')}
-          className={styles.secondaryButton}
-        >
+        <button onClick={() => goToScreen('pathSelect')} className={styles.secondaryButton}>
           {t('back')}
         </button>
-        <button
-          onClick={goToTimeframe}
-          className={styles.primaryButton}
-        >
+        <button onClick={goToTimeframe} className={styles.primaryButton}>
           {t('nextButton')}
         </button>
       </div>

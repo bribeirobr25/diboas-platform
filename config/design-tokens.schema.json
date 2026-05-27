@@ -4,7 +4,16 @@
   "title": "diBoaS Design Tokens Schema",
   "description": "JSON Schema for validating design tokens configuration following Domain-Driven Design principles",
   "type": "object",
-  "required": ["version", "metadata", "typography", "spacing", "layout", "animation", "zIndex", "breakpoints"],
+  "required": [
+    "version",
+    "metadata",
+    "typography",
+    "spacing",
+    "layout",
+    "animation",
+    "zIndex",
+    "breakpoints"
+  ],
   "additionalProperties": false,
   "properties": {
     "$schema": {

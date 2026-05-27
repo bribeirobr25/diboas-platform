@@ -39,39 +39,43 @@ export function ProtocolsSelectionSection() {
         backgroundColor="var(--section-bg-neutral)"
       >
         <div className={styles.content}>
-          <h2 className={styles.title}>
-            {t('howWeChoose.h2')}
-          </h2>
-          <p className={styles.intro}>
-            {t('howWeChoose.intro')}
-          </p>
+          <h2 className={styles.title}>{t('howWeChoose.h2')}</h2>
+          <p className={styles.intro}>{t('howWeChoose.intro')}</p>
 
           <ul className={styles.criteriaList}>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
+              <span className={styles.checkmark}>
+                <Check size={16} strokeWidth={2} />
+              </span>
               <span className={styles.criteriaText}>{criteria.operation}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
+              <span className={styles.checkmark}>
+                <Check size={16} strokeWidth={2} />
+              </span>
               <span className={styles.criteriaText}>{criteria.audits}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
+              <span className={styles.checkmark}>
+                <Check size={16} strokeWidth={2} />
+              </span>
               <span className={styles.criteriaText}>{criteria.exploits}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
+              <span className={styles.checkmark}>
+                <Check size={16} strokeWidth={2} />
+              </span>
               <span className={styles.criteriaText}>{criteria.transparent}</span>
             </li>
             <li className={styles.criteriaItem}>
-              <span className={styles.checkmark}><Check size={16} strokeWidth={2} /></span>
+              <span className={styles.checkmark}>
+                <Check size={16} strokeWidth={2} />
+              </span>
               <span className={styles.criteriaText}>{criteria.usage}</span>
             </li>
           </ul>
 
-          <p className={styles.belowCriteria}>
-            {t('howWeChoose.belowCriteria')}
-          </p>
+          <p className={styles.belowCriteria}>{t('howWeChoose.belowCriteria')}</p>
         </div>
       </SectionContainer>
     </SectionErrorBoundary>

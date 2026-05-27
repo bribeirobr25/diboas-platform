@@ -5,13 +5,15 @@
  */
 
 .section {
-  padding: calc(var(--padding-section-mobile-y) + var(--spacing-2xl)) var(--padding-section-mobile-x) var(--padding-section-mobile-y);
+  padding: calc(var(--padding-section-mobile-y) + var(--spacing-2xl))
+    var(--padding-section-mobile-x) var(--padding-section-mobile-y);
   background: linear-gradient(to bottom, var(--color-slate-900), var(--color-slate-800));
 }
 
 @media (min-width: 1024px) {
   .section {
-    padding: calc(var(--padding-section-desktop-y) + var(--spacing-2xl)) var(--padding-section-desktop-x) var(--padding-section-desktop-y);
+    padding: calc(var(--padding-section-desktop-y) + var(--spacing-2xl))
+      var(--padding-section-desktop-x) var(--padding-section-desktop-y);
   }
 }
 

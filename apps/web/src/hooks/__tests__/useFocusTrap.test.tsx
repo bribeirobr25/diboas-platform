@@ -13,11 +13,13 @@ import { useRef, type RefObject } from 'react';
 import { useFocusTrap } from '../useFocusTrap';
 
 // Helper: render the hook with a real DOM container
-function setupFocusTrap(options: {
-  autoFocus?: boolean;
-  returnFocus?: boolean;
-  initialFocus?: string;
-} = {}) {
+function setupFocusTrap(
+  options: {
+    autoFocus?: boolean;
+    returnFocus?: boolean;
+    initialFocus?: string;
+  } = {}
+) {
   // Create DOM structure
   const container = document.createElement('div');
   const button1 = document.createElement('button');

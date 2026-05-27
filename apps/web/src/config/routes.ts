@@ -63,4 +63,4 @@ export const getRouteById = (id: string): string | undefined => {
 /**
  * Type for route paths
  */
-export type RoutePath = typeof ROUTES[keyof typeof ROUTES] | string;
+export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES] | string;

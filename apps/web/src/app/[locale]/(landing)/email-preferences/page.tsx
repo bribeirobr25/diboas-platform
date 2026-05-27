@@ -34,8 +34,7 @@ export default function EmailPreferencesPage() {
 
   const [state, setState] = useState<PageState>(id && token ? 'idle' : 'invalid');
 
-  const t = (key: string) =>
-    intl.formatMessage({ id: `common.emailPreferences.${key}` });
+  const t = (key: string) => intl.formatMessage({ id: `common.emailPreferences.${key}` });
 
   const handleUnsubscribe = async () => {
     if (!id || !token) return;
@@ -88,24 +87,16 @@ export default function EmailPreferencesPage() {
         <>
           <h1 className={styles.title}>{t('heading')}</h1>
           <p className={styles.bodyText}>{t('description')}</p>
-          <button
-            onClick={handleUnsubscribe}
-            className={styles.primaryButton}
-          >
+          <button onClick={handleUnsubscribe} className={styles.primaryButton}>
             {t('unsubscribeButton')}
           </button>
-          <button
-            onClick={handleStaySubscribed}
-            className={styles.secondaryButton}
-          >
+          <button onClick={handleStaySubscribed} className={styles.secondaryButton}>
             {t('staySubscribedButton')}
           </button>
         </>
       ) : null}
 
-      {state === 'processing' ? (
-        <p className={styles.statusText}>{t('processing')}</p>
-      ) : null}
+      {state === 'processing' ? <p className={styles.statusText}>{t('processing')}</p> : null}
 
       {state === 'unsubscribed' ? (
         <>
@@ -115,13 +106,9 @@ export default function EmailPreferencesPage() {
         </>
       ) : null}
 
-      {state === 'invalid' ? (
-        <h1 className={styles.titleError}>{t('invalidLink')}</h1>
-      ) : null}
+      {state === 'invalid' ? <h1 className={styles.titleError}>{t('invalidLink')}</h1> : null}
 
-      {state === 'error' ? (
-        <h1 className={styles.titleError}>{t('error')}</h1>
-      ) : null}
+      {state === 'error' ? <h1 className={styles.titleError}>{t('error')}</h1> : null}
     </div>
   );
 }

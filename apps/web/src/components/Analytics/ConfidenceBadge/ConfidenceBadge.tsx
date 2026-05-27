@@ -10,10 +10,7 @@ interface ConfidenceBadgeProps {
 export function ConfidenceBadge({ level, labels, className }: ConfidenceBadgeProps) {
   const tone = level.toLowerCase();
   return (
-    <span
-      className={`${styles.badge} ${className ?? ''}`}
-      data-confidence={tone}
-    >
+    <span className={`${styles.badge} ${className ?? ''}`} data-confidence={tone}>
       {labels[level]}
     </span>
   );

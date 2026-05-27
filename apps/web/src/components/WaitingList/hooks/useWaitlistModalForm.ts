@@ -13,10 +13,7 @@
 import { useState, useCallback, useRef } from 'react';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import { analyticsService } from '@/lib/analytics';
-import type {
-  WaitingListFormData,
-  WaitingListFormErrors,
-} from '@/lib/waitingList/types';
+import type { WaitingListFormData, WaitingListFormErrors } from '@/lib/waitingList/types';
 
 interface UseWaitlistModalFormOptions {
   /** Current locale */
@@ -78,92 +75,95 @@ export function useWaitlistModalForm({
     }));
   }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    // Prevent double-submit using ref (immediate check before state update)
-    if (isSubmittingRef.current) {
-      return;
-    }
-    isSubmittingRef.current = true;
-
-    setErrors({});
-    setIsLoading(true);
-
-    // Track form submission attempt
-    analyticsService.track({
-      name: 'waiting_list_form_submitted',
-      parameters: {
-        hasName: !!formData.name,
-        hasXAccount: !!formData.xAccount,
-        locale,
-        timestamp: Date.now(),
-      },
-    });
-
-    try {
-      const response = await fetchWithRetry('/api/waitlist/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email.toLowerCase().trim(),
-          name: formData.name || undefined,
-          locale,
-          gdprAccepted: formData.gdprAccepted,
-          source: 'modal',
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        let errorType = 'unknown';
-        if (data.errorCode === 'ALREADY_REGISTERED') {
-          errorType = 'duplicate';
-          setErrors({ email: t('errors.duplicateEmail') });
-        } else if (data.errorCode === 'INVALID_EMAIL') {
-          errorType = 'validation';
-          setErrors({ email: t('errors.invalidEmail') });
-        } else if (data.errorCode === 'CONSENT_REQUIRED') {
-          errorType = 'validation';
-          setErrors({ gdprAccepted: t('errors.consentRequired') });
-        } else {
-          errorType = 'submission_failed';
-          setErrors({ general: t('errors.submissionFailed') });
-        }
-
-        analyticsService.track({
-          name: 'waiting_list_signup_error',
-          parameters: { errorType, timestamp: Date.now() },
-        });
+      // Prevent double-submit using ref (immediate check before state update)
+      if (isSubmittingRef.current) {
         return;
       }
+      isSubmittingRef.current = true;
 
-      setSubmittedEmail(formData.email);
-      setIsSuccess(true);
+      setErrors({});
+      setIsLoading(true);
 
+      // Track form submission attempt
       analyticsService.track({
-        name: 'waiting_list_signup_success',
+        name: 'waiting_list_form_submitted',
         parameters: {
+          hasName: !!formData.name,
+          hasXAccount: !!formData.xAccount,
           locale,
-          position: data.position,
           timestamp: Date.now(),
         },
       });
-    } catch {
-      analyticsService.track({
-        name: 'waiting_list_signup_error',
-        parameters: { errorType: 'network_error', timestamp: Date.now() },
-      });
 
-      setErrors({ general: t('errors.submissionFailed') });
-    } finally {
-      setIsLoading(false);
-      isSubmittingRef.current = false;
-    }
-  }, [formData, locale, t]);
+      try {
+        const response = await fetchWithRetry('/api/waitlist/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email.toLowerCase().trim(),
+            name: formData.name || undefined,
+            locale,
+            gdprAccepted: formData.gdprAccepted,
+            source: 'modal',
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          let errorType = 'unknown';
+          if (data.errorCode === 'ALREADY_REGISTERED') {
+            errorType = 'duplicate';
+            setErrors({ email: t('errors.duplicateEmail') });
+          } else if (data.errorCode === 'INVALID_EMAIL') {
+            errorType = 'validation';
+            setErrors({ email: t('errors.invalidEmail') });
+          } else if (data.errorCode === 'CONSENT_REQUIRED') {
+            errorType = 'validation';
+            setErrors({ gdprAccepted: t('errors.consentRequired') });
+          } else {
+            errorType = 'submission_failed';
+            setErrors({ general: t('errors.submissionFailed') });
+          }
+
+          analyticsService.track({
+            name: 'waiting_list_signup_error',
+            parameters: { errorType, timestamp: Date.now() },
+          });
+          return;
+        }
+
+        setSubmittedEmail(formData.email);
+        setIsSuccess(true);
+
+        analyticsService.track({
+          name: 'waiting_list_signup_success',
+          parameters: {
+            locale,
+            position: data.position,
+            timestamp: Date.now(),
+          },
+        });
+      } catch {
+        analyticsService.track({
+          name: 'waiting_list_signup_error',
+          parameters: { errorType: 'network_error', timestamp: Date.now() },
+        });
+
+        setErrors({ general: t('errors.submissionFailed') });
+      } finally {
+        setIsLoading(false);
+        isSubmittingRef.current = false;
+      }
+    },
+    [formData, locale, t]
+  );
 
   const resetForm = useCallback(() => {
     setFormData(initialFormData);

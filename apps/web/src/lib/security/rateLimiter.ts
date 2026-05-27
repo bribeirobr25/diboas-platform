@@ -21,11 +21,7 @@ import { RATE_LIMIT_CONFIG, IS_PRODUCTION } from '@/config/env';
  * Consumers can depend on the interface for testing or alternative backends.
  */
 export interface IRateLimiter {
-  checkRateLimit(
-    key: string,
-    limit?: number,
-    windowMs?: number,
-  ): Promise<RateLimitResult>;
+  checkRateLimit(key: string, limit?: number, windowMs?: number): Promise<RateLimitResult>;
 }
 
 // In-memory fallback store
@@ -70,7 +66,9 @@ function initializeRedis(): boolean {
     });
     return true;
   } catch (error) {
-    Logger.error('[RateLimiter] Failed to initialize Redis:', { error: error instanceof Error ? error.message : String(error) });
+    Logger.error('[RateLimiter] Failed to initialize Redis:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     return false;
   }
 }
@@ -137,11 +135,14 @@ export async function checkRateLimit(
         reset: Math.ceil(result.reset / 1000),
       };
     } catch (error) {
-      Logger.error('[RateLimiter] Redis rate limit failed, using in-memory fallback', { error: error instanceof Error ? error.message : String(error) });
+      Logger.error('[RateLimiter] Redis rate limit failed, using in-memory fallback', {
+        error: error instanceof Error ? error.message : String(error),
+      });
 
       // Alert: Redis fallback means rate limiting is per-instance only
       try {
-        const { applicationEventBus, ApplicationEventType } = await import('@/lib/events/ApplicationEventBus');
+        const { applicationEventBus, ApplicationEventType } =
+          await import('@/lib/events/ApplicationEventBus');
         applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
           domain: 'monitoring',
           source: 'rateLimiter',
@@ -249,7 +250,10 @@ export function createRateLimitHeaders(result: RateLimitResult): Headers {
   headers.set('X-RateLimit-Reset', result.reset.toString());
 
   if (!result.success) {
-    headers.set('Retry-After', Math.max(0, result.reset - Math.floor(Date.now() / 1000)).toString());
+    headers.set(
+      'Retry-After',
+      Math.max(0, result.reset - Math.floor(Date.now() / 1000)).toString()
+    );
   }
 
   return headers;

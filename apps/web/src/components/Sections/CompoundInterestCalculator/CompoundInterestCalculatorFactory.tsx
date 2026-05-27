@@ -21,6 +21,15 @@ interface CompoundInterestCalculatorProps {
    * path-dependent engine via a separate named function (R1 discipline).
    */
   enablePathDependent?: boolean;
+  /**
+   * C6 close (TOOLS_41_DEFECTS_FIX_PLAN.md §4.5, 2026-05-26): per-locale
+   * ceiling for the recurring-amount slider. Tool pages pass
+   * `COMPOUND_TOOL_DEFAULTS[toolKey].recurringSliderMax[locale]` so the
+   * slider visually represents large defaults (e.g. pt-BR retirement R$2000).
+   * Numeric input still accepts up to INPUT_BOUNDS.amount.max; this is the
+   * affordance only.
+   */
+  recurringSliderMax?: number;
 }
 
 export function CompoundInterestCalculator({

@@ -26,26 +26,16 @@ export function StrategiesMatrixSection() {
   const t = (key: string) => intl.formatMessage({ id: `${I18N_PREFIX}.${key}` });
   return (
     <>
-      <h2 className={styles.sectionTitle}>
-        {t('matrix.header')}
-      </h2>
-      <p className={styles.sectionSubtitle}>
-        {t('matrix.instructions')}
-      </p>
+      <h2 className={styles.sectionTitle}>{t('matrix.header')}</h2>
+      <p className={styles.sectionSubtitle}>{t('matrix.instructions')}</p>
 
       <div className={styles.tableWrapper}>
         <table className={styles.strategyTable}>
           <thead>
             <tr className={styles.tableHeaderRow}>
-              <th className={styles.tableHeaderGoal}>
-                {t('matrix.columns.goal')}
-              </th>
-              <th className={styles.tableHeaderStable}>
-                {t('matrix.columns.stable')}
-              </th>
-              <th className={styles.tableHeaderGrowth}>
-                {t('matrix.columns.growth')}
-              </th>
+              <th className={styles.tableHeaderGoal}>{t('matrix.columns.goal')}</th>
+              <th className={styles.tableHeaderStable}>{t('matrix.columns.stable')}</th>
+              <th className={styles.tableHeaderGrowth}>{t('matrix.columns.growth')}</th>
             </tr>
           </thead>
           <tbody>
@@ -54,18 +44,20 @@ export function StrategiesMatrixSection() {
                 key={row.id}
                 className={index < MATRIX_ROWS.length - 1 ? styles.tableRow : styles.tableRowLast}
               >
-                <td className={styles.tableCellGoal}>
-                  {t(`matrix.rows.${row.id}.goal`)}
-                </td>
+                <td className={styles.tableCellGoal}>{t(`matrix.rows.${row.id}.goal`)}</td>
                 <td className={styles.tableCellStable}>
-                  {row.stableStrategy
-                    ? t(`matrix.rows.${row.id}.stable`)
-                    : <span className={styles.emptyCell}>{'\u2014'}</span>}
+                  {row.stableStrategy ? (
+                    t(`matrix.rows.${row.id}.stable`)
+                  ) : (
+                    <span className={styles.emptyCell}>{'\u2014'}</span>
+                  )}
                 </td>
                 <td className={styles.tableCellGrowth}>
-                  {row.growthStrategy
-                    ? t(`matrix.rows.${row.id}.growth`)
-                    : <span className={styles.emptyCell}>{'\u2014'}</span>}
+                  {row.growthStrategy ? (
+                    t(`matrix.rows.${row.id}.growth`)
+                  ) : (
+                    <span className={styles.emptyCell}>{'\u2014'}</span>
+                  )}
                 </td>
               </tr>
             ))}
@@ -73,9 +65,7 @@ export function StrategiesMatrixSection() {
         </table>
       </div>
 
-      <p className={styles.tableNote}>
-        {t('matrix.note')}
-      </p>
+      <p className={styles.tableNote}>{t('matrix.note')}</p>
     </>
   );
 }

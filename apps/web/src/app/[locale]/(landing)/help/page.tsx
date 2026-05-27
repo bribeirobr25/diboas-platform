@@ -8,11 +8,7 @@ import { HeroSection, FAQAccordion } from '@/components/Sections';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
-import {
-  HELP_HERO_CONFIG,
-  HELP_TOPIC_IDS,
-  HELP_TOPIC_CONFIGS,
-} from '@/config/landing-help';
+import { HELP_HERO_CONFIG, HELP_TOPIC_IDS, HELP_TOPIC_CONFIGS } from '@/config/landing-help';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
 
@@ -30,9 +26,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const seo = messages?.seo || {};
 
   const title = seo.title || 'Help Center | diBoaS';
-  const description =
-    seo.description ||
-    'Find answers to common questions about diBoaS.';
+  const description = seo.description || 'Find answers to common questions about diBoaS.';
 
   return {
     title,
@@ -85,22 +79,23 @@ export default async function HelpPage({ params }: LocalePageProps) {
   }
 
   // common + waitlist already provided by landing layout
-  const pageMessages = await loadPageNamespaces(locale, [
-    'landing-help',
-    'landing-b2c',
-    'faq',
-  ]);
+  const pageMessages = await loadPageNamespaces(locale, ['landing-help', 'landing-b2c', 'faq']);
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
       { name: 'Home', url: '/' },
       { name: 'Help', url: '/help' },
     ],
-    locale,
+    locale
   );
 
-  const helpMessages = pageMessages['landing-help'] as unknown as Record<string, unknown> | undefined;
-  const topics = (helpMessages?.topics ?? {}) as Record<string, { questions?: Record<string, { question?: string; answer?: string }> }>;
+  const helpMessages = pageMessages['landing-help'] as unknown as
+    | Record<string, unknown>
+    | undefined;
+  const topics = (helpMessages?.topics ?? {}) as Record<
+    string,
+    { questions?: Record<string, { question?: string; answer?: string }> }
+  >;
 
   const getFAQEntry = (topicId: string, qKey: string) => {
     const q = topics[topicId]?.questions?.[qKey];
@@ -174,7 +169,10 @@ export default async function HelpPage({ params }: LocalePageProps) {
             context={{ page: 'help', topic: topicId }}
           >
             <div
-              id={topicId.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}
+              id={topicId
+                .replace(/([A-Z])/g, '-$1')
+                .toLowerCase()
+                .replace(/^-/, '')}
               data-section-id={`faq-${topicId}-section-help`}
               style={{
                 contentVisibility: 'auto',
@@ -185,7 +183,6 @@ export default async function HelpPage({ params }: LocalePageProps) {
             </div>
           </SectionErrorBoundary>
         ))}
-
       </div>
 
       {/* Section 4: Footer */}

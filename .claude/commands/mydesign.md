@@ -12,6 +12,7 @@ This command orchestrates when and how to apply them.
 
 Before anything else, read these files if they exist. Note which are present and complete
 vs. missing or empty:
+
 - `docs/brand-brief.md`
 - `docs/design-principles.md`
 - `docs/design-system-notes.md`
@@ -29,6 +30,7 @@ the homepage"), skip this question and proceed to the appropriate mode.
 Otherwise, use ask_user_input:
 
 **"What do you need?"**
+
 - type: single_select
 - Options:
   - "Build — create new UI (page, component, section)"
@@ -53,6 +55,7 @@ per interaction to avoid over-asking.
 **First interaction — the essentials:**
 
 Question 1 — "How should this feel to the user?"
+
 - type: multi_select
 - Options:
   - "Warm and approachable"
@@ -63,6 +66,7 @@ Question 1 — "How should this feel to the user?"
   - "Calm and trustworthy"
 
 Question 2 — "What should this NOT feel like?"
+
 - type: multi_select
 - Options:
   - "Generic SaaS / cookie-cutter"
@@ -73,6 +77,7 @@ Question 2 — "What should this NOT feel like?"
   - "Boring / lifeless"
 
 Question 3 — "What is the priority?"
+
 - type: single_select
 - Options:
   - "Polish and craft — take the time"
@@ -86,6 +91,7 @@ slice → one review). If "Exploration", switch to EXPLORE mode below.
 
 Question 4 — "Do you have references or techniques to draw from?"
 References can be screenshots, URLs, tweet threads, CodePens, or articles.
+
 - type: single_select
 - Options:
   - "Yes, let me share them"
@@ -96,6 +102,7 @@ If the user shares a URL, navigate to it (via Playwright or web_fetch) to analyz
 technique and extract what to apply.
 
 Question 5 — "What about the content?"
+
 - type: single_select
 - Options:
   - "I'll provide real content"
@@ -105,6 +112,7 @@ Question 5 — "What about the content?"
 ### Summarize direction
 
 After gathering context, write a 3-5 sentence summary of:
+
 - Who this is for and what emotional outcome we want
 - The aesthetic direction (with references if provided)
 - Key constraints (framework, existing components, accessibility)
@@ -113,6 +121,7 @@ After gathering context, write a 3-5 sentence summary of:
 ### Build
 
 Follow the full process from `CLAUDE.md`:
+
 1. Define or reuse tokens and components (Step 4)
 2. Build from smallest slice upward (Step 5)
 3. Build through the system — no ad-hoc styling (Step 6)
@@ -132,6 +141,7 @@ before shipping.
 ### Validate
 
 Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`) for visual validation:
+
 1. Install browser: `mcp__MCP_DOCKER__browser_install`
 2. Start dev server: `pnpm dev:web`
 3. Get network IP: `ifconfig en0 | grep "inet "` — Docker browser cannot reach `localhost`
@@ -147,6 +157,7 @@ Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`) for visual valida
 13. Fix issues before declaring done
 
 If Docker MCP browser tools are NOT available:
+
 - State: "I could not visually verify this — browser tooling is not available."
 - Ask the user for a screenshot or manual confirmation.
 
@@ -154,6 +165,7 @@ If Docker MCP browser tools are NOT available:
 
 Run the anti-slop checklist from `docs/anti-slop-checklist.md` — both visually (against
 screenshots) AND via code-level grep:
+
 - Emoji in components: `grep -rP '[\x{1F300}-\x{1F9FF}]' apps/web/src/components/ --include="*.tsx"`
 - Emoji in translations: `grep -rP '[\x{1F300}-\x{1F9FF}]' packages/i18n/translations/ --include="*.json"`
 - Hardcoded English: check accessibility tree for untranslated strings on non-EN pages
@@ -167,6 +179,7 @@ If any check fails, fix before delivering.
 ### Deliver
 
 Present with:
+
 - Brief summary of what was built
 - Design direction used
 - Assumptions made (if any)
@@ -195,6 +208,7 @@ If the user specified a page or component, review that.
 If the git diff is empty or the user is not working from a branch, use ask_user_input:
 
 **"What should I review?"**
+
 - type: single_select
 - Options adapted to the project, such as:
   - "The page I just built"
@@ -205,6 +219,7 @@ If the git diff is empty or the user is not working from a branch, use ask_user_
 ### Phase 1: Section discovery and per-section screenshots
 
 Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`):
+
 1. Install browser: `mcp__MCP_DOCKER__browser_install`
 2. Start dev server: `pnpm dev:web`
 3. Get network IP: `ifconfig en0 | grep "inet "` — Docker browser cannot reach `localhost`
@@ -216,6 +231,7 @@ Use Docker MCP Playwright tools (`mcp__MCP_DOCKER__browser_*`):
 9. Read console with `mcp__MCP_DOCKER__browser_console_messages`
 
 If Docker MCP browser tools are NOT available:
+
 - State: "Browser tooling not available — this is a code-only review."
 - Ask for screenshots if visual validation matters.
 
@@ -223,6 +239,7 @@ If Docker MCP browser tools are NOT available:
 
 **Critical: Don't just screenshot the initial page state. Actively interact with every
 interactive component:**
+
 - Click through wizard/stepper flows — screenshot EVERY step (not just step 1)
 - Navigate carousels — verify all slides render
 - Expand accordions — verify content doesn't break layout
@@ -236,6 +253,7 @@ interactive component:**
 ### Phase 3: Section-level layout audit
 
 For EACH section identified in Phase 1:
+
 - **Vertical spacing:** Is there enough breathing room between elements? Too cramped or too sparse?
 - **Button consistency:** Do all buttons/CTAs in the section have harmonious sizing? (A small outline "Back" next to a massive full-width "Next" is a visual hierarchy failure)
 - **Content density:** Is the density appropriate for the section type? (Cards can be dense, prose needs air)
@@ -245,10 +263,12 @@ For EACH section identified in Phase 1:
 ### Phase 4: Anti-slop checklist (visual + code cross-reference)
 
 For EVERY item in `docs/anti-slop-checklist.md`:
+
 1. **Check visually** in the screenshots and accessibility tree — state PASS or FAIL
 2. **Check in code** with grep commands — state PASS or FAIL
 
 Mandatory code scans:
+
 ```bash
 # Emoji in component JSX
 grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
@@ -266,6 +286,7 @@ If visual check says PASS but code check says FAIL (or vice versa), investigate 
 ### Phase 5: Multi-locale testing (MANDATORY)
 
 After completing EN testing:
+
 1. Navigate to `/de` (German) at mobile viewport (375×812)
 2. Screenshot EACH section — compare with EN for:
    - Text overflow or truncation (German is ~30% longer)
@@ -283,6 +304,7 @@ After completing EN testing:
 ### Phase 7: Code health
 
 Check the code diff for:
+
 - Hardcoded values that should be tokens (colors, spacing, font sizes)
 - Ad-hoc components that should use the design system
 - Mixed icon libraries or inconsistent icon weights
@@ -306,6 +328,7 @@ For every visual issue, include a Playwright screenshot as evidence.
 **Sections identified:** List all sections found on the page.
 
 **Issues found** (with screenshot evidence where applicable):
+
 - P0 — Blocking (broken functionality, accessibility failures, fake product claims)
 - P1 — Should fix (anti-slop patterns, missing states, inconsistency, interaction bugs, layout issues)
 - P2 — Polish (craft improvements, motion, human touch, specific techniques to try)
@@ -341,12 +364,14 @@ verification into a single unified report.
 ### Determine scope
 
 **If a page path or URL is provided as argument:**
+
 - Audit ONLY that page (skip code-level system audit, go straight to visual)
 - If it's a relative path (e.g., `/en/business`), use the local dev server
 - If it's a full URL (e.g., `https://diboas.com/en`), navigate directly to that URL
 - The locale for multi-locale testing is derived from the path (e.g., `/en/...` → also test `/de/...`)
 
 **If NO argument is provided:**
+
 - Run the FULL platform audit: code-level system checks + visual inspection of ALL main pages
 - Main pages to audit: B2C landing (`/en`), B2B landing (`/en/business`), and any other
   key pages (About, Strategies, Protocols, Demo) if time permits
@@ -355,6 +380,7 @@ verification into a single unified report.
 **If ambiguous**, use ask_user_input:
 
 **"What do you want me to audit?"**
+
 - type: single_select
 - Options:
   - "Full platform audit (all pages, all checks)"
@@ -372,6 +398,7 @@ Only runs when no page argument is provided (full platform audit).
 Read the token source files (tailwind.config, globals.css, design-tokens.css, etc.).
 
 Check for completeness against these categories:
+
 - [ ] Color palette with tonal scales (5-7 shades per primary color)
 - [ ] Semantic colors (success, warning, error, info) defined
 - [ ] Chart / data visualization colors defined
@@ -389,6 +416,7 @@ Check for completeness against these categories:
 #### A2. Component library / Storybook audit
 
 For each component, check:
+
 - [ ] Uses design tokens — no hardcoded colors, spacing, font sizes, or shadows
 - [ ] Has all required states: default, hover, focus, active, disabled
 - [ ] Has loading, empty, and error states (if applicable)
@@ -451,6 +479,7 @@ This part runs for EVERY audit, whether full platform or single page.
 #### B2. Section discovery
 
 For EACH page being audited:
+
 1. Navigate to the page with `mcp__MCP_DOCKER__browser_navigate`
 2. Set viewport to desktop (1440×900) with `mcp__MCP_DOCKER__browser_resize`
 3. Run `mcp__MCP_DOCKER__browser_snapshot` to discover ALL sections
@@ -460,6 +489,7 @@ For EACH page being audited:
 #### B3. Per-section visual inspection (desktop)
 
 For EACH section discovered:
+
 1. **Screenshot the section individually** by element ref using `mcp__MCP_DOCKER__browser_take_screenshot`
    — do NOT rely on full-page screenshots (spacing/sizing issues invisible at that zoom)
 2. Evaluate the screenshot for:
@@ -474,6 +504,7 @@ For EACH section discovered:
 #### B4. Interaction and user flow testing
 
 For EACH interactive component on the page:
+
 - **Wizards/steppers:** Click through EVERY step. Screenshot each step. Verify:
   - Button sizing is consistent between steps (no tiny "Back" next to huge "Next")
   - Content layout is consistent between steps
@@ -500,11 +531,13 @@ For EACH interactive component on the page:
 #### B6. Anti-slop checklist (visual + code cross-reference)
 
 For EVERY item in `docs/anti-slop-checklist.md`:
+
 1. **Visual check:** Look at the screenshots and accessibility tree — PASS or FAIL
 2. **Code check:** Run the corresponding grep command — PASS or FAIL
 3. If visual says PASS but code says FAIL (or vice versa), investigate
 
 Mandatory code scans (run even for single-page audits):
+
 ```bash
 # Emoji in JSX
 grep -rP '[\x{1F300}-\x{1F9FF}\x{2600}-\x{27BF}]' apps/web/src/components/ --include="*.tsx"
@@ -548,6 +581,7 @@ Deliver a single report combining all findings:
 **Token completeness scorecard** (only for full platform audits)
 
 **Issues found** (with per-section screenshot evidence):
+
 - P0 — Blocking (broken functionality, accessibility failures, fake product claims)
 - P1 — Should fix (anti-slop patterns, layout issues, button inconsistency, spacing problems,
   missing states, interaction bugs, untranslated strings)
@@ -555,11 +589,11 @@ Deliver a single report combining all findings:
 
 **Anti-slop audit table:**
 
-| Checklist item | Visual | Code | Status |
-|---------------|--------|------|--------|
-| Emoji as UI icons | PASS/FAIL | PASS/FAIL | ... |
-| Button group sizing | PASS/FAIL | — | ... |
-| ... | ... | ... | ... |
+| Checklist item      | Visual    | Code      | Status |
+| ------------------- | --------- | --------- | ------ |
+| Emoji as UI icons   | PASS/FAIL | PASS/FAIL | ...    |
+| Button group sizing | PASS/FAIL | —         | ...    |
+| ...                 | ...       | ...       | ...    |
 
 **Section-level layout notes:** Per-section spacing, density, transition observations.
 
