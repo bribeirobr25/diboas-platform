@@ -1,0 +1,91 @@
+## Gitleaks configuration for the diBoaS platform.
+##
+## Purpose: scan git diffs (CI) and staged files (local pre-commit) for
+## accidentally committed secrets — API keys, tokens, private keys,
+## connection strings with embedded credentials, etc.
+##
+## Strategy: extend the default ruleset (40+ built-in detectors) and add a
+## small allowlist for known-false-positives that come from this repo's
+## existing patterns (CI stub keys, test fixtures, etc.). Do NOT widen the
+## allowlist to silence real findings — fix the finding instead.
+##
+## How to update: when a new false-positive is genuinely benign, add a
+## targeted entry to [allowlist] with a comment explaining why. Prefer
+## `regexes` over `paths` so the allowlist doesn't accidentally cover
+## future files that should be scanned.
+
+[extend]
+# Start from the gitleaks-maintained default ruleset (covers AWS, Stripe,
+# GitHub PATs, GCP, Azure, Slack, generic API keys, RSA private keys, JWTs,
+# Postgres/MySQL URLs with credentials, and ~30 more).
+useDefault = true
+
+[allowlist]
+description = "Known-benign matches that the default ruleset flags but which are intentional."
+
+# Allowlisted strings — exact matches from prior audit findings.
+regexes = [
+  # CI stub encryption key used in pa11y / e2e / lighthouse workflows. Not a
+  # real key — just satisfies the env validator's base64-32 length check so
+  # the build doesn't throw during accessibility / perf testing.
+  # Lives only in .github/workflows/*.yml.
+  '''aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=''',
+
+  # CI stub HMAC key — same purpose as above. The literal string says
+  # "ci-stub" so it cannot be mistaken for a real secret.
+  '''ci-stub-hmac-key-32-chars-padding-here''',
+
+  # RFC-1918 private-IP literals used as test fixtures in
+  # apps/web/src/app/api/waitlist/__tests__/*.test.ts and
+  # apps/web/src/lib/security/__tests__/*.test.ts. These are sample inputs
+  # to rate-limiter and auth tests, not real network exposure.
+  '''192\.168\.1\.(100|1)''',
+
+  # i18n translation keys + static-page-key strings — namespace lookups in the
+  # react-intl catalog like 'landing-b2c.footer.nav.adelaideDaily', or static
+  # page identifiers like 'rewards/campaigns'. Flagged as generic-api-key
+  # because the variable they land in is named `labelKey`/`disclaimerKey`/
+  # `pageKey`/`B2C_DISCLAIMER_KEY`. Pattern: must start with a lowercase
+  # letter and contain at least one `.` or `/` separator. Not a credential.
+  # NOTE: gitleaks regexes match against the SECRET VALUE, not the full line.
+  '''^[a-z][\w\-]*([./][\w\-]+)+$''',
+
+  # `linkedInText`, `linkedInCopy`, `onLinkedInCopy` destructured variable
+  # names — these tripped the linkedin-client-id rule purely because the
+  # substring "linkedIn" appears in a camelCase identifier. Lives in
+  # apps/web/src/components/WaitingList/shareUtils.ts as React prop names,
+  # not OAuth client IDs.
+  '''(?i)^(on)?linkedIn[A-Z][a-zA-Z]+$''',
+
+  # Test stub encryption key — base64 of the literal string
+  # "test-encryption-key-32-bytes!". Lives in apps/web/src/test/setup.ts as
+  # the ENCRYPTION_KEY value during vitest runs. NOT used anywhere else.
+  '''dGVzdC1lbmNyeXB0aW9uLWtleS0zMi1ieXRlcyE=''',
+
+  # Test stub API key with the literal prefix "test-". Lives in
+  # apps/web/src/lib/security/__tests__/authentication.test.ts as a fixture
+  # for the API-key authentication path.
+  '''test-secret-api-key-12345''',
+]
+
+# Path-based allowlist — anywhere we intentionally embed example or sample
+# values that look secret-shaped but are clearly templates.
+paths = [
+  # The .env template — all secret-var lines are intentionally empty.
+  # Public config values (URLs, brand strings) are not secrets.
+  '''apps/web/\.env\.example$''',
+
+  # pnpm lockfile — base64 integrity hashes that look like secrets to a
+  # naïve scanner but are SHA-512 content hashes.
+  '''pnpm-lock\.yaml$''',
+
+  # Generated lockfiles in any workspace package (defense in depth).
+  '''package-lock\.json$''',
+  '''yarn\.lock$''',
+
+  # Tracked audit-bundle data files — these are public financial reference
+  # data (market prices, FX series, inflation series) used by external
+  # auditors to reproduce calculator outputs. They contain no secrets.
+  '''docs/tech/audit-bundle/data/.*\.json$''',
+  '''apps/web/src/lib/market-data/data/.*\.json$''',
+]

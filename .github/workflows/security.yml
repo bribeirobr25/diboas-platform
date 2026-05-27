@@ -8,7 +8,27 @@ on:
     - cron: '0 0 * * 1' # Weekly scans
 
 jobs:
+  secrets:
+    name: Secrets scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Full history so gitleaks can diff PR commits against base.
+          # Configured via .gitleaks.toml at repo root.
+          fetch-depth: 0
+      - name: Gitleaks
+        id: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          # Required so the action can post a summary comment on PRs.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Hard-fail the job if any unallowlisted secret is found.
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: true
+          GITLEAKS_ENABLE_SUMMARY: true
+
   audit:
+    name: Dependency vulnerability audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

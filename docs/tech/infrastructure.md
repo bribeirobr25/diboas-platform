@@ -26,7 +26,7 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 
 ## 2. Hosting — Vercel
 
-- **Project:** `diboas-platform-web` (Vercel team `team_yJJIgLwDIgziqWx0pBsiEVlf`)
+- **Project:** Vercel project `diboas-platform-web` (team / project IDs held in the Vercel dashboard and `.env` — not published here).
 - **Auto-deploy:** Pushes to `main` trigger production deployments.
 - **Preview deployments:** Every PR gets a preview URL automatically.
 - **Runtime:** Node.js (serverless functions for API routes).
@@ -42,7 +42,7 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 
 ## 4. Database — Neon PostgreSQL
 
-- **Provider:** Neon serverless PostgreSQL (project: `snowy-dawn-74472412`).
+- **Provider:** Neon serverless PostgreSQL (project ID held in the Neon dashboard and `.env` — not published here).
 - **Driver:** `@neondatabase/serverless` (HTTP-based, no persistent connections).
 - **Usage:** Waitlist signups, referral tracking, position data.
 - **Migrations:** `pnpm --filter web db:migrate` (custom migration runner via `tsx`).

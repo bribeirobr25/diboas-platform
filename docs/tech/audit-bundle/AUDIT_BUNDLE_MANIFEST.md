@@ -60,7 +60,7 @@ The bundle is designed for an external auditor to independently:
 | C1  | Stress-test simulator   | Reproduces all 140 scenarios; run with `node apps/web/scripts/tools-stress-test.mjs`; outputs to JSON                                                         | `apps/web/scripts/tools-stress-test.mjs` (700+ lines) + `tools-stress-test-out.json` |
 | C2  | Production simulator    | Reproduces 25 prod default-vector outputs incl. PT1/PT3 acceptance numbers                                                                                    | `apps/web/scripts/tools-simulator.mjs` + `tools-simulator-out.json`                  |
 | C3  | B2B card-fee derivation | Derives the 8 tombstoned numbers shown on `/business`; re-run after rate change                                                                               | `scripts/derive-b2b-card-numbers.mjs`                                                |
-| C4  | Unit-test suite         | 967 tests covering formulas + calculator components + i18n parity (v1.9: 862 → 868 → 946 → 959 → 967 across audit cycles; +21 in FX-16 adoption + audit pass) | `apps/web/src/**/__tests__/*.test.ts` (64 test files)                                |
+| C4  | Unit-test suite         | 969 tests covering formulas + calculator components + i18n parity (v1.9: 862 → 868 → 946 → 959 → 967 → 969 across audit cycles; +23 across FX-16 adoption, audit-pass priority-inversion tests, and §6.1 cashUsdEquivalent clamp regression tests) | `apps/web/src/**/__tests__/*.test.ts` (64 test files)                                |
 
 ### Tier D — Source data files (the inputs)
 
@@ -89,7 +89,7 @@ The bundle is designed for an external auditor to independently:
 
 | #   | Document                               | What it proves to auditor                                                                                             | Path                                                               |
 | --- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| F1  | TOOLS_IMPROVEMENT.md decision register | All product-truth sign-offs by Bar (PT1 R$7.34M, PT2 toggle, PT3 €608k, PA1 go/no-go, BTC-RECON $217k reconciliation) | `docs/audit/TOOLS_IMPROVEMENT.md` (local-only; see §6)             |
+| F1  | TOOLS_IMPROVEMENT.md decision register | All product-truth sign-offs by Bar (PT1 R$7.34M, PT2 toggle, PT3' €541,891 — re-signed 2026-05-26 per FX-16 D1+D2, retired prior PT3 €608k; PA1 go/no-go, BTC-RECON $217k reconciliation) | `docs/audit/TOOLS_IMPROVEMENT.md` (local-only; see §6)             |
 | F2  | TOOLS_IMPROVEMENT_REVIEW_2026-05-23.md | CTO Board review of the plan with 14 findings adopted                                                                 | `docs/audit/TOOLS_IMPROVEMENT_REVIEW_2026-05-23.md` (local-only)   |
 | F3  | MoneyTools_LiveData_Consolidated.md    | Source-API registry + per-locale live-data validation + Phase A FX CAGR addendum + BTC reconciliation evidence        | `docs/researches/MoneyTools_LiveData_Consolidated.md` (local-only) |
 
@@ -163,7 +163,7 @@ If the auditor has read access to the diBoaS codebase, they can also reference T
 16. Clone the repo at the audit commit SHA: `git clone ... && git checkout <SHA>`.
 17. Install dependencies: `pnpm install`.
 18. Run **C1 simulator**: `node apps/web/scripts/tools-stress-test.mjs`. Output JSON should match `tools-stress-test-out.json` byte-for-byte (modulo timestamp).
-19. Run the test suite: `pnpm vitest run`. Expect 967/967 passing (v1.9 baseline; was 862 in v1.0).
+19. Run the test suite: `pnpm vitest run`. Expect 969/969 passing (v1.9 baseline; was 862 in v1.0).
 20. Spot-check 10 production tool URLs in a browser. Compare rendered numbers to simulator output.
 
 ### Day 7 — decision history (if access granted)
@@ -179,7 +179,7 @@ The auditor should expect to confirm the following before issuing a clean opinio
 | Audit gate                                                 | Evidence in bundle                                       | Expected finding                                                |
 | ---------------------------------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------- |
 | All formulas have published references                     | A1 §X.4 + financial-calculations.md + textbook citations | ✅ Standard FV / annuity / CAGR math + path-dependent extension |
-| All formulas have unit-test coverage                       | C4 (967 tests) + A1 §13                                  | ✅ 100% on security utils; 80% on formulas; 60% on components   |
+| All formulas have unit-test coverage                       | C4 (969 tests) + A1 §13                                  | ✅ 100% on security utils; 80% on formulas; 60% on components   |
 | All input constants have source attribution                | D2 (METADATA)                                            | ✅ Every field has `last_verified` + source string              |
 | All input constants have refresh cadence                   | D2 + B7 (weekly runbook)                                 | ✅ Monthly bank/inflation; daily FX; quarterly card fees        |
 | All tool outputs reproduce simulator                       | C1 + C2 + production browser sweep (B8)                  | ✅ pt-BR R$7.34M Retirement matches PT1 sign-off exact          |
